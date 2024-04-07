@@ -134,9 +134,6 @@
       location = "container:map/map.xcodeproj">
    </FileRef>
    <FileRef
-      location = "container:mapshot/mapshot.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "container:mwm_diff/mwm_diff.xcodeproj">
    </FileRef>
    <FileRef
@@ -159,9 +156,6 @@
    </FileRef>
    <FileRef
       location = "group:shaders/shaders.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "container:software_renderer/software_renderer.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:storage/storage.xcodeproj">

@@ -796,6 +796,10 @@
 	<string name="pref_tts_open_system_settings">Nastavenia systému syntézy reči</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Nastavenia syntézy reči neboli nájdené, ste si istí, že ich vaše zariadenie podporuje?</string>
+	<string name="clear_button">Vymazať vyhľadávanie</string>
+	<string name="zoom_in">Priblíženie</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Zväčšenie</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresa/blok</string>

@@ -785,6 +785,10 @@
 	<string name="pref_tts_open_system_settings">Impostazioni del sistema di sintesi vocale</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Le impostazioni della sintesi vocale non sono state trovate, sei sicuro che il tuo dispositivo le supporti?</string>
+	<string name="clear_button">Cancella la ricerca</string>
+	<string name="zoom_in">Ingrandisci</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Rimpicciolisci</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Indirizzo/Blocco</string>

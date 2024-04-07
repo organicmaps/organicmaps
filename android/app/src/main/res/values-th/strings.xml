@@ -754,6 +754,10 @@
 	<string name="pref_tts_open_system_settings">การตั้งค่าการสังเคราะห์เสียงพูดของระบบ</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">ไม่พบการตั้งค่าการสังเคราะห์เสียง คุณแน่ใจหรือไม่ว่าอุปกรณ์ของคุณรองรับ</string>
+	<string name="clear_button">ล้างการค้นหา</string>
+	<string name="zoom_in">ขยายเข้า</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">ซูมออก</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">ที่อยู่/บล็อค</string>

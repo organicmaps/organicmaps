@@ -757,6 +757,10 @@
 	<string name="pref_tts_open_system_settings">تنظیمات سنتز گفتار سیستم</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">تنظیمات Speech Synthesis پیدا نشد، آیا مطمئن هستید که دستگاه شما از آن پشتیبانی می کند؟</string>
+	<string name="clear_button">جستجو را پاک کنید</string>
+	<string name="zoom_in">بزرگنمایی</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">کوچک نمایی</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">آدرس/بلاک</string>

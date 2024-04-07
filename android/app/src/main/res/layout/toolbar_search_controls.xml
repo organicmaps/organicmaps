@@ -17,7 +17,8 @@
     android:background="?attr/selectableItemBackgroundBorderless"
     app:srcCompat="?homeAsUpIndicator"
     android:scaleType="center"
-    tools:src="@drawable/ic_down" />
+    tools:src="@drawable/ic_down"
+    android:contentDescription="@string/back"/>
 
   <com.google.android.material.textfield.TextInputEditText
     android:id="@+id/query"
@@ -52,7 +53,7 @@
     android:layout_gravity="center_vertical"
     android:layout_weight="0"
     android:background="?attr/selectableItemBackgroundBorderless"
-    android:contentDescription="@null"
+    android:contentDescription="@string/clear_button"
     android:scaleType="center"
     app:srcCompat="@drawable/ic_cancel"/>
 

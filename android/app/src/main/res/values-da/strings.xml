@@ -757,6 +757,10 @@
 	<string name="pref_tts_open_system_settings">Indstillinger for talesyntese-system</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Indstillingerne for talesyntese blev ikke fundet, er du sikker på, at din enhed understøtter det?</string>
+	<string name="clear_button">Ryd søgningen</string>
+	<string name="zoom_in">Zoom ind</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Zoom ud</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresse/blok</string>

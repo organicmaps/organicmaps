@@ -757,6 +757,10 @@
 	<string name="pref_tts_open_system_settings">Pengaturan sistem sintesis ucapan</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Pengaturan Sintesis Ucapan tidak ditemukan, apakah Anda yakin perangkat Anda mendukungnya?</string>
+	<string name="clear_button">Menghapus pencarian</string>
+	<string name="zoom_in">Memperbesar</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Perkecil</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Alamat/Blokir</string>
