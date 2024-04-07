@@ -2,6 +2,7 @@
 
 #include "drape_frontend/shape_view_params.hpp"
 
+#include "drape/font_constants.hpp"
 #include "drape/glsl_types.hpp"
 #include "drape/pointers.hpp"
 #include "drape/texture_manager.hpp"
@@ -44,7 +45,7 @@ protected:
   dp::TextureManager::TGlyphsBuffer m_metrics;
   strings::UniString m_text;
   float m_textSizeRatio = 0.0f;
-  int m_fixedHeight = dp::GlyphManager::kDynamicGlyphSize;
+  int m_fixedHeight = dp::kDynamicGlyphSize;
 };
 
 class StraightTextLayout : public TextLayout

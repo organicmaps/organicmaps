@@ -9,6 +9,7 @@
 #include "base/string_utils.hpp"
 
 #include "drape/bidi.hpp"
+#include "drape/font_constants.hpp"
 
 #include <algorithm>
 #include <array>
@@ -130,7 +131,7 @@ void StaticLabel::CacheStaticText(std::string const & text, char const * delim,
     result.m_alphabet.insert(str.begin(), str.end());
 
   dp::TextureManager::TMultilineGlyphsBuffer buffers;
-  mng->GetGlyphRegions(textParts, dp::GlyphManager::kDynamicGlyphSize, buffers);
+  mng->GetGlyphRegions(textParts, dp::kDynamicGlyphSize, buffers);
 
 #ifdef DEBUG
   ASSERT_EQUAL(textParts.size(), buffers.size(), ());
@@ -307,7 +308,7 @@ ref_ptr<dp::Texture> MutableLabel::SetAlphabet(std::string const & alphabet,
   base::SortUnique(str);
 
   dp::TextureManager::TGlyphsBuffer buffer;
-  mng->GetGlyphRegions(str, dp::GlyphManager::kDynamicGlyphSize, buffer);
+  mng->GetGlyphRegions(str, dp::kDynamicGlyphSize, buffer);
   m_alphabet.reserve(buffer.size());
 
   ASSERT_EQUAL(str.size(), buffer.size(), ());
@@ -495,7 +496,7 @@ bool MutableLabelHandle::Update(ScreenBase const & screen)
       alphabetStr.push_back(node.first);
 
     m_glyphsReady = m_textureManager->AreGlyphsReady(alphabetStr,
-      dp::GlyphManager::kDynamicGlyphSize);
+      dp::kDynamicGlyphSize);
   }
 
   if (!m_glyphsReady)
@@ -592,7 +593,7 @@ StaticLabelHandle::StaticLabelHandle(uint32_t id, ref_ptr<dp::TextureManager> te
 bool StaticLabelHandle::Update(ScreenBase const & screen)
 {
   if (!m_glyphsReady)
-    m_glyphsReady = m_textureManager->AreGlyphsReady(m_alphabet, dp::GlyphManager::kDynamicGlyphSize);
+    m_glyphsReady = m_textureManager->AreGlyphsReady(m_alphabet, dp::kDynamicGlyphSize);
 
   if (!m_glyphsReady)
     return false;

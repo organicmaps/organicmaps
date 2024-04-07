@@ -9,15 +9,11 @@
 
 namespace dp
 {
-uint32_t constexpr kSdfBorder = 4;
-
 struct UnicodeBlock;
 
 class GlyphManager
 {
 public:
-  static int constexpr kDynamicGlyphSize = -1;
-
   struct Params
   {
     std::string m_uniBlocks;

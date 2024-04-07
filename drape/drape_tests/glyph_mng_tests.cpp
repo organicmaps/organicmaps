@@ -1,7 +1,9 @@
 #include "testing/testing.hpp"
 
-#include "drape/bidi.hpp"
 #include "drape/drape_tests/img.hpp"
+
+#include "drape/bidi.hpp"
+#include "drape/font_constants.hpp"
 #include "drape/glyph_manager.hpp"
 
 #include "platform/platform.hpp"
@@ -48,7 +50,7 @@ public:
     std::vector<dp::GlyphManager::Glyph> glyphs;
     auto generateGlyph = [this, &glyphs](strings::UniChar c)
     {
-      dp::GlyphManager::Glyph g = m_mng->GetGlyph(c, dp::GlyphManager::kDynamicGlyphSize);
+      dp::GlyphManager::Glyph g = m_mng->GetGlyph(c, dp::kDynamicGlyphSize);
       glyphs.push_back(dp::GlyphManager::GenerateGlyph(g, m_mng->GetSdfScale()));
       g.m_image.Destroy();
     };

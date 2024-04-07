@@ -1,5 +1,6 @@
 #include "drape/font_texture.hpp"
 
+#include "drape/font_constants.hpp"
 #include "drape/pointers.hpp"
 
 #include "base/logging.hpp"
@@ -95,7 +96,7 @@ GlyphIndex::GlyphIndex(m2::PointU const & size, ref_ptr<GlyphManager> mng,
   uint32_t constexpr kPredefinedGlyphsCount = 128;
   for (uint32_t i = 0; i < kPredefinedGlyphsCount; ++i)
   {
-    auto const key = GlyphKey(i, GlyphManager::kDynamicGlyphSize);
+    auto const key = GlyphKey(i, kDynamicGlyphSize);
 
     MapResource(key, newResource);
   }

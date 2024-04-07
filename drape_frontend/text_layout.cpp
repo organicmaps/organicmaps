@@ -297,7 +297,7 @@ void TextLayout::Init(strings::UniString && text, float fontSize, bool isSdf, re
   float const fontScale = static_cast<float>(vpi.GetFontScale());
   float const baseSize = static_cast<float>(vpi.GetGlyphBaseSize());
   m_textSizeRatio = isSdf ? (fontSize * fontScale / baseSize) : 1.0f;
-  m_fixedHeight = isSdf ? dp::GlyphManager::kDynamicGlyphSize
+  m_fixedHeight = isSdf ? dp::kDynamicGlyphSize
                         : static_cast<int>(fontSize * fontScale);
   textures->GetGlyphRegions(m_text, m_fixedHeight, m_metrics);
 }
