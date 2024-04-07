@@ -158,7 +158,7 @@ ref_ptr<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphKey const & key, boo
 
   newResource = true;
 
-  GlyphManager::Glyph glyph = m_mng->GetGlyph(key.GetUnicodePoint(), key.GetFixedSize());
+  Glyph glyph = m_mng->GetGlyph(key.GetUnicodePoint(), key.GetFixedSize());
   m2::RectU r;
   if (!m_packer.PackGlyph(glyph.m_image.m_width, glyph.m_image.m_height, r))
   {
@@ -239,7 +239,7 @@ void GlyphIndex::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr<T
 
   for (size_t i = 0; i < pendingNodes.size(); ++i)
   {
-    GlyphManager::Glyph & glyph = pendingNodes[i].second;
+    Glyph & glyph = pendingNodes[i].second;
     m2::RectU const rect = pendingNodes[i].first;
     m2::PointU const zeroPoint = rect.LeftBottom();
     if (glyph.m_image.m_width == 0 || glyph.m_image.m_height == 0 || rect.SizeX() == 0 || rect.SizeY() == 0)

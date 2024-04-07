@@ -39,7 +39,7 @@ public:
     , m_fixedSize(fixedSize)
   {}
 
-  Texture::ResourceType GetType() const { return Texture::ResourceType::Glyph; }
+  Texture::ResourceType GetType() const override { return Texture::ResourceType::Glyph; }
   strings::UniChar GetUnicodePoint() const { return m_unicodePoint; }
   int GetFixedSize() const { return m_fixedSize; }
 
@@ -57,20 +57,18 @@ private:
 
 class GlyphInfo : public Texture::ResourceInfo
 {
-  using Base = Texture::ResourceInfo;
-
 public:
-  GlyphInfo(m2::RectF const & texRect, GlyphManager::GlyphMetrics const & metrics)
-    : Base(texRect)
+  GlyphInfo(m2::RectF const & texRect, GlyphMetrics const & metrics)
+    : ResourceInfo(texRect)
     , m_metrics(metrics)
   {}
   ~GlyphInfo() override = default;
 
   Texture::ResourceType GetType() const override { return Texture::ResourceType::Glyph; }
-  GlyphManager::GlyphMetrics const & GetMetrics() const { return m_metrics; }
+  GlyphMetrics const & GetMetrics() const { return m_metrics; }
 
 private:
-  GlyphManager::GlyphMetrics m_metrics;
+  GlyphMetrics m_metrics;
 };
 
 class GlyphIndex : public GlyphGenerator::Listener
@@ -103,7 +101,7 @@ private:
   ref_ptr<GlyphGenerator> m_generator;
 
   using ResourceMapping = std::map<GlyphKey, GlyphInfo>;
-  using PendingNode = std::pair<m2::RectU, GlyphManager::Glyph>;
+  using PendingNode = std::pair<m2::RectU, Glyph>;
   using PendingNodes = std::vector<PendingNode>;
 
   ResourceMapping m_index;
@@ -113,21 +111,18 @@ private:
 
 class FontTexture : public DynamicTexture<GlyphIndex, GlyphKey, Texture::ResourceType::Glyph>
 {
-  using TBase = DynamicTexture<GlyphIndex, GlyphKey, Texture::ResourceType::Glyph>;
 public:
   FontTexture(m2::PointU const & size, ref_ptr<GlyphManager> glyphMng,
               ref_ptr<GlyphGenerator> glyphGenerator, ref_ptr<HWTextureAllocator> allocator)
     : m_index(size, glyphMng, glyphGenerator)
   {
-    TBase::DynamicTextureParams params{size, TextureFormat::Alpha,
-                                       TextureFilter::Linear, true /* m_usePixelBuffer */};
-    TBase::Init(allocator, make_ref(&m_index), params);
+    DynamicTextureParams const params{size, TextureFormat::Alpha, TextureFilter::Linear, true /* m_usePixelBuffer */};
+    Init(allocator, make_ref(&m_index), params);
   }
 
-  ~FontTexture() override { TBase::Reset(); }
+  ~FontTexture() override { Reset(); }
 
-  std::vector<ref_ptr<ResourceInfo>> FindResources(std::vector<GlyphKey> const & keys,
-                                                   bool & hasNewResources)
+  std::vector<ref_ptr<ResourceInfo>> FindResources(std::vector<GlyphKey> const & keys, bool & hasNewResources) const
   {
     ASSERT(m_indexer != nullptr, ());
     return m_indexer->MapResources(keys, hasNewResources);

@@ -43,6 +43,7 @@ set(SRC
   gl_includes.hpp
   glsl_func.hpp
   glsl_types.hpp
+  glyph.hpp
   glyph_generator.cpp
   glyph_generator.hpp
   glyph_manager.cpp

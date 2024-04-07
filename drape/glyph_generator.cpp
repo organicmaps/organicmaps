@@ -49,8 +49,7 @@ void GlyphGenerator::UnregisterListener(ref_ptr<GlyphGenerator::Listener> listen
   m_listeners.erase(listener);
 }
 
-void GlyphGenerator::GenerateGlyph(ref_ptr<Listener> listener, m2::RectU const & rect,
-                                   GlyphManager::Glyph & glyph)
+void GlyphGenerator::GenerateGlyph(ref_ptr<Listener> listener, m2::RectU const & rect, Glyph & glyph)
 {
   GenerateGlyph(listener, GlyphGenerationData(rect, glyph));
 }
@@ -60,8 +59,7 @@ void GlyphGenerator::GenerateGlyph(ref_ptr<Listener> listener, GlyphGenerationDa
   GenerateGlyphs(listener, {std::move(data)});
 }
 
-void GlyphGenerator::GenerateGlyphs(ref_ptr<Listener> listener,
-                                    GlyphGenerationDataArray && generationData)
+void GlyphGenerator::GenerateGlyphs(ref_ptr<Listener> listener, GlyphGenerationDataArray && generationData)
 {
   std::lock_guard<std::mutex> lock(m_mutex);
   if (m_listeners.find(listener) == m_listeners.end())

@@ -21,10 +21,10 @@ public:
   struct GlyphGenerationData
   {
     m2::RectU m_rect;
-    GlyphManager::Glyph m_glyph;
+    Glyph m_glyph;
 
     GlyphGenerationData() = default;
-    GlyphGenerationData(m2::RectU const & rect, GlyphManager::Glyph const & glyph)
+    GlyphGenerationData(m2::RectU const & rect, Glyph const & glyph)
       : m_rect(rect), m_glyph(glyph)
     {}
 
@@ -69,7 +69,7 @@ public:
   void RegisterListener(ref_ptr<Listener> listener);
   void UnregisterListener(ref_ptr<Listener> listener);
 
-  void GenerateGlyph(ref_ptr<Listener> listener, m2::RectU const & rect, GlyphManager::Glyph & glyph);
+  void GenerateGlyph(ref_ptr<Listener> listener, m2::RectU const & rect, Glyph & glyph);
   void GenerateGlyph(ref_ptr<Listener> listener, GlyphGenerationData && data);
   void GenerateGlyphs(ref_ptr<Listener> listener, GlyphGenerationDataArray && generationData);
   bool IsSuspended() const;
