@@ -93,6 +93,10 @@ java {
 android {
   namespace 'app.organicmaps'
 
+  androidResources {
+    generateLocaleConfig = true
+  }
+
   buildFeatures {
     dataBinding = true
     buildConfig = true
@@ -115,7 +119,6 @@ android {
     buildConfigField 'String', 'SUPPORT_MAIL', '"android@organicmaps.app"'
     // Should be customized in flavors.
     buildConfigField 'String', 'REVIEW_URL', '""'
-    resourceConfigurations += [project.ext.supportedLocalizations]
 
     externalNativeBuild {
       def pchFlag = 'OFF'
