@@ -3,7 +3,9 @@
   <id>app.organicmaps.desktop</id>
 
   <name>Organic Maps</name>
-  <developer_name>The Organic Maps Community</developer_name>
+  <developer id="app.organicmaps">
+    <name>The Organic Maps Community</name>
+  </developer>
   <summary>Free offline maps for everyone</summary>
 
   <metadata_license>CC0-1.0</metadata_license>
