@@ -78,10 +78,9 @@ private:
   void Cache(TGenerator & generator) const
   {
     size_t beginOffset = 0;
-    for (std::pair<size_t, glsl::vec2> const & node : m_offsets)
+    for (auto const & [endOffset, coordinates] : m_offsets)
     {
-      size_t const endOffset = node.first;
-      generator.SetPenPosition(node.second);
+      generator.SetPenPosition(coordinates);
       for (size_t index = beginOffset; index < endOffset && index < m_metrics.size(); ++index)
         generator(m_metrics[index]);
       beginOffset = endOffset;

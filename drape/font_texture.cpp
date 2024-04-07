@@ -2,12 +2,7 @@
 
 #include "drape/pointers.hpp"
 
-#include "platform/platform.hpp"
-#include "coding/reader.hpp"
-
 #include "base/logging.hpp"
-#include "base/stl_helpers.hpp"
-#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <functional>

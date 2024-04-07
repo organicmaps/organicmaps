@@ -5,7 +5,7 @@
 #include "drape/bidi.hpp"
 
 #include <algorithm>
-#include <iterator>
+#include <iterator>  // std::reverse_iterator
 #include <numeric>
 
 namespace df
