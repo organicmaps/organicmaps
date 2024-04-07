@@ -95,7 +95,6 @@ Automatically [generated](TRANSLATIONS.md#technical-details):
 - `indexer/` - processor for map files, classificator, styles.
 - `kml/` - manipulation of KML files.
 - `map/` - app business logic, including a scene manager.
-- `mapshot/` - generate screenshots of maps, specified by coordinates and zoom level.
 - `openlr/` -
 - `packaging/` - packaging specs for various distributions.
 - `platform/` - platform abstraction classes: file paths, http requests, location services.
@@ -105,7 +104,6 @@ Automatically [generated](TRANSLATIONS.md#technical-details):
 - `routing/` - in-app routing engine.
 - `search/` - ranking and searching classes.
 - `shaders/` - shaders for rendering.
-- `software_renderer/` -
 - `std/` - standard headers wrappers, for Boost, STL, C-rt.
 - `storage/` - map reading function.
 - `testing/` - common interfaces for tests.
