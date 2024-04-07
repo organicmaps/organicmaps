@@ -6,13 +6,7 @@ omim_add_test(${PROJECT_NAME} ${SRC} BOOST_TEST)
 
 target_link_libraries(${PROJECT_NAME} opening_hours)
 
-if(${CMAKE_SYSTEM_NAME} MATCHES "Linux") 
-  set(COPY_CMD cp -u)
-else()
-  set(COPY_CMD rsync -a)
-endif()
-
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-  COMMAND ${COPY_CMD} "${CMAKE_CURRENT_SOURCE_DIR}/opening-count.lst" "${CMAKE_BINARY_DIR}/"
+  COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/opening-count.lst" "${CMAKE_BINARY_DIR}/"
   COMMENT "Copying opening-count.lst file for testing"
 )
