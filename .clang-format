@@ -163,8 +163,6 @@ IncludeCategories:
   - Regex:           '^"openlr/openlr_stat/'
     Priority:        19400
 
-  - Regex:           '^"mapshot/'
-    Priority:        19500
 
   - Regex:           '^"search/search_quality/booking_dataset_generator/'
     Priority:        19707
@@ -259,9 +257,6 @@ IncludeCategories:
     Priority:        48309
   - Regex:           '^"editor/'
     Priority:        48310
-
-  - Regex:           '^"software_renderer/'
-    Priority:        48400
 
   - Regex:           '^"drape_frontend/'
     Priority:        48500
