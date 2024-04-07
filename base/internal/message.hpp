@@ -24,7 +24,7 @@
 //@{
 template <typename T> inline std::string DebugPrint(T const & t);
 
-std::string DebugPrint(std::string const & t);
+inline std::string DebugPrint(std::string s) { return s; }
 inline std::string DebugPrint(char const * t);
 inline std::string DebugPrint(char * t) { return DebugPrint(static_cast<char const *>(t)); }
 inline std::string DebugPrint(char t);

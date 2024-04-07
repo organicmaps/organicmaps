@@ -7,7 +7,7 @@
 #include <memory>
 #include <numeric>
 
-namespace
+namespace buffer_vector_test
 {
   template <class TCont>
   void CheckVector(TCont & cont, size_t count)
@@ -16,7 +16,6 @@ namespace
     for (size_t i = 0; i < count; ++i)
       TEST_EQUAL ( cont[i], i, () );
   }
-}
 
 UNIT_TEST(BufferVector_PushBackAndRealloc)
 {
@@ -414,3 +413,4 @@ UNIT_TEST(BufferVector_Erase)
       TEST_EQUAL(v1[i], v2[i], ());
   }
 }
+}  // namespace buffer_vector_test

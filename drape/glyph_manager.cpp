@@ -474,7 +474,7 @@ GlyphManager::GlyphManager(GlyphManager::Params const & params)
       node.second = static_cast<int>(uniBlock.m_end + 1 - uniBlock.m_start + m_impl->m_fonts.size());
     });
 
-    for (CoverNode & node : coverInfo)
+    for (CoverNode const & node : coverInfo)
     {
       UnicodeBlock & uniBlock = m_impl->m_blocks[node.first];
       uniBlock.m_fontsWeight.resize(m_impl->m_fonts.size(), 0);
@@ -612,8 +612,8 @@ GlyphManager::Glyph GlyphManager::GenerateGlyph(Glyph const & glyph, uint32_t sd
 
       img.GenerateSDF(1.0f / static_cast<float>(sdfScale));
 
-      ASSERT(img.GetWidth() == glyph.m_image.m_width, ());
-      ASSERT(img.GetHeight() == glyph.m_image.m_height, ());
+      ASSERT_EQUAL(img.GetWidth(), glyph.m_image.m_width, ());
+      ASSERT_EQUAL(img.GetHeight(), glyph.m_image.m_height, ());
 
       size_t const bufferSize = base::NextPowOf2(glyph.m_image.m_width * glyph.m_image.m_height);
       resultGlyph.m_image.m_data = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);

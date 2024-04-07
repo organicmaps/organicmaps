@@ -329,7 +329,7 @@ uint32_t TextureManager::GetNumberOfUnfoundCharacters(strings::UniString const &
                                                       HybridGlyphGroup const & group)
 {
   uint32_t cnt = 0;
-  for (auto const & c : text)
+  for (auto const c : text)
   {
     if (group.m_glyphs.find(std::make_pair(c, fixedHeight)) == group.m_glyphs.end())
       cnt++;
