@@ -1,5 +1,7 @@
 #include "drape/glyph_manager.hpp"
 
+#include "drape/font_constants.hpp"
+
 #include "platform/platform.hpp"
 
 #include "coding/reader.hpp"
@@ -242,8 +244,7 @@ public:
     };
 
     result.m_code = unicodePoint;
-    result.m_fixedSize = isSdf ? GlyphManager::kDynamicGlyphSize
-                               : static_cast<int>(baseHeight);
+    result.m_fixedSize = isSdf ? kDynamicGlyphSize : static_cast<int>(baseHeight);
     FT_Done_Glyph(glyph);
 
     return result;

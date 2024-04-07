@@ -8,6 +8,7 @@
 #include "testing/testing.hpp"
 
 #include "drape/drape_routine.hpp"
+#include "drape/font_constants.hpp"
 #include "drape/font_texture.hpp"
 #include "drape/glyph_manager.hpp"
 
@@ -99,9 +100,10 @@ UNIT_TEST(UploadingGlyphs)
   GlyphManager mng(args);
   DummyGlyphIndex index(m2::PointU(kTextureSize, kTextureSize), make_ref(&mng), make_ref(&glyphGenerator));
   size_t count = 1;  // invalid symbol glyph has mapped internally.
-  count += (index.MapResource(GlyphKey(0x58, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x59, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x61, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
+  using dp::kDynamicGlyphSize;
+  count += (index.MapResource(GlyphKey(0x58, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x59, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x61, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
   while (index.GetPendingNodesCount() < count)
     ;
 
@@ -118,12 +120,12 @@ UNIT_TEST(UploadingGlyphs)
   index.UploadResources(make_ref(&context), make_ref(&tex));
 
   count = 0;
-  count += (index.MapResource(GlyphKey(0x68, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x30, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x62, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x65, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x400, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x401, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x68, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x30, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x62, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x65, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x400, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x401, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
   while (index.GetPendingNodesCount() < count)
     ;
 

@@ -27,6 +27,7 @@ set(SRC
   drape_global.hpp
   drape_routine.hpp
   dynamic_texture.hpp
+  font_constants.hpp
   font_texture.cpp
   font_texture.hpp
   framebuffer.cpp
