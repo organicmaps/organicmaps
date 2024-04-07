@@ -174,6 +174,7 @@ and [Google Play](https://play.google.com/store/apps/details?id=app.organicmaps)
 - Join our [Telegram Group](https://t.me/OrganicMaps) to discuss with other users.
   - Присоединяйтесь к нашей [русскоязычной группе в Telegram](https://t.me/OrganicMapsRu) для обратной связи и помощи.
   - Diğer kullanıcılarla tartışmak için [Telegram Grubumuza](https://t.me/OrganicMapsTR) katılın.
+  - Rejoignez notre groupe [Telegram](https://t.me/OrganicMapsFR) pour obtenir de l'aide.
 - Contact us by [email](mailto:hello@organicmaps.app).
 - Follow our updates in
 [Mastodon](https://fosstodon.org/@organicmaps),
