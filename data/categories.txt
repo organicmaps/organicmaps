@@ -8049,6 +8049,10 @@ sw:Bwawa la kuogelea
 fa:استخرشنا
 mr:जलतरण तलाव
 
+# Not searchable
+leisure-swimming_pool-private
+en:DoNotMatchThisType_OneLanguageDefinitionIsEnoughHere
+
 sport-american_football
 en:American Football
 ar:كرة القدم الأمريكية
