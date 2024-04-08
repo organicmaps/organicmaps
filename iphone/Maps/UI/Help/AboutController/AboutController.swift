@@ -492,14 +492,13 @@ private extension AboutController {
       return
     }
     // From iOS 14, it is possible to change the default mail app, and mailto should open a default mail app.
-    if MWMMailViewController.canSendMail() {
-      let vc = MWMMailViewController()
-      vc.mailComposeDelegate = self
-      vc.setSubject(subject)
-      vc.setMessageBody(body, isHTML:false)
-      vc.setToRecipients(toRecipients)
-      vc.navigationBar.tintColor = UIColor.whitePrimaryText()
-      self.present(vc, animated: true, completion:nil)
+    let encodedSubject = subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+    let encodedBody = body.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+    let correctEncodedBody = encodedBody.replacingOccurrences(of: "%0A", with: "%0D%0A")
+    
+    if let url = URL(string: "mailto:\(toRecipients)?subject=\(encodedSubject)&body=\(correctEncodedBody)"),
+      UIApplication.shared.canOpenURL(url) {
+          UIApplication.shared.open(url)
     } else {
       let text = String(format:L("email_error_body"), toRecipients.joined(separator: ";"))
       let alert = UIAlertController(title: L("email_error_title"), message: text, preferredStyle: .alert)
