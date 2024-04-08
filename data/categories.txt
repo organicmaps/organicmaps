@@ -2695,7 +2695,7 @@ zh-Hant:纜車
 # Do not add subway_entrance here (pollute a map especially in NY).
 # ToDo: make enhanced subway station highlight with entrances.
 railway-station-subway|@category_transport
-en:3Subway|3tube|3metro|3underground|U+1F687
+en:3Subway Station|3tube|3metro|3underground|U+1F687
 ru:3Метро
 bg:3Метро|подземие
 ar:محطة مترو|القطار الكهربائي النفقي|قطار الأنفاق|مترو|تحت الأرض
@@ -11301,7 +11301,7 @@ zh-Hant:生態|生物|健康|生物|生態|天然|有機
 mr:सेंद्रिय
 
 shop-copyshop
-en:4Copy Shop|4Printing|4photocopy
+en:4Copyshop|copy shop|4printing|4photocopy
 ru:4Копировальный центр|4печать|полиграфия|ксерокс|принтер|копир
 bg:4Копирен център|4печат|полиграфия|принтер
 ar:محل نسخ|طباعة
