@@ -107,6 +107,33 @@
   </screenshots>
 
   <releases>
+   <release version="2024.03.31-8" date="2024-03-31">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OSM maps data as of March 26, 2024</li>
+           <li>Better isolines elevation data for European countries</li>
+           <li>Bookmark lists are sorted by modification time (recent at the top)</li>
+           <li>Add "wheelchair" to the search input to limit results to wheelchair-accessible</li>
+           <li>Searchable orders pickup points (shop=outpost)</li>
+         </ul>
+       <p>Linux Desktop:</p>
+         <ul>
+           <li>Place information page is much more user-friendly</li>
+         </ul>
+       <p>Styles:</p>
+         <ul>
+           <li>Added wind turbines and power plant icons</li>
+           <li>Reduced visibilities of many outdoors-specific POIs when in the main map style, e.g., waterfalls, mountain peaks, shelters, power towers, etc. (use the Outdoors style for those!)</li>
+           <li>More consistent font sizes and caption appearances</li>
+         </ul>
+       <p>Translation updates:</p>
+         <ul>
+           <li>Slovak, Italian, Spanish, Hindi</li>
+           <li>Fixed police, parking, and sights category search for simplified Chinese</li>
+         </ul>
+     </description>
+   </release>
    <release version="2024.03.05-4" date="2024-03-05">
      <description>
        <p>Highlights:</p>
@@ -116,7 +143,7 @@
          </ul>
        <p>Linux Desktop:</p>
          <ul>
-           <li>Fixed occasinal crash when there was no location service available</li>
+           <li>Fixed occasional crash when there was no location service available</li>
          </ul>
        <p>Styles:</p>
          <ul>
