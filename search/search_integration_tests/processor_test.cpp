@@ -3641,4 +3641,30 @@ UNIT_CLASS_TEST(ProcessorTest, NonDrawable_Categories)
   }
 }
 
+UNIT_CLASS_TEST(ProcessorTest, NonSearchable_Categories)
+{
+  TestPOI yesPool({0, 0}, {}, {});
+  yesPool.SetTypes({{"leisure", "swimming_pool"}});
+
+  TestPOI noPool({0.1, 0.1}, {}, {});
+  noPool.SetTypes({{"leisure", "swimming_pool", "private"}});
+
+  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(yesPool);
+    builder.Add(noPool);
+  });
+
+  SetViewport(m2::RectD(-0.5, -0.5, 0.5, 0.5));
+
+  {
+    Rules const rules = {ExactMatch(wonderlandId, yesPool)};
+    TEST(ResultsMatch("swimming pool", rules), ());
+  }
+  {
+    Rules const rules = {ExactMatch(wonderlandId, yesPool)};
+    TEST(ResultsMatch("бассейн", rules, "ru"), ());
+  }
+}
+
 } // namespace processor_test
