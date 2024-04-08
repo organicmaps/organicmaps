@@ -153,12 +153,6 @@ def usage():
   print('Usage:', sys.argv[0], 'Some English text to translate')
   print('For a custom source language add a two-letter code with a colon in the beginning:')
   print('      ', sys.argv[0], 'de:Some German text to translate')
-  if shutil.which(TRANS_CMD) == None:
-    print(TRANS_CMD, ' program for Google Translate is not installed.')
-    if platform.system() == 'Darwin':
-      print('Install it using `brew install translate-shell`')
-    else:
-      print('See https://www.soimort.org/translate-shell/ for installation instructions')
   print()
   print('Supported languages:')
   print(', '.join(DEEPL_AND_GOOGLE_TARGET_LANGUAGES))
@@ -195,6 +189,14 @@ if __name__ == '__main__':
     print('and get the API key here: https://www.deepl.com/account/summary')
     exit(1)
 
+  if shutil.which(TRANS_CMD) == None:
+    print('Error: translate-shell program for Google Translate is not installed.')
+    if platform.system() == 'Darwin':
+        print('Install it using `brew install translate-shell`')
+    else:
+        print('See https://github.com/soimort/translate-shell/wiki/Distros for installation instructions.')
+    exit(1)
+    
   text_to_translate = ' '.join(sys.argv[1:])
 
   source_language = 'en'
