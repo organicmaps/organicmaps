@@ -210,6 +210,8 @@ using namespace osm_auth_ios;
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
   LOG(LINFO, ("applicationDidBecomeActive - begin"));
+  if (self.isTestEnvironment)
+    return;
 
   auto & f = GetFramework();
   f.EnterForeground();
@@ -227,6 +229,12 @@ using namespace osm_auth_ios;
   [MWMKeyboard applicationDidBecomeActive];
   [MWMTextToSpeech applicationDidBecomeActive];
   LOG(LINFO, ("applicationDidBecomeActive - end"));
+}
+
+-(BOOL)isTestEnvironment {
+  NSDictionary * environment = [[NSProcessInfo processInfo] environment];
+  NSString * testConfigPath = environment[@"XCTestConfigurationFilePath"];
+  return testConfigPath != nil;
 }
 
 - (BOOL)application:(UIApplication *)application

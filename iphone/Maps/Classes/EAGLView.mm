@@ -143,6 +143,9 @@ double getExactDPI(double contentScaleFactor)
 
 - (void)createDrapeEngine
 {
+  if (MapsAppDelegate.theApp.isTestEnvironment)
+    return;
+  
   CGSize const objcSize = [self pixelSize];
   m2::PointU const s = m2::PointU(static_cast<uint32_t>(objcSize.width), static_cast<uint32_t>(objcSize.height));
   
