@@ -47,10 +47,10 @@ public:
 
   void RenderGlyphs(QPaintDevice * device)
   {
-    std::vector<dp::GlyphManager::Glyph> glyphs;
+    std::vector<dp::Glyph> glyphs;
     auto generateGlyph = [this, &glyphs](strings::UniChar c)
     {
-      dp::GlyphManager::Glyph g = m_mng->GetGlyph(c, dp::kDynamicGlyphSize);
+      dp::Glyph g = m_mng->GetGlyph(c, dp::kDynamicGlyphSize);
       glyphs.push_back(dp::GlyphManager::GenerateGlyph(g, m_mng->GetSdfScale()));
       g.m_image.Destroy();
     };
