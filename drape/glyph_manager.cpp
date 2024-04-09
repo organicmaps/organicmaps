@@ -9,6 +9,7 @@
 
 #include "base/string_utils.hpp"
 #include "base/logging.hpp"
+#include "base/macros.hpp"
 #include "base/math.hpp"
 
 #include "3party/sdf_image/sdf_image.h"
@@ -112,6 +113,7 @@ class Font
 {
 public:
   DECLARE_EXCEPTION(InvalidFontException, RootException);
+  DISALLOW_COPY_AND_MOVE(Font);
 
   Font(uint32_t sdfScale, ReaderPtr<Reader> && fontReader, FT_Library lib)
     : m_fontReader(std::move(fontReader))
@@ -138,7 +140,6 @@ public:
   {
     ASSERT(m_fontFace, ());
     FREETYPE_CHECK(FT_Done_Face(m_fontFace));
-    m_fontFace = nullptr;
   }
 
   bool IsValid() const { return m_fontFace && m_fontFace->num_glyphs > 0; }
@@ -215,8 +216,7 @@ public:
     while (gindex)
       charcodes.push_back(FT_Get_Next_Char(m_fontFace, charcodes.back(), &gindex));
 
-    std::sort(charcodes.begin(), charcodes.end());
-    charcodes.erase(std::unique(charcodes.begin(), charcodes.end()), charcodes.end());
+    base::SortUnique(charcodes);
   }
 
   static unsigned long Read(FT_Stream stream, unsigned long offset, unsigned char * buffer, unsigned long count)
@@ -304,18 +304,16 @@ using TUniBlockIter = TUniBlocks::const_iterator;
 
 struct GlyphManager::Impl
 {
+  DISALLOW_COPY_AND_MOVE(Impl);
+
   Impl() = default;
 
-  ~Impl() {
+  ~Impl()
+  {
     m_fonts.clear();
     if (m_library)
       FREETYPE_CHECK(FT_Done_FreeType(m_library));
   }
-
-  Impl(Impl const &) = delete;
-  Impl(Impl &&) = delete;
-  Impl & operator=(Impl const &) = delete;
-  Impl & operator=(Impl &&) = delete;
 
   FT_Library m_library;
   TUniBlocks m_blocks;
