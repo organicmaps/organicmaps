@@ -675,8 +675,6 @@ line|z15-[highway=footway],
 line|z15-[highway=steps],
 {color: @footway;opacity: 0.85;}
 line|z14-[highway=path],
-/* Important to be declared after ordinary [highway=footway] to avoid overriding. */
-line|z14-[highway=footway][sac_scale],
 {color: @path;opacity: 0.6;}
 line|z14-[piste:type=hike],
 {color: @piste; opacity: 0.4;}
@@ -844,26 +842,20 @@ line|z19-[highway=track],
 {width: 4.2; dashes: 12,3.5; opacity: 0.8;}
 
 line|z14[highway=path],
-line|z14[highway=footway][sac_scale],
 line|z14[piste:type=hike],
 {width: 0.9; dashes: 3.5,2;}
 line|z15[highway=path],
-line|z15[highway=footway][sac_scale],
 line|z15[piste:type=hike],
 {width: 1.1; dashes: 3.5,2;}
 line|z16[highway=path],
-line|z16[highway=footway][sac_scale],
 line|z16[piste:type=hike],
 {width: 1.5; dashes: 4,2.5;}
 line|z17[highway=path],
-line|z17[highway=footway][sac_scale],
 line|z17-[piste:type=hike],
 {width: 2; dashes: 4,2.5;}
 line|z18[highway=path],
-line|z18[highway=footway][sac_scale],
 {width: 2.8; dashes: 6,3.5; opacity: 0.8;}
 line|z19-[highway=path],
-line|z19-[highway=footway][sac_scale],
 {width: 3.7; dashes: 8,4.5; opacity: 0.8;}
 
 line|z17-[highway=path][tunnel?]::tunnelBackground
