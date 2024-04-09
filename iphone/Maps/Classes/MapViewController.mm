@@ -372,7 +372,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
 - (void)viewDidLayoutSubviews {
   [super viewDidLayoutSubviews];
-  if (!self.mapView.drapeEngineCreated)
+  if (!self.mapView.drapeEngineCreated && !MapsAppDelegate.theApp.isDrapeDisabled)
     [self.mapView createDrapeEngine];
 }
 

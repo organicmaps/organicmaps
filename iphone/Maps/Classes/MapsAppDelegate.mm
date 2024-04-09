@@ -229,6 +229,14 @@ using namespace osm_auth_ios;
   LOG(LINFO, ("applicationDidBecomeActive - end"));
 }
 
+// TODO: Drape enabling is skipped during the test run due to the app crashing in teardown. This is a temporary solution. Drape should be properly disabled instead of merely skipping the enabling process.
+- (BOOL)isDrapeDisabled {
+  NSProcessInfo * processInfo = [NSProcessInfo processInfo];
+  NSArray<NSString *> * launchArguments = [processInfo arguments];
+  BOOL isTests = [launchArguments containsObject:@"-IsTests"];
+  return isTests;
+}
+
 - (BOOL)application:(UIApplication *)application
   continueUserActivity:(NSUserActivity *)userActivity
     restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> *_Nullable))restorationHandler {
