@@ -568,7 +568,7 @@ string MatchCity(ms::LatLon const & ll)
   return {};
 }
 
-string DetermineSurface(OsmElement * p)
+string DetermineSurfaceAndHighwayType(OsmElement * p)
 {
   string surface;
   string smoothness;
@@ -586,14 +586,11 @@ string DetermineSurface(OsmElement * p)
       (void)strings::to_double(tag.m_value, surfaceGrade);
     else if (tag.m_key == "tracktype")
       trackGrade = tag.m_value;
-    else if (tag.m_key == "highway")
+    else if (tag.m_key == "highway" && tag.m_value != "ford")
       highway = tag.m_value;
     else if (tag.m_key == "4wd_only" && (tag.m_value == "yes" || tag.m_value == "recommended"))
       return "unpaved_bad";
   }
-
-  if (highway.empty() || (surface.empty() && smoothness.empty()))
-    return {};
 
   // According to https://wiki.openstreetmap.org/wiki/Key:surface
   static base::StringIL pavedSurfaces = {
@@ -632,6 +629,115 @@ string DetermineSurface(OsmElement * p)
     });
     return res;
   };
+
+  /* Convert between highway=path/footway/cycleway depending on surface and other tags.
+   * The goal is to end up with following clear types:
+   *   footway - for paved/formed urban looking pedestrian paths
+   *   footway + yesbicycle - same but shared with cyclists
+   *   path - for unpaved paths and trails
+   *   path + yesbicycle - same but explicitly shared with cyclists
+   *   cycleway - dedicated for cyclists (segregated from pedestrians)
+   * I.e. segregated shared paths should have both footway and cycleway types.
+   */
+  string const kCycleway = "cycleway";
+  string const kFootway = "footway";
+  string const kPath = "path";
+  if (highway == kFootway || highway == kPath || highway == kCycleway)
+  {
+    static base::StringIL goodPathSmoothness = {
+        "excellent", "good", "very_good", "intermediate"
+    };
+    static base::StringIL gravelSurface = {
+        "gravel", "fine_gravel", "pebblestone"
+    };
+    bool const hasQuality = !smoothness.empty() || !trackGrade.empty();
+    bool const isGood = (smoothness.empty() || Has(goodPathSmoothness, smoothness)) &&
+                        (trackGrade.empty() || trackGrade == "grade1" || trackGrade == "grade2");
+    bool const isMed = (smoothness == "intermediate" || trackGrade == "grade2");
+    bool const hasTrailTags = p->HasTag("sac_scale") || p->HasTag("trail_visibility") ||
+                              p->HasTag("ford") || p->HasTag("informal", "yes");
+    bool const hasUrbanTags = p->HasTag("footway") || p->HasTag("segregated") ||
+                              (p->HasTag("lit") && !p->HasTag("lit", "no"));
+
+    bool isFormed = !surface.empty() && Has(pavedSurfaces, surface);
+    // Treat "compacted" as formed when in good or default quality.
+    if (surface == "compacted" && isGood)
+      isFormed = true;
+    // Treat "gravel"-like surfaces as formed only when it has urban tags or a certain good quality and no trail tags.
+    if (Has(gravelSurface, surface) && isGood && (hasUrbanTags || (hasQuality && !hasTrailTags)))
+      isFormed = true;
+
+    auto const ConvertTo = [&](string const & newType)
+    {
+      // TODO(@pastk): remove redundant tags, e.g. if converted to cycleway then remove "bicycle=yes".
+      LOG(LDEBUG, ("Convert", DebugPrintID(*p), "to", newType, isFormed, isGood, hasTrailTags, hasUrbanTags, p->m_tags));
+      p->UpdateTag("highway", newType);
+    };
+
+    auto const ConvertPathOrFootway = [&](bool const toPath)
+    {
+      string const toType = toPath ? kPath : kFootway;
+      if (!surface.empty())
+      {
+        if (toPath ? !isFormed : isFormed)
+          ConvertTo(toType);
+      }
+      else
+      {
+        if (hasQuality && !isMed)
+        {
+          if (toPath ? !isGood : isGood)
+            ConvertTo(toType);
+        }
+        else if (toPath ? (hasTrailTags && !hasUrbanTags) : (!hasTrailTags && hasUrbanTags))
+          ConvertTo(toType);
+      }
+    };
+
+    if (highway == kCycleway)
+    {
+      static base::StringIL segregatedSidewalks = {
+          "right", "left", "both"
+      };
+      if (p->HasTag("segregated", "yes") || Has(segregatedSidewalks, p->GetTag("sidewalk")))
+      {
+        LOG(LDEBUG, ("Add a separate footway to", DebugPrintID(*p), p->m_tags));
+        p->AddTag("highway", kFootway);
+      }
+      else
+      {
+        string const foot = p->GetTag("foot");
+        if (foot == "designated" || foot == "yes")
+        {
+          // A non-segregated shared footway/cycleway.
+          ConvertTo(kFootway);
+          p->AddTag("bicycle", "designated");
+          ConvertPathOrFootway(true /* toPath */); // In case its unpaved.
+        }
+      }
+    }
+    else if (highway == kPath)
+    {
+      if (p->HasTag("segregated", "yes"))
+      {
+        ConvertTo(kCycleway);
+        LOG(LDEBUG, ("Add a separate footway to", DebugPrintID(*p), p->m_tags));
+        p->AddTag("highway", kFootway);
+      }
+      else if (p->HasTag("foot", "no") && (p->HasTag("bicycle", "yes") || p->HasTag("bicycle", "designated")))
+        ConvertTo(kCycleway);
+      else if (!p->HasTag("foot", "no"))
+        ConvertPathOrFootway(false /* toPath */);
+    }
+    else
+    {
+      CHECK_EQUAL(highway, kFootway, ());
+      ConvertPathOrFootway(true /* toPath */);
+    }
+  }
+
+  if (highway.empty() || (surface.empty() && smoothness.empty()))
+    return {};
 
   bool isGood = true;
   bool isPaved = true;
@@ -762,7 +868,7 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
     p->AddTag("area", "yes");
   }
 
-  p->AddTag("psurface", DetermineSurface(p));
+  p->AddTag("psurface", DetermineSurfaceAndHighwayType(p));
 
   string const kCuisineKey = "cuisine";
   auto cuisines = p->GetTag(kCuisineKey);
