@@ -91,21 +91,21 @@ railway|rail;28;
 highway|service|parking_aisle;[highway=service][service=parking_aisle];;name;int_name;29;
 place|hamlet;30;
 highway|road;31;
-highway|track|grade2;[highway=track][tracktype=grade2];;name;int_name;32;
+deprecated:highway|track|grade2:04.2024;[highway=track][tracktype=grade2];x;name;int_name;32;highway|track
 natural|wetland;33;
-highway|track|grade3;[highway=track][tracktype=grade3];;name;int_name;34;
+deprecated:highway|track|grade3:04.4024;[highway=track][tracktype=grade3];x;name;int_name;34;highway|track
 deprecated:boundary|administrative|8:04.2024;[boundary=administrative][admin_level=8];x;name;int_name;35;
 amenity|school;36;
 highway|cycleway;37;
 landuse|farm;38;
 amenity|place_of_worship;39;
-highway|track|grade1;[highway=track][tracktype=grade1];;name;int_name;40;
+deprecated:highway|track|grade1:04.2024;[highway=track][tracktype=grade1];x;name;int_name;40;highway|track
 addr:interpolation|odd;41;
 highway|service|driveway;[highway=service][service=driveway];;name;int_name;42;
 addr:interpolation|even;43;
 highway|motorway_link;44;
 waterway|stream|intermittent;[waterway=stream][intermittent=yes];;name;int_name;45;
-highway|track|grade4;[highway=track][tracktype=grade4];;name;int_name;46;
+deprecated:highway|track|grade4:04.2024;[highway=track][tracktype=grade4];x;name;int_name;46;highway|track
 natural|water|pond;[natural=water][water=pond];;name;int_name;47;
 landuse|farmland;48;
 barrier|fence;49;
@@ -123,7 +123,7 @@ highway|steps;59;
 waterway|ditch;60;
 amenity|restaurant;61;
 landuse|reservoir;62;
-highway|track|grade5;[highway=track][tracktype=grade5];;name;int_name;63;
+deprecated:highway|track|grade5:04.2024;[highway=track][tracktype=grade5];x;name;int_name;63;highway|track
 amenity|bench;64;
 # Branch railway lines include ordinary railway=rail w/o any specific usage= or service=, ~500k usages.
 # Using service= together with usage=branch is a mismapping, but people do it, so exclude explicitly.
@@ -675,7 +675,7 @@ aerialway|mixed_lift;587;
 deprecated|deprecated;588;x
 deprecated|deprecated;589;x
 deprecated|deprecated;590;x
-highway|track|grade3|permissive;[highway=track][tracktype=grade3][access=permissive];x;name;int_name;591;highway|track|grade3
+highway|track|grade3|permissive;[highway=track][tracktype=grade3][access=permissive];x;name;int_name;591;highway|track
 deprecated|deprecated;592;x
 deprecated|deprecated;593;x
 deprecated|deprecated;594;x
@@ -715,7 +715,7 @@ deprecated:highway|footway|difficult_alpine_hiking:04.2024;[highway=footway][sac
 deprecated|deprecated;628;x
 deprecated|deprecated;629;x
 deprecated|deprecated;630;x
-highway|track|grade5|permissive;[highway=track][tracktype=grade5][access=permissive];x;name;int_name;631;highway|track|grade5
+highway|track|grade5|permissive;[highway=track][tracktype=grade5][access=permissive];x;name;int_name;631;highway|track
 deprecated|deprecated;632;x
 deprecated|deprecated;633;x
 highway|tertiary_link|tunnel;[highway=tertiary_link][tunnel?];;name;int_name;634;
@@ -759,7 +759,7 @@ deprecated|deprecated;671;x
 deprecated|deprecated;672;x
 deprecated|deprecated;673;x
 deprecated|deprecated;674;x
-highway|track|grade4|permissive;[highway=track][tracktype=grade4][access=permissive];x;name;int_name;675;highway|track|grade4
+highway|track|grade4|permissive;[highway=track][tracktype=grade4][access=permissive];x;name;int_name;675;highway|track
 deprecated|deprecated;676;x
 deprecated|deprecated;677;x
 deprecated|deprecated;678;x
@@ -905,9 +905,9 @@ deprecated|deprecated;817;x
 deprecated|deprecated;818;x
 deprecated|deprecated;819;x
 deprecated|deprecated;820;x
-highway|track|grade3|no-access;[highway=track][tracktype=grade3][access=no];x;name;int_name;821;highway|track|grade3
-highway|track|grade4|no-access;[highway=track][tracktype=grade4][access=no];x;name;int_name;822;highway|track|grade4
-highway|track|grade5|no-access;[highway=track][tracktype=grade5][access=no];x;name;int_name;823;highway|track|grade5
+highway|track|grade3|no-access;[highway=track][tracktype=grade3][access=no];x;name;int_name;821;highway|track
+highway|track|grade4|no-access;[highway=track][tracktype=grade4][access=no];x;name;int_name;822;highway|track
+highway|track|grade5|no-access;[highway=track][tracktype=grade5][access=no];x;name;int_name;823;highway|track
 highway|track|no-access;[highway=track][access=no];;name;int_name;824;
 deprecated|deprecated;825;x
 deprecated|deprecated;826;x
