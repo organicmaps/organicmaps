@@ -224,19 +224,48 @@ UNIT_CLASS_TEST(MwmTestsFixture, TopPOIs_Smoke)
 // https://github.com/organicmaps/organicmaps/issues/2133
 UNIT_CLASS_TEST(MwmTestsFixture, NY_Subway)
 {
+  auto const & cl = classif();
+  size_t constexpr kTopResults = kPopularPoiResultsCount;
+
   // New York
   ms::LatLon const center(40.7355019, -73.9948155);
   SetViewportAndLoadMaps(center);
 
-  auto request = MakeRequest("subway");
+  {
+    auto request = MakeRequest("subway");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kTopResults, ());
+
+    /// @todo Equal food and metro results, so test 2 food on top.
+    Range const top10(results, 0, kTopResults);
+    TEST_EQUAL(CountClassifType(top10, cl.GetTypeByPath({"amenity", "fast_food"})), 2, ());
+    TEST_GREATER(CountClassifType(top10, cl.GetTypeByPath({"railway", "station", "subway"})), 6, ());
+  }
+  {
+    auto request = MakeRequest("subway food");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kTopResults, ());
+
+    EqualClassifType(Range(results, 0, kTopResults), GetClassifTypes({{"amenity", "fast_food"}}));
+  }
+}
+
+UNIT_CLASS_TEST(MwmTestsFixture, Paris_Hotel)
+{
+  auto const & cl = classif();
+
+  // Paris
+  ms::LatLon const center(48.8568049, 2.3515878);
+  SetViewportAndLoadMaps(center);
+
+  auto request = MakeRequest("hotel");
   auto const & results = request->Results();
   TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
 
-  /// @todo First result is building-train_station with 'subway' in name;
-  // - 5 nearby 'subway' fast-foods;
-  // - 3 railway-station-subway;
-  EqualClassifType(Range(results, 1, 6), GetClassifTypes({{"amenity", "fast_food"}}));
-  EqualClassifType(Range(results, 6, 9), GetClassifTypes({{"railway", "station", "subway"}}));
+  /// @todo Ok to have post office, car repair, library on top with "hotel" name?
+  // Test at least some nearby hotels (3).
+  Range const top10(results, 0, kPopularPoiResultsCount);
+  TEST_GREATER(CountClassifType(top10, cl.GetTypeByPath({"tourism", "hotel"})), 2, ());
 }
 
 // https://github.com/organicmaps/organicmaps/issues/3249
