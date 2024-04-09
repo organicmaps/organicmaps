@@ -582,7 +582,7 @@ string DetermineSurface(OsmElement * p)
       surface = tag.m_value;
     else if (tag.m_key == "smoothness")
       smoothness = tag.m_value;
-    else if (tag.m_key == "surface:grade")
+    else if (tag.m_key == "surface:grade") // discouraged, 25k usages as of 2024
       (void)strings::to_double(tag.m_value, surfaceGrade);
     else if (tag.m_key == "tracktype")
       trackGrade = tag.m_value;
@@ -601,6 +601,7 @@ string DetermineSurface(OsmElement * p)
       "metal", "paved", "paving_stones", "sett", "unhewn_cobblestone", "wood"
   };
 
+  // All not explicitly listed surface types are considered unpaved good, e.g. "compacted", "fine_gravel".
   static base::StringIL badSurfaces = {
       "cobblestone", "dirt", "earth", "grass", "gravel", "ground", "metal", "mud", "rock", "unpaved",
       "pebblestone", "sand", "sett", "snow", "stepping_stones", "unhewn_cobblestone", "wood", "woodchips"
@@ -623,6 +624,7 @@ string DetermineSurface(OsmElement * p)
   auto const Has = [](base::StringIL const & il, string const & v)
   {
     bool res = false;
+    // Also matches compound values like concrete:plates, sand/dirt, etc. if a single part matches.
     strings::Tokenize(v, ";:/", [&il, &res](std::string_view sv)
     {
       if (!res)
