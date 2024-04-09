@@ -247,14 +247,8 @@ highway-bridleway-bridge                            # line z18-
 highway-cycleway                                    # line z18-
 highway-cycleway-bridge                             # line z18-
 highway-footway                                     # line z18-
-highway-footway-alpine_hiking                       # line z17-
 highway-footway-area                                # line z18-
 highway-footway-bridge                              # line z18-
-highway-footway-demanding_alpine_hiking             # line z17-
-highway-footway-demanding_mountain_hiking           # line z17-
-highway-footway-difficult_alpine_hiking             # line z17-
-highway-footway-hiking                              # line z17-
-highway-footway-mountain_hiking                     # line z17-
 highway-footway-sidewalk                            # line z19-
 highway-path                                        # line z17-
 highway-path-alpine_hiking                          # line z17-

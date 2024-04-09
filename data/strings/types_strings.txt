@@ -12208,18 +12208,6 @@
     zh-Hans = 行人过街天桥
     zh-Hant = 行人穿越道
 
-  [type.highway.footway.alpine_hiking]
-    ref = type.highway.path
-    de = Alpinwanderweg
-    es = Camino de senderismo alpino
-    et = Alpi matkarada
-    nl = Alpine wandelpad
-    pl = Ścieżka wspinaczkowa
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal
-    sk = Turistický chodník
-    zh-Hans = 步行道路
-
   [type.highway.footway.area]
     ref = type.highway.footway
     en = Pedestrian Area
@@ -12252,60 +12240,6 @@
     pt-BR = Ponte para pedestres
     ru = Пешеходный мост
     sk = Most pre chodcov
-
-  [type.highway.footway.demanding_alpine_hiking]
-    ref = type.highway.path
-    de = Anspruchsvoller Alpinwanderweg
-    et = Nõudlik alpi matkarada
-    fi = Vaativa alppivaellus
-    nl = Uitdagend alpine bergklimpad
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal difícil
-    zh-Hans = 步行道路
-
-  [type.highway.footway.demanding_mountain_hiking]
-    ref = type.highway.path
-    de = Anspruchsvoller Bergwanderweg
-    fi = Vaativa vuoristovaellus
-    nl = Uitdagend bergwandelpad
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal difícil
-    sk = Náročný horský chodník
-    zh-Hans = 步行道路
-
-  [type.highway.footway.difficult_alpine_hiking]
-    ref = type.highway.path
-    de = Schwieriger Alpinwanderweg
-    et = Nõudlik mägimatkarada
-    fi = Vaikea alppivaellus
-    nl = Moeilijk alpine bergklimpad
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal difícil
-    sk = Náročný turistický chodník
-    zh-Hans = 步行道路
-
-  [type.highway.footway.hiking]
-    ref = type.highway.path
-    de = Wanderweg
-    es = Sendero
-    fi = Vaellus
-    nl = Wandelpad
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal
-    sk = Turistický chodník
-    zh-Hans = 步行道路
-
-  [type.highway.footway.mountain_hiking]
-    ref = type.highway.path
-    de = Bergwanderweg
-    es = Sendero de montaña
-    et = Mägirada
-    fi = Vuoristovaellus
-    nl = Bergpad
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal
-    sk = Horský turistický chodník
-    zh-Hans = 步行道路
 
   [type.highway.footway.tunnel]
     ref = type.highway.road.tunnel
