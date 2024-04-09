@@ -2,22 +2,35 @@
 
 #include "drape/font_constants.hpp"
 #include "drape/glyph.hpp"
+#include "drape/harfbuzz_shaping.hpp"
 
 #include "platform/platform.hpp"
 
+#include "coding/hex.hpp"
 #include "coding/reader.hpp"
+#include "coding/string_utf8_multilang.hpp"
 
-#include "base/string_utils.hpp"
+#include "base/internal/message.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 #include "base/stl_helpers.hpp"
+#include "base/string_utils.hpp"
+
+#include "std/target_os.hpp"
+
+#include <ft2build.h>
+// A system dependency is used on these platforms. TODO(AB): There should be a way to build everything from sources.
+#if defined(OMIM_OS_LINUX) || defined(OMIM_OS_WINDOWS)
+#include <harfbuzz/hb-ft.h>
+#else
+#include <hb-ft.h>
+#endif
 
 #include <limits>
 #include <sstream>
 #include <string>
 #include <vector>
 
-#include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_MODULE_H
 #include FT_SYSTEM_H
@@ -51,7 +64,7 @@ FreetypeError constexpr g_FT_Errors[] =
 
 namespace dp
 {
-static int constexpr kInvalidFont = -1;
+int constexpr kInvalidFont = -1;
 
 template <typename ToDo>
 void ParseUniBlocks(std::string const & uniBlocksFile, ToDo toDo)
@@ -135,6 +148,9 @@ public:
   ~Font()
   {
     ASSERT(m_fontFace, ());
+    if (m_harfbuzzFont)
+      hb_font_destroy(m_harfbuzzFont);
+
     FREETYPE_CHECK(FT_Done_Face(m_fontFace));
   }
 
@@ -169,15 +185,44 @@ public:
     Glyph result;
     result.m_image = {bitmap.width, bitmap.rows, data};
     // Glyph image has SDF borders that should be taken into an account.
-    result.m_metrics = {float(glyph->advance.x >> 16), float(glyph->advance.y >> 16),
-                        float(bbox.xMin + kSdfBorder), float(bbox.yMin + kSdfBorder), true};
+    result.m_metrics = {static_cast<float>(glyph->advance.x >> 16), static_cast<float>(glyph->advance.y >> 16),
+                        static_cast<float>(bbox.xMin + kSdfBorder), static_cast<float>(bbox.yMin + kSdfBorder), true};
     result.m_code = unicodePoint;
     FT_Done_Glyph(glyph);
 
     return result;
   }
 
-  void GetCharcodes(std::vector<FT_ULong> & charcodes)
+  GlyphImage GetGlyphImage(uint16_t glyphId, int pixelHeight, bool sdf) const
+  {
+    FREETYPE_CHECK(FT_Set_Pixel_Sizes(m_fontFace, 0, pixelHeight));
+    // FT_LOAD_RENDER with FT_RENDER_MODE_SDF uses bsdf driver that is around 3x times faster
+    // than sdf driver, activated by FT_LOAD_DEFAULT + FT_RENDER_MODE_SDF
+    FREETYPE_CHECK(FT_Load_Glyph(m_fontFace, glyphId, FT_LOAD_RENDER));
+    if (sdf)
+      FREETYPE_CHECK(FT_Render_Glyph(m_fontFace->glyph, FT_RENDER_MODE_SDF));
+
+    FT_Bitmap const & bitmap = m_fontFace->glyph->bitmap;
+
+    SharedBufferManager::shared_buffer_ptr_t data;
+    if (bitmap.buffer != nullptr)
+    {
+      // Bitmap is stored without a padding.
+      data = SharedBufferManager::instance().reserveSharedBuffer(bitmap.width * bitmap.rows);
+      auto ptr = data->data();
+
+      for (unsigned int row = 0; row < bitmap.rows; ++row)
+      {
+        unsigned int const dstBaseIndex = row * bitmap.width;
+        int const srcBaseIndex = static_cast<int>(row) * bitmap.pitch;
+        for (unsigned int column = 0; column < bitmap.width; ++column)
+          ptr[dstBaseIndex + column] = bitmap.buffer[srcBaseIndex + column];
+      }
+    }
+    return {bitmap.width, bitmap.rows, data};
+  }
+
+  void GetCharcodes(std::vector<FT_ULong> & charcodes) const
   {
     FT_UInt gindex;
     charcodes.push_back(FT_Get_First_Char(m_fontFace, &gindex));
@@ -212,12 +257,54 @@ public:
 
   std::string GetName() const { return std::string(m_fontFace->family_name) + ':' + m_fontFace->style_name; }
 
+  void Shape(hb_buffer_t * hbBuffer, int fontPixelSize, int fontIndex, text::TextMetrics & outMetrics)
+  {
+    // TODO(AB): This code is not thread safe.
+
+    // TODO(AB): Do not set the same font size every time.
+    FREETYPE_CHECK(FT_Set_Pixel_Sizes(m_fontFace, 0 /* pixel_width */, fontPixelSize /* pixel_height */));
+    if (!m_harfbuzzFont)
+      m_harfbuzzFont = hb_ft_font_create(m_fontFace, nullptr);
+    //else
+    // Call on each font size change.
+    //  hb_ft_font_changed(m_harfbuzzFont);
+
+    // Shape!
+    hb_shape(m_harfbuzzFont, hbBuffer, nullptr, 0);
+
+    // Get the glyph and position information.
+    unsigned int glyphCount;
+    hb_glyph_info_t const * glyphInfo = hb_buffer_get_glyph_infos(hbBuffer, &glyphCount);
+    hb_glyph_position_t const * glyphPos = hb_buffer_get_glyph_positions(hbBuffer, &glyphCount);
+
+    for (unsigned int i = 0; i < glyphCount; ++i)
+    {
+      // TODO(AB): Check for missing glyph ID?
+      auto const glyphId = static_cast<uint16_t>(glyphInfo[i].codepoint);
+
+      // TODO(AB): Load each glyph only once for the given font size? Or is run cache more efficient?
+      FT_Int32 constexpr flags = FT_LOAD_DEFAULT;
+      FREETYPE_CHECK(FT_Load_Glyph(m_fontFace, glyphId, flags));
+
+      auto const & currPos = glyphPos[i];
+      // TODO(AB): Use floats for subpixel precision?
+      hb_position_t const xOffset  = (currPos.x_offset + static_cast<int32_t>(m_fontFace->glyph->metrics.horiBearingX)) >> 6;
+      hb_position_t const yOffset  = (currPos.y_offset + static_cast<int32_t>(m_fontFace->glyph->metrics.horiBearingY)) >> 6;
+      hb_position_t const xAdvance = currPos.x_advance >> 6;
+      auto const height = static_cast<int32_t>(m_fontFace->glyph->metrics.height >> 6);
+
+      outMetrics.AddGlyphMetrics(static_cast<int16_t>(fontIndex), glyphId, xOffset, yOffset, xAdvance, height);
+    }
+  }
+
 private:
   ReaderPtr<Reader> m_fontReader;
   FT_StreamRec_ m_stream;
   FT_Face m_fontFace;
 
   std::set<strings::UniChar> m_readyGlyphs;
+
+  hb_font_t* m_harfbuzzFont {nullptr};
 };
 
 // Information about single unicode block.
@@ -473,6 +560,14 @@ int GlyphManager::GetFontIndex(strings::UniChar unicodePoint)
   return FindFontIndexInBlock(*m_impl->m_lastUsedBlock, unicodePoint);
 }
 
+int GlyphManager::GetFontIndex(std::u16string_view sv)
+{
+  // Only get font for the first character.
+  // TODO(AB): Make sure that text runs are split by fonts.
+  auto it = sv.begin();
+  return GetFontIndex(utf8::unchecked::next16(it));
+}
+
 int GlyphManager::GetFontIndexImmutable(strings::UniChar unicodePoint) const
 {
   TUniBlockIter iter = std::lower_bound(m_impl->m_blocks.begin(), m_impl->m_blocks.end(), unicodePoint,
@@ -555,4 +650,74 @@ Glyph const & GlyphManager::GetInvalidGlyph() const
 
   return s_glyph;
 }
+
+GlyphImage GlyphManager::GetGlyphImage(int fontIndex, uint16_t glyphId, int pixelHeight, bool sdf)
+{
+  return m_impl->m_fonts[fontIndex]->GetGlyphImage(glyphId, pixelHeight, sdf);
+}
+
+namespace
+{
+hb_language_t OrganicMapsLanguageToHarfbuzzLanguage(int8_t lang)
+{
+  // TODO(AB): can langs be converted faster?
+  auto const svLang = StringUtf8Multilang::GetLangByCode(lang);
+  auto const hbLanguage = hb_language_from_string(svLang.data(), static_cast<int>(svLang.size()));
+  if (hbLanguage == HB_LANGUAGE_INVALID)
+    return hb_language_get_default();
+  return hbLanguage;
+}
+}  // namespace
+
+text::TextMetrics GlyphManager::ShapeText(std::string_view utf8, int fontPixelHeight, int8_t lang)
+{
+  auto const runs = harfbuzz_shaping::GetTextSegments(utf8);
+
+  // TODO(AB): Optimize language conversion.
+  hb_language_t const hbLanguage = OrganicMapsLanguageToHarfbuzzLanguage(lang);
+
+  text::TextMetrics allGlyphs;
+
+  // TODO(AB): Cache runs.
+  // TODO(AB): Cache buffer.
+  hb_buffer_t *buf = hb_buffer_create();
+  for (auto const & substring : runs.m_segments)
+  {
+    hb_buffer_clear_contents(buf);
+
+    // TODO(AB): Some substrings use different fonts.
+    // TODO(AB): Will surrogates work properly? Would it be safer to convert/use utf-32?
+    //std::u16string_view const sv{runs.text.data() + substring.m_start, static_cast<size_t>(substring.m_length)};
+    hb_buffer_add_utf16(buf, reinterpret_cast<const uint16_t *>(runs.m_text.data()), static_cast<int>(runs.m_text.size()),
+                        substring.m_start, substring.m_length);
+    hb_buffer_set_direction(buf, substring.m_direction);
+    hb_buffer_set_script(buf, substring.m_script);
+    hb_buffer_set_language(buf, hbLanguage);
+
+    // TODO(AB): Check not only the first character to determine font for the run, but all chars.
+    auto firstCharacterIter{runs.m_text.begin() + substring.m_start};
+    auto const firstCharacterUnicode = utf8::unchecked::next16(firstCharacterIter);
+
+    int const fontIndex = GetFontIndex(firstCharacterUnicode);
+    if (fontIndex < 0)
+    {
+      // TODO(AB): Add missing glyph character's metrics
+      LOG(LWARNING, ("Skip run because no font was found for character", NumToHex(firstCharacterUnicode)));
+      continue;
+    }
+
+    m_impl->m_fonts[fontIndex]->Shape(buf, fontPixelHeight, fontIndex, allGlyphs);
+  }
+  // Tidy up.
+  // TODO(AB): avoid recreating buffer each time.
+  hb_buffer_destroy(buf);
+
+  return allGlyphs;
+}
+
+text::TextMetrics GlyphManager::ShapeText(std::string_view utf8, int fontPixelHeight, char const * lang)
+{
+  return ShapeText(utf8, fontPixelHeight, StringUtf8Multilang::GetLangIndex(lang));
+}
+
 }  // namespace dp
