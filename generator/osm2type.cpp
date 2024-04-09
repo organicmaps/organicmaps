@@ -762,14 +762,6 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
 
   p->AddTag("psurface", DetermineSurface(p));
 
-  p->UpdateTag("attraction", [](string & value)
-  {
-    // "specified" is a special value which means we have the "attraction" tag,
-    // but its value is not "animal".
-    if (!value.empty() && value != "animal")
-      value = "specified";
-  });
-
   string const kCuisineKey = "cuisine";
   auto cuisines = p->GetTag(kCuisineKey);
   if (!cuisines.empty())
