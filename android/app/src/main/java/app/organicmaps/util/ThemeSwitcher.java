@@ -1,11 +1,13 @@
 package app.organicmaps.util;
 
 import android.app.Activity;
+import android.app.UiModeManager;
 import android.content.Context;
 import android.location.Location;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
-
+import androidx.appcompat.app.AppCompatDelegate;
 import app.organicmaps.Framework;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
@@ -89,6 +91,7 @@ public enum ThemeSwitcher
 
   private void setThemeAndMapStyle(@NonNull String theme)
   {
+    UiModeManager uiModeManager = (UiModeManager) mContext.getSystemService(Context.UI_MODE_SERVICE);
     String oldTheme = Config.getCurrentUiTheme(mContext);
     @Framework.MapStyle
     int oldStyle = Framework.nativeGetMapStyle();
@@ -97,6 +100,11 @@ public enum ThemeSwitcher
     int style;
     if (ThemeUtils.isNightTheme(mContext, theme))
     {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+        uiModeManager.setApplicationNightMode(UiModeManager.MODE_NIGHT_YES);
+      else
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
       if (RoutingController.get().isVehicleNavigation())
         style = Framework.MAP_STYLE_VEHICLE_DARK;
       else if (Framework.nativeIsOutdoorsLayerEnabled())
@@ -106,6 +114,11 @@ public enum ThemeSwitcher
     }
     else
     {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+        uiModeManager.setApplicationNightMode(UiModeManager.MODE_NIGHT_NO);
+      else
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
       if (RoutingController.get().isVehicleNavigation())
         style = Framework.MAP_STYLE_VEHICLE_CLEAR;
       else if (Framework.nativeIsOutdoorsLayerEnabled())
