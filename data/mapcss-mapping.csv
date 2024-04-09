@@ -57,6 +57,7 @@ highway|service;3;
 waterway|stream;4;
 highway|unclassified;5;
 natural|water;6;
+# Paved/formed urban looking footpaths (e.g. paved highway=path are converted into footways, see osm2type.cpp).
 highway|footway;7;
 highway|track;8;
 highway|tertiary;9;
@@ -68,6 +69,8 @@ highway|secondary;13;
 # Using service= together with usage=main is a mismapping, but people do it, so exclude explicitly.
 railway|rail|main;[railway=rail][usage=main][!highspeed][!service];;name;int_name;14;
 landuse|residential;15;
+# Unpaved paths and trails (e.g. unpaved highway=footway are converted into paths,
+# while segregated shared paths into footway + cycleway, see osm2type.cpp).
 highway|path;16;
 highway|bus_stop;17;
 # ~4M usages.
@@ -96,6 +99,7 @@ natural|wetland;33;
 deprecated:highway|track|grade3:04.4024;[highway=track][tracktype=grade3];x;name;int_name;34;highway|track
 deprecated:boundary|administrative|8:04.2024;[boundary=administrative][admin_level=8];x;name;int_name;35;
 amenity|school;36;
+# Dedicated/segregated cycleways (e.g. segregated paths are converted into cycleways + footways, see osm2type.cpp).
 highway|cycleway;37;
 landuse|farm;38;
 amenity|place_of_worship;39;
