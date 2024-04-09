@@ -88,7 +88,6 @@ line|z12-[highway=steps],
 {color: @footway; opacity: 1;}
 
 line|z11-[highway=path],
-line|z11-[highway=footway][sac_scale],
 {color: @path; opacity: 1;}
 
 line|z12-[piste:type=hike],
@@ -120,14 +119,12 @@ line|z18-[highway=track],
 line|z11[highway=footway],
 {width: 1; dashes: 3.5,2;}
 line|z11[highway=path],
-line|z11[highway=footway][sac_scale],
 {width: 1; dashes: 3.5,2; opacity: 0.6;}
 line|z12[highway=footway],
 /* Make steps on z12-14 look same as footways, z15- follows main style */
 line|z12[highway=steps],
 {width: 1.1; dashes: 3.5,2;}
 line|z12[highway=path],
-line|z12[highway=footway][sac_scale],
 line|z12[piste:type=hike],
 {width: 1.1; dashes: 3.5,2; opacity: 0.7;}
 line|z13[highway=path],

@@ -633,7 +633,6 @@ line|z19-[highway=construction],
 
 /* 8.7 Footway & Steps 18-22 ZOOM */
 
-/* [highway=footway] should be defined before [highway=footway][sac_scale] in 8.6. */
 line|z18-[highway=footway],
 line|z18-[highway=steps],
 {color: @footway; opacity: 0.7; width: 1.5; dashes: 5,2;}
@@ -675,13 +674,10 @@ line|z16-[highway=track][tunnel?],
 {width: 0;}
 
 line|z17-[highway=path],
-line|z17-[highway=footway][sac_scale],
 {color: @path; opacity: 0.6; width: 0.9; dashes: 3.5,2;}
 line|z18[highway=path],
-line|z18[highway=footway][sac_scale],
 {width: 1.1; dashes: 3.5,2;}
 line|z19-[highway=path],
-line|z19-[highway=footway][sac_scale],
 {width: 1.5; dashes: 4,2.5;}
 line|z17-[highway=path][tunnel?],
 {width: 0;}
