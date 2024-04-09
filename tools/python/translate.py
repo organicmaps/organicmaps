@@ -17,10 +17,8 @@ TRANS_CMD = 'trans'
 GOOGLE_TARGET_LANGUAGES = [
   'af',
   'az',
-  'ar',
   'be',
   'ca',
-  'es-MX',
   'eu',
   'fa',
   'he',
@@ -30,44 +28,78 @@ GOOGLE_TARGET_LANGUAGES = [
   'th',
   'vi',
   'zh-TW',  # zh-Hant in OM
+
+  # Codes below duplicate the relevant ones in DeepL to have a fall-back when DeepL doesn't translate the word.
+  'ar',
+  'bg',
+  'cs',
+  'da',
+  'de',
+  'el',
+#  'en-GB', # Not used in Google
+#  'en-US', # en in OM, not used in Google
+  'es',
+  'et',
+  'fi',
+  'fr',
+  'hu',
+  'id',
+  'it',
+  'ja',
+  'ko',
+  'lt',
+#  'lv',
+  'nb',
+  'nl',
+  'pl',
+  'pt-BR', # Google does not support pt-PT
+#  'pt-PT', # pt in OM
+  'ro',
+  'ru',
+  'sk',
+#  'sl',
+  'sv',
+  'tr',
+  'uk',
+  'zh-CN',  # zh-Hans in OM
 ]
 
-# See https://www.deepl.com/docs-api/translate-text/translate-text/ for target languages.
+# See https://developers.deepl.com/docs/resources/supported-languages#target-languages for target languages.
 DEEPL_TARGET_LANGUAGES = [
-    'bg',
-    'cs',
-    'da',
-    'de',
-    'el',
-    'en-GB',
-    'en-US', # en in OM
-    'es',
-    'et',
-    'fi',
-    'fr',
-    'hu',
-    'id',
-    'it',
-    'ja',
-    'ko',
-    'lt',
-#    'lv',
-    'nb',
-    'nl',
-    'pl',
-    'pt-BR',
-    'pt-PT',  # pt in OM
-    'ro',
-    'ru',
-    'sk',
-#    'sl',
-    'sv',
-    'tr',
-    'uk',
-    'zh',  # zh-Hans in OM
+  'ar',
+  'bg',
+  'cs',
+  'da',
+  'de',
+  'el',
+  'en-GB',
+  'en-US', # en in OM
+  'es',
+  'et',
+  'fi',
+  'fr',
+  'hu',
+  'id',
+  'it',
+  'ja',
+  'ko',
+  'lt',
+#  'lv',
+  'nb',
+  'nl',
+  'pl',
+  'pt-BR',
+  'pt-PT', # pt in OM
+  'ro',
+  'ru',
+  'sk',
+#  'sl',
+  'sv',
+  'tr',
+  'uk',
+  'zh',  # zh-Hans in OM
 ]
-
-DEEPL_AND_GOOGLE_TARGET_LANGUAGES = sorted(DEEPL_TARGET_LANGUAGES + GOOGLE_TARGET_LANGUAGES)
+GOOGLE_TARGET_LANGUAGES.sort()
 
 def get_api_key():
   key = os.environ.get('DEEPL_FREE_API_KEY')
@@ -81,7 +113,7 @@ def get_api_key():
 def google_translate(text, source_language):
   fromTo = source_language.lower() + ':'
   # Translate all languages with Google to replace failed DeepL translations.
-  for lang in DEEPL_AND_GOOGLE_TARGET_LANGUAGES:
+  for lang in GOOGLE_TARGET_LANGUAGES:
     fromTo += lang + '+'
   # Remove last +
   fromTo = fromTo[:-1]
@@ -95,9 +127,13 @@ def google_translate(text, source_language):
   translations = {}
   i = 0
   for line in res.stdout.splitlines():
-    lang = DEEPL_AND_GOOGLE_TARGET_LANGUAGES[i]
+    lang = GOOGLE_TARGET_LANGUAGES[i]
     if lang == 'zh-TW':
       lang = 'zh-Hant'
+    elif lang == 'pt-PT':
+      lang = 'pt'
+    elif lang == 'zh-CN' or lang == 'zh':
+      lang = 'zh-Hans'
     translations[lang] = line
     i = i + 1
     print(lang + ' = ' + line)
@@ -154,8 +190,10 @@ def usage():
   print('For a custom source language add a two-letter code with a colon in the beginning:')
   print('      ', sys.argv[0], 'de:Some German text to translate')
   print()
-  print('Supported languages:')
-  print(', '.join(DEEPL_AND_GOOGLE_TARGET_LANGUAGES))
+  print('Supported DeepL languages:')
+  print(', '.join(DEEPL_TARGET_LANGUAGES))
+  print('Supported Google languages:')
+  print(', '.join(GOOGLE_TARGET_LANGUAGES))
 
 
 # Returns a list of all languages supported by the core (search) in data/categories.txt
@@ -196,7 +234,7 @@ if __name__ == '__main__':
     else:
         print('See https://github.com/soimort/translate-shell/wiki/Distros for installation instructions.')
     exit(1)
-    
+
   text_to_translate = ' '.join(sys.argv[1:])
 
   source_language = 'en'
@@ -217,8 +255,8 @@ if __name__ == '__main__':
       translations[lang] = value
 
   # Remove duplicates for regional variations.
-  for regional in ['en-GB', 'es-MX', 'pt-BR']:
-    main = regional.split('-')[0]  # 'en', 'es', 'pt'...
+  for regional in ['en-GB', 'pt-BR']:
+    main = regional.split('-')[0]  # 'en', 'pt', ...
     if translations[regional] == translations[main]:
       translations.pop(regional)
 
