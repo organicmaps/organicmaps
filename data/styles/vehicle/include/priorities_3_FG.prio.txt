@@ -266,11 +266,6 @@ highway-pedestrian-bridge                           # line z18-
 highway-track                                       # line z16-
 highway-track-area                                  # line z16-
 highway-track-bridge                                # line z16-
-highway-track-grade1                                # line z14-
-highway-track-grade2                                # line z16-
-highway-track-grade3                                # line z16-
-highway-track-grade4                                # line z16-
-highway-track-grade5                                # line z16-
 highway-track-no-access                             # line z16-
 === 130
 

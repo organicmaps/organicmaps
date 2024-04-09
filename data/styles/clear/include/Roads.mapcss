@@ -808,22 +808,17 @@ line|z19-[highway=construction],
 
 /* 8.6 Track & Path 14-22 ZOOM */
 
-line|z14[highway=track][tracktype=grade1],
 line|z14[highway=raceway],
 {width: 1;}
-line|z15[highway=track][tracktype=grade1],
 line|z15[highway=raceway],
 line|z15[leisure=track][!area]
 {width: 1.5;}
-line|z16[highway=track][tracktype=grade1],
 line|z16[highway=raceway],
 line|z16[leisure=track][!area]
 {width: 1.8;}
-line|z17-18[highway=track][tracktype=grade1],
 line|z17-18[highway=raceway],
 line|z17-18[leisure=track][!area]
 {width:3; opacity: 0.8;}
-line|z19-[highway=track][tracktype=grade1],
 line|z19-[highway=raceway],
 line|z19-[leisure=track][!area]
 {width:4; opacity: 0.8;}

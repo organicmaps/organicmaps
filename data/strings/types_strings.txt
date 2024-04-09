@@ -13401,22 +13401,7 @@
   [type.highway.track.grade1]
     ref = type.highway.track
 
-  [type.highway.track.grade2]
-    ref = type.highway.track
-
-  [type.highway.track.grade3]
-    ref = type.highway.track
-
-  [type.highway.track.grade4]
-    ref = type.highway.track
-
-  [type.highway.track.grade5]
-    ref = type.highway.track
-
   [type.highway.track.no.access]
-    ref = type.highway.track
-
-  [type.highway.track.permissive]
     ref = type.highway.track
 
   [type.highway.track.tunnel]
