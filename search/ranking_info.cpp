@@ -96,8 +96,7 @@ static_assert(std::size(kPoiType) == base::E2I(PoiType::Count));
 // - See NY_Subway test.
 double constexpr kFalseCats =
     kNameScore[base::E2I(NameScore::FULL_PREFIX)] - kNameScore[base::E2I(NameScore::FULL_MATCH)] +
-    kPoiType[base::E2I(PoiType::PureCategory)] - kPoiType[base::E2I(PoiType::Eat)]
-    + AbsPenaltyPerKm();   // a small 'plus diff' to keep fast food a little bit higher
+    kPoiType[base::E2I(PoiType::PureCategory)] - kPoiType[base::E2I(PoiType::Eat)];
 static_assert(kFalseCats < 0.0);
 
 double constexpr kStreetType[] = {
@@ -472,7 +471,7 @@ Model::Type RankingInfo::GetTypeScore() const
 
 PoiType RankingInfo::GetPoiTypeScore() const
 {
-  // Equalize all *pure category* results to not distinguish different toilets (see NY_Subway, ToiletAirport test).
+  // Equalize all *pure category* results to not distinguish different toilets (see ToiletAirport test).
   return (m_pureCats ? PoiType::PureCategory : m_classifType.poi);
 }
 
