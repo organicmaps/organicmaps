@@ -712,11 +712,6 @@ highway-steps-tunnel                                # pathtext z16- (also has li
 highway-track                                       # pathtext z15- (also has line z14-)
 highway-track-area                                  # pathtext z15- (also has line z14-)
 highway-track-bridge                                # pathtext z15- (also has line z14-, line::bridgeblack z17-, line::bridgewhite z15-)
-highway-track-grade1                                # pathtext z15- (also has line z14-)
-highway-track-grade2                                # pathtext z15- (also has line z14-)
-highway-track-grade3                                # pathtext z15- (also has line z14-)
-highway-track-grade4                                # pathtext z15- (also has line z14-)
-highway-track-grade5                                # pathtext z15- (also has line z14-)
 highway-track-no-access                             # pathtext z15- (also has line z14-)
 highway-track-tunnel                                # pathtext z15- (also has line z14-, line::tunnelBackground z17-, line::tunnelCasing z17-)
 === 2780

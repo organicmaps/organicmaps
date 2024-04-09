@@ -938,7 +938,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Surface)
     auto const params = GetFeatureBuilderParams(tags);
 
     TEST_EQUAL(params.m_types.size(), 2, (params));
-    TEST(params.IsTypeExist(GetType({"highway", "track", "grade1"})), (params));
+    TEST(params.IsTypeExist(GetType({"highway", "track"})), (params));
     TEST(params.IsTypeExist(GetType({"psurface", "paved_bad"})), (params));
   }
 }
@@ -2869,11 +2869,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     {{"highway", "tertiary_link", "tunnel"}, {{"highway", "tertiary_link"}, {"tunnel", "any_value"}}},
     {{"highway", "track", "area"}, {{"highway", "track"}, {"area", "any_value"}}},
     {{"highway", "track", "bridge"}, {{"highway", "track"}, {"bridge", "any_value"}}},
-    {{"highway", "track", "grade1"}, {{"highway", "track"}, {"tracktype", "grade1"}}},
-    {{"highway", "track", "grade2"}, {{"highway", "track"}, {"tracktype", "grade2"}}},
-    {{"highway", "track", "grade3"}, {{"highway", "track"}, {"tracktype", "grade3"}}},
-    {{"highway", "track", "grade4"}, {{"highway", "track"}, {"tracktype", "grade4"}}},
-    {{"highway", "track", "grade5"}, {{"highway", "track"}, {"tracktype", "grade5"}}},
     {{"highway", "track", "tunnel"}, {{"highway", "track"}, {"tunnel", "any_value"}}},
     {{"highway", "trunk", "bridge"}, {{"highway", "trunk"}, {"bridge", "any_value"}}},
     {{"highway", "trunk", "tunnel"}, {{"highway", "trunk"}, {"tunnel", "any_value"}}},
