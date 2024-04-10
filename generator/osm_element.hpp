@@ -109,7 +109,7 @@ struct OsmElement
   bool HasTag(std::string const & key, std::string const & value) const;
 
   template <class Fn>
-  void UpdateTag(std::string const & key, Fn && fn)
+  void UpdateTagFn(std::string const & key, Fn && fn)
   {
     for (auto & tag : m_tags)
     {
@@ -124,6 +124,10 @@ struct OsmElement
     fn(value);
     if (!value.empty())
       AddTag(key, value);
+  }
+  void UpdateTag(std::string const & key, std::string const & value)
+  {
+    UpdateTagFn(key, [&value](auto & v) { v = value; });
   }
 
   /// @todo return string_view
