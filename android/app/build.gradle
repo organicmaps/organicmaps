@@ -26,9 +26,9 @@ buildscript {
 
     if (googleFirebaseServicesEnabled) {
       println('Building with Google Firebase Services')
-      classpath 'com.google.gms:google-services:4.4.0'
+      classpath 'com.google.gms:google-services:4.4.1'
       classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.9'
-      classpath 'com.google.firebase:firebase-appdistribution-gradle:4.0.1'
+      classpath 'com.google.firebase:firebase-appdistribution-gradle:4.2.0'
     } else {
       println('Building without Google Firebase Services')
     }
@@ -365,7 +365,7 @@ dependencies {
   // Google Firebase Services
   if (googleFirebaseServicesEnabled) {
     // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:32.7.4')
+    implementation platform('com.google.firebase:firebase-bom:32.8.0')
     // Add the dependencies for the Crashlytics and Analytics libraries
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-crashlytics'
@@ -377,7 +377,7 @@ dependencies {
   // We don't use Kotlin, but some dependencies are actively using it.
   // See https://stackoverflow.com/a/75719642
   implementation 'androidx.core:core:1.12.0'
-  implementation(platform('org.jetbrains.kotlin:kotlin-bom:1.9.22'))
+  implementation(platform('org.jetbrains.kotlin:kotlin-bom:1.9.23'))
   implementation 'androidx.annotation:annotation:1.7.1'
   implementation 'androidx.appcompat:appcompat:1.6.1'
   implementation 'androidx.car.app:app:1.4.0-rc02'
@@ -390,14 +390,14 @@ dependencies {
   implementation 'com.google.android.material:material:1.11.0'
   // Fix for app/organicmaps/util/FileUploadWorker.java:14: error: cannot access ListenableFuture
   // https://github.com/organicmaps/organicmaps/issues/6106
-  implementation 'com.google.guava:guava:32.1.3-android'
+  implementation 'com.google.guava:guava:33.1.0-android'
   implementation 'com.github.devnullorthrow:MPAndroidChart:3.2.0-alpha'
   implementation 'net.jcip:jcip-annotations:1.0'
 
   // Test Dependencies
   androidTestImplementation 'androidx.test.ext:junit:1.1.5'
   testImplementation 'junit:junit:4.13.2'
-  testImplementation 'org.mockito:mockito-core:5.8.0'
+  testImplementation 'org.mockito:mockito-core:5.11.0'
   testImplementation 'org.mockito:mockito-inline:5.2.0'
 }
 
