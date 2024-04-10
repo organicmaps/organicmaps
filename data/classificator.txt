@@ -414,15 +414,9 @@ world  +
             {}
         elevator  -
         footway  +
-            alpine_hiking  -
             area  -
             bridge  -
             crossing  -
-            demanding_alpine_hiking  -
-            demanding_mountain_hiking  -
-            difficult_alpine_hiking  -
-            hiking  -
-            mountain_hiking  -
             sidewalk  -
             tunnel  -
             {}
@@ -508,11 +502,6 @@ world  +
         track  +
             area  -
             bridge  -
-            grade1  -
-            grade2  -
-            grade3  -
-            grade4  -
-            grade5  -
             no-access  -
             tunnel  -
             {}
