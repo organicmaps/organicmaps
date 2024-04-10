@@ -171,22 +171,22 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!";
+"share_bookmarks_email_body" = "Здравствуйте!\n\nВ прикреплённом файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!";
 
 /* message title of loading file */
 "load_kmz_title" = "Загрузка меток";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Метки успешно загружены! Вы можете увидеть их на карте или в ваших сохраненных метках.";
+"load_kmz_successful" = "Метки успешно загружены! Вы можете увидеть их на карте или в ваших сохранённых метках.";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Файл с метками не был загружен. Возможно, файл поврежден или неисправен.";
+"load_kmz_failed" = "Файл с метками не был загружен. Возможно, файл повреждён или неисправен.";
 
 /* resource for context menu */
 "edit" = "Редактировать";
 
 /* Warning message when doing search around current position */
-"unknown_current_position" = "Ваше местоположение еще не определено";
+"unknown_current_position" = "Ваше местоположение ещё не определено";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Смотри мою метку на карте Organic Maps";
@@ -277,7 +277,7 @@
 
 "duration_1_day" = "1 сутки";
 
-"recent_track_help_text" = "Эта функция позволяет записывать пройденный путь за определенный период времени и видеть его на карте. Внимание: активация этой функции может привести к повышенному расходу батареи. Записанный трек будет удален с карты по истечении этого срока.";
+"recent_track_help_text" = "Эта функция позволяет записывать пройденный путь за определённый период времени и видеть его на карте. Внимание: активация этой функции может привести к повышенному расходу батареи. Записанный трек будет удалён с карты по истечении этого срока.";
 
 "placepage_distance" = "Расстояние";
 
@@ -326,7 +326,7 @@
 "report_incorrect_map_bug" = "Сообщить или исправить неправильные данные на карте";
 
 /* Button in the About screen */
-"volunteer" = "Cтать волонтером";
+"volunteer" = "Cтать волонтёром";
 
 /* "Social media" section header in the About screen */
 "follow_us" = "Подписывайтесь и пишите нам:";
@@ -675,7 +675,7 @@
 
 "please_note" = "Обратите внимание";
 
-"downloader_delete_map_dialog" = "Вместе с картой удалятся и внесенные вами правки на этой карте.";
+"downloader_delete_map_dialog" = "Вместе с картой удалятся и внесённые вами правки на этой карте.";
 
 "downloader_update_maps" = "Обновите карты";
 
@@ -1012,7 +1012,7 @@
 
 "bookmark_list_description_hint" = "Добавьте описание (текст или html)";
 
-"tags_loading_error_subtitle" = "Во время загрузки тегов произошла ошибка, пожалуйста, попробуйте еще раз";
+"tags_loading_error_subtitle" = "Во время загрузки тегов произошла ошибка, пожалуйста, попробуйте ещё раз";
 
 "download_button" = "Скачать";
 
@@ -1031,7 +1031,7 @@
 
 "power_managment_title" = "Режим энергосбережения";
 
-"power_managment_description" = "Если режим энергосбережения включен, приложение будет отключать энергозатратные функции в зависимости от текущего заряда телефона";
+"power_managment_description" = "Если режим энергосбережения включён, приложение будет отключать энергозатратные функции в зависимости от текущего заряда телефона";
 
 "power_managment_setting_never" = "Никогда";
 
@@ -1105,13 +1105,13 @@
 
 "dialog_routing_unable_locate_route_carplay" = "Невозможно построить маршрут. Выберите другие точки маршрута";
 
-"dialog_routing_download_files_carplay" = "Чтобы построить маршрут, загрузите недостающие карты на своем устройстве";
+"dialog_routing_download_files_carplay" = "Чтобы построить маршрут, загрузите недостающие карты на своём устройстве";
 
 "dialog_routing_system_error_carplay" = "Произошла ошибка. Перезапустите приложение";
 
 "dialog_routing_rebuild_from_current_location_carplay" = "Маршрут будет перестроен от вашего текущего местоположения";
 
-"dialog_routing_rebuild_for_vehicle_carplay" = "Маршрут будет изменен на автомобильный";
+"dialog_routing_rebuild_for_vehicle_carplay" = "Маршрут будет изменён на автомобильный";
 
 "ok" = "Ок";
 
@@ -1119,7 +1119,7 @@
 
 "speedcams_alert_title_carplay_2" = "Инфо о камерах";
 
-"download_map_carplay" = "Скачайте карты в приложении Organic Maps на своем устройстве";
+"download_map_carplay" = "Скачайте карты в приложении Organic Maps на своём устройстве";
 
 "carplay_roundabout_exit" = "%@ съезд";
 

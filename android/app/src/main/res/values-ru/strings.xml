@@ -37,7 +37,7 @@
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">Ошибка загрузки</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
-	<string name="try_again">Попробуйте еще раз</string>
+	<string name="try_again">Попробуйте ещё раз</string>
 	<string name="about_menu_title">Про Organic Maps</string>
 	<!-- Text in About screen -->
 	<string name="about_headline">Бесплатно для всех, сделано с любовью</string>
@@ -48,7 +48,7 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_3">• Быстрые, минималистичные, разработанные сообществом</string>
 	<!-- Text in About screen -->
-	<string name="about_developed_by_enthusiasts">Приложение с открытым исходным кодом, созданное энтузиастами и волонтерами.</string>
+	<string name="about_developed_by_enthusiasts">Приложение с открытым исходным кодом, созданное энтузиастами и волонтёрами.</string>
 	<!-- The button that opens system location settings -->
 	<string name="location_settings">Настройки местоположения</string>
 	<string name="close">Закрыть</string>
@@ -169,13 +169,13 @@
 	<string name="description">Примечание</string>
 	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">С вами поделились метками Organic Maps</string>
-	<string name="share_bookmarks_email_body">Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!</string>
+	<string name="share_bookmarks_email_body">Здравствуйте!\n\nВ прикреплённом файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Загрузка меток</string>
 	<!-- Kmz file successful loading -->
-	<string name="load_kmz_successful">Метки успешно загружены! Вы можете увидеть их на карте или в ваших сохраненных метках.</string>
+	<string name="load_kmz_successful">Метки успешно загружены! Вы можете увидеть их на карте или в ваших сохранённых метках.</string>
 	<!-- Kml file loading failed -->
-	<string name="load_kmz_failed">Файл с метками не был загружен. Возможно, файл поврежден или неисправен.</string>
+	<string name="load_kmz_failed">Файл с метками не был загружен. Возможно, файл повреждён или неисправен.</string>
 	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
 	<string name="unknown_file_type">Тип файла не поддерживается приложением:\n%1$s</string>
 	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
@@ -183,7 +183,7 @@
 	<!-- resource for context menu -->
 	<string name="edit">Редактировать</string>
 	<!-- Warning message when doing search around current position -->
-	<string name="unknown_current_position">Ваше местоположение еще не определено</string>
+	<string name="unknown_current_position">Ваше местоположение ещё не определено</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
 	<string name="cant_change_this_setting">Извините, настройки места хранения карт сейчас недоступны.</string>
 	<!-- Alert message that downloading is in progress. -->
@@ -276,9 +276,9 @@
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Сообщить о проблеме</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
-	<string name="compass_calibration_recommended">Улучшите направление стрелки, перемещая телефон восьмеркой, чтобы откалибровать компас.</string>
+	<string name="compass_calibration_recommended">Улучшите направление стрелки, перемещая телефон восьмёркой, чтобы откалибровать компас.</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
-	<string name="compass_calibration_required">Двигайте телефон восьмеркой, чтобы откалибровать компас и зафиксировать направление стрелки на карте.</string>
+	<string name="compass_calibration_required">Двигайте телефон восьмёркой, чтобы откалибровать компас и зафиксировать направление стрелки на карте.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Обновить все</string>
 	<!-- Cancel all button text -->
@@ -467,7 +467,7 @@
 	<string name="email_or_username">Эл. почта или имя пользователя</string>
 	<string name="editor_add_phone">Добавить телефон</string>
 	<string name="level">Этаж</string>
-	<string name="downloader_delete_map_dialog">Вместе с картой удалятся и внесенные вами правки на этой карте.</string>
+	<string name="downloader_delete_map_dialog">Вместе с картой удалятся и внесённые вами правки на этой карте.</string>
 	<string name="downloader_update_maps">Обновите карты</string>
 	<string name="downloader_mwm_migration_dialog">Для построения маршрутов необходимо обновить все карты и построить маршрут заново.</string>
 	<string name="downloader_search_field_hint">Найти карту</string>
@@ -639,7 +639,7 @@
 	<string name="subway_data_unavailable">Карта метро недоступна</string>
 	<string name="bookmarks_empty_list_title">Список пустой</string>
 	<string name="bookmarks_empty_list_message">Чтобы добавить метку, нажмите на место на карте, а затем на иконку звёздочки</string>
-	<string name="category_desc_more">…еще</string>
+	<string name="category_desc_more">…ещё</string>
 	<string name="export_file">Экспортировать файл</string>
 	<string name="delete_list">Удалить список</string>
 	<string name="public_access">Публичный доступ</string>
@@ -657,7 +657,7 @@
 	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
 	<string name="pref_tts_speedcams_never">Никогда не предупреждать</string>
 	<string name="power_managment_title">Режим энергосбережения</string>
-	<string name="power_managment_description">Если режим энергосбережения включен, приложение будет отключать энергозатратные функции в зависимости от текущего заряда телефона</string>
+	<string name="power_managment_description">Если режим энергосбережения включён, приложение будет отключать энергозатратные функции в зависимости от текущего заряда телефона</string>
 	<string name="power_managment_setting_never">Никогда</string>
 	<string name="power_managment_setting_auto">Авто</string>
 	<string name="power_managment_setting_manual_max">Максимальное энергосбережение</string>
@@ -753,7 +753,7 @@
 	<string name="connection_failure">Ошибка подключения</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">Отсоедините USB кабель</string>
-	<string name="enable_keep_screen_on">Держи экран включенным</string>
+	<string name="enable_keep_screen_on">Держи экран включённым</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">Если эта функция включена, то при отображении карты экран будет всегда включен.</string>
 	<!-- A preference title; keep short! -->
@@ -773,13 +773,13 @@
 	<!-- App tip #01 -->
 	<string name="app_tip_01">Благодаря вашим пожертвованиям и поддержке мы сможем создать лучшие карты на свете!</string>
 	<!-- App tip #02 -->
-	<string name="app_tip_02">Вам нравится наше приложение? Поддержите его развитие деньгами! Пока еще не нравится? Пожалуйста, сообщите нам, почему, и мы это исправим!</string>
+	<string name="app_tip_02">Вам нравится наше приложение? Поддержите его развитие деньгами! Пока ещё не нравится? Пожалуйста, сообщите нам, почему, и мы это исправим!</string>
 	<!-- App tip #03 -->
 	<string name="app_tip_03">Если вы знаете толкового разработчика программного обеспечения, попросите его реализовать нужную вам функцию для приложения.</string>
 	<!-- App tip #04 -->
 	<string name="app_tip_04">Знаете ли вы, что любое место на карте можно выбрать, подержав там палец в течение секунды?</string>
 	<!-- App tip #05 -->
-	<string name="app_tip_05">А вы знали, что свое местоположение на карте можно выбрать?</string>
+	<string name="app_tip_05">А вы знали, что своё местоположение на карте можно выбрать?</string>
 	<!-- App tip #06 -->
 	<string name="app_tip_06">Вы можете помочь перевести наше приложение на ваш язык.</string>
 	<!-- App tip #07 -->
@@ -814,7 +814,7 @@
 	<!-- button in (app) TTS settings, to open the system TTS settings. -->
 	<string name="pref_tts_open_system_settings">Системные настройки синтеза речи</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
-	<string name="pref_tts_no_system_tts">Настройки синтеза речи не найдены, ты уверен, что твое устройство поддерживает их?</string>
+	<string name="pref_tts_no_system_tts">Настройки синтеза речи не найдены, вы уверены, что ваше устройство поддерживает их?</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адрес/Блок</string>
