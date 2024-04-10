@@ -801,7 +801,7 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
         normalized = "coffee_shop";
 
       if (first)
-        p->UpdateTag(kCuisineKey, [&normalized](string & value) { value = normalized; });
+        p->UpdateTag(kCuisineKey, normalized);
       else
         p->AddTag(kCuisineKey, normalized);
 
@@ -821,7 +821,7 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
       strings::Trim(type);
 
       if (first)
-        p->UpdateTag(kAerodromeTypeKey, [&type](auto & value) { value = type; });
+        p->UpdateTag(kAerodromeTypeKey, type);
       else
         p->AddTag(kAerodromeTypeKey, type);
 
@@ -862,7 +862,7 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
   static CountriesLoader s_countriesChecker;
 
   auto const dePlace = p->GetTag("de:place");
-  p->UpdateTag("place", [&](string & value)
+  p->UpdateTagFn("place", [&](string & value)
   {
     // 1. Replace a value of 'place' with a value of 'de:place' because most people regard
     // places names as 'de:place' defines it.
@@ -884,7 +884,7 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
   });
 
   if (isCapital)
-    p->UpdateTag("capital", [&](string & value) { value = "2"; });
+    p->UpdateTag("capital", "2");
 }
 
 bool IsCarDesignatedHighway(uint32_t type)
