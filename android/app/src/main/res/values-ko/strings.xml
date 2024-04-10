@@ -754,7 +754,7 @@
 	<string name="pref_tts_open_system_settings">음성 합성 시스템 설정</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">음성 합성 설정을 찾을 수 없었는데, 기기에서 이를 지원하는 것이 맞나요?</string>
-	<string name="clear_button">검색 지우기</string>
+	<string name="clear_the_search">검색 지우기</string>
 	<string name="zoom_in">확대</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">축소</string>

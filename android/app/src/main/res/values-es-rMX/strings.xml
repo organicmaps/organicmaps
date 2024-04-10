@@ -241,7 +241,7 @@
 	<string name="pref_tts_open_system_settings">Configuración de síntesis de voz del sistema</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">No se encontraron las configuraciones de síntesis de voz. ¿Está seguro de que su dispositivo la admite?</string>
-	<string name="clear_button">Limpiar la búsqueda</string>
+	<string name="clear_the_search">Limpiar la búsqueda</string>
 	<string name="zoom_in">Acercarse</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">Disminuir el zoom</string>

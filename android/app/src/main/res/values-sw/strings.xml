@@ -320,7 +320,7 @@
 	<string name="pref_tts_open_system_settings">Mipangilio ya usanisi wa hotuba ya mfumo</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Mipangilio ya Usanisi wa Matamshi haikupatikana, una uhakika kuwa kifaa chako kinaitumia?</string>
-	<string name="clear_button">Futa utafutaji</string>
+	<string name="clear_the_search">Futa utafutaji</string>
 	<string name="zoom_in">Vuta karibu</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">Kuza nje</string>

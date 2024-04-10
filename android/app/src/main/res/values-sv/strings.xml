@@ -755,7 +755,7 @@
 	<string name="pref_tts_open_system_settings">Inställningar för talsyntes</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Inställningar för talsyntes hittades inte, är du säker på att din enhet stöder det?</string>
-	<string name="clear_button">Rensa sökningen</string>
+	<string name="clear_the_search">Rensa sökningen</string>
 	<string name="zoom_in">Zooma in</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">Zooma ut</string>

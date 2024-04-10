@@ -799,7 +799,7 @@
 	<string name="pref_tts_open_system_settings">Instellingen spraaksynthesesysteem</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Instellingen voor spraaksynthese zijn niet gevonden, weet je zeker dat je apparaat dit ondersteunt?</string>
-	<string name="clear_button">Wis de zoekopdracht</string>
+	<string name="clear_the_search">Wis de zoekopdracht</string>
 	<string name="zoom_in">Inzoomen</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">Uitzoomen</string>

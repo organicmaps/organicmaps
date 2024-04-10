@@ -795,7 +795,7 @@
 	<string name="pref_tts_open_system_settings">Сістэмныя наладкі сінтэзу маўлення</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Налады сінтэзу маўлення не знойдзены. Вы ўпэўнены, што ваша прылада падтрымлівае гэта?</string>
-	<string name="clear_button">Ачысціць пошук</string>
+	<string name="clear_the_search">Ачысціць пошук</string>
 	<string name="zoom_in">Наблізіць</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">Аддаліць</string>

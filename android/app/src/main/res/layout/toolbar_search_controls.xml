@@ -53,7 +53,7 @@
     android:layout_gravity="center_vertical"
     android:layout_weight="0"
     android:background="?attr/selectableItemBackgroundBorderless"
-    android:contentDescription="@string/clear_button"
+    android:contentDescription="@string/clear_the_search"
     android:scaleType="center"
     app:srcCompat="@drawable/ic_cancel"/>
 

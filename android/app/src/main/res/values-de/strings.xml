@@ -802,7 +802,7 @@
 	<string name="pref_tts_open_system_settings">Einstellungen des Sprachsynthesesystems</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Die Einstellungen für die Sprachsynthese wurden nicht gefunden. Bist du sicher, dass dein Gerät sie unterstützt?</string>
-	<string name="clear_button">Lösche die Suche</string>
+	<string name="clear_the_search">Lösche die Suche</string>
 	<string name="zoom_in">Vergrößern</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">Herauszoomen</string>

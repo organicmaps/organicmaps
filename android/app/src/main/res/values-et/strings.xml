@@ -793,7 +793,7 @@
 	<string name="pref_tts_open_system_settings">Kõnesünteesi süsteemi seaded</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Kõnesünteesi seadeid ei leitud, kas olete kindel, et teie seade toetab seda?</string>
-	<string name="clear_button">Tühjenda otsing</string>
+	<string name="clear_the_search">Tühjenda otsing</string>
 	<string name="zoom_in">Suurendage</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">Suurenda välja</string>

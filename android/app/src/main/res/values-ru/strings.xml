@@ -815,7 +815,7 @@
 	<string name="pref_tts_open_system_settings">Системные настройки синтеза речи</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Настройки синтеза речи не найдены, ты уверен, что твое устройство поддерживает их?</string>
-	<string name="clear_button">Очистите поиск</string>
+	<string name="clear_the_search">Очистите поиск</string>
 	<string name="zoom_in">Приблизить</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">Отдалить</string>

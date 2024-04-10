@@ -806,7 +806,7 @@
 	<string name="pref_tts_open_system_settings">Ajustes del sistema de síntesis de voz</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">No se ha encontrado la configuración de Síntesis de Voz, ¿estás seguro de que tu dispositivo la admite?</string>
-	<string name="clear_button">Borrar la búsqueda</string>
+	<string name="clear_the_search">Borrar la búsqueda</string>
 	<string name="zoom_in">Ampliar</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">Alejar</string>
