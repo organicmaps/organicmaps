@@ -32,6 +32,7 @@ public class RoutingInfo
   public final SingleLaneInfo[] lanes;
   // For pedestrian routing.
   public final PedestrianTurnDirection pedestrianTurnDirection;
+  public final int speedLimit;
   private final boolean speedLimitExceeded;
   private final boolean shouldPlayWarningSignal;
 
@@ -138,7 +139,7 @@ public class RoutingInfo
 
   public RoutingInfo(Distance distToTarget, Distance distToTurn, String currentStreet, String nextStreet, double completionPercent,
                      int vehicleTurnOrdinal, int vehicleNextTurnOrdinal, int pedestrianTurnOrdinal, int exitNum,
-                     int totalTime, SingleLaneInfo[] lanes, boolean speedLimitExceeded,
+                     int totalTime, SingleLaneInfo[] lanes, int speedLimit, boolean speedLimitExceeded,
                      boolean shouldPlayWarningSignal)
   {
     this.distToTarget = distToTarget;
@@ -152,6 +153,7 @@ public class RoutingInfo
     this.lanes = lanes;
     this.exitNum = exitNum;
     this.pedestrianTurnDirection = PedestrianTurnDirection.values()[pedestrianTurnOrdinal];
+    this.speedLimit = speedLimit;
     this.speedLimitExceeded = speedLimitExceeded;
     this.shouldPlayWarningSignal = shouldPlayWarningSignal;
   }
