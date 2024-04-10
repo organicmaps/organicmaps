@@ -926,7 +926,7 @@
     pt = Tentar novamente
     pt-BR = Tentar novamente
     ro = Mai încearcă
-    ru = Попробуйте еще раз
+    ru = Попробуйте ещё раз
     sk = Skúsiť znova
     sv = Försök igen
     th = ลองอีกครั้ง
@@ -1190,7 +1190,7 @@
     pl = Aplikacja typu open source stworzona przez entuzjastów i wolontariuszy.
     pt = Aplicativo de código aberto criado por entusiastas e voluntários.
     ro = Aplicație open-source creată de entuziaști și voluntari.
-    ru = Приложение с открытым исходным кодом, созданное энтузиастами и волонтерами.
+    ru = Приложение с открытым исходным кодом, созданное энтузиастами и волонтёрами.
     sk = Aplikácia s otvoreným zdrojovým kódom vytvorená nadšencami a dobrovoľníkmi.
     sv = Open-källansökan skapad av entusiaster och frivilliga.
     sw = Maombi ya chanzo-wazi iliyoundwa na wanaovutia na wanaojitolea.
@@ -3970,7 +3970,7 @@
     pt = Olá!\n\nSegue em anexo os meus favoritos da aplicação Organic Maps. Por favor abra-os se tiver o Organic Maps instalado. Caso não tenha, descarregue a aplicação para o seu dispositivo iOS ou Android com a hiperligação https://omaps.app/get?kmz\n\nDivirta-se a viajar com o Organic Maps!
     pt-BR = Olá!\n\nSegue em anexo meus favoritos do app Organic Maps. Se tiver instalado o Organic Maps, pode abri-los agora. Caso não tenha, baixe o app para o seu dispositivo iOS ou Android via o link https://omaps.app/get?kmz\n\nDisfrute viajar com o Organic Maps!
     ro = Bună!\n\nȚi-am atașat locurile mele preferate din aplicația Organic Maps. Deschide-le dacă ai instalată Organic Maps. Dacă nu, o poți descărca pentru iOS sau Android de aici: https://organicmaps.app/
-    ru = Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!
+    ru = Здравствуйте!\n\nВ прикреплённом файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!
     sk = Ahoj!\n\nV prílohe sú moje záložky z aplikácie Organic Maps. Ak ju nemáš nainštalovanú, môžeš si ju stiahnuť tu: https://omaps.app/get?kmz\n\nPrajem šťastnú cestu s Organic Maps!
     tr = Merhaba!\n\nEktekiler benim Organic Maps yer imlerim. Eğer Organic Maps'i yüklediyseniz lütfen ektekileri açın. Eğer yüklemediyseniz, bu bağlantıyı takip ederek iOS ve Android cihazınız için uygulamayı yükleyebilirsiniz: https://omaps.app/get?kmz\n\nOrganic Maps ile seyahat etmenin keyfini çıkarın!
     uk = Привіт!\n\nДодаю мої закладки; відкрийте їх у Organic Maps. Якщо застосунок не встановлено, ви можете завантажити його тут: https://omaps.app/get?kmz\n\nНасолоджуйтесь подорожами з Organic Maps!
@@ -4056,7 +4056,7 @@
     pt = Os favoritos foram carregados com sucesso! Pode encontrá-los no mapa ou no ecrã de gestão dos favoritos.
     pt-BR = Favoritos carregados com sucesso! Você pode encontrá-los no mapa ou na tela de gestão dos favoritos.
     ro = Locuri preferate încărcate cu succes! Le poți găsi pe hartă sau în „Gestionare Locuri preferate”.
-    ru = Метки успешно загружены! Вы можете увидеть их на карте или в ваших сохраненных метках.
+    ru = Метки успешно загружены! Вы можете увидеть их на карте или в ваших сохранённых метках.
     sk = Záložky boli úspešne načítané! Môžete ich nájsť na mape alebo na obrazovke Správca záložiek.
     sv = Bokmärkena lästes in! Du kan hitta dem på kartan eller i Bokmärkeshanteraren.
     th = โหลดบุ๊กมาร์กสำเร็จแล้ว! คุณสามารถหาพวกมันได้บนแผนที่หรือบนหน้าจอโปรแกรมจัดการบุ๊กมาร์ก
@@ -4101,7 +4101,7 @@
     pt = Surgiu uma falha ao enviar os favoritos. O ficheiro pode estar corrompido ou com defeito.
     pt-BR = Falha no envio dos favoritos. O arquivo pode estar corrompido ou com defeito.
     ro = Încărcarea locurilor preferate a eșuat. Fișierul poate fi defect.
-    ru = Файл с метками не был загружен. Возможно, файл поврежден или неисправен.
+    ru = Файл с метками не был загружен. Возможно, файл повреждён или неисправен.
     sk = Načítavanie záložiek sa nepodarilo. Súbor môže byť poškodený alebo chybný.
     sv = Inläsningen av bokmärkena misslyckades. Filen kan vara skadad eller defekt.
     th = การอัปโหลดล้มเหลว ไฟล์อาจเสียหายหรือมีข้อบกพร่อง
@@ -4284,7 +4284,7 @@
     pt = A sua localização ainda não foi determinada
     pt-BR = A sua localização ainda não foi determinada
     ro = Poziția ta nu a fost stabilită încă
-    ru = Ваше местоположение еще не определено
+    ru = Ваше местоположение ещё не определено
     sk = Vaša poloha zatiaľ nebola určená
     sv = Din position har inte bestämts ännu
     th = ตำแหน่งที่ตั้งของคุณยังไม่ได้รับการกำหนด
@@ -6370,7 +6370,7 @@
     pt = Permite-lhe gravar um caminho percorrido durante um determinado período e vê-lo no papa. Nota: esta funcionalidade usa mais bateria. A rota será automaticamente removida do mapa após o intervalo de tempo expirar.
     pt-BR = Permite salvar um caminho percorrido durante um determinado período de tempo e vê-lo no mapa. Nota: esta funcionalidade usa mais bateria. A rota será automaticamente apagada do mapa após um intervalo de tempo.
     ro = Permite înregistrarea traseului parcurs pentru o anumită perioadă de timp și urmărește-l pe hartă. Atenție: activarea acestei funcții crește consumul bateriei. Traseul va fi eliminat automat de pe hartă după expirarea intervalului de timp.
-    ru = Эта функция позволяет записывать пройденный путь за определенный период времени и видеть его на карте. Внимание: активация этой функции может привести к повышенному расходу батареи. Записанный трек будет удален с карты по истечении этого срока.
+    ru = Эта функция позволяет записывать пройденный путь за определённый период времени и видеть его на карте. Внимание: активация этой функции может привести к повышенному расходу батареи. Записанный трек будет удалён с карты по истечении этого срока.
     sk = Umožňuje zaznamenať precestovanú trasu za určité obdobie a zobraziť ju na mape. Upozornenie: zapnutie tejto funkcie spôsobí vyššiu spotrebu batérie. Trasa sa z mapy automaticky odstráni po uplynutí časového intervalu.
     sv = Detta gör att du kan spara en resväg för en viss tidsperiod och visa den på kartan. Obs: aktivering av den här funktionen ökar batterianvändningen. Spåret tas bort automatiskt från kartan när tidsintervallet slutar gälla.
     sw = Inakuwezesha kurekodi njia uliyosafiria kwa kipindi fulani na uione kwenye ramani. Tafadhali kumbuka: ukiwezesha utendaji huu betri itatumika zaidi. Njia hiyo itaondolewa kiotomatiki kwenye ramani baada ya mpishano wa muda kuisha.
@@ -7135,7 +7135,7 @@
     pl = Wolontariusz
     pt = Para ser voluntário
     ro = Pentru a fi voluntar
-    ru = Cтать волонтером
+    ru = Cтать волонтёром
     sk = Dobrovoľníctvo
     sv = Att arbeta frivilligt
     sw = Kujitolea
@@ -7362,7 +7362,7 @@
     pt = Melhore a direcção das setas movendo o telemóvel num movimento em forma de oito para calibrar a bússola.
     pt-BR = Melhore a direção da seta movendo o telefone em um movimento em forma de oito para calibrar a bússola.
     ro = Îmbunătățiți direcția săgeții prin mișcarea telefonului într-o mișcare în opt pentru a calibra busola.
-    ru = Улучшите направление стрелки, перемещая телефон восьмеркой, чтобы откалибровать компас.
+    ru = Улучшите направление стрелки, перемещая телефон восьмёркой, чтобы откалибровать компас.
     sk = Zlepšite smer šípok pohybom telefónu v tvare osmičky, aby ste kalibrovali kompas.
     sv = Förbättra pilens riktning genom att flytta telefonen i en åttarörelse för att kalibrera kompassen.
     th = ปรับปรุงทิศทางลูกศรโดยขยับโทรศัพท์เป็นเลขแปดเพื่อปรับเทียบเข็มทิศ
@@ -7406,7 +7406,7 @@
     pt = Mova o telemóvel num movimento em forma de oito para calibrar a bússola e fixar a direcção da seta no mapa.
     pt-BR = Mova o telefone em um movimento em forma de oito para calibrar a bússola e fixar a direção da seta no mapa.
     ro = Mișcați telefonul într-o mișcare în formă de opt pentru a calibra busola și a fixa direcția săgeții pe hartă.
-    ru = Двигайте телефон восьмеркой, чтобы откалибровать компас и зафиксировать направление стрелки на карте.
+    ru = Двигайте телефон восьмёркой, чтобы откалибровать компас и зафиксировать направление стрелки на карте.
     sk = Pohybom telefónu v tvare osmičky kalibrujte kompas a zafixujte smer šípky na mape.
     sv = Flytta telefonen i en åttarörelse för att kalibrera kompassen och fastställa pilens riktning på kartan.
     th = ขยับโทรศัพท์เป็นเลขแปดเพื่อปรับเทียบเข็มทิศและกำหนดทิศทางลูกศรบนแผนที่
@@ -14599,7 +14599,7 @@
     pt = Todas as alterações ao mapa serão eliminadas juntamente com o mapa.
     pt-BR = Todas as edições no mapa serão excluídas juntamente com o mapa.
     ro = Toate modificările aduse hărții vor fi șterse împreună cu harta.
-    ru = Вместе с картой удалятся и внесенные вами правки на этой карте.
+    ru = Вместе с картой удалятся и внесённые вами правки на этой карте.
     sk = Všetky zmeny týkajúce sa mapy budú vymazané spolu s mapou.
     sv = Alla kartändringar kommer att raderas tillsammans med kartan.
     th = การเปลี่ยนแปลงแผนที่ทั้งหมดจะถูกลบไปพร้อมกับแผนที่
@@ -22756,7 +22756,7 @@
     pt = …mais
     pt-BR = …mais
     ro = …mai mult
-    ru = …еще
+    ru = …ещё
     sk = …viac
     sv = …mer
     sw = …zaidi
@@ -23196,7 +23196,7 @@
     pt = Surgiu um erro ao carregar as etiquetas, por favor tente novamente
     pt-BR = Ocorreu um erro enquanto carregava as etiquetas, por favor, tente novamente
     ro = A apărut o eroare la încărcarea etichetelor, încearcă din nou
-    ru = Во время загрузки тегов произошла ошибка, пожалуйста, попробуйте еще раз
+    ru = Во время загрузки тегов произошла ошибка, пожалуйста, попробуйте ещё раз
     sk = Počas načítavania značiek sa vyskytla chyba, skúste to znova
     sv = Ett fel uppstod när du laddar taggarna, försök igen
     sw = Kosa limetokea wakati wa kupakua vibandiko, tafadhali jaribu tena
@@ -23607,7 +23607,7 @@
     pt = Se o modo automático estiver ativado, a aplicação vai desativar as funções que consomem energia, dependendo da carga atual do telemóvel
     pt-BR = Quando o modo automático é selecionado, o aplicativo começa a desativar as características que drenam a bateria dependendo do nível de energia atual
     ro = Dacă este pornit modul de economisire a energiei, aplicația va deconecta funcțiile care consumă multă energie în dependență de nivelul de încărcare a bateriei.
-    ru = Если режим энергосбережения включен, приложение будет отключать энергозатратные функции в зависимости от текущего заряда телефона
+    ru = Если режим энергосбережения включён, приложение будет отключать энергозатратные функции в зависимости от текущего заряда телефона
     sk = Keď je zvolený automatický režim, aplikácia začne vypínať funkcie, ktoré vybíjajú batériu v závislosti od aktuálnej úrovne nabitia batérie
     sv = Om energisparläget är på, ska appen stänga av energikrävande funktioner beroende på telefonens nuvarande laddning
     sw = Pindi mtindo wa kiotomatiki unapochaguliwa programu tumizi inaanza kuzima sifa za kumaliza betri kulingana na kiwango cha chaji cha sasa cha betri
@@ -25113,7 +25113,7 @@
     pt = Para calcular o percurso é preciso descarregar primeiro os mapas
     pt-BR = Para criar uma rota, baixe os mapas ausentes no seu dispositivo
     ro = Pentru a crea un traseu, descarcă hărțile lipsă în dispozitivul tău
-    ru = Чтобы построить маршрут, загрузите недостающие карты на своем устройстве
+    ru = Чтобы построить маршрут, загрузите недостающие карты на своём устройстве
     sk = Pre vytvorenie trasy si stiahnite do zariadenia chýbajúce mapy
     sv = För att skapa en rutt, ladda ner saknade kartor på din enhet
     sw = Kuunda njia, pakua ramani zilizokosekana kwenye kifaa chako
@@ -25248,7 +25248,7 @@
     pt = O percurso será convertido num percurso para automóvel
     pt-BR = A rota será alterada para uma de automóvel
     ro = Traseul va fi înlocuit cu unul pentru autovehicule
-    ru = Маршрут будет изменен на автомобильный
+    ru = Маршрут будет изменён на автомобильный
     sk = Trasa bude upravená na jazdu autom
     sv = Ruten kommer att ändras till bil
     sw = Njia itaboreshwa kuwa ya gari
@@ -25429,7 +25429,7 @@
     pt = Descarregue mapas da aplicação Organic Maps no seu dispositivo
     pt-BR = Por favor, baixe mapas no app Organic Maps em seu dispositivo
     ro = Descarcă hărțile în aplicația Organic Maps din dispozitivul tău
-    ru = Скачайте карты в приложении Organic Maps на своем устройстве
+    ru = Скачайте карты в приложении Organic Maps на своём устройстве
     sk = Prosím stiahnite si mapy v aplikácii Organic Maps vo vašom zariadení
     sv = Ladda ner kartor i applikation Organic Maps på din enhet
     sw = Tafadhali pakua ramani katika programu tumizi ya Organic Maps kwenye kifaa chako
@@ -28139,7 +28139,7 @@
     pt = Mantém o ecrã ligado
     pt-BR = Manter a tela ligada
     ro = Păstrați ecranul pornit
-    ru = Держи экран включенным
+    ru = Держи экран включённым
     sk = Nechať obrazovku zapnutú
     sv = Håll skärmen på
     sw = Washa skrini
@@ -28832,7 +28832,7 @@
     pt = Gosta do nosso aplicativo? Por favor, doe para apoiar o desenvolvimento! Ainda não gostou? Informe-nos, que consertaremos!
     pt-BR = Você gosta do nosso aplicativo? Por favor, doe para apoiar o desenvolvimento! Ainda não gostou? Informe-nos e consertaremos isso!
     ro = Îți place aplicația noastră? Vă rugăm să donați pentru a sprijini dezvoltarea! Nu-ți place încă? Vă rugăm să ne anunțați și vom remedia!
-    ru = Вам нравится наше приложение? Поддержите его развитие деньгами! Пока еще не нравится? Пожалуйста, сообщите нам, почему, и мы это исправим!
+    ru = Вам нравится наше приложение? Поддержите его развитие деньгами! Пока ещё не нравится? Пожалуйста, сообщите нам, почему, и мы это исправим!
     sk = Páči sa vám naša aplikácia? Prosím, prispejte na podporu rozvoja! Ešte sa ti to nepáči? Dajte nám vedieť a my to napravíme!
     sv = Gillar du vår app? Vänligen donera för att stödja utvecklingen! Gillar du det inte ännu? Meddela oss, så fixar vi det!
     sw = Je, unapenda programu yetu? Tafadhali toa mchango ili kusaidia maendeleo! Je, huipendi bado? Tafadhali tujulishe, na tutarekebisha!
@@ -28961,7 +28961,7 @@
     pt = Sabia que sua posição atual no mapa pode ser selecionada?
     pt-BR = Você sabia que sua posição atual no mapa pode ser selecionada?
     ro = Știți că vă puteți selecta locația curentă pe hartă?
-    ru = А вы знали, что свое местоположение на карте можно выбрать?
+    ru = А вы знали, что своё местоположение на карте можно выбрать?
     sk = Viete, že si môžete vybrať svoju aktuálnu polohu na mape?
     sv = Vet du att du kan välja din nuvarande plats på kartan?
     sw = Je, unajua kwamba unaweza kuchagua eneo lako la sasa kwenye ramani?
@@ -29814,7 +29814,7 @@
     pt = Não foram encontradas definições de síntese de voz. Tens a certeza de que o teu dispositivo é compatível?
     pt-BR = As configurações do Speech Synthesis não foram encontradas. Você tem certeza de que seu dispositivo é compatível?
     ro = Nu au fost găsite setările de sinteză vocală, sunteți sigur că dispozitivul dvs. le acceptă?
-    ru = Настройки синтеза речи не найдены, ты уверен, что твое устройство поддерживает их?
+    ru = Настройки синтеза речи не найдены, вы уверены, что ваше устройство поддерживает их?
     sk = Nastavenia syntézy reči neboli nájdené, ste si istí, že ich vaše zariadenie podporuje?
     sv = Inställningar för talsyntes hittades inte, är du säker på att din enhet stöder det?
     sw = Mipangilio ya Usanisi wa Matamshi haikupatikana, una uhakika kuwa kifaa chako kinaitumia?
