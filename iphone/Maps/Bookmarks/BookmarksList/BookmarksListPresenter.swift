@@ -126,7 +126,7 @@ final class BookmarksListPresenter {
     sortItems.append(BookmarksListMenuItem(title: L("sort_default"), action: { [weak self] in
       self?.setDefaultSections()
     }))
-    view.showMenu(sortItems)
+    view.showMenu(sortItems, from: .sort)
   }
 
   private func showMoreMenu() {
@@ -162,7 +162,7 @@ final class BookmarksListPresenter {
                                             self?.interactor.deleteBookmarksGroup()
                                             self?.delegate?.bookmarksListDidDeleteGroup()
                                            }))
-    view.showMenu(moreItems)
+    view.showMenu(moreItems, from: .more)
   }
 
   private func viewOnMap() {
