@@ -47,6 +47,8 @@ shop=estate_agent : office=estate_agent
 shop=locksmith : craft=locksmith
 shop=auction_house : shop=auction
 shop=vacant : disused:shop=yes
+
+# TODO: highway=ford is deprecated, use ford=* directly; and convert boat into a ferry?
 ford=boat : highway=ford
 ford=intermittent : highway=ford
 ford=seasonal : highway=ford
