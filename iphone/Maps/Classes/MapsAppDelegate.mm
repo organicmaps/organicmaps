@@ -148,6 +148,10 @@ using namespace osm_auth_ios;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
+  [self prepareForTerminating];
+}
+
+- (void)prepareForTerminating {
   [self.mapViewController onTerminate];
   // Global cleanup
   DeleteFramework();
@@ -231,10 +235,11 @@ using namespace osm_auth_ios;
 
 // TODO: Drape enabling is skipped during the test run due to the app crashing in teardown. This is a temporary solution. Drape should be properly disabled instead of merely skipping the enabling process.
 - (BOOL)isDrapeDisabled {
-  NSProcessInfo * processInfo = [NSProcessInfo processInfo];
-  NSArray<NSString *> * launchArguments = [processInfo arguments];
-  BOOL isTests = [launchArguments containsObject:@"-IsTests"];
-  return isTests;
+//  NSProcessInfo * processInfo = [NSProcessInfo processInfo];
+//  NSArray<NSString *> * launchArguments = [processInfo arguments];
+//  BOOL isTests = [launchArguments containsObject:@"-IsTests"];
+//  return isTests;
+  return NO;
 }
 
 - (BOOL)application:(UIApplication *)application

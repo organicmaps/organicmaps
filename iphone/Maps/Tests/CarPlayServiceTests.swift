@@ -15,6 +15,11 @@ final class CarPlayServiceTests: XCTestCase {
     super.tearDown()
   }
 
+  override class func tearDown() {
+    MapsAppDelegate.theApp().prepareForTerminating()
+    super.tearDown()
+  }
+
   func testCreateEstimates() {
     let routeInfo = RouteInfo(timeToTarget: 100,
                               targetDistance: 25.2,

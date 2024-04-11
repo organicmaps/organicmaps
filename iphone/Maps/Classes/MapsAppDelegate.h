@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSUInteger)badgeNumber;
 
 - (BOOL)isDrapeDisabled;
+- (void)prepareForTerminating;
 
 @end
 
