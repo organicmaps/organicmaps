@@ -3050,6 +3050,86 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
   }
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_HighwayTypesConversion)
+{
+  using Type = std::vector<std::string>;
+  std::vector<std::pair<Type, Tags>> const conversions = {
+    {{"highway", "cycleway"}, {{"highway", "path"}, {"foot", "no"}, {"bicycle", "yes"}}},
+
+    // Paved etc. paths to footways.
+    {{"highway", "footway"}, {{"highway", "path"}, {"surface", "paved"}}},
+    {{"highway", "footway"}, {{"highway", "path"}, {"surface", "paved"}, {"smoothness", "bad"}}},
+    {{"highway", "footway"}, {{"highway", "path"}, {"surface", "compacted"}, {"smoothness", "intermediate"}}},
+    {{"highway", "footway"}, {{"highway", "path"}, {"surface", "gravel"}, {"smoothness", "good"}}},
+    {{"highway", "footway", "sidewalk"}, {{"highway", "path"}, {"surface", "gravel"}, {"footway", "sidewalk"}}},
+    {{"highway", "footway"}, {{"highway", "path"}, {"smoothness", "good"}}},
+    {{"highway", "footway", "crossing"}, {{"highway", "path"}, {"footway", "crossing"}}},
+    {{"highway", "footway"}, {{"highway", "path"}, {"lit", "yes"}}},
+    {{"highway", "footway"}, {{"highway", "path"}, {"segregated", "no"}}},
+    // No conversion.
+    {{"highway", "path"}, {{"highway", "path"}, {"surface", "unpaved"}}},
+    {{"highway", "path"}, {{"highway", "path"}, {"surface", "compacted"}, {"smoothness", "bad"}}},
+    {{"highway", "path"}, {{"highway", "path"}, {"surface", "gravel"}, {"tracktype", "grade3"}}},
+    {{"highway", "path", "hiking"}, {{"highway", "path"}, {"surface", "gravel"}, {"tracktype", "grade1"}, {"sac_scale", "hiking"}}},
+    {{"highway", "path"}, {{"highway", "path"}, {"smoothness", "good"}, {"tracktype", "grade3"}}},
+    {{"highway", "path"}, {{"highway", "path"}, {"tracktype", "grade3"}, {"footway", "sidewalk"}}},
+    {{"highway", "path"}, {{"highway", "path"}, {"smoothness", "intermediate"}}},
+    {{"highway", "path"}, {{"highway", "path"}, {"lit", "no"}}},
+
+    // Unpaved etc. footways to paths.
+    {{"highway", "path"}, {{"highway", "footway"}, {"surface", "unpaved"}}},
+    {{"highway", "path"}, {{"highway", "footway"}, {"surface", "unpaved"}, {"smoothness", "excellent"}}},
+    {{"highway", "path"}, {{"highway", "footway"}, {"surface", "compacted"}, {"smoothness", "bad"}}},
+    {{"highway", "path"}, {{"highway", "footway"}, {"smoothness", "bad"}}},
+    {{"highway", "path", "hiking"}, {{"highway", "footway"}, {"sac_scale", "hiking"}}},
+    {{"highway", "path"}, {{"highway", "footway"}, {"trail_visibility", "good"}}},
+    {{"highway", "path", "hiking"}, {{"highway", "footway"}, {"tracktype", "grade2"}, {"sac_scale", "hiking"}}},
+    // TODO(@pastk): ford=* is converted to highway=ford via replaced_tags.txt; get rid of highway=ford
+    {{"highway", "footway"}, {{"highway", "footway"}, {"ford", "stepping_stones"}}},
+    {{"highway", "path"}, {{"highway", "footway"}, {"informal", "yes"}}},
+    // No conversion.
+    {{"highway", "footway"}, {{"highway", "footway"}, {"surface", "paved"}}},
+    {{"highway", "footway"}, {{"highway", "footway"}, {"surface", "compacted"}, {"smoothness", "good"}}},
+    {{"highway", "footway"}, {{"highway", "footway"}, {"smoothness", "good"}, {"tracktype", "grade2"}}},
+    {{"highway", "footway"}, {{"highway", "footway"}, {"tracktype", "grade1"}, {"sac_scale", "hiking"}}},
+    {{"highway", "footway", "sidewalk"}, {{"highway", "footway"}, {"tracktype", "grade2"}, {"footway", "sidewalk"}}},
+    {{"highway", "footway"}, {{"highway", "footway"}, {"lit", "no"}}},
+  };
+
+  for (auto const & type : conversions)
+  {
+    auto const params = GetFeatureBuilderParams(type.second);
+    TEST(params.IsTypeExist(GetType(type.first)), (type, params));
+  }
+
+  std::vector<std::pair<std::vector<Type>, Tags>> const complexConversions = {
+    // Add an explicit footway to a segregated cycleway.
+    {{{"highway", "cycleway"}, {"highway", "footway"}}, {{"highway", "cycleway"}, {"segregated", "yes"}}},
+    {{{"highway", "cycleway"}, {"highway", "footway"}, {"hwtag", "yesfoot"}}, {{"highway", "cycleway"}, {"sidewalk", "right"}}},
+
+    // Segregated path becomes cycleway + footway.
+    {{{"highway", "cycleway"}, {"highway", "footway"}}, {{"highway", "path"}, {"segregated", "yes"}}},
+
+    // Good quality paths are converted into footways with an explicit bicycle=yes.
+    {{{"highway", "footway"}, {"hwtag", "yesbicycle"}, {"psurface", "paved_good"}}, {{"highway", "path"}, {"surface", "paved"}}},
+    {{{"highway", "footway", "sidewalk"}, {"hwtag", "yesbicycle"}}, {{"highway", "path"}, {"footway", "sidewalk"}}},
+    // No bicycle=yes addition when access is defined explictly.
+    {{{"highway", "footway"}, {"hwtag", "nobicycle"}, {"psurface", "paved_good"}}, {{"highway", "path"}, {"surface", "paved"}, {"bicycle", "no"}}},
+    {{{"highway", "footway"}, {"psurface", "paved_good"}}, {{"highway", "path"}, {"smoothness", "good"}, {"foot", "yes"}}},
+  };
+
+  for (auto const & type : complexConversions)
+  {
+    auto const & results = type.first;
+    auto const params = GetFeatureBuilderParams(type.second);
+    TEST_EQUAL(params.m_types.size(), results.size(), (type, params));
+    for (auto const & result : results)
+    {
+      TEST(params.IsTypeExist(GetType(result)), (type, params));
+    }
+  }
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_MultipleComplexTypesSmoke)
 {
   using Type = std::vector<std::string>;
