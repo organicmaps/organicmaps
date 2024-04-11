@@ -646,6 +646,8 @@
 	<string name="type.amenity.school">विद्यालय</string>
 	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">आश्रय</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">आश्रय</string>
 	<string name="type.amenity.shower">फुहारा</string>
 	<string name="type.amenity.taxi">टैक्सी</string>
 	<string name="type.amenity.telephone">टेलीफ़ोन</string>

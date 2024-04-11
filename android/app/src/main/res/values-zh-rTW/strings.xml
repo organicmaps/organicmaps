@@ -922,6 +922,8 @@
 	<string name="type.amenity.school">學校</string>
 	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">隱藏處</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">隱藏處</string>
 	<string name="type.amenity.public_bath">公共浴場</string>
 	<string name="type.amenity.shower">淋浴間</string>
 	<string name="type.amenity.stripclub">脫衣舞俱樂部</string>

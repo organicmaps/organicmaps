@@ -883,6 +883,8 @@
 	<string name="type.amenity.school">Sekolah</string>
 	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Tempat penampungan</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">Tempat penampungan</string>
 	<string name="type.amenity.public_bath">Pemandian umum</string>
 	<string name="type.amenity.shower">Pancuran</string>
 	<string name="type.amenity.stripclub">Klub telanjang</string>

@@ -1569,6 +1569,9 @@
 /* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "Refugio";
 
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "Refugio";
+
 "type.amenity.public_bath" = "Baños públicos";
 
 "type.amenity.shower" = "Ducha";

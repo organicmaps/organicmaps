@@ -905,6 +905,8 @@
 	<string name="type.amenity.school">Școală</string>
 	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Adăpost</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">Adăpost</string>
 	<string name="type.amenity.public_bath">Baie publică</string>
 	<string name="type.amenity.shower">Duș</string>
 	<string name="type.amenity.stripclub">Stripclub</string>

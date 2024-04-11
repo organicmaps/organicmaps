@@ -1569,6 +1569,9 @@
 /* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "निवारा";
 
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "निवारा";
+
 "type.amenity.public_bath" = "सार्वजनिक स्नान";
 
 "type.amenity.shower" = "अंघोळ";

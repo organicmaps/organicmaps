@@ -1569,6 +1569,9 @@
 /* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "대피소";
 
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "대피소";
+
 "type.amenity.public_bath" = "대중목욕탕";
 
 "type.amenity.shower" = "샤워시설";

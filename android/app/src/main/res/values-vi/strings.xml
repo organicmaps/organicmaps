@@ -884,6 +884,8 @@
 	<string name="type.amenity.school">Trường học</string>
 	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Chổ nương thân</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">Chổ nương thân</string>
 	<string name="type.amenity.public_bath">Nhà tắm công cộng</string>
 	<string name="type.amenity.shower">Nhà tắm</string>
 	<string name="type.amenity.stripclub">Câu lạc bộ thoát y</string>

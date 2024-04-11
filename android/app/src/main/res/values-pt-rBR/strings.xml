@@ -888,6 +888,8 @@
 	<string name="type.amenity.school">Escola</string>
 	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Abrigo</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">Abrigo</string>
 	<string name="type.amenity.shower">Chuveiro</string>
 	<string name="type.amenity.taxi">Táxi</string>
 	<string name="type.amenity.telephone">Telefone</string>

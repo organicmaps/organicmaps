@@ -884,6 +884,8 @@
 	<string name="type.amenity.school">Skola</string>
 	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Vindskydd</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">Vindskydd</string>
 	<string name="type.amenity.public_bath">Offentligt bad</string>
 	<string name="type.amenity.shower">Dusch</string>
 	<string name="type.amenity.stripclub">Stripklubb</string>

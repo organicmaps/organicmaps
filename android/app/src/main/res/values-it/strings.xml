@@ -937,6 +937,8 @@
 	<string name="type.amenity.school">Scuola</string>
 	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Riparo</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">Riparo</string>
 	<string name="type.amenity.public_bath">Bagno pubblico</string>
 	<string name="type.amenity.shower">Doccia</string>
 	<string name="type.amenity.stripclub">Stripclub</string>

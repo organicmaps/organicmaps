@@ -1569,6 +1569,9 @@
 /* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "Chổ nương thân";
 
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "Chổ nương thân";
+
 "type.amenity.public_bath" = "Nhà tắm công cộng";
 
 "type.amenity.shower" = "Nhà tắm";

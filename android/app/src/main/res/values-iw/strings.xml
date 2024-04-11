@@ -838,6 +838,8 @@
 	<string name="type.recycling.batteries">תוללוס</string>
 	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">מחסה</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">מחסה</string>
 	<string name="type.amenity.public_bath">אמבטיה ציבורית</string>
 	<string name="type.amenity.stripclub">מועדון חשפנות</string>
 	<string name="type.amenity.vehicle_inspection">לבדיקה טכנית</string>

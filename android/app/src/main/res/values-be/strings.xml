@@ -865,6 +865,8 @@
 	<string name="type.amenity.sanitary_dump_station">Зліў для прыбіральняў транспартных сродкаў</string>
 	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Навес</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">Навес</string>
 	<string name="type.amenity.public_bath">Грамадская лазня</string>
 	<string name="type.amenity.stripclub">Стрыптыз-клуб</string>
 	<string name="type.amenity.townhall">Адміністрацыя</string>

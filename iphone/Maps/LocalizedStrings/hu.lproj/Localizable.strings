@@ -1569,6 +1569,9 @@
 /* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "Menedék";
 
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "Menedék";
+
 "type.amenity.public_bath" = "Közfürdő";
 
 "type.amenity.shower" = "Tusoló";

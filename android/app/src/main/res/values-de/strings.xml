@@ -947,6 +947,8 @@
 	<string name="type.amenity.school">Schule</string>
 	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Unterstand</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">Unterstand</string>
 	<string name="type.amenity.public_bath">Öffentliches Bad</string>
 	<string name="type.amenity.shower">Dusche</string>
 	<string name="type.amenity.stripclub">Stripclub</string>

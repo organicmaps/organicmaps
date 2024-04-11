@@ -1569,6 +1569,9 @@
 /* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "Wiata";
 
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "Wiata";
+
 "type.amenity.public_bath" = "Łaźnia publiczna";
 
 "type.amenity.shower" = "Prysznic";

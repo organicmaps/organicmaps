@@ -1569,6 +1569,9 @@
 /* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "Tempat penampungan";
 
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "Tempat penampungan";
+
 "type.amenity.public_bath" = "Pemandian umum";
 
 "type.amenity.shower" = "Pancuran";

@@ -906,6 +906,8 @@
 	<string name="type.amenity.school">Iskola</string>
 	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Menedék</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">Menedék</string>
 	<string name="type.amenity.public_bath">Közfürdő</string>
 	<string name="type.amenity.shower">Tusoló</string>
 	<string name="type.amenity.stripclub">Sztriptízbár</string>

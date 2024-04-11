@@ -933,6 +933,8 @@
 	<string name="type.amenity.school">Məktəb</string>
 	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Sığınacaq</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">Sığınacaq</string>
 	<string name="type.amenity.public_bath">Hamam</string>
 	<string name="type.amenity.shower">Duş</string>
 	<string name="type.amenity.stripclub">Striptiz klubu</string>

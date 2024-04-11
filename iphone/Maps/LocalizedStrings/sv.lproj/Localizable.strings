@@ -1569,6 +1569,9 @@
 /* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "Vindskydd";
 
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "Vindskydd";
+
 "type.amenity.public_bath" = "Offentligt bad";
 
 "type.amenity.shower" = "Dusch";

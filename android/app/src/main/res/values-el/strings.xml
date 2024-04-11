@@ -936,6 +936,8 @@
 	<string name="type.amenity.school">Σχολείο</string>
 	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Καταφύγιο</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">Καταφύγιο</string>
 	<string name="type.amenity.public_bath">Δημόσιο Λουτρό</string>
 	<string name="type.amenity.shower">Ντους</string>
 	<string name="type.amenity.stripclub">Stripclub</string>

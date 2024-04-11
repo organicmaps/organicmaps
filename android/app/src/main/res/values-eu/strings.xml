@@ -951,6 +951,8 @@
 	<string name="type.amenity.school">Eskola</string>
 	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Aterpea</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">Aterpea</string>
 	<string name="type.amenity.public_bath">Bainu Publikoa</string>
 	<string name="type.amenity.shower">Dutxa</string>
 	<string name="type.amenity.stripclub">Stripclub</string>
