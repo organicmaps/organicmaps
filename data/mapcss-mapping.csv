@@ -511,6 +511,7 @@ highway|road|tunnel;[highway=road][tunnel?];;name;int_name;423;
 sport|archery;424;
 healthcare|podiatrist;425;
 healthcare|psychotherapist;426;
+# TODO: deprecated, migrate to ford=*
 highway|ford;427;
 area:highway|path;428;
 deprecated:railway|siding:06.2023;429;x
