@@ -885,6 +885,8 @@
 	<string name="type.amenity.school">학교</string>
 	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">대피소</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">대피소</string>
 	<string name="type.amenity.public_bath">대중목욕탕</string>
 	<string name="type.amenity.shower">샤워시설</string>
 	<string name="type.amenity.stripclub">스트립클럽</string>

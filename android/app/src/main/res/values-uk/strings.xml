@@ -958,6 +958,8 @@
 	<string name="type.amenity.school">Школа</string>
 	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Навіс</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">Навіс</string>
 	<string name="type.amenity.public_bath">Громадська лазня</string>
 	<string name="type.amenity.shower">Душ</string>
 	<string name="type.amenity.stripclub">Стриптиз-клуб</string>

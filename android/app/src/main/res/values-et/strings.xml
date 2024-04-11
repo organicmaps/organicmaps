@@ -945,6 +945,8 @@
 	<string name="type.amenity.school">Kool</string>
 	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Varjupaik</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">Varjupaik</string>
 	<string name="type.amenity.public_bath">Avalik vann</string>
 	<string name="type.amenity.shower">Dušš</string>
 	<string name="type.amenity.stripclub">Stripiklubi</string>

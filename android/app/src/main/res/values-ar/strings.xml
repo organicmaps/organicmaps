@@ -964,6 +964,8 @@
 	<string name="type.amenity.school">مدرسة</string>
 	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">ملجأ</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">ملجأ</string>
 	<string name="type.amenity.public_bath">حمام عام</string>
 	<string name="type.amenity.shower">حمام</string>
 	<string name="type.amenity.stripclub">نادي تعري</string>

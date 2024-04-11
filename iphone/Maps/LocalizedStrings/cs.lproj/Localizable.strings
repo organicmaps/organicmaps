@@ -1569,6 +1569,9 @@
 /* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "Přístřešek";
 
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "Přístřešek";
+
 "type.amenity.public_bath" = "Veřejné lázně";
 
 "type.amenity.shower" = "Sprcha";

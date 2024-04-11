@@ -950,6 +950,8 @@
 	<string name="type.amenity.school">École</string>
 	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Abri</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">Abri</string>
 	<string name="type.amenity.public_bath">Bain public</string>
 	<string name="type.amenity.shower">Douche</string>
 	<string name="type.amenity.stripclub">Club de strip-tease</string>

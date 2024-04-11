@@ -1569,6 +1569,9 @@
 /* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "ที่อยู่อาศัย";
 
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "ที่อยู่อาศัย";
+
 "type.amenity.public_bath" = "ห้องอาบน้ำสาธารณะ";
 
 "type.amenity.shower" = "ฝักบัวอาบน้ำ";

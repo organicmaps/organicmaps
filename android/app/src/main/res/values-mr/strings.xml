@@ -899,6 +899,8 @@
 	<string name="type.amenity.school">शाळा</string>
 	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">निवारा</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">निवारा</string>
 	<string name="type.amenity.public_bath">सार्वजनिक स्नान</string>
 	<string name="type.amenity.shower">अंघोळ</string>
 	<string name="type.amenity.stripclub">स्ट्रिपक्लब</string>

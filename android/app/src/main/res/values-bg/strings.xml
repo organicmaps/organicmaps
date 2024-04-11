@@ -768,6 +768,8 @@
 	<string name="type.recycling.batteries">Батерии</string>
 	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Подслон</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">Подслон</string>
 	<string name="type.amenity.public_bath">Обществена баня</string>
 	<string name="type.amenity.stripclub">Стриптийз клуб</string>
 	<string name="type.amenity.vehicle_inspection">Проверка на автомобила</string>

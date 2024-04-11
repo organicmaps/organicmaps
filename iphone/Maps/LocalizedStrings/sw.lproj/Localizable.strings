@@ -1569,6 +1569,9 @@
 /* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "Shelter";
 
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "Shelter";
+
 "type.amenity.public_bath" = "Bafu ya Umma";
 
 "type.amenity.shower" = "Shower";

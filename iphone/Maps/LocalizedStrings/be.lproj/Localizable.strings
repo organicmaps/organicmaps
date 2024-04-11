@@ -1569,6 +1569,9 @@
 /* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "Навес";
 
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "Навес";
+
 "type.amenity.public_bath" = "Грамадская лазня";
 
 "type.amenity.shower" = "Shower";
