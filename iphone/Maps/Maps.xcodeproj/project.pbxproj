@@ -1777,7 +1777,6 @@
 		29B97314FDCFA39411CA2CEA /* Maps */ = {
 			isa = PBXGroup;
 			children = (
-				ED1ADA312BC6B19E0029209F /* Tests */,
 				FA456C4026BDCC8E00B83C20 /* shaders.xcodeproj */,
 				FA36B8011540388B004560CC /* Bookmarks */,
 				3454D7981E07F045004AF2AD /* Categories */,
@@ -4668,7 +4667,12 @@
 			baseConfigurationReference = 347526FA1DC0B00F00918CF5 /* common-debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.organicmaps.app.OMapsTests;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 9Z6432XD7L;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 9Z6432XD7L;
+				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.debug.tests;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Organic Maps (Debug).app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Organic Maps (Debug)";
 			};
 			name = Debug;
@@ -4678,7 +4682,11 @@
 			baseConfigurationReference = 347526FB1DC0B00F00918CF5 /* common-release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.organicmaps.app.OMapsTests;
+				CODE_SIGN_STYLE = Manual;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 9Z6432XD7L;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 9Z6432XD7L;
+				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.release.tests;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Organic Maps (Debug).app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Organic Maps (Debug)";
 			};
 			name = Release;
