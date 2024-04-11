@@ -4763,6 +4763,10 @@
     zh-Hans = 庇护所
     zh-Hant = 隱藏處
 
+  [type.amenity.shelter.public_transport]
+    comment = A weather shelter by the public transport stop.
+    ref = type.amenity.shelter
+
   [type.amenity.public_bath]
     en = Public Bath
     ar = حمام عام

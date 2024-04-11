@@ -540,7 +540,7 @@ highway|footway|demanding_mountain_hiking;[highway=footway][sac_scale=demanding_
 deprecated|deprecated;453;x
 deprecated|deprecated;454;x
 landuse|orchard;455;
-deprecated|deprecated;456;x
+amenity|shelter|public_transport;[amenity=shelter][shelter_type=public_transport];;name;int_name;456;
 highway|living_street|tunnel;[highway=living_street][tunnel?];;name;int_name;457;
 deprecated|deprecated;458;x
 deprecated|deprecated;459;x
