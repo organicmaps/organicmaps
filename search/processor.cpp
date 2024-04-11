@@ -640,6 +640,18 @@ void Processor::Search(SearchParams params)
 
 bool Processor::SearchDebug()
 {
+  if (m_query.m_query == "?wiki")
+  {
+    EmitWithMetadata(feature::Metadata::FMD_WIKIPEDIA);
+    return true;
+  }
+
+  if (m_query.m_query == "?description")
+  {
+    EmitWithMetadata(feature::Metadata::FMD_DESCRIPTION);
+    return true;
+  }
+
 #ifdef DEBUG
   SearchByFeatureId();
 
