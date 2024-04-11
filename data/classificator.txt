@@ -149,7 +149,9 @@ world  +
         restaurant  -
         sanitary_dump_station  -
         school  -
-        shelter  -
+        shelter  +
+            public_transport  -
+            {}
         shower  -
         stripclub  -
         taxi  -

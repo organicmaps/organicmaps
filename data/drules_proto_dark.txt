@@ -11960,6 +11960,73 @@ cont {
   }
 }
 cont {
+  name: "amenity-shelter-public_transport"
+  element {
+    scale: 17
+    symbol {
+      name: "shelter-m"
+      priority: 1500
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8500
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "shelter-m"
+      priority: 1500
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8500
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "shelter-m"
+      priority: 1500
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8500
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "shelter-m"
+      priority: 1500
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8500
+    }
+  }
+}
+cont {
   name: "amenity-shower"
   element {
     scale: 17

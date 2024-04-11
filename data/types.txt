@@ -453,7 +453,7 @@ mapswithme
 mapswithme
 mapswithme
 *landuse|orchard
-mapswithme
+*amenity|shelter|public_transport
 *highway|living_street|tunnel
 mapswithme
 mapswithme
