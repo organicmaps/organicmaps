@@ -788,7 +788,7 @@
 "km" = "km";
 
 /* abbreviation for kilometers per hour */
-"kilometers_per_hour" = "km/s";
+"kilometers_per_hour" = "km/sa";
 
 /* abbreviation for mile(s) */
 "mi" = "mil";
