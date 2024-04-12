@@ -17096,7 +17096,7 @@
     sk = km/h
     sv = km/h
     th = กม./ชม.
-    tr = km/s
+    tr = km/sa
     uk = км/год
     vi = km/giờ
     zh-Hans = 公里每小时
