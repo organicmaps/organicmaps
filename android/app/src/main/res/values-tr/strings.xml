@@ -509,7 +509,7 @@
 	<!-- abbreviation for kilometers -->
 	<string name="km">km</string>
 	<!-- abbreviation for kilometers per hour -->
-	<string name="kilometers_per_hour">km/s</string>
+	<string name="kilometers_per_hour">km/sa</string>
 	<!-- abbreviation for mile(s) -->
 	<string name="mi">mil</string>
 	<!-- A unit of measure -->
