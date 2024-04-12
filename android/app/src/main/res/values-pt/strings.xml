@@ -396,8 +396,8 @@
 	<string name="editor_time_delete">Eliminar horário</string>
 	<!-- Text for allday switch. -->
 	<string name="editor_time_allday">Todo o dia (24 horas)</string>
-	<string name="editor_time_open">Abre</string>
-	<string name="editor_time_close">Fecha</string>
+	<string name="editor_time_open">Aberto</string>
+	<string name="editor_time_close">Fechado</string>
 	<string name="editor_time_add_closed">Inserir horas de encerrrado</string>
 	<string name="editor_time_title">Horário de funcionamento</string>
 	<string name="editor_time_advanced">Modo avançado</string>

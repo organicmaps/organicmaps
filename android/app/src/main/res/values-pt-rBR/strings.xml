@@ -391,7 +391,6 @@
 	<string name="p2p_reroute_from_current">Deseja planejar uma rota a partir da sua localização atual?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Próxima</string>
-	<string name="editor_time_add">Adicionar horário</string>
 	<string name="editor_time_delete">Apagar horário</string>
 	<!-- Text for allday switch. -->
 	<string name="editor_time_allday">O dia todo (24 horas)</string>
