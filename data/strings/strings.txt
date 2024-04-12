@@ -11760,7 +11760,6 @@
     nl = Schema toevoegen
     pl = Dodaj harmonogram
     pt = Adicionar horário
-    pt-BR = Adicionar horário
     ro = Adaugă planificare
     ru = Добавить расписание
     sk = Pridať rozvrh
@@ -11890,7 +11889,7 @@
     nb = Åpen
     nl = Open
     pl = Otwarte
-    pt = Abre
+    pt = Aberto
     ro = Deschis
     ru = Открыто
     sk = Otvorené
@@ -11933,7 +11932,7 @@
     nb = Stengt
     nl = Gesloten
     pl = Zamknięte
-    pt = Fecha
+    pt = Fechado
     ro = Închis
     ru = Закрыто
     sk = Zatvorené
