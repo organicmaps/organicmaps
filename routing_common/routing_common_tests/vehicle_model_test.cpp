@@ -70,6 +70,12 @@ public:
     secondaryTunnel = c.GetTypeByPath({"highway", "secondary", "tunnel"});
     residential = c.GetTypeByPath({"highway", "residential"});
 
+    path = c.GetTypeByPath({"highway", "path"});
+    footway = c.GetTypeByPath({"highway", "footway"});
+    cycleway = c.GetTypeByPath({"highway", "cycleway"});
+    yesBicycle = c.GetTypeByPath({"hwtag", "yesbicycle"});
+    yesFoot = c.GetTypeByPath({"hwtag", "yesfoot"});
+
     oneway = c.GetTypeByPath({"hwtag", "oneway"});
     pavedGood = c.GetTypeByPath({"psurface", "paved_good"});
     pavedBad = c.GetTypeByPath({"psurface", "paved_bad"});
@@ -78,6 +84,7 @@ public:
   }
 
   uint32_t primary, secondary, secondaryTunnel, secondaryBridge, residential;
+  uint32_t path, footway, cycleway, yesBicycle, yesFoot;
   uint32_t oneway, pavedGood, pavedBad, unpavedGood, unpavedBad;
 
   static SpeedParams DefaultParams() { return {{}, kInvalidSpeed, false /* inCity */}; }
@@ -251,6 +258,14 @@ bool LessSpeed(SpeedKMpH const & l, SpeedKMpH const & r)
 }
 
 #define TEST_LESS_SPEED(l, r) TEST(LessSpeed(l, r), (l, r))
+
+bool LessOrEqualSpeed(SpeedKMpH const & l, SpeedKMpH const & r)
+{
+  TEST(l.IsValid() && r.IsValid(), (l, r));
+  return l.m_weight <= r.m_weight;
+}
+
+#define TEST_LESS_OR_EQUAL_SPEED(l, r) TEST(LessOrEqualSpeed(l, r), (l, r))
 } // namespace
 
 UNIT_CLASS_TEST(VehicleModelTest, CarModel_TrackVsGravelTertiary)
@@ -306,15 +321,15 @@ UNIT_CLASS_TEST(VehicleModelTest, BicycleModel_Smoke)
   auto const p = DefaultParams();
 
   feature::TypesHolder h1;
-  h1.Add(c.GetTypeByPath({"highway", "cycleway"}));
-  h1.Add(c.GetTypeByPath({"hwtag", "yesbicycle"}));
+  h1.Add(cycleway);
+  h1.Add(yesBicycle);
 
   feature::TypesHolder h2;
-  h2.Add(c.GetTypeByPath({"highway", "cycleway"}));
+  h2.Add(cycleway);
 
   feature::TypesHolder h3;
   h3.Add(secondary);
-  h3.Add(c.GetTypeByPath({"hwtag", "yesbicycle"}));
+  h3.Add(yesBicycle);
 
   feature::TypesHolder h4;
   h4.Add(secondary);
@@ -327,6 +342,44 @@ UNIT_CLASS_TEST(VehicleModelTest, BicycleModel_Smoke)
   TEST_LESS_SPEED(model.GetSpeed(h3, p), model.GetSpeed(h2, p));
   TEST_LESS_SPEED(model.GetSpeed(h4, p), model.GetSpeed(h3, p));
   TEST_LESS_SPEED(model.GetSpeed(h5, p), model.GetSpeed(h4, p));
+}
+
+UNIT_CLASS_TEST(VehicleModelTest, BicycleModel_Speeds)
+{
+  auto const & model = BicycleModel::AllLimitsInstance();
+  auto const & c = classif();
+  auto const p = DefaultParams();
+
+  std::vector<std::vector<uint32_t>> const highways = {
+    {cycleway, pavedGood}, // TODO: should be higher than next, but is equal
+    {cycleway},
+    {cycleway, unpavedGood}, // TODO: should be lower than previous, but is equal
+    {footway, yesBicycle, pavedGood}, // TODO: should be higher than next, but is equal
+    {footway, yesBicycle},
+    {path, yesBicycle}, // TODO: unpaved by default, so should be lower than shared footways or cycleways, but is equal
+    {cycleway, pavedBad},
+    {footway, yesBicycle, pavedBad},
+    {cycleway, unpavedBad},
+    {path, yesBicycle, unpavedBad},
+    {path, unpavedGood}, // TODO: should be faster than bad surface cycleway (mtb?), but weight is less while eta is faster
+    {footway},
+    {footway, c.GetTypeByPath({"hwtag", "nobicycle"})}, // TODO: should be lower than previous, but is equal
+    // {path, c.GetTypeByPath({"hwtag", "nobicycle"})}, //TODO: should be lower than previous, but is higher
+    {path, unpavedBad},
+  };
+
+  feature::TypesHolder hprev;
+  for (size_t i = 0; i < highways.size(); ++i)
+  {
+    feature::TypesHolder h;
+    for (uint32_t t : highways[i])
+      h.Add(t);
+    LOG(LINFO, (h, model.GetSpeed(h, p)));
+
+    if (i > 0)
+      TEST_LESS_OR_EQUAL_SPEED(model.GetSpeed(h, p), model.GetSpeed(hprev, p));
+    hprev = h;
+  }
 }
 
 UNIT_CLASS_TEST(VehicleModelTest, PedestrianModel_Smoke)
@@ -350,7 +403,43 @@ UNIT_CLASS_TEST(VehicleModelTest, PedestrianModel_Smoke)
   TEST_LESS_SPEED(model.GetSpeed(h3, p), model.GetSpeed(h2, p));
 }
 
+UNIT_CLASS_TEST(VehicleModelTest, PedestrianModel_Speeds)
+{
+  auto const & model = PedestrianModel::AllLimitsInstance();
+  // auto const & c = classif();
+  auto const p = DefaultParams();
+
+  std::vector<std::vector<uint32_t>> const highways = {
+    {footway, pavedGood}, // TODO: should be higher than next, but is equal
+    {footway},
+    {footway, pavedBad}, // TODO: should be lower than previous, but is equal
+    {footway, yesBicycle}, // TODO: should be lower than previous, but is equal
+    {path, yesFoot}, // TODO: should be higher than previous, but is equal
+    {path, unpavedGood}, // TODO: should be lower than previous, but is equal
+    {path, yesBicycle}, // TODO: should be lower than previous, but is equal
+    {cycleway},
+    {path, unpavedBad},
+    {cycleway, unpavedBad},
+    // {path, c.GetTypeByPath({"hwtag", "nofoot"})}, // TODO: should be forbidden, but has no effect ATM
+    // {cycleway, c.GetTypeByPath({"hwtag", "nofoot"})}, // TODO: should be forbidden, but has no effect ATM
+  };
+
+  feature::TypesHolder hprev;
+  for (size_t i = 0; i < highways.size(); ++i)
+  {
+    feature::TypesHolder h;
+    for (uint32_t t : highways[i])
+      h.Add(t);
+    LOG(LINFO, (h, model.GetSpeed(h, p)));
+
+    if (i > 0)
+      TEST_LESS_OR_EQUAL_SPEED(model.GetSpeed(h, p), model.GetSpeed(hprev, p));
+    hprev = h;
+  }
+}
+
 #undef TEST_LESS_SPEED
+#undef TEST_LESS_OR_EQUAL_SPEED
 
 UNIT_TEST(VehicleModel_MultiplicationOperatorTest)
 {
