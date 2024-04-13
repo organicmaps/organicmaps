@@ -553,4 +553,16 @@ Internet InternetFromString(std::string_view inet)
   return Internet::Unknown;
 }
 
+YesNoUnknown YesNoUnknownFromString(std::string_view str)
+{
+  if (str.empty())
+    return Unknown;
+  if (str.find(kYes) != string::npos)
+    return Yes;
+  if (str.find(kNo) != string::npos)
+    return No;
+  else
+    return YesNoUnknown::Unknown;
+}
+
 } // namespace feature
