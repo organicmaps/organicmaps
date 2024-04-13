@@ -646,8 +646,10 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags,
               }
               else
               {
-                LOG(LDEBUG, ("Create case: uploading patched feature", osmFeature));
-                changeset.Modify(osmFeature);
+                LOG(LDEBUG, ("Create case: uploading new feature", feature));
+                // There is another node nearby, but it is saver to upload a new node (#2298).
+                changeset.AddChangesetTag("info:feature_close_by", "yes");
+                changeset.Create(feature);
               }
             }
             catch (ChangesetWrapper::OsmObjectWasDeletedException const &)
