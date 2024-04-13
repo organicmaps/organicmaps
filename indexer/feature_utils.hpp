@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "indexer/ftraits.hpp"
+#include "indexer/yes_no_unknown.hpp"
 
 struct FeatureID;
 class StringUtf8Multilang;
@@ -29,6 +30,8 @@ namespace feature
   std::string DebugPrint(Internet internet);
   /// @param[in]  inet  Should be lowercase like in DebugPrint.
   Internet InternetFromString(std::string_view inet);
+
+  YesNoUnknown YesNoUnknownFromString(std::string_view str);
 
   // Address house numbers interpolation.
   enum class InterpolType { None, Odd, Even, Any };

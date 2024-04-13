@@ -12,6 +12,7 @@
 #import "MWMEditorNotesFooter.h"
 #import "MWMEditorSelectTableViewCell.h"
 #import "MWMEditorSwitchTableViewCell.h"
+#import "MWMEditorSegmentedTableViewCell.hpp"
 #import "MWMEditorTextTableViewCell.h"
 #import "MWMNoteCell.h"
 #import "MWMObjectsCategorySelectorController.h"
@@ -66,6 +67,7 @@ std::map<MWMEditorCellID, Class> const kCellType2Class {
     {MetadataID::FMD_OPEN_HOURS, [MWMPlacePageOpeningHoursCell class]},
     {MetadataID::FMD_CUISINE, [MWMEditorSelectTableViewCell class]},
     {MetadataID::FMD_INTERNET, [MWMEditorSwitchTableViewCell class]},
+    {MetadataID::FMD_DRIVE_THROUGH, [MWMEditorSegmentedTableViewCell class]},
     {MWMEditorCellTypeNote, [MWMNoteCell class]},
     {MWMEditorCellTypeReportButton, [MWMButtonCell class]}
 };
@@ -634,6 +636,15 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
                   placeholder:L(@"select_cuisine")];
     break;
   }
+  case MetadataID::FMD_DRIVE_THROUGH:
+  {
+    MWMEditorSegmentedTableViewCell * tCell = static_cast<MWMEditorSegmentedTableViewCell *>(cell);
+    [tCell configWithDelegate:self
+                         icon:[UIImage imageNamed:@"ic_placepage_drive_through"]
+                         text:L(@"drive_through")
+                         value:feature::YesNoUnknownFromString(m_mapObject.GetMetadata(feature::Metadata::FMD_DRIVE_THROUGH))];
+    break;
+  }
   case MetadataID::FMD_CONTACT_FACEBOOK:
   {
     [self configTextViewCell:cell
@@ -933,6 +944,28 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
     m_mapObject.SetInternet(changeSwitch ? feature::Internet::Wlan : feature::Internet::Unknown);
     break;
   default: NSAssert(false, @"Invalid field for changeSwitch"); break;
+  }
+}
+
+- (void)cell:(UITableViewCell *)cell changeSegmented:(YesNoUnknown)changeSegmented
+{
+  NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+  switch ([self cellTypeForIndexPath:indexPath])
+  {
+  case MetadataID::FMD_DRIVE_THROUGH:
+      switch (changeSegmented)
+      {
+        case Yes:
+          m_mapObject.SetMetadata(feature::Metadata::FMD_DRIVE_THROUGH, "yes");
+          break;
+        case No:
+          m_mapObject.SetMetadata(feature::Metadata::FMD_DRIVE_THROUGH, "no");
+          break;
+        case Unknown:
+          m_mapObject.SetMetadata(feature::Metadata::FMD_DRIVE_THROUGH, "");
+          break;
+      }
+  default: NSAssert(false, @"Invalid field for changeSegmented"); break;
   }
 }
 
