@@ -247,6 +247,11 @@ void ChangesetWrapper::Delete(editor::XMLFeature node)
   m_deleted_types[GetTypeForFeature(node)]++;
 }
 
+void ChangesetWrapper::AddChangesetTag(std::string key, std::string value)
+{
+  m_changesetComments.emplace(std::move(key), std::move(value));
+}
+
 std::string ChangesetWrapper::TypeCountToString(TypeCount const & typeCount)
 {
   if (typeCount.empty())
