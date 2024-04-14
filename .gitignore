@@ -123,6 +123,7 @@ tizen/*/.*
 tizen/*/crash-info/*
 .idea/*
 .idea
+!android/.idea/icon.svg
 
 # Private repository files.
 .private_repository_url
