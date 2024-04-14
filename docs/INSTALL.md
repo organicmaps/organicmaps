@@ -156,6 +156,23 @@ sudo dnf install -y \
     sqlite-devel
 ```
 
+_Alpine:_
+
+```bash
+sudo apk add \
+    cmake \
+    freetype-dev \
+    g++ \
+    icu-dev \
+    mesa-gl \
+    ninja-build \
+    qt6-qtbase-dev \
+    qt6-qtpositioning-dev \
+    qt6-qtsvg-dev \
+    samurai \
+    sqlite-dev
+```
+
 _macOS:_
 
 ```bash
