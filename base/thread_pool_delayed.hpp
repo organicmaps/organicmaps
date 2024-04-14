@@ -5,7 +5,6 @@
 #include "base/linked_map.hpp"
 #include "base/task_loop.hpp"
 #include "base/thread.hpp"
-#include "base/thread_checker.hpp"
 
 #include <chrono>
 #include <condition_variable>
@@ -162,8 +161,6 @@ private:
 
   TaskId m_immediateLastId;
   TaskId m_delayedLastId;
-
-  ThreadChecker m_checker;
 };
 }  // namespace delayed
 }  // namespace thread_pool

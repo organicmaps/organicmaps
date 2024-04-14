@@ -60,7 +60,10 @@
 {
   [super traitCollectionDidChange: previousTraitCollection];
   // Update the app theme when the device appearance is changing.
-  [MWMThemeManager invalidate];
+  if ((self.traitCollection.verticalSizeClass != previousTraitCollection.verticalSizeClass)
+      || (self.traitCollection.horizontalSizeClass != previousTraitCollection.horizontalSizeClass)) {
+    [MWMThemeManager invalidate]; 
+  }
 }
 
 - (BOOL)shouldAutorotate

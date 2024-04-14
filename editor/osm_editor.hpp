@@ -15,6 +15,7 @@
 #include "geometry/rect2d.hpp"
 
 #include "base/atomic_shared_ptr.hpp"
+#include "base/thread_checker.hpp"
 #include "base/timer.hpp"
 
 #include <atomic>

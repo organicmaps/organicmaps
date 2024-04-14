@@ -219,7 +219,6 @@ bool ThreadPool::Shutdown(Exit e)
 
 void ThreadPool::ShutdownAndJoin()
 {
-  ASSERT(m_checker.CalledOnOriginalThread(), ());
   Shutdown(m_exit);
   for (auto & thread : m_threads)
   {
