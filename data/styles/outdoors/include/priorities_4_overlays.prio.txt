@@ -695,6 +695,8 @@ highway-bridleway-tunnel                            # pathtext z13- (also has li
 highway-path                                        # pathtext z13- (also has line z11-)
 highway-path-bicycle                                # pathtext z13- (also has line z11-, line::cycleline z12-)
 highway-path-bridge                                 # pathtext z13- (also has line z11-, line::bridgeblack z17-, line::bridgewhite z15-)
+highway-path-difficult
+highway-path-expert
 highway-path-horse                                  # pathtext z13- (also has line z11-)
 highway-path-tunnel                                 # pathtext z13- (also has line z11-, line::tunnelBackground z17-, line::tunnelCasing z17-)
 === 2820
