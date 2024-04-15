@@ -117,7 +117,8 @@ natural|water|lake;[natural=water][water=lake];;name;int_name;50;
 # ~3M usages. TODO: consolidate all other footway=link/etc. values into highway-footway-minor.
 highway|footway|crossing;[highway=footway][footway=crossing];;name;int_name;51;
 waterway|riverbank;52;
-highway|path|bicycle;[highway=path][bicycle?];;name;int_name;53;
+# 1M+ usages.
+highway|path|bicycle;[highway=path][bicycle=yes],[highway=path][bicycle=designated],[highway=path][bicycle=permissive];;;;53;
 landuse|meadow;54;
 highway|living_street;55;
 man_made|survey_point;56;
@@ -220,7 +221,8 @@ leisure|garden|residential;[leisure=garden][garden:type=residential];;name;int_n
 amenity|fire_station;138;
 landuse|retail;139;
 leisure|nature_reserve;140;
-deprecated:leisure|pitch|tennis:01.2020;[leisure=pitch][sport=tennis];x;name;int_name;141;leisure|pitch
+# TODO: ~1M usages, use a short ID.
+highway|footway|bicycle;[highway=footway][bicycle=yes],[highway=footway][bicycle=designated],[highway=footway][bicycle=permissive];;;;141;
 tourism|information;142;
 highway|motorway_link|bridge;[highway=motorway_link][bridge?];;name;int_name;143;
 # Usually there is something else in place of the old railway, e.g. highway=path,

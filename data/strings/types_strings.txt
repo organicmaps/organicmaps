@@ -12541,6 +12541,9 @@
     tr = Bisiklet ve Yürüyüş Yolu
     uk = Велопішохідна доріжка
 
+  [type.highway.footway.bicycle]
+    ref = type.highway.path.bicycle
+
   [type.highway.path.bridge]
     ref = type.highway.road.bridge
 

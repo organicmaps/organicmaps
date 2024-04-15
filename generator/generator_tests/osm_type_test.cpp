@@ -813,7 +813,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
     auto const params = GetFeatureBuilderParams(tags);
 
     TEST_EQUAL(params.m_types.size(), 8, (params));
-    TEST(params.IsTypeExist(GetType({"highway", "footway"})), (params));
+    TEST(params.IsTypeExist(GetType({"highway", "footway", "bicycle"})), (params));
     TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), ());
     TEST(!params.IsTypeExist(GetType({"hwtag", "yesfoot"})), ());
 
@@ -3056,16 +3056,16 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_HighwayTypesConversion)
   std::vector<std::pair<Type, Tags>> const conversions = {
     {{"highway", "cycleway"}, {{"highway", "path"}, {"foot", "no"}, {"bicycle", "yes"}}},
 
-    // Paved etc. paths to footways.
-    {{"highway", "footway"}, {{"highway", "path"}, {"surface", "paved"}}},
-    {{"highway", "footway"}, {{"highway", "path"}, {"surface", "paved"}, {"smoothness", "bad"}}},
-    {{"highway", "footway"}, {{"highway", "path"}, {"surface", "compacted"}, {"smoothness", "intermediate"}}},
-    {{"highway", "footway"}, {{"highway", "path"}, {"surface", "gravel"}, {"smoothness", "good"}}},
+    // Paved etc. paths to footways (by default considered suitable for bicycles).
+    {{"highway", "footway", "bicycle"}, {{"highway", "path"}, {"surface", "paved"}}},
+    {{"highway", "footway", "bicycle"}, {{"highway", "path"}, {"surface", "paved"}, {"smoothness", "bad"}}},
+    {{"highway", "footway", "bicycle"}, {{"highway", "path"}, {"surface", "compacted"}, {"smoothness", "intermediate"}}},
+    {{"highway", "footway", "bicycle"}, {{"highway", "path"}, {"surface", "gravel"}, {"smoothness", "good"}}},
     {{"highway", "footway", "sidewalk"}, {{"highway", "path"}, {"surface", "gravel"}, {"footway", "sidewalk"}}},
-    {{"highway", "footway"}, {{"highway", "path"}, {"smoothness", "good"}}},
+    {{"highway", "footway", "bicycle"}, {{"highway", "path"}, {"smoothness", "good"}}},
     {{"highway", "footway", "crossing"}, {{"highway", "path"}, {"footway", "crossing"}}},
-    {{"highway", "footway"}, {{"highway", "path"}, {"lit", "yes"}}},
-    {{"highway", "footway"}, {{"highway", "path"}, {"segregated", "no"}}},
+    {{"highway", "footway", "bicycle"}, {{"highway", "path"}, {"lit", "yes"}}},
+    {{"highway", "footway", "bicycle"}, {{"highway", "path"}, {"segregated", "no"}}},
     // No conversion.
     {{"highway", "path"}, {{"highway", "path"}, {"surface", "unpaved"}}},
     {{"highway", "path"}, {{"highway", "path"}, {"surface", "compacted"}, {"smoothness", "bad"}}},
@@ -3111,8 +3111,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_HighwayTypesConversion)
     {{{"highway", "cycleway"}, {"highway", "footway"}}, {{"highway", "path"}, {"segregated", "yes"}}},
 
     // Good quality paths are converted into footways with an explicit bicycle=yes.
-    {{{"highway", "footway"}, {"hwtag", "yesbicycle"}, {"psurface", "paved_good"}}, {{"highway", "path"}, {"surface", "paved"}}},
-    {{{"highway", "footway", "sidewalk"}, {"hwtag", "yesbicycle"}}, {{"highway", "path"}, {"footway", "sidewalk"}}},
+    {{{"highway", "footway", "bicycle"}, {"hwtag", "yesbicycle"}, {"psurface", "paved_good"}}, {{"highway", "path"}, {"surface", "paved"}}},
+    {{{"highway", "footway", "sidewalk"}, {"highway", "footway", "bicycle"}, {"hwtag", "yesbicycle"}}, {{"highway", "path"}, {"footway", "sidewalk"}}},
     // No bicycle=yes addition when access is defined explictly.
     {{{"highway", "footway"}, {"hwtag", "nobicycle"}, {"psurface", "paved_good"}}, {{"highway", "path"}, {"surface", "paved"}, {"bicycle", "no"}}},
     {{{"highway", "footway"}, {"psurface", "paved_good"}}, {{"highway", "path"}, {"smoothness", "good"}, {"foot", "yes"}}},
