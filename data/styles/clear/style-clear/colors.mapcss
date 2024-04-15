@@ -114,6 +114,7 @@
 @construction: #BBBBAA;
 @track: #635730;
 @path: #A05012;
+@path_expert: #3D2617;
 @bridleway: #3D361E;
 
 /* 5.2 Bridges */

@@ -680,6 +680,8 @@ line|z15-[highway=steps],
 {color: @footway;opacity: 0.85;}
 line|z14-[highway=path],
 {color: @path;opacity: 0.6;}
+line|z14-[highway=path][_path_grade=expert],
+{color: @path_expert; opacity: 0.6;}
 line|z14-[piste:type=hike],
 {color: @piste; opacity: 0.4;}
 line|z17-[highway=footway][tunnel?]::tunnelBackground,
@@ -881,6 +883,28 @@ line|z18[highway=path][bicycle=yes],
 {width: 2.8; dashes: 6,4.7; opacity: 0.8;}
 line|z19-[highway=path][bicycle=yes],
 {width: 3.7; dashes: 8,6.2; opacity: 0.8;}
+
+line|z14[highway=path][_path_grade=difficult],
+{width: 0.9; dashes: 1,2;}
+line|z15[highway=path][_path_grade=difficult],
+{width: 1.1; dashes: 1,2;}
+line|z16[highway=path][_path_grade=difficult],
+{width: 1.5; dashes: 1.8,2.5;}
+line|z17[highway=path][_path_grade=difficult],
+{width: 2; dashes: 1.8,2.5;}
+line|z18-[highway=path][_path_grade=difficult],
+{width: 2.8; dashes: 2.8,3.5;}
+
+line|z14[highway=path][_path_grade=expert],
+{width: 0.9; dashes: 1,4;}
+line|z15[highway=path][_path_grade=expert],
+{width: 1.1; dashes: 1,4;}
+line|z16[highway=path][_path_grade=expert],
+{width: 1.5; dashes: 1.6,6;}
+line|z17[highway=path][_path_grade=expert],
+{width: 2; dashes: 1.6,6;}
+line|z18-[highway=path][_path_grade=expert],
+{width: 2.8; dashes: 2.8,8;}
 
 line|z17-[highway=path][tunnel?]::tunnelBackground
 {casing-width-add: 0.5;}
