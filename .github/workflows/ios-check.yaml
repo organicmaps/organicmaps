@@ -41,6 +41,7 @@ jobs:
       LANG: en_US.UTF-8  # Fastlane complains that the terminal is using ASCII.
       LANGUAGE: en_US.UTF-8
       LC_ALL: en_US.UTF-8
+      TEST_RESULTS_BUNDLE_NAME: OMaps-Test-Results
     strategy:
       fail-fast: false
       matrix:
@@ -68,14 +69,38 @@ jobs:
           key: xcode-cache-deriveddata-${{ github.workflow }}-${{ matrix.buildType }}-${{ github.sha }}
           restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-${{ matrix.buildType }}
 
-      - name: Compile
+      - name: Build and Run Tests (Debug)
+        if: matrix.buildType == 'Debug'
         shell: bash
-        # Check for compilation errors.
         run: |
-          xcodebuild \
+          xcodebuild test \
             -workspace xcode/omim.xcworkspace \
             -scheme OMaps \
-            -configuration ${{ matrix.buildType }} build \
-            'generic/platform=iOS' \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
+            -quiet \
+            -resultBundlePath ${{ env.TEST_RESULTS_BUNDLE_NAME }}.xcresult \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Upload Test Results On Failure (Debug)
+        if: ${{ matrix.buildType == 'Debug' && failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.TEST_RESULTS_BUNDLE_NAME }}-${{ github.run_number }}.xcresult
+          path: ${{ env.TEST_RESULTS_BUNDLE_NAME }}.xcresult
+          if-no-files-found: error
+
+      - name: Build (Release)
+        if: matrix.buildType == 'Release'
+        shell: bash
+        run: |
+          xcodebuild build \
+            -workspace xcode/omim.xcworkspace \
+            -scheme OMaps \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -quiet \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
