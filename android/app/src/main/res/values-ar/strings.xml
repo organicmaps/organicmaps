@@ -1207,15 +1207,9 @@
 	<string name="type.highway.footway">مسار للمشاة</string>
 	<string name="type.highway.footway.sidewalk">رصيف</string>
 	<string name="type.highway.footway.crossing">عبور المشاة</string>
-	<string name="type.highway.footway.alpine_hiking">مسار</string>
 	<string name="type.highway.footway.area">منطقة مشاة</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">جسر للمشاة</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">مسار</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">مسار</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">مسار</string>
-	<string name="type.highway.footway.hiking">مسار</string>
-	<string name="type.highway.footway.mountain_hiking">مسار</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">نفق للمشاة</string>
 	<string name="type.highway.ford">مخاضة</string>
@@ -1320,12 +1314,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">جسر</string>
 	<string name="type.highway.track.grade1">شارع</string>
-	<string name="type.highway.track.grade2">شارع</string>
-	<string name="type.highway.track.grade3">شارع</string>
-	<string name="type.highway.track.grade4">شارع</string>
-	<string name="type.highway.track.grade5">شارع</string>
 	<string name="type.highway.track.no.access">شارع</string>
-	<string name="type.highway.track.permissive">شارع</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">نفق</string>
 	<string name="type.highway.traffic_signals">إشارات مرورية</string>

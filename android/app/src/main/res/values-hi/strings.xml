@@ -815,13 +815,7 @@
 	<string name="type.highway.footway">पैदलपथ</string>
 	<string name="type.highway.footway.sidewalk">फ़ुटपाथ</string>
 	<string name="type.highway.footway.crossing">पैदल पार पथ</string>
-	<string name="type.highway.footway.alpine_hiking">पथ</string>
 	<string name="type.highway.footway.area">पैदलपथ</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">पथ</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">पथ</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">पथ</string>
-	<string name="type.highway.footway.hiking">पथ</string>
-	<string name="type.highway.footway.mountain_hiking">पथ</string>
 	<string name="type.highway.motorway">राजमार्ग</string>
 	<string name="type.highway.motorway_junction">राजमार्ग निकास</string>
 	<string name="type.highway.motorway_link">फ्रीवे प्रवेश</string>
@@ -854,12 +848,7 @@
 	<string name="type.highway.track">सड़क</string>
 	<string name="type.highway.track.area">सड़क</string>
 	<string name="type.highway.track.grade1">सड़क</string>
-	<string name="type.highway.track.grade2">सड़क</string>
-	<string name="type.highway.track.grade3">सड़क</string>
-	<string name="type.highway.track.grade4">सड़क</string>
-	<string name="type.highway.track.grade5">सड़क</string>
 	<string name="type.highway.track.no.access">सड़क</string>
-	<string name="type.highway.track.permissive">सड़क</string>
 	<string name="type.highway.traffic_signals">ट्रैफिक लाइट</string>
 	<string name="type.highway.trunk">प्रधान मार्ग</string>
 	<string name="type.highway.trunk_link">प्रधान मार्ग</string>

@@ -2038,22 +2038,10 @@
 
 "type.highway.footway.crossing" = "Jalakäijate ülekäigurada";
 
-"type.highway.footway.alpine_hiking" = "Alpi matkarada";
-
 "type.highway.footway.area" = "Jalakäijate ala";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Jalakäijate sild";
-
-"type.highway.footway.demanding_alpine_hiking" = "Nõudlik alpi matkarada";
-
-"type.highway.footway.demanding_mountain_hiking" = "Rada";
-
-"type.highway.footway.difficult_alpine_hiking" = "Nõudlik mägimatkarada";
-
-"type.highway.footway.hiking" = "Rada";
-
-"type.highway.footway.mountain_hiking" = "Mägirada";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Jalakäijate tunnel";
@@ -2230,17 +2218,7 @@
 
 "type.highway.track.grade1" = "Rada";
 
-"type.highway.track.grade2" = "Rada";
-
-"type.highway.track.grade3" = "Rada";
-
-"type.highway.track.grade4" = "Rada";
-
-"type.highway.track.grade5" = "Rada";
-
 "type.highway.track.no.access" = "Rada";
-
-"type.highway.track.permissive" = "Rada";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunnel";

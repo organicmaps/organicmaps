@@ -1103,15 +1103,9 @@
 	<string name="type.highway.footway">Caminho pedonal</string>
 	<string name="type.highway.footway.sidewalk">Calçada</string>
 	<string name="type.highway.footway.crossing">Travessia de pedestres</string>
-	<string name="type.highway.footway.alpine_hiking">Caminho pedonal</string>
 	<string name="type.highway.footway.area">Área de pedestres</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Ponte para pedestres</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Caminho pedonal difícil</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Caminho pedonal difícil</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Caminho pedonal difícil</string>
-	<string name="type.highway.footway.hiking">Caminho pedonal</string>
-	<string name="type.highway.footway.mountain_hiking">Caminho pedonal</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Túnel para pedestres</string>
 	<string name="type.highway.ford">Rio raso</string>
@@ -1216,12 +1210,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Ponte</string>
 	<string name="type.highway.track.grade1">Estrada rústica</string>
-	<string name="type.highway.track.grade2">Estrada rústica</string>
-	<string name="type.highway.track.grade3">Estrada rústica</string>
-	<string name="type.highway.track.grade4">Estrada rústica</string>
-	<string name="type.highway.track.grade5">Estrada rústica</string>
 	<string name="type.highway.track.no.access">Estrada rústica</string>
-	<string name="type.highway.track.permissive">Estrada rústica</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Túnel rodoviário</string>
 	<string name="type.highway.traffic_signals">Semáforo</string>

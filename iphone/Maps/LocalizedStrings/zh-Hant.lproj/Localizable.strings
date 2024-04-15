@@ -2038,22 +2038,10 @@
 
 "type.highway.footway.crossing" = "行人穿越道";
 
-"type.highway.footway.alpine_hiking" = "人行步道";
-
 "type.highway.footway.area" = "人行步道";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "橋";
-
-"type.highway.footway.demanding_alpine_hiking" = "人行步道";
-
-"type.highway.footway.demanding_mountain_hiking" = "人行步道";
-
-"type.highway.footway.difficult_alpine_hiking" = "人行步道";
-
-"type.highway.footway.hiking" = "人行步道";
-
-"type.highway.footway.mountain_hiking" = "人行步道";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "隧道";
@@ -2230,17 +2218,7 @@
 
 "type.highway.track.grade1" = "土路";
 
-"type.highway.track.grade2" = "土路";
-
-"type.highway.track.grade3" = "土路";
-
-"type.highway.track.grade4" = "土路";
-
-"type.highway.track.grade5" = "土路";
-
 "type.highway.track.no.access" = "土路";
-
-"type.highway.track.permissive" = "土路";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "隧道";

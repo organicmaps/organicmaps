@@ -2038,22 +2038,10 @@
 
 "type.highway.footway.crossing" = "ทางม้าลาย";
 
-"type.highway.footway.alpine_hiking" = "เส้นทาง";
-
 "type.highway.footway.area" = "เส้นทาง";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "สะพาน";
-
-"type.highway.footway.demanding_alpine_hiking" = "เส้นทาง";
-
-"type.highway.footway.demanding_mountain_hiking" = "เส้นทาง";
-
-"type.highway.footway.difficult_alpine_hiking" = "เส้นทาง";
-
-"type.highway.footway.hiking" = "เส้นทาง";
-
-"type.highway.footway.mountain_hiking" = "เส้นทาง";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "อุโมงค์";
@@ -2230,17 +2218,7 @@
 
 "type.highway.track.grade1" = "ถนน";
 
-"type.highway.track.grade2" = "ถนน";
-
-"type.highway.track.grade3" = "ถนน";
-
-"type.highway.track.grade4" = "ถนน";
-
-"type.highway.track.grade5" = "ถนน";
-
 "type.highway.track.no.access" = "ถนน";
-
-"type.highway.track.permissive" = "ถนน";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "อุโมงค์";

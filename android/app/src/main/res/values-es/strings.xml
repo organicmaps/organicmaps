@@ -1202,15 +1202,9 @@
 	<string name="type.highway.footway">Camino</string>
 	<string name="type.highway.footway.sidewalk">Acera</string>
 	<string name="type.highway.footway.crossing">Paso de peatones</string>
-	<string name="type.highway.footway.alpine_hiking">Camino de senderismo alpino</string>
 	<string name="type.highway.footway.area">Zona peatonal</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Puente peatonal</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Camino</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Camino</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Camino</string>
-	<string name="type.highway.footway.hiking">Sendero</string>
-	<string name="type.highway.footway.mountain_hiking">Sendero de montaña</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Túnel peatonal</string>
 	<string name="type.highway.ford">Vado</string>
@@ -1315,12 +1309,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Puente</string>
 	<string name="type.highway.track.grade1">Pista</string>
-	<string name="type.highway.track.grade2">Pista</string>
-	<string name="type.highway.track.grade3">Pista</string>
-	<string name="type.highway.track.grade4">Pista</string>
-	<string name="type.highway.track.grade5">Pista</string>
 	<string name="type.highway.track.no.access">Pista</string>
-	<string name="type.highway.track.permissive">Pista</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Túnel</string>
 	<string name="type.highway.traffic_signals">Semáforos</string>

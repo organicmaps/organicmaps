@@ -1189,15 +1189,9 @@
 	<string name="type.highway.elevator">Hissi</string>
 	<string name="type.highway.footway">Polku</string>
 	<string name="type.highway.footway.crossing">Jalankulkijoiden ylitys</string>
-	<string name="type.highway.footway.alpine_hiking">Polku</string>
 	<string name="type.highway.footway.area">Jalankulkualue</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Jalankulkusilta</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Vaativa alppivaellus</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Vaativa vuoristovaellus</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Vaikea alppivaellus</string>
-	<string name="type.highway.footway.hiking">Vaellus</string>
-	<string name="type.highway.footway.mountain_hiking">Vuoristovaellus</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Jalankulkutunneli</string>
 	<string name="type.highway.ford">Kahluupaikka</string>
@@ -1302,12 +1296,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Silta</string>
 	<string name="type.highway.track.grade1">Katu</string>
-	<string name="type.highway.track.grade2">Katu</string>
-	<string name="type.highway.track.grade3">Katu</string>
-	<string name="type.highway.track.grade4">Katu</string>
-	<string name="type.highway.track.grade5">Katu</string>
 	<string name="type.highway.track.no.access">Katu</string>
-	<string name="type.highway.track.permissive">Katu</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunneli</string>
 	<string name="type.highway.traffic_signals">Liikennevalot</string>

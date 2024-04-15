@@ -2038,22 +2038,10 @@
 
 "type.highway.footway.crossing" = "Travessia de pedestres";
 
-"type.highway.footway.alpine_hiking" = "Caminho pedonal";
-
 "type.highway.footway.area" = "Área de pedestres";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Ponte para pedestres";
-
-"type.highway.footway.demanding_alpine_hiking" = "Caminho pedonal difícil";
-
-"type.highway.footway.demanding_mountain_hiking" = "Caminho pedonal difícil";
-
-"type.highway.footway.difficult_alpine_hiking" = "Caminho pedonal difícil";
-
-"type.highway.footway.hiking" = "Caminho pedonal";
-
-"type.highway.footway.mountain_hiking" = "Caminho pedonal";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Túnel para pedestres";
@@ -2230,17 +2218,7 @@
 
 "type.highway.track.grade1" = "Estrada rústica";
 
-"type.highway.track.grade2" = "Estrada rústica";
-
-"type.highway.track.grade3" = "Estrada rústica";
-
-"type.highway.track.grade4" = "Estrada rústica";
-
-"type.highway.track.grade5" = "Estrada rústica";
-
 "type.highway.track.no.access" = "Estrada rústica";
-
-"type.highway.track.permissive" = "Estrada rústica";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Túnel rodoviário";

@@ -1115,15 +1115,9 @@
 	<string name="type.highway.footway">Ösvény</string>
 	<string name="type.highway.footway.sidewalk">Járda</string>
 	<string name="type.highway.footway.crossing">Gyalogátkelőhely</string>
-	<string name="type.highway.footway.alpine_hiking">Ösvény</string>
 	<string name="type.highway.footway.area">Ösvény</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Híd</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Ösvény</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Ösvény</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Ösvény</string>
-	<string name="type.highway.footway.hiking">Ösvény</string>
-	<string name="type.highway.footway.mountain_hiking">Ösvény</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Alagút</string>
 	<string name="type.highway.ford">Gázló</string>
@@ -1227,12 +1221,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Híd</string>
 	<string name="type.highway.track.grade1">Utca</string>
-	<string name="type.highway.track.grade2">Utca</string>
-	<string name="type.highway.track.grade3">Utca</string>
-	<string name="type.highway.track.grade4">Utca</string>
-	<string name="type.highway.track.grade5">Utca</string>
 	<string name="type.highway.track.no.access">Utca</string>
-	<string name="type.highway.track.permissive">Utca</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Alagút</string>
 	<string name="type.highway.traffic_signals">Közlekedési lámpa</string>

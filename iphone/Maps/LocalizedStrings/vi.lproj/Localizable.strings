@@ -2038,22 +2038,10 @@
 
 "type.highway.footway.crossing" = "Vạch qua đường";
 
-"type.highway.footway.alpine_hiking" = "Đường";
-
 "type.highway.footway.area" = "Đường";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Cầu";
-
-"type.highway.footway.demanding_alpine_hiking" = "Đường";
-
-"type.highway.footway.demanding_mountain_hiking" = "Đường";
-
-"type.highway.footway.difficult_alpine_hiking" = "Đường";
-
-"type.highway.footway.hiking" = "Đường";
-
-"type.highway.footway.mountain_hiking" = "Đường";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Đường hầm";
@@ -2230,17 +2218,7 @@
 
 "type.highway.track.grade1" = "Phố";
 
-"type.highway.track.grade2" = "Phố";
-
-"type.highway.track.grade3" = "Phố";
-
-"type.highway.track.grade4" = "Phố";
-
-"type.highway.track.grade5" = "Phố";
-
 "type.highway.track.no.access" = "Phố";
-
-"type.highway.track.permissive" = "Phố";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Đường hầm";

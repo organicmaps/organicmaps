@@ -2038,22 +2038,10 @@
 
 "type.highway.footway.crossing" = "Piyada keçidi";
 
-"type.highway.footway.alpine_hiking" = "Yol";
-
 "type.highway.footway.area" = "Piyada ərazisi";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Körpü";
-
-"type.highway.footway.demanding_alpine_hiking" = "Yol";
-
-"type.highway.footway.demanding_mountain_hiking" = "Yol";
-
-"type.highway.footway.difficult_alpine_hiking" = "Yol";
-
-"type.highway.footway.hiking" = "Yol";
-
-"type.highway.footway.mountain_hiking" = "Yol";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Tunel";
@@ -2230,17 +2218,7 @@
 
 "type.highway.track.grade1" = "Uçuş zolağı";
 
-"type.highway.track.grade2" = "Uçuş zolağı";
-
-"type.highway.track.grade3" = "Uçuş zolağı";
-
-"type.highway.track.grade4" = "Uçuş zolağı";
-
-"type.highway.track.grade5" = "Uçuş zolağı";
-
 "type.highway.track.no.access" = "Uçuş zolağı";
-
-"type.highway.track.permissive" = "Uçuş zolağı";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunel";

@@ -2038,22 +2038,10 @@
 
 "type.highway.footway.crossing" = "Trecere de pietoni";
 
-"type.highway.footway.alpine_hiking" = "Cale";
-
 "type.highway.footway.area" = "Cale";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Pod";
-
-"type.highway.footway.demanding_alpine_hiking" = "Cale";
-
-"type.highway.footway.demanding_mountain_hiking" = "Cale";
-
-"type.highway.footway.difficult_alpine_hiking" = "Cale";
-
-"type.highway.footway.hiking" = "Cale";
-
-"type.highway.footway.mountain_hiking" = "Cale";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Tunel";
@@ -2230,17 +2218,7 @@
 
 "type.highway.track.grade1" = "Stradă";
 
-"type.highway.track.grade2" = "Stradă";
-
-"type.highway.track.grade3" = "Stradă";
-
-"type.highway.track.grade4" = "Stradă";
-
-"type.highway.track.grade5" = "Stradă";
-
 "type.highway.track.no.access" = "Stradă";
-
-"type.highway.track.permissive" = "Stradă";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunel";

@@ -2038,22 +2038,10 @@
 
 "type.highway.footway.crossing" = "Διάβαση πεζών";
 
-"type.highway.footway.alpine_hiking" = "Διαδρομή";
-
 "type.highway.footway.area" = "Διαδρομή";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Γέφυρα";
-
-"type.highway.footway.demanding_alpine_hiking" = "Διαδρομή";
-
-"type.highway.footway.demanding_mountain_hiking" = "Διαδρομή";
-
-"type.highway.footway.difficult_alpine_hiking" = "Διαδρομή";
-
-"type.highway.footway.hiking" = "Διαδρομή";
-
-"type.highway.footway.mountain_hiking" = "Διαδρομή";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Σήραγγα";
@@ -2230,17 +2218,7 @@
 
 "type.highway.track.grade1" = "Οδός";
 
-"type.highway.track.grade2" = "Οδός";
-
-"type.highway.track.grade3" = "Οδός";
-
-"type.highway.track.grade4" = "Οδός";
-
-"type.highway.track.grade5" = "Οδός";
-
 "type.highway.track.no.access" = "Οδός";
-
-"type.highway.track.permissive" = "Οδός";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Σήραγγα";

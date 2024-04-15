@@ -1085,15 +1085,9 @@
 	<string name="type.highway.footway">Sti</string>
 	<string name="type.highway.footway.sidewalk">Fortov</string>
 	<string name="type.highway.footway.crossing">Fodgængerovergang</string>
-	<string name="type.highway.footway.alpine_hiking">Sti</string>
 	<string name="type.highway.footway.area">Sti</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Bro</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Sti</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Sti</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Sti</string>
-	<string name="type.highway.footway.hiking">Sti</string>
-	<string name="type.highway.footway.mountain_hiking">Sti</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunnel</string>
 	<string name="type.highway.ford">Vadested</string>
@@ -1197,12 +1191,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Bro</string>
 	<string name="type.highway.track.grade1">Gade</string>
-	<string name="type.highway.track.grade2">Gade</string>
-	<string name="type.highway.track.grade3">Gade</string>
-	<string name="type.highway.track.grade4">Gade</string>
-	<string name="type.highway.track.grade5">Gade</string>
 	<string name="type.highway.track.no.access">Gade</string>
-	<string name="type.highway.track.permissive">Gade</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunnel</string>
 	<string name="type.highway.traffic_signals">Trafiklys</string>

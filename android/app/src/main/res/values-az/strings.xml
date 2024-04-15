@@ -1166,15 +1166,9 @@
 	<string name="type.highway.footway">Səki</string>
 	<string name="type.highway.footway.sidewalk">Səki</string>
 	<string name="type.highway.footway.crossing">Piyada keçidi</string>
-	<string name="type.highway.footway.alpine_hiking">Yol</string>
 	<string name="type.highway.footway.area">Piyada ərazisi</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Körpü</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Yol</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Yol</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Yol</string>
-	<string name="type.highway.footway.hiking">Yol</string>
-	<string name="type.highway.footway.mountain_hiking">Yol</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunel</string>
 	<string name="type.highway.ford">Keçid</string>
@@ -1279,12 +1273,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Körpü</string>
 	<string name="type.highway.track.grade1">Uçuş zolağı</string>
-	<string name="type.highway.track.grade2">Uçuş zolağı</string>
-	<string name="type.highway.track.grade3">Uçuş zolağı</string>
-	<string name="type.highway.track.grade4">Uçuş zolağı</string>
-	<string name="type.highway.track.grade5">Uçuş zolağı</string>
 	<string name="type.highway.track.no.access">Uçuş zolağı</string>
-	<string name="type.highway.track.permissive">Uçuş zolağı</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunel</string>
 	<string name="type.highway.traffic_signals">İşıqfor</string>

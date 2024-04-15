@@ -1073,15 +1073,9 @@
 	<string name="type.highway.footway">पादचारी मार्ग</string>
 	<string name="type.highway.footway.sidewalk">फुटपाथ</string>
 	<string name="type.highway.footway.crossing">पादचारी ओलांडणे</string>
-	<string name="type.highway.footway.alpine_hiking">पथ</string>
 	<string name="type.highway.footway.area">पादचारी झोन</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">पादचारी पूल</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">पथ</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">पथ</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">पथ</string>
-	<string name="type.highway.footway.hiking">पथ</string>
-	<string name="type.highway.footway.mountain_hiking">पथ</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">पादचारी बोगदा</string>
 	<string name="type.highway.living_street">वस्ती मार्ग</string>
@@ -1185,12 +1179,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">पूल</string>
 	<string name="type.highway.track.grade1">ट्रॅक</string>
-	<string name="type.highway.track.grade2">ट्रॅक</string>
-	<string name="type.highway.track.grade3">ट्रॅक</string>
-	<string name="type.highway.track.grade4">ट्रॅक</string>
-	<string name="type.highway.track.grade5">ट्रॅक</string>
 	<string name="type.highway.track.no.access">ट्रॅक</string>
-	<string name="type.highway.track.permissive">ट्रॅक</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">बोगदा</string>
 	<string name="type.highway.traffic_signals">वाहतूक दिवे</string>

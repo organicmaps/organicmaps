@@ -1196,15 +1196,9 @@
 	<string name="type.highway.footway">Yaya Yolu</string>
 	<string name="type.highway.footway.sidewalk">Kaldırım</string>
 	<string name="type.highway.footway.crossing">Yaya Geçidi</string>
-	<string name="type.highway.footway.alpine_hiking">Yol</string>
 	<string name="type.highway.footway.area">Yaya Alanı</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Köprü</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Yol</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Yol</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Yol</string>
-	<string name="type.highway.footway.hiking">Yol</string>
-	<string name="type.highway.footway.mountain_hiking">Yol</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tünel</string>
 	<string name="type.highway.ford">Geçit</string>
@@ -1309,12 +1303,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Köprü</string>
 	<string name="type.highway.track.grade1">Pist</string>
-	<string name="type.highway.track.grade2">Pist</string>
-	<string name="type.highway.track.grade3">Pist</string>
-	<string name="type.highway.track.grade4">Pist</string>
-	<string name="type.highway.track.grade5">Pist</string>
 	<string name="type.highway.track.no.access">Pist</string>
-	<string name="type.highway.track.permissive">Pist</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tünel</string>
 	<string name="type.highway.traffic_signals">Trafik Işıkları</string>

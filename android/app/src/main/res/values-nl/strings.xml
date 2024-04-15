@@ -1192,15 +1192,9 @@
 	<string name="type.highway.footway">Voetpad</string>
 	<string name="type.highway.footway.sidewalk">Stoep</string>
 	<string name="type.highway.footway.crossing">Voetgangersoversteekplaats</string>
-	<string name="type.highway.footway.alpine_hiking">Alpine wandelpad</string>
 	<string name="type.highway.footway.area">Voetgangerszone</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Voetgangersbrug</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Uitdagend alpine bergklimpad</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Uitdagend bergwandelpad</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Moeilijk alpine bergklimpad</string>
-	<string name="type.highway.footway.hiking">Wandelpad</string>
-	<string name="type.highway.footway.mountain_hiking">Bergpad</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Voetgangerstunnel</string>
 	<string name="type.highway.ford">Voorde</string>
@@ -1305,12 +1299,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Brug</string>
 	<string name="type.highway.track.grade1">Straat</string>
-	<string name="type.highway.track.grade2">Straat</string>
-	<string name="type.highway.track.grade3">Straat</string>
-	<string name="type.highway.track.grade4">Straat</string>
-	<string name="type.highway.track.grade5">Straat</string>
 	<string name="type.highway.track.no.access">Straat</string>
-	<string name="type.highway.track.permissive">Straat</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunnel</string>
 	<string name="type.highway.traffic_signals">Verkeerslichten</string>
