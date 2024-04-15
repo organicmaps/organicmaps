@@ -537,8 +537,8 @@ natural|water|moat;[natural=water][water=moat];;name;int_name;449;
 natural|water|wastewater;[natural=water][water=wastewater];;name;int_name;450;
 deprecated:railway|razed:06.2023;451;x
 highway|footway|demanding_mountain_hiking;[highway=footway][sac_scale=demanding_mountain_hiking];;name;int_name;452;
-deprecated|deprecated;453;x
-deprecated|deprecated;454;x
+amenity|shelter|basic_hut;[amenity=shelter][shelter_type=basic_hut];;name;int_name;453;
+amenity|shelter|lean_to;[amenity=shelter][shelter_type=lean_to];;name;int_name;454;
 landuse|orchard;455;
 amenity|shelter|public_transport;[amenity=shelter][shelter_type=public_transport];;name;int_name;456;
 highway|living_street|tunnel;[highway=living_street][tunnel?];;name;int_name;457;
