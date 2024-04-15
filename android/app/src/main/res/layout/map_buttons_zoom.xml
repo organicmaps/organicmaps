@@ -10,9 +10,11 @@
     android:id="@+id/nav_zoom_in"
     style="@style/MwmWidget.MapButton.Zoom"
     app:srcCompat="@drawable/ic_plus"
-    android:layout_marginBottom="@dimen/margin_half"/>
+    android:layout_marginBottom="@dimen/margin_half"
+    android:contentDescription="@string/zoom_in"/>
   <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/nav_zoom_out"
     style="@style/MwmWidget.MapButton.Zoom"
-    app:srcCompat="@drawable/ic_minus" />
+    app:srcCompat="@drawable/ic_minus"
+    android:contentDescription="@string/zoom_out"/>
 </LinearLayout>
