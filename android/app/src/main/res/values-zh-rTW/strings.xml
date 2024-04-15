@@ -924,6 +924,8 @@
 	<string name="type.amenity.shelter">隱藏處</string>
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">隱藏處</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">露營小屋</string>
 	<string name="type.amenity.public_bath">公共浴場</string>
 	<string name="type.amenity.shower">淋浴間</string>
 	<string name="type.amenity.stripclub">脫衣舞俱樂部</string>

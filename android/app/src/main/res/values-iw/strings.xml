@@ -840,6 +840,10 @@
 	<string name="type.amenity.shelter">מחסה</string>
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">מחסה</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">בקתת לינה</string>
+	<!-- A traditional 3-walled shelter (one side open), suitable for overnight camping. -->
+	<string name="type.amenity.shelter.lean_to">מחסה ללינה</string>
 	<string name="type.amenity.public_bath">אמבטיה ציבורית</string>
 	<string name="type.amenity.stripclub">מועדון חשפנות</string>
 	<string name="type.amenity.vehicle_inspection">לבדיקה טכנית</string>

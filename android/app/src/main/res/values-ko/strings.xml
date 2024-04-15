@@ -887,6 +887,8 @@
 	<string name="type.amenity.shelter">대피소</string>
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">대피소</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">비박 오두막</string>
 	<string name="type.amenity.public_bath">대중목욕탕</string>
 	<string name="type.amenity.shower">샤워시설</string>
 	<string name="type.amenity.stripclub">스트립클럽</string>

@@ -1572,6 +1572,12 @@
 /* A weather shelter by the public transport stop. */
 "type.amenity.shelter.public_transport" = "Refugio";
 
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
+"type.amenity.shelter.basic_hut" = "cabaña vivac";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
+"type.amenity.shelter.lean_to" = "Lean-to Shelter";
+
 "type.amenity.public_bath" = "Baños públicos";
 
 "type.amenity.shower" = "Ducha";

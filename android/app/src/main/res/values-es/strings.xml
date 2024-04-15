@@ -960,6 +960,8 @@
 	<string name="type.amenity.shelter">Refugio</string>
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">Refugio</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">cabaña de vivac</string>
 	<string name="type.amenity.public_bath">Baños públicos</string>
 	<string name="type.amenity.shower">Ducha</string>
 	<string name="type.amenity.stripclub">Club de striptease</string>

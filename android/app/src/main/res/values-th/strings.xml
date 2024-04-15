@@ -888,6 +888,8 @@
 	<string name="type.amenity.shelter">ที่อยู่อาศัย</string>
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">ที่อยู่อาศัย</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">กระท่อมพักแรม</string>
 	<string name="type.amenity.public_bath">ห้องอาบน้ำสาธารณะ</string>
 	<string name="type.amenity.shower">ฝักบัวอาบน้ำ</string>
 	<string name="type.amenity.stripclub">สตริปคลับ</string>

@@ -371,6 +371,8 @@
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">Betri</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">kibanda cha bivouac</string>
 	<string name="type.amenity.public_bath">Bafu ya Umma</string>
 	<string name="type.amenity.stripclub">Klabu ya Strip</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Mashine ya kuuzia tiketi za usafiri wa umma</string>

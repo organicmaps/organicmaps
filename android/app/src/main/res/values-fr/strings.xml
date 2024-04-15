@@ -952,6 +952,8 @@
 	<string name="type.amenity.shelter">Abri</string>
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">Abri</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">cabane de bivouac</string>
 	<string name="type.amenity.public_bath">Bain public</string>
 	<string name="type.amenity.shower">Douche</string>
 	<string name="type.amenity.stripclub">Club de strip-tease</string>

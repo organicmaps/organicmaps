@@ -888,6 +888,8 @@
 	<string name="type.amenity.shelter">پناهگاه</string>
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">پناهگاه</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">کلبه بیواک</string>
 	<string name="type.amenity.public_bath">حمام عمومی</string>
 	<string name="type.amenity.shower">حمام</string>
 	<string name="type.amenity.stripclub">باشگاه استریپ</string>

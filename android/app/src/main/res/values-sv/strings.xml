@@ -886,6 +886,8 @@
 	<string name="type.amenity.shelter">Vindskydd</string>
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">Vindskydd</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">bivack hydda</string>
 	<string name="type.amenity.public_bath">Offentligt bad</string>
 	<string name="type.amenity.shower">Dusch</string>
 	<string name="type.amenity.stripclub">Stripklubb</string>
