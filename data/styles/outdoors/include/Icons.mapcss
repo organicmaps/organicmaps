@@ -188,6 +188,8 @@ node|z16-[amenity=bbq],
 area|z16-[amenity=bbq],
 node|z13-[amenity=shelter],
 area|z13-[amenity=shelter],
+node|z13-[amenity=shelter][shelter_type=basic_hut],
+node|z13-[amenity=shelter][shelter_type=lean_to],
 node|z13-[tourism=caravan_site],
 area|z13-[tourism=caravan_site],
 {text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
@@ -249,12 +251,20 @@ area|z16-[amenity=bbq],
 
 node|z13-[amenity=shelter],
 area|z13-[amenity=shelter],
+node|z13-[amenity=shelter][shelter_type=lean_to],
 {icon-image: shelter-s.svg; icon-min-distance: 10; font-size: 11;}
+node|z13-[amenity=shelter][shelter_type=basic_hut],
+{icon-image: alpine_hut-s.svg; icon-min-distance: 10; font-size: 11;}
 node|z14-[amenity=shelter],
 area|z14-[amenity=shelter],
+node|z14-[amenity=shelter][shelter_type=lean_to],
 {icon-image: shelter-m.svg;}
+node|z14-[amenity=shelter][shelter_type=basic_hut],
+{icon-image: alpine_hut-m.svg;}
 node|z16-[amenity=shelter],
 area|z16-[amenity=shelter],
+node|z16-[amenity=shelter][shelter_type=lean_to],
+node|z16-[amenity=shelter][shelter_type=basic_hut],
 {font-size: 12; icon-min-distance: 0;}
 
 node|z13-[tourism=caravan_site],

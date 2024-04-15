@@ -4767,6 +4767,64 @@
     comment = A weather shelter by the public transport stop.
     ref = type.amenity.shelter
 
+  [type.amenity.shelter.basic_hut]
+    comment = Compared to wilderness_hut its smaller and simpler, without a fireplace.
+    en = Bivouac Hut
+    af = bivak hut
+    ar = كوخ إقامة مؤقتة
+    az = bivouac daxması
+    be = Хаціна-бівак
+    bg = Колибка за бивак
+    ca = cabana bivac
+    cs = bivakovací chata
+    da = Bivuakhytte
+    de = Biwakschachtel
+    el = καταφύγιο bivouac
+    es = cabaña de vivac
+    es-MX = cabaña vivac
+    et = bivouac-küünla
+    eu = bivouac borda
+    fa = کلبه بیواک
+    fi = bivouac-mökki
+    fr = cabane de bivouac
+    he = בקתת לינה
+    hi = द्विवार्षिक झोपड़ी
+    hu = bivak kunyhó
+    id = pondok bivak
+    it = capanna di bivacco
+    ja = ビバーク小屋
+    ko = 비박 오두막
+    lt = bivako namelis
+    mr = बिव्होक झोपडी
+    nb = bivuakkhytte
+    nl = bivakhut
+    pl = chata biwakowa
+    pt = cabana básica
+    ro = baracă de bivuac
+    ru = Хижина для ночлега
+    sk = bivaková chata
+    sv = bivack hydda
+    sw = kibanda cha bivouac
+    th = กระท่อมพักแรม
+    tr = bivouac kulübe
+    uk = Хатинка-бівуак
+    vi = túp lều bivouac
+    zh = 露营小屋
+    zh-Hans = 行军床
+    zh-Hant = 露營小屋
+
+  [type.amenity.shelter.lean_to]
+    comment = A traditional 3-walled shelter (one side open), suitable for overnight camping.
+    en = Lean-to Shelter
+    be = Бівальны навес
+    bg = Подслон за бивак
+    de = Lean-to Wetterschutz
+    he = מחסה ללינה
+    pt = Abrigo tipo telheiro
+    pt-BR = Abrigo tipo alpendre
+    ru = Бивачный навес
+    uk = Бівуачний навіс
+
   [type.amenity.public_bath]
     en = Public Bath
     ar = حمام عام

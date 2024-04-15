@@ -6485,6 +6485,58 @@ sw:Malazi
 fa:پناهگاه
 mr:निवारा
 
+amenity-shelter-basic_hut
+en:3Bivouac Hut|Bivvy|Bothy|Hut
+ar:كوخ إقامة مؤقتة
+be:Хаціна-бівак
+bg:Колибка за бивак
+ca:cabana bivac
+cs:bivakovací chata
+da:Bivuakhytte
+de:4Biwakschachtel
+el:καταφύγιο bivouac
+es:cabaña de vivac
+es-MX:cabaña vivac
+et:bivouac-küünla
+eu:bivouac borda
+fa:کلبه بیواک
+fi:bivouac-mökki
+fr:cabane de bivouac
+he:בקתת לינה|בקתה
+hi:द्विवार्षिक झोपड़ी
+hu:bivak kunyhó
+id:pondok bivak
+it:capanna di bivacco
+ja:ビバーク小屋
+ko:비박 오두막
+mr:बिव्होक झोपडी
+nb:bivuakkhytte
+nl:bivakhut
+pl:chata biwakowa
+pt:cabana básica
+ro:baracă de bivuac
+ru:Хижина для ночлега
+sk:bivaková chata
+sv:bivack hydda
+sw:kibanda cha bivouac
+th:กระท่อมพักแรม
+tr:bivouac kulübe
+uk:Хатинка-бівуак
+vi:túp lều bivouac
+zh-Hans:行军床
+zh-Hant:露營小屋
+
+amenity-shelter-lean_to
+en:3Lean-to Shelter|4Shelter|Refuge
+be:Бівальны навес
+bg:Подслон за бивак
+de:Lean-to Wetterschutz
+he:מחסה ללינה|מחסה|מחסה פתוח
+pt:Abrigo tipo telheiro|telheiro
+pt-BR:Abrigo tipo alpendre|alpendre
+ru:Бивачный навес
+uk:Бівуачний навіс
+
 amenity-stripclub
 en:Stripclub
 ar:Stripclub

@@ -401,6 +401,8 @@ amenity-biergarten                                  # icon z15- (also has captio
 amenity-pub                                         # icon z15- (also has caption(optional) z15-)
 === 3950
 
+amenity-shelter-basic_hut                           # icon z13- (also has caption(optional) z13-)
+amenity-shelter-lean_to                             # icon z13- (also has caption(optional) z13-)
 tourism-wilderness_hut                              # icon z13- (also has caption(optional) z13-)
 === 3900
 
@@ -1510,6 +1512,8 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # amenity-pub                                       # caption(optional) z15- (also has icon z15-)
 # === -6050
 
+# amenity-shelter-basic_hut                         # caption(optional) z13- (also has icon z13-)
+# amenity-shelter-lean_to                           # caption(optional) z13- (also has icon z13-)
 # tourism-wilderness_hut                            # caption(optional) z13- (also has icon z13-)
 # === -6100
 
