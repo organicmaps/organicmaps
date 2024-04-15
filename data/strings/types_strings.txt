@@ -12511,17 +12511,6 @@
     zh-Hans = 小道
     zh-Hant = 人行步道
 
-  [type.highway.path.alpine_hiking]
-    ref = type.highway.path
-    de = Alpinwanderweg
-    es = Camino de senderismo alpino
-    et = Alpi matkarada
-    fi = Alppivaellus
-    nl = Alpine wandelpad
-    pl = Ścieżka wspinaczkowa
-    pt-BR = Caminho pedonal
-    sk = Turistický chodník
-
   [type.highway.path.bicycle]
     ref = type.highway.path
     en = Cycle & Foot Path
@@ -12547,41 +12536,6 @@
   [type.highway.path.bridge]
     ref = type.highway.road.bridge
 
-  [type.highway.path.demanding_alpine_hiking]
-    ref = type.highway.path
-    de = Anspruchsvoller Alpinwanderweg
-    es = Camino de senderismo alpino exigente
-    et = Nõudlik alpi matkarada
-    fi = Vaativa alppivaellus
-    pt-BR = Caminho pedonal difícil
-    sk = Náročný turistický chodník
-
-  [type.highway.path.demanding_mountain_hiking]
-    ref = type.highway.path
-    de = Anspruchsvoller Bergwanderweg
-    es = Camino de senderismo de montaña exigente
-    et = Nõudlik mägimatkarada
-    fi = Vaativa vuoristovaellus
-    pt-BR = Caminho pedonal difícil
-    sk = Náročný horský chodník
-
-  [type.highway.path.difficult_alpine_hiking]
-    ref = type.highway.path
-    de = Schwieriger Alpinwanderweg
-    et = Raske alpi matkarada
-    fi = Vaikea alppivaellus
-    pt-BR = Caminho pedonal difícil
-    sk = Obtiažny turistický chodník
-
-  [type.highway.path.hiking]
-    ref = type.highway.path
-    de = Wanderweg
-    es = Sendero
-    fi = Vaellus
-    nl = Wandelpad
-    pt-BR = Caminho pedonal
-    sk = Turistický chodník
-
   [type.highway.path.horse]
     ref = type.highway.path
     en = Bridle Path
@@ -12597,19 +12551,6 @@
     sk = Cesta pre jazdca na zvierati
     tr = Atlı Yolu
     uk = Кінна стежка
-
-  [type.highway.path.mountain_hiking]
-    ref = type.highway.path
-    de = Bergwanderweg
-    es = Sendero de montaña
-    et = Mägitee
-    fi = Vuoristovaellus
-    nl = Bergpad
-    pt-BR = Caminho pedonal
-    sk = Horský turistický chodník
-
-  [type.highway.path.permissive]
-    ref = type.highway.path
 
   [type.highway.path.tunnel]
     ref = type.highway.road.tunnel
