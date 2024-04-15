@@ -269,30 +269,23 @@ highway-bridleway-bridge                            # line z11- (also has line::
 highway-bridleway-tunnel                            # line z11- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z13-)
 highway-footway                                     # line z11- (also has pathtext z13-)
 highway-footway-area                                # line z11- and area z14- (also has pathtext z13-)
-highway-footway-bridge                              # line z11- (also has line::bridgeblack z17-, line::bridgewhite z15-, pathtext z13-)
-highway-footway-sidewalk                            # line z16-
-highway-footway-tunnel                              # line z11- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z13-)
+highway-footway-bicycle
 highway-path                                        # line z11- (also has pathtext z13-)
-highway-path-alpine_hiking                          # line z11- (also has pathtext z13-)
 highway-path-bicycle                                # line z11- (also has pathtext z13-)
-highway-path-bridge                                 # line z11- (also has line::bridgeblack z17-, line::bridgewhite z15-, pathtext z13-)
-highway-path-demanding_alpine_hiking                # line z11- (also has pathtext z13-)
-highway-path-demanding_mountain_hiking              # line z11- (also has pathtext z13-)
-highway-path-difficult_alpine_hiking                # line z11- (also has pathtext z13-)
-highway-path-hiking                                 # line z11- (also has pathtext z13-)
-highway-path-horse                                  # line z11- (also has pathtext z13-)
-highway-path-mountain_hiking                        # line z11- (also has pathtext z13-)
-highway-path-tunnel                                 # line z11- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z13-)
 highway-raceway                                     # line z14- (also has pathtext z16-)
 highway-track                                       # line z11- (also has pathtext z13-)
 highway-track-area                                  # line z11- (also has pathtext z13-)
 highway-track-bridge                                # line z11- (also has line::bridgeblack z17-, line::bridgewhite z15-, pathtext z13-)
 highway-track-no-access                             # line z11- (also has pathtext z13-)
 highway-track-tunnel                                # line z11- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z13-)
-leisure-track                                       # line z15- (also has caption z16-)
 === 180
 
+highway-footway-bicycle::cycleline
+highway-path-bicycle::cycleline
+=== 170
+
 highway-construction                                # line z11- (also has pathtext z15-)
+leisure-track                                       # line z15- (also has caption z16-)
 railway-abandoned                                   # line z13-
 railway-abandoned-bridge                            # line z13- (also has line::bridgeblack z16-, line::bridgewhite z16-)
 railway-abandoned-tunnel                            # line z13-
@@ -302,6 +295,20 @@ railway-preserved                                   # line z13-
 railway-preserved-bridge                            # line z13- (also has line::bridgeblack z16-, line::bridgewhite z15-)
 railway-preserved-tunnel                            # line z13-
 === 160
+
+highway-footway-bridge                              # line z11- (also has line::bridgeblack z17-, line::bridgewhite z15-, pathtext z13-)
+highway-footway-sidewalk                            # line z16-
+highway-footway-tunnel                              # line z11- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z13-)
+highway-path-alpine_hiking                          # line z11- (also has pathtext z13-)
+highway-path-bridge                                 # line z11- (also has line::bridgeblack z17-, line::bridgewhite z15-, pathtext z13-)
+highway-path-demanding_alpine_hiking                # line z11- (also has pathtext z13-)
+highway-path-demanding_mountain_hiking              # line z11- (also has pathtext z13-)
+highway-path-difficult_alpine_hiking                # line z11- (also has pathtext z13-)
+highway-path-hiking                                 # line z11- (also has pathtext z13-)
+highway-path-horse                                  # line z11- (also has pathtext z13-)
+highway-path-mountain_hiking                        # line z11- (also has pathtext z13-)
+highway-path-tunnel                                 # line z11- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z13-)
+=== 155
 
 highway-bridleway-bridge::bridgewhite               # line::bridgewhite z15- (also has line z11-, line::bridgeblack z17-, pathtext z13-)
 highway-cycleway-bridge::bridgewhite                # line::bridgewhite z15- (also has line z11-, line::bridgeblack z17-, pathtext z13-)

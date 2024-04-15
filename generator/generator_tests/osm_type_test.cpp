@@ -813,7 +813,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
     auto const params = GetFeatureBuilderParams(tags);
 
     TEST_EQUAL(params.m_types.size(), 8, (params));
-    TEST(params.IsTypeExist(GetType({"highway", "footway"})), (params));
+    TEST(params.IsTypeExist(GetType({"highway", "footway", "bicycle"})), (params));
     TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), ());
     TEST(!params.IsTypeExist(GetType({"hwtag", "yesfoot"})), ());
 
@@ -3111,7 +3111,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_HighwayTypesConversion)
     {{{"highway", "cycleway"}, {"highway", "footway"}}, {{"highway", "path"}, {"segregated", "yes"}}},
     
     // A non-segregated cycleway becomes shared path/footway + bicycle=designated.
-    {{{"highway", "footway"}, {"hwtag", "yesbicycle"}}, {{"highway", "cycleway"}, {"segregated", "no"}, {"foot", "designated"}}},
+    {{{"highway", "footway", "bicycle"}, {"hwtag", "yesbicycle"}}, {{"highway", "cycleway"}, {"segregated", "no"}, {"foot", "designated"}}},
     {{{"highway", "path", "bicycle"}, {"hwtag", "yesbicycle"}, {"hwtag", "yesfoot"}, {"psurface", "unpaved_good"}}, {{"highway", "cycleway"}, {"foot", "yes"}, {"surface", "unpaved"}}},
   };
 
