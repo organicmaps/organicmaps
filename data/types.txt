@@ -450,8 +450,8 @@ mapswithme
 *natural|water|wastewater
 mapswithme
 *highway|footway|demanding_mountain_hiking
-mapswithme
-mapswithme
+*amenity|shelter|basic_hut
+*amenity|shelter|lean_to
 *landuse|orchard
 *amenity|shelter|public_transport
 *highway|living_street|tunnel

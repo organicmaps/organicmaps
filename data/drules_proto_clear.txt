@@ -11960,6 +11960,172 @@ cont {
   }
 }
 cont {
+  name: "amenity-shelter-basic_hut"
+  element {
+    scale: 16
+    symbol {
+      name: "alpine_hut-m"
+      priority: 3900
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6100
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "alpine_hut-m"
+      priority: 3900
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6100
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "alpine_hut-m"
+      priority: 3900
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6100
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "alpine_hut-m"
+      priority: 3900
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6100
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "alpine_hut-m"
+      priority: 3900
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6100
+    }
+  }
+}
+cont {
+  name: "amenity-shelter-lean_to"
+  element {
+    scale: 16
+    symbol {
+      name: "shelter-m"
+      priority: 3900
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6100
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "shelter-m"
+      priority: 3900
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6100
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "shelter-m"
+      priority: 3900
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6100
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "shelter-m"
+      priority: 3900
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6100
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "shelter-m"
+      priority: 3900
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6100
+    }
+  }
+}
+cont {
   name: "amenity-shelter-public_transport"
   element {
     scale: 17

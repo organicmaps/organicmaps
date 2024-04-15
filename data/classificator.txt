@@ -150,6 +150,8 @@ world  +
         sanitary_dump_station  -
         school  -
         shelter  +
+            basic_hut  -
+            lean_to  -
             public_transport  -
             {}
         shower  -
