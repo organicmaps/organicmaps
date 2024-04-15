@@ -648,6 +648,8 @@
 	<string name="type.amenity.shelter">आश्रय</string>
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">आश्रय</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">द्विवार्षिक झोपड़ी</string>
 	<string name="type.amenity.shower">फुहारा</string>
 	<string name="type.amenity.taxi">टैक्सी</string>
 	<string name="type.amenity.telephone">टेलीफ़ोन</string>

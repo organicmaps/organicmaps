@@ -1572,6 +1572,12 @@
 /* A weather shelter by the public transport stop. */
 "type.amenity.shelter.public_transport" = "避難所";
 
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
+"type.amenity.shelter.basic_hut" = "ビバーク小屋";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
+"type.amenity.shelter.lean_to" = "Lean-to Shelter";
+
 "type.amenity.public_bath" = "公衆浴場";
 
 "type.amenity.shower" = "シャワー";

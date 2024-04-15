@@ -917,6 +917,8 @@
 	<string name="type.amenity.shelter">庇护所</string>
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">庇护所</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">行军床</string>
 	<string name="type.amenity.public_bath">公共浴场</string>
 	<string name="type.amenity.shower">淋浴间</string>
 	<string name="type.amenity.stripclub">脱衣舞俱乐部</string>

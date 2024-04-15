@@ -953,6 +953,8 @@
 	<string name="type.amenity.shelter">Aterpea</string>
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">Aterpea</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">bivouac borda</string>
 	<string name="type.amenity.public_bath">Bainu Publikoa</string>
 	<string name="type.amenity.shower">Dutxa</string>
 	<string name="type.amenity.stripclub">Stripclub</string>

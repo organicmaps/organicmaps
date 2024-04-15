@@ -939,6 +939,8 @@
 	<string name="type.amenity.shelter">Riparo</string>
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">Riparo</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">capanna di bivacco</string>
 	<string name="type.amenity.public_bath">Bagno pubblico</string>
 	<string name="type.amenity.shower">Doccia</string>
 	<string name="type.amenity.stripclub">Stripclub</string>

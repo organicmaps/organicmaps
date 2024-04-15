@@ -938,6 +938,8 @@
 	<string name="type.amenity.shelter">Καταφύγιο</string>
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">Καταφύγιο</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">καταφύγιο bivouac</string>
 	<string name="type.amenity.public_bath">Δημόσιο Λουτρό</string>
 	<string name="type.amenity.shower">Ντους</string>
 	<string name="type.amenity.stripclub">Stripclub</string>

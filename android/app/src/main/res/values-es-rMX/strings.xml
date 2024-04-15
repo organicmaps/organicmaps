@@ -277,6 +277,8 @@
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.scrap_metal">Desechos de metal</string>
 	<string name="type.recycling.small_appliances">Desechos electrónicos</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">cabaña vivac</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Máquina expendedora de billetes de transporte público</string>
 	<!-- Borders between countries. -->
 	<string name="type.boundary.administrative.2">Frontera de país</string>

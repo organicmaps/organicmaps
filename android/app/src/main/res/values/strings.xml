@@ -991,6 +991,10 @@
 	<string name="type.amenity.shelter">Shelter</string>
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">Shelter</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">Bivouac Hut</string>
+	<!-- A traditional 3-walled shelter (one side open), suitable for overnight camping. -->
+	<string name="type.amenity.shelter.lean_to">Lean-to Shelter</string>
 	<string name="type.amenity.public_bath">Public Bath</string>
 	<string name="type.amenity.shower">Shower</string>
 	<string name="type.amenity.stripclub">Stripclub</string>
