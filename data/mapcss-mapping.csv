@@ -385,7 +385,7 @@ highway|secondary|tunnel;[highway=secondary][tunnel?];;name;int_name;297;
 # TODO: its a mismapping likely, if there is a bridge structure still, then it should be railway=disused.
 railway|abandoned|bridge;[railway=abandoned][bridge?];;name;int_name;298;
 man_made|lighthouse;299;
-deprecated:highway|path|demanding_mountain_hiking:04.2024;[highway=path][sac_scale=demanding_mountain_hiking];x;name;int_name;300;highway|path
+deprecated:highway|path|demanding_mountain_hiking:04.2024;[highway=path][sac_scale=demanding_mountain_hiking];x;name;int_name;300;highway|path|difficult
 man_made|storage_tank;301;
 man_made|silo;302;
 power|generator;303;
@@ -438,7 +438,7 @@ railway|tram|bridge;[railway=tram][bridge?];;name;int_name;346;
 piste:type|downhill|advanced;[piste:type=downhill][piste:difficulty=advanced];;name;int_name;347;
 sport|shooting;348;
 place|country;349;
-deprecated:highway|path|alpine_hiking:04.2024;[highway=path][sac_scale=alpine_hiking];x;name;int_name;350;highway|path
+deprecated:highway|path|alpine_hiking:04.2024;[highway=path][sac_scale=alpine_hiking];x;name;int_name;350;highway|path|expert
 tourism|zoo|petting;[tourism=zoo][zoo=petting_zoo];;name;int_name;351;
 sport|scuba_diving;352;
 deprecated:highway|cycleway|permissive:12.2023;[highway=cycleway][access=permissive];x;name;int_name;353;highway|cycleway
@@ -484,7 +484,7 @@ sport|american_football;391;
 landuse|education;392;
 man_made|cairn;393;
 railway|preserved|bridge;[railway=preserved][bridge?];;name;int_name;394;
-deprecated:highway|path|demanding_alpine_hiking:04.2024;[highway=path][sac_scale=demanding_alpine_hiking];x;name;int_name;395;highway|path
+deprecated:highway|path|demanding_alpine_hiking:04.2024;[highway=path][sac_scale=demanding_alpine_hiking];x;name;int_name;395;highway|path|expert
 railway|rail|spur|tunnel;[railway=rail][service=spur][!usage][tunnel?];;name;int_name;396;
 highway|secondary_link|bridge;[highway=secondary_link][bridge?];;name;int_name;397;
 railway|tram|tunnel;[railway=tram][tunnel?];;name;int_name;398;
@@ -535,7 +535,7 @@ natural|shingle;440;
 aerialway|t-bar;441;
 amenity|parking|lane|fee;[amenity=parking][parking=lane][fee];;name;int_name;442;
 amenity|parking|street_side|fee;[amenity=parking][parking=street_side][fee];;name;int_name;443;
-deprecated:highway|path|difficult_alpine_hiking:04.2024;[highway=path][sac_scale=difficult_alpine_hiking];x;name;int_name;444;highway|path
+deprecated:highway|path|difficult_alpine_hiking:04.2024;[highway=path][sac_scale=difficult_alpine_hiking];x;name;int_name;444;highway|path|expert
 earthquake:damage|spontaneous_camp;445;
 natural|water|drain;[natural=water][water=drain];;name;int_name;446;
 deprecated:railway|yard:06.2023;447;x
@@ -543,7 +543,7 @@ natural|water|ditch;[natural=water][water=ditch];;name;int_name;448;
 natural|water|moat;[natural=water][water=moat];;name;int_name;449;
 natural|water|wastewater;[natural=water][water=wastewater];;name;int_name;450;
 deprecated:railway|razed:06.2023;451;x
-deprecated:highway|footway|demanding_mountain_hiking:04.2024;[highway=footway][sac_scale=demanding_mountain_hiking];x;name;int_name;452;highway|path
+deprecated:highway|footway|demanding_mountain_hiking:04.2024;[highway=footway][sac_scale=demanding_mountain_hiking];x;name;int_name;452;highway|path|difficult
 amenity|shelter|basic_hut;[amenity=shelter][shelter_type=basic_hut];;name;int_name;453;
 amenity|shelter|lean_to;[amenity=shelter][shelter_type=lean_to];;name;int_name;454;
 landuse|orchard;455;
@@ -555,8 +555,9 @@ deprecated|deprecated;460;x
 sport|handball;461;
 deprecated:boundary|administrative|city:04.2024;[boundary=administrative][border_type=city];x;name;int_name;462;
 piste:type|downhill|freeride;[piste:type=downhill][piste:difficulty=freeride],[piste:type=downhill][piste:grooming=backcountry][!piste:difficulty];;name;int_name;463;
-deprecated|deprecated;464;x
-deprecated|deprecated;465;x
+# _path_grade is a surrogate tag which combines sac_scale and trail_visibility, see osm2type.cpp
+highway|path|difficult;[highway=path][_path_grade=difficult];;name;int_name;464;
+highway|path|expert;[highway=path][_path_grade=expert];;name;int_name;465;
 piste:type|downhill|expert;[piste:type=downhill][piste:difficulty=expert];;name;int_name;466;
 landuse|salt_pond;467;
 cemetery|grave;468;
@@ -620,7 +621,7 @@ railway|funicular|bridge;[railway=funicular][bridge?];;name;int_name;525;
 deprecated|deprecated;526;x
 deprecated|deprecated;527;x
 highway|primary_link|tunnel;[highway=primary_link][tunnel?];;name;int_name;528;
-deprecated:highway|footway|alpine_hiking:04.2024;[highway=footway][sac_scale=alpine_hiking];x;name;int_name;529;highway|path
+deprecated:highway|footway|alpine_hiking:04.2024;[highway=footway][sac_scale=alpine_hiking];x;name;int_name;529;highway|path|expert
 deprecated|deprecated;530;x
 deprecated|deprecated;531;x
 deprecated|deprecated;532;x
@@ -646,7 +647,7 @@ deprecated|deprecated;551;x
 deprecated|deprecated;552;x
 deprecated|deprecated;553;x
 deprecated|deprecated;554;x
-deprecated:highway|footway|demanding_alpine_hiking:04.2024;[highway=footway][sac_scale=demanding_alpine_hiking];x;name;int_name;555;highway|path
+deprecated:highway|footway|demanding_alpine_hiking:04.2024;[highway=footway][sac_scale=demanding_alpine_hiking];x;name;int_name;555;highway|path|expert
 deprecated|deprecated;556;x
 deprecated|deprecated;557;x
 deprecated|deprecated;558;x
@@ -718,7 +719,7 @@ deprecated|deprecated;623;x
 deprecated|deprecated;624;x
 deprecated|deprecated;625;x
 deprecated:railway|siding|bridge:06.2023;626;x
-deprecated:highway|footway|difficult_alpine_hiking:04.2024;[highway=footway][sac_scale=difficult_alpine_hiking];x;name;int_name;627;highway|path
+deprecated:highway|footway|difficult_alpine_hiking:04.2024;[highway=footway][sac_scale=difficult_alpine_hiking];x;name;int_name;627;highway|path|expert
 deprecated|deprecated;628;x
 deprecated|deprecated;629;x
 deprecated|deprecated;630;x
