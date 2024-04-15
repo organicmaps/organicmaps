@@ -6457,7 +6457,7 @@ da:Shelter|læskur|hytte
 nl:Beschutting
 fi:Turvapaikka
 fr:Refuge|abri
-de:Schutzhütte|Schutzraum|Zivilschutz
+de:Schutzhütte|Schutzraum|Zivilschutz|Wetterschutz
 hi:4आश्रय
 hu:Menedék
 id:Tempat penampungan
@@ -6530,12 +6530,41 @@ amenity-shelter-lean_to
 en:3Lean-to Shelter|4Shelter|Refuge
 be:Бівальны навес
 bg:Подслон за бивак
-de:Lean-to Wetterschutz
+ar:ملجأ
+cs:Přístřešek|úkryt
+da:Shelter|læskur|hytte
+nl:Beschutting
+fi:Turvapaikka
+fr:Refuge|abri
+de:Lean-to Wetterschutz|Wetterschutz|Schutzhütte
 he:מחסה ללינה|מחסה|מחסה פתוח
+hi:4आश्रय
+hu:Menedék
+id:Tempat penampungan
+it:Riparo
+ja:1避難所|シェルター
+ko:셸터|대피소
+nb:Ly
+pl:3Szopa|schronienie
 pt:Abrigo tipo telheiro|telheiro
 pt-BR:Abrigo tipo alpendre|alpendre
+ro:Adăpost
 ru:Бивачный навес
+es:Refugio
+et:4Varjend
+eu:Aterpea
+sv:Vindskydd
+th:ที่อยู่อาศัย
+tr:Barınak
 uk:Бівуачний навіс
+vi:Chổ nương thân
+zh-Hans:2庇护所
+zh-Hant:1隱藏處
+el:Καταφύγιο
+sk:Prístrešok|úkryt
+sw:Malazi
+fa:پناهگاه
+mr:निवारा
 
 amenity-stripclub
 en:Stripclub
