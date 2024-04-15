@@ -2036,22 +2036,10 @@
 
 "type.highway.footway.crossing" = "横断歩道";
 
-"type.highway.footway.alpine_hiking" = "歩道";
-
 "type.highway.footway.area" = "歩道";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "橋";
-
-"type.highway.footway.demanding_alpine_hiking" = "歩道";
-
-"type.highway.footway.demanding_mountain_hiking" = "歩道";
-
-"type.highway.footway.difficult_alpine_hiking" = "歩道";
-
-"type.highway.footway.hiking" = "歩道";
-
-"type.highway.footway.mountain_hiking" = "歩道";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "トンネル";
@@ -2228,17 +2216,7 @@
 
 "type.highway.track.grade1" = "ストリート";
 
-"type.highway.track.grade2" = "ストリート";
-
-"type.highway.track.grade3" = "ストリート";
-
-"type.highway.track.grade4" = "ストリート";
-
-"type.highway.track.grade5" = "ストリート";
-
 "type.highway.track.no.access" = "ストリート";
-
-"type.highway.track.permissive" = "ストリート";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "トンネル";

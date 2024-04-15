@@ -2036,22 +2036,10 @@
 
 "type.highway.footway.crossing" = "Priechod pre chodcov";
 
-"type.highway.footway.alpine_hiking" = "Turistický chodník";
-
 "type.highway.footway.area" = "Pešia zóna";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Most pre chodcov";
-
-"type.highway.footway.demanding_alpine_hiking" = "Cesta";
-
-"type.highway.footway.demanding_mountain_hiking" = "Náročný horský chodník";
-
-"type.highway.footway.difficult_alpine_hiking" = "Náročný turistický chodník";
-
-"type.highway.footway.hiking" = "Turistický chodník";
-
-"type.highway.footway.mountain_hiking" = "Horský turistický chodník";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Tunel pre chodcov";
@@ -2228,17 +2216,7 @@
 
 "type.highway.track.grade1" = "Poľná cesta";
 
-"type.highway.track.grade2" = "Poľná cesta";
-
-"type.highway.track.grade3" = "Poľná cesta";
-
-"type.highway.track.grade4" = "Poľná cesta";
-
-"type.highway.track.grade5" = "Poľná cesta";
-
 "type.highway.track.no.access" = "Poľná cesta";
-
-"type.highway.track.permissive" = "Poľná cesta";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunel";

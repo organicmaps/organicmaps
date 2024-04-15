@@ -1086,15 +1086,9 @@
 	<string name="type.highway.footway">Gångväg</string>
 	<string name="type.highway.footway.sidewalk">Trottoar</string>
 	<string name="type.highway.footway.crossing">Övergångsställe för fotgängare</string>
-	<string name="type.highway.footway.alpine_hiking">Gångväg</string>
 	<string name="type.highway.footway.area">Gångväg</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Bro</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Gångväg</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Gångväg</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Gångväg</string>
-	<string name="type.highway.footway.hiking">Gångväg</string>
-	<string name="type.highway.footway.mountain_hiking">Gångväg</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunnel</string>
 	<string name="type.highway.ford">Vadställe</string>
@@ -1198,12 +1192,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Bro</string>
 	<string name="type.highway.track.grade1">Gata</string>
-	<string name="type.highway.track.grade2">Gata</string>
-	<string name="type.highway.track.grade3">Gata</string>
-	<string name="type.highway.track.grade4">Gata</string>
-	<string name="type.highway.track.grade5">Gata</string>
 	<string name="type.highway.track.no.access">Gata</string>
-	<string name="type.highway.track.permissive">Gata</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunnel</string>
 	<string name="type.highway.traffic_signals">Trafikljus</string>

@@ -1231,15 +1231,9 @@
 	<string name="type.highway.footway">Foot Path</string>
 	<string name="type.highway.footway.sidewalk">Sidewalk</string>
 	<string name="type.highway.footway.crossing">Pedestrian Crossing</string>
-	<string name="type.highway.footway.alpine_hiking">Path</string>
 	<string name="type.highway.footway.area">Pedestrian Area</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Pedestrian Bridge</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Path</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Path</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Path</string>
-	<string name="type.highway.footway.hiking">Path</string>
-	<string name="type.highway.footway.mountain_hiking">Path</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Pedestrian Tunnel</string>
 	<string name="type.highway.ford">Ford</string>
@@ -1344,12 +1338,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Bridge</string>
 	<string name="type.highway.track.grade1">Track</string>
-	<string name="type.highway.track.grade2">Track</string>
-	<string name="type.highway.track.grade3">Track</string>
-	<string name="type.highway.track.grade4">Track</string>
-	<string name="type.highway.track.grade5">Track</string>
 	<string name="type.highway.track.no.access">Track</string>
-	<string name="type.highway.track.permissive">Track</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunnel</string>
 	<string name="type.highway.traffic_signals">Traffic Lights</string>

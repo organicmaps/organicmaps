@@ -2036,22 +2036,10 @@
 
 "type.highway.footway.crossing" = "Pas de vianants";
 
-"type.highway.footway.alpine_hiking" = "Path";
-
 "type.highway.footway.area" = "Foot Path";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Pedestrian Bridge";
-
-"type.highway.footway.demanding_alpine_hiking" = "Path";
-
-"type.highway.footway.demanding_mountain_hiking" = "Path";
-
-"type.highway.footway.difficult_alpine_hiking" = "Path";
-
-"type.highway.footway.hiking" = "Path";
-
-"type.highway.footway.mountain_hiking" = "Path";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Pedestrian Tunnel";
@@ -2228,17 +2216,7 @@
 
 "type.highway.track.grade1" = "Track";
 
-"type.highway.track.grade2" = "Track";
-
-"type.highway.track.grade3" = "Track";
-
-"type.highway.track.grade4" = "Track";
-
-"type.highway.track.grade5" = "Track";
-
 "type.highway.track.no.access" = "Track";
-
-"type.highway.track.permissive" = "Track";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunnel";

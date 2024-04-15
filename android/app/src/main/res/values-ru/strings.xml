@@ -1208,15 +1208,9 @@
 	<string name="type.highway.footway">Пешеходная дорожка</string>
 	<string name="type.highway.footway.sidewalk">Тротуар</string>
 	<string name="type.highway.footway.crossing">Пешеходный переход</string>
-	<string name="type.highway.footway.alpine_hiking">Тропа</string>
 	<string name="type.highway.footway.area">Пешеходная зона</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Пешеходный мост</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Тропа</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Тропа</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Тропа</string>
-	<string name="type.highway.footway.hiking">Тропа</string>
-	<string name="type.highway.footway.mountain_hiking">Тропа</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Пешеходный тоннель</string>
 	<string name="type.highway.ford">Брод</string>
@@ -1321,12 +1315,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Мост</string>
 	<string name="type.highway.track.grade1">Грунтовка</string>
-	<string name="type.highway.track.grade2">Грунтовка</string>
-	<string name="type.highway.track.grade3">Грунтовка</string>
-	<string name="type.highway.track.grade4">Грунтовка</string>
-	<string name="type.highway.track.grade5">Грунтовка</string>
 	<string name="type.highway.track.no.access">Грунтовка</string>
-	<string name="type.highway.track.permissive">Грунтовка</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Тоннель</string>
 	<string name="type.highway.traffic_signals">Светофор</string>

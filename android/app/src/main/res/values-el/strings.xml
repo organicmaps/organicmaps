@@ -1141,15 +1141,9 @@
 	<string name="type.highway.footway">Διαδρομή</string>
 	<string name="type.highway.footway.sidewalk">Πεζοδρόμιο</string>
 	<string name="type.highway.footway.crossing">Διάβαση πεζών</string>
-	<string name="type.highway.footway.alpine_hiking">Διαδρομή</string>
 	<string name="type.highway.footway.area">Διαδρομή</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Γέφυρα</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Διαδρομή</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Διαδρομή</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Διαδρομή</string>
-	<string name="type.highway.footway.hiking">Διαδρομή</string>
-	<string name="type.highway.footway.mountain_hiking">Διαδρομή</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Σήραγγα</string>
 	<string name="type.highway.ford">Πέρασμα</string>
@@ -1253,12 +1247,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Γέφυρα</string>
 	<string name="type.highway.track.grade1">Οδός</string>
-	<string name="type.highway.track.grade2">Οδός</string>
-	<string name="type.highway.track.grade3">Οδός</string>
-	<string name="type.highway.track.grade4">Οδός</string>
-	<string name="type.highway.track.grade5">Οδός</string>
 	<string name="type.highway.track.no.access">Οδός</string>
-	<string name="type.highway.track.permissive">Οδός</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Σήραγγα</string>
 	<string name="type.highway.traffic_signals">Φανάρια κυκλοφορίας</string>

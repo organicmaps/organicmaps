@@ -1144,15 +1144,9 @@
 	<string name="type.highway.footway">Caminho pedonal</string>
 	<string name="type.highway.footway.sidewalk">Passeio</string>
 	<string name="type.highway.footway.crossing">Passagem de peões</string>
-	<string name="type.highway.footway.alpine_hiking">Caminho pedonal</string>
 	<string name="type.highway.footway.area">Caminho pedonal</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Ponte</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Caminho pedonal</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Caminho pedonal</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Caminho pedonal</string>
-	<string name="type.highway.footway.hiking">Caminho pedonal</string>
-	<string name="type.highway.footway.mountain_hiking">Caminho pedonal</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Túnel</string>
 	<string name="type.highway.ford">Vau</string>
@@ -1257,12 +1251,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Ponte</string>
 	<string name="type.highway.track.grade1">Carreiro florestal ou agrícola</string>
-	<string name="type.highway.track.grade2">Carreiro florestal ou agrícola</string>
-	<string name="type.highway.track.grade3">Carreiro florestal ou agrícola</string>
-	<string name="type.highway.track.grade4">Carreiro florestal ou agrícola</string>
-	<string name="type.highway.track.grade5">Carreiro florestal ou agrícola</string>
 	<string name="type.highway.track.no.access">Carreiro florestal ou agrícola</string>
-	<string name="type.highway.track.permissive">Carreiro florestal ou agrícola</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Túnel</string>
 	<string name="type.highway.traffic_signals">Semáforo</string>

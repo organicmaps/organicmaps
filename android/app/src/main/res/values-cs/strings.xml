@@ -1100,15 +1100,9 @@
 	<string name="type.highway.footway">Cesta</string>
 	<string name="type.highway.footway.sidewalk">Chodník</string>
 	<string name="type.highway.footway.crossing">Přechod pro chodce</string>
-	<string name="type.highway.footway.alpine_hiking">Cesta</string>
 	<string name="type.highway.footway.area">Cesta</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Most</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Cesta</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Cesta</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Cesta</string>
-	<string name="type.highway.footway.hiking">Cesta</string>
-	<string name="type.highway.footway.mountain_hiking">Cesta</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunel</string>
 	<string name="type.highway.ford">Brod</string>
@@ -1212,12 +1206,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Most</string>
 	<string name="type.highway.track.grade1">Ulice</string>
-	<string name="type.highway.track.grade2">Ulice</string>
-	<string name="type.highway.track.grade3">Ulice</string>
-	<string name="type.highway.track.grade4">Ulice</string>
-	<string name="type.highway.track.grade5">Ulice</string>
 	<string name="type.highway.track.no.access">Ulice</string>
-	<string name="type.highway.track.permissive">Ulice</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunel</string>
 	<string name="type.highway.traffic_signals">Semafor</string>

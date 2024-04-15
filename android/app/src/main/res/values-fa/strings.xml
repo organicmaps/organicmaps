@@ -1006,15 +1006,9 @@
 	<string name="type.highway.footway">مسیر</string>
 	<string name="type.highway.footway.sidewalk">پیاده رو</string>
 	<string name="type.highway.footway.crossing">محل عبور عابر پیاده</string>
-	<string name="type.highway.footway.alpine_hiking">مسیر</string>
 	<string name="type.highway.footway.area">مسیر</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">پل</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">مسیر</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">مسیر</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">مسیر</string>
-	<string name="type.highway.footway.hiking">مسیر</string>
-	<string name="type.highway.footway.mountain_hiking">مسیر</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">تونل</string>
 	<string name="type.highway.ford">گدار</string>
@@ -1117,12 +1111,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">پل</string>
 	<string name="type.highway.track.grade1">جاده</string>
-	<string name="type.highway.track.grade2">جاده</string>
-	<string name="type.highway.track.grade3">جاده</string>
-	<string name="type.highway.track.grade4">جاده</string>
-	<string name="type.highway.track.grade5">جاده</string>
 	<string name="type.highway.track.no.access">جاده</string>
-	<string name="type.highway.track.permissive">جاده</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">تونل</string>
 	<string name="type.highway.traffic_signals">چراغ راهنما</string>

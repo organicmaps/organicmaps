@@ -1110,15 +1110,9 @@
 	<string name="type.highway.footway">Cale</string>
 	<string name="type.highway.footway.sidewalk">Trotuar</string>
 	<string name="type.highway.footway.crossing">Trecere de pietoni</string>
-	<string name="type.highway.footway.alpine_hiking">Cale</string>
 	<string name="type.highway.footway.area">Cale</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Pod</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Cale</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Cale</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Cale</string>
-	<string name="type.highway.footway.hiking">Cale</string>
-	<string name="type.highway.footway.mountain_hiking">Cale</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunel</string>
 	<string name="type.highway.ford">Superficial</string>
@@ -1222,12 +1216,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Pod</string>
 	<string name="type.highway.track.grade1">Stradă</string>
-	<string name="type.highway.track.grade2">Stradă</string>
-	<string name="type.highway.track.grade3">Stradă</string>
-	<string name="type.highway.track.grade4">Stradă</string>
-	<string name="type.highway.track.grade5">Stradă</string>
 	<string name="type.highway.track.no.access">Stradă</string>
-	<string name="type.highway.track.permissive">Stradă</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunel</string>
 	<string name="type.highway.traffic_signals">Semafoare</string>

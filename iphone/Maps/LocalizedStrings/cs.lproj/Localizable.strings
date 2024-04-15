@@ -2036,22 +2036,10 @@
 
 "type.highway.footway.crossing" = "Přechod pro chodce";
 
-"type.highway.footway.alpine_hiking" = "Cesta";
-
 "type.highway.footway.area" = "Cesta";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Most";
-
-"type.highway.footway.demanding_alpine_hiking" = "Cesta";
-
-"type.highway.footway.demanding_mountain_hiking" = "Cesta";
-
-"type.highway.footway.difficult_alpine_hiking" = "Cesta";
-
-"type.highway.footway.hiking" = "Cesta";
-
-"type.highway.footway.mountain_hiking" = "Cesta";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Tunel";
@@ -2228,17 +2216,7 @@
 
 "type.highway.track.grade1" = "Ulice";
 
-"type.highway.track.grade2" = "Ulice";
-
-"type.highway.track.grade3" = "Ulice";
-
-"type.highway.track.grade4" = "Ulice";
-
-"type.highway.track.grade5" = "Ulice";
-
 "type.highway.track.no.access" = "Ulice";
-
-"type.highway.track.permissive" = "Ulice";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunel";

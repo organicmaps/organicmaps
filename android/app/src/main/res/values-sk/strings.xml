@@ -1179,15 +1179,9 @@
 	<string name="type.highway.footway">Cesta pre chodcov</string>
 	<string name="type.highway.footway.sidewalk">Chodník</string>
 	<string name="type.highway.footway.crossing">Priechod pre chodcov</string>
-	<string name="type.highway.footway.alpine_hiking">Turistický chodník</string>
 	<string name="type.highway.footway.area">Pešia zóna</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Most pre chodcov</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Cesta</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Náročný horský chodník</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Náročný turistický chodník</string>
-	<string name="type.highway.footway.hiking">Turistický chodník</string>
-	<string name="type.highway.footway.mountain_hiking">Horský turistický chodník</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunel pre chodcov</string>
 	<string name="type.highway.ford">Brod</string>
@@ -1292,12 +1286,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Most</string>
 	<string name="type.highway.track.grade1">Poľná cesta</string>
-	<string name="type.highway.track.grade2">Poľná cesta</string>
-	<string name="type.highway.track.grade3">Poľná cesta</string>
-	<string name="type.highway.track.grade4">Poľná cesta</string>
-	<string name="type.highway.track.grade5">Poľná cesta</string>
 	<string name="type.highway.track.no.access">Poľná cesta</string>
-	<string name="type.highway.track.permissive">Poľná cesta</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunel</string>
 	<string name="type.highway.traffic_signals">Semafor</string>

@@ -1179,15 +1179,9 @@
 	<string name="type.highway.footway">Fußweg</string>
 	<string name="type.highway.footway.sidewalk">Bürgersteig</string>
 	<string name="type.highway.footway.crossing">Fußgängerübergang</string>
-	<string name="type.highway.footway.alpine_hiking">Alpinwanderweg</string>
 	<string name="type.highway.footway.area">Fußweg</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Brücke</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Anspruchsvoller Alpinwanderweg</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Anspruchsvoller Bergwanderweg</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Schwieriger Alpinwanderweg</string>
-	<string name="type.highway.footway.hiking">Wanderweg</string>
-	<string name="type.highway.footway.mountain_hiking">Bergwanderweg</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Fußgängertunnel</string>
 	<string name="type.highway.ford">Furt</string>
@@ -1292,12 +1286,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Brücke</string>
 	<string name="type.highway.track.grade1">Forst-/Feldweg</string>
-	<string name="type.highway.track.grade2">Forst-/Feldweg</string>
-	<string name="type.highway.track.grade3">Forst-/Feldweg</string>
-	<string name="type.highway.track.grade4">Forst-/Feldweg</string>
-	<string name="type.highway.track.grade5">Forst-/Feldweg</string>
 	<string name="type.highway.track.no.access">Forst-/Feldweg</string>
-	<string name="type.highway.track.permissive">Forst-/Feldweg</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Straßentunnel</string>
 	<string name="type.highway.traffic_signals">Ampel</string>

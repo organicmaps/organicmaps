@@ -2036,22 +2036,10 @@
 
 "type.highway.footway.crossing" = "Jalankulkijoiden ylitys";
 
-"type.highway.footway.alpine_hiking" = "Polku";
-
 "type.highway.footway.area" = "Jalankulkualue";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Jalankulkusilta";
-
-"type.highway.footway.demanding_alpine_hiking" = "Vaativa alppivaellus";
-
-"type.highway.footway.demanding_mountain_hiking" = "Vaativa vuoristovaellus";
-
-"type.highway.footway.difficult_alpine_hiking" = "Vaikea alppivaellus";
-
-"type.highway.footway.hiking" = "Vaellus";
-
-"type.highway.footway.mountain_hiking" = "Vuoristovaellus";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Jalankulkutunneli";
@@ -2228,17 +2216,7 @@
 
 "type.highway.track.grade1" = "Katu";
 
-"type.highway.track.grade2" = "Katu";
-
-"type.highway.track.grade3" = "Katu";
-
-"type.highway.track.grade4" = "Katu";
-
-"type.highway.track.grade5" = "Katu";
-
 "type.highway.track.no.access" = "Katu";
-
-"type.highway.track.permissive" = "Katu";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunneli";

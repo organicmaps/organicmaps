@@ -1166,15 +1166,9 @@
 	<string name="type.highway.footway">歩道</string>
 	<string name="type.highway.footway.sidewalk">歩道</string>
 	<string name="type.highway.footway.crossing">横断歩道</string>
-	<string name="type.highway.footway.alpine_hiking">歩道</string>
 	<string name="type.highway.footway.area">歩道</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">橋</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">歩道</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">歩道</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">歩道</string>
-	<string name="type.highway.footway.hiking">歩道</string>
-	<string name="type.highway.footway.mountain_hiking">歩道</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">トンネル</string>
 	<string name="type.highway.ford">浅瀬</string>
@@ -1279,12 +1273,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">橋</string>
 	<string name="type.highway.track.grade1">ストリート</string>
-	<string name="type.highway.track.grade2">ストリート</string>
-	<string name="type.highway.track.grade3">ストリート</string>
-	<string name="type.highway.track.grade4">ストリート</string>
-	<string name="type.highway.track.grade5">ストリート</string>
 	<string name="type.highway.track.no.access">ストリート</string>
-	<string name="type.highway.track.permissive">ストリート</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">トンネル</string>
 	<string name="type.highway.traffic_signals">交通信号</string>

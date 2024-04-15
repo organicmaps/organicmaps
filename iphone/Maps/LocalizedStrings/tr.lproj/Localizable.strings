@@ -2036,22 +2036,10 @@
 
 "type.highway.footway.crossing" = "Yaya Geçidi";
 
-"type.highway.footway.alpine_hiking" = "Yol";
-
 "type.highway.footway.area" = "Yaya Alanı";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Köprü";
-
-"type.highway.footway.demanding_alpine_hiking" = "Yol";
-
-"type.highway.footway.demanding_mountain_hiking" = "Yol";
-
-"type.highway.footway.difficult_alpine_hiking" = "Yol";
-
-"type.highway.footway.hiking" = "Yol";
-
-"type.highway.footway.mountain_hiking" = "Yol";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Tünel";
@@ -2228,17 +2216,7 @@
 
 "type.highway.track.grade1" = "Pist";
 
-"type.highway.track.grade2" = "Pist";
-
-"type.highway.track.grade3" = "Pist";
-
-"type.highway.track.grade4" = "Pist";
-
-"type.highway.track.grade5" = "Pist";
-
 "type.highway.track.no.access" = "Pist";
-
-"type.highway.track.permissive" = "Pist";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tünel";

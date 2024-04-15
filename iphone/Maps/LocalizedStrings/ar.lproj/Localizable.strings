@@ -2036,22 +2036,10 @@
 
 "type.highway.footway.crossing" = "عبور المشاة";
 
-"type.highway.footway.alpine_hiking" = "مسار";
-
 "type.highway.footway.area" = "منطقة مشاة";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "جسر للمشاة";
-
-"type.highway.footway.demanding_alpine_hiking" = "مسار";
-
-"type.highway.footway.demanding_mountain_hiking" = "مسار";
-
-"type.highway.footway.difficult_alpine_hiking" = "مسار";
-
-"type.highway.footway.hiking" = "مسار";
-
-"type.highway.footway.mountain_hiking" = "مسار";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "نفق للمشاة";
@@ -2228,17 +2216,7 @@
 
 "type.highway.track.grade1" = "شارع";
 
-"type.highway.track.grade2" = "شارع";
-
-"type.highway.track.grade3" = "شارع";
-
-"type.highway.track.grade4" = "شارع";
-
-"type.highway.track.grade5" = "شارع";
-
 "type.highway.track.no.access" = "شارع";
-
-"type.highway.track.permissive" = "شارع";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "نفق";

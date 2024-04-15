@@ -1176,15 +1176,9 @@
 	<string name="type.highway.footway">Sentiero</string>
 	<string name="type.highway.footway.sidewalk">Marciapiede</string>
 	<string name="type.highway.footway.crossing">Attraversamento pedonale</string>
-	<string name="type.highway.footway.alpine_hiking">Sentiero</string>
 	<string name="type.highway.footway.area">Sentiero</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Ponte</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Sentiero</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Sentiero</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Sentiero</string>
-	<string name="type.highway.footway.hiking">Sentiero</string>
-	<string name="type.highway.footway.mountain_hiking">Sentiero</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunnel</string>
 	<string name="type.highway.ford">Guado</string>
@@ -1287,12 +1281,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Ponte</string>
 	<string name="type.highway.track.grade1">Via</string>
-	<string name="type.highway.track.grade2">Via</string>
-	<string name="type.highway.track.grade3">Via</string>
-	<string name="type.highway.track.grade4">Via</string>
-	<string name="type.highway.track.grade5">Via</string>
 	<string name="type.highway.track.no.access">Via</string>
-	<string name="type.highway.track.permissive">Via</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunnel</string>
 	<string name="type.highway.traffic_signals">Semaforo</string>

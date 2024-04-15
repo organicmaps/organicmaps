@@ -2036,22 +2036,10 @@
 
 "type.highway.footway.crossing" = "Attraversamento pedonale";
 
-"type.highway.footway.alpine_hiking" = "Sentiero";
-
 "type.highway.footway.area" = "Sentiero";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Ponte";
-
-"type.highway.footway.demanding_alpine_hiking" = "Sentiero";
-
-"type.highway.footway.demanding_mountain_hiking" = "Sentiero";
-
-"type.highway.footway.difficult_alpine_hiking" = "Sentiero";
-
-"type.highway.footway.hiking" = "Sentiero";
-
-"type.highway.footway.mountain_hiking" = "Sentiero";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Tunnel";
@@ -2228,17 +2216,7 @@
 
 "type.highway.track.grade1" = "Via";
 
-"type.highway.track.grade2" = "Via";
-
-"type.highway.track.grade3" = "Via";
-
-"type.highway.track.grade4" = "Via";
-
-"type.highway.track.grade5" = "Via";
-
 "type.highway.track.no.access" = "Via";
-
-"type.highway.track.permissive" = "Via";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunnel";

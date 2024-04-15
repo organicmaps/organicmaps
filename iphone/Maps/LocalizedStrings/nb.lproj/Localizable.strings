@@ -2036,22 +2036,10 @@
 
 "type.highway.footway.crossing" = "Fotgjengerovergang";
 
-"type.highway.footway.alpine_hiking" = "Sti";
-
 "type.highway.footway.area" = "Gangvei";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Bru";
-
-"type.highway.footway.demanding_alpine_hiking" = "Sti";
-
-"type.highway.footway.demanding_mountain_hiking" = "Sti";
-
-"type.highway.footway.difficult_alpine_hiking" = "Sti";
-
-"type.highway.footway.hiking" = "Sti";
-
-"type.highway.footway.mountain_hiking" = "Sti";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Tunnel";
@@ -2228,17 +2216,7 @@
 
 "type.highway.track.grade1" = "Traktor/Skogsbilvei";
 
-"type.highway.track.grade2" = "Traktor/Skogsbilvei";
-
-"type.highway.track.grade3" = "Traktor/Skogsbilvei";
-
-"type.highway.track.grade4" = "Traktor/Skogsbilvei";
-
-"type.highway.track.grade5" = "Traktor/Skogsbilvei";
-
 "type.highway.track.no.access" = "Traktor/Skogsbilvei";
-
-"type.highway.track.permissive" = "Traktor/Skogsbilvei";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunnel";

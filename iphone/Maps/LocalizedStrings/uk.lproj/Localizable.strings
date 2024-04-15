@@ -2036,22 +2036,10 @@
 
 "type.highway.footway.crossing" = "Пішохідний перехід";
 
-"type.highway.footway.alpine_hiking" = "Стежка";
-
 "type.highway.footway.area" = "Пішохідна зона";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Міст";
-
-"type.highway.footway.demanding_alpine_hiking" = "Стежка";
-
-"type.highway.footway.demanding_mountain_hiking" = "Стежка";
-
-"type.highway.footway.difficult_alpine_hiking" = "Стежка";
-
-"type.highway.footway.hiking" = "Стежка";
-
-"type.highway.footway.mountain_hiking" = "Стежка";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Тунель";
@@ -2228,17 +2216,7 @@
 
 "type.highway.track.grade1" = "Ґрунтівка";
 
-"type.highway.track.grade2" = "Ґрунтівка";
-
-"type.highway.track.grade3" = "Ґрунтівка";
-
-"type.highway.track.grade4" = "Ґрунтівка";
-
-"type.highway.track.grade5" = "Ґрунтівка";
-
 "type.highway.track.no.access" = "Ґрунтівка";
-
-"type.highway.track.permissive" = "Ґрунтівка";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Тунель";

@@ -1184,15 +1184,9 @@
 	<string name="type.highway.footway">Bidea</string>
 	<string name="type.highway.footway.sidewalk">Espaloia</string>
 	<string name="type.highway.footway.crossing">Oinezkoen pasabidea</string>
-	<string name="type.highway.footway.alpine_hiking">Bidea</string>
 	<string name="type.highway.footway.area">Bidea</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Zubia</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Bidea</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Bidea</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Bidea</string>
-	<string name="type.highway.footway.hiking">Bidea</string>
-	<string name="type.highway.footway.mountain_hiking">Bidea</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunel</string>
 	<string name="type.highway.ford">Ford (lekukoa)</string>
@@ -1296,12 +1290,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Zubia</string>
 	<string name="type.highway.track.grade1">Kalea</string>
-	<string name="type.highway.track.grade2">Kalea</string>
-	<string name="type.highway.track.grade3">Kalea</string>
-	<string name="type.highway.track.grade4">Kalea</string>
-	<string name="type.highway.track.grade5">Kalea</string>
 	<string name="type.highway.track.no.access">Kalea</string>
-	<string name="type.highway.track.permissive">Kalea</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunel</string>
 	<string name="type.highway.traffic_signals">Semaforoak</string>

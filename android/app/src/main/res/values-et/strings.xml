@@ -1184,15 +1184,9 @@
 	<string name="type.highway.footway">Jalgrada</string>
 	<string name="type.highway.footway.sidewalk">Kõnnitee</string>
 	<string name="type.highway.footway.crossing">Jalakäijate ülekäigurada</string>
-	<string name="type.highway.footway.alpine_hiking">Alpi matkarada</string>
 	<string name="type.highway.footway.area">Jalakäijate ala</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Jalakäijate sild</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Nõudlik alpi matkarada</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Rada</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Nõudlik mägimatkarada</string>
-	<string name="type.highway.footway.hiking">Rada</string>
-	<string name="type.highway.footway.mountain_hiking">Mägirada</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Jalakäijate tunnel</string>
 	<string name="type.highway.ford">Koolmekoht</string>
@@ -1297,12 +1291,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Sild</string>
 	<string name="type.highway.track.grade1">Rada</string>
-	<string name="type.highway.track.grade2">Rada</string>
-	<string name="type.highway.track.grade3">Rada</string>
-	<string name="type.highway.track.grade4">Rada</string>
-	<string name="type.highway.track.grade5">Rada</string>
 	<string name="type.highway.track.no.access">Rada</string>
-	<string name="type.highway.track.permissive">Rada</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunnel</string>
 	<string name="type.highway.traffic_signals">Valgusfoor</string>

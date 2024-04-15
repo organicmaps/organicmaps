@@ -1184,15 +1184,9 @@
 	<string name="type.highway.footway">Chemin</string>
 	<string name="type.highway.footway.sidewalk">Trottoir</string>
 	<string name="type.highway.footway.crossing">Passage pour piétons</string>
-	<string name="type.highway.footway.alpine_hiking">Chemin</string>
 	<string name="type.highway.footway.area">Chemin</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Pont</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Chemin</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Chemin</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Chemin</string>
-	<string name="type.highway.footway.hiking">Chemin</string>
-	<string name="type.highway.footway.mountain_hiking">Chemin</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunnel</string>
 	<string name="type.highway.ford">Gué</string>
@@ -1297,12 +1291,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Pont</string>
 	<string name="type.highway.track.grade1">Piste</string>
-	<string name="type.highway.track.grade2">Piste</string>
-	<string name="type.highway.track.grade3">Piste</string>
-	<string name="type.highway.track.grade4">Piste</string>
-	<string name="type.highway.track.grade5">Piste</string>
 	<string name="type.highway.track.no.access">Piste</string>
-	<string name="type.highway.track.permissive">Piste</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunnel</string>
 	<string name="type.highway.traffic_signals">Feux de circulation</string>

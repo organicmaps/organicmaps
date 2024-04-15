@@ -2036,22 +2036,10 @@
 
 "type.highway.footway.crossing" = "Fodgængerovergang";
 
-"type.highway.footway.alpine_hiking" = "Sti";
-
 "type.highway.footway.area" = "Sti";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Bro";
-
-"type.highway.footway.demanding_alpine_hiking" = "Sti";
-
-"type.highway.footway.demanding_mountain_hiking" = "Sti";
-
-"type.highway.footway.difficult_alpine_hiking" = "Sti";
-
-"type.highway.footway.hiking" = "Sti";
-
-"type.highway.footway.mountain_hiking" = "Sti";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Tunnel";
@@ -2228,17 +2216,7 @@
 
 "type.highway.track.grade1" = "Gade";
 
-"type.highway.track.grade2" = "Gade";
-
-"type.highway.track.grade3" = "Gade";
-
-"type.highway.track.grade4" = "Gade";
-
-"type.highway.track.grade5" = "Gade";
-
 "type.highway.track.no.access" = "Gade";
-
-"type.highway.track.permissive" = "Gade";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunnel";
