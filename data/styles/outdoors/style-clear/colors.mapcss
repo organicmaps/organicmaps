@@ -32,6 +32,8 @@
 /* 5.ROADS */
 /* 5.1 All roads */
 
+@cycleway: #534DEB; /* slightly darker than in main */
+
 @construction: #ABAB9A;
 
 /* 5.5 Transport */
