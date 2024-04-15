@@ -1198,15 +1198,9 @@
 	<string name="type.highway.footway">Chodnik</string>
 	<string name="type.highway.footway.sidewalk">Chodnik</string>
 	<string name="type.highway.footway.crossing">Przejście dla pieszych</string>
-	<string name="type.highway.footway.alpine_hiking">Ścieżka wspinaczkowa</string>
 	<string name="type.highway.footway.area">Obszar chodnika</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Most dla pieszych</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Ścieżka</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Ścieżka</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Ścieżka</string>
-	<string name="type.highway.footway.hiking">Ścieżka</string>
-	<string name="type.highway.footway.mountain_hiking">Ścieżka</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunel dla pieszych</string>
 	<string name="type.highway.ford">Bród</string>
@@ -1311,12 +1305,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Most</string>
 	<string name="type.highway.track.grade1">Droga na pola lub do lasu</string>
-	<string name="type.highway.track.grade2">Droga na pola lub do lasu</string>
-	<string name="type.highway.track.grade3">Droga na pola lub do lasu</string>
-	<string name="type.highway.track.grade4">Droga na pola lub do lasu</string>
-	<string name="type.highway.track.grade5">Droga na pola lub do lasu</string>
 	<string name="type.highway.track.no.access">Droga na pola lub do lasu</string>
-	<string name="type.highway.track.permissive">Droga na pola lub do lasu</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunel drogowy</string>
 	<string name="type.highway.traffic_signals">Sygnalizacja świetlna</string>

@@ -2038,22 +2038,10 @@
 
 "type.highway.footway.crossing" = "Voetgangersoversteekplaats";
 
-"type.highway.footway.alpine_hiking" = "Alpine wandelpad";
-
 "type.highway.footway.area" = "Voetgangerszone";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Voetgangersbrug";
-
-"type.highway.footway.demanding_alpine_hiking" = "Uitdagend alpine bergklimpad";
-
-"type.highway.footway.demanding_mountain_hiking" = "Uitdagend bergwandelpad";
-
-"type.highway.footway.difficult_alpine_hiking" = "Moeilijk alpine bergklimpad";
-
-"type.highway.footway.hiking" = "Wandelpad";
-
-"type.highway.footway.mountain_hiking" = "Bergpad";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Voetgangerstunnel";
@@ -2230,17 +2218,7 @@
 
 "type.highway.track.grade1" = "Straat";
 
-"type.highway.track.grade2" = "Straat";
-
-"type.highway.track.grade3" = "Straat";
-
-"type.highway.track.grade4" = "Straat";
-
-"type.highway.track.grade5" = "Straat";
-
 "type.highway.track.no.access" = "Straat";
-
-"type.highway.track.permissive" = "Straat";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunnel";

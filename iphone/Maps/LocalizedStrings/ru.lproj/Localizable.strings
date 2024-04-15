@@ -2038,22 +2038,10 @@
 
 "type.highway.footway.crossing" = "Пешеходный переход";
 
-"type.highway.footway.alpine_hiking" = "Тропа";
-
 "type.highway.footway.area" = "Пешеходная зона";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Пешеходный мост";
-
-"type.highway.footway.demanding_alpine_hiking" = "Тропа";
-
-"type.highway.footway.demanding_mountain_hiking" = "Тропа";
-
-"type.highway.footway.difficult_alpine_hiking" = "Тропа";
-
-"type.highway.footway.hiking" = "Тропа";
-
-"type.highway.footway.mountain_hiking" = "Тропа";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Пешеходный тоннель";
@@ -2230,17 +2218,7 @@
 
 "type.highway.track.grade1" = "Грунтовка";
 
-"type.highway.track.grade2" = "Грунтовка";
-
-"type.highway.track.grade3" = "Грунтовка";
-
-"type.highway.track.grade4" = "Грунтовка";
-
-"type.highway.track.grade5" = "Грунтовка";
-
 "type.highway.track.no.access" = "Грунтовка";
-
-"type.highway.track.permissive" = "Грунтовка";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Тоннель";

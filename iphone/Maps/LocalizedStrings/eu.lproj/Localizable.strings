@@ -2038,22 +2038,10 @@
 
 "type.highway.footway.crossing" = "Oinezkoen pasabidea";
 
-"type.highway.footway.alpine_hiking" = "Bidea";
-
 "type.highway.footway.area" = "Bidea";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Zubia";
-
-"type.highway.footway.demanding_alpine_hiking" = "Bidea";
-
-"type.highway.footway.demanding_mountain_hiking" = "Bidea";
-
-"type.highway.footway.difficult_alpine_hiking" = "Bidea";
-
-"type.highway.footway.hiking" = "Bidea";
-
-"type.highway.footway.mountain_hiking" = "Bidea";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Tunel";
@@ -2230,17 +2218,7 @@
 
 "type.highway.track.grade1" = "Kalea";
 
-"type.highway.track.grade2" = "Kalea";
-
-"type.highway.track.grade3" = "Kalea";
-
-"type.highway.track.grade4" = "Kalea";
-
-"type.highway.track.grade5" = "Kalea";
-
 "type.highway.track.no.access" = "Kalea";
-
-"type.highway.track.permissive" = "Kalea";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunel";

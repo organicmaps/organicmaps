@@ -2038,22 +2038,10 @@
 
 "type.highway.footway.crossing" = "Gyalogátkelőhely";
 
-"type.highway.footway.alpine_hiking" = "Ösvény";
-
 "type.highway.footway.area" = "Ösvény";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Híd";
-
-"type.highway.footway.demanding_alpine_hiking" = "Ösvény";
-
-"type.highway.footway.demanding_mountain_hiking" = "Ösvény";
-
-"type.highway.footway.difficult_alpine_hiking" = "Ösvény";
-
-"type.highway.footway.hiking" = "Ösvény";
-
-"type.highway.footway.mountain_hiking" = "Ösvény";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Alagút";
@@ -2230,17 +2218,7 @@
 
 "type.highway.track.grade1" = "Utca";
 
-"type.highway.track.grade2" = "Utca";
-
-"type.highway.track.grade3" = "Utca";
-
-"type.highway.track.grade4" = "Utca";
-
-"type.highway.track.grade5" = "Utca";
-
 "type.highway.track.no.access" = "Utca";
-
-"type.highway.track.permissive" = "Utca";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Alagút";

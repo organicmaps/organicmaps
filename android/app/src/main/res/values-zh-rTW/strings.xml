@@ -1135,15 +1135,9 @@
 	<string name="type.highway.footway">人行步道</string>
 	<string name="type.highway.footway.sidewalk">人行道</string>
 	<string name="type.highway.footway.crossing">行人穿越道</string>
-	<string name="type.highway.footway.alpine_hiking">人行步道</string>
 	<string name="type.highway.footway.area">人行步道</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">橋</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">人行步道</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">人行步道</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">人行步道</string>
-	<string name="type.highway.footway.hiking">人行步道</string>
-	<string name="type.highway.footway.mountain_hiking">人行步道</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">隧道</string>
 	<string name="type.highway.ford">淺灘</string>
@@ -1248,12 +1242,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">橋</string>
 	<string name="type.highway.track.grade1">土路</string>
-	<string name="type.highway.track.grade2">土路</string>
-	<string name="type.highway.track.grade3">土路</string>
-	<string name="type.highway.track.grade4">土路</string>
-	<string name="type.highway.track.grade5">土路</string>
 	<string name="type.highway.track.no.access">土路</string>
-	<string name="type.highway.track.permissive">土路</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">隧道</string>
 	<string name="type.highway.traffic_signals">紅綠燈</string>

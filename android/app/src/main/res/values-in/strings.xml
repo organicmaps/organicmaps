@@ -1091,15 +1091,9 @@
 	<string name="type.highway.footway">Jalur</string>
 	<string name="type.highway.footway.sidewalk">Trotoar</string>
 	<string name="type.highway.footway.crossing">Penyeberangan Pejalan Kaki</string>
-	<string name="type.highway.footway.alpine_hiking">Jalur</string>
 	<string name="type.highway.footway.area">Jalur</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Menjembatani</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Jalur</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Jalur</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Jalur</string>
-	<string name="type.highway.footway.hiking">Jalur</string>
-	<string name="type.highway.footway.mountain_hiking">Jalur</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Terowongan</string>
 	<string name="type.highway.ford">Menyeberang</string>
@@ -1203,12 +1197,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Menjembatani</string>
 	<string name="type.highway.track.grade1">Jalan</string>
-	<string name="type.highway.track.grade2">Jalan</string>
-	<string name="type.highway.track.grade3">Jalan</string>
-	<string name="type.highway.track.grade4">Jalan</string>
-	<string name="type.highway.track.grade5">Jalan</string>
 	<string name="type.highway.track.no.access">Jalan</string>
-	<string name="type.highway.track.permissive">Jalan</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Terowongan</string>
 	<string name="type.highway.traffic_signals">Lampu lalu lintas</string>

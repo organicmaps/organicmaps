@@ -1148,15 +1148,9 @@
 	<string name="type.highway.footway">Gangvei</string>
 	<string name="type.highway.footway.sidewalk">Fortau</string>
 	<string name="type.highway.footway.crossing">Fotgjengerovergang</string>
-	<string name="type.highway.footway.alpine_hiking">Sti</string>
 	<string name="type.highway.footway.area">Gangvei</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Bru</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Sti</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Sti</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Sti</string>
-	<string name="type.highway.footway.hiking">Sti</string>
-	<string name="type.highway.footway.mountain_hiking">Sti</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunnel</string>
 	<string name="type.highway.ford">Vadested</string>
@@ -1260,12 +1254,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Bru</string>
 	<string name="type.highway.track.grade1">Traktor/Skogsbilvei</string>
-	<string name="type.highway.track.grade2">Traktor/Skogsbilvei</string>
-	<string name="type.highway.track.grade3">Traktor/Skogsbilvei</string>
-	<string name="type.highway.track.grade4">Traktor/Skogsbilvei</string>
-	<string name="type.highway.track.grade5">Traktor/Skogsbilvei</string>
 	<string name="type.highway.track.no.access">Traktor/Skogsbilvei</string>
-	<string name="type.highway.track.permissive">Traktor/Skogsbilvei</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunnel</string>
 	<string name="type.highway.traffic_signals">Trafikklys</string>

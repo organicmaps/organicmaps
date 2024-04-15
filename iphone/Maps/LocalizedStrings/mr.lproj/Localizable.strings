@@ -2038,22 +2038,10 @@
 
 "type.highway.footway.crossing" = "पादचारी ओलांडणे";
 
-"type.highway.footway.alpine_hiking" = "पथ";
-
 "type.highway.footway.area" = "पादचारी झोन";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "पादचारी पूल";
-
-"type.highway.footway.demanding_alpine_hiking" = "पथ";
-
-"type.highway.footway.demanding_mountain_hiking" = "पथ";
-
-"type.highway.footway.difficult_alpine_hiking" = "पथ";
-
-"type.highway.footway.hiking" = "पथ";
-
-"type.highway.footway.mountain_hiking" = "पथ";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "पादचारी बोगदा";
@@ -2230,17 +2218,7 @@
 
 "type.highway.track.grade1" = "ट्रॅक";
 
-"type.highway.track.grade2" = "ट्रॅक";
-
-"type.highway.track.grade3" = "ट्रॅक";
-
-"type.highway.track.grade4" = "ट्रॅक";
-
-"type.highway.track.grade5" = "ट्रॅक";
-
 "type.highway.track.no.access" = "ट्रॅक";
-
-"type.highway.track.permissive" = "ट्रॅक";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "बोगदा";

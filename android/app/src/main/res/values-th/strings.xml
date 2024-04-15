@@ -1096,15 +1096,9 @@
 	<string name="type.highway.footway">เส้นทาง</string>
 	<string name="type.highway.footway.sidewalk">ทางเท้า</string>
 	<string name="type.highway.footway.crossing">ทางม้าลาย</string>
-	<string name="type.highway.footway.alpine_hiking">เส้นทาง</string>
 	<string name="type.highway.footway.area">เส้นทาง</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">สะพาน</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">เส้นทาง</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">เส้นทาง</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">เส้นทาง</string>
-	<string name="type.highway.footway.hiking">เส้นทาง</string>
-	<string name="type.highway.footway.mountain_hiking">เส้นทาง</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">อุโมงค์</string>
 	<string name="type.highway.ford">ที่ตื้นของทางน้ำ</string>
@@ -1208,12 +1202,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">สะพาน</string>
 	<string name="type.highway.track.grade1">ถนน</string>
-	<string name="type.highway.track.grade2">ถนน</string>
-	<string name="type.highway.track.grade3">ถนน</string>
-	<string name="type.highway.track.grade4">ถนน</string>
-	<string name="type.highway.track.grade5">ถนน</string>
 	<string name="type.highway.track.no.access">ถนน</string>
-	<string name="type.highway.track.permissive">ถนน</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">อุโมงค์</string>
 	<string name="type.highway.traffic_signals">สัญญาณไฟจราจร</string>
