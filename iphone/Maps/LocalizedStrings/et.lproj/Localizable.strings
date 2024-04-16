@@ -2080,6 +2080,8 @@
 
 "type.highway.path.bicycle" = "Jalgratta- ja jalgtee";
 
+"type.highway.footway.bicycle" = "Jalgratta- ja jalgtee";
+
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Sild";
 

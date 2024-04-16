@@ -1173,6 +1173,7 @@
 	<string name="type.highway.path">Sti</string>
 	<string name="type.highway.path.alpine_hiking">Sti</string>
 	<string name="type.highway.path.bicycle">Sti</string>
+	<string name="type.highway.footway.bicycle">Sti</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Bru</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Sti</string>

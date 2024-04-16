@@ -2080,6 +2080,8 @@
 
 "type.highway.path.bicycle" = "Ścieżka dla rowerów";
 
+"type.highway.footway.bicycle" = "Ścieżka dla rowerów";
+
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Most";
 

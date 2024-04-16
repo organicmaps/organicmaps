@@ -2080,6 +2080,8 @@
 
 "type.highway.path.bicycle" = "Ösvény";
 
+"type.highway.footway.bicycle" = "Ösvény";
+
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Híd";
 
