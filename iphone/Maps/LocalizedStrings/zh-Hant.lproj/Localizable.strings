@@ -1967,7 +1967,7 @@
 
 "type.entrance.exit" = "出口";
 
-"type.fee.yes" = "💲";
+"type.fee.yes" = "$";
 
 "type.fee.no" = "免費";
 

@@ -1193,7 +1193,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Main Entrance</string>
 	<string name="type.entrance.exit">Exit</string>
-	<string name="type.fee.yes">💲</string>
+	<string name="type.fee.yes">$</string>
 	<string name="type.fee.no">Free</string>
 	<string name="type.healthcare.laboratory">Medical Laboratory</string>
 	<string name="type.healthcare.physiotherapist">Physiotherapist</string>

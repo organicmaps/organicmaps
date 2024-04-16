@@ -1967,7 +1967,7 @@
 
 "type.entrance.exit" = "Çıkış";
 
-"type.fee.yes" = "💲";
+"type.fee.yes" = "$";
 
 "type.fee.no" = "Ücretsiz";
 

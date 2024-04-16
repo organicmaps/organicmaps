@@ -1967,7 +1967,7 @@
 
 "type.entrance.exit" = "Kijárat";
 
-"type.fee.yes" = "💲";
+"type.fee.yes" = "$";
 
 "type.fee.no" = "Ingyenes";
 

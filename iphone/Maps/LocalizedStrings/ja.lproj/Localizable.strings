@@ -1967,7 +1967,7 @@
 
 "type.entrance.exit" = "終了する";
 
-"type.fee.yes" = "💲";
+"type.fee.yes" = "$";
 
 "type.fee.no" = "無料";
 

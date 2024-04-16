@@ -1967,7 +1967,7 @@
 
 "type.entrance.exit" = "Έξοδος";
 
-"type.fee.yes" = "💲";
+"type.fee.yes" = "$";
 
 "type.fee.no" = "Δωρεάν";
 

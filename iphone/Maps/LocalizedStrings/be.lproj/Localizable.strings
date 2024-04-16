@@ -1967,7 +1967,7 @@
 
 "type.entrance.exit" = "Выхад";
 
-"type.fee.yes" = "💲";
+"type.fee.yes" = "$";
 
 "type.fee.no" = "бясплатна";
 
