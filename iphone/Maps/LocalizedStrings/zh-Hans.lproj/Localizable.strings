@@ -1961,7 +1961,7 @@
 
 "type.entrance.exit" = "退出";
 
-"type.fee.yes" = "💲";
+"type.fee.yes" = "$";
 
 "type.fee.no" = "免费";
 

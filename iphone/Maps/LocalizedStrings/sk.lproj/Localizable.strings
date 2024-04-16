@@ -1961,7 +1961,7 @@
 
 "type.entrance.exit" = "Východ";
 
-"type.fee.yes" = "💲";
+"type.fee.yes" = "$";
 
 "type.fee.no" = "Zadarmo";
 
