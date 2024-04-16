@@ -11294,7 +11294,7 @@
     zh-Hant = 出口
 
   [type.fee.yes]
-    en = 💲
+    en = $
 
   [type.fee.no]
     en = Free
