@@ -953,7 +953,7 @@
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">Beschutting</string>
 	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
-	<string name="type.amenity.shelter.basic_hut">bivakhut</string>
+	<string name="type.amenity.shelter.basic_hut">Bivakhut</string>
 	<string name="type.amenity.public_bath">Publiek bad</string>
 	<string name="type.amenity.shower">Douche</string>
 	<string name="type.amenity.stripclub">Stripclub</string>

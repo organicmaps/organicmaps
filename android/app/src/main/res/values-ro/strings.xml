@@ -908,7 +908,7 @@
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">Adăpost</string>
 	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
-	<string name="type.amenity.shelter.basic_hut">baracă de bivuac</string>
+	<string name="type.amenity.shelter.basic_hut">Baracă de Bivuac</string>
 	<string name="type.amenity.public_bath">Baie publică</string>
 	<string name="type.amenity.shower">Duș</string>
 	<string name="type.amenity.stripclub">Stripclub</string>

@@ -887,7 +887,7 @@
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">Chổ nương thân</string>
 	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
-	<string name="type.amenity.shelter.basic_hut">túp lều bivouac</string>
+	<string name="type.amenity.shelter.basic_hut">Túp lều Bivouac</string>
 	<string name="type.amenity.public_bath">Nhà tắm công cộng</string>
 	<string name="type.amenity.shower">Nhà tắm</string>
 	<string name="type.amenity.stripclub">Câu lạc bộ thoát y</string>

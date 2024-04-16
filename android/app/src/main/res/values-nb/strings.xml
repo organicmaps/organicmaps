@@ -935,7 +935,7 @@
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">Ly</string>
 	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
-	<string name="type.amenity.shelter.basic_hut">bivuakkhytte</string>
+	<string name="type.amenity.shelter.basic_hut">Bivuakkhytte</string>
 	<string name="type.amenity.public_bath">Offentlig bad</string>
 	<string name="type.amenity.shower">Dusj</string>
 	<string name="type.amenity.stripclub">Stripklubb</string>

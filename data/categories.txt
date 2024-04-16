@@ -6490,39 +6490,39 @@ en:3Bivouac Hut|Bivvy|Bothy|Hut
 ar:كوخ إقامة مؤقتة
 be:Хаціна-бівак
 bg:Колибка за бивак
-ca:cabana bivac
-cs:bivakovací chata
+ca:Cabana Bivac
+cs:Bivakovací Chata
 da:Bivuakhytte
 de:4Biwakschachtel
 el:καταφύγιο bivouac
-es:cabaña de vivac
-es-MX:cabaña vivac
-et:bivouac-küünla
-eu:bivouac borda
+es:Cabaña de Vivac
+es-MX:Cabaña Vivac
+et:Bivouac-Küünla
+eu:Bivouac Borda
 fa:کلبه بیواک
-fi:bivouac-mökki
-fr:cabane de bivouac
+fi:Bivouac-mökki
+fr:Cabane de Bivouac
 he:בקתת לינה|בקתה
 hi:द्विवार्षिक झोपड़ी
-hu:bivak kunyhó
-id:pondok bivak
-it:capanna di bivacco
+hu:Bivak Kunyhó
+id:Pondok Bivak
+it:Capanna di Bivacco
 ja:ビバーク小屋
 ko:비박 오두막
 mr:बिव्होक झोपडी
-nb:bivuakkhytte
-nl:bivakhut
-pl:chata biwakowa
-pt:cabana básica
-ro:baracă de bivuac
+nb:Bivuakkhytte
+nl:Bivakhut
+pl:Chata Biwakowa
+pt:Cabana Básica
+ro:Baracă de Bivuac
 ru:Хижина для ночлега
-sk:bivaková chata
-sv:bivack hydda
-sw:kibanda cha bivouac
+sk:Bivaková Chata
+sv:Bivack Hydda
+sw:Kibanda cha Bivouac
 th:กระท่อมพักแรม
-tr:bivouac kulübe
+tr:Bivouac Kulübe
 uk:Хатинка-бівуак
-vi:túp lều bivouac
+vi:Túp lều Bivouac
 zh-Hans:行军床
 zh-Hant:露營小屋
 

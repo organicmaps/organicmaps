@@ -948,7 +948,7 @@
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">Varjupaik</string>
 	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
-	<string name="type.amenity.shelter.basic_hut">bivouac-küünla</string>
+	<string name="type.amenity.shelter.basic_hut">Vivouac-küünla</string>
 	<string name="type.amenity.public_bath">Avalik vann</string>
 	<string name="type.amenity.shower">Dušš</string>
 	<string name="type.amenity.stripclub">Stripiklubi</string>

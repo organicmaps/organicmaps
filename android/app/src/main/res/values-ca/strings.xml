@@ -828,7 +828,7 @@
 
 	<!-- SECTION: Types: Recycling -->
 	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
-	<string name="type.amenity.shelter.basic_hut">cabana bivac</string>
+	<string name="type.amenity.shelter.basic_hut">Cabana Bivac</string>
 	<string name="type.amenity.public_bath">Bany Públic</string>
 	<string name="type.amenity.stripclub">Club de striptease</string>
 	<string name="type.amenity.vehicle_inspection">Inspecció de vehicles</string>

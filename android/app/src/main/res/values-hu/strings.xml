@@ -909,7 +909,7 @@
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">Menedék</string>
 	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
-	<string name="type.amenity.shelter.basic_hut">bivak kunyhó</string>
+	<string name="type.amenity.shelter.basic_hut">Bivak Kunyhó</string>
 	<string name="type.amenity.public_bath">Közfürdő</string>
 	<string name="type.amenity.shower">Tusoló</string>
 	<string name="type.amenity.stripclub">Sztriptízbár</string>

@@ -1573,7 +1573,7 @@
 "type.amenity.shelter.public_transport" = "Shelter";
 
 /* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
-"type.amenity.shelter.basic_hut" = "cabana bivac";
+"type.amenity.shelter.basic_hut" = "Cabana Bivac";
 
 /* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
 "type.amenity.shelter.lean_to" = "Lean-to Shelter";

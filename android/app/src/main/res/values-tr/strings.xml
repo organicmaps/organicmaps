@@ -961,7 +961,7 @@
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">Barınak</string>
 	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
-	<string name="type.amenity.shelter.basic_hut">bivouac kulübe</string>
+	<string name="type.amenity.shelter.basic_hut">Bivouac Kulübe</string>
 	<string name="type.amenity.public_bath">Hamam</string>
 	<string name="type.amenity.shower">Duş</string>
 	<string name="type.amenity.stripclub">Striptiz kulübü</string>

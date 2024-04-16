@@ -917,7 +917,7 @@
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">Abrigo</string>
 	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
-	<string name="type.amenity.shelter.basic_hut">cabana básica</string>
+	<string name="type.amenity.shelter.basic_hut">Cabana Básica</string>
 	<!-- A traditional 3-walled shelter (one side open), suitable for overnight camping. -->
 	<string name="type.amenity.shelter.lean_to">Abrigo tipo telheiro</string>
 	<string name="type.amenity.public_bath">Banho público</string>
