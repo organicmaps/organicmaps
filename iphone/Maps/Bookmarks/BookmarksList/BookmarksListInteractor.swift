@@ -15,37 +15,9 @@ extension BookmarksListSortingType {
   }
 }
 
-enum ExportFileStatus {
-  case success
-  case empty
-  case error
-}
-
-fileprivate final class BookmarksManagerListener: NSObject {
-  private var callback: (ExportFileStatus) -> Void
-
-  init(_ callback: @escaping (ExportFileStatus) -> Void) {
-    self.callback = callback
-  }
-}
-
-extension BookmarksManagerListener: BookmarksObserver {
-  func onBookmarksCategoryFilePrepared(_ status: BookmarksShareStatus) {
-    switch status {
-    case .success:
-      callback(.success)
-    case .emptyCategory:
-      callback(.empty)
-    case .archiveError, .fileError:
-      callback(.error)
-    }
-  }
-}
-
 final class BookmarksListInteractor {
   private let markGroupId: MWMMarkGroupID
   private var bookmarksManager: BookmarksManager { BookmarksManager.shared() }
-  private var bookmarksManagerListener: BookmarksManagerListener?
 
   init(markGroupId: MWMMarkGroupID) {
     self.markGroupId = markGroupId
@@ -172,18 +144,8 @@ extension BookmarksListInteractor: IBookmarksListInteractor {
     bookmarksManager.userCategoriesCount() > 1
   }
 
-  func exportFile(_ completion: @escaping (URL?, ExportFileStatus) -> Void) {
-    bookmarksManagerListener = BookmarksManagerListener({ [weak self] status in
-      guard let self = self else { return }
-      self.bookmarksManager.remove(self.bookmarksManagerListener!)
-      var url: URL? = nil
-      if status == .success {
-        url = self.bookmarksManager.shareCategoryURL()
-      }
-      completion(url, status)
-    })
-    bookmarksManager.add(bookmarksManagerListener!)
-    bookmarksManager.shareCategory(markGroupId)
+  func exportFile(_ completion: @escaping SharingResultCompletionHandler) {
+    bookmarksManager.shareCategory(markGroupId, completion: completion)
   }
 
   func finishExportFile() {

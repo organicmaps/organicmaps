@@ -74,31 +74,29 @@ final class BMCViewController: MWMViewController {
   }
 
   private func shareCategoryFile(at index: Int, anchor: UIView) {
-    viewModel.shareCategoryFile(at: index) {
-      switch $0 {
-      case let .success(url):
-        let shareController = ActivityViewController.share(for: url, message: L("share_bookmarks_email_body"))
-        { [weak self] _, _, _, _ in
-          self?.viewModel?.finishShareCategory()
-        }
-        shareController?.present(inParentViewController: self, anchorView: anchor)
-      case let .error(title, text):
-        MWMAlertViewController.activeAlert().presentInfoAlert(title, text: text)
-      }
-    }
+    viewModel.shareCategoryFile(at: index, handler: sharingResultHandler(anchorView: anchor))
   }
 
   private func shareAllCategories(anchor: UIView?) {
-    viewModel.shareAllCategories {
-      switch $0 {
-      case let .success(url):
+    viewModel.shareAllCategories(handler: sharingResultHandler(anchorView: anchor))
+  }
+
+  private func sharingResultHandler(anchorView: UIView?) -> SharingResultCompletionHandler {
+    { [weak self] status, url in
+      guard let self else { return }
+      switch status {
+      case .success:
         let shareController = ActivityViewController.share(for: url, message: L("share_bookmarks_email_body"))
         { [weak self] _, _, _, _ in
           self?.viewModel?.finishShareCategory()
         }
-        shareController?.present(inParentViewController: self, anchorView: anchor)
-      case let .error(title, text):
-        MWMAlertViewController.activeAlert().presentInfoAlert(title, text: text)
+        shareController?.present(inParentViewController: self, anchorView: anchorView)
+      case .emptyCategory:
+        MWMAlertViewController.activeAlert().presentInfoAlert(L("bookmarks_error_title_share_empty"),
+                                                              text: L("bookmarks_error_message_share_empty"))
+      case .fileError, .archiveError:
+        MWMAlertViewController.activeAlert().presentInfoAlert(L("dialog_routing_system_error"),
+                                                              text: L("bookmarks_error_message_share_general"))
       }
     }
   }
