@@ -959,7 +959,7 @@
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">Wiata</string>
 	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
-	<string name="type.amenity.shelter.basic_hut">chata biwakowa</string>
+	<string name="type.amenity.shelter.basic_hut">Chata Biwakowa</string>
 	<string name="type.amenity.public_bath">Łaźnia publiczna</string>
 	<string name="type.amenity.shower">Prysznic</string>
 	<string name="type.amenity.stripclub">Klub ze striptizem</string>

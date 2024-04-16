@@ -886,7 +886,7 @@
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">Tempat penampungan</string>
 	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
-	<string name="type.amenity.shelter.basic_hut">pondok bivak</string>
+	<string name="type.amenity.shelter.basic_hut">Pondok Bivak</string>
 	<string name="type.amenity.public_bath">Pemandian umum</string>
 	<string name="type.amenity.shower">Pancuran</string>
 	<string name="type.amenity.stripclub">Klub telanjang</string>

@@ -899,7 +899,7 @@
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">Přístřešek</string>
 	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
-	<string name="type.amenity.shelter.basic_hut">bivakovací chata</string>
+	<string name="type.amenity.shelter.basic_hut">Bivakovací Chata</string>
 	<string name="type.amenity.public_bath">Veřejné lázně</string>
 	<string name="type.amenity.shower">Sprcha</string>
 	<string name="type.amenity.stripclub">Stripcklub</string>
