@@ -415,6 +415,7 @@ world  +
         elevator  -
         footway  +
             area  -
+            bicycle  -
             bridge  -
             crossing  -
             sidewalk  -

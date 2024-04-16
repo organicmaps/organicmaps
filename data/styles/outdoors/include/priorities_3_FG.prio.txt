@@ -269,9 +269,9 @@ highway-bridleway-bridge                            # line z11- (also has line::
 highway-bridleway-tunnel                            # line z11- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z13-)
 highway-footway                                     # line z11- (also has pathtext z13-)
 highway-footway-area                                # line z11- and area z14- (also has pathtext z13-)
-highway-footway-bicycle
+highway-footway-bicycle                             # line z11- (also has line::cycleline z12-, pathtext z13-)
 highway-path                                        # line z11- (also has pathtext z13-)
-highway-path-bicycle                                # line z11- (also has pathtext z13-)
+highway-path-bicycle                                # line z11- (also has line::cycleline z12-, pathtext z13-)
 highway-raceway                                     # line z14- (also has pathtext z16-)
 highway-track                                       # line z11- (also has pathtext z13-)
 highway-track-area                                  # line z11- (also has pathtext z13-)
@@ -282,6 +282,8 @@ leisure-track                                       # line z15- (also has captio
 === 180
 
 highway-construction                                # line z11- (also has pathtext z15-)
+highway-footway-bicycle::cycleline                  # line::cycleline z12- (also has line z11-, pathtext z13-)
+highway-path-bicycle::cycleline                     # line::cycleline z12- (also has line z11-, pathtext z13-)
 railway-abandoned                                   # line z13-
 railway-abandoned-bridge                            # line z13- (also has line::bridgeblack z16-, line::bridgewhite z16-)
 railway-abandoned-tunnel                            # line z13-
@@ -290,8 +292,6 @@ railway-disused                                     # line z13-
 railway-preserved                                   # line z13-
 railway-preserved-bridge                            # line z13- (also has line::bridgeblack z16-, line::bridgewhite z15-)
 railway-preserved-tunnel                            # line z13-
-highway-footway-bicycle::cycleline
-highway-path-bicycle::cycleline
 === 160
 
 highway-footway-bridge                              # line z11- (also has line::bridgeblack z17-, line::bridgewhite z15-, pathtext z13-)
