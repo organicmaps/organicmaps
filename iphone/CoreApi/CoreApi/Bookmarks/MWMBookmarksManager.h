@@ -24,6 +24,7 @@ typedef void (^PingCompletionBlock)(BOOL success);
 typedef void (^ElevationPointChangedBlock)(double distance);
 typedef void (^SearchBookmarksCompletionBlock)(NSArray<MWMBookmark *> *bookmarks);
 typedef void (^SortBookmarksCompletionBlock)(NSArray<MWMBookmarksSection *> * _Nullable sortedSections);
+typedef void (^SharingResultCompletionHandler)(MWMBookmarksShareStatus status, NSURL * _Nullable urlToALocalFile);
 
 NS_SWIFT_NAME(BookmarksManager)
 @interface MWMBookmarksManager : NSObject
@@ -84,9 +85,24 @@ NS_SWIFT_NAME(BookmarksManager)
 
 - (MWMTrackIDCollection)trackIdsForCategory:(MWMMarkGroupID)categoryId;
 
-- (void)shareCategory:(MWMMarkGroupID)groupId;
-- (void)shareAllCategories;
-- (NSURL *)shareCategoryURL;
+/**
+ Shares a specific category with the given group ID.
+
+ @param groupId The identifier for the category to be shared.
+ @param completion A block that handles the result of the share operation and takes two parameters:
+                   - status: The status of the share operation, of type `MWMBookmarksShareStatus`.
+                   - urlToALocalFile: The local file URL containing the shared data. This parameter is guaranteed to be non-nil only if `status` is `MWMBookmarksShareStatusSuccess`. In other cases, it will be nil.
+*/
+- (void)shareCategory:(MWMMarkGroupID)groupId completion:(SharingResultCompletionHandler)completion;
+
+/**
+ Shares all categories.
+
+ @param completion A block that handles the result of the share operation and takes two parameters:
+                   - status: The status of the share operation, of type `MWMBookmarksShareStatus`.
+                   - urlToALocalFile: The local file URL containing the shared data. This parameter is guaranteed to be non-nil only if `status` is `MWMBookmarksShareStatusSuccess`.  In other cases, it will be nil.
+*/
+- (void)shareAllCategoriesWithCompletion:(SharingResultCompletionHandler)completion;
 - (void)finishShareCategory;
 
 - (void)setNotificationsEnabled:(BOOL)enabled;

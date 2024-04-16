@@ -11,7 +11,6 @@ NS_SWIFT_NAME(BookmarksObserver)
 - (void)onBookmarksFileLoadError;
 - (void)onBookmarksCategoryDeleted:(MWMMarkGroupID)groupId;
 - (void)onBookmarkDeleted:(MWMMarkID)bookmarkId;
-- (void)onBookmarksCategoryFilePrepared:(MWMBookmarksShareStatus)status;
 
 @end
 NS_ASSUME_NONNULL_END
