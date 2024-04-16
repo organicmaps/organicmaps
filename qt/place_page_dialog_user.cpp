@@ -1,3 +1,4 @@
+#include "qt/place_page_dialog_common.hpp"
 #include "qt/place_page_dialog_user.hpp"
 
 #include "qt/qt_common/text_dialog.hpp"
@@ -218,19 +219,7 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
 
   {
     QDialogButtonBox * dbb = new QDialogButtonBox();
-    dbb->setCenterButtons(true);
-    QPushButton * closeButton = new QPushButton("Close");
-    closeButton->setDefault(true);
-    connect(closeButton, &QAbstractButton::clicked, this, &PlacePageDialogUser::OnClose);
-    dbb->addButton(closeButton, QDialogButtonBox::RejectRole);
-
-    if (info.ShouldShowEditPlace())
-    {
-      QPushButton * editButton = new QPushButton("Edit Place");
-      connect(editButton, &QAbstractButton::clicked, this, &PlacePageDialogUser::OnEdit);
-      dbb->addButton(editButton, QDialogButtonBox::ActionRole);
-    }
-
+    place_page_dialog::addCommonButtons(this, dbb, info.ShouldShowEditPlace());
     layout->addWidget(dbb, Qt::AlignCenter);
   }
 
@@ -239,6 +228,3 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
   auto const ppTitle = std::string("Place Page") + (info.IsBookmark() ? " (bookmarked)" : "");
   setWindowTitle(ppTitle.c_str());
 }
-
-void PlacePageDialogUser::OnClose() { reject(); }
-void PlacePageDialogUser::OnEdit() { accept(); }

@@ -14,9 +14,5 @@ class PlacePageDialogUser : public QDialog
   Q_OBJECT
 public:
   PlacePageDialogUser(QWidget * parent, place_page::Info const & info,
-                  search::ReverseGeocoder::Address const & address);
-
-private slots:
-  void OnClose();
-  void OnEdit();
+                      search::ReverseGeocoder::Address const & address);
 };
