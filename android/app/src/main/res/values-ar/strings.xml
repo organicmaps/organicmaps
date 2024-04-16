@@ -1232,6 +1232,7 @@
 	<string name="type.highway.path">مسار</string>
 	<string name="type.highway.path.alpine_hiking">مسار</string>
 	<string name="type.highway.path.bicycle">مسار للمشاة والدراجات معاً</string>
+	<string name="type.highway.footway.bicycle">مسار للمشاة والدراجات معاً</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">جسر</string>
 	<string name="type.highway.path.demanding_alpine_hiking">مسار</string>

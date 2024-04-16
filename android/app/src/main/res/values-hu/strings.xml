@@ -1140,6 +1140,7 @@
 	<string name="type.highway.path">Ösvény</string>
 	<string name="type.highway.path.alpine_hiking">Ösvény</string>
 	<string name="type.highway.path.bicycle">Ösvény</string>
+	<string name="type.highway.footway.bicycle">Ösvény</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Híd</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Ösvény</string>

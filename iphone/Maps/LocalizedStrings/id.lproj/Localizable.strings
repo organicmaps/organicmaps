@@ -2080,6 +2080,8 @@
 
 "type.highway.path.bicycle" = "Jalur";
 
+"type.highway.footway.bicycle" = "Jalur";
+
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Menjembatani";
 

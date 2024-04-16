@@ -2080,6 +2080,8 @@
 
 "type.highway.path.bicycle" = "Velosiped və Gəzinti Yolu";
 
+"type.highway.footway.bicycle" = "Velosiped və Gəzinti Yolu";
+
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Körpü";
 

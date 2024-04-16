@@ -2080,6 +2080,8 @@
 
 "type.highway.path.bicycle" = "Đường";
 
+"type.highway.footway.bicycle" = "Đường";
+
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Cầu";
 
