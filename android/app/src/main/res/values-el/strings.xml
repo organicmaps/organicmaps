@@ -1166,6 +1166,7 @@
 	<string name="type.highway.path">Διαδρομή</string>
 	<string name="type.highway.path.alpine_hiking">Διαδρομή</string>
 	<string name="type.highway.path.bicycle">Διαδρομή</string>
+	<string name="type.highway.footway.bicycle">Διαδρομή</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Γέφυρα</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Διαδρομή</string>

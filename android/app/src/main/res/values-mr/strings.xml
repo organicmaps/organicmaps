@@ -1092,6 +1092,7 @@
 	<string name="type.highway.path">पथ</string>
 	<string name="type.highway.path.alpine_hiking">पथ</string>
 	<string name="type.highway.path.bicycle">सायकल आणि पाऊलवाट</string>
+	<string name="type.highway.footway.bicycle">सायकल आणि पाऊलवाट</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">पूल</string>
 	<string name="type.highway.path.demanding_alpine_hiking">पथ</string>

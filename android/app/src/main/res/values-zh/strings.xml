@@ -1169,6 +1169,7 @@
 	<string name="type.highway.path">小道</string>
 	<string name="type.highway.path.alpine_hiking">小道</string>
 	<string name="type.highway.path.bicycle">小道</string>
+	<string name="type.highway.footway.bicycle">小道</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">桥</string>
 	<string name="type.highway.path.demanding_alpine_hiking">小道</string>

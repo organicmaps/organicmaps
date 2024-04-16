@@ -1186,6 +1186,7 @@
 	<string name="type.highway.path">Yol</string>
 	<string name="type.highway.path.alpine_hiking">Yol</string>
 	<string name="type.highway.path.bicycle">Velosiped və Gəzinti Yolu</string>
+	<string name="type.highway.footway.bicycle">Velosiped və Gəzinti Yolu</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Körpü</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Yol</string>

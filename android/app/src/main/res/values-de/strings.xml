@@ -1204,6 +1204,7 @@
 	<string name="type.highway.path">Weg</string>
 	<string name="type.highway.path.alpine_hiking">Alpinwanderweg</string>
 	<string name="type.highway.path.bicycle">Radweg</string>
+	<string name="type.highway.footway.bicycle">Radweg</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Brücke</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Anspruchsvoller Alpinwanderweg</string>

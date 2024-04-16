@@ -2078,6 +2078,8 @@
 
 "type.highway.path.bicycle" = "Pyörä- ja jalkatie";
 
+"type.highway.footway.bicycle" = "Pyörä- ja jalkatie";
+
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Silta";
 

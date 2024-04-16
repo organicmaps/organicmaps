@@ -2078,6 +2078,8 @@
 
 "type.highway.path.bicycle" = "सायकल आणि पाऊलवाट";
 
+"type.highway.footway.bicycle" = "सायकल आणि पाऊलवाट";
+
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "पूल";
 

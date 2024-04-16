@@ -1209,6 +1209,7 @@
 	<string name="type.highway.path">Rada</string>
 	<string name="type.highway.path.alpine_hiking">Alpi matkarada</string>
 	<string name="type.highway.path.bicycle">Jalgratta- ja jalgtee</string>
+	<string name="type.highway.footway.bicycle">Jalgratta- ja jalgtee</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Sild</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Nõudlik alpi matkarada</string>

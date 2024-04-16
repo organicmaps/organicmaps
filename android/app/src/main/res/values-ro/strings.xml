@@ -1135,6 +1135,7 @@
 	<string name="type.highway.path">Cale</string>
 	<string name="type.highway.path.alpine_hiking">Cale</string>
 	<string name="type.highway.path.bicycle">Cale</string>
+	<string name="type.highway.footway.bicycle">Cale</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Pod</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Cale</string>

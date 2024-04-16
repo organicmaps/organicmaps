@@ -1209,6 +1209,7 @@
 	<string name="type.highway.path">Polku</string>
 	<string name="type.highway.path.alpine_hiking">Alppivaellus</string>
 	<string name="type.highway.path.bicycle">Pyörä- ja jalkatie</string>
+	<string name="type.highway.footway.bicycle">Pyörä- ja jalkatie</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Silta</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Vaativa alppivaellus</string>

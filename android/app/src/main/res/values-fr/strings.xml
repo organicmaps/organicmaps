@@ -1209,6 +1209,7 @@
 	<string name="type.highway.path">Chemin</string>
 	<string name="type.highway.path.alpine_hiking">Chemin</string>
 	<string name="type.highway.path.bicycle">Chemin</string>
+	<string name="type.highway.footway.bicycle">Chemin</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Pont</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Chemin</string>

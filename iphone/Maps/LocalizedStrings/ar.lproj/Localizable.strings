@@ -2078,6 +2078,8 @@
 
 "type.highway.path.bicycle" = "مسار للمشاة والدراجات معاً";
 
+"type.highway.footway.bicycle" = "مسار للمشاة والدراجات معاً";
+
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "جسر";
 

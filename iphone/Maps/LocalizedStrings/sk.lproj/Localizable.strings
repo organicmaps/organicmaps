@@ -2078,6 +2078,8 @@
 
 "type.highway.path.bicycle" = "Cesta pre cyklistov a chodcov";
 
+"type.highway.footway.bicycle" = "Cesta pre cyklistov a chodcov";
+
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Most";
 

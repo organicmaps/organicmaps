@@ -2078,6 +2078,8 @@
 
 "type.highway.path.bicycle" = "길";
 
+"type.highway.footway.bicycle" = "길";
+
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "다리";
 

@@ -1111,6 +1111,7 @@
 	<string name="type.highway.path">Jalur</string>
 	<string name="type.highway.path.alpine_hiking">Jalur</string>
 	<string name="type.highway.path.bicycle">Jalur</string>
+	<string name="type.highway.footway.bicycle">Jalur</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Menjembatani</string>
 	<string name="type.highway.path.demanding_alpine_hiking">Jalur</string>
