@@ -1,6 +1,7 @@
 package app.organicmaps.widget.menu;
 
 import android.location.Location;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
@@ -15,12 +16,16 @@ import app.organicmaps.location.LocationHelper;
 import app.organicmaps.routing.RoutingInfo;
 import app.organicmaps.sound.TtsPlayer;
 import app.organicmaps.util.Graphics;
+import app.organicmaps.util.Speed;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.log.Logger;
+
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class NavMenu
@@ -203,22 +208,57 @@ public class NavMenu
     mTimeEstimate.setText(localTime.format(DateTimeFormatter.ofPattern(format)));
   }
 
-  private void updateSpeedView(@NonNull RoutingInfo info)
+  private void updateSpeedView(@NonNull RoutingInfo info, int units)
   {
     final Location last = LocationHelper.from(mActivity).getSavedLocation();
     if (last == null)
       return;
 
+    // Log measurements for different Java implementations.
+    Speed.formatMeasurements(last.getSpeed(), units, mActivity.getApplicationContext());
+
+    // Speed formatting using native calls.
+    long start1 = System.nanoTime();
     Pair<String, String> speedAndUnits = StringUtils.nativeFormatSpeedAndUnits(last.getSpeed());
+    long elapsed1 = System.nanoTime() - start1;
 
     mSpeedUnits.setText(speedAndUnits.second);
     mSpeedValue.setText(speedAndUnits.first);
+
+    // Speed formatting using native calls. Speed and units is returned in a single string.
+    long start2 = System.nanoTime();
+    String speedAndUnitsString = StringUtils.nativeStringFormatSpeedAndUnits(last.getSpeed());
+    // Speed and units are separated by semicolon ";" in returned string.
+    int separatorPos = speedAndUnitsString.indexOf(";");
+    String speedString = speedAndUnitsString.substring(0, separatorPos);
+    String unitsString = speedAndUnitsString.substring(separatorPos + 1);
+    long elapsed2 = System.nanoTime() - start2;
+
+    mSpeedUnits.setText(speedString);
+    mSpeedValue.setText(unitsString);
+
+    // Speed formatting using Android Java calls.
+    long start3 = System.nanoTime();
+    speedAndUnits = Speed.format(last.getSpeed(), units, mActivity.getApplicationContext());
+    long elapsed3 = System.nanoTime() - start3;
+
+    mSpeedUnits.setText(speedAndUnits.second);
+    mSpeedValue.setText(speedAndUnits.first);
+
+    String text = String.format(Locale.US,
+            "Native calls: %5d / %5d / %5d",
+            Math.round(0.001 * elapsed1),
+            Math.round(0.001 * elapsed2),
+            Math.round(0.001 * elapsed3));
+
+    Logger.i("LOCALE_MEASURE", text);
+
     mSpeedViewContainer.setActivated(info.isSpeedLimitExceeded());
   }
 
-  public void update(@NonNull RoutingInfo info)
+  public void update(@NonNull RoutingInfo info, int units)
   {
-    updateSpeedView(info);
+    updateSpeedView(info, units);
     updateTime(info.totalTimeInSeconds);
     mDistanceValue.setText(info.distToTarget.mDistanceStr);
     mDistanceUnits.setText(info.distToTarget.getUnitsStr(mActivity.getApplicationContext()));
