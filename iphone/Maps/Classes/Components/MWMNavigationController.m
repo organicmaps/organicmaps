@@ -61,8 +61,8 @@
   [super traitCollectionDidChange: previousTraitCollection];
   // Update the app theme when the device appearance is changing.
   if ((self.traitCollection.verticalSizeClass != previousTraitCollection.verticalSizeClass)
-      || (self.traitCollection.horizontalSizeClass != previousTraitCollection.horizontalSizeClass)) {
-    [MWMThemeManager invalidate]; 
+      || (self.traitCollection.horizontalSizeClass != previousTraitCollection.horizontalSizeClass) || (self.traitCollection.userInterfaceStyle != previousTraitCollection.userInterfaceStyle)) {
+    [MWMThemeManager invalidate];
   }
 }
 
