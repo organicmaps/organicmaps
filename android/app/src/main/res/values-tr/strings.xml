@@ -93,7 +93,7 @@
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Haritaların indirileceği yeri seçin</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
-	<string name="maps_storage_downloaded">Haritalar</string>
+	<string name="maps_storage_downloaded">İndirilen haritalar: %s</string>
 	<!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
 	<string name="maps_storage_internal">Dahili özel depolama</string>
 	<!-- Shared storage type in Maps Storage settings (a primary storage usually) -->

@@ -91,7 +91,7 @@
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Seleziona il luogo in cui le mappe devono essere scaricate</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
-	<string name="maps_storage_downloaded">Mappe</string>
+	<string name="maps_storage_downloaded">Mappe scaricate: %s</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Vuoi spostare le mappe?</string>
 	<!-- Ask user to wait several minutes (some long process in modal dialog). -->

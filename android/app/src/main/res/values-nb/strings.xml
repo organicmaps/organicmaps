@@ -93,7 +93,7 @@
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Velg hvor du vil at kartene skal lastes ned til</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
-	<string name="maps_storage_downloaded">Kart</string>
+	<string name="maps_storage_downloaded">Nedlastede kart: %s</string>
 	<!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
 	<string name="maps_storage_internal">Intern privat lagring</string>
 	<!-- Shared storage type in Maps Storage settings (a primary storage usually) -->

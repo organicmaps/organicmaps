@@ -87,7 +87,7 @@
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Selecione o local para onde os mapas devem ser baixados</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
-	<string name="maps_storage_downloaded">Mapas</string>
+	<string name="maps_storage_downloaded">Mapas baixados: %s</string>
 	<!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
 	<string name="maps_storage_internal">Armazenamento interno privado</string>
 	<!-- Shared storage type in Maps Storage settings (a primary storage usually) -->

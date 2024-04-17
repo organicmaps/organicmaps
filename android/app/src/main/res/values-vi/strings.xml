@@ -91,7 +91,7 @@
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Chọn vị trí nơi bản đồ sẽ được tải về</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
-	<string name="maps_storage_downloaded">Bản đồ</string>
+	<string name="maps_storage_downloaded">Bản đồ đã tải xuống: %s</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Di chuyển bản đồ?</string>
 	<!-- Ask user to wait several minutes (some long process in modal dialog). -->

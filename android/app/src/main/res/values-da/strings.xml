@@ -91,7 +91,7 @@
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Vælg destination hvor dine kort skal downloades til</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
-	<string name="maps_storage_downloaded">Kort</string>
+	<string name="maps_storage_downloaded">Downloadede kort: %s</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Flyt kort?</string>
 	<!-- Ask user to wait several minutes (some long process in modal dialog). -->

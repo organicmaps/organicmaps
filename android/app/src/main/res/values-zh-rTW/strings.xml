@@ -91,7 +91,7 @@
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">請選擇下載地圖後要放的位置</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
-	<string name="maps_storage_downloaded">地圖</string>
+	<string name="maps_storage_downloaded">下載的地圖：%s</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">移動地圖？</string>
 	<!-- Ask user to wait several minutes (some long process in modal dialog). -->

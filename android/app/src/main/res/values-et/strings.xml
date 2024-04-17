@@ -85,7 +85,7 @@
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Vali asukoht, kuhu kaardid tuleks alla laadida</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
-	<string name="maps_storage_downloaded">Kaardid</string>
+	<string name="maps_storage_downloaded">Allalaaditud kaardid: %s</string>
 	<!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
 	<string name="maps_storage_internal">Sisemine privaatne salvestusruum</string>
 	<!-- Shared storage type in Maps Storage settings (a primary storage usually) -->

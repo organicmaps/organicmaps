@@ -91,7 +91,7 @@
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">בחר מיקום במחשבך לשמירת המפות שתוריד.</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
-	<string name="maps_storage_downloaded">מפות שהורדו</string>
+	<string name="maps_storage_downloaded">מפות שהורדו: %s</string>
 	<!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
 	<string name="maps_storage_internal">אחסון פנימי פרטי</string>
 	<!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
