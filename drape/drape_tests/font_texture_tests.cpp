@@ -12,8 +12,6 @@
 #include "drape/font_texture.hpp"
 #include "drape/glyph_manager.hpp"
 
-#include "std/target_os.hpp"
-
 #include <functional>
 
 #include <QtCore/QPoint>
@@ -78,8 +76,7 @@ public:
 
 UNIT_TEST(UploadingGlyphs)
 {
-// This unit test creates window so can't be run in GUI-less Linux machine.
-#ifndef OMIM_OS_LINUX
+  // Set QT_QPA_PLATFORM=offscreen env var to avoid running GUI on Linux
   DrapeRoutine::Init();
   EXPECTGL(glHasExtension(_)).Times(AnyNumber());
   EXPECTGL(glBindTexture(_)).Times(AnyNumber());
@@ -134,5 +131,4 @@ UNIT_TEST(UploadingGlyphs)
 
   RunTestLoop("UploadingGlyphs", std::bind(&UploadedRender::Render, &r, _1));
   DrapeRoutine::Shutdown();
-#endif
 }
