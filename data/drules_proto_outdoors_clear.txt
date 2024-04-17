@@ -27400,200 +27400,6 @@ cont {
   }
 }
 cont {
-  name: "highway-path-alpine_hiking"
-  element {
-    scale: 11
-    lines {
-      width: 1.0
-      color: 1721782290
-      dashdot {
-        dd: 3.5
-        dd: 2.0
-      }
-      priority: 155
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 1.1
-      color: 1302351890
-      dashdot {
-        dd: 3.5
-        dd: 2.0
-      }
-      priority: 155
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 1.3
-      color: 10506258
-      dashdot {
-        dd: 4.0
-        dd: 2.5
-      }
-      priority: 155
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4473924
-        stroke_color: 871230427
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.6
-      color: 10506258
-      dashdot {
-        dd: 4.0
-        dd: 2.5
-      }
-      priority: 155
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 11
-        color: 4473924
-        stroke_color: 871230427
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 2.0
-      color: 10506258
-      dashdot {
-        dd: 6.0
-        dd: 3.5
-      }
-      priority: 155
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 11
-        color: 4473924
-        stroke_color: 871230427
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 2.6
-      color: 10506258
-      dashdot {
-        dd: 6.0
-        dd: 3.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 3.3
-      color: 10506258
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 4.0
-      color: 10506258
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 4.0
-      color: 10506258
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 20
-    lines {
-      width: 4.0
-      color: 10506258
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-}
-cont {
   name: "highway-path-bicycle"
   element {
     scale: 11
@@ -28092,17 +27898,17 @@ cont {
   }
 }
 cont {
-  name: "highway-path-demanding_alpine_hiking"
+  name: "highway-path-difficult"
   element {
     scale: 11
     lines {
       width: 1.0
-      color: 1721782290
+      color: 1302351890
       dashdot {
-        dd: 3.5
+        dd: 1.0
         dd: 2.0
       }
-      priority: 155
+      priority: 180
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -28111,12 +27917,12 @@ cont {
     scale: 12
     lines {
       width: 1.1
-      color: 1302351890
+      color: 866144274
       dashdot {
-        dd: 3.5
+        dd: 1.0
         dd: 2.0
       }
-      priority: 155
+      priority: 180
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -28127,10 +27933,10 @@ cont {
       width: 1.3
       color: 10506258
       dashdot {
-        dd: 4.0
+        dd: 1.5
         dd: 2.5
       }
-      priority: 155
+      priority: 180
       cap: BUTTCAP
     }
     path_text {
@@ -28148,10 +27954,10 @@ cont {
       width: 1.6
       color: 10506258
       dashdot {
-        dd: 4.0
+        dd: 1.5
         dd: 2.5
       }
-      priority: 155
+      priority: 180
       cap: BUTTCAP
     }
     path_text {
@@ -28169,10 +27975,10 @@ cont {
       width: 2.0
       color: 10506258
       dashdot {
-        dd: 6.0
-        dd: 3.5
+        dd: 2.5
+        dd: 4.0
       }
-      priority: 155
+      priority: 180
       cap: BUTTCAP
     }
     path_text {
@@ -28190,10 +27996,10 @@ cont {
       width: 2.6
       color: 10506258
       dashdot {
-        dd: 6.0
-        dd: 3.5
+        dd: 2.5
+        dd: 4.0
       }
-      priority: 155
+      priority: 180
     }
     path_text {
       primary {
@@ -28210,10 +28016,10 @@ cont {
       width: 3.3
       color: 10506258
       dashdot {
-        dd: 8.0
-        dd: 4.5
+        dd: 3.6
+        dd: 5.0
       }
-      priority: 155
+      priority: 180
     }
     path_text {
       primary {
@@ -28230,10 +28036,10 @@ cont {
       width: 4.0
       color: 10506258
       dashdot {
-        dd: 8.0
-        dd: 4.5
+        dd: 3.6
+        dd: 5.0
       }
-      priority: 155
+      priority: 180
     }
     path_text {
       primary {
@@ -28250,10 +28056,10 @@ cont {
       width: 4.0
       color: 10506258
       dashdot {
-        dd: 8.0
-        dd: 4.5
+        dd: 3.6
+        dd: 5.0
       }
-      priority: 155
+      priority: 180
     }
     path_text {
       primary {
@@ -28270,10 +28076,10 @@ cont {
       width: 4.0
       color: 10506258
       dashdot {
-        dd: 8.0
-        dd: 4.5
+        dd: 3.6
+        dd: 5.0
       }
-      priority: 155
+      priority: 180
     }
     path_text {
       primary {
@@ -28286,17 +28092,17 @@ cont {
   }
 }
 cont {
-  name: "highway-path-demanding_mountain_hiking"
+  name: "highway-path-expert"
   element {
     scale: 11
     lines {
       width: 1.0
-      color: 1721782290
+      color: 1295853079
       dashdot {
-        dd: 3.5
+        dd: 1.0
         dd: 2.0
       }
-      priority: 155
+      priority: 180
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -28305,12 +28111,12 @@ cont {
     scale: 12
     lines {
       width: 1.1
-      color: 1302351890
+      color: 859645463
       dashdot {
-        dd: 3.5
+        dd: 1.0
         dd: 2.0
       }
-      priority: 155
+      priority: 180
       join: BEVELJOIN
       cap: BUTTCAP
     }
@@ -28319,12 +28125,12 @@ cont {
     scale: 13
     lines {
       width: 1.3
-      color: 10506258
+      color: 4007447
       dashdot {
-        dd: 4.0
-        dd: 2.5
+        dd: 1.4
+        dd: 5.0
       }
-      priority: 155
+      priority: 180
       cap: BUTTCAP
     }
     path_text {
@@ -28340,12 +28146,12 @@ cont {
     scale: 14
     lines {
       width: 1.6
-      color: 10506258
+      color: 4007447
       dashdot {
-        dd: 4.0
-        dd: 2.5
+        dd: 1.4
+        dd: 5.0
       }
-      priority: 155
+      priority: 180
       cap: BUTTCAP
     }
     path_text {
@@ -28361,12 +28167,12 @@ cont {
     scale: 15
     lines {
       width: 2.0
-      color: 10506258
+      color: 4007447
       dashdot {
-        dd: 6.0
-        dd: 3.5
+        dd: 2.3
+        dd: 9.0
       }
-      priority: 155
+      priority: 180
       cap: BUTTCAP
     }
     path_text {
@@ -28382,12 +28188,12 @@ cont {
     scale: 16
     lines {
       width: 2.6
-      color: 10506258
+      color: 4007447
       dashdot {
-        dd: 6.0
-        dd: 3.5
+        dd: 2.3
+        dd: 9.0
       }
-      priority: 155
+      priority: 180
     }
     path_text {
       primary {
@@ -28402,12 +28208,12 @@ cont {
     scale: 17
     lines {
       width: 3.3
-      color: 10506258
+      color: 4007447
       dashdot {
-        dd: 8.0
-        dd: 4.5
+        dd: 3.5
+        dd: 11.0
       }
-      priority: 155
+      priority: 180
     }
     path_text {
       primary {
@@ -28422,12 +28228,12 @@ cont {
     scale: 18
     lines {
       width: 4.0
-      color: 10506258
+      color: 4007447
       dashdot {
-        dd: 8.0
-        dd: 4.5
+        dd: 3.5
+        dd: 11.0
       }
-      priority: 155
+      priority: 180
     }
     path_text {
       primary {
@@ -28442,12 +28248,12 @@ cont {
     scale: 19
     lines {
       width: 4.0
-      color: 10506258
+      color: 4007447
       dashdot {
-        dd: 8.0
-        dd: 4.5
+        dd: 3.5
+        dd: 11.0
       }
-      priority: 155
+      priority: 180
     }
     path_text {
       primary {
@@ -28462,400 +28268,12 @@ cont {
     scale: 20
     lines {
       width: 4.0
-      color: 10506258
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-}
-cont {
-  name: "highway-path-difficult_alpine_hiking"
-  element {
-    scale: 11
-    lines {
-      width: 1.0
-      color: 1721782290
+      color: 4007447
       dashdot {
         dd: 3.5
-        dd: 2.0
+        dd: 11.0
       }
-      priority: 155
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 1.1
-      color: 1302351890
-      dashdot {
-        dd: 3.5
-        dd: 2.0
-      }
-      priority: 155
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 1.3
-      color: 10506258
-      dashdot {
-        dd: 4.0
-        dd: 2.5
-      }
-      priority: 155
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4473924
-        stroke_color: 871230427
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.6
-      color: 10506258
-      dashdot {
-        dd: 4.0
-        dd: 2.5
-      }
-      priority: 155
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 11
-        color: 4473924
-        stroke_color: 871230427
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 2.0
-      color: 10506258
-      dashdot {
-        dd: 6.0
-        dd: 3.5
-      }
-      priority: 155
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 11
-        color: 4473924
-        stroke_color: 871230427
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 2.6
-      color: 10506258
-      dashdot {
-        dd: 6.0
-        dd: 3.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 3.3
-      color: 10506258
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 4.0
-      color: 10506258
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 4.0
-      color: 10506258
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 20
-    lines {
-      width: 4.0
-      color: 10506258
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-}
-cont {
-  name: "highway-path-hiking"
-  element {
-    scale: 11
-    lines {
-      width: 1.0
-      color: 1721782290
-      dashdot {
-        dd: 3.5
-        dd: 2.0
-      }
-      priority: 155
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 1.1
-      color: 1302351890
-      dashdot {
-        dd: 3.5
-        dd: 2.0
-      }
-      priority: 155
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 1.3
-      color: 10506258
-      dashdot {
-        dd: 4.0
-        dd: 2.5
-      }
-      priority: 155
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4473924
-        stroke_color: 871230427
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.6
-      color: 10506258
-      dashdot {
-        dd: 4.0
-        dd: 2.5
-      }
-      priority: 155
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 11
-        color: 4473924
-        stroke_color: 871230427
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 2.0
-      color: 10506258
-      dashdot {
-        dd: 6.0
-        dd: 3.5
-      }
-      priority: 155
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 11
-        color: 4473924
-        stroke_color: 871230427
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 2.6
-      color: 10506258
-      dashdot {
-        dd: 6.0
-        dd: 3.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 3.3
-      color: 10506258
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 4.0
-      color: 10506258
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 4.0
-      color: 10506258
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 20
-    lines {
-      width: 4.0
-      color: 10506258
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 155
+      priority: 180
     }
     path_text {
       primary {
@@ -28869,200 +28287,6 @@ cont {
 }
 cont {
   name: "highway-path-horse"
-  element {
-    scale: 11
-    lines {
-      width: 1.0
-      color: 1721782290
-      dashdot {
-        dd: 3.5
-        dd: 2.0
-      }
-      priority: 155
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 1.1
-      color: 1302351890
-      dashdot {
-        dd: 3.5
-        dd: 2.0
-      }
-      priority: 155
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 1.3
-      color: 10506258
-      dashdot {
-        dd: 4.0
-        dd: 2.5
-      }
-      priority: 155
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4473924
-        stroke_color: 871230427
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.6
-      color: 10506258
-      dashdot {
-        dd: 4.0
-        dd: 2.5
-      }
-      priority: 155
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 11
-        color: 4473924
-        stroke_color: 871230427
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 2.0
-      color: 10506258
-      dashdot {
-        dd: 6.0
-        dd: 3.5
-      }
-      priority: 155
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 11
-        color: 4473924
-        stroke_color: 871230427
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 2.6
-      color: 10506258
-      dashdot {
-        dd: 6.0
-        dd: 3.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 3.3
-      color: 10506258
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 4.0
-      color: 10506258
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 4.0
-      color: 10506258
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 20
-    lines {
-      width: 4.0
-      color: 10506258
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-}
-cont {
-  name: "highway-path-mountain_hiking"
   element {
     scale: 11
     lines {

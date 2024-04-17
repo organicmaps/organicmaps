@@ -26145,143 +26145,6 @@ cont {
   }
 }
 cont {
-  name: "highway-path-alpine_hiking"
-  element {
-    scale: 14
-    lines {
-      width: 0.9
-      color: 1720994322
-      dashdot {
-        dd: 3.5
-        dd: 2.0
-      }
-      priority: 155
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.1
-      color: 1720994322
-      dashdot {
-        dd: 3.5
-        dd: 2.0
-      }
-      priority: 155
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 8
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 1.5
-      color: 1720994322
-      dashdot {
-        dd: 4.0
-        dd: 2.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 2.0
-      color: 1720994322
-      dashdot {
-        dd: 4.0
-        dd: 2.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 2.8
-      color: 865356306
-      dashdot {
-        dd: 6.0
-        dd: 3.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 3.7
-      color: 865356306
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 20
-    lines {
-      width: 3.7
-      color: 865356306
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2820
-    }
-  }
-}
-cont {
   name: "highway-path-bicycle"
   element {
     scale: 14
@@ -26653,17 +26516,17 @@ cont {
   }
 }
 cont {
-  name: "highway-path-demanding_alpine_hiking"
+  name: "highway-path-difficult"
   element {
     scale: 14
     lines {
       width: 0.9
       color: 1720994322
       dashdot {
-        dd: 3.5
+        dd: 1.0
         dd: 2.0
       }
-      priority: 155
+      priority: 180
       cap: BUTTCAP
     }
   }
@@ -26673,10 +26536,10 @@ cont {
       width: 1.1
       color: 1720994322
       dashdot {
-        dd: 3.5
+        dd: 1.0
         dd: 2.0
       }
-      priority: 155
+      priority: 180
       cap: BUTTCAP
     }
     path_text {
@@ -26694,10 +26557,10 @@ cont {
       width: 1.5
       color: 1720994322
       dashdot {
-        dd: 4.0
+        dd: 1.8
         dd: 2.5
       }
-      priority: 155
+      priority: 180
     }
     path_text {
       primary {
@@ -26714,10 +26577,10 @@ cont {
       width: 2.0
       color: 1720994322
       dashdot {
-        dd: 4.0
+        dd: 1.8
         dd: 2.5
       }
-      priority: 155
+      priority: 180
     }
     path_text {
       primary {
@@ -26734,10 +26597,10 @@ cont {
       width: 2.8
       color: 865356306
       dashdot {
-        dd: 6.0
+        dd: 2.8
         dd: 3.5
       }
-      priority: 155
+      priority: 180
     }
     path_text {
       primary {
@@ -26751,13 +26614,13 @@ cont {
   element {
     scale: 19
     lines {
-      width: 3.7
+      width: 2.8
       color: 865356306
       dashdot {
-        dd: 8.0
-        dd: 4.5
+        dd: 2.8
+        dd: 3.5
       }
-      priority: 155
+      priority: 180
     }
     path_text {
       primary {
@@ -26771,13 +26634,13 @@ cont {
   element {
     scale: 20
     lines {
-      width: 3.7
+      width: 2.8
       color: 865356306
       dashdot {
-        dd: 8.0
-        dd: 4.5
+        dd: 2.8
+        dd: 3.5
       }
-      priority: 155
+      priority: 180
     }
     path_text {
       primary {
@@ -26790,17 +26653,17 @@ cont {
   }
 }
 cont {
-  name: "highway-path-demanding_mountain_hiking"
+  name: "highway-path-expert"
   element {
     scale: 14
     lines {
       width: 0.9
-      color: 1720994322
+      color: 1716665907
       dashdot {
-        dd: 3.5
-        dd: 2.0
+        dd: 1.0
+        dd: 4.0
       }
-      priority: 155
+      priority: 180
       cap: BUTTCAP
     }
   }
@@ -26808,12 +26671,12 @@ cont {
     scale: 15
     lines {
       width: 1.1
-      color: 1720994322
+      color: 1716665907
       dashdot {
-        dd: 3.5
-        dd: 2.0
+        dd: 1.0
+        dd: 4.0
       }
-      priority: 155
+      priority: 180
       cap: BUTTCAP
     }
     path_text {
@@ -26829,12 +26692,12 @@ cont {
     scale: 16
     lines {
       width: 1.5
-      color: 1720994322
+      color: 1716665907
       dashdot {
-        dd: 4.0
-        dd: 2.5
+        dd: 1.6
+        dd: 6.0
       }
-      priority: 155
+      priority: 180
     }
     path_text {
       primary {
@@ -26849,12 +26712,12 @@ cont {
     scale: 17
     lines {
       width: 2.0
-      color: 1720994322
+      color: 1716665907
       dashdot {
-        dd: 4.0
-        dd: 2.5
+        dd: 1.6
+        dd: 6.0
       }
-      priority: 155
+      priority: 180
     }
     path_text {
       primary {
@@ -26869,12 +26732,12 @@ cont {
     scale: 18
     lines {
       width: 2.8
-      color: 865356306
+      color: 861027891
       dashdot {
-        dd: 6.0
-        dd: 3.5
+        dd: 2.8
+        dd: 8.0
       }
-      priority: 155
+      priority: 180
     }
     path_text {
       primary {
@@ -26887,151 +26750,14 @@ cont {
   }
   element {
     scale: 19
-    lines {
-      width: 3.7
-      color: 865356306
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 20
-    lines {
-      width: 3.7
-      color: 865356306
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2820
-    }
-  }
-}
-cont {
-  name: "highway-path-difficult_alpine_hiking"
-  element {
-    scale: 14
-    lines {
-      width: 0.9
-      color: 1720994322
-      dashdot {
-        dd: 3.5
-        dd: 2.0
-      }
-      priority: 155
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.1
-      color: 1720994322
-      dashdot {
-        dd: 3.5
-        dd: 2.0
-      }
-      priority: 155
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 8
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 1.5
-      color: 1720994322
-      dashdot {
-        dd: 4.0
-        dd: 2.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 2.0
-      color: 1720994322
-      dashdot {
-        dd: 4.0
-        dd: 2.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 18
     lines {
       width: 2.8
-      color: 865356306
+      color: 861027891
       dashdot {
-        dd: 6.0
-        dd: 3.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 3.7
-      color: 865356306
-      dashdot {
+        dd: 2.8
         dd: 8.0
-        dd: 4.5
       }
-      priority: 155
+      priority: 180
     }
     path_text {
       primary {
@@ -27044,151 +26770,14 @@ cont {
   }
   element {
     scale: 20
-    lines {
-      width: 3.7
-      color: 865356306
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2820
-    }
-  }
-}
-cont {
-  name: "highway-path-hiking"
-  element {
-    scale: 14
-    lines {
-      width: 0.9
-      color: 1720994322
-      dashdot {
-        dd: 3.5
-        dd: 2.0
-      }
-      priority: 155
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.1
-      color: 1720994322
-      dashdot {
-        dd: 3.5
-        dd: 2.0
-      }
-      priority: 155
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 8
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 1.5
-      color: 1720994322
-      dashdot {
-        dd: 4.0
-        dd: 2.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 2.0
-      color: 1720994322
-      dashdot {
-        dd: 4.0
-        dd: 2.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 18
     lines {
       width: 2.8
-      color: 865356306
+      color: 861027891
       dashdot {
-        dd: 6.0
-        dd: 3.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 3.7
-      color: 865356306
-      dashdot {
+        dd: 2.8
         dd: 8.0
-        dd: 4.5
       }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 20
-    lines {
-      width: 3.7
-      color: 865356306
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 155
+      priority: 180
     }
     path_text {
       primary {
@@ -27202,143 +26791,6 @@ cont {
 }
 cont {
   name: "highway-path-horse"
-  element {
-    scale: 14
-    lines {
-      width: 0.9
-      color: 1720994322
-      dashdot {
-        dd: 3.5
-        dd: 2.0
-      }
-      priority: 155
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.1
-      color: 1720994322
-      dashdot {
-        dd: 3.5
-        dd: 2.0
-      }
-      priority: 155
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 8
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 1.5
-      color: 1720994322
-      dashdot {
-        dd: 4.0
-        dd: 2.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 2.0
-      color: 1720994322
-      dashdot {
-        dd: 4.0
-        dd: 2.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 2.8
-      color: 865356306
-      dashdot {
-        dd: 6.0
-        dd: 3.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 3.7
-      color: 865356306
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 20
-    lines {
-      width: 3.7
-      color: 865356306
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 155
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 7829367
-        stroke_color: 856032768
-      }
-      priority: 2820
-    }
-  }
-}
-cont {
-  name: "highway-path-mountain_hiking"
   element {
     scale: 14
     lines {
