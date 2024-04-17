@@ -272,8 +272,8 @@ highway-footway-area                                # line z15- and area z14- (a
 highway-footway-bicycle                             # line z15- (also has line::cycleline z14-, pathtext z15-)
 highway-path                                        # line z14- (also has pathtext z15-)
 highway-path-bicycle                                # line z14- (also has line::cycleline z14-, pathtext z15-)
-highway-path-difficult
-highway-path-expert
+highway-path-difficult                              # line z14- (also has pathtext z15-)
+highway-path-expert                                 # line z14- (also has pathtext z15-)
 highway-raceway                                     # line z14- (also has pathtext z16-)
 highway-track                                       # line z14- (also has pathtext z15-)
 highway-track-area                                  # line z14- (also has pathtext z15-)

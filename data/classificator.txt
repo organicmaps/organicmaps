@@ -436,15 +436,11 @@ world  +
             tunnel  -
             {}
         path  +
-            alpine_hiking  -
             bicycle  -
             bridge  -
-            demanding_alpine_hiking  -
-            demanding_mountain_hiking  -
-            difficult_alpine_hiking  -
-            hiking  -
+            difficult  -
+            expert  -
             horse  -
-            mountain_hiking  -
             tunnel  -
             {}
         pedestrian  +
