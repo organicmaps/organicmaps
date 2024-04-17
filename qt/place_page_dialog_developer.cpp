@@ -6,9 +6,9 @@
 
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QGridLayout>
-#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QVBoxLayout>
 
 #include <string>
 
@@ -16,6 +16,7 @@ PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page:
                                                    search::ReverseGeocoder::Address const & address)
   : QDialog(parent)
 {
+  QVBoxLayout * layout = new QVBoxLayout();
   QGridLayout * grid = new QGridLayout();
   int row = 0;
 
@@ -83,7 +84,10 @@ PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page:
   if (auto cuisines = info.FormatCuisines(); !cuisines.empty())
     addEntry(DebugPrint(PropID::FMD_CUISINE), cuisines);
 
+  layout->addLayout(grid);
+
   QDialogButtonBox * dbb = new QDialogButtonBox();
+  dbb->setCenterButtons(true);
   QPushButton * closeButton = new QPushButton("Close");
   closeButton->setDefault(true);
   connect(closeButton, &QAbstractButton::clicked, this, &PlacePageDialogDeveloper::OnClose);
@@ -130,8 +134,8 @@ PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page:
     addEntry(DebugPrint(id), value, isLink);
   });
 
-  grid->addWidget(dbb);
-  setLayout(grid);
+  layout->addWidget(dbb);
+  setLayout(layout);
 
   auto const ppTitle = std::string("Place Page") + (info.IsBookmark() ? " (bookmarked)" : "");
   setWindowTitle(ppTitle.c_str());

@@ -8,12 +8,10 @@
 
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QGridLayout>
-#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QBoxLayout>
 #include <QtWidgets/QDialog>
-#include <QtWidgets/QGridLayout>
 
 #include <sstream>
 #include <string>
@@ -220,7 +218,7 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
 
   {
     QDialogButtonBox * dbb = new QDialogButtonBox();
-
+    dbb->setCenterButtons(true);
     QPushButton * closeButton = new QPushButton("Close");
     closeButton->setDefault(true);
     connect(closeButton, &QAbstractButton::clicked, this, &PlacePageDialogUser::OnClose);
