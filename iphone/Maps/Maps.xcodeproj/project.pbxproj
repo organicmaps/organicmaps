@@ -471,8 +471,15 @@
 		ED1263AB2B6F99F900AD99F3 /* UIView+AddSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1263AA2B6F99F900AD99F3 /* UIView+AddSeparator.swift */; };
 		ED1ADA332BC6B1B40029209F /* CarPlayServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1ADA322BC6B1B40029209F /* CarPlayServiceTests.swift */; };
 		ED3EAC202B03C88100220A4A /* BottomTabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3EAC1F2B03C88100220A4A /* BottomTabBarButton.swift */; };
+		ED63CEB92BDF8F9D006155C4 /* SettingsTableViewiCloudSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED63CEB62BDF8F9C006155C4 /* SettingsTableViewiCloudSwitchCell.swift */; };
 		ED79A5AB2BD7AA9C00952D1F /* LoadingOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5AA2BD7AA9C00952D1F /* LoadingOverlayViewController.swift */; };
 		ED79A5AD2BD7BA0F00952D1F /* UIApplication+LoadingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5AC2BD7BA0F00952D1F /* UIApplication+LoadingOverlay.swift */; };
+		ED79A5D32BDF8D6100952D1F /* CloudStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5CB2BDF8D6100952D1F /* CloudStorageManager.swift */; };
+		ED79A5D42BDF8D6100952D1F /* MetadataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5CC2BDF8D6100952D1F /* MetadataItem.swift */; };
+		ED79A5D52BDF8D6100952D1F /* SynchronizationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5CD2BDF8D6100952D1F /* SynchronizationError.swift */; };
+		ED79A5D62BDF8D6100952D1F /* iCloudDocumentsDirectoryMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5CE2BDF8D6100952D1F /* iCloudDocumentsDirectoryMonitor.swift */; };
+		ED79A5D72BDF8D6100952D1F /* SynchronizationStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5CF2BDF8D6100952D1F /* SynchronizationStateManager.swift */; };
+		ED79A5D82BDF8D6100952D1F /* DefaultLocalDirectoryMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5D02BDF8D6100952D1F /* DefaultLocalDirectoryMonitor.swift */; };
 		ED9966802B94FBC20083CE55 /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED99667D2B94FBC20083CE55 /* ColorPicker.swift */; };
 		EDBD68072B625724005DD151 /* LocationServicesDisabledAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDBD68062B625724005DD151 /* LocationServicesDisabledAlert.xib */; };
 		EDBD680B2B62572E005DD151 /* LocationServicesDisabledAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBD680A2B62572E005DD151 /* LocationServicesDisabledAlert.swift */; };
@@ -480,6 +487,14 @@
 		EDE243DD2B6D2E640057369B /* AboutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE243D52B6CF3980057369B /* AboutController.swift */; };
 		EDE243E52B6D3F400057369B /* OSMView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE243E42B6D3F400057369B /* OSMView.swift */; };
 		EDE243E72B6D55610057369B /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE243E02B6D3EA00057369B /* InfoView.swift */; };
+		EDF8386F2C00AE31007E4E67 /* LocalDirectoryMonitorDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838372C009A0A007E4E67 /* LocalDirectoryMonitorDelegateMock.swift */; };
+		EDF838702C00AE31007E4E67 /* DefaultLocalDirectoryMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838382C009A0A007E4E67 /* DefaultLocalDirectoryMonitorTests.swift */; };
+		EDF838712C00AE31007E4E67 /* SynchronizationStateManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838392C009A0A007E4E67 /* SynchronizationStateManagerTests.swift */; };
+		EDF838722C00AE37007E4E67 /* MetadataItemStubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF8383E2C009A0A007E4E67 /* MetadataItemStubs.swift */; };
+		EDF838772C00B217007E4E67 /* UbiquitousDirectoryMonitorDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF8383B2C009A0A007E4E67 /* UbiquitousDirectoryMonitorDelegateMock.swift */; };
+		EDF838782C00B217007E4E67 /* iCloudDirectoryMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF8383C2C009A0A007E4E67 /* iCloudDirectoryMonitorTests.swift */; };
+		EDF838792C00B217007E4E67 /* FileManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF8383D2C009A0A007E4E67 /* FileManagerMock.swift */; };
+		EDF838842C00B640007E4E67 /* SynchronizationFileWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838812C00B640007E4E67 /* SynchronizationFileWriter.swift */; };
 		EDFDFB462B7139490013A44C /* AboutInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFDFB452B7139490013A44C /* AboutInfo.swift */; };
 		EDFDFB482B7139670013A44C /* SocialMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFDFB472B7139670013A44C /* SocialMedia.swift */; };
 		EDFDFB4A2B722A310013A44C /* SocialMediaCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFDFB492B722A310013A44C /* SocialMediaCollectionViewCell.swift */; };
@@ -1364,8 +1379,15 @@
 		ED3EAC1F2B03C88100220A4A /* BottomTabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomTabBarButton.swift; sourceTree = "<group>"; };
 		ED48BBB817C2B1E2003E7E92 /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
 		ED48BBB917C2B1E2003E7E92 /* CircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleView.m; sourceTree = "<group>"; };
+		ED63CEB62BDF8F9C006155C4 /* SettingsTableViewiCloudSwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewiCloudSwitchCell.swift; sourceTree = "<group>"; };
 		ED79A5AA2BD7AA9C00952D1F /* LoadingOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingOverlayViewController.swift; sourceTree = "<group>"; };
 		ED79A5AC2BD7BA0F00952D1F /* UIApplication+LoadingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+LoadingOverlay.swift"; sourceTree = "<group>"; };
+		ED79A5CB2BDF8D6100952D1F /* CloudStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudStorageManager.swift; sourceTree = "<group>"; };
+		ED79A5CC2BDF8D6100952D1F /* MetadataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetadataItem.swift; sourceTree = "<group>"; };
+		ED79A5CD2BDF8D6100952D1F /* SynchronizationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationError.swift; sourceTree = "<group>"; };
+		ED79A5CE2BDF8D6100952D1F /* iCloudDocumentsDirectoryMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iCloudDocumentsDirectoryMonitor.swift; sourceTree = "<group>"; };
+		ED79A5CF2BDF8D6100952D1F /* SynchronizationStateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationStateManager.swift; sourceTree = "<group>"; };
+		ED79A5D02BDF8D6100952D1F /* DefaultLocalDirectoryMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultLocalDirectoryMonitor.swift; sourceTree = "<group>"; };
 		ED99667D2B94FBC20083CE55 /* ColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
 		EDBD68062B625724005DD151 /* LocationServicesDisabledAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationServicesDisabledAlert.xib; sourceTree = "<group>"; };
 		EDBD680A2B62572E005DD151 /* LocationServicesDisabledAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServicesDisabledAlert.swift; sourceTree = "<group>"; };
@@ -1373,6 +1395,14 @@
 		EDE243D52B6CF3980057369B /* AboutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutController.swift; sourceTree = "<group>"; };
 		EDE243E02B6D3EA00057369B /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		EDE243E42B6D3F400057369B /* OSMView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSMView.swift; sourceTree = "<group>"; };
+		EDF838372C009A0A007E4E67 /* LocalDirectoryMonitorDelegateMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalDirectoryMonitorDelegateMock.swift; sourceTree = "<group>"; };
+		EDF838382C009A0A007E4E67 /* DefaultLocalDirectoryMonitorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultLocalDirectoryMonitorTests.swift; sourceTree = "<group>"; };
+		EDF838392C009A0A007E4E67 /* SynchronizationStateManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationStateManagerTests.swift; sourceTree = "<group>"; };
+		EDF8383B2C009A0A007E4E67 /* UbiquitousDirectoryMonitorDelegateMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UbiquitousDirectoryMonitorDelegateMock.swift; sourceTree = "<group>"; };
+		EDF8383C2C009A0A007E4E67 /* iCloudDirectoryMonitorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iCloudDirectoryMonitorTests.swift; sourceTree = "<group>"; };
+		EDF8383D2C009A0A007E4E67 /* FileManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerMock.swift; sourceTree = "<group>"; };
+		EDF8383E2C009A0A007E4E67 /* MetadataItemStubs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetadataItemStubs.swift; sourceTree = "<group>"; };
+		EDF838812C00B640007E4E67 /* SynchronizationFileWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationFileWriter.swift; sourceTree = "<group>"; };
 		EDFDFB452B7139490013A44C /* AboutInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutInfo.swift; sourceTree = "<group>"; };
 		EDFDFB472B7139670013A44C /* SocialMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMedia.swift; sourceTree = "<group>"; };
 		EDFDFB492B722A310013A44C /* SocialMediaCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1912,6 +1942,7 @@
 		340475281E081A4600C92850 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				ED79A5CA2BDF8D6100952D1F /* iCloud */,
 				994AEBE323AB763C0079B81F /* Theme */,
 				993F54F6237C622700545511 /* DeepLink */,
 				CDCA27822245090900167D87 /* EventListening */,
@@ -3025,6 +3056,20 @@
 			path = LoadingOverlay;
 			sourceTree = "<group>";
 		};
+		ED79A5CA2BDF8D6100952D1F /* iCloud */ = {
+			isa = PBXGroup;
+			children = (
+				ED79A5CB2BDF8D6100952D1F /* CloudStorageManager.swift */,
+				EDF838812C00B640007E4E67 /* SynchronizationFileWriter.swift */,
+				ED79A5CF2BDF8D6100952D1F /* SynchronizationStateManager.swift */,
+				ED79A5CE2BDF8D6100952D1F /* iCloudDocumentsDirectoryMonitor.swift */,
+				ED79A5D02BDF8D6100952D1F /* DefaultLocalDirectoryMonitor.swift */,
+				ED79A5CC2BDF8D6100952D1F /* MetadataItem.swift */,
+				ED79A5CD2BDF8D6100952D1F /* SynchronizationError.swift */,
+			);
+			path = iCloud;
+			sourceTree = "<group>";
+		};
 		ED99667C2B94FBC20083CE55 /* ColorPicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -3628,6 +3673,7 @@
 		F6E2FD371E097BA00083EBEC /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				ED63CEB62BDF8F9C006155C4 /* SettingsTableViewiCloudSwitchCell.swift */,
 				F6E2FD381E097BA00083EBEC /* SettingsTableViewLinkCell.swift */,
 				F6E2FD391E097BA00083EBEC /* SettingsTableViewSelectableCell.swift */,
 				F6E2FD3A1E097BA00083EBEC /* SettingsTableViewSwitchCell.swift */,
@@ -4037,7 +4083,7 @@
 				6741A9981BF340DE002C974C /* resources-xhdpi_light in Resources */,
 				6741A9611BF340DE002C974C /* resources-xhdpi_dark in Resources */,
 				6741A94D1BF340DE002C974C /* resources-xxhdpi_light in Resources */,
-				3404F49E2028A2430090E401 /* BMCActionsCreateCell.xib in Resources */,
+				3404F49E2028A2430090E401 /* BMCActionsCell.xib in Resources */,
 				6741A9551BF340DE002C974C /* resources-xxhdpi_dark in Resources */,
 				340E1EF51E2F614400CE49BF /* SearchFilters.storyboard in Resources */,
 				340E1EF81E2F614400CE49BF /* Settings.storyboard in Resources */,
@@ -4174,6 +4220,7 @@
 				F6E2FF631E097BA00083EBEC /* MWMTTSLanguageViewController.mm in Sources */,
 				4715273524907F8200E91BBA /* BookmarkColorViewController.swift in Sources */,
 				47E3C7292111E614008B3B27 /* FadeInAnimatedTransitioning.swift in Sources */,
+				ED79A5D42BDF8D6100952D1F /* MetadataItem.swift in Sources */,
 				34AB667D1FC5AA330078E451 /* MWMRoutePreview.mm in Sources */,
 				993DF11B23F6BDB100AC231A /* UIViewRenderer.swift in Sources */,
 				99C964302428C27A00E41723 /* PlacePageHeaderView.swift in Sources */,
@@ -4199,9 +4246,11 @@
 				3454D7D41E07F045004AF2AD /* UIImageView+Coloring.m in Sources */,
 				993DF11D23F6BDB100AC231A /* UIToolbarRenderer.swift in Sources */,
 				99A906E923F6F7030005872B /* WikiDescriptionViewController.swift in Sources */,
+				ED79A5D62BDF8D6100952D1F /* iCloudDocumentsDirectoryMonitor.swift in Sources */,
 				EDFDFB522B726F1A0013A44C /* ButtonsStackView.swift in Sources */,
 				993DF11023F6BDB100AC231A /* MWMButtonRenderer.swift in Sources */,
 				3463BA671DE81DB90082417F /* MWMTrafficButtonViewController.mm in Sources */,
+				ED79A5D52BDF8D6100952D1F /* SynchronizationError.swift in Sources */,
 				993DF10323F6BDB100AC231A /* MainTheme.swift in Sources */,
 				34AB66051FC5AA320078E451 /* MWMNavigationDashboardManager+Entity.mm in Sources */,
 				993DF12A23F6BDB100AC231A /* Style.swift in Sources */,
@@ -4231,6 +4280,7 @@
 				99A906E523F6F7030005872B /* ActionBarViewController.swift in Sources */,
 				47B9065421C7FA400079C85E /* UIImageView+WebImage.m in Sources */,
 				F6E2FF481E097BA00083EBEC /* SettingsTableViewSelectableCell.swift in Sources */,
+				ED63CEB92BDF8F9D006155C4 /* SettingsTableViewiCloudSwitchCell.swift in Sources */,
 				47CA68D4250043C000671019 /* BookmarksListPresenter.swift in Sources */,
 				F6E2FF451E097BA00083EBEC /* SettingsTableViewLinkCell.swift in Sources */,
 				34C9BD0A1C6DBCDA000DC38D /* MWMNavigationController.m in Sources */,
@@ -4340,6 +4390,7 @@
 				F6E2FF661E097BA00083EBEC /* MWMTTSSettingsViewController.mm in Sources */,
 				3454D7C21E07F045004AF2AD /* NSString+Categories.m in Sources */,
 				34E7761F1F14DB48003040B3 /* PlacePageArea.swift in Sources */,
+				ED79A5D82BDF8D6100952D1F /* DefaultLocalDirectoryMonitor.swift in Sources */,
 				4728F69322CF89A400E00028 /* GradientView.swift in Sources */,
 				F6381BF61CD12045004CA943 /* LocaleTranslator.mm in Sources */,
 				9917D17F2397B1D600A7E06E /* IPadModalPresentationController.swift in Sources */,
@@ -4411,6 +4462,7 @@
 				998927402449ECC200260CE2 /* BottomMenuItemCell.swift in Sources */,
 				F6E2FEE21E097BA00083EBEC /* MWMSearchManager.mm in Sources */,
 				F6E2FE221E097BA00083EBEC /* MWMOpeningHoursEditorViewController.mm in Sources */,
+				ED79A5D72BDF8D6100952D1F /* SynchronizationStateManager.swift in Sources */,
 				999FC12B23ABB4B800B0E6F9 /* FontStyleSheet.swift in Sources */,
 				47CA68DA2500469400671019 /* BookmarksListBuilder.swift in Sources */,
 				34D3AFE21E376F7E004100F9 /* UITableView+Updates.swift in Sources */,
@@ -4440,6 +4492,7 @@
 				340475711E081A4600C92850 /* MWMSettings.mm in Sources */,
 				33046832219C57180041F3A8 /* CategorySettingsViewController.swift in Sources */,
 				3404756E1E081A4600C92850 /* MWMSearch.mm in Sources */,
+				EDF838842C00B640007E4E67 /* SynchronizationFileWriter.swift in Sources */,
 				6741AA191BF340DE002C974C /* MWMDownloaderDialogCell.m in Sources */,
 				993DF10823F6BDB100AC231A /* IColors.swift in Sources */,
 				4707E4B12372FE860017DF6E /* PlacePageViewController.swift in Sources */,
@@ -4451,6 +4504,7 @@
 				6741AA1C1BF340DE002C974C /* MWMRoutingDisclaimerAlert.m in Sources */,
 				34D3B0481E389D05004100F9 /* MWMNoteCell.m in Sources */,
 				CD9AD967228067F500EC174A /* MapInfo.swift in Sources */,
+				ED79A5D32BDF8D6100952D1F /* CloudStorageManager.swift in Sources */,
 				6741AA1D1BF340DE002C974C /* MWMDownloadTransitMapAlert.mm in Sources */,
 				471A7BBE2481A3D000A0D4C1 /* EditBookmarkViewController.swift in Sources */,
 				993DF0C923F6BD0600AC231A /* ElevationDetailsBuilder.swift in Sources */,
