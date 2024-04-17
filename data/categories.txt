@@ -8572,7 +8572,7 @@ zh-Hans:冰壶
 zh-Hant:冰壺
 
 sport-equestrian
-en:Equestrian Sports
+en:Equestrian Sports|horse riding
 ar:فروسية
 be:Конны спорт
 bg:Коне|спорт|езда
@@ -8597,7 +8597,7 @@ pl:Jazda konna
 pt:Desportos Equestres
 pt-BR:Esportes equestres
 ro:Călărie
-ru:Конный спорт
+ru:Конный спорт|верховая езда
 sv:Hästhållning
 tr:Binicilik
 uk:Кінний спорт
@@ -8805,17 +8805,17 @@ zh-Hans:射击
 zh-Hant:射擊
 
 sport-skateboard
-en:Skateboarding
+en:Skateboarding|skateboard|skate
 ar:تزلج على اللوح
-be:Скейтбордынг
-bg:Скейтбординг
-cs:Skateboarding
-da:Skateboarding
-de:Skateboarding
+be:Скейтбордынг|скейтборд|скейт
+bg:Скейтбординг|скейтборд|скейт
+cs:Skateboarding|skateboard
+da:Skateboarding|skateboard
+de:Skateboarding|skateboard
 el:Σκέιτμπορντινγκ
-es:Monopatinaje|Skate|patineta
+es:Monopatinaje|skate|patineta
 et:Rulasõit
-eu:Skateboarding
+eu:Skateboarding|skateboard
 fa:اسکیت‌بردینگ
 fi:Rullalautailu
 fr:Skateboard
@@ -8828,16 +8828,16 @@ ko:스케이트보딩
 mr:स्केट बोर्डिंग
 nb:Rullebrettkjøring
 nl:Skateboarden
-pl:Skateboarding
+pl:Skateboarding|skateboard
 pt:Skate
-ro:Skateboarding
-ru:Скейтбординг
+ro:Skateboarding|skateboard
+ru:Скейтбординг|скейтборд|скейт
 sk:Skejtbording
-sv:Skateboarding
-sw:Skateboarding
+sv:Skateboarding|skateboard
+sw:Skateboarding|skateboard
 th:สเกตบอร์ด
 tr:Kaykay
-uk:Скейтбординг
+uk:Скейтбординг|скейтборд|скейт
 vi:Trượt ván
 zh-Hans:滑板活动
 zh-Hant:滑板活動
