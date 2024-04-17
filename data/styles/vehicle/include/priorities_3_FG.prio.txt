@@ -254,8 +254,8 @@ highway-footway-sidewalk                            # line z19-
 highway-path                                        # line z17-
 highway-path-bicycle                                # line z17-
 highway-path-bridge                                 # line z17-
-highway-path-difficult
-highway-path-expert
+highway-path-difficult                              # line z17-
+highway-path-expert                                 # line z17-
 highway-path-horse                                  # line z17-
 highway-pedestrian                                  # line z18-
 highway-pedestrian-area                             # line z18-
