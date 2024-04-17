@@ -100,9 +100,7 @@ inline std::string DebugPrint(std::u32string_view utf32)
 
 inline std::string DebugPrint(char32_t t)
 {
-  std::ostringstream out;
-  out << std::hex << static_cast<uint32_t>(t);
-  return out.str();
+  return internal::ToUtf8(std::u32string_view{&t, 1});
 }
 
 inline std::string DebugPrint(std::chrono::time_point<std::chrono::system_clock> const & ts)
