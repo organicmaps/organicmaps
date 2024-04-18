@@ -1423,6 +1423,7 @@
 	<string name="type.leisure.garden">Záhrada</string>
 	<string name="type.leisure.garden.residential">Záhrada</string>
 	<string name="type.leisure.golf_course">Golfové ihrisko</string>
+	<string name="type.leisure.miniature_golf">Minigolf</string>
 	<string name="type.leisure.ice_rink">Klzisko</string>
 	<string name="type.leisure.marina">Marína</string>
 	<string name="type.leisure.nature_reserve">Prírodná rezervácia</string>

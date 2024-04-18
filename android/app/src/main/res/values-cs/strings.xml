@@ -1317,6 +1317,7 @@
 	<string name="type.leisure.garden">Zahrada</string>
 	<string name="type.leisure.garden.residential">Zahrada</string>
 	<string name="type.leisure.golf_course">Golf</string>
+	<string name="type.leisure.miniature_golf">Minigolf</string>
 	<string name="type.leisure.nature_reserve">Rezervace</string>
 	<string name="type.leisure.outdoor_seating">Venkovní posezení</string>
 	<string name="type.leisure.park">Park</string>

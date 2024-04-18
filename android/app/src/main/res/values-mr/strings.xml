@@ -1311,6 +1311,7 @@
 	<string name="type.leisure.garden">बाग</string>
 	<string name="type.leisure.garden.residential">बाग</string>
 	<string name="type.leisure.golf_course">गोल्फचे मैदान</string>
+	<string name="type.leisure.miniature_golf">मिनीगोल्फ</string>
 	<string name="type.leisure.hackerspace">हॅकरस्पेस</string>
 	<string name="type.leisure.ice_rink">हिम क्रीडा क्षेत्र</string>
 	<string name="type.leisure.nature_reserve">संरक्षित निसर्गक्षेत्र</string>

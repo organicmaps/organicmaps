@@ -1360,6 +1360,7 @@
 	<string name="type.leisure.garden">Hage</string>
 	<string name="type.leisure.garden.residential">Hage</string>
 	<string name="type.leisure.golf_course">Golfbane</string>
+	<string name="type.leisure.miniature_golf">Minigolf</string>
 	<string name="type.leisure.nature_reserve">Naturreservat</string>
 	<string name="type.leisure.outdoor_seating">Uteservering</string>
 	<string name="type.leisure.park">Park</string>

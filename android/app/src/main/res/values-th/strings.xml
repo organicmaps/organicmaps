@@ -1309,6 +1309,7 @@
 	<string name="type.leisure.garden">สวน</string>
 	<string name="type.leisure.garden.residential">สวน</string>
 	<string name="type.leisure.golf_course">สนามกอล์ฟ</string>
+	<string name="type.leisure.miniature_golf">มินิกอล์ฟ</string>
 	<string name="type.leisure.hackerspace">แฮกเกอร์สเปซ</string>
 	<string name="type.leisure.nature_reserve">เขตอนุรักษ์ธรรมชาติ</string>
 	<string name="type.leisure.outdoor_seating">ที่นั่งกลางแจ้ง</string>

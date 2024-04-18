@@ -1413,6 +1413,7 @@
 	<string name="type.leisure.garden">Giardino</string>
 	<string name="type.leisure.garden.residential">Giardino</string>
 	<string name="type.leisure.golf_course">Campo da golf</string>
+	<string name="type.leisure.miniature_golf">Minigolf</string>
 	<string name="type.leisure.ice_rink">Pista di pattinaggio</string>
 	<string name="type.leisure.marina">Porto turistico</string>
 	<string name="type.leisure.nature_reserve">Riserva naturale</string>

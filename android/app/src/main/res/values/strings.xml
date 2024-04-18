@@ -1495,6 +1495,7 @@
 	<string name="type.leisure.garden">Garden</string>
 	<string name="type.leisure.garden.residential">Residential Garden</string>
 	<string name="type.leisure.golf_course">Golf Course</string>
+	<string name="type.leisure.miniature_golf">Minigolf</string>
 	<string name="type.leisure.hackerspace">Hackerspace</string>
 	<string name="type.leisure.ice_rink">Ice Rink</string>
 	<string name="type.leisure.marina">Marina</string>

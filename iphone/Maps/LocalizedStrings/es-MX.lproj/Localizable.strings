@@ -2520,6 +2520,8 @@
 
 "type.leisure.golf_course" = "Campo de golf";
 
+"type.leisure.miniature_golf" = "Minigolf";
+
 "type.leisure.hackerspace" = "Espacio hacker";
 
 "type.leisure.ice_rink" = "Pisa de patinaje";

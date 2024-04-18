@@ -1445,6 +1445,7 @@
 	<string name="type.leisure.garden">Садок</string>
 	<string name="type.leisure.garden.residential">Частный сад</string>
 	<string name="type.leisure.golf_course">Майданчик для гольфу</string>
+	<string name="type.leisure.miniature_golf">Мінігольф</string>
 	<string name="type.leisure.ice_rink">Каток</string>
 	<string name="type.leisure.marina">Пристань</string>
 	<string name="type.leisure.nature_reserve">Заповідник</string>

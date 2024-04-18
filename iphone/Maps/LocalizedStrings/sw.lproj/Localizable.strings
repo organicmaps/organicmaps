@@ -2520,6 +2520,8 @@
 
 "type.leisure.golf_course" = "Golf Course";
 
+"type.leisure.miniature_golf" = "Minigofu";
+
 "type.leisure.hackerspace" = "Hackerspace";
 
 "type.leisure.ice_rink" = "Ice Rink";

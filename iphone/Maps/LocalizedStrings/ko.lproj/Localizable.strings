@@ -2520,6 +2520,8 @@
 
 "type.leisure.golf_course" = "골프장";
 
+"type.leisure.miniature_golf" = "미니골프";
+
 "type.leisure.hackerspace" = "해커스 스페이스";
 
 "type.leisure.ice_rink" = "Ice Rink";

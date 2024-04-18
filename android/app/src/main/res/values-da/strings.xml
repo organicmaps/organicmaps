@@ -1297,6 +1297,7 @@
 	<string name="type.leisure.garden">Have</string>
 	<string name="type.leisure.garden.residential">Have</string>
 	<string name="type.leisure.golf_course">Golf</string>
+	<string name="type.leisure.miniature_golf">Minigolf</string>
 	<string name="type.leisure.nature_reserve">Reservat</string>
 	<string name="type.leisure.outdoor_seating">Udendørs siddepladser</string>
 	<string name="type.leisure.park">Park</string>
