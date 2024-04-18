@@ -170,12 +170,12 @@ area|z12-13[natural=scrub],
 {fill-color: @green0;}
 
 /* Next types are hardcoded to have a hatching-style fill, see drape_frontend/stylist.cpp */
-area|z10-[leisure=nature_reserve],
-area|z10-[boundary=national_park],
-area|z10-[boundary=protected_area][protect_class=1],
+area|z10-17[leisure=nature_reserve],
+area|z10-17[boundary=national_park],
+area|z10-17[boundary=protected_area][protect_class=1],
 {fill-opacity: 0.2; fill-color: @green6;}
 
-area|z10-[boundary=aboriginal_lands]
+area|z10-16[boundary=aboriginal_lands],
 {fill-opacity: 0.07; fill-color: @indigenous_lands;}
 
 area|z10-[landuse=military][military=danger_area],
