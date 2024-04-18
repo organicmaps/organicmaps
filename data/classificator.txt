@@ -669,6 +669,7 @@ world  +
         hackerspace  -
         ice_rink  -
         marina  -
+        miniature_golf  -
         nature_reserve  -
         outdoor_seating  -
         park  +
