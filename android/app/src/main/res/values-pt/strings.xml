@@ -1392,6 +1392,7 @@
 	<string name="type.leisure.garden">Jardim</string>
 	<string name="type.leisure.garden.residential">Jardim residencial</string>
 	<string name="type.leisure.golf_course">Campo de golfe</string>
+	<string name="type.leisure.miniature_golf">Minigolfe</string>
 	<string name="type.leisure.ice_rink">Rinque de patinagem</string>
 	<string name="type.leisure.marina">Marina</string>
 	<string name="type.leisure.nature_reserve">Reserva natural</string>

@@ -1427,6 +1427,7 @@
 	<string name="type.leisure.garden">Puutarha</string>
 	<string name="type.leisure.garden.residential">Puutarha</string>
 	<string name="type.leisure.golf_course">Golf-rata</string>
+	<string name="type.leisure.miniature_golf">Minigolf</string>
 	<string name="type.leisure.hackerspace">Hacklab</string>
 	<string name="type.leisure.marina">Venesatama</string>
 	<string name="type.leisure.nature_reserve">Luonnonsuojelualue</string>

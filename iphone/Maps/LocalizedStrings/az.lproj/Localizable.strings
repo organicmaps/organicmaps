@@ -2520,6 +2520,8 @@
 
 "type.leisure.golf_course" = "Qolf Kursu";
 
+"type.leisure.miniature_golf" = "Minigolf";
+
 "type.leisure.hackerspace" = "Hackerspace";
 
 "type.leisure.ice_rink" = "Buz Meydançası";

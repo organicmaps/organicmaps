@@ -1404,6 +1404,7 @@
 	<string name="type.leisure.garden">Lorategi</string>
 	<string name="type.leisure.garden.residential">Lorategi</string>
 	<string name="type.leisure.golf_course">Golf kurtsoa</string>
+	<string name="type.leisure.miniature_golf">Minigolf</string>
 	<string name="type.leisure.nature_reserve">Erreserbatutako lurraldea</string>
 	<string name="type.leisure.outdoor_seating">Kanpoko eserlekuak</string>
 	<string name="type.leisure.park">Parkea</string>

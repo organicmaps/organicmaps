@@ -2520,6 +2520,8 @@
 
 "type.leisure.golf_course" = "Sân gôn";
 
+"type.leisure.miniature_golf" = "Minigolf";
+
 "type.leisure.hackerspace" = "Không gian tin tặc";
 
 "type.leisure.ice_rink" = "Ice Rink";

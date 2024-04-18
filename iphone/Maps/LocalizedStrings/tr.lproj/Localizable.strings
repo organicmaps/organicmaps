@@ -2520,6 +2520,8 @@
 
 "type.leisure.golf_course" = "Golf Sahası";
 
+"type.leisure.miniature_golf" = "Minigolf";
+
 "type.leisure.hackerspace" = "Hackerspace";
 
 "type.leisure.ice_rink" = "Buz Pateni Pisti";

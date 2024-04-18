@@ -1303,6 +1303,7 @@
 	<string name="type.leisure.garden">Trädgård</string>
 	<string name="type.leisure.garden.residential">Trädgård</string>
 	<string name="type.leisure.golf_course">Golfbana</string>
+	<string name="type.leisure.miniature_golf">Minigolf</string>
 	<string name="type.leisure.nature_reserve">Naturreservat</string>
 	<string name="type.leisure.outdoor_seating">Sittplatser utomhus</string>
 	<string name="type.leisure.park">Parken</string>

@@ -1107,6 +1107,7 @@
 	<string name="type.landuse.flowerbed">клумба</string>
 	<string name="type.leisure.dance">Танцавальная зала</string>
 	<string name="type.leisure.garden.residential">Частный сад</string>
+	<string name="type.leisure.miniature_golf">Мінігольф</string>
 	<string name="type.leisure.hackerspace">Хакерская прастора</string>
 	<string name="type.leisure.marina">Прычал</string>
 	<string name="type.leisure.outdoor_seating">Месцы на адкрытым паветры</string>

@@ -1433,6 +1433,7 @@
 	<string name="type.leisure.garden">Tuin</string>
 	<string name="type.leisure.garden.residential">Tuin</string>
 	<string name="type.leisure.golf_course">Golfbaan</string>
+	<string name="type.leisure.miniature_golf">Minigolf</string>
 	<string name="type.leisure.ice_rink">Schaatsbaan</string>
 	<string name="type.leisure.marina">Jachthaven</string>
 	<string name="type.leisure.nature_reserve">Natuurreservaat</string>

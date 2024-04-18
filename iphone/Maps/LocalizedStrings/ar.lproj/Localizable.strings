@@ -2520,6 +2520,8 @@
 
 "type.leisure.golf_course" = "ملعب غولف";
 
+"type.leisure.miniature_golf" = "Minigolf";
+
 "type.leisure.hackerspace" = "هاكرزبيس";
 
 "type.leisure.ice_rink" = "Ice Rink";

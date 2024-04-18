@@ -1308,6 +1308,7 @@
 	<string name="type.leisure.garden">정원</string>
 	<string name="type.leisure.garden.residential">정원</string>
 	<string name="type.leisure.golf_course">골프장</string>
+	<string name="type.leisure.miniature_golf">미니골프</string>
 	<string name="type.leisure.hackerspace">해커스 스페이스</string>
 	<string name="type.leisure.nature_reserve">천연보호구역</string>
 	<string name="type.leisure.outdoor_seating">야외 좌석</string>

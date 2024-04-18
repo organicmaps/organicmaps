@@ -871,6 +871,7 @@
 	<string name="type.historic.tank">Tanc històric</string>
 	<string name="type.historic.wreck">Naufragi</string>
 	<string name="type.landuse.flowerbed">Llit de flors</string>
+	<string name="type.leisure.miniature_golf">Minigolf</string>
 	<string name="type.leisure.outdoor_seating">Seients a l\'aire lliure</string>
 	<string name="type.man_made.tower.communication">Torre de comunicacions</string>
 	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->

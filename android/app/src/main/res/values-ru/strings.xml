@@ -1457,6 +1457,7 @@
 	<string name="type.leisure.garden">Сад</string>
 	<string name="type.leisure.garden.residential">Частный сад</string>
 	<string name="type.leisure.golf_course">Площадка для гольфа</string>
+	<string name="type.leisure.miniature_golf">Минигольф</string>
 	<string name="type.leisure.hackerspace">Хакерспейс</string>
 	<string name="type.leisure.ice_rink">Каток</string>
 	<string name="type.leisure.marina">Причал</string>
