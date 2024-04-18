@@ -15765,7 +15765,7 @@ cont {
   element {
     scale: 10
     area {
-      color: 3430108454
+      color: 4000533798
       priority: 20
     }
     caption {
@@ -15780,7 +15780,7 @@ cont {
   element {
     scale: 11
     area {
-      color: 3430108454
+      color: 4000533798
       priority: 20
     }
     caption {
@@ -15795,7 +15795,7 @@ cont {
   element {
     scale: 12
     area {
-      color: 3430108454
+      color: 4000533798
       priority: 20
     }
     caption {
@@ -15810,7 +15810,7 @@ cont {
   element {
     scale: 13
     area {
-      color: 3430108454
+      color: 4000533798
       priority: 20
     }
     caption {
@@ -15825,7 +15825,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 3430108454
+      color: 4000533798
       priority: 20
     }
     caption {
@@ -15840,7 +15840,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 3430108454
+      color: 4000533798
       priority: 20
     }
     caption {
@@ -15855,72 +15855,12 @@ cont {
   element {
     scale: 16
     area {
-      color: 3430108454
+      color: 4000533798
       priority: 20
     }
     caption {
       primary {
         height: 10
-        color: 6967599
-        stroke_color: 856032768
-      }
-      priority: 6700
-    }
-  }
-  element {
-    scale: 17
-    area {
-      color: 3430108454
-      priority: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 6967599
-        stroke_color: 856032768
-      }
-      priority: 6700
-    }
-  }
-  element {
-    scale: 18
-    area {
-      color: 3430108454
-      priority: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 6967599
-        stroke_color: 856032768
-      }
-      priority: 6700
-    }
-  }
-  element {
-    scale: 19
-    area {
-      color: 3430108454
-      priority: 20
-    }
-    caption {
-      primary {
-        height: 11
-        color: 6967599
-        stroke_color: 856032768
-      }
-      priority: 6700
-    }
-  }
-  element {
-    scale: 20
-    area {
-      color: 3430108454
-      priority: 20
-    }
-    caption {
-      primary {
-        height: 11
         color: 6967599
         stroke_color: 856032768
       }
@@ -16489,69 +16429,6 @@ cont {
       priority: -3300
     }
   }
-  element {
-    scale: 18
-    area {
-      color: 3425648640
-      priority: 20
-    }
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3300
-    }
-  }
-  element {
-    scale: 19
-    area {
-      color: 3425648640
-      priority: 20
-    }
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3300
-    }
-  }
-  element {
-    scale: 20
-    area {
-      color: 3425648640
-      priority: 20
-    }
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3300
-    }
-  }
 }
 cont {
   name: "boundary-protected_area"
@@ -16653,57 +16530,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3300
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3300
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3300
-    }
-  }
-  element {
-    scale: 20
     symbol {
       name: "nparkf-outline-m"
       priority: 6700
@@ -16870,69 +16696,6 @@ cont {
       priority: -3300
     }
   }
-  element {
-    scale: 18
-    area {
-      color: 3425648640
-      priority: 20
-    }
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3300
-    }
-  }
-  element {
-    scale: 19
-    area {
-      color: 3425648640
-      priority: 20
-    }
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3300
-    }
-  }
-  element {
-    scale: 20
-    area {
-      color: 3425648640
-      priority: 20
-    }
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3300
-    }
-  }
 }
 cont {
   name: "boundary-protected_area-2"
@@ -17034,57 +16797,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3300
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3300
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3300
-    }
-  }
-  element {
-    scale: 20
     symbol {
       name: "nparkf-outline-m"
       priority: 6700
@@ -17216,57 +16928,6 @@ cont {
       priority: -3300
     }
   }
-  element {
-    scale: 18
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3300
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3300
-    }
-  }
-  element {
-    scale: 20
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3300
-    }
-  }
 }
 cont {
   name: "boundary-protected_area-4"
@@ -17368,57 +17029,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3300
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3300
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3300
-    }
-  }
-  element {
-    scale: 20
     symbol {
       name: "nparkf-outline-m"
       priority: 6700
@@ -17550,57 +17160,6 @@ cont {
       priority: -3300
     }
   }
-  element {
-    scale: 18
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3300
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3300
-    }
-  }
-  element {
-    scale: 20
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3300
-    }
-  }
 }
 cont {
   name: "boundary-protected_area-6"
@@ -17702,57 +17261,6 @@ cont {
   }
   element {
     scale: 17
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3300
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3300
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3300
-    }
-  }
-  element {
-    scale: 20
     symbol {
       name: "nparkf-outline-m"
       priority: 6700
@@ -51383,65 +50891,35 @@ cont {
   }
   element {
     scale: 18
-    area {
-      color: 3425648640
-      priority: 20
-    }
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
     caption {
       primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
+        height: 10
+        color: 9211020
         offset_y: 1
-        is_optional: true
       }
-      priority: -3300
+      priority: 6700
     }
   }
   element {
     scale: 19
-    area {
-      color: 3425648640
-      priority: 20
-    }
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
     caption {
       primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
+        height: 10
+        color: 9211020
         offset_y: 1
-        is_optional: true
       }
-      priority: -3300
+      priority: 6700
     }
   }
   element {
     scale: 20
-    area {
-      color: 3425648640
-      priority: 20
-    }
-    symbol {
-      name: "nparkf-outline-m"
-      priority: 6700
-    }
     caption {
       primary {
-        height: 11
-        color: 2836760
-        stroke_color: 436602368
+        height: 10
+        color: 9211020
         offset_y: 1
-        is_optional: true
       }
-      priority: -3300
+      priority: 6700
     }
   }
 }
