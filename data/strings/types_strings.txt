@@ -12511,6 +12511,18 @@
     zh-Hans = 小道
     zh-Hant = 人行步道
 
+  [type.highway.path.difficult]
+    comment = Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad.
+    ref = type.highway.path
+    en = Difficult or Indistinct Trail
+    ru = Сложная или плохо видимая тропа
+
+  [type.highway.path.expert]
+    comment = Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme.
+    ref = type.highway.path
+    en = Expert or Indiscernible Trail
+    ru = Очень сложная или неразличимая тропа
+
   [type.highway.path.bicycle]
     ref = type.highway.path
     en = Cycle & Foot Path
