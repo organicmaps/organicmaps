@@ -513,6 +513,7 @@ UNIT_TEST(Relation_Wiki)
         TEST(fb.GetMetadata().Get(feature::Metadata::FMD_WIKIPEDIA).empty(), ());
         break;
       }
+      default: TEST(false, ()); break;
       }
     });
 

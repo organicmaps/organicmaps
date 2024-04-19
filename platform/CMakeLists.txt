@@ -180,7 +180,7 @@ if (QT_POSITIONING)
 endif()
 
 if (APPLE)
-  target_compile_options(${PROJECT_NAME} PRIVATE "-fobjc-arc")
+  target_compile_options(${PROJECT_NAME} PRIVATE -fobjc-arc -Wno-nullability-completeness)
 endif()
 
 if (PLATFORM_LINUX OR PLATFORM_WIN)
