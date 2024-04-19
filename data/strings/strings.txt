@@ -15303,6 +15303,12 @@
     zh-Hans = 该地点的名称
     zh-Hant = 該地點的名稱
 
+  [editor_default_language_hint]
+    tags = android,ios
+    comment = The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name
+    en = As it is written in the local language
+    de = Wie in der Landessprache geschrieben
+
   [editor_edit_place_category_title]
     tags = android,ios
     en = Category

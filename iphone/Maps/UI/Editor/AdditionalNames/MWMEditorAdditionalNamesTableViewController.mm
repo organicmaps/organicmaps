@@ -68,7 +68,12 @@ additionalSkipLanguageCodes:(std::vector<NSInteger>)additionalSkipLanguageCodes
   MWMTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"ListCellIdentifier"];
   NSInteger const index = indexPath.row;
   StringUtf8Multilang::Lang const & lang = m_languages[index];
-  cell.textLabel.text = ToNSString(lang.m_name);
+  auto const getIndex = [](std::string_view lang) { return StringUtf8Multilang::GetLangIndex(lang); };
+  auto constexpr kDefaultCode = StringUtf8Multilang::kDefaultCode;
+  if (getIndex(lang.m_code) == kDefaultCode)
+    cell.textLabel.text = L(@"editor_default_language_hint");
+  else
+    cell.textLabel.text = ToNSString(lang.m_name);
   cell.detailTextLabel.text = ToNSString(lang.m_code);
   cell.accessoryType = UITableViewCellAccessoryNone;
   return cell;
