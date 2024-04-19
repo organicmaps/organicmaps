@@ -2076,7 +2076,11 @@
 
 "type.highway.path" = "Pad";
 
-"type.highway.path.alpine_hiking" = "Alpine wandelpad";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Pad";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Pad";
 
 "type.highway.path.bicycle" = "Fietspad";
 
@@ -2085,19 +2089,7 @@
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Brug";
 
-"type.highway.path.demanding_alpine_hiking" = "Pad";
-
-"type.highway.path.demanding_mountain_hiking" = "Pad";
-
-"type.highway.path.difficult_alpine_hiking" = "Pad";
-
-"type.highway.path.hiking" = "Wandelpad";
-
 "type.highway.path.horse" = "Ruiterpad";
-
-"type.highway.path.mountain_hiking" = "Bergpad";
-
-"type.highway.path.permissive" = "Pad";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Tunnel";

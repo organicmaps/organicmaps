@@ -1114,18 +1114,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
 	<string name="type.highway.path">Gångväg</string>
-	<string name="type.highway.path.alpine_hiking">Gångväg</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">Gångväg</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">Gångväg</string>
 	<string name="type.highway.path.bicycle">Gångväg</string>
 	<string name="type.highway.footway.bicycle">Gångväg</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Bro</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Gångväg</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Gångväg</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Gångväg</string>
-	<string name="type.highway.path.hiking">Gångväg</string>
 	<string name="type.highway.path.horse">Gångväg</string>
-	<string name="type.highway.path.mountain_hiking">Gångväg</string>
-	<string name="type.highway.path.permissive">Gångväg</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Tunnel</string>
 	<string name="type.highway.pedestrian">Gata</string>

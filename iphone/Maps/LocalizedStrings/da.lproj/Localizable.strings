@@ -2076,7 +2076,11 @@
 
 "type.highway.path" = "Sti";
 
-"type.highway.path.alpine_hiking" = "Sti";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Sti";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Sti";
 
 "type.highway.path.bicycle" = "Sti";
 
@@ -2085,19 +2089,7 @@
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Bro";
 
-"type.highway.path.demanding_alpine_hiking" = "Sti";
-
-"type.highway.path.demanding_mountain_hiking" = "Sti";
-
-"type.highway.path.difficult_alpine_hiking" = "Sti";
-
-"type.highway.path.hiking" = "Sti";
-
 "type.highway.path.horse" = "Sti";
-
-"type.highway.path.mountain_hiking" = "Sti";
-
-"type.highway.path.permissive" = "Sti";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Tunnel";

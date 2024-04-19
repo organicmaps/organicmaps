@@ -1034,18 +1034,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">تونل</string>
 	<string name="type.highway.path">مسیر</string>
-	<string name="type.highway.path.alpine_hiking">مسیر</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">مسیر</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">مسیر</string>
 	<string name="type.highway.path.bicycle">مسیر</string>
 	<string name="type.highway.footway.bicycle">مسیر</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">پل</string>
-	<string name="type.highway.path.demanding_alpine_hiking">مسیر</string>
-	<string name="type.highway.path.demanding_mountain_hiking">مسیر</string>
-	<string name="type.highway.path.difficult_alpine_hiking">مسیر</string>
-	<string name="type.highway.path.hiking">مسیر</string>
 	<string name="type.highway.path.horse">مسیر</string>
-	<string name="type.highway.path.mountain_hiking">مسیر</string>
-	<string name="type.highway.path.permissive">مسیر</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">تونل</string>
 	<string name="type.highway.pedestrian">جاده</string>

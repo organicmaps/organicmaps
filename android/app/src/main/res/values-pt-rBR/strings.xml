@@ -1126,18 +1126,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Túnel</string>
 	<string name="type.highway.path">Caminho</string>
-	<string name="type.highway.path.alpine_hiking">Caminho pedonal</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">Caminho</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">Caminho</string>
 	<string name="type.highway.path.bicycle">Caminho para ciclistas</string>
 	<string name="type.highway.footway.bicycle">Caminho para ciclistas</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Ponte</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Caminho pedonal difícil</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Caminho pedonal difícil</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Caminho pedonal difícil</string>
-	<string name="type.highway.path.hiking">Caminho pedonal</string>
 	<string name="type.highway.path.horse">Caminho para cavaleiros</string>
-	<string name="type.highway.path.mountain_hiking">Caminho pedonal</string>
-	<string name="type.highway.path.permissive">Caminho</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Túnel</string>
 	<string name="type.highway.pedestrian">Rua pedonal</string>

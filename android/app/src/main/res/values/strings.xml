@@ -1259,18 +1259,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
 	<string name="type.highway.path">Path</string>
-	<string name="type.highway.path.alpine_hiking">Path</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">Difficult or Indistinct Trail</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">Expert or Indiscernible Trail</string>
 	<string name="type.highway.path.bicycle">Cycle &amp; Foot Path</string>
 	<string name="type.highway.footway.bicycle">Cycle &amp; Foot Path</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Bridge</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Path</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Path</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Path</string>
-	<string name="type.highway.path.hiking">Path</string>
 	<string name="type.highway.path.horse">Bridle Path</string>
-	<string name="type.highway.path.mountain_hiking">Path</string>
-	<string name="type.highway.path.permissive">Path</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Tunnel</string>
 	<string name="type.highway.pedestrian">Pedestrian Street</string>

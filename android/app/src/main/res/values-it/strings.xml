@@ -1203,18 +1203,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
 	<string name="type.highway.path">Sentiero</string>
-	<string name="type.highway.path.alpine_hiking">Sentiero</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">Sentiero</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">Sentiero</string>
 	<string name="type.highway.path.bicycle">Sentiero</string>
 	<string name="type.highway.footway.bicycle">Sentiero</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Ponte</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Sentiero</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Sentiero</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Sentiero</string>
-	<string name="type.highway.path.hiking">Sentiero</string>
 	<string name="type.highway.path.horse">Sentiero</string>
-	<string name="type.highway.path.mountain_hiking">Sentiero</string>
-	<string name="type.highway.path.permissive">Sentiero</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Tunnel</string>
 	<string name="type.highway.pedestrian">Strada pedonale</string>
