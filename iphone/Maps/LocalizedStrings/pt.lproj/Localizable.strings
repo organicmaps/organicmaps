@@ -705,6 +705,9 @@
 
 "editor_edit_place_name_hint" = "Nome do lugar";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Como está escrito na língua local";
+
 "editor_edit_place_category_title" = "Categoria";
 
 "whatsnew_editor_message_1" = "Adicione novos lugares ao mapa e edite os já existentes diretamente a partir da aplicação.";
