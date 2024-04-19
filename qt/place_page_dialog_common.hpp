@@ -6,10 +6,10 @@
 namespace place_page_dialog
 {
 enum PressedButton : int {
+  Close = QDialog::Rejected,
   RouteFrom,
   AddStop,
   RouteTo,
-  Close,
   EditPlace
 };
 
