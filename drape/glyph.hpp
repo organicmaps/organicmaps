@@ -46,7 +46,6 @@ struct Glyph
   GlyphImage m_image;
   int m_fontIndex;
   strings::UniChar m_code;
-  int m_fixedSize;
 };
 }  // namespace dp
 

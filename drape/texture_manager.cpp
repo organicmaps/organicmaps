@@ -296,15 +296,14 @@ void TextureManager::GetRegionBase(ref_ptr<Texture> tex, TextureManager::BaseReg
     m_nothingToUpload.clear();
 }
 
-void TextureManager::GetGlyphsRegions(ref_ptr<FontTexture> tex, strings::UniString const & text,
-                                      int fixedHeight, TGlyphsBuffer & regions)
+void TextureManager::GetGlyphsRegions(ref_ptr<FontTexture> tex, strings::UniString const & text, TGlyphsBuffer & regions)
 {
   ASSERT(tex != nullptr, ());
 
   std::vector<GlyphKey> keys;
   keys.reserve(text.size());
   for (auto const c : text)
-    keys.emplace_back(c, fixedHeight);
+    keys.emplace_back(c);
 
   bool hasNew = false;
   auto resourcesInfo = tex->FindResources(keys, hasNew);
@@ -325,27 +324,25 @@ void TextureManager::GetGlyphsRegions(ref_ptr<FontTexture> tex, strings::UniStri
     m_nothingToUpload.clear();
 }
 
-uint32_t TextureManager::GetNumberOfUnfoundCharacters(strings::UniString const & text, int fixedHeight,
-                                                      HybridGlyphGroup const & group)
+uint32_t TextureManager::GetNumberOfUnfoundCharacters(strings::UniString const & text, HybridGlyphGroup const & group)
 {
   uint32_t cnt = 0;
   for (auto const c : text)
   {
-    if (group.m_glyphs.find(std::make_pair(c, fixedHeight)) == group.m_glyphs.end())
+    if (group.m_glyphs.find(c) == group.m_glyphs.end())
       cnt++;
   }
 
   return cnt;
 }
 
-void TextureManager::MarkCharactersUsage(strings::UniString const & text, int fixedHeight,
-                                         HybridGlyphGroup & group)
+void TextureManager::MarkCharactersUsage(strings::UniString const & text, HybridGlyphGroup & group)
 {
   for (auto const & c : text)
-    group.m_glyphs.emplace(c, fixedHeight);
+    group.m_glyphs.emplace(c);
 }
 
-size_t TextureManager::FindHybridGlyphsGroup(strings::UniString const & text, int fixedHeight)
+size_t TextureManager::FindHybridGlyphsGroup(strings::UniString const & text)
 {
   if (m_hybridGlyphGroups.empty())
   {
@@ -370,12 +367,12 @@ size_t TextureManager::FindHybridGlyphsGroup(strings::UniString const & text, in
   // Looking for a hybrid texture which contains text entirely.
   for (size_t i = 0; i < m_hybridGlyphGroups.size() - 1; i++)
   {
-    if (GetNumberOfUnfoundCharacters(text, fixedHeight, m_hybridGlyphGroups[i]) == 0)
+    if (GetNumberOfUnfoundCharacters(text, m_hybridGlyphGroups[i]) == 0)
       return i;
   }
 
   // Check if we can contain text in the last hybrid texture.
-  uint32_t const unfoundChars = GetNumberOfUnfoundCharacters(text, fixedHeight, group);
+  uint32_t const unfoundChars = GetNumberOfUnfoundCharacters(text, group);
   uint32_t const newCharsCount = static_cast<uint32_t>(group.m_glyphs.size()) + unfoundChars;
   if (newCharsCount >= m_maxGlypsCount || !group.m_texture->HasEnoughSpace(unfoundChars))
     m_hybridGlyphGroups.push_back(HybridGlyphGroup());
@@ -383,12 +380,12 @@ size_t TextureManager::FindHybridGlyphsGroup(strings::UniString const & text, in
   return m_hybridGlyphGroups.size() - 1;
 }
 
-size_t TextureManager::FindHybridGlyphsGroup(TMultilineText const & text, int fixedHeight)
+size_t TextureManager::FindHybridGlyphsGroup(TMultilineText const & text)
 {
   strings::UniString combinedString;
   MultilineTextToUniString(text, combinedString);
 
-  return FindHybridGlyphsGroup(combinedString, fixedHeight);
+  return FindHybridGlyphsGroup(combinedString);
 }
 
 void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & params)
@@ -574,49 +571,22 @@ void TextureManager::GetColorRegion(Color const & color, ColorRegion & region)
   GetRegionBase(make_ref(m_colorTexture), region, ColorKey(color));
 }
 
-void TextureManager::GetGlyphRegions(TMultilineText const & text, int fixedHeight,
-                                     TMultilineGlyphsBuffer & buffers)
+void TextureManager::GetGlyphRegions(TMultilineText const & text, TMultilineGlyphsBuffer & buffers)
 {
   std::lock_guard<std::mutex> lock(m_calcGlyphsMutex);
-  CalcGlyphRegions<TMultilineText, TMultilineGlyphsBuffer>(text, fixedHeight, buffers);
+  CalcGlyphRegions<TMultilineText, TMultilineGlyphsBuffer>(text, buffers);
 }
 
-void TextureManager::GetGlyphRegions(strings::UniString const & text, int fixedHeight,
-                                     TGlyphsBuffer & regions)
+void TextureManager::GetGlyphRegions(strings::UniString const & text, TGlyphsBuffer & regions)
 {
   std::lock_guard<std::mutex> lock(m_calcGlyphsMutex);
-  CalcGlyphRegions<strings::UniString, TGlyphsBuffer>(text, fixedHeight, regions);
+  CalcGlyphRegions<strings::UniString, TGlyphsBuffer>(text, regions);
 }
 
-/*
-uint32_t TextureManager::GetAbsentGlyphsCount(ref_ptr<Texture> texture,
-                                              strings::UniString const & text,
-                                              int fixedHeight) const
-{
-  if (texture == nullptr)
-    return 0;
-
-  ASSERT(dynamic_cast<FontTexture *>(texture.get()) != nullptr, ());
-  return static_cast<FontTexture *>(texture.get())->GetAbsentGlyphsCount(text, fixedHeight);
-}
-
-uint32_t TextureManager::GetAbsentGlyphsCount(ref_ptr<Texture> texture, TMultilineText const & text,
-                                              int fixedHeight) const
-{
-  if (texture == nullptr)
-    return 0;
-
-  uint32_t count = 0;
-  for (size_t i = 0; i < text.size(); ++i)
-    count += GetAbsentGlyphsCount(texture, text[i], fixedHeight);
-  return count;
-}
-*/
-
-bool TextureManager::AreGlyphsReady(strings::UniString const & str, int fixedHeight) const
+bool TextureManager::AreGlyphsReady(strings::UniString const & str) const
 {
   CHECK(m_isInitialized, ());
-  return m_glyphManager->AreGlyphsReady(str, fixedHeight);
+  return m_glyphManager->AreGlyphsReady(str);
 }
 
 ref_ptr<Texture> TextureManager::GetSymbolsTexture() const

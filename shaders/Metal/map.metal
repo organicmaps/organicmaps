@@ -561,7 +561,7 @@ vertex TextFragment_T vsTextOutlinedBillboard(const TextOutlinedVertex_T in [[st
 }
 
 // TextFixed
-
+/*
 fragment float4 fsTextFixed(const TextFragment_T in [[stage_in]],
                             constant Uniforms_T & uniforms [[buffer(0)]],
                             texture2d<float> u_maskTex [[texture(0)]],
@@ -572,7 +572,7 @@ fragment float4 fsTextFixed(const TextFragment_T in [[stage_in]],
   glyphColor.a *= alpha * uniforms.u_opacity;
   return glyphColor;
 }
-
+*/
 // ColoredSymbol
 
 typedef struct

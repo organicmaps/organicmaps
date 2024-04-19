@@ -81,8 +81,7 @@ m2::RectF GlyphPacker::MapTextureCoords(const m2::RectU & pixelRect) const
 
 bool GlyphPacker::IsFull() const { return m_isFull; }
 
-GlyphIndex::GlyphIndex(m2::PointU const & size, ref_ptr<GlyphManager> mng,
-                       ref_ptr<GlyphGenerator> generator)
+GlyphIndex::GlyphIndex(m2::PointU const & size, ref_ptr<GlyphManager> mng, ref_ptr<GlyphGenerator> generator)
   : m_packer(size)
   , m_mng(mng)
   , m_generator(generator)
@@ -96,7 +95,7 @@ GlyphIndex::GlyphIndex(m2::PointU const & size, ref_ptr<GlyphManager> mng,
   uint32_t constexpr kPredefinedGlyphsCount = 128;
   for (uint32_t i = 0; i < kPredefinedGlyphsCount; ++i)
   {
-    auto const key = GlyphKey(i, kDynamicGlyphSize);
+    auto const key = GlyphKey(i);
 
     MapResource(key, newResource);
   }
@@ -158,7 +157,7 @@ ref_ptr<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphKey const & key, boo
 
   newResource = true;
 
-  Glyph glyph = m_mng->GetGlyph(key.GetUnicodePoint(), key.GetFixedSize());
+  Glyph glyph = m_mng->GetGlyph(key.GetUnicodePoint());
   m2::RectU r;
   if (!m_packer.PackGlyph(glyph.m_image.m_width, glyph.m_image.m_height, r))
   {
@@ -170,8 +169,8 @@ ref_ptr<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphKey const & key, boo
         "packerSize =", m_packer.GetSize()));
     }
 
-    auto const invalidGlyph = m_mng->GetInvalidGlyph(key.GetFixedSize());
-    auto invalidGlyphIndex = m_index.find(GlyphKey(invalidGlyph.m_code, key.GetFixedSize()));
+    auto const invalidGlyph = m_mng->GetInvalidGlyph();
+    auto invalidGlyphIndex = m_index.find(GlyphKey(invalidGlyph.m_code));
     if (invalidGlyphIndex != m_index.end())
     {
       newResource = false;
@@ -256,17 +255,4 @@ void GlyphIndex::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr<T
     glyph.m_image.Destroy();
   }
 }
-
-/*
-uint32_t GlyphIndex::GetAbsentGlyphsCount(strings::UniString const & text, int fixedHeight) const
-{
-  uint32_t count = 0;
-  for (strings::UniChar const & c : text)
-  {
-    if (m_index.find(GlyphKey(c, fixedHeight)) == m_index.end())
-      count++;
-  }
-  return count;
-}
-*/
 }  // namespace dp

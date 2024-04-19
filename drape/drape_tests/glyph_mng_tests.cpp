@@ -50,7 +50,7 @@ public:
     std::vector<dp::Glyph> glyphs;
     auto generateGlyph = [this, &glyphs](strings::UniChar c)
     {
-      dp::Glyph g = m_mng->GetGlyph(c, dp::kDynamicGlyphSize);
+      dp::Glyph g = m_mng->GetGlyph(c);
       glyphs.push_back(dp::GlyphManager::GenerateGlyph(g, m_mng->GetSdfScale()));
       g.m_image.Destroy();
     };

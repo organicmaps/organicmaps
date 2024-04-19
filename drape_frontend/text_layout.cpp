@@ -290,16 +290,14 @@ double GetTextMinPeriod(double pixelTextLength)
 }
 }  // namespace
 
-void TextLayout::Init(strings::UniString && text, float fontSize, bool isSdf, ref_ptr<dp::TextureManager> textures)
+void TextLayout::Init(strings::UniString && text, float fontSize, ref_ptr<dp::TextureManager> textures)
 {
   m_text = std::move(text);
   auto const & vpi = VisualParams::Instance();
   float const fontScale = static_cast<float>(vpi.GetFontScale());
   float const baseSize = static_cast<float>(vpi.GetGlyphBaseSize());
-  m_textSizeRatio = isSdf ? (fontSize * fontScale / baseSize) : 1.0f;
-  m_fixedHeight = isSdf ? dp::kDynamicGlyphSize
-                        : static_cast<int>(fontSize * fontScale);
-  textures->GetGlyphRegions(m_text, m_fixedHeight, m_metrics);
+  m_textSizeRatio = fontSize * fontScale / baseSize;
+  textures->GetGlyphRegions(m_text, m_metrics);
 }
 
 ref_ptr<dp::Texture> TextLayout::GetMaskTexture() const
@@ -332,8 +330,7 @@ float TextLayout::GetPixelLength() const
 
 float TextLayout::GetPixelHeight() const
 {
-  return m_fixedHeight > 0 ? m_fixedHeight
-                           : m_textSizeRatio * VisualParams::Instance().GetGlyphBaseSize();
+  return m_textSizeRatio * VisualParams::Instance().GetGlyphBaseSize();
 }
 
 strings::UniString const & TextLayout::GetText() const
@@ -341,9 +338,8 @@ strings::UniString const & TextLayout::GetText() const
   return m_text;
 }
 
-StraightTextLayout::StraightTextLayout(strings::UniString const & text, float fontSize, bool isSdf,
-                                       ref_ptr<dp::TextureManager> textures, dp::Anchor anchor,
-                                       bool forceNoWrap)
+StraightTextLayout::StraightTextLayout(strings::UniString const & text, float fontSize,
+                                       ref_ptr<dp::TextureManager> textures, dp::Anchor anchor, bool forceNoWrap)
 {
   strings::UniString visibleText = bidi::log2vis(text);
   // Possible if name has strange symbols only.
@@ -356,7 +352,7 @@ StraightTextLayout::StraightTextLayout(strings::UniString const & text, float fo
   else
     delimIndexes.push_back(visibleText.size());
 
-  TBase::Init(std::move(visibleText), fontSize, isSdf, textures);
+  TBase::Init(std::move(visibleText), fontSize, textures);
   CalculateOffsets(anchor, m_textSizeRatio, m_metrics, delimIndexes, m_offsets, m_pixelSize, m_rowsCount);
 }
 
@@ -426,10 +422,10 @@ void StraightTextLayout::CacheDynamicGeometry(glsl::vec2 const & pixelOffset,
 }
 
 PathTextLayout::PathTextLayout(m2::PointD const & tileCenter, strings::UniString const & text,
-                               float fontSize, bool isSdf, ref_ptr<dp::TextureManager> textures)
+                               float fontSize, ref_ptr<dp::TextureManager> textures)
   : m_tileCenter(tileCenter)
 {
-  Init(bidi::log2vis(text), fontSize, isSdf, textures);
+  Init(bidi::log2vis(text), fontSize, textures);
 }
 
 void PathTextLayout::CacheStaticGeometry(dp::TextureManager::ColorRegion const & colorRegion,

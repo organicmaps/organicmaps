@@ -100,10 +100,9 @@ UNIT_TEST(UploadingGlyphs)
   GlyphManager mng(args);
   DummyGlyphIndex index(m2::PointU(kTextureSize, kTextureSize), make_ref(&mng), make_ref(&glyphGenerator));
   size_t count = 1;  // invalid symbol glyph has mapped internally.
-  using dp::kDynamicGlyphSize;
-  count += (index.MapResource(GlyphKey(0x58, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x59, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x61, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x58)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x59)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x61)) != nullptr) ? 1 : 0;
   while (index.GetPendingNodesCount() < count)
     ;
 
@@ -120,12 +119,12 @@ UNIT_TEST(UploadingGlyphs)
   index.UploadResources(make_ref(&context), make_ref(&tex));
 
   count = 0;
-  count += (index.MapResource(GlyphKey(0x68, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x30, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x62, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x65, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x400, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x401, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x68)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x30)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x62)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x65)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x400)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x401)) != nullptr) ? 1 : 0;
   while (index.GetPendingNodesCount() < count)
     ;
 

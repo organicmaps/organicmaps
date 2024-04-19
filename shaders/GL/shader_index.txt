@@ -5,7 +5,6 @@ Bookmark user_mark.vsh.glsl user_mark.fsh.glsl
 BookmarkAnim user_mark.vsh.glsl user_mark.fsh.glsl
 TextOutlined text_outlined.vsh.glsl text.fsh.glsl
 Text text.vsh.glsl text.fsh.glsl
-TextFixed text.vsh.glsl text_fixed.fsh.glsl
 TextStaticOutlinedGui text_outlined_gui.vsh.glsl text.fsh.glsl
 TextOutlinedGui text_outlined_gui.vsh.glsl text.fsh.glsl
 Area area.vsh.glsl solid_color.fsh.glsl
@@ -47,7 +46,6 @@ BookmarkAboveTextBillboard user_mark_billboard.vsh.glsl user_mark.fsh.glsl
 BookmarkAnimAboveTextBillboard user_mark_billboard.vsh.glsl user_mark.fsh.glsl
 TextOutlinedBillboard text_outlined_billboard.vsh.glsl text.fsh.glsl
 TextBillboard text_billboard.vsh.glsl text.fsh.glsl
-TextFixedBillboard text_billboard.vsh.glsl text_fixed.fsh.glsl
 Traffic traffic.vsh.glsl traffic.fsh.glsl
 TrafficLine traffic_line.vsh.glsl traffic_line.fsh.glsl
 TrafficCircle traffic_circle.vsh.glsl traffic_circle.fsh.glsl

@@ -34,25 +34,20 @@ private:
 class GlyphKey : public Texture::Key
 {
 public:
-  GlyphKey(strings::UniChar unicodePoint, int fixedSize)
+  GlyphKey(strings::UniChar unicodePoint)
     : m_unicodePoint(unicodePoint)
-    , m_fixedSize(fixedSize)
   {}
 
   Texture::ResourceType GetType() const override { return Texture::ResourceType::Glyph; }
   strings::UniChar GetUnicodePoint() const { return m_unicodePoint; }
-  int GetFixedSize() const { return m_fixedSize; }
 
   bool operator<(GlyphKey const & g) const
   {
-    if (m_unicodePoint == g.m_unicodePoint)
-      return m_fixedSize < g.m_fixedSize;
     return m_unicodePoint < g.m_unicodePoint;
   }
 
 private:
   strings::UniChar m_unicodePoint;
-  int m_fixedSize;
 };
 
 class GlyphInfo : public Texture::ResourceInfo
@@ -85,8 +80,6 @@ public:
   void UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr<Texture> texture);
 
   bool CanBeGlyphPacked(uint32_t glyphsCount) const;
-
-  //uint32_t GetAbsentGlyphsCount(strings::UniString const & text, int fixedHeight) const;
 
   // ONLY for unit-tests. DO NOT use this function anywhere else.
   size_t GetPendingNodesCount();
@@ -132,11 +125,6 @@ public:
   {
     return m_index.CanBeGlyphPacked(newKeysCount);
   }
-
-//  uint32_t GetAbsentGlyphsCount(strings::UniString const & text, int fixedHeight) const
-//  {
-//    return m_index.GetAbsentGlyphsCount(text, fixedHeight);
-//  }
 
 private:
   GlyphIndex m_index;
