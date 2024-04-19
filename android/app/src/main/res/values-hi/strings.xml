@@ -815,16 +815,13 @@
 	<string name="type.highway.motorway_junction">राजमार्ग निकास</string>
 	<string name="type.highway.motorway_link">फ्रीवे प्रवेश</string>
 	<string name="type.highway.path">पथ</string>
-	<string name="type.highway.path.alpine_hiking">पथ</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">पथ</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">पथ</string>
 	<string name="type.highway.path.bicycle">पथ</string>
 	<string name="type.highway.footway.bicycle">पथ</string>
-	<string name="type.highway.path.demanding_alpine_hiking">पथ</string>
-	<string name="type.highway.path.demanding_mountain_hiking">पथ</string>
-	<string name="type.highway.path.difficult_alpine_hiking">पथ</string>
-	<string name="type.highway.path.hiking">पथ</string>
 	<string name="type.highway.path.horse">पथ</string>
-	<string name="type.highway.path.mountain_hiking">पथ</string>
-	<string name="type.highway.path.permissive">पथ</string>
 	<string name="type.highway.pedestrian">पैदल यात्रीयों की सड़क</string>
 	<string name="type.highway.pedestrian.area">पैदल यात्रीयों की सड़क</string>
 	<string name="type.highway.primary">प्राथमिक सड़क</string>

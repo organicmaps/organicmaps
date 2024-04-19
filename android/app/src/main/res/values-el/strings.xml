@@ -1164,18 +1164,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Σήραγγα</string>
 	<string name="type.highway.path">Διαδρομή</string>
-	<string name="type.highway.path.alpine_hiking">Διαδρομή</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">Διαδρομή</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">Διαδρομή</string>
 	<string name="type.highway.path.bicycle">Διαδρομή</string>
 	<string name="type.highway.footway.bicycle">Διαδρομή</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Γέφυρα</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Διαδρομή</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Διαδρομή</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Διαδρομή</string>
-	<string name="type.highway.path.hiking">Διαδρομή</string>
 	<string name="type.highway.path.horse">Διαδρομή</string>
-	<string name="type.highway.path.mountain_hiking">Διαδρομή</string>
-	<string name="type.highway.path.permissive">Διαδρομή</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Σήραγγα</string>
 	<string name="type.highway.pedestrian">Οδός</string>

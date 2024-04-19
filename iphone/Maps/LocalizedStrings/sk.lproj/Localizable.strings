@@ -2074,7 +2074,11 @@
 
 "type.highway.path" = "Cesta";
 
-"type.highway.path.alpine_hiking" = "Turistický chodník";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Cesta";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Cesta";
 
 "type.highway.path.bicycle" = "Cesta pre cyklistov a chodcov";
 
@@ -2083,19 +2087,7 @@
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Most";
 
-"type.highway.path.demanding_alpine_hiking" = "Náročný turistický chodník";
-
-"type.highway.path.demanding_mountain_hiking" = "Náročný horský chodník";
-
-"type.highway.path.difficult_alpine_hiking" = "Obtiažny turistický chodník";
-
-"type.highway.path.hiking" = "Turistický chodník";
-
 "type.highway.path.horse" = "Cesta pre jazdca na zvierati";
-
-"type.highway.path.mountain_hiking" = "Horský turistický chodník";
-
-"type.highway.path.permissive" = "Cesta";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Tunel";

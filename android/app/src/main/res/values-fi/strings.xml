@@ -1207,18 +1207,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Tunneli</string>
 	<string name="type.highway.path">Polku</string>
-	<string name="type.highway.path.alpine_hiking">Alppivaellus</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">Polku</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">Polku</string>
 	<string name="type.highway.path.bicycle">Pyörä- ja jalkatie</string>
 	<string name="type.highway.footway.bicycle">Pyörä- ja jalkatie</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Silta</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Vaativa alppivaellus</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Vaativa vuoristovaellus</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Vaikea alppivaellus</string>
-	<string name="type.highway.path.hiking">Vaellus</string>
 	<string name="type.highway.path.horse">Ratsastuspolku</string>
-	<string name="type.highway.path.mountain_hiking">Vuoristovaellus</string>
-	<string name="type.highway.path.permissive">Polku</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Tunneli</string>
 	<string name="type.highway.pedestrian">Jalankulkutie</string>

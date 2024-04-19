@@ -1207,18 +1207,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
 	<string name="type.highway.path">Rada</string>
-	<string name="type.highway.path.alpine_hiking">Alpi matkarada</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">Rada</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">Rada</string>
 	<string name="type.highway.path.bicycle">Jalgratta- ja jalgtee</string>
 	<string name="type.highway.footway.bicycle">Jalgratta- ja jalgtee</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Sild</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Nõudlik alpi matkarada</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Nõudlik mägimatkarada</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Raske alpi matkarada</string>
-	<string name="type.highway.path.hiking">Rada</string>
 	<string name="type.highway.path.horse">Valjarada</string>
-	<string name="type.highway.path.mountain_hiking">Mägitee</string>
-	<string name="type.highway.path.permissive">Rada</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Tunnel</string>
 	<string name="type.highway.pedestrian">Jalakäijate tänav</string>
