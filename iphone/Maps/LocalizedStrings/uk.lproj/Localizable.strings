@@ -2076,7 +2076,11 @@
 
 "type.highway.path" = "Стежка";
 
-"type.highway.path.alpine_hiking" = "Стежка";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Стежка";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Стежка";
 
 "type.highway.path.bicycle" = "Велопішохідна доріжка";
 
@@ -2085,19 +2089,7 @@
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Міст";
 
-"type.highway.path.demanding_alpine_hiking" = "Стежка";
-
-"type.highway.path.demanding_mountain_hiking" = "Стежка";
-
-"type.highway.path.difficult_alpine_hiking" = "Стежка";
-
-"type.highway.path.hiking" = "Стежка";
-
 "type.highway.path.horse" = "Кінна стежка";
-
-"type.highway.path.mountain_hiking" = "Стежка";
-
-"type.highway.path.permissive" = "Стежка";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Тунель";

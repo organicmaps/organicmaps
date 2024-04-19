@@ -1207,18 +1207,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Tunel</string>
 	<string name="type.highway.path">Cesta</string>
-	<string name="type.highway.path.alpine_hiking">Turistický chodník</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">Cesta</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">Cesta</string>
 	<string name="type.highway.path.bicycle">Cesta pre cyklistov a chodcov</string>
 	<string name="type.highway.footway.bicycle">Cesta pre cyklistov a chodcov</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Most</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Náročný turistický chodník</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Náročný horský chodník</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Obtiažny turistický chodník</string>
-	<string name="type.highway.path.hiking">Turistický chodník</string>
 	<string name="type.highway.path.horse">Cesta pre jazdca na zvierati</string>
-	<string name="type.highway.path.mountain_hiking">Horský turistický chodník</string>
-	<string name="type.highway.path.permissive">Cesta</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Tunel</string>
 	<string name="type.highway.pedestrian">Ulica</string>

@@ -2076,7 +2076,11 @@
 
 "type.highway.path" = "길";
 
-"type.highway.path.alpine_hiking" = "길";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "길";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "길";
 
 "type.highway.path.bicycle" = "길";
 
@@ -2085,19 +2089,7 @@
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "다리";
 
-"type.highway.path.demanding_alpine_hiking" = "길";
-
-"type.highway.path.demanding_mountain_hiking" = "길";
-
-"type.highway.path.difficult_alpine_hiking" = "길";
-
-"type.highway.path.hiking" = "길";
-
 "type.highway.path.horse" = "길";
-
-"type.highway.path.mountain_hiking" = "길";
-
-"type.highway.path.permissive" = "길";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "터널";

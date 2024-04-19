@@ -1095,18 +1095,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">बोगदा</string>
 	<string name="type.highway.path">पथ</string>
-	<string name="type.highway.path.alpine_hiking">पथ</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">पथ</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">पथ</string>
 	<string name="type.highway.path.bicycle">सायकल आणि पाऊलवाट</string>
 	<string name="type.highway.footway.bicycle">सायकल आणि पाऊलवाट</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">पूल</string>
-	<string name="type.highway.path.demanding_alpine_hiking">पथ</string>
-	<string name="type.highway.path.demanding_mountain_hiking">पथ</string>
-	<string name="type.highway.path.difficult_alpine_hiking">पथ</string>
-	<string name="type.highway.path.hiking">पथ</string>
 	<string name="type.highway.path.horse">पथ</string>
-	<string name="type.highway.path.mountain_hiking">पथ</string>
-	<string name="type.highway.path.permissive">पथ</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">बोगदा</string>
 	<string name="type.highway.pedestrian">पादचारी मार्ग</string>

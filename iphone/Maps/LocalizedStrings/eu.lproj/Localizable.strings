@@ -2076,7 +2076,11 @@
 
 "type.highway.path" = "Bidea";
 
-"type.highway.path.alpine_hiking" = "Bidea";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Bidea";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Bidea";
 
 "type.highway.path.bicycle" = "Bidea";
 
@@ -2085,19 +2089,7 @@
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Zubia";
 
-"type.highway.path.demanding_alpine_hiking" = "Bidea";
-
-"type.highway.path.demanding_mountain_hiking" = "Bidea";
-
-"type.highway.path.difficult_alpine_hiking" = "Bidea";
-
-"type.highway.path.hiking" = "Bidea";
-
 "type.highway.path.horse" = "Bidea";
-
-"type.highway.path.mountain_hiking" = "Bidea";
-
-"type.highway.path.permissive" = "Bidea";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Tunel";
