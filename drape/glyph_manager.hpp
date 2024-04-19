@@ -32,12 +32,12 @@ public:
   explicit GlyphManager(Params const & params);
   ~GlyphManager();
 
-  Glyph GetGlyph(strings::UniChar unicodePoints, int fixedHeight);
+  Glyph GetGlyph(strings::UniChar unicodePoints);
 
   void MarkGlyphReady(Glyph const & glyph);
-  bool AreGlyphsReady(strings::UniString const & str, int fixedSize) const;
+  bool AreGlyphsReady(strings::UniString const & str) const;
 
-  Glyph const & GetInvalidGlyph(int fixedSize) const;
+  Glyph const & GetInvalidGlyph() const;
 
   uint32_t GetBaseGlyphHeight() const;
   uint32_t GetSdfScale() const;

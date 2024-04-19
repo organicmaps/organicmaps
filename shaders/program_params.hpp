@@ -80,8 +80,6 @@ struct ALIGNMENT MapProgramParams
     Program::PathSymbol,
     Program::Text,
     Program::TextBillboard,
-    Program::TextFixed,
-    Program::TextFixedBillboard,
     Program::TextOutlined,
     Program::TextOutlinedBillboard,
     Program::Texturing,

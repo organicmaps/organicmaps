@@ -59,15 +59,13 @@ using DrapeID = uint64_t;
 struct FontDecl
 {
   FontDecl() = default;
-  FontDecl(Color const & color, float size, bool isSdf = true,
-           Color const & outlineColor = Color::Transparent())
-    : m_color(color), m_outlineColor(outlineColor), m_size(size), m_isSdf(isSdf)
+  FontDecl(Color const & color, float size, Color const & outlineColor = Color::Transparent())
+    : m_color(color), m_outlineColor(outlineColor), m_size(size)
   {}
 
   Color m_color = Color::Transparent();
   Color m_outlineColor = Color::Transparent();
   float m_size = 0;
-  bool m_isSdf = true;
 };
 
 struct TitleDecl
