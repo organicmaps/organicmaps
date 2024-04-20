@@ -43,6 +43,9 @@
                                 </connections>
                             </textField>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="9BY-PA-dlA" firstAttribute="width" secondItem="eca-XW-QZR" secondAttribute="width" id="OSr-03-hPe"/>
+                        </constraints>
                     </stackView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="252" translatesAutoresizingMaskIntoConstraints="NO" id="SZa-Bj-se1">
                         <rect key="frame" x="60" y="32" width="252" height="0.0"/>
@@ -78,6 +81,7 @@
                 <outlet property="errorLabel" destination="SZa-Bj-se1" id="hqN-vX-0Hw"/>
                 <outlet property="errorLabelHeight" destination="CPF-uE-pzx" id="X4g-6X-W0e"/>
                 <outlet property="languageLabel" destination="efb-nS-cjm" id="13M-9D-Qbf"/>
+                <outlet property="stackView" destination="eca-XW-QZR" id="RPt-fc-aoR"/>
                 <outlet property="textField" destination="9BY-PA-dlA" id="SCv-JL-5TL"/>
             </connections>
             <point key="canvasLocation" x="340.57971014492756" y="256.47321428571428"/>
