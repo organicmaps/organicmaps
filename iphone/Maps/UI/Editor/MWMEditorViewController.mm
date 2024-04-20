@@ -965,6 +965,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
           m_mapObject.SetMetadata(feature::Metadata::FMD_DRIVE_THROUGH, "");
           break;
       }
+      break;
   default: NSAssert(false, @"Invalid field for changeSegmented"); break;
   }
 }
