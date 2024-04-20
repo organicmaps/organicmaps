@@ -2165,7 +2165,7 @@ area|z16[shop=laundry]
 {icon-image:laundry-m.svg;}
 node|z16[shop=dry_cleaning],
 area|z16[shop=dry_cleaning]
-{icon-image:laundry-m.svg;}
+{icon-image:dry_cleaning-m.svg;}
 node|z16[shop=mobile_phone],
 area|z16[shop=mobile_phone]
 {icon-image: mobile_phone-m.svg;}
@@ -2392,7 +2392,7 @@ area|z17-[shop=laundry]
 {icon-image:laundry-m.svg;icon-min-distance: 24;}
 node|z17-[shop=dry_cleaning],
 area|z17-[shop=dry_cleaning]
-{icon-image:laundry-m.svg;icon-min-distance: 24;}
+{icon-image:dry_cleaning-m.svg;icon-min-distance: 24;}
 node|z17-[shop=mobile_phone],
 area|z17-[shop=mobile_phone]
 {icon-image: mobile_phone-m.svg;icon-min-distance: 24;}
