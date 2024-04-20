@@ -3125,6 +3125,28 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_HighwayTypesConversion)
   }
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_PathGrades)
+{
+  using Type = std::vector<std::string>;
+  std::vector<std::pair<Type, Tags>> const conversions = {
+    {{"highway", "path"}, {{"highway", "path"}, {"sac_scale", "mountain_hiking"}, {"trail_visibility", "intermediate"}}},
+    {{"highway", "path"}, {{"highway", "path"}, {"sac_scale", "unsupported_value"}, {"trail_visibility", "unsupported_value"}}},
+
+    {{"highway", "path", "difficult"}, {{"highway", "path"}, {"sac_scale", "demanding_mountain_hiking"}, {"trail_visibility", "excellent"}}},
+    {{"highway", "path", "difficult"}, {{"highway", "path"}, {"trail_visibility", "bad"}}},    
+
+    {{"highway", "path", "expert"}, {{"highway", "path"}, {"sac_scale", "alpine_hiking"}}},
+    {{"highway", "path", "expert"}, {{"highway", "path"}, {"trail_visibility", "horrible"}}},
+    {{"highway", "path", "expert"}, {{"highway", "path"}, {"sac_scale", "difficult_alpine_hiking"}, {"trail_visibility", "no"}}},
+  };
+
+  for (auto const & type : conversions)
+  {
+    auto const params = GetFeatureBuilderParams(type.second);
+    TEST(params.IsTypeExist(GetType(type.first)), (type, params));
+  }
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_MultipleComplexTypesSmoke)
 {
   using Type = std::vector<std::string>;
