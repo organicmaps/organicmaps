@@ -1105,9 +1105,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
   else if ([segue.identifier isEqualToString:kAdditionalNamesEditorSegue])
   {
     MWMEditorAdditionalNamesTableViewController * dvc = segue.destinationViewController;
-    [dvc configWithDelegate:self
-                               name:m_mapObject.GetNameMultilang()
-        additionalSkipLanguageCodes:extractLanguageCodes(m_mapObject.GetNamesDataSource().names)];
+    [dvc configWithDelegate:self name:m_mapObject.GetNameMultilang() additionalSkipLanguageCodes:m_newAdditionalLanguages];
   }
 }
 
