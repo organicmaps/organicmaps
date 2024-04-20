@@ -118136,7 +118136,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "laundry-m"
+      name: "dry_cleaning-m"
       priority: 1600
       min_distance: 10
     }
@@ -118153,7 +118153,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "laundry-m"
+      name: "dry_cleaning-m"
       priority: 1600
       min_distance: 24
     }
@@ -118170,7 +118170,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "laundry-m"
+      name: "dry_cleaning-m"
       priority: 1600
       min_distance: 24
     }
@@ -118187,7 +118187,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "laundry-m"
+      name: "dry_cleaning-m"
       priority: 1600
       min_distance: 24
     }
@@ -118204,7 +118204,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "laundry-m"
+      name: "dry_cleaning-m"
       priority: 1600
       min_distance: 24
     }
