@@ -149,21 +149,21 @@ node|z8-10[place=state]::int_name
 
 /* 4.1 Cities */
 
+node|z4-[place=city][capital=2][population>=0],
 node|z4[place=city][capital!=2][population>=1000000],
 node|z5[place=city][capital!=2][population>=150000],
 node|z6[place=city][capital!=2][population>=50000],
 node|z7-8[place=city][capital!=2][population>=40000],
-node|z9-11[place=city][capital!=2],
-node|z12-[place=city][capital!=2][population<40000],
-node|z4-[place=city][capital=2][population>=0],
+node|z9-12[place=city][capital!=2],
+node|z13-[place=city][capital!=2][population<40000],
 {text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 1;text-halo-color: @label_halo_light;}
+node|z4-[place=city][capital=2][population>=0]::int_name,
 node|z4[place=city][capital!=2][population>=1000000]::int_name,
 node|z5[place=city][capital!=2][population>=150000]::int_name,
 node|z6[place=city][capital!=2][population>=50000]::int_name,
 node|z7-8[place=city][capital!=2][population>=40000]::int_name,
-node|z4-[place=city][capital=2][population>=0]::int_name,
-node|z9-11[place=city][capital!=2]::int_name,
-node|z12-[place=city][capital!=2][population<40000]::int_name
+node|z9-12[place=city][capital!=2]::int_name,
+node|z13-[place=city][capital!=2][population<40000]::int_name,
 {text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 1;text-halo-color: @label_halo_light;}
 
 node|z4[place=city][capital!=2][population>=1000000],
@@ -255,9 +255,10 @@ node|z13-[place=city][capital=2][population>=0]
 {icon-image: star-l.svg;text-offset: 1;font-size: 14;text-color: @label_medium;}
 node|z13-[place=city][capital=2][population>=0]::int_name
 {text-offset: 1;font-size: 11;text-color: @label_medium;}
-node|z13-[place=city][capital!=2][population>=0],
+
+node|z13-[place=city][capital!=2][population<40000],
 {font-size: 14;text-color: @label_medium;}
-node|z13-[place=city][capital!=2][population>=0]::int_name
+node|z13-[place=city][capital!=2][population<40000]::int_name
 {font-size: 12;text-color: @label_medium;}
 
 /* 4.2 Town */
