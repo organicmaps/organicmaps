@@ -801,6 +801,10 @@
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Δεν βρέθηκαν οι ρυθμίσεις σύνθεσης ομιλίας, είστε σίγουροι ότι η συσκευή σας την υποστηρίζει;</string>
 	<string name="drive_through">Οδηγώ μέσα από</string>
+	<string name="clear_the_search">Καθαρίστε την αναζήτηση</string>
+	<string name="zoom_in">Μεγέθυνση</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Σμίκρυνση</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Διεύθυνση/Μπλοκ</string>

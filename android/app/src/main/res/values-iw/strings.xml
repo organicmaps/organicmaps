@@ -794,6 +794,10 @@
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">הגדרות סינתזת דיבור לא נמצאו, האם אתה בטוח שהמכשיר שלך תומך בזה?</string>
 	<string name="drive_through">דרייב ת\'רו</string>
+	<string name="clear_the_search">נקה את החיפוש</string>
+	<string name="zoom_in">לְהִתְמַקֵד</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">להקטין את התצוגה</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">כתובת/חסימה</string>

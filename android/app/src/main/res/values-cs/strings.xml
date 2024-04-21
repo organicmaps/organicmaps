@@ -768,6 +768,10 @@
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Nastavení syntézy řeči nebylo nalezeno, jste si jisti, že jej vaše zařízení podporuje?</string>
 	<string name="drive_through">Průjezd</string>
+	<string name="clear_the_search">Vymazat vyhledávání</string>
+	<string name="zoom_in">Přiblížení</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Zvětšení</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresa/blok</string>
