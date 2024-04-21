@@ -774,7 +774,7 @@
 	<string name="type.amenity">Infrastrukturen</string>
 	<string name="type.amenity.arts_centre">Kulturcenter</string>
 	<string name="type.amenity.atm">Bankomat</string>
-	<string name="type.amenity.bbq">Picknickplatser</string>
+	<string name="type.amenity.bbq">Grill för barbecue</string>
 	<string name="type.amenity.bench">Bänk</string>
 	<string name="type.amenity.bicycle_parking">Cykelparkering</string>
 	<string name="type.amenity.bicycle_rental">Cykeluthyrning</string>

@@ -839,7 +839,7 @@
 	<string name="type.amenity.atm">Cajero automático</string>
 	<string name="type.amenity.bank">Banco</string>
 	<string name="type.amenity.bar">Bar</string>
-	<string name="type.amenity.bbq">Picnic</string>
+	<string name="type.amenity.bbq">Barbacoa</string>
 	<string name="type.amenity.bench">Asiento</string>
 	<string name="type.amenity.bicycle_parking">Aparcamiento de bicicletas</string>
 	<string name="type.amenity.bicycle_rental">Alquiler de bicicletas</string>

@@ -801,7 +801,7 @@
 	<string name="type.amenity.atm">Terminal bancário</string>
 	<string name="type.amenity.bank">Banco</string>
 	<string name="type.amenity.bar">Bar</string>
-	<string name="type.amenity.bbq">Parque de merendas</string>
+	<string name="type.amenity.bbq">Churrasqueira</string>
 	<string name="type.amenity.bench">Assento</string>
 	<string name="type.amenity.bicycle_parking">Estacionamento de bicicletas</string>
 	<string name="type.amenity.bicycle_rental">Aluguer de bicicletas</string>

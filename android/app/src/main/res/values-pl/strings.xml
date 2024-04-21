@@ -837,7 +837,7 @@
 	<string name="type.amenity.atm">Bankomat</string>
 	<string name="type.amenity.bank">Bank</string>
 	<string name="type.amenity.bar">Bar alkoholowy</string>
-	<string name="type.amenity.bbq">Pole piknikowe</string>
+	<string name="type.amenity.bbq">Grill</string>
 	<string name="type.amenity.bench">Ławka</string>
 	<string name="type.amenity.bicycle_parking">Parking dla rowerów</string>
 	<string name="type.amenity.bicycle_rental">Wynajem rowerów</string>

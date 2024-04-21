@@ -801,7 +801,7 @@
 	<string name="type.amenity.atm">自动取款机</string>
 	<string name="type.amenity.bank">银行</string>
 	<string name="type.amenity.bar">酒吧</string>
-	<string name="type.amenity.bbq">野餐地点</string>
+	<string name="type.amenity.bbq">烧烤架</string>
 	<string name="type.amenity.bench">长凳</string>
 	<string name="type.amenity.bicycle_parking">自行车停车处</string>
 	<string name="type.amenity.bicycle_rental">自行车出租点</string>

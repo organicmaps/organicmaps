@@ -870,7 +870,7 @@
 	<string name="type.amenity.atm">ATM</string>
 	<string name="type.amenity.bank">Bank</string>
 	<string name="type.amenity.bar">Bar</string>
-	<string name="type.amenity.bbq">Picnic Site</string>
+	<string name="type.amenity.bbq">Barbecue Grill</string>
 	<string name="type.amenity.bench">Bench</string>
 	<string name="type.amenity.bicycle_parking">Bicycle Parking</string>
 	<string name="type.amenity.bicycle_rental">Bicycle Rental</string>

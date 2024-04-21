@@ -839,7 +839,7 @@
 	<string name="type.amenity.atm">Банкомат</string>
 	<string name="type.amenity.bank">Банк</string>
 	<string name="type.amenity.bar">Бар</string>
-	<string name="type.amenity.bbq">Пікнік</string>
+	<string name="type.amenity.bbq">Барбекю-гриль</string>
 	<string name="type.amenity.bench">Лавка</string>
 	<string name="type.amenity.bicycle_parking">Велопарковка</string>
 	<string name="type.amenity.bicycle_rental">Велопрокат</string>

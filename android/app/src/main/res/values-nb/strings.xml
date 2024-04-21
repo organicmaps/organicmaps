@@ -823,7 +823,7 @@
 	<string name="type.amenity">Fasilitet</string>
 	<string name="type.amenity.arts_centre">Kunstsenter</string>
 	<string name="type.amenity.atm">Minibank</string>
-	<string name="type.amenity.bbq">Rasteplass</string>
+	<string name="type.amenity.bbq">Barbecue-grill</string>
 	<string name="type.amenity.bench">Benk</string>
 	<string name="type.amenity.bicycle_parking">Sykkelparkering</string>
 	<string name="type.amenity.bicycle_rental">Sykkelutleie</string>

@@ -781,7 +781,6 @@
 	<string name="type.amenity.atm">Caixa eletrônico</string>
 	<string name="type.amenity.bank">Banco</string>
 	<string name="type.amenity.bar">Drinqueria</string>
-	<string name="type.amenity.bbq">Local de piquenique</string>
 	<string name="type.amenity.bench">Assento</string>
 	<string name="type.amenity.bicycle_parking">Bicicletário</string>
 	<string name="type.amenity.bicycle_rental">Aluguel de bicicletas</string>
