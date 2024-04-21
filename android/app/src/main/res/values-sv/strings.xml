@@ -756,6 +756,10 @@
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Inställningar för talsyntes hittades inte, är du säker på att din enhet stöder det?</string>
 	<string name="drive_through">Genomkörning</string>
+	<string name="clear_the_search">Rensa sökningen</string>
+	<string name="zoom_in">Zooma in</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Zooma ut</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adress/Block</string>

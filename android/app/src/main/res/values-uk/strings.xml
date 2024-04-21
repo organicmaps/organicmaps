@@ -807,6 +807,10 @@
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Налаштування синтезу мовлення не знайдено, ви впевнені, що ваш пристрій його підтримує?</string>
 	<string name="drive_through">З віконцем для водіїв</string>
+	<string name="clear_the_search">Очистити пошук</string>
+	<string name="zoom_in">Збільшити</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Зменшити</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адреса/блок</string>

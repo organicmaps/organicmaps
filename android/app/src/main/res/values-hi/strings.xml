@@ -542,6 +542,10 @@
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">स्पीच सिंथेसिस सेटिंग्स नहीं मिलीं, क्या आप सुनिश्चित हैं कि आपका डिवाइस इसका समर्थन करता है?</string>
 	<string name="drive_through">ड्राइव करते हुए किसी जगह से गुजरना</string>
+	<string name="clear_the_search">खोज साफ़ करें</string>
+	<string name="zoom_in">ज़ूम इन</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">ज़ूम आउट</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.cable_car">आकाशीय रज्जुमार्ग</string>

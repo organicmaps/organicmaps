@@ -800,6 +800,10 @@
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">No s\'ha trobat la configuració de la síntesi de veu, esteu segur que el vostre dispositiu l\'admet?</string>
 	<string name="drive_through">Servei al cotxe</string>
+	<string name="clear_the_search">Esborra la cerca</string>
+	<string name="zoom_in">Ampliar</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Disminuir el zoom</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adreça/Bloc</string>

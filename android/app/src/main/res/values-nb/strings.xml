@@ -800,6 +800,10 @@
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Innstillinger for talesyntese ble ikke funnet, er du sikker på at enheten din støtter dette?</string>
 	<string name="drive_through">Gjennomkjøring</string>
+	<string name="clear_the_search">Fjern søket</string>
+	<string name="zoom_in">Zoom inn</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Zoom ut</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresse/blokk</string>

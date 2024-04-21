@@ -754,6 +754,10 @@
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Không tìm thấy cài đặt Tổng hợp giọng nói, bạn có chắc thiết bị của mình hỗ trợ nó không?</string>
 	<string name="drive_through">Lái xe qua</string>
+	<string name="clear_the_search">Xóa tìm kiếm</string>
+	<string name="zoom_in">Phóng to</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Thu nhỏ</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Địa chỉ/Khối</string>

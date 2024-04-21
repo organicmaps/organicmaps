@@ -838,6 +838,10 @@
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Speech Synthesis settings were not found, are you sure your device supports it?</string>
 	<string name="drive_through">Drive-through</string>
+	<string name="clear_the_search">Clear the search</string>
+	<string name="zoom_in">Zoom in</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Zoom out</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Address/Block</string>
