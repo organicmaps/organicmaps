@@ -63680,31 +63680,31 @@ cont {
     scale: 12
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 13
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 11
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
       priority: 7350
     }
-    apply_if: "population<40000"
+    apply_if: "population>=0"
   }
   element {
     scale: 13
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -63716,13 +63716,13 @@ cont {
     scale: 14
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -63734,13 +63734,13 @@ cont {
     scale: 15
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -63752,13 +63752,13 @@ cont {
     scale: 16
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -63770,13 +63770,13 @@ cont {
     scale: 17
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -63788,13 +63788,13 @@ cont {
     scale: 18
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -63806,13 +63806,13 @@ cont {
     scale: 19
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -63824,13 +63824,13 @@ cont {
     scale: 20
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -63989,31 +63989,31 @@ cont {
     scale: 12
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 13
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 11
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
       priority: 7400
     }
-    apply_if: "population<40000"
+    apply_if: "population>=0"
   }
   element {
     scale: 13
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -64025,13 +64025,13 @@ cont {
     scale: 14
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -64043,13 +64043,13 @@ cont {
     scale: 15
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -64061,13 +64061,13 @@ cont {
     scale: 16
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -64079,13 +64079,13 @@ cont {
     scale: 17
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -64097,13 +64097,13 @@ cont {
     scale: 18
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -64115,13 +64115,13 @@ cont {
     scale: 19
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -64133,13 +64133,13 @@ cont {
     scale: 20
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -64298,31 +64298,31 @@ cont {
     scale: 12
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 13
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 11
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
       priority: 7400
     }
-    apply_if: "population<40000"
+    apply_if: "population>=0"
   }
   element {
     scale: 13
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -64334,13 +64334,13 @@ cont {
     scale: 14
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -64352,13 +64352,13 @@ cont {
     scale: 15
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -64370,13 +64370,13 @@ cont {
     scale: 16
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -64388,13 +64388,13 @@ cont {
     scale: 17
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -64406,13 +64406,13 @@ cont {
     scale: 18
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -64424,13 +64424,13 @@ cont {
     scale: 19
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -64442,13 +64442,13 @@ cont {
     scale: 20
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -64607,31 +64607,31 @@ cont {
     scale: 12
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 13
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 11
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
       priority: 7400
     }
-    apply_if: "population<40000"
+    apply_if: "population>=0"
   }
   element {
     scale: 13
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -64643,13 +64643,13 @@ cont {
     scale: 14
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -64661,13 +64661,13 @@ cont {
     scale: 15
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -64679,13 +64679,13 @@ cont {
     scale: 16
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -64697,13 +64697,13 @@ cont {
     scale: 17
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -64715,13 +64715,13 @@ cont {
     scale: 18
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -64733,13 +64733,13 @@ cont {
     scale: 19
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -64751,13 +64751,13 @@ cont {
     scale: 20
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -65327,31 +65327,31 @@ cont {
     scale: 12
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 13
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 11
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
       priority: 7500
     }
-    apply_if: "population<40000"
+    apply_if: "population>=0"
   }
   element {
     scale: 13
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -65363,13 +65363,13 @@ cont {
     scale: 14
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -65381,13 +65381,13 @@ cont {
     scale: 15
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -65399,13 +65399,13 @@ cont {
     scale: 16
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -65417,13 +65417,13 @@ cont {
     scale: 17
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -65435,13 +65435,13 @@ cont {
     scale: 18
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -65453,13 +65453,13 @@ cont {
     scale: 19
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -65471,13 +65471,13 @@ cont {
     scale: 20
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -65636,31 +65636,31 @@ cont {
     scale: 12
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 13
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 11
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
       priority: 7500
     }
-    apply_if: "population<40000"
+    apply_if: "population>=0"
   }
   element {
     scale: 13
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -65672,13 +65672,13 @@ cont {
     scale: 14
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -65690,13 +65690,13 @@ cont {
     scale: 15
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -65708,13 +65708,13 @@ cont {
     scale: 16
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -65726,13 +65726,13 @@ cont {
     scale: 17
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -65744,13 +65744,13 @@ cont {
     scale: 18
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -65762,13 +65762,13 @@ cont {
     scale: 19
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -65780,13 +65780,13 @@ cont {
     scale: 20
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -65945,31 +65945,31 @@ cont {
     scale: 12
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 13
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 11
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
       priority: 7400
     }
-    apply_if: "population<40000"
+    apply_if: "population>=0"
   }
   element {
     scale: 13
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -65981,13 +65981,13 @@ cont {
     scale: 14
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -65999,13 +65999,13 @@ cont {
     scale: 15
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66017,13 +66017,13 @@ cont {
     scale: 16
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66035,13 +66035,13 @@ cont {
     scale: 17
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66053,13 +66053,13 @@ cont {
     scale: 18
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66071,13 +66071,13 @@ cont {
     scale: 19
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66089,13 +66089,13 @@ cont {
     scale: 20
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66254,31 +66254,31 @@ cont {
     scale: 12
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 13
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 11
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
       priority: 7400
     }
-    apply_if: "population<40000"
+    apply_if: "population>=0"
   }
   element {
     scale: 13
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66290,13 +66290,13 @@ cont {
     scale: 14
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66308,13 +66308,13 @@ cont {
     scale: 15
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66326,13 +66326,13 @@ cont {
     scale: 16
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66344,13 +66344,13 @@ cont {
     scale: 17
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66362,13 +66362,13 @@ cont {
     scale: 18
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66380,13 +66380,13 @@ cont {
     scale: 19
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66398,13 +66398,13 @@ cont {
     scale: 20
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66563,31 +66563,31 @@ cont {
     scale: 12
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 13
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 11
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
       priority: 7400
     }
-    apply_if: "population<40000"
+    apply_if: "population>=0"
   }
   element {
     scale: 13
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66599,13 +66599,13 @@ cont {
     scale: 14
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66617,13 +66617,13 @@ cont {
     scale: 15
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66635,13 +66635,13 @@ cont {
     scale: 16
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66653,13 +66653,13 @@ cont {
     scale: 17
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66671,13 +66671,13 @@ cont {
     scale: 18
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66689,13 +66689,13 @@ cont {
     scale: 19
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66707,13 +66707,13 @@ cont {
     scale: 20
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66872,31 +66872,31 @@ cont {
     scale: 12
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 13
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 11
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
       priority: 7400
     }
-    apply_if: "population<40000"
+    apply_if: "population>=0"
   }
   element {
     scale: 13
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66908,13 +66908,13 @@ cont {
     scale: 14
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66926,13 +66926,13 @@ cont {
     scale: 15
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66944,13 +66944,13 @@ cont {
     scale: 16
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66962,13 +66962,13 @@ cont {
     scale: 17
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66980,13 +66980,13 @@ cont {
     scale: 18
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -66998,13 +66998,13 @@ cont {
     scale: 19
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -67016,13 +67016,13 @@ cont {
     scale: 20
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -67181,31 +67181,31 @@ cont {
     scale: 12
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 13
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 11
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
       priority: 7400
     }
-    apply_if: "population<40000"
+    apply_if: "population>=0"
   }
   element {
     scale: 13
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -67217,13 +67217,13 @@ cont {
     scale: 14
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -67235,13 +67235,13 @@ cont {
     scale: 15
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -67253,13 +67253,13 @@ cont {
     scale: 16
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -67271,13 +67271,13 @@ cont {
     scale: 17
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -67289,13 +67289,13 @@ cont {
     scale: 18
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -67307,13 +67307,13 @@ cont {
     scale: 19
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
@@ -67325,13 +67325,13 @@ cont {
     scale: 20
     caption {
       primary {
-        height: 10
-        color: 2236962
+        height: 14
+        color: 3355443
         stroke_color: 16777215
       }
       secondary {
-        height: 10
-        color: 2236962
+        height: 12
+        color: 3355443
         stroke_color: 16777215
         offset_y: 1
       }
