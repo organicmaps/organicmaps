@@ -838,7 +838,7 @@
 	<string name="type.amenity.arts_centre">Centre artistique</string>
 	<string name="type.amenity.atm">GAB</string>
 	<string name="type.amenity.bank">Banque</string>
-	<string name="type.amenity.bbq">Terrain de pique-nique</string>
+	<string name="type.amenity.bbq">Grille de barbecue</string>
 	<string name="type.amenity.bench">Banc</string>
 	<string name="type.amenity.bicycle_parking">Parking à vélo</string>
 	<string name="type.amenity.bicycle_rental">Location de vélos</string>

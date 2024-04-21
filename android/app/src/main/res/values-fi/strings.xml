@@ -835,7 +835,7 @@
 	<string name="type.amenity.atm">Pankkiautomaatti</string>
 	<string name="type.amenity.bank">Pankki</string>
 	<string name="type.amenity.bar">Baari</string>
-	<string name="type.amenity.bbq">Piknikpaikat</string>
+	<string name="type.amenity.bbq">Grilli</string>
 	<string name="type.amenity.bench">Penkki</string>
 	<string name="type.amenity.bicycle_parking">Polkupyöräpysäköinti</string>
 	<string name="type.amenity.bicycle_rental">Polkupyöränvuokraus</string>

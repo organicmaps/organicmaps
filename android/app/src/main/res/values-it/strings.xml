@@ -818,7 +818,7 @@
 	<string name="type.amenity.atm">Bancomat</string>
 	<string name="type.amenity.bank">Banca</string>
 	<string name="type.amenity.bar">Bar alcolico</string>
-	<string name="type.amenity.bbq">Grill pubblico</string>
+	<string name="type.amenity.bbq">Griglia per barbecue</string>
 	<string name="type.amenity.bench">Panchina</string>
 	<string name="type.amenity.bicycle_parking">Parcheggio biciclette</string>
 	<string name="type.amenity.bicycle_rental">Noleggio biciclette</string>

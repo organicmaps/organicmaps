@@ -811,6 +811,7 @@
 	<string name="type.addr_interpolation">Adreça/Bloc</string>
 	<string name="type.addr_interpolation.even">Adreça/Bloc</string>
 	<string name="type.addr_interpolation.odd">Adreça/Bloc</string>
+	<string name="type.amenity.bbq">Barbacoa</string>
 	<string name="type.amenity.gambling">Jocs d\'atzar</string>
 	<string name="type.leisure.adult_gaming_centre">Centre de joc per a adults</string>
 	<string name="type.leisure.amusement_arcade">Arcade</string>

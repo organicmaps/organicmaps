@@ -249,6 +249,7 @@
 	<!-- SECTION: Types -->
 	<string name="type.amenity">Infraestructura</string>
 	<string name="type.amenity.arts_centre">Centro de artes</string>
+	<string name="type.amenity.bbq">Parrilla</string>
 	<string name="type.amenity.bicycle_parking">Estacionamiento de bicicletas</string>
 	<string name="type.amenity.motorcycle_parking">Estacionamiento de motocicletas</string>
 	<string name="type.amenity.parking">Estacionamiento</string>

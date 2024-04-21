@@ -807,6 +807,7 @@
 	<string name="type.addr_interpolation">Адрас/Блок</string>
 	<string name="type.addr_interpolation.even">Адрас/Блок</string>
 	<string name="type.addr_interpolation.odd">Адрас/Блок</string>
+	<string name="type.amenity.bbq">Барбекю-грыль</string>
 	<string name="type.amenity.bicycle_parking">Велапаркоўка</string>
 	<string name="type.amenity.gambling">Азартныя гульні</string>
 	<string name="type.leisure.adult_gaming_centre">Гульнявы цэнтр для дарослых</string>

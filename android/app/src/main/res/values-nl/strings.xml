@@ -832,7 +832,7 @@
 	<string name="type.amenity.atm">Geldautomaat</string>
 	<string name="type.amenity.bank">Bank</string>
 	<string name="type.amenity.bar">Bar</string>
-	<string name="type.amenity.bbq">Barbecueplaats</string>
+	<string name="type.amenity.bbq">Barbecue</string>
 	<string name="type.amenity.bench">Zitbank</string>
 	<string name="type.amenity.bicycle_parking">Fietsenstalling</string>
 	<string name="type.amenity.bicycle_rental">Fietsverhuur</string>

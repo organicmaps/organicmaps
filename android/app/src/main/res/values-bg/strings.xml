@@ -734,6 +734,7 @@
 	<string name="type.addr_interpolation">Адрес/Блок</string>
 	<string name="type.addr_interpolation.even">Адрес/Блок</string>
 	<string name="type.addr_interpolation.odd">Адрес/Блок</string>
+	<string name="type.amenity.bbq">Грил барбекю</string>
 	<string name="type.amenity.gambling">Хазарт</string>
 	<string name="type.leisure.adult_gaming_centre">Център за игри за възрастни</string>
 	<string name="type.leisure.amusement_arcade">Аркада</string>
