@@ -27,7 +27,7 @@ bool DoesIncludeAll(osmoh::Timespan const & openingTime, osmoh::TTimespans const
   auto const excludeTimeStart = spans.front().GetStart().GetHourMinutes().GetDuration();
   auto const excludeTimeEnd = spans.back().GetEnd().GetHourMinutes().GetDuration();
 
-  if (excludeTimeStart < openingTimeStart || openingTimeEnd < excludeTimeEnd)
+  if (!openingTime.HasExtendedHours() && (excludeTimeStart < openingTimeStart || openingTimeEnd < excludeTimeEnd))
     return false;
 
   return true;
@@ -180,7 +180,7 @@ bool TimeTable::SetOpeningTime(osmoh::Timespan const & span)
     auto const excludeSpanStart = excludeSpan.GetStart().GetHourMinutes().GetDuration();
     auto const excludeSpanEnd = excludeSpan.GetEnd().GetHourMinutes().GetDuration();
 
-    if (excludeSpanStart < openingTimeStart || openingTimeEnd < excludeSpanEnd)
+    if (!GetOpeningTime().HasExtendedHours() && (excludeSpanStart < openingTimeStart || openingTimeEnd < excludeSpanEnd))
       continue;
 
     excludeTime.push_back(excludeSpan);
