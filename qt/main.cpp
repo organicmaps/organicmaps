@@ -9,7 +9,7 @@
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
-#include "coding/file_reader.hpp"
+#include "coding/reader.hpp"
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
@@ -26,11 +26,9 @@
 
 
 DEFINE_string(data_path, "", "Path to data directory.");
-DEFINE_string(log_abort_level, base::ToString(base::GetDefaultLogAbortLevel()),
-              "Log messages severity that causes termination.");
+DEFINE_string(log_abort_level, base::ToString(base::GetDefaultLogAbortLevel()), "Log messages severity that causes termination.");
 DEFINE_string(resources_path, "", "Path to resources directory.");
-DEFINE_string(kml_path, "", "Activates screenshot mode. Path to a kml file or a directory "
-              "with kml files to take screenshots.");
+DEFINE_string(kml_path, "", "Activates screenshot mode. Path to a kml file or a directory with kml files to take screenshots.");
 DEFINE_string(points, "", "Activates screenshot mode. Points on the map and zoom level "
               "[1..18] in format \"lat,lon,zoom[;lat,lon,zoom]\" or path to a file with points in "
               "the same format. Each point and zoom define a place on the map to take screenshot.");
@@ -42,36 +40,29 @@ DEFINE_string(dst_path, "", "Path to a directory to save screenshots.");
 DEFINE_string(lang, "", "Device language.");
 DEFINE_int32(width, 0, "Screenshot width.");
 DEFINE_int32(height, 0, "Screenshot height.");
-DEFINE_double(dpi_scale, 0.0, "Screenshot dpi scale (mdpi = 1.0, hdpi = 1.5, "
-              "xhdpiScale = 2.0, 6plus = 2.4, xxhdpi = 3.0, xxxhdpi = 3.5).");
-
-using namespace std;
+DEFINE_double(dpi_scale, 0.0, "Screenshot dpi scale (mdpi = 1.0, hdpi = 1.5, xhdpiScale = 2.0, 6plus = 2.4, xxhdpi = 3.0, xxxhdpi = 3.5).");
 
 namespace
 {
-bool ValidateLogAbortLevel(char const * flagname, string const & value)
+bool ValidateLogAbortLevel(char const * flagname, std::string const & value)
 {
-  base::LogLevel level;
-  if (!base::FromString(value, level))
+  if (auto level = base::FromString(value); !level)
   {
-    ostringstream os;
+    std::cerr << "Invalid value for --" << flagname << ": "<< value << ", must be one of: ";
     auto const & names = base::GetLogLevelNames();
     for (size_t i = 0; i < names.size(); ++i)
     {
       if (i != 0)
-        os << ", ";
-      os << names[i];
+        std::cerr << ", ";
+      std::cerr << names[i];
     }
-
-    printf("Invalid value for --%s: %s, must be one of: %s\n", flagname, value.c_str(),
-           os.str().c_str());
+    std::cerr << '\n';
     return false;
   }
   return true;
 }
 
-bool const g_logAbortLevelDummy =
-    gflags::RegisterFlagValidator(&FLAGS_log_abort_level, &ValidateLogAbortLevel);
+bool const g_logAbortLevelDummy = gflags::RegisterFlagValidator(&FLAGS_log_abort_level, &ValidateLogAbortLevel);
 
 class FinalizeBase
 {
@@ -129,9 +120,10 @@ int main(int argc, char * argv[])
   if (!FLAGS_data_path.empty())
     platform.SetWritableDirForTests(FLAGS_data_path);
 
-  base::LogLevel level;
-  CHECK(base::FromString(FLAGS_log_abort_level, level), ());
-  base::g_LogAbortLevel = level;
+  if (auto const logLevel = base::FromString(FLAGS_log_abort_level); logLevel)
+    base::g_LogAbortLevel = *logLevel;
+  else
+    LOG(LCRITICAL, ("Invalid log level:", FLAGS_log_abort_level));
 
   Q_INIT_RESOURCE(resources_common);
 
@@ -163,7 +155,7 @@ int main(int argc, char * argv[])
   bool eulaAccepted = false;
   if (!settings::Get(settingsEULA, eulaAccepted) || !eulaAccepted)
   {
-    string buffer;
+    std::string buffer;
     {
       ReaderPtr<Reader> reader = platform.GetReader("copyright.html");
       reader.ReadAsString(buffer);
@@ -209,7 +201,7 @@ int main(int argc, char * argv[])
         screenshotParams->m_dpiScale = FLAGS_dpi_scale;
     }
 
-    qt::common::SetDefaultSurfaceFormat(app.platformName());
+    qt::common::SetDefaultSurfaceFormat(QApplication::platformName());
 
     FrameworkParams frameworkParams;
 
@@ -218,10 +210,7 @@ int main(int argc, char * argv[])
     if (argc >= 2 && platform.IsFileExistsByFullPath(argv[1]))
         mapcssFilePath = argv[1];
     if (0 == mapcssFilePath.length())
-    {
-      mapcssFilePath = QFileDialog::getOpenFileName(nullptr, "Open style.mapcss file", "~/",
-                                                    "MapCSS Files (*.mapcss)");
-    }
+      mapcssFilePath = QFileDialog::getOpenFileName(nullptr, "Open style.mapcss file", "~/", "MapCSS Files (*.mapcss)");
     if (mapcssFilePath.isEmpty())
       return returnCode;
 
@@ -243,14 +232,13 @@ int main(int argc, char * argv[])
 #endif // BUILD_DESIGNER
 
     Framework framework(frameworkParams);
-    qt::MainWindow w(framework, std::move(screenshotParams),
-                     app.primaryScreen()->geometry()
+    qt::MainWindow w(framework, std::move(screenshotParams), QApplication::primaryScreen()->geometry()
 #ifdef BUILD_DESIGNER
                      , mapcssFilePath
 #endif // BUILD_DESIGNER
                      );
     w.show();
-    returnCode = app.exec();
+    returnCode = QApplication::exec();
   }
 
 #ifdef BUILD_DESIGNER
