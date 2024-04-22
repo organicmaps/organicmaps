@@ -65,6 +65,7 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
   ProgramInfo("vsTransitCircle", "fsTransitCircle", {{0, 2}}),                     // TransitCircle
   ProgramInfo("vsDashedLine", "fsDashedLine", {{0, 3}}),                           // DashedLine
   ProgramInfo("vsPathSymbol", "fsPathSymbol", {{0, 2}}),                           // PathSymbol
+  ProgramInfo("vsArea", "fsArea", {{0, 1}}),                                       // TransparentArea
   ProgramInfo("vsHatchingArea", "fsHatchingArea", {{0, 2}}),                       // HatchingArea
   ProgramInfo("vsTexturingGui", "fsTexturingGui", {{0, 1}}),                       // TexturingGui
   ProgramInfo("vsRuler", "fsRuler", {{0, 2}}),                                     // Ruler

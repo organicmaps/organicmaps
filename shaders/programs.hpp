@@ -7,6 +7,7 @@
 namespace gpu
 {
 // Programs in enum are in the order of rendering priority.
+// Each program should have shaders assigned in GL/shader_index.txt and metal_program_pool.mm
 enum class Program
 {
   ColoredSymbol = 0,
@@ -27,6 +28,7 @@ enum class Program
   TransitCircle,
   DashedLine,
   PathSymbol,
+  TransparentArea,
   HatchingArea,
   TexturingGui,
   Ruler,
@@ -89,6 +91,7 @@ inline std::string DebugPrint(Program p)
   case Program::TransitCircle: return "TransitCircle";
   case Program::DashedLine: return "DashedLine";
   case Program::PathSymbol: return "PathSymbol";
+  case Program::TransparentArea: return "TransparentArea";
   case Program::HatchingArea: return "HatchingArea";
   case Program::TexturingGui: return "TexturingGui";
   case Program::Ruler: return "Ruler";
