@@ -121,7 +121,9 @@ using namespace osm_auth_ios;
   }
   [self enableTTSForTheFirstTime];
 
-  [[CloudStorageManager shared] start];
+  if (![MapsAppDelegate isTestsEnvironment])
+    [[CloudStorageManager shared] start];
+  
   [[DeepLinkHandler shared] applicationDidFinishLaunching:launchOptions];
   // application:openUrl:options is called later for deep links if YES is returned.
   return YES;
@@ -226,8 +228,8 @@ using namespace osm_auth_ios;
   LOG(LINFO, ("applicationDidBecomeActive - end"));
 }
 
-// TODO: Drape enabling is skipped during the test run due to the app crashing in teardown. This is a temporary solution. Drape should be properly disabled instead of merely skipping the enabling process.
-+ (BOOL)isDrapeDisabled {
+// TODO: Drape enabling and iCloud sync are skipped during the test run due to the app crashing in teardown. This is a temporary solution. Drape should be properly disabled instead of merely skipping the enabling process.
++ (BOOL)isTestsEnvironment {
   NSProcessInfo * processInfo = [NSProcessInfo processInfo];
   NSArray<NSString *> * launchArguments = [processInfo arguments];
   BOOL isTests = [launchArguments containsObject:@"-IsTests"];
