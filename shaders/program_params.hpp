@@ -73,6 +73,7 @@ struct ALIGNMENT MapProgramParams
     Program::ColoredSymbol,
     Program::ColoredSymbolBillboard,
     Program::DashedLine,
+    Program::TransparentArea,
     Program::HatchingArea,
     Program::Line,
     Program::MaskedTexturing,
