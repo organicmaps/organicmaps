@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSUInteger)badgeNumber;
 
-+ (BOOL)isDrapeDisabled;
++ (BOOL)isTestsEnvironment;
 
 @end
 
