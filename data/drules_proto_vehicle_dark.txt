@@ -9043,6 +9043,45 @@ cont {
   }
 }
 cont {
+  name: "highway-footway-bicycle"
+  element {
+    scale: 18
+    lines {
+      width: 1.5
+      color: 1294673959
+      dashdot {
+        dd: 5.0
+        dd: 2.0
+      }
+      priority: 130
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 1.5
+      color: 1294673959
+      dashdot {
+        dd: 5.0
+        dd: 2.0
+      }
+      priority: 130
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 1.5
+      color: 1294673959
+      dashdot {
+        dd: 5.0
+        dd: 2.0
+      }
+      priority: 130
+    }
+  }
+}
+cont {
   name: "highway-footway-bridge"
   element {
     scale: 18

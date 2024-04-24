@@ -663,7 +663,7 @@ highway-cycleway-tunnel                             # pathtext z13- (also has li
 area:highway-footway                                # caption z15- (also has area z14-)
 highway-footway                                     # pathtext z13- (also has line z11-)
 highway-footway-area                                # pathtext z13- (also has line z11-, area z14-)
-highway-footway-bicycle
+highway-footway-bicycle                             # pathtext z13- (also has line z11-, line::cycleline z12-)
 highway-footway-bridge                              # pathtext z13- (also has line z11-, line::bridgeblack z17-, line::bridgewhite z15-)
 highway-footway-tunnel                              # pathtext z13- (also has line z11-, line::tunnelBackground z17-, line::tunnelCasing z17-)
 highway-tertiary_link                               # pathtext z18- (also has line z14-)
@@ -694,7 +694,7 @@ highway-bridleway-bridge                            # pathtext z13- (also has li
 highway-bridleway-tunnel                            # pathtext z13- (also has line z11-, line::tunnelBackground z17-, line::tunnelCasing z17-)
 highway-path                                        # pathtext z13- (also has line z11-)
 highway-path-alpine_hiking                          # pathtext z13- (also has line z11-)
-highway-path-bicycle                                # pathtext z13- (also has line z11-)
+highway-path-bicycle                                # pathtext z13- (also has line z11-, line::cycleline z12-)
 highway-path-bridge                                 # pathtext z13- (also has line z11-, line::bridgeblack z17-, line::bridgewhite z15-)
 highway-path-demanding_alpine_hiking                # pathtext z13- (also has line z11-)
 highway-path-demanding_mountain_hiking              # pathtext z13- (also has line z11-)
