@@ -112,7 +112,7 @@ bool SupportManager::IsVulkanForbidden() const
 bool SupportManager::IsVulkanForbidden(std::string const & deviceName,
                                        Version apiVersion, Version driverVersion) const
 {
-  static char const * kBannedDevices[] = {
+  static char constexpr * kBannedDevices[] = {
     /// @todo Should we ban all PowerVR Rogue devices?
     // https://github.com/organicmaps/organicmaps/issues/1379
     "PowerVR Rogue G6110", "PowerVR Rogue GE8100", "PowerVR Rogue GE8300",
@@ -124,6 +124,8 @@ bool SupportManager::IsVulkanForbidden(std::string const & deviceName,
   static Configuration const kBannedConfigurations[] = {
       Configuration{"Adreno (TM) 506", {1, 0, 31}, {42, 264, 975}},
       Configuration{"Adreno (TM) 506", {1, 1, 66}, {512, 313, 0}},
+      // Xiaomi Redmi Note 5
+      Configuration{"Adreno (TM) 506", {1, 1, 128}, {512, 502, 0}},
       Configuration{"Adreno (TM) 530", {1, 1, 66}, {512, 313, 0}},
 
       /// @todo Route line is flickering in nav mode.
