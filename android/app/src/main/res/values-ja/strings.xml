@@ -2010,7 +2010,7 @@
 	<string name="type.tourism.aquarium">水族館</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">山小屋</string>
-	<string name="type.tourism.apartment">アパート</string>
+	<string name="type.tourism.apartment">ホリデー・アパート</string>
 	<string name="type.tourism.artwork">芸術</string>
 	<string name="type.tourism.artwork.architecture">建築</string>
 	<string name="type.tourism.artwork.painting">絵画</string>

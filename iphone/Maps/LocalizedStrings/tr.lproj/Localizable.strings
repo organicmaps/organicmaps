@@ -3739,7 +3739,7 @@
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "Dağ Köşkü";
 
-"type.tourism.apartment" = "Apart Otel";
+"type.tourism.apartment" = "Tatil Apartmanı";
 
 "type.tourism.artwork" = "Sanat";
 

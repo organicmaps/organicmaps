@@ -1951,7 +1951,7 @@
 	<string name="type.tourism.aquarium">Aquariuma</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Mendiko ostatua</string>
-	<string name="type.tourism.apartment">Apartamentuak</string>
+	<string name="type.tourism.apartment">Oporretako apartamentua</string>
 	<string name="type.tourism.artwork">Artelanak</string>
 	<string name="type.tourism.artwork.architecture">Artelanak</string>
 	<string name="type.tourism.artwork.painting">Artelanak</string>

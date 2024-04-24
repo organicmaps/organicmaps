@@ -1850,7 +1850,7 @@
 	<string name="type.tourism.aquarium">พิพิธภัณฑ์สัตว์น้ำ</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">บ้านพักบนภูเขา</string>
-	<string name="type.tourism.apartment">อพาร์ตเมนต์</string>
+	<string name="type.tourism.apartment">ฮอลิเดย์ อพาร์ตเมนต์</string>
 	<string name="type.tourism.artwork">งานศิลปะ</string>
 	<string name="type.tourism.artwork.architecture">งานศิลปะ</string>
 	<string name="type.tourism.artwork.painting">งานศิลปะ</string>

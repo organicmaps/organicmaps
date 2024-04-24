@@ -1184,6 +1184,7 @@
 	<string name="type.tourism.aquarium">Аквариум</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Планинска хижа</string>
+	<string name="type.tourism.apartment">Ваканционен апартамент</string>
 	<string name="type.attraction.animal">Заграждение за животни</string>
 	<!-- A rentable countryside vacation house. -->
 	<string name="type.tourism.chalet">Ваканционна вила</string>

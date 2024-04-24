@@ -2043,7 +2043,7 @@
 	<string name="type.tourism.aquarium">Akvaarium</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Mägimajake</string>
-	<string name="type.tourism.apartment">Korterid</string>
+	<string name="type.tourism.apartment">Puhkuse korter</string>
 	<string name="type.tourism.artwork">Kunstiteos</string>
 	<string name="type.tourism.artwork.architecture">Kunstiteos - arhitektuur</string>
 	<string name="type.tourism.artwork.painting">Kunstiteos - maal</string>

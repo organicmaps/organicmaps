@@ -1842,7 +1842,7 @@
 	<string name="type.tourism.aquarium">Akuarium</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Penginapan gunung</string>
-	<string name="type.tourism.apartment">Apartemen</string>
+	<string name="type.tourism.apartment">Apartemen Liburan</string>
 	<string name="type.tourism.artwork">Pariwisata</string>
 	<string name="type.tourism.artwork.architecture">Pariwisata</string>
 	<string name="type.tourism.artwork.painting">Pariwisata</string>

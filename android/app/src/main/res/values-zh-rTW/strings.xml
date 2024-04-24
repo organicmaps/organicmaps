@@ -1900,7 +1900,7 @@
 	<string name="type.tourism.aquarium">水族館</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">山間小屋</string>
-	<string name="type.tourism.apartment">公寓</string>
+	<string name="type.tourism.apartment">假日公寓</string>
 	<string name="type.tourism.artwork">藝術品</string>
 	<string name="type.tourism.artwork.architecture">藝術品</string>
 	<string name="type.tourism.artwork.painting">藝術品</string>

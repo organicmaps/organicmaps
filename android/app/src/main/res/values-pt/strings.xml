@@ -1993,7 +1993,7 @@
 	<string name="type.tourism.aquarium">Aquário</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Alojamento de montanha</string>
-	<string name="type.tourism.apartment">Apartamentos</string>
+	<string name="type.tourism.apartment">Apartamento de férias</string>
 	<string name="type.tourism.artwork">Obra de arte</string>
 	<string name="type.tourism.artwork.architecture">Obra de arte de arquitetura</string>
 	<string name="type.tourism.artwork.painting">Pintura</string>

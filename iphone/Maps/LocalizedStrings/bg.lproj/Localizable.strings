@@ -3739,7 +3739,7 @@
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "Планинска хижа";
 
-"type.tourism.apartment" = "Holiday Apartment";
+"type.tourism.apartment" = "Ваканционен апартамент";
 
 "type.tourism.artwork" = "Artwork";
 

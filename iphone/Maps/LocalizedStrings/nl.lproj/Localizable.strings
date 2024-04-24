@@ -3739,7 +3739,7 @@
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "Berghut";
 
-"type.tourism.apartment" = "Appartementen";
+"type.tourism.apartment" = "Appartement";
 
 "type.tourism.artwork" = "Kunstwerk";
 

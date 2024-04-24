@@ -1902,7 +1902,7 @@
 	<string name="type.tourism.aquarium">Ενυδρείο</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Ορεινό καταφύγιο</string>
-	<string name="type.tourism.apartment">Διαμερίσματα</string>
+	<string name="type.tourism.apartment">Διαμέρισμα διακοπών</string>
 	<string name="type.tourism.artwork">Έργα τέχνης</string>
 	<string name="type.tourism.artwork.architecture">Έργα τέχνης</string>
 	<string name="type.tourism.artwork.painting">Έργα τέχνης</string>

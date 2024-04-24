@@ -1857,7 +1857,7 @@
 	<string name="type.tourism.aquarium">Akvárium</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Horská chata</string>
-	<string name="type.tourism.apartment">Byty</string>
+	<string name="type.tourism.apartment">Prázdninový apartmán</string>
 	<string name="type.tourism.artwork">Umělecké dílo</string>
 	<string name="type.tourism.artwork.architecture">Umělecké dílo</string>
 	<string name="type.tourism.artwork.painting">Umělecké dílo</string>

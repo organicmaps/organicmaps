@@ -2044,7 +2044,7 @@
 	<string name="type.tourism.aquarium">Akvaryum</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Dağ Köşkü</string>
-	<string name="type.tourism.apartment">Apart Otel</string>
+	<string name="type.tourism.apartment">Tatil Apartmanı</string>
 	<string name="type.tourism.artwork">Sanat</string>
 	<string name="type.tourism.artwork.architecture">Sanatsal Mimari</string>
 	<string name="type.tourism.artwork.painting">Sanat Eserleri</string>

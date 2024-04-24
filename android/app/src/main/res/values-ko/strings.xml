@@ -1852,7 +1852,7 @@
 	<string name="type.tourism.aquarium">수족관</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">마운틴 롯지</string>
-	<string name="type.tourism.apartment">아파트</string>
+	<string name="type.tourism.apartment">홀리데이 아파트</string>
 	<string name="type.tourism.artwork">작품</string>
 	<string name="type.tourism.artwork.architecture">작품</string>
 	<string name="type.tourism.artwork.painting">작품</string>
