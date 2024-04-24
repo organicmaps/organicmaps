@@ -1997,7 +1997,7 @@
 	<string name="type.tourism.aquarium">Akvárium</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Horská chata</string>
-	<string name="type.tourism.apartment">Apartmány</string>
+	<string name="type.tourism.apartment">Prázdninový apartmán</string>
 	<string name="type.tourism.artwork">Umelecké dielo</string>
 	<string name="type.tourism.artwork.architecture">Architektonické dielo</string>
 	<string name="type.tourism.artwork.painting">Maľba</string>

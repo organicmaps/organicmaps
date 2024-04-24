@@ -939,6 +939,7 @@
 	<string name="type.tourism.aquarium">Aquari</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Lodge de muntanya</string>
+	<string name="type.tourism.apartment">Apartament de vacances</string>
 	<string name="type.attraction.animal">Recinte d\'animals</string>
 	<!-- A rentable countryside vacation house. -->
 	<string name="type.tourism.chalet">Casa rural de vacances</string>

@@ -1859,7 +1859,7 @@
 	<string name="type.tourism.aquarium">Akvárium</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Hegyi kunyhó</string>
-	<string name="type.tourism.apartment">Apartmanok</string>
+	<string name="type.tourism.apartment">Nyaraló apartman</string>
 	<string name="type.tourism.artwork">Szobor</string>
 	<string name="type.tourism.artwork.architecture">Műalkotás</string>
 	<string name="type.tourism.artwork.painting">Műalkotás</string>

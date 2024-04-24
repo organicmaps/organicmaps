@@ -3719,7 +3719,7 @@
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "Горны прытулак з абслугоўваннем";
 
-"type.tourism.apartment" = "Holiday Apartment";
+"type.tourism.apartment" = "Кватэра для адпачынку";
 
 "type.tourism.artwork" = "Artwork";
 

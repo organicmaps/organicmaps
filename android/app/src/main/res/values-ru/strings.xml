@@ -2062,7 +2062,7 @@
 	<string name="type.tourism.aquarium">Аквариум</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Горный приют с обслуживанием</string>
-	<string name="type.tourism.apartment">Апартаменты</string>
+	<string name="type.tourism.apartment">Квартира для отдыха</string>
 	<string name="type.tourism.artwork">Произведение искусства</string>
 	<string name="type.tourism.artwork.architecture">Произведение искусства</string>
 	<string name="type.tourism.artwork.painting">Произведение искусства</string>

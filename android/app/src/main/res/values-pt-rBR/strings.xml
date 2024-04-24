@@ -1791,7 +1791,6 @@
 	<string name="type.tourism">Turismo</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Alojamento na montanha</string>
-	<string name="type.tourism.apartment">Apartamentos</string>
 	<string name="type.tourism.artwork">Obra de arte</string>
 	<string name="type.tourism.artwork.architecture">Obra de arte de arquitetura</string>
 	<string name="type.tourism.artwork.painting">Pintura</string>

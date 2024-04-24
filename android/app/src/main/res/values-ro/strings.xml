@@ -1857,7 +1857,7 @@
 	<string name="type.tourism.aquarium">Acvariu</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Cabana de munte</string>
-	<string name="type.tourism.apartment">Apartamente</string>
+	<string name="type.tourism.apartment">Apartament de vacanță</string>
 	<string name="type.tourism.artwork">Turism</string>
 	<string name="type.tourism.artwork.architecture">Turism</string>
 	<string name="type.tourism.artwork.painting">Turism</string>

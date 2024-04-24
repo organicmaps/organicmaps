@@ -1986,7 +1986,7 @@
 	<string name="type.tourism.aquarium">Acquario</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Rifugio di montagna</string>
-	<string name="type.tourism.apartment">Appartamento</string>
+	<string name="type.tourism.apartment">Appartamento vacanze</string>
 	<string name="type.tourism.artwork">Opera d\'arte</string>
 	<string name="type.tourism.artwork.architecture">Opera d\'arte</string>
 	<string name="type.tourism.artwork.painting">Dipinto</string>

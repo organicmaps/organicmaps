@@ -3719,7 +3719,7 @@
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "Horská chata";
 
-"type.tourism.apartment" = "Apartmány";
+"type.tourism.apartment" = "Prázdninový apartmán";
 
 "type.tourism.artwork" = "Umelecké dielo";
 

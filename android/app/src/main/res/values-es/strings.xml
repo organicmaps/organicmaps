@@ -2033,7 +2033,7 @@
 	<string name="type.tourism.aquarium">Acuario</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Albergue de montaña</string>
-	<string name="type.tourism.apartment">Apartamentos</string>
+	<string name="type.tourism.apartment">Apartamento de vacaciones</string>
 	<string name="type.tourism.artwork">Obras de arte</string>
 	<string name="type.tourism.artwork.architecture">Obras de arte</string>
 	<string name="type.tourism.artwork.painting">Obras de arte</string>

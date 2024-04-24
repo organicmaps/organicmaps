@@ -1339,6 +1339,7 @@
 	<string name="type.tourism.aquarium">אַקוַרִיוּם</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">בקתת הרים</string>
+	<string name="type.tourism.apartment">דירת נופש</string>
 	<string name="type.attraction.animal">מתחם בעלי חיים</string>
 	<!-- A rentable countryside vacation house. -->
 	<string name="type.tourism.chalet">בית נופש</string>
