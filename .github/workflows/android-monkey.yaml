@@ -91,5 +91,5 @@ jobs:
             --device model=a10,version=29,orientation=landscape \
             --device model=cactus,version=27 \
             --device model=sailfish,version=25 \
-            --device model=hammerhead,version=23 \
+            --device model=harpia,version=23 \
             --timeout 15m
