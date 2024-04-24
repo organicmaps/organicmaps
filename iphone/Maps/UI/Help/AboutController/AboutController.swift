@@ -507,7 +507,7 @@ private extension AboutController {
     }
     
     // From iOS 14, it is possible to change the default mail app, and mailto should open a default mail app.
-    if openDefaultMailApp(subject: subject, body: body, recipients: toRecipients){
+    if openDefaultMailApp(subject: subject, body: body, recipients: toRecipients) {
       return
     } else {
       let text = String(format:L("email_error_body"), toRecipients.joined(separator: ";"))
