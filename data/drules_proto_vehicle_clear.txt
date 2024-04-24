@@ -8916,7 +8916,7 @@ cont {
     scale: 18
     lines {
       width: 1.0
-      color: 1728022445
+      color: 1716933887
       priority: 130
     }
   }
@@ -8924,7 +8924,7 @@ cont {
     scale: 19
     lines {
       width: 1.0
-      color: 1728022445
+      color: 1716933887
       priority: 130
     }
   }
@@ -8932,7 +8932,7 @@ cont {
     scale: 20
     lines {
       width: 1.0
-      color: 1728022445
+      color: 1716933887
       priority: 130
     }
   }
@@ -8943,7 +8943,7 @@ cont {
     scale: 18
     lines {
       width: 1.0
-      color: 1728022445
+      color: 1716933887
       priority: 130
     }
   }
@@ -8951,7 +8951,7 @@ cont {
     scale: 19
     lines {
       width: 1.0
-      color: 1728022445
+      color: 1716933887
       priority: 130
     }
   }
@@ -8959,7 +8959,7 @@ cont {
     scale: 20
     lines {
       width: 1.0
-      color: 1728022445
+      color: 1716933887
       priority: 130
     }
   }
@@ -9005,6 +9005,45 @@ cont {
 }
 cont {
   name: "highway-footway-area"
+  element {
+    scale: 18
+    lines {
+      width: 1.5
+      color: 1308425468
+      dashdot {
+        dd: 5.0
+        dd: 2.0
+      }
+      priority: 130
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 1.5
+      color: 1308425468
+      dashdot {
+        dd: 5.0
+        dd: 2.0
+      }
+      priority: 130
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 1.5
+      color: 1308425468
+      dashdot {
+        dd: 5.0
+        dd: 2.0
+      }
+      priority: 130
+    }
+  }
+}
+cont {
+  name: "highway-footway-bicycle"
   element {
     scale: 18
     lines {
