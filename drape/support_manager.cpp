@@ -6,8 +6,6 @@
 
 #include "base/logging.hpp"
 
-#include "std/target_os.hpp"
-
 #include <algorithm>
 #include <array>
 #include <string>
@@ -16,7 +14,7 @@ namespace dp
 {
 struct SupportManager::Configuration
 {
-  std::string m_deviceName;
+  std::string_view m_deviceName;
   Version m_apiVersion;
   Version m_driverVersion;
 };
@@ -41,7 +39,7 @@ void SupportManager::Init(ref_ptr<GraphicsContext> context)
 
   if (m_rendererName.find("Adreno") != std::string::npos)
   {
-    std::array<std::string, 5> const models = { "200", "203", "205", "220", "225" };
+    std::array<std::string_view, 5> constexpr models = { "200", "203", "205", "220", "225" };
     for (auto const & model : models)
     {
       if (m_rendererName.find(model) != std::string::npos)
@@ -101,7 +99,7 @@ void SupportManager::ForbidVulkan()
   settings::Set(kVulkanForbidden, true);
 }
 
-bool SupportManager::IsVulkanForbidden() const
+bool SupportManager::IsVulkanForbidden()
 {
   bool forbidden;
   if (!settings::Get(kVulkanForbidden, forbidden))
@@ -109,10 +107,9 @@ bool SupportManager::IsVulkanForbidden() const
   return forbidden;
 }
 
-bool SupportManager::IsVulkanForbidden(std::string const & deviceName,
-                                       Version apiVersion, Version driverVersion) const
+bool SupportManager::IsVulkanForbidden(std::string const & deviceName, Version apiVersion, Version driverVersion)
 {
-  static char constexpr * kBannedDevices[] = {
+  static char const * kBannedDevices[] = {
     /// @todo Should we ban all PowerVR Rogue devices?
     // https://github.com/organicmaps/organicmaps/issues/1379
     "PowerVR Rogue G6110", "PowerVR Rogue GE8100", "PowerVR Rogue GE8300",
@@ -120,8 +117,14 @@ bool SupportManager::IsVulkanForbidden(std::string const & deviceName,
     "Adreno (TM) 418",
   };
 
+  for (auto const d : kBannedDevices)
+  {
+    if (d == deviceName)
+      return true;
+  }
+
   // On these configurations we've detected fatal driver-specific Vulkan errors.
-  static Configuration const kBannedConfigurations[] = {
+  static Configuration constexpr kBannedConfigurations[] = {
       Configuration{"Adreno (TM) 506", {1, 0, 31}, {42, 264, 975}},
       Configuration{"Adreno (TM) 506", {1, 1, 66}, {512, 313, 0}},
       // Xiaomi Redmi Note 5
@@ -139,19 +142,10 @@ bool SupportManager::IsVulkanForbidden(std::string const & deviceName,
       Configuration{"Mali-G72", {1, 1, 131}, {26, 0, 0}},
   };
 
-  for (auto const & d : kBannedDevices)
-  {
-    if (d == deviceName)
-      return true;
-  }
-
   for (auto const & c : kBannedConfigurations)
   {
-    if (c.m_deviceName == deviceName && c.m_apiVersion == apiVersion &&
-        c.m_driverVersion == driverVersion)
-    {
+    if (c.m_deviceName == deviceName && c.m_apiVersion == apiVersion && c.m_driverVersion == driverVersion)
       return true;
-    }
   }
   return false;
 }
@@ -160,7 +154,7 @@ bool SupportManager::IsVulkanForbidden(std::string const & deviceName,
 bool SupportManager::IsVulkanTexturePartialUpdateBuggy(int sdkVersion,
                                                        std::string const & deviceName,
                                                        Version apiVersion,
-                                                       Version driverVersion) const
+                                                       Version driverVersion)
 {
   /// @todo Assume that all Android 10+ (API 29) doesn't support Vulkan partial texture updates.
   /// Can't say for sure is it right or not ..
@@ -168,17 +162,14 @@ bool SupportManager::IsVulkanTexturePartialUpdateBuggy(int sdkVersion,
     return true;
 
   // For these configurations partial updates of texture clears whole texture except part updated
-  static std::array<Configuration, 1> const kBadConfigurations = {
-      {{"Mali-G76", {1, 1, 97}, {18, 0, 0}}},
+  static Configuration constexpr kBadConfigurations[] = {
+      {"Mali-G76", {1, 1, 97}, {18, 0, 0}},
   };
 
   for (auto const & c : kBadConfigurations)
   {
-    if (c.m_deviceName == deviceName && c.m_apiVersion == apiVersion &&
-        c.m_driverVersion == driverVersion)
-    {
+    if (c.m_deviceName == deviceName && c.m_apiVersion == apiVersion && c.m_driverVersion == driverVersion)
       return true;
-    }
   }
   return false;
 }
