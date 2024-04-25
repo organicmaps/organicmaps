@@ -79,9 +79,6 @@
          location = "container:pugixml/pugixml.xcodeproj">
       </FileRef>
       <FileRef
-         location = "container:sdf_image/sdf_image.xcodeproj">
-      </FileRef>
-      <FileRef
          location = "container:stb_image/stb_image.xcodeproj">
       </FileRef>
       <FileRef

@@ -62,9 +62,8 @@ private:
 class DummyGlyphIndex : public GlyphIndex
 {
 public:
-  DummyGlyphIndex(m2::PointU size, ref_ptr<GlyphManager> mng,
-                  ref_ptr<GlyphGenerator> glyphGenerator)
-    : GlyphIndex(size, mng, glyphGenerator)
+  DummyGlyphIndex(m2::PointU size, ref_ptr<GlyphManager> mng)
+    : GlyphIndex(size, mng)
   {}
   ref_ptr<Texture::ResourceInfo> MapResource(GlyphKey const & key)
   {
@@ -93,9 +92,8 @@ UNIT_TEST(UploadingGlyphs)
   GetPlatform().GetFontNames(args.m_fonts);
 
   uint32_t constexpr kTextureSize = 1024;
-  GlyphGenerator glyphGenerator(4);
   GlyphManager mng(args);
-  DummyGlyphIndex index(m2::PointU(kTextureSize, kTextureSize), make_ref(&mng), make_ref(&glyphGenerator));
+  DummyGlyphIndex index(m2::PointU(kTextureSize, kTextureSize), make_ref(&mng));
   size_t count = 1;  // invalid symbol glyph has mapped internally.
   count += (index.MapResource(GlyphKey(0x58)) != nullptr) ? 1 : 0;
   count += (index.MapResource(GlyphKey(0x59)) != nullptr) ? 1 : 0;

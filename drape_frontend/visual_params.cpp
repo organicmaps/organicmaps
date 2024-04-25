@@ -52,12 +52,6 @@ void VisualParams::Init(double vs, uint32_t tileSize)
   LOG(LINFO, ("Visual scale =", vs, "; Tile size =", tileSize, "; Resources =", GetResourcePostfix(vs)));
 }
 
-uint32_t VisualParams::GetGlyphSdfScale() const
-{
-  ASSERT_INITED;
-  return (m_visualScale <= 1.0) ? 3 : 4;
-}
-
 uint32_t VisualParams::GetGlyphBaseSize() const
 {
   ASSERT_INITED;

@@ -631,7 +631,6 @@
 		FA853BDB26BC54CD0026D455 /* libtraffic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BDA26BC54CD0026D455 /* libtraffic.a */; };
 		FA853BDD26BC58570026D455 /* DatePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BDC26BC58570026D455 /* DatePicker.framework */; };
 		FA853BDF26BC58620026D455 /* libge0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BDE26BC58620026D455 /* libge0.a */; };
-		FA853BE126BC58690026D455 /* libsdf_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BE026BC58690026D455 /* libsdf_image.a */; };
 		FA853BE326BC58770026D455 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BE226BC58770026D455 /* libfreetype.a */; };
 		FA853BE526BC5B660026D455 /* libvulkan_wrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BE426BC5B660026D455 /* libvulkan_wrapper.a */; };
 		FA853BE726BC5B820026D455 /* libstb_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BE626BC5B820026D455 /* libstb_image.a */; };
@@ -1635,7 +1634,6 @@
 		FA853BDA26BC54CD0026D455 /* libtraffic.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtraffic.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BDC26BC58570026D455 /* DatePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DatePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BDE26BC58620026D455 /* libge0.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libge0.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FA853BE026BC58690026D455 /* libsdf_image.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsdf_image.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BE226BC58770026D455 /* libfreetype.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libfreetype.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BE426BC5B660026D455 /* libvulkan_wrapper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libvulkan_wrapper.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BE626BC5B820026D455 /* libstb_image.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libstb_image.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1698,7 +1696,6 @@
 				FA853BE726BC5B820026D455 /* libstb_image.a in Frameworks */,
 				FA853BE526BC5B660026D455 /* libvulkan_wrapper.a in Frameworks */,
 				FA853BE326BC58770026D455 /* libfreetype.a in Frameworks */,
-				FA853BE126BC58690026D455 /* libsdf_image.a in Frameworks */,
 				FA853BDF26BC58620026D455 /* libge0.a in Frameworks */,
 				FA853BDD26BC58570026D455 /* DatePicker.framework in Frameworks */,
 				FA853BDB26BC54CD0026D455 /* libtraffic.a in Frameworks */,
@@ -1845,7 +1842,6 @@
 				FA853BE626BC5B820026D455 /* libstb_image.a */,
 				FA853BE426BC5B660026D455 /* libvulkan_wrapper.a */,
 				FA853BE226BC58770026D455 /* libfreetype.a */,
-				FA853BE026BC58690026D455 /* libsdf_image.a */,
 				FA853BDE26BC58620026D455 /* libge0.a */,
 				FA853BDC26BC58570026D455 /* DatePicker.framework */,
 				FA853BDA26BC54CD0026D455 /* libtraffic.a */,

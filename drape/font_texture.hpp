@@ -1,13 +1,10 @@
 #pragma once
 
 #include "drape/dynamic_texture.hpp"
-#include "drape/glyph_generator.hpp"
 #include "drape/glyph_manager.hpp"
 #include "drape/pointers.hpp"
 
-#include <atomic>
 #include <map>
-#include <memory>
 #include <mutex>
 #include <vector>
 
@@ -34,7 +31,7 @@ private:
 class GlyphKey : public Texture::Key
 {
 public:
-  GlyphKey(strings::UniChar unicodePoint)
+  explicit GlyphKey(strings::UniChar unicodePoint)
     : m_unicodePoint(unicodePoint)
   {}
 
@@ -66,17 +63,15 @@ private:
   GlyphMetrics m_metrics;
 };
 
-class GlyphIndex : public GlyphGenerator::Listener
+class GlyphIndex
 {
 public:
-  GlyphIndex(m2::PointU const & size, ref_ptr<GlyphManager> mng,
-             ref_ptr<GlyphGenerator> generator);
-  ~GlyphIndex() override;
+  GlyphIndex(m2::PointU const & size, ref_ptr<GlyphManager> mng);
+  ~GlyphIndex();
 
   // This function can return nullptr.
   ref_ptr<Texture::ResourceInfo> MapResource(GlyphKey const & key, bool & newResource);
-  std::vector<ref_ptr<Texture::ResourceInfo>> MapResources(std::vector<GlyphKey> const & keys,
-                                                           bool & hasNewResources);
+  std::vector<ref_ptr<Texture::ResourceInfo>> MapResources(std::vector<GlyphKey> const & keys, bool & hasNewResources);
   void UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr<Texture> texture);
 
   bool CanBeGlyphPacked(uint32_t glyphsCount) const;
@@ -85,13 +80,8 @@ public:
   size_t GetPendingNodesCount();
 
 private:
-  ref_ptr<Texture::ResourceInfo> MapResource(GlyphKey const & key, bool & newResource,
-                                             GlyphGenerator::GlyphGenerationData & generationData);
-  void OnCompleteGlyphGeneration(GlyphGenerator::GlyphGenerationDataArray && glyphs) override;
-
   GlyphPacker m_packer;
   ref_ptr<GlyphManager> m_mng;
-  ref_ptr<GlyphGenerator> m_generator;
 
   using ResourceMapping = std::map<GlyphKey, GlyphInfo>;
   using PendingNode = std::pair<m2::RectU, Glyph>;
@@ -105,9 +95,8 @@ private:
 class FontTexture : public DynamicTexture<GlyphIndex, GlyphKey, Texture::ResourceType::Glyph>
 {
 public:
-  FontTexture(m2::PointU const & size, ref_ptr<GlyphManager> glyphMng,
-              ref_ptr<GlyphGenerator> glyphGenerator, ref_ptr<HWTextureAllocator> allocator)
-    : m_index(size, glyphMng, glyphGenerator)
+  FontTexture(m2::PointU const & size, ref_ptr<GlyphManager> glyphMng, ref_ptr<HWTextureAllocator> allocator)
+    : m_index(size, glyphMng)
   {
     DynamicTextureParams const params{size, TextureFormat::Alpha, TextureFilter::Linear, true /* m_usePixelBuffer */};
     Init(allocator, make_ref(&m_index), params);

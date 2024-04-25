@@ -11,7 +11,7 @@
 #include "drape/utils/glyph_usage_tracker.hpp"
 
 #include "base/file_name_utils.hpp"
-#include "base/stl_helpers.hpp"
+#include "base/math.hpp"
 
 #include <algorithm>
 #include <cstdint>
@@ -36,6 +36,7 @@ size_t constexpr kInvalidGlyphGroup = std::numeric_limits<size_t>::max();
 uint32_t constexpr kReservedPatterns = 10;
 size_t constexpr kReservedColors = 20;
 
+// TODO(AB): Investigate if it can be set to 1.0.
 float constexpr kGlyphAreaMultiplier = 1.2f;
 float constexpr kGlyphAreaCoverage = 0.9f;
 
@@ -108,10 +109,9 @@ drape_ptr<Texture> CreateArrowTexture(ref_ptr<dp::GraphicsContext> context,
 }
 }  // namespace
 
-TextureManager::TextureManager(ref_ptr<GlyphGenerator> glyphGenerator)
+TextureManager::TextureManager()
   : m_maxTextureSize(0)
   , m_maxGlypsCount(0)
-  , m_glyphGenerator(glyphGenerator)
 {
   m_nothingToUpload.test_and_set();
 }
@@ -128,12 +128,12 @@ bool TextureManager::BaseRegion::IsValid() const
 
 void TextureManager::BaseRegion::SetResourceInfo(ref_ptr<Texture::ResourceInfo> info)
 {
-  m_info = info;
+  m_info = std::move(info);
 }
 
 void TextureManager::BaseRegion::SetTexture(ref_ptr<Texture> texture)
 {
-  m_texture = texture;
+  m_texture = std::move(texture);
 }
 
 m2::PointF TextureManager::BaseRegion::GetPixelSize() const
@@ -219,22 +219,20 @@ void TextureManager::Release()
 
   m_glyphManager.reset();
 
-  m_glyphGenerator->FinishGeneration();
-
   m_isInitialized = false;
   m_nothingToUpload.test_and_set();
 }
 
 bool TextureManager::UpdateDynamicTextures(ref_ptr<dp::GraphicsContext> context)
 {
-  if (!HasAsyncRoutines() && m_nothingToUpload.test_and_set())
+  if (m_nothingToUpload.test_and_set())
   {
     auto const apiVersion = context->GetApiVersion();
     if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
     {
       // For some reasons OpenGL can not update textures immediately.
       // Here we use some timeout to prevent rendering frozening.
-      double const kUploadTimeoutInSeconds = 2.0;
+      double constexpr kUploadTimeoutInSeconds = 2.0;
       return m_uploadTimer.ElapsedSeconds() < kUploadTimeoutInSeconds;
     }
 
@@ -264,24 +262,16 @@ bool TextureManager::UpdateDynamicTextures(ref_ptr<dp::GraphicsContext> context)
 
 void TextureManager::UpdateGlyphTextures(ref_ptr<dp::GraphicsContext> context)
 {
-  std::lock_guard<std::mutex> lock(m_glyphTexturesMutex);
+  std::lock_guard lock(m_glyphTexturesMutex);
   for (auto & texture : m_glyphTextures)
     texture->UpdateState(context);
-}
-
-bool TextureManager::HasAsyncRoutines() const
-{
-  CHECK(m_glyphGenerator != nullptr, ());
-  return !m_glyphGenerator->IsSuspended();
 }
 
 ref_ptr<Texture> TextureManager::AllocateGlyphTexture()
 {
   std::lock_guard const lock(m_glyphTexturesMutex);
   m2::PointU size(kGlyphsTextureSize, kGlyphsTextureSize);
-  m_glyphTextures.push_back(make_unique_dp<FontTexture>(size, make_ref(m_glyphManager),
-                                                        m_glyphGenerator,
-                                                        make_ref(m_textureAllocator)));
+  m_glyphTextures.push_back(make_unique_dp<FontTexture>(size, make_ref(m_glyphManager), make_ref(m_textureAllocator)));
   return make_ref(m_glyphTextures.back());
 }
 
@@ -499,9 +489,9 @@ void TextureManager::OnSwitchMapStyle(ref_ptr<dp::GraphicsContext> context)
   // Here we need invalidate only textures which can be changed in map style switch.
   // Now we update only symbol textures, if we need update other textures they must be added here.
   // For Vulkan we use m_texturesToCleanup to defer textures destroying.
-  for (size_t i = 0; i < m_symbolTextures.size(); ++i)
+  for (const auto & m_symbolTexture : m_symbolTextures)
   {
-    ref_ptr<SymbolsTexture> symbolsTexture = make_ref(m_symbolTextures[i]);
+    ref_ptr<SymbolsTexture> symbolsTexture = make_ref(m_symbolTexture);
     ASSERT(symbolsTexture != nullptr, ());
 
     if (context->GetApiVersion() != dp::ApiVersion::Vulkan)

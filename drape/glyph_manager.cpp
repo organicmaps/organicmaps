@@ -12,8 +12,6 @@
 #include "base/macros.hpp"
 #include "base/math.hpp"
 
-#include "3party/sdf_image/sdf_image.h"
-
 #include <limits>
 #include <sstream>
 #include <string>
@@ -22,6 +20,7 @@
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
+#include FT_MODULE_H
 #include FT_SYSTEM_H
 #include FT_STROKER_H
 #include FT_TYPES_H
@@ -115,10 +114,9 @@ public:
   DECLARE_EXCEPTION(InvalidFontException, RootException);
   DISALLOW_COPY_AND_MOVE(Font);
 
-  Font(uint32_t sdfScale, ReaderPtr<Reader> && fontReader, FT_Library lib)
+  Font(ReaderPtr<Reader> && fontReader, FT_Library lib)
     : m_fontReader(std::move(fontReader))
     , m_fontFace(nullptr)
-    , m_sdfScale(sdfScale)
   {
     std::memset(&m_stream, 0, sizeof(m_stream));
     m_stream.size = static_cast<unsigned long>(m_fontReader.Size());
@@ -126,8 +124,7 @@ public:
     m_stream.read = &Font::Read;
     m_stream.close = &Font::Close;
 
-    FT_Open_Args args;
-    std::memset(&args, 0, sizeof(args));
+    FT_Open_Args args = {};
     args.flags = FT_OPEN_STREAM;
     args.stream = &m_stream;
 
@@ -146,12 +143,14 @@ public:
 
   bool HasGlyph(strings::UniChar unicodePoint) const { return FT_Get_Char_Index(m_fontFace, unicodePoint) != 0; }
 
-  Glyph GetGlyph(strings::UniChar unicodePoint, uint32_t baseHeight) const
+  Glyph GetGlyph(strings::UniChar unicodePoint, uint32_t glyphHeight) const
   {
-    uint32_t const glyphHeight = baseHeight * m_sdfScale;
+    FREETYPE_CHECK(FT_Set_Pixel_Sizes(m_fontFace, 0, glyphHeight));
 
-    FREETYPE_CHECK(FT_Set_Pixel_Sizes(m_fontFace, glyphHeight, glyphHeight));
+    // FT_LOAD_RENDER with FT_RENDER_MODE_SDF uses bsdf driver that is around 3x times faster
+    // than sdf driver, activated by FT_LOAD_DEFAULT + FT_RENDER_MODE_SDF
     FREETYPE_CHECK(FT_Load_Glyph(m_fontFace, FT_Get_Char_Index(m_fontFace, unicodePoint), FT_LOAD_RENDER));
+    FREETYPE_CHECK(FT_Render_Glyph(m_fontFace->glyph, FT_RENDER_MODE_SDF));
 
     FT_Glyph glyph;
     FREETYPE_CHECK(FT_Get_Glyph(m_fontFace->glyph, &glyph));
@@ -161,27 +160,18 @@ public:
 
     FT_Bitmap const bitmap = m_fontFace->glyph->bitmap;
 
-    float const scale = 1.0f / m_sdfScale;
-
     SharedBufferManager::shared_buffer_ptr_t data;
-    uint32_t imageWidth = bitmap.width;
-    uint32_t imageHeight = bitmap.rows;
     if (bitmap.buffer != nullptr)
     {
-      sdf_image::SdfImage const img(bitmap.rows, bitmap.pitch, bitmap.buffer, m_sdfScale * kSdfBorder);
-      imageWidth = std::round(img.GetWidth() * scale);
-      imageHeight = std::round(img.GetHeight() * scale);
-
       data = SharedBufferManager::instance().reserveSharedBuffer(bitmap.rows * bitmap.pitch);
       std::memcpy(data->data(), bitmap.buffer, data->size());
     }
 
     Glyph result;
-    result.m_image = {imageWidth, imageHeight, bitmap.rows, bitmap.pitch, data};
-
-    result.m_metrics = {(glyph->advance.x >> 16) * scale, (glyph->advance.y >> 16) * scale,
-                        bbox.xMin * scale, bbox.yMin * scale, true};
-
+    result.m_image = {bitmap.width, bitmap.rows, bitmap.rows, bitmap.pitch, data};
+    // Glyph image has SDF borders that should be taken into an account.
+    result.m_metrics = {float(glyph->advance.x >> 16), float(glyph->advance.y >> 16),
+                        float(bbox.xMin + kSdfBorder), float(bbox.yMin + kSdfBorder), true};
     result.m_code = unicodePoint;
     FT_Done_Glyph(glyph);
 
@@ -227,7 +217,6 @@ private:
   ReaderPtr<Reader> m_fontReader;
   FT_StreamRec_ m_stream;
   FT_Face m_fontFace;
-  uint32_t m_sdfScale;
 
   std::set<strings::UniChar> m_readyGlyphs;
 };
@@ -300,7 +289,6 @@ struct GlyphManager::Impl
   std::vector<std::unique_ptr<Font>> m_fonts;
 
   uint32_t m_baseGlyphHeight;
-  uint32_t m_sdfScale;
 };
 
 // Destructor is defined where pimpl's destructor is already known.
@@ -310,7 +298,6 @@ GlyphManager::GlyphManager(Params const & params)
   : m_impl(std::make_unique<Impl>())
 {
   m_impl->m_baseGlyphHeight = params.m_baseGlyphHeight;
-  m_impl->m_sdfScale = params.m_sdfScale;
 
   using TFontAndBlockName = std::pair<std::string, std::string>;
   using TFontLst = buffer_vector<TFontAndBlockName, 64>;
@@ -339,6 +326,11 @@ GlyphManager::GlyphManager(Params const & params)
 
   FREETYPE_CHECK(FT_Init_FreeType(&m_impl->m_library));
 
+  // Default Freetype spread/sdf border is 8.
+  static constexpr FT_Int kSdfBorder = dp::kSdfBorder;
+  for (auto const module : {"sdf", "bsdf"})
+    FREETYPE_CHECK(FT_Property_Set(m_impl->m_library, module, "spread", &kSdfBorder));
+
   for (auto const & fontName : params.m_fonts)
   {
     bool ignoreFont = false;
@@ -354,8 +346,7 @@ GlyphManager::GlyphManager(Params const & params)
     std::vector<FT_ULong> charCodes;
     try
     {
-      m_impl->m_fonts.emplace_back(std::make_unique<Font>(params.m_sdfScale, GetPlatform().GetReader(fontName),
-                                                          m_impl->m_library));
+      m_impl->m_fonts.emplace_back(std::make_unique<Font>(GetPlatform().GetReader(fontName), m_impl->m_library));
       m_impl->m_fonts.back()->GetCharcodes(charCodes);
     }
     catch(RootException const & e)
@@ -464,11 +455,6 @@ uint32_t GlyphManager::GetBaseGlyphHeight() const
   return m_impl->m_baseGlyphHeight;
 }
 
-uint32_t GlyphManager::GetSdfScale() const
-{
-  return m_impl->m_sdfScale;
-}
-
 int GlyphManager::GetFontIndex(strings::UniChar unicodePoint)
 {
   auto iter = m_impl->m_blocks.cend();
@@ -535,38 +521,6 @@ Glyph GlyphManager::GetGlyph(strings::UniChar unicodePoint)
   auto const & f = m_impl->m_fonts[fontIndex];
   Glyph glyph = f->GetGlyph(unicodePoint, m_impl->m_baseGlyphHeight);
   glyph.m_fontIndex = fontIndex;
-  return glyph;
-}
-
-// static
-Glyph GlyphManager::GenerateGlyph(Glyph const & glyph, uint32_t sdfScale)
-{
-  if (glyph.m_image.m_data != nullptr)
-  {
-    Glyph resultGlyph;
-    resultGlyph.m_metrics = glyph.m_metrics;
-    resultGlyph.m_fontIndex = glyph.m_fontIndex;
-    resultGlyph.m_code = glyph.m_code;
-    sdf_image::SdfImage img(glyph.m_image.m_bitmapRows, glyph.m_image.m_bitmapPitch,
-                            glyph.m_image.m_data->data(), sdfScale * kSdfBorder);
-
-    img.GenerateSDF(1.0f / static_cast<float>(sdfScale));
-
-    ASSERT_EQUAL(img.GetWidth(), glyph.m_image.m_width, ());
-    ASSERT_EQUAL(img.GetHeight(), glyph.m_image.m_height, ());
-
-    size_t const bufferSize = base::NextPowOf2(glyph.m_image.m_width * glyph.m_image.m_height);
-    resultGlyph.m_image.m_data = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
-
-    img.GetData(*resultGlyph.m_image.m_data);
-
-    resultGlyph.m_image.m_width = glyph.m_image.m_width;
-    resultGlyph.m_image.m_height = glyph.m_image.m_height;
-    resultGlyph.m_image.m_bitmapRows = 0;
-    resultGlyph.m_image.m_bitmapPitch = 0;
-
-    return resultGlyph;
-  }
   return glyph;
 }
 

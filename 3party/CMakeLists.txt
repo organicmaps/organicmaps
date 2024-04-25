@@ -61,7 +61,6 @@ add_subdirectory(liboauthcpp)
 add_subdirectory(minizip)
 add_subdirectory(open-location-code)
 add_subdirectory(opening_hours)
-add_subdirectory(sdf_image)
 add_subdirectory(stb_image)
 add_subdirectory(succinct)
 

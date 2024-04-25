@@ -44,8 +44,6 @@ set(SRC
   glsl_func.hpp
   glsl_types.hpp
   glyph.hpp
-  glyph_generator.cpp
-  glyph_generator.hpp
   glyph_manager.cpp
   glyph_manager.hpp
   gpu_buffer.cpp
@@ -174,7 +172,6 @@ target_link_libraries(${PROJECT_NAME}
   Freetype::Freetype
   vulkan_wrapper
   stb_image
-  sdf_image
   harfbuzz
   ICU::i18n
   expat::expat

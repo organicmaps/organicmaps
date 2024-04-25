@@ -2,7 +2,6 @@
 
 #include "drape/color.hpp"
 #include "drape/font_texture.hpp"
-#include "drape/glyph_generator.hpp"
 #include "drape/glyph_manager.hpp"
 #include "drape/pointers.hpp"
 #include "drape/stipple_pen_resource.hpp"   // for PenPatternT
@@ -83,7 +82,7 @@ public:
     bool m_arrowTextureUseDefaultResourceFolder = false;
   };
 
-  explicit TextureManager(ref_ptr<GlyphGenerator> glyphGenerator);
+  TextureManager();
   void Release();
 
   void Init(ref_ptr<dp::GraphicsContext> context, Params const & params);
@@ -207,13 +206,11 @@ private:
   }
 
   void UpdateGlyphTextures(ref_ptr<dp::GraphicsContext> context);
-  bool HasAsyncRoutines() const;
 
   static constexpr size_t GetInvalidGlyphGroup();
 
 private:
   bool m_isInitialized = false;
-  ref_ptr<GlyphGenerator> m_glyphGenerator;
   std::string m_resPostfix;
   std::vector<drape_ptr<Texture>> m_symbolTextures;
   drape_ptr<Texture> m_stipplePenTexture;
@@ -237,7 +234,7 @@ private:
   std::vector<drape_ptr<HWTexture>> m_texturesToCleanup;
 
   base::Timer m_uploadTimer;
-  std::atomic_flag m_nothingToUpload;
+  std::atomic_flag m_nothingToUpload {false};
   std::mutex m_calcGlyphsMutex;
 };
 }  // namespace dp

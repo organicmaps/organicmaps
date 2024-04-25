@@ -45,34 +45,25 @@ public:
 
   void RenderGlyphs(QPaintDevice * device)
   {
-    std::vector<dp::Glyph> glyphs;
-    auto generateGlyph = [this, &glyphs](strings::UniChar c)
-    {
-      dp::Glyph g = m_mng->GetGlyph(c);
-      glyphs.push_back(dp::GlyphManager::GenerateGlyph(g, m_mng->GetSdfScale()));
-      g.m_image.Destroy();
-    };
-
-    for (auto const & ucp : m_toDraw)
-      generateGlyph(ucp);
-
     QPainter painter(device);
     painter.fillRect(QRectF(0.0, 0.0, device->width(), device->height()), Qt::white);
 
     QPoint pen(100, 100);
     float const ratio = 2.0;
-    for (auto & g : glyphs)
+    for (auto c : m_toDraw)
     {
-      if (!g.m_image.m_data)
-        continue;
+      auto g = m_mng->GetGlyph(c);
 
-      uint8_t * d = SharedBufferManager::GetRawPointer(g.m_image.m_data);
+      if (g.m_image.m_data)
+      {
+        uint8_t * d = SharedBufferManager::GetRawPointer(g.m_image.m_data);
 
-      QPoint currentPen = pen;
-      currentPen.rx() += g.m_metrics.m_xOffset * ratio;
-      currentPen.ry() -= g.m_metrics.m_yOffset * ratio;
-      painter.drawImage(currentPen, CreateImage(g.m_image.m_width, g.m_image.m_height, d),
-                        QRect(0, 0, g.m_image.m_width, g.m_image.m_height));
+        QPoint currentPen = pen;
+        currentPen.rx() += g.m_metrics.m_xOffset * ratio;
+        currentPen.ry() -= g.m_metrics.m_yOffset * ratio;
+        painter.drawImage(currentPen, CreateImage(g.m_image.m_width, g.m_image.m_height, d),
+                          QRect(0, 0, g.m_image.m_width, g.m_image.m_height));
+      }
       pen.rx() += g.m_metrics.m_xAdvance * ratio;
       pen.ry() += g.m_metrics.m_yAdvance * ratio;
 
