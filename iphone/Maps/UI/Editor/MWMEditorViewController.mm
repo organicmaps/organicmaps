@@ -93,6 +93,14 @@ void cleanupAdditionalLanguages(std::vector<osm::LocalizedName> const & names,
                 });
 }
 
+std::vector<NSInteger> extractLanguageCodes(const std::vector<osm::LocalizedName>& names) 
+{
+  std::vector<NSInteger> languageCodes;
+  for (const auto& name : names)
+    languageCodes.push_back(static_cast<NSInteger>(name.m_code));
+  return languageCodes;
+}
+
 std::vector<MWMEditorCellID> cellsForAdditionalNames(osm::NamesDataSource const & ds,
                                                   std::vector<NSInteger> const & newAdditionalLanguages,
                                                   BOOL showAdditionalNames)
@@ -513,19 +521,14 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
   {
     MWMEditorAdditionalNameTableViewCell * tCell =
         static_cast<MWMEditorAdditionalNameTableViewCell *>(cell);
-
-    // When default name is added - remove fake names from datasource.
-    auto const it = std::find(m_newAdditionalLanguages.begin(), m_newAdditionalLanguages.end(),
-                              StringUtf8Multilang::kDefaultCode);
-    auto const needFakes = it == m_newAdditionalLanguages.end();
-    auto const & localizedNames = m_mapObject.GetNamesDataSource(needFakes).names;
-
+    auto const & localizedNames = m_mapObject.GetNamesDataSource().names;
     if (indexPath.row < localizedNames.size())
     {
       osm::LocalizedName const & name = localizedNames[indexPath.row];
+      NSString * langName = indexPath.row == StringUtf8Multilang::kDefaultCode ? L(@"editor_default_language_hint") : ToNSString(name.m_langName);
       [tCell configWithDelegate:self
                        langCode:name.m_code
-                       langName:ToNSString(name.m_langName)
+                       langName:langName
                            name:@(name.m_name.c_str())
                    errorMessage:L(@"error_enter_correct_name")
                         isValid:isValid
@@ -541,7 +544,6 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
       if (langCode == StringUtf8Multilang::kDefaultCode)
       {
         name = m_mapObject.GetDefaultName();
-        m_mapObject.EnableNamesAdvancedMode();
       }
 
       [tCell configWithDelegate:self
@@ -1105,7 +1107,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
     MWMEditorAdditionalNamesTableViewController * dvc = segue.destinationViewController;
     [dvc configWithDelegate:self
                                name:m_mapObject.GetNameMultilang()
-        additionalSkipLanguageCodes:m_newAdditionalLanguages];
+        additionalSkipLanguageCodes:extractLanguageCodes(m_mapObject.GetNamesDataSource().names)];
   }
 }
 
