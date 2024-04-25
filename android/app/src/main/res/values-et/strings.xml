@@ -469,6 +469,8 @@
 	<string name="editor_edit_place_title">Muutmine</string>
 	<string name="editor_add_place_title">Lisamine</string>
 	<string name="editor_edit_place_name_hint">Koha nimi</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">Nagu on kirjutatud kohalikus keeles</string>
 	<string name="editor_edit_place_category_title">Kategooria</string>
 	<string name="detailed_problem_description">Probleemi üksikasjalik kirjeldus</string>
 	<string name="editor_report_problem_other_title">Erinev probleem</string>

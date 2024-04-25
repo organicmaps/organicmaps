@@ -479,6 +479,8 @@
 	<string name="editor_edit_place_title">編集中</string>
 	<string name="editor_add_place_title">追加中</string>
 	<string name="editor_edit_place_name_hint">場所の名前</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">現地の言葉でこう書かれている。</string>
 	<string name="editor_edit_place_category_title">カテゴリ</string>
 	<string name="detailed_problem_description">問題の詳細な説明</string>
 	<string name="editor_report_problem_other_title">異なる問題</string>

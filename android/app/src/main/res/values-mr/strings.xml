@@ -448,6 +448,8 @@
 	<string name="editor_edit_place_title">संपादन</string>
 	<string name="editor_add_place_title">जोडणे</string>
 	<string name="editor_edit_place_name_hint">ठिकाणाचे नाव</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">स्थानिक भाषेत लिहिल्याप्रमाणे</string>
 	<string name="editor_edit_place_category_title">प्रवर्ग</string>
 	<string name="detailed_problem_description">समस्येचे तपशिलात वर्णन</string>
 	<string name="editor_report_problem_other_title">वेगळी समस्या</string>

@@ -705,6 +705,9 @@
 
 "editor_edit_place_name_hint" = "該地點的名稱";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "因為它是用當地語言寫的";
+
 "editor_edit_place_category_title" = "類別";
 
 "whatsnew_editor_message_1" = "新增新地點到該地圖，並直接通過此應用程式編輯已存在的地點。";

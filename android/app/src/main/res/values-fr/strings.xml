@@ -479,6 +479,8 @@
 	<string name="editor_edit_place_title">Modification</string>
 	<string name="editor_add_place_title">Ajout</string>
 	<string name="editor_edit_place_name_hint">Nom du lieu</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">Comme c\'est écrit dans la langue locale</string>
 	<string name="editor_edit_place_category_title">Catégorie</string>
 	<string name="detailed_problem_description">Description détaillée du problème</string>
 	<string name="editor_report_problem_other_title">Autre problème</string>

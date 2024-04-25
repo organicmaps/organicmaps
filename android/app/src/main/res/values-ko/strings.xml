@@ -451,6 +451,8 @@
 	<string name="editor_edit_place_title">편집 중</string>
 	<string name="editor_add_place_title">첨가 중</string>
 	<string name="editor_edit_place_name_hint">장소 이름</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">현지 언어로 작성되었으므로</string>
 	<string name="editor_edit_place_category_title">범주</string>
 	<string name="detailed_problem_description">문제에 대한 자세한 설명</string>
 	<string name="editor_report_problem_other_title">다른 문제</string>
