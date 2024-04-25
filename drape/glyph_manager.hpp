@@ -26,7 +26,6 @@ public:
     std::vector<std::string> m_fonts;
 
     uint32_t m_baseGlyphHeight = 22;
-    uint32_t m_sdfScale = 4;
   };
 
   explicit GlyphManager(Params const & params);
@@ -40,9 +39,6 @@ public:
   Glyph const & GetInvalidGlyph() const;
 
   uint32_t GetBaseGlyphHeight() const;
-  uint32_t GetSdfScale() const;
-
-  static Glyph GenerateGlyph(Glyph const & glyph, uint32_t sdfScale);
 
 private:
   int GetFontIndex(strings::UniChar unicodePoint);

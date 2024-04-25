@@ -110,7 +110,6 @@
 		674A7E311C0DB727003D48E1 /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A299A1B26F0AE001A525C /* libgeometry.a */; };
 		674A7E361C0DB727003D48E1 /* libdrape_frontend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E321C0DB727003D48E1 /* libdrape_frontend.a */; };
 		674A7E371C0DB727003D48E1 /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E331C0DB727003D48E1 /* libdrape.a */; };
-		674A7E381C0DB727003D48E1 /* libsdf_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E341C0DB727003D48E1 /* libsdf_image.a */; };
 		674A7E391C0DB727003D48E1 /* libstb_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E351C0DB727003D48E1 /* libstb_image.a */; };
 		6753409F1C5289E0002CF0D9 /* editor_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753409B1C5289E0002CF0D9 /* editor_dialog.cpp */; };
 		675340A01C5289E0002CF0D9 /* osm_auth_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753409D1C5289E0002CF0D9 /* osm_auth_dialog.cpp */; };
@@ -340,7 +339,6 @@
 		674A29A81B26F0AE001A525C /* libsuccinct.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsuccinct.a; path = "../../../omim-xcode-build/Debug/libsuccinct.a"; sourceTree = "<group>"; };
 		674A7E321C0DB727003D48E1 /* libdrape_frontend.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape_frontend.a; path = "../../../omim-xcode-build/Debug/libdrape_frontend.a"; sourceTree = "<group>"; };
 		674A7E331C0DB727003D48E1 /* libdrape.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape.a; path = "../../../omim-xcode-build/Debug/libdrape.a"; sourceTree = "<group>"; };
-		674A7E341C0DB727003D48E1 /* libsdf_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsdf_image.a; path = "../../../omim-xcode-build/Debug/libsdf_image.a"; sourceTree = "<group>"; };
 		674A7E351C0DB727003D48E1 /* libstb_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstb_image.a; path = "../../../omim-xcode-build/Debug/libstb_image.a"; sourceTree = "<group>"; };
 		6753409B1C5289E0002CF0D9 /* editor_dialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = editor_dialog.cpp; sourceTree = "<group>"; };
 		6753409C1C5289E0002CF0D9 /* editor_dialog.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = editor_dialog.hpp; sourceTree = "<group>"; };
@@ -400,7 +398,6 @@
 				3475E0E41DBF593D004C7E69 /* libtracking.a in Frameworks */,
 				674A7E361C0DB727003D48E1 /* libdrape_frontend.a in Frameworks */,
 				674A7E371C0DB727003D48E1 /* libdrape.a in Frameworks */,
-				674A7E381C0DB727003D48E1 /* libsdf_image.a in Frameworks */,
 				674A7E391C0DB727003D48E1 /* libstb_image.a in Frameworks */,
 				674A7E311C0DB727003D48E1 /* libgeometry.a in Frameworks */,
 				67E8DC931BBC1D3F0053C5BA /* libagg.a in Frameworks */,
@@ -450,7 +447,6 @@
 				671E78E41E6A4E1A00B2859B /* librouting_common.a */,
 				674A7E321C0DB727003D48E1 /* libdrape_frontend.a */,
 				674A7E331C0DB727003D48E1 /* libdrape.a */,
-				674A7E341C0DB727003D48E1 /* libsdf_image.a */,
 				674A7E351C0DB727003D48E1 /* libstb_image.a */,
 				67E8DC911BBC1D3F0053C5BA /* libagg.a */,
 				671F59011B8755FE0032311E /* libz.dylib */,
