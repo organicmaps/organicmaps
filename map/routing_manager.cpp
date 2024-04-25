@@ -103,7 +103,7 @@ RouteMarkData GetLastPassedPoint(BookmarkManager * bmManager, vector<RouteMarkDa
   {
     data.m_position = bmManager->MyPositionMark().GetPivot();
     data.m_isMyPosition = false;
-    data.m_replaceWithMyPosition = true;
+    data.m_replaceWithMyPositionAfterRestart = true;
   }
 
   return data;
@@ -117,7 +117,7 @@ void SerializeRoutePoint(json_t * node, RouteMarkData const & data)
   ToJSONObject(*node, "subtitle", data.m_subTitle);
   ToJSONObject(*node, "x", data.m_position.x);
   ToJSONObject(*node, "y", data.m_position.y);
-  ToJSONObject(*node, "replaceWithMyPosition", data.m_replaceWithMyPosition);
+  ToJSONObject(*node, "replaceWithMyPosition", data.m_replaceWithMyPositionAfterRestart);
 }
 
 RouteMarkData DeserializeRoutePoint(json_t * node)
@@ -135,7 +135,7 @@ RouteMarkData DeserializeRoutePoint(json_t * node)
   FromJSONObject(node, "x", data.m_position.x);
   FromJSONObject(node, "y", data.m_position.y);
 
-  FromJSONObject(node, "replaceWithMyPosition", data.m_replaceWithMyPosition);
+  FromJSONObject(node, "replaceWithMyPosition", data.m_replaceWithMyPositionAfterRestart);
 
   return data;
 }
@@ -1409,10 +1409,10 @@ void RoutingManager::LoadRoutePoints(LoadRouteHandler const & handler)
       for (auto & p : points)
       {
         // Check if the saved route used the user's position
-        if (p.m_replaceWithMyPosition && p.m_pointType == RouteMarkType::Start)
+        if (p.m_replaceWithMyPositionAfterRestart && p.m_pointType == RouteMarkType::Start)
           routeUsedPosition = true;
 
-        if (p.m_replaceWithMyPosition && p.m_pointType == RouteMarkType::Start && myPosMark.HasPosition())
+        if (p.m_replaceWithMyPositionAfterRestart && p.m_pointType == RouteMarkType::Start && myPosMark.HasPosition())
         {
           RouteMarkData startPt;
           startPt.m_pointType = RouteMarkType::Start;
