@@ -27,7 +27,7 @@
 "leave_a_review" = "Idatzi iritzia";
 
 /* Choose measurement on first launch alert - choose imperial system button */
-"miles" = "Milia";
+"miles" = "Miliak";
 
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Nire kokapena";
@@ -675,7 +675,7 @@
 
 "please_note" = "Abisua";
 
-"downloader_delete_map_dialog" = "Maparen aldaketa guztiak maparekin batera ezabatuko dira.";
+"downloader_delete_map_dialog" = "Mapan egin dituzun aldaketa guztiak maparekin batera ezabatuko dira.";
 
 "downloader_update_maps" = "Eguneratu mapak";
 
@@ -1262,7 +1262,7 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
-"button_layer_outdoor" = "Mendi ibilaldiak";
+"button_layer_outdoor" = "Landa-eremua";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "Esportatu Laster-marka eta Pista guztiak";

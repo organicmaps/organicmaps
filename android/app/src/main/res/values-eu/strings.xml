@@ -12,13 +12,13 @@
 	<string name="delete">Ezabatu</string>
 	<string name="download_maps">Deskargatu mapak</string>
 	<!-- Settings/Downloader - info for country when download fails -->
-	<string name="download_has_failed">Errore bat gertatu da deskargatzean, hasi berriro</string>
+	<string name="download_has_failed">Errore bat gertatu da deskargatzean. Klik egin berriz saiatzeko.</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Deskargatzen…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometro</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
-	<string name="miles">Milia</string>
+	<string name="miles">Miliak</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Nire kokapena</string>
 	<!-- Update maps later button text -->
@@ -28,7 +28,7 @@
 	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Bilatu mapan</string>
 	<!-- Location services are disabled by user alert - message -->
-	<string name="location_is_disabled_long_text">Ezin da kokapen-zerbitzuetara sartu. Mesedez, aktibatu ezarpenetan.</string>
+	<string name="location_is_disabled_long_text">Ezin da kokapen-zerbitzua atzitu. Mesedez, aktibatu ezarpenetan.</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Erakutsi mapan</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
@@ -45,17 +45,17 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_3">• Azkarra, minimalista, komunitateak garatua</string>
 	<!-- Text in About screen -->
-	<string name="about_developed_by_enthusiasts">Kode irekiko aplikazioa zaleek eta boluntarioek sortutakoa.</string>
+	<string name="about_developed_by_enthusiasts">Zale eta bolondresek sortutako kode irekiko aplikazioa.</string>
 	<!-- The button that opens system location settings -->
 	<string name="location_settings">Kokapen ezarpenak</string>
 	<string name="close">Itxi</string>
-	<string name="unsupported_phone">Aplikazioak hardwarez azeleratutako OpenGL behar du. Zoritxarrez, zure gailua ez da onartzen.</string>
+	<string name="unsupported_phone">Aplikazioak hardwarez azeleratutako OpenGL behar du. Zoritxarrez, zure gailuak ez du hau eskaintzen.</string>
 	<string name="download">Deskargatu</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Mesedez, deskonektatu USB kablea edo sartu SD memoria Organic Maps erabiltzeko</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Mesedez, egin lekua SD memorian/USB biltegian aplikazioa erabiltzeko</string>
-	<string name="download_resources">Hasi baino lehen, utzi mundu-mapa orokor bat zure gailuan deskargatzen.\nDatuen %s beharrezkoa da.</string>
+	<string name="download_resources">Hasi aurretik deskargatu mesedez mundu-mapa orokorra zure gailura.\nMemorian %s erabiliko ditu.</string>
 	<string name="download_resources_continue">Joan mapara</string>
 	<string name="downloading_country_can_proceed">%s deskargatzen. Orain mapara\n joan zaitezke.</string>
 	<string name="download_country_ask">%s deskargatu?</string>
@@ -462,7 +462,7 @@
 	<string name="email_or_username">Posta elektronikoa edo erabiltzailea</string>
 	<string name="editor_add_phone">Gehitu telefonoa</string>
 	<string name="level">Solairua</string>
-	<string name="downloader_delete_map_dialog">Maparen aldaketa guztiak maparekin batera ezabatuko dira.</string>
+	<string name="downloader_delete_map_dialog">Mapan egin dituzun aldaketa guztiak maparekin batera ezabatuko dira.</string>
 	<string name="downloader_update_maps">Eguneratu mapak</string>
 	<string name="downloader_mwm_migration_dialog">Ibilbide bat sortzeko, beharrezkoa da mapa guztiak eguneratzea eta ibilbidea berriro planifikatzea.</string>
 	<string name="downloader_search_field_hint">Bilatu mapa</string>
@@ -754,7 +754,7 @@
 	<!-- Description in preferences -->
 	<string name="enable_show_on_lock_screen_description">Gaituta dagoenean, ez duzu gailua desblokeatu beharrik aplikazioa abian dagoen bitartean.</string>
 	<!-- OpenStreetMap text on splash screen -->
-	<string name="splash_subtitle">Maparen datuak OpenStreetMap-etik</string>
+	<string name="splash_subtitle">OpenStreetMap-eko mapa-datuak</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
 	<string name="translated_om_site_url">https://organicmaps.app/eu/</string>
 	<!-- App Tip #00 -->
@@ -778,9 +778,9 @@
 	<!-- App tip #09 -->
 	<string name="app_tip_09">Gure helburu nagusia maite dituzun mapa azkarrak, pribatutasunari begira eta erabilerrazak sortzea da.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Organic Maps organikoak erabiltzen ari zara telefonoaren pantailan</string>
+	<string name="aa_used_on_the_phone_screen">Organic Maps telefonoaren pantailan erabiltzen ari zara</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Organic Maps erabiltzen ari zara autoaren pantailan</string>
+	<string name="aa_used_on_the_car_screen">Organic Maps autoaren pantailan erabiltzen ari zara</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Android Auto-ra konektatuta zaude</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -794,7 +794,7 @@
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">Kotxearekin konektatuta</string>
 	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
-	<string name="button_layer_outdoor">Mendi ibilaldiak</string>
+	<string name="button_layer_outdoor">Landa-eremua</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Web arakatzailea ez dago erabilgarri</string>
 	<string name="volume">Bolumena</string>
