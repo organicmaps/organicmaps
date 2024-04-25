@@ -15303,6 +15303,51 @@
     zh-Hans = 该地点的名称
     zh-Hant = 該地點的名稱
 
+  [editor_default_language_hint]
+    tags = android,ios
+    comment = The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name
+    en = As it is written in the local language
+    af = Soos dit in die plaaslike taal geskryf is
+    ar = كما هو مكتوب باللغة المحلية
+    az = Yerli dildə yazıldığı kimi
+    be = На мясцовай мове
+    bg = Както е написано на местния език
+    ca = Com està escrit en la llengua local
+    cs = Jak je napsáno v místním jazyce
+    da = Som det står skrevet på det lokale sprog
+    de = Wie in der lokalen Sprache geschrieben
+    el = Όπως είναι γραμμένο στην τοπική γλώσσα
+    es = Como está escrito en la lengua local
+    et = Nagu on kirjutatud kohalikus keeles
+    eu = Bertako hizkuntzan idatzita dagoenez
+    fa = همانطور که به زبان محلی نوشته شده است
+    fi = Paikallisella kielellä kirjoitettuna
+    fr = Comme c'est écrit dans la langue locale
+    he = כפי שנכתב בשפה המקומית
+    hi = जैसा कि स्थानीय भाषा में लिखा गया है
+    hu = Ahogy a helyi nyelven írva van
+    id = Seperti yang tertulis dalam bahasa lokal
+    it = Come è scritto nella lingua locale
+    ja = 現地の言葉でこう書かれている。
+    ko = 현지 언어로 작성되었으므로
+    lt = Kaip rašoma vietos kalba
+    mr = स्थानिक भाषेत लिहिल्याप्रमाणे
+    nb = Som det står skrevet på det lokale språket
+    nl = Zoals het in de plaatselijke taal geschreven staat
+    pl = Jak napisano w lokalnym języku
+    pt = Como escrito na língua local
+    ro = Așa cum este scris în limba locală
+    ru = На местном языке
+    sk = Tak, ako sa píše v miestnom jazyku
+    sv = Som det står skrivet på det lokala språket
+    sw = Kama ilivyoandikwa katika lugha ya kienyeji
+    th = ตามที่เขียนเป็นภาษาท้องถิ่น
+    tr = Yerel dilde yazıldığı gibi
+    uk = Місцевою мовою
+    vi = Vì nó được viết bằng ngôn ngữ địa phương
+    zh-Hans = 当地语言写道
+    zh-Hant = 因為它是用當地語言寫的
+
   [editor_edit_place_category_title]
     tags = android,ios
     en = Category
