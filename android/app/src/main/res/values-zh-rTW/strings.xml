@@ -465,6 +465,8 @@
 	<string name="editor_edit_place_title">編輯中</string>
 	<string name="editor_add_place_title">新增中</string>
 	<string name="editor_edit_place_name_hint">該地點的名稱</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">因為它是用當地語言寫的</string>
 	<string name="editor_edit_place_category_title">類別</string>
 	<string name="detailed_problem_description">問題的詳細描述</string>
 	<string name="editor_report_problem_other_title">不同的問題</string>

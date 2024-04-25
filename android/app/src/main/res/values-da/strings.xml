@@ -453,6 +453,8 @@
 	<string name="editor_edit_place_title">Redigerer</string>
 	<string name="editor_add_place_title">Tilføjer</string>
 	<string name="editor_edit_place_name_hint">Stedets navn</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">Som det står skrevet på det lokale sprog</string>
 	<string name="editor_edit_place_category_title">Kategori</string>
 	<string name="detailed_problem_description">Detaljeret beskrivelse af problemet</string>
 	<string name="editor_report_problem_other_title">Et anderledes problem</string>

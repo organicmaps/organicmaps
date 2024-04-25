@@ -457,6 +457,8 @@
 	<string name="editor_edit_place_title">Probíhají úpravy</string>
 	<string name="editor_add_place_title">Probíhá přidávání</string>
 	<string name="editor_edit_place_name_hint">Název místa</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">Jak je napsáno v místním jazyce</string>
 	<string name="editor_edit_place_category_title">Kategorie</string>
 	<string name="detailed_problem_description">Detailní popis problému</string>
 	<string name="editor_report_problem_other_title">Jiný problém</string>

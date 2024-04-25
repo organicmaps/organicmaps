@@ -475,6 +475,8 @@
 	<string name="editor_edit_place_title">Editatzen</string>
 	<string name="editor_add_place_title">Gehitzen</string>
 	<string name="editor_edit_place_name_hint">Tokiaren izena</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">Bertako hizkuntzan idatzita dagoenez</string>
 	<string name="editor_edit_place_category_title">Kategoria</string>
 	<string name="detailed_problem_description">Arazoaren deskribapen zehatza</string>
 	<string name="editor_report_problem_other_title">Beste arazo bat</string>

@@ -705,6 +705,9 @@
 
 "editor_edit_place_name_hint" = "Name of the place";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Kama ilivyoandikwa katika lugha ya kienyeji";
+
 "editor_edit_place_category_title" = "Category";
 
 "whatsnew_editor_message_1" = "Add new places to the map, and edit existing ones directly from the app.";

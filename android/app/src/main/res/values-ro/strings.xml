@@ -463,6 +463,8 @@
 	<string name="editor_edit_place_title">Modifică</string>
 	<string name="editor_add_place_title">Adaugă</string>
 	<string name="editor_edit_place_name_hint">Numele locului</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">Așa cum este scris în limba locală</string>
 	<string name="editor_edit_place_category_title">Categorie</string>
 	<string name="detailed_problem_description">Descriere detaliată a problemei</string>
 	<string name="editor_report_problem_other_title">Altă problemă</string>

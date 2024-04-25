@@ -363,6 +363,8 @@
 	<string name="editor_focus_map_on_location">ऑब्जेक्ट का सही स्थान चुनने के लिए मानचित्र को खींचें।</string>
 	<string name="editor_add_place_title">जोड़ना</string>
 	<string name="editor_edit_place_name_hint">स्थान का नाम</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">जैसा कि स्थानीय भाषा में लिखा गया है</string>
 	<string name="editor_edit_place_category_title">वर्ग</string>
 	<string name="placepage_add_business_button">व्यवसाय जोड़ें</string>
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->

@@ -705,6 +705,9 @@
 
 "editor_edit_place_name_hint" = "Όνομα τοποθεσίας";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Όπως είναι γραμμένο στην τοπική γλώσσα";
+
 "editor_edit_place_category_title" = "Κατηγορία";
 
 "whatsnew_editor_message_1" = "Προσθέστε νέες τοποθεσίες στο χάρτη, και επεξεργαστείτε τις υπάρχουσες απευθείας από την εφαρμογή.";

@@ -705,6 +705,9 @@
 
 "editor_edit_place_name_hint" = "Tên địa điểm";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Vì nó được viết bằng ngôn ngữ địa phương";
+
 "editor_edit_place_category_title" = "Thể loại";
 
 "whatsnew_editor_message_1" = "Nhập các địa điểm mới vào bản đồ, và trực tiếp chỉnh sửa những địa điểm hiện có trên ứng dụng.";

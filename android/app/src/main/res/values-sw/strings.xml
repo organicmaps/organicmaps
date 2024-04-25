@@ -92,6 +92,8 @@
 	<!-- SECTION: Strings for downloading map from search -->
 	<string name="login_osm">Ingia kwa OpenStreetMap</string>
 	<string name="level">Ghorofa</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">Kama ilivyoandikwa katika lugha ya kienyeji</string>
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">Data ya OpenStreetMap iliyoundwa na jumuiya kufikia %s. Pata maelezo zaidi kuhusu jinsi ya kuhariri na kusasisha ramani katika OpenStreetMap.org</string>
 	<string name="editor_other_info">Tuma ujumbe kwenye vihariri vya OSM</string>

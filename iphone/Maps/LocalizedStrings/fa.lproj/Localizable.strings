@@ -705,6 +705,9 @@
 
 "editor_edit_place_name_hint" = "نام مکان";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "همانطور که به زبان محلی نوشته شده است";
+
 "editor_edit_place_category_title" = "دسته بندی";
 
 "whatsnew_editor_message_1" = "اضافه کردن مکان به نقشه و ویرایش آن مستقیما از طریق این اپلیکیشن.";

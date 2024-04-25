@@ -705,6 +705,9 @@
 
 "editor_edit_place_name_hint" = "ठिकाणाचे नाव";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "स्थानिक भाषेत लिहिल्याप्रमाणे";
+
 "editor_edit_place_category_title" = "प्रवर्ग";
 
 "whatsnew_editor_message_1" = "नकाशावर नवीन ठिकाणे जोडा आणि विद्यमान ठिकाणे थेट ऍप मधून संपादित करा.";
