@@ -86,9 +86,13 @@
 
   <url type="homepage">https://organicmaps.app</url>
   <url type="bugtracker">https://github.com/organicmaps/organicmaps/issues</url>
+  <url type="faq">https://organicmaps.app/faq/</url>
+  <url type="help">https://github.com/organicmaps/organicmaps/discussions/categories/q-a</url>
   <url type="donation">https://organicmaps.app/donate</url>
   <url type="translate">https://github.com/organicmaps/organicmaps/blob/master/docs/TRANSLATIONS.md</url>
   <url type="contact">https://github.com/organicmaps/organicmaps#feedback=</url>
+  <url type="vcs-browser">https://github.com/organicmaps/organicmaps</url>
+  <url type="contribute">https://github.com/organicmaps/organicmaps/blob/master/docs/CONTRIBUTING.md</url>
 
   <launchable type="desktop-id">OrganicMaps.desktop</launchable>
   <screenshots>
