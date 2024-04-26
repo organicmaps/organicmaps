@@ -38,8 +38,6 @@ private:
 };
 
 // For backward compatibility.
-static_assert(sizeof(CellValuePair<uint32_t>) == 12, "");
-#ifndef OMIM_OS_LINUX
-static_assert(std::is_trivially_copyable<CellValuePair<uint32_t>>::value, "");
-#endif
+static_assert(sizeof(CellValuePair<uint32_t>) == 12);
+static_assert(std::is_trivially_copyable<CellValuePair<uint32_t>>::value);
 }  // namespace covering
