@@ -51,10 +51,9 @@ private:
   CellFeaturePair m_pair;
   uint32_t m_bucket;
 };
-static_assert(sizeof(CellFeatureBucketTuple) == 16, "");
-#ifndef OMIM_OS_LINUX
-static_assert(std::is_trivially_copyable<CellFeatureBucketTuple>::value, "");
-#endif
+
+static_assert(sizeof(CellFeatureBucketTuple) == 16);
+static_assert(std::is_trivially_copyable<CellFeatureBucketTuple>::value);
 
 /// Displacement manager filters incoming single-point features to simplify runtime
 /// feature visibility displacement.
