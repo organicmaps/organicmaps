@@ -2566,14 +2566,12 @@ bool Framework::ParseDrapeDebugCommand(string const & query)
 
   if (query == "?aa" || query == "effect:antialiasing")
   {
-    m_drapeEngine->SetPosteffectEnabled(df::PostprocessRenderer::Antialiasing,
-                                        true /* enabled */);
+    m_drapeEngine->SetPosteffectEnabled(df::PostprocessRenderer::Antialiasing, true /* enabled */);
     return true;
   }
   if (query == "?no-aa" || query == "effect:no-antialiasing")
   {
-    m_drapeEngine->SetPosteffectEnabled(df::PostprocessRenderer::Antialiasing,
-                                        false /* enabled */);
+    m_drapeEngine->SetPosteffectEnabled(df::PostprocessRenderer::Antialiasing, false /* enabled */);
     return true;
   }
   if (query == "?scheme")
