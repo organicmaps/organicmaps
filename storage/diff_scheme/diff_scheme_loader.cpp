@@ -43,7 +43,7 @@ string SerializeCheckerData(LocalMapsInfo const & info)
   auto const root = base::NewJSONObject();
   json_object_set_new(root.get(), kMwmsKey, mwmsArrayNode.release());
   ToJSONObject(*root, kMaxVersionKey, info.m_currentDataVersion);
-  unique_ptr<char, JSONFreeDeleter> buffer(json_dumps(root.get(), JSON_COMPACT | JSON_ENSURE_ASCII));
+  unique_ptr<char, JSONFreeDeleter> buffer(json_dumps(root.get(), JSON_COMPACT));
   return buffer.get();
 }
 
