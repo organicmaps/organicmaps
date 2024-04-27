@@ -286,7 +286,7 @@ node|z17-[railway=halt]::int_name,
 
 node|z17-[highway=elevator],
 area|z17-[highway=elevator],
-{icon-image: elevator.svg;}
+{icon-image: elevator-s.svg;}
 
 /* 3.3 Tram Station */
 
