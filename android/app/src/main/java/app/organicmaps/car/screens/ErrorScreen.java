@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.car.app.CarContext;
 import androidx.car.app.model.Action;
+import androidx.car.app.model.Header;
 import androidx.car.app.model.MessageTemplate;
 import androidx.car.app.model.Template;
 
@@ -45,8 +46,12 @@ public class ErrorScreen extends BaseScreen
   public Template onGetTemplate()
   {
     final MessageTemplate.Builder builder = new MessageTemplate.Builder(getCarContext().getString(mErrorMessage));
-    builder.setHeaderAction(Action.APP_ICON);
-    builder.setTitle(getCarContext().getString(mTitle));
+
+    final Header.Builder headerBuilder = new Header.Builder();
+    headerBuilder.setStartHeaderAction(Action.APP_ICON);
+    headerBuilder.setTitle(getCarContext().getString(mTitle));
+
+    builder.setHeader(headerBuilder.build());
     if (mPositiveButtonText != -1)
     {
       builder.addAction(new Action.Builder()

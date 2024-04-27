@@ -6,9 +6,10 @@ import androidx.car.app.model.Action;
 import androidx.car.app.model.CarIcon;
 import androidx.car.app.model.Header;
 import androidx.car.app.model.ItemList;
+import androidx.car.app.model.ListTemplate;
 import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
-import androidx.car.app.navigation.model.MapTemplate;
+import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
 
 import app.organicmaps.R;
@@ -35,10 +36,9 @@ public class ThemeScreen extends BaseMapScreen
   @Override
   public Template onGetTemplate()
   {
-    final MapTemplate.Builder builder = new MapTemplate.Builder();
-    builder.setHeader(createHeader());
+    final MapWithContentTemplate.Builder builder = new MapWithContentTemplate.Builder();
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
-    builder.setItemList(createRadioButtons());
+    builder.setContentTemplate(createRadioButtonsTemplate());
     return builder.build();
   }
 
@@ -52,14 +52,14 @@ public class ThemeScreen extends BaseMapScreen
   }
 
   @NonNull
-  private ItemList createRadioButtons()
+  private ListTemplate createRadioButtonsTemplate()
   {
     final ItemList.Builder builder = new ItemList.Builder();
     final ThemeUtils.ThemeMode currentThemeMode = ThemeUtils.getThemeMode(getCarContext());
     builder.addItem(createRadioButton(ThemeUtils.ThemeMode.AUTO, currentThemeMode));
     builder.addItem(createRadioButton(ThemeUtils.ThemeMode.NIGHT, currentThemeMode));
     builder.addItem(createRadioButton(ThemeUtils.ThemeMode.LIGHT, currentThemeMode));
-    return builder.build();
+    return new ListTemplate.Builder().setHeader(createHeader()).setSingleList(builder.build()).build();
   }
 
   @NonNull
