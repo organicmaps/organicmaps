@@ -233,10 +233,6 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     Logger.d(TAG);
     onStart(this);
     mSurfaceRenderer.enable();
-
-    if (mScreenManager.getTop() instanceof MapPlaceholderScreen)
-      mScreenManager.pop();
-
     onTaskFinishedCallback.run();
   }
 
