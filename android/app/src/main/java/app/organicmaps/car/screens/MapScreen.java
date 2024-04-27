@@ -8,9 +8,10 @@ import androidx.car.app.model.CarIcon;
 import androidx.car.app.model.Header;
 import androidx.car.app.model.Item;
 import androidx.car.app.model.ItemList;
+import androidx.car.app.model.ListTemplate;
 import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
-import androidx.car.app.navigation.model.MapTemplate;
+import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
 
 import app.organicmaps.R;
@@ -34,11 +35,10 @@ public class MapScreen extends BaseMapScreen
   {
     SuggestionsHelpers.updateSuggestions(getCarContext());
 
-    final MapTemplate.Builder builder = new MapTemplate.Builder();
-    builder.setHeader(createHeader());
+    final MapWithContentTemplate.Builder builder = new MapWithContentTemplate.Builder();
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
     builder.setActionStrip(createActionStrip());
-    builder.setItemList(createList());
+    builder.setContentTemplate(createListTemplate());
     return builder.build();
   }
 
@@ -65,12 +65,17 @@ public class MapScreen extends BaseMapScreen
   }
 
   @NonNull
-  private ItemList createList()
+  private ListTemplate createListTemplate()
   {
-    final ItemList.Builder builder = new ItemList.Builder();
-    builder.addItem(createSearchItem());
-    builder.addItem(createCategoriesItem());
-    builder.addItem(createBookmarksItem());
+    final ListTemplate.Builder builder = new ListTemplate.Builder();
+
+    final ItemList.Builder itemsBuilder = new ItemList.Builder();
+    itemsBuilder.addItem(createSearchItem());
+    itemsBuilder.addItem(createCategoriesItem());
+    itemsBuilder.addItem(createBookmarksItem());
+
+    builder.setHeader(createHeader());
+    builder.setSingleList(itemsBuilder.build());
     return builder.build();
   }
 

@@ -6,9 +6,9 @@ import androidx.car.app.CarContext;
 import androidx.car.app.model.Action;
 import androidx.car.app.model.Header;
 import androidx.car.app.model.ItemList;
-import androidx.car.app.model.Pane;
+import androidx.car.app.model.ListTemplate;
 import androidx.car.app.model.Template;
-import androidx.car.app.navigation.model.MapTemplate;
+import androidx.car.app.navigation.model.MapWithContentTemplate;
 
 import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.car.SurfaceRenderer;
@@ -33,20 +33,9 @@ public class BookmarksScreen extends BaseMapScreen
   @Override
   public Template onGetTemplate()
   {
-    final MapTemplate.Builder builder = new MapTemplate.Builder();
-
-    builder.setHeader(createHeader());
+    final MapWithContentTemplate.Builder builder = new MapWithContentTemplate.Builder();
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
-    if (mBookmarksList == null)
-    {
-      builder.setPane(new Pane.Builder().setLoading(true).build());
-      BookmarksLoader.load(getCarContext(), mBookmarkCategory, (bookmarksList) -> {
-        mBookmarksList = bookmarksList;
-        invalidate();
-      });
-    }
-    else
-      builder.setItemList(mBookmarksList);
+    builder.setContentTemplate(createBookmarksListTemplate());
     return builder.build();
   }
 
@@ -56,6 +45,26 @@ public class BookmarksScreen extends BaseMapScreen
     final Header.Builder builder = new Header.Builder();
     builder.setStartHeaderAction(Action.BACK);
     builder.setTitle(mBookmarkCategory.getName());
+    return builder.build();
+  }
+
+  @NonNull
+  private ListTemplate createBookmarksListTemplate()
+  {
+    final ListTemplate.Builder builder = new ListTemplate.Builder();
+    builder.setHeader(createHeader());
+
+    if (mBookmarksList == null)
+    {
+      builder.setLoading(true);
+      BookmarksLoader.load(getCarContext(), mBookmarkCategory, (bookmarksList) -> {
+        mBookmarksList = bookmarksList;
+        invalidate();
+      });
+    }
+    else
+      builder.setSingleList(mBookmarksList);
+
     return builder.build();
   }
 }

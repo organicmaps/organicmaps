@@ -18,7 +18,6 @@ import app.organicmaps.api.ParsedSearchRequest;
 import app.organicmaps.api.RequestType;
 import app.organicmaps.car.CarAppService;
 import app.organicmaps.car.SurfaceRenderer;
-import app.organicmaps.car.hacks.PopToRootHack;
 import app.organicmaps.car.screens.NavigationScreen;
 import app.organicmaps.car.screens.search.SearchScreen;
 import app.organicmaps.display.DisplayManager;
@@ -89,7 +88,8 @@ public final class IntentUtils
       if (request.mLocale != null)
         builder.setLocale(request.mLocale);
 
-      screenManager.push(new PopToRootHack.Builder(carContext).setScreenToPush(builder.build()).build());
+      screenManager.popToRoot();
+      screenManager.push(builder.build());
       return;
     case RequestType.ROUTE:
       Logger.e(TAG, "Route API is not supported by Android Auto: " + uri);

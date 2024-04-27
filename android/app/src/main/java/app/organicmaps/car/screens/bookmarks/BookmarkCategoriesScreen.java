@@ -6,9 +6,10 @@ import androidx.car.app.constraints.ConstraintManager;
 import androidx.car.app.model.Action;
 import androidx.car.app.model.Header;
 import androidx.car.app.model.ItemList;
+import androidx.car.app.model.ListTemplate;
 import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
-import androidx.car.app.navigation.model.MapTemplate;
+import androidx.car.app.navigation.model.MapWithContentTemplate;
 
 import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.BookmarkCategory;
@@ -35,10 +36,9 @@ public class BookmarkCategoriesScreen extends BaseMapScreen
   @Override
   public Template onGetTemplate()
   {
-    final MapTemplate.Builder builder = new MapTemplate.Builder();
-    builder.setHeader(createHeader());
+    final MapWithContentTemplate.Builder builder = new MapWithContentTemplate.Builder();
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
-    builder.setItemList(createBookmarkCategoriesList());
+    builder.setContentTemplate(createBookmarkCategoriesListTemplate());
     return builder.build();
   }
 
@@ -52,7 +52,7 @@ public class BookmarkCategoriesScreen extends BaseMapScreen
   }
 
   @NonNull
-  private ItemList createBookmarkCategoriesList()
+  private ListTemplate createBookmarkCategoriesListTemplate()
   {
     final List<BookmarkCategory> bookmarkCategories = getBookmarks();
     final int categoriesSize = Math.min(bookmarkCategories.size(), MAX_CATEGORIES_SIZE);
@@ -69,7 +69,7 @@ public class BookmarkCategoriesScreen extends BaseMapScreen
       itemBuilder.setBrowsable(true);
       builder.addItem(itemBuilder.build());
     }
-    return builder.build();
+    return new ListTemplate.Builder().setHeader(createHeader()).setSingleList(builder.build()).build();
   }
 
   @NonNull

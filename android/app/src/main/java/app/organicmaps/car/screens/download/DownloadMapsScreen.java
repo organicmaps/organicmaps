@@ -3,6 +3,7 @@ package app.organicmaps.car.screens.download;
 import androidx.annotation.NonNull;
 import androidx.car.app.model.Action;
 import androidx.car.app.model.CarIcon;
+import androidx.car.app.model.Header;
 import androidx.car.app.model.MessageTemplate;
 import androidx.car.app.model.Template;
 import androidx.core.graphics.drawable.IconCompat;
@@ -38,9 +39,12 @@ public abstract class DownloadMapsScreen extends BaseScreen
   public final Template onGetTemplate()
   {
     final MessageTemplate.Builder builder = new MessageTemplate.Builder(getText(getMapsSize(mMissingMaps)));
-    builder.setTitle(getTitle());
+    final Header.Builder headerBuilder = new Header.Builder();
+    headerBuilder.setStartHeaderAction(getHeaderAction());
+    headerBuilder.setTitle(getTitle());
+
+    builder.setHeader(headerBuilder.build());
     builder.setIcon(getIcon());
-    builder.setHeaderAction(getHeaderAction());
     builder.addAction(getDownloadAction());
     if (!mIsCancelActionDisabled)
       builder.addAction(getCancelAction());
