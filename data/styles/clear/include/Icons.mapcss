@@ -790,6 +790,8 @@ node|z16-[amenity=shelter][shelter_type=lean_to],
 {icon-image: shelter-m.svg;}
 node|z16-[amenity=shelter][shelter_type=basic_hut],
 {icon-image: alpine_hut-m.svg;}
+node|z17-[amenity=shelter][shelter_type=public_transport],
+{icon-image: shelter-public_transport-m.svg;}
 
 node|z16-[tourism=caravan_site],
 {icon-image: caravan_site-m.svg; font-size: 11;}

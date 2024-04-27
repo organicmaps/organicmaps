@@ -978,7 +978,7 @@ tourism-artwork-painting                            # icon z15- (also has captio
 === 1550
 
 amenity-shelter                                     # icon z13- (also has caption(optional) z13-)
-amenity-shelter-public_transport                    # icon z13- (also has caption(optional) z13-)
+amenity-shelter-public_transport                    # icon z14- (also has caption(optional) z14-)
 leisure-fitness_station                             # icon z17- (also has caption(optional) z17-)
 leisure-playground                                  # icon z17- (also has caption(optional) z17-, area z16-)
 === 1500
@@ -1885,7 +1885,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # === -8450
 
 # amenity-shelter                                   # caption(optional) z13- (also has icon z13-)
-# amenity-shelter-public_transport                  # caption(optional) z13- (also has icon z13-)
+# amenity-shelter-public_transport                  # caption(optional) z14- (also has icon z14-)
 # leisure-fitness_station                           # caption(optional) z17- (also has icon z17-)
 # leisure-playground                                # caption(optional) z17- (also has icon z17-, area z16-)
 # === -8500
