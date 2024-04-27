@@ -781,7 +781,7 @@ UNIT_TEST(England_London_ExitToLeft_TurnTest)
 
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
-  /// @note Important test since different mwms for one segment are used and this can cause extra GoStraight.
+  /// @todo Important test since different mwms for one segment are used and this can cause extra GoStraight.
   TEST_EQUAL(result, RouterResultCode::NoError, ());
   integration::TestTurnCount(route, 1 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToLeft);

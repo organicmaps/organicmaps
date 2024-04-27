@@ -152,16 +152,21 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, Belgium_Germany)
   Checkpoints const checkpoints{mercator::FromLatLon(50.87763, 4.44676),
                                 mercator::FromLatLon(50.76935, 6.42488)};
 
-  // OSRM, Valhalla prefers major road E40 vs GraphHopper with E314 (the difference is 5 minutes).
-  // "Belgium_Liege" should present for E40 and not present for E314.
-  /// @todo OM usually takes E40, but sometimes E314 :)
-  std::set<std::string> const planRegions = {
-    "Belgium_Flemish Brabant", "Belgium_Liege", "Belgium_Limburg",
+  // OSRM, Valhalla with E40.
+  std::set<std::string> const expected1 = {
+    "Belgium_Flemish Brabant", "Belgium_Walloon Brabant", "Belgium_Liege",
     "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen",
-    "Netherlands_Limburg"
   };
 
-  TestRegions(checkpoints, planRegions);
+  // GraphHopper with E314.
+  std::set<std::string> const expected2 = {
+      "Belgium_Flemish Brabant", "Belgium_Limburg",
+      "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen",
+      "Netherlands_Limburg",
+  };
+
+  auto const actual = GetRegions(checkpoints);
+  TEST(actual == expected1 || actual == expected2, (actual));
 }
 
 // From "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen" to "Belgium_Flemish Brabant".
@@ -171,12 +176,21 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, Germany_Belgium)
   Checkpoints const checkpoints{mercator::FromLatLon(50.76935, 6.42488),
                                 mercator::FromLatLon(50.78285, 4.46508)};
 
-  std::set<std::string> const planRegions = {
-    "Belgium_Flemish Brabant", "Belgium_Liege", "Belgium_Limburg",
+  // Valhalla with E40.
+  std::set<std::string> const expected1 = {
+    "Belgium_Flemish Brabant", "Belgium_Walloon Brabant", "Belgium_Liege", "Belgium_Limburg",
     "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen"
   };
 
-  TestRegions(checkpoints, planRegions);
+  // OSRM, GraphHopper with E314.
+  std::set<std::string> const expected2 = {
+      "Belgium_Flemish Brabant", "Belgium_Limburg",
+      "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen",
+      "Netherlands_Limburg",
+  };
+
+  auto const actual = GetRegions(checkpoints);
+  TEST(actual == expected1 || actual == expected2, (actual));
 }
 
 // From "Kazakhstan_South" to "Mongolia".
