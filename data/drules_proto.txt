@@ -23126,28 +23126,28 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "elevator"
+      name: "elevator-s"
       priority: 1200
     }
   }
   element {
     scale: 18
     symbol {
-      name: "elevator"
+      name: "elevator-s"
       priority: 1200
     }
   }
   element {
     scale: 19
     symbol {
-      name: "elevator"
+      name: "elevator-s"
       priority: 1200
     }
   }
   element {
     scale: 20
     symbol {
-      name: "elevator"
+      name: "elevator-s"
       priority: 1200
     }
   }
