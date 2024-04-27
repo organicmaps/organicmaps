@@ -12130,7 +12130,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shelter-m"
+      name: "shelter-public_transport-m"
       priority: 1500
     }
     caption {
@@ -12146,7 +12146,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shelter-m"
+      name: "shelter-public_transport-m"
       priority: 1500
     }
     caption {
@@ -12162,7 +12162,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shelter-m"
+      name: "shelter-public_transport-m"
       priority: 1500
     }
     caption {
@@ -12178,7 +12178,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "shelter-m"
+      name: "shelter-public_transport-m"
       priority: 1500
     }
     caption {

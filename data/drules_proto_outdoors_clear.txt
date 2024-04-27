@@ -12393,26 +12393,9 @@ cont {
 cont {
   name: "amenity-shelter-public_transport"
   element {
-    scale: 13
-    symbol {
-      name: "shelter-s"
-      priority: 1500
-      min_distance: 10
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8500
-    }
-  }
-  element {
     scale: 14
     symbol {
-      name: "shelter-m"
+      name: "shelter-public_transport-m"
       priority: 1500
       min_distance: 10
     }
@@ -12429,7 +12412,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "shelter-m"
+      name: "shelter-public_transport-m"
       priority: 1500
       min_distance: 10
     }
@@ -12446,7 +12429,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shelter-m"
+      name: "shelter-public_transport-m"
       priority: 1500
     }
     caption {
@@ -12462,7 +12445,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shelter-m"
+      name: "shelter-public_transport-m"
       priority: 1500
     }
     caption {
@@ -12478,7 +12461,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shelter-m"
+      name: "shelter-public_transport-m"
       priority: 1500
     }
     caption {
@@ -12494,7 +12477,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shelter-m"
+      name: "shelter-public_transport-m"
       priority: 1500
     }
     caption {
@@ -12510,7 +12493,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "shelter-m"
+      name: "shelter-public_transport-m"
       priority: 1500
     }
     caption {
