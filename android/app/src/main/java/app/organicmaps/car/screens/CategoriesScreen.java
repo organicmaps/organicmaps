@@ -7,10 +7,10 @@ import androidx.car.app.CarContext;
 import androidx.car.app.constraints.ConstraintManager;
 import androidx.car.app.model.Action;
 import androidx.car.app.model.CarIcon;
+import androidx.car.app.model.GridItem;
+import androidx.car.app.model.GridTemplate;
 import androidx.car.app.model.Header;
 import androidx.car.app.model.ItemList;
-import androidx.car.app.model.ListTemplate;
-import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
@@ -70,14 +70,14 @@ public class CategoriesScreen extends BaseMapScreen
   }
 
   @NonNull
-  private ListTemplate createCategoriesListTemplate()
+  private GridTemplate createCategoriesListTemplate()
   {
     final boolean isNightMode = ThemeUtils.isNightMode(getCarContext());
     final ItemList.Builder builder = new ItemList.Builder();
     final int categoriesSize = Math.min(CATEGORIES.size(), MAX_CATEGORIES_SIZE);
     for (int i = 0; i < categoriesSize; ++i)
     {
-      final Row.Builder itemBuilder = new Row.Builder();
+      final GridItem.Builder itemBuilder = new GridItem.Builder();
       final String title = getCarContext().getString(CATEGORIES.get(i).nameResId);
       @DrawableRes final int iconResId = isNightMode ? CATEGORIES.get(i).iconNightResId : CATEGORIES.get(i).iconResId;
 
@@ -86,6 +86,6 @@ public class CategoriesScreen extends BaseMapScreen
       itemBuilder.setOnClickListener(() -> getScreenManager().push(new SearchOnMapScreen.Builder(getCarContext(), getSurfaceRenderer()).setCategory(title).build()));
       builder.addItem(itemBuilder.build());
     }
-    return new ListTemplate.Builder().setHeader(createHeader()).setSingleList(builder.build()).build();
+    return new GridTemplate.Builder().setHeader(createHeader()).setSingleList(builder.build()).build();
   }
 }
