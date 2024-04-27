@@ -19,9 +19,10 @@ import androidx.car.app.model.DurationSpan;
 import androidx.car.app.model.ForegroundCarColorSpan;
 import androidx.car.app.model.Header;
 import androidx.car.app.model.Pane;
+import androidx.car.app.model.PaneTemplate;
 import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
-import androidx.car.app.navigation.model.MapTemplate;
+import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
 
@@ -71,12 +72,10 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   @Override
   public Template onGetTemplate()
   {
-    final MapTemplate.Builder builder = new MapTemplate.Builder();
-    builder.setHeader(createHeader());
-    builder.setActionStrip(UiHelpers.createSettingsActionStrip(this, getSurfaceRenderer()));
+    final MapWithContentTemplate.Builder builder = new MapWithContentTemplate.Builder();
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
-    builder.setPane(createPane());
-
+    builder.setActionStrip(UiHelpers.createSettingsActionStrip(this, getSurfaceRenderer()));
+    builder.setContentTemplate(createPaneTemplate());
     return builder.build();
   }
 
@@ -132,6 +131,14 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     builder.setStartHeaderAction(Action.BACK);
     getCarContext().getOnBackPressedDispatcher().addCallback(this, mOnBackPressedCallback);
     builder.addEndHeaderAction(createDrivingOptionsAction());
+    return builder.build();
+  }
+
+  @NonNull
+  private PaneTemplate createPaneTemplate()
+  {
+    final PaneTemplate.Builder builder = new PaneTemplate.Builder(createPane());
+    builder.setHeader(createHeader());
     return builder.build();
   }
 

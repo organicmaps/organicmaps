@@ -20,8 +20,7 @@ public final class RoutingHelpers
   {
     int displayUnit = switch (distance.mUnits)
     {
-      case Kilometers ->
-          distance.mDistance >= 10.0 ? Distance.UNIT_KILOMETERS : Distance.UNIT_KILOMETERS_P1;
+      case Kilometers -> distance.mDistance >= 10.0 ? Distance.UNIT_KILOMETERS : Distance.UNIT_KILOMETERS_P1;
       case Feet -> Distance.UNIT_FEET;
       case Miles -> distance.mDistance >= 10.0 ? Distance.UNIT_MILES : Distance.UNIT_MILES_P1;
       default -> Distance.UNIT_METERS;

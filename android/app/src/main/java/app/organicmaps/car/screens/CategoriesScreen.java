@@ -9,9 +9,10 @@ import androidx.car.app.model.Action;
 import androidx.car.app.model.CarIcon;
 import androidx.car.app.model.Header;
 import androidx.car.app.model.ItemList;
+import androidx.car.app.model.ListTemplate;
 import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
-import androidx.car.app.navigation.model.MapTemplate;
+import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
 
 import app.organicmaps.R;
@@ -26,25 +27,10 @@ import java.util.List;
 
 public class CategoriesScreen extends BaseMapScreen
 {
-  private static class CategoryData
+  private record CategoryData(@StringRes int nameResId, @DrawableRes int iconResId, @DrawableRes int iconNightResId)
   {
-    @StringRes
-    public final int nameResId;
-
-    @DrawableRes
-    public final int iconResId;
-    @DrawableRes
-    public final int iconNightResId;
-
-    public CategoryData(@StringRes int nameResId, @DrawableRes int iconResId, @DrawableRes int iconNightResId)
-    {
-      this.nameResId = nameResId;
-      this.iconResId = iconResId;
-      this.iconNightResId = iconNightResId;
-    }
   }
 
-  // TODO (AndrewShkrob): discuss categories and their priority for this list
   private static final List<CategoryData> CATEGORIES = Arrays.asList(
       new CategoryData(R.string.category_fuel, R.drawable.ic_category_fuel, R.drawable.ic_category_fuel_night),
       new CategoryData(R.string.category_parking, R.drawable.ic_category_parking, R.drawable.ic_category_parking_night),
@@ -68,10 +54,9 @@ public class CategoriesScreen extends BaseMapScreen
   @Override
   public Template onGetTemplate()
   {
-    final MapTemplate.Builder builder = new MapTemplate.Builder();
-    builder.setHeader(createHeader());
+    final MapWithContentTemplate.Builder builder = new MapWithContentTemplate.Builder();
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
-    builder.setItemList(createCategoriesList());
+    builder.setContentTemplate(createCategoriesListTemplate());
     return builder.build();
   }
 
@@ -85,7 +70,7 @@ public class CategoriesScreen extends BaseMapScreen
   }
 
   @NonNull
-  private ItemList createCategoriesList()
+  private ListTemplate createCategoriesListTemplate()
   {
     final boolean isNightMode = ThemeUtils.isNightMode(getCarContext());
     final ItemList.Builder builder = new ItemList.Builder();
@@ -101,6 +86,6 @@ public class CategoriesScreen extends BaseMapScreen
       itemBuilder.setOnClickListener(() -> getScreenManager().push(new SearchOnMapScreen.Builder(getCarContext(), getSurfaceRenderer()).setCategory(title).build()));
       builder.addItem(itemBuilder.build());
     }
-    return builder.build();
+    return new ListTemplate.Builder().setHeader(createHeader()).setSingleList(builder.build()).build();
   }
 }
