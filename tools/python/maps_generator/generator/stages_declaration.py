@@ -366,7 +366,7 @@ class StageCountriesTxt(Stage):
             )
 
         with open(env.paths.counties_txt_path, "w") as f:
-            json.dump(countries, f, ensure_ascii=True, indent=1)
+            json.dump(countries, f, ensure_ascii=False, indent=1)
 
 
 @outer_stage

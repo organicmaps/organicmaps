@@ -100,9 +100,9 @@ The post_generation commands are:
         )
         if args.output:
             with open(args.output, "w") as f:
-                json.dump(countries, f, ensure_ascii=True, indent=1)
+                json.dump(countries, f, ensure_ascii=False, indent=1)
         else:
-            print(json.dumps(countries, ensure_ascii=True, indent=1))
+            print(json.dumps(countries, ensure_ascii=False, indent=1))
 
     @staticmethod
     def inject_promo_ids():
@@ -152,7 +152,7 @@ The post_generation commands are:
         )
 
         with open(args.output, "w") as f:
-            json.dump(countries, f, ensure_ascii=True, indent=1)
+            json.dump(countries, f, ensure_ascii=False, indent=1)
 
 
 PostGeneration()

@@ -151,7 +151,7 @@ string SerializeRoutePoints(vector<RouteMarkData> const & points)
     json_array_append_new(pointsNode.get(), pointNode.release());
   }
   unique_ptr<char, JSONFreeDeleter> buffer(
-    json_dumps(pointsNode.get(), JSON_COMPACT | JSON_ENSURE_ASCII));
+    json_dumps(pointsNode.get(), JSON_COMPACT));
   return string(buffer.get());
 }
 
