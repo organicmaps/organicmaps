@@ -266,6 +266,10 @@ area|z16-[amenity=shelter],
 node|z16-[amenity=shelter][shelter_type=lean_to],
 node|z16-[amenity=shelter][shelter_type=basic_hut],
 {font-size: 12; icon-min-distance: 0;}
+node|z13[amenity=shelter][shelter_type=public_transport],
+{icon-image: none; text: none;}
+node|z14-[amenity=shelter][shelter_type=public_transport],
+{icon-image: shelter-public_transport-m.svg;}
 
 node|z13-[tourism=caravan_site],
 area|z13-[tourism=caravan_site],
