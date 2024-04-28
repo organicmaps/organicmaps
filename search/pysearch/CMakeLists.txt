@@ -26,7 +26,6 @@ omim_link_libraries(
   bsdiff
   ICU::i18n
   cppjansson
-  oauthcpp
   opening_hours
   protobuf
   pugixml

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3462FD891DC1DE4600906FD7 /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD881DC1DE4600906FD7 /* libeditor.a */; };
 		3462FD8D1DC1E03300906FD7 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD8C1DC1E03300906FD7 /* libpugixml.a */; };
-		3462FD8F1DC1E05D00906FD7 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD8E1DC1E05D00906FD7 /* liboauthcpp.a */; };
 		3475E0E41DBF593D004C7E69 /* libtracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3475E0E31DBF593D004C7E69 /* libtracking.a */; };
 		348FE6871F7BBF7A00AAA4AF /* libmwm_diff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 348FE6881F7BBF7A00AAA4AF /* libmwm_diff.a */; };
 		348FE6891F7BBF9300AAA4AF /* libbsdiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 348FE68A1F7BBF9300AAA4AF /* libbsdiff.a */; };
@@ -229,7 +228,6 @@
 /* Begin PBXFileReference section */
 		3462FD881DC1DE4600906FD7 /* libeditor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeditor.a; path = "../../../omim-build/xcode/Release/libeditor.a"; sourceTree = "<group>"; };
 		3462FD8C1DC1E03300906FD7 /* libpugixml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpugixml.a; path = "../../../omim-build/xcode/Release/libpugixml.a"; sourceTree = "<group>"; };
-		3462FD8E1DC1E05D00906FD7 /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "../../../omim-build/xcode/Release/liboauthcpp.a"; sourceTree = "<group>"; };
 		3475E0E31DBF593D004C7E69 /* libtracking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtracking.a; path = "../../../omim-xcode-build/Debug/libtracking.a"; sourceTree = "<group>"; };
 		348FE6881F7BBF7A00AAA4AF /* libmwm_diff.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmwm_diff.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		348FE68A1F7BBF9300AAA4AF /* libbsdiff.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbsdiff.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -392,7 +390,6 @@
 				671E79221E6A508600B2859B /* libopenlr.a in Frameworks */,
 				671E78E51E6A4E1A00B2859B /* librouting_common.a in Frameworks */,
 				672292B11DE307DC005BA3A7 /* libtraffic.a in Frameworks */,
-				3462FD8F1DC1E05D00906FD7 /* liboauthcpp.a in Frameworks */,
 				3462FD8D1DC1E03300906FD7 /* libpugixml.a in Frameworks */,
 				3462FD891DC1DE4600906FD7 /* libeditor.a in Frameworks */,
 				3475E0E41DBF593D004C7E69 /* libtracking.a in Frameworks */,
@@ -474,7 +471,6 @@
 				675345A51A40534F00A0A8C3 /* CoreFoundation.framework */,
 				675345A31A40534500A0A8C3 /* IOKit.framework */,
 				672292B01DE307DC005BA3A7 /* libtraffic.a */,
-				3462FD8E1DC1E05D00906FD7 /* liboauthcpp.a */,
 				3462FD8C1DC1E03300906FD7 /* libpugixml.a */,
 				3462FD881DC1DE4600906FD7 /* libeditor.a */,
 				3475E0E31DBF593D004C7E69 /* libtracking.a */,

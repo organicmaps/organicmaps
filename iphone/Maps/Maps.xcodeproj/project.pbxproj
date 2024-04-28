@@ -617,7 +617,6 @@
 		FA853BBB26BC3B8A0026D455 /* libkml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BBA26BC3B8A0026D455 /* libkml.a */; };
 		FA853BBD26BC3B8A0026D455 /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BBC26BC3B8A0026D455 /* libmap.a */; };
 		FA853BBF26BC3B8A0026D455 /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BBE26BC3B8A0026D455 /* minizip.framework */; };
-		FA853BC126BC3B8A0026D455 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BC026BC3B8A0026D455 /* liboauthcpp.a */; };
 		FA853BC326BC3B8A0026D455 /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BC226BC3B8A0026D455 /* libopening_hours.a */; };
 		FA853BC526BC3B8A0026D455 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BC426BC3B8A0026D455 /* libplatform.a */; };
 		FA853BC726BC3B8A0026D455 /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BC626BC3B8A0026D455 /* libprotobuf.a */; };
@@ -1622,7 +1621,6 @@
 		FA853BBA26BC3B8A0026D455 /* libkml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libkml.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BBC26BC3B8A0026D455 /* libmap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmap.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BBE26BC3B8A0026D455 /* minizip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = minizip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FA853BC026BC3B8A0026D455 /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BC226BC3B8A0026D455 /* libopening_hours.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libopening_hours.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BC426BC3B8A0026D455 /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BC626BC3B8A0026D455 /* libprotobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libprotobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1719,7 +1717,6 @@
 				FA853BBB26BC3B8A0026D455 /* libkml.a in Frameworks */,
 				FA853BBD26BC3B8A0026D455 /* libmap.a in Frameworks */,
 				FA853BBF26BC3B8A0026D455 /* minizip.framework in Frameworks */,
-				FA853BC126BC3B8A0026D455 /* liboauthcpp.a in Frameworks */,
 				FA853BC326BC3B8A0026D455 /* libopening_hours.a in Frameworks */,
 				FA853BC526BC3B8A0026D455 /* libplatform.a in Frameworks */,
 				FA853BC726BC3B8A0026D455 /* libprotobuf.a in Frameworks */,
@@ -1865,7 +1862,6 @@
 				FA853BBA26BC3B8A0026D455 /* libkml.a */,
 				FA853BBC26BC3B8A0026D455 /* libmap.a */,
 				FA853BBE26BC3B8A0026D455 /* minizip.framework */,
-				FA853BC026BC3B8A0026D455 /* liboauthcpp.a */,
 				FA853BC226BC3B8A0026D455 /* libopening_hours.a */,
 				FA853BC426BC3B8A0026D455 /* libplatform.a */,
 				FA853BC626BC3B8A0026D455 /* libprotobuf.a */,

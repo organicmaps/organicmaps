@@ -200,7 +200,6 @@
 		FACB7C2026B919AD00810C9C /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C1C26B919AD00810C9C /* libgeometry.a */; };
 		FACB7C2126B919AD00810C9C /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C1D26B919AD00810C9C /* libplatform.a */; };
 		FACB7C2326B919C700810C9C /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C2226B919C700810C9C /* libicu.a */; };
-		FACB7C2526B919CC00810C9C /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C2426B919CC00810C9C /* liboauthcpp.a */; };
 		FACB7C2726B919D300810C9C /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C2626B919D300810C9C /* libprotobuf.a */; };
 		FACB7C2926B919E600810C9C /* libgenerator_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C2826B919E600810C9C /* libgenerator_tests_support.a */; };
 		FACB7C2B26B919F500810C9C /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C2A26B919F500810C9C /* libeditor.a */; };
@@ -429,7 +428,6 @@
 		FACB7C1C26B919AD00810C9C /* libgeometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgeometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB7C1D26B919AD00810C9C /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB7C2226B919C700810C9C /* libicu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libicu.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FACB7C2426B919CC00810C9C /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB7C2626B919D300810C9C /* libprotobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libprotobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB7C2826B919E600810C9C /* libgenerator_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgenerator_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB7C2A26B919F500810C9C /* libeditor.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libeditor.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -457,7 +455,6 @@
 				FACB7C2F26B91A1100810C9C /* libopening_hours.a in Frameworks */,
 				FACB7C3D26B9478200810C9C /* libsuccinct.a in Frameworks */,
 				FACB7C2926B919E600810C9C /* libgenerator_tests_support.a in Frameworks */,
-				FACB7C2526B919CC00810C9C /* liboauthcpp.a in Frameworks */,
 				FACB7C1F26B919AD00810C9C /* libcoding.a in Frameworks */,
 				FACB7C2326B919C700810C9C /* libicu.a in Frameworks */,
 				FACB7C3B26B9476200810C9C /* libstorage.a in Frameworks */,
@@ -528,7 +525,6 @@
 				FACB7C2A26B919F500810C9C /* libeditor.a */,
 				FACB7C2826B919E600810C9C /* libgenerator_tests_support.a */,
 				FACB7C2626B919D300810C9C /* libprotobuf.a */,
-				FACB7C2426B919CC00810C9C /* liboauthcpp.a */,
 				FACB7C2226B919C700810C9C /* libicu.a */,
 				FACB7C1A26B919AD00810C9C /* libbase.a */,
 				FACB7C1B26B919AD00810C9C /* libcoding.a */,

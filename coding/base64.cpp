@@ -31,10 +31,10 @@ std::string Decode(const std::string & val)
                                               [](char c) { return c == '\0'; });
 }
 
-std::string Encode(const std::string & val)
+std::string Encode(std::string_view val)
 {
   using namespace boost::archive::iterators;
-  using It = base64_from_binary<transform_width<std::string::const_iterator, 6, 8>>;
+  using It = base64_from_binary<transform_width<std::string_view::const_iterator, 6, 8>>;
   auto tmp = std::string(It(std::begin(val)), It(std::end(val)));
   return tmp.append((3 - val.size() % 3) % 3, '=');
 }

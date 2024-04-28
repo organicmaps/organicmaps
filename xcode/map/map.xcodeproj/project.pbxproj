@@ -113,7 +113,6 @@
 		FAA8388226BB3C92002E54C6 /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8388126BB3C92002E54C6 /* libprotobuf.a */; };
 		FAA8388426BB3CBE002E54C6 /* libcppjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8388326BB3CBE002E54C6 /* libcppjansson.a */; };
 		FAA8388626BB3CC3002E54C6 /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8388526BB3CC3002E54C6 /* libexpat.a */; };
-		FAA8388826BB3CDB002E54C6 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8388726BB3CDB002E54C6 /* liboauthcpp.a */; };
 		FAA8388A26BB3CE4002E54C6 /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8388926BB3CE4002E54C6 /* libdrape.a */; };
 /* End PBXBuildFile section */
 
@@ -257,7 +256,6 @@
 		FAA8388126BB3C92002E54C6 /* libprotobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libprotobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8388326BB3CBE002E54C6 /* libcppjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcppjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8388526BB3CC3002E54C6 /* libexpat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libexpat.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FAA8388726BB3CDB002E54C6 /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8388926BB3CE4002E54C6 /* libdrape.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libdrape.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -275,7 +273,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAA8388A26BB3CE4002E54C6 /* libdrape.a in Frameworks */,
-				FAA8388826BB3CDB002E54C6 /* liboauthcpp.a in Frameworks */,
 				FAA8388626BB3CC3002E54C6 /* libexpat.a in Frameworks */,
 				FAA8388426BB3CBE002E54C6 /* libcppjansson.a in Frameworks */,
 				FAA8387826BB3C92002E54C6 /* libbase.a in Frameworks */,
@@ -302,7 +299,6 @@
 			isa = PBXGroup;
 			children = (
 				FAA8388926BB3CE4002E54C6 /* libdrape.a */,
-				FAA8388726BB3CDB002E54C6 /* liboauthcpp.a */,
 				FAA8388526BB3CC3002E54C6 /* libexpat.a */,
 				FAA8388326BB3CBE002E54C6 /* libcppjansson.a */,
 				FAA8387726BB3C92002E54C6 /* libbase.a */,
