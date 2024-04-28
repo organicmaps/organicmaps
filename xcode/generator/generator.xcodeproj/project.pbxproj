@@ -33,7 +33,6 @@
 		FACB777726B90CF200810C9C /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB777626B90CF200810C9C /* minizip.framework */; };
 		FACB777926B90CFB00810C9C /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB777826B90CFB00810C9C /* libprotobuf.a */; };
 		FACB777B26B90D0700810C9C /* librouting_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB777A26B90D0700810C9C /* librouting_common.a */; };
-		FACB777D26B90E5B00810C9C /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB777C26B90E5B00810C9C /* liboauthcpp.a */; };
 		FACB777F26B90E7C00810C9C /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB777E26B90E7C00810C9C /* libmap.a */; };
 		FACB778126B90E9800810C9C /* libtransit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB778026B90E9800810C9C /* libtransit.a */; };
 		FACB778326B90EAC00810C9C /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB778226B90EAC00810C9C /* librouting.a */; };
@@ -331,7 +330,6 @@
 		FACB777626B90CF200810C9C /* minizip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = minizip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB777826B90CFB00810C9C /* libprotobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libprotobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB777A26B90D0700810C9C /* librouting_common.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = librouting_common.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FACB777C26B90E5B00810C9C /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB777E26B90E7C00810C9C /* libmap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmap.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB778026B90E9800810C9C /* libtransit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtransit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB778226B90EAC00810C9C /* librouting.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = librouting.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -611,7 +609,6 @@
 				FACB778D26B9118900810C9C /* libeditor.a in Frameworks */,
 				FACB778B26B9112200810C9C /* libtess2.a in Frameworks */,
 				FACB778726B90ECD00810C9C /* libopening_hours.a in Frameworks */,
-				FACB777D26B90E5B00810C9C /* liboauthcpp.a in Frameworks */,
 				FACB777926B90CFB00810C9C /* libprotobuf.a in Frameworks */,
 				FACB777726B90CF200810C9C /* minizip.framework in Frameworks */,
 				FACB777326B90CCF00810C9C /* libcppjansson.a in Frameworks */,
@@ -704,7 +701,6 @@
 				FACB778226B90EAC00810C9C /* librouting.a */,
 				FACB778026B90E9800810C9C /* libtransit.a */,
 				FACB777E26B90E7C00810C9C /* libmap.a */,
-				FACB777C26B90E5B00810C9C /* liboauthcpp.a */,
 				FACB777A26B90D0700810C9C /* librouting_common.a */,
 				FACB777826B90CFB00810C9C /* libprotobuf.a */,
 				FACB777626B90CF200810C9C /* minizip.framework */,
