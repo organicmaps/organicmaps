@@ -87,14 +87,12 @@ GlyphIndex::GlyphIndex(m2::PointU const & size, ref_ptr<GlyphManager> mng)
   ASSERT(m_mng != nullptr, ());
 
   // Cache predefined glyphs.
-  bool newResource = false;
-  uint32_t constexpr kPredefinedGlyphsCount = 128;
-  for (uint32_t i = 0; i < kPredefinedGlyphsCount; ++i)
-  {
-    auto const key = GlyphKey(i);
-
-    MapResource(key, newResource);
-  }
+  bool newResource;
+  (void)MapResource(GlyphKey{0}, newResource);
+  constexpr strings::UniChar kFirstAsciiChar {32};
+  constexpr strings::UniChar kLastAsciiChar {126};
+  for (strings::UniChar ascii = kFirstAsciiChar; ascii < kLastAsciiChar; ++ascii)
+    (void)MapResource(GlyphKey{ascii}, newResource);
 }
 
 GlyphIndex::~GlyphIndex()
