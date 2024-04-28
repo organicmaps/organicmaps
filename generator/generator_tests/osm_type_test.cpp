@@ -772,7 +772,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
     auto const params = GetFeatureBuilderParams(tags);
 
     TEST_EQUAL(params.m_types.size(), 3, (params));
-    TEST(params.IsTypeExist(GetType({"highway", "path", "bicycle"})), (params));
+    TEST(params.IsTypeExist(GetType({"highway", "path"})), (params));
     TEST(params.IsTypeExist(GetType({"hwtag", "yesfoot"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), ());
   }
@@ -813,7 +813,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
     auto const params = GetFeatureBuilderParams(tags);
 
     TEST_EQUAL(params.m_types.size(), 8, (params));
-    TEST(params.IsTypeExist(GetType({"highway", "footway", "bicycle"})), (params));
+    TEST(params.IsTypeExist(GetType({"highway", "footway"})), (params));
     TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), ());
     TEST(!params.IsTypeExist(GetType({"hwtag", "yesfoot"})), ());
 
@@ -3049,7 +3049,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_HighwayTypesConversion)
 {
   using Type = std::vector<std::string>;
   std::vector<std::pair<Type, Tags>> const conversions = {
-    {{"highway", "cycleway"}, {{"highway", "path"}, {"foot", "no"}, {"bicycle", "yes"}}},
+    {{"highway", "cycleway"}, {{"highway", "path"}, {"foot", "no"}, {"bicycle", "designated"}}},
 
     // Paved etc. paths to footways.
     {{"highway", "footway"}, {{"highway", "path"}, {"surface", "paved"}}},
