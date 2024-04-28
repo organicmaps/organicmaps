@@ -17,18 +17,19 @@ namespace base
 namespace
 {
 std::mutex g_logMutex;
-std::array<char, NUM_LOG_LEVELS> constexpr kLogLevelNames = {{'D', 'I', 'W', 'E', 'C'}};
 }  // namespace
 
 std::string ToString(LogLevel level)
 {
   auto const & names = GetLogLevelNames();
   CHECK_LESS(level, names.size(), ());
-  return std::string{} + names[level];
+  return ::DebugPrint(names[level]);
 }
 
 std::optional<LogLevel> FromString(std::string const & s)
 {
+  ASSERT(!s.empty(), ("Log level should not be empty"));
+
   auto const & names = GetLogLevelNames();
   const auto it = std::find(names.begin(), names.end(), std::toupper(s[0]));
   if (it == names.end())
@@ -38,6 +39,7 @@ std::optional<LogLevel> FromString(std::string const & s)
 
 std::array<char, NUM_LOG_LEVELS> const & GetLogLevelNames()
 {
+  static std::array<char, NUM_LOG_LEVELS> constexpr kLogLevelNames {'D', 'I', 'W', 'E', 'C'};
   return kLogLevelNames;
 }
 
@@ -59,7 +61,7 @@ int LogHelper::GetThreadID()
 void LogHelper::WriteProlog(std::ostream & s, LogLevel level)
 {
   double const sec = m_timer.ElapsedSeconds();
-  s << kLogLevelNames[level] << '(' << GetThreadID() << ") " << std::fixed << std::setprecision(5) << sec << ' ';
+  s << GetLogLevelNames()[level] << '(' << GetThreadID() << ") " << std::fixed << std::setprecision(5) << sec << ' ';
 }
 
 void LogMessageDefault(LogLevel level, SrcPoint const & srcPoint, std::string const & msg)

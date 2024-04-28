@@ -69,7 +69,8 @@ inline std::string DebugPrint(char const * t)
 
 inline std::string DebugPrint(char t)
 {
-  return {1, t};
+  // return {1, t} wrongly constructs "\0x1t" string.
+  return std::string(1, t);
 }
 
 namespace internal
