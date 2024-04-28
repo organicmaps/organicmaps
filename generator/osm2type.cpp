@@ -724,7 +724,7 @@ string DetermineSurfaceAndHighwayType(OsmElement * p)
         LOG(LDEBUG, ("Add a separate footway to", DebugPrintID(*p), p->m_tags));
         p->AddTag("highway", kFootway);
       }
-      else if (p->HasTag("foot", "no") && (p->HasTag("bicycle", "yes") || p->HasTag("bicycle", "designated")))
+      else if (p->HasTag("foot", "no") && p->HasTag("bicycle", "designated"))
         ConvertTo(kCycleway);
       else if (!p->HasTag("foot", "no"))
         ConvertPathOrFootway(false /* toPath */);
