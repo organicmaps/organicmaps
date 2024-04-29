@@ -7,7 +7,6 @@
 #include "base/string_utils.hpp"
 #include "base/stl_helpers.hpp"
 
-#include <cstring>
 #include <sstream>
 
 std::string DebugPrint(OsmElement::EntityType type)
@@ -36,18 +35,16 @@ std::string DebugPrint(OsmElement::EntityType type)
   UNREACHABLE();
 }
 
-void OsmElement::AddTag(Tag const & tag) { AddTag(tag.m_key, tag.m_value); }
-
-void OsmElement::AddTag(char const * key, char const * value)
+void OsmElement::AddTag(std::string_view key, std::string_view value)
 {
-  ASSERT(key, ());
-  ASSERT(value, ());
+  strings::Trim(key);
+  strings::Trim(value);
 
   // Seems like source osm data has empty values. They are useless for us.
-  if (key[0] == '\0' || value[0] == '\0')
+  if (key.empty() || value.empty())
     return;
 
-#define SKIP_KEY_BY_PREFIX(skippedKey) if (std::strncmp(key, skippedKey, sizeof(skippedKey)-1) == 0) return;
+#define SKIP_KEY_BY_PREFIX(skippedKey) if (key == skippedKey) return;
   // OSM technical info tags
   SKIP_KEY_BY_PREFIX("created_by");
   SKIP_KEY_BY_PREFIX("source");
@@ -71,22 +68,15 @@ void OsmElement::AddTag(char const * key, char const * value)
   SKIP_KEY_BY_PREFIX("official_name");
 #undef SKIP_KEY_BY_PREFIX
 
-  std::string_view val(value);
-  strings::Trim(val);
-  m_tags.emplace_back(key, val);
+  m_tags.emplace_back(key, value);
 }
 
-void OsmElement::AddTag(std::string const & key, std::string const & value)
-{
-  AddTag(key.data(), value.data());
-}
-
-bool OsmElement::HasTag(std::string const & key) const
+bool OsmElement::HasTag(std::string_view const & key) const
 {
   return base::AnyOf(m_tags, [&](auto const & t) { return t.m_key == key; });
 }
 
-bool OsmElement::HasTag(std::string const & key, std::string const & value) const
+bool OsmElement::HasTag(std::string_view const & key, std::string_view const & value) const
 {
   return base::AnyOf(m_tags, [&](auto const & t) { return t.m_key == key && t.m_value == value; });
 }

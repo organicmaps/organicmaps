@@ -102,11 +102,10 @@ struct OsmElement
     m_members.emplace_back(ref, type, role);
   }
 
-  void AddTag(Tag const & tag);
-  void AddTag(char const * key, char const * value);
-  void AddTag(std::string const & key, std::string const & value);
-  bool HasTag(std::string const & key) const;
-  bool HasTag(std::string const & key, std::string const & value) const;
+  void AddTag(std::string_view key, std::string_view value);
+  void AddTag(Tag const & tag) { AddTag(tag.m_key, tag.m_value); }
+  bool HasTag(std::string_view const & key) const;
+  bool HasTag(std::string_view const & key, std::string_view const & value) const;
 
   template <class Fn>
   void UpdateTagFn(std::string const & key, Fn && fn)
