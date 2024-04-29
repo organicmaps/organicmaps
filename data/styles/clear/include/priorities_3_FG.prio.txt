@@ -269,7 +269,7 @@ highway-bridleway-bridge                            # line z14- (also has line::
 highway-bridleway-tunnel                            # line z14- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z15-)
 highway-footway                                     # line z15- (also has pathtext z15-)
 highway-footway-area                                # line z15- and area z14- (also has pathtext z15-)
-highway-footway-bicycle                             # line z14- (also has line::cycleline z14-, pathtext z15-)
+highway-footway-bicycle                             # line z15- (also has line::cycleline z15-, pathtext z15-)
 highway-path                                        # line z14- (also has pathtext z15-)
 highway-path-bicycle                                # line z14- (also has line::cycleline z14-, pathtext z15-)
 highway-path-difficult                              # line z14- (also has pathtext z15-)
@@ -282,7 +282,7 @@ highway-track-no-access                             # line z14- (also has pathte
 highway-track-tunnel                                # line z14- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z15-)
 === 180
 
-highway-footway-bicycle::cycleline                  # line::cycleline z14- (also has line z14-, pathtext z15-)
+highway-footway-bicycle::cycleline                  # line::cycleline z15- (also has line z15-, pathtext z15-)
 highway-path-bicycle::cycleline                     # line::cycleline z14- (also has line z14-, pathtext z15-)
 === 170
 
