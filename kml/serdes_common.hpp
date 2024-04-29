@@ -1,8 +1,11 @@
 #pragma once
 
 #include "coding/string_utf8_multilang.hpp"
+
 #include "geometry/point2d.hpp"
 #include "geometry/point_with_altitude.hpp"
+
+#include "type_utils.hpp"
 
 namespace kml
 {
@@ -20,5 +23,14 @@ uint32_t ToRGBA(Channel red, Channel green, Channel blue, Channel alpha)
 std::string PointToString(m2::PointD const & org);
 
 std::string PointToString(geometry::PointWithAltitude const & pt);
+
+void SaveStringWithCDATA(Writer & writer, std::string s);
+
+std::string_view constexpr kIndent0 {};
+std::string_view constexpr kIndent2 {"  "};
+std::string_view constexpr kIndent4 {"    "};
+std::string_view constexpr kIndent6 {"      "};
+std::string_view constexpr kIndent8 {"        "};
+std::string_view constexpr kIndent10 {"          "};
 
 }  // namespace kml

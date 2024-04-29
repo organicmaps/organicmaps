@@ -31,6 +31,29 @@ static kml::FileData loadGpxFromFile(std::string const & file) {
   return loadGpxFromString(text);
 }
 
+void importExportCompare(char const * testFile)
+{
+  auto const fileName = GetPlatform().TestsDataPathForFile(testFile);
+  std::string sourceFileText;
+  FileReader(fileName).ReadAsString(sourceFileText);
+  kml::FileData const dataFromFile = loadGpxFromFile(testFile);
+  std::string resultBuffer;
+  MemWriter<decltype(resultBuffer)> sink(resultBuffer);
+  kml::gpx::SerializerGpx ser(dataFromFile);
+  ser.Serialize(sink);
+  TEST_EQUAL(resultBuffer, sourceFileText, ());
+}
+
+UNIT_TEST(Gpx_ImportExport_Test)
+{
+  importExportCompare("gpx_test_data/export_test.gpx");
+}
+
+UNIT_TEST(Gpx_ImportExportEmpty_Test)
+{
+  importExportCompare("gpx_test_data/export_test_empty.gpx");
+}
+
 UNIT_TEST(Gpx_Test_Point)
 {
   std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
