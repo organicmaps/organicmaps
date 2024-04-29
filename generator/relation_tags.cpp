@@ -2,10 +2,10 @@
 
 #include "generator/osm_element.hpp"
 
-#include"indexer/classificator.hpp"
+#include "indexer/classificator.hpp"
 
-#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
+
 
 namespace generator
 {
@@ -25,8 +25,7 @@ bool RelationTagsBase::IsSkipRelation(std::string_view type)
 
 bool RelationTagsBase::IsKeyTagExists(std::string const & key) const
 {
-  auto const & tags = m_current->m_tags;
-  return base::AnyOf(tags, [&](OsmElement::Tag const & p) { return p.m_key == key; });
+  return m_current->HasTag(key);
 }
 
 void RelationTagsBase::AddCustomTag(std::pair<std::string, std::string> const & p)
@@ -35,6 +34,12 @@ void RelationTagsBase::AddCustomTag(std::pair<std::string, std::string> const & 
   /// I suspect that it works ok now, because duplicating key tag is added to the end of tags vector
   /// and GetNameAndType function grabs it last.
   m_current->AddTag(p.first, p.second);
+}
+
+void RelationTagsBase::AddTagIfNotExist(std::pair<std::string, std::string> const & p)
+{
+  if (!m_current->HasTag(p.first))
+    m_current->AddTag(p.first, p.second);
 }
 
 void RelationTagsNode::Process(RelationElement const & e)
@@ -142,9 +147,9 @@ void RelationTagsWay::Process(RelationElement const & e)
     if (isHighway)
     {
       if (route == "bicycle")
-        Base::AddCustomTag({"bicycle", "yes"});
+        Base::AddTagIfNotExist({"bicycle", "yes"});
       else if (route == "foot" || route == "hiking")
-        Base::AddCustomTag({"foot", "yes"});
+        Base::AddTagIfNotExist({"foot", "yes"});
     }
 
     if (!fetchTags)

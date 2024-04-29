@@ -41,6 +41,7 @@ protected:
   static bool IsSkipRelation(std::string_view type);
   bool IsKeyTagExists(std::string const & key) const;
   void AddCustomTag(std::pair<std::string, std::string> const & p);
+  void AddTagIfNotExist(std::pair<std::string, std::string> const & p);
   virtual void Process(RelationElement const & e) = 0;
 
   uint64_t m_featureID = 0;
