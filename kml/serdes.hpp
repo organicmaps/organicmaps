@@ -20,17 +20,6 @@ class KmlWriter
 public:
   DECLARE_EXCEPTION(WriteKmlException, RootException);
 
-  class WriterWrapper
-  {
-  public:
-    explicit WriterWrapper(Writer & writer)
-      : m_writer(writer)
-    {}
-    WriterWrapper & operator<<(std::string_view str);
-  private:
-    Writer & m_writer;
-  };
-
   explicit KmlWriter(Writer & writer)
     : m_writer(writer)
   {}
@@ -38,7 +27,7 @@ public:
   void Write(FileData const & fileData);
 
 private:
-  WriterWrapper m_writer;
+  Writer & m_writer;
 };
 
 class SerializerKml

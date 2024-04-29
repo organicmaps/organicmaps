@@ -34,6 +34,12 @@ public:
   virtual uint64_t Pos() const = 0;
   virtual void Write(void const * p, size_t size) = 0;
 
+  Writer & operator<<(std::string_view str)
+  {
+    Write(str.data(), str.length());
+    return *this;
+  }
+
   // Disable deletion via this interface, because some dtors in derived classes are noexcept(false).
 protected:
   ~Writer() = default;

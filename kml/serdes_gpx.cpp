@@ -14,7 +14,8 @@ namespace kml
 {
 namespace gpx
 {
-
+namespace
+{
 std::string_view constexpr kTrk = "trk";
 std::string_view constexpr kTrkSeg = "trkseg";
 std::string_view constexpr kRte = "rte";
@@ -30,7 +31,15 @@ std::string_view constexpr kDesc = "desc";
 std::string_view constexpr kMetadata = "metadata";
 std::string_view constexpr kEle = "ele";
 std::string_view constexpr kCmt = "cmt";
+
+std::string_view constexpr kGpxHeader =
+    "<?xml version=\"1.0\"?>\n"
+    "<gpx xmlns=\"http://www.topografix.com/GPX/1/1\" version=\"1.1\">\n";
+
+std::string_view constexpr kGpxFooter = "</gpx>";
+
 int constexpr kInvalidColor = 0;
+}  // namespace
 
 GpxParser::GpxParser(FileData & data)
 : m_data{data}
@@ -356,6 +365,119 @@ std::string GpxParser::BuildDescription() const
   else if (m_comment.empty() || m_description == m_comment)
     return m_description;
   return m_description + "\n\n" + m_comment;
+}
+
+namespace
+{
+
+std::optional<std::string> GetDefaultLanguage(LocalizableString const & lstr)
+{
+  auto const firstLang = lstr.begin();
+  if (firstLang != lstr.end())
+    return {firstLang->second};
+  return {};
+}
+
+std::string CoordToString(double c)
+{
+  std::ostringstream ss;
+  ss.precision(8);
+  ss << c;
+  return ss.str();
+}
+
+void SaveColorToRGB(Writer & writer, uint32_t rgba)
+{
+  writer << NumToHex(static_cast<uint8_t>(rgba >> 24 & 0xFF))
+         << NumToHex(static_cast<uint8_t>((rgba >> 16) & 0xFF))
+         << NumToHex(static_cast<uint8_t>((rgba >> 8) & 0xFF));
+}
+
+
+void SaveCategoryData(Writer & writer, CategoryData const & categoryData)
+{
+  writer << "<metadata>\n";
+  if (auto const name = GetDefaultLanguage(categoryData.m_name))
+    writer << kIndent2 << "<name>" << name.value() << "</name>\n";
+  if (auto const description = GetDefaultLanguage(categoryData.m_description))
+  {
+    writer << kIndent2 << "<desc>";
+    SaveStringWithCDATA(writer, description.value());
+    writer << "</desc>\n";
+  }
+  writer << "</metadata>\n";
+}
+
+void SaveBookmarkData(Writer & writer, BookmarkData const & bookmarkData)
+{
+  auto const [lat, lon] = mercator::ToLatLon(bookmarkData.m_point);
+  writer << "<wpt lat=\"" << CoordToString(lat) << "\" lon=\"" << CoordToString(lon) << "\">\n";
+  if (auto const name = GetDefaultLanguage(bookmarkData.m_name))
+    writer << kIndent2 << "<name>" << name.value() << "</name>\n";
+  if (auto const description = GetDefaultLanguage(bookmarkData.m_description))
+  {
+    writer << kIndent2 << "<cmt>";
+    SaveStringWithCDATA(writer, description.value());
+    writer << "</cmt>\n";
+  }
+  writer << "</wpt>\n";
+}
+
+bool TrackHasAltitudes(TrackData const & trackData)
+{
+  auto const & lines = trackData.m_geometry.m_lines;
+  if (lines.empty() || lines.front().empty())
+    return false;
+  auto const altitude = lines.front().front().GetAltitude();
+  return altitude != geometry::kDefaultAltitudeMeters && altitude != geometry::kInvalidAltitude;
+}
+
+uint32_t TrackColor(TrackData const & trackData)
+{
+  if (trackData.m_layers.empty())
+    return kDefaultTrackColor;
+  return trackData.m_layers.front().m_color.m_rgba;
+}
+
+void SaveTrackData(Writer & writer, TrackData const & trackData)
+{
+  writer << "<trk>\n";
+  auto name = GetDefaultLanguage(trackData.m_name);
+  if (name.has_value())
+    writer << kIndent2 << "<name>" << name.value() << "</name>\n";
+  if (auto const color = TrackColor(trackData); color != kDefaultTrackColor)
+  {
+    writer << kIndent2 << "<extensions>\n" << kIndent4 << "<color>";
+    SaveColorToRGB(writer, color);
+    writer << "</color>\n" << kIndent2 << "</extensions>\n";
+  }
+  bool const trackHasAltitude = TrackHasAltitudes(trackData);
+  for (auto const & line : trackData.m_geometry.m_lines)
+  {
+    writer << kIndent2 << "<trkseg>\n";
+    for (auto const & point : line)
+    {
+      auto const [lat, lon] = mercator::ToLatLon(point);
+      writer << kIndent4 << "<trkpt lat=\"" << CoordToString(lat) << "\" lon=\"" << CoordToString(lon) << "\">\n";
+      if (trackHasAltitude)
+        writer << kIndent6 << "<ele>" << CoordToString(point.GetAltitude()) << "</ele>\n";
+      writer << kIndent4 << "</trkpt>\n";
+    }
+    writer << kIndent2 << "</trkseg>\n";
+  }
+  writer << "</trk>\n";
+}
+}  // namespace
+
+void GpxWriter::Write(FileData const & fileData)
+{
+  m_writer << kGpxHeader;
+  SaveCategoryData(m_writer, fileData.m_categoryData);
+  for (auto const & bookmarkData : fileData.m_bookmarksData)
+    SaveBookmarkData(m_writer, bookmarkData);
+  for (auto const & trackData : fileData.m_tracksData)
+    SaveTrackData(m_writer, trackData);
+  m_writer << kGpxFooter;
 }
 
 }  // namespace gpx
