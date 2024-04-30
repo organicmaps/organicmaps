@@ -1187,11 +1187,11 @@ UNIT_CLASS_TEST(MwmTestsFixture, San_Francisco)
     auto const & results = request->Results();
     TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
-    TEST_EQUAL(results[0].GetFeatureType(), cl.GetTypeByPath({"shop", "laundry"}), ());
-    TEST_LESS(GetDistanceM(results[0], center), 1.0E4, ());
+    TEST_EQUAL(results[0].GetFeatureType(), cl.GetTypeByPath({"place", "city"}), ());
+    TEST_LESS(GetDistanceM(results[0], center), 4.2E6, ());
 
-    TEST_EQUAL(results[1].GetFeatureType(), cl.GetTypeByPath({"place", "city"}), ());
-    TEST_LESS(GetDistanceM(results[1], center), 4.2E6, ());
+    TEST_EQUAL(results[1].GetFeatureType(), cl.GetTypeByPath({"shop", "laundry"}), ());
+    TEST_LESS(GetDistanceM(results[1], center), 1.0E4, ());
   }
 }
 
