@@ -823,6 +823,20 @@ UNIT_CLASS_TEST(MwmTestsFixture, Conscription_HN)
   }
 }
 
+UNIT_CLASS_TEST(MwmTestsFixture, Address_Place)
+{
+  // Minsk
+  ms::LatLon const center(53.91058, 27.54519);
+  SetViewportAndLoadMaps(center);
+
+  {
+    auto request = MakeRequest("Пашковичи 43", "ru");
+    Range const range(request->Results(), 0, 2);
+    HasAddress(range, {} /* street */, "43");
+    HasAddress(range, {} /* street */, "43А");
+  }
+}
+
 UNIT_CLASS_TEST(MwmTestsFixture, ToiletAirport)
 {
   // Frankfurt Airport

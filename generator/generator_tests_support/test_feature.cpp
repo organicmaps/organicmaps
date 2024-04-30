@@ -178,6 +178,11 @@ string TestPlace::ToDebugString() const
   return os.str();
 }
 
+void TestPlace::SetType(base::StringIL const & e)
+{
+  m_type = classif().GetTypeByPath(e);
+}
+
 TestCountry::TestCountry(m2::PointD const & center, std::string const & name, std::string const & lang)
   : TestPlace(center, name, lang, classif().GetTypeByPath({"place", "country"}), 170 /* rank */)
 {
