@@ -30,6 +30,7 @@ set(SRC
   reader_writer_ops_test.cpp
   serdes_json_test.cpp
   simple_dense_coding_test.cpp
+  sha1_test.cpp
   sparse_vector_tests.cpp
   string_utf8_multilang_tests.cpp
   succinct_ef_test.cpp
