@@ -1680,8 +1680,8 @@ void Geocoder::FindPaths(BaseContext & ctx)
       switch (l.m_type)
       {
       case Model::TYPE_BUILDING:
-        // Actually, it means that we have BUILDING layer with LooksLikeHouseNumber token.
-        hasBuilding = l.m_sortedFeatures->empty();
+        // Same condition as in MatchPOIsAndBuildings.
+        hasBuilding = l.m_sortedFeatures->empty() || house_numbers::LooksLikeHouseNumberStrict(l.m_subQuery);
         break;
       case Model::TYPE_STREET:
       case Model::TYPE_SUBURB:

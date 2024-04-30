@@ -87,8 +87,10 @@ public:
   void Serialize(feature::FeatureBuilder & fb) const override;
   std::string ToDebugString() const override;
 
+  void SetType(base::StringIL const & e);
+
 protected:
-  uint32_t const m_type;
+  uint32_t m_type;
   uint8_t const m_rank;
 };
 
