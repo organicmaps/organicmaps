@@ -35,6 +35,19 @@ std::string DebugPrint(OsmElement::EntityType type)
   UNREACHABLE();
 }
 
+namespace
+{
+std::string_view constexpr kUselessKeys[] = {
+  "created_by", "source", "odbl", "note", "fixme", "iemv",
+
+  // Skip tags for speedup, now we don't use it
+  "not:", "artist_name", "whitewater",// https://wiki.openstreetmap.org/wiki/Whitewater_sports
+
+  // In future we can use this tags for improve our search
+  "nat_name", "reg_name", "loc_name", "lock_name", "local_name", "short_name", "official_name"
+};
+} // namespace
+
 void OsmElement::AddTag(std::string_view key, std::string_view value)
 {
   strings::Trim(key);
@@ -44,29 +57,11 @@ void OsmElement::AddTag(std::string_view key, std::string_view value)
   if (key.empty() || value.empty())
     return;
 
-#define SKIP_KEY_BY_PREFIX(skippedKey) if (key == skippedKey) return;
-  // OSM technical info tags
-  SKIP_KEY_BY_PREFIX("created_by");
-  SKIP_KEY_BY_PREFIX("source");
-  SKIP_KEY_BY_PREFIX("odbl");
-  SKIP_KEY_BY_PREFIX("note");
-  SKIP_KEY_BY_PREFIX("fixme");
-  SKIP_KEY_BY_PREFIX("iemv");
-
-  // Skip tags for speedup, now we don't use it
-  SKIP_KEY_BY_PREFIX("not:");
-  SKIP_KEY_BY_PREFIX("artist_name");
-  SKIP_KEY_BY_PREFIX("whitewater"); // https://wiki.openstreetmap.org/wiki/Whitewater_sports
-
-  // In future we can use this tags for improve our search
-  SKIP_KEY_BY_PREFIX("nat_name");
-  SKIP_KEY_BY_PREFIX("reg_name");
-  SKIP_KEY_BY_PREFIX("loc_name");
-  SKIP_KEY_BY_PREFIX("lock_name");
-  SKIP_KEY_BY_PREFIX("local_name");
-  SKIP_KEY_BY_PREFIX("short_name");
-  SKIP_KEY_BY_PREFIX("official_name");
-#undef SKIP_KEY_BY_PREFIX
+  for (auto const & useless : kUselessKeys)
+  {
+    if (key == useless)
+      return;
+  }
 
   m_tags.emplace_back(key, value);
 }
