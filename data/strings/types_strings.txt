@@ -15628,28 +15628,6 @@
     sk = Vzdelávacia inštitúcia
     uk = Освітній заклади
 
-  [type.landuse.farm]
-    en = Farm
-    af = Plaas
-    ar = مزرعة
-    az = Ferma
-    de = Bauernhof
-    es = Granja
-    et = Talu
-    fi = Maatila
-    hi = खेत
-    ja = 農地
-    mr = शेत
-    nl = Boerderij
-    pl = Gospodarstwo rolne
-    pt = Quinta
-    pt-BR = Fazenda
-    ru = Ферма
-    sk = Statok
-    tr = Çiftlik
-    uk = Ферма
-    zh-Hans = 农田
-
   [type.landuse.farmland]
     en = Farmland
     af = Landbougrond
