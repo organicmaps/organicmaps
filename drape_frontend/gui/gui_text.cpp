@@ -9,10 +9,10 @@
 #include "base/string_utils.hpp"
 
 #include "drape/bidi.hpp"
-#include "drape/font_constants.hpp"
 
 #include <algorithm>
 #include <array>
+#include <memory>
 #include <type_traits>
 
 namespace gui
@@ -28,7 +28,7 @@ glsl::vec2 GetNormalsAndMask(dp::TextureManager::GlyphRegion const & glyph, floa
   float const xOffset = glyph.GetOffsetX() * textRatio;
   float const yOffset = glyph.GetOffsetY() * textRatio;
 
-  float const upVector = -static_cast<int32_t>(pixelSize.y) - yOffset;
+  float const upVector = -pixelSize.y - yOffset;
   float const bottomVector = -yOffset;
 
   normals[0] = glsl::vec2(xOffset, bottomVector);
@@ -41,7 +41,7 @@ glsl::vec2 GetNormalsAndMask(dp::TextureManager::GlyphRegion const & glyph, floa
   maskTexCoord[2] = glsl::ToVec2(r.RightTop());
   maskTexCoord[3] = glsl::ToVec2(r.RightBottom());
 
-  return glsl::vec2(xOffset, yOffset);
+  return {xOffset, yOffset};
 }
 
 void FillCommonDecl(dp::BindingDecl & decl, std::string const & name, uint8_t compCount,
@@ -86,8 +86,8 @@ dp::BindingInfo const & StaticLabel::Vertex::GetBindingInfo()
 
   if (info == nullptr)
   {
-    info.reset(new dp::BindingInfo(5));
-    uint8_t stride = sizeof(Vertex);
+    info = std::make_unique<dp::BindingInfo>(5);
+    uint8_t constexpr stride = sizeof(Vertex);
     uint8_t offset = 0;
 
     FillPositionDecl(info->GetBindingDecl(0), stride, offset);
@@ -102,7 +102,7 @@ dp::BindingInfo const & StaticLabel::Vertex::GetBindingInfo()
     ASSERT_EQUAL(offset + sizeof(glsl::vec2), stride, ());
   }
 
-  return *info.get();
+  return *info;
 }
 
 StaticLabel::LabelResult::LabelResult()
@@ -231,10 +231,10 @@ void StaticLabel::CacheStaticText(std::string const & text, char const * delim,
       xOffset += xOffset;
 
     size_t endIndex = ranges[i];
-    for (size_t i = startIndex; i < endIndex; ++i)
+    for (size_t j = startIndex; j < endIndex; ++j)
     {
-      rb[i].m_normal = rb[i].m_normal + glsl::vec2(xOffset, yOffset);
-      result.m_boundRect.Add(glsl::ToPoint(rb[i].m_normal));
+      rb[j].m_normal = rb[j].m_normal + glsl::vec2(xOffset, yOffset);
+      result.m_boundRect.Add(glsl::ToPoint(rb[j].m_normal));
     }
 
     startIndex = endIndex;
@@ -250,9 +250,9 @@ dp::BindingInfo const & MutableLabel::StaticVertex::GetBindingInfo()
 
   if (info == nullptr)
   {
-    info.reset(new dp::BindingInfo(3));
+    info = std::make_unique<dp::BindingInfo>(3);
 
-    uint8_t stride = sizeof(StaticVertex);
+    uint8_t constexpr stride = sizeof(StaticVertex);
     uint8_t offset = 0;
 
     FillPositionDecl(info->GetBindingDecl(0), stride, offset);
@@ -263,7 +263,7 @@ dp::BindingInfo const & MutableLabel::StaticVertex::GetBindingInfo()
     ASSERT_EQUAL(offset + sizeof(glsl::vec2), stride, ());
   }
 
-  return *info.get();
+  return *info;
 }
 
 dp::BindingInfo const & MutableLabel::DynamicVertex::GetBindingInfo()
@@ -272,8 +272,8 @@ dp::BindingInfo const & MutableLabel::DynamicVertex::GetBindingInfo()
 
   if (info == nullptr)
   {
-    info.reset(new dp::BindingInfo(2, 1));
-    uint8_t stride = sizeof(DynamicVertex);
+    info = std::make_unique<dp::BindingInfo>(2, 1);
+    uint8_t constexpr stride = sizeof(DynamicVertex);
     uint8_t offset = 0;
 
     FillNormalDecl(info->GetBindingDecl(0), stride, offset);
@@ -282,11 +282,11 @@ dp::BindingInfo const & MutableLabel::DynamicVertex::GetBindingInfo()
     ASSERT_EQUAL(offset + sizeof(glsl::vec2), stride, ());
   }
 
-  return *info.get();
+  return *info;
 }
 
 MutableLabel::PrecacheResult::PrecacheResult()
-  : m_state(df::CreateRenderState(gpu::Program::TextOutlinedGui, df::DepthLayer::GuiLayer))
+  : m_state(CreateRenderState(gpu::Program::TextOutlinedGui, df::DepthLayer::GuiLayer))
 {
   m_state.SetDepthTestEnabled(false);
 }
@@ -383,9 +383,8 @@ void MutableLabel::SetText(LabelResult & result, std::string_view text) const
   float length = 0.0f;
   glsl::vec2 pen = glsl::vec2(0.0, 0.0);
 
-  for (size_t i = 0; i < uniText.size(); ++i)
+  for (strings::UniChar c : uniText)
   {
-    strings::UniChar c = uniText[i];
     auto const it = std::find_if(m_alphabet.begin(), m_alphabet.end(),
                                  [&c](TAlphabetNode const & n)
     {
@@ -397,7 +396,7 @@ void MutableLabel::SetText(LabelResult & result, std::string_view text) const
     {
       std::array<glsl::vec2, 4> normals, maskTex;
       dp::TextureManager::GlyphRegion const & glyph = it->second;
-      glsl::vec2 offsets = GetNormalsAndMask(glyph, m_textRatio, normals, maskTex);
+      glsl::vec2 const offsets = GetNormalsAndMask(glyph, m_textRatio, normals, maskTex);
 
       ASSERT_EQUAL(normals.size(), maskTex.size(), ());
 
@@ -457,7 +456,7 @@ MutableLabelHandle::MutableLabelHandle(uint32_t id, dp::Anchor anchor, m2::Point
   : TBase(id, anchor, pivot, m2::PointF::Zero())
   , m_textView(make_unique_dp<MutableLabel>(anchor))
   , m_isContentDirty(true)
-  , m_textureManager(textures)
+  , m_textureManager(std::move(textures))
   , m_glyphsReady(false)
 {}
 
@@ -585,7 +584,7 @@ StaticLabelHandle::StaticLabelHandle(uint32_t id, ref_ptr<dp::TextureManager> te
                                      TAlphabet const & alphabet)
   : TBase(id, anchor, pivot, size)
   , m_alphabet(alphabet.begin(), alphabet.end())
-  , m_textureManager(textureManager)
+  , m_textureManager(std::move(textureManager))
   , m_glyphsReady(false)
 {}
 
