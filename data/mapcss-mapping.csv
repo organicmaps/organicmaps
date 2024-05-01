@@ -37,7 +37,7 @@
 # or in the short format:
 #   deprecated:highway|unsurfaced|disused:05.2020;838;highway|unclassified
 #
-# First 127 ids are reserved for the most frequently occuring types (they're encoded in 1 byte only).
+# First 128 ids are reserved for the most frequently occuring types (they're encoded in 1 byte only).
 #
 # Every time you edit this file add/amend unit tests for new/changed matching cases
 # in generator/generator_tests/osm_type_test.cpp, build and run the tests:
@@ -93,6 +93,7 @@ highway|primary;27;
 railway|rail;28;
 highway|service|parking_aisle;[highway=service][service=parking_aisle];;name;int_name;29;
 place|hamlet;30;
+# TODO: 50k usages, move
 highway|road;31;
 deprecated:highway|track|grade2:04.2024;[highway=track][tracktype=grade2];x;name;int_name;32;highway|track
 natural|wetland;33;
@@ -101,7 +102,9 @@ deprecated:boundary|administrative|8:04.2024;[boundary=administrative][admin_lev
 amenity|school;36;
 # Dedicated/segregated cycleways (e.g. segregated paths are converted into cycleways + footways, see osm2type.cpp).
 highway|cycleway;37;
+# TODO: 4k usages and deprecated, move and replace with farmland
 landuse|farm;38;
+# TODO: move; only ~100k w/o religion=*
 amenity|place_of_worship;39;
 deprecated:highway|track|grade1:04.2024;[highway=track][tracktype=grade1];x;name;int_name;40;highway|track
 addr:interpolation|odd;41;
@@ -116,17 +119,20 @@ barrier|fence;49;
 natural|water|lake;[natural=water][water=lake];;name;int_name;50;
 # ~3M usages. TODO: consolidate all other footway=link/etc. values into highway-footway-minor.
 highway|footway|crossing;[highway=footway][footway=crossing];;name;int_name;51;
+# TODO: move; 1k usages and deprecated
 waterway|riverbank;52;
 # 600k+ usages.
 highway|path|bicycle;[highway=path][bicycle=designated];;;;53;
 landuse|meadow;54;
 highway|living_street;55;
+# ~400k usages.
 man_made|survey_point;56;
 natural|peak;57;
 highway|motorway;58;
 highway|steps;59;
 waterway|ditch;60;
 amenity|restaurant;61;
+# TODO: deprecated, 250k, replace with natural=water + water=reservoir?
 landuse|reservoir;62;
 deprecated:highway|track|grade5:04.2024;[highway=track][tracktype=grade5];x;name;int_name;63;highway|track
 amenity|bench;64;
@@ -179,41 +185,51 @@ amenity|fast_food;97;
 highway|footway|bridge;[highway=footway][bridge?];;name;int_name;98;
 amenity|bank;99;
 barrier|hedge;100;
+# TODO: ~190k usages.
 amenity|pub;101;
 leisure|swimming_pool;[leisure=swimming_pool],[amenity=swimming_pool];;name;int_name;102;
+# TODO: deprecated, <70k as nodes and 95% automated Canada import, we have no point style anyway
 natural|land;103;
 tourism|hotel;[tourism=hotel],[hotel=yes];;name;int_name;104;
 landuse|cemetery;105;
 sport|soccer;106;
-# less than 100k usages
+# TODO: less than 100k usages, move
 boundary|administrative|4;[boundary=administrative][admin_level=4];;name;int_name;107;
 amenity|cafe;108;
 amenity|recycling|container;[amenity=recycling][recycling_type=container];;name;int_name;109;
 leisure|garden;110;
 landuse|commercial;111;
+# TODO: ~100k usages.
 railway|station;112;
 deprecated:highway|path|hiking:04.2024;[highway=path][route=hiking],[highway=path][sac_scale=hiking];x;name;int_name;113;highway|path
+# ~200k usages.
 amenity|hospital;114;
 # TODO: merge with "intermittent".
 waterway|stream|ephemeral;[waterway=stream][intermittent=ephemeral];;name;int_name;115;
 highway|trunk|bridge;[highway=trunk][bridge?];;name;int_name;116;
+# ~200k usages.
 amenity|post_office;117;
+# ~230k usages.
 landuse|quarry;118;
 amenity|pharmacy;119;
 man_made|pier;120;
+# ~220k usages.
 highway|motorway_junction;121;
+# TODO: 85k usages, move
 amenity|telephone;122;
 waterway|stream|tunnel;[waterway=stream][tunnel?];;name;int_name;123;
 tourism|information|guidepost;[tourism=information][information=guidepost];;name;int_name;124;
 amenity|parking|fee;[amenity=parking][fee];;name;int_name;125;
 amenity|kindergarten;126;
 leisure|swimming_pool|private;[leisure=swimming_pool][access=private],[amenity=swimming_pool][access=private];;name;int_name;127;
+# ~160k usages.
 place|suburb;128;
 landuse|allotments;129;
 landuse|forest|coniferous;[landuse=forest][wood=coniferous],[landuse=forest][leaf_type=coniferous],[natural=wood][wood=coniferous],[natural=wood][leaf_type=coniferous];;name;int_name;130;
 landuse|forest|mixed;[landuse=forest][wood=mixed],[landuse=forest][leaf_type=mixed],[landuse=forest][leaf_cycle=mixed],[natural=wood][wood=mixed],[natural=wood][leaf_type=mixed],[natural=wood][leaf_cycle=mixed];;name;int_name;131;
 deprecated:natural|wood|mixed:01.2020;[natural=wood][wood=mixed],[natural=wood][leaf_type=mixed],[natural=wood][leaf_cycle=mixed];x;name;int_name;132;landuse|forest|mixed
 sport|tennis;133;
+# ~730k usages.
 landuse|vineyard;134;
 aeroway|taxiway;135;
 aeroway|aerodrome;136;
@@ -231,8 +247,10 @@ amenity|parking|private;[amenity=parking][access=private];;name;int_name;145;
 deprecated:boundary|administrative|7:04.2024;[boundary=administrative][admin_level=7];x;name;int_name;146;
 tourism|attraction;147;
 natural|water|reservoir;[natural=water][water=reservoir];;name;int_name;148;
+# ~430k usages.
 natural|water|river;[natural=water][water=river];;name;int_name;149;
 railway|tram;150;
+# ~430k usages.
 amenity|toilets;151;
 natural|water|basin;[natural=water][water=basin];;name;int_name;152;
 deprecated:highway|footway|permissive:12.2023;[highway=footway][access=permissive],[highway=footway][foot=permissive];x;name;int_name;153;highway|footway
@@ -242,7 +260,9 @@ tourism|viewpoint;156;
 amenity|atm;157;
 highway|pedestrian|area;[highway=pedestrian][area?];;name;int_name;158;
 tourism|picnic_site;159;
+# ~460k usages.
 shop|supermarket;160;
+# ~730k usages.
 shop|convenience;161;
 shop|bakery;162;
 highway|construction;163;
@@ -324,6 +344,7 @@ amenity|recycling;237;
 highway|residential|tunnel;[highway=residential][tunnel?];;name;int_name;238;
 aeroway|helipad;239;
 deprecated:highway|path|permissive:12.2023;[highway=path][access=permissive];x;name;int_name;240;highway|path
+# ~530k usages.
 place|islet;241;
 sport|basketball;242;
 amenity|cinema;243;
