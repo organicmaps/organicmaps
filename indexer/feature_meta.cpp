@@ -128,6 +128,8 @@ bool Metadata::TypeFromString(string_view k, Metadata::EType & outType)
     outType = Metadata::FMD_LOCAL_REF;
   else if (k == "drive_through")
     outType = Metadata::FMD_DRIVE_THROUGH;
+  else if (k == "website:menu")
+    outType = Metadata::FMD_WEBSITE_MENU;
   else
     return false;
 
@@ -247,6 +249,7 @@ string ToString(Metadata::EType type)
   case Metadata::FMD_WHEELCHAIR: return "wheelchair";
   case Metadata::FMD_LOCAL_REF: return "local_ref";
   case Metadata::FMD_DRIVE_THROUGH: return "drive_through";
+  case Metadata::FMD_WEBSITE_MENU: return "website:menu";
   case Metadata::FMD_COUNT: CHECK(false, ("FMD_COUNT can not be used as a type."));
   };
 
