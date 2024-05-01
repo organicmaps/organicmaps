@@ -276,8 +276,10 @@ UNIT_TEST(MkDirRecursively)
 
   CHECK(resetDir(workPath), ());
   auto const filePath = base::JoinPath(workPath, "test1");
-  FileWriter testFile(filePath);
   SCOPE_GUARD(removeTestFile, bind(&base::DeleteFileX, filePath));
+  {
+    FileWriter testFile(filePath);
+  }
 
   TEST(!Platform::MkDirRecursively(path), ());
   TEST(!Platform::IsFileExistsByFullPath(path), ());

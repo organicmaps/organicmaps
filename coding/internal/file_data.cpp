@@ -50,7 +50,7 @@ FileData::FileData(string const & fileName, Op op)
   {
 #if defined(_MSC_VER)
     // Move file pointer to the end of the file to make it consistent with other platforms
-    if (op == Op::OP_APPEND)
+    if (op == Op::APPEND)
       fseek64(m_File, 0, SEEK_END);
 #endif
     return;

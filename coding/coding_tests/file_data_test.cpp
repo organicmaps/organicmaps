@@ -30,7 +30,7 @@ namespace file_data_test
 #ifdef OMIM_OS_WINDOWS
   void CheckFileOK(std::string const & name)
   {
-    base::FileData f(name, base::FileData::OP_READ);
+    base::FileData f(name, base::FileData::Op::READ);
 
     uint64_t const size = f.Size();
     TEST_EQUAL ( size, name.size(), () );
@@ -69,7 +69,7 @@ UNIT_TEST(FileData_NoDiskSpace)
 
   try
   {
-    base::FileData f(name, base::FileData::OP_WRITE_TRUNCATE);
+    base::FileData f(name, base::FileData::Op::WRITE_TRUNCATE);
 
     for (size_t i = 0; i < 100; ++i)
       f.Write(&bytes[0], bytes.size());
@@ -91,7 +91,7 @@ UNIT_TEST(FileData_SharingAV_Windows)
     MakeFile(name1);
 
     // lock file, will check sharing access
-    base::FileData f1(name1, base::FileData::OP_READ);
+    base::FileData f1(name1, base::FileData::Op::READ);
 
     // try rename or delete locked file
     TEST(!base::RenameFileX(name1, name2), ());

@@ -216,6 +216,7 @@ EditorTest::~EditorTest()
 {
   editor::tests_support::TearDownEditorForTesting();
 
+  m_dataSource.ClearCache();
   for (auto const & file : m_mwmFiles)
     Cleanup(file);
 }
@@ -1036,6 +1037,7 @@ void EditorTest::LoadMapEditsTest()
   sort(features.begin(), features.end());
   TEST_EQUAL(features, loadedFeatures, ());
 
+  m_dataSource.DeregisterMap(m_mwmFiles.back().GetCountryFile());
   TEST(RemoveMwm(rfMwmId), ());
 
   auto const newRfMwmId = BuildMwm("RF", [](TestMwmBuilder & builder)
