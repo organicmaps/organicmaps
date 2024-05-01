@@ -102,8 +102,7 @@ deprecated:boundary|administrative|8:04.2024;[boundary=administrative][admin_lev
 amenity|school;36;
 # Dedicated/segregated cycleways (e.g. segregated paths are converted into cycleways + footways, see osm2type.cpp).
 highway|cycleway;37;
-# TODO: 4k usages and deprecated, move and replace with farmland
-landuse|farm;38;
+deprecated:landuse|farm:05.2024;38;landuse|farmland
 # TODO: move; only ~100k w/o religion=*
 amenity|place_of_worship;39;
 deprecated:highway|track|grade1:04.2024;[highway=track][tracktype=grade1];x;name;int_name;40;highway|track

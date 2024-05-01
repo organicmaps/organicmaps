@@ -2148,7 +2148,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     // {"highway", "traffic_signals"},
     // {"historic", "battlefield"},
     // {"landuse", "brownfield"},
-    // {"landuse", "farm"},
     // {"landuse", "farmyard"},
     // {"landuse", "greenfield"},
     // {"landuse", "greenhouse_horticulture"},
