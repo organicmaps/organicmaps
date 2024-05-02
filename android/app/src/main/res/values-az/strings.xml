@@ -504,6 +504,8 @@
 	<string name="editor_detailed_description">Təklif etdiyiniz dəyişikliklər OpenStreetMap icmasına yerləşdiriləcək. Zəhmət olmasa Organic Maps\'da redaktə edilə bilməyən əlavə detalları izah edin.</string>
 	<string name="editor_more_about_osm">OpenStreetMap haqqında əlavə məlumat</string>
 	<string name="editor_operator">Sahibi</string>
+	<string name="editor_category_unsuitable_title">Uyğun kateqoriya tapa bilmirsiniz?</string>
+	<string name="editor_category_unsuitable_text">Üzvi Xəritələr yalnız sadə nöqtə kateqoriyaları əlavə etməyə imkan verir, bu o deməkdir ki, şəhərlər, yollar, göllər, bina konturları və s. yoxdur. Lütfən, belə kateqoriyaları birbaşa <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> saytına əlavə edin. Ətraflı addım-addım təlimatlar üçün <a href="https://organicmaps.app/faq/editing/advanced-map-editing">bələdçimizi</a> yoxlayın.</string>
 	<string name="downloader_no_downloaded_maps_title">Siz heç bir xəritə endirməmisiniz</string>
 	<string name="downloader_no_downloaded_maps_message">Ünvanları tapmaq və oflayn naviqasiya etmək üçün xəritələri endirin.</string>
 	<!-- abbreviation for meters -->
