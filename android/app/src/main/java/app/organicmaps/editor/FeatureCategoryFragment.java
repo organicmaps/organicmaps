@@ -1,13 +1,16 @@
 package app.organicmaps.editor;
 
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmRecyclerFragment;
@@ -23,6 +26,8 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCate
 {
   private FeatureCategory mSelectedCategory;
   protected ToolbarController mToolbarController;
+
+  private NestedScrollView mScrollView;
 
   public interface FeatureCategoryListener
   {
@@ -55,6 +60,10 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCate
         setFilter(query);
       }
     };
+    mScrollView = view.findViewById(R.id.nested_scroll_view);
+
+    TextView categoryUnsuitableText = view.findViewById(R.id.editor_category_unsuitable_text);
+    categoryUnsuitableText.setMovementMethod(LinkMovementMethod.getInstance());
   }
 
   private void setFilter(String query)
@@ -67,6 +76,7 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCate
     FeatureCategory[] categories = makeFeatureCategoriesFromTypes(creatableTypes);
 
     getAdapter().setCategories(categories);
+    mScrollView.scrollTo(0, 0);
   }
 
   @NonNull
