@@ -326,6 +326,7 @@ string DebugPrint(RankingInfo const & info)
      << ", m_allTokensUsed: " << info.m_allTokensUsed
      << ", m_categorialRequest: " << info.m_categorialRequest
      << ", m_hasName: " << info.m_hasName
+     << ", m_nearbyMatch: " << info.m_nearbyMatch
      << " }";
 
   return os.str();
@@ -418,6 +419,10 @@ double RankingInfo::GetLinearModelRank(bool viewportMode /* = false */) const
     if (m_hasName)
       result += kHasName;
   }
+
+  // Trying to fix https://github.com/organicmaps/organicmaps/issues/5251.
+  if (m_nearbyMatch)
+    result += kAltOldName;
 
   return result;
 }

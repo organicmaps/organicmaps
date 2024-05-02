@@ -571,6 +571,7 @@ private:
 
       updateDependScore(Model::TYPE_STREET, preInfo.m_geoParts.m_street);
       updateDependScore(Model::TYPE_SUBURB, preInfo.m_geoParts.m_suburb);
+      updateDependScore(Model::TYPE_COMPLEX_POI, preInfo.m_geoParts.m_complexPoi);
 
       if (!Model::IsLocalityType(info.m_type) && preInfo.m_cityId.IsValid())
       {
@@ -601,6 +602,9 @@ private:
       info.m_errorsMade = errorsMade;
       info.m_isAltOrOldName = isAltOrOldName;
       info.m_matchedFraction = matchedLength / static_cast<float>(totalLength);
+
+      /// @todo Also should add POI + nearby Street/Suburb/City.
+      info.m_nearbyMatch = preInfo.m_geoParts.IsPoiAndComplexPoi();
     }
 
     CategoriesInfo const categoriesInfo(featureTypes,
