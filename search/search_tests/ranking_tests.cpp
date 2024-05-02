@@ -99,6 +99,10 @@ UNIT_TEST(NameScore_Smoke)
   test("Göztepe 60. Yıl Parkı", "goztepe 60 parki", NameScore::FIRST_MATCH, 0, 14);
   test("Göztepe 60. Yıl Parkı", "60 parki", NameScore::SUBSTRING, 0, 7);
   test("Göztepe 60. Yıl Parkı", "yil parki", NameScore::SUBSTRING, 0, 8);
+
+  test("Mariano Acosta", "arcos", NameScore::SUBSTRING, 1, 5);  /// @todo PREFIX?
+  /// @todo Matched, rank calculation is bad.
+  //test("Marcos Paz", "arcos", NameScore::FULL_PREFIX, 1, 5);
 }
 
 namespace
