@@ -97,6 +97,8 @@
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">Data ya OpenStreetMap iliyoundwa na jumuiya kufikia %s. Pata maelezo zaidi kuhusu jinsi ya kuhariri na kusasisha ramani katika OpenStreetMap.org</string>
 	<string name="editor_other_info">Tuma ujumbe kwenye vihariri vya OSM</string>
+	<string name="editor_category_unsuitable_title">Je, huwezi kupata aina inayofaa?</string>
+	<string name="editor_category_unsuitable_text">Ramani za Kikaboni huruhusu kuongeza kategoria rahisi pekee, hiyo inamaanisha hakuna miji, barabara, maziwa, muhtasari wa majengo, n.k. Tafadhali ongeza kategoria kama hizo moja kwa moja kwenye <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Angalia <a href="https://organicmaps.app/faq/editing/advanced-map-editing">mwongozo wetu</a> kwa maagizo ya kina ya hatua kwa hatua.</string>
 	<!-- A referral link on the place page for some hotels -->
 	<string name="more_on_kayak">Picha, hakiki, uhifadhi</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->

@@ -490,6 +490,8 @@
 	<string name="editor_detailed_description">Modificările aduse hărții, sugerate de tine, vor fi trimise comunității OpenStreetMap. Descrie orice detalii suplimentare care nu pot fi modificate în Organic Maps.</string>
 	<string name="editor_more_about_osm">Mai multe despre OpenStreetMap</string>
 	<string name="editor_operator">Proprietar</string>
+	<string name="editor_category_unsuitable_title">Nu găsiți o categorie potrivită?</string>
+	<string name="editor_category_unsuitable_text">Organic Maps permite adăugarea doar a unor categorii de puncte simple, ceea ce înseamnă că nu există orașe, drumuri, lacuri, contururi de clădiri, etc. Vă rugăm să adăugați astfel de categorii direct la <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consultați <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ghidul nostru</a> pentru instrucțiuni detaliate pas cu pas.</string>
 	<string name="downloader_no_downloaded_maps_title">Nu ai descărcat nicio hartă</string>
 	<string name="downloader_no_downloaded_maps_message">Descarcă hărți pentru a căuta un loc și a naviga fără conectare la internet.</string>
 	<!-- abbreviation for meters -->

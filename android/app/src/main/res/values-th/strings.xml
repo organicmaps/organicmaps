@@ -480,6 +480,8 @@
 	<string name="editor_detailed_description">คำแนะนำการเปลี่ยนแปลงของคุณจะถูกส่งไปยังกลุ่ม OpenStreetMap โปรดอธิบายรายละเอียดที่ Organic Maps ไม่สามารถแก้ไขได้</string>
 	<string name="editor_more_about_osm">ข้อมูลเพิ่มเติมเกี่ยวกับ OpenStreetMap</string>
 	<string name="editor_operator">เจ้าของ</string>
+	<string name="editor_category_unsuitable_title">ไม่พบหมวดหมู่ที่เหมาะสมใช่ไหม?</string>
+	<string name="editor_category_unsuitable_text">แผนที่ทั่วไปอนุญาตให้เพิ่มหมวดหมู่จุดธรรมดาเท่านั้น ซึ่งหมายความว่าไม่มีเมือง ถนน ทะเลสาบ โครงร่างอาคาร ฯลฯ โปรดเพิ่มหมวดหมู่ดังกล่าวลงใน <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. ดู<a href="https://organicmaps.app/faq/editing/advanced-map-editing">คำแนะนำ</a> ของเราเพื่อดูคำแนะนำโดยละเอียดทีละขั้นตอน</string>
 	<string name="downloader_no_downloaded_maps_title">คุณยังไม่ได้ดาวน์โหลดแผนที่</string>
 	<string name="downloader_no_downloaded_maps_message">ดาวน์โหลดแผนที่เพื่อค้นหาสถานที่ และนำทางแบบออฟไลน์</string>
 	<!-- abbreviation for meters -->

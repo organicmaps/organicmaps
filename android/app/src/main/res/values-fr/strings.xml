@@ -506,6 +506,8 @@
 	<string name="editor_detailed_description">Vos modifications suggérées seront envoyées à la communauté OpenStreetMap. Décrivez les détails qui ne peuvent pas être modifiés dans Organic Maps.</string>
 	<string name="editor_more_about_osm">En savoir plus sur OpenStreetMap</string>
 	<string name="editor_operator">Opérateur</string>
+	<string name="editor_category_unsuitable_title">Tu ne trouves pas de catégorie appropriée ?</string>
+	<string name="editor_category_unsuitable_text">Organic Maps ne permet d\'ajouter que des catégories de points simples, c\'est-à-dire pas de villes, de routes, de lacs, de contours de bâtiments, etc. Merci d\'ajouter ces catégories directement sur <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte notre <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> pour obtenir des instructions détaillées étape par étape.</string>
 	<string name="downloader_no_downloaded_maps_title">Vous n\'avez téléchargé aucune carte</string>
 	<string name="downloader_no_downloaded_maps_message">Téléchargez des cartes pour rechercher un lieu et utiliser la navigation hors ligne</string>
 	<!-- abbreviation for meters -->

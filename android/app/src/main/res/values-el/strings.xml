@@ -505,6 +505,8 @@
 	<string name="editor_detailed_description">Οι προτεινόμενες αλλαγές θα σταλούν στην Κοινότητα του OpenStreetMap. Περιγράψτε τυχόν πρόσθετα στοιχεία που δεν μπορείτε να επεξεργαστείτε στο Organic Maps.</string>
 	<string name="editor_more_about_osm">Περισσότερα σχετικά με το OpenStreetMap</string>
 	<string name="editor_operator">Ιδιοκτήτης</string>
+	<string name="editor_category_unsuitable_title">Δεν μπορείτε να βρείτε την κατάλληλη κατηγορία;</string>
+	<string name="editor_category_unsuitable_text">Οι Οργανικοί Χάρτες επιτρέπουν την προσθήκη απλών κατηγοριών σημείων μόνο, δηλαδή όχι πόλεων, δρόμων, λιμνών, περιγραμμάτων κτιρίων κ.λπ. Παρακαλούμε προσθέστε τέτοιες κατηγορίες απευθείας στο <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Ελέγξτε τον <a href="https://organicmaps.app/faq/editing/advanced-map-editing">οδηγό μας</a> για λεπτομερείς οδηγίες βήμα προς βήμα.</string>
 	<string name="downloader_no_downloaded_maps_title">Δεν έχετε κατεβάσει χάρτες</string>
 	<string name="downloader_no_downloaded_maps_message">Κατεβάστε χάρτες για να αναζητήσετε μια τοποθεσία και να χρησιμοποιήσετε την πλοήγησης χωρίς σύνδεση.</string>
 	<!-- abbreviation for meters -->

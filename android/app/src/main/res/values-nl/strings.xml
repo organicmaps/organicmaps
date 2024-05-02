@@ -500,6 +500,8 @@
 	<string name="editor_detailed_description">Uw voorgestelde wijzigingen worden verzonden naar de OpenStreetMap-gemeenschap. Beschrijf de details die niet kunnen worden bewerkt in Organic Maps.</string>
 	<string name="editor_more_about_osm">Meer over OpenStreetMap</string>
 	<string name="editor_operator">Uitvoerder</string>
+	<string name="editor_category_unsuitable_title">Kun je geen geschikte categorie vinden?</string>
+	<string name="editor_category_unsuitable_text">Met Organic Maps kun je alleen eenvoudige puntcategorieën toevoegen, dus geen steden, wegen, meren, contouren van gebouwen, enzovoort. Voeg zulke categorieën direct toe aan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Bekijk onze <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gids</a> voor gedetailleerde stap voor stap instructies.</string>
 	<string name="downloader_no_downloaded_maps_title">U hebt geen kaarten gedownload</string>
 	<string name="downloader_no_downloaded_maps_message">Download kaarten om een locatie te zoeken en offline te navigeren.</string>
 	<!-- abbreviation for meters -->

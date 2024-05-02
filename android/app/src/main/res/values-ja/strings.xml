@@ -506,6 +506,8 @@
 	<string name="editor_detailed_description">提案した変更は、OpenStreetMapのコミュニティに送信されます。Organic Mapsで編集できない詳細を説明してください。</string>
 	<string name="editor_more_about_osm">OpenStreetMapについての詳細</string>
 	<string name="editor_operator">オペレーター</string>
+	<string name="editor_category_unsuitable_title">適切なカテゴリーが見つからない？</string>
+	<string name="editor_category_unsuitable_text">つまり、町、道路、湖、建物の輪郭などは追加できない。そのようなカテゴリーは<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>に直接追加してほしい。私たちの<a href="https://organicmaps.app/faq/editing/advanced-map-editing">ガイド</a>のステップバイステップの詳細な手順をチェックする。</string>
 	<string name="downloader_no_downloaded_maps_title">マップをダウンロードしていません</string>
 	<string name="downloader_no_downloaded_maps_message">ロケーションの検索とオフラインナビゲートのためにマップをダウンロードしてください。</string>
 	<!-- abbreviation for meters -->

@@ -492,6 +492,8 @@
 	<string name="editor_detailed_description">您建議的變更將傳送至 OpenStreetMap 社群。說明無法在 Organic Maps 中編輯的詳細資料。</string>
 	<string name="editor_more_about_osm">關於 OpenStreetMap 的更多資訊</string>
 	<string name="editor_operator">營運者</string>
+	<string name="editor_category_unsuitable_title">找不到合適的類別？</string>
+	<string name="editor_category_unsuitable_text">有機地圖僅允許添加簡單的點類別，這意味著沒有城鎮、道路、湖泊、建築物輪廓等。<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>.請查看我們的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，以了解詳細的逐步說明。</string>
 	<string name="downloader_no_downloaded_maps_title">您尚未下載任何地圖</string>
 	<string name="downloader_no_downloaded_maps_message">下載地圖來尋找位置和離線瀏覽。</string>
 	<!-- abbreviation for meters -->

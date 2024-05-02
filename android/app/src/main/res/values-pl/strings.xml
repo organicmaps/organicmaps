@@ -504,6 +504,8 @@
 	<string name="editor_detailed_description">Twoje sugestie zmian zostaną wysłane do społeczności OpenStreetMap. Opisz szczegóły, których nie można edytować w Organic Maps.</string>
 	<string name="editor_more_about_osm">Więcej o OpenStreetMap</string>
 	<string name="editor_operator">Operator</string>
+	<string name="editor_category_unsuitable_title">Nie możesz znaleźć odpowiedniej kategorii?</string>
+	<string name="editor_category_unsuitable_text">Organic Maps pozwala na dodawanie tylko prostych kategorii punktów, co oznacza brak miast, dróg, jezior, obrysów budynków itp. Dodaj takie kategorie bezpośrednio do <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Sprawdź nasz <a href="https://organicmaps.app/faq/editing/advanced-map-editing">przewodnik</a>, aby uzyskać szczegółowe instrukcje krok po kroku.</string>
 	<string name="downloader_no_downloaded_maps_title">Nie pobrano żadnych map</string>
 	<string name="downloader_no_downloaded_maps_message">Aby znajdować miejsca i nawigować bez połączenia z internetem, musisz pobrać mapy.</string>
 	<!-- abbreviation for meters -->
