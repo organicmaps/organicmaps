@@ -5297,7 +5297,6 @@
     nl = Nachtmodus
     pl = Tryb nocny
     pt = Modo noturno
-    pt-BR = Modo noturno
     ro = Mod nocturn
     ru = Ночной режим
     sk = Nočný režim
@@ -5473,7 +5472,6 @@
     nl = Uit
     pl = Wyłączony
     pt = Desligado
-    pt-BR = Desligado
     ro = Oprit
     ru = Выключен
     sk = Vypnúť
@@ -5518,7 +5516,6 @@
     nl = Aan
     pl = Włączony
     pt = Ligado
-    pt-BR = Ligado
     ro = Pornit
     ru = Включен
     sk = Zapnúť
@@ -5746,7 +5743,7 @@
     nl = Gesproken instructies
     pl = Komunikaty głosowe
     pt = Instruções de voz
-    pt-BR = Instruções de voz
+    pt-BR = Orientação por voz
     ro = Instrucțiuni vocale
     ru = Голосовые инструкции
     sk = Hlasové povely
@@ -6811,8 +6808,7 @@
     nb = Spørsmål og svar
     nl = Vragen en antwoorden
     pl = Pytania i odpowiedzi
-    pt = Perguntas e respostas
-    pt-BR = Perguntas e respostas
+    pt = Perguntas frequentes
     ro = Întrebări frecvente
     ru = Вопросы и ответы
     sk = Otázky a odpovede
@@ -7086,7 +7082,7 @@
     nb = Rapportere eller korrigere feil kartdata
     nl = Rapporteer of repareer onjuiste kaartgegevens
     pl = Zgłoś lub napraw nieprawidłowe dane mapy
-    pt = Comunica ou corrige dados incorrectos do mapa
+    pt = Comunica ou corrige dados incorretos do mapa
     pt-BR = Relatar ou corrigir dados incorretos do mapa
     ro = Raportați sau remediați datele incorecte de pe hartă
     ru = Сообщить или исправить неправильные данные на карте
@@ -7133,7 +7129,8 @@
     nb = Frivillig arbeid
     nl = Vrijwilligerswerk
     pl = Wolontariusz
-    pt = Para ser voluntário
+    pt = Voluntaria-te
+    pt-BR = Voluntarie-se
     ro = Pentru a fi voluntar
     ru = Cтать волонтёром
     sk = Dobrovoľníctvo
@@ -18780,8 +18777,7 @@
     nb = stopp
     nl = stoppen
     pl = stop
-    pt = parar
-    pt-BR = parar
+    pt = Parar
     ro = oprește
     ru = стоп
     sk = stop
@@ -19352,7 +19348,7 @@
     nl = Mobiel Internet
     pl = Dane mobilne
     pt = Dados móveis
-    pt-BR = Internet Móvel
+    pt-BR = Internet móvel
     ro = Internet mobil
     ru = Мобильный интернет
     sk = Mobilný internet
@@ -19397,7 +19393,7 @@
     nl = Mobiel internet is vereist voor het weergeven van gedetailleerde informatie over plaatsen, zoals foto's, prijzen en beoordelingen.
     pl = Dane mobilne są wymagane do powiadomień o aktualizacji map i wyświetlania dokładniejszych informacji o miejscach i zakładkach.
     pt = Para visualizar informações detalhadas sobre os locais, tais como fotografias, preços e avaliações, é necessário acesso à internet móvel.
-    pt-BR = Para visualizar informações detalhadas sobre os locais, tais como fotos, preços e análises, é necessário acesso à internet móvel.
+    pt-BR = Para visualizar informações detalhadas sobre os locais, tais como fotos, preços e avaliações, é necessário acesso à internet móvel.
     ro = Internetul mobil este necesar pentru a afișa informații detaliate despre locuri generale și cele preferate.
     ru = Мобильный интернет требуется для уведомлений об обновлении карты и для отображения более подробной информации о местах и метках.
     sk = Na zobrazenie podrobnejších informácií o miestach, napríklad fotografií, cien a recenzií, sa vyžaduje mobilný internet.
@@ -24014,7 +24010,7 @@
     nl = Route instellingen
     pl = Ustawienia nawigacji
     pt = Configurações de direção
-    pt-BR = Opções de direção
+    pt-BR = Opções de trajeto
     ro = Opțiuni de ocolire
     ru = Настройки объезда
     sk = Možnosti trasy
@@ -27354,7 +27350,7 @@
     nl = Hoogtes
     pl = Poziomice
     pt = Terreno
-    pt-BR = Topográfica
+    pt-BR = Relevo
     ro = Înălțimi
     ru = Высоты
     sk = Terén
@@ -27398,8 +27394,8 @@
     nb = For å bruke høydekurver oppdater eller last opp kartet til nødvendig område
     nl = Als u gebruik wilt maken van hoogtelijnen, moet u de kaart van het gewenste gebied bijwerken of downloaden
     pl = Do skorzystania z poziomic, pobierz mapę tego obszaru.
-    pt = Para ativar e usar a camada topográfica, por favor atualize ou descarregue o mapa da área
-    pt-BR = Para ativar e usar a camada topográfica, atualize ou baixe o mapa da região
+    pt = Para ativar e usar a camada Terreno, por favor atualize ou descarregue o mapa da área
+    pt-BR = Para ativar e usar a camada Relevo, atualize ou baixe o mapa da região
     ro = Pentru a activa și utiliza stratul topografic actualizează sau descarcă harta zonei
     ru = Чтобы воспользоваться линиями высот, обновите или загрузите карту нужной местности
     sk = Ak chcete aktivovať a používať topografickú vrstvu, aktualizujte alebo stiahnite mapu oblasti
@@ -27443,8 +27439,8 @@
     nb = Høydekurver er ikke tilgjengelige i dette området ennå
     nl = Hoogtelijnen zijn nog niet beschikbaar in deze regio
     pl = Poziomice nie są jeszcze dostępne w tym regionie
-    pt = A camada topográfica ainda não está disponível nesta área
-    pt-BR = A camada topográfica ainda não está disponível para esta região
+    pt = A camada Terreno ainda não está disponível nesta área
+    pt-BR = A camada Relevo ainda não está disponível para esta região
     ro = Stratul topografic nu este încă disponibil în această zonă
     ru = Линии высот пока не доступны в этом регионе
     sk = Topografická vrstva ešte nie je v tejto oblasti k dispozícii
@@ -27489,7 +27485,6 @@
     nl = Moeilijkheidsgraad
     pl = Poziom trudności
     pt = Nível de dificuldade
-    pt-BR = Nível de dificuldade
     ro = Nivel de dificultate
     ru = Уровень сложности
     sk = Úroveň obtiažnosti
@@ -27533,7 +27528,6 @@
     nl = Gemakkelijk
     pl = Łatwy
     pt = Fácil
-    pt-BR = Fácil
     ro = Ușor
     ru = Лёгкий
     sk = Jednoduchá
@@ -27577,7 +27571,6 @@
     nl = Middelmatig
     pl = Umiarkowany
     pt = Moderado
-    pt-BR = Moderado
     ro = Mediu
     ru = Умеренный
     sk = Mierna
@@ -27621,7 +27614,6 @@
     nl = Moeilijk
     pl = Skomplikowany
     pt = Difícil
-    pt-BR = Difícil
     ro = Dificil
     ru = Сложный
     sk = Náročná
@@ -27666,7 +27658,6 @@
     nl = Opstijging
     pl = Wejście
     pt = Subida
-    pt-BR = Subida
     ro = Urcare
     ru = Подъём
     sk = Stúpanie
@@ -27711,7 +27702,6 @@
     nl = Afdaling
     pl = Zejście
     pt = Descida
-    pt-BR = Descida
     ro = Coborâre
     ru = Спуск
     sk = Klesanie
@@ -27846,7 +27836,6 @@
     nl = Moeilijkheid
     pl = Trudność
     pt = Dificuldade
-    pt-BR = Dificuldade
     ro = Dificultate
     ru = Сложность
     sk = Obtiažnosť
@@ -29671,6 +29660,7 @@
     nl = Wandelen
     pl = Turystyka piesza
     pt = Caminhadas
+    pt-BR = Ar livre
     ro = Drumeție
     ru = Активный отдых
     sk = Turistika
