@@ -487,14 +487,14 @@
 		EDE243DD2B6D2E640057369B /* AboutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE243D52B6CF3980057369B /* AboutController.swift */; };
 		EDE243E52B6D3F400057369B /* OSMView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE243E42B6D3F400057369B /* OSMView.swift */; };
 		EDE243E72B6D55610057369B /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE243E02B6D3EA00057369B /* InfoView.swift */; };
-		EDF8386F2C00AE31007E4E67 /* LocalDirectoryMonitorDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838372C009A0A007E4E67 /* LocalDirectoryMonitorDelegateMock.swift */; };
-		EDF838702C00AE31007E4E67 /* DefaultLocalDirectoryMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838382C009A0A007E4E67 /* DefaultLocalDirectoryMonitorTests.swift */; };
-		EDF838712C00AE31007E4E67 /* SynchronizationStateManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838392C009A0A007E4E67 /* SynchronizationStateManagerTests.swift */; };
-		EDF838722C00AE37007E4E67 /* MetadataItemStubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF8383E2C009A0A007E4E67 /* MetadataItemStubs.swift */; };
-		EDF838772C00B217007E4E67 /* UbiquitousDirectoryMonitorDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF8383B2C009A0A007E4E67 /* UbiquitousDirectoryMonitorDelegateMock.swift */; };
-		EDF838782C00B217007E4E67 /* iCloudDirectoryMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF8383C2C009A0A007E4E67 /* iCloudDirectoryMonitorTests.swift */; };
-		EDF838792C00B217007E4E67 /* FileManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF8383D2C009A0A007E4E67 /* FileManagerMock.swift */; };
 		EDF838842C00B640007E4E67 /* SynchronizationFileWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838812C00B640007E4E67 /* SynchronizationFileWriter.swift */; };
+		EDF838BE2C00B9D0007E4E67 /* LocalDirectoryMonitorDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838AD2C00B9C7007E4E67 /* LocalDirectoryMonitorDelegateMock.swift */; };
+		EDF838BF2C00B9D0007E4E67 /* SynchronizationStateManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838AF2C00B9C7007E4E67 /* SynchronizationStateManagerTests.swift */; };
+		EDF838C02C00B9D0007E4E67 /* DefaultLocalDirectoryMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838AE2C00B9C7007E4E67 /* DefaultLocalDirectoryMonitorTests.swift */; };
+		EDF838C12C00B9D6007E4E67 /* iCloudDirectoryMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838B22C00B9C7007E4E67 /* iCloudDirectoryMonitorTests.swift */; };
+		EDF838C22C00B9D6007E4E67 /* MetadataItemStubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838B42C00B9C7007E4E67 /* MetadataItemStubs.swift */; };
+		EDF838C32C00B9D6007E4E67 /* UbiquitousDirectoryMonitorDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838B12C00B9C7007E4E67 /* UbiquitousDirectoryMonitorDelegateMock.swift */; };
+		EDF838C42C00B9D6007E4E67 /* FileManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF838B32C00B9C7007E4E67 /* FileManagerMock.swift */; };
 		EDFDFB462B7139490013A44C /* AboutInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFDFB452B7139490013A44C /* AboutInfo.swift */; };
 		EDFDFB482B7139670013A44C /* SocialMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFDFB472B7139670013A44C /* SocialMedia.swift */; };
 		EDFDFB4A2B722A310013A44C /* SocialMediaCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFDFB492B722A310013A44C /* SocialMediaCollectionViewCell.swift */; };
@@ -1395,14 +1395,14 @@
 		EDE243D52B6CF3980057369B /* AboutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutController.swift; sourceTree = "<group>"; };
 		EDE243E02B6D3EA00057369B /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		EDE243E42B6D3F400057369B /* OSMView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSMView.swift; sourceTree = "<group>"; };
-		EDF838372C009A0A007E4E67 /* LocalDirectoryMonitorDelegateMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalDirectoryMonitorDelegateMock.swift; sourceTree = "<group>"; };
-		EDF838382C009A0A007E4E67 /* DefaultLocalDirectoryMonitorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultLocalDirectoryMonitorTests.swift; sourceTree = "<group>"; };
-		EDF838392C009A0A007E4E67 /* SynchronizationStateManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationStateManagerTests.swift; sourceTree = "<group>"; };
-		EDF8383B2C009A0A007E4E67 /* UbiquitousDirectoryMonitorDelegateMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UbiquitousDirectoryMonitorDelegateMock.swift; sourceTree = "<group>"; };
-		EDF8383C2C009A0A007E4E67 /* iCloudDirectoryMonitorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iCloudDirectoryMonitorTests.swift; sourceTree = "<group>"; };
-		EDF8383D2C009A0A007E4E67 /* FileManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerMock.swift; sourceTree = "<group>"; };
-		EDF8383E2C009A0A007E4E67 /* MetadataItemStubs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetadataItemStubs.swift; sourceTree = "<group>"; };
 		EDF838812C00B640007E4E67 /* SynchronizationFileWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationFileWriter.swift; sourceTree = "<group>"; };
+		EDF838AD2C00B9C7007E4E67 /* LocalDirectoryMonitorDelegateMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalDirectoryMonitorDelegateMock.swift; sourceTree = "<group>"; };
+		EDF838AE2C00B9C7007E4E67 /* DefaultLocalDirectoryMonitorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultLocalDirectoryMonitorTests.swift; sourceTree = "<group>"; };
+		EDF838AF2C00B9C7007E4E67 /* SynchronizationStateManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationStateManagerTests.swift; sourceTree = "<group>"; };
+		EDF838B12C00B9C7007E4E67 /* UbiquitousDirectoryMonitorDelegateMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UbiquitousDirectoryMonitorDelegateMock.swift; sourceTree = "<group>"; };
+		EDF838B22C00B9C7007E4E67 /* iCloudDirectoryMonitorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iCloudDirectoryMonitorTests.swift; sourceTree = "<group>"; };
+		EDF838B32C00B9C7007E4E67 /* FileManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerMock.swift; sourceTree = "<group>"; };
+		EDF838B42C00B9C7007E4E67 /* MetadataItemStubs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetadataItemStubs.swift; sourceTree = "<group>"; };
 		EDFDFB452B7139490013A44C /* AboutInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutInfo.swift; sourceTree = "<group>"; };
 		EDFDFB472B7139670013A44C /* SocialMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMedia.swift; sourceTree = "<group>"; };
 		EDFDFB492B722A310013A44C /* SocialMediaCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -2647,6 +2647,7 @@
 		4B4153B62BF9709100EE4B02 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				EDF838AB2C00B9C7007E4E67 /* iCloudTests */,
 				4B4153B72BF970A000EE4B02 /* TextToSpeech */,
 			);
 			path = Core;
@@ -3076,6 +3077,36 @@
 				ED99667D2B94FBC20083CE55 /* ColorPicker.swift */,
 			);
 			path = ColorPicker;
+			sourceTree = "<group>";
+		};
+		EDF838AB2C00B9C7007E4E67 /* iCloudTests */ = {
+			isa = PBXGroup;
+			children = (
+				EDF838AC2C00B9C7007E4E67 /* DefaultLocalDirectoryMonitorTests */,
+				EDF838AF2C00B9C7007E4E67 /* SynchronizationStateManagerTests.swift */,
+				EDF838B02C00B9C7007E4E67 /* iCloudDirectoryMonitorTests */,
+				EDF838B42C00B9C7007E4E67 /* MetadataItemStubs.swift */,
+			);
+			path = iCloudTests;
+			sourceTree = "<group>";
+		};
+		EDF838AC2C00B9C7007E4E67 /* DefaultLocalDirectoryMonitorTests */ = {
+			isa = PBXGroup;
+			children = (
+				EDF838AD2C00B9C7007E4E67 /* LocalDirectoryMonitorDelegateMock.swift */,
+				EDF838AE2C00B9C7007E4E67 /* DefaultLocalDirectoryMonitorTests.swift */,
+			);
+			path = DefaultLocalDirectoryMonitorTests;
+			sourceTree = "<group>";
+		};
+		EDF838B02C00B9C7007E4E67 /* iCloudDirectoryMonitorTests */ = {
+			isa = PBXGroup;
+			children = (
+				EDF838B12C00B9C7007E4E67 /* UbiquitousDirectoryMonitorDelegateMock.swift */,
+				EDF838B22C00B9C7007E4E67 /* iCloudDirectoryMonitorTests.swift */,
+				EDF838B32C00B9C7007E4E67 /* FileManagerMock.swift */,
+			);
+			path = iCloudDirectoryMonitorTests;
 			sourceTree = "<group>";
 		};
 		EDFDFB412B7108090013A44C /* AboutController */ = {
@@ -4564,8 +4595,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDF838C12C00B9D6007E4E67 /* iCloudDirectoryMonitorTests.swift in Sources */,
+				EDF838C02C00B9D0007E4E67 /* DefaultLocalDirectoryMonitorTests.swift in Sources */,
 				ED1ADA332BC6B1B40029209F /* CarPlayServiceTests.swift in Sources */,
+				EDF838C32C00B9D6007E4E67 /* UbiquitousDirectoryMonitorDelegateMock.swift in Sources */,
+				EDF838BE2C00B9D0007E4E67 /* LocalDirectoryMonitorDelegateMock.swift in Sources */,
+				EDF838BF2C00B9D0007E4E67 /* SynchronizationStateManagerTests.swift in Sources */,
+				EDF838C22C00B9D6007E4E67 /* MetadataItemStubs.swift in Sources */,
 				4B4153B52BF9695500EE4B02 /* MWMTextToSpeechTests.mm in Sources */,
+				EDF838C42C00B9D6007E4E67 /* FileManagerMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
