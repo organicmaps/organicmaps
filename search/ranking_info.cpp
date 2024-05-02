@@ -40,7 +40,7 @@ double constexpr kPopularity = 0.42;
 
 double constexpr kErrorsMade = -0.4;
 double constexpr kMatchedFraction = 0.1876736;
-double constexpr kAllTokensUsed = 0.0478513;
+double constexpr kAllTokensUsed = 0.3;
 double constexpr kCommonTokens = -0.05;
 double constexpr kAltOldName = -0.3;    // Some reasonable penalty like kErrorsMade.
 
@@ -50,6 +50,7 @@ double constexpr kAltOldName = -0.3;    // Some reasonable penalty like kErrorsM
 // - shoulbe be comparable with kRank to keep cities/towns
 double constexpr kViewportDiffThreshold = 0.29;
 static_assert(kViewportDiffThreshold < -kAltOldName && kViewportDiffThreshold > -kErrorsMade / 2);
+static_assert(kViewportDiffThreshold < kAllTokensUsed);
 
 double constexpr kNameScore[] = {
  -0.05,   // Zero
@@ -133,8 +134,8 @@ void PrintParse(ostringstream & oss, array<TokenRange, Model::TYPE_COUNT> const 
   {
     for (size_t pos : ranges[i])
     {
-      CHECK_LESS(pos, numTokens, ());
-      CHECK_EQUAL(types[pos], Model::TYPE_COUNT, ());
+      ASSERT_LESS(pos, numTokens, ());
+      ASSERT_EQUAL(types[pos], Model::TYPE_COUNT, ());
       types[pos] = static_cast<Model::Type>(i);
     }
   }
@@ -437,7 +438,7 @@ double RankingInfo::GetErrorsMadePerToken() const
   if (!m_errorsMade.IsValid())
     return GetMaxErrorsForTokenLength(numeric_limits<size_t>::max());
 
-  CHECK_GREATER(m_numTokens, 0, ());
+  ASSERT_GREATER(m_numTokens, 0, ());
   return m_errorsMade.m_errorsMade / static_cast<double>(m_numTokens);
 }
 

@@ -1268,4 +1268,22 @@ UNIT_CLASS_TEST(MwmTestsFixture, PostOffice_Viewport)
   }
 }
 
+UNIT_CLASS_TEST(MwmTestsFixture, NotAllTokens)
+{
+  auto const & cl = classif();
+
+  {
+    // Buenos Aires (Palermo)
+    ms::LatLon const center(-34.58524, -58.42516);
+    SetViewportAndLoadMaps(center);
+
+    auto request = MakeRequest("santander arcos");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+
+    // 5 out of 8 results are banks near Arcos/Marcos. No "Santander" streets occupation on top :)
+    TEST_GREATER(CountClassifType(Range(results, 0, 8), cl.GetTypeByPath({"amenity", "bank"})), 4, ());
+  }
+}
+
 } // namespace real_mwm_tests
