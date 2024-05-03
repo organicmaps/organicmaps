@@ -74,7 +74,7 @@ public class MenuBottomSheetFragment extends BottomSheetDialogFragment
     if (getArguments() != null)
     {
       String title = getArguments().getString("title");
-      if (title != null && title.length() > 0)
+      if (title != null && !title.isEmpty())
       {
         titleView.setVisibility(View.VISIBLE);
         titleView.setText(title);
@@ -125,7 +125,7 @@ public class MenuBottomSheetFragment extends BottomSheetDialogFragment
       if (getArguments() != null)
       {
         String id = getArguments().getString("id");
-        if (id != null && id.length() > 0)
+        if (id != null && !id.isEmpty())
           mMenuBottomSheetItems = bottomSheetInterface.getMenuBottomSheetItems(id);
       }
     }
@@ -134,7 +134,7 @@ public class MenuBottomSheetFragment extends BottomSheetDialogFragment
       if (getArguments() != null)
       {
         String id = getArguments().getString("id");
-        if (id != null && id.length() > 0)
+        if (id != null && !id.isEmpty())
         {
           mMenuBottomSheetItems = bottomSheetInterfaceWithHeader.getMenuBottomSheetItems(id);
           mHeaderFragment = bottomSheetInterfaceWithHeader.getMenuBottomSheetFragment(id);

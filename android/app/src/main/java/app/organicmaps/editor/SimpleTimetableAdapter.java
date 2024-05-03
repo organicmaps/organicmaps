@@ -43,7 +43,7 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
 
   private final Fragment mFragment;
 
-  private List<Timetable> mItems = new ArrayList<>();
+  private List<Timetable> mItems;
   private Timetable mComplementItem;
   private int mPickingPosition;
 

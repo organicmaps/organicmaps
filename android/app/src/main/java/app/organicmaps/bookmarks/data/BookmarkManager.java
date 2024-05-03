@@ -136,8 +136,7 @@ public enum BookmarkManager
   @Nullable
   public Bookmark addNewBookmark(double lat, double lon)
   {
-    final Bookmark bookmark = nativeAddBookmarkToLastEditedCategory(lat, lon);
-    return bookmark;
+    return nativeAddBookmarkToLastEditedCategory(lat, lon);
   }
 
   public void addLoadingListener(@NonNull BookmarksLoadingListener listener)
@@ -932,10 +931,10 @@ public enum BookmarkManager
   {
     default void onBookmarksLoadingStarted() {}
     default void onBookmarksLoadingFinished() {}
-    default void onBookmarksFileUnsupported(@NonNull Uri uri) {};
-    default void onBookmarksFileDownloadFailed(@NonNull Uri uri, @NonNull String string) {};
-    default void onBookmarksFileImportSuccessful() {};
-    default void onBookmarksFileImportFailed() {};
+    default void onBookmarksFileUnsupported(@NonNull Uri uri) {}
+    default void onBookmarksFileDownloadFailed(@NonNull Uri uri, @NonNull String string) {}
+    default void onBookmarksFileImportSuccessful() {}
+    default void onBookmarksFileImportFailed() {}
   }
 
   public interface BookmarksSortingListener
