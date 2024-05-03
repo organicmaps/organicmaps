@@ -117,10 +117,8 @@ public:
 
   /// Special mark that it's a point feature, not area or line.
   void SetPointType();
-  /// Remove blank names and default name duplications.
-  void RemoveBlankAndDuplicationsForDefault();
-  /// Calls RemoveBlankNames or RemoveFakeNames depending on mode.
-  void RemoveNeedlessNames();
+  /// Remove blank names
+  void RemoveBlankNames();
 
   static bool ValidateBuildingLevels(std::string const & buildingLevels);
   static bool ValidateHouseNumber(std::string const & houseNumber);
