@@ -28,7 +28,7 @@
     nb = Adresse/blokk
     nl = Adres/blok
     pl = Adres/Blok
-    pt = Endereço/Bloco
+    pt = Morada/Bloco
     pt-BR = Endereço/Bloco
     ro = Adresă/Bloc
     ru = Адрес/Блок
@@ -29594,7 +29594,8 @@
     nb = Ferieleilighet
     nl = Appartement
     pl = Apartament wakacyjny
-    pt = Apartamento de férias
+    pt = Apartamento de alojamento local
+    pt-BR = Apartamento de temporada
     ro = Apartament de vacanță
     ru = Квартира для отдыха
     sk = Prázdninový apartmán
@@ -29633,7 +29634,6 @@
     nl = Kunstwerk
     pl = Dzieło sztuki
     pt = Obra de arte
-    pt-BR = Obra de arte
     ro = Turism
     ru = Произведение искусства
     sk = Umelecké dielo
@@ -29669,8 +29669,8 @@
     nb = Kunstverk
     nl = Kunstwerk
     pl = Architektura
-    pt = Obra de arte de arquitetura
-    pt-BR = Obra de arte de arquitetura
+    pt = Arte arquitetónica
+    pt-BR = Arte arquitetônica
     ro = Turism
     ru = Произведение искусства
     sk = Architektonické dielo
@@ -29707,7 +29707,6 @@
     nl = Schilderij
     pl = Malarstwo
     pt = Pintura
-    pt-BR = Pintura
     ro = Turism
     ru = Произведение искусства
     sk = Maľba
@@ -29744,7 +29743,6 @@
     nl = Kunstwerk
     pl = Rzeźba
     pt = Escultura
-    pt-BR = Escultura
     ro = Turism
     ru = Произведение искусства
     sk = Plastika
@@ -29782,7 +29780,6 @@
     nl = Standbeeld
     pl = Posąg
     pt = Estátua
-    pt-BR = Estátua
     ro = Turism
     ru = Произведение искусства
     sk = Socha
@@ -29819,7 +29816,6 @@
     nl = Attractie
     pl = Atrakcja turystyczna
     pt = Atração turística
-    pt-BR = Atração turística
     ro = Punct de atracție
     ru = Достопримечательность
     sk = Atrakcia
@@ -29902,7 +29898,7 @@
     nl = Kampeerterrein
     pl = Kamping
     pt = Parque de campismo
-    pt-BR = Parque de campismo
+    pt-BR = Local de camping
     ru = Кемпинг
     sk = Kemp
     th = การตั้งแคมป์
@@ -30020,8 +30016,7 @@
     nb = Galleri
     nl = Galerij
     pl = Galeria
-    pt = Galeria
-    pt-BR = Galeria
+    pt = Galeria de arte
     ro = Galerie
     ru = Галерея
     sk = Umelecká galéria
@@ -30093,7 +30088,6 @@
     nl = Herberg
     pl = Hostel
     pt = Hostel
-    pt-BR = Hostel
     ru = Хостел
     sv = Vandrarhem
     th = หอพัก
@@ -30125,7 +30119,6 @@
     nl = Hotel
     pl = Hotel
     pt = Hotel
-    pt-BR = Hotel
     ru = Гостиница
     sv = Hotell
     th = โรงแรม
@@ -30245,7 +30238,6 @@
     nl = Wegwijzer
     pl = Drogowskaz
     pt = Poste com direções
-    pt-BR = Poste com direções
     ro = Postul de ghidare
     ru = Указательный столб
     sk = Smerovník
@@ -30367,7 +30359,6 @@
     nl = Bezoekerscentrum
     pl = Centrum dla zwiedzających
     pt = Centro de visitantes
-    pt-BR = Centro de visitantes
     ro = Centrul pentru vizitatori
     ru = Центр для посетителей
     sk = Návštevnícke centrum
@@ -30398,7 +30389,6 @@
     nb = Motell
     pl = Motel
     pt = Motel
-    pt-BR = Motel
     ru = Мотель
     sv = Motell
     th = โมเทล
@@ -30431,7 +30421,6 @@
     nl = Museum
     pl = Muzeum
     pt = Museu
-    pt-BR = Museu
     ro = Muzeu
     ru = Музей
     sk = Múzeum
@@ -30468,7 +30457,6 @@
     nl = Picnicplaats
     pl = Pole piknikowe
     pt = Local de piqueniques
-    pt-BR = Local de piqueniques
     ro = Locații picnic
     ru = Место для пикника
     sk = Piknik
@@ -30503,7 +30491,6 @@
     nl = Complex
     pl = Dom wczasowy
     pt = Resort
-    pt-BR = Resort
     ro = Stațiuni
     ru = Дом отдыха
     sk = Rezort
@@ -30540,7 +30527,6 @@
     nl = Attractiepark
     pl = Park tematyczny
     pt = Parque de diversão
-    pt-BR = Parque de diversão
     ro = Parc de distracții
     ru = Парк развлечений
     sk = Zábavný park
@@ -30618,7 +30604,6 @@
     nl = Wildernishut
     pl = Gajówka
     pt = Cabana
-    pt-BR = Cabana
     ro = Cabană în pădure
     ru = Домик для туристов
     sk = Chata
@@ -30692,8 +30677,8 @@
     nb = Dyrehage
     nl = Kinderboerderij
     pl = Małe Zoo
-    pt = Jardim Zoológico
-    pt-BR = Jardim Zoológico
+    pt = Mini zoológico
+    pt-BR = Fazendinha
     ro = Grădina Zoologică
     ru = Контактный зоопарк
     sk = Kontaktná zoo
@@ -30719,7 +30704,6 @@
     nl = Snelheidsmatigende maatregel
     pl = Uspokojenie ruchu drogowego
     pt = Redutor de velocidade
-    pt-BR = Redutor de velocidade
     ru = Лежачий полицейский
     sk = Upokojovanie dopravy
     tr = Hız Kesici (Kasis)
@@ -30760,7 +30744,7 @@
     nl = Verkeersheuvel
     pl = Długi próg zwalniający
     pt = Lomba longa
-    pt-BR = Quebra-molas longa
+    pt-BR = Quebra-molas longo
     ru = Лежачий полицейский
     sk = Spomaľovací prah
     tr = Hız Kesici (Kasis)
@@ -30778,7 +30762,6 @@
     mr = जलमार्ग
     nl = Waterweg
     pt = Curso de água
-    pt-BR = Curso de água
     ru = Водный путь
     sk = Vodný tok
     tr = Su Yolu
@@ -30809,7 +30792,6 @@
     nl = Kanaal
     pl = Kanał
     pt = Canal
-    pt-BR = Canal
     ru = Канал
     sk = Kanál
     sv = Kanal
@@ -30843,8 +30825,7 @@
     nb = Kanal
     nl = Kanaal
     pl = Kanał
-    pt = Canal
-    pt-BR = Canal
+    pt = Túnel de canal
     ru = Канал
     sk = Tunel v kanáli
     sv = Kanal
@@ -30885,7 +30866,6 @@
     nl = Vistrap
     pl = Przepławka
     pt = Escada de peixes
-    pt-BR = Escada de peixes
     ro = Scară de pește
     ru = Рыбоход
     sk = Rybovod
@@ -30915,7 +30895,6 @@
     nl = Dam
     pl = Tama
     pt = Barragem
-    pt-BR = Usina
     ru = Дамба
     sk = Priehrada
     tr = Baraj
@@ -30937,7 +30916,6 @@
     nl = Sloot
     pl = Rów
     pt = Vala
-    pt-BR = Vala
     ru = Ров
     sk = Priekopa
     tr = Hendek
@@ -30976,7 +30954,6 @@
     nl = Duiker
     pl = Przepust
     pt = Bueiro
-    pt-BR = Bueiro
     ro = Canal de scurgere
     ru = Водопропускная труба
     sk = Priepust
@@ -31005,7 +30982,6 @@
     nl = Dok
     pl = Dok
     pt = Doca
-    pt-BR = Doca
     ru = Причал
     sk = Dok
     tr = Rıhtım
@@ -31025,7 +31001,6 @@
     mr = नाला
     nl = Afvoer
     pt = Valeta de drenagem
-    pt-BR = Valeta de drenagem
     ru = Водоотвод
     sk = Stoka
     tr = Lağım
@@ -31062,7 +31037,6 @@
     nl = Sluisdeur
     pl = Wrota śluzy
     pt = Comporta de eclusa
-    pt-BR = Comporta de eclusa
     ro = Ecluză
     ru = Шлюз
     sk = Stavidlo
