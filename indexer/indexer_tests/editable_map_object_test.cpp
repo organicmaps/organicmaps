@@ -371,7 +371,7 @@ UNIT_TEST(EditableMapObject_RemoveBlankNames)
 
   EditableMapObject emo;
   emo.SetName(name);
-  emo.RemoveBlankAndDuplicationsForDefault();
+  emo.RemoveBlankNames();
 
   TEST_EQUAL(getCountOfNames(emo.GetNameMultilang()), 4, ());
 
@@ -383,7 +383,7 @@ UNIT_TEST(EditableMapObject_RemoveBlankNames)
   name.AddString(GetLangCode("de"), "");
 
   emo.SetName(name);
-  emo.RemoveBlankAndDuplicationsForDefault();
+  emo.RemoveBlankNames();
 
   TEST_EQUAL(getCountOfNames(emo.GetNameMultilang()), 2, ());
 
@@ -395,7 +395,7 @@ UNIT_TEST(EditableMapObject_RemoveBlankNames)
   name.AddString(GetLangCode("de"), "");
 
   emo.SetName(name);
-  emo.RemoveBlankAndDuplicationsForDefault();
+  emo.RemoveBlankNames();
 
   TEST_EQUAL(getCountOfNames(emo.GetNameMultilang()), 1, ());
 
@@ -407,7 +407,7 @@ UNIT_TEST(EditableMapObject_RemoveBlankNames)
   name.AddString(GetLangCode("de"), "De name");
 
   emo.SetName(name);
-  emo.RemoveBlankAndDuplicationsForDefault();
+  emo.RemoveBlankNames();
 
   TEST_EQUAL(getCountOfNames(emo.GetNameMultilang()), 1, ());
 }

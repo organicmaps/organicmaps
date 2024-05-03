@@ -3002,7 +3002,7 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
                       " without a user's input. Feel free to close it if it's wrong).");
   }
 
-  emo.RemoveNeedlessNames();
+  emo.RemoveBlankNames();
 
   auto const result = osm::Editor::Instance().SaveEditedFeature(emo);
 

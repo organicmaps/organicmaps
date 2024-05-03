@@ -352,25 +352,17 @@ void EditableMapObject::SetCuisines(std::vector<std::string> const & cuisines)
 
 void EditableMapObject::SetPointType() { m_geomType = feature::GeomType::Point; }
 
-void EditableMapObject::RemoveBlankAndDuplicationsForDefault()
+void EditableMapObject::RemoveBlankNames()
 {
   StringUtf8Multilang editedName;
-  string_view defaultName;
-  m_name.GetString(StringUtf8Multilang::kDefaultCode, defaultName);
 
-  m_name.ForEach([&defaultName, &editedName](int8_t langCode, string_view name)
+  m_name.ForEach([&editedName](int8_t langCode, string_view name)
   {
-    auto const duplicate = langCode != StringUtf8Multilang::kDefaultCode && defaultName == name;
-    if (!name.empty() && !duplicate)
+    if (!name.empty())
       editedName.AddString(langCode, name);
   });
 
   m_name = editedName;
-}
-
-void EditableMapObject::RemoveNeedlessNames()
-{
-  RemoveBlankAndDuplicationsForDefault();
 }
 
 // static
