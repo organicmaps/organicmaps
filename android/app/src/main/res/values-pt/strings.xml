@@ -249,7 +249,7 @@
 	<!-- Text in menu -->
 	<string name="help">Ajuda</string>
 	<!-- Button in the main Help dialog -->
-	<string name="faq">Perguntas e respostas</string>
+	<string name="faq">Perguntas frequentes</string>
 	<!-- Button in the main menu -->
 	<string name="donate">Doar</string>
 	<!-- Button in the main Help dialog -->
@@ -526,7 +526,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Certifique-se que não incluiu nenhuns dados pessoais.</string>
 	<string name="editor_share_to_all_dialog_message_2">Os editores do OpenStreetMap verificarão as alterações e entrarão em contacto consigo se tiverem alguma dúvida.</string>
-	<string name="navigation_stop_button">parar</string>
+	<string name="navigation_stop_button">Parar</string>
 	<!-- For the first routing -->
 	<string name="accept">Aceitar</string>
 	<!-- For the first routing -->
@@ -704,8 +704,8 @@
 	<string name="dialog_pedestrian_route_is_long_header">Não foi encontrada nenhuma rota de metropolitano</string>
 	<string name="dialog_pedestrian_route_is_long_message">Escolha um ponto inicial ou final do percurso próximo da estação de metropolitano</string>
 	<string name="button_layer_isolines">Terreno</string>
-	<string name="isolines_activation_error_dialog">Para ativar e usar a camada topográfica, por favor atualize ou descarregue o mapa da área</string>
-	<string name="isolines_location_error_dialog">A camada topográfica ainda não está disponível nesta área</string>
+	<string name="isolines_activation_error_dialog">Para ativar e usar a camada Terreno, por favor atualize ou descarregue o mapa da área</string>
+	<string name="isolines_location_error_dialog">A camada Terreno ainda não está disponível nesta área</string>
 	<string name="elevation_profile_ascent">Subida</string>
 	<string name="elevation_profile_descent">Descida</string>
 	<string name="elevation_profile_minaltitude">Altura mínima</string>
@@ -779,9 +779,9 @@
 	<string name="zoom_out">Diminuir o zoom</string>
 
 	<!-- SECTION: Types -->
-	<string name="type.addr_interpolation">Endereço/Bloco</string>
-	<string name="type.addr_interpolation.even">Endereço/Bloco</string>
-	<string name="type.addr_interpolation.odd">Endereço/Bloco</string>
+	<string name="type.addr_interpolation">Morada/Bloco</string>
+	<string name="type.addr_interpolation.even">Morada/Bloco</string>
+	<string name="type.addr_interpolation.odd">Morada/Bloco</string>
 	<string name="type.aerialway">Transporte aéreo</string>
 	<string name="type.aerialway.cable_car">Teleférico</string>
 	<string name="type.aerialway.chair_lift">Telecadeira</string>
@@ -1984,9 +1984,9 @@
 	<string name="type.tourism.aquarium">Aquário</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Alojamento de montanha</string>
-	<string name="type.tourism.apartment">Apartamento de férias</string>
+	<string name="type.tourism.apartment">Apartamento de alojamento local</string>
 	<string name="type.tourism.artwork">Obra de arte</string>
-	<string name="type.tourism.artwork.architecture">Obra de arte de arquitetura</string>
+	<string name="type.tourism.artwork.architecture">Arte arquitetónica</string>
 	<string name="type.tourism.artwork.painting">Pintura</string>
 	<string name="type.tourism.artwork.sculpture">Escultura</string>
 	<string name="type.tourism.artwork.statue">Estátua</string>
@@ -1997,7 +1997,7 @@
 	<string name="type.tourism.caravan_site">Parque de caravanas</string>
 	<!-- A rentable countryside vacation house. -->
 	<string name="type.tourism.chalet">Casa de férias</string>
-	<string name="type.tourism.gallery">Galeria</string>
+	<string name="type.tourism.gallery">Galeria de arte</string>
 	<string name="type.tourism.guest_house">Pousada ou pensão</string>
 	<string name="type.tourism.hostel">Hostel</string>
 	<string name="type.tourism.hotel">Hotel</string>
@@ -2016,13 +2016,13 @@
 	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Cabana</string>
 	<string name="type.tourism.zoo">Jardim zoológico</string>
-	<string name="type.tourism.zoo.petting">Jardim Zoológico</string>
+	<string name="type.tourism.zoo.petting">Mini zoológico</string>
 	<string name="type.traffic_calming">Redutor de velocidade</string>
 	<string name="type.traffic_calming.bump">Lomba</string>
 	<string name="type.traffic_calming.hump">Lomba longa</string>
 	<string name="type.waterway">Curso de água</string>
 	<string name="type.waterway.canal">Canal</string>
-	<string name="type.waterway.canal.tunnel">Canal</string>
+	<string name="type.waterway.canal.tunnel">Túnel de canal</string>
 	<string name="type.waterway.fish_pass">Escada de peixes</string>
 	<string name="type.waterway.dam">Barragem</string>
 	<string name="type.barrier.ditch">Vala</string>

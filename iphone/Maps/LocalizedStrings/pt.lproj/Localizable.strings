@@ -308,7 +308,7 @@
 "help" = "Ajuda";
 
 /* Button in the main Help dialog */
-"faq" = "Perguntas e respostas";
+"faq" = "Perguntas frequentes";
 
 /* Button in the main menu */
 "donate" = "Doar";
@@ -323,10 +323,10 @@
 "report_a_bug" = "Reportar um problema";
 
 /* Button in the About screen */
-"report_incorrect_map_bug" = "Comunica ou corrige dados incorrectos do mapa";
+"report_incorrect_map_bug" = "Comunica ou corrige dados incorretos do mapa";
 
 /* Button in the About screen */
-"volunteer" = "Para ser voluntário";
+"volunteer" = "Voluntaria-te";
 
 /* "Social media" section header in the About screen */
 "follow_us" = "Segue-nos e contacta-nos:";
@@ -863,7 +863,7 @@
 
 "editor_share_to_all_dialog_message_2" = "Os editores do OpenStreetMap verificarão as alterações e entrarão em contacto consigo se tiverem alguma dúvida.";
 
-"navigation_stop_button" = "parar";
+"navigation_stop_button" = "Parar";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Desativar gravação da sua rota recente?";
@@ -1195,9 +1195,9 @@
 
 "button_layer_isolines" = "Terreno";
 
-"isolines_activation_error_dialog" = "Para ativar e usar a camada topográfica, por favor atualize ou descarregue o mapa da área";
+"isolines_activation_error_dialog" = "Para ativar e usar a camada Terreno, por favor atualize ou descarregue o mapa da área";
 
-"isolines_location_error_dialog" = "A camada topográfica ainda não está disponível nesta área";
+"isolines_location_error_dialog" = "A camada Terreno ainda não está disponível nesta área";
 
 "elevation_profile_diff_level" = "Nível de dificuldade";
 
@@ -1278,11 +1278,11 @@
 
 /********** Types **********/
 
-"type.addr_interpolation" = "Endereço/Bloco";
+"type.addr_interpolation" = "Morada/Bloco";
 
-"type.addr_interpolation.even" = "Endereço/Bloco";
+"type.addr_interpolation.even" = "Morada/Bloco";
 
-"type.addr_interpolation.odd" = "Endereço/Bloco";
+"type.addr_interpolation.odd" = "Morada/Bloco";
 
 "type.aerialway" = "Transporte aéreo";
 
@@ -3714,11 +3714,11 @@
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "Alojamento de montanha";
 
-"type.tourism.apartment" = "Apartamento de férias";
+"type.tourism.apartment" = "Apartamento de alojamento local";
 
 "type.tourism.artwork" = "Obra de arte";
 
-"type.tourism.artwork.architecture" = "Obra de arte de arquitetura";
+"type.tourism.artwork.architecture" = "Arte arquitetónica";
 
 "type.tourism.artwork.painting" = "Pintura";
 
@@ -3739,7 +3739,7 @@
 /* A rentable countryside vacation house. */
 "type.tourism.chalet" = "Casa de férias";
 
-"type.tourism.gallery" = "Galeria";
+"type.tourism.gallery" = "Galeria de arte";
 
 "type.tourism.guest_house" = "Pousada ou pensão";
 
@@ -3776,7 +3776,7 @@
 
 "type.tourism.zoo" = "Jardim zoológico";
 
-"type.tourism.zoo.petting" = "Jardim Zoológico";
+"type.tourism.zoo.petting" = "Mini zoológico";
 
 "type.traffic_calming" = "Redutor de velocidade";
 
@@ -3788,7 +3788,7 @@
 
 "type.waterway.canal" = "Canal";
 
-"type.waterway.canal.tunnel" = "Canal";
+"type.waterway.canal.tunnel" = "Túnel de canal";
 
 "type.waterway.fish_pass" = "Escada de peixes";
 
