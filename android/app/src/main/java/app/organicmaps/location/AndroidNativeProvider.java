@@ -60,7 +60,7 @@ class AndroidNativeProvider extends BaseLocationProvider
 
   @NonNull
   private final LocationManager mLocationManager;
-  private Set<String> mProviders;
+  private final Set<String> mProviders;
 
   @NonNull
   final private NativeLocationListener mNativeLocationListener = new NativeLocationListener();

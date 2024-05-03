@@ -21,6 +21,7 @@ import app.organicmaps.util.Language;
 import app.organicmaps.util.Utils;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCategoryAdapter>
 {
@@ -102,8 +103,7 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCate
       categories[i] = new FeatureCategory(creatableTypes[i], localizedType);
     }
 
-    Arrays.sort(categories, (lhs, rhs) ->
-      lhs.getLocalizedTypeName().compareTo(rhs.getLocalizedTypeName()));
+    Arrays.sort(categories, Comparator.comparing(FeatureCategory::getLocalizedTypeName));
 
     return categories;
   }

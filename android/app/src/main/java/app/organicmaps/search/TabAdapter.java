@@ -107,7 +107,7 @@ class TabAdapter extends FragmentPagerAdapter
   private final List<Class<? extends Fragment>> mClasses = new ArrayList<>();
   private final SparseArray<Fragment> mFragments = new SparseArray<>();
   private OnTabSelectedListener mTabSelectedListener;
-  private TabLayout mTabs;
+  private final TabLayout mTabs;
   TabAdapter(FragmentManager fragmentManager, ViewPager pager, TabLayout tabs)
   {
     super(fragmentManager);

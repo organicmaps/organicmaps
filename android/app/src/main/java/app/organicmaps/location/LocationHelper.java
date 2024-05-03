@@ -56,7 +56,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   private boolean mActive;
 
   @NonNull
-  private GnssStatusCompat.Callback mGnssStatusCallback = new GnssStatusCompat.Callback()
+  private final GnssStatusCompat.Callback mGnssStatusCallback = new GnssStatusCompat.Callback()
   {
     @Override
     public void onStarted()
