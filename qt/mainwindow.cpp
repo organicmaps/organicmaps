@@ -152,10 +152,11 @@ MainWindow::MainWindow(Framework & framework,
 #ifndef OMIM_OS_WINDOWS
   QMenu * helpMenu = new QMenu(tr("Help"), this);
   menuBar()->addMenu(helpMenu);
-  helpMenu->addAction(tr("About"), this, SLOT(OnAbout()));
-  helpMenu->addAction(tr("Preferences"), this, SLOT(OnPreferences()));
-  helpMenu->addAction(tr("OpenStreetMap Login"), this, SLOT(OnLoginMenuItem()));
-  helpMenu->addAction(tr("Upload Edits"), this, SLOT(OnUploadEditsMenuItem()));
+  helpMenu->addAction(tr("OpenStreetMap Login"), this, SLOT(OnLoginMenuItem()), QKeySequence(Qt::CTRL | Qt::Key_O));
+  helpMenu->addAction(tr("Upload Edits"), this, SLOT(OnUploadEditsMenuItem()), QKeySequence(Qt::CTRL | Qt::Key_U));
+  helpMenu->addAction(tr("Preferences"), this, SLOT(OnPreferences()), QKeySequence(Qt::CTRL | Qt::Key_P));
+  helpMenu->addAction(tr("About"), this, SLOT(OnAbout()), QKeySequence(Qt::Key_F1));
+  helpMenu->addAction(tr("Exit"), this, SLOT(close()), QKeySequence(Qt::CTRL | Qt::Key_Q));
 #else
   {
     // create items in the system menu
