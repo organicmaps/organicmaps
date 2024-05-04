@@ -1,9 +1,9 @@
+• Sort bookmarks and tracks by name
 • Transitioned to the new OpenStreetMap authentication mechanism — all authenticated OSM users must re-login
-• Updated OpenStreetMap data to April 29
-• Wikipedia articles in the Korean language
-• Different colors for cycle and hiking paths (long-tap to see more info)
-• Blue lines under white/brown dashes for shared foot/cycle paths
-• Dark blue lines for dedicated cycleways
+• OpenStreetMap data as of April 29
+• Difficult hiking trails are now brown-dotted, expert ones are black
+• Dark blue lines for dedicated cycleways, mixed with white/brown dashes for shared foot/cycle paths
+• Roads are now visible under semi-transparent bridges
 • Fixed GPX import from Google Files app
 
-…read more details at omaps.org/news
+…more details at omaps.org/news
