@@ -1,11 +1,9 @@
-• Снова заработал логин в OpenStreetMap!
-• Улучшенные данные высот для европейских стран
-• Режим свободной езды и автостарт навигации в Android Auto
-• Списки меток сортируются по времени модификации (последние вверху)
-• Данные OpenStreetMap за 26 марта
-• Исправлен креш при импорте GPX, KML, KMZ из приложения Файлы
-• Значки глаз для скрытия списков закладок
-• Исправлено удаление списков меток
-• Большая кнопка "Просмотреть результаты поиска на карте"
+• Transitioned to the new OpenStreetMap authentication mechanism — all authenticated OSM users must re-login
+• Updated OpenStreetMap data to April 29
+• Different colors for cycle and hiking paths (long-tap to see more info)
+• Blue lines under white/brown dashes for shared foot/cycle paths
+• Dark blue lines for dedicated cycleways
+• Roads are now visible beneath semi-transparent bridge outlines
+• Fixed GPX import from Google Files app
 
-…подробнее читайте на omaps.org/ru/news
+…read more details at omaps.org/news
