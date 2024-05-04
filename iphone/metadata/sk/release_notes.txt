@@ -1,22 +1,46 @@
-• Better isolines elevation data for European countries, thanks to Sonny
-• OpenStreetMap data as of March 26
-• Bookmark lists are sorted by modification time (recent at the top)
-• Eye icons for visible/hidden bookmark lists
-• Distance and time do not freeze anymore in CarPlay
-• Fixed wrong time and distance when switching planned route modes
-• Fixed the wrong 'saved bookmark' icon
-• Many new objects can be added to OpenStreetMap: various shops and crafts, BBQs, food courts, lang schools, cairns, money transfer points, etc.
-• Add "wheelchair" to the search input to limit results to wheelchair-accessible
-• Searchable orders pickup points (shop=outpost)
-• Added a long tap back button menu
 
-Map styling:
-• Added wind turbines and power plant icons
-• Reduced visibilities of many outdoors-specific POIs when in the main map style, e.g., waterfalls, mountain peaks, shelters, power towers, etc. (use the Outdoors style for those!)
-• More consistent font sizes and caption appearances
+• Transitioned to the new OpenStreetMap authentication mechanism — all authenticated OSM users must re-login
+• Updated OpenStreetMap data to April 29
+• Implemented sorting of bookmarks and tracks by name
+• Resolved the issue of isolines reminders appearing on top of other dialogs
+• Corrected the layout of the circular downloading progress bar in selected POIs
+• Fixed the icons for radio on/off buttons
+• Aligned LTR languages properly in the bottom menu
+• Adjusted the location of the "more" menu in bookmark lists
+• Added default email client support to the about menu
+• Expanded feature types that could be added to OSM, including marketplaces, taxi stands, kiosks, wilderness huts, garden centers, historic aircraft, cannons, boundary stones, tombs, etc.
+• Indicated the availability of Drive-through service for selected POIs
+• Enabled the ability to toggle Drive-through in the OSM editor
+• Simplified handling of multiple languages feature names in the OSM editor and addressed related bugs
+• Added a "Can't find a suitable category?" prompt in the OSM editor
+• Fixed occasional overwriting of map features by the OSM editor
+• Replaced the "stairs" icon with an elevator icon for displaying the level number of selected POIs
+• Rectified missing local language name versions for specific POIs
+• Enhanced visibility of the $ emoji for paid map features in dark mode
+• Improved bicycle routing for certain scenarios
+• Optimized the app size for better performance
 
-Translations updates:
-• Slovak, Italian, Spanish, Hindi
-• Fixed police, parking, and sights category search for simplified Chinese
+Map:
+• Different colors for cycle and hiking paths (long-tap to see more info)
+• Blue lines under white/brown dashes for shared foot/cycle paths
+• Dark blue lines for dedicated cycleways
+• More consistency in displaying paved paths as white dashed lines, unpaved ones as brown dashed
+• Roads are now visible beneath semi-transparent bridge outlines
+• Added scree and shingle areas; better color of bare rock surfaces
+• Stopped displaying vacant/unused shops
+• Added natural=stone (shown as natural=rock) and miniature golf to the map
+• Separate public transport shelters, basic huts, and lean-tos from generic shelters
+• Added icons for animal enclosures, dry cleaning; updated laundry icon
+• Fixed the issue of font size being too small for smaller cities
+• Made cities labels visible at higher zooms
+• Reduced the opacity of indigenous lands' hatching fill
+• Hatching fill and icons/captions for nature reserves are not displayed at very detailed zoom levels
 
- …and more fixes and improvements, check https://omaps.org/news for details!
+Search:
+• Enhanced category search (padel, subway stations, wilderness huts, etc.)
+• Enabled search for drinking water refill locations, including participating cafes
+• Excluded private swimming pools from search results
+• Added experimental search for "?wiki" and "?description"
+• Tuned category search rankings for better results
+
+Translations: Basque, German, Greek, Slovak
