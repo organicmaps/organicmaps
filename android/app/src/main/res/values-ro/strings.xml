@@ -536,7 +536,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Asigură-te că nu ai introdus niciun fel de date personale.</string>
 	<string name="editor_share_to_all_dialog_message_2">Editorii OpenStreetMap vor verifica modificările și vor lua legătura cu dvs. dacă au întrebări.</string>
-	<string name="navigation_stop_button">oprește</string>
+	<string name="navigation_stop_button">Oprește</string>
 	<!-- For the first routing -->
 	<string name="accept">Acceptă</string>
 	<!-- For the first routing -->

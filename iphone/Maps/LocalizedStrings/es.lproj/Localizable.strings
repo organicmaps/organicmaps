@@ -863,7 +863,7 @@
 
 "editor_share_to_all_dialog_message_2" = "Los editores de OpenStreetMap comprobarán los cambios y se pondrán en contacto con usted si tienen alguna pregunta.";
 
-"navigation_stop_button" = "detener";
+"navigation_stop_button" = "Detener";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "¿Desactivar la grabación de su ruta recientemente recorrida?";

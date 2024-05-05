@@ -555,7 +555,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Убедитесь, что вы не ввели личные данные.</string>
 	<string name="editor_share_to_all_dialog_message_2">Редакторы OpenStreetMap проверят изменения и свяжутся с вами, если у них возникнут вопросы.</string>
-	<string name="navigation_stop_button">стоп</string>
+	<string name="navigation_stop_button">Cтоп</string>
 	<!-- For the first routing -->
 	<string name="accept">Принять</string>
 	<!-- For the first routing -->

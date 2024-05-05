@@ -525,7 +525,6 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Ujistěte se, že jste nezadali žádná osobní data.</string>
 	<string name="editor_share_to_all_dialog_message_2">Redaktoři OpenStreetMap zkontrolují změny a budou vás kontaktovat, pokud budou mít nějaké dotazy.</string>
-	<string name="navigation_stop_button">stop</string>
 	<!-- For the first routing -->
 	<string name="accept">Přijmout</string>
 	<!-- For the first routing -->

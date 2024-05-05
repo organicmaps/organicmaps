@@ -863,7 +863,7 @@
 
 "editor_share_to_all_dialog_message_2" = "OpenStreetMap editörleri değişikliklerinizi kontrol edecek ve bir soruları olursa sizinle iletişime geçecekler.";
 
-"navigation_stop_button" = "dur";
+"navigation_stop_button" = "Dur";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "En son seyahat edilen rotanızı kaydetmeyi devre dışı bırakmak istiyor musunuz?";

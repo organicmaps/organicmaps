@@ -552,7 +552,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Asegúrate de que no has introducido ningún dato personal.</string>
 	<string name="editor_share_to_all_dialog_message_2">Los editores de OpenStreetMap comprobarán los cambios y se pondrán en contacto con usted si tienen alguna pregunta.</string>
-	<string name="navigation_stop_button">detener</string>
+	<string name="navigation_stop_button">Detener</string>
 	<!-- For the first routing -->
 	<string name="accept">Aceptar</string>
 	<!-- For the first routing -->

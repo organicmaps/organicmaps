@@ -521,7 +521,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Pastikan Anda tidak memasukkan data pribadi apa pun.</string>
 	<string name="editor_share_to_all_dialog_message_2">Editor OpenStreetMap akan memeriksa perubahan dan menghubungi Anda jika ada pertanyaan.</string>
-	<string name="navigation_stop_button">berhenti</string>
+	<string name="navigation_stop_button">Berhenti</string>
 	<!-- For the first routing -->
 	<string name="accept">Terima</string>
 	<!-- For the first routing -->

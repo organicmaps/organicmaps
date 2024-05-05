@@ -863,7 +863,7 @@
 
 "editor_share_to_all_dialog_message_2" = "Revisarem els canvis. Si tenim cap pregunta contactem amb vós via correu electrònic.";
 
-"navigation_stop_button" = "atura't";
+"navigation_stop_button" = "Atura't";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Voleu desactivar l'enregistrament de la ruta recent?";

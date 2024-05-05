@@ -863,7 +863,7 @@
 
 "editor_share_to_all_dialog_message_2" = "Các biên tập viên của OpenStreetMap sẽ kiểm tra các thay đổi và liên hệ với bạn nếu họ có bất kỳ câu hỏi nào.";
 
-"navigation_stop_button" = "dừng";
+"navigation_stop_button" = "Dừng";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Tắt ghi lại tuyến đường đã đi gần đây của bạn?";

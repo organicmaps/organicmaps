@@ -517,7 +517,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Se till att du inte angett någon personinformation</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap-redigerare kommer att kontrollera ändringarna och kontakta dig om de har några frågor.</string>
-	<string name="navigation_stop_button">stopp</string>
+	<string name="navigation_stop_button">Stopp</string>
 	<!-- For the first routing -->
 	<string name="accept">Acceptera</string>
 	<!-- For the first routing -->

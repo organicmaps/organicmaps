@@ -554,7 +554,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Varmista, ettet syöttänyt henkilökohtaisia tietojasi.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap-editorit tarkistavat muutokset ja ottavat sinuun yhteyttä, jos heillä on kysyttävää.</string>
-	<string name="navigation_stop_button">lopeta</string>
+	<string name="navigation_stop_button">Lopeta</string>
 	<!-- For the first routing -->
 	<string name="accept">Hyväksy</string>
 	<!-- For the first routing -->

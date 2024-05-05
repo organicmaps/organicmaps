@@ -863,7 +863,7 @@
 
 "editor_share_to_all_dialog_message_2" = "OpenStreetMap-editorit tarkistavat muutokset ja ottavat sinuun yhteyttä, jos heillä on kysyttävää.";
 
-"navigation_stop_button" = "lopeta";
+"navigation_stop_button" = "Lopeta";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Poistetaanko viimeisen matkareitin tallennus?";
