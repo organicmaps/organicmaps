@@ -415,7 +415,7 @@ UNIT_TEST(Kml_Serialization_Text_File_Track_Without_Timestamps)
   TEST_NO_THROW(
   {
     kml::DeserializerKml des(dataFromFile);
-    FileReader reader(GetPlatform().TestsDataPathForFile("kml_test_data/generated.kml"));
+    FileReader reader(GetPlatform().TestsDataPathForFile("test_data/kml/generated.kml"));
     des.Deserialize(reader);
   }, ());
   TEST_EQUAL(dataFromFile, data, ());
@@ -463,7 +463,7 @@ UNIT_TEST(Kml_Serialization_Text_File_Tracks_With_Timestamps)
   TEST_NO_THROW(
   {
     kml::DeserializerKml des(dataFromFile);
-    FileReader reader(GetPlatform().TestsDataPathForFile("kml_test_data/generated_mixed_tracks.kml"));
+    FileReader reader(GetPlatform().TestsDataPathForFile("test_data/kml/generated_mixed_tracks.kml"));
     des.Deserialize(reader);
   }, ());
   TEST_EQUAL(dataFromFile, data, ());
@@ -790,7 +790,7 @@ UNIT_TEST(Kml_Tracks_With_Different_Points_And_Timestamps_Order)
   TEST_NO_THROW(
   {
     kml::DeserializerKml des(dataFromFile);
-    FileReader reader(GetPlatform().TestsDataPathForFile("kml_test_data/track_with_timestams_different_orders.kml"));
+    FileReader reader(GetPlatform().TestsDataPathForFile("test_data/kml/track_with_timestams_different_orders.kml"));
     des.Deserialize(reader);
   }, ());
 
@@ -812,7 +812,7 @@ UNIT_TEST(Kml_Track_Points_And_Timestamps_Sizes_Mismatch)
   TEST_ANY_THROW(
   {
     kml::DeserializerKml des(dataFromFile);
-    FileReader reader(GetPlatform().TestsDataPathForFile("kml_test_data/track_with_timestamps_mismatch.kml"));
+    FileReader reader(GetPlatform().TestsDataPathForFile("test_data/kml/track_with_timestamps_mismatch.kml"));
     des.Deserialize(reader);
   }, ());
   TEST_EQUAL(dataFromFile.m_tracksData.size(), 0, ());
@@ -860,7 +860,7 @@ UNIT_TEST(Kml_Import_OpenTracks)
   TEST_NO_THROW(
   {
     kml::DeserializerKml des(fData);
-    FileReader reader(GetPlatform().TestsDataPathForFile("kml_test_data/track_from_OpenTracks.kml"));
+    FileReader reader(GetPlatform().TestsDataPathForFile("test_data/kml/track_from_OpenTracks.kml"));
     des.Deserialize(reader);
   }, ());
 
