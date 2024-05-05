@@ -2,11 +2,10 @@
 • Transitioned to the new OpenStreetMap authentication mechanism — all authenticated OSM users must re-login
 • Updated OpenStreetMap data to April 29
 • Implemented sorting of bookmarks and tracks by name
-• Wikipedia articles in the Korean language
 • Resolved the issue of isolines reminders appearing on top of other dialogs
 • Corrected the layout of the circular downloading progress bar in selected POIs
 • Fixed the icons for radio on/off buttons
-• Aligned LTR languages properly in the bottom menu
+• Aligned RTL languages properly in the bottom menu
 • Adjusted the location of the "more" menu in bookmark lists
 • Added default email client support to the about menu
 • Expanded feature types that could be added to OSM, including marketplaces, taxi stands, kiosks, wilderness huts, garden centers, historic aircraft, cannons, boundary stones, tombs, etc.
@@ -22,7 +21,7 @@
 • Optimized the app size for better performance
 
 Map:
-• Different colors for cycle and hiking paths (long-tap to see more info)
+• Display difficult hiking trails as brown-dotted, expert ones as black-dotted
 • Blue lines under white/brown dashes for shared foot/cycle paths
 • Dark blue lines for dedicated cycleways
 • More consistency in displaying paved paths as white dashed lines, unpaved ones as brown dashed
@@ -41,7 +40,7 @@ Search:
 • Enhanced category search (padel, subway stations, wilderness huts, etc.)
 • Enabled search for drinking water refill locations, including participating cafes
 • Excluded private swimming pools from search results
-• Added experimental search for "?wiki" and "?description"
+• Added experimental search for "?wiki"
 • Tuned category search rankings for better results
 
 Translations: Basque, German, Greek, Slovak

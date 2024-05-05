@@ -1,46 +1,44 @@
+• Сортування міток і маршрутів за іменем (нарешті!)
+• Дані OpenStreetMap станом на 29 квітня
+• Перехід на новий механізм автентифікації OpenStreetMap – усі автентифіковані користувачі OSM мають наново увійти в систему
+• Вирішено проблему з нагадуваннями про ізолінії поверх інших елементів інтерфейсу
+• Виправлено розташування кругового індикатора ходу завантаження при виборі об'єктів на карті
+• Скориговано розташування меню "Ще" в списках міток
+• У меню "Про програму" додано підтримку поштового клієнта за замовчуванням
+• Видно, де є drive-through
+• Іконку "сходів" замінено на значок ліфта для відображення номера поверху обраного об'єкта
+• Покращено видимість значка $ для платних функцій карти в темному режимі
+• Покращено веломаршрутизацію
 
-• Transitioned to the new OpenStreetMap authentication mechanism — all authenticated OSM users must re-login
-• Updated OpenStreetMap data to April 29
-• Implemented sorting of bookmarks and tracks by name
-• Resolved the issue of isolines reminders appearing on top of other dialogs
-• Corrected the layout of the circular downloading progress bar in selected POIs
-• Fixed the icons for radio on/off buttons
-• Aligned LTR languages properly in the bottom menu
-• Adjusted the location of the "more" menu in bookmark lists
-• Added default email client support to the about menu
-• Expanded feature types that could be added to OSM, including marketplaces, taxi stands, kiosks, wilderness huts, garden centers, historic aircraft, cannons, boundary stones, tombs, etc.
-• Indicated the availability of Drive-through service for selected POIs
-• Enabled the ability to toggle Drive-through in the OSM editor
-• Simplified handling of multiple languages feature names in the OSM editor and addressed related bugs
-• Added a "Can't find a suitable category?" prompt in the OSM editor
-• Fixed occasional overwriting of map features by the OSM editor
-• Replaced the "stairs" icon with an elevator icon for displaying the level number of selected POIs
-• Rectified missing local language name versions for specific POIs
-• Enhanced visibility of the $ emoji for paid map features in dark mode
-• Improved bicycle routing for certain scenarios
-• Optimized the app size for better performance
+Редактор карти OpenStreetMap:
+• На карту OpenStreetMap тепер можна додавати ринки, стоянки таксі, кіоски, wild huts, садові центри, історичні літаки, гармати, межове каміння, гробниці тощо.
+• Для закладів можна вказати drive-through
+• Спрощено роботу з назвами об'єктів кількома мовами та усунуто пов'язані з цим помилки
+• Додано підказку "Не можете знайти відповідну категорію?" під час додавання об'єктів
+• Виправлено помилку з перезаписуванням об'єктів карти
 
-Map:
-• Different colors for cycle and hiking paths (long-tap to see more info)
-• Blue lines under white/brown dashes for shared foot/cycle paths
-• Dark blue lines for dedicated cycleways
-• More consistency in displaying paved paths as white dashed lines, unpaved ones as brown dashed
-• Roads are now visible beneath semi-transparent bridge outlines
-• Added scree and shingle areas; better color of bare rock surfaces
-• Stopped displaying vacant/unused shops
-• Added natural=stone (shown as natural=rock) and miniature golf to the map
-• Separate public transport shelters, basic huts, and lean-tos from generic shelters
-• Added icons for animal enclosures, dry cleaning; updated laundry icon
-• Fixed the issue of font size being too small for smaller cities
-• Made cities labels visible at higher zooms
-• Reduced the opacity of indigenous lands' hatching fill
-• Hatching fill and icons/captions for nature reserves are not displayed at very detailed zoom levels
+Карта:
+• Складні пішохідні стежки тепер коричневі, а експертні – чорні
+• Велодоріжки тепер темно-сині, а там, де вони ведуть пішохідними доріжками – пунктирні
+• Під напівпрозорими мостами видно дороги
+• Більш послідовне відображення асфальтованих доріжок білим пунктиром, а ґрунтових – коричневим пунктиром
+• Додано ділянки осипів і галечників; поліпшено колір голих скельних поверхонь
+• Прибрано порожні/невикористовувані магазини
+• На карту додано природний камінь і міні-гольф
+• Різні іконки для зупинок громадського транспорту та укриття від дощу
+• Додано іконки вольєрів для тварин, хімчистки; оновлено іконку пральні
+• Виправлено проблему занадто маленького розміру шрифту для невеликих міст
+• Назви деяких міст трохи раніше з'являються на карті
+• Зменшено непрозорість штрихової заливки земель корінних народів
+• Штрихова заливка та іконки/назви заповідників не відображаються під час детального наближення карти
 
-Search:
-• Enhanced category search (padel, subway stations, wilderness huts, etc.)
-• Enabled search for drinking water refill locations, including participating cafes
-• Excluded private swimming pools from search results
-• Added experimental search for "?wiki" and "?description"
-• Tuned category search rankings for better results
+Пошук:
+• Покращено пошук за деякими категоріями (падель, станції метро, хатини в горах тощо)
+• Увімкнено пошук місць поповнення запасів питної води, включно з кафе, що беруть участь у проєкті
+• Приватні басейни виключено з результатів пошуку
+• Додано експериментальний пошук за статтями вікіпедії "?wiki"
+• Покращено порядок результатів пошуку за категоріями в списку
 
-Translations: Basque, German, Greek, Slovak
+Покращено баскський, німецький, грецький, словацький переклади.
+
+Більше подробиць можна прочитати на https://omaps.org/uk/news/
