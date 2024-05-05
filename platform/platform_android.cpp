@@ -218,7 +218,6 @@ void Platform::GetSystemFontNames(FilesList & res) const
     else
       wasRoboto = true;
 
-    LOG(LINFO, ("Found usable system font", name));
     res.push_back(path + name);
   });
 
@@ -226,10 +225,7 @@ void Platform::GetSystemFontNames(FilesList & res) const
   {
     string droidSans = path + "DroidSans.ttf";
     if (IsFileExistsByFullPath(droidSans))
-    {
-      LOG(LINFO, ("Found usable system font", droidSans));
       res.push_back(std::move(droidSans));
-    }
   }
 }
 
