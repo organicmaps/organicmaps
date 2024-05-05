@@ -763,6 +763,10 @@
 	<string name="zoom_in">확대</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">축소</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">메뉴 링크</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">메뉴 보기</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">주소/블록</string>

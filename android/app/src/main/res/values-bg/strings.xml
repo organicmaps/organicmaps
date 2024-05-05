@@ -731,6 +731,10 @@
 	<string name="zoom_in">Увеличаване на мащаба</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">Увеличаване на мащаба</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Връзка към менюто</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Преглед на менюто</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адрес/Блок</string>

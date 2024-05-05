@@ -329,6 +329,10 @@
 	<string name="zoom_in">Vuta karibu</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">Kuza nje</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Kiungo cha menyu</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Tazama Menyu</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Anwani/Zuia</string>
