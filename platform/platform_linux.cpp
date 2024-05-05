@@ -255,10 +255,7 @@ void Platform::GetSystemFontNames(FilesList & res) const
     {
       std::string path = sysPath + font;
       if (IsFileExistsByFullPath(path))
-      {
-        LOG(LINFO, ("Found usable system font", path));
         res.push_back(std::move(path));
-      }
     }
   }
 }
