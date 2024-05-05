@@ -815,6 +815,10 @@
 	<string name="zoom_in">ズームイン</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">ズームアウト</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">メニューリンク</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">メニューを見る</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">アドレス/ブロック</string>

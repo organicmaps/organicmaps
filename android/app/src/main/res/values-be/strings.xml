@@ -808,6 +808,10 @@
 	<string name="zoom_in">Наблізіць</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">Аддаліць</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Спасылка на меню</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Паглядзець меню</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адрас/Блок</string>

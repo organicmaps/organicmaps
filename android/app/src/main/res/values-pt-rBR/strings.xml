@@ -750,6 +750,8 @@
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">As configurações do Speech Synthesis não foram encontradas. Você tem certeza de que seu dispositivo é compatível?</string>
 	<string name="zoom_in">Ampliar</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Exibir menu</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Endereço/Bloco</string>

@@ -770,6 +770,10 @@
 	<string name="zoom_in">Memperbesar</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">Perkecil</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Tautan menu</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Lihat Menu</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Alamat/Blokir</string>

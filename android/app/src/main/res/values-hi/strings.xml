@@ -554,6 +554,10 @@
 	<string name="zoom_in">ज़ूम इन</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">ज़ूम आउट</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">मेनू लिंक</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">मेनू देखें</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.cable_car">आकाशीय रज्जुमार्ग</string>
