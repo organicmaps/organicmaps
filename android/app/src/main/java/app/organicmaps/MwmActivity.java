@@ -317,7 +317,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
       // Notify user to re-login
       dismissAlertDialog();
-      final DialogInterface.OnClickListener navigateToLoginHandler = (DialogInterface dialog, int which) -> startActivity(new Intent(MwmActivity.this, OsmLoginActivity.class));
+      final DialogInterface.OnClickListener navigateToLoginHandler = (dialog, which) -> startActivity(new Intent(MwmActivity.this, OsmLoginActivity.class));
 
       final int marginBase = getResources().getDimensionPixelSize(R.dimen.margin_base);
       final float textSize = getResources().getDimension(R.dimen.line_spacing_extra_1);
