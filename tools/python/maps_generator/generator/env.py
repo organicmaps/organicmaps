@@ -312,14 +312,6 @@ class PathProvider:
         return os.path.join(self.intermediate_data_path, "translations_food.json")
 
     @property
-    def uk_postcodes_path(self) -> AnyStr:
-        return os.path.join(self.intermediate_data_path, "uk_postcodes")
-
-    @property
-    def us_postcodes_path(self) -> AnyStr:
-        return os.path.join(self.intermediate_data_path, "us_postcodes")
-
-    @property
     def cities_boundaries_path(self) -> AnyStr:
         return os.path.join(self.intermediate_data_path, "cities_boundaries.bin")
 

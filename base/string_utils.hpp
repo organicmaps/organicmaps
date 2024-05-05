@@ -108,6 +108,7 @@ void AsciiToLower(std::string & s);
 void Trim(std::string & s);
 void Trim(std::string_view & sv);
 /// Remove any characters that contain in "anyOf" on left and right side of string s
+void Trim(std::string_view & s, std::string_view anyOf);
 void Trim(std::string & s, std::string_view anyOf);
 
 // Replace the first match of the search substring in the input with the format string.
