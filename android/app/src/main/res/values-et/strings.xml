@@ -544,7 +544,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Palun kontrolli, et Sa ei sisestanud isiklikke andmeid.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap muutjad kontrollivad muudatused üle ja võtavad küsimuste korral Sinuga ühendust.</string>
-	<string name="navigation_stop_button">lõpeta</string>
+	<string name="navigation_stop_button">Lõpeta</string>
 	<!-- For the first routing -->
 	<string name="accept">Nõustu</string>
 	<!-- For the first routing -->

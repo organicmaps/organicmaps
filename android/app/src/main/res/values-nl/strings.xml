@@ -548,7 +548,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Controleer dat je geen persoonlijke gegevens hebt ingevoerd.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap-editors zullen de wijzigingen controleren en contact met u opnemen als ze vragen hebben.</string>
-	<string name="navigation_stop_button">stoppen</string>
+	<string name="navigation_stop_button">Stoppen</string>
 	<!-- For the first routing -->
 	<string name="accept">Aanvaarden</string>
 	<!-- For the first routing -->
