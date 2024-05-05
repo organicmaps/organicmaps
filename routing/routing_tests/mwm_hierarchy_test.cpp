@@ -19,6 +19,8 @@ UNIT_TEST(CountryParentGetter_Smoke)
   TEST_EQUAL(getter("Israel"), "Israel Region", ());
   TEST_EQUAL(getter("Palestine"), "Palestine Region", ());
   TEST_EQUAL(getter("Jerusalem"), "", ());
+  TEST_EQUAL(getter("US_New York_New York"), "New York", ());
+  TEST_EQUAL(getter("UK_England_West Midlands"), "United Kingdom", ());
 }
 
 uint16_t GetCountryID(std::shared_ptr<NumMwmIds> const & mwmIDs, std::string mwmName)

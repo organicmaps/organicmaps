@@ -222,10 +222,6 @@ class StageMwm(Stage):
 
 
 @country_stage
-@depends_from_internal(
-    D(settings.UK_POSTCODES_URL, PathProvider.uk_postcodes_path, "p"),
-    D(settings.US_POSTCODES_URL, PathProvider.us_postcodes_path, "p"),
-)
 class StageIndex(Stage):
     def apply(self, env: Env, country, **kwargs):
         if country == WORLD_NAME:
@@ -233,13 +229,12 @@ class StageIndex(Stage):
         elif country == WORLD_COASTS_NAME:
             steps.step_coastline_index(env, country, **kwargs)
         else:
-            if env.production:
-                kwargs.update(
-                    {
-                        "uk_postcodes_dataset": env.paths.uk_postcodes_path,
-                        "us_postcodes_dataset": env.paths.us_postcodes_path,
-                    }
-                )
+            kwargs.update(
+                {
+                    "uk_postcodes_dataset": settings.UK_POSTCODES_URL,
+                    "us_postcodes_dataset": settings.US_POSTCODES_URL,
+                }
+            )
             steps.step_index(env, country, **kwargs)
 
 

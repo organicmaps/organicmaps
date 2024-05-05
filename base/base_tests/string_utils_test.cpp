@@ -1270,4 +1270,12 @@ UNIT_TEST(Trim)
 
   strings::Trim(str, "tsgn");
   TEST_EQUAL(str, "ri", ());
+
+  std::string_view v = "\"abc ";
+  strings::Trim(v, "\" ");
+  TEST_EQUAL(v, "abc", ());
+
+  v = "aaa";
+  strings::Trim(v, "a");
+  TEST(v.empty(), ());
 }

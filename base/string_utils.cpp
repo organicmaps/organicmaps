@@ -233,6 +233,21 @@ void Trim(std::string_view & sv)
     sv = {};
 }
 
+void Trim(std::string_view & s, std::string_view anyOf)
+{
+  auto i = s.find_first_not_of(anyOf);
+  if (i != std::string_view::npos)
+  {
+    s.remove_prefix(i);
+
+    i = s.find_last_not_of(anyOf);
+    ASSERT(i != std::string_view::npos, ());
+    s.remove_suffix(s.size() - i - 1);
+  }
+  else
+    s = {};
+}
+
 void Trim(std::string & s, std::string_view anyOf)
 {
   boost::trim_if(s, boost::is_any_of(anyOf));
