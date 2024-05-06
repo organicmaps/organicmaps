@@ -6,9 +6,9 @@
 
 #include "base/dfa_helpers.hpp"
 #include "base/mem_trie.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
-#include <memory>
 #include <queue>
 #include <vector>
 
