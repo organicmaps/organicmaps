@@ -132,21 +132,21 @@ uint32_t VisualParams::GetTileSize() const
 uint32_t VisualParams::GetTouchRectRadius() const
 {
   ASSERT_INITED;
-  float const kRadiusInPixels = 20.0f;
+  float constexpr kRadiusInPixels = 20.0f;
   return static_cast<uint32_t>(kRadiusInPixels * GetVisualScale());
 }
 
 double VisualParams::GetDragThreshold() const
 {
   ASSERT_INITED;
-  double const kDragThresholdInPixels = 10.0;
+  double constexpr kDragThresholdInPixels = 10.0;
   return kDragThresholdInPixels * GetVisualScale();
 }
 
 double VisualParams::GetScaleThreshold() const
 {
   ASSERT_INITED;
-  double const kScaleThresholdInPixels = 2.0;
+  double constexpr kScaleThresholdInPixels = 2.0;
   return kScaleThresholdInPixels * GetVisualScale();
 }
 
@@ -212,8 +212,8 @@ m2::RectD GetRectForDrawScale(int drawScale, m2::PointD const & center, uint32_t
 
   double const len = mercator::Bounds::kRangeX / factor;
 
-  return m2::RectD(mercator::ClampX(center.x - len), mercator::ClampY(center.y - len),
-                   mercator::ClampX(center.x + len), mercator::ClampY(center.y + len));
+  return {mercator::ClampX(center.x - len), mercator::ClampY(center.y - len),
+          mercator::ClampX(center.x + len), mercator::ClampY(center.y + len)};
 }
 
 m2::RectD GetRectForDrawScale(int drawScale, m2::PointD const & center)
@@ -239,9 +239,9 @@ uint32_t CalculateTileSize(uint32_t screenWidth, uint32_t screenHeight)
   // we're calculating the tileSize based on (maxSz > 1024 ? rounded : ceiled)
   // to the nearest power of two value of the maxSz
 
-  int const ceiledSz = 1 << static_cast<int>(ceil(std::log2(double(maxSz + 1))));
-  int res = 0;
+  int const ceiledSz = 1 << static_cast<int>(ceil(std::log2(static_cast<double>(maxSz + 1))));
 
+  int res;
   if (maxSz < 1024)
   {
     res = ceiledSz;
@@ -311,7 +311,7 @@ void ExtractZoomFactors(ScreenBase const & s, double & zoom, int & index, float 
 
 double GetNormalizedZoomLevel(double screenScale, int minZoom)
 {
-  double const kMaxZoom = scales::GetUpperStyleScale() + 1.0;
+  double constexpr kMaxZoom = scales::GetUpperStyleScale() + 1.0;
   return base::Clamp((GetZoomLevel(screenScale) - minZoom) / (kMaxZoom - minZoom), 0.0, 1.0);
 }
 

@@ -27,7 +27,7 @@ public:
   static dp::FontDecl GetGuiTextFont();
 
   void Destroy();
-  void SetSurfaceSize(m2::PointF const & size);
+  void SetSurfaceSize(m2::PointF size);
   m2::PointF GetSurfaceSize() const;
 
   bool IsInUserAction() const { return m_inUserAction; }
@@ -37,21 +37,21 @@ public:
   void DeactivateCopyright() { m_isCopyrightActive = false; }
 
   void ConnectOnCompassTappedHandler(Shape::TTapHandler const & handler);
-  void CallOnCompassTappedHandler();
+  void CallOnCompassTappedHandler() const;
 
   ScaleFpsHelper & GetScaleFpsHelper() { return m_scaleFpsHelper; }
   ScaleFpsHelper const & GetScaleFpsHelper() const { return m_scaleFpsHelper; }
 
 private:
   DrapeGui();
-  RulerHelper & GetRulerHelperImpl();
+  RulerHelper & GetRulerHelperImpl() const;
 
   struct Impl;
   std::unique_ptr<Impl> m_impl;
   bool m_isCopyrightActive = true;
 
   Shape::TTapHandler m_onCompassTappedHandler;
-  m2::PointF m_surfaceSize;
+  m2::PointF m_surfaceSize{};
   mutable std::mutex m_surfaceSizeMutex;
   bool m_inUserAction = false;
   ScaleFpsHelper m_scaleFpsHelper;

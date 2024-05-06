@@ -87,19 +87,19 @@ Framework::FixedPosition::FixedPosition()
 
 namespace
 {
-char const kMapStyleKey[] = "MapStyleKeyV1";
-char const kAllow3dKey[] = "Allow3d";
-char const kAllow3dBuildingsKey[] = "Buildings3d";
-char const kAllowAutoZoom[] = "AutoZoom";
-char const kTrafficEnabledKey[] = "TrafficEnabled";
-char const kTransitSchemeEnabledKey[] = "TransitSchemeEnabled";
-char const kIsolinesEnabledKey[] = "IsolinesEnabled";
-char const kOutdoorsEnabledKey[] = "OutdoorsEnabled";
-char const kTrafficSimplifiedColorsKey[] = "TrafficSimplifiedColors";
-char const kLargeFontsSize[] = "LargeFontsSize";
-char const kTranslitMode[] = "TransliterationMode";
-char const kPreferredGraphicsAPI[] = "PreferredGraphicsAPI";
-char const kShowDebugInfo[] = "DebugInfo";
+char constexpr kMapStyleKey[] = "MapStyleKeyV1";
+char constexpr kAllow3dKey[] = "Allow3d";
+char constexpr kAllow3dBuildingsKey[] = "Buildings3d";
+char constexpr kAllowAutoZoom[] = "AutoZoom";
+char constexpr kTrafficEnabledKey[] = "TrafficEnabled";
+char constexpr kTransitSchemeEnabledKey[] = "TransitSchemeEnabled";
+char constexpr kIsolinesEnabledKey[] = "IsolinesEnabled";
+char constexpr kOutdoorsEnabledKey[] = "OutdoorsEnabled";
+char constexpr kTrafficSimplifiedColorsKey[] = "TrafficSimplifiedColors";
+char constexpr kLargeFontsSize[] = "LargeFontsSize";
+char constexpr kTranslitMode[] = "TransliterationMode";
+char constexpr kPreferredGraphicsAPI[] = "PreferredGraphicsAPI";
+char constexpr kShowDebugInfo[] = "DebugInfo";
 
 auto constexpr kLargeFontsScaleFactor = 1.6;
 size_t constexpr kMaxTrafficCacheSizeBytes = 64 /* Mb */ * 1024 * 1024;

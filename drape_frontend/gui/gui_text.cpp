@@ -327,8 +327,7 @@ ref_ptr<dp::Texture> MutableLabel::SetAlphabet(std::string const & alphabet,
   return m_alphabet[0].second.GetTexture();
 }
 
-void MutableLabel::Precache(PrecacheParams const & params, PrecacheResult & result,
-                            ref_ptr<dp::TextureManager> mng)
+void MutableLabel::Precache(PrecacheParams const & params, PrecacheResult & result, ref_ptr<dp::TextureManager> mng)
 {
   SetMaxLength(static_cast<uint16_t>(params.m_maxLength));
   result.m_state.SetMaskTexture(SetAlphabet(params.m_alphabet, mng));
@@ -345,8 +344,7 @@ void MutableLabel::Precache(PrecacheParams const & params, PrecacheResult & resu
   glsl::vec2 outlineTex = glsl::ToVec2(outlineColor.GetTexRect().Center());
 
   auto const vertexCount = m_maxLength * dp::Batcher::VertexPerQuad;
-  result.m_buffer.resize(vertexCount,
-                         StaticVertex(glsl::vec3(0.0, 0.0, 0.0), colorTex, outlineTex));
+  result.m_buffer.resize(vertexCount, StaticVertex(glsl::vec3(0.0, 0.0, 0.0), colorTex, outlineTex));
 
   float depth = 0.0f;
   for (size_t i = 0; i < vertexCount; i += 4)

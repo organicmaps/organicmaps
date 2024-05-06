@@ -24,7 +24,6 @@
 
 #include "platform/location.hpp"
 
-#include "geometry/polyline2d.hpp"
 #include "geometry/screenbase.hpp"
 #include "geometry/triangle2d.hpp"
 
@@ -109,56 +108,56 @@ public:
     OnGraphicsContextInitialized m_onGraphicsContextInitialized;
   };
 
-  DrapeEngine(Params && params);
+  explicit DrapeEngine(Params && params);
   ~DrapeEngine();
 
   void RecoverSurface(int w, int h, bool recreateContextDependentResources);
 
   void Resize(int w, int h);
-  void Invalidate();
+  void Invalidate() const;
 
   void SetVisibleViewport(m2::RectD const & rect) const;
 
-  void AddTouchEvent(TouchEvent const & event);
-  void Scale(double factor, m2::PointD const & pxPoint, bool isAnim);
-  void Move(double factorX, double factorY, bool isAnim);
-  void Scroll(double distanceX, double distanceY);
-  void Rotate(double azimuth, bool isAnim);
+  void AddTouchEvent(TouchEvent const & event) const;
+  void Scale(double factor, m2::PointD const & pxPoint, bool isAnim) const;
+  void Move(double factorX, double factorY, bool isAnim) const;
+  void Scroll(double distanceX, double distanceY) const;
+  void Rotate(double azimuth, bool isAnim) const;
 
   void ScaleAndSetCenter(m2::PointD const & centerPt, double scaleFactor, bool isAnim,
-                         bool trackVisibleViewport);
+                         bool trackVisibleViewport) const;
 
   // If zoom == -1 then current zoom will not be changed.
   void SetModelViewCenter(m2::PointD const & centerPt, int zoom, bool isAnim,
-                          bool trackVisibleViewport);
+                          bool trackVisibleViewport) const;
   void SetModelViewRect(m2::RectD const & rect, bool applyRotation, int zoom, bool isAnim,
-                        bool useVisibleViewport);
-  void SetModelViewAnyRect(m2::AnyRectD const & rect, bool isAnim, bool useVisibleViewport);
+                        bool useVisibleViewport) const;
+  void SetModelViewAnyRect(m2::AnyRectD const & rect, bool isAnim, bool useVisibleViewport) const;
 
   using ModelViewChangedHandler = FrontendRenderer::ModelViewChangedHandler;
   void SetModelViewListener(ModelViewChangedHandler && fn);
 
 #if defined(OMIM_OS_DESKTOP)
   using GraphicsReadyHandler = FrontendRenderer::GraphicsReadyHandler;
-  void NotifyGraphicsReady(GraphicsReadyHandler const & fn, bool needInvalidate);
+  void NotifyGraphicsReady(GraphicsReadyHandler const & fn, bool needInvalidate) const;
 #endif
 
-  void ClearUserMarksGroup(kml::MarkGroupId groupId);
-  void ChangeVisibilityUserMarksGroup(kml::MarkGroupId groupId, bool isVisible);
-  void UpdateUserMarks(UserMarksProvider * provider, bool firstTime);
-  void InvalidateUserMarks();
+  void ClearUserMarksGroup(kml::MarkGroupId groupId) const;
+  void ChangeVisibilityUserMarksGroup(kml::MarkGroupId groupId, bool isVisible) const;
+  void UpdateUserMarks(UserMarksProvider const * provider, bool firstTime) const;
+  void InvalidateUserMarks() const;
 
-  void SetRenderingEnabled(ref_ptr<dp::GraphicsContextFactory> contextFactory = nullptr);
-  void SetRenderingDisabled(bool const destroySurface);
-  void InvalidateRect(m2::RectD const & rect);
-  void UpdateMapStyle();
+  void SetRenderingEnabled(ref_ptr<dp::GraphicsContextFactory> contextFactory = nullptr) const;
+  void SetRenderingDisabled(bool destroySurface) const;
+  void InvalidateRect(m2::RectD const & rect) const;
+  void UpdateMapStyle() const;
 
-  void SetCompassInfo(location::CompassInfo const & info);
+  void SetCompassInfo(location::CompassInfo const & info) const;
   void SetGpsInfo(location::GpsInfo const & info, bool isNavigable,
-                  location::RouteMatchingInfo const & routeInfo);
-  void SwitchMyPositionNextMode();
-  void LoseLocation();
-  void StopLocationFollow();
+                  location::RouteMatchingInfo const & routeInfo) const;
+  void SwitchMyPositionNextMode() const;
+  void LoseLocation() const;
+  void StopLocationFollow() const;
 
   using TapEventInfoHandler = FrontendRenderer::TapEventInfoHandler;
   void SetTapEventInfoListener(TapEventInfoHandler && fn);
@@ -167,99 +166,99 @@ public:
 
   void SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt,
                     FeatureID const & featureID, bool isAnim, bool isGeometrySelectionAllowed,
-                    bool isSelectionShapeVisible);
-  void DeselectObject();
+                    bool isSelectionShapeVisible) const;
+  void DeselectObject() const;
 
   dp::DrapeID AddSubroute(SubrouteConstPtr subroute);
-  void RemoveSubroute(dp::DrapeID subrouteId, bool deactivateFollowing);
+  void RemoveSubroute(dp::DrapeID subrouteId, bool deactivateFollowing) const;
   void FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, bool enableAutoZoom,
-                   bool isArrowGlued);
-  void DeactivateRouteFollowing();
-  void SetSubrouteVisibility(dp::DrapeID subrouteId, bool isVisible);
+                   bool isArrowGlued) const;
+  void DeactivateRouteFollowing() const;
+  void SetSubrouteVisibility(dp::DrapeID subrouteId, bool isVisible) const;
   dp::DrapeID AddRoutePreviewSegment(m2::PointD const & startPt, m2::PointD const & finishPt);
-  void RemoveRoutePreviewSegment(dp::DrapeID segmentId);
-  void RemoveAllRoutePreviewSegments();
+  void RemoveRoutePreviewSegment(dp::DrapeID segmentId) const;
+  void RemoveAllRoutePreviewSegments() const;
 
   void SetWidgetLayout(gui::TWidgetsLayoutInfo && info);
 
-  void AllowAutoZoom(bool allowAutoZoom);
+  void AllowAutoZoom(bool allowAutoZoom) const;
 
-  void Allow3dMode(bool allowPerspectiveInNavigation, bool allow3dBuildings);
-  void EnablePerspective();
+  void Allow3dMode(bool allowPerspectiveInNavigation, bool allow3dBuildings) const;
+  void EnablePerspective() const;
 
   void UpdateGpsTrackPoints(std::vector<df::GpsTrackPoint> && toAdd,
-                            std::vector<uint32_t> && toRemove);
-  void ClearGpsTrackPoints();
+                            std::vector<uint32_t> && toRemove) const;
+  void ClearGpsTrackPoints() const;
 
   void EnableChoosePositionMode(bool enable, std::vector<m2::TriangleD> && boundAreaTriangles,
                                 bool hasPosition, m2::PointD const & position);
-  void BlockTapEvents(bool block);
+  void BlockTapEvents(bool block) const;
 
   void SetKineticScrollEnabled(bool enabled);
 
-  void OnEnterForeground();
+  void OnEnterForeground() const;
   void OnEnterBackground();
 
   using TRequestSymbolsSizeCallback = std::function<void(std::map<std::string, m2::PointF> &&)>;
 
   void RequestSymbolsSize(std::vector<std::string> const & symbols,
-                          TRequestSymbolsSizeCallback const & callback);
+                          TRequestSymbolsSizeCallback const & callback) const;
 
-  void EnableTraffic(bool trafficEnabled);
-  void UpdateTraffic(traffic::TrafficInfo const & info);
-  void ClearTrafficCache(MwmSet::MwmId const & mwmId);
-  void SetSimplifiedTrafficColors(bool simplified);
+  void EnableTraffic(bool trafficEnabled) const;
+  void UpdateTraffic(traffic::TrafficInfo const & info) const;
+  void ClearTrafficCache(MwmSet::MwmId const & mwmId) const;
+  void SetSimplifiedTrafficColors(bool simplified) const;
 
-  void EnableTransitScheme(bool enable);
-  void UpdateTransitScheme(TransitDisplayInfos && transitDisplayInfos);
-  void ClearTransitSchemeCache(MwmSet::MwmId const & mwmId);
-  void ClearAllTransitSchemeCache();
+  void EnableTransitScheme(bool enable) const;
+  void UpdateTransitScheme(TransitDisplayInfos && transitDisplayInfos) const;
+  void ClearTransitSchemeCache(MwmSet::MwmId const & mwmId) const;
+  void ClearAllTransitSchemeCache() const;
 
-  void EnableIsolines(bool enable);
+  void EnableIsolines(bool enable) const;
 
   void SetFontScaleFactor(double scaleFactor);
 
   void RunScenario(ScenarioManager::ScenarioData && scenarioData,
                    ScenarioManager::ScenarioCallback const & onStartFn,
-                   ScenarioManager::ScenarioCallback const & onFinishFn);
+                   ScenarioManager::ScenarioCallback const & onFinishFn) const;
 
   /// @name Custom features are features that we render in a different way.
   /// Value in the map shows if the feature is skipped in process of geometry generation.
   /// For all custom features (if they are overlays) statistics will be gathered.
   /// @todo Not used now, suspect that it was used for some Ads POIs.
   /// @{
-  void SetCustomFeatures(df::CustomFeatures && ids);
-  void RemoveCustomFeatures(MwmSet::MwmId const & mwmId);
-  void RemoveAllCustomFeatures();
+  void SetCustomFeatures(df::CustomFeatures && ids) const;
+  void RemoveCustomFeatures(MwmSet::MwmId const & mwmId) const;
+  void RemoveAllCustomFeatures() const;
   /// @}
 
-  void SetPosteffectEnabled(PostprocessRenderer::Effect effect, bool enabled);
-  void EnableDebugRectRendering(bool enabled);
+  void SetPosteffectEnabled(PostprocessRenderer::Effect effect, bool enabled) const;
+  void EnableDebugRectRendering(bool enabled) const;
 
-  void RunFirstLaunchAnimation();
+  void RunFirstLaunchAnimation() const;
 
-  void ShowDebugInfo(bool shown);
+  void ShowDebugInfo(bool shown) const;
 
   void UpdateVisualScale(double vs, bool needStopRendering);
-  void UpdateMyPositionRoutingOffset(bool useDefault, int offsetY);
+  void UpdateMyPositionRoutingOffset(bool useDefault, int offsetY) const;
 
   location::EMyPositionMode GetMyPositionMode() const;
 
-  void SetCustomArrow3d(std::optional<Arrow3dCustomDecl> arrow3dCustomDecl);
+  void SetCustomArrow3d(std::optional<Arrow3dCustomDecl> arrow3dCustomDecl) const;
 
   dp::ApiVersion GetApiVersion() const { return m_frontend->GetApiVersion(); };
 
 private:
-  void AddUserEvent(drape_ptr<UserEvent> && e);
-  void PostUserEvent(drape_ptr<UserEvent> && e);
-  void ModelViewChanged(ScreenBase const & screen);
-  void MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive);
-  void TapEvent(TapInfo const & tapInfo);
-  void UserPositionChanged(m2::PointD const & position, bool hasPosition);
+  void AddUserEvent(drape_ptr<UserEvent> && e) const;
+  void PostUserEvent(drape_ptr<UserEvent> && e) const;
+  void ModelViewChanged(ScreenBase const & screen) const;
+  void MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive) const;
+  void TapEvent(TapInfo const & tapInfo) const;
+  void UserPositionChanged(m2::PointD const & position, bool hasPosition) const;
 
-  void ResizeImpl(int w, int h);
+  void ResizeImpl(int32_t w, int32_t h);
   void RecacheGui(bool needResetOldGui);
-  void RecacheMapShapes();
+  void RecacheMapShapes() const;
 
   dp::DrapeID GenerateDrapeID();
 

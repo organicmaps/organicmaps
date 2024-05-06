@@ -2,7 +2,6 @@
 #include "ruler_helper.hpp"
 
 #include "drape_frontend/color_constants.hpp"
-#include "drape_frontend/visual_params.hpp"
 
 #include "base/assert.hpp"
 
@@ -16,15 +15,12 @@ struct DrapeGui::Impl
 };
 
 DrapeGui::DrapeGui()
-  : m_impl(new Impl())
+  : m_impl(std::make_unique<Impl>())
 {}
 
 DrapeGui & DrapeGui::Instance()
 {
   static DrapeGui s_gui;
-  if (!s_gui.m_impl)
-    s_gui.m_impl.reset(new Impl());
-
   return s_gui;
 }
 
@@ -44,19 +40,19 @@ void DrapeGui::Destroy()
   m_impl.reset();
 }
 
-void DrapeGui::SetSurfaceSize(m2::PointF const & size)
+void DrapeGui::SetSurfaceSize(m2::PointF size)
 {
-  std::lock_guard<std::mutex> lock(m_surfaceSizeMutex);
+  std::lock_guard lock(m_surfaceSizeMutex);
   m_surfaceSize = size;
 }
 
 m2::PointF DrapeGui::GetSurfaceSize() const
 {
-  std::lock_guard<std::mutex> lock(m_surfaceSizeMutex);
+  std::lock_guard lock(m_surfaceSizeMutex);
   return m_surfaceSize;
 }
 
-RulerHelper & DrapeGui::GetRulerHelperImpl()
+RulerHelper & DrapeGui::GetRulerHelperImpl() const
 {
   ASSERT(m_impl != nullptr, ());
   return m_impl->m_rulerHelper;
@@ -67,7 +63,7 @@ void DrapeGui::ConnectOnCompassTappedHandler(Shape::TTapHandler const & handler)
   m_onCompassTappedHandler = handler;
 }
 
-void DrapeGui::CallOnCompassTappedHandler()
+void DrapeGui::CallOnCompassTappedHandler() const
 {
   if(m_onCompassTappedHandler != nullptr)
     m_onCompassTappedHandler();
