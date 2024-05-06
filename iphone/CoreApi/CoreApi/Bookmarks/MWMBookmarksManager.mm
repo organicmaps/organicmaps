@@ -84,6 +84,17 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
   }
 }
 
+static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType) {
+  switch (fileType) {
+    case MWMKmlFileTypeText:
+      return KmlFileType::Text;
+    case MWMKmlFileTypeBinary:
+      return KmlFileType::Binary;
+    case MWMKmlFileTypeGpx:
+      return KmlFileType::Gpx;
+  }
+}
+
 @interface MWMBookmarksManager ()
 
 @property(nonatomic, readonly) BookmarkManager & bm;
@@ -571,10 +582,10 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 
 #pragma mark - Category sharing
 
-- (void)shareCategory:(MWMMarkGroupID)groupId completion:(SharingResultCompletionHandler)completion {
+- (void)shareCategory:(MWMMarkGroupID)groupId fileType:(MWMKmlFileType)fileType completion:(SharingResultCompletionHandler)completion {
   self.bm.PrepareFileForSharing({groupId}, [self, completion](auto sharingResult) {
     [self handleSharingResult:sharingResult completion:completion];
-  });
+  }, convertFileTypeToCore(fileType));
 }
 
 - (void)shareAllCategoriesWithCompletion:(SharingResultCompletionHandler)completion {

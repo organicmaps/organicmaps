@@ -138,23 +138,37 @@ final class BookmarksListPresenter {
       guard let self = self else { return }
       self.router.listSettings(self.bookmarkGroup, delegate: self)
     }))
-    moreItems.append(BookmarksListMenuItem(title: L("export_file"), action: { [weak self] in
-      self?.interactor.exportFile { (status, url) in
-        switch status {
-        case .success:
-          guard let url = url else { fatalError() }
-          self?.view.share(url) {
-            self?.interactor.finishExportFile()
-          }
-        case .emptyCategory:
-          self?.view.showError(title: L("bookmarks_error_title_share_empty"),
-                               message: L("bookmarks_error_message_share_empty"))
-        case .archiveError, .fileError:
-          self?.view.showError(title: L("dialog_routing_system_error"),
-                               message: L("bookmarks_error_message_share_general"))
-        }
+
+    func exportMenuItem(for fileType: KmlFileType) -> BookmarksListMenuItem {
+      let title: String
+      switch fileType {
+      case .text:
+        title = L("export_file")
+      case .gpx:
+        title = L("export_file_gpx")
+      default:
+        fatalError("Unexpected file type")
       }
-    }))
+      return BookmarksListMenuItem(title: title, action: { [weak self] in
+        self?.interactor.exportFile(fileType: fileType) { (status, url) in
+          switch status {
+          case .success:
+            guard let url = url else { fatalError() }
+            self?.view.share(url) {
+              self?.interactor.finishExportFile()
+            }
+          case .emptyCategory:
+            self?.view.showError(title: L("bookmarks_error_title_share_empty"),
+                                 message: L("bookmarks_error_message_share_empty"))
+          case .archiveError, .fileError:
+            self?.view.showError(title: L("dialog_routing_system_error"),
+                                 message: L("bookmarks_error_message_share_general"))
+          }
+        }
+      })
+    }
+    moreItems.append(exportMenuItem(for: .text))
+    moreItems.append(exportMenuItem(for: .gpx))
     moreItems.append(BookmarksListMenuItem(title: L("delete_list"),
                                            destructive: true,
                                            enabled: interactor.canDeleteGroup(),

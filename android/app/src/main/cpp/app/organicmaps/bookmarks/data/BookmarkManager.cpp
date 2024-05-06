@@ -590,7 +590,7 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeSetAllCategoriesVisibi
 }
 
 JNIEXPORT void JNICALL
-Java_app_organicmaps_bookmarks_data_BookmarkManager_nativePrepareFileForSharing(JNIEnv * env, jclass, jlongArray catIds)
+Java_app_organicmaps_bookmarks_data_BookmarkManager_nativePrepareFileForSharing(JNIEnv * env, jclass, jlongArray catIds, jint kmlFileType)
 {
   auto const size = env->GetArrayLength(catIds);
   kml::GroupIdCollection catIdsVector(size);
@@ -599,7 +599,7 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativePrepareFileForSharing(
   frm()->GetBookmarkManager().PrepareFileForSharing(std::move(catIdsVector), [env](BookmarkManager::SharingResult const & result)
   {
     OnPreparedFileForSharing(env, result);
-  });
+  }, static_cast<KmlFileType>(kmlFileType));
 }
 
 JNIEXPORT jboolean JNICALL

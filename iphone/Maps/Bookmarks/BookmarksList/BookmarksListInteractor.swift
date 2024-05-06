@@ -144,8 +144,8 @@ extension BookmarksListInteractor: IBookmarksListInteractor {
     bookmarksManager.userCategoriesCount() > 1
   }
 
-  func exportFile(_ completion: @escaping SharingResultCompletionHandler) {
-    bookmarksManager.shareCategory(markGroupId, completion: completion)
+  func exportFile(fileType: KmlFileType, completion: @escaping SharingResultCompletionHandler) {
+    bookmarksManager.shareCategory(markGroupId, fileType: fileType, completion: completion)
   }
 
   func finishExportFile() {
