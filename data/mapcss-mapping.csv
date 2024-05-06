@@ -1692,3 +1692,4 @@ railway|subway_entrance|singapore;[railway=subway_entrance][city=singapore];;nam
 railway|station|subway|boston;[railway=station][transport=subway][city=boston],[railway=station][station=subway][city=boston];;name;int_name;1596;
 railway|subway_entrance|boston;[railway=subway_entrance][city=boston];;name;int_name;1597;
 leisure|miniature_golf;1598;
+boundary|marker;1599;

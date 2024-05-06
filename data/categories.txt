@@ -3527,6 +3527,11 @@ vi:Đá ranh giới
 zh-Hans:界碑
 zh-Hant:界碑
 
+boundary-marker
+en:Boundary Marker
+de:4Grenzstein|4Markstein
+pl:Znak graniczny
+
 historic-castle|@category_tourism
 en:4Castle|4Palace|4Fortress|U+1F3EF|U+1F3F0|U+1F451|U+1F478|Hillfort|Kremlin|Manor house
 ar:قلعة|سياحة|أماكن جذابة|مناظر|كاسترا|الكنيسة المحصنة|حصون التلال|كرملين|قصر مالك العزبة|قصر|شاتو

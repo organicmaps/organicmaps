@@ -242,6 +242,7 @@ node|z16-[amenity=community_centre],
 area|z16-[amenity=community_centre],
 node|z16-[historic=boundary_stone],
 area|z16-[historic=boundary_stone],
+node|z16-[boundary=marker],
 node|z16-[historic=wayside_cross],
 area|z16-[historic=wayside_cross],
 node|z16-[historic=gallows],
@@ -368,6 +369,7 @@ node|z15-[tourism=viewpoint]
 
 node|z16[historic=boundary_stone],
 area|z16[historic=boundary_stone],
+node|z16[boundary=marker],
 node|z16[historic=wayside_cross],
 area|z16[historic=wayside_cross],
 node|z16[historic=gallows],
@@ -387,6 +389,7 @@ area|z16[historic=wayside_shrine]
 
 node|z17-[historic=boundary_stone],
 area|z17-[historic=boundary_stone],
+node|z17-[boundary=marker],
 node|z17-[historic=wayside_cross],
 area|z17-[historic=wayside_cross],
 node|z17-[historic=gallows],

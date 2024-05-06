@@ -6520,6 +6520,11 @@
   [type.boundary.administrative.4]
     ref = type.boundary.administrative.3
 
+  [type.boundary.marker]
+    en = Boundary Marker
+    de = Grenzstein
+    pl = Znak graniczny
+
   [type.boundary.national_park]
     en = National Park
     af = Nasionale park

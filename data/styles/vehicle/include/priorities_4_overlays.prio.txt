@@ -516,6 +516,7 @@ amenity-charging_station-bicycle                    # icon z16- (also has captio
 === 850
 
 historic-boundary_stone                             # icon z16- (also has caption(optional) z16-)
+boundary=marker                                     # icon z16- (also has caption(optional) z16-)
 historic-gallows                                    # icon z16- (also has caption(optional) z16-)
 historic-pillory                                    # icon z16- (also has caption(optional) z16-)
 historic-ship                                       # icon z16- (also has caption(optional) z16-)
@@ -1003,6 +1004,7 @@ entrance-main                                       # icon z18- (also has captio
 # === -9150
 
 # historic-boundary_stone                           # caption(optional) z16- (also has icon z16-)
+# boundary-marker                                   # caption(optional) z16- (also has icon z16-)
 # historic-gallows                                  # caption(optional) z16- (also has icon z16-)
 # historic-pillory                                  # caption(optional) z16- (also has icon z16-)
 # historic-ship                                     # caption(optional) z16- (also has icon z16-)
