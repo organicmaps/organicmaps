@@ -2,7 +2,6 @@
 
 #include "base/buffer_vector.hpp"
 #include "base/checked_cast.hpp"
-#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <charconv>
@@ -11,8 +10,6 @@
 #include <cstdlib>
 #include <iomanip>
 #include <iterator>
-#include <limits>
-#include <regex>
 #include <sstream>
 #include <string>
 #include <string_view>
@@ -633,13 +630,6 @@ template <typename Container, typename Delimiter>
 typename Container::value_type JoinStrings(Container const & container, Delimiter const & delimiter)
 {
   return JoinStrings(begin(container), end(container), delimiter);
-}
-
-template <typename Fn>
-void ForEachMatched(std::string const & s, std::regex const & regex, Fn && fn)
-{
-  for (std::sregex_token_iterator cur(s.begin(), s.end(), regex), end; cur != end; ++cur)
-    fn(*cur);
 }
 
 // Computes the minimum number of insertions, deletions and

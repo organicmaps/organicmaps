@@ -10,12 +10,11 @@
 #include "base/string_utils.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
-#include "base/math.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <limits>
 #include <sstream>
 #include <string>
-#include <utility>
 #include <vector>
 
 #include <ft2build.h>
