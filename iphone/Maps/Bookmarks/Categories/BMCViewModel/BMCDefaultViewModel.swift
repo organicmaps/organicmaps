@@ -32,7 +32,10 @@ final class BMCDefaultViewModel: NSObject {
   }
 
   private func setActions() {
-    actions = [.create, .exportAll]
+    actions = [.create]
+    if !manager.areAllCategoriesEmpty() {
+      actions.append(.exportAll)
+    }
   }
 
   private func setNotifications() {
@@ -121,8 +124,8 @@ extension BMCDefaultViewModel {
 
     let category = categories[index]
     categories.remove(at: index)
-    manager.deleteCategory(category.categoryId)
     view?.delete(at: [IndexPath(row: index, section: section)])
+    manager.deleteCategory(category.categoryId)
   }
 
   func checkCategory(name: String) -> Bool {
@@ -162,6 +165,10 @@ extension BMCDefaultViewModel {
 extension BMCDefaultViewModel: BookmarksObserver {
 
   func onBookmarksLoadFinished() {
+    reloadData()
+  }
+
+  func onBookmarksCategoryDeleted(_ groupId: MWMMarkGroupID) {
     reloadData()
   }
 
