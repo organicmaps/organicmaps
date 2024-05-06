@@ -53,7 +53,7 @@
 }
 
 - (BOOL)isEmpty {
-  return ![self.manager isCategoryNotEmpty:self.categoryId];
+  return [self.manager isCategoryEmpty:self.categoryId];
 }
 
 - (BOOL)hasDescription {

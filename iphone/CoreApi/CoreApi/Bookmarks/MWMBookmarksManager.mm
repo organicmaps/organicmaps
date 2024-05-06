@@ -199,9 +199,8 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
   return self.bm.AreAllCategoriesEmpty();
 }
 
-- (BOOL)isCategoryNotEmpty:(MWMMarkGroupID)groupId {
-  return self.bm.HasBmCategory(groupId) &&
-  (self.bm.GetUserMarkIds(groupId).size() + self.bm.GetTrackIds(groupId).size());
+- (BOOL)isCategoryEmpty:(MWMMarkGroupID)groupId {
+  return self.bm.HasBmCategory(groupId) && self.bm.IsCategoryEmpty(groupId);
 }
 
 - (void)prepareForSearch:(MWMMarkGroupID)groupId {
