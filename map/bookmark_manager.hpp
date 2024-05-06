@@ -346,6 +346,7 @@ public:
   void PrepareFileForSharing(kml::GroupIdCollection && categoriesIds, SharingHandler && handler);
   void PrepareAllFilesForSharing(SharingHandler && handler);
 
+  bool AreAllCategoriesEmpty() const;
   bool IsCategoryEmpty(kml::MarkGroupId categoryId) const;
 
   bool IsUsedCategoryName(std::string const & name) const;

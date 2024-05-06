@@ -2790,6 +2790,17 @@ void BookmarkManager::PrepareAllFilesForSharing(SharingHandler && handler)
   PrepareFileForSharing(decltype(m_unsortedBmGroupsIdList){m_unsortedBmGroupsIdList}, std::move(handler));
 }
 
+bool BookmarkManager::AreAllCategoriesEmpty() const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  for (auto const & c : m_categories)
+  {
+    if (!c.second->IsEmpty())
+      return false;
+  }
+  return true;
+}
+
 bool BookmarkManager::IsCategoryEmpty(kml::MarkGroupId categoryId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
