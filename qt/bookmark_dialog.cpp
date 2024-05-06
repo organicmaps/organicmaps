@@ -191,7 +191,7 @@ void BookmarkDialog::OnExportClick()
       ask.addButton(tr("OK"), QMessageBox::NoRole);
       ask.exec();
     }
-  });
+  }, KmlFileType::Text);
 }
 
 void BookmarkDialog::OnDeleteClick()

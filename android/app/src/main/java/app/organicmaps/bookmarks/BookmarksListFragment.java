@@ -29,6 +29,7 @@ import app.organicmaps.bookmarks.data.BookmarkInfo;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.BookmarkSharingResult;
 import app.organicmaps.bookmarks.data.CategoryDataSource;
+import app.organicmaps.bookmarks.data.KmlFileType;
 import app.organicmaps.bookmarks.data.SortedBlock;
 import app.organicmaps.bookmarks.data.Track;
 import app.organicmaps.location.LocationHelper;
@@ -683,10 +684,10 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
         getLastSortingType(), requireActivity(), getChildFragmentManager());
   }
 
-  private void onShareOptionSelected()
+  private void onShareOptionSelected(KmlFileType kmlFileType)
   {
     long catId = mCategoryDataSource.getData().getId();
-    BookmarksSharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(requireActivity(), catId);
+    BookmarksSharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(requireActivity(), catId, kmlFileType);
   }
 
   private void onSettingsOptionSelected()
@@ -708,7 +709,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     {
       if (types.length > 0)
         items.add(new MenuBottomSheetItem(R.string.sort, R.drawable.ic_sort, this::onSortOptionSelected));
-      items.add(new MenuBottomSheetItem(R.string.export_file, R.drawable.ic_share, this::onShareOptionSelected));
+      items.add(new MenuBottomSheetItem(R.string.export_file, R.drawable.ic_share, () -> onShareOptionSelected(KmlFileType.Text)));
+      items.add(new MenuBottomSheetItem(R.string.export_file_gpx, R.drawable.ic_share, () -> onShareOptionSelected(KmlFileType.Gpx)));
     }
     items.add(new MenuBottomSheetItem(R.string.edit, R.drawable.ic_settings, this::onSettingsOptionSelected));
     if (!isLastOwnedCategory())

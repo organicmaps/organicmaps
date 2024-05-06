@@ -1446,7 +1446,7 @@ UNIT_CLASS_TEST(Runner, ExportAll)
   TEST_EQUAL(bmManager.GetBmGroupsCount(), 4, ());
 
   auto categories = bmManager.GetUnsortedBmGroupsIdList();
-  auto checker = [](BookmarkManager::SharingResult const & result)
+  auto const checker = [](BookmarkManager::SharingResult const & result)
   {
     auto kmz = result.m_sharingPath;
     ZipFileReader::FileList files;
@@ -1475,7 +1475,8 @@ UNIT_CLASS_TEST(Runner, ExportAll)
     TEST(base::DeleteFileX(indexPath), ());
     TEST(base::DeleteFileX(tmpPath), ());
   };
-  bmManager.PrepareFileForSharing(std::move(categories), checker);
+  // We use KmlFileType::Text for both single and all tracks export. File structure is determined based on categories size
+  bmManager.PrepareFileForSharing(std::move(categories), checker, KmlFileType::Text);
 }
 
 UNIT_CLASS_TEST(Runner, ExportSingleUnicode)
@@ -1487,7 +1488,7 @@ UNIT_CLASS_TEST(Runner, ExportSingleUnicode)
   kmlDataCollection.emplace_back(file, LoadKmlFile(file, KmlFileType::Gpx));
   bmManager.CreateCategories(std::move(kmlDataCollection));
   auto categories = bmManager.GetUnsortedBmGroupsIdList();
-  auto checker = [](BookmarkManager::SharingResult const & result)
+  auto const checker = [](BookmarkManager::SharingResult const & result)
   {
     auto kmz = result.m_sharingPath;
     ZipFileReader::FileList files;
@@ -1499,7 +1500,25 @@ UNIT_CLASS_TEST(Runner, ExportSingleUnicode)
     TEST(base::DeleteFileX(kmz), ());
     TEST(base::DeleteFileX(tmpPath), ());
   };
-  bmManager.PrepareFileForSharing(std::move(categories), checker);
+  bmManager.PrepareFileForSharing(std::move(categories), checker, KmlFileType::Text);
+}
+
+UNIT_CLASS_TEST(Runner, ExportSingleGpx)
+{
+  std::string const file = GetPlatform().TestsDataPathForFile("gpx_test_data/route.gpx");
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  BookmarkManager::KMLDataCollection kmlDataCollection;
+  kmlDataCollection.emplace_back(file, LoadKmlFile(file, KmlFileType::Gpx));
+  bmManager.CreateCategories(std::move(kmlDataCollection));
+  auto categories = bmManager.GetUnsortedBmGroupsIdList();
+  auto const checker = [](BookmarkManager::SharingResult const & result)
+  {
+    auto const filePath = result.m_sharingPath;
+    TEST(filePath.find("Some random route.gpx") != std::string::npos, ());
+    TEST(base::DeleteFileX(filePath), ());
+  };
+  bmManager.PrepareFileForSharing(std::move(categories), checker, KmlFileType::Gpx);
 }
 
 UNIT_CLASS_TEST(Runner, Bookmarks_BrokenFile)

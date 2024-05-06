@@ -24,6 +24,7 @@ import app.organicmaps.base.BaseMwmRecyclerFragment;
 import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.BookmarkSharingResult;
+import app.organicmaps.bookmarks.data.KmlFileType;
 import app.organicmaps.dialog.EditTextDialogFragment;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.PlaceholderView;
@@ -177,7 +178,11 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
       items.add(new MenuBottomSheetItem(
           R.string.export_file,
           R.drawable.ic_share,
-          () -> onShareActionSelected(mSelectedCategory)));
+          () -> onShareActionSelected(mSelectedCategory, KmlFileType.Text)));
+      items.add(new MenuBottomSheetItem(
+          R.string.export_file_gpx,
+          R.drawable.ic_share,
+          () -> onShareActionSelected(mSelectedCategory, KmlFileType.Gpx)));
       // Disallow deleting the last category
       if (getAdapter().getBookmarkCategories().size() > 1)
         items.add(new MenuBottomSheetItem(
@@ -265,9 +270,9 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
     getAdapter().notifyDataSetChanged();
   }
 
-  protected void onShareActionSelected(@NonNull BookmarkCategory category)
+  protected void onShareActionSelected(@NonNull BookmarkCategory category, KmlFileType kmlFileType)
   {
-    BookmarksSharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(requireActivity(), category.getId());
+    BookmarksSharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(requireActivity(), category.getId(), kmlFileType);
   }
 
   private void onDeleteActionSelected(@NonNull BookmarkCategory category)

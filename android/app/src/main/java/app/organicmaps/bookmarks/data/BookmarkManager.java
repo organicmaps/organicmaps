@@ -594,9 +594,9 @@ public enum BookmarkManager
     nativeSetChildCategoriesVisibility(catId, visible);
   }
 
-  public void prepareCategoriesForSharing(long[] catIds)
+  public void prepareCategoriesForSharing(long[] catIds, KmlFileType kmlFileType)
   {
-    nativePrepareFileForSharing(catIds);
+    nativePrepareFileForSharing(catIds, kmlFileType.ordinal());
   }
 
   public void setNotificationsEnabled(boolean enabled)
@@ -835,7 +835,7 @@ public enum BookmarkManager
 
   private static native void nativeSetAllCategoriesVisibility(boolean visible);
 
-  private static native void nativePrepareFileForSharing(long[] catIds);
+  private static native void nativePrepareFileForSharing(long[] catIds, int kmlFileType);
 
   private static native boolean nativeIsCategoryEmpty(long catId);
 
