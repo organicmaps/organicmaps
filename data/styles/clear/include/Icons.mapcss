@@ -448,7 +448,6 @@ node|z16-[historic=wreck],
 node|z16-[historic=locomotive],
 node|z16-[historic=boundary_stone],
 area|z16-[historic=boundary_stone],
-node|z16-[boundary=marker],
 node|z16-[historic=wayside_cross],
 area|z16-[historic=wayside_cross],
 node|z16-[historic=tomb],
@@ -640,7 +639,6 @@ node|z16-[tourism=information][information=map]
 
 node|z16-[historic=boundary_stone],
 area|z16-[historic=boundary_stone],
-node|z16-[boundary=marker],
 node|z16-[historic=gallows],
 area|z16-[historic=gallows],
 node|z16-[historic=pillory],
@@ -1772,6 +1770,9 @@ area|z18-[amenity=public_bookcase]
 node|z17-[amenity=public_bath],
 area|z17-[amenity=public_bath],
 {icon-image: public_bath-m.svg;font-size: 11;}
+
+node|z18-[boundary=marker],
+{icon-image: dot-m.svg;}
 
 /* 6. SHOP */
 
