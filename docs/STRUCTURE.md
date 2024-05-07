@@ -24,7 +24,6 @@
 - `faq.html` - FAQ text displayed in the "?"/Help screen.
 - `copyright.html` - attributions to 3rd-party libraries, map data, icons, fonts.
 
-- `hardcoded_categories.txt` - search categories displayed in UI (duplicated in search/displayed_categories.cpp, see #1795).
 - `minsk-pass.mwm`,`minsk-pass.osm.bz2` - a small map used for tests.
 
 There are some other files not mentioned here.
