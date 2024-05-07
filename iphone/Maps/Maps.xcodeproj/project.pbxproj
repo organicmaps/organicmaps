@@ -4686,8 +4686,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDebug;
 				CODE_SIGN_ENTITLEMENTS = "OMaps-Debug.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = 9Z6432XD7L;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -4698,7 +4698,7 @@
 				MARKETING_VERSION = 2022.11.17;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.debug;
-				PROVISIONING_PROFILE_SPECIFIER = "CarPlay Debug";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
