@@ -136,7 +136,6 @@
 		56F0D7501D896A5300045886 /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = 67BD35F91C69F474003AA26F /* packed_polygons.bin */; };
 		56F0D7521D896A5300045886 /* drules_proto_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD571C68C7F6009CB89E /* drules_proto_clear.bin */; };
 		56F0D7531D896A5300045886 /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD581C68C7F6009CB89E /* drules_proto_dark.bin */; };
-		56F0D7561D896A5300045886 /* drules_proto-bw.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD5A1C68C7F6009CB89E /* drules_proto-bw.bin */; };
 		56F0D7571D896A5300045886 /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD5B1C68C7F6009CB89E /* drules_proto.bin */; };
 		56F0D7581D896A5300045886 /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD551C68C7C1009CB89E /* types.txt */; };
 		56F0D75A1D896A5300045886 /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD531C68BB14009CB89E /* classificator.txt */; };
@@ -176,7 +175,6 @@
 		6742AD561C68C7D7009CB89E /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD551C68C7C1009CB89E /* types.txt */; };
 		6742AD5C1C68C7FA009CB89E /* drules_proto_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD571C68C7F6009CB89E /* drules_proto_clear.bin */; };
 		6742AD5D1C68C7FA009CB89E /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD581C68C7F6009CB89E /* drules_proto_dark.bin */; };
-		6742AD5F1C68C7FA009CB89E /* drules_proto-bw.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD5A1C68C7F6009CB89E /* drules_proto-bw.bin */; };
 		6742AD601C68C7FA009CB89E /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD5B1C68C7F6009CB89E /* drules_proto.bin */; };
 		6742AD621C68F747009CB89E /* sound-strings in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD611C68F747009CB89E /* sound-strings */; };
 		674F9BCA1B0A580E00704FFA /* async_router.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674F9BBA1B0A580E00704FFA /* async_router.cpp */; };
@@ -200,7 +198,6 @@
 		67BD35D31C69F139003AA26F /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675343F81A3F640D00A0A8C3 /* librouting.a */; };
 		67BD35F01C69F447003AA26F /* drules_proto_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD571C68C7F6009CB89E /* drules_proto_clear.bin */; };
 		67BD35F11C69F447003AA26F /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD581C68C7F6009CB89E /* drules_proto_dark.bin */; };
-		67BD35F31C69F447003AA26F /* drules_proto-bw.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD5A1C68C7F6009CB89E /* drules_proto-bw.bin */; };
 		67BD35F41C69F447003AA26F /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD5B1C68C7F6009CB89E /* drules_proto.bin */; };
 		67BD35F51C69F447003AA26F /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD551C68C7C1009CB89E /* types.txt */; };
 		67BD35F61C69F447003AA26F /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD531C68BB14009CB89E /* classificator.txt */; };
@@ -467,7 +464,6 @@
 		6742AD551C68C7C1009CB89E /* types.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = types.txt; sourceTree = "<group>"; };
 		6742AD571C68C7F6009CB89E /* drules_proto_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_clear.bin; sourceTree = "<group>"; };
 		6742AD581C68C7F6009CB89E /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_dark.bin; sourceTree = "<group>"; };
-		6742AD5A1C68C7F6009CB89E /* drules_proto-bw.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "drules_proto-bw.bin"; sourceTree = "<group>"; };
 		6742AD5B1C68C7F6009CB89E /* drules_proto.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto.bin; sourceTree = "<group>"; };
 		6742AD611C68F747009CB89E /* sound-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "sound-strings"; sourceTree = "<group>"; };
 		674F9BBA1B0A580E00704FFA /* async_router.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = async_router.cpp; sourceTree = "<group>"; };
@@ -647,7 +643,6 @@
 				67BD35F91C69F474003AA26F /* packed_polygons.bin */,
 				6742AD571C68C7F6009CB89E /* drules_proto_clear.bin */,
 				6742AD581C68C7F6009CB89E /* drules_proto_dark.bin */,
-				6742AD5A1C68C7F6009CB89E /* drules_proto-bw.bin */,
 				6742AD5B1C68C7F6009CB89E /* drules_proto.bin */,
 				6742AD551C68C7C1009CB89E /* types.txt */,
 				6742AD531C68BB14009CB89E /* classificator.txt */,
@@ -1116,7 +1111,6 @@
 				56F0D7501D896A5300045886 /* packed_polygons.bin in Resources */,
 				56F0D7521D896A5300045886 /* drules_proto_clear.bin in Resources */,
 				56F0D7531D896A5300045886 /* drules_proto_dark.bin in Resources */,
-				56F0D7561D896A5300045886 /* drules_proto-bw.bin in Resources */,
 				56F0D7571D896A5300045886 /* drules_proto.bin in Resources */,
 				56F0D7581D896A5300045886 /* types.txt in Resources */,
 				56F0D75A1D896A5300045886 /* classificator.txt in Resources */,
@@ -1128,7 +1122,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6742AD5F1C68C7FA009CB89E /* drules_proto-bw.bin in Resources */,
 				6742AD5C1C68C7FA009CB89E /* drules_proto_clear.bin in Resources */,
 				6742AD561C68C7D7009CB89E /* types.txt in Resources */,
 				6742AD541C68C77B009CB89E /* classificator.txt in Resources */,
@@ -1148,7 +1141,6 @@
 				67BD35FB1C69F49A003AA26F /* packed_polygons.bin in Resources */,
 				67BD35F01C69F447003AA26F /* drules_proto_clear.bin in Resources */,
 				67BD35F11C69F447003AA26F /* drules_proto_dark.bin in Resources */,
-				67BD35F31C69F447003AA26F /* drules_proto-bw.bin in Resources */,
 				67BD35F41C69F447003AA26F /* drules_proto.bin in Resources */,
 				67BD35F51C69F447003AA26F /* types.txt in Resources */,
 				67BD35F61C69F447003AA26F /* classificator.txt in Resources */,
