@@ -399,10 +399,10 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
 
   // Initialize static textures.
   m_trafficArrowTexture =
-      make_unique_dp<StaticTexture>(context, "traffic-arrow.png", m_resPostfix,
+      make_unique_dp<StaticTexture>(context, "traffic-arrow.png", StaticTexture::kDefaultResource,
                                     dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
   m_hatchingTexture =
-      make_unique_dp<StaticTexture>(context, "area-hatching.png", m_resPostfix,
+      make_unique_dp<StaticTexture>(context, "area-hatching.png", StaticTexture::kDefaultResource,
                                     dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
   m_arrowTexture =
       CreateArrowTexture(context, make_ref(m_textureAllocator), params.m_arrowTexturePath,
