@@ -183,6 +183,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mPhone.setText(Editor.nativeGetPhone());
 
     initMetadataEntry(Metadata.MetadataType.FMD_WEBSITE, R.string.error_enter_correct_web);
+    initMetadataEntry(Metadata.MetadataType.FMD_WEBSITE_MENU, R.string.error_enter_correct_web);
     initMetadataEntry(Metadata.MetadataType.FMD_EMAIL, R.string.error_enter_correct_email);
     initMetadataEntry(Metadata.MetadataType.FMD_CONTACT_FACEBOOK, R.string.error_enter_correct_facebook_page);
     initMetadataEntry(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM, R.string.error_enter_correct_instagram_page);
@@ -427,6 +428,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mPhone.setOnClickListener(this);
     initBlock(view, Metadata.MetadataType.FMD_WEBSITE, R.id.block_website,
             R.drawable.ic_website, R.string.website, InputType.TYPE_TEXT_VARIATION_URI);
+    initBlock(view, Metadata.MetadataType.FMD_WEBSITE_MENU, R.id.block_website_menu,
+            R.drawable.ic_website_menu, R.string.website_menu, InputType.TYPE_TEXT_VARIATION_URI);
     initBlock(view, Metadata.MetadataType.FMD_EMAIL, R.id.block_email,
             R.drawable.ic_email, R.string.email, InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
     initBlock(view, Metadata.MetadataType.FMD_CONTACT_FACEBOOK, R.id.block_facebook,
