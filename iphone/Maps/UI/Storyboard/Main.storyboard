@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Wns-nH-AQU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Wns-nH-AQU">
     <device id="retina6_72" orientation="landscape" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,13 +17,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="932" height="430"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_carplay_activated" translatesAutoresizingMaskIntoConstraints="NO" id="Tqh-46-Yrm">
-                                <rect key="frame" x="386" y="124.66666666666669" width="160" height="160"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="160" id="dkE-Cj-sE5"/>
-                                    <constraint firstAttribute="width" constant="160" id="pz7-lu-Ocm"/>
-                                </constraints>
-                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ixC-IZ-Pvs" userLabel="CarPlayPlaceholderView" customClass="CarplayPlaceholderView" customModule="Organic_Maps" customModuleProvider="target">
+                                <rect key="frame" x="59" y="0.0" width="814" height="409"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aPn-pa-nCx" customClass="EAGLView">
                                 <rect key="frame" x="0.0" y="0.0" width="932" height="430"/>
                                 <color key="backgroundColor" red="0.8666666666666667" green="0.8666666666666667" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -168,18 +166,18 @@
                         <viewLayoutGuide key="safeArea" id="utd-Jy-pE5"/>
                         <color key="backgroundColor" red="0.8666666666666667" green="0.8666666666666667" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Tqh-46-Yrm" firstAttribute="centerX" secondItem="utd-Jy-pE5" secondAttribute="centerX" id="0T0-4t-4m2"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="65S-M4-TnM" secondAttribute="bottom" priority="100" id="2E3-5i-6An"/>
                             <constraint firstAttribute="bottom" secondItem="rL1-9E-4b7" secondAttribute="bottom" id="4fw-Xu-gAG"/>
                             <constraint firstItem="rbx-Oj-jeo" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="5Sh-l6-Icd"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="QKu-4A-UgP" secondAttribute="bottom" priority="100" id="6ko-rI-S5u"/>
-                            <constraint firstItem="Tqh-46-Yrm" firstAttribute="centerY" secondItem="utd-Jy-pE5" secondAttribute="centerY" id="7pv-5d-X2W"/>
+                            <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="ixC-IZ-Pvs" secondAttribute="bottom" id="7eh-og-Mpe"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="aVk-ab-LFJ" secondAttribute="trailing" id="85b-Do-jO7"/>
                             <constraint firstItem="at1-V1-pzl" firstAttribute="top" secondItem="utd-Jy-pE5" secondAttribute="bottom" priority="250" id="8JV-dP-iYZ"/>
                             <constraint firstItem="TdT-ia-GP9" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="8YH-dJ-lHZ"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="rbx-Oj-jeo" secondAttribute="trailing" id="9M9-8P-Hzb"/>
                             <constraint firstAttribute="bottom" secondItem="rbx-Oj-jeo" secondAttribute="bottom" id="9rR-QQ-c1P"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="top" secondItem="xJx-UU-IdV" secondAttribute="top" priority="100" id="BMq-jc-qfO"/>
+                            <constraint firstItem="ixC-IZ-Pvs" firstAttribute="top" secondItem="utd-Jy-pE5" secondAttribute="top" id="DSJ-0D-hwO"/>
                             <constraint firstItem="rL1-9E-4b7" firstAttribute="top" secondItem="USG-6L-Uhw" secondAttribute="top" id="E89-WV-ZTh"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="QKu-4A-UgP" secondAttribute="trailing" id="Fjy-Cy-dHS"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="at1-V1-pzl" secondAttribute="trailing" id="GKG-4Y-2Pq"/>
@@ -187,6 +185,7 @@
                             <constraint firstItem="awj-9E-eBS" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="Hfm-gb-37H"/>
                             <constraint firstItem="rbx-Oj-jeo" firstAttribute="top" secondItem="utd-Jy-pE5" secondAttribute="top" id="J0B-xe-sNj"/>
                             <constraint firstItem="jio-3T-E6G" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="K9r-P1-yFI"/>
+                            <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="ixC-IZ-Pvs" secondAttribute="trailing" id="O7f-qU-UN2"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="at1-V1-pzl" secondAttribute="bottom" priority="750" constant="48" id="O8L-nd-nOa"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="FFY-Dy-Wou" secondAttribute="bottom" priority="100" id="OE7-Qb-J0v"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="awj-9E-eBS" secondAttribute="bottom" id="PFs-sL-oVA"/>
@@ -213,6 +212,7 @@
                             <constraint firstItem="65S-M4-TnM" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="kan-ei-cIg"/>
                             <constraint firstAttribute="bottom" secondItem="jio-3T-E6G" secondAttribute="bottom" id="l6r-eW-Dbi"/>
                             <constraint firstItem="NI8-tV-i2B" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="lwX-Xm-J8A"/>
+                            <constraint firstItem="ixC-IZ-Pvs" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="m7B-SH-DDh"/>
                             <constraint firstItem="FFY-Dy-Wou" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="pc3-CW-vyV"/>
                             <constraint firstItem="aPn-pa-nCx" firstAttribute="top" secondItem="USG-6L-Uhw" secondAttribute="top" id="pwE-hX-IML"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="TdT-ia-GP9" secondAttribute="bottom" priority="100" id="pwZ-Fm-mHR"/>
@@ -284,7 +284,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="8E8-0f-UV9"/>
                     <connections>
-                        <outlet property="carplayPlaceholderLogo" destination="Tqh-46-Yrm" id="S7m-Df-UPv"/>
+                        <outlet property="carplayPlaceholderView" destination="ixC-IZ-Pvs" id="3rZ-Kn-VBS"/>
                         <outlet property="controlsView" destination="rL1-9E-4b7" id="sfV-7X-WlR"/>
                         <outlet property="mapView" destination="aPn-pa-nCx" id="tCi-LW-1ll"/>
                         <outlet property="placePageAreaKeyboard" destination="PFs-sL-oVA" id="O3P-ia-ZlX"/>
@@ -876,7 +876,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="CwW-x8-G3j">
-                                <rect key="frame" x="0.0" y="0.0" width="932" height="409"/>
+                                <rect key="frame" x="0.0" y="0.0" width="932" height="430"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
                                 <userDefinedRuntimeAttributes>
@@ -888,13 +888,13 @@
                                 </connections>
                             </tableView>
                             <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kXO-Oh-2vO" userLabel="No Maps Container View">
-                                <rect key="frame" x="59" y="0.0" width="814" height="409"/>
+                                <rect key="frame" x="0.0" y="0.0" width="932" height="430"/>
                                 <connections>
                                     <segue destination="b8o-rZ-x0k" kind="embed" identifier="MapDownloaderNoResultsEmbedViewControllerSegue" id="ish-dC-mkH"/>
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CDj-ol-HRP">
-                                <rect key="frame" x="59" y="345" width="814" height="64"/>
+                                <rect key="frame" x="0.0" y="345" width="932" height="85"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PressBackground"/>
@@ -937,17 +937,17 @@
             <objects>
                 <viewController storyboardIdentifier="MWMNoMapsViewController" id="3el-Zi-2E4" customClass="MWMNoMapsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4WP-vj-Alg">
-                        <rect key="frame" x="0.0" y="0.0" width="1366" height="980"/>
+                        <rect key="frame" x="0.0" y="0.0" width="932" height="430"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gmw-e3-n53" userLabel="Container" customClass="MWMNoMapsView">
-                                <rect key="frame" x="475.33333333333326" y="0.0" width="415.66666666666674" height="959"/>
+                                <rect key="frame" x="258.33333333333326" y="0.0" width="415.66666666666674" height="409"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dCZ-PN-2Ob" userLabel="BoundsView">
-                                        <rect key="frame" x="16" y="0.0" width="383.66666666666669" height="855"/>
+                                        <rect key="frame" x="16" y="0.0" width="383.66666666666669" height="409"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="87G-jh-N8H" userLabel="CenteredView">
-                                                <rect key="frame" x="0.0" y="372.66666666666669" width="383.66666666666669" height="109.66666666666669"/>
+                                                <rect key="frame" x="0.0" y="149.66666666666666" width="383.66666666666669" height="109.66666666666666"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="У вас нет загруженных карт" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="abh-G0-Alr" userLabel="Title">
                                                         <rect key="frame" x="0.0" y="40" width="383.66666666666669" height="24"/>
@@ -1018,7 +1018,7 @@
                                 </connections>
                             </view>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Moj-UK-oyl" userLabel="DownloadMaps" customClass="MWMButton">
-                                <rect key="frame" x="287" y="304" width="240" height="44"/>
+                                <rect key="frame" x="346" y="325" width="240" height="44"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="49x-bx-JJj"/>
@@ -1145,7 +1145,9 @@
         <image name="ic_add_button" width="28" height="28"/>
         <image name="ic_arrow_gray_down" width="28" height="28"/>
         <image name="ic_arrow_gray_right" width="28" height="28"/>
-        <image name="ic_carplay_activated" width="160" height="160"/>
         <image name="separator_image" width="1" height="1"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
