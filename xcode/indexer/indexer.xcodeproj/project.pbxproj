@@ -31,7 +31,6 @@
 		3496AB971DC1FA2000C5DDBA /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3496AB961DC1FA2000C5DDBA /* types.txt */; };
 		3496AB9D1DC1FA5200C5DDBA /* drules_proto_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 3496AB981DC1FA5200C5DDBA /* drules_proto_clear.bin */; };
 		3496AB9E1DC1FA5200C5DDBA /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 3496AB991DC1FA5200C5DDBA /* drules_proto_dark.bin */; };
-		3496ABA01DC1FA5200C5DDBA /* drules_proto-bw.bin in Resources */ = {isa = PBXBuildFile; fileRef = 3496AB9B1DC1FA5200C5DDBA /* drules_proto-bw.bin */; };
 		3496ABA11DC1FA5200C5DDBA /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = 3496AB9C1DC1FA5200C5DDBA /* drules_proto.bin */; };
 		3496ABA31DC1FA7200C5DDBA /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABA21DC1FA7200C5DDBA /* editor.config */; };
 		3496ABA91DC1FA9E00C5DDBA /* categories.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABA41DC1FA9E00C5DDBA /* categories.txt */; };
@@ -257,7 +256,6 @@
 		3496AB961DC1FA2000C5DDBA /* types.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = types.txt; path = ../../data/types.txt; sourceTree = "<group>"; };
 		3496AB981DC1FA5200C5DDBA /* drules_proto_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_clear.bin; path = ../../data/drules_proto_clear.bin; sourceTree = "<group>"; };
 		3496AB991DC1FA5200C5DDBA /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_dark.bin; path = ../../data/drules_proto_dark.bin; sourceTree = "<group>"; };
-		3496AB9B1DC1FA5200C5DDBA /* drules_proto-bw.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = "drules_proto-bw.bin"; path = "../../data/drules_proto-bw.bin"; sourceTree = "<group>"; };
 		3496AB9C1DC1FA5200C5DDBA /* drules_proto.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto.bin; path = ../../data/drules_proto.bin; sourceTree = "<group>"; };
 		3496ABA21DC1FA7200C5DDBA /* editor.config */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = editor.config; path = ../../data/editor.config; sourceTree = "<group>"; };
 		3496ABA41DC1FA9E00C5DDBA /* categories.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = categories.txt; path = ../../data/categories.txt; sourceTree = "<group>"; };
@@ -503,7 +501,6 @@
 				3496ABA81DC1FA9E00C5DDBA /* countries.txt */,
 				3496AB981DC1FA5200C5DDBA /* drules_proto_clear.bin */,
 				3496AB991DC1FA5200C5DDBA /* drules_proto_dark.bin */,
-				3496AB9B1DC1FA5200C5DDBA /* drules_proto-bw.bin */,
 				3496AB9C1DC1FA5200C5DDBA /* drules_proto.bin */,
 				3496ABA21DC1FA7200C5DDBA /* editor.config */,
 				3496ABAE1DC1FAC900C5DDBA /* minsk-pass.mwm */,
@@ -945,7 +942,6 @@
 				3496AB9D1DC1FA5200C5DDBA /* drules_proto_clear.bin in Resources */,
 				3496AB9E1DC1FA5200C5DDBA /* drules_proto_dark.bin in Resources */,
 				FA67C84F26BB36D700B33DCA /* categories_brands.txt in Resources */,
-				3496ABA01DC1FA5200C5DDBA /* drules_proto-bw.bin in Resources */,
 				FA67C84626BB356800B33DCA /* categories_cuisines.txt in Resources */,
 				3496ABA11DC1FA5200C5DDBA /* drules_proto.bin in Resources */,
 				3496AB971DC1FA2000C5DDBA /* types.txt in Resources */,
