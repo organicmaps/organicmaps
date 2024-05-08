@@ -176,6 +176,10 @@
               android:background="?dividerHorizontal"/>
         </RelativeLayout>
 
+        <include
+            android:id="@+id/block_website_menu"
+            layout="@layout/item_editor_input"/>
+
         <RelativeLayout
             android:id="@+id/block_phone"
             style="@style/MwmWidget.Editor.MetadataBlock.Clickable">
