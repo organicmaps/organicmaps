@@ -23309,7 +23309,7 @@
 
 [Macedonia]
   en = North Macedonia
-  ar = جمهورية مقدونيا الشمالية
+  ar = مقدونيا الشمالية
   az = Şimali Makedoniya
   be = Паўночная Македонія
   ca = Macedònia del Nord
@@ -23326,8 +23326,8 @@
   hu = Észak-Macedónia
   id = Makedonia Utara
   it = Macedonia del Nord
-  ja = 北マケドニア共和国
-  ko = 북마케도니아 공화국
+  ja = 北マケドニア
+  ko = 북마케도니아
   mr = उत्तर मॅसेडोनिया
   nb = Nord-Makedonia
   nl = Noord-Macedonië
@@ -23342,8 +23342,8 @@
   tr = Kuzey Makedonya
   uk = Північна Македонія
   vi = Bắc Macedonia
-  zh-Hans = 北马其顿共和国
-  zh-Hant = 北馬其頓共和國
+  zh-Hans = 北马其顿
+  zh-Hant = 北馬其頓
 
 [Madagascar]
   en = Madagascar
