@@ -16,6 +16,7 @@
 
 #include "geometry/mercator.hpp"
 
+#include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
 #include "coding/serdes_json.hpp"
@@ -1865,20 +1866,16 @@ void BookmarkManager::LoadMetadata()
     return;
 
   Metadata metadata;
-  std::vector<uint8_t> jsonStr;
-
-  auto const charPtr = [&jsonStr]()
-  {
-    return reinterpret_cast<char const *>(jsonStr.data());
-  };
+  std::string json;
 
   try
   {
-    jsonStr = base::ReadFile(metadataFilePath);
-    if (jsonStr.empty())
+    FileReader(metadataFilePath).ReadAsString(json);
+
+    if (json.empty())
       return;
 
-    coding::DeserializerJson des(charPtr());
+    coding::DeserializerJson des(json);
     des(metadata);
   }
   catch (FileReader::Exception const & exception)
@@ -1888,8 +1885,7 @@ void BookmarkManager::LoadMetadata()
   }
   catch (base::Json::Exception const & exception)
   {
-    LOG(LWARNING, ("Exception while parsing file:", metadataFilePath, "reason:", exception.what(),
-                   "json:", charPtr()));
+    LOG(LWARNING, ("Exception while parsing file:", metadataFilePath, "reason:", exception.what(), "json:", json));
     return;
   }
 
