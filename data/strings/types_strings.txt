@@ -6522,8 +6522,47 @@
 
   [type.boundary.marker]
     en = Boundary Marker
-    de = Grenzstein
+    af = Grensmerker
+    ar = علامة الحدود
+    az = Sərhəd işarəsi
+    be = Межавы знак
+    bg = Граничен маркер
+    ca = Marcador de límit
+    cs = Hraniční značka
+    da = Grænsemarkør
+    de = Grenzmarkierung
+    el = Οριακός δείκτης
+    es = Hito fronterizo
+    et = Piirimärk
+    eu = Muga-markatzailea
+    fa = نشانگر مرز
+    fi = Rajamerkki
+    fr = Marqueur de frontière
+    he = סמן גבול
+    hi = सीमा चिन्हक
+    hu = Határjelző
+    id = Penanda batas
+    it = Marcatore di confine
+    ja = バウンダリーマーカー
+    ko = 경계 마커
+    lt = Ribų žymeklis
+    mr = सीमा चिन्हक
+    nb = Grensemarkør
+    nl = Grensmarkering
     pl = Znak graniczny
+    pt = Marcador de fronteira
+    pt-BR = Marcador de limite
+    ro = Marcaj de delimitare
+    ru = Пограничный знак
+    sk = Hraničná značka
+    sv = Gränsmarkör
+    sw = Alama ya mpaka
+    th = เครื่องหมายเขตแดน
+    tr = Sınır işaretleyici
+    uk = Прикордонний знак
+    vi = Điểm đánh dấu ranh giới
+    zh-Hans = 界标
+    zh-Hant = 界碑
 
   [type.boundary.national_park]
     en = National Park
