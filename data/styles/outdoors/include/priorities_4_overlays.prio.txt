@@ -1172,8 +1172,8 @@ power-station                                       # icon z17- (also has captio
 === 230
 
 barrier-entrance                                    # icon z16- (also has caption(optional) z16-)
-entrance-main                                       # icon z18- (also has caption(optional) z18-)
 boundary-marker                                     # icon z16-
+entrance-main                                       # icon z18- (also has caption(optional) z18-)
 === 220
 
 historic-anchor                                     # icon z18- (also has caption(optional) z18-)
