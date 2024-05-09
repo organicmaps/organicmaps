@@ -774,16 +774,16 @@
 	<string name="app_tip_08">Saate hõlpsasti kaardiandmeid parandada ja täiustada.</string>
 	<!-- App tip #09 -->
 	<string name="app_tip_09">Meie põhieesmärk on luua kiireid, privaatsusele keskenduvaid ja hõlpsasti kasutatavaid kaarte, mis teile meeldivad.</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Nüüd kasutate telefoni ekraanil Organic Maps</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">Nüüd kasutate telefoni ekraanil Organic Maps</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Nüüd kasutate auto ekraanil Organic Maps</string>
+	<string name="car_used_on_the_car_screen">Nüüd kasutate auto ekraanil Organic Maps</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Olete ühendatud Android Auto\'ga</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Jätka telefonis</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">Auto ekraanile</string>
+	<string name="car_continue_on_the_phone">Jätka telefonis</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">Auto ekraanile</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">See rakendus nõuab navigeerimiseks juurdepääsu teie asukohale.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->

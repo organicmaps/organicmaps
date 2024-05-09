@@ -737,16 +737,16 @@
 	<string name="app_tip_08">Du kan nemt rette og forbedre kortdataene.</string>
 	<!-- App tip #09 -->
 	<string name="app_tip_09">Vores hovedmål er at bygge hurtige, privatlivsfokuserede, brugervenlige kort, som du vil elske.</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Du bruger nu Organic Maps på telefonens skærm.</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">Du bruger nu Organic Maps på telefonens skærm.</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Du bruger nu Organic Maps på bilens skærm.</string>
+	<string name="car_used_on_the_car_screen">Du bruger nu Organic Maps på bilens skærm.</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Du er forbundet til Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Fortsæt i telefonen</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">Til bilens skærm</string>
+	<string name="car_continue_on_the_phone">Fortsæt i telefonen</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">Til bilens skærm</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">Denne applikation kræver adgang til din placering til navigationsformål.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
