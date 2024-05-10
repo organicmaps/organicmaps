@@ -13,7 +13,7 @@
 #include <algorithm>
 #include <array>
 #include <memory>
-#include <type_traits>
+
 
 namespace gui
 {
@@ -347,7 +347,7 @@ void MutableLabel::Precache(PrecacheParams const & params, PrecacheResult & resu
   glsl::vec2 colorTex = glsl::ToVec2(color.GetTexRect().Center());
   glsl::vec2 outlineTex = glsl::ToVec2(outlineColor.GetTexRect().Center());
 
-  auto const vertexCount = static_cast<size_t>(m_maxLength) * 4;
+  auto const vertexCount = m_maxLength * dp::Batcher::VertexPerQuad;
   result.m_buffer.resize(vertexCount,
                          StaticVertex(glsl::vec3(0.0, 0.0, 0.0), colorTex, outlineTex));
 
@@ -374,10 +374,21 @@ void MutableLabel::Precache(PrecacheParams const & params, PrecacheResult & resu
   result.m_maxPixelSize = m2::PointF(m_maxLength * maxGlyphWidth, maxGlyphHeight);
 }
 
-void MutableLabel::SetText(LabelResult & result, std::string_view text) const
+void MutableLabel::SetText(LabelResult & result, std::string text) const
 {
-  strings::UniString uniText = bidi::log2vis(text.size() <= m_maxLength ? text
-      : std::string{text}.erase(static_cast<size_t>(m_maxLength - 3)) + "...");
+  size_t const sz = text.size();
+  if (sz < m_maxLength)
+  {
+    /// @todo I don't see a better way to clear cached vertices from previous the frame (text value).
+    text.append(m_maxLength - sz, ' ');
+  }
+  else if (sz > m_maxLength)
+  {
+    text.erase(m_maxLength - 3);
+    text.append("...");
+  }
+
+  strings::UniString const uniText = bidi::log2vis(text);
 
   float maxHeight = 0.0f;
   float length = 0.0f;
@@ -473,17 +484,18 @@ void MutableLabelHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator
   m_size.y = result.m_boundRect.SizeY();
 
   size_t const byteCount = result.m_buffer.size() * sizeof(MutableLabel::DynamicVertex);
-
   auto const dataPointer = static_cast<MutableLabel::DynamicVertex *>(mutator->AllocateMutationBuffer(byteCount));
   std::copy(result.m_buffer.begin(), result.m_buffer.end(), dataPointer);
 
   dp::BindingInfo const & binding = MutableLabel::DynamicVertex::GetBindingInfo();
-  dp::OverlayHandle::TOffsetNode offsetNode = GetOffsetNode(binding.GetID());
+  auto const & node = GetOffsetNode(binding.GetID());
+  ASSERT_EQUAL(node.first.GetElementSize(), sizeof(MutableLabel::DynamicVertex), ());
+  ASSERT_EQUAL(node.second.m_count, result.m_buffer.size(), ());
 
   dp::MutateNode mutateNode;
   mutateNode.m_data = make_ref(dataPointer);
-  mutateNode.m_region = offsetNode.second;
-  mutator->AddMutation(offsetNode.first, mutateNode);
+  mutateNode.m_region = node.second;
+  mutator->AddMutation(node.first, mutateNode);
 }
 
 bool MutableLabelHandle::Update(ScreenBase const & screen)

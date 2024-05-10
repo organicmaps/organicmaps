@@ -117,7 +117,7 @@ public:
   void Precache(PrecacheParams const & params, PrecacheResult & result,
                 ref_ptr<dp::TextureManager> mng);
 
-  void SetText(LabelResult & result, std::string_view text) const;
+  void SetText(LabelResult & result, std::string text) const;
   m2::PointF GetAverageSize() const;
 
   using TAlphabetNode = std::pair<strings::UniChar, dp::TextureManager::GlyphRegion>;
