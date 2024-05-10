@@ -40,6 +40,8 @@ private:
   QLineEdit * m_finishInput;
 
   QComboBox * m_routerType;
+  QComboBox * m_routerStrategy;
+  QComboBox * m_avoidRoutingOptions;
   QCheckBox * m_showTurnsCheckbox;
   QCheckBox * m_useDebugGuideCheckbox;
   QCheckBox * m_saveSessionCheckbox;

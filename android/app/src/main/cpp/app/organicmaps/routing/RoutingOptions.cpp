@@ -10,6 +10,12 @@ routing::RoutingOptions::Road makeValue(jint option)
   return static_cast<routing::RoutingOptions::Road>(road);
 }
 
+routing::EdgeEstimator::Strategy makeStrategyValue(jint strategy)
+{
+  int convertedStrat = static_cast<int>(strategy);
+  return static_cast<routing::EdgeEstimator::Strategy>(convertedStrat);
+}
+
 extern "C"
 {
 
@@ -22,6 +28,14 @@ Java_app_organicmaps_routing_RoutingOptions_nativeHasOption(JNIEnv * env, jclass
   return static_cast<jboolean>(routingOptions.Has(road));
 }
 
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_routing_RoutingOptions_nativeGetStrategy(JNIEnv * env, jclass clazz)
+{
+  CHECK(g_framework, ("Framework isn't created yet!"));
+  routing::EdgeEstimator::Strategy routingStrategy = routing::EdgeEstimator::LoadRoutingStrategyFromSettings();
+  return static_cast<jint>(routingStrategy);
+}
+
 JNIEXPORT void JNICALL
 Java_app_organicmaps_routing_RoutingOptions_nativeAddOption(JNIEnv * env, jclass clazz, jint option)
 {
@@ -32,7 +46,6 @@ Java_app_organicmaps_routing_RoutingOptions_nativeAddOption(JNIEnv * env, jclass
   routing::RoutingOptions::SaveCarOptionsToSettings(routingOptions);
 }
 
-
 JNIEXPORT void JNICALL
 Java_app_organicmaps_routing_RoutingOptions_nativeRemoveOption(JNIEnv * env, jclass clazz, jint option)
 {
@@ -41,5 +54,12 @@ Java_app_organicmaps_routing_RoutingOptions_nativeRemoveOption(JNIEnv * env, jcl
   routing::RoutingOptions::Road road = makeValue(option);
   routingOptions.Remove(road);
   routing::RoutingOptions::SaveCarOptionsToSettings(routingOptions);
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_routing_RoutingOptions_nativeSetStrategy(JNIEnv * env, jclass clazz, jint strategy)
+{
+  CHECK(g_framework, ("Framework isn't created yet!"));
+  routing::EdgeEstimator::SaveRoutingStrategyToSettings(makeStrategyValue(strategy));
 }
 }

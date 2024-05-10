@@ -3,6 +3,7 @@
 #include "map/framework.hpp"
 
 #include "routing/router.hpp"
+#include "routing/edge_estimator.hpp"
 
 #include "platform/settings.hpp"
 
@@ -24,11 +25,25 @@ std::string const kUseCachedRoutingSettings = "use_cached_settings_desktop";
 std::string const kStartCoordsCachedSettings = "start_coords_desktop";
 std::string const kFinishCoordsCachedSettings = "finish_coords_desktop";
 std::string const kRouterTypeCachedSettings = "router_type_desktop";
+std::string const kRouterStrategyCachedSettings = "router_strategy";
+std::string const kAvoidRoutingOptionSettings = "avoid_routing_options_car";
 
 int constexpr DefaultRouterIndex()
 {
   // Car router by default.
   return static_cast<int>(routing::RouterType::Vehicle);
+}
+
+int constexpr DefaultStrategyIndex()
+{
+  // Routing strategy by default
+  return static_cast<int>(routing::EdgeEstimator::Strategy::Fastest);
+}
+
+int constexpr DefaultAvoidOptionIndex()
+{
+  // Avoid routing option by default
+  return static_cast<int>(routing::RoutingOptions::Road::Usual);
 }
 }  // namespace
 
@@ -93,6 +108,8 @@ void RoutingSettings::LoadSession(Framework & framework)
     settings::Delete(kStartCoordsCachedSettings);
     settings::Delete(kFinishCoordsCachedSettings);
     settings::Delete(kRouterTypeCachedSettings);
+    settings::Delete(kRouterStrategyCachedSettings);
+    settings::Delete(kAvoidRoutingOptionSettings);
   }
 }
 
@@ -133,6 +150,20 @@ RoutingSettings::RoutingSettings(QWidget * parent, Framework & framework)
     m_routerType->insertItem(static_cast<int>(RouterType::Transit), "transit");
     m_routerType->insertItem(static_cast<int>(RouterType::Ruler), "ruler");
     form->addRow("Choose router:", m_routerType);
+
+    m_routerStrategy = new QComboBox(frame);
+    m_routerStrategy->insertItem(static_cast<int>(EdgeEstimator::Strategy::Fastest), "fastest");
+    m_routerStrategy->insertItem(static_cast<int>(EdgeEstimator::Strategy::Shortest), "shortest");
+    m_routerStrategy->insertItem(static_cast<int>(EdgeEstimator::Strategy::FewerTurns), "fewer turns");
+    form->addRow("Choose strategy:", m_routerStrategy);
+
+    m_avoidRoutingOptions = new QComboBox(frame);
+    m_avoidRoutingOptions->insertItem(static_cast<int>(RoutingOptions::Road::Dirty), "dirty");
+    m_avoidRoutingOptions->insertItem(static_cast<int>(RoutingOptions::Road::Ferry), "ferry");
+    m_avoidRoutingOptions->insertItem(static_cast<int>(RoutingOptions::Road::Motorway), "motorway");
+    m_avoidRoutingOptions->insertItem(static_cast<int>(RoutingOptions::Road::Toll), "toll");
+    m_avoidRoutingOptions->insertItem(static_cast<int>(RoutingOptions::Road::Usual), "usual");
+    form->addRow("Choose avoid option:", m_avoidRoutingOptions);
 
     m_showTurnsCheckbox = new QCheckBox({}, frame);
     form->addRow("Show turns:", m_showTurnsCheckbox);
@@ -190,6 +221,8 @@ bool RoutingSettings::SaveSettings()
   settings::Set(kUseDebugGuideSettings, m_useDebugGuideCheckbox->isChecked());
   settings::Set(kUseCachedRoutingSettings, m_saveSessionCheckbox->isChecked());
   settings::Set(kRouterTypeCachedSettings, m_routerType->currentIndex());
+  settings::Set(kRouterStrategyCachedSettings, m_routerStrategy->currentIndex());
+  settings::Set(kAvoidRoutingOptionSettings, m_avoidRoutingOptions->currentIndex());
   return ValidateAndSaveCoordsFromInput();
 }
 
@@ -206,6 +239,14 @@ void RoutingSettings::LoadSettings()
   int routerType = DefaultRouterIndex();
   settings::TryGet(kRouterTypeCachedSettings, routerType);
   m_routerType->setCurrentIndex(routerType);
+
+  int routerStrategy = DefaultStrategyIndex();
+  settings::TryGet(kRouterStrategyCachedSettings, routerStrategy);
+  m_routerStrategy->setCurrentIndex(routerStrategy);
+
+  int avoidRoutingOption = DefaultAvoidOptionIndex();
+  settings::TryGet(kAvoidRoutingOptionSettings, avoidRoutingOption);
+  m_avoidRoutingOptions->setCurrentIndex(avoidRoutingOption);
 
   bool showTurns = false;
   settings::TryGet(kShowTurnsSettings, showTurns);
