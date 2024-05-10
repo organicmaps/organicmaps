@@ -347,35 +347,353 @@
     <!-- Tex label above the Donate button -->
     <string name="donate_description">Gift free maps with no ads to millions of users!</string>
 
-    <!-- SECTION: Routing dialogs strings -->
-    <string name="dialog_routing_disclaimer_title">When following the route, please keep in mind:</string>
-    <string name="dialog_routing_disclaimer_priority">— Road conditions, traffic laws, and road signs always take priority over navigation hints;</string>
-    <string name="dialog_routing_disclaimer_precision">— The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination;</string>
-    <string name="dialog_routing_disclaimer_recommendations">— Suggested routes should only be understood as recommendations;</string>
-    <string name="dialog_routing_disclaimer_borders">— Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.</string>
-    <string name="dialog_routing_disclaimer_beware">Please stay alert and safe on the roads!</string>
-    <string name="dialog_routing_check_gps">Check GPS signal</string>
-    <string name="dialog_routing_error_location_not_found">Unable to create route. Current GPS coordinates could not be identified.</string>
-    <string name="dialog_routing_location_turn_wifi">Please check your GPS signal. Enabling Wi-Fi will improve your location accuracy.</string>
-    <string name="dialog_routing_location_turn_on">Enable location services</string>
-    <string name="dialog_routing_location_unknown_turn_on">Unable to locate current GPS coordinates. Enable location services to calculate route.</string>
-    <string name="dialog_routing_unable_locate_route">Unable to locate route</string>
-    <string name="dialog_routing_cant_build_route">Unable to create route.</string>
-    <string name="dialog_routing_change_start_or_end">Please adjust your starting point or destination.</string>
-    <string name="dialog_routing_change_start">Adjust starting point</string>
-    <string name="dialog_routing_start_not_determined">Route was not created. Unable to locate starting point.</string>
-    <string name="dialog_routing_select_closer_start">Please select a starting point closer to a road.</string>
-    <string name="dialog_routing_change_end">Adjust destination</string>
-    <string name="dialog_routing_end_not_determined">Route was not created. Unable to locate the destination.</string>
-    <string name="dialog_routing_select_closer_end">Please select a destination point located closer to a road.</string>
-    <string name="dialog_routing_change_intermediate">Unable to locate the intermediate point.</string>
-    <string name="dialog_routing_intermediate_not_determined">Please adjust your intermediate point.</string>
-    <string name="dialog_routing_system_error">System error</string>
-    <string name="dialog_routing_application_error">Unable to create route due to an application error.</string>
-    <string name="dialog_routing_try_again">Please try again</string>
-    <string name="not_now">Not Now</string>
-    <string name="dialog_routing_download_and_build_cross_route">Would you like to download the map and create a more optimal route spanning more than one map?</string>
-    <string name="dialog_routing_download_cross_route">Download additional maps to create a better route that crosses the boundaries of this map.</string>
+	<!-- SECTION: Strings for downloading map from search -->
+	<string name="search_without_internet_advertisement">To start searching and creating routes, please download the map. After that you will no longer need an Internet connection.</string>
+	<string name="search_select_map">Select Map</string>
+	<!-- «Show» context menu -->
+	<string name="show">Show</string>
+	<!-- «Hide» context menu -->
+	<string name="hide">Hide</string>
+	<string name="categories">Categories</string>
+	<string name="history">History</string>
+	<string name="search_not_found">Oops, no results found.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Download the region where you are searching or try adding a nearby town/village name.</string>
+	<string name="search_history_title">Search History</string>
+	<string name="search_history_text">View your recent searches.</string>
+	<string name="clear_search">Clear Search History</string>
+	<!-- Place Page link to Wikipedia article (if map object has it). -->
+	<string name="read_in_wikipedia">Wikipedia</string>
+	<!-- Place Page link to Wikimedia Commons. -->
+	<string name="wikimedia_commons">Wikimedia Commons</string>
+	<string name="p2p_your_location">Your Location</string>
+	<string name="p2p_start">Start</string>
+	<string name="p2p_from_here">Route from</string>
+	<string name="p2p_to_here">Route to</string>
+	<string name="p2p_only_from_current">Navigation is only available from your current location.</string>
+	<string name="p2p_reroute_from_current">Do you want to plan a route from your current location?</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">Next</string>
+	<!-- Tab title in the Edit Opening Hours time picker -->
+	<string name="editor_time_from">From</string>
+	<!-- Tab title in the Edit Opening Hours time picker -->
+	<string name="editor_time_to">To</string>
+	<string name="editor_time_add">Add Schedule</string>
+	<string name="editor_time_delete">Delete Schedule</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">All Day (24 hours)</string>
+	<string name="editor_time_open">Open</string>
+	<string name="editor_time_close">Closed</string>
+	<string name="editor_time_add_closed">Add Non-Business Hours</string>
+	<string name="editor_time_title">Business Hours</string>
+	<string name="editor_time_advanced">Advanced Mode</string>
+	<string name="editor_time_simple">Simple Mode</string>
+	<string name="editor_hours_closed">Non-Business Hours</string>
+	<string name="editor_example_values">Example Values</string>
+	<string name="editor_correct_mistake">Correct mistake</string>
+	<string name="editor_add_select_location">Location</string>
+	<string name="editor_report_problem_desription_1">Please describe the problem in detail so that the OpenStreetMap community can fix it.</string>
+	<string name="editor_report_problem_desription_2">Or do it yourself at https://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">Send</string>
+	<string name="editor_report_problem_title">Issue</string>
+	<string name="editor_report_problem_no_place_title">This place does not exist</string>
+	<string name="editor_report_problem_under_construction_title">Сlosed for maintenance</string>
+	<string name="editor_report_problem_duplicate_place_title">Duplicate place</string>
+	<string name="autodownload">Auto-download maps</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">Daily</string>
+	<string name="twentyfour_seven">24/7</string>
+	<string name="day_off_today">Closed today</string>
+	<string name="day_off">Closed</string>
+	<string name="today">Today</string>
+	<string name="opens_in">Opens in %s</string>
+	<string name="closes_in">Closes in %s</string>
+	<string name="closed">Closed</string>
+	<string name="edit_opening_hours">Edit business hours</string>
+	<string name="no_osm_account">Don\'t have an OpenStreetMap account?</string>
+	<string name="register_at_openstreetmap">Register at OpenStreetMap</string>
+	<string name="login">Login</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">Not signed in</string>
+	<string name="login_osm">Login to OpenStreetMap</string>
+	<string name="password">Password</string>
+	<string name="forgot_password">Forgot your password?</string>
+	<string name="logout">Log Out</string>
+	<string name="edit_place">Edit Place</string>
+	<string name="add_language">Add a language</string>
+	<string name="street">Street</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house_number">Building number</string>
+	<string name="details">Details</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">Add a street</string>
+	<!-- Error to display when a new street name is not entered in the New street dialog -->
+	<string name="empty_street_name_error">Please enter a street name</string>
+	<string name="choose_language">Choose a language</string>
+	<string name="choose_street">Choose a street</string>
+	<string name="postal_code">Postal Code</string>
+	<string name="cuisine">Cuisine</string>
+	<string name="select_cuisine">Select cuisine</string>
+	<!-- login text field -->
+	<string name="email_or_username">Email or username</string>
+	<string name="editor_add_phone">Add Phone</string>
+	<string name="level">Floor</string>
+	<!-- Building level -->
+	<string name="level_value_generic">Level: %s</string>
+	<string name="downloader_delete_map_dialog">All of your map edits will be deleted with the map.</string>
+	<string name="downloader_update_maps">Update Maps</string>
+	<string name="downloader_mwm_migration_dialog">To create a route, you need to update all maps and then plan the route again.</string>
+	<string name="downloader_search_field_hint">Find map</string>
+	<string name="common_check_internet_connection_dialog">Please make sure your device is connected to the Internet.</string>
+	<string name="downloader_no_space_title">Not enough space</string>
+	<string name="downloader_no_space_message">Please delete any unnecessary data</string>
+	<string name="editor_login_error_dialog">Login error.</string>
+	<string name="editor_profile_changes">Verified Changes</string>
+	<string name="editor_focus_map_on_location">Drag the map to select the correct location of the object.</string>
+	<string name="editor_edit_place_title">Editing</string>
+	<string name="editor_add_place_title">Adding</string>
+	<string name="editor_edit_place_name_hint">Name of the place</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">As it is written in the local language</string>
+	<string name="editor_edit_place_category_title">Category</string>
+	<string name="detailed_problem_description">Detailed description of the issue</string>
+	<string name="editor_report_problem_other_title">Different problem</string>
+	<string name="placepage_add_business_button">Add business</string>
+	<string name="message_invalid_feature_position">No object can be located here</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Community-created OpenStreetMap data as of %s. Learn more about how to edit and update the map at OpenStreetMap.org</string>
+	<string name="login_to_make_edits_visible">Log in to openstreetmap.org to publish your changes to the world.</string>
+	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
+	<string name="downloader_of">%1$d of %2$d</string>
+	<string name="download_over_mobile_header">Download over a cellular network connection?</string>
+	<string name="download_over_mobile_message">This could be considerably expensive with some plans or if roaming.</string>
+	<string name="error_enter_correct_house_number">Enter a valid building number</string>
+	<string name="editor_storey_number">Number of floors (maximum of %d)</string>
+	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+	<string name="error_enter_correct_storey_number">The number of floors must non exceed %d</string>
+	<string name="editor_zip_code">ZIP Code</string>
+	<string name="error_enter_correct_zip_code">Enter a valid ZIP code</string>
+	<!-- Place Page title for long tap -->
+	<string name="core_placepage_unknown_place">Unknown Place</string>
+	<string name="editor_other_info">Send a note to OSM editors</string>
+	<string name="editor_detailed_description_hint">Detailed comment</string>
+	<string name="editor_detailed_description">Your suggested map changes will be sent to the OpenStreetMap community. Please describe any additional details that cannot be edited in Organic Maps.</string>
+	<string name="editor_more_about_osm">More about OpenStreetMap</string>
+	<string name="editor_operator">Owner</string>
+	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="operator">Owner: %s</string>
+	<string name="editor_category_unsuitable_title">Can\'t find a suitable category?</string>
+	<string name="editor_category_unsuitable_text">Organic Maps allows to add simple point categories only, that means no towns, roads, lakes, building outlines, etc. Please add such categories directly to <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Check our <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detailed step by step instructions.</string>
+	<string name="downloader_no_downloaded_maps_title">You haven\'t downloaded any maps</string>
+	<string name="downloader_no_downloaded_maps_message">Download maps to search and navigate offline.</string>
+	<string name="current_location_unknown_error_title">Current location is unknown.</string>
+	<!-- abbreviation for meters -->
+	<string name="m">m</string>
+	<!-- abbreviation for kilometers -->
+	<string name="km">km</string>
+	<!-- abbreviation for kilometers per hour -->
+	<string name="kilometers_per_hour">km/h</string>
+	<!-- abbreviation for mile(s) -->
+	<string name="mi">mi</string>
+	<!-- A unit of measure -->
+	<string name="ft">ft</string>
+	<string name="miles_per_hour">mph</string>
+	<string name="hour">h</string>
+	<string name="minute">min</string>
+	<string name="placepage_more_button">More</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="more_on_kayak">Photos, reviews, booking</string>
+	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+	<string name="dialog_kayak_disclaimer">The referral bonus received for each booking through this link goes towards the development of Organic Maps.</string>
+	<!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+	<string name="dialog_kayak_button">Details on Kayak</string>
+	<string name="placepage_edit_bookmark_button">Edit Bookmark</string>
+	<string name="editor_comment_hint">Comment…</string>
+	<string name="editor_reset_edits_message">Discard all local changes?</string>
+	<string name="editor_reset_edits_button">Discard</string>
+	<string name="editor_remove_place_message">Delete added place?</string>
+	<string name="editor_remove_place_button">Delete</string>
+	<string name="editor_place_doesnt_exist">Place does not exist</string>
+	<!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+	<string name="delete_place_empty_comment_error">Please indicate the reason for deleting the place</string>
+	<!-- Phone number error message -->
+	<string name="error_enter_correct_phone">Enter a valid phone number</string>
+	<string name="error_enter_correct_web">Enter a valid web address</string>
+	<string name="error_enter_correct_email">Enter a valid email</string>
+	<string name="error_enter_correct_facebook_page">Enter a valid Facebook web address, account, or page name</string>
+	<string name="error_enter_correct_instagram_page">Enter a valid Instagram username or web address</string>
+	<string name="error_enter_correct_twitter_page">Enter a valid Twitter username or web address</string>
+	<string name="error_enter_correct_vk_page">Enter a valid VK username or web address</string>
+	<string name="error_enter_correct_line_page">Enter a valid LINE ID or web address</string>
+	<string name="placepage_add_place_button">Add Place to OpenStreetMap</string>
+	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
+	<string name="editor_share_to_all_dialog_title">Do you want to send it to all users?</string>
+	<!-- Dialog before publishing the modifications to the public map. -->
+	<string name="editor_share_to_all_dialog_message_1">Make sure you did not enter any private or personal data.</string>
+	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap editors will check the changes and contact you if they have any questions.</string>
+	<string name="navigation_stop_button">Stop</string>
+	<!-- Shown as toast when starting the recent track recording -->
+	<string name="track_recording">Recording the track</string>
+	<!-- For the first routing -->
+	<string name="accept">Accept</string>
+	<!-- For the first routing -->
+	<string name="decline">Decline</string>
+	<string name="mobile_data_dialog">Use mobile internet to show detailed information?</string>
+	<string name="mobile_data_option_always">Use Always</string>
+	<string name="mobile_data_option_today">Only Today</string>
+	<string name="mobile_data_option_not_today">Do not Use Today</string>
+	<string name="mobile_data">Mobile Internet</string>
+	<!-- NOTE to translators: please synchronize your translation with the English one. -->
+	<string name="mobile_data_description">Mobile internet is required for map update notifications and uploading edits.</string>
+	<string name="mobile_data_option_never">Never Use</string>
+	<string name="mobile_data_option_ask">Always Ask</string>
+	<string name="traffic_update_maps_text">To display traffic data, maps must be updated.</string>
+	<string name="big_font">Increase size for map labels</string>
+	<string name="traffic_update_app">Please update Organic Maps</string>
+	<!-- "traffic" as in "road congestion" -->
+	<string name="traffic_data_unavailable">Traffic data is not available</string>
+	<string name="enable_logging">Enable logging</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">General Feedback</string>
+	<string name="prefs_languages_information">We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+	<string name="prefs_languages_information_off">For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play, Galaxy Store, App Gallery, FDroid).\nOpen your device\'s settings → Language and input → Speech → Text to speech output.\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.</string>
+	<string name="prefs_languages_information_off_link">For more information please check this guide.</string>
+	<string name="transliteration_title">Transliteration into Latin alphabet</string>
+	<string name="learn_more">Learn more</string>
+	<!-- Subway exits for public transport marks on the map -->
+	<string name="core_exit">Exit</string>
+	<!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
+	<string name="routing_add_start_point">Use search or tap on the map to add a route starting point</string>
+	<!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
+	<string name="routing_add_finish_point">Use search or tap on the map to add a destination point</string>
+	<string name="placepage_remove_stop">Remove</string>
+	<string name="placepage_add_stop">Add Stop</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Please login to OpenStreetMap to automatically upload all your map edits. Learn more <a href="https://github.com/organicmaps/organicmaps/issues/6144">here</a>.</string>
+	<string name="dialog_error_storage_title">Storage access problem</string>
+	<string name="dialog_error_storage_message">External storage is not accessible. The SD Card may have been removed, damaged, or the file system is read-only. Please, check your SD Card or contact us at support\@organicmaps.app</string>
+	<string name="setting_emulate_bad_storage">Emulate bad storage</string>
+	<string name="core_entrance">Entrance</string>
+	<string name="error_enter_correct_name">Please enter a correct name</string>
+	<string name="bookmark_lists">Lists</string>
+	<!-- Do not display all bookmark lists on the map -->
+	<string name="bookmark_lists_hide_all">Hide all</string>
+	<string name="bookmark_lists_show_all">Show all</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="one">%d bookmark</item>
+	  <item quantity="other">%d bookmarks</item>
+	</plurals>
+	<string name="bookmarks_create_new_group">Create a new list</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_import">Import Bookmarks and Tracks</string>
+	<string name="bookmarks_error_message_share_general">Unable to share due to an application error</string>
+	<string name="bookmarks_error_title_share_empty">Sharing error</string>
+	<string name="bookmarks_error_message_share_empty">Cannot share an empty list</string>
+	<string name="bookmarks_error_title_empty_list_name">The name can\'t be empty</string>
+	<string name="bookmarks_error_message_empty_list_name">Please enter the list name</string>
+	<string name="bookmarks_new_list_hint">New list</string>
+	<string name="bookmarks_error_title_list_name_already_taken">This name is already taken</string>
+	<string name="bookmarks_error_message_list_name_already_taken">Please choose another name</string>
+	<string name="please_wait">Please wait…</string>
+	<string name="phone_number">Phone number</string>
+	<string name="profile">OpenStreetMap profile</string>
+	<plurals name="bookmarks_detect_message">
+	  <item quantity="one">%d file was found. You can see it after conversion.</item>
+	  <item quantity="other">%d files were found. You can see them after conversion.</item>
+	</plurals>
+	<string name="restore">Restore</string>
+	<plurals name="tracks">
+	  <item quantity="one">%d track</item>
+	  <item quantity="other">%d tracks</item>
+	</plurals>
+	<!-- Settings privacy group in settings screen -->
+	<string name="privacy">Privacy</string>
+	<string name="privacy_policy">Privacy policy</string>
+	<string name="terms_of_use">Terms of use</string>
+	<string name="button_layer_traffic">Traffic</string>
+	<string name="button_layer_subway">Subway</string>
+	<string name="layers_title">Map Styles and Layers</string>
+	<string name="subway_data_unavailable">Subway map is unavailable</string>
+	<string name="bookmarks_empty_list_title">This list is empty</string>
+	<string name="bookmarks_empty_list_message">To add a bookmark, tap a place on the map and then tap the star icon</string>
+	<string name="category_desc_more">…more</string>
+	<string name="export_file">Export KMZ</string>
+	<string name="export_file_gpx">Export GPX</string>
+	<string name="delete_list">Delete list</string>
+	<string name="public_access">Public access</string>
+	<string name="limited_access">Limited access</string>
+	<string name="bookmark_list_description_hint">Enter a description (text or html)</string>
+	<string name="not_shared">Private</string>
+	<string name="speedcams_alert_title">Speed cameras</string>
+	<string name="place_description_title">Place Description</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_downloader">Map downloader</string>
+	<!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+	<string name="pref_tts_speedcams_auto">Warn if speeding</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Always warn</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Never warn</string>
+	<string name="power_managment_title">Power saving mode</string>
+	<string name="power_managment_description">Try to reduce power usage at the expense of some functionality.</string>
+	<string name="power_managment_setting_never">Never</string>
+	<string name="power_managment_setting_auto">When battery is low</string>
+	<string name="power_managment_setting_manual_max">Always</string>
+	<string name="enable_logging_warning_message">Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using \"Report a bug\" in the Help dialog. Logs may include location info.</string>
+	<string name="access_rules_author_only">Online editing</string>
+	<string name="driving_options_title">Routing options</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="driving_options_subheader2">Routing Strategy</string>
+	<string name="avoid_tolls">Avoid tolls</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_unpaved">Avoid unpaved roads</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_ferry">Avoid ferries</string>
+	<string name="avoid_motorways">Avoid freeways</string>
+	<string name="use_strategy_fastest">Fastest</string>
+	<string name="use_strategy_shortest">Shortest</string>
+	<string name="use_strategy_fewerTurns">Fewer turns</string>
+	<string name="unable_to_calc_alert_title">Unable to calculate route</string>
+	<string name="unable_to_calc_alert_subtitle">A route could not be found. This may be caused by your routing options or incomplete OpenStreetMap data. Please change your routing options and retry.</string>
+	<string name="define_to_avoid_btn">Define roads to avoid</string>
+	<string name="change_driving_options_btn">Routing options enabled</string>
+	<string name="toll_road">Toll road</string>
+	<string name="unpaved_road">Unpaved road</string>
+	<string name="ferry_crossing">Ferry crossing</string>
+	<!-- A generic "Yes" button in dialogs -->
+	<string name="yes">Yes</string>
+	<!-- A generic "No" button in dialogs -->
+	<string name="no">No</string>
+	<!-- E.g. "WiFi:Yes" -->
+	<string name="yes_available">Yes</string>
+	<!-- E.g. "WiFi:No" -->
+	<string name="no_available">No</string>
+	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+	<string name="capacity">Capacity: %s</string>
+	<!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="network">Network: %s</string>
+	<string name="trip_finished">You have arrived!</string>
+	<string name="ok">OK</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">Sort…</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">Sort bookmarks</string>
+	<!-- Android -->
+	<string name="by_default">By default</string>
+	<!-- Android -->
+	<string name="by_type">By type</string>
+	<!-- Android -->
+	<string name="by_distance">By distance</string>
+	<!-- Android -->
+	<string name="by_date">By date</string>
+	<!-- Android -->
+	<string name="by_name">By name</string>
+	<string name="week_ago_sorttype">A week ago</string>
+	<string name="month_ago_sorttype">A month ago</string>
+	<string name="moremonth_ago_sorttype">More than a month ago</string>
+	<string name="moreyear_ago_sorttype">More than a year ago</string>
+	<string name="near_me_sorttype">Near me</string>
+	<string name="others_sorttype">Others</string>
 
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">To start searching and creating routes, please download the map. After that you will no longer need an Internet connection.</string>

@@ -163,6 +163,7 @@ public:
                            EdgeEstimator::Purpose purpose) const override;
 
   double GetUTurnPenalty(Purpose purpose) const override;
+  double GetTurnPenalty(Purpose purpose) const override;
   double GetFerryLandingPenalty(Purpose purpose) const override;
 
 private:

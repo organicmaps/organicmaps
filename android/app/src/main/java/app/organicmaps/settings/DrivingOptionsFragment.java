@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.RadioGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
@@ -24,8 +25,11 @@ import java.util.Set;
 public class DrivingOptionsFragment extends BaseMwmToolbarFragment
 {
   public static final String BUNDLE_ROAD_TYPES = "road_types";
+  public static final String BUNDLE_ROUTING_STRATEGY_TYPE = "routing_strategy_type";
   @NonNull
   private Set<RoadType> mRoadTypes = Collections.emptySet();
+  @NonNull
+  private RoutingStrategyType mStrategy = RoutingStrategyType.Fastest;
 
   @Nullable
   @Override
@@ -35,8 +39,11 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     View root = inflater.inflate(R.layout.fragment_driving_options, container, false);
     initViews(root);
     mRoadTypes = savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_ROAD_TYPES)
-                   ? makeRouteTypes(savedInstanceState)
-                   : RoutingOptions.getActiveRoadTypes();
+                 ? makeRouteTypes(savedInstanceState)
+                 : RoutingOptions.getActiveRoadTypes();
+    mStrategy = savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_ROUTING_STRATEGY_TYPE)
+                 ? makeRoutingStrategyType(savedInstanceState)
+                 : RoutingOptions.getActiveRoutingStrategyType();
     return root;
   }
 
@@ -52,6 +59,13 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     return result;
   }
 
+  @NonNull
+  private RoutingStrategyType makeRoutingStrategyType(@NonNull Bundle bundle)
+  {
+    RoutingStrategyType result = Objects.requireNonNull((RoutingStrategyType)bundle.getSerializable(BUNDLE_ROUTING_STRATEGY_TYPE));
+    return result;
+  }
+
   @Override
   public void onSaveInstanceState(@NonNull Bundle outState)
   {
@@ -62,12 +76,15 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
       savedRoadTypes.add(each.ordinal());
     }
     outState.putIntegerArrayList(BUNDLE_ROAD_TYPES, savedRoadTypes);
+
+    outState.putSerializable(BUNDLE_ROUTING_STRATEGY_TYPE, mStrategy);
   }
 
   private boolean areSettingsNotChanged()
   {
     Set<RoadType> lastActiveRoadTypes = RoutingOptions.getActiveRoadTypes();
-    return mRoadTypes.equals(lastActiveRoadTypes);
+    RoutingStrategyType lastActiveStrategyType = RoutingOptions.getActiveRoutingStrategyType();
+    return mRoadTypes.equals(lastActiveRoadTypes) && mStrategy.equals(lastActiveStrategyType);
   }
 
   @Override
@@ -107,6 +124,26 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     dirtyRoadsBtn.setChecked(RoutingOptions.hasOption(RoadType.Dirty));
     CompoundButton.OnCheckedChangeListener dirtyBtnListener = new ToggleRoutingOptionListener(RoadType.Dirty);
     dirtyRoadsBtn.setOnCheckedChangeListener(dirtyBtnListener);
+
+    RadioGroup strategyRadioGroup = root.findViewById(R.id.routing_strategy_types);
+    RoutingStrategyType currentStrategy = RoutingOptions.getActiveRoutingStrategyType();
+    int currentCheckedStrategyId;
+    switch (currentStrategy)
+    {
+      case Shortest:
+        currentCheckedStrategyId = R.id.use_strategy_shortest;
+        break;
+      case FewerTurns:
+        currentCheckedStrategyId = R.id.use_strategy_fewerTurns;
+        break;
+      default:
+        currentCheckedStrategyId = R.id.use_strategy_fastest;
+        break;
+    }
+    strategyRadioGroup.check(currentCheckedStrategyId);
+    RadioGroup.OnCheckedChangeListener strategyRadioGroupListener =
+        new ToggleRoutingStrategyListener();
+    strategyRadioGroup.setOnCheckedChangeListener(strategyRadioGroupListener);
   }
 
   private static class ToggleRoutingOptionListener implements CompoundButton.OnCheckedChangeListener
@@ -126,6 +163,28 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
         RoutingOptions.addOption(mRoadType);
       else
         RoutingOptions.removeOption(mRoadType);
+    }
+  }
+
+  private static class ToggleRoutingStrategyListener implements RadioGroup.OnCheckedChangeListener
+  {
+    private ToggleRoutingStrategyListener() {}
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId)
+    {
+      switch (checkedId)
+      {
+        case R.id.use_strategy_fastest:
+          RoutingOptions.setStrategy(RoutingStrategyType.Fastest);
+          break;
+        case R.id.use_strategy_shortest:
+          RoutingOptions.setStrategy(RoutingStrategyType.Shortest);
+          break;
+        case R.id.use_strategy_fewerTurns:
+          RoutingOptions.setStrategy(RoutingStrategyType.FewerTurns);
+          break;
+      }
     }
   }
 }
