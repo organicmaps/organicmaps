@@ -326,6 +326,10 @@ bool IndexRouter::FindClosestProjectionToRoad(m2::PointD const & point,
   return true;
 }
 
+void IndexRouter::SetEstimatorOptions(RoutingOptions::RoadType options) {m_estimator ->SetAvoidRoutingOptions(options);}
+
+void IndexRouter::SetEstimatorStrategy(EdgeEstimator::Strategy strategy) {m_estimator ->SetStrategy(strategy);}
+
 void IndexRouter::SetGuides(GuidesTracks && guides) { m_guides = GuidesConnections(guides); }
 
 RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,

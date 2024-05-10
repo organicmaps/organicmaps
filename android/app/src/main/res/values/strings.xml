@@ -697,12 +697,16 @@
 	<string name="access_rules_author_only">Online editing</string>
 	<string name="driving_options_title">Routing options</string>
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="driving_options_subheader2">Routing Strategy</string>
 	<string name="avoid_tolls">Avoid tolls</string>
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_unpaved">Avoid unpaved roads</string>
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_ferry">Avoid ferries</string>
 	<string name="avoid_motorways">Avoid freeways</string>
+	<string name="use_strategy_fastest">Fastest</string>
+	<string name="use_strategy_shortest">Shortest</string>
+	<string name="use_strategy_fewerTurns">Fewer turns</string>
 	<string name="unable_to_calc_alert_title">Unable to calculate route</string>
 	<string name="unable_to_calc_alert_subtitle">A route could not be found. This may be caused by your routing options or incomplete OpenStreetMap data. Please change your routing options and retry.</string>
 	<string name="define_to_avoid_btn">Define roads to avoid</string>

@@ -14,6 +14,7 @@
 #include "routing/regions_decl.hpp"
 #include "routing/router.hpp"
 #include "routing/routing_callbacks.hpp"
+#include "routing/routing_options.hpp"
 #include "routing/segment.hpp"
 #include "routing/segmented_route.hpp"
 
@@ -76,6 +77,10 @@ public:
   // IRouter overrides:
   std::string GetName() const override { return m_name; }
   void ClearState() override;
+
+  void SetEstimatorOptions(RoutingOptions::RoadType options) override;
+
+  void SetEstimatorStrategy(EdgeEstimator::Strategy strategy) override;
 
   void SetGuides(GuidesTracks && guides) override;
   RouterResultCode CalculateRoute(Checkpoints const & checkpoints,

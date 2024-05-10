@@ -1,8 +1,11 @@
 #include "routing/edge_estimator.hpp"
 
+#include "platform/settings.hpp"
+
 #include "routing/geometry.hpp"
 #include "routing/latlon_with_altitude.hpp"
 #include "routing/routing_helpers.hpp"
+#include "routing/routing_options.hpp"
 #include "routing/traffic_stash.hpp"
 
 #include "traffic/speed_groups.hpp"
@@ -60,11 +63,14 @@ bool IsTransit(std::optional<HighwayType> type)
 }
 
 template <class CalcSpeed>
-double CalcClimbSegment(EdgeEstimator::Purpose purpose, Segment const & segment,
-                        RoadGeometry const & road, CalcSpeed && calcSpeed)
+double CalcClimbSegment(EdgeEstimator::Purpose purpose, EdgeEstimator::Strategy strategy,
+                        Segment const & segment, RoadGeometry const & road, CalcSpeed && calcSpeed)
 {
   double const distance = road.GetDistance(segment.GetSegmentIdx());
   double speedMpS = GetSpeedMpS(purpose, segment, road);
+
+  if (strategy == EdgeEstimator::Strategy::Shortest && purpose == EdgeEstimator::Purpose::Weight)
+    speedMpS = 1.0;
 
   static double constexpr kSmallDistanceM = 1;   // we have altitude threshold is 0.5m
   if (distance > kSmallDistanceM && !IsTransit(road.GetHighwayType()))
@@ -167,6 +173,26 @@ double GetCarClimbPenalty(EdgeEstimator::Purpose, double, geometry::Altitude)
 }
 
 // EdgeEstimator -----------------------------------------------------------------------------------
+
+string const EdgeEstimator::kRoutingStrategySettings = "router_strategy";
+
+// static
+EdgeEstimator::Strategy EdgeEstimator::LoadRoutingStrategyFromSettings()
+{
+  int mode = 0;
+  if (!settings::Get(kRoutingStrategySettings, mode))
+    mode = 0;
+
+  return (EdgeEstimator::Strategy) mode;
+}
+
+// static
+void EdgeEstimator::SaveRoutingStrategyToSettings(Strategy strategy)
+{
+  settings::Set(kRoutingStrategySettings,
+                strings::to_string(static_cast<int>(strategy)));
+}
+
 EdgeEstimator::EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroadSpeedKMpH,
                              DataSource * /*dataSourcePtr*/, std::shared_ptr<NumMwmIds> /*numMwmIds*/)
   : m_maxWeightSpeedMpS(KmphToMps(maxWeightSpeedKMpH))
@@ -180,6 +206,9 @@ EdgeEstimator::EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroa
 
   if (m_offroadSpeedKMpH.m_eta != kNotUsed)
     CHECK_GREATER_OR_EQUAL(m_maxWeightSpeedMpS, KmphToMps(m_offroadSpeedKMpH.m_eta), ());
+
+  m_avoidRoutingOptions = RoutingOptions();
+  m_strategy = EdgeEstimator::Strategy::Fastest;
 }
 
 double EdgeEstimator::CalcHeuristic(ms::LatLon const & from, ms::LatLon const & to) const
@@ -260,6 +289,26 @@ double EdgeEstimator::CalcOffroad(ms::LatLon const & from, ms::LatLon const & to
   return TimeBetweenSec(from, to, KmphToMps(offroadSpeedKMpH));
 }
 
+RoutingOptions EdgeEstimator::GetAvoidRoutingOptions() const
+{
+  return m_avoidRoutingOptions;
+}
+
+void EdgeEstimator::SetAvoidRoutingOptions(RoutingOptions::RoadType options)
+{
+  m_avoidRoutingOptions.SetOptions(options);
+}
+
+EdgeEstimator::Strategy EdgeEstimator::GetStrategy() const
+{
+  return m_strategy;
+}
+
+void EdgeEstimator::SetStrategy(EdgeEstimator::Strategy strategy)
+{
+  m_strategy = strategy;
+}
+
 // PedestrianEstimator -----------------------------------------------------------------------------
 class PedestrianEstimator final : public EdgeEstimator
 {
@@ -270,7 +319,20 @@ public:
   }
 
   // EdgeEstimator overrides:
-  double GetUTurnPenalty(Purpose /* purpose */) const override { return 0.0 /* seconds */; }
+  double GetUTurnPenalty(Purpose purpose) const override
+  {
+    if (purpose == EdgeEstimator::Purpose::Weight && GetStrategy() == EdgeEstimator::Strategy::FewerTurns)
+      return 60 * 60;
+    return 0.0;
+  }
+
+  double GetTurnPenalty(Purpose purpose) const override
+  {
+    if (purpose == EdgeEstimator::Purpose::Weight && GetStrategy() == EdgeEstimator::Strategy::FewerTurns)
+      return 60 * 60;
+    return 0.0;
+  }
+
   double GetFerryLandingPenalty(Purpose purpose) const override
   {
     switch (purpose)
@@ -283,11 +345,16 @@ public:
 
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const override
   {
-    return CalcClimbSegment(purpose, segment, road,
+    double result = CalcClimbSegment(purpose, GetStrategy(), segment, road,
         [purpose](double speedMpS, double tangent, geometry::Altitude altitude)
         {
           return speedMpS / GetPedestrianClimbPenalty(purpose, tangent, altitude);
         });
+
+    if (purpose == EdgeEstimator::Purpose::Weight && !road.SuitableForOptions(EdgeEstimator::GetAvoidRoutingOptions()))
+      result += (24 * 60 * 60);
+
+    return result;
   }
 };
 
@@ -301,7 +368,20 @@ public:
   }
 
   // EdgeEstimator overrides:
-  double GetUTurnPenalty(Purpose /* purpose */) const override { return 20.0 /* seconds */; }
+  double GetUTurnPenalty(Purpose purpose) const override
+  {
+    if (purpose == EdgeEstimator::Purpose::Weight && GetStrategy() == EdgeEstimator::Strategy::FewerTurns)
+      return 60 * 60;
+    return 20.0;
+  }
+
+  double GetTurnPenalty(Purpose purpose) const override
+  {
+    if (purpose == EdgeEstimator::Purpose::Weight && GetStrategy() == EdgeEstimator::Strategy::FewerTurns)
+      return 60 * 60;
+    return 0.0;
+  }
+
   double GetFerryLandingPenalty(Purpose purpose) const override
   {
     switch (purpose)
@@ -314,7 +394,7 @@ public:
 
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const override
   {
-    return CalcClimbSegment(purpose, segment, road,
+    double result = CalcClimbSegment(purpose, GetStrategy(), segment, road,
         [purpose, this](double speedMpS, double tangent, geometry::Altitude altitude)
         {
           auto const factor = GetBicycleClimbPenalty(purpose, tangent, altitude);
@@ -347,6 +427,12 @@ public:
 
           return std::min(speedMpS, GetMaxWeightSpeedMpS());
         });
+
+    if (purpose == EdgeEstimator::Purpose::Weight && !road.SuitableForOptions(EdgeEstimator::GetAvoidRoutingOptions()))
+      result += (24 * 60 * 60);
+
+    return result;
+
   }
 };
 
@@ -364,12 +450,22 @@ public:
 
   // EdgeEstimator overrides:
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const override;
-  double GetUTurnPenalty(Purpose /* purpose */) const override
+  double GetUTurnPenalty(Purpose purpose) const override
   {
+    if (purpose == EdgeEstimator::Purpose::Weight && GetStrategy() == EdgeEstimator::Strategy::FewerTurns)
+      return 60 * 60;
+
     // Adds 2 minutes penalty for U-turn. The value is quite arbitrary
     // and needs to be properly selected after a number of real-world
     // experiments.
     return 2 * 60;  // seconds
+  }
+
+  double GetTurnPenalty(Purpose purpose) const override
+  {
+    if (purpose == EdgeEstimator::Purpose::Weight)
+      return 60 * 60;
+    return 0;
   }
 
   double GetFerryLandingPenalty(Purpose purpose) const override
@@ -389,6 +485,9 @@ private:
 double CarEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const
 {
   double result = road.GetDistance(segment.GetSegmentIdx()) / GetSpeedMpS(purpose, segment, road);
+
+  if (purpose == EdgeEstimator::Purpose::Weight && !road.SuitableForOptions(EdgeEstimator::GetAvoidRoutingOptions()))
+    result += (24 * 60 * 60);
 
   if (m_trafficStash)
   {
