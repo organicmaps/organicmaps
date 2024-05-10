@@ -1286,4 +1286,34 @@ UNIT_CLASS_TEST(MwmTestsFixture, NotAllTokens)
   }
 }
 
+UNIT_CLASS_TEST(MwmTestsFixture, CityWithCountry)
+{
+  auto const & cl = classif();
+
+  // "France_Provence-Alpes-Cote dAzur_Maritime Alps" should present!
+  RegisterLocalMapsByPrefix("France_Provence-Alpes-Cote dAzur");
+
+  // Buenos Aires (Palermo)
+  ms::LatLon const center(-34.58524, -58.42516);
+  SetViewportAndLoadMaps(center);
+
+  {
+    auto request = MakeRequest("Nice ");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+
+    // Usually on 3rd place, because "Nice" is a commmon token for POI's name.
+    TEST_EQUAL(CountClassifType(Range(results, 0, kTopPoiResultsCount), cl.GetTypeByPath({"place", "city"})), 1, ());
+  }
+
+  {
+    auto request = MakeRequest("Nice France");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+
+    // Should be on 1st place.
+    EqualClassifType(Range(results, 0, 1), GetClassifTypes({{"place", "city"}}));
+  }
+}
+
 } // namespace real_mwm_tests
