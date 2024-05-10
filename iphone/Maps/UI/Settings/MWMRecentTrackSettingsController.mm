@@ -5,7 +5,7 @@
 
 #include "map/gps_tracker.hpp"
 
-typedef NS_ENUM(NSUInteger, DurationInHours) { One = 1, Two = 2, Six = 6, Twelve = 12, Day = 24 };
+typedef NS_ENUM(NSUInteger, DurationInHours) { One = 1, Two = 2, Six = 6, Twelve = 12, Day = 24, ThreeDays = 72, OneWeek = 168 };
 
 @interface MWMRecentTrackSettingsController ()
 
@@ -15,6 +15,8 @@ typedef NS_ENUM(NSUInteger, DurationInHours) { One = 1, Two = 2, Six = 6, Twelve
 @property(weak, nonatomic) IBOutlet SettingsTableViewSelectableCell * sixHours;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSelectableCell * twelveHours;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSelectableCell * oneDay;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSelectableCell * threeDays;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSelectableCell * oneWeek;
 @property(weak, nonatomic) SettingsTableViewSelectableCell * selectedCell;
 
 @end
@@ -39,6 +41,8 @@ typedef NS_ENUM(NSUInteger, DurationInHours) { One = 1, Two = 2, Six = 6, Twelve
     case Six: _selectedCell = self.sixHours; break;
     case Twelve: _selectedCell = self.twelveHours; break;
     case Day: _selectedCell = self.oneDay; break;
+    case ThreeDays: _selectedCell = self.threeDays; break;
+    case OneWeek: _selectedCell = self.oneWeek; break;
     default: NSAssert(false, @"Incorrect hours value"); break;
     }
   }
@@ -72,8 +76,12 @@ typedef NS_ENUM(NSUInteger, DurationInHours) { One = 1, Two = 2, Six = 6, Twelve
       tracker.SetDuration(std::chrono::hours(Six));
     else if ([selectedCell isEqual:self.twelveHours])
       tracker.SetDuration(std::chrono::hours(Twelve));
-    else
+    else if ([selectedCell isEqual:self.oneDay])
       tracker.SetDuration(std::chrono::hours(Day));
+    else if ([selectedCell isEqual:self.threeDays])
+      tracker.SetDuration(std::chrono::hours(ThreeDays));
+    else
+      tracker.SetDuration(std::chrono::hours(OneWeek));
   }
   selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
 }
