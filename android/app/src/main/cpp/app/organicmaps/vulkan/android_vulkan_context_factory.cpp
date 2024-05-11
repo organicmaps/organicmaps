@@ -118,6 +118,20 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory(uint32_t appVersionCode
   instanceCreateInfo.enabledLayerCount = m_layers->GetInstanceLayersCount();
   instanceCreateInfo.ppEnabledLayerNames = m_layers->GetInstanceLayers();
 
+  // Enable extra validation features.
+  VkValidationFeaturesEXT validationFeatures = {};
+  const VkValidationFeatureEnableEXT validationFeaturesEnabled[] = {
+      VK_VALIDATION_FEATURE_ENABLE_SYNCHRONIZATION_VALIDATION_EXT};
+  if (m_layers->IsValidationFeaturesEnabled())
+  {
+    validationFeatures.sType = VK_STRUCTURE_TYPE_VALIDATION_FEATURES_EXT;
+    validationFeatures.pNext = nullptr;
+    validationFeatures.enabledValidationFeatureCount = ARRAY_SIZE(validationFeaturesEnabled),
+    validationFeatures.pEnabledValidationFeatures = validationFeaturesEnabled;
+
+    instanceCreateInfo.pNext = &validationFeatures;
+  }
+
   VkResult statusCode;
   statusCode = vkCreateInstance(&instanceCreateInfo, nullptr, &m_vulkanInstance);
   if (statusCode != VK_SUCCESS)
