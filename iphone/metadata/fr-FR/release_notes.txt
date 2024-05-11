@@ -4,6 +4,7 @@
 • Resolved the issue of isolines reminders appearing on top of other dialogs
 • Corrected the layout of the circular downloading progress bar in selected POIs
 • Fixed the icons for radio on/off buttons
+• Fixed bug allowing to add the same language two times in the OSM editor
 • Aligned RTL languages properly in the bottom menu
 • Adjusted the location of the "more" menu in bookmark lists
 • Added default email client support to the about menu
@@ -12,7 +13,6 @@
 • Enabled the ability to toggle Drive-through in the OSM editor
 • Simplified handling of multiple languages feature names in the OSM editor and addressed related bugs
 • Added a "Can't find a suitable category?" prompt in the OSM editor
-• Fixed occasional overwriting of map features by the OSM editor
 • Replaced the "stairs" icon with an elevator icon for displaying the level number of selected POIs
 • Rectified missing local language name versions for specific POIs
 • Enhanced visibility of the $ emoji for paid map features in dark mode
