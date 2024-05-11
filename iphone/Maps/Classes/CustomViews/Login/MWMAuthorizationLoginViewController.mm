@@ -57,7 +57,7 @@ using namespace osm_auth_ios;
 - (void)configHaveAuth
 {
   NSString * osmUserName = OSMUserName();
-  self.title = osmUserName.length > 0 ? osmUserName : L(@"osm_account").capitalizedString;
+  self.title = osmUserName.length > 0 ? osmUserName : L(@"osm_account");
   self.authView.hidden = YES;
   self.accountView.hidden = NO;
 
@@ -67,7 +67,7 @@ using namespace osm_auth_ios;
 
 - (void)configNoAuth
 {
-  self.title = L(@"profile").capitalizedString;
+  self.title = L(@"profile");
   self.authView.hidden = NO;
   self.accountView.hidden = YES;
 }

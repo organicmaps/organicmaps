@@ -29,7 +29,7 @@ using namespace osm;
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  self.title = L(@"osm_account").capitalizedString;
+  self.title = L(@"osm_account");
   [self checkConnection];
   [self stopSpinner];
 }
