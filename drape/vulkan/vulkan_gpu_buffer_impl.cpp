@@ -91,22 +91,31 @@ void VulkanGPUBuffer::Unmap(ref_ptr<VulkanBaseContext> context)
   }
   m_stagingBufferRef = nullptr;
 
-  // Schedule command to copy from the staging buffer to the geometry buffer.
-  vkCmdCopyBuffer(commandBuffer, stagingBuffer, m_geometryBuffer.m_buffer,
-                  static_cast<uint32_t>(m_regionsToCopy.size()), m_regionsToCopy.data());
-
-  // Set up barriers to prevent data collisions.
   CHECK_LESS(m_mappingByteOffsetMin, m_mappingByteOffsetMax, ());
+
+  // Set up a barrier to prevent data collisions (write-after-write, write-after-read).
   VkBufferMemoryBarrier barrier = {};
   barrier.sType = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
   barrier.pNext = nullptr;
-  barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
-  barrier.dstAccessMask = VK_ACCESS_INDEX_READ_BIT | VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT;
+  barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT | 
+                          VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT | VK_ACCESS_INDEX_READ_BIT;
+  barrier.dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
   barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
   barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
   barrier.buffer = m_geometryBuffer.m_buffer;
   barrier.offset = m_mappingByteOffsetMin;
   barrier.size = m_mappingByteOffsetMax - m_mappingByteOffsetMin;
+  vkCmdPipelineBarrier(commandBuffer, VK_PIPELINE_STAGE_VERTEX_INPUT_BIT | VK_PIPELINE_STAGE_TRANSFER_BIT,
+                        VK_PIPELINE_STAGE_TRANSFER_BIT, 0, 0, nullptr,
+                        1, &barrier, 0, nullptr);
+                         
+  // Schedule command to copy from the staging buffer to the geometry buffer.
+  vkCmdCopyBuffer(commandBuffer, stagingBuffer, m_geometryBuffer.m_buffer,
+                  static_cast<uint32_t>(m_regionsToCopy.size()), m_regionsToCopy.data());
+
+  // Set up barriers to prevent data collisions (read-after-write).
+  barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+  barrier.dstAccessMask = VK_ACCESS_INDEX_READ_BIT | VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT;
   vkCmdPipelineBarrier(commandBuffer, VK_PIPELINE_STAGE_TRANSFER_BIT,
                        VK_PIPELINE_STAGE_VERTEX_INPUT_BIT, 0, 0, nullptr,
                        1, &barrier, 0, nullptr);
