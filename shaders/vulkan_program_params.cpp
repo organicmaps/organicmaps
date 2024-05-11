@@ -148,7 +148,7 @@ void VulkanProgramParamsSetter::ApplyBytes(ref_ptr<dp::vulkan::VulkanBaseContext
   dp::vulkan::ParamDescriptor descriptor;
   descriptor.m_type = dp::vulkan::ParamDescriptor::Type::DynamicUniformBuffer;
   descriptor.m_bufferDescriptor.buffer = ub[index].m_object.m_buffer;
-  descriptor.m_bufferDescriptor.range = VK_WHOLE_SIZE;
+  descriptor.m_bufferDescriptor.range = alignedSize;
   descriptor.m_bufferDynamicOffset = alignedOffset;
   descriptor.m_id = static_cast<uint32_t>(index);
   context->ApplyParamDescriptor(std::move(descriptor));
