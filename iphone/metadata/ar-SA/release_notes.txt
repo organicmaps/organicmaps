@@ -1,4 +1,3 @@
-
 • Transitioned to the new OpenStreetMap authentication mechanism — all authenticated OSM users must re-login
 • Updated OpenStreetMap data to April 29
 • Implemented sorting of bookmarks and tracks by name
