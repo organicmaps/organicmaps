@@ -20,12 +20,38 @@ void FillProperty(kml::Properties const & properties, std::string const & key, T
 {
   auto const it = properties.find(key);
   if (it == properties.cend())
-    LOG(LERROR, ("Property not found for key:", key));
-  else
   {
-    if (!strings::to_any(it->second, value))
-      LOG(LERROR, ("Conversion is not possible for key", key, "string representation is", it->second));
+    LOG(LERROR, ("Property not found for key:", key));
+    return;
   }
+
+  if (!strings::to_any(it->second, value))
+    LOG(LERROR, ("Conversion is not possible for key", key, "string representation is", it->second));
+
+}
+
+template <>
+void FillProperty<ElevationInfo::Difficulty>(kml::Properties const & properties, std::string const & key, ElevationInfo::Difficulty & value)
+{
+  auto const it = properties.find(key);
+  if (it == properties.cend())
+  {
+    LOG(LERROR, ("Property not found for key:", key));
+    return;
+  }
+
+  uint8_t difficulty;
+  if (!strings::to_any(it->second, difficulty))
+  {
+    LOG(LERROR, ("Conversion is not possible for key", key, "string representation is", it->second));
+    return;
+  }
+  if (difficulty > kMaxDifficulty)
+  {
+    LOG(LERROR, ("Invalid difficulty value", difficulty));
+    return;
+  }
+  value = static_cast<ElevationInfo::Difficulty>(difficulty);
 }
 }  // namespace
 
@@ -53,19 +79,6 @@ ElevationInfo::ElevationInfo(Track const & track)
   FillProperty(properties, kDescentKey, m_descent);
   FillProperty(properties, kLowestPointKey, m_minAltitude);
   FillProperty(properties, kHighestPointKey, m_maxAltitude);
-
-  uint8_t difficulty;
-  FillProperty(properties, kDifficultyKey, difficulty);
-
-  if (difficulty > kMaxDifficulty)
-  {
-    LOG(LWARNING, ("Invalid difficulty value", m_difficulty, "in track", track.GetName()));
-    m_difficulty = Difficulty ::Unknown;
-  }
-  else
-  {
-    m_difficulty = static_cast<Difficulty>(difficulty);
-  }
-
+  FillProperty(properties, kDifficultyKey, m_difficulty);
   FillProperty(properties, kDurationKey, m_duration);
 }
