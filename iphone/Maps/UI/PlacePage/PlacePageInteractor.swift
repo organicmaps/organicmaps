@@ -32,7 +32,11 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
   func didPressWebsite() {
     MWMPlacePageManagerHelper.openWebsite(placePageData)
   }
-  
+
+  func didPressWebsiteMenu() {
+    MWMPlacePageManagerHelper.openWebsiteMenu(placePageData)
+  }
+
   func didPressKayak() {
     let kUDDidShowKayakInformationDialog = "kUDDidShowKayakInformationDialog"
     
