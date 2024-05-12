@@ -4244,7 +4244,7 @@
     sv = Redigera
     th = แก้ไข
     tr = Düzenle
-    uk = Редаґувати
+    uk = Редагувати
     vi = Sửa
     zh-Hans = 编辑
     zh-Hant = 編輯
