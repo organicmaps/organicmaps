@@ -24,8 +24,6 @@ public:
     std::string m_blacklist;
 
     std::vector<std::string> m_fonts;
-
-    uint32_t m_baseGlyphHeight = 22;
   };
 
   explicit GlyphManager(Params const & params);
@@ -37,8 +35,6 @@ public:
   bool AreGlyphsReady(strings::UniString const & str) const;
 
   Glyph const & GetInvalidGlyph() const;
-
-  uint32_t GetBaseGlyphHeight() const;
 
 private:
   int GetFontIndex(strings::UniChar unicodePoint);
