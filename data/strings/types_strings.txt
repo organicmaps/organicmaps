@@ -11344,7 +11344,6 @@
     nl = Ga naar
     pl = Wyjście
     pt = Saída
-    pt-BR = Saída
     ro = Ieșire
     ru = Выход
     sk = Východ
