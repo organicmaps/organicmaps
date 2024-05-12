@@ -183,7 +183,7 @@
 "load_kmz_failed" = "Не вдалося завантажити мітки. Файл може бути пошкодженим або несправним.";
 
 /* resource for context menu */
-"edit" = "Редаґувати";
+"edit" = "Редагувати";
 
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Ваше місце розташування не визначено";
