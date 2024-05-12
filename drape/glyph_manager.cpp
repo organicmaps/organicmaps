@@ -168,7 +168,7 @@ public:
     }
 
     Glyph result;
-    result.m_image = {bitmap.width, bitmap.rows, bitmap.rows, bitmap.pitch, data};
+    result.m_image = {bitmap.width, bitmap.rows, data};
     // Glyph image has SDF borders that should be taken into an account.
     result.m_metrics = {float(glyph->advance.x >> 16), float(glyph->advance.y >> 16),
                         float(bbox.xMin + kSdfBorder), float(bbox.yMin + kSdfBorder), true};
