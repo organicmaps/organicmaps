@@ -4,6 +4,7 @@
 #include "coding/reader.hpp" // For Reader exceptions.
 #include "coding/writer.hpp" // For Writer exceptions.
 
+#include "base/assert.hpp"
 #include "base/exception.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
@@ -77,6 +78,7 @@ string FileData::GetErrorProlog() const
   case OP_WRITE_TRUNCATE: s = "Write truncate"; break;
   case OP_WRITE_EXISTING: s = "Write existing"; break;
   case OP_APPEND: s = "Append"; break;
+  default: UNREACHABLE();
   }
 
   return m_FileName + "; " + s + "; " + strerror(errno);
