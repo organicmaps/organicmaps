@@ -52,12 +52,6 @@ void VisualParams::Init(double vs, uint32_t tileSize)
   LOG(LINFO, ("Visual scale =", vs, "; Tile size =", tileSize, "; Resources =", GetResourcePostfix(vs)));
 }
 
-uint32_t VisualParams::GetGlyphBaseSize() const
-{
-  ASSERT_INITED;
-  return 22;
-}
-
 double VisualParams::GetFontScale() const
 {
   ASSERT_INITED;

@@ -8,6 +8,8 @@
 #include <functional>
 #include <iterator>
 
+#include "font_constants.hpp"
+
 namespace dp
 {
 GlyphPacker::GlyphPacker(const m2::PointU & size)
@@ -173,8 +175,8 @@ bool GlyphIndex::CanBeGlyphPacked(uint32_t glyphsCount) const
     return false;
 
   float constexpr kGlyphScalar = 1.5f;
-  auto const baseSize = static_cast<uint32_t>(m_mng->GetBaseGlyphHeight() * kGlyphScalar);
-  return m_packer.CanBePacked(glyphsCount, baseSize, baseSize);
+  auto constexpr baseSizePixels = static_cast<uint32_t>(kBaseFontSizePixels * kGlyphScalar);
+  return m_packer.CanBePacked(glyphsCount, baseSizePixels, baseSizePixels);
 }
 
 size_t GlyphIndex::GetPendingNodesCount()

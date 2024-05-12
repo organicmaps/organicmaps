@@ -9,6 +9,7 @@
 #include "base/string_utils.hpp"
 
 #include "drape/bidi.hpp"
+#include "drape/font_constants.hpp"
 
 #include <algorithm>
 #include <array>
@@ -158,9 +159,7 @@ void StaticLabel::CacheStaticText(std::string const & text, char const * delim,
   glsl::vec2 colorTex = glsl::ToVec2(color.GetTexRect().Center());
   glsl::vec2 outlineTex = glsl::ToVec2(outline.GetTexRect().Center());
 
-  df::VisualParams const & vparams = df::VisualParams::Instance();
-  auto const textRatio = font.m_size * static_cast<float>(vparams.GetVisualScale()) /
-                         vparams.GetGlyphBaseSize();
+  auto const textRatio = font.m_size * static_cast<float>(df::VisualParams::Instance().GetVisualScale() / dp::kBaseFontSizePixels);
 
   buffer_vector<float, 4> lineLengths;
   lineLengths.reserve(buffers.size());
@@ -333,9 +332,7 @@ void MutableLabel::Precache(PrecacheParams const & params, PrecacheResult & resu
 {
   SetMaxLength(static_cast<uint16_t>(params.m_maxLength));
   result.m_state.SetMaskTexture(SetAlphabet(params.m_alphabet, mng));
-  df::VisualParams const & vparams = df::VisualParams::Instance();
-  m_textRatio = params.m_font.m_size * static_cast<float>(vparams.GetVisualScale()) /
-                vparams.GetGlyphBaseSize();
+  m_textRatio = params.m_font.m_size * static_cast<float>(df::VisualParams::Instance().GetVisualScale()) / dp::kBaseFontSizePixels;
 
   dp::TextureManager::ColorRegion color;
   dp::TextureManager::ColorRegion outlineColor;

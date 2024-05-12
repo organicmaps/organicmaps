@@ -287,8 +287,6 @@ struct GlyphManager::Impl
   TUniBlocks m_blocks;
   TUniBlockIter m_lastUsedBlock;
   std::vector<std::unique_ptr<Font>> m_fonts;
-
-  uint32_t m_baseGlyphHeight;
 };
 
 // Destructor is defined where pimpl's destructor is already known.
@@ -297,8 +295,6 @@ GlyphManager::~GlyphManager() = default;
 GlyphManager::GlyphManager(Params const & params)
   : m_impl(std::make_unique<Impl>())
 {
-  m_impl->m_baseGlyphHeight = params.m_baseGlyphHeight;
-
   using TFontAndBlockName = std::pair<std::string, std::string>;
   using TFontLst = buffer_vector<TFontAndBlockName, 64>;
 
@@ -450,11 +446,6 @@ GlyphManager::GlyphManager(Params const & params)
 
 }
 
-uint32_t GlyphManager::GetBaseGlyphHeight() const
-{
-  return m_impl->m_baseGlyphHeight;
-}
-
 int GlyphManager::GetFontIndex(strings::UniChar unicodePoint)
 {
   auto iter = m_impl->m_blocks.cend();
@@ -519,7 +510,7 @@ Glyph GlyphManager::GetGlyph(strings::UniChar unicodePoint)
     return GetInvalidGlyph();
 
   auto const & f = m_impl->m_fonts[fontIndex];
-  Glyph glyph = f->GetGlyph(unicodePoint, m_impl->m_baseGlyphHeight);
+  Glyph glyph = f->GetGlyph(unicodePoint, kBaseFontSizePixels);
   glyph.m_fontIndex = fontIndex;
   return glyph;
 }
@@ -556,7 +547,7 @@ Glyph const & GlyphManager::GetInvalidGlyph() const
     strings::UniChar constexpr kInvalidGlyphCode = 0x9;
     int constexpr kFontId = 0;
     ASSERT(!m_impl->m_fonts.empty(), ());
-    s_glyph = m_impl->m_fonts[kFontId]->GetGlyph(kInvalidGlyphCode, m_impl->m_baseGlyphHeight);
+    s_glyph = m_impl->m_fonts[kFontId]->GetGlyph(kInvalidGlyphCode, kBaseFontSizePixels);
     s_glyph.m_metrics.m_isValid = false;
     s_glyph.m_fontIndex = kFontId;
     s_glyph.m_code = kInvalidGlyphCode;
