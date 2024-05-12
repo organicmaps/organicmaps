@@ -30257,7 +30257,7 @@
 
   [website_menu]
     comment = Restaurant or other food place's menu URL field in the Editor
-    tags = android
+    tags = android,ios
     en = Menu Link
     af = Kieslys skakel
     ar = رابط القائمة
