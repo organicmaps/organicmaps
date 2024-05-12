@@ -181,7 +181,7 @@
 	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
 	<string name="failed_to_open_file">Не вдалося відкрити файл %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
-	<string name="edit">Редаґувати</string>
+	<string name="edit">Редагувати</string>
 	<!-- Warning message when doing search around current position -->
 	<string name="unknown_current_position">Ваше місце розташування не визначено</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
