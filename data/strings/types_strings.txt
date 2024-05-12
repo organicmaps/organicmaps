@@ -11343,8 +11343,8 @@
     nb = Utgang
     nl = Ga naar
     pl = Wyjście
-    pt = Sai
-    pt-BR = Sair
+    pt = Saída
+    pt-BR = Saída
     ro = Ieșire
     ru = Выход
     sk = Východ
