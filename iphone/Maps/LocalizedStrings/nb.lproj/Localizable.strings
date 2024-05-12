@@ -1293,6 +1293,9 @@
 
 "drive_through" = "Gjennomkjøring";
 
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Lenke til menyen";
+
 
 /********** Types **********/
 

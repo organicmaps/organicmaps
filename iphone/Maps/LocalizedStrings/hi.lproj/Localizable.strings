@@ -1293,6 +1293,9 @@
 
 "drive_through" = "ड्राइव करते हुए किसी जगह से गुजरना";
 
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "मेनू लिंक";
+
 
 /********** Types **********/
 

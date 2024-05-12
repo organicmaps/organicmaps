@@ -1293,6 +1293,9 @@
 
 "drive_through" = "驾车通过";
 
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "菜单链接";
+
 
 /********** Types **********/
 

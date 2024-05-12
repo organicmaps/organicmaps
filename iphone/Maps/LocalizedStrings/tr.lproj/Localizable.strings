@@ -1293,6 +1293,9 @@
 
 "drive_through" = "Arabaya servis";
 
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Menü bağlantısı";
+
 
 /********** Types **********/
 
