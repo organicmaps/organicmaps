@@ -83,7 +83,7 @@ using namespace osm;
           if (value == "yes")
             _driveThrough = NSLocalizedString(@"drive_through", nil);
           break;
-
+        case MetadataID::FMD_WEBSITE_MENU: _websiteMenu = ToNSString(value); break;
         default:
           break;
       }
