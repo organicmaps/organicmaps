@@ -1293,6 +1293,9 @@
 
 "drive_through" = "드라이브 스루";
 
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "메뉴 링크";
+
 
 /********** Types **********/
 

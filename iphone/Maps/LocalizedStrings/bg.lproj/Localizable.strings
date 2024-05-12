@@ -1293,6 +1293,9 @@
 
 "drive_through" = "С прозорец за шофьори";
 
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Връзка към менюто";
+
 
 /********** Types **********/
 
