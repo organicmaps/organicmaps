@@ -39,7 +39,7 @@ enum class HighwayType : uint16_t
   HighwaySecondary = 12,
   HighwayPath = 15,
   HighwayPrimary = 26,
-  HighwayRoad = 30,
+  HighwayRoad = 410,
   HighwayCycleway = 36,
   HighwayMotorwayLink = 43,
   HighwayLivingStreet = 54,
