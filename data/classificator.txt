@@ -605,7 +605,6 @@ world  +
         commercial  -
         construction  -
         education  -
-        farm  -
         farmland  -
         farmyard  -
         field  -
@@ -1417,7 +1416,6 @@ world  +
         river  +
             tunnel  -
             {}
-        riverbank  -
         stream  +
             ephemeral  -
             intermittent  -

@@ -35,8 +35,8 @@ highway|track
 mapswithme
 *amenity|school
 *highway|cycleway
-*landuse|farm
-*amenity|place_of_worship
+landuse|farmland
+amenity|place_of_worship
 highway|track
 *addr:interpolation|odd
 *highway|service|driveway
@@ -49,7 +49,7 @@ highway|track
 *barrier|fence
 *natural|water|lake
 *highway|footway|crossing
-*waterway|riverbank
+mapswithme
 *highway|path|bicycle
 *landuse|meadow
 *highway|living_street
@@ -104,12 +104,12 @@ mapswithme
 *tourism|hotel
 *landuse|cemetery
 *sport|soccer
-*boundary|administrative|4
+boundary|administrative|4
 *amenity|cafe
 *amenity|recycling|container
 *leisure|garden
 *landuse|commercial
-*railway|station
+railway|station
 highway|path
 *amenity|hospital
 *waterway|stream|ephemeral
@@ -119,7 +119,7 @@ highway|path
 *amenity|pharmacy
 *man_made|pier
 *highway|motorway_junction
-*amenity|telephone
+amenity|telephone
 *waterway|stream|tunnel
 *tourism|information|guidepost
 *amenity|parking|fee
@@ -455,9 +455,9 @@ highway|path|difficult
 *landuse|orchard
 *amenity|shelter|public_transport
 *highway|living_street|tunnel
-mapswithme
-mapswithme
-mapswithme
+*amenity|place_of_worship
+*boundary|administrative|4
+*railway|station
 *sport|handball
 mapswithme
 *piste:type|downhill|freeride
@@ -468,7 +468,7 @@ mapswithme
 *cemetery|grave
 *railway|monorail|bridge
 *area:highway|steps
-mapswithme
+*amenity|telephone
 mapswithme
 mapswithme
 *natural|grassland
