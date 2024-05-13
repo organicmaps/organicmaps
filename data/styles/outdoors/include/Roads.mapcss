@@ -3,6 +3,9 @@
 
 
 /* Make all roads more contrast */
+line|z6[highway=trunk],
+line|z6[highway=motorway],
+{opacity: 0.7;}
 line|z7-[highway=trunk],
 line|z7-[highway=motorway],
 line|z10-[highway=motorway_link],
