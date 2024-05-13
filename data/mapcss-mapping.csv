@@ -103,8 +103,7 @@ amenity|school;36;
 # Dedicated/segregated cycleways (e.g. segregated paths are converted into cycleways + footways, see osm2type.cpp).
 highway|cycleway;37;
 deprecated:landuse|farm:05.2024;38;landuse|farmland
-# TODO: move; only ~100k w/o religion=*
-amenity|place_of_worship;39;
+moved:amenity|place_of_worship:05.2024;39;amenity|place_of_worship
 deprecated:highway|track|grade1:04.2024;[highway=track][tracktype=grade1];x;name;int_name;40;highway|track
 addr:interpolation|odd;41;
 highway|service|driveway;[highway=service][service=driveway];;name;int_name;42;
@@ -192,14 +191,12 @@ natural|land;103;
 tourism|hotel;[tourism=hotel],[hotel=yes];;name;int_name;104;
 landuse|cemetery;105;
 sport|soccer;106;
-# TODO: less than 100k usages, move
-boundary|administrative|4;[boundary=administrative][admin_level=4];;name;int_name;107;
+moved:boundary|administrative|4:05.2024;[boundary=administrative][admin_level=4];x;;;107;boundary|administrative|4
 amenity|cafe;108;
 amenity|recycling|container;[amenity=recycling][recycling_type=container];;name;int_name;109;
 leisure|garden;110;
 landuse|commercial;111;
-# TODO: ~100k usages.
-railway|station;112;
+moved:railway|station:05.2024;112;railway|station
 deprecated:highway|path|hiking:04.2024;[highway=path][route=hiking],[highway=path][sac_scale=hiking];x;name;int_name;113;highway|path
 # ~200k usages.
 amenity|hospital;114;
@@ -214,8 +211,7 @@ amenity|pharmacy;119;
 man_made|pier;120;
 # ~220k usages.
 highway|motorway_junction;121;
-# TODO: 85k usages, move
-amenity|telephone;122;
+moved:amenity|telephone:05.2024;122;amenity|telephone
 waterway|stream|tunnel;[waterway=stream][tunnel?];;name;int_name;123;
 tourism|information|guidepost;[tourism=information][information=guidepost];;name;int_name;124;
 amenity|parking|fee;[amenity=parking][fee];;name;int_name;125;
@@ -568,9 +564,12 @@ amenity|shelter|lean_to;[amenity=shelter][shelter_type=lean_to];;name;int_name;4
 landuse|orchard;455;
 amenity|shelter|public_transport;[amenity=shelter][shelter_type=public_transport];;name;int_name;456;
 highway|living_street|tunnel;[highway=living_street][tunnel?];;name;int_name;457;
-deprecated|deprecated;458;x
-deprecated|deprecated;459;x
-deprecated|deprecated;460;x
+# ~100k usages w/o religion=*.
+amenity|place_of_worship;458;
+# ~80k usages.
+boundary|administrative|4;[boundary=administrative][admin_level=4];;;;459;
+# ~100k usages.
+railway|station;460;
 sport|handball;461;
 deprecated:boundary|administrative|city:04.2024;[boundary=administrative][border_type=city];x;name;int_name;462;
 piste:type|downhill|freeride;[piste:type=downhill][piste:difficulty=freeride],[piste:type=downhill][piste:grooming=backcountry][!piste:difficulty];;name;int_name;463;
@@ -582,7 +581,8 @@ landuse|salt_pond;467;
 cemetery|grave;468;
 railway|monorail|bridge;[railway=monorail][bridge?];;name;int_name;469;
 area:highway|steps;470;
-deprecated|deprecated;471;x
+# ~90k usages.
+amenity|telephone;471;
 deprecated|deprecated;472;x
 deprecated|deprecated;473;x
 natural|grassland;474;
