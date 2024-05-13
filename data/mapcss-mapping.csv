@@ -93,8 +93,7 @@ highway|primary;27;
 railway|rail;28;
 highway|service|parking_aisle;[highway=service][service=parking_aisle];;name;int_name;29;
 place|hamlet;30;
-# TODO: 50k usages, move
-highway|road;31;
+moved:highway|road:05.2024;31;highway|road
 deprecated:highway|track|grade2:04.2024;[highway=track][tracktype=grade2];x;name;int_name;32;highway|track
 natural|wetland;33;
 deprecated:highway|track|grade3:04.4024;[highway=track][tracktype=grade3];x;name;int_name;34;highway|track
@@ -515,7 +514,8 @@ highway|living_street|bridge;[highway=living_street][bridge?];;name;int_name;407
 leisure|track|area;[leisure=track][area?];;name;int_name;408;
 railway|monorail;409;
 railway|rail|highspeed;[railway=rail][highspeed?][!service];;name;int_name;410;
-deprecated|deprecated;411;x
+# ~50k usages; ID hardcoded in vehicle_model.hpp.
+highway|road;411;
 leisure|park|private;[leisure=park][access=private];;name;int_name;412;
 healthcare|physiotherapist;413;
 noexit;[noexit?];;name;int_name;414;
