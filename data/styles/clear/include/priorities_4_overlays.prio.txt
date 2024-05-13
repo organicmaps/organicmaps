@@ -579,7 +579,6 @@ railway-rail-tourism-bridge                         # pathtext z14- (also has li
 railway-rail-tourism-tunnel                         # pathtext z14- (also has line z10-, line::dash z16-, line(casing) z14-)
 waterway-dam                                        # pathtext z15- (also has line z14-, area z14-)
 waterway-river                                      # pathtext z11- (also has line z10-)
-waterway-riverbank                                  # pathtext z11- (also has line z10-, area z1-)
 === 3150
 
 highway-unclassified                                # pathtext z13- (also has line z11-)

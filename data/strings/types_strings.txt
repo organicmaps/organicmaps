@@ -31068,44 +31068,6 @@
   [type.waterway.river.tunnel]
     ref = type.waterway.river
 
-  [type.waterway.riverbank]
-    en = River
-    af = Rivier
-    ar = نهر
-    az = Çay
-    be = Рака
-    cs = Řeka
-    da = Flod
-    de = Fluss
-    el = Ποταμός
-    es = Río
-    et = Jõgi
-    eu = Ibai
-    fa = رودخانه
-    fi = Joki
-    fr = Rivière
-    hu = Folyó
-    id = Sungai
-    it = Fiume
-    ja = 河川
-    ko = 강
-    mr = नदी
-    nb = Elv
-    nl = Rivier
-    pl = Koryto rzeki
-    pt = Rio
-    pt-BR = Rio
-    ro = Râu
-    ru = Река
-    sk = Rieka
-    sv = Flod
-    th = แม่น้ำ
-    tr = Nehir
-    uk = Річка
-    vi = Sông
-    zh-Hans = 河流
-    zh-Hant = 河流
-
   [type.waterway.stream]
     en = Stream
     af = Beek

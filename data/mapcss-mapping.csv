@@ -117,8 +117,7 @@ barrier|fence;49;
 natural|water|lake;[natural=water][water=lake];;name;int_name;50;
 # ~3M usages. TODO: consolidate all other footway=link/etc. values into highway-footway-minor.
 highway|footway|crossing;[highway=footway][footway=crossing];;name;int_name;51;
-# TODO: move; 1k usages and deprecated
-waterway|riverbank;52;
+deprecated:waterway|riverbank:05.2024;52;x
 # 600k+ usages.
 highway|path|bicycle;[highway=path][bicycle=designated];;;;53;
 landuse|meadow;54;

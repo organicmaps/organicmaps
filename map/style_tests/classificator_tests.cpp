@@ -235,8 +235,8 @@ UNIT_TEST(Classificator_AreaPriority)
     // ?
     //{"leisure", "park"}, {"leisure", "garden"}, - maybe next time (too tricky to do it now)
     // 3
-    {"natural", "water"}, {"natural", "water", "lake"}, {"landuse", "basin"}, {"waterway", "riverbank"}
-  }, {1, 2, 6, 4}, drule::area);
+    {"natural", "water"}, {"natural", "water", "lake"}, {"landuse", "basin"}
+  }, {1, 2, 6, 3}, drule::area);
 
   CheckPriority({
     // ? - linear waterways @todo: add ability to compare different drule types (areas vs lines)
