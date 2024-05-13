@@ -1417,7 +1417,6 @@
 	<string name="type.landuse.commercial">Коммерческая застройка</string>
 	<string name="type.landuse.construction">Стройка</string>
 	<string name="type.landuse.education">Образовательные учреждения</string>
-	<string name="type.landuse.farm">Ферма</string>
 	<string name="type.landuse.farmland">Сельскохозяйственная земля</string>
 	<string name="type.landuse.farmyard">Сельскохозяйственная земля</string>
 	<string name="type.landuse.field">Поле</string>
@@ -2114,7 +2113,6 @@
 	<string name="type.waterway.lock_gate">Шлюз</string>
 	<string name="type.waterway.river">Река</string>
 	<string name="type.waterway.river.tunnel">Река</string>
-	<string name="type.waterway.riverbank">Река</string>
 	<string name="type.waterway.stream">Река</string>
 	<string name="type.waterway.stream.ephemeral">Река</string>
 	<string name="type.waterway.stream.intermittent">Река</string>

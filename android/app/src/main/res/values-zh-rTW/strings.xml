@@ -1933,7 +1933,6 @@
 	<string name="type.waterway.lock_gate">閘門</string>
 	<string name="type.waterway.river">河流</string>
 	<string name="type.waterway.river.tunnel">河流</string>
-	<string name="type.waterway.riverbank">河流</string>
 	<string name="type.waterway.stream">溪</string>
 	<string name="type.waterway.stream.ephemeral">溪</string>
 	<string name="type.waterway.stream.intermittent">溪</string>

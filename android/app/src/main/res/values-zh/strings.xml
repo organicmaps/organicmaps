@@ -1352,7 +1352,6 @@
 	<string name="type.landuse.churchyard">教堂庭院</string>
 	<string name="type.landuse.commercial">商务办公用地</string>
 	<string name="type.landuse.construction">建设区域</string>
-	<string name="type.landuse.farm">农田</string>
 	<string name="type.landuse.farmland">农业用地</string>
 	<string name="type.landuse.farmyard">农庄</string>
 	<string name="type.landuse.flowerbed">花坛</string>
@@ -2018,7 +2017,6 @@
 	<string name="type.waterway.lock_gate">闸门</string>
 	<string name="type.waterway.river">河流</string>
 	<string name="type.waterway.river.tunnel">河流</string>
-	<string name="type.waterway.riverbank">河流</string>
 	<string name="type.waterway.stream">溪</string>
 	<string name="type.waterway.stream.ephemeral">溪</string>
 	<string name="type.waterway.stream.intermittent">溪</string>

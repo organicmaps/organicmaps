@@ -1406,7 +1406,6 @@
 	<string name="type.landuse.commercial">Zona comercial</string>
 	<string name="type.landuse.construction">Construcción</string>
 	<string name="type.landuse.education">Instalaciones educativas</string>
-	<string name="type.landuse.farm">Granja</string>
 	<string name="type.landuse.farmland">Tierras agrícolas</string>
 	<string name="type.landuse.farmyard">Granja</string>
 	<string name="type.landuse.field">Campo</string>
@@ -2085,7 +2084,6 @@
 	<string name="type.waterway.lock_gate">Compuerta</string>
 	<string name="type.waterway.river">Río</string>
 	<string name="type.waterway.river.tunnel">Río</string>
-	<string name="type.waterway.riverbank">Río</string>
 	<string name="type.waterway.stream">Arroyo</string>
 	<string name="type.waterway.stream.ephemeral">Arroyo efímero</string>
 	<string name="type.waterway.stream.intermittent">Arroyo intermitente</string>

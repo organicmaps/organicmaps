@@ -2041,7 +2041,6 @@
 	<string name="type.waterway.lock_gate">Porte d\'écluse</string>
 	<string name="type.waterway.river">Rivière</string>
 	<string name="type.waterway.river.tunnel">Rivière</string>
-	<string name="type.waterway.riverbank">Rivière</string>
 	<string name="type.waterway.stream">Ruisseau</string>
 	<string name="type.waterway.stream.ephemeral">Ruisseau</string>
 	<string name="type.waterway.stream.intermittent">Ruisseau</string>

@@ -2425,8 +2425,6 @@
 
 "type.landuse.education" = "Strutture didattiche";
 
-"type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "Terreno agricolo";
 
 "type.landuse.farmyard" = "Fattoria";
@@ -3813,8 +3811,6 @@
 "type.waterway.river" = "Fiume";
 
 "type.waterway.river.tunnel" = "Fiume";
-
-"type.waterway.riverbank" = "Fiume";
 
 "type.waterway.stream" = "Torrente";
 

@@ -1367,7 +1367,6 @@
 	<string name="type.waterway.drain.tunnel">Водопропускная труба</string>
 	<string name="type.waterway.river">Рака</string>
 	<string name="type.waterway.river.tunnel">Рака</string>
-	<string name="type.waterway.riverbank">Рака</string>
 	<string name="type.waterway.stream">Рака</string>
 	<string name="type.waterway.stream.ephemeral">Рака</string>
 	<string name="type.waterway.stream.intermittent">Рака</string>

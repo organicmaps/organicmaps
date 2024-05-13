@@ -1900,7 +1900,6 @@
 	<string name="type.waterway.lock_gate">Zsilip</string>
 	<string name="type.waterway.river">Folyó</string>
 	<string name="type.waterway.river.tunnel">Folyó</string>
-	<string name="type.waterway.riverbank">Folyó</string>
 	<string name="type.waterway.stream">Folyó</string>
 	<string name="type.waterway.stream.ephemeral">Folyó</string>
 	<string name="type.waterway.stream.intermittent">Folyó</string>

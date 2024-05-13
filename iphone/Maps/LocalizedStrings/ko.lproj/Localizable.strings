@@ -2425,8 +2425,6 @@
 
 "type.landuse.education" = "Educational Facility";
 
-"type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "농지";
 
 "type.landuse.farmyard" = "Farmyard";
@@ -3813,8 +3811,6 @@
 "type.waterway.river" = "강";
 
 "type.waterway.river.tunnel" = "강";
-
-"type.waterway.riverbank" = "강";
 
 "type.waterway.stream" = "강";
 

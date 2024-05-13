@@ -1405,7 +1405,6 @@
 	<string name="type.landuse.commercial">Комерційні ділянки</string>
 	<string name="type.landuse.construction">Будівництво</string>
 	<string name="type.landuse.education">Освітній заклади</string>
-	<string name="type.landuse.farm">Ферма</string>
 	<string name="type.landuse.farmland">Сільськогосподарська земля</string>
 	<string name="type.landuse.farmyard">Сільськогосподарська земля</string>
 	<string name="type.landuse.field">Поле</string>
@@ -2093,7 +2092,6 @@
 	<string name="type.waterway.lock_gate">Шлюз</string>
 	<string name="type.waterway.river">Річка</string>
 	<string name="type.waterway.river.tunnel">Річка</string>
-	<string name="type.waterway.riverbank">Річка</string>
 	<string name="type.waterway.stream">Річка</string>
 	<string name="type.waterway.stream.ephemeral">Річка</string>
 	<string name="type.waterway.stream.intermittent">Річка</string>

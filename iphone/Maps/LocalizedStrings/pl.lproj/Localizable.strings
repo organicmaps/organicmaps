@@ -2425,8 +2425,6 @@
 
 "type.landuse.education" = "Placówki oświatowe";
 
-"type.landuse.farm" = "Gospodarstwo rolne";
-
 "type.landuse.farmland" = "Grunt rolny";
 
 "type.landuse.farmyard" = "Obejście gospodarskie";
@@ -3813,8 +3811,6 @@
 "type.waterway.river" = "Rzeka";
 
 "type.waterway.river.tunnel" = "Rzeka";
-
-"type.waterway.riverbank" = "Koryto rzeki";
 
 "type.waterway.stream" = "Strumień";
 

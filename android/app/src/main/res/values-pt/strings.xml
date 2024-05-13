@@ -1352,7 +1352,6 @@
 	<string name="type.landuse.churchyard">Adro de igreja</string>
 	<string name="type.landuse.commercial">Área comercial</string>
 	<string name="type.landuse.construction">Construção</string>
-	<string name="type.landuse.farm">Quinta</string>
 	<string name="type.landuse.farmland">Campo agrícola</string>
 	<string name="type.landuse.farmyard">Pátio de quinta</string>
 	<string name="type.landuse.field">Campo</string>
@@ -2035,7 +2034,6 @@
 	<string name="type.waterway.lock_gate">Comporta de eclusa</string>
 	<string name="type.waterway.river">Rio</string>
 	<string name="type.waterway.river.tunnel">Rio</string>
-	<string name="type.waterway.riverbank">Rio</string>
 	<string name="type.waterway.stream">Ribeiro</string>
 	<string name="type.waterway.stream.ephemeral">Ribeiro efémero</string>
 	<string name="type.waterway.stream.intermittent">Ribeiro sasonal</string>

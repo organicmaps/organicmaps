@@ -2425,8 +2425,6 @@
 
 "type.landuse.education" = "Educational Facility";
 
-"type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "Landbrugsjord";
 
 "type.landuse.farmyard" = "Farmyard";
@@ -3813,8 +3811,6 @@
 "type.waterway.river" = "Flod";
 
 "type.waterway.river.tunnel" = "Flod";
-
-"type.waterway.riverbank" = "Flod";
 
 "type.waterway.stream" = "Flod";
 

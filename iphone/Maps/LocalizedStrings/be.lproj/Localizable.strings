@@ -2425,8 +2425,6 @@
 
 "type.landuse.education" = "Адукацыйныя ўстановы";
 
-"type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "Farmland";
 
 "type.landuse.farmyard" = "Farmyard";
@@ -3813,8 +3811,6 @@
 "type.waterway.river" = "Рака";
 
 "type.waterway.river.tunnel" = "Рака";
-
-"type.waterway.riverbank" = "Рака";
 
 "type.waterway.stream" = "Рака";
 

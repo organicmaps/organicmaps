@@ -2425,8 +2425,6 @@
 
 "type.landuse.education" = "Educational Facility";
 
-"type.landuse.farm" = "農地";
-
 "type.landuse.farmland" = "農地";
 
 "type.landuse.farmyard" = "農地";
@@ -3813,8 +3811,6 @@
 "type.waterway.river" = "河川";
 
 "type.waterway.river.tunnel" = "河川";
-
-"type.waterway.riverbank" = "河川";
 
 "type.waterway.stream" = "小川";
 

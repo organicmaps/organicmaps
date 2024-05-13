@@ -1879,7 +1879,6 @@
 	<string name="type.waterway.lock_gate">Cổng Khóa</string>
 	<string name="type.waterway.river">Sông</string>
 	<string name="type.waterway.river.tunnel">Sông</string>
-	<string name="type.waterway.riverbank">Sông</string>
 	<string name="type.waterway.stream">Sông</string>
 	<string name="type.waterway.stream.ephemeral">Sông</string>
 	<string name="type.waterway.stream.intermittent">Sông</string>

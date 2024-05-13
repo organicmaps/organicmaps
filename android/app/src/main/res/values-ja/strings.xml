@@ -1374,7 +1374,6 @@
 	<string name="type.landuse.churchyard">キリスト教教会付属地</string>
 	<string name="type.landuse.commercial">商業用地</string>
 	<string name="type.landuse.construction">建設工事中</string>
-	<string name="type.landuse.farm">農地</string>
 	<string name="type.landuse.farmland">農地</string>
 	<string name="type.landuse.farmyard">農地</string>
 	<string name="type.landuse.flowerbed">花壇</string>
@@ -2052,7 +2051,6 @@
 	<string name="type.waterway.lock_gate">水門</string>
 	<string name="type.waterway.river">河川</string>
 	<string name="type.waterway.river.tunnel">河川</string>
-	<string name="type.waterway.riverbank">河川</string>
 	<string name="type.waterway.stream">小川</string>
 	<string name="type.waterway.stream.ephemeral">小川</string>
 	<string name="type.waterway.stream.intermittent">小川</string>

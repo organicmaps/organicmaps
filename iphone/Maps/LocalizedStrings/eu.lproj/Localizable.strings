@@ -2425,8 +2425,6 @@
 
 "type.landuse.education" = "Educational Facility";
 
-"type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "Nekazaritza-lurra";
 
 "type.landuse.farmyard" = "Farmyard";
@@ -3813,8 +3811,6 @@
 "type.waterway.river" = "Ibai";
 
 "type.waterway.river.tunnel" = "Ibai";
-
-"type.waterway.riverbank" = "Ibai";
 
 "type.waterway.stream" = "Ibai";
 

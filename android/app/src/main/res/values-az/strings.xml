@@ -1369,7 +1369,6 @@
 	<string name="type.landuse.churchyard">Kilsə rayonu</string>
 	<string name="type.landuse.commercial">Kommersiya</string>
 	<string name="type.landuse.construction">Struktur</string>
-	<string name="type.landuse.farm">Ferma</string>
 	<string name="type.landuse.farmland">Kənd Təsərrüfatı Torpaqları</string>
 	<string name="type.landuse.farmyard">Ferma rayonu</string>
 	<string name="type.landuse.field">Ərazi</string>
@@ -2054,7 +2053,6 @@
 	<string name="type.waterway.lock_gate">Ekklüzyon örtüyü</string>
 	<string name="type.waterway.river">Çay</string>
 	<string name="type.waterway.river.tunnel">Çay</string>
-	<string name="type.waterway.riverbank">Çay</string>
 	<string name="type.waterway.stream">Çay</string>
 	<string name="type.waterway.stream.ephemeral">Çay</string>
 	<string name="type.waterway.stream.intermittent">Çay</string>

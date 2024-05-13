@@ -1886,7 +1886,6 @@
 	<string name="type.waterway.lock_gate">Stavidlo</string>
 	<string name="type.waterway.river">Řeka</string>
 	<string name="type.waterway.river.tunnel">Řeka</string>
-	<string name="type.waterway.riverbank">Řeka</string>
 	<string name="type.waterway.stream">Řeka</string>
 	<string name="type.waterway.stream.ephemeral">Řeka</string>
 	<string name="type.waterway.stream.intermittent">Řeka</string>

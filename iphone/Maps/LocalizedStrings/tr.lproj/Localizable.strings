@@ -2425,8 +2425,6 @@
 
 "type.landuse.education" = "Educational Facility";
 
-"type.landuse.farm" = "Çiftlik";
-
 "type.landuse.farmland" = "Tarım Arazileri";
 
 "type.landuse.farmyard" = "Çiftlik Bölgesi";
@@ -3813,8 +3811,6 @@
 "type.waterway.river" = "Nehir";
 
 "type.waterway.river.tunnel" = "Nehir";
-
-"type.waterway.riverbank" = "Nehir";
 
 "type.waterway.stream" = "Nehir";
 

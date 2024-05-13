@@ -1871,7 +1871,6 @@
 	<string name="type.waterway.lock_gate">Gerbang pengunci</string>
 	<string name="type.waterway.river">Sungai</string>
 	<string name="type.waterway.river.tunnel">Sungai</string>
-	<string name="type.waterway.riverbank">Sungai</string>
 	<string name="type.waterway.stream">Sungai</string>
 	<string name="type.waterway.stream.ephemeral">Sungai</string>
 	<string name="type.waterway.stream.intermittent">Sungai</string>
