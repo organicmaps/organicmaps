@@ -2431,8 +2431,6 @@
 
 "type.landuse.education" = "Образовательные учреждения";
 
-"type.landuse.farm" = "Ферма";
-
 "type.landuse.farmland" = "Сельскохозяйственная земля";
 
 "type.landuse.farmyard" = "Сельскохозяйственная земля";
@@ -3819,8 +3817,6 @@
 "type.waterway.river" = "Река";
 
 "type.waterway.river.tunnel" = "Река";
-
-"type.waterway.riverbank" = "Река";
 
 "type.waterway.stream" = "Река";
 

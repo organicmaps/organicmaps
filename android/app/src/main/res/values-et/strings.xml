@@ -1397,7 +1397,6 @@
 	<string name="type.landuse.commercial">Kommertspiirkond</string>
 	<string name="type.landuse.construction">Ehitus</string>
 	<string name="type.landuse.education">Haridusrajatised</string>
-	<string name="type.landuse.farm">Talu</string>
 	<string name="type.landuse.farmland">Talumaa</string>
 	<string name="type.landuse.farmyard">Taluõu</string>
 	<string name="type.landuse.field">Põld</string>
@@ -2089,7 +2088,6 @@
 	<string name="type.waterway.lock_gate">Lüüsi värav</string>
 	<string name="type.waterway.river">Jõgi</string>
 	<string name="type.waterway.river.tunnel">Jõgi</string>
-	<string name="type.waterway.riverbank">Jõgi</string>
 	<string name="type.waterway.stream">Oja</string>
 	<string name="type.waterway.stream.ephemeral">Jõgi</string>
 	<string name="type.waterway.stream.intermittent">Jõgi</string>

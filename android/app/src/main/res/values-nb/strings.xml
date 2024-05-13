@@ -1943,7 +1943,6 @@
 	<string name="type.waterway.lock_gate">Sluseport</string>
 	<string name="type.waterway.river">Elv</string>
 	<string name="type.waterway.river.tunnel">Elv</string>
-	<string name="type.waterway.riverbank">Elv</string>
 	<string name="type.waterway.stream">Elv</string>
 	<string name="type.waterway.stream.ephemeral">Elv</string>
 	<string name="type.waterway.stream.intermittent">Elv</string>

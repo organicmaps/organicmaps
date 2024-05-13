@@ -1390,7 +1390,6 @@
 	<string name="type.landuse.commercial">Gewerbegebiet</string>
 	<string name="type.landuse.construction">Baustelle</string>
 	<string name="type.landuse.education">Bildungseinrichtung</string>
-	<string name="type.landuse.farm">Bauernhof</string>
 	<string name="type.landuse.farmland">Agrarland</string>
 	<string name="type.landuse.farmyard">Bauernhof</string>
 	<string name="type.landuse.field">Feld</string>
@@ -2072,7 +2071,6 @@
 	<string name="type.waterway.lock_gate">Schleusentor</string>
 	<string name="type.waterway.river">Fluss</string>
 	<string name="type.waterway.river.tunnel">Fluss</string>
-	<string name="type.waterway.riverbank">Fluss</string>
 	<string name="type.waterway.stream">Bach</string>
 	<string name="type.waterway.stream.ephemeral">Bach</string>
 	<string name="type.waterway.stream.intermittent">Bach</string>

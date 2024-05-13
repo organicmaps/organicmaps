@@ -1403,7 +1403,6 @@
 	<string name="type.landuse.commercial">Teren handlu i usług</string>
 	<string name="type.landuse.construction">Teren budowy</string>
 	<string name="type.landuse.education">Placówki oświatowe</string>
-	<string name="type.landuse.farm">Gospodarstwo rolne</string>
 	<string name="type.landuse.farmland">Grunt rolny</string>
 	<string name="type.landuse.farmyard">Obejście gospodarskie</string>
 	<string name="type.landuse.field">Pole</string>
@@ -2061,7 +2060,6 @@
 	<string name="type.waterway.lock_gate">Wrota śluzy</string>
 	<string name="type.waterway.river">Rzeka</string>
 	<string name="type.waterway.river.tunnel">Rzeka</string>
-	<string name="type.waterway.riverbank">Koryto rzeki</string>
 	<string name="type.waterway.stream">Strumień</string>
 	<string name="type.waterway.stream.ephemeral">Strumień epizodyczny</string>
 	<string name="type.waterway.stream.intermittent">Strumień okresowy</string>

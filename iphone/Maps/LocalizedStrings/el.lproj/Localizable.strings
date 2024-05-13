@@ -2431,8 +2431,6 @@
 
 "type.landuse.education" = "Educational Facility";
 
-"type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "Αγροτική γη";
 
 "type.landuse.farmyard" = "Farmyard";
@@ -3819,8 +3817,6 @@
 "type.waterway.river" = "Ποταμός";
 
 "type.waterway.river.tunnel" = "Ποταμός";
-
-"type.waterway.riverbank" = "Ποταμός";
 
 "type.waterway.stream" = "Ποταμός";
 

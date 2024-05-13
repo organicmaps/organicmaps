@@ -2041,7 +2041,6 @@
 	<string name="type.waterway.lock_gate">Sbarramento</string>
 	<string name="type.waterway.river">Fiume</string>
 	<string name="type.waterway.river.tunnel">Fiume</string>
-	<string name="type.waterway.riverbank">Fiume</string>
 	<string name="type.waterway.stream">Torrente</string>
 	<string name="type.waterway.stream.ephemeral">Torrente</string>
 	<string name="type.waterway.stream.intermittent">Torrente</string>

@@ -2431,8 +2431,6 @@
 
 "type.landuse.education" = "Vzdelávacia inštitúcia";
 
-"type.landuse.farm" = "Statok";
-
 "type.landuse.farmland" = "Poľnohospodárska pôda";
 
 "type.landuse.farmyard" = "Poľnohospodárske budovy";
@@ -3819,8 +3817,6 @@
 "type.waterway.river" = "Rieka";
 
 "type.waterway.river.tunnel" = "Rieka";
-
-"type.waterway.riverbank" = "Rieka";
 
 "type.waterway.stream" = "Potok";
 

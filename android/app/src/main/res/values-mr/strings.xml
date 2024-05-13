@@ -1274,7 +1274,6 @@
 	<string name="type.landuse.commercial">व्यावसायिक क्षेत्र</string>
 	<string name="type.landuse.construction">बांधकाम</string>
 	<string name="type.landuse.education">शैक्षणिक सुविधा</string>
-	<string name="type.landuse.farm">शेत</string>
 	<string name="type.landuse.farmland">शेतजमीन</string>
 	<string name="type.landuse.field">क्षेत्र</string>
 	<string name="type.landuse.flowerbed">फ्लॉवरबेड</string>
@@ -1897,7 +1896,6 @@
 	<string name="type.waterway.lock_gate">जलद्वार</string>
 	<string name="type.waterway.river">नदी</string>
 	<string name="type.waterway.river.tunnel">नदी</string>
-	<string name="type.waterway.riverbank">नदी</string>
 	<string name="type.waterway.stream">नदी</string>
 	<string name="type.waterway.stream.ephemeral">नदी</string>
 	<string name="type.waterway.stream.intermittent">नदी</string>

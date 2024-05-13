@@ -2431,8 +2431,6 @@
 
 "type.landuse.education" = "Koulutuslaitos";
 
-"type.landuse.farm" = "Maatila";
-
 "type.landuse.farmland" = "Maatalousmaa";
 
 "type.landuse.farmyard" = "Maatila";
@@ -3819,8 +3817,6 @@
 "type.waterway.river" = "Joki";
 
 "type.waterway.river.tunnel" = "Joki";
-
-"type.waterway.riverbank" = "Joki";
 
 "type.waterway.stream" = "Joki";
 

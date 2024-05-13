@@ -2431,8 +2431,6 @@
 
 "type.landuse.education" = "Instituições educacionais";
 
-"type.landuse.farm" = "Fazenda";
-
 "type.landuse.farmland" = "Campo agrícola";
 
 "type.landuse.farmyard" = "Pátio de fazenda";
@@ -3819,8 +3817,6 @@
 "type.waterway.river" = "Rio";
 
 "type.waterway.river.tunnel" = "Rio";
-
-"type.waterway.riverbank" = "Rio";
 
 "type.waterway.stream" = "Ribeiro";
 

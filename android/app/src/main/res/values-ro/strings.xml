@@ -1898,7 +1898,6 @@
 	<string name="type.waterway.lock_gate">Ecluză</string>
 	<string name="type.waterway.river">Râu</string>
 	<string name="type.waterway.river.tunnel">Râu</string>
-	<string name="type.waterway.riverbank">Râu</string>
 	<string name="type.waterway.stream">Râu</string>
 	<string name="type.waterway.stream.ephemeral">Râu</string>
 	<string name="type.waterway.stream.intermittent">Râu</string>

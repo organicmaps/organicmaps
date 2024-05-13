@@ -2431,8 +2431,6 @@
 
 "type.landuse.education" = "Educational Facility";
 
-"type.landuse.farm" = "Ferma";
-
 "type.landuse.farmland" = "Kənd Təsərrüfatı Torpaqları";
 
 "type.landuse.farmyard" = "Ferma rayonu";
@@ -3819,8 +3817,6 @@
 "type.waterway.river" = "Çay";
 
 "type.waterway.river.tunnel" = "Çay";
-
-"type.waterway.riverbank" = "Çay";
 
 "type.waterway.stream" = "Çay";
 

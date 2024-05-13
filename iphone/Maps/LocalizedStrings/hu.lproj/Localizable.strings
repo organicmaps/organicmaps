@@ -2431,8 +2431,6 @@
 
 "type.landuse.education" = "Educational Facility";
 
-"type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "Termőföld";
 
 "type.landuse.farmyard" = "Farmyard";
@@ -3819,8 +3817,6 @@
 "type.waterway.river" = "Folyó";
 
 "type.waterway.river.tunnel" = "Folyó";
-
-"type.waterway.riverbank" = "Folyó";
 
 "type.waterway.stream" = "Folyó";
 

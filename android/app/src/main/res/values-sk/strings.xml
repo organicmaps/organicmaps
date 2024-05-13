@@ -1388,7 +1388,6 @@
 	<string name="type.landuse.commercial">Komerčná oblasť</string>
 	<string name="type.landuse.construction">Stavenisko</string>
 	<string name="type.landuse.education">Vzdelávacia inštitúcia</string>
-	<string name="type.landuse.farm">Statok</string>
 	<string name="type.landuse.farmland">Poľnohospodárska pôda</string>
 	<string name="type.landuse.farmyard">Poľnohospodárske budovy</string>
 	<string name="type.landuse.field">Pole</string>
@@ -2049,7 +2048,6 @@
 	<string name="type.waterway.lock_gate">Stavidlo</string>
 	<string name="type.waterway.river">Rieka</string>
 	<string name="type.waterway.river.tunnel">Rieka</string>
-	<string name="type.waterway.riverbank">Rieka</string>
 	<string name="type.waterway.stream">Potok</string>
 	<string name="type.waterway.stream.ephemeral">Občasný potok</string>
 	<string name="type.waterway.stream.intermittent">Občasný potok</string>

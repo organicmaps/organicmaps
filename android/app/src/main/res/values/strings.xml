@@ -1459,7 +1459,6 @@
 	<string name="type.landuse.commercial">Commercial Area</string>
 	<string name="type.landuse.construction">Construction Area</string>
 	<string name="type.landuse.education">Educational Facility</string>
-	<string name="type.landuse.farm">Farm</string>
 	<string name="type.landuse.farmland">Farmland</string>
 	<string name="type.landuse.farmyard">Farmyard</string>
 	<string name="type.landuse.field">Field</string>
@@ -2159,7 +2158,6 @@
 	<string name="type.waterway.lock_gate">Lock Gate</string>
 	<string name="type.waterway.river">River</string>
 	<string name="type.waterway.river.tunnel">River</string>
-	<string name="type.waterway.riverbank">River</string>
 	<string name="type.waterway.stream">Stream</string>
 	<string name="type.waterway.stream.ephemeral">Ephemeral Stream</string>
 	<string name="type.waterway.stream.intermittent">Intermittent Stream</string>

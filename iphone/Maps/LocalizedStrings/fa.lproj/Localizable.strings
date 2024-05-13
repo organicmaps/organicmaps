@@ -2431,8 +2431,6 @@
 
 "type.landuse.education" = "Educational Facility";
 
-"type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "زمین کشاورزی";
 
 "type.landuse.farmyard" = "Farmyard";
@@ -3819,8 +3817,6 @@
 "type.waterway.river" = "رودخانه";
 
 "type.waterway.river.tunnel" = "رودخانه";
-
-"type.waterway.riverbank" = "رودخانه";
 
 "type.waterway.stream" = "رودخانه";
 

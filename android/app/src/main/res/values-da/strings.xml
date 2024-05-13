@@ -1863,7 +1863,6 @@
 	<string name="type.waterway.lock_gate">Låseport</string>
 	<string name="type.waterway.river">Flod</string>
 	<string name="type.waterway.river.tunnel">Flod</string>
-	<string name="type.waterway.riverbank">Flod</string>
 	<string name="type.waterway.stream">Flod</string>
 	<string name="type.waterway.stream.ephemeral">Flod</string>
 	<string name="type.waterway.stream.intermittent">Flod</string>

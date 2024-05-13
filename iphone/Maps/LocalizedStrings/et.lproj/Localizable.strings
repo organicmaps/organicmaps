@@ -2431,8 +2431,6 @@
 
 "type.landuse.education" = "Haridusrajatised";
 
-"type.landuse.farm" = "Talu";
-
 "type.landuse.farmland" = "Talumaa";
 
 "type.landuse.farmyard" = "Taluõu";
@@ -3819,8 +3817,6 @@
 "type.waterway.river" = "Jõgi";
 
 "type.waterway.river.tunnel" = "Jõgi";
-
-"type.waterway.riverbank" = "Jõgi";
 
 "type.waterway.stream" = "Oja";
 

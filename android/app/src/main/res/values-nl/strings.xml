@@ -1399,7 +1399,6 @@
 	<string name="type.landuse.commercial">Commercieel gebied</string>
 	<string name="type.landuse.construction">Bouwplaats</string>
 	<string name="type.landuse.education">Educatieve voorzieningen</string>
-	<string name="type.landuse.farm">Boerderij</string>
 	<string name="type.landuse.farmland">Landbouwgrond</string>
 	<string name="type.landuse.farmyard">Boerenerf</string>
 	<string name="type.landuse.field">Veld</string>
@@ -2091,7 +2090,6 @@
 	<string name="type.waterway.lock_gate">Sluisdeur</string>
 	<string name="type.waterway.river">Rivier</string>
 	<string name="type.waterway.river.tunnel">Rivier</string>
-	<string name="type.waterway.riverbank">Rivier</string>
 	<string name="type.waterway.stream">Beek</string>
 	<string name="type.waterway.stream.ephemeral">Rivier</string>
 	<string name="type.waterway.stream.intermittent">Beek</string>

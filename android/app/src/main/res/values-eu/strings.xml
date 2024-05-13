@@ -1982,7 +1982,6 @@
 	<string name="type.waterway.lock_gate">Atea</string>
 	<string name="type.waterway.river">Ibai</string>
 	<string name="type.waterway.river.tunnel">Ibai</string>
-	<string name="type.waterway.riverbank">Ibai</string>
 	<string name="type.waterway.stream">Ibai</string>
 	<string name="type.waterway.stream.ephemeral">Ibai</string>
 	<string name="type.waterway.stream.intermittent">Ibai</string>

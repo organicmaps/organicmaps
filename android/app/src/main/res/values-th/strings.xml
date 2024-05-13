@@ -1887,7 +1887,6 @@
 	<string name="type.waterway.lock_gate">ประตูระบายน้ำ</string>
 	<string name="type.waterway.river">แม่น้ำ</string>
 	<string name="type.waterway.river.tunnel">แม่น้ำ</string>
-	<string name="type.waterway.riverbank">แม่น้ำ</string>
 	<string name="type.waterway.stream">แม่น้ำ</string>
 	<string name="type.waterway.stream.ephemeral">แม่น้ำ</string>
 	<string name="type.waterway.stream.intermittent">แม่น้ำ</string>

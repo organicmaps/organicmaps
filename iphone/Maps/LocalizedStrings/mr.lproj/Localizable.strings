@@ -2431,8 +2431,6 @@
 
 "type.landuse.education" = "शैक्षणिक सुविधा";
 
-"type.landuse.farm" = "शेत";
-
 "type.landuse.farmland" = "शेतजमीन";
 
 "type.landuse.farmyard" = "Farmyard";
@@ -3819,8 +3817,6 @@
 "type.waterway.river" = "नदी";
 
 "type.waterway.river.tunnel" = "नदी";
-
-"type.waterway.riverbank" = "नदी";
 
 "type.waterway.stream" = "नदी";
 

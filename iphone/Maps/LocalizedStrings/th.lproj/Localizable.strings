@@ -2431,8 +2431,6 @@
 
 "type.landuse.education" = "Educational Facility";
 
-"type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "พื้นที่ทำการเกษตร";
 
 "type.landuse.farmyard" = "Farmyard";
@@ -3819,8 +3817,6 @@
 "type.waterway.river" = "แม่น้ำ";
 
 "type.waterway.river.tunnel" = "แม่น้ำ";
-
-"type.waterway.riverbank" = "แม่น้ำ";
 
 "type.waterway.stream" = "แม่น้ำ";
 

@@ -2431,8 +2431,6 @@
 
 "type.landuse.education" = "Educational Facility";
 
-"type.landuse.farm" = "Quinta";
-
 "type.landuse.farmland" = "Campo agrícola";
 
 "type.landuse.farmyard" = "Pátio de quinta";
@@ -3819,8 +3817,6 @@
 "type.waterway.river" = "Rio";
 
 "type.waterway.river.tunnel" = "Rio";
-
-"type.waterway.riverbank" = "Rio";
 
 "type.waterway.stream" = "Ribeiro";
 

@@ -1889,7 +1889,6 @@
 	<string name="type.waterway.lock_gate">수문</string>
 	<string name="type.waterway.river">강</string>
 	<string name="type.waterway.river.tunnel">강</string>
-	<string name="type.waterway.riverbank">강</string>
 	<string name="type.waterway.stream">강</string>
 	<string name="type.waterway.stream.ephemeral">강</string>
 	<string name="type.waterway.stream.intermittent">강</string>

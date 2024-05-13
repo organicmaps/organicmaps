@@ -2431,8 +2431,6 @@
 
 "type.landuse.education" = "Educatieve voorzieningen";
 
-"type.landuse.farm" = "Boerderij";
-
 "type.landuse.farmland" = "Landbouwgrond";
 
 "type.landuse.farmyard" = "Boerenerf";
@@ -3819,8 +3817,6 @@
 "type.waterway.river" = "Rivier";
 
 "type.waterway.river.tunnel" = "Rivier";
-
-"type.waterway.riverbank" = "Rivier";
 
 "type.waterway.stream" = "Beek";
 

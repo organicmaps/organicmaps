@@ -2431,8 +2431,6 @@
 
 "type.landuse.education" = "Instalaciones educativas";
 
-"type.landuse.farm" = "Granja";
-
 "type.landuse.farmland" = "Terreno agrícola";
 
 "type.landuse.farmyard" = "Granja";
@@ -3819,8 +3817,6 @@
 "type.waterway.river" = "Río";
 
 "type.waterway.river.tunnel" = "Río";
-
-"type.waterway.riverbank" = "Río";
 
 "type.waterway.stream" = "Arroyo";
 

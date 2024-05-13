@@ -1395,7 +1395,6 @@
 	<string name="type.landuse.commercial">Kaupallinen alue</string>
 	<string name="type.landuse.construction">Rakennustyömaa</string>
 	<string name="type.landuse.education">Koulutuslaitos</string>
-	<string name="type.landuse.farm">Maatila</string>
 	<string name="type.landuse.farmland">Maatalousmaa</string>
 	<string name="type.landuse.farmyard">Maatila</string>
 	<string name="type.landuse.field">Kenttä</string>
@@ -2018,7 +2017,6 @@
 	<string name="type.waterway.lock_gate">Kanavasulku</string>
 	<string name="type.waterway.river">Joki</string>
 	<string name="type.waterway.river.tunnel">Joki</string>
-	<string name="type.waterway.riverbank">Joki</string>
 	<string name="type.waterway.stream">Joki</string>
 	<string name="type.waterway.stream.ephemeral">Joki</string>
 	<string name="type.waterway.stream.intermittent">Joki</string>

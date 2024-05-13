@@ -2431,8 +2431,6 @@
 
 "type.landuse.education" = "Educational Facility";
 
-"type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "Lahan pertanian";
 
 "type.landuse.farmyard" = "Farmyard";
@@ -3819,8 +3817,6 @@
 "type.waterway.river" = "Sungai";
 
 "type.waterway.river.tunnel" = "Sungai";
-
-"type.waterway.riverbank" = "Sungai";
 
 "type.waterway.stream" = "Sungai";
 

@@ -2431,8 +2431,6 @@
 
 "type.landuse.education" = "Educational Facility";
 
-"type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "Orná půda";
 
 "type.landuse.farmyard" = "Farmyard";
@@ -3819,8 +3817,6 @@
 "type.waterway.river" = "Řeka";
 
 "type.waterway.river.tunnel" = "Řeka";
-
-"type.waterway.riverbank" = "Řeka";
 
 "type.waterway.stream" = "Řeka";
 

@@ -2431,8 +2431,6 @@
 
 "type.landuse.education" = "Educational Facility";
 
-"type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "Teren arabil";
 
 "type.landuse.farmyard" = "Farmyard";
@@ -3819,8 +3817,6 @@
 "type.waterway.river" = "Râu";
 
 "type.waterway.river.tunnel" = "Râu";
-
-"type.waterway.riverbank" = "Râu";
 
 "type.waterway.stream" = "Râu";
 

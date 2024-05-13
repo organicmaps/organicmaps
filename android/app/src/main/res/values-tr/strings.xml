@@ -1403,7 +1403,6 @@
 	<string name="type.landuse.churchyard">Kilise Bölgesi</string>
 	<string name="type.landuse.commercial">Ticari Alan</string>
 	<string name="type.landuse.construction">Yapı</string>
-	<string name="type.landuse.farm">Çiftlik</string>
 	<string name="type.landuse.farmland">Tarım Arazileri</string>
 	<string name="type.landuse.farmyard">Çiftlik Bölgesi</string>
 	<string name="type.landuse.field">Alan</string>
@@ -2090,7 +2089,6 @@
 	<string name="type.waterway.lock_gate">Eklüz Kapağı</string>
 	<string name="type.waterway.river">Nehir</string>
 	<string name="type.waterway.river.tunnel">Nehir</string>
-	<string name="type.waterway.riverbank">Nehir</string>
 	<string name="type.waterway.stream">Nehir</string>
 	<string name="type.waterway.stream.ephemeral">Nehir</string>
 	<string name="type.waterway.stream.intermittent">Nehir</string>

@@ -2431,8 +2431,6 @@
 
 "type.landuse.education" = "Освітній заклади";
 
-"type.landuse.farm" = "Ферма";
-
 "type.landuse.farmland" = "Сільськогосподарська земля";
 
 "type.landuse.farmyard" = "Сільськогосподарська земля";
@@ -3819,8 +3817,6 @@
 "type.waterway.river" = "Річка";
 
 "type.waterway.river.tunnel" = "Річка";
-
-"type.waterway.riverbank" = "Річка";
 
 "type.waterway.stream" = "Річка";
 
