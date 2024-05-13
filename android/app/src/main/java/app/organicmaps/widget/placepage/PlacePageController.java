@@ -18,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import androidx.lifecycle.Observer;
@@ -26,6 +27,8 @@ import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.api.Const;
+import app.organicmaps.bookmarks.ChooseBookmarkCategoryFragment;
+import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.bookmarks.data.RoadWarningMarkType;
@@ -45,12 +48,16 @@ import java.util.List;
 public class PlacePageController extends Fragment implements
                                                   PlacePageView.PlacePageViewListener,
                                                   PlacePageButtons.PlacePageButtonClickListener,
+                                                  PlacePageButtons.PlacePageButtonLongClickListener,
+                                                  ChooseBookmarkCategoryFragment.Listener,
                                                   MenuBottomSheetFragment.MenuBottomSheetInterface,
                                                   Observer<MapObject>
 {
   private static final String TAG = PlacePageController.class.getSimpleName();
   private static final String PLACE_PAGE_BUTTONS_FRAGMENT_TAG = "PLACE_PAGE_BUTTONS";
   private static final String PLACE_PAGE_FRAGMENT_TAG = "PLACE_PAGE";
+  private static final String PLACEPAGE_CATEGORY_SELECTOR_BOTTOM_SHEET = "PLACEPAGE_CATEGORY_SELECTOR_BOTTOM_SHEET";
+
 
   private static final float PREVIEW_PLUS_RATIO = 0.45f;
   private BottomSheetBehavior<View> mPlacePageBehavior;
@@ -70,6 +77,8 @@ public class PlacePageController extends Fragment implements
   @Nullable
   private MapObject mPreviousMapObject;
   private WindowInsetsCompat mCurrentWindowInsets;
+
+  private ChooseBookmarkCategoryFragment chooseBookmarkCategoryFragment;
 
   private boolean mShouldCollapse;
   private int mDistanceToTop;
@@ -113,6 +122,20 @@ public class PlacePageController extends Fragment implements
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
+
+    final FragmentManager manager = getParentFragmentManager();
+    final FragmentFactory factory = manager.getFragmentFactory();
+    String className = ChooseBookmarkCategoryFragment.class.getName();
+    final Bundle args = new Bundle();
+
+    args.putInt(ChooseBookmarkCategoryFragment.CATEGORY_POSITION, 0);
+    chooseBookmarkCategoryFragment =
+            (ChooseBookmarkCategoryFragment) factory.instantiate(getContext().getClassLoader(), className);
+    chooseBookmarkCategoryFragment.onDestroyView();
+    chooseBookmarkCategoryFragment.setArguments(args);
+
+
+
     final FragmentActivity activity = requireActivity();
     mPlacePageRouteSettingsListener = (MwmActivity) activity;
 
@@ -193,8 +216,8 @@ public class PlacePageController extends Fragment implements
     {
       final PlacePageButton bsItem = PlacePageButtonFactory.createButton(currentItems.get(i), requireActivity());
       items.add(new MenuBottomSheetItem(
-          bsItem.getTitle(),
-          bsItem.getIcon(),
+              bsItem.getTitle(),
+              bsItem.getIcon(),
           () -> onPlacePageButtonClick(bsItem.getType())
       ));
     }
@@ -371,6 +394,15 @@ public class PlacePageController extends Fragment implements
     }
   }
 
+  @Override
+  public void onPlacePageButtonLongClick(PlacePageButtons.ButtonType item)
+  {
+    switch (item)
+    {
+      case BOOKMARK_SAVE -> onBookmarkBtnLongClicked();
+    }
+  }
+
   private void onBookmarkBtnClicked()
   {
     // mMapObject is set to null when the place page closes
@@ -382,6 +414,11 @@ public class PlacePageController extends Fragment implements
       Framework.nativeDeleteBookmarkFromMapObject();
     else
       BookmarkManager.INSTANCE.addNewBookmark(mMapObject.getLat(), mMapObject.getLon());
+  }
+
+  private void onBookmarkBtnLongClicked()
+  {
+    chooseBookmarkCategoryFragment.show(getChildFragmentManager(),PLACEPAGE_CATEGORY_SELECTOR_BOTTOM_SHEET);
   }
 
   private void onBackBtnClicked()
@@ -617,6 +654,11 @@ public class PlacePageController extends Fragment implements
     mPlacePageBehavior.removeBottomSheetCallback(mDefaultBottomSheetCallback);
     mViewModel.getMapObject().removeObserver(this);
     mViewModel.getPlacePageDistanceToTop().removeObserver(mPlacePageDistanceToTopObserver);
+  }
+
+  @Override
+  public void onCategoryChanged(@NonNull BookmarkCategory newCategory) {
+    BookmarkManager.INSTANCE.addNewBookmark(mMapObject.getLat(), mMapObject.getLon(), newCategory.getId());
   }
 
   public interface PlacePageRouteSettingsListener

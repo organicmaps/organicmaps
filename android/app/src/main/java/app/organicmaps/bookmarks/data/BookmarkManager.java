@@ -139,6 +139,12 @@ public enum BookmarkManager
     return nativeAddBookmarkToLastEditedCategory(lat, lon);
   }
 
+  @Nullable
+  public Bookmark addNewBookmark(double lat, double lon, long cotegoryId)
+  {
+    return nativeAddBookmark(lat, lon, cotegoryId);
+  }
+
   public void addLoadingListener(@NonNull BookmarksLoadingListener listener)
   {
     mListeners.add(listener);
@@ -815,6 +821,9 @@ public enum BookmarkManager
 
   @Nullable
   private native Bookmark nativeAddBookmarkToLastEditedCategory(double lat, double lon);
+
+  @Nullable
+  private native Bookmark nativeAddBookmark(double lat, double lon, long catedoryId);
 
   @Icon.PredefinedColor
   private native int nativeGetLastEditedColor();

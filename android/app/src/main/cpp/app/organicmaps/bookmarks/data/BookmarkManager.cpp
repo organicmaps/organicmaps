@@ -355,9 +355,7 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeDeleteTrack(
   frm()->GetBookmarkManager().GetEditSession().DeleteTrack(static_cast<kml::TrackId>(trkId));
 }
 
-JNIEXPORT jobject JNICALL
-Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeAddBookmarkToLastEditedCategory(
-    JNIEnv * env, jobject, double lat, double lon)
+jobject AddBookmark(JNIEnv * env, double lat, double lon, long categoryId)
 {
   if (!frm()->HasPlacePageInfo())
     return nullptr;
@@ -370,13 +368,12 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeAddBookmarkToLastEdite
   bmData.m_name = info.FormatNewBookmarkName();
   bmData.m_color.m_predefinedColor = frm()->LastEditedBMColor();
   bmData.m_point = mercator::FromLatLon(lat, lon);
-  auto const lastEditedCategory = frm()->LastEditedBMCategory();
 
   if (info.IsFeature())
     SaveFeatureTypes(info.GetTypes(), bmData);
 
   auto const * createdBookmark = bmMng.GetEditSession().CreateBookmark(std::move(bmData),
-    lastEditedCategory);
+    categoryId);
 
   auto buildInfo = info.GetBuildInfo();
   buildInfo.m_match = place_page::BuildInfo::Match::Everything;
@@ -384,6 +381,23 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeAddBookmarkToLastEdite
   frm()->UpdatePlacePageInfoForCurrentSelection(buildInfo);
 
   return usermark_helper::CreateMapObject(env, g_framework->GetPlacePageInfo());
+}
+JNIEXPORT jobject JNICALL
+Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeAddBookmarkToLastEditedCategory(
+    JNIEnv * env, jobject, double lat, double lon)
+{
+  if (!frm()->HasPlacePageInfo())
+    return nullptr;
+
+  auto const activeCategory = frm()->LastEditedBMCategory();
+  return AddBookmark(env, lat, lon, activeCategory);
+}
+
+JNIEXPORT jobject JNICALL
+Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeAddBookmark(
+    JNIEnv * env, jobject, double lat, double lon, long categoryId)
+{
+  return AddBookmark(env, lat, lon, categoryId);
 }
 
 JNIEXPORT jlong JNICALL
