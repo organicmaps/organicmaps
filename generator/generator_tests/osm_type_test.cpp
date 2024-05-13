@@ -2711,7 +2711,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"waterway", "drain"},
     {"waterway", "lock_gate"},
     {"waterway", "river"},
-    {"waterway", "riverbank"},
     {"waterway", "stream"},
     {"waterway", "waterfall"},
     {"waterway", "weir"},

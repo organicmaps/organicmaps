@@ -9819,7 +9819,7 @@ zh-Hant:水庫
 mr:जलाशय
 
 # Do not add the "water" search term
-waterway-river|waterway-stream|waterway-riverbank|natural-water-river
+waterway-river|waterway-stream|natural-water-river
 en:River|stream|creek|brook
 ru:Река|ручей
 be:Рака|ручай
