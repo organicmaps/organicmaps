@@ -1771,6 +1771,9 @@ node|z17-[amenity=public_bath],
 area|z17-[amenity=public_bath],
 {icon-image: public_bath-m.svg;font-size: 11;}
 
+node|z18-[boundary=marker],
+{icon-image: dot-m.svg;}
+
 /* 6. SHOP */
 
 node|z16-[amenity=marketplace],

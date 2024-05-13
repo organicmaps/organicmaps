@@ -16878,6 +16878,44 @@ cont {
   }
 }
 cont {
+  name: "boundary-marker"
+  element {
+    scale: 16
+    symbol {
+      name: "dot-m"
+      priority: 220
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "dot-m"
+      priority: 220
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "dot-m"
+      priority: 220
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "dot-m"
+      priority: 220
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "dot-m"
+      priority: 220
+    }
+  }
+}
+cont {
   name: "boundary-national_park"
   element {
     scale: 10
