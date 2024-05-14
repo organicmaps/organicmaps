@@ -50,7 +50,6 @@
   </string-array>
 
   <string-array name="track_length">
-    <item>@string/duration_disabled</item>
     <item>@string/duration_1_hour</item>
     <item>@string/duration_2_hours</item>
     <item>@string/duration_6_hours</item>
@@ -59,7 +58,6 @@
   </string-array>
 
   <string-array name="track_length_values">
-    <item>0</item>
     <item>1</item>
     <item>2</item>
     <item>6</item>

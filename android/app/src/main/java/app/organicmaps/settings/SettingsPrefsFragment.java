@@ -104,6 +104,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       {
         startActivity(new Intent(requireActivity(), HelpActivity.class));
       }
+      else if (key.equals(getString(R.string.pref_track_record)))
+      {
+        getSettingsActivity().stackFragment(TrackRecordSettingsFragment.class,"Track Recorder",null);
+      }
     }
     return super.onPreferenceTreeClick(preference);
   }
