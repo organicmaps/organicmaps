@@ -262,44 +262,39 @@ MainWindow::MainWindow(Framework & framework)
   QMenu * fileMenu = new QMenu("File", this);
   menuBar()->addMenu(fileMenu);
 
-  fileMenu->addAction("Open sample", this, &MainWindow::OnOpenTrafficSample,
-                      QKeySequence("Ctrl+O"));
+  fileMenu->addAction("Open sample", QKeySequence("Ctrl+O"), this, &MainWindow::OnOpenTrafficSample);
 
-  m_closeTrafficSampleAction = fileMenu->addAction(
-      "Close sample", this, &MainWindow::OnCloseTrafficSample, QKeySequence("Ctrl+W"));
-  m_saveTrafficSampleAction = fileMenu->addAction(
-      "Save sample", this, &MainWindow::OnSaveTrafficSample, QKeySequence("Ctrl+S"));
+  m_closeTrafficSampleAction = fileMenu->addAction("Close sample", QKeySequence("Ctrl+W"), this, &MainWindow::OnCloseTrafficSample);
+  m_saveTrafficSampleAction = fileMenu->addAction("Save sample", QKeySequence("Ctrl+S"), this, &MainWindow::OnSaveTrafficSample);
 
   fileMenu->addSeparator();
 
-  m_goldifyMatchedPathAction = fileMenu->addAction(
-      "Goldify", [this] { m_trafficMode->GoldifyMatchedPath(); }, QKeySequence("Ctrl+G"));
-  m_startEditingAction = fileMenu->addAction("Edit",
+  m_goldifyMatchedPathAction = fileMenu->addAction("Goldify", QKeySequence("Ctrl+G"), [this] { m_trafficMode->GoldifyMatchedPath(); });
+  m_startEditingAction = fileMenu->addAction("Edit", QKeySequence("Ctrl+E"),
                                              [this] {
                                                m_trafficMode->StartBuildingPath();
                                                m_mapWidget->SetMode(MapWidget::Mode::TrafficMarkup);
                                                m_commitPathAction->setEnabled(true /* enabled */);
                                                m_cancelPathAction->setEnabled(true /* enabled */);
-                                             },
-                                             QKeySequence("Ctrl+E"));
+                                             });
   m_commitPathAction = fileMenu->addAction("Accept path",
+                                           QKeySequence("Ctrl+A"),
                                            [this] {
                                              m_trafficMode->CommitPath();
                                              m_mapWidget->SetMode(MapWidget::Mode::Normal);
-                                           },
-                                           QKeySequence("Ctrl+A"));
+                                           });
   m_cancelPathAction = fileMenu->addAction("Revert path",
+                                           QKeySequence("Ctrl+R"),
                                            [this] {
                                              m_trafficMode->RollBackPath();
                                              m_mapWidget->SetMode(MapWidget::Mode::Normal);
-                                           },
-                                           QKeySequence("Ctrl+R"));
+                                           });
   m_ignorePathAction = fileMenu->addAction("Ignore path",
+                                           QKeySequence("Ctrl+I"),
                                            [this] {
                                              m_trafficMode->IgnorePath();
                                              m_mapWidget->SetMode(MapWidget::Mode::Normal);
-                                           },
-                                           QKeySequence("Ctrl+I"));
+                                           });
 
   m_goldifyMatchedPathAction->setEnabled(false /* enabled */);
   m_closeTrafficSampleAction->setEnabled(false /* enabled */);
