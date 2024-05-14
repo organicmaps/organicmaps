@@ -5,6 +5,7 @@
 
 #include "base/logging.hpp"
 
+#include <cstring>  // strlen
 #include <fstream>
 #include <string>
 #include <vector>
@@ -16,13 +17,13 @@ namespace file_data_test
 
   void MakeFile(std::string const & name)
   {
-    base::FileData f(name, base::FileData::OP_WRITE_TRUNCATE);
+    base::FileData f(name, base::FileData::Op::WRITE_TRUNCATE);
     f.Write(name.c_str(), name.size());
   }
 
   void MakeFile(std::string const & name, size_t const size, const char c)
   {
-    base::FileData f(name, base::FileData::OP_WRITE_TRUNCATE);
+    base::FileData f(name, base::FileData::Op::WRITE_TRUNCATE);
     f.Write(std::string(size, c).c_str(), size);
   }
 
@@ -195,7 +196,7 @@ UNIT_TEST(EmptyFile)
 
   {
     // Create empty file with zero size.
-    FileData f(name, base::FileData::OP_WRITE_TRUNCATE);
+    FileData f(name, base::FileData::Op::WRITE_TRUNCATE);
   }
 
   // Check that empty file is on disk.
@@ -225,11 +226,11 @@ UNIT_TEST(File_StdGetLine)
 {
   std::string const fName = "test.txt";
 
-  for (std::string buffer : { "x\nxy\nxyz\nxyzk", "x\nxy\nxyz\nxyzk\n" })
+  for (char const * buffer : { "x\nxy\nxyz\nxyzk", "x\nxy\nxyz\nxyzk\n" })
   {
     {
-      base::FileData f(fName, base::FileData::OP_WRITE_TRUNCATE);
-      f.Write(buffer.c_str(), buffer.size());
+      base::FileData f(fName, base::FileData::Op::WRITE_TRUNCATE);
+      f.Write(buffer, std::strlen(buffer));
     }
 
     {

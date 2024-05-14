@@ -94,7 +94,7 @@ bool CreateZipFromFiles(std::vector<std::string> const & files, std::vector<std:
       if (zip::Code::Ok != zip::OpenNewFileInZip(zip.Handle(), fileInArchive, fileInfo, "", Z_DEFLATED, compressionLevel))
         return false;
 
-      base::FileData file(filePath, base::FileData::OP_READ);
+      base::FileData file(filePath, base::FileData::Op::READ);
       uint64_t const fileSize = file.Size();
       uint64_t writtenSize = 0;
       std::array<char, zip::kFileBufferSize> buffer;
