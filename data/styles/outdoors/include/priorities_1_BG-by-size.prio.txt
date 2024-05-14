@@ -53,7 +53,7 @@ landuse-cemetery                                    # area z14- (also has icon z
 landuse-cemetery-christian                          # area z14- (also has icon z15-, caption(optional) z15-)
 === 180
 
-highway-pedestrian-area                             # area z14- (also has line z13-, pathtext z14-)
+highway-pedestrian-area                             # area z12- (also has line z13-, pathtext z14-)
 === 170
 
 highway-footway-area                                # area z14- (also has line z11-, pathtext z13-)
@@ -77,7 +77,6 @@ natural-heath                                       # area z12-
 === 120
 
 area:highway-footway                                # area z14- (also has caption z15-)
-area:highway-living_street                          # area z14-
 area:highway-pedestrian                             # area z14- (also has caption z15-)
 public_transport-platform                           # area z16- (also has caption z17-)
 railway-platform                                    # area z16- (also has caption z16-)

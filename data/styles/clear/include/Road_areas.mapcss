@@ -1,0 +1,80 @@
+/* Trunk, Motorway, Motorway Link, Trunk Link */
+
+area|z13-[area:highway=trunk],
+area|z13-[area:highway=motorway],
+{fill-color: @trunk1; opacity: 0.7;}
+area|z14-[area:highway=trunk],
+area|z14-[area:highway=motorway],
+{opacity: 0.85;}
+area|z15-[area:highway=trunk],
+area|z15-[area:highway=motorway],
+{opacity: 1;}
+
+area|z13-[area:highway=motorway_link]
+area|z13-[area:highway=trunk_link]
+{fill-color: @primary0; opacity: 0.85;}
+area|z15-[area:highway=motorway_link]
+area|z15-[area:highway=trunk_link]
+{opacity: 1;}
+
+/* Primary, Primary Link */
+
+line|z11-12[area:highway=primary],
+line|z11-12[area:highway=primary_link]
+{fill-color: @primary1; opacity: 0.7;}
+line|z13-14[area:highway=primary],
+line|z13-14[area:highway=primary_link],
+{fill-color: @primary1; opacity: 0.85;}
+line|z15-[area:highway=primary],
+line|z15-[area:highway=primary_link],
+{fill-color: @primary2; opacity: 1;}
+
+/* Secondary, Secondary Link */
+
+line|z10-12[area:highway=secondary],
+{fill-color: @secondary0; opacity: 0.8;}
+line|z13-14[area:highway=secondary],
+line|z13-14[area:highway=secondary_link],
+{fill-color: @secondary1; opacity: 0.9;}
+line|z15-[area:highway=secondary],
+line|z15-[area:highway=secondary_link],
+{fill-color: @secondary1; opacity: 1;}
+
+/* Tertiary, Tertiary Link */
+
+line|z11-[area:highway=tertiary],
+line|z11-[area:highway=unclassified],
+line|z14-[area:highway=tertiary_link],
+{fill-color: @tertiary; opacity: 0.7;}
+line|z14-15[area:highway=tertiary],
+line|z14-15[area:highway=unclassified],
+line|z15-16[area:highway=tertiary_link],
+{opacity: 0.85;}
+line|z16-[area:highway=tertiary],
+line|z16-[area:highway=unclassified],
+line|z17-[area:highway=tertiary_link],
+{opacity: 1;}
+
+/* Residential */
+
+line|z12-[area:highway=residential],
+line|z12-[area:highway=road],
+line|z12-[area:highway=living_street],
+{fill-color: @residential; opacity: 0.7;}
+line|z14-16[area:highway=residential],
+line|z14-16[area:highway=road],
+line|z14-16[area:highway=living_street],
+{opacity: 0.85;}
+line|z17-[area:highway=residential],
+line|z17-[area:highway=road],
+line|z17-[area:highway=living_street],
+{opacity: 1;}
+
+/* Pedestrian areas */
+
+area|z12-[highway=pedestrian][area],
+{fill-color: @pedestrian_area; opacity: 0.7;}
+area|z14-[highway=pedestrian][area],
+{opacity: 0.85;}
+area|z15-[highway=pedestrian][area],
+{opacity: 1;}

@@ -103,6 +103,8 @@
 @primary1: #5E351D;
 @primary2: #5E351D;
 @secondary0: #3B3939;
+@secondary1: #3B3939;
+@tertiary: #363434;
 @residential: #363434;
 @unclassified: #333131;
 @pedestrian: #4D4744;

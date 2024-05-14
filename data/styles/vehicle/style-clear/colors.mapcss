@@ -18,6 +18,8 @@
 @primary1: #FFAD57;
 @primary2: #FFAD57;
 @secondary0: #FFFFFF;
+@secondary1: #FFFFFF;
+@tertiary: #FCFCFC;
 @residential: #FCFCFC;
 @unclassified: #FCFCFC;
 @pedestrian: #FCFCFC;
