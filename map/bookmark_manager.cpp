@@ -1994,12 +1994,24 @@ void BookmarkManager::LoadBookmark(std::string const & filePath, bool isTemporar
   // Defer bookmark loading in case of another asynchronous process.
   if (!m_loadBookmarksFinished || m_asyncLoadingInProgress)
   {
-    m_bookmarkLoadingQueue.emplace_back(filePath, isTemporaryFile);
+    m_bookmarkLoadingQueue.emplace_back(filePath, isTemporaryFile, false);
     return;
   }
 
   NotifyAboutStartAsyncLoading();
   LoadBookmarkRoutine(filePath, isTemporaryFile);
+}
+
+void BookmarkManager::ReloadBookmark(std::string const & filePath)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (!m_loadBookmarksFinished || m_asyncLoadingInProgress)
+  {
+    m_bookmarkLoadingQueue.emplace_back(filePath, false, true);
+    return;
+  }
+  NotifyAboutStartAsyncLoading();
+  ReloadBookmarkRoutine(filePath);
 }
 
 void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isTemporaryFile)
@@ -2053,6 +2065,36 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
   });
 }
 
+void BookmarkManager::ReloadBookmarkRoutine(std::string const & filePath)
+{
+  GetPlatform().RunTask(Platform::Thread::File, [this, filePath]()
+  {
+    if (m_needTeardown)
+      return;
+
+    auto const ext = GetLowercaseFileExt(filePath);
+    std::unique_ptr<kml::FileData> kmlData;
+    if (ext == kKmlExtension)
+      kmlData = LoadKmlFile(filePath, KmlFileType::Text);
+    else if (ext == kGpxExtension)
+      kmlData = LoadKmlFile(filePath, KmlFileType::Gpx);
+    else
+      ASSERT(false, ("Unsupported bookmarks extension", ext));
+
+    if (m_needTeardown)
+      return;
+
+    auto collection = std::make_shared<KMLDataCollection>();
+    if (kmlData)
+      collection->emplace_back(std::move(filePath), std::move(kmlData));
+
+    if (m_needTeardown)
+      return;
+
+    NotifyAboutFinishAsyncLoading(std::move(collection));
+  });
+}
+
 void BookmarkManager::NotifyAboutStartAsyncLoading()
 {
   if (m_needTeardown)
@@ -2088,7 +2130,10 @@ void BookmarkManager::NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && coll
     if (!m_bookmarkLoadingQueue.empty())
     {
       ASSERT(m_asyncLoadingInProgress, ());
-      LoadBookmarkRoutine(m_bookmarkLoadingQueue.front().m_filename,
+      if (m_bookmarkLoadingQueue.front().m_isReloading)
+        ReloadBookmarkRoutine(m_bookmarkLoadingQueue.front().m_filename);
+      else
+        LoadBookmarkRoutine(m_bookmarkLoadingQueue.front().m_filename,
                           m_bookmarkLoadingQueue.front().m_isTemporaryFile);
       m_bookmarkLoadingQueue.pop_front();
     }
@@ -2296,6 +2341,13 @@ bool BookmarkManager::HasBookmark(kml::MarkId markId) const
   return (GetBookmark(markId) != nullptr);
 }
 
+bool BookmarkManager::HasTrack(kml::TrackId trackId) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  ASSERT(IsBookmark(trackId), ());
+  return (GetTrack(trackId) != nullptr);
+}
+
 void BookmarkManager::UpdateBmGroupIdList()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -2409,7 +2461,7 @@ void BookmarkManager::CheckAndResetLastIds()
     idStorage.ResetTrackId();
 }
 
-bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId)
+bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId, bool deleteFile)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto it = m_categories.find(groupId);
@@ -2419,7 +2471,8 @@ bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId)
   ClearGroup(groupId);
   m_changesTracker.OnDeleteGroup(groupId);
 
-  FileWriter::DeleteFileX(it->second->GetFileName());
+  if (deleteFile)
+    FileWriter::DeleteFileX(it->second->GetFileName());
 
   DeleteCompilations(it->second->GetCategoryData().m_compilationIds);
   m_categories.erase(it);
@@ -3498,7 +3551,7 @@ void BookmarkManager::EditSession::SetCategoryCustomProperty(kml::MarkGroupId ca
 
 bool BookmarkManager::EditSession::DeleteBmCategory(kml::MarkGroupId groupId)
 {
-  return m_bmManager.DeleteBmCategory(groupId);
+  return m_bmManager.DeleteBmCategory(groupId, true);
 }
 
 void BookmarkManager::EditSession::NotifyChanges()
