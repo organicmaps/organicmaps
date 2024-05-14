@@ -6,6 +6,7 @@
 @import("../include/Roads_label.mapcss");
 @import("../include/Icons.mapcss");
 @import("../include/Subways.mapcss");
+@import("../include/Road_areas.mapcss");
 
 colors
 {

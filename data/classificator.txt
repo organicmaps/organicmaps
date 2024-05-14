@@ -187,16 +187,21 @@ world  +
         footway  -
         living_street  -
         motorway  -
+        motorway_link  -
         path  -
         pedestrian  -
         primary  -
+        primary_link  -
         residential  -
         secondary  -
+        secondary_link  -
         service  -
         steps  -
         tertiary  -
+        tertiary_link  -
         track  -
         trunk  -
+        trunk_link  -
         unclassified  -
         {}
     attraction  +

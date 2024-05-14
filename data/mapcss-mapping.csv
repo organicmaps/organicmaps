@@ -1692,3 +1692,8 @@ railway|subway_entrance|singapore;[railway=subway_entrance][city=singapore];;nam
 railway|station|subway|boston;[railway=station][transport=subway][city=boston],[railway=station][station=subway][city=boston];;name;int_name;1596;
 railway|subway_entrance|boston;[railway=subway_entrance][city=boston];;name;int_name;1597;
 leisure|miniature_golf;1598;
+area:highway|motorway_link;1599;
+area:highway|trunk_link;1600;
+area:highway|primary_link;1601;
+area:highway|secondary_link;1602;
+area:highway|tertiary_link;1603;

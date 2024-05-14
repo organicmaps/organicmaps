@@ -7349,7 +7349,7 @@ sw:Jia
 fa:مسیر
 mr:मार्ग
 
-highway-pedestrian|highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-unclassified|highway-motorway_link|highway-motorway|highway-cycleway
+highway-pedestrian|highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-unclassified|highway-motorway_link|highway-motorway|highway-cycleway|area:highway-primary|area:highway-primary_link|area:highway-residential|area:highway-secondary|area:highway-secondary_link|area:highway-tertiary|area:highway-tertiary_link|area:highway-service
 en:Street|Road|Drive|Lane|Avenue
 ru:Улица
 bg:Улица

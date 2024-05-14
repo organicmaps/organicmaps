@@ -1596,3 +1596,8 @@ amenity|recycling|container
 *railway|station|subway|boston
 *railway|subway_entrance|boston
 *leisure|miniature_golf
+*area:highway|motorway_link
+*area:highway|trunk_link
+*area:highway|primary_link
+*area:highway|secondary_link
+*area:highway|tertiary_link
