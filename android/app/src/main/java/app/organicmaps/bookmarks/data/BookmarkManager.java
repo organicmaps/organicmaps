@@ -922,6 +922,8 @@ public enum BookmarkManager
 
   public static native void nativeRemoveElevationActiveChangedListener();
 
+  public static native void nativeAddTrackToLastEditedCategory();
+
   public interface ElevationActivePointChangedListener
   {
     void onElevationActivePointChanged();

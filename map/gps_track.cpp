@@ -351,3 +351,26 @@ void GpsTrack::NotifyCallback(pair<size_t, size_t> const & addedIds, pair<size_t
     m_callback(std::move(toAdd), evictedIds);
   }
 }
+
+std::vector<location::GpsTrackInfo> GpsTrack::getCurrentTrack() const
+{
+  lock_guard<mutex> lg(m_dataGuard);
+  if (!m_collection)
+    return {};
+
+  std::vector<location::GpsTrackInfo> track;
+  m_collection->ForEach([&track](location::GpsTrackInfo const & point, size_t id)->bool
+  {
+   track.emplace_back(point);
+   return true;
+  });
+
+  return track;
+}
+
+bool GpsTrack::IsCollectionInit() const
+{
+  lock_guard<mutex> lg(m_dataGuard);
+  return m_collection != nullptr;
+}
+

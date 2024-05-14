@@ -35,7 +35,7 @@ void MultiGeometry::FromPoints(std::vector<m2::PointD> const & points)
   for (auto const & pt : points)
     line.emplace_back(pt);
 
-  ASSERT(line.size() > 1, ());
+  ASSERT(line.size() > 0, ());
   m_lines.push_back(std::move(line));
 }
 }  // namespace kml

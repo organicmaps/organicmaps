@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,12 +20,14 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
+import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.downloader.MapManager;
 import app.organicmaps.downloader.UpdateInfo;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.log.Logger;
 import app.organicmaps.widget.menu.MyPositionButton;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 import com.google.android.material.badge.BadgeDrawable;
@@ -81,6 +84,15 @@ public class MapButtonsController extends Fragment
     mInnerLeftButtonsFrame = mFrame.findViewById(R.id.map_buttons_inner_left);
     mInnerRightButtonsFrame = mFrame.findViewById(R.id.map_buttons_inner_right);
     mBottomButtonsFrame = mFrame.findViewById(R.id.map_buttons_bottom);
+
+    ImageButton temp_button = mFrame.findViewById(R.id.temp_button);
+    if (temp_button != null)
+    {
+      temp_button.setOnClickListener((v) -> {
+        Logger.i("kavi", "native save bookmarks from java has been called");
+        BookmarkManager.nativeAddTrackToLastEditedCategory();
+      });
+    }
 
     final FloatingActionButton helpButton = mFrame.findViewById(R.id.help_button);
     if (helpButton != null)
