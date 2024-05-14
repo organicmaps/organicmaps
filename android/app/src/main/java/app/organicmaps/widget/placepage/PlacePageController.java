@@ -18,7 +18,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import androidx.lifecycle.Observer;
@@ -27,8 +26,6 @@ import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.api.Const;
-import app.organicmaps.bookmarks.ChooseBookmarkCategoryFragment;
-import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.bookmarks.data.RoadWarningMarkType;
@@ -49,7 +46,6 @@ public class PlacePageController extends Fragment implements
                                                   PlacePageView.PlacePageViewListener,
                                                   PlacePageButtons.PlacePageButtonClickListener,
                                                   PlacePageButtons.PlacePageButtonLongClickListener,
-                                                  ChooseBookmarkCategoryFragment.Listener,
                                                   MenuBottomSheetFragment.MenuBottomSheetInterface,
                                                   Observer<MapObject>
 {
@@ -77,8 +73,6 @@ public class PlacePageController extends Fragment implements
   @Nullable
   private MapObject mPreviousMapObject;
   private WindowInsetsCompat mCurrentWindowInsets;
-
-  private ChooseBookmarkCategoryFragment chooseBookmarkCategoryFragment;
 
   private boolean mShouldCollapse;
   private int mDistanceToTop;
@@ -122,19 +116,6 @@ public class PlacePageController extends Fragment implements
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-
-    final FragmentManager manager = getParentFragmentManager();
-    final FragmentFactory factory = manager.getFragmentFactory();
-    String className = ChooseBookmarkCategoryFragment.class.getName();
-    final Bundle args = new Bundle();
-
-    args.putInt(ChooseBookmarkCategoryFragment.CATEGORY_POSITION, 0);
-    chooseBookmarkCategoryFragment =
-            (ChooseBookmarkCategoryFragment) factory.instantiate(getContext().getClassLoader(), className);
-    chooseBookmarkCategoryFragment.onDestroyView();
-    chooseBookmarkCategoryFragment.setArguments(args);
-
-
 
     final FragmentActivity activity = requireActivity();
     mPlacePageRouteSettingsListener = (MwmActivity) activity;
@@ -218,7 +199,8 @@ public class PlacePageController extends Fragment implements
       items.add(new MenuBottomSheetItem(
               bsItem.getTitle(),
               bsItem.getIcon(),
-          () -> onPlacePageButtonClick(bsItem.getType())
+              () -> onPlacePageButtonClick(bsItem.getType()),
+              () -> onPlacePageButtonLongClick(bsItem.getType())
       ));
     }
     return items;
@@ -418,7 +400,7 @@ public class PlacePageController extends Fragment implements
 
   private void onBookmarkBtnLongClicked()
   {
-    chooseBookmarkCategoryFragment.show(getChildFragmentManager(),PLACEPAGE_CATEGORY_SELECTOR_BOTTOM_SHEET);
+
   }
 
   private void onBackBtnClicked()
@@ -655,12 +637,6 @@ public class PlacePageController extends Fragment implements
     mViewModel.getMapObject().removeObserver(this);
     mViewModel.getPlacePageDistanceToTop().removeObserver(mPlacePageDistanceToTopObserver);
   }
-
-  @Override
-  public void onCategoryChanged(@NonNull BookmarkCategory newCategory) {
-    BookmarkManager.INSTANCE.addNewBookmark(mMapObject.getLat(), mMapObject.getLon(), newCategory.getId());
-  }
-
   public interface PlacePageRouteSettingsListener
   {
     void onPlacePageRequestToggleRouteSettings(@NonNull RoadType roadType);
