@@ -45,7 +45,7 @@ UNIT_TEST(WritableDir)
 
   try
   {
-    base::FileData f(path, base::FileData::OP_WRITE_TRUNCATE);
+    base::FileData f(path, base::FileData::Op::WRITE_TRUNCATE);
   }
   catch (Writer::OpenException const &)
   {

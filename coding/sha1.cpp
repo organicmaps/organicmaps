@@ -18,14 +18,14 @@ namespace coding
 // static
 SHA1::Hash SHA1::Calculate(std::string const & filePath)
 {
-  uint32_t constexpr kFileBufferSize = 8192;
   try
   {
-    base::FileData file(filePath, base::FileData::OP_READ);
+    base::FileData file(filePath, base::FileData::Op::READ);
     uint64_t const fileSize = file.Size();
 
     CSHA1 sha1;
     uint64_t currSize = 0;
+    uint32_t constexpr kFileBufferSize = 8192;
     unsigned char buffer[kFileBufferSize];
     while (currSize < fileSize)
     {
