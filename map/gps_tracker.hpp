@@ -33,4 +33,8 @@ private:
 
   std::atomic<bool> m_enabled;
   GpsTrack m_track;
+
+public:
+  bool IsRecentTrackCollectionInitialized() const;
+  std::vector<location::GpsTrackInfo> GetRecentTrackCollectionTrack() const;
 };

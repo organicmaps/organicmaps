@@ -101,4 +101,7 @@ private:
   bool m_threadExit; // need exit thread
   bool m_threadWakeup; // need wakeup thread
   std::condition_variable m_cv;
+public:
+  std::vector<location::GpsTrackInfo> getCurrentTrack() const;
+  bool IsCollectionInit() const;
 };

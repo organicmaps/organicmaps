@@ -111,3 +111,13 @@ void GpsTracker::OnLocationUpdated(location::GpsInfo const & info)
     return;
   m_track.AddPoint(info);
 }
+
+bool GpsTracker::IsRecentTrackCollectionInitialized() const
+{
+  return m_track.IsCollectionInit();
+}
+
+vector<location::GpsTrackInfo> GpsTracker::GetRecentTrackCollectionTrack() const
+{
+  return m_track.getCurrentTrack();
+}
