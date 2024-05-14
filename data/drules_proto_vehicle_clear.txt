@@ -5643,6 +5643,857 @@ cont {
   }
 }
 cont {
+  name: "area:highway-living_street"
+  element {
+    scale: 12
+    area {
+      color: 16579836
+      priority: 170
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 16579836
+      priority: 170
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 16579836
+      priority: 170
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 16579836
+      priority: 170
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 16579836
+      priority: 170
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 16579836
+      priority: 170
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 16579836
+      priority: 170
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 16579836
+      priority: 170
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 16579836
+      priority: 170
+    }
+  }
+}
+cont {
+  name: "area:highway-motorway"
+  element {
+    scale: 13
+    area {
+      color: 16746306
+      priority: 250
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 16746306
+      priority: 250
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 16746306
+      priority: 250
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 16746306
+      priority: 250
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 16746306
+      priority: 250
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 16746306
+      priority: 250
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 16746306
+      priority: 250
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 16746306
+      priority: 250
+    }
+  }
+}
+cont {
+  name: "area:highway-motorway_link"
+  element {
+    scale: 13
+    area {
+      color: 16746278
+      priority: 168
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 16746278
+      priority: 168
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 16746278
+      priority: 168
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 16746278
+      priority: 168
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 16746278
+      priority: 168
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 16746278
+      priority: 168
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 16746278
+      priority: 168
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 16746278
+      priority: 168
+    }
+  }
+}
+cont {
+  name: "area:highway-primary"
+  element {
+    scale: 11
+    area {
+      color: 16756055
+      priority: 230
+    }
+  }
+  element {
+    scale: 12
+    area {
+      color: 16756055
+      priority: 230
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 16756055
+      priority: 230
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 16756055
+      priority: 230
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 16756055
+      priority: 230
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 16756055
+      priority: 230
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 16756055
+      priority: 230
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 16756055
+      priority: 230
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 16756055
+      priority: 230
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 16756055
+      priority: 230
+    }
+  }
+}
+cont {
+  name: "area:highway-primary_link"
+  element {
+    scale: 11
+    area {
+      color: 16756055
+      priority: 166
+    }
+  }
+  element {
+    scale: 12
+    area {
+      color: 16756055
+      priority: 166
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 16756055
+      priority: 166
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 16756055
+      priority: 166
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 16756055
+      priority: 166
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 16756055
+      priority: 166
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 16756055
+      priority: 166
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 16756055
+      priority: 166
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 16756055
+      priority: 166
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 16756055
+      priority: 166
+    }
+  }
+}
+cont {
+  name: "area:highway-residential"
+  element {
+    scale: 12
+    area {
+      color: 16579836
+      priority: 170
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 16579836
+      priority: 170
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 16579836
+      priority: 170
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 16579836
+      priority: 170
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 16579836
+      priority: 170
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 16579836
+      priority: 170
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 16579836
+      priority: 170
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 16579836
+      priority: 170
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 16579836
+      priority: 170
+    }
+  }
+}
+cont {
+  name: "area:highway-secondary"
+  element {
+    scale: 10
+    area {
+      color: 16777215
+      priority: 210
+    }
+  }
+  element {
+    scale: 11
+    area {
+      color: 16777215
+      priority: 210
+    }
+  }
+  element {
+    scale: 12
+    area {
+      color: 16777215
+      priority: 210
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 16777215
+      priority: 210
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 16777215
+      priority: 210
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 16777215
+      priority: 210
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 16777215
+      priority: 210
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 16777215
+      priority: 210
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 16777215
+      priority: 210
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 16777215
+      priority: 210
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 16777215
+      priority: 210
+    }
+  }
+}
+cont {
+  name: "area:highway-secondary_link"
+  element {
+    scale: 13
+    area {
+      color: 16777215
+      priority: 164
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 16777215
+      priority: 164
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 16777215
+      priority: 164
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 16777215
+      priority: 164
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 16777215
+      priority: 164
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 16777215
+      priority: 164
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 16777215
+      priority: 164
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 16777215
+      priority: 164
+    }
+  }
+}
+cont {
+  name: "area:highway-tertiary"
+  element {
+    scale: 11
+    area {
+      color: 16579836
+      priority: 190
+    }
+  }
+  element {
+    scale: 12
+    area {
+      color: 16579836
+      priority: 190
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 16579836
+      priority: 190
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 16579836
+      priority: 190
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 16579836
+      priority: 190
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 16579836
+      priority: 190
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 16579836
+      priority: 190
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 16579836
+      priority: 190
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 16579836
+      priority: 190
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 16579836
+      priority: 190
+    }
+  }
+}
+cont {
+  name: "area:highway-tertiary_link"
+  element {
+    scale: 14
+    area {
+      color: 16579836
+      priority: 162
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 16579836
+      priority: 162
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 16579836
+      priority: 162
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 16579836
+      priority: 162
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 16579836
+      priority: 162
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 16579836
+      priority: 162
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 16579836
+      priority: 162
+    }
+  }
+}
+cont {
+  name: "area:highway-trunk"
+  element {
+    scale: 13
+    area {
+      color: 16746306
+      priority: 250
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 16746306
+      priority: 250
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 16746306
+      priority: 250
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 16746306
+      priority: 250
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 16746306
+      priority: 250
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 16746306
+      priority: 250
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 16746306
+      priority: 250
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 16746306
+      priority: 250
+    }
+  }
+}
+cont {
+  name: "area:highway-trunk_link"
+  element {
+    scale: 13
+    area {
+      color: 16746278
+      priority: 168
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 16746278
+      priority: 168
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 16746278
+      priority: 168
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 16746278
+      priority: 168
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 16746278
+      priority: 168
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 16746278
+      priority: 168
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 16746278
+      priority: 168
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 16746278
+      priority: 168
+    }
+  }
+}
+cont {
+  name: "area:highway-unclassified"
+  element {
+    scale: 11
+    area {
+      color: 16579836
+      priority: 190
+    }
+  }
+  element {
+    scale: 12
+    area {
+      color: 16579836
+      priority: 190
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 16579836
+      priority: 190
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 16579836
+      priority: 190
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 16579836
+      priority: 190
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 16579836
+      priority: 190
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 16579836
+      priority: 190
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 16579836
+      priority: 190
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 16579836
+      priority: 190
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 16579836
+      priority: 190
+    }
+  }
+}
+cont {
   name: "barrier-border_control"
   element {
     scale: 14
@@ -12246,14 +13097,60 @@ cont {
 cont {
   name: "highway-pedestrian-area"
   element {
+    scale: 12
+    area {
+      color: 15591638
+      priority: 130
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 15591638
+      priority: 130
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 15591638
+      priority: 130
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 15591638
+      priority: 130
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 15591638
+      priority: 130
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 15591638
+      priority: 130
+    }
+  }
+  element {
     scale: 18
     lines {
       width: 2.0
-      color: 1308425468
+      color: 16579836
       dashdot {
         dd: 7.0
         dd: 3.0
       }
+      priority: 130
+    }
+    area {
+      color: 15591638
       priority: 130
     }
   }
@@ -12261,11 +13158,15 @@ cont {
     scale: 19
     lines {
       width: 2.0
-      color: 1308425468
+      color: 16579836
       dashdot {
         dd: 7.0
         dd: 3.0
       }
+      priority: 130
+    }
+    area {
+      color: 15591638
       priority: 130
     }
   }
@@ -12273,11 +13174,15 @@ cont {
     scale: 20
     lines {
       width: 2.0
-      color: 1308425468
+      color: 16579836
       dashdot {
         dd: 7.0
         dd: 3.0
       }
+      priority: 130
+    }
+    area {
+      color: 15591638
       priority: 130
     }
   }
