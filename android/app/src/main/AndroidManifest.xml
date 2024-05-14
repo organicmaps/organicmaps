@@ -451,6 +451,13 @@
         android:enabled="true"
         android:stopWithTask="false"/>
 
+    <service android:name=".location.TrackRecordingService"
+      android:foregroundServiceType="location"
+      android:exported="false"
+      android:enabled="true"
+      android:stopWithTask="false"
+      />
+
     <provider
       android:name="androidx.core.content.FileProvider"
       android:authorities="${FILE_PROVIDER_PLACEHOLDER}"
