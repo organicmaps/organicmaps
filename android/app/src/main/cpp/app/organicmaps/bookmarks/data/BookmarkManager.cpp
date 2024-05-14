@@ -400,6 +400,15 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeAddBookmark(
   return AddBookmark(env, lat, lon, categoryId);
 }
 
+JNIEXPORT jstring JNICALL
+Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeGetNewBookmarkName(
+    JNIEnv * env, jobject)
+{
+  place_page::Info const & info = g_framework->GetPlacePageInfo();
+  std::string newName = GetPreferredBookmarkStr(info.FormatNewBookmarkName());
+  return jni::ToJavaString(env,newName);
+}
+
 JNIEXPORT jlong JNICALL
 Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeGetLastEditedCategory(
       JNIEnv *, jobject)

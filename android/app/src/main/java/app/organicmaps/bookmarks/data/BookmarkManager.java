@@ -145,6 +145,18 @@ public enum BookmarkManager
     return nativeAddBookmark(lat, lon, cotegoryId);
   }
 
+  @Nullable
+  public long getLastEditedCategory()
+  {
+    return nativeGetLastEditedCategory();
+  }
+
+  @Nullable
+  public String getNewBookmarkName()
+  {
+    return nativeGetNewBookmarkName();
+  }
+
   public void addLoadingListener(@NonNull BookmarksLoadingListener listener)
   {
     mListeners.add(listener);
@@ -417,6 +429,10 @@ public enum BookmarkManager
 
   @Icon.PredefinedColor
   public int getLastEditedColor() { return nativeGetLastEditedColor(); }
+
+  public Icon getIconByColor(int colorId) {
+    return ICONS.stream().filter(icon -> icon.getColor()==colorId).findFirst().orElse(null);
+  }
 
   @MainThread
   public void loadBookmarksFile(@NonNull String path, boolean isTemporaryFile)
@@ -824,6 +840,12 @@ public enum BookmarkManager
 
   @Nullable
   private native Bookmark nativeAddBookmark(double lat, double lon, long catedoryId);
+
+  @Nullable
+  private native String nativeGetNewBookmarkName();
+
+  @Nullable
+  private native long nativeGetLastEditedCategory();
 
   @Icon.PredefinedColor
   private native int nativeGetLastEditedColor();

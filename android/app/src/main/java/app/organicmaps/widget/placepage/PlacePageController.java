@@ -37,6 +37,8 @@ import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.util.log.Logger;
+import app.organicmaps.widget.placepage.sections.PlacePageBookmarkFragment;
+
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.ArrayList;
@@ -47,6 +49,7 @@ public class PlacePageController extends Fragment implements
                                                   PlacePageButtons.PlacePageButtonClickListener,
                                                   PlacePageButtons.PlacePageButtonLongClickListener,
                                                   MenuBottomSheetFragment.MenuBottomSheetInterface,
+                                                  EditBookmarkFragment.EditBookmarkListener,
                                                   Observer<MapObject>
 {
   private static final String TAG = PlacePageController.class.getSimpleName();
@@ -400,7 +403,11 @@ public class PlacePageController extends Fragment implements
 
   private void onBookmarkBtnLongClicked()
   {
-
+      final FragmentActivity activity = requireActivity();
+      EditBookmarkFragment.createBookmark(mMapObject.getLat(), mMapObject.getLon(),
+              activity,
+              activity.getSupportFragmentManager(),
+              this);
   }
 
   private void onBackBtnClicked()
@@ -637,6 +644,12 @@ public class PlacePageController extends Fragment implements
     mViewModel.getMapObject().removeObserver(this);
     mViewModel.getPlacePageDistanceToTop().removeObserver(mPlacePageDistanceToTopObserver);
   }
+
+  @Override
+  public void onBookmarkSaved(long bookmarkId, boolean movedFromCategory) {
+
+  }
+
   public interface PlacePageRouteSettingsListener
   {
     void onPlacePageRequestToggleRouteSettings(@NonNull RoadType roadType);
