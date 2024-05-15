@@ -90,6 +90,8 @@ public class TrackRecordingService extends Service implements LocationListener
   public void onDestroy()
   {
     mNotificationBuilder = null;
+    LocationHelper.from(this).removeListener(this);
+    if(TrackRecorder.nativeIsEnabled()) TrackRecorder.nativeSetEnabled(false);
     // The notification is cancelled automatically by the system.
   }
 
@@ -141,7 +143,7 @@ public class TrackRecordingService extends Service implements LocationListener
     // Subscribe to location updates. This call is idempotent.
     locationHelper.addListener(this);
 
-    // Restart the location with more frequent refresh interval for navigation.
+    // Restart the location with more frequent refresh interval for Track Recording.
     locationHelper.restartWithNewMode();
 
     return START_NOT_STICKY;
