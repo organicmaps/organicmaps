@@ -400,7 +400,12 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_readManager->Allow3dBuildings(msg->Allow3dBuildings());
       break;
     }
-
+  case Message::Type::SetMapLocale:
+    {
+      ref_ptr<SetMapLocaleMessage> msg = message;
+      m_readManager->SetMapLocale(msg->MapLocale());
+      break;
+    }
   case Message::Type::RequestSymbolsSize:
     {
       ref_ptr<RequestSymbolsSizeMessage> msg = message;

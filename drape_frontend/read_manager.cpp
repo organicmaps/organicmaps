@@ -54,6 +54,7 @@ ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider 
   , m_counter(0)
   , m_generationCounter(0)
   , m_userMarksGenerationCounter(0)
+  , m_mapLocale("en")
 {
   Start();
 }
@@ -236,7 +237,7 @@ void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey,
                                                m_commutator, texMng, metalineMng,
                                                m_customFeaturesContext,
                                                m_have3dBuildings && m_allow3dBuildings,
-                                               m_trafficEnabled, m_isolinesEnabled);
+                                               m_trafficEnabled, m_isolinesEnabled, m_mapLocale);
   std::shared_ptr<TileInfo> tileInfo = std::make_shared<TileInfo>(std::move(context));
   m_tileInfos.insert(tileInfo);
 
@@ -319,6 +320,17 @@ void ReadManager::Allow3dBuildings(bool allow3dBuildings)
   {
     m_modeChanged = true;
     m_allow3dBuildings = allow3dBuildings;
+    
+  }
+}
+
+void ReadManager::SetMapLocale(const std::string& locale)
+{
+  if (m_mapLocale != locale)
+  {
+    m_modeChanged = true;
+    m_mapLocale = locale;
+    
   }
 }
 

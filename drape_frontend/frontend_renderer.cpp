@@ -166,6 +166,7 @@ FrontendRenderer::FrontendRenderer(Params && params)
   , m_blockTapEvents(params.m_blockTapEvents)
   , m_choosePositionMode(false)
   , m_screenshotMode(params.m_myPositionParams.m_hints.m_screenshotMode)
+  , m_mapLocale("en")
   , m_viewport(params.m_viewport)
   , m_modelViewChangedHandler(std::move(params.m_modelViewChangedHandler))
   , m_tapEventInfoHandler(std::move(params.m_tapEventHandler))
@@ -759,6 +760,17 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         {
           AddUserEvent(make_unique_dp<SetAutoPerspectiveEvent>(m_enablePerspectiveInNavigation));
         }
+      }
+      break;
+    }
+  case Message::Type::SetMapLocale:
+    {
+      ref_ptr<SetMapLocaleMessage> const msg = message;
+
+      if (m_mapLocale != msg->MapLocale())
+      {
+        m_mapLocale = msg->MapLocale();
+        m_forceUpdateScene = true;
       }
       break;
     }

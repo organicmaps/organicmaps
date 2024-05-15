@@ -450,6 +450,21 @@ void Framework::Get3dMode(bool & allow3d, bool & allow3dBuildings)
   m_work.Load3dMode(allow3d, allow3dBuildings);
 }
 
+void Framework::SaveMapLocale(const std::string& locale)
+{
+  m_work.SaveMapLocale(locale);
+}
+
+void Framework::SetMapLocale(const std::string& locale)
+{
+  m_work.SetMapLocale(locale);
+}
+
+void Framework::LoadMapLocale(std::string& locale)
+{
+  m_work.LoadMapLocale(locale);
+}
+
 void Framework::SetChoosePositionMode(ChoosePositionMode mode, bool isBusiness,
                                       bool hasPosition, m2::PointD const & position)
 {

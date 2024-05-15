@@ -672,6 +672,11 @@ public:
   void Save3dMode(bool allow3d, bool allow3dBuildings);
   void Load3dMode(bool & allow3d, bool & allow3dBuildings);
 
+  void SetMapLocale(const std::string& locale);
+  void SaveMapLocale(const std::string& locale);
+  void LoadMapLocale(std::string& locale);
+
+
   void SetLargeFontsSize(bool isLargeSize);
   bool LoadLargeFontsSize();
 

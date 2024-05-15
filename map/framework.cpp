@@ -107,6 +107,7 @@ char const kLargeFontsSize[] = "LargeFontsSize";
 char const kTranslitMode[] = "TransliterationMode";
 char const kPreferredGraphicsAPI[] = "PreferredGraphicsAPI";
 char const kShowDebugInfo[] = "DebugInfo";
+char const kMapLocale[] = "MapLocale";
 
 auto constexpr kLargeFontsScaleFactor = 1.6;
 size_t constexpr kMaxTrafficCacheSizeBytes = 64 /* Mb */ * 1024 * 1024;
@@ -1495,6 +1496,9 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   bool allow3dBuildings;
   Load3dMode(allow3d, allow3dBuildings);
 
+  std::string mapLocale;
+  LoadMapLocale(mapLocale);
+
   auto const isAutozoomEnabled = LoadAutoZoom();
 
   auto const trafficEnabled = m_trafficManager.IsEnabled();
@@ -1538,6 +1542,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   OnSize(params.m_surfaceWidth, params.m_surfaceHeight);
 
   Allow3dMode(allow3d, allow3dBuildings);
+
+  SetMapLocale(mapLocale);
 
   LoadViewport();
 
@@ -2355,6 +2361,25 @@ void Framework::SaveTransliteration(bool allowTranslit)
 {
   settings::Set(kTranslitMode, allowTranslit ? Transliteration::Mode::Enabled
                                              : Transliteration::Mode::Disabled);
+}
+
+void Framework::SetMapLocale(const std::string& locale)
+{
+  if (m_drapeEngine == nullptr)
+    return;
+
+  m_drapeEngine->SetMapLocale(locale);
+}
+
+void Framework::SaveMapLocale(const std::string& locale)
+{
+  settings::Set(kMapLocale, locale);
+}
+
+void Framework::LoadMapLocale(std::string& locale)
+{
+  if (!settings::Get(kMapLocale, locale))
+    locale = languages::GetCurrentNorm();
 }
 
 void Framework::Allow3dMode(bool allow3d, bool allow3dBuildings)

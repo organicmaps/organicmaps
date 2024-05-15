@@ -3,6 +3,7 @@ package app.organicmaps.editor;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import app.organicmaps.base.BaseMwmRecyclerFragment;
 import app.organicmaps.editor.data.Language;
@@ -24,12 +25,16 @@ public class LanguagesFragment extends BaseMwmRecyclerFragment<LanguagesAdapter>
     void onLanguageSelected(Language language);
   }
 
+  private Listener listener;
+
   @NonNull
   @Override
   protected LanguagesAdapter createAdapter()
   {
     Bundle args = getArguments();
-    Set<String> existingLanguages = new HashSet<>(args.getStringArrayList(EXISTING_LOCALIZED_NAMES));
+    Set<String> existingLanguages = args != null
+            ? new HashSet<>(args.getStringArrayList(EXISTING_LOCALIZED_NAMES))
+            : new HashSet<>();
 
     List<Language> languages = new ArrayList<>();
     for (Language lang : Editor.nativeGetSupportedLanguages())
@@ -43,9 +48,16 @@ public class LanguagesFragment extends BaseMwmRecyclerFragment<LanguagesAdapter>
     return new LanguagesAdapter(this, languages.toArray(new Language[languages.size()]));
   }
 
+  public void setListener(Listener listener) {
+    this.listener = listener;
+  }
+
   protected void onLanguageSelected(Language language)
   {
-    if (getParentFragment() instanceof Listener)
-      ((Listener) getParentFragment()).onLanguageSelected(language);
+    Fragment parent = getParentFragment();
+    if (parent instanceof Listener)
+      ((Listener) parent).onLanguageSelected(language);
+    if (listener != null)
+      listener.onLanguageSelected(language);
   }
 }
