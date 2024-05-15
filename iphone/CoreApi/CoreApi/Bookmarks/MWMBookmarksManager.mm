@@ -339,6 +339,11 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
   return !self.bm.IsUsedCategoryName(name.UTF8String);
 }
 
+- (BOOL)hasBookmark:(MWMMarkID)bookmarkId
+{
+  return self.bm.HasBookmark(bookmarkId);
+}
+
 - (NSArray<NSNumber *> *)availableSortingTypes:(MWMMarkGroupID)groupId hasMyPosition:(BOOL)hasMyPosition{
   auto const availableTypes = self.bm.GetAvailableSortingTypes(groupId, hasMyPosition);
   NSMutableArray *result = [NSMutableArray array];

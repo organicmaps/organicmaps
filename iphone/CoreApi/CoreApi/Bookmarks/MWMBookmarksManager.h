@@ -61,6 +61,7 @@ NS_SWIFT_NAME(BookmarksManager)
 - (void)setUserCategoriesVisible:(BOOL)isVisible;
 - (void)deleteCategory:(MWMMarkGroupID)groupId;
 - (BOOL)checkCategoryName:(NSString *)name;
+- (BOOL)hasBookmark:(MWMMarkID)bookmarkId;
 - (NSArray<NSNumber *> *)availableSortingTypes:(MWMMarkGroupID)groupId hasMyPosition:(BOOL)hasMyPosition;
 - (void)sortBookmarks:(MWMMarkGroupID)groupId
           sortingType:(MWMBookmarksSortingType)sortingType
