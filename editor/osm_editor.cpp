@@ -647,6 +647,7 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags,
               else
               {
                 LOG(LDEBUG, ("Create case: uploading patched feature", osmFeature));
+                changeset.AddChangesetTag("info:features_merged", "yes");
                 changeset.Modify(osmFeature);
               }
             }

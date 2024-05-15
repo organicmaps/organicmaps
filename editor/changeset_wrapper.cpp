@@ -236,6 +236,11 @@ void ChangesetWrapper::Modify(editor::XMLFeature node)
   m_modified_types[GetTypeForFeature(node)]++;
 }
 
+void ChangesetWrapper::AddChangesetTag(std::string key, std::string value)
+{
+  m_changesetComments.emplace(std::move(key), std::move(value));
+}
+
 void ChangesetWrapper::Delete(editor::XMLFeature node)
 {
   if (m_changesetId == kInvalidChangesetId)
