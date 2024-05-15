@@ -28,7 +28,7 @@
 *railway|rail
 *highway|service|parking_aisle
 *place|hamlet
-*highway|road
+highway|road
 highway|track
 *natural|wetland
 highway|track
@@ -408,7 +408,7 @@ tourism|museum
 *leisure|track|area
 *railway|monorail
 *railway|rail|highspeed
-mapswithme
+*highway|road
 *leisure|park|private
 *healthcare|physiotherapist
 *noexit
