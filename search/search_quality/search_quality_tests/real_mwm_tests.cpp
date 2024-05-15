@@ -1316,4 +1316,71 @@ UNIT_CLASS_TEST(MwmTestsFixture, CityWithCountry)
   }
 }
 
+UNIT_CLASS_TEST(MwmTestsFixture, UK_Postcodes)
+{
+  using namespace mercator;
+
+  auto const & cl = classif();
+
+  // "UK_Scotland_South", "UK_England_South East_Brighton" should present!
+  RegisterLocalMapsByPrefix("UK_");
+
+  // London
+  ms::LatLon const center(51.5074515, -0.1277805);
+  SetViewportAndLoadMaps(center);
+
+  {
+    auto request = MakeRequest("G4 9HS");
+    auto const & results = request->Results();
+    TEST(!results.empty(), ());
+
+    TEST_EQUAL(results[0].GetResultType(), search::Result::Type::Postcode, ());
+    TEST(FromLatLon({55.8735083, -4.2764288}).EqualDxDy(results[0].GetFeatureCenter(), kPointEqualityEps), ());
+  }
+
+  {
+    auto request = MakeRequest("Nero G4 9HS");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+
+    TEST_EQUAL(results[0].GetResultType(), search::Result::Type::Feature, ());
+    /// @todo We should rank POIs that are closest to the Postcode on top!
+    // TEST(FromLatLon({55.8736446, -4.2768748}).EqualDxDy(results[0].GetFeatureCenter(), kPointEqualityEps), ());
+    TEST_EQUAL(results[0].GetFeatureType(), cl.GetTypeByPath({"amenity", "cafe"}), ());
+  }
+
+  std::string const houseName = "St. Nicholas Lodge";
+  {
+    auto request = MakeRequest("BN1 3LJ " + houseName);
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+
+    TEST_EQUAL(results[0].GetResultType(), search::Result::Type::Feature, ());
+    TEST_EQUAL(results[0].GetString(), houseName, ());
+  }
+  {
+    auto request = MakeRequest("BN3 " + houseName);
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+
+    TEST_EQUAL(results[0].GetResultType(), search::Result::Type::Feature, ());
+    TEST_EQUAL(results[0].GetString(), houseName, ());
+  }
+}
+
+UNIT_CLASS_TEST(MwmTestsFixture, UK_Postcodes_Timing)
+{
+  using namespace std::chrono;
+
+  ms::LatLon const center(50.8214626, -0.1400561);
+  SetViewportAndLoadMaps(center);
+
+  {
+    auto request = MakeRequest("bn1 butterfly");
+    auto const & results = request->Results();
+    TEST(!results.empty(), ());
+    TEST_LESS(duration_cast<seconds>(request->ResponseTime()).count(), 3, ());
+  }
+}
+
 } // namespace real_mwm_tests
