@@ -1,5 +1,7 @@
 #include "platform/preferred_languages.hpp"
 
+#include "coding/string_utf8_multilang.hpp"
+
 #include "base/buffer_vector.hpp"
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
