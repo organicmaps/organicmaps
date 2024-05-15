@@ -26,6 +26,7 @@ import app.organicmaps.display.DisplayManager;
 import app.organicmaps.downloader.CountryItem;
 import app.organicmaps.downloader.MapManager;
 import app.organicmaps.location.LocationHelper;
+import app.organicmaps.location.LocationListener;
 import app.organicmaps.location.LocationState;
 import app.organicmaps.location.SensorHelper;
 import app.organicmaps.location.TrackRecorder;
@@ -38,8 +39,10 @@ import app.organicmaps.routing.RoutingController;
 import app.organicmaps.search.SearchEngine;
 import app.organicmaps.settings.StoragePathManager;
 import app.organicmaps.sound.TtsPlayer;
+import app.organicmaps.util.AppStateListener;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.ConnectionState;
+import app.organicmaps.util.Listeners;
 import app.organicmaps.util.SharedPropertiesUtils;
 import app.organicmaps.util.StorageUtils;
 import app.organicmaps.util.ThemeSwitcher;
@@ -50,6 +53,8 @@ import app.organicmaps.util.log.LogsManager;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class MwmApplication extends Application implements Application.ActivityLifecycleCallbacks
@@ -79,6 +84,7 @@ public class MwmApplication extends Application implements Application.ActivityL
 
   private volatile boolean mFrameworkInitialized;
   private volatile boolean mPlatformInitialized;
+  private final Listeners<AppStateListener> mAppStateListeners = new Listeners<>();
 
   private Handler mMainLoopHandler;
   private final Object mMainQueueToken = new Object();
@@ -351,11 +357,25 @@ public class MwmApplication extends Application implements Application.ActivityL
 
     nativeOnTransit(true);
 
-    mLocationHelper.resumeLocationInForeground();
+    Iterator<AppStateListener> listenerIterator = mAppStateListeners.iterator();
+    while(listenerIterator.hasNext())
+    {
+      AppStateListener listener = listenerIterator.next();
+      listener.onAppForeground();
+    }
+    mAppStateListeners.finishIterate();
   }
 
   private void onBackground()
   {
+    Iterator<AppStateListener> listenerIterator = mAppStateListeners.iterator();
+    while(listenerIterator.hasNext())
+    {
+      AppStateListener listener = listenerIterator.next();
+      listener.onAppBackround();
+    }
+    mAppStateListeners.finishIterate();
+
     Logger.d(TAG);
 
     nativeOnTransit(false);
@@ -397,5 +417,15 @@ public class MwmApplication extends Application implements Application.ActivityL
 
     @Override
     public void onProgress(String countryId, long localSize, long remoteSize) {}
+  }
+
+  public void addListener(AppStateListener listener)
+  {
+    mAppStateListeners.register(listener);
+  }
+
+  public void removeListener(AppStateListener listener)
+  {
+    mAppStateListeners.unregister(listener);
   }
 }

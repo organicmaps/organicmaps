@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+  <SwitchPreferenceCompat
+    android:key="@string/pref_recent_track"
+    android:title="Record Recent Track"
+    android:order="1"/>
+  <ListPreference
+    android:key="@string/pref_track_record_time"
+    android:title="Record time"
+    app:singleLineTitle="false"
+    android:summary="Select duration for which recorded point will be shown on map"
+    android:entries="@array/track_length"
+    android:entryValues="@array/track_length_values"
+    android:order="2"/>
+
+</androidx.preference.PreferenceScreen>
