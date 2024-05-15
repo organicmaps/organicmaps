@@ -450,6 +450,16 @@ void Framework::Get3dMode(bool & allow3d, bool & allow3dBuildings)
   m_work.Load3dMode(allow3d, allow3dBuildings);
 }
 
+void Framework::SetMapLanguageCode(std::string const & languageCode)
+{
+  m_work.SetMapLanguageCode(languageCode);
+}
+
+std::string Framework::GetMapLanguageCode()
+{
+  return m_work.GetMapLanguageCode();
+}
+
 void Framework::SetChoosePositionMode(ChoosePositionMode mode, bool isBusiness, m2::PointD const * optionalPosition)
 {
   m_isChoosePositionMode = mode;

@@ -450,7 +450,7 @@ void CheckPlace(Framework const & fm, std::shared_ptr<MwmInfo> const & mwmInfo, 
   auto const info = fm.GetAddressAtPoint(mercator::FromLatLon(lat, lon));
 
   feature::NameParamsOut out;
-  feature::GetReadableName({ streetNames, mwmInfo->GetRegionData(), languages::GetCurrentNorm(),
+  feature::GetReadableName({ streetNames, mwmInfo->GetRegionData(), languages::GetCurrentMapLanguage(),
                              false /* allowTranslit */ }, out);
 
   TEST_EQUAL(info.GetStreetName(), out.primary, ());

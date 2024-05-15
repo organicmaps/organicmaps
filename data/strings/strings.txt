@@ -29112,6 +29112,42 @@
     zh-Hans = 启用后，即使设备已锁定，应用程序仍将在锁屏上运行。
     zh-Hant = 啟用後，即使裝置已鎖定，應用程式仍會在鎖定螢幕上運作。
 
+  [change_map_locale]
+    tags = android
+    comment = Current language of the map!
+    en = Map language
+    af = Kaarttaal
+    ar = لغة الخريطة
+    az = Xəritə dili
+    be = Мова карты
+    ca = Idioma del mapa
+    cs = Jazyk mapy
+    de = Karten-Sprache
+    el = Γλώσσα χάρτη
+    es = Idioma del mapa
+    et = Kaardikeel
+    eu = Maparen hizkuntza
+    fi = Karttakieli
+    fr = Langue de la carte
+    he = שפת המפה
+    hi = मानचित्र भाषा
+    hu = Térkép nyelve
+    it = Lingua della mappa
+    ja = マップ言語
+    lt = Žemėlapio kalba
+    mr = नकाशाची भाषा
+    nb = Kart-språk
+    nl = Kaarttaal
+    pl = Język mapy
+    pt-BR = Idioma do mapa
+    ro = Limbă hartă
+    ru = Язык карты
+    sk = Jazyk mapy
+    tr = Harita dili
+    uk = Мова карти
+    zh-Hans = 地图语言
+    zh-Hant = 地圖語言
+
   [whats_new_auto_update_title]
     comment = Autoupdate dialog on start
     tags = ios

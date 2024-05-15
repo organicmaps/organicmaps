@@ -13,6 +13,8 @@ extern char const * kMeasurementUnits;
 
 extern char const * kDeveloperMode;
 
+extern char const * kMapLanguageCode;
+
 template <class T>
 bool FromString(std::string const & str, T & outValue);
 

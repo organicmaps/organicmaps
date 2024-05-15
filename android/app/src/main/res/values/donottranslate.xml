@@ -40,6 +40,7 @@
   <string name="pref_power_management" translatable="false">PowerManagment</string>
   <string name="pref_keep_screen_on" translatable="false">KeepScreenOn</string>
   <string name="pref_show_on_lock_screen" translatable="false">ShowOnLockScreen</string>
+  <string name="pref_map_locale" translatable="false">MapLanguage</string>
 
   <string name="notification_ticker_ltr" translatable="false">%1$s: %2$s</string>
   <string name="notification_ticker_rtl" translatable="false">%2$s :%1$s</string>
