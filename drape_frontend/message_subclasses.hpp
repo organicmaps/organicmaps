@@ -895,6 +895,21 @@ private:
   bool const m_allow3dBuildings;
 };
 
+class SetMapLanguageCodeMessage : public Message
+{
+public:
+  explicit SetMapLanguageCodeMessage(const std::string& languageCode)
+    : m_mapLanguageCode(languageCode)
+  {}
+
+  Type GetType() const override { return Type::SetMapLanguageCode; }
+
+  std::string MapLanguageCode() const { return m_mapLanguageCode; }
+
+private:
+  std::string const m_mapLanguageCode;
+};
+
 class EnablePerspectiveMessage : public Message
 {
 public:

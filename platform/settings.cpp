@@ -21,6 +21,7 @@ namespace settings
 using namespace std;
 
 char const * kMeasurementUnits = "Units";
+char const * kMapLanguageCode = "MapLanguageCode";
 char const * kDeveloperMode = "DeveloperMode";
 
 StringStorage::StringStorage() : StringStorageBase(GetPlatform().SettingsPathForFile(SETTINGS_FILE_NAME)) {}

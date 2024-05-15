@@ -3,6 +3,8 @@
 #include "drape_frontend/metaline_manager.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "platform/preferred_languages.hpp"
+
 #include "base/buffer_vector.hpp"
 
 #include <algorithm>
@@ -318,6 +320,7 @@ void ReadManager::Allow3dBuildings(bool allow3dBuildings)
   {
     m_modeChanged = true;
     m_allow3dBuildings = allow3dBuildings;
+    
   }
 }
 

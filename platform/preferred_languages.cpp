@@ -1,4 +1,7 @@
 #include "platform/preferred_languages.hpp"
+#include "platform/settings.hpp"
+
+#include "coding/string_utf8_multilang.hpp"
 
 #include "base/buffer_vector.hpp"
 #include "base/macros.hpp"
@@ -167,6 +170,41 @@ std::string Normalize(std::string_view lang)
 std::string GetCurrentNorm()
 {
   return Normalize(GetCurrentOrig());
+}
+
+std::string GetUtf8MultilangSupported()
+{
+  std::string languageCode;
+
+  auto const & systemLanguages = GetSystemPreferred();
+  for (const auto & systemLanguage: systemLanguages)
+  {
+    const std::string normalizedLang = Normalize(systemLanguage);
+    if (StringUtf8Multilang::GetLangIndex(normalizedLang) != StringUtf8Multilang::kUnsupportedLanguageCode)
+    {
+      languageCode = normalizedLang;
+      break;
+    }
+  }
+
+  if (languageCode.empty())
+    throw std::runtime_error("Unsupported language.");
+
+  return languageCode;
+}
+
+std::string GetCurrentMapLanguageCode()
+{
+  std::string languageCode;
+  if (!settings::Get(settings::kMapLanguageCode, languageCode) || languageCode.empty())
+    languageCode = GetUtf8MultilangSupported();
+  
+  return languageCode;
+}
+
+void SetMapLanguageCode(std::string const & languageCode)
+{
+  settings::Set(settings::kMapLanguageCode, languageCode);
 }
 
 std::string GetCurrentTwine()

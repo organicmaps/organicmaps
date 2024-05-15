@@ -649,6 +649,14 @@ void DrapeEngine::Allow3dMode(bool allowPerspectiveInNavigation, bool allow3dBui
                                   MessagePriority::Normal);
 }
 
+void DrapeEngine::SetMapLanguageCode(const std::string& languageCode)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<SetMapLanguageCodeMessage>(languageCode),
+                                  MessagePriority::Normal);
+
+}
+
 void DrapeEngine::EnablePerspective()
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
