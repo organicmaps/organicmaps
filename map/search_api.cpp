@@ -146,7 +146,7 @@ SearchAPI::SearchAPI(DataSource & dataSource, storage::Storage const & storage,
   , m_infoGetter(infoGetter)
   , m_delegate(delegate)
   , m_engine(m_dataSource, GetDefaultCategories(), m_infoGetter,
-             Engine::Params(languages::GetCurrentTwine() /* locale */, numThreads))
+             Engine::Params(languages::GetCurrentMapTwine() /* locale */, numThreads))
 {
 }
 
