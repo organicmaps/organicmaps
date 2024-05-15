@@ -203,6 +203,18 @@ static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType) {
   self.bm.LoadBookmarks();
 }
 
+- (void)reloadCategoryAtFilePath:(NSString *)filePath
+{
+  self.bm.ReloadBookmark(filePath.UTF8String);
+}
+
+- (void)deleteCategoryAtFilePath:(NSString *)filePath
+{
+  auto const groupId = self.bm.GetCategoryByFileName(filePath.UTF8String);
+  if (groupId)
+    [self deleteCategory:groupId];
+}
+
 #pragma mark - Categories
 
 - (BOOL)areAllCategoriesEmpty
@@ -350,9 +362,19 @@ static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType) {
   return !self.bm.IsUsedCategoryName(name.UTF8String);
 }
 
+- (BOOL)hasCategory:(MWMMarkGroupID)groupId
+{
+  return self.bm.HasBmCategory(groupId);
+}
+
 - (BOOL)hasBookmark:(MWMMarkID)bookmarkId
 {
   return self.bm.HasBookmark(bookmarkId);
+}
+
+- (BOOL)hasTrack:(MWMTrackID)trackId
+{
+  return self.bm.HasTrack(trackId);
 }
 
 - (NSArray<NSNumber *> *)availableSortingTypes:(MWMMarkGroupID)groupId hasMyPosition:(BOOL)hasMyPosition{
