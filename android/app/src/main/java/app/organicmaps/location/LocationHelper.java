@@ -131,7 +131,7 @@ public class LocationHelper
 
     if (mMyPosition == null)
       mMyPosition = MapObject.createMapObject(FeatureId.EMPTY, MapObject.MY_POSITION, "", "",
-                                              mSavedLocation.getLatitude(), mSavedLocation.getLongitude());
+                                  mSavedLocation.getLatitude(), mSavedLocation.getLongitude());
 
     return mMyPosition;
   }
@@ -169,12 +169,12 @@ public class LocationHelper
     }
 
     LocationState.nativeLocationUpdated(mSavedLocation.getTime(),
-                                        mSavedLocation.getLatitude(),
-                                        mSavedLocation.getLongitude(),
-                                        mSavedLocation.getAccuracy(),
-                                        mSavedLocation.getAltitude(),
-                                        mSavedLocation.getSpeed(),
-                                        mSavedLocation.getBearing());
+        mSavedLocation.getLatitude(),
+        mSavedLocation.getLongitude(),
+        mSavedLocation.getAccuracy(),
+        mSavedLocation.getAltitude(),
+        mSavedLocation.getSpeed(),
+        mSavedLocation.getBearing());
   }
 
   @Override
@@ -233,14 +233,13 @@ public class LocationHelper
 
   // Used by GoogleFusedLocationProvider.
   @SuppressWarnings("unused")
-  @RequiresPermission(anyOf = { ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION })
+  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
   @Override
   @UiThread
   public void onFusedLocationUnsupported()
   {
     // Try to downgrade to the native provider first and restart the service before notifying the user.
-    Logger.d(TAG, "provider = " + mLocationProvider.getClass()
-                                                   .getSimpleName() + " is not supported," +
+    Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() + " is not supported," +
                   " downgrading to use native provider");
     mLocationProvider.stop();
     mLocationProvider = new AndroidNativeProvider(mContext, this);
@@ -264,7 +263,7 @@ public class LocationHelper
   public void onLocationDisabled()
   {
     Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() +
-                  " settings = " + LocationUtils.areLocationServicesTurnedOn(mContext));
+        " settings = " + LocationUtils.areLocationServicesTurnedOn(mContext));
 
     stop();
     LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
@@ -317,7 +316,7 @@ public class LocationHelper
   /**
    * Restart the location with a new refresh interval if changed.
    */
-  @RequiresPermission(anyOf = { ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION })
+  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
   public void restartWithNewMode()
   {
     if (!isActive())
@@ -339,7 +338,7 @@ public class LocationHelper
   /**
    * Starts polling location updates.
    */
-  @RequiresPermission(anyOf = { ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION })
+  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
   public void start()
   {
     if (isActive())
@@ -357,7 +356,7 @@ public class LocationHelper
     final long oldInterval = mInterval;
     mInterval = calcLocationUpdatesInterval();
     Logger.i(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() +
-                  " mInFirstRun = " + mInFirstRun + " oldInterval = " + oldInterval + " interval = " + mInterval);
+        " mInFirstRun = " + mInFirstRun + " oldInterval = " + oldInterval + " interval = " + mInterval);
     mActive = true;
     mLocationProvider.start(mInterval);
     subscribeToGnssStatusUpdates();
@@ -405,7 +404,7 @@ public class LocationHelper
       Logger.i(TAG, "Permissions ACCESS_FINE_LOCATION and ACCESS_COARSE_LOCATION are not granted");
       return;
     }
-    restartWithNewMode();
+    start();
   }
 
   private void checkForAgpsUpdates()
@@ -436,7 +435,7 @@ public class LocationHelper
       return;
     final LocationManager locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
     LocationManagerCompat.registerGnssStatusCallback(locationManager, ContextCompat.getMainExecutor(mContext),
-                                                     mGnssStatusCallback);
+        mGnssStatusCallback);
   }
 
   private void unsubscribeFromGnssStatusUpdates()
@@ -499,5 +498,6 @@ public class LocationHelper
   {
     Logger.i("kavi", "Location helper knows app came in foreground");
     resumeLocationInForeground();
+    if(LocationUtils.checkLocationPermission(mContext)) restartWithNewMode();
   }
 }
