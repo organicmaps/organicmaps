@@ -11,6 +11,11 @@ enum BookmarkToolbarButtonSource {
   case more
 }
 
+enum GroupReloadingResult {
+  case success
+  case notFound
+}
+
 protocol IBookmarksListSectionViewModel {
   var numberOfItems: Int { get }
   var sectionTitle: String { get }
@@ -89,6 +94,8 @@ enum BookmarksListSortingType {
 }
 
 protocol IBookmarksListInteractor {
+  var onCategoryReload: ((GroupReloadingResult) -> Void)? { get set }
+
   func getBookmarkGroup() -> BookmarkGroup
   func hasDescription() -> Bool
   func prepareForSearch()
@@ -125,6 +132,7 @@ protocol IBookmarksListRouter {
                    delegate: SelectBookmarkGroupViewControllerDelegate?)
   func editBookmark(bookmarkId: MWMMarkID, completion: @escaping (Bool) -> Void)
   func editTrack(trackId: MWMTrackID, completion: @escaping (Bool) -> Void)
+  func goBack()
 }
 
 protocol IBookmarksListInfoViewModel {
