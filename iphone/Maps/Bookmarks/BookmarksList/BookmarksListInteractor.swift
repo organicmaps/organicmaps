@@ -15,12 +15,21 @@ extension BookmarksListSortingType {
   }
 }
 
-final class BookmarksListInteractor {
-  private let markGroupId: MWMMarkGroupID
-  private var bookmarksManager: BookmarksManager { BookmarksManager.shared() }
+final class BookmarksListInteractor: NSObject {
+  private var markGroupId: MWMMarkGroupID
+  private var bookmarksManager: BookmarksManager
+
+  var onCategoryReload: ((GroupReloadingResult) -> Void)?
 
   init(markGroupId: MWMMarkGroupID) {
     self.markGroupId = markGroupId
+    self.bookmarksManager = BookmarksManager.shared()
+    super.init()
+    self.addToBookmarksManagerObserverList()
+  }
+
+  deinit {
+    removeFromBookmarksManagerObserverList()
   }
 }
 
@@ -150,5 +159,28 @@ extension BookmarksListInteractor: IBookmarksListInteractor {
 
   func finishExportFile() {
     bookmarksManager.finishShareCategory()
+  }
+
+  func addToBookmarksManagerObserverList() {
+    bookmarksManager.add(self)
+  }
+
+  func removeFromBookmarksManagerObserverList() {
+    bookmarksManager.remove(self)
+  }
+
+  func reloadCategory() {
+    onCategoryReload?(bookmarksManager.hasCategory(markGroupId) ? .success : .notFound)
+  }
+}
+
+// MARK: - BookmarksObserver
+extension BookmarksListInteractor: BookmarksObserver {
+  func onBookmarksLoadFinished() {
+    reloadCategory()
+  }
+
+  func onBookmarksCategoryDeleted(_ groupId: MWMMarkGroupID) {
+    reloadCategory()
   }
 }

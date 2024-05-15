@@ -5,12 +5,12 @@ protocol BookmarksListDelegate: AnyObject {
 final class BookmarksListPresenter {
   private unowned let view: IBookmarksListView
   private let router: IBookmarksListRouter
-  private let interactor: IBookmarksListInteractor
+  private var interactor: IBookmarksListInteractor
   private weak var delegate: BookmarksListDelegate?
 
   private let distanceFormatter = MeasurementFormatter()
   private let imperialUnits: Bool
-  private let bookmarkGroup: BookmarkGroup
+  private var bookmarkGroup: BookmarkGroup
 
   private enum EditableItem {
     case bookmark(MWMMarkID)
@@ -28,9 +28,22 @@ final class BookmarksListPresenter {
     self.delegate = delegate
     self.interactor = interactor
     self.imperialUnits = imperialUnits
+    self.bookmarkGroup = interactor.getBookmarkGroup()
+    self.distanceFormatter.unitOptions = [.providedUnit]
+    self.subscribeOnGroupReloading()
+  }
 
-    bookmarkGroup = interactor.getBookmarkGroup()
-    distanceFormatter.unitOptions = [.providedUnit]
+  private func subscribeOnGroupReloading() {
+    interactor.onCategoryReload = { [weak self] result in
+      guard let self else { return }
+      switch result {
+      case .notFound:
+        self.router.goBack()
+      case .success:
+        self.bookmarkGroup = self.interactor.getBookmarkGroup()
+        self.reload()
+      }
+    }
   }
 
   private func reload() {
