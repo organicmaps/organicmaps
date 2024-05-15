@@ -3,9 +3,11 @@ package app.organicmaps.location;
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 
@@ -13,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
 import androidx.annotation.UiThread;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.location.GnssStatusCompat;
 import androidx.core.location.LocationManagerCompat;
@@ -24,6 +27,7 @@ import app.organicmaps.bookmarks.data.FeatureId;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.routing.JunctionInfo;
 import app.organicmaps.routing.RoutingController;
+import app.organicmaps.util.AppStateListener;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.NetworkPolicy;
@@ -32,11 +36,14 @@ import app.organicmaps.util.log.Logger;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class LocationHelper implements BaseLocationProvider.Listener
+public class LocationHelper
+    implements BaseLocationProvider.Listener,
+               AppStateListener
 {
   private static final long INTERVAL_FOLLOW_MS = 0;
   private static final long INTERVAL_NOT_FOLLOW_MS = 3000;
   private static final long INTERVAL_NAVIGATION_MS = 0;
+  private static final long INTERVAL_TRACK_RECORDING_BACKGROUND = 10000;
 
   private static final long AGPS_EXPIRATION_TIME_MS = 16 * 60 * 60 * 1000; // 16 hours
 
@@ -79,6 +86,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
     @Override
     public void onSatelliteStatusChanged(@NonNull GnssStatusCompat status)
     {
+      Logger.d(TAG,"value of interval "+ mInterval);
       int used = 0;
       boolean fixed = false;
       for (int i = 0; i < status.getSatelliteCount(); i++)
@@ -103,6 +111,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   {
     mContext = context;
     mLocationProvider = LocationProviderFactory.getProvider(mContext, this);
+    MwmApplication.from(mContext).addListener(this);
   }
 
   /**
@@ -122,7 +131,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
 
     if (mMyPosition == null)
       mMyPosition = MapObject.createMapObject(FeatureId.EMPTY, MapObject.MY_POSITION, "", "",
-                                  mSavedLocation.getLatitude(), mSavedLocation.getLongitude());
+                                              mSavedLocation.getLatitude(), mSavedLocation.getLongitude());
 
     return mMyPosition;
   }
@@ -160,18 +169,19 @@ public class LocationHelper implements BaseLocationProvider.Listener
     }
 
     LocationState.nativeLocationUpdated(mSavedLocation.getTime(),
-        mSavedLocation.getLatitude(),
-        mSavedLocation.getLongitude(),
-        mSavedLocation.getAccuracy(),
-        mSavedLocation.getAltitude(),
-        mSavedLocation.getSpeed(),
-        mSavedLocation.getBearing());
+                                        mSavedLocation.getLatitude(),
+                                        mSavedLocation.getLongitude(),
+                                        mSavedLocation.getAccuracy(),
+                                        mSavedLocation.getAltitude(),
+                                        mSavedLocation.getSpeed(),
+                                        mSavedLocation.getBearing());
   }
 
   @Override
   public void onLocationChanged(@NonNull Location location)
   {
     Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() + " location = " + location);
+    Logger.d(TAG,"value of interval "+ mInterval);
 
     if (!isActive())
     {
@@ -223,14 +233,15 @@ public class LocationHelper implements BaseLocationProvider.Listener
 
   // Used by GoogleFusedLocationProvider.
   @SuppressWarnings("unused")
-  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
+  @RequiresPermission(anyOf = { ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION })
   @Override
   @UiThread
   public void onFusedLocationUnsupported()
   {
     // Try to downgrade to the native provider first and restart the service before notifying the user.
-    Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() + " is not supported," +
-        " downgrading to use native provider");
+    Logger.d(TAG, "provider = " + mLocationProvider.getClass()
+                                                   .getSimpleName() + " is not supported," +
+                  " downgrading to use native provider");
     mLocationProvider.stop();
     mLocationProvider = new AndroidNativeProvider(mContext, this);
     mActive = true;
@@ -253,7 +264,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   public void onLocationDisabled()
   {
     Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() +
-        " settings = " + LocationUtils.areLocationServicesTurnedOn(mContext));
+                  " settings = " + LocationUtils.areLocationServicesTurnedOn(mContext));
 
     stop();
     LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
@@ -306,7 +317,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   /**
    * Restart the location with a new refresh interval if changed.
    */
-  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
+  @RequiresPermission(anyOf = { ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION })
   public void restartWithNewMode()
   {
     if (!isActive())
@@ -328,7 +339,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   /**
    * Starts polling location updates.
    */
-  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
+  @RequiresPermission(anyOf = { ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION })
   public void start()
   {
     if (isActive())
@@ -346,7 +357,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
     final long oldInterval = mInterval;
     mInterval = calcLocationUpdatesInterval();
     Logger.i(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() +
-        " mInFirstRun = " + mInFirstRun + " oldInterval = " + oldInterval + " interval = " + mInterval);
+                  " mInFirstRun = " + mInFirstRun + " oldInterval = " + oldInterval + " interval = " + mInterval);
     mActive = true;
     mLocationProvider.start(mInterval);
     subscribeToGnssStatusUpdates();
@@ -394,8 +405,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
       Logger.i(TAG, "Permissions ACCESS_FINE_LOCATION and ACCESS_COARSE_LOCATION are not granted");
       return;
     }
-
-    start();
+    restartWithNewMode();
   }
 
   private void checkForAgpsUpdates()
@@ -426,7 +436,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
       return;
     final LocationManager locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
     LocationManagerCompat.registerGnssStatusCallback(locationManager, ContextCompat.getMainExecutor(mContext),
-        mGnssStatusCallback);
+                                                     mGnssStatusCallback);
   }
 
   private void unsubscribeFromGnssStatusUpdates()
@@ -465,5 +475,29 @@ public class LocationHelper implements BaseLocationProvider.Listener
       Logger.d(TAG, "Current location is available, so play the nice zoom animation");
       Framework.nativeRunFirstLaunchAnimation();
     }
+  }
+
+  @Override
+  public void onAppBackround()
+  {
+    Logger.i("kavi", "Location helper knows app went in background");
+    if (!RoutingController.get().isNavigating() && isActive() && TrackRecorder.nativeIsEnabled() && mInterval != INTERVAL_TRACK_RECORDING_BACKGROUND)
+    {
+      Logger.i(TAG, "update refresh interval: old = " + mInterval + " new = " + INTERVAL_TRACK_RECORDING_BACKGROUND);
+      if (LocationUtils.checkLocationPermission(mContext))
+      {
+        mLocationProvider.stop();
+        mInterval = INTERVAL_TRACK_RECORDING_BACKGROUND;
+        mLocationProvider.start(INTERVAL_TRACK_RECORDING_BACKGROUND);
+      }
+    }
+    Logger.i("kavi","interval is "+ mInterval);
+  }
+
+  @Override
+  public void onAppForeground()
+  {
+    Logger.i("kavi", "Location helper knows app came in foreground");
+    resumeLocationInForeground();
   }
 }
