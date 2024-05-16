@@ -70,6 +70,7 @@ import app.organicmaps.location.LocationListener;
 import app.organicmaps.location.LocationState;
 import app.organicmaps.location.SensorHelper;
 import app.organicmaps.location.SensorListener;
+import app.organicmaps.location.TrackRecorder;
 import app.organicmaps.location.TrackRecordingService;
 import app.organicmaps.maplayer.MapButtonsController;
 import app.organicmaps.maplayer.MapButtonsViewModel;
@@ -136,7 +137,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                MenuBottomSheetFragment.MenuBottomSheetInterfaceWithHeader,
                PlacePageController.PlacePageRouteSettingsListener,
                MapButtonsController.MapButtonClickListener,
-               DisplayChangedListener
+               DisplayChangedListener,
+               TrackRecorder.TrackRecordingListener
 {
   private static final String TAG = MwmActivity.class.getSimpleName();
 
@@ -213,9 +215,30 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private DisplayManager mDisplayManager;
+  private TrackRecorder mTrackRecorder;
 
   private boolean mRemoveDisplayListener = true;
   private int mLastUiMode = Configuration.UI_MODE_TYPE_UNDEFINED;
+
+  @Override
+  public void onTrackRecordingStarted()
+  {
+    Logger.i("kavi","mwmActivity got start update");
+    if(!LocationUtils.checkLocationPermission(this))
+    {
+      Toast.makeText(this,"Please give permission of precise location access",Toast.LENGTH_SHORT).show();
+      Logger.i(TAG,"Location permission is not there");
+      return;
+    }
+    TrackRecordingService.startForegroundService(this);
+  }
+
+  @Override
+  public void onTrackRecordingStopped()
+  {
+    Logger.i("kavi","mwmActivity got stop update");
+    TrackRecordingService.stopService(this);
+  }
 
   public interface LeftAnimationTrackListener
   {
@@ -532,6 +555,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     final boolean isLaunchByDeepLink = intent != null && !intent.hasCategory(Intent.CATEGORY_LAUNCHER);
     initViews(isLaunchByDeepLink);
     updateViewsInsets();
+
+    mTrackRecorder = TrackRecorder.getInstance();
+    mTrackRecorder.addListener(this);
+    if(TrackRecorder.nativeIsEnabled()) mTrackRecorder.startTrackRecording();
 
     if (getIntent().getBooleanExtra(EXTRA_UPDATE_THEME, false))
       ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
@@ -1142,6 +1169,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPostNotificationPermissionRequest = null;
     if (mRemoveDisplayListener && !isChangingConfigurations())
       mDisplayManager.removeListener(DisplayType.Device);
+    mTrackRecorder.removeListener(this);
   }
 
   @Override

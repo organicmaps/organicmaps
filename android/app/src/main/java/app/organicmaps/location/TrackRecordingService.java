@@ -21,6 +21,7 @@ import androidx.core.content.ContextCompat;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
+import app.organicmaps.settings.SettingsActivity;
 import app.organicmaps.settings.TrackRecordSettingsFragment;
 import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.log.Logger;
@@ -72,13 +73,13 @@ public class TrackRecordingService extends Service implements LocationListener
 
     mNotificationBuilder = new NotificationCompat.Builder(context, TRACK_REC_CHANNEL_ID)
         .setCategory(NotificationCompat.CATEGORY_SERVICE)
-        .setPriority(NotificationManager.IMPORTANCE_LOW)
+        .setPriority(NotificationManager.IMPORTANCE_DEFAULT)
         .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
         .setOngoing(true)
         .setShowWhen(true)
         .setOnlyAlertOnce(true)
         .setSmallIcon(R.drawable.ic_splash)
-        .setContentTitle("Track Recording is Running")
+        .setContentTitle("Track Recorder is Running")
         .setContentText("Recording your traversed tracks in background")
         .setContentIntent(pendingIntent)
         .setColor(ContextCompat.getColor(context, R.color.notification));
@@ -164,8 +165,7 @@ public class TrackRecordingService extends Service implements LocationListener
   @Override
   public void onLocationDisabled()
   {
-    LocationListener.super.onLocationDisabled();
-    TrackRecorder.nativeSetEnabled(false);
+    TrackRecorder.getInstance().stopTrackRecording();
     stopSelf();
   }
 

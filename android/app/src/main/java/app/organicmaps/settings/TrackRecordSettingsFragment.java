@@ -1,8 +1,5 @@
 package app.organicmaps.settings;
 
-import android.Manifest;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
@@ -10,9 +7,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.preference.ListPreference;
-import androidx.preference.Preference;
 import androidx.preference.TwoStatePreference;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
@@ -30,6 +25,8 @@ public class TrackRecordSettingsFragment extends BaseXmlSettingsFragment impleme
   private ListPreference mRecordTime;
   private TwoStatePreference mRecentTrack;
 
+  private TrackRecorder mTrackRecorder;
+
   @Override
   protected int getXmlResources()
   {
@@ -43,6 +40,7 @@ public class TrackRecordSettingsFragment extends BaseXmlSettingsFragment impleme
 
     mRecentTrack = getPreference(getString(R.string.pref_recent_track));
     mRecordTime = getPreference(getString(R.string.pref_track_record_time));
+    mTrackRecorder = TrackRecorder.getInstance();
     LocationHelper.from(requireContext()).addListener(this);
   }
 
@@ -69,27 +67,16 @@ public class TrackRecordSettingsFragment extends BaseXmlSettingsFragment impleme
 
       if (newVal)
       {
-        if(!LocationUtils.areLocationServicesTurnedOn(MwmApplication.from(requireContext()))){
-          Toast.makeText(getActivity(),"Please turn on location",Toast.LENGTH_SHORT).show();
-          return false;
-        }
-        if (!LocationUtils.checkLocationPermission(MwmApplication.from(requireContext())))
-        {
-          Toast.makeText(getActivity(),"Please give permission of precise location access",Toast.LENGTH_SHORT).show();
-          return false;
-        }
-        TrackRecordingService.startForegroundService(MwmApplication.from(requireContext()));
+        mTrackRecorder.startTrackRecording();
         mRecordTime.setSummary("Last " + TrackRecorder.nativeGetDuration() + " hour trails will be shown on map");
       }
       else
       {
-        stopService(MwmApplication.from(requireContext()));
+        mTrackRecorder.stopTrackRecording();
         mRecordTime.setSummary("Enable Recent Track Recorder to select duration for which recorded point will be shown on map");
       }
       mRecentTrack.setChecked(newVal);
       mRecordTime.setEnabled(newVal);
-      TrackRecorder.nativeSetEnabled(newVal);
-
       return true;
     }));
 
