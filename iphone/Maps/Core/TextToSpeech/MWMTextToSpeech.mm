@@ -26,15 +26,15 @@ std::vector<std::pair<std::string, std::string>> availableLanguages()
 
   using namespace routing::turns::sound;
   std::vector<std::pair<std::string, std::string>> result;
-  for (auto const & p : kLanguageList)
+  for (auto const & [twineRouting, _] : kLanguageList)
   {
-    for (std::pair<std::string, std::string> const & lang : native)
+    for (auto const & [twineVoice, bcp47Voice] : native)
     {
-      if (lang.first == p.first)
+      if (twineVoice == twineRouting)
       {
-        // Twine names are equal. Make a pair: bcp47 name, localized name.
-        result.emplace_back(make_pair(lang.second, p.second));
-        break;
+        auto pair = std::make_pair(bcp47Voice, tts::translateLocale(bcp47Voice));
+        if (std::find(result.begin(), result.end(), pair) == result.end())
+          result.emplace_back(std::move(pair));
       }
     }
   }
@@ -90,7 +90,7 @@ using Observers = NSHashTable<Observer>;
 
     std::pair<std::string, std::string> const lan =
         std::make_pair(preferedLanguageBcp47.UTF8String,
-                       tts::translatedTwine(bcp47ToTwineLanguage(preferedLanguageBcp47)));
+                       tts::translateLocale(preferedLanguageBcp47.UTF8String));
 
     if (find(_availableLanguages.begin(), _availableLanguages.end(), lan) !=
         _availableLanguages.end())
@@ -118,6 +118,9 @@ using Observers = NSHashTable<Observer>;
   self.speechSynthesizer.delegate = nil;
 }
 - (std::vector<std::pair<std::string, std::string>>)availableLanguages { return _availableLanguages; }
+- (std::pair<std::string, std::string>)standardLanguage {
+  return std::make_pair(kDefaultLanguage.UTF8String, tts::translateLocale(kDefaultLanguage.UTF8String));
+}
 - (void)setNotificationsLocale:(NSString *)locale {
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud setObject:locale forKey:kUserDefaultsTTSLanguageBcp47];
@@ -171,10 +174,6 @@ using Observers = NSHashTable<Observer>;
 
   AVSpeechSynthesisVoice * voice = nil;
   for (NSString * loc in candidateLocales) {
-    if ([loc isEqualToString:@"en-US"])
-      voice = [AVSpeechSynthesisVoice voiceWithIdentifier:AVSpeechSynthesisVoiceIdentifierAlex];
-    if (voice)
-      break;
     voice = [AVSpeechSynthesisVoice voiceWithLanguage:loc];
     if (voice)
       break;
@@ -286,16 +285,12 @@ using Observers = NSHashTable<Observer>;
 
 namespace tts
 {
-std::string translatedTwine(std::string const & twine)
+std::string translateLocale(std::string const & localeString)
 {
-  auto const & list = routing::turns::sound::kLanguageList;
-  auto const it =
-      find_if(list.begin(), list.end(),
-              [&twine](std::pair<std::string, std::string> const & pair) { return pair.first == twine; });
-
-  if (it != list.end())
-    return it->second;
-  else
-    return "";
+  NSString * nsLocaleString = [NSString stringWithUTF8String: localeString.c_str()];
+  NSLocale * locale = [[NSLocale alloc] initWithLocaleIdentifier: nsLocaleString];
+  NSString * localizedName = [locale localizedStringForLocaleIdentifier:nsLocaleString];
+  localizedName = [localizedName capitalizedString];
+  return std::string(localizedName.UTF8String);
 }
 }  // namespace tts

@@ -217,21 +217,20 @@ struct CamerasCellStrategy : BaseCellStategy
   MWMTextToSpeech * tts = [MWMTextToSpeech tts];
 
   m_languages.reserve(3);
-  auto const & v = tts.availableLanguages;
-  NSAssert(!v.empty(), @"Vector can't be empty!");
-  pair<string, string> const standart = v.front();
-  m_languages.push_back(standart);
+  pair<string, string> const standard = tts.standardLanguage;
+  m_languages.push_back(standard);
 
   using namespace tts;
   NSString * currentBcp47 = [AVSpeechSynthesisVoice currentLanguageCode];
   string const currentBcp47Str = currentBcp47.UTF8String;
-  string const currentTwineStr = bcp47ToTwineLanguage(currentBcp47);
-  if (currentBcp47Str != standart.first && !currentBcp47Str.empty())
+  if (currentBcp47Str != standard.first && !currentBcp47Str.empty())
   {
-    string const translated = translatedTwine(currentTwineStr);
-    pair<string, string> const cur{currentBcp47Str, translated};
+    auto const & v = tts.availableLanguages;
+    NSAssert(!v.empty(), @"Vector can't be empty!");
+    std::string const translated = translateLocale(currentBcp47Str);
+    auto cur = std::make_pair(currentBcp47Str, translated);
     if (translated.empty() || find(v.begin(), v.end(), cur) != v.end())
-      m_languages.push_back(cur);
+      m_languages.push_back(std::move(cur));
     else
       self.isLocaleLanguageAbsent = YES;
   }
@@ -239,11 +238,10 @@ struct CamerasCellStrategy : BaseCellStategy
   NSString * nsSavedLanguage = [MWMTextToSpeech savedLanguage];
   if (nsSavedLanguage.length)
   {
-    string const savedLanguage = nsSavedLanguage.UTF8String;
-    if (savedLanguage != currentBcp47Str && savedLanguage != standart.first &&
+    std::string const savedLanguage = nsSavedLanguage.UTF8String;
+    if (savedLanguage != currentBcp47Str && savedLanguage != standard.first &&
         !savedLanguage.empty())
-      m_languages.emplace_back(
-          make_pair(savedLanguage, translatedTwine(bcp47ToTwineLanguage(nsSavedLanguage))));
+      m_languages.emplace_back(savedLanguage, translateLocale(savedLanguage));
   }
 }
 
