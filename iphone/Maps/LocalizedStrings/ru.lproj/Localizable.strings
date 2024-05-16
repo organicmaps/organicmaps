@@ -1281,6 +1281,18 @@
 
 "drive_through" = "С окошком для водителей";
 
+/* Text for the "Delete All" button on the Recently Deleted screen */
+"delete_all" = "Удалить все";
+
+/* Text for the "Recover" button on the Recently Deleted screen */
+"recover" = "Восстановить";
+
+/* Text for the "Recover All" button on the Recently Deleted screen */
+"recover_all" = "Восстановить все";
+
+/* Title for the Recently Deleted screen */
+"bookmarks_recently_deleted" = "Недавно удалённое";
+
 
 /********** Types **********/
 

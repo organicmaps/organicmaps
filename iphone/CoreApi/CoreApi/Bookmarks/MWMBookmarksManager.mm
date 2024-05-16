@@ -325,8 +325,12 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
   self.bm.SetAllCategoriesVisibility(isVisible);
 }
 
-- (void)deleteCategory:(MWMMarkGroupID)groupId
-{
+
+- (void)deleteCategory:(MWMMarkGroupID)groupId {
+  /* FIXME: - Temporary solution. Should be implemented in cpp's DeleteBmCategory */
+  if (!self.bm.IsCategoryEmpty(groupId))
+    [self moveCategoryToTrash:groupId];
+
   self.bm.GetEditSession().DeleteBmCategory(groupId);
   [self loopObservers:^(id<MWMBookmarksObserver> observer) {
     if ([observer respondsToSelector:@selector(onBookmarksCategoryDeleted:)])
@@ -775,6 +779,99 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 
 - (void)resetElevationMyPositionChanged {
   self.bm.SetElevationMyPositionChangedCallback(nullptr);
+}
+
+// MARK: - RecentlyDeletedCategoriesManager
+- (BOOL)areRecentlyDeletedCategoriesEmpty {
+  return [self getRecentlyDeletedCategories].count == 0;
+}
+
+- (NSArray<NSURL *> *)getRecentlyDeletedCategories {
+  NSError * error;
+  NSArray<NSURL *> * contents = [NSFileManager.defaultManager contentsOfDirectoryAtURL:[self bookmarksDirectoryURLBasedOn:self.trashDirectoryURL]
+                                                            includingPropertiesForKeys:@[NSURLNameKey, NSURLCreationDateKey, NSURLPathKey]
+                                                                               options:NSDirectoryEnumerationSkipsHiddenFiles
+                                                                                 error:&error];
+  return contents;
+}
+
+- (void)deleteRecentlyDeletedCategoryAtURLs:(NSArray<NSURL *> *)urls; {
+  NSError * error;
+  for (NSURL * url in urls) {
+    [NSFileManager.defaultManager removeItemAtURL:url error:&error];
+    ASSERT(!error, ([NSString stringWithFormat:@"Failed to delete file at %@", url.path]));
+  }
+}
+
+- (void)recoverRecentlyDeletedCategoriesAtURLs:(NSArray<NSURL *> *)urls {
+  NSError * error;
+  for (NSURL * url in urls) {
+    NSString * filePath = [[url URLByResolvingSymlinksInPath] path];
+    NSRange range = [filePath rangeOfString:[[self.trashDirectoryURL URLByResolvingSymlinksInPath] path]];
+    NSString * relativeFilePath = [filePath substringFromIndex:range.location + range.length];
+    NSURL * newFileURL = [self.documentsDirectoryURL URLByAppendingPathComponent:relativeFilePath];
+    [NSFileManager.defaultManager moveItemAtURL:url toURL:newFileURL error:&error];
+    ASSERT(!error, ([NSString stringWithFormat:@"Failed to move file from %@ to %@", filePath, newFileURL.path]));
+  }
+
+  // TODO: Recover for the particular files should be implemented. It's not very efficient to reload all categories.
+  [self loadBookmarks];
+}
+
+// MARK: - Helpers
+- (NSURL *)documentsDirectoryURL {
+  return [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
+}
+
+- (NSURL *)trashDirectoryURL {
+  NSString * trashPathComponent = @".Trash";
+  NSURL * trashURL = [[self documentsDirectoryURL] URLByAppendingPathComponent:trashPathComponent isDirectory:YES];
+  if (![NSFileManager.defaultManager fileExistsAtPath:trashURL.path]) {
+    NSError * error;
+    [NSFileManager.defaultManager createDirectoryAtURL:trashURL withIntermediateDirectories:YES attributes:nil error:&error];
+    ASSERT(!error, ("Failed to create './Trash' directory", error));
+  }
+  return trashURL;
+}
+
+- (NSURL *)bookmarksDirectoryURLBasedOn:(NSURL *)url {
+  NSString * trashPathComponent = @"bookmarks";
+  NSURL * bookmarksURL = [url URLByAppendingPathComponent:trashPathComponent isDirectory:YES];
+  if (![NSFileManager.defaultManager fileExistsAtPath:bookmarksURL.path]) {
+    NSError * error;
+    [NSFileManager.defaultManager createDirectoryAtURL:bookmarksURL withIntermediateDirectories:YES attributes:nil error:&error];
+    ASSERT(!error, ("Failed to create 'bookmarks' directory", error));
+  }
+  return bookmarksURL;
+}
+
+- (void)moveCategoryToTrash:(MWMMarkGroupID)groupId {
+  NSURL * fileURL = [NSURL fileURLWithPath: @(self.bm.GetCategoryFileName(groupId).c_str())];
+  NSString * filePath = [fileURL absoluteString];
+  NSRange range = [filePath rangeOfString:[self.documentsDirectoryURL absoluteString]];
+  NSString * relativeFilePath = [filePath substringFromIndex:range.location + range.length];
+  NSURL * trashedFileURL = [NSURL URLWithString:relativeFilePath relativeToURL:self.trashDirectoryURL];
+
+  // Resolve name conflicts
+  if ([NSFileManager.defaultManager fileExistsAtPath:trashedFileURL.path]) {
+    // TODO: NSDateFormatter shouldn't be created on every call. This only for testing purposes.
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyyMMdd-HHmmss"];
+    NSString * dateString = [dateFormatter stringFromDate:[NSDate date]];
+
+    NSString * newTrashedFilePath = [[trashedFileURL.path stringByDeletingPathExtension] stringByAppendingFormat:@"-%@.%@", dateString, trashedFileURL.pathExtension];
+    trashedFileURL = [NSURL fileURLWithPath:newTrashedFilePath];
+  }
+
+  NSError * error;
+  NSString * parentDirectoryPath = [trashedFileURL.path stringByDeletingLastPathComponent];
+  if (![NSFileManager.defaultManager fileExistsAtPath:parentDirectoryPath]) {
+    [NSFileManager.defaultManager createDirectoryAtPath:parentDirectoryPath withIntermediateDirectories:YES attributes:nil error:&error];
+    ASSERT(!error, ("Failed to create directory at path:", parentDirectoryPath));
+  }
+
+  [NSFileManager.defaultManager moveItemAtPath:fileURL.path toPath:trashedFileURL.path error:&error];
+  ASSERT(!error, ([NSString stringWithFormat:@"Failed to move file from %@ to %@", fileURL, trashedFileURL]));
 }
 
 + (dp::Color)getColorFromUIColor:(UIColor *)color {

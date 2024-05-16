@@ -1281,6 +1281,18 @@
 
 "drive_through" = "Lái xe qua";
 
+/* Text for the "Delete All" button on the Recently Deleted screen */
+"delete_all" = "Xóa hết";
+
+/* Text for the "Recover" button on the Recently Deleted screen */
+"recover" = "Khôi phục";
+
+/* Text for the "Recover All" button on the Recently Deleted screen */
+"recover_all" = "Khôi phục tất cả";
+
+/* Title for the Recently Deleted screen */
+"bookmarks_recently_deleted" = "Đã xóa gần đây";
+
 
 /********** Types **********/
 

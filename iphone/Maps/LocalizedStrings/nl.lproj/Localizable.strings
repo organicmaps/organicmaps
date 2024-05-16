@@ -1281,6 +1281,18 @@
 
 "drive_through" = "Drive-though";
 
+/* Text for the "Delete All" button on the Recently Deleted screen */
+"delete_all" = "Alles verwijderen";
+
+/* Text for the "Recover" button on the Recently Deleted screen */
+"recover" = "Herstellen";
+
+/* Text for the "Recover All" button on the Recently Deleted screen */
+"recover_all" = "Alles herstellen";
+
+/* Title for the Recently Deleted screen */
+"bookmarks_recently_deleted" = "Onlangs verwijderd";
+
 
 /********** Types **********/
 

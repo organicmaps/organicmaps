@@ -1281,6 +1281,18 @@
 
 "drive_through" = "Sürüşmə";
 
+/* Text for the "Delete All" button on the Recently Deleted screen */
+"delete_all" = "Hamısını Sil";
+
+/* Text for the "Recover" button on the Recently Deleted screen */
+"recover" = "Bərpa edin";
+
+/* Text for the "Recover All" button on the Recently Deleted screen */
+"recover_all" = "Hamısını bərpa edin";
+
+/* Title for the Recently Deleted screen */
+"bookmarks_recently_deleted" = "Bu yaxınlarda silindi";
+
 
 /********** Types **********/
 

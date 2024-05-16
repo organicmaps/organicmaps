@@ -26,8 +26,15 @@ typedef void (^SearchBookmarksCompletionBlock)(NSArray<MWMBookmark *> *bookmarks
 typedef void (^SortBookmarksCompletionBlock)(NSArray<MWMBookmarksSection *> * _Nullable sortedSections);
 typedef void (^SharingResultCompletionHandler)(MWMBookmarksShareStatus status, NSURL * _Nullable urlToALocalFile);
 
+@protocol RecentlyDeletedCategoriesManager <NSObject>
+- (BOOL)areRecentlyDeletedCategoriesEmpty;
+- (NSArray<NSURL *> *)getRecentlyDeletedCategories;
+- (void)deleteRecentlyDeletedCategoryAtURLs:(NSArray<NSURL *> *)urls;
+- (void)recoverRecentlyDeletedCategoriesAtURLs:(NSArray<NSURL *> *)urls;
+@end
+
 NS_SWIFT_NAME(BookmarksManager)
-@interface MWMBookmarksManager : NSObject
+@interface MWMBookmarksManager : NSObject <RecentlyDeletedCategoriesManager>
 
 + (MWMBookmarksManager *)sharedManager;
 
@@ -149,6 +156,11 @@ NS_SWIFT_NAME(BookmarksManager)
 - (void)resetElevationActivePointChanged;
 - (void)setElevationMyPositionChanged:(uint64_t)trackId callback:(ElevationPointChangedBlock)callback;
 - (void)resetElevationMyPositionChanged;
+
+- (BOOL)areRecentlyDeletedCategoriesEmpty;
+- (NSArray<NSURL *> *)getRecentlyDeletedCategories;
+- (void)deleteRecentlyDeletedCategoryAtURLs:(NSArray<NSURL *> *)urls;
+- (void)recoverRecentlyDeletedCategoriesAtURLs:(NSArray<NSURL *> *)urls;
 
 @end
 NS_ASSUME_NONNULL_END

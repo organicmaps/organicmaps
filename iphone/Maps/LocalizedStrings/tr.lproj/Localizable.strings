@@ -1281,6 +1281,18 @@
 
 "drive_through" = "Arabaya servis";
 
+/* Text for the "Delete All" button on the Recently Deleted screen */
+"delete_all" = "Tümünü Sil";
+
+/* Text for the "Recover" button on the Recently Deleted screen */
+"recover" = "Kurtarmak";
+
+/* Text for the "Recover All" button on the Recently Deleted screen */
+"recover_all" = "Tümünü Kurtar";
+
+/* Title for the Recently Deleted screen */
+"bookmarks_recently_deleted" = "Yakın Zamanda Silindi";
+
 
 /********** Types **********/
 

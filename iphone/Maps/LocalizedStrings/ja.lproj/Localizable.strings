@@ -1281,6 +1281,18 @@
 
 "drive_through" = "ドライブスルー";
 
+/* Text for the "Delete All" button on the Recently Deleted screen */
+"delete_all" = "すべて削除する";
+
+/* Text for the "Recover" button on the Recently Deleted screen */
+"recover" = "回復する";
+
+/* Text for the "Recover All" button on the Recently Deleted screen */
+"recover_all" = "すべてを回復する";
+
+/* Title for the Recently Deleted screen */
+"bookmarks_recently_deleted" = "最近削除された";
+
 
 /********** Types **********/
 

@@ -1281,6 +1281,18 @@
 
 "drive_through" = "Servire în mașină";
 
+/* Text for the "Delete All" button on the Recently Deleted screen */
+"delete_all" = "Ștergeți toate";
+
+/* Text for the "Recover" button on the Recently Deleted screen */
+"recover" = "Recuperare";
+
+/* Text for the "Recover All" button on the Recently Deleted screen */
+"recover_all" = "Recuperează totul";
+
+/* Title for the Recently Deleted screen */
+"bookmarks_recently_deleted" = "Șterse recent";
+
 
 /********** Types **********/
 

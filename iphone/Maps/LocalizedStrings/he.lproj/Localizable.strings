@@ -1281,6 +1281,18 @@
 
 "drive_through" = "דרייב ת'רו";
 
+/* Text for the "Delete All" button on the Recently Deleted screen */
+"delete_all" = "מחק הכל";
+
+/* Text for the "Recover" button on the Recently Deleted screen */
+"recover" = "לשחזר";
+
+/* Text for the "Recover All" button on the Recently Deleted screen */
+"recover_all" = "שחזר הכל";
+
+/* Title for the Recently Deleted screen */
+"bookmarks_recently_deleted" = "נמחק לאחרונה";
+
 
 /********** Types **********/
 

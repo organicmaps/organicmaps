@@ -1281,6 +1281,18 @@
 
 "drive_through" = "الشراء من السيارة";
 
+/* Text for the "Delete All" button on the Recently Deleted screen */
+"delete_all" = "حذف الكل";
+
+/* Text for the "Recover" button on the Recently Deleted screen */
+"recover" = "استعادة";
+
+/* Text for the "Recover All" button on the Recently Deleted screen */
+"recover_all" = "استرداد الكل";
+
+/* Title for the Recently Deleted screen */
+"bookmarks_recently_deleted" = "المحذوفة مؤخراً";
+
 
 /********** Types **********/
 

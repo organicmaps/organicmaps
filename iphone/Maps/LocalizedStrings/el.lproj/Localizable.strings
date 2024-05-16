@@ -1281,6 +1281,18 @@
 
 "drive_through" = "Οδηγώ μέσα από";
 
+/* Text for the "Delete All" button on the Recently Deleted screen */
+"delete_all" = "Διαγραφή όλων";
+
+/* Text for the "Recover" button on the Recently Deleted screen */
+"recover" = "Ανάκτηση";
+
+/* Text for the "Recover All" button on the Recently Deleted screen */
+"recover_all" = "Ανάκτηση όλων";
+
+/* Title for the Recently Deleted screen */
+"bookmarks_recently_deleted" = "Πρόσφατα διαγραμμένο";
+
 
 /********** Types **********/
 

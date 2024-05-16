@@ -1281,6 +1281,18 @@
 
 "drive_through" = "Accesso con auto";
 
+/* Text for the "Delete All" button on the Recently Deleted screen */
+"delete_all" = "Cancella tutto";
+
+/* Text for the "Recover" button on the Recently Deleted screen */
+"recover" = "Recupera";
+
+/* Text for the "Recover All" button on the Recently Deleted screen */
+"recover_all" = "Recupera tutto";
+
+/* Title for the Recently Deleted screen */
+"bookmarks_recently_deleted" = "Eliminato di recente";
+
 
 /********** Types **********/
 

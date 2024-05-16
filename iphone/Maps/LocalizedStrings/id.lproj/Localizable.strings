@@ -1281,6 +1281,18 @@
 
 "drive_through" = "Berkendara melewati";
 
+/* Text for the "Delete All" button on the Recently Deleted screen */
+"delete_all" = "Hapus Semua";
+
+/* Text for the "Recover" button on the Recently Deleted screen */
+"recover" = "Memulihkan";
+
+/* Text for the "Recover All" button on the Recently Deleted screen */
+"recover_all" = "Pulihkan Semua";
+
+/* Title for the Recently Deleted screen */
+"bookmarks_recently_deleted" = "Baru-baru ini Dihapus";
+
 
 /********** Types **********/
 

@@ -1281,6 +1281,18 @@
 
 "drive_through" = "Kuendesha-kupitia";
 
+/* Text for the "Delete All" button on the Recently Deleted screen */
+"delete_all" = "Futa Zote";
+
+/* Text for the "Recover" button on the Recently Deleted screen */
+"recover" = "Rudisha";
+
+/* Text for the "Recover All" button on the Recently Deleted screen */
+"recover_all" = "Rejesha Wote";
+
+/* Title for the Recently Deleted screen */
+"bookmarks_recently_deleted" = "Iliyofutwa Hivi Karibuni";
+
 
 /********** Types **********/
 

@@ -1281,6 +1281,18 @@
 
 "drive_through" = "驾车通过";
 
+/* Text for the "Delete All" button on the Recently Deleted screen */
+"delete_all" = "全部删除";
+
+/* Text for the "Recover" button on the Recently Deleted screen */
+"recover" = "恢复";
+
+/* Text for the "Recover All" button on the Recently Deleted screen */
+"recover_all" = "全部恢复";
+
+/* Title for the Recently Deleted screen */
+"bookmarks_recently_deleted" = "最近删除";
+
 
 /********** Types **********/
 

@@ -1281,6 +1281,18 @@
 
 "drive_through" = "Genomkörning";
 
+/* Text for the "Delete All" button on the Recently Deleted screen */
+"delete_all" = "Radera alla";
+
+/* Text for the "Recover" button on the Recently Deleted screen */
+"recover" = "Återställa";
+
+/* Text for the "Recover All" button on the Recently Deleted screen */
+"recover_all" = "Återställ alla";
+
+/* Title for the Recently Deleted screen */
+"bookmarks_recently_deleted" = "Nyligen borttagen";
+
 
 /********** Types **********/
 

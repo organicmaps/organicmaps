@@ -1281,6 +1281,18 @@
 
 "drive_through" = "Průjezd";
 
+/* Text for the "Delete All" button on the Recently Deleted screen */
+"delete_all" = "Smazat vše";
+
+/* Text for the "Recover" button on the Recently Deleted screen */
+"recover" = "Obnovit";
+
+/* Text for the "Recover All" button on the Recently Deleted screen */
+"recover_all" = "Obnovit vše";
+
+/* Title for the Recently Deleted screen */
+"bookmarks_recently_deleted" = "Nedávno odstraněné";
+
 
 /********** Types **********/
 

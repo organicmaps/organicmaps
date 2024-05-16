@@ -18,10 +18,10 @@ final class RouteManagerDimView: UIView {
       switch state {
       case .visible:
         isVisible = true
-        image.image = #imageLiteral(resourceName: "ic_route_manager_trash")
+        image.image = UIImage(named: "ic_route_manager_trash")
       case .binOpenned:
         isVisible = true
-        image.image = #imageLiteral(resourceName: "ic_route_manager_trash_open")
+        image.image = UIImage(named: "ic_route_manager_trash_open")
       case .hidden:
         isVisible = false
       }
@@ -58,7 +58,7 @@ final class RouteManagerDimView: UIView {
 
   func setViews(container: UIView, controller: UIView, manager: UIView) {
     alpha = 0
-
+    image.tintColor = UIColor.whitePrimaryText()
     alternative(iPhone: {
       controller.insertSubview(self, at: 0)
 

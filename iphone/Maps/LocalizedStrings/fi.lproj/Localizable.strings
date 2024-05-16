@@ -1281,6 +1281,18 @@
 
 "drive_through" = "Ajaa läpi";
 
+/* Text for the "Delete All" button on the Recently Deleted screen */
+"delete_all" = "Poista kaikki";
+
+/* Text for the "Recover" button on the Recently Deleted screen */
+"recover" = "Palauta";
+
+/* Text for the "Recover All" button on the Recently Deleted screen */
+"recover_all" = "Palauta kaikki";
+
+/* Title for the Recently Deleted screen */
+"bookmarks_recently_deleted" = "Äskettäin poistettu";
+
 
 /********** Types **********/
 

@@ -1281,6 +1281,18 @@
 
 "drive_through" = "Au volant";
 
+/* Text for the "Delete All" button on the Recently Deleted screen */
+"delete_all" = "Supprimer tout";
+
+/* Text for the "Recover" button on the Recently Deleted screen */
+"recover" = "Récupérer";
+
+/* Text for the "Recover All" button on the Recently Deleted screen */
+"recover_all" = "Récupère tout";
+
+/* Title for the Recently Deleted screen */
+"bookmarks_recently_deleted" = "Récemment supprimé";
+
 
 /********** Types **********/
 

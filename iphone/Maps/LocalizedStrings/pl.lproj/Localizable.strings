@@ -1281,6 +1281,18 @@
 
 "drive_through" = "Przejazd";
 
+/* Text for the "Delete All" button on the Recently Deleted screen */
+"delete_all" = "Usuń wszystko";
+
+/* Text for the "Recover" button on the Recently Deleted screen */
+"recover" = "Odzyskaj";
+
+/* Text for the "Recover All" button on the Recently Deleted screen */
+"recover_all" = "Odzyskaj wszystko";
+
+/* Title for the Recently Deleted screen */
+"bookmarks_recently_deleted" = "Ostatnio usunięte";
+
 
 /********** Types **********/
 

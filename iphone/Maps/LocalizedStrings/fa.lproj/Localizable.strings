@@ -1281,6 +1281,18 @@
 
 "drive_through" = "رانندگی از طریق";
 
+/* Text for the "Delete All" button on the Recently Deleted screen */
+"delete_all" = "حذف همه";
+
+/* Text for the "Recover" button on the Recently Deleted screen */
+"recover" = "بازیابی کنید";
+
+/* Text for the "Recover All" button on the Recently Deleted screen */
+"recover_all" = "بازیابی همه";
+
+/* Title for the Recently Deleted screen */
+"bookmarks_recently_deleted" = "اخیراً حذف شده است";
+
 
 /********** Types **********/
 

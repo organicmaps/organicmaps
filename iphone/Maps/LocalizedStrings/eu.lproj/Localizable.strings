@@ -1281,6 +1281,18 @@
 
 "drive_through" = "Drive-through";
 
+/* Text for the "Delete All" button on the Recently Deleted screen */
+"delete_all" = "Ezabatu guztiak";
+
+/* Text for the "Recover" button on the Recently Deleted screen */
+"recover" = "Berreskuratu";
+
+/* Text for the "Recover All" button on the Recently Deleted screen */
+"recover_all" = "Berreskuratu guztiak";
+
+/* Title for the Recently Deleted screen */
+"bookmarks_recently_deleted" = "Duela gutxi ezabatu da";
+
 
 /********** Types **********/
 

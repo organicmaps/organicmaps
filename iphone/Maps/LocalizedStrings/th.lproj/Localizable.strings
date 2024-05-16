@@ -1281,6 +1281,18 @@
 
 "drive_through" = "ขับรถผ่าน";
 
+/* Text for the "Delete All" button on the Recently Deleted screen */
+"delete_all" = "ลบทั้งหมด";
+
+/* Text for the "Recover" button on the Recently Deleted screen */
+"recover" = "กู้คืน";
+
+/* Text for the "Recover All" button on the Recently Deleted screen */
+"recover_all" = "กู้คืนทั้งหมด";
+
+/* Title for the Recently Deleted screen */
+"bookmarks_recently_deleted" = "เพิ่งถูกลบ";
+
 
 /********** Types **********/
 

@@ -1281,6 +1281,18 @@
 
 "drive_through" = "ड्राइव करते हुए किसी जगह से गुजरना";
 
+/* Text for the "Delete All" button on the Recently Deleted screen */
+"delete_all" = "सभी हटा दो";
+
+/* Text for the "Recover" button on the Recently Deleted screen */
+"recover" = "पुनः प्राप्त करें";
+
+/* Text for the "Recover All" button on the Recently Deleted screen */
+"recover_all" = "सभी को पुनर्प्राप्त करें";
+
+/* Title for the Recently Deleted screen */
+"bookmarks_recently_deleted" = "हाल ही में हटाया गया";
+
 
 /********** Types **********/
 

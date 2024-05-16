@@ -1281,6 +1281,18 @@
 
 "drive_through" = "Drive-through";
 
+/* Text for the "Delete All" button on the Recently Deleted screen */
+"delete_all" = "Eliminar tudo";
+
+/* Text for the "Recover" button on the Recently Deleted screen */
+"recover" = "Recuperar";
+
+/* Text for the "Recover All" button on the Recently Deleted screen */
+"recover_all" = "Recupera tudo";
+
+/* Title for the Recently Deleted screen */
+"bookmarks_recently_deleted" = "Eliminado recentemente";
+
 
 /********** Types **********/
 
