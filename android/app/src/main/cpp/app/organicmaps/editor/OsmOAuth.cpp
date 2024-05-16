@@ -71,6 +71,15 @@ Java_app_organicmaps_editor_OsmOAuth_nativeGetOsmChangesetsCount(JNIEnv * env, j
 }
 
 JNIEXPORT jstring JNICALL
+Java_app_organicmaps_editor_OsmOAuth_nativeGetOsmProfilePictureUrl(JNIEnv * env, jclass, jstring oauthToken)
+{
+  UserPreferences prefs;
+  if (LoadOsmUserPreferences(jni::ToNativeString(env, oauthToken), prefs))
+    return jni::ToJavaString(env, prefs.m_imageUrl);
+  return nullptr;
+}
+
+JNIEXPORT jstring JNICALL
 Java_app_organicmaps_editor_OsmOAuth_nativeGetHistoryUrl(JNIEnv * env, jclass, jstring user)
 {
   return jni::ToJavaString(env, OsmOAuth::ServerAuth().GetHistoryURL(jni::ToNativeString(env, user)));

@@ -24,103 +24,102 @@
       android:scaleType="center"
       app:srcCompat="@drawable/ic_logout"
       android:contentDescription="@string/logout" />
-  </androidx.appcompat.widget.Toolbar>
-
-  <ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
-    <LinearLayout
+    </androidx.appcompat.widget.Toolbar>
+  <FrameLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:clipChildren="false"
-      android:clipToPadding="false"
-      android:orientation="vertical"
-      tools:ignore="ScrollViewSize">
+      android:layout_height="wrap_content"
+      android:padding="@dimen/margin_base"
+      android:background="?colorPrimary">
+    <ProgressBar
+        android:id="@+id/user_profile_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/text_light"
+        android:visibility="invisible"
+        tools:visibility="visible" />
+    <LinearLayout
+        android:id="@+id/block_user_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+      <ImageView
+          android:id="@+id/user_profile_image"
+          android:layout_width="100dp"
+          android:layout_height="match_parent"
+          android:importantForAccessibility="no"
+          app:srcCompat="@drawable/profile_generic" />
       <LinearLayout
-        android:id="@+id/block_edits"
+          android:id="@+id/text"
+          android:layout_marginStart="@dimen/margin_base"
+          android:layout_width="0dp"
+          android:layout_weight="1"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/user_profile_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/text_light"
+            tools:ignore="UnusedAttribute"
+            android:breakStrategy="balanced"
+            android:autoSizeMinTextSize="@dimen/text_size_body_3"
+            android:autoSizeTextType="uniform"
+            android:textSize="25sp"
+            tools:text="Long Username" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/user_sent_edits"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/text_light"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            tools:text="2,000,000" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/verified_changes_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/text_size_body_1"
+            android:text="@string/editor_profile_changes"
+            android:textColor="@color/white_primary" />
+      </LinearLayout>
+    </LinearLayout>
+  </FrameLayout>
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:padding="@dimen/margin_base">
+    <TextView
+        android:id="@+id/osm_history"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
-        android:background="?colorPrimary"
-        android:orientation="vertical"
-        android:padding="@dimen/margin_base">
-        <LinearLayout
-          android:id="@+id/sent_edits"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:paddingBottom="@dimen/margin_base"
-          android:orientation="vertical">
-          <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="112dp">
-            <TextView
-              android:id="@+id/edits_count"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="center"
-              android:textColor="@color/text_light"
-              android:textSize="96sp"
-              android:textStyle="bold"
-              tools:text="244"/>
-            <ProgressBar
-              android:id="@+id/edits_count_progress"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_gravity="center"
-              android:padding="@dimen/margin_base"
-              android:indeterminateTint="@color/text_light"
-              android:visibility="gone"
-              tools:visibility="visible"/>
-          </FrameLayout>
-
-          <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/editor_profile_changes"
-            android:textAppearance="@style/MwmTextAppearance.Body1"
-            android:textColor="@color/white_primary"
-            android:textStyle="bold"/>
-
-        </LinearLayout>
-      </LinearLayout>
-      <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_alignParentTop="true"
+        android:background="?clickableBackground"
+        android:gravity="center"
+        android:paddingTop="@dimen/margin_half"
+        android:paddingBottom="@dimen/margin_half"
+        android:text="@string/history"
+        android:textAppearance="@style/MwmTextAppearance.Body4"
+        android:textColor="?colorAccent"
+        android:textSize="@dimen/text_size_body_1"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:id="@+id/about_osm"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="@dimen/margin_base">
-        <TextView
-          android:id="@+id/osm_history"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_alignParentTop="true"
-          android:background="?clickableBackground"
-          android:gravity="center"
-          android:paddingTop="@dimen/margin_half"
-          android:paddingBottom="@dimen/margin_half"
-          android:text="@string/history"
-          android:textAppearance="@style/MwmTextAppearance.Body4"
-          android:textColor="?colorAccent"
-          android:textSize="@dimen/text_size_body_1"
-          app:layout_constraintTop_toTopOf="parent"/>
-        <TextView
-          android:id="@+id/about_osm"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_alignParentBottom="true"
-          android:background="?clickableBackground"
-          android:gravity="center"
-          android:paddingTop="@dimen/margin_half"
-          android:paddingBottom="@dimen/margin_half"
-          android:text="@string/editor_more_about_osm"
-          android:textAppearance="@style/MwmTextAppearance.Body4"
-          android:textColor="?colorAccent"
-          android:textSize="@dimen/text_size_body_4"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/osm_history"
-          app:layout_constraintVertical_bias="1" />
-      </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
-  </ScrollView>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="?clickableBackground"
+        android:gravity="center"
+        android:paddingTop="@dimen/margin_half"
+        android:paddingBottom="@dimen/margin_half"
+        android:text="@string/editor_more_about_osm"
+        android:textAppearance="@style/MwmTextAppearance.Body4"
+        android:textColor="?colorAccent"
+        android:textSize="@dimen/text_size_body_4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/osm_history"
+        app:layout_constraintVertical_bias="1" />
+  </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
