@@ -14318,6 +14318,7 @@
   [postal_code]
     tags = android,ios
     en = Postal Code
+    en-GB = Postcode
     af = Poskode
     ar = الرمز البريدي
     az = Poçt kodu
