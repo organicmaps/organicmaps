@@ -197,16 +197,16 @@ void Platform::GetFontNames(FilesList & res) const
 
   /// @todo Actually, this list should present once in all our code.
   char constexpr const * arrDef[] = {
-    "00_NotoNaskhArabic-Regular.ttf",
-    "00_NotoSansThai-Regular.ttf",
-    "00_NotoSerifDevanagari-Regular.ttf",
-    "01_dejavusans.ttf",
-    "02_droidsans-fallback.ttf",
-    "03_jomolhari-id-a3d.ttf",
-    "04_padauk.ttf",
-    "05_khmeros.ttf",
-    "06_code2000.ttf",
-    "07_roboto_medium.ttf",
+    "fonts/00_NotoNaskhArabic-Regular.ttf",
+    "fonts/00_NotoSansThai-Regular.ttf",
+    "fonts/00_NotoSerifDevanagari-Regular.ttf",
+    "fonts/01_dejavusans.ttf",
+    "fonts/02_droidsans-fallback.ttf",
+    "fonts/03_jomolhari-id-a3d.ttf",
+    "fonts/04_padauk.ttf",
+    "fonts/05_khmeros.ttf",
+    "fonts/06_code2000.ttf",
+    "fonts/07_roboto_medium.ttf",
   };
   res.insert(res.end(), arrDef, arrDef + ARRAY_SIZE(arrDef));
 
