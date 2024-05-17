@@ -21,13 +21,13 @@ UNIT_TEST(CheckTrafficArrowTextures)
   for (auto const & style : styles)
   {
     GetStyleReader().SetCurrentStyle(style);
-    for (size_t i = 0; i < skinPaths.size(); ++i)
+    for (auto const & skinPath : skinPaths)
     {
-      dp::StaticTexture texture(make_ref(&context), "traffic-arrow", skinPaths[i],
+      dp::StaticTexture texture(make_ref(&context), "traffic-arrow.png", skinPath,
                                 dp::TextureFormat::RGBA8, nullptr);
       TEST(texture.IsLoadingCorrect(), ());
 
-      dp::StaticTexture texture2(make_ref(&context), "area-hatching", skinPaths[i],
+      dp::StaticTexture texture2(make_ref(&context), "area-hatching.png", skinPath,
                                  dp::TextureFormat::RGBA8, nullptr);
       TEST(texture2.IsLoadingCorrect(), ());
     }

@@ -1,12 +1,17 @@
 project(drape_tests)
 
+set(DRAPE_TESTABLE_SRC_PREFIXED  ${DRAPE_TESTABLE_SRC})
+list(TRANSFORM DRAPE_TESTABLE_SRC_PREFIXED PREPEND "../")
+
 set(SRC
+  ${DRAPE_TESTABLE_SRC_PREFIXED}
   attribute_provides_tests.cpp
   batcher_tests.cpp
   bingind_info_tests.cpp
   buffer_tests.cpp
   dummy_texture.hpp
   font_texture_tests.cpp
+  gl_functions.cpp
   gl_mock_functions.cpp
   gl_mock_functions.hpp
   glyph_mng_tests.cpp
@@ -36,11 +41,11 @@ if (WITH_SYSTEM_PROVIDED_3PARTY)
   target_link_libraries(${PROJECT_NAME} GTest::gtest)
 else()
   add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../../3party/googletest" "${CMAKE_CURRENT_BINARY_DIR}/googletest")
+  target_include_directories(${PROJECT_NAME} PUBLIC ${OMIM_ROOT}/3party/glm)
 endif()
 
 target_link_libraries(${PROJECT_NAME}
   qt_tstfrm
-  indexer  # For StyleReader in static_texture_tests
-  drape
   gmock
+  ${DRAPE_LINK_LIBRARIES}
 )
