@@ -7,6 +7,6 @@ Comment[ru]=Подробная оффлайновая карта мира
 Icon=organicmaps
 TryExec=OMaps
 Exec=OMaps
-Categories=Maps;Education;Geography;Geoscience;Qt;
+Categories=Maps;Utility;Geography;Geoscience;Qt;
 Keywords=Map;Maps;Offline Maps;OMaps;Organic Maps;OrganicMaps;OSM;OpenStreetMap;
 X-KDE-FormFactor=desktop;tablet;handset;
