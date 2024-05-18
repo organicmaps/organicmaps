@@ -5,8 +5,6 @@
 
 #include "base/thread_checker.hpp"
 
-#include <vector>
-
 #include <QtGui/QIcon>
 #include <QtGui/QPixmap>
 #include <QtWidgets/QWidget>
@@ -16,6 +14,8 @@ class QLineEdit;
 class QPushButton;
 class QTableWidget;
 class QTimer;
+
+class Framework;
 
 namespace qt
 {
@@ -68,5 +68,8 @@ private slots:
 
   bool Try3dModeCmd(std::string const & str);
   bool TryTrafficSimplifiedColorsCmd(std::string const & str);
+
+private:
+  Framework & GetFramework() const;
 };
 }  // namespace qt

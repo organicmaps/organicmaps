@@ -106,12 +106,11 @@ jobject ToJavaResult(Result const & result, search::ProductInfo const & productI
   jni::TScopedLocalRef featureId(env, usermark_helper::CreateFeatureId(env, isFeature ?
                                                                             result.GetFeatureID() :
                                                                             kEmptyFeatureId));
-  std::string const localizedType = isFeature ? result.GetLocalizedFeatureType() : "";
 
-  jni::TScopedLocalRef featureType(env, jni::ToJavaString(env, localizedType));
+  jni::TScopedLocalRef featureType(env, jni::ToJavaString(env, result.GetLocalizedFeatureType()));
   jni::TScopedLocalRef address(env, jni::ToJavaString(env, result.GetAddress()));
   jni::TScopedLocalRef dist(env, ToJavaDistance(env, distance));
-  jni::TScopedLocalRef description(env, jni::ToJavaString(env, isFeature ? result.GetFeatureDescription() : ""));
+  jni::TScopedLocalRef description(env, jni::ToJavaString(env, result.GetFeatureDescription()));
 
   jni::TScopedLocalRef desc(env, env->NewObject(g_descriptionClass, g_descriptionConstructor,
                                                 featureId.get(), featureType.get(), address.get(),
