@@ -64,6 +64,8 @@ bool ToReal(char const * start, T & result)
 
 }  // namespace
 
+UniString UniString::kSpace = MakeUniString(" ");
+
 bool UniString::IsEqualAscii(char const * s) const
 {
   return (size() == strlen(s) && std::equal(begin(), end(), s));
@@ -207,13 +209,27 @@ void AsciiToLower(std::string & s)
   std::transform(s.begin(), s.end(), s.begin(), [](char in)
   {
     char constexpr diff = 'z' - 'Z';
-    static_assert(diff == 'a' - 'A', "");
-    static_assert(diff > 0, "");
+    static_assert(diff == 'a' - 'A');
+    static_assert(diff > 0);
 
     if (in >= 'A' && in <= 'Z')
       return char(in + diff);
     return in;
   });
+}
+
+void AsciiToUpper(std::string & s)
+{
+  std::transform(s.begin(), s.end(), s.begin(), [](char in)
+  {
+    char constexpr diff = 'z' - 'Z';
+    static_assert(diff == 'a' - 'A');
+    static_assert(diff > 0);
+
+    if (in >= 'a' && in <= 'z')
+      return char(in - diff);
+    return in;
+ });
 }
 
 void Trim(std::string & s)
