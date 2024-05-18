@@ -29,6 +29,8 @@ class UniString : public buffer_vector<UniChar, 32>
   using BaseT = buffer_vector<UniChar, 32>;
 
 public:
+  static UniString kSpace;
+
   using value_type = UniChar;
 
   UniString() = default;
@@ -101,6 +103,7 @@ void NormalizeDigits(UniString & us);
 size_t CountNormLowerSymbols(UniString const & s, UniString const & lowStr);
 
 void AsciiToLower(std::string & s);
+void AsciiToUpper(std::string & s);
 
 // All triming functions return a reference on an input string.
 // They do in-place trimming. In general, it does not work for any unicode whitespace except

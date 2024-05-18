@@ -72,7 +72,6 @@ size_t constexpr kPostcodesRectsCacheSize = 10;
 size_t constexpr kSuburbsRectsCacheSize = 10;
 size_t constexpr kLocalityRectsCacheSize = 10;
 
-UniString const kUniSpace(MakeUniString(" "));
 
 struct ScopedMarkTokens
 {
@@ -685,7 +684,7 @@ void Geocoder::InitLayer(Model::Type type, TokenRange const & tokenRange, Featur
   layer.m_type = type;
   layer.m_tokenRange = tokenRange;
 
-  JoinQueryTokens(m_params, layer.m_tokenRange, kUniSpace /* sep */, layer.m_subQuery);
+  JoinQueryTokens(m_params, layer.m_tokenRange, UniString::kSpace /* sep */, layer.m_subQuery);
   layer.m_lastTokenIsPrefix =
       !layer.m_tokenRange.Empty() && m_params.IsPrefixToken(layer.m_tokenRange.End() - 1);
 }
@@ -1165,20 +1164,28 @@ void Geocoder::WithPostcodes(BaseContext & ctx, Fn && fn)
 
     TokenRange const tokenRange(startToken, endToken);
 
+    // Find features by exact postcode match from OSM data.
     auto postcodes = RetrievePostcodeFeatures(*m_context, TokenSlice(m_params, tokenRange));
-    if (m_context->m_value.m_cont.IsExist(POSTCODE_POINTS_FILE_TAG))
+
+    // Get _around postcode_ features from additional _external postcodes_ section.
+    // Do not emit _around postcode_ only features if we don't have some other tokens to match (avoid lags).
+    if (tokenRange.Size() < numTokens && m_context->m_value.m_cont.IsExist(POSTCODE_POINTS_FILE_TAG))
     {
       auto & postcodePoints = m_postcodePointsCache.Get(*m_context);
       UniString postcodeQuery;
-      JoinQueryTokens(m_params, tokenRange, kUniSpace /* sep */, postcodeQuery);
+      JoinQueryTokens(m_params, tokenRange, UniString::kSpace /* sep */, postcodeQuery);
       vector<m2::PointD> points;
       postcodePoints.Get(postcodeQuery, points);
+
+      // PostcodePoints::Get returns many points for "BN1" or one point for "BN1 3LJ".
+      // Do aggregate rects for a _wide_ postcode prefix match.
+      m2::RectD rect;
       for (auto const & p : points)
-      {
-        auto const rect = mercator::RectByCenterXYAndOffset(p, postcodePoints.GetRadius());
-        postcodes = postcodes.Union(RetrieveGeometryFeatures(*m_context, rect, RectId::Postcode));
-      }
+        rect.Add(mercator::RectByCenterXYAndOffset(p, postcodePoints.GetRadius()));
+
+      postcodes = postcodes.Union(RetrieveGeometryFeatures(*m_context, rect, RectId::Postcode));
     }
+
     SCOPE_GUARD(cleanup, [&]() { m_postcodes.Clear(); });
 
     if (!postcodes.IsEmpty())
