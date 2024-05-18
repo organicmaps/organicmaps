@@ -426,23 +426,23 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mEditPhoneLink = blockPhone.findViewById(R.id.edit_phone);
     mEditPhoneLink.setOnClickListener(this);
     mPhone.setOnClickListener(this);
-    initBlock(view, Metadata.MetadataType.FMD_WEBSITE, R.id.block_website,
+    View websiteBlock = initBlock(view, Metadata.MetadataType.FMD_WEBSITE, R.id.block_website,
             R.drawable.ic_website, R.string.website, InputType.TYPE_TEXT_VARIATION_URI);
-    initBlock(view, Metadata.MetadataType.FMD_WEBSITE_MENU, R.id.block_website_menu,
+    View websiteMenuBlock = initBlock(view, Metadata.MetadataType.FMD_WEBSITE_MENU, R.id.block_website_menu,
             R.drawable.ic_website_menu, R.string.website_menu, InputType.TYPE_TEXT_VARIATION_URI);
-    initBlock(view, Metadata.MetadataType.FMD_EMAIL, R.id.block_email,
+    View emailBlock = initBlock(view, Metadata.MetadataType.FMD_EMAIL, R.id.block_email,
             R.drawable.ic_email, R.string.email, InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-    initBlock(view, Metadata.MetadataType.FMD_CONTACT_FACEBOOK, R.id.block_facebook,
+    View facebookContactBlock = initBlock(view, Metadata.MetadataType.FMD_CONTACT_FACEBOOK, R.id.block_facebook,
             R.drawable.ic_facebook_white, R.string.facebook, InputType.TYPE_TEXT_VARIATION_URI);
-    initBlock(view, Metadata.MetadataType.FMD_CONTACT_INSTAGRAM, R.id.block_instagram,
+    View instagramContactBlock = initBlock(view, Metadata.MetadataType.FMD_CONTACT_INSTAGRAM, R.id.block_instagram,
             R.drawable.ic_instagram_white, R.string.instagram, InputType.TYPE_TEXT_VARIATION_URI);
-    initBlock(view, Metadata.MetadataType.FMD_CONTACT_TWITTER, R.id.block_twitter,
+    View twitterContactBlock = initBlock(view, Metadata.MetadataType.FMD_CONTACT_TWITTER, R.id.block_twitter,
             R.drawable.ic_twitterx_white, R.string.twitter, InputType.TYPE_TEXT_VARIATION_URI);
-    initBlock(view, Metadata.MetadataType.FMD_CONTACT_VK, R.id.block_vk,
+    View vkContactBlock = initBlock(view, Metadata.MetadataType.FMD_CONTACT_VK, R.id.block_vk,
             R.drawable.ic_vk_white, R.string.vk, InputType.TYPE_TEXT_VARIATION_URI);
-    initBlock(view, Metadata.MetadataType.FMD_CONTACT_LINE, R.id.block_line,
+    View lineContactBlock = initBlock(view, Metadata.MetadataType.FMD_CONTACT_LINE, R.id.block_line,
             R.drawable.ic_line_white, R.string.editor_line_social_network, InputType.TYPE_TEXT_VARIATION_URI);
-    initBlock(view, Metadata.MetadataType.FMD_OPERATOR, R.id.block_operator,
+    View operatorBlock = initBlock(view, Metadata.MetadataType.FMD_OPERATOR, R.id.block_operator,
             R.drawable.ic_operator, R.string.editor_operator, 0);
 
     View blockCuisine = view.findViewById(R.id.block_cuisine);
@@ -469,6 +469,15 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mDetailsBlocks.put(Metadata.MetadataType.FMD_PHONE_NUMBER, blockPhone);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_CUISINE, blockCuisine);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_INTERNET, blockWifi);
+    mDetailsBlocks.put(Metadata.MetadataType.FMD_WEBSITE, websiteBlock);
+    mDetailsBlocks.put(Metadata.MetadataType.FMD_WEBSITE_MENU, websiteMenuBlock);
+    mDetailsBlocks.put(Metadata.MetadataType.FMD_EMAIL, emailBlock);
+    mDetailsBlocks.put(Metadata.MetadataType.FMD_CONTACT_FACEBOOK, facebookContactBlock);
+    mDetailsBlocks.put(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM, instagramContactBlock);
+    mDetailsBlocks.put(Metadata.MetadataType.FMD_CONTACT_TWITTER, twitterContactBlock);
+    mDetailsBlocks.put(Metadata.MetadataType.FMD_CONTACT_VK, vkContactBlock);
+    mDetailsBlocks.put(Metadata.MetadataType.FMD_CONTACT_LINE, lineContactBlock);
+    mDetailsBlocks.put(Metadata.MetadataType.FMD_OPERATOR, operatorBlock);
   }
 
   private static TextInputEditText findInput(View blockWithInput)
