@@ -2273,6 +2273,13 @@ bool BookmarkManager::HasBmCategory(kml::MarkGroupId groupId) const
   return (IsBookmarkCategory(groupId) && GetBmCategorySafe(groupId) != nullptr);
 }
 
+bool BookmarkManager::HasBookmark(kml::MarkId markId) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  ASSERT(IsBookmark(markId), ());
+  return (GetBookmark(markId) != nullptr);
+}
+
 void BookmarkManager::UpdateBmGroupIdList()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
