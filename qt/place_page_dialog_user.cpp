@@ -22,6 +22,21 @@ namespace
 static int constexpr kMaxLengthOfPlacePageDescription = 500;
 static int constexpr kMinWidthOfShortDescription = 390;
 
+std::string getShortDescription(std::string description)
+{
+  size_t paragraphStart = description.find("<p>");
+  size_t paragraphEnd = description.find("</p>");
+  if (paragraphStart == 0 && paragraphEnd != std::string::npos)
+    description = description.substr(3, paragraphEnd-3);
+
+  if (description.length() > kMaxLengthOfPlacePageDescription)
+  {
+    description = description.substr(0, kMaxLengthOfPlacePageDescription-3) + "...";
+  }
+
+  return description;
+}
+
 std::string_view stripSchemeFromURI(std::string_view uri) {
   for (std::string_view prefix : {"https://", "http://"})
   {
@@ -52,14 +67,23 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
   {
     QVBoxLayout * header = new QVBoxLayout();
 
-    if (!title.empty())
-      header->addWidget(new QLabel(QString::fromStdString("<h1>" + title + "</h1>")));
+    if (!title.empty()){
+      QLabel * titleLabel = new QLabel(QString::fromStdString("<h1>" + title + "</h1>"));
+      titleLabel->setWordWrap(true);
+      header->addWidget(titleLabel);
+    }
 
-    if (auto subTitle = info.GetSubtitle(); !subTitle.empty())
-      header->addWidget(new QLabel(QString::fromStdString(subTitle)));
+    if (auto subTitle = info.GetSubtitle(); !subTitle.empty()){
+      QLabel * subtitleLabel = new QLabel(QString::fromStdString(subTitle));
+      subtitleLabel->setWordWrap(true);
+      header->addWidget(subtitleLabel);
+    }
 
-    if (auto addressFormatted = address.FormatAddress(); !addressFormatted.empty())
-      header->addWidget(new QLabel(QString::fromStdString(addressFormatted)));
+    if (auto addressFormatted = address.FormatAddress(); !addressFormatted.empty()){
+      QLabel * addressLabel = new QLabel(QString::fromStdString(addressFormatted));
+      addressLabel->setWordWrap(true);
+      header->addWidget(addressLabel);
+    }
 
     layout->addLayout(header);
   }
@@ -79,6 +103,7 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
       data->addWidget(new QLabel(QString::fromStdString(key)), row, 0);
       QLabel * label = new QLabel(QString::fromStdString(value));
       label->setTextInteractionFlags(Qt::TextSelectableByMouse);
+      label->setWordWrap(true);
       if (isLink)
       {
         label->setOpenExternalLinks(true);
@@ -106,7 +131,14 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
     // Description
     if (auto description = info.GetWikiDescription(); !description.empty())
     {
-      QPushButton * wikiButton = new QPushButton("Wikipedia Description");
+      auto descriptionShort = getShortDescription(description);
+
+      QLabel * value = new QLabel(QString::fromStdString(descriptionShort));
+      value->setWordWrap(true);
+
+      data->addWidget(value, row++, 0, 1, 2);
+
+      QPushButton * wikiButton = new QPushButton("More...", value);
       wikiButton->setAutoDefault(false);
       connect(wikiButton, &QAbstractButton::clicked, this, [this, description, title]()
       {
@@ -179,7 +211,6 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
 
       addSocialNetworkWidget("Facebook", feature::Metadata::EType::FMD_CONTACT_FACEBOOK);
       addSocialNetworkWidget("Instagram", feature::Metadata::EType::FMD_CONTACT_INSTAGRAM);
-      addSocialNetworkWidget("Instagram", feature::Metadata::EType::FMD_CONTACT_INSTAGRAM);
       addSocialNetworkWidget("Twitter", feature::Metadata::EType::FMD_CONTACT_TWITTER);
       addSocialNetworkWidget("VK", feature::Metadata::EType::FMD_CONTACT_VK);
       addSocialNetworkWidget("Line", feature::Metadata::EType::FMD_CONTACT_LINE);
@@ -187,11 +218,13 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
 
     if (auto wikimedia_commons = info.GetMetadata(feature::Metadata::EType::FMD_WIKIMEDIA_COMMONS); !wikimedia_commons.empty())
     {
+      data->addWidget(new QLabel("Wikimedia Commons"), row, 0);
+
       QLabel * value = new QLabel(QString::fromStdString("<a href='" + feature::Metadata::ToWikimediaCommonsURL(std::string(wikimedia_commons)) + "'>Wikimedia Commons</a>"));
       value->setOpenExternalLinks(true);
       value->setTextInteractionFlags(Qt::TextBrowserInteraction);
 
-      data->addWidget(value, row++, 0);
+      data->addWidget(value, row++, 1);
     }
 
     // Level fragment
@@ -209,8 +242,13 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
       addEntry("Coordinates", strings::to_string_dac(ll.m_lat, 7) + ", " + strings::to_string_dac(ll.m_lon, 7));
     }
 
+    data->setColumnStretch(0, 0);
+    data->setColumnStretch(1, 1);
+
     layout->addLayout(data);
   }
+
+  layout->addStretch(); 
 
   {
     QHLine * line = new QHLine();
