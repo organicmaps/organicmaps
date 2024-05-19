@@ -361,8 +361,7 @@ UNIT_TEST(OpeningHours2TimeTableSet_off)
     TEST(MakeTimeTableSet(oh, tts), ());
     TEST_EQUAL(tts.Size(), 1, ());
 
-    TEST_EQUAL(tts.GetUnhandledDays(),
-               OpeningDays({osmoh::Weekday::Monday}), ());
+    TEST_EQUAL(tts.GetUnhandledDays(), OpeningDays({osmoh::Weekday::Monday}), ());
 
     auto const tt = tts.Get(0);
 
