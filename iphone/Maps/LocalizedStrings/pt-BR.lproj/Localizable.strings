@@ -1988,7 +1988,7 @@
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Entrada principal";
 
-"type.entrance.exit" = "Sair";
+"type.entrance.exit" = "Saída";
 
 "type.fee.yes" = "$";
 

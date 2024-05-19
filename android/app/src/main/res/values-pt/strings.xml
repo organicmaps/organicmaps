@@ -1124,7 +1124,7 @@
 	<string name="type.entrance">Entrada</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Entrada principal</string>
-	<string name="type.entrance.exit">Sai</string>
+	<string name="type.entrance.exit">Saída</string>
 	<string name="type.fee.no">Gratuito</string>
 	<string name="type.healthcare.laboratory">Laboratório médico</string>
 	<string name="type.healthcare.physiotherapist">Fisioterapeuta</string>
