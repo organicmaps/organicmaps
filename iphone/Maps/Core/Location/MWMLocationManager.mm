@@ -375,7 +375,7 @@ void setShowLocationAlert(BOOL needShow) {
     break;
   case GeoMode::PedestrianRouting:
   case GeoMode::BicycleRouting:
-    locationManager.activityType = CLActivityTypeFitness;
+    locationManager.activityType = CLActivityTypeOtherNavigation;
     break;
   }
 
@@ -484,7 +484,7 @@ void setShowLocationAlert(BOOL needShow) {
 - (void)startUpdatingLocationFor:(CLLocationManager *)manager
 {
   LOG(LINFO, ("startUpdatingLocation"));
-  
+
   [manager startUpdatingLocation];
   if ([CLLocationManager headingAvailable])
     [manager startUpdatingHeading];
