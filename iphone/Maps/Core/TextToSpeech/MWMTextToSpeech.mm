@@ -247,7 +247,9 @@ using Observers = NSHashTable<Observer>;
     }
     if (![[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
                                                  mode:mode
-                                              options:AVAudioSessionCategoryOptionMixWithOthers | AVAudioSessionCategoryOptionDuckOthers
+                                              options:
+                                                  AVAudioSessionCategoryOptionInterruptSpokenAudioAndMixWithOthers |
+                                                  AVAudioSessionCategoryOptionDuckOthers
                                                 error:nil] ||
         ![[AVAudioSession sharedInstance] setActive:YES error:nil])
       return;
