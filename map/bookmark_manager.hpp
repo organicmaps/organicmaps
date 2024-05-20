@@ -267,6 +267,7 @@ public:
 
   kml::MarkGroupId CreateBookmarkCategory(kml::CategoryData && data, bool autoSave = true);
   kml::MarkGroupId CreateBookmarkCategory(std::string const & name, bool autoSave = true);
+  void UpdateBookmarkCategory(kml::MarkGroupId & groupId, kml::CategoryData && data, bool autoSave);
 
   BookmarkCategory * CreateBookmarkCompilation(kml::CategoryData && data);
 
@@ -593,7 +594,7 @@ private:
 
   void OnEditSessionOpened();
   void OnEditSessionClosed();
-  void NotifyChanges();
+  void NotifyChanges(bool saveBookmarks);
 
   void SaveState() const;
   void LoadState();
@@ -625,6 +626,8 @@ private:
 
   kml::MarkGroupId CheckAndCreateDefaultCategory();
   void CheckAndResetLastIds();
+
+  kml::MarkGroupId GetCategoryByFileName(std::string const & fileName) const;
 
   std::unique_ptr<kml::FileData> CollectBmGroupKMLData(BookmarkCategory const * group) const;
   KMLDataCollectionPtr PrepareToSaveBookmarks(kml::GroupIdCollection const & groupIdCollection);

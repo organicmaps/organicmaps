@@ -472,10 +472,10 @@ void BookmarkManager::OnEditSessionClosed()
 {
   ASSERT_GREATER(m_openedEditSessionsCount, 0, ());
   if (--m_openedEditSessionsCount == 0)
-    NotifyChanges();
+    NotifyChanges(true);
 }
 
-void BookmarkManager::NotifyChanges()
+void BookmarkManager::NotifyChanges(bool saveChangesOnDisk /* = true */)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
@@ -510,7 +510,11 @@ void BookmarkManager::NotifyChanges()
         categoriesToSave.push_back(groupId);
     }
 
-    SaveBookmarks(categoriesToSave);
+    // During the category reloading/updating the file saving should be skipped
+    // because of the file is already up to date.
+    if (saveChangesOnDisk)
+      SaveBookmarks(categoriesToSave);
+
     SendBookmarksChanges(m_bookmarksChangesTracker);
   }
   m_bookmarksChangesTracker.ResetChanges();
@@ -1549,6 +1553,18 @@ std::string BookmarkManager::GetCategoryFileName(kml::MarkGroupId categoryId) co
   return GetBmCategory(categoryId)->GetFileName();
 }
 
+kml::MarkGroupId BookmarkManager::GetCategoryByFileName(std::string const & fileName) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  for (auto const & c : m_categories)
+  {
+    std::string categoryFileName = c.second->GetFileName();
+    if (categoryFileName == fileName)
+      return c.second->GetID();
+  }
+  return kml::kInvalidMarkGroupId;
+}
+
 m2::RectD BookmarkManager::GetCategoryRect(kml::MarkGroupId categoryId, bool addIconsSize) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -2326,6 +2342,17 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(std::string const & nam
   return groupId;
 }
 
+void BookmarkManager::UpdateBookmarkCategory(kml::MarkGroupId & groupId, kml::CategoryData && data, bool autoSave /* = true */)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_NOT_EQUAL(m_categories.count(groupId), 0, ());
+  // The current implementation reloads the provided group.
+  /// @todo implement more accurate merging instead of full reloading
+  ClearGroup(groupId);
+  m_categories.emplace(groupId, std::make_unique<BookmarkCategory>(std::move(data), autoSave));
+  m_changesTracker.OnAddGroup(groupId);
+}
+
 BookmarkCategory * BookmarkManager::CreateBookmarkCompilation(kml::CategoryData && data)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -2478,6 +2505,7 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   kml::GroupIdSet loadedGroups;
 
+  bool isUpdating = false;
   for (auto const & [fileName, fileDataPtr] : dataCollection)
   {
     auto & fileData = *fileDataPtr;
@@ -2517,9 +2545,16 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
 
     UserMarkIdStorage::Instance().EnableSaving(false);
 
+    auto groupId = GetCategoryByFileName(fileName);
     // Set autoSave = false now to avoid useless saving in NotifyChanges().
     // autoSave flag will be assigned in the end of this function.
-    auto const groupId = CreateBookmarkCategory(std::move(categoryData), false /* autoSave */);
+    if (groupId != kml::kInvalidMarkGroupId)
+    {
+      isUpdating = true;
+      UpdateBookmarkCategory(groupId, std::move(categoryData), false /* autoSave */);
+    }
+    else
+      groupId = CreateBookmarkCategory(std::move(categoryData), false /* autoSave */);
     loadedGroups.insert(groupId);
     auto * group = GetBmCategory(groupId);
     group->SetFileName(fileName);
@@ -2578,7 +2613,9 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
   }
   m_restoringCache.clear();
 
-  NotifyChanges();
+  // During the updating process the file shouldn't be re-saved on disk because it should be already up to date.
+  // In other case race condition may occur when multiple devices are used.
+  NotifyChanges(!isUpdating /* saveChangesOnDisk */);
 
   for (auto const & groupId : loadedGroups)
     GetBmCategory(groupId)->EnableAutoSave(autoSave);
@@ -2908,7 +2945,7 @@ void BookmarkManager::SetNotificationsEnabled(bool enabled)
 
   m_notificationsEnabled = enabled;
   if (m_notificationsEnabled && m_openedEditSessionsCount == 0)
-    NotifyChanges();
+    NotifyChanges(true /* saveChangesOnDisk */);
 }
 
 bool BookmarkManager::AreNotificationsEnabled() const
@@ -3444,5 +3481,5 @@ bool BookmarkManager::EditSession::DeleteBmCategory(kml::MarkGroupId groupId)
 
 void BookmarkManager::EditSession::NotifyChanges()
 {
-  m_bmManager.NotifyChanges();
+  m_bmManager.NotifyChanges(true /* saveChangesOnDisk */);
 }
