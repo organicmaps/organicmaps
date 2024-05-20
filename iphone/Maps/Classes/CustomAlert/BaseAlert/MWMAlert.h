@@ -7,6 +7,7 @@
 + (MWMAlert *)locationAlertWithCancelBlock:(MWMVoidBlock)cancelBlock;
 + (MWMAlert *)routingDisclaimerAlertWithOkBlock:(MWMVoidBlock)block;
 + (MWMAlert *)disabledLocationAlert;
++ (MWMAlert *)locationServicesDisabledAlert;
 + (MWMAlert *)noWiFiAlertWithOkBlock:(MWMVoidBlock)okBlock andCancelBlock:(MWMVoidBlock)cancelBlock;
 + (MWMAlert *)noConnectionAlert;
 + (MWMAlert *)searchQuickFilterNoConnectionAlert;
@@ -28,6 +29,7 @@
 + (MWMAlert *)deleteFeatureAlertWithBlock:(MWMVoidBlock)block;
 + (MWMAlert *)editorViralAlert;
 + (MWMAlert *)osmAuthAlert;
++ (MWMAlert *)osmReauthAlert;
 + (MWMAlert *)personalInfoWarningAlertWithBlock:(MWMVoidBlock)block;
 + (MWMAlert *)trackWarningAlertWithCancelBlock:(MWMVoidBlock)block;
 + (MWMAlert *)infoAlert:(NSString *)title text:(NSString *)text;

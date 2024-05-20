@@ -1,6 +1,5 @@
 #pragma once
 
-#include "base/base.hpp"
 #include "base/assert.hpp"
 
 #include <algorithm>
@@ -67,7 +66,7 @@ public:
 
   void clear() { m_queue.clear(); }
 
-  void swap(limited_priority_queue<T, CompareT> & queue)
+  void swap(limited_priority_queue & queue) noexcept
   {
     m_queue.swap(queue.m_queue);
     using std::swap;
@@ -86,7 +85,7 @@ private:
 };
 
 template <typename T, typename CompareT>
-void swap(limited_priority_queue<T, CompareT> & q1, limited_priority_queue<T, CompareT> & q2)
+void swap(limited_priority_queue<T, CompareT> & q1, limited_priority_queue<T, CompareT> & q2) noexcept
 {
   q1.swap(q2);
 }

@@ -2,7 +2,9 @@
 
 #include "qt/create_feature_dialog.hpp"
 #include "qt/editor_dialog.hpp"
-#include "qt/place_page_dialog.hpp"
+#include "qt/place_page_dialog_common.hpp"
+#include "qt/place_page_dialog_developer.hpp"
+#include "qt/place_page_dialog_user.hpp"
 #include "qt/qt_common/helpers.hpp"
 #include "qt/routing_settings_dialog.hpp"
 #include "qt/screenshoter.hpp"
@@ -207,7 +209,7 @@ void DrawWidget::mousePressEvent(QMouseEvent * e)
   if (IsLeftButton(e))
   {
     if (IsShiftModifier(e))
-      SubmitRoutingPoint(pt);
+      SubmitRoutingPoint(pt, false);
     else if (m_ruler.IsActive() && IsAltModifier(e))
       SubmitRulerPoint(pt);
     else if (IsAltModifier(e))
@@ -481,7 +483,7 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
 {
   m_emulatingLocation = true;
 
-  m2::PointD const point = GetCoordsFromSettingsIfExists(true /* start */, pt);
+  m2::PointD const point = GetCoordsFromSettingsIfExists(true /* start */, pt, false /* pointIsMercator */);
 
   m_framework.OnLocationUpdate(qt::common::MakeGpsInfo(point));
 
@@ -524,7 +526,7 @@ void DrawWidget::SubmitRulerPoint(m2::PointD const & pt)
   m_ruler.DrawLine(m_framework.GetDrapeApi());
 }
 
-void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
+void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt, bool pointIsMercator)
 {
   auto & routingManager = m_framework.GetRoutingManager();
 
@@ -546,9 +548,9 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
   point.m_pointType = m_routePointAddMode;
   point.m_isMyPosition = false;
   if (!isIntermediate)
-    point.m_position = GetCoordsFromSettingsIfExists(false /* start */, pt);
+    point.m_position = GetCoordsFromSettingsIfExists(false /* start */, pt, pointIsMercator);
  else
-    point.m_position = P2G(pt);
+    point.m_position = pointIsMercator ? pt : P2G(pt);
 
   routingManager.AddRoutePoint(std::move(point));
 
@@ -649,8 +651,16 @@ void DrawWidget::ShowPlacePage()
     address = m_framework.GetAddressAtPoint(info.GetMercator());
   }
 
-  PlacePageDialog dlg(this, info, address);
-  if (dlg.exec() == QDialog::Accepted)
+  std::unique_ptr<QDialog> placePageDialog = nullptr;
+  bool developerMode;
+  if (settings::Get(settings::kDeveloperMode, developerMode) && developerMode)
+    placePageDialog = std::make_unique<PlacePageDialogDeveloper>(this, info, address);
+  else
+    placePageDialog = std::make_unique<PlacePageDialogUser>(this, info, address);
+
+  switch (placePageDialog->exec())
+  {
+  case place_page_dialog::EditPlace:
   {
     osm::EditableMapObject emo;
     if (m_framework.GetEditableMapObject(info.GetID(), emo))
@@ -671,6 +681,27 @@ void DrawWidget::ShowPlacePage()
     {
       LOG(LERROR, ("Error while trying to edit feature."));
     }
+  }
+  break;
+  case place_page_dialog::RouteFrom:
+  {
+    SetRoutePointAddMode(RouteMarkType::Start);
+    SubmitRoutingPoint(info.GetMercator(), true);
+  }
+  break;
+  case place_page_dialog::AddStop:
+  {
+    SetRoutePointAddMode(RouteMarkType::Intermediate);
+    SubmitRoutingPoint(info.GetMercator(), true);
+  }
+  break;
+  case place_page_dialog::RouteTo:
+  {
+    SetRoutePointAddMode(RouteMarkType::Finish);
+    SubmitRoutingPoint(info.GetMercator(), true);
+  }
+  break;
+  default: break;
   }
   m_framework.DeactivateMapSelection(false);
 }
@@ -693,11 +724,11 @@ m2::PointD DrawWidget::P2G(m2::PointD const & pt) const
   return m_framework.P3dtoG(pt);
 }
 
-m2::PointD DrawWidget::GetCoordsFromSettingsIfExists(bool start, m2::PointD const & pt) const
+m2::PointD DrawWidget::GetCoordsFromSettingsIfExists(bool start, m2::PointD const & pt,  bool pointIsMercator) const
 {
   if (auto optional = RoutingSettings::GetCoords(start))
     return mercator::FromLatLon(*optional);
 
-  return P2G(pt);
+  return pointIsMercator ? pt : P2G(pt);
 }
 }  // namespace qt

@@ -19,6 +19,11 @@ extension UITextField {
 
 class UITextFieldRenderer {
   class func render(_ control: UITextField, style: Style) {
+    if let cornerRadius = style.cornerRadius {
+      control.layer.setCorner(radius: cornerRadius)
+      control.clipsToBounds = true
+    }
+    control.borderStyle = .none
     var placeholderAttributes = [NSAttributedString.Key : Any]()
     if let backgroundColor = style.backgroundColor {
       control.backgroundColor = backgroundColor
@@ -29,7 +34,6 @@ class UITextFieldRenderer {
     }
     if let fontColor = style.fontColor {
       control.textColor = fontColor
-
     }
     if let tintColor = style.tintColor {
       control.tintColor = tintColor

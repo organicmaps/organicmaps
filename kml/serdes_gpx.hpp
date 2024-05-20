@@ -4,6 +4,7 @@
 
 #include "coding/parse_xml.hpp"
 #include "coding/reader.hpp"
+#include "coding/writer.hpp"
 
 #include "geometry/point_with_altitude.hpp"
 
@@ -15,6 +16,42 @@ namespace kml
 {
 namespace gpx
 {
+
+class GpxWriter
+{
+public:
+  DECLARE_EXCEPTION(WriteGpxException, RootException);
+
+  explicit GpxWriter(Writer & writer)
+    : m_writer(writer)
+  {}
+
+  void Write(FileData const & fileData);
+
+private:
+  Writer & m_writer;
+};
+
+class SerializerGpx
+{
+public:
+  DECLARE_EXCEPTION(SerializeException, RootException);
+
+  explicit SerializerGpx(FileData const & fileData)
+    : m_fileData(fileData)
+  {}
+
+  template <typename Sink>
+  void Serialize(Sink & sink)
+  {
+    GpxWriter gpxWriter(sink);
+    gpxWriter.Write(m_fileData);
+  }
+
+private:
+  FileData const & m_fileData;
+};
+
 class GpxParser
 {
 public:

@@ -13,6 +13,8 @@
 
 #include <pugixml.hpp>
 
+namespace osm_auth
+{
 using osm::ServerApi06;
 using osm::OsmOAuth;
 using namespace pugi;
@@ -123,7 +125,7 @@ UNIT_TEST(OSM_ServerAPI_ChangesetAndNode)
 
   // Cleanup - delete unit test node from the server.
   changeSetId = api.CreateChangeSet({{"created_by", "OMaps Unit Test"},
-                                     {"comment", "For test purposes only."}});
+                                    {"comment", "For test purposes only."}});
   SCOPE_GUARD(guard, changesetCloser);
   // New changeset has new id.
   node.SetAttribute("changeset", strings::to_string(changeSetId));
@@ -139,3 +141,4 @@ UNIT_TEST(OSM_ServerAPI_Notes)
   TEST_GREATER(id, 0, ("Note id should be a positive integer"));
   TEST_NO_THROW(api.CloseNote(id), ("Closing a note"));
 }
+}  // namespace osm_auth

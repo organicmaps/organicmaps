@@ -1,16 +1,17 @@
 // Paths
 OMIM_ROOT = $(PROJECT_DIR)/../..
-QT_PATH[arch=x86_64] = /usr/local/opt/qt@5
-QT_PATH[arch=arm64] = /opt/homebrew/opt/qt@5
+QT_PATH[arch=x86_64] = /usr/local/opt/qt@6
+QT_PATH[arch=arm64] = /opt/homebrew/opt/qt@6
 BOOST_ROOT = $(OMIM_ROOT)/3party/boost
 
 // jansson is included in many libs, and is also used in headers (leaks to other libs)
-HEADER_SEARCH_PATHS = $(inherited) $(OMIM_ROOT) $(BOOST_ROOT) $(OMIM_ROOT)/3party/jansson $(OMIM_ROOT)/3party/jansson/jansson/src $(OMIM_ROOT)/3party/utf8cpp/include
+HEADER_SEARCH_PATHS = $(inherited) $(OMIM_ROOT) $(BOOST_ROOT) $(OMIM_ROOT)/3party/jansson $(OMIM_ROOT)/3party/jansson/jansson/src $(OMIM_ROOT)/3party/utfcpp/source
 FRAMEWORK_SEARCH_PATHS[sdk=macosx*] = $(QT_PATH)/lib
 
 // Deployment target
 IPHONEOS_DEPLOYMENT_TARGET = 12.0
-MACOSX_DEPLOYMENT_TARGET = 10.12
+// The minimum version that properly supports Qt6's std::filesystem for C++17
+MACOSX_DEPLOYMENT_TARGET = 10.15
 
 // Supported platforms
 SUPPORTED_PLATFORMS = macosx iphonesimulator iphoneos
@@ -85,6 +86,8 @@ GCC_NO_COMMON_BLOCKS = YES
 // Silence "Migrate from OpenGL to Metal" warnings.
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COREVIDEO_SILENCE_GL_DEPRECATION GLES_SILENCE_DEPRECATION
 GCC_SYMBOLS_PRIVATE_EXTERN = YES
+// Required to run test binaries on Mac.
+GENERATE_INFOPLIST_FILE = YES
 MTL_FAST_MATH = YES
 ONLY_ACTIVE_ARCH = YES
 PRODUCT_NAME = $(TARGET_NAME)

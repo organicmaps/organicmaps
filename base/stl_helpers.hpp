@@ -1,14 +1,12 @@
 #pragma once
 
 #include <algorithm>
-#include <cstdint>
 #include <functional>
 #include <initializer_list>
 #include <iterator>
 #include <memory>
 #include <tuple>
 #include <type_traits>
-#include <utility>
 #include <vector>
 
 namespace base
@@ -200,6 +198,13 @@ template <typename T>
 std::underlying_type_t<T> constexpr Underlying(T value)
 {
   return static_cast<std::underlying_type_t<T>>(value);
+}
+
+// Short alias like Enum to Integral.
+template <typename T>
+std::underlying_type_t<T> constexpr E2I(T value)
+{
+  return Underlying(value);
 }
 
 // Use this if you want to make a functor whose first

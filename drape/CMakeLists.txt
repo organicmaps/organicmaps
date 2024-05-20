@@ -27,6 +27,7 @@ set(SRC
   drape_global.hpp
   drape_routine.hpp
   dynamic_texture.hpp
+  font_constants.hpp
   font_texture.cpp
   font_texture.hpp
   framebuffer.cpp
@@ -42,8 +43,7 @@ set(SRC
   gl_includes.hpp
   glsl_func.hpp
   glsl_types.hpp
-  glyph_generator.cpp
-  glyph_generator.hpp
+  glyph.hpp
   glyph_manager.cpp
   glyph_manager.hpp
   gpu_buffer.cpp
@@ -172,10 +172,9 @@ target_link_libraries(${PROJECT_NAME}
   Freetype::Freetype
   vulkan_wrapper
   stb_image
-  sdf_image
   harfbuzz
   ICU::i18n
-  expat
+  expat::expat
   $<$<BOOL:${PLATFORM_MAC}>:-framework\ OpenGL>
   $<$<BOOL:${PLATFORM_LINUX}>:OpenGL::GL>
 )

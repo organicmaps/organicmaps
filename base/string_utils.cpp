@@ -87,7 +87,7 @@ UniChar LastUniChar(std::string const & s)
 {
   if (s.empty())
     return 0;
-  utf8::unchecked::iterator<std::string::const_iterator> iter(s.end());
+  utf8::unchecked::iterator iter(s.end());
   --iter;
   return *iter;
 }
@@ -226,7 +226,7 @@ void Trim(std::string_view & sv)
   if (beg != sv.end())
   {
     auto const end = std::find_if(sv.crbegin(), sv.crend(), [](auto c) { return !std::isspace(c); }).base();
-    sv = std::string_view(beg, std::distance(beg, end));
+    sv = std::string_view(sv.data() + std::distance(sv.begin(), beg), std::distance(beg, end));
   }
   else
     sv = {};
@@ -439,7 +439,7 @@ void ParseCSVRow(std::string const & s, char const delimiter, std::vector<std::s
   for (; it; ++it)
   {
     std::string column(*it);
-    strings::Trim(column);
+    Trim(column);
     target.push_back(std::move(column));
   }
 

@@ -56,7 +56,6 @@ set(shader_files
     GL/text.fsh.glsl
     GL/text.vsh.glsl
     GL/text_billboard.vsh.glsl
-    GL/text_fixed.fsh.glsl
     GL/text_outlined.vsh.glsl
     GL/text_outlined_billboard.vsh.glsl
     GL/text_outlined_gui.vsh.glsl
@@ -143,7 +142,7 @@ if (PLATFORM_IPHONE)
 endif()
 
 # Do not include glm's CMakeLists.txt, because it's outdated and not necessary.
-target_include_directories(${PROJECT_NAME} PUBLIC ${OMIM_ROOT}/3party/glm ${OMIM_ROOT}/3party/utf8cpp/include)
+target_include_directories(${PROJECT_NAME} PUBLIC "${OMIM_ROOT}/3party/glm")
 
 target_link_libraries(${PROJECT_NAME} drape)
 

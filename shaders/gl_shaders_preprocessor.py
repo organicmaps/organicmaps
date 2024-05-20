@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import filecmp
 import os
 import re
 import sys
@@ -114,7 +115,10 @@ def generate_shader_indexes(shaders):
 
 
 def write_definition_file(defines_file, generation_dir):
-    with open(os.path.join(generation_dir, defines_file), 'w') as output_file:
+    defines_file = os.path.join(generation_dir, defines_file)
+    # Write to temporary file first, and then compare if its content has changed to avoid unnecessary code rebuilds.
+    defines_file_tmp = defines_file + ".tmp"
+    with open(defines_file_tmp, 'w') as output_file:
         output_file.write("#pragma once\n\n")
         output_file.write("#include \"shaders/programs.hpp\"\n")
         output_file.write("#include \"shaders/gl_program_info.hpp\"\n\n")
@@ -125,6 +129,12 @@ def write_definition_file(defines_file, generation_dir):
         output_file.write("extern char const * GLES3_SHADER_VERSION;\n\n")
         output_file.write("extern GLProgramInfo GetProgramInfo(dp::ApiVersion apiVersion, Program program);\n")
         output_file.write("}  // namespace gpu\n")
+
+    if not os.path.isfile(defines_file) or not filecmp.cmp(defines_file, defines_file_tmp, False):
+        os.replace(defines_file_tmp, defines_file)
+        print(defines_file + " was replaced")
+    else:
+        os.remove(defines_file_tmp)
 
 
 def write_shader_gles_header(output_file):
@@ -222,7 +232,10 @@ def write_gpu_programs_map(file, programs_def, source_prefix):
 
 def write_implementation_file(programs_def, shader_index, shader_dir, impl_file, def_file, generation_dir,
                               shaders_library):
-    with open(os.path.join(generation_dir, impl_file), 'w') as file:
+    impl_file = os.path.join(generation_dir, impl_file)
+    # Write to temporary file first, and then compare if its content has changed to avoid unnecessary code rebuilds.
+    impl_file_tmp = impl_file + ".tmp"
+    with open(impl_file_tmp, 'w') as file:
         file.write("#include \"shaders/%s\"\n\n" % (def_file))
         file.write("#include \"base/assert.hpp\"\n\n")
         file.write("#include \"std/target_os.hpp\"\n\n")
@@ -258,6 +271,12 @@ def write_implementation_file(programs_def, shader_index, shader_dir, impl_file,
         file.write("  return {};\n")
         file.write("}\n")
         file.write("}  // namespace gpu\n")
+
+    if not os.path.isfile(impl_file) or not filecmp.cmp(impl_file, impl_file_tmp, False):
+        os.replace(impl_file_tmp, impl_file)
+        print(impl_file + " was replaced")
+    else:
+        os.remove(impl_file_tmp)
 
 
 if __name__ == '__main__':

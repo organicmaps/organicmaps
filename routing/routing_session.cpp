@@ -476,7 +476,7 @@ void RoutingSession::PassCheckpoints()
   }
 }
 
-void RoutingSession::GenerateNotifications(std::vector<std::string> & notifications)
+void RoutingSession::GenerateNotifications(std::vector<std::string> & notifications, bool announceStreets)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   notifications.clear();
@@ -493,7 +493,15 @@ void RoutingSession::GenerateNotifications(std::vector<std::string> & notificati
   // Generate turns notifications.
   std::vector<turns::TurnItemDist> turns;
   if (m_route->GetNextTurns(turns))
-    m_turnNotificationsMgr.GenerateTurnNotifications(turns, notifications);
+  {
+    RouteSegment::RoadNameInfo nextStreetInfo;
+
+    // only populate nextStreetInfo if TtsStreetNames is enabled
+    if (announceStreets)
+      m_route->GetNextTurnStreetName(nextStreetInfo);
+
+    m_turnNotificationsMgr.GenerateTurnNotifications(turns, notifications, nextStreetInfo);
+  }
 
   m_speedCameraManager.GenerateNotifications(notifications);
 }
@@ -777,6 +785,27 @@ bool RoutingSession::IsRouteValid() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   return m_route && m_route->IsValid();
+}
+
+bool RoutingSession::GetRouteJunctionPoints(std::vector<m2::PointD> & routeJunctionPoints) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  ASSERT(m_route, ());
+
+  if (!m_route->IsValid())
+    return false;
+
+  auto const & segments = m_route->GetRouteSegments();
+  routeJunctionPoints.reserve(segments.size());
+
+  for (size_t i = 0; i < segments.size(); ++i)
+  {
+    auto const & junction = segments[i].GetJunction();
+    routeJunctionPoints.push_back(junction.GetPoint());
+  }
+
+  ASSERT_EQUAL(routeJunctionPoints.size(), routeJunctionPoints.size(), ());
+  return true;
 }
 
 bool RoutingSession::GetRouteAltitudesAndDistancesM(std::vector<double> & routeSegDistanceM,

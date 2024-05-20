@@ -58,9 +58,8 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackPrimaryText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AlertViewTextField"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="editor_comment_hint"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                                     </userDefinedRuntimeAttributes>
                                 </textField>
                             </subviews>
@@ -73,7 +72,7 @@
                                 <constraint firstItem="0f8-vD-nJT" firstAttribute="height" secondItem="npf-dH-f50" secondAttribute="height" id="zHi-xB-aCQ"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AlertViewTextField"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AlertViewTextFieldContainer"/>
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kEx-DM-ynC" userLabel="hDivider">

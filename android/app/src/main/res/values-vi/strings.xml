@@ -41,9 +41,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Không có quảng cáo, không theo dõi, không thu thập dữ liệu</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Tiết kiệm pin, không sử dụng dữ liệu nền</string>
+	<string name="about_proposition_2">• Không hao pin, hoạt động offline</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Nhanh chóng, tối giản, không có rác</string>
+	<string name="about_proposition_3">• Nhanh chóng, tối giản, được phát triển bởi cộng đồng</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Ứng dụng nguồn mở được tạo bởi những người đam mê và tình nguyện viên.</string>
 	<!-- The button that opens system location settings -->
@@ -102,52 +102,54 @@
 	<string name="measurement_units_summary">Chọn giữa dặm và kilômét</string>
 
 	<!-- SECTION: Search categories -->
-	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">Ăn ở đâu</string>
-	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Cửa hàng tạp hóa</string>
-	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">Giao thông</string>
-	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Khí đốt</string>
-	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">đỗ xe</string>
-	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">Đi mua sắm</string>
-	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">Đồ cũ</string>
-	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">Khách sạn</string>
-	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">Diểm tham quan</string>
-	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">Giải trí</string>
-	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">ATM</string>
-	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">Cuộc sống về đêm</string>
-	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Kỳ nghỉ gia đình</string>
-	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">Ngân hàng</string>
-	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">Hiệu thuốc</string>
-	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">Bệnh viện</string>
-	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">Nhà vệ sinh</string>
-	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">Bưu điện</string>
-	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">Cảnh sát</string>
-	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">WiFi</string>
-	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">Tái chế rác thải</string>
-	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">Nước</string>
-	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">Đối với RV</string>
+	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+	<string name="category_eat">Ăn ở đâu</string>
+	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+	<string name="category_food">Cửa hàng tạp hóa</string>
+	<!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+	<string name="category_transport">Giao thông</string>
+	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+	<string name="category_fuel">Khí đốt</string>
+	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+	<string name="category_parking">đỗ xe</string>
+	<!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+	<string name="category_shopping">Đi mua sắm</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
+	<string name="category_secondhand">Đồ cũ</string>
+	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+	<string name="category_hotel">Khách sạn</string>
+	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+	<string name="category_tourism">Diểm tham quan</string>
+	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
+	<string name="category_entertainment">Giải trí</string>
+	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+	<string name="category_atm">ATM</string>
+	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+	<string name="category_nightlife">Cuộc sống về đêm</string>
+	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+	<string name="category_children">Kỳ nghỉ gia đình</string>
+	<!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+	<string name="category_bank">Ngân hàng</string>
+	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+	<string name="category_pharmacy">Hiệu thuốc</string>
+	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+	<string name="category_hospital">Bệnh viện</string>
+	<!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+	<string name="category_toilet">Nhà vệ sinh</string>
+	<!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+	<string name="category_post">Bưu điện</string>
+	<!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+	<string name="category_police">Cảnh sát</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+	<string name="category_wifi">WiFi</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+	<string name="category_recycling">Tái chế rác thải</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+	<string name="category_water">Nước</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+	<string name="category_rv">Đối với RV</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Ghi chú</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -158,6 +160,10 @@
 	<string name="load_kmz_successful">Đã tải điểm đánh dấu thành công! Bạn có thể tìm chúng trên bản đồ hoặc màn hình Trình quản lý Điểm đánh dấu.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Không tải lên được điểm đánh dấu. Tập tin có thể bị hỏng hoặc lỗi.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Loại tệp không được ứng dụng nhận dạng:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Không thể mở tập tin %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Sửa</string>
 	<!-- Warning message when doing search around current position -->
@@ -210,6 +216,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">Tòa nhà 3D bị tắt ở chế độ tiết kiệm năng lượng</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Hướng dẫn bằng Giọng nói</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Thông báo tên đường</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Nếu bật, sẽ đọc to tên đường hoặc lối ra để rẽ vào.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Ngôn ngữ Giọng nói</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -445,13 +455,15 @@
 	<string name="editor_edit_place_title">Chỉnh sửa</string>
 	<string name="editor_add_place_title">Nhập</string>
 	<string name="editor_edit_place_name_hint">Tên địa điểm</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">Vì nó được viết bằng ngôn ngữ địa phương</string>
 	<string name="editor_edit_place_category_title">Thể loại</string>
 	<string name="detailed_problem_description">Mô tả chi tiết của vấn đề</string>
 	<string name="editor_report_problem_other_title">Một vấn đề khác</string>
 	<string name="placepage_add_business_button">Thêm tổ chức</string>
 	<string name="message_invalid_feature_position">Một đối tượng không thể đặt được ở đây</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Dữ liệu bản đồ từ OpenStreetMap kể từ %s. Nó giống như Wikipedia nơi bạn có thể thêm hoặc chỉnh sửa địa điểm cho tất cả người dùng trên toàn thế giới.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Dữ liệu OpenStreetMap do cộng đồng tạo ra kể từ %s. Tìm hiểu thêm về cách chỉnh sửa và cập nhật bản đồ tại OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">Đăng nhập để người dùng khác có thể nhìn thấy những thay đổi bạn đã thực hiện.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d trên %2$d</string>
@@ -470,14 +482,10 @@
 	<string name="editor_detailed_description">Những thay đổi đề nghị của bạn sẽ được gửi đến cộng đồng OpenStreetMap. Mô tả các chi tiết không thể sửa trong Organic Maps.</string>
 	<string name="editor_more_about_osm">Thông tin bổ sung về OpenStreetMap</string>
 	<string name="editor_operator">Đơn vị điều hành</string>
+	<string name="editor_category_unsuitable_title">Không thể tìm thấy một danh mục phù hợp?</string>
+	<string name="editor_category_unsuitable_text">Bản đồ không phải trả tiền chỉ cho phép thêm các danh mục điểm đơn giản, nghĩa là không có thị trấn, đường, hồ, đường viền tòa nhà, v.v. Vui lòng thêm các danh mục đó trực tiếp vào <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Hãy xem <a href="https://organicmaps.app/faq/editing/advanced-map-editing">hướng dẫn</a> của chúng tôi để biết hướng dẫn chi tiết từng bước.</string>
 	<string name="downloader_no_downloaded_maps_title">Bạn chưa tải về bất kỳ bản đồ nào</string>
 	<string name="downloader_no_downloaded_maps_message">Tải về bản đồ để tìm địa điểm và định hướng ngoại tuyến.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">Tiếp tục phát hiện địa điểm hiện tại của bạn?</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">Chưa biết địa điểm hiện tại. Có thể bạn đang ở trong một tòa nhà hoặc đường hầm.</string>
-	<string name="current_location_unknown_continue_button">Tiếp tục</string>
-	<string name="current_location_unknown_stop_button">Dừng</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -515,7 +523,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Chắc chắn rằng bạn không nhập bất kỳ thông tin cá nhân nào.</string>
 	<string name="editor_share_to_all_dialog_message_2">Các biên tập viên của OpenStreetMap sẽ kiểm tra các thay đổi và liên hệ với bạn nếu họ có bất kỳ câu hỏi nào.</string>
-	<string name="navigation_stop_button">dừng</string>
+	<string name="navigation_stop_button">Dừng</string>
 	<!-- For the first routing -->
 	<string name="accept">Chấp nhận</string>
 	<!-- For the first routing -->
@@ -548,6 +556,8 @@
 	<string name="routing_add_finish_point">Bổ sung điểm kết thúc để lập kế hoạch lộ trình</string>
 	<string name="placepage_remove_stop">Xóa</string>
 	<string name="placepage_add_stop">Thêm điểm dừng</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Vui lòng đăng nhập vào OpenStreetMap để tự động tải lên tất cả các chỉnh sửa bản đồ của bạn. Tìm hiểu thêm <a href="https://github.com/organicmaps/organicmaps/issues/6144">tại đây</a>.</string>
 	<string name="dialog_error_storage_title">Vấn đề truy cập ổ lưu trữ</string>
 	<string name="dialog_error_storage_message">Ổ lưu trữ bên ngoài không khả dụng, có thể Thẻ SD đã bị tháo, bị hỏng hoặc hệ thống tập tin được thiết lập chỉ đọc. Hãy kiểm tra và liên hệ với chúng tôi qua support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Giả lập ổ lưu trữ hỏng</string>
@@ -602,13 +612,15 @@
 	<string name="bookmark_list_description_hint">Đánh vào một mô tả (văn bản hoặc html)</string>
 	<string name="not_shared">Riêng tư</string>
 	<string name="speedcams_alert_title">Tăn tốc độ máy ảnh</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Luôn luôn</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Không bao giờ</string>
 	<string name="place_description_title">Mô tả Địa điểm</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Trình tải xuống bản đồ</string>
+	<!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+	<string name="pref_tts_speedcams_auto">Cảnh báo về việc chạy quá tốc độ</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Luôn cảnh báo</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Không bao giờ cảnh báo</string>
 	<string name="power_managment_title">Chế độ tiết kiệm năng lượng</string>
 	<string name="power_managment_description">Nếu chế độ tiết kiệm năng lượng được bật, ứng dụng sẽ tắt các chức năng tiêu thụ năng lượng tùy thuộc vào mức pin hiện tại của điện thoại</string>
 	<string name="power_managment_setting_never">Không bao giờ</string>
@@ -655,6 +667,8 @@
 	<string name="by_distance">Theo khoảng cách</string>
 	<!-- Android -->
 	<string name="by_date">Theo ngày</string>
+	<!-- Android -->
+	<string name="by_name">Theo Tên</string>
 	<string name="week_ago_sorttype">Tuần trước</string>
 	<string name="month_ago_sorttype">Tháng trước</string>
 	<string name="moremonth_ago_sorttype">Hơn một tháng trước</string>
@@ -700,18 +714,36 @@
 	<string name="enable_keep_screen_on_description">Khi được bật, màn hình sẽ luôn sáng khi hiển thị bản đồ.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Dữ liệu bản đồ từ OpenStreetMap</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Cảm ơn bạn đã sử dụng bản đồ do cộng đồng xây dựng của chúng tôi!</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Bạn hiện đang sử dụng bản đồ không phải trả tiền trên màn hình điện thoại</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">Với sự đóng góp và hỗ trợ của bạn, chúng tôi có thể tạo ra những bản đồ tốt nhất trên Thế giới!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Bạn có thích ứng dụng của chúng tôi không? Hãy quyên góp để hỗ trợ sự phát triển! Bạn chưa thích nó? Vui lòng cho chúng tôi biết và chúng tôi sẽ khắc phục nó!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Nếu bạn biết một nhà phát triển phần mềm, bạn có thể yêu cầu họ triển khai một tính năng mà bạn cần.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Bạn có biết rằng bạn có thể nhấn và giữ bất kỳ địa điểm nào trên bản đồ để chọn địa điểm đó không?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Bạn có biết rằng bạn có thể chọn vị trí hiện tại của mình trên bản đồ không?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Bạn có thể giúp dịch ứng dụng của chúng tôi sang ngôn ngữ của bạn.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Ứng dụng của chúng tôi được phát triển bởi một số người đam mê và cộng đồng.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Bạn có thể dễ dàng sửa chữa và cải thiện dữ liệu bản đồ.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Mục tiêu chính của chúng tôi là xây dựng các bản đồ nhanh chóng, tập trung vào quyền riêng tư, dễ sử dụng mà bạn sẽ yêu thích.</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">Bạn hiện đang sử dụng bản đồ không phải trả tiền trên màn hình điện thoại</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Bạn hiện đang sử dụng bản đồ không phải trả tiền trên màn hình ô tô</string>
+	<string name="car_used_on_the_car_screen">Bạn hiện đang sử dụng bản đồ không phải trả tiền trên màn hình ô tô</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Bạn đã kết nối với Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Tiếp tục trên điện thoại</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">Đến màn hình ô tô</string>
+	<string name="car_continue_on_the_phone">Tiếp tục trên điện thoại</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">Đến màn hình ô tô</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">Ứng dụng này yêu cầu quyền truy cập vào vị trí của bạn cho mục đích điều hướng.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -722,6 +754,22 @@
 	<string name="button_layer_outdoor">Đi bộ đường dài</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Trình duyệt web không khả dụng</string>
+	<string name="volume">Âm lượng</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Xuất tất cả Dấu trang và Bản nhạc</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Cài đặt tổng hợp giọng nói của hệ thống</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">Không tìm thấy cài đặt Tổng hợp giọng nói, bạn có chắc thiết bị của mình hỗ trợ nó không?</string>
+	<string name="drive_through">Lái xe qua</string>
+	<string name="clear_the_search">Xóa tìm kiếm</string>
+	<string name="zoom_in">Phóng to</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Thu nhỏ</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Liên kết thực đơn</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Xem thực đơn</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Địa chỉ/Khối</string>
@@ -735,7 +783,7 @@
 	<string name="type.amenity.arts_centre">Trung tâm nghệ thuật</string>
 	<string name="type.amenity.bank">Ngân hàng</string>
 	<string name="type.amenity.bar">Quán bar</string>
-	<string name="type.amenity.bbq">Điểm cắm trại</string>
+	<string name="type.amenity.bbq">Nướng thịt nướng</string>
 	<string name="type.amenity.bench">Xe đạp</string>
 	<string name="type.amenity.bicycle_parking">Chỗ Đậu Xe Đạp</string>
 	<string name="type.amenity.bicycle_rental">Cho thuê xe đạp</string>
@@ -767,6 +815,7 @@
 	<string name="type.amenity.dentist">Nha sĩ</string>
 	<string name="type.amenity.doctors">Bác sĩ</string>
 	<string name="type.amenity.drinking_water">Nước uống</string>
+	<string name="type.drinking_water.yes">Nước uống</string>
 	<string name="type.amenity.driving_school">Trường lái xe</string>
 	<string name="type.amenity.exhibition_centre">Trung tâm triển lãm</string>
 	<string name="type.amenity.money_transfer">Chuyển tiền</string>
@@ -850,7 +899,12 @@
 	<string name="type.recycling.small_appliances">Chất thải đồ điện</string>
 	<string name="type.amenity.restaurant">Quán ăn</string>
 	<string name="type.amenity.school">Trường học</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Chổ nương thân</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">Chổ nương thân</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">Túp lều Bivouac</string>
 	<string name="type.amenity.public_bath">Nhà tắm công cộng</string>
 	<string name="type.amenity.shower">Nhà tắm</string>
 	<string name="type.amenity.stripclub">Câu lạc bộ thoát y</string>
@@ -885,6 +939,7 @@
 	<string name="type.barrier.swing_gate">Thanh Chắn</string>
 	<string name="type.barrier.toll_booth">Quầy Soát Vé</string>
 	<string name="type.boundary.national_park">Công viên quốc gia</string>
+	<string name="type.boundary.aboriginal_lands">Đất bản địa</string>
 	<string name="type.boundary.protected_area">Khu bảo tồn</string>
 	<string name="type.boundary.protected_area.1">Khu bảo tồn</string>
 	<string name="type.boundary.protected_area.2">Khu bảo tồn</string>
@@ -1050,15 +1105,9 @@
 	<string name="type.highway.footway">Đường</string>
 	<string name="type.highway.footway.sidewalk">Đường đi bộ</string>
 	<string name="type.highway.footway.crossing">Vạch qua đường</string>
-	<string name="type.highway.footway.alpine_hiking">Đường</string>
 	<string name="type.highway.footway.area">Đường</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Cầu</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Đường</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Đường</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Đường</string>
-	<string name="type.highway.footway.hiking">Đường</string>
-	<string name="type.highway.footway.mountain_hiking">Đường</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Đường hầm</string>
 	<string name="type.highway.ford">Đập tràn</string>
@@ -1079,17 +1128,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Đường hầm</string>
 	<string name="type.highway.path">Đường</string>
-	<string name="type.highway.path.alpine_hiking">Đường</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">Đường</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">Đường</string>
 	<string name="type.highway.path.bicycle">Đường</string>
+	<string name="type.highway.footway.bicycle">Đường</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Cầu</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Đường</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Đường</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Đường</string>
-	<string name="type.highway.path.hiking">Đường</string>
 	<string name="type.highway.path.horse">Đường</string>
-	<string name="type.highway.path.mountain_hiking">Đường</string>
-	<string name="type.highway.path.permissive">Đường</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Đường hầm</string>
 	<string name="type.highway.pedestrian">Phố</string>
@@ -1162,12 +1209,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Cầu</string>
 	<string name="type.highway.track.grade1">Phố</string>
-	<string name="type.highway.track.grade2">Phố</string>
-	<string name="type.highway.track.grade3">Phố</string>
-	<string name="type.highway.track.grade4">Phố</string>
-	<string name="type.highway.track.grade5">Phố</string>
 	<string name="type.highway.track.no.access">Phố</string>
-	<string name="type.highway.track.permissive">Phố</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Đường hầm</string>
 	<string name="type.highway.traffic_signals">Đèn Giao Thông</string>
@@ -1296,7 +1338,12 @@
 	<string name="type.man_made.windmill">Cối xay gió</string>
 	<string name="type.military.bunker">Boongke</string>
 	<string name="type.natural">Tự nhiên</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Đá trần</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Ván lợp</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Sàng</string>
 	<string name="type.natural.bay">Vịnh</string>
 	<string name="type.natural.beach">Bãi biển</string>
 	<string name="type.natural.beach.sand">Bãi cát</string>
@@ -1796,19 +1843,21 @@
 	<string name="type.sport.badminton">Cầu lông</string>
 	<string name="type.sport.pelota">Pơ mu Basque</string>
 	<string name="type.tourism.aquarium">Bể nuôi cá</string>
-	<string name="type.tourism.alpine_hut">Nhà ở trên núi</string>
-	<string name="type.tourism.apartment">Căn hộ</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Nhà nghỉ trên núi</string>
+	<string name="type.tourism.apartment">Căn hộ nghỉ dưỡng</string>
 	<string name="type.tourism.artwork">Du lịch</string>
 	<string name="type.tourism.artwork.architecture">Du lịch</string>
 	<string name="type.tourism.artwork.painting">Du lịch</string>
 	<string name="type.tourism.artwork.sculpture">Du lịch</string>
 	<string name="type.tourism.artwork.statue">Du lịch</string>
 	<string name="type.tourism.attraction">Hấp dẫn</string>
-	<string name="type.tourism.attraction.animal">Hấp dẫn</string>
+	<string name="type.attraction.animal">Bao vây động vật</string>
 	<string name="type.tourism.attraction.specified">Hấp dẫn</string>
 	<string name="type.tourism.camp_site">Cắm trại</string>
 	<string name="type.tourism.caravan_site">Khu lễ hội hóa trang</string>
-	<string name="type.tourism.chalet">Khách sạn</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Nha nghi</string>
 	<string name="type.tourism.gallery">Diểm tham quan</string>
 	<string name="type.tourism.guest_house">Nhà khách</string>
 	<string name="type.tourism.hostel">Nhà trọ</string>
@@ -1822,9 +1871,10 @@
 	<string name="type.tourism.motel">Nhà nghỉ</string>
 	<string name="type.tourism.museum">Bảo tàng</string>
 	<string name="type.tourism.picnic_site">Điểm cắm trại</string>
-	<string name="type.tourism.resort">Khu nghỉ dưỡng</string>
+	<string name="type.leisure.resort">Khu nghỉ dưỡng</string>
 	<string name="type.tourism.theme_park">Diểm tham quan</string>
 	<string name="type.tourism.viewpoint">Điểm nhìn</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Nhà tạm trú</string>
 	<string name="type.tourism.zoo">Vườn bách thú</string>
 	<string name="type.tourism.zoo.petting">Vườn thú cưng</string>
@@ -1837,7 +1887,6 @@
 	<string name="type.waterway.lock_gate">Cổng Khóa</string>
 	<string name="type.waterway.river">Sông</string>
 	<string name="type.waterway.river.tunnel">Sông</string>
-	<string name="type.waterway.riverbank">Sông</string>
 	<string name="type.waterway.stream">Sông</string>
 	<string name="type.waterway.stream.ephemeral">Sông</string>
 	<string name="type.waterway.stream.intermittent">Sông</string>

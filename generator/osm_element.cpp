@@ -7,7 +7,6 @@
 #include "base/string_utils.hpp"
 #include "base/stl_helpers.hpp"
 
-#include <cstring>
 #include <sstream>
 
 std::string DebugPrint(OsmElement::EntityType type)
@@ -36,57 +35,43 @@ std::string DebugPrint(OsmElement::EntityType type)
   UNREACHABLE();
 }
 
-void OsmElement::AddTag(Tag const & tag) { AddTag(tag.m_key, tag.m_value); }
-
-void OsmElement::AddTag(char const * key, char const * value)
+namespace
 {
-  ASSERT(key, ());
-  ASSERT(value, ());
-
-  // Seems like source osm data has empty values. They are useless for us.
-  if (key[0] == '\0' || value[0] == '\0')
-    return;
-
-#define SKIP_KEY_BY_PREFIX(skippedKey) if (std::strncmp(key, skippedKey, sizeof(skippedKey)-1) == 0) return;
-  // OSM technical info tags
-  SKIP_KEY_BY_PREFIX("created_by");
-  SKIP_KEY_BY_PREFIX("source");
-  SKIP_KEY_BY_PREFIX("odbl");
-  SKIP_KEY_BY_PREFIX("note");
-  SKIP_KEY_BY_PREFIX("fixme");
-  SKIP_KEY_BY_PREFIX("iemv");
+std::string_view constexpr kUselessKeys[] = {
+  "created_by", "source", "odbl", "note", "fixme", "iemv",
 
   // Skip tags for speedup, now we don't use it
-  SKIP_KEY_BY_PREFIX("not:");
-  SKIP_KEY_BY_PREFIX("artist_name");
-  SKIP_KEY_BY_PREFIX("whitewater"); // https://wiki.openstreetmap.org/wiki/Whitewater_sports
+  "not:", "artist_name", "whitewater",// https://wiki.openstreetmap.org/wiki/Whitewater_sports
 
   // In future we can use this tags for improve our search
-  SKIP_KEY_BY_PREFIX("nat_name");
-  SKIP_KEY_BY_PREFIX("reg_name");
-  SKIP_KEY_BY_PREFIX("loc_name");
-  SKIP_KEY_BY_PREFIX("lock_name");
-  SKIP_KEY_BY_PREFIX("local_name");
-  SKIP_KEY_BY_PREFIX("short_name");
-  SKIP_KEY_BY_PREFIX("official_name");
-#undef SKIP_KEY_BY_PREFIX
+  "nat_name", "reg_name", "loc_name", "lock_name", "local_name", "short_name", "official_name"
+};
+} // namespace
 
-  std::string_view val(value);
-  strings::Trim(val);
-  m_tags.emplace_back(key, val);
-}
-
-void OsmElement::AddTag(std::string const & key, std::string const & value)
+void OsmElement::AddTag(std::string_view key, std::string_view value)
 {
-  AddTag(key.data(), value.data());
+  strings::Trim(key);
+  strings::Trim(value);
+
+  // Seems like source osm data has empty values. They are useless for us.
+  if (key.empty() || value.empty())
+    return;
+
+  for (auto const & useless : kUselessKeys)
+  {
+    if (key == useless)
+      return;
+  }
+
+  m_tags.emplace_back(key, value);
 }
 
-bool OsmElement::HasTag(std::string const & key) const
+bool OsmElement::HasTag(std::string_view const & key) const
 {
   return base::AnyOf(m_tags, [&](auto const & t) { return t.m_key == key; });
 }
 
-bool OsmElement::HasTag(std::string const & key, std::string const & value) const
+bool OsmElement::HasTag(std::string_view const & key, std::string_view const & value) const
 {
   return base::AnyOf(m_tags, [&](auto const & t) { return t.m_key == key && t.m_value == value; });
 }

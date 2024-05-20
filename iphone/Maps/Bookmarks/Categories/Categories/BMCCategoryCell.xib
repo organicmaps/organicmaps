@@ -24,8 +24,8 @@
                             <constraint firstAttribute="width" constant="56" id="iRO-vl-eYM"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="radioBtnOff"/>
-                            <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="radioBtnOn"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="ic_eye_off"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="ic_eye_on"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="onVisibleChanged:" destination="KGk-i7-Jjw" eventType="valueChanged" id="fV8-pr-hNc"/>
@@ -89,7 +89,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="radioBtnOff" width="22" height="22"/>
-        <image name="radioBtnOn" width="22" height="22"/>
+        <image name="ic_eye_off" width="24" height="24"/>
+        <image name="ic_eye_on" width="24" height="24"/>
     </resources>
 </document>

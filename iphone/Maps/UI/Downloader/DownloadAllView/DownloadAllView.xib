@@ -59,16 +59,6 @@
                         <constraint firstAttribute="width" constant="36" id="Uo3-uS-WpU"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ibq-zq-hs6">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="1" id="BBP-6A-sYn"/>
-                    </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
-                    </userDefinedRuntimeAttributes>
-                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -76,12 +66,9 @@
                 <constraint firstItem="cKg-JT-LQ3" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="2AL-TB-z3U"/>
                 <constraint firstItem="wlz-tD-b2M" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="8aq-IR-Ffz"/>
                 <constraint firstItem="4vQ-dY-JAM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" priority="500" constant="10" id="AOx-bc-GRy"/>
-                <constraint firstItem="Ibq-zq-hs6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="AnG-8o-vZ1"/>
-                <constraint firstAttribute="trailing" secondItem="Ibq-zq-hs6" secondAttribute="trailing" id="DLd-cl-Dvo"/>
                 <constraint firstItem="cKg-JT-LQ3" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Ehd-uD-6HS"/>
                 <constraint firstItem="4vQ-dY-JAM" firstAttribute="leading" secondItem="cKg-JT-LQ3" secondAttribute="trailing" constant="18" id="IH6-Jq-o9T"/>
                 <constraint firstItem="NBt-lB-IvV" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="KUE-7v-eNY"/>
-                <constraint firstItem="Ibq-zq-hs6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="MY1-1f-b5g"/>
                 <constraint firstAttribute="trailing" secondItem="NBt-lB-IvV" secondAttribute="trailing" constant="16" id="PgQ-HZ-Ui5"/>
                 <constraint firstItem="4vQ-dY-JAM" firstAttribute="centerY" secondItem="cKg-JT-LQ3" secondAttribute="centerY" priority="250" id="gWz-3d-LHv"/>
                 <constraint firstAttribute="bottom" secondItem="mVA-td-yVW" secondAttribute="bottom" constant="10" id="gj3-BP-k3L"/>

@@ -42,6 +42,7 @@ import app.organicmaps.routing.RoutingController;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.Utils;
 import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.widget.ArrowView;
 import app.organicmaps.widget.placepage.sections.PlacePageBookmarkFragment;
@@ -101,6 +102,10 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private TextView mTvAtm;
   private View mCapacity;
   private TextView mTvCapacity;
+  private View mWheelchair;
+  private TextView mTvWheelchair;
+  private View mDriveThrough;
+  private TextView mTvDriveThrough;
   private View mCuisine;
   private TextView mTvCuisine;
   private View mEntrance;
@@ -239,6 +244,10 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mTvAtm = mFrame.findViewById(R.id.tv__place_atm);
     mCapacity = mFrame.findViewById(R.id.ll__place_capacity);
     mTvCapacity = mFrame.findViewById(R.id.tv__place_capacity);
+    mWheelchair = mFrame.findViewById(R.id.ll__place_wheelchair);
+    mTvWheelchair = mFrame.findViewById(R.id.tv__place_wheelchair);
+    mDriveThrough = mFrame.findViewById(R.id.ll__place_drive_through);
+    mTvDriveThrough = mFrame.findViewById(R.id.tv__place_drive_through);
     mCuisine = mFrame.findViewById(R.id.ll__place_cuisine);
     mTvCuisine = mFrame.findViewById(R.id.tv__place_cuisine);
     mEntrance = mFrame.findViewById(R.id.ll__place_entrance);
@@ -256,6 +265,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mLevel.setOnLongClickListener(this);
     mAtm.setOnLongClickListener(this);
     mCapacity.setOnLongClickListener(this);
+    mWheelchair.setOnLongClickListener(this);
+    mDriveThrough.setOnLongClickListener(this);
 
     mDownloaderIcon = new DownloaderStatusIcon(mPreview.findViewById(R.id.downloader_status_frame));
 
@@ -401,6 +412,15 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
     refreshMetadataOrHide(mMapObject.hasAtm() ? getString(R.string.type_amenity_atm) : "", mAtm, mTvAtm);
 
+    final String wheelchair = Utils.getLocalizedFeatureType(getContext(), mMapObject.getMetadata(Metadata.MetadataType.FMD_WHEELCHAIR));
+    refreshMetadataOrHide(wheelchair, mWheelchair, mTvWheelchair);
+
+    final String driveThrough = mMapObject.getMetadata(Metadata.MetadataType.FMD_DRIVE_THROUGH);
+    if (driveThrough.equals("yes"))
+    {
+      refreshMetadataOrHide(getString(R.string.drive_through), mDriveThrough, mTvDriveThrough);
+    }
+
 //    showTaxiOffer(mapObject);
 
     if (RoutingController.get().isNavigating() || RoutingController.get().isPlanning())
@@ -446,14 +466,10 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
     final StringBuilder builder = new StringBuilder();
     if (l.hasAltitude())
-    {
-      double altitude = l.getAltitude();
-      builder.append(altitude >= 0 ? "▲" : "▼");
-      builder.append(Framework.nativeFormatAltitude(altitude).toString(requireContext()));
-    }
+      builder.append("▲").append(Framework.nativeFormatAltitude(l.getAltitude()));
     if (l.hasSpeed())
-      builder.append("   ")
-             .append(Framework.nativeFormatSpeed(l.getSpeed()));
+      builder.append("   ").append(Framework.nativeFormatSpeed(l.getSpeed()));
+
     UiUtils.setTextAndHideIfEmpty(mTvSubtitle, builder.toString());
 
     mMapObject.setLat(l.getLatitude());
@@ -570,6 +586,10 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       items.add(mTvAtm.getText().toString());
     else if (id == R.id.ll__place_capacity)
       items.add(mTvCapacity.getText().toString());
+    else if (id == R.id.ll__place_wheelchair)
+      items.add(mTvWheelchair.getText().toString());
+    else if (id == R.id.ll__place_drive_through)
+      items.add(mTvDriveThrough.getText().toString());
 
     final Context context = requireContext();
     if (items.size() == 1)

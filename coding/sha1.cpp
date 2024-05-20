@@ -1,45 +1,57 @@
 #include "coding/sha1.hpp"
+#include "coding/base64.hpp"
 
 #include "coding/internal/file_data.hpp"
-#include "coding/file_reader.hpp"
+#include "coding/reader.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
-#include "base/macros.hpp"
 
-#include "3party/liboauthcpp/src/SHA1.h"
-#include "3party/liboauthcpp/src/base64.h"
+#include <boost/core/bit.hpp>
+#include <boost/uuid/detail/sha1.hpp>
 
 #include <algorithm>
 #include <vector>
 
 namespace coding
 {
+namespace
+{
+SHA1::Hash ExtractHash(boost::uuids::detail::sha1 & sha1)
+{
+  uint32_t digest[5];
+  sha1.get_digest(digest);
+  for (auto & b : digest)
+    b = boost::core::byteswap(b);
+
+  SHA1::Hash result;
+  static_assert(result.size() == sizeof(digest));
+  std::copy_n(reinterpret_cast<uint8_t const *>(digest), sizeof(digest), std::begin(result));
+  return result;
+}
+}
+
 // static
 SHA1::Hash SHA1::Calculate(std::string const & filePath)
 {
-  uint32_t constexpr kFileBufferSize = 8192;
   try
   {
-    base::FileData file(filePath, base::FileData::OP_READ);
+    base::FileData file(filePath, base::FileData::Op::READ);
     uint64_t const fileSize = file.Size();
 
-    CSHA1 sha1;
+    boost::uuids::detail::sha1 sha1;
+
     uint64_t currSize = 0;
+    uint32_t constexpr kFileBufferSize = 8192;
     unsigned char buffer[kFileBufferSize];
     while (currSize < fileSize)
     {
       auto const toRead = std::min(kFileBufferSize, static_cast<uint32_t>(fileSize - currSize));
       file.Read(currSize, buffer, toRead);
-      sha1.Update(buffer, toRead);
+      sha1.process_bytes(buffer, toRead);
       currSize += toRead;
     }
-    sha1.Final();
-
-    Hash result;
-    ASSERT_EQUAL(result.size(), ARRAY_SIZE(sha1.m_digest), ());
-    std::copy(std::begin(sha1.m_digest), std::end(sha1.m_digest), std::begin(result));
-    return result;
+    return ExtractHash(sha1);
   }
   catch (Reader::Exception const & ex)
   {
@@ -52,39 +64,14 @@ SHA1::Hash SHA1::Calculate(std::string const & filePath)
 std::string SHA1::CalculateBase64(std::string const & filePath)
 {
   auto const sha1 = Calculate(filePath);
-  return base64_encode(sha1.data(), sha1.size());
+  return base64::Encode(std::string_view(reinterpret_cast<char const *>(sha1.data()), sha1.size()));
 }
 
 // static
-SHA1::Hash SHA1::CalculateForString(std::string const & str)
+SHA1::Hash SHA1::CalculateForString(std::string_view str)
 {
-  CSHA1 sha1;
-  std::vector<unsigned char> dat(str.begin(), str.end());
-  sha1.Update(dat.data(), static_cast<uint32_t>(dat.size()));
-  sha1.Final();
-
-  Hash result;
-  ASSERT_EQUAL(result.size(), ARRAY_SIZE(sha1.m_digest), ());
-  std::copy(std::begin(sha1.m_digest), std::end(sha1.m_digest), std::begin(result));
-  return result;
-}
-
-// static
-std::string SHA1::CalculateForStringFormatted(std::string const & str)
-{
-  auto const hashRaw = CalculateForString(str);
-
-  std::ostringstream os;
-  for (auto const value : hashRaw)
-    os << std::hex << static_cast<int>(value);
-
-  return os.str();
-}
-
-// static
-std::string SHA1::CalculateBase64ForString(std::string const & str)
-{
-  auto const sha1 = CalculateForString(str);
-  return base64_encode(sha1.data(), sha1.size());
+  boost::uuids::detail::sha1 sha1;
+  sha1.process_bytes(str.data(), str.size());
+  return ExtractHash(sha1);
 }
 }  // coding

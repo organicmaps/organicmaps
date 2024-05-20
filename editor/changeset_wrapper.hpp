@@ -31,7 +31,7 @@ public:
   DECLARE_EXCEPTION(LinearFeaturesAreNotSupportedException, ChangesetWrapperException);
   DECLARE_EXCEPTION(EmptyFeatureException, ChangesetWrapperException);
 
-  ChangesetWrapper(KeySecret const & keySecret, ServerApi06::KeyValueTags comments) noexcept;
+  ChangesetWrapper(std::string const & keySecret, ServerApi06::KeyValueTags comments) noexcept;
   ~ChangesetWrapper();
 
   /// Throws many exceptions from above list, plus including XMLNode's parsing ones.
@@ -48,6 +48,9 @@ public:
 
   /// Throws exceptions from above list.
   void Delete(editor::XMLFeature node);
+
+  /// Add a tag to the changeset
+  void AddChangesetTag(std::string key, std::string value);
 
   /// Allows to see exception details in OSM changesets for easier debugging.
   void SetErrorDescription(std::string const & error);

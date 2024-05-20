@@ -15,12 +15,12 @@ import app.organicmaps.api.RequestType;
 import app.organicmaps.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.bookmarks.data.FeatureId;
 import app.organicmaps.bookmarks.data.MapObject;
+import app.organicmaps.routing.JunctionInfo;
 import app.organicmaps.routing.RouteMarkData;
 import app.organicmaps.routing.RoutePointInfo;
 import app.organicmaps.routing.RoutingInfo;
 import app.organicmaps.routing.TransitRouteInfo;
 import app.organicmaps.settings.SettingsPrefsFragment;
-import app.organicmaps.util.Distance;
 import app.organicmaps.widget.placepage.PlacePageData;
 import app.organicmaps.util.Constants;
 
@@ -28,6 +28,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Date;
 import java.util.Locale;
 
@@ -184,7 +185,7 @@ public class Framework
 
   public static native String nativeFormatLatLon(double lat, double lon, int coordFormat);
 
-  public static native Distance nativeFormatAltitude(double alt);
+  public static native String nativeFormatAltitude(double alt);
 
   public static native String nativeFormatSpeed(double speed);
 
@@ -275,6 +276,9 @@ public class Framework
   public static native RoutingInfo nativeGetRouteFollowingInfo();
 
   @Nullable
+  public static native JunctionInfo[] nativeGetRouteJunctionPoints();
+
+  @Nullable
   public static native final int[] nativeGenerateRouteAltitudeChartBits(int width, int height, RouteAltitudeLimits routeAltitudeLimits);
 
   // When an end user is going to a turn he gets sound turn instructions.
@@ -284,7 +288,7 @@ public class Framework
   // an array with one string "Make a right turn.". The next call of the method returns nothing.
   // nativeGenerateTurnNotifications shall be called by the client when a new position is available.
   @Nullable
-  public static native String[] nativeGenerateNotifications();
+  public static native String[] nativeGenerateNotifications(boolean announceStreets);
 
   private static native void nativeSetSpeedCamManagerMode(int mode);
 
@@ -443,11 +447,12 @@ public class Framework
   /**
    * @param countryIsoCode Two-letter ISO country code to use country-specific Kayak.com domain.
    * @param uri `$HOTEL_NAME,-c$CITY_ID-h$HOTEL_ID` URI.
-   * @param startDay the first day of planned stay.
-   * @param lastDay the last day of planned stay.
+   * @param firstDaySec the epoch seconds of the first day of planned stay.
+   * @param lastDaySec the epoch seconds of the last day of planned stay.
+   * @param isReferral enable referral code to help the project.
    * @return a URL to Kayak's hotel page.
    */
   @Nullable
   public static native String nativeGetKayakHotelLink(@NonNull String countryIsoCode, @NonNull String uri,
-                                                      @NonNull Date firstDay, @NonNull Date lastDay);
+                                                      long firstDaySec, long lastDaySec, boolean isReferral);
 }

@@ -14,8 +14,8 @@
 - (void)presentRoutingDisclaimerAlertWithOkBlock:(nonnull nonnull MWMVoidBlock)block;
 - (void)presentDisabledLocationAlert;
 - (void)presentLocationAlertWithCancelBlock:(MWMVoidBlock _Nonnull )cancelBlock;
+- (void)presentLocationServicesDisabledAlert;
 - (void)presentLocationServiceNotSupportedAlert;
-- (void)presentLocationNotFoundAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock;
 - (void)presentNoConnectionAlert;
 - (void)presentSearchQuickFilterNoConnectionAlert;
 - (void)presentDeleteMapProhibitedAlert;
@@ -37,6 +37,7 @@
 - (void)presentDeleteFeatureAlertWithBlock:(nonnull MWMVoidBlock)block;
 - (void)presentEditorViralAlert;
 - (void)presentOsmAuthAlert;
+- (void)presentOsmReauthAlert;
 - (void)presentPersonalInfoWarningAlertWithBlock:(nonnull MWMVoidBlock)block;
 - (void)presentTrackWarningAlertWithCancelBlock:(nonnull MWMVoidBlock)block;
 - (void)presentMobileInternetAlertWithBlock:(nonnull MWMMobileInternetAlertCompletionBlock)block;

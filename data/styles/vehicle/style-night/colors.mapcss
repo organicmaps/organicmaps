@@ -89,22 +89,20 @@
 
 /* 4.4 Buildings */
 
-@building: #191919;
-@building_dark: #1D1D1D;
-@building_border: #1C1C1C;
-@building_dark_border: #191919;
+@building0: #191919;
+@building1: #1D1D1D;
+@building_border0: #1C1C1C;
+@building_border1: #191919;
 
 /* 5.ROADS */
 /* 5.1 All roads */
 
-@trunk: #4C2A19;
-@trunk_orange: #4C2A19;
-@trunk_orange_medium: #4C2A19;
-@trunk_orange_light: #4C2A17;
-@primary_orange:  #5E351D;
-@primary_orange_medium: #5E351D;
-@primary_orange_light: #5E351D;
-@secondary: #3B3939;
+@trunk0: #4C2A19;
+@trunk1: #4C2A17;
+@primary0:  #5E351D;
+@primary1: #5E351D;
+@primary2: #5E351D;
+@secondary0: #3B3939;
 @residential: #363434;
 @unclassified: #333131;
 @pedestrian: #4D4744;
@@ -123,9 +121,9 @@
 
 /* 5.3 Tunnels */
 
-@trunk_tunnel_orange: #381F14;
+@trunk_tunnel: #381F14;
 @trunk_tunnel_casing: #000000;
-@primary_tunnel_orange: #4C2A1B;
+@primary_tunnel: #4C2A1B;
 @primary_tunnel_casing: #000000;
 @secondary_tunnel: #2B2827;
 @secondary_tunnel_casing:  #000000;
@@ -161,7 +159,7 @@
 @label_medium: #8C8C8C;
 @label_light: #666666;
 @label_halo_medium: #111100;
-@label_halo_light: #111100;
+@label_halo_light: #060600;
 
 /* 6.2 Natural labels */
 
@@ -184,7 +182,6 @@
 
 /* 6.4 Road labels */
 
-@road_label_halo: #000000;
 @shield_text: #303030;
 @shield_text_halo: #000000;
 @shield: #999999;

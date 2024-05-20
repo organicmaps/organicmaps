@@ -27,17 +27,9 @@ char const * const kDeviceExtensions[] =
   "VK_KHR_swapchain"
 };
 
-// DO NOT reorder. The order matters here.
 char const * const kValidationLayers[] =
 {
-  "VK_LAYER_GOOGLE_threading",
-  "VK_LAYER_LUNARG_device_limits",
-  "VK_LAYER_LUNARG_core_validation",
-  "VK_LAYER_LUNARG_image",
-  "VK_LAYER_LUNARG_object_tracker",
-  "VK_LAYER_LUNARG_parameter_validation",
-  "VK_LAYER_LUNARG_swapchain",
-  "VK_LAYER_GOOGLE_unique_objects",
+  "VK_LAYER_KHRONOS_validation",
 };
 
 std::vector<char const *> CheckLayers(std::vector<VkLayerProperties> const & props)
@@ -126,6 +118,8 @@ std::string GetReportObjectTypeString(VkDebugReportObjectTypeEXT objectType)
   case VK_DEBUG_REPORT_OBJECT_TYPE_CU_FUNCTION_NVX_EXT: return "CU_FUNCTION_NVX";
   case VK_DEBUG_REPORT_OBJECT_TYPE_ACCELERATION_STRUCTURE_KHR_EXT: return "ACCELERATION_STRUCTURE_KHR";
   case VK_DEBUG_REPORT_OBJECT_TYPE_BUFFER_COLLECTION_FUCHSIA_EXT: return "BUFFER_COLLECTION_FUCHSIA";
+  case VK_DEBUG_REPORT_OBJECT_TYPE_CUDA_MODULE_NV_EXT: return "CUDA_MODULE_NV";
+  case VK_DEBUG_REPORT_OBJECT_TYPE_CUDA_FUNCTION_NV_EXT: return "CUDA_FUNCTION_NV";
   }
   UNREACHABLE();
   return {};

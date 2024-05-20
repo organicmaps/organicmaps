@@ -44,9 +44,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Без реклами, без трекінгу, без стеження</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Економить акумулятор, не використовує фонові дані</string>
+	<string name="about_proposition_2">• Не розряджає батарею, працює в автономному режимі</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Швидкий, мінімалістичний, без зайвого сміття</string>
+	<string name="about_proposition_3">• Швидкий, мінімалістичний, розроблений спільнотою</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Програма з відкритим кодом, створена ентузіастами та волонтерами.</string>
 	<!-- The button that opens system location settings -->
@@ -117,52 +117,54 @@
 	<string name="measurement_units_summary">Використовувати милі чи кілометри</string>
 
 	<!-- SECTION: Search categories -->
-	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">Де поїсти</string>
-	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Продукти</string>
-	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">Транспорт</string>
-	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Заправка</string>
-	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">Парковка</string>
-	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">Шопінг</string>
-	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">Секонд-хенд</string>
-	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">Готель</string>
-	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">Пам’ятні місця</string>
-	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">Розваги</string>
-	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">Банкомат</string>
-	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">Нічне життя</string>
-	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Відпочинок з дітьми</string>
-	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">Банк</string>
-	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">Аптека</string>
-	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">Лікарня</string>
-	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">Туалет</string>
-	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">Пошта</string>
-	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">Поліція</string>
-	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">WiFi</string>
-	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">Переробка відходів</string>
-	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">Вода</string>
-	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">Для автобудинків</string>
+	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+	<string name="category_eat">Де поїсти</string>
+	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+	<string name="category_food">Продукти</string>
+	<!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+	<string name="category_transport">Транспорт</string>
+	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+	<string name="category_fuel">Заправка</string>
+	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+	<string name="category_parking">Парковка</string>
+	<!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+	<string name="category_shopping">Шопінг</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
+	<string name="category_secondhand">Секонд-хенд</string>
+	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+	<string name="category_hotel">Готель</string>
+	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+	<string name="category_tourism">Пам’ятні місця</string>
+	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
+	<string name="category_entertainment">Розваги</string>
+	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+	<string name="category_atm">Банкомат</string>
+	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+	<string name="category_nightlife">Нічне життя</string>
+	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+	<string name="category_children">Відпочинок з дітьми</string>
+	<!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+	<string name="category_bank">Банк</string>
+	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+	<string name="category_pharmacy">Аптека</string>
+	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+	<string name="category_hospital">Лікарня</string>
+	<!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+	<string name="category_toilet">Туалет</string>
+	<!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+	<string name="category_post">Пошта</string>
+	<!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+	<string name="category_police">Поліція</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+	<string name="category_wifi">WiFi</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+	<string name="category_recycling">Переробка відходів</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+	<string name="category_water">Вода</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+	<string name="category_rv">Для автобудинків</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Примітка</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -174,8 +176,12 @@
 	<string name="load_kmz_successful">Мiтки успішно завантаженi! Ви можете знайти їх на мапі або у ваших збережених мітках.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Не вдалося завантажити мітки. Файл може бути пошкодженим або несправним.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Тип файлу не розпізнається програмою:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Не вдалося відкрити файл %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
-	<string name="edit">Редаґувати</string>
+	<string name="edit">Редагувати</string>
 	<!-- Warning message when doing search around current position -->
 	<string name="unknown_current_position">Ваше місце розташування не визначено</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
@@ -230,6 +236,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D будівлі вимкнені в режимі енергозбереження</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Голосові інструкції</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Проговорювати назви вулиць</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Якщо ввімкнено, назва вулиці або виїзду, на яку потрібно повернути, буде вимовлена вголос.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Мова підказок</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -473,13 +483,15 @@
 	<string name="editor_edit_place_title">Редагування</string>
 	<string name="editor_add_place_title">Додавання</string>
 	<string name="editor_edit_place_name_hint">Назва місця</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">Місцевою мовою</string>
 	<string name="editor_edit_place_category_title">Категорія</string>
 	<string name="detailed_problem_description">Детальний опис проблеми</string>
 	<string name="editor_report_problem_other_title">Інші проблема</string>
 	<string name="placepage_add_business_button">Додати організацію</string>
 	<string name="message_invalid_feature_position">Об\'єкт не може перебувати в цьому місцезнаходженні</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Картографічні дані з OpenStreetMap станом на %s. Це як Вікіпедія, де ви можете додавати або редагувати місця для всіх користувачів у всьому світі.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Дані OpenStreetMap, створені спільнотою, станом на %s. Дізнайтеся більше про те, як редагувати та оновлювати мапу на OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">Увійдіть у OpenStreetMap.org, щоб ваші зміни побачили інші користувачі.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d з %2$d</string>
@@ -498,14 +510,10 @@
 	<string name="editor_detailed_description">Зміни, що ви запропонували, буде відправлено до OpenStreetMap. Опишіть подробиці про об\'єкт, які не можна редагувати у Organic Maps.</string>
 	<string name="editor_more_about_osm">Більше про OpenStreetMap</string>
 	<string name="editor_operator">Власник</string>
+	<string name="editor_category_unsuitable_title">Не можете знайти відповідну категорію?</string>
+	<string name="editor_category_unsuitable_text">Organic Maps дозволяють додавати до мапи лише прості типи об\'єктів, тобто без міст, доріг, озер та контурів будівель. Будь ласка, додайте такі категорії на сайті <a href="https://www.openstreetmap.org/">OpenStreetMap.org</a>. Ми також рекомендуємо ознайомитися із <a href="https://organicmaps.app/faq/editing/advanced-map-editing/">детальними інструкціями та іншими додатками для редагування карти</a>.</string>
 	<string name="downloader_no_downloaded_maps_title">Ви не маєте завантажених мап</string>
 	<string name="downloader_no_downloaded_maps_message">Завантажте необхідні мапи, щоб знаходити місця та користуватися навігацією без iнтернету.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">Продовжити пошук місцезнаходження?</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">Місцезнаходження не знайдено. Можливо, ви знаходитесь у приміщенні або тунелі.</string>
-	<string name="current_location_unknown_continue_button">Продовжити</string>
-	<string name="current_location_unknown_stop_button">Зупинити</string>
 	<!-- abbreviation for meters -->
 	<string name="m">м</string>
 	<!-- abbreviation for kilometers -->
@@ -550,7 +558,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Переконайтеся, що ви не ввели особисті дані.</string>
 	<string name="editor_share_to_all_dialog_message_2">Редактори OpenStreetMap перевірять зміни та зв’яжуться з вами, якщо у них виникнуть запитання.</string>
-	<string name="navigation_stop_button">стоп</string>
+	<string name="navigation_stop_button">Cтоп</string>
 	<!-- For the first routing -->
 	<string name="accept">Прийняти</string>
 	<!-- For the first routing -->
@@ -583,6 +591,8 @@
 	<string name="routing_add_finish_point">Вкажіть кінцеву точку для побудови маршруту</string>
 	<string name="placepage_remove_stop">Видалити</string>
 	<string name="placepage_add_stop">Додати зупинку</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Будь ласка увійдіть в акаунт OpenStreetMap.org, щоб автоматично публікувати зміни до мапи. Подробиці за <a href="https://github.com/organicmaps/organicmaps/issues/6144">посиланням</a>.</string>
 	<string name="dialog_error_storage_title">Не вдалося отримати доступ до сховища</string>
 	<string name="dialog_error_storage_message">Зовнішнє сховище не доступно. Ймовірно, SD-картку пам\'яті було вилучено, пошкоджено, або система файлів доступна тільки для читання. Будь ласка, перевірте та зв\'яжіться з нами, написавши на адресу електронну пошту support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Емулювати проблемне сховище</string>
@@ -638,19 +648,21 @@
 	<string name="bookmark_list_description_hint">Додайте опис (текст чи html)</string>
 	<string name="not_shared">Особистий</string>
 	<string name="speedcams_alert_title">Камери швидкості</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Завжди</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Ніколи</string>
 	<string name="place_description_title">Опис місця</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Завантаження мап</string>
+	<!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+	<string name="pref_tts_speedcams_auto">Попереджати якщо швидкість перевищена</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Завжди попереджати</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Ніколи не попереджати</string>
 	<string name="power_managment_title">Режим енергозбереження</string>
 	<string name="power_managment_description">Якщо увімкнено режим енергозбереження, додаток буде відключати енерговитратні функції в залежності від поточного заряду телефону</string>
 	<string name="power_managment_setting_never">Ніколи</string>
 	<string name="power_managment_setting_auto">Автоматично</string>
 	<string name="power_managment_setting_manual_max">Максимальне енергозбереження</string>
-	<string name="enable_logging_warning_message">Дана опція вмикається для логування дій з метою діагностики. Це допомагає команді виявити проблеми з додатком. Тимчасово включайте цю настройку тільки для відправки детальної інформації про знайдену вами проблему в додатку.</string>
+	<string name="enable_logging_warning_message">Дана опція вмикається для логування дій з метою діагностики. Це допомагає команді виявити проблеми з додатком. Тимчасово включайте цю настройку тільки для відправки детальної інформації про знайдену вами проблему в додатку через кнопку \"Сповістити про помилку\".</string>
 	<string name="access_rules_author_only">Редагується онлайн</string>
 	<string name="driving_options_title">Налаштування об’їзду</string>
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -691,6 +703,8 @@
 	<string name="by_distance">За відстанню</string>
 	<!-- Android -->
 	<string name="by_date">За датою</string>
+	<!-- Android -->
+	<string name="by_name">За назвою</string>
 	<string name="week_ago_sorttype">Тиждень тому</string>
 	<string name="month_ago_sorttype">Місяць тому</string>
 	<string name="moremonth_ago_sorttype">Понад місяць тому</string>
@@ -753,18 +767,36 @@
 	<string name="translated_om_site_url">https://organicmaps.app/uk/</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Uk:Про_проект</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Дякуємо, що користуєтесь нашими мапами, створеними спільнотою!</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Зараз ви використовуєте Organic Maps на екрані телефону</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">Завдяки вашим пожертвам і підтримці ми зможемо створити найкращі карти світу!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Вам подобається наш додаток? Підтримайте його розвиток грошима! Поки ще не подобається? Будь ласка, повідомте нам, чому, і ми це виправимо!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Якщо у вас є знайомий розробник програмного забезпечення, ви можете попросити його реалізувати потрібну вам функцію.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Чи знаєте ви, що можна вибрати будь-яке місце на карті, довго тримаючи палець на точці?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">А ви знали, що своє місцезнаходження на карті можна вибрати?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Ви можете допомогти перекласти наш додаток на вашу мову.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Наша програма розроблена кількома ентузіастами та спільнотою.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Ви можете легко виправити та покращити дані карти.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Наша головна мета – створити швидкі, конфіденційні та прості у використанні карти, які вам сподобаються.</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">Зараз ви використовуєте Organic Maps на екрані телефону</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Ви використовуєте Organic Maps на екрані автомобіля</string>
+	<string name="car_used_on_the_car_screen">Ви використовуєте Organic Maps на екрані автомобіля</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Ви підключені до Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Продовжуйте в телефоні</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">На екран автомобіля</string>
+	<string name="car_continue_on_the_phone">Продовжуйте в телефоні</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">На екран автомобіля</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">Ця програма потребує доступу до вашого місцезнаходження для навігаційних цілей.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -775,8 +807,22 @@
 	<string name="button_layer_outdoor">Активний відпочинок</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Веб-браузер недоступний</string>
-	<!-- Text displayed in a dialog when OSM authorization is disabled -->
-	<string name="osm_login_not_available">Авторизація на OpenStreetMap тимчасово недоступна через нові обмеження в Google Play 😾\nНаша команда працює над вирішенням цієї проблеми. Будь ласка, наберіться терпіння 🙏</string>
+	<string name="volume">Гучність</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Експортувати всі мітки та маршрути</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Системні налаштування синтезу мови</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">Налаштування синтезу мовлення не знайдено, ви впевнені, що ваш пристрій його підтримує?</string>
+	<string name="drive_through">З віконцем для водіїв</string>
+	<string name="clear_the_search">Очистити пошук</string>
+	<string name="zoom_in">Збільшити</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Зменшити</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Посилання на меню</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Переглянути меню</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адреса/блок</string>
@@ -803,7 +849,7 @@
 	<string name="type.amenity.atm">Банкомат</string>
 	<string name="type.amenity.bank">Банк</string>
 	<string name="type.amenity.bar">Бар</string>
-	<string name="type.amenity.bbq">Пікнік</string>
+	<string name="type.amenity.bbq">Барбекю-гриль</string>
 	<string name="type.amenity.bench">Лавка</string>
 	<string name="type.amenity.bicycle_parking">Велопарковка</string>
 	<string name="type.amenity.bicycle_rental">Велопрокат</string>
@@ -835,6 +881,7 @@
 	<string name="type.amenity.dentist">Стоматологія</string>
 	<string name="type.amenity.doctors">Лікар</string>
 	<string name="type.amenity.drinking_water">Питна вода</string>
+	<string name="type.drinking_water.yes">Питна вода</string>
 	<string name="type.amenity.driving_school">Автошкола</string>
 	<string name="type.amenity.exhibition_centre">Виставковий центр</string>
 	<string name="type.amenity.money_transfer">Грошовий переказ</string>
@@ -926,7 +973,14 @@
 	<string name="type.amenity.restaurant">Ресторан</string>
 	<string name="type.amenity.sanitary_dump_station">Злив для туалетів транспортних засобів</string>
 	<string name="type.amenity.school">Школа</string>
-	<string name="type.amenity.shelter">Укриття</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
+	<string name="type.amenity.shelter">Навіс</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">Навіс</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">Хатинка-бівуак</string>
+	<!-- A traditional 3-walled shelter (one side open), suitable for overnight camping. -->
+	<string name="type.amenity.shelter.lean_to">Бівуачний навіс</string>
 	<string name="type.amenity.public_bath">Громадська лазня</string>
 	<string name="type.amenity.shower">Душ</string>
 	<string name="type.amenity.stripclub">Стриптиз-клуб</string>
@@ -978,23 +1032,14 @@
 	<string name="type.barrier.wall">Стіна</string>
 	<string name="type.boundary">Кордон</string>
 	<string name="type.boundary.administrative">Адміністративний поділ</string>
-	<string name="type.boundary.administrative.10">Адміністративний поділ</string>
-	<string name="type.boundary.administrative.11">Адміністративний поділ</string>
+	<!-- Borders between countries. -->
 	<string name="type.boundary.administrative.2">Кордон країни</string>
-	<string name="type.boundary.administrative.3">Адміністративний поділ</string>
-	<string name="type.boundary.administrative.4">Адміністративний поділ</string>
-	<string name="type.boundary.administrative.5">Адміністративний поділ</string>
-	<string name="type.boundary.administrative.6">Адміністративний поділ</string>
-	<string name="type.boundary.administrative.7">Адміністративний поділ</string>
-	<string name="type.boundary.administrative.8">Адміністративний поділ</string>
-	<string name="type.boundary.administrative.9">Адміністративний поділ</string>
-	<string name="type.boundary.administrative.city">Межа міста</string>
-	<string name="type.boundary.administrative.country">Кордон країни</string>
-	<string name="type.boundary.administrative.county">Поділ округа</string>
-	<string name="type.boundary.administrative.nation">Кордон країни</string>
-	<string name="type.boundary.administrative.region">Областний поділ</string>
-	<string name="type.boundary.administrative.suburb">Приміська межа</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.3">Областний поділ</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.4">Областний поділ</string>
 	<string name="type.boundary.national_park">Національний парк</string>
+	<string name="type.boundary.aboriginal_lands">Землі корінних народів</string>
 	<string name="type.boundary.protected_area">Заповідна зона</string>
 	<string name="type.boundary.protected_area.1">Заповідна зона</string>
 	<string name="type.boundary.protected_area.2">Заповідна зона</string>
@@ -1168,15 +1213,9 @@
 	<string name="type.highway.footway">Пішохідна доріжка</string>
 	<string name="type.highway.footway.sidewalk">Тротуар</string>
 	<string name="type.highway.footway.crossing">Пішохідний перехід</string>
-	<string name="type.highway.footway.alpine_hiking">Стежка</string>
 	<string name="type.highway.footway.area">Пішохідна зона</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Міст</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Стежка</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Стежка</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Стежка</string>
-	<string name="type.highway.footway.hiking">Стежка</string>
-	<string name="type.highway.footway.mountain_hiking">Стежка</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Тунель</string>
 	<string name="type.highway.ford">Брід</string>
@@ -1197,17 +1236,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Тунель</string>
 	<string name="type.highway.path">Стежка</string>
-	<string name="type.highway.path.alpine_hiking">Стежка</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">Стежка</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">Стежка</string>
 	<string name="type.highway.path.bicycle">Велопішохідна доріжка</string>
+	<string name="type.highway.footway.bicycle">Велопішохідна доріжка</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Міст</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Стежка</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Стежка</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Стежка</string>
-	<string name="type.highway.path.hiking">Стежка</string>
 	<string name="type.highway.path.horse">Кінна стежка</string>
-	<string name="type.highway.path.mountain_hiking">Стежка</string>
-	<string name="type.highway.path.permissive">Стежка</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Тунель</string>
 	<string name="type.highway.pedestrian">Пішохідна вулиця</string>
@@ -1281,12 +1318,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Міст</string>
 	<string name="type.highway.track.grade1">Ґрунтівка</string>
-	<string name="type.highway.track.grade2">Ґрунтівка</string>
-	<string name="type.highway.track.grade3">Ґрунтівка</string>
-	<string name="type.highway.track.grade4">Ґрунтівка</string>
-	<string name="type.highway.track.grade5">Ґрунтівка</string>
 	<string name="type.highway.track.no.access">Ґрунтівка</string>
-	<string name="type.highway.track.permissive">Ґрунтівка</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Тунель</string>
 	<string name="type.highway.traffic_signals">Світлофор</string>
@@ -1381,7 +1413,6 @@
 	<string name="type.landuse.commercial">Комерційні ділянки</string>
 	<string name="type.landuse.construction">Будівництво</string>
 	<string name="type.landuse.education">Освітній заклади</string>
-	<string name="type.landuse.farm">Ферма</string>
 	<string name="type.landuse.farmland">Сільськогосподарська земля</string>
 	<string name="type.landuse.farmyard">Сільськогосподарська земля</string>
 	<string name="type.landuse.field">Поле</string>
@@ -1417,8 +1448,8 @@
 	<string name="type.leisure.garden">Садок</string>
 	<string name="type.leisure.garden.residential">Частный сад</string>
 	<string name="type.leisure.golf_course">Майданчик для гольфу</string>
+	<string name="type.leisure.miniature_golf">Мінігольф</string>
 	<string name="type.leisure.ice_rink">Каток</string>
-	<string name="type.leisure.landscape_reserve">Ландшафтний заповідник</string>
 	<string name="type.leisure.marina">Пристань</string>
 	<string name="type.leisure.nature_reserve">Заповідник</string>
 	<string name="type.leisure.outdoor_seating">Сидіння на відкритому повітрі</string>
@@ -1467,7 +1498,12 @@
 	<string name="type.military.bunker">Бункер</string>
 	<string name="type.mountain_pass">Перевал</string>
 	<string name="type.natural">Природа</string>
-	<string name="type.natural.bare_rock">Скелi</string>
+	<!-- A rocky land cover. -->
+	<string name="type.natural.bare_rock">Кам\'яна порода</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Галька</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Кам\'янистий осип</string>
 	<string name="type.natural.bay">Затока</string>
 	<string name="type.natural.beach">Пляж</string>
 	<string name="type.natural.beach.sand">Піщаний пляж</string>
@@ -1887,7 +1923,7 @@
 	<string name="type.shop.curtain">Штори</string>
 	<string name="type.shop.deli">Делікатесний магазин</string>
 	<string name="type.shop.department_store">Універмаг</string>
-	<string name="type.shop.doityourself">Господарськi товари</string>
+	<string name="type.shop.doityourself">Будівельний магазин</string>
 	<string name="type.shop.dry_cleaning">Хімчистка</string>
 	<string name="type.shop.electronics">Електротехнiка</string>
 	<string name="type.shop.erotic">Секс-шоп</string>
@@ -1903,7 +1939,7 @@
 	<string name="type.shop.greengrocer">Овочі та фрукти</string>
 	<string name="type.shop.grocery">Бакалія</string>
 	<string name="type.shop.hairdresser">Перукарня</string>
-	<string name="type.shop.hardware">Магазин побутової техніки</string>
+	<string name="type.shop.hardware">Господарськи товари</string>
 	<string name="type.shop.health_food">Магазин здорового харчування</string>
 	<string name="type.shop.herbalist">Магазин трав</string>
 	<string name="type.shop.hifi">HiFi Audio</string>
@@ -2011,19 +2047,21 @@
 	<string name="type.sport.pelota">Баскська пелота</string>
 	<string name="type.tourism">Туризм</string>
 	<string name="type.tourism.aquarium">Акваріум</string>
-	<string name="type.tourism.alpine_hut">Гірський готель</string>
-	<string name="type.tourism.apartment">Апартаменти</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Гірський притулок з обслуговуванням</string>
+	<string name="type.tourism.apartment">Апартаменти для відпочинку</string>
 	<string name="type.tourism.artwork">Витвір мистецтва</string>
 	<string name="type.tourism.artwork.architecture">Витвір мистецтва</string>
 	<string name="type.tourism.artwork.painting">Витвір мистецтва</string>
 	<string name="type.tourism.artwork.sculpture">Витвір мистецтва</string>
 	<string name="type.tourism.artwork.statue">Витвір мистецтва</string>
 	<string name="type.tourism.attraction">Пам’ятне місце</string>
-	<string name="type.tourism.attraction.animal">Пам’ятне місце</string>
+	<string name="type.attraction.animal">Вольєр для тварин</string>
 	<string name="type.tourism.attraction.specified">Пам’ятне місце</string>
 	<string name="type.tourism.camp_site">Кемпінг</string>
 	<string name="type.tourism.caravan_site">Кемпінг для автобудинків</string>
-	<string name="type.tourism.chalet">Шале</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Котедж для відпочинку</string>
 	<string name="type.tourism.gallery">Пам’ятні місця</string>
 	<string name="type.tourism.guest_house">Гостинний дім</string>
 	<string name="type.tourism.hostel">Хостел</string>
@@ -2037,10 +2075,11 @@
 	<string name="type.tourism.motel">Мотель</string>
 	<string name="type.tourism.museum">Музей</string>
 	<string name="type.tourism.picnic_site">Пікнік</string>
-	<string name="type.tourism.resort">Будинок відпочинку</string>
+	<string name="type.leisure.resort">Будинок відпочинку</string>
 	<string name="type.tourism.theme_park">Парк розваг</string>
 	<string name="type.tourism.viewpoint">Оглядний майданчик</string>
-	<string name="type.tourism.wilderness_hut">Хибара</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
+	<string name="type.tourism.wilderness_hut">Хатка для туристів</string>
 	<string name="type.tourism.zoo">Зоопарк</string>
 	<string name="type.tourism.zoo.petting">Контактний зоопарк</string>
 	<string name="type.traffic_calming">Лежачий полiцейський</string>
@@ -2061,7 +2100,6 @@
 	<string name="type.waterway.lock_gate">Шлюз</string>
 	<string name="type.waterway.river">Річка</string>
 	<string name="type.waterway.river.tunnel">Річка</string>
-	<string name="type.waterway.riverbank">Річка</string>
 	<string name="type.waterway.stream">Річка</string>
 	<string name="type.waterway.stream.ephemeral">Річка</string>
 	<string name="type.waterway.stream.intermittent">Річка</string>

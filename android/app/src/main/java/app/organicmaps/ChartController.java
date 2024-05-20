@@ -126,7 +126,7 @@ public class ChartController implements OnChartValueSelectedListener,
     x.setGranularityEnabled(true);
     x.setTextColor(ThemeUtils.getColor(mContext, R.attr.elevationProfileAxisLabelColor));
     x.setPosition(XAxis.XAxisPosition.BOTTOM);
-    x.setAxisLineColor(ThemeUtils.getColor(mContext, R.attr.dividerHorizontal));
+    x.setAxisLineColor(ThemeUtils.getColor(mContext, androidx.appcompat.R.attr.dividerHorizontal));
     x.setAxisLineWidth(mContext.getResources().getDimensionPixelSize(R.dimen.divider_height));
     ValueFormatter xAxisFormatter = new AxisValueFormatter(mChart);
     x.setValueFormatter(xAxisFormatter);
@@ -176,8 +176,8 @@ public class ChartController implements OnChartValueSelectedListener,
     mChart.setData(data);
     mChart.animateX(CHART_ANIMATION_DURATION);
 
-    mMinAltitude.setText(Framework.nativeFormatAltitude(info.getMinAltitude()).toString(mContext));
-    mMaxAltitude.setText(Framework.nativeFormatAltitude(info.getMaxAltitude()).toString(mContext));
+    mMinAltitude.setText(Framework.nativeFormatAltitude(info.getMinAltitude()));
+    mMaxAltitude.setText(Framework.nativeFormatAltitude(info.getMaxAltitude()));
 
     highlightActivePointManually();
   }

@@ -21,7 +21,7 @@
     _task = task;
     _delegate = delegate;
   }
-  
+
   return self;
 }
 
@@ -32,6 +32,7 @@
 @property(nonatomic) NSURLSession * session;
 @property(nonatomic) NSMutableDictionary * taskInfoByTaskID;
 @property(nonatomic) dispatch_queue_t taskInfoQueue;
+@property(nonatomic) dispatch_queue_t delegateQueue;
 
 @end
 
@@ -44,7 +45,7 @@
   dispatch_once(&sOnceToken, ^{
     sManager = [[HttpSessionManager alloc] init];
   });
-  
+
   return sManager;
 }
 
@@ -58,8 +59,15 @@
                                         delegateQueue:nil];
     _taskInfoByTaskID = [NSMutableDictionary dictionary];
     _taskInfoQueue = dispatch_queue_create("http_session_manager.queue", DISPATCH_QUEUE_CONCURRENT);
+    // TODO(AB): As the main thread in tests that are using synchronous HTTP calls is blocked
+    // by dispatch_group_wait(group, DISPATCH_TIME_FOREVER) in http_client_apple.mm,
+    // and delegate should not strictly use only one (main) thread and can be run on
+    // any thread, this workaround is needed.
+    // Refactor out the whole sync HTTP implementation to use async + lambdas/callbacks.
+    BOOL const isSyncHttpTest = [NSBundle.mainBundle.executableURL.lastPathComponent hasSuffix:@"osm_auth_tests"];
+    _delegateQueue = isSyncHttpTest ? _taskInfoQueue : dispatch_get_main_queue();
   }
-  
+
   return self;
 }
 
@@ -111,7 +119,7 @@
   if ([taskInfo.delegate
        respondsToSelector:@selector(URLSession:task:willPerformHTTPRedirection:newRequest:completionHandler:)])
   {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(self.delegateQueue, ^{
       [taskInfo.delegate URLSession:session
                                 task:task
           willPerformHTTPRedirection:response
@@ -134,7 +142,7 @@
 
   if ([taskInfo.delegate respondsToSelector:@selector(URLSession:task:didCompleteWithError:)])
   {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(self.delegateQueue, ^{
       [taskInfo.delegate URLSession:session task:task didCompleteWithError:error];
     });
   }
@@ -149,7 +157,7 @@
   if ([taskInfo.delegate
           respondsToSelector:@selector(URLSession:dataTask:didReceiveResponse:completionHandler:)])
   {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(self.delegateQueue, ^{
       [taskInfo.delegate URLSession:session
                            dataTask:dataTask
                  didReceiveResponse:response
@@ -169,7 +177,7 @@
   DataTaskInfo * taskInfo = [self taskInfoForTask:dataTask];
   if ([taskInfo.delegate respondsToSelector:@selector(URLSession:dataTask:didReceiveData:)])
   {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(self.delegateQueue, ^{
       [taskInfo.delegate URLSession:session dataTask:dataTask didReceiveData:data];
     });
   }

@@ -43,9 +43,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Reklam yoxdur, izləmə yoxdur, məlumatların toplanması yoxdur</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Batareyanı tükətmir, arxa fon məlumatmatları yoxdur</string>
+	<string name="about_proposition_2">• Batareyanın boşalması yoxdur, oflayn işləyir</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Sürətli, minimalist və yüngül</string>
+	<string name="about_proposition_3">• Sürətli, minimalist, icma tərəfindən hazırlanmışdır</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Həvəskarlar və könüllülər tərəfindən yaradılan açıq mənbə proqramı.</string>
 	<!-- The button that opens system location settings -->
@@ -116,52 +116,54 @@
 	<string name="measurement_units_summary">Mil və ya kilometr seçin</string>
 
 	<!-- SECTION: Search categories -->
-	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">Harada yemək</string>
-	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Ərzaq mağazası</string>
-	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">Nəqliyyat</string>
-	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Yanacaq doldurma məntəqəsi</string>
-	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">Avtomobil dayanacağı</string>
-	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">Alış-veriş</string>
-	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">İkinci əl</string>
-	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">Otel</string>
-	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">Görməli yerlər</string>
-	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">Əyləncə</string>
-	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">Bankomat</string>
-	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">Gecə həyatı</string>
-	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Ailə tətili</string>
-	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">Bank</string>
-	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">Aptek</string>
-	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">Xəstəxana</string>
-	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">Ayaqyolu</string>
-	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">Poçt</string>
-	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">Polis</string>
-	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">WiFi</string>
-	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">Təkrar emal</string>
-	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">Su</string>
-	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">Karvan qurğuları</string>
+	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+	<string name="category_eat">Harada yemək</string>
+	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+	<string name="category_food">Ərzaq mağazası</string>
+	<!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+	<string name="category_transport">Nəqliyyat</string>
+	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+	<string name="category_fuel">Yanacaq doldurma məntəqəsi</string>
+	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+	<string name="category_parking">Avtomobil dayanacağı</string>
+	<!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+	<string name="category_shopping">Alış-veriş</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
+	<string name="category_secondhand">İkinci əl</string>
+	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+	<string name="category_hotel">Otel</string>
+	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+	<string name="category_tourism">Görməli yerlər</string>
+	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
+	<string name="category_entertainment">Əyləncə</string>
+	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+	<string name="category_atm">Bankomat</string>
+	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+	<string name="category_nightlife">Gecə həyatı</string>
+	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+	<string name="category_children">Ailə tətili</string>
+	<!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+	<string name="category_bank">Bank</string>
+	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+	<string name="category_pharmacy">Aptek</string>
+	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+	<string name="category_hospital">Xəstəxana</string>
+	<!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+	<string name="category_toilet">Ayaqyolu</string>
+	<!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+	<string name="category_post">Poçt</string>
+	<!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+	<string name="category_police">Polis</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+	<string name="category_wifi">WiFi</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+	<string name="category_recycling">Təkrar emal</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+	<string name="category_water">Su</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+	<string name="category_rv">Karvan qurğuları</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Qeydlər</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -173,6 +175,10 @@
 	<string name="load_kmz_successful">Əlfəcinlər uğurla yükləndi! Siz onları Xəritədə və ya Əlfəcin Menecer ekranında tapa bilərsiniz.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Əlfəcinlərin quraşdırılması uğursuz oldu. Fayl zədələnmiş və ya qüsurlu ola bilər.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Fayl növü tətbiq tərəfindən tanınmır:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Faylı açmaq alınmadı %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Redaktə et</string>
 	<!-- Warning message when doing search around current position -->
@@ -229,6 +235,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D binalar enerjiyə qənaət rejimində söndürülür</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Səsli təlimatlar</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Küçə adlarını elan edin</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Aktiv edildikdə, dönmək üçün küçənin və ya çıxışın adı ucadan səsləndiriləcək.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Audio Dil</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -471,13 +481,15 @@
 	<string name="editor_edit_place_title">Redaktə</string>
 	<string name="editor_add_place_title">Əlavə</string>
 	<string name="editor_edit_place_name_hint">Yerin adı</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">Yerli dildə yazıldığı kimi</string>
 	<string name="editor_edit_place_category_title">Kateqoriya</string>
 	<string name="detailed_problem_description">Problemin ətraflı təsviri</string>
 	<string name="editor_report_problem_other_title">Fərqli problem</string>
 	<string name="placepage_add_business_button">Təşkilat əlavə edin</string>
 	<string name="message_invalid_feature_position">Burada obyekti yerləşdirmək mümkün deyil</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Xəritə datası %s üçün OpenStreetMap məlumatından götürülmüşdür. OpenStreetMap Vikipediyanın xəritə versiyası kimidir: siz dünyanın istənilən yerində istifadəçilər üçün yerlər əlavə edə və ya redaktə edə bilərsiniz.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">%s tarixinə icma tərəfindən yaradılmış OpenStreetMap datası. OpenStreetMap.org saytında xəritəni necə redaktə etmək və yeniləmək haqqında ətraflı məlumat əldə edin</string>
 	<string name="login_to_make_edits_visible">OpenStreetMap.org saytına daxil olun ki, digər istifadəçilər sizin etdiyiniz dəyişiklikləri görə bilsinlər.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>
@@ -496,14 +508,10 @@
 	<string name="editor_detailed_description">Təklif etdiyiniz dəyişikliklər OpenStreetMap icmasına yerləşdiriləcək. Zəhmət olmasa Organic Maps\'da redaktə edilə bilməyən əlavə detalları izah edin.</string>
 	<string name="editor_more_about_osm">OpenStreetMap haqqında əlavə məlumat</string>
 	<string name="editor_operator">Sahibi</string>
+	<string name="editor_category_unsuitable_title">Uyğun kateqoriya tapa bilmirsiniz?</string>
+	<string name="editor_category_unsuitable_text">Üzvi Xəritələr yalnız sadə nöqtə kateqoriyaları əlavə etməyə imkan verir, bu o deməkdir ki, şəhərlər, yollar, göllər, bina konturları və s. yoxdur. Lütfən, belə kateqoriyaları birbaşa <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> saytına əlavə edin. Ətraflı addım-addım təlimatlar üçün <a href="https://organicmaps.app/faq/editing/advanced-map-editing">bələdçimizi</a> yoxlayın.</string>
 	<string name="downloader_no_downloaded_maps_title">Siz heç bir xəritə endirməmisiniz</string>
 	<string name="downloader_no_downloaded_maps_message">Ünvanları tapmaq və oflayn naviqasiya etmək üçün xəritələri endirin.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">Cari yeriniz izlənməyə davam edilsin?</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">Cari yer məlum deyil. Siz yəqin ki, binanın və ya tunelin içərisindəsiniz.</string>
-	<string name="current_location_unknown_continue_button">Davam et</string>
-	<string name="current_location_unknown_stop_button">Dayan</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -581,6 +589,8 @@
 	<string name="routing_add_finish_point">Marşrutu planlaşdırmaq üçün təyinat əlavə edin</string>
 	<string name="placepage_remove_stop">Sil</string>
 	<string name="placepage_add_stop">Dayanacaq nöqtəsini əlavə edin</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Bütün xəritə redaktələrinizi avtomatik yükləmək üçün OpenStreetMap-a daxil olun. <a href="https://github.com/organicmaps/organicmaps/issues/6144">burada</a> ətraflı məlumat əldə edin.</string>
 	<string name="dialog_error_storage_title">Yaddaş giriş problemi</string>
 	<string name="dialog_error_storage_message">Xarici yaddaş mövcud deyil, ola bilsin ki, SD Kart çıxarılıb, zədələnib və ya fayl sistemi yalnız oxunur. Zəhmət olmasa yoxlayın və ya support\@organicmaps.app ünvanında bizimlə əlaqə saxlayın</string>
 	<string name="setting_emulate_bad_storage">Zədələnmiş yaddaşı təqlid edin</string>
@@ -634,13 +644,15 @@
 	<string name="bookmark_list_description_hint">Təsvir yazın (mətn və ya html)</string>
 	<string name="not_shared">Gizli</string>
 	<string name="speedcams_alert_title">Sürət kameraları</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Həmişə</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Heç vaxt</string>
 	<string name="place_description_title">Məkan Təsviri</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Xəritə yükləyicisi</string>
+	<!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+	<string name="pref_tts_speedcams_auto">Sürətlə bağlı xəbərdarlıq edin</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Həmişə xəbərdar edin</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Heç xəbərdar etməyin</string>
 	<string name="power_managment_title">Enerji qənaət rejimi</string>
 	<string name="power_managment_description">Bəzi funksionallıq hesabına enerji istehlakını azaltmağa çalışın.</string>
 	<string name="power_managment_setting_never">Heç vaxt</string>
@@ -685,6 +697,8 @@
 	<string name="by_distance">Məsafəyə görə</string>
 	<!-- Android -->
 	<string name="by_date">Tarixə görə</string>
+	<!-- Android -->
+	<string name="by_name">Ada görə</string>
 	<string name="week_ago_sorttype">Bir həftə əvvəl</string>
 	<string name="month_ago_sorttype">Bir ay əvvəl</string>
 	<string name="moremonth_ago_sorttype">Bir aydan çox əvvəl</string>
@@ -749,18 +763,18 @@
 	<string name="translated_om_site_url">https://organicmaps.app/tr/</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Tr:About</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">İcma tərəfindən yaradılmış xəritələrimizdən istifadə etdiyiniz üçün təşəkkür edirik!</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">İndi telefon ekranında Organic Maps istifadə edirsiniz</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">İndi telefon ekranında Organic Maps istifadə edirsiniz</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Hazırda avtomobil ekranında Organic Maps istifadə edirsiniz</string>
+	<string name="car_used_on_the_car_screen">Hazırda avtomobil ekranında Organic Maps istifadə edirsiniz</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Siz Android Auto-a qoşulmusunuz</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Telefonda davam edin</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">Avtomobil ekranına</string>
+	<string name="car_continue_on_the_phone">Telefonda davam edin</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">Avtomobil ekranına</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">Bu proqram naviqasiya məqsədləri üçün məkanınıza giriş tələb edir.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -769,6 +783,22 @@
 	<string name="aa_connected_to_car_notification_title">Avtomobilə qoşulub</string>
 	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
 	<string name="button_layer_outdoor">Yürüyüş</string>
+	<string name="volume">Həcm</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Bütün Əlfəcinləri və Parçaları ixrac edin</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Sistem nitq sintezi parametrləri</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">Nitq sintezi parametrləri tapılmadı, cihazınızın bunu dəstəklədiyinə əminsiniz?</string>
+	<string name="drive_through">Sürüşmə</string>
+	<string name="clear_the_search">Axtarışı təmizləyin</string>
+	<string name="zoom_in">Yaxınlaşdırma</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Küçült</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Menyu keçidi</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Menyuya baxın</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Ünvan/Blok</string>
@@ -795,7 +825,7 @@
 	<string name="type.amenity.atm">Nağd pul verən</string>
 	<string name="type.amenity.bank">Bank</string>
 	<string name="type.amenity.bar">Bar</string>
-	<string name="type.amenity.bbq">Piknik sahəsi</string>
+	<string name="type.amenity.bbq">Barbekü qril</string>
 	<string name="type.amenity.bench">Skamya</string>
 	<string name="type.amenity.bicycle_parking">Velosiped dayanacağı</string>
 	<string name="type.amenity.bicycle_rental">Velosiped İcarəsi</string>
@@ -827,6 +857,7 @@
 	<string name="type.amenity.dentist">Diş həkimi</string>
 	<string name="type.amenity.doctors">Həkim</string>
 	<string name="type.amenity.drinking_water">İçməli su</string>
+	<string name="type.drinking_water.yes">İçməli su</string>
 	<string name="type.amenity.driving_school">Sürücülük Məktəbi</string>
 	<string name="type.amenity.exhibition_centre">Sərgi Mərkəzi</string>
 	<string name="type.amenity.money_transfer">Pul köçürməsi</string>
@@ -917,7 +948,12 @@
 	<string name="type.recycling.cartons">İçki Kartonları</string>
 	<string name="type.amenity.restaurant">Restoran</string>
 	<string name="type.amenity.school">Məktəb</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Sığınacaq</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">Sığınacaq</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">Bivouac Daxması</string>
 	<string name="type.amenity.public_bath">Hamam</string>
 	<string name="type.amenity.shower">Duş</string>
 	<string name="type.amenity.stripclub">Striptiz klubu</string>
@@ -963,25 +999,14 @@
 	<string name="type.barrier.wall">Divar</string>
 	<string name="type.boundary">Sərhəd</string>
 	<string name="type.boundary.administrative">İnzibati sərhəd</string>
-	<string name="type.boundary.administrative.10">İnzibati sərhəd</string>
-	<string name="type.boundary.administrative.11">İnzibati sərhəd</string>
+	<!-- Borders between countries. -->
 	<string name="type.boundary.administrative.2">Milli sərhəd</string>
-	<string name="type.boundary.administrative.3">İnzibati sərhəd</string>
-	<string name="type.boundary.administrative.4">İnzibati sərhəd</string>
-	<string name="type.boundary.administrative.5">İnzibati sərhəd</string>
-	<string name="type.boundary.administrative.6">İnzibati sərhəd</string>
-	<string name="type.boundary.administrative.7">İnzibati sərhəd</string>
-	<string name="type.boundary.administrative.8">İnzibati sərhəd</string>
-	<string name="type.boundary.administrative.9">İnzibati sərhəd</string>
-	<string name="type.boundary.administrative.city">Şəhər limiti</string>
-	<string name="type.boundary.administrative.country">Milli sərhəd</string>
-	<string name="type.boundary.administrative.county">Rayon sərhədi</string>
-	<string name="type.boundary.administrative.municipality">Bələdiyyə sərhədi</string>
-	<string name="type.boundary.administrative.nation">Milli sərhəd</string>
-	<string name="type.boundary.administrative.region">Regional sərhəd</string>
-	<string name="type.boundary.administrative.state">Dövlət sərhədi</string>
-	<string name="type.boundary.administrative.suburb">Qonşuluq sərhədi</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.3">Regional sərhəd</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.4">Regional sərhəd</string>
 	<string name="type.boundary.national_park">Milli park</string>
+	<string name="type.boundary.aboriginal_lands">Yerli torpaqlar</string>
 	<string name="type.boundary.protected_area">Qorunan ərazi</string>
 	<string name="type.boundary.protected_area.1">Qorunan ərazi</string>
 	<string name="type.boundary.protected_area.2">Qorunan ərazi</string>
@@ -1153,15 +1178,9 @@
 	<string name="type.highway.footway">Səki</string>
 	<string name="type.highway.footway.sidewalk">Səki</string>
 	<string name="type.highway.footway.crossing">Piyada keçidi</string>
-	<string name="type.highway.footway.alpine_hiking">Yol</string>
 	<string name="type.highway.footway.area">Piyada ərazisi</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Körpü</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Yol</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Yol</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Yol</string>
-	<string name="type.highway.footway.hiking">Yol</string>
-	<string name="type.highway.footway.mountain_hiking">Yol</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunel</string>
 	<string name="type.highway.ford">Keçid</string>
@@ -1182,17 +1201,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Tunel</string>
 	<string name="type.highway.path">Yol</string>
-	<string name="type.highway.path.alpine_hiking">Yol</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">Yol</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">Yol</string>
 	<string name="type.highway.path.bicycle">Velosiped və Gəzinti Yolu</string>
+	<string name="type.highway.footway.bicycle">Velosiped və Gəzinti Yolu</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Körpü</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Yol</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Yol</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Yol</string>
-	<string name="type.highway.path.hiking">Yol</string>
 	<string name="type.highway.path.horse">Atlı yolu</string>
-	<string name="type.highway.path.mountain_hiking">Yol</string>
-	<string name="type.highway.path.permissive">Yol</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Tunel</string>
 	<string name="type.highway.pedestrian">Piyadalar üçün küçə</string>
@@ -1266,12 +1283,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Körpü</string>
 	<string name="type.highway.track.grade1">Uçuş zolağı</string>
-	<string name="type.highway.track.grade2">Uçuş zolağı</string>
-	<string name="type.highway.track.grade3">Uçuş zolağı</string>
-	<string name="type.highway.track.grade4">Uçuş zolağı</string>
-	<string name="type.highway.track.grade5">Uçuş zolağı</string>
 	<string name="type.highway.track.no.access">Uçuş zolağı</string>
-	<string name="type.highway.track.permissive">Uçuş zolağı</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunel</string>
 	<string name="type.highway.traffic_signals">İşıqfor</string>
@@ -1365,7 +1377,6 @@
 	<string name="type.landuse.churchyard">Kilsə rayonu</string>
 	<string name="type.landuse.commercial">Kommersiya</string>
 	<string name="type.landuse.construction">Struktur</string>
-	<string name="type.landuse.farm">Ferma</string>
 	<string name="type.landuse.farmland">Kənd Təsərrüfatı Torpaqları</string>
 	<string name="type.landuse.farmyard">Ferma rayonu</string>
 	<string name="type.landuse.field">Ərazi</string>
@@ -1401,8 +1412,8 @@
 	<string name="type.leisure.garden">Bağ</string>
 	<string name="type.leisure.garden.residential">Yaşayış bağı</string>
 	<string name="type.leisure.golf_course">Qolf Kursu</string>
+	<string name="type.leisure.miniature_golf">Minigolf</string>
 	<string name="type.leisure.ice_rink">Buz Meydançası</string>
-	<string name="type.leisure.landscape_reserve">Landşaft Qoruğu</string>
 	<string name="type.leisure.marina">Liman</string>
 	<string name="type.leisure.nature_reserve">Təbii qoruq</string>
 	<string name="type.leisure.outdoor_seating">Açıq oturma</string>
@@ -1452,7 +1463,10 @@
 	<string name="type.military.bunker">Sığınacaq</string>
 	<string name="type.mountain_pass">Boğaz</string>
 	<string name="type.natural">Təbiət</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Çılpaq qaya</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Şingle</string>
 	<string name="type.natural.bay">Bay</string>
 	<string name="type.natural.beach">Çimərlik</string>
 	<string name="type.natural.beach.sand">Qum çimərliyi</string>
@@ -1994,7 +2008,8 @@
 	<string name="type.sport.pelota">Bask pelota</string>
 	<string name="type.tourism">Turizm</string>
 	<string name="type.tourism.aquarium">Akvarium</string>
-	<string name="type.tourism.alpine_hut">Dağda yerləşmə</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Dağ evi</string>
 	<string name="type.tourism.apartment">Apart otel</string>
 	<string name="type.tourism.artwork">İncəsənət</string>
 	<string name="type.tourism.artwork.architecture">Bədii Memarlıq</string>
@@ -2002,11 +2017,12 @@
 	<string name="type.tourism.artwork.sculpture">Heykəl</string>
 	<string name="type.tourism.artwork.statue">Heykəl</string>
 	<string name="type.tourism.attraction">Attraksionlar</string>
-	<string name="type.tourism.attraction.animal">Zoopark</string>
+	<string name="type.attraction.animal">Heyvan mühafizəsi</string>
 	<string name="type.tourism.attraction.specified">Attraksionlar</string>
 	<string name="type.tourism.camp_site">Düşərgə sahəsi</string>
 	<string name="type.tourism.caravan_site">Treyler parkı</string>
-	<string name="type.tourism.chalet">Dağ evi</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">İstirahət kotteci</string>
 	<string name="type.tourism.gallery">Qalereya</string>
 	<string name="type.tourism.guest_house">Qonaq evi</string>
 	<string name="type.tourism.hostel">Yataqxana</string>
@@ -2020,9 +2036,10 @@
 	<string name="type.tourism.motel">Motel</string>
 	<string name="type.tourism.museum">Muzey</string>
 	<string name="type.tourism.picnic_site">Piknik sahəsi</string>
-	<string name="type.tourism.resort">İstirahət kəndi</string>
+	<string name="type.leisure.resort">İstirahət kəndi</string>
 	<string name="type.tourism.theme_park">Mövzu park</string>
 	<string name="type.tourism.viewpoint">Baxın</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Çöl kabinəsi</string>
 	<string name="type.tourism.zoo">Zoopark</string>
 	<string name="type.tourism.zoo.petting">Zoopark</string>
@@ -2044,7 +2061,6 @@
 	<string name="type.waterway.lock_gate">Ekklüzyon örtüyü</string>
 	<string name="type.waterway.river">Çay</string>
 	<string name="type.waterway.river.tunnel">Çay</string>
-	<string name="type.waterway.riverbank">Çay</string>
 	<string name="type.waterway.stream">Çay</string>
 	<string name="type.waterway.stream.ephemeral">Çay</string>
 	<string name="type.waterway.stream.intermittent">Çay</string>

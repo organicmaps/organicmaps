@@ -473,22 +473,41 @@ std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fi
   return data;
 }
 
-bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, KmlFileType fileType)
+bool SaveGpxData(kml::FileData & kmlData, Writer & writer)
 {
-  bool success;
   try
   {
-    FileWriter writer(file);
-    success = SaveKmlData(kmlData, writer, fileType);
+    kml::gpx::SerializerGpx ser(kmlData);
+    ser.Serialize(writer);
+  }
+  catch (Writer::Exception const & e)
+  {
+    LOG(LWARNING, ("GPX writing failure:", e.what()));
+    return false;
   }
   catch (std::exception const & e)
   {
-    LOG(LWARNING, ("KML", fileType, "saving failure:", e.what()));
-    success = false;
+    LOG(LWARNING, ("GPX serialization failure:", e.what()));
+    return false;
   }
-  if (!success)
-    LOG(LWARNING, ("Saving bookmarks failed, file", file));
-  return success;
+  return true;
+}
+
+bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, KmlFileType fileType)
+{
+  FileWriter writer(file);
+  LOG(LINFO, ("Save kml file", file, ", type", fileType));
+  switch (fileType)
+  {
+  case KmlFileType::Text:  // fallthrough
+  case KmlFileType::Binary: return SaveKmlData(kmlData, writer, fileType);
+  case KmlFileType::Gpx: return SaveGpxData(kmlData, writer);
+  default:
+  {
+    LOG(LWARNING, ("Unexpected KmlFileType", fileType));
+    return false;
+  }
+  }
 }
 
 bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, KmlFileType fileType)

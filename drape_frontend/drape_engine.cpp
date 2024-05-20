@@ -6,7 +6,6 @@
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape/drape_routine.hpp"
-#include "drape/glyph_generator.hpp"
 #include "drape/support_manager.hpp"
 
 #include "platform/settings.hpp"
@@ -35,8 +34,7 @@ DrapeEngine::DrapeEngine(Params && params)
 
   gui::DrapeGui::Instance().SetSurfaceSize(m2::PointF(m_viewport.GetWidth(), m_viewport.GetHeight()));
 
-  m_glyphGenerator = make_unique_dp<dp::GlyphGenerator>(df::VisualParams::Instance().GetGlyphSdfScale());
-  m_textureManager = make_unique_dp<dp::TextureManager>(make_ref(m_glyphGenerator));
+  m_textureManager = make_unique_dp<dp::TextureManager>();
   m_threadCommutator = make_unique_dp<ThreadsCommutator>();
   m_requestedTiles = make_unique_dp<RequestedTiles>();
 
@@ -83,7 +81,6 @@ DrapeEngine::DrapeEngine(Params && params)
                                     std::bind(&DrapeEngine::ModelViewChanged, this, _1),
                                     std::bind(&DrapeEngine::TapEvent, this, _1),
                                     std::bind(&DrapeEngine::UserPositionChanged, this, _1, _2),
-                                    std::bind(&DrapeEngine::UserPositionPendingTimeout, this),
                                     make_ref(m_requestedTiles),
                                     std::move(params.m_overlaysShowStatsCallback),
                                     params.m_allow3dBuildings,
@@ -130,7 +127,6 @@ DrapeEngine::~DrapeEngine()
 
   gui::DrapeGui::Instance().Destroy();
   m_textureManager->Release();
-  m_glyphGenerator.reset();
 }
 
 void DrapeEngine::RecoverSurface(int w, int h, bool recreateContextDependentResources)
@@ -341,7 +337,7 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
                nullptr /* filter */, *removedIdCollection);
 
     collectRenderData(provider->GetCreatedMarkIds(), provider->GetCreatedLineIds(), groupFilter);
-    collectRenderData(provider->GetUpdatedMarkIds(), {} /* lineIds */, groupFilter);
+    collectRenderData(provider->GetUpdatedMarkIds(), provider->GetUpdatedLineIds(), groupFilter);
 
     for (auto const groupId : provider->GetBecameVisibleGroupIds())
     {
@@ -469,12 +465,6 @@ void DrapeEngine::UserPositionChanged(m2::PointD const & position, bool hasPosit
     m_userPositionChangedHandler(position, hasPosition);
 }
 
-void DrapeEngine::UserPositionPendingTimeout()
-{
-  if (m_userPositionPendingTimeoutHandler != nullptr)
-    m_userPositionPendingTimeoutHandler();
-}
-
 void DrapeEngine::ResizeImpl(int w, int h)
 {
   gui::DrapeGui::Instance().SetSurfaceSize(m2::PointF(w, h));
@@ -553,11 +543,6 @@ void DrapeEngine::SetTapEventInfoListener(TapEventInfoHandler && fn)
 void DrapeEngine::SetUserPositionListener(UserPositionChangedHandler && fn)
 {
   m_userPositionChangedHandler = std::move(fn);
-}
-
-void DrapeEngine::SetUserPositionPendingTimeoutListener(UserPositionPendingTimeoutHandler && fn)
-{
-  m_userPositionPendingTimeoutHandler = std::move(fn);
 }
 
 void DrapeEngine::SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt,

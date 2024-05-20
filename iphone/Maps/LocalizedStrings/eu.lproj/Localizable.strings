@@ -27,7 +27,7 @@
 "leave_a_review" = "Idatzi iritzia";
 
 /* Choose measurement on first launch alert - choose imperial system button */
-"miles" = "Milia";
+"miles" = "Miliak";
 
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Nire kokapena";
@@ -50,7 +50,17 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Deskargak huts egin du";
 
-"about_menu_title" = "Organic Maps-i buruz";
+/* Text in About screen */
+"about_headline" = "Denontzat doan, maitasunez egina";
+
+/* Text in About screen */
+"about_proposition_1" = "• Ez iragarkirik, ez jarraipenik, ez datu-bilketarik";
+
+/* Text in About screen */
+"about_proposition_2" = "• Ez da bateria deskargatzen, konexiorik gabe funtzionatzen du";
+
+/* Text in About screen */
+"about_proposition_3" = "• Azkarra, minimalista, komunitateak garatua";
 
 "close" = "Itxi";
 
@@ -61,9 +71,6 @@
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Gehitu zerrenda berri bat";
-
-/* Bookmark Color dialog title */
-"bookmark_color" = "Markagailuaren kolorea";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "Markagailuen zerrendaren izena";
@@ -92,74 +99,77 @@
 
 /********** Search categories **********/
 
-/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "Non jan";
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
+"category_eat" = "Non jan";
 
-/* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Janari-denda";
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! */
+"category_food" = "Janari-denda";
 
-/* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "Garraioa";
+/* Search category for public transport; any changes should be duplicated in categories.txt @category_transport! */
+"category_transport" = "Garraioa";
 
-/* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Gasolindegia";
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
+"category_fuel" = "Gasolindegia";
 
-/* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "Aparkalekua";
+/* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
+"category_parking" = "Aparkalekua";
 
-/* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Erosketak";
+/* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
+"category_shopping" = "Erosketak";
 
-/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "Bigarren eskuko";
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
+"category_secondhand" = "Bigarren eskuko";
 
-/* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "Hotela";
+/* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
+"category_hotel" = "Hotela";
 
-/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Turismoa";
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
+"category_tourism" = "Turismoa";
 
-/* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "Entretenimendua";
+/* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
+"category_entertainment" = "Entretenimendua";
 
-/* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "Kutxazain automatikoa";
+/* Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! */
+"category_atm" = "Kutxazain automatikoa";
 
-/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "Gaueko giroa";
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! */
+"category_nightlife" = "Gaueko giroa";
 
-/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Familiako jarduerak";
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! */
+"category_children" = "Familiako jarduerak";
 
-/* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "Bankua";
+/* Search category for banks; any changes should be duplicated in categories.txt @category_bank! */
+"category_bank" = "Bankua";
 
-/* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "Farmazia";
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! */
+"category_pharmacy" = "Farmazia";
 
-/* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "Ospitalea";
+/* Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! */
+"category_hospital" = "Ospitalea";
 
-/* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "Komuna";
+/* Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! */
+"category_toilet" = "Komuna";
 
-/* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "Posta bulegoa";
+/* Search category for post offices; any changes should be duplicated in categories.txt @category_post! */
+"category_post" = "Posta bulegoa";
 
-/* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "Polizia";
+/* Search category for police; any changes should be duplicated in categories.txt @category_police! */
+"category_police" = "Polizia";
 
-/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi";
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
+"category_wifi" = "WiFi";
 
-/* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "Birziklapena";
+/* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
+"category_recycling" = "Birziklapena";
 
-/* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "Ura";
+/* Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type */
+"category_water" = "Ura";
 
-/* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "Karabanak";
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
+"category_rv" = "Karabanak";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Kaixo!\nNire markagailuak Organic Maps aplikazioan erantsi ditut. Mesedez, ireki itzazu Organic Maps instalatuta baduzu. Edo, ez baduzu, deskargatu aplikazioa zure iOS edo Android gailurako esteka hau jarraituz: https://omaps.app/get?kmz\n\nGozatu bidaiatzen Organic Maps-ekin!";
 
@@ -200,10 +210,7 @@
 "done" = "Eginda";
 
 /* Prints version number in About dialog */
-"version" = "Bertsioa: %@";
-
-/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "OpenStreetMap datuak: %@";
+"version" = "Organic Maps bertsioa: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Arrastoak";
@@ -217,8 +224,14 @@
 
 "pref_zoom_title" = "Zoom botoiak";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "Gaueko modua";
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Itxura";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Argi";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Iluna";
 
 /* Generic «Off» string */
 "off" = "Desgaituta";
@@ -240,6 +253,12 @@
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Ahots argibideak";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Kaleen izenak iragarri";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Gaituta dagoenean, biratzeko kalearen edo irteeraren izena ozen esango da.";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Ahots hizkuntza";
@@ -277,18 +296,6 @@
 "news" = "Albisteak";
 
 /* Text in menu */
-"github" = "GitHub";
-
-/* Text in menu */
-"telegram" = "Telegram";
-
-/* Text in menu */
-"matrix" = "[Matrix]";
-
-/* Text in menu */
-"mastodon" = "Mastodon";
-
-/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -299,9 +306,6 @@
 
 /* Text in the editor */
 "vk" = "VK";
-
-/* Text in menu */
-"openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
 "rate_the_app" = "Baloratu aplikazioa";
@@ -315,14 +319,23 @@
 /* Button in the main menu */
 "donate" = "Dohaintza eman";
 
-/* Button in the main Help dialog */
-"how_to_support_us" = "Proiektuari laguntza eman";
+/* Tex label above the Donate button */
+"donate_description" = "Eman dohaintza elkarrekin mapa onenak eraikitzeko!";
 
 /* Button in the main Help dialog */
 "copyright" = "Egile eskubideak";
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Errore baten berri eman";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Salatu edo konpondu maparen datu okerrak";
+
+/* Button in the About screen */
+"volunteer" = "Boluntario izateko";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Jarraitu eta jarri gurekin harremanetan:";
 
 /* Alert text */
 "email_error_body" = "Posta elektronikoko bezeroa ez da konfiguratu. Mesedez, konfigura ezazu edo erabili beste moduren bat gurekin harremanetan jartzeko %@ helbidean";
@@ -622,6 +635,8 @@
 
 "login" = "Saioa hasi";
 
+"login_osm" = "Hasi saioa OpenStreetMap-en";
+
 "forgot_password" = "Pasahitza ahaztu duzu?";
 
 "osm_account" = "OSM kontua";
@@ -666,7 +681,7 @@
 
 "please_note" = "Abisua";
 
-"downloader_delete_map_dialog" = "Maparen aldaketa guztiak maparekin batera ezabatuko dira.";
+"downloader_delete_map_dialog" = "Mapan egin dituzun aldaketa guztiak maparekin batera ezabatuko dira.";
 
 "downloader_update_maps" = "Eguneratu mapak";
 
@@ -696,6 +711,9 @@
 
 "editor_edit_place_name_hint" = "Tokiaren izena";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Bertako hizkuntzan idatzita dagoenez";
+
 "editor_edit_place_category_title" = "Kategoria";
 
 "whatsnew_editor_message_1" = "Gehitu toki berriak mapan eta editatu uneko tokiak zuzenean aplikaziotik.";
@@ -703,6 +721,9 @@
 "dialog_incorrect_feature_position" = "Aldatu kokapena";
 
 "message_invalid_feature_position" = "Hemen ezin da objekturik jarri";
+
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Komunitateak sortutako OpenStreetMap datuak %@-tik aurrera. Lortu informazio gehiago mapa editatu eta eguneratzeari buruz OpenStreetMap.org helbidean";
 
 "login_to_make_edits_visible" = "Hasi saioa OpenStreetMapen beste erabiltzaileek zuk egindako aldaketak ikus ditzaten.";
 
@@ -746,16 +767,6 @@
 
 "downloader_no_downloaded_maps_message" = "Deskargatu mapak kokapena aurkitzeko eta lineaz kanpo nabigatzeko.";
 
-/* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "Zure uneko kokapena detektatzen jarraitu nahi duzu?";
-
-/* Error that appears after certain time without location. */
-"current_location_unknown_message" = "Uneko kokapena ezezaguna da. Agian eraikin batean edo tunel batean zaudelako.";
-
-"current_location_unknown_continue_button" = "Jarraitu";
-
-"current_location_unknown_stop_button" = "Gelditu";
-
 "current_location_unknown_error_title" = "Uneko kokapena ezezaguna da.";
 
 "current_location_unknown_error_message" = "Errore bat gertatu da zure kokapena bilatzean. Egiaztatu gailua behar bezala dabilela eta saiatu berriro geroago.";
@@ -770,6 +781,14 @@
 
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Hautatu aplikazioa erabiltzean";
+
+"location_services_disabled_on_device_2" = "2. Hautatu Pribatutasuna";
+
+"location_services_disabled_on_device_3" = "3. Hautatu Kokapen zerbitzuak";
+
+"location_services_disabled_on_device_4" = "4. Aktibatu Kokapen Zerbitzuak";
+
+"location_services_disabled_on_device_additional_message" = "Edo jarraitu kokapenik gabeko Organic Maps erabiltzen";
 
 /* abbreviation for meters */
 "m" = "m";
@@ -815,7 +834,7 @@
 
 "placepage_delete_bookmark_button" = "Ezabatu markagailua";
 
-"editor_edits_sent_message" = "Iradokitako aldaketak bidali dira";
+"editor_edits_sent_message" = "Zure oharra OpenStreetMap-era bidaliko da";
 
 "editor_comment_hint" = "Iruzkina…";
 
@@ -850,7 +869,7 @@
 
 "editor_share_to_all_dialog_message_2" = "OpenStreetMap editoreek aldaketak egiaztatuko dituzte eta zurekin harremanetan jarriko dira zalantzaren bat izanez gero.";
 
-"navigation_stop_button" = "gelditu";
+"navigation_stop_button" = "Gelditu";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Bidaiatutako azken ibilbidearen grabaketa desaktibatu nahi duzu?";
@@ -861,9 +880,6 @@
 "sharing_call_action_look" = "Egiaztatu";
 
 "recent_track_background_dialog_message" = "Organic Maps-ek zure geokokapena erabiltzen du atzeko planoan egindako azken ibilbidea erregistratzeko.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps lineaz kanpoko mapa aplikazio doako eta irekia da. Iragarkirik ez. Ez dago jarraipenik. Mapan errore bat ikusten baduzu, konpondu OpenStreetMap-en. Proiektua zaleek sortu dute haien aisialdian, beraz, zure iritzia eta laguntza behar dugu.";
 
 "general_settings" = "Ezarpen orokorrak";
 
@@ -925,6 +941,12 @@
 "start_from_my_position" = "Hasi hemendik";
 
 "profile_authorization_error" = "Errore bat gertatu da. Saiatu berriro saioa hasten.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Hasi saioa OpenStreetMap-en zure mapen aldaketa guztiak automatikoki kargatzeko. Lortu informazio gehiago";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "hemen";
 
 "core_entrance" = "Sarrera";
 
@@ -1005,15 +1027,16 @@
 
 "speedcams_alert_title" = "Abiadura kamerak";
 
-/* Generic «Always» string */
-"always" = "Beti";
-
-/* Generic «Never» string */
-"never" = "Inoiz ez";
-
 "place_description_title" = "Tokiaren deskribapena";
 
-"speedcams_notice_message" = "Automatikoa - abiadura-kamerei buruz ohartarazten du abiadura muga gainditzeko arriskua badago\nBeti - beti abisatu kamerei buruz\nInoiz - inoiz ez abisatu kamerei buruz";
+/* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
+"pref_tts_speedcams_auto" = "Abiaduraz ohartarazi";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Beti abisatu";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Inoiz ez abisatu";
 
 "power_managment_title" = "Energia aurrezteko modua";
 
@@ -1120,6 +1143,8 @@
 "sort_distance" = "Ordenatu distantziaren arabera";
 
 "sort_date" = "Ordenatu dataren arabera";
+
+"sort_name" = "Ordenatu izenaren arabera";
 
 "week_ago_sorttype" = "Duela aste bat";
 
@@ -1242,8 +1267,31 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Organic Maps telefonoaren pantailan erabiltzen ari zara";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Organic Maps autoaren pantailan erabiltzen ari zara";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Jarraitu telefonoan";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Autoaren pantailara";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
-"button_layer_outdoor" = "Mendi ibilaldiak";
+"button_layer_outdoor" = "Landa-eremua";
+
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Esportatu Laster-marka eta Pista guztiak";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "Kolorea aldatu";
+
+/* Main screen title "Map" displayed in the navigation back button's menu. */
+"map" = "Mapa";
+
+"drive_through" = "Drive-through";
 
 
 /********** Types **********/
@@ -1296,7 +1344,7 @@
 
 "type.amenity.bar" = "Taberna";
 
-"type.amenity.bbq" = "Piknika";
+"type.amenity.bbq" = "Barbakoa parrilla";
 
 "type.amenity.bench" = "Bankua";
 
@@ -1359,6 +1407,8 @@
 "type.amenity.doctors" = "Kontsulta medikoa";
 
 "type.amenity.drinking_water" = "Ur edangarria";
+
+"type.drinking_water.yes" = "Ur edangarria";
 
 "type.amenity.driving_school" = "Autoeskola";
 
@@ -1539,7 +1589,17 @@
 
 "type.amenity.school" = "Eskola";
 
+/* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "Aterpea";
+
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "Aterpea";
+
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
+"type.amenity.shelter.basic_hut" = "Bivouac Borda";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
+"type.amenity.shelter.lean_to" = "Lean-to Shelter";
 
 "type.amenity.public_bath" = "Bainu Publikoa";
 
@@ -1647,43 +1707,18 @@
 
 "type.boundary.administrative" = "Muga administratiboa";
 
-"type.boundary.administrative.10" = "Muga administratiboa";
-
-"type.boundary.administrative.11" = "Muga administratiboa";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "Herrialdeko muga";
 
-"type.boundary.administrative.3" = "Muga administratiboa";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Eskualdeko muga";
 
-"type.boundary.administrative.4" = "Muga administratiboa";
-
-"type.boundary.administrative.5" = "Muga administratiboa";
-
-"type.boundary.administrative.6" = "Muga administratiboa";
-
-"type.boundary.administrative.7" = "Muga administratiboa";
-
-"type.boundary.administrative.8" = "Muga administratiboa";
-
-"type.boundary.administrative.9" = "Muga administratiboa";
-
-"type.boundary.administrative.city" = "Hiriko muga";
-
-"type.boundary.administrative.country" = "Herrialdeko muga";
-
-"type.boundary.administrative.county" = "Eskualdeko muga";
-
-"type.boundary.administrative.municipality" = "Udalerriko muga";
-
-"type.boundary.administrative.nation" = "Nazio muga";
-
-"type.boundary.administrative.region" = "Eskualdeko muga";
-
-"type.boundary.administrative.state" = "Estatuko muga";
-
-"type.boundary.administrative.suburb" = "Auzoko muga";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Eskualdeko muga";
 
 "type.boundary.national_park" = "Parke Nazionala";
+
+"type.boundary.aboriginal_lands" = "Lurralde autoktonoak";
 
 "type.boundary.protected_area" = "Babestutako Eremua";
 
@@ -1955,7 +1990,7 @@
 
 "type.entrance.exit" = "Irten";
 
-"type.fee.yes" = "💲";
+"type.fee.yes" = "$";
 
 "type.fee.no" = "Doan";
 
@@ -2024,22 +2059,10 @@
 
 "type.highway.footway.crossing" = "Oinezkoen pasabidea";
 
-"type.highway.footway.alpine_hiking" = "Bidea";
-
 "type.highway.footway.area" = "Bidea";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Zubia";
-
-"type.highway.footway.demanding_alpine_hiking" = "Bidea";
-
-"type.highway.footway.demanding_mountain_hiking" = "Bidea";
-
-"type.highway.footway.difficult_alpine_hiking" = "Bidea";
-
-"type.highway.footway.hiking" = "Bidea";
-
-"type.highway.footway.mountain_hiking" = "Bidea";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Tunel";
@@ -2074,26 +2097,20 @@
 
 "type.highway.path" = "Bidea";
 
-"type.highway.path.alpine_hiking" = "Bidea";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Bidea";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Bidea";
 
 "type.highway.path.bicycle" = "Bidea";
+
+"type.highway.footway.bicycle" = "Bidea";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Zubia";
 
-"type.highway.path.demanding_alpine_hiking" = "Bidea";
-
-"type.highway.path.demanding_mountain_hiking" = "Bidea";
-
-"type.highway.path.difficult_alpine_hiking" = "Bidea";
-
-"type.highway.path.hiking" = "Bidea";
-
 "type.highway.path.horse" = "Bidea";
-
-"type.highway.path.mountain_hiking" = "Bidea";
-
-"type.highway.path.permissive" = "Bidea";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Tunel";
@@ -2216,17 +2233,7 @@
 
 "type.highway.track.grade1" = "Kalea";
 
-"type.highway.track.grade2" = "Kalea";
-
-"type.highway.track.grade3" = "Kalea";
-
-"type.highway.track.grade4" = "Kalea";
-
-"type.highway.track.grade5" = "Kalea";
-
 "type.highway.track.no.access" = "Kalea";
-
-"type.highway.track.permissive" = "Kalea";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunel";
@@ -2436,8 +2443,6 @@
 
 "type.landuse.education" = "Educational Facility";
 
-"type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "Nekazaritza-lurra";
 
 "type.landuse.farmyard" = "Farmyard";
@@ -2508,11 +2513,11 @@
 
 "type.leisure.golf_course" = "Golf kurtsoa";
 
+"type.leisure.miniature_golf" = "Minigolf";
+
 "type.leisure.hackerspace" = "Hackerspace";
 
 "type.leisure.ice_rink" = "Ice Rink";
-
-"type.leisure.landscape_reserve" = "Landscape Reserve";
 
 "type.leisure.marina" = "Marina";
 
@@ -2618,7 +2623,14 @@
 
 "type.natural" = "Natura";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "Harkaitz biluzi";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Harri koskor";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Srika";
 
 "type.natural.bay" = "Badia";
 
@@ -3709,15 +3721,16 @@
 
 "type.sport.badminton" = "Badminton";
 
-"type.sport.pelota" = "Eusko pilota";
+"type.sport.pelota" = "Euskal pilota";
 
 "type.tourism" = "Turismoa";
 
 "type.tourism.aquarium" = "Aquariuma";
 
-"type.tourism.alpine_hut" = "Kabina";
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "Mendiko ostatua";
 
-"type.tourism.apartment" = "Apartamentuak";
+"type.tourism.apartment" = "Oporretako apartamentua";
 
 "type.tourism.artwork" = "Artelanak";
 
@@ -3731,7 +3744,7 @@
 
 "type.tourism.attraction" = "Erakarpen turistikoa";
 
-"type.tourism.attraction.animal" = "Erakarpen turistikoa";
+"type.attraction.animal" = "Animalien itxitura";
 
 "type.tourism.attraction.specified" = "Erakarpen turistikoa";
 
@@ -3739,7 +3752,8 @@
 
 "type.tourism.caravan_site" = "Karabana gunea";
 
-"type.tourism.chalet" = "Txaleta";
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "Oporretako Etxea";
 
 "type.tourism.gallery" = "Turismoa";
 
@@ -3767,12 +3781,13 @@
 
 "type.tourism.picnic_site" = "Piknika";
 
-"type.tourism.resort" = "Resort";
+"type.leisure.resort" = "Resort";
 
 "type.tourism.theme_park" = "Parke tematiko";
 
 "type.tourism.viewpoint" = "Bista panoramikoa";
 
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "Kabina";
 
 "type.tourism.zoo" = "Zoo";
@@ -3814,8 +3829,6 @@
 "type.waterway.river" = "Ibai";
 
 "type.waterway.river.tunnel" = "Ibai";
-
-"type.waterway.riverbank" = "Ibai";
 
 "type.waterway.stream" = "Ibai";
 

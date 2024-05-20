@@ -60,7 +60,11 @@ public class Metadata implements Parcelable
     FMD_JUNCTION_REF(39),
     FMD_BUILDING_MIN_LEVEL(40),
     FMD_WIKIMEDIA_COMMONS(41),
-    FMD_CAPACITY(42);
+    FMD_CAPACITY(42),
+    FMD_WHEELCHAIR(43),
+    FMD_LOCAL_REF(44),
+    FMD_DRIVE_THROUGH(45),
+    FMD_WEBSITE_MENU(46);
     private final int mMetaType;
 
     MetadataType(int metadataType)
@@ -124,7 +128,7 @@ public class Metadata implements Parcelable
     return metadata;
   }
 
-  public static final Creator<Metadata> CREATOR = new Creator<Metadata>()
+  public static final Creator<Metadata> CREATOR = new Creator<>()
   {
     @Override
     public Metadata createFromParcel(Parcel source)

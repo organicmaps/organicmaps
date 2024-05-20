@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<FrameLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -19,9 +19,9 @@
 
     <include
       layout="@layout/show_on_map_fab"
-      android:layout_width="match_parent"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_gravity="bottom|end"
+      android:layout_gravity="bottom|center"
       android:layout_margin="@dimen/margin_base"/>
 
     <app.organicmaps.widget.PlaceholderView
@@ -45,4 +45,4 @@
       android:visibility="gone"
       tools:visibility="visible" />
   </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</RelativeLayout>
+</FrameLayout>

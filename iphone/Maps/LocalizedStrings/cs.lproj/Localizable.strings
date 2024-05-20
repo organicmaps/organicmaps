@@ -50,7 +50,17 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Stahování selhalo";
 
-"about_menu_title" = "O aplikaci Organic Maps";
+/* Text in About screen */
+"about_headline" = "Zdarma pro všechny, vyrobené s láskou";
+
+/* Text in About screen */
+"about_proposition_1" = "• Žádné reklamy, žádné sledování, žádný sběr dat";
+
+/* Text in About screen */
+"about_proposition_2" = "• Žádné vybíjení baterie, funguje offline";
+
+/* Text in About screen */
+"about_proposition_3" = "• Rychlé, minimalistické, vyvinutý komunitou";
 
 "close" = "Zavřít";
 
@@ -61,9 +71,6 @@
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Přidat novou skupinu záložek";
-
-/* Bookmark Color dialog title */
-"bookmark_color" = "Barva záložky";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "Název záložky";
@@ -92,74 +99,77 @@
 
 /********** Search categories **********/
 
-/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "Kde se najíst";
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
+"category_eat" = "Kde se najíst";
 
-/* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Potraviny";
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! */
+"category_food" = "Potraviny";
 
-/* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "Doprava";
+/* Search category for public transport; any changes should be duplicated in categories.txt @category_transport! */
+"category_transport" = "Doprava";
 
-/* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Čerpací stanice";
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
+"category_fuel" = "Čerpací stanice";
 
-/* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "Parkoviště";
+/* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
+"category_parking" = "Parkoviště";
 
-/* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Nákupy";
+/* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
+"category_shopping" = "Nákupy";
 
-/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "Second-hand";
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
+"category_secondhand" = "Second-hand";
 
-/* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "Hotel";
+/* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
+"category_hotel" = "Hotel";
 
-/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Pamětihodnost";
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
+"category_tourism" = "Pamětihodnost";
 
-/* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "Zábava";
+/* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
+"category_entertainment" = "Zábava";
 
-/* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "Bankomat";
+/* Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! */
+"category_atm" = "Bankomat";
 
-/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "Noční život";
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! */
+"category_nightlife" = "Noční život";
 
-/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Dovolená s dětmi";
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! */
+"category_children" = "Dovolená s dětmi";
 
-/* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "Banka";
+/* Search category for banks; any changes should be duplicated in categories.txt @category_bank! */
+"category_bank" = "Banka";
 
-/* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "Lékárna";
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! */
+"category_pharmacy" = "Lékárna";
 
-/* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "Nemocnice";
+/* Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! */
+"category_hospital" = "Nemocnice";
 
-/* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "Záchody";
+/* Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! */
+"category_toilet" = "Záchody";
 
-/* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "Pošta";
+/* Search category for post offices; any changes should be duplicated in categories.txt @category_post! */
+"category_post" = "Pošta";
 
-/* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "Policie";
+/* Search category for police; any changes should be duplicated in categories.txt @category_police! */
+"category_police" = "Policie";
 
-/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi";
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
+"category_wifi" = "WiFi";
 
-/* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "Recyklace";
+/* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
+"category_recycling" = "Recyklace";
 
-/* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "Voda";
+/* Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type */
+"category_water" = "Voda";
 
-/* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "Pro RV";
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
+"category_rv" = "Pro RV";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
@@ -200,10 +210,7 @@
 "done" = "Hotovo";
 
 /* Prints version number in About dialog */
-"version" = "Verze: %@";
-
-/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "Data OpenStreetMap: %@";
+"version" = "Verze Organic Maps: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Stopy";
@@ -217,8 +224,14 @@
 
 "pref_zoom_title" = "Tlačítka přiblížení/oddálení";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "Noční režim";
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Vzhled";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Světlý";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Tmavý";
 
 /* Generic «Off» string */
 "off" = "Vypnuto";
@@ -240,6 +253,12 @@
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Hlasové instrukce";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Oznamujte názvy ulic";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Je-li povoleno, bude nahlas vyslovován název ulice nebo výjezdu, na který se má odbočit.";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Jazyk hlasu";
@@ -277,18 +296,6 @@
 "news" = "Novinky";
 
 /* Text in menu */
-"github" = "GitHub";
-
-/* Text in menu */
-"telegram" = "Telegram";
-
-/* Text in menu */
-"matrix" = "[Matrix]";
-
-/* Text in menu */
-"mastodon" = "Mastodon";
-
-/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -299,9 +306,6 @@
 
 /* Text in the editor */
 "vk" = "VK";
-
-/* Text in menu */
-"openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
 "rate_the_app" = "Ohodnotit aplikaci";
@@ -315,14 +319,23 @@
 /* Button in the main menu */
 "donate" = "Darovat";
 
-/* Button in the main Help dialog */
-"how_to_support_us" = "Podpořte projekt";
+/* Tex label above the Donate button */
+"donate_description" = "Přispějte, abychom společně vytvořili ty nejlepší mapy!";
 
 /* Button in the main Help dialog */
 "copyright" = "Autorská práva";
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Nahlásit chybu";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Nahlášení nebo oprava nesprávných mapových dat";
+
+/* Button in the About screen */
+"volunteer" = "Dobrovolnictví";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Sledujte nás a kontaktujte nás:";
 
 /* Alert text */
 "email_error_body" = "Emailový klient nebyl ještě nakonfigurován. Nastavte ho, prosím, nebo použijte jiný způsob k našemu kontaktování na %@";
@@ -622,6 +635,8 @@
 
 "login" = "Přihlásit se";
 
+"login_osm" = "Přihlaste se do OpenStreetMap";
+
 "forgot_password" = "Zapomenuté heslo?";
 
 "osm_account" = "Účet OSM";
@@ -696,6 +711,9 @@
 
 "editor_edit_place_name_hint" = "Název místa";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Jak je napsáno v místním jazyce";
+
 "editor_edit_place_category_title" = "Kategorie";
 
 "whatsnew_editor_message_1" = "Přidejte na mapu nová místa a upravte existující místa přímo z aplikace.";
@@ -703,6 +721,9 @@
 "dialog_incorrect_feature_position" = "Změnit umístění";
 
 "message_invalid_feature_position" = "Objekt zde nemůže být umístěn";
+
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Data OpenStreetMap vytvořená komunitou ke dni %@. Další informace o tom, jak upravovat a aktualizovat mapu, najdete na stránkách OpenStreetMap.org.";
 
 "login_to_make_edits_visible" = "Přihlaste se, aby ostatní uživatelé mohli vidět změny, které jste provedli.";
 
@@ -746,16 +767,6 @@
 
 "downloader_no_downloaded_maps_message" = "Stáhněte si mapy a hledejte cestu a její cíl, i když jste offline.";
 
-/* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "Pokračovat se zjišťováním současné polohy?";
-
-/* Error that appears after certain time without location. */
-"current_location_unknown_message" = "Nezjistili jsme vaši současnou polohu. Možná jste v budově nebo tunelu.";
-
-"current_location_unknown_continue_button" = "Pokračovat";
-
-"current_location_unknown_stop_button" = "Zastavit";
-
 "current_location_unknown_error_title" = "Současná poloha nezjištěna.";
 
 "current_location_unknown_error_message" = "Při zjišťování současné polohy došlo k chybě. Zkontrolujte, že nedošlo k chybě zařízení a pokus prosím opakujte později.";
@@ -770,6 +781,14 @@
 
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Vyberte při používání aplikace";
+
+"location_services_disabled_on_device_2" = "2. Vyberte možnost Soukromí";
+
+"location_services_disabled_on_device_3" = "3. Vyberte možnost Služby určování polohy";
+
+"location_services_disabled_on_device_4" = "4. Zapnutí služeb určování polohy";
+
+"location_services_disabled_on_device_additional_message" = "Nebo pokračujte v používání aplikace Organic Maps bez polohy";
 
 /* abbreviation for meters */
 "m" = "m";
@@ -815,7 +834,7 @@
 
 "placepage_delete_bookmark_button" = "Smazat záložku";
 
-"editor_edits_sent_message" = "Odeslali jsme Vámi navržené změny";
+"editor_edits_sent_message" = "Vaše poznámka bude odeslána do OpenStreetMap";
 
 "editor_comment_hint" = "Poznámka…";
 
@@ -850,7 +869,7 @@
 
 "editor_share_to_all_dialog_message_2" = "Redaktoři OpenStreetMap zkontrolují změny a budou vás kontaktovat, pokud budou mít nějaké dotazy.";
 
-"navigation_stop_button" = "stop";
+"navigation_stop_button" = "Stop";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Zakázat zaznamenávání vaší nedávno ujeté trasy?";
@@ -861,9 +880,6 @@
 "sharing_call_action_look" = "Odjezd";
 
 "recent_track_background_dialog_message" = "Organic Maps používají geopozici na pozadí, aby se zaznamenala vaše nedávno ujetá trasa.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps je bezplatná offline mapová aplikace s otevřeným zdrojovým kódem. Žádné reklamy. Žádné sledování. Pokud na mapě uvidíte chybu, opravte ji v OpenStreetMap. Projekt vytvářejí nadšenci v našem volném čase, takže potřebujeme vaši zpětnou vazbu a podporu.";
 
 "general_settings" = "Obecná nastavení";
 
@@ -925,6 +941,12 @@
 "start_from_my_position" = "Začít z";
 
 "profile_authorization_error" = "Jejda, došlo k chybě. Zkuste se přihlásit znovu.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Přihlaste se do OpenStreetMap, abyste mohli automaticky nahrávat všechny své úpravy mapy. Více informací";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "zde";
 
 "core_entrance" = "Vstup";
 
@@ -1005,15 +1027,16 @@
 
 "speedcams_alert_title" = "Detektory rychlosti";
 
-/* Generic «Always» string */
-"always" = "Vždy";
-
-/* Generic «Never» string */
-"never" = "Nikdy";
-
 "place_description_title" = "Popis místa";
 
-"speedcams_notice_message" = "Automaticky - Upozorňovat na rychlostní radary, pokud hrozí riziko překročení rychlosti\nVždy - Vždy upozorňovat na rychlostní radary\nNikdy - Nikdy neupozorňovat na rychlostní radary";
+/* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
+"pref_tts_speedcams_auto" = "Varování před překročením rychlosti";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Vždy upozorňovat";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Nikdy neupozorňovat";
 
 "power_managment_title" = "Režim spořič baterie";
 
@@ -1120,6 +1143,8 @@
 "sort_distance" = "Třídit dle vzdálenosti";
 
 "sort_date" = "Třídit dle data";
+
+"sort_name" = "Řazení podle názvu";
 
 "week_ago_sorttype" = "Před týdnem";
 
@@ -1242,8 +1267,31 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Na obrazovce telefonu nyní používáte aplikaci Organic Maps";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Na obrazovce auta nyní používáte aplikaci Organic Maps";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Pokračujte v telefonu";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Na obrazovku auta";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Pěší turistika";
+
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Export všech záložek a stop";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "Změna barvy";
+
+/* Main screen title "Map" displayed in the navigation back button's menu. */
+"map" = "Mapa";
+
+"drive_through" = "Průjezd";
 
 
 /********** Types **********/
@@ -1296,7 +1344,7 @@
 
 "type.amenity.bar" = "Bar";
 
-"type.amenity.bbq" = "Piknik";
+"type.amenity.bbq" = "Grilování";
 
 "type.amenity.bench" = "Lavička";
 
@@ -1359,6 +1407,8 @@
 "type.amenity.doctors" = "Lékařská ordinace";
 
 "type.amenity.drinking_water" = "Pitná voda";
+
+"type.drinking_water.yes" = "Pitná voda";
 
 "type.amenity.driving_school" = "Autoškola";
 
@@ -1539,7 +1589,17 @@
 
 "type.amenity.school" = "Škola";
 
+/* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "Přístřešek";
+
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "Přístřešek";
+
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
+"type.amenity.shelter.basic_hut" = "Bivakovací Chata";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
+"type.amenity.shelter.lean_to" = "Lean-to Shelter";
 
 "type.amenity.public_bath" = "Veřejné lázně";
 
@@ -1647,43 +1707,18 @@
 
 "type.boundary.administrative" = "Administrative Boundary";
 
-"type.boundary.administrative.10" = "Administrative Boundary";
-
-"type.boundary.administrative.11" = "Administrative Boundary";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "National Border";
 
-"type.boundary.administrative.3" = "Administrative Boundary";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Regional Boundary";
 
-"type.boundary.administrative.4" = "Administrative Boundary";
-
-"type.boundary.administrative.5" = "Administrative Boundary";
-
-"type.boundary.administrative.6" = "Administrative Boundary";
-
-"type.boundary.administrative.7" = "Administrative Boundary";
-
-"type.boundary.administrative.8" = "Administrative Boundary";
-
-"type.boundary.administrative.9" = "Administrative Boundary";
-
-"type.boundary.administrative.city" = "City Boundary";
-
-"type.boundary.administrative.country" = "National Border";
-
-"type.boundary.administrative.county" = "County Boundary";
-
-"type.boundary.administrative.municipality" = "Municipality Boundary";
-
-"type.boundary.administrative.nation" = "National Border";
-
-"type.boundary.administrative.region" = "Regional Boundary";
-
-"type.boundary.administrative.state" = "State Boundary";
-
-"type.boundary.administrative.suburb" = "Suburb Boundary";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Regional Boundary";
 
 "type.boundary.national_park" = "Národní park";
+
+"type.boundary.aboriginal_lands" = "Domorodá území";
 
 "type.boundary.protected_area" = "Chráněné území";
 
@@ -1955,7 +1990,7 @@
 
 "type.entrance.exit" = "Exit";
 
-"type.fee.yes" = "💲";
+"type.fee.yes" = "$";
 
 "type.fee.no" = "Zdarma";
 
@@ -2024,22 +2059,10 @@
 
 "type.highway.footway.crossing" = "Přechod pro chodce";
 
-"type.highway.footway.alpine_hiking" = "Cesta";
-
 "type.highway.footway.area" = "Cesta";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Most";
-
-"type.highway.footway.demanding_alpine_hiking" = "Cesta";
-
-"type.highway.footway.demanding_mountain_hiking" = "Cesta";
-
-"type.highway.footway.difficult_alpine_hiking" = "Cesta";
-
-"type.highway.footway.hiking" = "Cesta";
-
-"type.highway.footway.mountain_hiking" = "Cesta";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Tunel";
@@ -2074,26 +2097,20 @@
 
 "type.highway.path" = "Cesta";
 
-"type.highway.path.alpine_hiking" = "Cesta";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Cesta";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Cesta";
 
 "type.highway.path.bicycle" = "Cesta";
+
+"type.highway.footway.bicycle" = "Cesta";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Most";
 
-"type.highway.path.demanding_alpine_hiking" = "Cesta";
-
-"type.highway.path.demanding_mountain_hiking" = "Cesta";
-
-"type.highway.path.difficult_alpine_hiking" = "Cesta";
-
-"type.highway.path.hiking" = "Cesta";
-
 "type.highway.path.horse" = "Cesta";
-
-"type.highway.path.mountain_hiking" = "Cesta";
-
-"type.highway.path.permissive" = "Cesta";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Tunel";
@@ -2216,17 +2233,7 @@
 
 "type.highway.track.grade1" = "Ulice";
 
-"type.highway.track.grade2" = "Ulice";
-
-"type.highway.track.grade3" = "Ulice";
-
-"type.highway.track.grade4" = "Ulice";
-
-"type.highway.track.grade5" = "Ulice";
-
 "type.highway.track.no.access" = "Ulice";
-
-"type.highway.track.permissive" = "Ulice";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunel";
@@ -2436,8 +2443,6 @@
 
 "type.landuse.education" = "Educational Facility";
 
-"type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "Orná půda";
 
 "type.landuse.farmyard" = "Farmyard";
@@ -2508,11 +2513,11 @@
 
 "type.leisure.golf_course" = "Golf";
 
+"type.leisure.miniature_golf" = "Minigolf";
+
 "type.leisure.hackerspace" = "Hackerspace";
 
 "type.leisure.ice_rink" = "Ice Rink";
-
-"type.leisure.landscape_reserve" = "Landscape Reserve";
 
 "type.leisure.marina" = "Marina";
 
@@ -2618,7 +2623,14 @@
 
 "type.natural" = "Příroda";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "Holá skála";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Oblázky";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Kamenité sutě";
 
 "type.natural.bay" = "Záliv";
 
@@ -3715,9 +3727,10 @@
 
 "type.tourism.aquarium" = "Akvárium";
 
-"type.tourism.alpine_hut" = "Ubytování v horách";
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "Horská chata";
 
-"type.tourism.apartment" = "Byty";
+"type.tourism.apartment" = "Prázdninový apartmán";
 
 "type.tourism.artwork" = "Umělecké dílo";
 
@@ -3731,7 +3744,7 @@
 
 "type.tourism.attraction" = "Atrakce";
 
-"type.tourism.attraction.animal" = "Atrakce";
+"type.attraction.animal" = "Ohrada pro zvířata";
 
 "type.tourism.attraction.specified" = "Atrakce";
 
@@ -3739,7 +3752,8 @@
 
 "type.tourism.caravan_site" = "Kemp pro obytné přívěsy";
 
-"type.tourism.chalet" = "Chalet";
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "Rekreační chata";
 
 "type.tourism.gallery" = "Pamětihodnost";
 
@@ -3767,12 +3781,13 @@
 
 "type.tourism.picnic_site" = "Piknik";
 
-"type.tourism.resort" = "Letovisko";
+"type.leisure.resort" = "Letovisko";
 
 "type.tourism.theme_park" = "Pamětihodnost";
 
 "type.tourism.viewpoint" = "Vyhlídka";
 
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "Chata v divočině";
 
 "type.tourism.zoo" = "zoologická zahrada";
@@ -3814,8 +3829,6 @@
 "type.waterway.river" = "Řeka";
 
 "type.waterway.river.tunnel" = "Řeka";
-
-"type.waterway.riverbank" = "Řeka";
 
 "type.waterway.stream" = "Řeka";
 

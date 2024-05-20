@@ -17,6 +17,7 @@ struct MetadataTagProcessorImpl
   static std::string ValidateAndFormat_opening_hours(std::string const & v) ;
   std::string ValidateAndFormat_ele(std::string const & v) const;
   static std::string ValidateAndFormat_destination(std::string const & v) ;
+  static std::string ValidateAndFormat_local_ref(std::string const & v) ;
   static std::string ValidateAndFormat_destination_ref(std::string const & v) ;
   static std::string ValidateAndFormat_junction_ref(std::string const & v) ;
   static std::string ValidateAndFormat_turn_lanes(std::string const & v) ;
@@ -36,6 +37,7 @@ struct MetadataTagProcessorImpl
   static std::string ValidateAndFormat_brand(std::string const & v);
   std::string ValidateAndFormat_duration(std::string const & v) const;
   static std::string ValidateAndFormat_capacity(std::string const & v);
+  static std::string ValidateAndFormat_drive_through(std::string v);
 
 protected:
   FeatureBuilderParams & m_params;

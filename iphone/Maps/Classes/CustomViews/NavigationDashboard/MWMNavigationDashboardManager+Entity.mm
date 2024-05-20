@@ -18,12 +18,12 @@
 #include "geometry/distance_on_sphere.hpp"
 
 namespace {
-UIImage *image(routing::turns::CarDirection t, bool isNextTurn) {
+UIImage * image(routing::turns::CarDirection t, bool isNextTurn) {
   if (![MWMLocationManager lastLocation])
     return nil;
 
   using namespace routing::turns;
-  NSString *imageName;
+  NSString * imageName;
   switch (t) {
     case CarDirection::ExitHighwayToRight: imageName = @"ic_exit_highway_to_right"; break;
     case CarDirection::TurnSlightRight: imageName = @"slight_right"; break;
@@ -49,60 +49,28 @@ UIImage *image(routing::turns::CarDirection t, bool isNextTurn) {
   return [UIImage imageNamed:isNextTurn ? [imageName stringByAppendingString:@"_then"] : imageName];
 }
 
-UIImage *image(routing::turns::PedestrianDirection t) {
+UIImage * image(routing::turns::PedestrianDirection t) {
   if (![MWMLocationManager lastLocation])
     return nil;
 
   using namespace routing::turns;
-  NSString *imageName;
-  switch (t)
-   {
-     case PedestrianDirection::TurnRight: imageName = @"simple_right"; break;
-     case PedestrianDirection::TurnLeft: imageName = @"simple_left"; break;
-     case PedestrianDirection::ReachedYourDestination: imageName = @"finish_point"; break;
-     case PedestrianDirection::GoStraight:
-     case PedestrianDirection::Count:
-     case PedestrianDirection::None: imageName = @"straight"; break;
-   }
+  NSString * imageName;
+  switch (t) {
+    case PedestrianDirection::TurnRight: imageName = @"simple_right"; break;
+    case PedestrianDirection::TurnLeft: imageName = @"simple_left"; break;
+    case PedestrianDirection::ReachedYourDestination: imageName = @"finish_point"; break;
+    case PedestrianDirection::GoStraight:
+    case PedestrianDirection::Count:
+    case PedestrianDirection::None: imageName = @"straight"; break;
+  }
   if (!imageName)
     return nil;
   return [UIImage imageNamed:imageName];
 }
 
-NSAttributedString *estimate(NSTimeInterval time, NSString *distance, NSString *distanceUnits,
-                             NSDictionary *primaryAttributes, NSDictionary *secondaryAttributes, BOOL isWalk, BOOL showEta) {
-  auto result = [[NSMutableAttributedString alloc] initWithString:@""];
-  if (showEta) {
-    NSString *eta = [NSDateComponentsFormatter etaStringFrom:time];
-    [result appendAttributedString:[[NSMutableAttributedString alloc] initWithString:eta attributes:primaryAttributes]];
-    [result appendAttributedString:MWMNavigationDashboardEntity.estimateDot];
-  }
-
-  if (isWalk) {
-    UIFont *font = primaryAttributes[NSFontAttributeName];
-    auto textAttachment = [[NSTextAttachment alloc] init];
-    auto image = [UIImage imageNamed:@"ic_walk"];
-    textAttachment.image = image;
-    auto const height = font.lineHeight;
-    auto const y = height - image.size.height;
-    auto const width = image.size.width * height / image.size.height;
-    textAttachment.bounds = CGRectIntegral({{0, y}, {width, height}});
-
-    NSMutableAttributedString *attrStringWithImage =
-      [NSAttributedString attributedStringWithAttachment:textAttachment].mutableCopy;
-    [attrStringWithImage addAttributes:secondaryAttributes range:NSMakeRange(0, attrStringWithImage.length)];
-    [result appendAttributedString:attrStringWithImage];
-  }
-
-  auto target = [NSString stringWithFormat:@"%@ %@", distance, distanceUnits];
-  [result appendAttributedString:[[NSAttributedString alloc] initWithString:target attributes:secondaryAttributes]];
-
-  return result;
-}
-
 NSArray<MWMRouterTransitStepInfo *> *buildRouteTransitSteps(NSArray<MWMRoutePoint *> *points) {
   // Generate step info in format: (Segment 1 distance) (1) (Segment 2 distance) (2) ... (n-1) (Segment N distance).
-  NSMutableArray<MWMRouterTransitStepInfo *> *steps = [NSMutableArray arrayWithCapacity:[points count] * 2 - 1];
+  NSMutableArray<MWMRouterTransitStepInfo *> * steps = [NSMutableArray arrayWithCapacity:[points count] * 2 - 1];
   auto const numPoints = [points count];
   for (int i = 0; i < numPoints - 1; i++) {
     MWMRoutePoint* segmentStart = points[i];
@@ -130,20 +98,21 @@ NSArray<MWMRouterTransitStepInfo *> *buildRouteTransitSteps(NSArray<MWMRoutePoin
 
 @interface MWMNavigationDashboardEntity ()
 
-@property(copy, nonatomic, readwrite) NSArray<MWMRouterTransitStepInfo *> *transitSteps;
-@property(copy, nonatomic, readwrite) NSAttributedString *estimate;
-@property(copy, nonatomic, readwrite) NSString *distanceToTurn;
-@property(copy, nonatomic, readwrite) NSString *streetName;
-@property(copy, nonatomic, readwrite) NSString *targetDistance;
-@property(copy, nonatomic, readwrite) NSString *targetUnits;
-@property(copy, nonatomic, readwrite) NSString *turnUnits;
+@property(copy, nonatomic, readwrite) NSArray<MWMRouterTransitStepInfo *> * transitSteps;
+@property(copy, nonatomic, readwrite) NSString * distanceToTurn;
+@property(copy, nonatomic, readwrite) NSString * streetName;
+@property(copy, nonatomic, readwrite) NSString * targetDistance;
+@property(copy, nonatomic, readwrite) NSString * targetUnits;
+@property(copy, nonatomic, readwrite) NSString * turnUnits;
 @property(nonatomic, readwrite) double speedLimitMps;
 @property(nonatomic, readwrite) BOOL isValid;
 @property(nonatomic, readwrite) CGFloat progress;
 @property(nonatomic, readwrite) NSUInteger roundExitNumber;
 @property(nonatomic, readwrite) NSUInteger timeToTarget;
-@property(nonatomic, readwrite) UIImage *nextTurnImage;
-@property(nonatomic, readwrite) UIImage *turnImage;
+@property(nonatomic, readwrite) UIImage * nextTurnImage;
+@property(nonatomic, readwrite) UIImage * turnImage;
+@property(nonatomic, readwrite) BOOL showEta;
+@property(nonatomic, readwrite) BOOL isWalk;
 
 @end
 
@@ -166,6 +135,39 @@ NSArray<MWMRouterTransitStepInfo *> *buildRouteTransitSteps(NSArray<MWMRoutePoin
   return [[NSAttributedString alloc] initWithString:@" • " attributes:attributes];
 }
 
+- (NSAttributedString *)estimate {
+  NSDictionary * primaryAttributes = @{NSForegroundColorAttributeName: [UIColor blackPrimaryText], NSFontAttributeName: [UIFont medium17]};
+  NSDictionary * secondaryAttributes = @{NSForegroundColorAttributeName: [UIColor blackSecondaryText], NSFontAttributeName: [UIFont medium17]};
+
+  auto result = [[NSMutableAttributedString alloc] initWithString:@""];
+  if (self.showEta) {
+    NSString * eta = [NSDateComponentsFormatter etaStringFrom:self.timeToTarget];
+    [result appendAttributedString:[[NSMutableAttributedString alloc] initWithString:eta attributes:primaryAttributes]];
+    [result appendAttributedString:MWMNavigationDashboardEntity.estimateDot];
+  }
+
+  if (self.isWalk) {
+    UIFont * font = primaryAttributes[NSFontAttributeName];
+    auto textAttachment = [[NSTextAttachment alloc] init];
+    auto image = [UIImage imageNamed:@"ic_walk"];
+    textAttachment.image = image;
+    auto const height = font.lineHeight;
+    auto const y = height - image.size.height;
+    auto const width = image.size.width * height / image.size.height;
+    textAttachment.bounds = CGRectIntegral({{0, y}, {width, height}});
+
+    NSMutableAttributedString * attrStringWithImage =
+    [NSAttributedString attributedStringWithAttachment:textAttachment].mutableCopy;
+    [attrStringWithImage addAttributes:secondaryAttributes range:NSMakeRange(0, attrStringWithImage.length)];
+    [result appendAttributedString:attrStringWithImage];
+  }
+
+  auto target = [NSString stringWithFormat:@"%@ %@", self.targetDistance, self.targetUnits];
+  [result appendAttributedString:[[NSAttributedString alloc] initWithString:target attributes:secondaryAttributes]];
+
+  return result;
+}
+
 @end
 
 @interface MWMRouterTransitStepInfo ()
@@ -176,9 +178,9 @@ NSArray<MWMRouterTransitStepInfo *> *buildRouteTransitSteps(NSArray<MWMRoutePoin
 
 @interface MWMNavigationDashboardManager ()
 
-@property(copy, nonatomic) NSDictionary *etaAttributes;
-@property(copy, nonatomic) NSDictionary *etaSecondaryAttributes;
-@property(nonatomic) MWMNavigationDashboardEntity *entity;
+@property(copy, nonatomic) NSDictionary * etaAttributes;
+@property(copy, nonatomic) NSDictionary * etaSecondaryAttributes;
+@property(nonatomic) MWMNavigationDashboardEntity * entity;
 
 - (void)onNavigationInfoUpdated;
 
@@ -206,8 +208,9 @@ NSArray<MWMRouterTransitStepInfo *> *buildRouteTransitSteps(NSArray<MWMRoutePoin
     entity.streetName = @(info.m_displayedStreetName.c_str());
     entity.speedLimitMps = info.m_speedLimitMps;
 
-    entity.estimate = estimate(entity.timeToTarget, entity.targetDistance, entity.targetUnits,
-                               self.etaAttributes, self.etaSecondaryAttributes, NO, showEta);
+    entity.isWalk = NO;
+    entity.showEta = showEta;
+
     if (type == MWMRouterTypeRuler && [points count] > 2)
       entity.transitSteps = buildRouteTransitSteps(points);
     else
@@ -234,11 +237,13 @@ NSArray<MWMRouterTransitStepInfo *> *buildRouteTransitSteps(NSArray<MWMRoutePoin
 
 - (void)updateTransitInfo:(TransitRouteInfo const &)info {
   if (auto entity = self.entity) {
+    entity.timeToTarget = info.m_totalTimeInSec;
+    entity.targetDistance = @(info.m_totalPedestrianDistanceStr.c_str());
+    entity.targetUnits = @(info.m_totalPedestrianUnitsSuffix.c_str());
     entity.isValid = YES;
-    entity.estimate =
-      estimate(info.m_totalTimeInSec, @(info.m_totalPedestrianDistanceStr.c_str()),
-               @(info.m_totalPedestrianUnitsSuffix.c_str()), self.etaAttributes, self.etaSecondaryAttributes, YES, YES);
-    NSMutableArray<MWMRouterTransitStepInfo *> *transitSteps = [NSMutableArray new];
+    entity.isWalk = YES;
+    entity.showEta = YES;
+    NSMutableArray<MWMRouterTransitStepInfo *> * transitSteps = [NSMutableArray new];
     for (auto const &stepInfo : info.m_steps)
       [transitSteps addObject:[[MWMRouterTransitStepInfo alloc] initWithStepInfo:stepInfo]];
     entity.transitSteps = transitSteps;

@@ -6,6 +6,11 @@ enum BookmarksListVisibilityButtonState {
   case showAll
 }
 
+enum BookmarkToolbarButtonSource {
+  case sort
+  case more
+}
+
 protocol IBookmarksListSectionViewModel {
   var numberOfItems: Int { get }
   var sectionTitle: String { get }
@@ -14,11 +19,11 @@ protocol IBookmarksListSectionViewModel {
 }
 
 protocol IBookmarksSectionViewModel: IBookmarksListSectionViewModel {
-  var bookmarks: [IBookmarkViewModel] { get }
+  var bookmarks: [IBookmarksListItemViewModel] { get }
 }
 
 protocol ITracksSectionViewModel: IBookmarksListSectionViewModel {
-  var tracks: [ITrackViewModel] { get }
+  var tracks: [IBookmarksListItemViewModel] { get }
 }
 
 protocol ISubgroupsSectionViewModel: IBookmarksListSectionViewModel {
@@ -26,16 +31,11 @@ protocol ISubgroupsSectionViewModel: IBookmarksListSectionViewModel {
   var type: BookmarkGroupType { get }
 }
 
-protocol IBookmarkViewModel {
-  var bookmarkName: String { get }
+protocol IBookmarksListItemViewModel {
+  var name: String { get }
   var subtitle: String { get }
   var image: UIImage { get }
-}
-
-protocol ITrackViewModel {
-  var trackName: String { get }
-  var subtitle: String { get }
-  var image: UIImage { get }
+  var colorDidTapAction: (() -> Void)? { get }
 }
 
 protocol ISubgroupViewModel {
@@ -56,7 +56,8 @@ protocol IBookmarksListView: AnyObject {
   func setInfo(_ info: IBookmarksListInfoViewModel)
   func setSections(_ sections: [IBookmarksListSectionViewModel])
   func setMoreItemTitle(_ itemTitle: String)
-  func showMenu(_ items: [IBookmarksListMenuItem])
+  func showMenu(_ items: [IBookmarksListMenuItem], from source: BookmarkToolbarButtonSource)
+  func showColorPicker(with pickerType: ColorPickerType, _ completion: ((UIColor) -> Void)?)
   func enableEditing(_ enable: Bool)
   func share(_ url: URL, completion: @escaping () -> Void)
   func showError(title: String, message: String)
@@ -84,6 +85,7 @@ enum BookmarksListSortingType {
   case distance
   case date
   case type
+  case name
 }
 
 protocol IBookmarksListInteractor {
@@ -109,7 +111,7 @@ protocol IBookmarksListInteractor {
   func updateTrack(_ trackId: MWMTrackID, setGroupId groupId: MWMMarkGroupID)
   func deleteBookmarksGroup()
   func canDeleteGroup() -> Bool
-  func exportFile(_ completion: @escaping (URL?, ExportFileStatus) -> Void)
+  func exportFile(_ completion: @escaping SharingResultCompletionHandler)
   func finishExportFile()
 }
 

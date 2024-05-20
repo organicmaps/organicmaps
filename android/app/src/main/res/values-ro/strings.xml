@@ -41,9 +41,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Fără reclame, fără urmărire, fără colectare de date</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Economisește bateria, nu utilizează date de fundal</string>
+	<string name="about_proposition_2">• Nu consumă baterie, funcționează offline</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Rapid, minimalist, fără gunoi</string>
+	<string name="about_proposition_3">• Rapid, minimalist, dezvoltat de comunitate</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Aplicație open-source creată de entuziaști și voluntari.</string>
 	<!-- The button that opens system location settings -->
@@ -102,52 +102,54 @@
 	<string name="measurement_units_summary">Alege între mile și kilometri</string>
 
 	<!-- SECTION: Search categories -->
-	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">Unde să mănânci</string>
-	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Alimentare</string>
-	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">Transport</string>
-	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Benzinărie</string>
-	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">Parcare</string>
-	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">Shopping</string>
-	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">La mâna a doua</string>
-	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">Hotel</string>
-	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">Obiective turistice</string>
-	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">Divertisment</string>
-	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">Bancomat</string>
-	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">Viață nocturnă</string>
-	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Divertisment cu copiii</string>
-	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">Bancă</string>
-	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">Farmacie</string>
-	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">Spital</string>
-	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">Toaletă</string>
-	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">Poștă</string>
-	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">Poliția</string>
-	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">Wi-Fi</string>
-	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">Reciclare</string>
-	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">Apă</string>
-	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">Pentru rulote</string>
+	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+	<string name="category_eat">Unde să mănânci</string>
+	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+	<string name="category_food">Alimentare</string>
+	<!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+	<string name="category_transport">Transport</string>
+	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+	<string name="category_fuel">Benzinărie</string>
+	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+	<string name="category_parking">Parcare</string>
+	<!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+	<string name="category_shopping">Shopping</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
+	<string name="category_secondhand">La mâna a doua</string>
+	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+	<string name="category_hotel">Hotel</string>
+	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+	<string name="category_tourism">Obiective turistice</string>
+	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
+	<string name="category_entertainment">Divertisment</string>
+	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+	<string name="category_atm">Bancomat</string>
+	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+	<string name="category_nightlife">Viață nocturnă</string>
+	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+	<string name="category_children">Divertisment cu copiii</string>
+	<!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+	<string name="category_bank">Bancă</string>
+	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+	<string name="category_pharmacy">Farmacie</string>
+	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+	<string name="category_hospital">Spital</string>
+	<!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+	<string name="category_toilet">Toaletă</string>
+	<!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+	<string name="category_post">Poștă</string>
+	<!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+	<string name="category_police">Poliția</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+	<string name="category_wifi">Wi-Fi</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+	<string name="category_recycling">Reciclare</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+	<string name="category_water">Apă</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+	<string name="category_rv">Pentru rulote</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Detalii</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -159,6 +161,10 @@
 	<string name="load_kmz_successful">Locuri preferate încărcate cu succes! Le poți găsi pe hartă sau în „Gestionare Locuri preferate”.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Încărcarea locurilor preferate a eșuat. Fișierul poate fi defect.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Tipul de fișier nu este recunoscut de aplicație:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Nu a reușit să deschidă fișierul %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Modifică</string>
 	<!-- Warning message when doing search around current position -->
@@ -215,6 +221,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">Clădirile 3D sunt oprite în modul de economisire a energiei</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Instrucțiuni vocale</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Anunțați numele străzilor</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Când este activată, numele străzii sau al ieșirii pe care să o pornim va fi rostit cu voce tare.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Limba ghidului vocal</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -414,6 +424,8 @@
 	<string name="day_off_today">Închis astăzi</string>
 	<string name="day_off">Închis</string>
 	<string name="today">Azi</string>
+	<string name="opens_in">Deschide în %s</string>
+	<string name="closes_in">Închide în %s</string>
 	<string name="closed">Închis</string>
 	<string name="edit_opening_hours">Modifică orele de funcționare</string>
 	<string name="no_osm_account">Nu ai un cont OpenStreetMap?</string>
@@ -455,13 +467,15 @@
 	<string name="editor_edit_place_title">Modifică</string>
 	<string name="editor_add_place_title">Adaugă</string>
 	<string name="editor_edit_place_name_hint">Numele locului</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">Așa cum este scris în limba locală</string>
 	<string name="editor_edit_place_category_title">Categorie</string>
 	<string name="detailed_problem_description">Descriere detaliată a problemei</string>
 	<string name="editor_report_problem_other_title">Altă problemă</string>
 	<string name="placepage_add_business_button">Adaugă o firmă</string>
 	<string name="message_invalid_feature_position">Niciun obiect nu poate fi poziționat aici</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Date cartografice de la OpenStreetMap din %s. Este ca Wikipedia unde puteți adăuga sau edita locuri pentru toți utilizatorii din lume.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Date OpenStreetMap create de comunitate la data de %s. Aflați mai multe despre cum să editați și să actualizați harta la OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">Autentifică-te pentru ca modificările pe care le-ai făcut să poată fi văzute și de alți utilizatori.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d din %2$d</string>
@@ -480,14 +494,10 @@
 	<string name="editor_detailed_description">Modificările aduse hărții, sugerate de tine, vor fi trimise comunității OpenStreetMap. Descrie orice detalii suplimentare care nu pot fi modificate în Organic Maps.</string>
 	<string name="editor_more_about_osm">Mai multe despre OpenStreetMap</string>
 	<string name="editor_operator">Proprietar</string>
+	<string name="editor_category_unsuitable_title">Nu găsiți o categorie potrivită?</string>
+	<string name="editor_category_unsuitable_text">Organic Maps permite adăugarea doar a unor categorii de puncte simple, ceea ce înseamnă că nu există orașe, drumuri, lacuri, contururi de clădiri, etc. Vă rugăm să adăugați astfel de categorii direct la <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consultați <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ghidul nostru</a> pentru instrucțiuni detaliate pas cu pas.</string>
 	<string name="downloader_no_downloaded_maps_title">Nu ai descărcat nicio hartă</string>
 	<string name="downloader_no_downloaded_maps_message">Descarcă hărți pentru a căuta un loc și a naviga fără conectare la internet.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">Continui cu detectarea poziției tale actuale?</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">Poziția actuală este necunoscută. Poate te afli într-o clădire sau un tunel.</string>
-	<string name="current_location_unknown_continue_button">Continuă</string>
-	<string name="current_location_unknown_stop_button">Oprește</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -497,6 +507,7 @@
 	<!-- abbreviation for mile(s) -->
 	<string name="mi">mi</string>
 	<string name="miles_per_hour">mph</string>
+	<string name="hour">h</string>
 	<string name="minute">min</string>
 	<string name="placepage_more_button">Mai mult</string>
 	<!-- A referral link on the place page for some hotels -->
@@ -529,7 +540,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Asigură-te că nu ai introdus niciun fel de date personale.</string>
 	<string name="editor_share_to_all_dialog_message_2">Editorii OpenStreetMap vor verifica modificările și vor lua legătura cu dvs. dacă au întrebări.</string>
-	<string name="navigation_stop_button">oprește</string>
+	<string name="navigation_stop_button">Oprește</string>
 	<!-- For the first routing -->
 	<string name="accept">Acceptă</string>
 	<!-- For the first routing -->
@@ -562,6 +573,8 @@
 	<string name="routing_add_finish_point">Adaugă un punct de sosire pentru a planifica un traseu</string>
 	<string name="placepage_remove_stop">Elimină</string>
 	<string name="placepage_add_stop">Adaugă oprire</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Vă rugăm să vă conectați la OpenStreetMap pentru a încărca automat toate modificările aduse hărții. Aflați mai multe <a href="https://github.com/organicmaps/organicmaps/issues/6144">aici</a>.</string>
 	<string name="dialog_error_storage_title">Problemă de acces la spațiul de stocare</string>
 	<string name="dialog_error_storage_message">Spațiul de stocare extern nu este disponibil. Probabil cardul SD nu este introdus, este deteriorat sau sistemul de fișiere este doar pentru citire. Verifică sau contactează-ne la support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Simulare arhivă deteriorată</string>
@@ -619,13 +632,15 @@
 	<string name="bookmark_list_description_hint">Adaugă o descriere (text sau html)</string>
 	<string name="not_shared">Personal</string>
 	<string name="speedcams_alert_title">Radare</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Mereu</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Niciodată</string>
 	<string name="place_description_title">Descrierea locului</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Descărcarea hărților</string>
+	<!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+	<string name="pref_tts_speedcams_auto">Avertizează la depășirea limitei de viteză</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Avertizează mereu</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Nu avertiza niciodată</string>
 	<string name="power_managment_title">Economisire a energiei</string>
 	<string name="power_managment_description">Dacă este pornit modul de economisire a energiei, aplicația va deconecta funcțiile care consumă multă energie în dependență de nivelul de încărcare a bateriei.</string>
 	<string name="power_managment_setting_never">Niciodată</string>
@@ -672,6 +687,8 @@
 	<string name="by_distance">După distanță</string>
 	<!-- Android -->
 	<string name="by_date">După dată</string>
+	<!-- Android -->
+	<string name="by_name">După nume</string>
 	<string name="week_ago_sorttype">Acum o săptămână</string>
 	<string name="month_ago_sorttype">Acum o lună</string>
 	<string name="moremonth_ago_sorttype">Acum mai mult de o lună</string>
@@ -726,18 +743,36 @@
 	<string name="enable_show_on_lock_screen_description">Când este activată, nu trebuie să deblochezi telefonul de fiecare dată când aplicația este în funcțiune.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Date cartografice din OpenStreetMap</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Vă mulțumim că utilizați hărțile create de comunitatea noastră!</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Acum utilizați Organic Maps pe ecranul telefonului</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">Cu donațiile și sprijinul dumneavoastră, putem crea cele mai bune hărți din lume!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Îți place aplicația noastră? Vă rugăm să donați pentru a sprijini dezvoltarea! Nu-ți place încă? Vă rugăm să ne anunțați și vom remedia!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Dacă cunoașteți un dezvoltator de software, îi puteți cere să implementeze o caracteristică de care aveți nevoie.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Știți că puteți atinge lung orice loc de pe hartă pentru a-l selecta?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Știți că vă puteți selecta locația curentă pe hartă?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Puteți ajuta la traducerea aplicației noastre în limba dvs.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Aplicația noastră este dezvoltată de câțiva entuziaști și de comunitate.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Puteți remedia și îmbunătăți cu ușurință datele hărții.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Scopul nostru principal este să construim hărți rapide, axate pe confidențialitate și ușor de utilizat, care să vă placă.</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">Acum utilizați Organic Maps pe ecranul telefonului</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Acum utilizați Organic Maps pe ecranul mașinii</string>
+	<string name="car_used_on_the_car_screen">Acum utilizați Organic Maps pe ecranul mașinii</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Sunteți conectat la Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Continuați în telefon</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">La ecranul mașinii</string>
+	<string name="car_continue_on_the_phone">Continuați în telefon</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">La ecranul mașinii</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">Această aplicație necesită accesul la locația dvs. în scopul navigării.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -748,8 +783,22 @@
 	<string name="button_layer_outdoor">Drumeție</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Browserul web nu este disponibil</string>
-	<!-- Text displayed in a dialog when OSM authorization is disabled -->
-	<string name="osm_login_not_available">Autorizarea OpenStreetMap este temporar indisponibilă din cauza noilor restricții din Google Play 😾\nEchipa noastră lucrează pentru a rezolva această problemă. Vă rugăm să aveți răbdare 🙏</string>
+	<string name="volume">Volum</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Exportați toate marcajele și piesele</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Setări ale sistemului de sinteză vocală</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">Nu au fost găsite setările de sinteză vocală, sunteți sigur că dispozitivul dvs. le acceptă?</string>
+	<string name="drive_through">Servire în mașină</string>
+	<string name="clear_the_search">Ștergeți căutarea</string>
+	<string name="zoom_in">A mari</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">A micsora</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Legătura de meniu</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Vezi meniul</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresă/Bloc</string>
@@ -763,7 +812,7 @@
 	<string name="type.amenity.arts_centre">Centru de artă</string>
 	<string name="type.amenity.atm">Bancomat</string>
 	<string name="type.amenity.bank">Bancă</string>
-	<string name="type.amenity.bbq">Locații picnic</string>
+	<string name="type.amenity.bbq">Grătar</string>
 	<string name="type.amenity.bench">Banchetă</string>
 	<string name="type.amenity.bicycle_parking">Parcare biciclete</string>
 	<string name="type.amenity.bicycle_rental">Închiriere de biciclete</string>
@@ -790,6 +839,7 @@
 	<string name="type.amenity.conference_centre">Centru de conferinte</string>
 	<string name="type.amenity.courthouse">Judecătorie</string>
 	<string name="type.amenity.drinking_water">Apă de băut</string>
+	<string name="type.drinking_water.yes">Apă de băut</string>
 	<string name="type.amenity.driving_school">Școală de șoferi</string>
 	<string name="type.amenity.exhibition_centre">Centru de expozitie</string>
 	<string name="type.amenity.money_transfer">Transfer de bani</string>
@@ -870,7 +920,12 @@
 	<string name="type.recycling.scrap_metal">Resturi de metal</string>
 	<string name="type.recycling.small_appliances">Deșeuri electrice</string>
 	<string name="type.amenity.school">Școală</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Adăpost</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">Adăpost</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">Baracă de Bivuac</string>
 	<string name="type.amenity.public_bath">Baie publică</string>
 	<string name="type.amenity.shower">Duș</string>
 	<string name="type.amenity.stripclub">Stripclub</string>
@@ -905,6 +960,7 @@
 	<string name="type.barrier.swing_gate">Barieră cu braț</string>
 	<string name="type.barrier.toll_booth">Cabină de taxare</string>
 	<string name="type.boundary.national_park">Parcul național</string>
+	<string name="type.boundary.aboriginal_lands">Terenuri indigene</string>
 	<string name="type.boundary.protected_area">Zonă protejată</string>
 	<string name="type.boundary.protected_area.1">Zonă protejată</string>
 	<string name="type.boundary.protected_area.2">Zonă protejată</string>
@@ -1071,15 +1127,9 @@
 	<string name="type.highway.footway">Cale</string>
 	<string name="type.highway.footway.sidewalk">Trotuar</string>
 	<string name="type.highway.footway.crossing">Trecere de pietoni</string>
-	<string name="type.highway.footway.alpine_hiking">Cale</string>
 	<string name="type.highway.footway.area">Cale</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Pod</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Cale</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Cale</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Cale</string>
-	<string name="type.highway.footway.hiking">Cale</string>
-	<string name="type.highway.footway.mountain_hiking">Cale</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunel</string>
 	<string name="type.highway.ford">Superficial</string>
@@ -1100,17 +1150,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Tunel</string>
 	<string name="type.highway.path">Cale</string>
-	<string name="type.highway.path.alpine_hiking">Cale</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">Cale</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">Cale</string>
 	<string name="type.highway.path.bicycle">Cale</string>
+	<string name="type.highway.footway.bicycle">Cale</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Pod</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Cale</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Cale</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Cale</string>
-	<string name="type.highway.path.hiking">Cale</string>
 	<string name="type.highway.path.horse">Cale</string>
-	<string name="type.highway.path.mountain_hiking">Cale</string>
-	<string name="type.highway.path.permissive">Cale</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Tunel</string>
 	<string name="type.highway.pedestrian">Stradă</string>
@@ -1183,12 +1231,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Pod</string>
 	<string name="type.highway.track.grade1">Stradă</string>
-	<string name="type.highway.track.grade2">Stradă</string>
-	<string name="type.highway.track.grade3">Stradă</string>
-	<string name="type.highway.track.grade4">Stradă</string>
-	<string name="type.highway.track.grade5">Stradă</string>
 	<string name="type.highway.track.no.access">Stradă</string>
-	<string name="type.highway.track.permissive">Stradă</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunel</string>
 	<string name="type.highway.traffic_signals">Semafoare</string>
@@ -1288,6 +1331,7 @@
 	<string name="type.leisure.garden">Sit arheologic</string>
 	<string name="type.leisure.garden.residential">Sit arheologic</string>
 	<string name="type.leisure.golf_course">Teren de golf</string>
+	<string name="type.leisure.miniature_golf">Minigolf</string>
 	<string name="type.leisure.nature_reserve">Rezervație naturală</string>
 	<string name="type.leisure.outdoor_seating">Scaune în aer liber</string>
 	<string name="type.leisure.park">Parc</string>
@@ -1316,7 +1360,12 @@
 	<string name="type.man_made.windmill">Moară de vânt</string>
 	<string name="type.military.bunker">Buncăr</string>
 	<string name="type.natural">Natură</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Piatră goală</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Pietriș</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Grohotiș</string>
 	<string name="type.natural.bay">Golf</string>
 	<string name="type.natural.beach">Plajă</string>
 	<string name="type.natural.beach.sand">Plaja nisipoasa</string>
@@ -1815,18 +1864,20 @@
 	<string name="type.sport.badminton">Badminton</string>
 	<string name="type.sport.pelota">Pilota bascilor</string>
 	<string name="type.tourism.aquarium">Acvariu</string>
-	<string name="type.tourism.alpine_hut">Cabană de munte</string>
-	<string name="type.tourism.apartment">Apartamente</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Cabana de munte</string>
+	<string name="type.tourism.apartment">Apartament de vacanță</string>
 	<string name="type.tourism.artwork">Turism</string>
 	<string name="type.tourism.artwork.architecture">Turism</string>
 	<string name="type.tourism.artwork.painting">Turism</string>
 	<string name="type.tourism.artwork.sculpture">Turism</string>
 	<string name="type.tourism.artwork.statue">Turism</string>
 	<string name="type.tourism.attraction">Punct de atracție</string>
-	<string name="type.tourism.attraction.animal">Punct de atracție</string>
+	<string name="type.attraction.animal">Incintă pentru animale</string>
 	<string name="type.tourism.attraction.specified">Punct de atracție</string>
 	<string name="type.tourism.caravan_site">Teren pentru campare</string>
-	<string name="type.tourism.chalet">Cabană</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Cabană de vacanță</string>
 	<string name="type.tourism.gallery">Galerie</string>
 	<string name="type.tourism.guest_house">Pensiune</string>
 	<string name="type.tourism.information">Informații turistice</string>
@@ -1837,9 +1888,10 @@
 	<string name="type.tourism.information.visitor_centre">Centrul pentru vizitatori</string>
 	<string name="type.tourism.museum">Muzeu</string>
 	<string name="type.tourism.picnic_site">Locații picnic</string>
-	<string name="type.tourism.resort">Stațiuni</string>
+	<string name="type.leisure.resort">Stațiuni</string>
 	<string name="type.tourism.theme_park">Parc de distracții</string>
 	<string name="type.tourism.viewpoint">Punct de vedere</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Cabană în pădure</string>
 	<string name="type.tourism.zoo">Grădină zoologică</string>
 	<string name="type.tourism.zoo.petting">Grădina Zoologică</string>
@@ -1850,7 +1902,6 @@
 	<string name="type.waterway.lock_gate">Ecluză</string>
 	<string name="type.waterway.river">Râu</string>
 	<string name="type.waterway.river.tunnel">Râu</string>
-	<string name="type.waterway.riverbank">Râu</string>
 	<string name="type.waterway.stream">Râu</string>
 	<string name="type.waterway.stream.ephemeral">Râu</string>
 	<string name="type.waterway.stream.intermittent">Râu</string>

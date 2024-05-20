@@ -50,7 +50,17 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Descărcarea a eșuat";
 
-"about_menu_title" = "Despre Organic Maps";
+/* Text in About screen */
+"about_headline" = "Gratuit pentru toată lumea, făcut cu dragoste";
+
+/* Text in About screen */
+"about_proposition_1" = "• Fără reclame, fără urmărire, fără colectare de date";
+
+/* Text in About screen */
+"about_proposition_2" = "• Nu consumă baterie, funcționează offline";
+
+/* Text in About screen */
+"about_proposition_3" = "• Rapid, minimalist, dezvoltat de comunitate";
 
 "close" = "Închide";
 
@@ -61,9 +71,6 @@
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Adaugă o listă nouă";
-
-/* Bookmark Color dialog title */
-"bookmark_color" = "Culoare loc preferat";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "Denumirea listei";
@@ -92,74 +99,77 @@
 
 /********** Search categories **********/
 
-/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "Unde să mănânci";
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
+"category_eat" = "Unde să mănânci";
 
-/* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Alimentare";
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! */
+"category_food" = "Alimentare";
 
-/* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "Transport";
+/* Search category for public transport; any changes should be duplicated in categories.txt @category_transport! */
+"category_transport" = "Transport";
 
-/* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Benzinărie";
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
+"category_fuel" = "Benzinărie";
 
-/* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "Parcare";
+/* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
+"category_parking" = "Parcare";
 
-/* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Shopping";
+/* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
+"category_shopping" = "Shopping";
 
-/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "La mâna a doua";
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
+"category_secondhand" = "La mâna a doua";
 
-/* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "Hotel";
+/* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
+"category_hotel" = "Hotel";
 
-/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Obiective turistice";
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
+"category_tourism" = "Obiective turistice";
 
-/* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "Divertisment";
+/* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
+"category_entertainment" = "Divertisment";
 
-/* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "Bancomat";
+/* Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! */
+"category_atm" = "Bancomat";
 
-/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "Viață nocturnă";
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! */
+"category_nightlife" = "Viață nocturnă";
 
-/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Divertisment cu copiii";
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! */
+"category_children" = "Divertisment cu copiii";
 
-/* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "Bancă";
+/* Search category for banks; any changes should be duplicated in categories.txt @category_bank! */
+"category_bank" = "Bancă";
 
-/* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "Farmacie";
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! */
+"category_pharmacy" = "Farmacie";
 
-/* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "Spital";
+/* Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! */
+"category_hospital" = "Spital";
 
-/* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "Toaletă";
+/* Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! */
+"category_toilet" = "Toaletă";
 
-/* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "Poștă";
+/* Search category for post offices; any changes should be duplicated in categories.txt @category_post! */
+"category_post" = "Poștă";
 
-/* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "Poliția";
+/* Search category for police; any changes should be duplicated in categories.txt @category_police! */
+"category_police" = "Poliția";
 
-/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "Wi-Fi";
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
+"category_wifi" = "Wi-Fi";
 
-/* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "Reciclare";
+/* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
+"category_recycling" = "Reciclare";
 
-/* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "Apă";
+/* Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type */
+"category_water" = "Apă";
 
-/* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "Pentru rulote";
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
+"category_rv" = "Pentru rulote";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Bună!\n\nȚi-am atașat locurile mele preferate din aplicația Organic Maps. Deschide-le dacă ai instalată Organic Maps. Dacă nu, o poți descărca pentru iOS sau Android de aici: https://organicmaps.app/";
 
@@ -200,10 +210,7 @@
 "done" = "Gata";
 
 /* Prints version number in About dialog */
-"version" = "Versiune: %@";
-
-/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "Date OpenStreetMap: %@";
+"version" = "Versiunea Organic Maps: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Trasee";
@@ -217,8 +224,14 @@
 
 "pref_zoom_title" = "Butoane zoom";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "Mod nocturn";
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Aspect";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Luminos";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Întunecat";
 
 /* Generic «Off» string */
 "off" = "Oprit";
@@ -240,6 +253,12 @@
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Instrucțiuni vocale";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Anunțați numele străzilor";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Când este activată, numele străzii sau al ieșirii pe care să o pornim va fi rostit cu voce tare.";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Limba ghidului vocal";
@@ -277,18 +296,6 @@
 "news" = "Știri";
 
 /* Text in menu */
-"github" = "GitHub";
-
-/* Text in menu */
-"telegram" = "Telegram";
-
-/* Text in menu */
-"matrix" = "[Matrix]";
-
-/* Text in menu */
-"mastodon" = "Mastodon";
-
-/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -299,9 +306,6 @@
 
 /* Text in the editor */
 "vk" = "VK";
-
-/* Text in menu */
-"openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
 "rate_the_app" = "Evaluează aplicația";
@@ -315,14 +319,23 @@
 /* Button in the main menu */
 "donate" = "Donează";
 
-/* Button in the main Help dialog */
-"how_to_support_us" = "Susține proiectul";
+/* Tex label above the Donate button */
+"donate_description" = "Donează pentru a construi împreună cele mai bune hărți!";
 
 /* Button in the main Help dialog */
 "copyright" = "Drepturi de autor";
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Raportează o eroare";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Raportați sau remediați datele incorecte de pe hartă";
+
+/* Button in the About screen */
+"volunteer" = "Pentru a fi voluntar";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Urmăriți-ne și contactați-ne:";
 
 /* Alert text */
 "email_error_body" = "Aplicația de email nu a fost stabilită. Stabilește-o sau utilizează alt mod de a ne contacta la %@.";
@@ -596,17 +609,17 @@
 
 "today" = "Azi";
 
-"opens_tomorrow_at" = "Opens tomorrow at %@";
+"opens_tomorrow_at" = "Deschide mâine la %@";
 
-"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+"opens_dayoftheweek_at" = "Deschide %1$@ la %2$@";
 
-"opens_at" = "Opens at %@";
+"opens_at" = "Deschide la %@";
 
-"opens_in" = "Opens in %@";
+"opens_in" = "Deschide în %@";
 
-"closes_at" = "Closes at %@";
+"closes_at" = "Închide la %@";
 
-"closes_in" = "Closes in %@";
+"closes_in" = "Închide în %@";
 
 "closed" = "Închis";
 
@@ -621,6 +634,8 @@
 "invalid_username_or_password" = "Nume de utilizator sau parolă incorecte.";
 
 "login" = "Autentificare";
+
+"login_osm" = "Conectați-vă la OpenStreetMap";
 
 "forgot_password" = "Ai uitat parola?";
 
@@ -696,6 +711,9 @@
 
 "editor_edit_place_name_hint" = "Numele locului";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Așa cum este scris în limba locală";
+
 "editor_edit_place_category_title" = "Categorie";
 
 "whatsnew_editor_message_1" = "Adaugă locuri noi pe hartă și modifică-le pe cele existente direct din aplicație.";
@@ -703,6 +721,9 @@
 "dialog_incorrect_feature_position" = "Schimbă poziția";
 
 "message_invalid_feature_position" = "Niciun obiect nu poate fi poziționat aici";
+
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Date OpenStreetMap create de comunitate la data de %@. Aflați mai multe despre cum să editați și să actualizați harta la OpenStreetMap.org";
 
 "login_to_make_edits_visible" = "Autentifică-te pentru ca modificările pe care le-ai făcut să poată fi văzute și de alți utilizatori.";
 
@@ -746,16 +767,6 @@
 
 "downloader_no_downloaded_maps_message" = "Descarcă hărți pentru a căuta un loc și a naviga fără conectare la internet.";
 
-/* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "Continui cu detectarea poziției tale actuale?";
-
-/* Error that appears after certain time without location. */
-"current_location_unknown_message" = "Poziția actuală este necunoscută. Poate te afli într-o clădire sau un tunel.";
-
-"current_location_unknown_continue_button" = "Continuă";
-
-"current_location_unknown_stop_button" = "Oprește";
-
 "current_location_unknown_error_title" = "Poziția actuală este necunoscută.";
 
 "current_location_unknown_error_message" = "S-a produs o eroare la căutarea poziției tale. Verifică dacă dispozitivul funcționează corect și încearcă din nou.";
@@ -764,12 +775,20 @@
 
 "location_services_disabled_message" = "Activează accesul la geolocalizare din setările dispozitivului";
 
-"location_services_disabled_1" = "1. Deschide setările";
+"location_services_disabled_1" = "1. Deschide Configurări";
 
 "location_services_disabled_2" = "2. Apasă pe Localizare";
 
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Alege „În timp ce folosești aplicația”";
+
+"location_services_disabled_on_device_2" = "2. Selectează Intimitate și securitate";
+
+"location_services_disabled_on_device_3" = "3. Selectează Servicii de localizare";
+
+"location_services_disabled_on_device_4" = "4. Activează Servicii de localizare";
+
+"location_services_disabled_on_device_additional_message" = "Sau continuă să folosești Organic Maps fără Locație";
 
 /* abbreviation for meters */
 "m" = "m";
@@ -815,7 +834,7 @@
 
 "placepage_delete_bookmark_button" = "Șterge locul preferat";
 
-"editor_edits_sent_message" = "Modificările sugerate au fost trimise";
+"editor_edits_sent_message" = "Nota dvs. va fi trimisă către OpenStreetMap";
 
 "editor_comment_hint" = "Comentariu…";
 
@@ -850,7 +869,7 @@
 
 "editor_share_to_all_dialog_message_2" = "Editorii OpenStreetMap vor verifica modificările și vor lua legătura cu dvs. dacă au întrebări.";
 
-"navigation_stop_button" = "oprește";
+"navigation_stop_button" = "Oprește";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Dezactivezi înregistrarea celui mai recent traseu efectuat?";
@@ -861,9 +880,6 @@
 "sharing_call_action_look" = "Verifică";
 
 "recent_track_background_dialog_message" = "Organic Maps folosește poziția ta geografică pentru a înregistra cel mai recent traseu urmat.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps este o aplicație rapidă și gratuită fără reclame și urmărire. Hărțile sunt bazate pe datele OpenStreetMap.org oferite de utilizatori, de aceea chiar și tu poți corecta erorile și adăuga obiecte noi pe hartă. Organic Maps este un proiect creat de entuziaști în timpul lor liber. Părerea și sprijinul tău sunt foarte importante pentru noi.";
 
 "general_settings" = "Opțiuni generale";
 
@@ -925,6 +941,12 @@
 "start_from_my_position" = "Pornește de la";
 
 "profile_authorization_error" = "A apărut o eroare. Încearcă să te conectezi din nou.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Vă rugăm să vă conectați la OpenStreetMap pentru a încărca automat toate modificările aduse hărții. Aflați mai multe";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "aici";
 
 "core_entrance" = "Intrare";
 
@@ -1005,15 +1027,16 @@
 
 "speedcams_alert_title" = "Radare";
 
-/* Generic «Always» string */
-"always" = "Mereu";
-
-/* Generic «Never» string */
-"never" = "Niciodată";
-
 "place_description_title" = "Descrierea locului";
 
-"speedcams_notice_message" = "Auto - Avertizează cu privire la radare dacă există riscul depășirii limitei de viteză\nMereu - Avertizează mereu cu privire la radare\nNiciodată - Nu avertiza niciodată cu privire la radare";
+/* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
+"pref_tts_speedcams_auto" = "Avertizează la depășirea limitei de viteză";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Avertizează mereu";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Nu avertiza niciodată";
 
 "power_managment_title" = "Economisire a energiei";
 
@@ -1120,6 +1143,8 @@
 "sort_distance" = "Sortează după distanță";
 
 "sort_date" = "Sortează după dată";
+
+"sort_name" = "Sortează după nume";
 
 "week_ago_sorttype" = "Acum o săptămână";
 
@@ -1242,8 +1267,31 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Acum utilizați Organic Maps pe ecranul telefonului";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Acum utilizați Organic Maps pe ecranul mașinii";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Continuați în telefon";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "La ecranul mașinii";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Drumeție";
+
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Exportați toate marcajele și piesele";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "Schimbă culoarea";
+
+/* Main screen title "Map" displayed in the navigation back button's menu. */
+"map" = "Hartă";
+
+"drive_through" = "Servire în mașină";
 
 
 /********** Types **********/
@@ -1296,7 +1344,7 @@
 
 "type.amenity.bar" = "Bar";
 
-"type.amenity.bbq" = "Locații picnic";
+"type.amenity.bbq" = "Grătar";
 
 "type.amenity.bench" = "Banchetă";
 
@@ -1359,6 +1407,8 @@
 "type.amenity.doctors" = "Doctor";
 
 "type.amenity.drinking_water" = "Apă de băut";
+
+"type.drinking_water.yes" = "Apă de băut";
 
 "type.amenity.driving_school" = "Școală de șoferi";
 
@@ -1539,7 +1589,17 @@
 
 "type.amenity.school" = "Școală";
 
+/* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "Adăpost";
+
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "Adăpost";
+
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
+"type.amenity.shelter.basic_hut" = "Baracă de Bivuac";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
+"type.amenity.shelter.lean_to" = "Lean-to Shelter";
 
 "type.amenity.public_bath" = "Baie publică";
 
@@ -1647,43 +1707,18 @@
 
 "type.boundary.administrative" = "Administrative Boundary";
 
-"type.boundary.administrative.10" = "Administrative Boundary";
-
-"type.boundary.administrative.11" = "Administrative Boundary";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "National Border";
 
-"type.boundary.administrative.3" = "Administrative Boundary";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Regional Boundary";
 
-"type.boundary.administrative.4" = "Administrative Boundary";
-
-"type.boundary.administrative.5" = "Administrative Boundary";
-
-"type.boundary.administrative.6" = "Administrative Boundary";
-
-"type.boundary.administrative.7" = "Administrative Boundary";
-
-"type.boundary.administrative.8" = "Administrative Boundary";
-
-"type.boundary.administrative.9" = "Administrative Boundary";
-
-"type.boundary.administrative.city" = "City Boundary";
-
-"type.boundary.administrative.country" = "National Border";
-
-"type.boundary.administrative.county" = "County Boundary";
-
-"type.boundary.administrative.municipality" = "Municipality Boundary";
-
-"type.boundary.administrative.nation" = "National Border";
-
-"type.boundary.administrative.region" = "Regional Boundary";
-
-"type.boundary.administrative.state" = "State Boundary";
-
-"type.boundary.administrative.suburb" = "Suburb Boundary";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Regional Boundary";
 
 "type.boundary.national_park" = "Parcul național";
+
+"type.boundary.aboriginal_lands" = "Terenuri indigene";
 
 "type.boundary.protected_area" = "Zonă protejată";
 
@@ -1955,7 +1990,7 @@
 
 "type.entrance.exit" = "Ieșire";
 
-"type.fee.yes" = "💲";
+"type.fee.yes" = "$";
 
 "type.fee.no" = "Gratuit";
 
@@ -2024,22 +2059,10 @@
 
 "type.highway.footway.crossing" = "Trecere de pietoni";
 
-"type.highway.footway.alpine_hiking" = "Cale";
-
 "type.highway.footway.area" = "Cale";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Pod";
-
-"type.highway.footway.demanding_alpine_hiking" = "Cale";
-
-"type.highway.footway.demanding_mountain_hiking" = "Cale";
-
-"type.highway.footway.difficult_alpine_hiking" = "Cale";
-
-"type.highway.footway.hiking" = "Cale";
-
-"type.highway.footway.mountain_hiking" = "Cale";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Tunel";
@@ -2074,26 +2097,20 @@
 
 "type.highway.path" = "Cale";
 
-"type.highway.path.alpine_hiking" = "Cale";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Cale";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Cale";
 
 "type.highway.path.bicycle" = "Cale";
+
+"type.highway.footway.bicycle" = "Cale";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Pod";
 
-"type.highway.path.demanding_alpine_hiking" = "Cale";
-
-"type.highway.path.demanding_mountain_hiking" = "Cale";
-
-"type.highway.path.difficult_alpine_hiking" = "Cale";
-
-"type.highway.path.hiking" = "Cale";
-
 "type.highway.path.horse" = "Cale";
-
-"type.highway.path.mountain_hiking" = "Cale";
-
-"type.highway.path.permissive" = "Cale";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Tunel";
@@ -2216,17 +2233,7 @@
 
 "type.highway.track.grade1" = "Stradă";
 
-"type.highway.track.grade2" = "Stradă";
-
-"type.highway.track.grade3" = "Stradă";
-
-"type.highway.track.grade4" = "Stradă";
-
-"type.highway.track.grade5" = "Stradă";
-
 "type.highway.track.no.access" = "Stradă";
-
-"type.highway.track.permissive" = "Stradă";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunel";
@@ -2436,8 +2443,6 @@
 
 "type.landuse.education" = "Educational Facility";
 
-"type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "Teren arabil";
 
 "type.landuse.farmyard" = "Farmyard";
@@ -2508,11 +2513,11 @@
 
 "type.leisure.golf_course" = "Teren de golf";
 
+"type.leisure.miniature_golf" = "Minigolf";
+
 "type.leisure.hackerspace" = "Hackerspace";
 
 "type.leisure.ice_rink" = "Ice Rink";
-
-"type.leisure.landscape_reserve" = "Landscape Reserve";
 
 "type.leisure.marina" = "Marina";
 
@@ -2618,7 +2623,14 @@
 
 "type.natural" = "Natură";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "Piatră goală";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Pietriș";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Grohotiș";
 
 "type.natural.bay" = "Golf";
 
@@ -3715,9 +3727,10 @@
 
 "type.tourism.aquarium" = "Acvariu";
 
-"type.tourism.alpine_hut" = "Cabană de munte";
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "Cabana de munte";
 
-"type.tourism.apartment" = "Apartamente";
+"type.tourism.apartment" = "Apartament de vacanță";
 
 "type.tourism.artwork" = "Turism";
 
@@ -3731,7 +3744,7 @@
 
 "type.tourism.attraction" = "Punct de atracție";
 
-"type.tourism.attraction.animal" = "Punct de atracție";
+"type.attraction.animal" = "Incintă pentru animale";
 
 "type.tourism.attraction.specified" = "Punct de atracție";
 
@@ -3739,7 +3752,8 @@
 
 "type.tourism.caravan_site" = "Teren pentru campare";
 
-"type.tourism.chalet" = "Cabană";
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "Cabană de vacanță";
 
 "type.tourism.gallery" = "Galerie";
 
@@ -3767,12 +3781,13 @@
 
 "type.tourism.picnic_site" = "Locații picnic";
 
-"type.tourism.resort" = "Stațiuni";
+"type.leisure.resort" = "Stațiuni";
 
 "type.tourism.theme_park" = "Parc de distracții";
 
 "type.tourism.viewpoint" = "Punct de vedere";
 
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "Cabană în pădure";
 
 "type.tourism.zoo" = "Grădină zoologică";
@@ -3814,8 +3829,6 @@
 "type.waterway.river" = "Râu";
 
 "type.waterway.river.tunnel" = "Râu";
-
-"type.waterway.riverbank" = "Râu";
 
 "type.waterway.stream" = "Râu";
 

@@ -61,6 +61,10 @@
 
     <include layout="@layout/place_page_capacity" />
 
+    <include layout="@layout/place_page_wheelchair" />
+
+    <include layout="@layout/place_page_drive_through" />
+
     <!-- ToDo: Address is missing compared with iOS. It's shown in title but anyway .. -->
 
     <include layout="@layout/place_page_latlon"/>

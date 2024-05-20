@@ -71,7 +71,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     mItemsCategory = itemsCategories;
 
     mSectionCount = 0;
-    if (mItemsCategory.size() > 0)
+    if (!mItemsCategory.isEmpty())
       mCategorySectionIndex = mSectionCount++;
   }
 

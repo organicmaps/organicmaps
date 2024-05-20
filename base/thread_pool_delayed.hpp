@@ -5,16 +5,13 @@
 #include "base/linked_map.hpp"
 #include "base/task_loop.hpp"
 #include "base/thread.hpp"
-#include "base/thread_checker.hpp"
 
 #include <chrono>
 #include <condition_variable>
 #include <cstdint>
 #include <map>
 #include <memory>
-#include <mutex>
 #include <unordered_map>
-#include <utility>
 #include <vector>
 
 namespace base
@@ -125,7 +122,7 @@ private:
     bool operator()(T const & lhs, T const & rhs) const { return *lhs < *rhs; }
   };
 
-  using ImmediateQueue = base::LinkedMap<TaskId, Task>;
+  using ImmediateQueue = LinkedMap<TaskId, Task>;
 
   using DelayedValue = std::shared_ptr<DelayedTask>;
   class DelayedQueue : public BidirectionalMap<TaskId, DelayedValue,
@@ -162,8 +159,6 @@ private:
 
   TaskId m_immediateLastId;
   TaskId m_delayedLastId;
-
-  ThreadChecker m_checker;
 };
 }  // namespace delayed
 }  // namespace thread_pool

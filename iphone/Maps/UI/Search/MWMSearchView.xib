@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,7 +19,7 @@
                 <outletCollection property="topViews" destination="d2A-Id-T62" id="Q0C-Eb-VyX"/>
             </connections>
         </placeholder>
-        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g9f-m8-RFv" customClass="SearchBar" customModule="OMaps" customModuleProvider="target">
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g9f-m8-RFv" customClass="SearchBar" customModule="Organic_Maps" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C73-2V-To8" userLabel="StatusBarBackground">
@@ -35,10 +35,10 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ghc-B6-erG">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
                             <subviews>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="ySb-oA-ZeW" userLabel="Search" customClass="SearchTextField" customModule="OMaps" customModuleProvider="target">
-                                    <rect key="frame" x="8" y="4" width="240" height="76"/>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="ySb-oA-ZeW" userLabel="Search" customClass="SearchTextField" customModule="Organic_Maps" customModuleProvider="target">
+                                    <rect key="frame" x="16" y="8" width="232" height="72"/>
                                     <accessibility key="accessibilityConfiguration" identifier="queryField"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchSearchTextField"/>
@@ -51,12 +51,12 @@
                                     </connections>
                                 </textField>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="qkR-cN-NI4">
-                                    <rect key="frame" x="248" y="4" width="72" height="76"/>
+                                    <rect key="frame" x="248" y="4" width="72" height="80"/>
                                     <accessibility key="accessibilityConfiguration" identifier="cancelButton"/>
                                     <constraints>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="72" id="8mI-K9-qAu"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
                                     <state key="normal" title="Cancel">
                                         <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -70,7 +70,7 @@
                                     </connections>
                                 </button>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_search" translatesAutoresizingMaskIntoConstraints="NO" id="ebE-7b-E9f">
-                                    <rect key="frame" x="8" y="4" width="36" height="76"/>
+                                    <rect key="frame" x="16" y="8" width="36" height="72"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="36" id="8Ta-mE-6dI"/>
                                     </constraints>
@@ -79,7 +79,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </imageView>
                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="pnj-0S-fkE">
-                                    <rect key="frame" x="8" y="4" width="36" height="76"/>
+                                    <rect key="frame" x="16" y="8" width="36" height="72"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="36" id="v0W-Aw-eSV"/>
                                     </constraints>
@@ -88,7 +88,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </activityIndicatorView>
                                 <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CrZ-Cz-xyW">
-                                    <rect key="frame" x="8" y="4" width="36" height="76"/>
+                                    <rect key="frame" x="16" y="8" width="36" height="72"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="36" id="gfO-3m-OFv"/>
                                     </constraints>
@@ -110,16 +110,16 @@
                                 <constraint firstItem="ebE-7b-E9f" firstAttribute="leading" secondItem="ySb-oA-ZeW" secondAttribute="leading" id="THA-Pu-i5t"/>
                                 <constraint firstItem="CrZ-Cz-xyW" firstAttribute="top" secondItem="ySb-oA-ZeW" secondAttribute="top" id="WxT-Hy-CL1"/>
                                 <constraint firstItem="CrZ-Cz-xyW" firstAttribute="bottom" secondItem="ySb-oA-ZeW" secondAttribute="bottom" id="XIJ-EQ-sfC"/>
-                                <constraint firstAttribute="height" constant="44" id="evQ-q0-G3V"/>
+                                <constraint firstAttribute="height" constant="52" id="evQ-q0-G3V"/>
                                 <constraint firstAttribute="bottom" secondItem="qkR-cN-NI4" secondAttribute="bottom" constant="8" id="exK-0S-ML2"/>
                                 <constraint firstAttribute="bottom" secondItem="ySb-oA-ZeW" secondAttribute="bottom" constant="8" id="kc1-xj-dnr"/>
-                                <constraint firstItem="ySb-oA-ZeW" firstAttribute="leading" secondItem="ghc-B6-erG" secondAttribute="leading" constant="8" id="kch-1z-rhZ"/>
+                                <constraint firstItem="ySb-oA-ZeW" firstAttribute="leading" secondItem="ghc-B6-erG" secondAttribute="leading" constant="16" id="kch-1z-rhZ"/>
                                 <constraint firstItem="CrZ-Cz-xyW" firstAttribute="leading" secondItem="ySb-oA-ZeW" secondAttribute="leading" id="m7Z-jP-Upg"/>
                                 <constraint firstAttribute="trailing" secondItem="qkR-cN-NI4" secondAttribute="trailing" id="ngR-ML-Cnj"/>
                                 <constraint firstItem="pnj-0S-fkE" firstAttribute="leading" secondItem="ySb-oA-ZeW" secondAttribute="leading" id="ove-r5-YFo"/>
                                 <constraint firstItem="qkR-cN-NI4" firstAttribute="centerY" secondItem="ySb-oA-ZeW" secondAttribute="centerY" id="rPK-s8-GJi"/>
                                 <constraint firstItem="pnj-0S-fkE" firstAttribute="bottom" secondItem="ySb-oA-ZeW" secondAttribute="bottom" id="udX-a7-hOd"/>
-                                <constraint firstItem="ySb-oA-ZeW" firstAttribute="top" secondItem="ghc-B6-erG" secondAttribute="top" constant="4" id="yet-nD-qWN"/>
+                                <constraint firstItem="ySb-oA-ZeW" firstAttribute="top" secondItem="ghc-B6-erG" secondAttribute="top" constant="8" id="yet-nD-qWN"/>
                                 <constraint firstItem="ebE-7b-E9f" firstAttribute="top" secondItem="ySb-oA-ZeW" secondAttribute="top" id="zqb-O1-mO9"/>
                             </constraints>
                         </view>
@@ -158,7 +158,7 @@
             <point key="canvasLocation" x="225.59999999999999" y="-211.39430284857573"/>
         </view>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="d2A-Id-T62" customClass="SearchActionBarView" customModule="OMaps" customModuleProvider="target" propertyAccessControl="none">
+        <view contentMode="scaleToFill" id="d2A-Id-T62" customClass="SearchActionBarView" customModule="Organic_Maps" customModuleProvider="target" propertyAccessControl="none">
             <rect key="frame" x="0.0" y="0.0" width="361" height="36"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -227,7 +227,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QQn-4W-Y0s">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="402"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="368"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
             </subviews>

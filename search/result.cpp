@@ -4,6 +4,7 @@
 #include "search/geometry_utils.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/feature_utils.hpp"
 
 #include "platform/localization.hpp"
 
@@ -17,12 +18,13 @@ namespace search
 {
 using namespace std;
 
-void Result::FromFeature(FeatureID const & id, uint32_t featureType, Details const & details)
+void Result::FromFeature(FeatureID const & id, uint32_t mainType, uint32_t matchedType, Details const & details)
 {
   m_id = id;
   ASSERT(m_id.IsValid(), ());
 
-  m_featureType = featureType;
+  m_mainType = mainType;
+  m_matchedType = matchedType;
   m_details = details;
   m_resultType = Type::Feature;
 }
@@ -37,7 +39,7 @@ Result::Result(Result && res, string && suggest)
   , m_center(res.m_center)
   , m_str(std::move(res.m_str))
   , m_address(std::move(res.m_address))
-  , m_featureType(res.m_featureType)
+  , m_matchedType(res.m_matchedType)
   , m_suggestionStr(std::move(suggest))
   , m_hightlightRanges(std::move(res.m_hightlightRanges))
 {
@@ -63,19 +65,54 @@ FeatureID const & Result::GetFeatureID() const
 uint32_t Result::GetFeatureType() const
 {
   ASSERT_EQUAL(m_resultType, Type::Feature, ());
-  return m_featureType;
+  return m_mainType;
+}
+
+bool Result::IsSameType(uint32_t type) const
+{
+  uint8_t const level = ftype::GetLevel(type);
+  for (uint32_t t : { m_mainType, m_matchedType })
+  {
+    ftype::TruncValue(t, level);
+    if (t == type)
+      return true;
+  }
+  return false;
+}
+
+std::string GetLocalizedTypeName(uint32_t type)
+{
+  return platform::GetLocalizedTypeName(classif().GetReadableObjectName(type));
 }
 
 std::string Result::GetLocalizedFeatureType() const
 {
   ASSERT_EQUAL(m_resultType, Type::Feature, ());
-  return platform::GetLocalizedTypeName(classif().GetReadableObjectName(m_featureType));
+  return GetLocalizedTypeName(m_mainType);
 }
 
 std::string Result::GetFeatureDescription() const
 {
   ASSERT_EQUAL(m_resultType, Type::Feature, ());
-  return GetLocalizedFeatureType() + GetDescription();
+  std::string featureDescription;
+
+  auto const append = [&featureDescription](std::string_view sv)
+  {
+    if (!featureDescription.empty())
+      featureDescription += feature::kFieldsSeparator;
+    featureDescription += sv;
+  };
+
+  if (!m_str.empty())
+    append(GetLocalizedTypeName(m_mainType));
+
+  if (m_mainType != m_matchedType && m_matchedType != 0)
+    append(GetLocalizedTypeName(m_matchedType));
+
+  if (!GetDescription().empty())
+    append(GetDescription());
+
+  return featureDescription;
 }
 
 m2::PointD Result::GetFeatureCenter() const
@@ -97,8 +134,8 @@ bool Result::IsEqualSuggest(Result const & r) const
 
 bool Result::IsEqualFeature(Result const & r) const
 {
-  /// @todo Compare TruncValue(m_featureType) ?
-  if (m_resultType != r.m_resultType || m_featureType != r.m_featureType)
+  /// @todo Compare TruncValue(m_matchedType) ?
+  if (m_resultType != r.m_resultType || m_matchedType != r.m_matchedType)
     return false;
 
   ASSERT_EQUAL(m_resultType, Result::Type::Feature, ());
@@ -118,11 +155,12 @@ bool Result::IsEqualFeature(Result const & r) const
   }
 
   // Filter stops (bus/tram), see BA_LasHeras test.
-  if (ftypes::IsPublicTransportStopChecker::Instance()(m_featureType))
+  if (ftypes::IsPublicTransportStopChecker::Instance()(m_matchedType))
     return PointDistance(m_center, r.m_center) < 150.0;
 
+  /// @todo Keep this check until RemoveDuplicatingLinear will be fixed.
   // Filter same streets (with 'same logical street distance' threshold).
-  if (ftypes::IsWayChecker::Instance().GetSearchRank(m_featureType) != ftypes::IsWayChecker::Default)
+  if (ftypes::IsWayChecker::Instance().GetSearchRank(m_matchedType) != ftypes::IsWayChecker::Default)
     return PointDistance(m_center, r.m_center) < 2000.0;
 
   // Filter real duplicates when say area park is present in 2 MWMs, or OSM data duplicates.
@@ -155,7 +193,7 @@ string Result::ToStringForStats() const
 {
   string readableType;
   if (GetResultType() == Type::Feature)
-    readableType = classif().GetReadableObjectName(m_featureType);
+    readableType = classif().GetReadableObjectName(m_matchedType);
 
   string s;
   s.append(GetString());

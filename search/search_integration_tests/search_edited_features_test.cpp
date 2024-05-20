@@ -52,7 +52,7 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, Smoke)
 
     TEST(ResultsMatch("Wifi", Rules{}), ());
 
-    EditFeature(cafeId, [](osm::EditableMapObject & emo) { emo.SetInternet(osm::Internet::Wlan); });
+    EditFeature(cafeId, [](osm::EditableMapObject & emo) { emo.SetInternet(feature::Internet::Wlan); });
 
     TEST(ResultsMatch("Wifi", rules), ());
     TEST(ResultsMatch("wifi bar quahog", rules), ());
@@ -73,7 +73,7 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, NonamePoi)
 
     TEST(ResultsMatch("Eat ", rules), ());
 
-    EditFeature(cafeId, [](osm::EditableMapObject & emo) { emo.SetInternet(osm::Internet::Wlan); });
+    EditFeature(cafeId, [](osm::EditableMapObject & emo) { emo.SetInternet(feature::Internet::Wlan); });
 
     TEST(ResultsMatch("Eat ", rules), ());
   }

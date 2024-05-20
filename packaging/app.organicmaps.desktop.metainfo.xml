@@ -3,7 +3,10 @@
   <id>app.organicmaps.desktop</id>
 
   <name>Organic Maps</name>
-  <summary>A free offline maps app for travelers, tourists, hikers, drivers and cyclists</summary>
+  <developer id="app.organicmaps">
+    <name>The Organic Maps Community</name>
+  </developer>
+  <summary>Free offline maps for everyone</summary>
 
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>Apache-2.0</project_license>
@@ -65,7 +68,7 @@
       <li>No noisy email spam</li>
       <li>No push notifications</li>
       <li>No crapware</li>
-      <li><del>No pesticides</del> Purely organic!</li>
+      <li>N̶o̶ ̶p̶e̶s̶t̶i̶c̶i̶d̶e̶s̶  Purely organic!</li>
     </ul>
     <p>The application is verified by Exodus Privacy Project.</p>
     <p>Organic Maps doesn&apos;t request excessive permissions to spy on you.</p>
@@ -83,9 +86,13 @@
 
   <url type="homepage">https://organicmaps.app</url>
   <url type="bugtracker">https://github.com/organicmaps/organicmaps/issues</url>
+  <url type="faq">https://organicmaps.app/faq/</url>
+  <url type="help">https://github.com/organicmaps/organicmaps/discussions/categories/q-a</url>
   <url type="donation">https://organicmaps.app/donate</url>
   <url type="translate">https://github.com/organicmaps/organicmaps/blob/master/docs/TRANSLATIONS.md</url>
   <url type="contact">https://github.com/organicmaps/organicmaps#feedback=</url>
+  <url type="vcs-browser">https://github.com/organicmaps/organicmaps/</url>
+  <url type="contribute">https://github.com/organicmaps/organicmaps/blob/master/docs/CONTRIBUTING.md</url>
 
   <launchable type="desktop-id">OrganicMaps.desktop</launchable>
   <screenshots>
@@ -104,6 +111,103 @@
   </screenshots>
 
   <releases>
+   <release version="2024.03.31-8" date="2024-03-31">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OSM maps data as of March 26, 2024</li>
+           <li>Better isolines elevation data for European countries</li>
+           <li>Bookmark lists are sorted by modification time (recent at the top)</li>
+           <li>Add "wheelchair" to the search input to limit results to wheelchair-accessible</li>
+           <li>Searchable orders pickup points (shop=outpost)</li>
+         </ul>
+       <p>Linux Desktop:</p>
+         <ul>
+           <li>Place information page is much more user-friendly</li>
+         </ul>
+       <p>Styles:</p>
+         <ul>
+           <li>Added wind turbines and power plant icons</li>
+           <li>Reduced visibilities of many outdoors-specific POIs when in the main map style, e.g., waterfalls, mountain peaks, shelters, power towers, etc. (use the Outdoors style for those!)</li>
+           <li>More consistent font sizes and caption appearances</li>
+         </ul>
+       <p>Translation updates:</p>
+         <ul>
+           <li>Slovak, Italian, Spanish, Hindi</li>
+           <li>Fixed police, parking, and sights category search for simplified Chinese</li>
+         </ul>
+     </description>
+   </release>
+   <release version="2024.03.05-4" date="2024-03-05">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OSM maps data as of February 28, 2024</li>
+           <li>Export all bookmarks as a single KMZ file</li>
+         </ul>
+       <p>Linux Desktop:</p>
+         <ul>
+           <li>Fixed occasional crash when there was no location service available</li>
+         </ul>
+       <p>Styles:</p>
+         <ul>
+           <li>Fixed small fonts on detailed zooms</li>
+           <li>Improved dark style visibility</li>
+         </ul>
+       <p>Translations:</p>
+         <ul>
+           <li>Updated Brazilian Portugues, Hebrew, Hungarian and Spanish and Mexican Spanish translations</li>
+         </ul>
+     </description>
+   </release>
+   <release version="2024.02.06-11" date="2024-02-06">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OSM maps data as of February 2, 2024</li>
+           <li>Restroom emoji for places with toilets</li>
+           <li>Display parking operator</li>
+           <li>More precise turn notifications for small distances</li>
+           <li>Fixed absent speed limit on some speed cameras</li>
+           <li>Plus codes search shows results relative to position and to the screen center</li>
+           <li>Fixed crash in search</li>
+           <li>Name editing for playgrounds</li>
+           <li>Parse mlat and mlon parameters from OSM urls</li>
+           <li>Allow editing Greek names for Cyprus</li>
+           <li>Hindi support</li>
+           <li>Better and more precise search on the map, more relevant search results in the list</li>
+         </ul>
+       <p>Styles:</p>
+         <ul>
+           <li>Orange color for secondary roads</li>
+           <li>Wider and brighter white tertiary roads</li>
+           <li>Nicer looking on- and off-ramp road links joins</li>
+           <li>Raised visibility of secondary and tertiary road links</li>
+           <li>Less bright farmlands color</li>
+           <li>Smaller mountain passes/saddles icons</li>
+           <li>Reduced visibilities of mountain saddles (compared to passes)</li>
+           <li>New ford icon</li>
+           <li>Made hospital and clinic icons look different</li>
+           <li>Reduced visibility of light rail stations</li>
+           <li>Added Boston and updated Taipei subway icons</li>
+           <li>Fixed Delhi subway entrance icons, Minsk &amp; Spb subway captions on detailed zoom</li>
+           <li>Increased font size of towns and suburbs labels and decreased for neighborhoods</li>
+           <li>Adjust visibilities of many POIs</li>
+         </ul>
+       <p>Outdoor Style:</p>
+         <ul>
+           <li>Increased 50m &amp; 100m contour lines visibilities</li>
+           <li>Raised visibility of campsites, survey points, toilets, touristic information features</li>
+           <li>New power tower and flagpole/mast icons</li>
+           <li>Made bridleways to be the same brown color as paths</li>
+           <li>Increased contrast of footways on overview zooms</li>
+         </ul>
+       <p>Translations:</p>
+         <ul>
+           <li>Updated Catalan, Chinese, Czech, Finnish, French, Romanian, Slovak, Ukrainian translations</li>
+         </ul>
+     </description>
+   </release>
    <release version="2024.01.09-5" date="2024-01-09">
      <description>
        <p>Highlights:</p>
@@ -293,7 +397,6 @@
            <li>Updated road surface factors for car routing profile</li>
            <li>Better pedestrian routing in Turkey and Georgia</li>
            <li>Fixed cross-region routing when "avoid …" options are enabled</li>
-           <li></li>
          </ul>
        <p>Search:</p>
          <ul>
@@ -709,7 +812,6 @@
    <release version="2022.06.18-2" date="2022-06-18">
      <description>
        <ul>
-         <li></li>
          <li>New OSM data as of June 13, 2022</li>
          <li>Cross-region and other routing fixes</li>
          <li>Nicer fences, city walls, paths/tracks, waterfalls, fountains, and drinking_water</li>

@@ -92,6 +92,8 @@
 		44E5574C2136EED000B01439 /* speed_camera_ser_des.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44E5574B2136EED000B01439 /* speed_camera_ser_des.cpp */; };
 		44F4EDC723A78C2E005254C4 /* latlon_with_altitude.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44F4EDC523A78C2D005254C4 /* latlon_with_altitude.cpp */; };
 		44F4EDC823A78C2E005254C4 /* latlon_with_altitude.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 44F4EDC623A78C2E005254C4 /* latlon_with_altitude.hpp */; };
+		4652D9162BAA3C5600C71046 /* turns_tts_text_i18n.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4652D9142BAA3C5600C71046 /* turns_tts_text_i18n.cpp */; };
+		4652D9172BAA3C5600C71046 /* turns_tts_text_i18n.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4652D9152BAA3C5600C71046 /* turns_tts_text_i18n.hpp */; };
 		56099E291CC7C97D00A7772A /* loaded_path_segment.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56099E251CC7C97D00A7772A /* loaded_path_segment.hpp */; };
 		56099E2A1CC7C97D00A7772A /* routing_result_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56099E261CC7C97D00A7772A /* routing_result_graph.hpp */; };
 		56099E2B1CC7C97D00A7772A /* turn_candidate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56099E271CC7C97D00A7772A /* turn_candidate.hpp */; };
@@ -136,7 +138,6 @@
 		56F0D7501D896A5300045886 /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = 67BD35F91C69F474003AA26F /* packed_polygons.bin */; };
 		56F0D7521D896A5300045886 /* drules_proto_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD571C68C7F6009CB89E /* drules_proto_clear.bin */; };
 		56F0D7531D896A5300045886 /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD581C68C7F6009CB89E /* drules_proto_dark.bin */; };
-		56F0D7561D896A5300045886 /* drules_proto-bw.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD5A1C68C7F6009CB89E /* drules_proto-bw.bin */; };
 		56F0D7571D896A5300045886 /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD5B1C68C7F6009CB89E /* drules_proto.bin */; };
 		56F0D7581D896A5300045886 /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD551C68C7C1009CB89E /* types.txt */; };
 		56F0D75A1D896A5300045886 /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD531C68BB14009CB89E /* classificator.txt */; };
@@ -176,7 +177,6 @@
 		6742AD561C68C7D7009CB89E /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD551C68C7C1009CB89E /* types.txt */; };
 		6742AD5C1C68C7FA009CB89E /* drules_proto_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD571C68C7F6009CB89E /* drules_proto_clear.bin */; };
 		6742AD5D1C68C7FA009CB89E /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD581C68C7F6009CB89E /* drules_proto_dark.bin */; };
-		6742AD5F1C68C7FA009CB89E /* drules_proto-bw.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD5A1C68C7F6009CB89E /* drules_proto-bw.bin */; };
 		6742AD601C68C7FA009CB89E /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD5B1C68C7F6009CB89E /* drules_proto.bin */; };
 		6742AD621C68F747009CB89E /* sound-strings in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD611C68F747009CB89E /* sound-strings */; };
 		674F9BCA1B0A580E00704FFA /* async_router.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674F9BBA1B0A580E00704FFA /* async_router.cpp */; };
@@ -200,7 +200,6 @@
 		67BD35D31C69F139003AA26F /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675343F81A3F640D00A0A8C3 /* librouting.a */; };
 		67BD35F01C69F447003AA26F /* drules_proto_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD571C68C7F6009CB89E /* drules_proto_clear.bin */; };
 		67BD35F11C69F447003AA26F /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD581C68C7F6009CB89E /* drules_proto_dark.bin */; };
-		67BD35F31C69F447003AA26F /* drules_proto-bw.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD5A1C68C7F6009CB89E /* drules_proto-bw.bin */; };
 		67BD35F41C69F447003AA26F /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD5B1C68C7F6009CB89E /* drules_proto.bin */; };
 		67BD35F51C69F447003AA26F /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD551C68C7C1009CB89E /* types.txt */; };
 		67BD35F61C69F447003AA26F /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD531C68BB14009CB89E /* classificator.txt */; };
@@ -382,6 +381,8 @@
 		44F45B272136B069001B1618 /* speed_cameras_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_cameras_tests.cpp; sourceTree = "<group>"; };
 		44F4EDC523A78C2D005254C4 /* latlon_with_altitude.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = latlon_with_altitude.cpp; sourceTree = "<group>"; };
 		44F4EDC623A78C2E005254C4 /* latlon_with_altitude.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = latlon_with_altitude.hpp; sourceTree = "<group>"; };
+		4652D9142BAA3C5600C71046 /* turns_tts_text_i18n.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = turns_tts_text_i18n.cpp; sourceTree = "<group>"; };
+		4652D9152BAA3C5600C71046 /* turns_tts_text_i18n.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = turns_tts_text_i18n.hpp; sourceTree = "<group>"; };
 		56099E251CC7C97D00A7772A /* loaded_path_segment.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = loaded_path_segment.hpp; sourceTree = "<group>"; };
 		56099E261CC7C97D00A7772A /* routing_result_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_result_graph.hpp; sourceTree = "<group>"; };
 		56099E271CC7C97D00A7772A /* turn_candidate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = turn_candidate.hpp; sourceTree = "<group>"; };
@@ -467,7 +468,6 @@
 		6742AD551C68C7C1009CB89E /* types.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = types.txt; sourceTree = "<group>"; };
 		6742AD571C68C7F6009CB89E /* drules_proto_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_clear.bin; sourceTree = "<group>"; };
 		6742AD581C68C7F6009CB89E /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_dark.bin; sourceTree = "<group>"; };
-		6742AD5A1C68C7F6009CB89E /* drules_proto-bw.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "drules_proto-bw.bin"; sourceTree = "<group>"; };
 		6742AD5B1C68C7F6009CB89E /* drules_proto.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto.bin; sourceTree = "<group>"; };
 		6742AD611C68F747009CB89E /* sound-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "sound-strings"; sourceTree = "<group>"; };
 		674F9BBA1B0A580E00704FFA /* async_router.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = async_router.cpp; sourceTree = "<group>"; };
@@ -647,7 +647,6 @@
 				67BD35F91C69F474003AA26F /* packed_polygons.bin */,
 				6742AD571C68C7F6009CB89E /* drules_proto_clear.bin */,
 				6742AD581C68C7F6009CB89E /* drules_proto_dark.bin */,
-				6742AD5A1C68C7F6009CB89E /* drules_proto-bw.bin */,
 				6742AD5B1C68C7F6009CB89E /* drules_proto.bin */,
 				6742AD551C68C7C1009CB89E /* types.txt */,
 				6742AD531C68BB14009CB89E /* classificator.txt */,
@@ -846,6 +845,8 @@
 				6741AA9B1BF35331002C974C /* turns_notification_manager.hpp */,
 				67C7D4251B4EB48F00FE41AA /* turns_sound_settings.cpp */,
 				67C7D4261B4EB48F00FE41AA /* turns_sound_settings.hpp */,
+				4652D9142BAA3C5600C71046 /* turns_tts_text_i18n.cpp */,
+				4652D9152BAA3C5600C71046 /* turns_tts_text_i18n.hpp */,
 				67AB92E11B7B3E6E00AB5194 /* turns_tts_text.cpp */,
 				67AB92E21B7B3E6E00AB5194 /* turns_tts_text.hpp */,
 				675344101A3F644F00A0A8C3 /* turns.cpp */,
@@ -891,6 +892,7 @@
 				0C5FEC631DDE192A0017688C /* joint_index.hpp in Headers */,
 				67C79BA21E2CEE1400C40034 /* restriction_loader.hpp in Headers */,
 				674F9BCB1B0A580E00704FFA /* async_router.hpp in Headers */,
+				4652D9172BAA3C5600C71046 /* turns_tts_text_i18n.hpp in Headers */,
 				0C08AA391DF8329B004195DD /* routing_exceptions.hpp in Headers */,
 				0C5BC9D21E28FD4E0071BFDD /* index_road_graph.hpp in Headers */,
 				0C470E701E0D4EB1005B824D /* segment.hpp in Headers */,
@@ -1116,7 +1118,6 @@
 				56F0D7501D896A5300045886 /* packed_polygons.bin in Resources */,
 				56F0D7521D896A5300045886 /* drules_proto_clear.bin in Resources */,
 				56F0D7531D896A5300045886 /* drules_proto_dark.bin in Resources */,
-				56F0D7561D896A5300045886 /* drules_proto-bw.bin in Resources */,
 				56F0D7571D896A5300045886 /* drules_proto.bin in Resources */,
 				56F0D7581D896A5300045886 /* types.txt in Resources */,
 				56F0D75A1D896A5300045886 /* classificator.txt in Resources */,
@@ -1128,7 +1129,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6742AD5F1C68C7FA009CB89E /* drules_proto-bw.bin in Resources */,
 				6742AD5C1C68C7FA009CB89E /* drules_proto_clear.bin in Resources */,
 				6742AD561C68C7D7009CB89E /* types.txt in Resources */,
 				6742AD541C68C77B009CB89E /* classificator.txt in Resources */,
@@ -1148,7 +1148,6 @@
 				67BD35FB1C69F49A003AA26F /* packed_polygons.bin in Resources */,
 				67BD35F01C69F447003AA26F /* drules_proto_clear.bin in Resources */,
 				67BD35F11C69F447003AA26F /* drules_proto_dark.bin in Resources */,
-				67BD35F31C69F447003AA26F /* drules_proto-bw.bin in Resources */,
 				67BD35F41C69F447003AA26F /* drules_proto.bin in Resources */,
 				67BD35F51C69F447003AA26F /* types.txt in Resources */,
 				67BD35F61C69F447003AA26F /* classificator.txt in Resources */,
@@ -1254,6 +1253,7 @@
 				4432C5B624067E6700C9E445 /* road_access_serialization.cpp in Sources */,
 				671F58BD1B874EC80032311E /* followed_polyline.cpp in Sources */,
 				670EE55D1B6001E7001E8064 /* routing_session.cpp in Sources */,
+				4652D9162BAA3C5600C71046 /* turns_tts_text_i18n.cpp in Sources */,
 				40C645161F8D167F002E05A0 /* fake_ending.cpp in Sources */,
 				0C08AA341DF83223004195DD /* index_graph_serialization.cpp in Sources */,
 				674F9BD41B0A580E00704FFA /* road_graph.cpp in Sources */,

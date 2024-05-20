@@ -219,7 +219,7 @@ public class RoutingPlanController extends ToolbarController
     UiUtils.invisible(mProgressVehicle, mProgressPedestrian, mProgressTransit,
                       mProgressBicycle, mProgressRuler);
     WheelProgressView progressView;
-    switch(router)
+    switch (router)
     {
     case Framework.ROUTER_TYPE_VEHICLE:
       mRouterTypes.check(R.id.vehicle);
@@ -306,7 +306,7 @@ public class RoutingPlanController extends ToolbarController
   {
     mDrivingOptionsBtnContainer.addOnLayoutChangeListener(mDriverOptionsLayoutListener);
     UiUtils.show(mDrivingOptionsBtnContainer);
-    boolean hasAnyOptions = RoutingOptions.hasAnyOptions();
+    boolean hasAnyOptions = RoutingOptions.hasAnyOptions() && !isRulerType();
     UiUtils.showIf(hasAnyOptions, mDrivingOptionsImage);
     TextView title = mDrivingOptionsBtnContainer.findViewById(R.id.driving_options_btn_title);
     title.setText(hasAnyOptions ? R.string.change_driving_options_btn

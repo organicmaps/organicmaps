@@ -2,10 +2,11 @@
 
 #include "drape_frontend/shape_view_params.hpp"
 
-#include "drape/utils/vertex_decl.hpp"
+#include "drape/font_constants.hpp"
 #include "drape/glsl_types.hpp"
 #include "drape/pointers.hpp"
 #include "drape/texture_manager.hpp"
+#include "drape/utils/vertex_decl.hpp"
 
 #include "geometry/spline.hpp"
 #include "geometry/screenbase.hpp"
@@ -27,17 +28,14 @@ namespace df
 class TextLayout
 {
 public:
-  virtual ~TextLayout() {}
+  virtual ~TextLayout() = default;
 
-  void Init(strings::UniString const & text,
-            float fontSize, bool isSdf,
-            ref_ptr<dp::TextureManager> textures);
+  void Init(strings::UniString && text, float fontSize, ref_ptr<dp::TextureManager> textures);
 
   ref_ptr<dp::Texture> GetMaskTexture() const;
   uint32_t GetGlyphCount() const;
   float GetPixelLength() const;
   float GetPixelHeight() const;
-  int GetFixedHeight() const { return m_fixedHeight; }
   strings::UniString const & GetText() const;
 
 protected:
@@ -46,14 +44,13 @@ protected:
   dp::TextureManager::TGlyphsBuffer m_metrics;
   strings::UniString m_text;
   float m_textSizeRatio = 0.0f;
-  int m_fixedHeight = dp::GlyphManager::kDynamicGlyphSize;
 };
 
 class StraightTextLayout : public TextLayout
 {
   using TBase = TextLayout;
 public:
-  StraightTextLayout(strings::UniString const & text, float fontSize, bool isSdf,
+  StraightTextLayout(strings::UniString const & text, float fontSize,
                      ref_ptr<dp::TextureManager> textures, dp::Anchor anchor, bool forceNoWrap);
 
   void CacheStaticGeometry(dp::TextureManager::ColorRegion const & colorRegion,
@@ -80,10 +77,9 @@ private:
   void Cache(TGenerator & generator) const
   {
     size_t beginOffset = 0;
-    for (std::pair<size_t, glsl::vec2> const & node : m_offsets)
+    for (auto const & [endOffset, coordinates] : m_offsets)
     {
-      size_t const endOffset = node.first;
-      generator.SetPenPosition(node.second);
+      generator.SetPenPosition(coordinates);
       for (size_t index = beginOffset; index < endOffset && index < m_metrics.size(); ++index)
         generator(m_metrics[index]);
       beginOffset = endOffset;
@@ -102,7 +98,7 @@ class PathTextLayout : public TextLayout
   using TBase = TextLayout;
 public:
   PathTextLayout(m2::PointD const & tileCenter, strings::UniString const & text,
-                 float fontSize, bool isSdf, ref_ptr<dp::TextureManager> textures);
+                 float fontSize, ref_ptr<dp::TextureManager> textures);
 
   void CacheStaticGeometry(dp::TextureManager::ColorRegion const & colorRegion,
                            dp::TextureManager::ColorRegion const & outlineRegion,

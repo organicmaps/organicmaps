@@ -40,11 +40,11 @@ std::map<NavigationSearchState, NSString *> const kSearchStateButtonImageNames{
   {NavigationSearchState::MinimizedATM, @"ic_routing_atm_off"}};
 
 std::map<NavigationSearchState, NSString *> const kSearchButtonRequest{
-  {NavigationSearchState::MinimizedGas, L(@"fuel")},
-  {NavigationSearchState::MinimizedParking, L(@"parking")},
-  {NavigationSearchState::MinimizedEat, L(@"eat")},
-  {NavigationSearchState::MinimizedFood, L(@"food")},
-  {NavigationSearchState::MinimizedATM, L(@"atm")}};
+  {NavigationSearchState::MinimizedGas, L(@"category_fuel")},
+  {NavigationSearchState::MinimizedParking, L(@"category_parking")},
+  {NavigationSearchState::MinimizedEat, L(@"category_eat")},
+  {NavigationSearchState::MinimizedFood, L(@"category_food")},
+  {NavigationSearchState::MinimizedATM, L(@"category_atm")}};
 
 BOOL defaultOrientation(CGSize const &size) {
   CGSize const &mapViewSize = [MapViewController sharedController].view.frame.size;
@@ -56,6 +56,7 @@ BOOL defaultOrientation(CGSize const &size) {
 @interface MWMNavigationInfoView () <MWMLocationObserver>
 
 @property(weak, nonatomic) IBOutlet UIView *streetNameView;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint *streetNameTopOffsetConstraint;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint *streetNameViewHideOffset;
 @property(weak, nonatomic) IBOutlet UILabel *streetNameLabel;
 @property(weak, nonatomic) IBOutlet UIView *turnsView;
@@ -336,6 +337,12 @@ BOOL defaultOrientation(CGSize const &size) {
   self.widthConstraint.active = YES;
   self.heightConstraint = [self.heightAnchor constraintEqualToConstant:ov.frame.size.height];
   self.heightConstraint.active = YES;
+  self.streetNameTopOffsetConstraint.constant = self.additionalStreetNameTopOffset;
+}
+
+// Additional spacing for devices with a small top safe area (such as SE or when the device is in landscape mode).
+- (CGFloat)additionalStreetNameTopOffset {
+  return MapsAppDelegate.theApp.window.safeAreaInsets.top <= 20 ? 10 : 0;;
 }
 
 - (void)refreshLayout {
@@ -358,6 +365,10 @@ BOOL defaultOrientation(CGSize const &size) {
         (defaultOrientation(availableArea.size) ? kSearchButtonsViewHeightPortrait
                                                 : kSearchButtonsViewHeightLandscape) /
         2;
+      if (@available(iOS 13.0, *)) {
+        self.searchButtonsView.layer.cornerCurve = kCACornerCurveContinuous;
+      }
+      self.streetNameTopOffsetConstraint.constant = self.additionalStreetNameTopOffset;
     }];
   });
 }

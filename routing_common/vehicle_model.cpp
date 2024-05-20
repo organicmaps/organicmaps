@@ -1,7 +1,6 @@
 #include "routing_common/vehicle_model.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/feature.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
 #include "base/assert.hpp"
@@ -69,9 +68,8 @@ void VehicleModel::AddAdditionalRoadTypes(Classificator const & classif, Additio
   }
 }
 
-std::optional<HighwayType> VehicleModel::GetHighwayType(FeatureType & f) const
+std::optional<HighwayType> VehicleModel::GetHighwayType(FeatureTypes const & types) const
 {
-  feature::TypesHolder const types(f);
   for (uint32_t t : types)
   {
     ftype::TruncValue(t, 2);
@@ -123,7 +121,7 @@ void VehicleModel::GetAdditionalRoadSpeed(uint32_t type, bool isCityRoad,
 }
 
 /// @note Saved speed |params| is taken into account only if isCar == true.
-SpeedKMpH VehicleModel::GetTypeSpeedImpl(feature::TypesHolder const & types, SpeedParams const & params, bool isCar) const
+SpeedKMpH VehicleModel::GetTypeSpeedImpl(FeatureTypes const & types, SpeedParams const & params, bool isCar) const
 {
   bool const isCityRoad = params.m_inCity;
   optional<HighwayType> hwType;
@@ -195,27 +193,17 @@ SpeedKMpH VehicleModel::GetTypeSpeedImpl(feature::TypesHolder const & types, Spe
   return speed * surfaceFactor;
 }
 
-bool VehicleModel::IsOneWay(FeatureType & f) const
-{
-  return HasOneWayType(feature::TypesHolder(f));
-}
-
-bool VehicleModel::HasOneWayType(feature::TypesHolder const & types) const
+bool VehicleModel::IsOneWay(FeatureTypes const & types) const
 {
   return types.Has(m_onewayType);
 }
 
-bool VehicleModel::IsRoad(FeatureType & f) const
+bool VehicleModel::IsRoad(FeatureTypes const & types) const
 {
-  return f.GetGeomType() == feature::GeomType::Line && IsRoadImpl(feature::TypesHolder(f));
+  return types.GetGeomType() == feature::GeomType::Line && IsRoadImpl(types);
 }
 
-bool VehicleModel::IsPassThroughAllowed(FeatureType & f) const
-{
-  return HasPassThroughType(feature::TypesHolder(f));
-}
-
-bool VehicleModel::HasPassThroughType(feature::TypesHolder const & types) const
+bool VehicleModel::IsPassThroughAllowed(FeatureTypes const & types) const
 {
   for (uint32_t t : types)
   {
@@ -239,7 +227,7 @@ bool VehicleModel::IsRoadType(uint32_t type) const
   return m_addRoadTypes.Find(type) || m_roadTypes.Find(type);
 }
 
-bool VehicleModel::IsRoadImpl(feature::TypesHolder const & types) const
+bool VehicleModel::IsRoadImpl(FeatureTypes const & types) const
 {
   for (uint32_t const t : types)
   {

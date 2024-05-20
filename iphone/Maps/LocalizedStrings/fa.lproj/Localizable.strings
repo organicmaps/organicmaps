@@ -50,7 +50,17 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "دانلود با شکست مواجه شد";
 
-"about_menu_title" = "Organic Maps درباره‌ی";
+/* Text in About screen */
+"about_headline" = "رایگان برای همه ، ساخته شده با عشق";
+
+/* Text in About screen */
+"about_proposition_1" = "• بدون تبلیغات ، ردیابی ، جمع آوری داده ها";
+
+/* Text in About screen */
+"about_proposition_2" = "• بدون تخلیه باتری، آفلاین کار می کند";
+
+/* Text in About screen */
+"about_proposition_3" = "• سریع، مینیمالیستی، توسعه یافته توسط انجمن";
 
 "close" = "بستن";
 
@@ -61,9 +71,6 @@
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "اضافه کردن مجموعه جدید";
-
-/* Bookmark Color dialog title */
-"bookmark_color" = "رنگ نشانه";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "Bookmark List Name";
@@ -92,74 +99,77 @@
 
 /********** Search categories **********/
 
-/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "کجا غذا بخوریم";
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
+"category_eat" = "کجا غذا بخوریم";
 
-/* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "عطاری";
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! */
+"category_food" = "عطاری";
 
-/* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "حمل و نقل";
+/* Search category for public transport; any changes should be duplicated in categories.txt @category_transport! */
+"category_transport" = "حمل و نقل";
 
-/* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "سوخت";
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
+"category_fuel" = "سوخت";
 
-/* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "پارکینگ";
+/* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
+"category_parking" = "پارکینگ";
 
-/* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "خرید کردن";
+/* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
+"category_shopping" = "خرید کردن";
 
-/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "دست دوم";
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
+"category_secondhand" = "دست دوم";
 
-/* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "هتل";
+/* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
+"category_hotel" = "هتل";
 
-/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "منظره";
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
+"category_tourism" = "منظره";
 
-/* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "سرگرمی";
+/* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
+"category_entertainment" = "سرگرمی";
 
-/* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "خود‌پرداز";
+/* Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! */
+"category_atm" = "خود‌پرداز";
 
-/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "تفریحات شبانه";
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! */
+"category_nightlife" = "تفریحات شبانه";
 
-/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "تعطیلات خانوادگی";
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! */
+"category_children" = "تعطیلات خانوادگی";
 
-/* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "بانک";
+/* Search category for banks; any changes should be duplicated in categories.txt @category_bank! */
+"category_bank" = "بانک";
 
-/* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "داروخانه";
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! */
+"category_pharmacy" = "داروخانه";
 
-/* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "بیمارستان";
+/* Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! */
+"category_hospital" = "بیمارستان";
 
-/* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "توالت";
+/* Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! */
+"category_toilet" = "توالت";
 
-/* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "صندوق پست";
+/* Search category for post offices; any changes should be duplicated in categories.txt @category_post! */
+"category_post" = "صندوق پست";
 
-/* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "پلیس";
+/* Search category for police; any changes should be duplicated in categories.txt @category_police! */
+"category_police" = "پلیس";
 
-/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "وای فای";
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
+"category_wifi" = "وای فای";
 
-/* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "بازیافت";
+/* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
+"category_recycling" = "بازیافت";
 
-/* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "آب";
+/* Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type */
+"category_water" = "آب";
 
-/* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV برای";
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
+"category_rv" = "RV برای";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
@@ -200,10 +210,7 @@
 "done" = "انجام شد";
 
 /* Prints version number in About dialog */
-"version" = "ورژن: %@";
-
-/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "OpenStreetMap: %@ داده‌های";
+"version" = "نسخه Organic Maps: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "مسیر";
@@ -217,8 +224,14 @@
 
 "pref_zoom_title" = "دکمه‌های بزرگنمایی";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "حالت شب";
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "ظاهری";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "نور";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "تاریک";
 
 /* Generic «Off» string */
 "off" = "خاموش";
@@ -240,6 +253,12 @@
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "دستور العمل صوتی";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "نام خیابان ها را اعلام کنید";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "وقتی فعال باشد، نام خیابان یا خروجی که باید به آن بپیچید با صدای بلند گفته می شود.";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "زبان صوت";
@@ -277,18 +296,6 @@
 "news" = "اخبار";
 
 /* Text in menu */
-"github" = "GitHub";
-
-/* Text in menu */
-"telegram" = "Telegram";
-
-/* Text in menu */
-"matrix" = "[Matrix]";
-
-/* Text in menu */
-"mastodon" = "Mastodon";
-
-/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -299,9 +306,6 @@
 
 /* Text in the editor */
 "vk" = "VK";
-
-/* Text in menu */
-"openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
 "rate_the_app" = "امتیاز به این اپلیکیشن";
@@ -315,14 +319,23 @@
 /* Button in the main menu */
 "donate" = "حمایت مالی";
 
-/* Button in the main Help dialog */
-"how_to_support_us" = "ﺪﯿﻨﮐ ﺖﯾﺎﻤﺣ ﻩﮊﻭﺮﭘ ﺯﺍ";
+/* Tex label above the Donate button */
+"donate_description" = "کمک مالی کنید تا بهترین نقشه ها را با هم بسازید!";
 
 /* Button in the main Help dialog */
 "copyright" = "حق نشر و کپی رایت";
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "گزارش خطا";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "داده های نقشه نادرست را گزارش یا اصلاح کنید";
+
+/* Button in the About screen */
+"volunteer" = "داوطلب شدن";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "دنبال کنید و با ما تماس بگیرید:";
 
 /* Alert text */
 "email_error_body" = "کلاینت ایمیل شما پیکربندی نشده است.لطفا آن را پیکربندی کنید یا از طریق دیگر با ما تماس بگیرید %@";
@@ -622,6 +635,8 @@
 
 "login" = "ورود";
 
+"login_osm" = "شوید OpenStreetMap وارد";
+
 "forgot_password" = "رمز عبور خود را فراموش کردید؟";
 
 "osm_account" = "حساب OSM";
@@ -696,6 +711,9 @@
 
 "editor_edit_place_name_hint" = "نام مکان";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "همانطور که به زبان محلی نوشته شده است";
+
 "editor_edit_place_category_title" = "دسته بندی";
 
 "whatsnew_editor_message_1" = "اضافه کردن مکان به نقشه و ویرایش آن مستقیما از طریق این اپلیکیشن.";
@@ -703,6 +721,9 @@
 "dialog_incorrect_feature_position" = "تغییر موقعیت";
 
 "message_invalid_feature_position" = "نمی توان شی ای در این مکان باشد";
+
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "داده های OpenStreetMap ایجاد شده توسط انجمن از %@. درباره نحوه ویرایش و به روز رسانی نقشه در OpenStreetMap.org بیشتر بیاموزید";
 
 "login_to_make_edits_visible" = "وارد شوید تا دیگر کاربران نیز بتوانند تغییرات ایجاد شده توسط شما را ببینند";
 
@@ -746,16 +767,6 @@
 
 "downloader_no_downloaded_maps_message" = "برای جست وجو یک مکان و استفاده از قابلیت ناوبری، نقشه‌ها را دانلود کنید.";
 
-/* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "آیا یافتن مکان‌تان را ادامه می دهید؟";
-
-/* Error that appears after certain time without location. */
-"current_location_unknown_message" = "مکان شما ناشناس مانده است.ممکن است شما داخل یک ساختمان یا تونل باشید.";
-
-"current_location_unknown_continue_button" = "ادامه";
-
-"current_location_unknown_stop_button" = "توقف";
-
 "current_location_unknown_error_title" = "مکان فعلیتان ناشناس است.";
 
 "current_location_unknown_error_message" = "خطایی در هنگام جست وجوی مکان شمارخ داده است.بررسی کنیید دستگاهتان به درستی کار می کند و دوباره تلاش کنید.";
@@ -770,6 +781,14 @@
 
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Select While Using the App";
+
+"location_services_disabled_on_device_2" = "2. Privacy را انتخاب کنید";
+
+"location_services_disabled_on_device_3" = "3. Location Services را انتخاب کنید";
+
+"location_services_disabled_on_device_4" = "4. Location Services را روشن کنید";
+
+"location_services_disabled_on_device_additional_message" = "یا به استفاده از نقشه های ارگانیک بدون موقعیت مکانی ادامه دهید";
 
 /* abbreviation for meters */
 "m" = "متر";
@@ -815,7 +834,7 @@
 
 "placepage_delete_bookmark_button" = "حذف نشانه";
 
-"editor_edits_sent_message" = "تغییر پیشنهادی شما ارسال شد";
+"editor_edits_sent_message" = "یادداشت شما به OpenStreetMap ارسال خواهد شد";
 
 "editor_comment_hint" = "اظهار نظر";
 
@@ -861,9 +880,6 @@
 "sharing_call_action_look" = "بررسی کنید";
 
 "recent_track_background_dialog_message" = "Organic Maps  از اطلاعات موقعیت مکانی شما در پس ضمینه برای ذخیره مسیر‌هایی که اخیرا سفر کرده اید استفاده می کند.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps یک برنامه نقشه آفلاین رایگان و منبع باز است. بدون تبلیغات بدون ردیابی اگر خطایی روی نقشه مشاهده کردید، لطفاً آن را در OpenStreetMap برطرف کنید. این پروژه توسط علاقه مندان در اوقات فراغت ما ایجاد می شود، بنابراین ما به بازخورد و پشتیبانی شما نیاز داریم.";
 
 "general_settings" = "تنظیمات عمومی";
 
@@ -925,6 +941,12 @@
 "start_from_my_position" = "شروع از";
 
 "profile_authorization_error" = "اوه، یک خطا وجود داشت سعی کنید دوباره وارد سیستم شوید";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "لطفاً به OpenStreetMap وارد شوید تا به طور خودکار تمام ویرایش های نقشه خود را آپلود کنید.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "اینجا";
 
 "core_entrance" = "ورودی";
 
@@ -1005,15 +1027,16 @@
 
 "speedcams_alert_title" = "دوربین‌های سرعت";
 
-/* Generic «Always» string */
-"always" = "همیشه";
-
-/* Generic «Never» string */
-"never" = "هرگز";
-
 "place_description_title" = "توضیحات محل";
 
-"speedcams_notice_message" = "خودکار- در صورتی که خطر تجاوز از سرعت مجاز وجود داشت، نسبت به دوربین‌های کنترل سرعت هشدار دهد\nهمیشه-همیشه درباره دوربین‌های کنترل سرعت هشدار دهد\nهرگز-هرگز درباره دوربین‌های کنترل سرعت هشدار ندهد";
+/* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
+"pref_tts_speedcams_auto" = "هشدار در مورد سرعت غیر مجاز";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "همیشه هشدار دهد";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "هرگز  هشدار ندهد";
 
 "power_managment_title" = "حالت ذخیره انرژی";
 
@@ -1120,6 +1143,8 @@
 "sort_distance" = "مرتب سازی بر اساس فاصله";
 
 "sort_date" = "مرتب سازی بر اساس تاریخ";
+
+"sort_name" = "به ترتیب نام";
 
 "week_ago_sorttype" = "یک هفته قبل";
 
@@ -1242,8 +1267,31 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Fa:About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "اکنون در حال استفاده از نقشه های ارگانیک در صفحه گوشی هستید";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "اکنون از نقشه های ارگانیک در صفحه ماشین استفاده می کنید";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "با تلفن ادامه دهید";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "به صفحه ماشین";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "پیاده روی";
+
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "صادر کردن همه نشان‌ها و مسیرها";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "تغییر رنگ";
+
+/* Main screen title "Map" displayed in the navigation back button's menu. */
+"map" = "نقشه";
+
+"drive_through" = "رانندگی از طریق";
 
 
 /********** Types **********/
@@ -1296,7 +1344,7 @@
 
 "type.amenity.bar" = "میکده";
 
-"type.amenity.bbq" = "مکان پیک نیک";
+"type.amenity.bbq" = "منقل کباب";
 
 "type.amenity.bench" = "سَکو";
 
@@ -1359,6 +1407,8 @@
 "type.amenity.doctors" = "کلینیک";
 
 "type.amenity.drinking_water" = "اب اشامیدنی";
+
+"type.drinking_water.yes" = "اب اشامیدنی";
 
 "type.amenity.driving_school" = "اموزشگاه رانندگی";
 
@@ -1539,7 +1589,17 @@
 
 "type.amenity.school" = "مدرسه";
 
+/* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "پناهگاه";
+
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "پناهگاه";
+
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
+"type.amenity.shelter.basic_hut" = "کلبه بیواک";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
+"type.amenity.shelter.lean_to" = "Lean-to Shelter";
 
 "type.amenity.public_bath" = "حمام عمومی";
 
@@ -1647,43 +1707,18 @@
 
 "type.boundary.administrative" = "Administrative Boundary";
 
-"type.boundary.administrative.10" = "Administrative Boundary";
-
-"type.boundary.administrative.11" = "Administrative Boundary";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "National Border";
 
-"type.boundary.administrative.3" = "Administrative Boundary";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Regional Boundary";
 
-"type.boundary.administrative.4" = "Administrative Boundary";
-
-"type.boundary.administrative.5" = "Administrative Boundary";
-
-"type.boundary.administrative.6" = "Administrative Boundary";
-
-"type.boundary.administrative.7" = "Administrative Boundary";
-
-"type.boundary.administrative.8" = "Administrative Boundary";
-
-"type.boundary.administrative.9" = "Administrative Boundary";
-
-"type.boundary.administrative.city" = "City Boundary";
-
-"type.boundary.administrative.country" = "National Border";
-
-"type.boundary.administrative.county" = "County Boundary";
-
-"type.boundary.administrative.municipality" = "Municipality Boundary";
-
-"type.boundary.administrative.nation" = "National Border";
-
-"type.boundary.administrative.region" = "Regional Boundary";
-
-"type.boundary.administrative.state" = "State Boundary";
-
-"type.boundary.administrative.suburb" = "Suburb Boundary";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Regional Boundary";
 
 "type.boundary.national_park" = "پارک ملی";
+
+"type.boundary.aboriginal_lands" = "سرزمین های بومی";
 
 "type.boundary.protected_area" = "منطقه حفاظت شده";
 
@@ -1955,7 +1990,7 @@
 
 "type.entrance.exit" = "خارج شوید";
 
-"type.fee.yes" = "💲";
+"type.fee.yes" = "$";
 
 "type.fee.no" = "رایگان";
 
@@ -2024,22 +2059,10 @@
 
 "type.highway.footway.crossing" = "محل عبور عابر پیاده";
 
-"type.highway.footway.alpine_hiking" = "مسیر";
-
 "type.highway.footway.area" = "مسیر";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "پل";
-
-"type.highway.footway.demanding_alpine_hiking" = "مسیر";
-
-"type.highway.footway.demanding_mountain_hiking" = "مسیر";
-
-"type.highway.footway.difficult_alpine_hiking" = "مسیر";
-
-"type.highway.footway.hiking" = "مسیر";
-
-"type.highway.footway.mountain_hiking" = "مسیر";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "تونل";
@@ -2074,26 +2097,20 @@
 
 "type.highway.path" = "مسیر";
 
-"type.highway.path.alpine_hiking" = "مسیر";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "مسیر";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "مسیر";
 
 "type.highway.path.bicycle" = "مسیر";
+
+"type.highway.footway.bicycle" = "مسیر";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "پل";
 
-"type.highway.path.demanding_alpine_hiking" = "مسیر";
-
-"type.highway.path.demanding_mountain_hiking" = "مسیر";
-
-"type.highway.path.difficult_alpine_hiking" = "مسیر";
-
-"type.highway.path.hiking" = "مسیر";
-
 "type.highway.path.horse" = "مسیر";
-
-"type.highway.path.mountain_hiking" = "مسیر";
-
-"type.highway.path.permissive" = "مسیر";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "تونل";
@@ -2216,17 +2233,7 @@
 
 "type.highway.track.grade1" = "جاده";
 
-"type.highway.track.grade2" = "جاده";
-
-"type.highway.track.grade3" = "جاده";
-
-"type.highway.track.grade4" = "جاده";
-
-"type.highway.track.grade5" = "جاده";
-
 "type.highway.track.no.access" = "جاده";
-
-"type.highway.track.permissive" = "جاده";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "تونل";
@@ -2436,8 +2443,6 @@
 
 "type.landuse.education" = "Educational Facility";
 
-"type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "زمین کشاورزی";
 
 "type.landuse.farmyard" = "Farmyard";
@@ -2508,11 +2513,11 @@
 
 "type.leisure.golf_course" = "زمین گلف";
 
+"type.leisure.miniature_golf" = "Minigolf";
+
 "type.leisure.hackerspace" = "فضای هکرها";
 
 "type.leisure.ice_rink" = "Ice Rink";
-
-"type.leisure.landscape_reserve" = "Landscape Reserve";
 
 "type.leisure.marina" = "Marina";
 
@@ -2618,7 +2623,14 @@
 
 "type.natural" = "طبیعت";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "سنگ برهنه";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "سنگریزه ها";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "اسکری";
 
 "type.natural.bay" = "خلیج";
 
@@ -3715,9 +3727,10 @@
 
 "type.tourism.aquarium" = "آکواریوم";
 
-"type.tourism.alpine_hut" = "Alpine Lodging";
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "اقامتگاه کوهستانی";
 
-"type.tourism.apartment" = "اپارتمان";
+"type.tourism.apartment" = "آپارتمان تعطیلات";
 
 "type.tourism.artwork" = "گردشگری";
 
@@ -3731,7 +3744,7 @@
 
 "type.tourism.attraction" = "گردشگری";
 
-"type.tourism.attraction.animal" = "گردشگری";
+"type.attraction.animal" = "محوطه حیوانات";
 
 "type.tourism.attraction.specified" = "گردشگری";
 
@@ -3739,7 +3752,8 @@
 
 "type.tourism.caravan_site" = "RV Park";
 
-"type.tourism.chalet" = "هتل";
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "کلبه تعطیلات";
 
 "type.tourism.gallery" = "گالری";
 
@@ -3767,12 +3781,13 @@
 
 "type.tourism.picnic_site" = "مکان پیک نیک";
 
-"type.tourism.resort" = "هتل";
+"type.leisure.resort" = "هتل";
 
 "type.tourism.theme_park" = "گردشگری";
 
 "type.tourism.viewpoint" = "گردشگری";
 
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "کلبه‌ی صحرایی";
 
 "type.tourism.zoo" = "گردشگری";
@@ -3814,8 +3829,6 @@
 "type.waterway.river" = "رودخانه";
 
 "type.waterway.river.tunnel" = "رودخانه";
-
-"type.waterway.riverbank" = "رودخانه";
 
 "type.waterway.stream" = "رودخانه";
 

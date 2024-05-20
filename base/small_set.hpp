@@ -2,7 +2,6 @@
 
 #include "base/assert.hpp"
 #include "base/bits.hpp"
-#include "base/macros.hpp"
 
 #include <cstdint>
 #include <iterator>

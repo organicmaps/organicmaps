@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmRecyclerFragment;
@@ -31,7 +31,6 @@ import app.organicmaps.bookmarks.data.BookmarkSharingResult;
 import app.organicmaps.bookmarks.data.CategoryDataSource;
 import app.organicmaps.bookmarks.data.SortedBlock;
 import app.organicmaps.bookmarks.data.Track;
-import app.organicmaps.intent.Factory;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.search.NativeBookmarkSearchListener;
 import app.organicmaps.search.SearchEngine;
@@ -80,7 +79,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private ViewGroup mSearchContainer;
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
-  private FloatingActionButton mFabViewOnMap;
+  private ExtendedFloatingActionButton mFabViewOnMap;
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private final RecyclerView.OnScrollListener mRecyclerListener = new RecyclerView.OnScrollListener()
@@ -518,7 +517,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
   private boolean isLastOwnedCategory()
   {
-    return BookmarkManager.INSTANCE.getCategories().size() == 1;
+    return BookmarkManager.INSTANCE.getCategoriesCount() == 1;
   }
 
   private void updateSortingProgressBar()
@@ -534,17 +533,12 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
     switch (adapter.getItemViewType(position))
     {
-      case BookmarkListAdapter.TYPE_SECTION:
-      case BookmarkListAdapter.TYPE_DESC:
+      case BookmarkListAdapter.TYPE_SECTION, BookmarkListAdapter.TYPE_DESC ->
+      {
         return;
-
-      case BookmarkListAdapter.TYPE_BOOKMARK:
-        onBookmarkClicked(position, intent, adapter);
-        break;
-
-      case BookmarkListAdapter.TYPE_TRACK:
-        onTrackClicked(position, intent, adapter);
-        break;
+      }
+      case BookmarkListAdapter.TYPE_BOOKMARK -> onBookmarkClicked(position, intent, adapter);
+      case BookmarkListAdapter.TYPE_TRACK -> onTrackClicked(position, intent, adapter);
     }
 
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

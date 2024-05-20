@@ -199,6 +199,15 @@ NSString *titleForButton(MWMActionBarButtonType type, BOOL isSelected) {
   [NSUserDefaults.standardUserDefaults setBool:true forKey:kUDDidHighlightRouteToButton];
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+  [super traitCollectionDidChange:previousTraitCollection];
+  if (@available(iOS 13.0, *)) {
+    if ([self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection])
+      // Update button for the current selection state.
+      [self.button setSelected:self.button.isSelected];
+  }
+}
+
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
   return [self pointInside:point withEvent:event] ? self.button : nil;
 }

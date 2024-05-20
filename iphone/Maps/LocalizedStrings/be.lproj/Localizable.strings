@@ -50,7 +50,17 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Памылка спампоўкі";
 
-"about_menu_title" = "Аб праграме Organic Maps";
+/* Text in About screen */
+"about_headline" = "Бясплатна для ўсіх, зроблена з любоўю";
+
+/* Text in About screen */
+"about_proposition_1" = "• Без рэкламы, без трэкінгу, без збору вашых даных";
+
+/* Text in About screen */
+"about_proposition_2" = "• Няма разрадкі батарэі, працуе ў аўтаномным рэжыме";
+
+/* Text in About screen */
+"about_proposition_3" = "• Хуткія, мінімалістычныя, распрацаваныя супольнасцю";
 
 "close" = "Закрыць";
 
@@ -61,9 +71,6 @@
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Дадаць спіс";
-
-/* Bookmark Color dialog title */
-"bookmark_color" = "Колер закладкі";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "Назва спісу закладак";
@@ -92,74 +99,77 @@
 
 /********** Search categories **********/
 
-/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "Дзе паесці";
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
+"category_eat" = "Дзе паесці";
 
-/* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Прадукты";
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! */
+"category_food" = "Прадукты";
 
-/* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "Транспарт";
+/* Search category for public transport; any changes should be duplicated in categories.txt @category_transport! */
+"category_transport" = "Транспарт";
 
-/* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "АЗС";
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
+"category_fuel" = "АЗС";
 
-/* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "Паркоўка";
+/* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
+"category_parking" = "Паркоўка";
 
-/* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Шопінг";
+/* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
+"category_shopping" = "Шопінг";
 
-/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "Сэканд-хэнд";
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
+"category_secondhand" = "Сэканд-хэнд";
 
-/* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "Гатэль";
+/* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
+"category_hotel" = "Гатэль";
 
-/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Славутасці";
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
+"category_tourism" = "Славутасці";
 
-/* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "Забавы";
+/* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
+"category_entertainment" = "Забавы";
 
-/* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "Банкамат";
+/* Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! */
+"category_atm" = "Банкамат";
 
-/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "Начное жыццё";
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! */
+"category_nightlife" = "Начное жыццё";
 
-/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Сямейны адпачынак";
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! */
+"category_children" = "Сямейны адпачынак";
 
-/* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "Банк";
+/* Search category for banks; any changes should be duplicated in categories.txt @category_bank! */
+"category_bank" = "Банк";
 
-/* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "Аптэка";
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! */
+"category_pharmacy" = "Аптэка";
 
-/* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "Бальніца";
+/* Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! */
+"category_hospital" = "Бальніца";
 
-/* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "Прыбіральня";
+/* Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! */
+"category_toilet" = "Прыбіральня";
 
-/* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "Пошта";
+/* Search category for post offices; any changes should be duplicated in categories.txt @category_post! */
+"category_post" = "Пошта";
 
-/* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "Паліцыя";
+/* Search category for police; any changes should be duplicated in categories.txt @category_police! */
+"category_police" = "Паліцыя";
 
-/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi";
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
+"category_wifi" = "WiFi";
 
-/* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "Перапрацоўка адходаў";
+/* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
+"category_recycling" = "Перапрацоўка адходаў";
 
-/* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "Вада";
+/* Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type */
+"category_water" = "Вада";
 
-/* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "Для аўтадамоў";
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
+"category_rv" = "Для аўтадамоў";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Вітаю!\n\nУ далучаным файле мае закладкі з праграмы Organic Maps. Калі ласка, адкрыйце іх, калі ў вас усталяваны Organic Maps. Калі не, спампуйце праграму для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!";
 
@@ -200,10 +210,7 @@
 "done" = "Гатова";
 
 /* Prints version number in About dialog */
-"version" = "Версія: %@";
-
-/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "Даныя OpenStreetMap: %@";
+"version" = "Версія Organic Maps: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Маршруты";
@@ -217,8 +224,14 @@
 
 "pref_zoom_title" = "Кнопкі маштабавання";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "Начны рэжым";
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Выгляд";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Светлы";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Цемны";
 
 /* Generic «Off» string */
 "off" = "Выключаны";
@@ -240,6 +253,12 @@
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Галасавыя інструкцыі";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Абвяшчаць назвы вуліц";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Калі ўключана, назва вуліцы або выезду, на які трэба павярнуць, будзе прамаўляцца ўслых.";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Мова агучвання";
@@ -277,18 +296,6 @@
 "news" = "Навіны";
 
 /* Text in menu */
-"github" = "GitHub";
-
-/* Text in menu */
-"telegram" = "Telegram";
-
-/* Text in menu */
-"matrix" = "[Matrix]";
-
-/* Text in menu */
-"mastodon" = "Mastodon";
-
-/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -299,9 +306,6 @@
 
 /* Text in the editor */
 "vk" = "VK";
-
-/* Text in menu */
-"openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
 "rate_the_app" = "Ацаніць праграму";
@@ -315,14 +319,23 @@
 /* Button in the main menu */
 "donate" = "Падтрымаць грашыма";
 
-/* Button in the main Help dialog */
-"how_to_support_us" = "Падтрымаць праект";
+/* Tex label above the Donate button */
+"donate_description" = "Падтрымайць, каб разам ствараць лепшыя карты!";
 
 /* Button in the main Help dialog */
 "copyright" = "Капірайт";
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Паведаміць аб памылцы";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Паведаміць або выправіць няправільныя дадзеныя на мапе";
+
+/* Button in the About screen */
+"volunteer" = "Стаць валанцёрам";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Падпісвайцеся і пішыце нам:";
 
 /* Alert text */
 "email_error_body" = "Паштовы кліент не наладжаны. Наладзьце яго альбо звяжыцеся з намі па адрасе %@ іншым чынам.";
@@ -622,6 +635,8 @@
 
 "login" = "Увайсці";
 
+"login_osm" = "Увайсці ў OpenStreetMap";
+
 "forgot_password" = "Забылі пароль?";
 
 "osm_account" = "Акаунт OSM";
@@ -696,6 +711,9 @@
 
 "editor_edit_place_name_hint" = "Назва месца";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "На мясцовай мове";
+
 "editor_edit_place_category_title" = "Катэгорыя";
 
 "whatsnew_editor_message_1" = "Стварайце на мапе новыя месцы і рэдагуйце існуючыя прама ў праграме.";
@@ -703,6 +721,9 @@
 "dialog_incorrect_feature_position" = "Змяніце месцазнаходжанне";
 
 "message_invalid_feature_position" = "Аб'ект не можа знаходзіцца тут";
+
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Створаныя супольнасцю даныя OpenStreetMap па стане на %@. Даведайцеся больш пра тое, як рэдагаваць і абнаўляць карту на OpenStreetMap.org";
 
 "login_to_make_edits_visible" = "Аўтарызуйцеся ў OpenStreetMap.org, каб іншыя карыстальнікі бачылі вашыя змены.";
 
@@ -746,16 +767,6 @@
 
 "downloader_no_downloaded_maps_message" = "Спампуйце мапы, каб шукаць месцы і карыстацца навігацыяй без інтэрнэту.";
 
-/* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "Працягнуць вызначэнне месцазнаходжання?";
-
-/* Error that appears after certain time without location. */
-"current_location_unknown_message" = "Месцазнаходжанне невядома. Магчыма вы ў будынку або ў танэлі.";
-
-"current_location_unknown_continue_button" = "Працягнуць";
-
-"current_location_unknown_stop_button" = "Спыніць";
-
 "current_location_unknown_error_title" = "Месцазнаходжанне невядома.";
 
 "current_location_unknown_error_message" = "Адбылася памылка пры пошуку месцазнаходжання. Праверце, што ваша прылада працуе як трэба, і паспрабуйце зноў.";
@@ -770,6 +781,14 @@
 
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Выберыце \"Падчас выкарыстання праграмы\"";
+
+"location_services_disabled_on_device_2" = "2. Абярыце Прыватнасць";
+
+"location_services_disabled_on_device_3" = "3. Выберыце Службы месцазнаходжання";
+
+"location_services_disabled_on_device_4" = "4. Уключыце Службы вызначэння месцазнаходжання";
+
+"location_services_disabled_on_device_additional_message" = "Або працягвайце выкарыстоўваць Organic Maps без месцазнаходжання";
 
 /* abbreviation for meters */
 "m" = "м";
@@ -815,7 +834,7 @@
 
 "placepage_delete_bookmark_button" = "Выдаліць закладку";
 
-"editor_edits_sent_message" = "Прапанаваныя вамі змены былі адпраўлены";
+"editor_edits_sent_message" = "Ваша нататка будзе адпраўлена ў OpenStreetMap";
 
 "editor_comment_hint" = "Каментарый…";
 
@@ -850,7 +869,7 @@
 
 "editor_share_to_all_dialog_message_2" = "Рэдактары OpenStreetMap правераць змены і звяжуцца з вамі, калі ў іх узнікнуць пытанні.";
 
-"navigation_stop_button" = "спыніць";
+"navigation_stop_button" = "Cпыніць";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Выключыць запіс вашага нядаўна пройдзенага маршрута?";
@@ -861,9 +880,6 @@
 "sharing_call_action_look" = "Паглядзі";
 
 "recent_track_background_dialog_message" = "Organic Maps выкарыстоўвае вашу геалакацыю ў фонавым рэжыме, каб запісваць ваш нядаўна пройдзены маршрут.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps — гэта хуткія і бясплатныя мапы без рэкламы, якія працуюць без інтэрнэту і не шпіёняць за вамі. Усе картаграфічныя даныя бяруцца з OpenStreetMap.org, там вы зможаце самастойна выпраўляць памылкі і дадаваць новыя аб'екты. Organic Maps — гэта праект з адкрытым зыходным кодам, які ствараецца энтузіястамі ў вольны час. Будзем рады вашай падтрымцы і зваротнай сувязі!";
 
 "general_settings" = "Агульныя налады";
 
@@ -925,6 +941,12 @@
 "start_from_my_position" = "Пачаць ад";
 
 "profile_authorization_error" = "Ой-ёй, здарылася памылка. Паспрабуйце аўтарызавацца зноў.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Калі ласка, увайдзіце ў OpenStreetMap, каб аўтаматычна загрузіць усе вашыя праўкі карты. Даведайцеся больш";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "тут";
 
 "core_entrance" = "Уваход";
 
@@ -1005,15 +1027,16 @@
 
 "speedcams_alert_title" = "Камеры хуткасці";
 
-/* Generic «Always» string */
-"always" = "Заўсёды";
-
-/* Generic «Never» string */
-"never" = "Ніколі";
-
 "place_description_title" = "Апісанне месца";
 
-"speedcams_notice_message" = "Аўтаматычна - Папярэджваць пра камеры хуткасці, калі ёсць рызыка перавышэння дазволенай хуткасці.\nЗаўсёды - Заўсёды папярэджваць пра камеры\nНіколі - Ніколі не папярэджваць пра камеры";
+/* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
+"pref_tts_speedcams_auto" = "Папярэджваць калі хуткасць перавышана";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Заўсёды папярэджваць";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Ніколі не папярэджваць";
 
 "power_managment_title" = "Рэжым захавання энергіі";
 
@@ -1120,6 +1143,8 @@
 "sort_distance" = "Сартаваць па адлегласці";
 
 "sort_date" = "Сартаваць па даце";
+
+"sort_name" = "Сартаваць па імені";
 
 "week_ago_sorttype" = "Тыдзень таму";
 
@@ -1242,8 +1267,31 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Вы выкарыстоўваеце Organic Maps на экране тэлефона";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Вы выкарыстоўваеце Organic Maps на экране аўтамабіля";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Працягнуць на тэлефоне";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "На экран аўто";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Актыўны адпачынак";
+
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Экспартаваць усе закладкі і трэкі";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "Змяніць колер";
+
+/* Main screen title "Map" displayed in the navigation back button's menu. */
+"map" = "Мапа";
+
+"drive_through" = "З акенцам для кіроўцаў";
 
 
 /********** Types **********/
@@ -1296,7 +1344,7 @@
 
 "type.amenity.bar" = "Bar";
 
-"type.amenity.bbq" = "Picnic Site";
+"type.amenity.bbq" = "Барбекю-грыль";
 
 "type.amenity.bench" = "Bench";
 
@@ -1359,6 +1407,8 @@
 "type.amenity.doctors" = "Doctor";
 
 "type.amenity.drinking_water" = "Drinking Water";
+
+"type.drinking_water.yes" = "Drinking Water";
 
 "type.amenity.driving_school" = "Аўташкола";
 
@@ -1539,7 +1589,17 @@
 
 "type.amenity.school" = "School";
 
-"type.amenity.shelter" = "Shelter";
+/* Weather shelter (including sun shelters and natural rock shelters). */
+"type.amenity.shelter" = "Навес";
+
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "Навес";
+
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
+"type.amenity.shelter.basic_hut" = "Хаціна-бівак";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
+"type.amenity.shelter.lean_to" = "Бівальны навес";
 
 "type.amenity.public_bath" = "Грамадская лазня";
 
@@ -1647,43 +1707,18 @@
 
 "type.boundary.administrative" = "Administrative Boundary";
 
-"type.boundary.administrative.10" = "Administrative Boundary";
-
-"type.boundary.administrative.11" = "Administrative Boundary";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "National Border";
 
-"type.boundary.administrative.3" = "Administrative Boundary";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Regional Boundary";
 
-"type.boundary.administrative.4" = "Administrative Boundary";
-
-"type.boundary.administrative.5" = "Administrative Boundary";
-
-"type.boundary.administrative.6" = "Administrative Boundary";
-
-"type.boundary.administrative.7" = "Administrative Boundary";
-
-"type.boundary.administrative.8" = "Administrative Boundary";
-
-"type.boundary.administrative.9" = "Administrative Boundary";
-
-"type.boundary.administrative.city" = "City Boundary";
-
-"type.boundary.administrative.country" = "National Border";
-
-"type.boundary.administrative.county" = "County Boundary";
-
-"type.boundary.administrative.municipality" = "Municipality Boundary";
-
-"type.boundary.administrative.nation" = "National Border";
-
-"type.boundary.administrative.region" = "Regional Boundary";
-
-"type.boundary.administrative.state" = "State Boundary";
-
-"type.boundary.administrative.suburb" = "Suburb Boundary";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Regional Boundary";
 
 "type.boundary.national_park" = "National Park";
+
+"type.boundary.aboriginal_lands" = "Тэрыторыі першабытнікаў";
 
 "type.boundary.protected_area" = "Запаведная зона";
 
@@ -1955,7 +1990,7 @@
 
 "type.entrance.exit" = "Выхад";
 
-"type.fee.yes" = "💲";
+"type.fee.yes" = "$";
 
 "type.fee.no" = "бясплатна";
 
@@ -2024,22 +2059,10 @@
 
 "type.highway.footway.crossing" = "Пешаходны пераход";
 
-"type.highway.footway.alpine_hiking" = "Path";
-
 "type.highway.footway.area" = "Foot Path";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Мост";
-
-"type.highway.footway.demanding_alpine_hiking" = "Path";
-
-"type.highway.footway.demanding_mountain_hiking" = "Path";
-
-"type.highway.footway.difficult_alpine_hiking" = "Path";
-
-"type.highway.footway.hiking" = "Path";
-
-"type.highway.footway.mountain_hiking" = "Path";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Тунэль";
@@ -2074,26 +2097,20 @@
 
 "type.highway.path" = "Path";
 
-"type.highway.path.alpine_hiking" = "Path";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Path";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Path";
 
 "type.highway.path.bicycle" = "Path";
+
+"type.highway.footway.bicycle" = "Path";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Мост";
 
-"type.highway.path.demanding_alpine_hiking" = "Path";
-
-"type.highway.path.demanding_mountain_hiking" = "Path";
-
-"type.highway.path.difficult_alpine_hiking" = "Path";
-
-"type.highway.path.hiking" = "Path";
-
 "type.highway.path.horse" = "Path";
-
-"type.highway.path.mountain_hiking" = "Path";
-
-"type.highway.path.permissive" = "Path";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Тунэль";
@@ -2216,24 +2233,14 @@
 
 "type.highway.track.grade1" = "Track";
 
-"type.highway.track.grade2" = "Track";
-
-"type.highway.track.grade3" = "Track";
-
-"type.highway.track.grade4" = "Track";
-
-"type.highway.track.grade5" = "Track";
-
 "type.highway.track.no.access" = "Track";
-
-"type.highway.track.permissive" = "Track";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Тунэль";
 
 "type.highway.traffic_signals" = "Traffic Lights";
 
-"type.highway.trunk" = "Trunk Road";
+"type.highway.trunk" = "Траса";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk.bridge" = "Мост";
@@ -2241,7 +2248,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk.tunnel" = "Тунэль";
 
-"type.highway.trunk_link" = "Trunk Road";
+"type.highway.trunk_link" = "З'езд з трасы";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk_link.bridge" = "Мост";
@@ -2285,7 +2292,7 @@
 
 "type.area_highway.track" = "Track";
 
-"type.area_highway.trunk" = "Trunk Road";
+"type.area_highway.trunk" = "Траса";
 
 "type.area_highway.unclassified" = "Minor Road";
 
@@ -2436,8 +2443,6 @@
 
 "type.landuse.education" = "Адукацыйныя ўстановы";
 
-"type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "Farmland";
 
 "type.landuse.farmyard" = "Farmyard";
@@ -2508,11 +2513,11 @@
 
 "type.leisure.golf_course" = "Golf Course";
 
+"type.leisure.miniature_golf" = "Мінігольф";
+
 "type.leisure.hackerspace" = "Хакерская прастора";
 
 "type.leisure.ice_rink" = "Ice Rink";
-
-"type.leisure.landscape_reserve" = "Landscape Reserve";
 
 "type.leisure.marina" = "Прычал";
 
@@ -2618,7 +2623,14 @@
 
 "type.natural" = "Прырода";
 
-"type.natural.bare_rock" = "Голая скала";
+/* A rocky land cover. */
+"type.natural.bare_rock" = "Каменная парода";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Галька";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Камяністая асып";
 
 "type.natural.bay" = "Заліў";
 
@@ -2674,7 +2686,7 @@
 
 "type.natural.saddle" = "Седлавіна";
 
-"type.natural.rock" = "Горная парода";
+"type.natural.rock" = "Камень";
 
 "type.natural.scrub" = "Зараснікі";
 
@@ -3469,7 +3481,7 @@
 
 "type.shop.department_store" = "Department Store";
 
-"type.shop.doityourself" = "Home Improvement Store";
+"type.shop.doityourself" = "Будаўнічы магазін";
 
 "type.shop.dry_cleaning" = "Dry Cleaner";
 
@@ -3501,7 +3513,7 @@
 
 "type.shop.hairdresser" = "Hairdresser";
 
-"type.shop.hardware" = "Будаўнічы магазін";
+"type.shop.hardware" = "Гаспадарчая крама";
 
 "type.shop.health_food" = "Крама здаровай ежы";
 
@@ -3715,9 +3727,10 @@
 
 "type.tourism.aquarium" = "Акварыум";
 
-"type.tourism.alpine_hut" = "Alpine Lodging";
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "Горны прытулак з абслугоўваннем";
 
-"type.tourism.apartment" = "Holiday Apartment";
+"type.tourism.apartment" = "Кватэра для адпачынку";
 
 "type.tourism.artwork" = "Artwork";
 
@@ -3731,7 +3744,7 @@
 
 "type.tourism.attraction" = "Attraction";
 
-"type.tourism.attraction.animal" = "Attraction";
+"type.attraction.animal" = "Вальера для жывёл";
 
 "type.tourism.attraction.specified" = "Attraction";
 
@@ -3739,7 +3752,8 @@
 
 "type.tourism.caravan_site" = "Кемпінг для аўтадамоў";
 
-"type.tourism.chalet" = "Chalet";
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "Катэдж для адпачынку";
 
 "type.tourism.gallery" = "Art Gallery";
 
@@ -3767,13 +3781,14 @@
 
 "type.tourism.picnic_site" = "Picnic Site";
 
-"type.tourism.resort" = "Resort";
+"type.leisure.resort" = "Resort";
 
 "type.tourism.theme_park" = "Theme Park";
 
 "type.tourism.viewpoint" = "Viewpoint";
 
-"type.tourism.wilderness_hut" = "Wilderness Hut";
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
+"type.tourism.wilderness_hut" = "Турыстычная хатка";
 
 "type.tourism.zoo" = "Zoo";
 
@@ -3814,8 +3829,6 @@
 "type.waterway.river" = "Рака";
 
 "type.waterway.river.tunnel" = "Рака";
-
-"type.waterway.riverbank" = "Рака";
 
 "type.waterway.stream" = "Рака";
 

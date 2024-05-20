@@ -18,7 +18,7 @@ UNIT_TEST(Results_Sorting)
   for (uint32_t i = 5; i != 0; --i)
   {
     search::Result res(m2::PointD::Zero(), {});
-    res.FromFeature({id, i}, 0, {});
+    res.FromFeature({id, i}, 0, 0, {});
     r.AddResultNoChecks(std::move(res));
   }
 

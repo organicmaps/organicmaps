@@ -12,9 +12,9 @@ class RefCounted
 public:
   virtual ~RefCounted() = default;
 
-  inline void IncRef() noexcept { ++m_refs; }
-  inline uint64_t DecRef() noexcept { return --m_refs; }
-  inline uint64_t NumRefs() const noexcept { return m_refs; }
+  void IncRef() noexcept { ++m_refs; }
+  uint64_t DecRef() noexcept { return --m_refs; }
+  uint64_t NumRefs() const noexcept { return m_refs; }
 
 protected:
   RefCounted() noexcept = default;
@@ -99,7 +99,7 @@ public:
   T * operator->() noexcept { return m_p; }
   T const * operator->() const noexcept { return m_p; }
 
-  inline operator bool() const noexcept { return m_p != nullptr; }
+  operator bool() const noexcept { return m_p != nullptr; }
 
 private:
   T * m_p = nullptr;

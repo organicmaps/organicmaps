@@ -11,17 +11,11 @@
 
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_source.hpp"
-#include "indexer/ftypes_matcher.hpp"
 #include "indexer/map_object.hpp"
 
 #include "geometry/point2d.hpp"
 
-#include "platform/utm_mgrs_utils.hpp"
-
-#include <memory>
-#include <optional>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace place_page
@@ -125,7 +119,7 @@ public:
   /// @returns true if Back API button should be displayed.
   bool HasApiUrl() const { return !m_apiUrl.empty(); }
   /// TODO: Support all possible Internet types in UI. @See MapObject::GetInternet().
-  bool HasWifi() const { return GetInternet() == osm::Internet::Wlan; }
+  bool HasWifi() const { return GetInternet() == feature::Internet::Wlan; }
   /// Should be used by UI code to generate cool name for new bookmarks.
   // TODO: Tune new bookmark name. May be add address or some other data.
   kml::LocalizableString FormatNewBookmarkName() const;
@@ -146,7 +140,7 @@ public:
   void SetTitlesForBookmark();
   void SetCustomNames(std::string const & title, std::string const & subtitle);
   void SetCustomNameWithCoordinates(m2::PointD const & mercator, std::string const & name);
-  void SetAddress(std::string const & address) { m_address = address; }
+  void SetAddress(std::string && address) { m_address = std::move(address); }
   void SetCanEditOrAdd(bool canEditOrAdd) { m_canEditOrAdd = canEditOrAdd; }
   void SetLocalizedWifiString(std::string const & str) { m_localizedWifiString = str; }
 
@@ -211,10 +205,10 @@ public:
   void SetMercator(m2::PointD const & mercator);
   std::vector<std::string> GetRawTypes() const { return m_types.ToObjectNames(); }
 
-  std::optional<ftypes::IsHotelChecker::Type> GetHotelType() const { return m_hotelType; }
+  bool IsHotel() const { return m_isHotel; }
 
-  void SetPopularity(uint8_t popularity) { m_popularity = popularity; }
-  uint8_t GetPopularity() const { return m_popularity; }
+  // void SetPopularity(uint8_t popularity) { m_popularity = popularity; }
+  // uint8_t GetPopularity() const { return m_popularity; }
   std::string const & GetPrimaryFeatureName() const { return m_primaryFeatureName; }
 
   void SetSelectedObject(df::SelectionShape::ESelectedObject selectedObject) { m_selectedObject = selectedObject; }
@@ -223,8 +217,6 @@ public:
 private:
   std::string FormatSubtitle(bool withType) const;
   std::string GetBookmarkName();
-  /// @returns empty string or GetStars() count of ★ symbol.
-  std::string FormatStars() const;
 
   place_page::BuildInfo m_buildInfo;
 
@@ -284,9 +276,9 @@ private:
   /// Feature status
   FeatureStatus m_featureStatus = FeatureStatus::Untouched;
 
-  std::optional<ftypes::IsHotelChecker::Type> m_hotelType;
+  bool m_isHotel = false;
 
-  uint8_t m_popularity = 0;
+  //uint8_t m_popularity = 0;
 
   std::string m_primaryFeatureName;
 

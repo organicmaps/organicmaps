@@ -50,7 +50,17 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Allalaadimine ebaõnnestus";
 
-"about_menu_title" = "Organic Maps kohta";
+/* Text in About screen */
+"about_headline" = "Free for everyone, made with love";
+
+/* Text in About screen */
+"about_proposition_1" = "• No ads, no tracking, no data collection";
+
+/* Text in About screen */
+"about_proposition_2" = "• Ei tühjenda akut, töötab võrguühenduseta";
+
+/* Text in About screen */
+"about_proposition_3" = "• Kiire, minimalistlik, kogukonna poolt välja töötatud";
 
 "close" = "Sulge";
 
@@ -61,9 +71,6 @@
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Lisa uus loetelu";
-
-/* Bookmark Color dialog title */
-"bookmark_color" = "Järjehoidja värv";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "Järjehoidjate loetelu nimi";
@@ -92,74 +99,77 @@
 
 /********** Search categories **********/
 
-/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "Kus süüa";
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
+"category_eat" = "Kus süüa";
 
-/* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Toidukaubad";
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! */
+"category_food" = "Toidukaubad";
 
-/* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "Transport";
+/* Search category for public transport; any changes should be duplicated in categories.txt @category_transport! */
+"category_transport" = "Transport";
 
-/* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Tanklad";
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
+"category_fuel" = "Tanklad";
 
-/* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "Parkla";
+/* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
+"category_parking" = "Parkla";
 
-/* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Poed";
+/* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
+"category_shopping" = "Poed";
 
-/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "Kasutatud";
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
+"category_secondhand" = "Kasutatud";
 
-/* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "Hotell";
+/* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
+"category_hotel" = "Hotell";
 
-/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Vaatamisväärsused";
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
+"category_tourism" = "Vaatamisväärsused";
 
-/* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "Meelelahutus";
+/* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
+"category_entertainment" = "Meelelahutus";
 
-/* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "Pangaautomaat";
+/* Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! */
+"category_atm" = "Pangaautomaat";
 
-/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "Ööelu";
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! */
+"category_nightlife" = "Ööelu";
 
-/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Perepuhkus";
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! */
+"category_children" = "Perepuhkus";
 
-/* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "Pank";
+/* Search category for banks; any changes should be duplicated in categories.txt @category_bank! */
+"category_bank" = "Pank";
 
-/* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "Apteek";
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! */
+"category_pharmacy" = "Apteek";
 
-/* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "Haigla";
+/* Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! */
+"category_hospital" = "Haigla";
 
-/* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "Tualett";
+/* Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! */
+"category_toilet" = "Tualett";
 
-/* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "Post";
+/* Search category for post offices; any changes should be duplicated in categories.txt @category_post! */
+"category_post" = "Post";
 
-/* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "Politsei";
+/* Search category for police; any changes should be duplicated in categories.txt @category_police! */
+"category_police" = "Politsei";
 
-/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi";
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
+"category_wifi" = "WiFi";
 
-/* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "Taaskasutus";
+/* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
+"category_recycling" = "Taaskasutus";
 
-/* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "Vesi";
+/* Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type */
+"category_water" = "Vesi";
 
-/* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "Haagiselamud";
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
+"category_rv" = "Haagiselamud";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Tere!\nManuses on minu järjehoidjad rakendusest Organic Maps. Palun ava need kui Sul on Organic Maps paigaldatud. Või kui ei ole, lae rakendus alla oma iOS või Android seadmesse, järgides seda linki: https:omaps.appget?kmz\n\nNaudi reisimist Organic Maps-iga!";
 
@@ -200,10 +210,7 @@
 "done" = "Valmis";
 
 /* Prints version number in About dialog */
-"version" = "Versioon: %@";
-
-/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "OpenStreetMap andmed: %@";
+"version" = "Organic Maps versioon: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Rajad";
@@ -217,8 +224,14 @@
 
 "pref_zoom_title" = "Zoomi nupud";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "Öörežiim";
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Välimus";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Valgus";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Tume";
 
 /* Generic «Off» string */
 "off" = "Väljas";
@@ -240,6 +253,12 @@
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Hääljuhised";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Teatage tänavanimed";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Kui see on lubatud, öeldakse valjusti tänava või väljasõidu nimi, millele pöörata.";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Hääle keel";
@@ -277,18 +296,6 @@
 "news" = "Uudised";
 
 /* Text in menu */
-"github" = "GitHub";
-
-/* Text in menu */
-"telegram" = "Telegram";
-
-/* Text in menu */
-"matrix" = "[Matrix]";
-
-/* Text in menu */
-"mastodon" = "Mastodon";
-
-/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -299,9 +306,6 @@
 
 /* Text in the editor */
 "vk" = "VK";
-
-/* Text in menu */
-"openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
 "rate_the_app" = "Hinda rakendust";
@@ -315,14 +319,23 @@
 /* Button in the main menu */
 "donate" = "Anneta";
 
-/* Button in the main Help dialog */
-"how_to_support_us" = "Toetage projekti";
+/* Tex label above the Donate button */
+"donate_description" = "Annetage, et ehitada koos parimaid kaarte!";
 
 /* Button in the main Help dialog */
 "copyright" = "Autoriõigused";
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Teata veast";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Teatada või parandada ebaõigeid kaardiandmeid";
+
+/* Button in the About screen */
+"volunteer" = "Vabatahtlikuks";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Jälgi ja võta meiega ühendust:";
 
 /* Alert text */
 "email_error_body" = "E-posti klienti ei ole seadistatud. Palun seadistage see või kasutage mõnda muud võimalust meiega ühenduse võtmiseks aadressil %@";
@@ -622,6 +635,8 @@
 
 "login" = "Logi sisse";
 
+"login_osm" = "Logi sisse OpenStreetMap-i";
+
 "forgot_password" = "Unustasid oma salasõna?";
 
 "osm_account" = "OSM konto";
@@ -696,6 +711,9 @@
 
 "editor_edit_place_name_hint" = "Koha nimi";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Nagu on kirjutatud kohalikus keeles";
+
 "editor_edit_place_category_title" = "Kategooria";
 
 "whatsnew_editor_message_1" = "Lisa kaardile uusi kohti ja muuda olemasolevaid otse rakenduses.";
@@ -703,6 +721,9 @@
 "dialog_incorrect_feature_position" = "Muuda asukohta";
 
 "message_invalid_feature_position" = "Ükski objekt ei saa siin asuda";
+
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Ühenduse loodud OpenStreetMapi andmed alates %@. Lisateave selle kohta, kuidas kaarti redigeerida ja uuendada, on aadressil OpenStreetMap.org.";
 
 "login_to_make_edits_visible" = "Logi sisse OpenStreetMap.org keskkonda, et teised kasutajad näeksid Sinu tehtud muudatusi.";
 
@@ -746,16 +767,6 @@
 
 "downloader_no_downloaded_maps_message" = "Lae alla kaardid asukoha otsimiseks ja võrguühenduseta navigeerimise kasutamiseks.";
 
-/* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "Jätka oma hetkeasukoha määramist?";
-
-/* Error that appears after certain time without location. */
-"current_location_unknown_message" = "Hetkeasukoht on teadmata. Võib-olla oled hoones sees või tunnelis.";
-
-"current_location_unknown_continue_button" = "Jätka";
-
-"current_location_unknown_stop_button" = "Lõpeta";
-
 "current_location_unknown_error_title" = "Hetkeasukoht on teadmata.";
 
 "current_location_unknown_error_message" = "Teie asukoha otsimisel ilmnes viga. Kontrollige, kas teie seade töötab korralikult ja proovige hiljem uuesti.";
@@ -770,6 +781,14 @@
 
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Vali \"Rakenduse kasutamise ajal\"";
+
+"location_services_disabled_on_device_2" = "2. Valige Privaatsus";
+
+"location_services_disabled_on_device_3" = "3. Valige Asukohateenused";
+
+"location_services_disabled_on_device_4" = "4. Lülitage sisse asukohateenused";
+
+"location_services_disabled_on_device_additional_message" = "Või jätkake Organic Maps kasutamist ilma asukohata";
 
 /* abbreviation for meters */
 "m" = "m";
@@ -815,7 +834,7 @@
 
 "placepage_delete_bookmark_button" = "Kustuta järjehoidja";
 
-"editor_edits_sent_message" = "Sinu soovitatud muudatused on saadetud";
+"editor_edits_sent_message" = "Teie märkus saadetakse OpenStreetMapile";
 
 "editor_comment_hint" = "Kommenteeri…";
 
@@ -850,7 +869,7 @@
 
 "editor_share_to_all_dialog_message_2" = "OpenStreetMap muutjad kontrollivad muudatused üle ja võtavad küsimuste korral Sinuga ühendust.";
 
-"navigation_stop_button" = "lõpeta";
+"navigation_stop_button" = "Lõpeta";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Keela oma hiljuti läbitud marsruudi salvestamine?";
@@ -861,9 +880,6 @@
 "sharing_call_action_look" = "Vaata järele";
 
 "recent_track_background_dialog_message" = "Organic Maps kasutab Sinu geograafilist asukohta taustal Sinu hiljuti läbitud teekonna salvestamiseks.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps on kiire ja tasuta võrguühenduseta kaartide rakendus ilma reklaamide ja jälgimiseta. Kaardid põhinevad vabatahtlike loodud OpenStreetMap.org-i andmetel, nii et saate kaardistamise vigu parandada ja ise funktsioone lisada. Organic Maps on avatud lähtekoodiga projekt, mille on loonud entusiastid oma vabast ajast. Teie tagasiside ja toetus on väga teretulnud!";
 
 "general_settings" = "Üldseaded";
 
@@ -925,6 +941,12 @@
 "start_from_my_position" = "Alusta kohast";
 
 "profile_authorization_error" = "Vabandust, tekkis viga. Proovi uuesti sisse logida.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Palun logige sisse OpenStreetMap'i, et laadida automaatselt üles kõik oma kaarditööd. Lisateave";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "kuskil";
 
 "core_entrance" = "Sissepääs";
 
@@ -1005,15 +1027,16 @@
 
 "speedcams_alert_title" = "Kiiruskaamerad";
 
-/* Generic «Always» string */
-"always" = "Alati";
-
-/* Generic «Never» string */
-"never" = "Mitte kunagi";
-
 "place_description_title" = "Koha kirjeldus";
 
-"speedcams_notice_message" = "Automaatne - kiiruskaamerate hoiatused, kui on oht ületada piirkiirust\nAlati - hoiata alati kiiruskaamerate eest\nMitte kunagi - ära kunagi hoiata kiiruskaamerate eest";
+/* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
+"pref_tts_speedcams_auto" = "Hoiatused kui on oht ületada piirkiirust";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Hoiata alati eest";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Ära kunagi hoiata eest";
 
 "power_managment_title" = "Energiasäästlik režiim";
 
@@ -1120,6 +1143,8 @@
 "sort_distance" = "Sorteeri kauguse järgi";
 
 "sort_date" = "Sorteeri kuupäeva järgi";
+
+"sort_name" = "Sorteeri nime järgi";
 
 "week_ago_sorttype" = "Nädal tagasi";
 
@@ -1242,8 +1267,31 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Nüüd kasutate telefoni ekraanil Organic Maps";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Nüüd kasutate auto ekraanil Organic Maps";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Jätka telefonis";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Auto ekraanile";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Matkamine";
+
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Ekspordi kõik järjehoidjad ja lood";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "Värvi muutmine";
+
+/* Main screen title "Map" displayed in the navigation back button's menu. */
+"map" = "Kaart";
+
+"drive_through" = "Läbi sõit";
 
 
 /********** Types **********/
@@ -1296,7 +1344,7 @@
 
 "type.amenity.bar" = "Baar";
 
-"type.amenity.bbq" = "Piknikuala";
+"type.amenity.bbq" = "Grillgrill";
 
 "type.amenity.bench" = "Pink";
 
@@ -1359,6 +1407,8 @@
 "type.amenity.doctors" = "Arst";
 
 "type.amenity.drinking_water" = "Joogivesi";
+
+"type.drinking_water.yes" = "Joogivesi";
 
 "type.amenity.driving_school" = "Autokool";
 
@@ -1539,7 +1589,17 @@
 
 "type.amenity.school" = "Kool";
 
+/* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "Varjupaik";
+
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "Varjupaik";
+
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
+"type.amenity.shelter.basic_hut" = "Vivouac-küünla";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
+"type.amenity.shelter.lean_to" = "Lean-to Shelter";
 
 "type.amenity.public_bath" = "Avalik vann";
 
@@ -1647,43 +1707,18 @@
 
 "type.boundary.administrative" = "Halduspiir";
 
-"type.boundary.administrative.10" = "Halduspiir";
-
-"type.boundary.administrative.11" = "Halduspiir";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "Riigipiir";
 
-"type.boundary.administrative.3" = "Halduspiir";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Piirkondlik piir";
 
-"type.boundary.administrative.4" = "Halduspiir";
-
-"type.boundary.administrative.5" = "Halduspiir";
-
-"type.boundary.administrative.6" = "Halduspiir";
-
-"type.boundary.administrative.7" = "Halduspiir";
-
-"type.boundary.administrative.8" = "Halduspiir";
-
-"type.boundary.administrative.9" = "Halduspiir";
-
-"type.boundary.administrative.city" = "Linna piir";
-
-"type.boundary.administrative.country" = "Riigipiir";
-
-"type.boundary.administrative.county" = "Maakonna piir";
-
-"type.boundary.administrative.municipality" = "Valla piir";
-
-"type.boundary.administrative.nation" = "Riigipiir";
-
-"type.boundary.administrative.region" = "Piirkondlik piir";
-
-"type.boundary.administrative.state" = "Osariigi piir";
-
-"type.boundary.administrative.suburb" = "Eeslinna piir";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Piirkondlik piir";
 
 "type.boundary.national_park" = "Rahvuspark";
+
+"type.boundary.aboriginal_lands" = "Põlisrahvaste maad";
 
 "type.boundary.protected_area" = "Kaitseala";
 
@@ -1955,7 +1990,7 @@
 
 "type.entrance.exit" = "Väljumine";
 
-"type.fee.yes" = "💲";
+"type.fee.yes" = "$";
 
 "type.fee.no" = "Tasuta";
 
@@ -2024,22 +2059,10 @@
 
 "type.highway.footway.crossing" = "Jalakäijate ülekäigurada";
 
-"type.highway.footway.alpine_hiking" = "Alpi matkarada";
-
 "type.highway.footway.area" = "Jalakäijate ala";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Jalakäijate sild";
-
-"type.highway.footway.demanding_alpine_hiking" = "Nõudlik alpi matkarada";
-
-"type.highway.footway.demanding_mountain_hiking" = "Rada";
-
-"type.highway.footway.difficult_alpine_hiking" = "Nõudlik mägimatkarada";
-
-"type.highway.footway.hiking" = "Rada";
-
-"type.highway.footway.mountain_hiking" = "Mägirada";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Jalakäijate tunnel";
@@ -2074,26 +2097,20 @@
 
 "type.highway.path" = "Rada";
 
-"type.highway.path.alpine_hiking" = "Alpi matkarada";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Rada";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Rada";
 
 "type.highway.path.bicycle" = "Jalgratta- ja jalgtee";
+
+"type.highway.footway.bicycle" = "Jalgratta- ja jalgtee";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Sild";
 
-"type.highway.path.demanding_alpine_hiking" = "Nõudlik alpi matkarada";
-
-"type.highway.path.demanding_mountain_hiking" = "Nõudlik mägimatkarada";
-
-"type.highway.path.difficult_alpine_hiking" = "Raske alpi matkarada";
-
-"type.highway.path.hiking" = "Rada";
-
 "type.highway.path.horse" = "Valjarada";
-
-"type.highway.path.mountain_hiking" = "Mägitee";
-
-"type.highway.path.permissive" = "Rada";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Tunnel";
@@ -2216,17 +2233,7 @@
 
 "type.highway.track.grade1" = "Rada";
 
-"type.highway.track.grade2" = "Rada";
-
-"type.highway.track.grade3" = "Rada";
-
-"type.highway.track.grade4" = "Rada";
-
-"type.highway.track.grade5" = "Rada";
-
 "type.highway.track.no.access" = "Rada";
-
-"type.highway.track.permissive" = "Rada";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunnel";
@@ -2436,8 +2443,6 @@
 
 "type.landuse.education" = "Haridusrajatised";
 
-"type.landuse.farm" = "Talu";
-
 "type.landuse.farmland" = "Talumaa";
 
 "type.landuse.farmyard" = "Taluõu";
@@ -2508,11 +2513,11 @@
 
 "type.leisure.golf_course" = "Golfirada";
 
+"type.leisure.miniature_golf" = "Minigolf";
+
 "type.leisure.hackerspace" = "Hackerspace";
 
 "type.leisure.ice_rink" = "Liuväli";
-
-"type.leisure.landscape_reserve" = "Maastikukaitseala";
 
 "type.leisure.marina" = "Marina";
 
@@ -2618,7 +2623,14 @@
 
 "type.natural" = "Loodus";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "Paljas kivi";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Pebbles";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Kiviklibu";
 
 "type.natural.bay" = "Laht";
 
@@ -3715,9 +3727,10 @@
 
 "type.tourism.aquarium" = "Akvaarium";
 
-"type.tourism.alpine_hut" = "Mägimajutus";
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "Mägimajake";
 
-"type.tourism.apartment" = "Korterid";
+"type.tourism.apartment" = "Puhkuse korter";
 
 "type.tourism.artwork" = "Kunstiteos";
 
@@ -3731,7 +3744,7 @@
 
 "type.tourism.attraction" = "Turismiatraktsioon";
 
-"type.tourism.attraction.animal" = "Loomade aedik";
+"type.attraction.animal" = "Loomade aedik";
 
 "type.tourism.attraction.specified" = "Turismiatraktsioon";
 
@@ -3739,7 +3752,8 @@
 
 "type.tourism.caravan_site" = "Haagiselamute park";
 
-"type.tourism.chalet" = "Suvila";
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "Puhkemaja";
 
 "type.tourism.gallery" = "Galerii";
 
@@ -3767,12 +3781,13 @@
 
 "type.tourism.picnic_site" = "Piknikukoht";
 
-"type.tourism.resort" = "Kuurort";
+"type.leisure.resort" = "Kuurort";
 
 "type.tourism.theme_park" = "Teemapark";
 
 "type.tourism.viewpoint" = "Vaatluskoht";
 
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "Loodusonn";
 
 "type.tourism.zoo" = "Loomaaed";
@@ -3814,8 +3829,6 @@
 "type.waterway.river" = "Jõgi";
 
 "type.waterway.river.tunnel" = "Jõgi";
-
-"type.waterway.riverbank" = "Jõgi";
 
 "type.waterway.stream" = "Oja";
 

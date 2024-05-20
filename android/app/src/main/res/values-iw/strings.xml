@@ -41,9 +41,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• ללא מודעות, ללא מעקב, ללא איסוף נתונים</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• חוסך בסוללה, אינו משתמש בנתוני רקע</string>
+	<string name="about_proposition_2">• אין ריקון סוללה, עובד במצב לא מקוון</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• מהיר, מינימליסטי, ללא זבל</string>
+	<string name="about_proposition_3">• מהיר, מינימליסטי, שפותח על ידי הקהילה</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">אפליקציית קוד פתוח שנוצרה על ידי חובבים ומתנדבים.</string>
 	<!-- The button that opens system location settings -->
@@ -114,50 +114,52 @@
 	<string name="measurement_units_summary">בחר בין מיילים לקילומטרים</string>
 
 	<!-- SECTION: Search categories -->
-	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">איפה לאכול</string>
-	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">מצרכים</string>
-	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">תחבורה</string>
-	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">דלק</string>
-	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">חניה</string>
-	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">קניות</string>
-	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">יד שניה</string>
-	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">בית מלון</string>
-	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">נקודות עיניין</string>
-	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">בידור</string>
-	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">כספומט</string>
-	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">חיי לילה</string>
-	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">שעשועים</string>
-	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">בנק</string>
-	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">בית מרקחת</string>
-	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">בית חולים</string>
-	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">שירותים</string>
-	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">דואר</string>
-	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">משטרה</string>
-	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">מיחזור</string>
-	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">מים</string>
-	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">עבור קרוואנים</string>
+	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+	<string name="category_eat">איפה לאכול</string>
+	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+	<string name="category_food">מצרכים</string>
+	<!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+	<string name="category_transport">תחבורה</string>
+	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+	<string name="category_fuel">דלק</string>
+	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+	<string name="category_parking">חניה</string>
+	<!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+	<string name="category_shopping">קניות</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
+	<string name="category_secondhand">יד שניה</string>
+	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+	<string name="category_hotel">בית מלון</string>
+	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+	<string name="category_tourism">נקודות עיניין</string>
+	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
+	<string name="category_entertainment">בידור</string>
+	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+	<string name="category_atm">כספומט</string>
+	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+	<string name="category_nightlife">חיי לילה</string>
+	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+	<string name="category_children">שעשועים</string>
+	<!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+	<string name="category_bank">בנק</string>
+	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+	<string name="category_pharmacy">בית מרקחת</string>
+	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+	<string name="category_hospital">בית חולים</string>
+	<!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+	<string name="category_toilet">שירותים</string>
+	<!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+	<string name="category_post">דואר</string>
+	<!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+	<string name="category_police">משטרה</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+	<string name="category_recycling">מיחזור</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+	<string name="category_water">מים</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+	<string name="category_rv">עבור קרוואנים</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">הערות</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -169,6 +171,10 @@
 	<string name="load_kmz_successful">הסימניות נטענו בהצלחה! ניתן למצוא אותם על המפה או במסך ניהול הסימניות.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">טעינת הסימניות נכשלה. יתכן שהקובץ פגום.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">סוג הקובץ אינו מזוהה על ידי האפליקציה:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">נכשל בפתיחת הקובץ %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">ערוך</string>
 	<!-- Warning message when doing search around current position -->
@@ -225,6 +231,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">הגדרת מבנים בתלת מימד מבוטלת במצב חיסכון בחשמל</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">הנחיות קוליות</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">הכריזו על שמות רחובות</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">כאשר מופעל, שם הרחוב או היציאה שאליו יש לפנות יוקרא בקול.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">שפת קול</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -426,7 +436,7 @@
 	<string name="edit_opening_hours">עריכת שעות פעילות</string>
 	<string name="no_osm_account">אין לך חשבון OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">הירשם ב-OpenStreetMap</string>
-	<string name="login">כניסה ל-OpenStreetMap</string>
+	<string name="login">כניסה</string>
 	<string name="login_osm">היכנס ל-OpenStreetMap</string>
 	<string name="password">סיסמה</string>
 	<string name="forgot_password">שכחת סיסמה?</string>
@@ -463,13 +473,15 @@
 	<string name="editor_edit_place_title">עריכת מקום</string>
 	<string name="editor_add_place_title">הוספת מקום</string>
 	<string name="editor_edit_place_name_hint">שם המקום</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">כפי שנכתב בשפה המקומית</string>
 	<string name="editor_edit_place_category_title">קטגוריה</string>
 	<string name="detailed_problem_description">תאור מפורט של הבעיה</string>
 	<string name="editor_report_problem_other_title">בעיה אחרת</string>
 	<string name="placepage_add_business_button">הוסף בית עסק</string>
 	<string name="message_invalid_feature_position">לא ניתן למקם כאן פריט</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">נתונים קרטוגרפיים מ-OpenStreetMap נכון לתאריך %s. OSM זה כמו ויקיפדיה למפות, בו תוכלו להוסיף או לערוך מקומות לכל המשתמשים ברחבי העולם.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">נתוני OpenStreetMap שנוצרו על ידי הקהילה החל מ-%s. למידע נוסף על איך לערוך ולעדכן את המפה ב-OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">התחברו ל-openstreetmap.org כדי לפרסם את השינויים שלכם לעולם.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d מתוך %2$d</string>
@@ -488,14 +500,10 @@
 	<string name="editor_detailed_description">ההצעות שלך לשינוי המפה יישלחו לקהילת OpenStreetMap. יש לתאר פרטים נוספים שלא ניתן לערוך ב-Organic Maps.</string>
 	<string name="editor_more_about_osm">עוד על OpenStreetMap</string>
 	<string name="editor_operator">בעלים</string>
+	<string name="editor_category_unsuitable_title">לא מוצאים קטגוריה מתאימה?</string>
+	<string name="editor_category_unsuitable_text">באמצעות Organic Maps ניתן להוסיף קטגוריות נקודה פשוטות בלבד, כלומר לא ניתן להוסיף עיירות, כבישים, אגמים, מבנים וכו\'. אנא הוסיפו קטגוריות כאלה ישירות ל-<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. עיינו <a href="https://organicmaps.app/faq/editing/advanced-map-editing">במדריך</a> שלנו לקבלת הוראות מפורטות.</string>
 	<string name="downloader_no_downloaded_maps_title">לא הורדת אף מפה</string>
 	<string name="downloader_no_downloaded_maps_message">הורד מפה כדי לחפש ולנווט ללא חיבור לאינטרנט.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">להמשיך לאתר את המיקום שלך?</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">לא ניתן לזהות את המיקום הנוכחי שלך. ייתכן שאתה בתוך מבנה או במנהרה. האם להמשיך לנסות לאתר את המיקום שלך?</string>
-	<string name="current_location_unknown_continue_button">המשך</string>
-	<string name="current_location_unknown_stop_button">הפסק</string>
 	<!-- abbreviation for meters -->
 	<string name="m">מ׳</string>
 	<!-- abbreviation for kilometers -->
@@ -572,6 +580,8 @@
 	<string name="routing_add_finish_point">יש להוסיף יעד כדי לתכנן מסלול</string>
 	<string name="placepage_remove_stop">הסרה</string>
 	<string name="placepage_add_stop">הוסף תחנה</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">התחבר ל-OpenStreetMap כדי להעלות אוטומטית את כל עריכות המפה שלך. למידע נוסף <a href="https://github.com/organicmaps/organicmaps/issues/6144">כאן</a>.</string>
 	<string name="dialog_error_storage_title">בעיית גישה לאחסון</string>
 	<string name="dialog_error_storage_message">לא ניתן לגשת לאחסון החיצוני. ייתכן כי כרטיס הזיכרון הוסר, נפגם, או שמערכת הקבצים היא לקריאה בלבד. נא לבדוק את כרטיס הזיכרון או ליצור איתנו קשר בכתובת support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">בצע אמולציה לאחסון רע</string>
@@ -629,13 +639,15 @@
 	<string name="bookmark_list_description_hint">הזן תיאור (טקסט או HTML)</string>
 	<string name="not_shared">פרטי</string>
 	<string name="speedcams_alert_title">מצלמות מהירות</string>
-	<!-- Generic «Always» string -->
-	<string name="always">תמיד</string>
-	<!-- Generic «Never» string -->
-	<string name="never">אף פעם</string>
 	<string name="place_description_title">תיאור מיקום</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">מוריד המפות</string>
+	<!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+	<string name="pref_tts_speedcams_auto">הזהר כשהמהירות מופרזת</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">הזהר  תמיד</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">אל תזהיר אף פעם</string>
 	<string name="power_managment_title">מצב חיסכון בסוללה</string>
 	<string name="power_managment_description">נסה להפחית שימוש בסוללה על חשבון פונקציות מסוימות</string>
 	<string name="power_managment_setting_never">אף פעם</string>
@@ -682,6 +694,8 @@
 	<string name="by_distance">לפי מרחק</string>
 	<!-- Android -->
 	<string name="by_date">לפי תאריך</string>
+	<!-- Android -->
+	<string name="by_name">לפי שם</string>
 	<string name="week_ago_sorttype">לפני שבוע</string>
 	<string name="month_ago_sorttype">לפני חודש</string>
 	<string name="moremonth_ago_sorttype">לפני יותר מחודש</string>
@@ -740,18 +754,36 @@
 	<string name="enable_show_on_lock_screen_description">כאשר מופעל, האפליקציה תעבוד במסך הנעילה אפילו כשהמכשיר נעול.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">נתוני מפה מ-OpenStreetMap</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">תודה על השימוש במפות שנבנו בקהילה שלנו!</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">אתה משתמש כעת ב-Organic Maps במסך הטלפון</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">עם התרומות והתמיכה שלך, נוכל ליצור את המפות הטובות בעולם!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">האם אתה אוהב את האפליקציה שלנו? אנא תרמו כדי לתמוך בפיתוח! לא אוהב את זה עדיין? אנא הודע לנו, ואנחנו נתקן את זה!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">אם אתה מכיר מפתח תוכנה, אתה יכול לבקש ממנו ליישם תכונה שאתה צריך.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">האם אתה יודע שאתה יכול ללחוץ ארוכות על כל מקום במפה כדי לבחור אותו?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">האם אתה יודע שאתה יכול לבחור את המיקום הנוכחי שלך על המפה?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">אתה יכול לעזור לתרגם את האפליקציה שלנו לשפה שלך.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">האפליקציה שלנו פותחה על ידי כמה חובבים והקהילה.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">אתה יכול בקלות לתקן ולשפר את נתוני המפה.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">המטרה העיקרית שלנו היא לבנות מפות מהירות, ממוקדות פרטיות, קלות לשימוש שתאהבו.</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">אתה משתמש כעת ב-Organic Maps במסך הטלפון</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">אתה משתמש כעת ב-Organic Maps במסך המכונית</string>
+	<string name="car_used_on_the_car_screen">אתה משתמש כעת ב-Organic Maps במסך המכונית</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">אתה מחובר ל-Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">המשך בטלפון</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">למסך המכונית</string>
+	<string name="car_continue_on_the_phone">המשך בטלפון</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">למסך המכונית</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">יישום זה דורש גישה למיקום שלך למטרות ניווט.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -762,13 +794,28 @@
 	<string name="button_layer_outdoor">טיול רגלי</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">דפדפן אינטרנט אינו זמין</string>
-	<!-- Text displayed in a dialog when OSM authorization is disabled -->
-	<string name="osm_login_not_available">התחברות ל-OpenStreetMap לא אפשרית באופן זמני עקב הגבלות חדשות ב-Google Play 😾\nהצוות שלנו עובד על מנת לפתור את הבעיה. אנא התאזרו בסבלנות 🙏</string>
+	<string name="volume">כרך</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">ייצא את כל הסימניות והרצועות</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">הגדרות סינתזת דיבור במערכת</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">הגדרות סינתזת דיבור לא נמצאו, האם אתה בטוח שהמכשיר שלך תומך בזה?</string>
+	<string name="drive_through">דרייב ת\'רו</string>
+	<string name="clear_the_search">נקה את החיפוש</string>
+	<string name="zoom_in">לְהִתְמַקֵד</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">להקטין את התצוגה</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">קישור לתפריט</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">תפריט תצוגה</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">כתובת/חסימה</string>
 	<string name="type.addr_interpolation.even">כתובת/חסימה</string>
 	<string name="type.addr_interpolation.odd">כתובת/חסימה</string>
+	<string name="type.amenity.bbq">מנגל</string>
 	<string name="type.amenity.gambling">הימורים</string>
 	<string name="type.leisure.adult_gaming_centre">מרכז משחקים למבוגרים</string>
 	<string name="type.leisure.amusement_arcade">מִקמֶרֶת</string>
@@ -807,6 +854,14 @@
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">תוללוס</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
+	<string name="type.amenity.shelter">מחסה</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">מחסה</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">בקתת לינה</string>
+	<!-- A traditional 3-walled shelter (one side open), suitable for overnight camping. -->
+	<string name="type.amenity.shelter.lean_to">מחסה ללינה</string>
 	<string name="type.amenity.public_bath">אמבטיה ציבורית</string>
 	<string name="type.amenity.stripclub">מועדון חשפנות</string>
 	<string name="type.amenity.vehicle_inspection">לבדיקה טכנית</string>
@@ -815,6 +870,7 @@
 	<string name="type.natural.water.moat">ןגֵמָ תלַעָתְ</string>
 	<string name="type.natural.water.wastewater">שפכים</string>
 	<string name="type.barrier.turnstile">קרוסלת</string>
+	<string name="type.boundary.aboriginal_lands">ארצות ילידים</string>
 	<string name="type.boundary.protected_area">אזור מוגן</string>
 	<string name="type.boundary.protected_area.1">אזור מוגן</string>
 	<string name="type.boundary.protected_area.2">אזור מוגן</string>
@@ -1100,7 +1156,12 @@
 	<string name="type.leisure.picnic_table">קינקיפ ןחלוש</string>
 	<string name="type.man_made.tower.communication">מגדל תקשורת</string>
 	<string name="type.natural">טבע</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">סלע חשוף</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">אבנים</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">דרדרת</string>
 	<string name="type.natural.bay">מפרץ</string>
 	<string name="type.natural.beach">חוף חולי</string>
 	<string name="type.natural.beach.sand">חוף חולי</string>
@@ -1289,12 +1350,20 @@
 	<string name="type.sport.badminton">תיצונ</string>
 	<string name="type.sport.pelota">תיקסאב הטלפ</string>
 	<string name="type.tourism.aquarium">אַקוַרִיוּם</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">בקתת הרים</string>
+	<string name="type.tourism.apartment">דירת נופש</string>
+	<string name="type.attraction.animal">מתחם בעלי חיים</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">בית נופש</string>
 	<string name="type.tourism.information">מידע לתייר</string>
 	<string name="type.tourism.information.board">לוח מידע</string>
 	<string name="type.tourism.information.guidepost">מנחה</string>
 	<string name="type.tourism.information.map">מפת תיירות</string>
 	<string name="type.tourism.information.office">משרד תיירות</string>
 	<string name="type.tourism.information.visitor_centre">מרכז מבקרים</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
+	<string name="type.tourism.wilderness_hut">בקתה לא מאוישת</string>
 	<string name="type.tourism.zoo.petting">פינת חי</string>
 	<string name="type.waterway.fish_pass">סולם דגים</string>
 	<string name="type.natural.water.ditch">תעלת ניקוז</string>

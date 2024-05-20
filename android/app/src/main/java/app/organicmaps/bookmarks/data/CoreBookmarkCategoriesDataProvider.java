@@ -22,6 +22,12 @@ class CoreBookmarkCategoriesDataProvider implements BookmarkCategoriesDataProvid
     return Arrays.asList(categories);
   }
 
+  @Override
+  public int getCategoriesCount()
+  {
+    return BookmarkManager.INSTANCE.nativeGetBookmarkCategoriesCount();
+  }
+
   @NonNull
   @Override
   public List<BookmarkCategory> getChildrenCategories(long parentId)

@@ -7,6 +7,15 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_C_EXTENSIONS OFF)
 
+set(CMAKE_C_VISIBILITY_PRESET hidden)
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+set(CMAKE_VISIBILITY_INLINES_HIDDEN ON)
+
+# Fixes warning ld: warning: ignoring duplicate libraries on Mac and Windows.
+if (POLICY CMP0156)
+  cmake_policy(SET CMP0156 NEW)
+endif()
+
 if (APPLE AND NOT ("${CMAKE_SYSTEM_NAME}" STREQUAL Android))
   # OBJC/OBJCXX are needed to skip m/mm files in Unity builds.
   # https://gitlab.kitware.com/cmake/cmake/-/issues/21963
@@ -14,10 +23,12 @@ if (APPLE AND NOT ("${CMAKE_SYSTEM_NAME}" STREQUAL Android))
   set(CMAKE_OBJC_EXTENSIONS OFF)
   set(CMAKE_OBJC_STANDARD 11)
   set(CMAKE_OBJC_FLAGS -fobjc-arc)
+  set(CMAKE_OBJC_VISIBILITY_PRESET hidden)
   enable_language(OBJCXX)
   set(CMAKE_OBJCXX_EXTENSIONS OFF)
   set(CMAKE_OBJCXX_STANDARD 17)
   set(CMAKE_OBJCXX_FLAGS -fobjc-arc)
+  set(CMAKE_OBJCXX_VISIBILITY_PRESET hidden)
 endif()
 
 message(STATUS "Using compiler ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
@@ -62,31 +73,22 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${OMIM_ROOT}/cmake")
 include(OmimHelpers)
 include(OmimTesting)
 
-if (CMAKE_SYSTEM_NAME MATCHES "Linux")
-  set(LINUX_DETECTED TRUE)
-endif()
-
-if (CMAKE_SYSTEM_NAME MATCHES "Android")
-  set(ANDROID_DETECTED TRUE)
-  if ((${OS} MATCHES "mac"))
-    set(DARWIN TRUE)
-  endif()
-endif()
-
-
-omim_set_platform_var(PLATFORM_IPHONE "iphone-.*")
-omim_set_platform_var(PLATFORM_ANDROID "android-.*" ${ANDROID_DETECTED})
-omim_set_platform_var(PLATFORM_MAC "macx-.*" ${APPLE})
-omim_set_platform_var(PLATFORM_WIN "win32-.*" ${WIN32})
-omim_set_platform_var(PLATFORM_LINUX "linux-.*" ${LINUX_DETECTED})
-
-if (PLATFORM_LINUX OR PLATFORM_MAC OR PLATFORM_WIN)
-  set(PLATFORM_DESKTOP TRUE)
-else()
+set(PLATFORM_DESKTOP TRUE)
+if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
+  set(PLATFORM_LINUX TRUE)
+elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+  set(PLATFORM_MAC TRUE)
+elseif (CMAKE_SYSTEM_NAME STREQUAL "Windows")
+  set(PLATFORM_WIN TRUE)
+elseif (CMAKE_SYSTEM_NAME STREQUAL "Android")
+  set(PLATFORM_ANDROID TRUE)
   set(PLATFORM_DESKTOP FALSE)
+elseif (CMAKE_SYSTEM_NAME STREQUAL "iOS")
+  set(PLATFORM_IPHONE TRUE)
+  set(PLATFORM_DESKTOP FALSE)
+else()
+  message(FATAL_ERROR "Unsupported platform: ${CMAKE_SYSTEM_NAME}")
 endif()
-
-# End of setting the target platform
 
 # Sanitizer
 if (PLATFORM_DESKTOP)
@@ -106,14 +108,31 @@ if (NOT CMAKE_BUILD_TYPE)
 endif()
 
 # Global compile options for all configurations.
-add_compile_options(-ffast-math)
+if (MSVC)
+  add_compile_options(/utf-8)
+  add_link_options(/INCREMENTAL:NO)
+else()
+  add_compile_options(-ffast-math)
+endif()
+
+if (PLATFORM_WIN)
+  add_definitions(
+    -DWIN32_LEAN_AND_MEAN
+    -DNOMINMAX
+  )
+endif()
 
 # Built-in CMake configurations: Debug, Release, RelWithDebInfo, MinSizeRel
 if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
-  add_definitions(-DDEBUG -fno-omit-frame-pointer)
+  add_definitions(-DDEBUG)
+  if (NOT MSVC)
+    add_compile_options(-fno-omit-frame-pointer)
+  endif()
 elseif (${CMAKE_BUILD_TYPE} MATCHES "Rel")
   add_definitions(-DRELEASE)
-  add_compile_options(-Ofast)
+  if (NOT MSVC)
+    add_compile_options(-Ofast)  # Also enables -ffast-math
+  endif()
 else()
   message(FATAL_ERROR "Unknown build type: " ${CMAKE_BUILD_TYPE})
 endif()
@@ -135,10 +154,9 @@ option(USE_TSAN "Enable Thread Sanitizer" OFF)
 option(USE_LIBFUZZER "Enable LibFuzzer" OFF)
 option(PYBINDINGS "Create makefiles for building python bindings" OFF)
 option(SKIP_QT_GUI "Skip building of Qt GUI" OFF)
-# TODO: Fix mapshot, it doesn't work without our old FreeType hack.
-option(BUILD_MAPSHOT "Build mapshot tool" OFF)
 option(USE_PCH "Use precompiled headers" OFF)
 option(NJOBS "Number of parallel processes" OFF)
+option(ENABLE_VULKAN_DIAGNOSTICS "Enable Vulkan diagnostics" OFF)
 
 if (NJOBS)
   message(STATUS "Number of parallel processes: ${NJOBS}")
@@ -188,6 +206,11 @@ endif()
 
 if (USE_HEAPPROF)
   message(STATUS "Heap Profiler is enabled")
+endif()
+
+if (ENABLE_VULKAN_DIAGNOSTICS)
+  message(WARNING "Vulkan diagnostics are enabled. Be aware of performance impact!")
+  add_definitions(-DENABLE_VULKAN_DIAGNOSTICS)
 endif()
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
@@ -252,11 +275,6 @@ if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
   find_package(Qt6 COMPONENTS REQUIRED ${qt_components} PATHS $ENV{QT_PATH} /opt/homebrew/opt/qt@6 /usr/local/opt/qt@6 /usr/lib/x86_64-linux-gnu/qt6)
 endif()
 
-find_library(LIBZ NAMES z)
-if (LIBZ STREQUAL "LIBZ-NOTFOUND")
-  message(FATAL_ERROR "Failed to find libz library.")
-endif()
-
 # To allow #include "base/file_name.hpp" in all sources.
 include_directories(${CMAKE_HOME_DIRECTORY})
 
@@ -292,11 +310,23 @@ if (USE_PCH)
 endif()
 
 # Should be on the root level, not in 3party, so tests can get these dependencies.
-# Should go before 3party as harfbuzz is using them.
-if (LINUX_DETECTED)
+if (PLATFORM_LINUX OR PLATFORM_WIN)
   find_package(ICU COMPONENTS uc i18n data REQUIRED)
   find_package(Freetype REQUIRED)
+  find_package(harfbuzz REQUIRED)
 endif()
+
+if (WITH_SYSTEM_PROVIDED_3PARTY)
+  set(GFLAGS_USE_TARGET_NAMESPACE ON)
+  find_package(gflags REQUIRED)
+
+  find_package(expat CONFIG REQUIRED)
+  find_package(jansson CONFIG REQUIRED)
+  find_package(pugixml REQUIRED)
+  find_package(utf8cpp REQUIRED)
+endif()
+
+find_package(ZLIB REQUIRED)
 
 # Include 3party dependencies.
 add_subdirectory(3party)
@@ -307,12 +337,8 @@ if (PLATFORM_DESKTOP AND NOT WITH_SYSTEM_PROVIDED_3PARTY)
   include_directories("${PROJECT_BINARY_DIR}/3party/gflags/include")
 endif()
 
-find_package(Python3 COMPONENTS Interpreter)
-if (Python3_Interpreter_FOUND)
-  message(STATUS "Found python to use in qt/, shaders/ and 3party/: ${Python3_EXECUTABLE}")
-else()
-  message(FATAL_ERROR "Could not find python3 to use in qt/, shaders/ and 3party/.")
-endif()
+# Used in qt/ and shaders/
+find_package(Python3 REQUIRED COMPONENTS Interpreter)
 
 add_subdirectory(base)
 add_subdirectory(coding)
@@ -338,10 +364,6 @@ add_subdirectory(traffic)
 add_subdirectory(transit)
 
 if (PLATFORM_DESKTOP)
-  if (BUILD_MAPSHOT)
-    add_subdirectory(mapshot)
-    add_subdirectory(software_renderer)
-  endif()
   omim_add_tool_subdirectory(feature_list)
   add_subdirectory(generator)
   add_subdirectory(openlr)

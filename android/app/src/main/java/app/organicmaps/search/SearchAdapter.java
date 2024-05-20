@@ -64,7 +64,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
 
     @AttrRes int getTintAttr()
     {
-      return R.attr.colorAccent;
+      return androidx.appcompat.R.attr.colorAccent;
     }
 
     abstract TextView getTitleView();
@@ -148,7 +148,8 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
 
       switch (result.description.openNow)
       {
-        case SearchResult.OPEN_NOW_YES:
+        case SearchResult.OPEN_NOW_YES ->
+        {
           if (result.description.minutesUntilClosed < 60)   // less than 1 hour
           {
             final String time = result.description.minutesUntilClosed + " " +
@@ -163,9 +164,9 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
             UiUtils.setTextAndShow(mOpen, resources.getString(R.string.editor_time_open));
             mOpen.setTextColor(ContextCompat.getColor(mSearchFragment.getContext(), R.color.base_green));
           }
-          break;
-
-        case SearchResult.OPEN_NOW_NO:
+        }
+        case SearchResult.OPEN_NOW_NO ->
+        {
           if (result.description.minutesUntilOpen < 60) // less than 1 hour
           {
             final String time = result.description.minutesUntilOpen + " " +
@@ -180,11 +181,8 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
             UiUtils.setTextAndShow(mOpen, resources.getString(R.string.closed));
             mOpen.setTextColor(ContextCompat.getColor(mSearchFragment.getContext(), R.color.base_red));
           }
-          break;
-
-        default:
-          UiUtils.hide(mOpen);
-          break;
+        }
+        default -> UiUtils.hide(mOpen);
       }
     }
 
@@ -213,18 +211,14 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
   {
     final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
-    switch (viewType)
+    return switch (viewType)
     {
-      case SearchResult.TYPE_SUGGEST:
-      case SearchResult.TYPE_PURE_SUGGEST:
-        return new SuggestViewHolder(inflater.inflate(R.layout.item_search_suggest, parent, false));
-
-      case SearchResult.TYPE_RESULT:
-        return new ResultViewHolder(inflater.inflate(R.layout.item_search_result, parent, false));
-
-      default:
-        throw new IllegalArgumentException("Unhandled view type given");
-    }
+      case SearchResult.TYPE_SUGGEST, SearchResult.TYPE_PURE_SUGGEST ->
+          new SuggestViewHolder(inflater.inflate(R.layout.item_search_suggest, parent, false));
+      case SearchResult.TYPE_RESULT ->
+          new ResultViewHolder(inflater.inflate(R.layout.item_search_result, parent, false));
+      default -> throw new IllegalArgumentException("Unhandled view type given");
+    };
   }
 
   @Override

@@ -18,12 +18,12 @@
 #include <string_view>
 #include <type_traits>
 
-#include <utf8cpp/utf8/unchecked.h>
+#include <utf8/unchecked.h>
 
 /// All methods work with strings in utf-8 format
 namespace strings
 {
-using UniChar = uint32_t;
+using UniChar = char32_t;
 // typedef buffer_vector<UniChar, 32> UniString;
 
 /// Make new type, not typedef. Need to specialize DebugPrint.
@@ -514,9 +514,10 @@ namespace impl
 {
 template <typename T> bool from_sv(std::string_view sv, T & t)
 {
-  auto const res = std::from_chars(sv.begin(), sv.end(), t);
+  auto const end = sv.data() + sv.size();
+  auto const res = std::from_chars(sv.data(), end, t);
   return (res.ec != std::errc::invalid_argument && res.ec != std::errc::result_out_of_range &&
-          res.ptr == sv.end());
+          res.ptr == end);
 }
 } // namespace impl
 

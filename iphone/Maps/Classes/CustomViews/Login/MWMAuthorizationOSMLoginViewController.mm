@@ -29,7 +29,7 @@ using namespace osm;
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  self.title = L(@"osm_account").capitalizedString;
+  self.title = L(@"osm_account");
   [self checkConnection];
   [self stopSpinner];
 }
@@ -110,7 +110,7 @@ using namespace osm;
 
         if (auth.IsAuthorized())
         {
-          osm_auth_ios::AuthorizationStoreCredentials(auth.GetKeySecret());
+          osm_auth_ios::AuthorizationStoreCredentials(auth.GetAuthToken());
           UIViewController * svc = nil;
           for (UIViewController * vc in self.navigationController.viewControllers)
           {

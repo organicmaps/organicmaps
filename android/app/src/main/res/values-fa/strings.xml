@@ -44,9 +44,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• بدون تبلیغات ، ردیابی ، جمع آوری داده ها</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• باتری را ذخیره می کند، از داده های پس زمینه استفاده نمی کند</string>
+	<string name="about_proposition_2">• بدون تخلیه باتری، آفلاین کار می کند</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• سریع ، مینیمالیستی ، بدون آشغال</string>
+	<string name="about_proposition_3">• سریع، مینیمالیستی، توسعه یافته توسط انجمن</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">برنامه منبع باز ایجاد شده توسط علاقه مندان و داوطلبان.</string>
 	<!-- The button that opens system location settings -->
@@ -101,52 +101,54 @@
 	<string name="measurement_units_summary">بین مایل و کیلومتر انتخاب کنید</string>
 
 	<!-- SECTION: Search categories -->
-	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">کجا غذا بخوریم</string>
-	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">عطاری</string>
-	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">حمل و نقل</string>
-	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">سوخت</string>
-	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">پارکینگ</string>
-	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">خرید کردن</string>
-	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">دست دوم</string>
-	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">هتل</string>
-	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">منظره</string>
-	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">سرگرمی</string>
-	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">خود‌پرداز</string>
-	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">تفریحات شبانه</string>
-	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">تعطیلات خانوادگی</string>
-	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">بانک</string>
-	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">داروخانه</string>
-	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">بیمارستان</string>
-	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">توالت</string>
-	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">صندوق پست</string>
-	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">پلیس</string>
-	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">وای فای</string>
-	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">بازیافت</string>
-	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">آب</string>
-	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">RV برای</string>
+	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+	<string name="category_eat">کجا غذا بخوریم</string>
+	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+	<string name="category_food">عطاری</string>
+	<!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+	<string name="category_transport">حمل و نقل</string>
+	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+	<string name="category_fuel">سوخت</string>
+	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+	<string name="category_parking">پارکینگ</string>
+	<!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+	<string name="category_shopping">خرید کردن</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
+	<string name="category_secondhand">دست دوم</string>
+	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+	<string name="category_hotel">هتل</string>
+	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+	<string name="category_tourism">منظره</string>
+	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
+	<string name="category_entertainment">سرگرمی</string>
+	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+	<string name="category_atm">خود‌پرداز</string>
+	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+	<string name="category_nightlife">تفریحات شبانه</string>
+	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+	<string name="category_children">تعطیلات خانوادگی</string>
+	<!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+	<string name="category_bank">بانک</string>
+	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+	<string name="category_pharmacy">داروخانه</string>
+	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+	<string name="category_hospital">بیمارستان</string>
+	<!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+	<string name="category_toilet">توالت</string>
+	<!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+	<string name="category_post">صندوق پست</string>
+	<!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+	<string name="category_police">پلیس</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+	<string name="category_wifi">وای فای</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+	<string name="category_recycling">بازیافت</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+	<string name="category_water">آب</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+	<string name="category_rv">RV برای</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">یادداشت‌ها</string>
 	<!-- message title of loading file -->
@@ -155,6 +157,10 @@
 	<string name="load_kmz_successful">نشانه‌ها با موفقیت بارگذاری شد!شما می توانید آنها را در نقشه یا بخش مدیریت نشانه‌ها بیابید</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">بارگذاری نشانه‌ها با شکست مواجه شد.ممکن است فایل آسیب دیده یا معیوب باشد</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">نوع فایل توسط برنامه تشخیص داده نمی شود:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">فایل باز نشد %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">ویرایش</string>
 	<!-- Warning message when doing search around current position -->
@@ -203,6 +209,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">ساختمان های سه بعدی در حالت صرفه جویی در مصرف برق خاموش می شوند</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">دستور العمل صوتی</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">نام خیابان ها را اعلام کنید</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">وقتی فعال باشد، نام خیابان یا خروجی که باید به آن بپیچید با صدای بلند گفته می شود.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">زبان صوت</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -442,13 +452,15 @@
 	<string name="editor_edit_place_title">درحال ویرایش</string>
 	<string name="editor_add_place_title">درحال افزودن</string>
 	<string name="editor_edit_place_name_hint">نام مکان</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">همانطور که به زبان محلی نوشته شده است</string>
 	<string name="editor_edit_place_category_title">دسته بندی</string>
 	<string name="detailed_problem_description">توضیح مفصل در مورد مشکل</string>
 	<string name="editor_report_problem_other_title">مشکلی دیگر</string>
 	<string name="placepage_add_business_button">اضافه کردن یک تجارت</string>
 	<string name="message_invalid_feature_position">نمی توان شی ای در این مکان باشد</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">داده های نقشه برداری از OpenStreetMap از %s. این مانند ویکی پدیا است که می توانید مکانهایی را برای همه کاربران در سراسر جهان اضافه یا ویرایش کنید.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">داده های OpenStreetMap ایجاد شده توسط انجمن از %s. درباره نحوه ویرایش و به روز رسانی نقشه در OpenStreetMap.org بیشتر بیاموزید</string>
 	<string name="login_to_make_edits_visible">وارد شوید تا دیگر کاربران نیز بتوانند تغییرات ایجاد شده توسط شما را ببینند</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d  از  %2$d</string>
@@ -467,14 +479,10 @@
 	<string name="editor_detailed_description">شما یک سری تغییرات در نقشه را برای انجمن OpenStreetMap ارسال کردید.جزئیات اضافی را که نتوانستید در Organic Maps ویرایش کنید را برایشان بنویسید.</string>
 	<string name="editor_more_about_osm">در مورد OpenStreetMap بیشتر بدانید</string>
 	<string name="editor_operator">مالک</string>
+	<string name="editor_category_unsuitable_title">آیا نمی توانید یک دسته بندی مناسب پیدا کنید؟</string>
+	<string name="editor_category_unsuitable_text">Organic Maps اجازه میu200cدهد فقط دستهu200cهای نقطهu200cای ساده را اضافه کند، یعنی هیچ شهر، جاده، دریاچه، طرح کلی ساختمان و غیره وجود ندارد. لطفاً این دستهu200cها را مستقیماً به <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> اضافه کنید. برای دستورالعملu200cهای گام به گام، <a href="https://organicmaps.app/faq/editing/advanced-map-editing">راهنمای</a> ما را بررسی کنید.</string>
 	<string name="downloader_no_downloaded_maps_title">شما هیچ نقشه دانلود شده ای ندارید</string>
 	<string name="downloader_no_downloaded_maps_message">برای جست وجو یک مکان و استفاده از قابلیت ناوبری، نقشه‌ها را دانلود کنید.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">آیا یافتن مکان‌تان را ادامه می دهید؟</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">مکان شما ناشناس مانده است.ممکن است شما داخل یک ساختمان یا تونل باشید.</string>
-	<string name="current_location_unknown_continue_button">ادامه</string>
-	<string name="current_location_unknown_stop_button">توقف</string>
 	<!-- abbreviation for meters -->
 	<string name="m">متر</string>
 	<!-- abbreviation for kilometers -->
@@ -545,6 +553,8 @@
 	<string name="routing_add_finish_point">یک مقصد برای برنامه ریزی یک مسیر اضافه کنید</string>
 	<string name="placepage_remove_stop">حذف</string>
 	<string name="placepage_add_stop">اضافه کردن توقف</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">لطفاً به OpenStreetMap وارد شوید تا به طور خودکار تمام ویرایش های نقشه خود را آپلود کنید. <a href="https://github.com/organicmaps/organicmaps/issues/6144">اینجا</a> بیشتر بیاموزید.</string>
 	<string name="dialog_error_storage_title">مشکل دسترسی به ذخیره‌سازی</string>
 	<string name="dialog_error_storage_message">ذخیره سازی خارجی در دسترس نیست کارت SD ممکن است برداشته شده باشد، آسیب دیده باشد یا سیستم فایل فقط خواندنی باشد. لطفا کارت SD خود را بررسی کنید یا با ما در support\@organicmaps.app تماس بگیرید</string>
 	<string name="setting_emulate_bad_storage">شبیه سازی ذخیره سازی بد</string>
@@ -602,13 +612,15 @@
 	<string name="bookmark_list_description_hint">یک توضیح (متن یا html) تایپ نمایید</string>
 	<string name="not_shared">خصوصی</string>
 	<string name="speedcams_alert_title">دوربین‌های سرعت</string>
-	<!-- Generic «Always» string -->
-	<string name="always">همیشه</string>
-	<!-- Generic «Never» string -->
-	<string name="never">هرگز</string>
 	<string name="place_description_title">توضیحات محل</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">دانلود کننده نقشه</string>
+	<!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+	<string name="pref_tts_speedcams_auto">هشدار در مورد سرعت غیر مجاز</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">همیشه هشدار دهد</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">هرگز  هشدار ندهد</string>
 	<string name="power_managment_title">حالت ذخیره انرژی</string>
 	<string name="power_managment_description">هنگامی که حالت خودکار انتخاب شده‌باشد، برنامه با توجه میزان شارژ باتری شما، ویژگی‌های تخلیه کننده باتری را غیر فعال می‌کند</string>
 	<string name="power_managment_setting_never">هرگز</string>
@@ -655,6 +667,8 @@
 	<string name="by_distance">بر اساس فاصله</string>
 	<!-- Android -->
 	<string name="by_date">بر اساس تاریخ</string>
+	<!-- Android -->
+	<string name="by_name">بر اساس اسم</string>
 	<string name="week_ago_sorttype">یک هفته قبل</string>
 	<string name="month_ago_sorttype">یک ماه قبل</string>
 	<string name="moremonth_ago_sorttype">بیش از یک ماه قبل</string>
@@ -704,18 +718,36 @@
 	<string name="telegram_url">https://t.me/OrganicMapsIR</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Fa:About_OpenStreetMap</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">از شما برای استفاده از نقشه های ساخته شده توسط جامعه سپاسگزاریم!</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">اکنون در حال استفاده از نقشه های ارگانیک در صفحه گوشی هستید</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">با کمک های مالی و حمایت شما، ما می توانیم بهترین نقشه های جهان را ایجاد کنیم!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">آیا برنامه ما را دوست دارید؟ لطفا برای حمایت از توسعه کمک مالی کنید! هنوز آن را دوست ندارید؟ لطفا به ما اطلاع دهید، و ما آن را تعمیر خواهیم کرد!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">اگر یک توسعه‌دهنده نرم‌افزار را می‌شناسید، می‌توانید از او بخواهید ویژگی مورد نیاز خود را پیاده‌سازی کند.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">آیا می‌دانید که می‌توانید روی هر مکانی روی نقشه ضربه طولانی بزنید تا آن را انتخاب کنید؟</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">آیا می دانید که می توانید مکان فعلی خود را روی نقشه انتخاب کنید؟</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">شما می توانید به ترجمه برنامه ما به زبان خود کمک کنید.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">برنامه ما توسط تعدادی از علاقه مندان و جامعه توسعه یافته است.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">شما به راحتی می توانید داده های نقشه را اصلاح و بهبود دهید.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">هدف اصلی ما ساختن نقشه هایی سریع، متمرکز بر حریم خصوصی و با کاربری آسان است که شما عاشق آن خواهید شد.</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">اکنون در حال استفاده از نقشه های ارگانیک در صفحه گوشی هستید</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">اکنون از نقشه های ارگانیک در صفحه ماشین استفاده می کنید</string>
+	<string name="car_used_on_the_car_screen">اکنون از نقشه های ارگانیک در صفحه ماشین استفاده می کنید</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">شما به Android Auto متصل هستید</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">با تلفن ادامه دهید</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">به صفحه ماشین</string>
+	<string name="car_continue_on_the_phone">با تلفن ادامه دهید</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">به صفحه ماشین</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">این برنامه برای اهداف ناوبری نیاز به دسترسی به موقعیت مکانی شما دارد.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -726,6 +758,22 @@
 	<string name="button_layer_outdoor">پیاده روی</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">مرورگر وب در دسترس نیست</string>
+	<string name="volume">میزان صدا</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">صادر کردن همه نشان‌ها و مسیرها</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">تنظیمات سنتز گفتار سیستم</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">تنظیمات Speech Synthesis پیدا نشد، آیا مطمئن هستید که دستگاه شما از آن پشتیبانی می کند؟</string>
+	<string name="drive_through">رانندگی از طریق</string>
+	<string name="clear_the_search">جستجو را پاک کنید</string>
+	<string name="zoom_in">بزرگنمایی</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">کوچک نمایی</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">لینک منو</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">مشاهده منو</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">آدرس/بلاک</string>
@@ -739,7 +787,7 @@
 	<string name="type.amenity.atm">خودپرداز</string>
 	<string name="type.amenity.bank">بانک</string>
 	<string name="type.amenity.bar">میکده</string>
-	<string name="type.amenity.bbq">مکان پیک نیک</string>
+	<string name="type.amenity.bbq">منقل کباب</string>
 	<string name="type.amenity.bench">سَکو</string>
 	<string name="type.amenity.bicycle_parking">پارکینگ دوچرخه</string>
 	<string name="type.amenity.bicycle_rental">مکان اجاره دوچرخه</string>
@@ -770,6 +818,7 @@
 	<string name="type.amenity.dentist">دندان پزشکی</string>
 	<string name="type.amenity.doctors">کلینیک</string>
 	<string name="type.amenity.drinking_water">اب اشامیدنی</string>
+	<string name="type.drinking_water.yes">اب اشامیدنی</string>
 	<string name="type.amenity.driving_school">اموزشگاه رانندگی</string>
 	<string name="type.amenity.exhibition_centre">مرکز نمایشگاه</string>
 	<string name="type.amenity.money_transfer">انتقال پول</string>
@@ -852,7 +901,12 @@
 	<string name="type.recycling.small_appliances">پسماند الکترونیکی</string>
 	<string name="type.amenity.restaurant">غذا</string>
 	<string name="type.amenity.school">مدرسه</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">پناهگاه</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">پناهگاه</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">کلبه بیواک</string>
 	<string name="type.amenity.public_bath">حمام عمومی</string>
 	<string name="type.amenity.shower">حمام</string>
 	<string name="type.amenity.stripclub">باشگاه استریپ</string>
@@ -888,6 +942,7 @@
 	<string name="type.barrier.swing_gate">اسانسور</string>
 	<string name="type.barrier.toll_booth">گیشه عوارضی</string>
 	<string name="type.boundary.national_park">پارک ملی</string>
+	<string name="type.boundary.aboriginal_lands">سرزمین های بومی</string>
 	<string name="type.boundary.protected_area">منطقه حفاظت شده</string>
 	<string name="type.boundary.protected_area.1">منطقه حفاظت شده</string>
 	<string name="type.boundary.protected_area.2">منطقه حفاظت شده</string>
@@ -968,15 +1023,9 @@
 	<string name="type.highway.footway">مسیر</string>
 	<string name="type.highway.footway.sidewalk">پیاده رو</string>
 	<string name="type.highway.footway.crossing">محل عبور عابر پیاده</string>
-	<string name="type.highway.footway.alpine_hiking">مسیر</string>
 	<string name="type.highway.footway.area">مسیر</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">پل</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">مسیر</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">مسیر</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">مسیر</string>
-	<string name="type.highway.footway.hiking">مسیر</string>
-	<string name="type.highway.footway.mountain_hiking">مسیر</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">تونل</string>
 	<string name="type.highway.ford">گدار</string>
@@ -997,17 +1046,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">تونل</string>
 	<string name="type.highway.path">مسیر</string>
-	<string name="type.highway.path.alpine_hiking">مسیر</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">مسیر</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">مسیر</string>
 	<string name="type.highway.path.bicycle">مسیر</string>
+	<string name="type.highway.footway.bicycle">مسیر</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">پل</string>
-	<string name="type.highway.path.demanding_alpine_hiking">مسیر</string>
-	<string name="type.highway.path.demanding_mountain_hiking">مسیر</string>
-	<string name="type.highway.path.difficult_alpine_hiking">مسیر</string>
-	<string name="type.highway.path.hiking">مسیر</string>
 	<string name="type.highway.path.horse">مسیر</string>
-	<string name="type.highway.path.mountain_hiking">مسیر</string>
-	<string name="type.highway.path.permissive">مسیر</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">تونل</string>
 	<string name="type.highway.pedestrian">جاده</string>
@@ -1079,12 +1126,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">پل</string>
 	<string name="type.highway.track.grade1">جاده</string>
-	<string name="type.highway.track.grade2">جاده</string>
-	<string name="type.highway.track.grade3">جاده</string>
-	<string name="type.highway.track.grade4">جاده</string>
-	<string name="type.highway.track.grade5">جاده</string>
 	<string name="type.highway.track.no.access">جاده</string>
-	<string name="type.highway.track.permissive">جاده</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">تونل</string>
 	<string name="type.highway.traffic_signals">چراغ راهنما</string>
@@ -1213,7 +1255,12 @@
 	<string name="type.man_made.windmill">توربین بادی</string>
 	<string name="type.military.bunker">پناهگاه</string>
 	<string name="type.natural">طبیعت</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">سنگ برهنه</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">سنگریزه ها</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">اسکری</string>
 	<string name="type.natural.bay">خلیج</string>
 	<string name="type.natural.beach">ساحل</string>
 	<string name="type.natural.beach.sand">ساحل شنی</string>
@@ -1715,17 +1762,20 @@
 	<string name="type.sport.badminton">ﻥﻮﺘﻨﯿﻣﺪﺑ</string>
 	<string name="type.sport.pelota">ﯽﮑﺳﺎﺑ ﯼﺎﺗﻮﻠﭘ</string>
 	<string name="type.tourism.aquarium">آکواریوم</string>
-	<string name="type.tourism.apartment">اپارتمان</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">اقامتگاه کوهستانی</string>
+	<string name="type.tourism.apartment">آپارتمان تعطیلات</string>
 	<string name="type.tourism.artwork">گردشگری</string>
 	<string name="type.tourism.artwork.architecture">گردشگری</string>
 	<string name="type.tourism.artwork.painting">گردشگری</string>
 	<string name="type.tourism.artwork.sculpture">گردشگری</string>
 	<string name="type.tourism.artwork.statue">گردشگری</string>
 	<string name="type.tourism.attraction">گردشگری</string>
-	<string name="type.tourism.attraction.animal">گردشگری</string>
+	<string name="type.attraction.animal">محوطه حیوانات</string>
 	<string name="type.tourism.attraction.specified">گردشگری</string>
 	<string name="type.tourism.camp_site">محل چادر زنی</string>
-	<string name="type.tourism.chalet">هتل</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">کلبه تعطیلات</string>
 	<string name="type.tourism.gallery">گالری</string>
 	<string name="type.tourism.guest_house">هتل</string>
 	<string name="type.tourism.hostel">هتل</string>
@@ -1739,9 +1789,10 @@
 	<string name="type.tourism.motel">هتل</string>
 	<string name="type.tourism.museum">گردشگری</string>
 	<string name="type.tourism.picnic_site">مکان پیک نیک</string>
-	<string name="type.tourism.resort">هتل</string>
+	<string name="type.leisure.resort">هتل</string>
 	<string name="type.tourism.theme_park">گردشگری</string>
 	<string name="type.tourism.viewpoint">گردشگری</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">کلبه‌ی صحرایی</string>
 	<string name="type.tourism.zoo">گردشگری</string>
 	<string name="type.tourism.zoo.petting">باغ وحش پتینگ</string>
@@ -1753,7 +1804,6 @@
 	<string name="type.waterway.drain.tunnel">کولورت</string>
 	<string name="type.waterway.river">رودخانه</string>
 	<string name="type.waterway.river.tunnel">رودخانه</string>
-	<string name="type.waterway.riverbank">رودخانه</string>
 	<string name="type.waterway.stream">رودخانه</string>
 	<string name="type.waterway.stream.ephemeral">رودخانه</string>
 	<string name="type.waterway.stream.intermittent">رودخانه</string>

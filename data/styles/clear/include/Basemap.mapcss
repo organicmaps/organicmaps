@@ -98,6 +98,8 @@ area|z12-[leisure=golf_course],
 area|z12-[natural=heath],
 area|z12-[landuse=allotments],
 area|z12-[natural=bare_rock],
+area|z12-[natural=shingle],
+area|z11-[natural=scree],
 area|z12-[landuse=orchard],
 area|z12-[landuse=vineyard],
 area|z12-[landuse=meadow],
@@ -105,6 +107,7 @@ area|z12-[landuse=recreation_ground],
 area|z12-[landuse=village_green],
 area|z12-[landuse=field],
 area|z12-[natural=scrub],
+area|z14-[leisure=miniature_golf],
 area|z16-[landuse=flowerbed],
 {fill-opacity: 1;}
 
@@ -126,6 +129,7 @@ area|z10[landuse=forest],
 area|z16-[landuse=grass],
 area|z14-[natural=grassland],
 area|z14-[leisure=golf_course],
+area|z14-[leisure=miniature_golf],
 area|z14-[natural=heath],
 area|z14-[landuse=allotments],
 area|z14-[landuse=orchard],
@@ -166,10 +170,13 @@ area|z12-13[natural=scrub],
 {fill-color: @green0;}
 
 /* Next types are hardcoded to have a hatching-style fill, see drape_frontend/stylist.cpp */
-area|z10-[leisure=nature_reserve],
-area|z10-[boundary=national_park],
-area|z10-[boundary=protected_area][protect_class=1],
+area|z10-17[leisure=nature_reserve],
+area|z10-17[boundary=national_park],
+area|z10-17[boundary=protected_area][protect_class=1],
 {fill-opacity: 0.2; fill-color: @green6;}
+
+area|z10-16[boundary=aboriginal_lands],
+{fill-opacity: 0.07; fill-color: @indigenous_lands;}
 
 area|z10-[landuse=military][military=danger_area],
 {fill-opacity: 1.0; fill-color: @military;}
@@ -180,6 +187,10 @@ area|z12-[landuse=military]
 area|z12-[amenity=prison]
 {fill-opacity: 0.5; fill-color: @prison;}
 /* End of hardcoded */
+
+area|z11-[natural=scree],
+area|z12-[natural=shingle],
+{fill-color: @scree;}
 
 area|z12-[natural=bare_rock],
 {fill-color: @barerock;}
@@ -206,7 +217,6 @@ area|z0-[natural=desert],
 
 area|z0-[natural=water],
 area|z0-[waterway=dock],
-area|z0-[waterway=riverbank],
 area|z0-[landuse=salt_pond],
 area|z12-[landuse=basin],
 area|z12-[landuse=reservoir],
@@ -221,7 +231,6 @@ area|z16-[amenity=fountain],
 {fill-opacity: 1;}
 
 line|z10-[waterway=river],
-line|z10-[waterway=riverbank],
 line|z13-[waterway=stream],
 line|z13-[waterway=canal],
 line|z13-[waterway=fish_pass],
@@ -233,7 +242,6 @@ line|z13-[natural=strait],
 area|z0-[natural=water][!tunnel],
 area|z0-[landuse=salt_pond],
 area|z0-[waterway=dock],
-area|z0-[waterway=riverbank],
 area|z12-[landuse=basin],
 area|z12-[landuse=reservoir],
 area|z13-[leisure=swimming_pool],
@@ -257,15 +265,12 @@ area|z11-[natural=wetland]
 /* 6.2 Line water(river,canal etc.) */
 
 line|z10[waterway=river],
-line|z10[waterway=riverbank],
 {width: 1;}
 
 line|z11-12[waterway=river],
-line|z11-12[waterway=riverbank],
 {width: 1.2;}
 
 line|z13[waterway=river],
-line|z13[waterway=riverbank],
 {width: 1.6;}
 line|z13[waterway=stream],
 line|z13[waterway=canal],
@@ -276,7 +281,6 @@ line|z13[waterway=stream][intermittent=yes]
 {width: 0.7;dashes: 2.7,2.7;}
 
 line|z14[waterway=river],
-line|z14[waterway=riverbank],
 {width: 1.8;}
 line|z14[waterway=stream],
 line|z14[waterway=canal],
@@ -287,7 +291,6 @@ line|z14[waterway=stream][intermittent=yes]
 {width: 1;dashes: 2.7,2.7;}
 
 line|z15-[waterway=river],
-line|z15-[waterway=riverbank],
 {width: 2.2;}
 line|z15-[waterway=stream],
 line|z15-[waterway=canal],
@@ -481,7 +484,7 @@ line|z14-[man_made=breakwater],
 
 line|z14-[waterway=dam],
 line|z14-[waterway=weir],
-{width: 1.5;color: @building_dark; opacity: 0.5;}
+{width: 1.5;color: @building1; opacity: 0.5;}
 
 line|z15[man_made=pier],
 line|z15[man_made=breakwater],
@@ -531,23 +534,23 @@ line|z19-[man_made=cutline],
 
 area|z14[building],
 area|z14[waterway=dam],
-{fill-color: @building;fill-opacity: 0.5;}
+{fill-color: @building0;fill-opacity: 0.5;}
 
 area|z15[building],
 area|z15[waterway=dam],
-{fill-color: @building;fill-opacity: 0.6;}
+{fill-color: @building0;fill-opacity: 0.6;}
 
 area|z14-15[aeroway=terminal],
 area|z16[building],
 area|z16[building:part],
 area|z16[waterway=dam],
-{fill-color: @building;fill-opacity: 0.8;casing-width: 1;casing-color: @building_border;}
+{fill-color: @building0;fill-opacity: 0.8;casing-width: 1;casing-color: @building_border0;}
 
 area|z16-[aeroway=terminal],
 area|z17-[building],
 area|z17-[building:part],
 area|z17-[waterway=dam],
-{fill-color: @building_dark;casing-width: 1;casing-color: @building_dark_border;}
+{fill-color: @building1;casing-width: 1;casing-color: @building_border1;}
 
 
 /* 8.3 Barriers, cliffs */
@@ -584,13 +587,13 @@ line|z19-[barrier=hedge],
 
 line|z14-[barrier=city_wall],
 line|z14-[historic=citywalls],
-{color: @building_dark; width: 2; opacity: 0.7;}
+{color: @building1; width: 2; opacity: 0.7;}
 line|z15[barrier=city_wall],
 line|z15[historic=citywalls],
 {width: 2.8;}
 line|z16-[barrier=city_wall],
 line|z16-[historic=citywalls],
-{color: @building; width: 4.5; dashes: 3,3,1.5,3;}
+{color: @building0; width: 4.5; dashes: 3,3,1.5,3;}
 line|z17[barrier=city_wall],
 line|z17[historic=citywalls],
 {width: 5.9; dashes: 4,4,1.9,4;}
@@ -635,7 +638,7 @@ line|z18-[barrier=retaining_wall],
 
 
 line|z16-[man_made=embankment],
-{color: @building_dark; width: 3.5; dashes: 4,2,2,1.5; opacity: 0.7;}
+{color: @building1; width: 3.5; dashes: 4,2,2,1.5; opacity: 0.7;}
 line|z17[man_made=embankment],
 {width: 5; dashes: 6,3,3,2;}
 line|z18-[man_made=embankment],

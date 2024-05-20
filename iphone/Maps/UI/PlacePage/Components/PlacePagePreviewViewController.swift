@@ -61,6 +61,12 @@ final class PlacePagePreviewViewController: UIViewController {
     }
   }
 
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    guard traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle else { return }
+    updateViews()
+  }
+
   private func updateViews() {
     if placePagePreviewData.isMyPosition {
       if let speedAndAltitude = speedAndAltitude {
@@ -68,11 +74,11 @@ final class PlacePagePreviewViewController: UIViewController {
       }
     } else {
       let subtitleString = NSMutableAttributedString()
-      if placePagePreviewData.isPopular {
-        subtitleString.append(NSAttributedString(string: L("popular_place"),
-                                                 attributes: [.foregroundColor : UIColor.linkBlue(),
-                                                              .font : UIFont.regular14()]))
-      }
+//      if placePagePreviewData.isPopular {
+//        subtitleString.append(NSAttributedString(string: L("popular_place"),
+//                                                 attributes: [.foregroundColor : UIColor.linkBlue(),
+//                                                              .font : UIFont.regular14()]))
+//      }
 
       if let subtitle = placePagePreviewData.subtitle ?? placePagePreviewData.coordinates {
         subtitleString.append(NSAttributedString(string: !subtitleString.string.isEmpty ? " • " + subtitle : subtitle,
@@ -91,7 +97,7 @@ final class PlacePagePreviewViewController: UIViewController {
     } else {
       addressContainerView.isHidden = true
     }
-
+    placePageDirectionView?.imageView.changeColoringToOpposite()
     configSchedule()
   }
 

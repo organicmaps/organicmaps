@@ -2,7 +2,6 @@
 #import "MWMController.h"
 #import "MWMDownloadTransitMapAlert.h"
 #import "MWMLocationAlert.h"
-#import "MWMLocationNotFoundAlert.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
@@ -60,11 +59,6 @@ static NSString *const kAlertControllerNibIdentifier = @"MWMAlertViewController"
 - (void)presentLocationServiceNotSupportedAlert {
   [self displayAlert:[MWMAlert locationServiceNotSupportedAlert]];
 }
-
-- (void)presentLocationNotFoundAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock {
-  [self displayAlert:[MWMLocationNotFoundAlert alertWithOkBlock:okBlock]];
-}
-
 - (void)presentNoConnectionAlert {
   [self displayAlert:[MWMAlert noConnectionAlert]];
 }
@@ -115,6 +109,11 @@ static NSString *const kAlertControllerNibIdentifier = @"MWMAlertViewController"
 - (void)presentDisabledLocationAlert {
   [self displayAlert:[MWMAlert disabledLocationAlert]];
 }
+
+- (void)presentLocationServicesDisabledAlert; {
+  [self displayAlert:[MWMAlert locationServicesDisabledAlert]];
+}
+
 - (void)presentAlert:(routing::RouterResultCode)type {
   [self displayAlert:[MWMAlert alert:type]];
 }
@@ -178,6 +177,10 @@ static NSString *const kAlertControllerNibIdentifier = @"MWMAlertViewController"
 }
 - (void)presentOsmAuthAlert {
   [self displayAlert:[MWMAlert osmAuthAlert]];
+}
+
+- (void)presentOsmReauthAlert {
+  [self displayAlert:[MWMAlert osmReauthAlert]];
 }
 
 - (void)presentCreateBookmarkCategoryAlertWithMaxCharacterNum:(NSUInteger)max

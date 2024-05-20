@@ -94,6 +94,10 @@ public:
   bool GetRouteAltitudesAndDistancesM(std::vector<double> & routeSegDistanceM,
                                       geometry::Altitudes & routeAltitudesM) const;
 
+  /// \brief returns coordinates of route junctions.
+  /// \returns true if there is valid route information. If the route is not valid returns false.
+  bool GetRouteJunctionPoints(std::vector<m2::PointD> & routeJunctionPoints) const;
+
   SessionState OnLocationPositionChanged(location::GpsInfo const & info);
   void GetRouteFollowingInfo(FollowingInfo & info) const;
 
@@ -135,7 +139,7 @@ public:
   void SetSpeedCamClearCallback(SpeedCameraClearCallback && callback);
 
   // Sound notifications for turn instructions.
-  void GenerateNotifications(std::vector<std::string> & notifications);
+  void GenerateNotifications(std::vector<std::string> & notifications, bool announceStreets);
   void EnableTurnNotifications(bool enable);
   void SetTurnNotificationsUnits(measurement_utils::Units const units);
   void SetTurnNotificationsLocale(std::string const & locale);

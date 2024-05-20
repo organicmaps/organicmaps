@@ -167,14 +167,14 @@ highway-road-tunnel                                 # line z12- (also has pathte
 
 highway-motorway_link                               # line z10- (also has pathtext z10-, shield::shield z10-)
 highway-motorway_link-bridge                        # line z10- (also has line::bridgeblack z14-, line::bridgewhite z14-, pathtext z10-, shield::shield z10-)
-highway-motorway_link-tunnel                        # line z10- (also has line(casing) z12-, pathtext z10-, shield::shield z10-)
+highway-motorway_link-tunnel                        # line z10- (also has line(casing) z13-, pathtext z10-, shield::shield z10-)
 highway-trunk_link                                  # line z10- (also has pathtext z10-, shield::shield z10-)
 highway-trunk_link-bridge                           # line z10- (also has line::bridgeblack z14-, line::bridgewhite z14-, pathtext z10-, shield::shield z10-)
-highway-trunk_link-tunnel                           # line z10- (also has line(casing) z12-, pathtext z10-, shield::shield z10-)
+highway-trunk_link-tunnel                           # line z10- (also has line(casing) z13-, pathtext z10-, shield::shield z10-)
 === 228
 
-# highway-motorway_link-tunnel                      # line(casing) z12- (also has line z10-, pathtext z10-, shield::shield z10-)
-# highway-trunk_link-tunnel                         # line(casing) z12- (also has line z10-, pathtext z10-, shield::shield z10-)
+# highway-motorway_link-tunnel                      # line(casing) z13- (also has line z10-, pathtext z10-, shield::shield z10-)
+# highway-trunk_link-tunnel                         # line(casing) z13- (also has line z10-, pathtext z10-, shield::shield z10-)
 # === 227
 
 highway-primary_link                                # line z11- (also has pathtext z11-, shield::shield z11-)
@@ -268,42 +268,26 @@ highway-bridleway                                   # line z14- (also has pathte
 highway-bridleway-bridge                            # line z14- (also has line::bridgeblack z17-, line::bridgewhite z15-, pathtext z15-)
 highway-bridleway-tunnel                            # line z14- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z15-)
 highway-footway                                     # line z15- (also has pathtext z15-)
-highway-footway-alpine_hiking                       # line z14- (also has pathtext z15-)
 highway-footway-area                                # line z15- and area z14- (also has pathtext z15-)
-highway-footway-bridge                              # line z15- (also has line::bridgeblack z17-, line::bridgewhite z15-, pathtext z15-)
-highway-footway-demanding_alpine_hiking             # line z14- (also has pathtext z15-)
-highway-footway-demanding_mountain_hiking           # line z14- (also has pathtext z15-)
-highway-footway-difficult_alpine_hiking             # line z14- (also has pathtext z15-)
-highway-footway-hiking                              # line z14- (also has pathtext z15-)
-highway-footway-mountain_hiking                     # line z14- (also has pathtext z15-)
-highway-footway-sidewalk                            # line z16-
-highway-footway-tunnel                              # line z15- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z15-)
+highway-footway-bicycle                             # line z15- (also has line::cycleline z15-, pathtext z15-)
 highway-path                                        # line z14- (also has pathtext z15-)
-highway-path-alpine_hiking                          # line z14- (also has pathtext z15-)
-highway-path-bicycle                                # line z14- (also has pathtext z15-)
-highway-path-bridge                                 # line z14- (also has line::bridgeblack z17-, line::bridgewhite z15-, pathtext z15-)
-highway-path-demanding_alpine_hiking                # line z14- (also has pathtext z15-)
-highway-path-demanding_mountain_hiking              # line z14- (also has pathtext z15-)
-highway-path-difficult_alpine_hiking                # line z14- (also has pathtext z15-)
-highway-path-hiking                                 # line z14- (also has pathtext z15-)
-highway-path-horse                                  # line z14- (also has pathtext z15-)
-highway-path-mountain_hiking                        # line z14- (also has pathtext z15-)
-highway-path-tunnel                                 # line z14- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z15-)
+highway-path-bicycle                                # line z14- (also has line::cycleline z14-, pathtext z15-)
+highway-path-difficult                              # line z14- (also has pathtext z15-)
+highway-path-expert                                 # line z14- (also has pathtext z15-)
 highway-raceway                                     # line z14- (also has pathtext z16-)
 highway-track                                       # line z14- (also has pathtext z15-)
 highway-track-area                                  # line z14- (also has pathtext z15-)
 highway-track-bridge                                # line z14- (also has line::bridgeblack z17-, line::bridgewhite z15-, pathtext z15-)
-highway-track-grade1                                # line z14- (also has pathtext z15-)
-highway-track-grade2                                # line z14- (also has pathtext z15-)
-highway-track-grade3                                # line z14- (also has pathtext z15-)
-highway-track-grade4                                # line z14- (also has pathtext z15-)
-highway-track-grade5                                # line z14- (also has pathtext z15-)
 highway-track-no-access                             # line z14- (also has pathtext z15-)
 highway-track-tunnel                                # line z14- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z15-)
-leisure-track                                       # line z15- (also has caption z16-)
 === 180
 
+highway-footway-bicycle::cycleline                  # line::cycleline z15- (also has line z15-, pathtext z15-)
+highway-path-bicycle::cycleline                     # line::cycleline z14- (also has line z14-, pathtext z15-)
+=== 170
+
 highway-construction                                # line z13- (also has pathtext z15-)
+leisure-track                                       # line z15- (also has caption z16-)
 railway-abandoned                                   # line z16-
 railway-abandoned-bridge                            # line z16- (also has line::bridgeblack z16-, line::bridgewhite z16-)
 railway-abandoned-tunnel                            # line z16-
@@ -313,6 +297,14 @@ railway-preserved                                   # line z15-
 railway-preserved-bridge                            # line z15- (also has line::bridgeblack z16-, line::bridgewhite z15-)
 railway-preserved-tunnel                            # line z15-
 === 160
+
+highway-footway-bridge                              # line z15- (also has line::bridgeblack z17-, line::bridgewhite z15-, pathtext z15-)
+highway-footway-sidewalk                            # line z16-
+highway-footway-tunnel                              # line z15- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z15-)
+highway-path-bridge                                 # line z14- (also has line::bridgeblack z17-, line::bridgewhite z15-, pathtext z15-)
+highway-path-horse                                  # line z14- (also has pathtext z15-)
+highway-path-tunnel                                 # line z14- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z15-)
+=== 155
 
 highway-bridleway-bridge::bridgewhite               # line::bridgewhite z15- (also has line z14-, line::bridgeblack z17-, pathtext z15-)
 highway-cycleway-bridge::bridgewhite                # line::bridgewhite z15- (also has line z13-, line::bridgeblack z17-, pathtext z15-)
@@ -458,11 +450,12 @@ waterway-dam                                        # line z14- and area z14- (a
 === 30
 
 amenity-prison                                      # area z12- (also has icon z17-, caption(optional) z17-)
-boundary-national_park                              # area z10- (also has icon z11-, caption(optional) z12-)
-boundary-protected_area-1                           # area z10- (also has icon z11-, caption(optional) z12-)
+boundary-aboriginal_lands                           # area z10-16 (also has caption z10-16)
+boundary-national_park                              # area z10-17 (also has icon z11-17, caption(optional) z12-17)
+boundary-protected_area-1                           # area z10-17 (also has icon z11-17, caption(optional) z12-17)
 landuse-military                                    # area z12- (also has icon z16-, caption(optional) z17-)
 landuse-military-danger_area                        # area z10- (also has icon z16-, caption(optional) z17-)
-leisure-nature_reserve                              # area z10- (also has icon z11-, caption(optional) z12-)
+leisure-nature_reserve                              # area z10-17 (also has icon z11-17, caption(optional) z12-17, caption z18-)
 === 20
 
 piste:type-snow_park                                # area z14- (also has caption z15-)

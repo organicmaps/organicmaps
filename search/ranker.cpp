@@ -134,6 +134,7 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
       /// 1. Make sure that this conversion also happens for Address and POI results,
       /// where street is only one component.
       /// 2. Make an optimization: If there are no synonyms or "strasse", skip this step.
+      /// 3. Short street synonym should be scored like full synonym ("AV.SAENZ 459" -> "Avenida SAENZ 459")
       if (type == Model::TYPE_STREET)
       {
         // Searching for "Santa Fe" should rank "Avenida Santa Fe" like FULL_MATCH or FULL_PREFIX, but not SUBSTRING.
@@ -214,7 +215,13 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
 
 void RemoveDuplicatingLinear(vector<RankerResult> & results)
 {
-  double constexpr kDistSameStreetMeters = 5000.0;
+  // "Молодечно первомайская ул"; "Тюрли первомайская ул" should remain both :)
+  double constexpr kDistSameStreetMeters = 3000.0;
+
+  /// @todo This kind of filtering doesn't work properly in 2-dimension.
+  /// - less makes X, Y, Z by GetLinearModelRank
+  /// - equal doesn't recognize X == Z by PointDistance because of middle Y
+  /// * Update Result::IsEqualFeature when will be fixed.
 
   auto const lessCmp = [](RankerResult const & r1, RankerResult const & r2)
   {
@@ -363,7 +370,7 @@ public:
           info.m_nameScore = NameScore::SUBSTRING;
       }
     }
-    else if (m_params.IsCategorialRequest() && Model::IsPoi(info.m_type))
+    else if (m_params.IsCategorialRequest() && Model::IsPoiOrBuilding(info.m_type))
     {
       // Update info.m_classifType.poi with the _best preferred_ type. Important for categorial request,
       // when the Feature maybe a restaurant and a toilet simultaneously.
@@ -402,7 +409,7 @@ public:
       info.m_commonTokensFactor = min(3, std::max(0, count - int(info.m_tokenRanges[info.m_type].Size())));
     }
 
-    res.SetRankingInfo(info);
+    res.SetRankingInfo(info, m_isViewportMode);
     if (m_params.m_useDebugInfo)
       res.m_dbgInfo = std::make_shared<RankingInfo>(std::move(info));
 
@@ -550,6 +557,7 @@ private:
         if (scores.m_isAltOrOldName)
           isAltOrOldName = true;
         matchedLength += scores.m_matchedLength;
+        return scores.m_nameScore;
       };
 
       auto const updateDependScore = [&](Model::Type type, uint32_t dependID)
@@ -563,8 +571,9 @@ private:
 
       updateDependScore(Model::TYPE_STREET, preInfo.m_geoParts.m_street);
       updateDependScore(Model::TYPE_SUBURB, preInfo.m_geoParts.m_suburb);
+      updateDependScore(Model::TYPE_COMPLEX_POI, preInfo.m_geoParts.m_complexPoi);
 
-      if (!Model::IsLocalityType(info.m_type) && preInfo.m_cityId.IsValid())
+      if (preInfo.m_cityId.IsValid())
       {
         if (auto city = LoadFeature(preInfo.m_cityId))
         {
@@ -577,7 +586,28 @@ private:
             ASSERT(preInfo.m_tokenRanges[Model::TYPE_VILLAGE].Empty(), ());
           }
 
-          updateScoreForFeature(*city, type);
+          NameScore cityNameScore = NameScore::ZERO;
+          if (Model::IsLocalityType(info.m_type))
+          {
+            // Hack to promote results like "Nice France".
+            // Otherwise, POIs with "France" token in name around the "Nice" city will be always on top.
+            if (preInfo.m_allTokensUsed && preInfo.m_cityId == res.GetId() &&
+                !(preInfo.m_tokenRanges[Model::TYPE_STATE].Empty() &&
+                  preInfo.m_tokenRanges[Model::TYPE_COUNTRY].Empty()))
+            {
+              cityNameScore = GetNameScores(ft, m_params, preInfo.m_tokenRanges[type], type).m_nameScore;
+            }
+          }
+          else
+            cityNameScore = updateScoreForFeature(*city, type);
+
+          // Update distance with matched city pivot if we have a _good_ city name score.
+          // A bit controversial distance score reset, but lets try.
+          // Other option is to combine old pivot distance and city distance.
+          // See 'Barcelona_Carrers' test.
+          // "San Francisco" query should not update rank for "Francisco XXX" street in "San YYY" village.
+          if (cityNameScore == NameScore::FULL_MATCH)
+            info.m_distanceToPivot = mercator::DistanceOnEarth(center, city->GetCenter());
         }
       }
 
@@ -585,6 +615,9 @@ private:
       info.m_errorsMade = errorsMade;
       info.m_isAltOrOldName = isAltOrOldName;
       info.m_matchedFraction = matchedLength / static_cast<float>(totalLength);
+
+      /// @todo Also should add POI + nearby Street/Suburb/City.
+      info.m_nearbyMatch = preInfo.m_geoParts.IsPoiAndComplexPoi();
     }
 
     CategoriesInfo const categoriesInfo(featureTypes,
@@ -609,7 +642,7 @@ private:
     info.m_falseCats = categoriesInfo.IsFalseCategories();
   }
 
-  uint8_t NormalizeRank(uint8_t rank, Model::Type type, m2::PointD const & center,
+  uint16_t NormalizeRank(uint16_t rank, Model::Type type, m2::PointD const & center,
                         string const & country, bool isCapital, bool isRelaxed)
   {
     // Do not prioritize objects with population < 800. Same as RankToPopulation(rank) < 800, but faster.
@@ -624,8 +657,9 @@ private:
     case Model::TYPE_VILLAGE: return rank / 2.5;
     case Model::TYPE_CITY:
     {
+      /// @todo Tried to reduce more (1.5), but important Famous_Cities_Rank test fails.
       if (isCapital || m_ranker.m_params.m_viewport.IsPointInside(center))
-        return base::Clamp(static_cast<int>(rank) * 2, 0, 0xFF);
+        return rank * 1.8;
 
       storage::CountryInfo info;
       if (country.empty())
@@ -633,7 +667,7 @@ private:
       else
         m_infoGetter.GetRegionInfo(country, info);
       if (info.IsNotEmpty() && info.m_name == m_ranker.m_params.m_pivotRegion)
-        return base::Clamp(static_cast<int>(rank * 1.7), 0, 0xFF);
+        return rank * 1.7;
 
       // Fallthrough like "STATE" for cities without info.
     } [[fallthrough]];
@@ -710,7 +744,7 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress, b
   {
   case RankerResult::Type::Feature:
   case RankerResult::Type::Building:
-    res.FromFeature(rankerResult.GetID(), rankerResult.GetBestType(&m_params.m_preferredTypes), rankerResult.m_details);
+    res.FromFeature(rankerResult.GetID(), rankerResult.GetBestType(), rankerResult.GetBestType(&m_params.m_preferredTypes), rankerResult.m_details);
     break;
   case RankerResult::Type::LatLon: res.SetType(Result::Type::LatLon); break;
   case RankerResult::Type::Postcode: res.SetType(Result::Type::Postcode); break;
@@ -727,7 +761,7 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress, b
   }
 
   if (needHighlighting)
-    HighlightResult(m_params.m_tokens, m_params.m_prefix, res);
+    HighlightResult(m_params.m_query.m_tokens, m_params.m_query.m_prefix, res);
 
   res.SetRankingInfo(rankerResult.m_dbgInfo);
 
@@ -741,13 +775,13 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress, b
 void Ranker::SuggestStrings()
 {
   // Prefix is only empty when tokens exceeds the max allowed. No point in giving suggestions then.
-  if (m_params.m_prefix.empty() || !m_params.m_suggestsEnabled)
+  if (m_params.m_query.m_prefix.empty() || !m_params.m_suggestsEnabled)
     return;
 
-  string prologue = DropLastToken(m_params.m_query);
+  string const prologue = DropLastToken(m_params.m_query.m_query);
 
   for (auto const locale : m_params.m_categoryLocales)
-    MatchForSuggestions(m_params.m_prefix, locale, prologue);
+    MatchForSuggestions(m_params.m_query.m_prefix, locale, prologue);
 }
 
 void Ranker::UpdateResults(bool lastUpdate)
@@ -762,17 +796,25 @@ void Ranker::UpdateResults(bool lastUpdate)
 
   if (m_params.m_viewportSearch)
   {
-    // Heuristics to filter partially matched category trash in the viewport.
-    // https://github.com/organicmaps/organicmaps/issues/5251
-    auto it = partition(m_tentativeResults.begin(), m_tentativeResults.end(),
-                        [](RankerResult const & r) { return !r.IsPartialCategory(); });
+    // https://github.com/organicmaps/organicmaps/issues/5566
+    /// @todo https://github.com/organicmaps/organicmaps/issues/5251 Should review later
+    // https://github.com/organicmaps/organicmaps/issues/4325
+    // https://github.com/organicmaps/organicmaps/issues/4190
+    // https://github.com/organicmaps/organicmaps/issues/3677
 
-    size_t const goodCount = distance(m_tentativeResults.begin(), it);
-    if (goodCount >= 10 || goodCount * 3 >= m_tentativeResults.size())
-      m_tentativeResults.erase(it, m_tentativeResults.end());
+    auto & resV = m_tentativeResults;
+    auto it = std::max_element(resV.begin(), resV.end(), base::LessBy(&RankerResult::GetLinearModelRank));
+    double const lowestAllowed = it->GetLinearModelRank() - RankingInfo::GetLinearRankViewportThreshold();
 
-    sort(m_tentativeResults.begin(), m_tentativeResults.end(),
-         base::LessBy(&RankerResult::GetDistanceToPivot));
+    it = std::partition(resV.begin(), resV.end(), [lowestAllowed](RankerResult const & r)
+    {
+      return r.GetLinearModelRank() >= lowestAllowed;
+    });
+    if (it != resV.end())
+    {
+      LOG(LDEBUG, ("Removed", std::distance(it, resV.end()), "viewport results."));
+      resV.erase(it, resV.end());
+    }
   }
   else
   {
@@ -939,7 +981,7 @@ void Ranker::MatchForSuggestions(strings::UniString const & token, int8_t locale
     {
       string const utf8Str = strings::ToUtf8(s);
       Result r(utf8Str, prologue + utf8Str + " ");
-      HighlightResult(m_params.m_tokens, m_params.m_prefix, r);
+      HighlightResult(m_params.m_query.m_tokens, m_params.m_query.m_prefix, r);
       m_emitter.AddResult(std::move(r));
     }
   }
@@ -947,7 +989,7 @@ void Ranker::MatchForSuggestions(strings::UniString const & token, int8_t locale
 
 void Ranker::ProcessSuggestions(vector<RankerResult> const & vec) const
 {
-  if (m_params.m_prefix.empty() || !m_params.m_suggestsEnabled)
+  if (m_params.m_query.m_prefix.empty() || !m_params.m_suggestsEnabled)
     return;
 
   size_t added = 0;
@@ -959,7 +1001,7 @@ void Ranker::ProcessSuggestions(vector<RankerResult> const & vec) const
     ftypes::LocalityType const type = GetLocalityIndex(r.GetTypes());
     if (type == ftypes::LocalityType::Country || type == ftypes::LocalityType::City || r.IsStreet())
     {
-      string suggestion = GetSuggestion(r, m_params.m_query, m_params.m_tokens, m_params.m_prefix);
+      string suggestion = GetSuggestion(r.GetName(), m_params.m_query);
       if (!suggestion.empty())
       {
         // todo(@m) RankingInfo is lost here. Should it be?

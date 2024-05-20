@@ -1,3 +1,4 @@
 github: organicmaps
 liberapay: OrganicMaps
-custom: ["https://organicmaps.app/donate"]
+open_collective: organicmaps
+custom: ["https://organicmaps.app/donate/", "https://donate.organicmaps.app/"]

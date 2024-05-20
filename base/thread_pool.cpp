@@ -5,7 +5,6 @@
 
 #include <functional>
 #include <memory>
-#include <utility>
 #include <vector>
 
 namespace base::thread_pool
@@ -29,7 +28,7 @@ public:
   {
     while (!IsCancelled())
     {
-      threads::IRoutine * task = m_popFn();
+      IRoutine * task = m_popFn();
       if (task == NULL)
       {
         Cancel();
@@ -57,7 +56,7 @@ public:
     for (auto & thread : m_threads)
     {
       thread = std::make_unique<threads::Thread>();
-      thread->Create(std::make_unique<PoolRoutine>(std::bind(&ThreadPool::Impl::PopFront, this), m_finishFn));
+      thread->Create(std::make_unique<PoolRoutine>(std::bind(&Impl::PopFront, this), m_finishFn));
     }
   }
 

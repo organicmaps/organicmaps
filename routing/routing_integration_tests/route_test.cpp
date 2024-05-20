@@ -77,7 +77,7 @@ UNIT_TEST(RussiaUfaToUstKatavTest)
   CalculateRouteAndTestRouteLength(
       GetVehicleComponents(VehicleType::Car),
       FromLatLon(54.7304, 55.9554), {0., 0.},
-      FromLatLon(54.9228, 58.1469), 164667.);
+      FromLatLon(54.9228, 58.1469), 160565);
 }
 
 UNIT_TEST(RussiaMoscowNoServiceCrossing)
@@ -176,9 +176,9 @@ UNIT_TEST(EnglandToFranceRouteLeMansTest)
 {
   TRouteResult const res = CalculateRoute(GetVehicleComponents(VehicleType::Car),
                                           FromLatLon(51.09276, 1.11369), {0., 0.},
-                                          FromLatLon(50.93227, 1.82725));
+                                          FromLatLon(50.93317, 1.82737));
 
-  TestRouteLength(*res.first, 64089.4);
+  TestRouteLength(*res.first, 63877.4);
   // LeMans shuttle duration is 35 min.
   TEST_LESS(res.first->GetTotalTimeSec(), 3200, ());
 }
@@ -383,8 +383,8 @@ UNIT_TEST(GermanyShuttleTrainTest)
 
   TEST(routeResult.first, ());
   Route const & route = *routeResult.first;
-  TestRouteLength(route, 44116.7);
-  TestRouteTime(route, 2529.63);
+  TestRouteLength(route, 44517.4);
+  TestRouteTime(route, 2619.62);
 }
 
 UNIT_TEST(TolyattiFeatureThatCrossSeveralMwmsTest)
@@ -846,7 +846,7 @@ UNIT_TEST(Germany_Netherlands_AvoidLoops)
   TEST(routeResult.first, ());
   Route const & route = *routeResult.first;
   TestRouteLength(route, 405159);
-  TestRouteTime(route, 14280.7);
+  TestRouteTime(route, 14100);
 }
 
 UNIT_TEST(Germany_Cologne_Croatia_Zagreb)

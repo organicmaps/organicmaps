@@ -40,19 +40,6 @@ final class CarPlayService: NSObject {
     self.interfaceController?.delegate = self
     let configuration = CPSessionConfiguration(delegate: self)
     sessionConfiguration = configuration
-    // Try to use the CarPlay unit's interface style.
-    if #available(iOS 13.0, *) {
-      switch configuration.contentStyle {
-      case .light:
-        rootTemplateStyle = .light
-        window.overrideUserInterfaceStyle = .light
-      case .dark:
-        rootTemplateStyle = .dark
-        window.overrideUserInterfaceStyle = .dark
-      default:
-        rootTemplateStyle = window.overrideUserInterfaceStyle == .light ? .light : .dark
-      }
-    }
     searchService = CarPlaySearchService()
     let router = CarPlayRouter()
     router.addListener(self)
@@ -67,11 +54,49 @@ final class CarPlayService: NSObject {
       applyBaseRootTemplate()
       router.restoreTripPreviewOnCarplay(beforeRootTemplateDidAppear: true)
     }
-    ThemeManager.invalidate()
+    if #available(iOS 13.0, *) {
+      updateContentStyle(configuration.contentStyle)
+    }
     FrameworkHelper.updatePositionArrowOffset(false, offset: 5)
+
+    CarPlayWindowScaleAdjuster.updateAppearance(
+      fromWindow: MapsAppDelegate.theApp().window,
+      toWindow: window,
+      isCarplayActivated: true
+    )
   }
 
-  @objc func destroy() {
+  private var savedInterfaceController: CPInterfaceController?
+  @objc func showOnPhone() {
+    savedInterfaceController = interfaceController
+    switchScreenToPhone()
+    showPhoneModeAlert()
+  }
+
+  @objc func showOnCarplay() {
+    if let window, let savedInterfaceController {
+      setup(window: window, interfaceController: savedInterfaceController)
+    }
+  }
+
+  private func showPhoneModeAlert() {
+    let switchToCarAction = CPAlertAction(
+      title: L("car_continue_in_the_car"),
+      style: .default,
+      handler: { [weak self] _ in
+        self?.savedInterfaceController?.dismissTemplate(animated: false)
+        self?.showOnCarplay()
+      }
+    )
+    let alert = CPAlertTemplate(
+      titleVariants: [L("car_used_on_the_phone_screen")],
+      actions: [switchToCarAction]
+    )
+    savedInterfaceController?.dismissTemplate(animated: false)
+    savedInterfaceController?.presentTemplate(alert, animated: false)
+  }
+
+  private func switchScreenToPhone() {
     if let carplayVC = carplayVC {
       carplayVC.removeMapView()
     }
@@ -95,16 +120,38 @@ final class CarPlayService: NSObject {
     interfaceController = nil
     ThemeManager.invalidate()
     FrameworkHelper.updatePositionArrowOffset(true, offset: 0)
+
+    if let window {
+      CarPlayWindowScaleAdjuster.updateAppearance(
+        fromWindow: window,
+        toWindow: MapsAppDelegate.theApp().window,
+        isCarplayActivated: false
+      )
+    }
+  }
+
+  @objc func destroy() {
+    if isCarplayActivated {
+      switchScreenToPhone()
+    }
+    savedInterfaceController = nil
   }
 
   @objc func interfaceStyle() -> UIUserInterfaceStyle {
     if let window = window,
       window.traitCollection.userInterfaceIdiom == .carPlay {
-      return window.traitCollection.userInterfaceStyle
+      return rootTemplateStyle == .dark ? .dark : .light
     }
     return .unspecified
   }
-  
+
+  @available(iOS 13.0, *)
+  private func updateContentStyle(_ contentStyle: CPContentStyle) {
+    rootTemplateStyle = contentStyle == .dark ? .dark : .light
+    // Update the current map style in accordance with the CarPLay content theme.
+    ThemeManager.invalidate()
+  }
+
   private var rootTemplateStyle: CPTripEstimateStyle = .light {
     didSet {
       (interfaceController?.rootTemplate as? CPMapTemplate)?.tripEstimateStyle = rootTemplateStyle
@@ -329,9 +376,8 @@ extension CarPlayService: CPSessionConfigurationDelegate {
   @available(iOS 13.0, *)
   func sessionConfiguration(_ sessionConfiguration: CPSessionConfiguration,
                             contentStyleChanged contentStyle: CPContentStyle) {
-    let isLight = contentStyle == .light
-    window?.overrideUserInterfaceStyle = isLight ? .light : .dark
-    rootTemplateStyle = isLight ? .light : .dark
+    // Handle the CarPlay content style changing triggered by the 'Always Show Dark Maps' toggle.
+    updateContentStyle(contentStyle)
   }
 }
 
@@ -512,7 +558,7 @@ extension CarPlayService: CPSearchTemplateDelegate {
     }
     completionHandler()
   }
-  
+
   func searchTemplateSearchButtonPressed(_ searchTemplate: CPSearchTemplate) {
     let locale = window?.textInputMode?.primaryLanguage ?? "en"
     guard let searchService = searchService else {
@@ -592,9 +638,6 @@ extension CarPlayService: LocationModeListener {
       rootMapTemplate.leadingNavigationBarButtons = []
     }
   }
-
-  func processMyPositionPendingTimeout() {
-  }
 }
 
 // MARK: - Alerts and Trip Previews
@@ -662,14 +705,8 @@ extension CarPlayService {
   }
 
   func createEstimates(routeInfo: RouteInfo) -> CPTravelEstimates? {
-    if let distance = Double(routeInfo.targetDistance) {
-      let measurement = Measurement(value: distance,
-                                    unit: routeInfo.targetUnits)
-      let estimates = CPTravelEstimates(distanceRemaining: measurement,
-                                        timeRemaining: routeInfo.timeToTarget)
-      return estimates
-    }
-    return nil
+    let measurement = Measurement(value: routeInfo.targetDistance, unit: routeInfo.targetUnits)
+    return CPTravelEstimates(distanceRemaining: measurement, timeRemaining: routeInfo.timeToTarget)
   }
 
   func applyUndefinedEstimates(template: CPMapTemplate, trip: CPTrip) {

@@ -28,10 +28,9 @@
     if (type == MWMSearchItemTypeRegular) {
       auto const & result = [MWMSearch resultWithContainerIndex:containerIndex];
       NSString *localizedTypeName = @"";
-      if (result.GetResultType() == search::Result::Type::Feature) {
-        auto const readableType = classif().GetReadableObjectName(result.GetFeatureType());
-        localizedTypeName = @(platform::GetLocalizedTypeName(readableType).c_str());
-      }
+      if (result.GetResultType() == search::Result::Type::Feature)
+        localizedTypeName = @(result.GetLocalizedFeatureType().c_str());
+
       self.title = result.GetString().empty() ? localizedTypeName : @(result.GetString().c_str());
       self.address = @(result.GetAddress().c_str());
       auto const pivot = result.GetFeatureCenter();

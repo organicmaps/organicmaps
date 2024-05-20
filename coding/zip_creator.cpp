@@ -2,15 +2,11 @@
 
 #include "base/string_utils.hpp"
 
-#include "coding/constants.hpp"
 #include "coding/internal/file_data.hpp"
-#include "coding/reader.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
-
-#include "3party/minizip/minizip.hpp"
 
 #include <algorithm>
 #include <array>
@@ -39,20 +35,6 @@ public:
   zip::File Handle() const { return m_zipFileHandle; }
 };
 
-void CreateTMZip(zip::DateTime & res)
-{
-  time_t rawtime;
-  struct tm * timeinfo;
-  time(&rawtime);
-  timeinfo = localtime(&rawtime);
-  res.tm_sec = timeinfo->tm_sec;
-  res.tm_min = timeinfo->tm_min;
-  res.tm_hour = timeinfo->tm_hour;
-  res.tm_mday = timeinfo->tm_mday;
-  res.tm_mon = timeinfo->tm_mon;
-  res.tm_year = timeinfo->tm_year;
-}
-
 int GetCompressionLevel(CompressionLevel compression)
 {
   switch (compression)
@@ -67,61 +49,23 @@ int GetCompressionLevel(CompressionLevel compression)
 }
 }  // namespace
 
-bool CreateZipFromPathDeflatedAndDefaultCompression(std::string const & filePath,
-                                                    std::string const & zipFilePath)
+void FillZipLocalDateTime(zip::DateTime & res)
 {
-  // Open zip file for writing.
-  SCOPE_GUARD(outFileGuard, [&zipFilePath]() { base::DeleteFileX(zipFilePath); });
-
-  ZipHandle zip(zipFilePath);
-  if (!zip.Handle())
-    return false;
-
-  zip::FileInfo zipInfo = {};
-  CreateTMZip(zipInfo.tmz_date);
-
-  std::string fileName = base::FileNameFromFullPath(filePath);
-  if (!strings::IsASCIIString(fileName))
-    fileName = "OrganicMaps.kml";
-
-  if (zip::Code::Ok != zip::OpenNewFileInZip(zip.Handle(), fileName, zipInfo, "ZIP from OMaps",
-                                             Z_DEFLATED, Z_DEFAULT_COMPRESSION))
-  {
-    return false;
-  }
-
-  // Write source file into zip file.
-  try
-  {
-    base::FileData file(filePath, base::FileData::OP_READ);
-    uint64_t const fileSize = file.Size();
-
-    uint64_t currSize = 0;
-    std::array<char, zip::kFileBufferSize> buffer;
-    while (currSize < fileSize)
-    {
-      auto const toRead = std::min(buffer.size(), static_cast<size_t>(fileSize - currSize));
-      file.Read(currSize, buffer.data(), toRead);
-
-      if (zip::Code::Ok != zip::WriteInFileInZip(zip.Handle(), buffer, toRead))
-        return false;
-
-      currSize += toRead;
-    }
-  }
-  catch (Reader::Exception const & ex)
-  {
-    LOG(LERROR, ("Error reading file:", filePath, ex.Msg()));
-    return false;
-  }
-
-  outFileGuard.release();
-  return true;
+  auto const now = std::time(nullptr);
+  // Files inside .zip are using local date time format.
+  auto const * local = std::localtime(&now);
+  res.tm_sec = local->tm_sec;
+  res.tm_min = local->tm_min;
+  res.tm_hour = local->tm_hour;
+  res.tm_mday = local->tm_mday;
+  res.tm_mon = local->tm_mon;
+  res.tm_year = local->tm_year;
 }
 
-bool CreateZipFromFiles(std::vector<std::string> const & files, std::string const & zipFilePath,
+bool CreateZipFromFiles(std::vector<std::string> const & files, std::vector<std::string> const & filesInArchive, std::string const & zipFilePath,
                         CompressionLevel compression)
 {
+  ASSERT_EQUAL(files.size(), filesInArchive.size(), ("List of file names in archive doesn't match list of files"));
   SCOPE_GUARD(outFileGuard, [&zipFilePath]() { base::DeleteFileX(zipFilePath); });
 
   ZipHandle zip(zipFilePath);
@@ -129,34 +73,41 @@ bool CreateZipFromFiles(std::vector<std::string> const & files, std::string cons
     return false;
 
   auto const compressionLevel = GetCompressionLevel(compression);
-  zip::FileInfo const fileInfo = {};
 
   try
   {
-    for (auto const & filePath : files)
+    int suffix = 0;
+    for (size_t i = 0; i < files.size(); i++)
     {
-      if (zip::Code::Ok != zip::OpenNewFileInZip(zip.Handle(), filePath, fileInfo, "",
-                              Z_DEFLATED, compressionLevel))
+      auto const & filePath = files.at(i);
+      std::string fileInArchive = filesInArchive.at(i);
+      if (!strings::IsASCIIString(fileInArchive))
       {
-        return false;
+        if (suffix == 0)
+          fileInArchive = "OrganicMaps.kml";
+        else
+          fileInArchive = "OrganicMaps_" + std::to_string(suffix) + ".kml";
+        ++suffix;
       }
+      zip::FileInfo fileInfo = {};
+      FillZipLocalDateTime(fileInfo.tmz_date);
+      if (zip::Code::Ok != zip::OpenNewFileInZip(zip.Handle(), fileInArchive, fileInfo, "", Z_DEFLATED, compressionLevel))
+        return false;
 
-      base::FileData file(filePath, base::FileData::OP_READ);
+      base::FileData file(filePath, base::FileData::Op::READ);
       uint64_t const fileSize = file.Size();
       uint64_t writtenSize = 0;
-      zip::Buffer buffer;
+      std::array<char, zip::kFileBufferSize> buffer;
 
       while (writtenSize < fileSize)
       {
-        auto const filePartSize =
-            std::min(buffer.size(), static_cast<size_t>(fileSize - writtenSize));
+        auto const filePartSize = std::min(buffer.size(), static_cast<size_t>(fileSize - writtenSize));
         file.Read(writtenSize, buffer.data(), filePartSize);
-
         if (zip::Code::Ok != zip::WriteInFileInZip(zip.Handle(), buffer, filePartSize))
           return false;
-
         writtenSize += filePartSize;
       }
+      zipCloseFileInZip(zip.Handle());
     }
   }
   catch (std::exception const & e)
@@ -167,4 +118,13 @@ bool CreateZipFromFiles(std::vector<std::string> const & files, std::string cons
 
   outFileGuard.release();
   return true;
+}
+
+bool CreateZipFromFiles(std::vector<std::string> const & files, std::string const & zipFilePath,
+                        CompressionLevel compression)
+{
+  std::vector<std::string> filesInArchive;
+  for (auto const & file : files)
+    filesInArchive.push_back(base::FileNameFromFullPath(file));
+  return CreateZipFromFiles(files, filesInArchive, zipFilePath, compression);
 }

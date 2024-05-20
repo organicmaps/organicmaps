@@ -29,17 +29,15 @@ jobs:
           version=$(tools/unix/version.sh ios_version)
           # +1 because below a "Bump versions" commit is created.
           # TODO: Find a way to refactor FDroid versioning without that additional commit.
-          # build=$(($(tools/unix/version.sh ios_build) + 1))
-          # code=$(($(tools/unix/version.sh android_code) + 1))
-          build=$(tools/unix/version.sh ios_build)
-          code=$(tools/unix/version.sh android_code)
+          build=$(($(tools/unix/version.sh ios_build) + 1))
+          code=$(($(tools/unix/version.sh android_code) + 1))
           tag=$version-$build-android
           echo "::set-output name=version::$version"
           echo "::set-output name=build::$build"
           echo "::set-output name=tag::$tag"
           echo "::set-output name=code::$code"
-          # echo "version: ${version}-${build}-FDroid+${code}" > ${{ env.FDROID_VERSION }}
-          # git add ${{ env.FDROID_VERSION }}
+          echo "version: ${version}-${build}-FDroid+${code}" > ${{ env.FDROID_VERSION }}
+          git add ${{ env.FDROID_VERSION }}
           {
             echo $tag
             echo
@@ -47,7 +45,7 @@ jobs:
           } > ${{ runner.temp }}/tag.txt
           branch="${GITHUB_REF#refs/heads/}"
           test -n "$branch"
-          # git commit -m "Bump versions" -s
+          git commit -m "Bump versions" -s
           git tag -a $tag -F ${{ runner.temp }}/tag.txt
           git show $tag
           git push origin $branch:$branch
@@ -118,7 +116,7 @@ jobs:
 
       - name: Set up SDK
         shell: bash
-        run: (cd tools/android; ./set_up_android.py --sdk $ANDROID_SDK_ROOT)
+        run: echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
 
       - name: Compile and upload to Google Play
         shell: bash
@@ -146,6 +144,7 @@ jobs:
         if: ${{ matrix.flavor == 'web' }}
         shell: bash
         run: |
+          (cd ./android/app/build/outputs/apk/web/release/ && sha256sum OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk > OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk.sha256sum)
           {
             cat ${{ env.RELEASE_NOTES }}
             echo ""
@@ -153,7 +152,7 @@ jobs:
             echo ""
             echo "sha256sum:"
             echo -e '\n```'
-            (cd ./android/app/build/outputs/apk/web/release/ && sha256sum OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk) | tr -d '\n'
+            tr -d '\n' < ./android/app/build/outputs/apk/web/release/OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk.sha256sum
             echo -e '\n```'
           } > ${{ runner.temp }}/release-notes.txt
 
@@ -166,5 +165,8 @@ jobs:
           name: ${{ needs.tag.outputs.tag }}
           tag_name: ${{ needs.tag.outputs.tag }}
           discussion_category_name: 'Announcements'
-          files: ./android/app/build/outputs/apk/web/release/OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk
+          prerelease: true
+          files: |
+            ./android/app/build/outputs/apk/web/release/OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk
+            ./android/app/build/outputs/apk/web/release/OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk.sha256sum
           fail_on_unmatched_files: true

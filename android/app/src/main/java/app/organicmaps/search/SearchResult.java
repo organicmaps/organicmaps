@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 
 import app.organicmaps.bookmarks.data.FeatureId;
 import app.organicmaps.util.Distance;
-import app.organicmaps.util.Utils;
 
 /**
  * Class instances are created from native code.
@@ -41,7 +40,7 @@ public class SearchResult
   public static class Description
   {
     public final FeatureId featureId;
-    public final String featureType;
+    public final String localizedFeatureType;
     public final String region;
     public final Distance distance;
 
@@ -57,7 +56,7 @@ public class SearchResult
                        boolean hasPopularityHigherPriority)
     {
       this.featureId = featureId;
-      this.featureType = featureType;
+      this.localizedFeatureType = featureType;
       this.region = region;
       this.distance = distance;
       this.description = description;
@@ -115,11 +114,8 @@ public class SearchResult
   public String getTitle(@NonNull Context context)
   {
     String title = name;
-    if (TextUtils.isEmpty(title))
-    {
-      title = description != null ? description.featureType : "";
-    }
-
+    if (TextUtils.isEmpty(title) && description != null)
+      title = description.localizedFeatureType;
     return title;
   }
 

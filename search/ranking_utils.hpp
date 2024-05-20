@@ -134,6 +134,16 @@ struct NameScores
     if (newNameScoreIsBetter && m_nameScore == NameScore::FULL_PREFIX && m_errorsMade.IsBetterThan(rhs.m_errorsMade))
       newNameScoreIsBetter = false;
 
+    // FULL_PREFIX with !alt_old_name) is better than FULL_MATCH with alt_old_name.
+    if (!m_isAltOrOldName && rhs.m_isAltOrOldName &&
+        !rhs.m_errorsMade.IsBetterThan(m_errorsMade) &&
+        (int)rhs.m_nameScore - (int)m_nameScore < 2)
+    {
+      newNameScoreIsBetter = false;
+    }
+
+    /// @todo What should we do with alt_old_name and errors==0 vs !alt_old_name and errors==1?
+
     auto const nameScoresAreEqual = m_nameScore == rhs.m_nameScore;
     auto const newLanguageIsBetter = m_isAltOrOldName && !rhs.m_isAltOrOldName;
     auto const languagesAreEqual = m_isAltOrOldName == rhs.m_isAltOrOldName;

@@ -5,8 +5,6 @@
 #include "base/logging.hpp"
 #include "base/src_point.hpp"
 
-#include "std/target_os.hpp"
-
 #include <iostream>
 
 namespace base
@@ -15,9 +13,8 @@ bool OnAssertFailedDefault(SrcPoint const & srcPoint, std::string const & msg)
 {
   auto & logger = LogHelper::Instance();
 
-  std::cerr << "TID(" << logger.GetThreadID() << ") ASSERT FAILED" << std::endl
-            << srcPoint.FileName() << ":" << srcPoint.Line() << std::endl
-            << msg << std::endl;
+  std::cerr << '(' << logger.GetThreadID() << ") ASSERT FAILED" << '\n'
+            << srcPoint.FileName() << ':' << srcPoint.Line() << '\n' << msg << std::endl;
   return true;
 }
 

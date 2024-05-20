@@ -8,6 +8,8 @@
 #include <cstdlib>
 #include <string>
 
+// NOLINTBEGIN(misc-static-assert)
+
 namespace base
 {
 // Called when ASSERT, CHECK or VERIFY failed.
@@ -99,3 +101,5 @@ AssertFailedFn SetAssertFunction(AssertFailedFn fn);
     CHECK(false, ("Unreachable statement.")); \
     std::abort();                             \
   } while (false)
+
+// NOLINTEND(misc-static-assert)

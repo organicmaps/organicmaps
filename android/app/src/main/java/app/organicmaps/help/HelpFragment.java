@@ -47,7 +47,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     final boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
 
     final String dataVersion = DateUtils.getShortDateFormatter().format(Framework.getDataVersion());
-    final TextView osmPresentationView = (TextView) root.findViewById(R.id.osm_presentation);
+    final TextView osmPresentationView = root.findViewById(R.id.osm_presentation);
     if (osmPresentationView != null)
       osmPresentationView.setText(getString(R.string.osm_presentation, dataVersion));
 
@@ -125,7 +125,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     else if (id == R.id.faq)
       ((HelpActivity) requireActivity()).stackFragment(FaqFragment.class, getString(R.string.faq), null);
     else if (id == R.id.report)
-      Utils.sendBugReport(requireActivity(), "");
+      Utils.sendBugReport(requireActivity(), "", "");
     else if (id == R.id.support_us)
       Utils.openUrl(requireActivity(), getResources().getString(R.string.translated_om_site_url) + "support-us/");
     else if (id == R.id.donate)

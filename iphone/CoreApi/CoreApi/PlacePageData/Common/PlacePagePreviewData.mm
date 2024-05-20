@@ -2,10 +2,10 @@
 
 #include "3party/opening_hours/opening_hours.hpp"
 
-static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH) {
-    
+static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH)
+{
   PlacePageDataSchedule schedule;
-    
+
   if (rawOH.empty()) {
     schedule.state = PlacePageDataOpeningHoursUnknown;
     return schedule;
@@ -30,45 +30,18 @@ static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH) {
       schedule.state = PlacePageDataOpeningHoursOpen;
       schedule.nextTimeClosed = info.nextTimeClosed;
       break;
-          
+
     case osmoh::RuleState::Closed:
       schedule.state = PlacePageDataOpeningHoursClosed;
       schedule.nextTimeOpen = info.nextTimeOpen;
       break;
-          
+
     case osmoh::RuleState::Unknown:
       schedule.state = PlacePageDataOpeningHoursUnknown;
       break;
   }
-  
+
   return schedule;
-}
-
-static PlacePageDataHotelType convertHotelType(std::optional<ftypes::IsHotelChecker::Type> hotelType) {
-  if (!hotelType.has_value()) {
-    return PlacePageDataHotelTypeNone;
-  }
-
-  switch (*hotelType) {
-    case ftypes::IsHotelChecker::Type::Hotel:
-      return PlacePageDataHotelTypeHotel;
-    case ftypes::IsHotelChecker::Type::Apartment:
-      return PlacePageDataHotelTypeApartment;
-    case ftypes::IsHotelChecker::Type::CampSite:
-      return PlacePageDataHotelTypeCampSite;
-    case ftypes::IsHotelChecker::Type::Chalet:
-      return PlacePageDataHotelTypeChalet;
-    case ftypes::IsHotelChecker::Type::GuestHouse:
-      return PlacePageDataHotelTypeGuestHouse;
-    case ftypes::IsHotelChecker::Type::Hostel:
-      return PlacePageDataHotelTypeHostel;
-    case ftypes::IsHotelChecker::Type::Motel:
-      return PlacePageDataHotelTypeMotel;
-    case ftypes::IsHotelChecker::Type::Resort:
-      return PlacePageDataHotelTypeResort;
-    case ftypes::IsHotelChecker::Type::Count:
-      return PlacePageDataHotelTypeNone;
-  }
 }
 
 @implementation PlacePagePreviewData
@@ -94,9 +67,8 @@ static PlacePageDataHotelType convertHotelType(std::optional<ftypes::IsHotelChec
     _coordinates = @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::LatLonDMS).c_str());
     _address = rawData.GetAddress().empty() ? nil : @(rawData.GetAddress().c_str());
     _isMyPosition = rawData.IsMyPosition();
-    _isPopular = rawData.GetPopularity() > 0;
+    //_isPopular = rawData.GetPopularity() > 0;
     _schedule = convertOpeningHours(rawData.GetOpeningHours());
-    _hotelType = convertHotelType(rawData.GetHotelType());
   }
   return self;
 }

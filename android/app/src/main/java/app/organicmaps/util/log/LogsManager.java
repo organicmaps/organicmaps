@@ -236,7 +236,7 @@ public final class LogsManager
       .append(" (API ").append(Build.VERSION.SDK_INT).append(')');
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
       sb.append(", security patch level: ").append(Build.VERSION.SECURITY_PATCH);
-    sb.append(", os.version: " + System.getProperty("os.version", "N/A"))
+    sb.append(", os.version: ").append(System.getProperty("os.version", "N/A"))
       .append("\nDevice: ");
     if (!StringUtils.toLowerCase(Build.MODEL).startsWith(StringUtils.toLowerCase(Build.MANUFACTURER)))
       sb.append(Build.MANUFACTURER).append(' ');

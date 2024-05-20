@@ -5,6 +5,7 @@
 #import "MWMEditorViralAlert.h"
 #import "MWMLocationAlert.h"
 #import "MWMOsmAuthAlert.h"
+#import "MWMOsmReauthAlert.h"
 #import "MWMPlaceDoesntExistAlert.h"
 #import "MWMRoutingDisclaimerAlert.h"
 
@@ -31,6 +32,11 @@
 + (MWMAlert *)disabledLocationAlert {
   return [MWMDefaultAlert disabledLocationAlert];
 }
+
++ (MWMAlert *)locationServicesDisabledAlert {
+  return [LocationServicesDisabledAlert alert];
+}
+
 + (MWMAlert *)noWiFiAlertWithOkBlock:(MWMVoidBlock)okBlock andCancelBlock:(MWMVoidBlock)cancelBlock {
   return [MWMDefaultAlert noWiFiAlertWithOkBlock:okBlock andCancelBlock:cancelBlock];
 }
@@ -153,6 +159,9 @@
 + (MWMAlert *)osmAuthAlert {
   return [MWMOsmAuthAlert alert];
 }
++ (MWMAlert *)osmReauthAlert {
+  return [MWMOsmReauthAlert alert];
+}
 + (MWMAlert *)personalInfoWarningAlertWithBlock:(MWMVoidBlock)block {
   return [MWMDefaultAlert personalInfoWarningAlertWithBlock:block];
 }
@@ -259,6 +268,21 @@
   [super layoutSubviews];
   self.frame = self.superview.bounds;
   [super layoutSubviews];
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+  [super traitCollectionDidChange:previousTraitCollection];
+  if (self.traitCollection.userInterfaceStyle != previousTraitCollection.userInterfaceStyle) {
+    [self updateViewStyle:self];
+  }
+}
+
+- (void)updateViewStyle:(UIView *)view {
+  if (!view)
+    return;
+  for (UIView *subview in view.subviews)
+    [self updateViewStyle:subview];
+  [view applyTheme];
 }
 
 @end

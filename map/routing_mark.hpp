@@ -22,6 +22,7 @@ struct RouteMarkData
   bool m_isVisible = true;
   bool m_isMyPosition = false;
   bool m_isPassed = false;
+  bool m_replaceWithMyPositionAfterRestart = false;
   m2::PointD m_position;
 };
 

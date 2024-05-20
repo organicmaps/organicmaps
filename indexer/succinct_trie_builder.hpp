@@ -96,7 +96,7 @@ void WriteInLevelOrder(TNode * root, std::vector<TNode *> & levelOrder)
 template <typename TWriter, typename TIter, typename TValueList>
 void BuildSuccinctTrie(TWriter & writer, TIter const beg, TIter const end)
 {
-  using TrieChar = uint32_t;
+  using TrieChar = char32_t;
   using TTrieString = buffer_vector<TrieChar, 32>;
   using TNode = Node<TValueList>;
   using TEntry = typename TIter::value_type;

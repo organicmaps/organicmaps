@@ -2,6 +2,7 @@ package app.organicmaps;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -11,8 +12,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.CallSuper;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
@@ -23,7 +22,6 @@ import androidx.annotation.StyleRes;
 import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.downloader.CountryItem;
 import app.organicmaps.downloader.MapManager;
-import app.organicmaps.intent.Factory;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.util.Config;
@@ -35,6 +33,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import java.util.List;
+import java.util.Objects;
 
 @SuppressLint("StringFormatMatches")
 public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
@@ -59,9 +58,6 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
   @Nullable
   private Dialog mAlertDialog;
-
-  @NonNull
-  private ActivityResultLauncher<Intent> mApiRequest;
 
   private boolean mAreResourcesDownloaded;
 
@@ -190,10 +186,6 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     super.onSafeCreate(savedInstanceState);
     setContentView(R.layout.activity_download_resources);
     initViewsAndListeners();
-    mApiRequest = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-      setResult(result.getResultCode(), result.getData());
-      finish();
-    });
 
     if (prepareFilesDownload(false))
     {
@@ -212,8 +204,6 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   protected void onSafeDestroy()
   {
     super.onSafeDestroy();
-    mApiRequest.unregister();
-    mApiRequest = null;
     Utils.keepScreenOn(Config.isKeepScreenOnEnabled(), getWindow());
     if (mCountryDownloadListenerSlot != 0)
     {
@@ -348,20 +338,13 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     if (!mAreResourcesDownloaded)
       return;
 
-    final Intent intent = new Intent(this, MwmActivity.class);
+    // Re-use original intent to retain all flags and payload.
+    // https://github.com/organicmaps/organicmaps/issues/6944
+    final Intent intent = Objects.requireNonNull(getIntent());
+    intent.setComponent(new ComponentName(this, MwmActivity.class));
 
     // Disable animation because MwmActivity should appear exactly over this one
     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-    // See {@link SplashActivity.processNavigation()}
-    final Intent initialIntent = getIntent();
-    intent.putExtra(SplashActivity.EXTRA_INITIAL_INTENT, initialIntent);
-    if (Factory.isStartedForApiResult(initialIntent))
-    {
-      // Wait for the result from MwmActivity for API callers.
-      mApiRequest.launch(intent);
-      return;
-    }
 
     startActivity(intent);
     finish();

@@ -157,8 +157,8 @@ UNIT_TEST(SpainTenerifeAdejeVilaflor)
                               mercator::FromLatLon(28.15865, -16.63704));
   TEST_EQUAL(res.second, RouterResultCode::NoError, ());
 
-  TestRouteLength(*res.first, 26997.4);
-  TestRouteTime(*res.first, 11156.7);
+  TestRouteLength(*res.first, 26401);
+  TestRouteTime(*res.first, 11002);
 }
 
 // Test on riding down from Vilaflor (altitude 1400 meters) to Adeje (sea level).
@@ -169,8 +169,8 @@ UNIT_TEST(SpainTenerifeVilaflorAdeje)
                               mercator::FromLatLon(28.11984, -16.72592));
   TEST_EQUAL(res.second, RouterResultCode::NoError, ());
 
-  TestRouteLength(*res.first, 25413.6);
-  TestRouteTime(*res.first, 5105.25);
+  TestRouteLength(*res.first, 25601.6);
+  TestRouteTime(*res.first, 4756);
 }
 
 // Two tests on not building route against traffic on road with oneway:bicycle=yes.
@@ -180,7 +180,7 @@ UNIT_TEST(Munich_OnewayBicycle1)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Bicycle),
       mercator::FromLatLon(48.1601673, 11.5630245), {0.0, 0.0},
-      mercator::FromLatLon(48.1606349, 11.5631699), 264.042 /* expectedRouteMeters */);
+      mercator::FromLatLon(48.1606349, 11.5631699), 279.536 /* expectedRouteMeters */);
 }
 
 UNIT_TEST(Munich_OnewayBicycle2)
@@ -194,6 +194,8 @@ UNIT_TEST(Munich_OnewayBicycle2)
 UNIT_TEST(London_GreenwichTunnel)
 {
   // Has bicycle=yes, because it belongs to https://www.openstreetmap.org/relation/9063263
+
+  /// @todo +50m detour is not suitable here, IMO.
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
       mercator::FromLatLon(51.4817397, -0.0100070258), {0.0, 0.0},
       mercator::FromLatLon(51.4883739, -0.00809729298), 1305.81 /* expectedRouteMeters */);
@@ -235,10 +237,8 @@ UNIT_TEST(Spain_Madrid_ElevationsDetour)
 
   TEST(r1.first && r2.first, ());
 
-  // The first route is shorter, but the second one is better by ETA because of elevation.
-  // Can't say for sure is it ok or not, so this test may fail in future.
   TEST_LESS(r1.first->GetTotalDistanceMeters(), r2.first->GetTotalDistanceMeters(), ());
-  TEST_GREATER(r1.first->GetTotalTimeSec(), r2.first->GetTotalTimeSec(), ());
+  TEST_LESS(r1.first->GetTotalTimeSec(), r2.first->GetTotalTimeSec(), ());
 }
 
 UNIT_TEST(Spain_Zaragoza_Fancy_NoBicycle_Crossings)
@@ -291,6 +291,7 @@ UNIT_TEST(IgnoreCycleBarrier_WithoutAccess)
   // The difference here (end points are almost equal) because of some barrier=gate without access.
   // https://www.openstreetmap.org/node/6993853766
 
+  /// @todo Make correct tunnels elevation (linear between start and finish).
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
                                    mercator::FromLatLon(51.3822, -2.3886), {0.0, 0.0},
                                    mercator::FromLatLon(51.3574666, -2.31526436), 8583.27);
@@ -298,6 +299,27 @@ UNIT_TEST(IgnoreCycleBarrier_WithoutAccess)
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
                                    mercator::FromLatLon(51.3822, -2.3886), {0.0, 0.0},
                                    mercator::FromLatLon(51.3576973, -2.31416085), 11131.6);
+}
+
+// https://github.com/organicmaps/organicmaps/issues/7257
+UNIT_TEST(AvoidConstruction)
+{
+  // Will not work when the bridge will be finished.
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
+                                   mercator::FromLatLon(-27.4724942, 153.030171), {0.0, 0.0},
+                                   mercator::FromLatLon(-27.4706626, 153.035428), 2989.28);
+}
+
+UNIT_TEST(UK_Canterbury_UseDismount)
+{
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Pedestrian),
+                                   mercator::FromLatLon(51.2794435, 1.05627788), {0.0, 0.0},
+                                   mercator::FromLatLon(51.2818863, 1.05725286), 305);
+
+  /// @todo We have 231 sec bicycle detour here, while using dismount footway is 228 sec by foot :)
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
+                                   mercator::FromLatLon(51.2794435, 1.05627788), {0.0, 0.0},
+                                   mercator::FromLatLon(51.2818863, 1.05725286), 305);
 }
 
 } // namespace bicycle_route_test

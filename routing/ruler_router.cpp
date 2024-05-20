@@ -66,7 +66,7 @@ RouterResultCode RulerRouter::CalculateRoute(Checkpoints const & checkpoints,
     return geometry::PointWithAltitude(p, 0 /* altitude */);
   };
 
-  for (size_t i = 0; i < count; ++i)
+  for (uint32_t i = 0; i < count; ++i)
   {
     turns::TurnItem turn(i, turns::PedestrianDirection::None);
     geometry::PointWithAltitude const junction = ToPointWA(points[i]);

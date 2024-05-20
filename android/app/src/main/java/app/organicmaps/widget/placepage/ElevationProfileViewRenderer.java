@@ -82,7 +82,7 @@ public class ElevationProfileViewRenderer implements PlacePageStateListener
   @NonNull
   private static String formatDistance(final Context context, int distance)
   {
-    return Framework.nativeFormatAltitude(distance).toString(context);
+    return Framework.nativeFormatAltitude(distance);
   }
 
   public void initialize(@Nullable View view)

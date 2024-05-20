@@ -1,5 +1,7 @@
 package app.organicmaps.car.screens.search;
 
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
@@ -8,9 +10,10 @@ import androidx.car.app.model.Action;
 import androidx.car.app.model.CarIcon;
 import androidx.car.app.model.Header;
 import androidx.car.app.model.ItemList;
+import androidx.car.app.model.ListTemplate;
 import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
-import androidx.car.app.navigation.model.PlaceListNavigationTemplate;
+import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
 
@@ -54,13 +57,22 @@ public class SearchOnMapScreen extends BaseMapScreen implements NativeSearchList
   @Override
   public Template onGetTemplate()
   {
-    final PlaceListNavigationTemplate.Builder builder = new PlaceListNavigationTemplate.Builder();
+    final MapWithContentTemplate.Builder builder = new MapWithContentTemplate.Builder();
+    builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
+    builder.setContentTemplate(createResultsListTemplate());
+    return builder.build();
+  }
+
+  @NonNull
+  private ListTemplate createResultsListTemplate()
+  {
+    final ListTemplate.Builder builder = new ListTemplate.Builder();
     builder.setHeader(createHeader());
-    builder.setMapActionStrip(UiHelpers.createMapActionStrip(getCarContext(), getSurfaceRenderer()));
     if (mResults == null)
       builder.setLoading(true);
     else
-      builder.setItemList(mResults);
+      builder.setSingleList(mResults);
+
     return builder.build();
   }
 
@@ -92,8 +104,8 @@ public class SearchOnMapScreen extends BaseMapScreen implements NativeSearchList
 
       final CharSequence openingHours = SearchUiHelpers.getOpeningHoursText(getCarContext(), result);
       final CharSequence distance = SearchUiHelpers.getDistanceText(result);
-      final CharSequence openingHoursAndDistanceText = SearchUiHelpers.getOpeningHoursAndDistanceText(openingHours, distance);
-      if (openingHoursAndDistanceText.length() != 0)
+      final CharSequence openingHoursAndDistanceText = SearchUiHelpers.concatenateStrings(openingHours, distance);
+      if (!TextUtils.isEmpty(openingHoursAndDistanceText))
         builder.addText(openingHoursAndDistanceText);
       if (distance.length() == 0)
       {
@@ -105,7 +117,6 @@ public class SearchOnMapScreen extends BaseMapScreen implements NativeSearchList
         SearchRecents.add(title, getCarContext());
         SearchEngine.INSTANCE.cancel();
         SearchEngine.INSTANCE.showResult(resultIndex);
-        getScreenManager().popToRoot();
       });
     }
     else

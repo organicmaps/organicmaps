@@ -41,9 +41,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Žádné reklamy, žádné sledování, žádný sběr dat</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Šetří baterii, nevyužívá data na pozadí</string>
+	<string name="about_proposition_2">• Žádné vybíjení baterie, funguje offline</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Rychlé, minimalistické, žádný bloatware</string>
+	<string name="about_proposition_3">• Rychlé, minimalistické, vyvinutý komunitou</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Otevřená aplikace vytvořená nadšenci a dobrovolníky.</string>
 	<!-- The button that opens system location settings -->
@@ -102,52 +102,54 @@
 	<string name="measurement_units_summary">Vyberte si míle nebo kilometry</string>
 
 	<!-- SECTION: Search categories -->
-	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">Kde se najíst</string>
-	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Potraviny</string>
-	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">Doprava</string>
-	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Čerpací stanice</string>
-	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">Parkoviště</string>
-	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">Nákupy</string>
-	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">Second-hand</string>
-	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">Hotel</string>
-	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">Pamětihodnost</string>
-	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">Zábava</string>
-	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">Bankomat</string>
-	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">Noční život</string>
-	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Dovolená s dětmi</string>
-	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">Banka</string>
-	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">Lékárna</string>
-	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">Nemocnice</string>
-	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">Záchody</string>
-	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">Pošta</string>
-	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">Policie</string>
-	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">WiFi</string>
-	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">Recyklace</string>
-	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">Voda</string>
-	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">Pro RV</string>
+	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+	<string name="category_eat">Kde se najíst</string>
+	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+	<string name="category_food">Potraviny</string>
+	<!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+	<string name="category_transport">Doprava</string>
+	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+	<string name="category_fuel">Čerpací stanice</string>
+	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+	<string name="category_parking">Parkoviště</string>
+	<!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+	<string name="category_shopping">Nákupy</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
+	<string name="category_secondhand">Second-hand</string>
+	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+	<string name="category_hotel">Hotel</string>
+	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+	<string name="category_tourism">Pamětihodnost</string>
+	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
+	<string name="category_entertainment">Zábava</string>
+	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+	<string name="category_atm">Bankomat</string>
+	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+	<string name="category_nightlife">Noční život</string>
+	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+	<string name="category_children">Dovolená s dětmi</string>
+	<!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+	<string name="category_bank">Banka</string>
+	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+	<string name="category_pharmacy">Lékárna</string>
+	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+	<string name="category_hospital">Nemocnice</string>
+	<!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+	<string name="category_toilet">Záchody</string>
+	<!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+	<string name="category_post">Pošta</string>
+	<!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+	<string name="category_police">Policie</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+	<string name="category_wifi">WiFi</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+	<string name="category_recycling">Recyklace</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+	<string name="category_water">Voda</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+	<string name="category_rv">Pro RV</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Poznámky</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -158,6 +160,10 @@
 	<string name="load_kmz_successful">Záložky byly úspěšně nahrány! Naleznete je na mapě nebo ve správci záložek.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Nahrávání záložek se nezdařilo. Soubor může být poškozený nebo vadný.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Typ souboru není aplikací rozpoznán:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Nepodařilo se otevřít soubor %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Upravit</string>
 	<!-- Warning message when doing search around current position -->
@@ -214,6 +220,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D budovy jsou vypnuty v úsporném režimu</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Hlasové instrukce</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Oznamujte názvy ulic</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Je-li povoleno, bude nahlas vyslovován název ulice nebo výjezdu, na který se má odbočit.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Jazyk hlasu</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -451,13 +461,15 @@
 	<string name="editor_edit_place_title">Probíhají úpravy</string>
 	<string name="editor_add_place_title">Probíhá přidávání</string>
 	<string name="editor_edit_place_name_hint">Název místa</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">Jak je napsáno v místním jazyce</string>
 	<string name="editor_edit_place_category_title">Kategorie</string>
 	<string name="detailed_problem_description">Detailní popis problému</string>
 	<string name="editor_report_problem_other_title">Jiný problém</string>
 	<string name="placepage_add_business_button">Přidat organizaci</string>
 	<string name="message_invalid_feature_position">Objekt zde nemůže být umístěn</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Kartografická data z OpenStreetMap z %s. OSM je jako Wikipedie pro mapy, kde můžete přidat nebo upravovat místa pro uživatele po celém světě.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Data OpenStreetMap vytvořená komunitou ke dni %s. Další informace o tom, jak upravovat a aktualizovat mapu, najdete na stránkách OpenStreetMap.org.</string>
 	<string name="login_to_make_edits_visible">Přihlaste se, aby ostatní uživatelé mohli vidět změny, které jste provedli.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d z %2$d</string>
@@ -476,14 +488,10 @@
 	<string name="editor_detailed_description">Vámi navržené změny odešleme do komunity OpenStreetMap. Popište podrobnosti, které nelze upravit v Organic Maps.</string>
 	<string name="editor_more_about_osm">Více o projektu OpenStreetMap</string>
 	<string name="editor_operator">Operátor</string>
+	<string name="editor_category_unsuitable_title">Nemůžete najít vhodnou kategorii?</string>
+	<string name="editor_category_unsuitable_text">Organické mapy umožňují přidávat pouze jednoduché kategorie bodů, tedy žádná města, silnice, jezera, obrysy budov atd. Takové kategorie prosím přidávejte přímo na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Podrobné pokyny krok za krokem najdete v našem <a href="https://organicmaps.app/faq/editing/advanced-map-editing">průvodci</a>.</string>
 	<string name="downloader_no_downloaded_maps_title">Nemáte stažené žádné mapy</string>
 	<string name="downloader_no_downloaded_maps_message">Stáhněte si mapy a hledejte cestu a její cíl, i když jste offline.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">Pokračovat se zjišťováním současné polohy?</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">Nezjistili jsme vaši současnou polohu. Možná jste v budově nebo tunelu.</string>
-	<string name="current_location_unknown_continue_button">Pokračovat</string>
-	<string name="current_location_unknown_stop_button">Zastavit</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -521,7 +529,6 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Ujistěte se, že jste nezadali žádná osobní data.</string>
 	<string name="editor_share_to_all_dialog_message_2">Redaktoři OpenStreetMap zkontrolují změny a budou vás kontaktovat, pokud budou mít nějaké dotazy.</string>
-	<string name="navigation_stop_button">stop</string>
 	<!-- For the first routing -->
 	<string name="accept">Přijmout</string>
 	<!-- For the first routing -->
@@ -554,6 +561,8 @@
 	<string name="routing_add_finish_point">Zadejte cílový bod pro plánování trasy</string>
 	<string name="placepage_remove_stop">Odstranit</string>
 	<string name="placepage_add_stop">Přidat zastávku</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Přihlaste se do OpenStreetMap, abyste mohli automaticky nahrávat všechny své úpravy mapy. Více informací <a href="https://github.com/organicmaps/organicmaps/issues/6144">zde</a>.</string>
 	<string name="dialog_error_storage_title">Problém s přístupem k úložišti</string>
 	<string name="dialog_error_storage_message">Externí úložiště není k dispozici, pravděpodobně byla vyjmuta nebo poškozena SD karta, nebo je systém souborů pouze pro čtení. Zkontrolujte to prosím a kontaktujte nás na support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Emulovat špatné úložiště</string>
@@ -609,13 +618,15 @@
 	<string name="bookmark_list_description_hint">Přidejte popis (text nebo html)</string>
 	<string name="not_shared">Osobní účet</string>
 	<string name="speedcams_alert_title">Detektory rychlosti</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Vždy</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Nikdy</string>
 	<string name="place_description_title">Popis místa</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Nahrávání map</string>
+	<!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+	<string name="pref_tts_speedcams_auto">Varování před překročením rychlosti</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Vždy upozorňovat</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Nikdy neupozorňovat</string>
 	<string name="power_managment_title">Režim spořič baterie</string>
 	<string name="power_managment_description">Pokud je zapnut automatický režim spořiče baterie, aplikace začne vypínat funkce vybíjející baterii, v závislosti na její momentální úrovni nabití.</string>
 	<string name="power_managment_setting_never">Nikdy nepoužívat</string>
@@ -662,6 +673,8 @@
 	<string name="by_distance">Podle vzdálenosti</string>
 	<!-- Android -->
 	<string name="by_date">Podle data</string>
+	<!-- Android -->
+	<string name="by_name">Podle jména</string>
 	<string name="week_ago_sorttype">Před týdnem</string>
 	<string name="month_ago_sorttype">Před měsícem</string>
 	<string name="moremonth_ago_sorttype">Více než před měsícem</string>
@@ -702,6 +715,7 @@
 	<string name="elevation_profile_time">Čas:</string>
 	<string name="isolines_toast_zooms_1_10">Přiblížit pro prozkoumání izolinií</string>
 	<string name="downloader_loading_ios">Probíhá stahování</string>
+	<string name="download_map_title">Stáhnout mapu světa</string>
 	<string name="enable_keep_screen_on">Nechat obrazovku zapnutou</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">Je-li tato funkce povolena, bude obrazovka při zobrazení mapy vždy zapnutá.</string>
@@ -713,18 +727,36 @@
 	<string name="splash_subtitle">Mapová data z OpenStreetMap</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
 	<string name="translated_om_site_url">https://organicmaps.app/cs/</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Děkujeme, že používáte naše komunitní mapy!</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Na obrazovce telefonu nyní používáte aplikaci Organic Maps</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">S vašimi dary a podporou můžeme vytvořit ty nejlepší mapy na světě!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Líbí se vám naše aplikace? Přispějte prosím na podporu rozvoje! Ještě se ti to nelíbí? Dejte nám prosím vědět a my to napravíme!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Pokud znáte vývojáře softwaru, můžete ho požádat, aby implementoval funkci, kterou potřebujete.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Víte, že libovolné místo na mapě můžete vybrat dlouhým klepnutím?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Víte, že si na mapě můžete vybrat svou aktuální polohu?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Můžete pomoci přeložit naši aplikaci do vašeho jazyka.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Naše aplikace je vyvinuta několika nadšenci a komunitou.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Mapová data můžete snadno opravit a vylepšit.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Naším hlavním cílem je vytvářet rychlé, na soukromí zaměřené a snadno použitelné mapy, které si zamilujete.</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">Na obrazovce telefonu nyní používáte aplikaci Organic Maps</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Na obrazovce auta nyní používáte aplikaci Organic Maps</string>
+	<string name="car_used_on_the_car_screen">Na obrazovce auta nyní používáte aplikaci Organic Maps</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Jste připojeni ke službě Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Pokračujte v telefonu</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">Na obrazovku auta</string>
+	<string name="car_continue_on_the_phone">Pokračujte v telefonu</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">Na obrazovku auta</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">Tato aplikace vyžaduje přístup k vaší poloze pro účely navigace.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -735,8 +767,22 @@
 	<string name="button_layer_outdoor">Pěší turistika</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Webový prohlížeč není k dispozici</string>
-	<!-- Text displayed in a dialog when OSM authorization is disabled -->
-	<string name="osm_login_not_available">Autorizace OpenStreetMap je dočasně nedostupná kvůli novým omezením v Google Play 😾\nNáš tým pracuje na vyřešení tohoto problému. Buďte prosím trpěliví 🙏</string>
+	<string name="volume">Hlasitost</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Export všech záložek a stop</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Nastavení systému syntézy řeči</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">Nastavení syntézy řeči nebylo nalezeno, jste si jisti, že jej vaše zařízení podporuje?</string>
+	<string name="drive_through">Průjezd</string>
+	<string name="clear_the_search">Vymazat vyhledávání</string>
+	<string name="zoom_in">Přiblížení</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Zvětšení</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Odkaz na menu</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Zobrazit menu</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresa/blok</string>
@@ -749,7 +795,7 @@
 	<string name="type.amenity.arts_centre">Umělecké centrum</string>
 	<string name="type.amenity.atm">Bankomat</string>
 	<string name="type.amenity.bank">Banka</string>
-	<string name="type.amenity.bbq">Piknik</string>
+	<string name="type.amenity.bbq">Grilování</string>
 	<string name="type.amenity.bench">Lavička</string>
 	<string name="type.amenity.bicycle_parking">Parkování kol</string>
 	<string name="type.amenity.bicycle_rental">Půjčovna kol</string>
@@ -780,6 +826,7 @@
 	<string name="type.amenity.dentist">Zubař</string>
 	<string name="type.amenity.doctors">Lékařská ordinace</string>
 	<string name="type.amenity.drinking_water">Pitná voda</string>
+	<string name="type.drinking_water.yes">Pitná voda</string>
 	<string name="type.amenity.driving_school">Autoškola</string>
 	<string name="type.amenity.exhibition_centre">Výstaviště</string>
 	<string name="type.amenity.money_transfer">Převod peněz</string>
@@ -863,7 +910,12 @@
 	<string name="type.recycling.small_appliances">Elektronický odpad</string>
 	<string name="type.amenity.restaurant">Restaurace</string>
 	<string name="type.amenity.school">Škola</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Přístřešek</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">Přístřešek</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">Bivakovací Chata</string>
 	<string name="type.amenity.public_bath">Veřejné lázně</string>
 	<string name="type.amenity.shower">Sprcha</string>
 	<string name="type.amenity.stripclub">Stripcklub</string>
@@ -898,6 +950,7 @@
 	<string name="type.barrier.swing_gate">Závora</string>
 	<string name="type.barrier.toll_booth">Mýtné</string>
 	<string name="type.boundary.national_park">Národní park</string>
+	<string name="type.boundary.aboriginal_lands">Domorodá území</string>
 	<string name="type.boundary.protected_area">Chráněné území</string>
 	<string name="type.boundary.protected_area.1">Chráněné území</string>
 	<string name="type.boundary.protected_area.2">Chráněné území</string>
@@ -1063,15 +1116,9 @@
 	<string name="type.highway.footway">Cesta</string>
 	<string name="type.highway.footway.sidewalk">Chodník</string>
 	<string name="type.highway.footway.crossing">Přechod pro chodce</string>
-	<string name="type.highway.footway.alpine_hiking">Cesta</string>
 	<string name="type.highway.footway.area">Cesta</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Most</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Cesta</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Cesta</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Cesta</string>
-	<string name="type.highway.footway.hiking">Cesta</string>
-	<string name="type.highway.footway.mountain_hiking">Cesta</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunel</string>
 	<string name="type.highway.ford">Brod</string>
@@ -1092,17 +1139,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Tunel</string>
 	<string name="type.highway.path">Cesta</string>
-	<string name="type.highway.path.alpine_hiking">Cesta</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">Cesta</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">Cesta</string>
 	<string name="type.highway.path.bicycle">Cesta</string>
+	<string name="type.highway.footway.bicycle">Cesta</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Most</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Cesta</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Cesta</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Cesta</string>
-	<string name="type.highway.path.hiking">Cesta</string>
 	<string name="type.highway.path.horse">Cesta</string>
-	<string name="type.highway.path.mountain_hiking">Cesta</string>
-	<string name="type.highway.path.permissive">Cesta</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Tunel</string>
 	<string name="type.highway.pedestrian">Ulice</string>
@@ -1175,12 +1220,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Most</string>
 	<string name="type.highway.track.grade1">Ulice</string>
-	<string name="type.highway.track.grade2">Ulice</string>
-	<string name="type.highway.track.grade3">Ulice</string>
-	<string name="type.highway.track.grade4">Ulice</string>
-	<string name="type.highway.track.grade5">Ulice</string>
 	<string name="type.highway.track.no.access">Ulice</string>
-	<string name="type.highway.track.permissive">Ulice</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunel</string>
 	<string name="type.highway.traffic_signals">Semafor</string>
@@ -1280,6 +1320,7 @@
 	<string name="type.leisure.garden">Zahrada</string>
 	<string name="type.leisure.garden.residential">Zahrada</string>
 	<string name="type.leisure.golf_course">Golf</string>
+	<string name="type.leisure.miniature_golf">Minigolf</string>
 	<string name="type.leisure.nature_reserve">Rezervace</string>
 	<string name="type.leisure.outdoor_seating">Venkovní posezení</string>
 	<string name="type.leisure.park">Park</string>
@@ -1308,7 +1349,12 @@
 	<string name="type.man_made.windmill">Větrný mlýn</string>
 	<string name="type.military.bunker">Bunkr</string>
 	<string name="type.natural">Příroda</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Holá skála</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Oblázky</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Kamenité sutě</string>
 	<string name="type.natural.bay">Záliv</string>
 	<string name="type.natural.beach">Pláž</string>
 	<string name="type.natural.beach.sand">Písečná pláž</string>
@@ -1807,18 +1853,21 @@
 	<string name="type.sport.badminton">Badminton</string>
 	<string name="type.sport.pelota">Baskická pelota</string>
 	<string name="type.tourism.aquarium">Akvárium</string>
-	<string name="type.tourism.alpine_hut">Ubytování v horách</string>
-	<string name="type.tourism.apartment">Byty</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Horská chata</string>
+	<string name="type.tourism.apartment">Prázdninový apartmán</string>
 	<string name="type.tourism.artwork">Umělecké dílo</string>
 	<string name="type.tourism.artwork.architecture">Umělecké dílo</string>
 	<string name="type.tourism.artwork.painting">Umělecké dílo</string>
 	<string name="type.tourism.artwork.sculpture">Umělecké dílo</string>
 	<string name="type.tourism.artwork.statue">Umělecké dílo</string>
 	<string name="type.tourism.attraction">Atrakce</string>
-	<string name="type.tourism.attraction.animal">Atrakce</string>
+	<string name="type.attraction.animal">Ohrada pro zvířata</string>
 	<string name="type.tourism.attraction.specified">Atrakce</string>
 	<string name="type.tourism.camp_site">Kempování</string>
 	<string name="type.tourism.caravan_site">Kemp pro obytné přívěsy</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Rekreační chata</string>
 	<string name="type.tourism.gallery">Pamětihodnost</string>
 	<string name="type.tourism.guest_house">Penzion</string>
 	<string name="type.tourism.information">Infocentrum</string>
@@ -1829,9 +1878,10 @@
 	<string name="type.tourism.information.visitor_centre">Návštěvnické centrum</string>
 	<string name="type.tourism.museum">Muzeum</string>
 	<string name="type.tourism.picnic_site">Piknik</string>
-	<string name="type.tourism.resort">Letovisko</string>
+	<string name="type.leisure.resort">Letovisko</string>
 	<string name="type.tourism.theme_park">Pamětihodnost</string>
 	<string name="type.tourism.viewpoint">Vyhlídka</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Chata v divočině</string>
 	<string name="type.tourism.zoo">zoologická zahrada</string>
 	<string name="type.tourism.zoo.petting">ZOO pro domácí mazlíčky</string>
@@ -1844,7 +1894,6 @@
 	<string name="type.waterway.lock_gate">Stavidlo</string>
 	<string name="type.waterway.river">Řeka</string>
 	<string name="type.waterway.river.tunnel">Řeka</string>
-	<string name="type.waterway.riverbank">Řeka</string>
 	<string name="type.waterway.stream">Řeka</string>
 	<string name="type.waterway.stream.ephemeral">Řeka</string>
 	<string name="type.waterway.stream.intermittent">Řeka</string>

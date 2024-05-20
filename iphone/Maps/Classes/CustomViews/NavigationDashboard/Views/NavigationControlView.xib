@@ -271,7 +271,7 @@
                             </state>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatRedButton:regular17"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="current_location_unknown_stop_button"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="navigation_stop_button"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="stopRoutingButtonAction" destination="-1" eventType="touchUpInside" id="Xvf-fv-3GR"/>

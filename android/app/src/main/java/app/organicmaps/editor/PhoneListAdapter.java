@@ -38,7 +38,7 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
       phonesData.add(p);
     }
 
-    if (phonesData.size() == 0) phonesData.add("");
+    if (phonesData.isEmpty()) phonesData.add("");
   }
 
   @NonNull

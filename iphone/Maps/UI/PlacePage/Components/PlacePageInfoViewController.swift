@@ -24,6 +24,7 @@ class InfoItemViewController: UIViewController {
         imageView?.styleName = "MWMBlue"
         infoLabel?.styleName = "linkBlueText"
       }
+      accessoryImage.styleName = "MWMBlack"
     }
   }
 
@@ -94,6 +95,8 @@ class PlacePageInfoViewController: UIViewController {
   private var levelView: InfoItemViewController?
   private var coordinatesView: InfoItemViewController?
   private var capacityView: InfoItemViewController?
+  private var wheelchairView: InfoItemViewController?
+  private var driveThroughView: InfoItemViewController?
 
   var placePageInfoData: PlacePageInfoData!
   weak var delegate: PlacePageInfoViewControllerDelegate?
@@ -196,6 +199,14 @@ class PlacePageInfoViewController: UIViewController {
       capacityView = createInfoItem(capacity, icon: UIImage(named: "ic_placepage_capacity"))
     }
 
+    if let wheelchair = placePageInfoData.wheelchair {
+      wheelchairView = createInfoItem(wheelchair, icon: UIImage(named: "ic_placepage_wheelchair"))
+    }
+    
+    if let driveThrough = placePageInfoData.driveThrough {
+      driveThroughView = createInfoItem(driveThrough, icon: UIImage(named: "ic_placepage_drive_through"))
+    }
+    
     if let email = placePageInfoData.email {
       emailView = createInfoItem(email,
                                  icon: UIImage(named: "ic_placepage_email"),
@@ -330,7 +341,7 @@ class PlacePageInfoViewController: UIViewController {
 
   private func addToStack(_ viewController: UIViewController) {
     addChild(viewController)
-    stackView.addArrangedSubviewWithSeparator(viewController.view)
+    stackView.addArrangedSubviewWithSeparator(viewController.view, insets: UIEdgeInsets(top: 0, left: 56, bottom: 0, right: 0))
     viewController.didMove(toParent: self)
   }
 
@@ -346,30 +357,12 @@ class PlacePageInfoViewController: UIViewController {
 }
 
 private extension UIStackView {
-  func addArrangedSubviewWithSeparator(_ view: UIView) {
+  func addArrangedSubviewWithSeparator(_ view: UIView, insets: UIEdgeInsets = .zero) {
     if !arrangedSubviews.isEmpty {
       view.addSeparator(thickness: CGFloat(1.0),
                         color: StyleManager.shared.theme?.colors.blackDividers,
-                        insets: UIEdgeInsets(top: 0, left: 56, bottom: 0, right: 0))
+                        insets: insets)
     }
     addArrangedSubview(view)
-  }
-}
-
-private extension UIView {
-  func addSeparator(thickness: CGFloat,
-                    color: UIColor?,
-                    insets: UIEdgeInsets) {
-    let lineView = UIView()
-    lineView.backgroundColor = color ?? .black
-    lineView.isUserInteractionEnabled = false
-    lineView.translatesAutoresizingMaskIntoConstraints = false
-    addSubview(lineView)
-    NSLayoutConstraint.activate([
-      lineView.heightAnchor.constraint(equalToConstant: thickness),
-      lineView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: insets.left),
-      lineView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -insets.right),
-      lineView.topAnchor.constraint(equalTo: topAnchor, constant: insets.top),
-    ])
   }
 }

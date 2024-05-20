@@ -8,7 +8,6 @@
 #include "routing/city_roads.hpp"
 #include "routing/data_source.hpp"
 #include "routing/geometry.hpp"
-#include "routing/index_graph.hpp"
 #include "routing/index_graph_loader.hpp"
 #include "routing/maxspeeds.hpp"
 
@@ -19,7 +18,6 @@
 #include "traffic/speed_groups.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/feature.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/features_vector.hpp"
 
@@ -31,15 +29,11 @@
 #include "geometry/latlon.hpp"
 
 #include "base/assert.hpp"
-#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/sunrise_sunset.hpp"
-#include "base/timer.hpp"
 
 #include <algorithm>
-#include <array>
-#include <cstdint>
 #include <iostream>
 #include <iterator>
 #include <limits>
@@ -48,7 +42,6 @@
 #include <sstream>
 #include <string>
 #include <tuple>
-#include <utility>
 #include <vector>
 
 #include "defines.hpp"
@@ -128,13 +121,12 @@ public:
     uint32_t m_surfaceType = 0;
   };
 
-  Type GetType(FeatureType & feature) const
+  Type GetType(feature::TypesHolder const & types) const
   {
     Type ret;
-    feature::TypesHolder holder(feature);
     for (uint32_t type : m_hwtags)
     {
-      if (holder.Has(type))
+      if (types.Has(type))
       {
         ret.m_hwType = type;
         break;
@@ -143,7 +135,7 @@ public:
 
     for (uint32_t type : m_surfaceTags)
     {
-      if (holder.Has(type))
+      if (types.Has(type))
       {
         ret.m_surfaceType = type;
         break;
@@ -365,9 +357,10 @@ private:
                                    kInvalidSpeed;
 
     m_prevFeatureId = featureId;
-    m_prevRoadInfo = {m_carModelTypes.GetType(*feature), maxspeedValueKMpH,
-                      m_cityRoads.IsCityRoad(featureId), m_vehicleModel.IsOneWay(*feature)};
 
+    feature::TypesHolder const types(*feature);
+    m_prevRoadInfo = {m_carModelTypes.GetType(types), maxspeedValueKMpH,
+                      m_cityRoads.IsCityRoad(featureId), m_vehicleModel.IsOneWay(types)};
     return m_prevRoadInfo;
   }
 

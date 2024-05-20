@@ -126,7 +126,7 @@ CarModel::CarModel(VehicleModel::LimitsInitList const & roadLimits)
   m_maxModelSpeed = kMaxCarSpeedKMpH;
 }
 
-SpeedKMpH CarModel::GetTypeSpeed(feature::TypesHolder const & types, SpeedParams const & speedParams) const
+SpeedKMpH CarModel::GetSpeed(FeatureTypes const & types, SpeedParams const & speedParams) const
 {
   return GetTypeSpeedImpl(types, speedParams, true /* isCar */);
 }

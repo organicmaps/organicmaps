@@ -43,7 +43,6 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <set>
 #include <sstream>
 
 #include "3party/open-location-code/openlocationcode.h"
@@ -236,9 +235,9 @@ void Processor::SetQuery(string const & query, bool categorialRequest /* = false
 {
   LOG(LDEBUG, ("query:", query, "isCategorial:", categorialRequest));
 
-  m_query = query;
-  m_tokens.clear();
-  m_prefix.clear();
+  m_query.m_query = query;
+  m_query.m_tokens.clear();
+  m_query.m_prefix.clear();
 
   // Following code splits input query by delimiters except hash tags
   // first, and then splits result tokens by hashtags. The goal is to
@@ -246,29 +245,27 @@ void Processor::SetQuery(string const & query, bool categorialRequest /* = false
   // them as is.
 
   Delimiters delims;
-  {
-    auto normalizedQuery = NormalizeAndSimplifyString(query);
-    PreprocessBeforeTokenization(normalizedQuery);
-    SplitUniString(normalizedQuery, base::MakeBackInsertFunctor(m_tokens), delims);
-  }
+  auto normalizedQuery = NormalizeAndSimplifyString(query);
+  PreprocessBeforeTokenization(normalizedQuery);
+  SplitUniString(normalizedQuery, base::MakeBackInsertFunctor(m_query.m_tokens), delims);
 
   static_assert(kMaxNumTokens > 0, "");
   size_t const maxTokensCount = kMaxNumTokens - 1;
-  if (m_tokens.size() > maxTokensCount)
+  if (m_query.m_tokens.size() > maxTokensCount)
   {
-    m_tokens.resize(maxTokensCount);
+    m_query.m_tokens.resize(maxTokensCount);
   }
   else
   {
     // Assign the last parsed token to prefix.
-    if (!m_tokens.empty() && !delims(strings::LastUniChar(query)))
+    if (!m_query.m_tokens.empty() && !delims(normalizedQuery.back()))
     {
-      m_prefix.swap(m_tokens.back());
-      m_tokens.pop_back();
+      m_query.m_prefix.swap(m_query.m_tokens.back());
+      m_query.m_tokens.pop_back();
     }
   }
 
-  QuerySliceOnRawStrings const tokenSlice(m_tokens, m_prefix);
+  QuerySliceOnRawStrings const tokenSlice(m_query.m_tokens, m_query.m_prefix);
 
   // Get preferred types to show in results.
   m_preferredTypes.clear();
@@ -287,12 +284,12 @@ void Processor::SetQuery(string const & query, bool categorialRequest /* = false
   }
 
   // Remove stopwords *after* FillCategories call (it makes exact tokens match).
-  RemoveStopWordsIfNeeded(m_tokens, m_prefix);
+  RemoveStopWordsIfNeeded(m_query.m_tokens, m_query.m_prefix);
 
   if (!m_isCategorialRequest)
   {
     // Assign tokens and prefix to scorer.
-    m_keywordsScorer.SetKeywords(m_tokens.data(), m_tokens.size(), m_prefix);
+    m_keywordsScorer.SetKeywords(m_query);
 
     ForEachCategoryType(tokenSlice, [&](size_t, uint32_t t) { m_preferredTypes.push_back(t); });
   }
@@ -412,7 +409,7 @@ bool Processor::IsCancelled() const
 void Processor::SearchByFeatureId()
 {
   // Create a copy of the query to trim it in-place.
-  string query(m_query);
+  string query(m_query.m_query);
   strings::Trim(query);
 
   if (strings::EatPrefix(query, "?fid"))
@@ -609,7 +606,7 @@ void Processor::Search(SearchParams params)
         }
         else
         {
-          if (m_tokens.empty())
+          if (m_query.m_tokens.empty())
             m_ranker.SuggestStrings();
           m_geocoder.GoEverywhere();
         }
@@ -643,10 +640,22 @@ void Processor::Search(SearchParams params)
 
 bool Processor::SearchDebug()
 {
+  if (m_query.m_query == "?wiki")
+  {
+    EmitWithMetadata(feature::Metadata::FMD_WIKIPEDIA);
+    return true;
+  }
+
+  if (m_query.m_query == "?description")
+  {
+    EmitWithMetadata(feature::Metadata::FMD_DESCRIPTION);
+    return true;
+  }
+
 #ifdef DEBUG
   SearchByFeatureId();
 
-  if (m_query == "?euri")
+  if (m_query.m_query == "?euri")
   {
     EmitWithMetadata(feature::Metadata::FMD_EXTERNAL_URI);
     return true;
@@ -661,27 +670,27 @@ bool Processor::SearchCoordinates()
   buffer_vector<ms::LatLon, 3> results;
   double lat, lon;
 
-  if (MatchLatLonDegree(m_query, lat, lon))
+  if (MatchLatLonDegree(m_query.m_query, lat, lon))
   {
     coords_found = true;
     results.emplace_back(lat, lon);
   }
 
-  auto ll = MatchUTMCoords(m_query);
+  auto ll = MatchUTMCoords(m_query.m_query);
   if (ll)
   {
     coords_found = true;
     results.emplace_back(ll->m_lat, ll->m_lon);
   }
 
-  ll = MatchMGRSCoords(m_query);
+  ll = MatchMGRSCoords(m_query.m_query);
   if (ll)
   {
     coords_found = true;
     results.emplace_back(ll->m_lat, ll->m_lon);
   }
 
-  istringstream iss(m_query);
+  istringstream iss(m_query.m_query);
   string token;
   while (iss >> token)
   {
@@ -714,40 +723,54 @@ bool Processor::SearchCoordinates()
 void Processor::SearchPlusCode()
 {
   // Create a copy of the query to trim it in-place.
-  string query(m_query);
+  string query(m_query.m_query);
   strings::Trim(query);
-
-  string code;
 
   if (openlocationcode::IsFull(query))
   {
-    code = query;
+    openlocationcode::CodeArea const area = openlocationcode::Decode(query);
+    m_emitter.AddResultNoChecks(
+            m_ranker.MakeResult(RankerResult(area.GetCenter().latitude, area.GetCenter().longitude),
+                                true /* needAddress */, false /* needHighlighting */));
   }
   else if (openlocationcode::IsShort(query))
   {
-    if (!m_position)
-      return;
-    ms::LatLon const latLon = mercator::ToLatLon(*m_position);
-    code = openlocationcode::RecoverNearest(query, {latLon.m_lat, latLon.m_lon});
+    string codeFromPos;
+
+    if (m_position)
+    {
+      ms::LatLon const latLonFromPos = mercator::ToLatLon(*m_position);
+      codeFromPos = openlocationcode::RecoverNearest(query, {latLonFromPos.m_lat, latLonFromPos.m_lon});
+      openlocationcode::CodeArea const areaFromPos = openlocationcode::Decode(codeFromPos);
+
+      m_emitter.AddResultNoChecks(
+              m_ranker.MakeResult(RankerResult(areaFromPos.GetCenter().latitude, areaFromPos.GetCenter().longitude),
+                                  true /* needAddress */, false /* needHighlighting */));
+    }
+
+    ms::LatLon const latLonFromView = mercator::ToLatLon(m_viewport.Center());
+    string codeFromView = openlocationcode::RecoverNearest(query, {latLonFromView.m_lat, latLonFromView.m_lon});
+
+    if (codeFromView != codeFromPos)
+    {
+      openlocationcode::CodeArea const areaFromView = openlocationcode::Decode(codeFromView);
+
+      m_emitter.AddResultNoChecks(
+              m_ranker.MakeResult(RankerResult(areaFromView.GetCenter().latitude, areaFromView.GetCenter().longitude),
+                              true /* needAddress */, false /* needHighlighting */));
+    }
   }
 
-  if (code.empty())
-    return;
-
-  openlocationcode::CodeArea const area = openlocationcode::Decode(code);
-  m_emitter.AddResultNoChecks(
-      m_ranker.MakeResult(RankerResult(area.GetCenter().latitude, area.GetCenter().longitude),
-                          true /* needAddress */, false /* needHighlighting */));
   m_emitter.Emit();
 }
 
 void Processor::SearchPostcode()
 {
   // Create a copy of the query to trim it in-place.
-  string_view query(m_query);
+  string_view query(m_query.m_query);
   strings::Trim(query);
 
-  if (!LooksLikePostcode(query, !m_prefix.empty()))
+  if (!LooksLikePostcode(query, !m_query.m_prefix.empty()))
     return;
 
   vector<shared_ptr<MwmInfo>> infos;
@@ -801,12 +824,13 @@ void Processor::SearchBookmarks(bookmarks::GroupId const & groupId)
 
 void Processor::InitParams(QueryParams & params) const
 {
-  params.Init(m_query, m_tokens.begin(), m_tokens.end(), m_prefix);
+  /// @todo Prettify
+  params.Init(m_query.m_query, m_query.m_tokens.begin(), m_query.m_tokens.end(), m_query.m_prefix);
 
   Classificator const & c = classif();
 
   // Add names of categories (and synonyms).
-  QuerySliceOnRawStrings const tokenSlice(m_tokens, m_prefix);
+  QuerySliceOnRawStrings const tokenSlice(m_query.m_tokens, m_query.m_prefix);
   params.SetCategorialRequest(m_isCategorialRequest);
   if (m_isCategorialRequest)
   {
@@ -920,8 +944,6 @@ void Processor::InitRanker(Geocoder::Params const & geocoderParams,
   params.m_needAddress = searchParams.m_needAddress;
   params.m_needHighlighting = searchParams.m_needHighlighting && !geocoderParams.IsCategorialRequest();
   params.m_query = m_query;
-  params.m_tokens = m_tokens;
-  params.m_prefix = m_prefix;
   params.m_categoryLocales = GetCategoryLocales();
   params.m_viewportSearch = viewportSearch;
   params.m_viewport = GetViewport();

@@ -3,10 +3,12 @@ package app.organicmaps.widget.menu;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.SparseArray;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 
 import androidx.annotation.AttrRes;
 import androidx.annotation.DimenRes;
@@ -49,7 +51,7 @@ public class MyPositionButton
     @DimenRes int sizeDimen = R.dimen.map_button_icon_size;
     if (mode == LocationState.FOLLOW || mode == LocationState.FOLLOW_AND_ROTATE || mode == LocationState.PENDING_POSITION)
     {
-      colorAttr = R.attr.colorAccent;
+      colorAttr = androidx.appcompat.R.attr.colorAccent;
       if (mode == LocationState.PENDING_POSITION)
         sizeDimen = R.dimen.map_button_size;
       else
@@ -59,27 +61,15 @@ public class MyPositionButton
     Context context = mButton.getContext();
     if (image == null)
     {
-      @DrawableRes int drawableRes;
-      switch (mode)
+      @DrawableRes int drawableRes = switch (mode)
       {
-        case LocationState.PENDING_POSITION:
-          drawableRes = ThemeUtils.getResource(context, R.attr.myPositionButtonAnimation);
-          break;
-        case LocationState.NOT_FOLLOW_NO_POSITION:
-          drawableRes = R.drawable.ic_location_off;
-          break;
-        case LocationState.NOT_FOLLOW:
-          drawableRes = R.drawable.ic_not_follow;
-          break;
-        case LocationState.FOLLOW:
-          drawableRes = R.drawable.ic_follow;
-          break;
-        case LocationState.FOLLOW_AND_ROTATE:
-          drawableRes = R.drawable.ic_follow_and_rotate;
-          break;
-        default:
-          throw new IllegalArgumentException("Invalid button mode: " + mode);
-      }
+        case LocationState.PENDING_POSITION -> R.drawable.ic_menu_location_pending;
+        case LocationState.NOT_FOLLOW_NO_POSITION -> R.drawable.ic_location_off;
+        case LocationState.NOT_FOLLOW -> R.drawable.ic_not_follow;
+        case LocationState.FOLLOW -> R.drawable.ic_follow;
+        case LocationState.FOLLOW_AND_ROTATE -> R.drawable.ic_follow_and_rotate;
+        default -> throw new IllegalArgumentException("Invalid button mode: " + mode);
+      };
       image = ResourcesCompat.getDrawable(resources, drawableRes, context.getTheme());
       mIcons.put(mode, image);
     }
@@ -89,8 +79,19 @@ public class MyPositionButton
     ImageViewCompat.setImageTintList(mButton, ColorStateList.valueOf(ThemeUtils.getColor(context, colorAttr)));
     updatePadding(mode);
 
-    if (image instanceof AnimationDrawable)
-      ((AnimationDrawable) image).start();
+    if (mode == LocationState.PENDING_POSITION)
+    {
+      final RotateAnimation rotate = new RotateAnimation(0, 360,
+              Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+
+      rotate.setDuration(1000);
+      rotate.setRepeatCount(Animation.INFINITE);
+      rotate.setInterpolator(new LinearInterpolator());
+
+      mButton.startAnimation(rotate);
+    }
+    else
+      mButton.clearAnimation();
   }
 
   private void updatePadding(int mode)

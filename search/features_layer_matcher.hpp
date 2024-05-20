@@ -91,8 +91,7 @@ public:
       MatchPOIsWithParent(child, parent, fn);
       break;
     case Model::TYPE_STREET:
-      ASSERT(Model::IsPoi(child.m_type) || child.m_type == Model::TYPE_BUILDING,
-             ("Invalid child layer type:", child.m_type));
+      ASSERT(Model::IsPoiOrBuilding(child.m_type), ("Invalid child layer type:", child.m_type));
       if (Model::IsPoi(child.m_type))
         MatchPOIsWithStreets(child, parent, fn);
       else
@@ -401,15 +400,16 @@ private:
     uint32_t const placeId = parent.m_sortedFeatures->front();
     auto const & ids = GetPlaceAddrFeatures(placeId, parent.m_getFeatures);
 
-    if (!child.m_hasDelayedFeatures || !buildings.empty())
+    if (!buildings.empty())
     {
       for (uint32_t houseId : buildings)
       {
         if (std::binary_search(ids.begin(), ids.end(), houseId))
           fn(houseId, placeId);
       }
-      return;
     }
+    if (!child.m_hasDelayedFeatures)
+      return;
 
     std::vector<house_numbers::Token> queryParse;
     ParseQuery(child.m_subQuery, child.m_lastTokenIsPrefix, queryParse);

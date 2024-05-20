@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import app.organicmaps.R;
+import app.organicmaps.editor.data.Language;
 import app.organicmaps.editor.data.LocalizedName;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
@@ -43,7 +44,10 @@ public class MultilanguageAdapter extends RecyclerView.Adapter<MultilanguageAdap
   {
     LocalizedName name = mNames.get(position);
     holder.input.setText(name.name);
-    holder.inputLayout.setHint(name.langName);
+    if (name.lang.equals(Language.DEFAULT_LANG_CODE))
+      holder.inputLayout.setHint(holder.itemView.getContext().getString(R.string.editor_default_language_hint));
+    else
+      holder.inputLayout.setHint(name.langName);
   }
 
   @Override
@@ -112,18 +116,13 @@ public class MultilanguageAdapter extends RecyclerView.Adapter<MultilanguageAdap
         }
       });
 
-      itemView.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener()
-                                                            {
-                                                              @Override
-                                                              public void onClick(View v)
-                                                              {
-                                                                // TODO(mgsergio): Implement item deletion.
-                                                                // int position = getAdapterPosition();
-                                                                // mHostFragment.removeLocalizedName(position + 1);
-                                                                // mNames.remove(position);
-                                                                // notifyItemRemoved(position);
-                                                              }
-                                                            });
+      itemView.findViewById(R.id.delete).setOnClickListener(v -> {
+        // TODO(mgsergio): Implement item deletion.
+        // int position = getAdapterPosition();
+        // mHostFragment.removeLocalizedName(position + 1);
+        // mNames.remove(position);
+        // notifyItemRemoved(position);
+      });
     }
   }
 }

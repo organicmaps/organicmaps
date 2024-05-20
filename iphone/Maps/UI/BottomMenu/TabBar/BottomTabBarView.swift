@@ -1,9 +1,9 @@
-import UIKit
+let kExtendedTabBarTappableMargin: CGFloat = -15
 
-class BottomTabBarView: SolidTouchView {
-  
-  @IBOutlet var mainButtonsView: UIView!
-  
+final class BottomTabBarView: SolidTouchView {
+
+  @IBOutlet var mainButtonsView: ExtendedBottomTabBarContainerView!
+
   override var placePageAreaAffectDirections: MWMAvailableAreaAffectDirections {
     return alternative(iPhone: [], iPad: [.bottom])
   }
@@ -17,14 +17,12 @@ class BottomTabBarView: SolidTouchView {
   }
 
   override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-    guard super.point(inside: point, with: event), mainButtonsView.point(inside: convert(point, to: mainButtonsView), with: event) else { return false }
-    for subview in mainButtonsView.subviews {
-      if !subview.isHidden
-          && subview.isUserInteractionEnabled
-          && subview.point(inside: convert(point, to: subview), with: event) {
-        return true
-      }
-    }
-    return false
+    return bounds.insetBy(dx: kExtendedTabBarTappableMargin, dy: kExtendedTabBarTappableMargin).contains(point)
+  }
+}
+
+final class ExtendedBottomTabBarContainerView: UIView {
+  override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+    return bounds.insetBy(dx: kExtendedTabBarTappableMargin, dy: kExtendedTabBarTappableMargin).contains(point)
   }
 }

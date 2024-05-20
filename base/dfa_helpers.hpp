@@ -14,7 +14,7 @@ public:
   class Iterator
   {
   public:
-    Iterator & Move(strings::UniChar c)
+    Iterator & Move(UniChar c)
     {
       if (Rejects())
         return *this;

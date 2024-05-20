@@ -149,7 +149,11 @@ world  +
         restaurant  -
         sanitary_dump_station  -
         school  -
-        shelter  -
+        shelter  +
+            basic_hut  -
+            lean_to  -
+            public_transport  -
+            {}
         shower  -
         stripclub  -
         taxi  -
@@ -195,6 +199,9 @@ world  +
         trunk  -
         unclassified  -
         {}
+    attraction  +
+        animal  -
+        {}
     barrier  +
         block  -
         bollard  -
@@ -218,25 +225,11 @@ world  +
         wall  -
         {}
     boundary  +
+        aboriginal_lands  -
         administrative  +
-            10  -
-            11  -
             2  -
             3  -
             4  -
-            5  -
-            6  -
-            7  -
-            8  -
-            9  -
-            city  -
-            country  -
-            county  -
-            municipality  -
-            nation  -
-            region  -
-            state  -
-            suburb  -
             {}
         national_park  -
         protected_area  +
@@ -371,6 +364,10 @@ world  +
         vegetarian  -
         vietnamese  -
         {}
+    drinking_water  +
+        no  -
+        yes  -
+        {}
     earthquake:damage  +
         spontaneous_camp  -
         {}
@@ -417,15 +414,10 @@ world  +
             {}
         elevator  -
         footway  +
-            alpine_hiking  -
             area  -
+            bicycle  -
             bridge  -
             crossing  -
-            demanding_alpine_hiking  -
-            demanding_mountain_hiking  -
-            difficult_alpine_hiking  -
-            hiking  -
-            mountain_hiking  -
             sidewalk  -
             tunnel  -
             {}
@@ -444,15 +436,11 @@ world  +
             tunnel  -
             {}
         path  +
-            alpine_hiking  -
             bicycle  -
             bridge  -
-            demanding_alpine_hiking  -
-            demanding_mountain_hiking  -
-            difficult_alpine_hiking  -
-            hiking  -
+            difficult  -
+            expert  -
             horse  -
-            mountain_hiking  -
             tunnel  -
             {}
         pedestrian  +
@@ -511,11 +499,6 @@ world  +
         track  +
             area  -
             bridge  -
-            grade1  -
-            grade2  -
-            grade3  -
-            grade4  -
-            grade5  -
             no-access  -
             tunnel  -
             {}
@@ -622,7 +605,6 @@ world  +
         commercial  -
         construction  -
         education  -
-        farm  -
         farmland  -
         farmyard  -
         field  -
@@ -671,8 +653,8 @@ world  +
         golf_course  -
         hackerspace  -
         ice_rink  -
-        landscape_reserve  -
         marina  -
+        miniature_golf  -
         nature_reserve  -
         outdoor_seating  -
         park  +
@@ -684,6 +666,7 @@ world  +
         pitch  -
         playground  -
         recreation_ground  -
+        resort  -
         sauna  -
         slipway  -
         sports_centre  -
@@ -751,7 +734,9 @@ world  +
         peak  -
         rock  -
         saddle  -
+        scree  -
         scrub  -
+        shingle  -
         spring  -
         strait  -
         tree_row  -
@@ -1383,10 +1368,7 @@ world  +
             sculpture  -
             statue  -
             {}
-        attraction  +
-            animal  -
-            specified  -
-            {}
+        attraction  -
         camp_site  -
         caravan_site  -
         chalet  -
@@ -1404,7 +1386,6 @@ world  +
         motel  -
         museum  -
         picnic_site  -
-        resort  -
         theme_park  -
         viewpoint  -
         wilderness_hut  -
@@ -1435,7 +1416,6 @@ world  +
         river  +
             tunnel  -
             {}
-        riverbank  -
         stream  +
             ephemeral  -
             intermittent  -

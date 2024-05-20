@@ -2,6 +2,7 @@
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/ll__place_capacity"
   style="@style/PlacePageItemFrame"
   android:tag="capacity"
@@ -11,7 +12,7 @@
   <ImageView
     android:id="@+id/iv__place_capacity"
     style="@style/PlacePageMetadataIcon"
-    android:src="@drawable/ic_capacity_white" />
+    app:srcCompat="@drawable/ic_capacity_white" />
 
   <TextView
     android:id="@+id/tv__place_capacity"

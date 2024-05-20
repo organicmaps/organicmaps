@@ -195,7 +195,7 @@ public final class UiUtils
 
   public static void showHomeUpButton(Toolbar toolbar)
   {
-    toolbar.setNavigationIcon(ThemeUtils.getResource(toolbar.getContext(), R.attr.homeAsUpIndicator));
+    toolbar.setNavigationIcon(ThemeUtils.getResource(toolbar.getContext(), androidx.appcompat.R.attr.homeAsUpIndicator));
   }
 
   public static boolean isTablet(@NonNull Context context)

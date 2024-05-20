@@ -150,7 +150,7 @@ void Sample::SerializeToJSONLines(vector<Sample> const & samples, string & lines
   for (auto const & sample : samples)
   {
     unique_ptr<char, JSONFreeDeleter> buffer(
-        json_dumps(sample.SerializeToJSON().get(), JSON_COMPACT | JSON_ENSURE_ASCII));
+        json_dumps(sample.SerializeToJSON().get(), JSON_COMPACT));
     lines.append(buffer.get());
     lines.push_back('\n');
   }

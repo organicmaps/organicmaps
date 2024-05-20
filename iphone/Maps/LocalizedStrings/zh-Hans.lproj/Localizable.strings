@@ -21,7 +21,7 @@
 "downloading" = "下载…";
 
 /* Choose measurement on first launch alert - choose metric system button */
-"kilometres" = "千米";
+"kilometres" = "公里";
 
 /* Leave Review dialog - Review button */
 "leave_a_review" = "发表评论";
@@ -50,7 +50,17 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "下载失败";
 
-"about_menu_title" = "关于 Organic Maps";
+/* Text in About screen */
+"about_headline" = "对每个人都免费，用爱制成";
+
+/* Text in About screen */
+"about_proposition_1" = "•没有广告，不会跟踪您，更不会收集您的数据";
+
+/* Text in About screen */
+"about_proposition_2" = "• 无需耗费电池，可离线工作";
+
+/* Text in About screen */
+"about_proposition_3" = "• 快速、简约、由社区开发";
 
 "close" = "关闭";
 
@@ -61,9 +71,6 @@
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "添加新的集合";
-
-/* Bookmark Color dialog title */
-"bookmark_color" = "书签颜色";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "书签集名称";
@@ -92,74 +99,77 @@
 
 /********** Search categories **********/
 
-/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "在哪儿吃";
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
+"category_eat" = "在哪儿吃";
 
-/* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "食品";
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! */
+"category_food" = "食品";
 
-/* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "交通";
+/* Search category for public transport; any changes should be duplicated in categories.txt @category_transport! */
+"category_transport" = "交通";
 
-/* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "汽油";
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
+"category_fuel" = "汽油";
 
-/* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "停车";
+/* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
+"category_parking" = "停车场";
 
-/* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "购物";
+/* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
+"category_shopping" = "购物";
 
-/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "二手货";
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
+"category_secondhand" = "二手货";
 
-/* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "旅店";
+/* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
+"category_hotel" = "旅店";
 
-/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "景点";
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
+"category_tourism" = "旅游景点";
 
-/* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "娱乐";
+/* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
+"category_entertainment" = "娱乐";
 
-/* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "自动取款机";
+/* Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! */
+"category_atm" = "自动取款机";
 
-/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "夜生活";
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! */
+"category_nightlife" = "夜生活";
 
-/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "亲子休闲";
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! */
+"category_children" = "亲子休闲";
 
-/* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "银行";
+/* Search category for banks; any changes should be duplicated in categories.txt @category_bank! */
+"category_bank" = "银行";
 
-/* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "药店";
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! */
+"category_pharmacy" = "药店";
 
-/* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "医院";
+/* Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! */
+"category_hospital" = "医院";
 
-/* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "厕所";
+/* Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! */
+"category_toilet" = "厕所";
 
-/* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "邮政";
+/* Search category for post offices; any changes should be duplicated in categories.txt @category_post! */
+"category_post" = "邮政";
 
-/* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "警察";
+/* Search category for police; any changes should be duplicated in categories.txt @category_police! */
+"category_police" = "警察局";
 
-/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "无线网络";
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
+"category_wifi" = "无线网络";
 
-/* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "回收";
+/* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
+"category_recycling" = "回收";
 
-/* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "水";
+/* Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type */
+"category_water" = "水";
 
-/* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "房车用";
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
+"category_rv" = "房车用";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
@@ -200,10 +210,7 @@
 "done" = "完成";
 
 /* Prints version number in About dialog */
-"version" = "版本:%@";
-
-/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "OpenStreetMap 数据：%@";
+"version" = "Organic Maps 版本: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "轨迹";
@@ -217,8 +224,14 @@
 
 "pref_zoom_title" = "缩放按钮";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "夜间模式";
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "外观";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "浅色";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "深色";
 
 /* Generic «Off» string */
 "off" = "关闭";
@@ -240,6 +253,12 @@
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "语音指导";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "宣布街道名称";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "启用后，将大声说出要转入的街道或出口的名称。";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "语音语言";
@@ -277,19 +296,7 @@
 "news" = "新闻";
 
 /* Text in menu */
-"github" = "GitHub";
-
-/* Text in menu */
-"telegram" = "Telegram";
-
-/* Text in menu */
-"matrix" = "[Matrix]";
-
-/* Text in menu */
-"mastodon" = "Mastodon";
-
-/* Text in menu */
-"facebook" = "脸书";
+"facebook" = "Facebook";
 
 /* Text in menu */
 "twitter" = "X (推特)";
@@ -301,10 +308,7 @@
 "vk" = "VK";
 
 /* Text in menu */
-"openstreetmap" = "OpenStreetMap";
-
-/* Text in menu */
-"rate_the_app" = "为该应用打分";
+"rate_the_app" = "为我们评分";
 
 /* Text in menu */
 "help" = "帮助";
@@ -313,16 +317,25 @@
 "faq" = "问题和解答";
 
 /* Button in the main menu */
-"donate" = "捐款";
+"donate" = "捐助我们";
 
-/* Button in the main Help dialog */
-"how_to_support_us" = "支持项目";
+/* Tex label above the Donate button */
+"donate_description" = "捐赠，共同打造最好的地图！";
 
 /* Button in the main Help dialog */
 "copyright" = "版权";
 
 /* Text in menu + Button in the main Help dialog */
-"report_a_bug" = "报告漏洞";
+"report_a_bug" = "报告问题";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "报告或修复错误的地图数据";
+
+/* Button in the About screen */
+"volunteer" = "志愿服务";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "关注并联系我们：";
 
 /* Alert text */
 "email_error_body" = "电子邮件客户端尚未建立。请配置或使用任何其他方式与我们联系%@";
@@ -372,7 +385,7 @@
 "downloader_download_map" = "下载地图";
 
 /* Item status in downloader. */
-"downloader_retry" = "重复";
+"downloader_retry" = "重新下载";
 
 /* Item in context menu. */
 "downloader_delete_map" = "删除地图";
@@ -521,15 +534,15 @@
 
 "history" = "历史";
 
-"search_not_found" = "抱歉，没有找到任何东西。";
+"search_not_found" = "很抱歉，没有找到任何地点。";
 
-"search_not_found_query" = "请尝试其它查询。";
+"search_not_found_query" = "请尝试搜索其它关键词。";
 
-"search_history_title" = "搜索历史";
+"search_history_title" = "搜索历史记录";
 
 "search_history_text" = "快速访问最近的搜索查询。";
 
-"clear_search" = "清除历史搜索";
+"clear_search" = "清除搜索记录";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "维基百科";
@@ -622,6 +635,8 @@
 
 "login" = "登录";
 
+"login_osm" = "登录 OpenStreetMap";
+
 "forgot_password" = "忘记密码";
 
 "osm_account" = "OSM账户";
@@ -642,7 +657,7 @@
 /* Editable House Number text field (in address block). */
 "house_number" = "门牌号码";
 
-"details" = "细节";
+"details" = "详细信息";
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "添加街道";
@@ -696,6 +711,9 @@
 
 "editor_edit_place_name_hint" = "该地点的名称";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "当地语言写道";
+
 "editor_edit_place_category_title" = "类别";
 
 "whatsnew_editor_message_1" = "添加新地点到该地图，并直接通过此应用编辑已存在的地点。";
@@ -703,6 +721,9 @@
 "dialog_incorrect_feature_position" = "改变位置";
 
 "message_invalid_feature_position" = "对象无法设置在这里";
+
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "截至 %@ 的社区创建的 OpenStreetMap 数据。在OpenStreetMap.org网站上了解更多有关如何编辑和更新地图的信息。";
 
 "login_to_make_edits_visible" = "登录，让其他用户能看到您所作出的修改。";
 
@@ -716,7 +737,7 @@
 
 "download_over_mobile_header" = "用手机网络连接下载吗？";
 
-"download_over_mobile_message" = "用一些方案或漫游的话这可能相当昂贵。";
+"download_over_mobile_message" = "如果您使用移动数据或漫游来进行下载，将可能导致额外的费用。";
 
 "error_enter_correct_house_number" = "输入正确的房屋号";
 
@@ -732,7 +753,7 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "未知位置";
 
-"editor_other_info" = "给OSM编辑器发送标记";
+"editor_other_info" = "给 OSM 社区发送标记";
 
 "editor_detailed_description_hint" = "详细备注";
 
@@ -746,19 +767,9 @@
 
 "downloader_no_downloaded_maps_message" = "下载地图来查找位置和离线浏览";
 
-/* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "继续检测您的当前位置？";
-
-/* Error that appears after certain time without location. */
-"current_location_unknown_message" = "当前位置未知，可能您在建筑内或隧道内。";
-
-"current_location_unknown_continue_button" = "继续";
-
-"current_location_unknown_stop_button" = "停止";
-
 "current_location_unknown_error_title" = "当前位置未知";
 
-"current_location_unknown_error_message" = "搜索您的位置时发生错误。请检查您的设备是否工作正常，然后重试。";
+"current_location_unknown_error_message" = "定位到您的当前位置时出错。请检查您的设备是否正常运作，然后再试一次。";
 
 "location_services_disabled_header" = "地点定位被禁用";
 
@@ -770,6 +781,14 @@
 
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. 使用应用时选择";
+
+"location_services_disabled_on_device_2" = "2. 选择隐私";
+
+"location_services_disabled_on_device_3" = "3.选择位置服务";
+
+"location_services_disabled_on_device_4" = "4.打开定位服务";
+
+"location_services_disabled_on_device_additional_message" = "或继续使用 \"有机地图 \"而不定位";
 
 /* abbreviation for meters */
 "m" = "米";
@@ -788,9 +807,9 @@
 
 "miles_per_hour" = "英里每小时";
 
-"hour" = "小時";
+"hour" = "小时";
 
-"minute" = "分鐘";
+"minute" = "分钟";
 
 "placepage_more_button" = "更多";
 
@@ -815,7 +834,7 @@
 
 "placepage_delete_bookmark_button" = "删除书签";
 
-"editor_edits_sent_message" = "您的建议已发送";
+"editor_edits_sent_message" = "您的说明将发送至 OpenStreetMap";
 
 "editor_comment_hint" = "备注…";
 
@@ -827,7 +846,7 @@
 
 "editor_remove_place_button" = "删除";
 
-"editor_place_doesnt_exist" = "位置不存在";
+"editor_place_doesnt_exist" = "该地点不存在";
 
 "text_more_button" = "…更多";
 
@@ -861,9 +880,6 @@
 "sharing_call_action_look" = "来看看";
 
 "recent_track_background_dialog_message" = "Organic Maps使用背景中的地理位置记录您最近去过的路径。";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps 是一款免费的开源离线地图应用程序。无广告。没有跟踪。如果您在地图上看到错误，请在 OpenStreetMap 中修复它。该项目由爱好者在我们的空闲时间创建，因此我们需要您的反馈和支持。";
 
 "general_settings" = "常规设置";
 
@@ -925,6 +941,12 @@
 "start_from_my_position" = "起点";
 
 "profile_authorization_error" = "糟糕，出错了。请尝试重新登录。";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "请登录OpenStreetMap，自动上传您编辑的所有地图。了解更多信息";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "请点击这里";
 
 "core_entrance" = "入口";
 
@@ -1005,15 +1027,16 @@
 
 "speedcams_alert_title" = "高速摄像机";
 
-/* Generic «Always» string */
-"always" = "总是";
-
-/* Generic «Never» string */
-"never" = "从不";
-
 "place_description_title" = "地点说明";
 
-"speedcams_notice_message" = "自动 - 如果存在超出速度限制的风险，则对速度摄像头发出警告\n总是 - 始终提醒摄像头\n从不 - 永远不会对摄像头发出警告";
+/* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
+"pref_tts_speedcams_auto" = "警告您超速行驶";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "始终提醒摄像头";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "永远不会对摄像头发出警告";
 
 "power_managment_title" = "省电模式";
 
@@ -1120,6 +1143,8 @@
 "sort_distance" = "按距离排序";
 
 "sort_date" = "按日期排序";
+
+"sort_name" = "按名称排序";
 
 "week_ago_sorttype" = "一周前";
 
@@ -1242,8 +1267,31 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "您现在正在手机屏幕上使用有机地图";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "您现在正在汽车屏幕上使用有机地图";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "在手机上继续";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "转到汽车屏幕";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "徒步旅行";
+
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "导出所有书签和曲目";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "改变颜色";
+
+/* Main screen title "Map" displayed in the navigation back button's menu. */
+"map" = "地图";
+
+"drive_through" = "驾车通过";
 
 
 /********** Types **********/
@@ -1296,7 +1344,7 @@
 
 "type.amenity.bar" = "酒吧";
 
-"type.amenity.bbq" = "野餐地点";
+"type.amenity.bbq" = "烧烤架";
 
 "type.amenity.bench" = "长凳";
 
@@ -1359,6 +1407,8 @@
 "type.amenity.doctors" = "医师办公室";
 
 "type.amenity.drinking_water" = "饮用水";
+
+"type.drinking_water.yes" = "饮用水";
 
 "type.amenity.driving_school" = "驾校";
 
@@ -1539,7 +1589,17 @@
 
 "type.amenity.school" = "学校";
 
+/* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "庇护所";
+
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "庇护所";
+
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
+"type.amenity.shelter.basic_hut" = "行军床";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
+"type.amenity.shelter.lean_to" = "Lean-to Shelter";
 
 "type.amenity.public_bath" = "公共浴场";
 
@@ -1647,43 +1707,18 @@
 
 "type.boundary.administrative" = "行政区域界线";
 
-"type.boundary.administrative.10" = "10级行政区域界线";
-
-"type.boundary.administrative.11" = "11级行政区域界线";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "国家行政区域界线";
 
-"type.boundary.administrative.3" = "3级行政区域界线";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "1区域行政区域界线";
 
-"type.boundary.administrative.4" = "4级行政区域界线";
-
-"type.boundary.administrative.5" = "5级行政区域界线";
-
-"type.boundary.administrative.6" = "6级行政区域界线";
-
-"type.boundary.administrative.7" = "7级行政区域界线";
-
-"type.boundary.administrative.8" = "8级行政区域界线";
-
-"type.boundary.administrative.9" = "9级行政区域界线";
-
-"type.boundary.administrative.city" = "城市行政区域界线";
-
-"type.boundary.administrative.country" = "国家行政区域界线";
-
-"type.boundary.administrative.county" = "县行政区域界线";
-
-"type.boundary.administrative.municipality" = "自治市行政区域界线";
-
-"type.boundary.administrative.nation" = "国家行政区域界线";
-
-"type.boundary.administrative.region" = "1区域行政区域界线";
-
-"type.boundary.administrative.state" = "州省行政区域界线";
-
-"type.boundary.administrative.suburb" = "市郊行政区域界线";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "1区域行政区域界线";
 
 "type.boundary.national_park" = "国家公园";
+
+"type.boundary.aboriginal_lands" = "原住民土地";
 
 "type.boundary.protected_area" = "保护区";
 
@@ -1791,7 +1826,7 @@
 
 "type.cuisine.breakfast" = "早餐";
 
-"type.cuisine.bubble_tea" = "Bubble Tea";
+"type.cuisine.bubble_tea" = "珍珠奶茶";
 
 "type.cuisine.burger" = "汉堡包";
 
@@ -1955,7 +1990,7 @@
 
 "type.entrance.exit" = "退出";
 
-"type.fee.yes" = "💲";
+"type.fee.yes" = "$";
 
 "type.fee.no" = "免费";
 
@@ -2024,22 +2059,10 @@
 
 "type.highway.footway.crossing" = "行人过街天桥";
 
-"type.highway.footway.alpine_hiking" = "步行道路";
-
 "type.highway.footway.area" = "步行道路";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "桥";
-
-"type.highway.footway.demanding_alpine_hiking" = "步行道路";
-
-"type.highway.footway.demanding_mountain_hiking" = "步行道路";
-
-"type.highway.footway.difficult_alpine_hiking" = "步行道路";
-
-"type.highway.footway.hiking" = "步行道路";
-
-"type.highway.footway.mountain_hiking" = "步行道路";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "隧道";
@@ -2074,26 +2097,20 @@
 
 "type.highway.path" = "小道";
 
-"type.highway.path.alpine_hiking" = "小道";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "小道";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "小道";
 
 "type.highway.path.bicycle" = "小道";
+
+"type.highway.footway.bicycle" = "小道";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "桥";
 
-"type.highway.path.demanding_alpine_hiking" = "小道";
-
-"type.highway.path.demanding_mountain_hiking" = "小道";
-
-"type.highway.path.difficult_alpine_hiking" = "小道";
-
-"type.highway.path.hiking" = "小道";
-
 "type.highway.path.horse" = "小道";
-
-"type.highway.path.mountain_hiking" = "小道";
-
-"type.highway.path.permissive" = "小道";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "隧道";
@@ -2216,17 +2233,7 @@
 
 "type.highway.track.grade1" = "土路";
 
-"type.highway.track.grade2" = "土路";
-
-"type.highway.track.grade3" = "土路";
-
-"type.highway.track.grade4" = "土路";
-
-"type.highway.track.grade5" = "土路";
-
 "type.highway.track.no.access" = "土路";
-
-"type.highway.track.permissive" = "土路";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "隧道";
@@ -2436,8 +2443,6 @@
 
 "type.landuse.education" = "Educational Facility";
 
-"type.landuse.farm" = "农田";
-
 "type.landuse.farmland" = "农业用地";
 
 "type.landuse.farmyard" = "农庄";
@@ -2508,11 +2513,11 @@
 
 "type.leisure.golf_course" = "高尔夫球场";
 
+"type.leisure.miniature_golf" = "迷你高尔夫";
+
 "type.leisure.hackerspace" = "创客空间";
 
 "type.leisure.ice_rink" = "滑冰场";
-
-"type.leisure.landscape_reserve" = "Landscape Reserve";
 
 "type.leisure.marina" = "游艇码头";
 
@@ -2618,7 +2623,14 @@
 
 "type.natural" = "自然";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "岩石";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "鹅卵石";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "石质碎石";
 
 "type.natural.bay" = "海湾";
 
@@ -3715,9 +3727,10 @@
 
 "type.tourism.aquarium" = "水族馆";
 
-"type.tourism.alpine_hut" = "山上住宿";
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "山间小屋";
 
-"type.tourism.apartment" = "公寓";
+"type.tourism.apartment" = "度假公寓";
 
 "type.tourism.artwork" = "艺术品";
 
@@ -3731,7 +3744,7 @@
 
 "type.tourism.attraction" = "景点";
 
-"type.tourism.attraction.animal" = "景点";
+"type.attraction.animal" = "动物围栏";
 
 "type.tourism.attraction.specified" = "景点";
 
@@ -3739,7 +3752,8 @@
 
 "type.tourism.caravan_site" = "房车宿营地";
 
-"type.tourism.chalet" = "度假屋";
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "度假别墅";
 
 "type.tourism.gallery" = "美术馆";
 
@@ -3767,12 +3781,13 @@
 
 "type.tourism.picnic_site" = "野餐地点";
 
-"type.tourism.resort" = "度假村";
+"type.leisure.resort" = "度假村";
 
 "type.tourism.theme_park" = "主题公园";
 
 "type.tourism.viewpoint" = "观点";
 
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "野外住宿小屋";
 
 "type.tourism.zoo" = "动物园";
@@ -3814,8 +3829,6 @@
 "type.waterway.river" = "河流";
 
 "type.waterway.river.tunnel" = "河流";
-
-"type.waterway.riverbank" = "河流";
 
 "type.waterway.stream" = "溪";
 

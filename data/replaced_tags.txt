@@ -46,6 +46,9 @@ shop=money_transfer : amenity=money_transfer
 shop=estate_agent : office=estate_agent
 shop=locksmith : craft=locksmith
 shop=auction_house : shop=auction
+shop=vacant : disused:shop=yes
+
+# TODO: highway=ford is deprecated, use ford=* directly; and convert boat into a ferry?
 ford=boat : highway=ford
 ford=intermittent : highway=ford
 ford=seasonal : highway=ford
@@ -56,8 +59,7 @@ ford=yes : highway=ford
 barrier=jersey_barrier : barrier=block
 barrier=sliding_gate : barrier=gate
 
-drinkable=yes : amenity=drinking_water
-drinking_water=yes : amenity=drinking_water
+drinkable=yes : drinking_water=yes
 water_point=yes : amenity=water_point
 waterway=water_point : amenity=water_point
 sanitary_dump_station=yes : amenity=sanitary_dump_station

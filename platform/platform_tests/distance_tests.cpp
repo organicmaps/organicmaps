@@ -34,7 +34,7 @@ struct ScopedSettings
 
 UNIT_TEST(Distance_InititalDistance)
 {
-  Distance d;
+  Distance const d;
   TEST(!d.IsValid(), ());
   TEST_ALMOST_EQUAL_ULPS(d.GetDistance(), -1.0, ());
   TEST_EQUAL(d.GetDistanceString(), "", ());
@@ -44,18 +44,18 @@ UNIT_TEST(Distance_InititalDistance)
 UNIT_TEST(Distance_CreateFormatted)
 {
   {
-    ScopedSettings guard(measurement_utils::Units::Metric);
+    ScopedSettings const guard(measurement_utils::Units::Metric);
 
-    Distance d = Distance::CreateFormatted(100);
+    Distance const d = Distance::CreateFormatted(100);
     TEST_EQUAL(d.GetUnits(), Distance::Units::Meters, ());
     TEST_ALMOST_EQUAL_ULPS(d.GetDistance(), 100.0, ());
     TEST_EQUAL(d.GetDistanceString(), "100", ());
     TEST_EQUAL(d.ToString(), MakeDistanceStr("100", "m"), ());
   }
   {
-    ScopedSettings guard(measurement_utils::Units::Imperial);
+    ScopedSettings const guard(measurement_utils::Units::Imperial);
 
-    Distance d = Distance::CreateFormatted(100);
+    Distance const d = Distance::CreateFormatted(100);
     TEST_EQUAL(d.GetUnits(), Distance::Units::Feet, ());
     TEST_ALMOST_EQUAL_ULPS(d.GetDistance(), 330.0, ());
     TEST_EQUAL(d.GetDistanceString(), "330", ());
@@ -66,40 +66,24 @@ UNIT_TEST(Distance_CreateFormatted)
 UNIT_TEST(Distance_CreateAltitudeFormatted)
 {
   {
-    ScopedSettings guard(measurement_utils::Units::Metric);
+    ScopedSettings const guard(measurement_utils::Units::Metric);
 
-    Distance d = Distance::CreateAltitudeFormatted(5);
-    TEST_EQUAL(d.GetUnits(), Distance::Units::Meters, ());
-    TEST_ALMOST_EQUAL_ULPS(d.GetDistance(), 5.0, ());
-    TEST_EQUAL(d.GetDistanceString(), "5", ());
-    TEST_EQUAL(d.ToString(), MakeDistanceStr("5", "m"), ());
+    TEST_EQUAL(Distance::FormatAltitude(5), MakeDistanceStr("5", "m"), ());
   }
   {
-    ScopedSettings guard(measurement_utils::Units::Metric);
+    ScopedSettings const guard(measurement_utils::Units::Metric);
 
-    Distance d = Distance::CreateAltitudeFormatted(8849);
-    TEST_EQUAL(d.GetUnits(), Distance::Units::Meters, ());
-    TEST_ALMOST_EQUAL_ULPS(d.GetDistance(), 8849.0, ());
-    TEST_EQUAL(d.GetDistanceString(), "8849", ());
-    TEST_EQUAL(d.ToString(), MakeDistanceStr("8849", "m"), ());
+    TEST_EQUAL(Distance::FormatAltitude(-8849), MakeDistanceStr("-8849", "m"), ());
   }
   {
-    ScopedSettings guard(measurement_utils::Units::Metric);
+    ScopedSettings const guard(measurement_utils::Units::Metric);
 
-    Distance d = Distance::CreateAltitudeFormatted(12345);
-    TEST_EQUAL(d.GetUnits(), Distance::Units::Meters, ());
-    TEST_ALMOST_EQUAL_ULPS(d.GetDistance(), 12345.0, ());
-    TEST_EQUAL(d.GetDistanceString(), "12,345", ());
-    TEST_EQUAL(d.ToString(), MakeDistanceStr("12,345", "m"), ());
+    TEST_EQUAL(Distance::FormatAltitude(12345), MakeDistanceStr("12,345", "m"), ());
   }
   {
-    ScopedSettings guard(measurement_utils::Units::Imperial);
+    ScopedSettings const guard(measurement_utils::Units::Imperial);
 
-    Distance d = Distance::CreateAltitudeFormatted(10000);
-    TEST_EQUAL(d.GetUnits(), Distance::Units::Feet, ());
-    TEST_ALMOST_EQUAL_ULPS(d.GetDistance(), 32808.0, ());
-    TEST_EQUAL(d.GetDistanceString(), "32,808", ());
-    TEST_EQUAL(d.ToString(), MakeDistanceStr("32,808", "ft"), ());
+    TEST_EQUAL(Distance::FormatAltitude(10000), MakeDistanceStr("32,808", "ft"), ());
   }
 }
 
@@ -133,7 +117,7 @@ UNIT_TEST(Distance_To)
   };
 
   // clang-format off
-  TestData testData[] = {
+  TestData constexpr testData[] = {
     {0.1,       Units::Meters,     Units::Feet,       0,    Units::Feet},
     {0.3,       Units::Meters,     Units::Feet,       1,    Units::Feet},
     {0.3048,    Units::Meters,     Units::Feet,       1,    Units::Feet},
@@ -188,7 +172,7 @@ UNIT_TEST(Distance_To)
 UNIT_TEST(Distance_ToPlatformUnitsFormatted)
 {
   {
-    ScopedSettings guard(measurement_utils::Units::Metric);
+    ScopedSettings const guard(measurement_utils::Units::Metric);
 
     Distance d{11, Distance::Units::Feet};
     Distance newDistance = d.ToPlatformUnitsFormatted();
@@ -208,7 +192,7 @@ UNIT_TEST(Distance_ToPlatformUnitsFormatted)
   }
 
   {
-    ScopedSettings guard(measurement_utils::Units::Imperial);
+    ScopedSettings const guard(measurement_utils::Units::Imperial);
 
     Distance d{11, Distance::Units::Feet};
     Distance newDistance = d.ToPlatformUnitsFormatted();
@@ -259,7 +243,7 @@ UNIT_TEST(Distance_FormattedDistance)
   };
 
   // clang-format off
-  TestData testData[] = {
+  TestData const testData[] = {
     // From Meters to Meters
     {Distance(0,       Units::Meters),     0,     Units::Meters,     "0",      MakeDistanceStr("0", "m")},
     {Distance(0.3,     Units::Meters),     0,     Units::Meters,     "0",      MakeDistanceStr("0", "m")},

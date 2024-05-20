@@ -259,22 +259,6 @@ NSString *const kNavigationControlViewXibName = @"NavigationControlView";
 }
 #pragma mark - Properties
 
-- (NSDictionary *)etaAttributes {
-  if (!_etaAttributes) {
-    _etaAttributes =
-      @{NSForegroundColorAttributeName: [UIColor blackPrimaryText], NSFontAttributeName: [UIFont medium17]};
-  }
-  return _etaAttributes;
-}
-
-- (NSDictionary *)etaSecondaryAttributes {
-  if (!_etaSecondaryAttributes) {
-    _etaSecondaryAttributes =
-      @{NSForegroundColorAttributeName: [UIColor blackSecondaryText], NSFontAttributeName: [UIFont medium17]};
-  }
-  return _etaSecondaryAttributes;
-}
-
 - (void)setState:(MWMNavigationDashboardState)state {
   if (state == MWMNavigationDashboardStateHidden)
     [MWMSearchManager removeObserver:self];

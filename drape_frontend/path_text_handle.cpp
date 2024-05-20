@@ -194,7 +194,7 @@ void PathTextContext::Update(ScreenBase const & screen)
 m2::Spline::iterator PathTextContext::GetProjectedPoint(m2::PointD const & pt) const
 {
   double minDist = std::numeric_limits<double>::max();
-  double resStep;
+  double resStep = 0.;
   m2::SplineEx const * resSpline = nullptr;
 
   for (auto const & spline : m_pixel3dSplines)
@@ -252,15 +252,11 @@ end:
 }
 
 
-PathTextHandle::PathTextHandle(dp::OverlayID const & id,
-                               std::shared_ptr<PathTextContext> const & context,
-                               float depth, uint32_t textIndex,
-                               uint64_t priority, int fixedHeight,
-                               ref_ptr<dp::TextureManager> textureManager,
-                               int minVisibleScale,
-                               bool isBillboard)
+PathTextHandle::PathTextHandle(dp::OverlayID const & id, std::shared_ptr<PathTextContext> const & context,
+                               float depth, uint32_t textIndex, uint64_t priority,
+                               ref_ptr<dp::TextureManager> textureManager, int minVisibleScale, bool isBillboard)
   : TextHandle(id, context->GetLayout()->GetText(), dp::Center, priority,
-               fixedHeight, textureManager, minVisibleScale, isBillboard)
+               textureManager, minVisibleScale, isBillboard)
   , m_context(context)
   , m_textIndex(textIndex)
   , m_depth(depth)

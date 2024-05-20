@@ -7,6 +7,7 @@
 
 #include "indexer/cuisines.hpp"
 #include "indexer/editable_map_object.hpp"
+#include "indexer/feature_utils.hpp"
 #include "indexer/validate_and_format_contacts.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
@@ -142,13 +143,13 @@ Java_app_organicmaps_editor_Editor_nativeGetMaxEditableBuildingLevels(JNIEnv *, 
 JNIEXPORT jboolean JNICALL
 Java_app_organicmaps_editor_Editor_nativeHasWifi(JNIEnv *, jclass)
 {
-  return g_editableMapObject.GetInternet() == osm::Internet::Wlan;
+  return g_editableMapObject.GetInternet() == feature::Internet::Wlan;
 }
 
 JNIEXPORT void JNICALL
 Java_app_organicmaps_editor_Editor_nativeSetHasWifi(JNIEnv *, jclass, jboolean hasWifi)
 {
-  g_editableMapObject.SetInternet(hasWifi ? osm::Internet::Wlan : osm::Internet::Unknown);
+  g_editableMapObject.SetInternet(hasWifi ? feature::Internet::Wlan : feature::Internet::Unknown);
 }
 
 JNIEXPORT jboolean JNICALL
@@ -235,26 +236,14 @@ Java_app_organicmaps_editor_Editor_nativeIsBuilding(JNIEnv * env, jclass clazz)
 }
 
 JNIEXPORT jobject JNICALL
-Java_app_organicmaps_editor_Editor_nativeGetNamesDataSource(JNIEnv * env, jclass, jboolean needFakes)
+Java_app_organicmaps_editor_Editor_nativeGetNamesDataSource(JNIEnv * env, jclass)
 {
-  auto const namesDataSource = g_editableMapObject.GetNamesDataSource(needFakes);
+  auto const namesDataSource = g_editableMapObject.GetNamesDataSource();
 
   jobjectArray names = jni::ToJavaArray(env, g_localNameClazz, namesDataSource.names, ToJavaName);
   jsize const mandatoryNamesCount = static_cast<jsize>(namesDataSource.mandatoryNamesCount);
 
   return env->NewObject(g_namesDataSourceClassID, g_namesDataSourceConstructorID, names, mandatoryNamesCount);
-}
-
-JNIEXPORT jstring JNICALL
-Java_app_organicmaps_editor_Editor_nativeGetDefaultName(JNIEnv * env, jclass)
-{
-  return jni::ToJavaString(env, g_editableMapObject.GetDefaultName());
-}
-
-JNIEXPORT void JNICALL
-Java_app_organicmaps_editor_Editor_nativeEnableNamesAdvancedMode(JNIEnv *, jclass)
-{
-  g_editableMapObject.EnableNamesAdvancedMode();
 }
 
 JNIEXPORT void JNICALL
@@ -323,11 +312,10 @@ Java_app_organicmaps_editor_Editor_nativeHasSomethingToUpload(JNIEnv * env, jcla
 }
 
 JNIEXPORT void JNICALL
-Java_app_organicmaps_editor_Editor_nativeUploadChanges(JNIEnv * env, jclass clazz, jstring token, jstring secret,
-    jstring appVersion, jstring appId)
+Java_app_organicmaps_editor_Editor_nativeUploadChanges(JNIEnv * env, jclass clazz, jstring token, jstring appVersion, jstring appId)
 {
   // TODO: Handle upload status in callback
-  Editor::Instance().UploadChanges(jni::ToNativeString(env, token), jni::ToNativeString(env, secret),
+  Editor::Instance().UploadChanges(jni::ToNativeString(env, token),
       {{"created_by", "Organic Maps " OMIM_OS_NAME " " + jni::ToNativeString(env, appVersion)},
        {"bundle_id", jni::ToNativeString(env, appId)}}, nullptr);
 }

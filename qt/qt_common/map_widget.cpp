@@ -199,107 +199,27 @@ void MapWidget::UpdateScaleControl()
 
 void MapWidget::Build()
 {
-  std::string vertexSrc;
-  std::string fragmentSrc;
+  std::string_view vertexSrc;
+  std::string_view fragmentSrc;
   if (m_apiOpenGLES3)
   {
 #if defined(OMIM_OS_LINUX)
-    vertexSrc =
-        "\
-      #version 300 es\n \
-        #ifdef GL_FRAGMENT_PRECISION_HIGH\n\
-          precision highp float;\n\
-        #else\n\
-          precision mediump float;\n\
-        #endif\n\
-      in vec4 a_position; \
-      uniform vec2 u_samplerSize; \
-      out vec2 v_texCoord; \
-      \
-      void main() \
-      { \
-        v_texCoord = vec2(a_position.z * u_samplerSize.x, a_position.w * u_samplerSize.y); \
-        gl_Position = vec4(a_position.x, a_position.y, 0.0, 1.0);\
-      }";
-
-    fragmentSrc =
-        "\
-      #version 300 es\n \
-        #ifdef GL_FRAGMENT_PRECISION_HIGH\n\
-          precision highp float;\n\
-        #else\n\
-          precision mediump float;\n\
-        #endif\n\
-      uniform sampler2D u_sampler; \
-      in vec2 v_texCoord; \
-      out vec4 v_FragColor; \
-      \
-      void main() \
-      { \
-        v_FragColor = vec4(texture(u_sampler, v_texCoord).rgb, 1.0); \
-      }";
+    vertexSrc = ":common/shaders/gles_300.vsh.glsl";
+    fragmentSrc = ":common/shaders/gles_300.fsh.glsl";
 #else
-    vertexSrc =
-        "\
-      #version 150 core\n \
-      in vec4 a_position; \
-      uniform vec2 u_samplerSize; \
-      out vec2 v_texCoord; \
-      \
-      void main() \
-      { \
-        v_texCoord = vec2(a_position.z * u_samplerSize.x, a_position.w * u_samplerSize.y); \
-        gl_Position = vec4(a_position.x, a_position.y, 0.0, 1.0);\
-      }";
-    fragmentSrc =
-        "\
-      #version 150 core\n \
-      uniform sampler2D u_sampler; \
-      in vec2 v_texCoord; \
-      out vec4 v_FragColor; \
-      \
-      void main() \
-      { \
-        v_FragColor = vec4(texture(u_sampler, v_texCoord).rgb, 1.0); \
-      }";
+    vertexSrc = ":common/shaders/gl_150.vsh.glsl";
+    fragmentSrc = ":common/shaders/gl_150.fsh.glsl";
 #endif
-
   }
   else
   {
-    vertexSrc =
-        "\
-      attribute vec4 a_position; \
-      uniform vec2 u_samplerSize; \
-      varying vec2 v_texCoord; \
-      \
-      void main() \
-      { \
-        v_texCoord = vec2(a_position.z * u_samplerSize.x, a_position.w * u_samplerSize.y); \
-        gl_Position = vec4(a_position.x, a_position.y, 0.0, 1.0);\
-      }";
-
-    fragmentSrc =
-        "\
-      #ifdef GL_ES\n\
-        #ifdef GL_FRAGMENT_PRECISION_HIGH\n\
-          precision highp float;\n\
-        #else\n\
-          precision mediump float;\n\
-        #endif\n\
-      #endif\n\
-      uniform sampler2D u_sampler; \
-      varying vec2 v_texCoord; \
-      \
-      void main() \
-      { \
-        gl_FragColor = vec4(texture2D(u_sampler, v_texCoord).rgb, 1.0); \
-      }";
+    vertexSrc = ":common/shaders/gles_200.vsh.glsl";
+    fragmentSrc = ":common/shaders/gles_200.fsh.glsl";
   }
 
   m_program = std::make_unique<QOpenGLShaderProgram>(this);
-  m_program->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexSrc.c_str());
-  m_program->addShaderFromSourceCode(QOpenGLShader::Fragment, fragmentSrc.c_str());
+  m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, vertexSrc.data());
+  m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, fragmentSrc.data());
   m_program->link();
 
   m_vao = std::make_unique<QOpenGLVertexArrayObject>(this);

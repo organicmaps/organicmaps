@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -184,6 +183,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mPhone.setText(Editor.nativeGetPhone());
 
     initMetadataEntry(Metadata.MetadataType.FMD_WEBSITE, R.string.error_enter_correct_web);
+    initMetadataEntry(Metadata.MetadataType.FMD_WEBSITE_MENU, R.string.error_enter_correct_web);
     initMetadataEntry(Metadata.MetadataType.FMD_EMAIL, R.string.error_enter_correct_email);
     initMetadataEntry(Metadata.MetadataType.FMD_CONTACT_FACEBOOK, R.string.error_enter_correct_facebook_page);
     initMetadataEntry(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM, R.string.error_enter_correct_instagram_page);
@@ -362,27 +362,22 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       return;
     }
     showAdditionalNames(true);
-    UiUtils.waitLayout(mNamesView, new ViewTreeObserver.OnGlobalLayoutListener()
-    {
-      @Override
-      public void onGlobalLayout()
-      {
-        LinearLayoutManager lm = (LinearLayoutManager) mNamesView.getLayoutManager();
-        int position = args.getInt(LAST_INDEX_OF_NAMES_ARRAY);
+    UiUtils.waitLayout(mNamesView, () -> {
+      LinearLayoutManager lm = (LinearLayoutManager) mNamesView.getLayoutManager();
+      int position = args.getInt(LAST_INDEX_OF_NAMES_ARRAY);
 
-        View nameItem = lm.findViewByPosition(position);
+      View nameItem = lm.findViewByPosition(position);
 
-        int cvNameTop = mCardName.getTop();
-        int nameItemTop = nameItem.getTop();
+      int cvNameTop = mCardName.getTop();
+      int nameItemTop = nameItem.getTop();
 
-        view.scrollTo(0, cvNameTop + nameItemTop);
+      view.scrollTo(0, cvNameTop + nameItemTop);
 
-        // TODO(mgsergio): Uncomment if focus and keyboard are required.
-        // TODO(mgsergio): Keyboard doesn't want to hide. Only pressing back button works.
-        // View nameItemInput = nameItem.findViewById(R.id.input);
-        // nameItemInput.requestFocus();
-        // InputUtils.showKeyboard(nameItemInput);
-      }
+      // TODO(mgsergio): Uncomment if focus and keyboard are required.
+      // TODO(mgsergio): Keyboard doesn't want to hide. Only pressing back button works.
+      // View nameItemInput = nameItem.findViewById(R.id.input);
+      // nameItemInput.requestFocus();
+      // InputUtils.showKeyboard(nameItemInput);
     });
   }
 
@@ -433,6 +428,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mPhone.setOnClickListener(this);
     initBlock(view, Metadata.MetadataType.FMD_WEBSITE, R.id.block_website,
             R.drawable.ic_website, R.string.website, InputType.TYPE_TEXT_VARIATION_URI);
+    initBlock(view, Metadata.MetadataType.FMD_WEBSITE_MENU, R.id.block_website_menu,
+            R.drawable.ic_website_menu, R.string.website_menu, InputType.TYPE_TEXT_VARIATION_URI);
     initBlock(view, Metadata.MetadataType.FMD_EMAIL, R.id.block_email,
             R.drawable.ic_email, R.string.email, InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
     initBlock(view, Metadata.MetadataType.FMD_CONTACT_FACEBOOK, R.id.block_facebook,
@@ -576,19 +573,13 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
     switch (Editor.nativeGetMapObjectStatus())
     {
-    case Editor.CREATED:
-      mReset.setText(R.string.editor_remove_place_button);
-      break;
-    case Editor.MODIFIED:
-      mReset.setText(R.string.editor_reset_edits_button);
-      break;
-    case Editor.UNTOUCHED:
-      mReset.setText(R.string.editor_place_doesnt_exist);
-      break;
-    case Editor.DELETED:
-      throw new IllegalStateException("Can't delete already deleted feature.");
-    case Editor.OBSOLETE:
-      throw new IllegalStateException("Obsolete objects cannot be reverted.");
+      case Editor.CREATED -> mReset.setText(R.string.editor_remove_place_button);
+      case Editor.MODIFIED -> mReset.setText(R.string.editor_reset_edits_button);
+      case Editor.UNTOUCHED -> mReset.setText(R.string.editor_place_doesnt_exist);
+      case Editor.DELETED ->
+          throw new IllegalStateException("Can't delete already deleted feature.");
+      case Editor.OBSOLETE ->
+          throw new IllegalStateException("Obsolete objects cannot be reverted.");
     }
   }
 
@@ -602,19 +593,13 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
     switch (Editor.nativeGetMapObjectStatus())
     {
-    case Editor.CREATED:
-      rollback(Editor.CREATED);
-      break;
-    case Editor.MODIFIED:
-      rollback(Editor.MODIFIED);
-      break;
-    case Editor.UNTOUCHED:
-      placeDoesntExist();
-      break;
-    case Editor.DELETED:
-      throw new IllegalStateException("Can't delete already deleted feature.");
-    case Editor.OBSOLETE:
-      throw new IllegalStateException("Obsolete objects cannot be reverted.");
+      case Editor.CREATED -> rollback(Editor.CREATED);
+      case Editor.MODIFIED -> rollback(Editor.MODIFIED);
+      case Editor.UNTOUCHED -> placeDoesntExist();
+      case Editor.DELETED ->
+          throw new IllegalStateException("Can't delete already deleted feature.");
+      case Editor.OBSOLETE ->
+          throw new IllegalStateException("Obsolete objects cannot be reverted.");
     }
   }
 

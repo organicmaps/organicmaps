@@ -140,12 +140,15 @@ sk:Hamburger
 
 cuisine-bubble_tea
 en:Bubble Tea|boba tea
+fr:Thé aux perles
 ru:Чай с шариками
 es:Té de burbujas
 eu:Burbuila tea
 hi:बुलबुले वाली चाय
 uk:Бульбашковий чай
 be:Чай з бурбалкамі
+zh-Hans:珍珠奶茶
+zh-Hant:珍珠奶茶
 
 cuisine-cake
 en:Cake|bakery
@@ -2127,7 +2130,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # da:Italiensk, pizza
 # nl:Italiaans, pizza
 # fi:Italialainen, pizza
-# fr:Italien, pizza
+# fr:Pizza italienne
 # de:Italienische Pizza
 # hu:Olasz konyha, pizza
 # id:Italia, pizza

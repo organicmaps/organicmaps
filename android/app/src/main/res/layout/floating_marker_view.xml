@@ -4,6 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="wrap_content"
   android:layout_height="@dimen/elevation_profile_height"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   tools:background="@color/black_54"
   tools:ignore="Overdraw">
   <ImageView
@@ -11,7 +12,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_centerVertical="true"
-    android:src="@drawable/ic_graph_point" />
+    app:srcCompat="@drawable/ic_graph_point" />
   <RelativeLayout
     android:id="@+id/info_floating_container"
     android:layout_width="wrap_content"
@@ -27,7 +28,7 @@
       android:layout_height="@dimen/margin_base"
       android:elevation="@dimen/margin_eighth"
       android:layout_centerVertical="true"
-      android:src="?elevationProfileFloatingTriangle" />
+      app:srcCompat="?elevationProfileFloatingTriangle" />
     <RelativeLayout
       android:id="@+id/floating_text_container"
       android:layout_width="wrap_content"
@@ -70,7 +71,7 @@
           android:id="@+id/triangle"
           android:layout_width="@dimen/margin_half_plus"
           android:layout_height="@dimen/margin_half_plus"
-          android:src="?elevationProfileSelectedPointTriangle" />
+          app:srcCompat="?elevationProfileSelectedPointTriangle" />
         <TextView
           android:id="@+id/altitude"
           android:layout_width="wrap_content"

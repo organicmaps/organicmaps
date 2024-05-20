@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -17,6 +18,8 @@
     android:layout_height="wrap_content"
     android:layout_alignParentStart="true"
     android:paddingTop="@dimen/margin_half_plus"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
     tools:text="@string/categories" />
   <TextView
     android:id="@+id/button"
@@ -29,5 +32,8 @@
     android:paddingTop="@dimen/margin_half_plus"
     android:text="@string/bookmark_lists_hide_all"
     android:textAllCaps="true"
-    android:textColor="?colorAccent" />
-</RelativeLayout>
+    android:textColor="?colorAccent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

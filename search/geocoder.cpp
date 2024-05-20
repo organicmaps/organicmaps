@@ -131,10 +131,10 @@ public:
     return m_table->GetVersion();
   }
 
-  void Serialize(Writer & writer, bool preserveHostEndiannes) override
+  void Serialize(Writer & writer) override
   {
     EnsureTableLoaded();
-    m_table->Serialize(writer, preserveHostEndiannes);
+    m_table->Serialize(writer);
   }
 
 private:
@@ -1680,12 +1680,22 @@ void Geocoder::FindPaths(BaseContext & ctx)
       switch (l.m_type)
       {
       case Model::TYPE_BUILDING:
-        // Actualy, it means that we have BUILDING layer with LooksLikeHouseNumber token.
-        hasBuilding = l.m_sortedFeatures->empty();
+        // Same condition as in MatchPOIsAndBuildings.
+        hasBuilding = l.m_sortedFeatures->empty() || house_numbers::LooksLikeHouseNumberStrict(l.m_subQuery);
         break;
       case Model::TYPE_STREET:
       case Model::TYPE_SUBURB:
         hasStreetOrSuburb = true;
+        break;
+      case Model::TYPE_CITY:
+      case Model::TYPE_COMPLEX_POI:
+      case Model::TYPE_COUNT:
+      case Model::TYPE_COUNTRY:
+      case Model::TYPE_STATE:
+      case Model::TYPE_SUBPOI:
+      case Model::TYPE_UNCLASSIFIED:
+      case Model::TYPE_VILLAGE:
+        // TODO: These types could be processed in a different way in the future...
         break;
       }
     }
@@ -1783,7 +1793,7 @@ void Geocoder::TraceResult(Tracer & tracer, BaseContext const & ctx, MwmSet::Mwm
 {
   SCOPE_GUARD(emitParse, [&]() { tracer.EmitParse(ctx.m_tokens); });
 
-  if (!Model::IsPoi(type) && type != Model::TYPE_BUILDING)
+  if (!Model::IsPoiOrBuilding(type))
     return;
 
   if (mwmId != m_context->GetId())

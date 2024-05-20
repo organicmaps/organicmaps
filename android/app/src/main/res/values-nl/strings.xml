@@ -41,9 +41,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Geen advertenties, geen tracking, geen gegevensverzameling</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Spaart de batterij, gebruikt geen achtergrondgegevens</string>
+	<string name="about_proposition_2">• Geen batterijverlies, werkt offline</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Snel, minimalistisch, geen junk</string>
+	<string name="about_proposition_3">• Snel, minimalistisch, ontwikkeld door gemeenschap</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Open-source applicatie gemaakt door enthousiastelingen en vrijwilligers.</string>
 	<!-- The button that opens system location settings -->
@@ -114,52 +114,54 @@
 	<string name="measurement_units_summary">Kies tussen mijlen en kilometers</string>
 
 	<!-- SECTION: Search categories -->
-	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">Waar iets gaan eten</string>
-	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Boodschappen</string>
-	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">Transport</string>
-	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Benzine</string>
-	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">Parkeerplaats</string>
-	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">Winkelen</string>
-	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">Tweedehands</string>
-	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">Hotel</string>
-	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">Bezienswaardigheden</string>
-	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">Amusement</string>
-	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">Geldautomaat</string>
-	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">Nachtleven</string>
-	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Gezinsvakantie</string>
-	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">Bank</string>
-	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">Apotheek</string>
-	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">Ziekenhuis</string>
-	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">Toilet</string>
-	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">Post</string>
-	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">Politie</string>
-	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">WiFi</string>
-	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">Recycling</string>
-	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">Water</string>
-	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">Caravanfaciliteiten</string>
+	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+	<string name="category_eat">Waar iets gaan eten</string>
+	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+	<string name="category_food">Boodschappen</string>
+	<!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+	<string name="category_transport">Transport</string>
+	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+	<string name="category_fuel">Benzine</string>
+	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+	<string name="category_parking">Parkeerplaats</string>
+	<!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+	<string name="category_shopping">Winkelen</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
+	<string name="category_secondhand">Tweedehands</string>
+	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+	<string name="category_hotel">Hotel</string>
+	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+	<string name="category_tourism">Bezienswaardigheden</string>
+	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
+	<string name="category_entertainment">Amusement</string>
+	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+	<string name="category_atm">Geldautomaat</string>
+	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+	<string name="category_nightlife">Nachtleven</string>
+	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+	<string name="category_children">Gezinsvakantie</string>
+	<!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+	<string name="category_bank">Bank</string>
+	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+	<string name="category_pharmacy">Apotheek</string>
+	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+	<string name="category_hospital">Ziekenhuis</string>
+	<!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+	<string name="category_toilet">Toilet</string>
+	<!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+	<string name="category_post">Post</string>
+	<!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+	<string name="category_police">Politie</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+	<string name="category_wifi">WiFi</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+	<string name="category_recycling">Recycling</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+	<string name="category_water">Water</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+	<string name="category_rv">Caravanfaciliteiten</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notities</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -171,6 +173,10 @@
 	<string name="load_kmz_successful">Bladwijzers succesvol geüpload! U vindt ze op de kaart of op het scherm van de Bladwijzerbeheerder.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Bladwijzers uploaden is mislukt. Het bestand is mogelijk beschadigd of defect.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Het bestandstype wordt niet herkend door de app:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Faalde om bestand te openen %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Wijzigen</string>
 	<!-- Warning message when doing search around current position -->
@@ -227,6 +233,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D-gebouwen worden uitgeschakeld in de energiebesparende modus</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Gesproken instructies</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Straatnamen bekendmaken</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Indien ingeschakeld, wordt de naam van de straat of afrit waar u afslaat hardop uitgesproken.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Gesproken taal</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -467,13 +477,15 @@
 	<string name="editor_edit_place_title">Aan het aanpassen</string>
 	<string name="editor_add_place_title">Aan het toevoegen</string>
 	<string name="editor_edit_place_name_hint">Naam van de plaats</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">Zoals het in de plaatselijke taal geschreven staat</string>
 	<string name="editor_edit_place_category_title">Categorie</string>
 	<string name="detailed_problem_description">Gedetailleerde probleemomschrijving</string>
 	<string name="editor_report_problem_other_title">Een ander probleem</string>
 	<string name="placepage_add_business_button">Een organisatie toevoegen</string>
 	<string name="message_invalid_feature_position">Hier kan geen object worden geplaatst</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Cartografische gegevens van OpenStreetMap per %s. OSM is als Wikipedia voor kaarten, waar je plaatsen kunt toevoegen of bewerken voor alle gebruikers over de hele wereld.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Door de gemeenschap gemaakte OpenStreetMap-gegevens vanaf %s. Lees meer over hoe je de kaart kunt bewerken en bijwerken op OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">Log in zodat andere gebruikers kunnen zien wat u hebt gewijzigd.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d van %2$d</string>
@@ -492,14 +504,10 @@
 	<string name="editor_detailed_description">Uw voorgestelde wijzigingen worden verzonden naar de OpenStreetMap-gemeenschap. Beschrijf de details die niet kunnen worden bewerkt in Organic Maps.</string>
 	<string name="editor_more_about_osm">Meer over OpenStreetMap</string>
 	<string name="editor_operator">Uitvoerder</string>
+	<string name="editor_category_unsuitable_title">Kun je geen geschikte categorie vinden?</string>
+	<string name="editor_category_unsuitable_text">Met Organic Maps kun je alleen eenvoudige puntcategorieën toevoegen, dus geen steden, wegen, meren, contouren van gebouwen, enzovoort. Voeg zulke categorieën direct toe aan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Bekijk onze <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gids</a> voor gedetailleerde stap voor stap instructies.</string>
 	<string name="downloader_no_downloaded_maps_title">U hebt geen kaarten gedownload</string>
 	<string name="downloader_no_downloaded_maps_message">Download kaarten om een locatie te zoeken en offline te navigeren.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">Doorgaan met het detecteren van uw huidige locatie?</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">Huidige locatie is onbekend. Misschien bevindt u zich in een gebouw of tunnel.</string>
-	<string name="current_location_unknown_continue_button">Doorgaan</string>
-	<string name="current_location_unknown_stop_button">Stoppen</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -544,7 +552,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Controleer dat je geen persoonlijke gegevens hebt ingevoerd.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap-editors zullen de wijzigingen controleren en contact met u opnemen als ze vragen hebben.</string>
-	<string name="navigation_stop_button">stoppen</string>
+	<string name="navigation_stop_button">Stoppen</string>
 	<!-- For the first routing -->
 	<string name="accept">Aanvaarden</string>
 	<!-- For the first routing -->
@@ -577,6 +585,8 @@
 	<string name="routing_add_finish_point">Voeg eindpunt toe om een route te plannen</string>
 	<string name="placepage_remove_stop">Verwijderen</string>
 	<string name="placepage_add_stop">Tussenstop toevoegen</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Log in op OpenStreetMap om al je kaartbewerkingen automatisch te uploaden. Meer informatie <a href="https://github.com/organicmaps/organicmaps/issues/6144">hier</a>.</string>
 	<string name="dialog_error_storage_title">Probleem met opslagtoegang</string>
 	<string name="dialog_error_storage_message">Externe opslag is niet beschikbaar, wellicht is de SD-kaart verwijderd, beschadigd of is het bestandssysteem alleen-lezen. Gelieve dit te controleren en ons te contacteren via support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Slechte opslag emuleren</string>
@@ -631,13 +641,15 @@
 	<string name="bookmark_list_description_hint">Maak een beschrijving aan (tekst of html)</string>
 	<string name="not_shared">Privé</string>
 	<string name="speedcams_alert_title">Snelheidscamera\'s</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Altijd</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Nooit</string>
 	<string name="place_description_title">Plaatsbeschrijving</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Kaartdownloader</string>
+	<!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+	<string name="pref_tts_speedcams_auto">Waarschuw bij overschrijden snelheidslimiet</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Waarschuw altijd</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Waarschuw nooit</string>
 	<string name="power_managment_title">Energiebesparende modus</string>
 	<string name="power_managment_description">Als de energiebesparende modus is ingeschakeld, schakelt de app de energieverbruikende functies uit afhankelijk van de huidige lading van de mobiele telefoon</string>
 	<string name="power_managment_setting_never">Nooit</string>
@@ -684,6 +696,8 @@
 	<string name="by_distance">Op afstand</string>
 	<!-- Android -->
 	<string name="by_date">Op datum</string>
+	<!-- Android -->
+	<string name="by_name">Op naam</string>
 	<string name="week_ago_sorttype">Een week geleden</string>
 	<string name="month_ago_sorttype">Een maand geleden</string>
 	<string name="moremonth_ago_sorttype">Meer dan een maand geleden</string>
@@ -746,18 +760,36 @@
 	<string name="translated_om_site_url">https://organicmaps.app/nl/</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/NL:Wat_is_OpenStreetMap%3F</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Bedankt voor het gebruik van onze door de community gemaakte kaarten!</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Je gebruikt nu Organic Maps op het telefoonscherm</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">Met uw donaties en steun kunnen we de beste kaarten ter wereld maken!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Vind je onze app leuk? Doneer alsjeblieft om de ontwikkeling te ondersteunen! Vind je het nog niet leuk? Laat het ons weten, dan lossen we het op!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Als u een softwareontwikkelaar kent, kunt u hem of haar vragen een functie te implementeren die u nodig heeft.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Wist u dat u op elke plaats op de kaart lang kunt tikken om deze te selecteren?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Wist u dat u uw huidige locatie op de kaart kunt selecteren?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">U kunt helpen onze app in uw taal te vertalen.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Onze app is ontwikkeld door een paar enthousiastelingen en de community.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">U kunt de kaartgegevens eenvoudig corrigeren en verbeteren.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Ons belangrijkste doel is om snelle, op privacy gerichte, gebruiksvriendelijke kaarten te maken waar u dol op zult zijn.</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">Je gebruikt nu Organic Maps op het telefoonscherm</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Je gebruikt nu Organic Maps op het autoscherm</string>
+	<string name="car_used_on_the_car_screen">Je gebruikt nu Organic Maps op het autoscherm</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Je bent verbonden met Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Doorgaan in de telefoon</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">Naar het autoscherm</string>
+	<string name="car_continue_on_the_phone">Doorgaan in de telefoon</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">Naar het autoscherm</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">Deze applicatie vereist toegang tot je locatie voor navigatiedoeleinden.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -768,8 +800,22 @@
 	<string name="button_layer_outdoor">Wandelen</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Webbrowser is niet beschikbaar</string>
-	<!-- Text displayed in a dialog when OSM authorization is disabled -->
-	<string name="osm_login_not_available">OpenStreetMap-autorisatie is tijdelijk niet beschikbaar vanwege nieuwe beperkingen in Google Play 😾 Ons team werkt eraan om dit probleem op te lossen. Even geduld 🙏</string>
+	<string name="volume">Volume</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Alle bladwijzers en tracks exporteren</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Instellingen spraaksynthesesysteem</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">Instellingen voor spraaksynthese zijn niet gevonden, weet je zeker dat je apparaat dit ondersteunt?</string>
+	<string name="drive_through">Drive-though</string>
+	<string name="clear_the_search">Wis de zoekopdracht</string>
+	<string name="zoom_in">Inzoomen</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Uitzoomen</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Menulink</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Menu bekijken</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adres/blok</string>
@@ -796,7 +842,7 @@
 	<string name="type.amenity.atm">Geldautomaat</string>
 	<string name="type.amenity.bank">Bank</string>
 	<string name="type.amenity.bar">Bar</string>
-	<string name="type.amenity.bbq">Barbecueplaats</string>
+	<string name="type.amenity.bbq">Barbecue</string>
 	<string name="type.amenity.bench">Zitbank</string>
 	<string name="type.amenity.bicycle_parking">Fietsenstalling</string>
 	<string name="type.amenity.bicycle_rental">Fietsverhuur</string>
@@ -828,6 +874,7 @@
 	<string name="type.amenity.dentist">Tandarts</string>
 	<string name="type.amenity.doctors">Huisartsenpost</string>
 	<string name="type.amenity.drinking_water">Drinkwater</string>
+	<string name="type.drinking_water.yes">Drinkwater</string>
 	<string name="type.amenity.driving_school">Rijschool</string>
 	<string name="type.amenity.exhibition_centre">Expositiecentrum</string>
 	<string name="type.amenity.money_transfer">Overschrijving</string>
@@ -918,7 +965,12 @@
 	<string name="type.amenity.restaurant">Restaurant</string>
 	<string name="type.amenity.sanitary_dump_station">Caravantoilet cassette-leegpunt</string>
 	<string name="type.amenity.school">School</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Beschutting</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">Beschutting</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">Bivakhut</string>
 	<string name="type.amenity.public_bath">Publiek bad</string>
 	<string name="type.amenity.shower">Douche</string>
 	<string name="type.amenity.stripclub">Stripclub</string>
@@ -972,25 +1024,14 @@
 	<string name="type.barrier.wall">Muur</string>
 	<string name="type.boundary">Grens</string>
 	<string name="type.boundary.administrative">Administratieve grens</string>
-	<string name="type.boundary.administrative.10">Administratieve grens</string>
-	<string name="type.boundary.administrative.11">Administratieve grens</string>
-	<string name="type.boundary.administrative.2">Landsgrens</string>
-	<string name="type.boundary.administrative.3">Administratieve grens</string>
-	<string name="type.boundary.administrative.4">Administratieve grens</string>
-	<string name="type.boundary.administrative.5">Administratieve grens</string>
-	<string name="type.boundary.administrative.6">Administratieve grens</string>
-	<string name="type.boundary.administrative.7">Administratieve grens</string>
-	<string name="type.boundary.administrative.8">Administratieve grens</string>
-	<string name="type.boundary.administrative.9">Administratieve grens</string>
-	<string name="type.boundary.administrative.city">Stadsgrens</string>
-	<string name="type.boundary.administrative.country">Landsgrens</string>
-	<string name="type.boundary.administrative.county">Provinciegrens</string>
-	<string name="type.boundary.administrative.municipality">Gemeentegrens</string>
-	<string name="type.boundary.administrative.nation">Natiegrens</string>
-	<string name="type.boundary.administrative.region">Regiogrens</string>
-	<string name="type.boundary.administrative.state">Staatsgrens</string>
-	<string name="type.boundary.administrative.suburb">Buitenwijkgrens</string>
+	<!-- Borders between countries. -->
+	<string name="type.boundary.administrative.2">Natiegrens</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.3">Regiogrens</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.4">Regiogrens</string>
 	<string name="type.boundary.national_park">Nationaal park</string>
+	<string name="type.boundary.aboriginal_lands">Inheemse landen</string>
 	<string name="type.boundary.protected_area">Beschermd gebied</string>
 	<string name="type.boundary.protected_area.1">Beschermd gebied</string>
 	<string name="type.boundary.protected_area.2">Beschermd gebied</string>
@@ -1163,15 +1204,9 @@
 	<string name="type.highway.footway">Voetpad</string>
 	<string name="type.highway.footway.sidewalk">Stoep</string>
 	<string name="type.highway.footway.crossing">Voetgangersoversteekplaats</string>
-	<string name="type.highway.footway.alpine_hiking">Alpine wandelpad</string>
 	<string name="type.highway.footway.area">Voetgangerszone</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Voetgangersbrug</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Uitdagend alpine bergklimpad</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Uitdagend bergwandelpad</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Moeilijk alpine bergklimpad</string>
-	<string name="type.highway.footway.hiking">Wandelpad</string>
-	<string name="type.highway.footway.mountain_hiking">Bergpad</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Voetgangerstunnel</string>
 	<string name="type.highway.ford">Voorde</string>
@@ -1192,17 +1227,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
 	<string name="type.highway.path">Pad</string>
-	<string name="type.highway.path.alpine_hiking">Alpine wandelpad</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">Pad</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">Pad</string>
 	<string name="type.highway.path.bicycle">Fietspad</string>
+	<string name="type.highway.footway.bicycle">Fietspad</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Brug</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Pad</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Pad</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Pad</string>
-	<string name="type.highway.path.hiking">Wandelpad</string>
 	<string name="type.highway.path.horse">Ruiterpad</string>
-	<string name="type.highway.path.mountain_hiking">Bergpad</string>
-	<string name="type.highway.path.permissive">Pad</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Tunnel</string>
 	<string name="type.highway.pedestrian">Voetgangersgebied</string>
@@ -1276,12 +1309,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Brug</string>
 	<string name="type.highway.track.grade1">Straat</string>
-	<string name="type.highway.track.grade2">Straat</string>
-	<string name="type.highway.track.grade3">Straat</string>
-	<string name="type.highway.track.grade4">Straat</string>
-	<string name="type.highway.track.grade5">Straat</string>
 	<string name="type.highway.track.no.access">Straat</string>
-	<string name="type.highway.track.permissive">Straat</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunnel</string>
 	<string name="type.highway.traffic_signals">Verkeerslichten</string>
@@ -1375,7 +1403,6 @@
 	<string name="type.landuse.commercial">Commercieel gebied</string>
 	<string name="type.landuse.construction">Bouwplaats</string>
 	<string name="type.landuse.education">Educatieve voorzieningen</string>
-	<string name="type.landuse.farm">Boerderij</string>
 	<string name="type.landuse.farmland">Landbouwgrond</string>
 	<string name="type.landuse.farmyard">Boerenerf</string>
 	<string name="type.landuse.field">Veld</string>
@@ -1409,8 +1436,8 @@
 	<string name="type.leisure.garden">Tuin</string>
 	<string name="type.leisure.garden.residential">Tuin</string>
 	<string name="type.leisure.golf_course">Golfbaan</string>
+	<string name="type.leisure.miniature_golf">Minigolf</string>
 	<string name="type.leisure.ice_rink">Schaatsbaan</string>
-	<string name="type.leisure.landscape_reserve">Landschapsreservaat</string>
 	<string name="type.leisure.marina">Jachthaven</string>
 	<string name="type.leisure.nature_reserve">Natuurreservaat</string>
 	<string name="type.leisure.outdoor_seating">Zitplaatsen buiten</string>
@@ -1461,7 +1488,12 @@
 	<string name="type.military.bunker">Bunker</string>
 	<string name="type.mountain_pass">Bergpas</string>
 	<string name="type.natural">Natuur</string>
-	<string name="type.natural.bare_rock">Kale steen</string>
+	<!-- A rocky land cover. -->
+	<string name="type.natural.bare_rock">Kale rots</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Kiezels</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Puinhelling</string>
 	<string name="type.natural.bay">Baai</string>
 	<string name="type.natural.beach">Strand</string>
 	<string name="type.natural.beach.sand">Zandstrand</string>
@@ -2010,18 +2042,20 @@
 	<string name="type.sport.pelota">Baskische peloton</string>
 	<string name="type.tourism">Tourisme</string>
 	<string name="type.tourism.aquarium">Aquarium</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Berghut</string>
-	<string name="type.tourism.apartment">Appartementen</string>
+	<string name="type.tourism.apartment">Appartement</string>
 	<string name="type.tourism.artwork">Kunstwerk</string>
 	<string name="type.tourism.artwork.architecture">Kunstwerk</string>
 	<string name="type.tourism.artwork.painting">Schilderij</string>
 	<string name="type.tourism.artwork.sculpture">Kunstwerk</string>
 	<string name="type.tourism.artwork.statue">Standbeeld</string>
 	<string name="type.tourism.attraction">Attractie</string>
-	<string name="type.tourism.attraction.animal">Dierenverblijf</string>
+	<string name="type.attraction.animal">Dierenverblijf</string>
 	<string name="type.tourism.attraction.specified">Attractie</string>
 	<string name="type.tourism.camp_site">Kampeerterrein</string>
 	<string name="type.tourism.caravan_site">Caravan site</string>
+	<!-- A rentable countryside vacation house. -->
 	<string name="type.tourism.chalet">Vakantiehuis</string>
 	<string name="type.tourism.gallery">Galerij</string>
 	<string name="type.tourism.guest_house">Gasthuis</string>
@@ -2035,9 +2069,10 @@
 	<string name="type.tourism.information.visitor_centre">Bezoekerscentrum</string>
 	<string name="type.tourism.museum">Museum</string>
 	<string name="type.tourism.picnic_site">Picnicplaats</string>
-	<string name="type.tourism.resort">Complex</string>
+	<string name="type.leisure.resort">Complex</string>
 	<string name="type.tourism.theme_park">Attractiepark</string>
 	<string name="type.tourism.viewpoint">Uitkijkpunt</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Wildernishut</string>
 	<string name="type.tourism.zoo">Dierentuin</string>
 	<string name="type.tourism.zoo.petting">Kinderboerderij</string>
@@ -2059,7 +2094,6 @@
 	<string name="type.waterway.lock_gate">Sluisdeur</string>
 	<string name="type.waterway.river">Rivier</string>
 	<string name="type.waterway.river.tunnel">Rivier</string>
-	<string name="type.waterway.riverbank">Rivier</string>
 	<string name="type.waterway.stream">Beek</string>
 	<string name="type.waterway.stream.ephemeral">Rivier</string>
 	<string name="type.waterway.stream.intermittent">Beek</string>

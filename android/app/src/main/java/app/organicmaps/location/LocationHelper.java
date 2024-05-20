@@ -22,6 +22,7 @@ import app.organicmaps.Map;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.bookmarks.data.FeatureId;
 import app.organicmaps.bookmarks.data.MapObject;
+import app.organicmaps.routing.JunctionInfo;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.LocationUtils;
@@ -55,7 +56,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   private boolean mActive;
 
   @NonNull
-  private GnssStatusCompat.Callback mGnssStatusCallback = new GnssStatusCompat.Callback()
+  private final GnssStatusCompat.Callback mGnssStatusCallback = new GnssStatusCompat.Callback()
   {
     @Override
     public void onStarted()
@@ -236,6 +237,17 @@ public class LocationHelper implements BaseLocationProvider.Listener
     mLocationProvider.start(mInterval);
   }
 
+  // RouteSimulationProvider doesn't really require location permissions.
+  @SuppressLint("MissingPermission")
+  public void startNavigationSimulation(JunctionInfo[] points)
+  {
+    Logger.i(TAG);
+    mLocationProvider.stop();
+    mLocationProvider = new RouteSimulationProvider(mContext, this, points);
+    mActive = true;
+    mLocationProvider.start(mInterval);
+  }
+
   @Override
   @UiThread
   public void onLocationDisabled()
@@ -282,18 +294,13 @@ public class LocationHelper implements BaseLocationProvider.Listener
       return INTERVAL_NAVIGATION_MS;
 
     final int mode = Map.isEngineCreated() ? LocationState.getMode() : LocationState.NOT_FOLLOW_NO_POSITION;
-    switch (mode)
+    return switch (mode)
     {
-      case LocationState.PENDING_POSITION:
-      case LocationState.FOLLOW:
-      case LocationState.FOLLOW_AND_ROTATE:
-        return INTERVAL_FOLLOW_MS;
-      case LocationState.NOT_FOLLOW:
-      case LocationState.NOT_FOLLOW_NO_POSITION:
-        return INTERVAL_NOT_FOLLOW_MS;
-      default:
-        throw new IllegalArgumentException("Unsupported location mode: " + mode);
-    }
+      case LocationState.PENDING_POSITION, LocationState.FOLLOW, LocationState.FOLLOW_AND_ROTATE ->
+          INTERVAL_FOLLOW_MS;
+      case LocationState.NOT_FOLLOW, LocationState.NOT_FOLLOW_NO_POSITION -> INTERVAL_NOT_FOLLOW_MS;
+      default -> throw new IllegalArgumentException("Unsupported location mode: " + mode);
+    };
   }
 
   /**

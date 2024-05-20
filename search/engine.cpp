@@ -281,7 +281,7 @@ void Engine::PostMessage(Args &&... args)
 
 void Engine::DoSearch(SearchParams params, shared_ptr<ProcessorHandle> handle, Processor & processor)
 {
-  LOG(LINFO, ("Search started:", params.m_mode));
+  LOG(LINFO, ("Search started:", params.m_mode, params.m_viewport));
   base::Timer timer;
   SCOPE_GUARD(printDuration, [&timer]()
   {

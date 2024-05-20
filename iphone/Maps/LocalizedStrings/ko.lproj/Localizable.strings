@@ -50,7 +50,17 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "다운로드에 실패하였습니다";
 
-"about_menu_title" = "Organic Maps 정보";
+/* Text in About screen */
+"about_headline" = "사랑으로 만든 모든 사람에게 무료";
+
+/* Text in About screen */
+"about_proposition_1" = "• 광고 없음, 추적 없음, 데이터 수집 없음";
+
+/* Text in About screen */
+"about_proposition_2" = "• 배터리 소모 없음, 오프라인에서 작동";
+
+/* Text in About screen */
+"about_proposition_3" = "• 빠르고 미니멀한, 커뮤니티가 개발한";
 
 "close" = "닫기";
 
@@ -61,9 +71,6 @@
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "새로운 목록 추가";
-
-/* Bookmark Color dialog title */
-"bookmark_color" = "색상 즐겨찾기에 추가";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "집합 이름을 즐겨찾기에 추가";
@@ -92,74 +99,77 @@
 
 /********** Search categories **********/
 
-/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "어디서먹을까";
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
+"category_eat" = "어디서먹을까";
 
-/* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "식료품들";
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! */
+"category_food" = "식료품들";
 
-/* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "수송";
+/* Search category for public transport; any changes should be duplicated in categories.txt @category_transport! */
+"category_transport" = "수송";
 
-/* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "연료";
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
+"category_fuel" = "연료";
 
-/* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "주차";
+/* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
+"category_parking" = "주차";
 
-/* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "쇼핑";
+/* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
+"category_shopping" = "쇼핑";
 
-/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "중고";
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
+"category_secondhand" = "중고";
 
-/* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "호텔";
+/* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
+"category_hotel" = "호텔";
 
-/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "관광";
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
+"category_tourism" = "관광";
 
-/* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "엔터테인먼트";
+/* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
+"category_entertainment" = "엔터테인먼트";
 
-/* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "ATM";
+/* Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! */
+"category_atm" = "ATM";
 
-/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "유흥";
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! */
+"category_nightlife" = "유흥";
 
-/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "가족 기념일";
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! */
+"category_children" = "가족 기념일";
 
-/* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "은행";
+/* Search category for banks; any changes should be duplicated in categories.txt @category_bank! */
+"category_bank" = "은행";
 
-/* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "약국";
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! */
+"category_pharmacy" = "약국";
 
-/* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "병원";
+/* Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! */
+"category_hospital" = "병원";
 
-/* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "화장실";
+/* Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! */
+"category_toilet" = "화장실";
 
-/* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "우편";
+/* Search category for post offices; any changes should be duplicated in categories.txt @category_post! */
+"category_post" = "우편";
 
-/* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "치안대";
+/* Search category for police; any changes should be duplicated in categories.txt @category_police! */
+"category_police" = "치안대";
 
-/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi 인터넷";
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
+"category_wifi" = "WiFi 인터넷";
 
-/* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "재활용";
+/* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
+"category_recycling" = "재활용";
 
-/* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "물";
+/* Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type */
+"category_water" = "물";
 
-/* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV용";
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
+"category_rv" = "RV용";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
@@ -200,10 +210,7 @@
 "done" = "완료";
 
 /* Prints version number in About dialog */
-"version" = "버전: %@";
-
-/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "OpenStreetMap 데이터: %@";
+"version" = "Organic Maps 버전: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "트랙";
@@ -217,8 +224,14 @@
 
 "pref_zoom_title" = "확대/축소 버튼";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "나이트 모드";
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "모양";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "라이트";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "다크";
 
 /* Generic «Off» string */
 "off" = "끄기";
@@ -240,6 +253,12 @@
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "음성 지침";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "\"거리 이름 발표\"";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "\"사용하도록 설정하면 회전할 거리 또는 출구의 이름을 소리내어 말합니다.\"";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "음성 언어";
@@ -277,18 +296,6 @@
 "news" = "소식";
 
 /* Text in menu */
-"github" = "GitHub";
-
-/* Text in menu */
-"telegram" = "Telegram";
-
-/* Text in menu */
-"matrix" = "[Matrix]";
-
-/* Text in menu */
-"mastodon" = "Mastodon";
-
-/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -299,9 +306,6 @@
 
 /* Text in the editor */
 "vk" = "VK";
-
-/* Text in menu */
-"openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
 "rate_the_app" = "앱 평가";
@@ -315,14 +319,23 @@
 /* Button in the main menu */
 "donate" = "기부";
 
-/* Button in the main Help dialog */
-"how_to_support_us" = "프로젝트 지원";
+/* Tex label above the Donate button */
+"donate_description" = "기부하여 최고의 지도를 함께 만들어 보세요!";
 
 /* Button in the main Help dialog */
 "copyright" = "저작권";
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "오류 신고";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "잘못된 지도 데이터 신고 또는 수정";
+
+/* Button in the About screen */
+"volunteer" = "자원봉사에 참여하려면";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "팔로우하고 문의하세요:";
 
 /* Alert text */
 "email_error_body" = "이메일 클라이언트가 설정되지 않았습니다. 이를 구성하거나 %@로 연락할 다른 방법을 사용하십시오.";
@@ -622,6 +635,8 @@
 
 "login" = "로그인";
 
+"login_osm" = "OpenStreetMap에 로그인";
+
 "forgot_password" = "암호를 잊으 셨나요?";
 
 "osm_account" = "OSM 계정";
@@ -696,6 +711,9 @@
 
 "editor_edit_place_name_hint" = "장소 이름";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "현지 언어로 작성되었으므로";
+
 "editor_edit_place_category_title" = "범주";
 
 "whatsnew_editor_message_1" = "지도에 새로운 장소를 추가하고 응용 프로그램에서 직접 기존 편집 할 수 있습니다.";
@@ -703,6 +721,9 @@
 "dialog_incorrect_feature_position" = "위치 변경";
 
 "message_invalid_feature_position" = "목적지를 이곳에서 찾을 수 없습니다";
+
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "커뮤니티에서 만든 오픈스트리트맵 데이터(%@ 기준). 지도를 편집하고 업데이트하는 방법에 대한 자세한 내용은 OpenStreetMap.org에서 확인하세요.";
 
 "login_to_make_edits_visible" = "로그인하여 다른 사용자가 변경한 내용을 볼 수 있도록 하십시오.";
 
@@ -746,16 +767,6 @@
 
 "downloader_no_downloaded_maps_message" = "오프라인으로 위치를 검색하려면 지도를 다운로드하세요.";
 
-/* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "현재 위치검색을 계속하시겠습니까?";
-
-/* Error that appears after certain time without location. */
-"current_location_unknown_message" = "현재 위치를 알 수 없습니다. 건물 안이나 터널 안에서는 검색할 수 없습니다";
-
-"current_location_unknown_continue_button" = "계속";
-
-"current_location_unknown_stop_button" = "중지";
-
 "current_location_unknown_error_title" = "현재 위치를 알 수 없습니다.";
 
 "current_location_unknown_error_message" = "위치 검색 중 오류가 발생했습니다. 장치가 올바르게 작동되는지 확인하고 다시 시도하세요.";
@@ -770,6 +781,14 @@
 
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. 앱 사용 중에 선택";
+
+"location_services_disabled_on_device_2" = "2. 2. 개인정보 보호 선택";
+
+"location_services_disabled_on_device_3" = "3. 3. 위치 서비스 선택";
+
+"location_services_disabled_on_device_4" = "4. 위치 서비스 켜기";
+
+"location_services_disabled_on_device_additional_message" = "또는 위치 없이 오가닉 맵을 계속 사용하세요.";
 
 /* abbreviation for meters */
 "m" = "m";
@@ -815,7 +834,7 @@
 
 "placepage_delete_bookmark_button" = "즐겨찾기 삭제";
 
-"editor_edits_sent_message" = "귀하의 제안 변경사항이 전송되었습니다";
+"editor_edits_sent_message" = "메모가 오픈스트리트맵으로 전송됩니다";
 
 "editor_comment_hint" = "설명…";
 
@@ -861,9 +880,6 @@
 "sharing_call_action_look" = "체크아웃";
 
 "recent_track_background_dialog_message" = "Organic Maps는 최근 여행한 경로를 녹음하기 위해 배경 화면에서 지역 위치 서비스를 사용합니다.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps는 무료 오픈 소스 오프라인 지도 애플리케이션입니다. 광고 없음. 추적이 없습니다. 지도에 오류가 표시되면 OpenStreetMap에서 수정하세요. 이 프로젝트는 여가 시간에 열광자들에 의해 만들어지므로 여러분의 피드백과 지원이 필요합니다.";
 
 "general_settings" = "일반 설정";
 
@@ -925,6 +941,12 @@
 "start_from_my_position" = "시작 위치:";
 
 "profile_authorization_error" = "죄송합니다. 오류가 발생했습니다. 다시 로그인해 보세요.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "모든 지도 편집 내용을 자동으로 업로드하려면 오픈스트리트맵에 로그인하세요. 자세히 알아보기";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "여기";
 
 "core_entrance" = "입구";
 
@@ -1005,15 +1027,16 @@
 
 "speedcams_alert_title" = "속도 감시 카메라";
 
-/* Generic «Always» string */
-"always" = "항상";
-
-/* Generic «Never» string */
-"never" = "안함";
-
 "place_description_title" = "장소 묘사";
 
-"speedcams_notice_message" = "자동 - 속도 제한 초과 위험이 있을때 스피드캠에 대해 경고하기\n항상 - 스피드캠에 대해 항상 경고하기\n절대 아님 - 스피드캠에 대해 경고하지 않기";
+/* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
+"pref_tts_speedcams_auto" = "과속 경고";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "항상 경고하기";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "경고하지 않기";
 
 "power_managment_title" = "전력 절약 모드";
 
@@ -1120,6 +1143,8 @@
 "sort_distance" = "거리로 분류";
 
 "sort_date" = "날짜로 분류";
+
+"sort_name" = "이름별로 정렬";
 
 "week_ago_sorttype" = "일주일 전";
 
@@ -1242,8 +1267,31 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Ko:OpenStreetMap_소개";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "이제 휴대폰 화면에서 유기적 지도를 사용하고 있습니다";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "이제 자동차 화면에서 유기적 지도를 사용하고 있습니다";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "전화기에서 계속";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "차량 화면으로 이동";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "하이킹";
+
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "모든 북마크 및 트랙 내보내기";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "색상 변경";
+
+/* Main screen title "Map" displayed in the navigation back button's menu. */
+"map" = "지도";
+
+"drive_through" = "드라이브 스루";
 
 
 /********** Types **********/
@@ -1296,7 +1344,7 @@
 
 "type.amenity.bar" = "바";
 
-"type.amenity.bbq" = "소풍 사이트";
+"type.amenity.bbq" = "바비큐 그릴";
 
 "type.amenity.bench" = "벤치";
 
@@ -1359,6 +1407,8 @@
 "type.amenity.doctors" = "개인병원";
 
 "type.amenity.drinking_water" = "음수대";
+
+"type.drinking_water.yes" = "음수대";
 
 "type.amenity.driving_school" = "운전학원";
 
@@ -1539,7 +1589,17 @@
 
 "type.amenity.school" = "학교";
 
+/* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "대피소";
+
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "대피소";
+
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
+"type.amenity.shelter.basic_hut" = "비박 오두막";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
+"type.amenity.shelter.lean_to" = "Lean-to Shelter";
 
 "type.amenity.public_bath" = "대중목욕탕";
 
@@ -1647,43 +1707,18 @@
 
 "type.boundary.administrative" = "Administrative Boundary";
 
-"type.boundary.administrative.10" = "Administrative Boundary";
-
-"type.boundary.administrative.11" = "Administrative Boundary";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "National Border";
 
-"type.boundary.administrative.3" = "Administrative Boundary";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Regional Boundary";
 
-"type.boundary.administrative.4" = "Administrative Boundary";
-
-"type.boundary.administrative.5" = "Administrative Boundary";
-
-"type.boundary.administrative.6" = "Administrative Boundary";
-
-"type.boundary.administrative.7" = "Administrative Boundary";
-
-"type.boundary.administrative.8" = "Administrative Boundary";
-
-"type.boundary.administrative.9" = "Administrative Boundary";
-
-"type.boundary.administrative.city" = "City Boundary";
-
-"type.boundary.administrative.country" = "National Border";
-
-"type.boundary.administrative.county" = "County Boundary";
-
-"type.boundary.administrative.municipality" = "Municipality Boundary";
-
-"type.boundary.administrative.nation" = "National Border";
-
-"type.boundary.administrative.region" = "Regional Boundary";
-
-"type.boundary.administrative.state" = "State Boundary";
-
-"type.boundary.administrative.suburb" = "Suburb Boundary";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Regional Boundary";
 
 "type.boundary.national_park" = "국립 공원";
+
+"type.boundary.aboriginal_lands" = "원주민 땅";
 
 "type.boundary.protected_area" = "보호구역";
 
@@ -1955,7 +1990,7 @@
 
 "type.entrance.exit" = "종료";
 
-"type.fee.yes" = "💲";
+"type.fee.yes" = "$";
 
 "type.fee.no" = "무료";
 
@@ -2024,22 +2059,10 @@
 
 "type.highway.footway.crossing" = "횡단보도";
 
-"type.highway.footway.alpine_hiking" = "길";
-
 "type.highway.footway.area" = "길";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "다리";
-
-"type.highway.footway.demanding_alpine_hiking" = "길";
-
-"type.highway.footway.demanding_mountain_hiking" = "길";
-
-"type.highway.footway.difficult_alpine_hiking" = "길";
-
-"type.highway.footway.hiking" = "길";
-
-"type.highway.footway.mountain_hiking" = "길";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "터널";
@@ -2074,26 +2097,20 @@
 
 "type.highway.path" = "길";
 
-"type.highway.path.alpine_hiking" = "길";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "길";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "길";
 
 "type.highway.path.bicycle" = "길";
+
+"type.highway.footway.bicycle" = "길";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "다리";
 
-"type.highway.path.demanding_alpine_hiking" = "길";
-
-"type.highway.path.demanding_mountain_hiking" = "길";
-
-"type.highway.path.difficult_alpine_hiking" = "길";
-
-"type.highway.path.hiking" = "길";
-
 "type.highway.path.horse" = "길";
-
-"type.highway.path.mountain_hiking" = "길";
-
-"type.highway.path.permissive" = "길";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "터널";
@@ -2216,17 +2233,7 @@
 
 "type.highway.track.grade1" = "거리";
 
-"type.highway.track.grade2" = "거리";
-
-"type.highway.track.grade3" = "거리";
-
-"type.highway.track.grade4" = "거리";
-
-"type.highway.track.grade5" = "거리";
-
 "type.highway.track.no.access" = "거리";
-
-"type.highway.track.permissive" = "거리";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "터널";
@@ -2436,8 +2443,6 @@
 
 "type.landuse.education" = "Educational Facility";
 
-"type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "농지";
 
 "type.landuse.farmyard" = "Farmyard";
@@ -2508,11 +2513,11 @@
 
 "type.leisure.golf_course" = "골프장";
 
+"type.leisure.miniature_golf" = "미니골프";
+
 "type.leisure.hackerspace" = "해커스 스페이스";
 
 "type.leisure.ice_rink" = "Ice Rink";
-
-"type.leisure.landscape_reserve" = "Landscape Reserve";
 
 "type.leisure.marina" = "Marina";
 
@@ -2618,7 +2623,14 @@
 
 "type.natural" = "자연";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "베어 락";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "페블";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "스토니 스크리";
 
 "type.natural.bay" = "만";
 
@@ -3715,9 +3727,10 @@
 
 "type.tourism.aquarium" = "수족관";
 
-"type.tourism.alpine_hut" = "고산 오두막";
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "마운틴 롯지";
 
-"type.tourism.apartment" = "아파트";
+"type.tourism.apartment" = "홀리데이 아파트";
 
 "type.tourism.artwork" = "작품";
 
@@ -3731,7 +3744,7 @@
 
 "type.tourism.attraction" = "관광 명소";
 
-"type.tourism.attraction.animal" = "관광 명소";
+"type.attraction.animal" = "동물 인클로저";
 
 "type.tourism.attraction.specified" = "관광 명소";
 
@@ -3739,7 +3752,8 @@
 
 "type.tourism.caravan_site" = "카라반 사용가능 캠핑장";
 
-"type.tourism.chalet" = "별장";
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "홀리데이 코티지";
 
 "type.tourism.gallery" = "갤러리";
 
@@ -3767,12 +3781,13 @@
 
 "type.tourism.picnic_site" = "피크닉 장소";
 
-"type.tourism.resort" = "리조트";
+"type.leisure.resort" = "리조트";
 
 "type.tourism.theme_park" = "테마 파크";
 
 "type.tourism.viewpoint" = "관점";
 
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "황야 오두막";
 
 "type.tourism.zoo" = "동물원";
@@ -3814,8 +3829,6 @@
 "type.waterway.river" = "강";
 
 "type.waterway.river.tunnel" = "강";
-
-"type.waterway.riverbank" = "강";
 
 "type.waterway.stream" = "강";
 

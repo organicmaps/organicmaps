@@ -1,7 +1,6 @@
 #pragma once
 
 #include "base/assert.hpp"
-#include "base/base.hpp"
 
 namespace base
 {
@@ -40,7 +39,7 @@ namespace base
 namespace impl
 {
 template <typename T>
-inline void ForceUseValue(T const & t)
+void ForceUseValue(T const & t)
 {
   volatile T dummy = t;
   UNUSED_VALUE(dummy);

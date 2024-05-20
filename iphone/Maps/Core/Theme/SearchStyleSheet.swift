@@ -56,9 +56,11 @@ class SearchStyleSheet: IStyleSheet {
     }
 
     theme.add(styleName: "SearchSearchTextField") { (s) -> Void in
-      s.fontColor = colors.blackSecondaryText
+      s.fontColor = colors.blackPrimaryText
       s.backgroundColor = colors.white
       s.tintColor = colors.blackSecondaryText
+      s.cornerRadius = 8.0
+      s.barTintColor = colors.primary
     }
 
     theme.add(styleName: "SearchSearchTextFieldIcon") { (s) -> Void in

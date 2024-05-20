@@ -1,5 +1,6 @@
 package app.organicmaps.widget.placepage;
 
+import android.app.KeyguardManager;
 import android.content.Context;
 import android.os.Build;
 import android.view.Menu;
@@ -57,29 +58,25 @@ public class PlacePageUtils
   @NonNull
   static String toString(@BottomSheetBehavior.State int state)
   {
-    switch (state)
+    return switch (state)
     {
-      case BottomSheetBehavior.STATE_EXPANDED:
-        return "EXPANDED";
-      case BottomSheetBehavior.STATE_COLLAPSED:
-        return "COLLAPSED";
-      case BottomSheetBehavior.STATE_HALF_EXPANDED:
-        return "HALF_EXPANDED";
-      case BottomSheetBehavior.STATE_DRAGGING:
-        return "DRAGGING";
-      case BottomSheetBehavior.STATE_SETTLING:
-        return "SETTLING";
-      case BottomSheetBehavior.STATE_HIDDEN:
-        return "HIDDEN";
-      default:
-        throw new AssertionError("Unsupported state detected: " + state);
-    }
+      case BottomSheetBehavior.STATE_EXPANDED -> "EXPANDED";
+      case BottomSheetBehavior.STATE_COLLAPSED -> "COLLAPSED";
+      case BottomSheetBehavior.STATE_HALF_EXPANDED -> "HALF_EXPANDED";
+      case BottomSheetBehavior.STATE_DRAGGING -> "DRAGGING";
+      case BottomSheetBehavior.STATE_SETTLING -> "SETTLING";
+      case BottomSheetBehavior.STATE_HIDDEN -> "HIDDEN";
+      default -> throw new AssertionError("Unsupported state detected: " + state);
+    };
   }
 
   public static void copyToClipboard(Context context, View frame, String text)
   {
     Utils.copyTextToClipboard(context, text);
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
+
+    KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+    // Starting from API 33, the automatic system control that shows copied text is displayed.
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU || keyguardManager.isDeviceLocked())
     {
       Utils.showSnackbarAbove(frame.getRootView().findViewById(R.id.pp_buttons_layout), frame,
                               context.getString(R.string.copied_to_clipboard, text));

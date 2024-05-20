@@ -1,6 +1,5 @@
 #include "base/file_name_utils.hpp"
 
-
 namespace base
 {
 using namespace std;
@@ -70,7 +69,7 @@ string AddSlashIfNeeded(string const & path)
 {
   auto const sep = GetNativeSeparator();
   string::size_type const pos = path.rfind(sep);
-  if ((pos != string::npos) && (pos + sizeof(sep) == path.size()))
+  if (pos != string::npos && pos + sizeof(sep) == path.size())
     return path;
   return path + sep;
 }

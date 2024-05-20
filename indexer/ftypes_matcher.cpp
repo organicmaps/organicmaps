@@ -4,7 +4,6 @@
 #include "indexer/feature.hpp"
 
 #include "base/assert.hpp"
-#include "base/buffer_vector.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
@@ -390,7 +389,7 @@ IsStreetOrSquareChecker::IsStreetOrSquareChecker()
 IsAddressObjectChecker::IsAddressObjectChecker() : BaseChecker(1 /* level */)
 {
   base::StringIL const paths = {
-    "building", "entrance", "amenity", "shop", "tourism", "historic", "office", "craft", "addr:interpolation"
+    "building", "entrance", "amenity", "shop", "tourism", "historic", "office", "craft", "leisure", "addr:interpolation"
   };
 
   Classificator const & c = classif();
@@ -474,7 +473,8 @@ IsPoiChecker::IsPoiChecker() : BaseChecker(1 /* level */)
     "historic",
     "railway",
     "highway",
-    "aeroway"
+    "aeroway",
+    "healthcare",
   };
 
   for (auto const & type : poiTypes)
@@ -496,22 +496,27 @@ AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
       {"historic", "archaeological_site"},
       {"historic", "boundary_stone"},
       {"historic", "castle"},
+      {"historic", "city_gate"},
+      {"historic", "citywalls"},
       {"historic", "fort"},
+      {"historic", "gallows"},
       {"historic", "memorial"},
       {"historic", "monument"},
+      {"historic", "pillory"},
       {"historic", "ruins"},
       {"historic", "ship"},
       {"historic", "tomb"},
       {"historic", "wayside_cross"},
       {"historic", "wayside_shrine"},
       {"landuse", "cemetery"},
+      {"leisure", "beach_resort"},
       {"leisure", "garden"},
+      {"leisure", "marina"},
       {"leisure", "nature_reserve"},
       {"leisure", "park"},
       {"leisure", "water_park"},
       {"man_made", "lighthouse"},
       {"man_made", "windmill"},
-      //{"man_made", "tower"},
       {"natural", "beach"},
       {"natural", "cave_entrance"},
       {"natural", "geyser"},
@@ -520,6 +525,7 @@ AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
       {"natural", "peak"},
       {"natural", "volcano"},
       {"place", "square"},
+      {"tourism", "aquarium"},
       {"tourism", "artwork"},
       {"tourism", "museum"},
       {"tourism", "gallery"},
@@ -531,10 +537,7 @@ AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
   Classificator const & c = classif();
 
   for (auto const & e : primaryAttractionTypes)
-  {
-    auto const type = c.GetTypeByPath(e);
-    m_types.push_back(type);
-  }
+    m_types.push_back(c.GetTypeByPath(e));
   sort(m_types.begin(), m_types.end());
   m_additionalTypesStart = m_types.size();
 
@@ -545,10 +548,7 @@ AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
   };
 
   for (auto const & e : additionalAttractionTypes)
-  {
-    auto const type = c.GetTypeByPath(e);
-    m_types.push_back(type);
-  }
+    m_types.push_back(c.GetTypeByPath(e));
   sort(m_types.begin() + m_additionalTypesStart, m_types.end());
 }
 
@@ -593,50 +593,23 @@ bool IsBridgeOrTunnelChecker::IsMatched(uint32_t type) const
 
 IsHotelChecker::IsHotelChecker()
 {
+  base::StringIL const types[] = {
+    {"tourism", "alpine_hut"},
+    {"tourism", "apartment"},
+    {"tourism", "camp_site"},
+    {"tourism", "caravan_site"},  /// @todo Sure here?
+    {"tourism", "chalet"},
+    {"tourism", "guest_house"},
+    {"tourism", "hostel"},
+    {"tourism", "hotel"},
+    {"tourism", "motel"},
+    {"tourism", "wilderness_hut"},
+    {"leisure", "resort"},
+  };
+
   Classificator const & c = classif();
-  for (size_t i = 0; i < static_cast<size_t>(Type::Count); ++i)
-  {
-    auto const hotelType = static_cast<Type>(i);
-    auto const * const tag = GetHotelTypeTag(hotelType);
-    auto const type = c.GetTypeByPath({"tourism", tag});
-
-    m_types.push_back(type);
-
-    m_sortedTypes[i].first = type;
-    m_sortedTypes[i].second = hotelType;
-  }
-
-  sort(m_sortedTypes.begin(), m_sortedTypes.end());
-}
-
-unsigned IsHotelChecker::GetHotelTypesMask(FeatureType & ft) const
-{
-  feature::TypesHolder types(ft);
-  buffer_vector<uint32_t, feature::kMaxTypesCount> sortedTypes(types.begin(), types.end());
-  sort(sortedTypes.begin(), sortedTypes.end());
-
-  unsigned mask = 0;
-  size_t i = 0;
-  size_t j = 0;
-  while (i < sortedTypes.size() && j < m_sortedTypes.size())
-  {
-    if (sortedTypes[i] < m_sortedTypes[j].first)
-    {
-      ++i;
-    }
-    else if (sortedTypes[i] > m_sortedTypes[j].first)
-    {
-      ++j;
-    }
-    else
-    {
-      mask |= 1U << static_cast<unsigned>(m_sortedTypes[j].second);
-      ++i;
-      ++j;
-    }
-  }
-
-  return mask;
+  for (auto const & e : types)
+    m_types.push_back(c.GetTypeByPath(e));
 }
 
 IsIslandChecker::IsIslandChecker()
@@ -668,44 +641,6 @@ uint32_t IsCoastlineChecker::GetCoastlineType() const
 {
   CHECK_EQUAL(m_types.size(), 1, ());
   return m_types[0];
-}
-
-optional<IsHotelChecker::Type> IsHotelChecker::GetHotelType(FeatureType & ft) const
-{
-  feature::TypesHolder types(ft);
-  buffer_vector<uint32_t, feature::kMaxTypesCount> sortedTypes(types.begin(), types.end());
-  sort(sortedTypes.begin(), sortedTypes.end());
-
-  size_t i = 0;
-  size_t j = 0;
-  while (i < sortedTypes.size() && j < m_sortedTypes.size())
-  {
-    if (sortedTypes[i] < m_sortedTypes[j].first)
-      ++i;
-    else if (sortedTypes[i] > m_sortedTypes[j].first)
-      ++j;
-    else
-      return m_sortedTypes[j].second;
-  }
-  return {};
-}
-
-// static
-char const * IsHotelChecker::GetHotelTypeTag(Type type)
-{
-  switch (type)
-  {
-  case Type::Hotel: return "hotel";
-  case Type::Apartment: return "apartment";
-  case Type::CampSite: return "camp_site";
-  case Type::Chalet: return "chalet";
-  case Type::GuestHouse: return "guest_house";
-  case Type::Hostel: return "hostel";
-  case Type::Motel: return "motel";
-  case Type::Resort: return "resort";
-  case Type::Count: CHECK(false, ("Can't get hotel type tag")); return "";
-  }
-  UNREACHABLE();
 }
 
 IsWifiChecker::IsWifiChecker()
@@ -771,11 +706,6 @@ IsToiletsChecker::IsToiletsChecker() : BaseChecker(2 /* level */)
   m_types.push_back(c.GetTypeByPath({"toilets", "yes"}));
 }
 
-IsCityChecker::IsCityChecker()
-{
-  m_types.push_back(classif().GetTypeByPath({"place", "city"}));
-}
-
 IsCapitalChecker::IsCapitalChecker() : BaseChecker(3 /* level */)
 {
   m_types.push_back(classif().GetTypeByPath({"place", "city", "capital"}));
@@ -783,23 +713,25 @@ IsCapitalChecker::IsCapitalChecker() : BaseChecker(3 /* level */)
 
 IsPublicTransportStopChecker::IsPublicTransportStopChecker()
 {
-  m_types.push_back(classif().GetTypeByPath({"highway", "bus_stop"}));
-  m_types.push_back(classif().GetTypeByPath({"railway", "tram_stop"}));
+  Classificator const & c = classif();
+  /// @todo Add bus station into _major_ class (like IsRailwayStationChecker)?
+  m_types.push_back(c.GetTypeByPath({"amenity", "bus_station"}));
+  m_types.push_back(c.GetTypeByPath({"amenity", "ferry_terminal"}));
+  m_types.push_back(c.GetTypeByPath({"highway", "bus_stop"}));
+  m_types.push_back(c.GetTypeByPath({"railway", "halt"}));
+  m_types.push_back(c.GetTypeByPath({"railway", "tram_stop"}));
 }
 
 IsMotorwayJunctionChecker::IsMotorwayJunctionChecker()
 {
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"highway", "motorway_junction"}));
+  m_types.push_back(classif().GetTypeByPath({"highway", "motorway_junction"}));
 }
 
 IsWayWithDurationChecker::IsWayWithDurationChecker()
 {
-  base::StringIL const types[] = {{"route", "ferry"},
-                                  {"route", "shuttle_train"}};
   Classificator const & c = classif();
-  for (auto const & e : types)
-    m_types.push_back(c.GetTypeByPath(e));
+  m_types.push_back(c.GetTypeByPath({"route", "ferry"}));
+  m_types.push_back(c.GetTypeByPath({"route", "shuttle_train"}));
 }
 
 LocalityType LocalityFromString(std::string_view place)

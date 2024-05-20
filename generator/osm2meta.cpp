@@ -332,6 +332,19 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_capacity(std::string con
   return v;
 }
 
+std::string MetadataTagProcessorImpl::ValidateAndFormat_local_ref(std::string const & v)
+{
+  return v;
+}
+
+std::string MetadataTagProcessorImpl::ValidateAndFormat_drive_through(std::string v)
+{
+  strings::AsciiToLower(v);
+  if (v == "yes" || v == "no")
+    return v;
+  return {};
+}
+
 std::string MetadataTagProcessorImpl::ValidateAndFormat_duration(std::string const & v) const
 {
   if (!ftypes::IsWayWithDurationChecker::Instance()(m_params.m_types))
@@ -494,6 +507,7 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
     valid = ValidateAndFormat_operator(v);
     break;
   case Metadata::FMD_WEBSITE: valid = ValidateAndFormat_url(v); break;
+  case Metadata::FMD_WEBSITE_MENU: valid = ValidateAndFormat_url(v); break;
   case Metadata::FMD_CONTACT_FACEBOOK: valid = osm::ValidateAndFormat_facebook(v); break;
   case Metadata::FMD_CONTACT_INSTAGRAM: valid = osm::ValidateAndFormat_instagram(v); break;
   case Metadata::FMD_CONTACT_TWITTER: valid = osm::ValidateAndFormat_twitter(v); break;
@@ -526,6 +540,8 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
     break;
   case Metadata::FMD_DURATION: valid = ValidateAndFormat_duration(v); break;
   case Metadata::FMD_CAPACITY: valid = ValidateAndFormat_capacity(v); break;
+  case Metadata::FMD_LOCAL_REF: valid = ValidateAndFormat_local_ref(v); break;
+  case Metadata::FMD_DRIVE_THROUGH: valid = ValidateAndFormat_drive_through(v); break;
   // Metadata types we do not get from OSM.
   case Metadata::FMD_CUISINE:
   case Metadata::FMD_DESCRIPTION:   // processed separately
@@ -534,6 +550,7 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   case Metadata::FMD_PRICE_RATES:
   case Metadata::FMD_RATINGS:
   case Metadata::FMD_EXTERNAL_URI:
+  case Metadata::FMD_WHEELCHAIR:
   case Metadata::FMD_COUNT: CHECK(false, (mdType, "should not be parsed from OSM."));
   }
 

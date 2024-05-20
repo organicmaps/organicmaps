@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import os
 import sys
 
@@ -13,7 +13,6 @@ setup(
     "styles",
     [
         "drules_proto.bin",
-        "drules_proto-bw.bin",
         "drules_proto_clear.bin",
         "drules_proto_clear.txt",
         "drules_proto_dark.bin",

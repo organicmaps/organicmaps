@@ -89,25 +89,17 @@ Install Cmake (**3.22.1** minimum), Boost, Qt 6 and other dependencies.
 
 Installing *ccache* can speed up active development.
 
-_Ubuntu 20.04 or older:_
+#### Ubuntu
 
-Because Ubuntu 20.04 and older versions only offer Qt 5, you need to add a PPA to get Qt 6. This will install Qt 6.2 but any other minor version should work as well.
+##### Fully supported versions
 
-```bash
-sudo add-apt-repository -y ppa:savoury1/qt-6-2
-```
-
-Furthermore the minimum required `geoclue` version is `2.5.7` which is newer than,
-what the official Ubuntu repositories contain for these two releases.
-Newer `geoclue` packages [can also be found for example in the savoury1 PPA](
-https://launchpad.net/~savoury1/+archive/ubuntu/backports/+files/geoclue-2.0_2.5.7-3ubuntu1~20.04.sav0_amd64.deb)
-
-_Ubuntu 20.04, 22.04:_
+_Ubuntu 24.04 or newer:_
 
 ```bash
 sudo apt update && sudo apt install -y \
     build-essential \
     clang \
+    cmake \
     ninja-build \
     python3 \
     qt6-base-dev \
@@ -116,6 +108,7 @@ sudo apt update && sudo apt install -y \
     libfreetype-dev \
     libglvnd-dev \
     libgl1-mesa-dev \
+    libharfbuzz-dev \
     libicu-dev \
     libqt6svg6-dev \
     libqt6positioning6-plugins \
@@ -124,19 +117,26 @@ sudo apt update && sudo apt install -y \
     zlib1g-dev
 ```
 
-For Ubuntu 20.04, the version of `cmake` that ships with Ubuntu is too old. A newer version can be installed using `snap`:
+##### Workarounds for older Ubuntu versions
+
+| Software  | Minimum version | Impacted Ubuntu release | Workaround                                                  |
+| --------- | --------------- | ----------------------- | ----------------------------------------------------------- |
+| CMake     | `3.22.1`        | `20.04` and older       | Install newer `cmake` from [PPA](https://apt.kitware.com/) or from `snap`<br> with `sudo snap install --classic cmake` |
+| FreeType  | `2.13.1`        | `22.04` and older       | Install newer `libfreetype6` and `libfreetype-dev` from [PPA](https://launchpad.net/~reviczky/+archive/ubuntu/freetype) |
+| GeoClue   | `2.5.7`         | `20.04` and older       | Install newer `geoclue-2.0` from [PPA](https://launchpad.net/~savoury1/+archive/ubuntu/backports) |
+| Qt 6      | `6.2.0`         | `20.04` and older       | Add [PPA](https://launchpad.net/~savoury1/+archive/ubuntu/qt-6-2) and [install packages](#fully-supported-versions) |
+
 
 ```bash
-sudo snap install --classic cmake
+sudo add-apt-repository -y ppa:savoury1/qt-6-2
 ```
 
-For Ubuntu 22.04, `cmake` may also be installed using `snap`, or alternatively by using `apt`:
+#### Linux Mint
 
-```bash
-sudo apt install -y cmake
-```
+Check which Ubuntu version is the `PACKAGE BASE` for your Linux Mint release [here](https://www.linuxmint.com/download_all.php),
+and apply the [Ubuntu workarounds accordingly](#workarounds-for-older-ubuntu-versions).
 
-_Fedora:_
+#### Fedora
 
 ```bash
 sudo dnf install -y \
@@ -155,7 +155,24 @@ sudo dnf install -y \
     sqlite-devel
 ```
 
-_macOS:_
+#### Alpine
+
+```bash
+sudo apk add \
+    cmake \
+    freetype-dev \
+    g++ \
+    icu-dev \
+    mesa-gl \
+    ninja-build \
+    qt6-qtbase-dev \
+    qt6-qtpositioning-dev \
+    qt6-qtsvg-dev \
+    samurai \
+    sqlite-dev
+```
+
+#### macOS
 
 ```bash
 brew install cmake ninja qt@6
@@ -379,7 +396,7 @@ Install Android SDK and NDK:
 - Select "Android 14.0 ("Upside Down Cake") / API Level 34" SDK.
 - Switch to "SDK Tools" tab.
 - Check "Show Package Details" checkbox.
-- Select "NDK (Side by side)" version **26.1.10909125**.
+- Select "NDK (Side by side)" version **26.3.11579264**.
 - Select "CMake" version **3.22.1**.
 - Click "Apply" and wait for downloads and installation to finish.
 - In the left pane menu select "Appearance & Behavior > System Settings > Memory Settings".
@@ -565,7 +582,7 @@ You can install
 [Android SDK](https://developer.android.com/sdk/index.html) and
 [NDK](https://developer.android.com/tools/sdk/ndk/index.html) without
 Android Studio. Please make sure that SDK for API Level 33,
-NDK version **26.1.10909125** and CMake version **3.22.1** are installed.
+NDK version **26.3.11579264** and CMake version **3.22.1** are installed.
 
 If you are low on RAM, disk space or traffic there are ways to reduce system requirements:
 - exclude the `cpp` folder from indexing. If you do not make any work on the C++ code, this will greatly improve the start-up performance and the ram usage of Android Studio. Click on the `Project` tab on the left, find the `cpp` folder (should be next to the `java` folder), right click on it and select `Mark Directory as` -> `Excluded` (red folder icon). Then restart Android Studio.
@@ -576,6 +593,22 @@ If you are low on RAM, disk space or traffic there are ways to reduce system req
 - for debugging use an older emulated device with low RAM and screen resolution, e.g. "Nexus S";
 - make sure the emulator uses [hardware acceleration](https://developer.android.com/studio/run/emulator-acceleration);
 - don't use emulator, debug on a hardware device instead.
+
+#### Enable Vulkan Validation
+
+1. Download Vulkan Validation Layers
+```bash
+./tools/android/download_vulkan_validation_layers.py
+```
+
+2. Set `enableVulkanDiagnostics=ON` in `gradle.properties`.
+
+If you build the app from command line, the parameter can be passed via command line.
+
+E.g.
+```
+./gradlew -Parm64 -PenableVulkanDiagnostics=ON runGoogleDebug
+```
 
 ## iOS app
 
@@ -612,7 +645,12 @@ Reconfigure the project to use your developer signing keys:
 - Open `xcode/omim.xcworkspace` in Xcode.
 - Click on "Maps" project.
 - Open "Signing & Capabilities" tab.
-- Choose your team and your signing certificate.
+- Choose a unique bundle identifier (not app.organicmaps.debug) and your team.
+- Select "Automatically manage signing".
+
+If you want to run Organic Maps on a real device, you have to remove the CarPlay entitlement. Open `iphone/Maps/OMaps-Debug.entitlements`
+and remove the `com.apple.developer.carplay-maps` entry. Now you can sign your app again in the "Signing & Capabilities" tab. Testing CarPlay
+on a real device requires [requesting entitlements from Apple](https://developer.apple.com/documentation/carplay/requesting_carplay_entitlements).
 
 ### Building and running
 

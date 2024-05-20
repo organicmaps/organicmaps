@@ -146,6 +146,7 @@ namespace
       static uint32_t const arrTypes[] = {
         cl.GetTypeByPath({"internet_access"}),
         cl.GetTypeByPath({"toilets"}),
+        cl.GetTypeByPath({"drinking_water"}),
       };
       if (base::IsExist(arrTypes, type))
         return true;
@@ -156,6 +157,7 @@ namespace
         static uint32_t const arrTypes[] = {
             cl.GetTypeByPath({"organic"}),
             cl.GetTypeByPath({"recycling"}),
+            cl.GetTypeByPath({"wheelchair"}),
         };
         if (base::IsExist(arrTypes, type))
           return true;
@@ -195,7 +197,6 @@ namespace
     }
 
     static uint32_t const arrTypes[] = {
-      cl.GetTypeByPath({"wheelchair"}),
       cl.GetTypeByPath({"cuisine"}),
       cl.GetTypeByPath({"fee"}),
     };

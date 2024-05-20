@@ -115,15 +115,8 @@ static CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progres
   self.backgroundLayer.fillColor = self.progressLayer.fillColor = UIColor.clearColor.CGColor;
   self.backgroundLayer.lineWidth = self.progressLayer.lineWidth = kLineWidth;
   self.backgroundLayer.strokeColor = self.spinnerBackgroundColor.CGColor;
+  [self updateBackgroundPath];
   self.progressLayer.strokeColor = self.progressLayerColor;
-  CGPoint center = CGPointMake(self.width / 2.0, self.height / 2.0);
-  CGFloat radius = MIN(center.x, center.y) - kLineWidth;
-  UIBezierPath * path = [UIBezierPath bezierPathWithArcCenter:center
-                                                       radius:radius
-                                                   startAngle:angleWithProgress(0.0)
-                                                     endAngle:angleWithProgress(1.0)
-                                                    clockwise:YES];
-  self.backgroundLayer.path = path.CGPath;
   NSString * imageName = self.images[@(self.state)];
   if (imageName)
   {
@@ -143,12 +136,23 @@ static CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progres
 
 - (void)updatePath:(CGFloat)progress
 {
+  [self updateBackgroundPath];
   if (progress > 0.0)
   {
     self.state =
         progress < 1.0 ? MWMCircularProgressStateProgress : MWMCircularProgressStateCompleted;
     [self stopSpinner];
   }
+  self.progressLayer.path = [self pathWithProgress:progress].CGPath;
+}
+
+- (void)updateBackgroundPath 
+{
+  self.backgroundLayer.path = [self pathWithProgress:1.0].CGPath;
+}
+
+- (UIBezierPath *)pathWithProgress:(CGFloat)progress
+{
   CGPoint center = CGPointMake(self.width / 2.0, self.height / 2.0);
   CGFloat radius = MIN(center.x, center.y) - kLineWidth;
   UIBezierPath * path = [UIBezierPath bezierPathWithArcCenter:center
@@ -156,9 +160,8 @@ static CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progres
                                                    startAngle:angleWithProgress(0.0)
                                                      endAngle:angleWithProgress(progress)
                                                     clockwise:YES];
-  self.progressLayer.path = path.CGPath;
+  return  path;
 }
-
 #pragma mark - Spinner
 
 - (void)startSpinner

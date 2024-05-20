@@ -5,12 +5,8 @@ protocol SettingsTableViewSwitchCellDelegate {
 
 @objc
 final class SettingsTableViewSwitchCell: MWMTableViewCell {
-  @IBOutlet fileprivate weak var title: UILabel!
-  @IBOutlet fileprivate weak var switchButton: UISwitch! {
-    didSet {
-      switchButton.addTarget(self, action: #selector(switchChanged), for: .valueChanged)
-    }
-  }
+
+  private let switchButton = UISwitch()
 
   @IBOutlet weak var delegate: SettingsTableViewSwitchCellDelegate?
 
@@ -30,26 +26,39 @@ final class SettingsTableViewSwitchCell: MWMTableViewCell {
 
   override func awakeFromNib() {
     super.awakeFromNib()
-    styleTitle()
+    setupCell()
   }
 
-  @objc func config(delegate: SettingsTableViewSwitchCellDelegate, title: String, isOn: Bool) {
+  @objc 
+  func config(delegate: SettingsTableViewSwitchCellDelegate, title: String, isOn: Bool) {
     backgroundColor = UIColor.white()
 
     self.delegate = delegate
 
-    self.title.text = title
+    self.textLabel?.text = title
     styleTitle()
 
     switchButton.isOn = isOn
   }
 
-  @IBAction fileprivate func switchChanged() {
+  private func setupCell() {
+    styleName = "Background"
+    styleTitle()
+    textLabel?.numberOfLines = 0
+    textLabel?.lineBreakMode = .byWordWrapping
+
+    switchButton.onTintColor = UIColor.linkBlue()
+    switchButton.addTarget(self, action: #selector(switchChanged), for: .valueChanged)
+    accessoryView = switchButton
+  }
+
+  @objc 
+  private func switchChanged() {
     delegate?.switchCell(self, didChangeValue: switchButton.isOn)
   }
 
-  fileprivate func styleTitle() {
+  private func styleTitle() {
     let style = "regular17:" + (isEnabled ? "blackPrimaryText" : "blackSecondaryText")
-    title.setStyleAndApply(style)
+    textLabel?.setStyleAndApply(style)
   }
 }

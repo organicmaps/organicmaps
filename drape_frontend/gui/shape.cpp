@@ -200,12 +200,9 @@ void ShapeControl::AddShape(dp::RenderState const & state, drape_ptr<dp::RenderB
   ASSERT(bucket->GetOverlayHandlesCount() == 1, ());
 
   drape_ptr<dp::OverlayHandle> handle = bucket->PopOverlayHandle();
-  ASSERT(dynamic_cast<Handle *>(handle.get()) != nullptr, ());
+  ASSERT(dynamic_cast<Handle *>(handle.get()), ());
 
-  m_shapesInfo.emplace_back(ShapeInfo());
-  ShapeInfo & info = m_shapesInfo.back();
-  info.m_state = state;
-  info.m_buffer = bucket->MoveBuffer();
-  info.m_handle = drape_ptr<Handle>(static_cast<Handle *>(handle.release()));
+  m_shapesInfo.emplace_back(state, std::move(bucket->MoveBuffer()),
+                            drape_ptr<Handle>(static_cast<Handle *>(handle.release())));
 }
 }  // namespace gui

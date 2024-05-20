@@ -24,7 +24,6 @@
 - `faq.html` - FAQ text displayed in the "?"/Help screen.
 - `copyright.html` - attributions to 3rd-party libraries, map data, icons, fonts.
 
-- `hardcoded_categories.txt` - search categories displayed in UI (duplicated in search/displayed_categories.cpp, see #1795).
 - `minsk-pass.mwm`,`minsk-pass.osm.bz2` - a small map used for tests.
 
 There are some other files not mentioned here.
@@ -95,7 +94,6 @@ Automatically [generated](TRANSLATIONS.md#technical-details):
 - `indexer/` - processor for map files, classificator, styles.
 - `kml/` - manipulation of KML files.
 - `map/` - app business logic, including a scene manager.
-- `mapshot/` - generate screenshots of maps, specified by coordinates and zoom level.
 - `openlr/` -
 - `packaging/` - packaging specs for various distributions.
 - `platform/` - platform abstraction classes: file paths, http requests, location services.
@@ -105,7 +103,6 @@ Automatically [generated](TRANSLATIONS.md#technical-details):
 - `routing/` - in-app routing engine.
 - `search/` - ranking and searching classes.
 - `shaders/` - shaders for rendering.
-- `software_renderer/` -
 - `std/` - standard headers wrappers, for Boost, STL, C-rt.
 - `storage/` - map reading function.
 - `testing/` - common interfaces for tests.

@@ -30,52 +30,23 @@ import java.util.List;
 @MainThread
 public enum BookmarkManager
 {
-  // Used by JNI.
-  @Keep
-  @SuppressWarnings("unused")
   INSTANCE;
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ CLOUD_BACKUP, CLOUD_RESTORE })
-  public @interface SynchronizationType {}
-
-  public static final int CLOUD_BACKUP = 0;
-  public static final int CLOUD_RESTORE = 1;
-
-  @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ CLOUD_SUCCESS, CLOUD_AUTH_ERROR, CLOUD_NETWORK_ERROR,
-            CLOUD_DISK_ERROR, CLOUD_USER_INTERRUPTED, CLOUD_INVALID_CALL })
-  public @interface SynchronizationResult {}
-
-  public static final int CLOUD_SUCCESS = 0;
-  public static final int CLOUD_AUTH_ERROR = 1;
-  public static final int CLOUD_NETWORK_ERROR = 2;
-  public static final int CLOUD_DISK_ERROR = 3;
-  public static final int CLOUD_USER_INTERRUPTED = 4;
-  public static final int CLOUD_INVALID_CALL = 5;
-
-  @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ CLOUD_BACKUP_EXISTS, CLOUD_NO_BACKUP, CLOUD_NOT_ENOUGH_DISK_SPACE })
-  public @interface RestoringRequestResult {}
-
-  public static final int CLOUD_BACKUP_EXISTS = 0;
-  public static final int CLOUD_NO_BACKUP = 1;
-  public static final int CLOUD_NOT_ENOUGH_DISK_SPACE = 2;
-
-  @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ SORT_BY_TYPE, SORT_BY_DISTANCE, SORT_BY_TIME })
+  @IntDef({ SORT_BY_TYPE, SORT_BY_DISTANCE, SORT_BY_TIME, SORT_BY_NAME })
   public @interface SortingType {}
 
   public static final int SORT_BY_TYPE = 0;
   public static final int SORT_BY_DISTANCE = 1;
   public static final int SORT_BY_TIME = 2;
+  public static final int SORT_BY_NAME = 3;
 
   // These values have to match the values of kml::CompilationType from kml/types.hpp
   public static final int CATEGORY = 0;
 
   public static final List<Icon> ICONS = new ArrayList<>();
 
-  static String[] BOOKMARKS_EXTENSIONS = Framework.nativeGetBookmarksFilesExts();
+  private static final String[] BOOKMARKS_EXTENSIONS = Framework.nativeGetBookmarksFilesExts();
 
   private static final String TAG = BookmarkManager.class.getSimpleName();
 
@@ -96,9 +67,6 @@ public enum BookmarkManager
 
   @NonNull
   private final List<BookmarksSharingListener> mSharingListeners = new ArrayList<>();
-
-  @NonNull
-  private final List<BookmarksCloudListener> mCloudListeners = new ArrayList<>();
 
   @Nullable
   private OnElevationCurrentPositionChangedListener mOnElevationCurrentPositionChangedListener;
@@ -135,8 +103,7 @@ public enum BookmarkManager
   @Nullable
   public Bookmark addNewBookmark(double lat, double lon)
   {
-    final Bookmark bookmark = nativeAddBookmarkToLastEditedCategory(lat, lon);
-    return bookmark;
+    return nativeAddBookmarkToLastEditedCategory(lat, lon);
   }
 
   public void addLoadingListener(@NonNull BookmarksLoadingListener listener)
@@ -246,8 +213,16 @@ public enum BookmarkManager
       tmpFile.delete();
     }
 
-    for (BookmarksLoadingListener listener : mListeners)
-      listener.onBookmarksFileLoaded(success);
+    if (success)
+    {
+      for (BookmarksLoadingListener listener : mListeners)
+        listener.onBookmarksFileImportSuccessful();
+    }
+    else
+    {
+      for (BookmarksLoadingListener listener : mListeners)
+        listener.onBookmarksFileImportFailed();
+    }
   }
 
   // Called from JNI.
@@ -258,49 +233,6 @@ public enum BookmarkManager
   {
     for (BookmarksSharingListener listener : mSharingListeners)
       listener.onPreparedFileForSharing(result);
-  }
-
-  // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  @MainThread
-  public void onSynchronizationStarted(@SynchronizationType int type)
-  {
-    for (BookmarksCloudListener listener : mCloudListeners)
-      listener.onSynchronizationStarted(type);
-  }
-
-  // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  @MainThread
-  public void onSynchronizationFinished(@SynchronizationType int type,
-                                        @SynchronizationResult int result,
-                                        @NonNull String errorString)
-  {
-    for (BookmarksCloudListener listener : mCloudListeners)
-      listener.onSynchronizationFinished(type, result, errorString);
-  }
-
-  // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  @MainThread
-  public void onRestoreRequested(@RestoringRequestResult int result, @NonNull String deviceName,
-                                 long backupTimestampInMs)
-  {
-    for (BookmarksCloudListener listener : mCloudListeners)
-      listener.onRestoreRequested(result, deviceName, backupTimestampInMs);
-  }
-
-  // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  @MainThread
-  public void onRestoredFilesPrepared()
-  {
-    for (BookmarksCloudListener listener : mCloudListeners)
-      listener.onRestoredFilesPrepared();
   }
 
   // Called from JNI.
@@ -426,17 +358,14 @@ public enum BookmarkManager
             filename = cursor.getString(columnIndex);
         }
       }
-      catch (Exception ex)
-      {
-        Logger.e(TAG, ex + " while querying " + uri);
-        ex.printStackTrace();
-      }
     }
 
     if (filename == null)
     {
       filename = uri.getPath();
-      int cut = filename.lastIndexOf('/');
+      if (filename == null)
+        return null;
+      final int cut = filename.lastIndexOf('/');
       if (cut != -1)
         filename = filename.substring(cut + 1);
     }
@@ -450,6 +379,13 @@ public enum BookmarkManager
       if (lowerCaseFilename.endsWith(ext))
         return filename;
     }
+
+    // Samsung browser adds .xml extension to downloaded gpx files.
+    // Duplicate files have " (1).xml", " (2).xml" suffixes added.
+    final String gpxExt = ".gpx";
+    final int gpxStart = lowerCaseFilename.lastIndexOf(gpxExt);
+    if (gpxStart != -1)
+      return filename.substring(0, gpxStart + gpxExt.length());
 
     // Try get guess extension from the mime type.
     final String mime = resolver.getType(uri);
@@ -474,24 +410,43 @@ public enum BookmarkManager
   @WorkerThread
   public boolean importBookmarksFile(@NonNull ContentResolver resolver, @NonNull Uri uri, @NonNull File tempDir)
   {
-    final String filename = getBookmarksFilenameFromUri(resolver, uri);
-    if (filename == null)
-      return false;
-
-    Logger.w(TAG, "Downloading bookmarks file " + uri + " with file name " + filename);
-    final File tempFile = new File(tempDir, filename);
+    Logger.w(TAG, "Importing bookmarks from " + uri);
     try
     {
+      final String filename = getBookmarksFilenameFromUri(resolver, uri);
+      if (filename == null)
+      {
+        Logger.w(TAG, "Could not find a supported file type in " + uri);
+        UiThread.run(() -> {
+          for (BookmarksLoadingListener listener : mListeners)
+            listener.onBookmarksFileUnsupported(uri);
+        });
+        return false;
+      }
+
+      Logger.d(TAG, "Downloading bookmarks file from " + uri + " into " + filename);
+      final File tempFile = new File(tempDir, filename);
       StorageUtils.copyFile(resolver, uri, tempFile);
-    } catch (IOException e)
+      Logger.d(TAG, "Downloaded bookmarks file from " + uri + " into " + filename);
+      UiThread.run(() -> loadBookmarksFile(tempFile.getAbsolutePath(), true));
+      return true;
+    }
+    catch (IOException|SecurityException e)
     {
-      Logger.w(TAG, "Failed to download bookmarks file from " + uri, e);
+      Logger.e(TAG, "Could not download bookmarks file from " + uri, e);
+      UiThread.run(() -> {
+        for (BookmarksLoadingListener listener : mListeners)
+          listener.onBookmarksFileDownloadFailed(uri, e.toString());
+      });
       return false;
     }
+  }
 
-    UiThread.run(() -> loadBookmarksFile(tempFile.getAbsolutePath(), true));
-
-    return true;
+  @WorkerThread
+  public void importBookmarksFiles(@NonNull ContentResolver resolver, @NonNull List<Uri> uris, @NonNull File tempDir)
+  {
+    for (Uri uri: uris)
+      importBookmarksFile(resolver, uri, tempDir);
   }
 
   public boolean isAsyncBookmarksLoadingInProgress()
@@ -503,6 +458,10 @@ public enum BookmarkManager
   public List<BookmarkCategory> getCategories()
   {
     return mCurrentDataProvider.getCategories();
+  }
+  public int getCategoriesCount()
+  {
+    return mCurrentDataProvider.getCategoriesCount();
   }
 
   @NonNull
@@ -559,9 +518,9 @@ public enum BookmarkManager
     nativeSetChildCategoriesVisibility(catId, visible);
   }
 
-  public void prepareCategoryForSharing(long catId)
+  public void prepareCategoriesForSharing(long[] catIds)
   {
-    nativePrepareFileForSharing(catId);
+    nativePrepareFileForSharing(catIds);
   }
 
   public void setNotificationsEnabled(boolean enabled)
@@ -605,6 +564,7 @@ public enum BookmarkManager
   native BookmarkCategory nativeGetBookmarkCategory(long catId);
   @NonNull
   native BookmarkCategory[] nativeGetBookmarkCategories();
+  native int nativeGetBookmarkCategoriesCount();
   @NonNull
   native BookmarkCategory[] nativeGetChildrenCategories(long catId);
 
@@ -799,7 +759,7 @@ public enum BookmarkManager
 
   private static native void nativeSetAllCategoriesVisibility(boolean visible);
 
-  private static native void nativePrepareFileForSharing(long catId);
+  private static native void nativePrepareFileForSharing(long[] catIds);
 
   private static native boolean nativeIsCategoryEmpty(long catId);
 
@@ -886,16 +846,14 @@ public enum BookmarkManager
 
   public static native void nativeRemoveElevationActiveChangedListener();
 
-  public interface ElevationActivePointChangedListener
-  {
-    void onElevationActivePointChanged();
-  }
-
   public interface BookmarksLoadingListener
   {
     default void onBookmarksLoadingStarted() {}
     default void onBookmarksLoadingFinished() {}
-    default void onBookmarksFileLoaded(boolean success) {}
+    default void onBookmarksFileUnsupported(@NonNull Uri uri) {}
+    default void onBookmarksFileDownloadFailed(@NonNull Uri uri, @NonNull String string) {}
+    default void onBookmarksFileImportSuccessful() {}
+    default void onBookmarksFileImportFailed() {}
   }
 
   public interface BookmarksSortingListener
@@ -907,44 +865,6 @@ public enum BookmarkManager
   public interface BookmarksSharingListener
   {
     void onPreparedFileForSharing(@NonNull BookmarkSharingResult result);
-  }
-
-  public interface BookmarksCloudListener
-  {
-    /**
-     * The method is called when the synchronization started.
-     *
-     * @param type determines type of synchronization (backup or restoring).
-     */
-    void onSynchronizationStarted(@SynchronizationType int type);
-
-    /**
-     * The method is called when the synchronization finished.
-     *
-     * @param type determines type of synchronization (backup or restoring).
-     * @param result is one of possible results of the synchronization.
-     * @param errorString contains detailed description in case of unsuccessful completion.
-     */
-    void onSynchronizationFinished(@SynchronizationType int type,
-                                   @SynchronizationResult int result,
-                                   @NonNull String errorString);
-
-    /**
-     * The method is called after restoring request.
-     *
-     * @param result By result you can determine if the restoring is possible.
-     * @param deviceName The name of device which was the source of the backup.
-     * @param backupTimestampInMs contains timestamp of the backup on the server (in milliseconds).
-     */
-    void onRestoreRequested(@RestoringRequestResult int result, @NonNull String deviceName,
-                            long backupTimestampInMs);
-
-    /**
-     * Restored bookmark files are prepared to substitute for the current ones.
-     * After this callback any cached bookmarks data become invalid. Also after this
-     * callback the restoring process can not be cancelled.
-     */
-    void onRestoredFilesPrepared();
   }
 
   public interface OnElevationActivePointChangedListener

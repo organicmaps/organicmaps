@@ -781,7 +781,7 @@ UNIT_TEST(England_London_ExitToLeft_TurnTest)
 
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
-  /// @note Important test since different mwms for one segment are used and this can cause extra GoStraight.
+  /// @todo Important test since different mwms for one segment are used and this can cause extra GoStraight.
   TEST_EQUAL(result, RouterResultCode::NoError, ());
   integration::TestTurnCount(route, 1 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToLeft);
@@ -1024,12 +1024,11 @@ UNIT_TEST(Germany_ShuttleTrain2_TurnTest)
 
   // No turns on shutte train road.
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-  integration::TestTurnCount(route, 5 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 4 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSharpRight);
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
-  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnLeft);
   integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnRight);
-  integration::GetNthTurn(route, 4).TestValid().TestDirection(CarDirection::TurnLeft);
 }
 
 UNIT_TEST(Cyprus_Nicosia_TurnTest)

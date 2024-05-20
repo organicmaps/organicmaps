@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
@@ -140,7 +140,7 @@ public class SearchFragment extends BaseMwmFragment
 
   private View mResultsFrame;
   private PlaceholderView mResultsPlaceholder;
-  private FloatingActionButton mShowOnMapFab;
+  private ExtendedFloatingActionButton mShowOnMapFab;
 
   @NonNull
   private SearchToolbarController mToolbarController;
@@ -397,11 +397,8 @@ public class SearchFragment extends BaseMwmFragment
 
     if (RoutingController.get().isWaitingPoiPick())
     {
-      SearchResult.Description description = result.description;
-      String subtitle = description != null
-          ? Utils.getLocalizedFeatureType(requireContext(), description.featureType)
-          : "";
-      String title = TextUtils.isEmpty(result.name) ? subtitle : "";
+      final String subtitle = (result.description != null) ? result.description.localizedFeatureType : "";
+      final String title = TextUtils.isEmpty(result.name) ? subtitle : result.name;
 
       final MapObject point = MapObject.createMapObject(FeatureId.EMPTY, MapObject.SEARCH,
           title, subtitle, result.lat, result.lon);

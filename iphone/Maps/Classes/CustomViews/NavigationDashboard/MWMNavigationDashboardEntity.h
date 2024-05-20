@@ -3,7 +3,6 @@
 @interface MWMNavigationDashboardEntity : NSObject
 
 @property(copy, nonatomic, readonly) NSArray<MWMRouterTransitStepInfo *> *transitSteps;
-@property(copy, nonatomic, readonly) NSAttributedString *estimate;
 @property(copy, nonatomic, readonly) NSString *distanceToTurn;
 @property(copy, nonatomic, readonly) NSString *streetName;
 @property(copy, nonatomic, readonly) NSString *targetDistance;
@@ -18,6 +17,8 @@
 @property(nonatomic, readonly) UIImage *turnImage;
 
 @property(nonatomic, readonly) NSString * arrival;
+
+- (NSAttributedString *) estimate;
 
 + (NSAttributedString *) estimateDot;
 

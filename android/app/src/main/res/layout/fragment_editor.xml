@@ -25,6 +25,7 @@
         android:padding="@dimen/margin_half_plus">
         <ImageView
           android:id="@+id/icon"
+          style="@style/MwmWidget.Editor.MetadataIcon"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_centerVertical="true"
@@ -82,7 +83,7 @@
           android:paddingTop="@dimen/margin_half">
           <ImageView
             style="@style/MwmWidget.Editor.MetadataIcon"
-            android:src="@drawable/ic_address"
+            app:srcCompat="@drawable/ic_address"
             tools:ignore="ContentDescription" />
           <TextView
             android:id="@+id/street_title"
@@ -148,7 +149,7 @@
             android:paddingTop="@dimen/margin_half">
           <ImageView
               style="@style/MwmWidget.Editor.MetadataIcon"
-              android:src="@drawable/ic_cuisine"
+              app:srcCompat="@drawable/ic_cuisine"
               tools:ignore="ContentDescription" />
           <TextView
               android:id="@+id/title_cuisine"
@@ -175,12 +176,16 @@
               android:background="?dividerHorizontal"/>
         </RelativeLayout>
 
+        <include
+            android:id="@+id/block_website_menu"
+            layout="@layout/item_editor_input"/>
+
         <RelativeLayout
             android:id="@+id/block_phone"
             style="@style/MwmWidget.Editor.MetadataBlock.Clickable">
           <ImageView
               style="@style/MwmWidget.Editor.MetadataIcon"
-              android:src="@drawable/ic_phone"
+              app:srcCompat="@drawable/ic_phone"
               tools:ignore="ContentDescription"/>
           <TextView
               android:id="@+id/phone"
@@ -218,7 +223,7 @@
             style="@style/MwmWidget.Editor.MetadataBlock.Clickable">
           <ImageView
               style="@style/MwmWidget.Editor.MetadataIcon"
-              android:src="@drawable/ic_wifi"
+              app:srcCompat="@drawable/ic_wifi"
               tools:ignore="ContentDescription" />
           <TextView
               style="@style/MwmWidget.Editor.FieldLayout.EditText"
@@ -227,7 +232,7 @@
               android:layout_centerVertical="true"
               android:layout_marginStart="@dimen/editor_margin_left"
               android:layout_toStartOf="@+id/sw__wifi"
-              android:text="@string/wifi"/>
+              android:text="@string/category_wifi"/>
           <androidx.appcompat.widget.SwitchCompat
               android:id="@+id/sw__wifi"
               android:layout_width="wrap_content"

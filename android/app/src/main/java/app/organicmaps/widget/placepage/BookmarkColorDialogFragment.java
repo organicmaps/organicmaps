@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.GridView;
 
 import androidx.annotation.NonNull;
@@ -62,15 +61,10 @@ public class BookmarkColorDialogFragment extends BaseMwmDialogFragment
     @SuppressLint("InflateParams")
     final GridView gView = (GridView) LayoutInflater.from(requireActivity()).inflate(R.layout.fragment_color_grid, null);
     gView.setAdapter(adapter);
-    gView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-    {
-      @Override
-      public void onItemClick(AdapterView<?> arg0, View who, int pos, long id)
-      {
-        if (mColorSetListener != null)
-          mColorSetListener.onBookmarkColorSet(pos);
-        dismiss();
-      }
+    gView.setOnItemClickListener((arg0, who, pos, id) -> {
+      if (mColorSetListener != null)
+        mColorSetListener.onBookmarkColorSet(pos);
+      dismiss();
     });
 
     return gView;

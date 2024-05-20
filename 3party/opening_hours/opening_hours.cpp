@@ -32,6 +32,7 @@
 #include <iomanip>
 #include <ios>
 #include <ostream>
+#include <sstream>
 #include <tuple>
 #include <type_traits>
 #include <vector>
@@ -96,26 +97,24 @@ class StreamFlagsKeeper
   std::ios_base::fmtflags m_flags;
 };
 
+
 template <typename TNumber>
-constexpr bool IsChar(TNumber) noexcept
-{
-  return std::is_same<signed char, TNumber>::value ||
-         std::is_same<unsigned char, TNumber>::value ||
-         std::is_same<char, TNumber>::value;
-};
-
-template <typename TNumber, typename std::enable_if<!IsChar(TNumber{}), void*>::type = nullptr>
 void PrintPaddedNumber(std::ostream & ost, TNumber const number, uint32_t const padding = 1)
 {
-  static_assert(std::is_integral<TNumber>::value, "number should be of integral type.");
-  StreamFlagsKeeper keeper(ost);
-  ost << std::setw(padding) << std::setfill('0') << number;
-}
+  static constexpr bool isChar = std::is_same_v<signed char, TNumber> ||
+      std::is_same_v<unsigned char, TNumber> ||
+      std::is_same_v<char, TNumber>;
 
-template <typename TNumber, typename std::enable_if<IsChar(TNumber{}), void*>::type = nullptr>
-void PrintPaddedNumber(std::ostream & ost, TNumber const number, uint32_t const padding = 1)
-{
-  PrintPaddedNumber(ost, static_cast<int32_t>(number), padding);
+  if constexpr (isChar)
+  {
+    PrintPaddedNumber(ost, static_cast<int32_t>(number), padding);
+  }
+  else
+  {
+    static_assert(std::is_integral<TNumber>::value, "number should be of integral type.");
+    StreamFlagsKeeper keeper(ost);
+    ost << std::setw(padding) << std::setfill('0') << number;
+  }
 }
 
 void PrintHoursMinutes(std::ostream & ost,

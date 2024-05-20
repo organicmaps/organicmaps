@@ -90,8 +90,7 @@ template <class T> T * CreateBlackControl(QString const & name)
 }  // namespace
 
 // Defined in osm_auth_dialog.cpp.
-extern char const * kTokenKeySetting;
-extern char const * kTokenSecretSetting;
+extern char const * kOauthTokenSetting;
 
 MainWindow::MainWindow(Framework & framework,
                        std::unique_ptr<ScreenshotParams> && screenshotParams,
@@ -153,10 +152,11 @@ MainWindow::MainWindow(Framework & framework,
 #ifndef OMIM_OS_WINDOWS
   QMenu * helpMenu = new QMenu(tr("Help"), this);
   menuBar()->addMenu(helpMenu);
-  helpMenu->addAction(tr("About"), this, SLOT(OnAbout()));
-  helpMenu->addAction(tr("Preferences"), this, SLOT(OnPreferences()));
-  helpMenu->addAction(tr("OpenStreetMap Login"), this, SLOT(OnLoginMenuItem()));
-  helpMenu->addAction(tr("Upload Edits"), this, SLOT(OnUploadEditsMenuItem()));
+  helpMenu->addAction(tr("OpenStreetMap Login"), this, SLOT(OnLoginMenuItem()), QKeySequence(Qt::CTRL | Qt::Key_O));
+  helpMenu->addAction(tr("Upload Edits"), this, SLOT(OnUploadEditsMenuItem()), QKeySequence(Qt::CTRL | Qt::Key_U));
+  helpMenu->addAction(tr("Preferences"), this, SLOT(OnPreferences()), QKeySequence(Qt::CTRL | Qt::Key_P));
+  helpMenu->addAction(tr("About"), this, SLOT(OnAbout()), QKeySequence(Qt::Key_F1));
+  helpMenu->addAction(tr("Exit"), this, SLOT(close()), QKeySequence(Qt::CTRL | Qt::Key_Q));
 #else
   {
     // create items in the system menu
@@ -303,7 +303,7 @@ void MainWindow::CreateNavigationBar()
 
     pToolBar->addSeparator();
 
-    pToolBar->addAction(QIcon(":/navig64/bookmark.png"), tr("Show bookmarks and tracks"),
+    pToolBar->addAction(QIcon(":/navig64/bookmark.png"), tr("Show bookmarks and tracks; use ALT + RMB to add a bookmark"),
                         this, SLOT(OnBookmarksAction()));
     pToolBar->addSeparator();
 
@@ -552,7 +552,7 @@ void MainWindow::OnLocationError(location::TLocationError errorCode)
   case location::ETimeout: [[fallthrough]];
   case location::EUnknown:
     {
-      if (m_pMyPositionAction != nullptr)
+      if (m_pDrawWidget && m_pMyPositionAction)
         m_pMyPositionAction->setEnabled(false);
       break;
     }
@@ -639,9 +639,8 @@ void MainWindow::OnLoginMenuItem()
 
 void MainWindow::OnUploadEditsMenuItem()
 {
-  std::string key, secret;
-  if (!settings::Get(kTokenKeySetting, key) || key.empty() ||
-      !settings::Get(kTokenSecretSetting, secret) || secret.empty())
+  std::string token;
+  if (!settings::Get(kOauthTokenSetting, token) || token.empty())
   {
     OnLoginMenuItem();
   }
@@ -649,7 +648,7 @@ void MainWindow::OnUploadEditsMenuItem()
   {
     auto & editor = osm::Editor::Instance();
     if (editor.HaveMapEditsOrNotesToUpload())
-      editor.UploadChanges(key, secret, {{"created_by", "Organic Maps " OMIM_OS_NAME}});
+      editor.UploadChanges(token, {{"created_by", "Organic Maps " OMIM_OS_NAME}});
   }
 }
 
@@ -877,8 +876,9 @@ void MainWindow::SetLayerEnabled(LayerType type, bool enable)
   switch (type)
   {
   case LayerType::TRAFFIC:
-    frm.GetTrafficManager().SetEnabled(enable);
-    frm.SaveTrafficEnabled(enable);
+    /// @todo Uncomment when we will integrate a traffic provider.
+    // frm.GetTrafficManager().SetEnabled(enable);
+    // frm.SaveTrafficEnabled(enable);
     break;
   case LayerType::TRANSIT:
     frm.GetTransitManager().EnableTransitSchemeMode(enable);

@@ -6,9 +6,7 @@
 
 #include "ge0/url_generator.hpp"
 
-#include "routing/index_router.hpp"
 #include "routing/route.hpp"
-#include "routing/routing_helpers.hpp"
 #include "routing/speed_camera_prohibition.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
@@ -18,14 +16,11 @@
 #include "search/locality_finder.hpp"
 
 #include "storage/country_info_getter.hpp"
-#include "storage/routing_helpers.hpp"
 #include "storage/storage_helpers.hpp"
 
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/gps_track_point.hpp"
 #include "drape_frontend/visual_params.hpp"
-
-#include "editor/editable_data_source.hpp"
 
 #include "descriptions/loader.hpp"
 
@@ -42,7 +37,6 @@
 #include "indexer/scales.hpp"
 #include "indexer/transliteration_loader.hpp"
 
-#include "platform/local_country_file_utils.hpp"
 #include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/mwm_version.hpp"
@@ -65,7 +59,6 @@
 
 #include "base/logging.hpp"
 #include "base/math.hpp"
-#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/target_os.hpp"
@@ -204,11 +197,6 @@ void Framework::SwitchMyPositionNextMode()
 void Framework::SetMyPositionModeListener(TMyPositionModeChanged && fn)
 {
   m_myPositionListener = std::move(fn);
-}
-
-void Framework::SetMyPositionPendingTimeoutListener(df::DrapeEngine::UserPositionPendingTimeoutHandler && fn)
-{
-  m_myPositionPendingTimeoutListener = std::move(fn);
 }
 
 EMyPositionMode Framework::GetMyPositionMode() const
@@ -366,9 +354,10 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   editor.SetDelegate(make_unique<search::EditorDelegate>(m_featuresFetcher.GetDataSource()));
   editor.SetInvalidateFn([this](){ InvalidateRect(GetCurrentViewport()); });
 
-  m_trafficManager.SetCurrentDataVersion(m_storage.GetCurrentDataVersion());
-  m_trafficManager.SetSimplifiedColorScheme(LoadTrafficSimplifiedColors());
-  m_trafficManager.SetEnabled(LoadTrafficEnabled());
+  /// @todo Uncomment when we will integrate a traffic provider.
+  // m_trafficManager.SetCurrentDataVersion(m_storage.GetCurrentDataVersion());
+  // m_trafficManager.SetSimplifiedColorScheme(LoadTrafficSimplifiedColors());
+  // m_trafficManager.SetEnabled(LoadTrafficEnabled());
 
   m_isolinesManager.SetEnabled(LoadIsolinesEnabled());
 
@@ -696,7 +685,7 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
   bool const canEditOrAdd = featureStatus != FeatureStatus::Obsolete && CanEditMap() &&
                             isMapVersionEditable;
   info.SetCanEditOrAdd(canEditOrAdd);
-  info.SetPopularity(m_popularityLoader.Get(ft.GetID()));
+  //info.SetPopularity(m_popularityLoader.Get(ft.GetID()));
 
   // Fill countryId for place page info
   auto const & types = info.GetTypes();
@@ -1539,14 +1528,6 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
       OnUserPositionChanged(position, hasPosition);
     });
   });
-  m_drapeEngine->SetUserPositionPendingTimeoutListener([this]()
-  {
-    GetPlatform().RunTask(Platform::Thread::Gui, [this]()
-    {
-      if (m_myPositionPendingTimeoutListener)
-        m_myPositionPendingTimeoutListener();
-    });
-  });
 
   OnSize(params.m_surfaceWidth, params.m_surfaceHeight);
 
@@ -1954,7 +1935,7 @@ void Framework::DeactivateHotelSearchMark()
     return;
 
   m_searchMarks.SetSelected({});
-  if (m_currentPlacePageInfo->GetHotelType().has_value())
+  if (m_currentPlacePageInfo->IsHotel())
   {
     auto const & featureId = m_currentPlacePageInfo->GetID();
     if (m_searchMarks.IsThereSearchMarkForFeature(featureId))
@@ -2649,12 +2630,12 @@ bool Framework::ParseDrapeDebugCommand(string const & query)
     SavePreferredGraphicsAPI(dp::ApiVersion::Vulkan);
     return true;
   }
-#endif
   if (query == "?gl")
   {
     SavePreferredGraphicsAPI(dp::ApiVersion::OpenGLES3);
     return true;
   }
+#endif
   return false;
 }
 
@@ -2679,7 +2660,7 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
 
       search::Result res(feature::GetCenter(*ft), string(ft->GetReadableName()));
       res.SetAddress(std::move(edit.second));
-      res.FromFeature(fid, feature::TypesHolder(*ft).GetBestType(), {});
+      res.FromFeature(fid, feature::TypesHolder(*ft).GetBestType(), 0, {});
 
       results.AddResultNoChecks(std::move(res));
     }
@@ -3015,7 +2996,7 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
                       " without a user's input. Feel free to close it if it's wrong).");
   }
 
-  emo.RemoveNeedlessNames();
+  emo.RemoveBlankNames();
 
   auto const result = osm::Editor::Instance().SaveEditedFeature(emo);
 

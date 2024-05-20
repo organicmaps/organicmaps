@@ -3,6 +3,7 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:orientation="vertical"
   android:gravity="center">
 
@@ -11,7 +12,7 @@
       android:layout_width="wrap_content"
       android:layout_height="0dp"
       android:contentDescription="@null"
-      android:src="@drawable/splash"
+      app:srcCompat="@drawable/splash"
       android:layout_weight="1000"
       android:layout_margin="@dimen/margin_double"/>
 

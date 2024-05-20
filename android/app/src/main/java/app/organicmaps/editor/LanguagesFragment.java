@@ -38,19 +38,7 @@ public class LanguagesFragment extends BaseMwmRecyclerFragment<LanguagesAdapter>
         languages.add(lang);
     }
 
-    Collections.sort(languages, new Comparator<Language>()
-    {
-      @Override
-      public int compare(Language lhs, Language rhs) {
-        // Default name can be changed, but it should be last in list of names.
-        if (lhs.isDefaultLang() && !rhs.isDefaultLang())
-          return 1;
-        if (!lhs.isDefaultLang() && rhs.isDefaultLang())
-          return -1;
-
-        return lhs.name.compareTo(rhs.name);
-      }
-    });
+    Collections.sort(languages, Comparator.comparing(lhs -> lhs.name));
 
     return new LanguagesAdapter(this, languages.toArray(new Language[languages.size()]));
   }

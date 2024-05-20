@@ -51,7 +51,7 @@ string ToStringPrecisionLocale(Locale loc, double d, int pr)
     // Value with no decimals. Check if it's equal or bigger than 10000 to
     // insert the grouping (thousands) separator characters.
     if (out.size() > 4 && !loc.m_groupingSeparator.empty())
-      for (int pos = out.size() - 3; pos > 0; pos -= 3)
+      for (long pos = static_cast<long>(out.size()) - 3; pos > 0; pos -= 3)
         out.insert(pos, loc.m_groupingSeparator);
   }
 
@@ -215,8 +215,8 @@ string FormatOsmLink(double lat, double lon, int zoom)
 
   for (int i = 0; i < (zoom + 8) % 3; ++i)
     osmUrl += "-";
-
-  return osmUrl + "?m=";
+  // ?m tells OSM to display a marker 
+  return osmUrl + "?m";
 }
 
 bool OSMDistanceToMeters(string const & osmRawValue, double & outMeters)

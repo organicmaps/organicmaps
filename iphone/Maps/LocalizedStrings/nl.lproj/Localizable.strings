@@ -50,7 +50,17 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Downloaden is mislukt";
 
-"about_menu_title" = "Over Organic Maps";
+/* Text in About screen */
+"about_headline" = "Gratis voor iedereen, met liefde gemaakt";
+
+/* Text in About screen */
+"about_proposition_1" = "• Geen advertenties, geen tracking, geen gegevensverzameling";
+
+/* Text in About screen */
+"about_proposition_2" = "• Geen batterijverlies, werkt offline";
+
+/* Text in About screen */
+"about_proposition_3" = "• Snel, minimalistisch, ontwikkeld door gemeenschap";
 
 "close" = "Sluiten";
 
@@ -61,9 +71,6 @@
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Voeg nieuwe groep toe";
-
-/* Bookmark Color dialog title */
-"bookmark_color" = "Bladwijzerkleur";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "Naam van bladwijzergroep";
@@ -92,74 +99,77 @@
 
 /********** Search categories **********/
 
-/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "Waar iets gaan eten";
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
+"category_eat" = "Waar iets gaan eten";
 
-/* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Boodschappen";
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! */
+"category_food" = "Boodschappen";
 
-/* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "Transport";
+/* Search category for public transport; any changes should be duplicated in categories.txt @category_transport! */
+"category_transport" = "Transport";
 
-/* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Benzine";
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
+"category_fuel" = "Benzine";
 
-/* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "Parkeerplaats";
+/* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
+"category_parking" = "Parkeerplaats";
 
-/* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Winkelen";
+/* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
+"category_shopping" = "Winkelen";
 
-/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "Tweedehands";
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
+"category_secondhand" = "Tweedehands";
 
-/* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "Hotel";
+/* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
+"category_hotel" = "Hotel";
 
-/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Bezienswaardigheden";
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
+"category_tourism" = "Bezienswaardigheden";
 
-/* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "Amusement";
+/* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
+"category_entertainment" = "Amusement";
 
-/* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "Geldautomaat";
+/* Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! */
+"category_atm" = "Geldautomaat";
 
-/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "Nachtleven";
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! */
+"category_nightlife" = "Nachtleven";
 
-/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Gezinsvakantie";
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! */
+"category_children" = "Gezinsvakantie";
 
-/* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "Bank";
+/* Search category for banks; any changes should be duplicated in categories.txt @category_bank! */
+"category_bank" = "Bank";
 
-/* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "Apotheek";
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! */
+"category_pharmacy" = "Apotheek";
 
-/* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "Ziekenhuis";
+/* Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! */
+"category_hospital" = "Ziekenhuis";
 
-/* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "Toilet";
+/* Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! */
+"category_toilet" = "Toilet";
 
-/* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "Post";
+/* Search category for post offices; any changes should be duplicated in categories.txt @category_post! */
+"category_post" = "Post";
 
-/* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "Politie";
+/* Search category for police; any changes should be duplicated in categories.txt @category_police! */
+"category_police" = "Politie";
 
-/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi";
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
+"category_wifi" = "WiFi";
 
-/* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "Recycling";
+/* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
+"category_recycling" = "Recycling";
 
-/* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "Water";
+/* Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type */
+"category_water" = "Water";
 
-/* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "Caravanfaciliteiten";
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
+"category_rv" = "Caravanfaciliteiten";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app voor je iOS- of Android-apparaat door deze link te volgen: https://omaps.app/get?kmz\n\nGeniet van het reizen met Organic Maps!";
 
@@ -200,10 +210,7 @@
 "done" = "Klaar";
 
 /* Prints version number in About dialog */
-"version" = "Versie: %@";
-
-/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "OpenStreetMap-gegevens: %@";
+"version" = "Organic Maps versie: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Tracks";
@@ -217,8 +224,14 @@
 
 "pref_zoom_title" = "Zoomknoppen";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "Nachtmodus";
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Weergave";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Licht";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Donker";
 
 /* Generic «Off» string */
 "off" = "Uit";
@@ -240,6 +253,12 @@
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Gesproken instructies";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Straatnamen bekendmaken";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Indien ingeschakeld, wordt de naam van de straat of afrit waar u afslaat hardop uitgesproken.";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Gesproken taal";
@@ -277,18 +296,6 @@
 "news" = "Nieuws";
 
 /* Text in menu */
-"github" = "GitHub";
-
-/* Text in menu */
-"telegram" = "Telegram";
-
-/* Text in menu */
-"matrix" = "[Matrix]";
-
-/* Text in menu */
-"mastodon" = "Mastodon";
-
-/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -299,9 +306,6 @@
 
 /* Text in the editor */
 "vk" = "VK";
-
-/* Text in menu */
-"openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
 "rate_the_app" = "App beoordelen";
@@ -315,14 +319,23 @@
 /* Button in the main menu */
 "donate" = "Doneren";
 
-/* Button in the main Help dialog */
-"how_to_support_us" = "Steun het project";
+/* Tex label above the Donate button */
+"donate_description" = "Doneer om samen de beste kaarten te bouwen!";
 
 /* Button in the main Help dialog */
 "copyright" = "Auteursrechten";
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Meld een fout";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Rapporteer of repareer onjuiste kaartgegevens";
+
+/* Button in the About screen */
+"volunteer" = "Vrijwilligerswerk";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Volg ons en neem contact met ons op:";
 
 /* Alert text */
 "email_error_body" = "De emailcliënt is niet ingesteld. Gelieve de cliënt te configureren of contact met ons op te nemen op %@";
@@ -622,6 +635,8 @@
 
 "login" = "Log in";
 
+"login_osm" = "Inloggen op OpenStreetMap";
+
 "forgot_password" = "Wachtwoord vergeten?";
 
 "osm_account" = "OSM-account";
@@ -696,6 +711,9 @@
 
 "editor_edit_place_name_hint" = "Naam van de plaats";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Zoals het in de plaatselijke taal geschreven staat";
+
 "editor_edit_place_category_title" = "Categorie";
 
 "whatsnew_editor_message_1" = "Voeg nieuwe plaatsen toe aan de kaart en bewerk de bestaande rechtstreeks vanuit de app.";
@@ -703,6 +721,9 @@
 "dialog_incorrect_feature_position" = "Locatie wijzigen";
 
 "message_invalid_feature_position" = "Hier kan geen object worden geplaatst";
+
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Door de gemeenschap gemaakte OpenStreetMap-gegevens vanaf %@. Lees meer over hoe je de kaart kunt bewerken en bijwerken op OpenStreetMap.org";
 
 "login_to_make_edits_visible" = "Log in zodat andere gebruikers kunnen zien wat u hebt gewijzigd.";
 
@@ -746,16 +767,6 @@
 
 "downloader_no_downloaded_maps_message" = "Download kaarten om een locatie te zoeken en offline te navigeren.";
 
-/* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "Doorgaan met het detecteren van uw huidige locatie?";
-
-/* Error that appears after certain time without location. */
-"current_location_unknown_message" = "Huidige locatie is onbekend. Misschien bevindt u zich in een gebouw of tunnel.";
-
-"current_location_unknown_continue_button" = "Doorgaan";
-
-"current_location_unknown_stop_button" = "Stoppen";
-
 "current_location_unknown_error_title" = "Huidige locatie is onbekend.";
 
 "current_location_unknown_error_message" = "Er is een fout opgetreden tijdens het zoeken naar uw locatie. Controleer of uw apparaat goed werkt en probeer het later opnieuw.";
@@ -770,6 +781,14 @@
 
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Selecteer Terwijl Je de App Gebruikt";
+
+"location_services_disabled_on_device_2" = "2. Selecteer Privacy";
+
+"location_services_disabled_on_device_3" = "3. Selecteer Locatiediensten";
+
+"location_services_disabled_on_device_4" = "4. Locatiediensten inschakelen";
+
+"location_services_disabled_on_device_additional_message" = "Of blijf Organic Maps gebruiken zonder locatie";
 
 /* abbreviation for meters */
 "m" = "m";
@@ -815,7 +834,7 @@
 
 "placepage_delete_bookmark_button" = "Bladwijzer verwijderen";
 
-"editor_edits_sent_message" = "Uw voorgestelde wijzigingen zijn verzonden";
+"editor_edits_sent_message" = "Je opmerking wordt verzonden naar OpenStreetMap";
 
 "editor_comment_hint" = "Reactie…";
 
@@ -850,7 +869,7 @@
 
 "editor_share_to_all_dialog_message_2" = "OpenStreetMap-editors zullen de wijzigingen controleren en contact met u opnemen als ze vragen hebben.";
 
-"navigation_stop_button" = "stoppen";
+"navigation_stop_button" = "Stoppen";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Vastleggen van uw onlangs afgelegde route uitschakelen?";
@@ -861,9 +880,6 @@
 "sharing_call_action_look" = "Bekijk";
 
 "recent_track_background_dialog_message" = "Organic Maps gebruikt uw geografische positie op de achtergrond om uw onlangs afgelegde route vast te leggen.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps is een gratis en open-source offline kaartentoepassing. Geen advertenties. Geen volgen. Als je een fout op de kaart ziet, corrigeer deze dan in OpenStreetMap. Het project is gemaakt door enthousiastelingen in onze vrije tijd, dus we hebben uw feedback en ondersteuning nodig.";
 
 "general_settings" = "Algemene instellingen";
 
@@ -925,6 +941,12 @@
 "start_from_my_position" = "Start vanaf";
 
 "profile_authorization_error" = "Oeps, er is een fout opgetreden. Probeer opnieuw aan te melden.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Log in op OpenStreetMap om al je kaartbewerkingen automatisch te uploaden. Meer informatie";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "hier";
 
 "core_entrance" = "Ingang";
 
@@ -1005,15 +1027,16 @@
 
 "speedcams_alert_title" = "Snelheidscamera's";
 
-/* Generic «Always» string */
-"always" = "Altijd";
-
-/* Generic «Never» string */
-"never" = "Nooit";
-
 "place_description_title" = "Plaatsbeschrijving";
 
-"speedcams_notice_message" = "Auto - Waarschuw voor speedcams als er een risico bestaat dat de snelheidslimiet wordt overschreden\nAltijd - Waarschuw altijd voor flitspalen\nNooit - Waarschuw nooit over flitspalen";
+/* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
+"pref_tts_speedcams_auto" = "Waarschuw bij overschrijden snelheidslimiet";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Waarschuw altijd";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Waarschuw nooit";
 
 "power_managment_title" = "Energiebesparende modus";
 
@@ -1120,6 +1143,8 @@
 "sort_distance" = "Sorteer op afstand";
 
 "sort_date" = "Sorteer op datum";
+
+"sort_name" = "Sorteren op naam";
 
 "week_ago_sorttype" = "Een week geleden";
 
@@ -1242,8 +1267,31 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/NL:Wat_is_OpenStreetMap%3F";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Je gebruikt nu Organic Maps op het telefoonscherm";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Je gebruikt nu Organic Maps op het autoscherm";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Doorgaan in de telefoon";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Naar het autoscherm";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Wandelen";
+
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Alle bladwijzers en tracks exporteren";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "Kleur veranderen";
+
+/* Main screen title "Map" displayed in the navigation back button's menu. */
+"map" = "Kaart";
+
+"drive_through" = "Drive-though";
 
 
 /********** Types **********/
@@ -1296,7 +1344,7 @@
 
 "type.amenity.bar" = "Bar";
 
-"type.amenity.bbq" = "Barbecueplaats";
+"type.amenity.bbq" = "Barbecue";
 
 "type.amenity.bench" = "Zitbank";
 
@@ -1359,6 +1407,8 @@
 "type.amenity.doctors" = "Huisartsenpost";
 
 "type.amenity.drinking_water" = "Drinkwater";
+
+"type.drinking_water.yes" = "Drinkwater";
 
 "type.amenity.driving_school" = "Rijschool";
 
@@ -1539,7 +1589,17 @@
 
 "type.amenity.school" = "School";
 
+/* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "Beschutting";
+
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "Beschutting";
+
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
+"type.amenity.shelter.basic_hut" = "Bivakhut";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
+"type.amenity.shelter.lean_to" = "Lean-to Shelter";
 
 "type.amenity.public_bath" = "Publiek bad";
 
@@ -1647,43 +1707,18 @@
 
 "type.boundary.administrative" = "Administratieve grens";
 
-"type.boundary.administrative.10" = "Administratieve grens";
+/* Borders between countries. */
+"type.boundary.administrative.2" = "Natiegrens";
 
-"type.boundary.administrative.11" = "Administratieve grens";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Regiogrens";
 
-"type.boundary.administrative.2" = "Landsgrens";
-
-"type.boundary.administrative.3" = "Administratieve grens";
-
-"type.boundary.administrative.4" = "Administratieve grens";
-
-"type.boundary.administrative.5" = "Administratieve grens";
-
-"type.boundary.administrative.6" = "Administratieve grens";
-
-"type.boundary.administrative.7" = "Administratieve grens";
-
-"type.boundary.administrative.8" = "Administratieve grens";
-
-"type.boundary.administrative.9" = "Administratieve grens";
-
-"type.boundary.administrative.city" = "Stadsgrens";
-
-"type.boundary.administrative.country" = "Landsgrens";
-
-"type.boundary.administrative.county" = "Provinciegrens";
-
-"type.boundary.administrative.municipality" = "Gemeentegrens";
-
-"type.boundary.administrative.nation" = "Natiegrens";
-
-"type.boundary.administrative.region" = "Regiogrens";
-
-"type.boundary.administrative.state" = "Staatsgrens";
-
-"type.boundary.administrative.suburb" = "Buitenwijkgrens";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Regiogrens";
 
 "type.boundary.national_park" = "Nationaal park";
+
+"type.boundary.aboriginal_lands" = "Inheemse landen";
 
 "type.boundary.protected_area" = "Beschermd gebied";
 
@@ -1955,7 +1990,7 @@
 
 "type.entrance.exit" = "Ga naar";
 
-"type.fee.yes" = "💲";
+"type.fee.yes" = "$";
 
 "type.fee.no" = "Gratis";
 
@@ -2024,22 +2059,10 @@
 
 "type.highway.footway.crossing" = "Voetgangersoversteekplaats";
 
-"type.highway.footway.alpine_hiking" = "Alpine wandelpad";
-
 "type.highway.footway.area" = "Voetgangerszone";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Voetgangersbrug";
-
-"type.highway.footway.demanding_alpine_hiking" = "Uitdagend alpine bergklimpad";
-
-"type.highway.footway.demanding_mountain_hiking" = "Uitdagend bergwandelpad";
-
-"type.highway.footway.difficult_alpine_hiking" = "Moeilijk alpine bergklimpad";
-
-"type.highway.footway.hiking" = "Wandelpad";
-
-"type.highway.footway.mountain_hiking" = "Bergpad";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Voetgangerstunnel";
@@ -2074,26 +2097,20 @@
 
 "type.highway.path" = "Pad";
 
-"type.highway.path.alpine_hiking" = "Alpine wandelpad";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Pad";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Pad";
 
 "type.highway.path.bicycle" = "Fietspad";
+
+"type.highway.footway.bicycle" = "Fietspad";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Brug";
 
-"type.highway.path.demanding_alpine_hiking" = "Pad";
-
-"type.highway.path.demanding_mountain_hiking" = "Pad";
-
-"type.highway.path.difficult_alpine_hiking" = "Pad";
-
-"type.highway.path.hiking" = "Wandelpad";
-
 "type.highway.path.horse" = "Ruiterpad";
-
-"type.highway.path.mountain_hiking" = "Bergpad";
-
-"type.highway.path.permissive" = "Pad";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Tunnel";
@@ -2216,17 +2233,7 @@
 
 "type.highway.track.grade1" = "Straat";
 
-"type.highway.track.grade2" = "Straat";
-
-"type.highway.track.grade3" = "Straat";
-
-"type.highway.track.grade4" = "Straat";
-
-"type.highway.track.grade5" = "Straat";
-
 "type.highway.track.no.access" = "Straat";
-
-"type.highway.track.permissive" = "Straat";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunnel";
@@ -2436,8 +2443,6 @@
 
 "type.landuse.education" = "Educatieve voorzieningen";
 
-"type.landuse.farm" = "Boerderij";
-
 "type.landuse.farmland" = "Landbouwgrond";
 
 "type.landuse.farmyard" = "Boerenerf";
@@ -2508,11 +2513,11 @@
 
 "type.leisure.golf_course" = "Golfbaan";
 
+"type.leisure.miniature_golf" = "Minigolf";
+
 "type.leisure.hackerspace" = "Hackerspace";
 
 "type.leisure.ice_rink" = "Schaatsbaan";
-
-"type.leisure.landscape_reserve" = "Landschapsreservaat";
 
 "type.leisure.marina" = "Jachthaven";
 
@@ -2618,7 +2623,14 @@
 
 "type.natural" = "Natuur";
 
-"type.natural.bare_rock" = "Kale steen";
+/* A rocky land cover. */
+"type.natural.bare_rock" = "Kale rots";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Kiezels";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Puinhelling";
 
 "type.natural.bay" = "Baai";
 
@@ -3715,9 +3727,10 @@
 
 "type.tourism.aquarium" = "Aquarium";
 
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "Berghut";
 
-"type.tourism.apartment" = "Appartementen";
+"type.tourism.apartment" = "Appartement";
 
 "type.tourism.artwork" = "Kunstwerk";
 
@@ -3731,7 +3744,7 @@
 
 "type.tourism.attraction" = "Attractie";
 
-"type.tourism.attraction.animal" = "Dierenverblijf";
+"type.attraction.animal" = "Dierenverblijf";
 
 "type.tourism.attraction.specified" = "Attractie";
 
@@ -3739,6 +3752,7 @@
 
 "type.tourism.caravan_site" = "Caravan site";
 
+/* A rentable countryside vacation house. */
 "type.tourism.chalet" = "Vakantiehuis";
 
 "type.tourism.gallery" = "Galerij";
@@ -3767,12 +3781,13 @@
 
 "type.tourism.picnic_site" = "Picnicplaats";
 
-"type.tourism.resort" = "Complex";
+"type.leisure.resort" = "Complex";
 
 "type.tourism.theme_park" = "Attractiepark";
 
 "type.tourism.viewpoint" = "Uitkijkpunt";
 
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "Wildernishut";
 
 "type.tourism.zoo" = "Dierentuin";
@@ -3814,8 +3829,6 @@
 "type.waterway.river" = "Rivier";
 
 "type.waterway.river.tunnel" = "Rivier";
-
-"type.waterway.riverbank" = "Rivier";
 
 "type.waterway.stream" = "Beek";
 

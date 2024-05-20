@@ -4,24 +4,14 @@ buildscript {
     mavenCentral()
   }
   //
-  // The magic below is needed to disable Google Mobile Services (a.k.a GMS) and
-  // Google Firebase Services during the build time. Unfortunately, the only way
-  // to disable Gradle plugins is to add these hardcore switches to buildscript().
+  // The magic below is needed to disable Google Firebase Services during the build time.
+  // Unfortunately, the only way to disable Gradle plugins is to add these hardcore switches to buildscript().
   //
 
   // Detect flavors from the task name.
   def taskName = getGradle().getStartParameter().getTaskRequests().toString().toLowerCase()
   def isFdroid = taskName.contains('fdroid')
   def isBeta = taskName.contains('beta')
-
-  //
-  // Please add symlinks to google/java/app/organicmaps/location for each new gms-enabled flavor below:
-  // ```
-  // mkdir -p src/$flavor/java/app/organicmaps/
-  // ln -sf ../../../../google/java/app/organicmaps/location src/$flavor/java/app/organicmaps/
-  // ls -la src/$flavor/java/app/organicmaps/location/GoogleFusedLocationProvider.java
-  // ```
-  ext.googleMobileServicesEnabled = taskName.contains('google') || taskName.contains('huawei') || taskName.contains('web')
 
   // Firebase Crashlytics compile-time feature flag: -Pfirebase=true|false
   def googleFirebaseServicesFlag = findProperty('firebase')
@@ -32,25 +22,19 @@ buildscript {
       googleFirebaseServicesDefault
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:8.2.0'
-
-    if (googleMobileServicesEnabled) {
-      println('Building with Google Mobile Services')
-      classpath 'com.google.gms:google-services:4.4.0'
-    } else {
-      println('Building without Google Services')
-    }
+    classpath 'com.android.tools.build:gradle:8.3.2'
 
     if (googleFirebaseServicesEnabled) {
       println('Building with Google Firebase Services')
+      classpath 'com.google.gms:google-services:4.4.1'
       classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.9'
-      classpath 'com.google.firebase:firebase-appdistribution-gradle:4.0.1'
+      classpath 'com.google.firebase:firebase-appdistribution-gradle:4.2.0'
     } else {
       println('Building without Google Firebase Services')
     }
 
-    classpath('com.github.triplet.gradle:play-publisher:3.8.6')
-    classpath('ru.cian:huawei-publish-gradle-plugin:1.4.0')
+    classpath('com.github.triplet.gradle:play-publisher:3.9.1')
+    classpath('ru.cian:huawei-publish-gradle-plugin:1.4.2')
   }
 }
 
@@ -62,60 +46,13 @@ repositories {
 
 apply plugin: 'com.android.application'
 apply from: 'secure.properties'
-if (googleMobileServicesEnabled) {
-  apply plugin: 'com.google.gms.google-services'
-}
 if (googleFirebaseServicesEnabled) {
+  apply plugin: 'com.google.gms.google-services'
   apply plugin: 'com.google.firebase.crashlytics'
   apply plugin: 'com.google.firebase.appdistribution'
 }
 apply plugin: 'com.github.triplet.play'
 apply plugin: 'ru.cian.huawei-publish-gradle-plugin'
-
-dependencies {
-  // Google Mobile Services
-  if (googleMobileServicesEnabled) {
-    implementation 'com.google.android.gms:play-services-location:21.0.1'
-  }
-
-  // Google Firebase Services
-  if (googleFirebaseServicesEnabled) {
-    // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:32.7.0')
-    // Add the dependencies for the Crashlytics and Analytics libraries
-    // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation 'com.google.firebase:firebase-crashlytics'
-    implementation 'com.google.firebase:firebase-crashlytics-ndk'
-  }
-
-  // This line is added as a workaround for duplicate classes error caused by some outdated dependency:
-  // > A failure occurred while executing com.android.build.gradle.internal.tasks.CheckDuplicatesRunnable
-  // We don't use Kotlin, but some dependencies are actively using it.
-  // See https://stackoverflow.com/a/75719642
-  implementation 'androidx.core:core:1.12.0'
-  implementation(platform('org.jetbrains.kotlin:kotlin-bom:1.9.21'))
-  implementation 'androidx.annotation:annotation:1.7.0'
-  implementation 'androidx.appcompat:appcompat:1.6.1'
-  implementation 'androidx.car.app:app:1.4.0-rc02'
-  implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-  implementation 'androidx.fragment:fragment:1.6.2'
-  implementation 'androidx.preference:preference:1.2.1'
-  implementation 'androidx.recyclerview:recyclerview:1.3.2'
-  implementation 'androidx.work:work-runtime:2.9.0'
-  implementation 'androidx.lifecycle:lifecycle-process:2.6.2'
-  implementation 'androidx.preference:preference:1.2.1'
-  implementation 'com.google.android.material:material:1.10.0'
-  // Fix for app/organicmaps/util/FileUploadWorker.java:14: error: cannot access ListenableFuture
-  // https://github.com/organicmaps/organicmaps/issues/6106
-  implementation 'com.google.guava:guava:32.1.3-android'
-  implementation 'com.github.devnullorthrow:MPAndroidChart:3.2.0-alpha'
-  implementation 'net.jcip:jcip-annotations:1.0'
-
-  // Test Dependencies
-  testImplementation 'junit:junit:4.13.2'
-  testImplementation 'org.mockito:mockito-core:5.8.0'
-  testImplementation 'org.mockito:mockito-inline:5.2.0'
-}
 
 def run(cmd) {
   def stdout = new ByteArrayOutputStream()
@@ -163,7 +100,7 @@ android {
   // All properties are read from gradle.properties file
   compileSdk propCompileSdkVersion.toInteger()
 
-  ndkVersion '26.1.10909125'
+  ndkVersion '26.3.11579264'
 
   defaultConfig {
     // Default package name is taken from the manifest and should be app.organicmaps
@@ -187,6 +124,11 @@ android {
       def njobs = ''
       if (project.hasProperty('njobs')) njobs = project.getProperty('njobs')
 
+      def enableVulkanDiagnostics = 'OFF'
+      if (project.hasProperty('enableVulkanDiagnostics')) {
+        enableVulkanDiagnostics = project.getProperty('enableVulkanDiagnostics')
+      }
+
       cmake {
         cppFlags '-fexceptions', '-frtti'
         // There is no sense to enable sections without gcc's --gc-sections flag.
@@ -194,7 +136,7 @@ android {
                '-Wno-extern-c-compat'
         arguments '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_static',
                   "-DOS=$osName", '-DSKIP_TESTS=ON', '-DSKIP_TOOLS=ON', "-DUSE_PCH=$pchFlag",
-                  "-DNJOBS=$njobs"
+                  "-DNJOBS=$njobs", "-DENABLE_VULKAN_DIAGNOSTICS=$enableVulkanDiagnostics"
         targets 'organicmaps'
       }
     }
@@ -241,6 +183,7 @@ android {
 
     web {
       dimension 'default'
+      applicationIdSuffix '.web'
       versionName = android.defaultConfig.versionName + '-Web'
       buildConfigField 'String', 'SUPPORT_MAIL', '"apk@organicmaps.app"'
     }
@@ -285,8 +228,6 @@ android {
     disable 'CustomSplashScreen'
     // https://github.com/organicmaps/organicmaps/issues/3610
     disable 'InsecureBaseConfiguration'
-    // https://github.com/organicmaps/organicmaps/issues/3608
-    disable 'UnusedResources'
     abortOnError true
   }
 
@@ -322,8 +263,7 @@ android {
       jniDebuggable true           // Enable jni debug build
       zipAlignEnabled true
       signingConfig signingConfigs.debug
-      resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
-      resValue 'string', 'app_name', project.ext.appName  + ' ' + '(Debug)'
+      resValue 'string', 'app_name', 'Debug Organic Maps'
       // Do not generate separate debug symbols for debug apps, because we don't distribute them.
       ndk.debugSymbolLevel = 'none'
 
@@ -343,7 +283,6 @@ android {
       // Includes the default ProGuard rules files that are packaged with the Android Gradle plugin.
       // To learn more, go to the documentation section about R8 configuration files.
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-      resValue 'string', 'app_id', android.defaultConfig.applicationId
       resValue 'string', 'app_name', project.ext.appName
       // Full size symbols are too big for Google, 217mb aab vs 95mb.
       ndk.debugSymbolLevel = 'symbol_table'
@@ -365,8 +304,7 @@ android {
       // To learn more, go to the documentation section about R8 configuration files.
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
       matchingFallbacks = ['debug', 'release']
-      resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
-      resValue 'string', 'app_name', project.ext.appName + ' ' + '(Beta)'
+      resValue 'string', 'app_name', 'Beta Organic Maps'
       // Full size symbols are too big for Google, 217mb aab vs 95mb.
       ndk.debugSymbolLevel = 'symbol_table'
 
@@ -401,33 +339,80 @@ android {
   }
 
   compileOptions {
+    coreLibraryDesugaringEnabled true
+
     sourceCompatibility JavaVersion.VERSION_17
     targetCompatibility JavaVersion.VERSION_17
   }
-  packagingOptions.jniLibs {
-    excludes += [
-        'lib/**/libVkLayer_khronos_validation.so',
-        'lib/**/libVkLayer_core_validation.so',
-        'lib/**/libVkLayer_threading.so',
-        'lib/**/libVkLayer_image.so',
-        'lib/**/libVkLayer_parameter_validation.so',
-        'lib/**/libVkLayer_object_tracker.so',
-        'lib/**/libVkLayer_swapchain.so',
-        'lib/**/libVkLayer_unique_objects.so',
-    ]
+}
+
+dependencies {
+  coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
+
+  // Google Play Location Services
+  //
+  // Please add symlinks to google/java/app/organicmaps/location for each new gms-enabled flavor below:
+  // ```
+  // mkdir -p src/$flavor/java/app/organicmaps/
+  // ln -sf ../../../../google/java/app/organicmaps/location src/$flavor/java/app/organicmaps/
+  // ls -la src/$flavor/java/app/organicmaps/location/GoogleFusedLocationProvider.java
+  // ```
+  //
+  webImplementation 'com.google.android.gms:play-services-location:21.2.0'
+  googleImplementation 'com.google.android.gms:play-services-location:21.2.0'
+  huaweiImplementation 'com.google.android.gms:play-services-location:21.2.0'
+
+  // Google Firebase Services
+  if (googleFirebaseServicesEnabled) {
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:32.8.0')
+    // Add the dependencies for the Crashlytics and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-crashlytics-ndk'
   }
+
+  // This line is added as a workaround for duplicate classes error caused by some outdated dependency:
+  // > A failure occurred while executing com.android.build.gradle.internal.tasks.CheckDuplicatesRunnable
+  // We don't use Kotlin, but some dependencies are actively using it.
+  // See https://stackoverflow.com/a/75719642
+  implementation 'androidx.core:core:1.12.0'
+  implementation(platform('org.jetbrains.kotlin:kotlin-bom:1.9.23'))
+  implementation 'androidx.annotation:annotation:1.7.1'
+  implementation 'androidx.appcompat:appcompat:1.6.1'
+  implementation 'androidx.car.app:app:1.7.0-alpha02'
+  implementation 'androidx.car.app:app-projected:1.7.0-alpha02'
+  implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+  implementation 'androidx.fragment:fragment:1.6.2'
+  implementation 'androidx.preference:preference:1.2.1'
+  implementation 'androidx.recyclerview:recyclerview:1.3.2'
+  implementation 'androidx.work:work-runtime:2.9.0'
+  implementation 'androidx.lifecycle:lifecycle-process:2.7.0'
+  implementation 'com.google.android.material:material:1.11.0'
+  // Fix for app/organicmaps/util/FileUploadWorker.java:14: error: cannot access ListenableFuture
+  // https://github.com/organicmaps/organicmaps/issues/6106
+  implementation 'com.google.guava:guava:33.1.0-android'
+  implementation 'com.github.devnullorthrow:MPAndroidChart:3.2.0-alpha'
+  implementation 'net.jcip:jcip-annotations:1.0'
+
+  // Test Dependencies
+  androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+  testImplementation 'junit:junit:4.13.2'
+  testImplementation 'org.mockito:mockito-core:5.11.0'
+  testImplementation 'org.mockito:mockito-inline:5.2.0'
 }
 
 tasks.withType(JavaCompile) {
   options.compilerArgs << '-Xlint:unchecked' << '-Xlint:deprecation'
 }
 
-android.buildTypes.all { buildType ->
-  def suffix = applicationIdSuffix != null ? applicationIdSuffix : ""
-  def authorityValue = android.defaultConfig.applicationId + suffix + ".provider"
+android.applicationVariants.all { variant ->
+  def authorityValue = variant.applicationId + ".provider"
   def authority = "\"" + authorityValue + "\""
-  buildConfigField 'String', 'FILE_PROVIDER_AUTHORITY', authority
-  manifestPlaceholders += [FILE_PROVIDER_PLACEHOLDER : authorityValue]
+  variant.buildConfigField 'String', 'FILE_PROVIDER_AUTHORITY', authority
+  def flavor = variant.getMergedFlavor()
+  flavor.manifestPlaceholders += [FILE_PROVIDER_PLACEHOLDER : authorityValue]
+  variant.resValue 'string', 'app_id', variant.applicationId
 }
 
 task prepareGoogleReleaseListing {
@@ -458,8 +443,7 @@ task prepareGoogleReleaseListing {
 
 play {
   enabled.set(false)
-  track.set('production')
-  userFraction.set(Double.valueOf(0.10)) // 10%
+  track.set('alpha')
   defaultToAppBundles.set(true)
   releaseStatus.set(ReleaseStatus.IN_PROGRESS)
   serviceAccountCredentials.set(file('google-play.json'))
@@ -471,7 +455,7 @@ huaweiPublish {
       credentialsPath = "$projectDir/huawei-appgallery.json"
       buildFormat = 'aab'
       deployType = 'draft' // confirm manually
-      releaseNotes = []
+      def releaseDescriptions = []
       def localeOverride = [
           'am' : 'am-ET',
           'gu': 'gu_IN',
@@ -489,8 +473,9 @@ huaweiPublish {
         def path = file.getPath()
         def locale = file.parentFile.getName()
         locale = localeOverride.get(locale, locale)
-        releaseNotes.add(new ru.cian.huawei.publish.ReleaseNote(locale, path))
+        releaseDescriptions.add(new ru.cian.huawei.publish.ReleaseNote(locale, path))
       }
+      releaseNotes = new ru.cian.huawei.publish.ReleaseNotesExtension(releaseDescriptions, true)
     }
   }
 }

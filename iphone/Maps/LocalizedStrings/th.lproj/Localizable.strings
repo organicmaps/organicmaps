@@ -50,7 +50,17 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "การดาวน์โหลดล้มเหลว";
 
-"about_menu_title" = "เกี่ยวกับ Organic Maps";
+/* Text in About screen */
+"about_headline" = "ฟรีสำหรับทุกคนทำด้วยความรัก";
+
+/* Text in About screen */
+"about_proposition_1" = "• ไม่มีโฆษณาไม่มีการติดตามไม่มีการรวบรวมข้อมูล";
+
+/* Text in About screen */
+"about_proposition_2" = "• ไม่มีแบตเตอรี่หมด ทำงานแบบออฟไลน์";
+
+/* Text in About screen */
+"about_proposition_3" = "• รวดเร็ว เรียบง่าย พัฒนาโดยชุมชน";
 
 "close" = "ปิด";
 
@@ -61,9 +71,6 @@
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "เพิ่มชุดใหม่";
-
-/* Bookmark Color dialog title */
-"bookmark_color" = "สีของบุ๊กมาร์ก";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "ชื่อของชุดบุ๊กมาร์ก";
@@ -92,74 +99,77 @@
 
 /********** Search categories **********/
 
-/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "กินร้านไหนดี";
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
+"category_eat" = "กินร้านไหนดี";
 
-/* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "ซื้อของกินของใช้";
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! */
+"category_food" = "ซื้อของกินของใช้";
 
-/* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "การขนส่ง";
+/* Search category for public transport; any changes should be duplicated in categories.txt @category_transport! */
+"category_transport" = "การขนส่ง";
 
-/* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "ก๊าซ";
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
+"category_fuel" = "ก๊าซ";
 
-/* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "ที่จอดรถ";
+/* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
+"category_parking" = "ที่จอดรถ";
 
-/* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "ช็อปปิง";
+/* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
+"category_shopping" = "ช็อปปิง";
 
-/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "มือสอง";
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
+"category_secondhand" = "มือสอง";
 
-/* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "โรงแรม";
+/* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
+"category_hotel" = "โรงแรม";
 
-/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "สถานที่ท่องเที่ยว";
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
+"category_tourism" = "สถานที่ท่องเที่ยว";
 
-/* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "แหล่งบันเทิง";
+/* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
+"category_entertainment" = "แหล่งบันเทิง";
 
-/* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "เอทีเอ็ม";
+/* Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! */
+"category_atm" = "เอทีเอ็ม";
 
-/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "ไนท์ไลฟ์";
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! */
+"category_nightlife" = "ไนท์ไลฟ์";
 
-/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "วันหยุดสำหรับครอบครัว";
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! */
+"category_children" = "วันหยุดสำหรับครอบครัว";
 
-/* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "ธนาคาร";
+/* Search category for banks; any changes should be duplicated in categories.txt @category_bank! */
+"category_bank" = "ธนาคาร";
 
-/* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "ร้านขายยา";
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! */
+"category_pharmacy" = "ร้านขายยา";
 
-/* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "คลินิก";
+/* Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! */
+"category_hospital" = "คลินิก";
 
-/* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "ห้องน้ำ";
+/* Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! */
+"category_toilet" = "ห้องน้ำ";
 
-/* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "ไปรษณีย์";
+/* Search category for post offices; any changes should be duplicated in categories.txt @category_post! */
+"category_post" = "ไปรษณีย์";
 
-/* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "ตำรวจ";
+/* Search category for police; any changes should be duplicated in categories.txt @category_police! */
+"category_police" = "ตำรวจ";
 
-/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi";
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
+"category_wifi" = "WiFi";
 
-/* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "การรีไซเคิล";
+/* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
+"category_recycling" = "การรีไซเคิล";
 
-/* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "น้ำ";
+/* Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type */
+"category_water" = "น้ำ";
 
-/* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "สำหรับ RV";
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
+"category_rv" = "สำหรับ RV";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
@@ -200,10 +210,7 @@
 "done" = "เสร็จแล้ว";
 
 /* Prints version number in About dialog */
-"version" = "เวอร์ชัน: %@";
-
-/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "ข้อมูล OpenStreetMap: %@";
+"version" = "เวอร์ชัน Organic Maps: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "การติดตาม";
@@ -217,8 +224,14 @@
 
 "pref_zoom_title" = "ปุ่มซูม";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "โหมดกลางคืน";
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "รูปแบบ";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "สว่าง";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "มืด";
 
 /* Generic «Off» string */
 "off" = "ปิด";
@@ -240,6 +253,12 @@
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "คำแนะนำด้วยเสียง";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "ประกาศชื่อถนน";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "เมื่อเปิดใช้งาน ชื่อของถนนหรือทางออกที่จะเลี้ยวจะถูกพูดออกมาดัง ๆ";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "ภาษาสำหรับเสียง";
@@ -277,18 +296,6 @@
 "news" = "ข่าว";
 
 /* Text in menu */
-"github" = "GitHub";
-
-/* Text in menu */
-"telegram" = "Telegram";
-
-/* Text in menu */
-"matrix" = "[Matrix]";
-
-/* Text in menu */
-"mastodon" = "Mastodon";
-
-/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -299,9 +306,6 @@
 
 /* Text in the editor */
 "vk" = "VK";
-
-/* Text in menu */
-"openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
 "rate_the_app" = "ให้คะแนนแอป";
@@ -315,14 +319,23 @@
 /* Button in the main menu */
 "donate" = "บริจาค";
 
-/* Button in the main Help dialog */
-"how_to_support_us" = "สนับสนุนโครงการ";
+/* Tex label above the Donate button */
+"donate_description" = "บริจาคเพื่อสร้างแผนที่ที่ดีที่สุดด้วยกัน!";
 
 /* Button in the main Help dialog */
 "copyright" = "ลิขสิทธิ์";
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "แจ้งข้อผิดพลาด";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "รายงานหรือแก้ไขข้อมูลแผนที่ที่ไม่ถูกต้อง";
+
+/* Button in the About screen */
+"volunteer" = "อาสาสมัคร";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "ติดตามและติดต่อเรา:";
 
 /* Alert text */
 "email_error_body" = "อีเมลลูกค้ายังไม่ได้รับการจัดตั้งขึ้น กรุณาตั้งค่าหรือใช้วิธีอื่นที่จะติดต่อเราที่ %@";
@@ -622,6 +635,8 @@
 
 "login" = "ล็อกอิน";
 
+"login_osm" = "เข้าสู่ระบบ OpenStreetMap";
+
 "forgot_password" = "ลืมรหัสผ่าน?";
 
 "osm_account" = "บัญชี OSM";
@@ -696,6 +711,9 @@
 
 "editor_edit_place_name_hint" = "ชื่อสถานที่";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "ตามที่เขียนเป็นภาษาท้องถิ่น";
+
 "editor_edit_place_category_title" = "หมวดหมู่";
 
 "whatsnew_editor_message_1" = "เพิ่มสถานที่ใหม่ ๆ ไปยังแผนที่ และแก้ไขสถานที่ที่มีอยู่เดิมจากแอปโดยตรง";
@@ -703,6 +721,9 @@
 "dialog_incorrect_feature_position" = "เปลี่ยนสถานที่ตั้ง";
 
 "message_invalid_feature_position" = "ไม่สามารถตั้งวัตถุได้ที่นี่";
+
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "ข้อมูล OpenStreetMap ที่สร้างโดยชุมชน ณ %@ เรียนรู้เพิ่มเติมเกี่ยวกับวิธีแก้ไขและอัปเดตแผนที่ได้ที่ OpenStreetMap.org";
 
 "login_to_make_edits_visible" = "ล็อกอินเพื่อให้ผู้ใช้คนอื่นสามารถเห็นการเปลี่ยนแปลงของคุณได้";
 
@@ -746,16 +767,6 @@
 
 "downloader_no_downloaded_maps_message" = "ดาวน์โหลดแผนที่เพื่อค้นหาสถานที่ และนำทางแบบออฟไลน์";
 
-/* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "ค้นหาที่ตั้งปัจจุบันต่อไปหรือไม่?";
-
-/* Error that appears after certain time without location. */
-"current_location_unknown_message" = "ไม่ทราบชื่อสถานที่ปัจจุบัน คุณอาจจะอยู่ในอาคาร หรือ ในอุโมงค์";
-
-"current_location_unknown_continue_button" = "ดำเนินการต่อ";
-
-"current_location_unknown_stop_button" = "หยุด";
-
 "current_location_unknown_error_title" = "ไม่ทราบชื่อของที่ตั้งปัจจุบัน";
 
 "current_location_unknown_error_message" = "มีข้อผิดพลาดเกิดขึ้นในขณะที่กำลังหาที่ตั้งที่คุณอยู่ โปรดตรวจสอบอุปกรณ์ของคุณว่าทำงานถูกต้อง และลองใหม่อีกครั้ง";
@@ -770,6 +781,14 @@
 
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. เลือกในขณะใช้แอป";
+
+"location_services_disabled_on_device_2" = "2. เลือกความเป็นส่วนตัว";
+
+"location_services_disabled_on_device_3" = "3. เลือกบริการระบุตำแหน่ง";
+
+"location_services_disabled_on_device_4" = "4. เปิดบริการระบุตำแหน่ง";
+
+"location_services_disabled_on_device_additional_message" = "หรือใช้แผนที่ทั่วไปโดยไม่มีตำแหน่งต่อไป";
 
 /* abbreviation for meters */
 "m" = "ม.";
@@ -815,7 +834,7 @@
 
 "placepage_delete_bookmark_button" = "ลบ Bookmark";
 
-"editor_edits_sent_message" = "คำแนะนำการเปลี่ยนแปลงของคุณถูกส่งไปแล้ว";
+"editor_edits_sent_message" = "บันทึกของคุณจะถูกส่งไปยัง OpenStreetMap";
 
 "editor_comment_hint" = "ข้อคิดเห็น";
 
@@ -861,9 +880,6 @@
 "sharing_call_action_look" = "ตรวจชม";
 
 "recent_track_background_dialog_message" = "Organic Maps ใช้ตำแหน่งทางภูมิศาสตร์ของคุณในพื้นหลังเพื่อบันทึกเส้นทางที่คุณเดินทางเมื่อเร็ว ๆ นี้";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps เป็นแอปพลิเคชันแผนที่ออฟไลน์แบบโอเพนซอร์สฟรี ไม่มีโฆษณา ไม่มีการติดตาม. หากคุณเห็นข้อผิดพลาดบนแผนที่ โปรดแก้ไขใน OpenStreetMap โครงการนี้สร้างขึ้นโดยผู้ที่ชื่นชอบในเวลาว่าง เราจึงต้องการความคิดเห็นและการสนับสนุนจากคุณ";
 
 "general_settings" = "การตั้งค่าทั่วไป";
 
@@ -925,6 +941,12 @@
 "start_from_my_position" = "เริ่มจาก";
 
 "profile_authorization_error" = "โอ๊ะ มีข้อผิดพลาดเกิดขึ้น ลองลงชื่อเข้าใช้อีกครั้ง";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "กรุณาเข้าสู่ระบบ OpenStreetMap เพื่ออัปโหลดการแก้ไขแผนที่ทั้งหมดของคุณโดยอัตโนมัติ เรียนรู้เพิ่มเติม";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "ที่นี่";
 
 "core_entrance" = "ทางเข้า";
 
@@ -1005,15 +1027,16 @@
 
 "speedcams_alert_title" = "กล้องตรวจจับความเร็ว";
 
-/* Generic «Always» string */
-"always" = "ทุกครั้ง";
-
-/* Generic «Never» string */
-"never" = "ไม่ต้องเตือน";
-
 "place_description_title" = "รายละเอียดของสถานที่";
 
-"speedcams_notice_message" = "อัตโนมัติ - เตือนเกี่ยวกับกล้องตรวจจับความเร็วหากมีความเป็นได้ว่าจะขับเร็วเกิดกำหนด\nทุกครั้ง - เตือนเกี่ยวกับกล้องตรวจจับความเร็วเสมอ\nไม่ต้องเตือน - ไม่เคยเตือนเกี่ยวกับกล้องตรวจจับความเร็ว";
+/* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
+"pref_tts_speedcams_auto" = "เตือนเรื่องการขับรถเร็ว";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "เตือนเกี่ยวกับกล้องตรวจจับความเร็วเสมอ";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "ไม่เคยเตือนเกี่ยวกับกล้องตรวจจับความเร็ว";
 
 "power_managment_title" = "โหมดประหยัดพลังงาน";
 
@@ -1120,6 +1143,8 @@
 "sort_distance" = "เรียงตามระยะทาง";
 
 "sort_date" = "เรียงตามวันที่";
+
+"sort_name" = "เรียงตามชื่อ";
 
 "week_ago_sorttype" = "สัปดาห์ที่ผ่านมา";
 
@@ -1242,8 +1267,31 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "ขณะนี้คุณกำลังใช้แผนที่ทั่วไปบนหน้าจอโทรศัพท์";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "ขณะนี้คุณกำลังใช้แผนที่ทั่วไปบนหน้าจอรถยนต์";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "ดำเนินการต่อบนโทรศัพท์";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "ไปที่หน้าจอรถ";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "การเดินป่า";
+
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "ส่งออกบุ๊กมาร์กและแทร็กทั้งหมด";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "เปลี่ยนสี";
+
+/* Main screen title "Map" displayed in the navigation back button's menu. */
+"map" = "แผนที่";
+
+"drive_through" = "ขับรถผ่าน";
 
 
 /********** Types **********/
@@ -1296,7 +1344,7 @@
 
 "type.amenity.bar" = "บาร์";
 
-"type.amenity.bbq" = "เว็บไซต์ปิกนิก";
+"type.amenity.bbq" = "เตาย่างบาร์บีคิว";
 
 "type.amenity.bench" = "ม้านั่ง";
 
@@ -1359,6 +1407,8 @@
 "type.amenity.doctors" = "ห้องแพทย์";
 
 "type.amenity.drinking_water" = "น้ำดื่ม";
+
+"type.drinking_water.yes" = "น้ำดื่ม";
 
 "type.amenity.driving_school" = "โรงเรียนสอนขับรถ";
 
@@ -1539,7 +1589,17 @@
 
 "type.amenity.school" = "โรงเรียน";
 
+/* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "ที่อยู่อาศัย";
+
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "ที่อยู่อาศัย";
+
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
+"type.amenity.shelter.basic_hut" = "กระท่อมพักแรม";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
+"type.amenity.shelter.lean_to" = "Lean-to Shelter";
 
 "type.amenity.public_bath" = "ห้องอาบน้ำสาธารณะ";
 
@@ -1647,43 +1707,18 @@
 
 "type.boundary.administrative" = "Administrative Boundary";
 
-"type.boundary.administrative.10" = "Administrative Boundary";
-
-"type.boundary.administrative.11" = "Administrative Boundary";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "National Border";
 
-"type.boundary.administrative.3" = "Administrative Boundary";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Regional Boundary";
 
-"type.boundary.administrative.4" = "Administrative Boundary";
-
-"type.boundary.administrative.5" = "Administrative Boundary";
-
-"type.boundary.administrative.6" = "Administrative Boundary";
-
-"type.boundary.administrative.7" = "Administrative Boundary";
-
-"type.boundary.administrative.8" = "Administrative Boundary";
-
-"type.boundary.administrative.9" = "Administrative Boundary";
-
-"type.boundary.administrative.city" = "City Boundary";
-
-"type.boundary.administrative.country" = "National Border";
-
-"type.boundary.administrative.county" = "County Boundary";
-
-"type.boundary.administrative.municipality" = "Municipality Boundary";
-
-"type.boundary.administrative.nation" = "National Border";
-
-"type.boundary.administrative.region" = "Regional Boundary";
-
-"type.boundary.administrative.state" = "State Boundary";
-
-"type.boundary.administrative.suburb" = "Suburb Boundary";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Regional Boundary";
 
 "type.boundary.national_park" = "อุทยานแห่งชาติ";
+
+"type.boundary.aboriginal_lands" = "ดินแดนพื้นเมือง";
 
 "type.boundary.protected_area" = "พื้นที่คุ้มครอง";
 
@@ -1955,7 +1990,7 @@
 
 "type.entrance.exit" = "ทางออก";
 
-"type.fee.yes" = "💲";
+"type.fee.yes" = "$";
 
 "type.fee.no" = "ฟรี";
 
@@ -2024,22 +2059,10 @@
 
 "type.highway.footway.crossing" = "ทางม้าลาย";
 
-"type.highway.footway.alpine_hiking" = "เส้นทาง";
-
 "type.highway.footway.area" = "เส้นทาง";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "สะพาน";
-
-"type.highway.footway.demanding_alpine_hiking" = "เส้นทาง";
-
-"type.highway.footway.demanding_mountain_hiking" = "เส้นทาง";
-
-"type.highway.footway.difficult_alpine_hiking" = "เส้นทาง";
-
-"type.highway.footway.hiking" = "เส้นทาง";
-
-"type.highway.footway.mountain_hiking" = "เส้นทาง";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "อุโมงค์";
@@ -2074,26 +2097,20 @@
 
 "type.highway.path" = "เส้นทาง";
 
-"type.highway.path.alpine_hiking" = "เส้นทาง";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "เส้นทาง";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "เส้นทาง";
 
 "type.highway.path.bicycle" = "เส้นทาง";
+
+"type.highway.footway.bicycle" = "เส้นทาง";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "สะพาน";
 
-"type.highway.path.demanding_alpine_hiking" = "เส้นทาง";
-
-"type.highway.path.demanding_mountain_hiking" = "เส้นทาง";
-
-"type.highway.path.difficult_alpine_hiking" = "เส้นทาง";
-
-"type.highway.path.hiking" = "เส้นทาง";
-
 "type.highway.path.horse" = "เส้นทาง";
-
-"type.highway.path.mountain_hiking" = "เส้นทาง";
-
-"type.highway.path.permissive" = "เส้นทาง";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "อุโมงค์";
@@ -2216,17 +2233,7 @@
 
 "type.highway.track.grade1" = "ถนน";
 
-"type.highway.track.grade2" = "ถนน";
-
-"type.highway.track.grade3" = "ถนน";
-
-"type.highway.track.grade4" = "ถนน";
-
-"type.highway.track.grade5" = "ถนน";
-
 "type.highway.track.no.access" = "ถนน";
-
-"type.highway.track.permissive" = "ถนน";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "อุโมงค์";
@@ -2436,8 +2443,6 @@
 
 "type.landuse.education" = "Educational Facility";
 
-"type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "พื้นที่ทำการเกษตร";
 
 "type.landuse.farmyard" = "Farmyard";
@@ -2508,11 +2513,11 @@
 
 "type.leisure.golf_course" = "สนามกอล์ฟ";
 
+"type.leisure.miniature_golf" = "มินิกอล์ฟ";
+
 "type.leisure.hackerspace" = "แฮกเกอร์สเปซ";
 
 "type.leisure.ice_rink" = "Ice Rink";
-
-"type.leisure.landscape_reserve" = "Landscape Reserve";
 
 "type.leisure.marina" = "Marina";
 
@@ -2618,7 +2623,14 @@
 
 "type.natural" = "ธรรมชาติ";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "เปลือยร็อค";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "ก้อนกรวด";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "หินกรวด";
 
 "type.natural.bay" = "อ่าว";
 
@@ -3715,9 +3727,10 @@
 
 "type.tourism.aquarium" = "พิพิธภัณฑ์สัตว์น้ำ";
 
-"type.tourism.alpine_hut" = "ที่พักบนภูเขาโรงแรม";
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "บ้านพักบนภูเขา";
 
-"type.tourism.apartment" = "อพาร์ตเมนต์";
+"type.tourism.apartment" = "ฮอลิเดย์ อพาร์ตเมนต์";
 
 "type.tourism.artwork" = "งานศิลปะ";
 
@@ -3731,7 +3744,7 @@
 
 "type.tourism.attraction" = "การท่องเที่ยว";
 
-"type.tourism.attraction.animal" = "การท่องเที่ยว";
+"type.attraction.animal" = "สิ่งที่แนบมากับสัตว์";
 
 "type.tourism.attraction.specified" = "การท่องเที่ยว";
 
@@ -3739,7 +3752,8 @@
 
 "type.tourism.caravan_site" = "ขบวนนักเดินทาง";
 
-"type.tourism.chalet" = "ชาเลต์";
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "กระท่อมวันหยุด";
 
 "type.tourism.gallery" = "สถานที่ท่องเที่ยว";
 
@@ -3767,12 +3781,13 @@
 
 "type.tourism.picnic_site" = "เว็บไซต์ปิกนิก";
 
-"type.tourism.resort" = "รีสอร์ต";
+"type.leisure.resort" = "รีสอร์ต";
 
 "type.tourism.theme_park" = "สถานที่ท่องเที่ยว";
 
 "type.tourism.viewpoint" = "จุดชมวิว";
 
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "กระท่อมกลางป่า";
 
 "type.tourism.zoo" = "สวนสัตว์";
@@ -3814,8 +3829,6 @@
 "type.waterway.river" = "แม่น้ำ";
 
 "type.waterway.river.tunnel" = "แม่น้ำ";
-
-"type.waterway.riverbank" = "แม่น้ำ";
 
 "type.waterway.stream" = "แม่น้ำ";
 

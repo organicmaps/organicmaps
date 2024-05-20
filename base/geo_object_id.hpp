@@ -61,7 +61,7 @@ public:
   static constexpr uint64_t kInvalid = 0ULL;
 
   explicit GeoObjectId(uint64_t encodedId = kInvalid);
-  explicit GeoObjectId(GeoObjectId::Type type, uint64_t id);
+  explicit GeoObjectId(Type type, uint64_t id);
 
   // Returns the id that the object has within its source.
   uint64_t GetSerialId() const;

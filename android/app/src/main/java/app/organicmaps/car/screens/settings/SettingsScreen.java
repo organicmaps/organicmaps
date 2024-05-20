@@ -4,19 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.car.app.CarContext;
 import androidx.car.app.model.Action;
-import androidx.car.app.model.CarIcon;
 import androidx.car.app.model.Header;
 import androidx.car.app.model.Item;
 import androidx.car.app.model.ItemList;
+import androidx.car.app.model.ListTemplate;
+import androidx.car.app.model.OnClickListener;
 import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
-import androidx.car.app.navigation.model.MapTemplate;
-import androidx.core.graphics.drawable.IconCompat;
+import androidx.car.app.navigation.model.MapWithContentTemplate;
 
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.util.ThemeUtils;
+import app.organicmaps.car.util.Toggle;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.util.Config;
 
@@ -32,26 +33,18 @@ public class SettingsScreen extends BaseMapScreen
     void set(boolean newValue);
   }
 
-  @NonNull
-  private final CarIcon mCheckboxIcon;
-  @NonNull
-  private final CarIcon mCheckboxSelectedIcon;
-
   public SettingsScreen(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer)
   {
     super(carContext, surfaceRenderer);
-    mCheckboxIcon = new CarIcon.Builder(IconCompat.createWithResource(carContext, R.drawable.ic_check_box)).build();
-    mCheckboxSelectedIcon = new CarIcon.Builder(IconCompat.createWithResource(carContext, R.drawable.ic_check_box_checked)).build();
   }
 
   @NonNull
   @Override
   public Template onGetTemplate()
   {
-    final MapTemplate.Builder builder = new MapTemplate.Builder();
-    builder.setHeader(createHeader());
+    final MapWithContentTemplate.Builder builder = new MapWithContentTemplate.Builder();
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
-    builder.setItemList(createSettingsList());
+    builder.setContentTemplate(createSettingsListTemplate());
     return builder.build();
   }
 
@@ -65,15 +58,15 @@ public class SettingsScreen extends BaseMapScreen
   }
 
   @NonNull
-  private ItemList createSettingsList()
+  private ListTemplate createSettingsListTemplate()
   {
     final ItemList.Builder builder = new ItemList.Builder();
     builder.addItem(createThemeItem());
     builder.addItem(createRoutingOptionsItem());
-    builder.addItem(createSharedPrefsCheckbox(R.string.big_font, Config::isLargeFontsSize, Config::setLargeFontsSize));
-    builder.addItem(createSharedPrefsCheckbox(R.string.transliteration_title, Config::isTransliteration, Config::setTransliteration));
+    builder.addItem(createSharedPrefsToggle(R.string.big_font, Config::isLargeFontsSize, Config::setLargeFontsSize));
+    builder.addItem(createSharedPrefsToggle(R.string.transliteration_title, Config::isTransliteration, Config::setTransliteration));
     builder.addItem(createHelpItem());
-    return builder.build();
+    return new ListTemplate.Builder().setHeader(createHeader()).setSingleList(builder.build()).build();
   }
 
   @NonNull
@@ -108,17 +101,13 @@ public class SettingsScreen extends BaseMapScreen
   }
 
   @NonNull
-  private Row createSharedPrefsCheckbox(@StringRes int titleRes, @NonNull PrefsGetter getter, @NonNull PrefsSetter setter)
+  private Row createSharedPrefsToggle(@StringRes int titleRes, @NonNull PrefsGetter getter, @NonNull PrefsSetter setter)
   {
-    final boolean getterValue = getter.get();
-
-    final Row.Builder builder = new Row.Builder();
-    builder.setTitle(getCarContext().getString(titleRes));
-    builder.setOnClickListener(() -> {
-      setter.set(!getterValue);
+    final boolean enabled = getter.get();
+    final OnClickListener listener = () -> {
+      setter.set(!enabled);
       invalidate();
-    });
-    builder.setImage(getterValue ? mCheckboxSelectedIcon : mCheckboxIcon);
-    return builder.build();
+    };
+    return Toggle.create(getCarContext(), titleRes, listener, enabled);
   }
 }

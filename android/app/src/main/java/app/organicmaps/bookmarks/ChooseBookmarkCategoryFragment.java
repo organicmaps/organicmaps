@@ -84,7 +84,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
 
     List<BookmarkCategory> bookmarkCategories = mAdapter.getBookmarkCategories();
 
-    if (bookmarkCategories.size() == 0)
+    if (bookmarkCategories.isEmpty())
       throw new AssertionError("BookmarkCategories are empty");
 
     int categoryPosition = -1;

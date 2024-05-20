@@ -15,5 +15,8 @@ set(SRC
 omim_add_library(${PROJECT_NAME} ${SRC})
 
 target_link_libraries(${PROJECT_NAME}
-  jansson  # serdes_json.hpp is in coding
+  PUBLIC
+    coding
+    geometry
+    routing
 )

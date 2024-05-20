@@ -31,7 +31,6 @@
 		3496AB971DC1FA2000C5DDBA /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3496AB961DC1FA2000C5DDBA /* types.txt */; };
 		3496AB9D1DC1FA5200C5DDBA /* drules_proto_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 3496AB981DC1FA5200C5DDBA /* drules_proto_clear.bin */; };
 		3496AB9E1DC1FA5200C5DDBA /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 3496AB991DC1FA5200C5DDBA /* drules_proto_dark.bin */; };
-		3496ABA01DC1FA5200C5DDBA /* drules_proto-bw.bin in Resources */ = {isa = PBXBuildFile; fileRef = 3496AB9B1DC1FA5200C5DDBA /* drules_proto-bw.bin */; };
 		3496ABA11DC1FA5200C5DDBA /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = 3496AB9C1DC1FA5200C5DDBA /* drules_proto.bin */; };
 		3496ABA31DC1FA7200C5DDBA /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABA21DC1FA7200C5DDBA /* editor.config */; };
 		3496ABA91DC1FA9E00C5DDBA /* categories.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABA41DC1FA9E00C5DDBA /* categories.txt */; };
@@ -69,6 +68,7 @@
 		456B3FB41EDEEB65009B3D1F /* scales_patch.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 456B3FB31EDEEB65009B3D1F /* scales_patch.hpp */; };
 		456E1B181F90E5B7009C32E1 /* cities_boundaries_serdes.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 456E1B141F90E5B6009C32E1 /* cities_boundaries_serdes.hpp */; };
 		456E1B1B1F90E5B7009C32E1 /* city_boundary.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 456E1B171F90E5B7009C32E1 /* city_boundary.hpp */; };
+		467F34202BCAB6DE00CDC7DE /* yes_no_unknown.h in Headers */ = {isa = PBXBuildFile; fileRef = 467F341F2BCAB6DE00CDC7DE /* yes_no_unknown.h */; };
 		56C74C1C1C749E4700B71B9F /* categories_holder_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C74C121C749E4700B71B9F /* categories_holder_loader.cpp */; };
 		56C74C1D1C749E4700B71B9F /* categories_holder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C74C131C749E4700B71B9F /* categories_holder.cpp */; };
 		56C74C1E1C749E4700B71B9F /* categories_holder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56C74C141C749E4700B71B9F /* categories_holder.hpp */; };
@@ -200,7 +200,6 @@
 		FACB7C2026B919AD00810C9C /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C1C26B919AD00810C9C /* libgeometry.a */; };
 		FACB7C2126B919AD00810C9C /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C1D26B919AD00810C9C /* libplatform.a */; };
 		FACB7C2326B919C700810C9C /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C2226B919C700810C9C /* libicu.a */; };
-		FACB7C2526B919CC00810C9C /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C2426B919CC00810C9C /* liboauthcpp.a */; };
 		FACB7C2726B919D300810C9C /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C2626B919D300810C9C /* libprotobuf.a */; };
 		FACB7C2926B919E600810C9C /* libgenerator_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C2826B919E600810C9C /* libgenerator_tests_support.a */; };
 		FACB7C2B26B919F500810C9C /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C2A26B919F500810C9C /* libeditor.a */; };
@@ -256,7 +255,6 @@
 		3496AB961DC1FA2000C5DDBA /* types.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = types.txt; path = ../../data/types.txt; sourceTree = "<group>"; };
 		3496AB981DC1FA5200C5DDBA /* drules_proto_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_clear.bin; path = ../../data/drules_proto_clear.bin; sourceTree = "<group>"; };
 		3496AB991DC1FA5200C5DDBA /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_dark.bin; path = ../../data/drules_proto_dark.bin; sourceTree = "<group>"; };
-		3496AB9B1DC1FA5200C5DDBA /* drules_proto-bw.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = "drules_proto-bw.bin"; path = "../../data/drules_proto-bw.bin"; sourceTree = "<group>"; };
 		3496AB9C1DC1FA5200C5DDBA /* drules_proto.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto.bin; path = ../../data/drules_proto.bin; sourceTree = "<group>"; };
 		3496ABA21DC1FA7200C5DDBA /* editor.config */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = editor.config; path = ../../data/editor.config; sourceTree = "<group>"; };
 		3496ABA41DC1FA9E00C5DDBA /* categories.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = categories.txt; path = ../../data/categories.txt; sourceTree = "<group>"; };
@@ -304,6 +302,7 @@
 		456B3FB31EDEEB65009B3D1F /* scales_patch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = scales_patch.hpp; sourceTree = "<group>"; };
 		456E1B141F90E5B6009C32E1 /* cities_boundaries_serdes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cities_boundaries_serdes.hpp; sourceTree = "<group>"; };
 		456E1B171F90E5B7009C32E1 /* city_boundary.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = city_boundary.hpp; sourceTree = "<group>"; };
+		467F341F2BCAB6DE00CDC7DE /* yes_no_unknown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yes_no_unknown.h; sourceTree = "<group>"; };
 		56C74C121C749E4700B71B9F /* categories_holder_loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = categories_holder_loader.cpp; sourceTree = "<group>"; };
 		56C74C131C749E4700B71B9F /* categories_holder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = categories_holder.cpp; sourceTree = "<group>"; };
 		56C74C141C749E4700B71B9F /* categories_holder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = categories_holder.hpp; sourceTree = "<group>"; };
@@ -429,7 +428,6 @@
 		FACB7C1C26B919AD00810C9C /* libgeometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgeometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB7C1D26B919AD00810C9C /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB7C2226B919C700810C9C /* libicu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libicu.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FACB7C2426B919CC00810C9C /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB7C2626B919D300810C9C /* libprotobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libprotobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB7C2826B919E600810C9C /* libgenerator_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgenerator_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB7C2A26B919F500810C9C /* libeditor.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libeditor.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -457,7 +455,6 @@
 				FACB7C2F26B91A1100810C9C /* libopening_hours.a in Frameworks */,
 				FACB7C3D26B9478200810C9C /* libsuccinct.a in Frameworks */,
 				FACB7C2926B919E600810C9C /* libgenerator_tests_support.a in Frameworks */,
-				FACB7C2526B919CC00810C9C /* liboauthcpp.a in Frameworks */,
 				FACB7C1F26B919AD00810C9C /* libcoding.a in Frameworks */,
 				FACB7C2326B919C700810C9C /* libicu.a in Frameworks */,
 				FACB7C3B26B9476200810C9C /* libstorage.a in Frameworks */,
@@ -501,7 +498,6 @@
 				3496ABA81DC1FA9E00C5DDBA /* countries.txt */,
 				3496AB981DC1FA5200C5DDBA /* drules_proto_clear.bin */,
 				3496AB991DC1FA5200C5DDBA /* drules_proto_dark.bin */,
-				3496AB9B1DC1FA5200C5DDBA /* drules_proto-bw.bin */,
 				3496AB9C1DC1FA5200C5DDBA /* drules_proto.bin */,
 				3496ABA21DC1FA7200C5DDBA /* editor.config */,
 				3496ABAE1DC1FAC900C5DDBA /* minsk-pass.mwm */,
@@ -529,7 +525,6 @@
 				FACB7C2A26B919F500810C9C /* libeditor.a */,
 				FACB7C2826B919E600810C9C /* libgenerator_tests_support.a */,
 				FACB7C2626B919D300810C9C /* libprotobuf.a */,
-				FACB7C2426B919CC00810C9C /* liboauthcpp.a */,
 				FACB7C2226B919C700810C9C /* libicu.a */,
 				FACB7C1A26B919AD00810C9C /* libbase.a */,
 				FACB7C1B26B919AD00810C9C /* libcoding.a */,
@@ -746,6 +741,7 @@
 				394E1E0922BBB5EB00E4BC75 /* utils.hpp */,
 				FA7F9B83273F32680093EA08 /* validate_and_format_contacts.cpp */,
 				FA7F9B82273F32680093EA08 /* validate_and_format_contacts.hpp */,
+				467F341F2BCAB6DE00CDC7DE /* yes_no_unknown.h */,
 			);
 			name = indexer;
 			path = ../../indexer;
@@ -809,6 +805,7 @@
 				6758AED21BB4413000C26E27 /* drules_selector_parser.hpp in Headers */,
 				6753413F1A3F540F00A0A8C3 /* scale_index.hpp in Headers */,
 				6753410E1A3F540F00A0A8C3 /* drawing_rules.hpp in Headers */,
+				467F34202BCAB6DE00CDC7DE /* yes_no_unknown.h in Headers */,
 				FA7F9B84273F32680093EA08 /* validate_and_format_contacts.hpp in Headers */,
 				670C615C1AB0691900C38A8C /* features_offsets_table.hpp in Headers */,
 				6758AED41BB4413000C26E27 /* drules_selector.hpp in Headers */,
@@ -941,7 +938,6 @@
 				3496AB9D1DC1FA5200C5DDBA /* drules_proto_clear.bin in Resources */,
 				3496AB9E1DC1FA5200C5DDBA /* drules_proto_dark.bin in Resources */,
 				FA67C84F26BB36D700B33DCA /* categories_brands.txt in Resources */,
-				3496ABA01DC1FA5200C5DDBA /* drules_proto-bw.bin in Resources */,
 				FA67C84626BB356800B33DCA /* categories_cuisines.txt in Resources */,
 				3496ABA11DC1FA5200C5DDBA /* drules_proto.bin in Resources */,
 				3496AB971DC1FA2000C5DDBA /* types.txt in Resources */,

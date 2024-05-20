@@ -523,12 +523,12 @@ FeatureType::GeomStat FeatureType::GetOuterGeometryStats()
           ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetGeometryReader(ind));
           src.Skip(scaleOffset);
 
-          serial::GeometryCodingParams cp = m_loadInfo->GetGeometryCodingParams(ind);
+          serial::GeometryCodingParams cp = m_loadInfo->GetGeometryCodingParams(static_cast<int>(ind));
           cp.SetBasePoint(points[0]);
           serial::LoadOuterPath(src, cp, points);
 
           res.m_sizes[ind] = static_cast<uint32_t>(src.Pos() - scaleOffset);
-          res.m_elements[ind] = points.size();
+          res.m_elements[ind] = static_cast<uint32_t>(points.size());
         }
       }
       // Retain best geometry.
@@ -539,7 +539,7 @@ FeatureType::GeomStat FeatureType::GetOuterGeometryStats()
   m_parsed.m_points = true;
 
   // Points count can come from the inner geometry.
-  res.m_elements[scalesCount - 1] = m_points.size();
+  res.m_elements[scalesCount - 1] = static_cast<uint32_t>(m_points.size());
   return res;
 }
 
@@ -594,7 +594,7 @@ FeatureType::GeomStat FeatureType::GetOuterTrianglesStats()
           serial::LoadOuterTriangles(src, m_loadInfo->GetGeometryCodingParams(ind), m_triangles);
 
           res.m_sizes[ind] = static_cast<uint32_t>(src.Pos() - scaleOffset);
-          res.m_elements[ind] = m_triangles.size() / 3;
+          res.m_elements[ind] = static_cast<uint32_t>(m_triangles.size() / 3);
         }
       }
       // The best geometry is retained in m_triangles.
@@ -604,7 +604,7 @@ FeatureType::GeomStat FeatureType::GetOuterTrianglesStats()
   m_parsed.m_triangles = true;
 
   // Triangles count can come from the inner geometry.
-  res.m_elements[scalesCount - 1] = m_triangles.size() / 3;
+  res.m_elements[scalesCount - 1] = static_cast<uint32_t>(m_triangles.size() / 3);
   return res;
 }
 
@@ -704,7 +704,7 @@ m2::RectD FeatureType::GetLimitRect(int scale)
 
   if (m_triangles.empty() && m_points.empty() && (GetGeomType() != GeomType::Point))
   {
-    CHECK(false, (m_id));
+    ASSERT(false, (m_id));
 
     // This function is called during indexing, when we need
     // to check visibility according to feature sizes.
@@ -717,8 +717,8 @@ m2::RectD FeatureType::GetLimitRect(int scale)
 
 m2::RectD const & FeatureType::GetLimitRectChecked() const
 {
-  CHECK(m_parsed.m_points && m_parsed.m_triangles, (m_id));
-  CHECK(m_limitRect.IsValid(), (m_id));
+  ASSERT(m_parsed.m_points && m_parsed.m_triangles, (m_id));
+  ASSERT(m_limitRect.IsValid(), (m_id));
   return m_limitRect;
 }
 

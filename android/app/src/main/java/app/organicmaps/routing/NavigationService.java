@@ -7,7 +7,6 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 import android.annotation.SuppressLint;
 import android.app.ForegroundServiceStartNotAllowedException;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -37,6 +36,7 @@ import app.organicmaps.sound.MediaPlayerWrapper;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.sound.TtsPlayer;
+import app.organicmaps.util.Config;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.log.Logger;
@@ -145,7 +145,7 @@ public class NavigationService extends Service implements LocationListener
         .setOngoing(true)
         .setShowWhen(false)
         .setOnlyAlertOnce(true)
-        .setSmallIcon(R.drawable.ic_notification)
+        .setSmallIcon(R.drawable.ic_splash)
         .setContentIntent(pendingIntent)
         .setColorized(isColorizedSupported())
         .setColor(ContextCompat.getColor(context, R.color.notification));
@@ -251,7 +251,8 @@ public class NavigationService extends Service implements LocationListener
     if (!routingController.isNavigating())
       return;
 
-    final String[] turnNotifications = Framework.nativeGenerateNotifications();
+    // Voice the turn notification first.
+    final String[] turnNotifications = Framework.nativeGenerateNotifications(Config.TTS.getAnnounceStreets());
     if (turnNotifications != null)
       TtsPlayer.INSTANCE.playTurnNotifications(turnNotifications);
 

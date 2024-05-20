@@ -150,15 +150,18 @@
         <data android:mimeType="application/vnd.google-earth.kmz"/>
         <data android:mimeType="application/gpx"/>
         <data android:mimeType="application/gpx+xml"/>
+        <data android:mimeType="application/vnd.google-earth.kmz+xml"/>
       </intent-filter>
 
       <intent-filter>
         <action android:name="android.intent.action.SEND"/>
+        <action android:name="android.intent.action.SEND_MULTIPLE"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <data android:mimeType="application/vnd.google-earth.kml+xml"/>
         <data android:mimeType="application/vnd.google-earth.kmz"/>
         <data android:mimeType="application/gpx"/>
         <data android:mimeType="application/gpx+xml"/>
+        <data android:mimeType="application/vnd.google-earth.kmz+xml"/>
       </intent-filter>
 
       <intent-filter>
@@ -315,6 +318,18 @@
         <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.kmb" />
         <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.KMB" />
       </intent-filter>
+
+      <!-- Catches .gpx and .gpx.xml files opened from Google Files app -->
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:scheme="content" />
+        <data android:host="*" />
+        <data android:mimeType="application/octet-stream" />
+        <data android:mimeType="application/xml" />
+        <data android:mimeType="text/xml" />
+      </intent-filter>
+
     </activity>
 
     <activity

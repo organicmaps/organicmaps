@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
 import androidx.car.app.model.CarIcon;
-import androidx.car.app.model.DateTimeWithZone;
 import androidx.car.app.navigation.model.Destination;
 import androidx.car.app.navigation.model.Lane;
 import androidx.car.app.navigation.model.Step;
@@ -20,7 +19,7 @@ import app.organicmaps.routing.RoutingInfo;
 import app.organicmaps.routing.SingleLaneInfo;
 import app.organicmaps.util.Graphics;
 
-import java.util.Calendar;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 public final class RoutingUtils
@@ -93,20 +92,13 @@ public final class RoutingUtils
     return builder.build();
   }
 
+  @SuppressWarnings("NewApi") // ZonedDateTime is backported for Android versions below 8.0.
   @NonNull
   private static TravelEstimate createTravelEstimate(@NonNull app.organicmaps.util.Distance distance, int time)
   {
-    final TravelEstimate.Builder builder = new TravelEstimate.Builder(RoutingHelpers.createDistance(distance), createTimeEstimate(time));
-    builder.setRemainingTimeSeconds(time);
-    builder.setRemainingDistanceColor(Colors.DISTANCE);
-    return builder.build();
-  }
-
-  @NonNull
-  private static DateTimeWithZone createTimeEstimate(int seconds)
-  {
-    final Calendar currentTime = Calendar.getInstance();
-    currentTime.add(Calendar.SECOND, seconds);
-    return DateTimeWithZone.create(currentTime.getTimeInMillis(), currentTime.getTimeZone());
+    return new TravelEstimate.Builder(RoutingHelpers.createDistance(distance), ZonedDateTime.now().plusSeconds(time))
+        .setRemainingTimeSeconds(time)
+        .setRemainingDistanceColor(Colors.DISTANCE)
+        .build();
   }
 }

@@ -220,6 +220,12 @@ dp::Color Track::GetColor(size_t layerIndex) const
   return dp::Color(m_data.m_layers[layerIndex].m_color.m_rgba);
 }
 
+void Track::SetColor(dp::Color color)
+{
+  m_isDirty = true;
+  m_data.m_layers[0].m_color.m_rgba = color.GetRGBA();
+}
+
 float Track::GetWidth(size_t layerIndex) const
 {
   CHECK_LESS(layerIndex, m_data.m_layers.size(), ());

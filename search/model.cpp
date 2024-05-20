@@ -55,13 +55,14 @@ public:
     Classificator const & c = classif();
 
     auto paths = {
-        "amenity", "healthcare", "historic", "office", "railway", "shop", "sport", "tourism", "craft"
+        "amenity",  "craft", "healthcare", "historic", "leisure", "office", "railway", "shop", "sport", "tourism",
     };
     for (auto const & path : paths)
       m_types.push_back(c.GetTypeByPath({path}));
   }
 };
 
+/// @todo Should be merged/replaced with ftypes::IsPoiChecker?
 class IsPoiChecker
 {
 public:
@@ -78,32 +79,36 @@ class IsComplexPoiChecker : public ftypes::BaseChecker
 {
   IsComplexPoiChecker() : ftypes::BaseChecker()
   {
-    Classificator const & c = classif();
-    base::StringIL const paths[] = {{"aeroway", "aerodrome"},
-                                    {"amenity", "hospital"},
-                                    {"amenity", "university"},
-                                    {"building", "train_station"},
-                                    {"historic", "archaeological_site"},
-                                    {"historic", "castle"},
-                                    {"historic", "fort"},
-                                    {"landuse", "cemetery"},
-                                    {"landuse", "churchyard"},
-                                    {"landuse", "commercial"},
-                                    {"landuse", "forest"},
-                                    {"landuse", "industrial"},
-                                    {"landuse", "retail"},
-                                    {"leisure", "garden"},
-                                    {"leisure", "nature_reserve"},
-                                    {"leisure", "park"},
-                                    {"leisure", "stadium"},
-                                    {"leisure", "water_park"},
-                                    {"natural", "beach"},
-                                    {"office", "company"},
-                                    {"railway", "station"},
-                                    {"shop", "mall"},
-                                    {"tourism", "museum"},
-                                    {"tourism", "gallery"}};
+    // For MatchPOIsWithParent matching. Some entries may be controversial here, but keep as-is for now.
+    // POI near "Complex POI" matching.
+    base::StringIL const paths[] = {
+        {"aeroway", "aerodrome"},
+        {"amenity", "hospital"},
+        {"amenity", "university"},
+        {"building", "train_station"},
+        {"historic", "archaeological_site"},
+        {"historic", "castle"},
+        {"historic", "fort"},
+        {"landuse", "cemetery"},
+        {"landuse", "churchyard"},
+        {"landuse", "commercial"},
+        {"landuse", "forest"},
+        {"landuse", "industrial"},
+        {"landuse", "retail"},
+        {"leisure", "garden"},
+        {"leisure", "nature_reserve"},
+        {"leisure", "park"},
+        {"leisure", "stadium"},
+        {"leisure", "water_park"},
+        {"natural", "beach"},
+        {"office", "company"},
+        {"railway", "station"},
+        {"shop", "mall"},
+        {"tourism", "museum"},
+        {"tourism", "gallery"}
+    };
 
+    Classificator const & c = classif();
     for (auto const & path : paths)
       m_types.push_back(c.GetTypeByPath(path));
   }

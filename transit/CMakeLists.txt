@@ -20,7 +20,14 @@ set(SRC
 
 omim_add_library(${PROJECT_NAME} ${SRC})
 
-target_link_libraries(${PROJECT_NAME} PUBLIC jansson)
+target_link_libraries(${PROJECT_NAME}
+  PUBLIC
+    base
+    coding
+    cppjansson
+    geometry
+    indexer
+)
 
 if (PLATFORM_DESKTOP)
     add_subdirectory(world_feed)

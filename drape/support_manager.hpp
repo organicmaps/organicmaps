@@ -35,14 +35,13 @@ public:
   uint32_t GetMaxTextureSize() const { return m_maxTextureSize; }
 
   // These functions can be used without manager initialization.
-  void ForbidVulkan();
+  static void ForbidVulkan();
 
   using Version = std::array<uint32_t, 3>;
-  bool IsVulkanForbidden() const;
-  bool IsVulkanForbidden(std::string const & deviceName,
-                         Version apiVersion, Version driverVersion) const;
-  bool IsVulkanTexturePartialUpdateBuggy(int sdkVersion, std::string const & deviceName,
-                                         Version apiVersion, Version driverVersion) const;
+  static bool IsVulkanForbidden();
+  static bool IsVulkanForbidden(std::string const & deviceName, Version apiVersion, Version driverVersion) ;
+  static bool IsVulkanTexturePartialUpdateBuggy(int sdkVersion, std::string const & deviceName,
+                                                Version apiVersion, Version driverVersion);
 
 private:
   struct Configuration;

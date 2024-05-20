@@ -50,7 +50,17 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Tải xuống đã thất bại";
 
-"about_menu_title" = "Giới thiệu về Organic Maps";
+/* Text in About screen */
+"about_headline" = "Miễn phí cho mọi người, được làm bằng tình yêu";
+
+/* Text in About screen */
+"about_proposition_1" = "• Không có quảng cáo, không theo dõi, không thu thập dữ liệu";
+
+/* Text in About screen */
+"about_proposition_2" = "• Không hao pin, hoạt động offline";
+
+/* Text in About screen */
+"about_proposition_3" = "• Nhanh chóng, tối giản, được phát triển bởi cộng đồng";
 
 "close" = "Đóng";
 
@@ -61,9 +71,6 @@
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Thêm Bộ Mới";
-
-/* Bookmark Color dialog title */
-"bookmark_color" = "Đánh dấu Màu sắc";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "Đánh dấu Tên Bộ";
@@ -92,74 +99,77 @@
 
 /********** Search categories **********/
 
-/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "Ăn ở đâu";
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
+"category_eat" = "Ăn ở đâu";
 
-/* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Cửa hàng tạp hóa";
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! */
+"category_food" = "Cửa hàng tạp hóa";
 
-/* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "Giao thông";
+/* Search category for public transport; any changes should be duplicated in categories.txt @category_transport! */
+"category_transport" = "Giao thông";
 
-/* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Khí đốt";
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
+"category_fuel" = "Khí đốt";
 
-/* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "đỗ xe";
+/* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
+"category_parking" = "đỗ xe";
 
-/* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Đi mua sắm";
+/* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
+"category_shopping" = "Đi mua sắm";
 
-/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "Đồ cũ";
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
+"category_secondhand" = "Đồ cũ";
 
-/* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "Khách sạn";
+/* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
+"category_hotel" = "Khách sạn";
 
-/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Diểm tham quan";
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
+"category_tourism" = "Diểm tham quan";
 
-/* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "Giải trí";
+/* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
+"category_entertainment" = "Giải trí";
 
-/* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "ATM";
+/* Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! */
+"category_atm" = "ATM";
 
-/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "Cuộc sống về đêm";
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! */
+"category_nightlife" = "Cuộc sống về đêm";
 
-/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Kỳ nghỉ gia đình";
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! */
+"category_children" = "Kỳ nghỉ gia đình";
 
-/* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "Ngân hàng";
+/* Search category for banks; any changes should be duplicated in categories.txt @category_bank! */
+"category_bank" = "Ngân hàng";
 
-/* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "Hiệu thuốc";
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! */
+"category_pharmacy" = "Hiệu thuốc";
 
-/* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "Bệnh viện";
+/* Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! */
+"category_hospital" = "Bệnh viện";
 
-/* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "Nhà vệ sinh";
+/* Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! */
+"category_toilet" = "Nhà vệ sinh";
 
-/* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "Bưu điện";
+/* Search category for post offices; any changes should be duplicated in categories.txt @category_post! */
+"category_post" = "Bưu điện";
 
-/* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "Cảnh sát";
+/* Search category for police; any changes should be duplicated in categories.txt @category_police! */
+"category_police" = "Cảnh sát";
 
-/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi";
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
+"category_wifi" = "WiFi";
 
-/* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "Tái chế rác thải";
+/* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
+"category_recycling" = "Tái chế rác thải";
 
-/* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "Nước";
+/* Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type */
+"category_water" = "Nước";
 
-/* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "Đối với RV";
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
+"category_rv" = "Đối với RV";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
@@ -200,10 +210,7 @@
 "done" = "Xong";
 
 /* Prints version number in About dialog */
-"version" = "Phiên bản: %@";
-
-/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "Dữ liệu OpenStreetMap: %@";
+"version" = "Phiên bản Organic Maps: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Dấu vết";
@@ -217,8 +224,14 @@
 
 "pref_zoom_title" = "Nút Phóng to/Thu nhỏ";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "Chế độ ban đêm";
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Giao diện";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Sáng";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Tối";
 
 /* Generic «Off» string */
 "off" = "Tắt";
@@ -240,6 +253,12 @@
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Hướng dẫn bằng Giọng nói";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Thông báo tên đường";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Nếu bật, sẽ đọc to tên đường hoặc lối ra để rẽ vào.";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Ngôn ngữ Giọng nói";
@@ -277,18 +296,6 @@
 "news" = "Tin tức";
 
 /* Text in menu */
-"github" = "GitHub";
-
-/* Text in menu */
-"telegram" = "Telegram";
-
-/* Text in menu */
-"matrix" = "[Matrix]";
-
-/* Text in menu */
-"mastodon" = "Mastodon";
-
-/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -299,9 +306,6 @@
 
 /* Text in the editor */
 "vk" = "VK";
-
-/* Text in menu */
-"openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
 "rate_the_app" = "Cho điểm ứng dụng";
@@ -315,14 +319,23 @@
 /* Button in the main menu */
 "donate" = "Quyên tặng";
 
-/* Button in the main Help dialog */
-"how_to_support_us" = "Hỗ trợ dự án";
+/* Tex label above the Donate button */
+"donate_description" = "Hãy quyên góp để cùng nhau xây dựng những bản đồ tốt nhất!";
 
 /* Button in the main Help dialog */
 "copyright" = "Bản quyền";
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Báo cáo lỗi";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Báo cáo hoặc sửa dữ liệu bản đồ không chính xác";
+
+/* Button in the About screen */
+"volunteer" = "Tình nguyện";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Theo dõi và liên hệ với chúng tôi:";
 
 /* Alert text */
 "email_error_body" = "Trình khách email này chưa được thiết lập. Bạn vui lòng cấu hình nó hoặc sử dụng một cách khác để liên hệ với chúng tôi tại %@";
@@ -622,6 +635,8 @@
 
 "login" = "Đăng nhập";
 
+"login_osm" = "Đăng nhập vào OpenStreetMap";
+
 "forgot_password" = "Quên mật khẩu?";
 
 "osm_account" = "Tài khoản OSM";
@@ -696,6 +711,9 @@
 
 "editor_edit_place_name_hint" = "Tên địa điểm";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Vì nó được viết bằng ngôn ngữ địa phương";
+
 "editor_edit_place_category_title" = "Thể loại";
 
 "whatsnew_editor_message_1" = "Nhập các địa điểm mới vào bản đồ, và trực tiếp chỉnh sửa những địa điểm hiện có trên ứng dụng.";
@@ -703,6 +721,9 @@
 "dialog_incorrect_feature_position" = "Thay đổi địa điểm";
 
 "message_invalid_feature_position" = "Một đối tượng không thể đặt được ở đây";
+
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Dữ liệu OpenStreetMap do cộng đồng tạo ra kể từ %@. Tìm hiểu thêm về cách chỉnh sửa và cập nhật bản đồ tại OpenStreetMap.org";
 
 "login_to_make_edits_visible" = "Đăng nhập để người dùng khác có thể nhìn thấy những thay đổi bạn đã thực hiện.";
 
@@ -746,16 +767,6 @@
 
 "downloader_no_downloaded_maps_message" = "Tải về bản đồ để tìm địa điểm và định hướng ngoại tuyến.";
 
-/* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "Tiếp tục phát hiện địa điểm hiện tại của bạn?";
-
-/* Error that appears after certain time without location. */
-"current_location_unknown_message" = "Chưa biết địa điểm hiện tại. Có thể bạn đang ở trong một tòa nhà hoặc đường hầm.";
-
-"current_location_unknown_continue_button" = "Tiếp tục";
-
-"current_location_unknown_stop_button" = "Dừng";
-
 "current_location_unknown_error_title" = "Chưa biết địa điểm hiện tại.";
 
 "current_location_unknown_error_message" = "Có lỗi khi tìm kiếm địa điểm của bạn. Đảm bảo rằng thiết bị của bạn hoạt động tốt và thử lại sau.";
@@ -770,6 +781,14 @@
 
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Chọn Khi Đang Dùng Ứng dụng";
+
+"location_services_disabled_on_device_2" = "2. Chọn Quyền riêng tư";
+
+"location_services_disabled_on_device_3" = "3. Chọn Dịch vụ định vị";
+
+"location_services_disabled_on_device_4" = "4. Bật Dịch vụ định vị";
+
+"location_services_disabled_on_device_additional_message" = "Hoặc tiếp tục sử dụng Bản đồ không phải trả tiền mà không có Vị trí";
 
 /* abbreviation for meters */
 "m" = "m";
@@ -815,7 +834,7 @@
 
 "placepage_delete_bookmark_button" = "Xóa Dấu Trang";
 
-"editor_edits_sent_message" = "Những thay đổi đề nghị của bạn đã được gửi";
+"editor_edits_sent_message" = "Ghi chú của bạn sẽ được gửi tới OpenStreetMap";
 
 "editor_comment_hint" = "Nhận xét…";
 
@@ -850,7 +869,7 @@
 
 "editor_share_to_all_dialog_message_2" = "Các biên tập viên của OpenStreetMap sẽ kiểm tra các thay đổi và liên hệ với bạn nếu họ có bất kỳ câu hỏi nào.";
 
-"navigation_stop_button" = "dừng";
+"navigation_stop_button" = "Dừng";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Tắt ghi lại tuyến đường đã đi gần đây của bạn?";
@@ -861,9 +880,6 @@
 "sharing_call_action_look" = "Xem";
 
 "recent_track_background_dialog_message" = "Organic Maps sử dụng định vị của bạn trong ứng dụng chạy nền để ghi lại tuyến đường đã đi gần đây của bạn.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps là một ứng dụng bản đồ ngoại tuyến mã nguồn mở và miễn phí. Không quảng cáo. Không theo dõi. Nếu bạn thấy lỗi trên bản đồ, hãy sửa lỗi đó trong OpenStreetMap. Dự án được tạo ra bởi những người đam mê trong thời gian rảnh của chúng tôi, vì vậy chúng tôi cần phản hồi và hỗ trợ của bạn.";
 
 "general_settings" = "Thiết lập chung";
 
@@ -925,6 +941,12 @@
 "start_from_my_position" = "Bắt đầu từ";
 
 "profile_authorization_error" = "Rất tiếc, đã có lỗi xảy ra. Hãy thử đăng nhập lại.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Vui lòng đăng nhập vào OpenStreetMap để tự động tải lên tất cả các chỉnh sửa bản đồ của bạn. Tìm hiểu thêm";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "tại đây";
 
 "core_entrance" = "Lối vào";
 
@@ -1005,15 +1027,16 @@
 
 "speedcams_alert_title" = "Tăn tốc độ máy ảnh";
 
-/* Generic «Always» string */
-"always" = "Luôn luôn";
-
-/* Generic «Never» string */
-"never" = "Không bao giờ";
-
 "place_description_title" = "Mô tả Địa điểm";
 
-"speedcams_notice_message" = "Tự động - Cảnh báo về speedcam nếu có nguy cơ vượt quá giới hạn tốc độ\nLuôn luôn - Luôn cảnh báo về speedcams\nKhông bao giờ - Không bao giờ cảnh báo về speedcams";
+/* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
+"pref_tts_speedcams_auto" = "Cảnh báo về việc chạy quá tốc độ";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Luôn cảnh báo";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Không bao giờ cảnh báo";
 
 "power_managment_title" = "Chế độ tiết kiệm năng lượng";
 
@@ -1120,6 +1143,8 @@
 "sort_distance" = "Sắp xếp theo khoảng cách";
 
 "sort_date" = "Sắp xếp theo ngày";
+
+"sort_name" = "Sắp xếp theo tên";
 
 "week_ago_sorttype" = "Tuần trước";
 
@@ -1242,8 +1267,31 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Bạn hiện đang sử dụng bản đồ không phải trả tiền trên màn hình điện thoại";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Bạn hiện đang sử dụng bản đồ không phải trả tiền trên màn hình ô tô";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Tiếp tục trên điện thoại";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Đến màn hình ô tô";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Đi bộ đường dài";
+
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Xuất tất cả Dấu trang và Bản nhạc";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "Thay đổi màu sắc";
+
+/* Main screen title "Map" displayed in the navigation back button's menu. */
+"map" = "Bản đồ";
+
+"drive_through" = "Lái xe qua";
 
 
 /********** Types **********/
@@ -1296,7 +1344,7 @@
 
 "type.amenity.bar" = "Quán bar";
 
-"type.amenity.bbq" = "Điểm cắm trại";
+"type.amenity.bbq" = "Nướng thịt nướng";
 
 "type.amenity.bench" = "Xe đạp";
 
@@ -1359,6 +1407,8 @@
 "type.amenity.doctors" = "Bác sĩ";
 
 "type.amenity.drinking_water" = "Nước uống";
+
+"type.drinking_water.yes" = "Nước uống";
 
 "type.amenity.driving_school" = "Trường lái xe";
 
@@ -1539,7 +1589,17 @@
 
 "type.amenity.school" = "Trường học";
 
+/* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "Chổ nương thân";
+
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "Chổ nương thân";
+
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
+"type.amenity.shelter.basic_hut" = "Túp lều Bivouac";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
+"type.amenity.shelter.lean_to" = "Lean-to Shelter";
 
 "type.amenity.public_bath" = "Nhà tắm công cộng";
 
@@ -1647,43 +1707,18 @@
 
 "type.boundary.administrative" = "Administrative Boundary";
 
-"type.boundary.administrative.10" = "Administrative Boundary";
-
-"type.boundary.administrative.11" = "Administrative Boundary";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "National Border";
 
-"type.boundary.administrative.3" = "Administrative Boundary";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Regional Boundary";
 
-"type.boundary.administrative.4" = "Administrative Boundary";
-
-"type.boundary.administrative.5" = "Administrative Boundary";
-
-"type.boundary.administrative.6" = "Administrative Boundary";
-
-"type.boundary.administrative.7" = "Administrative Boundary";
-
-"type.boundary.administrative.8" = "Administrative Boundary";
-
-"type.boundary.administrative.9" = "Administrative Boundary";
-
-"type.boundary.administrative.city" = "City Boundary";
-
-"type.boundary.administrative.country" = "National Border";
-
-"type.boundary.administrative.county" = "County Boundary";
-
-"type.boundary.administrative.municipality" = "Municipality Boundary";
-
-"type.boundary.administrative.nation" = "National Border";
-
-"type.boundary.administrative.region" = "Regional Boundary";
-
-"type.boundary.administrative.state" = "State Boundary";
-
-"type.boundary.administrative.suburb" = "Suburb Boundary";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Regional Boundary";
 
 "type.boundary.national_park" = "Công viên quốc gia";
+
+"type.boundary.aboriginal_lands" = "Đất bản địa";
 
 "type.boundary.protected_area" = "Khu bảo tồn";
 
@@ -1955,7 +1990,7 @@
 
 "type.entrance.exit" = "Lối ra";
 
-"type.fee.yes" = "💲";
+"type.fee.yes" = "$";
 
 "type.fee.no" = "Miễn phí";
 
@@ -2024,22 +2059,10 @@
 
 "type.highway.footway.crossing" = "Vạch qua đường";
 
-"type.highway.footway.alpine_hiking" = "Đường";
-
 "type.highway.footway.area" = "Đường";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Cầu";
-
-"type.highway.footway.demanding_alpine_hiking" = "Đường";
-
-"type.highway.footway.demanding_mountain_hiking" = "Đường";
-
-"type.highway.footway.difficult_alpine_hiking" = "Đường";
-
-"type.highway.footway.hiking" = "Đường";
-
-"type.highway.footway.mountain_hiking" = "Đường";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Đường hầm";
@@ -2074,26 +2097,20 @@
 
 "type.highway.path" = "Đường";
 
-"type.highway.path.alpine_hiking" = "Đường";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Đường";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Đường";
 
 "type.highway.path.bicycle" = "Đường";
+
+"type.highway.footway.bicycle" = "Đường";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Cầu";
 
-"type.highway.path.demanding_alpine_hiking" = "Đường";
-
-"type.highway.path.demanding_mountain_hiking" = "Đường";
-
-"type.highway.path.difficult_alpine_hiking" = "Đường";
-
-"type.highway.path.hiking" = "Đường";
-
 "type.highway.path.horse" = "Đường";
-
-"type.highway.path.mountain_hiking" = "Đường";
-
-"type.highway.path.permissive" = "Đường";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Đường hầm";
@@ -2216,17 +2233,7 @@
 
 "type.highway.track.grade1" = "Phố";
 
-"type.highway.track.grade2" = "Phố";
-
-"type.highway.track.grade3" = "Phố";
-
-"type.highway.track.grade4" = "Phố";
-
-"type.highway.track.grade5" = "Phố";
-
 "type.highway.track.no.access" = "Phố";
-
-"type.highway.track.permissive" = "Phố";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Đường hầm";
@@ -2436,8 +2443,6 @@
 
 "type.landuse.education" = "Educational Facility";
 
-"type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "Đất nông nghiệp";
 
 "type.landuse.farmyard" = "Farmyard";
@@ -2508,11 +2513,11 @@
 
 "type.leisure.golf_course" = "Sân gôn";
 
+"type.leisure.miniature_golf" = "Minigolf";
+
 "type.leisure.hackerspace" = "Không gian tin tặc";
 
 "type.leisure.ice_rink" = "Ice Rink";
-
-"type.leisure.landscape_reserve" = "Landscape Reserve";
 
 "type.leisure.marina" = "Marina";
 
@@ -2618,7 +2623,14 @@
 
 "type.natural" = "Tự nhiên";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "Đá trần";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Ván lợp";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Sàng";
 
 "type.natural.bay" = "Vịnh";
 
@@ -3715,9 +3727,10 @@
 
 "type.tourism.aquarium" = "Bể nuôi cá";
 
-"type.tourism.alpine_hut" = "Nhà ở trên núi";
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "Nhà nghỉ trên núi";
 
-"type.tourism.apartment" = "Căn hộ";
+"type.tourism.apartment" = "Căn hộ nghỉ dưỡng";
 
 "type.tourism.artwork" = "Du lịch";
 
@@ -3731,7 +3744,7 @@
 
 "type.tourism.attraction" = "Hấp dẫn";
 
-"type.tourism.attraction.animal" = "Hấp dẫn";
+"type.attraction.animal" = "Bao vây động vật";
 
 "type.tourism.attraction.specified" = "Hấp dẫn";
 
@@ -3739,7 +3752,8 @@
 
 "type.tourism.caravan_site" = "Khu lễ hội hóa trang";
 
-"type.tourism.chalet" = "Khách sạn";
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "Nha nghi";
 
 "type.tourism.gallery" = "Diểm tham quan";
 
@@ -3767,12 +3781,13 @@
 
 "type.tourism.picnic_site" = "Điểm cắm trại";
 
-"type.tourism.resort" = "Khu nghỉ dưỡng";
+"type.leisure.resort" = "Khu nghỉ dưỡng";
 
 "type.tourism.theme_park" = "Diểm tham quan";
 
 "type.tourism.viewpoint" = "Điểm nhìn";
 
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "Nhà tạm trú";
 
 "type.tourism.zoo" = "Vườn bách thú";
@@ -3814,8 +3829,6 @@
 "type.waterway.river" = "Sông";
 
 "type.waterway.river.tunnel" = "Sông";
-
-"type.waterway.riverbank" = "Sông";
 
 "type.waterway.stream" = "Sông";
 

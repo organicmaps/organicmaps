@@ -15,11 +15,6 @@
 
 namespace ge0
 {
-std::array<std::string_view, 6> const kGe0Prefixes = {{
-  "om://", "http://omaps.app/", "https://omaps.app/",
-  "ge0://", "http://ge0.me/", "https://ge0.me/"
-}};
-
 Ge0Parser::Ge0Parser()
 {
   for (size_t i = 0; i < 256; ++i)
@@ -44,7 +39,7 @@ bool Ge0Parser::Parse(std::string const & url, Result & result)
   // Alternative format (differs only in the prefix):
   // http://omaps.app/ZCoordba64/Name
 
-  for (std::string_view prefix : kGe0Prefixes)
+  for (auto prefix : kGe0Prefixes)
   {
     if (strings::StartsWith(url, prefix))
       return ParseAfterPrefix(url, prefix.size(), result);

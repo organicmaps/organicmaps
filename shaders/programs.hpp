@@ -7,6 +7,7 @@
 namespace gpu
 {
 // Programs in enum are in the order of rendering priority.
+// Each program should have shaders assigned in GL/shader_index.txt and metal_program_pool.mm
 enum class Program
 {
   ColoredSymbol = 0,
@@ -16,7 +17,6 @@ enum class Program
   BookmarkAnim,
   TextOutlined,
   Text,
-  TextFixed,
   TextStaticOutlinedGui,
   TextOutlinedGui,
   Area,
@@ -24,10 +24,11 @@ enum class Program
   Area3d,
   Area3dOutline,
   Line,
-  CapJoin,
   TransitCircle,
   DashedLine,
   PathSymbol,
+  TransparentArea,
+  CapJoin,
   HatchingArea,
   TexturingGui,
   Ruler,
@@ -58,7 +59,6 @@ enum class Program
   BookmarkAnimAboveTextBillboard,
   TextOutlinedBillboard,
   TextBillboard,
-  TextFixedBillboard,
   Traffic,
   TrafficLine,
   TrafficCircle,
@@ -80,7 +80,6 @@ inline std::string DebugPrint(Program p)
   case Program::BookmarkAnim: return "BookmarkAnim";
   case Program::TextOutlined: return "TextOutlined";
   case Program::Text: return "Text";
-  case Program::TextFixed: return "TextFixed";
   case Program::TextStaticOutlinedGui: return "TextStaticOutlinedGui";
   case Program::TextOutlinedGui: return "TextOutlinedGui";
   case Program::Area: return "Area";
@@ -92,6 +91,7 @@ inline std::string DebugPrint(Program p)
   case Program::TransitCircle: return "TransitCircle";
   case Program::DashedLine: return "DashedLine";
   case Program::PathSymbol: return "PathSymbol";
+  case Program::TransparentArea: return "TransparentArea";
   case Program::HatchingArea: return "HatchingArea";
   case Program::TexturingGui: return "TexturingGui";
   case Program::Ruler: return "Ruler";
@@ -122,7 +122,6 @@ inline std::string DebugPrint(Program p)
   case Program::BookmarkAnimAboveTextBillboard: return "BookmarkAnimAboveTextBillboard";
   case Program::TextOutlinedBillboard: return "TextOutlinedBillboard";
   case Program::TextBillboard: return "TextBillboard";
-  case Program::TextFixedBillboard: return "TextFixedBillboard";
   case Program::Traffic: return "Traffic";
   case Program::TrafficLine: return "TrafficLine";
   case Program::TrafficCircle: return "TrafficCircle";

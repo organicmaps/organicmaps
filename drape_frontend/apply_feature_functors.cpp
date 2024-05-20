@@ -130,7 +130,7 @@ void ExtractLineParams(LineRuleProto const & lineRule, LineViewParams & params)
     int const count = dd.dd_size();
     params.m_pattern.reserve(count);
     for (int i = 0; i < count; ++i)
-      params.m_pattern.push_back(dp::PatternFloat2Pixel(std::max(dd.dd(i) * scale, 1.0)));
+      params.m_pattern.push_back(dp::PatternFloat2Pixel(dd.dd(i) * scale));
   }
 
   switch (lineRule.cap())
@@ -166,8 +166,6 @@ void CaptionDefProtoToFontDecl(CaptionDefProto const * capRule, dp::FontDecl & p
 
   if (capRule->stroke_color() != 0)
     params.m_outlineColor = ToDrapeColor(capRule->stroke_color());
-  else
-    params.m_isSdf = df::VisualParams::Instance().IsSdfPrefered();
 }
 
 void ShieldRuleProtoToFontDecl(ShieldRuleProto const * shieldRule, dp::FontDecl & params)
@@ -177,8 +175,6 @@ void ShieldRuleProtoToFontDecl(ShieldRuleProto const * shieldRule, dp::FontDecl 
   params.m_size = static_cast<float>(std::max(kMinVisibleFontSize, shieldRule->height() * vs));
   if (shieldRule->text_stroke_color() != 0)
     params.m_outlineColor = ToDrapeColor(shieldRule->text_stroke_color());
-  else
-    params.m_isSdf = df::VisualParams::Instance().IsSdfPrefered();
 }
 
 dp::Anchor GetAnchor(int offsetX, int offsetY)
@@ -937,7 +933,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   textParams.m_startOverlayRank = dp::OverlayRank1;
 
   TextLayout textLayout;
-  textLayout.Init(strings::MakeUniString(roadNumber), font.m_size, font.m_isSdf, texMng);
+  textLayout.Init(strings::MakeUniString(roadNumber), font.m_size, texMng);
 
   // Calculate width and height of a shield.
   shieldPixelSize.x = textLayout.GetPixelLength() + 2.0 * borderWidth;

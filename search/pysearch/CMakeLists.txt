@@ -26,13 +26,12 @@ omim_link_libraries(
   bsdiff
   ICU::i18n
   cppjansson
-  oauthcpp
   opening_hours
   protobuf
   pugixml
   succinct
   ${Boost_LIBRARIES}
-  ${LIBZ}
+  ZLIB::ZLIB
 )
 
 link_qt5_core(${PROJECT_NAME})

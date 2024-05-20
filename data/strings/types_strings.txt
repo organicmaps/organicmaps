@@ -28,7 +28,7 @@
     nb = Adresse/blokk
     nl = Adres/blok
     pl = Adres/Blok
-    pt = Endereço/Bloco
+    pt = Morada/Bloco
     pt-BR = Endereço/Bloco
     ro = Adresă/Bloc
     ru = Адрес/Блок
@@ -96,6 +96,7 @@
     pt = Teleférico
     pt-BR = Teleférico
     ru = Канатная дорога
+    sk = Lanovka
     tr = Teleferik
     uk = Канатна дорога
     zh-Hans = 缆车
@@ -122,6 +123,7 @@
     pt = Telecadeira
     pt-BR = Telecadeira
     ru = Кресельная канатная дорога
+    sk = Sedačková lanovka
     tr = Telesiyej
     uk = Канатна дорога
     zh-Hans = 登山吊椅
@@ -147,6 +149,7 @@
     pt = Telesquis
     pt-BR = Telesquis
     ru = Бугельная канатная дорога
+    sk = Vlek
     tr = Teleferik hattı
     uk = Канатна дорога
     zh-Hans = 缆车要素
@@ -173,6 +176,7 @@
     pt = Telecabine
     pt-BR = Telecabine
     ru = Канатная дорога
+    sk = Kabínová lanovka
     tr = Teleferik
     uk = Канатна дорога
     zh-Hans = 循环式索道
@@ -329,7 +333,7 @@
     pt-BR = Aeroporto internacional
     ro = Aeroport
     ru = Международный аэропорт
-    sk = Letisko
+    sk = Medzinárodné letisko
     sv = Flygplats
     th = สนามบิน
     tr = Uluslararası Havalimanı
@@ -355,6 +359,7 @@
     pt = Plataforma de estacionamento de aviões
     pt-BR = Plataforma de estacionamento de aviões
     ru = Перрон
+    sk = Odbavovacia plocha
     tr = Peron
     uk = Перон
     zh-Hans = 机场停机坪
@@ -376,8 +381,9 @@
     nl = Gate
     pl = Wyjście lotniskowe
     pt = Porta de embarque
-    pt-BR = Porta de embarque
+    pt-BR = Portão de embarque
     ru = Выход на посадку
+    sk = Odletová brána
     tr = Geçit
     uk = Вихід на посадку
     zh-Hans = 登机口
@@ -438,6 +444,7 @@
     pt = Pista de aeroporto ou aeródromo
     pt-BR = Pista de aeroporto ou aeródromo
     ru = Взлётно-посадочная полоса
+    sk = Pristávacia dráha
     tr = Pist
     uk = Злітно-посадкова смуга
     zh-Hans = 机场跑道
@@ -461,6 +468,7 @@
     pt = Faixa de manobras
     pt-BR = Pista de rolagem
     ru = Рулёжная дорожка
+    sk = Rolovacia dráha
     tr = Taksi yolu
     uk = Рульова дорiжка
     zh-Hans = 滑行道
@@ -484,6 +492,7 @@
     pt = Terminal de passageiros
     pt-BR = Aerogare de passageiros
     ru = Терминал
+    sk = Terminál
     tr = Terminal
     uk = Термінал
     zh-Hans = 航站楼
@@ -506,7 +515,7 @@
     fi = Infrastruktuurikohteet
     fr = Infrastructures
     hi = सुख सुविधा
-    hu = Infrastruktúra
+    hu = Szolgáltatás
     id = Ruang berfasilitas
     it = Struttura
     ja = アメニティー
@@ -584,7 +593,7 @@
     fi = Pankkiautomaatti
     fr = GAB
     hi = एटीएम
-    hu = Pénzautomata
+    hu = Bankautomata
     it = Bancomat
     nb = Minibank
     nl = Geldautomaat
@@ -663,42 +672,48 @@
     zh-Hant = 酒吧
 
   [type.amenity.bbq]
-    en = Picnic Site
-    af = Piekniekterrein
-    ar = مكان نزهة
-    az = Piknik sahəsi
-    cs = Piknik
-    da = Picnic
+    en = Barbecue Grill
+    af = Braai rooster
+    ar = شواية شواء
+    az = Barbekü qril
+    be = Барбекю-грыль
+    bg = Грил барбекю
+    ca = Barbacoa
+    cs = Grilování
+    da = Grill
     de = Grillplatz
-    el = Χώρος εκδρομής
-    es = Picnic
-    et = Piknikuala
-    eu = Piknika
-    fa = مکان پیک نیک
-    fi = Piknikpaikat
-    fr = Terrain de pique-nique
-    hi = बार्बीक्यू
-    hu = Piknikező hely
-    id = Lokasi piknik
-    it = Grill pubblico
-    ja = ピクニック
-    ko = 소풍 사이트
-    mr = सहलीचे ठिकाण
-    nb = Rasteplass
-    nl = Barbecueplaats
-    pl = Pole piknikowe
-    pt = Grelhador público
-    pt-BR = Grelhador público
-    ro = Locații picnic
-    ru = Место для пикника
-    sk = Piknik
-    sv = Picknickplatser
-    th = เว็บไซต์ปิกนิก
-    tr = Piknik Alanı
-    uk = Пікнік
-    vi = Điểm cắm trại
-    zh-Hans = 野餐地点
-    zh-Hant = 野餐
+    el = Ψησταριά μπάρμπεκιου
+    es = Barbacoa
+    es-MX = Parrilla
+    et = Grillgrill
+    eu = Barbakoa parrilla
+    fa = منقل کباب
+    fi = Grilli
+    fr = Grille de barbecue
+    he = מנגל
+    hi = बारबेक्यू
+    hu = Kerti sütögető
+    id = Panggangan barbekyu
+    it = Griglia per barbecue
+    ja = バーベキューグリル
+    ko = 바비큐 그릴
+    lt = Grilis
+    mr = बार्बेक्यू ग्रिल
+    nb = Barbecue-grill
+    nl = Barbecue
+    pl = Grill
+    pt = Churrasqueira
+    ro = Grătar
+    ru = Барбекю-гриль
+    sk = Gril na grilovanie
+    sv = Grill för barbecue
+    sw = Grill ya barbeque
+    th = เตาย่างบาร์บีคิว
+    tr = Barbekü ızgara
+    uk = Барбекю-гриль
+    vi = Nướng thịt nướng
+    zh-Hans = 烧烤架
+    zh-Hant = 烤肉架
 
   [type.amenity.bench]
     en = Bench
@@ -866,8 +881,8 @@
     nb = Uteservering
     nl = Biertuin
     pl = Ogródek piwny
-    pt = Jardim da cerveja
-    pt-BR = Jardim da cerveja
+    pt = Biergarten
+    pt-BR = Biergarten
     ro = Berărie
     ru = Пивная под открытым небом
     sk = Piváreň
@@ -1047,7 +1062,7 @@
     fi = Autovuokraamo
     fr = Location de voitures
     hi = किराए पर गाड़ियाँ
-    hu = Gépkocsi-kölcsönző
+    hu = Autókölcsönző
     id = Rental mobil
     it = Noleggio automobili
     ja = レンタカー
@@ -1084,7 +1099,7 @@
     fi = Autojen yhteiskäyttö
     fr = Station d'autopartage
     hi = गाड़ी साँझा
-    hu = Gépjármű megosztása
+    hu = Közösségi autóbérlés
     id = Berbagi mobil
     it = Car sharing
     ja = カーシェアリング
@@ -1208,8 +1223,9 @@
     nl = Gokken
     pl = Hazard
     pt = Jogatina
+    pt-BR = Casa de jogos de azar
     ro = Jocuri de noroc
-    ru = Играть в азартные игры
+    ru = Азартные игры
     sk = Hazardné hry
     sv = Spelande
     sw = Kamari
@@ -1248,6 +1264,7 @@
     nl = Gamingcentrum voor volwassenen
     pl = Centrum gier dla dorosłych
     pt = Centro de jogos para adultos
+    pt-BR = Centro de jogos para adultos
     ro = Centru de jocuri pentru adulți
     ru = Игровой центр для взрослых
     sk = Centrum hier pre dospelých
@@ -1278,7 +1295,7 @@
     fi = Arcade
     fr = Salle de jeux d'arcade
     he = מִקמֶרֶת
-    hu = Árkád
+    hu = Játékterem
     id = Arkade
     it = Arcade
     ja = アーケード
@@ -1287,7 +1304,8 @@
     nb = Arcade
     nl = Arcade
     pl = Arkada
-    pt = Videogames
+    pt = Salão de jogos
+    pt-BR = Fliperama
     ro = Arcadă
     ru = Аркада
     sk = Arcade
@@ -1316,7 +1334,7 @@
     fi = Latausasema
     fr = Borne de recharge
     hi = चार्जिंग स्टेशन
-    hu = Töltő állomás
+    hu = Töltőállomás
     id = Pusat Pengisian Daya
     it = Stazione di ricarica
     ja = 充電ステーション
@@ -1399,7 +1417,7 @@
     fi = Auton latausasema
     fr = Borne de recharge pour voiture
     he = תחנת טעינה למכוניות
-    hu = Autó töltőállomás
+    hu = Elektromos töltőállomás
     id = Stasiun Pengisian Mobil
     it = Stazione di ricarica per autoveicoli
     ja = 自動車充電ステーション
@@ -1594,7 +1612,7 @@
     fi = Korkeakoulu
     fr = Enseignement post-secondaire
     hi = महाविद्यालय
-    hu = Kollégium
+    hu = Főiskola
     id = Kampus
     it = Collegio
     ja = カレッジ
@@ -1714,7 +1732,7 @@
     fi = Konferenssikeskus
     fr = Centre de conférence
     he = מרכז כנסים
-    hu = Konferencia Központ
+    hu = Konferenciaközpont
     id = Pusat konferensi
     it = Centro conferenze
     ja = カンファレンスセンター
@@ -1887,6 +1905,9 @@
     zh-Hans = 饮用水
     zh-Hant = 飲用水
 
+  [type.drinking_water.yes]
+    ref = type.amenity.drinking_water
+
   [type.amenity.driving_school]
     en = Driving School
     af = Ryskool
@@ -1989,7 +2010,7 @@
     fi = Rahansiirto
     fr = Transfert d'argent
     he = העברת כספים
-    hu = Pénz átutalás
+    hu = Pénzküldés
     id = Transfer uang
     it = Trasferimento di denaro
     ja = 送金
@@ -2404,6 +2425,7 @@
     pt = Cemitério cristão
     pt-BR = Cemitério cristão
     ru = Христианское кладбище
+    sk = Kresťanský cintorín
     tr = Hristiyan Mezarlığı
     uk = Християнський цвинтар
     zh-Hans = 基督教墓地
@@ -2654,7 +2676,7 @@
     fi = Lastauslaituri
     fr = Quai de chargement
     he = רציף טעינה
-    hu = Rakodó
+    hu = Rakodórámpa
     id = Dok pemuatan
     it = Bacino di carico
     ja = 発送センター
@@ -2946,7 +2968,7 @@
     fr = Stationnement privé
     he = תיטרפ הינח
     hi = निजी पार्किंग
-    hu = Saját parkoló
+    hu = Magánparkoló
     id = Parkir pribadi
     it = Parcheggio privato
     ja = 専用駐車場
@@ -2977,7 +2999,7 @@
     da = Parkering
     de = P+R-Parkplatz
     el = Χώρος στάθμευσης
-    es = Aparcamiento
+    es = Aparcamiento disuasorio
     es-MX = Estacionamiento
     et = Parkimine
     eu = Aparkalekua
@@ -2985,7 +3007,7 @@
     fi = Liityntäpysäköinti
     fr = Parking relais
     hi = पार्क करें और सवारी करें
-    hu = Parkoló
+    hu = P+R Parkoló
     id = Parkir
     it = Parcheggio di interscambio
     ja = 駐車場
@@ -3071,7 +3093,7 @@
     fr = Parking privé souterrain
     he = חניה תת קרקעית פרטית
     hi = निजी भूमिगत पार्किंग
-    hu = Privát földalatti parkoló
+    hu = Privát mélygarázs
     id = Parkir bawah tanah pribadi
     it = Parcheggio privato sotterraneo
     ja = 専用地下駐車場
@@ -3113,7 +3135,7 @@
     fi = Kadun puolella pysäköinti
     fr = Stationnement latéral sur voie
     he = חניה בצד הרחוב
-    hu = Utca oldali parkolás
+    hu = Utcai parkolás
     id = Parkir di tepi jalan
     it = Parcheggio laterale alla strada
     ja = 路上駐車
@@ -3157,7 +3179,7 @@
     fi = Yksityinen katu puolella pysäköinti
     fr = Stationnement latéral sur voie privée
     he = חניה פרטית בצד הרחוב
-    hu = Privát utca oldali parkolás
+    hu = Privát utcai parkolás
     id = Parkir sisi jalan pribadi
     it = Strada privata parcheggio laterale
     ja = プライベート・ストリート・サイド・パーキング
@@ -3327,7 +3349,7 @@
     fi = Yksityinen pysäköintialue sisäänkäynti
     fr = Entrée parking privé
     he = כניסה פרטית לחניה
-    hu = Privát parkoló bejárat
+    hu = Privát parkoló bejárata
     id = Pintu masuk parkir pribadi
     it = Ingresso al parcheggio privato
     ja = 専用駐車場入り口
@@ -3458,7 +3480,7 @@
     fi = Maksupääte
     fr = Terminal de paiement
     hi = भुगतान टर्मिनल
-    hu = Fizető terminál
+    hu = Fizetőterminál
     id = Terminal Pembayaran
     it = Terminale di pagamento
     ja = 決済端末
@@ -3565,7 +3587,7 @@
     da = Tempel
     de = Buddhistischer Tempel
     el = Ναός
-    es = Templo
+    es = Templo budista
     et = Tempel
     eu = Tenplua
     fa = گردشگری
@@ -3584,7 +3606,7 @@
     pt-BR = Templo budista
     ro = Templu
     ru = Храм
-    sk = Chrám
+    sk = Budhistický chrám
     sv = Tempel
     th = วัด
     tr = Tapınak
@@ -3622,7 +3644,7 @@
     pt-BR = Igreja cristã
     ro = Biserică
     ru = Церковь
-    sk = Chrám
+    sk = Kostol
     sv = Kyrka
     th = โบสถ์
     tr = Kilise
@@ -3699,9 +3721,10 @@
     nl = Koninkrijkszaal van Jehovah's Getuigen
     pl = Sala Królestwa Świadków Jehowy
     pt = Salão do Reino das Testemunhas de Jeová
+    pt-BR = Salão do Reino das Testemunhas de Jeová
     ro = Sala Împărăției Martorilor lui Iehova
     ru = Зала Царства Свидетелей Иеговы
-    sk = Kráľovstvo Jehovových svedkov
+    sk = Sála Kráľovstva Jehovových svedkov
     sv = Jehovas vittnen Rikets sal
     sw = Ukumbi wa Ufalme wa Mashahidi wa Yehova
     th = ห้องราชอาณาจักรของพยานเยโฮวา
@@ -3720,13 +3743,13 @@
     da = Tempel
     de = Hinduistischer Tempel
     el = Ναός
-    es = Templo
+    es = Templo hindú
     et = Tempel
     eu = Tenplua
     fa = گردشگری
     fi = Hindutemppeli
     hi = मन्दिर
-    hu = Templom
+    hu = Hindu templom
     id = Kuil
     it = Tempio induista
     ja = ヒンドゥー教寺院
@@ -3739,7 +3762,7 @@
     pt-BR = Templo hindu
     ro = Templu
     ru = Храм
-    sk = Chrám
+    sk = Hinduistický chrám
     sv = Tempel
     th = วัด
     tr = Tapınak
@@ -3832,14 +3855,14 @@
     da = Helligdom
     de = Schrein
     el = Ιερό
-    es = Ermita
+    es = Santuario sintoísta
     et = Pühamu
     eu = Ermita
     fa = گردشگری
     fi = Šintopyhäkkö
     fr = Sanctuaire
     hi = शिंतो मंदिर
-    hu = Kegyhely
+    hu = Sinto szentély
     id = Kuil
     it = Santuario shintoista
     ja = 神社
@@ -3852,7 +3875,7 @@
     pt-BR = Templo shintoísta
     ro = Sanctuar
     ru = Святилище
-    sk = Svätyňa
+    sk = Šintoistická svätyňa
     sv = Altare
     th = ศาลเจ้า
     tr = Mabet
@@ -3870,14 +3893,14 @@
     da = Tempel
     de = Tempel
     el = Ναός
-    es = Templo
+    es = Templo taoísta
     et = Tempel
     eu = Tenplua
     fa = گردشگری
     fi = Taolainen temppeli
     fr = Temmple Taoïste
     hi = ताओवादी मंदिर
-    hu = Templom
+    hu = Taoista templom
     id = Kuil
     it = Tempio taoista
     ja = 道教寺院
@@ -3890,7 +3913,7 @@
     pt-BR = Templo taoísta
     ro = Templu
     ru = Храм
-    sk = Chrám
+    sk = Taoistická svätyňa
     sv = Tempel
     th = วัด
     tr = Tapınak
@@ -4033,8 +4056,9 @@
     nl = Gevangenis
     pl = Więzienie
     pt = Prisão
-    pt-BR = Presidiário
+    pt-BR = Prisão
     ru = Тюрьма
+    sk = Väznica
     tr = Hapishane
     uk = В'язниця
     zh-Hans = 监狱
@@ -4064,7 +4088,7 @@
     nl = Kroeg
     pl = Pub
     pt = Pub ou taberna
-    pt-BR = Pub ou buteco
+    pt-BR = Bar ou boteco
     ru = Паб
     sk = Pohostinstvo
     sv = Krog
@@ -4102,7 +4126,7 @@
     pt-BR = Biblioteca livre
     ro = Bibliotecă
     ru = Книгообмен
-    sk = Knižnica
+    sk = Knižná búdka
     sv = Bokskåp
     th = ตู้หนังสือ สถานที่แลกเปลี่ยนหนังสือ
     tr = Kitap Değişimi
@@ -4170,7 +4194,7 @@
     fi = Kierrätysjäteastia
     fr = Conteneur de recyclage
     hi = रीसाइक्लिंग कंटेनर
-    hu = Újrahasznosító tartály
+    hu = Újrahasznosító konténer
     id = Wadah daur ulang
     it = Contenitore per materiali riciclabili
     ja = リサイクルボックス
@@ -4183,7 +4207,7 @@
     pt-BR = Contêiner de reciclagem
     ro = Containere pentru reciclare
     ru = Контейнер для вторсырья
-    sk = Recyklačný odpad
+    sk = Recyklačný kontajner
     sv = Behållare för återvinningsbart avfall
     th = บรรจุภัณฑ์รีไซเคิล
     tr = Atık Toplama Merkezi
@@ -4290,7 +4314,7 @@
     fa = بطریهای شیشهای
     fi = Lasipullot
     fr = Verre
-    hu = Üveg palackok
+    hu = Üvegpalackok
     id = Botol kaca
     it = Contenitori in vetro
     ja = ガラス瓶
@@ -4328,7 +4352,7 @@
     fa = پسماند کاغذ
     fi = Paperi
     fr = Papier usagé
-    hu = Papír hulladék
+    hu = Papírhulladék
     id = Limbah kertas
     it = Rifiuti in carta e cartone
     ja = 紙くず
@@ -4366,7 +4390,7 @@
     fa = پسماند پلاستیک
     fi = Muovi
     fr = Déchets plastiques
-    hu = Műanyag hulladék
+    hu = Műanyaghulladék
     id = Limbah plastik
     it = Rifiuti in plastica
     ja = プラスチックごみ
@@ -4521,6 +4545,7 @@
     pl = Karton
     pt-BR = Papelão
     ru = Картон
+    sk = Kartóny
     tr = Karton
     uk = Картон
 
@@ -4542,6 +4567,7 @@
     pl = Puszki
     pt-BR = Latas
     ru = Жестяные и алюминиевые банки
+    sk = Plechovky
     tr = Teneke ve alüminyum kutular
     uk = Бляшані та алюмінієві банки
 
@@ -4563,6 +4589,7 @@
     pl = Buty
     pt-BR = Sapatos
     ru = Обувь
+    sk = Obuv
     tr = Ayakkabılar
     uk = Взуття
 
@@ -4583,6 +4610,7 @@
     pl = Odpady zielone
     pt-BR = Lixo verde/orgânico
     ru = Органика / Пищевые отходы
+    sk = Biologický odpad
     tr = Yeşil/Organik Atık
     uk = Органіка / Харчові відходи
 
@@ -4604,6 +4632,7 @@
     pl = Kartony po napojach
     pt-BR = Caixa de bebidas
     ru = Тетрапак и аналоги
+    sk = Tetrapaky
     tr = İçecek Kartonları
     uk = Тетрапак та аналоги
 
@@ -4650,6 +4679,7 @@
     et = Hoidmispaagi prügila
     fi = Jäteveden tyhjennyspiste
     fr = Station de vidange
+    hi = सेनेटरी डंप स्टेशन
     it = Scarico acque nere
     nl = Caravantoilet cassette-leegpunt
     pl = Miejsce opróżniania toalety dla kamperów
@@ -4699,10 +4729,13 @@
     zh-Hant = 學校
 
   [type.amenity.shelter]
+    comment = Weather shelter (including sun shelters and natural rock shelters).
     en = Shelter
     af = Skuiling
     ar = ملجأ
     az = Sığınacaq
+    be = Навес
+    bg = Подслон
     cs = Přístřešek
     de = Unterstand
     el = Καταφύγιο
@@ -4712,6 +4745,7 @@
     fa = پناهگاه
     fi = Katos
     fr = Abri
+    he = מחסה
     hi = आश्रय
     hu = Menedék
     id = Tempat penampungan
@@ -4725,15 +4759,77 @@
     pt = Abrigo
     pt-BR = Abrigo
     ro = Adăpost
-    ru = Укрытие
+    ru = Навес
     sk = Prístrešok
     sv = Vindskydd
     th = ที่อยู่อาศัย
     tr = Barınak
-    uk = Укриття
+    uk = Навіс
     vi = Chổ nương thân
     zh-Hans = 庇护所
     zh-Hant = 隱藏處
+
+  [type.amenity.shelter.public_transport]
+    comment = A weather shelter by the public transport stop.
+    ref = type.amenity.shelter
+
+  [type.amenity.shelter.basic_hut]
+    comment = Compared to wilderness_hut its smaller and simpler, without a fireplace.
+    en = Bivouac Hut
+    af = Bivak Hut
+    ar = كوخ إقامة مؤقتة
+    az = Bivouac Daxması
+    be = Хаціна-бівак
+    bg = Колибка за бивак
+    ca = Cabana Bivac
+    cs = Bivakovací Chata
+    da = Bivuakhytte
+    de = Biwakschachtel
+    el = καταφύγιο bivouac
+    es = Cabaña de Vivac
+    es-MX = Cabaña Vivac
+    et = Vivouac-küünla
+    eu = Bivouac Borda
+    fa = کلبه بیواک
+    fi = Bivouac-mökki
+    fr = Cabane de Bivouac
+    he = בקתת לינה
+    hi = द्विवार्षिक झोपड़ी
+    hu = Bivak Kunyhó
+    id = Pondok Bivak
+    it = Capanna di Bivacco
+    ja = ビバーク小屋
+    ko = 비박 오두막
+    lt = Bivako Namelis
+    mr = बिव्होक झोपडी
+    nb = Bivuakkhytte
+    nl = Bivakhut
+    pl = Chata Biwakowa
+    pt = Cabana Básica
+    ro = Baracă de Bivuac
+    ru = Хижина для ночлега
+    sk = Bivaková Chata
+    sv = Bivack Hydda
+    sw = Kibanda cha Bivouac
+    th = กระท่อมพักแรม
+    tr = Bivouac Kulübe
+    uk = Хатинка-бівуак
+    vi = Túp lều Bivouac
+    zh = 露营小屋
+    zh-Hans = 行军床
+    zh-Hant = 露營小屋
+
+  [type.amenity.shelter.lean_to]
+    comment = A traditional 3-walled shelter (one side open), suitable for overnight camping.
+    en = Lean-to Shelter
+    be = Бівальны навес
+    bg = Подслон за бивак
+    de = Lean-to Wetterschutz
+    he = מחסה ללינה
+    pt = Abrigo tipo telheiro
+    pt-BR = Abrigo tipo alpendre
+    ru = Бивачный навес
+    uk = Бівуачний навіс
 
   [type.amenity.public_bath]
     en = Public Bath
@@ -4831,7 +4927,7 @@
     fi = Stripclub
     fr = Club de strip-tease
     he = מועדון חשפנות
-    hu = Stripclub
+    hu = Sztriptízbár
     id = Klub telanjang
     it = Stripclub
     ja = ストリップクラブ
@@ -4878,6 +4974,7 @@
     pt = Táxi
     pt-BR = Táxi
     ru = Такси
+    sk = Taxík
     th = แท็กซี่
     tr = Taksi
     uk = Таксі
@@ -5096,6 +5193,7 @@
     pt = Máquina de venda automática
     pt-BR = Máquina de venda automática
     ru = Торговый автомат
+    sk = Výdajný automat
     tr = Otomat
     uk = Торговий автомат
     zh-Hans = 自动售货机
@@ -5157,6 +5255,7 @@
     pl = Automat z kawą
     pt-BR = Máquina de café
     ru = Кофейный автомат
+    sk = Automat na kávu
     uk = Кавовий автомат
 
   [type.amenity.vending_machine.condoms]
@@ -5177,6 +5276,7 @@
     pl = Automat z prezerwatywami
     pt-BR = Máquina de venda de preservativos
     ru = Автомат с презервативами
+    sk = Automat na kondómy
     uk = Автомат з презервативами
 
   [type.amenity.vending_machine.drinks]
@@ -5235,6 +5335,7 @@
     pl = Automat z jedzeniem
     pt-BR = Máquina de venda de comidas
     ru = Автомат с едой
+    sk = Automat s potravinami
     uk = Автомат з їжею
 
   [type.amenity.vending_machine.newspapers]
@@ -5255,6 +5356,7 @@
     pl = Automat z gazetami
     pt-BR = Máquina de venda de jornais
     ru = Газетный автомат
+    sk = Automat s novinami
     uk = Газетний автомат
 
   [type.amenity.vending_machine.parking_tickets]
@@ -5314,7 +5416,7 @@
     fi = Julkisen liikenteen lippuautomaatti
     fr = Distributeur de billets de transport en commun
     hi = टिकट मशीन
-    hu = Automata jegykiadó tömegközlekedési eszközökhöz
+    hu = Jegyautomata tömegközlekedési eszközökhöz
     id = Mesin penjual otomatis tiket transportasi umum
     it = Biglietteria automatica del trasporto pubblico
     ja = 公共交通機関の券売機
@@ -5355,6 +5457,7 @@
     pl = Automat ze słodyczami
     pt-BR = Máquina de venda de doces
     ru = Автомат со сладостями
+    sk = Automat na sladkosti
     uk = Автомат із солодощами
 
   [type.amenity.vending_machine.excrement_bags]
@@ -5374,6 +5477,7 @@
     pl = Automat z torebkami na odchody
     pt-BR = Saquinhos de lixo
     ru = Пакеты для экскрементов
+    sk = Sáčky na psie exkrementy
     tr = Dışkı Torbası Dağıtıcı
     uk = Мішки для екскрементів
 
@@ -5397,6 +5501,7 @@
     pt = Cacifo
     pt-BR = Armário de encomendas
     ru = Почтомат
+    sk = Balíkomat
     tr = Kilitlenebilen Kutu Dolaplar
     uk = Поштомат
     zh-Hans = 包裹储物柜
@@ -5420,7 +5525,7 @@
     fi = Ajoneuvon tarkastus
     fr = Centre de contrôle technique
     he = לבדיקה טכנית
-    hu = Gépjármű átvizsgálás
+    hu = Járművek műszaki vizsgáztatása
     id = Pemeriksaan kendaraan
     it = Ispezione del veicolo
     ja = 車検
@@ -5517,7 +5622,7 @@
     fi = Roskakori
     fr = Poubelle
     hi = कूडेदान
-    hu = Szemétkosár
+    hu = Szemetes
     id = Kotak sampah
     it = Contenitore per rifiuti
     ja = ゴミ箱
@@ -5595,6 +5700,7 @@
     pl = Stacja przeładunku odpadów
     pt-BR = Estação de transferência de resíduos
     ru = Станция перевалки отходов
+    sk = Prekládková stanica odpadu
     tr = Atık Transfer İstasyonu
     uk = Станція передачі сміття
     zh-Hans = 垃圾转运站
@@ -5616,6 +5722,7 @@
     fa = شیر آب قابل شرب
     fi = Vesipiste
     fr = Point d’eau
+    hi = पानी की टंकी पुनः भरने का स्थान
     hu = Vízvételi pont
     id = Titik Air
     it = Punto acqua
@@ -5657,6 +5764,7 @@
     pt = Barreira
     pt-BR = Barreira
     ru = Преграда
+    sk = Zábrana
     tr = Bariyer
     uk = Перешкода
     zh-Hans = 屏障
@@ -5789,6 +5897,7 @@
     nl = Ketting
     pl = Łańcuch
     ru = Цепь
+    sk = Reťaz
     tr = Zincir
     uk = Ланцюг
 
@@ -5814,6 +5923,7 @@
     pt = Barreira de bicicletas
     pt-BR = Barreira de bicicletas
     ru = Велосипедный барьер
+    sk = Cyklistická zábrana
     tr = Bisiklet Bariyeri
     uk = Велосипедна перешкода
 
@@ -5997,6 +6107,7 @@
     pt = Vedação
     pt-BR = Cerca
     ru = Забор
+    sk = Plot
     tr = Çit
     uk = Огорожа
     zh-Hans = 篱笆
@@ -6057,6 +6168,7 @@
     pt = Sebe
     pt-BR = Sebe
     ru = Живая изгородь
+    sk = Živý plot
     tr = Çit
     zh-Hans = 树篱
 
@@ -6064,6 +6176,7 @@
     ref = type.barrier.gate
     en = Kissing Gate
     af = Voetgangershek
+    es = Puerta peatonal
     et = Suudlemisvärav
     fr = Portillon à chicane mobile
     nl = Voetgangershek
@@ -6127,6 +6240,7 @@
     pt = Muro de retenção
     pt-BR = Muro de retenção
     ru = Поддерживающая стена
+    sk = Oporná stena
     tr = İstinat duvarı
     zh-Hans = 挡土墙
 
@@ -6185,7 +6299,7 @@
     fi = Kääntöportti
     fr = Tourniquet
     he = קרוסלת
-    hu = Fordítókapu
+    hu = Forgókorlát
     id = Pintu putar
     it = Tornello
     ja = ターンスタイル
@@ -6219,7 +6333,7 @@
     da = Bom
     de = Schranke
     el = Ανυψούμενη μπάρα
-    es = Barrera
+    es = Barrera batiente
     et = Tiibvärav
     eu = Hesia
     fa = اسانسور
@@ -6275,7 +6389,7 @@
     pt-BR = Cabine de pedágio
     ro = Cabină de taxare
     ru = Пункт оплаты
-    sk = Mýtne
+    sk = Mýto
     sv = Tullhus
     th = ด่านเก็บเงิน
     tr = Gişe
@@ -6304,6 +6418,7 @@
     pt = Muro
     pt-BR = Muro
     ru = Стена
+    sk = Múr
     tr = Duvar
     uk = Стіна
     zh-Hans = 墙
@@ -6327,6 +6442,7 @@
     pt = Fronteira
     pt-BR = Fronteira
     ru = Граница
+    sk = Hranica
     tr = Sınır
     uk = Кордон
     zh-Hans = 边界
@@ -6350,71 +6466,13 @@
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
     ru = Административная граница
+    sk = Administratívna hranica
     tr = İdari Sınır
     uk = Адміністративний поділ
     zh-Hans = 行政区域界线
 
-  [type.boundary.administrative.10]
-    ref = type.boundary.administrative
-    zh-Hans = 10级行政区域界线
-
-  [type.boundary.administrative.11]
-    ref = type.boundary.administrative
-    zh-Hans = 11级行政区域界线
-
   [type.boundary.administrative.2]
-    ref = type.boundary.administrative.country
-
-  [type.boundary.administrative.3]
-    ref = type.boundary.administrative
-    zh-Hans = 3级行政区域界线
-
-  [type.boundary.administrative.4]
-    ref = type.boundary.administrative
-    zh-Hans = 4级行政区域界线
-
-  [type.boundary.administrative.5]
-    ref = type.boundary.administrative
-    zh-Hans = 5级行政区域界线
-
-  [type.boundary.administrative.6]
-    ref = type.boundary.administrative
-    zh-Hans = 6级行政区域界线
-
-  [type.boundary.administrative.7]
-    ref = type.boundary.administrative
-    zh-Hans = 7级行政区域界线
-
-  [type.boundary.administrative.8]
-    ref = type.boundary.administrative
-    zh-Hans = 8级行政区域界线
-
-  [type.boundary.administrative.9]
-    ref = type.boundary.administrative
-    zh-Hans = 9级行政区域界线
-
-  [type.boundary.administrative.city]
-    en = City Boundary
-    af = Stadsgrens
-    ar = حدود مدينة
-    az = Şəhər limiti
-    es = Frontera de ciudad
-    et = Linna piir
-    eu = Hiriko muga
-    fi = Kaupunginraja
-    fr = Frontière de la ville
-    it = Confine cittadino
-    mr = शहराची सीमा
-    nl = Stadsgrens
-    pl = Granica miasta
-    pt = Fronteira de cidade
-    pt-BR = Fronteira de cidade
-    ru = Граница города
-    tr = Şehir Sınırı
-    uk = Межа міста
-    zh-Hans = 城市行政区域界线
-
-  [type.boundary.administrative.country]
+    comment = Borders between countries.
     en = National Border
     af = Nasionale grens
     ar = حدود دولية
@@ -6427,64 +6485,18 @@
     fr = Frontière nationale
     it = Confine nazionale
     mr = राष्ट्रीय सीमा
-    nl = Landsgrens
+    nl = Natiegrens
     pl = Granica państwa
     pt = Fronteira de país
     pt-BR = Fronteira de país
     ru = Граница страны
+    sk = Národná hranica
     tr = Ulusal Sınır
     uk = Кордон країни
     zh-Hans = 国家行政区域界线
 
-  [type.boundary.administrative.county]
-    en = County Boundary
-    af = Graafskapgrens
-    ar = حدود مقاطعة
-    az = Rayon sərhədi
-    es = Frontera de condado
-    et = Maakonna piir
-    eu = Eskualdeko muga
-    fi = Maakunnanraja
-    fr = Frontière du comté
-    mr = परगणा सीमा
-    nl = Provinciegrens
-    pl = Granica hrabstwa
-    pt = Fronteira de condado
-    pt-BR = Fronteira de condado
-    ru = Граница округа
-    tr = İlçe Sınırı
-    uk = Поділ округа
-    zh-Hans = 县行政区域界线
-
-  [type.boundary.administrative.municipality]
-    en = Municipality Boundary
-    af = Munisipale grens
-    ar = حدود بلدية
-    az = Bələdiyyə sərhədi
-    es = Frontera de municipio
-    et = Valla piir
-    eu = Udalerriko muga
-    fi = Kunnanraja
-    fr = Frontière de la municipalité
-    it = Confini municipale
-    mr = नगरपालिकेची सीमा
-    nl = Gemeentegrens
-    pl = Granica gminy
-    pt = Fronteira de município
-    pt-BR = Fronteira de município
-    ru = Граница муниципалитета
-    tr = Belediye Sınırı
-    zh-Hans = 自治市行政区域界线
-
-  [type.boundary.administrative.nation]
-    ref = type.boundary.administrative.country
-    es = Frontera de nación
-    eu = Nazio muga
-    nl = Natiegrens
-    pt = Fronteira de nação
-    pt-BR = Fronteira de nação
-
-  [type.boundary.administrative.region]
+  [type.boundary.administrative.3]
+    comment = Country's primary subdivision borders, e.g. between regions, provinces, states..
     en = Regional Boundary
     af = Streeksgrens
     ar = حدود منطقة
@@ -6500,48 +6512,13 @@
     pt = Fronteira de região
     pt-BR = Fronteira de região
     ru = Граница региона
+    sk = Hranica regiónu
     tr = Bölgesel Sınır
     uk = Областний поділ
     zh-Hans = 1区域行政区域界线
 
-  [type.boundary.administrative.state]
-    en = State Boundary
-    af = Staatsgrens
-    ar = حدود محافظة
-    az = Dövlət sərhədi
-    es = Frontera de estado
-    et = Osariigi piir
-    eu = Estatuko muga
-    fi = Osavaltion raja
-    it = Confine statale
-    mr = राज्य सीमा
-    nl = Staatsgrens
-    pl = Granica województwa
-    pt = Fronteira de estado
-    pt-BR = Fronteira de estado
-    ru = Граница штата
-    tr = Devlet Sınırı
-    zh-Hans = 州省行政区域界线
-
-  [type.boundary.administrative.suburb]
-    en = Suburb Boundary
-    af = Voorstadgrens
-    ar = حدود ضاحية
-    az = Qonşuluq sərhədi
-    es = Frontera de suburbio
-    et = Eeslinna piir
-    eu = Auzoko muga
-    fi = Esikaupunki
-    fr = Frontière de quartier
-    mr = उपनगर सीमा
-    nl = Buitenwijkgrens
-    pl = Granica przedmieść
-    pt = Fronteira de subúrbio
-    pt-BR = Fronteira de subúrbio
-    ru = Граница пригорода
-    tr = Mahalle Sınırı
-    uk = Приміська межа
-    zh-Hans = 市郊行政区域界线
+  [type.boundary.administrative.4]
+    ref = type.boundary.administrative.3
 
   [type.boundary.national_park]
     en = National Park
@@ -6581,6 +6558,49 @@
     vi = Công viên quốc gia
     zh-Hans = 国家公园
     zh-Hant = 國家公園
+
+  [type.boundary.aboriginal_lands]
+    en = Indigenous Lands
+    af = Inheemse lande
+    ar = أراضي السكان الأصليين
+    az = Yerli torpaqlar
+    be = Тэрыторыі першабытнікаў
+    bg = Земи на коренното население
+    ca = Terres indígenes
+    cs = Domorodá území
+    da = Oprindelige lande
+    de = Indigene länder
+    el = Αυτόχθονες εκτάσεις
+    es = Tierras indígenas
+    et = Põlisrahvaste maad
+    eu = Lurralde autoktonoak
+    fa = سرزمین های بومی
+    fi = Alkuperäiskansojen maat
+    fr = Terres indigènes
+    he = ארצות ילידים
+    hi = स्वदेशी भूमि
+    hu = Bennszülött földek
+    id = Tanah adat
+    it = Terre indigene
+    ja = 先住民の土地
+    ko = 원주민 땅
+    lt = Vietinių gyventojų žemės
+    mr = स्वदेशी जमिनी
+    nb = Urfolksland
+    nl = Inheemse landen
+    pl = Rdzenne ziemie
+    pt = Terras indígenas
+    ro = Terenuri indigene
+    ru = Земли коренных народов
+    sk = Domorodé krajiny
+    sv = Ursprungsbefolkningens marker
+    sw = Ardhi za asilia
+    th = ดินแดนพื้นเมือง
+    tr = Yerli topraklar
+    uk = Землі корінних народів
+    vi = Đất bản địa
+    zh-Hans = 原住民土地
+    zh-Hant = 原住民土地
 
   [type.boundary.protected_area]
     en = Protected Area
@@ -6780,7 +6800,7 @@
     fi = Rautatieasema
     fr = Gare ferroviaire
     hi = रेलवे स्टेशन
-    hu = Vonatmegálló
+    hu = Vasútállomás
     id = Rel kereta api
     it = Stazione ferroviaria
     ja = 鉄道駅
@@ -6821,6 +6841,7 @@
     pt = Armazém
     pt-BR = Armazém
     ru = Склад
+    sk = Sklad
     tr = Depo
     uk = Склад
     zh-Hans = 仓库
@@ -6896,7 +6917,7 @@
     pt = Ofícios
     ro = Meșteșuguri
     ru = Мастерская
-    sk = Remeslo
+    sk = Remeselník
     sv = Hantverk
     sw = Ufundi
     th = งานฝีมือ
@@ -6924,6 +6945,7 @@
     fi = Mehiläishoitaja
     fr = Apiculteur
     he = כוורן
+    hi = शहर की मक्खियां पालनेवाला
     hu = Méhész
     id = Peternak lebah
     it = Apicoltore
@@ -7005,6 +7027,7 @@
     fi = Panimo
     fr = Brasserie artisanale
     he = מבשלה
+    hi = शराब की भठ्ठी
     hu = Sörfőzde
     id = Toko minuman
     it = Birrificio
@@ -7167,6 +7190,7 @@
     fi = Sähkömies
     fr = Électricien
     he = חשמלאי
+    hi = बिजली मिस्त्री
     hu = Villanyszerelő
     id = Tukang listrik
     it = Elettricista
@@ -7207,6 +7231,7 @@
     fi = Elektroniikan korjaus
     fr = Réparation d'appareils électroniques
     he = תיקון אלקטרוניקה
+    hi = इलेक्ट्रॉनिक्स मरम्मत
     hu = Elektronikai javítás
     id = Perbaikan Elektronik
     it = Riparazioni elettroniche
@@ -7260,7 +7285,7 @@
     pt = Jardineiro
     ro = Peisagist
     ru = Садовник
-    sk = Záhradníctvo
+    sk = Záhradník
     sv = Trädgårdsmästare
     sw = Mtunza bustani
     th = คนจัดสวน
@@ -7301,7 +7326,7 @@
     pt-BR = Moinho
     ro = Moara de măcinat
     ru = Мельница
-    sk = Mlynček na mletie
+    sk = Mlyn
     sv = Kvarn för slipning
     sw = Kusaga kinu
     th = โรงบด
@@ -7519,12 +7544,12 @@
     zh-Hant = 鐵工
 
   [type.craft.painter]
-    en = Painter
+    en = House Painter
     af = Verwer
     ar = رسام
     az = Rəssam
     be = Мастак
-    bg = Художник
+    bg = Бояджия
     cs = Malíř
     da = Maler
     de = Maler
@@ -7618,7 +7643,8 @@
     fi = Kamerakauppa
     fr = Boutique d'appareils photo
     he = חנות מצלמות
-    hu = Fényképezőgép bolt
+    hi = कैमरे की दुकान
+    hu = Fotósbolt
     id = Toko Kamera
     it = Negozio di macchine fotografiche
     ja = カメラショップ
@@ -7659,6 +7685,7 @@
     fi = Putkimies
     fr = Plombier
     he = שרברב
+    hi = नलसाज
     hu = Vízvezeték-szerelő
     id = Tukang pipa
     it = Idraulico
@@ -7672,7 +7699,7 @@
     pt-BR = Encanador
     ro = Instalator
     ru = Сантехник
-    sk = Klampiarstvo
+    sk = Inštalatér
     sv = Vvs-montör
     sw = Fundi bomba
     th = ช่างประปา
@@ -7741,6 +7768,7 @@
     fi = Suutari
     fr = Cordonnier
     he = סנדלר
+    hi = जूते की मरम्मत
     hu = Cipész
     id = Tukang sepatu
     it = Calzolaio
@@ -8340,7 +8368,10 @@
     it = Bubble tea
     ro = Ceai cu perle
     ru = Чай с шариками
+    sk = Bublinkový čaj
     uk = Бульбашковий чай
+    zh-Hans = 珍珠奶茶
+    zh-Hant = 珍珠奶茶
 
   [type.cuisine.burger]
     en = Burger
@@ -8520,7 +8551,7 @@
     pt-BR = Frango
     ro = Pui
     ru = Блюда из курицы
-    sk = Kurča
+    sk = Hydina
     sv = Kyckling
     th = ไก่
     tr = Tavuk
@@ -9261,7 +9292,7 @@
     pt-BR = Heuriger
     ro = Tavernă
     ru = Винная таверна (хойригер)
-    sk = Heuriger
+    sk = Viecha (Heuriger)
     sv = Vintaverna (heuriger)
     th = โรงเหล้า
     tr = Heuriger
@@ -10568,7 +10599,7 @@
     pt-BR = Panquecas salgadas
     ro = Clătite sărate
     ru = Несладкие блинчики
-    sk = Pikantné palacinky
+    sk = Palacinky na slano
     sv = Fyllda pannkakor
     th = แพนเค้กแบบเค็ม
     tr = Açma
@@ -11041,6 +11072,7 @@
     pt = Emergência
     pt-BR = Emergência
     ru = Экстренная служба
+    sk = Pohotovosť
     tr = Acil
     zh-Hans = 应急要素
 
@@ -11074,7 +11106,7 @@
     pt = Ponto de Reunião de Emergência
     ro = Punct de adunare de urgență
     ru = Пункт аварийного сбора
-    sk = Núdzové zhromaždenie
+    sk = Núdzové zhromaždisko
     sv = Nöduppsamlingsplats
     sw = Sehemu ya Mkutano wa Dharura
     th = จุดรวมพลฉุกเฉิน
@@ -11190,7 +11222,7 @@
     pt-BR = Telefone de emergência
     ro = Telefon de urgență
     ru = Телефон для экстренных вызовов
-    sk = Tiesňového volania
+    sk = Núdzový telefón
     sv = Nödtelefon
     th = โทรศัพท์ฉุกเฉิน
     tr = Acil Telefon
@@ -11293,7 +11325,7 @@
     da = Udgang
     de = Ausfahrt
     el = Έξοδος
-    es = Salir
+    es = Salida
     es-MX = Salida
     et = Väljumine
     eu = Irten
@@ -11301,7 +11333,7 @@
     fi = Ulos
     fr = Sortie
     he = יְצִיאָה
-    hu = Kilépés
+    hu = Kijárat
     id = Keluar
     it = Uscita
     ja = 終了する
@@ -11311,11 +11343,10 @@
     nb = Utgang
     nl = Ga naar
     pl = Wyjście
-    pt = Sai
-    pt-BR = Sair
+    pt = Saída
     ro = Ieșire
     ru = Выход
-    sk = Exit
+    sk = Východ
     sv = Utgång
     sw = Utgång
     th = ทางออก
@@ -11326,7 +11357,7 @@
     zh-Hant = 出口
 
   [type.fee.yes]
-    en = 💲
+    en = $
 
   [type.fee.no]
     en = Free
@@ -11471,6 +11502,7 @@
     fi = Vaihtoehtoinen lääketiede
     fr = Médecine alternative
     he = רפואה אלטרנטיבית
+    hi = वैकल्पिक चिकित्सा
     hu = Alternatív gyógyászat
     id = Pengobatan alternatif
     it = Medicina alternativa
@@ -11512,6 +11544,7 @@
     fi = Audiologia
     fr = Audiologie
     he = אודיולוגיה
+    hi = ऑडियोलॉजिस्ट
     hu = Audiológia
     id = Audiologi
     it = Audiologia
@@ -11554,6 +11587,7 @@
     fi = Verenluovutuskeskus
     fr = Centre de don du sang
     he = מרכז תרומת דם
+    hi = रक्तदान केंद्र
     hu = Véradó központ
     id = Pusat Donor Darah
     it = Centro di donazione del sangue
@@ -11595,6 +11629,7 @@
     fi = Optometria
     fr = Optométrie
     he = אופטומטריה
+    hi = दृष्टिमापी
     hu = Optometria
     id = Optometri
     it = Optometria
@@ -11636,6 +11671,7 @@
     fi = Jalkaterapia
     fr = Podologie
     he = פודיאטריה
+    hi = पोडियाट्रिस्ट
     hu = Podiatria
     id = Podiatri
     it = Podologia
@@ -11677,6 +11713,7 @@
     fi = Psykoterapia
     fr = Psychothérapie
     he = פסיכותרפיה
+    hi = मनोचिकित्सक
     hu = Pszichoterápia
     id = Psikoterapi
     it = Psicoterapia
@@ -11718,6 +11755,7 @@
     fi = Näytteenotto
     fr = Prélèvements biologiques
     he = דְגִימָה
+    hi = नमूना संग्रह केंद्र
     hu = Mintavétel
     id = Pengambilan sampel
     it = Campionamento
@@ -11731,7 +11769,7 @@
     pt-BR = Amostragem
     ro = Eșantionare
     ru = Сбор анализов
-    sk = Vzorkovanie|Zber vzoriek
+    sk = Odber vzoriek
     sv = Provtagning
     sw = Sampuli
     th = การสุ่มตัวอย่าง
@@ -11759,6 +11797,7 @@
     fi = Logopedia
     fr = Logopédie
     he = ריפוי בדיבור
+    hi = वाक उपचार
     hu = Logopédia
     id = Logopedik
     it = Logopedia
@@ -11802,6 +11841,7 @@
     pt = Rodovia
     pt-BR = Rodovia
     ru = Дорога
+    sk = Cesta
     tr = Otoyol
     uk = Дорога
     zh-Hans = 公路要素
@@ -11824,6 +11864,7 @@
     pt = Caminho para cavaleiros
     pt-BR = Caminho para cavaleiros
     ru = Конная дорожка
+    sk = Cesta pre jazdca na zvierati
     tr = Atlı Yolu
     uk = Кінна доріжка
     zh-Hans = 马道
@@ -11877,7 +11918,7 @@
     pt-BR = Via exclusiva de ônibus
     ro = Drum dedicat autobuzului
     ru = Выделенная автобусная дорога
-    sk = Vyhradená autobusová cesta
+    sk = Cesta pre autobusy
     sv = Dedikerad bussväg
     sw = Barabara ya basi iliyotengwa
     th = ถนนทางเดินรถโดยเฉพาะ
@@ -11992,6 +12033,7 @@
     pt = Ciclovia
     pt-BR = Ciclovia
     ru = Велодорожка
+    sk = Cyklocesta
     tr = Bisiklet Yolu
     uk = Велодоріжка
     zh-Hans = 自行车道
@@ -12038,6 +12080,7 @@
     pl = Winda
     pt-BR = Elevador
     ru = Лифт
+    sk = Výťah
     tr = Asansör
     uk = Ліфт
 
@@ -12071,7 +12114,7 @@
     pt-BR = Caminho pedonal
     ro = Cale
     ru = Пешеходная дорожка
-    sk = Cesta
+    sk = Cesta pre chodcov
     sv = Gångväg
     th = เส้นทาง
     tr = Yaya Yolu
@@ -12160,7 +12203,7 @@
     pt-BR = Travessia de pedestres
     ro = Trecere de pietoni
     ru = Пешеходный переход
-    sk = Prechod pre chodcov
+    sk = Priechod pre chodcov
     sv = Övergångsställe för fotgängare
     sw = Kivuko cha Watembea kwa miguu
     th = ทางม้าลาย
@@ -12169,17 +12212,6 @@
     vi = Vạch qua đường
     zh-Hans = 行人过街天桥
     zh-Hant = 行人穿越道
-
-  [type.highway.footway.alpine_hiking]
-    ref = type.highway.path
-    de = Alpinwanderweg
-    es = Senderismo alpino
-    et = Alpi matkarada
-    nl = Alpine wandelpad
-    pl = Ścieżka wspinaczkowa
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal
-    zh-Hans = 步行道路
 
   [type.highway.footway.area]
     ref = type.highway.footway
@@ -12195,6 +12227,7 @@
     pl = Obszar chodnika
     pt-BR = Área de pedestres
     ru = Пешеходная зона
+    sk = Pešia zóna
     tr = Yaya Alanı
     uk = Пішохідна зона
 
@@ -12211,55 +12244,7 @@
     pl = Most dla pieszych
     pt-BR = Ponte para pedestres
     ru = Пешеходный мост
-
-  [type.highway.footway.demanding_alpine_hiking]
-    ref = type.highway.path
-    de = Anspruchsvoller Alpinwanderweg
-    et = Nõudlik alpi matkarada
-    fi = Vaativa alppivaellus
-    nl = Uitdagend alpine bergklimpad
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal difícil
-    zh-Hans = 步行道路
-
-  [type.highway.footway.demanding_mountain_hiking]
-    ref = type.highway.path
-    de = Anspruchsvoller Bergwanderweg
-    fi = Vaativa vuoristovaellus
-    nl = Uitdagend bergwandelpad
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal difícil
-    zh-Hans = 步行道路
-
-  [type.highway.footway.difficult_alpine_hiking]
-    ref = type.highway.path
-    de = Schwieriger Alpinwanderweg
-    et = Nõudlik mägimatkarada
-    fi = Vaikea alppivaellus
-    nl = Moeilijk alpine bergklimpad
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal difícil
-    zh-Hans = 步行道路
-
-  [type.highway.footway.hiking]
-    ref = type.highway.path
-    de = Wanderweg
-    es = Sendero
-    fi = Vaellus
-    nl = Wandelpad
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal
-    zh-Hans = 步行道路
-
-  [type.highway.footway.mountain_hiking]
-    ref = type.highway.path
-    de = Bergwanderweg
-    et = Mägirada
-    fi = Vuoristovaellus
-    nl = Bergpad
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal
-    zh-Hans = 步行道路
+    sk = Most pre chodcov
 
   [type.highway.footway.tunnel]
     ref = type.highway.road.tunnel
@@ -12275,6 +12260,7 @@
     pl = Tunel dla pieszych
     pt-BR = Túnel para pedestres
     ru = Пешеходный тоннель
+    sk = Tunel pre chodcov
 
   [type.highway.ford]
     en = Ford
@@ -12322,7 +12308,7 @@
     da = Gade
     de = Spielstraße
     el = Οδός
-    es = Calle
+    es = Calle de prioridad peatonal
     et = Elamupiirkonna tänav
     eu = Kalea
     fa = جاده
@@ -12341,7 +12327,7 @@
     pt-BR = Zona de coexistência
     ro = Stradă
     ru = Жилая зона
-    sk = Ulica
+    sk = Obytná zóna
     sv = Gata
     th = ถนน
     tr = Cadde
@@ -12369,14 +12355,14 @@
     da = Gade
     de = Autobahn
     el = Οδός
-    es = Calle
+    es = Autopista
     et = Kiirtee
     eu = Kalea
     fa = جاده
     fi = Moottoritie
     fr = Autoroute
     hi = राजमार्ग
-    hu = Utca
+    hu = Autópálya
     id = Jalan
     it = Autostrada
     ja = ストリート
@@ -12389,7 +12375,7 @@
     pt-BR = Rodovia
     ro = Stradă
     ru = Автомагистраль
-    sk = Ulica
+    sk = Diaľnica
     sv = Gata
     th = ถนน
     tr = Otoyol
@@ -12403,6 +12389,7 @@
     en = Motorway Bridge
     af = Snelwegbrug
     de = Autobahnbrücke
+    es = Puente de autopista
     et = Mootorrataste sild
     fi = Moottoritiesilta
     it = Ponte autostradale
@@ -12417,6 +12404,7 @@
     en = Motorway Tunnel
     af = Snelwegtonnel
     de = Autobahntunnel
+    es = Túnel de autopista
     et = Kiirtee tunnel
     fi = Moottoritietunneli
     it = Tunnel autostradale
@@ -12468,6 +12456,7 @@
     af = Snelwegoprit
     az = Magistral yol enişi
     de = Autobahnauffahrt
+    es = Enlace de autopista
     et = Kiirtee kaldtee
     fi = Mottoritieramppi
     fr = Bretelle d'autoroute
@@ -12527,14 +12516,17 @@
     zh-Hans = 小道
     zh-Hant = 人行步道
 
-  [type.highway.path.alpine_hiking]
+  [type.highway.path.difficult]
+    comment = Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad.
     ref = type.highway.path
-    de = Alpinwanderweg
-    et = Alpi matkarada
-    fi = Alppivaellus
-    nl = Alpine wandelpad
-    pl = Ścieżka wspinaczkowa
-    pt-BR = Caminho pedonal
+    en = Difficult or Indistinct Trail
+    ru = Сложная или плохо видимая тропа
+
+  [type.highway.path.expert]
+    comment = Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme.
+    ref = type.highway.path
+    en = Expert or Indiscernible Trail
+    ru = Очень сложная или неразличимая тропа
 
   [type.highway.path.bicycle]
     ref = type.highway.path
@@ -12543,6 +12535,7 @@
     ar = مسار للمشاة والدراجات معاً
     az = Velosiped və Gəzinti Yolu
     de = Radweg
+    es = Camino para bicicletas
     et = Jalgratta- ja jalgtee
     fi = Pyörä- ja jalkatie
     mr = सायकल आणि पाऊलवाट
@@ -12550,39 +12543,15 @@
     pl = Ścieżka dla rowerów
     pt-BR = Caminho para ciclistas
     ru = Велопешеходная дорожка
+    sk = Cesta pre cyklistov a chodcov
     tr = Bisiklet ve Yürüyüş Yolu
     uk = Велопішохідна доріжка
 
+  [type.highway.footway.bicycle]
+    ref = type.highway.path.bicycle
+
   [type.highway.path.bridge]
     ref = type.highway.road.bridge
-
-  [type.highway.path.demanding_alpine_hiking]
-    ref = type.highway.path
-    de = Anspruchsvoller Alpinwanderweg
-    et = Nõudlik alpi matkarada
-    fi = Vaativa alppivaellus
-    pt-BR = Caminho pedonal difícil
-
-  [type.highway.path.demanding_mountain_hiking]
-    ref = type.highway.path
-    de = Anspruchsvoller Bergwanderweg
-    et = Nõudlik mägimatkarada
-    fi = Vaativa vuoristovaellus
-    pt-BR = Caminho pedonal difícil
-
-  [type.highway.path.difficult_alpine_hiking]
-    ref = type.highway.path
-    de = Schwieriger Alpinwanderweg
-    et = Raske alpi matkarada
-    fi = Vaikea alppivaellus
-    pt-BR = Caminho pedonal difícil
-
-  [type.highway.path.hiking]
-    ref = type.highway.path
-    de = Wanderweg
-    fi = Vaellus
-    nl = Wandelpad
-    pt-BR = Caminho pedonal
 
   [type.highway.path.horse]
     ref = type.highway.path
@@ -12590,24 +12559,15 @@
     af = Ruiterpad
     az = Atlı yolu
     de = Reitweg
+    es = Sendero de herradura
     et = Valjarada
     fi = Ratsastuspolku
     nl = Ruiterpad
     pt-BR = Caminho para cavaleiros
     ru = Конная тропа
+    sk = Cesta pre jazdca na zvierati
     tr = Atlı Yolu
     uk = Кінна стежка
-
-  [type.highway.path.mountain_hiking]
-    ref = type.highway.path
-    de = Bergwanderweg
-    et = Mägitee
-    fi = Vuoristovaellus
-    nl = Bergpad
-    pt-BR = Caminho pedonal
-
-  [type.highway.path.permissive]
-    ref = type.highway.path
 
   [type.highway.path.tunnel]
     ref = type.highway.road.tunnel
@@ -12628,7 +12588,7 @@
     fi = Jalankulkutie
     fr = Rue piétonne
     hi = पैदल यात्रीयों की सड़क
-    hu = Utca
+    hu = Sétálóutca
     id = Jalan
     it = Strada pedonale
     ja = ストリート
@@ -12662,6 +12622,7 @@
     mr = पादचारी झोन
     pl = Obszar deptaka
     ru = Пешеходная зона
+    sk = Pešia zóna
     tr = Yaya Alanı
     uk = Пішохідна зона
     zh-Hans = 步行区域
@@ -12678,6 +12639,7 @@
     pl = Most dla pieszych
     pt-BR = Ponte para pedestres
     ru = Пешеходный мост
+    sk = Most pre chodcov
 
   [type.highway.pedestrian.tunnel]
     ref = type.highway.road.tunnel
@@ -12692,6 +12654,7 @@
     pl = Tunel dla pieszych
     pt-BR = Túnel para pedestres
     ru = Пешеходный тоннель
+    sk = Tunel pre chodcov
 
   [type.highway.primary]
     en = Primary Road
@@ -12702,7 +12665,7 @@
     da = Gade
     de = Hauptstraße
     el = Οδός
-    es = Calle
+    es = Carretera principal
     et = Esmane tee
     eu = Kalea
     fa = جاده
@@ -12722,7 +12685,7 @@
     pt-BR = Estrada
     ro = Stradă
     ru = Шоссе
-    sk = Ulica
+    sk = Cesta I. triedy
     sv = Gata
     th = ถนน
     tr = Ana Yol
@@ -12737,6 +12700,7 @@
   [type.highway.primary.tunnel]
     ref = type.highway.road.tunnel
     de = Hauptstraßentunnel
+    es = Túnel de carretera principal
     et = Peatee tunnel
     pl = Tunel drogowy
     pt-BR = Túnel rodoviário
@@ -12745,6 +12709,7 @@
     ref = type.highway.primary
     en = Primary Road Ramp
     af = Primêrepadoprit
+    es = Enlace de carretera principal
     et = Esmase tee kaldtee
     mr = प्राथमिक मार्ग उतार
     pt-BR = Saída de rodovia
@@ -12806,7 +12771,7 @@
     da = Gade
     de = Wohnstraße
     el = Οδός
-    es = Calle
+    es = Calle residencial
     et = Tänav
     eu = Kalea
     fa = جاده
@@ -12825,7 +12790,7 @@
     pt-BR = Rua residencial
     ro = Stradă
     ru = Улица
-    sk = Ulica
+    sk = Miestna komunikácia
     sv = Gata
     th = ถนน
     tr = Sokak
@@ -12843,6 +12808,7 @@
   [type.highway.residential.tunnel]
     ref = type.highway.road.tunnel
     de = Wohnstraßentunnel
+    es = Túnel de calle residencial
     et = Elamupirkonna tänava tunnel
     pt-BR = Túnel residencial
 
@@ -12860,6 +12826,7 @@
     eu = Atseden gunea
     fi = Levähdyspaikka
     fr = Aire de repos
+    hi = बाकी क्षेत्र
     hu = Pihenőzóna
     id = Tempat istirahat
     it = Area di sosta
@@ -12891,14 +12858,14 @@
     da = Gade
     de = Straße
     el = Οδός
-    es = Calle
+    es = Carretera
     et = Maantee
     eu = Kalea
     fa = جاده
     fi = Katu
     fr = Rue
     hi = सड़क
-    hu = Utca
+    hu = Út
     id = Jalan
     it = Via
     ja = ストリート
@@ -13019,7 +12986,7 @@
     da = Gade
     de = Straße
     el = Οδός
-    es = Calle
+    es = Carretera secundaria
     et = Teisene tee
     eu = Kalea
     fa = جاده
@@ -13039,7 +13006,7 @@
     pt-BR = Estrada
     ro = Stradă
     ru = Автодорога
-    sk = Ulica
+    sk = Cesta II. triedy
     sv = Gata
     th = ถนน
     tr = Tali Yol
@@ -13054,6 +13021,7 @@
   [type.highway.secondary.tunnel]
     ref = type.highway.road.tunnel
     de = Straßentunnel
+    es = Túnel de carretera secundaria
     et = Tänava tunnel
     pl = Tunel drogowy
     pt-BR = Túnel rodoviário
@@ -13062,6 +13030,7 @@
     ref = type.highway.secondary
     en = Secondary Road Ramp
     af = Sekondêrepadoprit
+    es = Enlace de carretera secundaria
     et = Teisese tee kaldtee
     mr = दुय्यम मार्ग उतार
     pt-BR = Saída de rodovia
@@ -13089,14 +13058,14 @@
     da = Gade
     de = Zufahrtsweg
     el = Οδός
-    es = Calle
+    es = Vía de servicio
     et = Hooldustee
     eu = Kalea
     fa = جاده
     fi = Huoltotie
     fr = Rue
     hi = सर्विस रोड
-    hu = Utca
+    hu = Szervizút
     id = Jalan
     it = Via
     ja = ストリート
@@ -13109,7 +13078,7 @@
     pt-BR = Estrada de acesso ou serviço
     ro = Stradă
     ru = Проезд
-    sk = Ulica
+    sk = Účelová cesta
     sv = Gata
     th = ถนน
     tr = Servis Yolu
@@ -13123,6 +13092,7 @@
 
   [type.highway.service.bridge]
     ref = type.highway.road.bridge
+    es = Puente de carretera de servicio
     et = Maanteesild
     pl = Most drogowy
 
@@ -13137,6 +13107,7 @@
     pl = Droga podjazdowa
     pt-BR = Via de acesso
     ru = Подъезд
+    sk = Príjazdová cesta
     uk = Під'їзд
     zh-Hans = 车道
     zh-Hant = 車道
@@ -13146,6 +13117,7 @@
     en = Parking Aisle
     af = Parkeergang
     az = Park dəhlizi
+    es = Pasillo de estacionamiento
     et = Parkla vahetee
     fi = Pysäköintikäytävä
     fr = Allée
@@ -13154,6 +13126,7 @@
     pt = Estrada de estacionamento
     pt-BR = Estrada de estacionamento
     ru = Парковочный проезд
+    sk = Cesta na parkovisku
     tr = Park Koridoru
     uk = Паркувальний проїзд
     zh-Hans = 停车场通道
@@ -13162,6 +13135,7 @@
   [type.highway.service.tunnel]
     ref = type.highway.road.tunnel
     de = Straßentunnel
+    es = Túnel de vía de servicio
     et = Tänava tunnel
     fi = Huoltotunneli
     pl = Tunel drogowy
@@ -13184,6 +13158,7 @@
     pt = Área de serviço
     pt-BR = Área de serviços de estrada
     ru = Зона обслуживания
+    sk = Účelová oblasť
     tr = Servis Alanı
     uk = Зона обслуговування
     zh-Hans = 服务区
@@ -13242,7 +13217,7 @@
     fa = مسیر
     fi = Portaat
     fr = Escaliers
-    hu = Ösvény
+    hu = Lépcső
     id = Jalur
     it = Scale
     ja = 歩道
@@ -13255,7 +13230,7 @@
     pt-BR = Escadas
     ro = Cale
     ru = Лестница
-    sk = Cesta
+    sk = Schody
     sv = Gångväg
     th = เส้นทาง
     tr = Merdiven
@@ -13279,7 +13254,7 @@
     da = Gade
     de = Straße
     el = Οδός
-    es = Calle
+    es = Carretera terciaria
     et = Tänav
     eu = Kalea
     fa = جاده
@@ -13299,7 +13274,7 @@
     pt-BR = Estrada
     ro = Stradă
     ru = Дорога
-    sk = Ulica
+    sk = Cesta III. triedy
     sv = Gata
     th = ถนน
     tr = Üçüncül Yol
@@ -13322,6 +13297,7 @@
     en = Tertiary Road Ramp
     af = Tersiêrepadoprit
     az = Üçüncü yol enişi
+    es = Enlace de carretera terciaria
     mr = तृतीयक मार्ग उतार
     pt-BR = Saída de rodovia
     ru = Съезд с дороги
@@ -13368,7 +13344,7 @@
     pt-BR = Estrada rústica
     ro = Stradă
     ru = Грунтовка
-    sk = Ulica
+    sk = Poľná cesta
     sv = Gata
     th = ถนน
     tr = Pist
@@ -13386,22 +13362,7 @@
   [type.highway.track.grade1]
     ref = type.highway.track
 
-  [type.highway.track.grade2]
-    ref = type.highway.track
-
-  [type.highway.track.grade3]
-    ref = type.highway.track
-
-  [type.highway.track.grade4]
-    ref = type.highway.track
-
-  [type.highway.track.grade5]
-    ref = type.highway.track
-
   [type.highway.track.no.access]
-    ref = type.highway.track
-
-  [type.highway.track.permissive]
     ref = type.highway.track
 
   [type.highway.track.tunnel]
@@ -13426,7 +13387,7 @@
     fi = Liikennevalot
     fr = Feux de circulation
     hi = ट्रैफिक लाइट
-    hu = Közlekedési lámpák
+    hu = Közlekedési lámpa
     id = Lampu lalu lintas
     it = Semaforo
     ja = 交通信号
@@ -13453,18 +13414,20 @@
     af = Hoofpad
     ar = شارع وطني
     az = Dövlət şossesi
+    be = Траса
+    bg = Автомагистрала
     cs = Ulice
     da = Gade
     de = Schnellstraße
     el = Οδός
-    es = Calle
+    es = Vía troncal
     et = Magistraaltee
     eu = Kalea
     fa = جاده
     fi = Päätie
     fr = Voie rapide
     hi = प्रधान मार्ग
-    hu = Utca
+    hu = Elsőrendű közlekedési út
     id = Jalan
     it = Strada
     ja = ストリート
@@ -13477,7 +13440,7 @@
     pt-BR = Via expressa
     ro = Stradă
     ru = Трасса
-    sk = Ulica
+    sk = Cesta
     sv = Gata
     th = ถนน
     tr = Devlet Yolu
@@ -13498,6 +13461,9 @@
     ref = type.highway.trunk
     en = Trunk Road Ramp
     af = Hoofpadoprit
+    be = З'езд з трасы
+    bg = Изход от магистрала
+    es = Enlace de vía troncal
     fi = Päätien ramppi
     mr = राष्ट्रीय महामार्ग उतार
     pt-BR = Saída de rodovia
@@ -13523,13 +13489,13 @@
     da = Gade
     de = Nebenstraße
     el = Οδός
-    es = Calle
+    es = Carretera sin clasificar
     et = Vähetähtis tee
     eu = Kalea
     fa = جاده
     fi = Katu
     fr = Rue
-    hu = Utca
+    hu = Kis utca
     id = Jalan
     it = Via
     ja = ストリート
@@ -13542,7 +13508,7 @@
     pt-BR = Estrada sem classificação
     ro = Stradă
     ru = Небольшая дорога
-    sk = Ulica
+    sk = Cesta bez administratívneho zaradenia
     sv = Gata
     th = ถนน
     tr = Tali Yol
@@ -13560,6 +13526,7 @@
   [type.highway.unclassified.tunnel]
     ref = type.highway.road.tunnel
     de = Straßentunnel
+    es = Túnel de carretera sin clasificar
     pl = Tunel drogowy
     pt-BR = Túnel rodoviário
 
@@ -13785,7 +13752,7 @@
     pt = Sítio arqueológico
     ro = Sit arheologic
     ru = Археологический памятник
-    sk = Vykopávky
+    sk = Archeologické nálezisko
     sv = Arkeologisk plats
     sw = Tovuti ya Akiolojia
     th = โบราณสถาน
@@ -13909,7 +13876,7 @@
     pt-BR = Canhão
     ro = Tun
     ru = Пушка
-    sk = Cannon
+    sk = Delo
     sv = Kanon
     sw = Kanuni
     th = ปืนใหญ่
@@ -13950,7 +13917,7 @@
     pt = Castelo
     ro = Castel
     ru = Замок
-    sk = Hrad
+    sk = Zámok
     sv = Borg
     sw = Ngome
     th = ปราสาท
@@ -13978,7 +13945,7 @@
     fi = Roomalaisleiri
     fr = Camp romain
     he = קסטרום
-    hu = Castrum
+    hu = Római erődítmény
     id = Benteng Romawi
     it = Castra
     ja = カストラ
@@ -14011,7 +13978,7 @@
     da = Slot
     de = Burg
     el = Κάστρο
-    es = Castillo
+    es = Castillo defensivo
     et = Kindlus
     eu = Gaztelu
     fa = قلعه
@@ -14059,7 +14026,7 @@
     fi = Linnoitettu kirkko
     fr = Église fortifiée
     he = כנסייה מבוצרת
-    hu = Erősített templom
+    hu = Erődített templom
     id = Gereja yang dibentengi
     it = Chiesa fortificata
     ja = 要塞化された教会
@@ -14100,7 +14067,7 @@
     fr = Forteresse
     he = מִבצָר
     hi = किले
-    hu = Erődrendszer
+    hu = Erőd
     id = Benteng
     it = Fortezza
     ja = 要塞
@@ -14301,7 +14268,7 @@
     fi = Japanilainen linna
     fr = Château japonais
     he = טירה יפנית
-    hu = Japán várkastélyai
+    hu = Japán várkastély
     id = Istana Jepang
     it = Castello giapponese
     ja = 日本の城
@@ -14381,7 +14348,7 @@
     fi = Kaupungin portti
     fr = Porte de ville
     he = שער העיר
-    hu = Városi kapu
+    hu = Városkapu
     id = Gerbang kota
     it = Porta cittadina
     ja = 城門
@@ -14422,7 +14389,7 @@
     fr = Mur de la ville
     he = חומת העיר
     hi = शहर की दीवार
-    hu = Városi fal
+    hu = Városfal
     id = Tembok Kota
     it = Muro della città
     ja = 城壁
@@ -14464,7 +14431,7 @@
     fr = Fort militaire
     he = מִבצָר
     hi = किला
-    hu = Fort
+    hu = Erőd
     id = Benteng
     it = Fortezza
     ja = 歴史的な要塞
@@ -14476,7 +14443,7 @@
     pt = Forte
     ro = Fort
     ru = Форт
-    sk = Fort
+    sk = Pevnosť
     sv = Fort
     sw = Ngome
     th = ป้อม
@@ -14669,7 +14636,7 @@
     fr = Plaque commémorative
     he = לוחית זיכרון
     hi = स्मारक पट्टिका
-    hu = Emlékmű
+    hu = Emléktábla
     id = Tugu peringatan
     it = Memoriale
     ja = 銘板
@@ -14681,7 +14648,7 @@
     pt = Placa comemorativa
     ro = Comemorare
     ru = Памятная доска
-    sk = Pomník
+    sk = Pamätná tabuľa
     sv = Minnesmärke
     sw = Plaque
     th = ที่ระลึก
@@ -14709,7 +14676,7 @@
     fi = Veistos
     fr = Sculpture
     he = פֶּסֶל
-    hu = Emlékmű
+    hu = Szobor
     id = Tugu peringatan
     it = Scultura
     ja = 彫刻
@@ -14721,7 +14688,7 @@
     pt = Escultura
     ro = Comemorare
     ru = Скульптура
-    sk = Pomník
+    sk = Plastika
     sv = Minnesmärke
     sw = Uchongaji
     th = ที่ระลึก
@@ -14750,7 +14717,7 @@
     fr = Mémorial
     he = פסל
     hi = स्मारक प्रतिमा
-    hu = Emlékmű
+    hu = Szobor
     id = Tugu peringatan
     it = Statua memoriale
     ja = 塑像
@@ -14762,7 +14729,7 @@
     pt = Estátua
     ro = Comemorare
     ru = Статуя
-    sk = Pomník
+    sk = Socha
     sv = Minnesmärke
     sw = Sanamu
     th = ที่ระลึก
@@ -14802,7 +14769,7 @@
     pt = Stolperstein
     ro = Blocaj de poticnire
     ru = Камни преткновения
-    sk = Kameň úrazu
+    sk = Kameň zmiznutých
     sv = Snubbelsten
     sw = Kikwazo
     th = อุปสรรค์
@@ -14967,7 +14934,7 @@
     pt = Monumento
     ro = Monument
     ru = Памятник
-    sk = Zaujímavosť
+    sk = Pamiatka
     sv = Minnesmärke
     sw = Mnara
     th = อนุสาวรีย์
@@ -15077,7 +15044,7 @@
     fr = Navire
     he = אונייה
     hi = जलयान
-    hu = Túrizmus
+    hu = Turizmus
     id = Pemandangan
     it = Nave storica
     ja = 退役船
@@ -15089,7 +15056,7 @@
     pt = Barco
     ro = Navă
     ru = Корабль
-    sk = Pamätihodnosť
+    sk = Loď
     sv = Fartyg
     sw = Meli
     th = สถานที่ท่องเที่ยว
@@ -15172,7 +15139,7 @@
     pt = Túmulo
     ro = Mormânt
     ru = Гробница
-    sk = Pamätihodnosť
+    sk = Hrobka
     sv = Grav
     sw = Kaburi
     th = สถานที่ท่องเที่ยว
@@ -15212,7 +15179,7 @@
     pt = Cruzeiro
     ro = Troiță
     ru = Христианский крест
-    sk = Prícestný kríž
+    sk = Kríž pri ceste
     sv = Korset vid vägkanten
     sw = Msalaba wa njiani
     th = ทางข้าม
@@ -15281,7 +15248,7 @@
     fi = Haaksirikko
     fr = Naufrage
     he = לְנַפֵּץ
-    hu = Hajótörés
+    hu = Hajóroncs
     id = Kecelakaan kapal
     it = Naufragio
     ja = 難破船
@@ -15295,7 +15262,7 @@
     pt-BR = Naufrágio
     ro = Naufragiu
     ru = Кораблекрушение
-    sk = Stroskotanie lode
+    sk = Trosky lode
     sv = Förlisning
     sw = Ajali ya meli
     th = ซากเรืออัปปาง
@@ -15396,6 +15363,7 @@
     ar = تقاطع
     az = Qovşaq nöqtəsi
     de = Straßenknotenpunkt
+    es = Cruce
     et = Ristmik
     fi = Risteys
     it = Incrocio
@@ -15406,6 +15374,7 @@
     pt = Cruzamento
     pt-BR = Cruzamento
     ru = Перекрёсток
+    sk = Križovatka
     tr = Kavşak noktası
     uk = Перехрестя
     zh-Hans = 交叉口
@@ -15430,6 +15399,7 @@
     pt = Rotunda
     pt-BR = Rotatória
     ru = Кольцо
+    sk = Kruhový objazd
     tr = Göbekli kavşak
     uk = Кільце
     zh-Hans = 环岛
@@ -15455,6 +15425,7 @@
     pt = Uso do solo
     pt-BR = Uso do solo
     ru = Землепользование
+    sk = Využitie pôdy
     tr = Arazi Kullanımı
     uk = Землевикористання
     zh-Hans = 土地利用要素
@@ -15465,6 +15436,7 @@
     ar = حصص الحدائق
     az = Ayrılmalar
     de = Kleingarten
+    es = Huerto urbano
     et = Peenrad
     fi = Siirtolapuutarha
     fr = Jardins familiaux
@@ -15476,6 +15448,7 @@
     pt = Horta comunitária
     pt-BR = Horta comunitária
     ru = Земельные участки
+    sk = Záhradky
     tr = Tahsisler
     uk = Земельні ділянки
     zh-Hans = 市民农园
@@ -15526,6 +15499,7 @@
     af = Natuurlike bruin
     az = Tərk edilmiş Sənaye Zonası
     de = Brachfläche
+    es = Solar abandonado
     et = Ehitusmaa
     fi = Tuhoalue
     fr = Friche industrielle
@@ -15565,7 +15539,7 @@
     fa = حیاط کلیسا
     fi = Kirkon piha
     fr = Cour d'église
-    hu = Templomtér
+    hu = Templomkert
     id = Halaman gereja
     it = Sagrato della chiesa
     ja = キリスト教教会付属地
@@ -15606,6 +15580,7 @@
     pt = Área comercial
     pt-BR = Área comercial
     ru = Коммерческая застройка
+    sk = Komerčná oblasť
     tr = Ticari Alan
     uk = Комерційні ділянки
     zh-Hans = 商务办公用地
@@ -15628,6 +15603,7 @@
     pt = Construção
     pt-BR = Construção
     ru = Стройка
+    sk = Stavenisko
     tr = Yapı
     uk = Будівництво
     zh-Hans = 建设区域
@@ -15648,28 +15624,8 @@
     pl = Placówki oświatowe
     pt-BR = Instituições educacionais
     ru = Образовательные учреждения
+    sk = Vzdelávacia inštitúcia
     uk = Освітній заклади
-
-  [type.landuse.farm]
-    en = Farm
-    af = Plaas
-    ar = مزرعة
-    az = Ferma
-    de = Bauernhof
-    es = Granja
-    et = Talu
-    fi = Maatila
-    hi = खेत
-    ja = 農地
-    mr = शेत
-    nl = Boerderij
-    pl = Gospodarstwo rolne
-    pt = Quinta
-    pt-BR = Fazenda
-    ru = Ферма
-    tr = Çiftlik
-    uk = Ферма
-    zh-Hans = 农田
 
   [type.landuse.farmland]
     en = Farmland
@@ -15700,7 +15656,7 @@
     pt-BR = Campo agrícola
     ro = Teren arabil
     ru = Сельскохозяйственная земля
-    sk = Pole
+    sk = Poľnohospodárska pôda
     sv = Jordbruksmark
     sw = Shamba
     th = พื้นที่ทำการเกษตร
@@ -15726,6 +15682,7 @@
     pt = Pátio de quinta
     pt-BR = Pátio de fazenda
     ru = Сельскохозяйственная земля
+    sk = Poľnohospodárske budovy
     tr = Çiftlik Bölgesi
     uk = Сільськогосподарська земля
     zh-Hans = 农庄
@@ -15747,6 +15704,7 @@
     pt = Campo
     pt-BR = Campo
     ru = Поле
+    sk = Pole
     tr = Alan
     uk = Поле
 
@@ -15768,7 +15726,7 @@
     fi = Kukkapenkki
     fr = Plate-bande
     he = מיטת פרחים
-    hu = Virágágy
+    hu = Virágágyás
     id = Hamparan bunga
     it = Aiuola
     ja = 花壇
@@ -15845,7 +15803,7 @@
     fa = جنگل
     fi = Havumetsä
     fr = Forêt de conifères
-    hu = Erdő
+    hu = Tűlevelű erdő
     id = Hutan
     it = Foresta di conifere
     ja = 森林
@@ -15858,7 +15816,7 @@
     pt-BR = Floresta de coníferas
     ro = Pădure
     ru = Хвойный лес
-    sk = Les
+    sk = Ihličnatý les
     sv = Skog
     th = ป่า
     tr = Çam Ormanı
@@ -15882,7 +15840,7 @@
     fa = جنگل
     fi = Lehtimetsä
     fr = Forêt de feuillus
-    hu = Erdő
+    hu = Lombhullató erdő
     id = Hutan
     it = Foresta de cidua
     ja = 森林
@@ -15895,7 +15853,7 @@
     pt-BR = Floresta de folha caduca
     ro = Pădure
     ru = Лиственный лес
-    sk = Les
+    sk = Listnatý les
     sv = Skog
     th = ป่า
     tr = Orman
@@ -15933,7 +15891,7 @@
     pt-BR = Floresta
     ro = Pădure
     ru = Смешанный лес
-    sk = Les
+    sk = Zmiešaný les
     sv = Skog
     th = ป่า
     tr = Orman
@@ -15959,6 +15917,7 @@
     pt = Garagens
     pt-BR = Garagens
     ru = Гаражи
+    sk = Garáže
     tr = Garajlar
     uk = Гаражі
     zh-Hans = 车库用地
@@ -16038,6 +15997,7 @@
     pt = Estufas
     pt-BR = Estufas
     ru = Теплицы
+    sk = Skleník
     tr = Kış Bahçesi
     uk = Теплиці
     zh-Hans = 温室园艺
@@ -16060,6 +16020,7 @@
     pt = Terreno industrial
     pt-BR = Terreno industrial
     ru = Промзона
+    sk = Priemyselná zóna
     tr = Sanayi Bölgesi
     uk = Промзона
     zh-Hans = 工业用地
@@ -16121,6 +16082,7 @@
     pt = Pradaria
     pt-BR = Pradaria
     ru = Луг
+    sk = Lúka
     tr = Çayır
     uk = Луг
     zh-Hans = 草甸
@@ -16143,6 +16105,7 @@
     pt = Área militar
     pt-BR = Área militar
     ru = Военная зона
+    sk = Vojenská oblasť
     tr = Askeri Alan
     uk = Військова зона
     zh-Hans = 军事用地
@@ -16165,6 +16128,7 @@
     pt = Pomar
     pt-BR = Pomar
     ru = Сад
+    sk = Sad
     tr = Meyve Bahçesi
     uk = Сад
     zh-Hans = 种植用地
@@ -16187,6 +16151,7 @@
     pt = Pedreira
     pt-BR = Pedreira
     ru = Карьер
+    sk = Lom
     tr = Taş Ocağı
     uk = Кар'єр
     zh-Hans = 矿场
@@ -16207,7 +16172,7 @@
     fa = محدوده راه آهن
     fi = Rautatierakennukset
     fr = Installations ferroviaires
-    hu = Vasúti helyiségek
+    hu = Vasúti terület
     id = Stasiun kereta api
     it = Impianti ferroviari
     ja = 鉄道施設
@@ -16248,6 +16213,7 @@
     pt = Área de lazer
     pt-BR = Área de lazer
     ru = База отдыха
+    sk = Priestranstvo na rekreáciu
     tr = Dinlenme Alanı
     uk = База вiдпочинку
     zh-Hans = 康体场地
@@ -16261,13 +16227,13 @@
     da = Vand
     de = Wasserfläche
     el = Νερό
-    es = Cuenca
+    es = Embalse
     et = Vesi
     eu = Arroa
     fa = اب
     fi = Vesiallas
     fr = Bassin de retenue
-    hu = Víz
+    hu = Tározó
     id = Air
     it = Bacino
     ja = 貯水池
@@ -16306,6 +16272,7 @@
     pt = Área residencial
     pt-BR = Área residencial
     ru = Жилая зона
+    sk = Obytná zóna
     tr = Yerleşim Alanı
     uk = Житлова зона
     zh-Hans = 住宅用地
@@ -16328,6 +16295,7 @@
     pt = Área de retalho
     pt-BR = Área de varejo
     ru = Зона торговли
+    sk = Obchodná zóna
     tr = Perakende Satış Alanı
     uk = Зона торгівлі
     zh-Hans = 零售用地
@@ -16338,7 +16306,7 @@
     ar = ملّاحة
     az = Üzgüçülük hovuzu
     de = Saline
-    es = Estanque
+    es = Salina
     et = Tiik
     fi = Suolalampi
     fr = Marais salants
@@ -16350,6 +16318,7 @@
     pt = Salinas
     pt-BR = Salinas
     ru = Соляной пруд
+    sk = Salina
     tr = Havuz
     uk = Соляний став
 
@@ -16358,6 +16327,7 @@
     af = Meent
     az = Torpaq
     de = Dorfplatz
+    es = Espacio verde
     et = Maa
     ja = 村の中心
     mr = जमीन
@@ -16366,6 +16336,7 @@
     pt = Espaço verde de um vilarejo
     pt-BR = Espaço verde de um vilarejo
     ru = Парк
+    sk = Zeleň
     tr = Arazi
     uk = Парк
 
@@ -16386,6 +16357,7 @@
     pt = Vinha
     pt-BR = Vinha
     ru = Виноградник
+    sk = Vinohrad
     tr = Üzüm Bağı
     uk = Виноградник
     zh-Hans = 葡萄园
@@ -16406,6 +16378,7 @@
     pt = Lazer
     pt-BR = Lazer
     ru = Место для отдыха
+    sk = Voľný čas
     tr = Dinlenecek Yer
     uk = Місце відпочинку
     zh-Hans = 休闲要素
@@ -16416,6 +16389,7 @@
     af = Openbare grond
     az = İctimai domen
     de = öffentliche Grünfläche
+    es = Zona pública
     et = Avalik maa
     ja = レジャー(共有地)
     mr = सार्वजनिक जमीन
@@ -16443,6 +16417,7 @@
     fa = محدوده مخصوص سگ
     fi = Koirien ulkoilupaikka
     fr = Parc canin
+    hi = श्वान पार्क
     hu = Kutyás terület
     id = Area untuk anjing
     it = Area sgambamento cani
@@ -16456,7 +16431,7 @@
     pt-BR = Parque para cachorros
     ro = Loc de plimbare a câinilor
     ru = Место для выгула собак
-    sk = Oblasť pre psov
+    sk = Výbeh pre psy
     sv = Hundparken
     sw = Eneo la mbwa
     th = สถานที่พาสุนัขเดินเล่น
@@ -16481,6 +16456,7 @@
     fa = باشگاه بدنسازی
     fi = Kuntosali
     fr = Centre fitness
+    hi = फिटनेस सेंटर
     hu = Fitnesz-terem
     id = Pusat kebugaran
     it = Centro benessere
@@ -16512,13 +16488,14 @@
     da = Fitness-station
     de = Fitnessstation
     el = Γυμναστήριο
-    es = Gimnasio
+    es = Parque de fitness
     et = Välivõimla
     eu = Gimnasioa
     fa = پارک سلامت
     fi = Kuntokeskus
     fr = Station de fitness
-    hu = Fitness állomás
+    hi = फिटनेस स्टेशन
+    hu = Fitneszállomás
     id = Stasiun Kebugaran
     it = Centro fitness
     ja = フィットネスステーション
@@ -16569,7 +16546,7 @@
     pt-BR = Salão de dança
     ro = Sala de dans
     ru = Танцпол
-    sk = Tanečná hala
+    sk = Tančiareň
     sv = Danshall
     sw = Ukumbi wa Ngoma
     th = แดนซ์ฮอลล์
@@ -16661,7 +16638,7 @@
     pt-BR = Campo de golfe
     ro = Teren de golf
     ru = Площадка для гольфа
-    sk = Golf
+    sk = Golfové ihrisko
     sv = Golfbana
     th = สนามกอล์ฟ
     tr = Golf Sahası
@@ -16670,10 +16647,45 @@
     zh-Hans = 高尔夫球场
     zh-Hant = 高爾夫球場
 
+  [type.leisure.miniature_golf]
+    en = Minigolf
+    af = Minigolf
+    az = Minigolf
+    be = Мінігольф
+    bg = Миниголф
+    ca = Minigolf
+    cs = Minigolf
+    da = Minigolf
+    de = Minigolf
+    es = Minigolf
+    et = Minigolf
+    eu = Minigolf
+    fi = Minigolf
+    fr = Minigolf
+    hu = Minigolf
+    it = Minigolf
+    ja = ミニゴルフ
+    ko = 미니골프
+    mr = मिनीगोल्फ
+    nb = Minigolf
+    nl = Minigolf
+    pl = Minigolf
+    pt = Minigolfe
+    ro = Minigolf
+    ru = Минигольф
+    sk = Minigolf
+    sv = Minigolf
+    sw = Minigofu
+    th = มินิกอล์ฟ
+    tr = Minigolf
+    uk = Мінігольф
+    zh-Hans = 迷你高尔夫
+
   [type.leisure.hackerspace]
     en = Hackerspace
     ar = هاكرزبيس
     be = Хакерская прастора
+    es = Espacio para hackers
     es-MX = Espacio hacker
     fa = فضای هکرها
     fi = Hacklab
@@ -16704,24 +16716,10 @@
     pt = Rinque de patinagem
     pt-BR = Rinque de patinação
     ru = Каток
+    sk = Klzisko
     tr = Buz Pateni Pisti
     uk = Каток
     zh-Hans = 滑冰场
-
-  [type.leisure.landscape_reserve]
-    en = Landscape Reserve
-    af = Landskapreservaat
-    az = Landşaft Qoruğu
-    es = Reserva natural
-    et = Maastikukaitseala
-    ja = 自然保護区
-    nl = Landschapsreservaat
-    pl = Rezerwat krajobrazu
-    pt = Reserva natural
-    pt-BR = Reserva natural
-    ru = Ландшафтный заповедник
-    tr = Peyzaj Rezervi
-    uk = Ландшафтний заповідник
 
   [type.leisure.marina]
     en = Marina
@@ -16733,12 +16731,14 @@
     es = Marina
     et = Marina
     fi = Venesatama
+    hi = मरीना
     it = Porto turistico
     ja = マリーナ
     nl = Jachthaven
     pt = Marina
     pt-BR = Marina
     ru = Причал
+    sk = Marína
     tr = Liman
     uk = Пристань
     zh-Hans = 游艇码头
@@ -16772,7 +16772,7 @@
     pt-BR = Reserva natural
     ro = Rezervație naturală
     ru = Заповедник
-    sk = Rezervácia
+    sk = Prírodná rezervácia
     sv = Naturreservat
     sw = Hifadhi
     th = เขตอนุรักษ์ธรรมชาติ
@@ -16800,7 +16800,7 @@
     fi = Ulkona istuminen
     fr = Sièges extérieurs
     he = ישיבה בחוץ
-    hu = Kültéri ülőhelyek
+    hu = Kiülős helyek
     id = Tempat duduk di luar ruangan
     it = Posti a sedere all'aperto
     ja = 屋外席
@@ -16812,7 +16812,7 @@
     pt = Assentos ao ar livre
     ro = Scaune în aer liber
     ru = Сидения на открытом воздухе
-    sk = Vonkajšie sedenie
+    sk = Posedenie vonku
     sv = Sittplatser utomhus
     sw = Viti vya nje
     th = ที่นั่งกลางแจ้ง
@@ -16891,7 +16891,8 @@
     fi = Piknik-pöytä
     fr = Table de pique-nique
     he = קינקיפ ןחלוש
-    hu = Piknik asztal
+    hi = पिकनिक मेज
+    hu = Piknikasztal
     id = Meja piknik
     it = Tavolo da picnic
     ja = ピクニック用のテーブル
@@ -16966,6 +16967,7 @@
     fa = زمین بازی
     fi = Leikkikenttä
     fr = Aire de jeu
+    hi = खेल का मैदान
     hu = Játszótér
     id = Taman bermain
     it = Campo giochi
@@ -17019,6 +17021,7 @@
     fa = سونا
     fi = Sauna
     fr = Sauna
+    hi = सॉना
     hu = Szauna
     id = Sauna
     it = Sauna
@@ -17046,6 +17049,7 @@
     af = Sleephelling
     az = Xizək
     de = Bootsrampe
+    es = Rampa de barcos
     et = Elling
     fr = Cale de mise à l'eau
     it = Scivolo per navi
@@ -17055,6 +17059,7 @@
     pt = Rampa de barcos
     pt-BR = Rampa de barcos
     ru = Лодочный спуск
+    sk = Lodný sklz
     tr = Kızak
     uk = Шлюпковий спуск
     zh-Hans = 船台
@@ -17259,6 +17264,7 @@
     fr = Piscine privée
     it = Piscina privata
     nl = Privé zwembad
+    sk = Súkromné kúpalisko
 
   [type.leisure.track]
     en = Track
@@ -17275,6 +17281,7 @@
     pt = Pista para desportos não motorizados
     pt-BR = Pista para esportes não motorizados
     ru = Беговая дорожка
+    sk = Pretekárska dráha
     tr = Pist
     uk = Бігова доріжка
     zh-Hans = 賽道
@@ -17297,6 +17304,7 @@
     fa = گردشگری
     fi = Vesipuisto
     fr = Centre aquatique
+    hi = वाटर पार्क
     hu = Aquapark
     id = Taman air
     it = Parco acquatico
@@ -17330,6 +17338,7 @@
     mr = समुद्री रिसॉर्ट
     nl = Strandresort
     ru = Пляжный курорт
+    sk = Plážový rezort
     tr = Sahil Tatil Yeri
     uk = Пляжний курорт
 
@@ -17338,6 +17347,7 @@
     af = Kunsmatige konstruksie
     az = İnsan istehsalı
     de = künstliche Anlage
+    es = Construcción
     et = Inimese loodud
     it = Stabilimento balneare
     ja = 構造物
@@ -17346,6 +17356,7 @@
     pt = Construção humana
     pt-BR = Construção humana
     ru = Искусственное сооружение
+    sk = Vytvorené človekom
     tr = İnsan Yapımı
     uk = Штучна споруда
     zh-Hans = 人造要素
@@ -17366,6 +17377,7 @@
     pt = Molhe
     pt-BR = Molhe
     ru = Волнорез
+    sk = Vlnolam
     tr = Dalgakıran
     uk = Хвилеріз
     zh-Hans = 防波堤
@@ -17375,6 +17387,7 @@
     af = Klipstapel
     az = Kurqan
     de = Steinmännchen
+    es = Mojón
     et = Karjäär
     hi = स्तूप
     ja = ケルン
@@ -17428,6 +17441,7 @@
     af = Kaplyn
     az = Kəsmə xətti
     de = Schneise
+    es = Línea de corte forestal
     et = Metsasiht
     fr = Layon
     ja = 森林の切れ目
@@ -17436,6 +17450,7 @@
     pt = Atalhada
     pt-BR = Aceiro
     ru = Просека
+    sk = Lesný priesek
     tr = Kesme Çizgisi
     uk = Просіка
     zh-Hans = 树林分界线
@@ -17455,6 +17470,7 @@
     nl = Meetpunt
     pl = Znak geodezyjny
     ru = Геодезический пункт
+    sk = Geodetický bod
     uk = Геодезичний пункт
 
   [type.man_made.flagpole]
@@ -17473,6 +17489,7 @@
     nl = Vlaggenpaal
     pl = Maszt flagowy
     ru = Флагшток
+    sk = Vlajkový stožiar
     tr = Bayrak Direği
     uk = Флагшток
     zh-Hans = 旗杆
@@ -17529,6 +17546,7 @@
     nl = Mast
     pl = Maszt
     ru = Мачта/вышка
+    sk = Stožiar
     tr = Direk
     uk = Щогла/вишка
 
@@ -17549,6 +17567,7 @@
     pt = Pontão
     pt-BR = Píer
     ru = Пирс
+    sk = Mólo
     tr = İskele
     uk = Пірс
     zh-Hans = 码头
@@ -17568,6 +17587,7 @@
     pt = Pipeline
     pt-BR = Pipeline
     ru = Трубопровод
+    sk = Potrubie
     tr = Boru
     uk = Трубопровід
     zh-Hans = 管道
@@ -17586,6 +17606,7 @@
     pt = Pipeline aéreo
     pt-BR = Pipeline aéreo
     ru = Наземный трубопровод
+    sk = Pozemné potrubie
     tr = Yerüstü Boru Hattı
     zh-Hans = 地面管道
 
@@ -17622,6 +17643,7 @@
     nl = Opslagtank
     pt-BR = Tanque de armazenagem
     ru = Резервуар
+    sk = Skladovacia nádrž
     tr = Depolama Tankı
     uk = Резервуар
 
@@ -17759,6 +17781,7 @@
     pt = Estação de tratamento de águas residuais
     pt-BR = Estação de tratamento de esgoto
     ru = Очистные сооружения
+    sk = Čistička odpadových vôd
     tr = Atıksu Tesisi
     uk = Очистні споруди
     zh-Hans = 污水处理厂
@@ -17778,6 +17801,7 @@
     fa = شیراب
     fi = Vesihana
     fr = Robinet d'eau
+    hi = पानी का नल
     hu = Vízcsap
     id = Keran Air
     it = Rubinetto dell'acqua
@@ -17815,6 +17839,7 @@
     fa = منبع اب
     fi = Vesitorni
     fr = Château d'eau
+    hi = पानी का टावर
     hu = Víztorony
     id = Menara air
     it = Cisterna per acqua
@@ -17928,6 +17953,7 @@
     pt = Fábrica
     pt-BR = Fábrica
     ru = Промышленное производство
+    sk = Továreň
     tr = Sanayi İşleri
     uk = Промислове виробництво
     zh-Hans = 工厂
@@ -17980,6 +18006,7 @@
     pt-BR = Búnquer
     ro = Buncăr
     ru = Бункер
+    sk = Bunker
     th = บังเกอร์
     tr = Sığınak
     uk = Бункер
@@ -18001,6 +18028,7 @@
     mr = डोंगरवाट
     nl = Bergpas
     ru = Перевал
+    sk = Horský priesmyk
     tr = Boğaz
     uk = Перевал
 
@@ -18046,12 +18074,13 @@
     zh-Hant = 自然
 
   [type.natural.bare_rock]
+    comment = A rocky land cover.
     en = Bare Rock
     af = Kaal rots
     ar = صخور عارية
     az = Çılpaq qaya
-    be = Голая скала
-    bg = Гола скала
+    be = Каменная парода
+    bg = Рок
     cs = Holá skála
     da = Blottet klippe
     de = Felsgestein
@@ -18070,20 +18099,104 @@
     ko = 베어 락
     mr = खडक
     nb = Bar stein
-    nl = Kale steen
+    nl = Kale rots
     pl = Odkryte skały
     pt = Zona rochosa
     ro = Piatră goală
-    ru = Скалы
+    ru = Каменная порода
     sk = Holá skala
     sv = Kala stenar
     sw = Mwamba tupu
     th = เปลือยร็อค
     tr = Çıplak Kaya
-    uk = Скелi
+    uk = Кам'яна порода
     vi = Đá trần
     zh-Hans = 岩石
     zh-Hant = 岩石
+
+  [type.natural.shingle]
+    comment = A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed.
+    en = Shingle
+    af = Gordelroos
+    ar = الحصى
+    az = Şingle
+    be = Галька
+    bg = Камъчета
+    ca = Còdol
+    cs = Oblázky
+    da = Småsten
+    de = Kieselsteine
+    el = Βότσαλα
+    es = Guijarros
+    et = Pebbles
+    eu = Harri koskor
+    fa = سنگریزه ها
+    fi = Pebbles
+    fr = Galets
+    he = אבנים
+    hi = कंकड़
+    hu = Kavicsok
+    id = Kerikil
+    it = Ciottoli
+    ja = 小石
+    ko = 페블
+    lt = Akmenukai
+    mr = खडे
+    nb = Småstein
+    nl = Kiezels
+    pl = Kamyki
+    pt = Seixos
+    ro = Pietriș
+    ru = Галька
+    sk = Kamienky
+    sv = Småsten
+    th = ก้อนกรวด
+    tr = Çakıl Taşları
+    uk = Галька
+    vi = Ván lợp
+    zh-Hans = 鹅卵石
+    zh-Hant = 卵石
+
+  [type.natural.scree]
+    comment = A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides.
+    en = Scree
+    ar = حصى
+    be = Камяністая асып
+    bg = Сипеи
+    cs = Kamenité sutě
+    da = Stenet skrænt
+    de = Steiniges Geröll
+    el = Σάρα
+    es = Pedregal
+    et = Kiviklibu
+    eu = Srika
+    fa = اسکری
+    fi = Kivinen rapakivi
+    fr = Éboulis pierreux
+    he = דרדרת
+    hi = रोड़ी
+    hu = Köves törmelék
+    id = Scree berbatu
+    it = Ghiaia pietrosa
+    ja = 石がゴロゴロしている
+    ko = 스토니 스크리
+    lt = Akmenuoti skardžiai
+    mr = स्क्री
+    nb = Steinete rasmark
+    nl = Puinhelling
+    pl = Kamienisty piarg
+    pt = Pedregulho
+    pt-BR = Pedregulho pedregoso
+    ro = Grohotiș
+    ru = Каменистая осыпь
+    sk = Kamenisté sutiny
+    sv = Stenig rasbrant
+    th = หินกรวด
+    tr = Kayşat
+    uk = Кам'янистий осип
+    vi = Sàng
+    zh-Hans = 石质碎石
+    zh-Hant = 碎石
 
   [type.natural.bay]
     en = Bay
@@ -18309,7 +18422,7 @@
     fr = Grotte
     he = מערה
     hi = गुफ़ा
-    hu = Barlang
+    hu = Barlangbejárat
     id = Gua
     it = Grotta
     ja = 洞窟
@@ -18389,7 +18502,7 @@
     fi = Kallio
     fr = Falaise
     he = צוּק
-    hu = Szikla
+    hu = Földtöltés
     id = Jurang
     it = Scogliera
     ja = 崖
@@ -18401,7 +18514,7 @@
     pt = Penhasco
     ro = Faleza
     ru = Обрыв
-    sk = Útes
+    sk = Násyp
     sv = Klippa
     sw = Mwamba
     th = หน้าผา
@@ -18520,6 +18633,7 @@
     pl = Pustynia
     pt = Deserto
     ru = Пустыня
+    sk = Púšť
     uk = Пустиня
 
   [type.natural.geyser]
@@ -18533,7 +18647,7 @@
     da = Gejser
     de = Geysir
     el = Θερμοπίδακας
-    es = Geiser
+    es = Géiser
     es-MX = Géiser
     et = Geiser
     eu = Geyser
@@ -18679,7 +18793,7 @@
     pt = Charneca
     ro = Landă
     ru = Пустошь
-    sk = Heath
+    sk = Vresovisko
     sv = Hed
     sw = Afya
     th = เฮลธ์
@@ -18802,7 +18916,7 @@
     pt = Câmara de Eclusa
     ro = Camera de blocare
     ru = Шлюзовая камера
-    sk = Uzamykacia komora
+    sk = Plavebná komora
     sv = Låskammare
     sw = Chumba cha kufuli
     th = ห้องล็อค
@@ -18871,7 +18985,7 @@
     fi = Säiliö
     fr = Réservoir
     he = מאגר
-    hu = Rezervoár
+    hu = Víztározó
     id = Waduk
     it = Serbatoio
     ja = 貯水池
@@ -19149,14 +19263,14 @@
     da = Bjergsadel
     de = Bergsattel
     el = Σέλα Βουνού
-    es = Silla de montaña
+    es = Collado
     et = Mäesadul
     eu = Mendiko jarlekua
     fa = زین کوه
     fi = Vuoristo satula
     fr = Col de montagne
     he = אוכף הרים
-    hu = Hegyi nyereg
+    hu = Hegynyereg
     id = Pelana Gunung
     it = Sella
     ja = 鞍部
@@ -19183,8 +19297,8 @@
     af = Klip
     ar = صخر
     az = Qaya
-    be = Горная парода
-    bg = Скала
+    be = Камень
+    bg = Камък
     cs = Hornina
     da = Bjergart
     de = Fels
@@ -19196,7 +19310,7 @@
     fi = Kivi
     fr = Rocher
     he = סלע
-    hu = Kőzet
+    hu = Szikla
     id = Batu
     it = Roccia
     ja = 岩
@@ -19208,7 +19322,7 @@
     pt = Rochedo
     ro = Rocă
     ru = Камень
-    sk = Hornina
+    sk = Kameň
     sv = Bergart
     sw = Mwamba
     th = หิน
@@ -19279,7 +19393,7 @@
     fr = Source
     he = מעיין
     hi = पानी का चश्मा
-    hu = Forrás
+    hu = Természetes forrás
     id = Mata air
     it = Sorgente
     ja = 泉
@@ -19361,7 +19475,7 @@
     fi = Puurivi
     fr = Rangée d'arbres
     he = שורת עצים
-    hu = Fa sor
+    hu = Fasor
     id = Baris pohon
     it = Fila di alberi
     ja = 並木
@@ -19373,7 +19487,7 @@
     pt = Linha de árvores
     ro = Rândul de copaci
     ru = Ряд деревьев
-    sk = Stromový rad
+    sk = Stromoradie
     sv = Trädrad
     sw = Safu ya mti
     th = แถวต้นไม้
@@ -19443,7 +19557,7 @@
     fr = Volcan
     he = הר געש
     hi = ज्वालामुखी
-    hu = Tűzhányó
+    hu = Vulkán
     id = Gunung berapi
     it = Vulcano
     ja = 火山
@@ -19455,7 +19569,7 @@
     pt = Vulcão
     ro = Vulcan
     ru = Вулкан
-    sk = Vulkán
+    sk = Sopka
     sv = Vulkan
     sw = Volkeno
     th = ภูเขาไฟ
@@ -19633,6 +19747,7 @@
     en = Dead End
     af = Doodloop
     az = Çıxılmaz
+    es = Sin salida
     et = Tupiktee
     fr = Voie sans issue
     it = Strada senza uscita
@@ -19643,6 +19758,7 @@
     pt = Via sem saída
     pt-BR = Via sem saída
     ru = Тупик
+    sk = Koniec cesty
     tr = Çıkmaz
     uk = Тупик
 
@@ -19699,6 +19815,7 @@
     fa = دفتر شرکت
     fi = Yhtiön toimisto
     fr = Bureaux d'entreprise
+    hi = कंपनी कार्यालय
     hu = Vállalati iroda
     id = Kantor perusahaan
     it = Ufficio aziendale
@@ -19736,6 +19853,7 @@
     fa = بنگاه معاملات ملکی
     fi = Kiinteistönvälittäjä
     fr = Agence immobilière
+    hi = संपत्ति एजेंट
     hu = Ingatlanügynök
     id = Agen ril estat
     it = Agenzia immobiliare
@@ -19774,6 +19892,7 @@
     fa = اداره دولتی
     fi = Viranomaistoimito
     fr = Administration publique
+    hi = सरकारी कार्यालय
     hu = Állami iroda
     id = Kantor pemerintah
     it = Ufficio governativo
@@ -19811,7 +19930,8 @@
     fa = دفتر بیمه
     fi = Vakuutuslaitos
     fr = Bureau d’assurance
-    hu = Biztosító iroda
+    hi = बीमा कार्यालय
+    hu = Biztosítóiroda
     id = Kantor Asuransi
     it = Ufficio assicurazioni
     ja = 保険会社
@@ -19848,6 +19968,7 @@
     fa = دفتر وکالت
     fi = Lakitoimisto
     fr = Cabinet d'avocat
+    hi = वकील
     hu = Ügyvédi iroda
     id = Kantor pengacara
     it = Studio legale
@@ -19919,13 +20040,14 @@
     da = Mobiloperatør
     de = Mobilfunkbetreiber
     el = Εταιρεία κινητής τηλεφωνίας
-    es = Operadora de telefonía móvil
+    es = Operadora de telefonía
     et = Telekommunikatsiooni ettevõte
     eu = Telefono mugikorren operadorea
     fa = اپراتور تلفن همراه
     fi = Matkapuhelinoperaattori
     fr = Opérateur mobile
-    hu = Mobilüzemeltető
+    hi = दूरसंचार कंपनी
+    hu = Távközlési cég
     id = Operator seluler
     it = Operatore di telefonia mobile
     ja = 携帯電話事業者
@@ -20172,7 +20294,7 @@
     da = Amt
     de = Kreis
     el = Δήμος
-    es = Municipio
+    es = Condado
     et = Maakond
     eu = Udalerria
     fa = بخش
@@ -20180,7 +20302,7 @@
     fr = Comté
     he = נפה
     hi = काउण्टी
-    hu = Kerület
+    hu = Megye
     id = Kabupaten
     it = Contea
     ja = 郡
@@ -20192,7 +20314,7 @@
     pt = Condado
     ro = Județ
     ru = Округ
-    sk = Krajina
+    sk = Oblasť
     sv = Län
     sw = Wilaya
     th = เขต
@@ -20262,7 +20384,7 @@
     fr = Hameau
     he = כְּפָר קָטָן
     hi = गांव
-    hu = Tanya
+    hu = Falucska
     id = Dusun
     it = Piccolo villaggio
     ja = 村
@@ -20345,7 +20467,7 @@
     fr = Île
     he = איון
     hi = द्वीपिका
-    hu = Sziget
+    hu = Szigetecske
     id = Pulau
     it = Isola
     ja = 島
@@ -20357,7 +20479,7 @@
     pt = Ilhéu
     ro = Insult
     ru = Остров
-    sk = Ostrov
+    sk = Ostrovček
     sv = Ö
     sw = Kisiwa
     th = เกาะ
@@ -20385,7 +20507,7 @@
     fi = Erillinen asunto
     fr = Lieu-dit
     he = דירת מגורים מבודדת
-    hu = Elszigetelt lakás
+    hu = Elszigetelt lakóépület
     id = Tempat Tinggal Terisolasi
     it = Abitazione isolata
     ja = 小規模な村
@@ -20397,7 +20519,7 @@
     pt = Habitação isolada
     ro = Locuință izolată
     ru = Хутор
-    sk = Izolované obydlie
+    sk = Samota
     sv = Isolerade bostäder
     sw = Makao ya Pekee
     th = ที่อยู่อาศัยโดดเดี่ยว
@@ -20425,7 +20547,7 @@
     fi = Paikkakunta
     fr = Lieu-dit
     he = מקום
-    hu = Falu
+    hu = Körzet
     id = Wilayah
     it = Località
     ja = 地域
@@ -20466,7 +20588,7 @@
     fr = Quartier
     he = שכונה
     hi = मुहल्ला
-    hu = Szomszédság
+    hu = Városrész
     id = Lingkungan
     it = Quartiere
     ja = 地域
@@ -20479,7 +20601,7 @@
     pt-BR = Vizinhança
     ro = Cartier
     ru = Микрорайон
-    sk = Susedstvo
+    sk = Štvrť
     sv = Grannskap
     sw = Mtaa
     th = ละแวกบ้าน
@@ -20752,7 +20874,7 @@
     fr = Quartier
     he = פרוור
     hi = उपनगर
-    hu = Kerület
+    hu = Kertváros
     id = Pinggiran kota
     it = Quartiere
     ja = 区
@@ -21076,6 +21198,7 @@
     pt = Linha de transmissão de energia
     pt-BR = Linha de transmissão de energia
     ru = Линия электропередач
+    sk = Elektrické vedenie
     tr = Elektrik Hattı
     uk = Лінія електропередач
     zh-Hans = 超高压输电线
@@ -21095,6 +21218,7 @@
     pt = Linha de transmissão de energia subterrânea
     pt-BR = Linha de transmissão de energia subterrânea
     ru = Подземная линия электропередач
+    sk = Podzemné elektrické vedenie
     tr = Yeraltı Elektrik Hattı
     uk = Підземна лінія електропередач
     zh-Hans = 超高压输电线
@@ -21308,6 +21432,7 @@
     pt = Subestação elétrica
     pt-BR = Subestação elétrica
     ru = Электростанция
+    sk = Elektrická stanica
     tr = Elektrik Santrali
     uk = Електростанція
 
@@ -21326,7 +21451,7 @@
     fi = Muuntoasema
     fr = Poste électrique
     hi = विद्युत उपकेंद्र
-    hu = Kapcsolószekrény
+    hu = Alállomás
     id = Stasiun bawah tanah
     it = Sottostazione elettrica
     ja = 変電所
@@ -21435,6 +21560,7 @@
     pt = Transporte público
     pt-BR = Transporte público
     ru = Общественный транспорт
+    sk = Hromadná doprava
     tr = Toplu Taşıma
     uk = Громадський транспорт
     zh-Hans = 公共交通要素
@@ -21454,6 +21580,7 @@
     pt = Plataforma de transporte público
     pt-BR = Plataforma de transporte público
     ru = Платформа
+    sk = Nástupište
     tr = Platform
     zh-Hans = 公共交通站台
 
@@ -21475,6 +21602,7 @@
     pt = Ferrovia
     pt-BR = Ferrovia
     ru = Ж/Д
+    sk = Železnica
     tr = Demiryolu
     uk = Залізниця
     zh-Hans = 铁路要素
@@ -21493,6 +21621,7 @@
     pt = Ferrovia abandonada
     pt-BR = Ferrovia abandonada
     ru = Заброшенная железная дорога
+    sk = Zrušená trať
     tr = Terk edilmiş demiryolu
     uk = Закинута залізниця
     zh-Hans = 铁路遗迹
@@ -21565,6 +21694,7 @@
     pt = Passagem pedestre
     pt-BR = Passagem pedestre
     ru = Пешеходный переход
+    sk = Železničné priecestie
     tr = Demiryolu Geçişi
     uk = Пішохідний перехід
 
@@ -21583,6 +21713,7 @@
     pt = Ferrovia em desuso
     pt-BR = Ferrovia em desuso
     ru = Неиспользуемая железная дорога
+    sk = Nepoužívaná trať
     tr = Kullanılmayan demiryolu
     uk = Недійсна залізниця
     zh-Hans = 废弃铁路
@@ -21607,7 +21738,7 @@
     fr = Funiculaire
     he = רַכֶּבֶל
     hi = रज्जुरेल
-    hu = Funicular
+    hu = Sikló
     id = Kereta gantung
     it = Funicolare
     ja = フニクラ
@@ -21675,6 +21806,7 @@
     pl = Przystanek kolejowy
     pt = Apeadeiro
     pt-BR = Ponto de parada
+    sk = Železničná zastávka
     zh-Hans = 小站
     zh-Hant = 小站
 
@@ -21707,7 +21839,7 @@
     pt-BR = Passagem em nível
     ro = Trecere feroviară
     ru = Железнодорожный переезд
-    sk = Križovanie úrovní
+    sk = Železničné priecestie
     sv = Järnvägskorsning
     sw = Tambuka Reli
     th = ทางรถไฟตัดผ่านถนน
@@ -21722,6 +21854,7 @@
     af = Smalspoor
     az = Yüngül dəmir yolu
     de = Stadtbahn
+    es = Tren ligero
     et = Kergrööbas
     it = Metropolitana
     ja = ライトレール
@@ -21729,6 +21862,7 @@
     pt = Metropolitano de superfície
     pt-BR = Metrô de superfície
     ru = Скоростной трамвай
+    sk = Rýchlodráha
     tr = Hafif Raylı
     uk = Швидкістний трамвай
     zh-Hans = 轻轨轨道
@@ -21859,6 +21993,7 @@
     pt = Caminho de ferro de via estreita
     pt-BR = Caminho de ferro de via estreita
     ru = Узкоколейка
+    sk = Úzkorozchodná železnica
     tr = Dar Hat Rayı
     uk = Вузькоколійка
     zh-Hans = 窄轨铁路轨道
@@ -21917,6 +22052,7 @@
     pt = Plataforma ferroviária
     pt-BR = Plataforma ferroviária
     ru = Железнодорожная платформа
+    sk = Nástupište
     tr = Demiryolu Platformu
     uk = Залізнична платформа
     zh-Hans = 火车站台
@@ -21934,6 +22070,7 @@
     pt = Ferrovia preservada
     pt-BR = Ferrovia preservada
     ru = Законсервированная Ж/Д
+    sk = Muzejná železnica
     tr = Korunmuş Ray
     uk = Законсервована залізниця
 
@@ -22430,7 +22567,7 @@
     fi = Rautatieasema
     fr = Gare ferroviaire
     hi = रेलवे स्टेशन
-    hu = Vonatmegálló
+    hu = Vasútállomás
     id = Rel kereta api
     it = Stazione ferroviaria
     ja = 鉄道駅
@@ -22494,7 +22631,7 @@
     fa = حمل و نقل
     fi = Metro
     fr = Station de métro
-    hu = Földalatti
+    hu = Metrómegálló
     id = Stasiun bawah tanah
     it = Stazione della metrò
     ja = 地下鉄
@@ -22867,6 +23004,7 @@
     pt = Metro
     pt-BR = Metrô
     ru = Ветка метро
+    sk = Metro
     tr = Metro Hattı
     uk = Лінія метро
 
@@ -22876,6 +23014,7 @@
     af = Moltreinbrug
     az = Metro xətti
     de = U-Bahn-Brücke
+    es = Puente de metro
     et = Metrooliin - sild
     fr = Voie de métro
     hi = भूमिगत रेल
@@ -22884,6 +23023,7 @@
     pt = Ponte de metro
     pt-BR = Ponte de metrô
     ru = Ветка метро
+    sk = Most metra
     tr = Metro Hattı
     uk = Лінія метро
 
@@ -22893,6 +23033,7 @@
     af = Moltreintonnel
     az = Metro xətti
     de = U-Bahn-Tunnel
+    es = Túnel de metro
     et = Metrooliin - tunnel
     fr = Voie de métro
     hi = भूमिगत रेल
@@ -22901,6 +23042,7 @@
     pt = Túnel de metro
     pt-BR = Tunel de metrô
     ru = Ветка метро
+    sk = Tunel metra
     tr = Metro Hattı
     uk = Лінія метро
 
@@ -22921,7 +23063,7 @@
     fa = ورودی مترو
     fi = Metron sisäänkäynti
     fr = Entrée du métro
-    hu = Földalatti bejárat
+    hu = Metróbejárat
     id = Pintu masuk kereta bawah tanah
     it = Stazione metropolitana
     ja = 地下鉄入り口
@@ -23306,6 +23448,7 @@
     af = Trembrug
     az = Tramvay xətti
     de = Straßenbahnbrücke
+    es = Puente de tranvía
     et = Trammiliini sild
     fr = Voie de tramway
     hi = ट्राम
@@ -23315,6 +23458,7 @@
     pt = Linha de elétrico
     pt-BR = Linha de bonde
     ru = Трамвай
+    sk = Električka
     tr = Tramvay Hattı
     uk = Трамвай
     zh-Hans = 电车轨道
@@ -23325,6 +23469,7 @@
     af = Tremtonnel
     az = Tramvay xətti
     de = Straßenbahntunnel
+    es = Túnel de tranvía
     et = Trammiliini tunnel
     fr = Voie de tramway
     hi = ट्राम
@@ -23334,6 +23479,7 @@
     pt = Linha de elétrico
     pt-BR = Linha de bonde
     ru = Трамвай
+    sk = Tunel električky
     tr = Tramvay Hattı
     uk = Трамвай
     zh-Hans = 电车轨道
@@ -23367,7 +23513,7 @@
     pt-BR = Parada de bonde
     ro = Stație de tramvai
     ru = Остановка трамвая
-    sk = Električková zastávka
+    sk = Zastávka električky
     sv = Spårvagnshållplats
     th = ป้ายรถราง
     tr = Tramvay Durağı
@@ -23390,6 +23536,7 @@
     pt = Rota
     pt-BR = Rota
     ru = Маршрут
+    sk = Trasa
     tr = Rota
     uk = Маршрут
     zh-Hans = 线路
@@ -23410,6 +23557,7 @@
     pt = Rota de ferry
     pt-BR = Rota de balsa
     ru = Паромная переправа
+    sk = Trajekt
     tr = Feribot
     uk = Паромна переправа
     zh-Hans = 航线
@@ -23549,7 +23697,7 @@
     fi = Kylpyhuoneen kalusteet
     fr = Mobilier de salle de bain
     he = ריהוט חדר רחצה
-    hu = Fürdőszoba berendezési tárgyak
+    hu = Fürdőszobai bútorok
     id = Perabot Kamar Mandi
     it = Arredo Bagno
     ja = バスルームの備品
@@ -23562,7 +23710,7 @@
     pt-BR = Loja de móveis de banheiro
     ro = Mobilier pentru baie
     ru = Мебель для ванной
-    sk = Vybavenie kúpeľne
+    sk = Vybavenie do kúpeľne
     sv = Badrumsinredning
     sw = Vyombo vya Bafuni
     th = ตกแต่งห้องน้ำ
@@ -23665,7 +23813,7 @@
     fi = Polkupyöräliike
     fr = Magasin de vélos
     hi = साइकल की दुकान
-    hu = Kerékpár üzlet
+    hu = Kerékpárüzlet
     id = Toko sepeda
     it = Negozio di biciclette
     ja = 自転車屋
@@ -23816,7 +23964,7 @@
     fi = Kannabiskauppa
     fr = Magasin de cannabis
     he = חנות קנאביס
-    hu = Cannabis Store
+    hu = Kannabiszüzlet
     id = Toko ganja
     it = Negozio di cannabis
     ja = 大麻店
@@ -23855,7 +24003,7 @@
     fi = Autokauppa
     fr = Concessionnaire automobile
     hi = गाड़ी के विक्रेता
-    hu = Gépkocsi bolt
+    hu = Autókereskedés
     id = Toko mobil
     it = Concessionaria
     ja = カーディーラー
@@ -23893,7 +24041,7 @@
     fi = Auton osat
     fr = Pièces de voiture
     hi = गाड़ी के पुर्जे
-    hu = Autó alkatrészek
+    hu = Autóalkatrész-bolt
     id = Bagian mobil
     it = Ricambi auto
     ja = 車両部品
@@ -23932,7 +24080,7 @@
     fi = Autokorjaamo
     fr = Réparation d'automobiles
     hi = वाहन मरम्मत की दुकान
-    hu = Gépkocsi szervíz
+    hu = Autószerviz
     id = Bengkel mobil
     it = Riparazione auto
     ja = 自動車修理
@@ -24008,6 +24156,7 @@
     nl = Caravan en camper verkoper
     pl = Sklep z karawanami i kamperami
     ru = Продажа автодомов
+    sk = Predajňa autokarov
     tr = Karavan Bayiliği
     uk = Продаж автобудинків
     zh-Hans = 房车经销商
@@ -24226,7 +24375,7 @@
     fi = Tietokonekauppa
     fr = Magasin d'informatique
     hi = कंप्यूटर की दुकान
-    hu = Számítógép üzlet
+    hu = Számítógépüzlet
     id = Toko komputer
     it = Negozio di computer
     ja = コンピュータショップ
@@ -24317,7 +24466,7 @@
     pt-BR = Loja de conveniência
     ro = Magazin mixt
     ru = Продуктовый магазин
-    sk = Príležitostné potreby
+    sk = Zmiešaný tovar
     sv = Närbutik
     th = ร้านสะดวกซื้อ
     tr = Bakkal
@@ -24342,7 +24491,7 @@
     fi = Painotalo
     fr = Boutique de photocopies
     hi = फ़ोटोकॉपी की दुकान
-    hu = Fénymásoló üzlet
+    hu = Fénymásoló
     id = Fotokopi
     it = Copisteria
     ja = コピーショップ
@@ -24380,7 +24529,7 @@
     fi = Kosmetiikka
     fr = Produits de beauté
     hi = सौंदर्य प्रसाधन की दुकान
-    hu = Kozmetikum
+    hu = Kozmetikumok
     id = Kosmetik
     it = Cosmetici
     ja = 化粧品
@@ -24393,7 +24542,7 @@
     pt-BR = Loja de cosméticos
     ro = Cosmetică
     ru = Косметика
-    sk = Kozmetika
+    sk = Obchod s kozmetikou
     sv = Kosmetika
     th = เครื่องสำอาง
     tr = Bakım ürünleri
@@ -24529,18 +24678,20 @@
     af = Hardewarewinkel
     ar = متجر عدد وأدوات
     az = Dəmirçi
+    be = Будаўнічы магазін
+    bg = Строителен маркет
     cs = Železářství
     da = Isenkræmmer
     de = Baumarkt
     el = Είδη κιγκαλερίας
-    es = Ferretería
+    es = Tienda de bricolaje
     et = Tööriistapood
     eu = Burdindegia
     fa = فروشگاه
     fi = Rautakauppa
     fr = Magasin de bricolage
     hi = लौह वस्तुओं की दुकान
-    hu = Vaskereskedés
+    hu = Barkácsáruház
     id = Toko perangkat keras
     it = Ferramenta
     ja = 工具店
@@ -24552,12 +24703,12 @@
     pt = Loja de ferramentas e materiais de bricolage
     pt-BR = Loja de ferramentas e materiais de bricolagem
     ro = Magazin de bricolaj
-    ru = Хозяйственный
-    sk = Železiarstvo
+    ru = Строительный магазин
+    sk = Potreby pre domácich majstrov
     sv = Järnhandel
     th = ร้านขายฮาร์ดแวร์
     tr = Hırdavatçı
-    uk = Господарськi товари
+    uk = Будівельний магазин
     vi = Cửa hàng phần cứng
     zh-Hans = 家居用品店
     zh-Hant = 五金行
@@ -24666,7 +24817,7 @@
     pt-BR = Loja de artigos eróticos
     ro = Magazin erotic
     ru = Секс-шоп
-    sk = Erotický obchod
+    sk = Sex shop
     sv = Erotisk butik
     th = ร้านเฉพาะผู้ใหญ่
     tr = Erotik Ürünler Mağazası
@@ -24732,7 +24883,7 @@
     fr = Magasin d'alimentation à la ferme
     he = הווחל ןוזמ תונח
     hi = खेती से उत्पन्न खाद्द की दुकान
-    hu = Farm Food Shop
+    hu = Termelői bolt
     id = Toko Makanan Pertanian
     it = Negozio di prodotti alimentari della fattoria
     ja = ファームフードショップ
@@ -24773,7 +24924,7 @@
     fi = Muoti tarvikkeet
     fr = Boutique d'accessoires de mode
     he = אביזרי אופנה
-    hu = Divat kiegészítők
+    hu = Divatkiegészítők
     id = Aksesoris Fashion
     it = Accessori alla moda
     ja = ファッションアクセサリー
@@ -24825,7 +24976,7 @@
     pt-BR = Florista
     ro = Florărie
     ru = Цветочный магазин
-    sk = Kvety
+    sk = Kvetinárstvo
     sv = Blomsteraffär
     th = ร้านดอกไม้
     tr = Çiçekçi
@@ -24929,7 +25080,7 @@
     fi = Taimitarha
     fr = Jardinerie
     hi = बगीचे की सामग्री की दुकान
-    hu = Faiskola
+    hu = Kertcentrum
     id = Penitipan anak
     it = Vivaio
     ja = ガーデンセンター
@@ -24942,7 +25093,7 @@
     pt-BR = Loja de jardinagem ou viveiro
     ro = Pepinieră
     ru = Садовые товары
-    sk = Škôlka
+    sk = Záhradkárske potreby
     sv = Plantskola
     th = สถานรับเลี้ยงเด็ก
     tr = Bahçe Mağazası
@@ -25155,15 +25306,17 @@
     af = Ysterware
     ar = محل معدات
     az = Hardware mağazası
-    be = Будаўнічы магазін
-    bg = Магазин за хардуер
+    be = Гаспадарчая крама
+    bg = Железария
     el = Κατάστημα υλικού
+    es = Ferretería
     et = Isetegemise tööriistad
     eu = Hardware denda
     fa = ﺭﺍﺰﻓﺍ ﺖﺨﺳ ﻩﺎﮕﺷﻭﺮﻓ
     fi = Rautakauppa
     fr = Quincaillerie
     he = ןיינב ירמוחל תונח
+    hi = लौह वस्तुओं की दुकान
     hu = Barkácsüzlet
     it = Ferramenta
     ja = ホームセンター
@@ -25173,11 +25326,12 @@
     pt-BR = Loja de ferragens
     ro = Magazin de hardware
     ru = Хозяйственный магазин
+    sk = Železiarstvo
     sv = Järnaffär
     sw = Duka la vifaa
     th = ร้านฮาร์ดแวร์
     tr = Donanım mağazası
-    uk = Магазин побутової техніки
+    uk = Господарськи товари
     zh-Hans = 五金店
     zh-Hant = 五金店
 
@@ -25200,7 +25354,7 @@
     fr = Magasin d'alimentation diététique
     he = תואירב ןוזמ תונח
     hi = स्वस्थ भोजन की दुकान
-    hu = Egészségügyi élelmiszerbolt
+    hu = Egészséges élelmiszerek boltja
     id = Toko Makanan Kesehatan
     it = Negozio di alimenti naturali
     ja = 健康食品店
@@ -25234,14 +25388,14 @@
     da = Urtebutik
     de = Kräuterladen
     el = Κατάστημα με βότανα
-    es = Tienda de hierbas
+    es = Herbolario
     et = Maitsetaimede pood
     eu = Belar denda
     fa = فروشگاه گیاهان دارویی
     fi = Yrttikauppa
     fr = Herboristerie
     he = חנות עשבי תיבול
-    hu = Gyógynövény bolt
+    hu = Gyógynövénybolt
     id = Toko jamu
     it = Negozio di erbe
     ja = ハーブ店
@@ -25365,7 +25519,7 @@
     fi = Korukauppa
     fr = Bijouterie
     hi = ज्वैलरी
-    hu = Ékszer
+    hu = Ékszerüzlet
     id = Perhiasan
     it = Gioielleria
     ja = 宝石店
@@ -25413,6 +25567,7 @@
     pt-BR = Quiosque
     ro = Chioșc
     ru = Киоск
+    sk = Stánok
     th = ร้าน
     tr = Büfe
     uk = Кіоск
@@ -25440,7 +25595,7 @@
     fr = Magasin de cuisine
     he = םיחבטמ תונח
     hi = रसोई की दुकान
-    hu = Konyhabolt
+    hu = Konyhafelszerelési áruház
     id = Toko Dapur
     it = Negozio di cucina
     ja = キッチンストア
@@ -25452,7 +25607,7 @@
     pt-BR = Loja de cozinha
     ro = Magazin de bucatarie
     ru = Кухонный магазин
-    sk = Kuchynský obchod
+    sk = Obchod s kuchynským vybavením
     sv = Köksbutik
     sw = Duka la Jikoni
     th = ร้านครัว
@@ -25518,7 +25673,7 @@
     fi = Ostoskeskus
     fr = Centre commercial
     hi = शॉपिंग मॉल
-    hu = A pláza
+    hu = Bevásárlóközpont
     it = Centro commerciale
     ja = モール
     ko = 몰
@@ -25530,7 +25685,7 @@
     pt-BR = Shopping center
     ro = Mall
     ru = Торговый центр
-    sk = Mall
+    sk = Nákupné centrum
     sv = Galleria
     th = เดอะมอลล์
     tr = Alışveriş Merkezi
@@ -25555,7 +25710,7 @@
     fi = Hierontahuone
     fr = Salon de massage
     hi = मालिश घर
-    hu = Masszázs szalon
+    hu = Masszázsszalon
     id = Tempat Pijat
     it = Centro massaggi
     ja = マッサージ店
@@ -25593,6 +25748,7 @@
     fa = فروشگاه
     fi = Elektroniikkakauppa
     fr = Magasin de téléphonie mobile
+    hi = सेल फोन की दुकान
     hu = Mobiltelefon üzlet
     id = Toko telepon
     it = Negozio di telefonia mobile
@@ -25645,7 +25801,7 @@
     pt-BR = Prestamista
     ro = Credite
     ru = Ростовщик
-    sk = Veriteľ peňazí
+    sk = Úžerník
     sv = Pengar långivare
     th = ผู้ให้ยืมเงิน
     tr = Borç Para Veren
@@ -25711,7 +25867,7 @@
     fi = Moottoripyörän korjaus
     fr = Réparateur de moto
     he = תיקון אופנועים
-    hu = Motorkerékpár javítás
+    hu = Motorkerékpár-szerviz
     id = Bengkel Sepeda Motor
     it = Riparazione moto
     ja = オートバイの修理
@@ -25765,7 +25921,7 @@
     pt-BR = Loja de música
     ro = Magazin de muzică
     ru = Музыкальный магазин
-    sk = Hudobný obchod
+    sk = Hudobniny
     sv = Musikaffär
     th = ร้านเพลง
     tr = Müzik Dükkanı
@@ -26063,6 +26219,7 @@
     fa = فروشگاه
     fi = Eläinkauppa
     fr = Animalerie
+    hi = पालतू जानवर की दुकान
     hu = Házikedvenc-üzlet
     id = Toko hewan
     it = Negozio di animali
@@ -26076,7 +26233,7 @@
     pt-BR = Loja de animais de estimação
     ro = Pet shop
     ru = Зоотовары
-    sk = Obchod zo zvieratami
+    sk = Chovateľské potreby
     sv = Djuraffär
     th = เพ็ทชอป
     tr = Evcil Hayvan Mağazası
@@ -26104,7 +26261,7 @@
     fi = Lemmikkieläinten hoito
     fr = Salon de toilettage
     he = טיפוח חיות מחמד
-    hu = Kisállat ápolás
+    hu = Kisállatápolás
     id = Perawatan Hewan Peliharaan
     it = Toelettatura per animali domestici
     ja = ペットグルーミング
@@ -26117,7 +26274,7 @@
     pt-BR = Banho e tosa
     ro = Îngrijirea animalelor de companie
     ru = Груминг
-    sk = Starostlivosť o domáce zvieratá
+    sk = Zvierací salón
     sv = Husdjursvård
     sw = Utunzaji wa Kipenzi
     th = กรูมมิ่งสัตว์เลี้ยง
@@ -26143,7 +26300,7 @@
     fi = Valokuvakauppa
     fr = Matériel de photographie
     hi = छायाचित्रण की दुकान
-    hu = Fénykép üzlet
+    hu = Fotóüzlet
     id = Studio Foto
     it = Negozio di fotografia
     ja = 写真屋
@@ -26265,7 +26422,7 @@
     fi = Kalakauppias
     fr = Poissonnier
     hi = समुद्री भोजन की दुकान
-    hu = Halüzlet
+    hu = Halkereskedő
     id = Penjual Ikan
     it = Pescivendolo
     ja = 魚屋
@@ -26278,7 +26435,7 @@
     pt-BR = Peixaria
     ro = Pescărie
     ru = Рыбный магазин
-    sk = Obchodník s rybami
+    sk = Predajňa rýb
     sv = Fiskhandlare
     th = ร้านขายปลา
     tr = Deniz Ürünleri Mağazası
@@ -26306,7 +26463,7 @@
     fr = Boutique d'objets d'occasion
     he = היינש די תונח
     hi = पुराने सामान की दुकान
-    hu = Second Hand Store
+    hu = Bizományi áruház
     id = Toko Barang bekas
     it = Negozio di articoli usati
     ja = 古物商
@@ -26318,7 +26475,7 @@
     pt-BR = Loja de segunda mão
     ro = Magazin second-hand
     ru = Секонд-хенд магазин
-    sk = Obchod z druhej ruky
+    sk = Second hand
     sv = Andrahandsaffär
     sw = Duka la Mitumba
     th = ร้านขายของมือสอง
@@ -26420,7 +26577,7 @@
     fi = Kirjoitustarvikekauppa
     fr = Papeterie
     hi = लेखन सामग्री की दुकान
-    hu = Írószer bolt
+    hu = Papír-írószer bolt
     id = Toko Alat Tulis
     it = Cartoleria
     ja = 文房具店
@@ -26457,7 +26614,7 @@
     fi = Supermarketti
     fr = Supermarché
     hi = सुपरमार्केट
-    hu = Bevásárlóközpont
+    hu = Szupermarket
     it = Supermercato
     ja = スーパーマーケット
     ko = 슈퍼마켓
@@ -26492,7 +26649,7 @@
     fi = Tatuointiliike
     fr = Salon de tatouage
     hi = टैटू पार्लर
-    hu = Tetováló szalon
+    hu = Tetoválószalon
     id = Tempat Tato
     it = Studio tatuaggi
     ja = タトゥースタジオ
@@ -26531,7 +26688,7 @@
     fi = Teekauppa
     fr = Boutique de thés
     hi = चाय की दुकान
-    hu = Tea bolt
+    hu = Teabolt
     id = Toko teh
     it = Negozio di tè
     ja = 茶販売店
@@ -26582,7 +26739,7 @@
     pt-BR = Bilheteria
     ro = Casă de bilete
     ru = Билетная касса
-    sk = Pokladnica
+    sk = Predaj vstupeniek
     sv = Biljettkontor
     th = จุดจำหน่ายตั๋ว
     tr = Bilet Satıcısı
@@ -26684,7 +26841,7 @@
     fi = Rengasliike
     fr = Magasin de pneus
     hi = पहियों की दुकान
-    hu = Gumi szaküzlet
+    hu = Gumiszaküzlet
     id = Toko Ban
     it = Gommista
     ja = タイヤ専門店
@@ -26775,7 +26932,7 @@
     pt-BR = Videolocadora
     ro = Magazin video
     ru = Магазин видео
-    sk = Predajňa s videami
+    sk = Videopožičovňa
     sv = Video butik
     sw = Duka la Video
     th = ร้านขายดีวีดี
@@ -26802,7 +26959,7 @@
     fi = Videopelikauppa
     fr = Boutique de jeux vidéo
     hi = वीडियो गेम की दुकान
-    hu = Videojáték bolt
+    hu = Videojáték-bolt
     id = Toko permainan video
     it = Negozio di videogiochi
     ja = ゲームショップ
@@ -26895,7 +27052,7 @@
     pt-BR = Loja agrícola
     ro = Magazin agricol
     ru = Сельскохозяйственный магазин
-    sk = Poľnohospodársky obchod
+    sk = Farmárske potreby
     sv = Lantbruksbutik
     sw = Duka la kilimo
     th = ร้านเกษตร
@@ -26965,7 +27122,7 @@
     fi = Kodinkoneet kauppa
     fr = Magasin d'électroménager
     he = חנות מוצרי חשמל
-    hu = Készülék bolt
+    hu = Háztartási készülékek boltja
     id = Toko peralatan
     it = Negozio di elettrodomestici
     ja = 家電店
@@ -27008,7 +27165,7 @@
     fr = Boutique d'art
     he = תויונמוא תונח
     hi = कला की दुकान
-    hu = Művészeti Bolt
+    hu = Művészeti alkotások boltja
     id = Toko Seni
     it = Negozio d'arte
     ja = アートショップ
@@ -27061,7 +27218,7 @@
     pt-BR = Loja infantil
     ro = Magazin pentru copii
     ru = Детский магазин
-    sk = Obchod pre deti
+    sk = Potreby pre deti
     sv = Barnbutik
     sw = Duka la watoto
     th = ร้านขายของสำหรับเด็ก
@@ -27090,7 +27247,7 @@
     fr = Magasin de sacs
     he = םיקית תונח
     hi = बैग की दुकान
-    hu = Táskák bolt
+    hu = Táskabolt
     id = Toko Tas
     it = Negozio di borse
     ja = バッグストア
@@ -27144,7 +27301,7 @@
     pt-BR = Loja de camas
     ro = Magazin de paturi
     ru = Магазин кроватей
-    sk = Obchod s posteľami
+    sk = Predajňa postelí
     sv = Sängbutik
     sw = Duka la vitanda
     th = ร้านขายเตียง
@@ -27214,7 +27371,7 @@
     fr = Magasin de charité
     he = הקדצ תונח
     hi = दान की दुकान
-    hu = Jótékonysági Bolt
+    hu = Jótékonysági bolt
     id = Toko Amal
     it = Negozio di beneficenza
     ja = チャリティーショップ
@@ -27247,7 +27404,7 @@
     da = Ostebutik
     de = Käseladen
     el = Τυροκομείο
-    es = Tienda de queso
+    es = Tienda de quesos
     et = Juustupood
     eu = Gazta Denda
     fa = ﺮﯿﻨﭘ ﻩﺎﮕﺷﻭﺮﻓ
@@ -27297,7 +27454,7 @@
     fr = Matériel d'arts et de loisirs créatifs
     he = הריציו תונמוא
     hi = शिल्पकर्म
-    hu = Művészetek és kézművesség
+    hu = Kézműves kellékek boltja
     id = Seni dan kerajinan
     it = Arti e mestieri
     ja = 美術工芸
@@ -27309,7 +27466,7 @@
     pt-BR = Artes e ofícios
     ro = Arte și Meserii
     ru = Искусства и ремесла
-    sk = Umenie a remeslá
+    sk = Umelecké potreby
     sv = Konst och hantverk
     sw = Sanaa na Ufundi
     th = ศิลปะและงานฝีมือ
@@ -27434,7 +27591,7 @@
     pt-BR = Loja de pesca
     ro = Magazin de pescuit
     ru = Рыболовный магазин
-    sk = Rybársky obchod
+    sk = Rybárske potreby
     sv = Fiskeaffär
     sw = Duka la Uvuvi
     th = ร้านตกปลา
@@ -27464,7 +27621,7 @@
     fr = Décorations intérieures
     he = םינפ יטושיק
     hi = आंतरिक सजावट
-    hu = Belső dekorációk
+    hu = Lakberendezési áruház
     id = Dekorasi Interior
     it = Decorazioni per interni
     ja = 室内装飾
@@ -27476,7 +27633,7 @@
     pt-BR = Decoração de interiores
     ro = Decoratiuni interioare
     ru = Украшения для интерьера
-    sk = Interiérové dekorácie
+    sk = Bytové doplnky
     sv = Inredningsdekorationer
     sw = Mapambo ya Ndani
     th = ตกแต่งภายใน
@@ -27513,8 +27670,8 @@
     nb = Lotteribilletter
     nl = Loten
     pl = Kolektura
-    pt = Bilhete de loteria
-    pt-BR = Bilhete de loteria
+    pt = Lotaria
+    pt-BR = Lotérica
     ro = Bilete la loterie
     ru = Лотерейные билеты
     sk = Lístky do lotérie
@@ -27559,7 +27716,7 @@
     pt-BR = Suprimentos médicos
     ro = Consumabile medicale
     ru = Медикаменты
-    sk = Zdravotnícky materiál
+    sk = Zdravotnícke potreby
     sv = Medicinska förnödenheter
     sw = Vifaa vya Matibabu
     th = เวชภัณฑ์
@@ -27630,7 +27787,7 @@
     fr = Magasin de peinture
     he = םיעבצ
     hi = पेंट की दुकान
-    hu = Festékek
+    hu = Festékbolt
     id = Cat
     it = Vernici
     ja = 塗料
@@ -27671,7 +27828,7 @@
     fr = Parfumerie
     he = תמַשְׂבָּ
     hi = सुगंध सामग्री की दुकान
-    hu = Illatszerek
+    hu = Illatszerbolt
     id = Wewangian
     it = Profumeria
     ja = 香水
@@ -27712,7 +27869,7 @@
     fr = Mercerie
     he = הריפת דויצ
     hi = सिलाई आपूर्ति की दुकान
-    hu = Varrás kellékek
+    hu = Varrókellékek boltja
     id = Perlengkapan Jahit
     it = Forniture per il cucito
     ja = ミシン用品
@@ -27724,7 +27881,7 @@
     pt-BR = Materiais de costura
     ro = Rechizite de cusut
     ru = Швейные принадлежности
-    sk = Šijacie potreby
+    sk = Potreby na šitie
     sv = Sytillbehör
     sw = Vifaa vya kushona
     th = อุปกรณ์เย็บผ้า
@@ -27765,7 +27922,7 @@
     pt-BR = Aluguel de armazenamento
     ro = Închiriere depozitare
     ru = Аренда склада
-    sk = Prenájom skladu
+    sk = Úschovňa
     sv = Uthyrning av förråd
     sw = Kukodisha Hifadhi
     th = ค่าเช่าห้องเก็บของ
@@ -27795,7 +27952,7 @@
     fr = Bureau de tabac
     he = קבָּטַ
     hi = तंबाकू की दुकान
-    hu = Dohány
+    hu = Dohánybolt
     id = Tembakau
     it = Tabaccheria
     ja = タバコ
@@ -27836,7 +27993,7 @@
     fr = Grossiste
     he = הקפסאב רחוס
     hi = व्यापार की आपूर्ति
-    hu = Kellékekkel kereskedik
+    hu = Kereskedelmi kellékek
     id = Perlengkapan Perdagangan
     it = Forniture commerciali
     ja = 貿易用品
@@ -27848,7 +28005,7 @@
     pt-BR = Comércio de suprimentos
     ro = Comerțuri Rechizite
     ru = Торговые поставки
-    sk = Živnostenské potreby
+    sk = Remeselnícke potreby
     sv = Handlar förnödenheter
     sw = Ugavi wa Biashara
     th = อุปกรณ์การค้า
@@ -27878,7 +28035,7 @@
     fr = Montres
     he = םינועש
     hi = घड़ियाँ
-    hu = Órák
+    hu = Órabolt
     id = Jam tangan
     it = Orologeria
     ja = 時計
@@ -27890,7 +28047,7 @@
     pt-BR = Relógios
     ro = Priveste
     ru = Часы
-    sk = Hodinky
+    sk = Hodinárstvo
     sv = Klockor
     sw = Saa
     th = นาฬิกา
@@ -28141,6 +28298,7 @@
     pt-BR = Futebol australiano
     ro = Fotbal australian
     ru = Австралийский футбол
+    sk = Austrálsky futbal
     tr = Avustralya futbolu
     uk = Австралійський футбол
     vi = Bóng bầu dục Úc
@@ -28178,7 +28336,7 @@
     pt-BR = Beisebol
     ro = Baseball
     ru = Бейсбол
-    sk = Baseball
+    sk = Bejzbal
     sv = Baseboll
     sw = Baseball
     th = เบสบอล
@@ -28367,6 +28525,7 @@
     pl = Krykiet
     pt = Críquete
     ru = Крикет
+    sk = Kriket
     tr = Kriket
     uk = Крикет
     vi = Cricket
@@ -29246,7 +29405,7 @@
     el = Βασκική πελότα
     es = Pelota vasca
     et = Baski pelota
-    eu = Eusko pilota
+    eu = Euskal pilota
     fa = ﯽﮑﺳﺎﺑ ﯼﺎﺗﻮﻠﭘ
     fi = Baskimaan pelota
     fr = Pelote basque
@@ -29292,6 +29451,7 @@
     pt = Turismo
     pt-BR = Turismo
     ru = Туризм
+    sk = Turistika
     tr = Turizm
     uk = Туризм
     zh-Hans = 旅游要素
@@ -29337,76 +29497,93 @@
     zh-Hant = 水族館
 
   [type.tourism.alpine_hut]
-    en = Alpine Lodging
-    af = Alpynse berghut
-    ar = مساكن جبلية
-    az = Dağda yerləşmə
-    cs = Ubytování v horách
-    da = Bjerg logi
+    comment = Typically serviced, staff is present and food is available (compared to wilderness_hut).
+    en = Mountain Lodge
+    af = Berg lodge
+    ar = لودج الجبل
+    az = Dağ evi
+    be = Горны прытулак з абслугоўваннем
+    bg = Планинска хижа
+    ca = Lodge de muntanya
+    cs = Horská chata
+    da = Bjerghytte
     de = Berghütte
     el = Ορεινό καταφύγιο
-    es = Refugio de montaña
-    et = Mägimajutus
-    eu = Kabina
-    fi = Vuorimajoitus
-    fr = Refuge de montagne
-    hu = Hegyi menedék
-    id = Penginapan di pegunungan
-    it = Rifugio
+    es = Albergue de montaña
+    et = Mägimajake
+    eu = Mendiko ostatua
+    fa = اقامتگاه کوهستانی
+    fi = Vuoristomajoitus
+    fr = Auberge de montagne
+    he = בקתת הרים
+    hi = माउंटेन लॉज
+    hu = Hegyi kunyhó
+    id = Penginapan gunung
+    it = Rifugio di montagna
     ja = 山小屋
-    ko = 고산 오두막
+    ko = 마운틴 롯지
+    lt = Kalnų namelis
+    mr = माउंटन लॉज
     nb = Fjellstue
     nl = Berghut
-    pl = Schronisko górskie
-    pt = Abrigo de montanha
-    pt-BR = Abrigo de montanha
-    ro = Cabană de munte
-    ru = Горный отель
+    pl = Domek górski
+    pt = Alojamento de montanha
+    pt-BR = Alojamento na montanha
+    ro = Cabana de munte
+    ru = Горный приют с обслуживанием
     sk = Horská chata
-    sv = Bergsboende
-    th = ที่พักบนภูเขาโรงแรม
-    tr = Dağda Konaklama
-    uk = Гірський готель
-    vi = Nhà ở trên núi
-    zh-Hans = 山上住宿
-    zh-Hant = 山上住宿
+    sv = Fjällstuga
+    sw = Mlima lodge
+    th = บ้านพักบนภูเขา
+    tr = Dağ Köşkü
+    uk = Гірський притулок з обслуговуванням
+    vi = Nhà nghỉ trên núi
+    zh-Hans = 山间小屋
+    zh-Hant = 山間小屋
 
   [type.tourism.apartment]
     en = Holiday Apartment
     af = Vakansiewoonstel
     ar = شُقَق عطلة
     az = Apart otel
-    cs = Byty
-    da = Lejligheder
+    be = Кватэра для адпачынку
+    bg = Ваканционен апартамент
+    ca = Apartament de vacances
+    cs = Prázdninový apartmán
+    da = Ferielejlighed
     de = Ferienwohnung
-    el = Διαμερίσματα
-    es = Apartamentos
-    et = Korterid
-    eu = Apartamentuak
-    fa = اپارتمان
+    el = Διαμέρισμα διακοπών
+    es = Apartamento de vacaciones
+    et = Puhkuse korter
+    eu = Oporretako apartamentua
+    fa = آپارتمان تعطیلات
     fi = Loma-asunnot
     fr = Appart'hôtel
-    hu = Apartmanok
-    id = Apartemen
-    it = Appartamento
-    ja = アパート
-    ko = 아파트
-    mr = सदनिका
-    nb = Leiligheter
-    nl = Appartementen
-    pl = Apartamenty
-    pt = Apartamentos
-    pt-BR = Apartamentos
-    ro = Apartamente
-    ru = Апартаменты
-    sk = Apartmány
-    sv = Lägenheter
-    th = อพาร์ตเมนต์
-    tr = Apart Otel
-    uk = Апартаменти
-    vi = Căn hộ
-    zh-Hans = 公寓
-    zh-Hant = 公寓
+    he = דירת נופש
+    hi = अवकाश अपार्टमेंट
+    hu = Nyaraló apartman
+    id = Apartemen Liburan
+    it = Appartamento vacanze
+    ja = ホリデー・アパート
+    ko = 홀리데이 아파트
+    lt = Atostogoms nuomojami butai
+    mr = हॉलिडे अपार्टमेंट
+    nb = Ferieleilighet
+    nl = Appartement
+    pl = Apartament wakacyjny
+    pt = Apartamento de alojamento local
+    pt-BR = Apartamento de temporada
+    ro = Apartament de vacanță
+    ru = Квартира для отдыха
+    sk = Prázdninový apartmán
+    sv = Semesterlägenhet
+    sw = Ghorofa ya Likizo
+    th = ฮอลิเดย์ อพาร์ตเมนต์
+    tr = Tatil Apartmanı
+    uk = Апартаменти для відпочинку
+    vi = Căn hộ nghỉ dưỡng
+    zh-Hans = 度假公寓
+    zh-Hant = 假日公寓
 
   [type.tourism.artwork]
     en = Artwork
@@ -29434,10 +29611,9 @@
     nl = Kunstwerk
     pl = Dzieło sztuki
     pt = Obra de arte
-    pt-BR = Obra de arte
     ro = Turism
     ru = Произведение искусства
-    sk = Umelecké diela
+    sk = Umelecké dielo
     sv = Konstverk
     th = งานศิลปะ
     tr = Sanat
@@ -29470,11 +29646,11 @@
     nb = Kunstverk
     nl = Kunstwerk
     pl = Architektura
-    pt = Obra de arte de arquitetura
-    pt-BR = Obra de arte de arquitetura
+    pt = Arte arquitetónica
+    pt-BR = Arte arquitetônica
     ro = Turism
     ru = Произведение искусства
-    sk = Umelecké diela
+    sk = Architektonické dielo
     sv = Konstverk
     th = งานศิลปะ
     tr = Sanatsal Mimari
@@ -29508,10 +29684,9 @@
     nl = Schilderij
     pl = Malarstwo
     pt = Pintura
-    pt-BR = Pintura
     ro = Turism
     ru = Произведение искусства
-    sk = Umelecké diela
+    sk = Maľba
     sv = Konstverk
     th = งานศิลปะ
     tr = Sanat Eserleri
@@ -29545,10 +29720,9 @@
     nl = Kunstwerk
     pl = Rzeźba
     pt = Escultura
-    pt-BR = Escultura
     ro = Turism
     ru = Произведение искусства
-    sk = Umelecké diela
+    sk = Plastika
     sv = Konstverk
     th = งานศิลปะ
     tr = Heykel
@@ -29583,10 +29757,9 @@
     nl = Standbeeld
     pl = Posąg
     pt = Estátua
-    pt-BR = Estátua
     ro = Turism
     ru = Произведение искусства
-    sk = Umelecké diela
+    sk = Socha
     sv = Konstverk
     th = งานศิลปะ
     tr = Heykel
@@ -29620,7 +29793,6 @@
     nl = Attractie
     pl = Atrakcja turystyczna
     pt = Atração turística
-    pt-BR = Atração turística
     ro = Punct de atracție
     ru = Достопримечательность
     sk = Atrakcia
@@ -29632,17 +29804,48 @@
     zh-Hans = 景点
     zh-Hant = 景點
 
-  [type.tourism.attraction.animal]
-    ref = type.tourism.attraction
+  [type.attraction.animal]
     en = Animal Enclosure
-    af = Skerm vir diere
-    az = Zoopark
+    af = Diere Omheining
+    ar = الضميمة الحيوانية
+    az = Heyvan mühafizəsi
+    be = Вальера для жывёл
+    bg = Заграждение за животни
+    ca = Recinte d'animals
+    cs = Ohrada pro zvířata
+    da = Indhegning til dyr
+    de = Tiergehege
+    el = Περίφραξη ζώων
+    es = Recinto de animales
     et = Loomade aedik
-    it = Recinto
-    ja = 動物
+    eu = Animalien itxitura
+    fa = محوطه حیوانات
+    fi = Eläinsuoja
+    fr = Enclos pour animaux
+    he = מתחם בעלי חיים
+    hi = पशु बाड़ा
+    hu = Állatok tartása
+    id = Kandang Hewan
+    it = Recinto per animali
+    ja = アニマル・エンクロージャー
+    ko = 동물 인클로저
+    lt = Gyvūnų aptvaras
+    mr = प्राणी संलग्न
+    nb = Innhegning for dyr
     nl = Dierenverblijf
     pl = Atrakcje zwierzęce
-    tr = Hayvanat bahçesi
+    pt = Recinto para animais
+    ro = Incintă pentru animale
+    ru = Вольер для животных
+    sk = Zvieracia ohrada
+    sv = Inhägnad för djur
+    sw = Hifadhi ya Wanyama
+    th = สิ่งที่แนบมากับสัตว์
+    tr = Hayvan Muhafazası
+    uk = Вольєр для тварин
+    vi = Bao vây động vật
+    zh-Hans = 动物围栏
+    zh-Hant = 動物圍欄
 
   [type.tourism.attraction.specified]
     ref = type.tourism.attraction
@@ -29672,8 +29875,9 @@
     nl = Kampeerterrein
     pl = Kamping
     pt = Parque de campismo
-    pt-BR = Parque de campismo
+    pt-BR = Local de camping
     ru = Кемпинг
+    sk = Kemp
     th = การตั้งแคมป์
     tr = Kamp Alanı
     uk = Кемпінг
@@ -29697,6 +29901,7 @@
     eu = Karabana gunea
     fi = Asuntovaunupaikka
     fr = Aire de camping-car
+    hi = कारवां स्थल
     hu = Karaván pihenő
     id = Lokasi perkemahan
     it = Area per campeggiatori
@@ -29719,37 +29924,49 @@
     zh-Hant = 營區
 
   [type.tourism.chalet]
-    en = Chalet
-    af = Berghut
-    ar = شاليه
-    az = Dağ evi
-    da = Hytte
+    comment = A rentable countryside vacation house.
+    en = Holiday Cottage
+    af = Vakansie Kothuis
+    ar = عطلة المنزلية
+    az = İstirahət kotteci
+    be = Катэдж для адпачынку
+    bg = Ваканционна вила
+    ca = Casa rural de vacances
+    cs = Rekreační chata
+    da = Feriehus
     de = Ferienhaus
-    el = Σαλέ
-    es = Chalé
-    et = Suvila
-    eu = Txaleta
-    fa = هتل
-    fi = Mökki
-    fr = Meublé de tourisme
-    hu = Turistaház
-    it = Chalet
-    ja = シャレー
-    ko = 별장
+    el = Εξοχικό σπίτι διακοπών
+    es = Casa de vacaciones
+    es-MX = Cabaña de vacaciones
+    et = Puhkemaja
+    eu = Oporretako Etxea
+    fa = کلبه تعطیلات
+    fi = Lomamökki
+    fr = Chalet de vacances
+    he = בית נופש
+    hi = हॉलिडे कॉटेज
+    hu = Nyaraló házikó
+    id = Pondok Liburan
+    it = Cottage per le vacanze
+    ja = ホリデー・コテージ
+    ko = 홀리데이 코티지
+    lt = Atostogų namelis
+    mr = हॉलिडे कॉटेज
+    nb = Feriehus
     nl = Vakantiehuis
     pl = Domek letniskowy
-    pt = Chalé
-    pt-BR = Chalé
-    ro = Cabană
-    ru = Шале
-    sk = Chata
-    sv = Stuga
-    th = ชาเลต์
-    tr = Dağ Evi
-    uk = Шале
-    vi = Khách sạn
-    zh-Hans = 度假屋
-    zh-Hant = 木屋
+    pt = Casa de férias
+    ro = Cabană de vacanță
+    ru = Коттедж для отдыха
+    sk = Rekreačná chata
+    sv = Semesterstuga
+    sw = Nyumba ndogo ya Likizo
+    th = กระท่อมวันหยุด
+    tr = Tatil Kulübesi
+    uk = Котедж для відпочинку
+    vi = Nha nghi
+    zh-Hans = 度假别墅
+    zh-Hant = 度假小屋
 
   [type.tourism.gallery]
     en = Art Gallery
@@ -29766,6 +29983,7 @@
     fa = گالری
     fi = Nähtävyydet
     fr = Galerie d'art
+    hi = आर्ट गैलरी
     hu = Túrizmus
     id = Pemandangan
     it = Galleria
@@ -29775,11 +29993,10 @@
     nb = Galleri
     nl = Galerij
     pl = Galeria
-    pt = Galeria
-    pt-BR = Galeria
+    pt = Galeria de arte
     ro = Galerie
     ru = Галерея
-    sk = Pamätihodnosť
+    sk = Umelecká galéria
     sv = Attraktion
     th = สถานที่ท่องเที่ยว
     tr = Galeri
@@ -29803,9 +30020,10 @@
     fa = هتل
     fi = Majatalo
     fr = Maison d'hôtes
+    hi = अतिथि गृह
     hu = Vendégház
     id = Wisma tamu
-    it = Casa degli Ospiti
+    it = Affittacamere
     ja = ゲストハウス
     ko = 게스트하우스
     mr = अतिथीगृह
@@ -29847,7 +30065,6 @@
     nl = Herberg
     pl = Hostel
     pt = Hostel
-    pt-BR = Hostel
     ru = Хостел
     sv = Vandrarhem
     th = หอพัก
@@ -29879,7 +30096,6 @@
     nl = Hotel
     pl = Hotel
     pt = Hotel
-    pt-BR = Hotel
     ru = Гостиница
     sv = Hotell
     th = โรงแรม
@@ -29907,6 +30123,7 @@
     fi = Turisti-informaatio
     fr = Informations touristiques
     he = מידע לתייר
+    hi = पर्यटक सूचना
     hu = Túrista információ
     id = Informasi turis
     it = Informazione
@@ -29960,7 +30177,7 @@
     pt = Painel de informações
     ro = Panou de informații
     ru = Информационный щит
-    sk = Informačné centrum
+    sk = Informačná tabuľa
     sv = Informationstavla
     sw = Bodi ya habari
     th = บอร์ดประชาสัมพันธ์
@@ -29998,7 +30215,6 @@
     nl = Wegwijzer
     pl = Drogowskaz
     pt = Poste com direções
-    pt-BR = Poste com direções
     ro = Postul de ghidare
     ru = Указательный столб
     sk = Smerovník
@@ -30120,7 +30336,6 @@
     nl = Bezoekerscentrum
     pl = Centrum dla zwiedzających
     pt = Centro de visitantes
-    pt-BR = Centro de visitantes
     ro = Centrul pentru vizitatori
     ru = Центр для посетителей
     sk = Návštevnícke centrum
@@ -30144,13 +30359,13 @@
     et = Motell
     fa = هتل
     fi = Motelli
+    hi = मोटेल
     it = Motel
     ja = モーテル
     ko = 모텔
     nb = Motell
     pl = Motel
     pt = Motel
-    pt-BR = Motel
     ru = Мотель
     sv = Motell
     th = โมเทล
@@ -30183,7 +30398,6 @@
     nl = Museum
     pl = Muzeum
     pt = Museu
-    pt-BR = Museu
     ro = Muzeu
     ru = Музей
     sk = Múzeum
@@ -30209,6 +30423,7 @@
     fa = مکان پیک نیک
     fi = Piknikpaikat
     fr = Terrain de pique-nique
+    hi = पिकनिक स्थल
     hu = Piknikező hely
     id = Lokasi piknik
     it = Area picnic
@@ -30219,7 +30434,6 @@
     nl = Picnicplaats
     pl = Pole piknikowe
     pt = Local de piqueniques
-    pt-BR = Local de piqueniques
     ro = Locații picnic
     ru = Место для пикника
     sk = Piknik
@@ -30231,7 +30445,7 @@
     zh-Hans = 野餐地点
     zh-Hant = 野餐
 
-  [type.tourism.resort]
+  [type.leisure.resort]
     en = Resort
     af = Oord
     ar = منتجع
@@ -30254,7 +30468,6 @@
     nl = Complex
     pl = Dom wczasowy
     pt = Resort
-    pt-BR = Resort
     ro = Stațiuni
     ru = Дом отдыха
     sk = Rezort
@@ -30291,10 +30504,9 @@
     nl = Attractiepark
     pl = Park tematyczny
     pt = Parque de diversão
-    pt-BR = Parque de diversão
     ro = Parc de distracții
     ru = Парк развлечений
-    sk = Pamätihodnosť
+    sk = Zábavný park
     sv = Attraktion
     th = สถานที่ท่องเที่ยว
     tr = Tema Parkı
@@ -30318,6 +30530,7 @@
     fa = گردشگری
     fi = Näköalatasanne
     fr = Belvédère
+    hi = दृष्टिकोण
     hu = Kilátó
     id = Titik pandang
     it = Punto panoramico
@@ -30341,13 +30554,16 @@
     zh-Hant = 視野
 
   [type.tourism.wilderness_hut]
+    comment = Typically more basic, not staffed and free (compared to alpine_hut).
     en = Wilderness Hut
     af = Wildernishuisie
     ar = كوخ برية
     az = Çöl kabinəsi
+    be = Турыстычная хатка
+    bg = Хижа-заслон
     cs = Chata v divočině
     da = Vildmarkshytte
-    de = Waldhütte
+    de = Selbstversorgerhütte
     el = Καλύβα
     es = Cabaña
     et = Loodusonn
@@ -30355,6 +30571,7 @@
     fa = کلبه‌ی صحرایی
     fi = Autiotupa
     fr = Refuge non gardé
+    he = בקתה לא מאוישת
     hu = Kunyhó a vadonban
     id = Pondok Alam Liar
     it = Rifugio
@@ -30364,14 +30581,13 @@
     nl = Wildernishut
     pl = Gajówka
     pt = Cabana
-    pt-BR = Cabana
     ro = Cabană în pădure
-    ru = Хижина в лесу
+    ru = Домик для туристов
     sk = Chata
     sv = Vildmarksstuga
     th = กระท่อมกลางป่า
     tr = Vahşi Doğa Kulübesi
-    uk = Хибара
+    uk = Хатка для туристів
     vi = Nhà tạm trú
     zh-Hans = 野外住宿小屋
     zh-Hant = 山屋
@@ -30438,11 +30654,11 @@
     nb = Dyrehage
     nl = Kinderboerderij
     pl = Małe Zoo
-    pt = Jardim Zoológico
-    pt-BR = Jardim Zoológico
+    pt = Mini zoológico
+    pt-BR = Fazendinha
     ro = Grădina Zoologică
     ru = Контактный зоопарк
-    sk = Zoologická záhrada s domácimi zvieratami
+    sk = Kontaktná zoo
     sv = Petting Zoo
     sw = Kufuga Zoo
     th = สวนสัตว์ลูบคลำ
@@ -30465,8 +30681,8 @@
     nl = Snelheidsmatigende maatregel
     pl = Uspokojenie ruchu drogowego
     pt = Redutor de velocidade
-    pt-BR = Redutor de velocidade
     ru = Лежачий полицейский
+    sk = Upokojovanie dopravy
     tr = Hız Kesici (Kasis)
     uk = Лежачий полiцейський
 
@@ -30488,6 +30704,7 @@
     pt = Lomba
     pt-BR = Quebra-molas
     ru = Лежачий полицейский
+    sk = Spomaľovací prah
     tr = Hız Kesici (Kasis)
     uk = Лежачий полiцейський
 
@@ -30504,8 +30721,9 @@
     nl = Verkeersheuvel
     pl = Długi próg zwalniający
     pt = Lomba longa
-    pt-BR = Quebra-molas longa
+    pt-BR = Quebra-molas longo
     ru = Лежачий полицейский
+    sk = Spomaľovací prah
     tr = Hız Kesici (Kasis)
     uk = Лежачий полiцейський
 
@@ -30521,8 +30739,8 @@
     mr = जलमार्ग
     nl = Waterweg
     pt = Curso de água
-    pt-BR = Curso de água
     ru = Водный путь
+    sk = Vodný tok
     tr = Su Yolu
     uk = Водяний шлях
     zh-Hans = 航道要素
@@ -30551,7 +30769,6 @@
     nl = Kanaal
     pl = Kanał
     pt = Canal
-    pt-BR = Canal
     ru = Канал
     sk = Kanál
     sv = Kanal
@@ -30585,10 +30802,9 @@
     nb = Kanal
     nl = Kanaal
     pl = Kanał
-    pt = Canal
-    pt-BR = Canal
+    pt = Túnel de canal
     ru = Канал
-    sk = Kanál
+    sk = Tunel v kanáli
     sv = Kanal
     th = คลอง
     tr = Kanal
@@ -30627,10 +30843,9 @@
     nl = Vistrap
     pl = Przepławka
     pt = Escada de peixes
-    pt-BR = Escada de peixes
     ro = Scară de pește
     ru = Рыбоход
-    sk = Rebrík pre ryby
+    sk = Rybovod
     sv = Fiskstege
     sw = Ngazi ya samaki
     th = บันไดปลา
@@ -30657,8 +30872,8 @@
     nl = Dam
     pl = Tama
     pt = Barragem
-    pt-BR = Usina
     ru = Дамба
+    sk = Priehrada
     tr = Baraj
     uk = Дамба
     zh-Hans = 水坝
@@ -30678,8 +30893,8 @@
     nl = Sloot
     pl = Rów
     pt = Vala
-    pt-BR = Vala
     ru = Ров
+    sk = Priekopa
     tr = Hendek
     uk = Канава
     zh-Hans = 水沟
@@ -30716,7 +30931,6 @@
     nl = Duiker
     pl = Przepust
     pt = Bueiro
-    pt-BR = Bueiro
     ro = Canal de scurgere
     ru = Водопропускная труба
     sk = Priepust
@@ -30745,8 +30959,8 @@
     nl = Dok
     pl = Dok
     pt = Doca
-    pt-BR = Doca
     ru = Причал
+    sk = Dok
     tr = Rıhtım
     uk = Причал
     zh-Hans = 船坞
@@ -30764,8 +30978,8 @@
     mr = नाला
     nl = Afvoer
     pt = Valeta de drenagem
-    pt-BR = Valeta de drenagem
     ru = Водоотвод
+    sk = Stoka
     tr = Lağım
     uk = Водовiдвiд
     zh-Hans = 渠
@@ -30800,7 +31014,6 @@
     nl = Sluisdeur
     pl = Wrota śluzy
     pt = Comporta de eclusa
-    pt-BR = Comporta de eclusa
     ro = Ecluză
     ru = Шлюз
     sk = Stavidlo
@@ -30854,44 +31067,6 @@
   [type.waterway.river.tunnel]
     ref = type.waterway.river
 
-  [type.waterway.riverbank]
-    en = River
-    af = Rivier
-    ar = نهر
-    az = Çay
-    be = Рака
-    cs = Řeka
-    da = Flod
-    de = Fluss
-    el = Ποταμός
-    es = Río
-    et = Jõgi
-    eu = Ibai
-    fa = رودخانه
-    fi = Joki
-    fr = Rivière
-    hu = Folyó
-    id = Sungai
-    it = Fiume
-    ja = 河川
-    ko = 강
-    mr = नदी
-    nb = Elv
-    nl = Rivier
-    pl = Koryto rzeki
-    pt = Rio
-    pt-BR = Rio
-    ro = Râu
-    ru = Река
-    sk = Rieka
-    sv = Flod
-    th = แม่น้ำ
-    tr = Nehir
-    uk = Річка
-    vi = Sông
-    zh-Hans = 河流
-    zh-Hant = 河流
-
   [type.waterway.stream]
     en = Stream
     af = Beek
@@ -30921,7 +31096,7 @@
     pt-BR = Ribeiro
     ro = Râu
     ru = Река
-    sk = Rieka
+    sk = Potok
     sv = Flod
     th = แม่น้ำ
     tr = Nehir
@@ -30959,7 +31134,7 @@
     pt-BR = Ribeiro efémero
     ro = Râu
     ru = Река
-    sk = Rieka
+    sk = Občasný potok
     sv = Flod
     th = แม่น้ำ
     tr = Nehir
@@ -30997,7 +31172,7 @@
     pt-BR = Ribeiro sasonal
     ro = Râu
     ru = Река
-    sk = Rieka
+    sk = Občasný potok
     sv = Flod
     th = แม่น้ำ
     tr = Nehir
@@ -31062,6 +31237,7 @@
     pt = Represa
     pt-BR = Açude
     ru = Плотина
+    sk = Hať
     tr = Su Bendi
     uk = Гребля
     zh-Hans = 堰
@@ -31084,6 +31260,7 @@
     pt = Cadeiras de rodas
     pt-BR = Cadeiras de rodas
     ru = Инвалидная коляска
+    sk = Bezbariérový prístup
     tr = Tekerlekli sandalye
     uk = Iнвалiдний вiзок
     zh-Hans = 轮椅
@@ -31097,8 +31274,7 @@
     da = Begrænset tilgængelighed for kørestol
     de = Eingeschränkter Rollstuhlzugang
     el = Μερικώς εξοπλισμένο για άτομα με ειδικές ανάγκες
-    es = Parcialmente equipado para discapacitados
-    es-MX = Parcialmente equipado para discapacitados
+    es = Parcialmente accesible en silla de ruedas
     et = Piiratud ratastooliga ligipääs
     eu = Ezinduentzako partzialki hornitua
     fa = دسترسی محدود با صندلی چرخ دار
@@ -31136,8 +31312,7 @@
     da = Ingen tilgængelighed for kørestol
     de = Kein Rollstuhlzugang
     el = Δεν υπάρχει πρόβλεψη για άτομα με ειδικές ανάγκες
-    es = No equipado para discapacitados
-    es-MX = No equipado para discapacitados
+    es = No accesible en silla de ruedas
     et = Puudub ratastooliga ligipääs
     eu = Ezinduentzako ekipatuta ez dago
     fa = بدون دسترسی با صندلی چرخ دار
@@ -31175,8 +31350,7 @@
     da = Fuld tilgængelighed for kørestol
     de = Vollständiger Zugang für Rollstühle
     el = Εξοπλισμένο για άτομα με ειδικές ανάγκες
-    es = Equipado para discapacitados
-    es-MX = Equipado para discapacitados
+    es = Accesible en silla de ruedas
     et = Täielik ratastooli ligipääs
     eu = Ezinduentzako hornitua
     fa = دسترسی کامل با صندلی چرخ دار
@@ -31217,6 +31391,7 @@
     pt = Telesqui de barra em J
     pt-BR = Telesqui de barra em J
     ru = Бугельный подъёмник
+    sk = Vlek typu jednokotva
     tr = Kayak Teleferiği
     uk = Бугельний витяг
 
@@ -31232,6 +31407,7 @@
     pt = Tapete deslizante
     pt-BR = Tapete deslizante
     ru = Ленточный конвейер
+    sk = Zázračný koberec
     tr = Kayak Teleferiği
     uk = Стрiчковий конвеєр
 
@@ -31247,6 +31423,7 @@
     pt = Telesqui de disco
     pt-BR = Telesqui de disco
     ru = Бугельный подъёмник
+    sk = Vlek typu poma
     tr = Tabak Asansörü
     uk = Бугельний витяг
 
@@ -31262,6 +31439,7 @@
     pt = Telesqui de corda
     pt-BR = Telesqui de corda
     ru = Бугельный подъёмник
+    sk = Kotvičkový vlek
     tr = Çekme Halatı
     uk = Бугельний витяг
 
@@ -31277,6 +31455,7 @@
     pt = Telesqui de barra em T
     pt-BR = Telesqui de barra em T
     ru = Бугельный подъёмник
+    sk = Vlek typu kotva
     tr = Kayakçı teleferiği
     uk = Бугельний витяг
 
@@ -31292,6 +31471,7 @@
     pt = Esqui alpino
     pt-BR = Esqui alpino
     ru = Горнолыжная трасса
+    sk = Zjazdové lyžovanie
     tr = Yokuş Aşağı Kayak Pisti
     uk = Гірськолижна траса
 
@@ -31309,6 +31489,7 @@
     pt = Esqui alpino avançado
     pt-BR = Esqui alpino avançado
     ru = Продвинутая горнолыжная трасса
+    sk = Zjazdové lyžovanie pre pokročilých
     tr = Gelişmiş kayak pisti
     uk = Доповнена гірськолижна траса
 
@@ -31326,6 +31507,7 @@
     pt = Esqui alpino fácil
     pt-BR = Esqui alpino fácil
     ru = Лёгкая горнолыжная трасса
+    sk = Zjazdové lyžovanie pre začiatočníkov
     tr = Basit kayak pisti
     uk = Легка гірськолижна траса
 
@@ -31343,6 +31525,7 @@
     pt = Esqui alpino avançado
     pt-BR = Esqui alpino avançado
     ru = Горнолыжная трасса для экспертов
+    sk = Zjazdové lyžovanie pre vysoko pokročilých
     tr = Uzmanlar için kayak pisti
     uk = Гірськолижна траса для експертів
 
@@ -31356,6 +31539,7 @@
     pt = Esqui alpino livre
     pt-BR = Esqui alpino livre
     ru = Горнолыжная трасса для фрирайда
+    sk = Freeride zjazdové lyžovanie
     tr = Serbest sürüş kayak pisti
     uk = Гірськолижна траса вільного спуска
 
@@ -31370,6 +31554,7 @@
     pt = Esqui alpino intermédio
     pt-BR = Esqui alpino intermédio
     ru = Горнолыжная трасса средней сложности
+    sk = Zjazdové lyžovanie pre mierne pokročilých
     tr = Orta zorlukta kayak pisti
     uk = Гірськолижна траса середнього рівня
 
@@ -31387,6 +31572,7 @@
     pt = Esqui alpino iniciante
     pt-BR = Esqui alpino iniciante
     ru = Горнолыжная трасса для новичков
+    sk = Zjazdové lyžovanie pre úplných začiatočníkov
     tr = Yeni başlayanlar için kayak pisti
     uk = Гірськолижна траса для новеньких
 
@@ -31405,6 +31591,7 @@
     pt = Pista tipo nórdico
     pt-BR = Pista tipo nórdico
     ru = Лыжня
+    sk = Bežkárska trať
     tr = İskandinav Kayak Pisti
     uk = Лижня
 
@@ -31422,6 +31609,7 @@
     pt = Pista para trenós
     pt-BR = Pista para trenós
     ru = Трасса для саней
+    sk = Zjazdovka na sánkovanie
     tr = Kızak Pisti
     uk = Траса для санок
 
@@ -31481,7 +31669,7 @@
     da = Vandresti i sne
     de = Schneewanderweg
     el = Μονοπάτι πεζοπορίας χιονιού
-    es = Senderismo en la nieve
+    es = Ruta de senderismo en la nieve
     es-MX = Ruta de senderismo en la nieve
     et = Lumi matkarada
     eu = Elurretako Mendi Ibilbidea
@@ -31504,7 +31692,7 @@
     pt-BR = Trilha de caminhada na neve
     ro = Zăpadă Hiking Trail
     ru = Зимняя тропа
-    sk = Snehová turistická trasa
+    sk = Zimný turistický chodník
     sv = Vandringsled i snö
     sw = Njia ya Kupanda theluji
     th = เส้นทางเดินป่าหิมะ

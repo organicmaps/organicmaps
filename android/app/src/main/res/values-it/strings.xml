@@ -41,9 +41,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Nessun annuncio, nessun tracciamento, nessuna raccolta di dati</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Risparmia la batteria, non utilizza i dati in background</string>
+	<string name="about_proposition_2">• Non consuma la batteria, funziona anche offline</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Veloce, minimalista, nessuna spazzatura</string>
+	<string name="about_proposition_3">• Veloce, minimalista, sviluppato dalla comunità</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Applicazione open source creata da appassionati e volontari.</string>
 	<!-- The button that opens system location settings -->
@@ -102,52 +102,54 @@
 	<string name="measurement_units_summary">Scegli tra miglia e chilometri</string>
 
 	<!-- SECTION: Search categories -->
-	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">Dove mangiare</string>
-	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Alimentari</string>
-	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">Trasporto</string>
-	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Benzinaio</string>
-	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">Parcheggio</string>
-	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">Negozi</string>
-	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">Di seconda mano</string>
-	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">Albergo</string>
-	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">Luoghi turistici</string>
-	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">Divertimento</string>
-	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">Bancomat</string>
-	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">Vita notturna</string>
-	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Divertimento in famiglia</string>
-	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">Banca</string>
-	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">Farmacia</string>
-	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">Ospedale</string>
-	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">Toilette</string>
-	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">Posta</string>
-	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">Polizia</string>
-	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">Wi-Fi</string>
-	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">Riciclo</string>
-	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">Acqua</string>
-	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">Per camper</string>
+	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+	<string name="category_eat">Dove mangiare</string>
+	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+	<string name="category_food">Alimentari</string>
+	<!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+	<string name="category_transport">Trasporto</string>
+	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+	<string name="category_fuel">Benzinaio</string>
+	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+	<string name="category_parking">Parcheggio</string>
+	<!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+	<string name="category_shopping">Negozi</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
+	<string name="category_secondhand">Di seconda mano</string>
+	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+	<string name="category_hotel">Albergo</string>
+	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+	<string name="category_tourism">Luoghi turistici</string>
+	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
+	<string name="category_entertainment">Divertimento</string>
+	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+	<string name="category_atm">Bancomat</string>
+	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+	<string name="category_nightlife">Vita notturna</string>
+	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+	<string name="category_children">Divertimento in famiglia</string>
+	<!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+	<string name="category_bank">Banca</string>
+	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+	<string name="category_pharmacy">Farmacia</string>
+	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+	<string name="category_hospital">Ospedale</string>
+	<!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+	<string name="category_toilet">Toilette</string>
+	<!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+	<string name="category_post">Posta</string>
+	<!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+	<string name="category_police">Polizia</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+	<string name="category_wifi">Wi-Fi</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+	<string name="category_recycling">Riciclo</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+	<string name="category_water">Acqua</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+	<string name="category_rv">Per camper</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Informazioni</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -159,6 +161,10 @@
 	<string name="load_kmz_successful">Luoghi preferiti caricati con successo! Puoi trovarli sulla mappa o nella schermata \"Gestione Luoghi preferiti\".</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Caricamento dei luoghi preferiti non riuscito. Il file potrebbe essere corrotto o difettoso.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Il tipo di file non è riconosciuto dall\'applicazione:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Impossibile aprire il file %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Modifica</string>
 	<!-- Warning message when doing search around current position -->
@@ -215,6 +221,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">Gli edifici 3D sono disattivati in modalità di risparmio energetico</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Istruzioni vocali</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Annunciare i nomi delle strade</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Se abilitato, verrà pronunciato ad alta voce il nome della via o dell\'uscita in cui svoltare.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Lingua per la voce</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -457,13 +467,15 @@
 	<string name="editor_edit_place_title">Modifica</string>
 	<string name="editor_add_place_title">Aggiungi</string>
 	<string name="editor_edit_place_name_hint">Nome del luogo</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">Come è scritto nella lingua locale</string>
 	<string name="editor_edit_place_category_title">Categoria</string>
 	<string name="detailed_problem_description">Descrizione dettagliata del problema</string>
 	<string name="editor_report_problem_other_title">Un problema diverso</string>
 	<string name="placepage_add_business_button">Aggiungi attività</string>
 	<string name="message_invalid_feature_position">Nessun oggetto può essere posizionato qui</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Dati cartografici da OpenStreetMap a partire dal %s. È come Wikipedia dove è possibile aggiungere o modificare luoghi per tutti gli utenti del mondo.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Dati OpenStreetMap creati dalla comunità al %s. Per saperne di più su come modificare e aggiornare la mappa, visita OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">Accedi per consentire ad altri utenti di vedere le modifiche apportate.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d di %2$d</string>
@@ -482,14 +494,10 @@
 	<string name="editor_detailed_description">Le modifiche alla mappa da te suggerite saranno inviate alla comunità di OpenStreetMap. Descrivi qualsiasi dettaglio aggiuntivo che non può essere modificato in Organic Maps.</string>
 	<string name="editor_more_about_osm">Informazioni su OpenStreetMap</string>
 	<string name="editor_operator">Proprietario</string>
+	<string name="editor_category_unsuitable_title">Non riesci a trovare una categoria adatta?</string>
+	<string name="editor_category_unsuitable_text">Organic Maps consente di aggiungere solo semplici categorie di punti, quindi non città, strade, laghi, profili di edifici, ecc. Aggiungi tali categorie direttamente a <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulta la nostra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guida</a> per istruzioni dettagliate passo dopo passo.</string>
 	<string name="downloader_no_downloaded_maps_title">Non hai scaricato mappe</string>
 	<string name="downloader_no_downloaded_maps_message">Scarica mappe per trovare un luogo e navigare offline.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">Continuare a rilevare la tua posizione attuale?</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">La posizione attuale è sconosciuta. È possibile che ci si trovi all\'interno di un edificio o un tunnel.</string>
-	<string name="current_location_unknown_continue_button">Continua</string>
-	<string name="current_location_unknown_stop_button">Ferma</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -531,7 +539,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Assicurati di non aver inserito alcun dato personale.</string>
 	<string name="editor_share_to_all_dialog_message_2">Gli editori di OpenStreetMap controlleranno le modifiche e si metteranno in contatto con te in caso di domande.</string>
-	<string name="navigation_stop_button">ferma</string>
+	<string name="navigation_stop_button">Ferma</string>
 	<!-- For the first routing -->
 	<string name="accept">Accetta</string>
 	<!-- For the first routing -->
@@ -564,6 +572,8 @@
 	<string name="routing_add_finish_point">Aggiungi un punto di arrivo per pianificare un percorso</string>
 	<string name="placepage_remove_stop">Rimuovi</string>
 	<string name="placepage_add_stop">Aggiungi sosta</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Accedi a OpenStreetMap per caricare automaticamente tutte le tue modifiche alla mappa. Per saperne di più <a href="https://github.com/organicmaps/organicmaps/issues/6144">qui</a>.</string>
 	<string name="dialog_error_storage_title">Problema di accesso alla memoria</string>
 	<string name="dialog_error_storage_message">Archivio esterno non disponibile, probabilmente la scheda SD è stata rimossa, è danneggiata o il file system è di sola lettura. Controllala o contattaci su support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Simula archivio danneggiato</string>
@@ -621,13 +631,15 @@
 	<string name="bookmark_list_description_hint">Scrivi una descrizione (testo o html)</string>
 	<string name="not_shared">Personale</string>
 	<string name="speedcams_alert_title">Autovelox</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Sempre</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Mai</string>
 	<string name="place_description_title">Descrizione luogo</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Scaricamento mappe</string>
+	<!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+	<string name="pref_tts_speedcams_auto">Avvisa se superi il limite di velocità</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Avvisare sempre</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Non avvisare mai</string>
 	<string name="power_managment_title">Risparmio energetico</string>
 	<string name="power_managment_description">In modalità di risparmio energetico l\'applicazione disattiva alcuni funzioni che hanno un impatto sulla batteria a secondo della carica restante</string>
 	<string name="power_managment_setting_never">Mai</string>
@@ -674,6 +686,8 @@
 	<string name="by_distance">Per distanza</string>
 	<!-- Android -->
 	<string name="by_date">Per data</string>
+	<!-- Android -->
+	<string name="by_name">Per nome</string>
 	<string name="week_ago_sorttype">Una settimana fa</string>
 	<string name="month_ago_sorttype">Un mese fa</string>
 	<string name="moremonth_ago_sorttype">Più di un mese fa</string>
@@ -732,18 +746,36 @@
 	<string name="translated_om_site_url">https://organicmaps.app/it/</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/IT:About</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Grazie per aver utilizzato le nostre mappe costruite dalla comunità!</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Ora stai utilizzando Organic Maps sullo schermo del telefono</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">Con le tue donazioni e il tuo supporto, possiamo creare le migliori mappe del mondo!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Ti piace la nostra app? Si prega di donare per sostenere lo sviluppo! Non ti piace ancora? Fatecelo sapere e risolveremo il problema!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Se conosci uno sviluppatore di software, puoi chiedergli di implementare una funzionalità di cui hai bisogno.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Sai che puoi toccare a lungo qualsiasi luogo sulla mappa per selezionarlo?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Sai che puoi selezionare la tua posizione attuale sulla mappa?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Puoi aiutare a tradurre la nostra app nella tua lingua.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">La nostra app è sviluppata da alcuni appassionati e dalla community.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Puoi facilmente correggere e migliorare i dati della mappa.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Il nostro obiettivo principale è creare mappe veloci, incentrate sulla privacy e facili da usare che adorerai.</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">Ora stai utilizzando Organic Maps sullo schermo del telefono</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Ora stai utilizzando le Organic Maps sullo schermo dell\'auto</string>
+	<string name="car_used_on_the_car_screen">Ora stai utilizzando le Organic Maps sullo schermo dell\'auto</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Sei connesso ad Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Continua nel telefono</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">Allo schermo dell\'auto</string>
+	<string name="car_continue_on_the_phone">Continua nel telefono</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">Allo schermo dell\'auto</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">Questa applicazione richiede l\'accesso alla tua posizione per la navigazione.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -754,8 +786,22 @@
 	<string name="button_layer_outdoor">Escursioni</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Il browser web non è disponibile</string>
-	<!-- Text displayed in a dialog when OSM authorization is disabled -->
-	<string name="osm_login_not_available">L\'autorizzazione di OpenStreetMap è temporaneamente non disponibile a causa delle nuove restrizioni di Google Play 😾\nIl nostro team sta lavorando per risolvere questoproblema. Ti preghiamo di essere paziente 🙏</string>
+	<string name="volume">Volume</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Esporta tutti i segnalibri e le tracce</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Impostazioni del sistema di sintesi vocale</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">Le impostazioni della sintesi vocale non sono state trovate, sei sicuro che il tuo dispositivo le supporti?</string>
+	<string name="drive_through">Accesso con auto</string>
+	<string name="clear_the_search">Cancella la ricerca</string>
+	<string name="zoom_in">Ingrandisci</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Rimpicciolisci</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Link al menu</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Visualizza menu</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Indirizzo/Blocco</string>
@@ -782,7 +828,7 @@
 	<string name="type.amenity.atm">Bancomat</string>
 	<string name="type.amenity.bank">Banca</string>
 	<string name="type.amenity.bar">Bar alcolico</string>
-	<string name="type.amenity.bbq">Grill pubblico</string>
+	<string name="type.amenity.bbq">Griglia per barbecue</string>
 	<string name="type.amenity.bench">Panchina</string>
 	<string name="type.amenity.bicycle_parking">Parcheggio biciclette</string>
 	<string name="type.amenity.bicycle_rental">Noleggio biciclette</string>
@@ -814,6 +860,7 @@
 	<string name="type.amenity.dentist">Dentista</string>
 	<string name="type.amenity.doctors">Studio medico</string>
 	<string name="type.amenity.drinking_water">Acqua potabile</string>
+	<string name="type.drinking_water.yes">Acqua potabile</string>
 	<string name="type.amenity.driving_school">Scuola guida</string>
 	<string name="type.amenity.exhibition_centre">Centro espositivo</string>
 	<string name="type.amenity.money_transfer">Trasferimento di denaro</string>
@@ -905,7 +952,12 @@
 	<string name="type.amenity.restaurant">Ristorante</string>
 	<string name="type.amenity.sanitary_dump_station">Scarico acque nere</string>
 	<string name="type.amenity.school">Scuola</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Riparo</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">Riparo</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">Capanna di Bivacco</string>
 	<string name="type.amenity.public_bath">Bagno pubblico</string>
 	<string name="type.amenity.shower">Doccia</string>
 	<string name="type.amenity.stripclub">Stripclub</string>
@@ -959,23 +1011,14 @@
 	<string name="type.barrier.wall">Muro</string>
 	<string name="type.boundary">Confine</string>
 	<string name="type.boundary.administrative">Confine amministrativo</string>
-	<string name="type.boundary.administrative.10">Confine amministrativo</string>
-	<string name="type.boundary.administrative.11">Confine amministrativo</string>
+	<!-- Borders between countries. -->
 	<string name="type.boundary.administrative.2">Confine nazionale</string>
-	<string name="type.boundary.administrative.3">Confine amministrativo</string>
-	<string name="type.boundary.administrative.4">Confine amministrativo</string>
-	<string name="type.boundary.administrative.5">Confine amministrativo</string>
-	<string name="type.boundary.administrative.6">Confine amministrativo</string>
-	<string name="type.boundary.administrative.7">Confine amministrativo</string>
-	<string name="type.boundary.administrative.8">Confine amministrativo</string>
-	<string name="type.boundary.administrative.9">Confine amministrativo</string>
-	<string name="type.boundary.administrative.city">Confine cittadino</string>
-	<string name="type.boundary.administrative.country">Confine nazionale</string>
-	<string name="type.boundary.administrative.municipality">Confini municipale</string>
-	<string name="type.boundary.administrative.nation">Confine nazionale</string>
-	<string name="type.boundary.administrative.region">Confine regionale</string>
-	<string name="type.boundary.administrative.state">Confine statale</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.3">Confine regionale</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.4">Confine regionale</string>
 	<string name="type.boundary.national_park">Parco nazionale</string>
+	<string name="type.boundary.aboriginal_lands">Terre indigene</string>
 	<string name="type.boundary.protected_area">Area protetta</string>
 	<string name="type.boundary.protected_area.1">Area protetta</string>
 	<string name="type.boundary.protected_area.2">Area protetta</string>
@@ -1150,15 +1193,9 @@
 	<string name="type.highway.footway">Sentiero</string>
 	<string name="type.highway.footway.sidewalk">Marciapiede</string>
 	<string name="type.highway.footway.crossing">Attraversamento pedonale</string>
-	<string name="type.highway.footway.alpine_hiking">Sentiero</string>
 	<string name="type.highway.footway.area">Sentiero</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Ponte</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Sentiero</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Sentiero</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Sentiero</string>
-	<string name="type.highway.footway.hiking">Sentiero</string>
-	<string name="type.highway.footway.mountain_hiking">Sentiero</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunnel</string>
 	<string name="type.highway.ford">Guado</string>
@@ -1178,17 +1215,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
 	<string name="type.highway.path">Sentiero</string>
-	<string name="type.highway.path.alpine_hiking">Sentiero</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">Sentiero</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">Sentiero</string>
 	<string name="type.highway.path.bicycle">Sentiero</string>
+	<string name="type.highway.footway.bicycle">Sentiero</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Ponte</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Sentiero</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Sentiero</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Sentiero</string>
-	<string name="type.highway.path.hiking">Sentiero</string>
 	<string name="type.highway.path.horse">Sentiero</string>
-	<string name="type.highway.path.mountain_hiking">Sentiero</string>
-	<string name="type.highway.path.permissive">Sentiero</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Tunnel</string>
 	<string name="type.highway.pedestrian">Strada pedonale</string>
@@ -1261,12 +1296,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Ponte</string>
 	<string name="type.highway.track.grade1">Via</string>
-	<string name="type.highway.track.grade2">Via</string>
-	<string name="type.highway.track.grade3">Via</string>
-	<string name="type.highway.track.grade4">Via</string>
-	<string name="type.highway.track.grade5">Via</string>
 	<string name="type.highway.track.no.access">Via</string>
-	<string name="type.highway.track.permissive">Via</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunnel</string>
 	<string name="type.highway.traffic_signals">Semaforo</string>
@@ -1387,6 +1417,7 @@
 	<string name="type.leisure.garden">Giardino</string>
 	<string name="type.leisure.garden.residential">Giardino</string>
 	<string name="type.leisure.golf_course">Campo da golf</string>
+	<string name="type.leisure.miniature_golf">Minigolf</string>
 	<string name="type.leisure.ice_rink">Pista di pattinaggio</string>
 	<string name="type.leisure.marina">Porto turistico</string>
 	<string name="type.leisure.nature_reserve">Riserva naturale</string>
@@ -1434,7 +1465,12 @@
 	<string name="type.military.bunker">Bunker</string>
 	<string name="type.mountain_pass">Passo</string>
 	<string name="type.natural">Natura</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Roccia nuda</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Ciottoli</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Ghiaia pietrosa</string>
 	<string name="type.natural.bay">Baia</string>
 	<string name="type.natural.beach">Spiaggia</string>
 	<string name="type.natural.beach.sand">Spiaggia sabbiosa</string>
@@ -1957,21 +1993,23 @@
 	<string name="type.sport.pelota">Palla basca</string>
 	<string name="type.tourism">Turismo</string>
 	<string name="type.tourism.aquarium">Acquario</string>
-	<string name="type.tourism.alpine_hut">Rifugio</string>
-	<string name="type.tourism.apartment">Appartamento</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Rifugio di montagna</string>
+	<string name="type.tourism.apartment">Appartamento vacanze</string>
 	<string name="type.tourism.artwork">Opera d\'arte</string>
 	<string name="type.tourism.artwork.architecture">Opera d\'arte</string>
 	<string name="type.tourism.artwork.painting">Dipinto</string>
 	<string name="type.tourism.artwork.sculpture">Scultura</string>
 	<string name="type.tourism.artwork.statue">Statua</string>
 	<string name="type.tourism.attraction">Attrattiva</string>
-	<string name="type.tourism.attraction.animal">Recinto</string>
+	<string name="type.attraction.animal">Recinto per animali</string>
 	<string name="type.tourism.attraction.specified">Attrattiva</string>
 	<string name="type.tourism.camp_site">Campeggio</string>
 	<string name="type.tourism.caravan_site">Area per campeggiatori</string>
-	<string name="type.tourism.chalet">Chalet</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Cottage per le vacanze</string>
 	<string name="type.tourism.gallery">Galleria</string>
-	<string name="type.tourism.guest_house">Casa degli Ospiti</string>
+	<string name="type.tourism.guest_house">Affittacamere</string>
 	<string name="type.tourism.hostel">Ostello</string>
 	<string name="type.tourism.hotel">Hotel</string>
 	<string name="type.tourism.information">Informazione</string>
@@ -1983,9 +2021,10 @@
 	<string name="type.tourism.motel">Motel</string>
 	<string name="type.tourism.museum">Museo</string>
 	<string name="type.tourism.picnic_site">Area picnic</string>
-	<string name="type.tourism.resort">Resort</string>
+	<string name="type.leisure.resort">Resort</string>
 	<string name="type.tourism.theme_park">Parco divertimenti</string>
 	<string name="type.tourism.viewpoint">Punto panoramico</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Rifugio</string>
 	<string name="type.tourism.zoo">Giardino zoologico</string>
 	<string name="type.tourism.zoo.petting">Zoo di coccole</string>
@@ -2006,7 +2045,6 @@
 	<string name="type.waterway.lock_gate">Sbarramento</string>
 	<string name="type.waterway.river">Fiume</string>
 	<string name="type.waterway.river.tunnel">Fiume</string>
-	<string name="type.waterway.riverbank">Fiume</string>
 	<string name="type.waterway.stream">Torrente</string>
 	<string name="type.waterway.stream.ephemeral">Torrente</string>
 	<string name="type.waterway.stream.intermittent">Torrente</string>

@@ -86,7 +86,7 @@ protected:
 private:
   void SubmitFakeLocationPoint(m2::PointD const & pt);
   void SubmitRulerPoint(m2::PointD const & pt);
-  void SubmitRoutingPoint(m2::PointD const & pt);
+  void SubmitRoutingPoint(m2::PointD const & pt, bool pointIsMercator);
   void SubmitBookmark(m2::PointD const & pt);
   void ShowPlacePage();
 
@@ -94,7 +94,7 @@ private:
                                   bool fromPackedPolygon, bool boundingBox);
 
   m2::PointD P2G(m2::PointD const & pt) const;
-  m2::PointD GetCoordsFromSettingsIfExists(bool start, m2::PointD const & pt) const;
+  m2::PointD GetCoordsFromSettingsIfExists(bool start, m2::PointD const & pt, bool pointIsMercator) const;
 
   QRubberBand * m_rubberBand;
   QPoint m_rubberBandOrigin;

@@ -64,6 +64,7 @@ aeroway-terminal                                    # area z14- (also has captio
 === 150
 
 leisure-golf_course                                 # area z12- (also has icon z15-, caption(optional) z17-)
+leisure-miniature_golf                              # area z14- (also has icon z17-, caption(optional) z17-)
 === 140
 
 landuse-flowerbed                                   # area z16-
@@ -116,6 +117,8 @@ landuse-village_green                               # area z12-
 landuse-vineyard                                    # area z12- (also has caption z15-)
 leisure-pitch                                       # area z15- (also has icon z17-, caption(optional) z17-)
 natural-bare_rock                                   # area z12- (also has caption z14-)
+natural-scree                                       # area z11-
+natural-shingle                                     # area z12-
 === 80
 
 leisure-garden                                      # area z12- (also has icon z16-, caption(optional) z16-)
@@ -126,10 +129,10 @@ leisure-park-permissive                             # area z10- (also has icon z
 leisure-park-private                                # area z10- (also has icon z14-, caption(optional) z14-)
 === 70
 
-landuse-forest                                      # area z10- (also has icon z12-, caption(optional) z13-)
-landuse-forest-coniferous                           # area z10- (also has icon z12-, caption(optional) z13-)
-landuse-forest-deciduous                            # area z10- (also has icon z12-, caption(optional) z13-)
-landuse-forest-mixed                                # area z10- (also has icon z12-, caption(optional) z13-)
+landuse-forest                                      # area z10- (also has icon z13-, caption(optional) z14-)
+landuse-forest-coniferous                           # area z10- (also has icon z13-, caption(optional) z14-)
+landuse-forest-deciduous                            # area z10- (also has icon z13-, caption(optional) z14-)
+landuse-forest-mixed                                # area z10- (also has icon z13-, caption(optional) z14-)
 === 60
 
 landuse-churchyard                                  # area z15-

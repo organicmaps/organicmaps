@@ -1,8 +1,10 @@
 package app.organicmaps.bookmarks;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -72,6 +74,20 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
     InputFilter[] f = { new InputFilter.LengthFilter(TEXT_LENGTH_LIMIT) };
     mEditCategoryNameView.setFilters(f);
     mEditCategoryNameView.requestFocus();
+    mEditCategoryNameView.addTextChangedListener(new TextWatcher()
+    {
+      @Override
+      public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+      @Override
+      public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+      {
+        clearNameBtn.setEndIconVisible(charSequence.length() > 0);
+      }
+
+      @Override
+      public void afterTextChanged(Editable editable) {}
+    });
     mEditDescView = root.findViewById(R.id.edit_description);
     mEditDescView.setText(mCategory.getDescription());
   }

@@ -16,6 +16,7 @@
     app:tabGravity="fill"
     app:tabIndicatorColor="?colorAccent"
     app:tabMode="fixed"
+    app:tabRippleColor="@android:color/transparent"
     tools:ignore="UnusedAttribute"/>
 
   <TimePicker

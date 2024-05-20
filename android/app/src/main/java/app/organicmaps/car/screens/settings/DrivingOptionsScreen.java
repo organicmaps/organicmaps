@@ -4,18 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.car.app.CarContext;
 import androidx.car.app.model.Action;
-import androidx.car.app.model.CarIcon;
 import androidx.car.app.model.Header;
 import androidx.car.app.model.ItemList;
+import androidx.car.app.model.ListTemplate;
+import androidx.car.app.model.OnClickListener;
 import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
-import androidx.car.app.navigation.model.MapTemplate;
-import androidx.core.graphics.drawable.IconCompat;
+import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.lifecycle.LifecycleOwner;
 
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
+import app.organicmaps.car.util.Toggle;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.routing.RoutingOptions;
 import app.organicmaps.settings.RoadType;
@@ -27,18 +28,8 @@ public class DrivingOptionsScreen extends BaseMapScreen
 {
   public static final Object DRIVING_OPTIONS_RESULT_CHANGED = 0x1;
 
-  private static class DrivingOption
+  private record DrivingOption(RoadType roadType, @StringRes int text)
   {
-    public final RoadType roadType;
-
-    @StringRes
-    public final int text;
-
-    public DrivingOption(RoadType roadType, @StringRes int text)
-    {
-      this.roadType = roadType;
-      this.text = text;
-    }
   }
 
   private final DrivingOption[] mDrivingOptions = {
@@ -49,18 +40,11 @@ public class DrivingOptionsScreen extends BaseMapScreen
   };
 
   @NonNull
-  private final CarIcon mCheckboxIcon;
-  @NonNull
-  private final CarIcon mCheckboxSelectedIcon;
-
-  @NonNull
   private final Map<RoadType, Boolean> mInitialDrivingOptionsState = new HashMap<>();
 
   public DrivingOptionsScreen(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer)
   {
     super(carContext, surfaceRenderer);
-    mCheckboxIcon = new CarIcon.Builder(IconCompat.createWithResource(carContext, R.drawable.ic_check_box)).build();
-    mCheckboxSelectedIcon = new CarIcon.Builder(IconCompat.createWithResource(carContext, R.drawable.ic_check_box_checked)).build();
 
     initDrivingOptionsState();
   }
@@ -69,10 +53,9 @@ public class DrivingOptionsScreen extends BaseMapScreen
   @Override
   public Template onGetTemplate()
   {
-    final MapTemplate.Builder builder = new MapTemplate.Builder();
-    builder.setHeader(createHeader());
+    final MapWithContentTemplate.Builder builder = new MapWithContentTemplate.Builder();
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
-    builder.setItemList(createDrivingOptionsList());
+    builder.setContentTemplate(createDrivingOptionsListTemplate());
     return builder.build();
   }
 
@@ -99,28 +82,25 @@ public class DrivingOptionsScreen extends BaseMapScreen
   }
 
   @NonNull
-  private ItemList createDrivingOptionsList()
+  private ListTemplate createDrivingOptionsListTemplate()
   {
     final ItemList.Builder builder = new ItemList.Builder();
     for (final DrivingOption drivingOption : mDrivingOptions)
-      builder.addItem(createDrivingOptionCheckbox(drivingOption.roadType, drivingOption.text));
-    return builder.build();
+      builder.addItem(createDrivingOptionsToggle(drivingOption.roadType, drivingOption.text));
+    return new ListTemplate.Builder().setHeader(createHeader()).setSingleList(builder.build()).build();
   }
 
   @NonNull
-  private Row createDrivingOptionCheckbox(RoadType roadType, @StringRes int titleRes)
+  private Row createDrivingOptionsToggle(RoadType roadType, @StringRes int title)
   {
-    final Row.Builder builder = new Row.Builder();
-    builder.setTitle(getCarContext().getString(titleRes));
-    builder.setOnClickListener(() -> {
+    final OnClickListener listener = () -> {
       if (RoutingOptions.hasOption(roadType))
         RoutingOptions.removeOption(roadType);
       else
         RoutingOptions.addOption(roadType);
       invalidate();
-    });
-    builder.setImage(RoutingOptions.hasOption(roadType) ? mCheckboxSelectedIcon : mCheckboxIcon);
-    return builder.build();
+    };
+    return Toggle.create(getCarContext(), title, listener, RoutingOptions.hasOption(roadType));
   }
 
   private void initDrivingOptionsState()

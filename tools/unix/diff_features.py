@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 import sys, re
 
 RE_STAT = re.compile(r'(?:\d+\. )?([\w:|-]+?)\|: size = (\d+); count = (\d+); length = ([0-9.e+-]+) m; area = ([0-9.e+-]+) m.\s*')

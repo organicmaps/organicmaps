@@ -37,7 +37,9 @@
 	<string name="try_again">Torna-ho a intentar</string>
 	<string name="about_menu_title">Quant a l\'Organic Maps</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Estalvia la bateria, no utilitza dades de fons</string>
+	<string name="about_proposition_2">• Sense consum de bateria, funciona fora de línia</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Ràpid, minimalista, desenvolupat per la comunitat</string>
 	<!-- The button that opens system location settings -->
 	<string name="location_settings">Paràmetres d\'ubicació</string>
 	<string name="close">Tanca</string>
@@ -106,52 +108,54 @@
 	<string name="measurement_units_summary">Trieu entre milles i quilòmetres</string>
 
 	<!-- SECTION: Search categories -->
-	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">On menjar</string>
-	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Alimentació</string>
-	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">Transport</string>
-	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Gasolinera</string>
-	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">Aparcament</string>
-	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">Compres</string>
-	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">Segona mà</string>
-	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">Hotel</string>
-	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">Turisme</string>
-	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">Entreteniment</string>
-	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">Caixer automàtic</string>
-	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">Vida nocturna</string>
-	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Oci familiar</string>
-	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">Banc</string>
-	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">Farmàcia</string>
-	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">Hospital</string>
-	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">Lavabos</string>
-	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">Oficina postal</string>
-	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">Policia</string>
-	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">WiFi</string>
-	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">Reciclatge</string>
-	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">Aigua</string>
-	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">Caravanes</string>
+	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+	<string name="category_eat">On menjar</string>
+	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+	<string name="category_food">Queviures</string>
+	<!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+	<string name="category_transport">Transport</string>
+	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+	<string name="category_fuel">Benzinera</string>
+	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+	<string name="category_parking">Aparcament</string>
+	<!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+	<string name="category_shopping">Compres</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
+	<string name="category_secondhand">Segona mà</string>
+	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+	<string name="category_hotel">Hotel</string>
+	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+	<string name="category_tourism">Turisme</string>
+	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
+	<string name="category_entertainment">Entreteniment</string>
+	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+	<string name="category_atm">Caixer automàtic</string>
+	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+	<string name="category_nightlife">Vida nocturna</string>
+	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+	<string name="category_children">Oci familiar</string>
+	<!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+	<string name="category_bank">Banc</string>
+	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+	<string name="category_pharmacy">Farmàcia</string>
+	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+	<string name="category_hospital">Hospital</string>
+	<!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+	<string name="category_toilet">Lavabos</string>
+	<!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+	<string name="category_post">Oficina postal</string>
+	<!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+	<string name="category_police">Policia</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+	<string name="category_wifi">WiFi</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+	<string name="category_recycling">Reciclatge</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+	<string name="category_water">Aigua</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+	<string name="category_rv">Caravanes</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notes</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -163,6 +167,10 @@
 	<string name="load_kmz_successful">Els marcadors s\'han carregat correctament! Podeu trobar-los en el mapa o en la pantalla de gestió de marcadors.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">No s\'ha pogut carregar els marcadors. El fitxer pot ser malmès o defectuós.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">L\'aplicació no reconeix el tipus de fitxer:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">No s\'ha pogut obrir el fitxer %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Edita</string>
 	<!-- Warning message when doing search around current position -->
@@ -219,6 +227,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">Els edificis en 3D es desactiven en mode d\'estalvi d\'energia</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Instruccions de veu</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Anuncia els noms dels carrers</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Quan s\'activa, el nom del carrer o la sortida per girar es pronunciarà en veu alta.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Llengua de la veu</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -462,11 +474,15 @@
 	<string name="editor_edit_place_title">Edició</string>
 	<string name="editor_add_place_title">Addició</string>
 	<string name="editor_edit_place_name_hint">Nom del lloc</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">Com està escrit en la llengua local</string>
 	<string name="editor_edit_place_category_title">Categoria</string>
 	<string name="detailed_problem_description">Descripció detallada del problema</string>
 	<string name="editor_report_problem_other_title">Un altre problema</string>
 	<string name="placepage_add_business_button">Afegeix un negoci</string>
 	<string name="message_invalid_feature_position">No s\'ha trobat cap objecte aquí</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Dades d\'OpenStreetMap creades per la comunitat a partir de %s. Obteniu més informació sobre com editar i actualitzar el mapa a OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">Inicieu sessió perquè altres usuaris puguin veure els canvis que heu fet</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d de %2$d</string>
@@ -485,14 +501,10 @@
 	<string name="editor_detailed_description">Heu suggerit canvis en el mapa que s\'enviaran a la comunitat d\'OpenStreetMap. Descriviu qualsevol detall addicional que no es pot editar en l\'Organic Maps.</string>
 	<string name="editor_more_about_osm">Més sobre l\'OpenStreetMap</string>
 	<string name="editor_operator">Propietari</string>
+	<string name="editor_category_unsuitable_title">No trobeu una categoria adequada?</string>
+	<string name="editor_category_unsuitable_text">Organic Maps només permet afegir categories de punts simples, això vol dir que no hi ha ciutats, carreteres, llacs, contorns d\'edificis, etc. Si us plau, afegiu aquestes categories directament a <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulteu la nostra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guia</a> per obtenir instruccions detallades pas a pas.</string>
 	<string name="downloader_no_downloaded_maps_title">No heu baixat cap mapa</string>
 	<string name="downloader_no_downloaded_maps_message">Baixeu mapes per a cercar una ubicacio i usar la navegació sense connexió.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">Voleu continuar detectant la vostra ubicació actual?</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">Es desconeix la ubicació actual. Potser sou en un edifici o en un túnel.</string>
-	<string name="current_location_unknown_continue_button">Continua</string>
-	<string name="current_location_unknown_stop_button">Atura\'t</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -537,7 +549,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Assegureu-vos que no heu introduït cap dada personal.</string>
 	<string name="editor_share_to_all_dialog_message_2">Revisarem els canvis. Si tenim cap pregunta contactem amb vós via correu electrònic.</string>
-	<string name="navigation_stop_button">atura\'t</string>
+	<string name="navigation_stop_button">Atura\'t</string>
 	<!-- For the first routing -->
 	<string name="accept">D\'acord</string>
 	<!-- For the first routing -->
@@ -570,6 +582,8 @@
 	<string name="routing_add_finish_point">Afegeiu la destinació per a planificar la ruta</string>
 	<string name="placepage_remove_stop">Elimina</string>
 	<string name="placepage_add_stop">Afegeix una parada</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Si us plau, inicieu sessió a OpenStreetMap per carregar automàticament totes les edicions de mapes. Més informació <a href="https://github.com/organicmaps/organicmaps/issues/6144">aquí</a>.</string>
 	<string name="dialog_error_storage_title">S\'ha produït un problema en l\'accés a l\'emmagatzematge</string>
 	<string name="dialog_error_storage_message">L\'emmagatzematg extern no és accessible. La targeta SD potser s\'ha retirat, malmès, o el sistema de fitxer és de només lectura. Comproveu la targeta SD o contacteu amb nosaltres a support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Emula un emmagatzematge malmès</string>
@@ -627,13 +641,15 @@
 	<string name="bookmark_list_description_hint">Escriviu una descripció (text o html)</string>
 	<string name="not_shared">Privat</string>
 	<string name="speedcams_alert_title">Radars</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Sempre</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Mai</string>
 	<string name="place_description_title">Descripció del lloc</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Descàrrega de mapes</string>
+	<!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+	<string name="pref_tts_speedcams_auto">Avisa en excedir el límit de velocitat</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Sempre avisa</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">No n\'avisis mai</string>
 	<string name="power_managment_title">Mode d\'estalvi d\'energia</string>
 	<string name="power_managment_description">Si està seleccionat el mode automàtic, l\'aplicació desactivarà funcions que consumeixen energia, depenent del nivell de càrrega actual de la bateria</string>
 	<string name="power_managment_setting_never">Mai</string>
@@ -680,6 +696,8 @@
 	<string name="by_distance">Per distància</string>
 	<!-- Android -->
 	<string name="by_date">Per data</string>
+	<!-- Android -->
+	<string name="by_name">Per nom</string>
 	<string name="week_ago_sorttype">Fa una setmana</string>
 	<string name="month_ago_sorttype">Fa un mes</string>
 	<string name="moremonth_ago_sorttype">Fa més d\'un mes</string>
@@ -742,18 +760,36 @@
 	<string name="translated_om_site_url">https://organicmaps.app/ca/</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Ca:About</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Gràcies per utilitzar els nostres mapes creats per la comunitat!</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Ara esteu utilitzant els Organic Maps a la pantalla del telèfon</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">Amb les vostres donacions i suport, podem crear els millors mapes del món!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Us agrada la nostra aplicació? Feu una donació per donar suport al desenvolupament! Encara no us agrada? Si us plau, feu-nos-ho saber i ho solucionarem!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Si coneixeu un desenvolupador de programari, podeu demanar-li que implementi una funcionalitat que necessiteu.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Sabíeu que podeu tocar llargament qualsevol lloc del mapa per seleccionar-lo?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Sabíeu que podeu seleccionar la vostra ubicació actual al mapa?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Podeu ajudar a traduir la nostra aplicació a la vostra llengua.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">La nostra aplicació està desenvolupada per uns quants entusiastes i la comunitat.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Podeu corregir i millorar fàcilment les dades del mapa.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">El nostre objectiu principal és crear mapes ràpids, centrats en la privadesa i fàcils d\'utilitzar que us encantaran.</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">Ara esteu utilitzant els Organic Maps a la pantalla del telèfon</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Ara esteu utilitzant els Organic Maps a la pantalla del cotxe</string>
+	<string name="car_used_on_the_car_screen">Ara esteu utilitzant els Organic Maps a la pantalla del cotxe</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
-	<string name="aa_connected_title">Esteu connectat a Android Auto</string>
+	<string name="aa_connected_title">Us heu connectat a Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Continueu al telèfon</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">A la pantalla del cotxe</string>
+	<string name="car_continue_on_the_phone">Continueu al telèfon</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">A la pantalla del cotxe</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">Aquesta aplicació requereix accés a la vostra ubicació per a la navegació.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -764,11 +800,28 @@
 	<string name="button_layer_outdoor">Senderisme</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">El navegador web no està disponible</string>
+	<string name="volume">Volum</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Exporta totes les adreces d\'interès i pistes</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Configuració de la síntesi de veu del sistema</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">No s\'ha trobat la configuració de la síntesi de veu, esteu segur que el vostre dispositiu l\'admet?</string>
+	<string name="drive_through">Servei al cotxe</string>
+	<string name="clear_the_search">Esborra la cerca</string>
+	<string name="zoom_in">Ampliar</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Disminuir el zoom</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Enllaç del menú</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Veure menú</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adreça/Bloc</string>
 	<string name="type.addr_interpolation.even">Adreça/Bloc</string>
 	<string name="type.addr_interpolation.odd">Adreça/Bloc</string>
+	<string name="type.amenity.bbq">Barbacoa</string>
 	<string name="type.amenity.gambling">Jocs d\'atzar</string>
 	<string name="type.leisure.adult_gaming_centre">Centre de joc per a adults</string>
 	<string name="type.leisure.amusement_arcade">Arcade</string>
@@ -792,12 +845,15 @@
 	<string name="type.amenity.place_of_worship.christian.jehovahs_witness">Sala del Regne dels Testimonis de Jehovà</string>
 
 	<!-- SECTION: Types: Recycling -->
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">Cabana Bivac</string>
 	<string name="type.amenity.public_bath">Bany Públic</string>
 	<string name="type.amenity.stripclub">Club de striptease</string>
 	<string name="type.amenity.vehicle_inspection">Inspecció de vehicles</string>
 	<string name="type.waterway.ditch">Sèquia de drenatge</string>
 	<string name="type.natural.water.wastewater">Aigües residuals</string>
 	<string name="type.barrier.turnstile">Torniquet</string>
+	<string name="type.boundary.aboriginal_lands">Terres indígenes</string>
 	<string name="type.boundary.protected_area">Àrea Protegida</string>
 	<string name="type.boundary.protected_area.1">Àrea Protegida</string>
 	<string name="type.boundary.protected_area.2">Àrea Protegida</string>
@@ -833,8 +889,11 @@
 	<string name="type.historic.tank">Tanc històric</string>
 	<string name="type.historic.wreck">Naufragi</string>
 	<string name="type.landuse.flowerbed">Llit de flors</string>
+	<string name="type.leisure.miniature_golf">Minigolf</string>
 	<string name="type.leisure.outdoor_seating">Seients a l\'aire lliure</string>
 	<string name="type.man_made.tower.communication">Torre de comunicacions</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Còdol</string>
 	<string name="type.natural.hot_spring">Font termal</string>
 	<string name="type.power.generator.solar">Generador solar</string>
 	<string name="type.power.generator.wind">Generador eòlic</string>
@@ -891,6 +950,12 @@
 	<string name="type.shop.appliance">Botiga d\'electrodomèstics</string>
 	<string name="type.shop.bed">Botiga de llits</string>
 	<string name="type.tourism.aquarium">Aquari</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Lodge de muntanya</string>
+	<string name="type.tourism.apartment">Apartament de vacances</string>
+	<string name="type.attraction.animal">Recinte d\'animals</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Casa rural de vacances</string>
 	<string name="type.tourism.zoo.petting">Zoo d\'animals de companyia</string>
 	<string name="type.waterway.fish_pass">Pas de peix</string>
 	<string name="type.natural.water.ditch">Sèquia de drenatge</string>

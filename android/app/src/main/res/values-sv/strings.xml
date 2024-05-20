@@ -41,9 +41,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Inga annonser, ingen spårning, ingen datainsamling</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Sparar batteriet, använder inte bakgrundsdata</string>
+	<string name="about_proposition_2">• Ingen batteriförbrukning, fungerar offline</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Snabb, minimalistisk, inget skräp</string>
+	<string name="about_proposition_3">• Snabb, minimalistisk, utvecklad av gemenskapen</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Open-källansökan skapad av entusiaster och frivilliga.</string>
 	<!-- The button that opens system location settings -->
@@ -102,50 +102,52 @@
 	<string name="measurement_units_summary">Välj mellan mil och kilometer</string>
 
 	<!-- SECTION: Search categories -->
-	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">Var att äta</string>
-	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Produkter</string>
-	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">Transport</string>
-	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Bensin</string>
-	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">Parkering</string>
-	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">Shopping</string>
-	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">Begagnad</string>
-	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">Hotell</string>
-	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">Sevärdheter</string>
-	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">Underhållning</string>
-	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">Bankomat</string>
-	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">Nattliv</string>
-	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Semester med barn</string>
-	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">Bank</string>
-	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">Apotek</string>
-	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">Sjukhus</string>
-	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">Toalett</string>
-	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">Post</string>
-	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">Polis</string>
-	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">Återvinning</string>
-	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">Vatten</string>
-	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">För husbil</string>
+	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+	<string name="category_eat">Var att äta</string>
+	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+	<string name="category_food">Produkter</string>
+	<!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+	<string name="category_transport">Transport</string>
+	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+	<string name="category_fuel">Bensin</string>
+	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+	<string name="category_parking">Parkering</string>
+	<!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+	<string name="category_shopping">Shopping</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
+	<string name="category_secondhand">Begagnad</string>
+	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+	<string name="category_hotel">Hotell</string>
+	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+	<string name="category_tourism">Sevärdheter</string>
+	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
+	<string name="category_entertainment">Underhållning</string>
+	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+	<string name="category_atm">Bankomat</string>
+	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+	<string name="category_nightlife">Nattliv</string>
+	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+	<string name="category_children">Semester med barn</string>
+	<!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+	<string name="category_bank">Bank</string>
+	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+	<string name="category_pharmacy">Apotek</string>
+	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+	<string name="category_hospital">Sjukhus</string>
+	<!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+	<string name="category_toilet">Toalett</string>
+	<!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+	<string name="category_post">Post</string>
+	<!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+	<string name="category_police">Polis</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+	<string name="category_recycling">Återvinning</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+	<string name="category_water">Vatten</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+	<string name="category_rv">För husbil</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Anteckningar</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -156,6 +158,10 @@
 	<string name="load_kmz_successful">Bokmärkena lästes in! Du kan hitta dem på kartan eller i Bokmärkeshanteraren.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Inläsningen av bokmärkena misslyckades. Filen kan vara skadad eller defekt.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Filtypen känns inte igen av appen:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Det gick inte att öppna filen %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Redigera</string>
 	<!-- Warning message when doing search around current position -->
@@ -208,6 +214,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D-byggnader är avstängda i energisparläge</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Röstinstruktioner</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Tillkännage gatunamn</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">När det är aktiverat kommer namnet på gatan eller avfarten att svänga in på att sägas upp.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Röstspråk</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -443,13 +453,15 @@
 	<string name="editor_edit_place_title">Redigerar</string>
 	<string name="editor_add_place_title">Lägger till</string>
 	<string name="editor_edit_place_name_hint">Namn på platsen</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">Som det står skrivet på det lokala språket</string>
 	<string name="editor_edit_place_category_title">Kategori</string>
 	<string name="detailed_problem_description">Detaljerad beskrivning av ett problem</string>
 	<string name="editor_report_problem_other_title">Ett annat problem</string>
 	<string name="placepage_add_business_button">Lägg till organisation</string>
 	<string name="message_invalid_feature_position">Ett objekt kan inte placeras här</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Kartografiska data från OpenStreetMap från och med %s. Det är som Wikipedia där du kan lägga till eller redigera platser för alla användare över hela världen.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Gemenskapsskapade OpenStreetMap-data från och med %s. Läs mer om hur du redigerar och uppdaterar kartan på OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">Logga in så att andra användare kan se de ändringar du gjort.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d av %2$d</string>
@@ -468,14 +480,10 @@
 	<string name="editor_detailed_description">Dina föreslagna ändringar kommer att skcikas till OpenStreetMap-communityt. Beskriv detaljerna som inte kan redigeras i Organic Maps.</string>
 	<string name="editor_more_about_osm">Mer om OpenStreetMap</string>
 	<string name="editor_operator">Användare</string>
+	<string name="editor_category_unsuitable_title">Kan du inte hitta en lämplig kategori?</string>
+	<string name="editor_category_unsuitable_text">Organiska kartor tillåter endast att lägga till enkla punktkategorier, det betyder inga städer, vägar, sjöar, byggnadskonturer etc. Lägg till sådana kategorier direkt till <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Kontrollera vår <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> för detaljerade steg-för-steg-instruktioner.</string>
 	<string name="downloader_no_downloaded_maps_title">Du har inte laddat ner några kartor</string>
 	<string name="downloader_no_downloaded_maps_message">Ladda ner kartor för att hitta platsen och navigera offline.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">Fortsätt detektera din nuvarande plats?</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">Nuvarande plats okänd. Du kanske är i en byggnad eller tunnel.</string>
-	<string name="current_location_unknown_continue_button">Fortsätt</string>
-	<string name="current_location_unknown_stop_button">Stopp</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -513,7 +521,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Se till att du inte angett någon personinformation</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap-redigerare kommer att kontrollera ändringarna och kontakta dig om de har några frågor.</string>
-	<string name="navigation_stop_button">stopp</string>
+	<string name="navigation_stop_button">Stopp</string>
 	<!-- For the first routing -->
 	<string name="accept">Acceptera</string>
 	<!-- For the first routing -->
@@ -546,6 +554,8 @@
 	<string name="routing_add_finish_point">Lägg till slutpunkt för att planera en rutt</string>
 	<string name="placepage_remove_stop">Ta bort</string>
 	<string name="placepage_add_stop">Lägg till stopp</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Logga in på OpenStreetMap för att automatiskt ladda upp alla dina kartredigeringar. Läs mer <a href="https://github.com/organicmaps/organicmaps/issues/6144">här</a>.</string>
 	<string name="dialog_error_storage_title">Lagringsåtkomstproblem</string>
 	<string name="dialog_error_storage_message">Extern lagring är inte tillgänglig. SD-kortet är borttaget, skadat eller så är filsystemet är skrivskyddat. Kontrollera det och kontakta oss på support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Emulera dålig lagring</string>
@@ -602,13 +612,15 @@
 	<string name="bookmark_list_description_hint">Lägg till en beskrivning (text eller html)</string>
 	<string name="not_shared">Personlig</string>
 	<string name="speedcams_alert_title">Hastighetskameror</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Alltid</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Aldrig</string>
 	<string name="place_description_title">Beskrivning av platsen</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Kartladdning</string>
+	<!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+	<string name="pref_tts_speedcams_auto">För att varna dig för fortkörning</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Varna alltid</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Varna aldrig</string>
 	<string name="power_managment_title">Energisparläge</string>
 	<string name="power_managment_description">Om energisparläget är på, ska appen stänga av energikrävande funktioner beroende på telefonens nuvarande laddning</string>
 	<string name="power_managment_setting_never">Aldrig</string>
@@ -655,6 +667,8 @@
 	<string name="by_distance">Efter avstånd</string>
 	<!-- Android -->
 	<string name="by_date">Efter datum</string>
+	<!-- Android -->
+	<string name="by_name">Efter namn</string>
 	<string name="week_ago_sorttype">För en vecka sedan</string>
 	<string name="month_ago_sorttype">För en månad sedan</string>
 	<string name="moremonth_ago_sorttype">För över en månad sedan</string>
@@ -702,18 +716,36 @@
 	<string name="splash_subtitle">Kartdata från OpenStreetMap</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
 	<string name="translated_om_site_url">https://organicmaps.app/sv/</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Tack för att du använder våra gemenskapsbyggda kartor!</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Du använder nu Organic Maps på telefonens skärm</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">Med dina donationer och stöd kan vi skapa de bästa kartorna i världen!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Gillar du vår app? Vänligen donera för att stödja utvecklingen! Gillar du det inte ännu? Meddela oss, så fixar vi det!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Om du känner en mjukvaruutvecklare kan du be honom eller henne att implementera en funktion som du behöver.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Vet du att du kan trycka länge på vilken plats som helst på kartan för att välja den?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Vet du att du kan välja din nuvarande plats på kartan?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Du kan hjälpa till att översätta vår app till ditt språk.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Vår app är utvecklad av ett fåtal entusiaster och samhället.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Du kan enkelt fixa och förbättra kartdata.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Vårt huvudmål är att bygga snabba, integritetsfokuserade, lättanvända kartor som du kommer att älska.</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">Du använder nu Organic Maps på telefonens skärm</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Du använder nu Organic Maps på bilskärmen</string>
+	<string name="car_used_on_the_car_screen">Du använder nu Organic Maps på bilskärmen</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Du är ansluten till Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Fortsätt i telefonen</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">Till bilens skärm</string>
+	<string name="car_continue_on_the_phone">Fortsätt i telefonen</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">Till bilens skärm</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">Denna applikation kräver åtkomst till din plats för navigeringssyften.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -724,8 +756,22 @@
 	<string name="button_layer_outdoor">Vandring</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Webbläsaren är inte tillgänglig</string>
-	<!-- Text displayed in a dialog when OSM authorization is disabled -->
-	<string name="osm_login_not_available">OpenStreetMap-auktorisering är tillfälligt otillgänglig på grund av nya begränsningar i Google Play 😾\nVårt team arbetar med att lösa detta problem. Vänligen ha tålamod 🙏</string>
+	<string name="volume">Volym</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Exportera alla bokmärken och spår</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Inställningar för talsyntes</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">Inställningar för talsyntes hittades inte, är du säker på att din enhet stöder det?</string>
+	<string name="drive_through">Genomkörning</string>
+	<string name="clear_the_search">Rensa sökningen</string>
+	<string name="zoom_in">Zooma in</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Zooma ut</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Länk till meny</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Visa meny</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adress/Block</string>
@@ -738,7 +784,7 @@
 	<string name="type.amenity">Infrastrukturen</string>
 	<string name="type.amenity.arts_centre">Kulturcenter</string>
 	<string name="type.amenity.atm">Bankomat</string>
-	<string name="type.amenity.bbq">Picknickplatser</string>
+	<string name="type.amenity.bbq">Grill för barbecue</string>
 	<string name="type.amenity.bench">Bänk</string>
 	<string name="type.amenity.bicycle_parking">Cykelparkering</string>
 	<string name="type.amenity.bicycle_rental">Cykeluthyrning</string>
@@ -769,6 +815,7 @@
 	<string name="type.amenity.dentist">Tandläkare</string>
 	<string name="type.amenity.doctors">Läkarmottagning</string>
 	<string name="type.amenity.drinking_water">Dricksvatten</string>
+	<string name="type.drinking_water.yes">Dricksvatten</string>
 	<string name="type.amenity.driving_school">Körskola</string>
 	<string name="type.amenity.exhibition_centre">Mässa</string>
 	<string name="type.amenity.money_transfer">Pengaöverföring</string>
@@ -852,7 +899,12 @@
 	<string name="type.recycling.small_appliances">Elektriskt avfall</string>
 	<string name="type.amenity.restaurant">Restaurang</string>
 	<string name="type.amenity.school">Skola</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Vindskydd</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">Vindskydd</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">Bivack Hydda</string>
 	<string name="type.amenity.public_bath">Offentligt bad</string>
 	<string name="type.amenity.shower">Dusch</string>
 	<string name="type.amenity.stripclub">Stripklubb</string>
@@ -887,6 +939,7 @@
 	<string name="type.barrier.swing_gate">Bom</string>
 	<string name="type.barrier.toll_booth">Tullhus</string>
 	<string name="type.boundary.national_park">Nationalpark</string>
+	<string name="type.boundary.aboriginal_lands">Ursprungsbefolkningens marker</string>
 	<string name="type.boundary.protected_area">Skyddat område</string>
 	<string name="type.boundary.protected_area.1">Skyddat område</string>
 	<string name="type.boundary.protected_area.2">Skyddat område</string>
@@ -1050,15 +1103,9 @@
 	<string name="type.highway.footway">Gångväg</string>
 	<string name="type.highway.footway.sidewalk">Trottoar</string>
 	<string name="type.highway.footway.crossing">Övergångsställe för fotgängare</string>
-	<string name="type.highway.footway.alpine_hiking">Gångväg</string>
 	<string name="type.highway.footway.area">Gångväg</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Bro</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Gångväg</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Gångväg</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Gångväg</string>
-	<string name="type.highway.footway.hiking">Gångväg</string>
-	<string name="type.highway.footway.mountain_hiking">Gångväg</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunnel</string>
 	<string name="type.highway.ford">Vadställe</string>
@@ -1079,17 +1126,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
 	<string name="type.highway.path">Gångväg</string>
-	<string name="type.highway.path.alpine_hiking">Gångväg</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">Gångväg</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">Gångväg</string>
 	<string name="type.highway.path.bicycle">Gångväg</string>
+	<string name="type.highway.footway.bicycle">Gångväg</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Bro</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Gångväg</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Gångväg</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Gångväg</string>
-	<string name="type.highway.path.hiking">Gångväg</string>
 	<string name="type.highway.path.horse">Gångväg</string>
-	<string name="type.highway.path.mountain_hiking">Gångväg</string>
-	<string name="type.highway.path.permissive">Gångväg</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Tunnel</string>
 	<string name="type.highway.pedestrian">Gata</string>
@@ -1162,12 +1207,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Bro</string>
 	<string name="type.highway.track.grade1">Gata</string>
-	<string name="type.highway.track.grade2">Gata</string>
-	<string name="type.highway.track.grade3">Gata</string>
-	<string name="type.highway.track.grade4">Gata</string>
-	<string name="type.highway.track.grade5">Gata</string>
 	<string name="type.highway.track.no.access">Gata</string>
-	<string name="type.highway.track.permissive">Gata</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunnel</string>
 	<string name="type.highway.traffic_signals">Trafikljus</string>
@@ -1267,6 +1307,7 @@
 	<string name="type.leisure.garden">Trädgård</string>
 	<string name="type.leisure.garden.residential">Trädgård</string>
 	<string name="type.leisure.golf_course">Golfbana</string>
+	<string name="type.leisure.miniature_golf">Minigolf</string>
 	<string name="type.leisure.nature_reserve">Naturreservat</string>
 	<string name="type.leisure.outdoor_seating">Sittplatser utomhus</string>
 	<string name="type.leisure.park">Parken</string>
@@ -1294,7 +1335,12 @@
 	<string name="type.man_made.water_well">Brunn</string>
 	<string name="type.man_made.windmill">Väderkvarn</string>
 	<string name="type.natural">Natur</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Kala stenar</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Småsten</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Stenig rasbrant</string>
 	<string name="type.natural.bay">Bukt</string>
 	<string name="type.natural.beach">Strand</string>
 	<string name="type.natural.beach.sand">Sandig strand</string>
@@ -1792,18 +1838,20 @@
 	<string name="type.sport.badminton">Badminton</string>
 	<string name="type.sport.pelota">Baskisk pelota</string>
 	<string name="type.tourism.aquarium">Akvarium</string>
-	<string name="type.tourism.alpine_hut">Bergsboende</string>
-	<string name="type.tourism.apartment">Lägenheter</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Fjällstuga</string>
+	<string name="type.tourism.apartment">Semesterlägenhet</string>
 	<string name="type.tourism.artwork">Konstverk</string>
 	<string name="type.tourism.artwork.architecture">Konstverk</string>
 	<string name="type.tourism.artwork.painting">Konstverk</string>
 	<string name="type.tourism.artwork.sculpture">Konstverk</string>
 	<string name="type.tourism.artwork.statue">Konstverk</string>
 	<string name="type.tourism.attraction">Attraktion</string>
-	<string name="type.tourism.attraction.animal">Attraktion</string>
+	<string name="type.attraction.animal">Inhägnad för djur</string>
 	<string name="type.tourism.attraction.specified">Attraktion</string>
 	<string name="type.tourism.caravan_site">Husvagnsplats</string>
-	<string name="type.tourism.chalet">Stuga</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Semesterstuga</string>
 	<string name="type.tourism.gallery">Attraktion</string>
 	<string name="type.tourism.guest_house">Gästhus</string>
 	<string name="type.tourism.hostel">Vandrarhem</string>
@@ -1816,9 +1864,10 @@
 	<string name="type.tourism.information.visitor_centre">Besökscentrum</string>
 	<string name="type.tourism.motel">Motell</string>
 	<string name="type.tourism.picnic_site">Picknickplatser</string>
-	<string name="type.tourism.resort">Semesterort</string>
+	<string name="type.leisure.resort">Semesterort</string>
 	<string name="type.tourism.theme_park">Attraktion</string>
 	<string name="type.tourism.viewpoint">Utsiktsplats</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Vildmarksstuga</string>
 	<string name="type.tourism.zoo.petting">Petting Zoo</string>
 	<string name="type.waterway.canal">Kanal</string>
@@ -1830,7 +1879,6 @@
 	<string name="type.waterway.lock_gate">Slussport</string>
 	<string name="type.waterway.river">Flod</string>
 	<string name="type.waterway.river.tunnel">Flod</string>
-	<string name="type.waterway.riverbank">Flod</string>
 	<string name="type.waterway.stream">Flod</string>
 	<string name="type.waterway.stream.ephemeral">Flod</string>
 	<string name="type.waterway.stream.intermittent">Flod</string>

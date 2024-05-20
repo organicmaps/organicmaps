@@ -176,6 +176,8 @@ set(SRC
   turns_sound_settings.hpp
   turns_tts_text.cpp
   turns_tts_text.hpp
+  turns_tts_text_i18n.cpp
+  turns_tts_text_i18n.hpp
   vehicle_mask.cpp
   vehicle_mask.hpp
   world_graph.cpp
@@ -185,6 +187,7 @@ set(SRC
 omim_add_library(${PROJECT_NAME} ${SRC})
 
 target_link_libraries(${PROJECT_NAME}
+  base
   routing_common
   platform
   traffic

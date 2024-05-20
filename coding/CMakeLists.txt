@@ -95,14 +95,13 @@ omim_add_library(${PROJECT_NAME} ${SRC})
 
 target_link_libraries(${PROJECT_NAME}
   base
-  expat
+  expat::expat
   cppjansson
   succinct
   ICU::uc
   ICU::i18n # For transliteration.
-  oauthcpp  # For base64_encode and base64_decode
   minizip
-  ${LIBZ}
+  ZLIB::ZLIB
 )
 
 omim_add_test_subdirectory(coding_tests)

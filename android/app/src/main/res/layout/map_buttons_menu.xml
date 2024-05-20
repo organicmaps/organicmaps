@@ -6,4 +6,4 @@
   style="@style/MwmWidget.MapButton.Square"
   android:contentDescription="@string/menu"
   app:shapeAppearanceOverlay="@style/MwmWidget.MapButton.Square"
-  android:src="@drawable/ic_menu_open" />
+  app:srcCompat="@drawable/ic_menu_open" />

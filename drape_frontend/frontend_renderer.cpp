@@ -170,7 +170,6 @@ FrontendRenderer::FrontendRenderer(Params && params)
   , m_modelViewChangedHandler(std::move(params.m_modelViewChangedHandler))
   , m_tapEventInfoHandler(std::move(params.m_tapEventHandler))
   , m_userPositionChangedHandler(std::move(params.m_positionChangedHandler))
-  , m_userPositionPendingTimeoutHandler(std::move(params.m_userPositionPendingTimeoutHandler))
   , m_requestedTiles(params.m_requestedTiles)
   , m_maxGeneration(0)
   , m_maxUserMarksGeneration(0)
@@ -194,7 +193,6 @@ FrontendRenderer::FrontendRenderer(Params && params)
   ASSERT(m_modelViewChangedHandler, ());
   ASSERT(m_tapEventInfoHandler, ());
   ASSERT(m_userPositionChangedHandler, ());
-  ASSERT(m_userPositionPendingTimeoutHandler, ());
 
   m_gpsTrackRenderer = make_unique_dp<GpsTrackRenderer>([this](uint32_t pointsCount)
   {
@@ -2480,11 +2478,6 @@ void FrontendRenderer::AddUserEvent(drape_ptr<UserEvent> && event)
 void FrontendRenderer::PositionChanged(m2::PointD const & position, bool hasPosition)
 {
   m_userPositionChangedHandler(position, hasPosition);
-}
-
-void FrontendRenderer::PositionPendingTimeout()
-{
-  m_userPositionPendingTimeoutHandler();
 }
 
 void FrontendRenderer::ChangeModelView(m2::PointD const & center, int zoomLevel,

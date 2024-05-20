@@ -306,10 +306,22 @@ def step_popularity(env: Env, country: AnyStr, **kwargs):
         out=env.get_subprocess_out(country),
         err=env.get_subprocess_out(country),
         data_path=env.paths.mwm_path,
-        intermediate_data_path=env.paths.intermediate_data_path,
-        cache_path=env.paths.cache_path,
         user_resource_path=env.paths.user_resource_path,
-        popular_places_data=env.paths.popularity_path,
+        generate_popular_places=True,
+        output=country,
+        **kwargs,
+    )
+
+def step_popularity_world(env: Env, country: AnyStr, **kwargs):
+    run_gen_tool_with_recovery_country(
+        env,
+        env.gen_tool,
+        out=env.get_subprocess_out(country),
+        err=env.get_subprocess_out(country),
+        data_path=env.paths.mwm_path,
+        user_resource_path=env.paths.user_resource_path,
+        wikipedia_pages=env.paths.descriptions_path,
+        idToWikidata=env.paths.id_to_wikidata_path,
         generate_popular_places=True,
         output=country,
         **kwargs,

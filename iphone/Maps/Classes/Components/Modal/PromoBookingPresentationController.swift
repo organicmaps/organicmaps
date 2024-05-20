@@ -16,7 +16,7 @@ final class PromoBookingPresentationController: DimmedModalPresentationControlle
   
   override func presentationTransitionWillBegin() {
     super.presentationTransitionWillBegin()
-    presentedViewController.view.layer.cornerRadius = 8
+    presentedViewController.view.layer.setCorner(radius: 8)
     presentedViewController.view.clipsToBounds = true
     guard let containerView = containerView, let presentedView = presentedView else { return } 
     containerView.addSubview(presentedView)

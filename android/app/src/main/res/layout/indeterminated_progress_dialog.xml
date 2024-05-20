@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/body"
+  android:orientation="horizontal"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content">
-  <LinearLayout
-    android:id="@+id/body"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:baselineAligned="false"
-    android:padding="16dip">
+  android:layout_height="wrap_content"
+  android:baselineAligned="false"
+  android:padding="16dip">
     <ProgressBar
       android:id="@android:id/progress"
       style="?android:attr/progressBarStyle"
@@ -21,5 +18,4 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical"/>
-  </LinearLayout>
-</FrameLayout>
+</LinearLayout>

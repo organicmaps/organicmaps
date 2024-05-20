@@ -12,13 +12,13 @@
 	<string name="delete">Ezabatu</string>
 	<string name="download_maps">Deskargatu mapak</string>
 	<!-- Settings/Downloader - info for country when download fails -->
-	<string name="download_has_failed">Errore bat gertatu da deskargatzean, hasi berriro</string>
+	<string name="download_has_failed">Errore bat gertatu da deskargatzean. Klik egin berriz saiatzeko.</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Deskargatzen…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometro</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
-	<string name="miles">Milia</string>
+	<string name="miles">Miliak</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Nire kokapena</string>
 	<!-- Update maps later button text -->
@@ -28,7 +28,7 @@
 	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Bilatu mapan</string>
 	<!-- Location services are disabled by user alert - message -->
-	<string name="location_is_disabled_long_text">Ezin da kokapen-zerbitzuetara sartu. Mesedez, aktibatu ezarpenetan.</string>
+	<string name="location_is_disabled_long_text">Ezin da kokapen-zerbitzua atzitu. Mesedez, aktibatu ezarpenetan.</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Erakutsi mapan</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
@@ -41,21 +41,21 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Ez iragarkirik, ez jarraipenik, ez datu-bilketarik</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Bateria aurrezten du, ez du atzeko planoko daturik erabiltzen</string>
+	<string name="about_proposition_2">• Ez da bateria deskargatzen, konexiorik gabe funtzionatzen du</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Azkarra, minimalista, zaborrik gabe</string>
+	<string name="about_proposition_3">• Azkarra, minimalista, komunitateak garatua</string>
 	<!-- Text in About screen -->
-	<string name="about_developed_by_enthusiasts">Kode irekiko aplikazioa zaleek eta boluntarioek sortutakoa.</string>
+	<string name="about_developed_by_enthusiasts">Zale eta bolondresek sortutako kode irekiko aplikazioa.</string>
 	<!-- The button that opens system location settings -->
 	<string name="location_settings">Kokapen ezarpenak</string>
 	<string name="close">Itxi</string>
-	<string name="unsupported_phone">Aplikazioak hardwarez azeleratutako OpenGL behar du. Zoritxarrez, zure gailua ez da onartzen.</string>
+	<string name="unsupported_phone">Aplikazioak hardwarez azeleratutako OpenGL behar du. Zoritxarrez, zure gailuak ez du hau eskaintzen.</string>
 	<string name="download">Deskargatu</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Mesedez, deskonektatu USB kablea edo sartu SD memoria Organic Maps erabiltzeko</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Mesedez, egin lekua SD memorian/USB biltegian aplikazioa erabiltzeko</string>
-	<string name="download_resources">Hasi baino lehen, utzi mundu-mapa orokor bat zure gailuan deskargatzen.\nDatuen %s beharrezkoa da.</string>
+	<string name="download_resources">Hasi aurretik deskargatu mesedez mundu-mapa orokorra zure gailura.\nMemorian %s erabiliko ditu.</string>
 	<string name="download_resources_continue">Joan mapara</string>
 	<string name="downloading_country_can_proceed">%s deskargatzen. Orain mapara\n joan zaitezke.</string>
 	<string name="download_country_ask">%s deskargatu?</string>
@@ -114,52 +114,54 @@
 	<string name="measurement_units_summary">Aukeratu mila eta kilometroen artean</string>
 
 	<!-- SECTION: Search categories -->
-	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">Non jan</string>
-	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Janari-denda</string>
-	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">Garraioa</string>
-	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Gasolindegia</string>
-	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">Aparkalekua</string>
-	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">Erosketak</string>
-	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">Bigarren eskuko</string>
-	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">Hotela</string>
-	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">Turismoa</string>
-	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">Entretenimendua</string>
-	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">Kutxazain automatikoa</string>
-	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">Gaueko giroa</string>
-	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Familiako jarduerak</string>
-	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">Bankua</string>
-	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">Farmazia</string>
-	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">Ospitalea</string>
-	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">Komuna</string>
-	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">Posta bulegoa</string>
-	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">Polizia</string>
-	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">WiFi</string>
-	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">Birziklapena</string>
-	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">Ura</string>
-	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">Karabanak</string>
+	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+	<string name="category_eat">Non jan</string>
+	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+	<string name="category_food">Janari-denda</string>
+	<!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+	<string name="category_transport">Garraioa</string>
+	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+	<string name="category_fuel">Gasolindegia</string>
+	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+	<string name="category_parking">Aparkalekua</string>
+	<!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+	<string name="category_shopping">Erosketak</string>
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
+	<string name="category_secondhand">Bigarren eskuko</string>
+	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+	<string name="category_hotel">Hotela</string>
+	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+	<string name="category_tourism">Turismoa</string>
+	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
+	<string name="category_entertainment">Entretenimendua</string>
+	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+	<string name="category_atm">Kutxazain automatikoa</string>
+	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+	<string name="category_nightlife">Gaueko giroa</string>
+	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+	<string name="category_children">Familiako jarduerak</string>
+	<!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+	<string name="category_bank">Bankua</string>
+	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+	<string name="category_pharmacy">Farmazia</string>
+	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+	<string name="category_hospital">Ospitalea</string>
+	<!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+	<string name="category_toilet">Komuna</string>
+	<!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+	<string name="category_post">Posta bulegoa</string>
+	<!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+	<string name="category_police">Polizia</string>
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+	<string name="category_wifi">WiFi</string>
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+	<string name="category_recycling">Birziklapena</string>
+	<!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+	<string name="category_water">Ura</string>
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+	<string name="category_rv">Karabanak</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Oharrak</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -171,6 +173,10 @@
 	<string name="load_kmz_successful">Markagailuak behar bezala kargatu dira! Mapan edo markagailuak kudeatzeko pantailan aurki ditzakezu.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Ezin izan dira markagailuak kargatu. Fitxategia hondatuta edo akastuna izan daiteke.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Aplikazioak ez du fitxategi mota ezagutzen:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Ezin izan da fitxategia ireki %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Editatu</string>
 	<!-- Warning message when doing search around current position -->
@@ -227,6 +233,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D eraikinak desgaituta daude energia aurrezteko moduan</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Ahots argibideak</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Kaleen izenak iragarri</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Gaituta dagoenean, biratzeko kalearen edo irteeraren izena ozen esango da.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Ahots hizkuntza</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -456,7 +466,7 @@
 	<string name="email_or_username">Posta elektronikoa edo erabiltzailea</string>
 	<string name="editor_add_phone">Gehitu telefonoa</string>
 	<string name="level">Solairua</string>
-	<string name="downloader_delete_map_dialog">Maparen aldaketa guztiak maparekin batera ezabatuko dira.</string>
+	<string name="downloader_delete_map_dialog">Mapan egin dituzun aldaketa guztiak maparekin batera ezabatuko dira.</string>
 	<string name="downloader_update_maps">Eguneratu mapak</string>
 	<string name="downloader_mwm_migration_dialog">Ibilbide bat sortzeko, beharrezkoa da mapa guztiak eguneratzea eta ibilbidea berriro planifikatzea.</string>
 	<string name="downloader_search_field_hint">Bilatu mapa</string>
@@ -469,13 +479,15 @@
 	<string name="editor_edit_place_title">Editatzen</string>
 	<string name="editor_add_place_title">Gehitzen</string>
 	<string name="editor_edit_place_name_hint">Tokiaren izena</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">Bertako hizkuntzan idatzita dagoenez</string>
 	<string name="editor_edit_place_category_title">Kategoria</string>
 	<string name="detailed_problem_description">Arazoaren deskribapen zehatza</string>
 	<string name="editor_report_problem_other_title">Beste arazo bat</string>
 	<string name="placepage_add_business_button">Gehitu aktibitatea</string>
 	<string name="message_invalid_feature_position">Hemen ezin da objekturik jarri</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">OpenStreetMap-eko datu kartografikoak %s-tik aurrera. OSM mapen Wikipedia bezalakoa da, non mundu osoko erabiltzaile guztientzat lekuak gehitu edo edita ditzakezun</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Komunitateak sortutako OpenStreetMap datuak %s-tik aurrera. Lortu informazio gehiago mapa editatu eta eguneratzeari buruz OpenStreetMap.org helbidean</string>
 	<string name="login_to_make_edits_visible">Hasi saioa OpenStreetMapen beste erabiltzaileek zuk egindako aldaketak ikus ditzaten.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>
@@ -494,14 +506,10 @@
 	<string name="editor_detailed_description">Iradoki dituzun aldaketak OpenStreetMap komunitatean argitaratuko dira. Deskribatu mapa organikoetan editatu ezin diren xehetasunak.</string>
 	<string name="editor_more_about_osm">OpenStreetMap-i buruzko informazio gehiago</string>
 	<string name="editor_operator">Eragilea</string>
+	<string name="editor_category_unsuitable_title">Ezin duzu kategoria egokirik aurkitu?</string>
+	<string name="editor_category_unsuitable_text">Organic Maps-ek puntu kategoria soilak gehitzeko aukera ematen du, hau da, ez da herririk, errepiderik, lakurik, eraikinen eskemarik, etab. Gehitu kategoria horiek zuzenean <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Begiratu gure <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gida</a> urratsez urrats argibide zehatzak lortzeko.</string>
 	<string name="downloader_no_downloaded_maps_title">Ez duzu maparik deskargatu</string>
 	<string name="downloader_no_downloaded_maps_message">Deskargatu mapak kokapena aurkitzeko eta lineaz kanpo nabigatzeko.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">Zure uneko kokapena detektatzen jarraitu nahi duzu?</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">Uneko kokapena ezezaguna da. Agian eraikin batean edo tunel batean zaudelako.</string>
-	<string name="current_location_unknown_continue_button">Jarraitu</string>
-	<string name="current_location_unknown_stop_button">Gelditu</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -546,7 +554,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Ziurtatu ez duzula datu pertsonalik sartu.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap editoreek aldaketak egiaztatuko dituzte eta zurekin harremanetan jarriko dira zalantzaren bat izanez gero.</string>
-	<string name="navigation_stop_button">gelditu</string>
+	<string name="navigation_stop_button">Gelditu</string>
 	<!-- For the first routing -->
 	<string name="accept">Onartu</string>
 	<!-- For the first routing -->
@@ -579,6 +587,8 @@
 	<string name="routing_add_finish_point">Gehitu helmuga bat ibilbide bat antolatzeko</string>
 	<string name="placepage_remove_stop">Kendu</string>
 	<string name="placepage_add_stop">Gehitu geldiunea</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Hasi saioa OpenStreetMap-en zure mapen aldaketa guztiak automatikoki kargatzeko. Lortu informazio gehiago <a href="https://github.com/organicmaps/organicmaps/issues/6144">hemen</a>.</string>
 	<string name="dialog_error_storage_title">Biltegiratze sarbidearen arazoa</string>
 	<string name="dialog_error_storage_message">Kanpoko biltegiratzea ez dago erabilgarri; Baliteke SD txartela kendu edo hondatuta egotea, edo fitxategi sistema irakurtzeko soilik izatea. Mesedez, begiratu edo idatzi iezaguzu support\@organicmaps.app helbidera</string>
 	<string name="setting_emulate_bad_storage">Emulatu kaltetutako biltegiratzea</string>
@@ -636,13 +646,15 @@
 	<string name="bookmark_list_description_hint">Gehitu deskribapen bat (testua edo html)</string>
 	<string name="not_shared">Pribatua</string>
 	<string name="speedcams_alert_title">Abiadura kamerak</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Beti</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Inoiz ez</string>
 	<string name="place_description_title">Tokiaren deskribapena</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Deskargatu mapak</string>
+	<!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+	<string name="pref_tts_speedcams_auto">Abiaduraz ohartarazi</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Beti abisatu</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Inoiz ez abisatu</string>
 	<string name="power_managment_title">Energia aurrezteko modua</string>
 	<string name="power_managment_description">Energia aurrezteko modua aktibatuta badago, aplikazioak energia kontsumitzen duten funtzioak itzaliko ditu, telefonoaren uneko kargaren arabera.</string>
 	<string name="power_managment_setting_never">Inoiz ez</string>
@@ -689,6 +701,8 @@
 	<string name="by_distance">Distantziaren arabera</string>
 	<!-- Android -->
 	<string name="by_date">Dataren arabera</string>
+	<!-- Android -->
+	<string name="by_name">Izenaren arabera</string>
 	<string name="week_ago_sorttype">Duela aste bat</string>
 	<string name="month_ago_sorttype">Duela hilabete bat</string>
 	<string name="moremonth_ago_sorttype">Duela hilabete baino gehiago</string>
@@ -746,21 +760,39 @@
 	<!-- Description in preferences -->
 	<string name="enable_show_on_lock_screen_description">Gaituta dagoenean, ez duzu gailua desblokeatu beharrik aplikazioa abian dagoen bitartean.</string>
 	<!-- OpenStreetMap text on splash screen -->
-	<string name="splash_subtitle">Maparen datuak OpenStreetMap-etik</string>
+	<string name="splash_subtitle">OpenStreetMap-eko mapa-datuak</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
 	<string name="translated_om_site_url">https://organicmaps.app/eu/</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Eskerrik asko gure komunitateak eraikitako mapak erabiltzeagatik!</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Organic Maps organikoak erabiltzen ari zara telefonoaren pantailan</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">Zure dohaintza eta laguntzarekin, Munduko mapa onenak sor ditzakegu!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Gure aplikazioa gustatzen zaizu? Mesedez, eman dohaintza garapena laguntzeko! Oraindik ez al zaizu gustatzen? Mesedez, jakinarazi iezaguzu, eta konponduko dugu!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Software garatzaile bat ezagutzen baduzu, behar duzun funtzio bat ezartzeko eska diezaiokezu.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Ba al dakizu mapako edozein toki luze sakatu dezakezula hura hautatzeko?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Ba al dakizu zure uneko kokapena mapan hauta dezakezula?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Gure aplikazioa zure hizkuntzara itzultzen lagun dezakezu.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Gure aplikazioa zale gutxi batzuek eta komunitateak garatzen dute.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Maparen datuak erraz konpondu eta hobetu ditzakezu.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Gure helburu nagusia maite dituzun mapa azkarrak, pribatutasunari begira eta erabilerrazak sortzea da.</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">Organic Maps telefonoaren pantailan erabiltzen ari zara</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Organic Maps erabiltzen ari zara autoaren pantailan</string>
+	<string name="car_used_on_the_car_screen">Organic Maps autoaren pantailan erabiltzen ari zara</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Android Auto-ra konektatuta zaude</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Jarraitu telefonoan</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">Autoaren pantailara</string>
+	<string name="car_continue_on_the_phone">Jarraitu telefonoan</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">Autoaren pantailara</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">Aplikazio honek zure kokapenerako sarbidea behar du nabigaziorako.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -768,9 +800,25 @@
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">Kotxearekin konektatuta</string>
 	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
-	<string name="button_layer_outdoor">Mendi ibilaldiak</string>
+	<string name="button_layer_outdoor">Landa-eremua</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Web arakatzailea ez dago erabilgarri</string>
+	<string name="volume">Bolumena</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Esportatu Laster-marka eta Pista guztiak</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Sistemaren ahots-sintesiaren ezarpenak</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">Ahots-sintesiaren ezarpenak ez dira aurkitu. Ziur zure gailuak onartzen duela?</string>
+	<string name="drive_through">Drive-through</string>
+	<string name="clear_the_search">Garbitu bilaketa</string>
+	<string name="zoom_in">Handitu</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Txikiagotu</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Menuaren esteka</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Ikusi menua</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Helbidea/Blokea</string>
@@ -797,7 +845,7 @@
 	<string name="type.amenity.atm">Kutxazain automatikoa</string>
 	<string name="type.amenity.bank">Bankua</string>
 	<string name="type.amenity.bar">Taberna</string>
-	<string name="type.amenity.bbq">Piknika</string>
+	<string name="type.amenity.bbq">Barbakoa parrilla</string>
 	<string name="type.amenity.bench">Bankua</string>
 	<string name="type.amenity.bicycle_parking">Bizikleta aparkalekua</string>
 	<string name="type.amenity.bicycle_rental">Bizikleta alokairua</string>
@@ -827,6 +875,7 @@
 	<string name="type.amenity.dentist">Dentista</string>
 	<string name="type.amenity.doctors">Kontsulta medikoa</string>
 	<string name="type.amenity.drinking_water">Ur edangarria</string>
+	<string name="type.drinking_water.yes">Ur edangarria</string>
 	<string name="type.amenity.driving_school">Autoeskola</string>
 	<string name="type.amenity.exhibition_centre">Erakusketa Zentroa</string>
 	<string name="type.amenity.money_transfer">Diru transferentzia</string>
@@ -917,7 +966,12 @@
 	<string name="type.recycling.cartons">Edateko kartoiak</string>
 	<string name="type.amenity.restaurant">Jatetxea</string>
 	<string name="type.amenity.school">Eskola</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Aterpea</string>
+	<!-- A weather shelter by the public transport stop. -->
+	<string name="type.amenity.shelter.public_transport">Aterpea</string>
+	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+	<string name="type.amenity.shelter.basic_hut">Bivouac Borda</string>
 	<string name="type.amenity.public_bath">Bainu Publikoa</string>
 	<string name="type.amenity.shower">Dutxa</string>
 	<string name="type.amenity.stripclub">Stripclub</string>
@@ -969,25 +1023,14 @@
 	<string name="type.barrier.wall">Horma</string>
 	<string name="type.boundary">Muga</string>
 	<string name="type.boundary.administrative">Muga administratiboa</string>
-	<string name="type.boundary.administrative.10">Muga administratiboa</string>
-	<string name="type.boundary.administrative.11">Muga administratiboa</string>
+	<!-- Borders between countries. -->
 	<string name="type.boundary.administrative.2">Herrialdeko muga</string>
-	<string name="type.boundary.administrative.3">Muga administratiboa</string>
-	<string name="type.boundary.administrative.4">Muga administratiboa</string>
-	<string name="type.boundary.administrative.5">Muga administratiboa</string>
-	<string name="type.boundary.administrative.6">Muga administratiboa</string>
-	<string name="type.boundary.administrative.7">Muga administratiboa</string>
-	<string name="type.boundary.administrative.8">Muga administratiboa</string>
-	<string name="type.boundary.administrative.9">Muga administratiboa</string>
-	<string name="type.boundary.administrative.city">Hiriko muga</string>
-	<string name="type.boundary.administrative.country">Herrialdeko muga</string>
-	<string name="type.boundary.administrative.county">Eskualdeko muga</string>
-	<string name="type.boundary.administrative.municipality">Udalerriko muga</string>
-	<string name="type.boundary.administrative.nation">Nazio muga</string>
-	<string name="type.boundary.administrative.region">Eskualdeko muga</string>
-	<string name="type.boundary.administrative.state">Estatuko muga</string>
-	<string name="type.boundary.administrative.suburb">Auzoko muga</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.3">Eskualdeko muga</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.4">Eskualdeko muga</string>
 	<string name="type.boundary.national_park">Parke Nazionala</string>
+	<string name="type.boundary.aboriginal_lands">Lurralde autoktonoak</string>
 	<string name="type.boundary.protected_area">Babestutako Eremua</string>
 	<string name="type.boundary.protected_area.1">Babestutako Eremua</string>
 	<string name="type.boundary.protected_area.2">Babestutako Eremua</string>
@@ -1158,15 +1201,9 @@
 	<string name="type.highway.footway">Bidea</string>
 	<string name="type.highway.footway.sidewalk">Espaloia</string>
 	<string name="type.highway.footway.crossing">Oinezkoen pasabidea</string>
-	<string name="type.highway.footway.alpine_hiking">Bidea</string>
 	<string name="type.highway.footway.area">Bidea</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Zubia</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Bidea</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Bidea</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Bidea</string>
-	<string name="type.highway.footway.hiking">Bidea</string>
-	<string name="type.highway.footway.mountain_hiking">Bidea</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunel</string>
 	<string name="type.highway.ford">Ford (lekukoa)</string>
@@ -1187,17 +1224,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Tunel</string>
 	<string name="type.highway.path">Bidea</string>
-	<string name="type.highway.path.alpine_hiking">Bidea</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">Bidea</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">Bidea</string>
 	<string name="type.highway.path.bicycle">Bidea</string>
+	<string name="type.highway.footway.bicycle">Bidea</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Zubia</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Bidea</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Bidea</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Bidea</string>
-	<string name="type.highway.path.hiking">Bidea</string>
 	<string name="type.highway.path.horse">Bidea</string>
-	<string name="type.highway.path.mountain_hiking">Bidea</string>
-	<string name="type.highway.path.permissive">Bidea</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Tunel</string>
 	<string name="type.highway.pedestrian">Kalea</string>
@@ -1270,12 +1305,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Zubia</string>
 	<string name="type.highway.track.grade1">Kalea</string>
-	<string name="type.highway.track.grade2">Kalea</string>
-	<string name="type.highway.track.grade3">Kalea</string>
-	<string name="type.highway.track.grade4">Kalea</string>
-	<string name="type.highway.track.grade5">Kalea</string>
 	<string name="type.highway.track.no.access">Kalea</string>
-	<string name="type.highway.track.permissive">Kalea</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunel</string>
 	<string name="type.highway.traffic_signals">Semaforoak</string>
@@ -1378,6 +1408,7 @@
 	<string name="type.leisure.garden">Lorategi</string>
 	<string name="type.leisure.garden.residential">Lorategi</string>
 	<string name="type.leisure.golf_course">Golf kurtsoa</string>
+	<string name="type.leisure.miniature_golf">Minigolf</string>
 	<string name="type.leisure.nature_reserve">Erreserbatutako lurraldea</string>
 	<string name="type.leisure.outdoor_seating">Kanpoko eserlekuak</string>
 	<string name="type.leisure.park">Parkea</string>
@@ -1406,7 +1437,12 @@
 	<string name="type.man_made.windmill">Haize-errota</string>
 	<string name="type.military.bunker">Bunkerra</string>
 	<string name="type.natural">Natura</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Harkaitz biluzi</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Harri koskor</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Srika</string>
 	<string name="type.natural.bay">Badia</string>
 	<string name="type.natural.beach">Hondartza</string>
 	<string name="type.natural.beach.sand">Hondartza hondartza</string>
@@ -1909,22 +1945,24 @@
 	<string name="type.sport.ice_hockey">Izotz hockey</string>
 	<string name="type.sport.field_hockey">Belar hockey</string>
 	<string name="type.sport.badminton">Badminton</string>
-	<string name="type.sport.pelota">Eusko pilota</string>
+	<string name="type.sport.pelota">Euskal pilota</string>
 	<string name="type.tourism">Turismoa</string>
 	<string name="type.tourism.aquarium">Aquariuma</string>
-	<string name="type.tourism.alpine_hut">Kabina</string>
-	<string name="type.tourism.apartment">Apartamentuak</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Mendiko ostatua</string>
+	<string name="type.tourism.apartment">Oporretako apartamentua</string>
 	<string name="type.tourism.artwork">Artelanak</string>
 	<string name="type.tourism.artwork.architecture">Artelanak</string>
 	<string name="type.tourism.artwork.painting">Artelanak</string>
 	<string name="type.tourism.artwork.sculpture">Artelanak</string>
 	<string name="type.tourism.artwork.statue">Artelanak</string>
 	<string name="type.tourism.attraction">Erakarpen turistikoa</string>
-	<string name="type.tourism.attraction.animal">Erakarpen turistikoa</string>
+	<string name="type.attraction.animal">Animalien itxitura</string>
 	<string name="type.tourism.attraction.specified">Erakarpen turistikoa</string>
 	<string name="type.tourism.camp_site">Kanpalekua</string>
 	<string name="type.tourism.caravan_site">Karabana gunea</string>
-	<string name="type.tourism.chalet">Txaleta</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Oporretako Etxea</string>
 	<string name="type.tourism.gallery">Turismoa</string>
 	<string name="type.tourism.guest_house">Ostatua</string>
 	<string name="type.tourism.hostel">Gazteen aterpetxea</string>
@@ -1938,6 +1976,7 @@
 	<string name="type.tourism.picnic_site">Piknika</string>
 	<string name="type.tourism.theme_park">Parke tematiko</string>
 	<string name="type.tourism.viewpoint">Bista panoramikoa</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Kabina</string>
 	<string name="type.tourism.zoo.petting">Petting Zoo</string>
 	<string name="type.waterway.fish_pass">Arrainen eskailera</string>
@@ -1947,7 +1986,6 @@
 	<string name="type.waterway.lock_gate">Atea</string>
 	<string name="type.waterway.river">Ibai</string>
 	<string name="type.waterway.river.tunnel">Ibai</string>
-	<string name="type.waterway.riverbank">Ibai</string>
 	<string name="type.waterway.stream">Ibai</string>
 	<string name="type.waterway.stream.ephemeral">Ibai</string>
 	<string name="type.waterway.stream.intermittent">Ibai</string>

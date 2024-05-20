@@ -3,6 +3,7 @@
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_decl.hpp"
 #include "indexer/feature_meta.hpp"
+#include "indexer/feature_utils.hpp"
 #include "indexer/map_object.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
@@ -46,38 +47,13 @@ struct LocalizedName
 };
 
 /// Class which contains vector of localized names with following priority:
-///  1. Names for Mwm languages
-///  2. User`s language name
-///  3. Other names
+///  1. Default Name
+///  2. Other names
 /// and mandatoryNamesCount - count of names which should be always shown.
 struct NamesDataSource
 {
   std::vector<LocalizedName> names;
   size_t mandatoryNamesCount = 0;
-};
-
-struct FakeName
-{
-  FakeName(int8_t code, std::string filledName)
-    : m_code(code)
-    , m_filledName(filledName)
-  {
-  }
-
-  int8_t m_code;
-  std::string m_filledName;
-};
-/// Contains information about fake names which were added for user convenience.
-struct FakeNames
-{
-  void Clear()
-  {
-    m_names.clear();
-    m_defaultName.clear();
-  }
-
-  std::vector<FakeName> m_names;
-  std::string m_defaultName;
 };
 
 struct LocalizedStreet
@@ -101,7 +77,7 @@ public:
   std::vector<MetadataID> GetEditableProperties() const;
 
   /// See comment for NamesDataSource class.
-  NamesDataSource GetNamesDataSource(bool addFakes = true);
+  NamesDataSource GetNamesDataSource();
   LocalizedStreet const & GetStreet() const;
   std::vector<LocalizedStreet> const & GetNearbyStreets() const;
 
@@ -130,7 +106,7 @@ public:
   bool UpdateMetadataValue(std::string_view key, std::string value);
 
   void SetOpeningHours(std::string oh);
-  void SetInternet(Internet internet);
+  void SetInternet(feature::Internet internet);
 
   /// @param[in] cuisine is a vector of osm cuisine ids.
 private:
@@ -141,13 +117,8 @@ public:
 
   /// Special mark that it's a point feature, not area or line.
   void SetPointType();
-  /// Enables advanced mode with direct access to default name and disables any recalculations.
-  void EnableNamesAdvancedMode() { m_namesAdvancedMode = true; }
-  bool IsNamesAdvancedModeEnabled() const { return m_namesAdvancedMode; }
-  /// Remove blank names and default name duplications.
-  void RemoveBlankAndDuplicationsForDefault();
-  /// Calls RemoveBlankNames or RemoveFakeNames depending on mode.
-  void RemoveNeedlessNames();
+  /// Remove blank names
+  void RemoveBlankNames();
 
   static bool ValidateBuildingLevels(std::string const & buildingLevels);
   static bool ValidateHouseNumber(std::string const & houseNumber);
@@ -165,8 +136,6 @@ public:
   static NamesDataSource GetNamesDataSource(StringUtf8Multilang const & source,
                                             std::vector<int8_t> const & nativeMwmLanguages,
                                             int8_t const userLanguage);
-  /// Removes fake names (which were added for user convenience) from name.
-  static void RemoveFakeNames(FakeNames const & fakeNames, StringUtf8Multilang & name);
 
   /// Compares editable fields connected with feature ignoring street.
   friend bool AreObjectsEqualIgnoringStreet(EditableMapObject const & lhs, EditableMapObject const & rhs);
@@ -175,7 +144,5 @@ private:
   LocalizedStreet m_street;
   std::vector<LocalizedStreet> m_nearbyStreets;
   EditableProperties m_editableProperties;
-  FakeNames m_fakeNames;
-  bool m_namesAdvancedMode = false;
 };
 }  // namespace osm

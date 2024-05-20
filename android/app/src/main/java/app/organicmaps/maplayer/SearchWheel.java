@@ -35,7 +35,7 @@ public class SearchWheel implements View.OnClickListener
   private final View.OnClickListener mOnSearchPressedListener;
   @NonNull
   private final View.OnClickListener mOnSearchCanceledListener;
-  private MapButtonsViewModel mMapButtonsViewModel;
+  private final MapButtonsViewModel mMapButtonsViewModel;
 
   private static final long CLOSE_DELAY_MILLIS = 5000L;
   private final Runnable mCloseRunnable = new Runnable() {
@@ -52,11 +52,11 @@ public class SearchWheel implements View.OnClickListener
 
   public enum SearchOption
   {
-    FUEL(R.id.search_fuel, R.drawable.ic_routing_fuel_off, R.string.fuel),
-    PARKING(R.id.search_parking, R.drawable.ic_routing_parking_off, R.string.parking),
-    EAT(R.id.search_eat, R.drawable.ic_routing_eat_off, R.string.eat),
-    FOOD(R.id.search_food, R.drawable.ic_routing_food_off, R.string.food),
-    ATM(R.id.search_atm, R.drawable.ic_routing_atm_off, R.string.atm);
+    FUEL(R.id.search_fuel, R.drawable.ic_routing_fuel_off, R.string.category_fuel),
+    PARKING(R.id.search_parking, R.drawable.ic_routing_parking_off, R.string.category_parking),
+    EAT(R.id.search_eat, R.drawable.ic_routing_eat_off, R.string.category_eat),
+    FOOD(R.id.search_food, R.drawable.ic_routing_food_off, R.string.category_food),
+    ATM(R.id.search_atm, R.drawable.ic_routing_atm_off, R.string.category_atm);
 
     @IdRes
     private final int mResId;
@@ -222,7 +222,7 @@ public class SearchWheel implements View.OnClickListener
                                                  searchOption == null ?
                                                  R.drawable.ic_routing_search_off :
                                                  searchOption.mDrawableOff,
-                                                 R.attr.colorAccent));
+                                                 androidx.appcompat.R.attr.colorAccent));
   }
 
   @Override

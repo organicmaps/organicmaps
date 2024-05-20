@@ -8,8 +8,7 @@ final class BookmarkColorViewController: MWMTableViewController {
   weak var delegate: BookmarkColorViewControllerDelegate?
   private let bookmarkColor: BookmarkColor
 
-  private let colors: [BookmarkColor] = [.red, .pink, .purple, .deepPurple, .blue, .lightBlue, .cyan, .teal, .green,
-                                         .lime, .yellow, .orange, .deepOrange, .brown, .gray, .blueGray]
+  private let colors: [BookmarkColor] = BookmarkColor.allCases
 
   init(bookmarkColor: BookmarkColor) {
     self.bookmarkColor = bookmarkColor
@@ -22,7 +21,12 @@ final class BookmarkColorViewController: MWMTableViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = L("bookmark_color")
+    title = L("change_color")
+    navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonDidTap))
+  }
+
+  @objc private func cancelButtonDidTap() {
+    dismiss(animated: true, completion: nil)
   }
 
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

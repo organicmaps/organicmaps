@@ -32,7 +32,6 @@ natural-water-river                                 # area z1- (also has caption
 natural-water-tunnel                                # area z15-
 natural-water-wastewater                            # area z12- (also has caption z17-)
 waterway-dock                                       # area z1-
-waterway-riverbank                                  # line z10- and area z1- (also has pathtext z11-)
 === 20
 
 natural-strait                                      # line z13- (also has caption z13-)

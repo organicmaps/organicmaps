@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <SwitchPreferenceCompat
+      android:key="@string/pref_tts_enabled"
+      android:title="@string/pref_tts_enable_title" />
+  <SwitchPreferenceCompat
+      android:key="@string/pref_tts_street_names"
+      android:title="@string/pref_tts_street_names_title"
+      android:summary="@string/pref_tts_street_names_description"
+      android:defaultValue="false" />
+  <ListPreference
+      android:key="@string/pref_tts_language"
+      android:title="@string/pref_tts_language_title" />
+  <SeekBarPreference
+      android:key="@string/pref_tts_volume"
+      android:title="@string/volume" />
+  <Preference
+      android:key="@string/pref_tts_test_voice"
+      android:title="@string/pref_tts_test_voice_title" />
+  <Preference
+      android:key="@string/pref_tts_open_system_settings"
+      android:title="@string/pref_tts_open_system_settings" />
+  <Preference
+      android:enabled="false"
+      android:key="@string/pref_tts_info"
+      android:persistent="false"
+      android:selectable="false"
+      android:summary="@string/prefs_languages_information" />
+  <Preference
+      android:enabled="true"
+      android:key="@string/pref_tts_info_link"
+      android:persistent="false"
+      android:selectable="true"
+      android:summary="@string/prefs_languages_information_off_link" />
+  <ListPreference
+      android:key="@string/pref_tts_speed_cameras"
+      android:title="@string/speedcams_alert_title"
+      app:singleLineTitle="false"
+      android:entries="@array/speed_cameras"
+      android:entryValues="@array/speed_cameras_values"
+      android:defaultValue="@string/auto_enum_value" />
+</androidx.preference.PreferenceScreen>

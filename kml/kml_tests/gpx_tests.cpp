@@ -31,6 +31,29 @@ static kml::FileData loadGpxFromFile(std::string const & file) {
   return loadGpxFromString(text);
 }
 
+void importExportCompare(char const * testFile)
+{
+  auto const fileName = GetPlatform().TestsDataPathForFile(testFile);
+  std::string sourceFileText;
+  FileReader(fileName).ReadAsString(sourceFileText);
+  kml::FileData const dataFromFile = loadGpxFromFile(testFile);
+  std::string resultBuffer;
+  MemWriter<decltype(resultBuffer)> sink(resultBuffer);
+  kml::gpx::SerializerGpx ser(dataFromFile);
+  ser.Serialize(sink);
+  TEST_EQUAL(resultBuffer, sourceFileText, ());
+}
+
+UNIT_TEST(Gpx_ImportExport_Test)
+{
+  importExportCompare("gpx_test_data/export_test.gpx");
+}
+
+UNIT_TEST(Gpx_ImportExportEmpty_Test)
+{
+  importExportCompare("gpx_test_data/export_test_empty.gpx");
+}
+
 UNIT_TEST(Gpx_Test_Point)
 {
   std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
@@ -260,6 +283,13 @@ d5
   TEST_EQUAL("c3", dataFromText.m_bookmarksData[2].m_description.at(kml::kDefaultLang), ());
   TEST_EQUAL("d4\nd5\n\nc4", dataFromText.m_bookmarksData[3].m_description.at(kml::kDefaultLang), ());
   TEST_EQUAL("qqq", dataFromText.m_bookmarksData[4].m_description.at(kml::kDefaultLang), ());
+}
+
+UNIT_TEST(OpentracksColor)
+{
+  kml::FileData dataFromFile = loadGpxFromFile("gpx_test_data/opentracks_color.gpx");
+  uint32_t const expected = 0xC0C0C0FF;
+  TEST_EQUAL(expected, dataFromFile.m_tracksData[0].m_layers[0].m_color.m_rgba, ());
 }
 
 }  // namespace gpx_tests

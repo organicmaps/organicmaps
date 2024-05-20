@@ -50,7 +50,17 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Error durante la descarga";
 
-"about_menu_title" = "Sobre Organic Maps";
+/* Text in About screen */
+"about_headline" = "Gratis para todos, hecho con amor";
+
+/* Text in About screen */
+"about_proposition_1" = "• Sin anuncios, sin seguimiento, sin recopilación de datos";
+
+/* Text in About screen */
+"about_proposition_2" = "• Sin consumo de batería, funciona sin conexión";
+
+/* Text in About screen */
+"about_proposition_3" = "• Rápido, minimalista, desarrollado por la comunidad.";
 
 "close" = "Cerrar";
 
@@ -61,9 +71,6 @@
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Agregar un grupo nuevo";
-
-/* Bookmark Color dialog title */
-"bookmark_color" = "Color del marcador";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "Nombre del grupo de marcadores";
@@ -92,74 +99,77 @@
 
 /********** Search categories **********/
 
-/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "Dónde comer";
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
+"category_eat" = "Dónde comer";
 
-/* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Alimentación";
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! */
+"category_food" = "Provisiones";
 
-/* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "Transporte";
+/* Search category for public transport; any changes should be duplicated in categories.txt @category_transport! */
+"category_transport" = "Transporte";
 
-/* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Gasolinera";
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
+"category_fuel" = "Gasolinera";
 
-/* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "Aparcamiento";
+/* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
+"category_parking" = "Aparcamiento";
 
-/* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Compras";
+/* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
+"category_shopping" = "Compras";
 
-/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "Segunda mano";
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
+"category_secondhand" = "Segunda mano";
 
-/* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "Hotel";
+/* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
+"category_hotel" = "Hotel";
 
-/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Turismo";
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
+"category_tourism" = "Turismo";
 
-/* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "Entretenimiento";
+/* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
+"category_entertainment" = "Entretenimiento";
 
-/* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "Cajero automático";
+/* Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! */
+"category_atm" = "Cajero automático";
 
-/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "Vida nocturna";
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! */
+"category_nightlife" = "Vida nocturna";
 
-/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Ocio en familia";
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! */
+"category_children" = "Ocio en familia";
 
-/* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "Banco";
+/* Search category for banks; any changes should be duplicated in categories.txt @category_bank! */
+"category_bank" = "Banco";
 
-/* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "Farmacia";
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! */
+"category_pharmacy" = "Farmacia";
 
-/* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "Hospital";
+/* Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! */
+"category_hospital" = "Hospital";
 
-/* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "Baño";
+/* Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! */
+"category_toilet" = "Baño";
 
-/* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "Oficina de correos";
+/* Search category for post offices; any changes should be duplicated in categories.txt @category_post! */
+"category_post" = "Oficina de correos";
 
-/* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "Policía";
+/* Search category for police; any changes should be duplicated in categories.txt @category_police! */
+"category_police" = "Policía";
 
-/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi";
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
+"category_wifi" = "WiFi";
 
-/* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "Reciclaje";
+/* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
+"category_recycling" = "Reciclaje";
 
-/* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "Agua";
+/* Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type */
+"category_water" = "Agua";
 
-/* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "Caravanas";
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
+"category_rv" = "Caravanas";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Hola!\n\Adjunto mis marcadores de la aplicación Organic Maps. Por favor, ábralos si tiene instalado Organic Maps. O, si no lo tiene, descargue la aplicación para su dispositivo iOS o Android siguiendo este enlace: https://omaps.app/get?kmz\n¡Disfrute viajando con Organic Maps!";
 
@@ -200,10 +210,7 @@
 "done" = "Hecho";
 
 /* Prints version number in About dialog */
-"version" = "Versión: %@";
-
-/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "Datos de OpenStreetMap: %@";
+"version" = "Versión de Organic Maps: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Rutas";
@@ -217,8 +224,14 @@
 
 "pref_zoom_title" = "Botones de zoom";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "Modo nocturno";
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Aspecto";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Claro";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Oscuro";
 
 /* Generic «Off» string */
 "off" = "Desactivado";
@@ -240,6 +253,12 @@
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Instrucciones de voz";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Anunciar nombres de calles";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Cuando se activa, el nombre de la calle o la salida para girar se pronunciará en voz alta.";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Idioma de voz";
@@ -277,18 +296,6 @@
 "news" = "Noticias";
 
 /* Text in menu */
-"github" = "GitHub";
-
-/* Text in menu */
-"telegram" = "Telegram";
-
-/* Text in menu */
-"matrix" = "[Matrix]";
-
-/* Text in menu */
-"mastodon" = "Mastodon";
-
-/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -299,9 +306,6 @@
 
 /* Text in the editor */
 "vk" = "VK";
-
-/* Text in menu */
-"openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
 "rate_the_app" = "Valore la aplicación";
@@ -315,14 +319,23 @@
 /* Button in the main menu */
 "donate" = "Donar";
 
-/* Button in the main Help dialog */
-"how_to_support_us" = "Apoye el proyecto";
+/* Tex label above the Donate button */
+"donate_description" = "¡Dona para construir los mejores mapas juntos!";
 
 /* Button in the main Help dialog */
 "copyright" = "Derechos de autor";
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Informar de un fallo";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Informar o corregir datos de mapas incorrectos";
+
+/* Button in the About screen */
+"volunteer" = "Para ser voluntario";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Síguenos y contáctanos:";
 
 /* Alert text */
 "email_error_body" = "No se ha configurado el cliente de correo electrónico. Por favor, configúrelo o utilice alguna otra forma de ponerse en contacto con nosotros en %@";
@@ -622,6 +635,8 @@
 
 "login" = "Iniciar sesión";
 
+"login_osm" = "Iniciar sesión en OpenStreetMap";
+
 "forgot_password" = "¿Ha olvidado su contraseña?";
 
 "osm_account" = "Cuenta OSM";
@@ -696,6 +711,9 @@
 
 "editor_edit_place_name_hint" = "Nombre del lugar";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Como está escrito en la lengua local";
+
 "editor_edit_place_category_title" = "Categoría";
 
 "whatsnew_editor_message_1" = "Añadir lugares nuevos al mapa y editar los lugares actuales directamente desde la aplicación.";
@@ -703,6 +721,9 @@
 "dialog_incorrect_feature_position" = "Cambiar ubicación";
 
 "message_invalid_feature_position" = "No se puede ubicar ningún objeto aquí";
+
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Datos de OpenStreetMap creados por la comunidad a partir de %@. Obtenga más información sobre cómo editar y actualizar el mapa en OpenStreetMap.org";
 
 "login_to_make_edits_visible" = "Inicie sesión en OpenStreetMap.org para que otros usuarios puedan ver los cambios que haya efectuado.";
 
@@ -746,16 +767,6 @@
 
 "downloader_no_downloaded_maps_message" = "Descargue mapas para encontrar la ubicación y navegar sin conexión.";
 
-/* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "¿Continuar detectando su ubicación actual?";
-
-/* Error that appears after certain time without location. */
-"current_location_unknown_message" = "La ubicación actual es desconocida. Quizá esté en un edificio o en un túnel.";
-
-"current_location_unknown_continue_button" = "Continuar";
-
-"current_location_unknown_stop_button" = "Detener";
-
 "current_location_unknown_error_title" = "La ubicación actual es desconocida.";
 
 "current_location_unknown_error_message" = "Se ha producido un error al buscar su ubicación. Compruebe que su dispositivo funciona correctamente e inténtelo más tarde.";
@@ -764,12 +775,20 @@
 
 "location_services_disabled_message" = "Active el acceso a la geolocalización en los ajustes del dispositivo";
 
-"location_services_disabled_1" = "1. Abre los ajustes";
+"location_services_disabled_1" = "1. Abra Ajustes";
 
-"location_services_disabled_2" = "2. Pulsa \"Ubicación\"";
+"location_services_disabled_2" = "2. Pulse Localización";
 
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
-"location_services_disabled_3" = "3. Seleccionar al usar la aplicación";
+"location_services_disabled_3" = "3. Seleccione Cuando se use la app";
+
+"location_services_disabled_on_device_2" = "2. Seleccione Privacidad";
+
+"location_services_disabled_on_device_3" = "3. Seleccione Localización";
+
+"location_services_disabled_on_device_4" = "4. Active la Localización";
+
+"location_services_disabled_on_device_additional_message" = "O continuar usando Organic Maps sin Ubicación";
 
 /* abbreviation for meters */
 "m" = "m";
@@ -815,7 +834,7 @@
 
 "placepage_delete_bookmark_button" = "Eliminar marcador";
 
-"editor_edits_sent_message" = "Se han enviado sus cambios sugeridos";
+"editor_edits_sent_message" = "Su nota se enviará a OpenStreetMap";
 
 "editor_comment_hint" = "Comentario…";
 
@@ -848,9 +867,9 @@
 /* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Asegúrate de que no has introducido ningún dato personal.";
 
-"editor_share_to_all_dialog_message_2" = "Los editores de OpenStreetMap comprobarán los cambios y se pondrán en contacto contigo si tienen alguna pregunta.";
+"editor_share_to_all_dialog_message_2" = "Los editores de OpenStreetMap comprobarán los cambios y se pondrán en contacto con usted si tienen alguna pregunta.";
 
-"navigation_stop_button" = "detener";
+"navigation_stop_button" = "Detener";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "¿Desactivar la grabación de su ruta recientemente recorrida?";
@@ -861,9 +880,6 @@
 "sharing_call_action_look" = "Comprueba";
 
 "recent_track_background_dialog_message" = "Organic Maps usa su geolocalización en segundo plano para registrar su ruta recorrida recientemente.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps es una aplicación de mapas sin conexión gratuita y de código abierto. Sin anuncios. Sin seguimiento. Si ve un error en el mapa, corríjalo en OpenStreetMap. El proyecto está creado por entusiastas en nuestro tiempo libre, por lo que necesitamos sus comentarios y su apoyo.";
 
 "general_settings" = "Ajustes generales";
 
@@ -925,6 +941,12 @@
 "start_from_my_position" = "Empezar desde";
 
 "profile_authorization_error" = "Vaya, se ha producido un error. Intente iniciar sesión de nuevo.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Inicie sesión en OpenStreetMap para cargar automáticamente todas las ediciones de su mapa. Obtenga más información";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "aquí";
 
 "core_entrance" = "Entrada";
 
@@ -1005,15 +1027,16 @@
 
 "speedcams_alert_title" = "Cámaras de velocidad";
 
-/* Generic «Always» string */
-"always" = "Siempre";
-
-/* Generic «Never» string */
-"never" = "Nunca";
-
 "place_description_title" = "Descripción de lugares";
 
-"speedcams_notice_message" = "Automático - Aviso de las cámaras de velocidad si existe el riesgo de exceder el límite de velocidad\nSiempre - Siempre dar aviso de las cámaras de velocidad\nNunca - Nunca dar aviso de las cámaras de velocidad";
+/* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
+"pref_tts_speedcams_auto" = "Avisar al exceder velocidad límite";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Siempre dar aviso";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Nunca dar aviso";
 
 "power_managment_title" = "Modo de ahorro de energía";
 
@@ -1120,6 +1143,8 @@
 "sort_distance" = "Ordenar por distancia";
 
 "sort_date" = "Ordenar por fecha";
+
+"sort_name" = "Ordenar por nombre";
 
 "week_ago_sorttype" = "Hace una semana";
 
@@ -1242,8 +1267,31 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/ES:Acerca_de_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Ahora usa Organic Maps en la pantalla del teléfono";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Ahora usa Organic Maps en la pantalla del automóvil";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Continuar en el teléfono";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "A la pantalla del auto";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Senderismo";
+
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Exportar todos los marcadores y pistas";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "Cambiar color";
+
+/* Main screen title "Map" displayed in the navigation back button's menu. */
+"map" = "Mapa";
+
+"drive_through" = "Servicio al auto";
 
 
 /********** Types **********/
@@ -1296,7 +1344,7 @@
 
 "type.amenity.bar" = "Bar";
 
-"type.amenity.bbq" = "Picnic";
+"type.amenity.bbq" = "Parrilla";
 
 "type.amenity.bench" = "Asiento";
 
@@ -1359,6 +1407,8 @@
 "type.amenity.doctors" = "Consulta del médico";
 
 "type.amenity.drinking_water" = "Agua potable";
+
+"type.drinking_water.yes" = "Agua potable";
 
 "type.amenity.driving_school" = "Autoescuela";
 
@@ -1468,7 +1518,7 @@
 
 "type.amenity.place_of_worship" = "Lugar de culto";
 
-"type.amenity.place_of_worship.buddhist" = "Templo";
+"type.amenity.place_of_worship.buddhist" = "Templo budista";
 
 "type.amenity.place_of_worship.christian" = "Iglesia";
 
@@ -1476,15 +1526,15 @@
 
 "type.amenity.place_of_worship.christian.jehovahs_witness" = "Salón del Reino de los Testigos de Jehová";
 
-"type.amenity.place_of_worship.hindu" = "Templo";
+"type.amenity.place_of_worship.hindu" = "Templo hindú";
 
 "type.amenity.place_of_worship.jewish" = "Sinagoga";
 
 "type.amenity.place_of_worship.muslim" = "Mezquita";
 
-"type.amenity.place_of_worship.shinto" = "Ermita";
+"type.amenity.place_of_worship.shinto" = "Santuario sintoísta";
 
-"type.amenity.place_of_worship.taoist" = "Templo";
+"type.amenity.place_of_worship.taoist" = "Templo taoísta";
 
 "type.amenity.police" = "Policía";
 
@@ -1539,7 +1589,17 @@
 
 "type.amenity.school" = "Escuela";
 
+/* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "Refugio";
+
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "Refugio";
+
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
+"type.amenity.shelter.basic_hut" = "Cabaña Vivac";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
+"type.amenity.shelter.lean_to" = "Lean-to Shelter";
 
 "type.amenity.public_bath" = "Baños públicos";
 
@@ -1637,7 +1697,7 @@
 
 "type.barrier.turnstile" = "Torniquete";
 
-"type.barrier.swing_gate" = "Barrera";
+"type.barrier.swing_gate" = "Barrera batiente";
 
 "type.barrier.toll_booth" = "Cabina de peaje";
 
@@ -1647,43 +1707,18 @@
 
 "type.boundary.administrative" = "Frontera administrativa";
 
-"type.boundary.administrative.10" = "Frontera administrativa";
-
-"type.boundary.administrative.11" = "Frontera administrativa";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "Frontera de país";
 
-"type.boundary.administrative.3" = "Frontera administrativa";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Frontera de región";
 
-"type.boundary.administrative.4" = "Frontera administrativa";
-
-"type.boundary.administrative.5" = "Frontera administrativa";
-
-"type.boundary.administrative.6" = "Frontera administrativa";
-
-"type.boundary.administrative.7" = "Frontera administrativa";
-
-"type.boundary.administrative.8" = "Frontera administrativa";
-
-"type.boundary.administrative.9" = "Frontera administrativa";
-
-"type.boundary.administrative.city" = "Frontera de ciudad";
-
-"type.boundary.administrative.country" = "Frontera de país";
-
-"type.boundary.administrative.county" = "Frontera de condado";
-
-"type.boundary.administrative.municipality" = "Frontera de municipio";
-
-"type.boundary.administrative.nation" = "Frontera de país";
-
-"type.boundary.administrative.region" = "Frontera de región";
-
-"type.boundary.administrative.state" = "Frontera de estado";
-
-"type.boundary.administrative.suburb" = "Frontera de suburbio";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Frontera de región";
 
 "type.boundary.national_park" = "Parque nacional";
+
+"type.boundary.aboriginal_lands" = "Tierras indígenas";
 
 "type.boundary.protected_area" = "Área protegida";
 
@@ -1955,7 +1990,7 @@
 
 "type.entrance.exit" = "Salida";
 
-"type.fee.yes" = "💲";
+"type.fee.yes" = "$";
 
 "type.fee.no" = "Gratis";
 
@@ -2024,29 +2059,17 @@
 
 "type.highway.footway.crossing" = "Cruce peatonal";
 
-"type.highway.footway.alpine_hiking" = "Senderismo alpino";
-
 "type.highway.footway.area" = "Camino";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Puente";
-
-"type.highway.footway.demanding_alpine_hiking" = "Camino";
-
-"type.highway.footway.demanding_mountain_hiking" = "Camino";
-
-"type.highway.footway.difficult_alpine_hiking" = "Camino";
-
-"type.highway.footway.hiking" = "Sendero";
-
-"type.highway.footway.mountain_hiking" = "Camino";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Túnel";
 
 "type.highway.ford" = "Vado";
 
-"type.highway.living_street" = "Calle";
+"type.highway.living_street" = "Calle de prioridad peatonal";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.living_street.bridge" = "Puente";
@@ -2054,7 +2077,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.living_street.tunnel" = "Túnel";
 
-"type.highway.motorway" = "Calle";
+"type.highway.motorway" = "Autopista";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway.bridge" = "Puente";
@@ -2064,7 +2087,7 @@
 
 "type.highway.motorway_junction" = "Salida";
 
-"type.highway.motorway_link" = "Calle";
+"type.highway.motorway_link" = "Autopista";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway_link.bridge" = "Puente";
@@ -2074,26 +2097,20 @@
 
 "type.highway.path" = "Camino";
 
-"type.highway.path.alpine_hiking" = "Camino";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Camino";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Camino";
 
 "type.highway.path.bicycle" = "Camino";
+
+"type.highway.footway.bicycle" = "Camino";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Puente";
 
-"type.highway.path.demanding_alpine_hiking" = "Camino";
-
-"type.highway.path.demanding_mountain_hiking" = "Camino";
-
-"type.highway.path.difficult_alpine_hiking" = "Camino";
-
-"type.highway.path.hiking" = "Camino";
-
 "type.highway.path.horse" = "Camino";
-
-"type.highway.path.mountain_hiking" = "Camino";
-
-"type.highway.path.permissive" = "Camino";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Túnel";
@@ -2108,7 +2125,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Túnel";
 
-"type.highway.primary" = "Calle";
+"type.highway.primary" = "Carretera principal";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.primary.bridge" = "Puente";
@@ -2116,7 +2133,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary.tunnel" = "Túnel";
 
-"type.highway.primary_link" = "Calle";
+"type.highway.primary_link" = "Carretera principal";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.primary_link.bridge" = "Puente";
@@ -2126,9 +2143,9 @@
 
 "type.highway.raceway" = "Circuito";
 
-"type.highway.residential" = "Calle";
+"type.highway.residential" = "Calle residencial";
 
-"type.highway.residential.area" = "Calle";
+"type.highway.residential.area" = "Calle residencial";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.residential.bridge" = "Puente";
@@ -2138,7 +2155,7 @@
 
 "type.highway.rest_area" = "Área de descanso";
 
-"type.highway.road" = "Calle";
+"type.highway.road" = "Carretera";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.road.bridge" = "Puente";
@@ -2149,7 +2166,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.road.tunnel" = "Túnel";
 
-"type.highway.secondary" = "Calle";
+"type.highway.secondary" = "Carretera secundaria";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.secondary.bridge" = "Puente";
@@ -2157,7 +2174,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary.tunnel" = "Túnel";
 
-"type.highway.secondary_link" = "Calle";
+"type.highway.secondary_link" = "Carretera secundaria";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.secondary_link.bridge" = "Puente";
@@ -2165,16 +2182,16 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary_link.tunnel" = "Túnel";
 
-"type.highway.service" = "Calle";
+"type.highway.service" = "Vía de servicio";
 
-"type.highway.service.area" = "Calle";
+"type.highway.service.area" = "Vía de servicio";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.service.bridge" = "Puente";
 
-"type.highway.service.driveway" = "Calle";
+"type.highway.service.driveway" = "Vía de servicio";
 
-"type.highway.service.parking_aisle" = "Calle";
+"type.highway.service.parking_aisle" = "Vía de servicio";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.service.tunnel" = "Túnel";
@@ -2191,7 +2208,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Túnel";
 
-"type.highway.tertiary" = "Calle";
+"type.highway.tertiary" = "Carretera terciaria";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.tertiary.bridge" = "Puente";
@@ -2199,7 +2216,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary.tunnel" = "Túnel";
 
-"type.highway.tertiary_link" = "Calle";
+"type.highway.tertiary_link" = "Carretera terciaria";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.tertiary_link.bridge" = "Puente";
@@ -2216,24 +2233,14 @@
 
 "type.highway.track.grade1" = "Pista";
 
-"type.highway.track.grade2" = "Pista";
-
-"type.highway.track.grade3" = "Pista";
-
-"type.highway.track.grade4" = "Pista";
-
-"type.highway.track.grade5" = "Pista";
-
 "type.highway.track.no.access" = "Pista";
-
-"type.highway.track.permissive" = "Pista";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Túnel";
 
 "type.highway.traffic_signals" = "Semáforos";
 
-"type.highway.trunk" = "Calle";
+"type.highway.trunk" = "Vía troncal";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk.bridge" = "Puente";
@@ -2241,7 +2248,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk.tunnel" = "Túnel";
 
-"type.highway.trunk_link" = "Calle";
+"type.highway.trunk_link" = "Vía troncal";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk_link.bridge" = "Puente";
@@ -2249,9 +2256,9 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk_link.tunnel" = "Túnel";
 
-"type.highway.unclassified" = "Calle";
+"type.highway.unclassified" = "Carretera sin clasificar";
 
-"type.highway.unclassified.area" = "Calle";
+"type.highway.unclassified.area" = "Carretera sin clasificar";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.unclassified.bridge" = "Puente";
@@ -2263,31 +2270,31 @@
 
 "type.area_highway.footway" = "Camino";
 
-"type.area_highway.living_street" = "Calle";
+"type.area_highway.living_street" = "Calle de prioridad peatonal";
 
-"type.area_highway.motorway" = "Calle";
+"type.area_highway.motorway" = "Autopista";
 
 "type.area_highway.path" = "Camino";
 
 "type.area_highway.pedestrian" = "Calle peatonal";
 
-"type.area_highway.primary" = "Calle";
+"type.area_highway.primary" = "Carretera principal";
 
-"type.area_highway.residential" = "Calle";
+"type.area_highway.residential" = "Calle residencial";
 
-"type.area_highway.secondary" = "Calle";
+"type.area_highway.secondary" = "Carretera secundaria";
 
-"type.area_highway.service" = "Calle";
+"type.area_highway.service" = "Vía de servicio";
 
-"type.area_highway.tertiary" = "Calle";
+"type.area_highway.tertiary" = "Carretera terciaria";
 
 "type.area_highway.steps" = "Escaleras";
 
 "type.area_highway.track" = "Pista";
 
-"type.area_highway.trunk" = "Calle";
+"type.area_highway.trunk" = "Vía troncal";
 
-"type.area_highway.unclassified" = "Calle";
+"type.area_highway.unclassified" = "Carretera sin clasificar";
 
 "type.highway.world_level" = "highway-world_level";
 
@@ -2314,7 +2321,7 @@
 
 "type.historic.castle.castrum" = "Castrum";
 
-"type.historic.castle.defensive" = "Castillo";
+"type.historic.castle.defensive" = "Castillo defensivo";
 
 "type.historic.castle.fortified_church" = "Iglesia fortificada";
 
@@ -2408,7 +2415,7 @@
 
 "type.internet_access.wlan" = "Internet";
 
-"type.junction" = "Junction";
+"type.junction" = "Cruce";
 
 "type.junction.circular" = "Rotonda";
 
@@ -2416,11 +2423,11 @@
 
 "type.landuse" = "Uso del suelo";
 
-"type.landuse.allotments" = "Allotments";
+"type.landuse.allotments" = "Huerto urbano";
 
 "type.landuse.basin" = "Cuenca";
 
-"type.landuse.brownfield" = "Brownfield";
+"type.landuse.brownfield" = "Solar abandonado";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery" = "Cementerio";
@@ -2435,8 +2442,6 @@
 "type.landuse.construction" = "Construcción";
 
 "type.landuse.education" = "Instalaciones educativas";
-
-"type.landuse.farm" = "Granja";
 
 "type.landuse.farmland" = "Terreno agrícola";
 
@@ -2478,27 +2483,27 @@
 
 "type.landuse.recreation_ground" = "Área recreativa";
 
-"type.landuse.reservoir" = "Cuenca";
+"type.landuse.reservoir" = "Embalse";
 
 "type.landuse.residential" = "Zona residencial";
 
 "type.landuse.retail" = "Zona comercial";
 
-"type.landuse.salt_pond" = "Estanque";
+"type.landuse.salt_pond" = "Salina";
 
-"type.landuse.village_green" = "Land";
+"type.landuse.village_green" = "Espacio verde";
 
 "type.landuse.vineyard" = "Viñedo";
 
 "type.leisure" = "Ocio";
 
-"type.leisure.common" = "Public Land";
+"type.leisure.common" = "Zona pública";
 
 "type.leisure.dog_park" = "Lugar para pasear al perro";
 
 "type.leisure.fitness_centre" = "Centro de fitness";
 
-"type.leisure.fitness_station" = "Gimnasio";
+"type.leisure.fitness_station" = "Parque de fitness";
 
 "type.leisure.dance" = "Salón de baile";
 
@@ -2508,11 +2513,11 @@
 
 "type.leisure.golf_course" = "Campo de golf";
 
+"type.leisure.miniature_golf" = "Minigolf";
+
 "type.leisure.hackerspace" = "Espacio hacker";
 
 "type.leisure.ice_rink" = "Pisa de patinaje";
-
-"type.leisure.landscape_reserve" = "Reserva natural";
 
 "type.leisure.marina" = "Marina";
 
@@ -2538,7 +2543,7 @@
 
 "type.leisure.sauna" = "Sauna";
 
-"type.leisure.slipway" = "Slipway";
+"type.leisure.slipway" = "Rampa de barcos";
 
 "type.leisure.sports_centre" = "Polideportivo";
 
@@ -2560,15 +2565,15 @@
 
 "type.leisure.beach_resort" = "Resort de playa";
 
-"type.man_made" = "Man Made";
+"type.man_made" = "Construcción";
 
 "type.man_made.breakwater" = "Rompeolas";
 
-"type.man_made.cairn" = "Cairn";
+"type.man_made.cairn" = "Mojón";
 
 "type.man_made.chimney" = "Chimenea de fábrica";
 
-"type.man_made.cutline" = "Cutline";
+"type.man_made.cutline" = "Línea de corte forestal";
 
 "type.man_made.survey_point" = "Punto geodésico";
 
@@ -2618,7 +2623,14 @@
 
 "type.natural" = "Naturaleza";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "Roca desnuda";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Guijarros";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Pedregal";
 
 "type.natural.bay" = "Bahía";
 
@@ -2672,7 +2684,7 @@
 
 "type.natural.peak" = "Cima";
 
-"type.natural.saddle" = "Silla de montaña";
+"type.natural.saddle" = "Collado";
 
 "type.natural.rock" = "Roca";
 
@@ -2696,7 +2708,7 @@
 
 "type.natural.wetland.marsh" = "Ciénaga";
 
-"type.noexit" = "Dead End";
+"type.noexit" = "Sin salida";
 
 "type.office" = "Oficina";
 
@@ -2712,7 +2724,7 @@
 
 "type.office.ngo" = "Sede de ONG";
 
-"type.office.telecommunication" = "Operadora de telefonía móvil";
+"type.office.telecommunication" = "Operadora de telefonía";
 
 "type.organic.only" = "Orgánico";
 
@@ -2746,7 +2758,7 @@
 
 "type.place.country" = "País";
 
-"type.place.county" = "Municipio";
+"type.place.county" = "Condado";
 
 "type.place.farm" = "Granja";
 
@@ -2854,7 +2866,7 @@
 
 "type.railway.level_crossing" = "Cruce de ferrocarril";
 
-"type.railway.light_rail" = "Light Rail";
+"type.railway.light_rail" = "Tren ligero";
 
 "type.railway.light_rail.bridge" = "Light Rail Bridge";
 
@@ -3169,9 +3181,9 @@
 
 "type.railway.subway" = "Línea de metro";
 
-"type.railway.subway.bridge" = "Subway Line Bridge";
+"type.railway.subway.bridge" = "Puente de metro";
 
-"type.railway.subway.tunnel" = "Subway Line Tunnel";
+"type.railway.subway.tunnel" = "Túnel de metro";
 
 "type.railway.subway_entrance" = "Entrada de metro";
 
@@ -3399,9 +3411,9 @@
 
 "type.railway.tram" = "Línea de tranvía";
 
-"type.railway.tram.bridge" = "Tram Line Bridge";
+"type.railway.tram.bridge" = "Puente de tranvía";
 
-"type.railway.tram.tunnel" = "Tram Line Tunnel";
+"type.railway.tram.tunnel" = "Túnel de tranvía";
 
 "type.railway.tram_stop" = "Parada de tranvía";
 
@@ -3469,7 +3481,7 @@
 
 "type.shop.department_store" = "Grandes almacenes";
 
-"type.shop.doityourself" = "Ferretería";
+"type.shop.doityourself" = "Tienda de bricolaje";
 
 "type.shop.dry_cleaning" = "Tintorería";
 
@@ -3501,11 +3513,11 @@
 
 "type.shop.hairdresser" = "Peluquería";
 
-"type.shop.hardware" = "Hardware Store";
+"type.shop.hardware" = "Ferretería";
 
 "type.shop.health_food" = "Tienda de comida saludable";
 
-"type.shop.herbalist" = "Tienda de hierbas";
+"type.shop.herbalist" = "Herbolario";
 
 "type.shop.hifi" = "Audio de alta fidelidad";
 
@@ -3608,7 +3620,7 @@
 
 "type.shop.charity" = "Tienda de caridad";
 
-"type.shop.cheese" = "Tienda de queso";
+"type.shop.cheese" = "Tienda de quesos";
 
 "type.shop.craft" = "Artes y manualidades";
 
@@ -3715,9 +3727,10 @@
 
 "type.tourism.aquarium" = "Acuario";
 
-"type.tourism.alpine_hut" = "Refugio de montaña";
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "Albergue de montaña";
 
-"type.tourism.apartment" = "Apartamentos";
+"type.tourism.apartment" = "Apartamento de vacaciones";
 
 "type.tourism.artwork" = "Obras de arte";
 
@@ -3731,7 +3744,7 @@
 
 "type.tourism.attraction" = "Atracción turística";
 
-"type.tourism.attraction.animal" = "Atracción turística";
+"type.attraction.animal" = "Recinto de animales";
 
 "type.tourism.attraction.specified" = "Atracción turística";
 
@@ -3739,7 +3752,8 @@
 
 "type.tourism.caravan_site" = "Zona de caravanas";
 
-"type.tourism.chalet" = "Chalé";
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "Cabaña de vacaciones";
 
 "type.tourism.gallery" = "Galería";
 
@@ -3767,12 +3781,13 @@
 
 "type.tourism.picnic_site" = "Zona de picnic";
 
-"type.tourism.resort" = "Resort";
+"type.leisure.resort" = "Resort";
 
 "type.tourism.theme_park" = "Parque de atracciones";
 
 "type.tourism.viewpoint" = "Vista panorámica";
 
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "Cabaña";
 
 "type.tourism.zoo" = "Zoo";
@@ -3815,8 +3830,6 @@
 
 "type.waterway.river.tunnel" = "Río";
 
-"type.waterway.riverbank" = "Río";
-
 "type.waterway.stream" = "Arroyo";
 
 "type.waterway.stream.ephemeral" = "Arroyo efímero";
@@ -3831,11 +3844,11 @@
 
 "type.wheelchair" = "Silla de ruedas";
 
-"type.wheelchair.limited" = "Parcialmente equipado para discapacitados";
+"type.wheelchair.limited" = "Parcialmente accesible en silla de ruedas";
 
-"type.wheelchair.no" = "No equipado para discapacitados";
+"type.wheelchair.no" = "No accesible en silla de ruedas";
 
-"type.wheelchair.yes" = "Equipado para discapacitados";
+"type.wheelchair.yes" = "Accesible en silla de ruedas";
 
 "type.aerialway.j.bar" = "Telesilla barra en J";
 

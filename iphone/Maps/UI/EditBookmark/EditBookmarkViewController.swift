@@ -139,15 +139,12 @@ final class EditBookmarkViewController: MWMTableViewController {
   }
 
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: true)
     switch InfoSectionRows(rawValue: indexPath.row) {
     case .color:
-      let colorViewController = BookmarkColorViewController(bookmarkColor: bookmarkColor)
-      colorViewController.delegate = self
-      navigationController?.pushViewController(colorViewController, animated: true)
+      openColorPicker()
     case .bookmarkGroup:
-      let groupViewController = SelectBookmarkGroupViewController(groupName: bookmarkGroupTitle ?? "", groupId: bookmarkGroupId)
-      groupViewController.delegate = self
-      navigationController?.pushViewController(groupViewController, animated: true)
+      openGroupPicker()
     default:
       break
     }
@@ -169,6 +166,20 @@ final class EditBookmarkViewController: MWMTableViewController {
     }
     editingCompleted?(true)
     goBack()
+  }
+
+  @objc private func openColorPicker() {
+    ColorPicker.shared.present(from: self, pickerType: .bookmarkColorPicker(bookmarkColor), completionHandler: { [weak self] color in
+      self?.bookmarkColor = BookmarkColor.bookmarkColor(from: color)
+      self?.tableView.reloadRows(at: [IndexPath(row: InfoSectionRows.color.rawValue, section: Sections.info.rawValue)], with: .none)
+    })
+  }
+
+  private func openGroupPicker() {
+    let groupViewController = SelectBookmarkGroupViewController(groupName: bookmarkGroupTitle ?? "", groupId: bookmarkGroupId)
+    let navigationController = UINavigationController(rootViewController: groupViewController)
+    groupViewController.delegate = self
+    present(navigationController, animated: true, completion: nil)
   }
 }
 
@@ -204,23 +215,13 @@ extension EditBookmarkViewController: MWMButtonCellDelegate {
   }
 }
 
-extension EditBookmarkViewController: BookmarkColorViewControllerDelegate {
-  func bookmarkColorViewController(_ viewController: BookmarkColorViewController, didSelect color: BookmarkColor) {
-    goBack()
-    bookmarkColor = color
-    tableView.reloadRows(at: [IndexPath(row: InfoSectionRows.color.rawValue, section: Sections.info.rawValue)],
-                         with: .none)
-  }
-}
-
 extension EditBookmarkViewController: SelectBookmarkGroupViewControllerDelegate {
   func bookmarkGroupViewController(_ viewController: SelectBookmarkGroupViewController,
                                    didSelect groupTitle: String,
                                    groupId: MWMMarkGroupID) {
-    goBack()
+    viewController.dismiss(animated: true)
     bookmarkGroupTitle = groupTitle
     bookmarkGroupId = groupId
-    tableView.reloadRows(at: [IndexPath(row: InfoSectionRows.bookmarkGroup.rawValue, section: Sections.info.rawValue)],
-                         with: .none)
+    tableView.reloadRows(at: [IndexPath(row: InfoSectionRows.bookmarkGroup.rawValue, section: Sections.info.rawValue)], with: .none)
   }
 }

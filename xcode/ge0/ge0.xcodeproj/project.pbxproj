@@ -11,7 +11,6 @@
 		391A145C23E0FC7F00A448F4 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A145B23E0FC7F00A448F4 /* libplatform.a */; };
 		391A145E23E0FC8400A448F4 /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A145D23E0FC8400A448F4 /* libcoding.a */; };
 		391A146023E0FC8700A448F4 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A145F23E0FC8700A448F4 /* libbase.a */; };
-		391A146223E0FC8B00A448F4 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A146123E0FC8B00A448F4 /* liboauthcpp.a */; };
 		391A146623E0FC9A00A448F4 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A146523E0FC9A00A448F4 /* libz.tbd */; };
 		39C29BD023E19B3C009ECB47 /* parser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39C29BCC23E19B3C009ECB47 /* parser.hpp */; };
 		39C29BD123E19B3C009ECB47 /* parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39C29BCD23E19B3C009ECB47 /* parser.cpp */; };
@@ -32,7 +31,6 @@
 		391A145B23E0FC7F00A448F4 /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		391A145D23E0FC8400A448F4 /* libcoding.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcoding.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		391A145F23E0FC8700A448F4 /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		391A146123E0FC8B00A448F4 /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		391A146523E0FC9A00A448F4 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		39C29BCC23E19B3C009ECB47 /* parser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = parser.hpp; path = ../../ge0/parser.hpp; sourceTree = "<group>"; };
 		39C29BCD23E19B3C009ECB47 /* parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = parser.cpp; path = ../../ge0/parser.cpp; sourceTree = "<group>"; };
@@ -53,7 +51,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				391A146623E0FC9A00A448F4 /* libz.tbd in Frameworks */,
-				391A146223E0FC8B00A448F4 /* liboauthcpp.a in Frameworks */,
 				391A146023E0FC8700A448F4 /* libbase.a in Frameworks */,
 				391A145E23E0FC8400A448F4 /* libcoding.a in Frameworks */,
 				391A145C23E0FC7F00A448F4 /* libplatform.a in Frameworks */,
@@ -75,7 +72,6 @@
 			isa = PBXGroup;
 			children = (
 				391A146523E0FC9A00A448F4 /* libz.tbd */,
-				391A146123E0FC8B00A448F4 /* liboauthcpp.a */,
 				391A145F23E0FC8700A448F4 /* libbase.a */,
 				391A145D23E0FC8400A448F4 /* libcoding.a */,
 				391A145B23E0FC7F00A448F4 /* libplatform.a */,

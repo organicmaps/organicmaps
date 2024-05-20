@@ -10,7 +10,6 @@
 #include <functional>
 #include <string>
 #include <unordered_set>
-#include <utility>
 #include <vector>
 
 namespace gui
@@ -112,7 +111,7 @@ public:
   struct LabelResult
   {
     buffer_vector<DynamicVertex, 128> m_buffer;
-    m2::RectD m_boundRect;
+    m2::RectF m_boundRect;
   };
 
   void Precache(PrecacheParams const & params, PrecacheResult & result,
@@ -152,7 +151,7 @@ public:
 
   bool Update(ScreenBase const & screen) override;
 
-  ref_ptr<MutableLabel> GetTextView();
+  ref_ptr<MutableLabel> GetTextView() const;
   void UpdateSize(m2::PointF const & size);
 
 protected:

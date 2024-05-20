@@ -8,7 +8,7 @@ final class TransportTransitTrain: TransportTransitCell {
 
   @IBOutlet private weak var background: UIView! {
     didSet {
-      background.layer.cornerRadius = Config.backgroundCornerRadius
+      background.layer.setCorner(radius: Config.backgroundCornerRadius)
     }
   }
 

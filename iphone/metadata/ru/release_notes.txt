@@ -1,39 +1,44 @@
-• Copy place title, address, coordinates and other information using a long tap
-• CarPlay: support touch panning gestures
-• Add Notes section to the 'Add place to OpenStreetMap' screen
-• OpenStreetMap map data as of January 5
+• Сортировка меток и треков по имени (наконец-то!)
+• Данные OpenStreetMap по состоянию на 29 апреля
+• Переход на новый механизм аутентификации OpenStreetMap – все аутентифицированные пользователи OSM должны заново войти в систему
+• Решена проблема с напоминаниями об изолиниях поверх других элементов интерфейса
+• Исправлено расположение кругового индикатора хода загрузки при выборе объектов на карте
+• Скорректировано расположение меню "Еще" в списках меток
+• В меню "О программе" добавлена поддержка почтового клиента по умолчанию
+• Видно, в каких местах есть окошко для водителя (drive-through)
+• Иконка "лестницы" заменена на значок лифта для отображения номера этажа выбранного объекта
+• Улучшена видимость значка $ в темном режиме для платных объектов
+• Улучшена веломаршрутизация
 
-Styles:
-• Added cairns, updated Singapore subway icon
-• Slightly increased contrast of lines on the World overview map
-• Make secondary roads a bit brighter than tertiary/etc.
-• Car navigation style: fixed some footways/paths/tracks being displayed too early as white dashed lines
-• Main style: fix color of footways with a sac_scale=* tag to be same as path
-• Fixed very thin lines (e.g. tram lines) having inconsistent transparency/contrast between different devices (driver•dependent)
-• Fix bookmarked children playground icon
-• remove labels and decrease visibility of footway crossings and sidewalks
-• tuned contrast of altitude contour lines
-• crisper looking lines (no edge blur)
+Редактор карты OpenStreetMap:
+• На карту OpenStreetMap теперь можно добавлять рынки, стоянки такси, киоски, туристические домики, садовые товары, исторические самолеты, пушки, межевые камни, гробницы и т.д.
+• Для заведений можно указать наличие окошка для водителей (drive-through)
+• Упрощена работа с названиями объектов на нескольких языках и устранены связанные с этим ошибки
+• Добавлена подсказка "Не можете найти подходящую категорию?" при добавлени объектов
+• Исправлена ошибка, позволявшая добавить название на одном и том же языке дважды
 
-Outdoors style:
-• more contrast•looking paths, tracks, cutlines, rivers, ditches, railways, cycleways, fences, etc.
-• reduce visibility of small streams and canals
-• increase visibility of fences, walls and ditches
-• increase visibilities of bridle/cycle/foot•ways and steps, increase label sizes
-• make bridleways to be the same brown color as paths but with longer dashes
+Карта:
+• Сложные пешеходные тропы теперь отображаются коричневыми точками, очень сложные – чёрными редкими точками
+• Велодорожки теперь тёмно-синие, а там, где они ведут по пешеходным дорожкам – пунктирные
+• Под полупрозрачными мостами видны дороги
+• Более последовательное отображение асфальтированных дорожек белым пунктиром, а грунтовых – коричневым пунктиром
+• Добавлены участки осыпей и галечников; улучшен цвет голых скальных поверхностей
+• Убраны пустующие/неиспользуемые магазины
+• На карту добавлены крупные валуны (камни) и мини-гольф
+• Разные иконки для остановок общественного транспорта и укрытия от дождя
+• Добавлены иконки вольеров для животных, химчистки; обновлена иконка прачечной
+• Исправлена проблема слишком маленького размера шрифта для названий небольших городов
+• При увеличении названия городов чуть позже исчезают с карты
+• Штриховая заливка земель коренных народов сделана прозрачнее
+• Штриховая заливка и иконки/названия заповедников не отображаются при детальном приближении карты
 
-Pistes improvements:
-• add snow parks and new piste types: skitour, winter hike, connection
-• color freeride pistes in yellow•orange, consider ungroomed downhill runs as freeride
-• better piste names and numbers/refs support
-• in Outdoors style: increase pistes visibilities and display detailed piste shapes (area fills)
+Поиск:
+• Улучшен поиск по некоторым категориям (падель, станции метро, хижины в горах и т. д.)
+• Включен поиск мест пополнения запасов питьевой воды, включая кафе, участвующие в проекте
+• Частные бассейны исключены из результатов поиска
+• Добавлен экспериментальный поиск по статьям википедии "?wiki"
+• Улучшен порядок результатов поиска по категориям в списке
 
-Other:
-• Display capacity of parkings, bicycle docks and charging stations when they're selected
-• Adjust shop, amenity, leisure ranking in the search
+Улучшены баскский, немецкий, греческий, словацкий переводы.
 
-Translations:
-• new Azebaijani language
-• updates to Chinese, Polish, Hebrew, Romanian
-
-…and more smaller fixes and improvements, check https://omaps.org/news for details!
+Больше подробностей можно прочитать на https://omaps.org/ru/news/

@@ -26,20 +26,31 @@ double constexpr kCategoriesDistanceToPivot = -0.6874177;
 double constexpr kCategoriesRank = 1.0000000;
 double constexpr kCategoriesFalseCats = -1.0000000;
 
-double constexpr kDistanceToPivot = -0.2123693;
-// This constant is very important and checked in Famous_Cities_Rank test.
+double constexpr kDistanceToPivot = -0.48;
+double constexpr kWalkingDistanceM = 5000.0;
+
+double constexpr AbsPenaltyPerKm()
+{
+  return - kDistanceToPivot * 1000.0 / RankingInfo::kMaxDistMeters;
+}
+
+// These constants are very important and checked in Famous_Cities_Rank test.
 double constexpr kRank = 0.23;
-double constexpr kPopularity = 1.0000000;
+double constexpr kPopularity = 0.42;
 
-// Decreased this value:
-// - On the one hand, when search for "eat", we'd prefer category types, rather than "eat" name.
-// - On the other hand, when search for "subway", do we usually prefer famous fast food or metro?
-double constexpr kFalseCats = -0.01;
-
-double constexpr kErrorsMade = -0.15;
+double constexpr kErrorsMade = -0.4;
 double constexpr kMatchedFraction = 0.1876736;
-double constexpr kAllTokensUsed = 0.0478513;
+double constexpr kAllTokensUsed = 0.3;
 double constexpr kCommonTokens = -0.05;
+double constexpr kAltOldName = -0.3;    // Some reasonable penalty like kErrorsMade.
+
+// Some thoughts about reasonable diff here:
+// - should be a bit less than fabs(kAltOldName) to filter non-obvious matching
+// - should be greater than fabs(kErrorsMade) / 2
+// - shoulbe be comparable with kRank to keep cities/towns
+double constexpr kViewportDiffThreshold = 0.29;
+static_assert(kViewportDiffThreshold < -kAltOldName && kViewportDiffThreshold > -kErrorsMade / 2);
+static_assert(kViewportDiffThreshold < kAllTokensUsed);
 
 double constexpr kNameScore[] = {
  -0.05,   // Zero
@@ -49,7 +60,7 @@ double constexpr kNameScore[] = {
   0.018,  // Full Prefix
   0.02,   // Full Match
 };
-static_assert(std::size(kNameScore) == static_cast<size_t>(NameScore::COUNT));
+static_assert(std::size(kNameScore) == base::E2I(NameScore::COUNT));
 
 // 0-based factors from POIs, Streets, Buildings, since we don't have ratings or popularities now.
 double constexpr kType[] = {
@@ -58,13 +69,13 @@ double constexpr kType[] = {
   0.007,      // Building, to compensate max(kStreetType), see Arbat_Address test.
   0,          // Street
   0,          // Suburb
- -0.02,       // Unclassified
+ -0.025,      // Unclassified
   0,          // Village
   0.01,       // City
   0.0233254,  // State
   0.1679389,  // Country
 };
-static_assert(std::size(kType) == static_cast<size_t>(Model::TYPE_COUNT));
+static_assert(std::size(kType) == Model::TYPE_COUNT);
 
 // 0-based factors from General.
 double constexpr kPoiType[] = {
@@ -74,10 +85,20 @@ double constexpr kPoiType[] = {
   0.01,       // Hotel
   0.01,       // Shop or Amenity
   0.01,       // Attraction
- -0.01,       // Service
+  0.008,      // CarInfra
+  0.005,      // PureCategory
   0,          // General
+ -0.01,       // Service
 };
-static_assert(std::size(kPoiType) == base::Underlying(PoiType::Count));
+static_assert(std::size(kPoiType) == base::E2I(PoiType::Count));
+
+// - When search for "eat", we'd prefer category types, rather than "eat" name.
+// - To _equalize_ "subway" search: Metro category should be equal with "Subway" fast food.
+// - See NY_Subway test.
+double constexpr kFalseCats =
+    kNameScore[base::E2I(NameScore::FULL_PREFIX)] - kNameScore[base::E2I(NameScore::FULL_MATCH)] +
+    kPoiType[base::E2I(PoiType::PureCategory)] - kPoiType[base::E2I(PoiType::Eat)];
+static_assert(kFalseCats < 0.0);
 
 double constexpr kStreetType[] = {
   0,          // Default
@@ -103,19 +124,18 @@ static_assert(kErrorsMade <= 0, "");
 
 double TransformDistance(double distance)
 {
-  return min(distance, RankingInfo::kMaxDistMeters) / RankingInfo::kMaxDistMeters;
+  return std::min(distance, RankingInfo::kMaxDistMeters) / RankingInfo::kMaxDistMeters;
 }
 
-void PrintParse(ostringstream & oss, array<TokenRange, Model::TYPE_COUNT> const & ranges,
-                size_t numTokens)
+void PrintParse(ostringstream & oss, array<TokenRange, Model::TYPE_COUNT> const & ranges, size_t numTokens)
 {
-  vector<Model::Type> types(numTokens, Model::Type::TYPE_COUNT);
+  std::vector<Model::Type> types(numTokens, Model::TYPE_COUNT);
   for (size_t i = 0; i < ranges.size(); ++i)
   {
     for (size_t pos : ranges[i])
     {
-      CHECK_LESS(pos, numTokens, ());
-      CHECK_EQUAL(types[pos], Model::Type::TYPE_COUNT, ());
+      ASSERT_LESS(pos, numTokens, ());
+      ASSERT_EQUAL(types[pos], Model::TYPE_COUNT, ());
       types[pos] = static_cast<Model::Type>(i);
     }
   }
@@ -142,8 +162,19 @@ public:
   }
 };
 
-class IsAttraction : public BaseTypesChecker
+class IsAttraction
 {
+  std::vector<uint32_t> m_types;
+
+public:
+  bool operator() (feature::TypesHolder const & th) const
+  {
+    // Strict check (unlike in BaseTypesChecker) to avoid matching:
+    // - historic-memorial-plaque
+    // - leisure-garden-residential
+    return base::AnyOf(m_types, [&th](uint32_t t) { return th.Has(t); });
+  }
+
 public:
   IsAttraction()
   {
@@ -158,7 +189,6 @@ public:
     base::StringIL const types[] = {
       {"leisure", "beach_resort"},
       {"leisure", "garden"},
-      {"leisure", "landscape_reserve"},
       {"leisure", "marina"},
       {"leisure", "nature_reserve"},
       {"leisure", "park"},
@@ -181,18 +211,44 @@ public:
       // Amenity types are very fragmented, so take only most _interesting_ here.
       {"amenity", "bank"},
       {"amenity", "brothel"},
-      {"amenity", "car_rental"},
       {"amenity", "casino"},
       {"amenity", "cinema"},
       {"amenity", "clinic"},
       {"amenity", "hospital"},
+      {"amenity", "ice_cream"},
       {"amenity", "library"},
       {"amenity", "marketplace"},
       {"amenity", "nightclub"},
       {"amenity", "pharmacy"},
+      {"amenity", "police"},
       {"amenity", "post_office"},
       {"amenity", "stripclub"},
+      {"amenity", "taxi"},
       {"amenity", "theatre"},
+    };
+
+    Classificator const & c = classif();
+    for (auto const & e : types)
+      m_types.push_back(c.GetTypeByPath(e));
+  }
+};
+
+class IsCarInfra : public BaseTypesChecker
+{
+public:
+  IsCarInfra()
+  {
+    base::StringIL const types[] = {
+      {"amenity", "car_rental"},
+      {"amenity", "car_sharing"},
+      {"amenity", "car_wash"},
+      {"amenity", "charging_station"},
+      {"amenity", "fuel"},
+      // Do not add parking here, no need to rank them by name.
+      //{"amenity", "parking"},
+
+      {"highway", "rest_area"},
+      {"highway", "services"},
     };
 
     Classificator const & c = classif();
@@ -271,6 +327,7 @@ string DebugPrint(RankingInfo const & info)
      << ", m_allTokensUsed: " << info.m_allTokensUsed
      << ", m_categorialRequest: " << info.m_categorialRequest
      << ", m_hasName: " << info.m_hasName
+     << ", m_nearbyMatch: " << info.m_nearbyMatch
      << " }";
 
   return os.str();
@@ -299,12 +356,13 @@ void RankingInfo::ToCSV(ostream & os) const
   os << (m_hasName ? 1 : 0);
 }
 
-double RankingInfo::GetLinearModelRank() const
+double RankingInfo::GetLinearRankViewportThreshold()
 {
-  // NOTE: this code must be consistent with scoring_model.py.  Keep
-  // this in mind when you're going to change scoring_model.py or this
-  // code. We're working on automatic rank calculation code generator
-  // integrated in the build system.
+  return kViewportDiffThreshold;
+}
+
+double RankingInfo::GetLinearModelRank(bool viewportMode /* = false */) const
+{
   double const distanceToPivot = TransformDistance(m_distanceToPivot);
   double const rank = static_cast<double>(m_rank) / numeric_limits<uint8_t>::max();
   double const popularity = static_cast<double>(m_popularity) / numeric_limits<uint8_t>::max();
@@ -312,41 +370,60 @@ double RankingInfo::GetLinearModelRank() const
   double result = 0.0;
   if (!m_categorialRequest)
   {
-    result += kDistanceToPivot * distanceToPivot;
+    if (!viewportMode)
+      result += kDistanceToPivot * distanceToPivot;
+
     result += kRank * rank;
-    result += kPopularity * popularity;
-    result += kFalseCats * (m_falseCats ? 1 : 0);
+    if (m_falseCats)
+      result += kFalseCats;
+
+    /// @todo Make also for POIs?
+    if (Model::IsLocalityType(m_type))
+      result += kPopularity * popularity;
 
     ASSERT(m_type < Model::TYPE_COUNT, ());
     result += kType[GetTypeScore()];
 
     if (Model::IsPoi(m_type))
     {
-      CHECK_LESS(m_classifType.poi, PoiType::Count, ());
+      ASSERT_LESS(m_classifType.poi, PoiType::Count, ());
       result += kPoiType[base::Underlying(GetPoiTypeScore())];
     }
     else if (m_type == Model::TYPE_STREET)
     {
-      CHECK_LESS(m_classifType.street, StreetType::Count, ());
+      ASSERT_LESS(m_classifType.street, StreetType::Count, ());
       result += kStreetType[base::Underlying(m_classifType.street)];
     }
 
-    result += (m_allTokensUsed ? 1 : 0) * kAllTokensUsed;
+    if (m_allTokensUsed)
+      result += kAllTokensUsed;
+
     auto const nameRank = kNameScore[static_cast<size_t>(GetNameScore())] +
                           kErrorsMade * GetErrorsMadePerToken() +
                           kMatchedFraction * m_matchedFraction;
-    result += (m_isAltOrOldName ? 0.7 : 1.0) * nameRank;
+    result += nameRank;
 
     result += kCommonTokens * m_commonTokensFactor;
+
+    if (m_isAltOrOldName)
+      result += kAltOldName;
   }
   else
   {
-    result += kCategoriesDistanceToPivot * distanceToPivot;
+    if (!viewportMode)
+      result += kCategoriesDistanceToPivot * distanceToPivot;
+
     result += kCategoriesRank * rank;
     result += kCategoriesPopularity * popularity;
-    result += kCategoriesFalseCats * (m_falseCats ? 1 : 0);
-    result += m_hasName * kHasName;
+    if (m_falseCats)
+      result += kCategoriesFalseCats;
+    if (m_hasName)
+      result += kHasName;
   }
+
+  // Trying to fix https://github.com/organicmaps/organicmaps/issues/5251.
+  if (m_nearbyMatch)
+    result += kAltOldName;
 
   return result;
 }
@@ -361,21 +438,33 @@ double RankingInfo::GetErrorsMadePerToken() const
   if (!m_errorsMade.IsValid())
     return GetMaxErrorsForTokenLength(numeric_limits<size_t>::max());
 
-  CHECK_GREATER(m_numTokens, 0, ());
+  ASSERT_GREATER(m_numTokens, 0, ());
   return m_errorsMade.m_errorsMade / static_cast<double>(m_numTokens);
 }
 
 NameScore RankingInfo::GetNameScore() const
 {
-  if (!m_pureCats && m_type == Model::TYPE_SUBPOI && m_nameScore == NameScore::FULL_PREFIX)
+  if (!m_pureCats && Model::IsPoi(m_type) && m_classifType.poi <= PoiType::Attraction)
   {
-    // It's better for ranking when POIs would be equal by name score. Some examples:
-    // query="rewe", pois=["REWE", "REWE City", "REWE to Go"]
-    // query="carrefour", pois=["Carrefour", "Carrefour Mini", "Carrefour Gurme"]
+    // It's better for ranking when POIs would be equal by name score in the next cases:
 
-    // The reason behind that is that user usually does search for _any_ shop within some commercial network.
-    // But cities or streets geocoding should distinguish this cases.
-    return NameScore::FULL_MATCH;
+    if (m_nameScore == NameScore::FULL_PREFIX)
+    {
+      // query = "rewe", pois = ["REWE", "REWE City", "REWE to Go"]
+      // query = "carrefour", pois = ["Carrefour", "Carrefour Mini", "Carrefour Gurme"]
+
+      // The reason behind that is that user usually does search for _any_ shop within some commercial network.
+      // But cities or streets geocoding should distinguish this cases.
+      return NameScore::FULL_MATCH;
+    }
+
+    if (m_nameScore != NameScore::ZERO && m_distanceToPivot < kWalkingDistanceM)
+    {
+      // query = "rimi", pois = ["Rimi", "Mini Rimi"]
+
+      // Equal name score for POIs within some reasonable walking distance.
+      return NameScore::FULL_MATCH;
+    }
   }
 
   return m_nameScore;
@@ -388,8 +477,8 @@ Model::Type RankingInfo::GetTypeScore() const
 
 PoiType RankingInfo::GetPoiTypeScore() const
 {
-  // Do not increment score for category-only-matched results or subways will be _always_ on top otherwise.
-  return (m_pureCats ? PoiType::General : m_classifType.poi);
+  // Equalize all *pure category* results to not distinguish different toilets (see ToiletAirport test).
+  return (m_pureCats ? PoiType::PureCategory : m_classifType.poi);
 }
 
 PoiType GetPoiType(feature::TypesHolder const & th)
@@ -418,6 +507,10 @@ PoiType GetPoiType(feature::TypesHolder const & th)
   if (shopOrAmenityCheck(th))
     return PoiType::ShopOrAmenity;
 
+  static IsCarInfra const carInfra;
+  if (carInfra(th))
+    return PoiType::CarInfra;
+
   static IsServiceTypeChecker const serviceCheck;
   if (serviceCheck(th))
     return PoiType::Service;
@@ -435,8 +528,10 @@ string DebugPrint(PoiType type)
   case PoiType::Hotel: return "Hotel";
   case PoiType::ShopOrAmenity: return "ShopOrAmenity";
   case PoiType::Attraction: return "Attraction";
-  case PoiType::Service: return "Service";
+  case PoiType::CarInfra: return "CarInfra";
+  case PoiType::PureCategory: return "PureCategory";
   case PoiType::General: return "General";
+  case PoiType::Service: return "Service";
   case PoiType::Count: return "Count";
   }
   UNREACHABLE();

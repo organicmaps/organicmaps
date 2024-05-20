@@ -211,6 +211,7 @@ extension PlacePageCommonLayout: MWMLocationObserver {
 
   func onLocationUpdate(_ location: CLLocation) {
     if placePageData.isMyPosition {
+      /// @todo Use C++ Distance::FormatAltitude function?
       let imperial = Settings.measurementUnits() == .imperial
       let alt = imperial ? location.altitude / 0.3048 : location.altitude
       let altMeasurement = Measurement(value: alt.rounded(), unit: imperial ? UnitLength.feet : UnitLength.meters)

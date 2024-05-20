@@ -26,7 +26,7 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
                         </userDefinedRuntimeAttributes>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Uc-o1-PsF">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Uc-o1-PsF">
                         <rect key="frame" x="60" y="14" width="298" height="20"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -91,7 +91,9 @@
             </constraints>
             <connections>
                 <outlet property="badgeBackground" destination="con-tP-3dJ" id="vH5-Rd-uqS"/>
+                <outlet property="badgeBackgroundWidthConstraint" destination="ubK-0L-pDn" id="D3B-sV-eGO"/>
                 <outlet property="badgeCountLabel" destination="FT9-8n-RZm" id="HLY-2S-do9"/>
+                <outlet property="badgeSpacingConstraint" destination="RJA-NS-MXP" id="Hpf-eq-1C1"/>
                 <outlet property="icon" destination="8oJ-8z-qRL" id="qcD-Kv-c5l"/>
                 <outlet property="label" destination="5Uc-o1-PsF" id="y4l-b6-MCt"/>
                 <outlet property="separator" destination="4OJ-wN-dY4" id="Kkv-HO-0eK"/>

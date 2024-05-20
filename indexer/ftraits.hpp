@@ -73,7 +73,7 @@ enum class WheelchairAvailability
 {
   No,
   Yes,
-  Limited
+  Limited,
 };
 
 inline std::string DebugPrint(WheelchairAvailability wheelchair)
@@ -89,7 +89,7 @@ inline std::string DebugPrint(WheelchairAvailability wheelchair)
 
 class Wheelchair : public TraitsBase<Wheelchair, WheelchairAvailability>
 {
-  friend class TraitsBase;
+  friend TraitsBase;
 
   using TypesInitializer = std::initializer_list<std::initializer_list<char const *>>;
 
@@ -97,8 +97,27 @@ class Wheelchair : public TraitsBase<Wheelchair, WheelchairAvailability>
   {
     m_matcher.Append<TypesInitializer>({{"wheelchair", "no"}}, WheelchairAvailability::No);
     m_matcher.Append<TypesInitializer>({{"wheelchair", "yes"}}, WheelchairAvailability::Yes);
-    m_matcher.Append<TypesInitializer>({{"wheelchair", "limited"}},
-                                       WheelchairAvailability::Limited);
+    m_matcher.Append<TypesInitializer>({{"wheelchair", "limited"}}, WheelchairAvailability::Limited);
+  }
+};
+
+enum class DrinkingWaterAvailability
+{
+  No,
+  Yes,
+};
+
+class DrinkingWater : public TraitsBase<DrinkingWater, DrinkingWaterAvailability>
+{
+  friend TraitsBase;
+
+  using TypesInitializer = std::initializer_list<std::initializer_list<char const *>>;
+
+  DrinkingWater()
+  {
+    m_matcher.Append<TypesInitializer>({{"drinking_water", "no"}}, DrinkingWaterAvailability::No);
+    m_matcher.Append<TypesInitializer>({{"drinking_water", "yes"}}, DrinkingWaterAvailability::Yes);
+    m_matcher.Append<TypesInitializer>({{"amenity", "drinking_water"}}, DrinkingWaterAvailability::Yes);
   }
 };
 

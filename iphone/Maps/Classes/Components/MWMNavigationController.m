@@ -22,9 +22,7 @@
   self.navigationItem.leftBarButtonItem.tintColor = [UIColor whitePrimaryText];
   self.navigationItem.rightBarButtonItem.tintColor = [UIColor whitePrimaryText];
 
-  if (@available(iOS 13.0, *)) {
-    [MWMThemeManager setDarkModeEnabled: self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark];
-  }
+  [MWMThemeManager invalidate];
 }
 
 - (void)navigationController:(UINavigationController *)navigationController
@@ -45,10 +43,7 @@
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
   UIViewController * topVC = self.viewControllers.lastObject;
-  topVC.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
-                                                                            style:UIBarButtonItemStylePlain
-                                                                           target:nil
-                                                                           action:nil];
+  [self setupNavigationBackButtonItemFor:topVC];
   [super pushViewController:viewController animated:animated];
 }
 
@@ -56,11 +51,7 @@
   [viewControllers enumerateObjectsUsingBlock:^(UIViewController * vc, NSUInteger idx, BOOL * stop) {
     if (idx == viewControllers.count - 1)
       return;
-
-    vc.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
-                                                                           style:UIBarButtonItemStylePlain
-                                                                          target:nil
-                                                                          action:nil];
+    [self setupNavigationBackButtonItemFor:vc];
   }];
   [super setViewControllers:viewControllers animated:animated];
 }
@@ -68,16 +59,27 @@
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
 {
   [super traitCollectionDidChange: previousTraitCollection];
-  if (@available(iOS 13.0, *)) {
-    if (self.traitCollection.userInterfaceStyle != previousTraitCollection.userInterfaceStyle) {
-      [MWMThemeManager setDarkModeEnabled: self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark];
-    }
+  // Update the app theme when the device appearance is changing.
+  if ((self.traitCollection.verticalSizeClass != previousTraitCollection.verticalSizeClass)
+      || (self.traitCollection.horizontalSizeClass != previousTraitCollection.horizontalSizeClass) || (self.traitCollection.userInterfaceStyle != previousTraitCollection.userInterfaceStyle)) {
+    [MWMThemeManager invalidate];
   }
 }
 
 - (BOOL)shouldAutorotate
 {
   return YES;
+}
+
+- (void)setupNavigationBackButtonItemFor:(UIViewController *)viewController {
+  if (@available(iOS 14.0, *)) {
+    viewController.navigationItem.backButtonDisplayMode = UINavigationItemBackButtonDisplayModeMinimal;
+  } else {
+    viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
+                                                                                       style:UIBarButtonItemStylePlain
+                                                                                      target:nil
+                                                                                      action:nil];
+  }
 }
 
 @end

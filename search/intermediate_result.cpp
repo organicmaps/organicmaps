@@ -286,38 +286,43 @@ void FillDetails(FeatureType & ft, Result::Details & details)
 
   feature::TypesHolder const typesHolder(ft);
 
+  std::string stars;
   uint8_t starsCount = 0;
   bool const isHotel = ftypes::IsHotelChecker::Instance()(typesHolder);
   if (isHotel && strings::to_uint(ft.GetMetadata(feature::Metadata::FMD_STARS), starsCount))
-    starsCount = std::min(starsCount, osm::MapObject::kMaxStarsCount);
-  std::string stars;
-  for (int i = 0; i < starsCount; ++i)
-    stars.append(osm::MapObject::kStarSymbol);
+    stars = feature::FormatStars(starsCount);
 
   auto const cuisines = feature::GetLocalizedCuisines(typesHolder);
-  auto const cuisine = strings::JoinStrings(cuisines, osm::MapObject::kFieldsSeparator);
+  auto const cuisine = strings::JoinStrings(cuisines, feature::kFieldsSeparator);
+
+  auto const recycling = strings::JoinStrings(feature::GetLocalizedRecyclingTypes(typesHolder), feature::kFieldsSeparator);
 
   auto const roadShields = ftypes::GetRoadShieldsNames(ft);
-  auto const roadShield = strings::JoinStrings(roadShields, osm::MapObject::kFieldsSeparator);
+  auto const roadShield = strings::JoinStrings(roadShields, feature::kFieldsSeparator);
 
   auto const fee = feature::GetLocalizedFeeType(typesHolder);
-    
+
+  auto const elevation = feature::FormatElevation(ft.GetMetadata(feature::Metadata::FMD_ELE));
+
   std::string description;
+
+  auto const append = [&description](std::string_view sv)
+  {
+    if (sv.empty())
+      return;
+    if (!description.empty())
+      description += feature::kFieldsSeparator;
+    description += sv;
+  };
   
-  if (!stars.empty())
-    description.append(osm::MapObject::kFieldsSeparator).append(stars);
-  if (!airportIata.empty())
-    description.append(osm::MapObject::kFieldsSeparator).append(airportIata);
-  if (!roadShield.empty())
-    description.append(osm::MapObject::kFieldsSeparator).append(roadShield);
-  if (!brand.empty())
-    description.append(osm::MapObject::kFieldsSeparator).append(brand);
-  if (!cuisine.empty())
-    description.append(osm::MapObject::kFieldsSeparator).append(cuisine);
-  if (feature::HasToilets(typesHolder))
-    description.append(osm::MapObject::kFieldsSeparator).append(osm::MapObject::kToiletsSymbol);
-  if (!fee.empty())
-    description.append(osm::MapObject::kFieldsSeparator).append(fee);
+  append(stars);
+  append(airportIata);
+  append(roadShield);
+  append(brand);
+  append(elevation);
+  append(cuisine);
+  append(recycling);
+  append(fee);
   
   details.m_description = std::move(description);
 

@@ -164,8 +164,6 @@ public:
   void SetTapEventInfoListener(TapEventInfoHandler && fn);
   using UserPositionChangedHandler = FrontendRenderer::UserPositionChangedHandler;
   void SetUserPositionListener(UserPositionChangedHandler && fn);
-  using UserPositionPendingTimeoutHandler = FrontendRenderer::UserPositionPendingTimeoutHandler;
-  void SetUserPositionPendingTimeoutListener(UserPositionPendingTimeoutHandler && fn);
 
   void SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt,
                     FeatureID const & featureID, bool isAnim, bool isGeometrySelectionAllowed,
@@ -258,7 +256,6 @@ private:
   void MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive);
   void TapEvent(TapInfo const & tapInfo);
   void UserPositionChanged(m2::PointD const & position, bool hasPosition);
-  void UserPositionPendingTimeout();
 
   void ResizeImpl(int w, int h);
   void RecacheGui(bool needResetOldGui);
@@ -272,7 +269,6 @@ private:
   drape_ptr<FrontendRenderer> m_frontend;
   drape_ptr<BackendRenderer> m_backend;
   drape_ptr<ThreadsCommutator> m_threadCommutator;
-  drape_ptr<dp::GlyphGenerator> m_glyphGenerator;
   drape_ptr<dp::TextureManager> m_textureManager;
   drape_ptr<RequestedTiles> m_requestedTiles;
   location::TMyPositionModeChanged m_myPositionModeChanged;
@@ -282,7 +278,6 @@ private:
   ModelViewChangedHandler m_modelViewChangedHandler;
   TapEventInfoHandler m_tapEventInfoHandler;
   UserPositionChangedHandler m_userPositionChangedHandler;
-  UserPositionPendingTimeoutHandler m_userPositionPendingTimeoutHandler;
 
   gui::TWidgetsInitInfo m_widgetsInfo;
   gui::TWidgetsLayoutInfo m_widgetsLayout;

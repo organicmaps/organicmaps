@@ -1,6 +1,5 @@
 #pragma once
 
-#include "base/base.hpp"
 #include "base/internal/message.hpp"
 #include "base/src_point.hpp"
 #include "base/thread.hpp"
@@ -9,6 +8,7 @@
 #include <array>
 #include <atomic>
 #include <map>
+#include <optional>
 #include <string>
 
 namespace base
@@ -29,24 +29,19 @@ class LogHelper
 public:
   static LogHelper & Instance();
 
-  LogHelper();
-
   int GetThreadID();
   void WriteProlog(std::ostream & s, LogLevel level);
 
 private:
-  int m_threadsCount;
+  int m_threadsCount{0};
   std::map<threads::ThreadID, int> m_threadID;
 
-  base::Timer m_timer;
-
-  std::array<char const *, NUM_LOG_LEVELS> m_names;
-  std::array<size_t, NUM_LOG_LEVELS> m_lens;
+  Timer m_timer;
 };
 
 std::string ToString(LogLevel level);
-bool FromString(std::string const & s, LogLevel & level);
-std::array<char const *, NUM_LOG_LEVELS> const & GetLogLevelNames();
+std::optional<LogLevel> FromString(std::string const & s);
+std::array<char, NUM_LOG_LEVELS> const & GetLogLevelNames();
 
 using AtomicLogLevel = std::atomic<LogLevel>;
 using LogMessageFn = void (*)(LogLevel level, SrcPoint const &, std::string const &);
@@ -95,12 +90,12 @@ struct ScopedLogAbortLevelChanger
 };
 }  // namespace base
 
-using ::base::LDEBUG;
-using ::base::LINFO;
-using ::base::LWARNING;
-using ::base::LERROR;
-using ::base::LCRITICAL;
-using ::base::NUM_LOG_LEVELS;
+using base::LDEBUG;
+using base::LINFO;
+using base::LWARNING;
+using base::LERROR;
+using base::LCRITICAL;
+using base::NUM_LOG_LEVELS;
 
 // Logging macro.
 // Example usage: LOG(LINFO, (Calc(), m_Var, "Some string constant"));

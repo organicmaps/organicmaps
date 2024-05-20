@@ -60,6 +60,7 @@ public:
     : m_pedestrianModel(PedestrianModelFactory(countryParentNameGetterFn).GetVehicleModelForCountry(country))
     , m_bicycleModel(BicycleModelFactory(countryParentNameGetterFn).GetVehicleModelForCountry(country))
     , m_carModel(CarModelFactory(countryParentNameGetterFn).GetVehicleModelForCountry(country))
+    , m_constructionType(classif().GetTypeByPath({"highway", "construction"}))
   {
     CHECK(m_pedestrianModel, ());
     CHECK(m_bicycleModel, ());
@@ -68,28 +69,35 @@ public:
 
   VehicleMask CalcRoadMask(FeatureType & f) const
   {
-    return CalcMask(f, [&](VehicleModelInterface const & model, FeatureType & f) {
-      return model.IsRoad(f);
+    feature::TypesHolder const types(f);
+    if (types.HasWithSubclass(m_constructionType))
+      return 0;
+
+    return CalcMask([&](VehicleModelInterface const & model)
+    {
+      return model.IsRoad(types);
     });
   }
 
   VehicleMask CalcOneWayMask(FeatureType & f) const
   {
-    return CalcMask(f, [&](VehicleModelInterface const & model, FeatureType & f) {
-      return model.IsOneWay(f);
+    feature::TypesHolder const types(f);
+    return CalcMask([&](VehicleModelInterface const & model)
+    {
+      return model.IsOneWay(types);
     });
   }
 
 private:
   template <class Fn>
-  VehicleMask CalcMask(FeatureType & f, Fn && fn) const
+  VehicleMask CalcMask(Fn && fn) const
   {
     VehicleMask mask = 0;
-    if (fn(*m_pedestrianModel, f))
+    if (fn(*m_pedestrianModel))
       mask |= kPedestrianMask;
-    if (fn(*m_bicycleModel, f))
+    if (fn(*m_bicycleModel))
       mask |= kBicycleMask;
-    if (fn(*m_carModel, f))
+    if (fn(*m_carModel))
       mask |= kCarMask;
 
     return mask;
@@ -98,6 +106,8 @@ private:
   std::shared_ptr<VehicleModelInterface> const m_pedestrianModel;
   std::shared_ptr<VehicleModelInterface> const m_bicycleModel;
   std::shared_ptr<VehicleModelInterface> const m_carModel;
+
+  uint32_t const m_constructionType;
 };
 
 class Processor final

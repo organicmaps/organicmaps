@@ -6,12 +6,8 @@
 #include "base/small_map.hpp"
 #include "base/stl_helpers.hpp"
 
-#include <array>
 #include <functional>
-#include <limits>
-#include <optional>
 #include <string>
-#include <type_traits>
 #include <vector>
 
 #define DECLARE_CHECKER_INSTANCE(CheckerType) static CheckerType const & Instance() { \
@@ -320,6 +316,7 @@ public:
   DECLARE_CHECKER_INSTANCE(IsPisteChecker);
 };
 
+/// @todo Should be merged/replaced with search::IsPoiChecker in model.cpp ?
 class IsPoiChecker : public BaseChecker
 {
   IsPoiChecker();
@@ -382,37 +379,9 @@ public:
 
 class IsHotelChecker : public BaseChecker
 {
-public:
-  enum class Type : uint8_t
-  {
-    Hotel,
-    Apartment,
-    CampSite,
-    Chalet,
-    GuestHouse,
-    Hostel,
-    Motel,
-    Resort,
-
-    Count
-  };
-
-  using UnderlyingType = std::underlying_type_t<Type>;
-
-  static_assert(base::Underlying(Type::Count) <= std::numeric_limits<UnderlyingType>::digits,
-                "Too many types of hotels");
-
-  static char const * GetHotelTypeTag(Type type);
-
-  unsigned GetHotelTypesMask(FeatureType & ft) const;
-
-  std::optional<Type> GetHotelType(FeatureType & ft) const;
-
-  DECLARE_CHECKER_INSTANCE(IsHotelChecker);
-private:
   IsHotelChecker();
-
-  std::array<std::pair<uint32_t, Type>, base::Underlying(Type::Count)> m_sortedTypes;
+public:
+  DECLARE_CHECKER_INSTANCE(IsHotelChecker);
 };
 
 // WiFi is a type in classificator.txt,
@@ -474,20 +443,13 @@ class IsFeeTypeChecker : public BaseChecker
 public:
   DECLARE_CHECKER_INSTANCE(IsFeeTypeChecker);
 };
-    
+
 class IsToiletsChecker : public BaseChecker
 {
   IsToiletsChecker();
 
 public:
   DECLARE_CHECKER_INSTANCE(IsToiletsChecker);
-};
-
-class IsCityChecker : public BaseChecker
-{
-  IsCityChecker();
-public:
-  DECLARE_CHECKER_INSTANCE(IsCityChecker);
 };
 
 class IsCapitalChecker : public BaseChecker
@@ -661,16 +623,3 @@ std::string DebugPrint(LocalityType const localityType);
 
 HighwayClass GetHighwayClass(feature::TypesHolder const & types);
 }  // namespace ftypes
-
-namespace std
-{
-template<>
-struct hash<ftypes::IsHotelChecker::Type>
-{
-  size_t operator()(ftypes::IsHotelChecker::Type type) const
-  {
-    using UnderlyingType = ftypes::IsHotelChecker::UnderlyingType;
-    return hash<UnderlyingType>()(static_cast<UnderlyingType>(type));
-  }
-};
-}  // namespace std

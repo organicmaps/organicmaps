@@ -37,14 +37,13 @@ omim_link_libraries(
   coding
   base
   cppjansson
-  oauthcpp
   protobuf
   pugixml
   opening_hours
   succinct
   ICU::i18n
   ${Boost_LIBRARIES}
-  ${LIBZ}
+  ZLIB::ZLIB
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")

@@ -1,9 +1,9 @@
-• Android Auto
-• Fixed issue with the screen intermittently turning off
-• OpenStreetMap map data as of January 5
-• Improved skiing pistes and Outdoors style
-• Added Max Capacity for places
-• Added Azerbaijani translations
-• Fixed Spanish and Portugal voice settings
+• Sort bookmarks and tracks by name
+• Transitioned to the new OpenStreetMap authentication mechanism — all authenticated OSM users must re-login
+• OpenStreetMap data as of April 29
+• Difficult hiking trails are now brown-dotted, expert ones are black
+• Dark blue lines for dedicated cycleways, mixed with white/brown dashes for shared foot/cycle paths
+• Roads are now visible under semi-transparent bridges
+• Fixed GPX import from Google Files app
 
 …more details at omaps.org/news

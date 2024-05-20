@@ -98,7 +98,6 @@ target_link_libraries(${PROJECT_NAME}
   # base
   # opening_hours
   # pugixml
-  # oauthcpp
   # expat
   # freetype
   # minizip
@@ -106,7 +105,6 @@ target_link_libraries(${PROJECT_NAME}
   # protobuf
   # succinct
   # stb_image
-  # sdf_image
   # icu
   # agg
   # vulkan_wrapper

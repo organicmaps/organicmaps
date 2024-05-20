@@ -1,8 +1,9 @@
-• Android Auto
-• Se resolvió un problema con la pantalla que se apagaba intermitentemente
-• Datos cartográficos de OpenStreetMap al 5 de enero
-• Mejoras en el estilo «Senderismo» y las pistas de esquí
-• Traducción al azerí
-• Corrección de las configuraciones de voz en español y portugués
+• Sort bookmarks and tracks by name
+• Transitioned to the new OpenStreetMap authentication mechanism — all authenticated OSM users must re-login
+• OpenStreetMap data as of April 29
+• Difficult hiking trails are now brown-dotted, expert ones are black
+• Dark blue lines for dedicated cycleways, mixed with white/brown dashes for shared foot/cycle paths
+• Roads are now visible under semi-transparent bridges
+• Fixed GPX import from Google Files app
 
-Para conocer más, vaya a omaps.org/es/news
+…more details at omaps.org/news

@@ -1000,10 +1000,10 @@ Java_app_organicmaps_Framework_nativeFormatLatLon(JNIEnv * env, jclass, jdouble 
   }
 }
 
-JNIEXPORT jobject JNICALL
+JNIEXPORT jstring JNICALL
 Java_app_organicmaps_Framework_nativeFormatAltitude(JNIEnv * env, jclass, jdouble alt)
 {
-  return ToJavaDistance(env, platform::Distance::CreateAltitudeFormatted(alt));
+  return jni::ToJavaString(env, platform::Distance::FormatAltitude(alt));
 }
 
 JNIEXPORT jstring JNICALL
@@ -1193,14 +1193,14 @@ Java_app_organicmaps_Framework_nativeDisableFollowing(JNIEnv * env, jclass)
 }
 
 JNIEXPORT jobjectArray JNICALL
-Java_app_organicmaps_Framework_nativeGenerateNotifications(JNIEnv * env, jclass)
+Java_app_organicmaps_Framework_nativeGenerateNotifications(JNIEnv * env, jclass, bool announceStreets)
 {
   ::Framework * fr = frm();
   if (!fr->GetRoutingManager().IsRoutingActive())
     return nullptr;
 
   vector<string> notifications;
-  fr->GetRoutingManager().GenerateNotifications(notifications);
+  fr->GetRoutingManager().GenerateNotifications(notifications, announceStreets);
   if (notifications.empty())
     return nullptr;
 
@@ -1280,6 +1280,29 @@ Java_app_organicmaps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass)
       static_cast<jboolean>(isSpeedCamLimitExceeded), static_cast<jboolean>(shouldPlaySignal));
   ASSERT(result, (jni::DescribeException()));
   return result;
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_app_organicmaps_Framework_nativeGetRouteJunctionPoints(JNIEnv * env, jclass)
+{
+  vector<m2::PointD> junctionPoints;
+  if (!frm()->GetRoutingManager().RoutingSession().GetRouteJunctionPoints(junctionPoints))
+  {
+    LOG(LWARNING, ("Can't get the route junction points"));
+    return nullptr;
+  }
+
+  static jclass const junctionClazz = jni::GetGlobalClassRef(env, "app/organicmaps/routing/JunctionInfo");
+  // Java signature : JunctionInfo(double lat, double lon)
+  static jmethodID const junctionConstructor = jni::GetConstructorID(env, junctionClazz, "(DD)V");
+
+  return jni::ToJavaArray(env, junctionClazz, junctionPoints,
+    [](JNIEnv * env, m2::PointD const & point)
+    {
+      return env->NewObject(junctionClazz, junctionConstructor,
+                            mercator::YToLat(point.y),
+                            mercator::XToLon(point.x));
+    });
 }
 
 JNIEXPORT jintArray JNICALL
@@ -1903,16 +1926,13 @@ Java_app_organicmaps_Framework_nativeMemoryWarning(JNIEnv *, jclass)
 
 JNIEXPORT jstring JNICALL
 Java_app_organicmaps_Framework_nativeGetKayakHotelLink(JNIEnv * env, jclass, jstring countryIsoCode, jstring uri,
-                                                        jobject firstDay, jobject lastDay)
+                                                        jlong firstDaySec, jlong lastDaySec, jboolean isReferral)
 {
-  static jmethodID dateGetTime = jni::GetMethodID(env, firstDay, "getTime", "()J");
-  jlong firstDaySec = env->CallLongMethod(firstDay, dateGetTime) / 1000L;
-  jlong lastDaySec = env->CallLongMethod(lastDay, dateGetTime) / 1000L;
-
   string const url = osm::GetKayakHotelURLFromURI(jni::ToNativeString(env, countryIsoCode),
                                                   jni::ToNativeString(env, uri),
                                                   static_cast<time_t>(firstDaySec),
-                                                  static_cast<time_t>(lastDaySec));
+                                                  static_cast<time_t>(lastDaySec),
+                                                  isReferral);
   return url.empty() ? nullptr : jni::ToJavaString(env, url);
 }
 
