@@ -7,6 +7,28 @@ Original MAPS.ME (MapsWithMe) design and implementation:
   Viktor Govako <viktor.govako@gmail.com>
   Siarhei Rachytski <siarhei.rachytski@gmail.com>
 
+--------------------------------------------------------------------------------
+Organic Maps contributions:
+--------------------------------------------------------------------------------
+  Alexander Borsuk <me@alex.bio>
+  Roman Tsisyk <roman@tsisyk.com>
+  Viktor Govako <viktor.govako@gmail.com>
+  Caspar Nuël <casparnuel@yandex.com>
+  Konstantin Pastbin
+  Nishant Bhandari <nishantbhandari0019@gmail.com>
+  Sebastiao Sousa <sebastiao.sousa@tecnico.ulisboa.pt>
+
+Organic Maps translations:
+  Karina Kordon
+  Konstantin Pastbin
+  Metehan Özyürek
+  Joan Montané
+  Luna Rose
+
+
+--------------------------------------------------------------------------------
+MAPS.ME contributions (before Organic Maps was forked in 2020-2021):
+--------------------------------------------------------------------------------
 Code contributions:
   Dmitry Yunitski
   Lev Dragunov
@@ -35,11 +57,6 @@ Code contributions:
   Alex Gontmakher <gsasha@gmail.com>
   Dima Korolev <dmitry.korolev@gmail.com>
   Max Grigorev <forwidur@gmail.com>
-  Roman Tsisyk <roman@tsisyk.com>
-  Caspar Nuël <casparnuel@yandex.com>
-  Konstantin Pastbin
-  Nishant Bhandari <nishantbhandari0019@gmail.com>
-  Sebastiao Sousa <sebastiao.sousa@tecnico.ulisboa.pt>
 
 Porting to Tizen platform:
   Sergey Pisarchik
@@ -63,11 +80,6 @@ Strings and translations:
   Vasily Korotkevich
   Mark N. Kuramochi
   Lidia Vasiljeva
-  Karina Kordon
-  Konstantin Pastbin
-  Metehan Özyürek
-  Joan Montané
-  Luna Rose
 
 Project management:
   Alexander Matveenko
