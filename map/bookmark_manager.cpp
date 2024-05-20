@@ -472,10 +472,10 @@ void BookmarkManager::OnEditSessionClosed()
 {
   ASSERT_GREATER(m_openedEditSessionsCount, 0, ());
   if (--m_openedEditSessionsCount == 0)
-    NotifyChanges(true);
+    NotifyChanges(true /* saveChangesOnDisk */);
 }
 
-void BookmarkManager::NotifyChanges(bool saveChangesOnDisk /* = true */)
+void BookmarkManager::NotifyChanges(bool saveChangesOnDisk)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
@@ -1558,8 +1558,7 @@ kml::MarkGroupId BookmarkManager::GetCategoryByFileName(std::string const & file
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   for (auto const & c : m_categories)
   {
-    std::string categoryFileName = c.second->GetFileName();
-    if (categoryFileName == fileName)
+    if (c.second->GetFileName() == fileName)
       return c.second->GetID();
   }
   return kml::kInvalidMarkGroupId;

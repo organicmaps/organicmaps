@@ -594,7 +594,7 @@ private:
 
   void OnEditSessionOpened();
   void OnEditSessionClosed();
-  void NotifyChanges(bool saveBookmarks);
+  void NotifyChanges(bool saveChangesOnDisk);
 
   void SaveState() const;
   void LoadState();
