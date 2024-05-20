@@ -103,8 +103,11 @@ public:
   void AssignMetadata(feature::Metadata & dest) const { dest = m_metadata; }
 
 protected:
-  /// @returns "the best" type to display in UI.
+  /// @returns "the best" single type to display in UI.
   std::string GetLocalizedType() const;
+    
+  /// @returns all types separated by kFieldsSeparator to display in UI.
+  std::string GetAllLocalizedTypes() const;
 
   FeatureID m_featureID;
   m2::PointD m_mercator;
