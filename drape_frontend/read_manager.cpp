@@ -3,6 +3,8 @@
 #include "drape_frontend/metaline_manager.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "platform/preferred_languages.hpp"
+
 #include "base/buffer_vector.hpp"
 #include "base/stl_helpers.hpp"
 
@@ -54,7 +56,7 @@ ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider 
   , m_counter(0)
   , m_generationCounter(0)
   , m_userMarksGenerationCounter(0)
-  , m_mapLocale("en")
+  , m_mapLocale(languages::GetCurrentNorm())
 {
   Start();
 }

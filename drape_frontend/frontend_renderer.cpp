@@ -33,6 +33,8 @@
 #include "base/stl_helpers.hpp"
 #include "base/timer.hpp"
 
+#include "platform/preferred_languages.hpp"
+
 #include "std/target_os.hpp"
 
 #include <algorithm>
@@ -166,7 +168,7 @@ FrontendRenderer::FrontendRenderer(Params && params)
   , m_blockTapEvents(params.m_blockTapEvents)
   , m_choosePositionMode(false)
   , m_screenshotMode(params.m_myPositionParams.m_hints.m_screenshotMode)
-  , m_mapLocale("en")
+  , m_mapLocale(languages::GetCurrentNorm())
   , m_viewport(params.m_viewport)
   , m_modelViewChangedHandler(std::move(params.m_modelViewChangedHandler))
   , m_tapEventInfoHandler(std::move(params.m_tapEventHandler))
