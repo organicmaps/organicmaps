@@ -14,6 +14,15 @@ class PlacePageInteractor {
     self.viewController = viewController
     self.mapViewController = mapViewController
   }
+
+  private func updateBookmarkIfNeeded() {
+    guard let bookmarkId = placePageData.bookmarkData?.bookmarkId else { return }
+    if !BookmarksManager.shared().hasBookmark(bookmarkId) {
+      presenter?.closeAnimated()
+    }
+    FrameworkHelper.updatePlacePageData()
+    placePageData.updateBookmarkStatus()
+  }
 }
 
 extension PlacePageInteractor: PlacePageInteractorProtocol {
@@ -25,6 +34,10 @@ extension PlacePageInteractor: PlacePageInteractorProtocol {
 // MARK: - PlacePageInfoViewControllerDelegate
 
 extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
+  func viewWillAppear() {
+    updateBookmarkIfNeeded()
+  }
+  
   func didPressCall() {
     MWMPlacePageManagerHelper.call(placePageData)
   }
