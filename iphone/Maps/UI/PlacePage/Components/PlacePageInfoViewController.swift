@@ -48,6 +48,7 @@ class InfoItemViewController: UIViewController {
 }
 
 protocol PlacePageInfoViewControllerDelegate: AnyObject {
+  func viewWillAppear()
   func didPressCall()
   func didPressWebsite()
   func didPressWebsiteMenu()
@@ -335,6 +336,11 @@ class PlacePageInfoViewController: UIViewController {
       coordinatesView?.accessoryImage.image = UIImage(named: "ic_placepage_change")
       coordinatesView?.accessoryImage.isHidden = false
     }
+  }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    delegate?.viewWillAppear()
   }
 
   // MARK: private
