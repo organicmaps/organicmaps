@@ -30,9 +30,7 @@ std::string getShortDescription(std::string description)
     description = description.substr(3, paragraphEnd - 3);
 
   if (description.length() > kMaxLengthOfPlacePageDescription)
-  {
-    description = description.substr(0, kMaxLengthOfPlacePageDescription-3) + "...";
-  }
+    description = description.substr(0, kMaxLengthOfPlacePageDescription - 3) + "...";
 
   return description;
 }
