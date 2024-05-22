@@ -501,13 +501,15 @@ UNIT_TEST(RussiaMoscowNotCrossingTollRoadTest)
     CalculateRouteAndTestRouteLength(vehicleComponents, start, {0.0, 0.0}, finish[0], 8427.71);
 
     // 2. End point is near the service road via the motorway toll road, but choose a minor track as end segment.
-    CalculateRouteAndTestRouteLength(vehicleComponents, start, {0.0, 0.0},finish[1], 8361.27);
+    CalculateRouteAndTestRouteLength(vehicleComponents, start, {0.0, 0.0}, finish[1], 8361.27);
   }
 
   {
-    // Normal route via the motorway toll road (long but fast).
-    CalculateRouteAndTestRouteLength(vehicleComponents, start, {0.0, 0.0}, finish[0], 20604.9);
-    CalculateRouteAndTestRouteLength(vehicleComponents, start, {0.0, 0.0}, finish[1], 20689.6);
+    // Normal route via the motorway toll road - long but fast (like Valhalla).
+    // - 20595.3 is OK (Graphopper)
+    // - 19203.7 is OK (OSRM)
+    CalculateRouteAndTestRouteLength(vehicleComponents, start, {0.0, 0.0}, finish[0], 21930.7);
+    CalculateRouteAndTestRouteLength(vehicleComponents, start, {0.0, 0.0}, finish[1], 22015.4);
   }
 }
 
