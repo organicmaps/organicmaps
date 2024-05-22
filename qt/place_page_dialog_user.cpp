@@ -79,7 +79,8 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
       header->addWidget(subtitleLabel);
     }
 
-    if (auto addressFormatted = address.FormatAddress(); !addressFormatted.empty()){
+    if (auto const addressFormatted = address.FormatAddress(); !addressFormatted.empty())
+    {
       QLabel * addressLabel = new QLabel(QString::fromStdString(addressFormatted));
       addressLabel->setWordWrap(true);
       header->addWidget(addressLabel);
