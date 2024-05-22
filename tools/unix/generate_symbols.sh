@@ -64,44 +64,34 @@ function BuildSkin() {
   ln -s "$STYLE_PATH/$resourceName$symbolsSuffix" "$PNG_PATH"
   # Run skin generator
   "$SKIN_GENERATOR" --symbolWidth $symbolSize --symbolHeight $symbolSize --symbolsDir "$STYLE_PATH/$symbolsFolder" \
-      --skinName "$DATA_PATH/resources-$resourceName$suffix/basic" --skinSuffix="$symbolsSuffix"
+      --skinName "$DATA_PATH/symbols/$resourceName/$suffix/basic" --skinSuffix="$symbolsSuffix"
   # Reset environment
   rm -r "$PNG_PATH" || true
 }
 
-# Cleanup
-cleanup=(resources-{{6plus,mdpi,hdpi,xhdpi,xxhdpi,xxxhdpi}{_dark,_clear}})
-for item in ${cleanup[*]}
-do
-  rm -rf "$DATA_PATH/$item" || true
-  mkdir "$DATA_PATH/$item"
-done
+symbols_name=({6plus,mdpi,hdpi,xhdpi,xxhdpi,xxxhdpi})
 
 # Build styles
 
-BuildSkin clear  night mdpi    18 _dark symbols
-BuildSkin clear  night hdpi    27 _dark symbols
-BuildSkin clear  night xhdpi   36 _dark symbols
-BuildSkin clear  night xxhdpi  54 _dark symbols
-BuildSkin clear  night 6plus   54 _dark symbols
-BuildSkin clear  night xxxhdpi 64 _dark symbols
+BuildSkin clear  night mdpi    18 dark symbols
+BuildSkin clear  night hdpi    27 dark symbols
+BuildSkin clear  night xhdpi   36 dark symbols
+BuildSkin clear  night xxhdpi  54 dark symbols
+BuildSkin clear  night 6plus   54 dark symbols
+BuildSkin clear  night xxxhdpi 64 dark symbols
 
-BuildSkin clear  clear mdpi    18 _clear symbols
-BuildSkin clear  clear hdpi    27 _clear symbols
-BuildSkin clear  clear xhdpi   36 _clear symbols
-BuildSkin clear  clear xxhdpi  54 _clear symbols
-BuildSkin clear  clear 6plus   54 _clear symbols
-BuildSkin clear  clear xxxhdpi 64 _clear symbols
+BuildSkin clear  clear mdpi    18 clear symbols
+BuildSkin clear  clear hdpi    27 clear symbols
+BuildSkin clear  clear xhdpi   36 clear symbols
+BuildSkin clear  clear xxhdpi  54 clear symbols
+BuildSkin clear  clear 6plus   54 clear symbols
+BuildSkin clear  clear xxxhdpi 64 clear symbols
 
-rm -rf "$OMIM_PATH"/data/resources-{*}
-
-rm -rf "$OMIM_PATH"/data/resources-*_design
-
-for i in mdpi hdpi xhdpi xxhdpi xxxhdpi 6plus; do
-  optipng -zc9 -zm8 -zs0 -f0 "$OMIM_PATH"/data/resources-${i}_clear/symbols.png
-  optipng -zc9 -zm8 -zs0 -f0 "$OMIM_PATH"/data/resources-${i}_dark/symbols.png
+for i in ${symbols_name[*]}; do
+  optipng -zc9 -zm8 -zs0 -f0 "$DATA_PATH"/symbols/"${i}"/clear/symbols.png
+  optipng -zc9 -zm8 -zs0 -f0 "$DATA_PATH"/symbols/"${i}"/dark/symbols.png
 done
 
-for i in mdpi hdpi xhdpi xxhdpi xxxhdpi 6plus; do
-  cp -r "$OMIM_PATH"/data/resources-${i}_clear/ "$OMIM_PATH"/data/resources-${i}_design/
+for i in ${symbols_name[*]}; do
+  cp -r "$DATA_PATH"/symbols/"${i}"/clear/ "$DATA_PATH"/symbols/"${i}"/design/
 done

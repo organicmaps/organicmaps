@@ -21,12 +21,12 @@ using std::string, std::vector;
 
 char const * arrFiles[] = {
   "copyright.html",
-  "resources-mdpi_clear/symbols.sdf",
-  "resources-mdpi_clear/symbols.png",
-  "resources-hdpi_clear/symbols.sdf",
-  "resources-hdpi_clear/symbols.png",
-  "resources-xhdpi_clear/symbols.sdf",
-  "resources-xhdpi_clear/symbols.png",
+  "symbols/mdpi/clear/symbols.sdf",
+  "symbols/mdpi/clear/symbols.png",
+  "symbols/hdpi/clear/symbols.sdf",
+  "symbols/hdpi/clear/symbols.png",
+  "symbols/xhdpi/clear/symbols.sdf",
+  "symbols/xhdpi/clear/symbols.png",
   "categories.txt",
   "categories_cuisines.txt",
   "classificator.txt",
