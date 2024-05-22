@@ -20,7 +20,6 @@ public class TrackRecorder
   }
   public void startTrackRecording()
   {
-    if(!nativeIsEnabled()) nativeSetEnabled(true);
     for (TrackRecordingListener listener : mListeners)
     {
       listener.onTrackRecordingStarted();
@@ -29,7 +28,6 @@ public class TrackRecorder
   }
   public void stopTrackRecording()
   {
-    if(nativeIsEnabled()) nativeSetEnabled(false);
     for (TrackRecordingListener listener : mListeners)
     {
       listener.onTrackRecordingStopped();

@@ -54,11 +54,13 @@
       app:singleLineTitle="false"
       android:summary="@string/maps_storage_summary"
       android:order="8"/>
-    <Preference
-      android:key="@string/pref_track_record"
-      android:title="@string/pref_track_record_title"
+    <ListPreference
+      android:entries="@array/track_length"
+      android:entryValues="@array/track_length_values"
       app:singleLineTitle="false"
-      android:summary="This option allows you to record your recent traversed tracks"
+      android:key="@string/pref_recent_track"
+      android:summary="@string/off"
+      android:title="@string/recent_track"
       android:order="9"/>
     <SwitchPreferenceCompat
       android:key="@string/pref_enable_logging"

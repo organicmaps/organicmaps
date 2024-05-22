@@ -6,10 +6,10 @@ import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceManager;
-
 import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
+import app.organicmaps.location.TrackRecorder;
 
 public final class Config
 {
@@ -55,6 +55,9 @@ public final class Config
    * True if the first start animation has been seen.
    */
   private static final String KEY_MISC_FIRST_START_DIALOG_SEEN = "FirstStartDialogSeen";
+
+  private static final String KEY_RECENT_TRACK_RECORDER_STATE = "kEnabledKey";
+  private static final String KEY_RECENT_TRACK_RECORDER_DURATION = "kDurationHours";
 
   private Config() {}
 
@@ -260,6 +263,28 @@ public final class Config
       return res;
 
     return autoTheme;
+  }
+
+  public static boolean getRecentTrackRecorderState()
+  {
+    return nativeGetBoolean(KEY_RECENT_TRACK_RECORDER_STATE, false);
+  }
+
+  public static void setRecentTrackRecorderState(boolean enable)
+  {
+    nativeSetBoolean(KEY_RECENT_TRACK_RECORDER_STATE, enable);
+  }
+
+  public static int getRecentTrackRecorderDuration()
+  {
+    return nativeGetInt(KEY_RECENT_TRACK_RECORDER_DURATION, 0);
+  }
+
+  public static void setRecentTrackRecorderDuration(int value)
+  {
+    nativeSetInt(KEY_RECENT_TRACK_RECORDER_DURATION, value);
+    if(value!=0) TrackRecorder.nativeSetDuration(value);
+    else setRecentTrackRecorderState(false);
   }
 
   public static boolean setUiThemeSettings(@NonNull Context context, String theme)

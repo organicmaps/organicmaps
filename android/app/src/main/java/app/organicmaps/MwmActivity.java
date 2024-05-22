@@ -223,11 +223,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onTrackRecordingStarted()
   {
-    Logger.i("kavi","mwmActivity got start update");
-    if(!LocationUtils.checkLocationPermission(this))
+    if (!LocationUtils.checkLocationPermission(this))
     {
-      Toast.makeText(this,"Please give permission of precise location access",Toast.LENGTH_SHORT).show();
-      Logger.i(TAG,"Location permission is not there");
+      Logger.i(TAG, "Location permission is not there");
       return;
     }
     TrackRecordingService.startForegroundService(this);
@@ -236,7 +234,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onTrackRecordingStopped()
   {
-    Logger.i("kavi","mwmActivity got stop update");
     TrackRecordingService.stopService(this);
   }
 
@@ -268,13 +265,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onRenderingInitializationFinished()
   {
     ThemeSwitcher.INSTANCE.restart(true);
-
     if (RoutingController.get().isPlanning())
       onPlanningStarted();
     else if (RoutingController.get().isNavigating())
       onNavigationStarted();
     else if (RoutingController.get().hasSavedRoute())
       RoutingController.get().restoreRoute();
+
+    if (Config.getRecentTrackRecorderState() && LocationUtils.checkLocationPermission(this))
+    {
+      mTrackRecorder.startTrackRecording();
+    }
 
     processIntent();
     migrateOAuthCredentials();
@@ -558,7 +559,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mTrackRecorder = TrackRecorder.getInstance();
     mTrackRecorder.addListener(this);
-    if(TrackRecorder.nativeIsEnabled()) mTrackRecorder.startTrackRecording();
 
     if (getIntent().getBooleanExtra(EXTRA_UPDATE_THEME, false))
       ThemeSwitcher.INSTANCE.restart(isMapRendererActive());

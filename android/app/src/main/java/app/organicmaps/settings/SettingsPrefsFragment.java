@@ -21,7 +21,9 @@ import app.organicmaps.editor.ProfileActivity;
 import app.organicmaps.help.HelpActivity;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationProviderFactory;
+import app.organicmaps.location.TrackRecorder;
 import app.organicmaps.routing.RoutingOptions;
+import app.organicmaps.search.SearchRecents;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.NetworkPolicy;
 import app.organicmaps.util.PowerManagment;
@@ -29,7 +31,6 @@ import app.organicmaps.util.SharedPropertiesUtils;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.log.LogsManager;
-import app.organicmaps.search.SearchRecents;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class SettingsPrefsFragment extends BaseXmlSettingsFragment
@@ -63,6 +64,48 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     initSearchPrivacyPrefsCallbacks();
     initScreenSleepEnabledPrefsCallbacks();
     initShowOnLockScreenPrefsCallbacks();
+    initRecentTrackRecorderCallbacks();
+  }
+
+  private void initRecentTrackRecorderCallbacks()
+  {
+    final ListPreference mRecordTime = getPreference(getString(R.string.pref_recent_track));
+    final TrackRecorder mTrackRecorder = TrackRecorder.getInstance();
+
+    if (!Config.getRecentTrackRecorderState())
+    {
+      mRecordTime.setSummary(getString(R.string.off));
+      mRecordTime.setValue("0");
+    }
+    else
+    {
+      mRecordTime.setValue(Integer.toString(Config.getRecentTrackRecorderDuration()));
+      mRecordTime.setSummary(Config.getRecentTrackRecorderDuration() + getString(R.string.hour_recent_track));
+    }
+    mRecordTime.setOnPreferenceChangeListener((preference, newValue) -> {
+      if (newValue == null)
+        return false;
+
+      String newVal = (String) newValue;
+
+      if (newVal.equals(Integer.toString(Config.getRecentTrackRecorderDuration())))
+        return false;
+
+      if (newVal.equals("0"))
+      {
+        mTrackRecorder.stopTrackRecording();
+        Config.setRecentTrackRecorderDuration(Integer.parseInt(newVal));
+        mRecordTime.setSummary(getString(R.string.off));
+        return true;
+      }
+
+      int hours = Integer.parseInt(newVal);
+      Config.setRecentTrackRecorderDuration(hours);
+      if (!Config.getRecentTrackRecorderState()) Config.setRecentTrackRecorderState(true);
+      mTrackRecorder.startTrackRecording();
+      mRecordTime.setSummary(newVal + getString(R.string.hour_recent_track));
+      return true;
+    });
   }
 
   private void updateVoiceInstructionsPrefsSummary()
@@ -103,10 +146,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       else if (key.equals(getString(R.string.pref_help)))
       {
         startActivity(new Intent(requireActivity(), HelpActivity.class));
-      }
-      else if (key.equals(getString(R.string.pref_track_record)))
-      {
-        getSettingsActivity().stackFragment(TrackRecordSettingsFragment.class,"Track Recorder",null);
       }
     }
     return super.onPreferenceTreeClick(preference);
