@@ -73,7 +73,8 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
       header->addWidget(titleLabel);
     }
 
-    if (auto subTitle = info.GetSubtitle(); !subTitle.empty()){
+    if (auto const subTitle = info.GetSubtitle(); !subTitle.empty())
+    {
       QLabel * subtitleLabel = new QLabel(QString::fromStdString(subTitle));
       subtitleLabel->setWordWrap(true);
       header->addWidget(subtitleLabel);
