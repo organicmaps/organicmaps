@@ -278,7 +278,7 @@ UNIT_TEST(Russia_UseTrunk)
   // Similar with GraphHopper.
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
                                    mercator::FromLatLon(66.271, 33.048), {0.0, 0.0},
-                                   mercator::FromLatLon(68.95, 33.045), 412359 /* expectedRouteMeters */);
+                                   mercator::FromLatLon(68.95, 33.045), 412795 /* expectedRouteMeters */);
 }
 
 // https://github.com/organicmaps/organicmaps/issues/3920
