@@ -67,7 +67,8 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
   {
     QVBoxLayout * header = new QVBoxLayout();
 
-    if (!title.empty()){
+    if (!title.empty())
+    {
       QLabel * titleLabel = new QLabel(QString::fromStdString("<h1>" + title + "</h1>"));
       titleLabel->setWordWrap(true);
       header->addWidget(titleLabel);
