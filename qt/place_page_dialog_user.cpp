@@ -22,7 +22,7 @@ namespace
 static int constexpr kMaxLengthOfPlacePageDescription = 500;
 static int constexpr kMinWidthOfShortDescription = 390;
 
-std::string getShortDescription(std::string description)
+std::string getShortDescription(const std::string & description)
 {
   std::string_view view(description);
 
@@ -133,7 +133,7 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
     }
 
     // Description
-    if (auto description = info.GetWikiDescription(); !description.empty())
+    if (const auto & description = info.GetWikiDescription(); !description.empty())
     {
       auto descriptionShort = getShortDescription(description);
 
