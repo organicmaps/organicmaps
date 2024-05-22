@@ -6522,19 +6522,19 @@
 
   [type.boundary.marker]
     en = Boundary Marker
-    af = Grensmerker
     ar = علامة الحدود
     az = Sərhəd işarəsi
     be = Межавы знак
     bg = Граничен маркер
     ca = Marcador de límit
-    cs = Hraniční značka
+    cs = Hraniční kámen
     da = Grænsemarkør
-    de = Grenzmarkierung
+    de = Grenzstein
+    en = Boundary Marker
     el = Οριακός δείκτης
     es = Hito fronterizo
     et = Piirimärk
-    eu = Muga-markatzailea
+    eu = Mugarria
     fa = نشانگر مرز
     fi = Rajamerkki
     fr = Marqueur de frontière
@@ -6550,9 +6550,8 @@
     nb = Grensemarkør
     nl = Grensmarkering
     pl = Znak graniczny
-    pt = Marcador de fronteira
-    pt-BR = Marcador de limite
-    ro = Marcaj de delimitare
+    pt = Marco de fronteira
+    ro = Piatră de hotar
     ru = Пограничный знак
     sk = Hraničná značka
     sv = Gränsmarkör
