@@ -24,8 +24,8 @@ static int constexpr kMinWidthOfShortDescription = 390;
 
 std::string getShortDescription(std::string description)
 {
-  size_t paragraphStart = description.find("<p>");
-  size_t paragraphEnd = description.find("</p>");
+  auto const paragraphStart = description.find("<p>");
+  auto const paragraphEnd = description.find("</p>");
   if (paragraphStart == 0 && paragraphEnd != std::string::npos)
     description = description.substr(3, paragraphEnd-3);
 
