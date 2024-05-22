@@ -27,7 +27,7 @@ std::string getShortDescription(std::string description)
   auto const paragraphStart = description.find("<p>");
   auto const paragraphEnd = description.find("</p>");
   if (paragraphStart == 0 && paragraphEnd != std::string::npos)
-    description = description.substr(3, paragraphEnd-3);
+    description = description.substr(3, paragraphEnd - 3);
 
   if (description.length() > kMaxLengthOfPlacePageDescription)
   {
