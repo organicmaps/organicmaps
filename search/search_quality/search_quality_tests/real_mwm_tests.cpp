@@ -197,12 +197,12 @@ UNIT_CLASS_TEST(MwmTestsFixture, TopPOIs_Smoke)
     auto const & results = request->Results();
     TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
-    Range const range(results, 0, 4);
+    Range const range(results, 0, 5);
     EqualClassifType(range, GetClassifTypes({{"shop"}}));
     TEST_LESS(SortedByDistance(range, center).first, 5000, ());
 
     // parking (< 6km) should be on top.
-    EqualClassifType(Range(results, 4, 6), GetClassifTypes({{"leisure", "playground"}, {"amenity", "parking"}}));
+    EqualClassifType(Range(results, 5, 7), GetClassifTypes({{"leisure", "playground"}, {"amenity", "parking"}}));
   }
 
   // https://github.com/organicmaps/organicmaps/issues/2470
