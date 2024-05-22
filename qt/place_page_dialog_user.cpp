@@ -24,15 +24,18 @@ static int constexpr kMinWidthOfShortDescription = 390;
 
 std::string getShortDescription(std::string description)
 {
-  auto const paragraphStart = description.find("<p>");
-  auto const paragraphEnd = description.find("</p>");
+  std::string_view view(description);
+
+  auto const paragraphStart = view.find("<p>");
+  auto const paragraphEnd = view.find("</p>");
+
   if (paragraphStart == 0 && paragraphEnd != std::string::npos)
-    description = description.substr(3, paragraphEnd - 3);
+    view = view.substr(3, paragraphEnd - 3);
 
-  if (description.length() > kMaxLengthOfPlacePageDescription)
-    description = description.substr(0, kMaxLengthOfPlacePageDescription - 3) + "...";
+  if (view.length() > kMaxLengthOfPlacePageDescription)
+    return std::string(view.substr(0, kMaxLengthOfPlacePageDescription - 3)) + "...";
 
-  return description;
+  return std::string(view);
 }
 
 std::string_view stripSchemeFromURI(std::string_view uri) {
