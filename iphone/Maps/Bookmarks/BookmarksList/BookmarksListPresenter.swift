@@ -273,11 +273,25 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
     switch section {
     case let bookmarksSection as IBookmarksSectionViewModel:
       guard let bookmark = bookmarksSection.bookmarks[index] as? BookmarkViewModel else { fatalError() }
-      interactor.deleteBookmark(bookmark.bookmarkId)
+      interactor.deleteBookmark(bookmark.bookmarkId) { bookmark in
+        // TODO: localize texts
+        Toast.undoToast(deletedObject: bookmark.bookmarkName,
+                        undoAction: { [weak self, interactor] in
+          interactor.recoverBookmark(bookmark.bookmarkId)
+          self?.reload()
+        }).show()
+      }
       reload()
     case let tracksSection as ITracksSectionViewModel:
       guard let track = tracksSection.tracks[index] as? TrackViewModel else { fatalError() }
-      interactor.deleteTrack(track.trackId)
+      interactor.deleteTrack(track.trackId) { track in
+        // TODO: localize texts
+        Toast.undoToast(deletedObject: track.trackName,
+                        undoAction: { [weak self, interactor] in
+          interactor.recoverTrack(track.trackId)
+          self?.reload()
+        }).show()
+      }
       reload()
     default:
       fatalError("Cannot delete item: unsupported section type: \(section.self)")

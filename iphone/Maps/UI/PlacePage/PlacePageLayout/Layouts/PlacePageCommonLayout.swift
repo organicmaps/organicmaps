@@ -187,6 +187,7 @@ extension PlacePageCommonLayout {
       bookmarkViewController.bookmarkData = bookmarkData
       isBookmark = true
     }
+    actionBarViewController.setBookmarkSelected(isBookmark)
     if let title = placePageData.previewData.title, let headerViewController = headerViewControllers.compactMap({ $0 as? PlacePageHeaderViewController }).first {
       let secondaryTitle = placePageData.previewData.secondaryTitle
       headerViewController.setTitle(title, secondaryTitle: secondaryTitle)
@@ -195,6 +196,7 @@ extension PlacePageCommonLayout {
     self.presenter?.layoutIfNeeded()
     UIView.animate(withDuration: kDefaultAnimationDuration) { [unowned self] in
       self.bookmarkViewController.view.isHidden = !isBookmark
+      self.actionBar?.placePageData = self.placePageData
       self.presenter?.layoutIfNeeded()
     }
   }

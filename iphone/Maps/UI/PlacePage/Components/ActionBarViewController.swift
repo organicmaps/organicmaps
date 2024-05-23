@@ -64,6 +64,13 @@ class ActionBarViewController: UIViewController {
     configureButtons()
   }
 
+  func setBookmarkSelected(_ isSelected: Bool) {
+    guard let bookmarkButton = stackView.arrangedSubviews.first(where: { ($0 as? ActionBarButton)?.type == .bookmark }) as? ActionBarButton else {
+      return
+    }
+    bookmarkButton.setBookmarkSelected(isSelected)
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
 

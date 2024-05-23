@@ -235,6 +235,10 @@ extension EditBookmarkViewController: MWMNoteCellDelegate {
 extension EditBookmarkViewController: MWMButtonCellDelegate {
   func cellDidPressButton(_ cell: UITableViewCell) {
     BookmarksManager.shared().deleteBookmark(bookmarkId)
+    Toast.undoToast(deletedObject: bookmarkTitle ?? L("bookmark"),
+                    undoAction: { [bookmarkId] in
+      BookmarksManager.shared().recoverBookmark(bookmarkId)
+    }).show()
     if let placePageData = placePageData {
       FrameworkHelper.updateAfterDeleteBookmark()
       placePageData.updateBookmarkStatus()
