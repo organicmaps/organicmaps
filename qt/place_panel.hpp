@@ -29,7 +29,7 @@ class PlacePanel : public QWidget
 public:
   PlacePanel(QWidget * parent);
 
-  virtual void setPlace(
+  void setPlace(
     place_page::Info const & info,
     search::ReverseGeocoder::Address const & address
   );
@@ -47,4 +47,13 @@ protected:
 
 private:
   place_page::Info const * infoPtr;
+
+  void updateInterfaceDeveloper(
+    place_page::Info const & info,
+    search::ReverseGeocoder::Address const & address
+  );
+  void updateInterfaceUser(
+    place_page::Info const & info,
+    search::ReverseGeocoder::Address const & address
+  );
 };

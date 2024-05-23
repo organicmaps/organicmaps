@@ -4,7 +4,7 @@
 #include "qt/routing_turns_visualizer.hpp"
 #include "qt/ruler.hpp"
 #include "qt/selection.hpp"
-#include "qt/place_panel_common.hpp"
+#include "qt/place_panel.hpp"
 
 #include "map/routing_manager.hpp"
 
@@ -119,6 +119,8 @@ public:
     if (m_selectionMode && *m_selectionMode > SelectionMode::MWMBorders && *m_selectionMode < SelectionMode::Cancelled)
       m_selectionMode = {};
   }
+
+  void updatePlace();
 
 private:
   void ProcessSelectionMode();

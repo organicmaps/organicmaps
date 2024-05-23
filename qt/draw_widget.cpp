@@ -2,9 +2,7 @@
 
 #include "qt/create_feature_dialog.hpp"
 #include "qt/editor_dialog.hpp"
-#include "qt/place_panel_common.hpp"
-#include "qt/place_panel_developer.hpp"
-#include "qt/place_panel_user.hpp"
+#include "qt/place_panel.hpp"
 #include "qt/qt_common/helpers.hpp"
 #include "qt/routing_settings_dialog.hpp"
 #include "qt/screenshoter.hpp"
@@ -645,7 +643,7 @@ void DrawWidget::OnRouteRecommendation(RoutingManager::Recommendation recommenda
   }
 }
 
-void DrawWidget::ShowPlacePage()
+void DrawWidget::updatePlace()
 {
   place_page::Info const & info = m_framework.GetCurrentPlacePageInfo();
   search::ReverseGeocoder::Address address;
@@ -660,6 +658,11 @@ void DrawWidget::ShowPlacePage()
   }
 
   m_placePanel->setPlace(info, address);
+}
+
+void DrawWidget::ShowPlacePage()
+{
+  updatePlace();
   m_placePanel->showPlace();
 }
 

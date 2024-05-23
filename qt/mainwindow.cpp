@@ -670,6 +670,8 @@ void MainWindow::OnPreferences()
   dlg.exec();
 
   framework.EnterForeground();
+
+  m_pDrawWidget->updatePlace();
 }
 
 #ifdef BUILD_DESIGNER
@@ -839,7 +841,7 @@ void MainWindow::CreateSearchBarAndPanel()
 void MainWindow::CreatePlaceBarAndPanel(){
   CreatePanelImpl(1, Qt::LeftDockWidgetArea, tr(""), QKeySequence(), 0);
 
-  placePanel = new PlacePanelUser(m_Docks[1]);
+  placePanel = new PlacePanel(m_Docks[1]);
   m_Docks[1]->setWidget(placePanel);
 
   connect(placePanel, &PlacePanel::showPlace, m_Docks[1], &QDockWidget::show);

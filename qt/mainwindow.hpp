@@ -1,7 +1,7 @@
 #pragma once
 #include "qt/selection.hpp"
 
-#include "qt/place_panel_user.hpp"
+#include "qt/place_panel.hpp"
 
 #include "map/routing_mark.hpp"
 
