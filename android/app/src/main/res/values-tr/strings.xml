@@ -622,19 +622,19 @@
     <string name="phone_number">Telefon numarası</string>
     <string name="profile">OpenStreetMap profili</string>
     <plurals name="bookmarks_detect_message">
-        <item quantity="one"></item>
+        <item quantity="one"/>
         <item quantity="other">%d dosya bulundu. Dönüşümden sonra onları göreceksiniz.</item>
     </plurals>
     <plurals name="objects">
-        <item quantity="one"></item>
+        <item quantity="one"/>
         <item quantity="other">%d obje</item>
     </plurals>
     <plurals name="places">
-        <item quantity="one"></item>
+        <item quantity="one"/>
         <item quantity="other">%d yer</item>
     </plurals>
     <plurals name="tracks">
-        <item quantity="one"></item>
+        <item quantity="one"/>
         <item quantity="other">%d kayıt</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
@@ -2137,55 +2137,4 @@
     <string name="type.amenity.events_venue">Etkinlik mekanı</string>
     <string name="type.shop.auction">Müzayede</string>
     <string name="type.shop.collector">Koleksiyon eşyaları</string>
-    <string name="type.amenity.shelter.lean_to"></string>
-    <string name="type.highway.world_level"></string>
-    <string name="facebook"></string>
-    <string name="twitter"></string>
-    <string name="type.psurface.paved_good"></string>
-    <string name="type.amenity.vending_machine.coffee"></string>
-    <string name="type.landuse.education"></string>
-    <string name="type.fee.yes"></string>
-    <string name="type.hwtag.lit"></string>
-    <string name="github"></string>
-    <string name="telegram"></string>
-    <string name="editor_line_social_network"></string>
-    <string name="type.amenity.vending_machine.sweets"></string>
-    <string name="type.natural.desert"></string>
-    <string name="type.mapswithme.grid"></string>
-    <string name="type.psurface.paved_bad"></string>
-    <string name="wikimedia_commons"></string>
-    <string name="type.hwtag.nofoot"></string>
-    <string name="type.organic.only"></string>
-    <string name="matrix"></string>
-    <string name="type.hwtag.bidir_bicycle"></string>
-    <string name="type.man_made.survey_point"></string>
-    <string name="menu"></string>
-    <string name="type.cuisine.bubble_tea"></string>
-    <string name="type.hwtag.onedir_bicycle"></string>
-    <string name="type.organic.yes"></string>
-    <string name="type.route.shuttle_train"></string>
-    <string name="type.leisure.hackerspace"></string>
-    <string name="type.hwtag.yescar"></string>
-    <string name="type.psurface"></string>
-    <string name="type.hwtag.private"></string>
-    <string name="comma_separated_pair"></string>
-    <string name="type.psurface.unpaved_good"></string>
-    <string name="type.hwtag.nobicycle"></string>
-    <string name="type.amenity.vending_machine.food"></string>
-    <string name="gb"></string>
-    <string name="type.psurface.unpaved_bad"></string>
-    <string name="vk"></string>
-    <string name="mastodon"></string>
-    <string name="instagram"></string>
-    <string name="type.highway.world_towns_level"></string>
-    <string name="type.hwtag.yesbicycle"></string>
-    <string name="type.hwtag.toll"></string>
-    <string name="openstreetmap"></string>
-    <string name="type.hwtag"></string>
-    <string name="type.hwtag.yesfoot"></string>
-    <string name="type.mapswithme"></string>
-    <string name="type.hwtag.nocar"></string>
-    <string name="type.amenity.vending_machine.condoms"></string>
-    <string name="type.hwtag.oneway"></string>
-    <string name="type.amenity.vending_machine.newspapers"></string>
 </resources>

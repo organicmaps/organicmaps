@@ -621,22 +621,22 @@
     <string name="profile">Perfil de OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">Se encontró %d archivo. Lo verá después de la conversión.</item>
-        <item quantity="many"></item>
+        <item quantity="many"/>
         <item quantity="other">Se han encontrado %d archivos. Los verá después de la conversión.</item>
     </plurals>
     <plurals name="objects">
         <item quantity="one">%d objeto</item>
-        <item quantity="many"></item>
+        <item quantity="many"/>
         <item quantity="other">%d objetos</item>
     </plurals>
     <plurals name="places">
         <item quantity="one">%d lugar</item>
-        <item quantity="many"></item>
+        <item quantity="many"/>
         <item quantity="other">%d lugares</item>
     </plurals>
     <plurals name="tracks">
         <item quantity="one">%d ruta</item>
-        <item quantity="many"></item>
+        <item quantity="many"/>
         <item quantity="other">%d rutas</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
@@ -2134,58 +2134,4 @@
     <string name="type.amenity.events_venue">Lugar para eventos</string>
     <string name="type.shop.auction">Subasta</string>
     <string name="type.shop.collector">Coleccionables</string>
-    <string name="type.amenity.shelter.lean_to"></string>
-    <string name="type.mapswithme"></string>
-    <string name="type.highway.world_level"></string>
-    <string name="github"></string>
-    <string name="type.railway.preserved.tunnel"></string>
-    <string name="openstreetmap"></string>
-    <string name="type.hwtag.bidir_bicycle"></string>
-    <string name="type.railway.monorail.tunnel"></string>
-    <string name="vk"></string>
-    <string name="type.hwtag.nofoot"></string>
-    <string name="type.railway.narrow_gauge.bridge"></string>
-    <string name="type.railway.monorail.bridge"></string>
-    <string name="wikimedia_commons"></string>
-    <string name="mb"></string>
-    <string name="type.hwtag"></string>
-    <string name="type.hwtag.nocar"></string>
-    <string name="telegram_url"></string>
-    <string name="type.psurface.unpaved_good"></string>
-    <string name="type.psurface.paved_bad"></string>
-    <string name="editor_line_social_network"></string>
-    <string name="type.railway.preserved.bridge"></string>
-    <string name="type.fee.yes"></string>
-    <string name="type.mapswithme.grid"></string>
-    <string name="gb"></string>
-    <string name="type.hwtag.toll"></string>
-    <string name="type.psurface.paved_good"></string>
-    <string name="type.railway.light_rail.tunnel"></string>
-    <string name="type.railway.preserved"></string>
-    <string name="type.highway.world_towns_level"></string>
-    <string name="twitter"></string>
-    <string name="type.hwtag.onedir_bicycle"></string>
-    <string name="instagram_url"></string>
-    <string name="instagram"></string>
-    <string name="type.psurface"></string>
-    <string name="matrix"></string>
-    <string name="type.railway.narrow_gauge.tunnel"></string>
-    <string name="type.hwtag.oneway"></string>
-    <string name="type.hwtag.nobicycle"></string>
-    <string name="type.railway.funicular.bridge"></string>
-    <string name="type.hwtag.yesfoot"></string>
-    <string name="type.hwtag.lit"></string>
-    <string name="type.hwtag.private"></string>
-    <string name="facebook"></string>
-    <string name="type.railway.abandoned.tunnel"></string>
-    <string name="type.railway.light_rail.bridge"></string>
-    <string name="type.railway.funicular.tunnel"></string>
-    <string name="mastodon"></string>
-    <string name="type.psurface.unpaved_bad"></string>
-    <string name="type.route.shuttle_train"></string>
-    <string name="comma_separated_pair"></string>
-    <string name="telegram"></string>
-    <string name="type.hwtag.yescar"></string>
-    <string name="type.railway.abandoned.bridge"></string>
-    <string name="type.hwtag.yesbicycle"></string>
 </resources>

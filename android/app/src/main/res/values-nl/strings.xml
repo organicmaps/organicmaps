@@ -624,15 +624,15 @@
         <item quantity="other">Er zijn %d bestanden gevonden. Je zult ze na de conversie zien.</item>
     </plurals>
     <plurals name="objects">
-        <item quantity="one"></item>
+        <item quantity="one"/>
         <item quantity="other">%d plaats</item>
     </plurals>
     <plurals name="places">
-        <item quantity="one"></item>
+        <item quantity="one"/>
         <item quantity="other">%d plaatsen</item>
     </plurals>
     <plurals name="tracks">
-        <item quantity="one"></item>
+        <item quantity="one"/>
         <item quantity="other">%d tracks</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
@@ -2139,51 +2139,4 @@
     <string name="type.amenity.events_venue">Evenementenlocatie</string>
     <string name="type.shop.auction">Veiling</string>
     <string name="type.shop.collector">Verzamelobjecten</string>
-    <string name="github"></string>
-    <string name="type.hwtag.lit"></string>
-    <string name="type.amenity.shelter.lean_to"></string>
-    <string name="instagram_url"></string>
-    <string name="mastodon"></string>
-    <string name="type.hwtag.yesfoot"></string>
-    <string name="wikimedia_commons"></string>
-    <string name="type.hwtag.toll"></string>
-    <string name="comma_separated_pair"></string>
-    <string name="type.hwtag.nobicycle"></string>
-    <string name="type.highway.world_level"></string>
-    <string name="mb"></string>
-    <string name="type.landuse.reservoir"></string>
-    <string name="type.hwtag.yesbicycle"></string>
-    <string name="type.hwtag"></string>
-    <string name="type.mapswithme"></string>
-    <string name="openstreetmap"></string>
-    <string name="type.hwtag.oneway"></string>
-    <string name="type.route.shuttle_train"></string>
-    <string name="instagram"></string>
-    <string name="twitter"></string>
-    <string name="menu"></string>
-    <string name="type.hwtag.private"></string>
-    <string name="type.amenity.food_court"></string>
-    <string name="type.hwtag.nofoot"></string>
-    <string name="type.mapswithme.grid"></string>
-    <string name="type.hwtag.yescar"></string>
-    <string name="type.landuse.brownfield"></string>
-    <string name="matrix"></string>
-    <string name="type.hwtag.nocar"></string>
-    <string name="type.landuse.greenfield"></string>
-    <string name="type.hwtag.bidir_bicycle"></string>
-    <string name="telegram"></string>
-    <string name="type.leisure.hackerspace"></string>
-    <string name="facebook"></string>
-    <string name="type.highway.world_towns_level"></string>
-    <string name="vk"></string>
-    <string name="read_in_wikipedia"></string>
-    <string name="type.power.generator"></string>
-    <string name="type.cuisine.bubble_tea"></string>
-    <string name="type.tourism.motel"></string>
-    <string name="gb"></string>
-    <string name="type.fee.yes"></string>
-    <string name="telegram_url"></string>
-    <string name="editor_line_social_network"></string>
-    <string name="type.cuisine.fish_and_chips"></string>
-    <string name="type.hwtag.onedir_bicycle"></string>
 </resources>
