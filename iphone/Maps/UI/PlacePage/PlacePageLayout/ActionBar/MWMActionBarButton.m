@@ -155,8 +155,6 @@ NSString *titleForButton(MWMActionBarButtonType type, BOOL isSelected) {
 }
 
 - (IBAction)tap {
-  if (self.type == MWMActionBarButtonTypeBookmark)
-    [self setBookmarkSelected:!self.button.isSelected];
   if (self.type == MWMActionBarButtonTypeRouteTo)
     [self disableRouteToButtonHighlight];
   
@@ -164,7 +162,10 @@ NSString *titleForButton(MWMActionBarButtonType type, BOOL isSelected) {
 }
 
 - (void)setBookmarkSelected:(BOOL)isSelected {
-  if (isSelected)
+  if (self.type != MWMActionBarButtonTypeBookmark)
+    return;
+
+  if (!self.button.isSelected && isSelected)
     [self.button.imageView startAnimating];
 
   self.button.selected = isSelected;
