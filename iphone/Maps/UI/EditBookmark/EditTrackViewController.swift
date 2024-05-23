@@ -186,7 +186,12 @@ extension EditTrackViewController: BookmarkTitleCellDelegate {
 
 extension EditTrackViewController: MWMButtonCellDelegate {
   func cellDidPressButton(_ cell: UITableViewCell) {
-    bookmarksManager.deleteTrack(trackId)
+    BookmarksManager.shared().deleteTrack(trackId)
+    Toast.undoToast(withText: trackTitle ?? L("track_title"),
+                    undoAction: { [trackId] in
+      BookmarksManager.shared().recoverTrack(trackId)
+    }).show()
+    // TODO: When the PlacePage screen will be implemented it should be reloaded here (see EditBookmarkViewController).
     goBack()
   }
 }
