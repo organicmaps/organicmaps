@@ -1294,7 +1294,7 @@
 "drive_through" = "Drive-through";
 
 /* Restaurant or other food place's menu URL field in the Editor */
-"website_menu" = "Link do menu";
+"website_menu" = "Link do cardápio";
 
 
 /********** Types **********/
