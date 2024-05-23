@@ -52,9 +52,11 @@
 	<string name="disconnect_usb_cable">Proszę odłączyć kabel USB albo włożyć kartę pamięci, aby korzystać z Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Proszę zwolnić trochę pamięci na karcie SD/pamięci USB, aby korzystać z aplikacji</string>
-    <string name="download_resources">Przed rozpoczęciem prosimy o pobranie ogólnej mapy świata na urządzenie.\nWymaga to %s danych.</string>
+    <string name="download_resources">Przed rozpoczęciem prosimy o pobranie ogólnej mapy świata na urządzenie.
+\nWymaga to %s danych.</string>
     <string name="download_resources_continue">Przejdź do mapy</string>
-    <string name="downloading_country_can_proceed">Pobieranie %s. Można teraz\nprzejść do mapy.</string>
+    <string name="downloading_country_can_proceed">Pobieranie %s. Można teraz
+\nprzejść do mapy.</string>
     <string name="download_country_ask">Pobrać %s?</string>
     <string name="update_country_ask">Uaktualnić %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -104,7 +106,8 @@
     <!-- Error moving map files from one storage to another -->
 	<string name="move_maps_error">Błąd przenoszenia plików map</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-	<string name="wait_several_minutes">To może zająć kilka minut.\nProszę czekać…</string>
+	<string name="wait_several_minutes">To może zająć kilka minut.
+\nProszę czekać…</string>
     <!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Jednostki miary</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -161,7 +164,11 @@
 	<string name="description">Notatki</string>
     <!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Udostępnione zakładki z Organic Maps</string>
-    <string name="share_bookmarks_email_body">Cześć!\n\nZałączam moje zakładki z aplikacji Organic Maps. Proszę otwórz je jeżeli masz zaintalowane Organic Maps. Lub, jeżeli nie masz, pobierz aplikację na swoje urządzenie iOS/Android za pomocą tego linka: https://omaps.app/get?kmz\n\nMiłego podróżowania z Organic Maps!</string>
+    <string name="share_bookmarks_email_body">Cześć!
+\n
+\nZałączam moje zakładki z aplikacji Organic Maps. Proszę otwórz je jeżeli masz zaintalowane Organic Maps. Lub, jeżeli nie masz, pobierz aplikację na swoje urządzenie iOS/Android za pomocą tego linka: https://omaps.app/get?kmz
+\n
+\nMiłego podróżowania z Organic Maps!</string>
     <!-- message title of loading file -->
 	<string name="load_kmz_title">Wczytywanie zakładek</string>
     <!-- Kmz file successful loading -->
@@ -169,9 +176,12 @@
     <!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Nieudane wczytywanie zakładek. Plik może być uszkodzony lub posiadać defekty.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-	<string name="unknown_file_type">Typ pliku nie jest rozpoznawany przez aplikację:\n%1$s</string>
+	<string name="unknown_file_type">Typ pliku nie jest rozpoznawany przez aplikację:
+\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-	<string name="failed_to_open_file">Nie udało się otworzyć pliku %1$s\n\n%2$s</string>
+	<string name="failed_to_open_file">Nie udało się otworzyć pliku %1$s
+\n
+\n%2$s</string>
     <!-- resource for context menu -->
 	<string name="edit">Edytuj</string>
     <!-- Warning message when doing search around current position -->
@@ -187,7 +197,11 @@
     <!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Zobacz moją aktualną lokalizację na mapie przy użyciu Organic Maps</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-	<string name="my_position_share_email">Cześć,\n\nJestem teraz tutaj: %1$s. Naciśnij na ten link %2$s lub ten %3$s, aby zobaczyć to miejsce na mapie.\n\nDziękuję.</string>
+	<string name="my_position_share_email">Cześć,
+\n
+\nJestem teraz tutaj: %1$s. Naciśnij na ten link %2$s lub ten %3$s, aby zobaczyć to miejsce na mapie.
+\n
+\nDziękuję.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">Udostępnij</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -571,7 +585,8 @@
     <!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Ogólne uwagi</string>
     <string name="prefs_languages_information">Stosujemy system TTS dla komend głosowych. Stosuje go wiele urządzeń z systemem Android, można go pobrać lub zaktualizować z Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">W przypadku niektórych języków wymagana będzie instalacja innego syntezatora lub pakietu językowego ze strony aplikacji (Google Play, Galaxy Store, App Gallery, FDroid). Otwórz ustawienia urządzenia → Język i klawiatura → Mowa → Przetwarzanie tekstu na mowę.\nMożesz w tym miejscu zarządzać ustawieniami syntezy mowy (np. pobrać pakiet językowy do stosowania offline) i wybrać inny silnik przetwarzania tekstu na mowę.</string>
+    <string name="prefs_languages_information_off">W przypadku niektórych języków wymagana będzie instalacja innego syntezatora lub pakietu językowego ze strony aplikacji (Google Play, Galaxy Store, App Gallery, FDroid). Otwórz ustawienia urządzenia → Język i klawiatura → Mowa → Przetwarzanie tekstu na mowę.
+\nMożesz w tym miejscu zarządzać ustawieniami syntezy mowy (np. pobrać pakiet językowy do stosowania offline) i wybrać inny silnik przetwarzania tekstu na mowę.</string>
     <string name="prefs_languages_information_off_link">Aby uzyskać więcej informacji, spójrz na ten poradnik.</string>
     <string name="transliteration_title">Transkrypcja na alfabet łaciński</string>
     <string name="learn_more">Dowiedz się więcej</string>
@@ -584,7 +599,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
 	<string name="alert_reauth_message">Zaloguj się do OpenStreetMap, aby automatycznie przesyłać wszystkie zmiany na mapie. Dowiedz się więcej <a href="https://github.com/organicmaps/organicmaps/issues/6144">tutaj</a>.</string>
     <string name="dialog_error_storage_title">Problem z dostępem do pamięci masowej</string>
-    <string name="dialog_error_storage_message">Zewnętrzny nośnik pamięci masowej jest niedostępny. Prawdopodobnie usunięto lub uszkodzono kartę SD bądź jej system plików służy tylko do odczytu. Zweryfikuj to i skontaktuj się z nami pod adresem support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Zewnętrzny nośnik pamięci masowej jest niedostępny. Prawdopodobnie usunięto lub uszkodzono kartę SD bądź jej system plików służy tylko do odczytu. Zweryfikuj to i skontaktuj się z nami pod adresem support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Emuluj wadliwą pamięć masową</string>
     <string name="core_entrance">Wejście</string>
     <string name="error_enter_correct_name">Wprowadź poprawną nazwę</string>
@@ -608,8 +623,9 @@
     <string name="profile">Profil OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">Znaleziono %d plik. Zobaczysz to po konwersji.</item>
-        <item quantity="other">Znaleziono %d plików. Zobaczysz je po konwersji.</item>
-        <item quantity="two">Znaleziono %d pliki. Zobaczysz je po konwersji.</item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
 	<string name="privacy">Prywatność</string>
@@ -2058,4 +2074,125 @@
     <string name="type.amenity.events_venue">Sala bankietowa</string>
     <string name="type.shop.auction">Dom aukcyjny</string>
     <string name="type.shop.collector">Przedmioty kolekcjonerskie</string>
+    <string name="type.power"></string>
+    <string name="instagram_url"></string>
+    <string name="vk"></string>
+    <string name="type.hwtag"></string>
+    <string name="type.piste_type.nordic"></string>
+    <string name="type.railway.abandoned"></string>
+    <string name="type.internet_access.wlan"></string>
+    <string name="type.aerialway.rope_tow"></string>
+    <string name="type.piste_type.downhill.intermediate"></string>
+    <string name="telegram"></string>
+    <string name="type.route.shuttle_train"></string>
+    <string name="type.psurface.paved_good"></string>
+    <string name="type.hwtag.toll"></string>
+    <string name="type.piste_type.downhill"></string>
+    <string name="type.mountain_pass"></string>
+    <string name="type.railway.preserved.bridge"></string>
+    <string name="type.waterway.drain"></string>
+    <string name="mb"></string>
+    <string name="type.hwtag.nocar"></string>
+    <string name="type.railway.funicular.bridge"></string>
+    <string name="type.piste_type.downhill.novice.area"></string>
+    <string name="type.aerialway.magic_carpet"></string>
+    <string name="type.natural.water.drain"></string>
+    <string name="type.internet_access"></string>
+    <string name="type.waterway.weir"></string>
+    <string name="type.hwtag.onedir_bicycle"></string>
+    <string name="navigation_stop_button"></string>
+    <string name="type.aerialway.platter"></string>
+    <string name="type.psurface.unpaved_bad"></string>
+    <string name="type.railway.light_rail.tunnel"></string>
+    <string name="type.mapswithme"></string>
+    <string name="type.psurface"></string>
+    <string name="type.organic.only"></string>
+    <string name="facebook"></string>
+    <string name="type.man_made.storage_tank"></string>
+    <string name="type.piste_type.downhill.easy.area"></string>
+    <string name="type.mapswithme.grid"></string>
+    <string name="comma_separated_pair"></string>
+    <string name="type.route"></string>
+    <string name="type.amenity.vending_machine.fuel"></string>
+    <string name="type.man_made"></string>
+    <string name="type.hwtag.lit"></string>
+    <string name="type.aerialway.j.bar"></string>
+    <string name="type.power.generator"></string>
+    <string name="type.piste_type.downhill.expert.area"></string>
+    <string name="type.hwtag.private"></string>
+    <plurals name="places">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="instagram"></string>
+    <string name="type.railway.subway.bridge"></string>
+    <string name="editor_line_social_network"></string>
+    <string name="type.piste_type.sled.area"></string>
+    <string name="type.piste_type.downhill.freeride"></string>
+    <string name="wikimedia_commons"></string>
+    <string name="type.landuse.greenhouse_horticulture"></string>
+    <string name="type.fee.yes"></string>
+    <string name="type.organic.yes"></string>
+    <string name="type.highway.world_towns_level"></string>
+    <string name="type.psurface.unpaved_good"></string>
+    <string name="type.leisure.common"></string>
+    <string name="telegram_url"></string>
+    <string name="type.hwtag.nobicycle"></string>
+    <string name="type.railway.preserved"></string>
+    <string name="openstreetmap"></string>
+    <string name="type.highway.world_level"></string>
+    <string name="type.amenity.shelter.lean_to"></string>
+    <string name="type.railway.light_rail"></string>
+    <string name="type.railway.subway.tunnel"></string>
+    <string name="type.railway.tram.tunnel"></string>
+    <string name="type.hwtag.yesfoot"></string>
+    <string name="type.waterway"></string>
+    <string name="type.hwtag.nofoot"></string>
+    <string name="type.railway.tram.bridge"></string>
+    <string name="matrix"></string>
+    <string name="type.hwtag.oneway"></string>
+    <plurals name="tracks">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="type.piste_type.downhill.advanced.area"></string>
+    <string name="type.railway.subway"></string>
+    <string name="github"></string>
+    <string name="type.railway.preserved.tunnel"></string>
+    <string name="type.railway.abandoned.bridge"></string>
+    <string name="type.leisure.beach_resort"></string>
+    <string name="type.piste_type.downhill.intermediate.area"></string>
+    <string name="type.piste_type.downhill.novice"></string>
+    <string name="type.leisure.track.area"></string>
+    <string name="type.piste_type.sled"></string>
+    <string name="type.psurface.paved_bad"></string>
+    <string name="mastodon"></string>
+    <string name="type.piste_type.downhill.easy"></string>
+    <string name="type.hwtag.bidir_bicycle"></string>
+    <string name="type.hwtag.yescar"></string>
+    <string name="type.railway.funicular.tunnel"></string>
+    <string name="type.piste_type.downhill.expert"></string>
+    <string name="type.leisure.marina"></string>
+    <string name="type.leisure.hackerspace"></string>
+    <string name="type.piste_type.downhill.advanced"></string>
+    <string name="type.aerialway.t.bar"></string>
+    <string name="type.railway.light_rail.bridge"></string>
+    <string name="twitter"></string>
+    <string name="type.leisure.track"></string>
+    <string name="type.railway.abandoned.tunnel"></string>
+    <string name="type.cuisine.bubble_tea"></string>
+    <string name="type.hwtag.yesbicycle"></string>
+    <string name="type.wheelchair"></string>
+    <plurals name="objects">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="type.piste_type.downhill.area"></string>
+    <string name="gb"></string>
 </resources>
