@@ -4,6 +4,7 @@
 #include "qt/routing_turns_visualizer.hpp"
 #include "qt/ruler.hpp"
 #include "qt/selection.hpp"
+#include "qt/place_panel.hpp"
 
 #include "map/routing_manager.hpp"
 
@@ -43,7 +44,7 @@ public Q_SLOTS:
 
 public:
   DrawWidget(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams,
-             QWidget * parent);
+             PlacePanel * placePanel, QWidget * parent);
   ~DrawWidget() override;
 
   std::string GetDistance(search::Result const & res) const;
@@ -90,6 +91,13 @@ private:
   void SubmitBookmark(m2::PointD const & pt);
   void ShowPlacePage();
 
+  void HidePlacePage();
+
+  void OnRouteFrom(place_page::Info const & info);
+  void OnAddStop(place_page::Info const & info);
+  void OnRouteTo(place_page::Info const & info);
+  void OnEditPlace(place_page::Info const & info);
+
   void VisualizeMwmsBordersInRect(m2::RectD const & rect, bool withVertices,
                                   bool fromPackedPolygon, bool boundingBox);
 
@@ -112,6 +120,8 @@ public:
       m_selectionMode = {};
   }
 
+  void UpdatePlace();
+
 private:
   void ProcessSelectionMode();
   std::optional<SelectionMode> m_selectionMode;
@@ -120,5 +130,7 @@ private:
   std::unique_ptr<Screenshoter> m_screenshoter;
   Ruler m_ruler;
   RoutingTurnsVisualizer m_turnsVisualizer;
+
+  PlacePanel * m_placePanel = nullptr;
 };
 }  // namespace qt
