@@ -36,12 +36,12 @@ set(SRC
   mwms_borders_selection.hpp
   osm_auth_dialog.cpp
   osm_auth_dialog.hpp
-  place_page_dialog_common.cpp
-  place_page_dialog_common.hpp
-  place_page_dialog_developer.cpp
-  place_page_dialog_developer.hpp
-  place_page_dialog_user.cpp
-  place_page_dialog_user.hpp
+  place_panel_common.cpp
+  place_panel_common.hpp
+  place_panel_developer.cpp
+  place_panel_developer.hpp
+  place_panel_user.cpp
+  place_panel_user.hpp
   preferences_dialog.cpp
   preferences_dialog.hpp
   popup_menu_holder.cpp

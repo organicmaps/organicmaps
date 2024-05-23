@@ -1,5 +1,4 @@
-#include "qt/place_page_dialog_common.hpp"
-#include "qt/place_page_dialog_user.hpp"
+#include "qt/place_panel_user.hpp"
 
 #include "qt/qt_common/text_dialog.hpp"
 
@@ -12,15 +11,13 @@
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QDialog>
 
 #include <sstream>
 #include <string>
 
 namespace
 {
-static int constexpr kMaxLengthOfPlacePageDescription = 500;
-static int constexpr kMinWidthOfShortDescription = 390;
+const int kMaxLengthOfPlacePageDescription = 500;
 
 std::string getShortDescription(const std::string & description)
 {
@@ -58,11 +55,20 @@ public:
   }
 };
 
-PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info const & info,
-                                         search::ReverseGeocoder::Address const & address)
-  : QDialog(parent)
+PlacePanelUser::PlacePanelUser(QWidget * parent)
+  : PlacePanel(parent)
+{}
+
+void PlacePanelUser::setPlace(place_page::Info const & info,
+  search::ReverseGeocoder::Address const & address)
 {
+  PlacePanel::setPlace(info, address);
+
   auto const & title = info.GetTitle();
+
+  if(this->layout() != nullptr){
+    QWidget().setLayout(this->layout());
+  }
 
   QVBoxLayout * layout = new QVBoxLayout();
   {
@@ -133,7 +139,7 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
     }
 
     // Description
-    if (const auto & description = info.GetWikiDescription(); !description.empty())
+    if (auto description = info.GetWikiDescription(); !description.empty())
     {
       auto descriptionShort = getShortDescription(description);
 
@@ -261,12 +267,9 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
 
   {
     QDialogButtonBox * dbb = new QDialogButtonBox();
-    place_page_dialog::addCommonButtons(this, dbb, info.ShouldShowEditPlace());
+    addCommonButtons(dbb, info.ShouldShowEditPlace());
     layout->addWidget(dbb, Qt::AlignCenter);
   }
 
   setLayout(layout);
-
-  auto const ppTitle = std::string("Place Page") + (info.IsBookmark() ? " (bookmarked)" : "");
-  setWindowTitle(ppTitle.c_str());
 }

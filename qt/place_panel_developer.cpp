@@ -1,5 +1,4 @@
-#include "qt/place_page_dialog_common.hpp"
-#include "qt/place_page_dialog_developer.hpp"
+#include "qt/place_panel_developer.hpp"
 
 #include "qt/qt_common/text_dialog.hpp"
 
@@ -13,10 +12,15 @@
 
 #include <string>
 
-PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page::Info const & info,
-                                                   search::ReverseGeocoder::Address const & address)
-  : QDialog(parent)
+PlacePanelDeveloper::PlacePanelDeveloper(QWidget * parent)
+  : PlacePanel(parent)
+{}
+
+void PlacePanelDeveloper::setPlace(place_page::Info const & info,
+  search::ReverseGeocoder::Address const & address)
 {
+  PlacePanel::setPlace(info, address);
+
   QVBoxLayout * layout = new QVBoxLayout();
   QGridLayout * grid = new QGridLayout();
   int row = 0;
@@ -88,7 +92,7 @@ PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page:
   layout->addLayout(grid);
 
   QDialogButtonBox * dbb = new QDialogButtonBox();
-  place_page_dialog::addCommonButtons(this, dbb, info.ShouldShowEditPlace());
+  addCommonButtons(dbb, info.ShouldShowEditPlace());
 
   if (auto const & descr = info.GetWikiDescription(); !descr.empty())
   {
