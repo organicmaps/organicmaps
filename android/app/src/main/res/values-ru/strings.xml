@@ -4,7 +4,7 @@
 	<!-- Button text (should be short) -->
 	<string name="back">Назад [weblate test]</string>
     <!-- Button text (should be short) -->
-	<string name="cancel">Отмена</string>
+	<string name="cancel">Отмена [weblate test]</string>
     <!-- Button which deletes downloaded country -->
 	<string name="delete">Удалить</string>
     <string name="download_maps">Загрузить карты</string>
