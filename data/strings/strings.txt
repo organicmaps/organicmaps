@@ -30288,6 +30288,7 @@
     nl = Menulink
     pl = Link do menu
     pt = Link do menu
+    pt-BR = Link do cardápio
     ro = Legătura de meniu
     ru = Ссылка на меню
     sk = Odkaz na menu
