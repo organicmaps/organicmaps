@@ -143,6 +143,9 @@ NS_SWIFT_NAME(BookmarksManager)
 - (void)moveTrack:(MWMTrackID)trackId
         toGroupId:(MWMMarkGroupID)groupId;
 
+- (void)recoverBookmark:(MWMMarkID)bookmarkId;
+- (void)recoverTrack:(MWMTrackID)trackId;
+
 - (instancetype)init __attribute__((unavailable("call +manager instead")));
 - (instancetype)copy __attribute__((unavailable("call +manager instead")));
 - (instancetype)copyWithZone:(NSZone *)zone __attribute__((unavailable("call +manager instead")));
