@@ -304,16 +304,36 @@ public:
   void CancelRoutePointsTransaction(uint32_t transactionId);
   static uint32_t InvalidRoutePointsTransactionId();
 
-  /// \returns true if there are route points saved in file and false otherwise.
+  /// \returns true if there is a user route points saved with the given name and false otherwise.
+  bool HasSavedUserRoute(std::string fileName) const;
+  /// \returns true if there are route points saved in the default file and false otherwise.
   bool HasSavedRoutePoints() const;
-  /// \brief It loads road points from file and delete file after loading.
+  /// \returns true if there are route points saved in file and false otherwise.
+  bool HasSavedRoutePoints(std::string fileName) const;
   /// The result of the loading will be sent via SafeCallback.
   using LoadRouteHandler = platform::SafeCallback<void(bool success)>;
+  /// \brief It loads road points from file in a user routes folder and keeps file after loading.
+  void LoadUserRoutePoints(LoadRouteHandler const & handler, std::string fileName);
+  /// \brief It loads road points from file and delete file after loading.
   void LoadRoutePoints(LoadRouteHandler const & handler);
-  /// \brief It saves route points to file.
+  /// \brief It loads road points from file and can be set to delete file after loading.
+  void LoadRoutePoints(LoadRouteHandler const & handler, std::string const& fileName, bool deleteAfterLoading);
+  /// \brief It saves route points to file in a user routes folder
+  void SaveUserRoutePoints(std::string fileName);
+  /// \brief It saves route points to default file.
   void SaveRoutePoints();
-  /// \brief It deletes file with saved route points if it exists.
+  /// \brief It saves route points to file with the given name.
+  void SaveRoutePoints(std::string fileName, bool keepReplaceWithMyPositionAfterRestart);
+  /// \brief It deletes the user route with the user route with the given name if it exists.
+  void DeleteUserRoute(std::string fileName);
+  /// \brief It deletes the default file with saved route points if it exists.
   void DeleteSavedRoutePoints();
+  /// \brief It deletes file with saved route points if it exists.
+  void DeleteSavedRoutePoints(std::string fileName);
+  /// \brief It renames a user route
+  void RenameUserRoute(std::string oldFileName, std::string newFileName);
+  /// \returns names of the files in the user routes folder without the .dat file extension.
+  std::vector<std::string> getUserRoutes();
 
   void UpdatePreviewMode();
   void CancelPreviewMode();

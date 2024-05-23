@@ -16,6 +16,7 @@ set(SRC
   power_manager_tests.cpp
   search_api_tests.cpp
   transliteration_test.cpp
+  user_routes_test.cpp
   working_time_tests.cpp
 )
 

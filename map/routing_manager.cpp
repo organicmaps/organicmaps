@@ -50,6 +50,8 @@ double const kRouteScaleMultiplier = 1.5;
 
 string const kRoutePointsFile = "route_points.dat";
 
+string const kUserRoutesFolder = "user_routes/";
+
 uint32_t constexpr kInvalidTransactionId = 0;
 
 void FillTurnsDistancesForRendering(vector<RouteSegment> const & segments,
@@ -109,7 +111,7 @@ RouteMarkData GetLastPassedPoint(BookmarkManager * bmManager, vector<RouteMarkDa
   return data;
 }
 
-void SerializeRoutePoint(json_t * node, RouteMarkData const & data)
+void SerializeRoutePoint(json_t * node, RouteMarkData const & data, bool const keepReplaceWithMyPositionAfterRestart)
 {
   ASSERT(node != nullptr, ());
   ToJSONObject(*node, "type", static_cast<int>(data.m_pointType));
@@ -117,7 +119,8 @@ void SerializeRoutePoint(json_t * node, RouteMarkData const & data)
   ToJSONObject(*node, "subtitle", data.m_subTitle);
   ToJSONObject(*node, "x", data.m_position.x);
   ToJSONObject(*node, "y", data.m_position.y);
-  ToJSONObject(*node, "replaceWithMyPosition", data.m_replaceWithMyPositionAfterRestart);
+  ToJSONObject(*node, "replaceWithMyPosition",
+               keepReplaceWithMyPositionAfterRestart ? data.m_replaceWithMyPositionAfterRestart : false);
 }
 
 RouteMarkData DeserializeRoutePoint(json_t * node)
@@ -140,18 +143,18 @@ RouteMarkData DeserializeRoutePoint(json_t * node)
   return data;
 }
 
-string SerializeRoutePoints(vector<RouteMarkData> const & points)
+string SerializeRoutePoints(vector<RouteMarkData> const & points, bool const keepReplaceWithMyPositionAfterRestart)
 {
   ASSERT_GREATER_OR_EQUAL(points.size(), 2, ());
   auto pointsNode = base::NewJSONArray();
   for (auto const & p : points)
   {
     auto pointNode = base::NewJSONObject();
-    SerializeRoutePoint(pointNode.get(), p);
+    SerializeRoutePoint(pointNode.get(), p, keepReplaceWithMyPositionAfterRestart);
     json_array_append_new(pointsNode.get(), pointNode.release());
   }
   unique_ptr<char, JSONFreeDeleter> buffer(
-    json_dumps(pointsNode.get(), JSON_COMPACT));
+    json_dumps(pointsNode.get(), JSON_COMPACT | JSON_ENSURE_ASCII));
   return string(buffer.get());
 }
 
@@ -1356,31 +1359,56 @@ void RoutingManager::CancelRoutePointsTransaction(uint32_t transactionId)
     routePoints.AddRoutePoint(std::move(markData));
 }
 
+bool RoutingManager::HasSavedUserRoute(string const fileName) const
+{
+  return HasSavedRoutePoints(kUserRoutesFolder + fileName + ".dat");
+}
+
+
 bool RoutingManager::HasSavedRoutePoints() const
 {
-  auto const fileName = GetPlatform().SettingsPathForFile(kRoutePointsFile);
-  return GetPlatform().IsFileExistsByFullPath(fileName);
+  return HasSavedRoutePoints(kRoutePointsFile);
+}
+
+bool RoutingManager::HasSavedRoutePoints(string const fileName) const
+{
+  auto const filePath = GetPlatform().SettingsPathForFile(fileName);
+  return GetPlatform().IsFileExistsByFullPath(filePath);
+}
+
+void RoutingManager::LoadUserRoutePoints(LoadRouteHandler const & handler, string const fileName)
+{
+  LoadRoutePoints(handler, kUserRoutesFolder + fileName + ".dat", false);
 }
 
 void RoutingManager::LoadRoutePoints(LoadRouteHandler const & handler)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [this, handler]()
+  LoadRoutePoints(handler, kRoutePointsFile, true);
+}
+
+void RoutingManager::LoadRoutePoints(LoadRouteHandler const & handler, string const & fileName, bool const deleteAfterLoading)
+{
+  GetPlatform().RunTask(Platform::Thread::File, [this, handler, fileName, deleteAfterLoading]()
   {
-    if (!HasSavedRoutePoints())
+    if (!HasSavedRoutePoints(fileName))
     {
       if (handler)
         handler(false /* success */);
       return;
     }
 
-    // Delete file after loading.
-    auto const fileName = GetPlatform().SettingsPathForFile(kRoutePointsFile);
-    SCOPE_GUARD(routePointsFileGuard, bind(&FileWriter::DeleteFileX, cref(fileName)));
+    auto const filePath = GetPlatform().SettingsPathForFile(fileName);
+    // define a lambda to delete the file based on deleteAfterLoading
+    auto conditionalDelete = [&]()
+    {
+      if (deleteAfterLoading) FileWriter::DeleteFileX(filePath);
+    };
+    SCOPE_GUARD(routePointsFileGuard, conditionalDelete);
 
     string data;
     try
     {
-      ReaderPtr<Reader>(GetPlatform().GetReader(fileName)).ReadAsString(data);
+      ReaderPtr<Reader>(GetPlatform().GetReader(filePath)).ReadAsString(data);
     }
     catch (RootException const & ex)
     {
@@ -1437,22 +1465,30 @@ void RoutingManager::LoadRoutePoints(LoadRouteHandler const & handler)
   });
 }
 
-void RoutingManager::SaveRoutePoints()
+void RoutingManager::SaveUserRoutePoints(string const fileName) {
+  SaveRoutePoints(kUserRoutesFolder + fileName + ".dat", false);
+}
+
+void RoutingManager::SaveRoutePoints() {
+  SaveRoutePoints(kRoutePointsFile, true);
+}
+
+void RoutingManager::SaveRoutePoints(string const fileName, bool const keepReplaceWithMyPositionAfterRestart)
 {
   auto points = GetRoutePointsToSave();
   if (points.empty())
   {
-    DeleteSavedRoutePoints();
+    DeleteSavedRoutePoints(fileName);
     return;
   }
 
-  GetPlatform().RunTask(Platform::Thread::File, [points = std::move(points)]()
+  GetPlatform().RunTask(Platform::Thread::File, [points = std::move(points), fileName, keepReplaceWithMyPositionAfterRestart]()
   {
     try
     {
-      auto const fileName = GetPlatform().SettingsPathForFile(kRoutePointsFile);
-      FileWriter writer(fileName);
-      string const pointsData = SerializeRoutePoints(points);
+      auto const filePath = GetPlatform().SettingsPathForFile(fileName);
+      FileWriter writer(filePath);
+      string const pointsData = SerializeRoutePoints(points, keepReplaceWithMyPositionAfterRestart);
       writer.Write(pointsData.c_str(), pointsData.length());
     }
     catch (RootException const & ex)
@@ -1501,16 +1537,58 @@ void RoutingManager::OnExtrapolatedLocationUpdate(location::GpsInfo const & info
                          routeMatchingInfo);
 }
 
+void RoutingManager::DeleteUserRoute(string const fileName)
+{
+  DeleteSavedRoutePoints(kUserRoutesFolder + fileName + ".dat");
+}
+
 void RoutingManager::DeleteSavedRoutePoints()
 {
-  if (!HasSavedRoutePoints())
+  DeleteSavedRoutePoints(kRoutePointsFile);
+}
+
+void RoutingManager::DeleteSavedRoutePoints(string const fileName)
+{
+  if (!HasSavedRoutePoints(fileName))
     return;
 
-  GetPlatform().RunTask(Platform::Thread::File, []()
+  GetPlatform().RunTask(Platform::Thread::File, [fileName = fileName]()
   {
-    auto const fileName = GetPlatform().SettingsPathForFile(kRoutePointsFile);
-    FileWriter::DeleteFileX(fileName);
+    auto const filePath = GetPlatform().SettingsPathForFile(fileName);
+    FileWriter::DeleteFileX(filePath);
   });
+}
+
+void RoutingManager::RenameUserRoute(string const oldFileName, string const newFileName)
+{
+  if (!HasSavedRoutePoints(kUserRoutesFolder + oldFileName + ".dat"))
+    return;
+
+  if (HasSavedRoutePoints(kUserRoutesFolder + newFileName + ".dat"))
+    return;
+
+  GetPlatform().RunTask(Platform::Thread::File, [oldFileName = kUserRoutesFolder + oldFileName + ".dat" ,
+                                                 newFileName = kUserRoutesFolder + newFileName + ".dat"]()
+                        {
+                          auto const oldPath = GetPlatform().SettingsPathForFile(oldFileName);
+                          auto const newPath = GetPlatform().SettingsPathForFile(newFileName);
+                          base::RenameFileX(oldPath, newPath);
+                        });
+}
+
+vector<string> RoutingManager::getUserRoutes()
+{
+  vector<string> routeNames;
+  GetPlatform().GetFilesByExt(GetPlatform().SettingsPathForFile(kUserRoutesFolder), ".dat", routeNames);
+
+  for(auto name : routeNames)
+  {
+    size_t idx = name.rfind(".dat");
+    if (idx == string::npos)
+      continue;
+    name.erase(idx, 4); // erase file extension from the string
+  }
+  return routeNames/*TODO find out how this return value is able to be interpreted in java*/;
 }
 
 void RoutingManager::UpdatePreviewMode()
