@@ -741,6 +741,28 @@ static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType) {
     [self notifyObserversOnCategoryUpdated:currentGroupId];
 }
 
+- (void)recoverBookmark:(MWMMarkID)bookmarkId {
+  Bookmark * bookmark = self.bm.GetEditSession().RecoverRecentlyDeletedBookmark(bookmarkId);
+  if (bookmark)
+    [self notifyObserversOnCategoryUpdated:bookmark->GetGroupId()];
+}
+
+- (void)removeBookmarkFromRecentlyDeleted:(MWMMarkID)bookmarkId
+{
+  self.bm.RemoveBookmarkFromRecentlyDeleted(bookmarkId);
+}
+
+- (void)recoverTrack:(MWMTrackID)trackId {
+  Track * track = self.bm.GetEditSession().RecoverRecentlyDeletedTrack(trackId);
+  if (track)
+    [self notifyObserversOnCategoryUpdated:track->GetGroupId()];
+}
+
+- (void)removeTrackFromRecentlyDeleted:(MWMTrackID)trackId
+{
+  self.bm.RemoveTrackFromRecentlyDeleted(trackId);
+}
+
 - (void)updateTrack:(MWMTrackID)trackId
          setGroupId:(MWMMarkGroupID)groupId
               color:(UIColor *)color
