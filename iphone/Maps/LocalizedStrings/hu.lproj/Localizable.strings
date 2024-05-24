@@ -1298,6 +1298,33 @@
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Menü link";
 
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "iCloud-szinkronizálás engedélyezése";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "Az iCloud-szinkronizálás egy fejlesztés alatt álló kísérleti funkció. Győződjön meg róla, hogy készített biztonsági másolatot az összes könyvjelzőjéről és zeneszámáról.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "Az iCloud letiltva";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "A funkció használatához engedélyezze az iCloudot a készülék beállításaiban.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Engedélyezze a";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Biztonsági mentés";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Hiba: A szinkronizálás sikertelen volt a kapcsolat hibája miatt.";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Hiba: iCloud-kvóta túllépése miatt nem sikerült szinkronizálni.";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Hiba: Az iCloud nem elérhető";
+
 
 /********** Types **********/
 

@@ -1298,6 +1298,33 @@
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "メニューリンク";
 
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "iCloud同期を有効にする";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "iCloud同期は開発中の実験的機能である。すべてのブックマークとトラックのバックアップをとっておくこと。";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloudが無効になっている";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "この機能を使うには、デバイスの設定でiCloudを有効にしてほしい。";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "有効にする";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "バックアップ";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "エラー：接続エラーにより同期に失敗した";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "エラー：iCloudのクォータが超過したため、同期に失敗しました。";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "エラー：iCloudが利用できない";
+
 
 /********** Types **********/
 

@@ -1298,6 +1298,33 @@
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Kiungo cha menyu";
 
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Washa Usawazishaji wa iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "Usawazishaji wa iCloud ni kipengele cha majaribio kinachoendelezwa. Hakikisha kuwa umefanya nakala rudufu ya alamisho na nyimbo zako zote.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud Imezimwa";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Tafadhali wezesha iCloud katika mipangilio ya kifaa chako ili kutumia kipengele hiki.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Wezesha";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Hifadhi nakala";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Hitilafu: Imeshindwa kusawazisha kwa sababu ya hitilafu ya muunganisho";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Hitilafu: Imeshindwa kusawazisha kwa sababu ya mgao wa iCloud uliozidishwa";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Hitilafu: iCloud haipatikani";
+
 
 /********** Types **********/
 

@@ -1298,6 +1298,33 @@
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Tautan menu";
 
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Mengaktifkan Sinkronisasi iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "Sinkronisasi iCloud adalah fitur eksperimental yang sedang dikembangkan. Pastikan Anda telah membuat cadangan semua penanda dan lagu Anda.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud Dinonaktifkan";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Aktifkan iCloud di pengaturan perangkat Anda untuk menggunakan fitur ini.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Aktifkan";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Cadangan";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Kesalahan: Gagal menyinkronkan karena kesalahan koneksi";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Kesalahan: Gagal menyinkronkan karena kuota iCloud terlampaui";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Kesalahan: iCloud tidak tersedia";
+
 
 /********** Types **********/
 
