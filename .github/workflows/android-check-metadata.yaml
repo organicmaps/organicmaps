@@ -15,6 +15,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            android
+            tools/python/check_store_metadata.py
 
       - name: Check metadata
         run: ./tools/python/check_store_metadata.py android
