@@ -7,7 +7,9 @@ public enum CoordinatesFormat
   OLCFull(2, "OLC", false),           // Open location code, full format
   OSMLink(3, "osm.org", false),       // Link to the OSM. E.g. https://osm.org/go/xcXjyqQlq-?m=
   UTM(4, "UTM", true),                // Universal Transverse Mercator
-  MGRS(5, "MGRS", true);              // Military Grid Reference System
+  MGRS(5, "MGRS", true),              // Military Grid Reference System
+  GeoUri(6, "geo", false),            // geo: link, e.g. geo:37.786971,-122.399677
+  Ge0Url(7, "omaps.app", false);      // Organic Maps deep link, e.g. https://omaps.app/o4B4pYZsRs
 
   private final int id;
   private final String label;

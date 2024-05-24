@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "ge0/url_generator.hpp"
+#include "ge0/geo_url_parser.hpp"
 
 #include <string>
 
@@ -9,6 +10,7 @@ using namespace std;
 namespace
 {
 int const kTestCoordBytes = 9;
+double const kEps = 1e-10;
 }  // namespace
 
 namespace ge0
@@ -253,90 +255,109 @@ UNIT_TEST(LatLonToString_StringDensity)
 UNIT_TEST(GenerateShortShowMapUrl_SmokeTest)
 {
   string res = GenerateShortShowMapUrl(0, 0, 19, "Name");
-  TEST_EQUAL("om://8wAAAAAAAA/Name", res, ());
+  TEST_EQUAL("https://omaps.app/8wAAAAAAAA/Name", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_NameIsEmpty)
 {
   string res = GenerateShortShowMapUrl(0, 0, 19, "");
-  TEST_EQUAL("om://8wAAAAAAAA", res, ());
+  TEST_EQUAL("https://omaps.app/8wAAAAAAAA", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_ZoomVerySmall)
 {
   string res = GenerateShortShowMapUrl(0, 0, 2, "Name");
-  TEST_EQUAL("om://AwAAAAAAAA/Name", res, ());
+  TEST_EQUAL("https://omaps.app/AwAAAAAAAA/Name", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_ZoomNegative)
 {
   string res = GenerateShortShowMapUrl(0, 0, -5, "Name");
-  TEST_EQUAL("om://AwAAAAAAAA/Name", res, ());
+  TEST_EQUAL("https://omaps.app/AwAAAAAAAA/Name", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_ZoomLarge)
 {
   string res = GenerateShortShowMapUrl(0, 0, 20, "Name");
-  TEST_EQUAL("om://_wAAAAAAAA/Name", res, ());
+  TEST_EQUAL("https://omaps.app/_wAAAAAAAA/Name", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_ZoomVeryLarge)
 {
   string res = GenerateShortShowMapUrl(0, 0, 2000000000, "Name");
-  TEST_EQUAL("om://_wAAAAAAAA/Name", res, ());
+  TEST_EQUAL("https://omaps.app/_wAAAAAAAA/Name", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_FractionalZoom)
 {
   string res = GenerateShortShowMapUrl(0, 0, 8.25, "Name");
-  TEST_EQUAL("om://RwAAAAAAAA/Name", res, ());
+  TEST_EQUAL("https://omaps.app/RwAAAAAAAA/Name", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_FractionalZoomRoundsDown)
 {
   string res = GenerateShortShowMapUrl(0, 0, 8.499, "Name");
-  TEST_EQUAL("om://RwAAAAAAAA/Name", res, ());
+  TEST_EQUAL("https://omaps.app/RwAAAAAAAA/Name", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_FractionalZoomNextStep)
 {
   string res = GenerateShortShowMapUrl(0, 0, 8.5, "Name");
-  TEST_EQUAL("om://SwAAAAAAAA/Name", res, ());
+  TEST_EQUAL("https://omaps.app/SwAAAAAAAA/Name", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_SpaceIsReplacedWithUnderscore)
 {
   string res = GenerateShortShowMapUrl(0, 0, 19, "Hello World");
-  TEST_EQUAL("om://8wAAAAAAAA/Hello_World", res, ());
+  TEST_EQUAL("https://omaps.app/8wAAAAAAAA/Hello_World", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_NamesAreEscaped)
 {
   string res = GenerateShortShowMapUrl(0, 0, 19, "'Hello,World!%$");
-  TEST_EQUAL("om://8wAAAAAAAA/%27Hello%2CWorld%21%25%24", res, ());
+  TEST_EQUAL("https://omaps.app/8wAAAAAAAA/%27Hello%2CWorld%21%25%24", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_UnderscoreIsReplacedWith_Percent_20)
 {
   string res = GenerateShortShowMapUrl(0, 0, 19, "Hello_World");
-  TEST_EQUAL("om://8wAAAAAAAA/Hello%20World", res, ());
+  TEST_EQUAL("https://omaps.app/8wAAAAAAAA/Hello%20World", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_ControlCharsAreEscaped)
 {
   string res = GenerateShortShowMapUrl(0, 0, 19, "Hello\tWorld\n");
-  TEST_EQUAL("om://8wAAAAAAAA/Hello%09World%0A", res, ());
+  TEST_EQUAL("https://omaps.app/8wAAAAAAAA/Hello%09World%0A", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_Unicode)
 {
   string res = GenerateShortShowMapUrl(0, 0, 19, "\xe2\x98\x84");
-  TEST_EQUAL("om://8wAAAAAAAA/\xe2\x98\x84", res, ());
+  TEST_EQUAL("https://omaps.app/8wAAAAAAAA/\xe2\x98\x84", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_UnicodeMixedWithOtherChars)
 {
   string res = GenerateShortShowMapUrl(0, 0, 19, "Back_in \xe2\x98\x84!\xd1\x8e\xd0\xbc");
-  TEST_EQUAL("om://8wAAAAAAAA/Back%20in_\xe2\x98\x84%21\xd1\x8e\xd0\xbc", res, ());
+  TEST_EQUAL("https://omaps.app/8wAAAAAAAA/Back%20in_\xe2\x98\x84%21\xd1\x8e\xd0\xbc", res, ());
 }
+
+UNIT_TEST(GenerateGeoUri_SmokeTest)
+{
+  string res = GenerateGeoUri(33.8904075, 35.5066454, 16.5, "Falafel M. Sahyoun");
+  TEST_EQUAL("geo:33.8904075,35.5066454?z=16.5(Falafel%20M.%20Sahyoun)", res, ());
+
+
+  // geo:33.8904075,35.5066454?z=16.5(Falafel%20M.%20Sahyoun)
+  // geo:33.890408,35.506645?z=16.5(Falafel%20M.%20Sahyoun)
+
+  geo::GeoURLInfo info;
+  geo::GeoParser parser;
+  TEST(parser.Parse(res, info), ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lat, 33.8904075, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lon, 35.5066454, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 16.5, kEps, ());
+  TEST_EQUAL(info.m_label, "Falafel M. Sahyoun", ());
+}
+
 }  // namespace ge0
