@@ -265,6 +265,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onRenderingInitializationFinished()
   {
     ThemeSwitcher.INSTANCE.restart(true);
+
     if (RoutingController.get().isPlanning())
       onPlanningStarted();
     else if (RoutingController.get().isNavigating())

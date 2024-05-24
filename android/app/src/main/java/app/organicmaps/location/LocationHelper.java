@@ -1,5 +1,8 @@
 package app.organicmaps.location;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -13,6 +16,7 @@ import androidx.annotation.UiThread;
 import androidx.core.content.ContextCompat;
 import androidx.core.location.GnssStatusCompat;
 import androidx.core.location.LocationManagerCompat;
+
 import app.organicmaps.Framework;
 import app.organicmaps.Map;
 import app.organicmaps.MwmApplication;
@@ -27,9 +31,6 @@ import app.organicmaps.util.log.Logger;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
-
-import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
-import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 public class LocationHelper implements BaseLocationProvider.Listener
 {
@@ -230,7 +231,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   {
     // Try to downgrade to the native provider first and restart the service before notifying the user.
     Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() + " is not supported," +
-         " downgrading to use native provider");
+        " downgrading to use native provider");
     mLocationProvider.stop();
     mLocationProvider = new AndroidNativeProvider(mContext, this);
     mActive = true;
@@ -292,6 +293,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   {
     if (RoutingController.get().isNavigating())
       return INTERVAL_NAVIGATION_MS;
+
     if (TrackRecorder.nativeIsEnabled())
       return INTERVAL_TRACK_RECORDING;
 
@@ -380,9 +382,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   {
     Logger.i(TAG, "Location helper knows app came in foreground");
     if (isActive())
-    {
       return;
-    }
     else if (!Map.isEngineCreated())
     {
       // LocationState.nativeGetMode() is initialized only after drape creation.
@@ -400,6 +400,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
       Logger.i(TAG, "Permissions ACCESS_FINE_LOCATION and ACCESS_COARSE_LOCATION are not granted");
       return;
     }
+
     start();
   }
 
