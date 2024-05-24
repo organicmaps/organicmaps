@@ -346,8 +346,8 @@ public class MwmApplication extends Application implements Application.ActivityL
   private void onForeground()
   {
     Logger.d(TAG);
-    mLocationHelper.onAppForeground();
     nativeOnTransit(true);
+    mLocationHelper.onAppForeground();
   }
 
   private void onBackground()
@@ -355,7 +355,7 @@ public class MwmApplication extends Application implements Application.ActivityL
     Logger.d(TAG);
 
     nativeOnTransit(false);
-    mLocationHelper.onAppBackground();
+
     OsmUploadWork.startActionUploadOsmChanges(this);
 
     if (!mDisplayManager.isDeviceDisplayUsed())
@@ -364,9 +364,8 @@ public class MwmApplication extends Application implements Application.ActivityL
       Logger.i(LOCATION_TAG, "Navigation is in progress, keeping location in the background");
     else if (!Map.isEngineCreated() || LocationState.getMode() == LocationState.PENDING_POSITION)
       Logger.i(LOCATION_TAG, "PENDING_POSITION mode, keeping location in the background");
-    else if(TrackRecorder.nativeIsEnabled()){
-      Logger.i(LOCATION_TAG,"Recent Track Recorder is running in background");
-    }
+    else if (TrackRecorder.nativeIsEnabled())
+      Logger.i(LOCATION_TAG, "Recent Track Recorder is running in background");
     else
     {
       Logger.i(LOCATION_TAG, "Stopping location in the background");

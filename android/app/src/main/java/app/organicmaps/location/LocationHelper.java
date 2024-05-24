@@ -36,7 +36,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   private static final long INTERVAL_FOLLOW_MS = 0;
   private static final long INTERVAL_NOT_FOLLOW_MS = 3000;
   private static final long INTERVAL_NAVIGATION_MS = 0;
-  private static final long INTERVAL_TRACK_RECORDING_BACKGROUND = 1000;
+  private static final long INTERVAL_TRACK_RECORDING = 0;
 
   private static final long AGPS_EXPIRATION_TIME_MS = 16 * 60 * 60 * 1000; // 16 hours
 
@@ -54,8 +54,6 @@ public class LocationHelper implements BaseLocationProvider.Listener
   private long mInterval;
   private boolean mInFirstRun;
   private boolean mActive;
-
-  private boolean mAppInForeground;
 
   @NonNull
   private final GnssStatusCompat.Callback mGnssStatusCallback = new GnssStatusCompat.Callback()
@@ -81,7 +79,6 @@ public class LocationHelper implements BaseLocationProvider.Listener
     @Override
     public void onSatelliteStatusChanged(@NonNull GnssStatusCompat status)
     {
-      Logger.d(TAG,"value of interval "+ mInterval);
       int used = 0;
       boolean fixed = false;
       for (int i = 0; i < status.getSatelliteCount(); i++)
@@ -147,7 +144,6 @@ public class LocationHelper implements BaseLocationProvider.Listener
 
   private void notifyLocationUpdated()
   {
-    Logger.i(TAG, "Location updated");
     if (mSavedLocation == null)
       throw new IllegalStateException("No saved location");
 
@@ -162,7 +158,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
       Logger.d(TAG, "Location update is obtained and must be ignored, because the app is in a first run mode");
       return;
     }
-    Logger.i(TAG, "Location sent to native");
+
     LocationState.nativeLocationUpdated(mSavedLocation.getTime(),
         mSavedLocation.getLatitude(),
         mSavedLocation.getLongitude(),
@@ -176,7 +172,6 @@ public class LocationHelper implements BaseLocationProvider.Listener
   public void onLocationChanged(@NonNull Location location)
   {
     Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() + " location = " + location);
-    Logger.d(TAG,"value of interval "+ mInterval);
 
     if (!isActive())
     {
@@ -297,8 +292,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
   {
     if (RoutingController.get().isNavigating())
       return INTERVAL_NAVIGATION_MS;
-    if (!mAppInForeground && TrackRecorder.nativeIsEnabled())
-      return INTERVAL_TRACK_RECORDING_BACKGROUND;
+    if (TrackRecorder.nativeIsEnabled())
+      return INTERVAL_TRACK_RECORDING;
 
     final int mode = Map.isEngineCreated() ? LocationState.getMode() : LocationState.NOT_FOLLOW_NO_POSITION;
     return switch (mode)
@@ -383,11 +378,10 @@ public class LocationHelper implements BaseLocationProvider.Listener
    */
   public void onAppForeground()
   {
-    mAppInForeground = true;
     Logger.i(TAG, "Location helper knows app came in foreground");
     if (isActive())
     {
-      if (LocationUtils.checkLocationPermission(mContext)) restartWithNewMode();
+      return;
     }
     else if (!Map.isEngineCreated())
     {
@@ -407,14 +401,6 @@ public class LocationHelper implements BaseLocationProvider.Listener
       return;
     }
     start();
-  }
-
-  public void onAppBackground()
-  {
-    mAppInForeground = false;
-    Logger.i(TAG, "Location helper knows app went in background");
-    if (LocationUtils.checkLocationPermission(mContext)) restartWithNewMode();
-    Logger.i(TAG, "new interval is " + mInterval);
   }
 
   private void checkForAgpsUpdates()

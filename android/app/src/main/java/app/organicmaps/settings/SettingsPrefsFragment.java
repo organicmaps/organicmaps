@@ -80,30 +80,29 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     else
     {
       mRecordTime.setValue(Integer.toString(Config.getRecentTrackRecorderDuration()));
-      mRecordTime.setSummary(Config.getRecentTrackRecorderDuration() + getString(R.string.hour_recent_track));
+      mRecordTime.setSummary(Config.getRecentTrackRecorderDuration() + " " + getString(R.string.hour_recent_track));
     }
+
     mRecordTime.setOnPreferenceChangeListener((preference, newValue) -> {
-      if (newValue == null)
+
+      int newVal = Integer.parseInt((String) newValue);
+
+      if (newVal == Config.getRecentTrackRecorderDuration())
         return false;
 
-      String newVal = (String) newValue;
-
-      if (newVal.equals(Integer.toString(Config.getRecentTrackRecorderDuration())))
-        return false;
-
-      if (newVal.equals("0"))
+      if (newVal == 0)
       {
         mTrackRecorder.stopTrackRecording();
-        Config.setRecentTrackRecorderDuration(Integer.parseInt(newVal));
+        Config.setRecentTrackRecorderDuration(newVal);
         mRecordTime.setSummary(getString(R.string.off));
         return true;
       }
 
-      int hours = Integer.parseInt(newVal);
-      Config.setRecentTrackRecorderDuration(hours);
-      if (!Config.getRecentTrackRecorderState()) Config.setRecentTrackRecorderState(true);
+      Config.setRecentTrackRecorderDuration(newVal);
+      if (!Config.getRecentTrackRecorderState())
+        Config.setRecentTrackRecorderState(true);
       mTrackRecorder.startTrackRecording();
-      mRecordTime.setSummary(newVal + getString(R.string.hour_recent_track));
+      mRecordTime.setSummary(newVal + " " + getString(R.string.hour_recent_track));
       return true;
     });
   }

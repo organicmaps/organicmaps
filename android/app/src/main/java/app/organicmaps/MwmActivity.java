@@ -274,7 +274,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (Config.getRecentTrackRecorderState() && LocationUtils.checkLocationPermission(this))
     {
-      mTrackRecorder.startTrackRecording();
+      onTrackRecordingStarted();
     }
 
     processIntent();

@@ -42,8 +42,11 @@ public class TrackRecordingService extends Service implements LocationListener
   @RequiresPermission(value = ACCESS_FINE_LOCATION)
   public static void startForegroundService(@NonNull Context context)
   {
-    if (!TrackRecorder.nativeIsEnabled()) TrackRecorder.nativeSetEnabled(true);
     TrackRecorder.nativeSetDuration(Config.getRecentTrackRecorderDuration());
+    if (!TrackRecorder.nativeIsEnabled())
+      TrackRecorder.nativeSetEnabled(true);
+
+    LocationHelper.from(context).restartWithNewMode();
     ContextCompat.startForegroundService(context, new Intent(context, TrackRecordingService.class));
   }
 
@@ -90,7 +93,10 @@ public class TrackRecordingService extends Service implements LocationListener
   public static void stopService(@NonNull Context context)
   {
     Logger.i(TAG);
-    if (TrackRecorder.nativeIsEnabled()) TrackRecorder.nativeSetEnabled(false);
+    if (TrackRecorder.nativeIsEnabled())
+      TrackRecorder.nativeSetEnabled(false);
+
+    Config.setRecentTrackRecorderState(false);
     context.stopService(new Intent(context, TrackRecordingService.class));
   }
 
@@ -99,8 +105,6 @@ public class TrackRecordingService extends Service implements LocationListener
   {
     mNotificationBuilder = null;
     LocationHelper.from(this).removeListener(this);
-    if(TrackRecorder.nativeIsEnabled()) TrackRecorder.nativeSetEnabled(false);
-    Config.setRecentTrackRecorderState(false);
     // The notification is cancelled automatically by the system.
   }
 

@@ -283,8 +283,11 @@ public final class Config
   public static void setRecentTrackRecorderDuration(int value)
   {
     nativeSetInt(KEY_RECENT_TRACK_RECORDER_DURATION, value);
-    if(value!=0) TrackRecorder.nativeSetDuration(value);
-    else setRecentTrackRecorderState(false);
+
+    if(value!=0)
+      TrackRecorder.nativeSetDuration(value);
+    else
+      setRecentTrackRecorderState(false);
   }
 
   public static boolean setUiThemeSettings(@NonNull Context context, String theme)

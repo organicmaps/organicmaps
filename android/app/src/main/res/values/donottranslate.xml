@@ -25,6 +25,7 @@
   <string name="pref_tts_info_link" translatable="false">TtsInfoLink</string>
   <string name="pref_tts_speed_cameras" translatable="false">SpeedCameras</string>
   <string name="pref_recent_track" translatable="false">RecentTrackRecorder</string>
+  <string name="recent_track_recording">Recent Track Recording</string>
   <!-- TODO: Move to another domain. -->
   <string name="tts_info_link" translatable="false">https://mapsme.zendesk.com/hc/en-us/articles/208628985-How-can-I-check-TTS-settings-on-my-Android-device-</string>
   <string name="prefs_routing" translatable="false">RoutingOptions</string>
