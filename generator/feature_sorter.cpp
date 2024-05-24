@@ -318,10 +318,7 @@ private:
     explicit TmpFile(std::string const & filePath)
       : m_writer(std::make_unique<FileWriter>(filePath)) {}
 
-    FileWriter & GetWriter()
-    {
-      return *m_writer;
-    }
+    FileWriter & GetWriter() { return *m_writer; }
 
     ~TmpFile()
     {
