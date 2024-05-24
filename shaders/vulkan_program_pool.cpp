@@ -12,6 +12,7 @@
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
+#include <algorithm>
 #include <cstdint>
 #include <map>
 #include <string>
@@ -24,6 +25,7 @@ namespace vulkan
 namespace
 {
 int8_t constexpr kInvalidBindingIndex = -1;
+uint32_t constexpr kMaxUniformBuffers = 1;
 
 std::string const kShadersDir = "vulkan_shaders";
 std::string const kShadersReflecton = "reflection.json";
@@ -120,13 +122,18 @@ std::map<uint8_t, ReflectionData> ReadReflectionFile(std::string const & filenam
   for (auto & d : reflectionFile.m_reflectionData)
   {
     auto const index = d.m_programIndex;
+    std::sort(d.m_info.m_textures.begin(), d.m_info.m_textures.end(),
+              [](auto const & a, auto const & b) {
+                return a.m_index < b.m_index;
+              });
     result.insert(std::make_pair(index, std::move(d)));
   }
 
   return result;
 }
 
-std::vector<VkDescriptorSetLayoutBinding> GetLayoutBindings(ReflectionInfo const & reflectionInfo)
+std::vector<VkDescriptorSetLayoutBinding> GetLayoutBindings(ReflectionInfo const & reflectionInfo,
+                                                            uint32_t maxTextureBindings)
 {
   std::vector<VkDescriptorSetLayoutBinding> result;
 
@@ -171,6 +178,22 @@ std::vector<VkDescriptorSetLayoutBinding> GetLayoutBindings(ReflectionInfo const
     result.push_back(std::move(textureBinding));
   }
 
+  // Add empty bindings for unused texture slots.
+  uint32_t bindingIndex = 1;
+  if (!reflectionInfo.m_textures.empty())
+    bindingIndex = static_cast<uint32_t>(reflectionInfo.m_textures.back().m_index) + 1;
+
+  for (uint32_t i = static_cast<uint32_t>(reflectionInfo.m_textures.size());
+       i < maxTextureBindings; ++i)
+  {
+    VkDescriptorSetLayoutBinding emptyBinding = {};
+    emptyBinding.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    emptyBinding.binding = bindingIndex++;
+    emptyBinding.descriptorCount = 1;
+    emptyBinding.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
+    result.push_back(std::move(emptyBinding));
+  }
+
   return result;
 }
 
@@ -205,12 +228,21 @@ VulkanProgramPool::VulkanProgramPool(ref_ptr<dp::GraphicsContext> context)
 
   for (size_t i = 0; i < static_cast<size_t>(Program::ProgramsCount); ++i)
   {
+    m_maxImageSamplers = std::max(m_maxImageSamplers, 
+                                  static_cast<uint32_t>(reflection[i].m_info.m_textures.size()));
+  }
+
+  for (size_t i = 0; i < static_cast<size_t>(Program::ProgramsCount); ++i)
+  {
     auto const & refl = reflection[i];
     m_programData[i].m_vertexShader = LoadShaderModule(device, packFileData,
                                                        refl.m_vsOffset, refl.m_vsSize);
     m_programData[i].m_fragmentShader = LoadShaderModule(device, packFileData,
                                                          refl.m_fsOffset, refl.m_fsSize);
-    auto bindings = GetLayoutBindings(refl.m_info);
+    auto bindings = GetLayoutBindings(refl.m_info, m_maxImageSamplers);
+    CHECK(bindings.size() == kMaxUniformBuffers + m_maxImageSamplers, 
+          ("Incorrect bindings count."));
+
     VkDescriptorSetLayoutCreateInfo descriptorLayout  = {};
     descriptorLayout.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
     descriptorLayout.pBindings = bindings.data();
@@ -274,6 +306,16 @@ drape_ptr<dp::GpuProgram> VulkanProgramPool::Get(Program program)
                                                       d.m_descriptorSetLayout,
                                                       d.m_pipelineLayout,
                                                       d.m_textureBindings);
+}
+
+uint32_t VulkanProgramPool::GetMaxUniformBuffers() const
+{
+  return kMaxUniformBuffers;
+}
+
+uint32_t VulkanProgramPool::GetMaxImageSamplers() const
+{
+  return m_maxImageSamplers;
 }
 }  // namespace vulkan
 }  // namespace gpu

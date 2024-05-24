@@ -51,8 +51,6 @@ VulkanObjectManager::VulkanObjectManager(VkDevice device, VkPhysicalDeviceLimits
 
   for (auto & descriptorsToDestroy : m_descriptorsToDestroy)
     descriptorsToDestroy.reserve(kAvgDestroyCount);
-
-  CreateDescriptorPool();
 }
 
 VulkanObjectManager::~VulkanObjectManager()
@@ -190,34 +188,36 @@ DescriptorSetGroup VulkanObjectManager::CreateDescriptorSetGroup(ref_ptr<VulkanG
 {
   CHECK(std::this_thread::get_id() == m_renderers[ThreadType::Frontend], ());
 
-  CHECK(!m_descriptorPools.empty(), ());
-
   DescriptorSetGroup s;
   VkDescriptorSetLayout layout = program->GetDescriptorSetLayout();
   VkDescriptorSetAllocateInfo allocInfo = {};
+
+  // Find a pool with available sets.
+  uint32_t poolIndex = 0;
+  while (poolIndex < m_descriptorPools.size() &&
+         m_descriptorPools[poolIndex].m_availableSetsCount == 0)
+  {
+    ++poolIndex;
+  }
+
+  // No such a pool, create one.
+  if (poolIndex == m_descriptorPools.size())
+  {
+    CreateDescriptorPool();
+    poolIndex = m_descriptorPools.size() - 1;
+  }
+
+  // Allocate a descriptor set.
   allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-  allocInfo.descriptorPool = s.m_descriptorPool = m_descriptorPools.front();
+  allocInfo.descriptorPool = m_descriptorPools[poolIndex].m_pool;
+  s.m_descriptorPoolIndex = poolIndex;
   allocInfo.pSetLayouts = &layout;
   allocInfo.descriptorSetCount = 1;
 
-  auto result = vkAllocateDescriptorSets(m_device, &allocInfo, &s.m_descriptorSet);
-  if (result != VK_SUCCESS)
-  {
-    for (size_t i = 1; i < m_descriptorPools.size(); ++i)
-    {
-      allocInfo.descriptorPool = s.m_descriptorPool = m_descriptorPools[i];
-      result = vkAllocateDescriptorSets(m_device, &allocInfo, &s.m_descriptorSet);
-      if (result == VK_SUCCESS)
-        break;
-    }
+  // Decrease the available sets count.
+  m_descriptorPools[poolIndex].m_availableSetsCount--;
 
-    if (s.m_descriptorSet == VK_NULL_HANDLE)
-    {
-      CreateDescriptorPool();
-      allocInfo.descriptorPool = s.m_descriptorPool = m_descriptorPools.back();
-      CHECK_VK_CALL(vkAllocateDescriptorSets(m_device, &allocInfo, &s.m_descriptorSet));
-    }
-  }
+  CHECK_VK_CALL(vkAllocateDescriptorSets(m_device, &allocInfo, &s.m_descriptorSet));
   return s;
 }
 
@@ -255,8 +255,10 @@ void VulkanObjectManager::CollectDescriptorSetGroupsUnsafe(DescriptorSetGroupArr
 {
   for (auto const & d : descriptors)
   {
-    CHECK_VK_CALL(vkFreeDescriptorSets(m_device, d.m_descriptorPool,
+    CHECK_LESS(d.m_descriptorPoolIndex, m_descriptorPools.size(), ());
+    CHECK_VK_CALL(vkFreeDescriptorSets(m_device, m_descriptorPools[d.m_descriptorPoolIndex].m_pool,
                                        1 /* count */, &d.m_descriptorSet));
+    m_descriptorPools[d.m_descriptorPoolIndex].m_availableSetsCount++;
   }
   descriptors.clear();
 }
@@ -317,6 +319,16 @@ void VulkanObjectManager::DestroyObjectUnsafe(VulkanObject object)
   CollectObjectsImpl(VulkanObjectArray{object});
 }
 
+void VulkanObjectManager::SetMaxUniformBuffers(uint32_t maxUniformBuffers) 
+{ 
+  m_maxUniformBuffers = maxUniformBuffers;
+}
+
+void VulkanObjectManager::SetMaxImageSamplers(uint32_t maxImageSamplers)
+{
+  m_maxImageSamplers = maxImageSamplers;
+}
+
 uint8_t * VulkanObjectManager::MapUnsafe(VulkanObject object)
 {
   CHECK(!object.m_allocation->m_memoryBlock->m_isBlocked, ());
@@ -368,15 +380,15 @@ void VulkanObjectManager::Fill(VulkanObject object, void const * data, uint32_t 
 
 void VulkanObjectManager::CreateDescriptorPool()
 {
-  // Maximum uniform buffers descriptors count per frame.
-  uint32_t constexpr kMaxUniformBufferDescriptorsCount = 500 * kMaxInflightFrames;
-  // Maximum textures descriptors count per frame.
-  uint32_t constexpr kMaxImageSamplerDescriptorsCount = 1000 * kMaxInflightFrames;
+  // Maximum descriptors sets count in the pool.
+  uint32_t constexpr kMaxDescriptorsSetCount = 256 * kMaxInflightFrames;
 
+  CHECK(m_maxUniformBuffers > 0, ());
+  CHECK(m_maxImageSamplers > 0, ());
   std::vector<VkDescriptorPoolSize> poolSizes =
   {
-    {VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, kMaxUniformBufferDescriptorsCount},
-    {VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, kMaxImageSamplerDescriptorsCount},
+    {VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, m_maxUniformBuffers * kMaxDescriptorsSetCount},
+    {VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, m_maxImageSamplers * kMaxDescriptorsSetCount},
   };
 
   VkDescriptorPoolCreateInfo descriptorPoolInfo = {};
@@ -384,17 +396,19 @@ void VulkanObjectManager::CreateDescriptorPool()
   descriptorPoolInfo.flags = VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT;
   descriptorPoolInfo.poolSizeCount = static_cast<uint32_t>(poolSizes.size());
   descriptorPoolInfo.pPoolSizes = poolSizes.data();
-  descriptorPoolInfo.maxSets = kMaxUniformBufferDescriptorsCount + kMaxImageSamplerDescriptorsCount;
+  descriptorPoolInfo.maxSets = kMaxDescriptorsSetCount;
 
-  VkDescriptorPool descriptorPool;
-  CHECK_VK_CALL(vkCreateDescriptorPool(m_device, &descriptorPoolInfo, nullptr, &descriptorPool));
+  DescriptorPool descriptorPool;
+  CHECK_VK_CALL(vkCreateDescriptorPool(m_device, &descriptorPoolInfo, nullptr, &descriptorPool.m_pool));
+  descriptorPool.m_availableSetsCount = descriptorPoolInfo.maxSets;
+
   m_descriptorPools.push_back(descriptorPool);
 }
 
 void VulkanObjectManager::DestroyDescriptorPools()
 {
   for (auto & pool : m_descriptorPools)
-    vkDestroyDescriptorPool(m_device, pool, nullptr);
+    vkDestroyDescriptorPool(m_device, pool.m_pool, nullptr);
 }
 
 VkSampler VulkanObjectManager::GetSampler(SamplerKey const & key)

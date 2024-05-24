@@ -21,6 +21,9 @@ public:
   void Destroy(ref_ptr<dp::GraphicsContext> context);
   drape_ptr<dp::GpuProgram> Get(Program program) override;
 
+  uint32_t GetMaxUniformBuffers() const;
+  uint32_t GetMaxImageSamplers() const;
+
 private:
   struct ProgramData
   {
@@ -31,6 +34,7 @@ private:
     dp::vulkan::VulkanGpuProgram::TextureBindings m_textureBindings;
   };
   std::array<ProgramData, static_cast<size_t>(Program::ProgramsCount)> m_programData;
+  uint32_t m_maxImageSamplers = 0;
 };
 }  // namespace vulkan
 }  // namespace gpu

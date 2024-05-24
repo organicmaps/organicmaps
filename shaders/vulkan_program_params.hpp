@@ -16,6 +16,8 @@ namespace gpu
 {
 namespace vulkan
 {
+class VulkanProgramPool;
+
 class VulkanProgramParamsSetter : public ProgramParamsSetter
 {
 public:
@@ -24,9 +26,10 @@ public:
     dp::vulkan::VulkanObject m_object;
     uint8_t * m_pointer = nullptr;
     uint32_t m_freeOffset = 0;
-  };
+};
 
-  explicit VulkanProgramParamsSetter(ref_ptr<dp::vulkan::VulkanBaseContext> context);
+  VulkanProgramParamsSetter(ref_ptr<dp::vulkan::VulkanBaseContext> context,
+                            ref_ptr<VulkanProgramPool> programPool);
   ~VulkanProgramParamsSetter() override;
 
   void Destroy(ref_ptr<dp::vulkan::VulkanBaseContext> context);
