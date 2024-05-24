@@ -1,5 +1,7 @@
 package app.organicmaps;
 
+import static app.organicmaps.location.LocationState.LOCATION_TAG;
+
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
@@ -16,11 +18,12 @@ import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
+
 import app.organicmaps.background.OsmUploadWork;
+import app.organicmaps.downloader.DownloaderNotifier;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.display.DisplayManager;
 import app.organicmaps.downloader.CountryItem;
-import app.organicmaps.downloader.DownloaderNotifier;
 import app.organicmaps.downloader.MapManager;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationState;
@@ -49,8 +52,6 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-import static app.organicmaps.location.LocationState.LOCATION_TAG;
-
 public class MwmApplication extends Application implements Application.ActivityLifecycleCallbacks
 {
   @NonNull
@@ -78,6 +79,7 @@ public class MwmApplication extends Application implements Application.ActivityL
 
   private volatile boolean mFrameworkInitialized;
   private volatile boolean mPlatformInitialized;
+
   private Handler mMainLoopHandler;
   private final Object mMainQueueToken = new Object();
   @NonNull
@@ -346,7 +348,9 @@ public class MwmApplication extends Application implements Application.ActivityL
   private void onForeground()
   {
     Logger.d(TAG);
+
     nativeOnTransit(true);
+
     mLocationHelper.onAppForeground();
   }
 
