@@ -740,6 +740,7 @@ private:
   AsyncLoadingCallbacks m_asyncLoadingCallbacks;
   std::atomic<bool> m_needTeardown;
   size_t m_openedEditSessionsCount = 0;
+  bool m_loadBookmarksCalled = false;
   bool m_loadBookmarksFinished = false;
   bool m_firstDrapeNotification = false;
   bool m_notificationsEnabled = true;

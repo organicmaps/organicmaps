@@ -1990,10 +1990,11 @@ BookmarkManager::KMLDataCollectionPtr BookmarkManager::LoadBookmarks(
 void BookmarkManager::LoadBookmarks()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  ClearCategories();
+  CHECK(!m_loadBookmarksCalled, ("LoadBookmarks should be called only once."));
+  m_loadBookmarksCalled = true;
+
   LoadMetadata();
 
-  m_loadBookmarksFinished = false;
   NotifyAboutStartAsyncLoading();
   GetPlatform().RunTask(Platform::Thread::File, [this]()
   {
