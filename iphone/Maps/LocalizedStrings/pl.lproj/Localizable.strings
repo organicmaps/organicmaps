@@ -1298,6 +1298,33 @@
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Link do menu";
 
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Włącz synchronizację iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "Synchronizacja iCloud jest eksperymentalną funkcją w fazie rozwoju. Upewnij się, że wykonałeś kopię zapasową wszystkich zakładek i utworów.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud jest wyłączony";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Aby korzystać z tej funkcji, włącz usługę iCloud w ustawieniach urządzenia.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Włącz";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Kopia zapasowa";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Błąd: Nie udało się zsynchronizować z powodu błędu połączenia";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Błąd: Nie udało się zsynchronizować z powodu przekroczenia limitu iCloud";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Błąd: usługa iCloud jest niedostępna";
+
 
 /********** Types **********/
 

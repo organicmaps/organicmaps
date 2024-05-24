@@ -1298,6 +1298,33 @@
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Odkaz na menu";
 
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Povolenie synchronizácie iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "Synchronizácia s iCloudom je experimentálna funkcia, ktorá je vo vývoji. Uistite sa, že ste si vytvorili zálohu všetkých svojich záložiek a skladieb.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "Služba iCloud je vypnutá";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Ak chcete túto funkciu používať, povoľte iCloud v nastaveniach zariadenia.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Povolenie stránky";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Zálohovanie";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Chyba: Nepodarilo sa synchronizovať z dôvodu chyby pripojenia";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Chyba: Nepodarilo sa synchronizovať z dôvodu prekročenia kvóty iCloudu";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Chyba: iCloud nie je k dispozícii";
+
 
 /********** Types **********/
 

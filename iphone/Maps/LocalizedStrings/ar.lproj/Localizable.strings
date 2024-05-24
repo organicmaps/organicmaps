@@ -1298,6 +1298,33 @@
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "رابط القائمة";
 
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "تمكين مزامنة iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "تعد مزامنة iCloud ميزة تجريبية قيد التطوير. تأكد من عمل نسخة احتياطية لجميع الإشارات المرجعية والمسارات الخاصة بك.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "تم تعطيل iCloud";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "يرجى تمكين iCloud في إعدادات جهازك لاستخدام هذه الميزة.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "يُمكَِن";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "دعم";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "خطأ: فشل المزامنة بسبب خطأ في الاتصال";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "خطأ: فشل في المزامنة بسبب تجاوز حصة iCloud النسبية";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "خطأ: iCloud غير متوفر";
+
 
 /********** Types **********/
 

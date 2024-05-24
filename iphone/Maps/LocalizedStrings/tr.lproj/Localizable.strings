@@ -1298,6 +1298,33 @@
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Menü bağlantısı";
 
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "iCloud Senkronizasyonunu Etkinleştir";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "iCloud senkronizasyonu geliştirme aşamasında olan deneysel bir özelliktir. Tüm yer imlerinizin ve parçalarınızın yedeğini aldığınızdan emin olun.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud Devre Dışı";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Bu özelliği kullanmak için lütfen cihazınızın ayarlarında iCloud'u etkinleştirin.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Etkinleştir";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Yedekleme";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Hata oluştu: Bağlantı hatası nedeniyle senkronizasyon başarısız oldu";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Hata: iCloud kotası aşıldığı için senkronize edilemedi";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Hata: iCloud kullanılamıyor";
+
 
 /********** Types **********/
 

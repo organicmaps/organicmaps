@@ -1298,6 +1298,33 @@
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Enllaç del menú";
 
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Activa la sincronització d'iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "La sincronització d'iCloud és una característica experimental en desenvolupament. Assegureu-vos que heu fet una còpia de seguretat de tots els vostres marcadors i pistes.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud està desactivat";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Activa iCloud a la configuració del teu dispositiu per utilitzar aquesta funció.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Activa";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Còpia de seguretat";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Error: no s'ha pogut sincronitzar a causa d'un error de connexió";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Error: no s'ha pogut sincronitzar perquè s'ha superat la quota d'iCloud";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Error: iCloud no està disponible";
+
 
 /********** Types **********/
 

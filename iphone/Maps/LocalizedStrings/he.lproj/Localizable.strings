@@ -1298,6 +1298,33 @@
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "קישור לתפריט";
 
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "הפעל סנכרון iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "סנכרון iCloud הוא תכונה ניסיונית בפיתוח. ודא שעשית גיבוי של כל הסימניות והרצועות שלך.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud מושבת";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "אנא הפעל את iCloud בהגדרות המכשיר שלך כדי להשתמש בתכונה זו.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "לְאַפשֵׁר";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "גיבוי";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "שגיאה: הסנכרון נכשל עקב שגיאת חיבור";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "שגיאה: הסנכרון נכשל עקב חריגה ממכסת iCloud";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "שגיאה: iCloud אינו זמין";
+
 
 /********** Types **********/
 

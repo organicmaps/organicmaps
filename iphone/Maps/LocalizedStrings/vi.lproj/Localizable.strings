@@ -1298,6 +1298,33 @@
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Liên kết thực đơn";
 
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Kích hoạt đồng bộ hóa iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "Đồng bộ hóa iCloud là một tính năng thử nghiệm đang được phát triển. Đảm bảo rằng bạn đã tạo bản sao lưu tất cả dấu trang và bản nhạc của mình.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud bị vô hiệu hóa";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Vui lòng bật iCloud trong cài đặt thiết bị của bạn để sử dụng tính năng này.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Cho phép";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Hỗ trợ";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Lỗi: Không đồng bộ được do lỗi kết nối";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Lỗi: Không thể đồng bộ hóa do vượt quá hạn ngạch iCloud";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Lỗi: iCloud không khả dụng";
+
 
 /********** Types **********/
 

@@ -1298,6 +1298,33 @@
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "मेनू लिंक";
 
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "iCloud सिंक्रोनाइझेशन सक्षम करा";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "iCloud सिंक्रोनाइझेशन हे विकासाधीन प्रायोगिक वैशिष्ट्य आहे. तुम्ही तुमच्या सर्व बुकमार्क्स आणि ट्रॅकचा बॅकअप घेतला असल्याची खात्री करा.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud अक्षम आहे";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "कृपया हे वैशिष्ट्य वापरण्यासाठी तुमच्या डिव्हाइसच्या सेटिंग्जमध्ये iCloud सक्षम करा.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "सक्षम करा";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "बॅकअप";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "त्रुटी: कनेक्शन त्रुटीमुळे सिंक्रोनाइझ करण्यात अयशस्वी";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "त्रुटी: iCloud कोटा ओलांडल्यामुळे सिंक्रोनाइझ करण्यात अयशस्वी";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "त्रुटी: iCloud उपलब्ध नाही";
+
 
 /********** Types **********/
 

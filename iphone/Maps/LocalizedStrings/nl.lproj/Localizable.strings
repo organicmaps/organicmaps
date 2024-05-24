@@ -1298,6 +1298,33 @@
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Menulink";
 
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "iCloud-synchronisatie inschakelen";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "iCloud synchronisatie is een experimentele functie in ontwikkeling. Zorg ervoor dat je een back-up hebt gemaakt van al je bladwijzers en tracks.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud is uitgeschakeld";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Schakel iCloud in bij de instellingen van je apparaat om deze functie te gebruiken.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "inschakelen";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Back-up";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Fout: Synchronisatie mislukt door verbindingsfout";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Fout: Synchronisatie mislukt vanwege overschrijding iCloud-quota";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Fout: iCloud is niet beschikbaar";
+
 
 /********** Types **********/
 

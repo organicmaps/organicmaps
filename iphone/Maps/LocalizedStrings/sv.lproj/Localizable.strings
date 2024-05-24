@@ -1298,6 +1298,33 @@
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Länk till meny";
 
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Aktivera iCloud-synkronisering";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "iCloud-synkronisering är en experimentell funktion under utveckling. Se till att du har gjort en säkerhetskopia av alla dina bokmärken och spår.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud är inaktiverat";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Aktivera iCloud i enhetens inställningar för att kunna använda denna funktion.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Aktivera";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Säkerhetskopiering";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Fel: Synkronisering misslyckades på grund av anslutningsfel";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Fel: Synkronisering misslyckades på grund av att iCloud-kvoten överskreds";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Fel: iCloud är inte tillgängligt";
+
 
 /********** Types **********/
 

@@ -1298,6 +1298,33 @@
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Valikkolinkki";
 
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Ota iCloud-synkronointi käyttöön";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "iCloud-synkronointi on kehitteillä oleva kokeellinen ominaisuus. Varmista, että olet tehnyt varmuuskopion kaikista kirjanmerkeistäsi ja kappaleistasi.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud on poistettu käytöstä";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Ota iCloud käyttöön laitteesi asetuksissa, jotta voit käyttää tätä ominaisuutta.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Ota käyttöön";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Varmuuskopiointi";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Virhe: Synkronointi epäonnistui yhteysvirheen vuoksi.";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Virhe: iCloud-kiintiön ylittymisen vuoksi synkronointi epäonnistui.";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Virhe: iCloud ei ole käytettävissä";
+
 
 /********** Types **********/
 

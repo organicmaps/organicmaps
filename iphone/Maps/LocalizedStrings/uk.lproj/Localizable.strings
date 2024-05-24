@@ -1298,6 +1298,33 @@
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Посилання на меню";
 
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Увімкнути синхронізацію з iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "Синхронізація з iCloud - це експериментальна функція, яка перебуває на стадії розробки. Переконайтеся, що ви зробили резервну копію всіх ваших закладок і треків.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud вимкнено";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Щоб скористатися цією функцією, увімкніть iCloud у налаштуваннях вашого пристрою.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Увімкнути";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Резервне копіювання";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Помилка: Не вдалося синхронізувати через помилку з'єднання";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Помилка: Не вдалося синхронізувати через перевищення квоти iCloud";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Помилка: iCloud недоступний";
+
 
 /********** Types **********/
 

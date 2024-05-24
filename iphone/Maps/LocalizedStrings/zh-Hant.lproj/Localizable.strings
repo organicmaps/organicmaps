@@ -1298,6 +1298,33 @@
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "選單連結";
 
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "啟用 iCloud 同步";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "iCloud 同步是一項正在開發中的實驗性功能。確保您已備份所有書籤和曲目。";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud 已停用";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "請在您的裝置設定中啟用 iCloud 以使用此功能。";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "使能夠";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "备份";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "錯誤：由於連線錯誤而無法同步";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "錯誤：由於超出 iCloud 配額而無法同步";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "錯誤：iCloud 不可用";
+
 
 /********** Types **********/
 

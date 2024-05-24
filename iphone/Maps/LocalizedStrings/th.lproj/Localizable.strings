@@ -1298,6 +1298,33 @@
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "ลิงค์เมนู";
 
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "เปิดใช้งานการซิงโครไนซ์ iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "การซิงโครไนซ์ iCloud เป็นคุณสมบัติทดลองที่อยู่ระหว่างการพัฒนา ตรวจสอบให้แน่ใจว่าคุณได้สำรองข้อมูลบุ๊กมาร์กและแทร็กทั้งหมดของคุณแล้ว";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud ถูกปิดใช้งาน";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "โปรดเปิดใช้งาน iCloud ในการตั้งค่าอุปกรณ์ของคุณเพื่อใช้คุณสมบัตินี้";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "เปิดใช้งาน";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "สำรองข้อมูล";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "ข้อผิดพลาด: ไม่สามารถซิงโครไนซ์ได้เนื่องจากข้อผิดพลาดในการเชื่อมต่อ";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "ข้อผิดพลาด: ไม่สามารถซิงโครไนซ์ได้เนื่องจากเกินโควต้า iCloud";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "ข้อผิดพลาด: iCloud ไม่พร้อมใช้งาน";
+
 
 /********** Types **********/
 
