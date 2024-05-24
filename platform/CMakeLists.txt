@@ -54,6 +54,7 @@ set(SRC
   settings.cpp
   settings.hpp
   socket.hpp
+  trace.hpp
   string_storage_base.cpp
   string_storage_base.hpp
   utm_mgrs_utils.cpp
@@ -92,12 +93,14 @@ if (PLATFORM_IPHONE)
     platform_unix_impl.hpp
     secure_storage_ios.mm
     socket_apple.mm
+    trace_empty.cpp
   )
 elseif(${PLATFORM_ANDROID})
   append(SRC
     platform_android.cpp
     platform_unix_impl.cpp
     platform_unix_impl.hpp
+    trace_android.cpp
   )
 else() # neither iPhone nor Android
   # Find bash first, on Windows it can be either in Git or in WSL
@@ -125,6 +128,7 @@ else() # neither iPhone nor Android
     location_service.hpp
     network_policy_dummy.cpp
     platform_qt.cpp
+    trace_empty.cpp
     "${CMAKE_CURRENT_BINARY_DIR}/platform_qt_version.cpp"
   )
 
