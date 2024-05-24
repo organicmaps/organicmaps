@@ -436,24 +436,8 @@ void MutableLabel::SetText(LabelResult & result, std::string text) const
   }
 }
 
-m2::PointF MutableLabel::GetAverageSize() const
-{
-  float h = 0, w = 0;
-  for (auto const & node : m_alphabet)
-  {
-    dp::TextureManager::GlyphRegion const & reg = node.second;
-    m2::PointF const size = reg.GetPixelSize() * m_textRatio;
-    w += size.x;
-    h = std::max(h, size.y);
-  }
-
-  w /= m_alphabet.size();
-
-  return m2::PointF(w, h);
-}
-
 MutableLabelHandle::MutableLabelHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot)
-  : TBase(id, anchor, pivot, m2::PointF::Zero())
+  : TBase(id, anchor, pivot)
   , m_textView(make_unique_dp<MutableLabel>(anchor))
   , m_isContentDirty(true)
   , m_glyphsReady(false)
@@ -461,7 +445,7 @@ MutableLabelHandle::MutableLabelHandle(uint32_t id, dp::Anchor anchor, m2::Point
 
 MutableLabelHandle::MutableLabelHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot,
                                        ref_ptr<dp::TextureManager> textures)
-  : TBase(id, anchor, pivot, m2::PointF::Zero())
+  : TBase(id, anchor, pivot)
   , m_textView(make_unique_dp<MutableLabel>(anchor))
   , m_isContentDirty(true)
   , m_textureManager(std::move(textures))
@@ -476,9 +460,6 @@ void MutableLabelHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator
   m_isContentDirty = false;
   MutableLabel::LabelResult result;
   m_textView->SetText(result, m_content);
-
-  m_size.x = result.m_boundRect.SizeX();
-  m_size.y = result.m_boundRect.SizeY();
 
   size_t const byteCount = result.m_buffer.size() * sizeof(MutableLabel::DynamicVertex);
   auto const dataPointer = static_cast<MutableLabel::DynamicVertex *>(mutator->AllocateMutationBuffer(byteCount));
@@ -522,11 +503,6 @@ ref_ptr<MutableLabel> MutableLabelHandle::GetTextView() const
   return make_ref(m_textView);
 }
 
-void MutableLabelHandle::UpdateSize(m2::PointF const & size)
-{
-  m_size = size;
-}
-
 void MutableLabelHandle::SetContent(std::string && content)
 {
   if (m_content != content)
@@ -563,7 +539,6 @@ m2::PointF MutableLabelDrawer::Draw(ref_ptr<dp::GraphicsContext> context, Params
   MutableLabel::PrecacheResult staticData;
 
   handle->GetTextView()->Precache(preCacheP, staticData, mng);
-  handle->UpdateSize(handle->GetTextView()->GetAverageSize());
 
   ASSERT_EQUAL(vertexCount, staticData.m_buffer.size(), ());
   buffer_vector<MutableLabel::DynamicVertex, 128> dynData;
@@ -584,14 +559,14 @@ m2::PointF MutableLabelDrawer::Draw(ref_ptr<dp::GraphicsContext> context, Params
                               std::move(handle), dp::Batcher::VertexPerQuad);
   }
 
+  // REMOVE?
   return staticData.m_maxPixelSize;
 }
 
 StaticLabelHandle::StaticLabelHandle(uint32_t id, ref_ptr<dp::TextureManager> textureManager,
                                      dp::Anchor anchor, m2::PointF const & pivot,
-                                     m2::PointF const & size,
                                      TAlphabet const & alphabet)
-  : TBase(id, anchor, pivot, size)
+  : TBase(id, anchor, pivot)
   , m_alphabet(alphabet.begin(), alphabet.end())
   , m_textureManager(std::move(textureManager))
   , m_glyphsReady(false)

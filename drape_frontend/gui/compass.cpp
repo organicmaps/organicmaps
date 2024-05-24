@@ -91,8 +91,7 @@ private:
 };
 }  // namespace
 
-drape_ptr<ShapeRenderer> Compass::Draw(ref_ptr<dp::GraphicsContext> context,
-                                       m2::PointF & compassSize, ref_ptr<dp::TextureManager> tex,
+drape_ptr<ShapeRenderer> Compass::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> tex,
                                        TTapHandler const & tapHandler) const
 {
   dp::TextureManager::SymbolRegion region;
@@ -133,10 +132,9 @@ drape_ptr<ShapeRenderer> Compass::Draw(ref_ptr<dp::GraphicsContext> context,
 
   provider.InitStream(0, info, make_ref(&vertexes));
 
-  compassSize = region.GetPixelSize();
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CompassHandle>(EGuiHandle::GuiHandleCompass,
                                                                       m_position.m_pixelPivot,
-                                                                      compassSize, tapHandler);
+                                                                      region.GetPixelSize(), tapHandler);
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);

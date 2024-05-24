@@ -20,8 +20,7 @@ namespace gui
 class Handle : public dp::OverlayHandle
 {
 public:
-  Handle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot,
-         m2::PointF const & size = m2::PointF::Zero());
+  Handle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot);
 
   gpu::GuiProgramParams const & GetParams() const { return m_params; }
 
@@ -36,20 +35,20 @@ public:
   m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override;
   void GetPixelShape(ScreenBase const & screen, bool perspective, Rects & rects) const override;
 
-  m2::PointF GetSize() const { return m_size; }
   virtual void SetPivot(glsl::vec2 const & pivot) { m_pivot = pivot; }
 
 protected:
   gpu::GuiProgramParams m_params;
   glsl::vec2 m_pivot;
-  mutable m2::PointF m_size;
 };
 
 class TappableHandle : public Handle
 {
+  m2::PointF m_size;
+
 public:
-  TappableHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot, m2::PointF const & size)
-    : Handle(id, anchor, pivot, size)
+  TappableHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot, m2::PointF size)
+    : Handle(id, anchor, pivot), m_size(size)
   {}
 
   bool IsTapped(m2::RectD const & touchArea) const override;
