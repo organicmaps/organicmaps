@@ -28,6 +28,8 @@
 
 #include "geometry/any_rect2d.hpp"
 
+#include "platform/platform.hpp"
+
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
@@ -1402,6 +1404,7 @@ void FrontendRenderer::EndUpdateOverlayTree()
 
 void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFrame)
 {
+  TRACE_SECTION("[drape] RenderScene");
   CHECK(m_context != nullptr, ());
 #if defined(DRAPE_MEASURER_BENCHMARK) && (defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM))
   DrapeImmediateRenderingMeasurerGuard drapeMeasurerGuard(m_context);
@@ -1532,6 +1535,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
 
 void FrontendRenderer::Render2dLayer(ScreenBase const & modelView)
 {
+  TRACE_SECTION("[drape] Render2dLayer");
   RenderLayer & layer2d = m_layers[static_cast<size_t>(DepthLayer::GeometryLayer)];
   layer2d.Sort(make_ref(m_overlayTree));
 
@@ -1543,6 +1547,7 @@ void FrontendRenderer::Render2dLayer(ScreenBase const & modelView)
 
 void FrontendRenderer::PreRender3dLayer(ScreenBase const & modelView)
 {
+  TRACE_SECTION("[drape] PreRender3dLayer");
   if (!m_buildingsFramebuffer->IsSupported())
     return;
 
@@ -1563,6 +1568,7 @@ void FrontendRenderer::PreRender3dLayer(ScreenBase const & modelView)
 
 void FrontendRenderer::Render3dLayer(ScreenBase const & modelView)
 {
+  TRACE_SECTION("[drape] Render3dLayer");
   RenderLayer & layer = m_layers[static_cast<size_t>(DepthLayer::Geometry3dLayer)];
   if (layer.m_renderGroups.empty())
     return;
@@ -1589,6 +1595,7 @@ void FrontendRenderer::Render3dLayer(ScreenBase const & modelView)
 
 void FrontendRenderer::RenderOverlayLayer(ScreenBase const & modelView)
 {
+  TRACE_SECTION("[drape] RenderOverlayLayer");
   CHECK(m_context != nullptr, ());
   DEBUG_LABEL(m_context, "Overlay Layer");
   RenderLayer & overlay = m_layers[static_cast<size_t>(DepthLayer::OverlayLayer)];
@@ -1609,6 +1616,7 @@ bool FrontendRenderer::HasRouteData() const
 
 void FrontendRenderer::RenderTransitSchemeLayer(ScreenBase const & modelView)
 {
+  TRACE_SECTION("[drape] RenderTransitSchemeLayer");
   CHECK(m_context != nullptr, ());
   if (m_transitSchemeEnabled && m_transitSchemeRenderer->IsSchemeVisible(GetCurrentZoom()))
   {
@@ -1623,6 +1631,7 @@ void FrontendRenderer::RenderTransitSchemeLayer(ScreenBase const & modelView)
 
 void FrontendRenderer::RenderTrafficLayer(ScreenBase const & modelView)
 {
+  TRACE_SECTION("[drape] RenderTrafficLayer");
   CHECK(m_context != nullptr, ());
   if (m_trafficRenderer->HasRenderData())
   {
@@ -1635,6 +1644,7 @@ void FrontendRenderer::RenderTrafficLayer(ScreenBase const & modelView)
 
 void FrontendRenderer::RenderTransitBackground()
 {
+  TRACE_SECTION("[drape] RenderTransitBackground");
   if (!m_finishTexturesInitialization)
     return;
 
@@ -1653,6 +1663,7 @@ void FrontendRenderer::RenderTransitBackground()
 
 void FrontendRenderer::RenderRouteLayer(ScreenBase const & modelView)
 {
+  TRACE_SECTION("[drape] RenderRouteLayer");
   if (HasTransitRouteData())
     RenderTransitBackground();
 
@@ -1668,6 +1679,7 @@ void FrontendRenderer::RenderRouteLayer(ScreenBase const & modelView)
 
 void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId)
 {
+  TRACE_SECTION("[drape] RenderUserMarksLayer");
   auto & renderGroups = m_layers[static_cast<size_t>(layerId)].m_renderGroups;
   if (renderGroups.empty())
     return;
@@ -1683,6 +1695,7 @@ void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, DepthL
 void FrontendRenderer::RenderNonDisplaceableUserMarksLayer(ScreenBase const & modelView,
                                                            DepthLayer layerId)
 {
+  TRACE_SECTION("[drape] RenderNonDisplaceableUserMarksLayer");
   auto & layer = m_layers[static_cast<size_t>(layerId)];
   layer.Sort(nullptr);
   for (drape_ptr<RenderGroup> & group : layer.m_renderGroups)
@@ -1695,6 +1708,7 @@ void FrontendRenderer::RenderNonDisplaceableUserMarksLayer(ScreenBase const & mo
 
 void FrontendRenderer::RenderEmptyFrame()
 {
+  TRACE_SECTION("[drape] RenderEmptyFrame");
   CHECK(m_context != nullptr, ());
   if (!m_context->Validate())
     return;
@@ -1715,6 +1729,7 @@ void FrontendRenderer::RenderEmptyFrame()
 
 void FrontendRenderer::RenderFrame()
 {
+  TRACE_SECTION("[drape] RenderFrame");
   DrapeMeasurerGuard drapeMeasurerGuard;
 
   CHECK(m_context != nullptr, ());
@@ -1850,6 +1865,7 @@ void FrontendRenderer::RenderFrame()
 
 void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
 {
+  TRACE_SECTION("[drape] BuildOverlayTree");
   if (!IsValidCurrentZoom())
     return;
 
@@ -2322,6 +2338,7 @@ void FrontendRenderer::OnContextDestroy()
 
 void FrontendRenderer::OnContextCreate()
 {
+  TRACE_SECTION("[drape] OnContextCreate (FrontendRenderer)");
   LOG(LINFO, ("On context create."));
 
   m_context = make_ref(m_contextFactory->GetDrawContext());
@@ -2530,6 +2547,7 @@ void FrontendRenderer::OnEnterBackground()
 
 ScreenBase const & FrontendRenderer::ProcessEvents(bool & modelViewChanged, bool & viewportChanged)
 {
+  TRACE_SECTION("[drape] ProcessEvents");
   ScreenBase const & modelView = m_userEventStream.ProcessEvents(modelViewChanged, viewportChanged);
   gui::DrapeGui::Instance().SetInUserAction(m_userEventStream.IsInUserAction());
 
@@ -2543,6 +2561,7 @@ ScreenBase const & FrontendRenderer::ProcessEvents(bool & modelViewChanged, bool
 
 void FrontendRenderer::PrepareScene(ScreenBase const & modelView)
 {
+  TRACE_SECTION("[drape] PrepareScene");
   RefreshZScale(modelView);
   RefreshPivotTransform(modelView);
 
@@ -2552,6 +2571,7 @@ void FrontendRenderer::PrepareScene(ScreenBase const & modelView)
 
 void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
 {
+  TRACE_SECTION("[drape] UpdateScene");
   ResolveZoomLevel(modelView);
 
   m_gpsTrackRenderer->Update();
