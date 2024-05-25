@@ -1,12 +1,9 @@
 #pragma once
 
-#include "base/shared_buffer_manager.hpp"
 #include "base/string_utils.hpp"
 
 #include "drape/glyph.hpp"
 
-#include <functional>
-#include <memory>
 #include <string>
 #include <vector>
 

@@ -64,7 +64,6 @@ public:
   {
   public:
     m2::PointU GetMaskPixelSize() const;
-    //uint32_t GetPatternPixelLength() const;
   };
 
   class ColorRegion : public BaseRegion
@@ -175,16 +174,14 @@ private:
   }
 
   template<typename TGlyphGroup>
-  void FillResults(strings::UniString const & text, TGlyphsBuffer & buffers,
-                   TGlyphGroup & group)
+  void FillResults(strings::UniString const & text, TGlyphsBuffer & buffers, TGlyphGroup & group)
   {
     MarkCharactersUsage(text, group);
     FillResultBuffer<TGlyphGroup>(text, group, buffers);
   }
 
   template<typename TGlyphGroup>
-  void FillResults(TMultilineText const & text, TMultilineGlyphsBuffer & buffers,
-                   TGlyphGroup & group)
+  void FillResults(TMultilineText const & text, TMultilineGlyphsBuffer & buffers, TGlyphGroup & group)
   {
      buffers.resize(text.size());
      for (size_t i = 0; i < text.size(); ++i)

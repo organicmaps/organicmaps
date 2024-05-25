@@ -516,7 +516,7 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
 double PathTextLayout::CalculateTextLength(double textPixelLength)
 {
   // We leave a little space on each side of the text.
-  double const kTextBorder = 4.0;
+  double constexpr kTextBorder = 4.0;
   return kTextBorder + textPixelLength;
 }
 
@@ -529,7 +529,7 @@ void PathTextLayout::CalculatePositions(double splineLength, double splineScaleT
   if (textLength > splineLength * 2.0f * splineScaleToPixel)
     return;
 
-  double const kPathLengthScalar = 0.75;
+  double constexpr kPathLengthScalar = 0.75;
   double const pathLength = kPathLengthScalar * splineScaleToPixel * splineLength;
   double const minPeriodSize = GetTextMinPeriod(textLength);
   double const twoTextsAndEmpty = minPeriodSize + textLength;

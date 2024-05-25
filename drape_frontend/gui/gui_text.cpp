@@ -112,8 +112,6 @@ StaticLabel::LabelResult::LabelResult()
   m_state.SetDepthTestEnabled(false);
 }
 
-char const * StaticLabel::DefaultDelim = "\n";
-
 void StaticLabel::CacheStaticText(std::string const & text, char const * delim,
                                   dp::Anchor anchor, dp::FontDecl const & font,
                                   ref_ptr<dp::TextureManager> mng, LabelResult & result)
@@ -159,7 +157,8 @@ void StaticLabel::CacheStaticText(std::string const & text, char const * delim,
   glsl::vec2 colorTex = glsl::ToVec2(color.GetTexRect().Center());
   glsl::vec2 outlineTex = glsl::ToVec2(outline.GetTexRect().Center());
 
-  auto const textRatio = font.m_size * static_cast<float>(df::VisualParams::Instance().GetVisualScale() / dp::kBaseFontSizePixels);
+  auto const textRatio = font.m_size * static_cast<float>(
+      df::VisualParams::Instance().GetVisualScale() / dp::kBaseFontSizePixels);
 
   buffer_vector<float, 4> lineLengths;
   lineLengths.reserve(buffers.size());
@@ -300,8 +299,7 @@ void MutableLabel::SetMaxLength(uint16_t maxLength)
   m_maxLength = maxLength;
 }
 
-ref_ptr<dp::Texture> MutableLabel::SetAlphabet(std::string const & alphabet,
-                                               ref_ptr<dp::TextureManager> mng)
+ref_ptr<dp::Texture> MutableLabel::SetAlphabet(std::string const & alphabet, ref_ptr<dp::TextureManager> mng)
 {
   strings::UniString str = strings::MakeUniString(alphabet + ".");
   base::SortUnique(str);
@@ -327,8 +325,7 @@ ref_ptr<dp::Texture> MutableLabel::SetAlphabet(std::string const & alphabet,
   return m_alphabet[0].second.GetTexture();
 }
 
-void MutableLabel::Precache(PrecacheParams const & params, PrecacheResult & result,
-                            ref_ptr<dp::TextureManager> mng)
+void MutableLabel::Precache(PrecacheParams const & params, PrecacheResult & result, ref_ptr<dp::TextureManager> mng)
 {
   SetMaxLength(static_cast<uint16_t>(params.m_maxLength));
   result.m_state.SetMaskTexture(SetAlphabet(params.m_alphabet, mng));
@@ -345,8 +342,7 @@ void MutableLabel::Precache(PrecacheParams const & params, PrecacheResult & resu
   glsl::vec2 outlineTex = glsl::ToVec2(outlineColor.GetTexRect().Center());
 
   auto const vertexCount = m_maxLength * dp::Batcher::VertexPerQuad;
-  result.m_buffer.resize(vertexCount,
-                         StaticVertex(glsl::vec3(0.0, 0.0, 0.0), colorTex, outlineTex));
+  result.m_buffer.resize(vertexCount, StaticVertex(glsl::vec3(0.0, 0.0, 0.0), colorTex, outlineTex));
 
   float depth = 0.0f;
   for (size_t i = 0; i < vertexCount; i += 4)
@@ -547,8 +543,7 @@ m2::PointF MutableLabelDrawer::Draw(ref_ptr<dp::GraphicsContext> context, Params
   dp::BindingInfo const & sBinding = MutableLabel::StaticVertex::GetBindingInfo();
   dp::BindingInfo const & dBinding = MutableLabel::DynamicVertex::GetBindingInfo();
   dp::AttributeProvider provider(2 /*stream count*/, static_cast<uint32_t>(staticData.m_buffer.size()));
-  provider.InitStream(0 /*stream index*/, sBinding,
-                      make_ref(staticData.m_buffer.data()));
+  provider.InitStream(0 /*stream index*/, sBinding, make_ref(staticData.m_buffer.data()));
   provider.InitStream(1 /*stream index*/, dBinding, make_ref(dynData.data()));
 
   {
@@ -559,7 +554,6 @@ m2::PointF MutableLabelDrawer::Draw(ref_ptr<dp::GraphicsContext> context, Params
                               std::move(handle), dp::Batcher::VertexPerQuad);
   }
 
-  // REMOVE?
   return staticData.m_maxPixelSize;
 }
 

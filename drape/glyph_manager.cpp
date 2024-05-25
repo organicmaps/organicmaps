@@ -520,8 +520,6 @@ GlyphManager::GlyphManager(Params const & params)
       LOG_SHORT(LDEBUG, (b.m_name, "is in", params.m_fonts[ind]));
     }
   }
-
-
 }
 
 int GlyphManager::GetFontIndex(strings::UniChar unicodePoint)
@@ -663,7 +661,7 @@ hb_language_t OrganicMapsLanguageToHarfbuzzLanguage(int8_t lang)
 
 text::TextMetrics GlyphManager::ShapeText(std::string_view utf8, int fontPixelHeight, int8_t lang)
 {
-  auto const runs = harfbuzz_shaping::GetTextSegments(utf8);
+  const auto [text, segments] = harfbuzz_shaping::GetTextSegments(utf8);
 
   // TODO(AB): Optimize language conversion.
   hb_language_t const hbLanguage = OrganicMapsLanguageToHarfbuzzLanguage(lang);
@@ -672,22 +670,20 @@ text::TextMetrics GlyphManager::ShapeText(std::string_view utf8, int fontPixelHe
 
   // TODO(AB): Cache runs.
   // TODO(AB): Cache buffer.
-  hb_buffer_t *buf = hb_buffer_create();
-  for (auto const & substring : runs.m_segments)
+  hb_buffer_t * buf = hb_buffer_create();
+  for (auto const & substring : segments)
   {
     hb_buffer_clear_contents(buf);
 
     // TODO(AB): Some substrings use different fonts.
-    // TODO(AB): Will surrogates work properly? Would it be safer to convert/use utf-32?
-    //std::u16string_view const sv{runs.text.data() + substring.m_start, static_cast<size_t>(substring.m_length)};
-    hb_buffer_add_utf16(buf, reinterpret_cast<const uint16_t *>(runs.m_text.data()), static_cast<int>(runs.m_text.size()),
+    hb_buffer_add_utf16(buf, reinterpret_cast<const uint16_t *>(text.data()), static_cast<int>(text.size()),
                         substring.m_start, substring.m_length);
     hb_buffer_set_direction(buf, substring.m_direction);
     hb_buffer_set_script(buf, substring.m_script);
     hb_buffer_set_language(buf, hbLanguage);
 
     // TODO(AB): Check not only the first character to determine font for the run, but all chars.
-    auto firstCharacterIter{runs.m_text.begin() + substring.m_start};
+    auto firstCharacterIter{text.begin() + substring.m_start};
     auto const firstCharacterUnicode = utf8::unchecked::next16(firstCharacterIter);
 
     int const fontIndex = GetFontIndex(firstCharacterUnicode);
