@@ -13,14 +13,14 @@
 
 #include <QtGui/QPainter>
 
-#include <ft2build.h>
 #include <functional>
 #include <iostream>
 #include <vector>
+
+#include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_MODULE_H
-#include <harfbuzz/hb-ft.h>
-#include <harfbuzz/hb.h>
+#include <hb-ft.h>
 
 namespace glyph_mng_tests
 {
