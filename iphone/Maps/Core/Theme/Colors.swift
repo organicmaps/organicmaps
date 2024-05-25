@@ -121,5 +121,5 @@ class NightColors: IColors {
   var cityColor = UIColor(152, 103, 252, alpha100)
   var outdoorColor = UIColor(147, 191, 57, alpha100)
   var lonelyPlanetLogoColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.7)
-  var carplayPlaceholderBackground = UIColor(50, 54, 57, alpha100)
+  var carplayPlaceholderBackground = UIColor(50, 54, 58, alpha100)
 }
