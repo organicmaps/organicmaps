@@ -3,26 +3,21 @@
 #include "base/assert.hpp"
 #include "base/thread_utils.hpp"
 
-#include <atomic>
 #include <functional>
 #include <future>
-#include <memory>
 #include <queue>
 #include <thread>
 
 namespace base
 {
 using namespace threads;
-namespace thread_pool
-{
-namespace computational
-{
-// ThreadPool is needed for easy parallelization of tasks.
-// ThreadPool can accept tasks that return result as std::future.
+
+// ComputationalThreadPool is needed for easy parallelization of tasks.
+// ComputationalThreadPool can accept tasks that return result as std::future.
 // When the destructor is called, all threads will join.
-// Warning: ThreadPool works with std::thread instead of SimpleThread and therefore
+// Warning: ComputationalThreadPool works with std::thread instead of SimpleThread and therefore
 // should not be used when the JVM is needed.
-class ThreadPool
+class ComputationalThreadPool
 {
 public:
   using FunctionType = FunctionWrapper;
@@ -31,7 +26,7 @@ public:
   // Constructs a ThreadPool.
   // threadCount - number of threads used by the thread pool.
   // Warning: The constructor may throw exceptions.
-  ThreadPool(size_t threadCount) : m_done(false), m_joiner(m_threads)
+  ComputationalThreadPool(size_t threadCount) : m_done(false), m_joiner(m_threads)
   {
     CHECK_GREATER(threadCount, 0, ());
 
@@ -39,7 +34,7 @@ public:
     try
     {
       for (size_t i = 0; i < threadCount; i++)
-        m_threads.emplace_back(&ThreadPool::Worker, this);
+        m_threads.emplace_back(&ComputationalThreadPool::Worker, this);
     }
     catch (...)  // std::system_error etc.
     {
@@ -50,7 +45,7 @@ public:
 
   // Destroys the ThreadPool.
   // This function will block until all runnables have been completed.
-  ~ThreadPool()
+  ~ComputationalThreadPool()
   {
     {
       std::unique_lock lock(m_mutex);
@@ -158,6 +153,5 @@ private:
   Threads m_threads;
   ThreadsJoiner<> m_joiner;
 };
-}  // namespace computational
-}  // namespace thread_pool
-}  // namespace base
+
+} // namespace base

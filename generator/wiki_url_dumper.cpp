@@ -25,7 +25,7 @@ void WikiUrlDumper::Dump(size_t cpuCount) const
 {
   CHECK_GREATER(cpuCount, 0, ());
 
-  base::thread_pool::computational::ThreadPool threadPool(cpuCount);
+  base::ComputationalThreadPool threadPool(cpuCount);
   std::vector<std::future<std::string>> futures;
   futures.reserve(m_dataFiles.size());
 
@@ -106,7 +106,7 @@ void WikiDataFilter::Filter(size_t cpuCount)
 {
   CHECK_GREATER(cpuCount, 0, ());
 
-  base::thread_pool::computational::ThreadPool threadPool(cpuCount);
+  base::ComputationalThreadPool threadPool(cpuCount);
   std::vector<std::future<std::string>> futures;
   futures.reserve(m_dataFiles.size());
 

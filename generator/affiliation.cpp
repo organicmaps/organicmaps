@@ -233,7 +233,7 @@ CountriesFilesIndexAffiliation::BuildIndex(const std::vector<m2::RectD> & net)
   std::mutex treeCellsMutex;
   auto const numThreads = GetPlatform().CpuCores();
   {
-    base::thread_pool::computational::ThreadPool pool(numThreads);
+    base::ComputationalThreadPool pool(numThreads);
     for (auto const & rect : net)
     {
       pool.SubmitWork([&, rect]() {
@@ -278,7 +278,7 @@ CountriesFilesIndexAffiliation::BuildIndex(const std::vector<m2::RectD> & net)
     }
   }
   {
-    base::thread_pool::computational::ThreadPool pool(numThreads);
+    base::ComputationalThreadPool pool(numThreads);
     for (auto & pair : countriesRects)
     {
       pool.SubmitWork([&, countryPtr{pair.first}, rects{std::move(pair.second)}]() mutable {

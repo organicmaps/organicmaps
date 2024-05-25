@@ -22,8 +22,6 @@
 #include <memory>
 #include <mutex>
 #include <set>
-#include <string>
-#include <utility>
 #include <vector>
 
 class DataSource;
@@ -121,7 +119,7 @@ private:
   void ShrinkCacheToAllowableSize();
   void ClearCache(MwmSet::MwmId const & mwmId);
 
-  std::unique_ptr<base::thread_pool::routine::ThreadPool> m_threadsPool;
+  std::unique_ptr<base::ThreadPool> m_threadsPool;
 
   std::mutex m_mutex;
   std::condition_variable m_event;

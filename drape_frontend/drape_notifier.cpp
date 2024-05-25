@@ -11,7 +11,7 @@ DrapeNotifier::DrapeNotifier(ref_ptr<ThreadsCommutator> commutator)
 {}
 
 uint64_t DrapeNotifier::Notify(ThreadsCommutator::ThreadName threadName,
-                               base::thread_pool::delayed::ThreadPool::Duration const & duration, bool repeating,
+                               base::DelayedThreadPool::Duration const & duration, bool repeating,
                                Functor && functor)
 {
   uint64_t const notifyId = m_counter++;
@@ -20,7 +20,7 @@ uint64_t DrapeNotifier::Notify(ThreadsCommutator::ThreadName threadName,
 }
 
 void DrapeNotifier::NotifyImpl(ThreadsCommutator::ThreadName threadName,
-                               base::thread_pool::delayed::ThreadPool::Duration const & duration, bool repeating,
+                               base::DelayedThreadPool::Duration const & duration, bool repeating,
                                uint64_t notifyId, Functor && functor)
 {
   dp::DrapeRoutine::RunDelayed(duration,

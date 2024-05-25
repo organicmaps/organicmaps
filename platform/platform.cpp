@@ -364,9 +364,9 @@ void Platform::RunThreads()
   ASSERT(!m_fileThread || m_fileThread->IsShutDown(), ());
   ASSERT(!m_backgroundThread || m_backgroundThread->IsShutDown(), ());
 
-  m_networkThread = std::make_unique<base::thread_pool::delayed::ThreadPool>();
-  m_fileThread = std::make_unique<base::thread_pool::delayed::ThreadPool>();
-  m_backgroundThread = std::make_unique<base::thread_pool::delayed::ThreadPool>();
+  m_networkThread = std::make_unique<base::DelayedThreadPool>();
+  m_fileThread = std::make_unique<base::DelayedThreadPool>();
+  m_backgroundThread = std::make_unique<base::DelayedThreadPool>();
 }
 
 void Platform::SetGuiThread(std::unique_ptr<base::TaskLoop> guiThread)
