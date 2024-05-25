@@ -3,7 +3,7 @@
     <device id="retina6_72" orientation="landscape" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ixC-IZ-Pvs" userLabel="CarPlayPlaceholderView" customClass="CarplayPlaceholderView" customModule="Organic_Maps" customModuleProvider="target">
-                                <rect key="frame" x="59" y="0.0" width="814" height="409"/>
+                                <rect key="frame" x="0.0" y="0.0" width="932" height="430"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aPn-pa-nCx" customClass="EAGLView">
@@ -170,14 +170,14 @@
                             <constraint firstAttribute="bottom" secondItem="rL1-9E-4b7" secondAttribute="bottom" id="4fw-Xu-gAG"/>
                             <constraint firstItem="rbx-Oj-jeo" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="5Sh-l6-Icd"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="QKu-4A-UgP" secondAttribute="bottom" priority="100" id="6ko-rI-S5u"/>
-                            <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="ixC-IZ-Pvs" secondAttribute="bottom" id="7eh-og-Mpe"/>
+                            <constraint firstAttribute="bottom" secondItem="ixC-IZ-Pvs" secondAttribute="bottom" id="7eh-og-Mpe"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="aVk-ab-LFJ" secondAttribute="trailing" id="85b-Do-jO7"/>
                             <constraint firstItem="at1-V1-pzl" firstAttribute="top" secondItem="utd-Jy-pE5" secondAttribute="bottom" priority="250" id="8JV-dP-iYZ"/>
                             <constraint firstItem="TdT-ia-GP9" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="8YH-dJ-lHZ"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="rbx-Oj-jeo" secondAttribute="trailing" id="9M9-8P-Hzb"/>
                             <constraint firstAttribute="bottom" secondItem="rbx-Oj-jeo" secondAttribute="bottom" id="9rR-QQ-c1P"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="top" secondItem="xJx-UU-IdV" secondAttribute="top" priority="100" id="BMq-jc-qfO"/>
-                            <constraint firstItem="ixC-IZ-Pvs" firstAttribute="top" secondItem="utd-Jy-pE5" secondAttribute="top" id="DSJ-0D-hwO"/>
+                            <constraint firstItem="ixC-IZ-Pvs" firstAttribute="top" secondItem="USG-6L-Uhw" secondAttribute="top" id="DSJ-0D-hwO"/>
                             <constraint firstItem="rL1-9E-4b7" firstAttribute="top" secondItem="USG-6L-Uhw" secondAttribute="top" id="E89-WV-ZTh"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="QKu-4A-UgP" secondAttribute="trailing" id="Fjy-Cy-dHS"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="at1-V1-pzl" secondAttribute="trailing" id="GKG-4Y-2Pq"/>
@@ -185,7 +185,7 @@
                             <constraint firstItem="awj-9E-eBS" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="Hfm-gb-37H"/>
                             <constraint firstItem="rbx-Oj-jeo" firstAttribute="top" secondItem="utd-Jy-pE5" secondAttribute="top" id="J0B-xe-sNj"/>
                             <constraint firstItem="jio-3T-E6G" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="K9r-P1-yFI"/>
-                            <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="ixC-IZ-Pvs" secondAttribute="trailing" id="O7f-qU-UN2"/>
+                            <constraint firstAttribute="trailing" secondItem="ixC-IZ-Pvs" secondAttribute="trailing" id="O7f-qU-UN2"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="at1-V1-pzl" secondAttribute="bottom" priority="750" constant="48" id="O8L-nd-nOa"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="FFY-Dy-Wou" secondAttribute="bottom" priority="100" id="OE7-Qb-J0v"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="awj-9E-eBS" secondAttribute="bottom" id="PFs-sL-oVA"/>
@@ -212,7 +212,7 @@
                             <constraint firstItem="65S-M4-TnM" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="kan-ei-cIg"/>
                             <constraint firstAttribute="bottom" secondItem="jio-3T-E6G" secondAttribute="bottom" id="l6r-eW-Dbi"/>
                             <constraint firstItem="NI8-tV-i2B" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="lwX-Xm-J8A"/>
-                            <constraint firstItem="ixC-IZ-Pvs" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="m7B-SH-DDh"/>
+                            <constraint firstItem="ixC-IZ-Pvs" firstAttribute="leading" secondItem="USG-6L-Uhw" secondAttribute="leading" id="m7B-SH-DDh"/>
                             <constraint firstItem="FFY-Dy-Wou" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="pc3-CW-vyV"/>
                             <constraint firstItem="aPn-pa-nCx" firstAttribute="top" secondItem="USG-6L-Uhw" secondAttribute="top" id="pwE-hX-IML"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="TdT-ia-GP9" secondAttribute="bottom" priority="100" id="pwZ-Fm-mHR"/>

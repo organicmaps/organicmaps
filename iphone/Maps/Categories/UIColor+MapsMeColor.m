@@ -232,6 +232,11 @@ static NSDictionary<NSString *, UIColor *> *night;
   return StyleManager.shared.theme.colors.blackOpaque;
 }
 
++ (UIColor *)carplayPlaceholderBackground
+{
+  return StyleManager.shared.theme.colors.carplayPlaceholderBackground;
+}
+
 + (UIColor *)bookingBackground
 {
   return [UIColor colorWithRed:scaled(25.) green:scaled(69.) blue:scaled(125.) alpha:alpha100];
