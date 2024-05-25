@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Hướng dẫn bằng Giọng nói";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Thông báo tên đường";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Nếu bật, sẽ đọc to tên đường hoặc lối ra để rẽ vào.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Ngôn ngữ Giọng nói";
 
@@ -705,6 +711,9 @@
 
 "editor_edit_place_name_hint" = "Tên địa điểm";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Vì nó được viết bằng ngôn ngữ địa phương";
+
 "editor_edit_place_category_title" = "Thể loại";
 
 "whatsnew_editor_message_1" = "Nhập các địa điểm mới vào bản đồ, và trực tiếp chỉnh sửa những địa điểm hiện có trên ứng dụng.";
@@ -860,7 +869,7 @@
 
 "editor_share_to_all_dialog_message_2" = "Các biên tập viên của OpenStreetMap sẽ kiểm tra các thay đổi và liên hệ với bạn nếu họ có bất kỳ câu hỏi nào.";
 
-"navigation_stop_button" = "dừng";
+"navigation_stop_button" = "Dừng";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Tắt ghi lại tuyến đường đã đi gần đây của bạn?";
@@ -1258,6 +1267,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Bạn hiện đang sử dụng bản đồ không phải trả tiền trên màn hình điện thoại";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Bạn hiện đang sử dụng bản đồ không phải trả tiền trên màn hình ô tô";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Tiếp tục trên điện thoại";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Đến màn hình ô tô";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Đi bộ đường dài";
 
@@ -1269,6 +1290,11 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Bản đồ";
+
+"drive_through" = "Lái xe qua";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Liên kết thực đơn";
 
 
 /********** Types **********/
@@ -1321,7 +1347,7 @@
 
 "type.amenity.bar" = "Quán bar";
 
-"type.amenity.bbq" = "Điểm cắm trại";
+"type.amenity.bbq" = "Nướng thịt nướng";
 
 "type.amenity.bench" = "Xe đạp";
 
@@ -2036,22 +2062,10 @@
 
 "type.highway.footway.crossing" = "Vạch qua đường";
 
-"type.highway.footway.alpine_hiking" = "Đường";
-
 "type.highway.footway.area" = "Đường";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Cầu";
-
-"type.highway.footway.demanding_alpine_hiking" = "Đường";
-
-"type.highway.footway.demanding_mountain_hiking" = "Đường";
-
-"type.highway.footway.difficult_alpine_hiking" = "Đường";
-
-"type.highway.footway.hiking" = "Đường";
-
-"type.highway.footway.mountain_hiking" = "Đường";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Đường hầm";
@@ -2086,26 +2100,20 @@
 
 "type.highway.path" = "Đường";
 
-"type.highway.path.alpine_hiking" = "Đường";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Đường";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Đường";
 
 "type.highway.path.bicycle" = "Đường";
+
+"type.highway.footway.bicycle" = "Đường";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Cầu";
 
-"type.highway.path.demanding_alpine_hiking" = "Đường";
-
-"type.highway.path.demanding_mountain_hiking" = "Đường";
-
-"type.highway.path.difficult_alpine_hiking" = "Đường";
-
-"type.highway.path.hiking" = "Đường";
-
 "type.highway.path.horse" = "Đường";
-
-"type.highway.path.mountain_hiking" = "Đường";
-
-"type.highway.path.permissive" = "Đường";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Đường hầm";
@@ -2228,17 +2236,7 @@
 
 "type.highway.track.grade1" = "Phố";
 
-"type.highway.track.grade2" = "Phố";
-
-"type.highway.track.grade3" = "Phố";
-
-"type.highway.track.grade4" = "Phố";
-
-"type.highway.track.grade5" = "Phố";
-
 "type.highway.track.no.access" = "Phố";
-
-"type.highway.track.permissive" = "Phố";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Đường hầm";
@@ -2447,8 +2445,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Đất nông nghiệp";
 
@@ -3737,7 +3733,7 @@
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "Nhà nghỉ trên núi";
 
-"type.tourism.apartment" = "Căn hộ";
+"type.tourism.apartment" = "Căn hộ nghỉ dưỡng";
 
 "type.tourism.artwork" = "Du lịch";
 
@@ -3836,8 +3832,6 @@
 "type.waterway.river" = "Sông";
 
 "type.waterway.river.tunnel" = "Sông";
-
-"type.waterway.riverbank" = "Sông";
 
 "type.waterway.stream" = "Sông";
 

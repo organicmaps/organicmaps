@@ -55,7 +55,7 @@ private:
   {
   public:
     explicit FileDataWithCachedSize(std::string const & fileName)
-      : base::FileData(fileName, FileData::OP_READ), m_Size(FileData::Size())
+      : base::FileData(fileName, Op::READ), m_Size(FileData::Size())
     {
     }
 

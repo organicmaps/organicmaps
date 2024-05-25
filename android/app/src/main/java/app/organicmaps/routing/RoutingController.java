@@ -351,7 +351,7 @@ public class RoutingController
   private void initLastRouteType(@Nullable MapObject startPoint, @Nullable MapObject endPoint,
                                  boolean fromApi)
   {
-    if (isSubwayEnabled() && !fromApi)
+    if (shouldForceTransitRoute(fromApi))
     {
       mLastRouterType = Framework.ROUTER_TYPE_TRANSIT;
       return;
@@ -365,6 +365,11 @@ public class RoutingController
   private boolean isSubwayEnabled()
   {
     return mContainer != null && mContainer.isSubwayEnabled();
+  }
+
+  private boolean shouldForceTransitRoute(boolean fromApi)
+  {
+    return mState == State.NONE && isSubwayEnabled() && !fromApi;
   }
 
   public void prepare(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint,

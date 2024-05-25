@@ -1,22 +1,44 @@
-• Better isolines elevation data for European countries, thanks to Sonny
-• OpenStreetMap data as of March 26
-• Bookmark lists are sorted by modification time (recent at the top)
-• Eye icons for visible/hidden bookmark lists
-• Distance and time do not freeze anymore in CarPlay
-• Fixed wrong time and distance when switching planned route modes
-• Fixed the wrong 'saved bookmark' icon
-• Many new objects can be added to OpenStreetMap: various shops and crafts, BBQs, food courts, lang schools, cairns, money transfer points, etc.
-• Add "wheelchair" to the search input to limit results to wheelchair-accessible
-• Searchable orders pickup points (shop=outpost)
-• Added a long tap back button menu
+• Сортування міток і маршрутів за іменем (нарешті!)
+• Дані OpenStreetMap станом на 29 квітня
+• Перехід на новий механізм автентифікації OpenStreetMap – усі автентифіковані користувачі OSM мають наново увійти в систему
+• Вирішено проблему з нагадуваннями про ізолінії поверх інших елементів інтерфейсу
+• Виправлено розташування кругового індикатора ходу завантаження при виборі об'єктів на карті
+• Скориговано розташування меню "Ще" в списках міток
+• У меню "Про програму" додано підтримку поштового клієнта за замовчуванням
+• Видно, де є drive-through
+• Іконку "сходів" замінено на значок ліфта для відображення номера поверху обраного об'єкта
+• Покращено видимість значка $ для платних функцій карти в темному режимі
+• Покращено веломаршрутизацію
 
-Map styling:
-• Added wind turbines and power plant icons
-• Reduced visibilities of many outdoors-specific POIs when in the main map style, e.g., waterfalls, mountain peaks, shelters, power towers, etc. (use the Outdoors style for those!)
-• More consistent font sizes and caption appearances
+Редактор карти OpenStreetMap:
+• На карту OpenStreetMap тепер можна додавати ринки, стоянки таксі, кіоски, wild huts, садові центри, історичні літаки, гармати, межове каміння, гробниці тощо.
+• Для закладів можна вказати drive-through
+• Спрощено роботу з назвами об'єктів кількома мовами та усунуто пов'язані з цим помилки
+• Додано підказку "Не можете знайти відповідну категорію?" під час додавання об'єктів
+• Виправлена помилка, що дозволяла додати назву тією самою мовою двічі
 
-Translations updates:
-• Slovak, Italian, Spanish, Hindi
-• Fixed police, parking, and sights category search for simplified Chinese
+Карта:
+• Складні пішохідні стежки тепер коричневі, а експертні – чорні
+• Велодоріжки тепер темно-сині, а там, де вони ведуть пішохідними доріжками – пунктирні
+• Під напівпрозорими мостами видно дороги
+• Більш послідовне відображення асфальтованих доріжок білим пунктиром, а ґрунтових – коричневим пунктиром
+• Додано ділянки осипів і галечників; поліпшено колір голих скельних поверхонь
+• Прибрано порожні/невикористовувані магазини
+• На карту додано природний камінь і міні-гольф
+• Різні іконки для зупинок громадського транспорту та укриття від дощу
+• Додано іконки вольєрів для тварин, хімчистки; оновлено іконку пральні
+• Виправлено проблему занадто маленького розміру шрифту для невеликих міст
+• Назви деяких міст трохи раніше з'являються на карті
+• Зменшено непрозорість штрихової заливки земель корінних народів
+• Штрихова заливка та іконки/назви заповідників не відображаються під час детального наближення карти
 
- …and more fixes and improvements, check https://omaps.org/news for details!
+Пошук:
+• Покращено пошук за деякими категоріями (падель, станції метро, хатини в горах тощо)
+• Увімкнено пошук місць поповнення запасів питної води, включно з кафе, що беруть участь у проєкті
+• Приватні басейни виключено з результатів пошуку
+• Додано експериментальний пошук за статтями вікіпедії "?wiki"
+• Покращено порядок результатів пошуку за категоріями в списку
+
+Покращено баскський, німецький, грецький, словацький переклади.
+
+Більше подробиць можна прочитати на https://omaps.org/uk/news/

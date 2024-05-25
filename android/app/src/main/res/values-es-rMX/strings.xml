@@ -219,16 +219,16 @@
 	<string name="enable_keep_screen_on">Mantener la pantalla encendida</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">Cuando está habilitado, la pantalla siempre estará encendida cuando se muestre el mapa.</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Ahora usa Organic Maps en la pantalla del teléfono</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">Ahora usa Organic Maps en la pantalla del teléfono</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Ahora usa Organic Maps en la pantalla del automóvil</string>
+	<string name="car_used_on_the_car_screen">Ahora usa Organic Maps en la pantalla del automóvil</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Se ha conectado a Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Continuar en el teléfono</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">A la pantalla del auto</string>
+	<string name="car_continue_on_the_phone">Continuar en el teléfono</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">A la pantalla del auto</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">Esta aplicación requiere acceso a su ubicación para fines de navegación.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -241,10 +241,15 @@
 	<string name="pref_tts_open_system_settings">Configuración de síntesis de voz del sistema</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">No se encontraron las configuraciones de síntesis de voz. ¿Está seguro de que su dispositivo la admite?</string>
+	<string name="clear_the_search">Limpiar la búsqueda</string>
+	<string name="zoom_in">Acercarse</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Disminuir el zoom</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.amenity">Infraestructura</string>
 	<string name="type.amenity.arts_centre">Centro de artes</string>
+	<string name="type.amenity.bbq">Parrilla</string>
 	<string name="type.amenity.bicycle_parking">Estacionamiento de bicicletas</string>
 	<string name="type.amenity.motorcycle_parking">Estacionamiento de motocicletas</string>
 	<string name="type.amenity.parking">Estacionamiento</string>

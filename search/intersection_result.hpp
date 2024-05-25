@@ -29,6 +29,11 @@ struct IntersectionResult
     return m_building != kInvalidId && m_building == m_street;
   }
 
+  inline bool IsPoiAndComplexPoi() const
+  {
+    return m_complexPoi != kInvalidId && m_subpoi != kInvalidId;
+  }
+
   // Clears all fields to an invalid state.
   void Clear();
 

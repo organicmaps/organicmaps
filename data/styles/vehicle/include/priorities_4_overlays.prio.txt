@@ -447,7 +447,6 @@ shop-supermarket                                    # icon z14- (also has captio
 === 1650
 
 waterway-river                                      # pathtext z11- (also has line z10-)
-waterway-riverbank                                  # pathtext z11- (also has line z10-, area z1-)
 === 1550
 
 natural-water                                       # caption z10- (also has area z1-)

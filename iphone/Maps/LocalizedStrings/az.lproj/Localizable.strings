@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Səsli təlimatlar";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Küçə adlarını elan edin";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Aktiv edildikdə, dönmək üçün küçənin və ya çıxışın adı ucadan səsləndiriləcək.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Audio Dil";
 
@@ -704,6 +710,9 @@
 "editor_add_place_title" = "Əlavə";
 
 "editor_edit_place_name_hint" = "Yerin adı";
+
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Yerli dildə yazıldığı kimi";
 
 "editor_edit_place_category_title" = "Kateqoriya";
 
@@ -1258,6 +1267,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Tr:About";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "İndi telefon ekranında Organic Maps istifadə edirsiniz";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Hazırda avtomobil ekranında Organic Maps istifadə edirsiniz";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Telefonda davam edin";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Avtomobil ekranına";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Yürüyüş";
 
@@ -1269,6 +1290,11 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Xəritə";
+
+"drive_through" = "Sürüşmə";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Menyu keçidi";
 
 
 /********** Types **********/
@@ -1321,7 +1347,7 @@
 
 "type.amenity.bar" = "Bar";
 
-"type.amenity.bbq" = "Piknik sahəsi";
+"type.amenity.bbq" = "Barbekü qril";
 
 "type.amenity.bench" = "Skamya";
 
@@ -2036,22 +2062,10 @@
 
 "type.highway.footway.crossing" = "Piyada keçidi";
 
-"type.highway.footway.alpine_hiking" = "Yol";
-
 "type.highway.footway.area" = "Piyada ərazisi";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Körpü";
-
-"type.highway.footway.demanding_alpine_hiking" = "Yol";
-
-"type.highway.footway.demanding_mountain_hiking" = "Yol";
-
-"type.highway.footway.difficult_alpine_hiking" = "Yol";
-
-"type.highway.footway.hiking" = "Yol";
-
-"type.highway.footway.mountain_hiking" = "Yol";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Tunel";
@@ -2086,26 +2100,20 @@
 
 "type.highway.path" = "Yol";
 
-"type.highway.path.alpine_hiking" = "Yol";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Yol";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Yol";
 
 "type.highway.path.bicycle" = "Velosiped və Gəzinti Yolu";
+
+"type.highway.footway.bicycle" = "Velosiped və Gəzinti Yolu";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Körpü";
 
-"type.highway.path.demanding_alpine_hiking" = "Yol";
-
-"type.highway.path.demanding_mountain_hiking" = "Yol";
-
-"type.highway.path.difficult_alpine_hiking" = "Yol";
-
-"type.highway.path.hiking" = "Yol";
-
 "type.highway.path.horse" = "Atlı yolu";
-
-"type.highway.path.mountain_hiking" = "Yol";
-
-"type.highway.path.permissive" = "Yol";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Tunel";
@@ -2228,17 +2236,7 @@
 
 "type.highway.track.grade1" = "Uçuş zolağı";
 
-"type.highway.track.grade2" = "Uçuş zolağı";
-
-"type.highway.track.grade3" = "Uçuş zolağı";
-
-"type.highway.track.grade4" = "Uçuş zolağı";
-
-"type.highway.track.grade5" = "Uçuş zolağı";
-
 "type.highway.track.no.access" = "Uçuş zolağı";
-
-"type.highway.track.permissive" = "Uçuş zolağı";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunel";
@@ -2447,8 +2445,6 @@
 "type.landuse.construction" = "Struktur";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Ferma";
 
 "type.landuse.farmland" = "Kənd Təsərrüfatı Torpaqları";
 
@@ -3836,8 +3832,6 @@
 "type.waterway.river" = "Çay";
 
 "type.waterway.river.tunnel" = "Çay";
-
-"type.waterway.riverbank" = "Çay";
 
 "type.waterway.stream" = "Çay";
 

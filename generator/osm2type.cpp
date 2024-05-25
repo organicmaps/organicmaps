@@ -568,7 +568,7 @@ string MatchCity(ms::LatLon const & ll)
   return {};
 }
 
-string DetermineSurface(OsmElement * p)
+string DetermineSurfaceAndHighwayType(OsmElement * p)
 {
   string surface;
   string smoothness;
@@ -582,18 +582,15 @@ string DetermineSurface(OsmElement * p)
       surface = tag.m_value;
     else if (tag.m_key == "smoothness")
       smoothness = tag.m_value;
-    else if (tag.m_key == "surface:grade")
+    else if (tag.m_key == "surface:grade") // discouraged, 25k usages as of 2024
       (void)strings::to_double(tag.m_value, surfaceGrade);
     else if (tag.m_key == "tracktype")
       trackGrade = tag.m_value;
-    else if (tag.m_key == "highway")
+    else if (tag.m_key == "highway" && tag.m_value != "ford")
       highway = tag.m_value;
     else if (tag.m_key == "4wd_only" && (tag.m_value == "yes" || tag.m_value == "recommended"))
       return "unpaved_bad";
   }
-
-  if (highway.empty() || (surface.empty() && smoothness.empty()))
-    return {};
 
   // According to https://wiki.openstreetmap.org/wiki/Key:surface
   static base::StringIL pavedSurfaces = {
@@ -601,6 +598,7 @@ string DetermineSurface(OsmElement * p)
       "metal", "paved", "paving_stones", "sett", "unhewn_cobblestone", "wood"
   };
 
+  // All not explicitly listed surface types are considered unpaved good, e.g. "compacted", "fine_gravel".
   static base::StringIL badSurfaces = {
       "cobblestone", "dirt", "earth", "grass", "gravel", "ground", "metal", "mud", "rock", "unpaved",
       "pebblestone", "sand", "sett", "snow", "stepping_stones", "unhewn_cobblestone", "wood", "woodchips"
@@ -623,6 +621,7 @@ string DetermineSurface(OsmElement * p)
   auto const Has = [](base::StringIL const & il, string const & v)
   {
     bool res = false;
+    // Also matches compound values like concrete:plates, sand/dirt, etc. if a single part matches.
     strings::Tokenize(v, ";:/", [&il, &res](std::string_view sv)
     {
       if (!res)
@@ -630,6 +629,115 @@ string DetermineSurface(OsmElement * p)
     });
     return res;
   };
+
+  /* Convert between highway=path/footway/cycleway depending on surface and other tags.
+   * The goal is to end up with following clear types:
+   *   footway - for paved/formed urban looking pedestrian paths
+   *   footway + yesbicycle - same but shared with cyclists
+   *   path - for unpaved paths and trails
+   *   path + yesbicycle - same but explicitly shared with cyclists
+   *   cycleway - dedicated for cyclists (segregated from pedestrians)
+   * I.e. segregated shared paths should have both footway and cycleway types.
+   */
+  string const kCycleway = "cycleway";
+  string const kFootway = "footway";
+  string const kPath = "path";
+  if (highway == kFootway || highway == kPath || highway == kCycleway)
+  {
+    static base::StringIL goodPathSmoothness = {
+        "excellent", "good", "very_good", "intermediate"
+    };
+    static base::StringIL gravelSurface = {
+        "gravel", "fine_gravel", "pebblestone"
+    };
+    bool const hasQuality = !smoothness.empty() || !trackGrade.empty();
+    bool const isGood = (smoothness.empty() || Has(goodPathSmoothness, smoothness)) &&
+                        (trackGrade.empty() || trackGrade == "grade1" || trackGrade == "grade2");
+    bool const isMed = (smoothness == "intermediate" || trackGrade == "grade2");
+    bool const hasTrailTags = p->HasTag("sac_scale") || p->HasTag("trail_visibility") ||
+                              p->HasTag("ford") || p->HasTag("informal", "yes");
+    bool const hasUrbanTags = p->HasTag("footway") || p->HasTag("segregated") ||
+                              (p->HasTag("lit") && !p->HasTag("lit", "no"));
+
+    bool isFormed = !surface.empty() && Has(pavedSurfaces, surface);
+    // Treat "compacted" as formed when in good or default quality.
+    if (surface == "compacted" && isGood)
+      isFormed = true;
+    // Treat "gravel"-like surfaces as formed only when it has urban tags or a certain good quality and no trail tags.
+    if (Has(gravelSurface, surface) && isGood && (hasUrbanTags || (hasQuality && !hasTrailTags)))
+      isFormed = true;
+
+    auto const ConvertTo = [&](string const & newType)
+    {
+      // TODO(@pastk): remove redundant tags, e.g. if converted to cycleway then remove "bicycle=yes".
+      LOG(LDEBUG, ("Convert", DebugPrintID(*p), "to", newType, isFormed, isGood, hasTrailTags, hasUrbanTags, p->m_tags));
+      p->UpdateTag("highway", newType);
+    };
+
+    auto const ConvertPathOrFootway = [&](bool const toPath)
+    {
+      string const toType = toPath ? kPath : kFootway;
+      if (!surface.empty())
+      {
+        if (toPath ? !isFormed : isFormed)
+          ConvertTo(toType);
+      }
+      else
+      {
+        if (hasQuality && !isMed)
+        {
+          if (toPath ? !isGood : isGood)
+            ConvertTo(toType);
+        }
+        else if (toPath ? (hasTrailTags && !hasUrbanTags) : (!hasTrailTags && hasUrbanTags))
+          ConvertTo(toType);
+      }
+    };
+
+    if (highway == kCycleway)
+    {
+      static base::StringIL segregatedSidewalks = {
+          "right", "left", "both"
+      };
+      if (p->HasTag("segregated", "yes") || Has(segregatedSidewalks, p->GetTag("sidewalk")))
+      {
+        LOG(LDEBUG, ("Add a separate footway to", DebugPrintID(*p), p->m_tags));
+        p->AddTag("highway", kFootway);
+      }
+      else
+      {
+        string const foot = p->GetTag("foot");
+        if (foot == "designated" || foot == "yes")
+        {
+          // A non-segregated shared footway/cycleway.
+          ConvertTo(kFootway);
+          p->AddTag("bicycle", "designated");
+          ConvertPathOrFootway(true /* toPath */); // In case its unpaved.
+        }
+      }
+    }
+    else if (highway == kPath)
+    {
+      if (p->HasTag("segregated", "yes"))
+      {
+        ConvertTo(kCycleway);
+        LOG(LDEBUG, ("Add a separate footway to", DebugPrintID(*p), p->m_tags));
+        p->AddTag("highway", kFootway);
+      }
+      else if (p->HasTag("foot", "no") && p->HasTag("bicycle", "designated"))
+        ConvertTo(kCycleway);
+      else if (!p->HasTag("foot", "no"))
+        ConvertPathOrFootway(false /* toPath */);
+    }
+    else
+    {
+      CHECK_EQUAL(highway, kFootway, ());
+      ConvertPathOrFootway(true /* toPath */);
+    }
+  }
+
+  if (highway.empty() || (surface.empty() && smoothness.empty()))
+    return {};
 
   bool isGood = true;
   bool isPaved = true;
@@ -678,6 +786,36 @@ string DetermineSurface(OsmElement * p)
   string psurface = isPaved ? "paved_" : "unpaved_";
   psurface += isGood ? "good" : "bad";
   return psurface;
+}
+
+string DeterminePathGrade(OsmElement * p)
+{
+  if (!p->HasTag("highway", "path"))
+    return {};
+
+  string scale = p->GetTag("sac_scale");
+  string visibility = p->GetTag("trail_visibility");
+  
+  if (scale.empty() && visibility.empty())
+    return {};
+
+  static base::StringIL expertScales = {
+      "alpine_hiking", "demanding_alpine_hiking", "difficult_alpine_hiking"
+  };
+  static base::StringIL difficultVisibilities = {
+      "bad", "poor" // poor is not official
+  };
+  static base::StringIL expertVisibilities = {
+      "horrible", "no", "very_bad" // very_bad is not official
+  };
+
+  if (base::IsExist(expertScales, scale) || base::IsExist(expertVisibilities, visibility))
+    return "expert";
+  else if (scale == "demanding_mountain_hiking" || base::IsExist(difficultVisibilities, visibility))
+    return "difficult";
+
+  // hiking & mountain_hiking scales, excellent, good, intermediate & unknown visibilities means "no grade"
+  return {};
 }
 
 void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
@@ -760,7 +898,9 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
     p->AddTag("area", "yes");
   }
 
-  p->AddTag("psurface", DetermineSurface(p));
+  p->AddTag("psurface", DetermineSurfaceAndHighwayType(p));
+
+  p->AddTag("_path_grade", DeterminePathGrade(p));
 
   string const kCuisineKey = "cuisine";
   auto cuisines = p->GetTag(kCuisineKey);
@@ -799,7 +939,7 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
         normalized = "coffee_shop";
 
       if (first)
-        p->UpdateTag(kCuisineKey, [&normalized](string & value) { value = normalized; });
+        p->UpdateTag(kCuisineKey, normalized);
       else
         p->AddTag(kCuisineKey, normalized);
 
@@ -819,7 +959,7 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
       strings::Trim(type);
 
       if (first)
-        p->UpdateTag(kAerodromeTypeKey, [&type](auto & value) { value = type; });
+        p->UpdateTag(kAerodromeTypeKey, type);
       else
         p->AddTag(kAerodromeTypeKey, type);
 
@@ -860,7 +1000,7 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
   static CountriesLoader s_countriesChecker;
 
   auto const dePlace = p->GetTag("de:place");
-  p->UpdateTag("place", [&](string & value)
+  p->UpdateTagFn("place", [&](string & value)
   {
     // 1. Replace a value of 'place' with a value of 'de:place' because most people regard
     // places names as 'de:place' defines it.
@@ -882,7 +1022,7 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
   });
 
   if (isCapital)
-    p->UpdateTag("capital", [&](string & value) { value = "2"; });
+    p->UpdateTag("capital", "2");
 }
 
 bool IsCarDesignatedHighway(uint32_t type)

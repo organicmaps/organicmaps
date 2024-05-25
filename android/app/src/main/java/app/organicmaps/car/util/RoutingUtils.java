@@ -97,8 +97,8 @@ public final class RoutingUtils
   private static TravelEstimate createTravelEstimate(@NonNull app.organicmaps.util.Distance distance, int time)
   {
     return new TravelEstimate.Builder(RoutingHelpers.createDistance(distance), ZonedDateTime.now().plusSeconds(time))
-            .setRemainingTimeSeconds(time)
-            .setRemainingDistanceColor(Colors.DISTANCE)
-            .build();
+        .setRemainingTimeSeconds(time)
+        .setRemainingDistanceColor(Colors.DISTANCE)
+        .build();
   }
 }

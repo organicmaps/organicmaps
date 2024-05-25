@@ -114,11 +114,12 @@ public:
     }
 
     // File Writer finalization function with adding section to the main mwm file.
-    auto const finalizeFn = [this](std::unique_ptr<TmpFile> && w, std::string const & tag)
+    auto const finalizeFn = [this](std::unique_ptr<TmpFile> && tmpFile, std::string const & tag)
     {
-      w->Flush();
+      auto & w = tmpFile->GetWriter();
+      w.Flush();
       FilesContainerW writer(m_filename, FileWriter::OP_WRITE_EXISTING);
-      writer.Write(w->GetName(), tag);
+      writer.Write(w.GetName(), tag);
     };
 
     for (size_t i = 0; i < m_header.GetScalesCount(); ++i)
@@ -145,8 +146,8 @@ public:
 
   void operator()(FeatureBuilder & fb)
   {
-    GeometryHolder holder([this](int i) -> FileWriter & { return *m_geoFile[i]; },
-                          [this](int i) -> FileWriter & { return *m_trgFile[i]; }, fb, m_header);
+    GeometryHolder holder([this](int i) -> FileWriter & { return m_geoFile[i]->GetWriter(); },
+                          [this](int i) -> FileWriter & { return m_trgFile[i]->GetWriter(); }, fb, m_header);
 
     if (!fb.IsPoint())
     {
@@ -310,11 +311,21 @@ private:
   using Points = std::vector<m2::PointD>;
   using Polygons = std::list<Points>;
 
-  class TmpFile : public FileWriter
+  class TmpFile
   {
+    std::unique_ptr<FileWriter> m_writer;
   public:
-    explicit TmpFile(std::string const & filePath) : FileWriter(filePath) {}
-    ~TmpFile() override { DeleteFileX(GetName()); }
+    explicit TmpFile(std::string const & filePath)
+      : m_writer(std::make_unique<FileWriter>(filePath)) {}
+
+    FileWriter & GetWriter() { return *m_writer; }
+
+    ~TmpFile()
+    {
+      auto const name = m_writer->GetName();
+      m_writer.reset();
+      FileWriter::DeleteFileX(name);
+    }
   };
 
   using TmpFiles = std::vector<std::unique_ptr<TmpFile>>;

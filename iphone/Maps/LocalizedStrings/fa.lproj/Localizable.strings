@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "دستور العمل صوتی";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "نام خیابان ها را اعلام کنید";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "وقتی فعال باشد، نام خیابان یا خروجی که باید به آن بپیچید با صدای بلند گفته می شود.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "زبان صوت";
 
@@ -704,6 +710,9 @@
 "editor_add_place_title" = "درحال افزودن";
 
 "editor_edit_place_name_hint" = "نام مکان";
+
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "همانطور که به زبان محلی نوشته شده است";
 
 "editor_edit_place_category_title" = "دسته بندی";
 
@@ -1258,6 +1267,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Fa:About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "اکنون در حال استفاده از نقشه های ارگانیک در صفحه گوشی هستید";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "اکنون از نقشه های ارگانیک در صفحه ماشین استفاده می کنید";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "با تلفن ادامه دهید";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "به صفحه ماشین";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "پیاده روی";
 
@@ -1269,6 +1290,11 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "نقشه";
+
+"drive_through" = "رانندگی از طریق";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "لینک منو";
 
 
 /********** Types **********/
@@ -1321,7 +1347,7 @@
 
 "type.amenity.bar" = "میکده";
 
-"type.amenity.bbq" = "مکان پیک نیک";
+"type.amenity.bbq" = "منقل کباب";
 
 "type.amenity.bench" = "سَکو";
 
@@ -2036,22 +2062,10 @@
 
 "type.highway.footway.crossing" = "محل عبور عابر پیاده";
 
-"type.highway.footway.alpine_hiking" = "مسیر";
-
 "type.highway.footway.area" = "مسیر";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "پل";
-
-"type.highway.footway.demanding_alpine_hiking" = "مسیر";
-
-"type.highway.footway.demanding_mountain_hiking" = "مسیر";
-
-"type.highway.footway.difficult_alpine_hiking" = "مسیر";
-
-"type.highway.footway.hiking" = "مسیر";
-
-"type.highway.footway.mountain_hiking" = "مسیر";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "تونل";
@@ -2086,26 +2100,20 @@
 
 "type.highway.path" = "مسیر";
 
-"type.highway.path.alpine_hiking" = "مسیر";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "مسیر";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "مسیر";
 
 "type.highway.path.bicycle" = "مسیر";
+
+"type.highway.footway.bicycle" = "مسیر";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "پل";
 
-"type.highway.path.demanding_alpine_hiking" = "مسیر";
-
-"type.highway.path.demanding_mountain_hiking" = "مسیر";
-
-"type.highway.path.difficult_alpine_hiking" = "مسیر";
-
-"type.highway.path.hiking" = "مسیر";
-
 "type.highway.path.horse" = "مسیر";
-
-"type.highway.path.mountain_hiking" = "مسیر";
-
-"type.highway.path.permissive" = "مسیر";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "تونل";
@@ -2228,17 +2236,7 @@
 
 "type.highway.track.grade1" = "جاده";
 
-"type.highway.track.grade2" = "جاده";
-
-"type.highway.track.grade3" = "جاده";
-
-"type.highway.track.grade4" = "جاده";
-
-"type.highway.track.grade5" = "جاده";
-
 "type.highway.track.no.access" = "جاده";
-
-"type.highway.track.permissive" = "جاده";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "تونل";
@@ -2447,8 +2445,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "زمین کشاورزی";
 
@@ -3737,7 +3733,7 @@
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "اقامتگاه کوهستانی";
 
-"type.tourism.apartment" = "اپارتمان";
+"type.tourism.apartment" = "آپارتمان تعطیلات";
 
 "type.tourism.artwork" = "گردشگری";
 
@@ -3836,8 +3832,6 @@
 "type.waterway.river" = "رودخانه";
 
 "type.waterway.river.tunnel" = "رودخانه";
-
-"type.waterway.riverbank" = "رودخانه";
 
 "type.waterway.stream" = "رودخانه";
 

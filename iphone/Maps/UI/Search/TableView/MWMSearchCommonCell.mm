@@ -31,11 +31,8 @@
 
   self.locationLabel.text = @(result.GetAddress().c_str());
   [self.locationLabel sizeToFit];
-  
-  if (result.GetResultType() == search::Result::Type::Feature)
-    self.infoLabel.text = @(result.GetFeatureDescription().c_str());
-  else
-    self.infoLabel.text = @("");
+
+  self.infoLabel.text = @(result.GetFeatureDescription().c_str());
 
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
   double distanceInMeters = 0.0;

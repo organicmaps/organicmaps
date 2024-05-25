@@ -235,6 +235,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">Les bâtiments 3D sont désactivés en mode d\'économie d\'énergie</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Instructions vocales</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Annoncer les noms de rue</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Lorsqu\'il est activé, le nom de la rue ou de la sortie vers laquelle tourner sera prononcé à haute voix.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Langue vocale</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -479,6 +483,8 @@
 	<string name="editor_edit_place_title">Modification</string>
 	<string name="editor_add_place_title">Ajout</string>
 	<string name="editor_edit_place_name_hint">Nom du lieu</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">Comme c\'est écrit dans la langue locale</string>
 	<string name="editor_edit_place_category_title">Catégorie</string>
 	<string name="detailed_problem_description">Description détaillée du problème</string>
 	<string name="editor_report_problem_other_title">Autre problème</string>
@@ -504,6 +510,8 @@
 	<string name="editor_detailed_description">Vos modifications suggérées seront envoyées à la communauté OpenStreetMap. Décrivez les détails qui ne peuvent pas être modifiés dans Organic Maps.</string>
 	<string name="editor_more_about_osm">En savoir plus sur OpenStreetMap</string>
 	<string name="editor_operator">Opérateur</string>
+	<string name="editor_category_unsuitable_title">Tu ne trouves pas de catégorie appropriée ?</string>
+	<string name="editor_category_unsuitable_text">Organic Maps ne permet d\'ajouter que des catégories de points simples, c\'est-à-dire pas de villes, de routes, de lacs, de contours de bâtiments, etc. Merci d\'ajouter ces catégories directement sur <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte notre <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> pour obtenir des instructions détaillées étape par étape.</string>
 	<string name="downloader_no_downloaded_maps_title">Vous n\'avez téléchargé aucune carte</string>
 	<string name="downloader_no_downloaded_maps_message">Téléchargez des cartes pour rechercher un lieu et utiliser la navigation hors ligne</string>
 	<!-- abbreviation for meters -->
@@ -550,7 +558,6 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Assurez-vous de n’avoir pas saisi de données personnelles.</string>
 	<string name="editor_share_to_all_dialog_message_2">Les contributeurs d\'OpenStreetMap vérifieront vos modifications et vous contacteront s\'ils ont des questions.</string>
-	<string name="navigation_stop_button">stop</string>
 	<!-- For the first routing -->
 	<string name="accept">Accepter</string>
 	<!-- For the first routing -->
@@ -780,16 +787,16 @@
 	<string name="app_tip_08">Vous pouvez facilement corriger et améliorer les données cartographiques.</string>
 	<!-- App tip #09 -->
 	<string name="app_tip_09">Notre objectif principal est de créer des cartes rapides, axées sur la confidentialité et faciles à utiliser que vous allez adorer.</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Vous utilisez maintenant Organic Maps sur le téléphone</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">Vous utilisez maintenant Organic Maps sur le téléphone</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Vous utilisez maintenant Organic Maps dans la voiture</string>
+	<string name="car_used_on_the_car_screen">Vous utilisez maintenant Organic Maps dans la voiture</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Vous êtes connecté à Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Aller sur le téléphone</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">Afficher dans la voiture</string>
+	<string name="car_continue_on_the_phone">Aller sur le téléphone</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">Afficher dans la voiture</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">L\'application a besoin de l\'accès à la localisation pour la navigation.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -807,6 +814,15 @@
 	<string name="pref_tts_open_system_settings">Paramètres du système de synthèse vocale</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Les paramètres de la synthèse vocale n\'ont pas été trouvés, es-tu sûr que ton appareil la prend en charge ?</string>
+	<string name="drive_through">Au volant</string>
+	<string name="clear_the_search">Efface la recherche</string>
+	<string name="zoom_in">Zoom avant</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Zoom arrière</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Lien vers le menu</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Voir le menu</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresse/Bloc</string>
@@ -831,7 +847,7 @@
 	<string name="type.amenity.arts_centre">Centre artistique</string>
 	<string name="type.amenity.atm">GAB</string>
 	<string name="type.amenity.bank">Banque</string>
-	<string name="type.amenity.bbq">Terrain de pique-nique</string>
+	<string name="type.amenity.bbq">Grille de barbecue</string>
 	<string name="type.amenity.bench">Banc</string>
 	<string name="type.amenity.bicycle_parking">Parking à vélo</string>
 	<string name="type.amenity.bicycle_rental">Location de vélos</string>
@@ -1184,15 +1200,9 @@
 	<string name="type.highway.footway">Chemin</string>
 	<string name="type.highway.footway.sidewalk">Trottoir</string>
 	<string name="type.highway.footway.crossing">Passage pour piétons</string>
-	<string name="type.highway.footway.alpine_hiking">Chemin</string>
 	<string name="type.highway.footway.area">Chemin</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Pont</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Chemin</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Chemin</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Chemin</string>
-	<string name="type.highway.footway.hiking">Chemin</string>
-	<string name="type.highway.footway.mountain_hiking">Chemin</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunnel</string>
 	<string name="type.highway.ford">Gué</string>
@@ -1213,17 +1223,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
 	<string name="type.highway.path">Chemin</string>
-	<string name="type.highway.path.alpine_hiking">Chemin</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">Chemin</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">Chemin</string>
 	<string name="type.highway.path.bicycle">Chemin</string>
+	<string name="type.highway.footway.bicycle">Chemin</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Pont</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Chemin</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Chemin</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Chemin</string>
-	<string name="type.highway.path.hiking">Chemin</string>
 	<string name="type.highway.path.horse">Chemin</string>
-	<string name="type.highway.path.mountain_hiking">Chemin</string>
-	<string name="type.highway.path.permissive">Chemin</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Tunnel</string>
 	<string name="type.highway.pedestrian">Rue piétonne</string>
@@ -1297,12 +1305,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Pont</string>
 	<string name="type.highway.track.grade1">Piste</string>
-	<string name="type.highway.track.grade2">Piste</string>
-	<string name="type.highway.track.grade3">Piste</string>
-	<string name="type.highway.track.grade4">Piste</string>
-	<string name="type.highway.track.grade5">Piste</string>
 	<string name="type.highway.track.no.access">Piste</string>
-	<string name="type.highway.track.permissive">Piste</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunnel</string>
 	<string name="type.highway.traffic_signals">Feux de circulation</string>
@@ -2046,7 +2049,6 @@
 	<string name="type.waterway.lock_gate">Porte d\'écluse</string>
 	<string name="type.waterway.river">Rivière</string>
 	<string name="type.waterway.river.tunnel">Rivière</string>
-	<string name="type.waterway.riverbank">Rivière</string>
 	<string name="type.waterway.stream">Ruisseau</string>
 	<string name="type.waterway.stream.ephemeral">Ruisseau</string>
 	<string name="type.waterway.stream.intermittent">Ruisseau</string>

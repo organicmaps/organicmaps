@@ -212,6 +212,8 @@ def init(default_settings_path: AnyStr):
     )
     NODE_STORAGE = cfg.get_opt("Generator tool", "NODE_STORAGE", NODE_STORAGE)
 
+    assert os.path.exists(OMIM_PATH) is True, f"Can't find OMIM_PATH (set to {OMIM_PATH})" 
+
     if not os.path.exists(USER_RESOURCE_PATH):
         from data_files import find_data_files
 

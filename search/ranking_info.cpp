@@ -40,7 +40,7 @@ double constexpr kPopularity = 0.42;
 
 double constexpr kErrorsMade = -0.4;
 double constexpr kMatchedFraction = 0.1876736;
-double constexpr kAllTokensUsed = 0.0478513;
+double constexpr kAllTokensUsed = 0.3;
 double constexpr kCommonTokens = -0.05;
 double constexpr kAltOldName = -0.3;    // Some reasonable penalty like kErrorsMade.
 
@@ -50,6 +50,7 @@ double constexpr kAltOldName = -0.3;    // Some reasonable penalty like kErrorsM
 // - shoulbe be comparable with kRank to keep cities/towns
 double constexpr kViewportDiffThreshold = 0.29;
 static_assert(kViewportDiffThreshold < -kAltOldName && kViewportDiffThreshold > -kErrorsMade / 2);
+static_assert(kViewportDiffThreshold < kAllTokensUsed);
 
 double constexpr kNameScore[] = {
  -0.05,   // Zero
@@ -96,8 +97,7 @@ static_assert(std::size(kPoiType) == base::E2I(PoiType::Count));
 // - See NY_Subway test.
 double constexpr kFalseCats =
     kNameScore[base::E2I(NameScore::FULL_PREFIX)] - kNameScore[base::E2I(NameScore::FULL_MATCH)] +
-    kPoiType[base::E2I(PoiType::PureCategory)] - kPoiType[base::E2I(PoiType::Eat)]
-    + AbsPenaltyPerKm();   // a small 'plus diff' to keep fast food a little bit higher
+    kPoiType[base::E2I(PoiType::PureCategory)] - kPoiType[base::E2I(PoiType::Eat)];
 static_assert(kFalseCats < 0.0);
 
 double constexpr kStreetType[] = {
@@ -134,8 +134,8 @@ void PrintParse(ostringstream & oss, array<TokenRange, Model::TYPE_COUNT> const 
   {
     for (size_t pos : ranges[i])
     {
-      CHECK_LESS(pos, numTokens, ());
-      CHECK_EQUAL(types[pos], Model::TYPE_COUNT, ());
+      ASSERT_LESS(pos, numTokens, ());
+      ASSERT_EQUAL(types[pos], Model::TYPE_COUNT, ());
       types[pos] = static_cast<Model::Type>(i);
     }
   }
@@ -327,6 +327,7 @@ string DebugPrint(RankingInfo const & info)
      << ", m_allTokensUsed: " << info.m_allTokensUsed
      << ", m_categorialRequest: " << info.m_categorialRequest
      << ", m_hasName: " << info.m_hasName
+     << ", m_nearbyMatch: " << info.m_nearbyMatch
      << " }";
 
   return os.str();
@@ -420,6 +421,10 @@ double RankingInfo::GetLinearModelRank(bool viewportMode /* = false */) const
       result += kHasName;
   }
 
+  // Trying to fix https://github.com/organicmaps/organicmaps/issues/5251.
+  if (m_nearbyMatch)
+    result += kAltOldName;
+
   return result;
 }
 
@@ -433,7 +438,7 @@ double RankingInfo::GetErrorsMadePerToken() const
   if (!m_errorsMade.IsValid())
     return GetMaxErrorsForTokenLength(numeric_limits<size_t>::max());
 
-  CHECK_GREATER(m_numTokens, 0, ());
+  ASSERT_GREATER(m_numTokens, 0, ());
   return m_errorsMade.m_errorsMade / static_cast<double>(m_numTokens);
 }
 
@@ -472,7 +477,7 @@ Model::Type RankingInfo::GetTypeScore() const
 
 PoiType RankingInfo::GetPoiTypeScore() const
 {
-  // Equalize all *pure category* results to not distinguish different toilets (see NY_Subway, ToiletAirport test).
+  // Equalize all *pure category* results to not distinguish different toilets (see ToiletAirport test).
   return (m_pureCats ? PoiType::PureCategory : m_classifType.poi);
 }
 

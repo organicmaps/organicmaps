@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "音声指示";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "通りの名前を発表";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "有効にすると、右折する通りまたは出口の名前が読み上げられます。";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "音声言語";
 
@@ -704,6 +710,9 @@
 "editor_add_place_title" = "追加中";
 
 "editor_edit_place_name_hint" = "場所の名前";
+
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "現地の言葉でこう書かれている。";
 
 "editor_edit_place_category_title" = "カテゴリ";
 
@@ -1258,6 +1267,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/JA:参加する";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "端末の画面でOrganic Mapsを使用している";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "あなたは今、車の画面でオーガニック・マップを使用している";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "電話で続ける";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "車のスクリーンへ";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "ハイキング";
 
@@ -1269,6 +1290,11 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "地図";
+
+"drive_through" = "ドライブスルー";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "メニューリンク";
 
 
 /********** Types **********/
@@ -1321,7 +1347,7 @@
 
 "type.amenity.bar" = "居酒屋";
 
-"type.amenity.bbq" = "ピクニック";
+"type.amenity.bbq" = "バーベキューグリル";
 
 "type.amenity.bench" = "ベンチ";
 
@@ -2036,22 +2062,10 @@
 
 "type.highway.footway.crossing" = "横断歩道";
 
-"type.highway.footway.alpine_hiking" = "歩道";
-
 "type.highway.footway.area" = "歩道";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "橋";
-
-"type.highway.footway.demanding_alpine_hiking" = "歩道";
-
-"type.highway.footway.demanding_mountain_hiking" = "歩道";
-
-"type.highway.footway.difficult_alpine_hiking" = "歩道";
-
-"type.highway.footway.hiking" = "歩道";
-
-"type.highway.footway.mountain_hiking" = "歩道";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "トンネル";
@@ -2086,26 +2100,20 @@
 
 "type.highway.path" = "歩道";
 
-"type.highway.path.alpine_hiking" = "歩道";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "歩道";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "歩道";
 
 "type.highway.path.bicycle" = "歩道";
+
+"type.highway.footway.bicycle" = "歩道";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "橋";
 
-"type.highway.path.demanding_alpine_hiking" = "歩道";
-
-"type.highway.path.demanding_mountain_hiking" = "歩道";
-
-"type.highway.path.difficult_alpine_hiking" = "歩道";
-
-"type.highway.path.hiking" = "歩道";
-
 "type.highway.path.horse" = "歩道";
-
-"type.highway.path.mountain_hiking" = "歩道";
-
-"type.highway.path.permissive" = "歩道";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "トンネル";
@@ -2228,17 +2236,7 @@
 
 "type.highway.track.grade1" = "ストリート";
 
-"type.highway.track.grade2" = "ストリート";
-
-"type.highway.track.grade3" = "ストリート";
-
-"type.highway.track.grade4" = "ストリート";
-
-"type.highway.track.grade5" = "ストリート";
-
 "type.highway.track.no.access" = "ストリート";
-
-"type.highway.track.permissive" = "ストリート";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "トンネル";
@@ -2447,8 +2445,6 @@
 "type.landuse.construction" = "建設工事中";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "農地";
 
 "type.landuse.farmland" = "農地";
 
@@ -3737,7 +3733,7 @@
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "山小屋";
 
-"type.tourism.apartment" = "アパート";
+"type.tourism.apartment" = "ホリデー・アパート";
 
 "type.tourism.artwork" = "芸術";
 
@@ -3836,8 +3832,6 @@
 "type.waterway.river" = "河川";
 
 "type.waterway.river.tunnel" = "河川";
-
-"type.waterway.riverbank" = "河川";
 
 "type.waterway.stream" = "小川";
 

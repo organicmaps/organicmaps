@@ -5,7 +5,6 @@ Bookmark user_mark.vsh.glsl user_mark.fsh.glsl
 BookmarkAnim user_mark.vsh.glsl user_mark.fsh.glsl
 TextOutlined text_outlined.vsh.glsl text.fsh.glsl
 Text text.vsh.glsl text.fsh.glsl
-TextFixed text.vsh.glsl text_fixed.fsh.glsl
 TextStaticOutlinedGui text_outlined_gui.vsh.glsl text.fsh.glsl
 TextOutlinedGui text_outlined_gui.vsh.glsl text.fsh.glsl
 Area area.vsh.glsl solid_color.fsh.glsl
@@ -13,10 +12,11 @@ AreaOutline area.vsh.glsl solid_color.fsh.glsl
 Area3d area3d.vsh.glsl texturing3d.fsh.glsl
 Area3dOutline area3d_outline.vsh.glsl solid_color.fsh.glsl
 Line line.vsh.glsl line.fsh.glsl
-CapJoin circle.vsh.glsl circle.fsh.glsl
 TransitCircle transit_circle.vsh.glsl transit_circle.fsh.glsl
 DashedLine dashed_line.vsh.glsl dashed_line.fsh.glsl
 PathSymbol path_symbol.vsh.glsl texturing.fsh.glsl
+TransparentArea area.vsh.glsl solid_color.fsh.glsl
+CapJoin circle.vsh.glsl circle.fsh.glsl
 HatchingArea hatching_area.vsh.glsl hatching_area.fsh.glsl
 TexturingGui texturing_gui.vsh.glsl texturing.fsh.glsl
 Ruler ruler.vsh.glsl texturing.fsh.glsl
@@ -47,7 +47,6 @@ BookmarkAboveTextBillboard user_mark_billboard.vsh.glsl user_mark.fsh.glsl
 BookmarkAnimAboveTextBillboard user_mark_billboard.vsh.glsl user_mark.fsh.glsl
 TextOutlinedBillboard text_outlined_billboard.vsh.glsl text.fsh.glsl
 TextBillboard text_billboard.vsh.glsl text.fsh.glsl
-TextFixedBillboard text_billboard.vsh.glsl text_fixed.fsh.glsl
 Traffic traffic.vsh.glsl traffic.fsh.glsl
 TrafficLine traffic_line.vsh.glsl traffic_line.fsh.glsl
 TrafficCircle traffic_circle.vsh.glsl traffic_circle.fsh.glsl

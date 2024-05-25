@@ -37,7 +37,6 @@ omim_link_libraries(
   coding
   base
   cppjansson
-  oauthcpp
   protobuf
   pugixml
   opening_hours

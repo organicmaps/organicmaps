@@ -20,6 +20,7 @@ TestWithCustomMwms::TestWithCustomMwms()
 
 TestWithCustomMwms::~TestWithCustomMwms()
 {
+  m_dataSource.ClearCache();
   for (auto const & file : m_files)
     Cleanup(file);
 }

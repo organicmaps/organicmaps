@@ -20,9 +20,9 @@ on:
       - packaging/**
       - platform/*apple*
       - platform/*_android*
-      - platform/*_ios* 
-      - platform/*_mac* 
-      - platform/*_win* 
+      - platform/*_ios*
+      - platform/*_mac*
+      - platform/*_win*
       - pyhelpers/**
       - tools/**
       - '!tools/python/test_server/**'
@@ -31,7 +31,7 @@ on:
 jobs:
   linux-no-unity:
     name: Linux no unity build
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     # Cancels previous jobs if the same branch or PR was updated again.
     concurrency:
       group: ${{ github.workflow }}-no-unity-${{ github.event.pull_request.number || github.ref }}
@@ -79,8 +79,8 @@ jobs:
       - name: CMake
         shell: bash
         env:
-          CC: clang-14
-          CXX: clang++-14
+          CC: clang-18
+          CXX: clang++-18
           CMAKE_C_COMPILER_LAUNCHER: ccache
           CMAKE_CXX_COMPILER_LAUNCHER: ccache
         # -g1 should slightly reduce build time.
@@ -95,11 +95,11 @@ jobs:
 
   linux-matrix:
     name: Linux builds and tests
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
-        compiler: [{ CXX: g++-12, CC: gcc-12 }, { CXX: clang++-14, CC: clang-14 }]
+        compiler: [{ CXX: g++-14, CC: gcc-14 }, { CXX: clang++-18, CC: clang-18 }]
         CMAKE_BUILD_TYPE: [Debug, RelWithDebInfo]
     # Cancels previous jobs if the same branch or PR was updated again.
     concurrency:
@@ -124,8 +124,6 @@ jobs:
         run: |
           sudo apt update -y
           sudo apt install -y \
-              g++-12 \
-              gcc-12 \
               ninja-build \
               libgl1-mesa-dev \
               libglvnd-dev \
@@ -168,6 +166,7 @@ jobs:
         working-directory: build
         env:
           # drape_tests - requires X Window
+          QT_QPA_PLATFORM: "offscreen"
           # generator_integration_tests - https://github.com/organicmaps/organicmaps/issues/225
           # opening_hours_integration_tests - https://github.com/organicmaps/organicmaps/issues/219
           # opening_hours_supported_features_tests - https://github.com/organicmaps/organicmaps/issues/219

@@ -571,8 +571,9 @@ private:
 
       updateDependScore(Model::TYPE_STREET, preInfo.m_geoParts.m_street);
       updateDependScore(Model::TYPE_SUBURB, preInfo.m_geoParts.m_suburb);
+      updateDependScore(Model::TYPE_COMPLEX_POI, preInfo.m_geoParts.m_complexPoi);
 
-      if (!Model::IsLocalityType(info.m_type) && preInfo.m_cityId.IsValid())
+      if (preInfo.m_cityId.IsValid())
       {
         if (auto city = LoadFeature(preInfo.m_cityId))
         {
@@ -585,7 +586,20 @@ private:
             ASSERT(preInfo.m_tokenRanges[Model::TYPE_VILLAGE].Empty(), ());
           }
 
-          auto const cityNameScore = updateScoreForFeature(*city, type);
+          NameScore cityNameScore = NameScore::ZERO;
+          if (Model::IsLocalityType(info.m_type))
+          {
+            // Hack to promote results like "Nice France".
+            // Otherwise, POIs with "France" token in name around the "Nice" city will be always on top.
+            if (preInfo.m_allTokensUsed && preInfo.m_cityId == res.GetId() &&
+                !(preInfo.m_tokenRanges[Model::TYPE_STATE].Empty() &&
+                  preInfo.m_tokenRanges[Model::TYPE_COUNTRY].Empty()))
+            {
+              cityNameScore = GetNameScores(ft, m_params, preInfo.m_tokenRanges[type], type).m_nameScore;
+            }
+          }
+          else
+            cityNameScore = updateScoreForFeature(*city, type);
 
           // Update distance with matched city pivot if we have a _good_ city name score.
           // A bit controversial distance score reset, but lets try.
@@ -601,6 +615,9 @@ private:
       info.m_errorsMade = errorsMade;
       info.m_isAltOrOldName = isAltOrOldName;
       info.m_matchedFraction = matchedLength / static_cast<float>(totalLength);
+
+      /// @todo Also should add POI + nearby Street/Suburb/City.
+      info.m_nearbyMatch = preInfo.m_geoParts.IsPoiAndComplexPoi();
     }
 
     CategoriesInfo const categoriesInfo(featureTypes,

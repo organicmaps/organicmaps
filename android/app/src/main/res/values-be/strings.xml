@@ -234,6 +234,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">У рэжыме энергазберажэння 3D-будынкі адключаны</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Галасавыя інструкцыі</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Абвяшчаць назвы вуліц</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Калі ўключана, назва вуліцы або выезду, на які трэба павярнуць, будзе прамаўляцца ўслых.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Мова агучвання</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -475,6 +479,8 @@
 	<string name="editor_edit_place_title">Рэдагаванне</string>
 	<string name="editor_add_place_title">Даданне</string>
 	<string name="editor_edit_place_name_hint">Назва месца</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">На мясцовай мове</string>
 	<string name="editor_edit_place_category_title">Катэгорыя</string>
 	<string name="detailed_problem_description">Падрабязнае апісанне праблемы</string>
 	<string name="editor_report_problem_other_title">Іншая праблема</string>
@@ -500,6 +506,8 @@
 	<string name="editor_detailed_description">Прапанаваныя вамі змены будуць дасланы суполцы OpenStreetMap. Апішыце любыя дадатковыя дэталі, якія нельга рэдагаваць у Organic Maps.</string>
 	<string name="editor_more_about_osm">Падрабязней пра OpenStreetMap</string>
 	<string name="editor_operator">Уладальнік</string>
+	<string name="editor_category_unsuitable_title">Няма прыдатнай катэгорыі?</string>
+	<string name="editor_category_unsuitable_text">Organic Maps дазваляе дадаваць на мапу толькі простыя тыпы аб\'ектаў, гэта значыць без гарадаў, дарог, азёр і будынкаў. Калі ласка, дадайце такія катэгорыі на сайце <a href="https://www.openstreetmap.org/">OpenStreetMap.org </a>. Мы таксама рэкамендуем азнаёміцца ​​з <a href="https://organicmaps.app/faq/editing/advanced-map-editing/">падрабязнымі інструкцыямі і іншымі прыкладаннямі для рэдагавання мапы</a>.</string>
 	<string name="downloader_no_downloaded_maps_title">Вы не спампавалі ніводнай мапы</string>
 	<string name="downloader_no_downloaded_maps_message">Спампуйце мапы, каб шукаць месцы і карыстацца навігацыяй без інтэрнэту.</string>
 	<!-- abbreviation for meters -->
@@ -542,7 +550,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Упэўніцеся, што вы не ўвялі ніякіх асабістых даных.</string>
 	<string name="editor_share_to_all_dialog_message_2">Рэдактары OpenStreetMap правераць змены і звяжуцца з вамі, калі ў іх узнікнуць пытанні.</string>
-	<string name="navigation_stop_button">спыніць</string>
+	<string name="navigation_stop_button">Cпыніць</string>
 	<!-- For the first routing -->
 	<string name="accept">Прыняць</string>
 	<!-- For the first routing -->
@@ -768,16 +776,16 @@
 	<string name="app_tip_08">Вы можаце лёгка выправіць і палепшыць дадзеныя карты.</string>
 	<!-- App tip #09 -->
 	<string name="app_tip_09">Наша галоўная мэта - ствараць хуткія, арыентаваныя на прыватнасць і простыя ў выкарыстанні карты, якія вам спадабаюцца.</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Вы выкарыстоўваеце Organic Maps на экране тэлефона</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">Вы выкарыстоўваеце Organic Maps на экране тэлефона</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Вы выкарыстоўваеце Organic Maps на экране аўтамабіля</string>
+	<string name="car_used_on_the_car_screen">Вы выкарыстоўваеце Organic Maps на экране аўтамабіля</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Вы падключаны да Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Працягнуць на тэлефоне</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">На экран аўто</string>
+	<string name="car_continue_on_the_phone">Працягнуць на тэлефоне</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">На экран аўто</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">Гэтаму прылажэнню патрабуецца доступ да вашага месцазнаходжання для навігацыі.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -795,11 +803,21 @@
 	<string name="pref_tts_open_system_settings">Сістэмныя наладкі сінтэзу маўлення</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Налады сінтэзу маўлення не знойдзены. Вы ўпэўнены, што ваша прылада падтрымлівае гэта?</string>
+	<string name="drive_through">З акенцам для кіроўцаў</string>
+	<string name="clear_the_search">Ачысціць пошук</string>
+	<string name="zoom_in">Наблізіць</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Аддаліць</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Спасылка на меню</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Паглядзець меню</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адрас/Блок</string>
 	<string name="type.addr_interpolation.even">Адрас/Блок</string>
 	<string name="type.addr_interpolation.odd">Адрас/Блок</string>
+	<string name="type.amenity.bbq">Барбекю-грыль</string>
 	<string name="type.amenity.bicycle_parking">Велапаркоўка</string>
 	<string name="type.amenity.gambling">Азартныя гульні</string>
 	<string name="type.leisure.adult_gaming_centre">Гульнявы цэнтр для дарослых</string>
@@ -1337,6 +1355,7 @@
 	<string name="type.tourism.aquarium">Акварыум</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Горны прытулак з абслугоўваннем</string>
+	<string name="type.tourism.apartment">Кватэра для адпачынку</string>
 	<string name="type.attraction.animal">Вальера для жывёл</string>
 	<string name="type.tourism.caravan_site">Кемпінг для аўтадамоў</string>
 	<!-- A rentable countryside vacation house. -->
@@ -1356,7 +1375,6 @@
 	<string name="type.waterway.drain.tunnel">Водопропускная труба</string>
 	<string name="type.waterway.river">Рака</string>
 	<string name="type.waterway.river.tunnel">Рака</string>
-	<string name="type.waterway.riverbank">Рака</string>
 	<string name="type.waterway.stream">Рака</string>
 	<string name="type.waterway.stream.ephemeral">Рака</string>
 	<string name="type.waterway.stream.intermittent">Рака</string>

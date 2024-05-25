@@ -35,7 +35,7 @@ public class SearchWheel implements View.OnClickListener
   private final View.OnClickListener mOnSearchPressedListener;
   @NonNull
   private final View.OnClickListener mOnSearchCanceledListener;
-  private MapButtonsViewModel mMapButtonsViewModel;
+  private final MapButtonsViewModel mMapButtonsViewModel;
 
   private static final long CLOSE_DELAY_MILLIS = 5000L;
   private final Runnable mCloseRunnable = new Runnable() {

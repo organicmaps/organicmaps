@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Instruções de voz";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Anunciar nomes de ruas";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Quando ativado, o nome da rua ou saída para virar será falado em voz alta.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Idioma da voz";
 
@@ -308,7 +314,7 @@
 "help" = "Ajuda";
 
 /* Button in the main Help dialog */
-"faq" = "Perguntas e respostas";
+"faq" = "Perguntas frequentes";
 
 /* Button in the main menu */
 "donate" = "Doar";
@@ -323,10 +329,10 @@
 "report_a_bug" = "Reportar um problema";
 
 /* Button in the About screen */
-"report_incorrect_map_bug" = "Comunica ou corrige dados incorrectos do mapa";
+"report_incorrect_map_bug" = "Comunica ou corrige dados incorretos do mapa";
 
 /* Button in the About screen */
-"volunteer" = "Para ser voluntário";
+"volunteer" = "Voluntaria-te";
 
 /* "Social media" section header in the About screen */
 "follow_us" = "Segue-nos e contacta-nos:";
@@ -705,6 +711,9 @@
 
 "editor_edit_place_name_hint" = "Nome do lugar";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Como escrito na língua local";
+
 "editor_edit_place_category_title" = "Categoria";
 
 "whatsnew_editor_message_1" = "Adicione novos lugares ao mapa e edite os já existentes diretamente a partir da aplicação.";
@@ -860,7 +869,7 @@
 
 "editor_share_to_all_dialog_message_2" = "Os editores do OpenStreetMap verificarão as alterações e entrarão em contacto consigo se tiverem alguma dúvida.";
 
-"navigation_stop_button" = "parar";
+"navigation_stop_button" = "Parar";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Desativar gravação da sua rota recente?";
@@ -1192,9 +1201,9 @@
 
 "button_layer_isolines" = "Terreno";
 
-"isolines_activation_error_dialog" = "Para ativar e usar a camada topográfica, por favor atualize ou descarregue o mapa da área";
+"isolines_activation_error_dialog" = "Para ativar e usar a camada Terreno, por favor atualize ou descarregue o mapa da área";
 
-"isolines_location_error_dialog" = "A camada topográfica ainda não está disponível nesta área";
+"isolines_location_error_dialog" = "A camada Terreno ainda não está disponível nesta área";
 
 "elevation_profile_diff_level" = "Nível de dificuldade";
 
@@ -1258,6 +1267,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Pt:Sobre_o_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Está agora a utilizar o Organic Maps no ecrã do telemóvel";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Está agora a utilizar o Organic Maps no ecrã do automóvel";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Continuar no telemóvel";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Para ecrã do carro";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Caminhadas";
 
@@ -1270,14 +1291,19 @@
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Mapa";
 
+"drive_through" = "Drive-through";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Link do menu";
+
 
 /********** Types **********/
 
-"type.addr_interpolation" = "Endereço/Bloco";
+"type.addr_interpolation" = "Morada/Bloco";
 
-"type.addr_interpolation.even" = "Endereço/Bloco";
+"type.addr_interpolation.even" = "Morada/Bloco";
 
-"type.addr_interpolation.odd" = "Endereço/Bloco";
+"type.addr_interpolation.odd" = "Morada/Bloco";
 
 "type.aerialway" = "Transporte aéreo";
 
@@ -1321,7 +1347,7 @@
 
 "type.amenity.bar" = "Bar";
 
-"type.amenity.bbq" = "Parque de merendas";
+"type.amenity.bbq" = "Churrasqueira";
 
 "type.amenity.bench" = "Assento";
 
@@ -1965,7 +1991,7 @@
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Entrada principal";
 
-"type.entrance.exit" = "Sai";
+"type.entrance.exit" = "Saída";
 
 "type.fee.yes" = "$";
 
@@ -2036,22 +2062,10 @@
 
 "type.highway.footway.crossing" = "Passagem de peões";
 
-"type.highway.footway.alpine_hiking" = "Caminho pedonal";
-
 "type.highway.footway.area" = "Caminho pedonal";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Ponte";
-
-"type.highway.footway.demanding_alpine_hiking" = "Caminho pedonal";
-
-"type.highway.footway.demanding_mountain_hiking" = "Caminho pedonal";
-
-"type.highway.footway.difficult_alpine_hiking" = "Caminho pedonal";
-
-"type.highway.footway.hiking" = "Caminho pedonal";
-
-"type.highway.footway.mountain_hiking" = "Caminho pedonal";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Túnel";
@@ -2086,26 +2100,20 @@
 
 "type.highway.path" = "Caminho";
 
-"type.highway.path.alpine_hiking" = "Caminho";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Caminho";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Caminho";
 
 "type.highway.path.bicycle" = "Caminho";
+
+"type.highway.footway.bicycle" = "Caminho";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Ponte";
 
-"type.highway.path.demanding_alpine_hiking" = "Caminho";
-
-"type.highway.path.demanding_mountain_hiking" = "Caminho";
-
-"type.highway.path.difficult_alpine_hiking" = "Caminho";
-
-"type.highway.path.hiking" = "Caminho";
-
 "type.highway.path.horse" = "Caminho";
-
-"type.highway.path.mountain_hiking" = "Caminho";
-
-"type.highway.path.permissive" = "Caminho";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Túnel";
@@ -2228,17 +2236,7 @@
 
 "type.highway.track.grade1" = "Carreiro florestal ou agrícola";
 
-"type.highway.track.grade2" = "Carreiro florestal ou agrícola";
-
-"type.highway.track.grade3" = "Carreiro florestal ou agrícola";
-
-"type.highway.track.grade4" = "Carreiro florestal ou agrícola";
-
-"type.highway.track.grade5" = "Carreiro florestal ou agrícola";
-
 "type.highway.track.no.access" = "Carreiro florestal ou agrícola";
-
-"type.highway.track.permissive" = "Carreiro florestal ou agrícola";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Túnel";
@@ -2447,8 +2445,6 @@
 "type.landuse.construction" = "Construção";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Quinta";
 
 "type.landuse.farmland" = "Campo agrícola";
 
@@ -3737,11 +3733,11 @@
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "Alojamento de montanha";
 
-"type.tourism.apartment" = "Apartamentos";
+"type.tourism.apartment" = "Apartamento de alojamento local";
 
 "type.tourism.artwork" = "Obra de arte";
 
-"type.tourism.artwork.architecture" = "Obra de arte de arquitetura";
+"type.tourism.artwork.architecture" = "Arte arquitetónica";
 
 "type.tourism.artwork.painting" = "Pintura";
 
@@ -3762,7 +3758,7 @@
 /* A rentable countryside vacation house. */
 "type.tourism.chalet" = "Casa de férias";
 
-"type.tourism.gallery" = "Galeria";
+"type.tourism.gallery" = "Galeria de arte";
 
 "type.tourism.guest_house" = "Pousada ou pensão";
 
@@ -3799,7 +3795,7 @@
 
 "type.tourism.zoo" = "Jardim zoológico";
 
-"type.tourism.zoo.petting" = "Jardim Zoológico";
+"type.tourism.zoo.petting" = "Mini zoológico";
 
 "type.traffic_calming" = "Redutor de velocidade";
 
@@ -3811,7 +3807,7 @@
 
 "type.waterway.canal" = "Canal";
 
-"type.waterway.canal.tunnel" = "Canal";
+"type.waterway.canal.tunnel" = "Túnel de canal";
 
 "type.waterway.fish_pass" = "Escada de peixes";
 
@@ -3836,8 +3832,6 @@
 "type.waterway.river" = "Rio";
 
 "type.waterway.river.tunnel" = "Rio";
-
-"type.waterway.riverbank" = "Rio";
 
 "type.waterway.stream" = "Ribeiro";
 

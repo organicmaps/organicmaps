@@ -30,37 +30,7 @@ import java.util.List;
 @MainThread
 public enum BookmarkManager
 {
-  // Used by JNI.
-  @Keep
-  @SuppressWarnings("unused")
   INSTANCE;
-
-  @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ CLOUD_BACKUP, CLOUD_RESTORE })
-  public @interface SynchronizationType {}
-
-  public static final int CLOUD_BACKUP = 0;
-  public static final int CLOUD_RESTORE = 1;
-
-  @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ CLOUD_SUCCESS, CLOUD_AUTH_ERROR, CLOUD_NETWORK_ERROR,
-            CLOUD_DISK_ERROR, CLOUD_USER_INTERRUPTED, CLOUD_INVALID_CALL })
-  public @interface SynchronizationResult {}
-
-  public static final int CLOUD_SUCCESS = 0;
-  public static final int CLOUD_AUTH_ERROR = 1;
-  public static final int CLOUD_NETWORK_ERROR = 2;
-  public static final int CLOUD_DISK_ERROR = 3;
-  public static final int CLOUD_USER_INTERRUPTED = 4;
-  public static final int CLOUD_INVALID_CALL = 5;
-
-  @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ CLOUD_BACKUP_EXISTS, CLOUD_NO_BACKUP, CLOUD_NOT_ENOUGH_DISK_SPACE })
-  public @interface RestoringRequestResult {}
-
-  public static final int CLOUD_BACKUP_EXISTS = 0;
-  public static final int CLOUD_NO_BACKUP = 1;
-  public static final int CLOUD_NOT_ENOUGH_DISK_SPACE = 2;
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ SORT_BY_TYPE, SORT_BY_DISTANCE, SORT_BY_TIME, SORT_BY_NAME })
@@ -76,7 +46,7 @@ public enum BookmarkManager
 
   public static final List<Icon> ICONS = new ArrayList<>();
 
-  static String[] BOOKMARKS_EXTENSIONS = Framework.nativeGetBookmarksFilesExts();
+  private static final String[] BOOKMARKS_EXTENSIONS = Framework.nativeGetBookmarksFilesExts();
 
   private static final String TAG = BookmarkManager.class.getSimpleName();
 
@@ -97,9 +67,6 @@ public enum BookmarkManager
 
   @NonNull
   private final List<BookmarksSharingListener> mSharingListeners = new ArrayList<>();
-
-  @NonNull
-  private final List<BookmarksCloudListener> mCloudListeners = new ArrayList<>();
 
   @Nullable
   private OnElevationCurrentPositionChangedListener mOnElevationCurrentPositionChangedListener;
@@ -136,8 +103,7 @@ public enum BookmarkManager
   @Nullable
   public Bookmark addNewBookmark(double lat, double lon)
   {
-    final Bookmark bookmark = nativeAddBookmarkToLastEditedCategory(lat, lon);
-    return bookmark;
+    return nativeAddBookmarkToLastEditedCategory(lat, lon);
   }
 
   public void addLoadingListener(@NonNull BookmarksLoadingListener listener)
@@ -267,49 +233,6 @@ public enum BookmarkManager
   {
     for (BookmarksSharingListener listener : mSharingListeners)
       listener.onPreparedFileForSharing(result);
-  }
-
-  // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  @MainThread
-  public void onSynchronizationStarted(@SynchronizationType int type)
-  {
-    for (BookmarksCloudListener listener : mCloudListeners)
-      listener.onSynchronizationStarted(type);
-  }
-
-  // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  @MainThread
-  public void onSynchronizationFinished(@SynchronizationType int type,
-                                        @SynchronizationResult int result,
-                                        @NonNull String errorString)
-  {
-    for (BookmarksCloudListener listener : mCloudListeners)
-      listener.onSynchronizationFinished(type, result, errorString);
-  }
-
-  // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  @MainThread
-  public void onRestoreRequested(@RestoringRequestResult int result, @NonNull String deviceName,
-                                 long backupTimestampInMs)
-  {
-    for (BookmarksCloudListener listener : mCloudListeners)
-      listener.onRestoreRequested(result, deviceName, backupTimestampInMs);
-  }
-
-  // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  @MainThread
-  public void onRestoredFilesPrepared()
-  {
-    for (BookmarksCloudListener listener : mCloudListeners)
-      listener.onRestoredFilesPrepared();
   }
 
   // Called from JNI.
@@ -923,19 +846,14 @@ public enum BookmarkManager
 
   public static native void nativeRemoveElevationActiveChangedListener();
 
-  public interface ElevationActivePointChangedListener
-  {
-    void onElevationActivePointChanged();
-  }
-
   public interface BookmarksLoadingListener
   {
     default void onBookmarksLoadingStarted() {}
     default void onBookmarksLoadingFinished() {}
-    default void onBookmarksFileUnsupported(@NonNull Uri uri) {};
-    default void onBookmarksFileDownloadFailed(@NonNull Uri uri, @NonNull String string) {};
-    default void onBookmarksFileImportSuccessful() {};
-    default void onBookmarksFileImportFailed() {};
+    default void onBookmarksFileUnsupported(@NonNull Uri uri) {}
+    default void onBookmarksFileDownloadFailed(@NonNull Uri uri, @NonNull String string) {}
+    default void onBookmarksFileImportSuccessful() {}
+    default void onBookmarksFileImportFailed() {}
   }
 
   public interface BookmarksSortingListener
@@ -947,44 +865,6 @@ public enum BookmarkManager
   public interface BookmarksSharingListener
   {
     void onPreparedFileForSharing(@NonNull BookmarkSharingResult result);
-  }
-
-  public interface BookmarksCloudListener
-  {
-    /**
-     * The method is called when the synchronization started.
-     *
-     * @param type determines type of synchronization (backup or restoring).
-     */
-    void onSynchronizationStarted(@SynchronizationType int type);
-
-    /**
-     * The method is called when the synchronization finished.
-     *
-     * @param type determines type of synchronization (backup or restoring).
-     * @param result is one of possible results of the synchronization.
-     * @param errorString contains detailed description in case of unsuccessful completion.
-     */
-    void onSynchronizationFinished(@SynchronizationType int type,
-                                   @SynchronizationResult int result,
-                                   @NonNull String errorString);
-
-    /**
-     * The method is called after restoring request.
-     *
-     * @param result By result you can determine if the restoring is possible.
-     * @param deviceName The name of device which was the source of the backup.
-     * @param backupTimestampInMs contains timestamp of the backup on the server (in milliseconds).
-     */
-    void onRestoreRequested(@RestoringRequestResult int result, @NonNull String deviceName,
-                            long backupTimestampInMs);
-
-    /**
-     * Restored bookmark files are prepared to substitute for the current ones.
-     * After this callback any cached bookmarks data become invalid. Also after this
-     * callback the restoring process can not be cancelled.
-     */
-    void onRestoredFilesPrepared();
   }
 
   public interface OnElevationActivePointChangedListener

@@ -119,7 +119,7 @@ static NSString *didChangeOutdoorMapStyle = @"didChangeOutdoorMapStyle";
 
 + (MWMMapOverlayOutdoorState)outdoorState {
   switch (GetFramework().GetMapStyle()) {
-    case MapStyleOutdoorsClear:
+    case MapStyleOutdoorsLight:
     case MapStyleOutdoorsDark:
       return MWMMapOverlayOutdoorStateEnabled;
     default:
@@ -189,15 +189,15 @@ static NSString *didChangeOutdoorMapStyle = @"didChangeOutdoorMapStyle";
 
   auto &f = GetFramework();
   switch (f.GetMapStyle()) {
-    case MapStyleClear:
-    case MapStyleVehicleClear:
-    case MapStyleOutdoorsClear:
-      f.SetMapStyle(enable ? MapStyleOutdoorsClear : MapStyleClear);
+    case MapStyleDefaultLight:
+    case MapStyleVehicleLight:
+    case MapStyleOutdoorsLight:
+      f.SetMapStyle(enable ? MapStyleOutdoorsLight : MapStyleDefaultLight);
       break;
-    case MapStyleDark:
+    case MapStyleDefaultDark:
     case MapStyleVehicleDark:
     case MapStyleOutdoorsDark:
-      f.SetMapStyle(enable ? MapStyleOutdoorsDark : MapStyleDark);
+      f.SetMapStyle(enable ? MapStyleOutdoorsDark : MapStyleDefaultDark);
       break;
     default:
       break;

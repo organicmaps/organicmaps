@@ -129,14 +129,14 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
   {
     View view;
     ViewHolder viewHolder;
-    switch (viewType)
+    if (viewType == TYPE_CATEGORY)
     {
-      case TYPE_CATEGORY:
-        view = mInflater.inflate(R.layout.item_search_category, parent, false);
-        viewHolder = new ViewHolder(view, (TextView) view);
-        break;
-      default:
-        throw new AssertionError("Unsupported type detected: " + viewType);
+      view = mInflater.inflate(R.layout.item_search_category, parent, false);
+      viewHolder = new ViewHolder(view, (TextView) view);
+    }
+    else
+    {
+      throw new AssertionError("Unsupported type detected: " + viewType);
     }
 
     viewHolder.setupClickListeners();

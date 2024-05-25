@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Φωνητικές οδηγίες";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Ανακοινώστε ονόματα οδών";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Όταν είναι ενεργοποιημένο, το όνομα της οδού ή της εξόδου στην οποία θα μεταβείτε θα εκφωνείται δυνατά.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Γλώσσα φωνής";
 
@@ -704,6 +710,9 @@
 "editor_add_place_title" = "Προσθήκη";
 
 "editor_edit_place_name_hint" = "Όνομα τοποθεσίας";
+
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Όπως είναι γραμμένο στην τοπική γλώσσα";
 
 "editor_edit_place_category_title" = "Κατηγορία";
 
@@ -1258,6 +1267,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/El:About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Αυτή τη στιγμή το Organic Maps βρίσκεται στην οθόνη του κινητού";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Αυτή τη στιγμή το Organic Maps βρίσκεται στην οθόνη του αυτοκινήτου.";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Συνέχεια στο κινητό";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Προς οθόνη αυτοκ.";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Πεζοπορία";
 
@@ -1269,6 +1290,11 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Χάρτης";
+
+"drive_through" = "Οδηγώ μέσα από";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Σύνδεσμος μενού";
 
 
 /********** Types **********/
@@ -1321,7 +1347,7 @@
 
 "type.amenity.bar" = "Μπαρ";
 
-"type.amenity.bbq" = "Χώρος εκδρομής";
+"type.amenity.bbq" = "Ψησταριά μπάρμπεκιου";
 
 "type.amenity.bench" = "Παγκάκι";
 
@@ -2036,22 +2062,10 @@
 
 "type.highway.footway.crossing" = "Διάβαση πεζών";
 
-"type.highway.footway.alpine_hiking" = "Διαδρομή";
-
 "type.highway.footway.area" = "Διαδρομή";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Γέφυρα";
-
-"type.highway.footway.demanding_alpine_hiking" = "Διαδρομή";
-
-"type.highway.footway.demanding_mountain_hiking" = "Διαδρομή";
-
-"type.highway.footway.difficult_alpine_hiking" = "Διαδρομή";
-
-"type.highway.footway.hiking" = "Διαδρομή";
-
-"type.highway.footway.mountain_hiking" = "Διαδρομή";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Σήραγγα";
@@ -2086,26 +2100,20 @@
 
 "type.highway.path" = "Διαδρομή";
 
-"type.highway.path.alpine_hiking" = "Διαδρομή";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Διαδρομή";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Διαδρομή";
 
 "type.highway.path.bicycle" = "Διαδρομή";
+
+"type.highway.footway.bicycle" = "Διαδρομή";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Γέφυρα";
 
-"type.highway.path.demanding_alpine_hiking" = "Διαδρομή";
-
-"type.highway.path.demanding_mountain_hiking" = "Διαδρομή";
-
-"type.highway.path.difficult_alpine_hiking" = "Διαδρομή";
-
-"type.highway.path.hiking" = "Διαδρομή";
-
 "type.highway.path.horse" = "Διαδρομή";
-
-"type.highway.path.mountain_hiking" = "Διαδρομή";
-
-"type.highway.path.permissive" = "Διαδρομή";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Σήραγγα";
@@ -2228,17 +2236,7 @@
 
 "type.highway.track.grade1" = "Οδός";
 
-"type.highway.track.grade2" = "Οδός";
-
-"type.highway.track.grade3" = "Οδός";
-
-"type.highway.track.grade4" = "Οδός";
-
-"type.highway.track.grade5" = "Οδός";
-
 "type.highway.track.no.access" = "Οδός";
-
-"type.highway.track.permissive" = "Οδός";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Σήραγγα";
@@ -2447,8 +2445,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Αγροτική γη";
 
@@ -3737,7 +3733,7 @@
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "Ορεινό καταφύγιο";
 
-"type.tourism.apartment" = "Διαμερίσματα";
+"type.tourism.apartment" = "Διαμέρισμα διακοπών";
 
 "type.tourism.artwork" = "Έργα τέχνης";
 
@@ -3836,8 +3832,6 @@
 "type.waterway.river" = "Ποταμός";
 
 "type.waterway.river.tunnel" = "Ποταμός";
-
-"type.waterway.riverbank" = "Ποταμός";
 
 "type.waterway.stream" = "Ποταμός";
 

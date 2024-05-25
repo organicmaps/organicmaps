@@ -240,7 +240,7 @@
     el = Η λήψη απέτυχε. Αγγίξτε για να προσπαθήσετε ξανά.
     es = Error durante la descarga. Pulse para intentarlo de nuevo.
     et = Allalaadimine ebaõnnestus. Puuduta uuesti proovimiseks.
-    eu = Errore bat gertatu da deskargatzean, hasi berriro
+    eu = Errore bat gertatu da deskargatzean. Klik egin berriz saiatzeko.
     fa = دانلود ناموفق بود. برای تلاش مجدد لمس کنید
     fi = Lataus epäonnistui, yritä uudelleen koskettamalla
     fr = Échec lors du téléchargement. Appuyer pour réessayer.
@@ -457,7 +457,7 @@
     el = Μίλια
     es = Millas
     et = Miilid
-    eu = Milia
+    eu = Miliak
     fa = مایل
     fi = Mailit
     fr = Miles
@@ -727,7 +727,7 @@
     el = Οι υπηρεσίες εντοπισμού τοποθεσίας είναι προς το παρόν απενεργοποιημένες σε αυτή τη συσκευή ή για αυτή την εφαρμογή. Ενεργοποιήστε τες από τις Ρυθμίσεις.
     es = No se puede acceder a los servicios de localización en este dispositivo o aplicación. Por favor, actívelos en los ajustes.
     et = Seadme või rakenduse kõik asukohateenused on praegu välja lülitatud. Luba need Seadetes.
-    eu = Ezin da kokapen-zerbitzuetara sartu. Mesedez, aktibatu ezarpenetan.
+    eu = Ezin da kokapen-zerbitzua atzitu. Mesedez, aktibatu ezarpenetan.
     fa = سرویس موقعیت مکانی شما غیر فعال است. لطفا جهت کارکرد صحیح نرم افزار آن را فعال کنید.
     fi = Laitteen tai sovelluksen kaikki sijaintipalvelut ovat tällä hetkellä poissa käytöstä. Ota ne käyttöön Asetukset-valikossa.
     fr = Tous les services de localisation de cet appareil sont désactivés, ou ils le sont pour cette application. Veuillez les activer dans les paramètres.
@@ -1173,7 +1173,7 @@
     de = Open-Source-Anwendung, entwickelt von Enthusiasten und Freiwilligen.
     el = Εφαρμογή ανοιχτού κώδικα που δημιουργήθηκε από θιασώτες και εθελοντές.
     es = Aplicación de código abierto creada por entusiastas y voluntarios.
-    eu = Kode irekiko aplikazioa zaleek eta boluntarioek sortutakoa.
+    eu = Zale eta bolondresek sortutako kode irekiko aplikazioa.
     fa = برنامه منبع باز ایجاد شده توسط علاقه مندان و داوطلبان.
     fi = Harrastajien ja vapaaehtoisten luoma avoimen lähdekoodin sovellus.
     fr = Application open source créée par des amateurs et des bénévoles.
@@ -1305,7 +1305,7 @@
     el = Η εφαρμογή απαιτεί OpenGL με επιτάχυνση υλικού. Δυστυχώς, η συσκευή σας δεν το υποστηρίζει.
     es = La aplicación requiere OpenGL acelerado por hardware. Lamentablemente, su dispositivo no es compatible.
     et = Rakendus vajab riistvaralist OpenGL tuge. Kahjuks Sinu seade ei ole toetatud.
-    eu = Aplikazioak hardwarez azeleratutako OpenGL behar du. Zoritxarrez, zure gailua ez da onartzen.
+    eu = Aplikazioak hardwarez azeleratutako OpenGL behar du. Zoritxarrez, zure gailuak ez du hau eskaintzen.
     fa = نیازمند است. متاسفانه دستگاه شما از آن پشتیبانی نمی‌کندOpenGLبرنامه برای اجرا به
     fi = Laitteistokiihdytetty OpenGL vaaditaan. Valitettavasti laitteesi ei ole tuettu.
     fr = L'accélération OpenGL matérielle est exigée. Malheureusement, votre appareil n'est pas pris en charge.
@@ -1482,7 +1482,7 @@
     el = Πριν ξεκινήσετε τη χρήση της εφαρμογής, επιτρέψτε μας να κατεβάσουμε το γενικό παγκόσμιο χάρτη στη συσκευή σας.\nΘα χρησιμοποιήσει %@ αποθηκευτικού χώρου.
     es = Antes de comenzar, permita que descarguemos en su dispositivo un mapamundi general.\nSe requieren %@ de almacenamiento.
     et = Ennem rakenduse kasutamise alustamist luba meil laadida seadmesse alla maailma üldkaart.\nSee kasutab %@ mälumahtu.
-    eu = Hasi baino lehen, utzi mundu-mapa orokor bat zure gailuan deskargatzen.\nDatuen %@ beharrezkoa da.
+    eu = Hasi aurretik deskargatu mesedez mundu-mapa orokorra zure gailura.\nMemorian %@ erabiliko ditu.
     fa = قبل از استفاده از اپلیکیشن, اجازه دهید تا ما نقشه جهانی را بر روی موبایل شما دانلود کنیم.\nمقدار %@ از حافظه شما اشغال می شود.
     fi = Ennen aloitusta laitteelle tulee ladata yleinen maailmankartta.\nSe tarvitsee yhteensä %@ tilaa.
     fr = Avant de commencer, permettez-nous de télécharger la carte générale du monde dans votre appareil.\n%@ de données sont nécessaires.
@@ -4244,7 +4244,7 @@
     sv = Redigera
     th = แก้ไข
     tr = Düzenle
-    uk = Редаґувати
+    uk = Редагувати
     vi = Sửa
     zh-Hans = 编辑
     zh-Hant = 編輯
@@ -5297,7 +5297,6 @@
     nl = Nachtmodus
     pl = Tryb nocny
     pt = Modo noturno
-    pt-BR = Modo noturno
     ro = Mod nocturn
     ru = Ночной режим
     sk = Nočný režim
@@ -5473,7 +5472,6 @@
     nl = Uit
     pl = Wyłączony
     pt = Desligado
-    pt-BR = Desligado
     ro = Oprit
     ru = Выключен
     sk = Vypnúť
@@ -5518,7 +5516,6 @@
     nl = Aan
     pl = Włączony
     pt = Ligado
-    pt-BR = Ligado
     ro = Pornit
     ru = Включен
     sk = Zapnúť
@@ -5746,17 +5743,103 @@
     nl = Gesproken instructies
     pl = Komunikaty głosowe
     pt = Instruções de voz
-    pt-BR = Instruções de voz
+    pt-BR = Orientação por voz
     ro = Instrucțiuni vocale
     ru = Голосовые инструкции
     sk = Hlasové povely
     sv = Röstinstruktioner
+    sw = Tangaza Majina ya Mitaa
     th = คำแนะนำด้วยเสียง
     tr = Sesli Yönlendirme
     uk = Голосові інструкції
     vi = Hướng dẫn bằng Giọng nói
     zh-Hans = 语音指导
     zh-Hant = 語音指示
+
+  [pref_tts_street_names_title]
+    comment = Settings «Route» category: «Tts announce street names» title
+    tags = android,ios
+    en = Announce Street Names
+    ar = أعلن أسماء الشوارع
+    az = Küçə adlarını elan edin
+    be = Абвяшчаць назвы вуліц
+    bg = Обявете имена на улици
+    ca = Anuncia els noms dels carrers
+    cs = Oznamujte názvy ulic
+    da = Annoncer gadenavne
+    de = Straßennamen ankündigen
+    el = Ανακοινώστε ονόματα οδών
+    es = Anunciar nombres de calles
+    et = Teatage tänavanimed
+    eu = Kaleen izenak iragarri
+    fa = نام خیابان ها را اعلام کنید
+    fi = Ilmoita kadunnimet
+    fr = Annoncer les noms de rue
+    he = הכריזו על שמות רחובות
+    hi = सड़कों के नाम की घोषणा करें
+    hu = Az utcanevek felolvasása
+    id = Umumkan Nama Jalan
+    it = Annunciare i nomi delle strade
+    ja = 通りの名前を発表
+    ko = "거리 이름 발표"
+    nb = Kunngjør gatenavn
+    nl = Straatnamen bekendmaken
+    pl = Wymawiaj nazwy ulic
+    pt = Anunciar nomes de ruas
+    ro = Anunțați numele străzilor
+    ru = Проговаривать названия улиц
+    sk = Oznámte názvy ulíc
+    sv = Tillkännage gatunamn
+    sw = Tangaza Majina ya Mitaa
+    th = ประกาศชื่อถนน
+    tr = Sokak İsimlerini Duyur
+    uk = Проговорювати назви вулиць
+    vi = Thông báo tên đường
+    zh-Hans = 宣布街道名称
+    zh-Hant = 宣布街道名稱
+
+  [pref_tts_street_names_description]
+    comment = Settings «Route» category: «Tts announce street names» description
+    tags = android,ios
+    en = When enabled, the name of the street or exit to turn onto will be spoken aloud.
+    ar = عند التمكين ، سيتم نطق اسم الشارع أو المخرج الذي سيتم تشغيله بصوت عالٍ.
+    az = Aktiv edildikdə, dönmək üçün küçənin və ya çıxışın adı ucadan səsləndiriləcək.
+    be = Калі ўключана, назва вуліцы або выезду, на які трэба павярнуць, будзе прамаўляцца ўслых.
+    bg = Когато е активирано, името на улицата или изхода, по който да завиете, ще бъде произнесено на глас.
+    ca = Quan s'activa, el nom del carrer o la sortida per girar es pronunciarà en veu alta.
+    cs = Je-li povoleno, bude nahlas vyslovován název ulice nebo výjezdu, na který se má odbočit.
+    da = Når det er aktiveret, vil navnet på den gade eller afkørsel, der skal drejes ind, blive talt højt.
+    de = Wenn aktiviert, wird der Name der Straße oder Ausfahrt, in die abgebogen werden soll, laut angekündigt
+    el = Όταν είναι ενεργοποιημένο, το όνομα της οδού ή της εξόδου στην οποία θα μεταβείτε θα εκφωνείται δυνατά.
+    es = Cuando se activa, el nombre de la calle o la salida para girar se pronunciará en voz alta.
+    et = Kui see on lubatud, öeldakse valjusti tänava või väljasõidu nimi, millele pöörata.
+    eu = Gaituta dagoenean, biratzeko kalearen edo irteeraren izena ozen esango da.
+    fa = وقتی فعال باشد، نام خیابان یا خروجی که باید به آن بپیچید با صدای بلند گفته می شود.
+    fi = Kun tämä on käytössä, sen kadun tai liittymän nimi, jolle käännytään, puhutaan ääneen.
+    fr = Lorsqu'il est activé, le nom de la rue ou de la sortie vers laquelle tourner sera prononcé à haute voix.
+    he = כאשר מופעל, שם הרחוב או היציאה שאליו יש לפנות יוקרא בקול.
+    hi = सक्षम होने पर, सड़क का नाम या मुड़ने के लिए निकास का नाम ज़ोर से बोला जाएगा।
+    hu = Ha engedélyezve van, a rendszer hangosan kimondja annak az utcának vagy kijáratnak a nevét, amelyre be kell kanyarodni.
+    id = Saat diaktifkan, nama jalan atau jalan keluar untuk berbelok akan diucapkan dengan keras.
+    it = Se abilitato, verrà pronunciato ad alta voce il nome della via o dell'uscita in cui svoltare.
+    ja = 有効にすると、右折する通りまたは出口の名前が読み上げられます。
+    ko = "사용하도록 설정하면 회전할 거리 또는 출구의 이름을 소리내어 말합니다."
+    nb = Når aktivert, vil navnet på gaten eller avkjørselen du skal svinge inn på, bli lest opp.
+    nl = Indien ingeschakeld, wordt de naam van de straat of afrit waar u afslaat hardop uitgesproken.
+    pl = Po włączeniu nazwa ulicy lub zjazdu, w który należy skręcić, zostanie wymówiona na głos.
+    pt = Quando ativado, o nome da rua ou saída para virar será falado em voz alta.
+    pt-BR = Quando ativado, o nome da rua ou saída para virar será falado em voz alta.
+    ro = Când este activată, numele străzii sau al ieșirii pe care să o pornim va fi rostit cu voce tare.
+    ru = При включении название улицы или съезда, на который нужно повернуть, будет произноситься вслух.
+    sk = Keď je táto možnosť povolená, nahlas sa vysloví názov ulice alebo výjazdu, na ktorý sa má odbočiť.
+    sv = När det är aktiverat kommer namnet på gatan eller avfarten att svänga in på att sägas upp.
+    sw = Ikiwashwa, jina la barabara au la kutoka ili kuwasha litasemwa kwa sauti.
+    th = เมื่อเปิดใช้งาน ชื่อของถนนหรือทางออกที่จะเลี้ยวจะถูกพูดออกมาดัง ๆ
+    tr = Etkinleştirildiğinde, dönülecek sokağın veya çıkışın adı yüksek sesle söylenecektir.
+    uk = Якщо ввімкнено, назва вулиці або виїзду, на яку потрібно повернути, буде вимовлена вголос.
+    vi = Nếu bật, sẽ đọc to tên đường hoặc lối ra để rẽ vào.
+    zh-Hans = 启用后，将大声说出要转入的街道或出口的名称。
+    zh-Hant = 啟用後，將大聲說出要轉入的街道或出口的名稱。
 
   [pref_tts_language_title]
     comment = Settings «Route» category: «Tts language» title
@@ -6811,8 +6894,7 @@
     nb = Spørsmål og svar
     nl = Vragen en antwoorden
     pl = Pytania i odpowiedzi
-    pt = Perguntas e respostas
-    pt-BR = Perguntas e respostas
+    pt = Perguntas frequentes
     ro = Întrebări frecvente
     ru = Вопросы и ответы
     sk = Otázky a odpovede
@@ -7086,7 +7168,7 @@
     nb = Rapportere eller korrigere feil kartdata
     nl = Rapporteer of repareer onjuiste kaartgegevens
     pl = Zgłoś lub napraw nieprawidłowe dane mapy
-    pt = Comunica ou corrige dados incorrectos do mapa
+    pt = Comunica ou corrige dados incorretos do mapa
     pt-BR = Relatar ou corrigir dados incorretos do mapa
     ro = Raportați sau remediați datele incorecte de pe hartă
     ru = Сообщить или исправить неправильные данные на карте
@@ -7133,7 +7215,8 @@
     nb = Frivillig arbeid
     nl = Vrijwilligerswerk
     pl = Wolontariusz
-    pt = Para ser voluntário
+    pt = Voluntaria-te
+    pt-BR = Voluntarie-se
     ro = Pentru a fi voluntar
     ru = Cтать волонтёром
     sk = Dobrovoľníctvo
@@ -14235,6 +14318,7 @@
   [postal_code]
     tags = android,ios
     en = Postal Code
+    en-GB = Postcode
     af = Poskode
     ar = الرمز البريدي
     az = Poçt kodu
@@ -14580,7 +14664,7 @@
     el = Όλες οι αλλαγές που έχετε κάνει στο χάρτη θα διαγραφούν μαζί με το χάρτη.
     es = Todos los cambios en los mapas se borrarán junto con el mapa.
     et = Kõik Sinu kaardimuudatused kustutatakse koos kaardiga.
-    eu = Maparen aldaketa guztiak maparekin batera ezabatuko dira.
+    eu = Mapan egin dituzun aldaketa guztiak maparekin batera ezabatuko dira.
     fa = تمام ویرایش‌های که بر روی نقشه انجام داده اید به همراه نقشه حذف شد.
     fi = Kaikki karttaan tehdyt muutokset poistetaan kartan mukana.
     fr = Toutes vos modifications de la carte seront supprimées avec elle.
@@ -15302,6 +15386,51 @@
     vi = Tên địa điểm
     zh-Hans = 该地点的名称
     zh-Hant = 該地點的名稱
+
+  [editor_default_language_hint]
+    tags = android,ios
+    comment = The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name
+    en = As it is written in the local language
+    af = Soos dit in die plaaslike taal geskryf is
+    ar = كما هو مكتوب باللغة المحلية
+    az = Yerli dildə yazıldığı kimi
+    be = На мясцовай мове
+    bg = Както е написано на местния език
+    ca = Com està escrit en la llengua local
+    cs = Jak je napsáno v místním jazyce
+    da = Som det står skrevet på det lokale sprog
+    de = Wie in der lokalen Sprache geschrieben
+    el = Όπως είναι γραμμένο στην τοπική γλώσσα
+    es = Como está escrito en la lengua local
+    et = Nagu on kirjutatud kohalikus keeles
+    eu = Bertako hizkuntzan idatzita dagoenez
+    fa = همانطور که به زبان محلی نوشته شده است
+    fi = Paikallisella kielellä kirjoitettuna
+    fr = Comme c'est écrit dans la langue locale
+    he = כפי שנכתב בשפה המקומית
+    hi = जैसा कि स्थानीय भाषा में लिखा गया है
+    hu = Ahogy a helyi nyelven írva van
+    id = Seperti yang tertulis dalam bahasa lokal
+    it = Come è scritto nella lingua locale
+    ja = 現地の言葉でこう書かれている。
+    ko = 현지 언어로 작성되었으므로
+    lt = Kaip rašoma vietos kalba
+    mr = स्थानिक भाषेत लिहिल्याप्रमाणे
+    nb = Som det står skrevet på det lokale språket
+    nl = Zoals het in de plaatselijke taal geschreven staat
+    pl = Jak napisano w lokalnym języku
+    pt = Como escrito na língua local
+    ro = Așa cum este scris în limba locală
+    ru = На местном языке
+    sk = Tak, ako sa píše v miestnom jazyku
+    sv = Som det står skrivet på det lokala språket
+    sw = Kama ilivyoandikwa katika lugha ya kienyeji
+    th = ตามที่เขียนเป็นภาษาท้องถิ่น
+    tr = Yerel dilde yazıldığı gibi
+    uk = Місцевою мовою
+    vi = Vì nó được viết bằng ngôn ngữ địa phương
+    zh-Hans = 当地语言写道
+    zh-Hant = 因為它是用當地語言寫的
 
   [editor_edit_place_category_title]
     tags = android,ios
@@ -16400,6 +16529,96 @@
     vi = Đơn vị điều hành
     zh-Hans = 运营者
     zh-Hant = 營運者
+
+  [editor_category_unsuitable_title]
+    tags = android
+    en = Can't find a suitable category?
+    af = Kan u nie 'n geskikte kategorie vind nie?
+    ar = لا يمكن العثور على فئة مناسبة؟
+    az = Uyğun kateqoriya tapa bilmirsiniz?
+    be = Няма прыдатнай катэгорыі?
+    bg = Не можете да намерите подходяща категория?
+    ca = No trobeu una categoria adequada?
+    cs = Nemůžete najít vhodnou kategorii?
+    da = Kan du ikke finde en passende kategori?
+    de = Keine passende Kategorie gefunden?
+    el = Δεν μπορείτε να βρείτε την κατάλληλη κατηγορία;
+    es = ¿No halla una categoría adecuada?
+    et = Ei leia sobivat kategooriat?
+    eu = Ezin duzu kategoria egokirik aurkitu?
+    fa = آیا نمی توانید یک دسته بندی مناسب پیدا کنید؟
+    fi = Etkö löydä sopivaa luokkaa?
+    fr = Tu ne trouves pas de catégorie appropriée ?
+    he = לא מוצאים קטגוריה מתאימה?
+    hi = कोई उपयुक्त श्रेणी नहीं मिल रही?
+    hu = Nem találja a megfelelő kategóriát?
+    id = Tidak dapat menemukan kategori yang sesuai?
+    it = Non riesci a trovare una categoria adatta?
+    ja = 適切なカテゴリーが見つからない？
+    ko = 적합한 카테고리를 찾을 수 없나요?
+    lt = Nerandate tinkamos kategorijos?
+    mr = योग्य श्रेणी शोधू शकत नाही?
+    nb = Finner du ikke en passende kategori?
+    nl = Kun je geen geschikte categorie vinden?
+    pl = Nie możesz znaleźć odpowiedniej kategorii?
+    pt = Não encontra uma categoria adequada?
+    pt-BR = Você não encontra uma categoria adequada?
+    ro = Nu găsiți o categorie potrivită?
+    ru = Нет подходящей категории?
+    sk = Nemôžete nájsť vhodnú kategóriu?
+    sv = Kan du inte hitta en lämplig kategori?
+    sw = Je, huwezi kupata aina inayofaa?
+    th = ไม่พบหมวดหมู่ที่เหมาะสมใช่ไหม?
+    tr = Uygun bir kategori bulamıyor musunuz?
+    uk = Не можете знайти відповідну категорію?
+    vi = Không thể tìm thấy một danh mục phù hợp?
+    zh-Hans = 找不到合适的类别？
+    zh-Hant = 找不到合適的類別？
+
+  [editor_category_unsuitable_text]
+    tags = android
+    en = Organic Maps allows to add simple point categories only, that means no towns, roads, lakes, building outlines, etc. Please add such categories directly to <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Check our <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detailed step by step instructions.
+    af = Organiese kaarte laat toe om slegs eenvoudige puntkategorieë by te voeg, dit beteken geen dorpe, paaie, mere, gebouomlynings, ens. Voeg asseblief sulke kategorieë direk by <a href="https://www.openstreetmap.org">OpenStreetMap.org< /a>. Gaan ons <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gids</a> na vir gedetailleerde stap-vir-stap-instruksies.
+    ar = تسمح الخرائط العضوية بإضافة فئات نقاط بسيطة فقط، وهذا يعني عدم وجود بلدات وطرق وبحيرات ومخططات للمباني وما إلى ذلك. يرجى إضافة هذه الفئات مباشرة إلى <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. راجع موقعنا <a href="https://organicmaps.app/faq/editing/advanced-map-editing">دليل</a> للحصول على تعليمات مفصلة خطوة بخطوة.
+    az = Üzvi Xəritələr yalnız sadə nöqtə kateqoriyaları əlavə etməyə imkan verir, bu o deməkdir ki, şəhərlər, yollar, göllər, bina konturları və s. yoxdur. Lütfən, belə kateqoriyaları birbaşa <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> saytına əlavə edin. Ətraflı addım-addım təlimatlar üçün <a href="https://organicmaps.app/faq/editing/advanced-map-editing">bələdçimizi</a> yoxlayın.
+    be = Organic Maps дазваляе дадаваць на мапу толькі простыя тыпы аб'ектаў, гэта значыць без гарадаў, дарог, азёр і будынкаў. Калі ласка, дадайце такія катэгорыі на сайце <a href="https://www.openstreetmap.org/">OpenStreetMap.org </a>. Мы таксама рэкамендуем азнаёміцца ​​з <a href="https://organicmaps.app/faq/editing/advanced-map-editing/">падрабязнымі інструкцыямі і іншымі прыкладаннямі для рэдагавання мапы</a>.
+    bg = Organic Maps позволява да се добавят само прости категории точки, т.е. без градове, пътища, езера, очертания на сгради и т.н. Моля, добавяйте такива категории директно в <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Вижте нашето <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ръководство</a> за подробни инструкции стъпка по стъпка.
+    ca = Organic Maps només permet afegir categories de punts simples, això vol dir que no hi ha ciutats, carreteres, llacs, contorns d'edificis, etc. Si us plau, afegiu aquestes categories directament a <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulteu la nostra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guia</a> per obtenir instruccions detallades pas a pas.
+    cs = Organické mapy umožňují přidávat pouze jednoduché kategorie bodů, tedy žádná města, silnice, jezera, obrysy budov atd. Takové kategorie prosím přidávejte přímo na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Podrobné pokyny krok za krokem najdete v našem <a href="https://organicmaps.app/faq/editing/advanced-map-editing">průvodci</a>.
+    da = Organic Maps giver kun mulighed for at tilføje simple punktkategorier, dvs. ingen byer, veje, søer, bygningsomrids osv. Tilføj venligst sådanne kategorier direkte til <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Se vores <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detaljerede trin for trin-instruktioner.
+    de = Mit Organic Maps kann nur einfache Punktkategorien hinzufügen, d.h. keine Städte, Straßen, Seen, Gebäudeumrisse, etc. Bitte füge solche Kategorien direkt bei <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> hinzu. In unserem <a href="https://organicmaps.app/faq/editing/advanced-map-editing">Leitfaden</a> findest du eine detaillierte Schritt-für-Schritt-Anleitung.
+    el = Οι Οργανικοί Χάρτες επιτρέπουν την προσθήκη απλών κατηγοριών σημείων μόνο, δηλαδή όχι πόλεων, δρόμων, λιμνών, περιγραμμάτων κτιρίων κ.λπ. Παρακαλούμε προσθέστε τέτοιες κατηγορίες απευθείας στο <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Ελέγξτε τον <a href="https://organicmaps.app/faq/editing/advanced-map-editing">οδηγό μας</a> για λεπτομερείς οδηγίες βήμα προς βήμα.
+    es = Organic Maps permite añadir únicamente categorías de puntos sencillos, es decir, no ciudades, carreteras, lagos, contornos de edificios, etc. Por favor, añada dichas categorías directamente a <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte nuestra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guía</a> para obtener instrucciones detalladas paso a paso.
+    et = Organic Maps võimaldab lisada ainult lihtsaid punktikategooriaid, see tähendab, et ei mingeid linnu, teid, järvi, hoonete piirjooni jne. Palun lisage sellised kategooriad otse <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Vaadake meie <a href="https://organicmaps.app/faq/editing/advanced-map-editing">juhendit</a> üksikasjalike samm-sammuliste juhiste saamiseks.
+    eu = Organic Maps-ek puntu kategoria soilak gehitzeko aukera ematen du, hau da, ez da herririk, errepiderik, lakurik, eraikinen eskemarik, etab. Gehitu kategoria horiek zuzenean <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Begiratu gure <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gida</a> urratsez urrats argibide zehatzak lortzeko.
+    fa = Organic Maps اجازه میu200cدهد فقط دستهu200cهای نقطهu200cای ساده را اضافه کند، یعنی هیچ شهر، جاده، دریاچه، طرح کلی ساختمان و غیره وجود ندارد. لطفاً این دستهu200cها را مستقیماً به <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> اضافه کنید. برای دستورالعملu200cهای گام به گام، <a href="https://organicmaps.app/faq/editing/advanced-map-editing">راهنمای</a> ما را بررسی کنید.
+    fi = Organic Maps mahdollistaa vain yksinkertaisten pisteluokkien lisäämisen, eli ei kaupunkeja, teitä, järviä, rakennusten ääriviivoja jne. Lisää tällaiset luokat suoraan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Tarkista <a href="https://organicmaps.app/faq/editing/advanced-map-editing">oppaastamme</a> yksityiskohtaiset ohjeet vaihe vaiheelta.
+    fr = Organic Maps ne permet d'ajouter que des catégories de points simples, c'est-à-dire pas de villes, de routes, de lacs, de contours de bâtiments, etc. Merci d'ajouter ces catégories directement sur <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte notre <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> pour obtenir des instructions détaillées étape par étape.
+    he = באמצעות Organic Maps ניתן להוסיף קטגוריות נקודה פשוטות בלבד, כלומר לא ניתן להוסיף עיירות, כבישים, אגמים, מבנים וכו'. אנא הוסיפו קטגוריות כאלה ישירות ל-<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. עיינו <a href="https://organicmaps.app/faq/editing/advanced-map-editing">במדריך</a> שלנו לקבלת הוראות מפורטות.
+    hi = ऑर्गेनिक मैप्स केवल सरल बिंदु श्रेणियां जोड़ने की अनुमति देता है, जिसका अर्थ है कि शहर, सड़कें, झीलें, भवन की रूपरेखा आदि नहीं। कृपया ऐसी श्रेणियां सीधे <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> पर जोड़ें।. विस्तृत चरण-दर-चरण निर्देशों के लिए हमारी <a href="https://organicmaps.app/faq/editing/advanced-map-editing">मार्गदर्शिका</a> देखें।
+    hu = Az Organic Maps csak egyszerű pontkategóriák hozzáadását teszi lehetővé, azaz nem tartalmaz városokat, utakat, tavakat, épületek körvonalait stb. Kérjük, hogy az ilyen kategóriákat közvetlenül a <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> oldalon adja hozzá. A részletes, lépésről lépésre történő útmutatásért tekintse meg <a href="https://organicmaps.app/faq/editing/advanced-map-editing">útmutatónkat</a>.
+    id = Organic Maps hanya memungkinkan untuk menambahkan kategori titik sederhana, yang berarti tidak ada kota, jalan, danau, garis besar bangunan, dll. Silahkan tambahkan kategori tersebut secara langsung ke <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Lihat <a href="https://organicmaps.app/faq/editing/advanced-map-editing">panduan</a> kami untuk petunjuk langkah demi langkah yang terperinci.
+    it = Organic Maps consente di aggiungere solo semplici categorie di punti, quindi non città, strade, laghi, profili di edifici, ecc. Aggiungi tali categorie direttamente a <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulta la nostra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guida</a> per istruzioni dettagliate passo dopo passo.
+    ja = つまり、町、道路、湖、建物の輪郭などは追加できない。そのようなカテゴリーは<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>に直接追加してほしい。私たちの<a href="https://organicmaps.app/faq/editing/advanced-map-editing">ガイド</a>のステップバイステップの詳細な手順をチェックする。
+    ko = 오가닉 지도에서는 단순한 포인트 카테고리만 추가할 수 있으므로 도시, 도로, 호수, 건물 윤곽선 등은 추가할 수 없습니다. 이러한 카테고리는 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> 에 직접 추가하세요. 자세한 단계별 지침은 <a href="https://organicmaps.app/faq/editing/advanced-map-editing">가이드</a>를 참조하세요.
+    lt = "Organic Maps" leidžia pridėti tik paprastas taškų kategorijas, t. y. jokių miestų, kelių, ežerų, pastatų kontūrų ir pan. Tokias kategorijas pridėkite tiesiai į <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Peržiūrėkite mūsų <a href="https://organicmaps.app/faq/editing/advanced-map-editing">vadovą</a>, kur rasite išsamias instrukcijas žingsnis po žingsnio.
+    mr = ऑरगॅनिक नकाशे फक्त साध्या बिंदू श्रेणी जोडण्याची परवानगी देतात, म्हणजे शहरे, रस्ते, तलाव, इमारत बाह्यरेखा इ. कृपया अशा श्रेणी थेट <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> वर जोडा. तपशीलवार चरण-दर-चरण सूचनांसाठी आमचे <a href="https://organicmaps.app/faq/editing/advanced-map-editing">मार्गदर्शक</a> पहा.
+    nb = Organic Maps tillater kun å legge til enkle punktkategorier, det vil si ingen byer, veier, innsjøer, bygningsomriss osv. Vennligst legg til slike kategorier direkte til <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Sjekk vår <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detaljerte trinnvise instruksjoner.
+    nl = Met Organic Maps kun je alleen eenvoudige puntcategorieën toevoegen, dus geen steden, wegen, meren, contouren van gebouwen, enzovoort. Voeg zulke categorieën direct toe aan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Bekijk onze <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gids</a> voor gedetailleerde stap voor stap instructies.
+    pl = Organic Maps pozwala na dodawanie tylko prostych kategorii punktów, co oznacza brak miast, dróg, jezior, obrysów budynków itp. Dodaj takie kategorie bezpośrednio do <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Sprawdź nasz <a href="https://organicmaps.app/faq/editing/advanced-map-editing">przewodnik</a>, aby uzyskać szczegółowe instrukcje krok po kroku.
+    pt = O Organic Maps permite-lhe adicionar apenas categorias de pontos simples, ou seja, nada de cidades, estradas, lagos, contornos de edifícios etc. Por favor, adicione essas categorias diretamente ao <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte o nosso <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guia</a> para instruções detalhadas passo a passo.
+    pt-BR = O Organic Maps permite que você adicione apenas categorias de pontos simples, o que significa que não há cidades, estradas, lagos, contornos de edifícios etc. Por favor, adicione essas categorias diretamente no <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte nosso <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guia</a> para obter instruções detalhadas passo a passo.
+    ro = Organic Maps permite adăugarea doar a unor categorii de puncte simple, ceea ce înseamnă că nu există orașe, drumuri, lacuri, contururi de clădiri, etc. Vă rugăm să adăugați astfel de categorii direct la <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consultați <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ghidul nostru</a> pentru instrucțiuni detaliate pas cu pas.
+    ru = Organic Maps позволяет добавлять на карту только простые типы объектов, то есть никаких городов, дорог, озер, контуров зданий. Пожалуйста, добавляйте такие категории на сайте <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Также рекомендуем ознакомиться с нашими <a href="https://organicmaps.app/faq/editing/advanced-map-editing">подробными пошаговыми инструкциями и другими приложениями для редактирования карты</a>.
+    sk = Organické mapy umožňujú pridávať len jednoduché kategórie bodov, teda žiadne mestá, cesty, jazerá, obrysy budov atď. Takéto kategórie pridávajte priamo na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Pozrite si náš <a href="https://organicmaps.app/faq/editing/advanced-map-editing">príručku</a>, kde nájdete podrobné pokyny krok za krokom.
+    sv = Organiska kartor tillåter endast att lägga till enkla punktkategorier, det betyder inga städer, vägar, sjöar, byggnadskonturer etc. Lägg till sådana kategorier direkt till <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Kontrollera vår <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> för detaljerade steg-för-steg-instruktioner.
+    sw = Ramani za Kikaboni huruhusu kuongeza kategoria rahisi pekee, hiyo inamaanisha hakuna miji, barabara, maziwa, muhtasari wa majengo, n.k. Tafadhali ongeza kategoria kama hizo moja kwa moja kwenye <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Angalia <a href="https://organicmaps.app/faq/editing/advanced-map-editing">mwongozo wetu</a> kwa maagizo ya kina ya hatua kwa hatua.
+    th = แผนที่ทั่วไปอนุญาตให้เพิ่มหมวดหมู่จุดธรรมดาเท่านั้น ซึ่งหมายความว่าไม่มีเมือง ถนน ทะเลสาบ โครงร่างอาคาร ฯลฯ โปรดเพิ่มหมวดหมู่ดังกล่าวลงใน <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. ดู<a href="https://organicmaps.app/faq/editing/advanced-map-editing">คำแนะนำ</a> ของเราเพื่อดูคำแนะนำโดยละเอียดทีละขั้นตอน
+    tr = Organik Haritalar yalnızca basit nokta kategorileri eklemeye izin verir, yani kasaba, yol, göl, bina ana hatları vb. yoktur. Lütfen bu tür kategorileri doğrudan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>'a ekleyin. Adım adım ayrıntılı talimatlar için <a href="https://organicmaps.app/faq/editing/advanced-map-editing">rehberimize</a> göz atın.
+    uk = Organic Maps дозволяють додавати до мапи лише прості типи об'єктів, тобто без міст, доріг, озер та контурів будівель. Будь ласка, додайте такі категорії на сайті <a href="https://www.openstreetmap.org/">OpenStreetMap.org</a>. Ми також рекомендуємо ознайомитися із <a href="https://organicmaps.app/faq/editing/advanced-map-editing/">детальними інструкціями та іншими додатками для редагування карти</a>.
+    vi = Bản đồ không phải trả tiền chỉ cho phép thêm các danh mục điểm đơn giản, nghĩa là không có thị trấn, đường, hồ, đường viền tòa nhà, v.v. Vui lòng thêm các danh mục đó trực tiếp vào <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Hãy xem <a href="https://organicmaps.app/faq/editing/advanced-map-editing">hướng dẫn</a> của chúng tôi để biết hướng dẫn chi tiết từng bước.
+    zh-Hans = 有机地图只允许添加简单的点类别，即不允许添加城镇、道路、湖泊、建筑轮廓等类别。请直接向<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>添加此类类别。请查看我们的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，了解详细的步骤说明。
+    zh-Hant = 有機地圖僅允許添加簡單的點類別，這意味著沒有城鎮、道路、湖泊、建築物輪廓等。<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>.請查看我們的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，以了解詳細的逐步說明。
 
   [downloader_no_downloaded_maps_title]
     tags = android,ios
@@ -18618,43 +18837,36 @@
 
   [navigation_stop_button]
     tags = android,ios
-    en = stop
-    af = stop
+    en = Stop
     ar = توقف
     az = Dayan
-    be = спыніць
-    ca = atura't
-    cs = stop
-    da = stop
+    be = Cпыніць
+    ca = Atura't
     de = Stopp
     el = τέλος
-    es = detener
-    et = lõpeta
-    eu = gelditu
+    es = Detener
+    et = Lõpeta
+    eu = Gelditu
     fa = توقف
-    fi = lopeta
-    fr = stop
+    fi = Lopeta
     he = עצור
-    hu = megállítás
-    id = berhenti
-    it = ferma
+    hu = Megállítás
+    id = Berhenti
+    it = Ferma
     ja = 停止
     ko = 중지
-    lt = stabdyti
+    lt = Stabdyti
     mr = थांबा
-    nb = stopp
-    nl = stoppen
-    pl = stop
-    pt = parar
-    pt-BR = parar
-    ro = oprește
-    ru = стоп
-    sk = stop
-    sv = stopp
+    nb = Stopp
+    nl = Stoppen
+    pt = Parar
+    ro = Oprește
+    ru = Cтоп
+    sv = Stopp
     th = หยุด
-    tr = dur
-    uk = стоп
-    vi = dừng
+    tr = Dur
+    uk = Cтоп
+    vi = Dừng
     zh-Hans = 停止
     zh-Hant = 停止
 
@@ -19217,7 +19429,7 @@
     nl = Mobiel Internet
     pl = Dane mobilne
     pt = Dados móveis
-    pt-BR = Internet Móvel
+    pt-BR = Internet móvel
     ro = Internet mobil
     ru = Мобильный интернет
     sk = Mobilný internet
@@ -19262,7 +19474,7 @@
     nl = Mobiel internet is vereist voor het weergeven van gedetailleerde informatie over plaatsen, zoals foto's, prijzen en beoordelingen.
     pl = Dane mobilne są wymagane do powiadomień o aktualizacji map i wyświetlania dokładniejszych informacji o miejscach i zakładkach.
     pt = Para visualizar informações detalhadas sobre os locais, tais como fotografias, preços e avaliações, é necessário acesso à internet móvel.
-    pt-BR = Para visualizar informações detalhadas sobre os locais, tais como fotos, preços e análises, é necessário acesso à internet móvel.
+    pt-BR = Para visualizar informações detalhadas sobre os locais, tais como fotos, preços e avaliações, é necessário acesso à internet móvel.
     ro = Internetul mobil este necesar pentru a afișa informații detaliate despre locuri generale și cele preferate.
     ru = Мобильный интернет требуется для уведомлений об обновлении карты и для отображения более подробной информации о местах и метках.
     sk = Na zobrazenie podrobnejších informácií o miestach, napríklad fotografií, cien a recenzií, sa vyžaduje mobilný internet.
@@ -23879,7 +24091,7 @@
     nl = Route instellingen
     pl = Ustawienia nawigacji
     pt = Configurações de direção
-    pt-BR = Opções de direção
+    pt-BR = Opções de trajeto
     ro = Opțiuni de ocolire
     ru = Настройки объезда
     sk = Možnosti trasy
@@ -27219,7 +27431,7 @@
     nl = Hoogtes
     pl = Poziomice
     pt = Terreno
-    pt-BR = Topográfica
+    pt-BR = Relevo
     ro = Înălțimi
     ru = Высоты
     sk = Terén
@@ -27263,8 +27475,8 @@
     nb = For å bruke høydekurver oppdater eller last opp kartet til nødvendig område
     nl = Als u gebruik wilt maken van hoogtelijnen, moet u de kaart van het gewenste gebied bijwerken of downloaden
     pl = Do skorzystania z poziomic, pobierz mapę tego obszaru.
-    pt = Para ativar e usar a camada topográfica, por favor atualize ou descarregue o mapa da área
-    pt-BR = Para ativar e usar a camada topográfica, atualize ou baixe o mapa da região
+    pt = Para ativar e usar a camada Terreno, por favor atualize ou descarregue o mapa da área
+    pt-BR = Para ativar e usar a camada Relevo, atualize ou baixe o mapa da região
     ro = Pentru a activa și utiliza stratul topografic actualizează sau descarcă harta zonei
     ru = Чтобы воспользоваться линиями высот, обновите или загрузите карту нужной местности
     sk = Ak chcete aktivovať a používať topografickú vrstvu, aktualizujte alebo stiahnite mapu oblasti
@@ -27308,8 +27520,8 @@
     nb = Høydekurver er ikke tilgjengelige i dette området ennå
     nl = Hoogtelijnen zijn nog niet beschikbaar in deze regio
     pl = Poziomice nie są jeszcze dostępne w tym regionie
-    pt = A camada topográfica ainda não está disponível nesta área
-    pt-BR = A camada topográfica ainda não está disponível para esta região
+    pt = A camada Terreno ainda não está disponível nesta área
+    pt-BR = A camada Relevo ainda não está disponível para esta região
     ro = Stratul topografic nu este încă disponibil în această zonă
     ru = Линии высот пока не доступны в этом регионе
     sk = Topografická vrstva ešte nie je v tejto oblasti k dispozícii
@@ -27354,7 +27566,6 @@
     nl = Moeilijkheidsgraad
     pl = Poziom trudności
     pt = Nível de dificuldade
-    pt-BR = Nível de dificuldade
     ro = Nivel de dificultate
     ru = Уровень сложности
     sk = Úroveň obtiažnosti
@@ -27398,7 +27609,6 @@
     nl = Gemakkelijk
     pl = Łatwy
     pt = Fácil
-    pt-BR = Fácil
     ro = Ușor
     ru = Лёгкий
     sk = Jednoduchá
@@ -27442,7 +27652,6 @@
     nl = Middelmatig
     pl = Umiarkowany
     pt = Moderado
-    pt-BR = Moderado
     ro = Mediu
     ru = Умеренный
     sk = Mierna
@@ -27486,7 +27695,6 @@
     nl = Moeilijk
     pl = Skomplikowany
     pt = Difícil
-    pt-BR = Difícil
     ro = Dificil
     ru = Сложный
     sk = Náročná
@@ -27531,7 +27739,6 @@
     nl = Opstijging
     pl = Wejście
     pt = Subida
-    pt-BR = Subida
     ro = Urcare
     ru = Подъём
     sk = Stúpanie
@@ -27576,7 +27783,6 @@
     nl = Afdaling
     pl = Zejście
     pt = Descida
-    pt-BR = Descida
     ro = Coborâre
     ru = Спуск
     sk = Klesanie
@@ -27711,7 +27917,6 @@
     nl = Moeilijkheid
     pl = Trudność
     pt = Dificuldade
-    pt-BR = Dificuldade
     ro = Dificultate
     ru = Сложность
     sk = Obtiažnosť
@@ -28614,7 +28819,7 @@
     el = Δεδομένα χάρτη από το OpenStreetMap
     es = Datos de mapas de OpenStreetMap
     et = OpenStreetMap kaardiandmed
-    eu = Maparen datuak OpenStreetMap-etik
+    eu = OpenStreetMap-eko mapa-datuak
     fa = OpenStreetMap داده‌های نقشه از
     fi = OpenStreetMapin karttatiedot
     fr = Données cartographiques d'OpenStreetMap
@@ -29143,9 +29348,9 @@
     zh-Hans = 我们的主要目标是构建您会喜欢的快速、注重隐私、易于使用的地图。
     zh-Hant = 我們的主要目標是構建您會喜歡的快速、注重隱私、易於使用的地圖。
 
-  [aa_used_on_the_phone_screen]
-    comment = Text on the Android Auto placeholder screen that maps are displayed on the phone screen
-    tags = android
+  [car_used_on_the_phone_screen]
+    comment = Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen
+    tags = android,ios
     en = You are now using Organic Maps on the phone screen
     ar = أنت الآن تستخدم الخرائط العضوية على شاشة الهاتف
     az = İndi telefon ekranında Organic Maps istifadə edirsiniz
@@ -29159,7 +29364,7 @@
     es = Ahora usa Organic Maps en la pantalla del teléfono
     es-MX = Ahora usa Organic Maps en la pantalla del teléfono
     et = Nüüd kasutate telefoni ekraanil Organic Maps
-    eu = Organic Maps organikoak erabiltzen ari zara telefonoaren pantailan
+    eu = Organic Maps telefonoaren pantailan erabiltzen ari zara
     fa = اکنون در حال استفاده از نقشه های ارگانیک در صفحه گوشی هستید
     fi = Käytät nyt puhelimen näytöllä Organic Maps -palvelua.
     fr = Vous utilisez maintenant Organic Maps sur le téléphone
@@ -29188,9 +29393,9 @@
     zh-Hans = 您现在正在手机屏幕上使用有机地图
     zh-Hant = 您現在正在手機螢幕上使用有機地圖
 
-  [aa_used_on_the_car_screen]
+  [car_used_on_the_car_screen]
     comment = Text on the phone placeholder screen that maps are displayed on the car screen
-    tags = android
+    tags = android,ios
     en = You are now using Organic Maps on the car screen
     ar = أنت الآن تستخدم الخرائط العضوية على شاشة السيارة
     az = Hazırda avtomobil ekranında Organic Maps istifadə edirsiniz
@@ -29204,7 +29409,7 @@
     es = Ahora usa Organic Maps en la pantalla del coche
     es-MX = Ahora usa Organic Maps en la pantalla del automóvil
     et = Nüüd kasutate auto ekraanil Organic Maps
-    eu = Organic Maps erabiltzen ari zara autoaren pantailan
+    eu = Organic Maps autoaren pantailan erabiltzen ari zara
     fa = اکنون از نقشه های ارگانیک در صفحه ماشین استفاده می کنید
     fi = Käytät nyt Organic Maps auton näytöllä
     fr = Vous utilisez maintenant Organic Maps dans la voiture
@@ -29278,9 +29483,9 @@
     zh-Hans = 您已连接到 Android Auto
     zh-Hant = 您已連接到 Android Auto
 
-  [aa_continue_on_the_phone]
+  [car_continue_on_the_phone]
     comment = Displayed on the phone screen. Button to display maps on the phone screen instead of a car
-    tags = android
+    tags = android,ios
     en = Continue on the phone
     ar = تواصل على الهاتف
     az = Telefonda davam edin
@@ -29323,9 +29528,9 @@
     zh-Hans = 在手机上继续
     zh-Hant = 繼續打電話
 
-  [aa_continue_in_the_car]
-    comment = Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols!
-    tags = android
+  [car_continue_in_the_car]
+    comment = Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols!
+    tags = android,ios
     en = To the car screen
     ar = إلى شاشة السيارة
     az = Avtomobil ekranına
@@ -29519,7 +29724,7 @@
     el = Πεζοπορία
     es = Senderismo
     et = Matkamine
-    eu = Mendi ibilaldiak
+    eu = Landa-eremua
     fa = پیاده روی
     fi = Vaellus
     fr = Randonnée
@@ -29536,6 +29741,7 @@
     nl = Wandelen
     pl = Turystyka piesza
     pt = Caminhadas
+    pt-BR = Ar livre
     ro = Drumeție
     ru = Активный отдых
     sk = Turistika
@@ -29868,3 +30074,275 @@
     vi = Bản đồ
     zh-Hans = 地图
     zh-Hant = 地圖
+
+  [drive_through]
+    en = Drive-through
+    af = Deur-ry
+    ar = الشراء من السيارة
+    az = Sürüşmə
+    be = З акенцам для кіроўцаў
+    bg = С прозорец за шофьори
+    ca = Servei al cotxe
+    cs = Průjezd
+    da = Køre gennem
+    de = Drive-through
+    el = Οδηγώ μέσα από
+    es = Servicio al auto
+    et = Läbi sõit
+    eu = Drive-through
+    fa = رانندگی از طریق
+    fi = Ajaa läpi
+    fr = Au volant
+    he = דרייב ת'רו
+    hi = ड्राइव करते हुए किसी जगह से गुजरना
+    hu = Drive-through
+    id = Berkendara melewati
+    it = Accesso con auto
+    ja = ドライブスルー
+    ko = 드라이브 스루
+    lt = Pravažiavimas per
+    mr = मार्गे चला
+    nb = Gjennomkjøring
+    nl = Drive-though
+    pl = Przejazd
+    pt = Drive-through
+    ro = Servire în mașină
+    ru = С окошком для водителей
+    sk = Drive-thru
+    sv = Genomkörning
+    sw = Kuendesha-kupitia
+    th = ขับรถผ่าน
+    tr = Arabaya servis
+    uk = З віконцем для водіїв
+    vi = Lái xe qua
+    zh-Hans = 驾车通过
+    zh-Hant = 免下車服務
+
+  [clear_the_search]
+    tags = android
+    en = Clear the search
+    af = Vee die soektog uit
+    ar = مسح البحث
+    az = Axtarışı təmizləyin
+    be = Ачысціць пошук
+    bg = Изчистване на търсенето
+    ca = Esborra la cerca
+    cs = Vymazat vyhledávání
+    da = Ryd søgningen
+    de = Lösche die Suche
+    el = Καθαρίστε την αναζήτηση
+    es = Borrar la búsqueda
+    es-MX = Limpiar la búsqueda
+    et = Tühjenda otsing
+    eu = Garbitu bilaketa
+    fa = جستجو را پاک کنید
+    fi = Tyhjennä haku
+    fr = Efface la recherche
+    he = נקה את החיפוש
+    hi = खोज साफ़ करें
+    hu = Törölje a keresést
+    id = Menghapus pencarian
+    it = Cancella la ricerca
+    ja = 検索をクリアする
+    ko = 검색 지우기
+    lt = Išvalyti paiešką
+    mr = शोध साफ करा
+    nb = Fjern søket
+    nl = Wis de zoekopdracht
+    pl = Wyczyść wyszukiwanie
+    pt = Limpar a pesquisa
+    ro = Ștergeți căutarea
+    ru = Очистите поиск
+    sk = Vymazať vyhľadávanie
+    sv = Rensa sökningen
+    sw = Futa utafutaji
+    th = ล้างการค้นหา
+    tr = Aramayı temizleyin
+    uk = Очистити пошук
+    vi = Xóa tìm kiếm
+    zh-Hans = 清除搜索
+    zh-Hant = 清除搜尋
+
+  [zoom_in]
+    tags = android
+    en = Zoom in
+    af = Zoem in
+    ar = تكبير
+    az = Yaxınlaşdırma
+    be = Наблізіць
+    bg = Увеличаване на мащаба
+    ca = Ampliar
+    cs = Přiblížení
+    da = Zoom ind
+    de = Vergrößern
+    el = Μεγέθυνση
+    es = Ampliar
+    es-MX = Acercarse
+    et = Suurendage
+    eu = Handitu
+    fa = بزرگنمایی
+    fi = Suurenna
+    fr = Zoom avant
+    he = לְהִתְמַקֵד
+    hi = ज़ूम इन
+    hu = Nagyítás
+    id = Memperbesar
+    it = Ingrandisci
+    ja = ズームイン
+    ko = 확대
+    lt = Priartinti vaizdą
+    mr = प्रतिमेचे दृष्य रूप मोठे करा
+    nb = Zoom inn
+    nl = Inzoomen
+    pl = Powiększ
+    pt = Ampliar
+    pt-BR = Ampliar
+    ro = A mari
+    ru = Приблизить
+    sk = Priblíženie
+    sv = Zooma in
+    sw = Vuta karibu
+    th = ขยายเข้า
+    tr = Yakınlaştır
+    uk = Збільшити
+    vi = Phóng to
+    zh-Hans = 放大
+    zh-Hant = 放大
+
+  [zoom_out]
+    comment = Accessibility text for the zoom-out button on the map
+    tags = android
+    en = Zoom out
+    af = Zoem uit
+    ar = تصغير
+    az = Küçült
+    be = Аддаліць
+    bg = Увеличаване на мащаба
+    ca = Disminuir el zoom
+    cs = Zvětšení
+    da = Zoom ud
+    de = Herauszoomen
+    el = Σμίκρυνση
+    es = Alejar
+    es-MX = Disminuir el zoom
+    et = Suurenda välja
+    eu = Txikiagotu
+    fa = کوچک نمایی
+    fi = Pienennä
+    fr = Zoom arrière
+    he = להקטין את התצוגה
+    hi = ज़ूम आउट
+    hu = Kicsinyítés
+    id = Perkecil
+    it = Rimpicciolisci
+    ja = ズームアウト
+    ko = 축소
+    lt = Padidinti mastelį
+    mr = झूम कमी करा
+    nb = Zoom ut
+    nl = Uitzoomen
+    pl = Pomniejsz
+    pt = Diminuir o zoom
+    ro = A micsora
+    ru = Отдалить
+    sk = Zväčšenie
+    sv = Zooma ut
+    sw = Kuza nje
+    th = ซูมออก
+    tr = Uzaklaştır
+    uk = Зменшити
+    vi = Thu nhỏ
+    zh-Hans = 放大
+    zh-Hant = 縮小
+
+  [website_menu]
+    comment = Restaurant or other food place's menu URL field in the Editor
+    tags = android,ios
+    en = Menu Link
+    af = Kieslys skakel
+    ar = رابط القائمة
+    az = Menyu keçidi
+    be = Спасылка на меню
+    bg = Връзка към менюто
+    ca = Enllaç del menú
+    cs = Odkaz na menu
+    da = Link til menu
+    de = Link zur Speisekarte
+    el = Σύνδεσμος μενού
+    es = Enlace al menú
+    et = Menüü link
+    eu = Menuaren esteka
+    fa = لینک منو
+    fi = Valikkolinkki
+    fr = Lien vers le menu
+    he = קישור לתפריט
+    hi = मेनू लिंक
+    hu = Menü link
+    id = Tautan menu
+    it = Link al menu
+    ja = メニューリンク
+    ko = 메뉴 링크
+    lt = Meniu nuoroda
+    mr = मेनू लिंक
+    nb = Lenke til menyen
+    nl = Menulink
+    pl = Link do menu
+    pt = Link do menu
+    pt-BR = Link do cardápio
+    ro = Legătura de meniu
+    ru = Ссылка на меню
+    sk = Odkaz na menu
+    sv = Länk till meny
+    sw = Kiungo cha menyu
+    th = ลิงค์เมนู
+    tr = Menü bağlantısı
+    uk = Посилання на меню
+    vi = Liên kết thực đơn
+    zh-Hans = 菜单链接
+    zh-Hant = 選單連結
+
+  [view_menu]
+    comment = Button in the Place Page which opens a restaurant or other food place's menu in a browser
+    tags = android
+    en = View Menu
+    af = Bekyk spyskaart
+    ar = عرض القائمة
+    az = Menyuya baxın
+    be = Паглядзець меню
+    bg = Преглед на менюто
+    ca = Veure menú
+    cs = Zobrazit menu
+    da = Vis menu
+    de = Speisekarte
+    el = Προβολή μενού
+    es = Ver Menú
+    et = Menüü vaatamine
+    eu = Ikusi menua
+    fa = مشاهده منو
+    fi = Näytä valikko
+    fr = Voir le menu
+    he = תפריט תצוגה
+    hi = मेनू देखें
+    hu = Menü megtekintése
+    id = Lihat Menu
+    it = Visualizza menu
+    ja = メニューを見る
+    ko = 메뉴 보기
+    lt = Peržiūrėti meniu
+    mr = मेनू पहा
+    nb = Vis meny
+    nl = Menu bekijken
+    pl = Wyświetl menu
+    pt = Ver menu
+    pt-BR = Exibir menu
+    ro = Vezi meniul
+    ru = Посмотреть меню
+    sk = Zobraziť menu
+    sv = Visa meny
+    sw = Tazama Menyu
+    th = ดูเมนู
+    tr = Menüyü Görüntüle
+    uk = Переглянути меню
+    vi = Xem thực đơn
+    zh-Hans = 查看菜单
+    zh-Hant = 查看選單

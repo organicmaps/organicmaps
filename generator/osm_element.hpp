@@ -102,14 +102,13 @@ struct OsmElement
     m_members.emplace_back(ref, type, role);
   }
 
-  void AddTag(Tag const & tag);
-  void AddTag(char const * key, char const * value);
-  void AddTag(std::string const & key, std::string const & value);
-  bool HasTag(std::string const & key) const;
-  bool HasTag(std::string const & key, std::string const & value) const;
+  void AddTag(std::string_view key, std::string_view value);
+  void AddTag(Tag const & tag) { AddTag(tag.m_key, tag.m_value); }
+  bool HasTag(std::string_view const & key) const;
+  bool HasTag(std::string_view const & key, std::string_view const & value) const;
 
   template <class Fn>
-  void UpdateTag(std::string const & key, Fn && fn)
+  void UpdateTagFn(std::string const & key, Fn && fn)
   {
     for (auto & tag : m_tags)
     {
@@ -124,6 +123,10 @@ struct OsmElement
     fn(value);
     if (!value.empty())
       AddTag(key, value);
+  }
+  void UpdateTag(std::string const & key, std::string const & value)
+  {
+    UpdateTagFn(key, [&value](auto & v) { v = value; });
   }
 
   /// @todo return string_view

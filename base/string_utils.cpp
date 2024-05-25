@@ -1,6 +1,7 @@
 #include "base/string_utils.hpp"
 
 #include "base/assert.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -62,6 +63,8 @@ bool ToReal(char const * start, T & result)
 }
 
 }  // namespace
+
+UniString UniString::kSpace = MakeUniString(" ");
 
 bool UniString::IsEqualAscii(char const * s) const
 {
@@ -206,13 +209,27 @@ void AsciiToLower(std::string & s)
   std::transform(s.begin(), s.end(), s.begin(), [](char in)
   {
     char constexpr diff = 'z' - 'Z';
-    static_assert(diff == 'a' - 'A', "");
-    static_assert(diff > 0, "");
+    static_assert(diff == 'a' - 'A');
+    static_assert(diff > 0);
 
     if (in >= 'A' && in <= 'Z')
       return char(in + diff);
     return in;
   });
+}
+
+void AsciiToUpper(std::string & s)
+{
+  std::transform(s.begin(), s.end(), s.begin(), [](char in)
+  {
+    char constexpr diff = 'z' - 'Z';
+    static_assert(diff == 'a' - 'A');
+    static_assert(diff > 0);
+
+    if (in >= 'a' && in <= 'z')
+      return char(in - diff);
+    return in;
+ });
 }
 
 void Trim(std::string & s)
@@ -230,6 +247,21 @@ void Trim(std::string_view & sv)
   }
   else
     sv = {};
+}
+
+void Trim(std::string_view & s, std::string_view anyOf)
+{
+  auto i = s.find_first_not_of(anyOf);
+  if (i != std::string_view::npos)
+  {
+    s.remove_prefix(i);
+
+    i = s.find_last_not_of(anyOf);
+    ASSERT(i != std::string_view::npos, ());
+    s.remove_suffix(s.size() - i - 1);
+  }
+  else
+    s = {};
 }
 
 void Trim(std::string & s, std::string_view anyOf)

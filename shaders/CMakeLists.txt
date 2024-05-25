@@ -56,7 +56,6 @@ set(shader_files
     GL/text.fsh.glsl
     GL/text.vsh.glsl
     GL/text_billboard.vsh.glsl
-    GL/text_fixed.fsh.glsl
     GL/text_outlined.vsh.glsl
     GL/text_outlined_billboard.vsh.glsl
     GL/text_outlined_gui.vsh.glsl

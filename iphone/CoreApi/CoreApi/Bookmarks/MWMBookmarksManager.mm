@@ -194,9 +194,13 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 
 #pragma mark - Categories
 
-- (BOOL)isCategoryNotEmpty:(MWMMarkGroupID)groupId {
-  return self.bm.HasBmCategory(groupId) &&
-  (self.bm.GetUserMarkIds(groupId).size() + self.bm.GetTrackIds(groupId).size());
+- (BOOL)areAllCategoriesEmpty
+{
+  return self.bm.AreAllCategoriesEmpty();
+}
+
+- (BOOL)isCategoryEmpty:(MWMMarkGroupID)groupId {
+  return self.bm.HasBmCategory(groupId) && self.bm.IsCategoryEmpty(groupId);
 }
 
 - (void)prepareForSearch:(MWMMarkGroupID)groupId {

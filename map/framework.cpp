@@ -6,9 +6,7 @@
 
 #include "ge0/url_generator.hpp"
 
-#include "routing/index_router.hpp"
 #include "routing/route.hpp"
-#include "routing/routing_helpers.hpp"
 #include "routing/speed_camera_prohibition.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
@@ -18,14 +16,11 @@
 #include "search/locality_finder.hpp"
 
 #include "storage/country_info_getter.hpp"
-#include "storage/routing_helpers.hpp"
 #include "storage/storage_helpers.hpp"
 
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/gps_track_point.hpp"
 #include "drape_frontend/visual_params.hpp"
-
-#include "editor/editable_data_source.hpp"
 
 #include "descriptions/loader.hpp"
 
@@ -42,7 +37,6 @@
 #include "indexer/scales.hpp"
 #include "indexer/transliteration_loader.hpp"
 
-#include "platform/local_country_file_utils.hpp"
 #include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/mwm_version.hpp"
@@ -65,7 +59,6 @@
 
 #include "base/logging.hpp"
 #include "base/math.hpp"
-#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/target_os.hpp"
@@ -361,9 +354,10 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   editor.SetDelegate(make_unique<search::EditorDelegate>(m_featuresFetcher.GetDataSource()));
   editor.SetInvalidateFn([this](){ InvalidateRect(GetCurrentViewport()); });
 
-  m_trafficManager.SetCurrentDataVersion(m_storage.GetCurrentDataVersion());
-  m_trafficManager.SetSimplifiedColorScheme(LoadTrafficSimplifiedColors());
-  m_trafficManager.SetEnabled(LoadTrafficEnabled());
+  /// @todo Uncomment when we will integrate a traffic provider.
+  // m_trafficManager.SetCurrentDataVersion(m_storage.GetCurrentDataVersion());
+  // m_trafficManager.SetSimplifiedColorScheme(LoadTrafficSimplifiedColors());
+  // m_trafficManager.SetEnabled(LoadTrafficEnabled());
 
   m_isolinesManager.SetEnabled(LoadIsolinesEnabled());
 
@@ -2536,15 +2530,15 @@ bool Framework::ParseDrapeDebugCommand(string const & query)
 {
   MapStyle desiredStyle = MapStyleCount;
   if (query == "?dark" || query == "mapstyle:dark")
-    desiredStyle = MapStyleDark;
+    desiredStyle = MapStyleDefaultDark;
   else if (query == "?light" || query == "mapstyle:light")
-    desiredStyle = MapStyleClear;
+    desiredStyle = MapStyleDefaultLight;
   else if (query == "?vlight" || query == "mapstyle:vehicle_light")
-    desiredStyle = MapStyleVehicleClear;
+    desiredStyle = MapStyleVehicleLight;
   else if (query == "?vdark" || query == "mapstyle:vehicle_dark")
     desiredStyle = MapStyleVehicleDark;
   else if (query == "?olight" || query == "mapstyle:outdoors_light")
-    desiredStyle = MapStyleOutdoorsClear;
+    desiredStyle = MapStyleOutdoorsLight;
   else if (query == "?odark" || query == "mapstyle:outdoors_dark")
     desiredStyle = MapStyleOutdoorsDark;
 
@@ -3002,7 +2996,7 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
                       " without a user's input. Feel free to close it if it's wrong).");
   }
 
-  emo.RemoveNeedlessNames();
+  emo.RemoveBlankNames();
 
   auto const result = osm::Editor::Instance().SaveEditedFeature(emo);
 

@@ -1,10 +1,9 @@
-• OpenStreetMap login works again!
-• Better isolines elevation data for European countries
-• OpenStreetMap data as of March 26
-• Bookmark lists are sorted by modification time (recent at the top)
-• Eye icons for visible/hidden bookmark lists
-• Fixed crash when importing GPX, KML, KMZ from the Files app
-• Bigger "View search results on the map" button
-• FreeDrive mode and faster bookmarks in Android Auto
+• Сартаванне закладак і сцежак па імені
+• Дадзеныя OpenStreetMap па стане на 29 красавіка
+• Трэба ізноў залагініцца ў OSM
+• Складаныя паходныя сцежкі зараз карычневыя, а экспертныя шляхі чорныя
+• Веласіпедныя дарожкі цяпер цёмна-сінія, пункцірам там, дзе яны ідуць па пешаходных сцежках
+• Цяпер бачна дарогі пад напаўпразрыстымі мастамі
+• Выпраўлены імпарт GPX з прыкладання Google Files
 
-…read more details at omaps.org/news
+… больш падрабязна на omaps.org/news

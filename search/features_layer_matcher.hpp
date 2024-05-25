@@ -400,15 +400,16 @@ private:
     uint32_t const placeId = parent.m_sortedFeatures->front();
     auto const & ids = GetPlaceAddrFeatures(placeId, parent.m_getFeatures);
 
-    if (!child.m_hasDelayedFeatures || !buildings.empty())
+    if (!buildings.empty())
     {
       for (uint32_t houseId : buildings)
       {
         if (std::binary_search(ids.begin(), ids.end(), houseId))
           fn(houseId, placeId);
       }
-      return;
     }
+    if (!child.m_hasDelayedFeatures)
+      return;
 
     std::vector<house_numbers::Token> queryParse;
     ParseQuery(child.m_subQuery, child.m_lastTokenIsPrefix, queryParse);

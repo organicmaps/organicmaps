@@ -231,6 +231,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">הגדרת מבנים בתלת מימד מבוטלת במצב חיסכון בחשמל</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">הנחיות קוליות</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">הכריזו על שמות רחובות</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">כאשר מופעל, שם הרחוב או היציאה שאליו יש לפנות יוקרא בקול.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">שפת קול</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -469,6 +473,8 @@
 	<string name="editor_edit_place_title">עריכת מקום</string>
 	<string name="editor_add_place_title">הוספת מקום</string>
 	<string name="editor_edit_place_name_hint">שם המקום</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">כפי שנכתב בשפה המקומית</string>
 	<string name="editor_edit_place_category_title">קטגוריה</string>
 	<string name="detailed_problem_description">תאור מפורט של הבעיה</string>
 	<string name="editor_report_problem_other_title">בעיה אחרת</string>
@@ -494,6 +500,8 @@
 	<string name="editor_detailed_description">ההצעות שלך לשינוי המפה יישלחו לקהילת OpenStreetMap. יש לתאר פרטים נוספים שלא ניתן לערוך ב-Organic Maps.</string>
 	<string name="editor_more_about_osm">עוד על OpenStreetMap</string>
 	<string name="editor_operator">בעלים</string>
+	<string name="editor_category_unsuitable_title">לא מוצאים קטגוריה מתאימה?</string>
+	<string name="editor_category_unsuitable_text">באמצעות Organic Maps ניתן להוסיף קטגוריות נקודה פשוטות בלבד, כלומר לא ניתן להוסיף עיירות, כבישים, אגמים, מבנים וכו\'. אנא הוסיפו קטגוריות כאלה ישירות ל-<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. עיינו <a href="https://organicmaps.app/faq/editing/advanced-map-editing">במדריך</a> שלנו לקבלת הוראות מפורטות.</string>
 	<string name="downloader_no_downloaded_maps_title">לא הורדת אף מפה</string>
 	<string name="downloader_no_downloaded_maps_message">הורד מפה כדי לחפש ולנווט ללא חיבור לאינטרנט.</string>
 	<!-- abbreviation for meters -->
@@ -766,16 +774,16 @@
 	<string name="app_tip_08">אתה יכול בקלות לתקן ולשפר את נתוני המפה.</string>
 	<!-- App tip #09 -->
 	<string name="app_tip_09">המטרה העיקרית שלנו היא לבנות מפות מהירות, ממוקדות פרטיות, קלות לשימוש שתאהבו.</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">אתה משתמש כעת ב-Organic Maps במסך הטלפון</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">אתה משתמש כעת ב-Organic Maps במסך הטלפון</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">אתה משתמש כעת ב-Organic Maps במסך המכונית</string>
+	<string name="car_used_on_the_car_screen">אתה משתמש כעת ב-Organic Maps במסך המכונית</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">אתה מחובר ל-Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">המשך בטלפון</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">למסך המכונית</string>
+	<string name="car_continue_on_the_phone">המשך בטלפון</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">למסך המכונית</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">יישום זה דורש גישה למיקום שלך למטרות ניווט.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -793,11 +801,21 @@
 	<string name="pref_tts_open_system_settings">הגדרות סינתזת דיבור במערכת</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">הגדרות סינתזת דיבור לא נמצאו, האם אתה בטוח שהמכשיר שלך תומך בזה?</string>
+	<string name="drive_through">דרייב ת\'רו</string>
+	<string name="clear_the_search">נקה את החיפוש</string>
+	<string name="zoom_in">לְהִתְמַקֵד</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">להקטין את התצוגה</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">קישור לתפריט</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">תפריט תצוגה</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">כתובת/חסימה</string>
 	<string name="type.addr_interpolation.even">כתובת/חסימה</string>
 	<string name="type.addr_interpolation.odd">כתובת/חסימה</string>
+	<string name="type.amenity.bbq">מנגל</string>
 	<string name="type.amenity.gambling">הימורים</string>
 	<string name="type.leisure.adult_gaming_centre">מרכז משחקים למבוגרים</string>
 	<string name="type.leisure.amusement_arcade">מִקמֶרֶת</string>
@@ -1334,6 +1352,7 @@
 	<string name="type.tourism.aquarium">אַקוַרִיוּם</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">בקתת הרים</string>
+	<string name="type.tourism.apartment">דירת נופש</string>
 	<string name="type.attraction.animal">מתחם בעלי חיים</string>
 	<!-- A rentable countryside vacation house. -->
 	<string name="type.tourism.chalet">בית נופש</string>

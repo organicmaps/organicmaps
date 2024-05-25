@@ -4,13 +4,11 @@
 
 #include "storage/country_info_getter.hpp"
 
-#include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/map_object.hpp"
 #include "indexer/road_shields_parser.hpp"
 
 #include "platform/measurement_utils.hpp"
@@ -183,13 +181,14 @@ RankerResult::RankerResult(FeatureType & ft, std::string const & fileName)
 RankerResult::RankerResult(double lat, double lon)
   : m_str("(" + measurement_utils::FormatLatLon(lat, lon) + ")"), m_resultType(Type::LatLon)
 {
-  m_region.SetParams(string(), mercator::FromLatLon(lat, lon));
+  m_region.SetParams({}, mercator::FromLatLon(lat, lon));
 }
 
 RankerResult::RankerResult(m2::PointD const & coord, string_view postcode)
   : m_str(postcode), m_resultType(Type::Postcode)
 {
-  m_region.SetParams(string(), coord);
+  strings::AsciiToUpper(m_str);
+  m_region.SetParams({}, coord);
 }
 
 bool RankerResult::GetCountryId(storage::CountryInfoGetter const & infoGetter, uint32_t ftype,
@@ -257,11 +256,11 @@ void FillDetails(FeatureType & ft, Result::Details & details)
     return;
 
   std::string_view airportIata = ft.GetMetadata(feature::Metadata::FMD_AIRPORT_IATA);
-  
+
   std::string brand {ft.GetMetadata(feature::Metadata::FMD_BRAND)};
   if (!brand.empty())
     brand = platform::GetLocalizedBrandName(brand);
-  
+
   /// @todo Avoid temporary string when OpeningHours (boost::spirit) will allow string_view.
   std::string const openHours(ft.GetMetadata(feature::Metadata::FMD_OPEN_HOURS));
   if (!openHours.empty())
@@ -314,7 +313,7 @@ void FillDetails(FeatureType & ft, Result::Details & details)
       description += feature::kFieldsSeparator;
     description += sv;
   };
-  
+
   append(stars);
   append(airportIata);
   append(roadShield);
@@ -323,7 +322,7 @@ void FillDetails(FeatureType & ft, Result::Details & details)
   append(cuisine);
   append(recycling);
   append(fee);
-  
+
   details.m_description = std::move(description);
 
   details.m_isInitialized = true;

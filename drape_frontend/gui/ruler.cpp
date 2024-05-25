@@ -119,7 +119,6 @@ private:
     if (!IsVisible())
       return;
 
-    m_size = m2::PointF(helper.GetRulerPixelLength(), 2 * RulerHelper::GetRulerHalfHeight());
     if (IsAppearing())
       m_params.m_length = helper.GetRulerPixelLength();
     m_params.m_position = m_pivot;
@@ -169,23 +168,20 @@ private:
 };
 }  // namespace
 
-drape_ptr<ShapeRenderer> Ruler::Draw(ref_ptr<dp::GraphicsContext> context, m2::PointF & size,
-                                     ref_ptr<dp::TextureManager> tex) const
+drape_ptr<ShapeRenderer> Ruler::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> tex) const
 {
   ShapeControl control;
-  size = m2::PointF::Zero();
-  DrawRuler(context, size, control, tex, true);
-  DrawRuler(context, size, control, tex, false);
-  DrawText(context, size, control, tex, true);
-  DrawText(context, size, control, tex, false);
+  DrawRuler(context, control, tex, true);
+  DrawRuler(context, control, tex, false);
+  DrawText(context, control, tex, true);
+  DrawText(context, control, tex, false);
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   renderer->AddShapeControl(std::move(control));
   return renderer;
 }
 
-void Ruler::DrawRuler(ref_ptr<dp::GraphicsContext> context, m2::PointF & size,
-                      ShapeControl & control, ref_ptr<dp::TextureManager> tex,
+void Ruler::DrawRuler(ref_ptr<dp::GraphicsContext> context, ShapeControl & control, ref_ptr<dp::TextureManager> tex,
                       bool isAppearing) const
 {
   buffer_vector<RulerVertex, 4> data;
@@ -195,7 +191,6 @@ void Ruler::DrawRuler(ref_ptr<dp::GraphicsContext> context, m2::PointF & size,
 
   glsl::vec2 texCoord = glsl::ToVec2(reg.GetTexRect().Center());
   float const h = RulerHelper::GetRulerHalfHeight();
-  size += m2::PointF(RulerHelper::GetMaxRulerPixelLength(), 2.0f * h);
 
   glsl::vec2 normals[] =
   {
@@ -231,7 +226,7 @@ void Ruler::DrawRuler(ref_ptr<dp::GraphicsContext> context, m2::PointF & size,
   }
 }
 
-void Ruler::DrawText(ref_ptr<dp::GraphicsContext> context, m2::PointF & size,
+void Ruler::DrawText(ref_ptr<dp::GraphicsContext> context,
                      ShapeControl & control, ref_ptr<dp::TextureManager> tex,
                      bool isAppearing) const
 {
@@ -250,8 +245,6 @@ void Ruler::DrawText(ref_ptr<dp::GraphicsContext> context, m2::PointF & size,
                                            isAppearing, tex);
   };
 
-  m2::PointF const textSize = MutableLabelDrawer::Draw(context, params, tex,
-    std::bind(&ShapeControl::AddShape, &control, _1, _2));
-  size.y += (textSize.y + std::abs(RulerHelper::GetVerticalTextOffset()));
+  MutableLabelDrawer::Draw(context, params, tex, std::bind(&ShapeControl::AddShape, &control, _1, _2));
 }
 }  // namespace gui

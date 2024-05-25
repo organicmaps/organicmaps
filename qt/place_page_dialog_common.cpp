@@ -10,6 +10,7 @@ void addCommonButtons(QDialog * this_, QDialogButtonBox * dbb, bool shouldShowEd
 
   QPushButton * fromButton = new QPushButton("Route From");
   fromButton->setIcon(QIcon(":/navig64/point-start.png"));
+  fromButton->setAutoDefault(false);
   this_->connect(fromButton, &QAbstractButton::clicked, this_, [this_]
   {
     this_->done(RouteFrom);
@@ -18,6 +19,7 @@ void addCommonButtons(QDialog * this_, QDialogButtonBox * dbb, bool shouldShowEd
 
   QPushButton * addStopButton = new QPushButton("Add Stop");
   addStopButton->setIcon(QIcon(":/navig64/point-intermediate.png"));
+  addStopButton->setAutoDefault(false);
   this_->connect(addStopButton, &QAbstractButton::clicked, this_, [this_]
   {
     this_->done(AddStop);
@@ -26,6 +28,7 @@ void addCommonButtons(QDialog * this_, QDialogButtonBox * dbb, bool shouldShowEd
 
   QPushButton * routeToButton = new QPushButton("Route To");
   routeToButton->setIcon(QIcon(":/navig64/point-finish.png"));
+  routeToButton->setAutoDefault(false);
   this_->connect(routeToButton, &QAbstractButton::clicked, this_, [this_]
   {
     this_->done(RouteTo);

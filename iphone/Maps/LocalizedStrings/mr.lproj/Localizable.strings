@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "ध्वनी सूचना";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Announce Street Names";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "When enabled, the name of the street or exit to turn onto will be spoken aloud.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "ध्वनी भाषा";
 
@@ -704,6 +710,9 @@
 "editor_add_place_title" = "जोडणे";
 
 "editor_edit_place_name_hint" = "ठिकाणाचे नाव";
+
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "स्थानिक भाषेत लिहिल्याप्रमाणे";
 
 "editor_edit_place_category_title" = "प्रवर्ग";
 
@@ -1258,6 +1267,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "तुम्ही आता फोन स्क्रीनवर ऑरगॅनिक नकाशे वापरत आहात";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "तुम्ही आता कार स्क्रीनवर ऑरगॅनिक नकाशे वापरत आहात";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "फोनवर सुरू ठेवा";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "कारच्या स्क्रीनकडे";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "गिर्यारोहण";
 
@@ -1269,6 +1290,11 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "नकाशा";
+
+"drive_through" = "मार्गे चला";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "मेनू लिंक";
 
 
 /********** Types **********/
@@ -1321,7 +1347,7 @@
 
 "type.amenity.bar" = "बार";
 
-"type.amenity.bbq" = "सहलीचे ठिकाण";
+"type.amenity.bbq" = "बार्बेक्यू ग्रिल";
 
 "type.amenity.bench" = "बाक";
 
@@ -2036,22 +2062,10 @@
 
 "type.highway.footway.crossing" = "पादचारी ओलांडणे";
 
-"type.highway.footway.alpine_hiking" = "पथ";
-
 "type.highway.footway.area" = "पादचारी झोन";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "पादचारी पूल";
-
-"type.highway.footway.demanding_alpine_hiking" = "पथ";
-
-"type.highway.footway.demanding_mountain_hiking" = "पथ";
-
-"type.highway.footway.difficult_alpine_hiking" = "पथ";
-
-"type.highway.footway.hiking" = "पथ";
-
-"type.highway.footway.mountain_hiking" = "पथ";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "पादचारी बोगदा";
@@ -2086,26 +2100,20 @@
 
 "type.highway.path" = "पथ";
 
-"type.highway.path.alpine_hiking" = "पथ";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "पथ";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "पथ";
 
 "type.highway.path.bicycle" = "सायकल आणि पाऊलवाट";
+
+"type.highway.footway.bicycle" = "सायकल आणि पाऊलवाट";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "पूल";
 
-"type.highway.path.demanding_alpine_hiking" = "पथ";
-
-"type.highway.path.demanding_mountain_hiking" = "पथ";
-
-"type.highway.path.difficult_alpine_hiking" = "पथ";
-
-"type.highway.path.hiking" = "पथ";
-
 "type.highway.path.horse" = "पथ";
-
-"type.highway.path.mountain_hiking" = "पथ";
-
-"type.highway.path.permissive" = "पथ";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "बोगदा";
@@ -2228,17 +2236,7 @@
 
 "type.highway.track.grade1" = "ट्रॅक";
 
-"type.highway.track.grade2" = "ट्रॅक";
-
-"type.highway.track.grade3" = "ट्रॅक";
-
-"type.highway.track.grade4" = "ट्रॅक";
-
-"type.highway.track.grade5" = "ट्रॅक";
-
 "type.highway.track.no.access" = "ट्रॅक";
-
-"type.highway.track.permissive" = "ट्रॅक";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "बोगदा";
@@ -2447,8 +2445,6 @@
 "type.landuse.construction" = "बांधकाम";
 
 "type.landuse.education" = "शैक्षणिक सुविधा";
-
-"type.landuse.farm" = "शेत";
 
 "type.landuse.farmland" = "शेतजमीन";
 
@@ -3737,7 +3733,7 @@
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "माउंटन लॉज";
 
-"type.tourism.apartment" = "सदनिका";
+"type.tourism.apartment" = "हॉलिडे अपार्टमेंट";
 
 "type.tourism.artwork" = "कलाकृती";
 
@@ -3836,8 +3832,6 @@
 "type.waterway.river" = "नदी";
 
 "type.waterway.river.tunnel" = "नदी";
-
-"type.waterway.riverbank" = "नदी";
 
 "type.waterway.stream" = "नदी";
 

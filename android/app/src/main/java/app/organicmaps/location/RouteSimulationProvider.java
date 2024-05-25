@@ -15,7 +15,7 @@ class RouteSimulationProvider extends BaseLocationProvider
   private static final String TAG = RouteSimulationProvider.class.getSimpleName();
   private static final long INTERVAL_MS = 1000;
 
-  private JunctionInfo[] mPoints;
+  private final JunctionInfo[] mPoints;
   private int mCurrentPoint = 0;
   private boolean mActive = false;
 

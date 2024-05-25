@@ -8572,7 +8572,7 @@ zh-Hans:冰壶
 zh-Hant:冰壺
 
 sport-equestrian
-en:Equestrian Sports
+en:Equestrian Sports|horse riding
 ar:فروسية
 be:Конны спорт
 bg:Коне|спорт|езда
@@ -8597,7 +8597,7 @@ pl:Jazda konna
 pt:Desportos Equestres
 pt-BR:Esportes equestres
 ro:Călărie
-ru:Конный спорт
+ru:Конный спорт|верховая езда
 sv:Hästhållning
 tr:Binicilik
 uk:Кінний спорт
@@ -8805,17 +8805,17 @@ zh-Hans:射击
 zh-Hant:射擊
 
 sport-skateboard
-en:Skateboarding
+en:Skateboarding|skateboard|skate
 ar:تزلج على اللوح
-be:Скейтбордынг
-bg:Скейтбординг
-cs:Skateboarding
-da:Skateboarding
-de:Skateboarding
+be:Скейтбордынг|скейтборд|скейт
+bg:Скейтбординг|скейтборд|скейт
+cs:Skateboarding|skateboard
+da:Skateboarding|skateboard
+de:Skateboarding|skateboard
 el:Σκέιτμπορντινγκ
-es:Monopatinaje|Skate|patineta
+es:Monopatinaje|skate|patineta
 et:Rulasõit
-eu:Skateboarding
+eu:Skateboarding|skateboard
 fa:اسکیت‌بردینگ
 fi:Rullalautailu
 fr:Skateboard
@@ -8828,16 +8828,16 @@ ko:스케이트보딩
 mr:स्केट बोर्डिंग
 nb:Rullebrettkjøring
 nl:Skateboarden
-pl:Skateboarding
+pl:Skateboarding|skateboard
 pt:Skate
-ro:Skateboarding
-ru:Скейтбординг
+ro:Skateboarding|skateboard
+ru:Скейтбординг|скейтборд|скейт
 sk:Skejtbording
-sv:Skateboarding
-sw:Skateboarding
+sv:Skateboarding|skateboard
+sw:Skateboarding|skateboard
 th:สเกตบอร์ด
 tr:Kaykay
-uk:Скейтбординг
+uk:Скейтбординг|скейтборд|скейт
 vi:Trượt ván
 zh-Hans:滑板活动
 zh-Hant:滑板活動
@@ -9819,7 +9819,7 @@ zh-Hant:水庫
 mr:जलाशय
 
 # Do not add the "water" search term
-waterway-river|waterway-stream|waterway-riverbank|natural-water-river
+waterway-river|waterway-stream|natural-water-river
 en:River|stream|creek|brook
 ru:Река|ручей
 be:Рака|ручай
@@ -13036,9 +13036,9 @@ zh-Hans:慈善商店
 zh-Hant:慈善商店
 
 shop-ticket
-en:4Ticket Shop|tickets|ticket hub|ticket office|ticket center|booking office|box office|ticket agency|ticket booth|pay box
-ru:4Билетная касса|билет|театральная касса|билетный центр|городская касса|продажа билетов|бронирование билетов
-be:4Білетная каса|білет|тэатральная каса|білетны цэнтр|гарадская каса|продаж білетаў|браніраванне білетаў
+en:4Ticket Shop|tickets|booking
+ru:4Билетная касса|билет|билеты|бронирование билетов|продажа билетов
+be:4Білетная каса|білет|білеты|квіток|квіткі|браніраванне білетаў|продаж білетаў|квіткоў
 bg:билети|каса
 ar:مكتب تذاكر
 cs:Prodej vstupenek
@@ -13064,7 +13064,7 @@ eu:Sarreren salmenta
 sv:Biljettkontor
 th:จุดจำหน่ายตั๋ว
 tr:Biletçi|gişe
-uk:4Квиткова каса|квиток|театральна каса|квитковий центр|продаж квитків|бронювання квитків
+uk:4Квиткова каса|квиток|квиткі|бронювання квитків|продаж квитків
 vi:Phòng vé
 zh-Hans:售票处
 zh-Hant:售票處

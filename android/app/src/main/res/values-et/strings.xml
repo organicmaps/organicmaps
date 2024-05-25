@@ -227,6 +227,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D-hooned lülitatakse energiasäästurežiimis välja</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Hääljuhised</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Teatage tänavanimed</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Kui see on lubatud, öeldakse valjusti tänava või väljasõidu nimi, millele pöörata.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Hääle keel</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -469,6 +473,8 @@
 	<string name="editor_edit_place_title">Muutmine</string>
 	<string name="editor_add_place_title">Lisamine</string>
 	<string name="editor_edit_place_name_hint">Koha nimi</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">Nagu on kirjutatud kohalikus keeles</string>
 	<string name="editor_edit_place_category_title">Kategooria</string>
 	<string name="detailed_problem_description">Probleemi üksikasjalik kirjeldus</string>
 	<string name="editor_report_problem_other_title">Erinev probleem</string>
@@ -494,6 +500,8 @@
 	<string name="editor_detailed_description">Teie soovitatud kaardimuudatused saadetakse OpenStreetMapi kogukonnale. Kirjeldage kõiki täiendavaid üksikasju, mida ei saa Organic Maps-is muuta.</string>
 	<string name="editor_more_about_osm">Rohkem OpenStreetMap kohta</string>
 	<string name="editor_operator">Omanik</string>
+	<string name="editor_category_unsuitable_title">Ei leia sobivat kategooriat?</string>
+	<string name="editor_category_unsuitable_text">Organic Maps võimaldab lisada ainult lihtsaid punktikategooriaid, see tähendab, et ei mingeid linnu, teid, järvi, hoonete piirjooni jne. Palun lisage sellised kategooriad otse <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Vaadake meie <a href="https://organicmaps.app/faq/editing/advanced-map-editing">juhendit</a> üksikasjalike samm-sammuliste juhiste saamiseks.</string>
 	<string name="downloader_no_downloaded_maps_title">Sa ei ole kaarte alla laadinud</string>
 	<string name="downloader_no_downloaded_maps_message">Lae alla kaardid asukoha otsimiseks ja võrguühenduseta navigeerimise kasutamiseks.</string>
 	<!-- abbreviation for meters -->
@@ -540,7 +548,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Palun kontrolli, et Sa ei sisestanud isiklikke andmeid.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap muutjad kontrollivad muudatused üle ja võtavad küsimuste korral Sinuga ühendust.</string>
-	<string name="navigation_stop_button">lõpeta</string>
+	<string name="navigation_stop_button">Lõpeta</string>
 	<!-- For the first routing -->
 	<string name="accept">Nõustu</string>
 	<!-- For the first routing -->
@@ -766,16 +774,16 @@
 	<string name="app_tip_08">Saate hõlpsasti kaardiandmeid parandada ja täiustada.</string>
 	<!-- App tip #09 -->
 	<string name="app_tip_09">Meie põhieesmärk on luua kiireid, privaatsusele keskenduvaid ja hõlpsasti kasutatavaid kaarte, mis teile meeldivad.</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Nüüd kasutate telefoni ekraanil Organic Maps</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">Nüüd kasutate telefoni ekraanil Organic Maps</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Nüüd kasutate auto ekraanil Organic Maps</string>
+	<string name="car_used_on_the_car_screen">Nüüd kasutate auto ekraanil Organic Maps</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Olete ühendatud Android Auto\'ga</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Jätka telefonis</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">Auto ekraanile</string>
+	<string name="car_continue_on_the_phone">Jätka telefonis</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">Auto ekraanile</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">See rakendus nõuab navigeerimiseks juurdepääsu teie asukohale.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -793,6 +801,15 @@
 	<string name="pref_tts_open_system_settings">Kõnesünteesi süsteemi seaded</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Kõnesünteesi seadeid ei leitud, kas olete kindel, et teie seade toetab seda?</string>
+	<string name="drive_through">Läbi sõit</string>
+	<string name="clear_the_search">Tühjenda otsing</string>
+	<string name="zoom_in">Suurendage</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Suurenda välja</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Menüü link</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Menüü vaatamine</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Aadress/plokk</string>
@@ -819,7 +836,7 @@
 	<string name="type.amenity.atm">Pangaautomaat</string>
 	<string name="type.amenity.bank">Pank</string>
 	<string name="type.amenity.bar">Baar</string>
-	<string name="type.amenity.bbq">Piknikuala</string>
+	<string name="type.amenity.bbq">Grillgrill</string>
 	<string name="type.amenity.bench">Pink</string>
 	<string name="type.amenity.bicycle_parking">Jalgrattaparkla</string>
 	<string name="type.amenity.bicycle_rental">Jalgrattarent</string>
@@ -1184,15 +1201,9 @@
 	<string name="type.highway.footway">Jalgrada</string>
 	<string name="type.highway.footway.sidewalk">Kõnnitee</string>
 	<string name="type.highway.footway.crossing">Jalakäijate ülekäigurada</string>
-	<string name="type.highway.footway.alpine_hiking">Alpi matkarada</string>
 	<string name="type.highway.footway.area">Jalakäijate ala</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Jalakäijate sild</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Nõudlik alpi matkarada</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Rada</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Nõudlik mägimatkarada</string>
-	<string name="type.highway.footway.hiking">Rada</string>
-	<string name="type.highway.footway.mountain_hiking">Mägirada</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Jalakäijate tunnel</string>
 	<string name="type.highway.ford">Koolmekoht</string>
@@ -1213,17 +1224,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
 	<string name="type.highway.path">Rada</string>
-	<string name="type.highway.path.alpine_hiking">Alpi matkarada</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">Rada</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">Rada</string>
 	<string name="type.highway.path.bicycle">Jalgratta- ja jalgtee</string>
+	<string name="type.highway.footway.bicycle">Jalgratta- ja jalgtee</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Sild</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Nõudlik alpi matkarada</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Nõudlik mägimatkarada</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Raske alpi matkarada</string>
-	<string name="type.highway.path.hiking">Rada</string>
 	<string name="type.highway.path.horse">Valjarada</string>
-	<string name="type.highway.path.mountain_hiking">Mägitee</string>
-	<string name="type.highway.path.permissive">Rada</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Tunnel</string>
 	<string name="type.highway.pedestrian">Jalakäijate tänav</string>
@@ -1297,12 +1306,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Sild</string>
 	<string name="type.highway.track.grade1">Rada</string>
-	<string name="type.highway.track.grade2">Rada</string>
-	<string name="type.highway.track.grade3">Rada</string>
-	<string name="type.highway.track.grade4">Rada</string>
-	<string name="type.highway.track.grade5">Rada</string>
 	<string name="type.highway.track.no.access">Rada</string>
-	<string name="type.highway.track.permissive">Rada</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunnel</string>
 	<string name="type.highway.traffic_signals">Valgusfoor</string>
@@ -1397,7 +1401,6 @@
 	<string name="type.landuse.commercial">Kommertspiirkond</string>
 	<string name="type.landuse.construction">Ehitus</string>
 	<string name="type.landuse.education">Haridusrajatised</string>
-	<string name="type.landuse.farm">Talu</string>
 	<string name="type.landuse.farmland">Talumaa</string>
 	<string name="type.landuse.farmyard">Taluõu</string>
 	<string name="type.landuse.field">Põld</string>
@@ -2038,7 +2041,7 @@
 	<string name="type.tourism.aquarium">Akvaarium</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Mägimajake</string>
-	<string name="type.tourism.apartment">Korterid</string>
+	<string name="type.tourism.apartment">Puhkuse korter</string>
 	<string name="type.tourism.artwork">Kunstiteos</string>
 	<string name="type.tourism.artwork.architecture">Kunstiteos - arhitektuur</string>
 	<string name="type.tourism.artwork.painting">Kunstiteos - maal</string>
@@ -2089,7 +2092,6 @@
 	<string name="type.waterway.lock_gate">Lüüsi värav</string>
 	<string name="type.waterway.river">Jõgi</string>
 	<string name="type.waterway.river.tunnel">Jõgi</string>
-	<string name="type.waterway.riverbank">Jõgi</string>
 	<string name="type.waterway.stream">Oja</string>
 	<string name="type.waterway.stream.ephemeral">Jõgi</string>
 	<string name="type.waterway.stream.intermittent">Jõgi</string>

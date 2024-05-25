@@ -69,16 +69,15 @@ public:
 #endif
 
 private:
-  m2::PointF CacheCompass(ref_ptr<dp::GraphicsContext> context, Position const & position,
+  void CacheCompass(ref_ptr<dp::GraphicsContext> context, Position const & position,
+                    ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures);
+  void CacheRuler(ref_ptr<dp::GraphicsContext> context, Position const & position,
+                  ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures);
+  void CacheCopyright(ref_ptr<dp::GraphicsContext> context, Position const & position,
+                      ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures);
+  void CacheScaleFpsLabel(ref_ptr<dp::GraphicsContext> context, Position const & position,
                           ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures);
-  m2::PointF CacheRuler(ref_ptr<dp::GraphicsContext> context, Position const & position,
-                        ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures);
-  m2::PointF CacheCopyright(ref_ptr<dp::GraphicsContext> context, Position const & position,
-                            ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures);
-  m2::PointF CacheScaleFpsLabel(ref_ptr<dp::GraphicsContext> context, Position const & position,
-                                ref_ptr<LayerRenderer> renderer,
-                                ref_ptr<dp::TextureManager> textures);
-  m2::PointF CacheWatermark(ref_ptr<dp::GraphicsContext> context, Position const & position,
-                            ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures);
+  void CacheWatermark(ref_ptr<dp::GraphicsContext> context, Position const & position,
+                      ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures);
 };
 }  // namespace gui

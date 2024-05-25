@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Hlasové povely";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Oznámte názvy ulíc";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Keď je táto možnosť povolená, nahlas sa vysloví názov ulice alebo výjazdu, na ktorý sa má odbočiť.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Nastavenia jazyka povelov";
 
@@ -705,6 +711,9 @@
 
 "editor_edit_place_name_hint" = "Názov miesta";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Tak, ako sa píše v miestnom jazyku";
+
 "editor_edit_place_category_title" = "Kategória";
 
 "whatsnew_editor_message_1" = "Na mapu môžete pridávať nové miesta a upravovať tie, ktoré sú už pridané.";
@@ -860,7 +869,7 @@
 
 "editor_share_to_all_dialog_message_2" = "Redaktori OpenStreetMap skontrolujú zmeny a budú vás kontaktovať, ak budú mať nejaké otázky.";
 
-"navigation_stop_button" = "stop";
+"navigation_stop_button" = "Stop";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Znemožniť nahrávanie vami nedávno precestovanej trasy?";
@@ -1258,6 +1267,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Na obrazovke telefónu teraz používate službu Organic Maps";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Na obrazovke auta teraz používate službu Organic Maps";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Pokračujte v telefóne";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Na obrazovku auta";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Turistika";
 
@@ -1269,6 +1290,11 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Mapa";
+
+"drive_through" = "Drive-thru";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Odkaz na menu";
 
 
 /********** Types **********/
@@ -1321,7 +1347,7 @@
 
 "type.amenity.bar" = "Bar";
 
-"type.amenity.bbq" = "Piknik";
+"type.amenity.bbq" = "Gril na grilovanie";
 
 "type.amenity.bench" = "Lavička";
 
@@ -2036,22 +2062,10 @@
 
 "type.highway.footway.crossing" = "Priechod pre chodcov";
 
-"type.highway.footway.alpine_hiking" = "Turistický chodník";
-
 "type.highway.footway.area" = "Pešia zóna";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Most pre chodcov";
-
-"type.highway.footway.demanding_alpine_hiking" = "Cesta";
-
-"type.highway.footway.demanding_mountain_hiking" = "Náročný horský chodník";
-
-"type.highway.footway.difficult_alpine_hiking" = "Náročný turistický chodník";
-
-"type.highway.footway.hiking" = "Turistický chodník";
-
-"type.highway.footway.mountain_hiking" = "Horský turistický chodník";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Tunel pre chodcov";
@@ -2086,26 +2100,20 @@
 
 "type.highway.path" = "Cesta";
 
-"type.highway.path.alpine_hiking" = "Turistický chodník";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Cesta";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Cesta";
 
 "type.highway.path.bicycle" = "Cesta pre cyklistov a chodcov";
+
+"type.highway.footway.bicycle" = "Cesta pre cyklistov a chodcov";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Most";
 
-"type.highway.path.demanding_alpine_hiking" = "Náročný turistický chodník";
-
-"type.highway.path.demanding_mountain_hiking" = "Náročný horský chodník";
-
-"type.highway.path.difficult_alpine_hiking" = "Obtiažny turistický chodník";
-
-"type.highway.path.hiking" = "Turistický chodník";
-
 "type.highway.path.horse" = "Cesta pre jazdca na zvierati";
-
-"type.highway.path.mountain_hiking" = "Horský turistický chodník";
-
-"type.highway.path.permissive" = "Cesta";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Tunel";
@@ -2228,17 +2236,7 @@
 
 "type.highway.track.grade1" = "Poľná cesta";
 
-"type.highway.track.grade2" = "Poľná cesta";
-
-"type.highway.track.grade3" = "Poľná cesta";
-
-"type.highway.track.grade4" = "Poľná cesta";
-
-"type.highway.track.grade5" = "Poľná cesta";
-
 "type.highway.track.no.access" = "Poľná cesta";
-
-"type.highway.track.permissive" = "Poľná cesta";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunel";
@@ -2447,8 +2445,6 @@
 "type.landuse.construction" = "Stavenisko";
 
 "type.landuse.education" = "Vzdelávacia inštitúcia";
-
-"type.landuse.farm" = "Statok";
 
 "type.landuse.farmland" = "Poľnohospodárska pôda";
 
@@ -3737,7 +3733,7 @@
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "Horská chata";
 
-"type.tourism.apartment" = "Apartmány";
+"type.tourism.apartment" = "Prázdninový apartmán";
 
 "type.tourism.artwork" = "Umelecké dielo";
 
@@ -3836,8 +3832,6 @@
 "type.waterway.river" = "Rieka";
 
 "type.waterway.river.tunnel" = "Rieka";
-
-"type.waterway.riverbank" = "Rieka";
 
 "type.waterway.stream" = "Potok";
 

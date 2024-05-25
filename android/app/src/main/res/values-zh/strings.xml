@@ -220,6 +220,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D 建筑在省电模式下关闭</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">语音指导</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">宣布街道名称</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">启用后，将大声说出要转入的街道或出口的名称。</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">语音语言</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -462,6 +466,8 @@
 	<string name="editor_edit_place_title">编辑中</string>
 	<string name="editor_add_place_title">添加中</string>
 	<string name="editor_edit_place_name_hint">该地点的名称</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">当地语言写道</string>
 	<string name="editor_edit_place_category_title">类别</string>
 	<string name="detailed_problem_description">问题的详细描述</string>
 	<string name="editor_report_problem_other_title">一个不同的问题</string>
@@ -487,6 +493,8 @@
 	<string name="editor_detailed_description">您建议的更改将发送至 OpenStreetMap 社区。说明无法在 Organic Maps 编辑的详情。</string>
 	<string name="editor_more_about_osm">关于 OpenStreetMap 的更多信息</string>
 	<string name="editor_operator">运营者</string>
+	<string name="editor_category_unsuitable_title">找不到合适的类别？</string>
+	<string name="editor_category_unsuitable_text">有机地图只允许添加简单的点类别，即不允许添加城镇、道路、湖泊、建筑轮廓等类别。请直接向<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>添加此类类别。请查看我们的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，了解详细的步骤说明。</string>
 	<string name="downloader_no_downloaded_maps_title">您尚未下载任何地图</string>
 	<string name="downloader_no_downloaded_maps_message">下载地图来查找位置和离线浏览</string>
 	<!-- abbreviation for meters -->
@@ -741,16 +749,16 @@
 	<string name="app_tip_08">您可以轻松修复和改进地图数据。</string>
 	<!-- App tip #09 -->
 	<string name="app_tip_09">我们的主要目标是构建您会喜欢的快速、注重隐私、易于使用的地图。</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">您现在正在手机屏幕上使用有机地图</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">您现在正在手机屏幕上使用有机地图</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">您现在正在汽车屏幕上使用有机地图</string>
+	<string name="car_used_on_the_car_screen">您现在正在汽车屏幕上使用有机地图</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">您已连接到 Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">在手机上继续</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">转到汽车屏幕</string>
+	<string name="car_continue_on_the_phone">在手机上继续</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">转到汽车屏幕</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">本应用程序需要访问您的位置以进行导航。</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -768,6 +776,15 @@
 	<string name="pref_tts_open_system_settings">语音合成系统设置</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">未找到语音合成设置，您确定您的设备支持该设置吗？</string>
+	<string name="drive_through">驾车通过</string>
+	<string name="clear_the_search">清除搜索</string>
+	<string name="zoom_in">放大</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">放大</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">菜单链接</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">查看菜单</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">地址/区块</string>
@@ -794,7 +811,7 @@
 	<string name="type.amenity.atm">自动取款机</string>
 	<string name="type.amenity.bank">银行</string>
 	<string name="type.amenity.bar">酒吧</string>
-	<string name="type.amenity.bbq">野餐地点</string>
+	<string name="type.amenity.bbq">烧烤架</string>
 	<string name="type.amenity.bench">长凳</string>
 	<string name="type.amenity.bicycle_parking">自行车停车处</string>
 	<string name="type.amenity.bicycle_rental">自行车出租点</string>
@@ -1144,15 +1161,9 @@
 	<string name="type.highway.footway">步行道路</string>
 	<string name="type.highway.footway.sidewalk">人行道</string>
 	<string name="type.highway.footway.crossing">行人过街天桥</string>
-	<string name="type.highway.footway.alpine_hiking">步行道路</string>
 	<string name="type.highway.footway.area">步行道路</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">桥</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">步行道路</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">步行道路</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">步行道路</string>
-	<string name="type.highway.footway.hiking">步行道路</string>
-	<string name="type.highway.footway.mountain_hiking">步行道路</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">隧道</string>
 	<string name="type.highway.ford">浅滩</string>
@@ -1173,17 +1184,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">隧道</string>
 	<string name="type.highway.path">小道</string>
-	<string name="type.highway.path.alpine_hiking">小道</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">小道</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">小道</string>
 	<string name="type.highway.path.bicycle">小道</string>
+	<string name="type.highway.footway.bicycle">小道</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">桥</string>
-	<string name="type.highway.path.demanding_alpine_hiking">小道</string>
-	<string name="type.highway.path.demanding_mountain_hiking">小道</string>
-	<string name="type.highway.path.difficult_alpine_hiking">小道</string>
-	<string name="type.highway.path.hiking">小道</string>
 	<string name="type.highway.path.horse">小道</string>
-	<string name="type.highway.path.mountain_hiking">小道</string>
-	<string name="type.highway.path.permissive">小道</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">隧道</string>
 	<string name="type.highway.pedestrian">步行街</string>
@@ -1257,12 +1266,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">桥</string>
 	<string name="type.highway.track.grade1">土路</string>
-	<string name="type.highway.track.grade2">土路</string>
-	<string name="type.highway.track.grade3">土路</string>
-	<string name="type.highway.track.grade4">土路</string>
-	<string name="type.highway.track.grade5">土路</string>
 	<string name="type.highway.track.no.access">土路</string>
-	<string name="type.highway.track.permissive">土路</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">隧道</string>
 	<string name="type.highway.traffic_signals">交通信号灯</string>
@@ -1356,7 +1360,6 @@
 	<string name="type.landuse.churchyard">教堂庭院</string>
 	<string name="type.landuse.commercial">商务办公用地</string>
 	<string name="type.landuse.construction">建设区域</string>
-	<string name="type.landuse.farm">农田</string>
 	<string name="type.landuse.farmland">农业用地</string>
 	<string name="type.landuse.farmyard">农庄</string>
 	<string name="type.landuse.flowerbed">花坛</string>
@@ -1974,7 +1977,7 @@
 	<string name="type.tourism.aquarium">水族馆</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">山间小屋</string>
-	<string name="type.tourism.apartment">公寓</string>
+	<string name="type.tourism.apartment">度假公寓</string>
 	<string name="type.tourism.artwork">艺术品</string>
 	<string name="type.tourism.artwork.architecture">艺术品</string>
 	<string name="type.tourism.artwork.painting">油画</string>
@@ -2022,7 +2025,6 @@
 	<string name="type.waterway.lock_gate">闸门</string>
 	<string name="type.waterway.river">河流</string>
 	<string name="type.waterway.river.tunnel">河流</string>
-	<string name="type.waterway.riverbank">河流</string>
 	<string name="type.waterway.stream">溪</string>
 	<string name="type.waterway.stream.ephemeral">溪</string>
 	<string name="type.waterway.stream.intermittent">溪</string>

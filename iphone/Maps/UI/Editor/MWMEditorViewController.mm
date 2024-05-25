@@ -12,6 +12,7 @@
 #import "MWMEditorNotesFooter.h"
 #import "MWMEditorSelectTableViewCell.h"
 #import "MWMEditorSwitchTableViewCell.h"
+#import "MWMEditorSegmentedTableViewCell.hpp"
 #import "MWMEditorTextTableViewCell.h"
 #import "MWMNoteCell.h"
 #import "MWMObjectsCategorySelectorController.h"
@@ -66,6 +67,7 @@ std::map<MWMEditorCellID, Class> const kCellType2Class {
     {MetadataID::FMD_OPEN_HOURS, [MWMPlacePageOpeningHoursCell class]},
     {MetadataID::FMD_CUISINE, [MWMEditorSelectTableViewCell class]},
     {MetadataID::FMD_INTERNET, [MWMEditorSwitchTableViewCell class]},
+    {MetadataID::FMD_DRIVE_THROUGH, [MWMEditorSegmentedTableViewCell class]},
     {MWMEditorCellTypeNote, [MWMNoteCell class]},
     {MWMEditorCellTypeReportButton, [MWMButtonCell class]}
 };
@@ -89,6 +91,14 @@ void cleanupAdditionalLanguages(std::vector<osm::LocalizedName> const & names,
                                     [x](osm::LocalizedName const & name) { return name.m_code == x; });
                   return it != names.end();
                 });
+}
+
+std::vector<NSInteger> extractLanguageCodes(const std::vector<osm::LocalizedName>& names) 
+{
+  std::vector<NSInteger> languageCodes;
+  for (const auto& name : names)
+    languageCodes.push_back(static_cast<NSInteger>(name.m_code));
+  return languageCodes;
 }
 
 std::vector<MWMEditorCellID> cellsForAdditionalNames(osm::NamesDataSource const & ds,
@@ -468,6 +478,17 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
                 keyboardType:UIKeyboardTypeURL];
     break;
   }
+  case MetadataID::FMD_WEBSITE_MENU:
+  {
+    [self configTextViewCell:cell
+                      cellID:cellID
+                        icon:@"ic_placepage_website_menu"
+                 placeholder:L(@"website_menu")
+                errorMessage:L(@"error_enter_correct_web")
+                     isValid:isValid
+                keyboardType:UIKeyboardTypeURL];
+    break;
+  }
   case MetadataID::FMD_EMAIL:
   {
     [self configTextViewCell:cell
@@ -511,19 +532,14 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
   {
     MWMEditorAdditionalNameTableViewCell * tCell =
         static_cast<MWMEditorAdditionalNameTableViewCell *>(cell);
-
-    // When default name is added - remove fake names from datasource.
-    auto const it = std::find(m_newAdditionalLanguages.begin(), m_newAdditionalLanguages.end(),
-                              StringUtf8Multilang::kDefaultCode);
-    auto const needFakes = it == m_newAdditionalLanguages.end();
-    auto const & localizedNames = m_mapObject.GetNamesDataSource(needFakes).names;
-
+    auto const & localizedNames = m_mapObject.GetNamesDataSource().names;
     if (indexPath.row < localizedNames.size())
     {
       osm::LocalizedName const & name = localizedNames[indexPath.row];
+      NSString * langName = indexPath.row == StringUtf8Multilang::kDefaultCode ? L(@"editor_default_language_hint") : ToNSString(name.m_langName);
       [tCell configWithDelegate:self
                        langCode:name.m_code
-                       langName:ToNSString(name.m_langName)
+                       langName:langName
                            name:@(name.m_name.c_str())
                    errorMessage:L(@"error_enter_correct_name")
                         isValid:isValid
@@ -539,7 +555,6 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
       if (langCode == StringUtf8Multilang::kDefaultCode)
       {
         name = m_mapObject.GetDefaultName();
-        m_mapObject.EnableNamesAdvancedMode();
       }
 
       [tCell configWithDelegate:self
@@ -632,6 +647,15 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
                          icon:[UIImage imageNamed:@"ic_placepage_cuisine"]
                          text:@(m_mapObject.FormatCuisines().c_str())
                   placeholder:L(@"select_cuisine")];
+    break;
+  }
+  case MetadataID::FMD_DRIVE_THROUGH:
+  {
+    MWMEditorSegmentedTableViewCell * tCell = static_cast<MWMEditorSegmentedTableViewCell *>(cell);
+    [tCell configWithDelegate:self
+                         icon:[UIImage imageNamed:@"ic_placepage_drive_through"]
+                         text:L(@"drive_through")
+                         value:feature::YesNoUnknownFromString(m_mapObject.GetMetadata(feature::Metadata::FMD_DRIVE_THROUGH))];
     break;
   }
   case MetadataID::FMD_CONTACT_FACEBOOK:
@@ -936,6 +960,29 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
   }
 }
 
+- (void)cell:(UITableViewCell *)cell changeSegmented:(YesNoUnknown)changeSegmented
+{
+  NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+  switch ([self cellTypeForIndexPath:indexPath])
+  {
+  case MetadataID::FMD_DRIVE_THROUGH:
+      switch (changeSegmented)
+      {
+        case Yes:
+          m_mapObject.SetMetadata(feature::Metadata::FMD_DRIVE_THROUGH, "yes");
+          break;
+        case No:
+          m_mapObject.SetMetadata(feature::Metadata::FMD_DRIVE_THROUGH, "no");
+          break;
+        case Unknown:
+          m_mapObject.SetMetadata(feature::Metadata::FMD_DRIVE_THROUGH, "");
+          break;
+      }
+      break;
+  default: NSAssert(false, @"Invalid field for changeSegmented"); break;
+  }
+}
+
 #pragma mark - MWMEditorCellProtocol && MWMButtonCellDelegate
 
 - (void)cellDidPressButton:(UITableViewCell *)cell
@@ -1069,9 +1116,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
   else if ([segue.identifier isEqualToString:kAdditionalNamesEditorSegue])
   {
     MWMEditorAdditionalNamesTableViewController * dvc = segue.destinationViewController;
-    [dvc configWithDelegate:self
-                               name:m_mapObject.GetNameMultilang()
-        additionalSkipLanguageCodes:m_newAdditionalLanguages];
+    [dvc configWithDelegate:self name:m_mapObject.GetNameMultilang() additionalSkipLanguageCodes:m_newAdditionalLanguages];
   }
 }
 

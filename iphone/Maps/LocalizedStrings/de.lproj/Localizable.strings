@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Sprachführung";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Straßennamen ankündigen";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Wenn aktiviert, wird der Name der Straße oder Ausfahrt, in die abgebogen werden soll, laut angekündigt";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Sprache für Sprachführung";
 
@@ -704,6 +710,9 @@
 "editor_add_place_title" = "Wird hinzugefügt";
 
 "editor_edit_place_name_hint" = "Name des Ortes";
+
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Wie in der lokalen Sprache geschrieben";
 
 "editor_edit_place_category_title" = "Kategorie";
 
@@ -1258,6 +1267,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/DE:Über_OSM";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Du verwendest jetzt Organic Maps auf dem Telefondisplay";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Du verwendest jetzt Organic Maps auf dem Bildschirm des Autos";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Weiter am Telefon";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Zum Autobildschirm";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Wandern";
 
@@ -1269,6 +1290,11 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Karte";
+
+"drive_through" = "Drive-through";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Link zur Speisekarte";
 
 
 /********** Types **********/
@@ -2036,22 +2062,10 @@
 
 "type.highway.footway.crossing" = "Fußgängerübergang";
 
-"type.highway.footway.alpine_hiking" = "Alpinwanderweg";
-
 "type.highway.footway.area" = "Fußweg";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Brücke";
-
-"type.highway.footway.demanding_alpine_hiking" = "Anspruchsvoller Alpinwanderweg";
-
-"type.highway.footway.demanding_mountain_hiking" = "Anspruchsvoller Bergwanderweg";
-
-"type.highway.footway.difficult_alpine_hiking" = "Schwieriger Alpinwanderweg";
-
-"type.highway.footway.hiking" = "Wanderweg";
-
-"type.highway.footway.mountain_hiking" = "Bergwanderweg";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Fußgängertunnel";
@@ -2086,26 +2100,20 @@
 
 "type.highway.path" = "Weg";
 
-"type.highway.path.alpine_hiking" = "Alpinwanderweg";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Weg";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Weg";
 
 "type.highway.path.bicycle" = "Radweg";
+
+"type.highway.footway.bicycle" = "Radweg";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Brücke";
 
-"type.highway.path.demanding_alpine_hiking" = "Anspruchsvoller Alpinwanderweg";
-
-"type.highway.path.demanding_mountain_hiking" = "Anspruchsvoller Bergwanderweg";
-
-"type.highway.path.difficult_alpine_hiking" = "Schwieriger Alpinwanderweg";
-
-"type.highway.path.hiking" = "Wanderweg";
-
 "type.highway.path.horse" = "Reitweg";
-
-"type.highway.path.mountain_hiking" = "Bergwanderweg";
-
-"type.highway.path.permissive" = "Weg";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Tunnel";
@@ -2228,17 +2236,7 @@
 
 "type.highway.track.grade1" = "Forst-/Feldweg";
 
-"type.highway.track.grade2" = "Forst-/Feldweg";
-
-"type.highway.track.grade3" = "Forst-/Feldweg";
-
-"type.highway.track.grade4" = "Forst-/Feldweg";
-
-"type.highway.track.grade5" = "Forst-/Feldweg";
-
 "type.highway.track.no.access" = "Forst-/Feldweg";
-
-"type.highway.track.permissive" = "Forst-/Feldweg";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Straßentunnel";
@@ -2447,8 +2445,6 @@
 "type.landuse.construction" = "Baustelle";
 
 "type.landuse.education" = "Bildungseinrichtung";
-
-"type.landuse.farm" = "Bauernhof";
 
 "type.landuse.farmland" = "Agrarland";
 
@@ -3836,8 +3832,6 @@
 "type.waterway.river" = "Fluss";
 
 "type.waterway.river.tunnel" = "Fluss";
-
-"type.waterway.riverbank" = "Fluss";
 
 "type.waterway.stream" = "Bach";
 

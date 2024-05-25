@@ -63,10 +63,11 @@ UNIT_TEST(RussiaMoscowGerPanfilovtsev22BicycleWayTurnTest)
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
 }
 
-UNIT_TEST(RussiaMoscowSalameiNerisPossibleTurnCorrectionBicycleWayTurnTest)
+UNIT_TEST(Russia_Moscow_SalameiNerisPossibleTurnCorrectionBicycleWay_TurnTest)
 {
-  TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Bicycle),
+  using namespace integration;
+
+  TRouteResult const routeResult = CalculateRoute(integration::GetVehicleComponents(VehicleType::Bicycle),
                                   mercator::FromLatLon(55.85854, 37.36795), {0.0, 0.0},
                                   mercator::FromLatLon(55.85364, 37.37318));
 
@@ -74,10 +75,13 @@ UNIT_TEST(RussiaMoscowSalameiNerisPossibleTurnCorrectionBicycleWayTurnTest)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  integration::TestTurnCount(route, 3 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
-  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
-  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnSlightLeft);
+  /// @todo This route goes not as expected after transforming path -> footway.
+  TestRouteLength(route, 741);
+
+  TestTurnCount(route, 3 /* expectedTurnCount */);
+  GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
+  GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
+  GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnSlightLeft);
 }
 
 UNIT_TEST(Russia_Moscow_SalameiNerisNoUTurnBicycleWay_TurnTest)

@@ -74,6 +74,7 @@ struct RankingInfo : public StoredRankingInfo
     , m_falseCats(false)
     , m_categorialRequest(false)
     , m_hasName(false)
+    , m_nearbyMatch(false)
   {
     m_classifType.street = StreetType::Default;
   }
@@ -144,6 +145,9 @@ struct RankingInfo : public StoredRankingInfo
 
   // True iff the feature has a name.
   bool m_hasName : 1;
+
+  // Nearby match: POI and Complex POI (planning POI and Street/Suburb/City).
+  bool m_nearbyMatch : 1;
 };
 
 PoiType GetPoiType(feature::TypesHolder const & th);

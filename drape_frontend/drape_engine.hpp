@@ -269,7 +269,6 @@ private:
   drape_ptr<FrontendRenderer> m_frontend;
   drape_ptr<BackendRenderer> m_backend;
   drape_ptr<ThreadsCommutator> m_threadCommutator;
-  drape_ptr<dp::GlyphGenerator> m_glyphGenerator;
   drape_ptr<dp::TextureManager> m_textureManager;
   drape_ptr<RequestedTiles> m_requestedTiles;
   location::TMyPositionModeChanged m_myPositionModeChanged;

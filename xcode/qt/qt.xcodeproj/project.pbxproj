@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3462FD891DC1DE4600906FD7 /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD881DC1DE4600906FD7 /* libeditor.a */; };
 		3462FD8D1DC1E03300906FD7 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD8C1DC1E03300906FD7 /* libpugixml.a */; };
-		3462FD8F1DC1E05D00906FD7 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD8E1DC1E05D00906FD7 /* liboauthcpp.a */; };
 		3475E0E41DBF593D004C7E69 /* libtracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3475E0E31DBF593D004C7E69 /* libtracking.a */; };
 		348FE6871F7BBF7A00AAA4AF /* libmwm_diff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 348FE6881F7BBF7A00AAA4AF /* libmwm_diff.a */; };
 		348FE6891F7BBF9300AAA4AF /* libbsdiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 348FE68A1F7BBF9300AAA4AF /* libbsdiff.a */; };
@@ -42,10 +41,10 @@
 		45B5B58D1CA4219C00D93E36 /* place_page_dialog.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B5B5891CA4216B00D93E36 /* place_page_dialog.hpp */; };
 		45B5B58F1CA4222300D93E36 /* countries-strings in Resources */ = {isa = PBXBuildFile; fileRef = 45B5B58E1CA4222300D93E36 /* countries-strings */; };
 		45B5B5911CA4226800D93E36 /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 45B5B5901CA4226800D93E36 /* editor.config */; };
-		45B5B5981CA422C800D93E36 /* resources-6plus_clear in Resources */ = {isa = PBXBuildFile; fileRef = 45B5B5931CA422C800D93E36 /* resources-6plus_clear */; };
-		45B5B5991CA422C800D93E36 /* resources-hdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 45B5B5941CA422C800D93E36 /* resources-hdpi_clear */; };
-		45B5B59B1CA422C800D93E36 /* resources-xhdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 45B5B5961CA422C800D93E36 /* resources-xhdpi_clear */; };
-		45B5B59C1CA422C800D93E36 /* resources-xxhdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 45B5B5971CA422C800D93E36 /* resources-xxhdpi_clear */; };
+		45B5B5981CA422C800D93E36 /* resources-6plus_light in Resources */ = {isa = PBXBuildFile; fileRef = 45B5B5931CA422C800D93E36 /* resources-6plus_light */; };
+		45B5B5991CA422C800D93E36 /* resources-hdpi_light in Resources */ = {isa = PBXBuildFile; fileRef = 45B5B5941CA422C800D93E36 /* resources-hdpi_light */; };
+		45B5B59B1CA422C800D93E36 /* resources-xhdpi_light in Resources */ = {isa = PBXBuildFile; fileRef = 45B5B5961CA422C800D93E36 /* resources-xhdpi_light */; };
+		45B5B59C1CA422C800D93E36 /* resources-xxhdpi_light in Resources */ = {isa = PBXBuildFile; fileRef = 45B5B5971CA422C800D93E36 /* resources-xxhdpi_light */; };
 		45B5B5A21CA422EE00D93E36 /* resources-6plus_dark in Resources */ = {isa = PBXBuildFile; fileRef = 45B5B59D1CA422EE00D93E36 /* resources-6plus_dark */; };
 		45B5B5A31CA422EE00D93E36 /* resources-hdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 45B5B59E1CA422EE00D93E36 /* resources-hdpi_dark */; };
 		45B5B5A51CA422EE00D93E36 /* resources-xhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 45B5B5A01CA422EE00D93E36 /* resources-xhdpi_dark */; };
@@ -62,9 +61,9 @@
 		670D059A1B0CBD5B0013A7AC /* mainwindow.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345761A404CB200A0A8C3 /* mainwindow.hpp */; };
 		671182F61C80E09A00CB8177 /* colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 671182F41C80E09A00CB8177 /* colors.txt */; };
 		671182F71C80E09A00CB8177 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 671182F51C80E09A00CB8177 /* patterns.txt */; };
-		6714E5E41BD13F67008AB603 /* drules_proto_clear.bin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6714E5DE1BD13F67008AB603 /* drules_proto_clear.bin */; };
-		6714E5E61BD13F67008AB603 /* drules_proto_dark.bin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6714E5E01BD13F67008AB603 /* drules_proto_dark.bin */; };
-		6714E6021BD14016008AB603 /* resources-mdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 6714E6001BD14016008AB603 /* resources-mdpi_clear */; };
+		6714E5E41BD13F67008AB603 /* drules_proto_default_light.bin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6714E5DE1BD13F67008AB603 /* drules_proto_default_light.bin */; };
+		6714E5E61BD13F67008AB603 /* drules_proto_default_dark.bin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6714E5E01BD13F67008AB603 /* drules_proto_default_dark.bin */; };
+		6714E6021BD14016008AB603 /* resources-mdpi_light in Resources */ = {isa = PBXBuildFile; fileRef = 6714E6001BD14016008AB603 /* resources-mdpi_light */; };
 		6714E6031BD14016008AB603 /* resources-mdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 6714E6011BD14016008AB603 /* resources-mdpi_dark */; };
 		671E78E51E6A4E1A00B2859B /* librouting_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E78E41E6A4E1A00B2859B /* librouting_common.a */; };
 		671E79221E6A508600B2859B /* libopenlr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E79211E6A508600B2859B /* libopenlr.a */; };
@@ -110,7 +109,6 @@
 		674A7E311C0DB727003D48E1 /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A299A1B26F0AE001A525C /* libgeometry.a */; };
 		674A7E361C0DB727003D48E1 /* libdrape_frontend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E321C0DB727003D48E1 /* libdrape_frontend.a */; };
 		674A7E371C0DB727003D48E1 /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E331C0DB727003D48E1 /* libdrape.a */; };
-		674A7E381C0DB727003D48E1 /* libsdf_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E341C0DB727003D48E1 /* libsdf_image.a */; };
 		674A7E391C0DB727003D48E1 /* libstb_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E351C0DB727003D48E1 /* libstb_image.a */; };
 		6753409F1C5289E0002CF0D9 /* editor_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753409B1C5289E0002CF0D9 /* editor_dialog.cpp */; };
 		675340A01C5289E0002CF0D9 /* osm_auth_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753409D1C5289E0002CF0D9 /* osm_auth_dialog.cpp */; };
@@ -200,8 +198,8 @@
 			dstSubfolderSpec = 7;
 			files = (
 				67A461A71C2172C400B18739 /* 07_roboto_medium.ttf in CopyFiles */,
-				6714E5E41BD13F67008AB603 /* drules_proto_clear.bin in CopyFiles */,
-				6714E5E61BD13F67008AB603 /* drules_proto_dark.bin in CopyFiles */,
+				6714E5E41BD13F67008AB603 /* drules_proto_default_light.bin in CopyFiles */,
+				6714E5E61BD13F67008AB603 /* drules_proto_default_dark.bin in CopyFiles */,
 				6729A6711A695CA8007D5872 /* languages.txt in CopyFiles */,
 				6729A66D1A695C70007D5872 /* copyright.html in CopyFiles */,
 				6729A66F1A695C70007D5872 /* welcome.html in CopyFiles */,
@@ -230,7 +228,6 @@
 /* Begin PBXFileReference section */
 		3462FD881DC1DE4600906FD7 /* libeditor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeditor.a; path = "../../../omim-build/xcode/Release/libeditor.a"; sourceTree = "<group>"; };
 		3462FD8C1DC1E03300906FD7 /* libpugixml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpugixml.a; path = "../../../omim-build/xcode/Release/libpugixml.a"; sourceTree = "<group>"; };
-		3462FD8E1DC1E05D00906FD7 /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "../../../omim-build/xcode/Release/liboauthcpp.a"; sourceTree = "<group>"; };
 		3475E0E31DBF593D004C7E69 /* libtracking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtracking.a; path = "../../../omim-xcode-build/Debug/libtracking.a"; sourceTree = "<group>"; };
 		348FE6881F7BBF7A00AAA4AF /* libmwm_diff.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmwm_diff.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		348FE68A1F7BBF9300AAA4AF /* libbsdiff.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbsdiff.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -279,10 +276,10 @@
 		45B5B5891CA4216B00D93E36 /* place_page_dialog.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = place_page_dialog.hpp; sourceTree = "<group>"; };
 		45B5B58E1CA4222300D93E36 /* countries-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "countries-strings"; sourceTree = "<group>"; };
 		45B5B5901CA4226800D93E36 /* editor.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = editor.config; sourceTree = "<group>"; };
-		45B5B5931CA422C800D93E36 /* resources-6plus_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-6plus_clear"; sourceTree = "<group>"; };
-		45B5B5941CA422C800D93E36 /* resources-hdpi_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-hdpi_clear"; sourceTree = "<group>"; };
-		45B5B5961CA422C800D93E36 /* resources-xhdpi_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-xhdpi_clear"; sourceTree = "<group>"; };
-		45B5B5971CA422C800D93E36 /* resources-xxhdpi_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-xxhdpi_clear"; sourceTree = "<group>"; };
+		45B5B5931CA422C800D93E36 /* resources-6plus_light */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-6plus_light"; sourceTree = "<group>"; };
+		45B5B5941CA422C800D93E36 /* resources-hdpi_light */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-hdpi_light"; sourceTree = "<group>"; };
+		45B5B5961CA422C800D93E36 /* resources-xhdpi_light */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-xhdpi_light"; sourceTree = "<group>"; };
+		45B5B5971CA422C800D93E36 /* resources-xxhdpi_light */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-xxhdpi_light"; sourceTree = "<group>"; };
 		45B5B59D1CA422EE00D93E36 /* resources-6plus_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-6plus_dark"; sourceTree = "<group>"; };
 		45B5B59E1CA422EE00D93E36 /* resources-hdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-hdpi_dark"; sourceTree = "<group>"; };
 		45B5B5A01CA422EE00D93E36 /* resources-xhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-xhdpi_dark"; sourceTree = "<group>"; };
@@ -292,9 +289,9 @@
 		4740186623F5BF3900A93C81 /* minizip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = minizip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		671182F41C80E09A00CB8177 /* colors.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = colors.txt; sourceTree = "<group>"; };
 		671182F51C80E09A00CB8177 /* patterns.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = patterns.txt; sourceTree = "<group>"; };
-		6714E5DE1BD13F67008AB603 /* drules_proto_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_clear.bin; sourceTree = "<group>"; };
-		6714E5E01BD13F67008AB603 /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_dark.bin; sourceTree = "<group>"; };
-		6714E6001BD14016008AB603 /* resources-mdpi_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-mdpi_clear"; sourceTree = "<group>"; };
+		6714E5DE1BD13F67008AB603 /* drules_proto_default_light.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_default_light.bin; sourceTree = "<group>"; };
+		6714E5E01BD13F67008AB603 /* drules_proto_default_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_default_dark.bin; sourceTree = "<group>"; };
+		6714E6001BD14016008AB603 /* resources-mdpi_light */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-mdpi_light"; sourceTree = "<group>"; };
 		6714E6011BD14016008AB603 /* resources-mdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-mdpi_dark"; sourceTree = "<group>"; };
 		671E78E41E6A4E1A00B2859B /* librouting_common.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting_common.a; path = "../../../omim-build/xcode/Debug/librouting_common.a"; sourceTree = "<absolute>"; };
 		671E79211E6A508600B2859B /* libopenlr.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopenlr.a; path = "../../../omim-build/xcode/Debug/libopenlr.a"; sourceTree = "<absolute>"; };
@@ -340,7 +337,6 @@
 		674A29A81B26F0AE001A525C /* libsuccinct.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsuccinct.a; path = "../../../omim-xcode-build/Debug/libsuccinct.a"; sourceTree = "<group>"; };
 		674A7E321C0DB727003D48E1 /* libdrape_frontend.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape_frontend.a; path = "../../../omim-xcode-build/Debug/libdrape_frontend.a"; sourceTree = "<group>"; };
 		674A7E331C0DB727003D48E1 /* libdrape.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape.a; path = "../../../omim-xcode-build/Debug/libdrape.a"; sourceTree = "<group>"; };
-		674A7E341C0DB727003D48E1 /* libsdf_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsdf_image.a; path = "../../../omim-xcode-build/Debug/libsdf_image.a"; sourceTree = "<group>"; };
 		674A7E351C0DB727003D48E1 /* libstb_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstb_image.a; path = "../../../omim-xcode-build/Debug/libstb_image.a"; sourceTree = "<group>"; };
 		6753409B1C5289E0002CF0D9 /* editor_dialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = editor_dialog.cpp; sourceTree = "<group>"; };
 		6753409C1C5289E0002CF0D9 /* editor_dialog.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = editor_dialog.hpp; sourceTree = "<group>"; };
@@ -394,13 +390,11 @@
 				671E79221E6A508600B2859B /* libopenlr.a in Frameworks */,
 				671E78E51E6A4E1A00B2859B /* librouting_common.a in Frameworks */,
 				672292B11DE307DC005BA3A7 /* libtraffic.a in Frameworks */,
-				3462FD8F1DC1E05D00906FD7 /* liboauthcpp.a in Frameworks */,
 				3462FD8D1DC1E03300906FD7 /* libpugixml.a in Frameworks */,
 				3462FD891DC1DE4600906FD7 /* libeditor.a in Frameworks */,
 				3475E0E41DBF593D004C7E69 /* libtracking.a in Frameworks */,
 				674A7E361C0DB727003D48E1 /* libdrape_frontend.a in Frameworks */,
 				674A7E371C0DB727003D48E1 /* libdrape.a in Frameworks */,
-				674A7E381C0DB727003D48E1 /* libsdf_image.a in Frameworks */,
 				674A7E391C0DB727003D48E1 /* libstb_image.a in Frameworks */,
 				674A7E311C0DB727003D48E1 /* libgeometry.a in Frameworks */,
 				67E8DC931BBC1D3F0053C5BA /* libagg.a in Frameworks */,
@@ -450,7 +444,6 @@
 				671E78E41E6A4E1A00B2859B /* librouting_common.a */,
 				674A7E321C0DB727003D48E1 /* libdrape_frontend.a */,
 				674A7E331C0DB727003D48E1 /* libdrape.a */,
-				674A7E341C0DB727003D48E1 /* libsdf_image.a */,
 				674A7E351C0DB727003D48E1 /* libstb_image.a */,
 				67E8DC911BBC1D3F0053C5BA /* libagg.a */,
 				671F59011B8755FE0032311E /* libz.dylib */,
@@ -478,7 +471,6 @@
 				675345A51A40534F00A0A8C3 /* CoreFoundation.framework */,
 				675345A31A40534500A0A8C3 /* IOKit.framework */,
 				672292B01DE307DC005BA3A7 /* libtraffic.a */,
-				3462FD8E1DC1E05D00906FD7 /* liboauthcpp.a */,
 				3462FD8C1DC1E03300906FD7 /* libpugixml.a */,
 				3462FD881DC1DE4600906FD7 /* libeditor.a */,
 				3475E0E31DBF593D004C7E69 /* libtracking.a */,
@@ -554,17 +546,17 @@
 				45B5B59E1CA422EE00D93E36 /* resources-hdpi_dark */,
 				45B5B5A01CA422EE00D93E36 /* resources-xhdpi_dark */,
 				45B5B5A11CA422EE00D93E36 /* resources-xxhdpi_dark */,
-				45B5B5931CA422C800D93E36 /* resources-6plus_clear */,
-				45B5B5941CA422C800D93E36 /* resources-hdpi_clear */,
-				45B5B5961CA422C800D93E36 /* resources-xhdpi_clear */,
-				45B5B5971CA422C800D93E36 /* resources-xxhdpi_clear */,
+				45B5B5931CA422C800D93E36 /* resources-6plus_light */,
+				45B5B5941CA422C800D93E36 /* resources-hdpi_light */,
+				45B5B5961CA422C800D93E36 /* resources-xhdpi_light */,
+				45B5B5971CA422C800D93E36 /* resources-xxhdpi_light */,
 				45B5B5901CA4226800D93E36 /* editor.config */,
 				45B5B58E1CA4222300D93E36 /* countries-strings */,
 				671182F41C80E09A00CB8177 /* colors.txt */,
 				671182F51C80E09A00CB8177 /* patterns.txt */,
 				677A2DE71C0DDD7C00635A00 /* resources-default */,
-				6714E5DE1BD13F67008AB603 /* drules_proto_clear.bin */,
-				6714E5E01BD13F67008AB603 /* drules_proto_dark.bin */,
+				6714E5DE1BD13F67008AB603 /* drules_proto_default_light.bin */,
+				6714E5E01BD13F67008AB603 /* drules_proto_default_dark.bin */,
 				6729A6701A695CA8007D5872 /* languages.txt */,
 				6729A66A1A695C70007D5872 /* copyright.html */,
 				6729A66C1A695C70007D5872 /* welcome.html */,
@@ -585,7 +577,7 @@
 				6729A5CA1A69309E007D5872 /* types.txt */,
 				6729A5B91A693013007D5872 /* categories.txt */,
 				6729A5BA1A693013007D5872 /* classificator.txt */,
-				6714E6001BD14016008AB603 /* resources-mdpi_clear */,
+				6714E6001BD14016008AB603 /* resources-mdpi_light */,
 				6714E6011BD14016008AB603 /* resources-mdpi_dark */,
 				6729A5BB1A693013007D5872 /* countries.txt */,
 			);
@@ -729,24 +721,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				45B5B58F1CA4222300D93E36 /* countries-strings in Resources */,
-				45B5B59C1CA422C800D93E36 /* resources-xxhdpi_clear in Resources */,
+				45B5B59C1CA422C800D93E36 /* resources-xxhdpi_light in Resources */,
 				45B5B5A21CA422EE00D93E36 /* resources-6plus_dark in Resources */,
 				677A2DEB1C0DDDBE00635A00 /* resources-default in Resources */,
 				45B5B5911CA4226800D93E36 /* editor.config in Resources */,
 				6714E6031BD14016008AB603 /* resources-mdpi_dark in Resources */,
-				45B5B5991CA422C800D93E36 /* resources-hdpi_clear in Resources */,
+				45B5B5991CA422C800D93E36 /* resources-hdpi_light in Resources */,
 				34FFD3071E9CEEA20010AD12 /* minus.png in Resources */,
 				45B5B5A51CA422EE00D93E36 /* resources-xhdpi_dark in Resources */,
 				671182F71C80E09A00CB8177 /* patterns.txt in Resources */,
 				34FFD3081E9CEEA20010AD12 /* plus.png in Resources */,
 				671182F61C80E09A00CB8177 /* colors.txt in Resources */,
-				6714E6021BD14016008AB603 /* resources-mdpi_clear in Resources */,
+				6714E6021BD14016008AB603 /* resources-mdpi_light in Resources */,
 				45B5B5A31CA422EE00D93E36 /* resources-hdpi_dark in Resources */,
 				45B5B5A61CA422EE00D93E36 /* resources-xxhdpi_dark in Resources */,
-				45B5B59B1CA422C800D93E36 /* resources-xhdpi_clear in Resources */,
+				45B5B59B1CA422C800D93E36 /* resources-xhdpi_light in Resources */,
 				6B7A85E0266D41920094AF8E /* 00_NotoNaskhArabic-Regular.ttf in Resources */,
 				6B7A85DF266D41920094AF8E /* 00_NotoSansThai-Regular.ttf in Resources */,
-				45B5B5981CA422C800D93E36 /* resources-6plus_clear in Resources */,
+				45B5B5981CA422C800D93E36 /* resources-6plus_light in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

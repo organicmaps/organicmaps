@@ -54,7 +54,6 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
   ProgramInfo("vsUserMark", "fsUserMark", {{0, 3}}),                               // BookmarkAnim
   ProgramInfo("vsTextOutlined", "fsText", {{0, 2}, {3, 4}}),                       // TextOutlined
   ProgramInfo("vsText", "fsText", {{0, 1}, {2, 3}}),                               // Text
-  ProgramInfo("vsText", "fsTextFixed", {{0, 1}, {2, 3}}),                          // TextFixed
   ProgramInfo("vsTextStaticOutlinedGui", "fsTextOutlinedGui", {{0, 4}}),           // TextStaticOutlinedGui
   ProgramInfo("vsTextOutlinedGui", "fsTextOutlinedGui", {{0, 2}, {3, 4}}),         // TextOutlinedGui
   ProgramInfo("vsArea", "fsArea", {{0, 1}}),                                       // Area
@@ -62,10 +61,11 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
   ProgramInfo("vsArea3d", "fsArea3d", {{0, 2}}),                                   // Area3d
   ProgramInfo("vsArea3dOutline", "fsArea", {{0, 1}}),                              // Area3dOutline
   ProgramInfo("vsLine", "fsLine", {{0, 2}}),                                       // Line
-  ProgramInfo("vsCapJoin", "fsCapJoin", {{0, 2}}),                                 // CapJoin
   ProgramInfo("vsTransitCircle", "fsTransitCircle", {{0, 2}}),                     // TransitCircle
   ProgramInfo("vsDashedLine", "fsDashedLine", {{0, 3}}),                           // DashedLine
   ProgramInfo("vsPathSymbol", "fsPathSymbol", {{0, 2}}),                           // PathSymbol
+  ProgramInfo("vsArea", "fsArea", {{0, 1}}),                                       // TransparentArea
+  ProgramInfo("vsCapJoin", "fsCapJoin", {{0, 2}}),                                 // CapJoin
   ProgramInfo("vsHatchingArea", "fsHatchingArea", {{0, 2}}),                       // HatchingArea
   ProgramInfo("vsTexturingGui", "fsTexturingGui", {{0, 1}}),                       // TexturingGui
   ProgramInfo("vsRuler", "fsRuler", {{0, 2}}),                                     // Ruler
@@ -96,7 +96,6 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
   ProgramInfo("vsUserMarkBillboard", "fsUserMark", {{0, 3}}),                      // BookmarkAnimAboveTextBillboard
   ProgramInfo("vsTextOutlinedBillboard", "fsText", {{0, 2}, {3, 4}}),              // TextOutlinedBillboard
   ProgramInfo("vsTextBillboard", "fsText", {{0, 1}, {2, 3}}),                      // TextBillboard
-  ProgramInfo("vsTextBollboard", "fsTextFixed", {{0, 1}, {2, 3}}),                 // TextFixedBillboard
   ProgramInfo("vsTraffic", "fsTraffic", {{0, 2}}),                                 // Traffic
   ProgramInfo("vsTrafficLine", "fsTrafficLine", {{0, 1}}),                         // TrafficLine
   ProgramInfo("vsTrafficCircle", "fsTrafficCircle", {{0, 2}}),                     // TrafficCircle

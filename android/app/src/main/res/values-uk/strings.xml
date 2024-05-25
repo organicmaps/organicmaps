@@ -181,7 +181,7 @@
 	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
 	<string name="failed_to_open_file">Не вдалося відкрити файл %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
-	<string name="edit">Редаґувати</string>
+	<string name="edit">Редагувати</string>
 	<!-- Warning message when doing search around current position -->
 	<string name="unknown_current_position">Ваше місце розташування не визначено</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
@@ -236,6 +236,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D будівлі вимкнені в режимі енергозбереження</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Голосові інструкції</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Проговорювати назви вулиць</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Якщо ввімкнено, назва вулиці або виїзду, на яку потрібно повернути, буде вимовлена вголос.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Мова підказок</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -479,6 +483,8 @@
 	<string name="editor_edit_place_title">Редагування</string>
 	<string name="editor_add_place_title">Додавання</string>
 	<string name="editor_edit_place_name_hint">Назва місця</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">Місцевою мовою</string>
 	<string name="editor_edit_place_category_title">Категорія</string>
 	<string name="detailed_problem_description">Детальний опис проблеми</string>
 	<string name="editor_report_problem_other_title">Інші проблема</string>
@@ -504,6 +510,8 @@
 	<string name="editor_detailed_description">Зміни, що ви запропонували, буде відправлено до OpenStreetMap. Опишіть подробиці про об\'єкт, які не можна редагувати у Organic Maps.</string>
 	<string name="editor_more_about_osm">Більше про OpenStreetMap</string>
 	<string name="editor_operator">Власник</string>
+	<string name="editor_category_unsuitable_title">Не можете знайти відповідну категорію?</string>
+	<string name="editor_category_unsuitable_text">Organic Maps дозволяють додавати до мапи лише прості типи об\'єктів, тобто без міст, доріг, озер та контурів будівель. Будь ласка, додайте такі категорії на сайті <a href="https://www.openstreetmap.org/">OpenStreetMap.org</a>. Ми також рекомендуємо ознайомитися із <a href="https://organicmaps.app/faq/editing/advanced-map-editing/">детальними інструкціями та іншими додатками для редагування карти</a>.</string>
 	<string name="downloader_no_downloaded_maps_title">Ви не маєте завантажених мап</string>
 	<string name="downloader_no_downloaded_maps_message">Завантажте необхідні мапи, щоб знаходити місця та користуватися навігацією без iнтернету.</string>
 	<!-- abbreviation for meters -->
@@ -550,7 +558,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Переконайтеся, що ви не ввели особисті дані.</string>
 	<string name="editor_share_to_all_dialog_message_2">Редактори OpenStreetMap перевірять зміни та зв’яжуться з вами, якщо у них виникнуть запитання.</string>
-	<string name="navigation_stop_button">стоп</string>
+	<string name="navigation_stop_button">Cтоп</string>
 	<!-- For the first routing -->
 	<string name="accept">Прийняти</string>
 	<!-- For the first routing -->
@@ -779,16 +787,16 @@
 	<string name="app_tip_08">Ви можете легко виправити та покращити дані карти.</string>
 	<!-- App tip #09 -->
 	<string name="app_tip_09">Наша головна мета – створити швидкі, конфіденційні та прості у використанні карти, які вам сподобаються.</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Зараз ви використовуєте Organic Maps на екрані телефону</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">Зараз ви використовуєте Organic Maps на екрані телефону</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Ви використовуєте Organic Maps на екрані автомобіля</string>
+	<string name="car_used_on_the_car_screen">Ви використовуєте Organic Maps на екрані автомобіля</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Ви підключені до Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Продовжуйте в телефоні</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">На екран автомобіля</string>
+	<string name="car_continue_on_the_phone">Продовжуйте в телефоні</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">На екран автомобіля</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">Ця програма потребує доступу до вашого місцезнаходження для навігаційних цілей.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -806,6 +814,15 @@
 	<string name="pref_tts_open_system_settings">Системні налаштування синтезу мови</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Налаштування синтезу мовлення не знайдено, ви впевнені, що ваш пристрій його підтримує?</string>
+	<string name="drive_through">З віконцем для водіїв</string>
+	<string name="clear_the_search">Очистити пошук</string>
+	<string name="zoom_in">Збільшити</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Зменшити</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Посилання на меню</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Переглянути меню</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адреса/блок</string>
@@ -832,7 +849,7 @@
 	<string name="type.amenity.atm">Банкомат</string>
 	<string name="type.amenity.bank">Банк</string>
 	<string name="type.amenity.bar">Бар</string>
-	<string name="type.amenity.bbq">Пікнік</string>
+	<string name="type.amenity.bbq">Барбекю-гриль</string>
 	<string name="type.amenity.bench">Лавка</string>
 	<string name="type.amenity.bicycle_parking">Велопарковка</string>
 	<string name="type.amenity.bicycle_rental">Велопрокат</string>
@@ -1196,15 +1213,9 @@
 	<string name="type.highway.footway">Пішохідна доріжка</string>
 	<string name="type.highway.footway.sidewalk">Тротуар</string>
 	<string name="type.highway.footway.crossing">Пішохідний перехід</string>
-	<string name="type.highway.footway.alpine_hiking">Стежка</string>
 	<string name="type.highway.footway.area">Пішохідна зона</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Міст</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Стежка</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Стежка</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Стежка</string>
-	<string name="type.highway.footway.hiking">Стежка</string>
-	<string name="type.highway.footway.mountain_hiking">Стежка</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Тунель</string>
 	<string name="type.highway.ford">Брід</string>
@@ -1225,17 +1236,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Тунель</string>
 	<string name="type.highway.path">Стежка</string>
-	<string name="type.highway.path.alpine_hiking">Стежка</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">Стежка</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">Стежка</string>
 	<string name="type.highway.path.bicycle">Велопішохідна доріжка</string>
+	<string name="type.highway.footway.bicycle">Велопішохідна доріжка</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Міст</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Стежка</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Стежка</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Стежка</string>
-	<string name="type.highway.path.hiking">Стежка</string>
 	<string name="type.highway.path.horse">Кінна стежка</string>
-	<string name="type.highway.path.mountain_hiking">Стежка</string>
-	<string name="type.highway.path.permissive">Стежка</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Тунель</string>
 	<string name="type.highway.pedestrian">Пішохідна вулиця</string>
@@ -1309,12 +1318,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Міст</string>
 	<string name="type.highway.track.grade1">Ґрунтівка</string>
-	<string name="type.highway.track.grade2">Ґрунтівка</string>
-	<string name="type.highway.track.grade3">Ґрунтівка</string>
-	<string name="type.highway.track.grade4">Ґрунтівка</string>
-	<string name="type.highway.track.grade5">Ґрунтівка</string>
 	<string name="type.highway.track.no.access">Ґрунтівка</string>
-	<string name="type.highway.track.permissive">Ґрунтівка</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Тунель</string>
 	<string name="type.highway.traffic_signals">Світлофор</string>
@@ -1409,7 +1413,6 @@
 	<string name="type.landuse.commercial">Комерційні ділянки</string>
 	<string name="type.landuse.construction">Будівництво</string>
 	<string name="type.landuse.education">Освітній заклади</string>
-	<string name="type.landuse.farm">Ферма</string>
 	<string name="type.landuse.farmland">Сільськогосподарська земля</string>
 	<string name="type.landuse.farmyard">Сільськогосподарська земля</string>
 	<string name="type.landuse.field">Поле</string>
@@ -2046,7 +2049,7 @@
 	<string name="type.tourism.aquarium">Акваріум</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Гірський притулок з обслуговуванням</string>
-	<string name="type.tourism.apartment">Апартаменти</string>
+	<string name="type.tourism.apartment">Апартаменти для відпочинку</string>
 	<string name="type.tourism.artwork">Витвір мистецтва</string>
 	<string name="type.tourism.artwork.architecture">Витвір мистецтва</string>
 	<string name="type.tourism.artwork.painting">Витвір мистецтва</string>
@@ -2097,7 +2100,6 @@
 	<string name="type.waterway.lock_gate">Шлюз</string>
 	<string name="type.waterway.river">Річка</string>
 	<string name="type.waterway.river.tunnel">Річка</string>
-	<string name="type.waterway.riverbank">Річка</string>
 	<string name="type.waterway.stream">Річка</string>
 	<string name="type.waterway.stream.ephemeral">Річка</string>
 	<string name="type.waterway.stream.intermittent">Річка</string>

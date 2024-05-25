@@ -183,7 +183,7 @@
 "load_kmz_failed" = "Не вдалося завантажити мітки. Файл може бути пошкодженим або несправним.";
 
 /* resource for context menu */
-"edit" = "Редаґувати";
+"edit" = "Редагувати";
 
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Ваше місце розташування не визначено";
@@ -253,6 +253,12 @@
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Голосові інструкції";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Проговорювати назви вулиць";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Якщо ввімкнено, назва вулиці або виїзду, на яку потрібно повернути, буде вимовлена вголос.";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Мова підказок";
@@ -705,6 +711,9 @@
 
 "editor_edit_place_name_hint" = "Назва місця";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Місцевою мовою";
+
 "editor_edit_place_category_title" = "Категорія";
 
 "whatsnew_editor_message_1" = "Додати нові місця до мапи і редагувати існуючі місця прямо з програми.";
@@ -860,7 +869,7 @@
 
 "editor_share_to_all_dialog_message_2" = "Редактори OpenStreetMap перевірять зміни та зв’яжуться з вами, якщо у них виникнуть запитання.";
 
-"navigation_stop_button" = "стоп";
+"navigation_stop_button" = "Cтоп";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Вимкнути запис нещодавно пройденого шляху?";
@@ -1258,6 +1267,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Uk:Про_проект";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Зараз ви використовуєте Organic Maps на екрані телефону";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Ви використовуєте Organic Maps на екрані автомобіля";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Продовжуйте в телефоні";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "На екран автомобіля";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Активний відпочинок";
 
@@ -1269,6 +1290,11 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Мапа";
+
+"drive_through" = "З віконцем для водіїв";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Посилання на меню";
 
 
 /********** Types **********/
@@ -1321,7 +1347,7 @@
 
 "type.amenity.bar" = "Бар";
 
-"type.amenity.bbq" = "Пікнік";
+"type.amenity.bbq" = "Барбекю-гриль";
 
 "type.amenity.bench" = "Лавка";
 
@@ -2036,22 +2062,10 @@
 
 "type.highway.footway.crossing" = "Пішохідний перехід";
 
-"type.highway.footway.alpine_hiking" = "Стежка";
-
 "type.highway.footway.area" = "Пішохідна зона";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Міст";
-
-"type.highway.footway.demanding_alpine_hiking" = "Стежка";
-
-"type.highway.footway.demanding_mountain_hiking" = "Стежка";
-
-"type.highway.footway.difficult_alpine_hiking" = "Стежка";
-
-"type.highway.footway.hiking" = "Стежка";
-
-"type.highway.footway.mountain_hiking" = "Стежка";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Тунель";
@@ -2086,26 +2100,20 @@
 
 "type.highway.path" = "Стежка";
 
-"type.highway.path.alpine_hiking" = "Стежка";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Стежка";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Стежка";
 
 "type.highway.path.bicycle" = "Велопішохідна доріжка";
+
+"type.highway.footway.bicycle" = "Велопішохідна доріжка";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Міст";
 
-"type.highway.path.demanding_alpine_hiking" = "Стежка";
-
-"type.highway.path.demanding_mountain_hiking" = "Стежка";
-
-"type.highway.path.difficult_alpine_hiking" = "Стежка";
-
-"type.highway.path.hiking" = "Стежка";
-
 "type.highway.path.horse" = "Кінна стежка";
-
-"type.highway.path.mountain_hiking" = "Стежка";
-
-"type.highway.path.permissive" = "Стежка";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Тунель";
@@ -2228,17 +2236,7 @@
 
 "type.highway.track.grade1" = "Ґрунтівка";
 
-"type.highway.track.grade2" = "Ґрунтівка";
-
-"type.highway.track.grade3" = "Ґрунтівка";
-
-"type.highway.track.grade4" = "Ґрунтівка";
-
-"type.highway.track.grade5" = "Ґрунтівка";
-
 "type.highway.track.no.access" = "Ґрунтівка";
-
-"type.highway.track.permissive" = "Ґрунтівка";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Тунель";
@@ -2447,8 +2445,6 @@
 "type.landuse.construction" = "Будівництво";
 
 "type.landuse.education" = "Освітній заклади";
-
-"type.landuse.farm" = "Ферма";
 
 "type.landuse.farmland" = "Сільськогосподарська земля";
 
@@ -3737,7 +3733,7 @@
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "Гірський притулок з обслуговуванням";
 
-"type.tourism.apartment" = "Апартаменти";
+"type.tourism.apartment" = "Апартаменти для відпочинку";
 
 "type.tourism.artwork" = "Витвір мистецтва";
 
@@ -3836,8 +3832,6 @@
 "type.waterway.river" = "Річка";
 
 "type.waterway.river.tunnel" = "Річка";
-
-"type.waterway.riverbank" = "Річка";
 
 "type.waterway.stream" = "Річка";
 

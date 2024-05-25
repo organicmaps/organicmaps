@@ -8,9 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MultilineLayoutManager extends RecyclerView.LayoutManager
 {
-  public MultilineLayoutManager()
+  private boolean reverseLayout = false;
+
+  public MultilineLayoutManager(int layoutDirection)
   {
     setAutoMeasureEnabled(true);
+    reverseLayout = layoutDirection == View.LAYOUT_DIRECTION_RTL;
   }
 
   @Override
@@ -24,6 +27,8 @@ public class MultilineLayoutManager extends RecyclerView.LayoutManager
   public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state)
   {
     detachAndScrapAttachedViews(recycler);
+
+    assertInLayoutOrScroll(null);
 
     int widthUsed = 0;
     int heightUsed = 0;
@@ -55,7 +60,11 @@ public class MultilineLayoutManager extends RecyclerView.LayoutManager
         }
         lineHeight = 0;
       }
-      layoutDecorated(child, widthUsed, heightUsed, widthUsed + width, heightUsed + height);
+      if (reverseLayout)
+        layoutDecoratedWithMargins(child, getWidth() - widthUsed - width, heightUsed,
+                                   getWidth() - widthUsed, heightUsed + height);
+      else
+        layoutDecorated(child, widthUsed, heightUsed, widthUsed + width, heightUsed + height);
       widthUsed += width;
       itemsCountOneLine++;
     }
@@ -63,7 +72,7 @@ public class MultilineLayoutManager extends RecyclerView.LayoutManager
 
   private int squeezeChildIntoLine(int widthUsed, int heightUsed, @NonNull View child)
   {
-    if (!(child instanceof  SqueezingInterface))
+    if (!(child instanceof SqueezingInterface))
       return getDecoratedMeasuredWidth(child);
 
     int availableWidth = getWidth() - widthUsed - getDecoratedRight(child);
@@ -79,6 +88,7 @@ public class MultilineLayoutManager extends RecyclerView.LayoutManager
   public interface SqueezingInterface
   {
     void squeezeTo(@Dimension int width);
+
     @Dimension
     int getMinimumAcceptableSize();
   }

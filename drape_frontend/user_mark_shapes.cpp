@@ -65,16 +65,12 @@ void AlignVertical(float halfHeight, dp::Anchor anchor, glsl::vec2 & up, glsl::v
                       dp::Bottom, up, down);
 }
 
-TextLayout MakePrimaryTextLayout(dp::TitleDecl const & titleDecl,
-                                 ref_ptr<dp::TextureManager> textures)
+TextLayout MakePrimaryTextLayout(dp::TitleDecl const & titleDecl, ref_ptr<dp::TextureManager> textures)
 {
   dp::FontDecl const & fontDecl = titleDecl.m_primaryTextFont;
   auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
-  bool const isSdf = fontDecl.m_outlineColor != dp::Color::Transparent() ||
-                     df::VisualParams::Instance().IsSdfPrefered();
   TextLayout textLayout;
-  textLayout.Init(strings::MakeUniString(titleDecl.m_primaryText), fontDecl.m_size * vs, isSdf,
-                  textures);
+  textLayout.Init(strings::MakeUniString(titleDecl.m_primaryText), fontDecl.m_size * vs,textures);
   return textLayout;
 }
 
@@ -283,11 +279,6 @@ void GenerateTextShapes(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Textur
     params.m_titleDecl.m_secondaryTextFont.m_size *= vs;
     params.m_titleDecl.m_primaryOffset *= vs;
     params.m_titleDecl.m_secondaryOffset *= vs;
-    bool const isSdf = df::VisualParams::Instance().IsSdfPrefered();
-    params.m_titleDecl.m_primaryTextFont.m_isSdf =
-        params.m_titleDecl.m_primaryTextFont.m_outlineColor != dp::Color::Transparent() || isSdf;
-    params.m_titleDecl.m_secondaryTextFont.m_isSdf =
-        params.m_titleDecl.m_secondaryTextFont.m_outlineColor != dp::Color::Transparent() || isSdf;
 
     params.m_depthTestEnabled = renderInfo.m_depthTestEnabled;
     params.m_depth = renderInfo.m_depth;

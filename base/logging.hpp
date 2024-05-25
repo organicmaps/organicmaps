@@ -8,6 +8,7 @@
 #include <array>
 #include <atomic>
 #include <map>
+#include <optional>
 #include <string>
 
 namespace base
@@ -28,24 +29,19 @@ class LogHelper
 public:
   static LogHelper & Instance();
 
-  LogHelper();
-
   int GetThreadID();
   void WriteProlog(std::ostream & s, LogLevel level);
 
 private:
-  int m_threadsCount;
+  int m_threadsCount{0};
   std::map<threads::ThreadID, int> m_threadID;
 
   Timer m_timer;
-
-  std::array<char const *, NUM_LOG_LEVELS> m_names;
-  std::array<size_t, NUM_LOG_LEVELS> m_lens;
 };
 
 std::string ToString(LogLevel level);
-bool FromString(std::string const & s, LogLevel & level);
-std::array<char const *, NUM_LOG_LEVELS> const & GetLogLevelNames();
+std::optional<LogLevel> FromString(std::string const & s);
+std::array<char, NUM_LOG_LEVELS> const & GetLogLevelNames();
 
 using AtomicLogLevel = std::atomic<LogLevel>;
 using LogMessageFn = void (*)(LogLevel level, SrcPoint const &, std::string const &);

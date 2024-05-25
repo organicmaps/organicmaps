@@ -27,7 +27,7 @@
 "leave_a_review" = "Idatzi iritzia";
 
 /* Choose measurement on first launch alert - choose imperial system button */
-"miles" = "Milia";
+"miles" = "Miliak";
 
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Nire kokapena";
@@ -253,6 +253,12 @@
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Ahots argibideak";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Kaleen izenak iragarri";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Gaituta dagoenean, biratzeko kalearen edo irteeraren izena ozen esango da.";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Ahots hizkuntza";
@@ -675,7 +681,7 @@
 
 "please_note" = "Abisua";
 
-"downloader_delete_map_dialog" = "Maparen aldaketa guztiak maparekin batera ezabatuko dira.";
+"downloader_delete_map_dialog" = "Mapan egin dituzun aldaketa guztiak maparekin batera ezabatuko dira.";
 
 "downloader_update_maps" = "Eguneratu mapak";
 
@@ -704,6 +710,9 @@
 "editor_add_place_title" = "Gehitzen";
 
 "editor_edit_place_name_hint" = "Tokiaren izena";
+
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Bertako hizkuntzan idatzita dagoenez";
 
 "editor_edit_place_category_title" = "Kategoria";
 
@@ -860,7 +869,7 @@
 
 "editor_share_to_all_dialog_message_2" = "OpenStreetMap editoreek aldaketak egiaztatuko dituzte eta zurekin harremanetan jarriko dira zalantzaren bat izanez gero.";
 
-"navigation_stop_button" = "gelditu";
+"navigation_stop_button" = "Gelditu";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Bidaiatutako azken ibilbidearen grabaketa desaktibatu nahi duzu?";
@@ -1258,8 +1267,20 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Organic Maps telefonoaren pantailan erabiltzen ari zara";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Organic Maps autoaren pantailan erabiltzen ari zara";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Jarraitu telefonoan";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Autoaren pantailara";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
-"button_layer_outdoor" = "Mendi ibilaldiak";
+"button_layer_outdoor" = "Landa-eremua";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "Esportatu Laster-marka eta Pista guztiak";
@@ -1269,6 +1290,11 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Mapa";
+
+"drive_through" = "Drive-through";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Menuaren esteka";
 
 
 /********** Types **********/
@@ -1321,7 +1347,7 @@
 
 "type.amenity.bar" = "Taberna";
 
-"type.amenity.bbq" = "Piknika";
+"type.amenity.bbq" = "Barbakoa parrilla";
 
 "type.amenity.bench" = "Bankua";
 
@@ -2036,22 +2062,10 @@
 
 "type.highway.footway.crossing" = "Oinezkoen pasabidea";
 
-"type.highway.footway.alpine_hiking" = "Bidea";
-
 "type.highway.footway.area" = "Bidea";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Zubia";
-
-"type.highway.footway.demanding_alpine_hiking" = "Bidea";
-
-"type.highway.footway.demanding_mountain_hiking" = "Bidea";
-
-"type.highway.footway.difficult_alpine_hiking" = "Bidea";
-
-"type.highway.footway.hiking" = "Bidea";
-
-"type.highway.footway.mountain_hiking" = "Bidea";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Tunel";
@@ -2086,26 +2100,20 @@
 
 "type.highway.path" = "Bidea";
 
-"type.highway.path.alpine_hiking" = "Bidea";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Bidea";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Bidea";
 
 "type.highway.path.bicycle" = "Bidea";
+
+"type.highway.footway.bicycle" = "Bidea";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Zubia";
 
-"type.highway.path.demanding_alpine_hiking" = "Bidea";
-
-"type.highway.path.demanding_mountain_hiking" = "Bidea";
-
-"type.highway.path.difficult_alpine_hiking" = "Bidea";
-
-"type.highway.path.hiking" = "Bidea";
-
 "type.highway.path.horse" = "Bidea";
-
-"type.highway.path.mountain_hiking" = "Bidea";
-
-"type.highway.path.permissive" = "Bidea";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Tunel";
@@ -2228,17 +2236,7 @@
 
 "type.highway.track.grade1" = "Kalea";
 
-"type.highway.track.grade2" = "Kalea";
-
-"type.highway.track.grade3" = "Kalea";
-
-"type.highway.track.grade4" = "Kalea";
-
-"type.highway.track.grade5" = "Kalea";
-
 "type.highway.track.no.access" = "Kalea";
-
-"type.highway.track.permissive" = "Kalea";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunel";
@@ -2447,8 +2445,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Nekazaritza-lurra";
 
@@ -3737,7 +3733,7 @@
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "Mendiko ostatua";
 
-"type.tourism.apartment" = "Apartamentuak";
+"type.tourism.apartment" = "Oporretako apartamentua";
 
 "type.tourism.artwork" = "Artelanak";
 
@@ -3836,8 +3832,6 @@
 "type.waterway.river" = "Ibai";
 
 "type.waterway.river.tunnel" = "Ibai";
-
-"type.waterway.riverbank" = "Ibai";
 
 "type.waterway.stream" = "Ibai";
 

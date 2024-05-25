@@ -25,7 +25,7 @@ public class StorageItem
   {
     if (o == this)
       return true;
-    if (o == null || !(o instanceof StorageItem))
+    if (!(o instanceof StorageItem))
       return false;
     StorageItem other = (StorageItem) o;
     return mPath.equals(other.mPath);

@@ -214,7 +214,7 @@ extension BookmarksListViewController: IBookmarksListView {
     moreToolbarItem.title = itemTitle
   }
 
-  func showMenu(_ items: [IBookmarksListMenuItem]) {
+  func showMenu(_ items: [IBookmarksListMenuItem], from source: BookmarkToolbarButtonSource) {
     let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     items.forEach { item in
       let action = UIAlertAction(title: item.title, style: item.destructive ? .destructive : .default) { _ in
@@ -224,7 +224,11 @@ extension BookmarksListViewController: IBookmarksListView {
       actionSheet.addAction(action)
     }
     actionSheet.addAction(UIAlertAction(title: L("cancel"), style: .cancel, handler: nil))
-    actionSheet.popoverPresentationController?.barButtonItem = sortToolbarItem
+    let barButtonItem = switch source {
+      case .sort: sortToolbarItem
+      case .more: moreToolbarItem
+    }
+    actionSheet.popoverPresentationController?.barButtonItem = barButtonItem
     present(actionSheet, animated: true)
   }
 

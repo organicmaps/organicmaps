@@ -100,7 +100,6 @@ target_link_libraries(${PROJECT_NAME}
   succinct
   ICU::uc
   ICU::i18n # For transliteration.
-  oauthcpp  # For base64_encode and base64_decode
   minizip
   ZLIB::ZLIB
 )

@@ -1070,8 +1070,9 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
   BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
 
+  auto const file1Name = "file1";
   BookmarkManager::KMLDataCollection kmlDataCollection1;
-  kmlDataCollection1.emplace_back("" /* filePath */,
+  kmlDataCollection1.emplace_back(file1Name /* filePath */,
                                  LoadKmlData(MemReader(kmlString3, strlen(kmlString3)), KmlFileType::Text));
   bmManager.CreateCategories(std::move(kmlDataCollection1));
 
@@ -1096,23 +1097,25 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
 
   bmManager.GetEditSession().DeleteBmCategory(catId);
 
+  auto const file2Name = "file2";
   BookmarkManager::KMLDataCollection kmlDataCollection2;
-  kmlDataCollection2.emplace_back("" /* filePath */, LoadKmlFile(fileNameTmp, GetActiveKmlFileType()));
+  kmlDataCollection2.emplace_back(file1Name /* filePath */, LoadKmlFile(fileNameTmp, GetActiveKmlFileType()));
   bmManager.CreateCategories(std::move(kmlDataCollection2));
 
   BookmarkManager::KMLDataCollection kmlDataCollection3;
-  kmlDataCollection3.emplace_back("" /* filePath */,
+  kmlDataCollection3.emplace_back(file2Name /* filePath */,
                                   LoadKmlData(MemReader(kmlString3, strlen(kmlString3)), KmlFileType::Text));
 
   bmManager.CreateCategories(std::move(kmlDataCollection3));
 
   TEST_EQUAL(bmManager.GetBmGroupsCount(), 2, ());
-  auto const catId2 = bmManager.GetSortedBmGroupIdList().back();
-  auto const catId3 = bmManager.GetSortedBmGroupIdList().front();
+  auto const catId2 = bmManager.GetSortedBmGroupIdList().front();
+  auto const catId3 = bmManager.GetSortedBmGroupIdList().back();
 
   TEST_EQUAL(bmManager.GetUserMarkIds(catId2).size(), 1, ());
   TEST_EQUAL(bmManager.GetCategoryName(catId2), expectedName, ());
-  TEST(bmManager.GetCategoryFileName(catId2).empty(), ());
+  TEST_EQUAL(bmManager.GetCategoryFileName(catId2), file1Name, ());
+  TEST_EQUAL(bmManager.GetCategoryFileName(catId3), file2Name, ());
 
   auto const bmId1 = *bmManager.GetUserMarkIds(catId2).begin();
   auto const * bm1 = bmManager.GetBookmark(bmId1);

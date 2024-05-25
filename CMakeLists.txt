@@ -337,12 +337,8 @@ if (PLATFORM_DESKTOP AND NOT WITH_SYSTEM_PROVIDED_3PARTY)
   include_directories("${PROJECT_BINARY_DIR}/3party/gflags/include")
 endif()
 
-find_package(Python3 COMPONENTS Interpreter)
-if (Python3_Interpreter_FOUND)
-  message(STATUS "Found python to use in qt/, shaders/ and 3party/: ${Python3_EXECUTABLE}")
-else()
-  message(FATAL_ERROR "Could not find python3 to use in qt/, shaders/ and 3party/.")
-endif()
+# Used in qt/ and shaders/
+find_package(Python3 REQUIRED COMPONENTS Interpreter)
 
 add_subdirectory(base)
 add_subdirectory(coding)

@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Istruzioni vocali";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Annunciare i nomi delle strade";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Se abilitato, verrà pronunciato ad alta voce il nome della via o dell'uscita in cui svoltare.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Lingua per la voce";
 
@@ -705,6 +711,9 @@
 
 "editor_edit_place_name_hint" = "Nome del luogo";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Come è scritto nella lingua locale";
+
 "editor_edit_place_category_title" = "Categoria";
 
 "whatsnew_editor_message_1" = "Aggiungi nuovi luoghi sulla mappa e modifica quelli esistenti direttamente dall'app.";
@@ -860,7 +869,7 @@
 
 "editor_share_to_all_dialog_message_2" = "Gli editori di OpenStreetMap controlleranno le modifiche e si metteranno in contatto con te in caso di domande.";
 
-"navigation_stop_button" = "ferma";
+"navigation_stop_button" = "Ferma";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Disattivare la registrazione del tuo percorso effettuato di recente?";
@@ -1258,6 +1267,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/IT:About";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Ora stai utilizzando Organic Maps sullo schermo del telefono";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Ora stai utilizzando le Organic Maps sullo schermo dell'auto";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Continua nel telefono";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Allo schermo dell'auto";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Escursioni";
 
@@ -1269,6 +1290,11 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Mappa";
+
+"drive_through" = "Accesso con auto";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Link al menu";
 
 
 /********** Types **********/
@@ -1321,7 +1347,7 @@
 
 "type.amenity.bar" = "Bar alcolico";
 
-"type.amenity.bbq" = "Grill pubblico";
+"type.amenity.bbq" = "Griglia per barbecue";
 
 "type.amenity.bench" = "Panchina";
 
@@ -2036,22 +2062,10 @@
 
 "type.highway.footway.crossing" = "Attraversamento pedonale";
 
-"type.highway.footway.alpine_hiking" = "Sentiero";
-
 "type.highway.footway.area" = "Sentiero";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Ponte";
-
-"type.highway.footway.demanding_alpine_hiking" = "Sentiero";
-
-"type.highway.footway.demanding_mountain_hiking" = "Sentiero";
-
-"type.highway.footway.difficult_alpine_hiking" = "Sentiero";
-
-"type.highway.footway.hiking" = "Sentiero";
-
-"type.highway.footway.mountain_hiking" = "Sentiero";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Tunnel";
@@ -2086,26 +2100,20 @@
 
 "type.highway.path" = "Sentiero";
 
-"type.highway.path.alpine_hiking" = "Sentiero";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Sentiero";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Sentiero";
 
 "type.highway.path.bicycle" = "Sentiero";
+
+"type.highway.footway.bicycle" = "Sentiero";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Ponte";
 
-"type.highway.path.demanding_alpine_hiking" = "Sentiero";
-
-"type.highway.path.demanding_mountain_hiking" = "Sentiero";
-
-"type.highway.path.difficult_alpine_hiking" = "Sentiero";
-
-"type.highway.path.hiking" = "Sentiero";
-
 "type.highway.path.horse" = "Sentiero";
-
-"type.highway.path.mountain_hiking" = "Sentiero";
-
-"type.highway.path.permissive" = "Sentiero";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Tunnel";
@@ -2228,17 +2236,7 @@
 
 "type.highway.track.grade1" = "Via";
 
-"type.highway.track.grade2" = "Via";
-
-"type.highway.track.grade3" = "Via";
-
-"type.highway.track.grade4" = "Via";
-
-"type.highway.track.grade5" = "Via";
-
 "type.highway.track.no.access" = "Via";
-
-"type.highway.track.permissive" = "Via";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunnel";
@@ -2447,8 +2445,6 @@
 "type.landuse.construction" = "Cantiere";
 
 "type.landuse.education" = "Strutture didattiche";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Terreno agricolo";
 
@@ -3737,7 +3733,7 @@
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "Rifugio di montagna";
 
-"type.tourism.apartment" = "Appartamento";
+"type.tourism.apartment" = "Appartamento vacanze";
 
 "type.tourism.artwork" = "Opera d'arte";
 
@@ -3836,8 +3832,6 @@
 "type.waterway.river" = "Fiume";
 
 "type.waterway.river.tunnel" = "Fiume";
-
-"type.waterway.riverbank" = "Fiume";
 
 "type.waterway.stream" = "Torrente";
 

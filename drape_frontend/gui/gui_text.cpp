@@ -13,7 +13,8 @@
 
 #include <algorithm>
 #include <array>
-#include <type_traits>
+#include <memory>
+
 
 namespace gui
 {
@@ -28,7 +29,7 @@ glsl::vec2 GetNormalsAndMask(dp::TextureManager::GlyphRegion const & glyph, floa
   float const xOffset = glyph.GetOffsetX() * textRatio;
   float const yOffset = glyph.GetOffsetY() * textRatio;
 
-  float const upVector = -static_cast<int32_t>(pixelSize.y) - yOffset;
+  float const upVector = -pixelSize.y - yOffset;
   float const bottomVector = -yOffset;
 
   normals[0] = glsl::vec2(xOffset, bottomVector);
@@ -41,7 +42,7 @@ glsl::vec2 GetNormalsAndMask(dp::TextureManager::GlyphRegion const & glyph, floa
   maskTexCoord[2] = glsl::ToVec2(r.RightTop());
   maskTexCoord[3] = glsl::ToVec2(r.RightBottom());
 
-  return glsl::vec2(xOffset, yOffset);
+  return {xOffset, yOffset};
 }
 
 void FillCommonDecl(dp::BindingDecl & decl, std::string const & name, uint8_t compCount,
@@ -86,8 +87,8 @@ dp::BindingInfo const & StaticLabel::Vertex::GetBindingInfo()
 
   if (info == nullptr)
   {
-    info.reset(new dp::BindingInfo(5));
-    uint8_t stride = sizeof(Vertex);
+    info = std::make_unique<dp::BindingInfo>(5);
+    uint8_t constexpr stride = sizeof(Vertex);
     uint8_t offset = 0;
 
     FillPositionDecl(info->GetBindingDecl(0), stride, offset);
@@ -102,7 +103,7 @@ dp::BindingInfo const & StaticLabel::Vertex::GetBindingInfo()
     ASSERT_EQUAL(offset + sizeof(glsl::vec2), stride, ());
   }
 
-  return *info.get();
+  return *info;
 }
 
 StaticLabel::LabelResult::LabelResult()
@@ -131,7 +132,7 @@ void StaticLabel::CacheStaticText(std::string const & text, char const * delim,
     result.m_alphabet.insert(str.begin(), str.end());
 
   dp::TextureManager::TMultilineGlyphsBuffer buffers;
-  mng->GetGlyphRegions(textParts, dp::kDynamicGlyphSize, buffers);
+  mng->GetGlyphRegions(textParts, buffers);
 
 #ifdef DEBUG
   ASSERT_EQUAL(textParts.size(), buffers.size(), ());
@@ -158,9 +159,7 @@ void StaticLabel::CacheStaticText(std::string const & text, char const * delim,
   glsl::vec2 colorTex = glsl::ToVec2(color.GetTexRect().Center());
   glsl::vec2 outlineTex = glsl::ToVec2(outline.GetTexRect().Center());
 
-  df::VisualParams const & vparams = df::VisualParams::Instance();
-  auto const textRatio = font.m_size * static_cast<float>(vparams.GetVisualScale()) /
-                         vparams.GetGlyphBaseSize();
+  auto const textRatio = font.m_size * static_cast<float>(df::VisualParams::Instance().GetVisualScale() / dp::kBaseFontSizePixels);
 
   buffer_vector<float, 4> lineLengths;
   lineLengths.reserve(buffers.size());
@@ -231,10 +230,10 @@ void StaticLabel::CacheStaticText(std::string const & text, char const * delim,
       xOffset += xOffset;
 
     size_t endIndex = ranges[i];
-    for (size_t i = startIndex; i < endIndex; ++i)
+    for (size_t j = startIndex; j < endIndex; ++j)
     {
-      rb[i].m_normal = rb[i].m_normal + glsl::vec2(xOffset, yOffset);
-      result.m_boundRect.Add(glsl::ToPoint(rb[i].m_normal));
+      rb[j].m_normal = rb[j].m_normal + glsl::vec2(xOffset, yOffset);
+      result.m_boundRect.Add(glsl::ToPoint(rb[j].m_normal));
     }
 
     startIndex = endIndex;
@@ -250,9 +249,9 @@ dp::BindingInfo const & MutableLabel::StaticVertex::GetBindingInfo()
 
   if (info == nullptr)
   {
-    info.reset(new dp::BindingInfo(3));
+    info = std::make_unique<dp::BindingInfo>(3);
 
-    uint8_t stride = sizeof(StaticVertex);
+    uint8_t constexpr stride = sizeof(StaticVertex);
     uint8_t offset = 0;
 
     FillPositionDecl(info->GetBindingDecl(0), stride, offset);
@@ -263,7 +262,7 @@ dp::BindingInfo const & MutableLabel::StaticVertex::GetBindingInfo()
     ASSERT_EQUAL(offset + sizeof(glsl::vec2), stride, ());
   }
 
-  return *info.get();
+  return *info;
 }
 
 dp::BindingInfo const & MutableLabel::DynamicVertex::GetBindingInfo()
@@ -272,8 +271,8 @@ dp::BindingInfo const & MutableLabel::DynamicVertex::GetBindingInfo()
 
   if (info == nullptr)
   {
-    info.reset(new dp::BindingInfo(2, 1));
-    uint8_t stride = sizeof(DynamicVertex);
+    info = std::make_unique<dp::BindingInfo>(2, 1);
+    uint8_t constexpr stride = sizeof(DynamicVertex);
     uint8_t offset = 0;
 
     FillNormalDecl(info->GetBindingDecl(0), stride, offset);
@@ -282,11 +281,11 @@ dp::BindingInfo const & MutableLabel::DynamicVertex::GetBindingInfo()
     ASSERT_EQUAL(offset + sizeof(glsl::vec2), stride, ());
   }
 
-  return *info.get();
+  return *info;
 }
 
 MutableLabel::PrecacheResult::PrecacheResult()
-  : m_state(df::CreateRenderState(gpu::Program::TextOutlinedGui, df::DepthLayer::GuiLayer))
+  : m_state(CreateRenderState(gpu::Program::TextOutlinedGui, df::DepthLayer::GuiLayer))
 {
   m_state.SetDepthTestEnabled(false);
 }
@@ -308,7 +307,7 @@ ref_ptr<dp::Texture> MutableLabel::SetAlphabet(std::string const & alphabet,
   base::SortUnique(str);
 
   dp::TextureManager::TGlyphsBuffer buffer;
-  mng->GetGlyphRegions(str, dp::kDynamicGlyphSize, buffer);
+  mng->GetGlyphRegions(str, buffer);
   m_alphabet.reserve(buffer.size());
 
   ASSERT_EQUAL(str.size(), buffer.size(), ());
@@ -333,9 +332,7 @@ void MutableLabel::Precache(PrecacheParams const & params, PrecacheResult & resu
 {
   SetMaxLength(static_cast<uint16_t>(params.m_maxLength));
   result.m_state.SetMaskTexture(SetAlphabet(params.m_alphabet, mng));
-  df::VisualParams const & vparams = df::VisualParams::Instance();
-  m_textRatio = params.m_font.m_size * static_cast<float>(vparams.GetVisualScale()) /
-                vparams.GetGlyphBaseSize();
+  m_textRatio = params.m_font.m_size * static_cast<float>(df::VisualParams::Instance().GetVisualScale()) / dp::kBaseFontSizePixels;
 
   dp::TextureManager::ColorRegion color;
   dp::TextureManager::ColorRegion outlineColor;
@@ -347,7 +344,7 @@ void MutableLabel::Precache(PrecacheParams const & params, PrecacheResult & resu
   glsl::vec2 colorTex = glsl::ToVec2(color.GetTexRect().Center());
   glsl::vec2 outlineTex = glsl::ToVec2(outlineColor.GetTexRect().Center());
 
-  auto const vertexCount = static_cast<size_t>(m_maxLength) * 4;
+  auto const vertexCount = m_maxLength * dp::Batcher::VertexPerQuad;
   result.m_buffer.resize(vertexCount,
                          StaticVertex(glsl::vec3(0.0, 0.0, 0.0), colorTex, outlineTex));
 
@@ -374,18 +371,28 @@ void MutableLabel::Precache(PrecacheParams const & params, PrecacheResult & resu
   result.m_maxPixelSize = m2::PointF(m_maxLength * maxGlyphWidth, maxGlyphHeight);
 }
 
-void MutableLabel::SetText(LabelResult & result, std::string_view text) const
+void MutableLabel::SetText(LabelResult & result, std::string text) const
 {
-  strings::UniString uniText = bidi::log2vis(text.size() <= m_maxLength ? text
-      : std::string{text}.erase(static_cast<size_t>(m_maxLength - 3)) + "...");
+  size_t const sz = text.size();
+  if (sz < m_maxLength)
+  {
+    /// @todo I don't see a better way to clear cached vertices from previous the frame (text value).
+    text.append(m_maxLength - sz, ' ');
+  }
+  else if (sz > m_maxLength)
+  {
+    text.erase(m_maxLength - 3);
+    text.append("...");
+  }
+
+  strings::UniString const uniText = bidi::log2vis(text);
 
   float maxHeight = 0.0f;
   float length = 0.0f;
   glsl::vec2 pen = glsl::vec2(0.0, 0.0);
 
-  for (size_t i = 0; i < uniText.size(); ++i)
+  for (strings::UniChar c : uniText)
   {
-    strings::UniChar c = uniText[i];
     auto const it = std::find_if(m_alphabet.begin(), m_alphabet.end(),
                                  [&c](TAlphabetNode const & n)
     {
@@ -397,7 +404,7 @@ void MutableLabel::SetText(LabelResult & result, std::string_view text) const
     {
       std::array<glsl::vec2, 4> normals, maskTex;
       dp::TextureManager::GlyphRegion const & glyph = it->second;
-      glsl::vec2 offsets = GetNormalsAndMask(glyph, m_textRatio, normals, maskTex);
+      glsl::vec2 const offsets = GetNormalsAndMask(glyph, m_textRatio, normals, maskTex);
 
       ASSERT_EQUAL(normals.size(), maskTex.size(), ());
 
@@ -429,24 +436,8 @@ void MutableLabel::SetText(LabelResult & result, std::string_view text) const
   }
 }
 
-m2::PointF MutableLabel::GetAverageSize() const
-{
-  float h = 0, w = 0;
-  for (auto const & node : m_alphabet)
-  {
-    dp::TextureManager::GlyphRegion const & reg = node.second;
-    m2::PointF const size = reg.GetPixelSize() * m_textRatio;
-    w += size.x;
-    h = std::max(h, size.y);
-  }
-
-  w /= m_alphabet.size();
-
-  return m2::PointF(w, h);
-}
-
 MutableLabelHandle::MutableLabelHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot)
-  : TBase(id, anchor, pivot, m2::PointF::Zero())
+  : TBase(id, anchor, pivot)
   , m_textView(make_unique_dp<MutableLabel>(anchor))
   , m_isContentDirty(true)
   , m_glyphsReady(false)
@@ -454,10 +445,10 @@ MutableLabelHandle::MutableLabelHandle(uint32_t id, dp::Anchor anchor, m2::Point
 
 MutableLabelHandle::MutableLabelHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot,
                                        ref_ptr<dp::TextureManager> textures)
-  : TBase(id, anchor, pivot, m2::PointF::Zero())
+  : TBase(id, anchor, pivot)
   , m_textView(make_unique_dp<MutableLabel>(anchor))
   , m_isContentDirty(true)
-  , m_textureManager(textures)
+  , m_textureManager(std::move(textures))
   , m_glyphsReady(false)
 {}
 
@@ -470,21 +461,19 @@ void MutableLabelHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator
   MutableLabel::LabelResult result;
   m_textView->SetText(result, m_content);
 
-  m_size.x = result.m_boundRect.SizeX();
-  m_size.y = result.m_boundRect.SizeY();
-
   size_t const byteCount = result.m_buffer.size() * sizeof(MutableLabel::DynamicVertex);
-
   auto const dataPointer = static_cast<MutableLabel::DynamicVertex *>(mutator->AllocateMutationBuffer(byteCount));
   std::copy(result.m_buffer.begin(), result.m_buffer.end(), dataPointer);
 
   dp::BindingInfo const & binding = MutableLabel::DynamicVertex::GetBindingInfo();
-  dp::OverlayHandle::TOffsetNode offsetNode = GetOffsetNode(binding.GetID());
+  auto const & node = GetOffsetNode(binding.GetID());
+  ASSERT_EQUAL(node.first.GetElementSize(), sizeof(MutableLabel::DynamicVertex), ());
+  ASSERT_EQUAL(node.second.m_count, result.m_buffer.size(), ());
 
   dp::MutateNode mutateNode;
   mutateNode.m_data = make_ref(dataPointer);
-  mutateNode.m_region = offsetNode.second;
-  mutator->AddMutation(offsetNode.first, mutateNode);
+  mutateNode.m_region = node.second;
+  mutator->AddMutation(node.first, mutateNode);
 }
 
 bool MutableLabelHandle::Update(ScreenBase const & screen)
@@ -495,8 +484,7 @@ bool MutableLabelHandle::Update(ScreenBase const & screen)
     for (auto const & node : m_textView->GetAlphabet())
       alphabetStr.push_back(node.first);
 
-    m_glyphsReady = m_textureManager->AreGlyphsReady(alphabetStr,
-      dp::kDynamicGlyphSize);
+    m_glyphsReady = m_textureManager->AreGlyphsReady(alphabetStr);
   }
 
   if (!m_glyphsReady)
@@ -513,11 +501,6 @@ void MutableLabelHandle::SetTextureManager(ref_ptr<dp::TextureManager> textures)
 ref_ptr<MutableLabel> MutableLabelHandle::GetTextView() const
 {
   return make_ref(m_textView);
-}
-
-void MutableLabelHandle::UpdateSize(m2::PointF const & size)
-{
-  m_size = size;
 }
 
 void MutableLabelHandle::SetContent(std::string && content)
@@ -556,7 +539,6 @@ m2::PointF MutableLabelDrawer::Draw(ref_ptr<dp::GraphicsContext> context, Params
   MutableLabel::PrecacheResult staticData;
 
   handle->GetTextView()->Precache(preCacheP, staticData, mng);
-  handle->UpdateSize(handle->GetTextView()->GetAverageSize());
 
   ASSERT_EQUAL(vertexCount, staticData.m_buffer.size(), ());
   buffer_vector<MutableLabel::DynamicVertex, 128> dynData;
@@ -577,23 +559,23 @@ m2::PointF MutableLabelDrawer::Draw(ref_ptr<dp::GraphicsContext> context, Params
                               std::move(handle), dp::Batcher::VertexPerQuad);
   }
 
+  // REMOVE?
   return staticData.m_maxPixelSize;
 }
 
 StaticLabelHandle::StaticLabelHandle(uint32_t id, ref_ptr<dp::TextureManager> textureManager,
                                      dp::Anchor anchor, m2::PointF const & pivot,
-                                     m2::PointF const & size,
                                      TAlphabet const & alphabet)
-  : TBase(id, anchor, pivot, size)
+  : TBase(id, anchor, pivot)
   , m_alphabet(alphabet.begin(), alphabet.end())
-  , m_textureManager(textureManager)
+  , m_textureManager(std::move(textureManager))
   , m_glyphsReady(false)
 {}
 
 bool StaticLabelHandle::Update(ScreenBase const & screen)
 {
   if (!m_glyphsReady)
-    m_glyphsReady = m_textureManager->AreGlyphsReady(m_alphabet, dp::kDynamicGlyphSize);
+    m_glyphsReady = m_textureManager->AreGlyphsReady(m_alphabet);
 
   if (!m_glyphsReady)
     return false;

@@ -233,6 +233,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D-gebouwen worden uitgeschakeld in de energiebesparende modus</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Gesproken instructies</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Straatnamen bekendmaken</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Indien ingeschakeld, wordt de naam van de straat of afrit waar u afslaat hardop uitgesproken.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Gesproken taal</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -473,6 +477,8 @@
 	<string name="editor_edit_place_title">Aan het aanpassen</string>
 	<string name="editor_add_place_title">Aan het toevoegen</string>
 	<string name="editor_edit_place_name_hint">Naam van de plaats</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">Zoals het in de plaatselijke taal geschreven staat</string>
 	<string name="editor_edit_place_category_title">Categorie</string>
 	<string name="detailed_problem_description">Gedetailleerde probleemomschrijving</string>
 	<string name="editor_report_problem_other_title">Een ander probleem</string>
@@ -498,6 +504,8 @@
 	<string name="editor_detailed_description">Uw voorgestelde wijzigingen worden verzonden naar de OpenStreetMap-gemeenschap. Beschrijf de details die niet kunnen worden bewerkt in Organic Maps.</string>
 	<string name="editor_more_about_osm">Meer over OpenStreetMap</string>
 	<string name="editor_operator">Uitvoerder</string>
+	<string name="editor_category_unsuitable_title">Kun je geen geschikte categorie vinden?</string>
+	<string name="editor_category_unsuitable_text">Met Organic Maps kun je alleen eenvoudige puntcategorieën toevoegen, dus geen steden, wegen, meren, contouren van gebouwen, enzovoort. Voeg zulke categorieën direct toe aan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Bekijk onze <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gids</a> voor gedetailleerde stap voor stap instructies.</string>
 	<string name="downloader_no_downloaded_maps_title">U hebt geen kaarten gedownload</string>
 	<string name="downloader_no_downloaded_maps_message">Download kaarten om een locatie te zoeken en offline te navigeren.</string>
 	<!-- abbreviation for meters -->
@@ -544,7 +552,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Controleer dat je geen persoonlijke gegevens hebt ingevoerd.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap-editors zullen de wijzigingen controleren en contact met u opnemen als ze vragen hebben.</string>
-	<string name="navigation_stop_button">stoppen</string>
+	<string name="navigation_stop_button">Stoppen</string>
 	<!-- For the first routing -->
 	<string name="accept">Aanvaarden</string>
 	<!-- For the first routing -->
@@ -772,16 +780,16 @@
 	<string name="app_tip_08">U kunt de kaartgegevens eenvoudig corrigeren en verbeteren.</string>
 	<!-- App tip #09 -->
 	<string name="app_tip_09">Ons belangrijkste doel is om snelle, op privacy gerichte, gebruiksvriendelijke kaarten te maken waar u dol op zult zijn.</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Je gebruikt nu Organic Maps op het telefoonscherm</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">Je gebruikt nu Organic Maps op het telefoonscherm</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Je gebruikt nu Organic Maps op het autoscherm</string>
+	<string name="car_used_on_the_car_screen">Je gebruikt nu Organic Maps op het autoscherm</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Je bent verbonden met Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Doorgaan in de telefoon</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">Naar het autoscherm</string>
+	<string name="car_continue_on_the_phone">Doorgaan in de telefoon</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">Naar het autoscherm</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">Deze applicatie vereist toegang tot je locatie voor navigatiedoeleinden.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -799,6 +807,15 @@
 	<string name="pref_tts_open_system_settings">Instellingen spraaksynthesesysteem</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Instellingen voor spraaksynthese zijn niet gevonden, weet je zeker dat je apparaat dit ondersteunt?</string>
+	<string name="drive_through">Drive-though</string>
+	<string name="clear_the_search">Wis de zoekopdracht</string>
+	<string name="zoom_in">Inzoomen</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Uitzoomen</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Menulink</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Menu bekijken</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adres/blok</string>
@@ -825,7 +842,7 @@
 	<string name="type.amenity.atm">Geldautomaat</string>
 	<string name="type.amenity.bank">Bank</string>
 	<string name="type.amenity.bar">Bar</string>
-	<string name="type.amenity.bbq">Barbecueplaats</string>
+	<string name="type.amenity.bbq">Barbecue</string>
 	<string name="type.amenity.bench">Zitbank</string>
 	<string name="type.amenity.bicycle_parking">Fietsenstalling</string>
 	<string name="type.amenity.bicycle_rental">Fietsverhuur</string>
@@ -1187,15 +1204,9 @@
 	<string name="type.highway.footway">Voetpad</string>
 	<string name="type.highway.footway.sidewalk">Stoep</string>
 	<string name="type.highway.footway.crossing">Voetgangersoversteekplaats</string>
-	<string name="type.highway.footway.alpine_hiking">Alpine wandelpad</string>
 	<string name="type.highway.footway.area">Voetgangerszone</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Voetgangersbrug</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Uitdagend alpine bergklimpad</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Uitdagend bergwandelpad</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Moeilijk alpine bergklimpad</string>
-	<string name="type.highway.footway.hiking">Wandelpad</string>
-	<string name="type.highway.footway.mountain_hiking">Bergpad</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Voetgangerstunnel</string>
 	<string name="type.highway.ford">Voorde</string>
@@ -1216,17 +1227,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
 	<string name="type.highway.path">Pad</string>
-	<string name="type.highway.path.alpine_hiking">Alpine wandelpad</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">Pad</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">Pad</string>
 	<string name="type.highway.path.bicycle">Fietspad</string>
+	<string name="type.highway.footway.bicycle">Fietspad</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Brug</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Pad</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Pad</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Pad</string>
-	<string name="type.highway.path.hiking">Wandelpad</string>
 	<string name="type.highway.path.horse">Ruiterpad</string>
-	<string name="type.highway.path.mountain_hiking">Bergpad</string>
-	<string name="type.highway.path.permissive">Pad</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Tunnel</string>
 	<string name="type.highway.pedestrian">Voetgangersgebied</string>
@@ -1300,12 +1309,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Brug</string>
 	<string name="type.highway.track.grade1">Straat</string>
-	<string name="type.highway.track.grade2">Straat</string>
-	<string name="type.highway.track.grade3">Straat</string>
-	<string name="type.highway.track.grade4">Straat</string>
-	<string name="type.highway.track.grade5">Straat</string>
 	<string name="type.highway.track.no.access">Straat</string>
-	<string name="type.highway.track.permissive">Straat</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunnel</string>
 	<string name="type.highway.traffic_signals">Verkeerslichten</string>
@@ -1399,7 +1403,6 @@
 	<string name="type.landuse.commercial">Commercieel gebied</string>
 	<string name="type.landuse.construction">Bouwplaats</string>
 	<string name="type.landuse.education">Educatieve voorzieningen</string>
-	<string name="type.landuse.farm">Boerderij</string>
 	<string name="type.landuse.farmland">Landbouwgrond</string>
 	<string name="type.landuse.farmyard">Boerenerf</string>
 	<string name="type.landuse.field">Veld</string>
@@ -2041,7 +2044,7 @@
 	<string name="type.tourism.aquarium">Aquarium</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Berghut</string>
-	<string name="type.tourism.apartment">Appartementen</string>
+	<string name="type.tourism.apartment">Appartement</string>
 	<string name="type.tourism.artwork">Kunstwerk</string>
 	<string name="type.tourism.artwork.architecture">Kunstwerk</string>
 	<string name="type.tourism.artwork.painting">Schilderij</string>
@@ -2091,7 +2094,6 @@
 	<string name="type.waterway.lock_gate">Sluisdeur</string>
 	<string name="type.waterway.river">Rivier</string>
 	<string name="type.waterway.river.tunnel">Rivier</string>
-	<string name="type.waterway.riverbank">Rivier</string>
 	<string name="type.waterway.stream">Beek</string>
 	<string name="type.waterway.stream.ephemeral">Rivier</string>
 	<string name="type.waterway.stream.intermittent">Beek</string>

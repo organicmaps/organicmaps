@@ -69,6 +69,7 @@ void Info::SetFromFeatureType(FeatureType & ft)
   else if (!m_primaryFeatureName.empty())
   {
     m_uiTitle = m_primaryFeatureName;
+    m_uiSecondaryTitle = out.secondary;
   }
   else
   {
@@ -121,7 +122,7 @@ std::string Info::FormatSubtitle(bool withType) const
     append(m_bookmarkCategoryName);
 
   if (withType)
-    append(GetLocalizedType());
+    append(GetAllLocalizedTypes());
 
   // Flats.
   auto const flats = GetMetadata(feature::Metadata::FMD_FLATS);

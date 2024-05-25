@@ -93,8 +93,8 @@ UNIT_TEST(UnpackTrackArchiveDataTest)
     FileReader containerReader(containerFileName);
     buffer.resize(containerReader.Size());
     containerReader.Read(0 /* file begin */, buffer.data(), buffer.size());
-    FileWriter::DeleteFileX(containerFileName);
   }
+  FileWriter::DeleteFileX(containerFileName);
 
   // Step 2.4: Wrap as multipart data
   stringstream multipartStream;

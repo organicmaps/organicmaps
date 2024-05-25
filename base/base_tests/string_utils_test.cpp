@@ -6,11 +6,7 @@
 #include <cfloat>
 #include <cmath>
 #include <fstream>
-#include <functional>
-#include <iomanip>
 #include <limits>
-#include <list>
-#include <map>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -1270,4 +1266,23 @@ UNIT_TEST(Trim)
 
   strings::Trim(str, "tsgn");
   TEST_EQUAL(str, "ri", ());
+
+  std::string_view v = "\"abc ";
+  strings::Trim(v, "\" ");
+  TEST_EQUAL(v, "abc", ());
+
+  v = "aaa";
+  strings::Trim(v, "a");
+  TEST(v.empty(), ());
+}
+
+UNIT_TEST(ToLower_ToUpper)
+{
+  std::string s = "AbC0;9z";
+
+  strings::AsciiToLower(s);
+  TEST_EQUAL(s, "abc0;9z", ());
+
+  strings::AsciiToUpper(s);
+  TEST_EQUAL(s, "ABC0;9Z", ());
 }

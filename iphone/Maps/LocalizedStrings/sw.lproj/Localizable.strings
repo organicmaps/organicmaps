@@ -252,7 +252,13 @@
 "pref_map_3d_buildings_disabled_summary" = "Majengo ya 3D yamezimwa katika hali ya kuokoa nishati";
 
 /* Settings «Route» category: «Tts enabled» title */
-"pref_tts_enable_title" = "Voice Instructions";
+"pref_tts_enable_title" = "Tangaza Majina ya Mitaa";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Tangaza Majina ya Mitaa";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Ikiwashwa, jina la barabara au la kutoka ili kuwasha litasemwa kwa sauti.";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Voice Language";
@@ -705,6 +711,9 @@
 
 "editor_edit_place_name_hint" = "Name of the place";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Kama ilivyoandikwa katika lugha ya kienyeji";
+
 "editor_edit_place_category_title" = "Category";
 
 "whatsnew_editor_message_1" = "Add new places to the map, and edit existing ones directly from the app.";
@@ -860,7 +869,7 @@
 
 "editor_share_to_all_dialog_message_2" = "Wahariri wa OpenStreetMap watakagua mabadiliko na kuwasiliana nawe ikiwa wana maswali yoyote.";
 
-"navigation_stop_button" = "stop";
+"navigation_stop_button" = "Stop";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Disable recording of your recently travelled route?";
@@ -1258,6 +1267,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Sasa unatumia ramani za kikaboni kwenye skrini ya simu";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Sasa unatumia ramani za kikaboni kwenye skrini ya gari";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Endelea kwenye simu";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Kwa skrini ya gari";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Kutembea kwa miguu";
 
@@ -1269,6 +1290,11 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Map";
+
+"drive_through" = "Kuendesha-kupitia";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Kiungo cha menyu";
 
 
 /********** Types **********/
@@ -1321,7 +1347,7 @@
 
 "type.amenity.bar" = "Bar";
 
-"type.amenity.bbq" = "Picnic Site";
+"type.amenity.bbq" = "Grill ya barbeque";
 
 "type.amenity.bench" = "Bench";
 
@@ -2036,22 +2062,10 @@
 
 "type.highway.footway.crossing" = "Kivuko cha Watembea kwa miguu";
 
-"type.highway.footway.alpine_hiking" = "Path";
-
 "type.highway.footway.area" = "Foot Path";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Daraja";
-
-"type.highway.footway.demanding_alpine_hiking" = "Path";
-
-"type.highway.footway.demanding_mountain_hiking" = "Path";
-
-"type.highway.footway.difficult_alpine_hiking" = "Path";
-
-"type.highway.footway.hiking" = "Path";
-
-"type.highway.footway.mountain_hiking" = "Path";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Mtaro";
@@ -2086,26 +2100,20 @@
 
 "type.highway.path" = "Path";
 
-"type.highway.path.alpine_hiking" = "Path";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Path";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Path";
 
 "type.highway.path.bicycle" = "Path";
+
+"type.highway.footway.bicycle" = "Path";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Daraja";
 
-"type.highway.path.demanding_alpine_hiking" = "Path";
-
-"type.highway.path.demanding_mountain_hiking" = "Path";
-
-"type.highway.path.difficult_alpine_hiking" = "Path";
-
-"type.highway.path.hiking" = "Path";
-
 "type.highway.path.horse" = "Path";
-
-"type.highway.path.mountain_hiking" = "Path";
-
-"type.highway.path.permissive" = "Path";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Mtaro";
@@ -2228,17 +2236,7 @@
 
 "type.highway.track.grade1" = "Track";
 
-"type.highway.track.grade2" = "Track";
-
-"type.highway.track.grade3" = "Track";
-
-"type.highway.track.grade4" = "Track";
-
-"type.highway.track.grade5" = "Track";
-
 "type.highway.track.no.access" = "Track";
-
-"type.highway.track.permissive" = "Track";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Mtaro";
@@ -2447,8 +2445,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Shamba";
 
@@ -3737,7 +3733,7 @@
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "Mlima lodge";
 
-"type.tourism.apartment" = "Holiday Apartment";
+"type.tourism.apartment" = "Ghorofa ya Likizo";
 
 "type.tourism.artwork" = "Artwork";
 
@@ -3836,8 +3832,6 @@
 "type.waterway.river" = "River";
 
 "type.waterway.river.tunnel" = "River";
-
-"type.waterway.riverbank" = "River";
 
 "type.waterway.stream" = "Stream";
 

@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "ध्वनि निर्देश";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "सड़कों के नाम की घोषणा करें";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "सक्षम होने पर, सड़क का नाम या मुड़ने के लिए निकास का नाम ज़ोर से बोला जाएगा।";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "आवाज की भाषा";
 
@@ -705,6 +711,9 @@
 
 "editor_edit_place_name_hint" = "स्थान का नाम";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "जैसा कि स्थानीय भाषा में लिखा गया है";
+
 "editor_edit_place_category_title" = "वर्ग";
 
 "whatsnew_editor_message_1" = "Add new places to the map, and edit existing ones directly from the app.";
@@ -860,7 +869,7 @@
 
 "editor_share_to_all_dialog_message_2" = "OpenStreetMap editors will check the changes and contact you if they have any questions.";
 
-"navigation_stop_button" = "stop";
+"navigation_stop_button" = "Stop";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "क्या आप हाल ही में यात्रा किए गए मार्ग की रिकॉर्डिंग अक्षम करना चाहते हैं?";
@@ -1258,6 +1267,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "अब आप फ़ोन स्क्रीन पर ऑर्गेनिक मानचित्र का उपयोग कर रहे हैं";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "अब आप कार स्क्रीन पर ऑर्गेनिक मानचित्र का उपयोग कर रहे हैं";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "फ़ोन पर जारी रखें";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "कार स्क्रीन पर";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "लंबी पैदल यात्रा";
 
@@ -1269,6 +1290,11 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "नक्शा";
+
+"drive_through" = "ड्राइव करते हुए किसी जगह से गुजरना";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "मेनू लिंक";
 
 
 /********** Types **********/
@@ -1321,7 +1347,7 @@
 
 "type.amenity.bar" = "मधुशाला";
 
-"type.amenity.bbq" = "बार्बीक्यू";
+"type.amenity.bbq" = "बारबेक्यू";
 
 "type.amenity.bench" = "बेंच";
 
@@ -2036,22 +2062,10 @@
 
 "type.highway.footway.crossing" = "पैदल पार पथ";
 
-"type.highway.footway.alpine_hiking" = "पथ";
-
 "type.highway.footway.area" = "पैदलपथ";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Pedestrian Bridge";
-
-"type.highway.footway.demanding_alpine_hiking" = "पथ";
-
-"type.highway.footway.demanding_mountain_hiking" = "पथ";
-
-"type.highway.footway.difficult_alpine_hiking" = "पथ";
-
-"type.highway.footway.hiking" = "पथ";
-
-"type.highway.footway.mountain_hiking" = "पथ";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Pedestrian Tunnel";
@@ -2086,26 +2100,20 @@
 
 "type.highway.path" = "पथ";
 
-"type.highway.path.alpine_hiking" = "पथ";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "पथ";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "पथ";
 
 "type.highway.path.bicycle" = "पथ";
+
+"type.highway.footway.bicycle" = "पथ";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Bridge";
 
-"type.highway.path.demanding_alpine_hiking" = "पथ";
-
-"type.highway.path.demanding_mountain_hiking" = "पथ";
-
-"type.highway.path.difficult_alpine_hiking" = "पथ";
-
-"type.highway.path.hiking" = "पथ";
-
 "type.highway.path.horse" = "पथ";
-
-"type.highway.path.mountain_hiking" = "पथ";
-
-"type.highway.path.permissive" = "पथ";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Tunnel";
@@ -2228,17 +2236,7 @@
 
 "type.highway.track.grade1" = "सड़क";
 
-"type.highway.track.grade2" = "सड़क";
-
-"type.highway.track.grade3" = "सड़क";
-
-"type.highway.track.grade4" = "सड़क";
-
-"type.highway.track.grade5" = "सड़क";
-
 "type.highway.track.no.access" = "सड़क";
-
-"type.highway.track.permissive" = "सड़क";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunnel";
@@ -2447,8 +2445,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "खेत";
 
 "type.landuse.farmland" = "Farmland";
 
@@ -3836,8 +3832,6 @@
 "type.waterway.river" = "नदी";
 
 "type.waterway.river.tunnel" = "नदी";
-
-"type.waterway.riverbank" = "River";
 
 "type.waterway.stream" = "Stream";
 

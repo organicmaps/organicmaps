@@ -414,15 +414,10 @@ world  +
             {}
         elevator  -
         footway  +
-            alpine_hiking  -
             area  -
+            bicycle  -
             bridge  -
             crossing  -
-            demanding_alpine_hiking  -
-            demanding_mountain_hiking  -
-            difficult_alpine_hiking  -
-            hiking  -
-            mountain_hiking  -
             sidewalk  -
             tunnel  -
             {}
@@ -441,15 +436,11 @@ world  +
             tunnel  -
             {}
         path  +
-            alpine_hiking  -
             bicycle  -
             bridge  -
-            demanding_alpine_hiking  -
-            demanding_mountain_hiking  -
-            difficult_alpine_hiking  -
-            hiking  -
+            difficult  -
+            expert  -
             horse  -
-            mountain_hiking  -
             tunnel  -
             {}
         pedestrian  +
@@ -508,11 +499,6 @@ world  +
         track  +
             area  -
             bridge  -
-            grade1  -
-            grade2  -
-            grade3  -
-            grade4  -
-            grade5  -
             no-access  -
             tunnel  -
             {}
@@ -619,7 +605,6 @@ world  +
         commercial  -
         construction  -
         education  -
-        farm  -
         farmland  -
         farmyard  -
         field  -
@@ -1431,7 +1416,6 @@ world  +
         river  +
             tunnel  -
             {}
-        riverbank  -
         stream  +
             ephemeral  -
             intermittent  -

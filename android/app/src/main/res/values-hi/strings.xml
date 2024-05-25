@@ -234,6 +234,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3डी इमारतें बिजली बचत मोड में अक्षम हैं</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">ध्वनि निर्देश</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">सड़कों के नाम की घोषणा करें</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">सक्षम होने पर, सड़क का नाम या मुड़ने के लिए निकास का नाम ज़ोर से बोला जाएगा।</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">आवाज की भाषा</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -363,6 +367,8 @@
 	<string name="editor_focus_map_on_location">ऑब्जेक्ट का सही स्थान चुनने के लिए मानचित्र को खींचें।</string>
 	<string name="editor_add_place_title">जोड़ना</string>
 	<string name="editor_edit_place_name_hint">स्थान का नाम</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">जैसा कि स्थानीय भाषा में लिखा गया है</string>
 	<string name="editor_edit_place_category_title">वर्ग</string>
 	<string name="placepage_add_business_button">व्यवसाय जोड़ें</string>
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
@@ -377,6 +383,8 @@
 	<string name="editor_detailed_description">आपके सुझाए गए मानचित्र परिवर्तन OpenStreetMap समुदाय को भेजे जाएंगे। कृपया किसी भी अतिरिक्त विवरण का वर्णन करें जिसे ऑर्गेनिक मानचित्र में संपादित नहीं किया जा सकता है।</string>
 	<string name="editor_more_about_osm">OpenStreetMap के बारे में अधिक जानकारी</string>
 	<string name="editor_operator">मालिक</string>
+	<string name="editor_category_unsuitable_title">कोई उपयुक्त श्रेणी नहीं मिल रही?</string>
+	<string name="editor_category_unsuitable_text">ऑर्गेनिक मैप्स केवल सरल बिंदु श्रेणियां जोड़ने की अनुमति देता है, जिसका अर्थ है कि शहर, सड़कें, झीलें, भवन की रूपरेखा आदि नहीं। कृपया ऐसी श्रेणियां सीधे <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> पर जोड़ें।. विस्तृत चरण-दर-चरण निर्देशों के लिए हमारी <a href="https://organicmaps.app/faq/editing/advanced-map-editing">मार्गदर्शिका</a> देखें।</string>
 	<!-- abbreviation for meters -->
 	<string name="m">मी</string>
 	<!-- abbreviation for kilometers -->
@@ -514,16 +522,16 @@
 	<string name="app_tip_08">आप मानचित्र डेटा को आसानी से ठीक और सुधार सकते हैं।</string>
 	<!-- App tip #09 -->
 	<string name="app_tip_09">हमारा मुख्य लक्ष्य तेज़, गोपनीयता-केंद्रित, उपयोग में आसान मानचित्र बनाना है जो आपको पसंद आएंगे।</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">अब आप फ़ोन स्क्रीन पर ऑर्गेनिक मानचित्र का उपयोग कर रहे हैं</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">अब आप फ़ोन स्क्रीन पर ऑर्गेनिक मानचित्र का उपयोग कर रहे हैं</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">अब आप कार स्क्रीन पर ऑर्गेनिक मानचित्र का उपयोग कर रहे हैं</string>
+	<string name="car_used_on_the_car_screen">अब आप कार स्क्रीन पर ऑर्गेनिक मानचित्र का उपयोग कर रहे हैं</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">आप Android Auto से कनेक्ट हैं</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">फ़ोन पर जारी रखें</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">कार स्क्रीन पर</string>
+	<string name="car_continue_on_the_phone">फ़ोन पर जारी रखें</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">कार स्क्रीन पर</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">इस एप्लिकेशन को नेविगेशन उद्देश्यों के लिए आपके स्थान तक पहुंच की आवश्यकता है।</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -541,6 +549,15 @@
 	<string name="pref_tts_open_system_settings">सिस्टम वाक् संश्लेषण सेटिंग्स</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">स्पीच सिंथेसिस सेटिंग्स नहीं मिलीं, क्या आप सुनिश्चित हैं कि आपका डिवाइस इसका समर्थन करता है?</string>
+	<string name="drive_through">ड्राइव करते हुए किसी जगह से गुजरना</string>
+	<string name="clear_the_search">खोज साफ़ करें</string>
+	<string name="zoom_in">ज़ूम इन</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">ज़ूम आउट</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">मेनू लिंक</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">मेनू देखें</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.cable_car">आकाशीय रज्जुमार्ग</string>
@@ -552,7 +569,7 @@
 	<string name="type.amenity.atm">एटीएम</string>
 	<string name="type.amenity.bank">बैंक</string>
 	<string name="type.amenity.bar">मधुशाला</string>
-	<string name="type.amenity.bbq">बार्बीक्यू</string>
+	<string name="type.amenity.bbq">बारबेक्यू</string>
 	<string name="type.amenity.bench">बेंच</string>
 	<string name="type.amenity.bicycle_parking">साइकिल पार्किंग</string>
 	<string name="type.amenity.bicycle_rental">साइकिल किराए के लिए</string>
@@ -810,26 +827,18 @@
 	<string name="type.highway.footway">पैदलपथ</string>
 	<string name="type.highway.footway.sidewalk">फ़ुटपाथ</string>
 	<string name="type.highway.footway.crossing">पैदल पार पथ</string>
-	<string name="type.highway.footway.alpine_hiking">पथ</string>
 	<string name="type.highway.footway.area">पैदलपथ</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">पथ</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">पथ</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">पथ</string>
-	<string name="type.highway.footway.hiking">पथ</string>
-	<string name="type.highway.footway.mountain_hiking">पथ</string>
 	<string name="type.highway.motorway">राजमार्ग</string>
 	<string name="type.highway.motorway_junction">राजमार्ग निकास</string>
 	<string name="type.highway.motorway_link">फ्रीवे प्रवेश</string>
 	<string name="type.highway.path">पथ</string>
-	<string name="type.highway.path.alpine_hiking">पथ</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">पथ</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">पथ</string>
 	<string name="type.highway.path.bicycle">पथ</string>
-	<string name="type.highway.path.demanding_alpine_hiking">पथ</string>
-	<string name="type.highway.path.demanding_mountain_hiking">पथ</string>
-	<string name="type.highway.path.difficult_alpine_hiking">पथ</string>
-	<string name="type.highway.path.hiking">पथ</string>
+	<string name="type.highway.footway.bicycle">पथ</string>
 	<string name="type.highway.path.horse">पथ</string>
-	<string name="type.highway.path.mountain_hiking">पथ</string>
-	<string name="type.highway.path.permissive">पथ</string>
 	<string name="type.highway.pedestrian">पैदल यात्रीयों की सड़क</string>
 	<string name="type.highway.pedestrian.area">पैदल यात्रीयों की सड़क</string>
 	<string name="type.highway.primary">प्राथमिक सड़क</string>
@@ -849,12 +858,7 @@
 	<string name="type.highway.track">सड़क</string>
 	<string name="type.highway.track.area">सड़क</string>
 	<string name="type.highway.track.grade1">सड़क</string>
-	<string name="type.highway.track.grade2">सड़क</string>
-	<string name="type.highway.track.grade3">सड़क</string>
-	<string name="type.highway.track.grade4">सड़क</string>
-	<string name="type.highway.track.grade5">सड़क</string>
 	<string name="type.highway.track.no.access">सड़क</string>
-	<string name="type.highway.track.permissive">सड़क</string>
 	<string name="type.highway.traffic_signals">ट्रैफिक लाइट</string>
 	<string name="type.highway.trunk">प्रधान मार्ग</string>
 	<string name="type.highway.trunk_link">प्रधान मार्ग</string>
@@ -900,7 +904,6 @@
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">ईसाई कब्रिस्तान</string>
 	<string name="type.landuse.commercial">वाणिज्य क्षेत्र</string>
-	<string name="type.landuse.farm">खेत</string>
 	<string name="type.landuse.field">क्षेत्र</string>
 	<string name="type.landuse.forest">वन</string>
 	<string name="type.landuse.forest.mixed">मिश्रित वन</string>

@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "คำแนะนำด้วยเสียง";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "ประกาศชื่อถนน";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "เมื่อเปิดใช้งาน ชื่อของถนนหรือทางออกที่จะเลี้ยวจะถูกพูดออกมาดัง ๆ";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "ภาษาสำหรับเสียง";
 
@@ -704,6 +710,9 @@
 "editor_add_place_title" = "กำลังเพิ่ม";
 
 "editor_edit_place_name_hint" = "ชื่อสถานที่";
+
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "ตามที่เขียนเป็นภาษาท้องถิ่น";
 
 "editor_edit_place_category_title" = "หมวดหมู่";
 
@@ -1258,6 +1267,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "ขณะนี้คุณกำลังใช้แผนที่ทั่วไปบนหน้าจอโทรศัพท์";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "ขณะนี้คุณกำลังใช้แผนที่ทั่วไปบนหน้าจอรถยนต์";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "ดำเนินการต่อบนโทรศัพท์";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "ไปที่หน้าจอรถ";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "การเดินป่า";
 
@@ -1269,6 +1290,11 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "แผนที่";
+
+"drive_through" = "ขับรถผ่าน";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "ลิงค์เมนู";
 
 
 /********** Types **********/
@@ -1321,7 +1347,7 @@
 
 "type.amenity.bar" = "บาร์";
 
-"type.amenity.bbq" = "เว็บไซต์ปิกนิก";
+"type.amenity.bbq" = "เตาย่างบาร์บีคิว";
 
 "type.amenity.bench" = "ม้านั่ง";
 
@@ -2036,22 +2062,10 @@
 
 "type.highway.footway.crossing" = "ทางม้าลาย";
 
-"type.highway.footway.alpine_hiking" = "เส้นทาง";
-
 "type.highway.footway.area" = "เส้นทาง";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "สะพาน";
-
-"type.highway.footway.demanding_alpine_hiking" = "เส้นทาง";
-
-"type.highway.footway.demanding_mountain_hiking" = "เส้นทาง";
-
-"type.highway.footway.difficult_alpine_hiking" = "เส้นทาง";
-
-"type.highway.footway.hiking" = "เส้นทาง";
-
-"type.highway.footway.mountain_hiking" = "เส้นทาง";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "อุโมงค์";
@@ -2086,26 +2100,20 @@
 
 "type.highway.path" = "เส้นทาง";
 
-"type.highway.path.alpine_hiking" = "เส้นทาง";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "เส้นทาง";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "เส้นทาง";
 
 "type.highway.path.bicycle" = "เส้นทาง";
+
+"type.highway.footway.bicycle" = "เส้นทาง";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "สะพาน";
 
-"type.highway.path.demanding_alpine_hiking" = "เส้นทาง";
-
-"type.highway.path.demanding_mountain_hiking" = "เส้นทาง";
-
-"type.highway.path.difficult_alpine_hiking" = "เส้นทาง";
-
-"type.highway.path.hiking" = "เส้นทาง";
-
 "type.highway.path.horse" = "เส้นทาง";
-
-"type.highway.path.mountain_hiking" = "เส้นทาง";
-
-"type.highway.path.permissive" = "เส้นทาง";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "อุโมงค์";
@@ -2228,17 +2236,7 @@
 
 "type.highway.track.grade1" = "ถนน";
 
-"type.highway.track.grade2" = "ถนน";
-
-"type.highway.track.grade3" = "ถนน";
-
-"type.highway.track.grade4" = "ถนน";
-
-"type.highway.track.grade5" = "ถนน";
-
 "type.highway.track.no.access" = "ถนน";
-
-"type.highway.track.permissive" = "ถนน";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "อุโมงค์";
@@ -2447,8 +2445,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "พื้นที่ทำการเกษตร";
 
@@ -3737,7 +3733,7 @@
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "บ้านพักบนภูเขา";
 
-"type.tourism.apartment" = "อพาร์ตเมนต์";
+"type.tourism.apartment" = "ฮอลิเดย์ อพาร์ตเมนต์";
 
 "type.tourism.artwork" = "งานศิลปะ";
 
@@ -3836,8 +3832,6 @@
 "type.waterway.river" = "แม่น้ำ";
 
 "type.waterway.river.tunnel" = "แม่น้ำ";
-
-"type.waterway.riverbank" = "แม่น้ำ";
 
 "type.waterway.stream" = "แม่น้ำ";
 

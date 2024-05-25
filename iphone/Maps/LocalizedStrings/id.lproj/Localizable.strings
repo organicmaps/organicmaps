@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Petunjuk Suara";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Umumkan Nama Jalan";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Saat diaktifkan, nama jalan atau jalan keluar untuk berbelok akan diucapkan dengan keras.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Bahasa Suara";
 
@@ -705,6 +711,9 @@
 
 "editor_edit_place_name_hint" = "Nama tempat";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Seperti yang tertulis dalam bahasa lokal";
+
 "editor_edit_place_category_title" = "Kategori";
 
 "whatsnew_editor_message_1" = "Tambahkan tempat-tempat baru di peta, dan edit peta-peta yang ada langsung dari aplikasi.";
@@ -860,7 +869,7 @@
 
 "editor_share_to_all_dialog_message_2" = "Editor OpenStreetMap akan memeriksa perubahan dan menghubungi Anda jika ada pertanyaan.";
 
-"navigation_stop_button" = "berhenti";
+"navigation_stop_button" = "Berhenti";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Nonaktifkan rekaman dari rute yang baru Anda lalui?";
@@ -1258,6 +1267,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Anda sekarang menggunakan Organic Maps pada layar ponsel";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Anda sekarang menggunakan Organic Maps pada layar mobil";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Lanjutkan di telepon";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Ke layar mobil";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Pendakian";
 
@@ -1269,6 +1290,11 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Peta";
+
+"drive_through" = "Berkendara melewati";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Tautan menu";
 
 
 /********** Types **********/
@@ -1321,7 +1347,7 @@
 
 "type.amenity.bar" = "Bar";
 
-"type.amenity.bbq" = "Lokasi piknik";
+"type.amenity.bbq" = "Panggangan barbekyu";
 
 "type.amenity.bench" = "Bangku panjang";
 
@@ -2036,22 +2062,10 @@
 
 "type.highway.footway.crossing" = "Penyeberangan Pejalan Kaki";
 
-"type.highway.footway.alpine_hiking" = "Jalur";
-
 "type.highway.footway.area" = "Jalur";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Menjembatani";
-
-"type.highway.footway.demanding_alpine_hiking" = "Jalur";
-
-"type.highway.footway.demanding_mountain_hiking" = "Jalur";
-
-"type.highway.footway.difficult_alpine_hiking" = "Jalur";
-
-"type.highway.footway.hiking" = "Jalur";
-
-"type.highway.footway.mountain_hiking" = "Jalur";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Terowongan";
@@ -2086,26 +2100,20 @@
 
 "type.highway.path" = "Jalur";
 
-"type.highway.path.alpine_hiking" = "Jalur";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Jalur";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Jalur";
 
 "type.highway.path.bicycle" = "Jalur";
+
+"type.highway.footway.bicycle" = "Jalur";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Menjembatani";
 
-"type.highway.path.demanding_alpine_hiking" = "Jalur";
-
-"type.highway.path.demanding_mountain_hiking" = "Jalur";
-
-"type.highway.path.difficult_alpine_hiking" = "Jalur";
-
-"type.highway.path.hiking" = "Jalur";
-
 "type.highway.path.horse" = "Jalur";
-
-"type.highway.path.mountain_hiking" = "Jalur";
-
-"type.highway.path.permissive" = "Jalur";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Terowongan";
@@ -2228,17 +2236,7 @@
 
 "type.highway.track.grade1" = "Jalan";
 
-"type.highway.track.grade2" = "Jalan";
-
-"type.highway.track.grade3" = "Jalan";
-
-"type.highway.track.grade4" = "Jalan";
-
-"type.highway.track.grade5" = "Jalan";
-
 "type.highway.track.no.access" = "Jalan";
-
-"type.highway.track.permissive" = "Jalan";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Terowongan";
@@ -2447,8 +2445,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Lahan pertanian";
 
@@ -3737,7 +3733,7 @@
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "Penginapan gunung";
 
-"type.tourism.apartment" = "Apartemen";
+"type.tourism.apartment" = "Apartemen Liburan";
 
 "type.tourism.artwork" = "Pariwisata";
 
@@ -3836,8 +3832,6 @@
 "type.waterway.river" = "Sungai";
 
 "type.waterway.river.tunnel" = "Sungai";
-
-"type.waterway.riverbank" = "Sungai";
 
 "type.waterway.stream" = "Sungai";
 

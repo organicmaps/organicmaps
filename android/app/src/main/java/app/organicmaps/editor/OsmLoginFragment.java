@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.Size;
 
 import app.organicmaps.Framework;
 import app.organicmaps.R;
@@ -63,7 +62,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
   private void login()
   {
     InputUtils.hideKeyboard(mLoginInput);
-    final String username = mLoginInput.getText().toString();
+    final String username = mLoginInput.getText().toString().trim();
     final String password = mPasswordInput.getText().toString();
     enableInput(false);
     UiUtils.show(mProgress);

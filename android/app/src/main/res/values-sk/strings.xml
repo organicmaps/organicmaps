@@ -233,6 +233,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D budovy sú vypnuté v režime úspory energie</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Hlasové povely</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Oznámte názvy ulíc</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Keď je táto možnosť povolená, nahlas sa vysloví názov ulice alebo výjazdu, na ktorý sa má odbočiť.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Nastavenia jazyka povelov</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -475,6 +479,8 @@
 	<string name="editor_edit_place_title">Úprava</string>
 	<string name="editor_add_place_title">Nové</string>
 	<string name="editor_edit_place_name_hint">Názov miesta</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">Tak, ako sa píše v miestnom jazyku</string>
 	<string name="editor_edit_place_category_title">Kategória</string>
 	<string name="detailed_problem_description">Podrobný popis problému</string>
 	<string name="editor_report_problem_other_title">Iný problém</string>
@@ -500,6 +506,8 @@
 	<string name="editor_detailed_description">Vami navrhované zmeny sa odošlú do komunity OpenStreetMap. Popíšte detaily, ktoré sa nedajú upraviť v Organic Maps.</string>
 	<string name="editor_more_about_osm">Viac o OpenStreetMap</string>
 	<string name="editor_operator">Prevádzkovateľ</string>
+	<string name="editor_category_unsuitable_title">Nemôžete nájsť vhodnú kategóriu?</string>
+	<string name="editor_category_unsuitable_text">Organické mapy umožňujú pridávať len jednoduché kategórie bodov, teda žiadne mestá, cesty, jazerá, obrysy budov atď. Takéto kategórie pridávajte priamo na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Pozrite si náš <a href="https://organicmaps.app/faq/editing/advanced-map-editing">príručku</a>, kde nájdete podrobné pokyny krok za krokom.</string>
 	<string name="downloader_no_downloaded_maps_title">Neprevzali ste žiadne mapy</string>
 	<string name="downloader_no_downloaded_maps_message">Prevziať mapy na nájdenie pozície a navigovanie off-line.</string>
 	<!-- abbreviation for meters -->
@@ -546,7 +554,6 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Nezadávajte žiadne osobné udaje.</string>
 	<string name="editor_share_to_all_dialog_message_2">Redaktori OpenStreetMap skontrolujú zmeny a budú vás kontaktovať, ak budú mať nejaké otázky.</string>
-	<string name="navigation_stop_button">stop</string>
 	<!-- For the first routing -->
 	<string name="accept">Prijať</string>
 	<!-- For the first routing -->
@@ -769,16 +776,16 @@
 	<string name="app_tip_08">Mapové údaje môžete jednoducho opraviť a vylepšiť.</string>
 	<!-- App tip #09 -->
 	<string name="app_tip_09">Naším hlavným cieľom je vytvárať rýchle, na súkromie, ľahko použiteľné mapy, ktoré si zamilujete.</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Na obrazovke telefónu teraz používate službu Organic Maps</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">Na obrazovke telefónu teraz používate službu Organic Maps</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Na obrazovke auta teraz používate službu Organic Maps</string>
+	<string name="car_used_on_the_car_screen">Na obrazovke auta teraz používate službu Organic Maps</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Ste pripojení k službe Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Pokračujte v telefóne</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">Na obrazovku auta</string>
+	<string name="car_continue_on_the_phone">Pokračujte v telefóne</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">Na obrazovku auta</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">Táto aplikácia vyžaduje prístup k vašej polohe na účely navigácie.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -796,6 +803,15 @@
 	<string name="pref_tts_open_system_settings">Nastavenia systému syntézy reči</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Nastavenia syntézy reči neboli nájdené, ste si istí, že ich vaše zariadenie podporuje?</string>
+	<string name="drive_through">Drive-thru</string>
+	<string name="clear_the_search">Vymazať vyhľadávanie</string>
+	<string name="zoom_in">Priblíženie</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Zväčšenie</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Odkaz na menu</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Zobraziť menu</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresa/blok</string>
@@ -818,7 +834,7 @@
 	<string name="type.amenity.arts_centre">Centrum umenia</string>
 	<string name="type.amenity.atm">Bankomat</string>
 	<string name="type.amenity.bank">Banka</string>
-	<string name="type.amenity.bbq">Piknik</string>
+	<string name="type.amenity.bbq">Gril na grilovanie</string>
 	<string name="type.amenity.bench">Lavička</string>
 	<string name="type.amenity.bicycle_parking">Stojan na bicykle</string>
 	<string name="type.amenity.bicycle_rental">Požičovňa bicyklov</string>
@@ -1179,15 +1195,9 @@
 	<string name="type.highway.footway">Cesta pre chodcov</string>
 	<string name="type.highway.footway.sidewalk">Chodník</string>
 	<string name="type.highway.footway.crossing">Priechod pre chodcov</string>
-	<string name="type.highway.footway.alpine_hiking">Turistický chodník</string>
 	<string name="type.highway.footway.area">Pešia zóna</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Most pre chodcov</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Cesta</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Náročný horský chodník</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Náročný turistický chodník</string>
-	<string name="type.highway.footway.hiking">Turistický chodník</string>
-	<string name="type.highway.footway.mountain_hiking">Horský turistický chodník</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunel pre chodcov</string>
 	<string name="type.highway.ford">Brod</string>
@@ -1208,17 +1218,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Tunel</string>
 	<string name="type.highway.path">Cesta</string>
-	<string name="type.highway.path.alpine_hiking">Turistický chodník</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">Cesta</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">Cesta</string>
 	<string name="type.highway.path.bicycle">Cesta pre cyklistov a chodcov</string>
+	<string name="type.highway.footway.bicycle">Cesta pre cyklistov a chodcov</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Most</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Náročný turistický chodník</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Náročný horský chodník</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Obtiažny turistický chodník</string>
-	<string name="type.highway.path.hiking">Turistický chodník</string>
 	<string name="type.highway.path.horse">Cesta pre jazdca na zvierati</string>
-	<string name="type.highway.path.mountain_hiking">Horský turistický chodník</string>
-	<string name="type.highway.path.permissive">Cesta</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Tunel</string>
 	<string name="type.highway.pedestrian">Ulica</string>
@@ -1292,12 +1300,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Most</string>
 	<string name="type.highway.track.grade1">Poľná cesta</string>
-	<string name="type.highway.track.grade2">Poľná cesta</string>
-	<string name="type.highway.track.grade3">Poľná cesta</string>
-	<string name="type.highway.track.grade4">Poľná cesta</string>
-	<string name="type.highway.track.grade5">Poľná cesta</string>
 	<string name="type.highway.track.no.access">Poľná cesta</string>
-	<string name="type.highway.track.permissive">Poľná cesta</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunel</string>
 	<string name="type.highway.traffic_signals">Semafor</string>
@@ -1389,7 +1392,6 @@
 	<string name="type.landuse.commercial">Komerčná oblasť</string>
 	<string name="type.landuse.construction">Stavenisko</string>
 	<string name="type.landuse.education">Vzdelávacia inštitúcia</string>
-	<string name="type.landuse.farm">Statok</string>
 	<string name="type.landuse.farmland">Poľnohospodárska pôda</string>
 	<string name="type.landuse.farmyard">Poľnohospodárske budovy</string>
 	<string name="type.landuse.field">Pole</string>
@@ -2002,7 +2004,7 @@
 	<string name="type.tourism.aquarium">Akvárium</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Horská chata</string>
-	<string name="type.tourism.apartment">Apartmány</string>
+	<string name="type.tourism.apartment">Prázdninový apartmán</string>
 	<string name="type.tourism.artwork">Umelecké dielo</string>
 	<string name="type.tourism.artwork.architecture">Architektonické dielo</string>
 	<string name="type.tourism.artwork.painting">Maľba</string>
@@ -2050,7 +2052,6 @@
 	<string name="type.waterway.lock_gate">Stavidlo</string>
 	<string name="type.waterway.river">Rieka</string>
 	<string name="type.waterway.river.tunnel">Rieka</string>
-	<string name="type.waterway.riverbank">Rieka</string>
 	<string name="type.waterway.stream">Potok</string>
 	<string name="type.waterway.stream.ephemeral">Občasný potok</string>
 	<string name="type.waterway.stream.intermittent">Občasný potok</string>

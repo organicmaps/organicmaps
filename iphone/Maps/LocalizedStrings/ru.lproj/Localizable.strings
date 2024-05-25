@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Голосовые инструкции";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Проговаривать названия улиц";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "При включении название улицы или съезда, на который нужно повернуть, будет произноситься вслух.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Язык подсказок";
 
@@ -705,6 +711,9 @@
 
 "editor_edit_place_name_hint" = "Название места";
 
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "На местном языке";
+
 "editor_edit_place_category_title" = "Категория";
 
 "whatsnew_editor_message_1" = "Добавляйте новые объекты и редактируйте старые прямо из приложения.";
@@ -860,7 +869,7 @@
 
 "editor_share_to_all_dialog_message_2" = "Редакторы OpenStreetMap проверят изменения и свяжутся с вами, если у них возникнут вопросы.";
 
-"navigation_stop_button" = "стоп";
+"navigation_stop_button" = "Cтоп";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Выключить запись недавно пройденого пути?";
@@ -1258,6 +1267,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/RU:О_проекте";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Сейчас Вы используете Organic Maps на экране телефона";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Сейчас Вы используете Organic Maps на экране автомобиля";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Продолжить в телефоне";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Продолжить в авто";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Активный отдых";
 
@@ -1269,6 +1290,11 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Карта";
+
+"drive_through" = "С окошком для водителей";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Ссылка на меню";
 
 
 /********** Types **********/
@@ -1321,7 +1347,7 @@
 
 "type.amenity.bar" = "Бар";
 
-"type.amenity.bbq" = "Место для пикника";
+"type.amenity.bbq" = "Барбекю-гриль";
 
 "type.amenity.bench" = "Скамейка";
 
@@ -2036,22 +2062,10 @@
 
 "type.highway.footway.crossing" = "Пешеходный переход";
 
-"type.highway.footway.alpine_hiking" = "Тропа";
-
 "type.highway.footway.area" = "Пешеходная зона";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Пешеходный мост";
-
-"type.highway.footway.demanding_alpine_hiking" = "Тропа";
-
-"type.highway.footway.demanding_mountain_hiking" = "Тропа";
-
-"type.highway.footway.difficult_alpine_hiking" = "Тропа";
-
-"type.highway.footway.hiking" = "Тропа";
-
-"type.highway.footway.mountain_hiking" = "Тропа";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Пешеходный тоннель";
@@ -2086,26 +2100,20 @@
 
 "type.highway.path" = "Тропа";
 
-"type.highway.path.alpine_hiking" = "Тропа";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Сложная или плохо видимая тропа";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Очень сложная или неразличимая тропа";
 
 "type.highway.path.bicycle" = "Велопешеходная дорожка";
+
+"type.highway.footway.bicycle" = "Велопешеходная дорожка";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Мост";
 
-"type.highway.path.demanding_alpine_hiking" = "Тропа";
-
-"type.highway.path.demanding_mountain_hiking" = "Тропа";
-
-"type.highway.path.difficult_alpine_hiking" = "Тропа";
-
-"type.highway.path.hiking" = "Тропа";
-
 "type.highway.path.horse" = "Конная тропа";
-
-"type.highway.path.mountain_hiking" = "Тропа";
-
-"type.highway.path.permissive" = "Тропа";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Тоннель";
@@ -2228,17 +2236,7 @@
 
 "type.highway.track.grade1" = "Грунтовка";
 
-"type.highway.track.grade2" = "Грунтовка";
-
-"type.highway.track.grade3" = "Грунтовка";
-
-"type.highway.track.grade4" = "Грунтовка";
-
-"type.highway.track.grade5" = "Грунтовка";
-
 "type.highway.track.no.access" = "Грунтовка";
-
-"type.highway.track.permissive" = "Грунтовка";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Тоннель";
@@ -2447,8 +2445,6 @@
 "type.landuse.construction" = "Стройка";
 
 "type.landuse.education" = "Образовательные учреждения";
-
-"type.landuse.farm" = "Ферма";
 
 "type.landuse.farmland" = "Сельскохозяйственная земля";
 
@@ -3737,7 +3733,7 @@
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "Горный приют с обслуживанием";
 
-"type.tourism.apartment" = "Апартаменты";
+"type.tourism.apartment" = "Квартира для отдыха";
 
 "type.tourism.artwork" = "Произведение искусства";
 
@@ -3836,8 +3832,6 @@
 "type.waterway.river" = "Река";
 
 "type.waterway.river.tunnel" = "Река";
-
-"type.waterway.riverbank" = "Река";
 
 "type.waterway.stream" = "Река";
 

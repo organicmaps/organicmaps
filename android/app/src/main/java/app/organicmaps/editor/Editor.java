@@ -92,9 +92,7 @@ public final class Editor
   public static native boolean nativeIsPointType();
   public static native boolean nativeIsBuilding();
 
-  public static native NamesDataSource nativeGetNamesDataSource(boolean needFakes);
-  public static native String nativeGetDefaultName();
-  public static native void nativeEnableNamesAdvancedMode();
+  public static native NamesDataSource nativeGetNamesDataSource();
   public static native void nativeSetNames(@NonNull LocalizedName[] names);
   public static native LocalizedName nativeMakeLocalizedName(String langCode, String name);
   public static native Language[] nativeGetSupportedLanguages();

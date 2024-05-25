@@ -176,11 +176,11 @@ UNIT_CLASS_TEST(ProcessorTest, AddressPlaceSmoke)
   m2::PointD const sm(0.005, 0.005);
 
   // 1.
-  TestVillage village({0, 0}, "Баравая", lang, 0/* rank */);
-  TestBuilding bld1(village.GetCenter() + sm, {}/* name */, "36", {}/* street */, lang);
-  bld1.SetPlace(village.GetName(lang));
+  TestVillage village1({0, 0}, "Баравая", lang, 0/* rank */);
+  TestBuilding bld1(village1.GetCenter() + sm, {}/* name */, "36", {}/* street */, lang);
+  bld1.SetPlace(village1.GetName(lang));
   // No place for it.
-  TestBuilding bld2(village.GetCenter() - sm, {}/* name */, "36", {}/* street */, lang);
+  TestBuilding bld2(village1.GetCenter() - sm, {}/* name */, "36", {}/* street */, lang);
 
   // 2.
   TestCity city1({0.5, 0.5}, "Mannheim", lang, 0/* rank */);
@@ -202,6 +202,13 @@ UNIT_CLASS_TEST(ProcessorTest, AddressPlaceSmoke)
   // City that presents only in World to mix World and Country IDs.
   TestCity city4(mercator::FromLatLon(50, 30), "Dummy", lang, 0/* rank */);
 
+  // 5.
+  TestVillage village2(mercator::FromLatLon(53.8041415, 27.6151914), "Пашковичи", lang, 0/* rank */);
+  village2.SetType({"place", "hamlet"});
+  TestBuilding bld6(mercator::FromLatLon(53.8040029, 27.6091967), {}/* name */, "43А", {}/* street */, lang);
+  bld6.SetPlace(village2.GetName(lang));
+  TestBuilding bld7(mercator::FromLatLon(53.7956458, 27.6248433), "уч. 43", {}/* house number*/, {}/* street */, lang);
+
   auto const worldId = BuildWorld([&](TestMwmBuilder & builder)
   {
     builder.Add(city1);
@@ -213,7 +220,7 @@ UNIT_CLASS_TEST(ProcessorTest, AddressPlaceSmoke)
   // Country name Czech is important for the conscription house matching.
   auto const wonderlandId = BuildCountry("Czech", [&](TestMwmBuilder & builder)
   {
-    builder.Add(village);
+    builder.Add(village1);
     builder.Add(bld1);
     builder.Add(bld2);
 
@@ -228,12 +235,19 @@ UNIT_CLASS_TEST(ProcessorTest, AddressPlaceSmoke)
 
     builder.Add(city3);
     builder.Add(bld5);
+
+    builder.Add(village2);
+    builder.Add(bld6);
+    builder.Add(bld7);
   });
 
   SetViewport({-1, -1, 1, 1});
-  TEST(ResultsMatch("Баравая 36", {ExactMatch(wonderlandId, bld1)}), ());
-  TEST(ResultsMatch("Mannheim F2 4", {ExactMatch(wonderlandId, bld3)}), ());
-  TEST(ResultsMatch("Зелегонрад к2308", {ExactMatch(wonderlandId, bld5)}), ());
+
+  {
+    TEST(ResultsMatch("Баравая 36", {ExactMatch(wonderlandId, bld1)}), ());
+    TEST(ResultsMatch("Mannheim F2 4", {ExactMatch(wonderlandId, bld3)}), ());
+    TEST(ResultsMatch("Зелегонрад к2308", {ExactMatch(wonderlandId, bld5)}), ());
+  }
 
   {
     TEST(ResultsMatch("Brno Štýřice 54", {ExactMatch(wonderlandId, bld4)}), ());
@@ -245,6 +259,12 @@ UNIT_CLASS_TEST(ProcessorTest, AddressPlaceSmoke)
     // Now we don't distinguish addr:conscriptionnumber and addr:streetnumber
     TEST(ResultsMatch("Brno Štýřice 11", {ExactMatch(wonderlandId, bld4)}), ());
     TEST(ResultsMatch("Brno Gallašova 54", rules), ());
+  }
+
+  {
+    /// @todo Should also match bld7 like: Building's name _near_ Place?
+    /// Now "MatchBuildingsWithPlace" function works on exact house number match only ..
+    TEST(ResultsMatch("Пашковичи 43", {ExactMatch(wonderlandId, bld6)}), ());
   }
 }
 

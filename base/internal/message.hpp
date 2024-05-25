@@ -69,7 +69,8 @@ inline std::string DebugPrint(char const * t)
 
 inline std::string DebugPrint(char t)
 {
-  return {1, t};
+  // return {1, t} wrongly constructs "\0x1t" string.
+  return std::string(1, t);
 }
 
 namespace internal
@@ -100,9 +101,7 @@ inline std::string DebugPrint(std::u32string_view utf32)
 
 inline std::string DebugPrint(char32_t t)
 {
-  std::ostringstream out;
-  out << std::hex << static_cast<uint32_t>(t);
-  return out.str();
+  return internal::ToUtf8(std::u32string_view{&t, 1});
 }
 
 inline std::string DebugPrint(std::chrono::time_point<std::chrono::system_clock> const & ts)

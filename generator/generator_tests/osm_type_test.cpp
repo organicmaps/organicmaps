@@ -772,7 +772,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
     auto const params = GetFeatureBuilderParams(tags);
 
     TEST_EQUAL(params.m_types.size(), 3, (params));
-    TEST(params.IsTypeExist(GetType({"highway", "path", "bicycle"})), (params));
+    TEST(params.IsTypeExist(GetType({"highway", "path"})), (params));
     TEST(params.IsTypeExist(GetType({"hwtag", "yesfoot"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), ());
   }
@@ -938,7 +938,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Surface)
     auto const params = GetFeatureBuilderParams(tags);
 
     TEST_EQUAL(params.m_types.size(), 2, (params));
-    TEST(params.IsTypeExist(GetType({"highway", "track", "grade1"})), (params));
+    TEST(params.IsTypeExist(GetType({"highway", "track"})), (params));
     TEST(params.IsTypeExist(GetType({"psurface", "paved_bad"})), (params));
   }
 }
@@ -2148,7 +2148,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     // {"highway", "traffic_signals"},
     // {"historic", "battlefield"},
     // {"landuse", "brownfield"},
-    // {"landuse", "farm"},
     // {"landuse", "farmyard"},
     // {"landuse", "greenfield"},
     // {"landuse", "greenhouse_horticulture"},
@@ -2712,7 +2711,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"waterway", "drain"},
     {"waterway", "lock_gate"},
     {"waterway", "river"},
-    {"waterway", "riverbank"},
     {"waterway", "stream"},
     {"waterway", "waterfall"},
     {"waterway", "weir"},
@@ -2817,14 +2815,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     {{"highway", "busway", "tunnel"}, {{"highway", "busway"}, {"tunnel", "any_value"}}},
     {{"highway", "cycleway", "bridge"}, {{"highway", "cycleway"}, {"bridge", "any_value"}}},
     {{"highway", "cycleway", "tunnel"}, {{"highway", "cycleway"}, {"tunnel", "any_value"}}},
-    {{"highway", "footway", "alpine_hiking"}, {{"highway", "footway"}, {"sac_scale", "alpine_hiking"}}},
     {{"highway", "footway", "area"}, {{"highway", "footway"}, {"area", "any_value"}}},
     {{"highway", "footway", "bridge"}, {{"highway", "footway"}, {"bridge", "any_value"}}},
-    {{"highway", "footway", "demanding_alpine_hiking"}, {{"highway", "footway"}, {"sac_scale", "demanding_alpine_hiking"}}},
-    {{"highway", "footway", "demanding_mountain_hiking"}, {{"highway", "footway"}, {"sac_scale", "demanding_mountain_hiking"}}},
-    {{"highway", "footway", "difficult_alpine_hiking"}, {{"highway", "footway"}, {"sac_scale", "difficult_alpine_hiking"}}},
-    {{"highway", "footway", "hiking"}, {{"highway", "footway"}, {"sac_scale", "hiking"}}},
-    {{"highway", "footway", "mountain_hiking"}, {{"highway", "footway"}, {"sac_scale", "mountain_hiking"}}},
     {{"highway", "footway"}, {{"highway", "footway"}, {"footway", "unsupported_value"}}},
     {{"highway", "footway", "sidewalk"}, {{"highway", "footway"}, {"footway", "sidewalk"}}},
     {{"highway", "footway", "crossing"}, {{"highway", "footway"}, {"footway", "crossing"}}},
@@ -2836,16 +2828,11 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     {{"highway", "motorway", "tunnel"}, {{"highway", "motorway"}, {"tunnel", "any_value"}}},
     {{"highway", "motorway_link", "bridge"}, {{"highway", "motorway_link"}, {"bridge", "any_value"}}},
     {{"highway", "motorway_link", "tunnel"}, {{"highway", "motorway_link"}, {"tunnel", "any_value"}}},
-    {{"highway", "path", "alpine_hiking"}, {{"highway", "path"}, {"sac_scale", "alpine_hiking"}}},
     {{"highway", "path", "bridge"}, {{"highway", "path"}, {"bridge", "any_value"}}},
-    {{"highway", "path", "demanding_alpine_hiking"}, {{"highway", "path"}, {"sac_scale", "demanding_alpine_hiking"}}},
-    {{"highway", "path", "demanding_mountain_hiking"}, {{"highway", "path"}, {"sac_scale", "demanding_mountain_hiking"}}},
-    {{"highway", "path", "difficult_alpine_hiking"}, {{"highway", "path"}, {"sac_scale", "difficult_alpine_hiking"}}},
-    {{"highway", "path", "hiking"}, {{"highway", "path"}, {"route", "hiking"}}},
-    {{"highway", "path", "hiking"}, {{"highway", "path"}, {"sac_scale", "hiking"}}},
     {{"highway", "path", "horse"}, {{"highway", "path"}, {"horse", "any_value"}}},
-    {{"highway", "path", "mountain_hiking"}, {{"highway", "path"}, {"sac_scale", "mountain_hiking"}}},
     {{"highway", "path", "tunnel"}, {{"highway", "path"}, {"tunnel", "any_value"}}},
+    {{"highway", "path", "difficult"}, {{"highway", "path"}, {"_path_grade", "difficult"}}},
+    {{"highway", "path", "expert"}, {{"highway", "path"}, {"_path_grade", "expert"}}},
     {{"highway", "pedestrian", "area"}, {{"highway", "pedestrian"}, {"area", "any_value"}}},
     {{"highway", "pedestrian", "bridge"}, {{"highway", "pedestrian"}, {"bridge", "any_value"}}},
     {{"highway", "pedestrian", "tunnel"}, {{"highway", "pedestrian"}, {"tunnel", "any_value"}}},
@@ -2875,11 +2862,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     {{"highway", "tertiary_link", "tunnel"}, {{"highway", "tertiary_link"}, {"tunnel", "any_value"}}},
     {{"highway", "track", "area"}, {{"highway", "track"}, {"area", "any_value"}}},
     {{"highway", "track", "bridge"}, {{"highway", "track"}, {"bridge", "any_value"}}},
-    {{"highway", "track", "grade1"}, {{"highway", "track"}, {"tracktype", "grade1"}}},
-    {{"highway", "track", "grade2"}, {{"highway", "track"}, {"tracktype", "grade2"}}},
-    {{"highway", "track", "grade3"}, {{"highway", "track"}, {"tracktype", "grade3"}}},
-    {{"highway", "track", "grade4"}, {{"highway", "track"}, {"tracktype", "grade4"}}},
-    {{"highway", "track", "grade5"}, {{"highway", "track"}, {"tracktype", "grade5"}}},
     {{"highway", "track", "tunnel"}, {{"highway", "track"}, {"tunnel", "any_value"}}},
     {{"highway", "trunk", "bridge"}, {{"highway", "trunk"}, {"bridge", "any_value"}}},
     {{"highway", "trunk", "tunnel"}, {{"highway", "trunk"}, {"tunnel", "any_value"}}},
@@ -3057,6 +3039,105 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
   {
     auto const params = GetFeatureBuilderParams(type.second);
     TEST_EQUAL(params.m_types.size(), 1, (type, params));
+    TEST(params.IsTypeExist(GetType(type.first)), (type, params));
+  }
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_HighwayTypesConversion)
+{
+  using Type = std::vector<std::string>;
+  std::vector<std::pair<Type, Tags>> const conversions = {
+    {{"highway", "cycleway"}, {{"highway", "path"}, {"foot", "no"}, {"bicycle", "designated"}}},
+
+    // Paved etc. paths to footways.
+    {{"highway", "footway"}, {{"highway", "path"}, {"surface", "paved"}}},
+    {{"highway", "footway"}, {{"highway", "path"}, {"surface", "paved"}, {"smoothness", "bad"}}},
+    {{"highway", "footway"}, {{"highway", "path"}, {"surface", "compacted"}, {"smoothness", "intermediate"}}},
+    {{"highway", "footway"}, {{"highway", "path"}, {"surface", "gravel"}, {"smoothness", "good"}}},
+    {{"highway", "footway", "sidewalk"}, {{"highway", "path"}, {"surface", "gravel"}, {"footway", "sidewalk"}}},
+    {{"highway", "footway"}, {{"highway", "path"}, {"smoothness", "good"}}},
+    {{"highway", "footway", "crossing"}, {{"highway", "path"}, {"footway", "crossing"}}},
+    {{"highway", "footway"}, {{"highway", "path"}, {"lit", "yes"}}},
+    {{"highway", "footway"}, {{"highway", "path"}, {"segregated", "no"}}},
+    // No conversion.
+    {{"highway", "path"}, {{"highway", "path"}, {"surface", "unpaved"}}},
+    {{"highway", "path"}, {{"highway", "path"}, {"surface", "compacted"}, {"smoothness", "bad"}}},
+    {{"highway", "path"}, {{"highway", "path"}, {"surface", "gravel"}, {"tracktype", "grade3"}}},
+    {{"highway", "path"}, {{"highway", "path"}, {"surface", "gravel"}, {"tracktype", "grade1"}, {"sac_scale", "hiking"}}},
+    {{"highway", "path"}, {{"highway", "path"}, {"smoothness", "good"}, {"tracktype", "grade3"}}},
+    {{"highway", "path"}, {{"highway", "path"}, {"tracktype", "grade3"}, {"footway", "sidewalk"}}},
+    {{"highway", "path"}, {{"highway", "path"}, {"smoothness", "intermediate"}}},
+    {{"highway", "path"}, {{"highway", "path"}, {"lit", "no"}}},
+
+    // Unpaved etc. footways to paths.
+    {{"highway", "path"}, {{"highway", "footway"}, {"surface", "unpaved"}}},
+    {{"highway", "path"}, {{"highway", "footway"}, {"surface", "unpaved"}, {"smoothness", "excellent"}}},
+    {{"highway", "path"}, {{"highway", "footway"}, {"surface", "compacted"}, {"smoothness", "bad"}}},
+    {{"highway", "path"}, {{"highway", "footway"}, {"smoothness", "bad"}}},
+    {{"highway", "path"}, {{"highway", "footway"}, {"sac_scale", "hiking"}}},
+    {{"highway", "path"}, {{"highway", "footway"}, {"trail_visibility", "good"}}},
+    {{"highway", "path"}, {{"highway", "footway"}, {"tracktype", "grade2"}, {"sac_scale", "hiking"}}},
+    // TODO(@pastk): ford=* is converted to highway=ford via replaced_tags.txt; get rid of highway=ford
+    {{"highway", "footway"}, {{"highway", "footway"}, {"ford", "stepping_stones"}}},
+    {{"highway", "path"}, {{"highway", "footway"}, {"informal", "yes"}}},
+    // No conversion.
+    {{"highway", "footway"}, {{"highway", "footway"}, {"surface", "paved"}}},
+    {{"highway", "footway"}, {{"highway", "footway"}, {"surface", "compacted"}, {"smoothness", "good"}}},
+    {{"highway", "footway"}, {{"highway", "footway"}, {"smoothness", "good"}, {"tracktype", "grade2"}}},
+    {{"highway", "footway"}, {{"highway", "footway"}, {"tracktype", "grade1"}, {"sac_scale", "hiking"}}},
+    {{"highway", "footway", "sidewalk"}, {{"highway", "footway"}, {"tracktype", "grade2"}, {"footway", "sidewalk"}}},
+    {{"highway", "footway"}, {{"highway", "footway"}, {"lit", "no"}}},
+  };
+
+  for (auto const & type : conversions)
+  {
+    auto const params = GetFeatureBuilderParams(type.second);
+    TEST(params.IsTypeExist(GetType(type.first)), (type, params));
+  }
+
+  std::vector<std::pair<std::vector<Type>, Tags>> const complexConversions = {
+    // Add an explicit footway to a segregated cycleway.
+    {{{"highway", "cycleway"}, {"highway", "footway"}}, {{"highway", "cycleway"}, {"segregated", "yes"}}},
+    {{{"highway", "cycleway"}, {"highway", "footway"}, {"hwtag", "yesfoot"}}, {{"highway", "cycleway"}, {"sidewalk", "right"}}},
+
+    // Segregated path becomes cycleway + footway.
+    {{{"highway", "cycleway"}, {"highway", "footway"}}, {{"highway", "path"}, {"segregated", "yes"}}},
+    
+    // A non-segregated cycleway becomes shared path/footway + bicycle=designated.
+    {{{"highway", "footway", "bicycle"}, {"hwtag", "yesbicycle"}}, {{"highway", "cycleway"}, {"segregated", "no"}, {"foot", "designated"}}},
+    {{{"highway", "path", "bicycle"}, {"hwtag", "yesbicycle"}, {"hwtag", "yesfoot"}, {"psurface", "unpaved_good"}}, {{"highway", "cycleway"}, {"foot", "yes"}, {"surface", "unpaved"}}},
+  };
+
+  for (auto const & type : complexConversions)
+  {
+    auto const & results = type.first;
+    auto const params = GetFeatureBuilderParams(type.second);
+    TEST_EQUAL(params.m_types.size(), results.size(), (type, params));
+    for (auto const & result : results)
+    {
+      TEST(params.IsTypeExist(GetType(result)), (type, params));
+    }
+  }
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_PathGrades)
+{
+  using Type = std::vector<std::string>;
+  std::vector<std::pair<Type, Tags>> const conversions = {
+    {{"highway", "path"}, {{"highway", "path"}, {"sac_scale", "mountain_hiking"}, {"trail_visibility", "intermediate"}}},
+    {{"highway", "path"}, {{"highway", "path"}, {"sac_scale", "unsupported_value"}, {"trail_visibility", "unsupported_value"}}},
+
+    {{"highway", "path", "difficult"}, {{"highway", "path"}, {"sac_scale", "demanding_mountain_hiking"}, {"trail_visibility", "excellent"}}},
+    {{"highway", "path", "difficult"}, {{"highway", "path"}, {"trail_visibility", "bad"}}},    
+
+    {{"highway", "path", "expert"}, {{"highway", "path"}, {"sac_scale", "alpine_hiking"}}},
+    {{"highway", "path", "expert"}, {{"highway", "path"}, {"trail_visibility", "horrible"}}},
+    {{"highway", "path", "expert"}, {{"highway", "path"}, {"sac_scale", "difficult_alpine_hiking"}, {"trail_visibility", "no"}}},
+  };
+
+  for (auto const & type : conversions)
+  {
+    auto const params = GetFeatureBuilderParams(type.second);
     TEST(params.IsTypeExist(GetType(type.first)), (type, params));
   }
 }

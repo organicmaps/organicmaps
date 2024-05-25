@@ -20,9 +20,4 @@ public class Language
     this.code = code;
     this.name = name;
   }
-
-  public boolean isDefaultLang()
-  {
-    return code.equals(DEFAULT_LANG_CODE);
-  }
 }

@@ -2,6 +2,8 @@
 
 #include "indexer/search_string_utils.hpp"
 
+#include "base/stl_helpers.hpp"
+
 namespace search
 {
 

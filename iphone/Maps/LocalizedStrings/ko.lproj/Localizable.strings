@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "음성 지침";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "\"거리 이름 발표\"";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "\"사용하도록 설정하면 회전할 거리 또는 출구의 이름을 소리내어 말합니다.\"";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "음성 언어";
 
@@ -704,6 +710,9 @@
 "editor_add_place_title" = "첨가 중";
 
 "editor_edit_place_name_hint" = "장소 이름";
+
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "현지 언어로 작성되었으므로";
 
 "editor_edit_place_category_title" = "범주";
 
@@ -1258,6 +1267,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Ko:OpenStreetMap_소개";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "이제 휴대폰 화면에서 유기적 지도를 사용하고 있습니다";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "이제 자동차 화면에서 유기적 지도를 사용하고 있습니다";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "전화기에서 계속";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "차량 화면으로 이동";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "하이킹";
 
@@ -1269,6 +1290,11 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "지도";
+
+"drive_through" = "드라이브 스루";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "메뉴 링크";
 
 
 /********** Types **********/
@@ -1321,7 +1347,7 @@
 
 "type.amenity.bar" = "바";
 
-"type.amenity.bbq" = "소풍 사이트";
+"type.amenity.bbq" = "바비큐 그릴";
 
 "type.amenity.bench" = "벤치";
 
@@ -2036,22 +2062,10 @@
 
 "type.highway.footway.crossing" = "횡단보도";
 
-"type.highway.footway.alpine_hiking" = "길";
-
 "type.highway.footway.area" = "길";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "다리";
-
-"type.highway.footway.demanding_alpine_hiking" = "길";
-
-"type.highway.footway.demanding_mountain_hiking" = "길";
-
-"type.highway.footway.difficult_alpine_hiking" = "길";
-
-"type.highway.footway.hiking" = "길";
-
-"type.highway.footway.mountain_hiking" = "길";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "터널";
@@ -2086,26 +2100,20 @@
 
 "type.highway.path" = "길";
 
-"type.highway.path.alpine_hiking" = "길";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "길";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "길";
 
 "type.highway.path.bicycle" = "길";
+
+"type.highway.footway.bicycle" = "길";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "다리";
 
-"type.highway.path.demanding_alpine_hiking" = "길";
-
-"type.highway.path.demanding_mountain_hiking" = "길";
-
-"type.highway.path.difficult_alpine_hiking" = "길";
-
-"type.highway.path.hiking" = "길";
-
 "type.highway.path.horse" = "길";
-
-"type.highway.path.mountain_hiking" = "길";
-
-"type.highway.path.permissive" = "길";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "터널";
@@ -2228,17 +2236,7 @@
 
 "type.highway.track.grade1" = "거리";
 
-"type.highway.track.grade2" = "거리";
-
-"type.highway.track.grade3" = "거리";
-
-"type.highway.track.grade4" = "거리";
-
-"type.highway.track.grade5" = "거리";
-
 "type.highway.track.no.access" = "거리";
-
-"type.highway.track.permissive" = "거리";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "터널";
@@ -2447,8 +2445,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "농지";
 
@@ -3737,7 +3733,7 @@
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "마운틴 롯지";
 
-"type.tourism.apartment" = "아파트";
+"type.tourism.apartment" = "홀리데이 아파트";
 
 "type.tourism.artwork" = "작품";
 
@@ -3836,8 +3832,6 @@
 "type.waterway.river" = "강";
 
 "type.waterway.river.tunnel" = "강";
-
-"type.waterway.riverbank" = "강";
 
 "type.waterway.stream" = "강";
 

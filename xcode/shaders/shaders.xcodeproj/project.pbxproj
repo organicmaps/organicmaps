@@ -97,7 +97,6 @@
 		4566609C20E256480085E8C1 /* arrow3d_shadow.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = arrow3d_shadow.vsh.glsl; path = ../GL/arrow3d_shadow.vsh.glsl; sourceTree = "<group>"; };
 		4566609D20E256480085E8C1 /* arrow3d.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = arrow3d.fsh.glsl; path = ../GL/arrow3d.fsh.glsl; sourceTree = "<group>"; };
 		4566609E20E256480085E8C1 /* ruler.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ruler.vsh.glsl; path = ../GL/ruler.vsh.glsl; sourceTree = "<group>"; };
-		4566609F20E256490085E8C1 /* text_fixed.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = text_fixed.fsh.glsl; path = ../GL/text_fixed.fsh.glsl; sourceTree = "<group>"; };
 		456660A020E256490085E8C1 /* transit_marker.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = transit_marker.vsh.glsl; path = ../GL/transit_marker.vsh.glsl; sourceTree = "<group>"; };
 		456660A120E256490085E8C1 /* position_accuracy3d.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = position_accuracy3d.vsh.glsl; path = ../GL/position_accuracy3d.vsh.glsl; sourceTree = "<group>"; };
 		456660A220E256490085E8C1 /* solid_color.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = solid_color.fsh.glsl; path = ../GL/solid_color.fsh.glsl; sourceTree = "<group>"; };
@@ -321,7 +320,6 @@
 				456660BD20E2564E0085E8C1 /* smaa_final.vsh.glsl */,
 				456660A220E256490085E8C1 /* solid_color.fsh.glsl */,
 				4566609420E256470085E8C1 /* text_billboard.vsh.glsl */,
-				4566609F20E256490085E8C1 /* text_fixed.fsh.glsl */,
 				456660C920E256510085E8C1 /* text_outlined_billboard.vsh.glsl */,
 				456660CA20E256510085E8C1 /* text_outlined_gui.vsh.glsl */,
 				456660B320E2564C0085E8C1 /* text_outlined.vsh.glsl */,
@@ -572,7 +570,6 @@
 				"${SRCROOT}/../../shaders/GL/text.fsh.glsl",
 				"${SRCROOT}/../../shaders/GL/text.vsh.glsl",
 				"${SRCROOT}/../../shaders/GL/text_billboard.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/text_fixed.fsh.glsl",
 				"${SRCROOT}/../../shaders/GL/text_outlined.vsh.glsl",
 				"${SRCROOT}/../../shaders/GL/text_outlined_billboard.vsh.glsl",
 				"${SRCROOT}/../../shaders/GL/text_outlined_gui.vsh.glsl",

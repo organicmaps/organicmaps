@@ -2,7 +2,7 @@
 2.NATURAL
 3.TRANSPORT
   3.1 Train Station
-  3.2 Subway Station (Moved to /clear/Subways.mapcss)
+  3.2 Subway Station (Moved to /default/include/Subways.mapcss)
   3.3 Tram Station
   3.4 Bus Station
   3.5 Ferry terminal

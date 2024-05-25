@@ -288,7 +288,7 @@ public class Framework
   // an array with one string "Make a right turn.". The next call of the method returns nothing.
   // nativeGenerateTurnNotifications shall be called by the client when a new position is available.
   @Nullable
-  public static native String[] nativeGenerateNotifications();
+  public static native String[] nativeGenerateNotifications(boolean announceStreets);
 
   private static native void nativeSetSpeedCamManagerMode(int mode);
 

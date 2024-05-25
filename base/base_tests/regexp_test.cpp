@@ -1,9 +1,18 @@
 #include "testing/testing.hpp"
 
 #include "base/stl_helpers.hpp"
-#include "base/string_utils.hpp"
 
 #include <regex>
+
+
+namespace regexp_test
+{
+template <typename Fn>
+void ForEachMatched(std::string const & s, std::regex const & regex, Fn && fn)
+{
+  for (std::sregex_token_iterator cur(s.begin(), s.end(), regex), end; cur != end; ++cur)
+    fn(*cur);
+}
 
 UNIT_TEST(RegExp_Or)
 {
@@ -29,7 +38,7 @@ UNIT_TEST(RegExp_ForEachMatched)
   {
     std::string const s = "6.66, 9.99";
     std::vector<std::string> v;
-    strings::ForEachMatched(s, exp, base::MakeBackInsertFunctor(v));
+    ForEachMatched(s, exp, base::MakeBackInsertFunctor(v));
     TEST_EQUAL(v.size(), 1, ());
     TEST_EQUAL(v[0], s, ());
   }
@@ -38,7 +47,7 @@ UNIT_TEST(RegExp_ForEachMatched)
     std::string const s1 = "6.66, 9.99";
     std::string const s2 = "-5.55, -7.77";
     std::vector<std::string> v;
-    strings::ForEachMatched(s1 + " 180 , bfuewib 365@" + s2, exp, base::MakeBackInsertFunctor(v));
+    ForEachMatched(s1 + " 180 , bfuewib 365@" + s2, exp, base::MakeBackInsertFunctor(v));
     TEST_EQUAL(v.size(), 2, ());
     TEST_EQUAL(v[0], s1, ());
     TEST_EQUAL(v[1], s2, ());
@@ -47,7 +56,7 @@ UNIT_TEST(RegExp_ForEachMatched)
   {
     std::string const s = "X6.66, 9.99";
     std::vector<std::string> v;
-    strings::ForEachMatched(s, exp, base::MakeBackInsertFunctor(v));
+    ForEachMatched(s, exp, base::MakeBackInsertFunctor(v));
     TEST_EQUAL(v.size(), 1, ());
     TEST_EQUAL(v[0], std::string(s.begin() + 1, s.end()), ());
   }
@@ -55,7 +64,7 @@ UNIT_TEST(RegExp_ForEachMatched)
   {
     std::string const s = "6.66, 9.99X";
     std::vector<std::string> v;
-    strings::ForEachMatched(s, exp, base::MakeBackInsertFunctor(v));
+    ForEachMatched(s, exp, base::MakeBackInsertFunctor(v));
     TEST_EQUAL(v.size(), 1, ());
     TEST_EQUAL(v[0], std::string(s.begin(), s.end() - 1), ());
   }
@@ -63,14 +72,16 @@ UNIT_TEST(RegExp_ForEachMatched)
   {
     std::string const s = "6.66X, 9.99";
     std::vector<std::string> v;
-    strings::ForEachMatched(s, exp, base::MakeBackInsertFunctor(v));
+    ForEachMatched(s, exp, base::MakeBackInsertFunctor(v));
     TEST_EQUAL(v.size(), 0, ());
   }
 
   {
     std::string const s = "6.66, X9.99";
     std::vector<std::string> v;
-    strings::ForEachMatched(s, exp, base::MakeBackInsertFunctor(v));
+    ForEachMatched(s, exp, base::MakeBackInsertFunctor(v));
     TEST_EQUAL(v.size(), 0, ());
   }
 }
+
+} // namespace regexp_test

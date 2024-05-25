@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "語音指示";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "宣布街道名稱";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "啟用後，將大聲說出要轉入的街道或出口的名稱。";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "語音語言";
 
@@ -704,6 +710,9 @@
 "editor_add_place_title" = "新增中";
 
 "editor_edit_place_name_hint" = "該地點的名稱";
+
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "因為它是用當地語言寫的";
 
 "editor_edit_place_category_title" = "類別";
 
@@ -1258,6 +1267,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "您現在正在手機螢幕上使用有機地圖";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "您現在正在汽車螢幕上使用有機地圖";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "繼續打電話";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "到車用螢幕";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "遠足";
 
@@ -1269,6 +1290,11 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "地圖";
+
+"drive_through" = "免下車服務";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "選單連結";
 
 
 /********** Types **********/
@@ -1321,7 +1347,7 @@
 
 "type.amenity.bar" = "酒吧";
 
-"type.amenity.bbq" = "野餐";
+"type.amenity.bbq" = "烤肉架";
 
 "type.amenity.bench" = "長板凳";
 
@@ -2036,22 +2062,10 @@
 
 "type.highway.footway.crossing" = "行人穿越道";
 
-"type.highway.footway.alpine_hiking" = "人行步道";
-
 "type.highway.footway.area" = "人行步道";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "橋";
-
-"type.highway.footway.demanding_alpine_hiking" = "人行步道";
-
-"type.highway.footway.demanding_mountain_hiking" = "人行步道";
-
-"type.highway.footway.difficult_alpine_hiking" = "人行步道";
-
-"type.highway.footway.hiking" = "人行步道";
-
-"type.highway.footway.mountain_hiking" = "人行步道";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "隧道";
@@ -2086,26 +2100,20 @@
 
 "type.highway.path" = "人行步道";
 
-"type.highway.path.alpine_hiking" = "人行步道";
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "人行步道";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "人行步道";
 
 "type.highway.path.bicycle" = "人行步道";
+
+"type.highway.footway.bicycle" = "人行步道";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "橋";
 
-"type.highway.path.demanding_alpine_hiking" = "人行步道";
-
-"type.highway.path.demanding_mountain_hiking" = "人行步道";
-
-"type.highway.path.difficult_alpine_hiking" = "人行步道";
-
-"type.highway.path.hiking" = "人行步道";
-
 "type.highway.path.horse" = "人行步道";
-
-"type.highway.path.mountain_hiking" = "人行步道";
-
-"type.highway.path.permissive" = "人行步道";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "隧道";
@@ -2228,17 +2236,7 @@
 
 "type.highway.track.grade1" = "土路";
 
-"type.highway.track.grade2" = "土路";
-
-"type.highway.track.grade3" = "土路";
-
-"type.highway.track.grade4" = "土路";
-
-"type.highway.track.grade5" = "土路";
-
 "type.highway.track.no.access" = "土路";
-
-"type.highway.track.permissive" = "土路";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "隧道";
@@ -2447,8 +2445,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "農業用地";
 
@@ -3737,7 +3733,7 @@
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "山間小屋";
 
-"type.tourism.apartment" = "公寓";
+"type.tourism.apartment" = "假日公寓";
 
 "type.tourism.artwork" = "藝術品";
 
@@ -3836,8 +3832,6 @@
 "type.waterway.river" = "河流";
 
 "type.waterway.river.tunnel" = "河流";
-
-"type.waterway.riverbank" = "河流";
 
 "type.waterway.stream" = "溪";
 

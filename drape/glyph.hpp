@@ -34,9 +34,6 @@ struct GlyphImage
   uint32_t m_width;
   uint32_t m_height;
 
-  uint32_t m_bitmapRows;
-  int m_bitmapPitch;
-
   SharedBufferManager::shared_buffer_ptr_t m_data;
 };
 
@@ -46,7 +43,6 @@ struct Glyph
   GlyphImage m_image;
   int m_fontIndex;
   strings::UniChar m_code;
-  int m_fixedSize;
 };
 }  // namespace dp
 

@@ -218,6 +218,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">สิ่งปลูกสร้าง 3 มิติจะปิดในโหมดประหยัดพลังงาน</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">คำแนะนำด้วยเสียง</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">ประกาศชื่อถนน</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">เมื่อเปิดใช้งาน ชื่อของถนนหรือทางออกที่จะเลี้ยวจะถูกพูดออกมาดัง ๆ</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">ภาษาสำหรับเสียง</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -453,6 +457,8 @@
 	<string name="editor_edit_place_title">กำลังแก้ไข</string>
 	<string name="editor_add_place_title">กำลังเพิ่ม</string>
 	<string name="editor_edit_place_name_hint">ชื่อสถานที่</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">ตามที่เขียนเป็นภาษาท้องถิ่น</string>
 	<string name="editor_edit_place_category_title">หมวดหมู่</string>
 	<string name="detailed_problem_description">คำอธิบายปัญหาอย่างละเอียด</string>
 	<string name="editor_report_problem_other_title">ปัญหาอีกอย่างหนึ่ง</string>
@@ -478,6 +484,8 @@
 	<string name="editor_detailed_description">คำแนะนำการเปลี่ยนแปลงของคุณจะถูกส่งไปยังกลุ่ม OpenStreetMap โปรดอธิบายรายละเอียดที่ Organic Maps ไม่สามารถแก้ไขได้</string>
 	<string name="editor_more_about_osm">ข้อมูลเพิ่มเติมเกี่ยวกับ OpenStreetMap</string>
 	<string name="editor_operator">เจ้าของ</string>
+	<string name="editor_category_unsuitable_title">ไม่พบหมวดหมู่ที่เหมาะสมใช่ไหม?</string>
+	<string name="editor_category_unsuitable_text">แผนที่ทั่วไปอนุญาตให้เพิ่มหมวดหมู่จุดธรรมดาเท่านั้น ซึ่งหมายความว่าไม่มีเมือง ถนน ทะเลสาบ โครงร่างอาคาร ฯลฯ โปรดเพิ่มหมวดหมู่ดังกล่าวลงใน <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. ดู<a href="https://organicmaps.app/faq/editing/advanced-map-editing">คำแนะนำ</a> ของเราเพื่อดูคำแนะนำโดยละเอียดทีละขั้นตอน</string>
 	<string name="downloader_no_downloaded_maps_title">คุณยังไม่ได้ดาวน์โหลดแผนที่</string>
 	<string name="downloader_no_downloaded_maps_message">ดาวน์โหลดแผนที่เพื่อค้นหาสถานที่ และนำทางแบบออฟไลน์</string>
 	<!-- abbreviation for meters -->
@@ -727,16 +735,16 @@
 	<string name="app_tip_08">คุณสามารถแก้ไขและปรับปรุงข้อมูลแผนที่ได้อย่างง่ายดาย</string>
 	<!-- App tip #09 -->
 	<string name="app_tip_09">เป้าหมายหลักของเราคือการสร้างแผนที่ที่รวดเร็ว เน้นความเป็นส่วนตัว และใช้งานง่ายที่คุณจะหลงรัก</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">ขณะนี้คุณกำลังใช้แผนที่ทั่วไปบนหน้าจอโทรศัพท์</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">ขณะนี้คุณกำลังใช้แผนที่ทั่วไปบนหน้าจอโทรศัพท์</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">ขณะนี้คุณกำลังใช้แผนที่ทั่วไปบนหน้าจอรถยนต์</string>
+	<string name="car_used_on_the_car_screen">ขณะนี้คุณกำลังใช้แผนที่ทั่วไปบนหน้าจอรถยนต์</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">คุณเชื่อมต่อกับ Android Auto แล้ว</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">ดำเนินการต่อบนโทรศัพท์</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">ไปที่หน้าจอรถ</string>
+	<string name="car_continue_on_the_phone">ดำเนินการต่อบนโทรศัพท์</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">ไปที่หน้าจอรถ</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">แอปพลิเคชันนี้ต้องการการเข้าถึงตำแหน่งของคุณเพื่อจุดประสงค์ในการนำทาง</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -754,6 +762,15 @@
 	<string name="pref_tts_open_system_settings">การตั้งค่าการสังเคราะห์เสียงพูดของระบบ</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">ไม่พบการตั้งค่าการสังเคราะห์เสียง คุณแน่ใจหรือไม่ว่าอุปกรณ์ของคุณรองรับ</string>
+	<string name="drive_through">ขับรถผ่าน</string>
+	<string name="clear_the_search">ล้างการค้นหา</string>
+	<string name="zoom_in">ขยายเข้า</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">ซูมออก</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">ลิงค์เมนู</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">ดูเมนู</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">ที่อยู่/บล็อค</string>
@@ -768,7 +785,7 @@
 	<string name="type.amenity.atm">เอทีเอ็ม</string>
 	<string name="type.amenity.bank">ธนาคาร</string>
 	<string name="type.amenity.bar">บาร์</string>
-	<string name="type.amenity.bbq">เว็บไซต์ปิกนิก</string>
+	<string name="type.amenity.bbq">เตาย่างบาร์บีคิว</string>
 	<string name="type.amenity.bench">ม้านั่ง</string>
 	<string name="type.amenity.bicycle_parking">ที่จอดจักรยาน</string>
 	<string name="type.amenity.bicycle_rental">จักรยานให้เช่า</string>
@@ -1091,15 +1108,9 @@
 	<string name="type.highway.footway">เส้นทาง</string>
 	<string name="type.highway.footway.sidewalk">ทางเท้า</string>
 	<string name="type.highway.footway.crossing">ทางม้าลาย</string>
-	<string name="type.highway.footway.alpine_hiking">เส้นทาง</string>
 	<string name="type.highway.footway.area">เส้นทาง</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">สะพาน</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">เส้นทาง</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">เส้นทาง</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">เส้นทาง</string>
-	<string name="type.highway.footway.hiking">เส้นทาง</string>
-	<string name="type.highway.footway.mountain_hiking">เส้นทาง</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">อุโมงค์</string>
 	<string name="type.highway.ford">ที่ตื้นของทางน้ำ</string>
@@ -1120,17 +1131,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">อุโมงค์</string>
 	<string name="type.highway.path">เส้นทาง</string>
-	<string name="type.highway.path.alpine_hiking">เส้นทาง</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">เส้นทาง</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">เส้นทาง</string>
 	<string name="type.highway.path.bicycle">เส้นทาง</string>
+	<string name="type.highway.footway.bicycle">เส้นทาง</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">สะพาน</string>
-	<string name="type.highway.path.demanding_alpine_hiking">เส้นทาง</string>
-	<string name="type.highway.path.demanding_mountain_hiking">เส้นทาง</string>
-	<string name="type.highway.path.difficult_alpine_hiking">เส้นทาง</string>
-	<string name="type.highway.path.hiking">เส้นทาง</string>
 	<string name="type.highway.path.horse">เส้นทาง</string>
-	<string name="type.highway.path.mountain_hiking">เส้นทาง</string>
-	<string name="type.highway.path.permissive">เส้นทาง</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">อุโมงค์</string>
 	<string name="type.highway.pedestrian">ถนน</string>
@@ -1203,12 +1212,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">สะพาน</string>
 	<string name="type.highway.track.grade1">ถนน</string>
-	<string name="type.highway.track.grade2">ถนน</string>
-	<string name="type.highway.track.grade3">ถนน</string>
-	<string name="type.highway.track.grade4">ถนน</string>
-	<string name="type.highway.track.grade5">ถนน</string>
 	<string name="type.highway.track.no.access">ถนน</string>
-	<string name="type.highway.track.permissive">ถนน</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">อุโมงค์</string>
 	<string name="type.highway.traffic_signals">สัญญาณไฟจราจร</string>
@@ -1845,7 +1849,7 @@
 	<string name="type.tourism.aquarium">พิพิธภัณฑ์สัตว์น้ำ</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">บ้านพักบนภูเขา</string>
-	<string name="type.tourism.apartment">อพาร์ตเมนต์</string>
+	<string name="type.tourism.apartment">ฮอลิเดย์ อพาร์ตเมนต์</string>
 	<string name="type.tourism.artwork">งานศิลปะ</string>
 	<string name="type.tourism.artwork.architecture">งานศิลปะ</string>
 	<string name="type.tourism.artwork.painting">งานศิลปะ</string>
@@ -1887,7 +1891,6 @@
 	<string name="type.waterway.lock_gate">ประตูระบายน้ำ</string>
 	<string name="type.waterway.river">แม่น้ำ</string>
 	<string name="type.waterway.river.tunnel">แม่น้ำ</string>
-	<string name="type.waterway.riverbank">แม่น้ำ</string>
 	<string name="type.waterway.stream">แม่น้ำ</string>
 	<string name="type.waterway.stream.ephemeral">แม่น้ำ</string>
 	<string name="type.waterway.stream.intermittent">แม่น้ำ</string>

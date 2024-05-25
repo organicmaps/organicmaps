@@ -117,7 +117,7 @@ public:
       // Our goal here - to make some capitals visible in World map.
       // The simplest way is to upgrade population to 45000,
       // according to our visibility rules in mapcss files.
-      element.UpdateTag("population", [] (std::string & v)
+      element.UpdateTagFn("population", [] (std::string & v)
       {
         uint64_t n;
         if (!strings::to_uint64(v, n) || n < 45000)
@@ -215,7 +215,7 @@ public:
       for (auto const & tag : r->m_tags)
       {
         if (r->m_update)
-          element.UpdateTag(tag.m_key, [&tag](std::string & value) { value = tag.m_value; });
+          element.UpdateTag(tag.m_key, tag.m_value);
         else
           element.AddTag(tag);
       }
@@ -285,7 +285,7 @@ public:
     if (elements != m_elements.end())
     {
       for (OsmElement::Tag const & tag : elements->second)
-        element.UpdateTag(tag.m_key, [&tag](std::string & v) { v = tag.m_value; });
+        element.UpdateTag(tag.m_key, tag.m_value);
     }
   }
 

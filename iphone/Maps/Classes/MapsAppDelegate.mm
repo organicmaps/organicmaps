@@ -79,10 +79,6 @@ using namespace osm_auth_ios;
   return self.mapViewController.mapView.drapeEngineCreated;
 }
 
-- (BOOL)isGraphicContextInitialized {
-  return self.mapViewController.mapView.graphicContextInitialized;
-}
-
 - (void)searchText:(NSString *)searchString {
   if (!self.isDrapeEngineCreated) {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -417,48 +413,12 @@ using namespace osm_auth_ios;
   didConnectCarInterfaceController:(CPInterfaceController *)interfaceController
            toWindow:(CPWindow *)window API_AVAILABLE(ios(12.0)) {
   [self.carplayService setupWithWindow:window interfaceController:interfaceController];
-  [self updateAppearanceFromWindow:self.window toWindow:window isCarplayActivated:YES];
 }
 
 - (void)application:(UIApplication *)application
   didDisconnectCarInterfaceController:(CPInterfaceController *)interfaceController
                            fromWindow:(CPWindow *)window API_AVAILABLE(ios(12.0)) {
   [self.carplayService destroy];
-  [self updateAppearanceFromWindow:window toWindow:self.window isCarplayActivated:NO];
-}
-
-- (void)updateAppearanceFromWindow:(UIWindow *)sourceWindow
-                          toWindow:(UIWindow *)destinationWindow
-                isCarplayActivated:(BOOL)isCarplayActivated {
-  CGFloat sourceContentScale = sourceWindow.screen.scale;
-  CGFloat destinationContentScale = destinationWindow.screen.scale;
-  if (ABS(sourceContentScale - destinationContentScale) > 0.1) {
-    if (isCarplayActivated) {
-      [self updateVisualScale:destinationContentScale];
-    } else {
-      [self updateVisualScaleToMain];
-    }
-  }
-}
-
-- (void)updateVisualScale:(CGFloat)scale {
-  if ([self isGraphicContextInitialized]) {
-    [self.mapViewController.mapView updateVisualScaleTo:scale];
-  } else {
-    dispatch_async(dispatch_get_main_queue(), ^{
-      [self updateVisualScale:scale];
-    });
-  }
-}
-
-- (void)updateVisualScaleToMain {
-  if ([self isGraphicContextInitialized]) {
-    [self.mapViewController.mapView updateVisualScaleToMain];
-  } else {
-    dispatch_async(dispatch_get_main_queue(), ^{
-      [self updateVisualScaleToMain];
-    });
-  }
 }
 
 @end

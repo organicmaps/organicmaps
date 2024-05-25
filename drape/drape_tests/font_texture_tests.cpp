@@ -12,8 +12,6 @@
 #include "drape/font_texture.hpp"
 #include "drape/glyph_manager.hpp"
 
-#include "std/target_os.hpp"
-
 #include <functional>
 
 #include <QtCore/QPoint>
@@ -64,9 +62,8 @@ private:
 class DummyGlyphIndex : public GlyphIndex
 {
 public:
-  DummyGlyphIndex(m2::PointU size, ref_ptr<GlyphManager> mng,
-                  ref_ptr<GlyphGenerator> glyphGenerator)
-    : GlyphIndex(size, mng, glyphGenerator)
+  DummyGlyphIndex(m2::PointU size, ref_ptr<GlyphManager> mng)
+    : GlyphIndex(size, mng)
   {}
   ref_ptr<Texture::ResourceInfo> MapResource(GlyphKey const & key)
   {
@@ -78,8 +75,7 @@ public:
 
 UNIT_TEST(UploadingGlyphs)
 {
-// This unit test creates window so can't be run in GUI-less Linux machine.
-#ifndef OMIM_OS_LINUX
+  // Set QT_QPA_PLATFORM=offscreen env var to avoid running GUI on Linux
   DrapeRoutine::Init();
   EXPECTGL(glHasExtension(_)).Times(AnyNumber());
   EXPECTGL(glBindTexture(_)).Times(AnyNumber());
@@ -96,14 +92,12 @@ UNIT_TEST(UploadingGlyphs)
   GetPlatform().GetFontNames(args.m_fonts);
 
   uint32_t constexpr kTextureSize = 1024;
-  GlyphGenerator glyphGenerator(4);
   GlyphManager mng(args);
-  DummyGlyphIndex index(m2::PointU(kTextureSize, kTextureSize), make_ref(&mng), make_ref(&glyphGenerator));
+  DummyGlyphIndex index(m2::PointU(kTextureSize, kTextureSize), make_ref(&mng));
   size_t count = 1;  // invalid symbol glyph has mapped internally.
-  using dp::kDynamicGlyphSize;
-  count += (index.MapResource(GlyphKey(0x58, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x59, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x61, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x58)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x59)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x61)) != nullptr) ? 1 : 0;
   while (index.GetPendingNodesCount() < count)
     ;
 
@@ -120,12 +114,12 @@ UNIT_TEST(UploadingGlyphs)
   index.UploadResources(make_ref(&context), make_ref(&tex));
 
   count = 0;
-  count += (index.MapResource(GlyphKey(0x68, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x30, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x62, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x65, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x400, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
-  count += (index.MapResource(GlyphKey(0x401, kDynamicGlyphSize)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x68)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x30)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x62)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x65)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x400)) != nullptr) ? 1 : 0;
+  count += (index.MapResource(GlyphKey(0x401)) != nullptr) ? 1 : 0;
   while (index.GetPendingNodesCount() < count)
     ;
 
@@ -135,5 +129,4 @@ UNIT_TEST(UploadingGlyphs)
 
   RunTestLoop("UploadingGlyphs", std::bind(&UploadedRender::Render, &r, _1));
   DrapeRoutine::Shutdown();
-#endif
 }

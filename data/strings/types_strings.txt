@@ -28,7 +28,7 @@
     nb = Adresse/blokk
     nl = Adres/blok
     pl = Adres/Blok
-    pt = Endereço/Bloco
+    pt = Morada/Bloco
     pt-BR = Endereço/Bloco
     ro = Adresă/Bloc
     ru = Адрес/Блок
@@ -672,42 +672,48 @@
     zh-Hant = 酒吧
 
   [type.amenity.bbq]
-    en = Picnic Site
-    af = Piekniekterrein
-    ar = مكان نزهة
-    az = Piknik sahəsi
-    cs = Piknik
-    da = Picnic
+    en = Barbecue Grill
+    af = Braai rooster
+    ar = شواية شواء
+    az = Barbekü qril
+    be = Барбекю-грыль
+    bg = Грил барбекю
+    ca = Barbacoa
+    cs = Grilování
+    da = Grill
     de = Grillplatz
-    el = Χώρος εκδρομής
-    es = Picnic
-    et = Piknikuala
-    eu = Piknika
-    fa = مکان پیک نیک
-    fi = Piknikpaikat
-    fr = Terrain de pique-nique
-    hi = बार्बीक्यू
-    hu = Piknikezőhely
-    id = Lokasi piknik
-    it = Grill pubblico
-    ja = ピクニック
-    ko = 소풍 사이트
-    mr = सहलीचे ठिकाण
-    nb = Rasteplass
-    nl = Barbecueplaats
-    pl = Pole piknikowe
-    pt = Parque de merendas
-    pt-BR = Local de piquenique
-    ro = Locații picnic
-    ru = Место для пикника
-    sk = Piknik
-    sv = Picknickplatser
-    th = เว็บไซต์ปิกนิก
-    tr = Piknik Alanı
-    uk = Пікнік
-    vi = Điểm cắm trại
-    zh-Hans = 野餐地点
-    zh-Hant = 野餐
+    el = Ψησταριά μπάρμπεκιου
+    es = Barbacoa
+    es-MX = Parrilla
+    et = Grillgrill
+    eu = Barbakoa parrilla
+    fa = منقل کباب
+    fi = Grilli
+    fr = Grille de barbecue
+    he = מנגל
+    hi = बारबेक्यू
+    hu = Kerti sütögető
+    id = Panggangan barbekyu
+    it = Griglia per barbecue
+    ja = バーベキューグリル
+    ko = 바비큐 그릴
+    lt = Grilis
+    mr = बार्बेक्यू ग्रिल
+    nb = Barbecue-grill
+    nl = Barbecue
+    pl = Grill
+    pt = Churrasqueira
+    ro = Grătar
+    ru = Барбекю-гриль
+    sk = Gril na grilovanie
+    sv = Grill för barbecue
+    sw = Grill ya barbeque
+    th = เตาย่างบาร์บีคิว
+    tr = Barbekü ızgara
+    uk = Барбекю-гриль
+    vi = Nướng thịt nướng
+    zh-Hans = 烧烤架
+    zh-Hant = 烤肉架
 
   [type.amenity.bench]
     en = Bench
@@ -11337,8 +11343,7 @@
     nb = Utgang
     nl = Ga naar
     pl = Wyjście
-    pt = Sai
-    pt-BR = Sair
+    pt = Saída
     ro = Ieșire
     ru = Выход
     sk = Východ
@@ -12208,18 +12213,6 @@
     zh-Hans = 行人过街天桥
     zh-Hant = 行人穿越道
 
-  [type.highway.footway.alpine_hiking]
-    ref = type.highway.path
-    de = Alpinwanderweg
-    es = Camino de senderismo alpino
-    et = Alpi matkarada
-    nl = Alpine wandelpad
-    pl = Ścieżka wspinaczkowa
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal
-    sk = Turistický chodník
-    zh-Hans = 步行道路
-
   [type.highway.footway.area]
     ref = type.highway.footway
     en = Pedestrian Area
@@ -12252,60 +12245,6 @@
     pt-BR = Ponte para pedestres
     ru = Пешеходный мост
     sk = Most pre chodcov
-
-  [type.highway.footway.demanding_alpine_hiking]
-    ref = type.highway.path
-    de = Anspruchsvoller Alpinwanderweg
-    et = Nõudlik alpi matkarada
-    fi = Vaativa alppivaellus
-    nl = Uitdagend alpine bergklimpad
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal difícil
-    zh-Hans = 步行道路
-
-  [type.highway.footway.demanding_mountain_hiking]
-    ref = type.highway.path
-    de = Anspruchsvoller Bergwanderweg
-    fi = Vaativa vuoristovaellus
-    nl = Uitdagend bergwandelpad
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal difícil
-    sk = Náročný horský chodník
-    zh-Hans = 步行道路
-
-  [type.highway.footway.difficult_alpine_hiking]
-    ref = type.highway.path
-    de = Schwieriger Alpinwanderweg
-    et = Nõudlik mägimatkarada
-    fi = Vaikea alppivaellus
-    nl = Moeilijk alpine bergklimpad
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal difícil
-    sk = Náročný turistický chodník
-    zh-Hans = 步行道路
-
-  [type.highway.footway.hiking]
-    ref = type.highway.path
-    de = Wanderweg
-    es = Sendero
-    fi = Vaellus
-    nl = Wandelpad
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal
-    sk = Turistický chodník
-    zh-Hans = 步行道路
-
-  [type.highway.footway.mountain_hiking]
-    ref = type.highway.path
-    de = Bergwanderweg
-    es = Sendero de montaña
-    et = Mägirada
-    fi = Vuoristovaellus
-    nl = Bergpad
-    pt = Caminho pedonal
-    pt-BR = Caminho pedonal
-    sk = Horský turistický chodník
-    zh-Hans = 步行道路
 
   [type.highway.footway.tunnel]
     ref = type.highway.road.tunnel
@@ -12577,16 +12516,17 @@
     zh-Hans = 小道
     zh-Hant = 人行步道
 
-  [type.highway.path.alpine_hiking]
+  [type.highway.path.difficult]
+    comment = Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad.
     ref = type.highway.path
-    de = Alpinwanderweg
-    es = Camino de senderismo alpino
-    et = Alpi matkarada
-    fi = Alppivaellus
-    nl = Alpine wandelpad
-    pl = Ścieżka wspinaczkowa
-    pt-BR = Caminho pedonal
-    sk = Turistický chodník
+    en = Difficult or Indistinct Trail
+    ru = Сложная или плохо видимая тропа
+
+  [type.highway.path.expert]
+    comment = Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme.
+    ref = type.highway.path
+    en = Expert or Indiscernible Trail
+    ru = Очень сложная или неразличимая тропа
 
   [type.highway.path.bicycle]
     ref = type.highway.path
@@ -12607,43 +12547,11 @@
     tr = Bisiklet ve Yürüyüş Yolu
     uk = Велопішохідна доріжка
 
+  [type.highway.footway.bicycle]
+    ref = type.highway.path.bicycle
+
   [type.highway.path.bridge]
     ref = type.highway.road.bridge
-
-  [type.highway.path.demanding_alpine_hiking]
-    ref = type.highway.path
-    de = Anspruchsvoller Alpinwanderweg
-    es = Camino de senderismo alpino exigente
-    et = Nõudlik alpi matkarada
-    fi = Vaativa alppivaellus
-    pt-BR = Caminho pedonal difícil
-    sk = Náročný turistický chodník
-
-  [type.highway.path.demanding_mountain_hiking]
-    ref = type.highway.path
-    de = Anspruchsvoller Bergwanderweg
-    es = Camino de senderismo de montaña exigente
-    et = Nõudlik mägimatkarada
-    fi = Vaativa vuoristovaellus
-    pt-BR = Caminho pedonal difícil
-    sk = Náročný horský chodník
-
-  [type.highway.path.difficult_alpine_hiking]
-    ref = type.highway.path
-    de = Schwieriger Alpinwanderweg
-    et = Raske alpi matkarada
-    fi = Vaikea alppivaellus
-    pt-BR = Caminho pedonal difícil
-    sk = Obtiažny turistický chodník
-
-  [type.highway.path.hiking]
-    ref = type.highway.path
-    de = Wanderweg
-    es = Sendero
-    fi = Vaellus
-    nl = Wandelpad
-    pt-BR = Caminho pedonal
-    sk = Turistický chodník
 
   [type.highway.path.horse]
     ref = type.highway.path
@@ -12660,19 +12568,6 @@
     sk = Cesta pre jazdca na zvierati
     tr = Atlı Yolu
     uk = Кінна стежка
-
-  [type.highway.path.mountain_hiking]
-    ref = type.highway.path
-    de = Bergwanderweg
-    es = Sendero de montaña
-    et = Mägitee
-    fi = Vuoristovaellus
-    nl = Bergpad
-    pt-BR = Caminho pedonal
-    sk = Horský turistický chodník
-
-  [type.highway.path.permissive]
-    ref = type.highway.path
 
   [type.highway.path.tunnel]
     ref = type.highway.road.tunnel
@@ -13467,22 +13362,7 @@
   [type.highway.track.grade1]
     ref = type.highway.track
 
-  [type.highway.track.grade2]
-    ref = type.highway.track
-
-  [type.highway.track.grade3]
-    ref = type.highway.track
-
-  [type.highway.track.grade4]
-    ref = type.highway.track
-
-  [type.highway.track.grade5]
-    ref = type.highway.track
-
   [type.highway.track.no.access]
-    ref = type.highway.track
-
-  [type.highway.track.permissive]
     ref = type.highway.track
 
   [type.highway.track.tunnel]
@@ -15746,28 +15626,6 @@
     ru = Образовательные учреждения
     sk = Vzdelávacia inštitúcia
     uk = Освітній заклади
-
-  [type.landuse.farm]
-    en = Farm
-    af = Plaas
-    ar = مزرعة
-    az = Ferma
-    de = Bauernhof
-    es = Granja
-    et = Talu
-    fi = Maatila
-    hi = खेत
-    ja = 農地
-    mr = शेत
-    nl = Boerderij
-    pl = Gospodarstwo rolne
-    pt = Quinta
-    pt-BR = Fazenda
-    ru = Ферма
-    sk = Statok
-    tr = Çiftlik
-    uk = Ферма
-    zh-Hans = 农田
 
   [type.landuse.farmland]
     en = Farmland
@@ -29688,38 +29546,44 @@
     af = Vakansiewoonstel
     ar = شُقَق عطلة
     az = Apart otel
-    cs = Byty
-    da = Lejligheder
+    be = Кватэра для адпачынку
+    bg = Ваканционен апартамент
+    ca = Apartament de vacances
+    cs = Prázdninový apartmán
+    da = Ferielejlighed
     de = Ferienwohnung
-    el = Διαμερίσματα
-    es = Apartamentos
-    et = Korterid
-    eu = Apartamentuak
-    fa = اپارتمان
+    el = Διαμέρισμα διακοπών
+    es = Apartamento de vacaciones
+    et = Puhkuse korter
+    eu = Oporretako apartamentua
+    fa = آپارتمان تعطیلات
     fi = Loma-asunnot
     fr = Appart'hôtel
+    he = דירת נופש
     hi = अवकाश अपार्टमेंट
-    hu = Apartmanok
-    id = Apartemen
-    it = Appartamento
-    ja = アパート
-    ko = 아파트
-    mr = सदनिका
-    nb = Leiligheter
-    nl = Appartementen
-    pl = Apartamenty
-    pt = Apartamentos
-    pt-BR = Apartamentos
-    ro = Apartamente
-    ru = Апартаменты
-    sk = Apartmány
-    sv = Lägenheter
-    th = อพาร์ตเมนต์
-    tr = Apart Otel
-    uk = Апартаменти
-    vi = Căn hộ
-    zh-Hans = 公寓
-    zh-Hant = 公寓
+    hu = Nyaraló apartman
+    id = Apartemen Liburan
+    it = Appartamento vacanze
+    ja = ホリデー・アパート
+    ko = 홀리데이 아파트
+    lt = Atostogoms nuomojami butai
+    mr = हॉलिडे अपार्टमेंट
+    nb = Ferieleilighet
+    nl = Appartement
+    pl = Apartament wakacyjny
+    pt = Apartamento de alojamento local
+    pt-BR = Apartamento de temporada
+    ro = Apartament de vacanță
+    ru = Квартира для отдыха
+    sk = Prázdninový apartmán
+    sv = Semesterlägenhet
+    sw = Ghorofa ya Likizo
+    th = ฮอลิเดย์ อพาร์ตเมนต์
+    tr = Tatil Apartmanı
+    uk = Апартаменти для відпочинку
+    vi = Căn hộ nghỉ dưỡng
+    zh-Hans = 度假公寓
+    zh-Hant = 假日公寓
 
   [type.tourism.artwork]
     en = Artwork
@@ -29747,7 +29611,6 @@
     nl = Kunstwerk
     pl = Dzieło sztuki
     pt = Obra de arte
-    pt-BR = Obra de arte
     ro = Turism
     ru = Произведение искусства
     sk = Umelecké dielo
@@ -29783,8 +29646,8 @@
     nb = Kunstverk
     nl = Kunstwerk
     pl = Architektura
-    pt = Obra de arte de arquitetura
-    pt-BR = Obra de arte de arquitetura
+    pt = Arte arquitetónica
+    pt-BR = Arte arquitetônica
     ro = Turism
     ru = Произведение искусства
     sk = Architektonické dielo
@@ -29821,7 +29684,6 @@
     nl = Schilderij
     pl = Malarstwo
     pt = Pintura
-    pt-BR = Pintura
     ro = Turism
     ru = Произведение искусства
     sk = Maľba
@@ -29858,7 +29720,6 @@
     nl = Kunstwerk
     pl = Rzeźba
     pt = Escultura
-    pt-BR = Escultura
     ro = Turism
     ru = Произведение искусства
     sk = Plastika
@@ -29896,7 +29757,6 @@
     nl = Standbeeld
     pl = Posąg
     pt = Estátua
-    pt-BR = Estátua
     ro = Turism
     ru = Произведение искусства
     sk = Socha
@@ -29933,7 +29793,6 @@
     nl = Attractie
     pl = Atrakcja turystyczna
     pt = Atração turística
-    pt-BR = Atração turística
     ro = Punct de atracție
     ru = Достопримечательность
     sk = Atrakcia
@@ -30016,7 +29875,7 @@
     nl = Kampeerterrein
     pl = Kamping
     pt = Parque de campismo
-    pt-BR = Parque de campismo
+    pt-BR = Local de camping
     ru = Кемпинг
     sk = Kemp
     th = การตั้งแคมป์
@@ -30134,8 +29993,7 @@
     nb = Galleri
     nl = Galerij
     pl = Galeria
-    pt = Galeria
-    pt-BR = Galeria
+    pt = Galeria de arte
     ro = Galerie
     ru = Галерея
     sk = Umelecká galéria
@@ -30207,7 +30065,6 @@
     nl = Herberg
     pl = Hostel
     pt = Hostel
-    pt-BR = Hostel
     ru = Хостел
     sv = Vandrarhem
     th = หอพัก
@@ -30239,7 +30096,6 @@
     nl = Hotel
     pl = Hotel
     pt = Hotel
-    pt-BR = Hotel
     ru = Гостиница
     sv = Hotell
     th = โรงแรม
@@ -30359,7 +30215,6 @@
     nl = Wegwijzer
     pl = Drogowskaz
     pt = Poste com direções
-    pt-BR = Poste com direções
     ro = Postul de ghidare
     ru = Указательный столб
     sk = Smerovník
@@ -30481,7 +30336,6 @@
     nl = Bezoekerscentrum
     pl = Centrum dla zwiedzających
     pt = Centro de visitantes
-    pt-BR = Centro de visitantes
     ro = Centrul pentru vizitatori
     ru = Центр для посетителей
     sk = Návštevnícke centrum
@@ -30512,7 +30366,6 @@
     nb = Motell
     pl = Motel
     pt = Motel
-    pt-BR = Motel
     ru = Мотель
     sv = Motell
     th = โมเทล
@@ -30545,7 +30398,6 @@
     nl = Museum
     pl = Muzeum
     pt = Museu
-    pt-BR = Museu
     ro = Muzeu
     ru = Музей
     sk = Múzeum
@@ -30582,7 +30434,6 @@
     nl = Picnicplaats
     pl = Pole piknikowe
     pt = Local de piqueniques
-    pt-BR = Local de piqueniques
     ro = Locații picnic
     ru = Место для пикника
     sk = Piknik
@@ -30617,7 +30468,6 @@
     nl = Complex
     pl = Dom wczasowy
     pt = Resort
-    pt-BR = Resort
     ro = Stațiuni
     ru = Дом отдыха
     sk = Rezort
@@ -30654,7 +30504,6 @@
     nl = Attractiepark
     pl = Park tematyczny
     pt = Parque de diversão
-    pt-BR = Parque de diversão
     ro = Parc de distracții
     ru = Парк развлечений
     sk = Zábavný park
@@ -30732,7 +30581,6 @@
     nl = Wildernishut
     pl = Gajówka
     pt = Cabana
-    pt-BR = Cabana
     ro = Cabană în pădure
     ru = Домик для туристов
     sk = Chata
@@ -30806,8 +30654,8 @@
     nb = Dyrehage
     nl = Kinderboerderij
     pl = Małe Zoo
-    pt = Jardim Zoológico
-    pt-BR = Jardim Zoológico
+    pt = Mini zoológico
+    pt-BR = Fazendinha
     ro = Grădina Zoologică
     ru = Контактный зоопарк
     sk = Kontaktná zoo
@@ -30833,7 +30681,6 @@
     nl = Snelheidsmatigende maatregel
     pl = Uspokojenie ruchu drogowego
     pt = Redutor de velocidade
-    pt-BR = Redutor de velocidade
     ru = Лежачий полицейский
     sk = Upokojovanie dopravy
     tr = Hız Kesici (Kasis)
@@ -30874,7 +30721,7 @@
     nl = Verkeersheuvel
     pl = Długi próg zwalniający
     pt = Lomba longa
-    pt-BR = Quebra-molas longa
+    pt-BR = Quebra-molas longo
     ru = Лежачий полицейский
     sk = Spomaľovací prah
     tr = Hız Kesici (Kasis)
@@ -30892,7 +30739,6 @@
     mr = जलमार्ग
     nl = Waterweg
     pt = Curso de água
-    pt-BR = Curso de água
     ru = Водный путь
     sk = Vodný tok
     tr = Su Yolu
@@ -30923,7 +30769,6 @@
     nl = Kanaal
     pl = Kanał
     pt = Canal
-    pt-BR = Canal
     ru = Канал
     sk = Kanál
     sv = Kanal
@@ -30957,8 +30802,7 @@
     nb = Kanal
     nl = Kanaal
     pl = Kanał
-    pt = Canal
-    pt-BR = Canal
+    pt = Túnel de canal
     ru = Канал
     sk = Tunel v kanáli
     sv = Kanal
@@ -30999,7 +30843,6 @@
     nl = Vistrap
     pl = Przepławka
     pt = Escada de peixes
-    pt-BR = Escada de peixes
     ro = Scară de pește
     ru = Рыбоход
     sk = Rybovod
@@ -31029,7 +30872,6 @@
     nl = Dam
     pl = Tama
     pt = Barragem
-    pt-BR = Usina
     ru = Дамба
     sk = Priehrada
     tr = Baraj
@@ -31051,7 +30893,6 @@
     nl = Sloot
     pl = Rów
     pt = Vala
-    pt-BR = Vala
     ru = Ров
     sk = Priekopa
     tr = Hendek
@@ -31090,7 +30931,6 @@
     nl = Duiker
     pl = Przepust
     pt = Bueiro
-    pt-BR = Bueiro
     ro = Canal de scurgere
     ru = Водопропускная труба
     sk = Priepust
@@ -31119,7 +30959,6 @@
     nl = Dok
     pl = Dok
     pt = Doca
-    pt-BR = Doca
     ru = Причал
     sk = Dok
     tr = Rıhtım
@@ -31139,7 +30978,6 @@
     mr = नाला
     nl = Afvoer
     pt = Valeta de drenagem
-    pt-BR = Valeta de drenagem
     ru = Водоотвод
     sk = Stoka
     tr = Lağım
@@ -31176,7 +31014,6 @@
     nl = Sluisdeur
     pl = Wrota śluzy
     pt = Comporta de eclusa
-    pt-BR = Comporta de eclusa
     ro = Ecluză
     ru = Шлюз
     sk = Stavidlo
@@ -31229,44 +31066,6 @@
 
   [type.waterway.river.tunnel]
     ref = type.waterway.river
-
-  [type.waterway.riverbank]
-    en = River
-    af = Rivier
-    ar = نهر
-    az = Çay
-    be = Рака
-    cs = Řeka
-    da = Flod
-    de = Fluss
-    el = Ποταμός
-    es = Río
-    et = Jõgi
-    eu = Ibai
-    fa = رودخانه
-    fi = Joki
-    fr = Rivière
-    hu = Folyó
-    id = Sungai
-    it = Fiume
-    ja = 河川
-    ko = 강
-    mr = नदी
-    nb = Elv
-    nl = Rivier
-    pl = Koryto rzeki
-    pt = Rio
-    pt-BR = Rio
-    ro = Râu
-    ru = Река
-    sk = Rieka
-    sv = Flod
-    th = แม่น้ำ
-    tr = Nehir
-    uk = Річка
-    vi = Sông
-    zh-Hans = 河流
-    zh-Hant = 河流
 
   [type.waterway.stream]
     en = Stream

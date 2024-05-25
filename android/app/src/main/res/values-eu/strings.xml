@@ -12,13 +12,13 @@
 	<string name="delete">Ezabatu</string>
 	<string name="download_maps">Deskargatu mapak</string>
 	<!-- Settings/Downloader - info for country when download fails -->
-	<string name="download_has_failed">Errore bat gertatu da deskargatzean, hasi berriro</string>
+	<string name="download_has_failed">Errore bat gertatu da deskargatzean. Klik egin berriz saiatzeko.</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Deskargatzen…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometro</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
-	<string name="miles">Milia</string>
+	<string name="miles">Miliak</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">Nire kokapena</string>
 	<!-- Update maps later button text -->
@@ -28,7 +28,7 @@
 	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Bilatu mapan</string>
 	<!-- Location services are disabled by user alert - message -->
-	<string name="location_is_disabled_long_text">Ezin da kokapen-zerbitzuetara sartu. Mesedez, aktibatu ezarpenetan.</string>
+	<string name="location_is_disabled_long_text">Ezin da kokapen-zerbitzua atzitu. Mesedez, aktibatu ezarpenetan.</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Erakutsi mapan</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
@@ -45,17 +45,17 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_3">• Azkarra, minimalista, komunitateak garatua</string>
 	<!-- Text in About screen -->
-	<string name="about_developed_by_enthusiasts">Kode irekiko aplikazioa zaleek eta boluntarioek sortutakoa.</string>
+	<string name="about_developed_by_enthusiasts">Zale eta bolondresek sortutako kode irekiko aplikazioa.</string>
 	<!-- The button that opens system location settings -->
 	<string name="location_settings">Kokapen ezarpenak</string>
 	<string name="close">Itxi</string>
-	<string name="unsupported_phone">Aplikazioak hardwarez azeleratutako OpenGL behar du. Zoritxarrez, zure gailua ez da onartzen.</string>
+	<string name="unsupported_phone">Aplikazioak hardwarez azeleratutako OpenGL behar du. Zoritxarrez, zure gailuak ez du hau eskaintzen.</string>
 	<string name="download">Deskargatu</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">Mesedez, deskonektatu USB kablea edo sartu SD memoria Organic Maps erabiltzeko</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Mesedez, egin lekua SD memorian/USB biltegian aplikazioa erabiltzeko</string>
-	<string name="download_resources">Hasi baino lehen, utzi mundu-mapa orokor bat zure gailuan deskargatzen.\nDatuen %s beharrezkoa da.</string>
+	<string name="download_resources">Hasi aurretik deskargatu mesedez mundu-mapa orokorra zure gailura.\nMemorian %s erabiliko ditu.</string>
 	<string name="download_resources_continue">Joan mapara</string>
 	<string name="downloading_country_can_proceed">%s deskargatzen. Orain mapara\n joan zaitezke.</string>
 	<string name="download_country_ask">%s deskargatu?</string>
@@ -233,6 +233,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D eraikinak desgaituta daude energia aurrezteko moduan</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Ahots argibideak</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Kaleen izenak iragarri</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Gaituta dagoenean, biratzeko kalearen edo irteeraren izena ozen esango da.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Ahots hizkuntza</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -462,7 +466,7 @@
 	<string name="email_or_username">Posta elektronikoa edo erabiltzailea</string>
 	<string name="editor_add_phone">Gehitu telefonoa</string>
 	<string name="level">Solairua</string>
-	<string name="downloader_delete_map_dialog">Maparen aldaketa guztiak maparekin batera ezabatuko dira.</string>
+	<string name="downloader_delete_map_dialog">Mapan egin dituzun aldaketa guztiak maparekin batera ezabatuko dira.</string>
 	<string name="downloader_update_maps">Eguneratu mapak</string>
 	<string name="downloader_mwm_migration_dialog">Ibilbide bat sortzeko, beharrezkoa da mapa guztiak eguneratzea eta ibilbidea berriro planifikatzea.</string>
 	<string name="downloader_search_field_hint">Bilatu mapa</string>
@@ -475,6 +479,8 @@
 	<string name="editor_edit_place_title">Editatzen</string>
 	<string name="editor_add_place_title">Gehitzen</string>
 	<string name="editor_edit_place_name_hint">Tokiaren izena</string>
+	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+	<string name="editor_default_language_hint">Bertako hizkuntzan idatzita dagoenez</string>
 	<string name="editor_edit_place_category_title">Kategoria</string>
 	<string name="detailed_problem_description">Arazoaren deskribapen zehatza</string>
 	<string name="editor_report_problem_other_title">Beste arazo bat</string>
@@ -500,6 +506,8 @@
 	<string name="editor_detailed_description">Iradoki dituzun aldaketak OpenStreetMap komunitatean argitaratuko dira. Deskribatu mapa organikoetan editatu ezin diren xehetasunak.</string>
 	<string name="editor_more_about_osm">OpenStreetMap-i buruzko informazio gehiago</string>
 	<string name="editor_operator">Eragilea</string>
+	<string name="editor_category_unsuitable_title">Ezin duzu kategoria egokirik aurkitu?</string>
+	<string name="editor_category_unsuitable_text">Organic Maps-ek puntu kategoria soilak gehitzeko aukera ematen du, hau da, ez da herririk, errepiderik, lakurik, eraikinen eskemarik, etab. Gehitu kategoria horiek zuzenean <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Begiratu gure <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gida</a> urratsez urrats argibide zehatzak lortzeko.</string>
 	<string name="downloader_no_downloaded_maps_title">Ez duzu maparik deskargatu</string>
 	<string name="downloader_no_downloaded_maps_message">Deskargatu mapak kokapena aurkitzeko eta lineaz kanpo nabigatzeko.</string>
 	<!-- abbreviation for meters -->
@@ -546,7 +554,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Ziurtatu ez duzula datu pertsonalik sartu.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap editoreek aldaketak egiaztatuko dituzte eta zurekin harremanetan jarriko dira zalantzaren bat izanez gero.</string>
-	<string name="navigation_stop_button">gelditu</string>
+	<string name="navigation_stop_button">Gelditu</string>
 	<!-- For the first routing -->
 	<string name="accept">Onartu</string>
 	<!-- For the first routing -->
@@ -752,7 +760,7 @@
 	<!-- Description in preferences -->
 	<string name="enable_show_on_lock_screen_description">Gaituta dagoenean, ez duzu gailua desblokeatu beharrik aplikazioa abian dagoen bitartean.</string>
 	<!-- OpenStreetMap text on splash screen -->
-	<string name="splash_subtitle">Maparen datuak OpenStreetMap-etik</string>
+	<string name="splash_subtitle">OpenStreetMap-eko mapa-datuak</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
 	<string name="translated_om_site_url">https://organicmaps.app/eu/</string>
 	<!-- App Tip #00 -->
@@ -775,16 +783,16 @@
 	<string name="app_tip_08">Maparen datuak erraz konpondu eta hobetu ditzakezu.</string>
 	<!-- App tip #09 -->
 	<string name="app_tip_09">Gure helburu nagusia maite dituzun mapa azkarrak, pribatutasunari begira eta erabilerrazak sortzea da.</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Organic Maps organikoak erabiltzen ari zara telefonoaren pantailan</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">Organic Maps telefonoaren pantailan erabiltzen ari zara</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Organic Maps erabiltzen ari zara autoaren pantailan</string>
+	<string name="car_used_on_the_car_screen">Organic Maps autoaren pantailan erabiltzen ari zara</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Android Auto-ra konektatuta zaude</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Jarraitu telefonoan</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">Autoaren pantailara</string>
+	<string name="car_continue_on_the_phone">Jarraitu telefonoan</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">Autoaren pantailara</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">Aplikazio honek zure kokapenerako sarbidea behar du nabigaziorako.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -792,7 +800,7 @@
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">Kotxearekin konektatuta</string>
 	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
-	<string name="button_layer_outdoor">Mendi ibilaldiak</string>
+	<string name="button_layer_outdoor">Landa-eremua</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Web arakatzailea ez dago erabilgarri</string>
 	<string name="volume">Bolumena</string>
@@ -802,6 +810,15 @@
 	<string name="pref_tts_open_system_settings">Sistemaren ahots-sintesiaren ezarpenak</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Ahots-sintesiaren ezarpenak ez dira aurkitu. Ziur zure gailuak onartzen duela?</string>
+	<string name="drive_through">Drive-through</string>
+	<string name="clear_the_search">Garbitu bilaketa</string>
+	<string name="zoom_in">Handitu</string>
+	<!-- Accessibility text for the zoom-out button on the map -->
+	<string name="zoom_out">Txikiagotu</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Menuaren esteka</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Ikusi menua</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Helbidea/Blokea</string>
@@ -828,7 +845,7 @@
 	<string name="type.amenity.atm">Kutxazain automatikoa</string>
 	<string name="type.amenity.bank">Bankua</string>
 	<string name="type.amenity.bar">Taberna</string>
-	<string name="type.amenity.bbq">Piknika</string>
+	<string name="type.amenity.bbq">Barbakoa parrilla</string>
 	<string name="type.amenity.bench">Bankua</string>
 	<string name="type.amenity.bicycle_parking">Bizikleta aparkalekua</string>
 	<string name="type.amenity.bicycle_rental">Bizikleta alokairua</string>
@@ -1184,15 +1201,9 @@
 	<string name="type.highway.footway">Bidea</string>
 	<string name="type.highway.footway.sidewalk">Espaloia</string>
 	<string name="type.highway.footway.crossing">Oinezkoen pasabidea</string>
-	<string name="type.highway.footway.alpine_hiking">Bidea</string>
 	<string name="type.highway.footway.area">Bidea</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Zubia</string>
-	<string name="type.highway.footway.demanding_alpine_hiking">Bidea</string>
-	<string name="type.highway.footway.demanding_mountain_hiking">Bidea</string>
-	<string name="type.highway.footway.difficult_alpine_hiking">Bidea</string>
-	<string name="type.highway.footway.hiking">Bidea</string>
-	<string name="type.highway.footway.mountain_hiking">Bidea</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunel</string>
 	<string name="type.highway.ford">Ford (lekukoa)</string>
@@ -1213,17 +1224,15 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Tunel</string>
 	<string name="type.highway.path">Bidea</string>
-	<string name="type.highway.path.alpine_hiking">Bidea</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">Bidea</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">Bidea</string>
 	<string name="type.highway.path.bicycle">Bidea</string>
+	<string name="type.highway.footway.bicycle">Bidea</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Zubia</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Bidea</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Bidea</string>
-	<string name="type.highway.path.difficult_alpine_hiking">Bidea</string>
-	<string name="type.highway.path.hiking">Bidea</string>
 	<string name="type.highway.path.horse">Bidea</string>
-	<string name="type.highway.path.mountain_hiking">Bidea</string>
-	<string name="type.highway.path.permissive">Bidea</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Tunel</string>
 	<string name="type.highway.pedestrian">Kalea</string>
@@ -1296,12 +1305,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">Zubia</string>
 	<string name="type.highway.track.grade1">Kalea</string>
-	<string name="type.highway.track.grade2">Kalea</string>
-	<string name="type.highway.track.grade3">Kalea</string>
-	<string name="type.highway.track.grade4">Kalea</string>
-	<string name="type.highway.track.grade5">Kalea</string>
 	<string name="type.highway.track.no.access">Kalea</string>
-	<string name="type.highway.track.permissive">Kalea</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Tunel</string>
 	<string name="type.highway.traffic_signals">Semaforoak</string>
@@ -1946,7 +1950,7 @@
 	<string name="type.tourism.aquarium">Aquariuma</string>
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Mendiko ostatua</string>
-	<string name="type.tourism.apartment">Apartamentuak</string>
+	<string name="type.tourism.apartment">Oporretako apartamentua</string>
 	<string name="type.tourism.artwork">Artelanak</string>
 	<string name="type.tourism.artwork.architecture">Artelanak</string>
 	<string name="type.tourism.artwork.painting">Artelanak</string>
@@ -1982,7 +1986,6 @@
 	<string name="type.waterway.lock_gate">Atea</string>
 	<string name="type.waterway.river">Ibai</string>
 	<string name="type.waterway.river.tunnel">Ibai</string>
-	<string name="type.waterway.riverbank">Ibai</string>
 	<string name="type.waterway.stream">Ibai</string>
 	<string name="type.waterway.stream.ephemeral">Ibai</string>
 	<string name="type.waterway.stream.intermittent">Ibai</string>

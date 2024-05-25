@@ -61,9 +61,6 @@
          location = "container:minizip/minizip.xcodeproj">
       </FileRef>
       <FileRef
-         location = "container:oauthcpp/oauthcpp.xcodeproj">
-      </FileRef>
-      <FileRef
          location = "container:open_location_code/open_location_code.xcodeproj">
       </FileRef>
       <FileRef
@@ -77,9 +74,6 @@
       </FileRef>
       <FileRef
          location = "container:pugixml/pugixml.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "container:sdf_image/sdf_image.xcodeproj">
       </FileRef>
       <FileRef
          location = "container:stb_image/stb_image.xcodeproj">

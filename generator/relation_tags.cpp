@@ -2,10 +2,10 @@
 
 #include "generator/osm_element.hpp"
 
-#include"indexer/classificator.hpp"
+#include "indexer/classificator.hpp"
 
-#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
+
 
 namespace generator
 {
@@ -23,18 +23,23 @@ bool RelationTagsBase::IsSkipRelation(std::string_view type)
   return type == "multipolygon" || type == "bridge";
 }
 
-bool RelationTagsBase::IsKeyTagExists(std::string const & key) const
+bool RelationTagsBase::IsKeyTagExists(std::string_view const & key) const
 {
-  auto const & tags = m_current->m_tags;
-  return base::AnyOf(tags, [&](OsmElement::Tag const & p) { return p.m_key == key; });
+  return m_current->HasTag(key);
 }
 
-void RelationTagsBase::AddCustomTag(std::pair<std::string, std::string> const & p)
+void RelationTagsBase::AddCustomTag(std::string_view key, std::string_view value)
 {
   /// @todo UpdateTag is better here, because caller doesn't always make IsKeyTagExists check ?!
   /// I suspect that it works ok now, because duplicating key tag is added to the end of tags vector
   /// and GetNameAndType function grabs it last.
-  m_current->AddTag(p.first, p.second);
+  m_current->AddTag(key, value);
+}
+
+void RelationTagsBase::AddTagIfNotExist(std::string_view key, std::string_view value)
+{
+  if (!m_current->HasTag(key))
+    m_current->AddTag(key, value);
 }
 
 void RelationTagsNode::Process(RelationElement const & e)
@@ -62,7 +67,7 @@ void RelationTagsNode::Process(RelationElement const & e)
     else if (p.first == "name" && processAssociatedStreet)
     {
       // Convert associatedStreet relation name to addr:street tag if we don't have one.
-      Base::AddCustomTag({"addr:street", p.second});
+      Base::AddCustomTag("addr:street", p.second);
     }
     else if (isBoundary && isPlaceDest && (p.first == "wikipedia" || p.first == "wikidata"))
     {
@@ -93,7 +98,7 @@ void RelationTagsWay::Process(RelationElement const & e)
   /// with Nodes and Ways, according to the drule's geometry type.
   auto const barrier = e.GetTagValue("barrier");
   if (!barrier.empty())
-    Base::AddCustomTag({"barrier", std::string(barrier)});
+    Base::AddCustomTag("barrier", barrier);
 
   auto const type = e.GetType();
   if (Base::IsSkipRelation(type))
@@ -130,7 +135,7 @@ void RelationTagsWay::Process(RelationElement const & e)
         if (!refBase.empty())
           ref = refBase + ';' + ref;
 
-        Base::AddCustomTag({"ref", std::move(ref)});
+        Base::AddCustomTag("ref", ref);
       }
     }
     else
@@ -142,9 +147,9 @@ void RelationTagsWay::Process(RelationElement const & e)
     if (isHighway)
     {
       if (route == "bicycle")
-        Base::AddCustomTag({"bicycle", "yes"});
+        Base::AddTagIfNotExist("bicycle", "yes");
       else if (route == "foot" || route == "hiking")
-        Base::AddCustomTag({"foot", "yes"});
+        Base::AddTagIfNotExist("foot", "yes");
     }
 
     if (!fetchTags)
@@ -181,7 +186,7 @@ void RelationTagsWay::Process(RelationElement const & e)
 
     // Convert associatedStreet relation name to addr:street tag if we don't have one.
     if (p.first == "name" && processAssociatedStreet)
-      Base::AddCustomTag({"addr:street", p.second});
+      Base::AddCustomTag("addr:street", p.second);
 
     // All "name" tags should be skipped.
     if (strings::StartsWith(p.first, "name") || strings::StartsWith(p.first, "int_name") ||

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,33 +16,37 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="zh-classical" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efb-nS-cjm">
-                        <rect key="frame" x="16" y="13.5" width="80" height="17"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="eca-XW-QZR">
+                        <rect key="frame" x="16" y="16" width="288" height="12"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="zh-classical" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efb-nS-cjm">
+                                <rect key="frame" x="0.0" y="0.0" width="77" height="5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="499" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="9BY-PA-dlA">
+                                <rect key="frame" x="0.0" y="8" width="5" height="4"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17:blackPrimaryText"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="editor_edit_place_name_hint"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="delegate" destination="hfo-cP-AGX" id="jkD-0x-Ods"/>
+                                </connections>
+                            </textField>
+                        </subviews>
                         <constraints>
-                            <constraint firstAttribute="height" constant="17" id="8qF-WG-0JP"/>
-                            <constraint firstAttribute="width" constant="80" id="RUn-7a-x8R"/>
+                            <constraint firstItem="9BY-PA-dlA" firstAttribute="width" secondItem="eca-XW-QZR" secondAttribute="width" id="OSr-03-hPe"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <nil key="highlightedColor"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
-                        </userDefinedRuntimeAttributes>
-                    </label>
-                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="499" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="9BY-PA-dlA">
-                        <rect key="frame" x="100" y="16" width="204" height="12"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <textInputTraits key="textInputTraits"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17:blackPrimaryText"/>
-                            <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="editor_edit_place_name_hint"/>
-                        </userDefinedRuntimeAttributes>
-                        <connections>
-                            <outlet property="delegate" destination="hfo-cP-AGX" id="jkD-0x-Ods"/>
-                        </connections>
-                    </textField>
+                    </stackView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="252" translatesAutoresizingMaskIntoConstraints="NO" id="SZa-Bj-se1">
                         <rect key="frame" x="60" y="32" width="252" height="0.0"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -60,14 +64,11 @@
                 <constraints>
                     <constraint firstItem="SZa-Bj-se1" firstAttribute="leading" secondItem="JQH-ks-NoC" secondAttribute="leading" constant="60" id="BcS-gb-9vl"/>
                     <constraint firstAttribute="trailing" secondItem="SZa-Bj-se1" secondAttribute="trailing" constant="8" id="EBU-G3-tgp"/>
-                    <constraint firstAttribute="trailing" secondItem="9BY-PA-dlA" secondAttribute="trailing" constant="16" id="EPW-QQ-h4A"/>
-                    <constraint firstItem="efb-nS-cjm" firstAttribute="centerY" secondItem="9BY-PA-dlA" secondAttribute="centerY" id="KMC-QU-FKv"/>
+                    <constraint firstItem="eca-XW-QZR" firstAttribute="top" secondItem="JQH-ks-NoC" secondAttribute="top" constant="16" id="FJ5-Zj-wLR"/>
+                    <constraint firstAttribute="trailing" secondItem="eca-XW-QZR" secondAttribute="trailing" constant="16" id="NZO-C9-ZCS"/>
+                    <constraint firstItem="SZa-Bj-se1" firstAttribute="top" secondItem="eca-XW-QZR" secondAttribute="bottom" constant="4" id="T9Z-G5-LVc"/>
                     <constraint firstAttribute="bottom" secondItem="SZa-Bj-se1" secondAttribute="bottom" constant="12" id="TdX-jx-CpD"/>
-                    <constraint firstItem="efb-nS-cjm" firstAttribute="leading" secondItem="JQH-ks-NoC" secondAttribute="leading" constant="16" id="aeA-g6-24D"/>
-                    <constraint firstItem="9BY-PA-dlA" firstAttribute="leading" secondItem="efb-nS-cjm" secondAttribute="trailing" constant="4" id="bE7-50-JFQ"/>
-                    <constraint firstAttribute="bottom" secondItem="efb-nS-cjm" secondAttribute="bottom" priority="750" constant="12" id="fZC-8Q-bPw"/>
-                    <constraint firstItem="SZa-Bj-se1" firstAttribute="top" secondItem="9BY-PA-dlA" secondAttribute="bottom" constant="4" id="gPQ-Bf-Pgf"/>
-                    <constraint firstItem="9BY-PA-dlA" firstAttribute="top" secondItem="JQH-ks-NoC" secondAttribute="top" constant="16" id="qga-k9-pOr"/>
+                    <constraint firstItem="eca-XW-QZR" firstAttribute="leading" secondItem="JQH-ks-NoC" secondAttribute="leading" constant="16" id="dbb-bG-8uT"/>
                 </constraints>
                 <userDefinedRuntimeAttributes>
                     <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
@@ -80,9 +81,10 @@
                 <outlet property="errorLabel" destination="SZa-Bj-se1" id="hqN-vX-0Hw"/>
                 <outlet property="errorLabelHeight" destination="CPF-uE-pzx" id="X4g-6X-W0e"/>
                 <outlet property="languageLabel" destination="efb-nS-cjm" id="13M-9D-Qbf"/>
+                <outlet property="stackView" destination="eca-XW-QZR" id="RPt-fc-aoR"/>
                 <outlet property="textField" destination="9BY-PA-dlA" id="SCv-JL-5TL"/>
             </connections>
-            <point key="canvasLocation" x="342" y="257"/>
+            <point key="canvasLocation" x="340.57971014492756" y="256.47321428571428"/>
         </tableViewCell>
     </objects>
 </document>
