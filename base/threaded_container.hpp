@@ -9,11 +9,10 @@
 struct ThreadedContainer : public base::Cancellable
 {
 protected:
-
   base::Timer m_Timer;
 
-  mutable std::mutex m_condLock;
-  mutable std::condition_variable m_Cond;
+  std::mutex m_condLock;
+  std::condition_variable m_Cond;
 
 public:
   /// Cancellable overrides:

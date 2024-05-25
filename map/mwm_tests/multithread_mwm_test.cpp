@@ -5,24 +5,21 @@
 #include "indexer/scales.hpp"
 
 #include "base/macros.hpp"
-#include "base/thread.hpp"
-#include "base/thread_pool.hpp"
+#include "base/thread_pool_computational.hpp"
 
 #include <algorithm>
-#include <memory>
-#include <random>
 
 
 namespace multithread_mwm_test
 {
 using SourceT = FeaturesFetcher;
 
-class FeaturesLoader : public threads::IRoutine
+class FeaturesLoader
 {
 public:
   explicit FeaturesLoader(SourceT const & src) : m_src(src) {}
 
-  virtual void Do()
+  void operator()()
   {
     size_t const kCount = 2000;
 
@@ -85,12 +82,12 @@ void RunTest(std::string const & file)
   srand(666);
 
   size_t const kCount = 20;
-  base::thread_pool::routine_simple::ThreadPool pool(kCount);
+  base::ComputationalThreadPool pool(kCount);
 
   for (size_t i = 0; i < kCount; ++i)
-    pool.Add(std::make_unique<FeaturesLoader>(src));
+    pool.SubmitWork(FeaturesLoader(src));
 
-  pool.Join();
+  pool.WaitingStop();
 }
 
 UNIT_TEST(Threading_ForEachFeature)

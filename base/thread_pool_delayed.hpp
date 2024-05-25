@@ -8,7 +8,6 @@
 
 #include <chrono>
 #include <condition_variable>
-#include <cstdint>
 #include <map>
 #include <memory>
 #include <unordered_map>
@@ -16,15 +15,11 @@
 
 namespace base
 {
-namespace thread_pool
-{
-namespace delayed
-{
 // This class represents a simple thread pool with a queue of tasks.
 //
 // *NOTE* This class IS NOT thread-safe, it must be destroyed on the
 // same thread it was created, but Push* methods are thread-safe.
-class ThreadPool : public TaskLoop
+class DelayedThreadPool : public TaskLoop
 {
 public:
   using Clock = std::chrono::steady_clock;
@@ -43,8 +38,8 @@ public:
     SkipPending
   };
 
-  explicit ThreadPool(size_t threadsCount = 1, Exit e = Exit::SkipPending);
-  ~ThreadPool() override;
+  explicit DelayedThreadPool(size_t threadsCount = 1, Exit e = Exit::SkipPending);
+  ~DelayedThreadPool() override;
 
   // Pushes task to the end of the thread's queue of immediate tasks.
   //
@@ -160,6 +155,5 @@ private:
   TaskId m_immediateLastId;
   TaskId m_delayedLastId;
 };
-}  // namespace delayed
-}  // namespace thread_pool
+
 }  // namespace base

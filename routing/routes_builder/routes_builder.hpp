@@ -129,7 +129,7 @@ private:
     std::unique_ptr<FrozenDataSource> m_dataSource;
   };
 
-  base::thread_pool::computational::ThreadPool m_threadPool;
+  base::ComputationalThreadPool m_threadPool;
 
   std::shared_ptr<storage::CountryParentGetter> m_cpg =
       std::make_shared<storage::CountryParentGetter>();

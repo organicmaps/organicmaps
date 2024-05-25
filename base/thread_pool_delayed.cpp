@@ -2,7 +2,7 @@
 
 #include <array>
 
-namespace base::thread_pool::delayed
+namespace base
 {
 namespace
 {
@@ -15,42 +15,42 @@ TaskLoop::TaskId MakeNextId(TaskLoop::TaskId id, TaskLoop::TaskId minId, TaskLoo
 }
 }  // namespace
 
-ThreadPool::ThreadPool(size_t threadsCount /* = 1 */, Exit e /* = Exit::SkipPending */)
+DelayedThreadPool::DelayedThreadPool(size_t threadsCount /* = 1 */, Exit e /* = Exit::SkipPending */)
   : m_exit(e)
   , m_immediateLastId(kImmediateMaxId)
   , m_delayedLastId(kDelayedMaxId)
 {
   for (size_t i = 0; i < threadsCount; ++i)
-    m_threads.emplace_back(threads::SimpleThread(&ThreadPool::ProcessTasks, this));
+    m_threads.emplace_back(threads::SimpleThread(&DelayedThreadPool::ProcessTasks, this));
 }
 
-ThreadPool::~ThreadPool()
+DelayedThreadPool::~DelayedThreadPool()
 {
   ShutdownAndJoin();
 }
 
-TaskLoop::PushResult ThreadPool::Push(Task && t)
+TaskLoop::PushResult DelayedThreadPool::Push(Task && t)
 {
   return AddImmediate(std::move(t));
 }
 
-TaskLoop::PushResult ThreadPool::Push(Task const & t)
+TaskLoop::PushResult DelayedThreadPool::Push(Task const & t)
 {
   return AddImmediate(t);
 }
 
-TaskLoop::PushResult ThreadPool::PushDelayed(Duration const & delay, Task && t)
+TaskLoop::PushResult DelayedThreadPool::PushDelayed(Duration const & delay, Task && t)
 {
   return AddDelayed(delay, std::move(t));
 }
 
-TaskLoop::PushResult ThreadPool::PushDelayed(Duration const & delay, Task const & t)
+TaskLoop::PushResult DelayedThreadPool::PushDelayed(Duration const & delay, Task const & t)
 {
   return AddDelayed(delay, t);
 }
 
 template <typename T>
-TaskLoop::PushResult ThreadPool::AddImmediate(T && task)
+TaskLoop::PushResult DelayedThreadPool::AddImmediate(T && task)
 {
   return AddTask([&]() {
     auto const newId = MakeNextId(m_immediateLastId, kImmediateMinId, kImmediateMaxId);
@@ -61,7 +61,7 @@ TaskLoop::PushResult ThreadPool::AddImmediate(T && task)
 }
 
 template <typename T>
-TaskLoop::PushResult ThreadPool::AddDelayed(Duration const & delay, T && task)
+TaskLoop::PushResult DelayedThreadPool::AddDelayed(Duration const & delay, T && task)
 {
   auto const when = Now() + delay;
   return AddTask([&]() {
@@ -73,7 +73,7 @@ TaskLoop::PushResult ThreadPool::AddDelayed(Duration const & delay, T && task)
 }
 
 template <typename Add>
-TaskLoop::PushResult ThreadPool::AddTask(Add && add)
+TaskLoop::PushResult DelayedThreadPool::AddTask(Add && add)
 {
   std::lock_guard lk(m_mu);
   if (m_shutdown)
@@ -84,7 +84,7 @@ TaskLoop::PushResult ThreadPool::AddTask(Add && add)
   return {true, newId};
 }
 
-void ThreadPool::ProcessTasks()
+void DelayedThreadPool::ProcessTasks()
 {
   ImmediateQueue pendingImmediate;
   DelayedQueue pendingDelayed;
@@ -179,7 +179,7 @@ void ThreadPool::ProcessTasks()
   }
 }
 
-bool ThreadPool::Cancel(TaskId id)
+bool DelayedThreadPool::Cancel(TaskId id)
 {
   std::lock_guard lk(m_mu);
 
@@ -206,7 +206,7 @@ bool ThreadPool::Cancel(TaskId id)
   return false;
 }
 
-bool ThreadPool::Shutdown(Exit e)
+bool DelayedThreadPool::Shutdown(Exit e)
 {
   std::lock_guard lk(m_mu);
   if (m_shutdown)
@@ -217,7 +217,7 @@ bool ThreadPool::Shutdown(Exit e)
   return true;
 }
 
-void ThreadPool::ShutdownAndJoin()
+void DelayedThreadPool::ShutdownAndJoin()
 {
   Shutdown(m_exit);
   for (auto & thread : m_threads)
@@ -228,9 +228,10 @@ void ThreadPool::ShutdownAndJoin()
   m_threads.clear();
 }
 
-bool ThreadPool::IsShutDown()
+bool DelayedThreadPool::IsShutDown()
 {
   std::lock_guard lk(m_mu);
   return m_shutdown;
 }
-}  // namespace base::thread_pool::delayed
+
+} // namespace base

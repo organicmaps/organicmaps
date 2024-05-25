@@ -3,13 +3,9 @@
 #include "base/thread_pool_delayed.hpp"
 #include "base/thread_safe_queue.hpp"
 
-#include <chrono>
-#include <cstddef>
 #include <optional>
-#include <set>
 #include <thread>
 
-using namespace base::thread_pool::delayed;
 
 UNIT_TEST(ThreadSafeQueue_ThreadSafeQueue)
 {
@@ -23,7 +19,7 @@ UNIT_TEST(ThreadSafeQueue_Push)
 {
   size_t const kSize = 100;
   threads::ThreadSafeQueue<size_t> queue;
-  ThreadPool pool(2, ThreadPool::Exit::ExecPending);
+  base::DelayedThreadPool pool(2, base::DelayedThreadPool::Exit::ExecPending);
   for (size_t i = 0; i < kSize; ++i)
   {
     pool.Push([&, i](){
@@ -89,7 +85,7 @@ UNIT_TEST(ThreadSafeQueue_ExampleWithDataWrapper)
     }
   });
 
-  ThreadPool pool(4, ThreadPool::Exit::ExecPending);
+  base::DelayedThreadPool pool(4, base::DelayedThreadPool::Exit::ExecPending);
   for (size_t i = 0; i < kSize; ++i)
   {
     pool.Push([&, i](){

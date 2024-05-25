@@ -22,7 +22,7 @@ public:
   bool Finish();
 
 private:
-  base::thread_pool::computational::ThreadPool m_threadPool;
+  base::ComputationalThreadPool m_threadPool;
   threads::ThreadSafeQueue<std::shared_ptr<TranslatorInterface>> m_translators;
 };
 }  // namespace generator
