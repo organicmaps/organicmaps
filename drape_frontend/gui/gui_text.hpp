@@ -19,7 +19,6 @@ using TAlphabet = std::unordered_set<strings::UniChar>;
 class StaticLabel
 {
 public:
-  static char const * DefaultDelim;
   struct Vertex
   {
     Vertex() = default;
