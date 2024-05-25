@@ -1116,7 +1116,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Framework.nativeRemovePlacePageActivationListener(this);
     BookmarkManager.INSTANCE.removeLoadingListener(this);
     LocationHelper.from(this).removeListener(this);
-    if (mDisplayManager.isDeviceDisplayUsed())
+    if (mDisplayManager.isDeviceDisplayUsed() && !RoutingController.get().isNavigating())
     {
       LocationState.nativeRemoveListener();
       RoutingController.get().detach();
