@@ -36,8 +36,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)setNightMode:(BOOL)mode;
 + (BOOL)isNightMode;
 
-- (UIColor *)opposite;
-
 @end
 
 NS_ASSUME_NONNULL_END
