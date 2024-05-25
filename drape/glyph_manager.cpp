@@ -16,15 +16,8 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/target_os.hpp"
-
 #include <ft2build.h>
-// A system dependency is used on these platforms. TODO(AB): There should be a way to build everything from sources.
-#if defined(OMIM_OS_LINUX) || defined(OMIM_OS_WINDOWS)
-#include <harfbuzz/hb-ft.h>
-#else
 #include <hb-ft.h>
-#endif
 
 #include <limits>
 #include <sstream>

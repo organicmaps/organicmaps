@@ -1,15 +1,9 @@
 #pragma once
 
-#include "std/target_os.hpp"
-
 #include <string>
 #include <vector>
 
-#if defined(OMIM_OS_LINUX) || defined(OMIM_OS_WINDOWS)
-#include <harfbuzz/hb.h>
-#else
 #include <hb.h>
-#endif
 
 namespace harfbuzz_shaping
 {

@@ -174,7 +174,7 @@ target_link_libraries(${PROJECT_NAME}
   Freetype::Freetype
   vulkan_wrapper
   stb_image
-  harfbuzz
+  harfbuzz::harfbuzz
   ICU::i18n
   expat::expat
   $<$<BOOL:${PLATFORM_MAC}>:-framework\ OpenGL>
