@@ -279,18 +279,24 @@ Java_app_organicmaps_editor_Editor_nativeGetNearbyStreets(JNIEnv * env, jclass c
 JNIEXPORT jobjectArray JNICALL
 Java_app_organicmaps_editor_Editor_nativeGetSupportedLanguages(JNIEnv * env, jclass clazz)
 {
-  using TLang = StringUtf8Multilang::Lang;
-  //public Language(@NonNull String code, @NonNull String name)
-  static jclass const langClass = jni::GetGlobalClassRef(env, "app/organicmaps/editor/data/Language");
-  static jmethodID const langCtor = jni::GetConstructorID(env, langClass, "(Ljava/lang/String;Ljava/lang/String;)V");
+    using TLang = StringUtf8Multilang::Lang;
+    //public Language(@NonNull String code, @NonNull String name)
+    static jclass const langClass = jni::GetGlobalClassRef(env, "app/organicmaps/editor/data/Language");
+    static jmethodID const langCtor = jni::GetConstructorID(env, langClass, "(Ljava/lang/String;Ljava/lang/String;)V");
 
-  return jni::ToJavaArray(env, langClass, StringUtf8Multilang::GetSupportedLanguages(),
-                          [](JNIEnv * env, TLang const & lang)
-                          {
-                            jni::TScopedLocalRef const code(env, jni::ToJavaString(env, lang.m_code));
-                            jni::TScopedLocalRef const name(env, jni::ToJavaString(env, lang.m_name));
-                            return env->NewObject(langClass, langCtor, code.get(), name.get());
-                          });
+    return jni::ToJavaArray(env, langClass, StringUtf8Multilang::GetSupportedLanguages(),
+                            [](JNIEnv * env, TLang const & lang)
+                            {
+                                jni::TScopedLocalRef const code(env, jni::ToJavaString(env, lang.m_code));
+                                jni::TScopedLocalRef const name(env, jni::ToJavaString(env, lang.m_name));
+                                return env->NewObject(langClass, langCtor, code.get(), name.get());
+                            });
+}
+
+JNIEXPORT jboolean JNICALL
+Java_app_organicmaps_editor_Editor_nativeIsServiceLanguage(JNIEnv * env, jclass clazz, jstring lang)
+{
+    return StringUtf8Multilang::IsServiceLang(jni::ToNativeString(env, lang));
 }
 
 JNIEXPORT jstring JNICALL

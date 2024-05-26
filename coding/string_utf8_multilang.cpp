@@ -89,6 +89,12 @@ constexpr bool IsSupportedLangCode(int8_t langCode)
 }
 }  // namespace
 
+bool StringUtf8Multilang::IsServiceLang(std::string_view lang) {
+    return lang == kLanguages[kDefaultCode].m_code
+        || lang == kLanguages[kInternationalCode].m_code
+        || lang == kLanguages[kAltNameCode].m_code
+        || lang == kLanguages[kOldNameCode].m_code;
+}
 // static
 StringUtf8Multilang::Languages const & StringUtf8Multilang::GetSupportedLanguages()
 {
@@ -102,7 +108,7 @@ StringUtf8Multilang::Languages const & StringUtf8Multilang::GetSupportedLanguage
   if (languages.empty())
   {
     std::copy_if(kLanguages.cbegin(), kLanguages.cend(), std::back_inserter(languages),
-            [](Lang const & lang) { return lang.m_code != kReservedLang; });
+            [](Lang const & lang){ return lang.m_code != kReservedLang; });
   }
 
   return languages;
