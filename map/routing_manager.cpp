@@ -50,7 +50,7 @@ double const kRouteScaleMultiplier = 1.5;
 
 string const kRoutePointsFile = "route_points.dat";
 
-string const kUserRoutesFolder = "user_routes/";
+string const kUserRoutesFileExtension = ".usrdat";
 
 uint32_t constexpr kInvalidTransactionId = 0;
 
@@ -1359,9 +1359,9 @@ void RoutingManager::CancelRoutePointsTransaction(uint32_t transactionId)
     routePoints.AddRoutePoint(std::move(markData));
 }
 
-bool RoutingManager::HasSavedUserRoute(string const fileName) const
+bool RoutingManager::HasSavedUserRoute(string const routeName) const
 {
-  return HasSavedRoutePoints(kUserRoutesFolder + fileName + ".dat");
+  return HasSavedRoutePoints(routeName + kUserRoutesFileExtension);
 }
 
 
@@ -1376,9 +1376,9 @@ bool RoutingManager::HasSavedRoutePoints(string const fileName) const
   return GetPlatform().IsFileExistsByFullPath(filePath);
 }
 
-void RoutingManager::LoadUserRoutePoints(LoadRouteHandler const & handler, string const fileName)
+void RoutingManager::LoadUserRoutePoints(LoadRouteHandler const & handler, string const routeName)
 {
-  LoadRoutePoints(handler, kUserRoutesFolder + fileName + ".dat", false);
+  LoadRoutePoints(handler, routeName + kUserRoutesFileExtension, false);
 }
 
 void RoutingManager::LoadRoutePoints(LoadRouteHandler const & handler)
@@ -1465,8 +1465,9 @@ void RoutingManager::LoadRoutePoints(LoadRouteHandler const & handler, string co
   });
 }
 
-void RoutingManager::SaveUserRoutePoints(string const fileName) {
-  SaveRoutePoints(kUserRoutesFolder + fileName + ".dat", false);
+void RoutingManager::SaveUserRoutePoints(string const routeName)
+{
+  SaveRoutePoints(routeName + kUserRoutesFileExtension, false);
 }
 
 void RoutingManager::SaveRoutePoints() {
@@ -1537,9 +1538,9 @@ void RoutingManager::OnExtrapolatedLocationUpdate(location::GpsInfo const & info
                          routeMatchingInfo);
 }
 
-void RoutingManager::DeleteUserRoute(string const fileName)
+void RoutingManager::DeleteUserRoute(string const routeName)
 {
-  DeleteSavedRoutePoints(kUserRoutesFolder + fileName + ".dat");
+  DeleteSavedRoutePoints(routeName + kUserRoutesFileExtension);
 }
 
 void RoutingManager::DeleteSavedRoutePoints()
@@ -1559,16 +1560,16 @@ void RoutingManager::DeleteSavedRoutePoints(string const fileName)
   });
 }
 
-void RoutingManager::RenameUserRoute(string const oldFileName, string const newFileName)
+void RoutingManager::RenameUserRoute(string const oldRouteName, string const newRouteName)
 {
-  if (!HasSavedRoutePoints(kUserRoutesFolder + oldFileName + ".dat"))
+  if (!HasSavedRoutePoints(oldRouteName + kUserRoutesFileExtension))
     return;
 
-  if (HasSavedRoutePoints(kUserRoutesFolder + newFileName + ".dat"))
+  if (HasSavedRoutePoints(newRouteName + kUserRoutesFileExtension))
     return;
 
-  GetPlatform().RunTask(Platform::Thread::File, [oldFileName = kUserRoutesFolder + oldFileName + ".dat" ,
-                                                 newFileName = kUserRoutesFolder + newFileName + ".dat"]()
+  GetPlatform().RunTask(Platform::Thread::File, [oldFileName = oldRouteName + kUserRoutesFileExtension ,
+                                                 newFileName = newRouteName + kUserRoutesFileExtension]()
                         {
                           auto const oldPath = GetPlatform().SettingsPathForFile(oldFileName);
                           auto const newPath = GetPlatform().SettingsPathForFile(newFileName);
@@ -1576,19 +1577,21 @@ void RoutingManager::RenameUserRoute(string const oldFileName, string const newF
                         });
 }
 
-vector<string> RoutingManager::getUserRoutes()
+// static
+vector<string> RoutingManager::GetUserRouteNames()
 {
+  vector<string> routeFileNames;
   vector<string> routeNames;
-  GetPlatform().GetFilesByExt(GetPlatform().SettingsPathForFile(kUserRoutesFolder), ".dat", routeNames);
+  Platform::GetFilesByExt(GetPlatform().SettingsDir(), kUserRoutesFileExtension, routeFileNames);
 
-  for(auto name : routeNames)
+  for(const auto & name : routeFileNames)
   {
-    size_t idx = name.rfind(".dat");
+    size_t idx = name.rfind(kUserRoutesFileExtension);
     if (idx == string::npos)
       continue;
-    name.erase(idx, 4); // erase file extension from the string
+    routeNames.push_back(name.substr(0, idx)); // string without extension
   }
-  return routeNames/*TODO find out how this return value is able to be interpreted in java*/;
+  return routeNames;
 }
 
 void RoutingManager::UpdatePreviewMode()
