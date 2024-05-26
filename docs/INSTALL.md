@@ -383,7 +383,7 @@ The `build_omim.sh` script basically runs these commands:
 
 Linux, MacOS, or Windows should work to build Organic Maps for Android.
 
-Ensure that you have at least 30GB of free space.
+Ensure that you have at least 30GB of free space and Python 3 installed.
 
 Install [Android Studio](https://developer.android.com/studio).
 
