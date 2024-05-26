@@ -49,6 +49,25 @@ enum SearchMarkPoint::SearchMarkType : uint8_t
   ThemePark,
   WaterPark,
   Zoo,
+  Cluster2,
+  Cluster3,
+  Cluster4,
+  Cluster5,
+  Cluster6,
+  Cluster7,
+  Cluster8,
+  Cluster9,
+  Cluster10,
+  Cluster11,
+  Cluster12,
+  Cluster13,
+  Cluster14,
+  Cluster15,
+  Cluster16,
+  Cluster17,
+  Cluster18,
+  Cluster19,
+  ClusterPlus,
 
   NotFound,  // Service value used in developer tools.
   Count
@@ -97,6 +116,25 @@ std::array<std::string, SearchMarkType::Count> const kSymbols = {
     "search-result-theme-park",             // ThemePark.
     "search-result-water-park",             // WaterPark.
     "search-result-zoo",                    // Zoo.
+    "route-point-2",                        // Cluster2.
+    "route-point-3",                        // Cluster3.
+    "route-point-4",                        // Cluster4.
+    "route-point-5",                        // Cluster5.
+    "route-point-6",                        // Cluster6.
+    "route-point-7",                        // Cluster7.
+    "route-point-8",                        // Cluster8.
+    "route-point-9",                        // Cluster9.
+    "route-point-10"                        // Cluster10,
+    "route-point-11"                        // Cluster11,
+    "route-point-12"                        // Cluster12,
+    "route-point-13"                        // Cluster13,
+    "route-point-14"                        // Cluster14,
+    "route-point-15"                        // Cluster15,
+    "route-point-16"                        // Cluster16,
+    "route-point-17"                        // Cluster17,
+    "route-point-18"                        // Cluster18,
+    "route-point-19"                        // Cluster19,
+    "route-point-20"                        // ClusterPlus,
 
     "non-found-search-result",  // NotFound.
 };
@@ -277,6 +315,21 @@ void SearchMarkPoint::SetMatchedName(std::string const & name)
 void SearchMarkPoint::SetFromType(uint32_t type)
 {
   SetAttributeValue(m_type, GetSearchMarkType(type));
+}
+
+void SearchMarkPoint::SetClusterType(int size)
+{
+  SearchMarkType type;
+
+  if (size >= 2 && size <= 19) {
+    type = static_cast<SearchMarkType>(SearchMarkType::Cluster2 + (size - 2));
+  } else if (size > 19) {
+    type = SearchMarkType::ClusterPlus;
+  } else {
+    type = SearchMarkType::Default;
+  }
+
+  SetAttributeValue(m_type, type);
 }
 
 void SearchMarkPoint::SetNotFoundType()
