@@ -39,8 +39,12 @@ public class LanguagesFragment extends BaseMwmRecyclerFragment<LanguagesAdapter>
     List<Language> languages = new ArrayList<>();
     for (Language lang : Editor.nativeGetSupportedLanguages())
     {
-      if (!existingLanguages.contains(lang.code))
-        languages.add(lang);
+      if (existingLanguages.contains(lang.code))
+        continue;
+      if (Editor.nativeIsServiceLanguage(lang.code))
+        continue;
+
+      languages.add(lang);
     }
 
     Collections.sort(languages, Comparator.comparing(lhs -> lhs.name));

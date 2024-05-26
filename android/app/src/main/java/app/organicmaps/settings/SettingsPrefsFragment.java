@@ -120,7 +120,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
       {
         LanguagesFragment langFragment = (LanguagesFragment)getSettingsActivity().stackFragment(LanguagesFragment.class, getString(R.string.pref_map_locale_title), null);
         langFragment.setListener(this);
-
       }
     }
     return super.onPreferenceTreeClick(preference);
@@ -461,8 +460,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
       return true;
     });
   }
-
-
 
   private void removePreference(@NonNull String categoryKey, @NonNull Preference preference)
   {

@@ -452,7 +452,13 @@ void Framework::Get3dMode(bool & allow3d, bool & allow3dBuildings)
 
 void Framework::SetMapLanguageCode(std::string const & languageCode)
 {
+  languages::SetMapLanguageCode(languageCode);
   m_work.SetMapLanguageCode(languageCode);
+}
+
+std::string Framework::GetMapLanguageCode()
+{
+  return languages::GetCurrentMapLanguageCode();
 }
 
 void Framework::SetChoosePositionMode(ChoosePositionMode mode, bool isBusiness,

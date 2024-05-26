@@ -188,6 +188,7 @@ namespace android
     void Get3dMode(bool & allow3d, bool & allow3dBuildings);
 
     void SetMapLanguageCode(std::string const & languageCode);
+    std::string GetMapLanguageCode();
 
     void SetChoosePositionMode(ChoosePositionMode mode, bool isBusiness, bool hasPosition, m2::PointD const & position);
     ChoosePositionMode GetChoosePositionMode();
