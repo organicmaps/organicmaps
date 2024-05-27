@@ -1075,14 +1075,14 @@ zh-Hans:商店
 zh-Hant:1購物|店鋪|商店|雜貨店|便利商店
 
 shop-bakery|shop-pastry|@category_eat|@category_food|@shop
-en:3Bakery|U+1F35E
-ru:3Булочная|3пекарня
-be:3Булачная|3Пякарня
+en:3Bakery|3Pastry|Cake|3Cakes|U+1F35E
+ru:3Булочная|3пекарня|Торт|3Торты|Пирожные
+be:3Булачная|3Пякарня|Торт|3Тарты
 bg:3Пекарна
 ar:مخبز|متجر
 cs:3Pekárna|Pekařství
 da:3Bager|bageri
-nl:3Bakkerij
+nl:3Bakkerij|Bakker|Gebak|Taart|3Taarten
 fi:3Leipomo
 fr:3Boulangerie|3Pâtisserie|pain
 de:3Bäckerei|Bäckerladen|Bäcker|4Konditorei
@@ -1104,7 +1104,7 @@ eu:3Okindegia
 sv:3Bageri
 th:3เบเกอรี่
 tr:3Fırın
-uk:3Пекарня
+uk:3Пекарня|Торт|3Торти
 vi:Hiệu bánh
 zh-Hans:1面包店|商店
 zh-Hant:1麵包店|2蛋糕店|烘焙|麵包|蛋糕|購物
@@ -2151,14 +2151,15 @@ sk:Obchod s výpočtovou technikou
 fa:فروشگاه کامپیوتر
 
 shop-confectionery|craft-confectionery|@category_food|@shop
-en:4Sweets|4confectionery|candies|candy|U+1F36C|U+1F36D|cake|sweetshop|tuck|pastry
+en:4Sweets|4confectionery|candies|candy|U+1F36C|U+1F36D|sweetshop|tuck
 en-AU:Lollies|Candy
-ru:4Кондитерская|кондитерские изделия|сладости|торты|десерты|пирожные
-bg:Сладки|сладкарница|бонбони|торти|сладкиши
+ru:4Кондитерская|кондитерские изделия|сладости
+bg:Сладки|сладкарница|бонбони|сладкиши
+be:4Кандытарская
 ar:متجر حلويات|حلويات|حلوى|متجر
 cs:Cukrárna
 da:Slikbutik|slikforretning|konfektureforretning|slik|konfekt
-nl:Banketbakker|snoepwinkel
+nl:Banketbakker|snoepwinkel|snoep|snoepjes|zoetigheden
 fi:Makeiskauppa
 fr:Pâtisserie|confiserie
 de:3Süßwarenladen|Süßwarengeschäft|Süßwaren|4Süßigkeiten|4Konfiserie
