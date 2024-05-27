@@ -103,7 +103,6 @@ RouteMarkData GetLastPassedPoint(BookmarkManager * bmManager, vector<RouteMarkDa
   {
     data.m_position = bmManager->MyPositionMark().GetPivot();
     data.m_isMyPosition = false;
-    data.m_replaceWithMyPositionAfterRestart = true;
   }
 
   return data;
@@ -117,7 +116,6 @@ void SerializeRoutePoint(json_t * node, RouteMarkData const & data)
   ToJSONObject(*node, "subtitle", data.m_subTitle);
   ToJSONObject(*node, "x", data.m_position.x);
   ToJSONObject(*node, "y", data.m_position.y);
-  ToJSONObject(*node, "replaceWithMyPosition", data.m_replaceWithMyPositionAfterRestart);
 }
 
 RouteMarkData DeserializeRoutePoint(json_t * node)
@@ -135,8 +133,6 @@ RouteMarkData DeserializeRoutePoint(json_t * node)
   FromJSONObject(node, "x", data.m_position.x);
   FromJSONObject(node, "y", data.m_position.y);
 
-  FromJSONObject(node, "replaceWithMyPosition", data.m_replaceWithMyPositionAfterRestart);
-
   return data;
 }
 
@@ -151,7 +147,7 @@ string SerializeRoutePoints(vector<RouteMarkData> const & points)
     json_array_append_new(pointsNode.get(), pointNode.release());
   }
   unique_ptr<char, JSONFreeDeleter> buffer(
-    json_dumps(pointsNode.get(), JSON_COMPACT));
+    json_dumps(pointsNode.get(), JSON_COMPACT | JSON_ENSURE_ASCII));
   return string(buffer.get());
 }
 
@@ -418,7 +414,7 @@ void RoutingManager::OnBuildRouteReady(Route const & route, RouterResultCode cod
     m2::RectD routeRect = route.GetPoly().GetLimitRect();
     routeRect.Scale(kRouteScaleMultiplier);
     m_drapeEngine.SafeCall(&df::DrapeEngine::SetModelViewRect, routeRect,
-                           true /* applyRotation */, -1 /* zoom */, true /* isAnim */,
+                           true /* applyRotation /, -1 / zoom /, true / isAnim */,
                            true /* useVisibleViewport */);
   }
 
@@ -834,8 +830,12 @@ size_t RoutingManager::GetRoutePointsCount() const
 
 bool RoutingManager::CouldAddIntermediatePoint() const
 {
-  if (!IsRoutingActive())
+  //if there isn't already a start or a finish point, we can't add an intermediate point
+  RoutePointsLayout routePoints(*m_bmManager);
+  int pointsCount = routePoints.GetRoutePointsCount();
+  if ( pointsCount == 0){
     return false;
+  }
 
   return m_bmManager->GetUserMarkIds(UserMark::Type::ROUTING).size()
     < RoutePointsLayout::kMaxIntermediatePointsCount + 2;
@@ -995,9 +995,9 @@ void RoutingManager::ReorderIntermediatePoints()
     prevPoints[i]->SetIntermediateIndex(i < insertIndex ? i : i + 1);
 }
 
-void RoutingManager::GenerateNotifications(vector<string> & turnNotifications, bool announceStreets)
+void RoutingManager::GenerateNotifications(vector<string> & turnNotifications)
 {
-  m_routingSession.GenerateNotifications(turnNotifications, announceStreets);
+  m_routingSession.GenerateNotifications(turnNotifications);
 }
 
 void RoutingManager::BuildRoute(uint32_t timeoutSec)
@@ -1055,7 +1055,7 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   //m2::RectD rect = ShowPreviewSegments(routePoints);
   //rect.Scale(kRouteScaleMultiplier);
   //m_drapeEngine.SafeCall(&df::DrapeEngine::SetModelViewRect, rect, true /* applyRotation */,
-  //                       -1 /* zoom */, true /* isAnim */, true /* useVisibleViewport */);
+  //                       -1 /* zoom /, true / isAnim /, true / useVisibleViewport */);
 
   m_routingSession.ClearPositionAccumulator();
   m_routingSession.SetUserCurrentPosition(routePoints.front().m_position);
@@ -1111,7 +1111,7 @@ void RoutingManager::CheckLocationForRouting(location::GpsInfo const & info)
     m_routingSession.RebuildRoute(
         mercator::FromLatLon(info.m_latitude, info.m_longitude),
         [this](Route const & route, RouterResultCode code) { OnRebuildRouteReady(route, code); },
-        nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */,
+        nullptr /* needMoreMapsCallback /, nullptr / removeRouteCallback */,
         RouterDelegate::kNoTimeout, SessionState::RouteRebuilding, true /* adjustToPrevRoute */);
   }
 }
@@ -1401,18 +1401,13 @@ void RoutingManager::LoadRoutePoints(LoadRouteHandler const & handler)
                           [this, handler, points = std::move(points)]() mutable
     {
       ASSERT(m_bmManager != nullptr, ());
-      // If we have found my position and the saved route used the user's position, we use my position as start point.
-      bool routeUsedPosition = false;
+      // If we have found my position, we use my position as start point.
       auto const & myPosMark = m_bmManager->MyPositionMark();
       auto editSession = m_bmManager->GetEditSession();
       editSession.ClearGroup(UserMark::Type::ROUTING);
       for (auto & p : points)
       {
-        // Check if the saved route used the user's position
-        if (p.m_replaceWithMyPositionAfterRestart && p.m_pointType == RouteMarkType::Start)
-          routeUsedPosition = true;
-
-        if (p.m_replaceWithMyPositionAfterRestart && p.m_pointType == RouteMarkType::Start && myPosMark.HasPosition())
+        if (p.m_pointType == RouteMarkType::Start && myPosMark.HasPosition())
         {
           RouteMarkData startPt;
           startPt.m_pointType = RouteMarkType::Start;
@@ -1426,9 +1421,9 @@ void RoutingManager::LoadRoutePoints(LoadRouteHandler const & handler)
         }
       }
 
-      // If we don't have my position and the saved route used it, save loading timestamp.
-      // Probably we will get my position soon.
-      if (routeUsedPosition && !myPosMark.HasPosition())
+      // If we don't have my position, save loading timestamp. Probably
+      // we will get my position soon.
+      if (!myPosMark.HasPosition())
         m_loadRoutePointsTimestamp = chrono::steady_clock::now();
 
       if (handler)

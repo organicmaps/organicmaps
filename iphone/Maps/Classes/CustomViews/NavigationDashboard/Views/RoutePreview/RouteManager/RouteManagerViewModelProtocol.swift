@@ -10,6 +10,7 @@ protocol RouteManagerViewModelProtocol: AnyObject {
   func cancelTransaction()
 
   func addLocationPoint()
+  func addRoutePoint()
   func movePoint(at index: Int, to newIndex: Int)
   func deletePoint(at index: Int)
 }

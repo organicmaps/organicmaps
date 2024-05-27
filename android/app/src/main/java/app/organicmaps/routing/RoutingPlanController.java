@@ -1,19 +1,27 @@
 package app.organicmaps.routing;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.content.SharedPreferences;
+import android.widget.Toast;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
+import androidx.appcompat.app.AppCompatActivity;
+
 import app.organicmaps.Framework;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
@@ -181,6 +189,26 @@ public class RoutingPlanController extends ToolbarController
     return (mFrameHeight > 0);
   }
 
+  void addStopToast() {
+    SharedPreferences prefs = MwmApplication.prefs(requireActivity().getApplicationContext());
+    SharedPreferences.Editor editor = prefs.edit();
+    editor.putBoolean(String.valueOf(R.string.toast_dismiss), false);
+    editor.apply();
+
+    View progressFrame = getToolbar().findViewById(R.id.progress_frame);
+    LayoutInflater inflater = requireActivity().getLayoutInflater();
+    View layout = inflater.inflate(R.layout.toast_custom,null);
+
+    TextView text = layout.findViewById(R.id.toast_custom);
+    text.setText(R.string.add_stop_toast);
+
+    Toast toast = new Toast(progressFrame.getContext());
+    toast.setDuration(Toast.LENGTH_LONG);
+    toast.setGravity(Gravity.BOTTOM, 0, 160);
+    toast.setView(layout);
+    toast.show();
+  }
+
   private void updateProgressLabels()
   {
     RoutingController.BuildState buildState = RoutingController.get().getBuildState();
@@ -212,6 +240,13 @@ public class RoutingPlanController extends ToolbarController
     final boolean showStartButton = !RoutingController.get().isRulerRouterType();
     mRoutingBottomMenuController.setStartButton(showStartButton);
     mRoutingBottomMenuController.showAltitudeChartAndRoutingDetails();
+
+    SharedPreferences prefs = MwmApplication.prefs(requireActivity().getApplicationContext());
+    boolean ShowToast = prefs.getBoolean(String.valueOf(R.string.toast_dismiss), true);
+
+    if (ShowToast) {
+      addStopToast();
+    }
   }
 
   public void updateBuildProgress(int progress, @Framework.RouterType int router)

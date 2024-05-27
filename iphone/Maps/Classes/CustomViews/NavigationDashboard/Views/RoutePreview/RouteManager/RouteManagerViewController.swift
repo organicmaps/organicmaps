@@ -207,6 +207,11 @@ final class RouteManagerViewController: MWMViewController, UITableViewDataSource
     })
   }
 
+  @IBAction func onAddStop(_ sender: UIButton) {
+    viewModel.addRoutePoint()
+    dismiss(animated: true, completion: nil)
+  }
+
   @IBAction private func gestureRecognized(_ longPress: UIGestureRecognizer) {
     let locationInView = gestureLocation(longPress, in: containerView)
     let locationInTableView = gestureLocation(longPress, in: tableView)

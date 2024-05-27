@@ -12,6 +12,8 @@
 #import "UIImageView+Coloring.h"
 #import "location_util.h"
 
+#include <CoreApi/Framework.h>
+
 #include "geometry/angles.hpp"
 
 namespace
@@ -92,6 +94,7 @@ BOOL defaultOrientation(CGSize const &size) {
 @property(weak, nonatomic) MWMNavigationDashboardEntity *navigationInfo;
 
 @property(nonatomic) BOOL hasLocation;
+@property(nonatomic) BOOL hasShownAddStopToast;
 
 @property(nonatomic) NSLayoutConstraint *topConstraint;
 @property(nonatomic) NSLayoutConstraint *leftConstraint;
@@ -117,7 +120,21 @@ BOOL defaultOrientation(CGSize const &size) {
 
   BOOL const hasStart = ([MWMRouter startPoint] != nil);
   BOOL const hasFinish = ([MWMRouter finishPoint] != nil);
+  Framework::DrapeCreationParams p;
+  BOOL const isFirstLaunch = [FirstSession isFirstSession];
+  BOOL const hasShownAddStopHint = [FirstSession hasShownAddStopToast];
   self.hasLocation = ([MWMLocationManager lastLocation] != nil);
+
+
+  if (hasStart && hasFinish && isFirstLaunch && !hasShownAddStopHint) {
+    [self setToastViewHidden:YES];
+
+    MWMToast *toast = [MWMToast toastWithText:L(@"routing_add_stop_point")];
+    
+    [toast showIn:[UIApplication sharedApplication].keyWindow alignment:MWMToastAlignmentBottom pinToSafeArea:YES withOffset:-103];
+    
+    return;
+  }
 
   if (hasStart && hasFinish) {
     [self setToastViewHidden:YES];
@@ -142,6 +159,10 @@ BOOL defaultOrientation(CGSize const &size) {
     [toastView configWithIsStart:NO withLocationButton:NO];
   else
     [toastView configWithIsStart:YES withLocationButton:NO];
+}
+
+-(BOOL)isFirstLaunch{
+  return self.isFirstLaunch;
 }
 
 - (IBAction)openSearch {

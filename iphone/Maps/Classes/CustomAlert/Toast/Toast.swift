@@ -91,7 +91,43 @@ final class Toast: NSObject {
                                  userInfo: nil,
                                  repeats: false)
   }
-  
+
+  @objc func show(in view: UIView?, alignment: Alignment, pinToSafeArea: Bool = true, withOffset offset: CGFloat ) {
+    guard let view = view else { return }
+    blurView.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(blurView)
+
+    let leadingConstraint = blurView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 16)
+    let trailingConstraint = blurView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -16)
+    
+    NSLayoutConstraint.activate([
+      leadingConstraint,
+      trailingConstraint
+    ])
+    
+    let verticalConstraint: NSLayoutConstraint
+    if alignment == .bottom {
+      verticalConstraint = blurView.bottomAnchor.constraint(equalTo: pinToSafeArea ? view.safeAreaLayoutGuide.bottomAnchor : view.bottomAnchor, constant: offset)
+    } else {
+      verticalConstraint = blurView.topAnchor.constraint(equalTo: pinToSafeArea ? view.safeAreaLayoutGuide.topAnchor : view.topAnchor, constant: offset)
+    }
+    
+    NSLayoutConstraint.activate([
+      verticalConstraint,
+      blurView.centerXAnchor.constraint(equalTo: pinToSafeArea ? view.safeAreaLayoutGuide.centerXAnchor : view.centerXAnchor)
+    ])
+
+    UIView.animate(withDuration: kDefaultAnimationDuration) {
+      self.blurView.alpha = 1
+    }
+
+    timer = Timer.scheduledTimer(timeInterval: 3,
+                                 target: self,
+                                 selector: #selector(hide),
+                                 userInfo: nil,
+                                 repeats: false)
+  }
+
   @objc func hide() {
     timer?.invalidate()
     if self.blurView.superview != nil {

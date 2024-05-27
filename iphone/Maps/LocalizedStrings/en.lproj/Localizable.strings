@@ -926,6 +926,8 @@
 
 "routing_add_start_point" = "Add a starting point to plan a route";
 
+"routing_add_stop_point" = "Select any place to add an intermediate stop"
+
 "routing_add_finish_point" = "Add a destination to plan a route";
 
 "planning_route_manage_route" = "Manage Route";

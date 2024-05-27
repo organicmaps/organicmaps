@@ -1,4 +1,4 @@
-/*******************************************************************************
+/***************************
  The MIT License (MIT)
 
  Copyright (c) 2021 Alexander Borsuk <me@alex.bio> from Minsk, Belarus
@@ -20,7 +20,7 @@
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
- *******************************************************************************/
+ ***************************/
 
 #ifndef FIRSTSESSION_H
 #define FIRSTSESSION_H
@@ -40,6 +40,8 @@
 + (void)setup:(NSArray *)serverUrls withLaunchOptions:(NSDictionary *)options;
 // Returns YES if it is a first session, before app goes into background.
 + (BOOL)isFirstSession;
+// Returns YES if it has already showed the add stop hint.
++ (BOOL)hasShownAddStopToast;
 // Returns summary time of all active user sessions up to now.
 + (NSInteger)totalSecondsSpentInTheApp;
 

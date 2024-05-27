@@ -612,6 +612,8 @@
 	<string name="core_exit">Exit</string>
 	<string name="routing_add_start_point">Add a starting point to plan a route</string>
 	<string name="routing_add_finish_point">Add a destination to plan a route</string>
+	<string name="add_stop_toast">Select any place to add an intermediate stop</string>
+	<string name="toast_dismiss">Don\'t show again</string>
 	<string name="placepage_remove_stop">Remove</string>
 	<string name="placepage_add_stop">Add Stop</string>
 	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
@@ -697,6 +699,7 @@
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_ferry">Avoid ferries</string>
 	<string name="avoid_motorways">Avoid freeways</string>
+	<string name="manage_route">Manage route</string>
 	<string name="unable_to_calc_alert_title">Unable to calculate route</string>
 	<string name="unable_to_calc_alert_subtitle">A route could not be found. This may be caused by your routing options or incomplete OpenStreetMap data. Please change your routing options and retry.</string>
 	<string name="define_to_avoid_btn">Define roads to avoid</string>

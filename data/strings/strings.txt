@@ -20194,6 +20194,51 @@
     zh-Hans = 添加起点以规划路线
     zh-Hant = 新增起點以計劃路線
 
+     [routing_add_stop_point]
+    tags = ios
+    en = Select any place to add an intermediate stop
+    af = Kies enige plek om ’n tussenstop by te voeg
+    ar = حدد أي مكان لإضافة توقف وسيط
+    az = Bir ara durmaq əlavə etmək üçün hər hansı bir yeri seçin
+    be = Выберыце любое месца, каб дадаць пралягчы стоп
+    bg = Изберете която и да е точка, за да добавите междинна спирка
+    ca = Seleccioneu qualsevol lloc per afegir una parada intermèdia
+    cs = Vyberte libovolné místo pro přidání mezipřistání
+    da = Vælg et hvilket som helst sted for at tilføje en mellemlanding
+    de = Wählen Sie einen beliebigen Ort aus, um einen Zwischenstopp hinzuzufügen
+    el = Επιλέξτε οποιοδήποτε μέρος για να προσθέσετε μια ενδιάμεση στάση
+    es = Selecciona cualquier lugar para añadir una parada intermedia
+    et = Valige mis tahes koht, et lisada vahepeatuse punkt
+    eu = Hautatu edozein toki eta gehitu eten erdia
+    fa = یک مکان را برای اضافه کردن یک توقف وسطی انتخاب کنید
+    fi = Valitse mikä tahansa paikka lisätäksesi välipysäkin
+    fr = Sélectionnez n'importe quel endroit pour ajouter un arrêt intermédiaire
+    he = בחרו בכל מקום להוסיף תחנה ביניים
+    hi = बिच का एक स्थान जोड़ने के लिए कोई भी स्थान चुनें
+    hu = Válasszon ki bármilyen helyet egy köztes megálló hozzáadásához
+    id = Pilih tempat mana pun untuk menambahkan titik persinggahan
+    it = Seleziona qualsiasi posto per aggiungere una fermata intermedia
+    ja = 中間停留所を追加する場所を選択してください
+    ko = 중간 정차지를 추가할 위치를 선택하세요
+    lt = Pasirinkite bet kurį vietą, kad pridėtumėte tarpinę stotelę
+    mr = बीचीकडील थांबायला कोणत्याही ठिकाणी निवडा
+    nb = Velg et hvilket som helst sted for å legge til en mellomlanding
+    nl = Selecteer een willekeurige plaats om een tussenstop toe te voegen
+    pl = Wybierz dowolne miejsce, aby dodać przystanek pośredni
+    pt = Selecione qualquer lugar para adicionar uma paragem intermédia
+    pt-BR = Selecione qualquer lugar para adicionar uma parada intermediária
+    ro = Selectați orice loc pentru a adăuga un punct intermediar de oprire
+    ru = Выберите любое место, чтобы добавить промежуточную остановку
+    sk = Vyberte ľubovoľné miesto pre pridanie medzipristátia
+    sv = Välj valfri plats för att lägga till ett mellanstopp
+    sw = Chagua eneo lolote kuongeza kituo cha kati
+    th = เลือกสถานที่ใดก็ได้เพื่อเพิ่มจุดหยุดระหว่างทาง
+    tr = Araya bir durak eklemek için herhangi bir yeri seçin
+    uk = Виберіть будь-яке місце, щоб додати проміжну зупинку
+    vi = Chọn bất kỳ địa điểm nào để thêm điểm dừng trung gian
+    zh-Hans = 选择任何地点添加中途停靠点
+    zh-Hant = 選擇任何地點添加中途停靠點
+
   [routing_add_finish_point]
     tags = android,ios
     en = Add a destination to plan a route

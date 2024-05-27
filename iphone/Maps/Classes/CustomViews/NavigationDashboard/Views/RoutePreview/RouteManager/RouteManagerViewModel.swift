@@ -18,6 +18,9 @@ final class RouteManagerViewModel: NSObject, RouteManagerViewModelProtocol {
     MWMRouter.updatePreviewMode()
     refreshControlsCallback()
   }
+  func addRoutePoint() {
+    MWMRouter.cancelRouteManagerTransaction()
+  }
   func movePoint(at index: Int, to newIndex: Int) {
     MWMRouter.movePoint(at: index, to: newIndex)
     MWMRouter.updatePreviewMode()

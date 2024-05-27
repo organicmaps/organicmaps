@@ -1,4 +1,4 @@
-/*******************************************************************************
+/***************************
  The MIT License (MIT)
 
  Copyright (c) 2021 Alexander Borsuk <me@alex.bio> from Minsk, Belarus
@@ -20,7 +20,7 @@
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
- *******************************************************************************/
+ ***************************/
 
 #if ! __has_feature(objc_arc)
 #error This file must be compiled with ARC. Either turn on ARC for the project or use -fobjc-arc flag
@@ -60,6 +60,7 @@ static NSString * const kIsAlohalyticsDisabledKey = @"AlohalyticsDisabledKey";
 // setup should be called to activate counting.
 static NSDate * gSessionStartTime = nil;
 static BOOL gIsFirstSession = NO;
+static int gHasShownAddStopToast = 1;
 static NSString * gInstallationId = nil;
 
 @implementation FirstSession
@@ -90,6 +91,11 @@ static NSString * gInstallationId = nil;
 
 + (BOOL)isFirstSession {
   return [self installationId] != nil && gIsFirstSession;
+}
+
++ (BOOL)hasShownAddStopToast {
+  gHasShownAddStopToast -= 1;
+  return gHasShownAddStopToast==1;
 }
 
 + (NSDate *)firstLaunchDate {
