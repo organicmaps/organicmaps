@@ -5,7 +5,7 @@
 
 #include "map/gps_tracker.hpp"
 
-typedef NS_ENUM(NSUInteger, DurationInHours) { One = 1, Two = 2, Six = 6, Twelve = 12, Day = 24, ThreeDays = 72, OneWeek = 168 };
+typedef NS_ENUM(NSUInteger, DurationInHours) { OneHour = 1, TwoHours = 2, SixHours = 6, TwelveHours = 12, OneDay = 24, ThreeDays = 72, OneWeek = 168 };
 
 @interface MWMRecentTrackSettingsController ()
 
@@ -36,11 +36,11 @@ typedef NS_ENUM(NSUInteger, DurationInHours) { One = 1, Two = 2, Six = 6, Twelve
   {
     switch (GpsTracker::Instance().GetDuration().count())
     {
-    case One: _selectedCell = self.oneHour; break;
-    case Two: _selectedCell = self.twoHours; break;
-    case Six: _selectedCell = self.sixHours; break;
-    case Twelve: _selectedCell = self.twelveHours; break;
-    case Day: _selectedCell = self.oneDay; break;
+    case OneHour: _selectedCell = self.oneHour; break;
+    case TwoHours: _selectedCell = self.twoHours; break;
+    case SixHours: _selectedCell = self.sixHours; break;
+    case TwelveHours: _selectedCell = self.twelveHours; break;
+    case OneDay: _selectedCell = self.oneDay; break;
     case ThreeDays: _selectedCell = self.threeDays; break;
     case OneWeek: _selectedCell = self.oneWeek; break;
     default: NSAssert(false, @"Incorrect hours value"); break;
@@ -69,15 +69,15 @@ typedef NS_ENUM(NSUInteger, DurationInHours) { One = 1, Two = 2, Six = 6, Twelve
     f.ConnectToGpsTracker();
 
     if ([selectedCell isEqual:self.oneHour])
-      tracker.SetDuration(std::chrono::hours(One));
+      tracker.SetDuration(std::chrono::hours(OneHour));
     else if ([selectedCell isEqual:self.twoHours])
-      tracker.SetDuration(std::chrono::hours(Two));
+      tracker.SetDuration(std::chrono::hours(TwoHours));
     else if ([selectedCell isEqual:self.sixHours])
-      tracker.SetDuration(std::chrono::hours(Six));
+      tracker.SetDuration(std::chrono::hours(SixHours));
     else if ([selectedCell isEqual:self.twelveHours])
-      tracker.SetDuration(std::chrono::hours(Twelve));
+      tracker.SetDuration(std::chrono::hours(TwelveHours));
     else if ([selectedCell isEqual:self.oneDay])
-      tracker.SetDuration(std::chrono::hours(Day));
+      tracker.SetDuration(std::chrono::hours(OneDay));
     else if ([selectedCell isEqual:self.threeDays])
       tracker.SetDuration(std::chrono::hours(ThreeDays));
     else
