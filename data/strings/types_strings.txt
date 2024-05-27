@@ -12485,7 +12485,7 @@
     az = Yol
     cs = Cesta
     da = Sti
-    de = Weg
+    de = Pfad
     el = Διαδρομή
     es = Camino
     et = Rada
@@ -12520,12 +12520,14 @@
     comment = Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad.
     ref = type.highway.path
     en = Difficult or Indistinct Trail
+    de = Schwieriger oder kaum erkennbarer Pfad
     ru = Сложная или плохо видимая тропа
 
   [type.highway.path.expert]
     comment = Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme.
     ref = type.highway.path
     en = Expert or Indiscernible Trail
+    de = Alpinwanderweg oder wegloser Pfad
     ru = Очень сложная или неразличимая тропа
 
   [type.highway.path.bicycle]
@@ -12534,7 +12536,7 @@
     af = Fiets- en voetpad
     ar = مسار للمشاة والدراجات معاً
     az = Velosiped və Gəzinti Yolu
-    de = Radweg
+    de = Rad- und Fußweg
     es = Camino para bicicletas
     et = Jalgratta- ja jalgtee
     fi = Pyörä- ja jalkatie
@@ -13550,6 +13552,7 @@
 
   [type.area_highway.path]
     ref = type.highway.path
+    de = Weg
 
   [type.area_highway.pedestrian]
     ref = type.highway.pedestrian
