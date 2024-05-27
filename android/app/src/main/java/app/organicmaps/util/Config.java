@@ -6,7 +6,6 @@ import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceManager;
-
 import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
@@ -254,12 +253,12 @@ public final class Config
   @NonNull
   public static String getUiThemeSettings(@NonNull Context context)
   {
-    String autoTheme = MwmApplication.from(context).getString(R.string.theme_auto);
-    String res = getString(KEY_MISC_UI_THEME_SETTINGS, autoTheme);
-    if (ThemeUtils.isValidTheme(context, res) || ThemeUtils.isAutoTheme(context, res))
+    String followSystemTheme = MwmApplication.from(context).getString(R.string.theme_follow_system);
+    String res = getString(KEY_MISC_UI_THEME_SETTINGS, followSystemTheme);
+    if (ThemeUtils.isValidTheme(context, res) || ThemeUtils.isFollowSystemTheme(context, res))
       return res;
 
-    return autoTheme;
+    return followSystemTheme;
   }
 
   public static boolean setUiThemeSettings(@NonNull Context context, String theme)
