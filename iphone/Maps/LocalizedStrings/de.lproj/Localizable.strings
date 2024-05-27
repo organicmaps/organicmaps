@@ -2098,17 +2098,17 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway_link.tunnel" = "Tunnel";
 
-"type.highway.path" = "Weg";
+"type.highway.path" = "Pfad";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Weg";
+"type.highway.path.difficult" = "Schwieriger oder kaum erkennbarer Pfad";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Weg";
+"type.highway.path.expert" = "Alpinwanderweg oder wegloser Pfad";
 
-"type.highway.path.bicycle" = "Radweg";
+"type.highway.path.bicycle" = "Rad- und Fußweg";
 
-"type.highway.footway.bicycle" = "Radweg";
+"type.highway.footway.bicycle" = "Rad- und Fußweg";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Brücke";

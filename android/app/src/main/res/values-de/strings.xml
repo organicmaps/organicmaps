@@ -1218,13 +1218,13 @@
 	<string name="type.highway.motorway_link.bridge">Brücke</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
-	<string name="type.highway.path">Weg</string>
+	<string name="type.highway.path">Pfad</string>
 	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-	<string name="type.highway.path.difficult">Weg</string>
+	<string name="type.highway.path.difficult">Schwieriger oder kaum erkennbarer Pfad</string>
 	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-	<string name="type.highway.path.expert">Weg</string>
-	<string name="type.highway.path.bicycle">Radweg</string>
-	<string name="type.highway.footway.bicycle">Radweg</string>
+	<string name="type.highway.path.expert">Alpinwanderweg oder wegloser Pfad</string>
+	<string name="type.highway.path.bicycle">Rad- und Fußweg</string>
+	<string name="type.highway.footway.bicycle">Rad- und Fußweg</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Brücke</string>
 	<string name="type.highway.path.horse">Reitweg</string>
