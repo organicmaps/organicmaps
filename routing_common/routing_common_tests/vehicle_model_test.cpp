@@ -478,4 +478,43 @@ UNIT_TEST(VehicleModel_CarModelValidation)
     TEST(speed->IsValid(), (hwType, *speed));
   }
 }
+
+UNIT_TEST(VehicleModel_HighwayType_Values)
+{
+  classificator::Load();
+  auto const & cl = classif();
+
+  auto const check = [&cl](HighwayType hwType, base::StringIL clType)
+  {
+    return static_cast<uint16_t>(hwType) == cl.GetIndexForType(cl.GetTypeByPath(clType));
+  };
+
+  TEST(check(HighwayType::HighwayResidential, {"highway", "residential"}), ());
+  TEST(check(HighwayType::HighwayService, {"highway", "service"}), ());
+  TEST(check(HighwayType::HighwayUnclassified, {"highway", "unclassified"}), ());
+  TEST(check(HighwayType::HighwayFootway, {"highway", "footway"}), ());
+  TEST(check(HighwayType::HighwayTrack, {"highway", "track"}), ());
+  TEST(check(HighwayType::HighwayTertiary, {"highway", "tertiary"}), ());
+  TEST(check(HighwayType::HighwaySecondary, {"highway", "secondary"}), ());
+  TEST(check(HighwayType::HighwayPath, {"highway", "path"}), ());
+  TEST(check(HighwayType::HighwayPrimary, {"highway", "primary"}), ());
+  TEST(check(HighwayType::HighwayRoad, {"highway", "road"}), ());
+  TEST(check(HighwayType::HighwayCycleway, {"highway", "cycleway"}), ());
+  TEST(check(HighwayType::HighwayMotorwayLink, {"highway", "motorway_link"}), ());
+  TEST(check(HighwayType::HighwayLivingStreet, {"highway", "living_street"}), ());
+  TEST(check(HighwayType::HighwayMotorway, {"highway", "motorway"}), ());
+  TEST(check(HighwayType::HighwaySteps, {"highway", "steps"}), ());
+  TEST(check(HighwayType::HighwayTrunk, {"highway", "trunk"}), ());
+  TEST(check(HighwayType::HighwayPedestrian, {"highway", "pedestrian"}), ());
+  TEST(check(HighwayType::HighwayTrunkLink, {"highway", "trunk_link"}), ());
+  TEST(check(HighwayType::HighwayPrimaryLink, {"highway", "primary_link"}), ());
+  TEST(check(HighwayType::ManMadePier, {"man_made", "pier"}), ());
+  TEST(check(HighwayType::HighwayBridleway, {"highway", "bridleway"}), ());
+  TEST(check(HighwayType::HighwaySecondaryLink, {"highway", "secondary_link"}), ());
+  TEST(check(HighwayType::RouteFerry, {"route", "ferry"}), ());
+  TEST(check(HighwayType::HighwayTertiaryLink, {"highway", "tertiary_link"}), ());
+  TEST(check(HighwayType::HighwayBusway, {"highway", "busway"}), ());
+  TEST(check(HighwayType::RouteShuttleTrain, {"route", "shuttle_train"}), ());
+}
+
 }  // namespace vehicle_model_test
