@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -63,6 +64,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private static final String TRACK_MENU_ID = "TRACK_MENU_BOTTOM_SHEET";
   private static final String OPTIONS_MENU_ID = "OPTIONS_MENU_BOTTOM_SHEET";
 
+  private ActivityResultLauncher<Intent> shareLauncher;
+
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private SearchToolbarController mToolbarController;
@@ -101,6 +104,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     super.onCreate(savedInstanceState);
     BookmarkCategory category = getCategoryOrThrow();
     mCategoryDataSource = new CategoryDataSource(category);
+
+    shareLauncher = SharingUtils.RegisterLauncher(this);
   }
 
   @NonNull
@@ -735,7 +740,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   @Override
   public void onPreparedFileForSharing(@NonNull BookmarkSharingResult result)
   {
-    BookmarksSharingHelper.INSTANCE.onPreparedFileForSharing(requireActivity(), result);
+    BookmarksSharingHelper.INSTANCE.onPreparedFileForSharing(requireActivity(), shareLauncher, result);
   }
 
   @Override
