@@ -26,6 +26,7 @@
 #include "base/macros.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
+#include "base/math.hpp"
 
 #include <algorithm>
 #include <chrono>
@@ -300,25 +301,36 @@ Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData && bmData)
   return AddBookmark(std::make_unique<Bookmark>(std::move(bmData)));
 }
 
-Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData && bm, kml::MarkGroupId groupId)
+Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData && bookmarkData, kml::MarkGroupId groupId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   auto const & c = classif();
   CHECK(c.HasTypesMapping(), ());
   std::stringstream ss;
-  for (size_t i = 0; i < bm.m_featureTypes.size(); ++i)
+  for (size_t i = 0; i < bookmarkData.m_featureTypes.size(); ++i)
   {
-    ss << c.GetReadableObjectName(c.GetTypeForIndex(bm.m_featureTypes[i]));
-    if (i + 1 < bm.m_featureTypes.size())
+    ss << c.GetReadableObjectName(c.GetTypeForIndex(bookmarkData.m_featureTypes[i]));
+    if (i + 1 < bookmarkData.m_featureTypes.size())
       ss << ",";
   }
 
-  bm.m_timestamp = kml::TimestampClock::now();
-  bm.m_viewportScale = static_cast<uint8_t>(df::GetZoomLevel(m_viewport.GetScale()));
+  bookmarkData.m_timestamp = kml::TimestampClock::now();
+  bookmarkData.m_viewportScale = static_cast<uint8_t>(df::GetZoomLevel(m_viewport.GetScale()));
 
-  auto * bookmark = CreateBookmark(std::move(bm));
+  auto const recentlyDeletedBookmark = GetRecentlyDeletedBookmarkByPoint(bookmarkData.m_point);
+  if (recentlyDeletedBookmark)
+  {
+    // Recover the bookmark from the recently deleted.
+    bookmarkData = recentlyDeletedBookmark->GetData();
+    if (HasBmCategory(recentlyDeletedBookmark->GetGroupId()))
+      groupId = recentlyDeletedBookmark->GetGroupId();
+    RemoveBookmarkFromRecentlyDeleted(* recentlyDeletedBookmark);
+  }
+
+  auto bookmark = CreateBookmark(std::move(bookmarkData));
   bookmark->Attach(groupId);
+
   auto * group = GetBmCategory(groupId);
   group->AttachUserMark(bookmark->GetId());
   m_changesTracker.OnAttachBookmark(bookmark->GetId(), groupId);
@@ -372,13 +384,65 @@ void BookmarkManager::DeleteBookmark(kml::MarkId bmId)
   ASSERT(IsBookmark(bmId), ());
   auto const it = m_bookmarks.find(bmId);
   CHECK(it != m_bookmarks.end(), ());
-  auto const groupId = it->second->GetGroupId();
-
+  auto const bookmark = it->second.get();
+  auto const groupId = bookmark->GetGroupId();
   if (groupId != kml::kInvalidMarkGroupId)
+  {
+    AddBookmarkToRecentlyDeleted(std::move(it->second));
     DetachUserMark(bmId, groupId);
-
+  }
   m_changesTracker.OnDeleteMark(bmId);
   m_bookmarks.erase(it);
+}
+
+void BookmarkManager::AddBookmarkToRecentlyDeleted(std::unique_ptr<Bookmark> && bookmark)
+{
+  m_recentlyDeletedBookmarks.emplace(bookmark.get()->GetId(), std::move(bookmark));
+}
+
+void BookmarkManager::RemoveBookmarkFromRecentlyDeleted(const Bookmark & bookmark)
+{
+  m_recentlyDeletedBookmarks.erase(bookmark.GetId());
+}
+
+Bookmark * BookmarkManager::GetRecentlyDeletedBookmarkByPoint(const m2::PointD point)
+{
+  for (auto const & pair : m_recentlyDeletedBookmarks)
+  {
+    auto const bookmark = pair.second.get();
+    auto const bookmarkPoint = bookmark->GetData().m_point;
+    // The point comparison is done with a small epsilon to avoid floating point errors because the coordinates are stored as 8 char length format in kml.
+    constexpr double eps = 1e-6;
+    if (base::AlmostEqualAbsOrRel(bookmarkPoint.x, point.x, eps) && base::AlmostEqualAbsOrRel(bookmarkPoint.y, point.y, eps))
+      return bookmark;
+  }
+  return nullptr;
+}
+
+Bookmark * BookmarkManager::RecoverRecentlyDeletedBookmark(kml::MarkId bookmarkId)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto it = m_recentlyDeletedBookmarks.find(bookmarkId);
+  if (it == m_recentlyDeletedBookmarks.end())
+    return nullptr;
+  
+  auto const recentlyDeletedBookmark = it->second.get();
+  auto data = recentlyDeletedBookmark->GetData();
+
+  auto groupId = recentlyDeletedBookmark->GetGroupId();
+  if (!HasBmCategory(groupId))
+    groupId = LastEditedBMCategory();
+
+  auto bookmark = CreateBookmark(std::move(data));
+  bookmark->Attach(groupId);
+
+  auto * group = GetBmCategory(groupId);
+  group->AttachUserMark(bookmark->GetId());
+  m_changesTracker.OnAttachBookmark(bookmark->GetId(), groupId);
+  group->SetIsVisible(true);
+
+  RemoveBookmarkFromRecentlyDeleted(* recentlyDeletedBookmark);
+  return bookmark;
 }
 
 void BookmarkManager::DetachUserMark(kml::MarkId bmId, kml::MarkGroupId catId)
@@ -390,6 +454,7 @@ void BookmarkManager::DetachUserMark(kml::MarkId bmId, kml::MarkGroupId catId)
   }
   m_changesTracker.OnDetachBookmark(bmId, catId);
 }
+
 
 void BookmarkManager::DeleteCompilations(kml::GroupIdCollection const & compilations)
 {
@@ -456,9 +521,46 @@ void BookmarkManager::DeleteTrack(kml::TrackId trackId)
   auto it = m_tracks.find(trackId);
   auto const groupId = it->second->GetGroupId();
   if (groupId != kml::kInvalidMarkGroupId)
+  {
+    AddTrackToRecentlyDeleted(std::move(it->second));
     GetBmCategory(groupId)->DetachTrack(trackId);
+  }
   m_changesTracker.OnDeleteLine(trackId);
   m_tracks.erase(it);
+}
+
+Track * BookmarkManager::RecoverRecentlyDeletedTrack(kml::TrackId trackId)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto it = m_recentlyDeletedTracks.find(trackId);
+  if (it == m_recentlyDeletedTracks.end())
+    return nullptr;
+  
+  auto recentlyDeletedTrack = it->second.get();
+  auto data = recentlyDeletedTrack->GetData();
+
+  auto groupId = recentlyDeletedTrack->GetGroupId();
+  if (!HasBmCategory(groupId))
+    groupId = LastEditedBMCategory();
+
+  auto track = CreateTrack(std::move(data));
+  track->Attach(groupId);
+
+  auto * group = GetBmCategory(groupId);
+  group->AttachTrack(trackId);
+
+  RemoveTrackFromRecentlyDeleted(* recentlyDeletedTrack);
+  return track;
+}
+
+void BookmarkManager::AddTrackToRecentlyDeleted(std::unique_ptr<Track> && track)
+{
+  m_recentlyDeletedTracks.emplace(track.get()->GetId(), std::move(track));
+}
+
+void BookmarkManager::RemoveTrackFromRecentlyDeleted(const Track & track)
+{
+  m_recentlyDeletedTracks.erase(track.GetId());
 }
 
 void BookmarkManager::GetDirtyGroups(kml::GroupIdSet & dirtyGroups) const
@@ -3446,9 +3548,19 @@ Bookmark * BookmarkManager::EditSession::CreateBookmark(kml::BookmarkData && bmD
   return m_bmManager.CreateBookmark(std::move(bmData), groupId);
 }
 
+Bookmark * BookmarkManager::EditSession::RecoverRecentlyDeletedBookmark(kml::MarkId bookmarkId)
+{
+  return m_bmManager.RecoverRecentlyDeletedBookmark(bookmarkId);
+}
+
 Track * BookmarkManager::EditSession::CreateTrack(kml::TrackData && trackData)
 {
   return m_bmManager.CreateTrack(std::move(trackData));
+}
+
+Track * BookmarkManager::EditSession::RecoverRecentlyDeletedTrack(kml::TrackId trackId)
+{
+  return m_bmManager.RecoverRecentlyDeletedTrack(trackId);
 }
 
 Bookmark * BookmarkManager::EditSession::GetBookmarkForEdit(kml::MarkId bmId)
