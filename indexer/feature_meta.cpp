@@ -23,18 +23,24 @@ string Metadata::ToWikiURL(std::string v)
   if (colon == string::npos)
     return v;
 
-  // Spaces and % sign should be replaced in urls.
-  replace(v.begin() + colon, v.end(), ' ', '_');
-  string::size_type percent, pos = colon;
-  string const escapedPercent("%25");
-  while ((percent = v.find('%', pos)) != string::npos)
+  // Spaces, % and ? characters should be corrected to form a valid URL's path.
+  // Standard percent encoding also encodes other characters like (), which lead to an unnecessary HTTP redirection.
+  for (auto i = colon; i < v.size(); ++i)
   {
-    v.replace(percent, 1, escapedPercent);
-    pos = percent + escapedPercent.size();
+    auto & c = v[i];
+    if (c == ' ')
+      c = '_';
+    else if (c == '%')
+      v.insert(i + 1, "25");  // % => %25
+    else if (c == '?')
+    {
+      c = '%';
+      v.insert(i + 1, "3F");  // ? => %3F
+    }
   }
 
   // Trying to avoid redirects by constructing the right link.
-  // TODO: Wikipedia article could be opened it a user's language, but need
+  // TODO: Wikipedia article could be opened in a user's language, but need
   // generator level support to check for available article languages first.
   return "https://" + v.substr(0, colon) + kBaseWikiUrl + v.substr(colon + 1);
 }
