@@ -632,7 +632,8 @@
 	<string name="bookmarks_empty_list_title">רשימה זו ריקה</string>
 	<string name="bookmarks_empty_list_message">כדי להוסיף סימניה, לחץ על מקום במפה ואז לחץ על סימן הכוכב</string>
 	<string name="category_desc_more">…עוד</string>
-	<string name="export_file">יצא קובץ</string>
+	<string name="export_file">ייצא KMZ</string>
+	<string name="export_file_gpx">ייצוא GPX</string>
 	<string name="delete_list">מחק רשימה</string>
 	<string name="public_access">גישה ציבורית</string>
 	<string name="limited_access">גישה מוגבלת</string>

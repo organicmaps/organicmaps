@@ -1013,7 +1013,9 @@
 
 "popular_place" = "Δημοφιλή";
 
-"export_file" = "Εξαγωγή Αρχείου";
+"export_file" = "Εξαγωγή KMZ";
+
+"export_file_gpx" = "Εξαγωγή GPX";
 
 "delete_list" = "Διαγραφή λίστας";
 

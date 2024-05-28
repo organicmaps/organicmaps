@@ -619,7 +619,8 @@
 	<string name="bookmarks_empty_list_title">A lista üres</string>
 	<string name="bookmarks_empty_list_message">A könyvjelző hozzáadásához, érintsen meg a térképen egy helyet majd érintse meg a csillag ikont</string>
 	<string name="category_desc_more">…tovább</string>
-	<string name="export_file">Fájl exportálása</string>
+	<string name="export_file">KMZ exportálása</string>
+	<string name="export_file_gpx">GPX exportálása</string>
 	<string name="delete_list">Törölni a listát</string>
 	<string name="public_access">Nyílt hozzáférés</string>
 	<string name="limited_access">Személyes hozzáférés</string>

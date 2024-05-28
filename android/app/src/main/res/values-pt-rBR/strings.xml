@@ -588,7 +588,6 @@
 	<string name="bookmarks_empty_list_title">Esta lista está vazia</string>
 	<string name="bookmarks_empty_list_message">Para adicionar um favorito, toque no mapa e então toque no ícone de estrela</string>
 	<string name="category_desc_more">…mais</string>
-	<string name="export_file">Exportar arquivo</string>
 	<string name="delete_list">Deletar lista</string>
 	<string name="public_access">Acesso público</string>
 	<string name="limited_access">Acesso limitado</string>

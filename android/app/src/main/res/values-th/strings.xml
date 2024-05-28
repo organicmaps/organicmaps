@@ -606,7 +606,8 @@
 	<string name="bookmarks_empty_list_title">รายการนี้ว่างเปล่า</string>
 	<string name="bookmarks_empty_list_message">เพื่อเพิ่มบุ๊กมาร์ก โปรดแตะที่สถานที่บนแผนที่ แล้วจากนั้นแตะที่ไอคอนรูปดาว</string>
 	<string name="category_desc_more">…เพิ่มเติม</string>
-	<string name="export_file">ส่งออกไฟล์</string>
+	<string name="export_file">ส่งออก KMZ</string>
+	<string name="export_file_gpx">ส่งออก GPX</string>
 	<string name="delete_list">ลบรายการ</string>
 	<string name="public_access">เข้าถึงได้โดยสาธารณะ</string>
 	<string name="limited_access">จำกัดการเข้าถึง</string>

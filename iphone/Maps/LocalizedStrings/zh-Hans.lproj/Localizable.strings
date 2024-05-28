@@ -1013,7 +1013,9 @@
 
 "popular_place" = "Popular";
 
-"export_file" = "导出文件";
+"export_file" = "导出 KMZ";
+
+"export_file_gpx" = "导出 GPX";
 
 "delete_list" = "删除列表";
 

@@ -1013,7 +1013,9 @@
 
 "popular_place" = "Popular";
 
-"export_file" = "Xuất tập tin";
+"export_file" = "Xuất KMZ";
+
+"export_file_gpx" = "Xuất GPX";
 
 "delete_list" = "Xóa danh sách";
 

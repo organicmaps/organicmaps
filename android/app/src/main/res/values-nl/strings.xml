@@ -634,7 +634,8 @@
 	<string name="bookmarks_empty_list_title">Deze lijst is leeg</string>
 	<string name="bookmarks_empty_list_message">Om een bladwijzer toe te voegen, tikt u op een plaats op de kaart en vervolgens op het sterpictogram</string>
 	<string name="category_desc_more">…meer</string>
-	<string name="export_file">Bestand exporteren</string>
+	<string name="export_file">KMZ exporteren</string>
+	<string name="export_file_gpx">GPX exporteren</string>
 	<string name="delete_list">Lijst verwijderen</string>
 	<string name="public_access">Publieke toegang</string>
 	<string name="limited_access">Beperkte toegang</string>

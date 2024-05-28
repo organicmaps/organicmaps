@@ -1013,7 +1013,9 @@
 
 "popular_place" = "Popular";
 
-"export_file" = "Exportera fil";
+"export_file" = "Exportera KMZ";
+
+"export_file_gpx" = "Exportera GPX";
 
 "delete_list" = "Radera listan";
 

@@ -615,7 +615,8 @@
 	<string name="bookmarks_empty_list_title">该列表为空</string>
 	<string name="bookmarks_empty_list_message">要添加新标签，请单击对象卡中的星形图标</string>
 	<string name="category_desc_more">…更多</string>
-	<string name="export_file">导出文件</string>
+	<string name="export_file">导出 KMZ</string>
+	<string name="export_file_gpx">导出 GPX</string>
 	<string name="delete_list">删除列表</string>
 	<string name="public_access">公共访问</string>
 	<string name="limited_access">私人访问</string>

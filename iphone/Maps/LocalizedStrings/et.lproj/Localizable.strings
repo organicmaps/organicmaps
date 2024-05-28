@@ -1013,7 +1013,9 @@
 
 "popular_place" = "Populaarne";
 
-"export_file" = "Ekspordi fail";
+"export_file" = "KMZ eksportimine";
+
+"export_file_gpx" = "Ekspordi GPX";
 
 "delete_list" = "Kustuta loetelu";
 

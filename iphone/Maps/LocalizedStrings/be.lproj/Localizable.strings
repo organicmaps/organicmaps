@@ -1013,7 +1013,9 @@
 
 "popular_place" = "Папулярнае";
 
-"export_file" = "Экспартаваць файл";
+"export_file" = "Экспарт KMZ";
+
+"export_file_gpx" = "Экспарт GPX";
 
 "delete_list" = "Выдаліць спіс";
 

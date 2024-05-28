@@ -638,7 +638,8 @@
 	<string name="bookmarks_empty_list_title">Lista jest pusta</string>
 	<string name="bookmarks_empty_list_message">Aby dodać zakładkę, dotknij miejsca na mapie, a następnie dotknij ikony gwiazdy.</string>
 	<string name="category_desc_more">…więcej</string>
-	<string name="export_file">Eksportuj plik</string>
+	<string name="export_file">Eksportuj KMZ</string>
+	<string name="export_file_gpx">Eksport GPX</string>
 	<string name="delete_list">Usuń listę</string>
 	<string name="public_access">Dostęp publiczny</string>
 	<string name="limited_access">Dostęp prywatny</string>

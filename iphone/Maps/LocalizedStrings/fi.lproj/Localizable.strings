@@ -1013,7 +1013,9 @@
 
 "popular_place" = "Suosittu";
 
-"export_file" = "Vie tiedosto";
+"export_file" = "Vie KMZ";
+
+"export_file_gpx" = "Vie GPX";
 
 "delete_list" = "Poista luettelo";
 

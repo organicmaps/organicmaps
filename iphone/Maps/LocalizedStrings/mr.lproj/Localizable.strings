@@ -1013,7 +1013,9 @@
 
 "popular_place" = "लोकप्रिय";
 
-"export_file" = "फाइल निर्यात";
+"export_file" = "KMZ निर्यात करा";
+
+"export_file_gpx" = "GPX निर्यात करा";
 
 "delete_list" = "यादी मिटवा";
 

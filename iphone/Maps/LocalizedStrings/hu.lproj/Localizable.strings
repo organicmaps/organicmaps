@@ -1013,7 +1013,9 @@
 
 "popular_place" = "Popular";
 
-"export_file" = "Fájl exportálása";
+"export_file" = "KMZ exportálása";
+
+"export_file_gpx" = "GPX exportálása";
 
 "delete_list" = "Törölni a listát";
 

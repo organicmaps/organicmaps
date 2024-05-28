@@ -595,7 +595,8 @@
 	<string name="bookmarks_empty_list_title">Този списък е празен</string>
 	<string name="bookmarks_empty_list_message">За да добавите отметка, докоснете място на картата, след което докоснете звездообразната икона.</string>
 	<string name="category_desc_more">…още</string>
-	<string name="export_file">Експортиране на файл</string>
+	<string name="export_file">Експорт на KMZ</string>
+	<string name="export_file_gpx">Експортиране на GPX</string>
 	<string name="delete_list">Изтриване на списък</string>
 	<string name="public_access">Публичен достъп</string>
 	<string name="limited_access">Ограничен достъп</string>

@@ -637,7 +637,8 @@
 	<string name="bookmarks_empty_list_title">Η λίστα είναι άδεια</string>
 	<string name="bookmarks_empty_list_message">Για να προσθέσετε σελιδοδείκτη, πατήστε ένα μέρος στο χάρτη και μετά πατήστε το αστεράκι</string>
 	<string name="category_desc_more">…περισσότερα</string>
-	<string name="export_file">Εξαγωγή Αρχείου</string>
+	<string name="export_file">Εξαγωγή KMZ</string>
+	<string name="export_file_gpx">Εξαγωγή GPX</string>
 	<string name="delete_list">Διαγραφή λίστας</string>
 	<string name="public_access">Δημόσια πρόσβαση</string>
 	<string name="limited_access">Περιορισμένη πρόσβαση</string>

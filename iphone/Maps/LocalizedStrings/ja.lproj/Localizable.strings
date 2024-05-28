@@ -1013,7 +1013,9 @@
 
 "popular_place" = "人気";
 
-"export_file" = "ファイルのエクスポート";
+"export_file" = "KMZをエクスポートする";
+
+"export_file_gpx" = "GPXをエクスポートする";
 
 "delete_list" = "リストを削除";
 

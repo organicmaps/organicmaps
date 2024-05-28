@@ -637,7 +637,8 @@
 	<string name="bookmarks_empty_list_title">Bu siyahı boşdur</string>
 	<string name="bookmarks_empty_list_message">Əlfəcin əlavə etmək üçün xəritədə yerə və sonra ulduz işarəsinə toxunun</string>
 	<string name="category_desc_more">…daha çox</string>
-	<string name="export_file">Faylı ixrac edin</string>
+	<string name="export_file">KMZ ixrac edin</string>
+	<string name="export_file_gpx">GPX ixrac edin</string>
 	<string name="delete_list">Siyahını silin</string>
 	<string name="public_access">Ictimai çıxış</string>
 	<string name="limited_access">Məhdud giriş</string>

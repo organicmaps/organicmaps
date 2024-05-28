@@ -611,7 +611,8 @@
 	<string name="bookmarks_empty_list_title">Seznam je prázdný</string>
 	<string name="bookmarks_empty_list_message">Pro přidání nové značky klikněte na symbol hvězdičky na obrázku objektu</string>
 	<string name="category_desc_more">…ještě</string>
-	<string name="export_file">Exportovat soubor</string>
+	<string name="export_file">Export KMZ</string>
+	<string name="export_file_gpx">Export GPX</string>
 	<string name="delete_list">Smazat seznam</string>
 	<string name="public_access">Veřejně přístupné</string>
 	<string name="limited_access">Soukromé</string>

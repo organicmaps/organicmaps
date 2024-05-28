@@ -638,7 +638,8 @@
 	<string name="bookmarks_empty_list_title">Denne listen er tom</string>
 	<string name="bookmarks_empty_list_message">For å legge til et bokmerke, trykk et sted på kartet og trykk så stjerneikonet</string>
 	<string name="category_desc_more">…mer</string>
-	<string name="export_file">Eksporter fil</string>
+	<string name="export_file">Eksporter KMZ</string>
+	<string name="export_file_gpx">Eksporter GPX</string>
 	<string name="delete_list">Slett liste</string>
 	<string name="public_access">Offentlig tilgang</string>
 	<string name="limited_access">Begrenset adgang</string>

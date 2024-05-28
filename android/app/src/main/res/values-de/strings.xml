@@ -637,7 +637,8 @@
 	<string name="bookmarks_empty_list_title">Die Liste ist leer</string>
 	<string name="bookmarks_empty_list_message">Zum Hinzufügen eine Lesezeichens tippen Sie in der Karte auf den Ort und dann unten auf das Sternchen</string>
 	<string name="category_desc_more">…mehr</string>
-	<string name="export_file">Datei exportieren</string>
+	<string name="export_file">KMZ exportieren</string>
+	<string name="export_file_gpx">GPX exportieren</string>
 	<string name="delete_list">Liste löschen</string>
 	<string name="public_access">Öffentlicher Zugriff</string>
 	<string name="limited_access">Privater Zugriff</string>

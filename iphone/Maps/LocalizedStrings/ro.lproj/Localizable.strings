@@ -1013,7 +1013,9 @@
 
 "popular_place" = "Populare";
 
-"export_file" = "Exportă fișierul";
+"export_file" = "Export KMZ";
+
+"export_file_gpx" = "Exportați GPX";
 
 "delete_list" = "Șterge lista";
 

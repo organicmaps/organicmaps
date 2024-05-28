@@ -1013,7 +1013,9 @@
 
 "popular_place" = "Ospetsua";
 
-"export_file" = "Esportatu fitxategia";
+"export_file" = "Esportatu KMZ";
+
+"export_file_gpx" = "Esportatu GPX";
 
 "delete_list" = "Ezabatu zerrenda";
 

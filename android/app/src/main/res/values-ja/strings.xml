@@ -639,7 +639,8 @@
 	<string name="bookmarks_empty_list_title">このリストは空です</string>
 	<string name="bookmarks_empty_list_message">ブックマークを追加するには、地図上の場所をタップし、星のアイコンをタップしてください。</string>
 	<string name="category_desc_more">詳細</string>
-	<string name="export_file">ファイルのエクスポート</string>
+	<string name="export_file">KMZをエクスポートする</string>
+	<string name="export_file_gpx">GPXをエクスポートする</string>
 	<string name="delete_list">リストを削除</string>
 	<string name="public_access">パブリック・アクセス</string>
 	<string name="limited_access">制限されたアクセス</string>

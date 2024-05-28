@@ -605,7 +605,8 @@
 	<string name="bookmarks_empty_list_title">Danh sách trống</string>
 	<string name="bookmarks_empty_list_message">Để thêm dấu trang, hãy nhấn vào một địa điểm trên bản đồ và sau đó nhấn vào biểu tượng dấu sao</string>
 	<string name="category_desc_more">…thêm</string>
-	<string name="export_file">Xuất tập tin</string>
+	<string name="export_file">Xuất KMZ</string>
+	<string name="export_file_gpx">Xuất GPX</string>
 	<string name="delete_list">Xóa danh sách</string>
 	<string name="public_access">Truy cập công khai</string>
 	<string name="limited_access">Truy cập hạn chế</string>

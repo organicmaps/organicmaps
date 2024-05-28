@@ -607,7 +607,8 @@
 	<string name="bookmarks_empty_list_title">Daftar ini kosong</string>
 	<string name="bookmarks_empty_list_message">Untuk menambahkan bookmark, ketuk satu tempat di peta lalu ketuk ikon bintang</string>
 	<string name="category_desc_more">…selengkapnya</string>
-	<string name="export_file">File ekspor</string>
+	<string name="export_file">Ekspor KMZ</string>
+	<string name="export_file_gpx">Ekspor GPX</string>
 	<string name="delete_list">Hapus Daftar</string>
 	<string name="public_access">Akses umum</string>
 	<string name="limited_access">Akses terbatas</string>
