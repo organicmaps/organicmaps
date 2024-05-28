@@ -644,7 +644,8 @@
 	<string name="bookmarks_empty_list_title">Список пустой</string>
 	<string name="bookmarks_empty_list_message">Чтобы добавить метку, нажмите на место на карте, а затем на иконку звёздочки</string>
 	<string name="category_desc_more">…ещё</string>
-	<string name="export_file">Экспортировать файл</string>
+	<string name="export_file">Экспорт KMZ</string>
+	<string name="export_file_gpx">Экспорт GPX</string>
 	<string name="delete_list">Удалить список</string>
 	<string name="public_access">Публичный доступ</string>
 	<string name="limited_access">Ограниченный доступ</string>

@@ -1007,7 +1007,9 @@
 
 "popular_place" = "Popular";
 
-"export_file" = "Tuma faili";
+"export_file" = "Hamisha KMZ";
+
+"export_file_gpx" = "Hamisha GPX";
 
 "delete_list" = "Futa Orodha";
 

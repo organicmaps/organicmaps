@@ -1007,7 +1007,9 @@
 
 "popular_place" = "受歡迎的";
 
-"export_file" = "導出文件";
+"export_file" = "出口KMZ";
+
+"export_file_gpx" = "導出GPX";
 
 "delete_list" = "刪除列表";
 

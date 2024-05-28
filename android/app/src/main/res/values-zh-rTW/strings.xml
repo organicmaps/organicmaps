@@ -618,7 +618,8 @@
 	<string name="bookmarks_empty_list_title">列表為空</string>
 	<string name="bookmarks_empty_list_message">要增加新標籤，請點一下對象卡片中的星型圖標</string>
 	<string name="category_desc_more">…更多</string>
-	<string name="export_file">導出文件</string>
+	<string name="export_file">出口KMZ</string>
+	<string name="export_file_gpx">導出GPX</string>
 	<string name="delete_list">刪除列表</string>
 	<string name="public_access">開放空間</string>
 	<string name="limited_access">私人空間</string>

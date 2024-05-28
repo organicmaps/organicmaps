@@ -639,7 +639,8 @@
 	<string name="bookmarks_empty_list_title">Luettelo on tyhjä</string>
 	<string name="bookmarks_empty_list_message">Lisätäksesi kirjanmerkin, paina kartasta ja sitten paina tähden kuvaa</string>
 	<string name="category_desc_more">…lisää</string>
-	<string name="export_file">Vie tiedosto</string>
+	<string name="export_file">Vie KMZ</string>
+	<string name="export_file_gpx">Vie GPX</string>
 	<string name="delete_list">Poista luettelo</string>
 	<string name="public_access">Julkinen pääsy</string>
 	<string name="limited_access">Rajoitettu pääsy</string>

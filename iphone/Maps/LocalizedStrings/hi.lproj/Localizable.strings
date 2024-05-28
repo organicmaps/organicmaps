@@ -1007,7 +1007,9 @@
 
 "popular_place" = "Popular";
 
-"export_file" = "फ़ाइल निर्यात करें";
+"export_file" = "निर्यात KMZ";
+
+"export_file_gpx" = "जीपीएक्स निर्यात करें";
 
 "delete_list" = "Delete list";
 

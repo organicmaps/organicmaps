@@ -601,7 +601,8 @@
 	<string name="bookmarks_empty_list_title">Listan är tom</string>
 	<string name="bookmarks_empty_list_message">För att lägga till bokmärken, tryck på kartan och sedan på stjärnikonen</string>
 	<string name="category_desc_more">…mer</string>
-	<string name="export_file">Exportera fil</string>
+	<string name="export_file">Exportera KMZ</string>
+	<string name="export_file_gpx">Exportera GPX</string>
 	<string name="delete_list">Radera listan</string>
 	<string name="public_access">Allmänhetens åtkomst</string>
 	<string name="limited_access">Privat åtkomst</string>

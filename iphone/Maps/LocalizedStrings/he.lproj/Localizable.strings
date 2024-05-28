@@ -1007,7 +1007,9 @@
 
 "popular_place" = "פופולארי";
 
-"export_file" = "יצא קובץ";
+"export_file" = "ייצא KMZ";
+
+"export_file_gpx" = "ייצוא GPX";
 
 "delete_list" = "מחק רשימה";
 

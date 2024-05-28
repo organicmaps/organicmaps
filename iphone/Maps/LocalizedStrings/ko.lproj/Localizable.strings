@@ -1007,7 +1007,9 @@
 
 "popular_place" = "Popular";
 
-"export_file" = "파일 내보내기";
+"export_file" = "KMZ 내보내기";
+
+"export_file_gpx" = "GPX 내보내기";
 
 "delete_list" = "리스트 삭제";
 

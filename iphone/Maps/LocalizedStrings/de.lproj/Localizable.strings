@@ -1007,7 +1007,9 @@
 
 "popular_place" = "Beliebt";
 
-"export_file" = "Datei exportieren";
+"export_file" = "KMZ exportieren";
+
+"export_file_gpx" = "GPX exportieren";
 
 "delete_list" = "Liste löschen";
 

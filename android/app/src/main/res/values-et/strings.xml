@@ -628,7 +628,8 @@
 	<string name="bookmarks_empty_list_title">See loetelu on tühi</string>
 	<string name="bookmarks_empty_list_message">Järjehoidja lisamiseks puuduta kohta kaardil ja seejärel puuduta tähekese ikooni</string>
 	<string name="category_desc_more">…veel</string>
-	<string name="export_file">Ekspordi fail</string>
+	<string name="export_file">KMZ eksportimine</string>
+	<string name="export_file_gpx">Ekspordi GPX</string>
 	<string name="delete_list">Kustuta loetelu</string>
 	<string name="public_access">Avalik ligipääs</string>
 	<string name="limited_access">Piiratud ligipääs</string>

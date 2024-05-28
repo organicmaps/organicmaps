@@ -633,7 +633,8 @@
 	<string name="bookmarks_empty_list_title">Tento zoznam je prázdny</string>
 	<string name="bookmarks_empty_list_message">Pre pridanie záložky kliknite na miesto na mape a potom na ikonu hviezdičky</string>
 	<string name="category_desc_more">…viac</string>
-	<string name="export_file">Exportovať súbor</string>
+	<string name="export_file">Exportovať KMZ</string>
+	<string name="export_file_gpx">Export GPX</string>
 	<string name="delete_list">Vymazať zoznam</string>
 	<string name="public_access">Verejne prístupné</string>
 	<string name="limited_access">Obmedzený prístup</string>

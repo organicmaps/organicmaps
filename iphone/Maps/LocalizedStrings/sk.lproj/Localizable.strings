@@ -1007,7 +1007,9 @@
 
 "popular_place" = "Obľúbené";
 
-"export_file" = "Exportovať súbor";
+"export_file" = "Exportovať KMZ";
+
+"export_file_gpx" = "Export GPX";
 
 "delete_list" = "Vymazať zoznam";
 

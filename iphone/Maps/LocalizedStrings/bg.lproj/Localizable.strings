@@ -1007,7 +1007,9 @@
 
 "popular_place" = "Популярно";
 
-"export_file" = "Експортиране на файл";
+"export_file" = "Експорт на KMZ";
+
+"export_file_gpx" = "Експортиране на GPX";
 
 "delete_list" = "Изтриване на списък";
 

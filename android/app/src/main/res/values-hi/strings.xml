@@ -446,7 +446,8 @@
 	<string name="terms_of_use">उपयोग की शर्तें</string>
 	<string name="button_layer_subway">भूमिगत मार्ग</string>
 	<string name="layers_title">मानचित्र शैलियाँ और परतें</string>
-	<string name="export_file">फ़ाइल निर्यात करें</string>
+	<string name="export_file">निर्यात KMZ</string>
+	<string name="export_file_gpx">जीपीएक्स निर्यात करें</string>
 	<string name="speedcams_alert_title">गति कैमरा</string>
 	<!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
 	<string name="pref_tts_speedcams_auto">तेज़ गति से गाड़ी चलाने के बारे में चेतावनी दें</string>

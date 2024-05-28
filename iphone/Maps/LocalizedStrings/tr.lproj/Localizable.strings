@@ -1007,7 +1007,9 @@
 
 "popular_place" = "Popüler";
 
-"export_file" = "Dosyayı dışa aktar";
+"export_file" = "KMZ'yi Dışa Aktar";
+
+"export_file_gpx" = "GPX'i Dışa Aktar";
 
 "delete_list" = "Listeyi sil";
 

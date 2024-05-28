@@ -601,7 +601,8 @@
 	<string name="bookmarks_empty_list_title">این لیست خالی است</string>
 	<string name="bookmarks_empty_list_message">برای افزودن یک نشانه، روی یک مکان روی نقشه ضربه بزنید و سپس روی نماد ستاره ضربه بزنید</string>
 	<string name="category_desc_more">بیشتر…</string>
-	<string name="export_file">ارسال فایل</string>
+	<string name="export_file">صادرات KMZ</string>
+	<string name="export_file_gpx">صادرات GPX</string>
 	<string name="delete_list">حذف لیست</string>
 	<string name="public_access">دسترسی عمومی</string>
 	<string name="limited_access">دسترسی محدود</string>

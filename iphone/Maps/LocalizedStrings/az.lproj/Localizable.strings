@@ -1007,7 +1007,9 @@
 
 "popular_place" = "Məşhur";
 
-"export_file" = "Faylı ixrac edin";
+"export_file" = "KMZ ixrac edin";
+
+"export_file_gpx" = "GPX ixrac edin";
 
 "delete_list" = "Siyahını silin";
 

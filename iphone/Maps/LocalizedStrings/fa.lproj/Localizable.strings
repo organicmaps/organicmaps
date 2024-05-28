@@ -1007,7 +1007,9 @@
 
 "popular_place" = "مشهور";
 
-"export_file" = "ارسال فایل";
+"export_file" = "صادرات KMZ";
+
+"export_file_gpx" = "صادرات GPX";
 
 "delete_list" = "حذف لیست";
 

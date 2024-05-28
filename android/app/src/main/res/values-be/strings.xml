@@ -630,7 +630,8 @@
 	<string name="bookmarks_empty_list_title">Гэты спіс пусты</string>
 	<string name="bookmarks_empty_list_message">Каб дадаць закладку, націсніце на месца на мапе і потым на іконку з зорачкай</string>
 	<string name="category_desc_more">…яшчэ</string>
-	<string name="export_file">Экспартаваць файл</string>
+	<string name="export_file">Экспарт KMZ</string>
+	<string name="export_file_gpx">Экспарт GPX</string>
 	<string name="delete_list">Выдаліць спіс</string>
 	<string name="public_access">Публічны доступ</string>
 	<string name="limited_access">Абмежаваны доступ</string>

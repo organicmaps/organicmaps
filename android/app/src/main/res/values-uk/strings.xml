@@ -637,7 +637,8 @@
 	<string name="bookmarks_empty_list_title">Список порожній</string>
 	<string name="bookmarks_empty_list_message">Щоб додати нову мітку, натисніть на значок зірочки в картці об’єкта</string>
 	<string name="category_desc_more">…ще</string>
-	<string name="export_file">Експортувати файл</string>
+	<string name="export_file">Експорт КМЗ</string>
+	<string name="export_file_gpx">Експорт GPX</string>
 	<string name="delete_list">Видалити список</string>
 	<string name="public_access">Публічний доступ</string>
 	<string name="limited_access">Приватний доступ</string>
