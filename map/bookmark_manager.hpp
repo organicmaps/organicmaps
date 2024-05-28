@@ -375,6 +375,9 @@ public:
   bool SaveBookmarkCategory(kml::MarkGroupId groupId);
   bool SaveBookmarkCategory(kml::MarkGroupId groupId, Writer & writer, KmlFileType fileType) const;
 
+  bool HasRecentlyDeletedBookmark() const { return m_recentlyDeletedBookmark.operator bool(); };
+  void ResetRecentlyDeletedBookmark();
+
   // Used for LoadBookmarks() and unit tests only. Does *not* update last modified time.
   void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = false);
 
@@ -761,6 +764,8 @@ private:
   kml::MarkId m_trackInfoMarkId = kml::kInvalidMarkId;
   kml::TrackId m_selectedTrackId = kml::kInvalidTrackId;
   m2::PointF m_maxBookmarkSymbolSize;
+
+  std::unique_ptr<Bookmark> m_recentlyDeletedBookmark;
 
   bool m_asyncLoadingInProgress = false;
   struct BookmarkLoaderInfo
