@@ -50,6 +50,8 @@
 	<string name="data_version">Data ya OpenStreetMap: %s</string>
 	<!-- Generic «Auto» string -->
 	<string name="auto">Auto</string>
+	<!-- Settings "Appearance" category: "System" title, should be consistent with the pref_map_style_title translation. -->
+	<string name="system">Mfumo</string>
 	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
 	<string name="pref_map_3d_buildings_disabled_summary">Majengo ya 3D yamezimwa katika hali ya kuokoa nishati</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->

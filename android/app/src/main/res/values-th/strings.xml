@@ -202,14 +202,20 @@
 	<string name="prefs_group_route">การนำทาง</string>
 	<string name="pref_zoom_title">ปุ่มซูม</string>
 	<string name="pref_zoom_summary">แสดงบนหน้าจอ</string>
-	<!-- Settings «Map» category: «Night style» title -->
-	<string name="pref_map_style_title">โหมดกลางคืน</string>
+	<!-- Settings «Map» category: «Appearance» title -->
+	<string name="pref_map_style_title">รูปแบบ</string>
 	<!-- Generic «Off» string -->
 	<string name="off">ปิด</string>
 	<!-- Generic «On» string -->
 	<string name="on">เปิด</string>
 	<!-- Generic «Auto» string -->
 	<string name="auto">อัตโนมัติ</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_map_title translation. -->
+	<string name="light">สว่าง</string>
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_map_style_title translation. -->
+	<string name="dark">มืด</string>
+	<!-- Settings "Appearance" category: "System" title, should be consistent with the pref_map_style_title translation. -->
+	<string name="system">ระบบ</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">มุมมองเพอร์สเปกทีฟ</string>
 	<!-- Settings «Map» category: «3D buildings» title -->

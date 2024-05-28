@@ -200,14 +200,20 @@
 	<string name="prefs_group_route">네비게이션</string>
 	<string name="pref_zoom_title">확대/축소 버튼</string>
 	<string name="pref_zoom_summary">화면에 표시</string>
-	<!-- Settings «Map» category: «Night style» title -->
-	<string name="pref_map_style_title">나이트 모드</string>
+	<!-- Settings «Map» category: «Appearance» title -->
+	<string name="pref_map_style_title">모양</string>
 	<!-- Generic «Off» string -->
 	<string name="off">끄기</string>
 	<!-- Generic «On» string -->
 	<string name="on">켜기</string>
 	<!-- Generic «Auto» string -->
 	<string name="auto">자동</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_map_title translation. -->
+	<string name="light">라이트</string>
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_map_style_title translation. -->
+	<string name="dark">다크</string>
+	<!-- Settings "Appearance" category: "System" title, should be consistent with the pref_map_style_title translation. -->
+	<string name="system">시스템</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">원근 보기</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
