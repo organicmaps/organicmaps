@@ -72,7 +72,7 @@ If you're only doing a one-off build or your internet bandwidth or disk space is
 
 - a `--shallow-submodules` option to _shallow clone_ the submodules (save ~1.3Gb) - this is suitable for a generic development if no work on submodules is planned.
 
-If you mistakenly did a `git clone` without checking out submodules, you can run `git submodule update --init --recursive`. If you want to do so shallowly, you can add `--depth=1` to the update command.
+If you mistakenly did a `git clone` without checking out submodules, you can run `git submodule update --init --recursive`. If you don't want to clone complete submodules, you can add `--depth=1` to the update command.
 
 To be able to publish the app in stores e.g. in Google Play its necessary to populate some configs with private keys, etc.
 Check `./configure.sh --help` to see how to copy the configs automatically from a private repository.
