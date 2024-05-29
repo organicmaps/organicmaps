@@ -191,6 +191,13 @@ static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType) {
   self.bm.SetAsyncLoadingCallbacks(std::move(bookmarkCallbacks));
 }
 
+- (void)notifyObserversOnCategoryUpdated:(MWMMarkGroupID)groupId {
+  [self loopObservers:^(id<MWMBookmarksObserver> observer) {
+    if ([observer respondsToSelector:@selector(onBookmarksCategoryUpdated:)])
+      [observer onBookmarksCategoryUpdated:groupId];
+  }];
+}
+
 #pragma mark - Bookmarks loading
 
 - (BOOL)areBookmarksLoaded
@@ -489,15 +496,17 @@ static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType) {
 
 - (void)deleteBookmark:(MWMMarkID)bookmarkId
 {
+  auto const groupId = self.bm.GetBookmark(bookmarkId)->GetGroupId();
   self.bm.GetEditSession().DeleteBookmark(bookmarkId);
-  [self loopObservers:^(id<MWMBookmarksObserver> observer) {
-    if ([observer respondsToSelector:@selector(onBookmarkDeleted:)])
-      [observer onBookmarkDeleted:bookmarkId];
-  }];
+  if (self.bm.HasBmCategory(groupId))
+    [self notifyObserversOnCategoryUpdated:groupId];
 }
 
 - (void)deleteTrack:(MWMTrackID)trackId {
+  auto const groupId = self.bm.GetTrack(trackId)->GetGroupId();
   self.bm.GetEditSession().DeleteTrack(trackId);
+  if (self.bm.HasBmCategory(groupId))
+    [self notifyObserversOnCategoryUpdated:groupId];
 }
 
 - (MWMBookmark *)bookmarkWithId:(MWMMarkID)bookmarkId {
@@ -698,6 +707,10 @@ static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType) {
   bookmark->SetDescription(description.UTF8String);
   if (title.UTF8String != bookmark->GetPreferredName())
     bookmark->SetCustomName(title.UTF8String);
+
+  [self notifyObserversOnCategoryUpdated:groupId];
+  if (currentGroupId != groupId)
+    [self notifyObserversOnCategoryUpdated:currentGroupId];
 }
 
 - (void)updateBookmark:(MWMMarkID)bookmarkId setColor:(MWMBookmarkColor)color {
@@ -711,6 +724,8 @@ static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType) {
     self.bm.SetLastEditedBmColor(kmlColor);
 
   bookmark->SetColor(kmlColor);
+
+  [self notifyObserversOnCategoryUpdated:bookmark->GetGroupId()];
 }
 
 - (void)moveBookmark:(MWMMarkID)bookmarkId toGroupId:(MWMMarkGroupID)groupId {
@@ -720,6 +735,10 @@ static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType) {
     auto editSession = self.bm.GetEditSession();
     editSession.MoveBookmark(bookmarkId, currentGroupId, groupId);
   }
+
+  [self notifyObserversOnCategoryUpdated:groupId];
+  if (currentGroupId != groupId)
+    [self notifyObserversOnCategoryUpdated:currentGroupId];
 }
 
 - (void)updateTrack:(MWMTrackID)trackId
@@ -742,6 +761,10 @@ static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType) {
     track->SetColor(newColor);
 
   track->SetName(title.UTF8String);
+
+  [self notifyObserversOnCategoryUpdated:groupId];
+  if (currentGroupId != groupId)
+    [self notifyObserversOnCategoryUpdated:currentGroupId];
 }
 
 - (void)updateTrack:(MWMTrackID)trackId setColor:(UIColor *)color {
@@ -755,6 +778,8 @@ static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType) {
 
   if (newColor != currentColor)
     track->SetColor(newColor);
+
+  [self notifyObserversOnCategoryUpdated:track->GetGroupId()];
 }
 
 - (void)moveTrack:(MWMTrackID)trackId toGroupId:(MWMMarkGroupID)groupId {
@@ -764,6 +789,10 @@ static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType) {
     auto editSession = self.bm.GetEditSession();
     editSession.MoveTrack(trackId, currentGroupId, groupId);
   }
+
+  [self notifyObserversOnCategoryUpdated:groupId];
+  if (currentGroupId != groupId)
+    [self notifyObserversOnCategoryUpdated:currentGroupId];
 }
 
 - (void)setCategory:(MWMMarkGroupID)groupId authorType:(MWMBookmarkGroupAuthorType)author
