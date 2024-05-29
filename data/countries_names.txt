@@ -49734,24 +49734,24 @@
   vi = Nicosia, Nicosia
 
 [Czech_Jihovychod_Jihomoravsky kraj Description]
-  en = Brno, Znojmo
+  en = Brno, Znojmo, Břeclav
   ar = برنو
-  cs = Brno, Sběrný dvůr, Znojmo
-  de = Brünn, Znaim
+  cs = Brno, Znojmo, Břeclav
+  de = Brünn, Znaim, Lundenburg
   el = Μπρνο, Ζνόζμο
-  hu = Brünn
-  ru = Брно, Зноймо
-  uk = Брно
+  hu = Brno, Znojmo, Břeclav
+  ru = Брно, Зноймо, Бржецлав
+  uk = Брно, Зноймо, Бржецлав
 
 [Czech_Jihovychod_Kraj Vysocina Description]
-  en = Jihlava, Třebíč
-  cs = Jihlava, Třebíč
-  de = Iglau, Trebitsch
+  en = Jihlava, Třebíč, Havlíčkův Brod
+  cs = Jihlava, Třebíč, Havlíčkův Brod
+  de = Iglau, Trebitsch, Deutschbrod
   el = Τζιχλάβα, Τρεμπίκ
-  hu = Jihlava
-  pl = Igława
-  ru = Йиглава, Тршебич
-  uk = Тршебич
+  hu = Jihlava, Třebíč, Havlíčkův Brod
+  pl = Igława, Třebíč, Havlíčkův Brod
+  ru = Йиглава, Тршебич, Гавличкув-Брод
+  uk = Їглава, Тршебич, Гавличкув-Брод
 
 [Czech_Jihozapad_Jihocesky kraj Description]
   en = Budweis, Tábor, Písek
@@ -49759,18 +49759,19 @@
   de = Budweis, Tabor, Pisek
   el = Μπουνβάις, Τάμπορ, Πίσεκ
   ja = チェスケー・ブジェヨヴィツェ
-  pl = Czeskie Budziejowice, Tabor
+  pl = Czeskie Budziejowice, Tabor, Písek
   ru = Ческе-Будеёвице, Табор, Писек
-  uk = Табор, Пісек
+  uk = Чеські Будейовиці, Табор, Пісек
 
 [Czech_Jihozapad_Plzensky kraj Description]
   en = Pilsen, Klatovy, Rokycany
   cs = Plzeň, Klatovy, Rokycany
   de = Pilsen, Klattau, Rokitzan
   el = Πίλσεν, Κλατόβι, Ρόκικάνι
-  hu = Pilzen
-  nl = Pilsen
+  hu = Pilzen, Klatovy, Rokycany
+  nl = Pilsen, Klatovy, Rokycany
   ru = Пльзень, Клатови, Рокицани
+  uk = Пльзень, Клатови, Рокицани
 
 [Czech_Karlovasky kraj Description]
   en = Carlsbad, Cheb, Sokolov
@@ -49778,19 +49779,19 @@
   de = Karlsbad, Eger, Falkenau
   el = Κάρλσμπαντ, Χεμπ, Σοκόλοφ
   he = קרלובי וארי
-  pl = Karlowe Wary
+  pl = Karlowe Wary, Cheb, Sokolov
   ru = Карловы Вары, Хеб, Соколов
   uk = Карлові Вари, Хеб, Соколов
 
 [Czech_Moravskoslezsko Description]
-  en = Ostrava, Havířov, Karviná
+  en = Ostrava, Havířov, Opava
   ar = أوسترافا
-  cs = Ostrava, Havířov, Karviná
-  de = Ostrau, Karwin
-  el = Οστράβα, Χαβιρόφ, Κάρνιβα
-  pl = Ostrawa, Hawierzów, Karwina
-  ru = Острава, Гавиржов, Карвина
-  uk = Острава, Гавіржов, Карвіна
+  cs = Ostrava, Havířov, Opava
+  de = Ostrau, Havířov, Troppau
+  el = Οστράβα, Χαβιρόφ, Οπάβα
+  pl = Ostrawa, Hawierzów, Opawa
+  ru = Острава, Гавиржов, Опава
+  uk = Острава, Гавіржов, Опава
 
 [Czech_Olomoucky kraj Description]
   en = Olomouc, Prostějov, Přerov
@@ -49805,15 +49806,15 @@
   uk = Оломоуц, Простейов, Пршеров
 
 [Czech_Praha Description]
-  en = Prague, Netluky
+  en = Prague
   ar = براغ
   az = Praqa
-  cs = Praha, Netluky
+  cs = Praha
   da = Prag
   de = Prag
-  el = Πράγα, Νετλάκι
+  el = Πράγα
   es = Praga
-  et = Praha, Netluky
+  et = Praha
   fi = Praha
   fr = Prague
   he = פראג
@@ -49835,63 +49836,70 @@
   vi = Praha
 
 [Czech_Severovychod_Kralovehradecky kraj Description]
-  en = Hradec Králové, Náchod, Trutnov
+  en = Hradec Králové, Trutnov, Náchod
   ar = ترُتنوف
-  cs = Hradec Králové, Náchod, Trutnov
-  de = Königgrätz, Nachod, Trautenau
-  el = Χράντεκ Κράλοβε, Νάσοντ, Τρουτνόβ
+  cs = Hradec Králové, Trutnov, Náchod
+  de = Königgrätz, Trautenau, Nachod
+  el = Χράντεκ Κράλοβε, Τρουτνόβ, Νάσοντ
   ja = フラデツ・クラーロヴェー
-  ru = Градец-Кралове, Наход, Трутнов
-  uk = Градець-Кралове, Наход, Трутнов
+  ru = Градец-Кралове, Трутнов, Наход
+  uk = Градець-Кралове, Трутнов, Наход
 
 [Czech_Severovychod_Liberecky kraj Description]
-  en = Liberec, Jablonec nad Nisou, Hejnice
+  en = Liberec, Jablonec nad Nisou, Česká Lípa
   ar = ليبيريتس
-  cs = Liberec, Jablonec nad Nisou, Hejnice
-  de = Reichenberg, Gablonz an der Neiße, Haindorf
-  el = Λίμπερεκ, Τζάμπλονεκ νάτ Νήσου, Χέτζνις
+  cs = Liberec, Jablonec nad Nisou, Česká Lípa
+  de = Reichenberg, Gablonz an der Neiße, Böhmisch Leipa
+  el = Λίμπερεκ, Τζάμπλονεκ νάτ Νήσου
   he = ליברץ
-  pl = Jablonec nad Nysą
-  ru = Либерец, Яблонец-над-Нисоу
-  uk = Ліберець, Яблонець-над-Нисою
+  pl = Liberec, Jablonec nad Nysą, Česká Lípa
+  ru = Либерец, Яблонец-над-Нисоу, Ческа-Липа
+  uk = Ліберець, Яблонець-над-Нисою, Чеська Липа
 
 [Czech_Severovychod_Pardubicky kraj Description]
   en = Pardubice, Chrudim, Svitavy
   ar = باردوبيتسه
   cs = Pardubice, Chrudim, Svitavy
-  de = Pardubitz, Zwittau
+  de = Pardubitz, Chrudim, Zwittau
   el = Παρντουμπίτσε, Χρούντιμ, Σβιτάβι
   he = פרדוביצה
-  ru = Пардубице, Свитави
-  uk = Пардубіце
+  ru = Пардубице, Хрудим, Свитави
+  uk = Пардубіце, Хрудім, Світави
+
+[Czech_Stredni Cechy_East Description]
+  en = Kolín, Příbram, Kutná Hora
+  cs = Kolín, Příbram, Kutná Hora
+  de = Kolin, Pribram, Kuttenberg
+  pl = Kolín, Przybram, Kutná Hora
+  uk = Колін, Пржибрам, Кутна Гора
 
 [Czech_Stredni Cechy_West Description]
-  en = Kladno, Mladá Boleslav, Mělník
-  cs = Kladno, Mladá Boleslav, Mělník
-  de = Jungbunzlau, Melnik
-  el = Κλάντνο, Μλάντα Μπόλεσλαβ, Μέλνικ
-  pl = Mielnik
-  ru = Кладно, Млада-Болеслав, Мельник
-  uk = Кладно, Млада-Болеслав
+  en = Kladno, Mladá Boleslav, Beroun
+  cs = Kladno, Mladá Boleslav, Beroun
+  de = Kladen, Jungbunzlau, Beraun
+  el = Κλάντνο, Μλάντα Μπόλεσλαβ, Μπέρουν
+  pl = Kladno, Mladá Boleslav, Beroun
+  ru = Кладно, Млада-Болеслав, Бероун
+  uk = Кладно, Млада-Болеслав, Бероун
 
 [Czech_Ustecky kraj Description]
-  en = Ústí nad Labem, Most, Chomutov
-  cs = Ústí nad Labem, Most, Chomutov
-  de = Aussig, Brüx, Komotau
+  en = Ústí nad Labem, Most, Teplice
+  cs = Ústí nad Labem, Most, Teplice
+  de = Aussig, Brüx, Teplitz
   el = Ούστι ναντ Λάμπεμ, Μοστ, Τσομούτοβ
-  pl = Uście nad Łabą
-  ru = Усти-над-Лабем, Мост, Хомутов
-  uk = Мост, Хомутов
+  pl = Uście nad Łabą, Most, Cieplice
+  ru = Усти-над-Лабем, Мост, Теплице
+  uk = Усті-над-Лабем, Мост, Теплиці
 
 [Czech_Zlinsky Kraj Description]
-  en = Zlín, Vsetín, Kroměříž
-  cs = Zlín, Vsetín, Kroměříž
-  de = Zlin, Wsetin, Kremsier
-  el = Ζλιν, Βσετίν, Κρομέριζ
+  en = Zlín, Kroměříž, Vsetín
+  cs = Zlín, Kroměříž, Vsetín
+  de = Zlin, Kremsier, Wsetin
+  el = Ζλιν, Κρομέριζ, Βσετίν
   ja = ズリーン
-  pl = Kromieryż
-  ru = Злин, Всетин, Кромержиж
-  uk = Всетін
+  pl = Zlin, Kromieryż, Vsetín
+  ru = Злин, Кромержиж, Всетин
+  uk = Злін, Кромержиж, Всетін
 
 [Denmark_Capital Region of Denmark Description]
   en = Copenhagen, Skovlunde, Virum
