@@ -20,7 +20,6 @@ import androidx.core.content.ContextCompat;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.util.Config;
 import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.log.Logger;
 
@@ -42,10 +41,10 @@ public class TrackRecordingService extends Service implements LocationListener
   @RequiresPermission(value = ACCESS_FINE_LOCATION)
   public static void startForegroundService(@NonNull Context context)
   {
-    TrackRecorder.nativeSetDuration(Config.getRecentTrackRecorderDuration());
+    if(TrackRecorder.nativeGetDuration() != 24)
+      TrackRecorder.nativeSetDuration(24);
     if (!TrackRecorder.nativeIsEnabled())
       TrackRecorder.nativeSetEnabled(true);
-
     LocationHelper.from(context).restartWithNewMode();
     ContextCompat.startForegroundService(context, new Intent(context, TrackRecordingService.class));
   }
@@ -55,7 +54,7 @@ public class TrackRecordingService extends Service implements LocationListener
     final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
     final NotificationChannelCompat channel = new NotificationChannelCompat.Builder(TRACK_REC_CHANNEL_ID,
                                                                                     NotificationManagerCompat.IMPORTANCE_LOW)
-        .setName(context.getString(R.string.recent_track_recording))
+        .setName(context.getString(R.string.trace_path_name))
         .setLightsEnabled(false)
         .setVibrationEnabled(false)
         .build();
@@ -95,8 +94,6 @@ public class TrackRecordingService extends Service implements LocationListener
     Logger.i(TAG);
     if (TrackRecorder.nativeIsEnabled())
       TrackRecorder.nativeSetEnabled(false);
-
-    Config.setRecentTrackRecorderState(false);
     context.stopService(new Intent(context, TrackRecordingService.class));
   }
 
@@ -171,7 +168,7 @@ public class TrackRecordingService extends Service implements LocationListener
   @Override
   public void onLocationDisabled()
   {
-    TrackRecorder.getInstance().stopTrackRecording();
+    TrackRecorder.nativeSetEnabled(false);
     stopSelf();
   }
 

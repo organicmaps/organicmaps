@@ -21,7 +21,6 @@ import app.organicmaps.editor.ProfileActivity;
 import app.organicmaps.help.HelpActivity;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationProviderFactory;
-import app.organicmaps.location.TrackRecorder;
 import app.organicmaps.routing.RoutingOptions;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.NetworkPolicy;
@@ -64,47 +63,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     initSearchPrivacyPrefsCallbacks();
     initScreenSleepEnabledPrefsCallbacks();
     initShowOnLockScreenPrefsCallbacks();
-    initRecentTrackRecorderCallbacks();
-  }
-
-  private void initRecentTrackRecorderCallbacks()
-  {
-    final ListPreference mRecordTime = getPreference(getString(R.string.pref_recent_track));
-    final TrackRecorder mTrackRecorder = TrackRecorder.getInstance();
-
-    if (!Config.getRecentTrackRecorderState())
-    {
-      mRecordTime.setSummary(getString(R.string.off));
-      mRecordTime.setValue("0");
-    }
-    else
-    {
-      mRecordTime.setValue(Integer.toString(Config.getRecentTrackRecorderDuration()));
-      mRecordTime.setSummary(Config.getRecentTrackRecorderDuration() + " " + getString(R.string.hour_recent_track));
-    }
-
-    mRecordTime.setOnPreferenceChangeListener((preference, newValue) -> {
-
-      int newVal = Integer.parseInt((String) newValue);
-
-      if (newVal == Config.getRecentTrackRecorderDuration())
-        return false;
-
-      if (newVal == 0)
-      {
-        mTrackRecorder.stopTrackRecording();
-        Config.setRecentTrackRecorderDuration(newVal);
-        mRecordTime.setSummary(getString(R.string.off));
-        return true;
-      }
-
-      Config.setRecentTrackRecorderDuration(newVal);
-      if (!Config.getRecentTrackRecorderState())
-        Config.setRecentTrackRecorderState(true);
-      mTrackRecorder.startTrackRecording();
-      mRecordTime.setSummary(newVal + " " + getString(R.string.hour_recent_track));
-      return true;
-    });
   }
 
   private void updateVoiceInstructionsPrefsSummary()

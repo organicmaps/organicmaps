@@ -137,8 +137,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                MenuBottomSheetFragment.MenuBottomSheetInterfaceWithHeader,
                PlacePageController.PlacePageRouteSettingsListener,
                MapButtonsController.MapButtonClickListener,
-               DisplayChangedListener,
-               TrackRecorder.TrackRecordingListener
+               DisplayChangedListener
 {
   private static final String TAG = MwmActivity.class.getSimpleName();
 
@@ -215,27 +214,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private DisplayManager mDisplayManager;
-  private TrackRecorder mTrackRecorder;
 
   private boolean mRemoveDisplayListener = true;
   private int mLastUiMode = Configuration.UI_MODE_TYPE_UNDEFINED;
-
-  @Override
-  public void onTrackRecordingStarted()
-  {
-    if (!LocationUtils.checkLocationPermission(this))
-    {
-      Logger.i(TAG, "Location permission is not there");
-      return;
-    }
-    TrackRecordingService.startForegroundService(this);
-  }
-
-  @Override
-  public void onTrackRecordingStopped()
-  {
-    TrackRecordingService.stopService(this);
-  }
 
   public interface LeftAnimationTrackListener
   {
@@ -273,9 +254,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     else if (RoutingController.get().hasSavedRoute())
       RoutingController.get().restoreRoute();
 
-    if (Config.getRecentTrackRecorderState() && LocationUtils.checkLocationPermission(this))
+    if (TrackRecorder.nativeIsEnabled() && LocationUtils.checkLocationPermission(this))
     {
-      onTrackRecordingStarted();
+      TrackRecordingService.startForegroundService(this);
     }
 
     processIntent();
@@ -557,9 +538,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     final boolean isLaunchByDeepLink = intent != null && !intent.hasCategory(Intent.CATEGORY_LAUNCHER);
     initViews(isLaunchByDeepLink);
     updateViewsInsets();
-
-    mTrackRecorder = TrackRecorder.getInstance();
-    mTrackRecorder.addListener(this);
 
     if (getIntent().getBooleanExtra(EXTRA_UPDATE_THEME, false))
       ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
@@ -1170,7 +1148,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPostNotificationPermissionRequest = null;
     if (mRemoveDisplayListener && !isChangingConfigurations())
       mDisplayManager.removeListener(DisplayType.Device);
-    mTrackRecorder.removeListener(this);
   }
 
   @Override
@@ -2158,6 +2135,48 @@ public class MwmActivity extends BaseMwmFragmentActivity
     startActivity(intent);
   }
 
+  private boolean showTracePathDisclaimer()
+  {
+    if (Config.isTracePathDisclaimerAccepted())
+      return true;
+
+    final StringBuilder builder = new StringBuilder();
+    for (int resId : new int[]{ R.string.instruction_1, R.string.instruction_2, R.string.instruction_3, R.string.instruction_4, R.string.have_a_nice_day})
+      builder.append(getString(resId)).append("\n\n");
+
+    dismissAlertDialog();
+    mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.Alert_dialogue_title)
+        .setMessage(builder.toString())
+        .setCancelable(false)
+        .setNegativeButton(R.string.cancel, null)
+        .setPositiveButton(R.string.ok, (dlg, which) -> {
+          Config.acceptTracePathDisclaimer();
+          onTracePathOptionSelected();
+        })
+        .setOnDismissListener(dialog -> mAlertDialog = null)
+        .show();
+
+    return false;
+  }
+
+  private void onTracePathOptionSelected()
+  {
+    if(!TrackRecorder.nativeIsEnabled())
+    {
+      if(!LocationUtils.checkLocationPermission(this))
+      {
+        Logger.i(TAG,"Location permission not granted");
+        return;
+      }
+      if(!showTracePathDisclaimer())
+        return;
+      TrackRecordingService.startForegroundService(this);
+    }
+    else
+      TrackRecordingService.stopService(this);
+  }
+
   public void onShareLocationOptionSelected()
   {
     closeFloatingPanels();
@@ -2182,6 +2201,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (!TextUtils.isEmpty(mDonatesUrl))
         items.add(new MenuBottomSheetItem(R.string.donate, R.drawable.ic_donate, this::onDonateOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.settings, R.drawable.ic_settings, this::onSettingsOptionSelected));
+      items.add(new MenuBottomSheetItem(R.string.trace_path, R.drawable.ic_trace_path_off, this::onTracePathOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.share_my_location, R.drawable.ic_share, this::onShareLocationOptionSelected));
       return items;
     }

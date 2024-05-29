@@ -49,24 +49,6 @@
     <item>@string/never_enum_value</item>
   </string-array>
 
-  <string-array name="track_length">
-    <item>@string/duration_disabled</item>
-    <item>@string/duration_1_hour</item>
-    <item>@string/duration_2_hours</item>
-    <item>@string/duration_6_hours</item>
-    <item>@string/duration_12_hours</item>
-    <item>@string/duration_1_day</item>
-  </string-array>
-
-  <string-array name="track_length_values">
-    <item>0</item>
-    <item>1</item>
-    <item>2</item>
-    <item>6</item>
-    <item>12</item>
-    <item>24</item>
-  </string-array>
-
   <string-array name="mobile_data_options">
     <item>@string/mobile_data_option_ask</item>
     <item>@string/mobile_data_option_always</item>

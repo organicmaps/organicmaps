@@ -337,8 +337,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   {
     if (isActive())
     {
-      restartWithNewMode();
-      Logger.d(TAG, "Already started, Refreshed the interval");
+      Logger.d(TAG, "Already started");
       return;
     }
 
