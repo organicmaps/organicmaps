@@ -9,6 +9,7 @@ NS_SWIFT_NAME(BookmarksObserver)
 - (void)onBookmarksLoadFinished;
 - (void)onBookmarksFileLoadSuccess;
 - (void)onBookmarksFileLoadError;
+- (void)onBookmarksCategoryUpdated:(MWMMarkGroupID)groupId;
 - (void)onBookmarksCategoryDeleted:(MWMMarkGroupID)groupId;
 - (void)onBookmarkDeleted:(MWMMarkID)bookmarkId;
 
