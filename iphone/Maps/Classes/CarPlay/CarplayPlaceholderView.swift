@@ -17,8 +17,6 @@ class CarplayPlaceholderView: UIView {
   }
 
   private func commonInit() {
-    backgroundColor = .clear
-
     addSubview(containerView)
 
     imageView.image = UIImage(named: "ic_carplay_activated")
@@ -27,22 +25,32 @@ class CarplayPlaceholderView: UIView {
 
     descriptionLabel.text = L("car_used_on_the_car_screen")
     descriptionLabel.font = UIFont.bold24()
-    descriptionLabel.textColor = UIColor.blackSecondaryText()
     descriptionLabel.textAlignment = .center
     descriptionLabel.numberOfLines = 0
     containerView.addSubview(descriptionLabel)
 
     switchButton.setTitle(L("car_continue_on_the_phone"), for: .normal)
     switchButton.addTarget(self, action: #selector(onSwitchButtonTap), for: .touchUpInside)
-    switchButton.setTitleColor(UIColor.whitePrimaryText(), for: .normal)
     switchButton.titleLabel?.font = UIFont.medium16()
     switchButton.titleLabel?.lineBreakMode = .byWordWrapping
     switchButton.titleLabel?.textAlignment = .center
-    switchButton.backgroundColor = UIColor.linkBlue()
     switchButton.layer.cornerRadius = 8
     containerView.addSubview(switchButton)
 
+    updateColors()
     setupConstraints()
+  }
+
+  override func applyTheme() {
+    super.applyTheme()
+    updateColors()
+  }
+
+  private func updateColors() {
+    backgroundColor = UIColor.carplayPlaceholderBackground()
+    descriptionLabel.textColor = UIColor.blackSecondaryText()
+    switchButton.backgroundColor = UIColor.linkBlue()
+    switchButton.setTitleColor(UIColor.whitePrimaryText(), for: .normal)
   }
 
   @objc private func onSwitchButtonTap(_ sender: UIButton) {
