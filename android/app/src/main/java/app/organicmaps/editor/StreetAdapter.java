@@ -74,7 +74,7 @@ public class StreetAdapter extends RecyclerView.Adapter<StreetAdapter.BaseViewHo
     dialogFragment.setTextSaveListener(mFragment.getSaveStreetListener());
   }
 
-  protected abstract class BaseViewHolder extends RecyclerView.ViewHolder
+  protected abstract static class BaseViewHolder extends RecyclerView.ViewHolder
   {
     public BaseViewHolder(View itemView)
     {

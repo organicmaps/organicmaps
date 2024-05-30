@@ -14,54 +14,64 @@ public class PlacePageButtonFactory
   static PlacePageButton createButton(PlacePageButtons.ButtonType buttonType, @NonNull Context context)
   {
     @StringRes int titleId = 0;
-    @DrawableRes int iconId = 0;
-    switch (buttonType)
+    @DrawableRes int iconId = switch (buttonType)
     {
-      case BACK:
+      case BACK ->
+      {
         titleId = R.string.back;
-        iconId = ThemeUtils.getResource(MwmApplication.from(context), android.R.attr.homeAsUpIndicator);
-        break;
-      case BOOKMARK_SAVE:
+        yield ThemeUtils.getResource(MwmApplication.from(context), android.R.attr.homeAsUpIndicator);
+      }
+      case BOOKMARK_SAVE ->
+      {
         titleId = R.string.save;
-        iconId = R.drawable.ic_bookmarks_off;
-        break;
-      case BOOKMARK_DELETE:
+        yield R.drawable.ic_bookmarks_off;
+      }
+      case BOOKMARK_DELETE ->
+      {
         titleId = R.string.delete;
-        iconId = R.drawable.ic_bookmarks_on;
-        break;
-      case ROUTE_FROM:
+        yield R.drawable.ic_bookmarks_on;
+      }
+      case ROUTE_FROM ->
+      {
         titleId = R.string.p2p_from_here;
-        iconId = R.drawable.ic_route_from;
-        break;
-      case ROUTE_TO:
+        yield R.drawable.ic_route_from;
+      }
+      case ROUTE_TO ->
+      {
         titleId = R.string.p2p_to_here;
-        iconId = R.drawable.ic_route_to;
-        break;
-      case ROUTE_ADD:
+        yield R.drawable.ic_route_to;
+      }
+      case ROUTE_ADD ->
+      {
         titleId = R.string.placepage_add_stop;
-        iconId = R.drawable.ic_route_via;
-        break;
-      case ROUTE_REMOVE:
+        yield R.drawable.ic_route_via;
+      }
+      case ROUTE_REMOVE ->
+      {
         titleId = R.string.placepage_remove_stop;
-        iconId = R.drawable.ic_route_remove;
-        break;
-      case ROUTE_AVOID_TOLL:
+        yield R.drawable.ic_route_remove;
+      }
+      case ROUTE_AVOID_TOLL ->
+      {
         titleId = R.string.avoid_tolls;
-        iconId = R.drawable.ic_avoid_tolls;
-        break;
-      case ROUTE_AVOID_UNPAVED:
+        yield R.drawable.ic_avoid_tolls;
+      }
+      case ROUTE_AVOID_UNPAVED ->
+      {
         titleId = R.string.avoid_unpaved;
-        iconId = R.drawable.ic_avoid_unpaved;
-        break;
-      case ROUTE_AVOID_FERRY:
+        yield R.drawable.ic_avoid_unpaved;
+      }
+      case ROUTE_AVOID_FERRY ->
+      {
         titleId = R.string.avoid_ferry;
-        iconId = R.drawable.ic_avoid_ferry;
-        break;
-      case MORE:
+        yield R.drawable.ic_avoid_ferry;
+      }
+      case MORE ->
+      {
         titleId = R.string.placepage_more_button;
-        iconId = R.drawable.ic_more;
-        break;
-    }
+        yield R.drawable.ic_more;
+      }
+    };
     return new PlacePageButton(titleId, iconId, buttonType);
   }
 }

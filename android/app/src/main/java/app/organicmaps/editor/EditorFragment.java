@@ -103,7 +103,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private SwitchCompat mWifi;
 
   // Default Metadata entries.
-  private final class MetadataEntry
+  private static final class MetadataEntry
   {
     TextInputEditText mEdit;
     TextInputLayout mInput;
