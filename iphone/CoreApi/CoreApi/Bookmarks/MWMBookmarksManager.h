@@ -145,6 +145,7 @@ NS_SWIFT_NAME(BookmarksManager)
 
 - (void)recoverBookmark:(MWMMarkID)bookmarkId;
 - (void)recoverTrack:(MWMTrackID)trackId;
+- (BOOL)hasRecentlyDeletedBookmark:(MWMMarkID)bookmarkId;
 
 - (instancetype)init __attribute__((unavailable("call +manager instead")));
 - (instancetype)copy __attribute__((unavailable("call +manager instead")));

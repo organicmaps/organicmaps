@@ -97,6 +97,10 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
   return GetFramework().HasPlacePageInfo();
 }
 
+- (BOOL)hasRecentlyDeletedBookmark {
+  return [MWMBookmarksManager.sharedManager hasRecentlyDeletedBookmark:_bookmarkData.bookmarkId];
+}
+
 #pragma mark - Private
 
 - (void)updateBookmarkStatus {

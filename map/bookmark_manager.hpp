@@ -291,6 +291,8 @@ public:
   kml::MarkGroupId LastEditedBMCategory();
   kml::PredefinedColor LastEditedBMColor() const;
 
+  Bookmark * GetRecentlyDeletedBookmarkByPoint(const m2::PointD point);
+
   void SetLastEditedBmCategory(kml::MarkGroupId groupId);
   void SetLastEditedBmColor(kml::PredefinedColor color);
 
@@ -565,7 +567,6 @@ private:
 
   void AddBookmarkToRecentlyDeleted(std::unique_ptr<Bookmark> && bookmark);
   void RemoveBookmarkFromRecentlyDeleted(const Bookmark & bookmark);
-  Bookmark * GetRecentlyDeletedBookmarkByPoint(const m2::PointD point);
   Bookmark * RecoverRecentlyDeletedBookmark(kml::MarkId bookmarkId);
 
   Track * CreateTrack(kml::TrackData && trackData);

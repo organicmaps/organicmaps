@@ -37,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) BOOL isMyPosition;
 @property(nonatomic, readonly) BOOL isPreviewPlus;
 @property(nonatomic, readonly) BOOL isRoutePoint;
+@property(nonatomic, readonly) BOOL hasRecentlyDeletedBookmark;
 @property(nonatomic, readonly) CLLocationCoordinate2D locationCoordinate;
 @property(nonatomic, copy, nullable) MWMVoidBlock onBookmarkStatusUpdate;
 @property(nonatomic, copy, nullable) MWMVoidBlock onMapNodeStatusUpdate;

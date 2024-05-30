@@ -155,6 +155,8 @@ NSString *titleForButton(MWMActionBarButtonType type, BOOL isSelected) {
 }
 
 - (IBAction)tap {
+  if (self.type == MWMActionBarButtonTypeBookmark)
+    [self setBookmarkSelected:!self.button.isSelected];
   if (self.type == MWMActionBarButtonTypeRouteTo)
     [self disableRouteToButtonHighlight];
   
@@ -165,11 +167,14 @@ NSString *titleForButton(MWMActionBarButtonType type, BOOL isSelected) {
   if (self.type != MWMActionBarButtonTypeBookmark)
     return;
 
-  if (!self.button.isSelected && isSelected)
-    [self.button.imageView startAnimating];
-
+  if (isSelected) {
+    self.label.text = L(@"delete");
+    if (!self.button.isSelected)
+      [self.button.imageView startAnimating];
+  } else {
+    self.label.text = L(self.button.isSelected ? @"Recover" : @"save");
+  }
   self.button.selected = isSelected;
-  self.label.text = L(isSelected ? @"delete" : @"save");
 }
 
 - (void)setupBookmarkButton:(BOOL)isSelected {

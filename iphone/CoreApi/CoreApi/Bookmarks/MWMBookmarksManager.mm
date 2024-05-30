@@ -753,6 +753,12 @@ static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType) {
     [self notifyObserversOnCategoryUpdated:track->GetGroupId()];
 }
 
+- (BOOL)hasRecentlyDeletedBookmark:(MWMMarkID)bookmarkId {
+  auto const bookmark = self.bm.GetBookmark(bookmarkId);
+  ASSERT(bookmark, ());
+  return self.bm.GetRecentlyDeletedBookmarkByPoint(bookmark->GetData().m_point);
+}
+
 - (void)updateTrack:(MWMTrackID)trackId
          setGroupId:(MWMMarkGroupID)groupId
               color:(UIColor *)color

@@ -187,7 +187,7 @@ extension PlacePageCommonLayout {
       bookmarkViewController.bookmarkData = bookmarkData
       isBookmark = true
     }
-    actionBarViewController.setBookmarkSelected(isBookmark)
+//    actionBarViewController.setBookmarkSelected(isBookmark)
     if let title = placePageData.previewData.title, let headerViewController = headerViewControllers.compactMap({ $0 as? PlacePageHeaderViewController }).first {
       let secondaryTitle = placePageData.previewData.secondaryTitle
       headerViewController.setTitle(title, secondaryTitle: secondaryTitle)

@@ -1,5 +1,5 @@
 #include "map/place_page_info.hpp"
-
+#include "map/framework.hpp"
 #include "map/bookmark_helpers.hpp"
 
 #include "indexer/feature_utils.hpp"
@@ -221,6 +221,8 @@ std::string Info::GetBookmarkName()
 
   return bookmarkName;
 }
+
+
 
 void Info::SetTitlesForBookmark()
 {

@@ -191,22 +191,22 @@ using namespace storage;
   NSString * bookmarkTitle = data.previewData.title;
 
   [MWMBookmarksManager.sharedManager deleteBookmark:bookmarkData.bookmarkId];
-
-  [[MWMToast undoToastWithDeletedObject:bookmarkTitle undoAction:^{
-    [MWMBookmarksManager.sharedManager recoverBookmark:bookmarkData.bookmarkId];
-
-    // Skip updating PP if it's closed.
-    if (![self isPPShown])
-      return;
-
-    auto & f = GetFramework();
-    auto & info = f.GetCurrentPlacePageInfo();
-    auto buildInfo = info.GetBuildInfo();
-    buildInfo.m_match = place_page::BuildInfo::Match::Everything;
-    buildInfo.m_userMarkId = bookmarkData.bookmarkId;
-    f.UpdatePlacePageInfoForCurrentSelection(buildInfo);
-    [data updateBookmarkStatus];
-  }] show];
+//
+//  [[MWMToast undoToastWithDeletedObject:bookmarkTitle undoAction:^{
+//    [MWMBookmarksManager.sharedManager recoverBookmark:bookmarkData.bookmarkId];
+//
+//    // Skip updating PP if it's closed.
+//    if (![self isPPShown])
+//      return;
+//
+//    auto & f = GetFramework();
+//    auto & info = f.GetCurrentPlacePageInfo();
+//    auto buildInfo = info.GetBuildInfo();
+//    buildInfo.m_match = place_page::BuildInfo::Match::Everything;
+//    buildInfo.m_userMarkId = bookmarkData.bookmarkId;
+//    f.UpdatePlacePageInfoForCurrentSelection(buildInfo);
+//    [data updateBookmarkStatus];
+//  }] show];
 
   [MWMFrameworkHelper updateAfterDeleteBookmark];
   [data updateBookmarkStatus];
