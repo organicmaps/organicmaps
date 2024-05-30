@@ -6,6 +6,7 @@
   android:orientation="vertical">
   <include layout="@layout/place_page_website" />
   <include layout="@layout/place_page_website_menu" />
+  <include layout="@layout/place_page_website_booking" />
   <include layout="@layout/place_page_email" />
   <include layout="@layout/place_page_facebook" />
   <include layout="@layout/place_page_instagram" />

@@ -50,6 +50,8 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
   private TextView mTvWebsite;
   private View mWebsiteMenu;
   private TextView mTvWebsiteMenuSubsite;
+  private View mWebsiteBooking;
+  private TextView mTvWebsiteBookingSubsite;
   private View mEmail;
   private TextView mTvEmail;
   private View mWikimedia;
@@ -81,6 +83,8 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
       return mMapObject.getWebsiteUrl(false /* strip */, Metadata.MetadataType.FMD_WEBSITE);
     case FMD_WEBSITE_MENU:
       return mMapObject.getWebsiteUrl(false /* strip */, Metadata.MetadataType.FMD_WEBSITE_MENU);
+      case FMD_WEBSITE_BOOKING:
+      return mMapObject.getWebsiteUrl(false /* strip */, Metadata.MetadataType.FMD_WEBSITE_BOOKING);
     case FMD_CONTACT_FACEBOOK:
     case FMD_CONTACT_INSTAGRAM:
     case FMD_CONTACT_TWITTER:
@@ -131,6 +135,11 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
     mTvWebsiteMenuSubsite = mFrame.findViewById(R.id.tv__place_website_menu_subtitle);
     mWebsiteMenu.setOnClickListener((v) -> openUrl(Metadata.MetadataType.FMD_WEBSITE_MENU));
     mWebsiteMenu.setOnLongClickListener((v) -> copyUrl(mWebsiteMenu, Metadata.MetadataType.FMD_WEBSITE_MENU));
+
+    mWebsiteBooking = mFrame.findViewById(R.id.ll__place_website_booking);
+    mTvWebsiteBookingSubsite = mFrame.findViewById(R.id.tv__place_website_booking_subtitle);
+    mWebsiteBooking.setOnClickListener((v) -> openUrl(Metadata.MetadataType.FMD_WEBSITE_BOOKING));
+    mWebsiteBooking.setOnLongClickListener((v) -> copyUrl(mWebsiteBooking, Metadata.MetadataType.FMD_WEBSITE_BOOKING));
 
     mEmail = mFrame.findViewById(R.id.ll__place_email);
     mTvEmail = mFrame.findViewById(R.id.tv__place_email);
@@ -190,6 +199,7 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
     final String title = switch (type){
       case FMD_WEBSITE -> mMapObject.getWebsiteUrl(false /* strip */, Metadata.MetadataType.FMD_WEBSITE);
       case FMD_WEBSITE_MENU -> mMapObject.getWebsiteUrl(false /* strip */, Metadata.MetadataType.FMD_WEBSITE_MENU);
+      case FMD_WEBSITE_BOOKING -> mMapObject.getWebsiteUrl(false /* strip */, Metadata.MetadataType.FMD_WEBSITE_BOOKING);
       default -> mMapObject.getMetadata(type);
     };
     // Add user names for social media if available
@@ -209,6 +219,7 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
 
     refreshMetadataOrHide(mMapObject.getWebsiteUrl(true /* strip */, Metadata.MetadataType.FMD_WEBSITE), mWebsite, mTvWebsite);
     refreshMetadataOrHide(mMapObject.getWebsiteUrl(true /* strip */, Metadata.MetadataType.FMD_WEBSITE_MENU), mWebsiteMenu, mTvWebsiteMenuSubsite);
+    refreshMetadataOrHide(mMapObject.getWebsiteUrl(true /* strip */, Metadata.MetadataType.FMD_WEBSITE_BOOKING), mWebsiteBooking, mTvWebsiteBookingSubsite);
 
     String wikimedia_commons = mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIMEDIA_COMMONS);
     String wikimedia_commons_text = TextUtils.isEmpty(wikimedia_commons) ? "" : getResources().getString(R.string.wikimedia_commons);
