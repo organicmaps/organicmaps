@@ -3,6 +3,7 @@ package app.organicmaps.bookmarks;
 import android.app.Activity;
 import android.app.ProgressDialog;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
@@ -46,6 +47,7 @@ public enum BookmarksSharingHelper
   }
 
   public void onPreparedFileForSharing(@NonNull FragmentActivity context,
+                                       @NonNull ActivityResultLauncher launcher,
                                        @NonNull BookmarkSharingResult result)
   {
     if (mProgressDialog != null && mProgressDialog.isShowing())
@@ -54,7 +56,7 @@ public enum BookmarksSharingHelper
     switch (result.getCode())
     {
       case BookmarkSharingResult.SUCCESS ->
-          SharingUtils.shareBookmarkFile(context, result.getSharingPath());
+          SharingUtils.shareBookmarkFile(context, launcher, result.getSharingPath());
       case BookmarkSharingResult.EMPTY_CATEGORY ->
           new MaterialAlertDialogBuilder(context, R.style.MwmTheme_AlertDialog)
               .setTitle(R.string.bookmarks_error_title_share_empty)

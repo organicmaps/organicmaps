@@ -12,6 +12,7 @@ import android.provider.DocumentsContract;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.CallSuper;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
@@ -26,6 +27,7 @@ import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.BookmarkSharingResult;
 import app.organicmaps.bookmarks.data.KmlFileType;
 import app.organicmaps.dialog.EditTextDialogFragment;
+import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.PlaceholderView;
 import app.organicmaps.widget.recycler.DividerItemDecorationWithPadding;
@@ -59,6 +61,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   private static final int MAX_CATEGORY_NAME_LENGTH = 60;
 
   public static final String BOOKMARKS_CATEGORIES_MENU_ID = "BOOKMARKS_CATEGORIES_BOTTOM_SHEET";
+
+  private ActivityResultLauncher<Intent> shareLauncher;
 
   @Nullable
   private BookmarkCategory mSelectedCategory;
@@ -104,6 +108,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
     rw.addItemDecoration(decor);
     mCategoriesAdapterObserver = this::onCategoriesChanged;
     BookmarkManager.INSTANCE.addCategoriesUpdatesListener(mCategoriesAdapterObserver);
+
+    shareLauncher = SharingUtils.RegisterLauncher(this);
   }
 
   protected void onPrepareControllers(@NonNull View view)
@@ -114,7 +120,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   @Override
   public void onPreparedFileForSharing(@NonNull BookmarkSharingResult result)
   {
-    BookmarksSharingHelper.INSTANCE.onPreparedFileForSharing(requireActivity(), result);
+    BookmarksSharingHelper.INSTANCE.onPreparedFileForSharing(requireActivity(), shareLauncher, result);
   }
 
   @Override
