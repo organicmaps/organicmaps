@@ -41,7 +41,8 @@ static std::unordered_map<std::string, EType> const kNamesToFMD = {
     {"building:levels", EType::FMD_BUILDING_LEVELS},
     {"level", EType::FMD_LEVEL},
     {"drive_through", EType::FMD_DRIVE_THROUGH},
-    {"website_menu", EType::FMD_WEBSITE_MENU}
+    {"website_menu", EType::FMD_WEBSITE_MENU},
+    {"website_booking", EType::FMD_WEBSITE_BOOKING}
     /// @todo Add description?
 };
 

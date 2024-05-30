@@ -184,6 +184,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
     initMetadataEntry(Metadata.MetadataType.FMD_WEBSITE, R.string.error_enter_correct_web);
     initMetadataEntry(Metadata.MetadataType.FMD_WEBSITE_MENU, R.string.error_enter_correct_web);
+    initMetadataEntry(Metadata.MetadataType.FMD_WEBSITE_BOOKING, R.string.error_enter_correct_web);
     initMetadataEntry(Metadata.MetadataType.FMD_EMAIL, R.string.error_enter_correct_email);
     initMetadataEntry(Metadata.MetadataType.FMD_CONTACT_FACEBOOK, R.string.error_enter_correct_facebook_page);
     initMetadataEntry(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM, R.string.error_enter_correct_instagram_page);
@@ -430,6 +431,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
             R.drawable.ic_website, R.string.website, InputType.TYPE_TEXT_VARIATION_URI);
     View websiteMenuBlock = initBlock(view, Metadata.MetadataType.FMD_WEBSITE_MENU, R.id.block_website_menu,
             R.drawable.ic_website_menu, R.string.website_menu, InputType.TYPE_TEXT_VARIATION_URI);
+    View websiteBookingBlock = initBlock(view, Metadata.MetadataType.FMD_WEBSITE_BOOKING, R.id.block_website_booking,
+            R.drawable.ic_website_booking, R.string.website_booking, InputType.TYPE_TEXT_VARIATION_URI);
     View emailBlock = initBlock(view, Metadata.MetadataType.FMD_EMAIL, R.id.block_email,
             R.drawable.ic_email, R.string.email, InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
     View facebookContactBlock = initBlock(view, Metadata.MetadataType.FMD_CONTACT_FACEBOOK, R.id.block_facebook,
@@ -471,6 +474,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mDetailsBlocks.put(Metadata.MetadataType.FMD_INTERNET, blockWifi);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_WEBSITE, websiteBlock);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_WEBSITE_MENU, websiteMenuBlock);
+    mDetailsBlocks.put(Metadata.MetadataType.FMD_WEBSITE_BOOKING, websiteBookingBlock);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_EMAIL, emailBlock);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_CONTACT_FACEBOOK, facebookContactBlock);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM, instagramContactBlock);
