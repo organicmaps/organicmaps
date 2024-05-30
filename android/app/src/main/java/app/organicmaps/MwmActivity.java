@@ -218,6 +218,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean mRemoveDisplayListener = true;
   private int mLastUiMode = Configuration.UI_MODE_TYPE_UNDEFINED;
 
+  private boolean mTracePathLocationPermission = false;
+  private boolean mTracePathNotificationPermission = false;
+
   public interface LeftAnimationTrackListener
   {
     void onTrackStarted(boolean collapsed);
@@ -254,10 +257,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     else if (RoutingController.get().hasSavedRoute())
       RoutingController.get().restoreRoute();
 
-    if (TrackRecorder.nativeIsEnabled() && LocationUtils.checkLocationPermission(this))
-    {
-      TrackRecordingService.startForegroundService(this);
-    }
+    // This is for the case when trace path was enabled but due to any reasons
+    // App crashed so we need the restart or stop the whole service again properly
+    // by checking all the necessary permissions
+    if(TrackRecorder.nativeIsEnabled())
+      startTracePath(true);
 
     processIntent();
     migrateOAuthCredentials();
@@ -1879,7 +1883,21 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       if (LocationState.getMode() == LocationState.NOT_FOLLOW_NO_POSITION)
         LocationState.nativeSwitchToNextMode();
+      if(mTracePathLocationPermission)
+      {
+        mTracePathLocationPermission = false;
+        startTracePath(true);
+      }
       return;
+    }
+    // This is for the case when native was already enabled but
+    // Location permission haven't been granted. In that case we will
+    // Turn off Trace path.
+    if(mTracePathLocationPermission)
+    {
+      mTracePathLocationPermission = false;
+      if(TrackRecorder.nativeIsEnabled())
+        TrackRecorder.nativeSetEnabled(false);
     }
 
     Logger.w(LOCATION_TAG, "Permissions ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION have been refused");
@@ -1908,9 +1926,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void onPostNotificationPermissionResult(boolean granted)
   {
     if (granted)
+    {
       Logger.i(TAG, "Permission POST_NOTIFICATIONS has been granted");
+      if(mTracePathNotificationPermission)
+      {
+        mTracePathNotificationPermission = false;
+        startTracePath(true);
+      }
+    }
     else
       Logger.w(TAG, "Permission POST_NOTIFICATIONS has been refused");
+
+    if(mTracePathNotificationPermission)
+    {
+      mTracePathNotificationPermission = false;
+      TrackRecorder.nativeSetEnabled(false);
+    }
   }
 
   /**
@@ -2160,21 +2191,46 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return false;
   }
 
-  private void onTracePathOptionSelected()
+  private void startTracePath(boolean enable)
   {
-    if(!TrackRecorder.nativeIsEnabled())
+    if(enable)
     {
       if(!LocationUtils.checkLocationPermission(this))
       {
         Logger.i(TAG,"Location permission not granted");
+        dismissLocationErrorDialog();
+        // This variable is a simple hack to re initiate the flow
+        // according to action of user. Calling it hack because we are avoiding
+        // creation of new methods by using this variable.
+        mTracePathLocationPermission = true;
+        mLocationPermissionRequest.launch(new String[]{ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION});
+        return;
+      }
+      if (!(Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
+            ActivityCompat.checkSelfPermission(this, POST_NOTIFICATIONS) == PERMISSION_GRANTED))
+      {
+        Logger.i(TAG, "Permissions POST_NOTIFICATIONS is not granted");
+        // This variable is a simple hack to re initiate the flow
+        // according to action of user. Calling it hack because we are avoiding
+        // creation of new methods by using this variable.
+        mTracePathNotificationPermission = true;
+        mPostNotificationPermissionRequest.launch(POST_NOTIFICATIONS);
         return;
       }
       if(!showTracePathDisclaimer())
         return;
+      Toast.makeText(this, getString(R.string.trace_path_is_on), Toast.LENGTH_LONG).show();
       TrackRecordingService.startForegroundService(this);
     }
     else
+    {
+      Toast.makeText(this, getString(R.string.trace_path_is_off), Toast.LENGTH_LONG).show();
       TrackRecordingService.stopService(this);
+    }
+  }
+  private void onTracePathOptionSelected()
+  {
+    startTracePath(!TrackRecorder.nativeIsEnabled());
   }
 
   public void onShareLocationOptionSelected()

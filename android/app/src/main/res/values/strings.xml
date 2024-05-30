@@ -2206,4 +2206,6 @@
 	<string name="instruction_4">- Instruction 4</string>
 	<string name="have_a_nice_day">Have a nice Day ; )</string>
 	<string name="Alert_dialogue_title">Please Follow These Guidlines</string>
+  <string name="trace_path_is_on">Trace Path is On</string>
+	<string name="trace_path_is_off">Trace Path is Off</string>
 </resources>
