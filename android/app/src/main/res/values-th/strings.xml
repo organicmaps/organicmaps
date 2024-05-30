@@ -772,6 +772,10 @@
 	<string name="website_menu">ลิงค์เมนู</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">ดูเมนู</string>
+	<!-- Button in the Place Page which opens booking form in a browser -->
+	<string name="book_now">จองตอนนี้</string>
+	<!-- Shop booking URL field in the Editor -->
+	<string name="website_booking">ลิงค์จอง</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">ที่อยู่/บล็อค</string>

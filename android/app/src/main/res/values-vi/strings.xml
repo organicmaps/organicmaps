@@ -771,6 +771,10 @@
 	<string name="website_menu">Liên kết thực đơn</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Xem thực đơn</string>
+	<!-- Button in the Place Page which opens booking form in a browser -->
+	<string name="book_now">Đặt bây giờ</string>
+	<!-- Shop booking URL field in the Editor -->
+	<string name="website_booking">Liên kết đặt phòng</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Địa chỉ/Khối</string>

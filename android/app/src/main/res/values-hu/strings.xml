@@ -793,6 +793,10 @@
 	<string name="website_menu">Menü link</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Menü megtekintése</string>
+	<!-- Button in the Place Page which opens booking form in a browser -->
+	<string name="book_now">Foglaljon most</string>
+	<!-- Shop booking URL field in the Editor -->
+	<string name="website_booking">Foglalási link</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Cím/blokk</string>

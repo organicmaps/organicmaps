@@ -773,6 +773,10 @@
 	<string name="website_menu">Länk till meny</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Visa meny</string>
+	<!-- Button in the Place Page which opens booking form in a browser -->
+	<string name="book_now">Boka nu</string>
+	<!-- Shop booking URL field in the Editor -->
+	<string name="website_booking">Bokningslänk</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adress/Block</string>

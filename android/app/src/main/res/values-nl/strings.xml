@@ -817,6 +817,10 @@
 	<string name="website_menu">Menulink</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Menu bekijken</string>
+	<!-- Button in the Place Page which opens booking form in a browser -->
+	<string name="book_now">Boek nu</string>
+	<!-- Shop booking URL field in the Editor -->
+	<string name="website_booking">Boeking Link</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adres/blok</string>
