@@ -73,25 +73,21 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
   @NonNull
   private String getLink(@NonNull Metadata.MetadataType type)
   {
-    switch (type)
+    return switch (type)
     {
-    case FMD_EXTERNAL_URI:
-      return mMapObject.getKayakUrl();
-    case FMD_WEBSITE:
-      return mMapObject.getWebsiteUrl(false /* strip */, Metadata.MetadataType.FMD_WEBSITE);
-    case FMD_WEBSITE_MENU:
-      return mMapObject.getWebsiteUrl(false /* strip */, Metadata.MetadataType.FMD_WEBSITE_MENU);
-    case FMD_CONTACT_FACEBOOK:
-    case FMD_CONTACT_INSTAGRAM:
-    case FMD_CONTACT_TWITTER:
-    case FMD_CONTACT_VK:
-    case FMD_CONTACT_LINE:
-      if (TextUtils.isEmpty(mMapObject.getMetadata(type)))
-        return "";
-      return Framework.nativeGetPoiContactUrl(type.toInt());
-    default:
-      return mMapObject.getMetadata(type);
-    }
+      case FMD_EXTERNAL_URI -> mMapObject.getKayakUrl();
+      case FMD_WEBSITE ->
+          mMapObject.getWebsiteUrl(false /* strip */, Metadata.MetadataType.FMD_WEBSITE);
+      case FMD_WEBSITE_MENU ->
+          mMapObject.getWebsiteUrl(false /* strip */, Metadata.MetadataType.FMD_WEBSITE_MENU);
+      case FMD_CONTACT_FACEBOOK, FMD_CONTACT_INSTAGRAM, FMD_CONTACT_TWITTER, FMD_CONTACT_VK, FMD_CONTACT_LINE ->
+      {
+        if (TextUtils.isEmpty(mMapObject.getMetadata(type)))
+          yield "";
+        yield Framework.nativeGetPoiContactUrl(type.toInt());
+      }
+      default -> mMapObject.getMetadata(type);
+    };
   }
 
   @Nullable

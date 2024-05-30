@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -60,7 +59,7 @@ public class RoutingPlanController extends ToolbarController
   @NonNull
   private final View mDrivingOptionsImage;
 
-  private RadioButton setupRouterButton(@IdRes int buttonId, final @DrawableRes int iconRes, View.OnClickListener clickListener)
+  private void setupRouterButton(@IdRes int buttonId, final @DrawableRes int iconRes, View.OnClickListener clickListener)
   {
     CompoundButton.OnCheckedChangeListener listener = (buttonView, isChecked) -> {
       RoutingToolbarButton button = (RoutingToolbarButton) buttonView;
@@ -75,7 +74,6 @@ public class RoutingPlanController extends ToolbarController
     listener.onCheckedChanged(rb, false);
     rb.setOnCheckedChangeListener(listener);
     rb.setOnClickListener(clickListener);
-    return rb;
   }
 
   RoutingPlanController(View root, Activity activity,

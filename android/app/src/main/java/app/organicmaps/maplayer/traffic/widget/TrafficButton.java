@@ -74,9 +74,8 @@ public class TrafficButton
   private void stopWaitingAnimation()
   {
     Drawable drawable = mButton.getDrawable();
-    if (drawable instanceof AnimationDrawable)
+    if (drawable instanceof AnimationDrawable animation)
     {
-      AnimationDrawable animation = (AnimationDrawable) drawable;
       animation.stop();
       mButton.setImageDrawable(null);
     }

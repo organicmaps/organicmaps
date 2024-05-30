@@ -387,30 +387,31 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       return;
 
     @StringRes final int titleId;
-    @StringRes final int messageId;
-
-    switch (result)
+    @StringRes final int messageId = switch (result)
     {
-    case ERR_NOT_ENOUGH_FREE_SPACE:
-      titleId = R.string.routing_not_enough_space;
-      messageId = R.string.not_enough_free_space_on_sdcard;
-      break;
-    case ERR_STORAGE_DISCONNECTED:
-      titleId = R.string.disconnect_usb_cable_title;
-      messageId = R.string.disconnect_usb_cable;
-      break;
-    case ERR_DOWNLOAD_ERROR:
-      titleId = R.string.connection_failure;
-      messageId = (ConnectionState.INSTANCE.isConnected() ? R.string.download_has_failed
-          : R.string.common_check_internet_connection_dialog);
-      break;
-    case ERR_DISK_ERROR:
-      titleId = R.string.disk_error_title;
-      messageId = R.string.disk_error;
-      break;
-    default:
-      throw new AssertionError("Unexpected result code = " + result);
-    }
+      case ERR_NOT_ENOUGH_FREE_SPACE ->
+      {
+        titleId = R.string.routing_not_enough_space;
+        yield R.string.not_enough_free_space_on_sdcard;
+      }
+      case ERR_STORAGE_DISCONNECTED ->
+      {
+        titleId = R.string.disconnect_usb_cable_title;
+        yield R.string.disconnect_usb_cable;
+      }
+      case ERR_DOWNLOAD_ERROR ->
+      {
+        titleId = R.string.connection_failure;
+        yield (ConnectionState.INSTANCE.isConnected() ? R.string.download_has_failed
+                                                      : R.string.common_check_internet_connection_dialog);
+      }
+      case ERR_DISK_ERROR ->
+      {
+        titleId = R.string.disk_error_title;
+        yield R.string.disk_error;
+      }
+      default -> throw new AssertionError("Unexpected result code = " + result);
+    };
 
     mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
         .setTitle(titleId)

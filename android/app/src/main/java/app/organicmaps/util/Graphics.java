@@ -124,9 +124,8 @@ public final class Graphics
   @NonNull
   public static Bitmap drawableToBitmap(@NonNull Drawable drawable)
   {
-    if (drawable instanceof BitmapDrawable)
+    if (drawable instanceof BitmapDrawable bitmapDrawable)
     {
-      final BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
       if (bitmapDrawable.getBitmap() != null)
         return bitmapDrawable.getBitmap();
     }
