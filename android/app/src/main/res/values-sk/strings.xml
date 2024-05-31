@@ -616,6 +616,7 @@
 	  <item quantity="one">Bol nájdený %d súbor. Uvidíte to po konverzii.</item>
 	  <item quantity="other">Bolo nájdených %d súborov. Uvidíte ich po konverzii.</item>
 	</plurals>
+	<string name="restore">Obnoviť</string>
 	<plurals name="objects">
 	  <item quantity="other">%d miesto</item>
 	</plurals>

@@ -618,6 +618,7 @@
 	  <item quantity="other">Znaleziono %d plików. Zobaczysz je po konwersji.</item>
 	  <item quantity="two">Znaleziono %d pliki. Zobaczysz je po konwersji.</item>
 	</plurals>
+	<string name="restore">Przywróć</string>
 	<plurals name="objects">
 	  <item quantity="other">%d miejsce</item>
 	</plurals>

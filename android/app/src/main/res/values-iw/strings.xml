@@ -609,6 +609,7 @@
 	  <item quantity="one">נמצא קובץ %d. יהיה ניתן לראות אותו לאחר ההמרה.</item>
 	  <item quantity="other">נמצאו %d קבצים. יהיה ניתן לראות אותם לאחר ההמרה.</item>
 	</plurals>
+	<string name="restore">שחזור</string>
 	<plurals name="objects">
 	  <item quantity="one">פריט %d</item>
 	  <item quantity="other">%d פריטים</item>

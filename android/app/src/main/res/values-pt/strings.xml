@@ -592,6 +592,7 @@
 	  <item quantity="one">%d ficheiro encontrado. Pode vê-lo depois da conversão.</item>
 	  <item quantity="other">%d ficheiros encontrados. Pode vê-los depois da conversão.</item>
 	</plurals>
+	<string name="restore">Restaurar</string>
 	<plurals name="objects">
 	  <item quantity="one">%d objeto</item>
 	  <item quantity="other">%d objetos</item>

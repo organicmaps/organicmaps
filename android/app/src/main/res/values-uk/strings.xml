@@ -621,6 +621,7 @@
 	  <item quantity="one">%d файл був знайдений. Ви побачите його після перетворення.</item>
 	  <item quantity="other">%d файлів було знайдено. Ви побачите їх після конвертації.</item>
 	</plurals>
+	<string name="restore">Відновити</string>
 	<plurals name="objects">
 	  <item quantity="other">%d місце</item>
 	</plurals>

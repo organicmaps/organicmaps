@@ -619,6 +619,7 @@
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="other">%d ファイルが見つかりました。 あなたは変換後にそれらを見るでしょう。</item>
 	</plurals>
+	<string name="restore">復元</string>
 	<plurals name="objects">
 	  <item quantity="other">%dの場所</item>
 	</plurals>

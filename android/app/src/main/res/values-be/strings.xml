@@ -608,6 +608,7 @@
 	<string name="please_wait">Пачакайце…</string>
 	<string name="phone_number">Нумар тэлефона</string>
 	<string name="profile">Профіль OpenStreetMap</string>
+	<string name="restore">Аднавіць</string>
 	<plurals name="objects">
 	  <item quantity="few">%d аб\'екты</item>
 	  <item quantity="one">%d аб\'ект</item>

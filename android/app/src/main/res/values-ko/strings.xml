@@ -584,6 +584,7 @@
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="other">%d 파일을 찾았습니다. 회심 후 그들을 볼 수 있습니다.</item>
 	</plurals>
+	<string name="restore">복원</string>
 	<plurals name="objects">
 	  <item quantity="other">%d 장소</item>
 	</plurals>

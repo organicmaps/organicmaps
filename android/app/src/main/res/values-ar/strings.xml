@@ -630,6 +630,7 @@
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="other">تم العثور على %d ملفات. سوف تراهم بعد التحويل.</item>
 	</plurals>
+	<string name="restore">استعادة</string>
 	<plurals name="objects">
 	  <item quantity="other">غرض %d</item>
 	</plurals>
