@@ -12,6 +12,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.view.KeyEvent;
@@ -211,6 +212,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @NonNull
   private ActivityResultLauncher<IntentSenderRequest> mLocationResolutionRequest;
 
+  private ActivityResultLauncher<Intent> mBatterySaverPermission;
+
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private DisplayManager mDisplayManager;
@@ -220,6 +223,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private boolean mTracePathLocationPermission = false;
   private boolean mTracePathNotificationPermission = false;
+  private boolean mTracePathBatterySaverPermission = false;
 
   public interface LeftAnimationTrackListener
   {
@@ -527,6 +531,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
         this::onLocationResolutionResult);
     mPostNotificationPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestPermission(),
         this::onPostNotificationPermissionResult);
+    mBatterySaverPermission = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                                                        this::onBatterySaverPermissionResult);
 
     mDisplayManager = DisplayManager.from(this);
     if (mDisplayManager.isCarDisplayUsed())
@@ -1944,6 +1950,27 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
+  private void onBatterySaverPermissionResult(ActivityResult result)
+  {
+    if (result.getResultCode() == Activity.RESULT_OK)
+    {
+      Logger.i(TAG, "Battery Optimisation have been disabled from App");
+      if(mTracePathBatterySaverPermission)
+      {
+        mTracePathBatterySaverPermission = false;
+        startTracePath(true);
+      }
+    }
+    else
+      Logger.w(TAG, "Battery Optimisation disable permission has been refused");
+
+    if(mTracePathBatterySaverPermission)
+    {
+      mTracePathBatterySaverPermission = false;
+      TrackRecorder.nativeSetEnabled(false);
+    }
+  }
+
   /**
    * Called by GoogleFusedLocationProvider to request to GPS and/or Wi-Fi.
    * @param pendingIntent an intent to launch.
@@ -2205,6 +2232,30 @@ public class MwmActivity extends BaseMwmFragmentActivity
         mTracePathLocationPermission = true;
         mLocationPermissionRequest.launch(new String[]{ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION});
         return;
+      }
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+      {
+        PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+        if (!pm.isIgnoringBatteryOptimizations(getPackageName()))
+        {
+          dismissAlertDialog();
+          final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+              .setTitle(R.string.battery_saver_dialog_title)
+              .setMessage(R.string.battery_saver_dialog_summary)
+              .setNegativeButton(R.string.cancel, null)
+              .setOnDismissListener(dialog -> mAlertDialog = null);
+
+          final Intent intent = Utils.makeAppBatteryOptimizationIntent(this);
+          if(intent != null)
+          {
+            builder.setPositiveButton(getString(R.string.enable),(dlg, which) -> {
+              mTracePathBatterySaverPermission = true;
+              mBatterySaverPermission.launch(intent);
+            });
+          }
+          builder.show();
+          return;
+        }
       }
       if (!(Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
             ActivityCompat.checkSelfPermission(this, POST_NOTIFICATIONS) == PERMISSION_GRANTED))

@@ -2208,4 +2208,7 @@
 	<string name="Alert_dialogue_title">Please Follow These Guidlines</string>
   <string name="trace_path_is_on">Trace Path is On</string>
 	<string name="trace_path_is_off">Trace Path is Off</string>
+  <string name="battery_saver_dialog_title">Battery Saver is enabled</string>
+	<string name="battery_saver_dialog_summary">Please disable the battery saver for Organic Maps to use Trace Path feature</string>
+	<string name="enable">Enable</string>
 </resources>
