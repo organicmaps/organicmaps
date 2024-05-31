@@ -155,20 +155,29 @@ NSString *titleForButton(MWMActionBarButtonType type, BOOL isSelected) {
 }
 
 - (IBAction)tap {
-  if (self.type == MWMActionBarButtonTypeBookmark)
-    [self setBookmarkSelected:!self.button.isSelected];
   if (self.type == MWMActionBarButtonTypeRouteTo)
     [self disableRouteToButtonHighlight];
   
   [self.delegate tapOnButtonWithType:self.type];
 }
 
-- (void)setBookmarkSelected:(BOOL)isSelected {
-  if (isSelected)
-    [self.button.imageView startAnimating];
-
-  self.button.selected = isSelected;
-  self.label.text = L(isSelected ? @"delete" : @"save");
+- (void)setBookmarkButtonState:(MWMBookmarksButtonState)state {
+  switch (state) {
+    case MWMBookmarksButtonStateSave:
+      self.label.text = L(@"save");
+      self.button.selected = false;
+      break;
+    case MWMBookmarksButtonStateDelete:
+      self.label.text = L(@"delete");
+      if (!self.button.selected)
+        [self.button.imageView startAnimating];
+      self.button.selected = true;
+      break;
+    case MWMBookmarksButtonStateRecover:
+      self.label.text = L(@"restore");
+      self.button.selected = false;
+      break;
+  }
 }
 
 - (void)setupBookmarkButton:(BOOL)isSelected {
@@ -178,7 +187,7 @@ NSString *titleForButton(MWMActionBarButtonType type, BOOL isSelected) {
   [btn setImage:[UIImage imageNamed:@"ic_bookmarks_on"] forState:UIControlStateHighlighted];
   [btn setImage:[UIImage imageNamed:@"ic_bookmarks_on"] forState:UIControlStateDisabled];
 
-  [self setBookmarkSelected:isSelected];
+  [btn setSelected:isSelected];
 
   NSUInteger const animationImagesCount = 11;
   NSMutableArray *animationImages = [NSMutableArray arrayWithCapacity:animationImagesCount];
