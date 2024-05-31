@@ -602,6 +602,7 @@
 	  <item quantity="one">A fost găsit %d fișier. Îl vei vedea după conversiune.</item>
 	  <item quantity="other">Au fost găsite %d fișiere. Le vei vedea după conversiune.</item>
 	</plurals>
+	<string name="restore">Restabilește</string>
 	<plurals name="objects">
 	  <item quantity="one">%d obiect</item>
 	  <item quantity="other">%d obiecte</item>

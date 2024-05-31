@@ -586,6 +586,7 @@
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="other">%d ไฟล์ที่ค้นพบ คุณจะเห็นพวกเขาหลังจากการแปลง</item>
 	</plurals>
+	<string name="restore">ฟื้นฟู</string>
 	<plurals name="objects">
 	  <item quantity="other">%d สถานที่</item>
 	</plurals>

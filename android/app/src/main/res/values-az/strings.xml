@@ -617,6 +617,7 @@
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="other">%d fayl tapıldı. Dönüşümdən sonra onları görəcəksiniz.</item>
 	</plurals>
+	<string name="restore">Bərpa</string>
 	<plurals name="objects">
 	  <item quantity="other">%d obyekt</item>
 	</plurals>

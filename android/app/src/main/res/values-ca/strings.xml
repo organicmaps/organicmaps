@@ -611,6 +611,7 @@
 	  <item quantity="one">S\'ha trobat %d fitxer. Podeu veure\'l després de la conversió.</item>
 	  <item quantity="other">S\'han trobat %d fiters. Podeu veure\'ls després de la conversió.</item>
 	</plurals>
+	<string name="restore">Restaura</string>
 	<plurals name="objects">
 	  <item quantity="one">%d objecte</item>
 	  <item quantity="other">%d objectes</item>

@@ -572,6 +572,7 @@
 	  <item quantity="one">Открит е %d файл. Можете да го видите след конвертирането.</item>
 	  <item quantity="other">Открити са %d файла. Можете да ги видите след конвертирането.</item>
 	</plurals>
+	<string name="restore">Възстановяване</string>
 	<plurals name="objects">
 	  <item quantity="one">%d обект</item>
 	  <item quantity="other">%d обекта</item>

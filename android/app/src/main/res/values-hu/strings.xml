@@ -599,6 +599,7 @@
 	  <item quantity="one">%d fájlt találtunk. Látni fogja őket a megtérés után.</item>
 	  <item quantity="other">%d fájl található. Látni fogja őket a megtérés után.</item>
 	</plurals>
+	<string name="restore">Visszaállítás</string>
 	<plurals name="objects">
 	  <item quantity="other">%d hely</item>
 	</plurals>

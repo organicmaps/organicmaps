@@ -582,6 +582,7 @@
 	  <item quantity="one">%d फाईल सापडली. रूपांतरानंतर तुम्ही ती पाहू शकता.</item>
 	  <item quantity="other">%d फाईली सापडल्या. रूपांतरानंतर तुम्ही त्या पाहू शकता.</item>
 	</plurals>
+	<string name="restore">पूर्ववत् करा</string>
 	<plurals name="objects">
 	  <item quantity="other">%d वस्तू</item>
 	</plurals>

@@ -595,6 +595,7 @@
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="other">找到%d个文件。 转换后你会看到它。</item>
 	</plurals>
+	<string name="restore">恢复</string>
 	<plurals name="objects">
 	  <item quantity="other">%d 地点</item>
 	</plurals>

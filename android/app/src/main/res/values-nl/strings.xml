@@ -614,6 +614,7 @@
 	  <item quantity="one">%d bestand gevonden. Je ziet het na het converteren.</item>
 	  <item quantity="other">Er zijn %d bestanden gevonden. Je zult ze na de conversie zien.</item>
 	</plurals>
+	<string name="restore">Herstellen</string>
 	<plurals name="objects">
 	  <item quantity="other">%d plaats</item>
 	</plurals>

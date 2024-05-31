@@ -614,6 +614,7 @@
 	  <item quantity="one">Βρέθηκε %d αρχείο. Θα το δείτε μετά τη μετατροπή.</item>
 	  <item quantity="other">έχουν βρεθεί %d αρχεία. Θα τα δείτε μετά τη μετατροπή.</item>
 	</plurals>
+	<string name="restore">Επαναφορά</string>
 	<plurals name="objects">
 	  <item quantity="one">%d αντικείμενο</item>
 	  <item quantity="other">%d αντικείμενα</item>

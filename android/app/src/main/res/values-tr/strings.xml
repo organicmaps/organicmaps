@@ -617,6 +617,7 @@
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="other">%d dosya bulundu. Dönüşümden sonra onları göreceksiniz.</item>
 	</plurals>
+	<string name="restore">Geri al</string>
 	<plurals name="objects">
 	  <item quantity="other">%d obje</item>
 	</plurals>
