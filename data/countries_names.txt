@@ -47436,9 +47436,9 @@
   uk = Валлі
 
 [Antarctica Description]
-  en = McMurdo Station, Stația științifică chileeană „Villa Las Estrellas”, Rocky Cove
+  en = McMurdo Station, Chilean research station „Villa Las Estrellas”, Rocky Cove
   el = Σταθμός McMurdo, Στατία Στιντιφίκα χιλεάνα „Villa Las Estrellas”, Ρίκι κόουβ
-  et = McMurdo jaam, Stația științifică Tšiili "Villa Las Estrellas", Rocky Cove
+  et = McMurdo jaam, Tšiili teadusjaam "Villa Las Estrellas", Rocky Cove
   ru = Мак-Мёрдо
 
 [Antigua and Barbuda Description]
@@ -49146,7 +49146,7 @@
   uk = Вальдівія, Талькауано
 
 [China_Anhui Description]
-  en = Hefei, 包河区, 蜀山区
+  en = Hefei, Baohe, Shushan
   da = Hefei
   de = Hefei
   el = Χεφέι, Επαρχία Μπαόχε, Σούσα
@@ -49270,10 +49270,10 @@
   zh-Hant = 宁安市
 
 [China_Henan Description]
-  en = Zhengzhou, 水磨村, Wugang
+  en = Zhengzhou, Wugang
   da = Zhengzhou
   de = Zhengzhou, Wugang
-  el = Ζενγκ Τζου, 水磨村, Γουάνγκ
+  el = Ζενγκ Τζου, Γουάνγκ
   es = Zhengzhou
   fr = Zhengzhou, Wugang
   ja = 鄭州市, 舞鋼市
@@ -54639,7 +54639,7 @@
   el = Μπρέιντς, Σάλεμ
 
 [Morocco_Doukkala-Abda Description]
-  en = Casablanca, Marrakesh, Safi ⴰⵙⴼⵉ آسفي
+  en = Casablanca, Marrakesh, Safi
   ar = الدار البيضاء, مراكش, آسفي
   az = Kasablanka
   de = Casablanca, Marrakesch
@@ -54652,7 +54652,7 @@
   tr = Kazablanka
 
 [Morocco_Rabat-Sale-Zemmour-Zaer Description]
-  en = Fez, Rabat, Salé ⵙⵍⴰ سلا
+  en = Fez, Rabat, Salé
   ar = فاس, الرباط, سلا
   da = Rabat
   de = Fès, Rabat, Salé
@@ -54675,7 +54675,7 @@
   vi = Rabat
 
 [Morocco_Southern Description]
-  en = Meknès ⴰⵎⴽⵏⴰⵙ مكناس, Agadir, Oujda
+  en = Meknès, Agadir, Oujda
   ar = مكناس, أگادیر, وجدة‎
   de = Meknès, Agadir
   el = Μεκνές, Αγκαντίρ, Ουίντα
@@ -54687,7 +54687,7 @@
   ru = Мекнес, Агадир, Уджда
 
 [Morocco_Western Sahara Description]
-  en = Laayoune, Guelmim, Assa ⴰⵙⵙⴰ آسـا
+  en = Laayoune, Guelmim, Assa
   ar = العيون, گلميم, آسـا
   de = El Aaiún
   el = Λααγιούν, Γκελμίμ, Άσα
@@ -57406,7 +57406,7 @@
   uk = Кігалі
 
 [Sahrawi Arab Democratic Republic Description]
-  en = Lagouira ⵍⴳⵡⵉⵔⴰ الكويرة, Tifariti ⵜⵉⴼⴰⵔⵉⵜⵉ تيفاريتي, Mijik
+  en = Lagouira, Tifariti, Mijik
   ar = الكويرة, تيفاريتي, ميجيك
   el = Λαγκούιρα, ΤΙφαρίτι, Μίζικ
   es = La Güera
