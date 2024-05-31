@@ -85,34 +85,13 @@ std::string_view MapObject::GetPostcode() const
   return m_metadata.Get(MetadataID::FMD_POSTCODE);
 }
 
-std::string MapObject::GetLocalizedType() const
+string MapObject::GetLocalizedType() const
 {
   ASSERT(!m_types.Empty(), ());
   feature::TypesHolder copy(m_types);
   copy.SortBySpec();
 
   return platform::GetLocalizedTypeName(classif().GetReadableObjectName(copy.GetBestType()));
-}
-
-std::string MapObject::GetAllLocalizedTypes() const
-{
-  ASSERT(!m_types.Empty(), ());
-  feature::TypesHolder copy(m_types);
-  copy.SortBySpec();
-  
-  std::ostringstream oss;
-  bool first = true;
-  for (auto const type : copy)
-  {
-    if (!first)
-      oss << feature::kFieldsSeparator;
-    first = false;
-    
-    auto localizedType = platform::GetLocalizedTypeName(classif().GetReadableObjectName(type));
-    oss << localizedType;
-  }
-  
-  return oss.str();
 }
 
 std::string_view MapObject::GetMetadata(MetadataID type) const
