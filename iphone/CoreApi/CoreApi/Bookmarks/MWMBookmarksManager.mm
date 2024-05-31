@@ -766,6 +766,10 @@ static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType) {
   }
 }
 
+- (BOOL)hasRecentlyDeletedBookmark {
+  return self.bm.HasRecentlyDeletedBookmark();
+}
+
 - (void)setCategory:(MWMMarkGroupID)groupId authorType:(MWMBookmarkGroupAuthorType)author
 {
   switch (author)
