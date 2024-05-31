@@ -16,6 +16,12 @@ typedef NS_ENUM(NSInteger, MWMActionBarButtonType) {
   MWMActionBarButtonTypeAvoidFerry
 } NS_SWIFT_NAME(ActionBarButtonType);
 
+typedef NS_ENUM(NSInteger, MWMBookmarksButtonState) {
+  MWMBookmarksButtonStateSave,
+  MWMBookmarksButtonStateDelete,
+  MWMBookmarksButtonStateRecover,
+};
+
 NS_ASSUME_NONNULL_BEGIN
 
 #ifdef __cplusplus
@@ -46,6 +52,8 @@ NS_SWIFT_NAME(ActionBarButton)
                                 buttonType:(MWMActionBarButtonType)type
                                 isSelected:(BOOL)isSelected
                                 isEnabled:(BOOL)isEnabled;
+
+- (void)setBookmarkButtonState:(MWMBookmarksButtonState)state;
 
 @end
 
