@@ -14613,7 +14613,7 @@
     zh-Hant = 樓層
 
   [level_value_generic]
-    tags = android,ios
+    tags = android
     comment = Building level
     en = Level: %s
     de = Stock: %s
@@ -21025,7 +21025,9 @@
     zh-Hant = 顯示全部
 
   [bookmarks_places]
-    tags = ios
+    tags = android,ios
+    en-GB:one = %d bookmark
+    en-GB:other = %d bookmarks
     en:one = %d bookmark
     en:other = %d bookmarks
     ar = %d من الإشارات المرجعية
@@ -21951,6 +21953,8 @@
 
   [bookmarks_detect_message]
     tags = android,ios
+    en-GB:one = %d file was found. You can see it after conversion.
+    en-GB:other = %d files were found. You can see them after conversion.
     en:one = %d file was found. You can see it after conversion.
     en:other = %d files were found. You can see them after conversion.
     ar = تم العثور على %d ملفات. سوف تراهم بعد التحويل.
@@ -22210,146 +22214,10 @@
     zh-Hans = 恢复
     zh-Hant = 恢復
 
-  [objects]
-    tags = android,ios
-    en:one = %d object
-    en:other = %d objects
-    ar = غرض %d
-    az = %d obyekt
-    be:few = %d аб'екты
-    be:one = %d аб'ект
-    be:other = %d аб'ектаў
-    bg:one = %d обект
-    bg:other = %d обекта
-    ca:one = %d objecte
-    ca:other = %d objectes
-    cs = %d místo
-    da = %d sted
-    de:one = %d Objekt
-    de:other = %d Objekte
-    el:one = %d αντικείμενο
-    el:other = %d αντικείμενα
-    es-MX = %d lugar
-    es:one = %d objeto
-    es:other = %d objetos
-    et:one = %d objekt
-    et:other = %d objekti
-    eu:one = objektu %d
-    eu:other = %d objektu
-    fa:one = %d شیء
-    fa:other = %d شیء
-    fi:one = %d kohde
-    fi:other = %d kohdetta
-    fr:one = %d objet
-    fr:other = %d objets
-    he:one = פריט %d
-    he:other = %d פריטים
-    hi:one = %d वस्तु
-    hi:other = %d वस्तुएं
-    hu = %d hely
-    id = tempat %d
-    it:one = %d oggetto
-    it:other = %d oggetti
-    ja = %dの場所
-    ko = %d 장소
-    mr = %d वस्तू
-    nb = %d sted
-    nl = %d plaats
-    pl:few = %d obiekty
-    pl:many = %d obiektów
-    pl:one = %d obiekt
-    pl:other = %d obiektu
-    pt-BR:one = %d objeto
-    pt-BR:other = %d objetos
-    pt:one = %d objeto
-    pt:other = %d objetos
-    ro:one = %d obiect
-    ro:other = %d obiecte
-    ru:few = %d объекта
-    ru:one = %d объект
-    ru:other = %d объектов
-    sk = %d miesto
-    sv:one = %d plats
-    sv:other = %d platser
-    sw = Eneo %d
-    th = %d สถานที่
-    tr = %d obje
-    uk = %d місце
-    vi = %d nơi
-    zh-Hans = %d 地点
-    zh-Hant = %d 地點
-
-  [places]
-    tags = android
-    en:one = %d place
-    en:other = %d places
-    ar = مكان %d
-    az = %d yer
-    be:few = %d месцы
-    be:one = %d месца
-    be:other = %d месцаў
-    bg:one = %d място
-    bg:other = %d места
-    ca:one = %d lloc
-    ca:other = %d llocs
-    cs = %d míst
-    da = %d steder
-    de:one = %d Ort
-    de:other = %d Orte
-    el:one = %d τοποθεσία
-    el:other = %d τοποθεσίες
-    es-MX = %d lugares
-    es:one = %d lugar
-    es:other = %d lugares
-    et:one = %d koht
-    et:other = %d kohta
-    eu:one = toki %d
-    eu:other = %d toki
-    fa:one = %d مکان
-    fa:other = %d مکان
-    fi:one = %d paikka
-    fi:other = %d paikkaa
-    fr:one = %d lieu
-    fr:other = %d lieux
-    he:one = מקום %d
-    he:other = %d מקומות
-    hi = %d स्थान
-    hu = %d hely
-    id = tempat %d
-    it:one = %d luogo
-    it:other = %d luoghi
-    ja = %dの場所
-    ko = %d 장소들
-    mr:one = %d ठिकाण
-    mr:other = %d ठिकाणे
-    nb = %d steder
-    nl = %d plaatsen
-    pl:few = %d miejsca
-    pl:many = %d miejsc
-    pl:one = %d miejsce
-    pl:other = %d miejsca
-    pt-BR:one = %d lugar
-    pt-BR:other = %d lugares
-    pt:one = %d lugar
-    pt:other = %d lugares
-    ro:one = %d loc
-    ro:other = %d locuri
-    ru:few = %d места
-    ru:one = %d место
-    ru:other = %d мест
-    sk = %d miesta
-    sv:one = %d plats
-    sv:other = %d platser
-    sw = Maeneo %d
-    th = %d สถานที่ต่าง ๆ
-    tr = %d yer
-    uk = %d місць
-    vi = %d các nơi
-    zh-Hans = %d 地点
-    zh-Hant = %d 地點
-
   [tracks]
     tags = android,ios
+    en-GB:one = %d track
+    en-GB:other = %d tracks
     en:one = %d track
     en:other = %d tracks
     ar = مسار %d
@@ -30015,6 +29883,7 @@
     zh-Hant = 地圖
 
   [drive_through]
+    tags = android,ios
     en = Drive-through
     af = Deur-ry
     ar = الشراء من السيارة
