@@ -131,6 +131,7 @@ int main(int argc, char * argv[])
   UNUSED_VALUE(mainGuard);
 
   QApplication app(argc, argv);
+  app.setDesktopFileName("app.organicmaps.desktop");
   platform.SetupMeasurementSystem();
 
 
