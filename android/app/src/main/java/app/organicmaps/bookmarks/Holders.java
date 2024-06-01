@@ -189,19 +189,17 @@ public class Holders
       final int bookmarksCount = mEntity.getBookmarksCount();
       final int tracksCount = mEntity.getTracksCount();
 
-      if (mEntity.size() == 0)
-        return getQuantified(resources, R.plurals.objects, 0);
-
-      if (bookmarksCount > 0 && tracksCount > 0)
+      if ((bookmarksCount == 0 && tracksCount == 0) || (bookmarksCount > 0 && tracksCount > 0))
       {
-        final String bookmarks = getQuantified(resources, R.plurals.places, bookmarksCount);
+        final String bookmarks = getQuantified(resources, R.plurals.bookmarks_places, bookmarksCount);
         final String tracks = getQuantified(resources, R.plurals.tracks, tracksCount);
         final String template = resources.getString(R.string.comma_separated_pair);
+
         return String.format(template, bookmarks, tracks);
       }
 
       if (bookmarksCount > 0)
-        return getQuantified(resources, R.plurals.places, bookmarksCount);
+        return getQuantified(resources, R.plurals.bookmarks_places, bookmarksCount);
 
       return getQuantified(resources, R.plurals.tracks, tracksCount);
     }

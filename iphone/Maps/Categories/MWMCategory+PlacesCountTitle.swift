@@ -2,13 +2,18 @@ import Foundation
 
 extension BookmarkGroup {
   @objc func placesCountTitle() -> String {
-    if (bookmarksCount > 0 && trackCount > 0) ||
-      (bookmarksCount == 0 && trackCount == 0) {
-       return String(format: L("objects"), bookmarksCount + trackCount)
-    } else if (bookmarksCount > 0) {
-      return String(format: L("bookmarks_places"), bookmarksCount)
-    } else {
-       return String(format: L("tracks"), trackCount)
+    let bookmarks = String(format: L("bookmarks_places"), bookmarksCount)
+    let tracks = String(format: L("tracks"), trackCount)
+
+    if (bookmarksCount == 0 && trackCount == 0) || (bookmarksCount > 0 && trackCount > 0) {
+      return "\(bookmarks), \(tracks)"
     }
+
+    if (bookmarksCount > 0) {
+      return bookmarks
+    }
+
+    return tracks
+
   }
 }
