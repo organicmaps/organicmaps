@@ -17,7 +17,8 @@
 
 namespace
 {
-const int kMinWidthOfShortDescription = 390;
+const int kMaximumPanelWidth = 390;
+const int kMinimumPanelWidth = 200;
 const int kMaxLengthOfPlacePageDescription = 500;
 
 std::string getShortDescription(const std::string & description)
@@ -89,7 +90,8 @@ void PlacePanel::addCommonButtons(QDialogButtonBox * dbb, bool shouldShowEditPla
 PlacePanel::PlacePanel(QWidget * parent)
   : QWidget(parent)
 {
-  setFixedWidth(kMinWidthOfShortDescription);
+  setMaximumWidth(kMaximumPanelWidth);
+  setMinimumWidth(kMinimumPanelWidth);
 }
 
 void PlacePanel::setPlace(
@@ -440,6 +442,8 @@ void PlacePanel::updateInterfaceDeveloper(
 
   // Stretch last row, to make grid appear at the top of the panel.
   grid->setRowStretch(row, 1);
+  // Stretch 2nd column
+  grid->setColumnStretch(1, 1);
 
   layout->addWidget(dbb);
 

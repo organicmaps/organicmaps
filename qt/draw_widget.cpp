@@ -645,6 +645,9 @@ void DrawWidget::OnRouteRecommendation(RoutingManager::Recommendation recommenda
 
 void DrawWidget::updatePlace()
 {
+  if(!m_framework.HasPlacePageInfo())
+    return;
+
   place_page::Info const & info = m_framework.GetCurrentPlacePageInfo();
   search::ReverseGeocoder::Address address;
   if (info.IsFeature())
