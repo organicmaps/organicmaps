@@ -56,7 +56,7 @@ public enum BookmarksSharingHelper
     switch (result.getCode())
     {
       case BookmarkSharingResult.SUCCESS ->
-          SharingUtils.shareBookmarkFile(context, launcher, result.getSharingPath());
+          SharingUtils.shareBookmarkFile(context, launcher, result.getSharingPath(), result.getMimeType());
       case BookmarkSharingResult.EMPTY_CATEGORY ->
           new MaterialAlertDialogBuilder(context, R.style.MwmTheme_AlertDialog)
               .setTitle(R.string.bookmarks_error_title_share_empty)

@@ -124,15 +124,8 @@ public class SharingUtils
         }
       });
   }
-  public static void shareBookmarkFile(Context context, ActivityResultLauncher<Intent> launcher, String fileName)
+  public static void shareBookmarkFile(Context context, ActivityResultLauncher<Intent> launcher, String fileName, String fileMimeType)
   {
-    final String ext = fileName.substring(fileName.lastIndexOf("."));
-    final String mimeType = switch (ext) {
-      case ".gpx" -> GPX_MIME_TYPE;
-      case ".kmz" -> KMZ_MIME_TYPE;
-      default -> throw new IllegalArgumentException("Unknown bookmark type: " + fileName);
-    };
-
     Intent intent = new Intent(Intent.ACTION_SEND);
 
     final String subject = context.getString(R.string.share_bookmarks_email_subject);
@@ -145,7 +138,7 @@ public class SharingUtils
     intent.putExtra(android.content.Intent.EXTRA_STREAM, fileUri);
     // Properly set permissions for intent, see
     // https://developer.android.com/reference/androidx/core/content/FileProvider#include-the-permission-in-an-intent
-    intent.setDataAndType(fileUri, mimeType);
+    intent.setDataAndType(fileUri, fileMimeType);
     intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
     if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
       intent.setClipData(ClipData.newRawUri("", fileUri));
@@ -153,7 +146,7 @@ public class SharingUtils
     }
 
     Intent saveIntent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
-    saveIntent.setType(mimeType);
+    saveIntent.setType(fileMimeType);
     DocumentFile documentFile = DocumentFile.fromSingleUri(context, fileUri);
     if (documentFile != null)
       saveIntent.putExtra(Intent.EXTRA_TITLE, documentFile.getName());
