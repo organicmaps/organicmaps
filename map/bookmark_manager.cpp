@@ -45,6 +45,10 @@ size_t const kMinCommonTypesCount = 3;
 double const kNearDistanceInMeters = 20 * 1000.0;
 double const kMyPositionTrackSnapInMeters = 20.0;
 
+std::string const kKMLMimeType = "application/vnd.google-earth.kml";
+std::string const kKMZMimeType = "application/vnd.google-earth.kmz";
+std::string const kGPXMimeType = "application/gpx";
+
 class FindMarkFunctor
 {
 public:
@@ -101,7 +105,7 @@ BookmarkManager::SharingResult ExportSingleFileKml(BookmarkManager::KMLDataColle
   if (!CreateZipFromFiles({filePath}, tmpFilePath))
     return {{categoryId}, BookmarkManager::SharingResult::Code::ArchiveError, "Could not create archive."};
 
-  return {{categoryId}, std::move(tmpFilePath)};
+  return {{categoryId}, std::move(tmpFilePath), kKMLMimeType};
 }
 
 BookmarkManager::SharingResult ExportSingleFileGpx(BookmarkManager::KMLDataCollectionPtr::element_type::value_type const & kmlToShare)
@@ -111,7 +115,7 @@ BookmarkManager::SharingResult ExportSingleFileGpx(BookmarkManager::KMLDataColle
   auto const categoryId = kmlToShare.second->m_categoryData.m_id;
   if (!SaveKmlFileSafe(*kmlToShare.second, filePath, KmlFileType::Gpx))
     return {{categoryId}, BookmarkManager::SharingResult::Code::FileError, "Bookmarks file does not exist."};
-  return {{categoryId}, std::move(filePath)};
+  return {{categoryId}, std::move(filePath), kGPXMimeType};
 }
 
 std::string BuildIndexFile(std::vector<std::string> const & filesForIndex)
@@ -180,7 +184,7 @@ BookmarkManager::SharingResult ExportMultipleFiles(BookmarkManager::KMLDataColle
   pathsForArchive.insert(pathsForArchive.begin(), indexFilePath);
   if (!CreateZipFromFiles(pathsForArchive, filesInArchive, kmzFilePath))
     return {std::move(categoriesIds), BookmarkManager::SharingResult::Code::ArchiveError, "Could not create archive."};
-  return {std::move(categoriesIds), std::move(kmzFilePath)};
+  return {std::move(categoriesIds), std::move(kmzFilePath), kKMZMimeType};
 }
 
 BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollectionPtr collection, KmlFileType kmlFileType)
