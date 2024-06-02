@@ -1,7 +1,5 @@
 package app.organicmaps.util;
 
-import static androidx.activity.result.ActivityResultCallerKt.registerForActivityResult;
-
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
@@ -27,6 +25,7 @@ import app.organicmaps.bookmarks.data.MapObject;
 public class SharingUtils
 {
   private static final String KMZ_MIME_TYPE = "application/vnd.google-earth.kmz";
+  private static final String GPX_MIME_TYPE = "application/gpx";
   private static final String TEXT_MIME_TYPE = "text/plain";
 
   private static Uri sourceFileUri;
@@ -127,6 +126,13 @@ public class SharingUtils
   }
   public static void shareBookmarkFile(Context context, ActivityResultLauncher<Intent> launcher, String fileName)
   {
+    final String ext = fileName.substring(fileName.lastIndexOf("."));
+    final String mimeType = switch (ext) {
+      case ".gpx" -> GPX_MIME_TYPE;
+      case ".kmz" -> KMZ_MIME_TYPE;
+      default -> throw new IllegalArgumentException("Unknown bookmark type: " + fileName);
+    };
+
     Intent intent = new Intent(Intent.ACTION_SEND);
 
     final String subject = context.getString(R.string.share_bookmarks_email_subject);
@@ -139,7 +145,7 @@ public class SharingUtils
     intent.putExtra(android.content.Intent.EXTRA_STREAM, fileUri);
     // Properly set permissions for intent, see
     // https://developer.android.com/reference/androidx/core/content/FileProvider#include-the-permission-in-an-intent
-    intent.setDataAndType(fileUri, KMZ_MIME_TYPE);
+    intent.setDataAndType(fileUri, mimeType);
     intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
     if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
       intent.setClipData(ClipData.newRawUri("", fileUri));
@@ -147,7 +153,7 @@ public class SharingUtils
     }
 
     Intent saveIntent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
-    saveIntent.setType(KMZ_MIME_TYPE);
+    saveIntent.setType(mimeType);
     DocumentFile documentFile = DocumentFile.fromSingleUri(context, fileUri);
     if (documentFile != null)
       saveIntent.putExtra(Intent.EXTRA_TITLE, documentFile.getName());
