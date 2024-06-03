@@ -166,7 +166,7 @@ if (NJOBS)
   set(CMAKE_JOB_POOL_PRECOMPILE_HEADER custom)
 endif()
 
-# GCC 8.1 is required to support <charconv> header inclusion in base/string_utils.hpp
+# GCC 10.0 is required to support <charconv> header inclusion in base/string_utils.hpp
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 10.0)
   message(FATAL_ERROR "Minimum supported g++ version is 10.0, yours is ${CMAKE_CXX_COMPILER_VERSION}")
 endif()
