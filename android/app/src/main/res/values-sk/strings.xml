@@ -813,6 +813,10 @@
 	<string name="website_menu">Odkaz na menu</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Zobraziť menu</string>
+	<!-- Button in the Place Page which opens booking form in a browser -->
+	<string name="book_now">Rezervujte si teraz</string>
+	<!-- Shop booking URL field in the Editor -->
+	<string name="website_booking">Odkaz na rezerváciu</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresa/blok</string>

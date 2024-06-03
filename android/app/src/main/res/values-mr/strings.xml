@@ -782,6 +782,10 @@
 	<string name="website_menu">मेनू लिंक</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">मेनू पहा</string>
+	<!-- Button in the Place Page which opens booking form in a browser -->
+	<string name="book_now">त्वरा करा</string>
+	<!-- Shop booking URL field in the Editor -->
+	<string name="website_booking">बुकिंग लिंक</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">पत्ता/ब्लॉक</string>

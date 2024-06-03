@@ -813,6 +813,10 @@
 	<string name="website_menu">Спасылка на меню</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Паглядзець меню</string>
+	<!-- Button in the Place Page which opens booking form in a browser -->
+	<string name="book_now">Забраніраваць зараз</string>
+	<!-- Shop booking URL field in the Editor -->
+	<string name="website_booking">Спасылка на браніраванне</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адрас/Блок</string>

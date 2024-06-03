@@ -772,6 +772,10 @@
 	<string name="website_menu">메뉴 링크</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">메뉴 보기</string>
+	<!-- Button in the Place Page which opens booking form in a browser -->
+	<string name="book_now">지금 예약하기</string>
+	<!-- Shop booking URL field in the Editor -->
+	<string name="website_booking">예약 링크</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">주소/블록</string>

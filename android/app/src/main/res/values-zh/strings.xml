@@ -786,6 +786,10 @@
 	<string name="website_menu">菜单链接</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">查看菜单</string>
+	<!-- Button in the Place Page which opens booking form in a browser -->
+	<string name="book_now">立即预订</string>
+	<!-- Shop booking URL field in the Editor -->
+	<string name="website_booking">预订链接</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">地址/区块</string>

@@ -211,6 +211,10 @@
         </RelativeLayout>
 
         <include
+            android:id="@+id/block_website_booking"
+            layout="@layout/item_editor_input"/>
+
+        <include
             android:id="@+id/block_operator"
             layout="@layout/item_editor_input"/>
 
