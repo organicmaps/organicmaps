@@ -21,7 +21,7 @@ IndentCaseLabels: false
 NamespaceIndentation: None
 PointerAlignment: Middle
 SortIncludes: true
-Standard: c++17
+Standard: c++20
 IncludeBlocks: Regroup
 IncludeCategories:
 # Tests --------------------------------------------------------------------------------------------
