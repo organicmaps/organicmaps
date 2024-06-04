@@ -229,48 +229,48 @@ using namespace storage;
 }
 
 - (void)openWebsite:(PlacePageData *)data {
-  [self.ownerViewController openUrl:data.infoData.website];
+  [self.ownerViewController openUrl:data.infoData.website externally:YES];
 }
 
 - (void)openWebsiteMenu:(PlacePageData *)data {
-  [self.ownerViewController openUrl:data.infoData.websiteMenu];
+  [self.ownerViewController openUrl:data.infoData.websiteMenu externally:YES];
 }
 
 - (void)openKayak:(PlacePageData *)data {
-  [self.ownerViewController openUrl:data.infoData.kayak];
+  [self.ownerViewController openUrl:data.infoData.kayak externally:YES];
 }
 
 - (void)openWikipedia:(PlacePageData *)data {
-  [self.ownerViewController openUrl:data.infoData.wikipedia];
+  [self.ownerViewController openUrl:data.infoData.wikipedia externally:YES];
 }
 
 - (void)openWikimediaCommons:(PlacePageData *)data {
-  [self.ownerViewController openUrl:data.infoData.wikimediaCommons];
+  [self.ownerViewController openUrl:data.infoData.wikimediaCommons externally:YES];
 }
 
 - (void)openFacebook:(PlacePageData *)data {
   std::string const fullUrl = osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_FACEBOOK, [data.infoData.facebook UTF8String]);
-  [self.ownerViewController openUrl:ToNSString(fullUrl)];
+  [self.ownerViewController openUrl:ToNSString(fullUrl) externally:YES];
 }
 
 - (void)openInstagram:(PlacePageData *)data {
   std::string const fullUrl = osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_INSTAGRAM, [data.infoData.instagram UTF8String]);
-  [self.ownerViewController openUrl:ToNSString(fullUrl)];
+  [self.ownerViewController openUrl:ToNSString(fullUrl) externally:YES];
 }
 
 - (void)openTwitter:(PlacePageData *)data {
   std::string const fullUrl = osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_TWITTER, [data.infoData.twitter UTF8String]);
-  [self.ownerViewController openUrl:ToNSString(fullUrl)];
+  [self.ownerViewController openUrl:ToNSString(fullUrl) externally:YES];
 }
 
 - (void)openVk:(PlacePageData *)data {
   std::string const fullUrl = osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_VK, [data.infoData.vk UTF8String]);
-  [self.ownerViewController openUrl:ToNSString(fullUrl)];
+  [self.ownerViewController openUrl:ToNSString(fullUrl) externally:YES];
 }
 
 - (void)openLine:(PlacePageData *)data {
   std::string const fullUrl = osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_LINE, [data.infoData.line UTF8String]);
-  [self.ownerViewController openUrl:ToNSString(fullUrl)];
+  [self.ownerViewController openUrl:ToNSString(fullUrl) externally:YES];
 }
 
 - (void)openEmail:(PlacePageData *)data {
