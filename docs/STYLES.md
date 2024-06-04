@@ -7,9 +7,6 @@ Here is the basic workflow to update styles:
 4. Commit your edits and files changed by the script
 5. Send a pull request!
 
-Please prepend `[styles]` to your commit message and add [Developers Certificate of Origin](CONTRIBUTING.md#legal-requirements) to it.
-Files changed by the script should be added as a separate `[styles] Regenerated` commit.
-
 Please check [a list of current styling issues](https://github.com/organicmaps/organicmaps/issues?q=is%3Aopen+is%3Aissue+label%3AStyles)
 and ["icons wanted" issues](https://github.com/organicmaps/organicmaps/issues?q=is%3Aopen+is%3Aissue+label%3AIcons+label%3A%22Good+first+issue%22).
 

@@ -5,8 +5,6 @@ Adding and updating translations is easy!
 2. Commit your changes
 3. Send a pull request!
 
-Please prepend `[strings]` to your commit message and add [Developers Certificate of Origin](CONTRIBUTING.md#legal-requirements) to it.
-
 Then run a `tools/unix/generate_localizations.sh` script and add the changes as a separate `[strings] Regenerated` commit.
 But if you can't run it - don't worry, its not mandatory!
 
