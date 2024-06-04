@@ -195,18 +195,16 @@ public class SharingUtils
   public static ActivityResultLauncher<SharingIntent> RegisterLauncher(@NonNull Fragment fragment)
   {
     return fragment.registerForActivityResult(
-      new SharingContract(), result ->
-      {
-        ProcessShareResult(fragment.requireContext().getContentResolver(), result);
-      });
+      new SharingContract(),
+      result -> ProcessShareResult(fragment.requireContext().getContentResolver(), result)
+    );
   }
   public static ActivityResultLauncher<SharingIntent> RegisterLauncher(@NonNull AppCompatActivity activity)
   {
     return activity.registerForActivityResult(
-        new SharingContract(), result ->
-        {
-          ProcessShareResult(activity.getContentResolver(), result);
-        });
+      new SharingContract(),
+      result -> ProcessShareResult(activity.getContentResolver(), result)
+    );
   }
 
   public static void shareFile(Context context, ActivityResultLauncher<SharingIntent> launcher, ShareInfo info)
@@ -216,7 +214,7 @@ public class SharingUtils
     if (!info.mSubject.isEmpty())
       intent.putExtra(Intent.EXTRA_SUBJECT, info.mSubject);
     if (!info.mMail.isEmpty())
-      intent.putExtra(Intent.EXTRA_EMAIL, info.mMail);
+      intent.putExtra(Intent.EXTRA_EMAIL, new String[]{info.mMail});
     if (!info.mText.isEmpty())
       intent.putExtra(Intent.EXTRA_TEXT, info.mText);
 

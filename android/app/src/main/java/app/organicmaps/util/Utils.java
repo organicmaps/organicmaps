@@ -28,6 +28,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.DimenRes;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
@@ -65,6 +66,9 @@ public class Utils
   public static final int INVALID_ID = 0;
   public static final String UTF_8 = "utf-8";
   public static final String TEXT_HTML = "text/html; charset=utf-8";
+  public static final String ZIP_MIME_TYPE = "application/x-zip";
+  public static final String EMAIL_MIME_TYPE = "message/rfc822";
+
 
   private Utils()
   {
@@ -315,16 +319,16 @@ public class Utils
   /**
    * @param subject could be an empty string
    */
-  public static void sendBugReport(@NonNull Activity activity, @NonNull String subject, @NonNull String body)
+  public static void sendBugReport(@NonNull ActivityResultLauncher<SharingUtils.SharingIntent> launcher, @NonNull Activity activity, @NonNull String subject, @NonNull String body)
   {
     subject = "Organic Maps Bugreport" + (TextUtils.isEmpty(subject) ? "" : ": " + subject);
-    LogsManager.INSTANCE.zipLogs(new SupportInfoWithLogsCallback(activity, subject, body, Constants.Email.SUPPORT));
+    LogsManager.INSTANCE.zipLogs(new SupportInfoWithLogsCallback(launcher, activity, subject, body, Constants.Email.SUPPORT));
   }
 
   // TODO: Don't send logs with general feedback, send system information only (version, device name, connectivity, etc.)
-  public static void sendFeedback(@NonNull Activity activity)
+  public static void sendFeedback(@NonNull ActivityResultLauncher<SharingUtils.SharingIntent> launcher, @NonNull Activity activity)
   {
-    LogsManager.INSTANCE.zipLogs(new SupportInfoWithLogsCallback(activity, "Organic Maps Feedback", "",
+    LogsManager.INSTANCE.zipLogs(new SupportInfoWithLogsCallback(launcher, activity, "Organic Maps Feedback", "",
                                                                  Constants.Email.SUPPORT));
   }
 
@@ -665,6 +669,8 @@ public class Utils
   private static class SupportInfoWithLogsCallback implements LogsManager.OnZipCompletedListener
   {
     @NonNull
+    ActivityResultLauncher<SharingUtils.SharingIntent> mLauncher;
+    @NonNull
     private final WeakReference<Activity> mActivityRef;
     @NonNull
     private final String mSubject;
@@ -673,13 +679,14 @@ public class Utils
     @NonNull
     private final String mEmail;
 
-    private SupportInfoWithLogsCallback(@NonNull Activity activity, @NonNull String subject,
-                                        @NonNull String body, @NonNull String email)
+    private SupportInfoWithLogsCallback(@NonNull ActivityResultLauncher<SharingUtils.SharingIntent> launcher, @NonNull Activity activity, @NonNull String subject,
+                                         @NonNull String body, @NonNull String email)
     {
       mActivityRef = new WeakReference<>(activity);
       mSubject = subject;
       mBody = body;
       mEmail = email;
+      mLauncher = launcher;
     }
 
     @Override
@@ -691,38 +698,24 @@ public class Utils
         if (activity == null)
           return;
 
-        final Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { mEmail });
-        intent.putExtra(Intent.EXTRA_SUBJECT, "[" + BuildConfig.VERSION_NAME + "] " + mSubject);
-        // TODO: Send a short text attachment with system info and logs if zipping logs failed
+        SharingUtils.ShareInfo info = new SharingUtils.ShareInfo();
+
+        info.mMail = mEmail;
+        info.mSubject = "[" + BuildConfig.VERSION_NAME + "] " + mSubject;
+        info.mText = mBody;
+
         if (success)
         {
-          final Uri uri = StorageUtils.getUriForFilePath(activity, zipPath);
-          intent.putExtra(Intent.EXTRA_STREAM, uri);
-          // Properly set permissions for intent, see
-          // https://developer.android.com/reference/androidx/core/content/FileProvider#include-the-permission-in-an-intent
-          intent.setDataAndType(uri, "message/rfc822");
-          intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-          if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
-            intent.setClipData(ClipData.newRawUri("", uri));
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-          }
+          info.mFileName = zipPath;
+          info.mMimeType = ZIP_MIME_TYPE;
         }
         else
         {
-          intent.setType("message/rfc822");
+          info.mMimeType = EMAIL_MIME_TYPE;
         }
-        // Do this so some email clients don't complain about empty body.
-        intent.putExtra(Intent.EXTRA_TEXT, mBody);
-        try
-        {
-          activity.startActivity(intent);
-        }
-        catch (ActivityNotFoundException e)
-        {
-          Logger.w(TAG, "No activities found which can handle sending a support message.", e);
-        }
+
+        SharingUtils.shareFile(activity.getApplicationContext(), mLauncher, info);
+
       });
     }
   }
