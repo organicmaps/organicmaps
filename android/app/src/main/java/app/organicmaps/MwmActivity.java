@@ -98,6 +98,7 @@ import app.organicmaps.settings.SettingsActivity;
 import app.organicmaps.settings.UnitLocale;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.LocationUtils;
+import app.organicmaps.util.PowerManagerCompat;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.ThemeUtils;
@@ -138,7 +139,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                MenuBottomSheetFragment.MenuBottomSheetInterfaceWithHeader,
                PlacePageController.PlacePageRouteSettingsListener,
                MapButtonsController.MapButtonClickListener,
-               DisplayChangedListener
+               DisplayChangedListener,
+               PowerManagerCompat.PowerSaveModeChangeListener
 {
   private static final String TAG = MwmActivity.class.getSimpleName();
 
@@ -214,6 +216,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private ActivityResultLauncher<Intent> mBatterySaverPermission;
 
+  private ActivityResultLauncher<Intent> mDeviceBatterySaverPermission;
+
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private DisplayManager mDisplayManager;
@@ -224,6 +228,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean mTracePathLocationPermission = false;
   private boolean mTracePathNotificationPermission = false;
   private boolean mTracePathBatterySaverPermission = false;
+
+  private boolean mTracePathDeviceBatterySaverPermission = false;
+
+  private PowerManagerCompat mPowerManagerCompat;
 
   public interface LeftAnimationTrackListener
   {
@@ -238,6 +246,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     return new Intent(context, DownloadResourcesLegacyActivity.class)
         .putExtra(EXTRA_COUNTRY_ID, countryId);
+  }
+
+  @Override
+  public void onPowerSaveModeChanged()
+  {
+    if (mPowerManagerCompat.isPowerSaveMode(this))
+      Logger.w(TAG, "power saving mode has been enabled");
+    else
+      Logger.w(TAG, "power saving mode has been disabled");
   }
 
   @Override
@@ -265,7 +282,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     // App crashed so we need the restart or stop the whole service again properly
     // by checking all the necessary permissions
     if(TrackRecorder.nativeIsEnabled())
-      startTracePath(true);
+      startTracePathSafe(true);
 
     processIntent();
     migrateOAuthCredentials();
@@ -533,6 +550,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
         this::onPostNotificationPermissionResult);
     mBatterySaverPermission = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                                                         this::onBatterySaverPermissionResult);
+    mDeviceBatterySaverPermission = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                                                              this::onDeviceBatterySaverPermissionResult);
 
     mDisplayManager = DisplayManager.from(this);
     if (mDisplayManager.isCarDisplayUsed())
@@ -551,6 +570,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (getIntent().getBooleanExtra(EXTRA_UPDATE_THEME, false))
       ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
+
+    mPowerManagerCompat = new PowerManagerCompat();
+    mPowerManagerCompat.monitorPowerSaveModeChanged(this, this);
 
     /*
      * onRenderingInitializationFinished() hook is not called when MwmActivity is recreated with the already
@@ -1158,6 +1180,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPostNotificationPermissionRequest = null;
     if (mRemoveDisplayListener && !isChangingConfigurations())
       mDisplayManager.removeListener(DisplayType.Device);
+    mPowerManagerCompat.unregister(this,this);
+    mPowerManagerCompat = null;
   }
 
   @Override
@@ -1903,7 +1927,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       mTracePathLocationPermission = false;
       if(TrackRecorder.nativeIsEnabled())
-        TrackRecorder.nativeSetEnabled(false);
+        startTracePath(false);
     }
 
     Logger.w(LOCATION_TAG, "Permissions ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION have been refused");
@@ -1936,17 +1960,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Logger.i(TAG, "Permission POST_NOTIFICATIONS has been granted");
       if(mTracePathNotificationPermission)
       {
-        mTracePathNotificationPermission = false;
         startTracePath(true);
       }
     }
     else
-      Logger.w(TAG, "Permission POST_NOTIFICATIONS has been refused");
-
-    if(mTracePathNotificationPermission)
     {
-      mTracePathNotificationPermission = false;
-      TrackRecorder.nativeSetEnabled(false);
+      Logger.w(TAG, "Permission POST_NOTIFICATIONS has been refused");
+      if (mTracePathNotificationPermission)
+      {
+        // This is for the case when native was already enabled but
+        // post notification permission haven't been granted. In that case we will
+        // Turn off Trace path.
+        if (TrackRecorder.nativeIsEnabled())
+          startTracePath(false);
+      }
     }
   }
 
@@ -1955,20 +1982,25 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (result.getResultCode() == Activity.RESULT_OK)
     {
       Logger.i(TAG, "Battery Optimisation have been disabled from App");
-      if(mTracePathBatterySaverPermission)
-      {
-        mTracePathBatterySaverPermission = false;
-        startTracePath(true);
-      }
     }
     else
       Logger.w(TAG, "Battery Optimisation disable permission has been refused");
 
-    if(mTracePathBatterySaverPermission)
+    if (mTracePathBatterySaverPermission)
+      startTracePath(true);
+  }
+
+  private void onDeviceBatterySaverPermissionResult(ActivityResult result)
+  {
+    if (result.getResultCode() == Activity.RESULT_OK)
     {
-      mTracePathBatterySaverPermission = false;
-      TrackRecorder.nativeSetEnabled(false);
+      Logger.i(TAG, "Battery Optimisation have been disabled from App");
     }
+    else
+      Logger.w(TAG, "Battery Optimisation disable permission has been refused");
+
+    if (mTracePathDeviceBatterySaverPermission)
+      startTracePath(true);
   }
 
   /**
@@ -2210,7 +2242,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .setNegativeButton(R.string.cancel, null)
         .setPositiveButton(R.string.ok, (dlg, which) -> {
           Config.acceptTracePathDisclaimer();
-          onTracePathOptionSelected();
+          startTracePath(true);
         })
         .setOnDismissListener(dialog -> mAlertDialog = null)
         .show();
@@ -2218,6 +2250,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return false;
   }
 
+  private void startTracePathSafe(boolean enable)
+  {
+    resetFlags();
+    startTracePath(enable);
+  }
   private void startTracePath(boolean enable)
   {
     if(enable)
@@ -2226,6 +2263,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       {
         Logger.i(TAG,"Location permission not granted");
         dismissLocationErrorDialog();
+
         // This variable is a simple hack to re initiate the flow
         // according to action of user. Calling it hack because we are avoiding
         // creation of new methods by using this variable.
@@ -2236,20 +2274,23 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
       {
         PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
-        if (!pm.isIgnoringBatteryOptimizations(getPackageName()))
+        if (!mTracePathBatterySaverPermission &&
+            !pm.isIgnoringBatteryOptimizations(getPackageName()))
         {
+          Logger.w(TAG, "Checking for App battery optimisation permission");
+          mTracePathBatterySaverPermission = true;
           dismissAlertDialog();
           final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
               .setTitle(R.string.battery_saver_dialog_title)
+              .setCancelable(false)
               .setMessage(R.string.battery_saver_dialog_summary)
-              .setNegativeButton(R.string.cancel, null)
+              .setNegativeButton(R.string.cancel, (dialog, which) -> startTracePath(true))
               .setOnDismissListener(dialog -> mAlertDialog = null);
 
           final Intent intent = Utils.makeAppBatteryOptimizationIntent(this);
           if(intent != null)
           {
             builder.setPositiveButton(getString(R.string.enable),(dlg, which) -> {
-              mTracePathBatterySaverPermission = true;
               mBatterySaverPermission.launch(intent);
             });
           }
@@ -2257,8 +2298,37 @@ public class MwmActivity extends BaseMwmFragmentActivity
           return;
         }
       }
-      if (!(Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
-            ActivityCompat.checkSelfPermission(this, POST_NOTIFICATIONS) == PERMISSION_GRANTED))
+
+      // Check for device battery saver mode
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+      {
+        if (!mTracePathDeviceBatterySaverPermission &&
+            mPowerManagerCompat.isPowerSaveMode(this))
+        {
+          Logger.w(TAG, "Checking for Device battery saver permission");
+          mTracePathDeviceBatterySaverPermission = true;
+          dismissAlertDialog();
+          final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+              .setTitle(R.string.power_saver_dialog_title)
+              .setCancelable(false)
+              .setMessage(R.string.power_saver_dialog_summary)
+              .setNegativeButton(R.string.cancel, (dialog, which) -> startTracePath(true))
+              .setOnDismissListener(dialog -> mAlertDialog = null);
+
+          final Intent intent = Utils.makePowerSaverSettingIntent(this);
+          if (intent != null)
+          {
+            builder.setPositiveButton(getString(R.string.enable), (dlg, which) -> {
+              mDeviceBatterySaverPermission.launch(intent);
+            });
+          }
+          builder.show();
+          return;
+        }
+      }
+      if (!mTracePathNotificationPermission &&
+          Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+          ActivityCompat.checkSelfPermission(this, POST_NOTIFICATIONS) != PERMISSION_GRANTED)
       {
         Logger.i(TAG, "Permissions POST_NOTIFICATIONS is not granted");
         // This variable is a simple hack to re initiate the flow
@@ -2268,20 +2338,30 @@ public class MwmActivity extends BaseMwmFragmentActivity
         mPostNotificationPermissionRequest.launch(POST_NOTIFICATIONS);
         return;
       }
+
       if(!showTracePathDisclaimer())
         return;
-      Toast.makeText(this, getString(R.string.trace_path_is_on), Toast.LENGTH_LONG).show();
+      resetFlags();
+
+      Toast.makeText(this, getString(R.string.trace_path_is_on), Toast.LENGTH_SHORT).show();
       TrackRecordingService.startForegroundService(this);
     }
     else
     {
-      Toast.makeText(this, getString(R.string.trace_path_is_off), Toast.LENGTH_LONG).show();
+      Toast.makeText(this, getString(R.string.trace_path_is_off), Toast.LENGTH_SHORT).show();
       TrackRecordingService.stopService(this);
     }
   }
+
+  private void resetFlags()
+  {
+    mTracePathBatterySaverPermission = false;
+    mTracePathDeviceBatterySaverPermission = false;
+    mTracePathNotificationPermission = false;
+  }
   private void onTracePathOptionSelected()
   {
-    startTracePath(!TrackRecorder.nativeIsEnabled());
+    startTracePathSafe(!TrackRecorder.nativeIsEnabled());
   }
 
   public void onShareLocationOptionSelected()

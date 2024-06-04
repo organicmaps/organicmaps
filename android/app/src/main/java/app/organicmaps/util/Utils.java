@@ -14,6 +14,7 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -38,9 +39,6 @@ import androidx.core.app.NavUtils;
 import androidx.core.os.BundleCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
-import com.google.android.material.snackbar.Snackbar;
-
 import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
@@ -48,6 +46,7 @@ import app.organicmaps.R;
 import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
 import app.organicmaps.util.log.LogsManager;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -182,6 +181,19 @@ public class Utils
     intent.setAction(android.provider.Settings.ACTION_BATTERY_SAVER_SETTINGS);
     if(isIntentSupported(context,intent))
       return intent;
+    return null;
+  }
+
+  public static @Nullable Intent makePowerSaverSettingIntent(@NonNull Context context)
+  {
+    Intent intent = new Intent();
+    intent.setData(Uri.parse("package:" + context.getPackageName()));
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1)
+    {
+      intent.setAction(Settings.ACTION_BATTERY_SAVER_SETTINGS);
+      if (isIntentSupported(context, intent))
+        return intent;
+    }
     return null;
   }
 

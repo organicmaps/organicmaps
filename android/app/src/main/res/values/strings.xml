@@ -2209,6 +2209,8 @@
   <string name="trace_path_is_on">Trace Path is On</string>
 	<string name="trace_path_is_off">Trace Path is Off</string>
   <string name="battery_saver_dialog_title">Battery Saver is enabled</string>
-	<string name="battery_saver_dialog_summary">Please disable the battery saver for Organic Maps to use Trace Path feature</string>
+	<string name="battery_saver_dialog_summary">Please disable the battery saver for Organic Maps to use Trace Path feature effectively Otherwise Tracks May have some gaps</string>
 	<string name="enable">Enable</string>
+	<string name="power_saver_dialog_title">Power Saving Mode enabled</string>
+	<string name="power_saver_dialog_summary">Please Disable Power Saving mode to use Trace Path without any  gaps.</string>
 </resources>

@@ -92,8 +92,6 @@ public class TrackRecordingService extends Service implements LocationListener
   public static void stopService(@NonNull Context context)
   {
     Logger.i(TAG);
-    if (TrackRecorder.nativeIsEnabled())
-      TrackRecorder.nativeSetEnabled(false);
     context.stopService(new Intent(context, TrackRecordingService.class));
   }
 
@@ -101,6 +99,8 @@ public class TrackRecordingService extends Service implements LocationListener
   public void onDestroy()
   {
     mNotificationBuilder = null;
+    if (TrackRecorder.nativeIsEnabled())
+      TrackRecorder.nativeSetEnabled(false);
     LocationHelper.from(this).removeListener(this);
     // The notification is cancelled automatically by the system.
   }
