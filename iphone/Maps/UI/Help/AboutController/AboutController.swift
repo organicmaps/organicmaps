@@ -303,7 +303,7 @@ private extension AboutController {
         case .twitter: fallthrough
         case .instagram: fallthrough
         case .linkedin:
-          self?.openUrl(socialMedia.link, inSafari: true)
+          self?.openUrl(socialMedia.link, externally: true)
         case .organicMapsEmail:
           guard let link = socialMedia.link else { fatalError("The Organic Maps email link should be provided.") }
           self?.sendEmailWith(header: "Organic Maps", toRecipients: [link])
