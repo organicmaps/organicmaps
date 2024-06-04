@@ -1,8 +1,8 @@
-• OpenStreetMap data as of May 28
-• search for US zip codes and UK (GB) postcodes
-• street name announcements in verbal TTS turn instructions (please enable it in settings), thanks to Will Bradley
-• export bookmarks and tracks in GPX file format
-• save bookmarks and tracks to a local device storage
-• add, edit, and display web links to menus of restaurants, bars, and other food services
+• dane OpenStreetMap z 28 maja
+• wyszukiwanie kodów pocztowych w USA i Wielkiej Brytanii
+• zapowiadanie nazw ulic w komunikatach nawigacji (proszę włączyć w ustawieniach), autor Will Bradley
+• eksport zakładek i śladów do pliku w formacie GPX
+• zapis zakładek i śladów do lokalnej pamięci urządzenia
+• dodawanie, edycja i wyświetlanie linków do menu restauracji, barów i pozostałej gastronomii
 
-…more details at omaps.org/news
+…więcej szczegółów na omaps.org/pl/news/

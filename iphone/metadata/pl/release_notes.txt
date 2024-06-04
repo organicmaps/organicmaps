@@ -1,18 +1,17 @@
-• iCloud bookmarks and tracks synchronization (EXPERIMENTAL, please enable it in settings)
-• street name announcements in verbal TTS turn instructions (EXPERIMENTAL, please enable it in settings) 
-• use the map when CarPlay is connected
-• search for US zip codes and UK (GB) postcodes
-• export bookmarks and tracks in GPX file format
-• new OpenStreetMap data as of May 28
-• add, edit, and display web links to menus of restaurants, bars, and food services
-• fix missing addresses in fitness centers details
-• add "pastry" and "cakes" search keywords
-• fix Wikipedia links that contain a question mark
-• fix CarPlay text color in dark mode
-• more TTS voice options
-• TTS turn announcements interrupt podcasts instead of ducking them
-• fix some buttons that disappeared when adding a place to the map
-• fix place details not updated after a bookmark's edit
-• fix the non-business hours button in the Editor to work after midnight
+• synchronizacja zakładek i śladów do iCloud (EKSPERYMENTALNE, proszę włączyć w ustawieniach)
+• zapowiadanie nazwy ulicy w komunikatach nawigacji z syntezatora mowy (EKSPERYMENTALNE, proszę włączyć w ustawieniach)
+• możliwość używania mapy przy podłączonym CarPlay
+• wyszukiwanie kodów pocztowych w USA i Wielkiej Brytanii
+• eksport zakładek i śladów do pliku w formacie GPX
+• nowe dane OpenStreetMap z 28 maja
+• dodawanie, edycja i wyświetlanie linków do menu restauracji, barów i pozostałej gastronomii
+• poprawione brakujące adresy w szczegółach centrów fitness
+• poprawione linki do Wikipedii zawierające znak zapytania
+• poprawiony kolor tekstu w trybie ciemnym CarPlay
+• więcej opcji syntezy mowy
+• komunikaty nawigacji przerywają podcasty zamiast je ściszać
+• poprawione niektóre przyciski znikające podczas dodawania miejsca do mapy
+• poprawione szczegóły miejsca, które nie aktualizowały się po edycji zakładki
+• poprawiony przycisk godzin zamknięcia w edytorze tak, aby działał po północy
 
-Updated Czech, German, Portuguese translations.
+Zaktualizowane tłumaczenia na czeski, niemiecki, portugalski.
