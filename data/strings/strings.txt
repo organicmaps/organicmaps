@@ -3973,7 +3973,7 @@
     ru = Здравствуйте!\n\nВ прикреплённом файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!
     sk = Ahoj!\n\nV prílohe sú moje záložky z aplikácie Organic Maps. Ak ju nemáš nainštalovanú, môžeš si ju stiahnuť tu: https://omaps.app/get?kmz\n\nPrajem šťastnú cestu s Organic Maps!
     tr = Merhaba!\n\nEktekiler benim Organic Maps yer imlerim. Eğer Organic Maps'i yüklediyseniz lütfen ektekileri açın. Eğer yüklemediyseniz, bu bağlantıyı takip ederek iOS ve Android cihazınız için uygulamayı yükleyebilirsiniz: https://omaps.app/get?kmz\n\nOrganic Maps ile seyahat etmenin keyfini çıkarın!
-    uk = Привіт!\n\nДодаю мої закладки; відкрийте їх у Organic Maps. Якщо застосунок не встановлено, ви можете завантажити його тут: https://omaps.app/get?kmz\n\nНасолоджуйтесь подорожами з Organic Maps!
+    uk = Привіт!\n\nДодаю мої мiтки; відкрийте їх у Organic Maps. Якщо застосунок не встановлено, ви можете завантажити його тут: https://omaps.app/get?kmz\n\nНасолоджуйтесь подорожами з Organic Maps!
     zh-Hant = 你好！\n\n附件為 Organic Maps app 的書籤，如果你有安裝 Organic Maps 則直接開啟，如果沒有的話，請先在 iOS 或是 Android 裝置，從下面連結下載：https://omaps.app/get?kmz\n\n旅行時用上 Organic Maps!
 
   [load_kmz_title]
@@ -30469,16 +30469,16 @@
     nb = iCloud-synkronisering er en eksperimentell funksjon under utvikling. Sørg for at du har tatt en sikkerhetskopi av alle bokmerkene og sporene dine.
     nl = iCloud synchronisatie is een experimentele functie in ontwikkeling. Zorg ervoor dat je een back-up hebt gemaakt van al je bladwijzers en tracks.
     pl = Synchronizacja iCloud jest eksperymentalną funkcją w fazie rozwoju. Upewnij się, że wykonałeś kopię zapasową wszystkich zakładek i utworów.
-    pt = A sincronização com o iCloud é uma funcionalidade experimental em desenvolvimento. Certifica-te de que fizeste uma cópia de segurança de todos os teus marcadores e faixas.
-    pt-BR = A sincronização do iCloud é um recurso experimental em desenvolvimento. Certifique-se de que você tenha feito um backup de todos os seus favoritos e faixas.
+    pt = A sincronização com o iCloud é uma funcionalidade experimental em desenvolvimento. Certifique-se de que fez uma cópia de segurança de todos os seus favoritos e trilhos.
+    pt-BR = A sincronização do iCloud é um recurso experimental em desenvolvimento. Certifique-se de que você tenha feito um backup de todos os seus favoritos e trilhas.
     ro = Sincronizarea iCloud este o funcție experimentală aflată în curs de dezvoltare. Asigurați-vă că ați făcut o copie de rezervă a tuturor marcajelor și pieselor dvs.
-    ru = Синхронизация с iCloud - это экспериментальная функция, которая находится в стадии разработки. Убедитесь, что вы сделали резервную копию всех своих закладок и треков.
+    ru = Синхронизация с iCloud - это экспериментальная функция, которая находится в стадии разработки. Убедитесь, что вы сделали резервную копию всех своих меток и треков.
     sk = Synchronizácia s iCloudom je experimentálna funkcia, ktorá je vo vývoji. Uistite sa, že ste si vytvorili zálohu všetkých svojich záložiek a skladieb.
     sv = iCloud-synkronisering är en experimentell funktion under utveckling. Se till att du har gjort en säkerhetskopia av alla dina bokmärken och spår.
     sw = Usawazishaji wa iCloud ni kipengele cha majaribio kinachoendelezwa. Hakikisha kuwa umefanya nakala rudufu ya alamisho na nyimbo zako zote.
     th = การซิงโครไนซ์ iCloud เป็นคุณสมบัติทดลองที่อยู่ระหว่างการพัฒนา ตรวจสอบให้แน่ใจว่าคุณได้สำรองข้อมูลบุ๊กมาร์กและแทร็กทั้งหมดของคุณแล้ว
     tr = iCloud senkronizasyonu geliştirme aşamasında olan deneysel bir özelliktir. Tüm yer imlerinizin ve parçalarınızın yedeğini aldığınızdan emin olun.
-    uk = Синхронізація з iCloud - це експериментальна функція, яка перебуває на стадії розробки. Переконайтеся, що ви зробили резервну копію всіх ваших закладок і треків.
+    uk = Синхронізація з iCloud - це експериментальна функція, яка перебуває на стадії розробки. Переконайтеся, що ви зробили резервну копію всіх ваших мiток і треків.
     vi = Đồng bộ hóa iCloud là một tính năng thử nghiệm đang được phát triển. Đảm bảo rằng bạn đã tạo bản sao lưu tất cả dấu trang và bản nhạc của mình.
     zh-Hans = iCloud 同步是一项正在开发的实验性功能。请确保备份了所有书签和曲目。
     zh-Hant = iCloud 同步是一項正在開發中的實驗性功能。確保您已備份所有書籤和曲目。
@@ -30562,8 +30562,8 @@
     nb = Aktiver iCloud i enhetens innstillinger for å bruke denne funksjonen.
     nl = Schakel iCloud in bij de instellingen van je apparaat om deze functie te gebruiken.
     pl = Aby korzystać z tej funkcji, włącz usługę iCloud w ustawieniach urządzenia.
-    pt = Para utilizar esta funcionalidade, ativa o iCloud nas definições do teu dispositivo.
-    pt-BR = Ative o iCloud nas configurações do seu dispositivo para usar esse recurso.
+    pt = Para utilizar esta funcionalidade, ative o iCloud nas definições do seu dispositivo.
+    pt-BR = Ative o iCloud nos Ajustes do seu dispositivo para usar esse recurso.
     ro = Vă rugăm să activați iCloud în setările dispozitivului dvs. pentru a utiliza această funcție.
     ru = Чтобы воспользоваться этой функцией, включите iCloud в настройках своего устройства.
     sk = Ak chcete túto funkciu používať, povoľte iCloud v nastaveniach zariadenia.
@@ -30609,7 +30609,6 @@
     nl = inschakelen
     pl = Włącz
     pt = Ativar
-    pt-BR = Ativar
     ro = Activați
     ru = Включить
     sk = Povolenie stránky
@@ -30656,7 +30655,7 @@
     nl = Back-up
     pl = Kopia zapasowa
     pt = Cópia de segurança
-    pt-BR = Cópia de segurança
+    pt-BR = Backup
     ro = Backup
     ru = Резервная копия
     sk = Zálohovanie
@@ -30750,7 +30749,7 @@
     nl = Fout: Synchronisatie mislukt vanwege overschrijding iCloud-quota
     pl = Błąd: Nie udało się zsynchronizować z powodu przekroczenia limitu iCloud
     pt = Erro: Falha na sincronização devido à quota do iCloud ter sido excedida
-    pt-BR = Erro: Falha ao sincronizar devido à cota do iCloud excedida
+    pt-BR = Erro: Falha na sincronização devido ao armazenamento excedido do iCloud
     ro = Eroare: Nu s-a reușit sincronizarea din cauza depășirii cotei iCloud
     ru = Ошибка: Не удалось выполнить синхронизацию из-за превышения квоты iCloud
     sk = Chyba: Nepodarilo sa synchronizovať z dôvodu prekročenia kvóty iCloudu
@@ -30797,7 +30796,6 @@
     nl = Fout: iCloud is niet beschikbaar
     pl = Błąd: usługa iCloud jest niedostępna
     pt = Erro: o iCloud não está disponível
-    pt-BR = Erro: o iCloud não está disponível
     ro = Eroare: iCloud nu este disponibil
     ru = Ошибка: iCloud недоступен
     sk = Chyba: iCloud nie je k dispozícii
