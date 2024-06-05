@@ -44,7 +44,7 @@ public Q_SLOTS:
 
 public:
   DrawWidget(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams,
-             QWidget * parent, PlacePanel * placePanel);
+             PlacePanel * placePanel, QWidget * parent);
   ~DrawWidget() override;
 
   std::string GetDistance(search::Result const & res) const;
@@ -120,7 +120,7 @@ public:
       m_selectionMode = {};
   }
 
-  void updatePlace();
+  void UpdatePlace();
 
 private:
   void ProcessSelectionMode();

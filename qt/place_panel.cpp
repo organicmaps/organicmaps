@@ -17,9 +17,9 @@
 
 namespace
 {
-const int kMaximumPanelWidth = 390;
-const int kMinimumPanelWidth = 200;
-const int kMaxLengthOfPlacePageDescription = 500;
+constexpr int kMaximumPanelWidthPixels = 390;
+constexpr int kMinimumPanelWidthPixels = 200;
+constexpr int kMaxLengthOfPlacePageDescription = 500;
 
 std::string getShortDescription(const std::string & description)
 {
@@ -57,32 +57,32 @@ public:
   }
 };
 
-void PlacePanel::addCommonButtons(QDialogButtonBox * dbb, bool shouldShowEditPlace)
+void PlacePanel::addCommonButtons(QDialogButtonBox * dbb, place_page::Info const & info)
 {
   dbb->setCenterButtons(true);
 
   QPushButton * fromButton = new QPushButton("From");
   fromButton->setIcon(QIcon(":/navig64/point-start.png"));
   fromButton->setAutoDefault(false);
-  connect(fromButton, &QAbstractButton::clicked, this, [this](){ routeFrom(*infoPtr); });
+  connect(fromButton, &QAbstractButton::clicked, this, [this, info](){ routeFrom(info); });
   dbb->addButton(fromButton, QDialogButtonBox::ActionRole);
 
   QPushButton * addStopButton = new QPushButton("Stop");
   addStopButton->setIcon(QIcon(":/navig64/point-intermediate.png"));
   addStopButton->setAutoDefault(false);
-  connect(addStopButton, &QAbstractButton::clicked, this, [this](){ addStop(*infoPtr); });
+  connect(addStopButton, &QAbstractButton::clicked, this, [this, info](){ addStop(info); });
   dbb->addButton(addStopButton, QDialogButtonBox::ActionRole);
 
   QPushButton * routeToButton = new QPushButton("To");
   routeToButton->setIcon(QIcon(":/navig64/point-finish.png"));
   routeToButton->setAutoDefault(false);
-  connect(routeToButton, &QAbstractButton::clicked, this, [this](){ routeTo(*infoPtr); });
+  connect(routeToButton, &QAbstractButton::clicked, this, [this, info](){ routeTo(info); });
   dbb->addButton(routeToButton, QDialogButtonBox::ActionRole);
 
-  if (shouldShowEditPlace)
+  if (info.ShouldShowEditPlace())
   {
     QPushButton * editButton = new QPushButton("Edit Place");
-    connect(editButton, &QAbstractButton::clicked, this, [this](){ editPlace(*infoPtr); });
+    connect(editButton, &QAbstractButton::clicked, this, [this, info](){ editPlace(info); });
     dbb->addButton(editButton, QDialogButtonBox::AcceptRole);
   }
 }
@@ -90,17 +90,12 @@ void PlacePanel::addCommonButtons(QDialogButtonBox * dbb, bool shouldShowEditPla
 PlacePanel::PlacePanel(QWidget * parent)
   : QWidget(parent)
 {
-  setMaximumWidth(kMaximumPanelWidth);
-  setMinimumWidth(kMinimumPanelWidth);
+  setMaximumWidth(kMaximumPanelWidthPixels);
+  setMinimumWidth(kMinimumPanelWidthPixels);
 }
 
-void PlacePanel::setPlace(
-  place_page::Info const & info,
-  search::ReverseGeocoder::Address const & address
-)
+void PlacePanel::setPlace(place_page::Info const & info, search::ReverseGeocoder::Address const & address)
 {
-  infoPtr = &info;
-
   bool developerMode;
   if (settings::Get(settings::kDeveloperMode, developerMode) && developerMode)
     updateInterfaceDeveloper(info, address);
@@ -108,16 +103,11 @@ void PlacePanel::setPlace(
     updateInterfaceUser(info, address);
 }
 
-void PlacePanel::updateInterfaceUser(
-  place_page::Info const & info,
-  search::ReverseGeocoder::Address const & address
-)
+void PlacePanel::updateInterfaceUser(place_page::Info const & info, search::ReverseGeocoder::Address const & address)
 {
   auto const & title = info.GetTitle();
 
-  if(this->layout() != nullptr){
-    QWidget().setLayout(this->layout());
-  }
+  DeleteExistingLayout();
 
   QVBoxLayout * layout = new QVBoxLayout();
   {
@@ -188,7 +178,7 @@ void PlacePanel::updateInterfaceUser(
     }
 
     // Description
-    if (auto description = info.GetWikiDescription(); !description.empty())
+    if (const auto & description = info.GetWikiDescription(); !description.empty())
     {
       auto descriptionShort = getShortDescription(description);
 
@@ -316,21 +306,17 @@ void PlacePanel::updateInterfaceUser(
 
   {
     QDialogButtonBox * dbb = new QDialogButtonBox();
-    addCommonButtons(dbb, info.ShouldShowEditPlace());
+    addCommonButtons(dbb, info);
     layout->addWidget(dbb, Qt::AlignCenter);
   }
 
   setLayout(layout);
 }
 
-void PlacePanel::updateInterfaceDeveloper(
-  place_page::Info const & info,
-  search::ReverseGeocoder::Address const & address
-)
+void PlacePanel::updateInterfaceDeveloper(place_page::Info const & info,
+                                          search::ReverseGeocoder::Address const & address)
 {
-  if(this->layout() != nullptr){
-    QWidget().setLayout(this->layout());
-  }
+  DeleteExistingLayout();
 
   QVBoxLayout * layout = new QVBoxLayout();
   QGridLayout * grid = new QGridLayout();
@@ -404,7 +390,7 @@ void PlacePanel::updateInterfaceDeveloper(
   layout->addLayout(grid);
 
   QDialogButtonBox * dbb = new QDialogButtonBox();
-  addCommonButtons(dbb, info.ShouldShowEditPlace());
+  addCommonButtons(dbb, info);
 
   if (auto const & descr = info.GetWikiDescription(); !descr.empty())
   {
@@ -448,4 +434,14 @@ void PlacePanel::updateInterfaceDeveloper(
   layout->addWidget(dbb);
 
   setLayout(layout);
+}
+
+void PlacePanel::DeleteExistingLayout()
+{
+  if (this->layout() != nullptr)
+  {
+    // Delete layout, and all sub-layouts and children widgets.
+    // https://stackoverflow.com/questions/7528680/how-to-delete-an-already-existing-layout-on-a-widget
+    QWidget().setLayout(this->layout());
+  }
 }

@@ -12,7 +12,8 @@ class Info;
 
 namespace place_panel
 {
-enum PressedButton : int {
+enum PressedButton : int 
+{
   Close = QDialog::Rejected,
   RouteFrom,
   AddStop,
@@ -29,10 +30,7 @@ class PlacePanel : public QWidget
 public:
   PlacePanel(QWidget * parent);
 
-  void setPlace(
-    place_page::Info const & info,
-    search::ReverseGeocoder::Address const & address
-  );
+  void setPlace(place_page::Info const & info, search::ReverseGeocoder::Address const & address);
 
 signals:
   void showPlace();
@@ -43,17 +41,11 @@ signals:
   void editPlace(place_page::Info const & info);
 
 protected:
-  void addCommonButtons(QDialogButtonBox * dbb, bool shouldShowEditPlace);
+  void addCommonButtons(QDialogButtonBox * dbb, place_page::Info const & info);
 
 private:
-  place_page::Info const * infoPtr;
+  void updateInterfaceDeveloper(place_page::Info const & info, search::ReverseGeocoder::Address const & address);
+  void updateInterfaceUser(place_page::Info const & info, search::ReverseGeocoder::Address const & address);
 
-  void updateInterfaceDeveloper(
-    place_page::Info const & info,
-    search::ReverseGeocoder::Address const & address
-  );
-  void updateInterfaceUser(
-    place_page::Info const & info,
-    search::ReverseGeocoder::Address const & address
-  );
+  void DeleteExistingLayout();
 };

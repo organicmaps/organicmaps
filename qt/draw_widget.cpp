@@ -79,7 +79,7 @@ void DrawMwmBorder(df::DrapeApi & drapeApi, std::string const & mwmName,
 }  // namespace
 
 DrawWidget::DrawWidget(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams,
-                       QWidget * parent, PlacePanel * placePanel)
+                       PlacePanel * placePanel, QWidget * parent)
   : TBase(framework, screenshotParams != nullptr, parent)
   , m_rubberBand(nullptr)
   , m_emulatingLocation(false)
@@ -161,8 +161,6 @@ void DrawWidget::PrepareShutdown()
 void DrawWidget::UpdateAfterSettingsChanged()
 {
   m_framework.EnterForeground();
-
-  
 }
 
 void DrawWidget::ShowAll()
@@ -643,9 +641,9 @@ void DrawWidget::OnRouteRecommendation(RoutingManager::Recommendation recommenda
   }
 }
 
-void DrawWidget::updatePlace()
+void DrawWidget::UpdatePlace()
 {
-  if(!m_framework.HasPlacePageInfo())
+  if (!m_framework.HasPlacePageInfo())
     return;
 
   place_page::Info const & info = m_framework.GetCurrentPlacePageInfo();
@@ -665,7 +663,7 @@ void DrawWidget::updatePlace()
 
 void DrawWidget::ShowPlacePage()
 {
-  updatePlace();
+  UpdatePlace();
   m_placePanel->showPlace();
 }
 
