@@ -650,9 +650,6 @@ string DetermineSurfaceAndHighwayType(OsmElement * p)
     static base::StringIL goodPathSmoothness = {
         "excellent", "good", "very_good", "intermediate"
     };
-    static base::StringIL gravelSurface = {
-        "gravel", "fine_gravel", "pebblestone"
-    };
     bool const hasQuality = !smoothness.empty() || !trackGrade.empty();
     bool const isGood = (smoothness.empty() || Has(goodPathSmoothness, smoothness)) &&
                         (trackGrade.empty() || trackGrade == "grade1" || trackGrade == "grade2");
@@ -663,11 +660,11 @@ string DetermineSurfaceAndHighwayType(OsmElement * p)
                               (p->HasTag("lit") && !p->HasTag("lit", "no"));
 
     bool isFormed = !surface.empty() && Has(pavedSurfaces, surface);
-    // Treat "compacted" as formed when in good or default quality.
-    if (surface == "compacted" && isGood)
+    // Treat "compacted" and "fine_gravel" as formed when in good or default quality.
+    if ((surface == "compacted" || surface == "fine_gravel") && isGood)
       isFormed = true;
-    // Treat "gravel"-like surfaces as formed only when it has urban tags or a certain good quality and no trail tags.
-    if (Has(gravelSurface, surface) && isGood && (hasUrbanTags || (hasQuality && !hasTrailTags)))
+    // Treat pebble/gravel surfaces as formed only when it has urban tags or a certain good quality and no trail tags.
+    if ((surface == "gravel" || surface == "pebblestone") && isGood && (hasUrbanTags || (hasQuality && !hasTrailTags)))
       isFormed = true;
 
     auto const ConvertTo = [&](string const & newType)
