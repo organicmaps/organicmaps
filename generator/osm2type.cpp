@@ -594,20 +594,23 @@ string DetermineSurfaceAndHighwayType(OsmElement * p)
 
   // According to https://wiki.openstreetmap.org/wiki/Key:surface
   static base::StringIL pavedSurfaces = {
-      "asphalt",  "cobblestone", "chipseal", "concrete",
-      "metal", "paved", "paving_stones", "sett", "unhewn_cobblestone", "wood"
+      "asphalt", "cobblestone", "chipseal", "concrete", "grass_paver", "stone",
+      "metal", "paved", "paving_stones", "sett", "brick", "bricks", "unhewn_cobblestone", "wood"
   };
 
   // All not explicitly listed surface types are considered unpaved good, e.g. "compacted", "fine_gravel".
   static base::StringIL badSurfaces = {
-      "cobblestone", "dirt", "earth", "grass", "gravel", "ground", "metal", "mud", "rock", "unpaved",
-      "pebblestone", "sand", "sett", "snow", "stepping_stones", "unhewn_cobblestone", "wood", "woodchips"
+      "cobblestone", "dirt", "earth", "soil", "grass", "gravel", "ground", "metal", "mud", "rock", "stone", "unpaved",
+      "pebblestone", "sand", "sett", "brick", "bricks", "snow", "stepping_stones", "unhewn_cobblestone",
+      "grass_paver", "wood", "woodchips"
   };
 
   static base::StringIL veryBadSurfaces = {
-      "dirt", "earth", "grass", "ground", "mud", "rock", "sand", "snow",
+      "dirt", "earth", "soil", "grass", "ground", "mud", "rock", "sand", "snow",
       "stepping_stones", "woodchips"
   };
+
+  // surface=tartan/artificial_turf/clay are not used for highways (but for sport pitches etc).
 
   static base::StringIL veryBadSmoothness = {
       "very_bad",       "horrible",        "very_horrible", "impassable",
