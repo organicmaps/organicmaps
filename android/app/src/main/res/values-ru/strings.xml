@@ -2160,4 +2160,5 @@
 	<string name="type.amenity.events_venue">Место проведения мероприятий</string>
 	<string name="type.shop.auction">Аукцион</string>
 	<string name="type.shop.collector">Коллекции</string>
+    <string name="brand_name"> Комитет по туризму при Правительстве Республики Таджикистан </string>
 </resources>

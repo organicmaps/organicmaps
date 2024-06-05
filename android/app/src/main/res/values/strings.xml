@@ -2201,4 +2201,6 @@
 	<string name="type.amenity.events_venue">Events Venue</string>
 	<string name="type.shop.auction">Auction</string>
 	<string name="type.shop.collector">Collectables</string>
+	//todo
+    <string name="brand_name"> Комитет по туризму при Правительстве Республики Таджикистан </string>
 </resources>

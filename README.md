@@ -1,6 +1,6 @@
 # Tourism 
 
-This app is for Tajikistan tourists. It's based on open source app Organics map.
+This app is for Tajikistan tourists. It's based on open source app Organic map.
 
 ## Features of their map
 

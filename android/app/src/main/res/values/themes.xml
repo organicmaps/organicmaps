@@ -4,17 +4,17 @@
   <style name="MwmTheme.Night" parent="MwmTheme.Night.Base"/>
 
   <style name="MwmTheme.Splash">
-    <item name="android:windowBackground">@color/bg_primary</item>
+    <item name="android:windowBackground">@color/transparent</item>
     <item name="android:textColorPrimary">@color/white_primary</item>
-    <item name="android:navigationBarColor">@color/bg_primary</item>
-    <item name="android:statusBarColor">@color/bg_primary</item>
+    <item name="android:navigationBarColor">@color/transparent</item>
+    <item name="android:statusBarColor">@color/transparent</item>
   </style>
 
   <style name="MwmTheme.Night.Splash">
-    <item name="android:windowBackground">@color/bg_primary_night</item>
+    <item name="android:windowBackground">@color/transparent</item>
     <item name="android:textColorPrimary">@color/white_primary</item>
-    <item name="android:navigationBarColor">@color/bg_primary_night</item>
-    <item name="android:statusBarColor">@color/bg_primary_night</item>
+    <item name="android:navigationBarColor">@color/transparent</item>
+    <item name="android:statusBarColor">@color/transparent</item>
   </style>
 
   <!-- Theme is overridden in v27 folder to handle cutouts -->
