@@ -82,7 +82,7 @@ def getCommitMessage() {
 
 def osName = System.properties['os.name'].toLowerCase()
 
-project.ext.appId = 'app.organicmaps'
+project.ext.appId = 'tj.tourism.rebus'
 project.ext.appName = 'Organic Maps'
 
 java {
