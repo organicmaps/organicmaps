@@ -1302,13 +1302,13 @@
 "enable_icloud_synchronization_title" = "Ativar a sincronização do iCloud";
 
 /* Message for the "Enable iCloud Syncronization" alert. */
-"enable_icloud_synchronization_message" = "A sincronização com o iCloud é uma funcionalidade experimental em desenvolvimento. Certifica-te de que fizeste uma cópia de segurança de todos os teus marcadores e faixas.";
+"enable_icloud_synchronization_message" = "A sincronização com o iCloud é uma funcionalidade experimental em desenvolvimento. Certifique-se de que fez uma cópia de segurança de todos os seus favoritos e trilhos.";
 
 /* Title for the "iCloud is Disabled" alert. */
 "icloud_disabled_title" = "O iCloud está desativado";
 
 /* Message for the "iCloud is Disabled" alert. */
-"icloud_disabled_message" = "Para utilizar esta funcionalidade, ativa o iCloud nas definições do teu dispositivo.";
+"icloud_disabled_message" = "Para utilizar esta funcionalidade, ative o iCloud nas definições do seu dispositivo.";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
 "enable" = "Ativar";
