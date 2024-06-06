@@ -86,7 +86,7 @@ void TestWithCustomMwms::RegisterLocalMapsByPrefix(std::string const & prefix)
 {
   RegisterLocalMapsImpl([&](std::string const & name)
   {
-    return strings::StartsWith(name, prefix);
+    return name.starts_with(prefix);
   });
 }
 

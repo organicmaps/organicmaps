@@ -106,20 +106,20 @@ uint8_t CategorizeHungarianAcronymsAndNumbers(std::string const & hungarianStrin
   // Compare the end of our string with the views above. The order is chosen
   // in priority of what would most likely cause an ending vowel sound change.
   for (auto myCase : specialCaseFront)
-    if (strings::EndsWith(hungarianString, myCase))
+    if (hungarianString.ends_with(myCase))
       return 1;
   for (auto myCase : specialCaseBack)
-    if (strings::EndsWith(hungarianString, myCase))
+    if (hungarianString.ends_with(myCase))
       return 2;
-  if (strings::EndsWith(hungarianString, "100"))
+  if (hungarianString.ends_with("100"))
     return 2;
   for (auto myCase : frontNames)
-    if (strings::EndsWith(hungarianString, myCase))
+    if (hungarianString.ends_with(myCase))
       return 1;
   for (auto myCase : backNames)
-    if (strings::EndsWith(hungarianString, myCase))
+    if (hungarianString.ends_with(myCase))
       return 2;
-  if (strings::EndsWith(hungarianString, " "))
+  if (hungarianString.ends_with(' '))
     return 2;
 
   LOG(LWARNING, ("Unable to find Hungarian front/back for", hungarianString));

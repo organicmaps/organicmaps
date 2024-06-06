@@ -339,16 +339,6 @@ bool StartsWith(UniString const & s, UniString const & p)
   return StartsWith(s.begin(), s.end(), p.begin(), p.end());
 }
 
-bool StartsWith(std::string_view s1, std::string_view s2)
-{
-  return (s1.compare(0, s2.length(), s2) == 0);
-}
-
-bool StartsWith(std::string const & s, std::string::value_type c)
-{
-  return s.empty() ? false : s.front() == c;
-}
-
 bool EndsWith(UniString const & s1, UniString const & s2)
 {
   if (s1.size() < s2.size())
@@ -357,23 +347,9 @@ bool EndsWith(UniString const & s1, UniString const & s2)
   return std::equal(s1.end() - s2.size(), s1.end(), s2.begin());
 }
 
-bool EndsWith(std::string_view s1, std::string_view s2)
-{
-  size_t const n = s1.size();
-  size_t const m = s2.size();
-  if (n < m)
-    return false;
-  return (s1.compare(n - m, m, s2) == 0);
-}
-
-bool EndsWith(std::string const & s, std::string::value_type c)
-{
-  return s.empty() ? false : s.back() == c;
-}
-
 bool EatPrefix(std::string & s, std::string const & prefix)
 {
-  if (!StartsWith(s, prefix))
+  if (!s.starts_with(prefix))
     return false;
 
   CHECK_LESS_OR_EQUAL(prefix.size(), s.size(), ());
@@ -383,7 +359,7 @@ bool EatPrefix(std::string & s, std::string const & prefix)
 
 bool EatSuffix(std::string & s, std::string const & suffix)
 {
-  if (!EndsWith(s, suffix))
+  if (!s.ends_with(suffix))
     return false;
 
   CHECK_LESS_OR_EQUAL(suffix.size(), s.size(), ());

@@ -530,8 +530,8 @@ void TransitRouteDisplay::AddGateSubwayForSubroute(routing::RouteSegment const &
     auto const fid = FeatureID(ssp.m_mwmId, gate.m_featureId);
     auto const & featureInfo = ssp.m_displayInfo.m_features.at(fid);
     auto symbolName = featureInfo.m_gateSymbolName;
-    if (strings::EndsWith(symbolName, "-s") || strings::EndsWith(symbolName, "-m") ||
-        strings::EndsWith(symbolName, "-l"))
+    if (symbolName.ends_with("-s") || symbolName.ends_with("-m") ||
+        symbolName.ends_with("-l"))
     {
       symbolName = symbolName.substr(0, symbolName.rfind('-'));
     }
@@ -582,8 +582,8 @@ void TransitRouteDisplay::AddGatePTForSubroute(routing::RouteSegment const & seg
     auto const fid = FeatureID(ssp.m_mwmId, gate.m_featureId);
     auto const & featureInfo = ssp.m_displayInfo.m_features.at(fid);
     auto symbolName = featureInfo.m_gateSymbolName;
-    if (strings::EndsWith(symbolName, "-s") || strings::EndsWith(symbolName, "-m") ||
-        strings::EndsWith(symbolName, "-l"))
+    if (symbolName.ends_with("-s") || symbolName.ends_with("-m") ||
+        symbolName.ends_with("-l"))
     {
       symbolName = symbolName.substr(0, symbolName.rfind('-'));
     }

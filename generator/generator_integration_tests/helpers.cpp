@@ -7,7 +7,6 @@
 
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
-#include "base/string_utils.hpp"
 
 namespace generator_integration_tests
 {
@@ -22,7 +21,7 @@ void DecompressZipArchive(std::string const & src, std::string const & dst)
   for (auto const & p : files)
   {
     auto const output = base::JoinPath(dst, p.first);
-    if (strings::EndsWith(output, base::GetNativeSeparator()))
+    if (output.ends_with(base::GetNativeSeparator()))
     {
       if (!plaftorm.MkDirRecursively(output))
         MYTHROW(MkDirFailure, (output));

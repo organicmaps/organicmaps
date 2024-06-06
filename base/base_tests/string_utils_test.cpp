@@ -881,19 +881,7 @@ UNIT_TEST(StartsWith)
 {
   using namespace strings;
 
-  TEST(StartsWith(std::string(), ""), ());
-
-  std::string s("xyz");
-  TEST(StartsWith(s, ""), ());
-  TEST(StartsWith(s, "x"), ());
-  TEST(StartsWith(s, 'x'), ());
-  TEST(!StartsWith(s, 'z'), ());
-  TEST(StartsWith(s, "xyz"), ());
-  TEST(!StartsWith(s, "xyzabc"), ());
-  TEST(!StartsWith(s, "ayz"), ());
-  TEST(!StartsWith(s, "axy"), ());
-
-  UniString const us = MakeUniString(s);
+  UniString const us = MakeUniString("xyz");
   TEST(StartsWith(us, UniString()), ());
   TEST(StartsWith(us, MakeUniString("x")), ());
   TEST(StartsWith(us, MakeUniString("xyz")), ());
@@ -905,43 +893,15 @@ UNIT_TEST(StartsWith)
 UNIT_TEST(EndsWith)
 {
   using namespace strings;
-  {
-    TEST(EndsWith(std::string(), ""), ());
-  }
-  {
-    std::string const s("xyz");
-    TEST(EndsWith(s, ""), ());
-    TEST(EndsWith(s, "z"), ());
-    TEST(EndsWith(s, 'z'), ());
-    TEST(!EndsWith(s, 'x'), ());
-    TEST(EndsWith(s, "yz"), ());
-    TEST(EndsWith(s, "xyz"), ());
-    TEST(!EndsWith(s, "abcxyz"), ());
-    TEST(!EndsWith(s, "ayz"), ());
-    TEST(!EndsWith(s, "axyz"), ());
-  }
-  {
-    auto const s = MakeUniString("zюя");
-    TEST(EndsWith(s, MakeUniString("")), ());
-    TEST(EndsWith(s, MakeUniString("я")), ());
-    TEST(EndsWith(s, MakeUniString("юя")), ());
-    TEST(EndsWith(s, MakeUniString("zюя")), ());
-    TEST(!EndsWith(s, MakeUniString("абвгдzюя")), ());
-    TEST(!EndsWith(s, MakeUniString("aюя")), ());
-    TEST(!EndsWith(s, MakeUniString("1zюя")), ());
-  }
-  {
-    std::string const s("abcd");
-    TEST(EndsWith(s, std::string_view{""}), ());
-    TEST(EndsWith(s, std::string_view{"d"}), ());
-    TEST(EndsWith(s, std::string_view{"bcd"}), ());
-    TEST(EndsWith(s, std::string_view{"abcd"}), ());
-    TEST(!EndsWith(s, std::string_view{"dd"}), ());
-    TEST(!EndsWith(s, std::string_view{"c\""}), ());
-    TEST(!EndsWith(s, std::string_view{"cde"}), ());
-    TEST(!EndsWith(s, std::string_view{"abcde"}), ());
-    TEST(!EndsWith(s, std::string_view{"0abcd"}), ());
-  }
+
+  auto const s = MakeUniString("zюя");
+  TEST(EndsWith(s, MakeUniString("")), ());
+  TEST(EndsWith(s, MakeUniString("я")), ());
+  TEST(EndsWith(s, MakeUniString("юя")), ());
+  TEST(EndsWith(s, MakeUniString("zюя")), ());
+  TEST(!EndsWith(s, MakeUniString("абвгдzюя")), ());
+  TEST(!EndsWith(s, MakeUniString("aюя")), ());
+  TEST(!EndsWith(s, MakeUniString("1zюя")), ());
 }
 
 UNIT_TEST(EatPrefix_EatSuffix)

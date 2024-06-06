@@ -1,7 +1,6 @@
 #include "platform/platform.hpp"
 
 #include "coding/internal/file_data.hpp"
-#include "coding/writer.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
@@ -289,16 +288,15 @@ void Platform::SetResourceDir(std::string const & path)
 // static
 bool Platform::MkDirChecked(std::string const & dirName)
 {
-  Platform::EError const ret = MkDir(dirName);
-  switch (ret)
+  switch (EError const ret = MkDir(dirName))
   {
-  case Platform::ERR_OK: return true;
-  case Platform::ERR_FILE_ALREADY_EXISTS:
+  case ERR_OK: return true;
+  case ERR_FILE_ALREADY_EXISTS:
   {
-    Platform::EFileType type;
+    EFileType type;
     if (!GetFileTypeChecked(dirName, type))
       return false;
-    if (type != EFileType::Directory)
+    if (type != Directory)
     {
       LOG(LERROR, (dirName, "exists, but not a dirName:", type));
       return false;
@@ -312,16 +310,16 @@ bool Platform::MkDirChecked(std::string const & dirName)
 // static
 bool Platform::MkDirRecursively(std::string const & dirName)
 {
+  CHECK(!dirName.empty(), ());
+
   std::string::value_type const sep[] = { base::GetNativeSeparator(), 0};
-  std::string path = strings::StartsWith(dirName, sep) ? sep : ".";
-  auto const tokens = strings::Tokenize(dirName, sep);
-  for (auto const & t : tokens)
+  std::string path = dirName.starts_with(sep[0]) ? sep : ".";
+  for (auto const & t : strings::Tokenize(dirName, sep))
   {
     path = base::JoinPath(path, std::string{t});
     if (!IsFileExistsByFullPath(path))
     {
-      auto const ret = MkDir(path);
-      switch (ret)
+      switch (MkDir(path))
       {
       case ERR_OK: break;
       case ERR_FILE_ALREADY_EXISTS:
@@ -338,7 +336,7 @@ bool Platform::MkDirRecursively(std::string const & dirName)
   return true;
 }
 
-unsigned Platform::CpuCores() const
+unsigned Platform::CpuCores()
 {
   unsigned const cores = std::thread::hardware_concurrency();
   return cores > 0 ? cores : 1;

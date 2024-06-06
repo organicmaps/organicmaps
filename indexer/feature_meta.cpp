@@ -69,7 +69,7 @@ bool Metadata::TypeFromString(string_view k, Metadata::EType & outType)
     outType = Metadata::EType::FMD_FAX_NUMBER;
   else if (k == "stars")
     outType = Metadata::FMD_STARS;
-  else if (strings::StartsWith(k, "operator"))
+  else if (k.starts_with("operator"))
     outType = Metadata::FMD_OPERATOR;
   else if (k == "url" || k == "website" || k == "contact:website")
     outType = Metadata::FMD_WEBSITE;
@@ -124,7 +124,7 @@ bool Metadata::TypeFromString(string_view k, Metadata::EType & outType)
     outType = Metadata::FMD_LEVEL;
   else if (k == "iata")
     outType = Metadata::FMD_AIRPORT_IATA;
-  else if (strings::StartsWith(k, "brand"))
+  else if (k.starts_with("brand"))
     outType = Metadata::FMD_BRAND;
   else if (k == "duration")
     outType = Metadata::FMD_DURATION;

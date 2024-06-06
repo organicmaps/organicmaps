@@ -1,13 +1,11 @@
 #include "search/doc_vec.hpp"
 
-#include "base/logging.hpp"
-
 #include <limits>
-
-using namespace std;
 
 namespace search
 {
+using namespace std;
+
 namespace
 {
 // Accumulates frequencies of equal tokens in |tfs|. Result is sorted

@@ -8,7 +8,6 @@
 #include "coding/geometry_coding.hpp"
 #include "coding/read_write_utils.hpp"
 
-#include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"
 #include "geometry/region2d.hpp"
 
@@ -187,7 +186,7 @@ void CountryInfoGetter::ForEachCountry(std::string const & prefix, ToDo && toDo)
 {
   for (auto const & country : m_countries)
   {
-    if (strings::StartsWith(country.m_countryId, prefix.c_str()))
+    if (country.m_countryId.starts_with(prefix))
       toDo(country);
   }
 }

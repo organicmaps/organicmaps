@@ -144,7 +144,7 @@ std::string DescriptionsCollector::MakePathForWikipedia(std::string const & wiki
   strings::Trim(wikipediaUrl);
   strings::ReplaceFirst(wikipediaUrl, "http://", "");
   strings::ReplaceFirst(wikipediaUrl, "https://", "");
-  if (strings::EndsWith(wikipediaUrl, "/"))
+  if (wikipediaUrl.ends_with('/'))
     wikipediaUrl.pop_back();
 
   return base::JoinPath(wikipediaDir, wikipediaUrl);

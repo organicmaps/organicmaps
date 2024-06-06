@@ -269,7 +269,7 @@ public:
     string const wikipedia(meta.Get(feature::Metadata::FMD_WIKIPEDIA));
     string const wikimedia_commons(meta.Get(feature::Metadata::FMD_WIKIMEDIA_COMMONS));
     string const floor(meta.Get(feature::Metadata::FMD_LEVEL));
-    string const fee = strings::EndsWith(category, "-fee") ? "yes" : "";
+    string const fee = category.ends_with("-fee") ? "yes" : "";
     string const atm = HasAtm(f) ? "yes" : "";
 
     vector<string> columns = {
@@ -365,7 +365,7 @@ int main(int argc, char ** argv)
   {
     if (mwmInfo->GetType() != MwmInfo::COUNTRY)
       continue;
-    if (argc > 3 && !strings::StartsWith(mwmInfo->GetCountryName() + DATA_FILE_EXTENSION, argv[3]))
+    if (argc > 3 && !(mwmInfo->GetCountryName() + DATA_FILE_EXTENSION).starts_with(argv[3]))
       continue;
     LOG(LINFO, ("Processing", mwmInfo->GetCountryName()));
     string osmToFeatureFile = base::JoinPath(

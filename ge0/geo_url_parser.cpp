@@ -173,7 +173,7 @@ bool GeoParser::Parse(std::string const & raw, GeoURLInfo & info) const
   /*
    * Check that URI starts with geo:
    */
-  if (!strings::StartsWith(raw, "geo:"))
+  if (!raw.starts_with("geo:"))
     return false;
 
   /*
@@ -365,7 +365,7 @@ bool GeoURLInfo::SetLon(double x)
 
 bool UnifiedParser::Parse(std::string const & raw, GeoURLInfo & res)
 {
-  if (strings::StartsWith(raw, "geo:"))
+  if (raw.starts_with("geo:"))
     return m_geoParser.Parse(raw, res);
 
   url::Url url(raw);

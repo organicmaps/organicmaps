@@ -593,12 +593,7 @@ bool StartsWith(IterT1 beg, IterT1 end, IterT2 begPrefix, IterT2 endPrefix)
 }
 
 bool StartsWith(UniString const & s, UniString const & p);
-bool StartsWith(std::string_view s1, std::string_view s2);
-bool StartsWith(std::string const & s, std::string::value_type c);
-
 bool EndsWith(UniString const & s1, UniString const & s2);
-bool EndsWith(std::string_view s1, std::string_view s2);
-bool EndsWith(std::string const & s, std::string::value_type c);
 
 // If |s| starts with |prefix|, deletes it from |s| and returns true.
 // Otherwise, leaves |s| unmodified and returns false.

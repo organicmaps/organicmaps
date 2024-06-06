@@ -117,7 +117,7 @@ ColorConstant GetTransitTextColorName(ColorConstant const & localName)
 
 bool IsTransitColor(ColorConstant const & constant)
 {
-  return strings::StartsWith(constant, kTransitColorPrefix);
+  return constant.starts_with(kTransitColorPrefix);
 }
 
 dp::Color GetColorConstant(ColorConstant const & constant)

@@ -94,12 +94,12 @@ std::tuple<size_t, bool> FindUrlPrefix(std::string const & url)
 {
   for (auto const prefix : ge0::Ge0Parser::kGe0Prefixes)
   {
-    if (strings::StartsWith(url, prefix))
+    if (url.starts_with(prefix))
       return {prefix.size(), true};
   }
   for (auto const prefix : kLegacyMwmPrefixes)
   {
-    if (strings::StartsWith(url, prefix))
+    if (url.starts_with(prefix))
       return {prefix.size(), false};
   }
   return {std::string::npos, false};
