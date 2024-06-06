@@ -1,5 +1,7 @@
 #include "shaders/vulkan_program_params.hpp"
 
+#include "shaders/vulkan_program_pool.hpp"
+
 #include "drape/vulkan/vulkan_base_context.hpp"
 #include "drape/vulkan/vulkan_gpu_program.hpp"
 #include "drape/vulkan/vulkan_utils.hpp"
@@ -31,10 +33,14 @@ VulkanProgramParamsSetter::UniformBuffer CreateUniformBuffer(VkDevice device,
 }
 }  // namespace
 
-VulkanProgramParamsSetter::VulkanProgramParamsSetter(ref_ptr<dp::vulkan::VulkanBaseContext> context)
+VulkanProgramParamsSetter::VulkanProgramParamsSetter(ref_ptr<dp::vulkan::VulkanBaseContext> context,
+                                                     ref_ptr<VulkanProgramPool> programPool)
 {
   using namespace dp::vulkan;
   m_objectManager = context->GetObjectManager();
+  m_objectManager->SetMaxUniformBuffers(programPool->GetMaxUniformBuffers());
+  m_objectManager->SetMaxImageSamplers(programPool->GetMaxImageSamplers());
+
   for (auto & ub : m_uniformBuffers)
   {
     ub.emplace_back(CreateUniformBuffer(context->GetDevice(), m_objectManager,

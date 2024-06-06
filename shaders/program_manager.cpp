@@ -9,7 +9,6 @@
 
 #include "base/logging.hpp"
 
-#include "std/target_os.hpp"
 #include "gl_program_params.hpp"
 
 #include <algorithm>
@@ -55,7 +54,7 @@ void ProgramManager::Destroy(ref_ptr<dp::GraphicsContext> context)
     DestroyForVulkan(context);
   }
 }
-  
+
 void ProgramManager::InitForOpenGL(ref_ptr<dp::GraphicsContext> context)
 {
   std::string globalDefines;
@@ -69,25 +68,26 @@ void ProgramManager::InitForOpenGL(ref_ptr<dp::GraphicsContext> context)
     globalDefines.append("#define ENABLE_VTF\n");  // VTF == Vertex Texture Fetch
   }
 #endif
-  
+
   if (dp::SupportManager::Instance().IsSamsungGoogleNexus())
     globalDefines.append("#define SAMSUNG_GOOGLE_NEXUS\n");
-  
+
   auto const apiVersion = context->GetApiVersion();
   if (apiVersion == dp::ApiVersion::OpenGLES3)
     globalDefines.append("#define GLES3\n");
-  
+
   m_pool = make_unique_dp<GLProgramPool>(apiVersion);
   ref_ptr<GLProgramPool> pool = make_ref(m_pool);
   pool->SetDefines(globalDefines);
-  
+
   m_paramsSetter = make_unique_dp<GLProgramParamsSetter>();
 }
 
 void ProgramManager::InitForVulkan(ref_ptr<dp::GraphicsContext> context)
 {
   m_pool = make_unique_dp<vulkan::VulkanProgramPool>(context);
-  m_paramsSetter = make_unique_dp<vulkan::VulkanProgramParamsSetter>(context);
+  m_paramsSetter = make_unique_dp<vulkan::VulkanProgramParamsSetter>(context,
+      make_ref(static_cast<vulkan::VulkanProgramPool *>(m_pool.get())));
 }
 
 void ProgramManager::DestroyForVulkan(ref_ptr<dp::GraphicsContext> context)

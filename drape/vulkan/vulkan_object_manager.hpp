@@ -93,6 +93,9 @@ public:
   VulkanMemoryManager const & GetMemoryManager() const { return m_memoryManager; };
   VkSampler GetSampler(SamplerKey const & key);
 
+  void SetMaxUniformBuffers(uint32_t maxUniformBuffers);
+  void SetMaxImageSamplers(uint32_t maxImageSamplers);
+
 private:
   using DescriptorSetGroupArray = std::vector<DescriptorSetGroup>;
   using VulkanObjectArray = std::vector<VulkanObject>;
@@ -110,13 +113,21 @@ private:
   std::array<std::thread::id, ThreadType::Count> m_renderers = {};
   std::array<std::array<VulkanObjectArray, kMaxInflightFrames>, ThreadType::Count> m_queuesToDestroy = {};
 
-  std::vector<VkDescriptorPool> m_descriptorPools;
+  struct DescriptorPool
+  {
+    VkDescriptorPool m_pool;
+    uint32_t m_availableSetsCount = 0;
+  };
+  std::vector<DescriptorPool> m_descriptorPools;
 
   std::array<DescriptorSetGroupArray, kMaxInflightFrames> m_descriptorsToDestroy;
 
   std::map<SamplerKey, VkSampler> m_samplers;
 
   uint32_t m_currentInflightFrameIndex = 0;
+
+  uint32_t m_maxUniformBuffers = 0;
+  uint32_t m_maxImageSamplers = 0;
 
   std::mutex m_mutex;
   std::mutex m_samplerMutex;
