@@ -203,6 +203,11 @@ static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType) {
   self.bm.LoadBookmarks();
 }
 
+- (void)loadBookmarkFile:(NSURL *)url
+{
+  self.bm.LoadBookmark(url.path.UTF8String, false /* isTemporaryFile */);
+}
+
 - (void)reloadCategoryAtFilePath:(NSString *)filePath
 {
   self.bm.ReloadBookmark(filePath.UTF8String);
