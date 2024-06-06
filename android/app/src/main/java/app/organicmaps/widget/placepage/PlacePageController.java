@@ -527,18 +527,10 @@ public class PlacePageController extends Fragment implements
       // And move the bookmark button at the end
       if (needToShowRoutingButtons && RoutingController.get().isStopPointAllowed())
         buttons.add(PlacePageButtons.ButtonType.ROUTE_ADD);
-      else
-        buttons.add(mapObject.isBookmark()
-                    ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
-                    : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
 
       if (needToShowRoutingButtons)
       {
         buttons.add(PlacePageButtons.ButtonType.ROUTE_TO);
-        if (RoutingController.get().isStopPointAllowed())
-          buttons.add(mapObject.isBookmark()
-                      ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
-                      : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
       }
     }
     mViewModel.setCurrentButtons(buttons);

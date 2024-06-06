@@ -26,14 +26,6 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent">
     <include
-      layout="@layout/map_buttons_bookmarks"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
-      android:layout_marginStart="@dimen/margin_half"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toEndOf="@+id/btn_search" />
-    <include
       layout="@layout/map_buttons_search_frame"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"

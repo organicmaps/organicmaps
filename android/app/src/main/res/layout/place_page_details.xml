@@ -19,6 +19,7 @@
       android:id="@+id/place_page_bookmark_fragment"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:visibility="gone"
       tools:layout="@layout/place_page_bookmark_fragment" />
 
     <androidx.fragment.app.FragmentContainerView
@@ -53,6 +54,7 @@
       android:id="@+id/place_page_links_fragment"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:visibility="gone"
       tools:layout="@layout/place_page_links_fragment" />
 
     <include layout="@layout/place_page_level" />

@@ -333,7 +333,7 @@
         </activity>
 
         <activity
-            android:name="app.MainActivity"
+            android:name="app.tourism.MainActivity"
             android:exported="false"
             android:label="@string/title_activity_main"
             android:theme="@style/MwmTheme" />

@@ -14,7 +14,7 @@
     android:layout_height="match_parent"
     android:visibility="gone"
     tools:visibility="visible" />
-  <androidx.constraintlayout.widget.ConstraintLayout
+  <RelativeLayout
     android:id="@+id/map_buttons_inner_left"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
@@ -26,29 +26,16 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent">
     <include
-      layout="@layout/map_buttons_bookmarks"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toStartOf="parent" />
-    <include
       layout="@layout/map_buttons_search_frame"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
-      app:layout_constraintBottom_toBottomOf="@+id/btn_search"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="@+id/btn_search" />
+      android:layout_centerInParent="true"/>
     <include
       layout="@layout/map_buttons_search"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
-      android:layout_marginBottom="@dimen/margin_half"
-      app:layout_constraintBottom_toTopOf="@+id/btn_bookmarks"
-      app:layout_constraintStart_toStartOf="parent" />
-  </androidx.constraintlayout.widget.ConstraintLayout>
+      android:layout_centerVertical="true"/>
+  </RelativeLayout>
   <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/map_buttons_inner_right"
     android:layout_width="wrap_content"

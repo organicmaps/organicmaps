@@ -99,8 +99,6 @@ public class MapButtonsController extends Fragment
           .setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.zoomIn));
     mFrame.findViewById(R.id.nav_zoom_out)
           .setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.zoomOut));
-    final View bookmarksButton = mFrame.findViewById(R.id.btn_bookmarks);
-    bookmarksButton.setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.bookmarks));
     final View myPosition = mFrame.findViewById(R.id.my_position);
     mNavMyPosition = new MyPositionButton(myPosition, (v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.myPosition));
 
@@ -140,7 +138,6 @@ public class MapButtonsController extends Fragment
     mButtonsMap = new HashMap<>();
     mButtonsMap.put(MapButtons.zoom, zoomFrame);
     mButtonsMap.put(MapButtons.myPosition, myPosition);
-    mButtonsMap.put(MapButtons.bookmarks, bookmarksButton);
     mButtonsMap.put(MapButtons.search, searchButton);
 
     if (mToggleMapLayerButton != null)

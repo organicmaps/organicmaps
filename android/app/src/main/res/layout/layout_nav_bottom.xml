@@ -59,6 +59,7 @@
       android:layout_weight="0.2"
       android:background="?selectableItemBackgroundBorderless"
       android:scaleType="center"
+      android:visibility="gone"
       app:srcCompat="@drawable/ic_menu_settings"
       app:tint="?iconTint" />
 

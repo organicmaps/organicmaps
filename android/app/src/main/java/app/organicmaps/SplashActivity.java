@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
-import app.MainActivity;
+import app.tourism.MainActivity;
 import app.organicmaps.display.DisplayManager;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.util.Config;

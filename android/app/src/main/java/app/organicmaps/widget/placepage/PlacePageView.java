@@ -423,19 +423,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
 //    showTaxiOffer(mapObject);
 
-    if (RoutingController.get().isNavigating() || RoutingController.get().isPlanning())
-    {
-      UiUtils.hide(mEditPlace, mAddOrganisation, mAddPlace, mEditTopSpace);
-    }
-    else
-    {
-      UiUtils.showIf(Editor.nativeShouldShowEditPlace(), mEditPlace);
-      UiUtils.showIf(Editor.nativeShouldShowAddBusiness(), mAddOrganisation);
-      UiUtils.showIf(Editor.nativeShouldShowAddPlace(), mAddPlace);
-      UiUtils.showIf(UiUtils.isVisible(mEditPlace)
-                     || UiUtils.isVisible(mAddOrganisation)
-                     || UiUtils.isVisible(mAddPlace), mEditTopSpace);
-    }
     updateLinksView();
     updateOpeningHoursView();
     updateWikipediaView();
