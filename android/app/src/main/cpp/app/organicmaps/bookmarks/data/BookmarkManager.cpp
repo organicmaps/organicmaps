@@ -879,4 +879,10 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeRemoveElevationActiveC
 {
   frm()->GetBookmarkManager().SetElevationActivePointChangedCallback(nullptr);
 }
+
+JNIEXPORT jboolean JNICALL
+Java_app_organicmaps_widget_placepage_PlacePageButtonFactory_nativeHasRecentlyDeletedBookmark(JNIEnv *, jclass)
+{
+  return frm()->GetBookmarkManager().HasRecentlyDeletedBookmark();
+}
 }  // extern "C"
