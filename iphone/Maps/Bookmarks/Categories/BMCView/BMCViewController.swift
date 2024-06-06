@@ -99,6 +99,12 @@ final class BMCViewController: MWMViewController {
     }
   }
 
+  private func showImportDialog() {
+    DocumentPicker.shared.present(from: self) { [viewModel] urls in
+      viewModel?.importCategories(from: urls)
+    }
+  }
+
   private func openCategorySettings(category: BookmarkGroup) {
     let settingsController = CategorySettingsViewController(bookmarkGroup: BookmarksManager.shared().category(withId: category.categoryId))
     settingsController.delegate = self
@@ -268,6 +274,7 @@ extension BMCViewController: UITableViewDelegate {
       switch viewModel.action(at: indexPath.row) {
       case .create: createNewCategory()
       case .exportAll: shareAllCategories(anchor: tableView.cellForRow(at: indexPath))
+      case .import: showImportDialog()
       }
     default:
       assertionFailure()

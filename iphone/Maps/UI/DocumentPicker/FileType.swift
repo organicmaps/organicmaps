@@ -1,6 +1,6 @@
 import UniformTypeIdentifiers
 
-// TODO: Remove this type-wrapper and use custom UTTypeIdentifier that is registered into the Info.plist after updating to the iOS >= 14.0.
+// TODO: (KK) Remove this type-wrapper and use custom UTTypeIdentifier that is registered into the Info.plist after updating to the iOS >= 14.0.
 struct FileType {
   let fileExtension: String
   let typeIdentifier: String
