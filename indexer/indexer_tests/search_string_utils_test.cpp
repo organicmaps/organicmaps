@@ -288,4 +288,24 @@ UNIT_TEST(NormalizeAndSimplifyString_Apostrophe)
   TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Pop’s"), "pop's", ());
 }
 
+UNIT_TEST(Steet_GetStreetNameAsKey)
+{
+  auto const Check = [](std::string_view src, std::string_view expected)
+  {
+    TEST_EQUAL(GetStreetNameAsKey(src, true /* ignoreStreetSynonyms */), strings::MakeUniString(expected), ());
+  };
+
+  {
+    std::string_view const ethalon = "680northwest";
+    Check("N 680 W", ethalon);
+    Check("North 680 West", ethalon);
+    Check("680 NW", ethalon);
+  }
+
+  Check("North 20th Rd", "20thnorth");
+  Check("Lane st", "lane st");         /// @todo Probably, doesn't matter here?
+  Check("West North", "westnorth");    /// @todo Should order?
+  Check("NW", "northwest");
+}
+
 } // namespace search_string_utils_test

@@ -402,6 +402,36 @@ private:
   Trie m_strings;
 };
 
+class StreetsDirectionsHolder
+{
+  std::vector<UniString> m_strings;
+
+public:
+  StreetsDirectionsHolder()
+  {
+    // Do *not* change the order.
+    for (auto const * s : {"n", "north", "s", "south", "w", "west", "e", "east",
+                           "ne", "northeast", "nw", "northwest", "se", "southeast", "sw", "southwest" })
+    {
+      m_strings.emplace_back(NormalizeAndSimplifyString(s));
+    }
+  }
+
+  template <class FnT> bool ApplyIf(UniString const & s, FnT && fn) const
+  {
+    for (size_t i = 0; i < m_strings.size(); ++i)
+    {
+      if (m_strings[i] == s)
+      {
+        // Emit full direction name.
+        fn(m_strings[i % 2 == 0 ? i + 1 : i]);
+        return true;
+      }
+    }
+    return false;
+  }
+};
+
 }  // namespace
 
 string DropLastToken(string const & str)
@@ -430,14 +460,24 @@ UniString GetStreetNameAsKey(std::string_view name, bool ignoreStreetSynonyms)
   if (name.empty())
     return UniString();
 
-  UniString res;
+  static StreetsDirectionsHolder s_directions;
+  auto const & synonyms = StreetsSynonymsHolder::Instance();
+
+  UniString res, suffix;
   Tokenize(name, kStreetTokensSeparator, [&](std::string_view v)
   {
     UniString const s = NormalizeAndSimplifyString(v);
-    if (!ignoreStreetSynonyms || !IsStreetSynonym(s))
-      res.append(s);
+
+    if (ignoreStreetSynonyms && synonyms.FullMatch(s))
+      return;
+
+    if (s_directions.ApplyIf(s, [&suffix](UniString const & s) { suffix.append(s); }))
+      return;
+
+    res.append(s);
   });
 
+  res.append(suffix);
   return (res.empty() ? NormalizeAndSimplifyString(name) : res);
 }
 
