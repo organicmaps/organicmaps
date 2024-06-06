@@ -309,7 +309,7 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, Russia_SPB_Pechory)
 
   /// @todo Optimal should not include Estonia.
   for (auto const & rgn : GetRegions(checkpoints))
-    TEST(!strings::StartsWith(rgn, "Estonia"), ());
+    TEST(!rgn.starts_with("Estonia"), ());
 }
 
 } // namespace absent_regions_finder_tests

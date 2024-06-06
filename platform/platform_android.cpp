@@ -66,7 +66,7 @@ unique_ptr<ModelReader> Platform::GetReader(string const & file, string searchSc
 
       if (ext == DATA_FILE_EXTENSION)
       {
-        if (strings::StartsWith(file, WORLD_COASTS_FILE_NAME) || strings::StartsWith(file, WORLD_FILE_NAME))
+        if (file.starts_with(WORLD_COASTS_FILE_NAME) || file.starts_with(WORLD_FILE_NAME))
           searchScope = "wsr";
         else
           searchScope = "w";
@@ -209,7 +209,7 @@ void Platform::GetSystemFontNames(FilesList & res) const
     string name(entry);
     if (name != "Roboto-Medium.ttf" && name != "Roboto-Regular.ttf")
     {
-      if (!strings::StartsWith(name, "NotoNaskh") && !strings::StartsWith(name, "NotoSans"))
+      if (!name.starts_with("NotoNaskh") && !name.starts_with("NotoSans"))
         return;
 
       if (name.find("-Regular") == string::npos)

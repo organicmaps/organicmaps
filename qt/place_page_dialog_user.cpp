@@ -41,7 +41,7 @@ std::string getShortDescription(const std::string & description)
 std::string_view stripSchemeFromURI(std::string_view uri) {
   for (std::string_view prefix : {"https://", "http://"})
   {
-    if (strings::StartsWith(uri, prefix))
+    if (uri.starts_with(prefix))
       return uri.substr(prefix.size());
   }
   return uri;

@@ -14,7 +14,6 @@
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
-#include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
 #include "coding/sha1.hpp"
@@ -1349,7 +1348,7 @@ bool Storage::IsCountryLeaf(CountryTree::Node const & node)
 
 bool Storage::IsWorldCountryID(CountryId const & country)
 {
-  return strings::StartsWith(country, WORLD_FILE_NAME);
+  return country.starts_with(WORLD_FILE_NAME);
 }
 
 /*

@@ -108,7 +108,7 @@ public:
     {
       auto const it = std::find_if(prefixes.begin(), prefixes.end(), [name = r.GetString()](char const * prefix)
       {
-        return strings::StartsWith(name, prefix);
+        return name.starts_with(prefix);
       });
 
       TEST(it != prefixes.end(), (r));

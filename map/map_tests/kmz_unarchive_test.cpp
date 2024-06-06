@@ -16,7 +16,7 @@ UNIT_TEST(KMZ_UnzipTest)
   TEST(!filePath.empty(), ());
   SCOPE_GUARD(fileGuard, std::bind(&base::DeleteFileX, filePath));
 
-  TEST(strings::EndsWith(filePath, "doc.kml"), (filePath));
+  TEST(filePath.ends_with("doc.kml"), (filePath));
 
   auto const kmlData = LoadKmlFile(filePath, KmlFileType::Text);
   TEST(kmlData != nullptr, ());

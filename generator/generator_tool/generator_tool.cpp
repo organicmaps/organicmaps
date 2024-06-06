@@ -377,12 +377,12 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       if (!FLAGS_uk_postcodes_dataset.empty() || !FLAGS_us_postcodes_dataset.empty())
       {
         bool res = true;
-        if (!FLAGS_uk_postcodes_dataset.empty() && strings::StartsWith(country, "UK_"))
+        if (!FLAGS_uk_postcodes_dataset.empty() && country.starts_with("UK_"))
         {
           res = indexer::BuildPostcodePoints(path, country, indexer::PostcodePointsDatasetType::UK,
                                              FLAGS_uk_postcodes_dataset, true /*forceRebuild*/);
         }
-        else if (!FLAGS_us_postcodes_dataset.empty() && strings::StartsWith(country, "US_"))
+        else if (!FLAGS_us_postcodes_dataset.empty() && country.starts_with("US_"))
         {
           res = indexer::BuildPostcodePoints(path, country, indexer::PostcodePointsDatasetType::US,
                                              FLAGS_us_postcodes_dataset, true /*forceRebuild*/);

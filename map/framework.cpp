@@ -111,7 +111,7 @@ size_t constexpr kMaxTrafficCacheSizeBytes = 64 /* Mb */ * 1024 * 1024;
 bool ParseSetGpsTrackMinAccuracyCommand(string const & query)
 {
   char const kGpsAccuracy[] = "?gpstrackaccuracy:";
-  if (!strings::StartsWith(query, kGpsAccuracy))
+  if (!query.starts_with(kGpsAccuracy))
     return false;
 
   size_t const end = query.find(';', sizeof(kGpsAccuracy) - 1);

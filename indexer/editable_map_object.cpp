@@ -530,7 +530,7 @@ bool EditableMapObject::ValidateLevel(string const & level)
     return false;
 
   // Allowing only half-levels.
-  if (level.find('.') != string::npos && !strings::EndsWith(level, ".5"))
+  if (level.find('.') != string::npos && !level.ends_with(".5"))
     return false;
 
   // Forbid "04" and "0.".

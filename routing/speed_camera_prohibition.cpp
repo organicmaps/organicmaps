@@ -20,7 +20,7 @@ std::vector<std::string> kSpeedCamerasPartlyProhibitedCountries = {
 bool IsMwmContained(platform::CountryFile const & mwm, std::vector<std::string> const & countryList)
 {
   return std::any_of(countryList.cbegin(), countryList.cend(), [&mwm](auto const & country) {
-    return strings::StartsWith(mwm.GetName(), country);
+    return mwm.GetName().starts_with(country);
   });
 }
 }  // namespace

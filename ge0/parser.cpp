@@ -41,7 +41,7 @@ bool Ge0Parser::Parse(std::string const & url, Result & result)
 
   for (auto prefix : kGe0Prefixes)
   {
-    if (strings::StartsWith(url, prefix))
+    if (url.starts_with(prefix))
       return ParseAfterPrefix(url, prefix.size(), result);
   }
 

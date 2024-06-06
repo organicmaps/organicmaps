@@ -176,7 +176,7 @@ bool ParseMaxspeedTag(std::string const & maxspeedValue, routing::SpeedInUnits &
   while (i < maxspeedValue.size() && isspace(maxspeedValue[i]))
     ++i;
 
-  if (maxspeedValue.size() == i || strings::StartsWith(maxspeedValue.substr(i), "kmh"))
+  if (maxspeedValue.size() == i || maxspeedValue.substr(i).starts_with("kmh"))
   {
     uint64_t kmph = 0;
     if (!strings::to_uint64(speedStr.c_str(), kmph) || kmph == 0 || kmph > std::numeric_limits<uint16_t>::max())
@@ -187,7 +187,7 @@ bool ParseMaxspeedTag(std::string const & maxspeedValue, routing::SpeedInUnits &
     return true;
   }
 
-  if (strings::StartsWith(maxspeedValue.substr(i), "mph"))
+  if (maxspeedValue.substr(i).starts_with("mph"))
   {
     uint64_t mph = 0;
     if (!strings::to_uint64(speedStr.c_str(), mph) || mph == 0 || mph > std::numeric_limits<uint16_t>::max())

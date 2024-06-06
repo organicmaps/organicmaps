@@ -251,7 +251,7 @@ public:
 
   // Please note, that number of active cores can vary at runtime.
   // DO NOT assume for the same return value between calls.
-  unsigned CpuCores() const;
+  static unsigned CpuCores() ;
 
   void GetFontNames(FilesList & res) const;
 
