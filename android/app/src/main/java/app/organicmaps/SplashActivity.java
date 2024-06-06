@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import app.MainActivity;
 import app.organicmaps.display.DisplayManager;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.util.Config;
@@ -153,7 +154,7 @@ public class SplashActivity extends AppCompatActivity
     // Re-use original intent to retain all flags and payload.
     // https://github.com/organicmaps/organicmaps/issues/6944
     final Intent intent = Objects.requireNonNull(getIntent());
-    intent.setComponent(new ComponentName(this, DownloadResourcesLegacyActivity.class));
+    intent.setComponent(new ComponentName(this, MainActivity.class));
     // Flags like FLAG_ACTIVITY_NEW_TASK and FLAG_ACTIVITY_RESET_TASK_IF_NEEDED will break the cold start of the app.
     // https://github.com/organicmaps/organicmaps/pull/7287
     intent.setFlags(intent.getFlags() & (Intent.FLAG_ACTIVITY_FORWARD_RESULT | Intent.FLAG_GRANT_READ_URI_PERMISSION));

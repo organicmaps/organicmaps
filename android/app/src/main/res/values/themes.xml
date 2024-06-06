@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <style name="MwmTheme" parent="MwmTheme.Base"/>
-  <style name="MwmTheme.Night" parent="MwmTheme.Night.Base"/>
+
+  <style name="MwmTheme" parent="MwmTheme.Base" />
+
+  <style name="MwmTheme.Night" parent="MwmTheme.Night.Base" />
 
   <style name="MwmTheme.Splash">
     <item name="android:windowBackground">@color/transparent</item>
