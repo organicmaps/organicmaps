@@ -194,11 +194,8 @@ DescriptorSetGroup VulkanObjectManager::CreateDescriptorSetGroup(ref_ptr<VulkanG
 
   // Find a pool with available sets.
   uint32_t poolIndex = 0;
-  while (poolIndex < m_descriptorPools.size() &&
-         m_descriptorPools[poolIndex].m_availableSetsCount == 0)
-  {
+  while (poolIndex < m_descriptorPools.size() && m_descriptorPools[poolIndex].m_availableSetsCount == 0)
     ++poolIndex;
-  }
 
   // No such a pool, create one.
   if (poolIndex == m_descriptorPools.size())
@@ -319,8 +316,8 @@ void VulkanObjectManager::DestroyObjectUnsafe(VulkanObject object)
   CollectObjectsImpl(VulkanObjectArray{object});
 }
 
-void VulkanObjectManager::SetMaxUniformBuffers(uint32_t maxUniformBuffers) 
-{ 
+void VulkanObjectManager::SetMaxUniformBuffers(uint32_t maxUniformBuffers)
+{
   m_maxUniformBuffers = maxUniformBuffers;
 }
 
@@ -383,8 +380,8 @@ void VulkanObjectManager::CreateDescriptorPool()
   // Maximum descriptors sets count in the pool.
   uint32_t constexpr kMaxDescriptorsSetCount = 256 * kMaxInflightFrames;
 
-  CHECK(m_maxUniformBuffers > 0, ());
-  CHECK(m_maxImageSamplers > 0, ());
+  CHECK_GREATER(m_maxUniformBuffers, 0, ());
+  CHECK_GREATER(m_maxImageSamplers, 0, ());
   std::vector<VkDescriptorPoolSize> poolSizes =
   {
     {VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, m_maxUniformBuffers * kMaxDescriptorsSetCount},

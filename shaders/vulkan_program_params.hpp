@@ -28,8 +28,7 @@ public:
     uint32_t m_freeOffset = 0;
 };
 
-  VulkanProgramParamsSetter(ref_ptr<dp::vulkan::VulkanBaseContext> context,
-                            ref_ptr<VulkanProgramPool> programPool);
+  VulkanProgramParamsSetter(ref_ptr<dp::vulkan::VulkanBaseContext> context, ref_ptr<VulkanProgramPool> programPool);
   ~VulkanProgramParamsSetter() override;
 
   void Destroy(ref_ptr<dp::vulkan::VulkanBaseContext> context);
