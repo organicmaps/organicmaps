@@ -12,6 +12,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.view.KeyEvent;
@@ -95,6 +96,7 @@ import app.organicmaps.settings.SettingsActivity;
 import app.organicmaps.settings.UnitLocale;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.LocationUtils;
+import app.organicmaps.util.PowerManagerCompat;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.ThemeUtils;
@@ -135,7 +137,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                MenuBottomSheetFragment.MenuBottomSheetInterfaceWithHeader,
                PlacePageController.PlacePageRouteSettingsListener,
                MapButtonsController.MapButtonClickListener,
-               DisplayChangedListener
+               DisplayChangedListener,
+               PowerManagerCompat.PowerSaveModeChangeListener
 {
   private static final String TAG = MwmActivity.class.getSimpleName();
 
@@ -209,12 +212,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @NonNull
   private ActivityResultLauncher<IntentSenderRequest> mLocationResolutionRequest;
 
+  private ActivityResultLauncher<Intent> mBatterySaverPermission;
+
+  private ActivityResultLauncher<Intent> mDeviceBatterySaverPermission;
+
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private DisplayManager mDisplayManager;
 
   private boolean mRemoveDisplayListener = true;
   private int mLastUiMode = Configuration.UI_MODE_TYPE_UNDEFINED;
+
+  private boolean mNavigationBatterySaverPermission = false;
+  private boolean mNavigationDeviceBatterySaverPermission = false;
+  private PowerManagerCompat mPowerManagerCompat;
+
+  private PowerManager mPowerManager;
 
   public interface LeftAnimationTrackListener
   {
@@ -229,6 +242,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     return new Intent(context, DownloadResourcesLegacyActivity.class)
         .putExtra(EXTRA_COUNTRY_ID, countryId);
+  }
+
+  @Override
+  public void onPowerSaveModeChanged()
+  {
+    if (mPowerManagerCompat.isPowerSaveMode(this))
+      Logger.w(TAG, "power saving mode has been enabled");
+    else
+      Logger.w(TAG, "power saving mode has been disabled");
   }
 
   @Override
@@ -516,6 +538,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
         this::onLocationResolutionResult);
     mPostNotificationPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestPermission(),
         this::onPostNotificationPermissionResult);
+    mBatterySaverPermission = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                                                        this::onBatterySaverPermissionResult);
+    mDeviceBatterySaverPermission = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                                                              this::onDeviceBatterySaverPermissionResult);
 
     mDisplayManager = DisplayManager.from(this);
     if (mDisplayManager.isCarDisplayUsed())
@@ -534,6 +560,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (getIntent().getBooleanExtra(EXTRA_UPDATE_THEME, false))
       ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
+
+    mPowerManagerCompat = new PowerManagerCompat();
+    mPowerManagerCompat.monitorPowerSaveModeChanged(this, this);
+
+    mPowerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
 
     /*
      * onRenderingInitializationFinished() hook is not called when MwmActivity is recreated with the already
@@ -1143,6 +1174,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPostNotificationPermissionRequest = null;
     if (mRemoveDisplayListener && !isChangingConfigurations())
       mDisplayManager.removeListener(DisplayType.Device);
+    mPowerManagerCompat.unregister(this, this);
+    mPowerManagerCompat = null;
+    mPowerManager = null;
   }
 
   @Override
@@ -1908,6 +1942,32 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Logger.w(TAG, "Permission POST_NOTIFICATIONS has been refused");
   }
 
+  private void onBatterySaverPermissionResult(ActivityResult result)
+  {
+    if (result.getResultCode() == Activity.RESULT_OK)
+    {
+      Logger.i(TAG, "Battery Optimisation have been disabled from App");
+    }
+    else
+      Logger.w(TAG, "Battery Optimisation disable permission has been refused");
+
+    if (mNavigationBatterySaverPermission)
+      onRoutingStart();
+  }
+
+  private void onDeviceBatterySaverPermissionResult(ActivityResult result)
+  {
+    if (mPowerManagerCompat.isPowerSaveMode(this))
+    {
+      Logger.i(TAG, "Power Save mode is enabled on the device");
+    }
+    else
+      Logger.w(TAG, "Power Save mode is disabled on the device");
+
+    if (mNavigationDeviceBatterySaverPermission)
+      onRoutingStart();
+  }
+
   /**
    * Called by GoogleFusedLocationProvider to request to GPS and/or Wi-Fi.
    * @param pendingIntent an intent to launch.
@@ -2004,6 +2064,61 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onRoutingStart()
   {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+    {
+      if (!mNavigationBatterySaverPermission &&
+          !mPowerManager.isIgnoringBatteryOptimizations(getPackageName()))
+      {
+        Logger.w(TAG, "Checking for App battery optimisation permission");
+        mNavigationBatterySaverPermission = true;
+        dismissAlertDialog();
+        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+            .setTitle(R.string.battery_optimisation_dialog_title)
+            .setCancelable(false)
+            .setMessage(R.string.battery_optimisation_dialog_summary)
+            .setNegativeButton(R.string.deny, (dialog, which) -> onRoutingStart())
+            .setOnDismissListener(dialog -> mAlertDialog = null);
+
+        final Intent intent = Utils.makeAppBatteryOptimizationIntent(this);
+        if (intent != null)
+        {
+          builder.setPositiveButton(getString(R.string.allow), (dlg, which) -> {
+            mBatterySaverPermission.launch(intent);
+          });
+        }
+        builder.show();
+        return;
+      }
+    }
+
+    // Check for device battery saver mode
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+    {
+      if (!mNavigationDeviceBatterySaverPermission &&
+          mPowerManagerCompat.isPowerSaveMode(this))
+      {
+        Logger.w(TAG, "Checking for Device battery saver permission");
+        mNavigationDeviceBatterySaverPermission = true;
+        dismissAlertDialog();
+        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+            .setTitle(R.string.power_saver_dialog_title)
+            .setCancelable(false)
+            .setMessage(R.string.power_saver_dialog_summary)
+            .setNegativeButton(R.string.not_now, (dialog, which) -> onRoutingStart())
+            .setOnDismissListener(dialog -> mAlertDialog = null);
+
+        final Intent intent = Utils.makePowerSaverSettingIntent(this);
+        if (intent != null)
+        {
+          builder.setPositiveButton(getString(R.string.settings_caps), (dlg, which) -> {
+            mDeviceBatterySaverPermission.launch(intent);
+          });
+        }
+        builder.show();
+        return;
+      }
+    }
+
     if (!showStartPointNotice())
       return;
 
@@ -2012,6 +2127,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     closeFloatingPanels();
     RoutingController.get().start();
+
+    mNavigationBatterySaverPermission = false;
+    mNavigationDeviceBatterySaverPermission = false;
   }
 
   @Override
