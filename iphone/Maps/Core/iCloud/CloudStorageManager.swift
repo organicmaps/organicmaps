@@ -13,16 +13,6 @@ enum WritingResult {
 typealias VoidResultCompletionHandler = (VoidResult) -> Void
 typealias WritingResultCompletionHandler = (WritingResult) -> Void
 
-// TODO: Remove this type and use custom UTTypeIdentifier that is registered into the Info.plist after updating to the iOS >= 14.0.
-struct FileType {
-  let fileExtension: String
-  let typeIdentifier: String
-}
-
-extension FileType {
-  static let kml = FileType(fileExtension: "kml", typeIdentifier: "com.google.earth.kml")
-}
-
 let kTrashDirectoryName = ".Trash"
 private let kBookmarksDirectoryName = "bookmarks"
 private let kICloudSynchronizationDidChangeEnabledStateNotificationName = "iCloudSynchronizationDidChangeEnabledStateNotification"
