@@ -1,4 +1,5 @@
 #include "generator/affiliation.hpp"
+#include "generator/cells_merger.hpp"
 
 #include "platform/platform.hpp"
 
@@ -6,12 +7,12 @@
 
 #include "base/thread_pool_computational.hpp"
 
-#include <cmath>
 #include <functional>
 
 #include "std/boost_geometry.hpp"
 #include <boost/geometry/geometries/register/ring.hpp>
 #include <boost/geometry/geometries/register/point.hpp>
+
 
 BOOST_GEOMETRY_REGISTER_POINT_2D(m2::PointD, double, boost::geometry::cs::cartesian, x, y)
 BOOST_GEOMETRY_REGISTER_RING(std::vector<m2::PointD>)
@@ -35,6 +36,13 @@ m2::RectD GetLimitRect(T && t)
   using Type = RemoveCvrefT<T>;
   if constexpr(std::is_same_v<Type, FeatureBuilder>)
     return t.GetLimitRect();
+  if constexpr(std::is_same_v<Type, std::vector<m2::PointD>>)
+  {
+    m2::RectD r;
+    for (auto const & p : t)
+      r.Add(p);
+    return r;
+  }
   if constexpr(std::is_same_v<Type, m2::PointD>)
     return m2::RectD(t, t);
 
@@ -46,9 +54,11 @@ bool ForAnyPoint(T && t, F && f)
 {
   using Type = RemoveCvrefT<T>;
   if constexpr(std::is_same_v<Type, FeatureBuilder>)
-    return t.ForAnyPoint(std::forward<F>(f));
+    return t.ForAnyPoint(f);
+  if constexpr(std::is_same_v<Type, std::vector<m2::PointD>>)
+    return base::AnyOf(t, f);
   if constexpr(std::is_same_v<Type, m2::PointD>)
-    return f(std::forward<T>(t));
+    return f(t);
 
   UNREACHABLE();
 }
@@ -73,7 +83,8 @@ std::vector<std::string> GetAffiliations(T const & t,
 {
   std::vector<std::string> countries;
   std::vector<std::reference_wrapper<borders::CountryPolygons const>> countriesContainer;
-  countryPolygonsTree.ForEachCountryInRect(GetLimitRect(t), [&](auto const & countryPolygons) {
+  countryPolygonsTree.ForEachCountryInRect(GetLimitRect(t), [&](auto const & countryPolygons)
+  {
     countriesContainer.emplace_back(countryPolygons);
   });
 
@@ -88,7 +99,8 @@ std::vector<std::string> GetAffiliations(T const & t,
 
   for (borders::CountryPolygons const & countryPolygons : countriesContainer)
   {
-    auto const need = ForAnyPoint(t, [&](auto const & point) {
+    auto const need = ForAnyPoint(t, [&](auto const & point)
+    {
       return countryPolygons.Contains(point);
     });
 
@@ -178,10 +190,14 @@ std::vector<std::string> CountriesFilesAffiliation::GetAffiliations(FeatureBuild
   return affiliation::GetAffiliations(fb, m_countryPolygonsTree, m_haveBordersForWholeWorld);
 }
 
-std::vector<std::string>
-CountriesFilesAffiliation::GetAffiliations(m2::PointD const & point) const
+std::vector<std::string> CountriesFilesAffiliation::GetAffiliations(m2::PointD const & point) const
 {
   return affiliation::GetAffiliations(point, m_countryPolygonsTree, m_haveBordersForWholeWorld);
+}
+
+std::vector<std::string> CountriesFilesAffiliation::GetAffiliations(std::vector<m2::PointD> const & points) const
+{
+  return affiliation::GetAffiliations(points, m_countryPolygonsTree, m_haveBordersForWholeWorld);
 }
 
 bool CountriesFilesAffiliation::HasCountryByName(std::string const & name) const

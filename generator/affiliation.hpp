@@ -1,10 +1,8 @@
 #pragma once
 
 #include "generator/borders.hpp"
-#include "generator/cells_merger.hpp"
 #include "generator/feature_builder.hpp"
 
-#include <optional>
 #include <string>
 #include <vector>
 
@@ -33,6 +31,8 @@ public:
   // AffiliationInterface overrides:
   std::vector<std::string> GetAffiliations(FeatureBuilder const & fb) const override;
   std::vector<std::string> GetAffiliations(m2::PointD const & point) const override;
+
+  std::vector<std::string> GetAffiliations(std::vector<m2::PointD> const & points) const;
 
   bool HasCountryByName(std::string const & name) const override;
 
