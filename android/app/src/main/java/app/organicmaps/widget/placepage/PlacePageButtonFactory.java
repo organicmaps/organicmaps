@@ -23,7 +23,7 @@ public class PlacePageButtonFactory
       }
       case BOOKMARK_SAVE ->
       {
-        titleId = R.string.save;
+        titleId = nativeHasRecentlyDeletedBookmark() ? R.string.restore : R.string.save;
         yield R.drawable.ic_bookmarks_off;
       }
       case BOOKMARK_DELETE ->
@@ -74,4 +74,6 @@ public class PlacePageButtonFactory
     };
     return new PlacePageButton(titleId, iconId, buttonType);
   }
+
+  private native static boolean nativeHasRecentlyDeletedBookmark();
 }

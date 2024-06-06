@@ -22286,7 +22286,7 @@
     zh-Hant = 出現未知錯誤
 
   [restore]
-    tags = ios
+    tags = android,ios
     en = Restore
     af = Stel terug
     ar = استعادة
