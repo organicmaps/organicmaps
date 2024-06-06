@@ -33,6 +33,7 @@ final class BMCDefaultViewModel: NSObject {
 
   private func setActions() {
     actions = [.create]
+    actions.append(.import)
     if !manager.areAllCategoriesEmpty() {
       actions.append(.exportAll)
     }
@@ -139,6 +140,11 @@ extension BMCDefaultViewModel {
 
   func shareAllCategories(handler: @escaping SharingResultCompletionHandler) {
     manager.shareAllCategories(completion: handler)
+  }
+
+  func importCategories(from urls: [URL]) {
+    // TODO: Refactor this call when the multiple files parsing support will be added to the bookmark_manager.
+    urls.forEach(manager.loadBookmarkFile(_:))
   }
 
   func finishShareCategory() {
