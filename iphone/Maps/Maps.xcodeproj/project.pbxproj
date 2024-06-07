@@ -3859,7 +3859,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				DefaultBuildSystemTypeForWorkspace = Latest;
-				LastUpgradeCheck = 1530;
+				LastUpgradeCheck = 1540;
 				ORGANIZATIONNAME = "Organic Maps";
 				TargetAttributes = {
 					6741A93D1BF340DE002C974C = {
