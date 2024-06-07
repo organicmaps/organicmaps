@@ -413,8 +413,7 @@ bool Layers::Initialize(VkInstance instance, VkPhysicalDevice physicalDevice)
                     VK_DEBUG_REPORT_DEBUG_BIT_EXT;
     dbgInfo.pfnCallback = DebugReportCallbackImpl;
     dbgInfo.pUserData = nullptr;
-    statusCode = m_vkCreateDebugReportCallbackEXT(instance, &dbgInfo, nullptr,
-                                                  &m_reportCallback);
+    statusCode = m_vkCreateDebugReportCallbackEXT(instance, &dbgInfo, nullptr, &m_reportCallback);
     if (statusCode != VK_SUCCESS)
     {
       LOG_ERROR_VK_CALL(vkCreateDebugReportCallbackEXT, statusCode);
