@@ -243,7 +243,7 @@ void TransitReadManager::Start()
 
   using namespace placeholders;
   uint8_t constexpr kThreadsCount = 1;
-  m_threadsPool = make_unique<base::thread_pool::routine::ThreadPool>(
+  m_threadsPool = make_unique<base::ThreadPool>(
       kThreadsCount, bind(&TransitReadManager::OnTaskCompleted, this, _1));
 }
 

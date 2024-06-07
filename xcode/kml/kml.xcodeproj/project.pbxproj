@@ -25,7 +25,6 @@
 		FA67C85526BB372E00B33DCA /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA67C85426BB372E00B33DCA /* libindexer.a */; };
 		FA67C85726BB373800B33DCA /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA67C85626BB373800B33DCA /* libgeometry.a */; };
 		FA67C85926BB374300B33DCA /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA67C85826BB374300B33DCA /* libicu.a */; };
-		FA67C85B26BB374E00B33DCA /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA67C85A26BB374E00B33DCA /* liboauthcpp.a */; };
 		FA67C85D26BB376300B33DCA /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA67C85C26BB376300B33DCA /* libprotobuf.a */; };
 		FA67C85F26BB377800B33DCA /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA67C85E26BB377800B33DCA /* libsuccinct.a */; };
 /* End PBXBuildFile section */
@@ -79,7 +78,6 @@
 		FA67C85426BB372E00B33DCA /* libindexer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libindexer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA67C85626BB373800B33DCA /* libgeometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgeometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA67C85826BB374300B33DCA /* libicu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libicu.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FA67C85A26BB374E00B33DCA /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA67C85C26BB376300B33DCA /* libprotobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libprotobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA67C85E26BB377800B33DCA /* libsuccinct.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsuccinct.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -98,7 +96,6 @@
 			files = (
 				FA67C85F26BB377800B33DCA /* libsuccinct.a in Frameworks */,
 				FA67C85D26BB376300B33DCA /* libprotobuf.a in Frameworks */,
-				FA67C85B26BB374E00B33DCA /* liboauthcpp.a in Frameworks */,
 				FA67C85926BB374300B33DCA /* libicu.a in Frameworks */,
 				FA67C85726BB373800B33DCA /* libgeometry.a in Frameworks */,
 				FA67C85526BB372E00B33DCA /* libindexer.a in Frameworks */,
@@ -180,7 +177,6 @@
 			children = (
 				FA67C85E26BB377800B33DCA /* libsuccinct.a */,
 				FA67C85C26BB376300B33DCA /* libprotobuf.a */,
-				FA67C85A26BB374E00B33DCA /* liboauthcpp.a */,
 				FA67C85826BB374300B33DCA /* libicu.a */,
 				FA67C85626BB373800B33DCA /* libgeometry.a */,
 				FA67C85426BB372E00B33DCA /* libindexer.a */,

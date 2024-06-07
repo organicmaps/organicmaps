@@ -51,16 +51,16 @@ constexpr string_view kHttps{"https://"};
 
 size_t GetProtocolNameLength(string const & website)
 {
-  if (strings::StartsWith(website, kHttp))
-    return kHttp.size();
-  if (strings::StartsWith(website, kHttps))
+  if (website.starts_with(kHttps))
     return kHttps.size();
+  if (website.starts_with(kHttp))
+    return kHttp.size();
   return 0;
 }
 
 bool IsProtocolSpecified(string const & website)
 {
-  return strings::StartsWith(website, kHttp) || strings::StartsWith(website, kHttps);
+  return 0 != GetProtocolNameLength(website);
 }
 
 // TODO: Current implementation looks only for restricted symbols from ASCII block ignoring
@@ -111,19 +111,19 @@ string ValidateAndFormat_facebook(string const & facebookPage)
       return facebookPage;
   }
 
-  // facebookPage is not a valid username it must be an URL.
+  // facebookPage is not a valid username it must be a URL.
   if (!ValidateWebsite(facebookPage))
     return {};
 
   url::Url const url = url::Url::FromString(facebookPage);
   string const domain = strings::MakeLowerCase(url.GetHost());
   // Check Facebook domain name.
-  if (strings::StartsWith(domain, kFacebookDot) || strings::StartsWith(domain, kFbDot) ||
+  if (domain.starts_with(kFacebookDot) || domain.starts_with(kFbDot) ||
       domain.find(".facebook.") != string::npos || domain.find(".fb.") != string::npos)
   {
     auto webPath = url.GetPath();
     // In case of https://www.facebook.com/profile.php?id=100085707580841 extract only ID.
-    if (strings::StartsWith(webPath, kProfilePhp))
+    if (webPath.starts_with(kProfilePhp))
     {
       std::string const * id = url.GetParamValue("id");
       return (id ? *id : std::string());
@@ -155,7 +155,7 @@ string ValidateAndFormat_instagram(string const & instagramPage)
   url::Url const url = url::Url::FromString(instagramPage);
   string const domain = strings::MakeLowerCase(url.GetHost());
   // Check Instagram domain name: "instagram.com" or "*.instagram.com".
-  if (domain == kInstagramCom || strings::EndsWith(domain, kDotInstagramCom))
+  if (domain == kInstagramCom || domain.ends_with(kDotInstagramCom))
   {
     auto webPath = url.GetPath();
     // Strip last '/' symbol.
@@ -184,7 +184,7 @@ string ValidateAndFormat_twitter(string const & twitterPage)
   url::Url const url = url::Url::FromString(twitterPage);
   string const domain = strings::MakeLowerCase(url.GetHost());
   // Check Twitter domain name: "twitter.com" or "*.twitter.com".
-  if (domain == kTwitterCom || strings::EndsWith(domain, kDotTwitterCom))
+  if (domain == kTwitterCom || domain.ends_with(kDotTwitterCom))
   {
     auto webPath = url.GetPath();
 
@@ -222,11 +222,11 @@ string ValidateAndFormat_vk(string const & vkPage)
   if (!ValidateWebsite(vkPage))
     return {};
 
-  url::Url const url = url::Url::FromString(vkPage);
-  string const domain = strings::MakeLowerCase(url.GetHost());
+  auto const url = url::Url::FromString(vkPage);
+  auto const domain = strings::MakeLowerCase(url.GetHost());
   // Check VK domain name: "vk.com" or "vkontakte.ru" or "*.vk.com" or "*.vkontakte.ru".
-  if (domain == kVkCom || strings::EndsWith(domain, kDotVkCom) ||
-      domain == kVkontakteRu || strings::EndsWith(domain, kDotVkontakteRu))
+  if (domain == kVkCom || domain.ends_with(kDotVkCom) ||
+      domain == kVkontakteRu || domain.ends_with(kDotVkontakteRu))
   {
     auto webPath = url.GetPath();
     // Strip last '/' symbol.
@@ -244,7 +244,7 @@ string stripAtSymbol(string const & lineId)
     return lineId;
   if (lineId.front() == '@')
     return lineId.substr(1);
-  if (strings::StartsWith(lineId, "%40"))
+  if (lineId.starts_with("%40"))
     return lineId.substr(3);
   return lineId;
 }
@@ -257,7 +257,7 @@ string ValidateAndFormat_contactLine(string const & linePage)
   {
     // Check that linePage contains valid page name.
     // Rules are defined here: https://help.line.me/line/?contentId=10009904
-    // The page name must be between 4 and 20 characters. Should contains alphanumeric characters
+    // The page name must be between 4 and 20 characters. Should contain alphanumeric characters
     // and symbols '.', '-', and '_'
 
     string linePageClean = stripAtSymbol(linePage);
@@ -284,36 +284,33 @@ string ValidateAndFormat_contactLine(string const & linePage)
     string lineId = url.GetPath();
     return stripAtSymbol(lineId);
   }
-  else if (domain == kLineMe || strings::EndsWith(domain, kDotLineMe))
+  else if (domain == kLineMe || domain.ends_with(kDotLineMe))
   {
     auto webPath = url.GetPath();
-    if (strings::StartsWith(webPath, "R/ti/p/"))
+    if (webPath.starts_with("R/ti/p/"))
     {
       // Parse https://line.me/R/ti/p/{LINE ID}
       string lineId = webPath.substr(7, webPath.length());
       return stripAtSymbol(lineId);
     }
-    else if (strings::StartsWith(webPath, "ti/p/"))
+    if (webPath.starts_with("ti/p/"))
     {
       // Parse https://line.me/ti/p/{LINE ID}
       string lineId = webPath.substr(5, webPath.length());
       return stripAtSymbol(lineId);
     }
-    else if (strings::StartsWith(webPath, "R/home/public/main") || strings::StartsWith(webPath, "R/home/public/profile"))
+    if (webPath.starts_with("R/home/public/main") || webPath.starts_with("R/home/public/profile"))
     {
       // Parse https://line.me/R/home/public/main?id={LINE ID without @}
       // and https://line.me/R/home/public/profile?id={LINE ID without @}
       std::string const * id = url.GetParamValue("id");
       return (id ? *id : std::string());
     }
-    else
-    {
-      if (strings::StartsWith(linePage, kHttp))
-        return linePage.substr(7);
-      if (strings::StartsWith(linePage, kHttps))
-        return linePage.substr(8);
-      return linePage;
-    }
+    if (linePage.starts_with(kHttp))
+      return linePage.substr(7);
+    if (linePage.starts_with(kHttps))
+      return linePage.substr(8);
+    return linePage;
   }
 
   return {};
@@ -361,7 +358,7 @@ bool ValidateFacebookPage(string const & page)
 
   string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetHost());
   // Validate domain name: "facebook.*" or "fb.*" or "*.facebook.*" or "*.fb.*".
-  return (strings::StartsWith(domain, kFacebookDot) || strings::StartsWith(domain, kFbDot) ||
+  return (domain.starts_with(kFacebookDot) || domain.starts_with(kFbDot) ||
           domain.find(".facebook.") != string::npos || domain.find(".fb.") != string::npos);
 }
 
@@ -378,7 +375,7 @@ bool ValidateInstagramPage(string const & page)
     return false;
 
   string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetHost());
-  return domain == kInstagramCom || strings::EndsWith(domain, kDotInstagramCom);
+  return domain == kInstagramCom || domain.ends_with(kDotInstagramCom);
 }
 
 bool ValidateTwitterPage(string const & page)
@@ -390,7 +387,7 @@ bool ValidateTwitterPage(string const & page)
     return regex_match(page, s_twitterRegex); // Rules are defined here: https://stackoverflow.com/q/11361044
 
   string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetHost());
-  return domain == kTwitterCom || strings::EndsWith(domain, kDotTwitterCom);
+  return domain == kTwitterCom || domain.ends_with(kDotTwitterCom);
 }
 
 bool ValidateVkPage(string const & page)
@@ -423,8 +420,8 @@ bool ValidateVkPage(string const & page)
     return false;
 
   string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetHost());
-  return domain == kVkCom || strings::EndsWith(domain, kDotVkCom)
-         || domain == kVkontakteRu || strings::EndsWith(domain, kDotVkontakteRu);
+  return domain == kVkCom || domain.ends_with(kDotVkCom)
+         || domain == kVkontakteRu || domain.ends_with(kDotVkontakteRu);
 }
 
 bool ValidateLinePage(string const & page)
@@ -435,7 +432,7 @@ bool ValidateLinePage(string const & page)
   {
     // Check that linePage contains valid page name.
     // Rules are defined here: https://help.line.me/line/?contentId=10009904
-    // The page name must be between 4 and 20 characters. Should contains alphanumeric characters
+    // The page name must be between 4 and 20 characters. Should contain alphanumeric characters
     // and symbols '.', '-', and '_'
 
     if (regex_match(stripAtSymbol(page), s_lineRegex))
@@ -447,7 +444,7 @@ bool ValidateLinePage(string const & page)
 
   string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetHost());
   // Check Line domain name.
-  return (domain == kLineMe || strings::EndsWith(domain, kDotLineMe));
+  return (domain == kLineMe || domain.ends_with(kDotLineMe));
 }
 
 bool isSocialContactTag(string_view tag)

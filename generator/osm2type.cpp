@@ -1084,7 +1084,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
       {
         for (auto const & prefix : disusedPrefix)
         {
-          if (strings::StartsWith(tag.m_key, prefix))
+          if (tag.m_key.starts_with(prefix))
           {
             params.ClearPOIAttribs();
             goto exit;

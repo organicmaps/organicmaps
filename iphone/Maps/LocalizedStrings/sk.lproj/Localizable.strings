@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Hlasové povely";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Oznámte názvy ulíc";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Keď je táto možnosť povolená, nahlas sa vysloví názov ulice alebo výjazdu, na ktorý sa má odbočiť.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Nastavenia jazyka povelov";
 
@@ -1007,7 +1013,9 @@
 
 "popular_place" = "Obľúbené";
 
-"export_file" = "Exportovať súbor";
+"export_file" = "Exportovať KMZ";
+
+"export_file_gpx" = "Export GPX";
 
 "delete_list" = "Vymazať zoznam";
 
@@ -1261,6 +1269,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Na obrazovke telefónu teraz používate službu Organic Maps";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Na obrazovke auta teraz používate službu Organic Maps";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Pokračujte v telefóne";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Na obrazovku auta";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Turistika";
 
@@ -1274,6 +1294,36 @@
 "map" = "Mapa";
 
 "drive_through" = "Drive-thru";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Odkaz na menu";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Povolenie synchronizácie iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "Synchronizácia s iCloudom je experimentálna funkcia, ktorá je vo vývoji. Uistite sa, že ste si vytvorili zálohu všetkých svojich záložiek a skladieb.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "Služba iCloud je vypnutá";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Ak chcete túto funkciu používať, povoľte iCloud v nastaveniach zariadenia.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Povolenie stránky";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Zálohovanie";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Chyba: Nepodarilo sa synchronizovať z dôvodu chyby pripojenia";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Chyba: Nepodarilo sa synchronizovať z dôvodu prekročenia kvóty iCloudu";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Chyba: iCloud nie je k dispozícii";
 
 
 /********** Types **********/
@@ -2424,8 +2474,6 @@
 "type.landuse.construction" = "Stavenisko";
 
 "type.landuse.education" = "Vzdelávacia inštitúcia";
-
-"type.landuse.farm" = "Statok";
 
 "type.landuse.farmland" = "Poľnohospodárska pôda";
 
@@ -3813,8 +3861,6 @@
 "type.waterway.river" = "Rieka";
 
 "type.waterway.river.tunnel" = "Rieka";
-
-"type.waterway.riverbank" = "Rieka";
 
 "type.waterway.stream" = "Potok";
 

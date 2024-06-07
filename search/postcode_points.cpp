@@ -6,8 +6,6 @@
 
 #include "coding/reader_wrapper.hpp"
 
-#include "geometry/mercator.hpp"
-
 #include "base/checked_cast.hpp"
 #include "base/string_utils.hpp"
 
@@ -16,10 +14,12 @@
 
 #include "defines.hpp"
 
-using namespace std;
 
 namespace search
 {
+using namespace std;
+using namespace strings;
+
 void PostcodePoints::Header::Read(Reader & reader)
 {
   NonOwningReaderSource source(reader);
@@ -61,7 +61,7 @@ PostcodePoints::PostcodePoints(MwmValue const & value)
   m_radius = kPostcodeRadiusMultiplier * 0.5 * sqrt(area / count);
 }
 
-void PostcodePoints::Get(strings::UniString const & postcode, bool recursive,
+void PostcodePoints::Get(UniString const & postcode, bool recursive,
                          vector<m2::PointD> & points) const
 {
   if (!m_root || !m_points || !m_trieSubReader || !m_pointsSubReader || postcode.empty())
@@ -72,9 +72,9 @@ void PostcodePoints::Get(strings::UniString const & postcode, bool recursive,
 
   while (postcodeIt != postcode.end())
   {
-    auto it = find_if(trieIt->m_edges.begin(), trieIt->m_edges.end(), [&](auto const & edge) {
-      return strings::StartsWith(postcodeIt, postcode.end(), edge.m_label.begin(),
-                                 edge.m_label.end());
+    auto it = find_if(trieIt->m_edges.begin(), trieIt->m_edges.end(), [&](auto const & edge)
+    {
+      return StartsWith(postcodeIt, postcode.end(), edge.m_label.begin(), edge.m_label.end());
     });
     if (it == trieIt->m_edges.end())
       return;
@@ -87,7 +87,8 @@ void PostcodePoints::Get(strings::UniString const & postcode, bool recursive,
     return;
 
   vector<uint32_t> indexes;
-  trieIt->m_values.ForEach([&indexes](auto const & v) {
+  trieIt->m_values.ForEach([&indexes](auto const & v)
+  {
     indexes.push_back(base::asserted_cast<uint32_t>(v.m_featureId));
   });
 
@@ -95,10 +96,11 @@ void PostcodePoints::Get(strings::UniString const & postcode, bool recursive,
   {
     trie::ForEachRef(
         *trieIt,
-        [&indexes](auto const & /* s */, auto const & v) {
+        [&indexes](auto const & /* s */, auto const & v)
+        {
           indexes.push_back(base::asserted_cast<uint32_t>(v.m_featureId));
         },
-        strings::UniString{});
+        UniString{});
   }
 
   points.resize(indexes.size());
@@ -106,15 +108,17 @@ void PostcodePoints::Get(strings::UniString const & postcode, bool recursive,
     CHECK(m_points->Get(indexes[i], points[i]), ());
 }
 
-void PostcodePoints::Get(strings::UniString const & postcode, vector<m2::PointD> & points) const
+void PostcodePoints::Get(UniString const & postcode, vector<m2::PointD> & points) const
 {
   points.clear();
+
+  // Do exact match.
   Get(postcode, false /* recursive */, points);
   if (!points.empty())
     return;
 
-  auto static const space = strings::MakeUniString(" ");
-  Get(postcode + space, true /* recursive */, points);
+  // Special process for UK(GB) postcodes where prefix (before a space) means _wide_ range.
+  Get(postcode + UniString::kSpace, true /* recursive */, points);
 }
 
 PostcodePoints & PostcodePointsCache::Get(MwmContext const & context)

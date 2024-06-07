@@ -45,7 +45,7 @@ UNIT_TEST(WritableDir)
 
   try
   {
-    base::FileData f(path, base::FileData::OP_WRITE_TRUNCATE);
+    base::FileData f(path, base::FileData::Op::WRITE_TRUNCATE);
   }
   catch (Writer::OpenException const &)
   {
@@ -68,7 +68,7 @@ UNIT_TEST(GetReader)
 {
   char const * NON_EXISTING_FILE = "mgbwuerhsnmbui45efhdbn34.tmp";
   char const * arr[] = {
-    "resources-mdpi_clear/symbols.sdf",
+    "resources-mdpi_light/symbols.sdf",
     "classificator.txt",
     "minsk-pass.mwm"
   };
@@ -276,8 +276,10 @@ UNIT_TEST(MkDirRecursively)
 
   CHECK(resetDir(workPath), ());
   auto const filePath = base::JoinPath(workPath, "test1");
-  FileWriter testFile(filePath);
   SCOPE_GUARD(removeTestFile, bind(&base::DeleteFileX, filePath));
+  {
+    FileWriter testFile(filePath);
+  }
 
   TEST(!Platform::MkDirRecursively(path), ());
   TEST(!Platform::IsFileExistsByFullPath(path), ());

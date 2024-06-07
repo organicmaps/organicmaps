@@ -152,30 +152,18 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     deleteNode(item);
   }
 
-  private static class PathEntry
-  {
-    final CountryItem item;
-    final boolean myMapsMode;
-    final int topPosition;
-    final int topOffset;
-
-    private PathEntry(CountryItem item, boolean myMapsMode, int topPosition, int topOffset)
+  private record PathEntry(CountryItem item, boolean myMapsMode, int topPosition, int topOffset)
     {
-      this.item = item;
-      this.myMapsMode = myMapsMode;
-      this.topPosition = topPosition;
-      this.topOffset = topOffset;
-    }
 
-    @Override
-    public String toString()
-    {
-      return item.id + " (" + item.name + "), " +
-             "myMapsMode: " + myMapsMode +
-             ", topPosition: " + topPosition +
-             ", topOffset: " + topOffset;
+      @Override
+      public String toString()
+      {
+        return item.id + " (" + item.name + "), " +
+               "myMapsMode: " + myMapsMode +
+               ", topPosition: " + topPosition +
+               ", topOffset: " + topOffset;
+      }
     }
-  }
 
   private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
   {

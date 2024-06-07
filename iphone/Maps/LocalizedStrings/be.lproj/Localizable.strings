@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Галасавыя інструкцыі";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Абвяшчаць назвы вуліц";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Калі ўключана, назва вуліцы або выезду, на які трэба павярнуць, будзе прамаўляцца ўслых.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Мова агучвання";
 
@@ -1007,7 +1013,9 @@
 
 "popular_place" = "Папулярнае";
 
-"export_file" = "Экспартаваць файл";
+"export_file" = "Экспарт KMZ";
+
+"export_file_gpx" = "Экспарт GPX";
 
 "delete_list" = "Выдаліць спіс";
 
@@ -1261,6 +1269,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Вы выкарыстоўваеце Organic Maps на экране тэлефона";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Вы выкарыстоўваеце Organic Maps на экране аўтамабіля";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Працягнуць на тэлефоне";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "На экран аўто";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Актыўны адпачынак";
 
@@ -1274,6 +1294,36 @@
 "map" = "Мапа";
 
 "drive_through" = "З акенцам для кіроўцаў";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Спасылка на меню";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Уключыць сінхранізацыю з iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "Сінхранізацыя з iCloud - гэта эксперыментальная функцыя, якая знаходзіцца ў стадыі распрацоўкі. Пераканайцеся, што вы зрабілі рэзервовую копію ўсіх сваіх закладак і трэкаў.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud адключаны";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Каб выкарыстоўваць гэту функцыю, уключыце iCloud у наладах прылады.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Уключыць";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Рэзервовае капіраванне";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Памылка: не ўдалося сінхранізаваць з-за памылкі злучэння";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Памылка: не ўдалося сінхранізаваць з-за перавышэння квоты iCloud";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Памылка: iCloud недаступны";
 
 
 /********** Types **********/
@@ -2424,8 +2474,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Адукацыйныя ўстановы";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Farmland";
 
@@ -3813,8 +3861,6 @@
 "type.waterway.river" = "Рака";
 
 "type.waterway.river.tunnel" = "Рака";
-
-"type.waterway.riverbank" = "Рака";
 
 "type.waterway.stream" = "Рака";
 

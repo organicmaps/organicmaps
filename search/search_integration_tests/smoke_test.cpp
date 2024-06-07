@@ -197,7 +197,6 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
       // Linear types.
       {"waterway", "canal"},
       {"waterway", "river"},
-      {"waterway", "riverbank"},
       {"waterway", "stream"},
       {"highway", "footway"},
       {"highway", "cycleway"},

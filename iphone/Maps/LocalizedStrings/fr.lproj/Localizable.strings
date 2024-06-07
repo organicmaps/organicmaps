@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Instructions vocales";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Annoncer les noms de rue";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Lorsqu'il est activé, le nom de la rue ou de la sortie vers laquelle tourner sera prononcé à haute voix.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Langue vocale";
 
@@ -1007,7 +1013,9 @@
 
 "popular_place" = "Populaire";
 
-"export_file" = "Exporter le fichier";
+"export_file" = "Exporter KMZ";
+
+"export_file_gpx" = "Exporter GPX";
 
 "delete_list" = "Supprimer la liste";
 
@@ -1261,6 +1269,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/FR:À_propos_d’OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Vous utilisez maintenant Organic Maps sur le téléphone";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Vous utilisez maintenant Organic Maps dans la voiture";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Aller sur le téléphone";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Afficher dans la voiture";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Randonnée";
 
@@ -1274,6 +1294,36 @@
 "map" = "Carte";
 
 "drive_through" = "Au volant";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Lien vers le menu";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Activer la synchronisation iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "La synchronisation iCloud est une fonctionnalité expérimentale en cours de développement. Assure-toi d'avoir fait une sauvegarde de tous tes signets et pistes.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud est désactivé";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Active iCloud dans les paramètres de ton appareil pour utiliser cette fonctionnalité.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Activer";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Sauvegarde";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Erreur : La synchronisation a échoué en raison d'une erreur de connexion";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Erreur : Échec de la synchronisation en raison du dépassement du quota iCloud.";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Erreur : iCloud n'est pas disponible";
 
 
 /********** Types **********/
@@ -2424,8 +2474,6 @@
 "type.landuse.construction" = "Chantier de construction";
 
 "type.landuse.education" = "Établissements éducatifs";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Terrains agricoles";
 
@@ -3813,8 +3861,6 @@
 "type.waterway.river" = "Rivière";
 
 "type.waterway.river.tunnel" = "Rivière";
-
-"type.waterway.riverbank" = "Rivière";
 
 "type.waterway.stream" = "Ruisseau";
 

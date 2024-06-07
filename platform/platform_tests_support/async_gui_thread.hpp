@@ -16,8 +16,8 @@ class AsyncGuiThread
 public:
   AsyncGuiThread()
   {
-    GetPlatform().SetGuiThread(std::make_unique<base::thread_pool::delayed::ThreadPool>(
-        1 /* threadsCount */, base::thread_pool::delayed::ThreadPool::Exit::ExecPending));
+    GetPlatform().SetGuiThread(std::make_unique<base::DelayedThreadPool>(
+        1 /* threadsCount */, base::DelayedThreadPool::Exit::ExecPending));
   }
 
   virtual ~AsyncGuiThread()

@@ -248,7 +248,7 @@ std::string GetLowercaseFileExt(std::string const & filePath)
 std::string GenerateUniqueFileName(std::string const & path, std::string name, std::string_view ext)
 {
   // Remove extension, if file name already contains it.
-  if (strings::EndsWith(name, ext))
+  if (name.ends_with(ext))
     name.resize(name.size() - ext.size());
 
   size_t counter = 1;

@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Gesproken instructies";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Straatnamen bekendmaken";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Indien ingeschakeld, wordt de naam van de straat of afrit waar u afslaat hardop uitgesproken.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Gesproken taal";
 
@@ -1007,7 +1013,9 @@
 
 "popular_place" = "Populair";
 
-"export_file" = "Bestand exporteren";
+"export_file" = "KMZ exporteren";
+
+"export_file_gpx" = "GPX exporteren";
 
 "delete_list" = "Lijst verwijderen";
 
@@ -1261,6 +1269,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/NL:Wat_is_OpenStreetMap%3F";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Je gebruikt nu Organic Maps op het telefoonscherm";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Je gebruikt nu Organic Maps op het autoscherm";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Doorgaan in de telefoon";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Naar het autoscherm";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Wandelen";
 
@@ -1274,6 +1294,36 @@
 "map" = "Kaart";
 
 "drive_through" = "Drive-though";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Menulink";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "iCloud-synchronisatie inschakelen";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "iCloud synchronisatie is een experimentele functie in ontwikkeling. Zorg ervoor dat je een back-up hebt gemaakt van al je bladwijzers en tracks.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud is uitgeschakeld";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Schakel iCloud in bij de instellingen van je apparaat om deze functie te gebruiken.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "inschakelen";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Back-up";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Fout: Synchronisatie mislukt door verbindingsfout";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Fout: Synchronisatie mislukt vanwege overschrijding iCloud-quota";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Fout: iCloud is niet beschikbaar";
 
 
 /********** Types **********/
@@ -2424,8 +2474,6 @@
 "type.landuse.construction" = "Bouwplaats";
 
 "type.landuse.education" = "Educatieve voorzieningen";
-
-"type.landuse.farm" = "Boerderij";
 
 "type.landuse.farmland" = "Landbouwgrond";
 
@@ -3813,8 +3861,6 @@
 "type.waterway.river" = "Rivier";
 
 "type.waterway.river.tunnel" = "Rivier";
-
-"type.waterway.riverbank" = "Rivier";
 
 "type.waterway.stream" = "Beek";
 

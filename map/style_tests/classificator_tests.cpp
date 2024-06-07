@@ -105,7 +105,7 @@ UNIT_TEST(Classificator_DrawingRules)
 {
   styles::RunForEveryMapStyle([](MapStyle style)
   {
-    if (style != MapStyle::MapStyleClear && style != MapStyle::MapStyleDark)
+    if (style != MapStyle::MapStyleDefaultLight && style != MapStyle::MapStyleDefaultDark)
       return;
 
     Classificator const & c = classif();
@@ -219,7 +219,7 @@ void CheckPriority(vector<base::StringIL> const & arrT, vector<size_t> const & a
 // If someone disagrees with this order, please refer to VNG :)
 // natural-coastline
 // place-island = natural-land
-// natural-scrub,heath,grassland = landuse-grass,farm,farmland,forest
+// natural-scrub,heath,grassland = landuse-grass,farmland,forest
 // natural-water,lake = landuse-basin
 
 UNIT_TEST(Classificator_AreaPriority)
@@ -231,12 +231,12 @@ UNIT_TEST(Classificator_AreaPriority)
     {"place", "island"}, {"natural", "land"},
     // 2
     {"natural", "scrub"}, {"natural", "heath"}, {"natural", "grassland"},
-    {"landuse", "grass"}, {"landuse", "farm"}, {"landuse", "farmland"}, {"landuse", "forest"},
+    {"landuse", "grass"}, {"landuse", "farmland"}, {"landuse", "forest"},
     // ?
     //{"leisure", "park"}, {"leisure", "garden"}, - maybe next time (too tricky to do it now)
     // 3
-    {"natural", "water"}, {"natural", "water", "lake"}, {"landuse", "basin"}, {"waterway", "riverbank"}
-  }, {1, 2, 7, 4}, drule::area);
+    {"natural", "water"}, {"natural", "water", "lake"}, {"landuse", "basin"}
+  }, {1, 2, 6, 3}, drule::area);
 
   CheckPriority({
     // ? - linear waterways @todo: add ability to compare different drule types (areas vs lines)

@@ -6,9 +6,10 @@ import androidx.car.app.model.Action;
 import androidx.car.app.model.Header;
 import androidx.car.app.model.Item;
 import androidx.car.app.model.ItemList;
+import androidx.car.app.model.ListTemplate;
 import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
-import androidx.car.app.navigation.model.MapTemplate;
+import androidx.car.app.navigation.model.MapWithContentTemplate;
 
 import app.organicmaps.BuildConfig;
 import app.organicmaps.Framework;
@@ -29,10 +30,9 @@ public class HelpScreen extends BaseMapScreen
   @Override
   public Template onGetTemplate()
   {
-    final MapTemplate.Builder builder = new MapTemplate.Builder();
-    builder.setHeader(createHeader());
+    final MapWithContentTemplate.Builder builder = new MapWithContentTemplate.Builder();
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
-    builder.setItemList(createSettingsList());
+    builder.setContentTemplate(createSettingsListTemplate());
     return builder.build();
   }
 
@@ -46,12 +46,12 @@ public class HelpScreen extends BaseMapScreen
   }
 
   @NonNull
-  private ItemList createSettingsList()
+  private ListTemplate createSettingsListTemplate()
   {
     final ItemList.Builder builder = new ItemList.Builder();
     builder.addItem(createVersionInfo());
     builder.addItem(createDataVersionInfo());
-    return builder.build();
+    return new ListTemplate.Builder().setHeader(createHeader()).setSingleList(builder.build()).build();
   }
 
   @NonNull

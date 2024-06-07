@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Instruccions de veu";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Anuncia els noms dels carrers";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Quan s'activa, el nom del carrer o la sortida per girar es pronunciarà en veu alta.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Llengua de la veu";
 
@@ -1007,7 +1013,9 @@
 
 "popular_place" = "Popular";
 
-"export_file" = "Exporta com a fitxer";
+"export_file" = "Exporta KMZ";
+
+"export_file_gpx" = "Exporta GPX";
 
 "delete_list" = "Esborra la llista";
 
@@ -1261,6 +1269,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Ca:About";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Ara esteu utilitzant els Organic Maps a la pantalla del telèfon";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Ara esteu utilitzant els Organic Maps a la pantalla del cotxe";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Continueu al telèfon";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "A la pantalla del cotxe";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Senderisme";
 
@@ -1274,6 +1294,36 @@
 "map" = "Mapa";
 
 "drive_through" = "Servei al cotxe";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Enllaç del menú";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Activa la sincronització d'iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "La sincronització d'iCloud és una característica experimental en desenvolupament. Assegureu-vos que heu fet una còpia de seguretat de tots els vostres marcadors i pistes.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud està desactivat";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Activa iCloud a la configuració del teu dispositiu per utilitzar aquesta funció.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Activa";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Còpia de seguretat";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Error: no s'ha pogut sincronitzar a causa d'un error de connexió";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Error: no s'ha pogut sincronitzar perquè s'ha superat la quota d'iCloud";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Error: iCloud no està disponible";
 
 
 /********** Types **********/
@@ -2424,8 +2474,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Farmland";
 
@@ -3813,8 +3861,6 @@
 "type.waterway.river" = "River";
 
 "type.waterway.river.tunnel" = "River";
-
-"type.waterway.riverbank" = "River";
 
 "type.waterway.stream" = "Stream";
 

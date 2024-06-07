@@ -20,6 +20,12 @@ typedef NS_ENUM(NSUInteger, MWMTheme) {
   MWMThemeAuto
 };
 
+typedef NS_ENUM(NSUInteger, MWMKmlFileType) {
+  MWMKmlFileTypeText,
+  MWMKmlFileTypeBinary,
+  MWMKmlFileTypeGpx
+} NS_SWIFT_NAME(KmlFileType);
+
 typedef uint64_t MWMMarkID;
 typedef uint64_t MWMTrackID;
 typedef uint64_t MWMMarkGroupID;

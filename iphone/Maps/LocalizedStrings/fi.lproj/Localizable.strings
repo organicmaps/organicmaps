@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Ääniohjeistukset";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Ilmoita kadunnimet";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Kun tämä on käytössä, sen kadun tai liittymän nimi, jolle käännytään, puhutaan ääneen.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Äänen kieli";
 
@@ -1007,7 +1013,9 @@
 
 "popular_place" = "Suosittu";
 
-"export_file" = "Vie tiedosto";
+"export_file" = "Vie KMZ";
+
+"export_file_gpx" = "Vie GPX";
 
 "delete_list" = "Poista luettelo";
 
@@ -1261,6 +1269,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Käytät nyt puhelimen näytöllä Organic Maps -palvelua.";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Käytät nyt Organic Maps auton näytöllä";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Jatka puhelimessa";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Auton näyttöön";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Vaellus";
 
@@ -1274,6 +1294,36 @@
 "map" = "Kartta";
 
 "drive_through" = "Ajaa läpi";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Valikkolinkki";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Ota iCloud-synkronointi käyttöön";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "iCloud-synkronointi on kehitteillä oleva kokeellinen ominaisuus. Varmista, että olet tehnyt varmuuskopion kaikista kirjanmerkeistäsi ja kappaleistasi.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud on poistettu käytöstä";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Ota iCloud käyttöön laitteesi asetuksissa, jotta voit käyttää tätä ominaisuutta.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Ota käyttöön";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Varmuuskopiointi";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Virhe: Synkronointi epäonnistui yhteysvirheen vuoksi.";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Virhe: iCloud-kiintiön ylittymisen vuoksi synkronointi epäonnistui.";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Virhe: iCloud ei ole käytettävissä";
 
 
 /********** Types **********/
@@ -2424,8 +2474,6 @@
 "type.landuse.construction" = "Rakennustyömaa";
 
 "type.landuse.education" = "Koulutuslaitos";
-
-"type.landuse.farm" = "Maatila";
 
 "type.landuse.farmland" = "Maatalousmaa";
 
@@ -3813,8 +3861,6 @@
 "type.waterway.river" = "Joki";
 
 "type.waterway.river.tunnel" = "Joki";
-
-"type.waterway.riverbank" = "Joki";
 
 "type.waterway.stream" = "Joki";
 

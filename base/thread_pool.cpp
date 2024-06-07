@@ -7,9 +7,8 @@
 #include <memory>
 #include <vector>
 
-namespace base::thread_pool
-{
-namespace routine
+
+namespace base
 {
 namespace
 {
@@ -18,7 +17,7 @@ typedef std::function<threads::IRoutine *()> TPopRoutineFn;
 class PoolRoutine : public threads::IRoutine
 {
 public:
-  PoolRoutine(const TPopRoutineFn & popFn, const TFinishRoutineFn & finishFn)
+  PoolRoutine(const TPopRoutineFn & popFn, const ThreadPool::TFinishRoutineFn & finishFn)
     : m_popFn(popFn)
     , m_finishFn(finishFn)
   {
@@ -43,7 +42,7 @@ public:
 
 private:
   TPopRoutineFn m_popFn;
-  TFinishRoutineFn m_finishFn;
+  ThreadPool::TFinishRoutineFn m_finishFn;
 };
 } // namespace
 
@@ -132,25 +131,5 @@ void ThreadPool::Stop()
 {
   m_impl->Stop();
 }
-}  // namespace routine
 
-namespace routine_simple
-{
-ThreadPool::ThreadPool(size_t reserve) { m_pool.reserve(reserve); }
-
-void ThreadPool::Add(std::unique_ptr<threads::IRoutine> && routine)
-{
-  m_pool.emplace_back(std::make_unique<threads::Thread>());
-  m_pool.back()->Create(std::move(routine));
-}
-
-void ThreadPool::Join()
-{
-  for (auto & thread : m_pool)
-    thread->Join();
-}
-
-threads::IRoutine * ThreadPool::GetRoutine(size_t i) const { return m_pool[i]->GetRoutine(); }
-
-}  // namespace routine_simple
-}  // namespace base::thread_pool
+} // namespace base

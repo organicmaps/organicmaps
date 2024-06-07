@@ -478,6 +478,17 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
                 keyboardType:UIKeyboardTypeURL];
     break;
   }
+  case MetadataID::FMD_WEBSITE_MENU:
+  {
+    [self configTextViewCell:cell
+                      cellID:cellID
+                        icon:@"ic_placepage_website_menu"
+                 placeholder:L(@"website_menu")
+                errorMessage:L(@"error_enter_correct_web")
+                     isValid:isValid
+                keyboardType:UIKeyboardTypeURL];
+    break;
+  }
   case MetadataID::FMD_EMAIL:
   {
     [self configTextViewCell:cell

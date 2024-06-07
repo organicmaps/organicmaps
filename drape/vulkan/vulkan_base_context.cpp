@@ -16,26 +16,6 @@ namespace
 {
 uint32_t constexpr kDefaultStagingBufferSizeInBytes = 3 * 1024 * 1024;
 
-VkImageMemoryBarrier PostRenderBarrier(VkImage image)
-{
-  VkImageMemoryBarrier imageMemoryBarrier = {};
-  imageMemoryBarrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
-  imageMemoryBarrier.pNext = nullptr;
-  imageMemoryBarrier.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
-  imageMemoryBarrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
-  imageMemoryBarrier.oldLayout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
-  imageMemoryBarrier.newLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-  imageMemoryBarrier.image = image;
-  imageMemoryBarrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-  imageMemoryBarrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-  imageMemoryBarrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-  imageMemoryBarrier.subresourceRange.baseMipLevel = 0;
-  imageMemoryBarrier.subresourceRange.levelCount = 1;
-  imageMemoryBarrier.subresourceRange.baseArrayLayer = 0;
-  imageMemoryBarrier.subresourceRange.layerCount = 1;
-  return imageMemoryBarrier;
-}
-
 uint16_t PackAttachmentsOperations(VulkanBaseContext::AttachmentsOperations const & operations)
 {
   uint16_t result = 0;
@@ -307,11 +287,12 @@ void VulkanBaseContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)
     {
       ref_ptr<Framebuffer> fb = m_currentFramebuffer;
       ref_ptr<VulkanTexture> tex = fb->GetTexture()->GetHardwareTexture();
-      VkImageMemoryBarrier imageBarrier = PostRenderBarrier(tex->GetImage());
-      vkCmdPipelineBarrier(m_renderingCommandBuffers[m_inflightFrameIndex],
-                           VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT,
-                           VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT, 0, 0,
-                           nullptr, 0, nullptr, 1, &imageBarrier);
+
+      // Allow to use framebuffer in the fragment shader in the next pass.
+      tex->MakeImageLayoutTransition(m_renderingCommandBuffers[m_inflightFrameIndex],
+                                     VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL,
+                                     VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT,
+                                     VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT);
     }
   }
 
@@ -451,6 +432,51 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
       fbData.m_framebuffers.resize(1);
       CHECK_VK_CALL(vkCreateFramebuffer(m_device, &frameBufferCreateInfo, nullptr, &fbData.m_framebuffers[0]));
     }
+  }
+
+  // Make transitions for the current color and depth-stencil attachments.
+  if (m_currentFramebuffer != nullptr)
+  {
+    ref_ptr<dp::Framebuffer> framebuffer = m_currentFramebuffer;
+    ref_ptr<VulkanTexture> tex = framebuffer->GetTexture()->GetHardwareTexture();
+    tex->MakeImageLayoutTransition(m_renderingCommandBuffers[m_inflightFrameIndex],
+                                   VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL,
+                                   VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT,
+                                   VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT);
+    if (auto ds = framebuffer->GetDepthStencilRef())
+    {
+      ref_ptr<VulkanTexture> dsTex = ds->GetTexture()->GetHardwareTexture();
+      dsTex->MakeImageLayoutTransition(m_renderingCommandBuffers[m_inflightFrameIndex],
+                                       VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL,
+                                       VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT | VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT,
+                                       VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT | VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT);
+    }
+  }
+  else
+  {
+    VkImageMemoryBarrier imageMemoryBarrier = {};
+    imageMemoryBarrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
+    imageMemoryBarrier.pNext = nullptr;
+    imageMemoryBarrier.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+    imageMemoryBarrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT | VK_ACCESS_INPUT_ATTACHMENT_READ_BIT;
+    imageMemoryBarrier.oldLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+    imageMemoryBarrier.newLayout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+    imageMemoryBarrier.image = m_swapchainImages[m_imageIndex];
+    imageMemoryBarrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+    imageMemoryBarrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+    imageMemoryBarrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+    imageMemoryBarrier.subresourceRange.baseMipLevel = 0;
+    imageMemoryBarrier.subresourceRange.levelCount = VK_REMAINING_MIP_LEVELS;
+    imageMemoryBarrier.subresourceRange.baseArrayLayer = 0;
+    imageMemoryBarrier.subresourceRange.layerCount = VK_REMAINING_ARRAY_LAYERS;
+    vkCmdPipelineBarrier(m_renderingCommandBuffers[m_inflightFrameIndex], 
+                         VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT, VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT, 0, 0,
+                         nullptr, 0, nullptr, 1, &imageMemoryBarrier);
+
+    m_depthTexture->MakeImageLayoutTransition(m_renderingCommandBuffers[m_inflightFrameIndex],
+                                              VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL,
+                                              VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT | VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT,
+                                              VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT | VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT);
   }
 
   m_pipelineKey.m_renderPass = fbData.m_renderPass;
@@ -1049,23 +1075,46 @@ VkRenderPass VulkanBaseContext::CreateRenderPass(uint32_t attachmentsCount, Atta
   subpassDescription.pPreserveAttachments = nullptr;
   subpassDescription.pResolveAttachments = nullptr;
 
-  std::array<VkSubpassDependency, 2> dependencies = {};
+  std::array<VkSubpassDependency, 4> dependencies = {};
 
+  // Write-after-write for depth/stencil attachment (begin render pass).
   dependencies[0].srcSubpass = VK_SUBPASS_EXTERNAL;
   dependencies[0].dstSubpass = 0;
-  dependencies[0].srcStageMask = VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT;
-  dependencies[0].dstStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-  dependencies[0].srcAccessMask = VK_ACCESS_MEMORY_READ_BIT;
-  dependencies[0].dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_READ_BIT | VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
-  dependencies[0].dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
+  dependencies[0].srcStageMask = VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT | VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT;
+  dependencies[0].dstStageMask = VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT | VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT;
+  dependencies[0].srcAccessMask = 0;
+  dependencies[0].dstAccessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
+  dependencies[0].dependencyFlags = 0;
 
-  dependencies[1].srcSubpass = 0;
-  dependencies[1].dstSubpass = VK_SUBPASS_EXTERNAL;
+  // Write-after-write for color attachment (begin render pass).
+  dependencies[1].srcSubpass = VK_SUBPASS_EXTERNAL;
+  dependencies[1].dstSubpass = 0;
   dependencies[1].srcStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-  dependencies[1].dstStageMask = VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT;
-  dependencies[1].srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_READ_BIT | VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
-  dependencies[1].dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
-  dependencies[1].dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
+  dependencies[1].dstStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+  dependencies[1].srcAccessMask = 0;
+  dependencies[1].dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+  dependencies[1].dependencyFlags = 0;
+
+  // Read-after-write and write-after-write for color attachment (end render pass).
+  dependencies[2].srcSubpass = 0;
+  dependencies[2].dstSubpass = VK_SUBPASS_EXTERNAL;
+  dependencies[2].srcStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+  dependencies[2].dstStageMask = VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT;
+  dependencies[2].srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_READ_BIT | 
+                                  VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+  dependencies[2].dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
+  dependencies[2].dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
+
+  // Write-after-write for depth attachment (end render pass).
+  // Write-after-write happens because of layout transition to the final layout.
+  dependencies[3].srcSubpass = 0;
+  dependencies[3].dstSubpass = VK_SUBPASS_EXTERNAL;
+  dependencies[3].srcStageMask = VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT | 
+                                 VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT;
+  dependencies[3].dstStageMask = VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT;
+  dependencies[3].srcAccessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
+  dependencies[3].dstAccessMask = 0;
+  dependencies[3].dependencyFlags = 0;
 
   VkRenderPassCreateInfo renderPassInfo = {};
   renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;

@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.car.app.CarContext;
 import androidx.car.app.constraints.ConstraintManager;
 import androidx.car.app.model.Action;
+import androidx.car.app.model.Header;
 import androidx.car.app.model.MessageTemplate;
 import androidx.car.app.model.Template;
 import androidx.lifecycle.LifecycleOwner;
@@ -130,11 +131,14 @@ class DownloaderScreen extends BaseScreen
   {
     final MessageTemplate.Builder builder = new MessageTemplate.Builder(getText());
     builder.setLoading(true);
+
+    final Header.Builder headerBuilder = new Header.Builder();
     if (mIsCancelActionDisabled)
-      builder.setHeaderAction(Action.APP_ICON);
+      headerBuilder.setStartHeaderAction(Action.APP_ICON);
     else
-      builder.setHeaderAction(Action.BACK);
-    builder.setTitle(getCarContext().getString(R.string.notification_channel_downloader));
+      headerBuilder.setStartHeaderAction(Action.BACK);
+    headerBuilder.setTitle(getCarContext().getString(R.string.notification_channel_downloader));
+    builder.setHeader(headerBuilder.build());
 
     return builder.build();
   }

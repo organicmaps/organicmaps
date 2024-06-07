@@ -1,5 +1,6 @@
 package app.organicmaps.util;
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +9,13 @@ import android.location.Location;
 import android.net.Uri;
 import android.text.TextUtils;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.documentfile.provider.DocumentFile;
+import androidx.fragment.app.Fragment;
+
+import java.io.IOException;
 
 import app.organicmaps.Framework;
 import app.organicmaps.R;
@@ -18,7 +25,10 @@ import app.organicmaps.bookmarks.data.MapObject;
 public class SharingUtils
 {
   private static final String KMZ_MIME_TYPE = "application/vnd.google-earth.kmz";
+  private static final String GPX_MIME_TYPE = "application/gpx";
   private static final String TEXT_MIME_TYPE = "text/plain";
+
+  private static Uri sourceFileUri;
 
   // This utility class has only static methods
   private SharingUtils()
@@ -92,7 +102,29 @@ public class SharingUtils
     context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));
   }
 
-  public static void shareBookmarkFile(Context context, String fileName)
+  public static ActivityResultLauncher<Intent> RegisterLauncher(@NonNull Fragment fragment)
+  {
+    return fragment.registerForActivityResult(
+      new ActivityResultContracts.StartActivityForResult(), result ->
+      {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null)
+        {
+          Uri destinationUri = result.getData().getData();
+          Uri sourceUri = sourceFileUri;
+          sourceFileUri = null;
+          try
+          {
+            if (sourceUri != null && destinationUri != null)
+              StorageUtils.copyFile(fragment.requireContext().getContentResolver(), sourceUri, destinationUri);
+          }
+          catch (IOException e)
+          {
+            throw new RuntimeException(e);
+          }
+        }
+      });
+  }
+  public static void shareBookmarkFile(Context context, ActivityResultLauncher<Intent> launcher, String fileName, String fileMimeType)
   {
     Intent intent = new Intent(Intent.ACTION_SEND);
 
@@ -106,12 +138,21 @@ public class SharingUtils
     intent.putExtra(android.content.Intent.EXTRA_STREAM, fileUri);
     // Properly set permissions for intent, see
     // https://developer.android.com/reference/androidx/core/content/FileProvider#include-the-permission-in-an-intent
-    intent.setDataAndType(fileUri, KMZ_MIME_TYPE);
+    intent.setDataAndType(fileUri, fileMimeType);
     intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
     if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
       intent.setClipData(ClipData.newRawUri("", fileUri));
       intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
     }
+
+    Intent saveIntent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+    saveIntent.setType(fileMimeType);
+    DocumentFile documentFile = DocumentFile.fromSingleUri(context, fileUri);
+    if (documentFile != null)
+      saveIntent.putExtra(Intent.EXTRA_TITLE, documentFile.getName());
+    sourceFileUri = fileUri;
+
+    Intent[] extraIntents = {saveIntent};
 
     Intent chooser = Intent.createChooser(intent, context.getString(R.string.share));
 
@@ -122,6 +163,8 @@ public class SharingUtils
       chooser.putExtra(Intent.EXTRA_EXCLUDE_COMPONENTS, excludeSelf);
     }
 
-    context.startActivity(chooser);
+    chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, extraIntents);
+
+    launcher.launch(chooser);
   }
 }

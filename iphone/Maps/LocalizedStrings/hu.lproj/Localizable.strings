@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Hangutasítások";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Az utcanevek felolvasása";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Ha engedélyezve van, a rendszer hangosan kimondja annak az utcának vagy kijáratnak a nevét, amelyre be kell kanyarodni.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "A hangutasítások nyelve";
 
@@ -1007,7 +1013,9 @@
 
 "popular_place" = "Popular";
 
-"export_file" = "Fájl exportálása";
+"export_file" = "KMZ exportálása";
+
+"export_file_gpx" = "GPX exportálása";
 
 "delete_list" = "Törölni a listát";
 
@@ -1261,6 +1269,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Hu:Névjegy";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Ön most az Organic Maps használja a telefon képernyőjén";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Ön most az Organic Mapset használja az autó képernyőjén";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Folytassa a telefonban";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Az autó képernyőjére";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Túrázás";
 
@@ -1274,6 +1294,36 @@
 "map" = "Térkép";
 
 "drive_through" = "Drive-through";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Menü link";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "iCloud-szinkronizálás engedélyezése";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "Az iCloud-szinkronizálás egy fejlesztés alatt álló kísérleti funkció. Győződjön meg róla, hogy készített biztonsági másolatot az összes könyvjelzőjéről és zeneszámáról.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "Az iCloud letiltva";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "A funkció használatához engedélyezze az iCloudot a készülék beállításaiban.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Engedélyezze a";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Biztonsági mentés";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Hiba: A szinkronizálás sikertelen volt a kapcsolat hibája miatt.";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Hiba: iCloud-kvóta túllépése miatt nem sikerült szinkronizálni.";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Hiba: Az iCloud nem elérhető";
 
 
 /********** Types **********/
@@ -2424,8 +2474,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Termőföld";
 
@@ -3813,8 +3861,6 @@
 "type.waterway.river" = "Folyó";
 
 "type.waterway.river.tunnel" = "Folyó";
-
-"type.waterway.riverbank" = "Folyó";
 
 "type.waterway.stream" = "Folyó";
 

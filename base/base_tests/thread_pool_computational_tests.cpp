@@ -1,11 +1,10 @@
 #include "testing/testing.hpp"
 
+#include "base/thread.hpp"
 #include "base/thread_pool_computational.hpp"
 
 #include <atomic>
-#include <chrono>
 #include <future>
-#include <mutex>
 #include <thread>
 #include <vector>
 
@@ -21,11 +20,11 @@ UNIT_TEST(ThreadPoolComputational_SomeThreads)
     size_t const threadCount = 4;
     std::atomic<size_t> counter{0};
     {
-      base::thread_pool::computational::ThreadPool threadPool(threadCount);
+      base::ComputationalThreadPool threadPool(threadCount);
       for (size_t i = 0; i < threadCount; ++i)
       {
         threadPool.Submit([&]() {
-          std::this_thread::sleep_for(std::chrono::milliseconds(1));
+          threads::Sleep(1);
           ++counter;
         });
       }
@@ -42,11 +41,11 @@ UNIT_TEST(ThreadPoolComputational_OneThread)
     size_t const threadCount = 1;
     std::atomic<size_t> counter{0};
     {
-      base::thread_pool::computational::ThreadPool threadPool(threadCount);
+      base::ComputationalThreadPool threadPool(threadCount);
       for (size_t i = 0; i < threadCount; ++i)
       {
         threadPool.Submit([&]() {
-          std::this_thread::sleep_for(std::chrono::milliseconds(1));
+          threads::Sleep(1);
           ++counter;
         });
       }
@@ -65,11 +64,11 @@ UNIT_TEST(ThreadPoolComputational_ManyThread)
     threadCount *= 2;
     std::atomic<size_t> counter{0};
     {
-      base::thread_pool::computational::ThreadPool threadPool(threadCount);
+      base::ComputationalThreadPool threadPool(threadCount);
       for (size_t i = 0; i < threadCount; ++i)
       {
         threadPool.Submit([&]() {
-          std::this_thread::sleep_for(std::chrono::milliseconds(1));
+          threads::Sleep(1);
           ++counter;
         });
       }
@@ -84,12 +83,12 @@ UNIT_TEST(ThreadPoolComputational_ReturnValue)
   for (size_t t = 0; t < kTimes; ++t)
   {
     size_t const threadCount = 4;
-    base::thread_pool::computational::ThreadPool threadPool(threadCount);
+    base::ComputationalThreadPool threadPool(threadCount);
     std::vector<std::future<size_t>> futures;
     for (size_t i = 0; i < threadCount; ++i)
     {
       auto f = threadPool.Submit([=]() {
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        threads::Sleep(1);
         return i;
       });
 
@@ -108,11 +107,11 @@ UNIT_TEST(ThreadPoolComputational_ManyTasks)
     size_t const taskCount = 11;
     std::atomic<size_t> counter{0};
     {
-      base::thread_pool::computational::ThreadPool threadPool(4);
+      base::ComputationalThreadPool threadPool(4);
       for (size_t i = 0; i < taskCount; ++i)
       {
         threadPool.Submit([&]() {
-          std::this_thread::sleep_for(std::chrono::milliseconds(1));
+          threads::Sleep(1);
           ++counter;
         });
       }

@@ -169,7 +169,7 @@
 	<string name="description">Примітка</string>
 	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">З вами поділилися мiтками Organic Maps</string>
-	<string name="share_bookmarks_email_body">Привіт!\n\nДодаю мої закладки; відкрийте їх у Organic Maps. Якщо застосунок не встановлено, ви можете завантажити його тут: https://omaps.app/get?kmz\n\nНасолоджуйтесь подорожами з Organic Maps!</string>
+	<string name="share_bookmarks_email_body">Привіт!\n\nДодаю мої мiтки; відкрийте їх у Organic Maps. Якщо застосунок не встановлено, ви можете завантажити його тут: https://omaps.app/get?kmz\n\nНасолоджуйтесь подорожами з Organic Maps!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Завантаження мiток</string>
 	<!-- Kmz file successful loading -->
@@ -236,6 +236,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D будівлі вимкнені в режимі енергозбереження</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Голосові інструкції</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Проговорювати назви вулиць</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Якщо ввімкнено, назва вулиці або виїзду, на яку потрібно повернути, буде вимовлена вголос.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Мова підказок</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -617,6 +621,7 @@
 	  <item quantity="one">%d файл був знайдений. Ви побачите його після перетворення.</item>
 	  <item quantity="other">%d файлів було знайдено. Ви побачите їх після конвертації.</item>
 	</plurals>
+	<string name="restore">Відновити</string>
 	<plurals name="objects">
 	  <item quantity="other">%d місце</item>
 	</plurals>
@@ -637,7 +642,8 @@
 	<string name="bookmarks_empty_list_title">Список порожній</string>
 	<string name="bookmarks_empty_list_message">Щоб додати нову мітку, натисніть на значок зірочки в картці об’єкта</string>
 	<string name="category_desc_more">…ще</string>
-	<string name="export_file">Експортувати файл</string>
+	<string name="export_file">Експорт КМЗ</string>
+	<string name="export_file_gpx">Експорт GPX</string>
 	<string name="delete_list">Видалити список</string>
 	<string name="public_access">Публічний доступ</string>
 	<string name="limited_access">Приватний доступ</string>
@@ -783,16 +789,16 @@
 	<string name="app_tip_08">Ви можете легко виправити та покращити дані карти.</string>
 	<!-- App tip #09 -->
 	<string name="app_tip_09">Наша головна мета – створити швидкі, конфіденційні та прості у використанні карти, які вам сподобаються.</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Зараз ви використовуєте Organic Maps на екрані телефону</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">Зараз ви використовуєте Organic Maps на екрані телефону</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Ви використовуєте Organic Maps на екрані автомобіля</string>
+	<string name="car_used_on_the_car_screen">Ви використовуєте Organic Maps на екрані автомобіля</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Ви підключені до Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Продовжуйте в телефоні</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">На екран автомобіля</string>
+	<string name="car_continue_on_the_phone">Продовжуйте в телефоні</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">На екран автомобіля</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">Ця програма потребує доступу до вашого місцезнаходження для навігаційних цілей.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -815,6 +821,10 @@
 	<string name="zoom_in">Збільшити</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">Зменшити</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Посилання на меню</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Переглянути меню</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адреса/блок</string>
@@ -1405,7 +1415,6 @@
 	<string name="type.landuse.commercial">Комерційні ділянки</string>
 	<string name="type.landuse.construction">Будівництво</string>
 	<string name="type.landuse.education">Освітній заклади</string>
-	<string name="type.landuse.farm">Ферма</string>
 	<string name="type.landuse.farmland">Сільськогосподарська земля</string>
 	<string name="type.landuse.farmyard">Сільськогосподарська земля</string>
 	<string name="type.landuse.field">Поле</string>
@@ -2093,7 +2102,6 @@
 	<string name="type.waterway.lock_gate">Шлюз</string>
 	<string name="type.waterway.river">Річка</string>
 	<string name="type.waterway.river.tunnel">Річка</string>
-	<string name="type.waterway.riverbank">Річка</string>
 	<string name="type.waterway.stream">Річка</string>
 	<string name="type.waterway.stream.ephemeral">Річка</string>
 	<string name="type.waterway.stream.intermittent">Річка</string>

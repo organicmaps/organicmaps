@@ -53,7 +53,7 @@ std::vector<std::vector<std::string>> GetAffiliations(std::vector<FeatureBuilder
                                                       AffiliationInterface const & affiliation,
                                                       size_t threadsCount)
 {
-  base::thread_pool::computational::ThreadPool pool(threadsCount);
+  base::ComputationalThreadPool pool(threadsCount);
   std::vector<std::future<std::vector<std::string>>> futuresAffiliations;
   for (auto const & fb : fbs)
   {

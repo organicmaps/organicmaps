@@ -85,6 +85,8 @@ set(SRC
   support_manager.hpp
   symbols_texture.cpp
   symbols_texture.hpp
+  harfbuzz_shaping.cpp
+  harfbuzz_shaping.hpp
   texture.cpp
   texture.hpp
   texture_manager.cpp
@@ -172,7 +174,7 @@ target_link_libraries(${PROJECT_NAME}
   Freetype::Freetype
   vulkan_wrapper
   stb_image
-  harfbuzz
+  harfbuzz::harfbuzz
   ICU::i18n
   expat::expat
   $<$<BOOL:${PLATFORM_MAC}>:-framework\ OpenGL>
@@ -180,3 +182,5 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 omim_add_test_subdirectory(drape_tests)
+
+omim_add_tool_subdirectory(fonts_tool)

@@ -163,25 +163,38 @@ public class StorageUtils
    * @return true on success and false if the provider recently crashed.
    * @throws IOException - if I/O error occurs.
    */
+  static private boolean copyFile(InputStream from, OutputStream to) throws IOException
+  {
+    if (from == null || to == null)
+      return false;
+
+    byte[] buf = new byte[4 * 1024];
+    int len;
+    while ((len = from.read(buf)) > 0)
+      to.write(buf, 0, len);
+
+    return true;
+  }
   public static boolean copyFile(@NonNull ContentResolver resolver, @NonNull Uri from, @NonNull File to) throws IOException
   {
     try (InputStream in = resolver.openInputStream(from))
     {
-      if (in == null)
-        return false;
-
       try (OutputStream out = new FileOutputStream(to))
       {
-        byte[] buf = new byte[4 * 1024];
-        int len;
-        while ((len = in.read(buf)) > 0)
-          out.write(buf, 0, len);
-
-        return true;
+        return copyFile(in, out);
       }
     }
   }
 
+  public static boolean copyFile(@NonNull ContentResolver resolver,@NonNull Uri from,@NonNull Uri to) throws IOException {
+    try (InputStream in = resolver.openInputStream(from))
+    {
+      try (OutputStream out = resolver.openOutputStream(to))
+      {
+        return copyFile(in, out);
+      }
+    }
+  }
   /**
    * Recursively lists all movable files in the directory.
    */

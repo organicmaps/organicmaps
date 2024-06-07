@@ -40,6 +40,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 @property(weak, nonatomic) MapViewController *ownerController;
 
 @property(nonatomic) BOOL disableStandbyOnRouteFollowing;
+@property(nonatomic) BOOL isAddingPlace;
 
 @end
 
@@ -61,6 +62,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   self.isDirectionViewHidden = YES;
   self.menuState = MWMBottomMenuStateInactive;
   self.menuRestoreState = MWMBottomMenuStateInactive;
+  self.isAddingPlace = NO;
   return self;
 }
 
@@ -122,6 +124,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 }
 
 - (void)didFinishAddingPlace {
+  self.isAddingPlace = NO;
   self.trafficButtonHidden = NO;
   self.menuState = MWMBottomMenuStateInactive;
 }
@@ -132,11 +135,13 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 - (void)addPlace:(BOOL)isBusiness hasPoint:(BOOL)hasPoint point:(m2::PointD const &)point {
   MapViewController *ownerController = self.ownerController;
-  [ownerController dismissPlacePage];
 
+  self.isAddingPlace = YES;
   self.searchManager.state = MWMSearchManagerStateHidden;
   self.menuState = MWMBottomMenuStateHidden;
   self.trafficButtonHidden = YES;
+
+  [ownerController dismissPlacePage];
 
   [MWMAddPlaceNavigationBar showInSuperview:ownerController.view
     isBusiness:isBusiness
@@ -285,7 +290,9 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 - (void)setHidden:(BOOL)hidden {
   if (_hidden == hidden)
     return;
-  _hidden = hidden;
+  // Do not hide the controls view during the place adding process.
+  if (!_isAddingPlace)
+    _hidden = hidden;
   self.sideButtonsHidden = _sideButtonsHidden;
   self.trafficButtonHidden = _trafficButtonHidden;
   self.menuState = hidden ? MWMBottomMenuStateHidden : MWMBottomMenuStateInactive;

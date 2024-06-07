@@ -120,9 +120,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
 
     placePageData.onBookmarkStatusUpdate = { [weak self] in
       guard let self = self else { return }
-      if self.placePageData.bookmarkData == nil {
-        self.actionBarViewController.resetButtons()
-      }
+      self.actionBarViewController.updateBookmarkButtonState(isSelected: self.placePageData.bookmarkData != nil)
       self.previewViewController.placePagePreviewData = self.placePageData.previewData
       self.updateBookmarkRelatedSections()
     }

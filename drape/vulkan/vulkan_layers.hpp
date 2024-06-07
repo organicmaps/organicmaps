@@ -29,6 +29,8 @@ public:
   uint32_t GetDeviceExtensionsCount() const;
   char const * const * GetDeviceExtensions() const;
 
+  bool IsValidationFeaturesEnabled() const;
+
 private:
   bool const m_enableDiagnostics;
 
@@ -38,11 +40,13 @@ private:
   std::vector<char const *> m_deviceLayers;
   std::vector<char const *> m_deviceExtensions;
 
-  VkDebugReportCallbackEXT m_reportCallback = 0;
+  VkDebugReportCallbackEXT m_reportCallback {0};
 
   PFN_vkCreateDebugReportCallbackEXT m_vkCreateDebugReportCallbackEXT = nullptr;
   PFN_vkDestroyDebugReportCallbackEXT m_vkDestroyDebugReportCallbackEXT = nullptr;
   PFN_vkDebugReportMessageEXT m_vkDebugReportMessageEXT = nullptr;
+
+  bool m_validationFeaturesEnabled = false;
 };
 }  // namespace vulkan
 }  // namespace dp

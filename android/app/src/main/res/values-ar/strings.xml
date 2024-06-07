@@ -236,6 +236,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">يتم إيقاف تشغيل المباني ثلاثية الأبعاد في وضع توفير الطاقة</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">تعليمات صوتية</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">أعلن أسماء الشوارع</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">عند التمكين ، سيتم نطق اسم الشارع أو المخرج الذي سيتم تشغيله بصوت عالٍ.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">لغة الصوت</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -626,6 +630,7 @@
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="other">تم العثور على %d ملفات. سوف تراهم بعد التحويل.</item>
 	</plurals>
+	<string name="restore">استعادة</string>
 	<plurals name="objects">
 	  <item quantity="other">غرض %d</item>
 	</plurals>
@@ -646,7 +651,8 @@
 	<string name="bookmarks_empty_list_title">هذه اللائحة فارغة</string>
 	<string name="bookmarks_empty_list_message">لإضافة إشارة مرجعية ، اضغط على مكان على الخريطة ثم انقر على رمز النجمة</string>
 	<string name="category_desc_more">…المزيد</string>
-	<string name="export_file">ملف التصدير</string>
+	<string name="export_file">تصدير KMZ</string>
+	<string name="export_file_gpx">تصدير GPX</string>
 	<string name="delete_list">حذف القائمة</string>
 	<string name="public_access">مسموح الوصول لعامة الشعب</string>
 	<string name="limited_access">مسموح الوصول بشكل محدود</string>
@@ -790,16 +796,16 @@
 	<string name="app_tip_08">يمكنك بسهولة إصلاح وتحسين بيانات الخريطة.</string>
 	<!-- App tip #09 -->
 	<string name="app_tip_09">هدفنا الرئيسي هو إنشاء خرائط سريعة وسهلة الاستخدام تركز على الخصوصية والتي ستعجبك.</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">أنت الآن تستخدم الخرائط العضوية على شاشة الهاتف</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">أنت الآن تستخدم الخرائط العضوية على شاشة الهاتف</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">أنت الآن تستخدم الخرائط العضوية على شاشة السيارة</string>
+	<string name="car_used_on_the_car_screen">أنت الآن تستخدم الخرائط العضوية على شاشة السيارة</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">أنت متصل بـ Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">تواصل على الهاتف</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">إلى شاشة السيارة</string>
+	<string name="car_continue_on_the_phone">تواصل على الهاتف</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">إلى شاشة السيارة</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">يتطلب هذا التطبيق الوصول إلى موقعك لأغراض التنقل.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -822,6 +828,10 @@
 	<string name="zoom_in">تكبير</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">تصغير</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">رابط القائمة</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">عرض القائمة</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">العنوان / البلوك</string>
@@ -1410,7 +1420,6 @@
 	<string name="type.landuse.commercial">منطقة تجارية</string>
 	<string name="type.landuse.construction">منطقة بناء</string>
 	<string name="type.landuse.education">مؤسسة تعليمية</string>
-	<string name="type.landuse.farm">مزرعة</string>
 	<string name="type.landuse.farmland">حقل</string>
 	<string name="type.landuse.field">حقل</string>
 	<string name="type.landuse.flowerbed">مشتل أزهار</string>
@@ -2037,7 +2046,6 @@
 	<string name="type.waterway.lock_gate">بوابة هويس</string>
 	<string name="type.waterway.river">نهر</string>
 	<string name="type.waterway.river.tunnel">نهر</string>
-	<string name="type.waterway.riverbank">نهر</string>
 	<string name="type.waterway.stream">تيار مائي</string>
 	<string name="type.waterway.stream.ephemeral">نهر</string>
 	<string name="type.waterway.stream.intermittent">تيار مائي متقطع</string>

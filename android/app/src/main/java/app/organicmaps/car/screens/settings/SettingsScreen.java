@@ -7,10 +7,11 @@ import androidx.car.app.model.Action;
 import androidx.car.app.model.Header;
 import androidx.car.app.model.Item;
 import androidx.car.app.model.ItemList;
+import androidx.car.app.model.ListTemplate;
 import androidx.car.app.model.OnClickListener;
 import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
-import androidx.car.app.navigation.model.MapTemplate;
+import androidx.car.app.navigation.model.MapWithContentTemplate;
 
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
@@ -41,10 +42,9 @@ public class SettingsScreen extends BaseMapScreen
   @Override
   public Template onGetTemplate()
   {
-    final MapTemplate.Builder builder = new MapTemplate.Builder();
-    builder.setHeader(createHeader());
+    final MapWithContentTemplate.Builder builder = new MapWithContentTemplate.Builder();
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
-    builder.setItemList(createSettingsList());
+    builder.setContentTemplate(createSettingsListTemplate());
     return builder.build();
   }
 
@@ -58,7 +58,7 @@ public class SettingsScreen extends BaseMapScreen
   }
 
   @NonNull
-  private ItemList createSettingsList()
+  private ListTemplate createSettingsListTemplate()
   {
     final ItemList.Builder builder = new ItemList.Builder();
     builder.addItem(createThemeItem());
@@ -66,7 +66,7 @@ public class SettingsScreen extends BaseMapScreen
     builder.addItem(createSharedPrefsToggle(R.string.big_font, Config::isLargeFontsSize, Config::setLargeFontsSize));
     builder.addItem(createSharedPrefsToggle(R.string.transliteration_title, Config::isTransliteration, Config::setTransliteration));
     builder.addItem(createHelpItem());
-    return builder.build();
+    return new ListTemplate.Builder().setHeader(createHeader()).setSingleList(builder.build()).build();
   }
 
   @NonNull

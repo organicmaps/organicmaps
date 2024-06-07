@@ -128,7 +128,6 @@
 		FAA8389326BB48EF002E54C6 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8389226BB48EF002E54C6 /* libbase.a */; };
 		FAA8389526BB48F4002E54C6 /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8389426BB48F4002E54C6 /* libcoding.a */; };
 		FAA8389726BB4906002E54C6 /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8389626BB4906002E54C6 /* minizip.framework */; };
-		FAA8389926BB490C002E54C6 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8389826BB490C002E54C6 /* liboauthcpp.a */; };
 		FAA8389A26BB4931002E54C6 /* libplatform_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675340E91C58C496002CF0D9 /* libplatform_tests_support.a */; };
 		FAA8389C26BB4948002E54C6 /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8389B26BB4948002E54C6 /* libgeometry.a */; };
 		FADA4B2626F529BD000FF3CA /* languages.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FADA4B2426F529B5000FF3CA /* languages.hpp */; };
@@ -259,7 +258,6 @@
 		FAA8389226BB48EF002E54C6 /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8389426BB48F4002E54C6 /* libcoding.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcoding.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8389626BB4906002E54C6 /* minizip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = minizip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FAA8389826BB490C002E54C6 /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8389B26BB4948002E54C6 /* libgeometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgeometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FADA4B2426F529B5000FF3CA /* languages.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = languages.hpp; sourceTree = "<group>"; };
 		FADA4B2526F529B9000FF3CA /* locale.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = locale.hpp; sourceTree = "<group>"; };
@@ -286,7 +284,6 @@
 			files = (
 				FAA8389C26BB4948002E54C6 /* libgeometry.a in Frameworks */,
 				FAA8389A26BB4931002E54C6 /* libplatform_tests_support.a in Frameworks */,
-				FAA8389926BB490C002E54C6 /* liboauthcpp.a in Frameworks */,
 				FAA8389726BB4906002E54C6 /* minizip.framework in Frameworks */,
 				FAA8389526BB48F4002E54C6 /* libcoding.a in Frameworks */,
 				FAA8389326BB48EF002E54C6 /* libbase.a in Frameworks */,
@@ -302,7 +299,6 @@
 			isa = PBXGroup;
 			children = (
 				FAA8389B26BB4948002E54C6 /* libgeometry.a */,
-				FAA8389826BB490C002E54C6 /* liboauthcpp.a */,
 				FAA8389626BB4906002E54C6 /* minizip.framework */,
 				FAA8389426BB48F4002E54C6 /* libcoding.a */,
 				FAA8389226BB48EF002E54C6 /* libbase.a */,

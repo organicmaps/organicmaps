@@ -91,10 +91,8 @@ public:
   uint32_t GetFeatureType() const;
   bool IsSameType(uint32_t type) const;
 
-  // Precondition: GetResultType() == Type::Feature.
   std::string GetLocalizedFeatureType() const;
-
-  // Precondition: GetResultType() == Type::Feature.
+  // Secondary title for the result.
   std::string GetFeatureDescription() const;
 
   // Center point of a feature.

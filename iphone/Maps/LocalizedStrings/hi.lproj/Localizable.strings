@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "ध्वनि निर्देश";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "सड़कों के नाम की घोषणा करें";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "सक्षम होने पर, सड़क का नाम या मुड़ने के लिए निकास का नाम ज़ोर से बोला जाएगा।";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "आवाज की भाषा";
 
@@ -1007,7 +1013,9 @@
 
 "popular_place" = "Popular";
 
-"export_file" = "फ़ाइल निर्यात करें";
+"export_file" = "निर्यात KMZ";
+
+"export_file_gpx" = "जीपीएक्स निर्यात करें";
 
 "delete_list" = "Delete list";
 
@@ -1261,6 +1269,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "अब आप फ़ोन स्क्रीन पर ऑर्गेनिक मानचित्र का उपयोग कर रहे हैं";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "अब आप कार स्क्रीन पर ऑर्गेनिक मानचित्र का उपयोग कर रहे हैं";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "फ़ोन पर जारी रखें";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "कार स्क्रीन पर";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "लंबी पैदल यात्रा";
 
@@ -1274,6 +1294,36 @@
 "map" = "नक्शा";
 
 "drive_through" = "ड्राइव करते हुए किसी जगह से गुजरना";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "मेनू लिंक";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "iCloud सिंक्रोनाइज़ेशन सक्षम करें";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "iCloud सिंक्रोनाइज़ेशन विकासाधीन एक प्रायोगिक सुविधा है। सुनिश्चित करें कि आपने अपने सभी बुकमार्क और ट्रैक का बैकअप बना लिया है।";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud अक्षम है";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "कृपया इस सुविधा का उपयोग करने के लिए अपने डिवाइस की सेटिंग में iCloud सक्षम करें।";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "सक्षम";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "बैकअप";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "त्रुटि: कनेक्शन त्रुटि के कारण सिंक्रनाइज़ करने में विफल";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "त्रुटि: iCloud कोटा पार हो जाने के कारण सिंक्रनाइज़ करने में विफल";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "त्रुटि: iCloud उपलब्ध नहीं है";
 
 
 /********** Types **********/
@@ -2424,8 +2474,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "खेत";
 
 "type.landuse.farmland" = "Farmland";
 
@@ -3813,8 +3861,6 @@
 "type.waterway.river" = "नदी";
 
 "type.waterway.river.tunnel" = "नदी";
-
-"type.waterway.riverbank" = "River";
 
 "type.waterway.stream" = "Stream";
 

@@ -78,7 +78,7 @@ void ProcessName(CategoriesHolder::Category::Name name, std::vector<std::string>
 
   FillPrefixLengthToSuggest(name);
 
-  if (strings::StartsWith(name.m_name, "U+") && !ParseEmoji(name))
+  if (name.m_name.starts_with("U+") && !ParseEmoji(name))
     return;
 
   if (groups.size() == 1 && types.empty())

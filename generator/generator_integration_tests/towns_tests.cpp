@@ -50,7 +50,7 @@ class TestAffiliation : public feature::AffiliationInterface
 
   bool HasCountryByName(std::string const & name) const override
   {
-    return !strings::StartsWith(name, "World");
+    return !name.starts_with("World");
   }
 };
 } // namespace

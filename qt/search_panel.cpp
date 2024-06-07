@@ -6,8 +6,6 @@
 #include "map/bookmark_manager.hpp"
 #include "map/framework.hpp"
 
-#include "platform/platform.hpp"
-
 #include "base/assert.hpp"
 
 #include <QtCore/QTimer>
@@ -86,9 +84,9 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
 
 namespace
 {
-QTableWidgetItem * CreateItem(QString const & s)
+QTableWidgetItem * CreateItem(std::string const & s)
 {
-  QTableWidgetItem * item = new QTableWidgetItem(s);
+  QTableWidgetItem * item = new QTableWidgetItem(QString::fromStdString(s));
   item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
   return item;
 }
@@ -104,7 +102,7 @@ void SearchPanel::ClearResults()
 {
   ClearTable();
   m_results.Clear();
-  m_pDrawWidget->GetFramework().GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::SEARCH);
+  GetFramework().GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::SEARCH);
 }
 
 void SearchPanel::StartBusyIndicator()
@@ -153,16 +151,29 @@ void SearchPanel::OnEverywhereSearchResults(uint64_t timestamp, search::Results 
     int const rowCount = m_pTable->rowCount();
     m_pTable->insertRow(rowCount);
     m_pTable->setCellWidget(rowCount, 1, new QLabel(strHigh));
-    m_pTable->setItem(rowCount, 2, CreateItem(QString::fromStdString(res.GetAddress())));
+    m_pTable->setItem(rowCount, 2, CreateItem(res.GetAddress()));
 
-    if (res.GetResultType() == search::Result::Type::Feature)
+    bool showDistance = true;
+    switch (res.GetResultType())
     {
-      m_pTable->setItem(rowCount, 0, CreateItem(QString::fromStdString(res.GetLocalizedFeatureType())));
-      m_pTable->setItem(rowCount, 3, CreateItem(QString::fromStdString(m_pDrawWidget->GetDistance(res))));
+    case search::Result::Type::SuggestFromFeature:
+    case search::Result::Type::PureSuggest:
+      showDistance = false;
+      break;
+    case search::Result::Type::Feature:
+    case search::Result::Type::Postcode:
+      m_pTable->setItem(rowCount, 0, CreateItem(res.GetLocalizedFeatureType()));
+      break;
+    case search::Result::Type::LatLon:
+      m_pTable->setItem(rowCount, 0, CreateItem("LatLon"));
+      break;
     }
+
+    if (showDistance)
+      m_pTable->setItem(rowCount, 3, CreateItem(m_pDrawWidget->GetDistance(res)));
   }
 
-  m_pDrawWidget->GetFramework().FillSearchResultsMarks(true /* clear */, m_results);
+  GetFramework().FillSearchResultsMarks(true /* clear */, m_results);
 
   if (m_results.IsEndMarker())
     StopBusyIndicator();
@@ -177,8 +188,8 @@ bool SearchPanel::Try3dModeCmd(std::string const & str)
   if (!is3dModeOn && !is3dBuildingsOn && !is3dModeOff)
     return false;
 
-  m_pDrawWidget->GetFramework().Save3dMode(is3dModeOn || is3dBuildingsOn, is3dBuildingsOn);
-  m_pDrawWidget->GetFramework().Allow3dMode(is3dModeOn || is3dBuildingsOn, is3dBuildingsOn);
+  GetFramework().Save3dMode(is3dModeOn || is3dBuildingsOn, is3dBuildingsOn);
+  GetFramework().Allow3dMode(is3dModeOn || is3dBuildingsOn, is3dBuildingsOn);
 
   return true;
 }
@@ -192,8 +203,8 @@ bool SearchPanel::TryTrafficSimplifiedColorsCmd(std::string const & str)
     return false;
 
   bool const isSimplified = simplifiedMode;
-  m_pDrawWidget->GetFramework().GetTrafficManager().SetSimplifiedColorScheme(isSimplified);
-  m_pDrawWidget->GetFramework().SaveTrafficSimplifiedColors(isSimplified);
+  GetFramework().GetTrafficManager().SetSimplifiedColorScheme(isSimplified);
+  GetFramework().SaveTrafficSimplifiedColors(isSimplified);
 
   return true;
 }
@@ -228,7 +239,7 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
 
   if (normalized.empty())
   {
-    m_pDrawWidget->GetFramework().GetSearchAPI().CancelAllSearches();
+    GetFramework().GetSearchAPI().CancelAllSearches();
 
     // hide X button
     m_pClearButton->setVisible(false);
@@ -251,7 +262,7 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
       }
     };
 
-    if (m_pDrawWidget->GetFramework().GetSearchAPI().SearchEverywhere(std::move(params)))
+    if (GetFramework().GetSearchAPI().SearchEverywhere(std::move(params)))
       StartBusyIndicator();
   }
   else if (m_mode == Mode::Viewport)
@@ -273,12 +284,12 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
         // clearing the table would require additional care (or, most likely, we would need a better
         // API). This is similar to the Android and iOS clients where we do not show the list of
         // results in the viewport search mode.
-        m_pDrawWidget->GetFramework().FillSearchResultsMarks(true /* clear */, results);
+        GetFramework().FillSearchResultsMarks(true /* clear */, results);
         StopBusyIndicator();
       }
     };
 
-    m_pDrawWidget->GetFramework().GetSearchAPI().SearchInViewport(std::move(params));
+    GetFramework().GetSearchAPI().SearchInViewport(std::move(params));
   }
 }
 
@@ -321,13 +332,13 @@ void SearchPanel::OnSearchPanelItemClicked(int row, int)
   else
   {
     // center viewport on clicked item
-    m_pDrawWidget->GetFramework().ShowSearchResult(m_results[row]);
+    GetFramework().ShowSearchResult(m_results[row]);
   }
 }
 
 void SearchPanel::hideEvent(QHideEvent *)
 {
-  m_pDrawWidget->GetFramework().GetSearchAPI().CancelSearch(search::Mode::Everywhere);
+  GetFramework().GetSearchAPI().CancelSearch(search::Mode::Everywhere);
 }
 
 void SearchPanel::OnAnimationTimer()
@@ -347,4 +358,10 @@ void SearchPanel::OnClearButton()
 {
   m_pEditor->setText("");
 }
+
+Framework & SearchPanel::GetFramework() const
+{
+  return m_pDrawWidget->GetFramework();
+}
+
 }  // namespace qt

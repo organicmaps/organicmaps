@@ -284,6 +284,31 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" textLabel="QEX-D4-ejR" detailTextLabel="Iy7-de-pvk" style="IBUITableViewCellStyleSubtitle" id="E6M-av-wQu" userLabel="iCloud synchronization" customClass="SettingsTableViewiCloudSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="586" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="E6M-av-wQu" id="PbS-4v-dzK">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="iCloud Synchronization (Beta)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QEX-D4-ejR">
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Error" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Iy7-de-pvk">
+                                                    <rect key="frame" x="20" y="22.5" width="28" height="14.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="НАВИГАЦИЯ" id="E4E-hs-9xW">
@@ -392,6 +417,7 @@
                         <outlet property="compassCalibrationCell" destination="P5e-67-f4k" id="KcB-EC-S2y"/>
                         <outlet property="drivingOptionsCell" destination="KrE-Sc-fI1" id="XOl-eI-xJX"/>
                         <outlet property="fontScaleCell" destination="pri-6G-9Zb" id="rHJ-ZT-lwM"/>
+                        <outlet property="iCloudSynchronizationCell" destination="E6M-av-wQu" id="05q-Wq-SQa"/>
                         <outlet property="is3dCell" destination="0Lf-xU-P2U" id="obI-bL-FLh"/>
                         <outlet property="mobileInternetCell" destination="6NC-QX-WiF" id="L1V-gS-sTe"/>
                         <outlet property="nightModeCell" destination="QNt-XC-xma" id="nSn-Jr-KuZ"/>

@@ -111,6 +111,38 @@
   </screenshots>
 
   <releases>
+   <release version="2024.05.11-3" date="2024-05-11">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OpenStreetMap data as of April 29, 2024</li>
+           <li>Upgraded to the new OpenStreetMap authentication method (OAuth 2)</li>
+           <li>Sort bookmarks and tracks in a list by name</li>
+           <li>Ability to toggle Drive-through in the OSM editor</li>
+           <li>Show "Can't find a suitable category?" message hint in the OSM editor</li>
+           <li>Improve bicycle routing for some cases</li>
+         </ul>
+       <p>Linux Desktop:</p>
+         <ul>
+           <li>Add route marking buttons to place pages</li>
+           <li>Add an "Exit" menu option and keyboard shortcuts for all menu entries</li>
+           <li>Improve font clarity on MDPI screens</li>
+         </ul>
+       <p>Styles:</p>
+         <ul>
+           <li>Show the availability of Drive-through service for selected POIs</li>
+           <li>More feature types could be added to OSM now, e.g. marketplaces, taxi stands, kiosks, wilderness huts, garden centers, historic aircraft, cannons, boundary stones, tombs, etc.</li>
+           <li>Elevator icon instead of "stairs" for displaying the level number of selected POI</li>
+           <li>Better visible in dark mode $ emoji for paid map features</li>
+         </ul>
+       <p>Translation updates:</p>
+         <ul>
+           <li>Basque, German, Greek and Solvak</li>
+           <li>Fix missing local language name versions for selected POIs</li>
+           <li>Simplify handling of multiple languages feature names in the OSM editor and fix related bugs</li>
+         </ul>
+     </description>
+   </release>
    <release version="2024.03.31-8" date="2024-03-31">
      <description>
        <p>Highlights:</p>

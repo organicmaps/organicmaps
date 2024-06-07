@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "คำแนะนำด้วยเสียง";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "ประกาศชื่อถนน";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "เมื่อเปิดใช้งาน ชื่อของถนนหรือทางออกที่จะเลี้ยวจะถูกพูดออกมาดัง ๆ";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "ภาษาสำหรับเสียง";
 
@@ -1007,7 +1013,9 @@
 
 "popular_place" = "Popular";
 
-"export_file" = "ส่งออกไฟล์";
+"export_file" = "ส่งออก KMZ";
+
+"export_file_gpx" = "ส่งออก GPX";
 
 "delete_list" = "ลบรายการ";
 
@@ -1261,6 +1269,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "ขณะนี้คุณกำลังใช้แผนที่ทั่วไปบนหน้าจอโทรศัพท์";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "ขณะนี้คุณกำลังใช้แผนที่ทั่วไปบนหน้าจอรถยนต์";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "ดำเนินการต่อบนโทรศัพท์";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "ไปที่หน้าจอรถ";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "การเดินป่า";
 
@@ -1274,6 +1294,36 @@
 "map" = "แผนที่";
 
 "drive_through" = "ขับรถผ่าน";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "ลิงค์เมนู";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "เปิดใช้งานการซิงโครไนซ์ iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "การซิงโครไนซ์ iCloud เป็นคุณสมบัติทดลองที่อยู่ระหว่างการพัฒนา ตรวจสอบให้แน่ใจว่าคุณได้สำรองข้อมูลบุ๊กมาร์กและแทร็กทั้งหมดของคุณแล้ว";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud ถูกปิดใช้งาน";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "โปรดเปิดใช้งาน iCloud ในการตั้งค่าอุปกรณ์ของคุณเพื่อใช้คุณสมบัตินี้";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "เปิดใช้งาน";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "สำรองข้อมูล";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "ข้อผิดพลาด: ไม่สามารถซิงโครไนซ์ได้เนื่องจากข้อผิดพลาดในการเชื่อมต่อ";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "ข้อผิดพลาด: ไม่สามารถซิงโครไนซ์ได้เนื่องจากเกินโควต้า iCloud";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "ข้อผิดพลาด: iCloud ไม่พร้อมใช้งาน";
 
 
 /********** Types **********/
@@ -2424,8 +2474,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "พื้นที่ทำการเกษตร";
 
@@ -3813,8 +3861,6 @@
 "type.waterway.river" = "แม่น้ำ";
 
 "type.waterway.river.tunnel" = "แม่น้ำ";
-
-"type.waterway.riverbank" = "แม่น้ำ";
 
 "type.waterway.stream" = "แม่น้ำ";
 

@@ -26,7 +26,6 @@
     nl = Rechts aanhouden.
     pl = Trzymaj się prawej strony.
     pt = Mantenha-se à direita.
-    pt-BR = Mantenha-se à direita.
     ro = Păstrați la dreapta.
     ru = Держитесь правее.
     sk = Držte sa vpravo.
@@ -37,8 +36,18 @@
     tr = Sağdan devam edin.
     uk = Тримайтеся правіше.
     vi = Đi về phía phải.
-    zh-Hans = 向右走。
+    zh-Hans = 向右行驶
     zh-Hant = 向右走。
+
+  [make_a_slight_right_turn_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_slight_right_turn is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    nl = de flauwe bocht naar rechts
+
+  [make_a_slight_right_turn_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when make_a_slight_right_turn_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    nl = Neem
 
   [make_a_right_turn]
     en = Turn right.
@@ -66,7 +75,6 @@
     nl = Sla rechtsaf.
     pl = Skręć w prawo.
     pt = Vire à direita.
-    pt-BR = Vire à direita.
     ro = Virați la dreapta.
     ru = Поверните направо.
     sk = Odbočte doprava.
@@ -77,8 +85,14 @@
     tr = Sağa dönün.
     uk = Поверніть праворуч.
     vi = Rẽ phải.
-    zh-Hans = 右转。
+    zh-Hans = 右转
     zh-Hant = 右轉。
+
+  [make_a_right_turn_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_right_turn is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = 右折です
+    nl = naar rechts afslaan
 
   [make_a_sharp_right_turn]
     en = Sharp right.
@@ -106,7 +120,6 @@
     nl = Scherp rechtsaf.
     pl = Ostro w prawo.
     pt = Curva acentuada à direita.
-    pt-BR = Curva acentuada à direita.
     ro = Virați strâns la dreapta.
     ru = Резко поверните направо.
     sk = Ostro doprava.
@@ -117,8 +130,13 @@
     tr = Tam sağa dönün.
     uk = Різко вправо.
     vi = Rẽ ngoặt bên phải.
-    zh-Hans = 向右急转。
+    zh-Hans = 向右急转
     zh-Hant = 向右急轉。
+
+  [make_a_sharp_right_turn_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_sharp_right_turn is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    nl = scherp naar rechts afslaan
 
   [enter_the_roundabout]
     en = Enter the roundabout.
@@ -139,7 +157,7 @@
     hu = Hajtson be a körforgalomba.
     id = Masuk ke bundaran.
     it = Entra nella rotonda.
-    ja = ロータリー入口です。
+    ja = ラウンドアバウトに入り。
     ko = 로터리 진입입니다.
     mr = चौकात प्रवेश करा.
     nb = Kjør inn i rundkjøringen.
@@ -157,8 +175,20 @@
     tr = Kavşağa girin.
     uk = В'їзд на кільцеву транспортну розв'язку.
     vi = Đi vào vòng xoay.
-    zh-Hans = 进入环岛。
+    zh-Hans = 进入环岛
     zh-Hant = 進入環島。
+
+  [enter_the_roundabout_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal enter_the_roundabout is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = に入ります
+    nl = de rotonde
+
+  [enter_the_roundabout_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when enter_the_roundabout_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = ラウンドアバウトに入り、
+    nl = Rijd
 
   [leave_the_roundabout]
     en = Exit the roundabout.
@@ -197,8 +227,20 @@
     tr = Kavşaktan çıkın.
     uk = З'їзд з кільцевої транспортної розв'язки.
     vi = Ra khỏi vòng xoay.
-    zh-Hans = 退出环岛。
+    zh-Hans = 驶出环岛
     zh-Hant = 退出環島。
+
+  [leave_the_roundabout_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal leave_the_roundabout is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = に出ます
+    nl = de rotonde
+
+  [leave_the_roundabout_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when leave_the_roundabout_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = ラウンドアバウトを出て、
+    nl = Verlaat
 
   [make_a_slight_left_turn]
     en = Keep left.
@@ -226,7 +268,6 @@
     nl = Links aanhouden.
     pl = Trzymaj się lewej strony.
     pt = Mantenha-se à esquerda.
-    pt-BR = Mantenha-se à esquerda.
     ro = Păstrați la stânga.
     ru = Держитесь левее.
     sk = Držte sa vľavo.
@@ -237,8 +278,18 @@
     tr = Soldan devam edin.
     uk = Тримайтеся лівіше.
     vi = Đi về phía trái.
-    zh-Hans = 向左走。
+    zh-Hans = 向左行驶
     zh-Hant = 向左走。
+
+  [make_a_slight_left_turn_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_slight_left_turn is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    nl = de flauwe bocht naar links
+
+  [make_a_slight_left_turn_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when make_a_slight_left_turn_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    nl = Neem
 
   [make_a_left_turn]
     en = Turn left.
@@ -266,7 +317,6 @@
     nl = Sla linksaf.
     pl = Skręć w lewo.
     pt = Vire à esquerda.
-    pt-BR = Vire à esquerda.
     ro = Virați la stânga.
     ru = Поверните налево.
     sk = Odbočte doľava.
@@ -277,8 +327,14 @@
     tr = Sola dönün.
     uk = Поверніть ліворуч.
     vi = Rẽ trái.
-    zh-Hans = 左转。
+    zh-Hans = 左转
     zh-Hant = 左轉。
+
+  [make_a_left_turn_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_left_turn is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = 左折し
+    nl = naar links afslaan
 
   [make_a_sharp_left_turn]
     en = Sharp left.
@@ -306,7 +362,6 @@
     nl = Scherp linksaf.
     pl = Ostro w lewo.
     pt = Curva acentuada à esquerda.
-    pt-BR = Curva acentuada à esquerda.
     ro = Virați strâns la stânga.
     ru = Резко поверните налево.
     sk = Ostro doľava.
@@ -317,12 +372,17 @@
     tr = Tam sola dönün.
     uk = Різкий поворот наліво.
     vi = Rẽ ngoặt bên trái.
-    zh-Hans = 向左急转。
+    zh-Hans = 向左急转
     zh-Hant = 向左急轉。
+
+  [make_a_sharp_left_turn_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_sharp_left_turn is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    nl = scherp naar links afslaan
 
   [make_a_u_turn]
     en = Make a u-turn.
-    ar = انعطف بدوران كامل.
+    ar = إستدر للعودة.
     be = Развярніцеся.
     ca = Feu un canvi de sentit.
     cs = Otočte se do protisměru.
@@ -339,7 +399,7 @@
     hu = Forduljon vissza.
     id = Putar balik.
     it = Effettua un'inversione a U.
-    ja = Uターンです。
+    ja = 後ろ方向です。
     ko = 유턴입니다.
     mr = यू-टर्न घ्या.
     nb = Ta en U-sving.
@@ -357,12 +417,22 @@
     tr = U dönüşü yapın.
     uk = Зробіть розворот.
     vi = Quay đầu.
-    zh-Hans = 掉头。
+    zh-Hans = 掉头
     zh-Hant = 掉頭。
+
+  [make_a_u_turn_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_u_turn is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = に入ります
+
+  [make_a_u_turn_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when make_a_u_turn_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = 後ろ方向して
 
   [go_straight]
     en = Go straight.
-    ar = انطلق بشكل مستقيم.
+    ar = إستمر إلى الأمام.
     be = Рухайцеся прама.
     ca = Seguiu tot recte.
     cs = Jeďte rovně.
@@ -386,7 +456,6 @@
     nl = Rij rechtdoor.
     pl = Jedź prosto.
     pt = Siga em frente.
-    pt-BR = Siga em frente.
     ro = Mergeți înainte.
     ru = Двигайтесь прямо.
     sk = Choďte rovno.
@@ -397,7 +466,7 @@
     tr = Düz ilerleyin.
     uk = Їдьте прямо.
     vi = Đi thẳng.
-    zh-Hans = 直行。
+    zh-Hans = 直行
     zh-Hant = 直行。
 
   [exit]
@@ -409,7 +478,7 @@
     da = Afkørsel.
     de = Nehmen Sie die Ausfahrt.
     el = Εξοδος.
-    es = Salida.
+    es = Salga.
     eu = Irteera.
     fa = خروج.
     fi = Poistu.
@@ -419,7 +488,7 @@
     hu = Hajtson ki!
     id = Keluar.
     it = Uscita.
-    ja = 出口.
+    ja = 出口です。
     ko = 출구.
     mr = बाहेर पडा.
     nb = Ta avkjøringen.
@@ -436,9 +505,94 @@
     th = ทางออก.
     tr = çıkın.
     uk = З'їзд.
-    vi = Lối thoát.
-    zh-Hans = 出口.
-    zh-Hant = 出口.
+    vi = Đi theo lối ra
+    zh-Hans = 驶出。
+    zh-Hant = 出口。
+
+  [onto]
+    comment = Used in dist_direction_onto_street in position 3 unless take_exit_number is specified. For languages that don't have an "onto" word, (e.g. eu, ja, ko), the value should be the word NULL
+    en = onto
+    ar = إلى
+    be = на
+    cs = na
+    da = ad
+    de = auf
+    el = στην
+    es = hacia
+    es-MX = hacia
+    eu = NULL
+    fa = ﺐﻫ
+    fi = tielle
+    fr = sur
+    hi = पर
+    hr = na
+    hu = a
+    id = ke
+    it = sulla
+    ja = NULL
+    ko = NULL
+    mr = वर
+    nb = inn på
+    nl = naar
+    pl = na
+    pt = para
+    pt-BR = para
+    ro = pe
+    ru = на
+    sk = na
+    sv = in på
+    sw = kwenye
+    th = เข้าสู่
+    tr = yönünde
+    uk = на
+    vi = vào
+    zh-Hans = 上
+    zh-Hant = 上
+
+  [take_exit_number]
+    comment = Used in dist_direction_onto_street instead of "Exit" when there's an exit number after. Replaces the "onto" string as well. (There is no take_exit_number_street since this string is only used when announcing street names anyway.)
+    en = Take exit
+    ar = خروج إلى
+    be = З'езд на
+    ca = Agafa la sortida
+    cs = výstup na
+    da = Afkørsel ad
+    de = Nehmen Sie die Ausfahrt auf
+    el = Εξοδος στην
+    es = Tome la salida
+    eu = Irteera
+    fa = خروجﺐﻫ
+    fi = Poistu tielle
+    fr = Sortie sur
+    hi = बाहर जाएं पर
+    hr = Izlaz na
+    hu = Hajtson ki a
+    id = Keluar ke
+    it = Uscita sulla
+    ja = 出口を出る
+    ko = 출구
+    mr = बाहेर पडा वर
+    nb = Ta avkjøringen inn på
+    nl = Verlaat naar
+    pl = Wybierz zjazd
+    pt = Siga pela saída
+    pt-BR = Pegue a saída
+    ro = Ieșire pe
+    ru = Съезд на
+    sk = Výjazd na
+    sv = Utgång in på
+    sw = Kuondoka kwenye
+    th = ทางออก เข้าสู่
+    tr = çıkın yönünde
+    uk = З'їзд на
+    vi = Đi theo lối ra số
+    zh-Hans = 驶出 上
+    zh-Hant = 出口 上
+
+  [take_exit_number_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_exit_number needs to be split into two parts. For languages that don't have a stand-alone "onto" word but still have a %5 formatter position, it must be specified as the word NULL
+    en = NULL
+    nl = Neem
 
   [destination]
     en = You’ll arrive.
@@ -462,7 +616,7 @@
     ja = 到着します。
     ko = 도착할 예정입니다.
     mr = तुम्ही पोहोचाल.
-    nb = Du ankommer.
+    nb = Ankommer du.
     nl = Arriveert u.
     pl = Dojedziesz do celu.
     pt = Chegará ao seu destino.
@@ -477,7 +631,7 @@
     tr = Varacaksınız.
     uk = Ви прибудете.
     vi = Bạn sẽ đến.
-    zh-Hans = 您将到达目的地。
+    zh-Hans = 即将到达目的地。
     zh-Hant = 您將到達目的地。
 
   [you_have_reached_the_destination]
@@ -504,7 +658,7 @@
     mr = तुम्ही पोहोचला आहात.
     nb = Du har ankommet.
     nl = Bestemming bereikt.
-    pl = Jesteś u celu.
+    pl = Dotarłeś do celu.
     pt = Chegou ao seu destino.
     pt-BR = Você chegou ao seu destino.
     ro = Ați ajuns.
@@ -1222,11 +1376,10 @@
     ja = その先
     ko = 그 다음
     mr = मग
-    nb = så
+    nb = deretter
     nl = Daarna
     pl = Następnie
     pt = Depois
-    pt-BR = Depois
     ro = Apoi
     ru = Затем
     sk = Potom
@@ -1239,6 +1392,17 @@
     vi = Sau đó
     zh-Hans = 然后
     zh-Hant = 然後
+
+  [dist_direction_onto_street]
+    comment = %1$s is the distance like in_500_meters, %2$s is the direction like make_a_right_turn_street or make_a_right_turn if unavailable, %3$s is "onto" unless the turn is an exit number, %4$s is the name/number of the street/exit, and %5$s is an optional turn verb particle. All languages inherit from the English default unless specified.
+    en = %1$s %2$s %3$s %4$s
+    fi = %2$s %3$s %4$s %1$s
+    hi = %1$s %4$s %3$s %2$s
+    hu = %1$s %2$s %3$s %4$s-re
+    ja = %1$s%5$s%4$s%3$s%2$s
+    mr = %1$s %4$s %3$s %2$s
+    nl = %5$s %1$s %2$s %3$s %4$s
+    tr = %1$s %4$s %3$s %2$s
 
   [take_the_1_exit]
     en = Take the first exit.
@@ -1259,7 +1423,7 @@
     hu = Hajtson ki az első kijáratnál.
     id = Ambil jalan keluar pertama.
     it = Prendi la prima uscita.
-    ja = 一番目の出口です。
+    ja = 一番目の出口を出て。
     ko = 첫 번째 출구입니다.
     mr = पहिला निर्गमन घ्या
     nb = Ta første avkjøring.
@@ -1277,8 +1441,20 @@
     tr = Birinci çıkıştan çıkın.
     uk = Рухайтесь через перший з'їзд.
     vi = Đi theo lối ra đầu tiên.
-    zh-Hans = 取道第一个出口。
+    zh-Hans = 取道第一个出口
     zh-Hant = 取道第一個出口。
+
+  [take_the_1_exit_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_1_exit is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = に出ます
+    nl = de eerste afslag
+
+  [take_the_1_exit_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_1_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = 1番出口を出て
+    nl = Neem
 
   [take_the_2_exit]
     en = Take the second exit.
@@ -1299,7 +1475,7 @@
     hu = Hajtson ki a második kijáratnál.
     id = Ambil jalan keluar kedua.
     it = Prendi la seconda uscita.
-    ja = 二番目の出口です。
+    ja = 二番目の出口を出て。
     ko = 두 번째 출구입니다.
     mr = दुसरा निर्गमन घ्या
     nb = Ta andre avkjøring.
@@ -1317,8 +1493,20 @@
     tr = İkinci çıkıştan çıkın.
     uk = Рухайтесь через другий з'їзд.
     vi = Đi theo lối ra thứ hai.
-    zh-Hans = 取道第二个出口。
+    zh-Hans = 取道第二个出口
     zh-Hant = 取道第二個出口。
+
+  [take_the_2_exit_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_2_exit is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = に出ます
+    nl = de tweede afslag
+
+  [take_the_2_exit_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_2_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = 2番出口を出て
+    nl = Neem
 
   [take_the_3_exit]
     en = Take the third exit.
@@ -1339,7 +1527,7 @@
     hu = Hajtson ki a harmadik kijáratnál.
     id = Ambil jalan keluar ketiga.
     it = Prendi la terza uscita.
-    ja = 三番目の出口です。
+    ja = 三番目の出口を出て。
     ko = 세 번째 출구입니다.
     mr = तिसरा निर्गमन घ्या
     nb = Ta tredje avkjøring.
@@ -1357,8 +1545,20 @@
     tr = Üçüncü çıkıştan çıkın.
     uk = Рухайтесь через третій з'їзд.
     vi = Đi theo lối ra thứ ba.
-    zh-Hans = 取道第三个出口。
+    zh-Hans = 取道第三个出口
     zh-Hant = 取道第三個出口。
+
+  [take_the_3_exit_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_3_exit is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = に出ます
+    nl = de derde afslag
+
+  [take_the_3_exit_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_3_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = 3番出口を出て
+    nl = Neem
 
   [take_the_4_exit]
     en = Take the fourth exit.
@@ -1379,7 +1579,7 @@
     hu = Hajtson ki a negyedik kijáratnál.
     id = Ambil jalan keluar keempat
     it = Prendi la quarta uscita.
-    ja = 四番目の出口です。
+    ja = 四番目の出口を出て。
     ko = 네 번째 출구입니다.
     mr = चौथा निर्गमन घ्या
     nb = Ta fjerde avkjøring.
@@ -1397,8 +1597,20 @@
     tr = Dördüncü çıkıştan çıkın.
     uk = Рухайтесь через четвертий з'їзд.
     vi = Đi theo lối ra thứ tư.
-    zh-Hans = 取道第四个出口。
+    zh-Hans = 取道第四个出口
     zh-Hant = 取道第四個出口。
+
+  [take_the_4_exit_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_4_exit is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = に出ます
+    nl = de vierde afslag
+
+  [take_the_4_exit_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_4_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = 4番出口を出て
+    nl = Neem
 
   [take_the_5_exit]
     en = Take the fifth exit.
@@ -1419,7 +1631,7 @@
     hu = Hajtson ki az ötödik kijáratnál.
     id = Ambil jalan keluar kelima.
     it = Prendi la quinta uscita.
-    ja = 五番目の出口です。
+    ja = 五番目の出口を出て。
     ko = 다섯 번째 출구입니다.
     mr = पाचवा निर्गमन घ्या
     nb = Ta femte avkjøring.
@@ -1437,8 +1649,20 @@
     tr = Beşinci çıkıştan çıkın.
     uk = Рухайтесь через п'ятий з'їзд.
     vi = Đi theo lối ra thứ năm.
-    zh-Hans = 取道第五个出口。
+    zh-Hans = 取道第五个出口
     zh-Hant = 取道第五個出口。
+
+  [take_the_5_exit_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_5_exit is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = に出ます
+    nl = de vijfde afslag
+
+  [take_the_5_exit_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_5_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = 5番出口を出て
+    nl = Neem
 
   [take_the_6_exit]
     en = Take the sixth exit.
@@ -1459,7 +1683,7 @@
     hu = Hajtson ki a hatodik kijáratnál.
     id = Ambil jalan keluar keenam.
     it = Prendi la sesta uscita.
-    ja = 六番目の出口です。
+    ja = 六番目の出口を出て。
     ko = 여섯 번째 출구입니다.
     mr = सहावा निर्गमन घ्या
     nb = Ta sjette avkjøring.
@@ -1477,8 +1701,20 @@
     tr = Altıncı çıkıştan çıkın.
     uk = Рухайтесь через шостий з'їзд.
     vi = Đi theo lối ra thứ sáu.
-    zh-Hans = 取道第六个出口。
+    zh-Hans = 取道第六个出口
     zh-Hant = 取道第六個出口。
+
+  [take_the_6_exit_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_6_exit is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = に出ます
+    nl = de zesde afslag
+
+  [take_the_6_exit_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_6_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = 6番出口を出て
+    nl = Neem
 
   [take_the_7_exit]
     en = Take the seventh exit.
@@ -1499,7 +1735,7 @@
     hu = Hajtson ki a hetedik kijáratnál.
     id = Ambil jalan keluar ketujuh.
     it = Prendi la settima uscita.
-    ja = 七番目の出口です。
+    ja = 七番目の出口を出て。
     ko = 일곱 번째 출구입니다.
     mr = सातवा निर्गमन घ्या
     nb = Ta sjuende avkjøring.
@@ -1517,8 +1753,20 @@
     tr = Yedinci çıkıştan çıkın.
     uk = Рухайтесь через сьомий з'їзд.
     vi = Đi theo lối ra thứ bảy.
-    zh-Hans = 取道第七个出口。
+    zh-Hans = 取道第七个出口
     zh-Hant = 取道第七個出口。
+
+  [take_the_7_exit_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_7_exit is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = に出ます
+    nl = de zevende afslag
+
+  [take_the_7_exit_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_7_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = 7番出口を出て
+    nl = Neem
 
   [take_the_8_exit]
     en = Take the eighth exit.
@@ -1539,7 +1787,7 @@
     hu = Hajtson ki a nyolcadik kijáratnál.
     id = Ambil jalan keluar kedelapan.
     it = Prendi l'ottava uscita.
-    ja = 八番目の出口です。
+    ja = 八番目の出口を出て。
     ko = 여덟 번째 출구입니다.
     mr = आठवा निर्गमन घ्या
     nb = Ta åttende avkjøring.
@@ -1557,8 +1805,20 @@
     tr = Sekizinci çıkıştan çıkın.
     uk = Рухайтесь через восьмий з'їзд.
     vi = Đi theo lối ra thứ tám.
-    zh-Hans = 取道第八个出口。
+    zh-Hans = 取道第八个出口
     zh-Hant = 取道第八個出口。
+
+  [take_the_8_exit_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_8_exit is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = に出ます
+    nl = de achtste afslag
+
+  [take_the_8_exit_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_8_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = 8番出口を出て
+    nl = Neem
 
   [take_the_9_exit]
     en = Take the ninth exit.
@@ -1579,7 +1839,7 @@
     hu = Hajtson ki a kilencedik kijáratnál.
     id = Ambil jalan keluar kesembilan.
     it = Prendi la nona uscita.
-    ja = 九番目の出口です。
+    ja = 九番目の出口を出て。
     ko = 아홉 번째 출구입니다.
     mr = नववा निर्गमन घ्या
     nb = Ta niende avkjøring.
@@ -1597,8 +1857,20 @@
     tr = Dokuzuncu çıkıştan çıkın.
     uk = Рухайтесь через дев'ятий з'їзд.
     vi = Đi theo lối ra thứ chín.
-    zh-Hans = 取道第九个出口。
+    zh-Hans = 取道第九个出口
     zh-Hant = 取道第九個出口。
+
+  [take_the_9_exit_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_9_exit is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = に出ます
+    nl = de negende afslag
+
+  [take_the_9_exit_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_9_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = 9番出口を出て
+    nl = Neem
 
   [take_the_10_exit]
     en = Take the tenth exit.
@@ -1619,7 +1891,7 @@
     hu = Hajtson ki a tizedik kijáratnál.
     id = Ambil jalan keluar kesepuluh.
     it = Prendi la decima uscita.
-    ja = 十番目の出口です。
+    ja = 十番目の出口を出て。
     ko = 열 번째 출구입니다.
     mr = दहावा निर्गमन घ्या
     nb = Ta tiende avkjøring.
@@ -1637,8 +1909,20 @@
     tr = Onuncu çıkıştan çıkın.
     uk = Рухайтесь через десятий з'їзд.
     vi = Đi theo lối ra thứ mười.
-    zh-Hans = 取道第十个出口。
+    zh-Hans = 取道第十个出口
     zh-Hant = 取道第十個出口。
+
+  [take_the_10_exit_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_10_exit is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = に出ます
+    nl = de tiende afslag
+
+  [take_the_10_exit_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_10_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = 10番出口を出て
+    nl = Neem
 
   [take_the_11_exit]
     en = Take the eleventh exit.
@@ -1659,7 +1943,7 @@
     hu = Hajtson ki a tizenegyedik kijáratnál.
     id = Ambil jalan keluar kesebelas.
     it = Prendi l'undicesima uscita.
-    ja = 十一番目の出口です。
+    ja = 十一番目の出口を出て。
     ko = 열한 번째 출구입니다.
     mr = अकरावा निर्गमन घ्या
     nb = Ta ellevte avkjøring.
@@ -1677,8 +1961,20 @@
     tr = On birinci çıkıştan çıkın.
     uk = Рухайтесь через одинадцятий з'їзд.
     vi = Đi theo lối ra thứ mười một.
-    zh-Hans = 取道第十一个出口。
+    zh-Hans = 取道第十一个出口
     zh-Hant = 取道第十一個出口。
+
+  [take_the_11_exit_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_11_exit is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = に出ます
+    nl = de elfde afslag
+
+  [take_the_11_exit_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_11_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
+    ja = 11番出口を出て
+    nl = Neem
 
   [in_50_feet]
     en = In fifty feet
@@ -2582,7 +2878,7 @@
     ja = この先に自動速度違反取締装置があります。
     ko = 전방에 카메라
     mr = पुढे कॅमेरा आहे
-    nb = Kamera foran
+    nb = Fotoboks foran
     nl = Camera in zicht
     pl = Fotoradar na drodze
     pt = Câmera à frente
@@ -2597,5 +2893,5 @@
     tr = İleride kamera var
     uk = Попереду камера
     vi = Máy ảnh phía trước
-    zh-Hans = 在摄像头前
+    zh-Hans = 前方有摄像头
     zh-Hant = 在攝像頭前

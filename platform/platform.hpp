@@ -112,9 +112,9 @@ protected:
 
   std::unique_ptr<base::TaskLoop> m_guiThread;
 
-  std::unique_ptr<base::thread_pool::delayed::ThreadPool> m_networkThread;
-  std::unique_ptr<base::thread_pool::delayed::ThreadPool> m_fileThread;
-  std::unique_ptr<base::thread_pool::delayed::ThreadPool> m_backgroundThread;
+  std::unique_ptr<base::DelayedThreadPool> m_networkThread;
+  std::unique_ptr<base::DelayedThreadPool> m_fileThread;
+  std::unique_ptr<base::DelayedThreadPool> m_backgroundThread;
 
   platform::BatteryLevelTracker m_batteryTracker;
 
@@ -251,7 +251,7 @@ public:
 
   // Please note, that number of active cores can vary at runtime.
   // DO NOT assume for the same return value between calls.
-  unsigned CpuCores() const;
+  static unsigned CpuCores() ;
 
   void GetFontNames(FilesList & res) const;
 
@@ -316,7 +316,7 @@ public:
 
   template <typename Task>
   base::TaskLoop::PushResult RunDelayedTask(
-      Thread thread, base::thread_pool::delayed::ThreadPool::Duration const & delay, Task && task)
+      Thread thread, base::DelayedThreadPool::Duration const & delay, Task && task)
   {
     ASSERT(m_networkThread && m_fileThread && m_backgroundThread, ());
     switch (thread)

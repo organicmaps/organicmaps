@@ -1,5 +1,6 @@
 package app.organicmaps.bookmarks.data;
 
+import android.net.Uri;
 import android.os.Parcel;
 import android.text.TextUtils;
 
@@ -269,9 +270,9 @@ public class MapObject implements PlacePageData
   }
 
   @NonNull
-  public String getWebsiteUrl(boolean strip)
+  public String getWebsiteUrl(boolean strip, @NonNull Metadata.MetadataType type)
   {
-    final String website = getMetadata(Metadata.MetadataType.FMD_WEBSITE);
+    final String website = Uri.decode(getMetadata(type));
     final int len = website.length();
     if (strip && len > 1)
     {

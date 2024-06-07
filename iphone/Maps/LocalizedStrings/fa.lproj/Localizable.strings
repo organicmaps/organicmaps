@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "دستور العمل صوتی";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "نام خیابان ها را اعلام کنید";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "وقتی فعال باشد، نام خیابان یا خروجی که باید به آن بپیچید با صدای بلند گفته می شود.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "زبان صوت";
 
@@ -1007,7 +1013,9 @@
 
 "popular_place" = "مشهور";
 
-"export_file" = "ارسال فایل";
+"export_file" = "صادرات KMZ";
+
+"export_file_gpx" = "صادرات GPX";
 
 "delete_list" = "حذف لیست";
 
@@ -1261,6 +1269,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Fa:About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "اکنون در حال استفاده از نقشه های ارگانیک در صفحه گوشی هستید";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "اکنون از نقشه های ارگانیک در صفحه ماشین استفاده می کنید";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "با تلفن ادامه دهید";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "به صفحه ماشین";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "پیاده روی";
 
@@ -1274,6 +1294,36 @@
 "map" = "نقشه";
 
 "drive_through" = "رانندگی از طریق";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "لینک منو";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "همگام سازی iCloud را فعال کنید";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "همگام سازی iCloud یک ویژگی آزمایشی در دست توسعه است. مطمئن شوید که از تمام نشانکu200cها و آهنگu200cهای خود یک نسخه پشتیبان تهیه کردهu200cاید.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud غیرفعال است";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "لطفاً iCloud را در تنظیمات دستگاه خود فعال کنید تا از این ویژگی استفاده کنید.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "فعال کردن";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "پشتیبان گیری";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "خطا: به دلیل خطای اتصال همگام سازی نشد";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "خطا: به دلیل فراتر رفتن از سهمیه iCloud، همگام سازی انجام نشد";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "خطا: iCloud در دسترس نیست";
 
 
 /********** Types **********/
@@ -2424,8 +2474,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "زمین کشاورزی";
 
@@ -3813,8 +3861,6 @@
 "type.waterway.river" = "رودخانه";
 
 "type.waterway.river.tunnel" = "رودخانه";
-
-"type.waterway.riverbank" = "رودخانه";
 
 "type.waterway.stream" = "رودخانه";
 

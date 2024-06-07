@@ -3,6 +3,7 @@ package app.organicmaps.bookmarks;
 import android.app.Activity;
 import android.app.ProgressDialog;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
@@ -11,6 +12,7 @@ import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.BookmarkSharingResult;
+import app.organicmaps.bookmarks.data.KmlFileType;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.log.Logger;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -28,10 +30,10 @@ public enum BookmarksSharingHelper
   @Nullable
   private ProgressDialog mProgressDialog;
 
-  public void prepareBookmarkCategoryForSharing(@NonNull Activity context, long catId)
+  public void prepareBookmarkCategoryForSharing(@NonNull Activity context, long catId, KmlFileType kmlFileType)
   {
     showProgressDialog(context);
-    BookmarkManager.INSTANCE.prepareCategoriesForSharing(new long[]{catId});
+    BookmarkManager.INSTANCE.prepareCategoriesForSharing(new long[]{catId}, kmlFileType);
   }
 
   private void showProgressDialog(@NonNull Activity context)
@@ -45,6 +47,7 @@ public enum BookmarksSharingHelper
   }
 
   public void onPreparedFileForSharing(@NonNull FragmentActivity context,
+                                       @NonNull ActivityResultLauncher launcher,
                                        @NonNull BookmarkSharingResult result)
   {
     if (mProgressDialog != null && mProgressDialog.isShowing())
@@ -53,7 +56,7 @@ public enum BookmarksSharingHelper
     switch (result.getCode())
     {
       case BookmarkSharingResult.SUCCESS ->
-          SharingUtils.shareBookmarkFile(context, result.getSharingPath());
+          SharingUtils.shareBookmarkFile(context, launcher, result.getSharingPath(), result.getMimeType());
       case BookmarkSharingResult.EMPTY_CATEGORY ->
           new MaterialAlertDialogBuilder(context, R.style.MwmTheme_AlertDialog)
               .setTitle(R.string.bookmarks_error_title_share_empty)
@@ -83,6 +86,6 @@ public enum BookmarksSharingHelper
     long[] categoryIds = new long[categories.size()];
     for (int i = 0; i < categories.size(); i++)
       categoryIds[i] = categories.get(i).getId();
-    BookmarkManager.INSTANCE.prepareCategoriesForSharing(categoryIds);
+    BookmarkManager.INSTANCE.prepareCategoriesForSharing(categoryIds, KmlFileType.Text);
   }
 }

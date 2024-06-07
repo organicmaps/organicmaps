@@ -125,13 +125,13 @@ void TestSpeedCameraSectionBuilding(string const & osmContent, CameraMap const &
   if (!answer.empty())
   {
     // Check that intermediate file is non-empty.
-    TEST_NOT_EQUAL(base::FileData(camerasFilename, base::FileData::OP_READ).Size(), 0,
+    TEST_NOT_EQUAL(base::FileData(camerasFilename, base::FileData::Op::READ).Size(), 0,
                    ("SpeedCam intermediate file is empty"));
   }
   else
   {
     // Check that intermediate file is empty.
-    TEST_EQUAL(base::FileData(camerasFilename, base::FileData::OP_READ).Size(), 0,
+    TEST_EQUAL(base::FileData(camerasFilename, base::FileData::Op::READ).Size(), 0,
                ("SpeedCam intermediate file is non empty"));
   }
 

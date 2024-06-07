@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "语音指导";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "宣布街道名称";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "启用后，将大声说出要转入的街道或出口的名称。";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "语音语言";
 
@@ -1007,7 +1013,9 @@
 
 "popular_place" = "Popular";
 
-"export_file" = "导出文件";
+"export_file" = "导出 KMZ";
+
+"export_file_gpx" = "导出 GPX";
 
 "delete_list" = "删除列表";
 
@@ -1261,6 +1269,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "您现在正在手机屏幕上使用有机地图";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "您现在正在汽车屏幕上使用有机地图";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "在手机上继续";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "转到汽车屏幕";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "徒步旅行";
 
@@ -1274,6 +1294,36 @@
 "map" = "地图";
 
 "drive_through" = "驾车通过";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "菜单链接";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "启用 iCloud 同步";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "iCloud 同步是一项正在开发的实验性功能。请确保备份了所有书签和曲目。";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud 已禁用";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "请在设备设置中启用 iCloud，以使用此功能。";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "启用";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "备份";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "错误：由于连接错误，同步失败";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "错误：由于超过 iCloud 配额，同步失败";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "错误：iCloud 不可用";
 
 
 /********** Types **********/
@@ -2424,8 +2474,6 @@
 "type.landuse.construction" = "建设区域";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "农田";
 
 "type.landuse.farmland" = "农业用地";
 
@@ -3813,8 +3861,6 @@
 "type.waterway.river" = "河流";
 
 "type.waterway.river.tunnel" = "河流";
-
-"type.waterway.riverbank" = "河流";
 
 "type.waterway.stream" = "溪";
 

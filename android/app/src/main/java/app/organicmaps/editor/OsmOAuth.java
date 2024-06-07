@@ -2,6 +2,7 @@ package app.organicmaps.editor;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -68,6 +69,12 @@ public final class OsmOAuth
     return MwmApplication.prefs(context).getString(PREF_OSM_USERNAME, "");
   }
 
+  public static Bitmap getProfilePicture(@NonNull Context context)
+  {
+    //TODO(HB): load and store image in cache here
+    return null;
+  }
+
   public static void setAuthorization(@NonNull Context context, String oauthToken, String username)
   {
     MwmApplication.prefs(context).edit()
@@ -102,6 +109,10 @@ public final class OsmOAuth
   @WorkerThread
   @Nullable
   public static native String nativeGetOsmUsername(String oauthToken);
+
+  @WorkerThread
+  @Nullable
+  public static native String nativeGetOsmProfilePictureUrl(String oauthToken);
 
   @WorkerThread
   @NonNull

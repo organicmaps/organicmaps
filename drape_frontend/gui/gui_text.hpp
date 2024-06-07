@@ -118,7 +118,6 @@ public:
                 ref_ptr<dp::TextureManager> mng);
 
   void SetText(LabelResult & result, std::string text) const;
-  m2::PointF GetAverageSize() const;
 
   using TAlphabetNode = std::pair<strings::UniChar, dp::TextureManager::GlyphRegion>;
   using TAlphabet = std::vector<TAlphabetNode>;
@@ -152,7 +151,6 @@ public:
   bool Update(ScreenBase const & screen) override;
 
   ref_ptr<MutableLabel> GetTextView() const;
-  void UpdateSize(m2::PointF const & size);
 
 protected:
   void SetContent(std::string && content);
@@ -194,7 +192,7 @@ class StaticLabelHandle : public Handle
 
 public:
   StaticLabelHandle(uint32_t id, ref_ptr<dp::TextureManager> textureManager, dp::Anchor anchor,
-                    m2::PointF const & pivot, m2::PointF const & size, TAlphabet const & alphabet);
+                    m2::PointF const & pivot, TAlphabet const & alphabet);
 
   bool Update(ScreenBase const & screen) override;
 

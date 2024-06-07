@@ -23,18 +23,24 @@ string Metadata::ToWikiURL(std::string v)
   if (colon == string::npos)
     return v;
 
-  // Spaces and % sign should be replaced in urls.
-  replace(v.begin() + colon, v.end(), ' ', '_');
-  string::size_type percent, pos = colon;
-  string const escapedPercent("%25");
-  while ((percent = v.find('%', pos)) != string::npos)
+  // Spaces, % and ? characters should be corrected to form a valid URL's path.
+  // Standard percent encoding also encodes other characters like (), which lead to an unnecessary HTTP redirection.
+  for (auto i = colon; i < v.size(); ++i)
   {
-    v.replace(percent, 1, escapedPercent);
-    pos = percent + escapedPercent.size();
+    auto & c = v[i];
+    if (c == ' ')
+      c = '_';
+    else if (c == '%')
+      v.insert(i + 1, "25");  // % => %25
+    else if (c == '?')
+    {
+      c = '%';
+      v.insert(i + 1, "3F");  // ? => %3F
+    }
   }
 
   // Trying to avoid redirects by constructing the right link.
-  // TODO: Wikipedia article could be opened it a user's language, but need
+  // TODO: Wikipedia article could be opened in a user's language, but need
   // generator level support to check for available article languages first.
   return "https://" + v.substr(0, colon) + kBaseWikiUrl + v.substr(colon + 1);
 }
@@ -63,7 +69,7 @@ bool Metadata::TypeFromString(string_view k, Metadata::EType & outType)
     outType = Metadata::EType::FMD_FAX_NUMBER;
   else if (k == "stars")
     outType = Metadata::FMD_STARS;
-  else if (strings::StartsWith(k, "operator"))
+  else if (k.starts_with("operator"))
     outType = Metadata::FMD_OPERATOR;
   else if (k == "url" || k == "website" || k == "contact:website")
     outType = Metadata::FMD_WEBSITE;
@@ -118,7 +124,7 @@ bool Metadata::TypeFromString(string_view k, Metadata::EType & outType)
     outType = Metadata::FMD_LEVEL;
   else if (k == "iata")
     outType = Metadata::FMD_AIRPORT_IATA;
-  else if (strings::StartsWith(k, "brand"))
+  else if (k.starts_with("brand"))
     outType = Metadata::FMD_BRAND;
   else if (k == "duration")
     outType = Metadata::FMD_DURATION;
@@ -128,6 +134,8 @@ bool Metadata::TypeFromString(string_view k, Metadata::EType & outType)
     outType = Metadata::FMD_LOCAL_REF;
   else if (k == "drive_through")
     outType = Metadata::FMD_DRIVE_THROUGH;
+  else if (k == "website:menu")
+    outType = Metadata::FMD_WEBSITE_MENU;
   else
     return false;
 
@@ -247,6 +255,7 @@ string ToString(Metadata::EType type)
   case Metadata::FMD_WHEELCHAIR: return "wheelchair";
   case Metadata::FMD_LOCAL_REF: return "local_ref";
   case Metadata::FMD_DRIVE_THROUGH: return "drive_through";
+  case Metadata::FMD_WEBSITE_MENU: return "website:menu";
   case Metadata::FMD_COUNT: CHECK(false, ("FMD_COUNT can not be used as a type."));
   };
 

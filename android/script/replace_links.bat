@@ -8,12 +8,12 @@ cp ../data/classificator.txt assets/
 cp ../data/colors.txt assets/
 cp ../data/copyright.html assets/
 cp ../data/countries.txt assets/
-cp ../data/drules_proto_dark.bin assets/
-cp ../data/drules_proto_clear.bin assets/
+cp ../data/drules_proto_default_dark.bin assets/
+cp ../data/drules_proto_default_light.bin assets/
 cp ../data/drules_proto_vehicle_dark.bin assets/
-cp ../data/drules_proto_vehicle_clear.bin assets/
+cp ../data/drules_proto_vehicle_light.bin assets/
 cp ../data/drules_proto_outdoors_dark.bin assets/
-cp ../data/drules_proto_outdoors_clear.bin assets/
+cp ../data/drules_proto_outdoors_light.bin assets/
 cp ../data/editor.config assets/
 cp ../data/faq.html assets/
 cp ../data/fonts_blacklist.txt assets/
@@ -27,15 +27,15 @@ cp ../data/opening_hours_how_to_edit.html assets/
 cp ../data/ugc_types.csv assets/
 
 cp -r ../data/resources-hdpi_dark/ assets/
-cp -r ../data/resources-hdpi_clear/ assets/
+cp -r ../data/resources-hdpi_light/ assets/
 cp -r ../data/resources-mdpi_dark/ assets/
-cp -r ../data/resources-mdpi_clear/ assets/
+cp -r ../data/resources-mdpi_light/ assets/
 cp -r ../data/resources-xhdpi_dark/ assets/
-cp -r ../data/resources-xhdpi_clear/ assets/
+cp -r ../data/resources-xhdpi_light/ assets/
 cp -r ../data/resources-xxhdpi_dark/ assets/
-cp -r ../data/resources-xxhdpi_clear/ assets/
+cp -r ../data/resources-xxhdpi_light/ assets/
 cp -r ../data/resources-6plus_dark/ assets/
-cp -r ../data/resources-6plus_clear/ assets/
+cp -r ../data/resources-6plus_light/ assets/
 
 cp -r ../data/sound-strings/ assets/
 cp -r ../data/countries-strings/ assets/

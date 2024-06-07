@@ -451,7 +451,7 @@ void RunGenerateIsolinesTasks(int left, int bottom, int right, int top,
     }
   }
 
-  base::thread_pool::computational::ThreadPool threadPool(threadsCount);
+  base::ComputationalThreadPool threadPool(threadsCount);
 
   for (int lat = bottom; lat < top; lat += tilesRowPerTask)
   {
@@ -665,7 +665,7 @@ void Generator::PackIsolinesForCountries()
     return;
   }
 
-  base::thread_pool::computational::ThreadPool threadPool(m_threadsCount);
+  base::ComputationalThreadPool threadPool(m_threadsCount);
   size_t taskInd = 0;
   size_t tasksCount = m_countriesToGenerate.m_countryParams.size();
   for (auto const & countryParams : m_countriesToGenerate.m_countryParams)

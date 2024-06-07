@@ -25,7 +25,7 @@ public:
   dp::Color GetColor(std::string const & name) const
   {
     auto const style = GetStyleReader().GetCurrentStyle();
-    auto const isDarkStyle = style == MapStyle::MapStyleDark || style == MapStyle::MapStyleVehicleDark;
+    auto const isDarkStyle = style == MapStyle::MapStyleDefaultDark || style == MapStyle::MapStyleVehicleDark;
     auto const & colors = isDarkStyle ? m_nightColors : m_clearColors;
     auto const it = colors.find(name);
     if (it == colors.cend())
@@ -117,7 +117,7 @@ ColorConstant GetTransitTextColorName(ColorConstant const & localName)
 
 bool IsTransitColor(ColorConstant const & constant)
 {
-  return strings::StartsWith(constant, kTransitColorPrefix);
+  return constant.starts_with(kTransitColorPrefix);
 }
 
 dp::Color GetColorConstant(ColorConstant const & constant)

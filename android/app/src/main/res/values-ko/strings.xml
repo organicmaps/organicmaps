@@ -216,6 +216,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D 빌딩은 절전 모드에서 꺼집니다.</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">음성 지침</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">\"거리 이름 발표\"</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">\"사용하도록 설정하면 회전할 거리 또는 출구의 이름을 소리내어 말합니다.\"</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">음성 언어</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -580,6 +584,7 @@
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="other">%d 파일을 찾았습니다. 회심 후 그들을 볼 수 있습니다.</item>
 	</plurals>
+	<string name="restore">복원</string>
 	<plurals name="objects">
 	  <item quantity="other">%d 장소</item>
 	</plurals>
@@ -600,7 +605,8 @@
 	<string name="bookmarks_empty_list_title">이 목록은 비어있습니다.</string>
 	<string name="bookmarks_empty_list_message">북마크를 추가하려면 맵에서 장소를 탭하고 별 모양 아이콘을 탭하세요.</string>
 	<string name="category_desc_more">…기타 정보</string>
-	<string name="export_file">파일 내보내기</string>
+	<string name="export_file">KMZ 내보내기</string>
+	<string name="export_file_gpx">GPX 내보내기</string>
 	<string name="delete_list">리스트 삭제</string>
 	<string name="public_access">일반 접근</string>
 	<string name="limited_access">제한 접근</string>
@@ -731,16 +737,16 @@
 	<string name="app_tip_08">지도 데이터를 쉽게 수정하고 개선할 수 있습니다.</string>
 	<!-- App tip #09 -->
 	<string name="app_tip_09">우리의 주요 목표는 귀하가 좋아할 빠르고 개인 정보 보호에 중점을 두고 사용하기 쉬운 지도를 구축하는 것입니다.</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">이제 휴대폰 화면에서 유기적 지도를 사용하고 있습니다</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">이제 휴대폰 화면에서 유기적 지도를 사용하고 있습니다</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">이제 자동차 화면에서 유기적 지도를 사용하고 있습니다</string>
+	<string name="car_used_on_the_car_screen">이제 자동차 화면에서 유기적 지도를 사용하고 있습니다</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Android Auto에 연결되어 있습니다.</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">전화기에서 계속</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">차량 화면으로 이동</string>
+	<string name="car_continue_on_the_phone">전화기에서 계속</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">차량 화면으로 이동</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">이 애플리케이션을 사용하려면 내비게이션 목적으로 사용자 위치에 액세스해야 합니다.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -763,6 +769,10 @@
 	<string name="zoom_in">확대</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">축소</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">메뉴 링크</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">메뉴 보기</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">주소/블록</string>
@@ -1885,7 +1895,6 @@
 	<string name="type.waterway.lock_gate">수문</string>
 	<string name="type.waterway.river">강</string>
 	<string name="type.waterway.river.tunnel">강</string>
-	<string name="type.waterway.riverbank">강</string>
 	<string name="type.waterway.stream">강</string>
 	<string name="type.waterway.stream.ephemeral">강</string>
 	<string name="type.waterway.stream.intermittent">강</string>

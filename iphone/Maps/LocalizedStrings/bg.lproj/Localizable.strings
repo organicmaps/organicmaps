@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Гласови инструкции";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Обявете имена на улици";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Когато е активирано, името на улицата или изхода, по който да завиете, ще бъде произнесено на глас.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Език на инструкциите";
 
@@ -1007,7 +1013,9 @@
 
 "popular_place" = "Популярно";
 
-"export_file" = "Експортиране на файл";
+"export_file" = "Експорт на KMZ";
+
+"export_file_gpx" = "Експортиране на GPX";
 
 "delete_list" = "Изтриване на списък";
 
@@ -1261,6 +1269,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Вече използвате Organic Maps на екрана на телефона";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Вече използвате Organic Maps на екрана на автомобила";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Продължете в телефона";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Към екрана на автомобила";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Активен отдих";
 
@@ -1274,6 +1294,36 @@
 "map" = "Карта";
 
 "drive_through" = "С прозорец за шофьори";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Връзка към менюто";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Активиране на синхронизацията с iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "Синхронизацията в iCloud е експериментална функция в процес на разработка. Уверете се, че сте направили резервно копие на всичките си отметки и песни.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud е деактивиран";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "За да използвате тази функция, разрешете iCloud в настройките на устройството си.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Активиране на";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Резервно копие";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Грешка: Не успя да се синхронизира поради грешка при свързването";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Грешка: Неуспешно синхронизиране поради превишена квота на iCloud";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Грешка: iCloud не е наличен";
 
 
 /********** Types **********/
@@ -2424,8 +2474,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Farmland";
 
@@ -3813,8 +3861,6 @@
 "type.waterway.river" = "River";
 
 "type.waterway.river.tunnel" = "River";
-
-"type.waterway.riverbank" = "River";
 
 "type.waterway.stream" = "Stream";
 

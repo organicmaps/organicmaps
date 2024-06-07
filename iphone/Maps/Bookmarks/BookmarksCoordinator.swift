@@ -33,6 +33,15 @@ import UIKit
     state = .closed
   }
 
+  @objc func goBack() {
+    switch state {
+    case .opened:
+      navigationController?.popViewController(animated: true)
+    case .hidden, .closed:
+      close()
+    }
+  }
+
   @objc func hide(categoryId: MWMMarkGroupID) {
     state = .hidden(categoryId: categoryId)
   }

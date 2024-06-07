@@ -1,5 +1,5 @@
 /* Keep here changes of the base map style file only. */
-@import("../../clear/include/Roads.mapcss");
+@import("../../default/include/Roads.mapcss");
 
 
 /* Make all roads more contrast */

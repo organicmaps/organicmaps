@@ -267,11 +267,13 @@ public:
 
   kml::MarkGroupId CreateBookmarkCategory(kml::CategoryData && data, bool autoSave = true);
   kml::MarkGroupId CreateBookmarkCategory(std::string const & name, bool autoSave = true);
+  void UpdateBookmarkCategory(kml::MarkGroupId & groupId, kml::CategoryData && data, bool autoSave);
 
   BookmarkCategory * CreateBookmarkCompilation(kml::CategoryData && data);
 
   std::string GetCategoryName(kml::MarkGroupId categoryId) const;
   std::string GetCategoryFileName(kml::MarkGroupId categoryId) const;
+  kml::MarkGroupId GetCategoryByFileName(std::string const & fileName) const;
   m2::RectD GetCategoryRect(kml::MarkGroupId categoryId, bool addIconsSize) const;
   kml::CategoryData const & GetCategoryData(kml::MarkGroupId categoryId) const;
 
@@ -281,6 +283,8 @@ public:
   kml::GroupIdCollection GetSortedBmGroupIdList() const;
   size_t GetBmGroupsCount() const { return m_unsortedBmGroupsIdList.size(); };
   bool HasBmCategory(kml::MarkGroupId groupId) const;
+  bool HasBookmark(kml::MarkId markId) const;
+  bool HasTrack(kml::TrackId trackId) const;
   kml::MarkGroupId LastEditedBMCategory();
   kml::PredefinedColor LastEditedBMColor() const;
 
@@ -298,6 +302,7 @@ public:
   /// Scans and loads all kml files with bookmarks.
   void LoadBookmarks();
   void LoadBookmark(std::string const & filePath, bool isTemporaryFile);
+  void ReloadBookmark(std::string const & filePath);
 
   /// Uses the same file name from which was loaded, or
   /// creates unique file name on first save and uses it every time.
@@ -319,10 +324,11 @@ public:
       FileError
     };
 
-    SharingResult(kml::GroupIdCollection && categoriesIds, std::string && sharingPath)
+    SharingResult(kml::GroupIdCollection && categoriesIds, std::string && sharingPath, const std::string & mimeType)
       : m_categoriesIds(categoriesIds)
       , m_code(Code::Success)
       , m_sharingPath(std::move(sharingPath))
+      , m_mimeType(mimeType)
     {}
 
     SharingResult(kml::GroupIdCollection && categoriesIds, Code code)
@@ -339,11 +345,12 @@ public:
     kml::MarkIdCollection m_categoriesIds;
     Code m_code;
     std::string m_sharingPath;
+    std::string m_mimeType;
     std::string m_errorString;
   };
 
   using SharingHandler = platform::SafeCallback<void(SharingResult const & result)>;
-  void PrepareFileForSharing(kml::GroupIdCollection && categoriesIds, SharingHandler && handler);
+  void PrepareFileForSharing(kml::GroupIdCollection && categoriesIds, SharingHandler && handler, KmlFileType kmlFileType);
   void PrepareAllFilesForSharing(SharingHandler && handler);
 
   bool AreAllCategoriesEmpty() const;
@@ -367,6 +374,9 @@ public:
   void EnableTestMode(bool enable);
   bool SaveBookmarkCategory(kml::MarkGroupId groupId);
   bool SaveBookmarkCategory(kml::MarkGroupId groupId, Writer & writer, KmlFileType fileType) const;
+
+  bool HasRecentlyDeletedBookmark() const { return m_recentlyDeletedBookmark.operator bool(); };
+  void ResetRecentlyDeletedBookmark();
 
   // Used for LoadBookmarks() and unit tests only. Does *not* update last modified time.
   void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = false);
@@ -571,7 +581,7 @@ private:
   void SetCategoryTags(kml::MarkGroupId categoryId, std::vector<std::string> const & tags);
   void SetCategoryAccessRules(kml::MarkGroupId categoryId, kml::AccessRules accessRules);
   void SetCategoryCustomProperty(kml::MarkGroupId categoryId, std::string const & key, std::string const & value);
-  bool DeleteBmCategory(kml::MarkGroupId groupId);
+  bool DeleteBmCategory(kml::MarkGroupId groupId, bool deleteFile);
   void ClearCategories();
 
   void MoveBookmark(kml::MarkId bmID, kml::MarkGroupId curGroupID, kml::MarkGroupId newGroupID);
@@ -593,7 +603,7 @@ private:
 
   void OnEditSessionOpened();
   void OnEditSessionClosed();
-  void NotifyChanges();
+  void NotifyChanges(bool saveChangesOnDisk);
 
   void SaveState() const;
   void LoadState();
@@ -607,6 +617,7 @@ private:
   void NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && collection);
   void NotifyAboutFile(bool success, std::string const & filePath, bool isTemporaryFile);
   void LoadBookmarkRoutine(std::string const & filePath, bool isTemporaryFile);
+  void ReloadBookmarkRoutine(std::string const & filePath);
 
   using BookmarksChecker = std::function<bool(kml::FileData const &)>;
   KMLDataCollectionPtr LoadBookmarks(std::string const & dir, std::string_view ext,
@@ -754,15 +765,18 @@ private:
   kml::TrackId m_selectedTrackId = kml::kInvalidTrackId;
   m2::PointF m_maxBookmarkSymbolSize;
 
+  std::unique_ptr<Bookmark> m_recentlyDeletedBookmark;
+
   bool m_asyncLoadingInProgress = false;
   struct BookmarkLoaderInfo
   {
-    BookmarkLoaderInfo(std::string const & filename, bool isTemporaryFile)
-      : m_filename(filename), m_isTemporaryFile(isTemporaryFile)
+    BookmarkLoaderInfo(std::string const & filename, bool isTemporaryFile, bool isReloading)
+      : m_filename(filename), m_isTemporaryFile(isTemporaryFile), m_isReloading(isReloading)
     {}
 
     std::string m_filename;
     bool m_isTemporaryFile = false;
+    bool m_isReloading = false;
   };
   std::list<BookmarkLoaderInfo> m_bookmarkLoadingQueue;
 

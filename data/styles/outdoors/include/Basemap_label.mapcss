@@ -1,5 +1,5 @@
 /* Keep here changes of the base map style file only. */
-@import("../../clear/include/Basemap_label.mapcss");
+@import("../../default/include/Basemap_label.mapcss");
 
 
 /* 9. ISOLINES */

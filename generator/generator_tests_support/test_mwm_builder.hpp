@@ -1,6 +1,7 @@
 #pragma once
 
 #include "generator/cities_boundaries_builder.hpp"
+#include "generator/postcode_points_builder.hpp"
 
 #include "indexer/data_header.hpp"
 
@@ -41,8 +42,10 @@ public:
   void AddSafe(TestFeature const & feature);
   bool Add(feature::FeatureBuilder & fb);
 
-  void SetUKPostcodesData(std::string const & postcodesPath,
-                          std::shared_ptr<storage::CountryInfoGetter> const & countryInfoGetter);
+  void SetPostcodesData(std::string const & postcodesPath,
+                        indexer::PostcodePointsDatasetType postcodesType,
+                        std::shared_ptr<storage::CountryInfoGetter> const & countryInfoGetter);
+
   void SetMwmLanguages(std::vector<std::string> const & languages);
 
   void Finish();
@@ -53,8 +56,11 @@ private:
   std::vector<std::string> m_languages;
   std::unique_ptr<feature::FeaturesCollector> m_collector;
   TestIdToBoundariesTable m_boundariesTable;
+
   std::shared_ptr<storage::CountryInfoGetter> m_postcodesCountryInfoGetter;
-  std::string m_ukPostcodesPath;
+  std::string m_postcodesPath;
+  indexer::PostcodePointsDatasetType m_postcodesType;
+
   uint32_t m_version = 0;
 };
 }  // namespace tests_support

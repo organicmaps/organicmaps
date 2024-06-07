@@ -232,6 +232,10 @@ using namespace storage;
   [self.ownerViewController openUrl:data.infoData.website];
 }
 
+- (void)openWebsiteMenu:(PlacePageData *)data {
+  [self.ownerViewController openUrl:data.infoData.websiteMenu];
+}
+
 - (void)openKayak:(PlacePageData *)data {
   [self.ownerViewController openUrl:data.infoData.kayak];
 }

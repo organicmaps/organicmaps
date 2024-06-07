@@ -98,7 +98,6 @@ target_link_libraries(${PROJECT_NAME}
   # base
   # opening_hours
   # pugixml
-  # oauthcpp
   # expat
   # freetype
   # minizip

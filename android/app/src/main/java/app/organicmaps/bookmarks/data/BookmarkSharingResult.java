@@ -29,13 +29,17 @@ public class BookmarkSharingResult
   @NonNull
   @SuppressWarnings("unused")
   private final String mErrorString;
+  @NonNull
+  @SuppressWarnings("unused")
+  private final String mMimeType;
 
-  public BookmarkSharingResult(long[] categoriesIds, @Code int code, @NonNull String sharingPath, @NonNull String errorString)
+  public BookmarkSharingResult(long[] categoriesIds, @Code int code, @NonNull String sharingPath, @NonNull String mimeType, @NonNull String errorString)
   {
     mCategoriesIds = categoriesIds;
     mCode = code;
     mSharingPath = sharingPath;
     mErrorString = errorString;
+    mMimeType = mimeType;
   }
 
   public long[] getCategoriesIds()
@@ -52,6 +56,11 @@ public class BookmarkSharingResult
   public String getSharingPath()
   {
     return mSharingPath;
+  }
+  @NonNull
+  public String getMimeType()
+  {
+    return mMimeType;
   }
 
   @NonNull

@@ -1,5 +1,7 @@
 #include "shaders/vulkan_program_params.hpp"
 
+#include "shaders/vulkan_program_pool.hpp"
+
 #include "drape/vulkan/vulkan_base_context.hpp"
 #include "drape/vulkan/vulkan_gpu_program.hpp"
 #include "drape/vulkan/vulkan_utils.hpp"
@@ -31,10 +33,14 @@ VulkanProgramParamsSetter::UniformBuffer CreateUniformBuffer(VkDevice device,
 }
 }  // namespace
 
-VulkanProgramParamsSetter::VulkanProgramParamsSetter(ref_ptr<dp::vulkan::VulkanBaseContext> context)
+VulkanProgramParamsSetter::VulkanProgramParamsSetter(ref_ptr<dp::vulkan::VulkanBaseContext> context,
+                                                     ref_ptr<VulkanProgramPool> programPool)
 {
   using namespace dp::vulkan;
   m_objectManager = context->GetObjectManager();
+  m_objectManager->SetMaxUniformBuffers(programPool->GetMaxUniformBuffers());
+  m_objectManager->SetMaxImageSamplers(programPool->GetMaxImageSamplers());
+
   for (auto & ub : m_uniformBuffers)
   {
     ub.emplace_back(CreateUniformBuffer(context->GetDevice(), m_objectManager,
@@ -148,7 +154,7 @@ void VulkanProgramParamsSetter::ApplyBytes(ref_ptr<dp::vulkan::VulkanBaseContext
   dp::vulkan::ParamDescriptor descriptor;
   descriptor.m_type = dp::vulkan::ParamDescriptor::Type::DynamicUniformBuffer;
   descriptor.m_bufferDescriptor.buffer = ub[index].m_object.m_buffer;
-  descriptor.m_bufferDescriptor.range = VK_WHOLE_SIZE;
+  descriptor.m_bufferDescriptor.range = alignedSize;
   descriptor.m_bufferDynamicOffset = alignedOffset;
   descriptor.m_id = static_cast<uint32_t>(index);
   context->ApplyParamDescriptor(std::move(descriptor));

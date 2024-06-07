@@ -2,6 +2,8 @@
 
 #include "platform/get_text_by_id.hpp"
 
+#include "base/string_utils.hpp"
+
 #include <memory>
 #include <string>
 
@@ -39,10 +41,19 @@ public:
 
 private:
   std::string GetTextById(std::string const & textId) const;
+  std::string GetTextByIdTrimmed(std::string const & textId) const;
 
   std::unique_ptr<platform::GetTextById> m_getCurLang;
-};
 
+  /// \brief Removes a terminal period (or CJK or Hindi equivalent) from a string
+  /// @param s - String to be modified
+  static void RemoveLastDot(std::string & s)
+  {
+    strings::EatSuffix(s, ".");
+    strings::EatSuffix(s, "。");
+    strings::EatSuffix(s, "।");
+  }
+};
 /// Generates text message id about the distance of the notification. For example: In 300 meters.
 std::string GetDistanceTextId(Notification const & notification);
 /// Generates text message id for roundabouts.

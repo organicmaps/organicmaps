@@ -96,7 +96,7 @@ public:
   RoadShieldType FindNetworkShield(std::string network) const
   {
     // Special processing for US state highways, to not duplicate the table.
-    if (network.size() == 5 && strings::StartsWith(network, "US:"))
+    if (network.size() == 5 && network.starts_with("US:"))
     {
       if (base::IsExist(kStatesCode, network.substr(3)))
         return RoadShieldType::Generic_White;

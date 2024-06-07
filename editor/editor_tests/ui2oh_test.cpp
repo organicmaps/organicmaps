@@ -352,6 +352,22 @@ UNIT_TEST(OpeningHours2TimeTableSet_off)
     TEST_EQUAL(tt.GetExcludeTime()[0].GetStart().GetHourMinutes().GetHoursCount(), 11, ());
     TEST_EQUAL(tt.GetExcludeTime()[0].GetEnd().GetHourMinutes().GetHoursCount(), 13, ());
   }
+  {
+    OpeningHours oh("Mo off; Tu-Su 09:00-17:00");
+    TEST(oh.IsValid(), ());
+
+    TimeTableSet tts;
+
+    TEST(MakeTimeTableSet(oh, tts), ());
+    TEST_EQUAL(tts.Size(), 1, ());
+
+    TEST_EQUAL(tts.GetUnhandledDays(), OpeningDays({osmoh::Weekday::Monday}), ());
+
+    auto const tt = tts.Get(0);
+
+    TEST_EQUAL(tt.GetOpeningTime().GetStart().GetHourMinutes().GetHoursCount(), 9, ());
+    TEST_EQUAL(tt.GetOpeningTime().GetEnd().GetHourMinutes().GetHoursCount(), 17, ());
+  }
 }
 
 UNIT_TEST(OpeningHours2TimeTableSet_plus)

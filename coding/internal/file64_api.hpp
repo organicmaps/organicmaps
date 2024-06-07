@@ -1,7 +1,5 @@
 #pragma once
 
-#include "base/base.hpp"
-
 #include "std/target_os.hpp"
 
 #if defined(OMIM_OS_WINDOWS_NATIVE)
@@ -21,7 +19,7 @@
   #if defined(OMIM_OS_ANDROID) && (defined(__arm__) || defined(__i386__))
     static_assert(sizeof(off_t) == 4, "32-bit Android NDK < API 24 has only 32-bit file operations support");
   #else
-    static_assert(sizeof(off_t) == 8, "Our FileReader/Writer require 64-bit file operations");
+    static_assert(sizeof(off_t) == 8, "FileReader and FileWriter require 64-bit file operations");
   #endif
   #define fseek64 fseeko
   #define ftell64 ftello

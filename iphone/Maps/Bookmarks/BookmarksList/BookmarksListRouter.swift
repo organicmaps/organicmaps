@@ -79,4 +79,8 @@ extension BookmarksListRouter: IBookmarksListRouter {
     let editTrackController = EditTrackViewController(trackId: trackId, editCompletion: completion)
     mapViewController.navigationController?.pushViewController(editTrackController, animated: true)
   }
+
+  func goBack() {
+    coordinator?.goBack()
+  }
 }

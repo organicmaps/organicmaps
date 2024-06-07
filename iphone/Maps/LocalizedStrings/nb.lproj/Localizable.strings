@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Taleinstrukser";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Kunngjør gatenavn";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Når aktivert, vil navnet på gaten eller avkjørselen du skal svinge inn på, bli lest opp.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Talespråk";
 
@@ -1007,7 +1013,9 @@
 
 "popular_place" = "Populær";
 
-"export_file" = "Eksporter fil";
+"export_file" = "Eksporter KMZ";
+
+"export_file_gpx" = "Eksporter GPX";
 
 "delete_list" = "Slett liste";
 
@@ -1261,6 +1269,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Du bruker nå Organic Maps på telefonskjermen";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Du bruker nå Organic Maps på bilskjermen";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Fortsett i telefonen";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Til bilens skjerm";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Fotturer";
 
@@ -1274,6 +1294,36 @@
 "map" = "Kart";
 
 "drive_through" = "Gjennomkjøring";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Lenke til menyen";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Aktiver iCloud-synkronisering";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "iCloud-synkronisering er en eksperimentell funksjon under utvikling. Sørg for at du har tatt en sikkerhetskopi av alle bokmerkene og sporene dine.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud er deaktivert";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Aktiver iCloud i enhetens innstillinger for å bruke denne funksjonen.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Aktivere";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Sikkerhetskopiering";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Feil: Kunne ikke synkronisere på grunn av tilkoblingsfeil";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Feil: Kunne ikke synkronisere på grunn av overskredet iCloud-kvote";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Feil: iCloud er ikke tilgjengelig";
 
 
 /********** Types **********/
@@ -2424,8 +2474,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Jordbruksområde";
 
@@ -3813,8 +3861,6 @@
 "type.waterway.river" = "Elv";
 
 "type.waterway.river.tunnel" = "Elv";
-
-"type.waterway.riverbank" = "Elv";
 
 "type.waterway.stream" = "Elv";
 

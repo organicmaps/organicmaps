@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "음성 지침";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "\"거리 이름 발표\"";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "\"사용하도록 설정하면 회전할 거리 또는 출구의 이름을 소리내어 말합니다.\"";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "음성 언어";
 
@@ -1007,7 +1013,9 @@
 
 "popular_place" = "Popular";
 
-"export_file" = "파일 내보내기";
+"export_file" = "KMZ 내보내기";
+
+"export_file_gpx" = "GPX 내보내기";
 
 "delete_list" = "리스트 삭제";
 
@@ -1261,6 +1269,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Ko:OpenStreetMap_소개";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "이제 휴대폰 화면에서 유기적 지도를 사용하고 있습니다";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "이제 자동차 화면에서 유기적 지도를 사용하고 있습니다";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "전화기에서 계속";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "차량 화면으로 이동";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "하이킹";
 
@@ -1274,6 +1294,36 @@
 "map" = "지도";
 
 "drive_through" = "드라이브 스루";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "메뉴 링크";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "iCloud 동기화 활성화";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "iCloud 동기화는 개발 중인 실험적 기능입니다. 모든 북마크와 트랙을 백업해 두었는지 확인하세요.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud가 비활성화됨";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "이 기능을 사용하려면 기기 설정에서 iCloud를 활성화하세요.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "사용";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "백업";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "오류입니다: 연결 오류로 인해 동기화하지 못했습니다.";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "오류입니다: iCloud 할당량이 초과되어 동기화하지 못했습니다.";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "오류: iCloud를 사용할 수 없습니다.";
 
 
 /********** Types **********/
@@ -2424,8 +2474,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "농지";
 
@@ -3813,8 +3861,6 @@
 "type.waterway.river" = "강";
 
 "type.waterway.river.tunnel" = "강";
-
-"type.waterway.riverbank" = "강";
 
 "type.waterway.stream" = "강";
 

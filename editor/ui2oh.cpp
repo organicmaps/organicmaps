@@ -340,9 +340,9 @@ bool MakeTimeTableSet(osmoh::OpeningHours const & oh, ui::TimeTableSet & tts)
 
     if (rulePart.GetModifier() == osmoh::RuleSequence::Modifier::Closed)
     {
-      // off modifier in the first part in oh is useless.
+      // Off modifier in the first part in oh is useless. Skip it.
       if (first == true)
-        return false;
+        continue;
 
       if (!ExcludeRulePart(rulePart, tts))
         return false;
@@ -374,6 +374,14 @@ bool MakeTimeTableSet(osmoh::OpeningHours const & oh, ui::TimeTableSet & tts)
     first = false;
     if (!appended)
       return false;
+  }
+
+  // Check if no OH rule has been correctly processed.
+  if (first)
+  {
+    // No OH rule has been correctly processed.
+    // Set OH parsing as invalid.
+    return false;
   }
 
   return true;

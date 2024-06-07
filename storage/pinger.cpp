@@ -1,27 +1,23 @@
 #include "storage/pinger.hpp"
 
 #include "platform/http_client.hpp"
-#include "platform/preferred_languages.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
-#include "base/stl_helpers.hpp"
 #include "base/thread_pool_delayed.hpp"
 
 #include <chrono>
-#include <map>
 
-
-using namespace std;
-using namespace std::chrono;
 
 namespace pinger
 {
 auto constexpr kTimeoutInSeconds = 4.0;
 int64_t constexpr kInvalidPing = -1;
 
-int64_t DoPing(string const & url)
+int64_t DoPing(std::string const & url)
 {
+  using namespace std::chrono;
+
   if (url.empty())
   {
     ASSERT(false, ("Metaserver returned an empty url."));
@@ -43,22 +39,20 @@ int64_t DoPing(string const & url)
 
   return kInvalidPing;
 }
-}  // namespace
+} // namespace pinger
 
 namespace storage
 {
 // static
 Pinger::Endpoints Pinger::ExcludeUnavailableAndSortEndpoints(Endpoints const & urls)
 {
-  using base::thread_pool::delayed::ThreadPool;
-
   auto const size = urls.size();
   CHECK_GREATER(size, 0, ());
 
   using EntryT = std::pair<int64_t, size_t>;
   std::vector<EntryT> timeUrls(size, {pinger::kInvalidPing, 0});
   {
-    ThreadPool pool(size, ThreadPool::Exit::ExecPending);
+    base::DelayedThreadPool pool(size, base::DelayedThreadPool::Exit::ExecPending);
     for (size_t i = 0; i < size; ++i)
     {
       pool.Push([&urls, &timeUrls, i]

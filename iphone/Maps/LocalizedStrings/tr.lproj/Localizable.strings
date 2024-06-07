@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Sesli Yönlendirme";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Sokak İsimlerini Duyur";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Etkinleştirildiğinde, dönülecek sokağın veya çıkışın adı yüksek sesle söylenecektir.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Ses Dili";
 
@@ -1007,7 +1013,9 @@
 
 "popular_place" = "Popüler";
 
-"export_file" = "Dosyayı dışa aktar";
+"export_file" = "KMZ'yi Dışa Aktar";
+
+"export_file_gpx" = "GPX'i Dışa Aktar";
 
 "delete_list" = "Listeyi sil";
 
@@ -1261,6 +1269,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Tr:About";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Artık telefon ekranında Organic Maps kullanıyorsunuz";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Şu anda araç ekranında Organic Maps kullanıyorsunuz";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Telefonda devam edin";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Araba ekranına";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Yürüyüş";
 
@@ -1274,6 +1294,36 @@
 "map" = "Harita";
 
 "drive_through" = "Arabaya servis";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Menü bağlantısı";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "iCloud Senkronizasyonunu Etkinleştir";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "iCloud senkronizasyonu geliştirme aşamasında olan deneysel bir özelliktir. Tüm yer imlerinizin ve parçalarınızın yedeğini aldığınızdan emin olun.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud Devre Dışı";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Bu özelliği kullanmak için lütfen cihazınızın ayarlarında iCloud'u etkinleştirin.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Etkinleştir";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Yedekleme";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Hata oluştu: Bağlantı hatası nedeniyle senkronizasyon başarısız oldu";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Hata: iCloud kotası aşıldığı için senkronize edilemedi";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Hata: iCloud kullanılamıyor";
 
 
 /********** Types **********/
@@ -2424,8 +2474,6 @@
 "type.landuse.construction" = "Yapı";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Çiftlik";
 
 "type.landuse.farmland" = "Tarım Arazileri";
 
@@ -3813,8 +3861,6 @@
 "type.waterway.river" = "Nehir";
 
 "type.waterway.river.tunnel" = "Nehir";
-
-"type.waterway.riverbank" = "Nehir";
 
 "type.waterway.stream" = "Nehir";
 

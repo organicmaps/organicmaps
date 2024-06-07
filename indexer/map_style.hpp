@@ -4,12 +4,12 @@
 
 enum MapStyle
 {
-  MapStyleClear = 0,
-  MapStyleDark = 1,
+  MapStyleDefaultLight = 0,
+  MapStyleDefaultDark = 1,
   MapStyleMerged = 2,
-  MapStyleVehicleClear = 3,
+  MapStyleVehicleLight = 3,
   MapStyleVehicleDark = 4,
-  MapStyleOutdoorsClear = 5,
+  MapStyleOutdoorsLight = 5,
   MapStyleOutdoorsDark = 6,
   // Add new map style here
 

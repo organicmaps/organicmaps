@@ -45,17 +45,11 @@ final class BMCViewController: MWMViewController {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    // Disable all notifications in BM on appearance of this view.
-    // It allows to significantly improve performance in case of bookmarks
-    // modification. All notifications will be sent on controller's disappearance.
-    viewModel.setNotificationsEnabled(false)
     viewModel.addToObserverList()
   }
 
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
-    // Allow to send all notifications in BM.
-    viewModel.setNotificationsEnabled(true)
     viewModel.removeFromObserverList()
   }
 
@@ -73,9 +67,9 @@ final class BMCViewController: MWMViewController {
     }
   }
 
-  private func shareCategoryFile(at index: Int, anchor: UIView) {
+  private func shareCategoryFile(at index: Int, fileType: KmlFileType, anchor: UIView) {
     UIApplication.shared.showLoadingOverlay()
-    viewModel.shareCategoryFile(at: index, handler: sharingResultHandler(anchorView: anchor))
+    viewModel.shareCategoryFile(at: index, fileType: fileType, handler: sharingResultHandler(anchorView: anchor))
   }
 
   private func shareAllCategories(anchor: UIView?) {
@@ -147,9 +141,11 @@ final class BMCViewController: MWMViewController {
       let sectionIndex = self.viewModel.sectionIndex(section: .categories)
       self.tableView.reloadRows(at: [IndexPath(row: index, section: sectionIndex)], with: .none)
     }))
-    let exportFile = L("export_file")
-    actionSheet.addAction(UIAlertAction(title: exportFile, style: .default, handler: { _ in
-      self.shareCategoryFile(at: index, anchor: anchor)
+    actionSheet.addAction(UIAlertAction(title: L("export_file"), style: .default, handler: { _ in
+      self.shareCategoryFile(at: index, fileType: .text, anchor: anchor)
+    }))
+    actionSheet.addAction(UIAlertAction(title: L("export_file_gpx"), style: .default, handler: { _ in
+      self.shareCategoryFile(at: index, fileType: .gpx, anchor: anchor)
     }))
     let delete = L("delete_list")
     let deleteAction = UIAlertAction(title: delete, style: .destructive, handler: { [viewModel] _ in
