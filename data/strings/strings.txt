@@ -21118,14 +21118,14 @@
     zh-Hant = 創建新列表
 
   [bookmarks_import]
-    tags = android
+    tags = android,ios
     comment = Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files
     en = Import Bookmarks and Tracks
     af = Voer leidrade en snitte in
     ar = استيراد الإشارات المرجعية والمسارات
     az = Əlfəcinləri və fraqmentləri idxal edin
     be = Імпартаваць закладкі і cцежкі
-    bg = Импортиране на отметки и песни
+    bg = Импортиране на отметки и маршрути
     ca = Importa marcadors i les traces
     cs = Import záložek a stop
     da = Importer bogmærker og spor
