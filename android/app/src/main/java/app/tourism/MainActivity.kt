@@ -17,6 +17,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat.startActivity
 import app.organicmaps.DownloadResourcesLegacyActivity
+import app.tourism.data.dto.SiteLocation
 import app.tourism.ui.theme.OrganicMapsTheme
 
 
@@ -48,6 +49,10 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         Button(
             onClick = {
                 val intent = Intent(context, DownloadResourcesLegacyActivity::class.java)
+                intent.putExtra(
+                    "end_point",
+                    SiteLocation("Name", 38.573, 68.807)
+                )
                 startActivity(context, intent, null)
             },
         ) {

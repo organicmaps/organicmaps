@@ -12,6 +12,8 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.view.KeyEvent;
@@ -46,6 +48,7 @@ import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.base.OnBackPressListener;
 import app.organicmaps.bookmarks.BookmarkCategoriesActivity;
 import app.organicmaps.bookmarks.data.BookmarkManager;
+import app.organicmaps.bookmarks.data.FeatureId;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.display.DisplayChangedListener;
 import app.organicmaps.display.DisplayManager;
@@ -107,6 +110,8 @@ import app.organicmaps.widget.menu.MainMenu;
 import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageData;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
+import app.tourism.data.dto.SiteLocation;
+
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
@@ -544,6 +549,25 @@ public class MwmActivity extends BaseMwmFragmentActivity
      */
     if (Map.isEngineCreated())
       onRenderingInitializationFinished();
+
+    routeForSiteFromMainActivityHandling();
+  }
+
+  private void routeForSiteFromMainActivityHandling() {
+
+    Handler handler = new Handler(Looper.getMainLooper());
+    Runnable delayedAction = new Runnable() {
+      @Override
+      public void run() {
+        showRouteForSiteFromMainActivity();
+      }
+    };
+    handler.postDelayed(delayedAction, 1000);
+  }
+
+  private void showRouteForSiteFromMainActivity() {
+    SiteLocation endPoint = getIntent().getParcelableExtra("end_point");
+    startLocationToPoint(endPoint.toMapObject());
   }
 
   private void refreshLightStatusBar()
