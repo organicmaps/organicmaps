@@ -960,6 +960,9 @@
 
 "bookmarks_create_new_group" = "Skapa ny lista";
 
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "Importera bokmärken och spår";
+
 "downloader_hide_screen" = "Dölj skärm";
 
 "downloader_percent" = "%@ (%@ av %@)";
