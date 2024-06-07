@@ -2344,12 +2344,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
       resetFlags();
 
       Toast.makeText(this, getString(R.string.trace_path_is_on), Toast.LENGTH_SHORT).show();
-      TrackRecordingService.startForegroundService(this);
+      TrackRecordingService.startForegroundService(getApplicationContext());
     }
     else
     {
       Toast.makeText(this, getString(R.string.trace_path_is_off), Toast.LENGTH_SHORT).show();
-      TrackRecordingService.stopService(this);
+      TrackRecordingService.stopService(getApplicationContext());
     }
   }
 

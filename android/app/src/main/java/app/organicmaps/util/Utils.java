@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -191,6 +192,12 @@ public class Utils
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1)
     {
       intent.setAction(Settings.ACTION_BATTERY_SAVER_SETTINGS);
+      if (isIntentSupported(context, intent))
+        return intent;
+    }
+    if (Build.MANUFACTURER.equalsIgnoreCase("xiaomi"))
+    {
+      intent.setComponent(new ComponentName("com.miui.securitycenter", "com.miui.powercenter.PowerMainActivity"));
       if (isIntentSupported(context, intent))
         return intent;
     }

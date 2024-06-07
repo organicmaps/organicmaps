@@ -44,7 +44,7 @@
     Services (FGS)) notifications from an app.
   //-->
   <uses-permission-sdk-23 android:name="android.permission.POST_NOTIFICATIONS"/>
-
+  <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
   <uses-permission android:name="androidx.car.app.NAVIGATION_TEMPLATES"/>
   <uses-permission android:name="androidx.car.app.ACCESS_SURFACE"/>
 

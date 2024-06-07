@@ -2213,4 +2213,6 @@
 	<string name="enable">Enable</string>
 	<string name="power_saver_dialog_title">Power Saving Mode enabled</string>
 	<string name="power_saver_dialog_summary">Please Disable Power Saving mode to use Trace Path without any  gaps.</string>
+	<string name="location_update_warning_title">Location Updation Failed</string>
+	<string name="location_update_warning_desc">Due to some errors location is not being updated. Which may result in inaccuracy and gaps in recorded track.</string>
 </resources>
