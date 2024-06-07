@@ -960,6 +960,9 @@
 
 "bookmarks_create_new_group" = "새 목록 만들기";
 
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "북마크 및 트랙 가져오기";
+
 "downloader_hide_screen" = "화면 숨기기";
 
 "downloader_percent" = "%@(%@ / %@)";

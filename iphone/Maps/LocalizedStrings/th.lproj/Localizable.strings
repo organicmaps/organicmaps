@@ -960,6 +960,9 @@
 
 "bookmarks_create_new_group" = "สร้างรายการใหม่";
 
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "นำเข้าบุ๊กมาร์กและแทร็ก";
+
 "downloader_hide_screen" = "ซ่อนหน้าจอ";
 
 "downloader_percent" = "%@ (%@ จาก %@)";

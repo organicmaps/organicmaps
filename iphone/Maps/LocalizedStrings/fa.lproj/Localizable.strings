@@ -960,6 +960,9 @@
 
 "bookmarks_create_new_group" = "ایجاد لیست جدید";
 
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "وارد کردن نشانکu200cها و آهنگu200cها";
+
 "downloader_hide_screen" = "پنهان کردن صفحه";
 
 "downloader_percent" = "%@ (%@ از %@)";
