@@ -185,6 +185,10 @@ extension BMCViewController: BMCView {
       }
     }
   }
+
+  func isVisible() -> Bool {
+    isViewLoaded && view.window != nil
+  }
 }
 
 extension BMCViewController: UITableViewDataSource {

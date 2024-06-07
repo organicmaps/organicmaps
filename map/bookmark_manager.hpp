@@ -165,6 +165,9 @@ public:
 
     void NotifyChanges();
 
+    Bookmark * RecoverRecentlyDeletedBookmark(kml::MarkId bookmarkId);
+    Track * RecoverRecentlyDeletedTrack(kml::TrackId trackId);
+
   private:
     BookmarkManager & m_bmManager;
   };
@@ -423,6 +426,9 @@ public:
   bool IsCompilation(kml::MarkGroupId id) const;
   kml::CompilationType GetCompilationType(kml::MarkGroupId id) const;
 
+  void RemoveBookmarkFromRecentlyDeleted(kml::MarkId bookmarkId);
+  void RemoveTrackFromRecentlyDeleted(kml::TrackId trackId);
+
 private:
   class MarksChangesTracker : public df::UserMarksProvider
   {
@@ -562,13 +568,18 @@ private:
   void DetachUserMark(kml::MarkId bmId, kml::MarkGroupId catId);
   void DeleteCompilations(kml::GroupIdCollection const & compilations);
 
-  Track * CreateTrack(kml::TrackData && trackData);
+  void AddBookmarkToRecentlyDeleted(std::unique_ptr<Bookmark> && bookmark);
+  Bookmark * RecoverRecentlyDeletedBookmark(kml::MarkId bookmarkId);
 
+  Track * CreateTrack(kml::TrackData && trackData);
   Track * GetTrackForEdit(kml::TrackId trackId);
   void AttachTrack(kml::TrackId trackId, kml::MarkGroupId groupId);
   void DetachTrack(kml::TrackId trackId, kml::MarkGroupId groupId);
   void DeleteTrack(kml::TrackId trackId);
   void MoveTrack(kml::TrackId trackID, kml::MarkGroupId curGroupID, kml::MarkGroupId newGroupID);
+
+  void AddTrackToRecentlyDeleted(std::unique_ptr<Track> && track);
+  Track * RecoverRecentlyDeletedTrack(kml::TrackId trackId);
 
   void ClearGroup(kml::MarkGroupId groupId);
   void SetIsVisible(kml::MarkGroupId groupId, bool visible);
@@ -753,7 +764,9 @@ private:
 
   MarksCollection m_userMarks;
   BookmarksCollection m_bookmarks;
+  BookmarksCollection m_recentlyDeletedBookmarks;
   TracksCollection m_tracks;
+  TracksCollection m_recentlyDeletedTracks;
 
   StaticMarkPoint * m_selectionMark = nullptr;
   MyPositionMarkPoint * m_myPositionMark = nullptr;

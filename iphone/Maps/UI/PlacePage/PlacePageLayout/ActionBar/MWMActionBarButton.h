@@ -47,6 +47,8 @@ NS_SWIFT_NAME(ActionBarButton)
                                 isSelected:(BOOL)isSelected
                                 isEnabled:(BOOL)isEnabled;
 
+- (void)setBookmarkSelected:(BOOL)isSelected;
+
 @end
 
 NS_ASSUME_NONNULL_END

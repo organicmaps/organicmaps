@@ -3,6 +3,7 @@ protocol BMCView: AnyObject {
   func delete(at indexPaths: [IndexPath])
   func insert(at indexPaths: [IndexPath])
   func conversionFinished(success: Bool)
+  func isVisible() -> Bool
 }
 
 final class BMCDefaultViewModel: NSObject {
@@ -169,10 +170,12 @@ extension BMCDefaultViewModel: BookmarksObserver {
   }
 
   func onBookmarksCategoryDeleted(_ groupId: MWMMarkGroupID) {
+    guard let view, view.isVisible() else { return }
     reloadData()
   }
 
-  func onBookmarkDeleted(_: MWMMarkID) {
+  func onBookmarksCategoryUpdated(_ groupId: MWMMarkGroupID) {
+    guard let view, view.isVisible() else { return }
     reloadData()
   }
 }

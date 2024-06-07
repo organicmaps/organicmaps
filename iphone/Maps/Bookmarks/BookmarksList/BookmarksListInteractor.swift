@@ -121,12 +121,30 @@ extension BookmarksListInteractor: IBookmarksListInteractor {
     return BookmarksListSortingType(bookmarksManager.lastSortingType(markGroupId))
   }
 
-  func deleteBookmark(_ bookmarkId: MWMMarkID) {
+  func deleteBookmark(_ bookmarkId: MWMMarkID, completion: (Bookmark) -> Void) {
+    completion(bookmarksManager.bookmark(withId: bookmarkId))
     bookmarksManager.deleteBookmark(bookmarkId)
   }
 
-  func deleteTrack(_ trackId: MWMTrackID) {
+  func deleteTrack(_ trackId: MWMTrackID, completion: (Track) -> Void) {
+    completion(bookmarksManager.track(withId: trackId))
     bookmarksManager.deleteTrack(trackId)
+  }
+
+  func recoverBookmark(_ bookmarkId: MWMMarkID) {
+    bookmarksManager.recoverBookmark(bookmarkId)
+  }
+
+  func recoverTrack(_ trackId: MWMTrackID) {
+    bookmarksManager.recoverTrack(trackId)
+  }
+  
+  func removeBookmarkFromRecentlyDeleted(_ bookmarkId: MWMMarkID) {
+    bookmarksManager.removeBookmark(fromRecentlyDeleted: bookmarkId)
+  }
+
+  func removeTrackFromRecentlyDeleted(_ trackId: MWMTrackID) {
+    bookmarksManager.removeTrack(fromRecentlyDeleted: trackId)
   }
 
   func moveBookmark(_ bookmarkId: MWMMarkID, toGroupId groupId: MWMMarkGroupID) {
@@ -181,6 +199,11 @@ extension BookmarksListInteractor: BookmarksObserver {
   }
 
   func onBookmarksCategoryDeleted(_ groupId: MWMMarkGroupID) {
+    reloadCategory()
+  }
+
+  func onBookmarksCategoryUpdated(_ groupId: MWMMarkGroupID) {
+    guard groupId == markGroupId else { return }
     reloadCategory()
   }
 }
