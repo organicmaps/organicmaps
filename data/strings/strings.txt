@@ -28905,6 +28905,14 @@
     en = https://www.instagram.com/organicmaps.app
     tr = https://www.instagram.com/organicmapstr
 
+  [tts_info_link]
+    comment = A link to the TTS FAQ
+    tags = android
+    en = https://organicmaps.app/faq/text-to-speech-android-tts/
+    es = https://organicmaps.app/es/faq/instrucciones-de-voz-tts-en-android/
+    it = https://organicmaps.app/it/faq/sintesi-vocale-tts-su-android/
+    ru = https://organicmaps.app/ru/faq/синтез-речи-tts-на-android/
+
   [translated_om_site_url]
     comment = Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content
     tags = android,ios
