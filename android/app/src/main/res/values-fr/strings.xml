@@ -282,6 +282,8 @@
 	<string name="compass_calibration_recommended">Améliorez la direction de la flèche en déplaçant le téléphone en huit pour calibrer la boussole.</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
 	<string name="compass_calibration_required">Déplacez le téléphone en huit pour calibrer la boussole et fixer la direction de la flèche sur la carte.</string>
+	<!-- Toast text when user hides UI with a long tap anywhere on the map -->
+	<string name="long_tap_toast">Appuie à nouveau longuement sur la carte pour voir l\'interface.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Tout mettre à jour</string>
 	<!-- Cancel all button text -->

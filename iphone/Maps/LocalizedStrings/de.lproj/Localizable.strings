@@ -346,6 +346,9 @@
 /* Settings item title */
 "pref_calibration_title" = "Kompass-Kalibrierung";
 
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "Tippe erneut lange auf die Karte, um das Interface zu sehen";
+
 /* Update all button text */
 "downloader_update_all_button" = "Alle aktualisieren";
 

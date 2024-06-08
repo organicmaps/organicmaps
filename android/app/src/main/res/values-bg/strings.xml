@@ -267,6 +267,8 @@
 	<string name="compass_calibration_recommended">Подобрете посоката на стрелката, като движите телефона с движение тип \"осмица\", за да калибрирате компаса.</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
 	<string name="compass_calibration_required">Преместете телефона с движение тип \"осмица\", за да калибрирате компаса и да фиксирате посоката на стрелката върху картата.</string>
+	<!-- Toast text when user hides UI with a long tap anywhere on the map -->
+	<string name="long_tap_toast">Докоснете отново картата, за да видите интерфейса</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Обновяване на всичко</string>
 	<!-- Cancel all button text -->

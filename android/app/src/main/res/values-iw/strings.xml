@@ -278,6 +278,8 @@
 	<string name="compass_calibration_recommended">שפר את כיוון החץ על ידי הזזת הטלפון בתנועה של שמונה כדי לכייל את המצפן.</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
 	<string name="compass_calibration_required">הזז את הטלפון בתנועה של דמות שמונה כדי לכייל את המצפן ולתקן את כיוון החץ במפה.</string>
+	<!-- Toast text when user hides UI with a long tap anywhere on the map -->
+	<string name="long_tap_toast">לחץ לחיצה ארוכה במפה כדי להציג את הממשק</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">עדכן הכל</string>
 	<!-- Cancel all button text -->

@@ -346,6 +346,9 @@
 /* Settings item title */
 "pref_calibration_title" = "指南針校準";
 
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "再次長按地圖即可看到介面";
+
 /* Update all button text */
 "downloader_update_all_button" = "更新全部";
 

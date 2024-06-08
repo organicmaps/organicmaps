@@ -346,6 +346,9 @@
 /* Settings item title */
 "pref_calibration_title" = "कम्पास अंशांकन";
 
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "इंटरफ़ेस देखने के लिए मानचित्र पर फिर से देर तक टैप करें";
+
 /* Update all button text */
 "downloader_update_all_button" = "Update All";
 

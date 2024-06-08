@@ -280,6 +280,8 @@
 	<string name="compass_calibration_recommended">携帯電話を8の字に動かしてコンパスを較正することで、矢印の方向を改善します。</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
 	<string name="compass_calibration_required">携帯電話を8の字に動かしてコンパスを校正し、地図上の矢印の方向を固定します。</string>
+	<!-- Toast text when user hides UI with a long tap anywhere on the map -->
+	<string name="long_tap_toast">インターフェイスを見るには、もう一度地図をロングタップする。</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">全てをアップデート</string>
 	<!-- Cancel all button text -->

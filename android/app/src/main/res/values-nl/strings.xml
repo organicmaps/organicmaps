@@ -278,6 +278,8 @@
 	<string name="compass_calibration_recommended">Verbeter de richting van de pijl door de telefoon in een achtvormige beweging te bewegen om het kompas te kalibreren.</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
 	<string name="compass_calibration_required">Beweeg de telefoon in een achtvormige beweging om het kompas te kalibreren en de pijl op de kaart in de juiste richting te doen wijzen.</string>
+	<!-- Toast text when user hides UI with a long tap anywhere on the map -->
+	<string name="long_tap_toast">Tik nogmaals lang op de kaart om de interface te zien</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Update alles</string>
 	<!-- Cancel all button text -->

@@ -274,6 +274,8 @@
 	<string name="compass_calibration_recommended">Milloreu la direcció de la fletxa movent el telèfon amb un moviment de vuit per calibrar la brúixola.</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
 	<string name="compass_calibration_required">Moveu el telèfon amb un moviment de vuit per calibrar la brúixola i fixar la direcció de la fletxa al mapa.</string>
+	<!-- Toast text when user hides UI with a long tap anywhere on the map -->
+	<string name="long_tap_toast">Toqueu llargament el mapa de nou per veure la interfície</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Actualitza-ho tot</string>
 	<!-- Cancel all button text -->

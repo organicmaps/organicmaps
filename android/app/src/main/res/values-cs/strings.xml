@@ -265,6 +265,8 @@
 	<string name="compass_calibration_recommended">Zlepšete směr šipky pohybem telefonu do osmičky a zkalibrujte kompas.</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
 	<string name="compass_calibration_required">Pohybem telefonu do osmičky zkalibrujte kompas a zafixujte směr šipky na mapě.</string>
+	<!-- Toast text when user hides UI with a long tap anywhere on the map -->
+	<string name="long_tap_toast">Dlouhým klepnutím na mapu znovu zobrazíte rozhraní.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Aktualizovat vše</string>
 	<!-- Cancel all button text -->
