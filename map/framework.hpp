@@ -355,7 +355,7 @@ private:
   std::optional<place_page::Info> m_currentPlacePageInfo;
 
   void OnTapEvent(place_page::BuildInfo const & buildInfo);
-  std::optional<place_page::Info> BuildPlacePageInfo(place_page::BuildInfo const & buildInfo);
+  place_page::Info BuildPlacePageInfo(place_page::BuildInfo const & buildInfo);
   void BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelectionInfo, place_page::Info & info);
   Track::TrackSelectionInfo FindTrackInTapPosition(place_page::BuildInfo const & buildInfo) const;
   UserMark const * FindUserMarkInTapPosition(place_page::BuildInfo const & buildInfo) const;

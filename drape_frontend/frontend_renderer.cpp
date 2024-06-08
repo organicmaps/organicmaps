@@ -1989,7 +1989,8 @@ void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)
   m2::PointD mercator = screen.PtoG(pxPoint2d);
 
   // Long tap should show/hide the interface. There is no need to detect tapped features.
-  if (isLongTap) {
+  if (isLongTap)
+  {
     m_tapEventInfoHandler({mercator, isLongTap, isMyPosition, FeatureID(), kml::kInvalidMarkId});
     return;
   }
