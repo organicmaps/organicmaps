@@ -278,6 +278,8 @@
 	<string name="compass_calibration_recommended">Verbessern Sie die Pfeilrichtung, indem Sie das Telefon in einer Achterbewegung bewegen, um den Kompass zu kalibrieren.</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
 	<string name="compass_calibration_required">Bewegen Sie das Telefon in einer Achterbewegung, um den Kompass zu kalibrieren und die Pfeilrichtung auf der Karte festzulegen.</string>
+	<!-- Toast text when user hides UI with a long tap anywhere on the map -->
+	<string name="long_tap_toast">Tippe erneut lange auf die Karte, um das Interface zu sehen</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Alle aktualisieren</string>
 	<!-- Cancel all button text -->

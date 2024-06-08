@@ -280,6 +280,8 @@
 	<string name="compass_calibration_recommended">Hobetu geziaren norabidea telefonoa zortzi irudiko mugimenduan mugituz iparrorratza kalibratzeko.</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
 	<string name="compass_calibration_required">Mugitu telefonoa zortzi irudiko mugimenduan iparrorratza kalibratzeko eta geziaren norabidea mapan finkatzeko.</string>
+	<!-- Toast text when user hides UI with a long tap anywhere on the map -->
+	<string name="long_tap_toast">Sakatu luze berriro mapan interfazea ikusteko</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Eguneratu guztiak</string>
 	<!-- Cancel all button text -->

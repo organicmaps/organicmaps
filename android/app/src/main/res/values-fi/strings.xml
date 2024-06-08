@@ -282,6 +282,8 @@
 	<string name="compass_calibration_recommended">Paranna nuolien suuntaa liikuttamalla puhelinta kahdeksikon suuntaisesti kompassin kalibroimiseksi.</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
 	<string name="compass_calibration_required">Liikuta puhelinta kahdeksikon suuntaisella liikkeellä kompassin kalibroimiseksi ja nuolen suunnan määrittämiseksi kartalla.</string>
+	<!-- Toast text when user hides UI with a long tap anywhere on the map -->
+	<string name="long_tap_toast">Näytä käyttöliittymä napauttamalla karttaa uudelleen pitkään.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Päivitä kaikki</string>
 	<!-- Cancel all button text -->

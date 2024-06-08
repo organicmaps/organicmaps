@@ -261,6 +261,8 @@
 	<string name="compass_calibration_recommended">나침반을 보정하기 위해 휴대폰을 8자 모양으로 움직여 화살표 방향을 개선하세요.</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
 	<string name="compass_calibration_required">휴대폰을 8자 모양으로 움직여 나침반을 보정하고 지도에서 화살표 방향을 수정합니다.</string>
+	<!-- Toast text when user hides UI with a long tap anywhere on the map -->
+	<string name="long_tap_toast">지도를 다시 길게 탭하면 인터페이스가 표시됩니다.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">모두 업데이트</string>
 	<!-- Cancel all button text -->

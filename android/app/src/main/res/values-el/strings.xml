@@ -281,6 +281,8 @@
 	<string name="compass_calibration_recommended">Βελτιώστε την κατεύθυνση των βελών μετακινώντας το τηλέφωνο με μια κίνηση σχήματος οκτώ για να καλιμπράρετε την πυξίδα.</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
 	<string name="compass_calibration_required">Μετακινήστε το τηλέφωνο με μια κίνηση σχήματος οκτώ για να καλιμπράρετε την πυξίδα και να καθορίσετε την κατεύθυνση του βέλους στο χάρτη.</string>
+	<!-- Toast text when user hides UI with a long tap anywhere on the map -->
+	<string name="long_tap_toast">Πατήστε ξανά παρατεταμένα στο χάρτη για να δείτε το περιβάλλον εργασίας.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Ενημέρωση όλων</string>
 	<!-- Cancel all button text -->

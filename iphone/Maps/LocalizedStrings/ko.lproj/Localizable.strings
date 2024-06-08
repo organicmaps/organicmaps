@@ -346,6 +346,9 @@
 /* Settings item title */
 "pref_calibration_title" = "나침반 보정";
 
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "지도를 다시 길게 탭하면 인터페이스가 표시됩니다.";
+
 /* Update all button text */
 "downloader_update_all_button" = "모두 업데이트";
 

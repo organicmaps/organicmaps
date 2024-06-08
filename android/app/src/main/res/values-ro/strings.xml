@@ -266,6 +266,8 @@
 	<string name="compass_calibration_recommended">Îmbunătățiți direcția săgeții prin mișcarea telefonului într-o mișcare în opt pentru a calibra busola.</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
 	<string name="compass_calibration_required">Mișcați telefonul într-o mișcare în formă de opt pentru a calibra busola și a fixa direcția săgeții pe hartă.</string>
+	<!-- Toast text when user hides UI with a long tap anywhere on the map -->
+	<string name="long_tap_toast">Atingeți lung pe hartă din nou pentru a vedea interfața</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Actualizează tot</string>
 	<!-- Cancel all button text -->

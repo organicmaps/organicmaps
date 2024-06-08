@@ -279,6 +279,8 @@
 	<string name="compass_calibration_recommended">Палепшыце кірунак стрэлкі, перамяшчаючы тэлефон у выглядзе васьмёркі, каб адкалібраваць компас.</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
 	<string name="compass_calibration_required">Перамяшчайце тэлефон у выглядзе васьмёркі, каб адкалібраваць компас і зафіксаваць кірунак стрэлкі на карце.</string>
+	<!-- Toast text when user hides UI with a long tap anywhere on the map -->
+	<string name="long_tap_toast">Яшчэ раз доўга націсніце на карту, каб убачыць інтэрфейс</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Абнавіць усё</string>
 	<!-- Cancel all button text -->

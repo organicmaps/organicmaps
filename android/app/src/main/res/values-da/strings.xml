@@ -261,6 +261,8 @@
 	<string name="compass_calibration_recommended">Forbedre pilens retning ved at bevæge telefonen i en ottetalsbevægelse for at kalibrere kompasset.</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
 	<string name="compass_calibration_required">Bevæg telefonen i en ottetalsbevægelse for at kalibrere kompasset og fastgøre pilens retning på kortet.</string>
+	<!-- Toast text when user hides UI with a long tap anywhere on the map -->
+	<string name="long_tap_toast">Tryk længe på kortet igen for at se grænsefladen</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Opdatér alle</string>
 	<!-- Cancel all button text -->

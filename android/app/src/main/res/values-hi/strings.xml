@@ -287,6 +287,8 @@
 	<string name="copyright">कॉपीराइट</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">एक बग रिपोर्ट करो</string>
+	<!-- Toast text when user hides UI with a long tap anywhere on the map -->
+	<string name="long_tap_toast">इंटरफ़ेस देखने के लिए मानचित्र पर फिर से देर तक टैप करें</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">सब रद्द करो</string>
 	<!-- Downloaded maps list header -->
