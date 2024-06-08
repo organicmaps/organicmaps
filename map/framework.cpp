@@ -1299,18 +1299,15 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   }
 
   m_currentPlacePageInfo = BuildPlacePageInfo(info);
-  if (m_currentPlacePageInfo)
+  if (m_drapeEngine)
   {
-    if (m_drapeEngine)
-    {
-      if (scale < 0)
-        scale = GetFeatureViewportScale(m_currentPlacePageInfo->GetTypes());
-      m2::PointD const center = m_currentPlacePageInfo->GetMercator();
-      m_drapeEngine->SetModelViewCenter(center, scale, animation, true /* trackVisibleViewport */);
-    }
-
-    ActivateMapSelection();
+    if (scale < 0)
+      scale = GetFeatureViewportScale(m_currentPlacePageInfo->GetTypes());
+    m2::PointD const center = m_currentPlacePageInfo->GetMercator();
+    m_drapeEngine->SetModelViewCenter(center, scale, animation, true /* trackVisibleViewport */);
   }
+
+  ActivateMapSelection();
 }
 
 void Framework::ShowSearchResult(search::Result const & res, bool animation)
@@ -1961,7 +1958,7 @@ void Framework::DeactivateHotelSearchMark()
 void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
 {
   auto placePageInfo = BuildPlacePageInfo(buildInfo);
-  bool isRoutePoint = placePageInfo.has_value() && placePageInfo->IsRoutePoint();
+  bool isRoutePoint = placePageInfo.IsRoutePoint();
 
   if (m_routingManager.IsRoutingActive()
       && m_routingManager.GetCurrentRouterType() == routing::RouterType::Ruler
@@ -1972,15 +1969,15 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
 
     // Continue route to the point
     RouteMarkData data;
-    data.m_title = placePageInfo ? placePageInfo->GetTitle() : std::string();
+    data.m_title = placePageInfo.GetTitle();
     data.m_subTitle = std::string();
     data.m_pointType = RouteMarkType::Finish;
     data.m_intermediateIndex = m_routingManager.GetRoutePointsCount() - 1;
     data.m_isMyPosition = false;
 
-    if (placePageInfo && placePageInfo->IsBookmark())
+    if (placePageInfo.IsBookmark())
       // Continue route to exact bookmark position.
-      data.m_position = placePageInfo->GetBookmarkData().m_point;
+      data.m_position = placePageInfo.GetBookmarkData().m_point;
     else
       data.m_position = buildInfo.m_mercator;
 
@@ -1995,10 +1992,11 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
 
   if (buildInfo.m_isLongTap)
   {
-    // Show or hide UI on long tap
+    // Hide Place page if it is open in any mode.
+    // Show or hide the main map UI on a long tap if the Place Page is hidden (UI is not hidden in the routing/navigation mode).
     DeactivateMapSelection(true /* notifyUI */);
   }
-  else if (placePageInfo)
+  else
   {
     auto const prevTrackId = m_currentPlacePageInfo ? m_currentPlacePageInfo->GetTrackId()
                                                     : kml::kInvalidTrackId;
@@ -2023,12 +2021,6 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
     }
 
     ActivateMapSelection();
-  }
-  else
-  {
-    // UI is always notified even if empty map is tapped,
-    // because empty tap event switches on/off full screen map view mode.
-    DeactivateMapSelection(true /* notifyUI */);
   }
 }
 
@@ -2077,8 +2069,7 @@ void Framework::BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelec
   GetBookmarkManager().SetTrackSelectionInfo(trackSelectionInfo, true /* notifyListeners */);
 }
 
-std::optional<place_page::Info> Framework::BuildPlacePageInfo(
-    place_page::BuildInfo const & buildInfo)
+place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & buildInfo)
 {
   place_page::Info outInfo;
   outInfo.SetBuildInfo(buildInfo);
@@ -2179,7 +2170,6 @@ std::optional<place_page::Info> Framework::BuildPlacePageInfo(
     isBuildingSelected = selectedFeature.IsValid();
   }
 
-  bool showMapSelection = false;
   if (selectedFeature.IsValid())
   {
     // Selection circle should match feature
@@ -2187,7 +2177,6 @@ std::optional<place_page::Info> Framework::BuildPlacePageInfo(
 
     if (isBuildingSelected)
       outInfo.SetMercator(buildInfo.m_mercator); // Move selection circle to tap position inside a building.
-    showMapSelection = true;
   }
   else
   {
@@ -2195,19 +2184,13 @@ std::optional<place_page::Info> Framework::BuildPlacePageInfo(
       FillPointInfo(outInfo, buildInfo.m_mercator, {});
     else
       FillNotMatchedPlaceInfo(outInfo, buildInfo.m_mercator, {});
-    showMapSelection = true;
   }
 
-  if (showMapSelection)
-  {
-    outInfo.SetSelectedObject(df::SelectionShape::OBJECT_POI);
-    GetBookmarkManager().SelectionMark().SetPtOrg(outInfo.GetMercator());
-    SetPlacePageLocation(outInfo);
+  outInfo.SetSelectedObject(df::SelectionShape::OBJECT_POI);
+  GetBookmarkManager().SelectionMark().SetPtOrg(outInfo.GetMercator());
+  SetPlacePageLocation(outInfo);
 
-    return outInfo;
-  }
-
-  return {};
+  return outInfo;
 }
 
 void Framework::UpdatePlacePageInfoForCurrentSelection(
@@ -2218,7 +2201,8 @@ void Framework::UpdatePlacePageInfoForCurrentSelection(
 
   m_currentPlacePageInfo = BuildPlacePageInfo(overrideInfo.has_value() ? *overrideInfo :
     m_currentPlacePageInfo->GetBuildInfo());
-  if (m_currentPlacePageInfo && m_onPlacePageUpdate)
+
+  if (m_onPlacePageUpdate)
     m_onPlacePageUpdate();
 }
 
