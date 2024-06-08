@@ -12,6 +12,7 @@
 namespace
 {
 NSString * const kMWMSideButtonsViewNibName = @"MWMSideButtonsView";
+NSString * const kUDDidShowLongTapToShowSideButtonsToast = @"kUDDidShowLongTapToShowSideButtonsToast";
 }  // namespace
 
 @interface MWMMapViewControlsManager ()
@@ -136,5 +137,21 @@ NSString * const kMWMSideButtonsViewNibName = @"MWMSideButtonsView";
 }
 
 - (BOOL)hidden { return self.sideView.hidden; }
-- (void)setHidden:(BOOL)hidden { [self.sideView setHidden:hidden animated:YES]; }
+- (void)setHidden:(BOOL)hidden 
+{
+  if (!self.hidden && hidden)
+    [self showLongTapToShowSideButtonsToastOnFirstHiding];
+
+  return [self.sideView setHidden:hidden animated:YES];
+}
+
+- (void)showLongTapToShowSideButtonsToastOnFirstHiding
+{
+  if (![NSUserDefaults.standardUserDefaults boolForKey:kUDDidShowLongTapToShowSideButtonsToast])
+  {
+    [[MWMToast toastWithText:L(@"long_tap_toast")] show];
+    [NSUserDefaults.standardUserDefaults setBool:YES forKey:kUDDidShowLongTapToShowSideButtonsToast];
+  }
+}
+
 @end
