@@ -2,6 +2,7 @@ package app.organicmaps.bookmarks;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -240,8 +241,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   }
 
   @Override
-  public void onImportButtonClick()
-  {
+  public void onImportButtonClick() {
     Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
 
     // Sic: EXTRA_INITIAL_URI doesn't work
@@ -254,7 +254,18 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
       intent.putExtra(DocumentsContract.EXTRA_EXCLUDE_SELF, true);
-    startActivityForResult(intent, REQ_CODE_IMPORT_DIRECTORY);
+
+    try {
+      startActivityForResult(intent, REQ_CODE_IMPORT_DIRECTORY);
+    } catch (ActivityNotFoundException e) {
+      Toast.makeText(getContext(), R.string.file_manager_recommended, Toast.LENGTH_LONG).show();
+
+      Intent marketIntent = new Intent(Intent.ACTION_VIEW);
+      marketIntent.setData(Uri.parse("market://details?id=com.google.android.apps.nbu.files"));
+      if (marketIntent.resolveActivity(getContext().getPackageManager()) != null) {
+        startActivity(marketIntent);
+      }
+    }
   }
 
   @Override
