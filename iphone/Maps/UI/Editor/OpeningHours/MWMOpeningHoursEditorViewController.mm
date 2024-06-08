@@ -56,7 +56,7 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 
 - (void)configNavBar
 {
-  self.title = L(@"editor_time_title").capitalizedString;
+  self.title = L(@"editor_time_title");
   self.navigationItem.rightBarButtonItem =
       [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                     target:self
