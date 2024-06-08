@@ -44,8 +44,8 @@ static double constexpr kBasePriorityFg = 0,
                         // FG depth range: [0;1000).
 static double constexpr kBaseDepthFg = 0,
                         // layer=-10/10 gives an overall FG range of [-10000;11000).
-                        kMaxLayeredDepthFg = kBaseDepthFg + (1 + feature::LAYER_HIGH) * kLayerPriorityRange,
-                        kMinLayeredDepthFg = kBaseDepthFg + feature::LAYER_LOW * kLayerPriorityRange,
+                        kMaxLayeredDepthFg = kBaseDepthFg + (1 + static_cast<int>(feature::LAYER_HIGH)) * kLayerPriorityRange,
+                        kMinLayeredDepthFg = kBaseDepthFg + static_cast<int>(feature::LAYER_LOW) * kLayerPriorityRange,
                         // Split the background layer space as 100 for BG-top and 900 for BG-by-size.
                         kBgTopRangeFraction = 0.1,
                         kDepthRangeBgTop = kBgTopRangeFraction * kLayerPriorityRange,
@@ -55,7 +55,7 @@ static double constexpr kBaseDepthFg = 0,
                         // And BG-by-size range is [-11000,-10100).
                         kBaseDepthBgBySize = kBaseDepthBgTop - kDepthRangeBgBySize,
                         // Minimum BG depth for layer=-10 is -21000.
-                        kMinLayeredDepthBg = kBaseDepthBgBySize + feature::LAYER_LOW * kLayerPriorityRange;
+                        kMinLayeredDepthBg = kBaseDepthBgBySize + static_cast<int>(feature::LAYER_LOW) * kLayerPriorityRange;
 
   class Key
   {
