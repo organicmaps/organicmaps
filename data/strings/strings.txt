@@ -7499,6 +7499,51 @@
     zh-Hans = 以八字动作移动手机，校准罗盘，并在地图上固定箭头方向。
     zh-Hant = 以 8 字形移動手機以校準指南針並固定地圖上的箭頭方向
 
+  [long_tap_toast]
+    comment = Toast text when user hides UI with a long tap anywhere on the map
+    tags = android,ios
+    en = Long-tap on the map again to see the interface
+    af = Langtik weer op die kaart om die koppelvlak te sien
+    ar = اضغط مطولاً على الخريطة مرة أخرى لرؤية الواجهة
+    az = İnterfeysi görmək üçün yenidən xəritəyə uzun müddət toxunun
+    be = Яшчэ раз доўга націсніце на карту, каб убачыць інтэрфейс
+    bg = Докоснете отново картата, за да видите интерфейса
+    ca = Toqueu llargament el mapa de nou per veure la interfície
+    cs = Dlouhým klepnutím na mapu znovu zobrazíte rozhraní.
+    da = Tryk længe på kortet igen for at se grænsefladen
+    de = Tippe erneut lange auf die Karte, um das Interface zu sehen
+    el = Πατήστε ξανά παρατεταμένα στο χάρτη για να δείτε το περιβάλλον εργασίας.
+    es = Vuelve a pulsar prolongadamente sobre el mapa para ver la interfaz
+    et = Puudutage pikalt kaardil uuesti, et näha kasutajaliidest.
+    eu = Sakatu luze berriro mapan interfazea ikusteko
+    fa = دوباره روی نقشه ضربه طولانی بزنید تا رابط کاربری را ببینید
+    fi = Näytä käyttöliittymä napauttamalla karttaa uudelleen pitkään.
+    fr = Appuie à nouveau longuement sur la carte pour voir l'interface.
+    he = לחץ לחיצה ארוכה במפה כדי להציג את הממשק
+    hi = इंटरफ़ेस देखने के लिए मानचित्र पर फिर से देर तक टैप करें
+    hu = Érintse meg újra hosszan a térképet a kezelőfelület megjelenítéséhez.
+    id = Ketuk lama pada peta sekali lagi untuk melihat antarmuka
+    it = Tocca di nuovo a lungo sulla mappa per visualizzare l'interfaccia
+    ja = インターフェイスを見るには、もう一度地図をロングタップする。
+    ko = 지도를 다시 길게 탭하면 인터페이스가 표시됩니다.
+    lt = Dar kartą ilgai bakstelėkite žemėlapį, kad pamatytumėte sąsają
+    mr = इंटरफेस पाहण्यासाठी पुन्हा नकाशावर दीर्घ टॅप करा
+    nb = Trykk lenge på kartet igjen for å se grensesnittet
+    nl = Tik nogmaals lang op de kaart om de interface te zien
+    pl = Ponownie dotknij długo mapy, aby wyświetlić interfejs
+    pt = Dê um toque longo no mapa novamente para ver a interface
+    ro = Atingeți lung pe hartă din nou pentru a vedea interfața
+    ru = Долгое нажатие на карту вернёт интерфейс обратно
+    sk = Opätovným dlhým ťuknutím na mapu zobrazíte rozhranie
+    sv = Tryck länge på kartan igen för att se gränssnittet
+    sw = Gusa kwa muda mrefu kwenye ramani tena ili kuona kiolesura
+    th = แตะยาวบนแผนที่อีกครั้งเพื่อดูอินเทอร์เฟซ
+    tr = Arayüzü görmek için haritaya tekrar uzun dokunun
+    uk = Ще раз потримайте палець на карті, щоб побачити інтерфейс
+    vi = Nhấn và giữ lại vào bản đồ để xem giao diện
+    zh-Hans = 再次长按地图查看界面
+    zh-Hant = 再次長按地圖即可看到介面
+
   [downloader_update_all_button]
     comment = Update all button text
     tags = android,ios
