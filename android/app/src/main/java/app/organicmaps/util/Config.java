@@ -34,6 +34,7 @@ public final class Config
   private static final String KEY_MISC_AGPS_TIMESTAMP = "AGPSTimestamp";
   private static final String KEY_DONATE_URL = "DonateUrl";
   private static final String KEY_PREF_SEARCH_HISTORY = "SearchHistoryEnabled";
+  private static final String KEY_PREF_LONG_TAP_TOAST_SHOWN = "LongTapToastShown";
 
   /**
    * The total number of app launches.
@@ -394,6 +395,18 @@ public final class Config
         .edit()
         .putBoolean(KEY_MISC_FIRST_START_DIALOG_SEEN, true)
         .apply();
+  }
+
+  public static boolean wasLongTapToastShown(@NonNull Context context)
+  {
+    return MwmApplication.prefs(context).getBoolean(KEY_PREF_LONG_TAP_TOAST_SHOWN, false);
+  }
+
+  public static void setLongTapToastShown(@NonNull Context context, Boolean newValue)
+  {
+    MwmApplication.prefs(context).edit()
+         .putBoolean(KEY_PREF_LONG_TAP_TOAST_SHOWN, newValue)
+         .apply();
   }
 
   public static boolean isSearchHistoryEnabled()
