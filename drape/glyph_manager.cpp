@@ -158,15 +158,10 @@ public:
     // FT_LOAD_RENDER with FT_RENDER_MODE_SDF uses bsdf driver that is around 3x times faster
     // than sdf driver, activated by FT_LOAD_DEFAULT + FT_RENDER_MODE_SDF
     FREETYPE_CHECK(FT_Load_Glyph(m_fontFace, FT_Get_Char_Index(m_fontFace, unicodePoint), FT_LOAD_RENDER));
-    FREETYPE_CHECK(FT_Render_Glyph(m_fontFace->glyph, FT_RENDER_MODE_SDF));
+    FT_GlyphSlot const & glyph = m_fontFace->glyph;
+    FREETYPE_CHECK(FT_Render_Glyph(glyph, FT_RENDER_MODE_SDF));
 
-    FT_Glyph glyph;
-    FREETYPE_CHECK(FT_Get_Glyph(m_fontFace->glyph, &glyph));
-
-    FT_BBox bbox;
-    FT_Glyph_Get_CBox(glyph, FT_GLYPH_BBOX_PIXELS, &bbox);
-
-    FT_Bitmap const bitmap = m_fontFace->glyph->bitmap;
+    FT_Bitmap const bitmap = glyph->bitmap;
 
     SharedBufferManager::shared_buffer_ptr_t data;
     if (bitmap.buffer != nullptr)
@@ -175,14 +170,18 @@ public:
       std::memcpy(data->data(), bitmap.buffer, data->size());
     }
 
-    Glyph result;
-    result.m_image = {bitmap.width, bitmap.rows, data};
     // Glyph image has SDF borders that should be taken into an account.
-    result.m_metrics = {static_cast<float>(glyph->advance.x >> 16), static_cast<float>(glyph->advance.y >> 16),
-                        static_cast<float>(bbox.xMin + kSdfBorder), static_cast<float>(bbox.yMin + kSdfBorder), true};
-    result.m_code = unicodePoint;
-    FT_Done_Glyph(glyph);
+    float const xAdvance = glyph->advance.x >> 6;
+    float const yAdvance = glyph->advance.y >> 6;
+    float const xOffset = glyph->metrics.horiBearingX >> 6;
+    // yOffset uses bottom left coordinate in calculations.
+    float const yOffset = (glyph->metrics.horiBearingY - glyph->metrics.height) >> 6;
 
+    Glyph result {
+      .m_metrics = {xAdvance, yAdvance, xOffset, yOffset, true},
+      .m_image = {bitmap.width, bitmap.rows, data},
+      .m_code = unicodePoint,
+    };
     return result;
   }
 
