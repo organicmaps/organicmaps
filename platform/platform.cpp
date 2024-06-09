@@ -197,6 +197,7 @@ void Platform::GetFontNames(FilesList & res) const
   /// @todo Actually, this list should present once in all our code.
   char constexpr const * arrDef[] = {
     "00_NotoNaskhArabic-Regular.ttf",
+    "00_NotoSansMalayalam-Regular.ttf",
     "00_NotoSansThai-Regular.ttf",
     "00_NotoSerifDevanagari-Regular.ttf",
     "01_dejavusans.ttf",
