@@ -199,7 +199,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
 - (void)configNavBar
 {
   self.title =
-      L(self.isCreating ? @"editor_add_place_title" : @"editor_edit_place_title").capitalizedString;
+      L(self.isCreating ? @"editor_add_place_title" : @"editor_edit_place_title");
   self.navigationItem.rightBarButtonItem =
       [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
                                                     target:self
