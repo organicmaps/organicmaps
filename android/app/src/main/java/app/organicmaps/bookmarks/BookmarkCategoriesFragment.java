@@ -241,7 +241,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   }
 
   @Override
-  public void onImportButtonClick() {
+  public void onImportButtonClick()
+  {
     Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
 
     // Sic: EXTRA_INITIAL_URI doesn't work
@@ -257,7 +258,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
 
     try {
       startActivityForResult(intent, REQ_CODE_IMPORT_DIRECTORY);
-    } catch (ActivityNotFoundException e) {
+    }
+    catch (ActivityNotFoundException e) {
       Toast.makeText(getContext(), R.string.file_manager_recommended, Toast.LENGTH_LONG).show();
 
       Intent marketIntent = new Intent(Intent.ACTION_VIEW);
