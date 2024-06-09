@@ -16,3 +16,5 @@ Latin_Extended-B /system/fonts/Roboto-Medium.ttf
 Latin_Extended-B 07_roboto_medium.ttf
 CJK_Compatibility 02_droidsans-fallback.ttf
 Devanagari 00_NotoSerifDevanagari-Regular.ttf
+Malayalam /system/fonts/NotoSansMalayalam-Regular.ttf
+Malayalam 00_NotoSansMalayalam-Regular.ttf
