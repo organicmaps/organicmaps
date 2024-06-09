@@ -21,8 +21,8 @@ class CopyrightHandle : public StaticLabelHandle
 
 public:
   CopyrightHandle(uint32_t id, ref_ptr<dp::TextureManager> textureManager,
-                  dp::Anchor anchor, m2::PointF const & pivot, TAlphabet const & alphabet)
-    : TBase(id, textureManager, anchor, pivot, alphabet)
+                  dp::Anchor anchor, m2::PointF const & pivot, dp::TGlyphs && glyphs)
+    : TBase(id, textureManager, anchor, pivot, std::move(glyphs))
   {
     SetIsVisible(true);
   }
@@ -69,8 +69,8 @@ drape_ptr<ShapeRenderer> CopyrightLabel::Draw(ref_ptr<dp::GraphicsContext> conte
                                               ref_ptr<dp::TextureManager> tex) const
 {
   StaticLabel::LabelResult result;
-  StaticLabel::CacheStaticText("Map data © OpenStreetMap", "", m_position.m_anchor,
-                               DrapeGui::GetGuiTextFont(), tex, result);
+  auto glyphs = StaticLabel::CacheStaticText("Map data © OpenStreetMap", "", m_position.m_anchor,
+      DrapeGui::GetGuiTextFont(), tex, result);
 
   dp::AttributeProvider provider(1 /*stream count*/, static_cast<uint32_t>(result.m_buffer.size()));
   provider.InitStream(0 /*stream index*/, StaticLabel::Vertex::GetBindingInfo(),
@@ -83,7 +83,7 @@ drape_ptr<ShapeRenderer> CopyrightLabel::Draw(ref_ptr<dp::GraphicsContext> conte
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CopyrightHandle>(GuiHandleCopyright,
                                                                         tex, m_position.m_anchor,
                                                                         m_position.m_pixelPivot,
-                                                                        result.m_alphabet);
+                                                                        std::move(glyphs));
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher batcher(indexCount, vertexCount);

@@ -65,15 +65,6 @@ void AlignVertical(float halfHeight, dp::Anchor anchor, glsl::vec2 & up, glsl::v
                       dp::Bottom, up, down);
 }
 
-TextLayout MakePrimaryTextLayout(dp::TitleDecl const & titleDecl, ref_ptr<dp::TextureManager> textures)
-{
-  dp::FontDecl const & fontDecl = titleDecl.m_primaryTextFont;
-  auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
-  TextLayout textLayout;
-  textLayout.Init(strings::MakeUniString(titleDecl.m_primaryText), fontDecl.m_size * vs,textures);
-  return textLayout;
-}
-
 struct UserPointVertex : public gpu::BaseVertex
 {
   using TNormalAndAnimateOrZ = glsl::vec3;
@@ -131,7 +122,7 @@ m2::PointF GetSymbolOffsetForZoomLevel(ref_ptr<UserPointMark::SymbolOffsets> sym
   CHECK_LESS_OR_EQUAL(tileKey.m_zoomLevel, scales::UPPER_STYLE_SCALE, ());
 
   auto const offsetIndex = static_cast<size_t>(tileKey.m_zoomLevel - 1);
-  return symbolOffsets->at(offsetIndex);
+  return symbolOffsets->operator[](offsetIndex);
 }
 
 void GenerateColoredSymbolShapes(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> textures,
@@ -148,10 +139,13 @@ void GenerateColoredSymbolShapes(ref_ptr<dp::GraphicsContext> context, ref_ptr<d
   if (isTextBg)
   {
     CHECK(renderInfo.m_titleDecl, ());
-    auto const & titleDecl = renderInfo.m_titleDecl->at(0);
-    auto textLayout = MakePrimaryTextLayout(titleDecl, textures);
-    sizeInc.x = textLayout.GetPixelLength();
-    sizeInc.y = textLayout.GetPixelHeight();
+    auto const & titleDecl = renderInfo.m_titleDecl->operator[](0);
+    auto const textMetrics = textures->ShapeSingleTextLine(dp::kBaseFontSizePixels, titleDecl.m_primaryText, nullptr);
+    auto const fontScale = static_cast<float>(VisualParams::Instance().GetFontScale());
+    float const textRatio = titleDecl.m_primaryTextFont.m_size * fontScale / dp::kBaseFontSizePixels;
+
+    sizeInc.x = textMetrics.m_lineWidthInPixels * textRatio;
+    sizeInc.y = textMetrics.m_maxLineHeightInPixels * textRatio;
 
     if (renderInfo.m_symbolSizes != nullptr)
     {

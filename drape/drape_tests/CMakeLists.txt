@@ -3,7 +3,6 @@ project(drape_tests)
 set(SRC
   attribute_provides_tests.cpp
   batcher_tests.cpp
-  bidi_tests.cpp
   bingind_info_tests.cpp
   buffer_tests.cpp
   dummy_texture.hpp

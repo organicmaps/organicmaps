@@ -14,8 +14,7 @@ void Texture::Create(ref_ptr<dp::GraphicsContext> context, Params const & params
     m_hwTexture->Create(context, params);
 }
 
-void Texture::Create(ref_ptr<dp::GraphicsContext> context, Params const & params,
-                     ref_ptr<void> data)
+void Texture::Create(ref_ptr<dp::GraphicsContext> context, Params const & params, ref_ptr<void> data)
 {
   if (AllocateTexture(context, params.m_allocator))
     m_hwTexture->Create(context, params, data);

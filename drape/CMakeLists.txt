@@ -9,8 +9,6 @@ set(SRC
   batcher.hpp
   batcher_helpers.cpp
   batcher_helpers.hpp
-  bidi.cpp
-  bidi.hpp
   binding_info.cpp
   binding_info.hpp
   buffer_base.cpp

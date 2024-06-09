@@ -1,4 +1,6 @@
 #include "drape_frontend/path_text_shape.hpp"
+
+#include <memory>
 #include "drape_frontend/path_text_handle.hpp"
 #include "drape_frontend/render_state_extension.hpp"
 
@@ -29,22 +31,21 @@ PathTextShape::PathTextShape(m2::SharedSpline const & spline,
   , m_tileCoords(tileKey.GetTileCoords())
   , m_baseTextIndex(baseTextIndex)
 {
-  m_context.reset(new PathTextContext(m_spline));
+  m_context = std::make_shared<PathTextContext>(m_spline);
 }
 
 bool PathTextShape::CalculateLayout(ref_ptr<dp::TextureManager> textures)
 {
   char constexpr kSpaces[] = "   ";
   auto layout = make_unique_dp<PathTextLayout>(m_params.m_tileCenter,
-                                               strings::MakeUniString(
-                                                   m_params.m_auxText.empty()
-                                                   ? m_params.m_mainText
-                                                   : m_params.m_mainText + kSpaces + m_params.m_auxText),
-                                               m_params.m_textFont.m_size,
-                                               textures);
-  uint32_t const glyphCount = layout->GetGlyphCount();
-  if (glyphCount == 0)
+      m_params.m_auxText.empty() ? m_params.m_mainText : m_params.m_mainText + kSpaces + m_params.m_auxText,
+      m_params.m_textFont.m_size, textures);
+
+  if (0 == layout->GetGlyphCount())
+  {
+    LOG(LWARNING, ("Empty layout for main text", m_params.m_mainText, "and aux text", m_params.m_auxText));
     return false;
+  }
 
   m_context->SetLayout(std::move(layout), m_params.m_baseGtoPScale);
 
@@ -149,7 +150,7 @@ drape_ptr<dp::OverlayHandle> PathTextShape::CreateOverlayHandle(uint32_t textInd
   dp::OverlayID overlayId(m_params.m_featureId, m_params.m_markId,
                           m_tileCoords, m_baseTextIndex + textIndex);
   auto const layout = m_context->GetLayout();
-  auto const priority = GetOverlayPriority(textIndex, layout->GetText().size());
+  auto const priority = GetOverlayPriority(textIndex, layout->GetGlyphCount());
   return make_unique_dp<PathTextHandle>(overlayId, m_context, m_params.m_depth, textIndex, priority,
                                           textures, m_params.m_minVisibleScale, true /* isBillboard */);
 }

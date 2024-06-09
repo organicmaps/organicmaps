@@ -6,6 +6,7 @@
 
 #include <map>
 #include <mutex>
+#include <utility>  // std::tie
 #include <vector>
 
 namespace dp
@@ -28,39 +29,21 @@ private:
   bool m_isFull = false;
 };
 
-class GlyphKey : public Texture::Key
+class GlyphKey : public GlyphFontAndId, public Texture::Key
 {
 public:
-  explicit GlyphKey(strings::UniChar unicodePoint)
-    : m_unicodePoint(unicodePoint)
-  {}
-
   Texture::ResourceType GetType() const override { return Texture::ResourceType::Glyph; }
-  strings::UniChar GetUnicodePoint() const { return m_unicodePoint; }
-
-  bool operator<(GlyphKey const & g) const
-  {
-    return m_unicodePoint < g.m_unicodePoint;
-  }
-
-private:
-  strings::UniChar m_unicodePoint;
 };
 
+// TODO(AB): Make Texture::ResourceInfo non-abstract and use it here directly.
 class GlyphInfo : public Texture::ResourceInfo
 {
 public:
-  GlyphInfo(m2::RectF const & texRect, GlyphMetrics const & metrics)
+  explicit GlyphInfo(m2::RectF const & texRect)
     : ResourceInfo(texRect)
-    , m_metrics(metrics)
   {}
-  ~GlyphInfo() override = default;
 
   Texture::ResourceType GetType() const override { return Texture::ResourceType::Glyph; }
-  GlyphMetrics const & GetMetrics() const { return m_metrics; }
-
-private:
-  GlyphMetrics m_metrics;
 };
 
 class GlyphIndex
@@ -70,8 +53,8 @@ public:
   ~GlyphIndex();
 
   // This function can return nullptr.
-  ref_ptr<Texture::ResourceInfo> MapResource(GlyphKey const & key, bool & newResource);
-  std::vector<ref_ptr<Texture::ResourceInfo>> MapResources(std::vector<GlyphKey> const & keys, bool & hasNewResources);
+  ref_ptr<Texture::ResourceInfo> MapResource(GlyphFontAndId const & key, bool & newResource);
+  std::vector<ref_ptr<Texture::ResourceInfo>> MapResources(TGlyphs const & keys, bool & hasNewResources);
   void UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr<Texture> texture);
 
   bool CanBeGlyphPacked(uint32_t glyphsCount) const;
@@ -83,7 +66,7 @@ private:
   GlyphPacker m_packer;
   ref_ptr<GlyphManager> m_mng;
 
-  using ResourceMapping = std::map<GlyphKey, GlyphInfo>;
+  using ResourceMapping = std::map<GlyphFontAndId, GlyphInfo>;
   using PendingNode = std::pair<m2::RectU, Glyph>;
   using PendingNodes = std::vector<PendingNode>;
 
@@ -104,10 +87,10 @@ public:
 
   ~FontTexture() override { Reset(); }
 
-  std::vector<ref_ptr<ResourceInfo>> FindResources(std::vector<GlyphKey> const & keys, bool & hasNewResources) const
+  ref_ptr<ResourceInfo> MapResource(GlyphFontAndId const & key, bool & hasNewResources) const
   {
     ASSERT(m_indexer != nullptr, ());
-    return m_indexer->MapResources(keys, hasNewResources);
+    return m_indexer->MapResource(key, hasNewResources);
   }
 
   bool HasEnoughSpace(uint32_t newKeysCount) const override
