@@ -1633,7 +1633,6 @@ void FrontendRenderer::RenderTransitSchemeLayer(ScreenBase const & modelView)
   {
     DEBUG_LABEL(m_context, "Transit Scheme");
     m_context->Clear(dp::ClearBits::DepthBit, dp::kClearBitsStoreAll);
-    RenderTransitBackground();
     m_transitSchemeRenderer->RenderTransit(m_context, make_ref(m_gpuProgramManager), modelView,
                                            make_ref(m_postprocessRenderer), m_frameValues,
                                            make_ref(m_debugRectRenderer));
@@ -1675,6 +1674,8 @@ void FrontendRenderer::RenderTransitBackground()
 void FrontendRenderer::RenderRouteLayer(ScreenBase const & modelView)
 {
   TRACE_SECTION("[drape] RenderRouteLayer");
+  /// @todo(pastk): do we need the semi-opaque bg when routing via subway?
+  /// ref: https://github.com/organicmaps/organicmaps/pull/8431
   if (HasTransitRouteData())
     RenderTransitBackground();
 
