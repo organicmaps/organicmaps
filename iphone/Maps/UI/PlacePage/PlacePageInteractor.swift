@@ -8,6 +8,7 @@ class PlacePageInteractor: NSObject {
   weak var mapViewController: MapViewController?
   private let bookmarksManager = BookmarksManager.shared()
   private var placePageData: PlacePageData
+  private var viewWillAppearIsCalledForTheFirstTime = false
 
   init(viewController: UIViewController, data: PlacePageData, mapViewController: MapViewController) {
     self.placePageData = data
@@ -50,6 +51,9 @@ extension PlacePageInteractor: PlacePageInteractorProtocol {
 
 extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
   func viewWillAppear() {
+    // Skip data reloading on the first appearance, to avoid unnecessary updates.
+    guard viewWillAppearIsCalledForTheFirstTime else { return }
+    viewWillAppearIsCalledForTheFirstTime = true
     updateBookmarkIfNeeded()
   }
   

@@ -114,7 +114,13 @@ class PlacePageInfoViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    delegate?.viewWillAppear()
+  }
 
+  // MARK: private
+  private func setupViews() {
     if let openingHours = placePageInfoData.openingHours {
       openingHoursView.openingHours = openingHours
       addToStack(openingHoursView)
