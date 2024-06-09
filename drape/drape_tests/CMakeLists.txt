@@ -12,6 +12,7 @@ set(SRC
   gl_mock_functions.hpp
   glyph_mng_tests.cpp
   glyph_packer_test.cpp
+  harfbuzz_shaping_test.cpp
   img.cpp
   img.hpp
   memory_comparer.hpp

@@ -5,6 +5,7 @@
 #include "base/string_utils.hpp"
 
 #include <array>
+#include <sstream>
 #include <string>
 
 #include <unicode/ubidi.h>    // ubidi_open, ubidi_setPara
@@ -82,8 +83,9 @@ size_t ScriptSetIntersect(char32_t codepoint, TScriptsArray & inOutScripts, size
   // Intersect both script sets.
   ASSERT(!contains(USCRIPT_INHERITED), ());
   size_t outSize = 0;
-  for (auto const currentScript : inOutScripts)
+  for (size_t i = 0; i < inOutScriptsCount; ++i)
   {
+    auto const currentScript = inOutScripts[i];
     if (contains(currentScript))
       inOutScripts[outSize++] = currentScript;
   }
@@ -116,7 +118,7 @@ size_t ScriptInterval(std::u16string const & text, int32_t start, size_t length,
     scriptsSize = ScriptSetIntersect(c32, scripts, scriptsSize);
     if (scriptsSize == 0U)
     {
-      length = iterator - begin;
+      length = iterator - begin - 1;
       break;
     }
   }
@@ -218,6 +220,14 @@ TextSegments GetTextSegments(std::string_view utf8)
   GetSingleTextLineRuns(segments);
   ReorderRTL(segments);
   return segments;
+}
+
+std::string DebugPrint(TextSegment const & segment)
+{
+  std::stringstream ss;
+  ss << "TextSegment[start=" << segment.m_start << ", length=" << segment.m_length
+     << ", script=" << segment.m_script << ", direction=" << segment.m_direction << ']';
+  return ss.str();
 }
 
 }  // namespace harfbuzz_shaping

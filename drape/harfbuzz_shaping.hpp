@@ -30,4 +30,6 @@ struct TextSegments
 // Finds segments with common properties suitable for harfbuzz in a single line of text without newlines.
 // Any line breaking/trimming should be done by the caller.
 TextSegments GetTextSegments(std::string_view utf8);
+
+std::string DebugPrint(TextSegment const & segment);
 }  // namespace harfbuzz_shaping
