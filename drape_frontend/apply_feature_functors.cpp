@@ -308,18 +308,18 @@ dp::Anchor GetShieldAnchor(uint8_t shieldIndex, uint8_t shieldCount)
   return dp::Center;
 }
 
-m2::PointF GetShieldOffset(dp::Anchor anchor, double borderWidth, double borderHeight)
+m2::PointF GetShieldOffset(dp::Anchor anchor, double paddingWidth, double paddingHeight)
 {
   m2::PointF offset(0.0f, 0.0f);
   if (anchor & dp::Left)
-    offset.x = static_cast<float>(borderWidth);
+    offset.x = static_cast<float>(paddingWidth);
   else if (anchor & dp::Right)
-    offset.x = -static_cast<float>(borderWidth);
+    offset.x = -static_cast<float>(paddingWidth);
 
   if (anchor & dp::Top)
-    offset.y = static_cast<float>(borderHeight);
+    offset.y = static_cast<float>(paddingHeight);
   else if (anchor & dp::Bottom)
-    offset.y = -static_cast<float>(borderHeight);
+    offset.y = -static_cast<float>(paddingHeight);
   return offset;
 }
 
@@ -912,9 +912,9 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   double const fontScale = df::VisualParams::Instance().GetFontScale();
   auto const anchor = GetShieldAnchor(shieldIndex, shieldCount);
   m2::PointF const shieldOffset = GetShieldOffset(anchor, 2.0, 2.0);
-  double const borderWidth = 5.0 * mainScale;
-  double const borderHeight = 1.5 * mainScale;
-  m2::PointF const shieldTextOffset = GetShieldOffset(anchor, borderWidth, borderHeight);
+  double const paddingWidth = 5.0 * mainScale;
+  double const paddingHeight = 1.5 * mainScale;
+  m2::PointF const shieldTextOffset = GetShieldOffset(anchor, paddingWidth, paddingHeight);
 
   dp::FontDecl font;
   ShieldRuleProtoToFontDecl(m_shieldRule, font);
@@ -932,12 +932,14 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   textParams.m_titleDecl.m_secondaryOptional = false;
   textParams.m_startOverlayRank = dp::OverlayRank1;
 
-  TextLayout textLayout;
-  textLayout.Init(strings::MakeUniString(roadNumber), font.m_size, texMng);
+  auto const textMetrics = texMng->ShapeSingleTextLine(dp::kBaseFontSizePixels, roadNumber, nullptr);
+  float const textRatio = font.m_size * fontScale / dp::kBaseFontSizePixels;
+  float const textWidthInPixels = textMetrics.m_lineWidthInPixels * textRatio;
+  float const textHeightInPixels = textMetrics.m_maxLineHeightInPixels * textRatio;
 
   // Calculate width and height of a shield.
-  shieldPixelSize.x = textLayout.GetPixelLength() + 2.0 * borderWidth;
-  shieldPixelSize.y = textLayout.GetPixelHeight() + 2.0 * borderHeight;
+  shieldPixelSize.x = textWidthInPixels + 2.0 * paddingWidth;
+  shieldPixelSize.y = textHeightInPixels + 2.0 * paddingHeight;
   textParams.m_limitedText = true;
   textParams.m_limits = shieldPixelSize * 0.9;
 
@@ -976,8 +978,8 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
 
     dp::TextureManager::SymbolRegion region;
     texMng->GetSymbolRegion(poiParams.m_symbolName, region);
-    float const symBorderWidth = (region.GetPixelSize().x - textLayout.GetPixelLength()) * 0.5f;
-    float const symBorderHeight = (region.GetPixelSize().y - textLayout.GetPixelHeight()) * 0.5f;
+    float const symBorderWidth = (region.GetPixelSize().x - textWidthInPixels) * 0.5f;
+    float const symBorderHeight = (region.GetPixelSize().y - textHeightInPixels) * 0.5f;
     textParams.m_titleDecl.m_primaryOffset = poiParams.m_offset + GetShieldOffset(anchor, symBorderWidth, symBorderHeight);
     shieldPixelSize = region.GetPixelSize();
   }

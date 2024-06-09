@@ -26,26 +26,24 @@ public:
     return m_indexer->MapResource(static_cast<TResourceKey const &>(key), newResource);
   }
 
-  void Create(ref_ptr<dp::GraphicsContext> context, Params const & params) override
+  void Create(ref_ptr<GraphicsContext> context, Params const & params) override
   {
     ASSERT(Base::IsPowerOfTwo(params.m_width, params.m_height), (params.m_width, params.m_height));
     Base::Create(context, params);
   }
 
-  void Create(ref_ptr<dp::GraphicsContext> context, Params const & params,
-              ref_ptr<void> data) override
+  void Create(ref_ptr<GraphicsContext> context, Params const & params, ref_ptr<void> data) override
   {
     ASSERT(Base::IsPowerOfTwo(params.m_width, params.m_height), (params.m_width, params.m_height));
     Base::Create(context, params, data);
   }
 
-  void UpdateState(ref_ptr<dp::GraphicsContext> context) override
+  void UpdateState(ref_ptr<GraphicsContext> context) override
   {
     // Create texture before first uploading.
     if (!m_isInitialized)
     {
-      std::vector<uint8_t> initData(m_params.m_width * m_params.m_height *
-                                    GetBytesPerPixel(m_params.m_format), 0);
+      std::vector<uint8_t> initData(m_params.m_width * m_params.m_height * GetBytesPerPixel(m_params.m_format), 0);
       Create(context, m_params, initData.data());
       m_isInitialized = true;
     }

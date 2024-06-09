@@ -1,12 +1,11 @@
 #pragma once
 
+#include "drape/glyph.hpp"
 #include "drape/overlay_handle.hpp"
 #include "drape/pointers.hpp"
 #include "drape/utils/vertex_decl.hpp"
 
 #include "base/string_utils.hpp"
-
-#include <string>
 
 namespace dp
 {
@@ -18,12 +17,12 @@ namespace df
 class TextHandle : public dp::OverlayHandle
 {
 public:
-  TextHandle(dp::OverlayID const & id, strings::UniString const & text,
+  TextHandle(dp::OverlayID const & id, dp::TGlyphs && glyphs,
              dp::Anchor anchor, uint64_t priority,
              ref_ptr<dp::TextureManager> textureManager,
              int minVisibleScale, bool isBillboard);
 
-  TextHandle(dp::OverlayID const & id, strings::UniString const & text,
+  TextHandle(dp::OverlayID const & id, dp::TGlyphs && glyphs,
              dp::Anchor anchor, uint64_t priority,
              ref_ptr<dp::TextureManager> textureManager,
              gpu::TTextDynamicVertexBuffer && normals,
@@ -48,7 +47,7 @@ protected:
 private:
   mutable bool m_isLastVisible;
 
-  strings::UniString m_text;
+  dp::TGlyphs m_glyphs;
   ref_ptr<dp::TextureManager> m_textureManager;
   bool m_glyphsReady;
 };

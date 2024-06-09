@@ -2,7 +2,6 @@
 
 #include "drape/drape_tests/img.hpp"
 
-#include "drape/bidi.hpp"
 #include "drape/font_constants.hpp"
 #include "drape/glyph_manager.hpp"
 #include "drape/harfbuzz_shaping.hpp"
@@ -27,7 +26,6 @@ namespace glyph_mng_tests
 class GlyphRenderer
 {
   FT_Library m_freetypeLibrary;
-  strings::UniString m_bidiToDraw;
   std::string m_utf8;
   int m_fontPixelSize;
   char const * m_lang;
@@ -58,7 +56,6 @@ public:
 
   void SetString(std::string const & s, int fontPixelSize, char const * lang)
   {
-    m_bidiToDraw = bidi::log2vis(strings::MakeUniString(s));
     m_utf8 = s;
     m_fontPixelSize = fontPixelSize;
     m_lang = lang;
@@ -80,7 +77,7 @@ public:
     return 255.f * alpha;
   }
 
-  void RenderGlyphs(QPaintDevice * device)
+  void RenderGlyphs(QPaintDevice * device) const
   {
     QPainter painter(device);
     painter.fillRect(QRectF(0.0, 0.0, device->width(), device->height()), Qt::white);
@@ -90,12 +87,14 @@ public:
     std::cout << "Total width: " << shapedText.m_lineWidthInPixels << '\n';
     std::cout << "Max height: " << shapedText.m_maxLineHeightInPixels << '\n';
 
-    QPoint pen(10, 50);
+    int constexpr kLineStartX = 10;
+    int constexpr kLineMarginY = 50;
+    QPoint pen(kLineStartX, kLineMarginY);
 
     for (auto const & glyph : shapedText.m_glyphs)
     {
       constexpr bool kUseSdfBitmap = false;
-      dp::GlyphImage img = m_mng->GetGlyphImage(glyph.m_font, glyph.m_glyphId, m_fontPixelSize, kUseSdfBitmap);
+      dp::GlyphImage img = m_mng->GetGlyphImage(glyph.m_key, m_fontPixelSize, kUseSdfBitmap);
 
       auto const w = img.m_width;
       auto const h = img.m_height;
@@ -104,10 +103,35 @@ public:
       {
         QPoint currentPen = pen;
         currentPen.rx() += glyph.m_xOffset;
-        currentPen.ry() -= glyph.m_yOffset;
+        // Image is drawn at the top left origin, text metrics returns bottom left origin.
+        currentPen.ry() -= glyph.m_yOffset + h;
         painter.drawImage(currentPen, CreateImage(w, h, img.m_data->data()), QRect(0, 0, w, h));
       }
-      pen += QPoint(glyph.m_xAdvance, 0);
+      pen += QPoint(glyph.m_xAdvance, glyph.m_yAdvance /* 0 for horizontal texts */);
+
+      img.Destroy();
+    }
+
+    pen.rx() = kLineStartX;
+    pen.ry() += kLineMarginY;
+
+    for (auto const & glyph : shapedText.m_glyphs)
+    {
+      constexpr bool kUseSdfBitmap = true;
+      auto img = m_mng->GetGlyphImage(glyph.m_key, m_fontPixelSize, kUseSdfBitmap);
+
+      auto const w = img.m_width;
+      auto const h = img.m_height;
+      // Spaces do not have images.
+      if (w && h)
+      {
+        QPoint currentPen = pen;
+        currentPen.rx() += glyph.m_xOffset;
+        currentPen.ry() -= glyph.m_yOffset + h;
+        painter.drawImage(currentPen, CreateImage(w, h, img.m_data->data()),
+            QRect(dp::kSdfBorder, dp::kSdfBorder, w - 2 * dp::kSdfBorder, h - 2 * dp::kSdfBorder));
+      }
+      pen += QPoint(glyph.m_xAdvance, glyph.m_yAdvance /* 0 for horizontal texts */);
 
       img.Destroy();
     }
@@ -115,7 +139,8 @@ public:
     ////////////////////////////////////////////////////////////////////////////
     // Manual rendering using HB functions.
     {
-      QPoint hbPen(10, 100);
+      pen.rx() = kLineStartX;
+      pen.ry() += kLineMarginY;
 
       auto const hbLanguage = hb_language_from_string(m_lang, -1);
 
@@ -202,12 +227,12 @@ public:
           // Empty images are possible for space characters.
           if (width != 0 && height != 0)
           {
-            QPoint currentPen = hbPen;
+            QPoint currentPen = pen;
             currentPen.rx() += x_offset;
             currentPen.ry() -= y_offset;
             painter.drawImage(currentPen, CreateImage(width, height, buffer), QRect(kSdfSpread, kSdfSpread, width - 2*kSdfSpread, height - 2*kSdfSpread));
           }
-          hbPen += QPoint(x_advance, y_advance);
+          pen += QPoint(x_advance, y_advance);
         }
 
         // Tidy up.
@@ -220,7 +245,9 @@ public:
     //////////////////////////////////////////////////////////////////
     // QT text renderer.
     {
-      QPoint pen(10, 150);
+      pen.rx() = kLineStartX;
+      pen.ry() += kLineMarginY;
+
       //QFont font("Noto Naskh Arabic");
       QFont font("Roboto");
       font.setPixelSize(m_fontPixelSize);
@@ -229,26 +256,6 @@ public:
       painter.drawText(pen, QString::fromUtf8(m_utf8.c_str(), m_utf8.size()));
     }
 
-    //////////////////////////////////////////////////////////////////
-    // Old drape renderer.
-    pen = QPoint(10, 200);
-    for (auto c : m_bidiToDraw)
-    {
-      auto g = m_mng->GetGlyph(c);
-
-      if (g.m_image.m_data)
-      {
-        uint8_t * d = SharedBufferManager::GetRawPointer(g.m_image.m_data);
-        QPoint currentPen = pen;
-        currentPen.rx() += g.m_metrics.m_xOffset;
-        currentPen.ry() -= g.m_metrics.m_yOffset;
-        painter.drawImage(currentPen, CreateImage(g.m_image.m_width, g.m_image.m_height, d),
-            QRect(dp::kSdfBorder, dp::kSdfBorder, g.m_image.m_width - 2 * dp::kSdfBorder, g.m_image.m_height - 2 * dp::kSdfBorder));
-      }
-      pen += QPoint(g.m_metrics.m_xAdvance,  g.m_metrics.m_yAdvance);
-
-      g.m_image.Destroy();
-    }
   }
 
 private:
@@ -265,7 +272,7 @@ UNIT_TEST(GlyphLoadingTest)
 
   constexpr int fontSize = 27;
 
-  renderer.SetString("Тестовая строка", fontSize, "ru");
+  renderer.SetString("Строка", fontSize, "ru");
   RunTestLoop("ru", std::bind(&GlyphRenderer::RenderGlyphs, &renderer, _1));
 
   renderer.SetString("ØŒÆ", fontSize, "en");
