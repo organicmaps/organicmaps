@@ -5,24 +5,38 @@
 #include "base/buffer_vector.hpp"
 
 #include <algorithm>
-#include <cstddef>
-#include <cstdint>
 #include <string>
 #include <type_traits>
 #include <vector>
 
 namespace rw
 {
-  template <class TSink>
-  void Write(TSink & sink, uint32_t i)
+  template <class T, class TSink>
+  std::enable_if_t<std::is_integral_v<T> && std::is_unsigned_v<T>, void>
+  Write(TSink & sink, T i)
   {
     WriteVarUint(sink, i);
   }
 
-  template <class TSource>
-  void Read(TSource & src, uint32_t & i)
+  template <class T, class TSource>
+  std::enable_if_t<std::is_integral_v<T> && std::is_unsigned_v<T>, void>
+  Read(TSource & src, T & i)
   {
-    i = ReadVarUint<uint32_t>(src);
+    i = ReadVarUint<T>(src);
+  }
+
+  template <class T, class TSink>
+  std::enable_if_t<std::is_integral_v<T> && std::is_signed_v<T>, void>
+  Write(TSink & sink, T i)
+  {
+    WriteVarInt(sink, i);
+  }
+
+  template <class T, class TSource>
+  std::enable_if_t<std::is_integral_v<T> && std::is_signed_v<T>, void>
+  Read(TSource & src, T & i)
+  {
+    i = ReadVarInt<T>(src);
   }
 
   template <class TSink>

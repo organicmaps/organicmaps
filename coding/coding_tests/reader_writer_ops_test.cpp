@@ -6,12 +6,13 @@
 #include "coding/read_write_utils.hpp"
 #include "coding/byte_stream.hpp"
 
+#include "base/random.hpp"
+
 #include <algorithm>
-#include <cstddef>
-#include <cstdint>
-#include <random>
 #include <vector>
 
+namespace rw_ops_tests
+{
 using namespace std;
 
 namespace
@@ -39,11 +40,11 @@ namespace
   {
     FileWriter writer(fName);
 
-    srand(666);
+    base::UniformRandom<int8_t> rand;
 
     while (count-- > 0)
     {
-      char const c = rand();
+      int8_t const c = rand();
       writer.Write(&c, 1);
     }
   }
@@ -99,7 +100,7 @@ namespace
 
 UNIT_TEST(ReadWrite_POD)
 {
-  srand(666);
+  base::UniformRandom<uint32_t> rand;
 
   size_t const count = 1000;
   vector<ThePOD> src(1000);
@@ -119,3 +120,35 @@ UNIT_TEST(ReadWrite_POD)
 
   TEST(equal(src.begin(), src.end(), dest.begin()), ());
 }
+
+namespace
+{
+template <class T> void TestIntegral()
+{
+  std::vector<T> ethalon{ static_cast<T>(-1), 0, 1,
+                          static_cast<T>(-2), 2,
+                          std::numeric_limits<T>::min(), std::numeric_limits<T>::max()
+  };
+
+  std::string buffer;
+  MemWriter writer(buffer);
+  rw::Write(writer, ethalon);
+
+  std::vector<T> expected;
+  MemReader reader(buffer);
+  ReaderSource src(reader);
+  rw::Read(src, expected);
+
+  TEST_EQUAL(ethalon, expected, ());
+}
+}
+
+UNIT_TEST(ReadWrite_Integral)
+{
+  TestIntegral<uint32_t>();
+  TestIntegral<int32_t>();
+  TestIntegral<uint64_t>();
+  TestIntegral<int64_t>();
+}
+
+} // namespace rw_ops_tests
