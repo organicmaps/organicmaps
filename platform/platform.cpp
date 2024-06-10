@@ -4,10 +4,10 @@
 
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
+#include "base/random.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <random>
 #include <thread>
 
 #include "private.h"
@@ -18,17 +18,15 @@ namespace
 {
 std::string RandomString(size_t length)
 {
+  /// @todo Used for temp file name, so lower-upper case is strange here, no?
   static std::string_view constexpr kCharset =
       "0123456789"
       "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
       "abcdefghijklmnopqrstuvwxyz";
-  std::random_device rd;
-  std::mt19937 gen(rd());
-  std::uniform_int_distribution<size_t> dis(0, kCharset.size() - 1);
+
+  base::UniformRandom<size_t> rand(0, kCharset.size() - 1);
   std::string str(length, 0);
-  std::generate_n(str.begin(), length, [&]() {
-    return kCharset[dis(gen)];
-  });
+  std::generate_n(str.begin(), length, [&rand]() { return kCharset[rand()]; });
   return str;
 }
 
