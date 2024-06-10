@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "Please try again";
 
-"not_now" = "Not Now";
-
 "dialog_routing_download_and_build_cross_route" = "Would you like to download the map and create a more optimal route spanning more than one map?";
 
 "dialog_routing_download_cross_route" = "Download additional maps to create a better route that crosses the boundaries of this map.";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "Start from";
 
-"profile_authorization_error" = "Oops, there was an error. Try signing in again.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "Error";
 
 "bookmarks_convert_error_message" = "Some files were not converted.";
-
-"bookmarks_restore_title" = "Restore this version?";
-
-"error_system_message" = "An unknown error occurred";
 
 "restore" = "Restore";
 

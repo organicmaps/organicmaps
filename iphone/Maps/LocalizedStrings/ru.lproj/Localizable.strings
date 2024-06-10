@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "Попробуйте снова";
 
-"not_now" = "Не сейчас";
-
 "dialog_routing_download_and_build_cross_route" = "Загрузить карту и построить более оптимальный маршрут с пересечением границы карты?";
 
 "dialog_routing_download_cross_route" = "Для построения более оптимального маршрута с пересечением границы требуется загрузить карту.";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "Начать от";
 
-"profile_authorization_error" = "Упс, произошла ошибка. Попробуйте авторизоваться повторно.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Пожалуйста войдите в аккаунт OpenStreetMap.org, чтобы публиковать ваши изменения карты. Подробности по";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "Ошибка";
 
 "bookmarks_convert_error_message" = "Некоторые файлы не конвертировались.";
-
-"bookmarks_restore_title" = "Восстановить эту версию?";
-
-"error_system_message" = "Произошла неизвестная ошибка";
 
 "restore" = "Восстановить";
 

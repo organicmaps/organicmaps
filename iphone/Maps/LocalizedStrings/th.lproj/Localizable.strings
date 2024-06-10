@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "กรุณาลองอีกครั้ง";
 
-"not_now" = "ไว้คราวหลัง";
-
 "dialog_routing_download_and_build_cross_route" = "คุณต้องการดาวน์โหลดแผนที่และสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเกินหนึ่งแผนที่หรือไม่?";
 
 "dialog_routing_download_cross_route" = "ดาวน์โหลดแผนที่เพื่อสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเลยขอบของแผนที่นี้";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "เริ่มจาก";
 
-"profile_authorization_error" = "โอ๊ะ มีข้อผิดพลาดเกิดขึ้น ลองลงชื่อเข้าใช้อีกครั้ง";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "กรุณาเข้าสู่ระบบ OpenStreetMap เพื่ออัปโหลดการแก้ไขแผนที่ทั้งหมดของคุณโดยอัตโนมัติ เรียนรู้เพิ่มเติม";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "ความผิดพลาด";
 
 "bookmarks_convert_error_message" = "ไฟล์บางไฟล์ไม่ได้รับการแปลง";
-
-"bookmarks_restore_title" = "เรียกคืนเวอร์ชันนี้หรือไม่?";
-
-"error_system_message" = "เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ";
 
 "restore" = "ฟื้นฟู";
 

@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "Спробуйте знову";
 
-"not_now" = "Не зараз";
-
 "dialog_routing_download_and_build_cross_route" = "Завантажити мапу і побудувати більш оптимальний маршрут з перетином межі мапи?";
 
 "dialog_routing_download_cross_route" = "Для побудови більш оптимального маршруту з перетином межі потрібно завантажити мапу.";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "Почати з";
 
-"profile_authorization_error" = "Ой, трапилася помилка. Спробуйте увійти знову.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Будь ласка увійдіть в акаунт OpenStreetMap.org, щоб автоматично публікувати зміни до мапи. Подробиці за";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "Помилка";
 
 "bookmarks_convert_error_message" = "Деякі файли не конвертувалися.";
-
-"bookmarks_restore_title" = "Відновити цю версію?";
-
-"error_system_message" = "Виникла невідома помилка";
 
 "restore" = "Відновити";
 

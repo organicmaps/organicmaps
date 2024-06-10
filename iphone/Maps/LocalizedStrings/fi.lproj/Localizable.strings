@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "Yritä uudelleen";
 
-"not_now" = "Ei nyt";
-
 "dialog_routing_download_and_build_cross_route" = "Haluatko ladata kartan ja luoda paremman reitin, joka ulottuu usealle kartalle?";
 
 "dialog_routing_download_cross_route" = "Lataa kartta ja luo parempi reitti, joka ylittää tämän kartan reunan.";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "Aloita kohdasta";
 
-"profile_authorization_error" = "Tapahtui virhe. Yritä kirjautua sisään uudelleen.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Kirjaudu sisään OpenStreetMapiin, jotta voit ladata kaikki karttamuutoksesi automaattisesti. Lisätietoja";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "Virhe";
 
 "bookmarks_convert_error_message" = "Joitakin tiedostoja ei muunnettu.";
-
-"bookmarks_restore_title" = "Palauta tämä versio?";
-
-"error_system_message" = "Tuntematon virhe tapahtui";
 
 "restore" = "Palauta";
 

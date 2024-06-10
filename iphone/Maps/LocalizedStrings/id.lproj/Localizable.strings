@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "Mohon coba lagi";
 
-"not_now" = "Jangan Sekarang";
-
 "dialog_routing_download_and_build_cross_route" = "Apakah Anda ingin mengunduh peta dan membuat rute yang lebih optimal yang meliputi lebih dari satu peta?";
 
 "dialog_routing_download_cross_route" = "Unduh peta untuk membuat rute yang lebih optimal yang melewati ujung peta ini.";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "Mulai dari";
 
-"profile_authorization_error" = "Ah, tadi ada kesalahan. Coba masuk kembali.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Silahkan login ke OpenStreetMap untuk mengupload semua hasil edit peta Anda secara otomatis. Pelajari lebih lanjut";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "Kesalahan";
 
 "bookmarks_convert_error_message" = "Beberapa file tidak dikonversi.";
-
-"bookmarks_restore_title" = "Kembalikan versi ini?";
-
-"error_system_message" = "Terjadi kesalahan yang tidak diketahui";
 
 "restore" = "Mengembalikan";
 

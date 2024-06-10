@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "Por favor, tente novamente";
 
-"not_now" = "Agora não";
-
 "dialog_routing_download_and_build_cross_route" = "Deseja baixar o mapa e traçar uma rota melhor, mas que se estenda por mais de um mapa?";
 
 "dialog_routing_download_cross_route" = "Baixe o mapa para traçar uma rota melhor que vai além dos limites desse mapa.";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "Iniciar a partir de";
 
-"profile_authorization_error" = "Ups, ocorreu um erro. Tente iniciar sessão novamente.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Faça login no OpenStreetMap para carregar automaticamente todas as edições de mapas que você fizer. Saiba mais";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "Erro";
 
 "bookmarks_convert_error_message" = "Alguns arquivos não foram convertidos.";
-
-"bookmarks_restore_title" = "Restaurar esta versão?";
-
-"error_system_message" = "Ocorreu um erro desconhecido";
 
 "restore" = "Restaurar";
 

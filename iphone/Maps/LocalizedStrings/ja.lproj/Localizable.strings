@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "もう一度お試しください";
 
-"not_now" = "後で";
-
 "dialog_routing_download_and_build_cross_route" = "マップをダウンロードし、複数マップを利用してより最適なルートを作成しますか？";
 
 "dialog_routing_download_cross_route" = "このマップの境界を越えて複数マップを利用し、より最適なルートを作成するには、マップをダウンロードしてください。";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "出発地";
 
-"profile_authorization_error" = "エラーが発生しました。もう一度サインインしてみてください。";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "すべてのマップ編集を自動的にアップロードするには、OpenStreetMapにログインしてください。詳しくは";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "エラー";
 
 "bookmarks_convert_error_message" = "一部のファイルは変換されませんでした。";
-
-"bookmarks_restore_title" = "このバージョンを復元しますか？";
-
-"error_system_message" = "不明なエラーが発生しました";
 
 "restore" = "復元";
 

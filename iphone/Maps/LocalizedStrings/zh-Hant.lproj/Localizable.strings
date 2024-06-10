@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "請再試一次";
 
-"not_now" = "現在不要";
-
 "dialog_routing_download_and_build_cross_route" = "您是否要下載地圖，產生跨越邊界的更好路線？";
 
 "dialog_routing_download_cross_route" = "若要產生跨越邊界的更理想路線，您需要下載地圖。";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "起點";
 
-"profile_authorization_error" = "噢，發生錯誤。請嘗試再次登入。";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "請登入 OpenStreetMap 自動上傳您所有的地圖編輯內容。了解更多";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "錯誤";
 
 "bookmarks_convert_error_message" = "有些文件未被轉換。";
-
-"bookmarks_restore_title" = "還原這個版本？";
-
-"error_system_message" = "出現未知錯誤";
 
 "restore" = "恢復";
 

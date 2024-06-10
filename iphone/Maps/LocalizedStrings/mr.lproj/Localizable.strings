@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "कृपया पुर्नरप्रयत्न करा";
 
-"not_now" = "आता नाही";
-
 "dialog_routing_download_and_build_cross_route" = "एकापेक्षा जास्त नकाशात पसरलेला अधिक चांगला मार्ग तयार करण्यासाठी, नकाशा डाउनलोड केलेला चालेल का?";
 
 "dialog_routing_download_cross_route" = "या नकाशाच्या सीमा ओलांडणारा एक चांगला मार्ग तयार करण्यासाठी अधिक नकाशे डाउनलोड करा.";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "पासून प्रारंभ";
 
-"profile_authorization_error" = "अरेच्चा, त्रुटी आढळली. पुन्हा प्रवेश करण्याचा प्रयत्न करा.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "तुमची सर्व नकाशा संपादने स्वयंचलितपणे अपलोड करण्यासाठी कृपया OpenStreetMap वर लॉग इन करा.";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "त्रुटी";
 
 "bookmarks_convert_error_message" = "काही फायली रूपांतरित झाल्या नाहीत.";
-
-"bookmarks_restore_title" = "ही आवृत्ती पूर्ववत् करायची?";
-
-"error_system_message" = "एक अज्ञात त्रुटी आढळली";
 
 "restore" = "पूर्ववत् करा";
 

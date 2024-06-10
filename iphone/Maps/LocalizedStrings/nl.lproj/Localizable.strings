@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "Probeer het opnieuw";
 
-"not_now" = "Niet nu";
-
 "dialog_routing_download_and_build_cross_route" = "Wilt u de kaart downloaden en een betere route samenstellen die meer dan één kaart beslaat?";
 
 "dialog_routing_download_cross_route" = "Download de kaart om een betere route samen te stellen die de grenzen van deze kaart overschrijdt.";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "Start vanaf";
 
-"profile_authorization_error" = "Oeps, er is een fout opgetreden. Probeer opnieuw aan te melden.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Log in op OpenStreetMap om al je kaartbewerkingen automatisch te uploaden. Meer informatie";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "Fout";
 
 "bookmarks_convert_error_message" = "Sommige bestanden werden niet geconverteerd.";
-
-"bookmarks_restore_title" = "Deze versie herstellen?";
-
-"error_system_message" = "Er is een onbekende fout opgetreden";
 
 "restore" = "Herstellen";
 

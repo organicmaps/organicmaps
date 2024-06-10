@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "נסה שוב";
 
-"not_now" = "לא עכשיו";
-
 "dialog_routing_download_and_build_cross_route" = "האם ברצונך להוריד את המפה וליצור מסלול מיטבי יותר, הכולל יותר מאשר מפה אחת?";
 
 "dialog_routing_download_cross_route" = "הורד מפות נוספות כדי ליצור מסלול יותר טוב שחוצה את גבולות המפה הזו.";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "Start from";
 
-"profile_authorization_error" = "אופס, הייתה שגיאה. נסה להתחבר שנית.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "התחבר ל-OpenStreetMap כדי להעלות אוטומטית את כל עריכות המפה שלך. למידע נוסף";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "שגיאה";
 
 "bookmarks_convert_error_message" = "חלק מהקבצים לא הומרו";
-
-"bookmarks_restore_title" = "לשחזר את הגרסה הזו?";
-
-"error_system_message" = "אירעה שגיאה בלתי מוכרת";
 
 "restore" = "שחזור";
 

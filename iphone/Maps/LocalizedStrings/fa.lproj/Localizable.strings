@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "لطفا دوباره تلاش کنید";
 
-"not_now" = "اکنون خیر";
-
 "dialog_routing_download_and_build_cross_route" = "ایا مایل به دانلود نقشه و ایجاد مسیر‌های بهینه بیشتری که نقشه‌های بیشتری را پوشش میدهد هستید؟";
 
 "dialog_routing_download_cross_route" = "دانلود نقشه‌های اضافی برای ایجاد مسیری بهتر که حاشیه‌های این نقشه را رد می کند.";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "شروع از";
 
-"profile_authorization_error" = "اوه، یک خطا وجود داشت سعی کنید دوباره وارد سیستم شوید";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "لطفاً به OpenStreetMap وارد شوید تا به طور خودکار تمام ویرایش های نقشه خود را آپلود کنید.";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "خطا";
 
 "bookmarks_convert_error_message" = "بعضی از فایل‌ها تبدیل نشد.";
-
-"bookmarks_restore_title" = "این نسخه برگردد؟";
-
-"error_system_message" = "خطای ناشناخته‌ای رخ داد";
 
 "restore" = "بازیابی";
 
