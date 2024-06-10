@@ -8,48 +8,46 @@ import android.os.Build;
 import android.os.PowerManager;
 import android.provider.Settings;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 public class PowerManagerCompat
 {
   private final String TAG = PowerManagerCompat.class.getSimpleName();
-  private final Map<String, Integer> POWER_SAVE_MODE_VALUES = new HashMap<String, Integer>()
-  {
-    {
-      put("HUAWEI", 4);
-      put("XIAOMI", 1);
-    }
-  };
-  private final ArrayList<String> POWER_SAVE_MODE_SETTINGS_NAMES = new ArrayList<String>()
-  {
-    {
-      add("SmartModeStatus"); // huawei setting name
-      add("POWER_SAVE_MODE_OPEN"); // xiaomi setting name
-    }
-  };
-  private final ArrayList<String> POWER_SAVE_MODE_CHANGE_ACTIONS = new ArrayList<String>()
-  {
-    {
-      add("huawei.intent.action.POWER_MODE_CHANGED_ACTION");
-      add("miui.intent.action.POWER_SAVE_MODE_CHANGED");
-    }
-  };
+  public static final String HUAWEI = "HUAWEI";
+  public static final String HUAWEI_POWER_MODE_INTENT = "huawei.intent.action.POWER_MODE_CHANGED_ACTION";
+  public static final String HUAWEI_SETTING_NAME = "SmartModeStatus";
+  public static final String XIAOMI = "XIAOMI";
+  public static final String XIAOMI_POWER_MODE_INTENT = "miui.intent.action.POWER_SAVE_MODE_CHANGED";
+  public static final String XIAOMI_SETTING_NAME = "POWER_SAVE_MODE_OPEN";
+  private final Map<String, Integer> POWER_SAVE_MODE_VALUES = Map.of(HUAWEI, 4, XIAOMI, 1);
+  private final List<String> POWER_SAVE_MODE_CHANGE_ACTIONS = List.of(HUAWEI_POWER_MODE_INTENT, XIAOMI_POWER_MODE_INTENT);
+  private BroadcastReceiver mBroadcastReceiver;
 
+  private BroadcastReceiver getBroadcastReceiver(PowerSaveModeChangeListener listener)
+  {
+    if (mBroadcastReceiver != null)
+      return mBroadcastReceiver;
+
+    mBroadcastReceiver = new BroadcastReceiver()
+    {
+      @Override
+      public void onReceive(Context context, Intent intent)
+      {
+        listener.onPowerSaveModeChanged();
+      }
+    };
+
+    return mBroadcastReceiver;
+  }
+
+  // Subscribe to this broadcast reciever in order to get updates of state of batter saver mode of device
   public void monitorPowerSaveModeChanged(Context context, PowerSaveModeChangeListener listener)
   {
     if (POWER_SAVE_MODE_VALUES.containsKey(Build.MANUFACTURER.toUpperCase(Locale.getDefault())))
     {
-      context.registerReceiver(new BroadcastReceiver()
-      {
-        @Override
-        public void onReceive(Context context, Intent intent)
-        {
-          listener.onPowerSaveModeChanged();
-        }
-      }, new IntentFilter()
+      context.registerReceiver(getBroadcastReceiver(listener), new IntentFilter()
       {
         {
           for (String action : POWER_SAVE_MODE_CHANGE_ACTIONS)
@@ -59,46 +57,39 @@ public class PowerManagerCompat
     }
     else
     {
-      context.registerReceiver(new BroadcastReceiver()
-      {
-        @Override
-        public void onReceive(Context context, Intent intent)
-        {
-          listener.onPowerSaveModeChanged();
-        }
-      }, new IntentFilter(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED));
+      context.registerReceiver(mBroadcastReceiver, new IntentFilter(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED));
     }
   }
 
   public void unregister(Context context, PowerSaveModeChangeListener listener)
   {
-    context.unregisterReceiver(new BroadcastReceiver()
-    {
-      @Override
-      public void onReceive(Context context, Intent intent)
-      {
-        listener.onPowerSaveModeChanged();
-      }
-    });
+    context.unregisterReceiver(getBroadcastReceiver(listener));
   }
 
   public boolean isPowerSaveMode(Context context)
   {
-    if (POWER_SAVE_MODE_VALUES.containsKey(Build.MANUFACTURER.toUpperCase(Locale.getDefault())))
-      return isPowerSaveModeCompat(context);
-    PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-    return pm != null && pm.isPowerSaveMode();
+    return switch (Build.MANUFACTURER.toUpperCase(Locale.getDefault()))
+    {
+      case HUAWEI, XIAOMI -> isPowerSaveModeCompat(context);
+      default ->
+      {
+        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        if (pm != null) yield pm.isPowerSaveMode();
+        else yield false;
+      }
+    };
   }
 
   private boolean isPowerSaveModeCompat(Context context)
   {
-    for (String name : POWER_SAVE_MODE_SETTINGS_NAMES)
+    return switch (Build.MANUFACTURER.toUpperCase(Locale.getDefault()))
     {
-      int mode = Settings.System.getInt(context.getContentResolver(), name, -1);
-      if (mode != -1)
-        return POWER_SAVE_MODE_VALUES.get(Build.MANUFACTURER.toUpperCase(Locale.getDefault())) == mode;
-    }
-    return false;
+      case HUAWEI ->
+          Settings.System.getInt(context.getContentResolver(), HUAWEI_SETTING_NAME, -1) == POWER_SAVE_MODE_VALUES.get(HUAWEI);
+      case XIAOMI ->
+          Settings.System.getInt(context.getContentResolver(), XIAOMI_SETTING_NAME, -1) == POWER_SAVE_MODE_VALUES.get(XIAOMI);
+      default -> false;
+    };
   }
 
   public interface PowerSaveModeChangeListener

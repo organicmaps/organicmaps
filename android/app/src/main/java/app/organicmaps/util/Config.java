@@ -6,8 +6,8 @@ import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceManager;
-
 import app.organicmaps.BuildConfig;
+import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 
@@ -404,6 +404,30 @@ public final class Config
   public static void setSearchHistoryEnabled(boolean enabled)
   {
     setBool(KEY_PREF_SEARCH_HISTORY, enabled);
+  }
+
+  public static boolean getNeedToRequestBatterySaverPermission(MwmActivity.RequestedBy requestedBy)
+  {
+    final String key = "BatterySaverPermissionRequestFor" + requestedBy.name();
+    return getBool(key, true);
+  }
+
+  public static void setNeedToReuestBatterySaverPermission(MwmActivity.RequestedBy requestedBy, boolean value)
+  {
+    final String key = "BatterySaverPermissionRequestFor" + requestedBy.name();
+    setBool(key, value);
+  }
+
+  public static boolean getNeedToRequestBatteryOptimisationPermission(MwmActivity.RequestedBy requestBy)
+  {
+    final String key = "BatteryOptimisationPermissionRequestFor" + requestBy.name();
+    return getBool(key, true);
+  }
+
+  public static void setNeedToRequestBatteryOptimisationPermission(MwmActivity.RequestedBy requestBy, boolean value)
+  {
+    final String key = "BatteryOptimisationPermissionRequestFor" + requestBy.name();
+    setBool(key, value);
   }
 
   public static class TTS
