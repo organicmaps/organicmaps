@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "Lütfen tekrar deneyin";
 
-"not_now" = "Şimdi Değil";
-
 "dialog_routing_download_and_build_cross_route" = "Haritayı indirerek birden fazla haritaya uzanan daha uygun bir rota oluşturmak ister misiniz?";
 
 "dialog_routing_download_cross_route" = "Bu haritanın bir kısmından geçen daha uygun bir rota oluşturmak için haritayı indirin.";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "Buradan başla";
 
-"profile_authorization_error" = "Üzgünüz, bir hata oluştu. Tekrar oturum açmayı deneyin.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Tüm harita düzenlemelerinizi otomatik olarak yüklemek için lütfen OpenStreetMap'e giriş yapın. Daha fazla bilgi";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "Hata";
 
 "bookmarks_convert_error_message" = "Bazı dosyalar dönüştürülmedi.";
-
-"bookmarks_restore_title" = "Bu sürümü geri yükle?";
-
-"error_system_message" = "Bilinmeyen bir hata oluştu";
 
 "restore" = "Geri al";
 

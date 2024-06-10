@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "Torneu-ho a intentar";
 
-"not_now" = "Ara no";
-
 "dialog_routing_download_and_build_cross_route" = "Voleu baixar el mapa i crar una ruta més òptima que travessi més d'un mapa?";
 
 "dialog_routing_download_cross_route" = "Baixeu mapes addicionals per a crear una ruta millor que creua els límits d'aquest mapa.";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "Comença des de";
 
-"profile_authorization_error" = "Ups, s'ha produït un error. Proveu d'iniciar sessió una altra vegada.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Si us plau, inicieu sessió a OpenStreetMap per carregar automàticament totes les edicions de mapes. Més informació";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "Error";
 
 "bookmarks_convert_error_message" = "Alguns fitxers no s'han convertit.";
-
-"bookmarks_restore_title" = "Voleu recuperar aquesta versió?";
-
-"error_system_message" = "S'ha produït un error desconegut";
 
 "restore" = "Restaura";
 

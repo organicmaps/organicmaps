@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "Паспрабуйце зноў";
 
-"not_now" = "Не зараз";
-
 "dialog_routing_download_and_build_cross_route" = "Спампаваць мапу і пракласці лепшы маршрут праз некалькі мап?";
 
 "dialog_routing_download_cross_route" = "Спампаваць дадатковыя мапы, каб пракласці лепшы маршрут, які перасякае межы гэтай мапы.";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "Пачаць ад";
 
-"profile_authorization_error" = "Ой-ёй, здарылася памылка. Паспрабуйце аўтарызавацца зноў.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Калі ласка, увайдзіце ў OpenStreetMap, каб аўтаматычна загрузіць усе вашыя праўкі карты. Даведайцеся больш";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "Памылка";
 
 "bookmarks_convert_error_message" = "Некаторыя файлы не ператварыліся.";
-
-"bookmarks_restore_title" = "Аднавіць гэтую версію?";
-
-"error_system_message" = "Адбылася невядомая памылка";
 
 "restore" = "Аднавіць";
 

@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "Please try again";
 
-"not_now" = "Not Now";
-
 "dialog_routing_download_and_build_cross_route" = "Would you like to download the map and create a more optimal route spanning more than one map?";
 
 "dialog_routing_download_cross_route" = "Download additional maps to create a better route that crosses the boundaries of this map.";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "Anzia";
 
-"profile_authorization_error" = "Lo, kumekuwa na hitilafu. Jaribu tena kuingia ndani.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Tafadhali ingia kwenye OpenStreetMap ili kupakia kiotomatiki hariri zako zote za ramani. Pata maelezo zaidi";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "Hitilafu";
 
 "bookmarks_convert_error_message" = "Baadhi ya faili hazibadilishwa.";
-
-"bookmarks_restore_title" = "Rejesha toleo hili?";
-
-"error_system_message" = "Hitilafu isiyojulikana ilitokea";
 
 "restore" = "Rejesha";
 

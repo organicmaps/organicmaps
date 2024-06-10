@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "Saiatu berriro";
 
-"not_now" = "Orain ez";
-
 "dialog_routing_download_and_build_cross_route" = "Mapa deskargatu eta mapa bat baino gehiago hartzen duen ibilbide hobe bat sortu nahi duzu?";
 
 "dialog_routing_download_cross_route" = "Deskargatu mapa osagarriak mapa honen mugak gainditzen dituen ibilbide hobea sortzeko.";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "Hasi hemendik";
 
-"profile_authorization_error" = "Errore bat gertatu da. Saiatu berriro saioa hasten.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Hasi saioa OpenStreetMap-en zure mapen aldaketa guztiak automatikoki kargatzeko. Lortu informazio gehiago";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "Errorea";
 
 "bookmarks_convert_error_message" = "Fitxategi batzuk ez dira bihurtu.";
-
-"bookmarks_restore_title" = "Bertsio hau berreskuratu nahi duzu?";
-
-"error_system_message" = "Errore ezezagun bat gertatu da";
 
 "restore" = "Berreskuratu";
 

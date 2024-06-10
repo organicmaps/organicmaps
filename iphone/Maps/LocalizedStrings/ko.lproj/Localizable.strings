@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "다시 시도해주세요.";
 
-"not_now" = "나중에";
-
 "dialog_routing_download_and_build_cross_route" = "지도를 다운로드하여, 두 개 이상의 지도를 통과하는 더 최적화된 경로를 설정하시겠습니까?";
 
 "dialog_routing_download_cross_route" = "이 지도의 경계를 통과하는 더 최적화된 경로를 설정하려면 지도를 다운로드하세요.";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "시작 위치:";
 
-"profile_authorization_error" = "죄송합니다. 오류가 발생했습니다. 다시 로그인해 보세요.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "모든 지도 편집 내용을 자동으로 업로드하려면 오픈스트리트맵에 로그인하세요. 자세히 알아보기";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "오류";
 
 "bookmarks_convert_error_message" = "일부 파일은 변환되지 않았습니다.";
-
-"bookmarks_restore_title" = "이 버전을 복원 하시겠습니까?";
-
-"error_system_message" = "알 수없는 오류가 발생했습니다";
 
 "restore" = "복원";
 

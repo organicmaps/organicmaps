@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "Prosím, zkuste to znovu";
 
-"not_now" = "Nyní ne";
-
 "dialog_routing_download_and_build_cross_route" = "Chcete mapu stáhnout a vytvořit optimálnější trasu, která vede přes více než jednu mapu?";
 
 "dialog_routing_download_cross_route" = "Stáhnout mapu a vytvořit optimálnější trasu, která překračuje hranice této mapy.";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "Začít z";
 
-"profile_authorization_error" = "Jejda, došlo k chybě. Zkuste se přihlásit znovu.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Přihlaste se do OpenStreetMap, abyste mohli automaticky nahrávat všechny své úpravy mapy. Více informací";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "Chyba";
 
 "bookmarks_convert_error_message" = "Některé soubory nebyly převedeny.";
-
-"bookmarks_restore_title" = "Obnovit tuto verzi?";
-
-"error_system_message" = "Nastala neznámá chyba";
 
 "restore" = "Obnovit";
 

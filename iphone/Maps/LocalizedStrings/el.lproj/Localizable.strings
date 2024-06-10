@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "Προσπαθήστε ξανά";
 
-"not_now" = "Όχι τώρα";
-
 "dialog_routing_download_and_build_cross_route" = "Θέλετε να κατεβάσετε το χάρτη και να δημιουργήσετε μια πιο βέλτιστη διαδρομή που εκτείνεται σε περισσότερους από έναν χάρτες;";
 
 "dialog_routing_download_cross_route" = "Κατεβάστε επιπλέον χάρτες για να δημιουργηθεί μια καλύτερη διαδρομή που διασχίζει τα όρια αυτού του χάρτη.";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "Έναρξη από";
 
-"profile_authorization_error" = "Ωχ, παρουσιάστηκε σφάλμα. Προσπαθήστε να συνδεθείτε ξανά.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Παρακαλούμε συνδεθείτε στο OpenStreetMap για να ανεβάσετε αυτόματα όλες τις επεξεργασίες του χάρτη σας. Μάθετε περισσότερα";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "Σφάλμα";
 
 "bookmarks_convert_error_message" = "Ορισμένα αρχεία δεν μετατράπηκαν.";
-
-"bookmarks_restore_title" = "Επαναφορά αυτής της έκδοσης;";
-
-"error_system_message" = "Συνέβη ένα μη αναγνωρίσιμο σφάλμα";
 
 "restore" = "Επαναφορά";
 

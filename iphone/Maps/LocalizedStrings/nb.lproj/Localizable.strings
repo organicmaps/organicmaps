@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "Vennligst prøv igjen";
 
-"not_now" = "Ikke nå";
-
 "dialog_routing_download_and_build_cross_route" = "Vil du laste ned kartet og lage en mer optimal rute som går over flere kart?";
 
 "dialog_routing_download_cross_route" = "Last ned kartet for å opprette en mer optimal rute som går utenfor dette kartet.";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "Start fra";
 
-"profile_authorization_error" = "Oops, en feil oppstod. Prøv å logge inn på nytt.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Logg inn på OpenStreetMap for automatisk å laste opp alle kartredigeringene dine. Finn ut mer";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "Feil";
 
 "bookmarks_convert_error_message" = "Noen filer ble ikke konvertert.";
-
-"bookmarks_restore_title" = "Gjenopprett denne versjonen?";
-
-"error_system_message" = "En ukjent feil oppstod";
 
 "restore" = "Restaurere";
 

@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "请重试";
 
-"not_now" = "现在不用";
-
 "dialog_routing_download_and_build_cross_route" = "您是否要下载地图并创建一条跨越多张地图的更佳路线？";
 
 "dialog_routing_download_cross_route" = "下载地图，创建一条跨越此地图边缘的更佳路线。";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "起点";
 
-"profile_authorization_error" = "糟糕，出错了。请尝试重新登录。";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "请登录OpenStreetMap，自动上传您编辑的所有地图。了解更多信息";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "错误";
 
 "bookmarks_convert_error_message" = "有些文件未被转换。";
-
-"bookmarks_restore_title" = "还原这个版本？";
-
-"error_system_message" = "出现未知错误";
 
 "restore" = "恢复";
 

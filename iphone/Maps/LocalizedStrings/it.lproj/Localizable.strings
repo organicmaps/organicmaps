@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "Riprova";
 
-"not_now" = "Non ora";
-
 "dialog_routing_download_and_build_cross_route" = "Vuoi scaricare la mappa e creare un percorso migliore che si estende su più mappe?";
 
 "dialog_routing_download_cross_route" = "Scarica altre mappe per creare un percorso migliore che attraversi i confini di questa mappa.";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "Parti da";
 
-"profile_authorization_error" = "Si è verificato un errore. Prova a ripetere l'accesso più tardi.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Accedi a OpenStreetMap per caricare automaticamente tutte le tue modifiche alla mappa. Per saperne di più";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "Errore";
 
 "bookmarks_convert_error_message" = "Alcuni file non sono stati convertiti.";
-
-"bookmarks_restore_title" = "Ripristinare questa versione?";
-
-"error_system_message" = "Si è verificato un errore sconosciuto";
 
 "restore" = "Ripristina";
 

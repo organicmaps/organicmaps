@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "Bitte versuchen Sie es erneut";
 
-"not_now" = "Nicht jetzt";
-
 "dialog_routing_download_and_build_cross_route" = "Möchten Sie die Karte herunterladen und eine bessere Route erstellen, die mehr als eine Karte umfasst?";
 
 "dialog_routing_download_cross_route" = "Laden Sie zusätzliche Karten herunter, um eine bessere Route zu erstellen, die die Grenzen dieser Karte überschreitet.";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "Starten von";
 
-"profile_authorization_error" = "Hoppla, es ist ein Fehler aufgetreten. Versuchen Sie erneut, sich anzumelden.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Bitte melde dich bei OpenStreetMap an, um alle deine Kartenbearbeitungen automatisch hochzuladen. Erfahre mehr";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "Fehler";
 
 "bookmarks_convert_error_message" = "Einige Dateien wurden nicht konvertiert.";
-
-"bookmarks_restore_title" = "Diese Version wiederherstellen?";
-
-"error_system_message" = "Ein unbekannter Fehler ist aufgetreten";
 
 "restore" = "Wiederherstellen";
 

@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "Palun proovi uuesti";
 
-"not_now" = "Mitte praegu";
-
 "dialog_routing_download_and_build_cross_route" = "Kas sooviksid kaardi alla laadida ja luua optimaalsema rohkem kui ühte kaarti hõlmava marsruudi?";
 
 "dialog_routing_download_cross_route" = "Lae alla täiendavad kaardid, et luua parem, selle kaardi piire ületav marsruut.";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "Alusta kohast";
 
-"profile_authorization_error" = "Vabandust, tekkis viga. Proovi uuesti sisse logida.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Palun logige sisse OpenStreetMap'i, et laadida automaatselt üles kõik oma kaarditööd. Lisateave";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "Viga";
 
 "bookmarks_convert_error_message" = "Mõningaid faile ei teisendatud.";
-
-"bookmarks_restore_title" = "Taasta see versioon?";
-
-"error_system_message" = "Tekkis tundmatu viga";
 
 "restore" = "Taasta";
 

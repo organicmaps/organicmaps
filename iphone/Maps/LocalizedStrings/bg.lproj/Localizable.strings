@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "Моля, опитайте отново";
 
-"not_now" = "Не сега";
-
 "dialog_routing_download_and_build_cross_route" = "Бихте ли искали да изтеглите картата и да създадете по-оптимален маршрут, обхващащ повече от една карта?";
 
 "dialog_routing_download_cross_route" = "За да създадете по-добър маршрут с граничен преход, трябва да изтеглите картата.";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "Start from";
 
-"profile_authorization_error" = "За съжаление има грешка. Опитайте да влезете отново.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Моля, влезте в OpenStreetMap, за да качвате автоматично всичките си редакции на картата. Научете повече";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "Грешка";
 
 "bookmarks_convert_error_message" = "Някои файлове не са конвертирани.";
-
-"bookmarks_restore_title" = "Възстановяване на тази версия?";
-
-"error_system_message" = "Възникна неизвестна грешка";
 
 "restore" = "Възстановяване";
 

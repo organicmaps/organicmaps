@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "Zəhmət olmasa bir daha cəhd edin";
 
-"not_now" = "İndi yox";
-
 "dialog_routing_download_and_build_cross_route" = "Xəritəni endirmək və çoxsaylı xəritələr arasında daha rahat marşrut yaratmaq istərdinizmi?";
 
 "dialog_routing_download_cross_route" = "Bu xəritənin sərhədlərini keçən daha rahat marşrut yaratmaq üçün xəritəni endirin.";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "Buradan başlayın";
 
-"profile_authorization_error" = "Bağışlayın, xəta baş verdi. Yenidən daxil olmağa çalışın.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Bütün xəritə redaktələrinizi avtomatik yükləmək üçün OpenStreetMap-a daxil olun.";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "Səhv";
 
 "bookmarks_convert_error_message" = "Bəzi fayllar çevrilmədi.";
-
-"bookmarks_restore_title" = "Bu versiya bərpa edilsin?";
-
-"error_system_message" = "Naməlum xəta baş verdi";
 
 "restore" = "Bərpa";
 

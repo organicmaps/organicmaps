@@ -509,8 +509,6 @@
 
 "dialog_routing_try_again" = "Încearcă din nou";
 
-"not_now" = "Nu acum";
-
 "dialog_routing_download_and_build_cross_route" = "Vrei să descarci harta și să creezi un traseu mai bun care include mai multe hărți?";
 
 "dialog_routing_download_cross_route" = "Descarcă hărți suplimentare pentru a crea un traseu mai bun care să traverseze limitele acestei hărți.";
@@ -943,8 +941,6 @@
 
 "start_from_my_position" = "Pornește de la";
 
-"profile_authorization_error" = "A apărut o eroare. Încearcă să te conectezi din nou.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Vă rugăm să vă conectați la OpenStreetMap pentru a încărca automat toate modificările aduse hărții. Aflați mai multe";
 
@@ -993,10 +989,6 @@
 "bookmarks_convert_error_title" = "Eroare";
 
 "bookmarks_convert_error_message" = "Unele fișiere nu au fost convertite.";
-
-"bookmarks_restore_title" = "Restabilești această versiune?";
-
-"error_system_message" = "A apărut o eroare necunoscută";
 
 "restore" = "Restabilește";
 
