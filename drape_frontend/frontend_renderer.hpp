@@ -332,8 +332,6 @@ private:
   bool m_choosePositionMode;
   bool m_screenshotMode;
 
-  std::string m_mapLanguageCode;
-
   dp::Viewport m_viewport;
   UserEventStream m_userEventStream;
   ModelViewChangedHandler m_modelViewChangedHandler;

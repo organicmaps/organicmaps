@@ -197,8 +197,6 @@ public:
 
   void SetKineticScrollEnabled(bool enabled);
 
-  void SetMapLanguageCode(const std::string& languageCode);
-
   void OnEnterForeground();
   void OnEnterBackground();
 

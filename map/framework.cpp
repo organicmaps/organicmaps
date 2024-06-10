@@ -100,7 +100,6 @@ char const kLargeFontsSize[] = "LargeFontsSize";
 char const kTranslitMode[] = "TransliterationMode";
 char const kPreferredGraphicsAPI[] = "PreferredGraphicsAPI";
 char const kShowDebugInfo[] = "DebugInfo";
-char const kMapLanguageCode[] = "MapLanguageCode";
 
 auto constexpr kLargeFontsScaleFactor = 1.6;
 size_t constexpr kMaxTrafficCacheSizeBytes = 64 /* Mb */ * 1024 * 1024;
@@ -2361,7 +2360,7 @@ void Framework::SetMapLanguageCode(const std::string& languageCode)
   if (m_drapeEngine == nullptr)
     return;
 
-  m_drapeEngine->SetMapLanguageCode(languageCode);
+  m_drapeEngine->UpdateMapStyle();
 }
 
 void Framework::Allow3dMode(bool allow3d, bool allow3dBuildings)
