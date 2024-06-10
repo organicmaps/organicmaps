@@ -56,7 +56,6 @@ set(SRC
   observer_list.hpp
   pprof.cpp
   pprof.hpp
-  random.cpp
   random.hpp
   range_iterator.hpp
   ref_counted.hpp
