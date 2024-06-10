@@ -45,10 +45,6 @@ static NSString *const kAlertControllerNibIdentifier = @"MWMAlertViewController"
 
 #pragma mark - Actions
 
-- (void)presentAuthErrorAlertWithRetryBlock:(nonnull MWMVoidBlock)retryBlock {
-  [self displayAlert:[MWMAlert authErrorAlertWithRetryBlock:retryBlock]];
-}
-
 - (void)presentLocationAlertWithCancelBlock:(MWMVoidBlock)cancelBlock {
   [self displayAlert:[MWMAlert locationAlertWithCancelBlock:cancelBlock]];
 }
@@ -62,9 +58,7 @@ static NSString *const kAlertControllerNibIdentifier = @"MWMAlertViewController"
 - (void)presentNoConnectionAlert {
   [self displayAlert:[MWMAlert noConnectionAlert]];
 }
-- (void)presentSearchQuickFilterNoConnectionAlert {
-  [self displayAlert:[MWMAlert searchQuickFilterNoConnectionAlert]];
-}
+
 - (void)presentDeleteMapProhibitedAlert {
   [self displayAlert:[MWMAlert deleteMapProhibitedAlert]];
 }
@@ -80,9 +74,6 @@ static NSString *const kAlertControllerNibIdentifier = @"MWMAlertViewController"
   [self displayAlert:[MWMAlert incorrectFeaturePositionAlert]];
 }
 
-- (void)presentInternalErrorAlert {
-  [self displayAlert:[MWMAlert internalErrorAlert]];
-}
 - (void)presentNotEnoughSpaceAlert {
   [self displayAlert:[MWMAlert notEnoughSpaceAlert]];
 }
@@ -118,10 +109,6 @@ static NSString *const kAlertControllerNibIdentifier = @"MWMAlertViewController"
   [self displayAlert:[MWMAlert alert:type]];
 }
 
-- (void)presentDisableAutoDownloadAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock {
-  [self displayAlert:[MWMAlert disableAutoDownloadAlertWithOkBlock:okBlock]];
-}
-
 - (void)presentDownloaderNoConnectionAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
                                           cancelBlock:(nonnull MWMVoidBlock)cancelBlock {
   [self displayAlert:[MWMAlert downloaderNoConnectionAlertWithOkBlock:okBlock cancelBlock:cancelBlock]];
@@ -134,10 +121,6 @@ static NSString *const kAlertControllerNibIdentifier = @"MWMAlertViewController"
 - (void)presentDownloaderInternalErrorAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
                                            cancelBlock:(nonnull MWMVoidBlock)cancelBlock {
   [self displayAlert:[MWMAlert downloaderInternalErrorAlertWithOkBlock:okBlock cancelBlock:cancelBlock]];
-}
-
-- (void)presentDownloaderNeedUpdateAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock {
-  [self displayAlert:[MWMAlert downloaderNeedUpdateAlertWithOkBlock:okBlock]];
 }
 
 - (void)presentPlaceDoesntExistAlertWithBlock:(MWMStringBlock)block {
@@ -196,25 +179,12 @@ static NSString *const kAlertControllerNibIdentifier = @"MWMAlertViewController"
   });
 }
 
-- (void)presentConvertBookmarksAlertWithCount:(NSUInteger)count block:(nonnull MWMVoidBlock)block {
-  auto alert = [MWMAlert convertBookmarksAlertWithCount:count block:block];
-  [self displayAlert:alert];
-}
-
 - (void)presentSpinnerAlertWithTitle:(nonnull NSString *)title cancel:(nullable MWMVoidBlock)cancel {
   [self displayAlert:[MWMAlert spinnerAlertWithTitle:title cancel:cancel]];
 }
 
 - (void)presentBookmarkConversionErrorAlert {
   [self displayAlert:[MWMAlert bookmarkConversionErrorAlert]];
-}
-
-- (void)presentRestoreBookmarkAlertWithMessage:(nonnull NSString *)message
-                             rightButtonAction:(nonnull MWMVoidBlock)rightButton
-                              leftButtonAction:(nonnull MWMVoidBlock)leftButton {
-  [self displayAlert:[MWMAlert restoreBookmarkAlertWithMessage:message
-                                             rightButtonAction:rightButton
-                                              leftButtonAction:leftButton]];
 }
 
 - (void)presentTagsLoadingErrorAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
