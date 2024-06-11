@@ -27,6 +27,10 @@ AddressesHolder::AddressInfo FromFB(FeatureBuilder const & fb)
   return { params.house.Get(), std::string(params.GetStreet()), std::string(params.GetPostcode()), {} };
 }
 
+// Current stats:
+// - Total "addr:interpolation:" errors = 270524
+// - "addr:interpolation: Invalid range" = 144594
+// - "addr:interpolation: No beg/end address point" = 89774
 void LogWarning(std::string const & msg, uint64_t id)
 {
   LOG(LWARNING, ("addr:interpolation: " + msg, id));
@@ -58,7 +62,8 @@ std::string AddressesHolder::AddressInfo::FormatRange() const
 
   uint64_t const li = ToUInt(l.m_value);
   uint64_t const ri = ToUInt(r.m_value);
-  if (li == 0 || ri == 0 || li == ri)
+  // Zero is a valid HN.
+  if (li == ri)
     return {};
 
   UniString sep(1, ':');
@@ -113,6 +118,11 @@ bool AddressesHolder::Update(feature::FeatureBuilder & fb) const
     else
       params.SetStreet(i->second.m_street);
   }
+
+  /// @todo I suspect that we should skip these features because of possible valid 3party addresses.
+  /// 28561 entries for now.
+  if (params.GetStreet().empty())
+    LogWarning("Empty street", id);
 
   if (!i->second.m_postcode.empty() && i->second.m_postcode != info.m_postcode)
   {

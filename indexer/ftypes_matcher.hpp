@@ -588,7 +588,27 @@ class IsAddressInterpolChecker : public BaseChecker
 public:
   DECLARE_CHECKER_INSTANCE(IsAddressInterpolChecker);
 
-  feature::InterpolType GetInterpolType(FeatureType & ft) const;
+  template <class Range> feature::InterpolType GetInterpolType(Range const & range) const
+  {
+    for (uint32_t t : range)
+    {
+      if (t == m_odd)
+        return feature::InterpolType::Odd;
+      if (t == m_even)
+        return feature::InterpolType::Even;
+
+      ftype::TruncValue(t, 1);
+      if (t == m_types[0])
+        return feature::InterpolType::Any;
+    }
+
+    return feature::InterpolType::None;
+  }
+
+  feature::InterpolType GetInterpolType(FeatureType & ft) const
+  {
+    return GetInterpolType(feature::TypesHolder(ft));
+  }
 };
 
 
