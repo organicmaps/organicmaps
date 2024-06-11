@@ -68,7 +68,7 @@ import UIKit
                         animations: {
                           navigationController.setViewControllers(controllers, animated: false)
       }, completion: nil)
-      FrameworkHelper.deactivateMapSelection(notifyUI: true)
+      FrameworkHelper.deactivateMapSelection()
       self.bookmarksControllers = nil
     case .closed:
       navigationController.popToRootViewController(animated: true)

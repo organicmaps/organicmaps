@@ -24,7 +24,7 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (void)zoomMap:(MWMZoomMode)mode;
 + (void)moveMap:(UIOffset)offset;
 + (void)scrollMap:(double)distanceX :(double) distanceY;
-+ (void)deactivateMapSelection:(BOOL)notifyUI NS_SWIFT_NAME(deactivateMapSelection(notifyUI:));
++ (void)deactivateMapSelection;
 + (void)switchMyPositionMode;
 + (void)stopLocationFollow;
 + (NSArray<NSString *> *)obtainLastSearchQueries;

@@ -30,7 +30,7 @@ using namespace storage;
   return GetFramework().HasPlacePageInfo();
 }
 
-- (void)closePlacePage { GetFramework().DeactivateMapSelection(true); }
+- (void)closePlacePage { GetFramework().DeactivateMapSelection(); }
 
 - (void)routeFrom:(PlacePageData *)data {
   MWMRoutePoint *point = [self routePoint:data withType:MWMRoutePointTypeStart intermediateIndex:0];

@@ -131,7 +131,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 }
 
 - (void)dismissPlacePage {
-  GetFramework().DeactivateMapSelection(true);
+  GetFramework().DeactivateMapSelection();
 }
 
 - (void)hideRegularPlacePage {
@@ -150,7 +150,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   self.controlsManager.trafficButtonHidden = NO;
 }
 
-- (void)onMapObjectDeselected:(bool)switchFullScreenMode {
+- (void)onMapObjectDeselected {
   [self hidePlacePage];
 
   MWMSearchManager * searchManager = MWMSearchManager.manager;
@@ -163,16 +163,11 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
       searchManager.state = MWMSearchManagerStateHidden;
     }
   }
+}
 
-  if (!switchFullScreenMode)
-    return;
-
-  // TODO(AB): Switch to full screen mode directly from the tap, in one place, instead of
-  // every call to onMapObjectDeselected.
-  if (DeepLinkHandler.shared.isLaunchedByDeeplink)
-    return;
-
-  BOOL const isSearchHidden = searchManager.state == MWMSearchManagerStateHidden;
+- (void)onSwitchFullScreen {
+  BOOL const isNavigationDashboardHidden = [MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden;
+  BOOL const isSearchHidden = MWMSearchManager.manager.state == MWMSearchManagerStateHidden;
   if (isSearchHidden && isNavigationDashboardHidden) {
     self.controlsManager.hidden = !self.controlsManager.hidden;
   }
@@ -444,8 +439,9 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   Framework &f = GetFramework();
   // TODO: Review and improve this code.
   f.SetPlacePageListeners([self]() { [self onMapObjectSelected]; },
-                          [self](bool switchFullScreen) { [self onMapObjectDeselected:switchFullScreen]; },
-                          [self]() { [self onMapObjectUpdated]; });
+                          [self]() { [self onMapObjectDeselected]; },
+                          [self]() { [self onMapObjectUpdated]; },
+                          [self]() { [self onSwitchFullScreen]; });
   // TODO: Review and improve this code.
   f.SetMyPositionModeListener([self](location::EMyPositionMode mode, bool routingActive) {
     // TODO: Two global listeners are subscribed to the same event from the core.
