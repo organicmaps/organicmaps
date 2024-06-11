@@ -55,6 +55,12 @@ apply plugin: 'com.github.triplet.play'
 apply plugin: 'ru.cian.huawei-publish-gradle-plugin'
 apply plugin: 'org.jetbrains.kotlin.android'
 apply plugin: 'kotlin-parcelize'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.dagger.hilt.android'
+
+kapt {
+  correctErrorTypes true
+}
 
 def run(cmd) {
   def stdout = new ByteArrayOutputStream()
@@ -417,6 +423,11 @@ dependencies {
   implementation 'androidx.work:work-runtime:2.9.0'
   implementation 'androidx.lifecycle:lifecycle-process:2.8.0'
   implementation 'com.google.android.material:material:1.12.0'
+
+  // hilt
+  implementation "com.google.dagger:hilt-android:2.47"
+  kapt "com.google.dagger:hilt-compiler:2.47"
+
   // Fix for app/organicmaps/util/FileUploadWorker.java:14: error: cannot access ListenableFuture
   // https://github.com/organicmaps/organicmaps/issues/6106
   implementation 'com.google.guava:guava:33.1.0-android'

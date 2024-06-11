@@ -111,6 +111,7 @@ import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageData;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 import app.tourism.data.dto.SiteLocation;
+import dagger.hilt.android.AndroidEntryPoint;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -125,6 +126,7 @@ import static app.organicmaps.location.LocationState.FOLLOW;
 import static app.organicmaps.location.LocationState.FOLLOW_AND_ROTATE;
 import static app.organicmaps.location.LocationState.LOCATION_TAG;
 
+@AndroidEntryPoint
 public class MwmActivity extends BaseMwmFragmentActivity
     implements PlacePageActivationListener,
                View.OnTouchListener,

@@ -2203,4 +2203,7 @@
     //todo
     <string name="brand_name"> Комитет по туризму при Правительстве Республики Таджикистан </string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="map_downloading">Map of Tajikistan is being downloaded</string>
+    <string name="map_downloaded">Tajikistan map was successfully downloaded</string>
+    <string name="map_download_error">Failed to download map</string>
 </resources>

@@ -4,8 +4,11 @@ import static app.organicmaps.location.LocationState.LOCATION_TAG;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -45,11 +48,14 @@ import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.log.Logger;
 import app.organicmaps.util.log.LogsManager;
+import app.tourism.DownloaderService;
+import dagger.hilt.android.HiltAndroidApp;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
+@HiltAndroidApp
 public class MwmApplication extends Application implements Application.ActivityLifecycleCallbacks
 {
   @NonNull
@@ -139,6 +145,9 @@ public class MwmApplication extends Application implements Application.ActivityL
   public void onCreate()
   {
     super.onCreate();
+
+    createNotificationChannel();
+
     Logger.i(TAG, "Initializing application");
     LogsManager.INSTANCE.initFileLogging(this);
 
@@ -164,6 +173,19 @@ public class MwmApplication extends Application implements Application.ActivityL
     mLocationHelper = new LocationHelper(this);
     mSensorHelper = new SensorHelper(this);
     mDisplayManager = new DisplayManager();
+  }
+
+  public void createNotificationChannel() {
+    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+      NotificationChannel channel = new NotificationChannel(
+              DownloaderService.DOWNLOADING_CHANNEL,
+              "Download",
+              NotificationManager.IMPORTANCE_LOW
+      );
+      NotificationManager notificationManager =
+              (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+      notificationManager.createNotificationChannel(channel);
+    }
   }
 
   /**

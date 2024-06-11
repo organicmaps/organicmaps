@@ -446,6 +446,10 @@
             android:foregroundServiceType="location"
             android:stopWithTask="false" />
 
+        <service
+            android:name="app.tourism.DownloaderService"
+            android:foregroundServiceType="location"/>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${FILE_PROVIDER_PLACEHOLDER}"
