@@ -1460,7 +1460,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
     {
       // Deactivate selection (and hide place page) if we return to routing in F&R mode.
       if (routingActive && mode == location::FollowAndRotate)
-        DeactivateMapSelection(true /* notifyUI */);
+        DeactivateMapSelection();
 
       if (m_myPositionListener != nullptr)
         m_myPositionListener(mode, routingActive);
@@ -1842,11 +1842,13 @@ BookmarkManager const & Framework::GetBookmarkManager() const
 
 void Framework::SetPlacePageListeners(PlacePageEvent::OnOpen onOpen,
                                       PlacePageEvent::OnClose onClose,
-                                      PlacePageEvent::OnUpdate onUpdate)
+                                      PlacePageEvent::OnUpdate onUpdate,
+                                      PlacePageEvent::OnSwitchFullScreen onSwitchFullScreen)
 {
   m_onPlacePageOpen = std::move(onOpen);
   m_onPlacePageClose = std::move(onClose);
   m_onPlacePageUpdate = std::move(onUpdate);
+  m_onSwitchFullScreen = std::move(onSwitchFullScreen);
 
 #ifdef OMIM_OS_ANDROID
   // A click on the Search result from the search activity in Android calls
@@ -1904,15 +1906,12 @@ void Framework::ActivateMapSelection()
     m_onPlacePageOpen();
 }
 
-void Framework::DeactivateMapSelection(bool notifyUI)
+void Framework::DeactivateMapSelection()
 {
-  bool const somethingWasAlreadySelected = m_currentPlacePageInfo.has_value();
+  if (m_onPlacePageClose)
+    m_onPlacePageClose();
 
-  if (notifyUI && m_onPlacePageClose)
-    m_onPlacePageClose(!somethingWasAlreadySelected);
-
-
-  if (somethingWasAlreadySelected)
+  if (m_currentPlacePageInfo.has_value())
   {
     DeactivateHotelSearchMark();
 
@@ -1925,6 +1924,12 @@ void Framework::DeactivateMapSelection(bool notifyUI)
     if (m_drapeEngine != nullptr)
       m_drapeEngine->DeselectObject();
   }
+}
+
+void Framework::SwitchFullScreen()
+{
+  if (m_onSwitchFullScreen)
+    m_onSwitchFullScreen();
 }
 
 void Framework::InvalidateUserMarks()
@@ -1965,7 +1970,7 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
       && !buildInfo.m_isLongTap
       && !isRoutePoint)
   {
-    DeactivateMapSelection(true /* notifyUI */);
+    DeactivateMapSelection();
 
     // Continue route to the point
     RouteMarkData data;
@@ -1992,9 +1997,7 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
 
   if (buildInfo.m_isLongTap)
   {
-    // Hide Place page if it is open in any mode.
-    // Show or hide the main map UI on a long tap if the Place Page is hidden (UI is not hidden in the routing/navigation mode).
-    DeactivateMapSelection(true /* notifyUI */);
+    SwitchFullScreen();
   }
   else
   {
@@ -3034,7 +3037,7 @@ bool Framework::RollBackChanges(FeatureID const & fid)
   if (rolledBack)
   {
     if (status == FeatureStatus::Created)
-      DeactivateMapSelection(true /* notifyUI */);
+      DeactivateMapSelection();
     else
       UpdatePlacePageInfoForCurrentSelection();
   }
@@ -3047,7 +3050,7 @@ void Framework::CreateNote(osm::MapObject const & mapObject,
   osm::Editor::Instance().CreateNote(mapObject.GetLatLon(), mapObject.GetID(), mapObject.GetTypes(),
                                      mapObject.GetDefaultName(), type, note);
   if (type == osm::Editor::NoteProblemType::PlaceDoesNotExist)
-    DeactivateMapSelection(true /* notifyUI */);
+    DeactivateMapSelection();
 }
 
 void Framework::RunUITask(function<void()> fn)

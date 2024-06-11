@@ -308,7 +308,8 @@ private:
   void DeactivateHotelSearchMark();
 
 public:
-  void DeactivateMapSelection(bool notifyUI);
+  void DeactivateMapSelection();
+  void SwitchFullScreen();
   /// Used to "refresh" UI in some cases (e.g. feature editing).
   void UpdatePlacePageInfoForCurrentSelection(
       std::optional<place_page::BuildInfo> const & overrideInfo = {});
@@ -319,13 +320,15 @@ public:
     using OnOpen = std::function<void()>;
     /// Called to notify UI that object on a map was deselected (UI should hide Place Page).
     /// If switchFullScreenMode is true, ui can [optionally] enter or exit full screen mode.
-    using OnClose = std::function<void(bool /*switchFullScreenMode*/)>;
+    using OnClose = std::function<void()>;
     using OnUpdate = std::function<void()>;
+    using OnSwitchFullScreen = std::function<void()>;
   };
 
   void SetPlacePageListeners(PlacePageEvent::OnOpen onOpen,
                              PlacePageEvent::OnClose onClose,
-                             PlacePageEvent::OnUpdate onUpdate);
+                             PlacePageEvent::OnUpdate onUpdate,
+                             PlacePageEvent::OnSwitchFullScreen onSwitchFullScreen);
   bool HasPlacePageInfo() const { return m_currentPlacePageInfo.has_value(); }
   place_page::Info const & GetCurrentPlacePageInfo() const;
   place_page::Info & GetCurrentPlacePageInfo();
@@ -368,6 +371,7 @@ private:
   PlacePageEvent::OnOpen m_onPlacePageOpen;
   PlacePageEvent::OnClose m_onPlacePageClose;
   PlacePageEvent::OnUpdate m_onPlacePageUpdate;
+  PlacePageEvent::OnSwitchFullScreen m_onSwitchFullScreen;
 
 private:
   std::vector<m2::TriangleD> GetSelectedFeatureTriangles() const;

@@ -89,7 +89,7 @@ DrawWidget::DrawWidget(Framework & framework, std::unique_ptr<ScreenshotParams> 
   setFocusPolicy(Qt::StrongFocus);
 
   m_framework.SetPlacePageListeners([this]() { ShowPlacePage(); },
-                                    {} /* onClose */, {} /* onUpdate */);
+                                    {} /* onClose */, {} /* onUpdate */, {} /*onSwitchFullScreen */);
 
   auto & routingManager = m_framework.GetRoutingManager();
 
@@ -703,7 +703,7 @@ void DrawWidget::ShowPlacePage()
   break;
   default: break;
   }
-  m_framework.DeactivateMapSelection(false);
+  m_framework.DeactivateMapSelection();
 }
 
 void DrawWidget::SetRuler(bool enabled)
