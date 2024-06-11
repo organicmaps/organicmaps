@@ -436,7 +436,7 @@ void ParsedMapApi::ExecuteMapApiRequest(Framework & fm) const
   }
 
   // Always hide current map selection.
-  fm.DeactivateMapSelection(true /* notifyUI */);
+  fm.DeactivateMapSelection();
 
   // Set viewport and stop follow mode.
   fm.StopLocationFollow();
