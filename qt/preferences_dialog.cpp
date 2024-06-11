@@ -1,15 +1,19 @@
 #include "qt/preferences_dialog.hpp"
 
+#include "coding/string_utf8_multilang.hpp"
 #include "map/framework.hpp"
 
 #include "platform/measurement_utils.hpp"
+#include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
 #include <QtGlobal>  // QT_VERSION_CHECK
 #include <QtGui/QIcon>
 #include <QLocale>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QGroupBox>
@@ -97,6 +101,29 @@ namespace qt
       });
     }
 
+    QLabel * mapLanguageLabel = new QLabel("Map Language");
+    QComboBox * mapLanguageComboBox = new QComboBox();
+    {
+      StringUtf8Multilang::Languages const & supportedLanguages = StringUtf8Multilang::GetSupportedLanguages();
+      QStringList languagesList = QStringList();
+      for (auto const & language : supportedLanguages)
+        languagesList << QString::fromStdString(std::string(language.m_name));
+
+      mapLanguageComboBox->addItems(languagesList);
+      std::string const & mapLanguageCode = framework.GetMapLanguageCode();
+      int8_t languageIndex = StringUtf8Multilang::GetLangIndex(mapLanguageCode);
+      if (languageIndex == StringUtf8Multilang::kUnsupportedLanguageCode)
+        languageIndex = StringUtf8Multilang::kDefaultCode;
+
+      mapLanguageComboBox->setCurrentText(QString::fromStdString(std::string(StringUtf8Multilang::GetLangNameByCode(languageIndex))));
+      connect(mapLanguageComboBox, &QComboBox::currentIndexChanged, [&framework, &supportedLanguages](int index)
+      {
+        auto const & mapLanguageCode = std::string(supportedLanguages[index].m_code);
+        framework.SetMapLanguageCode(mapLanguageCode);
+      });
+    }
+
+
 #ifdef BUILD_DESIGNER
     QCheckBox * indexRegenCheckBox = new QCheckBox("Enable auto regeneration of geometry index");
     {
@@ -127,6 +154,8 @@ namespace qt
     finalLayout->addWidget(unitsRadioBox);
     finalLayout->addWidget(largeFontCheckBox);
     finalLayout->addWidget(developerModeCheckBox);
+    finalLayout->addWidget(mapLanguageLabel);
+    finalLayout->addWidget(mapLanguageComboBox);
 #ifdef BUILD_DESIGNER
     finalLayout->addWidget(indexRegenCheckBox);
 #endif
