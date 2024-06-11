@@ -1,6 +1,7 @@
 #include "generator/final_processor_country.hpp"
 
 #include "generator/addresses_collector.hpp"
+#include "generator/address_enricher.hpp"
 #include "generator/affiliation.hpp"
 #include "generator/coastlines_generator.hpp"
 #include "generator/feature_builder.hpp"
@@ -39,44 +40,27 @@ bool CountryFinalProcessor::IsCountry(std::string const & filename)
   return m_affiliations->HasCountryByName(filename);
 }
 
-void CountryFinalProcessor::SetCoastlines(std::string const & coastlineGeomFilename,
-                                          std::string const & worldCoastsFilename)
-{
-  m_coastlineGeomFilename = coastlineGeomFilename;
-  m_worldCoastsFilename = worldCoastsFilename;
-}
-
-void CountryFinalProcessor::SetFakeNodes(std::string const & filename)
-{
-  m_fakeNodesFilename = filename;
-}
-
-void CountryFinalProcessor::SetMiniRoundabouts(std::string const & filename)
-{
-  m_miniRoundaboutsFilename = filename;
-}
-
-void CountryFinalProcessor::SetAddrInterpolation(std::string const & filename)
-{
-  m_addrInterpolFilename = filename;
-}
-
-void CountryFinalProcessor::SetIsolinesDir(std::string const & dir) { m_isolinesPath = dir; }
-
 void CountryFinalProcessor::Process()
 {
   //Order();
 
+  /// @todo Make "straight-way" processing. There is no need to make many functions and
+  /// many read-write FeatureBuilder ops here.
+
   if (!m_coastlineGeomFilename.empty())
     ProcessCoastline();
 
-  // Add here all "straight-way" processing. There is no need to make many functions and
-  // many read-write FeatureBuilder ops here.
+  // 1. Process roundabouts and addr:interpolation first.
   if (!m_miniRoundaboutsFilename.empty() || !m_addrInterpolFilename.empty())
     ProcessRoundabouts();
 
+  // 2. Process additional addresses then.
+  if (!m_addressPath.empty())
+    AddAddresses();
+
   if (!m_fakeNodesFilename.empty())
     AddFakeNodes();
+
   if (!m_isolinesPath.empty())
     AddIsolines();
 
@@ -131,7 +115,8 @@ void CountryFinalProcessor::ProcessRoundabouts()
       else
       {
         auto const & checker = ftypes::IsAddressInterpolChecker::Instance();
-        if (fb.IsLine() && checker(fb.GetTypes()))
+        // Check HasOsmIds() because we have non-OSM addr:interpolation FBs (Tiger).
+        if (fb.IsLine() && fb.HasOsmIds() && checker(fb.GetTypes()))
         {
           if (!addresses.Update(fb))
           {
@@ -277,6 +262,38 @@ void CountryFinalProcessor::AddIsolines()
     FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, FileWriter::Op::OP_APPEND);
     isolineFeaturesGenerator.GenerateIsolines(name, [&](auto const & fb) { writer.Write(fb); });
   }, m_threadsCount);
+}
+
+void CountryFinalProcessor::AddAddresses()
+{
+  AddressEnricher::Stats totalStats;
+
+  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & name, auto const & path)
+  {
+    if (!IsCountry(name))
+      return;
+
+    auto const addrPath = base::JoinPath(m_addressPath, name) + TEMP_ADDR_EXTENSION;
+    if (!Platform::IsFileExistsByFullPath(addrPath))
+      return;
+
+    AddressEnricher enricher;
+
+    // Collect existing addresses and streets.
+    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](FeatureBuilder && fb, uint64_t)
+    {
+      enricher.AddSrc(std::move(fb));
+    });
+
+    // Append new addresses.
+    FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, FileWriter::Op::OP_APPEND);
+    enricher.ProcessRawEntries(addrPath, [&writer](FeatureBuilder const & fb) { writer.Write(fb); });
+
+    LOG(LINFO, (name, enricher.m_stats));
+    totalStats.Add(enricher.m_stats);
+  });
+
+  LOG(LINFO, ("Total addresses:", totalStats));
 }
 
 void CountryFinalProcessor::ProcessCoastline()

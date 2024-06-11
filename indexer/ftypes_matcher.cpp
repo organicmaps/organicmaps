@@ -855,23 +855,6 @@ IsAddressInterpolChecker::IsAddressInterpolChecker() : BaseChecker(1 /* level */
   m_even = c.GetTypeByPath({"addr:interpolation", "even"});
 }
 
-feature::InterpolType IsAddressInterpolChecker::GetInterpolType(FeatureType & ft) const
-{
-  for (uint32_t t : feature::TypesHolder(ft))
-  {
-    if (t == m_odd)
-      return feature::InterpolType::Odd;
-    if (t == m_even)
-      return feature::InterpolType::Even;
-
-    ftype::TruncValue(t, 1);
-    if (t == m_types[0])
-      return feature::InterpolType::Any;
-  }
-
-  return feature::InterpolType::None;
-}
-
 
 uint64_t GetDefPopulation(LocalityType localityType)
 {

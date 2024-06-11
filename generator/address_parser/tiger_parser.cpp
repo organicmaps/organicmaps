@@ -1,7 +1,5 @@
 #include "tiger_parser.hpp"
 
-#include "search/house_numbers_matcher.hpp"
-
 #include "geometry/distance_on_sphere.hpp"
 
 #include <algorithm>
@@ -88,25 +86,11 @@ bool ParseLine(std::string_view line, AddressEntry & e)
     return false;
 
   // Check and order house numbers.
-  using namespace search::house_numbers;
-
-  std::vector<TokensT> left, right;
-  ParseHouseNumber(MakeUniString(e.m_from), left);
-  ParseHouseNumber(MakeUniString(e.m_to), right);
-
-  if (left.size() != 1 || right.size() != 1)
+  auto const range = e.GetHNRange();
+  if (range == AddressEntry::kInvalidRange)
     return false;
 
-  CHECK(!left[0].empty() && !right[0].empty(), (e.m_from, e.m_to));
-  auto & l = left[0][0];
-  auto & r = right[0][0];
-  if (l.m_type != Token::TYPE_NUMBER || r.m_type != Token::TYPE_NUMBER)
-    return false;
-
-  uint64_t const li = ToUInt(l.m_value);
-  uint64_t const ri = ToUInt(r.m_value);
-
-  if (ri < li)
+  if (range.second < range.first)
   {
     std::swap(e.m_from, e.m_to);
     std::reverse(e.m_geom.begin(), e.m_geom.end());
