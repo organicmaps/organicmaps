@@ -2160,5 +2160,7 @@
 	<string name="type.amenity.events_venue">Место проведения мероприятий</string>
 	<string name="type.shop.auction">Аукцион</string>
 	<string name="type.shop.collector">Коллекции</string>
-    <string name="brand_name"> Комитет по туризму при Правительстве Республики Таджикистан </string>
+	<string name="brand_name"> Комитет по туризму при Правительстве Республики Таджикистан </string>
+	<string name="smth_went_wrong">Упс, что-то пошло не так</string>
+	<string name="wait_tjk_map_downloading">Пожалуйста, подождите, идет загрузка карты Таджикистана? Оставайтесь в приложении</string>
 </resources>

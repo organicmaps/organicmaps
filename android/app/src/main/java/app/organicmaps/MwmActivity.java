@@ -48,11 +48,11 @@ import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.base.OnBackPressListener;
 import app.organicmaps.bookmarks.BookmarkCategoriesActivity;
 import app.organicmaps.bookmarks.data.BookmarkManager;
-import app.organicmaps.bookmarks.data.FeatureId;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.display.DisplayChangedListener;
 import app.organicmaps.display.DisplayManager;
 import app.organicmaps.display.DisplayType;
+import app.organicmaps.downloader.CountryItem;
 import app.organicmaps.downloader.DownloaderActivity;
 import app.organicmaps.downloader.DownloaderFragment;
 import app.organicmaps.downloader.MapManager;
@@ -84,7 +84,6 @@ import app.organicmaps.routing.NavigationService;
 import app.organicmaps.routing.RoutePointInfo;
 import app.organicmaps.routing.RoutingBottomMenuListener;
 import app.organicmaps.routing.RoutingController;
-import app.organicmaps.routing.RoutingErrorDialogFragment;
 import app.organicmaps.routing.RoutingOptions;
 import app.organicmaps.routing.RoutingPlanFragment;
 import app.organicmaps.routing.RoutingPlanInplaceController;
@@ -550,25 +549,48 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (Map.isEngineCreated())
       onRenderingInitializationFinished();
 
-    routeForSiteFromMainActivityHandling();
+    tjkMapDownloadingHandling();
+
+    SiteLocation endPoint = getIntent().getParcelableExtra("end_point");
+    if(endPoint != null)
+      routeForSiteFromMainActivityHandling(endPoint);
   }
 
-  private void routeForSiteFromMainActivityHandling() {
-
+  private void tjkMapDownloadingHandling() {
     Handler handler = new Handler(Looper.getMainLooper());
-    Runnable delayedAction = new Runnable() {
-      @Override
-      public void run() {
-        showRouteForSiteFromMainActivity();
+    Runnable delayedAction = () -> {
+      CountryItem mCurrentCountry = CountryItem.fill("Tajikistan");
+
+      if(mCurrentCountry.status != CountryItem.STATUS_DONE) {
+        // navigate to Dushanbe so it automatically downloads Tajikistan map
+        blockScreen();
+        Framework.nativeZoomToPoint(38.5598, 68.7870, 10, true);
       }
     };
     handler.postDelayed(delayedAction, 1000);
   }
 
-  private void showRouteForSiteFromMainActivity() {
-    SiteLocation endPoint = getIntent().getParcelableExtra("end_point");
+  private void routeForSiteFromMainActivityHandling(SiteLocation endPoint) {
+    Handler handler = new Handler(Looper.getMainLooper());
+    Runnable delayedAction = () -> {
+        showRouteForSiteFromMainActivity(endPoint);
+      };
+    handler.postDelayed(delayedAction, 1000);
+  }
+
+  private void showRouteForSiteFromMainActivity(SiteLocation endPoint) {
     startLocationToPoint(endPoint.toMapObject());
   }
+
+  public void blockScreen() {
+    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+  }
+
+  public void removeScreenBlock() {
+    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+  }
+
 
   private void refreshLightStatusBar()
   {
@@ -1647,9 +1669,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps)
   {
-    RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(getSupportFragmentManager().getFragmentFactory(),
-                                                                            getApplicationContext(), lastResultCode, lastMissingMaps);
-    fragment.show(getSupportFragmentManager(), RoutingErrorDialogFragment.class.getSimpleName());
+//    RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(getSupportFragmentManager().getFragmentFactory(),
+//                                                                            getApplicationContext(), lastResultCode, lastMissingMaps);
+//    fragment.show(getSupportFragmentManager(), RoutingErrorDialogFragment.class.getSimpleName());
   }
 
   @Override

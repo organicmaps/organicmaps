@@ -1,6 +1,11 @@
 package app.organicmaps.downloader;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
+import android.content.Intent;
 import android.location.Location;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +24,8 @@ import app.organicmaps.util.Config;
 import app.organicmaps.util.ConnectionState;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
+import app.tourism.MainActivity;
+import app.tourism.data.dto.SiteLocation;
 
 import java.util.List;
 
@@ -28,8 +35,6 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 
   private final MwmActivity mActivity;
   private final View mFrame;
-  private final TextView mParent;
-  private final TextView mTitle;
   private final TextView mSize;
   private final WheelProgressView mProgress;
   private final Button mButton;
@@ -63,6 +68,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
           return;
         }
       }
+
     }
 
     @Override
@@ -75,6 +81,19 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       }
     }
   };
+
+  private void navigationToMainActivityHandling() {
+    Handler handler = new Handler(Looper.getMainLooper());
+    Runnable delayedAction = () -> {
+      if(mCurrentCountry.present) {
+        mActivity.removeScreenBlock();
+        Intent intent = new Intent(mActivity, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(mActivity, intent, null);
+      }
+    };
+    handler.postDelayed(delayedAction, 1000);
+  }
 
   private final MapManager.CurrentCountryChangedListener mCountryChangedListener = new MapManager.CurrentCountryChangedListener()
   {
@@ -103,6 +122,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 
   private void updateProgressState(boolean shouldAutoDownload)
   {
+    navigationToMainActivityHandling();
     updateStateInternal(shouldAutoDownload);
   }
 
@@ -118,21 +138,15 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
                           mCurrentCountry.status == CountryItem.STATUS_APPLYING);
       boolean failed = (mCurrentCountry.status == CountryItem.STATUS_FAILED);
 
+
+
       showFrame = (enqueued || progress || failed ||
                    mCurrentCountry.status == CountryItem.STATUS_DOWNLOADABLE);
 
       if (showFrame)
       {
-        boolean hasParent = !CountryItem.isRoot(mCurrentCountry.topmostParentId);
-
         UiUtils.showIf(progress || enqueued, mProgress);
         UiUtils.showIf(!progress && !enqueued, mButton);
-        UiUtils.showIf(hasParent, mParent);
-
-        if (hasParent)
-          mParent.setText(mCurrentCountry.topmostParentName);
-
-        mTitle.setText(mCurrentCountry.name);
 
         String sizeText;
 
@@ -188,8 +202,6 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
   {
     mActivity = activity;
     mFrame = activity.findViewById(R.id.onmap_downloader);
-    mParent = mFrame.findViewById(R.id.downloader_parent);
-    mTitle = mFrame.findViewById(R.id.downloader_title);
     mSize = mFrame.findViewById(R.id.downloader_size);
 
     View controls = mFrame.findViewById(R.id.downloader_controls_frame);
@@ -208,6 +220,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       if (mCurrentCountry == null)
         return;
 
+      mActivity.blockScreen();
       boolean retry = (mCurrentCountry.status == CountryItem.STATUS_FAILED);
       if (retry)
       {

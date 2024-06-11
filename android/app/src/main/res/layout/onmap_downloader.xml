@@ -8,7 +8,7 @@
   android:visibility="gone"
   tools:visibility="visible">
   <LinearLayout
-    android:layout_width="212dp"
+    android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="@dimen/margin_base"
@@ -21,14 +21,6 @@
     tools:ignore="UselessParent">
 
     <TextView
-      android:id="@+id/downloader_parent"
-      android:layout_width="@dimen/square_block_size"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/margin_eighth"
-      android:textAppearance="@style/MwmTextAppearance.Body2"
-      android:gravity="center_horizontal"
-      tools:text="Some country very loooooooooong country"/>
-    <TextView
       android:id="@+id/downloader_title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -36,7 +28,8 @@
       android:fontFamily="@string/robotoMedium"
       android:textStyle="normal"
       android:gravity="center_horizontal"
-      tools:text="Some name very loooooooooong name"
+      android:text="@string/wait_tjk_map_downloading"
+      android:textSize="16sp"
       tools:ignore="UnusedAttribute"/>
     <TextView
       android:id="@+id/downloader_size"

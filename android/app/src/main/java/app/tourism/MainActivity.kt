@@ -2,6 +2,7 @@ package app.tourism
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -17,6 +18,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat.startActivity
 import app.organicmaps.DownloadResourcesLegacyActivity
+import app.organicmaps.downloader.CountryItem
 import app.tourism.data.dto.SiteLocation
 import app.tourism.ui.theme.OrganicMapsTheme
 
@@ -24,6 +26,12 @@ import app.tourism.ui.theme.OrganicMapsTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val mCurrentCountry = CountryItem.fill("Tajikistan")
+        if(!mCurrentCountry.present) {
+            val intent = Intent(this, DownloadResourcesLegacyActivity::class.java)
+            startActivity(this, intent, null)
+        }
         enableEdgeToEdge()
         setContent {
             OrganicMapsTheme {
