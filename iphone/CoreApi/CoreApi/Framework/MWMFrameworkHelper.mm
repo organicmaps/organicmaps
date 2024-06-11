@@ -116,8 +116,8 @@
   GetFramework().Scroll(distanceX, distanceY);
 }
 
-+ (void)deactivateMapSelection:(BOOL)notifyUI {
-  GetFramework().DeactivateMapSelection(notifyUI);
++ (void)deactivateMapSelection {
+  GetFramework().DeactivateMapSelection();
 }
 
 + (void)switchMyPositionMode {
