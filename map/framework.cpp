@@ -1911,7 +1911,7 @@ void Framework::DeactivateMapSelection()
   if (m_onPlacePageClose)
     m_onPlacePageClose();
 
-  if (m_currentPlacePageInfo.has_value())
+  if (m_currentPlacePageInfo)
   {
     DeactivateHotelSearchMark();
 

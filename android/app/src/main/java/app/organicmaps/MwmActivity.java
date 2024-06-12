@@ -1229,22 +1229,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
   // Called from JNI.
   @Override
   @SuppressWarnings("unused")
-  public void onPlacePageDeactivated(boolean switchFullScreenMode)
+  public void onPlacePageDeactivated()
   {
-    if (switchFullScreenMode)
-    {
-      if ((mPanelAnimator != null && mPanelAnimator.isVisible()) ||
-          UiUtils.isVisible(mSearchController.getToolbar()))
-        return;
+    closePlacePage();
+  }
 
-      setFullscreen(!isFullscreen());
-      if (isFullscreen())
-        showFullscreenToastIfNeeded();
-    }
-    else
-    {
-      closePlacePage();
-    }
+  // Called from JNI.
+  @Override
+  @SuppressWarnings("unused")
+  public void onSwitchFullScreenMode()
+  {
+    if ((mPanelAnimator != null && mPanelAnimator.isVisible()) || UiUtils.isVisible(mSearchController.getToolbar()))
+      return;
+
+    setFullscreen(!isFullscreen());
+    if (isFullscreen())
+      showFullscreenToastIfNeeded();
   }
 
   private void setFullscreen(boolean isFullscreen)
