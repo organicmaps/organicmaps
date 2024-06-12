@@ -22527,7 +22527,7 @@
     zh-Hant = 使用條款
 
   [button_layer_traffic]
-    tags = android,ios
+    tags = android
     en = Traffic
     af = Verkeer
     ar = حركة مرور
