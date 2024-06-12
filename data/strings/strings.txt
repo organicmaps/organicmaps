@@ -7411,6 +7411,53 @@
     zh-Hans = 指南针校准
     zh-Hant = 指南針校準
 
+  [file_manager_recommended]
+    comment = Toast text when there is no app to show a folder selection dialog
+    tags = android
+    en = Missing suitable file manager app! Please install one to select folders.
+    af = Geskikte lêerbestuurder-toep nie gevind nie! Installeer asseblief een om vouers te kies.
+    ar = لم يتم العثور على تطبيق مدير ملفات مناسب! يرجى تثبيت واحد لتحديد المجلدات.
+    az = Uyğun fayl meneceri tətbiqi yoxdur! Qovluqları seçmək üçün birini quraşdırın.
+    be = Падыходзячага дадатку для кіравання файламі не знойдзена! Калі ласка, усталюйце адзін для выбару тэчак.
+    bg = Липсва подходяща програма за управление на файлове! Моля, инсталирайте една, за да избирате папки.
+    ca = Falten aplicacions de gestor de fitxers adequades! Instal·leu-ne una per seleccionar carpetes.
+    cs = Chybí vhodná aplikace správce souborů! Nainstalujte jednu pro výběr složek.
+    da = Mangler en passende filhåndteringsapp! Installér en for at vælge mapper.
+    de = Geeignete Dateimanager-App fehlt! Bitte installieren Sie eine, um Ordner auszuwählen.
+    el = Λείπει κατάλληλη εφαρμογή διαχείρισης αρχείων! Εγκαταστήστε μία για να επιλέξετε φακέλους.
+    es = ¡Falta una aplicación de administrador de archivos adecuada! Instale una para seleccionar carpetas.
+    es-MX = ¡Falta una aplicación de administrador de archivos adecuada! Instale una para seleccionar carpetas.
+    et = Puudub sobiv failihalduri rakendus! Palun installige üks kaustade valimiseks.
+    eu = Ez da egoki fitxategi-kudeatzaile aplikaziorik aurkitu! Mesedez, instalatu bat karpetak hautatzeko.
+    fa = برنامه مدیریت فایل مناسبی وجود ندارد! لطفاً یکی را برای انتخاب پوشه‌ها نصب کنید.
+    fi = Sopiva tiedostonhallintasovellus puuttuu! Asenna sellainen kansioiden valitsemista varten.
+    fr = Aucune application de gestion de fichiers adaptée trouvée ! Veuillez en installer une pour sélectionner des dossiers.
+    he = אין אפליקציית ניהול קבצים מתאימה! התקן אחת כדי לבחור תיקיות.
+    hi = उपयुक्त फ़ाइल प्रबंधक ऐप गायब है! कृपया फ़ोल्डर चुनने के लिए एक स्थापित करें।
+    hu = Hiányzik egy megfelelő fájlkezelő alkalmazás! Kérjük, telepítsen egyet a mappák kiválasztásához.
+    id = Aplikasi pengelola file yang sesuai tidak ada! Harap instal satu untuk memilih folder.
+    it = Manca un'app di gestione file adatta! Installane una per selezionare le cartelle.
+    ja = 適切なファイルマネージャーアプリが見つかりません！フォルダーを選択するためにアプリをインストールしてください。
+    ko = 적절한 파일 관리자 앱이 없습니다! 폴더를 선택하려면 하나를 설치하세요.
+    lt = Trūksta tinkamos failų tvarkytuvės programėlės! Įdiekite vieną, kad pasirinktumėte aplankus.
+    mr = योग्य फाईल मॅनेजर अॅप नाही! फोल्डर निवडण्यासाठी कृपया एक स्थापित करा.
+    nb = Mangler en passende filbehandler-app! Installer en for å velge mapper.
+    nl = Geschikte bestandsbeheer-app ontbreekt! Installeer er een om mappen te selecteren.
+    pl = Brak odpowiedniej aplikacji do zarządzania plikami! Proszę zainstalować jedną, aby wybrać foldery.
+    pt = Falta uma aplicação de gestor de ficheiros adequada! Por favor, instale uma para selecionar pastas.
+    pt-BR = Faltando aplicativo de gerenciador de arquivos adequado! Por favor, instale um para selecionar pastas.
+    ro = Lipsește o aplicație potrivită pentru managerul de fișiere! Vă rugăm să instalați una pentru a selecta dosare.
+    ru = Отсутствует подходящее приложение для управления файлами! Пожалуйста, установите одно для выбора папок.
+    sk = Chýba vhodná aplikácia správcu súborov! Nainštalujte si jednu na výber priečinkov.
+    sv = Lämplig filhanteringsapp saknas! Installera en för att välja mappar.
+    sw = Programu inayofaa ya msimamizi wa faili haikupatikana! Tafadhali sakinisha moja ili kuchagua folda.
+    th = ไม่มีแอปตัวจัดการไฟล์ที่เหมาะสม! โปรดติดตั้งแอปหนึ่งเพื่อตัวเลือกโฟลเดอร์
+    tr = Uygun dosya yöneticisi uygulaması bulunamadı! Klasörleri seçmek için bir tane yükleyin.
+    uk = Відсутня відповідна програма для керування файлами! Будь ласка, встановіть одну для вибору папок.
+    vi = Thiếu ứng dụng quản lý tệp thích hợp! Vui lòng cài đặt một ứng dụng để chọn thư mục.
+    zh-Hans = 缺少合适的文件管理应用！请安装一个以选择文件夹。
+    zh-Hant = 缺少合適的文件管理應用！請安裝一個以選擇文件夾。
+
   [compass_calibration_recommended]
     comment = Toast text when compass calibration may improve the correctness of the current position arrow
     tags = android
