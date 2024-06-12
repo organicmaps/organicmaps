@@ -5,6 +5,7 @@
 - [Desktop](#desktop-app)
 - [Android](#android-app)
 - [iOS](#ios-app)
+- [Map data and styles](#map-data-and-styles)
 
 ## System requirements
 
@@ -177,8 +178,14 @@ sudo apk add \
 #### macOS
 
 ```bash
-brew install cmake ninja qt@6
+brew install cmake ninja qt@6 git-lfs
 ```
+After installtion git-lfs reuires an extra step
+```
+# Update global git config
+git lfs install
+```
+
 
 ### Windows
 
@@ -664,3 +671,6 @@ Select "OMaps" product scheme.
 - Choose either "iPhone _" or "iPad _" to run in the Simulator.
 
 Compile and run the project ("Product" → "Run").
+
+## Map data and styles
+See readme for the [map generator](https://github.com/organicmaps/organicmaps/blob/master/docs/MAPS.md) and [styles](https://github.com/organicmaps/organicmaps/blob/master/docs/STYLES.md) if you need to customize the map files and styles
