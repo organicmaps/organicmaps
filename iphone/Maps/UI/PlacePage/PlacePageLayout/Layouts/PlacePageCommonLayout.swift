@@ -190,10 +190,9 @@ extension PlacePageCommonLayout {
       headerViewController.setTitle(title, secondaryTitle: secondaryTitle)
       placePageNavigationViewController.setTitle(title, secondaryTitle: secondaryTitle)
     }
-    self.presenter?.layoutIfNeeded()
+    presenter?.layoutIfNeeded()
     UIView.animate(withDuration: kDefaultAnimationDuration) { [unowned self] in
       self.bookmarkViewController.view.isHidden = !isBookmark
-      self.presenter?.layoutIfNeeded()
     }
   }
 }
