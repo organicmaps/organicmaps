@@ -94,7 +94,7 @@
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Изберете мястото, където картите трябва да се изтеглят</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
-	<string name="maps_storage_downloaded">Карти</string>
+	<string name="maps_storage_downloaded">Изтеглени карти: %s</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Преместване на карти?</string>
 	<!-- Ask user to wait several minutes (some long process in modal dialog). -->

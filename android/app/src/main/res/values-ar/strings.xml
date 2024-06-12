@@ -94,7 +94,7 @@
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">اختر المكان الذي ينبغي تنزيل الخرائط إليه.</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
-	<string name="maps_storage_downloaded">الخرائط المنزلة</string>
+	<string name="maps_storage_downloaded">الخرائط المنزلة: %s</string>
 	<!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
 	<string name="maps_storage_internal">وحدة التخزين الداخلية الخاصة</string>
 	<!-- Shared storage type in Maps Storage settings (a primary storage usually) -->

@@ -91,7 +91,7 @@
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Alege locul în care vrei să fie descărcate hărțile.</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
-	<string name="maps_storage_downloaded">Hărți</string>
+	<string name="maps_storage_downloaded">Hărți descărcate: %s</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Muți hărțile?</string>
 	<!-- Ask user to wait several minutes (some long process in modal dialog). -->

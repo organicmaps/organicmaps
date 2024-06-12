@@ -84,6 +84,8 @@
 	<string name="maps_storage">नकाशे येथे साठवा</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">नकाशे डाउनलोड करायचे ठिकाण निवडा</string>
+	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+	<string name="maps_storage_downloaded">डाउनलोड केलेले नकाशे: %s</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">नकाशे हलवायचे?</string>
 	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
