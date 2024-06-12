@@ -76,7 +76,12 @@ public class Framework
     // Called from JNI
     @Keep
     @SuppressWarnings("unused")
-    void onPlacePageDeactivated(boolean switchFullScreenMode);
+    void onPlacePageDeactivated();
+
+    // Called from JNI
+    @Keep
+    @SuppressWarnings("unused")
+    void onSwitchFullScreenMode();
   }
 
   public interface RoutingListener

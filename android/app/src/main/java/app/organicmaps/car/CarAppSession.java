@@ -252,7 +252,7 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
   }
 
   @Override
-  public void onPlacePageDeactivated(boolean switchFullScreenMode)
+  public void onPlacePageDeactivated()
   {
     // The function is called when we close the PlaceScreen or when we enter the navigation mode.
     // We only need to handle the first case
@@ -261,6 +261,12 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
 
     RoutingController.get().cancel();
     mScreenManager.popToRoot();
+  }
+
+  @Override
+  public void onSwitchFullScreenMode()
+  {
+    // No fullscreen mode in AndroidAuto. Do nothing.
   }
 
   private void restoreRoute()
