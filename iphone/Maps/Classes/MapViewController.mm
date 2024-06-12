@@ -105,6 +105,20 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
 #pragma mark - Map Navigation
 
+- (void)showOrUpdatePlacePage {
+  if (!PlacePageData.hasData) {
+    return;
+  }
+
+  self.controlsManager.trafficButtonHidden = YES;
+
+  if (self.placePageVC != nil) {
+    [PlacePageBuilder update:(PlacePageViewController *)self.placePageVC];
+    return;
+  }
+  [self showRegularPlacePage];
+}
+
 - (void)showRegularPlacePage {
   self.placePageVC = [PlacePageBuilder build];
   self.placePageContainer.hidden = NO;
@@ -119,15 +133,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   ]];
   [self addChildViewController:self.placePageVC];
   [self.placePageVC didMoveToParentViewController:self];
-}
-
-- (void)showPlacePage {
-  if (!PlacePageData.hasData) {
-    return;
-  }
-  
-  self.controlsManager.trafficButtonHidden = YES;
-  [self showRegularPlacePage];
 }
 
 - (void)dismissPlacePage {
@@ -179,8 +184,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 }
 
 - (void)onMapObjectSelected {
-  [self hidePlacePage];
-  [self showPlacePage];
+  [self showOrUpdatePlacePage];
 }
 
 - (void)onMapObjectUpdated {
