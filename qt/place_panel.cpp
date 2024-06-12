@@ -7,6 +7,7 @@
 #include "platform/settings.hpp"
 
 #include <QtWidgets/QDialogButtonBox>
+#include <QtWidgets/QScrollArea>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QLabel>
@@ -110,6 +111,15 @@ void PlacePanel::updateInterfaceUser(place_page::Info const & info, search::Reve
   DeleteExistingLayout();
 
   QVBoxLayout * layout = new QVBoxLayout();
+
+  QScrollArea * scrollArea = new QScrollArea();
+  scrollArea->setWidgetResizable(true);
+  scrollArea->setFrameShape(QFrame::NoFrame);
+
+  QWidget *containerWidget = new QWidget();
+  QVBoxLayout * innerLayout = new QVBoxLayout(containerWidget);
+  containerWidget->setLayout(innerLayout);
+
   {
     QVBoxLayout * header = new QVBoxLayout();
 
@@ -134,12 +144,12 @@ void PlacePanel::updateInterfaceUser(place_page::Info const & info, search::Reve
       header->addWidget(addressLabel);
     }
 
-    layout->addLayout(header);
+    innerLayout->addLayout(header);
   }
 
   {
     QHLine * line = new QHLine();
-    layout->addWidget(line);
+    innerLayout->addWidget(line);
   }
 
   {
@@ -294,15 +304,19 @@ void PlacePanel::updateInterfaceUser(place_page::Info const & info, search::Reve
     data->setColumnStretch(0, 0);
     data->setColumnStretch(1, 1);
 
-    layout->addLayout(data);
+    innerLayout->addLayout(data);
   }
 
-  layout->addStretch(); 
+  innerLayout->addStretch(); 
 
   {
     QHLine * line = new QHLine();
-    layout->addWidget(line);
+    innerLayout->addWidget(line);
   }
+
+  scrollArea->setWidget(containerWidget);
+
+  layout->addWidget(scrollArea);
 
   {
     QDialogButtonBox * dbb = new QDialogButtonBox();
@@ -319,7 +333,15 @@ void PlacePanel::updateInterfaceDeveloper(place_page::Info const & info,
   DeleteExistingLayout();
 
   QVBoxLayout * layout = new QVBoxLayout();
-  QGridLayout * grid = new QGridLayout();
+
+  QScrollArea * scrollArea = new QScrollArea();
+  scrollArea->setWidgetResizable(true);
+  scrollArea->setFrameShape(QFrame::NoFrame);
+  
+  QWidget *containerWidget = new QWidget();
+  QGridLayout * grid = new QGridLayout(containerWidget);
+  containerWidget->setLayout(grid);
+
   int row = 0;
 
   auto const addEntry = [grid, &row](std::string const & key, std::string const & value, bool isLink = false)
@@ -387,8 +409,6 @@ void PlacePanel::updateInterfaceDeveloper(place_page::Info const & info,
   if (auto cuisines = info.FormatCuisines(); !cuisines.empty())
     addEntry(DebugPrint(PropID::FMD_CUISINE), cuisines);
 
-  layout->addLayout(grid);
-
   QDialogButtonBox * dbb = new QDialogButtonBox();
   addCommonButtons(dbb, info);
 
@@ -430,6 +450,10 @@ void PlacePanel::updateInterfaceDeveloper(place_page::Info const & info,
   grid->setRowStretch(row, 1);
   // Stretch 2nd column
   grid->setColumnStretch(1, 1);
+
+  scrollArea->setWidget(containerWidget);
+
+  layout->addWidget(scrollArea);
 
   layout->addWidget(dbb);
 
