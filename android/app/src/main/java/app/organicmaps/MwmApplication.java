@@ -45,11 +45,13 @@ import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.log.Logger;
 import app.organicmaps.util.log.LogsManager;
+import dagger.hilt.android.HiltAndroidApp;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
+@HiltAndroidApp
 public class MwmApplication extends Application implements Application.ActivityLifecycleCallbacks
 {
   @NonNull

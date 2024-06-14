@@ -32,13 +32,13 @@
       <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="@string/brand_name"
+          android:text="@string/organization_name"
           android:textColor="@color/white_primary"
           android:textSize="20sp"
           android:textAlignment="center"
-          android:textStyle="bold"
+          android:textStyle="bold|normal"
           android:layout_marginTop="16dp"
-          android:layout_marginHorizontal="48dp"/>
+          android:layout_marginHorizontal="32dp"/>
 
     </LinearLayout>
 

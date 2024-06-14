@@ -55,6 +55,9 @@ apply plugin: 'com.github.triplet.play'
 apply plugin: 'ru.cian.huawei-publish-gradle-plugin'
 apply plugin: 'org.jetbrains.kotlin.android'
 apply plugin: 'kotlin-parcelize'
+apply plugin: 'org.jetbrains.kotlin.plugin.serialization'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.dagger.hilt.android'
 
 def run(cmd) {
   def stdout = new ByteArrayOutputStream()
@@ -354,7 +357,7 @@ android {
         jvmTarget = '17'
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.5.1'
+        kotlinCompilerExtensionVersion '1.5.14'
     }
     packaging {
         resources {
@@ -365,18 +368,34 @@ android {
 
 dependencies {
   implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.8.1'
-    implementation 'androidx.activity:activity-compose:1.8.0'
-    implementation platform('androidx.compose:compose-bom:2023.08.00')
+    implementation 'androidx.activity:activity-compose:1.9.0'
+    implementation platform('androidx.compose:compose-bom:2024.05.00')
     implementation 'androidx.compose.ui:ui'
     implementation 'androidx.compose.ui:ui-graphics'
     implementation 'androidx.compose.ui:ui-tooling-preview'
     implementation 'androidx.compose.material3:material3'
-    androidTestImplementation platform('androidx.compose:compose-bom:2023.08.00')
+    androidTestImplementation platform('androidx.compose:compose-bom:2024.05.00')
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
+
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
 
+    // hilt
+    def hilt = "2.47"
+    implementation "com.google.dagger:hilt-android:$hilt"
+    kapt "com.google.dagger:hilt-compiler:$hilt"
+    kapt "androidx.hilt:hilt-compiler:1.2.0"
+    implementation 'androidx.hilt:hilt-navigation-compose:1.2.0'
+
+    // navigation
+    implementation "androidx.navigation:navigation-compose:2.8.0-beta03"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3"
+    // blurriness
+    implementation "com.github.skydoves:cloudy:0.1.2"
+    // countries
+    implementation 'com.hbb20:ccp:2.7.3'
     // Google Play Location Services
   //
   // Please add symlinks to google/java/app/organicmaps/location for each new gms-enabled flavor below:
@@ -428,6 +447,10 @@ dependencies {
   testImplementation 'junit:junit:4.13.2'
   testImplementation 'org.mockito:mockito-core:5.11.0'
   testImplementation 'org.mockito:mockito-inline:5.2.0'
+}
+
+kapt {
+  correctErrorTypes true
 }
 
 tasks.withType(JavaCompile) {

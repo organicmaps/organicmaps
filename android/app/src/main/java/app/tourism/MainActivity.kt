@@ -2,7 +2,6 @@ package app.tourism
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -15,23 +14,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat.startActivity
 import app.organicmaps.DownloadResourcesLegacyActivity
 import app.organicmaps.downloader.CountryItem
 import app.tourism.data.dto.SiteLocation
 import app.tourism.ui.theme.OrganicMapsTheme
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val mCurrentCountry = CountryItem.fill("Tajikistan")
-        if(!mCurrentCountry.present) {
-            val intent = Intent(this, DownloadResourcesLegacyActivity::class.java)
-            startActivity(this, intent, null)
-        }
+        navigateToMapToDownloadIfNotPresent()
+//        navigateToAuthIfNotAuthed()
+
         enableEdgeToEdge()
         setContent {
             OrganicMapsTheme {
@@ -44,11 +41,25 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+    private fun navigateToMapToDownloadIfNotPresent() {
+        val mCurrentCountry = CountryItem.fill("Tajikistan")
+        if(!mCurrentCountry.present) {
+            val intent = Intent(this, DownloadResourcesLegacyActivity::class.java)
+            startActivity(this, intent, null)
+        }
+    }
+
+    private fun navigateToAuthIfNotAuthed() {
+        val intent = Intent(this, AuthActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(this, intent, null)
+    }
 }
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
-    val context = LocalContext.current;
+    val context = LocalContext.current
     Column {
         Text(
             text = "Hello $name!",
@@ -66,13 +77,5 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         ) {
             Text(text = "navigate to Map", modifier = modifier)
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    OrganicMapsTheme {
-        Greeting("Android")
     }
 }
