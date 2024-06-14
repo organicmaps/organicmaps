@@ -64,6 +64,11 @@ void LogHelper::WriteProlog(std::ostream & s, LogLevel level)
   s << GetLogLevelNames()[level] << '(' << GetThreadID() << ") " << std::fixed << std::setprecision(5) << sec << ' ';
 }
 
+void LogHelper::WriteLog(std::ostream & s, SrcPoint const & srcPoint, std::string const & msg)
+{
+  s << DebugPrint(srcPoint) << msg << std::endl;
+}
+
 void LogMessageDefault(LogLevel level, SrcPoint const & srcPoint, std::string const & msg)
 {
   auto & logger = LogHelper::Instance();
@@ -71,8 +76,8 @@ void LogMessageDefault(LogLevel level, SrcPoint const & srcPoint, std::string co
 
   std::lock_guard lock(g_logMutex);
   logger.WriteProlog(out, level);
+  logger.WriteLog(out, srcPoint, msg);
 
-  out << DebugPrint(srcPoint) << msg << std::endl;
   std::cerr << out.str();
 
   CHECK_LESS(level, g_LogAbortLevel, ("Abort. Log level is too serious", level));
