@@ -19807,7 +19807,7 @@
     zh-Hant = 無法使用交通資訊
 
   [enable_logging]
-    tags = android
+    tags = android,ios
     en = Enable logging
     af = Staan logboekinskrywing toe
     ar = تفعيل التسجيل
@@ -19849,6 +19849,51 @@
     vi = Bật nhật ký
     zh-Hans = 启用记录
     zh-Hant = 啟用記錄
+
+  [log_file_size]
+    tags = ios
+    en = Log file size: %@
+    af = Loglêergrootte: %@
+    ar = حجم ملف السجل: %@
+    az = Giriş faylının ölçüsü: %@
+    be = Памер файла журнала: %@
+    bg = Размер на регистрационния файл: %@
+    ca = Mida del fitxer de registre: %@
+    cs = Velikost souboru protokolu: %@
+    da = Logfilens størrelse: %@
+    de = Größe der Protokolldatei: %@
+    el = Μέγεθος αρχείου καταγραφής: %@
+    es = Tamaño del archivo de registro: %@
+    et = Logifaili suurus: %@
+    eu = Erregistro fitxategiaren tamaina: %@
+    fa = اندازه فایل گزارش: %@
+    fi = Lokitiedoston koko: %@
+    fr = Taille du fichier journal : %@
+    he = גודל קובץ יומן: %@
+    hi = लॉग फ़ाइल का आकार: %@
+    hu = Naplófájl mérete: %@
+    id = Ukuran file log: %@
+    it = Dimensione del file di registro: %@
+    ja = ログファイルのサイズ: %@
+    ko = 로그 파일 크기: %@
+    lt = Žurnalo failo dydis: %@
+    mr = लॉग फाइल आकार: %@
+    nb = Loggfilstørrelse: %@
+    nl = Grootte logbestand: %@
+    pl = Rozmiar pliku dziennika: %@
+    pt = Tamanho do ficheiro de registo: %@
+    pt-BR = Tamanho do arquivo de registro: %@
+    ro = Dimensiunea fișierului jurnal: %@
+    ru = Размер файла логов: %@
+    sk = Veľkosť súboru protokolu: %@
+    sv = Loggfilens storlek: %@
+    sw = Ukubwa wa faili ya kumbukumbu: %@
+    th = ขนาดไฟล์บันทึก: %@
+    tr = Günlük dosyası boyutu: %@
+    uk = Розмір файлу журналу: %@.
+    vi = Kích thước tệp nhật ký: %@
+    zh-Hans = 日志文件大小： %@
+    zh-Hant = 日誌檔案大小：%@
 
   [feedback_general]
     comment = Settings: "Send general feedback" button
@@ -23899,7 +23944,7 @@
     zh-Hant = 最大程度省電
 
   [enable_logging_warning_message]
-    tags = android
+    tags = android,ios
     en = Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using "Report a bug" in the Help dialog. Logs may include location info.
     af = Aktiveer hierdie opsie tydelik om ’n gedetailleerde diagnosestaat van u probleem op te neem en handmatig na ons te stuur d.m.v. die “Rapporteer ’n fout” in die Help-dialoog. Sulke state kan liggingsinligting bevat.
     ar = هذا الخيار يقوم ببدأ تسجيل سجلات التطبيق لإغراض التشخيصة. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا لحل المشاكل التي تواجهكم داخل التطبيق. قم بتفعيل هذا الخيار بشكل مؤقت فقط في حالة طلب الدعم من Organic Maps.
