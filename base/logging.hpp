@@ -31,6 +31,7 @@ public:
 
   int GetThreadID();
   void WriteProlog(std::ostream & s, LogLevel level);
+  static void WriteLog(std::ostream & s, SrcPoint const & srcPoint, std::string const & msg);
 
 private:
   int m_threadsCount{0};
