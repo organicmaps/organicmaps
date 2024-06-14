@@ -368,4 +368,16 @@
     <item name="android:textAllCaps">false</item>
   </style>
 
+  <style
+    name="MwmTheme.Preference"
+    parent="@style/PreferenceThemeOverlay.v14.Material">
+    <item name="android:textColor">@color/preference_text_color</item>
+  </style>
+
+  <style
+    name="MwmTheme.Preference.Night"
+    parent="@style/PreferenceThemeOverlay.v14.Material">
+    <item name="android:textColor">@color/preference_text_color_night</item>
+  </style>
+
 </resources>

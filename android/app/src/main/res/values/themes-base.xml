@@ -78,7 +78,7 @@
 
     <item name="routingButtonHint">@color/routing_button_tint</item>
 
-    <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+    <item name="preferenceTheme">@style/MwmTheme.Preference</item>
 
     <item name="android:listDivider">@drawable/list_divider</item>
 
@@ -211,6 +211,8 @@
     <item name="navigationTheme">@style/MwmTheme.Navigation.Night</item>
 
     <item name="routingButtonHint">@color/routing_button_tint</item>
+
+    <item name="preferenceTheme">@style/MwmTheme.Preference.Night</item>
 
     <item name="android:listDivider">@drawable/list_divider_night</item>
 
