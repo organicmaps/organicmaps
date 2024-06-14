@@ -33,7 +33,7 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell *voiceInstructionsCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell *drivingOptionsCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewiCloudSwitchCell *iCloudSynchronizationCell;
-
+@property(weak, nonatomic) IBOutlet SettingsTableViewDetailedSwitchCell *enableLoggingCell;
 
 @end
 
@@ -189,9 +189,21 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
   [self.iCloudSynchronizationCell configWithDelegate:self
                                                title:@"iCloud Synchronization (Beta)"
                                                 isOn:isICLoudSynchronizationEnabled];
+
+  __weak __typeof(self) weakSelf = self;
   [CloudStorageManager.shared addObserver:self onErrorCompletionHandler:^(NSError * _Nullable error) {
-    [self.iCloudSynchronizationCell updateWithError:error];
+    __strong auto strongSelf = weakSelf;
+    [strongSelf.iCloudSynchronizationCell updateWithError:error];
   }];
+
+  [self.enableLoggingCell configWithDelegate:self title:L(@"enable_logging") isOn:MWMSettings.isFileLoggingEnabled];
+  [self updateLogFileSize];
+}
+
+- (void)updateLogFileSize {
+  uint64_t logFileSize = [Logger getLogFileSize];
+  NSString * detailString = logFileSize == 0 ? nil : [NSString stringWithFormat:L(@"log_file_size"), formattedSize(logFileSize)];
+  [self.enableLoggingCell setDetail:detailString];
 }
 
 - (void)show3dBuildingsAlert:(UITapGestureRecognizer *)recognizer {
@@ -324,6 +336,9 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
     } else {
       [MWMSettings setICLoudSynchronizationEnabled:value];
     }
+  } else if (cell == self.enableLoggingCell) {
+    [MWMSettings setFileLoggingEnabled:value];
+    [self updateLogFileSize];
   }
 }
 
@@ -368,6 +383,15 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
       return L(@"prefs_group_route");
     case 3:
       return L(@"info");
+    default:
+      return nil;
+  }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+  switch (section) {
+    case 1:
+      return L(@"enable_logging_warning_message");
     default:
       return nil;
   }

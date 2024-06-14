@@ -1,3 +1,5 @@
+import OSLog
+
 final class AboutController: MWMViewController {
 
   fileprivate struct AboutInfoTableViewCellModel {
@@ -276,7 +278,13 @@ private extension AboutController {
           self?.navigationController?.pushViewController(FaqController(), animated: true)
         case .reportABug:
           guard let link = aboutInfo.link else { fatalError("The recipient link should be provided to report a bug.") }
-          self?.sendEmailWith(header: "Organic Maps Bugreport", toRecipients: [link])
+          UIApplication.shared.showLoadingOverlay {
+            let logFileURL = Logger.getLogFileURL()
+            UIApplication.shared.hideLoadingOverlay {
+              guard let self else { return }
+              self.sendEmailWith(header: "Organic Maps Bugreport", toRecipients: [link], attachmentFileURL: logFileURL)
+            }
+          }
         case .reportMapDataProblem, .volunteer, .news:
           self?.openUrl(aboutInfo.link)
         case .rateTheApp:
@@ -436,7 +444,7 @@ extension AboutController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - Mail Composing
 private extension AboutController {
-  func sendEmailWith(header: String, toRecipients: [String]) {
+  func sendEmailWith(header: String, toRecipients: [String], attachmentFileURL: URL? = nil) {
     func emailSubject(subject: String) -> String {
       let appInfo = AppInfo.shared()
       return String(format:"[%@-%@ iOS] %@", appInfo.bundleVersion, appInfo.buildNumber, subject)
@@ -496,8 +504,33 @@ private extension AboutController {
       return false
     }
 
+    func showMailComposingAlert() {
+      let text = String(format:L("email_error_body"), toRecipients.joined(separator: ";"))
+      let alert = UIAlertController(title: L("email_error_title"), message: text, preferredStyle: .alert)
+      let action = UIAlertAction(title: L("ok"), style: .default, handler: nil)
+      alert.addAction(action)
+      present(alert, animated: true, completion: nil)
+    }
+
     let subject = emailSubject(subject: header)
     let body = emailBody()
+
+    // If the attachment file path is provided, the default mail composer should be used.
+    if let attachmentFileURL {
+      if MWMMailViewController.canSendMail(), let attachmentData = try? Data(contentsOf: attachmentFileURL) {
+        let mailViewController = MWMMailViewController()
+        mailViewController.mailComposeDelegate = self
+        mailViewController.setSubject(subject)
+        mailViewController.setMessageBody(body, isHTML:false)
+        mailViewController.setToRecipients(toRecipients)
+        mailViewController.addAttachmentData(attachmentData, mimeType: "application/zip", fileName: attachmentFileURL.lastPathComponent)
+
+        self.present(mailViewController, animated: true, completion:nil)
+      } else {
+        showMailComposingAlert()
+      }
+      return
+    }
 
     // Before iOS 14, try to open alternate email apps first, assuming that if users installed them, they're using them.
     let os = ProcessInfo().operatingSystemVersion
@@ -507,14 +540,8 @@ private extension AboutController {
     }
     
     // From iOS 14, it is possible to change the default mail app, and mailto should open a default mail app.
-    if openDefaultMailApp(subject: subject, body: body, recipients: toRecipients) {
-      return
-    } else {
-      let text = String(format:L("email_error_body"), toRecipients.joined(separator: ";"))
-      let alert = UIAlertController(title: L("email_error_title"), message: text, preferredStyle: .alert)
-      let action = UIAlertAction(title: L("ok"), style: .default, handler: nil)
-      alert.addAction(action)
-      present(alert, animated: true, completion: nil)
+    if !openDefaultMailApp(subject: subject, body: body, recipients: toRecipients) {
+      showMailComposingAlert()
     }
   }
 }
@@ -535,5 +562,12 @@ private extension UIStackView {
       ])
     }
     addArrangedSubview(view)
+  }
+}
+
+// MARK: - MFMailComposeViewControllerDelegate
+extension AboutController: MFMailComposeViewControllerDelegate {
+  func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+    dismiss(animated: true, completion: nil)
   }
 }

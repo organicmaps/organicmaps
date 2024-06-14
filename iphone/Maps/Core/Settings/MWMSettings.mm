@@ -3,8 +3,8 @@
 #import "MWMMapViewControlsManager.h"
 #import "SwiftBridge.h"
 
-
 #include <CoreApi/Framework.h>
+#include <CoreApi/Logger.h>
 
 namespace
 {
@@ -19,6 +19,7 @@ NSString * const kThemeMode = @"ThemeMode";
 NSString * const kSpotlightLocaleLanguageId = @"SpotlightLocaleLanguageId";
 NSString * const kUDTrackWarningAlertWasShown = @"TrackWarningAlertWasShown";
 NSString * const kiCLoudSynchronizationEnabledKey = @"iCLoudSynchronizationEnabled";
+NSString * const kUDFileLoggingEnabledKey = @"FileLoggingEnabledKey";
 }  // namespace
 
 @implementation MWMSettings
@@ -167,4 +168,21 @@ NSString * const kiCLoudSynchronizationEnabledKey = @"iCLoudSynchronizationEnabl
   [NSUserDefaults.standardUserDefaults setBool:iCLoudSyncEnabled forKey:kiCLoudSynchronizationEnabledKey];
   [NSNotificationCenter.defaultCenter postNotificationName:NSNotification.iCloudSynchronizationDidChangeEnabledState object:nil];
 }
+
++ (void)initializeLogging {
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    [self setFileLoggingEnabled:[self isFileLoggingEnabled]];
+  });
+}
+
++ (BOOL)isFileLoggingEnabled {
+  return [NSUserDefaults.standardUserDefaults boolForKey:kUDFileLoggingEnabledKey];
+}
+
++ (void)setFileLoggingEnabled:(BOOL)fileLoggingEnabled {
+  [NSUserDefaults.standardUserDefaults setBool:fileLoggingEnabled forKey:kUDFileLoggingEnabledKey];
+  [Logger setFileLoggingEnabled:fileLoggingEnabled];
+}
+
 @end

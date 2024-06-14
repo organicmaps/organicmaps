@@ -1,9 +1,4 @@
-final class SettingsTableViewiCloudSwitchCell: SettingsTableViewSwitchCell {
-
-  override func awakeFromNib() {
-    super.awakeFromNib()
-    styleDetail()
-  }
+final class SettingsTableViewiCloudSwitchCell: SettingsTableViewDetailedSwitchCell {
 
   @objc
   func updateWithError(_ error: NSError?) {
@@ -23,12 +18,5 @@ final class SettingsTableViewiCloudSwitchCell: SettingsTableViewSwitchCell {
       detailTextLabel?.text?.removeAll()
     }
     setNeedsLayout()
-  }
-
-  private func styleDetail() {
-    let detailTextLabelStyle = "regular12:blackSecondaryText"
-    detailTextLabel?.setStyleAndApply(detailTextLabelStyle)
-    detailTextLabel?.numberOfLines = 0
-    detailTextLabel?.lineBreakMode = .byWordWrapping
   }
 }

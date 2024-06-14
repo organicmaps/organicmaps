@@ -1,10 +1,11 @@
 #import "MapsAppDelegate.h"
+#import "MWMSettings.h"
 
 #include "platform/platform.hpp"
-#include "platform/settings.hpp"
 
 int main(int argc, char * argv[])
 {
+  [MWMSettings initializeLogging];
   auto & p = GetPlatform();
   LOG(LINFO, ("Organic Maps", p.Version(), "started, detected CPU cores:", p.CpuCores()));
 
