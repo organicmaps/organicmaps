@@ -143,7 +143,7 @@
     ca = La detecció de la ubicació en segon pla és necessària per gaudir plenament de la funcionalitat de l'aplicació. S'utilitza per a la navegació i desar la ruta feta recentment.
     cs = Chcete-li si užívat plnou funkčnost aplikace, pak musíte určit aktuální polohu na pozadí. Používá se k sledování trasy a ukládání vaší nedávno uskutečněné cesty.
     da = Det er nødvendigt at fastslå den gældende placering i baggrunden for at udnytte appens funktionalitet fuldt ud. Dette anvendes når en rute skal følges, og når din sidste rejserute skal gemmes.
-    de = Das Bestimmen des aktuellen Standortes im Hintergrund ist erforderlich, um den vollen Funktionsumfang der App zu genießen. Dies wird dafür genutzt, der Route zu folgen und, um Ihren bereits bestrittenen Weg zu speichern.
+    de = Das Bestimmen des aktuellen Standortes im Hintergrund ist erforderlich, um den vollen Funktionsumfang der App zu genießen. Dies wird dafür genutzt, der Route zu folgen und, um deinen bereits zurückgelegten Weg zu speichern.
     el = Ο εντοπισμός τοποθεσίας στο παρασκήνιο είναι απαραίτητος για να απολαύσετε πλήρως τη λειτουργικότητα της εφαρμογής. Χρησιμοποιείται για πλοήγηση και αποθήκευση του κομματιού που ταξιδέψατε πρόσφατα.
     es = Es necesario definir la ubicación actual en el entorno para disfrutar al máximo de la funcionalidad de la aplicación. Se emplea en las opciones de seguir la ruta y guardar el camino recorrido reciente.
     et = Rakenduse funktsionaalsuse täielikuks nautimiseks on vaja asukoha tuvastamist taustal. Seda kasutatakse navigeerimiseks ja hiljuti reisitud tee salvestamiseks.
@@ -186,7 +186,7 @@
     ca = Determinar la vostra ubicació és necessari per a la navegació i per desar el vostre recorregut recentment.
     cs = Stanovení současného umístění se používá v možnostech sledování trasy a uložení vaší nedávno uskutečněné cesty.
     da = Definition af aktuel placering bruges i indstillingerne for at følge ruten og lagring af din seneste rejserute.
-    de = Die Angabe des aktuellen Standortes wird in den Optionen bei der Verfolgung der Route und beim Speichern Ihres zuletzt zurückgelegten Weges verwendet.
+    de = Die Bestimmung deines Standorts ist für die Navigation und für die Speicherung des zuletzt zurückgelegten Weges notwendig.
     el = Ο προσδιορισμός της θέσης σας είναι απαραίτητος για την πλοήγηση και για την αποθήκευση της διαδρομής που διανύσατε πρόσφατα.
     es = La definición de la ubicación actual se utiliza en las opciones de seguir la ruta y guardar el camino recorrido reciente.
     et = Teie asukoha määramine on vajalik navigeerimiseks ja hiljuti reisitud raja salvestamiseks.
