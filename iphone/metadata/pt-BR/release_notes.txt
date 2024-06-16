@@ -1,18 +1,5 @@
-• Novos dados OpenStreetMap de 28 de maio
-• Backup do iCloud para favoritos e trilhas (EXPERIMENTAL, habilite-o nas configurações)
-• Anúncios de nomes de ruas em instruções verbais TTS (EXPERIMENTAL, ative-o nas configurações)
-• Use o mapa quando o CarPlay estiver conectado
-• Pesquise CEPs dos EUA e do Reino Unido
-• Exporte favoritos e trilhas em formato GPX
-• Adicione, edite e exiba links da web para cardápios de restaurantes, bares e serviços de alimentação
-• Correção de endereços ausentes em academias
-• Adição de palavras-chave de pesquisa para "pastelaria" e "bolos"
-• Correção de links da Wikipédia que contenham um ponto de interrogação
-• Correção da cor do texto do CarPlay no modo escuro
-• Mais opções de voz TTS
-• Os anúncios TTS interrompem os podcasts em vez de evitá-los
-• Correção de alguns botões que desapareciam ao adicionar um lugar ao mapa
-• Correção de detalhes do local não atualizados após a edição de um favorito
-• Correção do botão de horário sem funcionamento no Editor para funcionar depois da meia-noite
+This is a minor interim release to keep your maps updated and fix one annoying bug!
+• OpenStreetMap data as of June 13
+• fix app freeze when a bookmark in a list with a long name is selected
 
-Atualizadas as traduções de Alemão, Português e Tcheco.
+…see changes from the last full-blown release at omaps.org/news

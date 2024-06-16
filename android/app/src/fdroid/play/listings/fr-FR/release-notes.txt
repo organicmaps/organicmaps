@@ -1,7 +1,4 @@
-• Données OpenStreetMap en date du 28 mai
-• recherche de codes postaux américains et britanniques (GB)
-• annonce des noms de rue dans les instructions verbales de changement de direction (veuillez l'activer dans les paramètres)
-• exporter les signets et les traces au format GPX et les enregistrer localement
-• ajouter, modifier et afficher des liens web vers des menus de restaurants, de bars et d'autres services de restauration
+This is a minor interim release just to keep your maps updated!
+• OpenStreetMap data as of June 13
 
-…plus de détails sur omaps.org/fr/news
+…see changes from the last full-blown release at omaps.org/news

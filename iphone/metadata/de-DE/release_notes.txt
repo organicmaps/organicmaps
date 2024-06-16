@@ -1,20 +1,5 @@
-• Synchronisierung von iCloud-Lesezeichen und -Titeln (EXPERIMENTAL, bitte in den Einstellungen aktivieren)
-• Ansagen von Straßennamen in verbalen TTS-Abbiegeanweisungen (EXPERIMENTAL, bitte in den Einstellungen aktivieren) 
-• Verwendung der Karte, wenn CarPlay verbunden ist
-• Suche nach US-Postleitzahlen und UK (GB)-Postleitzahlen
-• Lesezeichen und Tracks im GPX-Dateiformat exportieren
-• neue OpenStreetMap-Daten ab dem 28. Mai
-• Hinzufügen, Bearbeiten und Anzeigen von Weblinks zu Speisekarten von Restaurants, Bars und Lebensmitteldiensten
-• fehlende Adressen in den Details von Fitnessstudios korrigiert
-• Hinzufügen von "Gebäck" und "Kuchen" als Suchbegriffe
-• Korrektur von Wikipedia-Links, die ein Fragezeichen enthalten
-• CarPlay Textfarbe im dunklen Modus korrigiert
-• mehr TTS-Sprachoptionen
-• TTS-Wendeansagen unterbrechen Podcasts, anstatt sie zu unterdrücken
-• Behebung einiger Schaltflächen, die beim Hinzufügen eines Ortes zur Karte verschwunden sind
-• Fix: Ortsdetails werden nach der Bearbeitung eines Lesezeichens nicht aktualisiert
-• die Nicht-Geschäftszeiten-Schaltfläche im Editor funktioniert jetzt auch nach Mitternacht
+This is a minor interim release to keep your maps updated and fix one annoying bug!
+• OpenStreetMap data as of June 13
+• fix app freeze when a bookmark in a list with a long name is selected
 
-Aktualisierte tschechische, deutsche und portugiesische Übersetzungen.
-
-Bitte lesen Sie weitere Einzelheiten unter https://omaps.org/de/news
+…see changes from the last full-blown release at omaps.org/news

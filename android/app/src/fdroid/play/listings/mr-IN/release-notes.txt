@@ -1,8 +1,4 @@
-• OpenStreetMap data as of May 28
-• search for US zip codes and UK (GB) postcodes
-• street name announcements in verbal TTS turn instructions (please enable it in settings), thanks to Will Bradley
-• export bookmarks and tracks in GPX file format
-• save bookmarks and tracks to a local device storage
-• add, edit, and display web links to menus of restaurants, bars, and other food services
+This is a minor interim release just to keep your maps updated!
+• OpenStreetMap data as of June 13
 
-…more details at omaps.org/news
+…see changes from the last full-blown release at omaps.org/news

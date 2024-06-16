@@ -1,17 +1,5 @@
-• synchronizacja zakładek i śladów do iCloud (EKSPERYMENTALNE, proszę włączyć w ustawieniach)
-• zapowiadanie nazwy ulicy w komunikatach nawigacji z syntezatora mowy (EKSPERYMENTALNE, proszę włączyć w ustawieniach)
-• możliwość używania mapy przy podłączonym CarPlay
-• wyszukiwanie kodów pocztowych w USA i Wielkiej Brytanii
-• eksport zakładek i śladów do pliku w formacie GPX
-• nowe dane OpenStreetMap z 28 maja
-• dodawanie, edycja i wyświetlanie linków do menu restauracji, barów i pozostałej gastronomii
-• poprawione brakujące adresy w szczegółach centrów fitness
-• poprawione linki do Wikipedii zawierające znak zapytania
-• poprawiony kolor tekstu w trybie ciemnym CarPlay
-• więcej opcji syntezy mowy
-• komunikaty nawigacji przerywają podcasty zamiast je ściszać
-• poprawione niektóre przyciski znikające podczas dodawania miejsca do mapy
-• poprawione szczegóły miejsca, które nie aktualizowały się po edycji zakładki
-• poprawiony przycisk godzin zamknięcia w edytorze tak, aby działał po północy
+This is a minor interim release to keep your maps updated and fix one annoying bug!
+• OpenStreetMap data as of June 13
+• fix app freeze when a bookmark in a list with a long name is selected
 
-Zaktualizowane tłumaczenia na czeski, niemiecki, portugalski.
+…see changes from the last full-blown release at omaps.org/news

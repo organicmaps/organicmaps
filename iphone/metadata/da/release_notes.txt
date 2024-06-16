@@ -1,18 +1,5 @@
-• iCloud bookmarks and tracks synchronization (EXPERIMENTAL, please enable it in settings)
-• street name announcements in verbal TTS turn instructions (EXPERIMENTAL, please enable it in settings) 
-• use the map when CarPlay is connected
-• search for US zip codes and UK (GB) postcodes
-• export bookmarks and tracks in GPX file format
-• new OpenStreetMap data as of May 28
-• add, edit, and display web links to menus of restaurants, bars, and food services
-• fix missing addresses in fitness centers details
-• add "pastry" and "cakes" search keywords
-• fix Wikipedia links that contain a question mark
-• fix CarPlay text color in dark mode
-• more TTS voice options
-• TTS turn announcements interrupt podcasts instead of ducking them
-• fix some buttons that disappeared when adding a place to the map
-• fix place details not updated after a bookmark's edit
-• fix the non-business hours button in the Editor to work after midnight
+This is a minor interim release to keep your maps updated and fix one annoying bug!
+• OpenStreetMap data as of June 13
+• fix app freeze when a bookmark in a list with a long name is selected
 
-Updated Czech, German, Portuguese translations.
+…see changes from the last full-blown release at omaps.org/news
