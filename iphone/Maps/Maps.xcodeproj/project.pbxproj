@@ -662,6 +662,7 @@
 		FA85D44E279B738F00B858E9 /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85D44D279B738F00B858E9 /* CopyableLabel.swift */; };
 		FA8E808925F412E2002A1434 /* FirstSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA8E808825F412E2002A1434 /* FirstSession.mm */; };
 		FAC4E60C2C1FA4C50043979C /* 00_NotoSansMalayalam-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAC4E6092C1FA4C40043979C /* 00_NotoSansMalayalam-Regular.ttf */; };
+		FAC4E6122C1FA9FC0043979C /* 00_NotoSansBengali-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAC4E60F2C1FA9FC0043979C /* 00_NotoSansBengali-Regular.ttf */; };
 		FAF9DDA32A86DC54000D7037 /* libharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF9DDA22A86DC54000D7037 /* libharfbuzz.a */; };
 /* End PBXBuildFile section */
 
@@ -1701,6 +1702,7 @@
 		FABF2FF12B55F6780006F787 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FABF2FF22B55F6780006F787 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = hi; path = hi.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		FAC4E6092C1FA4C40043979C /* 00_NotoSansMalayalam-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "00_NotoSansMalayalam-Regular.ttf"; path = "../../data/00_NotoSansMalayalam-Regular.ttf"; sourceTree = "<group>"; };
+		FAC4E60F2C1FA9FC0043979C /* 00_NotoSansBengali-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "00_NotoSansBengali-Regular.ttf"; path = "../../data/00_NotoSansBengali-Regular.ttf"; sourceTree = "<group>"; };
 		FAF30A94173AB23900818BF6 /* 07_roboto_medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 07_roboto_medium.ttf; path = ../../data/07_roboto_medium.ttf; sourceTree = "<group>"; };
 		FAF8C669278CEE29006CAE66 /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = be; path = be.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FAF8C66C278CEE2A006CAE66 /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = be; path = be.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -3742,6 +3744,7 @@
 			isa = PBXGroup;
 			children = (
 				6B679E88266BFD090074AE2A /* 00_NotoNaskhArabic-Regular.ttf */,
+				FAC4E60F2C1FA9FC0043979C /* 00_NotoSansBengali-Regular.ttf */,
 				6B15907026623AE500944BBA /* 00_NotoSansThai-Regular.ttf */,
 				FA45118E2A5EC15100CD8F64 /* 00_NotoSerifDevanagari-Regular.ttf */,
 				FAC4E6092C1FA4C40043979C /* 00_NotoSansMalayalam-Regular.ttf */,
@@ -4045,6 +4048,7 @@
 				6741A9511BF340DE002C974C /* MWMDownloaderDialogHeader.xib in Resources */,
 				6741A96C1BF340DE002C974C /* MWMDownloadTransitMapAlert.xib in Resources */,
 				34D3B0241E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.xib in Resources */,
+				FAC4E6122C1FA9FC0043979C /* 00_NotoSansBengali-Regular.ttf in Resources */,
 				34D3B0271E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.xib in Resources */,
 				F6E2FDB91E097BA00083EBEC /* MWMEditorAdditionalNamesHeader.xib in Resources */,
 				34D3B02D1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.xib in Resources */,

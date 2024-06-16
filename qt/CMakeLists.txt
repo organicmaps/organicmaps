@@ -138,6 +138,7 @@ copy_resources(
   WorldCoasts.mwm
 
   00_NotoNaskhArabic-Regular.ttf
+  00_NotoSansBengali-Regular.ttf
   08_NotoSansMalayalam-Regular.ttf
   00_NotoSansThai-Regular.ttf
   00_NotoSerifDevanagari-Regular.ttf

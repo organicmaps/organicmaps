@@ -18,3 +18,5 @@ CJK_Compatibility 02_droidsans-fallback.ttf
 Devanagari 00_NotoSerifDevanagari-Regular.ttf
 Malayalam /system/fonts/NotoSansMalayalam-Regular.ttf
 Malayalam 00_NotoSansMalayalam-Regular.ttf
+Bengali /system/fonts/NotoSansBengali-Regular.ttf
+Bengali 00_NotoSansBengali-Regular.ttf
