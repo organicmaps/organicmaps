@@ -175,8 +175,8 @@
     tr = Kavşağa girin.
     uk = В'їзд на кільцеву транспортну розв'язку.
     vi = Đi vào vòng xoay.
-    zh-Hans = 进入环岛
-    zh-Hant = 進入環島。
+    zh-Hans = 进入环岛。
+    zh-Hant = 進入環狀交叉路口。
 
   [enter_the_roundabout_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal enter_the_roundabout is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -227,8 +227,8 @@
     tr = Kavşaktan çıkın.
     uk = З'їзд з кільцевої транспортної розв'язки.
     vi = Ra khỏi vòng xoay.
-    zh-Hans = 驶出环岛
-    zh-Hant = 退出環島。
+    zh-Hans = 驶出环岛。
+    zh-Hant = 離開環狀交叉路口。
 
   [leave_the_roundabout_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal leave_the_roundabout is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -632,7 +632,7 @@
     uk = Ви прибудете.
     vi = Bạn sẽ đến.
     zh-Hans = 即将到达目的地。
-    zh-Hant = 您將到達目的地。
+    zh-Hant = 即將到達目的地。
 
   [you_have_reached_the_destination]
     en = You have arrived.
@@ -792,7 +792,7 @@
     uk = Через двісті метрів
     vi = Trong hai trăm mét nữa
     zh-Hans = 前方两百米
-    zh-Hant = 前方二百米
+    zh-Hant = 前方兩百米
 
   [in_250_meters]
     en = In two hundred and fifty meters
@@ -832,7 +832,7 @@
     uk = Через двісті п'ятдесят метрів
     vi = Trong hai trăm năm mươi mét
     zh-Hans = 前方两百五十米
-    zh-Hant = 前方二百五十米
+    zh-Hant = 前方兩百五十米
 
   [in_300_meters]
     en = In three hundred meters
@@ -1191,7 +1191,7 @@
     tr = Bir kilometre sonra
     uk = Через однин кілометр
     vi = Trong một kilômét nữa
-    zh-Hans = 前方一千米
+    zh-Hans = 前方一公里
     zh-Hant = 前方一千米
 
   [in_1_5_kilometers]
@@ -1231,7 +1231,7 @@
     tr = Bir buçuk kilometre sonra
     uk = Через півтора кілометра
     vi = Trong một kilômét rưỡi nữa
-    zh-Hans = 前方一点五千米
+    zh-Hans = 前方一点五公里
     zh-Hant = 前方一千五百米
 
   [in_2_kilometers]
@@ -1271,8 +1271,8 @@
     tr = İki kilometre sonra
     uk = Через два кілометри
     vi = Trong hai kilômét nữa
-    zh-Hans = 前方两千米
-    zh-Hant = 前方二千米
+    zh-Hans = 前方两公里
+    zh-Hant = 前方兩千米
 
   [in_2_5_kilometers]
     en = In two and a half kilometers
@@ -1311,8 +1311,8 @@
     tr = İki buçuk kilometre sonra
     uk = Через два з половиною кілометра
     vi = Trong hai kilômét rưỡi nữa
-    zh-Hans = 前方两点五千米
-    zh-Hant = 前方二千五百米
+    zh-Hans = 前方两点五公里
+    zh-Hant = 前方兩千五百米
 
   [in_3_kilometers]
     en = In three kilometers
@@ -1351,7 +1351,7 @@
     tr = Üç kilometre sonra
     uk = Через три кілометри
     vi = Trong ba kilômét nữa
-    zh-Hans = 前方三千米
+    zh-Hans = 前方三公里
     zh-Hant = 前方三千米
 
   [then]
@@ -1441,8 +1441,8 @@
     tr = Birinci çıkıştan çıkın.
     uk = Рухайтесь через перший з'їзд.
     vi = Đi theo lối ra đầu tiên.
-    zh-Hans = 取道第一个出口
-    zh-Hant = 取道第一個出口。
+    zh-Hans = 从第一个出口驶出。
+    zh-Hant = 從第一個出口駛出。
 
   [take_the_1_exit_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_1_exit is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -1493,8 +1493,8 @@
     tr = İkinci çıkıştan çıkın.
     uk = Рухайтесь через другий з'їзд.
     vi = Đi theo lối ra thứ hai.
-    zh-Hans = 取道第二个出口
-    zh-Hant = 取道第二個出口。
+    zh-Hans = 从第二个出口驶出。
+    zh-Hant = 從第二個出口駛出。
 
   [take_the_2_exit_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_2_exit is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -1545,8 +1545,8 @@
     tr = Üçüncü çıkıştan çıkın.
     uk = Рухайтесь через третій з'їзд.
     vi = Đi theo lối ra thứ ba.
-    zh-Hans = 取道第三个出口
-    zh-Hant = 取道第三個出口。
+    zh-Hans = 从第三个出口驶出。
+    zh-Hant = 從第三個出口駛出。
 
   [take_the_3_exit_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_3_exit is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -1597,8 +1597,8 @@
     tr = Dördüncü çıkıştan çıkın.
     uk = Рухайтесь через четвертий з'їзд.
     vi = Đi theo lối ra thứ tư.
-    zh-Hans = 取道第四个出口
-    zh-Hant = 取道第四個出口。
+    zh-Hans = 从第四个出口驶出。
+    zh-Hant = 從第四個出口駛出。
 
   [take_the_4_exit_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_4_exit is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -1649,8 +1649,8 @@
     tr = Beşinci çıkıştan çıkın.
     uk = Рухайтесь через п'ятий з'їзд.
     vi = Đi theo lối ra thứ năm.
-    zh-Hans = 取道第五个出口
-    zh-Hant = 取道第五個出口。
+    zh-Hans = 从第五个出口驶出。
+    zh-Hant = 從第五個出口駛出。
 
   [take_the_5_exit_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_5_exit is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -1701,8 +1701,8 @@
     tr = Altıncı çıkıştan çıkın.
     uk = Рухайтесь через шостий з'їзд.
     vi = Đi theo lối ra thứ sáu.
-    zh-Hans = 取道第六个出口
-    zh-Hant = 取道第六個出口。
+    zh-Hans = 从第六个出口驶出。
+    zh-Hant = 從第六個出口駛出。
 
   [take_the_6_exit_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_6_exit is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -1753,8 +1753,8 @@
     tr = Yedinci çıkıştan çıkın.
     uk = Рухайтесь через сьомий з'їзд.
     vi = Đi theo lối ra thứ bảy.
-    zh-Hans = 取道第七个出口
-    zh-Hant = 取道第七個出口。
+    zh-Hans = 从第七个出口驶出。
+    zh-Hant = 從第七個出口駛出。
 
   [take_the_7_exit_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_7_exit is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -1805,8 +1805,8 @@
     tr = Sekizinci çıkıştan çıkın.
     uk = Рухайтесь через восьмий з'їзд.
     vi = Đi theo lối ra thứ tám.
-    zh-Hans = 取道第八个出口
-    zh-Hant = 取道第八個出口。
+    zh-Hans = 从第八个出口驶出。
+    zh-Hant = 從第八個出口駛出。
 
   [take_the_8_exit_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_8_exit is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -1857,8 +1857,8 @@
     tr = Dokuzuncu çıkıştan çıkın.
     uk = Рухайтесь через дев'ятий з'їзд.
     vi = Đi theo lối ra thứ chín.
-    zh-Hans = 取道第九个出口
-    zh-Hant = 取道第九個出口。
+    zh-Hans = 从第九个出口驶出。
+    zh-Hant = 從第九個出口駛出。
 
   [take_the_9_exit_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_9_exit is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -1909,8 +1909,8 @@
     tr = Onuncu çıkıştan çıkın.
     uk = Рухайтесь через десятий з'їзд.
     vi = Đi theo lối ra thứ mười.
-    zh-Hans = 取道第十个出口
-    zh-Hant = 取道第十個出口。
+    zh-Hans = 从第十个出口驶出。
+    zh-Hant = 從第十個出口駛出。
 
   [take_the_10_exit_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_10_exit is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -1961,8 +1961,8 @@
     tr = On birinci çıkıştan çıkın.
     uk = Рухайтесь через одинадцятий з'їзд.
     vi = Đi theo lối ra thứ mười một.
-    zh-Hans = 取道第十一个出口
-    zh-Hant = 取道第十一個出口。
+    zh-Hans = 从第十一个出口驶出。
+    zh-Hant = 從第十一個出口駛出。
 
   [take_the_11_exit_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_11_exit is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -2094,7 +2094,7 @@
     uk = Через двісті футів
     vi = Trong hai trăm feet nữa
     zh-Hans = 前方两百英尺
-    zh-Hant = 前方二百英尺
+    zh-Hant = 前方兩百英尺
 
   [in_300_feet]
     en = In three hundred feet
@@ -2494,7 +2494,7 @@
     uk = Через дві тисячі футів
     vi = Trong hai ngàn feet nữa
     zh-Hans = 前方两千英尺
-    zh-Hant = 前方二千英尺
+    zh-Hant = 前方兩千英尺
 
   [in_2500_feet]
     en = In twenty five hundred feet
@@ -2534,7 +2534,7 @@
     uk = Через дві з половиною тисячі футів
     vi = Trong hai ngàn năm trăm feet nữa
     zh-Hans = 前方两千五百英尺
-    zh-Hant = 前方二千五百英尺
+    zh-Hant = 前方兩千五百英尺
 
   [in_3000_feet]
     en = In three thousand feet
@@ -2894,4 +2894,4 @@
     uk = Попереду камера
     vi = Máy ảnh phía trước
     zh-Hans = 前方有摄像头
-    zh-Hant = 在攝像頭前
+    zh-Hant = 前方有攝影機
