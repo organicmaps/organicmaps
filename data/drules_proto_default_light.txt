@@ -23416,6 +23416,16 @@ cont {
 cont {
   name: "highway-motorway"
   element {
+    scale: 6
+    lines {
+      width: 0.8
+      color: 3019862822
+      priority: 310
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 7
     lines {
       width: 0.9
@@ -23699,6 +23709,16 @@ cont {
 }
 cont {
   name: "highway-motorway-bridge"
+  element {
+    scale: 6
+    lines {
+      width: 0.8
+      color: 3019862822
+      priority: 310
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
   element {
     scale: 7
     lines {
@@ -24079,6 +24099,16 @@ cont {
 }
 cont {
   name: "highway-motorway-tunnel"
+  element {
+    scale: 6
+    lines {
+      width: 0.8
+      color: 3019862822
+      priority: 310
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
   element {
     scale: 7
     lines {
@@ -35184,6 +35214,16 @@ cont {
 cont {
   name: "highway-trunk"
   element {
+    scale: 6
+    lines {
+      width: 0.8
+      color: 3019862822
+      priority: 310
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 7
     lines {
       width: 0.9
@@ -35467,6 +35507,16 @@ cont {
 }
 cont {
   name: "highway-trunk-bridge"
+  element {
+    scale: 6
+    lines {
+      width: 0.8
+      color: 3019862822
+      priority: 310
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
   element {
     scale: 7
     lines {
@@ -35847,6 +35897,16 @@ cont {
 }
 cont {
   name: "highway-trunk-tunnel"
+  element {
+    scale: 6
+    lines {
+      width: 0.8
+      color: 3019862822
+      priority: 310
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
   element {
     scale: 7
     lines {
