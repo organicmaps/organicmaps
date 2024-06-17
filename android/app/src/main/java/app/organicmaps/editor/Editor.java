@@ -96,7 +96,6 @@ public final class Editor
   public static native NamesDataSource nativeGetNamesDataSource();
   public static native void nativeSetNames(@NonNull LocalizedName[] names);
   public static native LocalizedName nativeMakeLocalizedName(String langCode, String name);
-  //public static native Language[] nativeGetSupportedLanguages();
   public static native Language[] nativeGetSupportedLanguages();
   public static native boolean nativeIsServiceLanguage(String lang);
   public static native LocalizedStreet nativeGetStreet();

@@ -296,7 +296,7 @@ Java_app_organicmaps_editor_Editor_nativeGetSupportedLanguages(JNIEnv * env, jcl
 JNIEXPORT jboolean JNICALL
 Java_app_organicmaps_editor_Editor_nativeIsServiceLanguage(JNIEnv * env, jclass clazz, jstring lang)
 {
-    return StringUtf8Multilang::IsServiceLang(jni::ToNativeString(env, lang));
+  return StringUtf8Multilang::IsServiceLang(jni::ToNativeString(env, lang));
 }
 
 JNIEXPORT jstring JNICALL

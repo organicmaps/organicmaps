@@ -1531,7 +1531,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
 
   Allow3dMode(allow3d, allow3dBuildings);
 
-  SetMapLanguageCode(languages::GetCurrentMapLanguageCode());
+  SetMapLanguageCode(GetMapLanguageCode());
 
   LoadViewport();
 
@@ -2355,8 +2355,26 @@ void Framework::SaveTransliteration(bool allowTranslit)
                                              : Transliteration::Mode::Disabled);
 }
 
-void Framework::SetMapLanguageCode(const std::string& languageCode)
+std::string Framework::GetMapLanguageCode()
 {
+  std::string languageCode;
+  if (!settings::Get(settings::kMapLanguageCode, languageCode) || languageCode.empty())
+  {
+    for (auto const & systemLanguage : languages::GetSystemPreferred())
+    {
+      std::string const normalizedLang = languages::Normalize(systemLanguage);
+      if (StringUtf8Multilang::GetLangIndex(normalizedLang) != StringUtf8Multilang::kUnsupportedLanguageCode)
+        return normalizedLang;
+    }
+
+    return "default";
+  }  
+  return languageCode;
+}
+
+void Framework::SetMapLanguageCode(std::string const & languageCode)
+{
+  settings::Set(settings::kMapLanguageCode, languageCode);
   if (m_drapeEngine == nullptr)
     return;
 

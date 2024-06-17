@@ -79,7 +79,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
   private void updateMapLanguageCodeSummary()
   {
     final Preference pref = getPreference(getString(R.string.pref_map_locale));
-    pref.setSummary(String.valueOf(MapLanguageCode.getMapLanguageCode()));
+    pref.setSummary(MapLanguageCode.getMapLanguageCode());
   }
 
   private void updateRoutingSettingsPrefsSummary()

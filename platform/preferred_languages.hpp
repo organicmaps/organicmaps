@@ -1,5 +1,7 @@
 #pragma once
 
+#include "base/buffer_vector.hpp"
+
 #include <string>
 
 namespace languages
@@ -22,6 +24,5 @@ std::string GetCurrentTwine();
 std::string Normalize(std::string_view lang);
 std::string GetCurrentNorm();
 
-std::string GetCurrentMapLanguageCode();
-void SetMapLanguageCode(std::string const &);
+buffer_vector<std::string, 4> const & GetSystemPreferred();
 }  // namespace languages
