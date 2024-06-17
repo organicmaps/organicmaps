@@ -22962,7 +22962,7 @@
     sw = Hamisha KMZ
     th = ส่งออก KMZ
     tr = KMZ'yi Dışa Aktar
-    uk = Експорт КМЗ
+    uk = Експорт KMZ
     vi = Xuất KMZ
     zh-Hans = 导出 KMZ
     zh-Hant = 出口KMZ
