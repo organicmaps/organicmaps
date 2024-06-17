@@ -10,7 +10,7 @@ final class DocumentPicker: NSObject {
     self.completionHandler = completionHandler
     let documentPickerViewController: UIDocumentPickerViewController
     if #available(iOS 14.0, *) {
-      documentPickerViewController = UIDocumentPickerViewController(forOpeningContentTypes: fileTypes.map(\.utType))
+      documentPickerViewController = UIDocumentPickerViewController(forOpeningContentTypes: fileTypes.map(\.utType), asCopy: true)
     } else {
       documentPickerViewController = UIDocumentPickerViewController(documentTypes: fileTypes.map(\.typeIdentifier), in: .import)
     }
