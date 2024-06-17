@@ -39,22 +39,22 @@ railway-tram-bridge                                 # line z16- (also has line::
 railway-tram-tunnel                                 # line z16- (also has line::centerline z16-)
 === 260
 
-highway-motorway                                    # line z7- (also has line(casing) z14-, pathtext z10-, shield::shield z10-)
-highway-motorway-bridge                             # line z7- (also has line::bridgeblack z13-, line::bridgewhite z13-, line(casing) z14-, pathtext z10-, shield::shield z10-)
-highway-motorway-tunnel                             # line z7- (also has line(casing) z12-, pathtext z10-, shield::shield z10-)
-highway-trunk                                       # line z7- (also has line(casing) z14-, pathtext z10-, shield::shield z10-)
-highway-trunk-bridge                                # line z7- (also has line::bridgeblack z13-, line::bridgewhite z13-, line(casing) z14-, pathtext z10-, shield::shield z10-)
-highway-trunk-tunnel                                # line z7- (also has line(casing) z12-, pathtext z10-, shield::shield z10-)
+highway-motorway                                    # line z6- (also has line(casing) z14-, pathtext z10-, shield::shield z10-)
+highway-motorway-bridge                             # line z6- (also has line::bridgeblack z13-, line::bridgewhite z13-, line(casing) z14-, pathtext z10-, shield::shield z10-)
+highway-motorway-tunnel                             # line z6- (also has line(casing) z12-, pathtext z10-, shield::shield z10-)
+highway-trunk                                       # line z6- (also has line(casing) z14-, pathtext z10-, shield::shield z10-)
+highway-trunk-bridge                                # line z6- (also has line::bridgeblack z13-, line::bridgewhite z13-, line(casing) z14-, pathtext z10-, shield::shield z10-)
+highway-trunk-tunnel                                # line z6- (also has line(casing) z12-, pathtext z10-, shield::shield z10-)
 highway-world_level                                 # line z4-9
 highway-world_towns_level                           # line z6-9
 === 250
 
-# highway-motorway                                  # line(casing) z14- (also has line z7-, pathtext z10-, shield::shield z10-)
-# highway-motorway-bridge                           # line(casing) z14- (also has line z7-, line::bridgeblack z13-, line::bridgewhite z13-, pathtext z10-, shield::shield z10-)
-# highway-motorway-tunnel                           # line(casing) z12- (also has line z7-, pathtext z10-, shield::shield z10-)
-# highway-trunk                                     # line(casing) z14- (also has line z7-, pathtext z10-, shield::shield z10-)
-# highway-trunk-bridge                              # line(casing) z14- (also has line z7-, line::bridgeblack z13-, line::bridgewhite z13-, pathtext z10-, shield::shield z10-)
-# highway-trunk-tunnel                              # line(casing) z12- (also has line z7-, pathtext z10-, shield::shield z10-)
+# highway-motorway                                  # line(casing) z14- (also has line z6-, pathtext z10-, shield::shield z10-)
+# highway-motorway-bridge                           # line(casing) z14- (also has line z6-, line::bridgeblack z13-, line::bridgewhite z13-, pathtext z10-, shield::shield z10-)
+# highway-motorway-tunnel                           # line(casing) z12- (also has line z6-, pathtext z10-, shield::shield z10-)
+# highway-trunk                                     # line(casing) z14- (also has line z6-, pathtext z10-, shield::shield z10-)
+# highway-trunk-bridge                              # line(casing) z14- (also has line z6-, line::bridgeblack z13-, line::bridgewhite z13-, pathtext z10-, shield::shield z10-)
+# highway-trunk-tunnel                              # line(casing) z12- (also has line z6-, pathtext z10-, shield::shield z10-)
 # === 249
 
 highway-footway-crossing                            # line z18-
@@ -277,7 +277,7 @@ railway-preserved-bridge                            # line z16- (also has line::
 railway-preserved-tunnel                            # line z16-
 === 120
 
-highway-motorway-bridge::bridgewhite                # line::bridgewhite z13- (also has line z7-, line::bridgeblack z13-, line(casing) z14-, pathtext z10-, shield::shield z10-)
+highway-motorway-bridge::bridgewhite                # line::bridgewhite z13- (also has line z6-, line::bridgeblack z13-, line(casing) z14-, pathtext z10-, shield::shield z10-)
 highway-motorway_link-bridge::bridgewhite           # line::bridgewhite z14- (also has line z10-, line::bridgeblack z14-, line(casing) z14-, pathtext z10-, shield::shield z10-)
 highway-primary-bridge::bridgewhite                 # line::bridgewhite z14- (also has line z8-, line::bridgeblack z14-, line(casing) z14-, pathtext z10-, shield::shield z10-)
 highway-primary_link-bridge::bridgewhite            # line::bridgewhite z14- (also has line z11-, line::bridgeblack z14-, line(casing) z14-, pathtext z11-, shield::shield z11-)
@@ -286,7 +286,7 @@ highway-secondary-bridge::bridgewhite               # line::bridgewhite z14- (al
 highway-secondary_link-bridge::bridgewhite          # line::bridgewhite z14- (also has line z13-, line::bridgeblack z14-, line(casing) z14-, pathtext z16-)
 highway-tertiary-bridge::bridgewhite                # line::bridgewhite z14- (also has line z11-, line::bridgeblack z14-, line(casing) z15-, pathtext z12-, shield::shield z13-)
 highway-tertiary_link-bridge::bridgewhite           # line::bridgewhite z14- (also has line z14-, line::bridgeblack z14-, line(casing) z15-, pathtext z18-)
-highway-trunk-bridge::bridgewhite                   # line::bridgewhite z13- (also has line z7-, line::bridgeblack z13-, line(casing) z14-, pathtext z10-, shield::shield z10-)
+highway-trunk-bridge::bridgewhite                   # line::bridgewhite z13- (also has line z6-, line::bridgeblack z13-, line(casing) z14-, pathtext z10-, shield::shield z10-)
 highway-trunk_link-bridge::bridgewhite              # line::bridgewhite z14- (also has line z10-, line::bridgeblack z14-, line(casing) z14-, pathtext z10-, shield::shield z10-)
 highway-unclassified-bridge::bridgewhite            # line::bridgewhite z14- (also has line z11-, line::bridgeblack z14-, pathtext z14-)
 railway-abandoned-bridge::bridgewhite               # line::bridgewhite z16- (also has line z16-, line::bridgeblack z16-)
@@ -302,7 +302,7 @@ railway-rail-utility-bridge::bridgewhite            # line::bridgewhite z14- (al
 railway-subway-bridge::bridgewhite                  # line::bridgewhite z14- (also has line z13-, line::bridgeblack z16-, line::dash z16-)
 === 110
 
-highway-motorway-bridge::bridgeblack                # line::bridgeblack z13- (also has line z7-, line::bridgewhite z13-, line(casing) z14-, pathtext z10-, shield::shield z10-)
+highway-motorway-bridge::bridgeblack                # line::bridgeblack z13- (also has line z6-, line::bridgewhite z13-, line(casing) z14-, pathtext z10-, shield::shield z10-)
 highway-motorway_link-bridge::bridgeblack           # line::bridgeblack z14- (also has line z10-, line::bridgewhite z14-, line(casing) z14-, pathtext z10-, shield::shield z10-)
 highway-primary-bridge::bridgeblack                 # line::bridgeblack z14- (also has line z8-, line::bridgewhite z14-, line(casing) z14-, pathtext z10-, shield::shield z10-)
 highway-primary_link-bridge::bridgeblack            # line::bridgeblack z14- (also has line z11-, line::bridgewhite z14-, line(casing) z14-, pathtext z11-, shield::shield z11-)
@@ -311,7 +311,7 @@ highway-secondary-bridge::bridgeblack               # line::bridgeblack z14- (al
 highway-secondary_link-bridge::bridgeblack          # line::bridgeblack z14- (also has line z13-, line::bridgewhite z14-, line(casing) z14-, pathtext z16-)
 highway-tertiary-bridge::bridgeblack                # line::bridgeblack z14- (also has line z11-, line::bridgewhite z14-, line(casing) z15-, pathtext z12-, shield::shield z13-)
 highway-tertiary_link-bridge::bridgeblack           # line::bridgeblack z14- (also has line z14-, line::bridgewhite z14-, line(casing) z15-, pathtext z18-)
-highway-trunk-bridge::bridgeblack                   # line::bridgeblack z13- (also has line z7-, line::bridgewhite z13-, line(casing) z14-, pathtext z10-, shield::shield z10-)
+highway-trunk-bridge::bridgeblack                   # line::bridgeblack z13- (also has line z6-, line::bridgewhite z13-, line(casing) z14-, pathtext z10-, shield::shield z10-)
 highway-trunk_link-bridge::bridgeblack              # line::bridgeblack z14- (also has line z10-, line::bridgewhite z14-, line(casing) z14-, pathtext z10-, shield::shield z10-)
 highway-unclassified-bridge::bridgeblack            # line::bridgeblack z14- (also has line z11-, line::bridgewhite z14-, pathtext z14-)
 railway-abandoned-bridge::bridgeblack               # line::bridgeblack z16- (also has line z16-, line::bridgewhite z16-)
