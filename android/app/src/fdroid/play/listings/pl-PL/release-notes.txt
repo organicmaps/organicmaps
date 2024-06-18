@@ -1,9 +1,8 @@
-• Sort bookmarks and tracks by name
-• Transitioned to the new OpenStreetMap authentication mechanism — all authenticated OSM users must re-login
-• OpenStreetMap data as of April 29
-• Difficult hiking trails are now brown-dotted, expert ones are black
-• Dark blue lines for dedicated cycleways, mixed with white/brown dashes for shared foot/cycle paths
-• Roads are now visible under semi-transparent bridges
-• Fixed GPX import from Google Files app
+• dane OpenStreetMap z 28 maja
+• wyszukiwanie kodów pocztowych w USA i Wielkiej Brytanii
+• zapowiadanie nazw ulic w komunikatach nawigacji (proszę włączyć w ustawieniach), autor Will Bradley
+• eksport zakładek i śladów do pliku w formacie GPX
+• zapis zakładek i śladów do lokalnej pamięci urządzenia
+• dodawanie, edycja i wyświetlanie linków do menu restauracji, barów i pozostałej gastronomii
 
-…more details at omaps.org/news
+…więcej szczegółów na omaps.org/pl/news/

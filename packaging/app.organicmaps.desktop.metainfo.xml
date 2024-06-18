@@ -111,6 +111,26 @@
   </screenshots>
 
   <releases>
+   <release version="2024.06.02-12" date="2024-06-02">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OpenStreetMap data as of May 28, 2024</li>
+           <li>Search for US zip codes and UK (GB) postcodes</li>
+           <li>Fix missing addresses in fitness centers details</li>
+           <li>Add "pastry" and "cakes" search keywords</li>
+           <li>Fix Wikipedia links that contain a question mark</li>
+         </ul>
+       <p>Linux Desktop:</p>
+         <ul>
+           <li>Improve selected place details dialog</li>
+         </ul>
+       <p>Translation updates:</p>
+         <ul>
+           <li>Updated Czech, German, Portuguese translations</li>
+         </ul>
+     </description>
+   </release>
    <release version="2024.05.11-3" date="2024-05-11">
      <description>
        <p>Highlights:</p>
