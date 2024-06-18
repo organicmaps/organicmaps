@@ -117,9 +117,12 @@ MainWindow::MainWindow(Framework & framework,
     };
   }
 
+  CreateSearchBarAndPanel();
+  CreatePlaceBarAndPanel();
+
   int const width = m_screenshotMode ? static_cast<int>(screenshotParams->m_width) : 0;
   int const height = m_screenshotMode ? static_cast<int>(screenshotParams->m_height) : 0;
-  m_pDrawWidget = new DrawWidget(framework, std::move(screenshotParams), this);
+  m_pDrawWidget = new DrawWidget(framework, std::move(screenshotParams), placePanel, this);
 
   QList<Qt::GestureType> gestures;
   gestures << Qt::PinchGesture;
@@ -667,6 +670,8 @@ void MainWindow::OnPreferences()
   dlg.exec();
 
   framework.EnterForeground();
+
+  m_pDrawWidget->UpdatePlace();
 }
 
 #ifdef BUILD_DESIGNER
@@ -831,6 +836,17 @@ void MainWindow::CreateSearchBarAndPanel()
 
   SearchPanel * panel = new SearchPanel(m_pDrawWidget, m_Docks[0]);
   m_Docks[0]->setWidget(panel);
+}
+
+void MainWindow::CreatePlaceBarAndPanel()
+{
+  CreatePanelImpl(1, Qt::LeftDockWidgetArea, tr("Place Information Page"), QKeySequence(), 0);  
+
+  placePanel = new PlacePanel(m_Docks[1]);
+  m_Docks[1]->setWidget(placePanel);
+
+  connect(placePanel, &PlacePanel::showPlace, m_Docks[1], &QDockWidget::show);
+  connect(placePanel, &PlacePanel::hidePlace, m_Docks[1], &QDockWidget::hide);
 }
 
 void MainWindow::CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString const & name,
