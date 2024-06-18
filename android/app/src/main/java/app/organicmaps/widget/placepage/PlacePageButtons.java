@@ -28,6 +28,7 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
   private int mMaxButtons;
 
   private PlacePageButtonClickListener mItemListener;
+  private PlacePageButtonLongClickListener mItemLongClickListener;
   private ViewGroup mButtonsContainer;
   private PlacePageViewModel mViewModel;
 
@@ -52,6 +53,7 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
 
     Fragment parentFragment = getParentFragment();
     mItemListener = (PlacePageButtonClickListener) parentFragment;
+    mItemLongClickListener = (PlacePageButtonLongClickListener) parentFragment;
 
     createButtons(mViewModel.getCurrentButtons().getValue());
   }
@@ -121,6 +123,10 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
       else
         mItemListener.onPlacePageButtonClick(current.getType());
     });
+    parent.setOnLongClickListener((view) -> {
+        mItemLongClickListener.onPlacePageButtonLongClick(current.getType());
+        return true;
+    });
     return parent;
   }
 
@@ -148,5 +154,10 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
   public interface PlacePageButtonClickListener
   {
     void onPlacePageButtonClick(ButtonType item);
+  }
+
+  public interface PlacePageButtonLongClickListener
+  {
+    void onPlacePageButtonLongClick(ButtonType item);
   }
 }
