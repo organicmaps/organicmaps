@@ -12,6 +12,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.view.KeyEvent;
@@ -209,12 +210,27 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @NonNull
   private ActivityResultLauncher<IntentSenderRequest> mLocationResolutionRequest;
 
+  public enum UnrestrictedBatteryPermissionRequestedBy
+  {
+    NAVIGATION
+  }
+  @Nullable
+  UnrestrictedBatteryPermissionRequestedBy mUnrestrictedBatteryPermissionRequestedBy;
+
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private ActivityResultLauncher<Intent> mUnrestrictedBatteryPermission;
+
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private DisplayManager mDisplayManager;
 
   private boolean mRemoveDisplayListener = true;
   private int mLastUiMode = Configuration.UI_MODE_TYPE_UNDEFINED;
+
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private PowerManager mPowerManager;
 
   public interface LeftAnimationTrackListener
   {
@@ -516,6 +532,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
         this::onLocationResolutionResult);
     mPostNotificationPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestPermission(),
         this::onPostNotificationPermissionResult);
+    mUnrestrictedBatteryPermission = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+        this::onUnrestrictedBatteryPermissionResult);
 
     mDisplayManager = DisplayManager.from(this);
     if (mDisplayManager.isCarDisplayUsed())
@@ -534,6 +552,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (getIntent().getBooleanExtra(EXTRA_UPDATE_THEME, false))
       ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
+
+    mPowerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+    if (mPowerManager == null)
+      throw new IllegalStateException("Can't get POWER_SERVICE");
 
     /*
      * onRenderingInitializationFinished() hook is not called when MwmActivity is recreated with the already
@@ -1141,6 +1163,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mLocationResolutionRequest = null;
     mPostNotificationPermissionRequest.unregister();
     mPostNotificationPermissionRequest = null;
+    mUnrestrictedBatteryPermission.unregister();
+    mUnrestrictedBatteryPermission = null;
     if (mRemoveDisplayListener && !isChangingConfigurations())
       mDisplayManager.removeListener(DisplayType.Device);
   }
@@ -1908,6 +1932,25 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Logger.w(TAG, "Permission POST_NOTIFICATIONS has been refused");
   }
 
+  private void onUnrestrictedBatteryPermissionResult(ActivityResult result)
+  {
+    if (result.getResultCode() == Activity.RESULT_OK)
+      Logger.i(TAG, "A request to disable battery optimization has been approved");
+    else
+      Logger.w(TAG, "A request to disable battery optimization has been refused");
+
+    if (mUnrestrictedBatteryPermissionRequestedBy == null)
+      return;
+    Config.setNeedToRequestUnrestrictedBatteryPermission(mUnrestrictedBatteryPermissionRequestedBy, false);
+    switch (mUnrestrictedBatteryPermissionRequestedBy)
+    {
+    case NAVIGATION:
+      mUnrestrictedBatteryPermissionRequestedBy = null;
+      onRoutingStart();
+      break;
+    }
+  }
+
   /**
    * Called by GoogleFusedLocationProvider to request to GPS and/or Wi-Fi.
    * @param pendingIntent an intent to launch.
@@ -2004,6 +2047,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onRoutingStart()
   {
+    if (!requestUnrestrictedBatteryPermission(UnrestrictedBatteryPermissionRequestedBy.NAVIGATION))
+      return;
+
     if (!showStartPointNotice())
       return;
 
@@ -2012,6 +2058,47 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     closeFloatingPanels();
     RoutingController.get().start();
+  }
+
+  public boolean requestUnrestrictedBatteryPermission(UnrestrictedBatteryPermissionRequestedBy requestedBy)
+  {
+    if (!mPowerManager.isPowerSaveMode())
+    {
+      Logger.d(TAG, "Battery Saver is OFF");
+      return true;
+    }
+
+    Logger.i(TAG, "Battery Saver is ON");
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+    {
+      Logger.d(TAG, "No known way to disable Batter Saver on API<23");
+      return true;
+    }
+
+    if (mPowerManager.isIgnoringBatteryOptimizations(getPackageName()))
+    {
+      Logger.d(TAG, "App Battery Optimizations are OFF");
+      return true;
+    }
+
+    Logger.i(TAG, "App Battery Optimizations are ON");
+    if (!Config.isNeedToRequestUnrestrictedBatteryPermission(requestedBy))
+    {
+      Logger.i(TAG, "The user has already seen the App Battery Optimizations dialog");
+      return true;
+    }
+
+    final Intent intent = Utils.makeAppBatteryOptimizationIntent(this);
+    if (intent == null)
+    {
+      Logger.i(TAG, "No known way to disable the App Battery Optimizations on this device");
+      return true;
+    }
+
+    Logger.d(TAG, "Launching " + intent.getAction());
+    mUnrestrictedBatteryPermissionRequestedBy = requestedBy;
+    mUnrestrictedBatteryPermission.launch(intent);
+    return false;
   }
 
   @Override

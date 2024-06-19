@@ -32,6 +32,7 @@ import androidx.annotation.DimenRes;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.core.app.NavUtils;
 import androidx.core.os.BundleCompat;
@@ -161,6 +162,18 @@ public class Utils
     intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
     Uri uri = Uri.fromParts("package", context.getPackageName(), null);
     intent.setData(uri);
+    if (isIntentSupported(context, intent))
+      return intent;
+    return null;
+  }
+
+  @SuppressLint("BatteryLife")
+  @RequiresApi(api = Build.VERSION_CODES.M)
+  public static @Nullable Intent makeAppBatteryOptimizationIntent(@NonNull Context context)
+  {
+    Intent intent = new Intent();
+    intent.setData(Uri.parse("package:" + context.getPackageName()));
+    intent.setAction(android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
     if (isIntentSupported(context, intent))
       return intent;
     return null;
