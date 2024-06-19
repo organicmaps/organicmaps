@@ -114,6 +114,9 @@ class PlacePageInfoViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    setupViews()
+  }
+
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     delegate?.viewWillAppear()
@@ -342,11 +345,6 @@ class PlacePageInfoViewController: UIViewController {
       coordinatesView?.accessoryImage.image = UIImage(named: "ic_placepage_change")
       coordinatesView?.accessoryImage.isHidden = false
     }
-  }
-
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    delegate?.viewWillAppear()
   }
 
   // MARK: private
