@@ -1,4 +1,4 @@
-• OpenStreetMap-data van 28 mei
+• OpenStreetMap-data van 13 juni
 • zoeken naar postcodes in de VS en het VK
 • straatnamen worden aangekondigd tijdens het navigeren met spraakinstructies (in te schakelen in de instellingen), dank aan Will Bradley voor deze feature
 • exporteren van bladwijzers en tracks in GPX-bestandsformaat

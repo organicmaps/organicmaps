@@ -1,4 +1,4 @@
-• OpenStreetMap data as of May 28
+• OpenStreetMap data as of June 13
 • search for US zip codes and UK (GB) postcodes
 • street name announcements in verbal TTS turn instructions (please enable it in settings), thanks to Will Bradley
 • export bookmarks and tracks in GPX file format

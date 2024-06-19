@@ -3,7 +3,7 @@
 • możliwość używania mapy przy podłączonym CarPlay
 • wyszukiwanie kodów pocztowych w USA i Wielkiej Brytanii
 • eksport zakładek i śladów do pliku w formacie GPX
-• nowe dane OpenStreetMap z 28 maja
+• nowe dane OpenStreetMap z 13 czerwca
 • dodawanie, edycja i wyświetlanie linków do menu restauracji, barów i pozostałej gastronomii
 • poprawione brakujące adresy w szczegółach centrów fitness
 • poprawione linki do Wikipedii zawierające znak zapytania

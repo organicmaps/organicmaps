@@ -1,4 +1,4 @@
-• Données OpenStreetMap en date du 28 mai
+• Données OpenStreetMap en date du 13 juin
 • recherche de codes postaux américains et britanniques (GB)
 • annonce des noms de rue dans les instructions verbales de changement de direction (veuillez l'activer dans les paramètres)
 • exporter les signets et les traces au format GPX et les enregistrer localement

@@ -1,4 +1,4 @@
-• Dados do OpenStreetMap de 28 de maio
+• Dados do OpenStreetMap de 13 de junho
 • Pesquisa de códigos postais dos EUA e do Reino Unido
 • Anúncios de nomes de ruas em instruções verbais TTS (ative-o nas configurações), graças a Will Bradley
 • Exporta favoritos e trilhos em formato GPX
