@@ -1,9 +1,10 @@
+• fix app freeze when a bookmark in a list with a long name is selected
+• new OpenStreetMap data as of June 13
 • iCloud bookmarks and tracks synchronization (EXPERIMENTAL, please enable it in settings)
 • street name announcements in verbal TTS turn instructions (EXPERIMENTAL, please enable it in settings) 
 • use the map when CarPlay is connected
 • search for US zip codes and UK (GB) postcodes
 • export bookmarks and tracks in GPX file format
-• new OpenStreetMap data as of May 28
 • add, edit, and display web links to menus of restaurants, bars, and food services
 • fix missing addresses in fitness centers details
 • add "pastry" and "cakes" search keywords

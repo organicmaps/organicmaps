@@ -1,4 +1,4 @@
-• OpenStreetMap-Daten, Stand: 28. Mai
+• OpenStreetMap-Daten, Stand: 13. Juni
 • Suche nach US-Postleitzahlen und UK (GB)-Postleitzahlen
 • Ansagen von Straßennamen in verbalen TTS-Abbiegeanweisungen (bitte in den Einstellungen aktivieren)
 • Lesezeichen und Tracks im GPX-Dateiformat exportieren

@@ -1,9 +1,10 @@
+• neue OpenStreetMap-Daten ab dem 13. Juni
+• Behebung des Einfrierens der App, wenn ein Lesezeichen in einer Liste mit einem langen Namen ausgewählt wird
 • Synchronisierung von iCloud-Lesezeichen und -Titeln (EXPERIMENTAL, bitte in den Einstellungen aktivieren)
 • Ansagen von Straßennamen in verbalen TTS-Abbiegeanweisungen (EXPERIMENTAL, bitte in den Einstellungen aktivieren) 
 • Verwendung der Karte, wenn CarPlay verbunden ist
 • Suche nach US-Postleitzahlen und UK (GB)-Postleitzahlen
 • Lesezeichen und Tracks im GPX-Dateiformat exportieren
-• neue OpenStreetMap-Daten ab dem 28. Mai
 • Hinzufügen, Bearbeiten und Anzeigen von Weblinks zu Speisekarten von Restaurants, Bars und Lebensmitteldiensten
 • fehlende Adressen in den Details von Fitnessstudios korrigiert
 • Hinzufügen von "Gebäck" und "Kuchen" als Suchbegriffe

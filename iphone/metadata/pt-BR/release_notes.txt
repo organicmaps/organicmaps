@@ -1,4 +1,4 @@
-• Novos dados OpenStreetMap de 28 de maio
+• Novos dados OpenStreetMap de 13 de junho
 • Backup do iCloud para favoritos e trilhas (EXPERIMENTAL, habilite-o nas configurações)
 • Anúncios de nomes de ruas em instruções verbais TTS (EXPERIMENTAL, ative-o nas configurações)
 • Use o mapa quando o CarPlay estiver conectado

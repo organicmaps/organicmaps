@@ -1,4 +1,4 @@
-• dane OpenStreetMap z 28 maja
+• dane OpenStreetMap z 13 czerwca
 • wyszukiwanie kodów pocztowych w USA i Wielkiej Brytanii
 • zapowiadanie nazw ulic w komunikatach nawigacji (proszę włączyć w ustawieniach), autor Will Bradley
 • eksport zakładek i śladów do pliku w formacie GPX
