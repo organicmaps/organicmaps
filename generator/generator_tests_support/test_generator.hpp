@@ -55,7 +55,7 @@ public:
   std::string GetMwmPath(std::string const & mwmName) const;
   std::string GetCitiesBoundariesPath() const;
 
-  feature::GenerateInfo const & GetGenInfo() const { return m_genInfo; }
+  feature::GenerateInfo & GetGenInfo() { return m_genInfo; }
   bool IsWorld(std::string const & mwmName) const;
 
   static char const * kWikidataFilename;

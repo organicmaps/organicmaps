@@ -132,6 +132,7 @@ class StageFeatures(Stage):
             extra.update({"emit_coasts": True})
         if is_accepted(env, StageIsolinesInfo):
             extra.update({"isolines_path": PathProvider.isolines_path()})
+        extra.update({"addresses_path": PathProvider.addresses_path()})
 
         steps.step_features(env, **extra)
         if os.path.exists(env.paths.packed_polygons_path):

@@ -3,10 +3,12 @@
 #include "processor.hpp"
 #include "tiger_parser.hpp"
 
-#include "base/file_name_utils.hpp"
+#include "generator/generator_tests_support/test_generator.hpp"
 
 #include <fstream>
 
+namespace addr_parser_tests
+{
 
 UNIT_TEST(TigerParser_Smoke)
 {
@@ -49,7 +51,8 @@ UNIT_TEST(TigerParser_Smoke)
 UNIT_TEST(Processor_Smoke)
 {
   std::string const kTestFileName = "temp.txt";
-  std::string outPath = "./";
+  std::string const outPath = "./addrs";
+  CHECK(Platform::MkDirChecked(outPath), ());
 
   {
     std::ofstream of(kTestFileName);
@@ -71,6 +74,58 @@ UNIT_TEST(Processor_Smoke)
   TEST_EQUAL(files.size(), 4, ());
 
   CHECK(base::DeleteFileX(kTestFileName), ());
-  for (auto const & f : files)
-    CHECK(base::DeleteFileX(base::JoinPath(outPath, f)), ());
+  CHECK(Platform::RmDirRecursively(outPath), ());
 }
+
+using TestRawGenerator = generator::tests_support::TestRawGenerator;
+
+UNIT_CLASS_TEST(TestRawGenerator, Processor_Generator)
+{
+  std::string const outPath = "./addrs";
+  CHECK(Platform::MkDirChecked(outPath), ());
+
+  // Prepare tmp address files.
+  std::string mwmName;
+  {
+    std::stringstream ss;
+    ss << "698;600;all;Boston St;Berkeley;WV;25401;LINESTRING(-77.970484 39.464604,-77.970540 39.464630)" << std::endl
+       << "798;700;all;Boston St;Berkeley;WV;25401;LINESTRING(-77.968929 39.463906,-77.969118 39.463990,-77.969427 39.464129,-77.969946 39.464353,-77.970027 39.464389)" << std::endl;
+
+    addr_generator::Processor processor("./data" /* dataPath */, outPath, 1 /* numThreads */);
+    processor.Run(ss);
+
+    Platform::FilesList files;
+    Platform::GetFilesByExt(outPath, TEMP_ADDR_EXTENSION, files);
+    TEST_EQUAL(files.size(), 1, ());
+
+    mwmName = std::move(files.front());
+    base::GetNameWithoutExt(mwmName);
+  }
+
+  // Build mwm.
+  GetGenInfo().m_addressesDir = outPath;
+
+  uint32_t const addrInterpolType = classif().GetTypeByPath({"addr:interpolation"});
+  uint32_t const addrNodeType = classif().GetTypeByPath({"building", "address"});
+
+  BuildFB("./data/osm_test_data/us_tiger_1.osm", mwmName, false /* makeWorld */);
+
+  size_t addrInterpolCount = 0, addrNodeCount = 0;
+  ForEachFB(mwmName, [&](feature::FeatureBuilder const & fb)
+  {
+    if (fb.HasType(addrInterpolType))
+      ++addrInterpolCount;
+    if (fb.HasType(addrNodeType))
+      ++addrNodeCount;
+  });
+
+  TEST_EQUAL(addrInterpolCount, 1, ());
+  TEST_EQUAL(addrNodeCount, 3, ());
+
+  BuildFeatures(mwmName);
+
+  // Cleanup.
+  CHECK(Platform::RmDirRecursively(outPath), ());
+}
+
+} // namespace addr_parser_tests

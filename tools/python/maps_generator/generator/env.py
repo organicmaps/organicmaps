@@ -348,6 +348,10 @@ class PathProvider:
         return settings.ISOLINES_PATH
 
     @staticmethod
+    def addresses_path() -> AnyStr:
+        return settings.ADDRESSES_PATH
+
+    @staticmethod
     def borders_path() -> AnyStr:
         return os.path.join(settings.USER_RESOURCE_PATH, "borders")
 
