@@ -1,5 +1,5 @@
 {
-"make_a_slight_right_turn":"Mantendu eskuinera.",
+"make_a_slight_right_turn":"Mantendu eskuinean.",
 "make_a_slight_right_turn_street":"NULL",
 "make_a_slight_right_turn_street_verb":"NULL",
 "make_a_right_turn":"Biratu eskuinera.",
@@ -19,13 +19,13 @@
 "make_a_left_turn_street":"NULL",
 "make_a_sharp_left_turn":"Eman bira itxia ezkerrera.",
 "make_a_sharp_left_turn_street":"NULL",
-"make_a_u_turn":"Norabidea aldaketa egin.",
+"make_a_u_turn":"Norabidea aldatu.",
 "make_a_u_turn_street":"NULL",
 "make_a_u_turn_street_verb":"NULL",
 "go_straight":"Zuzen jarraitu.",
 "exit":"Irteera.",
 "onto":"NULL",
-"take_exit_number":"Irteera",
+"take_exit_number":"Irten",
 "take_exit_number_street_verb":"NULL",
 "destination":"Zure helmugara iritsiko zara.",
 "you_have_reached_the_destination":"Helmugara iritsi zara.",
@@ -103,5 +103,5 @@
 "in_1_mile":"Milia batera",
 "in_1_5_miles":"Milia eta erdira",
 "in_2_miles":"Bi milietara",
-"unknown_camera":"Kamera aurrera"
+"unknown_camera":"Kamera aurrean"
 }
