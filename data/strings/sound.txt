@@ -10,7 +10,7 @@
     de = Halten Sie sich rechts.
     el = Μείνετε δεξιά.
     es = Manténgase a la derecha.
-    eu = Mantendu eskuinera.
+    eu = Mantendu eskuinean.
     fa = با زاویه کم به راست گردش کنید.
     fi = Pysy oikealla.
     fr = Serrez à droite.
@@ -390,7 +390,7 @@
     de = Wenden Sie.
     el = Κάντε στροφή 180 μοιρών.
     es = Cambie de sentido.
-    eu = Norabidea aldaketa egin.
+    eu = Norabidea aldatu.
     fa = دور بزنید.
     fi = Tee U-käännös.
     fr = Faites demi-tour.
@@ -560,7 +560,7 @@
     de = Nehmen Sie die Ausfahrt auf
     el = Εξοδος στην
     es = Tome la salida
-    eu = Irteera
+    eu = Irten
     fa = خروجﺐﻫ
     fi = Poistu tielle
     fr = Sortie sur
@@ -2867,7 +2867,7 @@
     el = Κάμερα παρακάτω
     es = Cámara adelante
     es-MX = Cámara próxima
-    eu = Kamera aurrera
+    eu = Kamera aurrean
     fa = دوربین کنترل سرعت در نزدیکی
     fi = Edessä on kamera
     fr = Caméra devant
