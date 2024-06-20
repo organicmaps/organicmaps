@@ -58,10 +58,8 @@
 
 #include "3party/open-location-code/openlocationcode.h"
 
-#include <cstdint>
 #include <memory>
 #include <string>
-#include <utility>
 #include <vector>
 
 #include <android/api-level.h>
