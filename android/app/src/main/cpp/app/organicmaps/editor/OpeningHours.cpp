@@ -4,15 +4,16 @@
 #include "app/organicmaps/platform/AndroidPlatform.hpp"
 
 #include "editor/opening_hours_ui.hpp"
-
 #include "editor/ui2oh.hpp"
 
 #include "base/logging.hpp"
+
+#include "3party/opening_hours/opening_hours.hpp"
+
 #include <algorithm>
 #include <set>
-
 #include <vector>
-#include "3party/opening_hours/opening_hours.hpp"
+
 
 namespace
 {
@@ -165,8 +166,7 @@ TimeTableSet NativeTimetableSet(JNIEnv * env, jobjectArray jTimetables)
 {
   TimeTableSet tts;
   int const size = env->GetArrayLength(jTimetables);
-  jobject const timetable = env->GetObjectArrayElement(jTimetables, 0);
-  tts.Replace(NativeTimetable(env, timetable), 0);
+  tts.Replace(NativeTimetable(env, env->GetObjectArrayElement(jTimetables, 0)), 0);
 
   for (int i = 1; i < size; i++)
   {
@@ -232,9 +232,9 @@ Java_app_organicmaps_editor_OpeningHours_nativeGetComplementTimetable(JNIEnv * e
   return JavaTimetable(env, tts.GetComplementTimeTable());
 }
 
-JNIEXPORT jobject JNICALL
+JNIEXPORT jobjectArray JNICALL
 Java_app_organicmaps_editor_OpeningHours_nativeRemoveWorkingDay(JNIEnv * env, jclass clazz,
-                                                                    jobjectArray timetables, jint ttIndex, jint dayIndex)
+                                                                jobjectArray timetables, jint ttIndex, jint dayIndex)
 {
   TimeTableSet tts = NativeTimetableSet(env, timetables);
   auto tt = tts.Get(ttIndex);
@@ -243,9 +243,9 @@ Java_app_organicmaps_editor_OpeningHours_nativeRemoveWorkingDay(JNIEnv * env, jc
   return JavaTimetables(env, tts);
 }
 
-JNIEXPORT jobject JNICALL
+JNIEXPORT jobjectArray JNICALL
 Java_app_organicmaps_editor_OpeningHours_nativeAddWorkingDay(JNIEnv * env, jclass clazz,
-                                                                 jobjectArray timetables, jint ttIndex, jint dayIndex)
+                                                             jobjectArray timetables, jint ttIndex, jint dayIndex)
 {
   TimeTableSet tts = NativeTimetableSet(env, timetables);
   auto tt = tts.Get(ttIndex);
@@ -256,7 +256,7 @@ Java_app_organicmaps_editor_OpeningHours_nativeAddWorkingDay(JNIEnv * env, jclas
 
 JNIEXPORT jobject JNICALL
 Java_app_organicmaps_editor_OpeningHours_nativeSetIsFullday(JNIEnv * env, jclass clazz,
-                                                                jobject jTimetable, jboolean jIsFullday)
+                                                            jobject jTimetable, jboolean jIsFullday)
 {
   TimeTable tt = NativeTimetable(env, jTimetable);
   if (jIsFullday)
@@ -271,7 +271,7 @@ Java_app_organicmaps_editor_OpeningHours_nativeSetIsFullday(JNIEnv * env, jclass
 
 JNIEXPORT jobject JNICALL
 Java_app_organicmaps_editor_OpeningHours_nativeSetOpeningTime(JNIEnv * env, jclass clazz,
-                                                                  jobject jTimetable, jobject jOpeningTime)
+                                                              jobject jTimetable, jobject jOpeningTime)
 {
   TimeTable tt = NativeTimetable(env, jTimetable);
   tt.SetOpeningTime(NativeTimespan(env, jOpeningTime));
@@ -280,7 +280,7 @@ Java_app_organicmaps_editor_OpeningHours_nativeSetOpeningTime(JNIEnv * env, jcla
 
 JNIEXPORT jobject JNICALL
 Java_app_organicmaps_editor_OpeningHours_nativeAddClosedSpan(JNIEnv * env, jclass clazz,
-                                                                 jobject jTimetable, jobject jClosedSpan)
+                                                             jobject jTimetable, jobject jClosedSpan)
 {
   TimeTable tt = NativeTimetable(env, jTimetable);
   tt.AddExcludeTime(NativeTimespan(env, jClosedSpan));
@@ -289,7 +289,7 @@ Java_app_organicmaps_editor_OpeningHours_nativeAddClosedSpan(JNIEnv * env, jclas
 
 JNIEXPORT jobject JNICALL
 Java_app_organicmaps_editor_OpeningHours_nativeRemoveClosedSpan(JNIEnv * env, jclass clazz,
-                                                                    jobject jTimetable, jint jClosedSpanIndex)
+                                                                jobject jTimetable, jint jClosedSpanIndex)
 {
   TimeTable tt = NativeTimetable(env, jTimetable);
   tt.RemoveExcludeTime(static_cast<size_t>(jClosedSpanIndex));

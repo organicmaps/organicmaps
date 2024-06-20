@@ -21,7 +21,6 @@
 #include "defines.hpp"
 
 #include <chrono>
-#include <cstdint>
 #include <memory>
 #include <vector>
 
@@ -144,7 +143,7 @@ jobjectArray BuildSearchResults(vector<search::ProductInfo> const & productInfo,
   return jResults;
 }
 
-void OnResults(Results results, vector<search::ProductInfo> productInfo,
+void OnResults(Results results, vector<search::ProductInfo> const & productInfo,
                jlong timestamp, bool isMapAndTable, bool hasPosition, double lat, double lon)
 {
   // Ignore results from obsolete searches.
