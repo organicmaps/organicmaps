@@ -2248,4 +2248,5 @@
     <string name="chose_language">Select a language</string>
     <string name="retry">Try again</string>
     <string name="no_network">Couldn\'t reach the server, please check connection</string>
+  <string name="no_image">No image</string>
 </resources>

@@ -1,9 +1,8 @@
 package app.tourism.ui.common.nav
 
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,15 +17,14 @@ fun BackButton(
     onBackClick: () -> Boolean,
     tint: Color = MaterialTheme.colorScheme.onBackground
 ) {
-    IconButton(
-        modifier = Modifier.padding(12.dp).then(modifier),
-        onClick = { onBackClick() }
-    ) {
-        Icon(
-            modifier = Modifier.size(28.dp),
-            painter = painterResource(id = R.drawable.back),
-            tint = tint,
-            contentDescription = null
-        )
-    }
+    Icon(
+        modifier = modifier
+            .size(24.dp)
+            .clickable { onBackClick() }
+            .then(modifier),
+        painter = painterResource(id = R.drawable.back),
+        tint = tint,
+        contentDescription = null
+    )
+
 }

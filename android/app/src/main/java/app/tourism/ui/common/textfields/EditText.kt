@@ -4,7 +4,6 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.animation.core.animateOffsetAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -21,7 +20,6 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -47,7 +45,8 @@ enum class EtState { Focused, Unfocused, Error }
 
 @Composable
 fun EditText(
-    value: MutableState<String>,
+    value: String,
+    onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     hint: String = "",
     hintColor: Color = Color.Gray,
@@ -73,7 +72,7 @@ fun EditText(
 ) {
     var etState by remember { mutableStateOf(EtState.Unfocused) }
 
-    val hintCondition = etState == EtState.Unfocused && value.value.isEmpty()
+    val hintCondition = etState == EtState.Unfocused && value.isEmpty()
     val hintOffset by animateOffsetAsState(
         targetValue = if (hintCondition) Offset(0f, 0f)
         else Offset(0f, -(hintFontSizeInt * 1.3f))
@@ -91,9 +90,9 @@ fun EditText(
                     etState = if (it.hasFocus) EtState.Focused else EtState.Unfocused
                 }
                 .fillMaxWidth(),
-            value = value.value,
+            value = value,
             onValueChange = {
-                value.value = it
+                onValueChange(it)
                 etState = if (isError()) EtState.Error else EtState.Focused
             },
             cursorBrush = cursorBrush,

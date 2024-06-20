@@ -5,18 +5,19 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import app.tourism.ui.theme.TextStyles
 
 @Composable
 fun AuthEditText(
-    value: MutableState<String>,
+    value: String,
+    onValueChange: (String) -> Unit,
     hint: String = "",
     isError: () -> Boolean = { false },
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
@@ -27,6 +28,7 @@ fun AuthEditText(
 ) {
     EditText(
         value = value,
+        onValueChange = onValueChange,
         hint = hint,
         hintColor = Color.White,
         isError = isError,
@@ -34,7 +36,8 @@ fun AuthEditText(
         textFieldPadding = PaddingValues(vertical = 8.dp),
         hintFontSizeInt = 16,
         textSize = 16.sp,
-        textStyle = TextStyles.h3.copy(
+        textStyle = TextStyle(
+            fontWeight = FontWeight.W900,
             textAlign = TextAlign.Start,
             color = Color.White,
         ),

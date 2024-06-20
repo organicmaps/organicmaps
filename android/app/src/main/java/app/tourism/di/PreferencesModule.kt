@@ -11,7 +11,8 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DataModule {
+object PreferencesModule {
+
     @Provides
     @Singleton
     fun provideUserPreferences(

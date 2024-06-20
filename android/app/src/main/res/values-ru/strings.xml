@@ -2197,7 +2197,6 @@
 	<string name="personal_data">Персональные данные</string>
 	<string name="language">Язык</string>
 	<string name="current_language">Русский</string>
-	<string name="system_theme">Системная тема</string>
 	<string name="dark_theme">Темная тема</string>
 	<string name="light_theme">Светлая тема</string>
 	<string name="sign_out">Выход</string>
@@ -2206,8 +2205,7 @@
 	<string name="update_data">Изменить данные</string>
 	<string name="phone">Номер телефона</string>
 	<string name="chose_language">Выберите язык</string>
-	<string name="russian">Русский</string>
-	<string name="english">English</string>
 	<string name="retry">Попробовать заново</string>
 	<string name="no_network">Не удается соединиться с сервером, проверьте интернет подключение</string>
+  <string name="no_image">Нет изображения</string>
 </resources>

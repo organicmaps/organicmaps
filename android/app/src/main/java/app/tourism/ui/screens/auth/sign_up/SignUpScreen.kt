@@ -13,45 +13,59 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.hilt.navigation.compose.hiltViewModel
 import app.organicmaps.R
 import app.tourism.Constants
+import app.tourism.ui.ObserveAsEvents
 import app.tourism.ui.common.BlurryContainer
 import app.tourism.ui.common.VerticalSpace
 import app.tourism.ui.common.buttons.PrimaryButton
 import app.tourism.ui.common.nav.BackButton
 import app.tourism.ui.common.textfields.AuthEditText
+import app.tourism.ui.screens.auth.navigateToMainActivity
 import app.tourism.ui.theme.TextStyles
+import app.tourism.ui.utils.showToast
 import com.hbb20.CountryCodePicker
 
 @Composable
 fun SignUpScreen(
-    onSignUpClicked: () -> Unit,
+    onSignUpComplete: () -> Unit,
     onBackClick: () -> Boolean,
+    vm: SignUpViewModel = hiltViewModel(),
 ) {
+    val context = LocalContext.current
     val focusManager = LocalFocusManager.current
 
-    val fullName = remember { mutableStateOf("") }
-    var countryNameCode by remember { mutableStateOf("") }
-    val username = remember { mutableStateOf("") }
-    val password = remember { mutableStateOf("") }
-    val confirmPassword = remember { mutableStateOf("") }
+    val registrationData = vm.registrationData.collectAsState().value
+    val fullName = registrationData?.fullName
+    var countryNameCode = registrationData?.country
+    val username = registrationData?.username
+    val password = registrationData?.password
+    val confirmPassword = registrationData?.passwordConfirmation
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    ObserveAsEvents(flow = vm.uiEventsChannelFlow) { event ->
+        when (event) {
+            is UiEvent.NavigateToMainActivity -> navigateToMainActivity(context)
+            is UiEvent.ShowToast -> context.showToast(event.message)
+        }
+    }
+
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
         Image(
             modifier = Modifier.fillMaxSize(),
             painter = painterResource(id = R.drawable.splash_background),
@@ -59,90 +73,100 @@ fun SignUpScreen(
             contentDescription = null
         )
 
-        BackButton(
-            modifier = Modifier.align(Alignment.TopStart),
-            onBackClick = onBackClick,
-            tint = Color.White
-        )
+        Box(Modifier.padding(Constants.SCREEN_PADDING)) {
+            BackButton(
+                modifier = Modifier.align(Alignment.TopStart),
+                onBackClick = onBackClick,
+                tint = Color.White
+            )
+        }
 
-        BlurryContainer(
+        Column(
             Modifier
-                .align(Alignment.Center)
                 .fillMaxWidth()
-                .padding(Constants.SCREEN_PADDING),
-        ) {
-            Column(
-                Modifier.padding(36.dp)
+                .align(alignment = Alignment.TopCenter)) {
+            VerticalSpace(height = 48.dp)
+            BlurryContainer(
+                Modifier
+                    .padding(Constants.SCREEN_PADDING),
             ) {
-                Text(
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    text = stringResource(id = R.string.sign_up_title),
-                    style = TextStyles.h2,
-                    color = Color.White
-                )
-                VerticalSpace(height = 32.dp)
-                AuthEditText(
-                    value = fullName,
-                    hint = stringResource(id = R.string.full_name),
-                    keyboardActions = KeyboardActions(
-                        onNext = {
-                            focusManager.moveFocus(FocusDirection.Next)
-                        },
-                    ),
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                )
-                VerticalSpace(height = 32.dp)
-                AndroidView(
-                    factory = { context ->
-                        val view = LayoutInflater.from(context)
-                            .inflate(R.layout.country_code_picker, null, false)
-                        val ccp = view.findViewById<CountryCodePicker>(R.id.ccp)
-                        ccp.setCountryForNameCode("TJ")
-                        ccp.setOnCountryChangeListener {
-                            countryNameCode = ccp.selectedCountryNameCode
-                        }
-                        view
-                    })
-                HorizontalDivider(
-                    modifier = Modifier.fillMaxWidth(),
-                    color = Color.White,
-                    thickness = 1.dp
-                )
-                VerticalSpace(height = 32.dp)
-                AuthEditText(
-                    value = username,
-                    hint = stringResource(id = R.string.username),
-                    keyboardActions = KeyboardActions(
-                        onNext = {
-                            focusManager.moveFocus(FocusDirection.Next)
-                        },
-                    ),
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                )
-                VerticalSpace(height = 32.dp)
-                PasswordEditText(
-                    value = password,
-                    hint = stringResource(id = R.string.password),
-                    keyboardActions = KeyboardActions(
-                        onNext = {
-                            focusManager.moveFocus(FocusDirection.Next)
-                        },
-                    ),
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                )
-                VerticalSpace(height = 32.dp)
-                PasswordEditText(
-                    value = confirmPassword,
-                    hint = stringResource(id = R.string.confirm_password),
-                    keyboardActions = KeyboardActions(onDone = { onSignUpClicked() }),
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                )
-                VerticalSpace(height = 48.dp)
-                PrimaryButton(
-                    modifier = Modifier.fillMaxWidth(),
-                    label = stringResource(id = R.string.sign_up),
-                    onClick = { onSignUpClicked() },
-                )
+                Column(
+                    Modifier.padding(36.dp)
+                ) {
+                    Text(
+                        modifier = Modifier.align(Alignment.CenterHorizontally),
+                        text = stringResource(id = R.string.sign_up_title),
+                        style = TextStyles.h2,
+                        color = Color.White
+                    )
+                    VerticalSpace(height = 16.dp)
+                    AuthEditText(
+                        value = fullName ?: "",
+                        onValueChange = { vm.setFullName(it) },
+                        hint = stringResource(id = R.string.full_name),
+                        keyboardActions = KeyboardActions(
+                            onNext = {
+                                focusManager.moveFocus(FocusDirection.Next)
+                            },
+                        ),
+                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                    )
+                    VerticalSpace(height = 16.dp)
+                    AndroidView(
+                        factory = { context ->
+                            val view = LayoutInflater.from(context)
+                                .inflate(R.layout.ccp_auth, null, false)
+                            val ccp = view.findViewById<CountryCodePicker>(R.id.ccp)
+                            ccp.setCountryForNameCode("TJ")
+                            ccp.setOnCountryChangeListener {
+                                vm.setCountryNameCode(ccp.selectedCountryNameCode)
+                            }
+                            view
+                        })
+                    HorizontalDivider(
+                        modifier = Modifier.fillMaxWidth(),
+                        color = Color.White,
+                        thickness = 1.dp
+                    )
+                    VerticalSpace(height = 16.dp)
+                    AuthEditText(
+                        value = username ?: "",
+                        onValueChange = { vm.setUsername(it) },
+                        hint = stringResource(id = R.string.username),
+                        keyboardActions = KeyboardActions(
+                            onNext = {
+                                focusManager.moveFocus(FocusDirection.Next)
+                            },
+                        ),
+                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                    )
+                    VerticalSpace(height = 16.dp)
+                    PasswordEditText(
+                        value = password ?: "",
+                        onValueChange = { vm.setPassword(it) },
+                        hint = stringResource(id = R.string.password),
+                        keyboardActions = KeyboardActions(
+                            onNext = {
+                                focusManager.moveFocus(FocusDirection.Next)
+                            },
+                        ),
+                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                    )
+                    VerticalSpace(height = 16.dp)
+                    PasswordEditText(
+                        value = confirmPassword ?: "",
+                        onValueChange = { vm.setConfirmPassword(it) },
+                        hint = stringResource(id = R.string.confirm_password),
+                        keyboardActions = KeyboardActions(onDone = { onSignUpComplete() }),
+                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                    )
+                    VerticalSpace(height = 48.dp)
+                    PrimaryButton(
+                        modifier = Modifier.fillMaxWidth(),
+                        label = stringResource(id = R.string.sign_up),
+                        onClick = { vm.signUp() },
+                    )
+                }
             }
         }
     }

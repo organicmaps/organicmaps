@@ -396,7 +396,35 @@ dependencies {
     implementation "com.github.skydoves:cloudy:0.1.2"
     // countries
     implementation 'com.hbb20:ccp:2.7.3'
-    // Google Play Location Services
+
+  //Background processing
+  def coroutines = '1.8.1'
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines"
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
+  // Coroutine Lifecycle Scopes
+  implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.2'
+
+  // region Network
+  // Retrofit
+  def retrofit = '2.11.0'
+  implementation "com.squareup.retrofit2:retrofit:$retrofit"
+  implementation "com.squareup.retrofit2:converter-gson:$retrofit"
+  def okhttp = '5.0.0-alpha.14'
+  implementation "com.squareup.okhttp3:okhttp:$okhttp"
+  implementation "com.squareup.okhttp3:logging-interceptor:$okhttp"
+  implementation 'com.google.code.gson:gson:2.11.0'
+  def coil_version = '2.6.0'
+  implementation("io.coil-kt:coil-compose:$coil_version")
+  implementation("io.coil-kt:coil-svg:$coil_version")
+  // endregion
+
+  // Room
+  def room = '2.6.1'
+  implementation "androidx.room:room-ktx:$room"
+  implementation "androidx.room:room-runtime:$room"
+  kapt "androidx.room:room-compiler:$room"
+
+  // Google Play Location Services
   //
   // Please add symlinks to google/java/app/organicmaps/location for each new gms-enabled flavor below:
   // ```

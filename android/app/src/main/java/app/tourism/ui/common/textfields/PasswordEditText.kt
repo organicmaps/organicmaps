@@ -3,14 +3,12 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import app.organicmaps.R
@@ -18,7 +16,8 @@ import app.tourism.ui.common.textfields.AuthEditText
 
 @Composable
 fun PasswordEditText(
-    value: MutableState<String>,
+    value: String,
+    onValueChange: (String) -> Unit,
     hint: String,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default
@@ -26,6 +25,7 @@ fun PasswordEditText(
     var passwordVisible by remember { mutableStateOf(false) }
     AuthEditText(
         value = value,
+        onValueChange = onValueChange,
         hint = hint,
         keyboardActions = keyboardActions,
         keyboardOptions = keyboardOptions,
@@ -33,7 +33,7 @@ fun PasswordEditText(
         trailingIcon = {
             IconButton(onClick = { passwordVisible = !passwordVisible }) {
                 Icon(
-                    painter = painterResource(id = if (passwordVisible) R.drawable.baseline_visibility_24 else com.google.android.material.R.drawable.design_ic_visibility_off),
+                    painter = painterResource(id = if (passwordVisible) R.drawable.baseline_visibility_24 else R.drawable.baseline_visibility_off_24),
                     tint = Color.White,
                     contentDescription = null
                 )

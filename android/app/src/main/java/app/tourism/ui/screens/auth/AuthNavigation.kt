@@ -1,6 +1,9 @@
 package app.tourism.ui.screens.auth
 
+import android.content.Context
 import android.content.Intent
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
@@ -34,7 +37,16 @@ fun AuthNavigation() {
 
     val navigateUp = { navController.navigateUp() }
 
-    NavHost(navController = navController, startDestination = Welcome) {
+    NavHost(
+        navController = navController,
+        startDestination = Welcome,
+        enterTransition = {
+            EnterTransition.None
+        },
+        exitTransition = {
+            ExitTransition.None
+        }
+    ) {
         composable<Welcome>() {
             WelcomeScreen(
                 onLanguageClicked = { navController.navigate(route = Language) },
@@ -44,22 +56,16 @@ fun AuthNavigation() {
         }
         composable<SignIn> {
             SignInScreen(
-                onSignInClicked = {
-                    // todo
-                    val intent = Intent(context, MainActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                    ContextCompat.startActivity(context, intent, null)
+                onSignInComplete = {
+                    navigateToMainActivity(context)
                 },
                 onBackClick = navigateUp
             )
         }
         composable<SignUp> {
             SignUpScreen(
-                onSignUpClicked = {
-                    // todo
-                    val intent = Intent(context, MainActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                    ContextCompat.startActivity(context, intent, null)
+                onSignUpComplete = {
+                    navigateToMainActivity(context)
                 },
                 onBackClick = navigateUp
             )
@@ -70,4 +76,10 @@ fun AuthNavigation() {
             )
         }
     }
+}
+
+fun navigateToMainActivity(context: Context) {
+    val intent = Intent(context, MainActivity::class.java)
+    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+    ContextCompat.startActivity(context, intent, null)
 }

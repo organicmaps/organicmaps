@@ -69,10 +69,12 @@
     android:resizeableActivity="true"
     android:supportsRtl="true"
     android:theme="@style/MwmTheme"
+    android:usesCleartextTraffic="true"
     tools:targetApi="33">
     <activity
       android:name="app.tourism.AuthActivity"
       android:exported="false"
+      android:windowSoftInputMode="adjustResize|adjustPan"
       android:theme="@style/MwmTheme" />
     <!-- Allows for config and orientation change without killing/restarting main activity -->
     <activity

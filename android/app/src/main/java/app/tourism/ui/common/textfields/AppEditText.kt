@@ -5,7 +5,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.style.TextAlign
@@ -15,7 +14,8 @@ import app.tourism.ui.theme.TextStyles
 
 @Composable
 fun AppEditText(
-    value: MutableState<String>,
+    value: String,
+    onValueChange: (String) -> Unit,
     hint: String = "",
     isError: () -> Boolean = { false },
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
@@ -23,6 +23,7 @@ fun AppEditText(
 ) {
     EditText(
         value = value,
+        onValueChange = onValueChange,
         hint = hint,
         hintColor = Color.Gray,
         isError = isError,
