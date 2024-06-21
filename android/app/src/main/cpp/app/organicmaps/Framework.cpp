@@ -1854,6 +1854,43 @@ Java_app_organicmaps_Framework_nativeDeleteSavedRoutePoints(JNIEnv *, jclass)
   frm()->GetRoutingManager().DeleteSavedRoutePoints();
 }
 
+JNIEXPORT jboolean JNICALL
+Java_app_organicmaps_Framework_nativeHasSavedUserRoute(JNIEnv * env, jclass, jstring routeName)
+{
+    return frm()->GetRoutingManager().HasSavedUserRoute(jni::ToNativeString(env, routeName));
+}
+
+JNIEXPORT void JNICALL
+Java_app_organicmaps_Framework_nativeLoadUserRoutePoints(JNIEnv * env, jclass, jstring routeName)
+{
+    frm()->GetRoutingManager().LoadUserRoutePoints(g_loadRouteHandler, jni::ToNativeString(env, routeName));
+}
+
+JNIEXPORT void JNICALL
+Java_app_organicmaps_Framework_nativeSaveUserRoutePoints(JNIEnv * env, jclass, jstring routeName)
+{
+    frm()->GetRoutingManager().SaveUserRoutePoints(jni::ToNativeString(env, routeName));
+}
+
+JNIEXPORT void JNICALL
+Java_app_organicmaps_Framework_nativeDeleteUserRoute(JNIEnv * env, jclass, jstring routeName)
+{
+    frm()->GetRoutingManager().DeleteUserRoute(jni::ToNativeString(env, routeName));
+}
+
+JNIEXPORT void JNICALL
+Java_app_organicmaps_Framework_nativeRenameUserRoute(JNIEnv * env, jclass, jstring oldRouteName, jstring newRouteName)
+{
+    frm()->GetRoutingManager().RenameUserRoute(jni::ToNativeString(env, oldRouteName), jni::ToNativeString(env, newRouteName));
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_app_organicmaps_Framework_nativeGetUserRouteNames(JNIEnv * env, jclass)
+{
+    auto routeNames = frm()->GetRoutingManager().GetUserRouteNames();
+    return jni::ToJavaStringArray(env, routeNames);
+}
+
 JNIEXPORT void JNICALL
 Java_app_organicmaps_Framework_nativeShowFeature(JNIEnv * env, jclass, jobject featureId)
 {

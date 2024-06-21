@@ -421,6 +421,13 @@ public class Framework
   public static native void nativeSaveRoutePoints();
   public static native void nativeDeleteSavedRoutePoints();
 
+  public static native boolean nativeHasSavedUserRoute(@NonNull String routeName);
+  public static native void nativeLoadUserRoutePoints(@NonNull String routeName);
+  public static native void nativeSaveUserRoutePoints(@NonNull String routeName);
+  public static native void nativeDeleteUserRoute(@NonNull String routeName);
+  public static native void nativeRenameUserRoute(@NonNull String oldRouteName, @NonNull String newRouteName);
+  public static native String[] nativeGetUserRouteNames();
+
   public static native void nativeShowFeature(@NonNull FeatureId featureId);
 
   public static native void nativeMakeCrash();
