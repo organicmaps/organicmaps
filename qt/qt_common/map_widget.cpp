@@ -489,7 +489,7 @@ bool MapWidget::event(QEvent * event)
 {
   if (event->type() == QEvent::Gesture)
     return gestureEvent(dynamic_cast<QGestureEvent const *>(event));
-  return QWidget::event(event);
+  return QOpenGLWidget::event(event);
 }
 
 bool MapWidget::gestureEvent(QGestureEvent const * event)
