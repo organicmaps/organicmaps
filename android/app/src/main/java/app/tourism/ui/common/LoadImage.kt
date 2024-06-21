@@ -54,7 +54,6 @@ fun CoilImg(
         modifier = modifier.background(color = backgroundColor),
         model = ImageRequest.Builder(LocalContext.current)
             .data(url)
-            .decoderFactory(SvgDecoder.Factory())
             .crossfade(500)
             .error(R.drawable.error_centered)
             .build(),
@@ -62,15 +61,4 @@ fun CoilImg(
         contentDescription = null,
         contentScale = contentScale
     )
-}
-
-@Composable
-fun CoilImgAccompanist() {
-    //    CoilImage(
-//        modifier = modifier,
-//        imageModel = url,
-//        contentScale = contentScale,
-//        placeHolder = painterResource(R.drawable.placeholder),
-//        error = painterResource(R.drawable.error_centered)
-//    )
 }

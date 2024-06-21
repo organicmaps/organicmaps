@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -18,23 +19,11 @@ import app.tourism.ui.screens.main.favorites.favorites.FavoritesScreen
 import app.tourism.ui.screens.main.home.home.HomeScreen
 import app.tourism.ui.screens.main.profile.personal_data.PersonalDataScreen
 import app.tourism.ui.screens.main.profile.profile.ProfileScreen
+import app.tourism.ui.screens.main.profile.profile.ProfileViewModel
 import app.tourism.ui.screens.main.site_details.SiteDetailsScreen
 import app.tourism.utils.navigateToMap
 import app.tourism.utils.navigateToMapForRoute
 import kotlinx.serialization.Serializable
-
-// tabs
-@Serializable
-object HomeTab
-
-@Serializable
-object CategoriesTab
-
-@Serializable
-object FavoritesTab
-
-@Serializable
-object ProfileTab
 
 // home
 @Serializable
@@ -71,17 +60,17 @@ fun MainNavigation(rootNavController: NavHostController, themeVM: ThemeViewModel
     }
     val onMapClick = { navigateToMap(context) }
 
-    NavHost(rootNavController, startDestination = HomeTab) {
-        composable<HomeTab> {
+    NavHost(rootNavController, startDestination = "home_tab") {
+        composable("home_tab") {
             HomeNavHost(onSiteClick, onMapClick)
         }
-        composable<CategoriesTab> {
+        composable("categories_tab") {
             CategoriesNavHost(onSiteClick, onMapClick)
         }
-        composable<FavoritesTab> {
+        composable("favorites_tab") {
             FavoritesNavHost(onSiteClick)
         }
-        composable<ProfileTab> {
+        composable("profile_tab") {
             ProfileNavHost(themeVM = themeVM)
         }
         composable<SiteDetails> { backStackEntry ->
@@ -139,7 +128,7 @@ fun FavoritesNavHost(onSiteClick: (id: Int) -> Unit) {
 }
 
 @Composable
-fun ProfileNavHost(themeVM: ThemeViewModel) {
+fun ProfileNavHost(themeVM: ThemeViewModel, profileVM: ProfileViewModel = hiltViewModel()) {
     val context = LocalContext.current
     val profileNavController = rememberNavController()
     val onBackClick = { profileNavController.navigateUp() }
@@ -156,11 +145,12 @@ fun ProfileNavHost(themeVM: ThemeViewModel) {
                 onSignOutComplete = {
                     navigateToAuth(context)
                 },
+                profileVM = profileVM,
                 themeVM = themeVM
             )
         }
         composable<PersonalData> {
-            PersonalDataScreen(onBackClick)
+            PersonalDataScreen(onBackClick, profileVM)
         }
         composable<Language> {
             LanguageScreen(onBackClick)

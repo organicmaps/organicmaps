@@ -26,6 +26,32 @@ class ProfileViewModel @Inject constructor(
     private val uiChannel = Channel<UiEvent>()
     val uiEventsChannelFlow = uiChannel.receiveAsFlow()
 
+    // region fields to update
+    private val _fullName = MutableStateFlow("")
+    val fullName = _fullName.asStateFlow()
+
+    fun setFullName(value: String) {
+        _fullName.value = value
+    }
+
+
+    private val _email = MutableStateFlow("")
+    val email = _email.asStateFlow()
+
+    fun setEmail(value: String) {
+        _email.value = value
+    }
+
+
+    private val _countryCodeName = MutableStateFlow<String?>(null)
+    val countryCodeName = _countryCodeName.asStateFlow()
+
+    fun setCountryCodeName(value: String) {
+        _countryCodeName.value = value
+    }
+    // endregion fields to update
+
+    // region requests
     private val _personalDataResource = MutableStateFlow<Resource<PersonalData>>(Resource.Idle())
     val profileDataResource = _personalDataResource.asStateFlow()
 
@@ -34,12 +60,32 @@ class ProfileViewModel @Inject constructor(
             profileRepository.getPersonalData()
                 .collectLatest { resource ->
                     _personalDataResource.value = resource
+                    if (resource is Resource.Success) {
+                        resource.data?.let { updatePersonalDataInMemory(it) }
+                    }
                     if (resource is Resource.Error) {
                         uiChannel.send(UiEvent.ShowToast(resource.message ?: ""))
                     }
                 }
         }
     }
+
+
+    fun save() {
+        viewModelScope.launch {
+            // todo
+        }
+    }
+
+
+    private fun updatePersonalDataInMemory(personalData: PersonalData) {
+        personalData.let {
+            setFullName(it.fullName)
+            setEmail(it.email)
+            setCountryCodeName(it.country)
+        }
+    }
+
 
     private val _signOutResponse = MutableStateFlow<Resource<SimpleResponse>>(Resource.Idle())
     val signOutResponse = _signOutResponse.asStateFlow()
@@ -60,6 +106,7 @@ class ProfileViewModel @Inject constructor(
                 }
         }
     }
+    // endregion requests
 
     init {
         getPersonalData()

@@ -10,22 +10,32 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -40,6 +50,8 @@ import app.tourism.ui.common.HorizontalSpace
 import app.tourism.ui.common.LoadImg
 import app.tourism.ui.common.SpaceForNavBar
 import app.tourism.ui.common.VerticalSpace
+import app.tourism.ui.common.buttons.PrimaryButton
+import app.tourism.ui.common.buttons.SecondaryButton
 import app.tourism.ui.common.nav.AppTopBar
 import app.tourism.ui.common.ui_state.Loading
 import app.tourism.ui.screens.main.ThemeViewModel
@@ -47,19 +59,20 @@ import app.tourism.ui.theme.TextStyles
 import app.tourism.ui.utils.showToast
 import com.hbb20.CountryCodePicker
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(
     onPersonalDataClick: () -> Unit,
     onLanguageClick: () -> Unit,
     onSignOutComplete: () -> Unit,
-    vm: ProfileViewModel = hiltViewModel(),
+    profileVM: ProfileViewModel,
     themeVM: ThemeViewModel,
 ) {
     val context = LocalContext.current
-    val personalData = vm.profileDataResource.collectAsState().value
-    val signOutResponse = vm.signOutResponse.collectAsState().value
+    val personalData = profileVM.profileDataResource.collectAsState().value
+    val signOutResponse = profileVM.signOutResponse.collectAsState().value
 
-    ObserveAsEvents(flow = vm.uiEventsChannelFlow) { event ->
+    ObserveAsEvents(flow = profileVM.uiEventsChannelFlow) { event ->
         when (event) {
             is UiEvent.NavigateToAuth -> onSignOutComplete()
             is UiEvent.ShowToast -> context.showToast(event.message)
@@ -79,53 +92,74 @@ fun ProfileScreen(
                 .padding(paddingValues)
                 .verticalScroll(rememberScrollState())
         ) {
+            VerticalSpace(height = 32.dp)
             if (personalData is Resource.Success) {
                 personalData.data?.let {
-                    ProfileBar(it, onPersonalDataClick)
+                    ProfileBar(it)
+                    VerticalSpace(height = 32.dp)
                 }
             }
-            VerticalSpace(height = 48.dp)
             // todo currency rates. Couldn't find free api or library :(
             CurrencyRates(currencyRates = CurrencyRates(10.88, 10.88, 10.88))
-            VerticalSpace(height = 24.dp)
+            VerticalSpace(height = 20.dp)
             GenericProfileItem(
                 label = stringResource(R.string.personal_data),
                 icon = R.drawable.profile,
                 onClick = onPersonalDataClick
             )
-            VerticalSpace(height = 24.dp)
+            VerticalSpace(height = 20.dp)
             GenericProfileItem(
                 label = stringResource(R.string.language),
                 icon = R.drawable.globe,
                 onClick = onLanguageClick
             )
-            VerticalSpace(height = 24.dp)
+            VerticalSpace(height = 20.dp)
             ThemeSwitch(themeVM = themeVM)
-            VerticalSpace(height = 24.dp)
+            VerticalSpace(height = 20.dp)
+            val sheetState = rememberModalBottomSheetState()
+            var isSheetOpen by rememberSaveable { mutableStateOf(false) }
             GenericProfileItem(
                 label = stringResource(R.string.sign_out),
                 icon = R.drawable.sign_out,
                 isLoading = signOutResponse is Resource.Loading,
-                onClick = { vm.signOut() }
+                onClick = { isSheetOpen = true }
             )
+
+            if (isSheetOpen) {
+                ModalBottomSheet(
+                    containerColor = MaterialTheme.colorScheme.background,
+                    sheetState = sheetState,
+                    onDismissRequest = {
+                        isSheetOpen = false
+                    },
+                ) {
+                    SignOutWarning(
+                        onSignOutClick = { profileVM.signOut() },
+                        onCancelClick = { isSheetOpen = false },
+                    )
+                }
+            }
+
             SpaceForNavBar()
         }
     }
 }
 
 @Composable
-fun ProfileBar(personalData: PersonalData, onPersonalDataClick: () -> Unit) {
+fun ProfileBar(personalData: PersonalData) {
     Row(
-        Modifier
-            .fillMaxWidth()
-            .clickable { onPersonalDataClick() },
+        Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        LoadImg(url = personalData.pfpUrl)
+        LoadImg(
+            modifier = Modifier
+                .size(100.dp)
+                .clip(CircleShape),
+            url = personalData.pfpUrl
+        )
         HorizontalSpace(width = 16.dp)
         Column {
             Text(text = personalData.fullName, style = TextStyles.h2)
-            VerticalSpace(height = 16.dp)
             Country(Modifier.fillMaxWidth(), personalData.country)
         }
     }
@@ -179,7 +213,7 @@ fun CurrencyRatesItem(currency: String, value: String) {
     Row {
         Text(text = currency, style = TextStyles.b1)
         HorizontalSpace(width = 4.dp)
-        Text(text = value, style = TextStyles.b1.copy(fontWeight = FontWeight.Medium))
+        Text(text = value, style = TextStyles.b1.copy(fontWeight = FontWeight.SemiBold))
     }
 }
 
@@ -235,5 +269,44 @@ fun ThemeSwitch(modifier: Modifier = Modifier, themeVM: ThemeViewModel) {
             },
             colors = SwitchDefaults.colors(uncheckedTrackColor = MaterialTheme.colorScheme.background)
         )
+    }
+}
+
+@Composable
+fun SignOutWarning(
+    modifier: Modifier = Modifier,
+    onSignOutClick: () -> Unit,
+    onCancelClick: () -> Unit,
+) {
+    Column(
+        Modifier
+            .padding(top = 0.dp, bottom = 48.dp, start = 32.dp, end = 32.dp)
+            .then(modifier),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = stringResource(id = R.string.sign_out_title),
+            style = TextStyles.h3.copy(fontWeight = FontWeight.W700)
+        )
+        VerticalSpace(height = 24.dp)
+        Text(
+            text = stringResource(id = R.string.sign_out_warning),
+            style = TextStyles.h3.copy(fontWeight = FontWeight.W500),
+            textAlign = TextAlign.Center
+        )
+        VerticalSpace(height = 32.dp)
+        Row {
+            SecondaryButton(
+                modifier = Modifier.weight(1f),
+                label = stringResource(id = R.string.cancel),
+                onClick = onCancelClick,
+            )
+            HorizontalSpace(width = 16.dp)
+            PrimaryButton(
+                modifier = Modifier.weight(1f),
+                label = stringResource(id = R.string.sign_out),
+                onClick = onSignOutClick,
+            )
+        }
     }
 }

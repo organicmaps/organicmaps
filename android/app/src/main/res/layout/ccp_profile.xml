@@ -4,7 +4,7 @@
   android:id="@+id/ccp"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:paddingVertical="12dp"
+  android:paddingVertical="0dp"
   app:ccp_autoDetectLanguage="true"
   app:ccp_contentColor="@color/onBackground"
   app:ccpDialog_backgroundColor="@color/transparent"

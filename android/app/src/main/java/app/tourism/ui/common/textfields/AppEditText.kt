@@ -7,9 +7,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import app.organicmaps.R
 import app.tourism.ui.theme.TextStyles
 
 @Composable
@@ -25,7 +27,7 @@ fun AppEditText(
         value = value,
         onValueChange = onValueChange,
         hint = hint,
-        hintColor = Color.Gray,
+        hintColor = MaterialTheme.colorScheme.onBackground,
         isError = isError,
         textFieldHeight = 50.dp,
         textFieldPadding = PaddingValues(vertical = 8.dp),
@@ -39,7 +41,7 @@ fun AppEditText(
         keyboardActions = keyboardActions,
         cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
         focusedColor = MaterialTheme.colorScheme.onBackground,
-        unfocusedColor = Color.Gray,
+        unfocusedColor = MaterialTheme.colorScheme.onBackground,
         errorColor = MaterialTheme.colorScheme.onError
     )
 }

@@ -102,7 +102,7 @@ fun MainSection(themeVM: ThemeViewModel) {
 }
 
 data class BottomNavigationItem(
-    val route: Any,
+    val route: String,
     val title: String,
     @DrawableRes val unselectedIcon: Int,
     @DrawableRes val selectedIcon: Int
@@ -112,25 +112,25 @@ data class BottomNavigationItem(
 fun getNavItems(): List<BottomNavigationItem> {
     return listOf(
         BottomNavigationItem(
-            route = HomeTab,
+            route = "home_tab",
             title = stringResource(id = R.string.home),
             selectedIcon = R.drawable.home_selected,
             unselectedIcon = R.drawable.home,
         ),
         BottomNavigationItem(
-            route = CategoriesTab,
+            route = "categories_tab",
             title = stringResource(id = R.string.categories),
             selectedIcon = R.drawable.categories_selected,
             unselectedIcon = R.drawable.categories,
         ),
         BottomNavigationItem(
-            route = FavoritesTab,
+            route = "favorites_tab",
             title = stringResource(id = R.string.favorites),
             selectedIcon = R.drawable.heart_selected,
             unselectedIcon = R.drawable.heart,
         ),
         BottomNavigationItem(
-            route = ProfileTab,
+            route = "profile_tab",
             title = stringResource(id = R.string.profile_tourism),
             selectedIcon = R.drawable.profile_selected,
             unselectedIcon = R.drawable.profile,
