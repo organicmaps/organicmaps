@@ -4828,7 +4828,7 @@
     uk = Версія Organic Maps: %@.
     vi = Phiên bản Organic Maps: %@
     zh-Hans = Organic Maps 版本: %@
-    zh-Hant = 有機地圖版本：%@
+    zh-Hant = Organic Maps 版本：%@
 
   [data_version]
     comment = Data version in «About» screen, %@ is replaced by a local, human readable date.
@@ -16619,8 +16619,8 @@
     tr = Organik Haritalar yalnızca basit nokta kategorileri eklemeye izin verir, yani kasaba, yol, göl, bina ana hatları vb. yoktur. Lütfen bu tür kategorileri doğrudan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>'a ekleyin. Adım adım ayrıntılı talimatlar için <a href="https://organicmaps.app/faq/editing/advanced-map-editing">rehberimize</a> göz atın.
     uk = Organic Maps дозволяють додавати до мапи лише прості типи об'єктів, тобто без міст, доріг, озер та контурів будівель. Будь ласка, додайте такі категорії на сайті <a href="https://www.openstreetmap.org/">OpenStreetMap.org</a>. Ми також рекомендуємо ознайомитися із <a href="https://organicmaps.app/faq/editing/advanced-map-editing/">детальними інструкціями та іншими додатками для редагування карти</a>.
     vi = Bản đồ không phải trả tiền chỉ cho phép thêm các danh mục điểm đơn giản, nghĩa là không có thị trấn, đường, hồ, đường viền tòa nhà, v.v. Vui lòng thêm các danh mục đó trực tiếp vào <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Hãy xem <a href="https://organicmaps.app/faq/editing/advanced-map-editing">hướng dẫn</a> của chúng tôi để biết hướng dẫn chi tiết từng bước.
-    zh-Hans = 有机地图只允许添加简单的点类别，即不允许添加城镇、道路、湖泊、建筑轮廓等类别。请直接向<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>添加此类类别。请查看我们的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，了解详细的步骤说明。
-    zh-Hant = 有機地圖僅允許添加簡單的點類別，這意味著沒有城鎮、道路、湖泊、建築物輪廓等。<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>.請查看我們的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，以了解詳細的逐步說明。
+    zh-Hans = Organic Maps 只允许添加简单的点类别，即无法添加城镇、道路、湖泊、建筑轮廓等类别。请直接向<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>添加此类类别。请查看我们的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，了解详细的步骤说明。
+    zh-Hant = Organic Maps 只允許添加簡單的點類別，即無法添加城鎮、道路、湖泊、建築輪廓等類別。 請直接向<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>新增此類類別。 請查看我們的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，以了解詳細的步驟說明。
 
   [downloader_no_downloaded_maps_title]
     tags = android,ios
@@ -17186,8 +17186,8 @@
     tr = Veya Konum olmadan Organic Maps kullanmaya devam edin
     uk = Або продовжуйте використовувати Organic Maps без визначення місцезнаходження
     vi = Hoặc tiếp tục sử dụng Bản đồ không phải trả tiền mà không có Vị trí
-    zh-Hans = 或继续使用 "有机地图 "而不定位
-    zh-Hant = 或繼續使用沒有位置的有機地圖
+    zh-Hans = 或继续使用 Organic Maps，但无法定位到您目前所在的位置。
+    zh-Hant = 或繼續使用 Organic Maps，但無法定位到您目前所在的位置。
 
   [m]
     tags = android,ios
@@ -17707,7 +17707,7 @@
     uk = Реферальний бонус, отриманий за кожне бронювання за цим посиланням, йде на розробку Organic Maps.
     vi = Phần thưởng giới thiệu nhận được cho mỗi lần đặt phòng thông qua liên kết này sẽ hướng tới việc phát triển bản đồ không phải trả tiền.
     zh-Hans = 每次通过此链接预订所获得的推荐奖金将用于 Organic Maps 的开发。
-    zh-Hant = 透過此連結進行的每次預訂收到的推薦獎金將用於開發有機地圖
+    zh-Hant = 透過此連結進行的每次預訂收到的推薦獎金將用於開發 Organic Maps。
 
   [dialog_kayak_button]
     comment = A confirmation button text in the explanation dialog that opens hotel details page on Kayak website.
@@ -29306,8 +29306,8 @@
     tr = Artık telefon ekranında Organic Maps kullanıyorsunuz
     uk = Зараз ви використовуєте Organic Maps на екрані телефону
     vi = Bạn hiện đang sử dụng bản đồ không phải trả tiền trên màn hình điện thoại
-    zh-Hans = 您现在正在手机屏幕上使用有机地图
-    zh-Hant = 您現在正在手機螢幕上使用有機地圖
+    zh-Hans = 您现在正在手机屏幕上使用 Organic Maps
+    zh-Hant = 您現在正在手機螢幕上使用 Organic Maps
 
   [car_used_on_the_car_screen]
     comment = Text on the phone placeholder screen that maps are displayed on the car screen
@@ -29351,8 +29351,8 @@
     tr = Şu anda araç ekranında Organic Maps kullanıyorsunuz
     uk = Ви використовуєте Organic Maps на екрані автомобіля
     vi = Bạn hiện đang sử dụng bản đồ không phải trả tiền trên màn hình ô tô
-    zh-Hans = 您现在正在汽车屏幕上使用有机地图
-    zh-Hant = 您現在正在汽車螢幕上使用有機地圖
+    zh-Hans = 您现在正在汽车屏幕上使用 Organic Maps
+    zh-Hant = 您現在正在汽車螢幕上使用 Organic Maps
 
   [aa_connected_title]
     comment = Displayed on the phone screen. Android Auto connected
