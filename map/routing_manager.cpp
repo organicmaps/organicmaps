@@ -1591,6 +1591,13 @@ vector<string> RoutingManager::GetUserRouteNames()
       continue;
     routeNames.push_back(name.substr(0, idx)); // string without extension
   }
+  auto compareFunc = [](string s1, string s2)
+  {
+    std::transform(s1.begin(), s1.end(), s1.begin(), ::toupper);
+    std::transform(s2.begin(), s2.end(), s2.begin(), ::toupper);
+    return s1.compare(s2) < 0;
+  };
+  std::sort(routeNames.begin(), routeNames.end(), compareFunc);
   return routeNames;
 }
 
