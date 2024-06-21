@@ -564,7 +564,7 @@
 	<string name="prefs_languages_information">TTS rendszert használunk a hangnavigációhoz. Sok Android-os készülék használja a Google TTS-t; töltse le vagy frissítse a Google Play áruházból (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Egyes nyelveknél másik beszédszintetizátort vagy további nyelvi csomagot kell telepítenie az alkalmazás-áruházból (Google Play, Galaxy Store, App Gallery, FDroid). Nyissa meg a készülék beállításait → Nyelv és bevitel → Beszéd → Szöveg-beszéd átalakító kimenet. Itt kezelheti a beszédszintézis beállításokat (például nyelvi csomag letöltése kapcsolat nélküli használatra) és másik szövegfelolvasót jelölhe tki.</string>
 	<string name="prefs_languages_information_off_link">További tájékoztatást találhat még ebben az útmutatóban.</string>
-	<string name="transliteration_title">Átírás latin nyelvre</string>
+	<string name="transliteration_title">Átírás latin betűkre</string>
 	<string name="learn_more">Tudjon meg többet</string>
 	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Kilépés</string>
@@ -644,7 +644,7 @@
 	<string name="power_managment_setting_never">Soha</string>
 	<string name="power_managment_setting_auto">Automatikus</string>
 	<string name="power_managment_setting_manual_max">Maximális energiatakarékosság</string>
-	<string name="enable_logging_warning_message">Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a support csapatunknak, akik elhárítják az alkalmazás hibáit. Csak a Organic Maps support kérésére kapcsold be ezt az opciót.</string>
+	<string name="enable_logging_warning_message">Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a terméktámogatási csapatunknak, akik elhárítják az alkalmazás hibáit. Csak az Organic Maps terméktámogatásának kérésére kapcsold be ezt az opciót.</string>
 	<string name="access_rules_author_only">Online szerkesztés</string>
 	<string name="driving_options_title">Útvonaltervezési lehetőségek</string>
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

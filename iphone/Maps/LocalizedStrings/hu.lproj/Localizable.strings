@@ -920,7 +920,7 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Forgalmi adatok nem állnak rendelkezésre";
 
-"transliteration_title" = "Átírás latin nyelvre";
+"transliteration_title" = "Átírás latin betűkre";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Kilépés";
