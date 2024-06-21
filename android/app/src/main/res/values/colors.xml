@@ -137,5 +137,5 @@
 
   <color name="material_calendar_surface_dark">#929292</color>
   <color name="onBackground">#2B2D33</color>
-  <color name="border">#C9D4E7</color>
+  <color name="onBackgroundNight">#FFFFFF</color>
 </resources>

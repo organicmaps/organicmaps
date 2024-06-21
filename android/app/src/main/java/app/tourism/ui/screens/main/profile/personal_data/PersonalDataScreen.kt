@@ -24,6 +24,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.colorResource
@@ -139,14 +141,23 @@ fun PersonalDataScreen(onBackClick: () -> Boolean, profileVM: ProfileViewModel) 
                     text = stringResource(id = R.string.country),
                     fontSize = 12.sp
                 )
+                val lContentColor = MaterialTheme.colorScheme.onBackground.toArgb()
                 AndroidView(
                     factory = { context ->
                         val view = LayoutInflater.from(context)
                             .inflate(R.layout.ccp_profile, null, false)
                         val ccp = view.findViewById<CountryCodePicker>(R.id.ccp)
-                        ccp.setCountryForNameCode(countryCodeName)
-                        ccp.setOnCountryChangeListener {
-                            profileVM.setCountryCodeName(ccp.selectedCountryNameCode)
+
+                        ccp.apply {
+                            setDialogBackgroundColor(Color.Transparent.toArgb())
+                            this.contentColor = lContentColor
+                            setDialogTextColor(lContentColor)
+                            setArrowColor(lContentColor)
+
+                            setCountryForNameCode(countryCodeName)
+                            setOnCountryChangeListener {
+                                profileVM.setCountryCodeName(ccp.selectedCountryNameCode)
+                            }
                         }
                         view
                     }

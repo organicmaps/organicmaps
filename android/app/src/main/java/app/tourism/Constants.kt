@@ -9,6 +9,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import app.organicmaps.R
+import app.tourism.ui.theme.getBorderColor
 
 const val TAG = "GLOBAL_TAG"
 const val BASE_URL = "http://192.168.1.80:8888/api/"
@@ -35,6 +36,6 @@ object Constants {
 @Composable
 fun Modifier.applyAppBorder() = this.border(
     width = 1.dp,
-    color = colorResource(id = R.color.border),
+    color = getBorderColor(),
     shape = RoundedCornerShape(20.dp)
 ).clip(RoundedCornerShape(20.dp))

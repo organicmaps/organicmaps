@@ -30,15 +30,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.hilt.navigation.compose.hiltViewModel
 import app.organicmaps.R
 import app.tourism.Constants
 import app.tourism.applyAppBorder
@@ -56,6 +55,7 @@ import app.tourism.ui.common.nav.AppTopBar
 import app.tourism.ui.common.ui_state.Loading
 import app.tourism.ui.screens.main.ThemeViewModel
 import app.tourism.ui.theme.TextStyles
+import app.tourism.ui.theme.getBorderColor
 import app.tourism.ui.utils.showToast
 import com.hbb20.CountryCodePicker
 
@@ -160,19 +160,24 @@ fun ProfileBar(personalData: PersonalData) {
         HorizontalSpace(width = 16.dp)
         Column {
             Text(text = personalData.fullName, style = TextStyles.h2)
-            Country(Modifier.fillMaxWidth(), personalData.country)
+            Country(
+                Modifier.fillMaxWidth(),
+                personalData.country,
+                contentColor = MaterialTheme.colorScheme.onBackground.toArgb(),
+            )
         }
     }
 }
 
 @Composable
-fun Country(modifier: Modifier = Modifier, countryCodeName: String) {
+fun Country(modifier: Modifier = Modifier, countryCodeName: String, contentColor: Int) {
     AndroidView(
         modifier = Modifier.then(modifier),
         factory = { context ->
             val view = LayoutInflater.from(context)
                 .inflate(R.layout.ccp_as_country_label, null, false)
             val ccp = view.findViewById<CountryCodePicker>(R.id.ccp)
+            ccp.contentColor = contentColor
             ccp.setCountryForNameCode(countryCodeName)
             ccp.showArrow(false)
             ccp.setCcpClickable(false)
@@ -242,7 +247,7 @@ fun GenericProfileItem(
             Icon(
                 modifier = Modifier.size(22.dp),
                 painter = painterResource(id = icon),
-                tint = colorResource(id = R.color.border),
+                tint = getBorderColor(),
                 contentDescription = label,
             )
     }
