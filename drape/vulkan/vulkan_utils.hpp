@@ -59,9 +59,9 @@ struct SamplerKey
 
 #define LOG_ERROR_VK_CALL(method, statusCode) \
   LOG(LDEBUG, ("Vulkan error:", #method, "finished with code", \
-               dp::vulkan::GetVulkanResultString(statusCode)));
+               dp::vulkan::GetVulkanResultString(statusCode)))
 
-#define LOG_ERROR_VK(message) LOG(LDEBUG, ("Vulkan error:", message));
+#define LOG_ERROR_VK(message) LOG(LDEBUG, ("Vulkan error:", message))
 
 #define CHECK_VK_CALL(method) \
   do { \
