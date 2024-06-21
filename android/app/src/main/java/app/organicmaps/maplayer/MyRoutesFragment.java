@@ -73,7 +73,7 @@ public class MyRoutesFragment extends Fragment
     recycler.setAdapter(mAdapter);
     recycler.setNestedScrollingEnabled(false);
   }
-  
+
   private List<RouteBottomSheetItem> getRouteItems()
   {
     String[] savedRouteNames = Framework.nativeGetUserRouteNames();
