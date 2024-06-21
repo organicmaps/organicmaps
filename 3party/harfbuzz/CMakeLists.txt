@@ -17,6 +17,7 @@ target_compile_options(${PROJECT_NAME}
     -fno-rtti
     -fno-exceptions
     -fno-threadsafe-statics
+    $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>>:-Wno-format-pedantic>
 )
 
 target_compile_definitions(${PROJECT_NAME}
