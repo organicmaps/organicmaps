@@ -72,6 +72,7 @@ import app.organicmaps.location.SensorHelper;
 import app.organicmaps.location.SensorListener;
 import app.organicmaps.maplayer.MapButtonsController;
 import app.organicmaps.maplayer.MapButtonsViewModel;
+import app.organicmaps.maplayer.MyRoutesFragment;
 import app.organicmaps.maplayer.ToggleMapLayerFragment;
 import app.organicmaps.maplayer.isolines.IsolinesManager;
 import app.organicmaps.maplayer.isolines.IsolinesState;
@@ -156,6 +157,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private static final String MAIN_MENU_ID = "MAIN_MENU_BOTTOM_SHEET";
   private static final String LAYERS_MENU_ID = "LAYERS_MENU_BOTTOM_SHEET";
+  private static final String MYROUTES_MENU_ID = "MYROUTES_MENU_BOTTOM_SHEET";
 
   @Nullable
   private MapFragment mMapFragment;
@@ -774,6 +776,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
         showBottomSheet(MAIN_MENU_ID);
       }
       case help -> showHelp();
+      case myRoutes ->
+      {
+        closeFloatingPanels();
+        showBottomSheet(MYROUTES_MENU_ID);
+      }
     }
   }
 
@@ -892,6 +899,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     closeBottomSheet(LAYERS_MENU_ID);
     closeBottomSheet(MAIN_MENU_ID);
+    closeBottomSheet(MYROUTES_MENU_ID);
     closePlacePage();
   }
 
@@ -1147,7 +1155,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onBackPressed()
   {
     final RoutingController routingController = RoutingController.get();
-    if (!closeBottomSheet(MAIN_MENU_ID) && !closeBottomSheet(LAYERS_MENU_ID) &&
+    if (!closeBottomSheet(MAIN_MENU_ID) && !closeBottomSheet(LAYERS_MENU_ID) && !closeBottomSheet(MYROUTES_MENU_ID) &&
         !collapseNavMenu() && !closePlacePage() && !closeSearchToolbar(true, true) &&
         !closeSidePanel() && !closePositionChooser() &&
         !routingController.resetToPlanningStateIfNavigating() && !routingController.cancel())
@@ -2164,6 +2172,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (id.equals(LAYERS_MENU_ID))
       return new ToggleMapLayerFragment();
+    else if (id.equals(MYROUTES_MENU_ID))
+      return new MyRoutesFragment();
     return null;
   }
 

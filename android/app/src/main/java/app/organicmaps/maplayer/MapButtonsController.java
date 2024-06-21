@@ -44,6 +44,8 @@ public class MapButtonsController extends Fragment
   private View mBottomButtonsFrame;
   @Nullable
   private FloatingActionButton mToggleMapLayerButton;
+  @Nullable
+  private FloatingActionButton mMyRoutesButton;
 
   @Nullable
   private MyPositionButton mNavMyPosition;
@@ -104,6 +106,11 @@ public class MapButtonsController extends Fragment
     final View myPosition = mFrame.findViewById(R.id.my_position);
     mNavMyPosition = new MyPositionButton(myPosition, (v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.myPosition));
 
+    mMyRoutesButton = mFrame.findViewById(R.id.btn_myroutes);
+    if (mMyRoutesButton != null)
+    {
+      mMyRoutesButton.setOnClickListener(view -> mMapButtonClickListener.onMapButtonClick(MapButtons.myRoutes));
+    }
     // Some buttons do not exist in navigation mode
     mToggleMapLayerButton = mFrame.findViewById(R.id.layers_button);
     if (mToggleMapLayerButton != null)
@@ -143,6 +150,8 @@ public class MapButtonsController extends Fragment
     mButtonsMap.put(MapButtons.bookmarks, bookmarksButton);
     mButtonsMap.put(MapButtons.search, searchButton);
 
+    if (mMyRoutesButton != null)
+      mButtonsMap.put(MapButtons.myRoutes, mMyRoutesButton);
     if (mToggleMapLayerButton != null)
       mButtonsMap.put(MapButtons.toggleMapLayer, mToggleMapLayerButton);
     if (menuButton != null)
@@ -181,6 +190,11 @@ public class MapButtonsController extends Fragment
       case bookmarks:
       case menu:
         UiUtils.showIf(show, buttonView);
+        break;
+      case myRoutes:
+        UiUtils.showIf(show, mMyRoutesButton);
+        break;
+
     }
   }
 
@@ -350,7 +364,8 @@ public class MapButtonsController extends Fragment
     search,
     bookmarks,
     menu,
-    help
+    help,
+    myRoutes
   }
 
   public interface MapButtonClickListener

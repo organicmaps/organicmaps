@@ -57,4 +57,12 @@
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:layout_alignParentEnd="true" />
+  <include
+      layout="@layout/map_buttons_myroutes"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_marginBottom="@dimen/margin_half"
+      android:layout_alignParentStart="true"
+      android:layout_marginStart="@dimen/margin_half" />
 </RelativeLayout>

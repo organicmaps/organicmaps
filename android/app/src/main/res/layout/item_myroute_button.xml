@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="@dimen/height_item_edit_bookmark"
+  android:background="?clickableBackground">
+
+  <Button
+    android:id="@+id/name"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="?selectableItemBackgroundBorderless"
+    android:layout_marginTop="@dimen/margin_base"
+    android:layout_marginStart="8dp"
+    android:paddingHorizontal="8dp"
+    android:layout_toStartOf="@+id/rename"
+    android:layout_alignParentStart="true"
+    android:layout_centerVertical="true"
+    android:ellipsize="middle"
+    android:singleLine="true"
+    android:textAppearance="?fontBody1"
+    tools:text="Route name looooooooooooooooooongasdasdasd"
+    android:gravity="center"
+    android:clickable="true"
+    android:focusable="true"/>
+
+  <ImageView
+    android:id="@+id/rename"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="?selectableItemBackgroundBorderless"
+    android:layout_toStartOf="@+id/delete"
+    android:paddingHorizontal="8dp"
+    app:srcCompat="@drawable/ic_edit"
+    app:tint="?secondary"
+    android:importantForAccessibility="no" />
+
+  <ImageView
+      android:id="@+id/delete"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_alignParentEnd="true"
+      android:background="?selectableItemBackgroundBorderless"
+      android:paddingHorizontal="@dimen/margin_half"
+      app:srcCompat="@drawable/ic_delete"
+      app:tint="?secondary"
+      android:importantForAccessibility="no" />
+</RelativeLayout>
