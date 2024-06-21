@@ -139,7 +139,7 @@ bool IsContained(char const * name, std::vector<char const *> const & collection
 }
 }  // namespace
 
-VkBool32 VKAPI_PTR DebugReportCallbackImpl(VkDebugReportFlagsEXT flags,
+static VkBool32 VKAPI_PTR DebugReportCallbackImpl(VkDebugReportFlagsEXT flags,
                                            VkDebugReportObjectTypeEXT objectType, uint64_t object,
                                            size_t location, int32_t /*messageCode*/,
                                            const char * pLayerPrefix, const char * pMessage,
