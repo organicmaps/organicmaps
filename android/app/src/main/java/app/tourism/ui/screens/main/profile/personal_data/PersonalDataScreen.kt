@@ -1,7 +1,6 @@
 package app.tourism.ui.screens.main.profile.personal_data
 
 import android.view.LayoutInflater
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
@@ -20,15 +19,16 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -40,7 +40,7 @@ import app.tourism.Constants
 import app.tourism.domain.models.resource.Resource
 import app.tourism.ui.ObserveAsEvents
 import app.tourism.ui.common.HorizontalSpace
-import app.tourism.ui.common.LoadImg
+import app.tourism.ui.common.ImagePicker
 import app.tourism.ui.common.SpaceForNavBar
 import app.tourism.ui.common.VerticalSpace
 import app.tourism.ui.common.buttons.PrimaryButton
@@ -50,14 +50,21 @@ import app.tourism.ui.screens.main.profile.profile.ProfileViewModel
 import app.tourism.ui.screens.main.profile.profile.UiEvent
 import app.tourism.ui.theme.TextStyles
 import app.tourism.ui.utils.showToast
+import app.tourism.utils.FileUtils
+import coil.compose.AsyncImage
 import com.hbb20.CountryCodePicker
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.io.File
 
 @Composable
 fun PersonalDataScreen(onBackClick: () -> Boolean, profileVM: ProfileViewModel) {
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
+    val coroutineScope = rememberCoroutineScope()
 
     val personalData = profileVM.profileDataResource.collectAsState().value
+    val pfpFile = profileVM.pfpFile.collectAsState().value
     val fullName = profileVM.fullName.collectAsState().value
     val email = profileVM.email.collectAsState().value
     val countryCodeName = profileVM.countryCodeName.collectAsState().value
@@ -87,29 +94,39 @@ fun PersonalDataScreen(onBackClick: () -> Boolean, profileVM: ProfileViewModel) 
                     Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    LoadImg(
+                    AsyncImage(
                         modifier = Modifier
                             .size(100.dp)
                             .clip(CircleShape),
-                        url = data.pfpUrl
+                        model = pfpFile,
+                        contentScale = ContentScale.Crop,
+                        contentDescription = null,
                     )
                     HorizontalSpace(width = 20.dp)
-                    Row(
-                        modifier = Modifier
-                            .clickable {
-
+                    ImagePicker(
+                        showPreview = false,
+                        onSuccess = { uri ->
+                            coroutineScope.launch(Dispatchers.IO) {
+                                profileVM.setPfpFile(
+                                    File(FileUtils(context).getPath(uri))
+                                )
                             }
-                            .padding(16.dp),
-                        verticalAlignment = Alignment.CenterVertically,
+                        }
                     ) {
-                        val uploadPhotoText = stringResource(id = R.string.upload_photo)
-                        Icon(
-                            painter = painterResource(id = R.drawable.image_down),
-                            contentDescription = uploadPhotoText,
-                        )
-                        HorizontalSpace(width = 8.dp)
-                        Text(text = uploadPhotoText, style = TextStyles.h4)
+                        Row(
+                            modifier = Modifier.padding(16.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            val uploadPhotoText = stringResource(id = R.string.upload_photo)
+                            Icon(
+                                painter = painterResource(id = R.drawable.image_down),
+                                contentDescription = uploadPhotoText,
+                            )
+                            HorizontalSpace(width = 8.dp)
+                            Text(text = uploadPhotoText, style = TextStyles.h4)
+                        }
                     }
+
                 }
                 VerticalSpace(height = 24.dp)
 

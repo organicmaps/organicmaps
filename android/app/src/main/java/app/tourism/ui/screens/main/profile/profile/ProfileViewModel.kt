@@ -1,5 +1,6 @@
 package app.tourism.ui.screens.main.profile.profile
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.tourism.data.prefs.UserPreferences
@@ -15,6 +16,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,13 +29,20 @@ class ProfileViewModel @Inject constructor(
     val uiEventsChannelFlow = uiChannel.receiveAsFlow()
 
     // region fields to update
+    private val _pfpFile = MutableStateFlow<File?>(null)
+    val pfpFile = _pfpFile.asStateFlow()
+
+    fun setPfpFile(pfpFile: File) {
+        _pfpFile.value = pfpFile
+    }
+    
     private val _fullName = MutableStateFlow("")
     val fullName = _fullName.asStateFlow()
 
     fun setFullName(value: String) {
         _fullName.value = value
     }
-
+    
 
     private val _email = MutableStateFlow("")
     val email = _email.asStateFlow()
