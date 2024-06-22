@@ -84,6 +84,7 @@ using namespace osm;
             _driveThrough = NSLocalizedString(@"drive_through", nil);
           break;
         case MetadataID::FMD_WEBSITE_MENU: _websiteMenu = ToNSString(value); break;
+        case MetadataID::FMD_NETWORK: _network = [NSString stringWithFormat:NSLocalizedString(@"network", nil), ToNSString(value)]; break;
         default:
           break;
       }

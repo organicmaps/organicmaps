@@ -100,6 +100,7 @@ class PlacePageInfoViewController: UIViewController {
   private var capacityView: InfoItemViewController?
   private var wheelchairView: InfoItemViewController?
   private var driveThroughView: InfoItemViewController?
+  private var networkView: InfoItemViewController?
 
   var placePageInfoData: PlacePageInfoData!
   weak var delegate: PlacePageInfoViewControllerDelegate?
@@ -156,6 +157,10 @@ class PlacePageInfoViewController: UIViewController {
 
     if let ppOperator = placePageInfoData.ppOperator {
       operatorView = createInfoItem(ppOperator, icon: UIImage(named: "ic_placepage_operator"))
+    }
+    
+    if let network = placePageInfoData.network {
+      networkView = createInfoItem(network, icon: UIImage(named: "ic_placepage_network"))
     }
 
     if let website = placePageInfoData.website {
