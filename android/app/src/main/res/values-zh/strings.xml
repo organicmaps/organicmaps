@@ -496,7 +496,7 @@
 	<string name="editor_more_about_osm">关于 OpenStreetMap 的更多信息</string>
 	<string name="editor_operator">运营者</string>
 	<string name="editor_category_unsuitable_title">找不到合适的类别？</string>
-	<string name="editor_category_unsuitable_text">有机地图只允许添加简单的点类别，即不允许添加城镇、道路、湖泊、建筑轮廓等类别。请直接向<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>添加此类类别。请查看我们的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，了解详细的步骤说明。</string>
+	<string name="editor_category_unsuitable_text">Organic Maps 只允许添加简单的点类别，即无法添加城镇、道路、湖泊、建筑轮廓等类别。请直接向<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>添加此类类别。请查看我们的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，了解详细的步骤说明。</string>
 	<string name="downloader_no_downloaded_maps_title">您尚未下载任何地图</string>
 	<string name="downloader_no_downloaded_maps_message">下载地图来查找位置和离线浏览</string>
 	<!-- abbreviation for meters -->
@@ -754,9 +754,9 @@
 	<!-- App tip #09 -->
 	<string name="app_tip_09">我们的主要目标是构建您会喜欢的快速、注重隐私、易于使用的地图。</string>
 	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-	<string name="car_used_on_the_phone_screen">您现在正在手机屏幕上使用有机地图</string>
+	<string name="car_used_on_the_phone_screen">您现在正在手机屏幕上使用 Organic Maps</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="car_used_on_the_car_screen">您现在正在汽车屏幕上使用有机地图</string>
+	<string name="car_used_on_the_car_screen">您现在正在汽车屏幕上使用 Organic Maps</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">您已连接到 Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->

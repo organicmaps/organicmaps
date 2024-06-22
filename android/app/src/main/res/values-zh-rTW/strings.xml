@@ -499,7 +499,7 @@
 	<string name="editor_more_about_osm">關於 OpenStreetMap 的更多資訊</string>
 	<string name="editor_operator">營運者</string>
 	<string name="editor_category_unsuitable_title">找不到合適的類別？</string>
-	<string name="editor_category_unsuitable_text">有機地圖僅允許添加簡單的點類別，這意味著沒有城鎮、道路、湖泊、建築物輪廓等。<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>.請查看我們的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，以了解詳細的逐步說明。</string>
+	<string name="editor_category_unsuitable_text">Organic Maps 只允許添加簡單的點類別，即無法添加城鎮、道路、湖泊、建築輪廓等類別。 請直接向<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>新增此類類別。 請查看我們的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，以了解詳細的步驟說明。</string>
 	<string name="downloader_no_downloaded_maps_title">您尚未下載任何地圖</string>
 	<string name="downloader_no_downloaded_maps_message">下載地圖來尋找位置和離線瀏覽。</string>
 	<!-- abbreviation for meters -->
@@ -519,7 +519,7 @@
 	<!-- A referral link on the place page for some hotels -->
 	<string name="more_on_kayak">照片、評論、預訂</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-	<string name="dialog_kayak_disclaimer">透過此連結進行的每次預訂收到的推薦獎金將用於開發有機地圖</string>
+	<string name="dialog_kayak_disclaimer">透過此連結進行的每次預訂收到的推薦獎金將用於開發 Organic Maps。</string>
 	<!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
 	<string name="dialog_kayak_button">Kayak 上的詳細資訊</string>
 	<string name="placepage_edit_bookmark_button">編輯書籤</string>
@@ -763,9 +763,9 @@
 	<!-- App tip #09 -->
 	<string name="app_tip_09">我們的主要目標是構建您會喜歡的快速、注重隱私、易於使用的地圖。</string>
 	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-	<string name="car_used_on_the_phone_screen">您現在正在手機螢幕上使用有機地圖</string>
+	<string name="car_used_on_the_phone_screen">您現在正在手機螢幕上使用 Organic Maps</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="car_used_on_the_car_screen">您現在正在汽車螢幕上使用有機地圖</string>
+	<string name="car_used_on_the_car_screen">您現在正在汽車螢幕上使用 Organic Maps</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">您已連接到 Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->

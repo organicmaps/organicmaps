@@ -789,7 +789,7 @@
 
 "location_services_disabled_on_device_4" = "4.打开定位服务";
 
-"location_services_disabled_on_device_additional_message" = "或继续使用 \"有机地图 \"而不定位";
+"location_services_disabled_on_device_additional_message" = "或继续使用 Organic Maps，但无法定位到您目前所在的位置。";
 
 /* abbreviation for meters */
 "m" = "米";
@@ -1268,10 +1268,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "您现在正在手机屏幕上使用有机地图";
+"car_used_on_the_phone_screen" = "您现在正在手机屏幕上使用 Organic Maps";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "您现在正在汽车屏幕上使用有机地图";
+"car_used_on_the_car_screen" = "您现在正在汽车屏幕上使用 Organic Maps";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "在手机上继续";

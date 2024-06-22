@@ -210,7 +210,7 @@
 "done" = "完成";
 
 /* Prints version number in About dialog */
-"version" = "有機地圖版本：%@";
+"version" = "Organic Maps 版本：%@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "軌跡";
@@ -789,7 +789,7 @@
 
 "location_services_disabled_on_device_4" = "4.開啟定位服務";
 
-"location_services_disabled_on_device_additional_message" = "或繼續使用沒有位置的有機地圖";
+"location_services_disabled_on_device_additional_message" = "或繼續使用 Organic Maps，但無法定位到您目前所在的位置。";
 
 /* abbreviation for meters */
 "m" = "公尺";
@@ -820,7 +820,7 @@
 "more_on_kayak" = "照片、評論、預訂";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "透過此連結進行的每次預訂收到的推薦獎金將用於開發有機地圖";
+"dialog_kayak_disclaimer" = "透過此連結進行的每次預訂收到的推薦獎金將用於開發 Organic Maps。";
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Kayak 上的詳細資訊";
@@ -1268,10 +1268,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "您現在正在手機螢幕上使用有機地圖";
+"car_used_on_the_phone_screen" = "您現在正在手機螢幕上使用 Organic Maps";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "您現在正在汽車螢幕上使用有機地圖";
+"car_used_on_the_car_screen" = "您現在正在汽車螢幕上使用 Organic Maps";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "繼續打電話";
