@@ -47,6 +47,8 @@
 
     <include layout="@layout/place_page_operator"/>
 
+    <include layout="@layout/place_page_network"/>
+
     <include layout="@layout/place_page_wifi"/>
     <include layout="@layout/place_page_outdoor_seating"/>
 
