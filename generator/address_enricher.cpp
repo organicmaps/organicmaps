@@ -220,8 +220,7 @@ AddressEnricher::FoundT AddressEnricher::Match(Entry & e) const
   rect.Inflate(inflation.SizeX(), inflation.SizeY());
 
   // Tiger usually has short (St) names, while OSM has full (Street) names.
-  bool constexpr ignoreStreetSynonyms = true;
-  auto const streetKey = search::GetStreetNameAsKey(e.m_street, ignoreStreetSynonyms);
+  auto const streetKey = search::GetNormalizedStreetName(e.m_street);
 
   // Get HN range for the entry.
   auto const range = e.GetHNRange();
@@ -276,7 +275,7 @@ AddressEnricher::FoundT AddressEnricher::Match(Entry & e) const
     bool const isStreet = ftypes::IsStreetOrSquareChecker::Instance()(types);
 
     // First of all - compare street's name.
-    strings::UniString street = search::GetStreetNameAsKey(params.GetStreet(), ignoreStreetSynonyms);
+    strings::UniString street = search::GetNormalizedStreetName(params.GetStreet());
     if (isStreet)
     {
       // Fancy object, highway=pedestrian with addr: https://www.openstreetmap.org/way/415336229
@@ -286,9 +285,9 @@ AddressEnricher::FoundT AddressEnricher::Match(Entry & e) const
       // Take 'ref' if 'name' is empty, like here: https://www.openstreetmap.org/way/902910704
       std::string_view name;
       if (params.name.GetString(StringUtf8Multilang::kDefaultCode, name))
-        street = search::GetStreetNameAsKey(name, ignoreStreetSynonyms);
+        street = search::GetNormalizedStreetName(name);
       else if (!params.ref.empty())
-        street = search::GetStreetNameAsKey(params.ref, ignoreStreetSynonyms);
+        street = search::GetNormalizedStreetName(params.ref);
     }
     if (streetKey != street)
       return;

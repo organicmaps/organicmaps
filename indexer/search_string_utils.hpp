@@ -89,6 +89,9 @@ strings::UniString FeatureTypeToString(uint32_t type);
 std::string DropLastToken(std::string const & str);
 
 strings::UniString GetStreetNameAsKey(std::string_view name, bool ignoreStreetSynonyms);
+// Used for matching: "N 20th Rd" -> "20throadnorth"
+// Process English abbreviations only for now.
+strings::UniString GetNormalizedStreetName(std::string_view name);
 
 // *NOTE* The argument string must be normalized and simplified.
 bool IsStreetSynonym(strings::UniString const & s);
