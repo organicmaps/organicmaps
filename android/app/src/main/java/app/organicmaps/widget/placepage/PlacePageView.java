@@ -96,6 +96,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private TextView mTvWiFi;
   private View mOperator;
   private TextView mTvOperator;
+  private View mNetwork;
+  private TextView mTvNetwork;
   private View mLevel;
   private TextView mTvLevel;
   private View mAtm;
@@ -244,6 +246,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mOperator = mFrame.findViewById(R.id.ll__place_operator);
     mOperator.setOnClickListener(this);
     mTvOperator = mFrame.findViewById(R.id.tv__place_operator);
+    mNetwork = mFrame.findViewById(R.id.ll__place_network);
+    mTvNetwork = mFrame.findViewById(R.id.tv__place_network);
     mLevel = mFrame.findViewById(R.id.ll__place_level);
     mTvLevel = mFrame.findViewById(R.id.tv__place_level);
     mAtm = mFrame.findViewById(R.id.ll__place_atm);
@@ -270,6 +274,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     latlon.setOnLongClickListener(this);
     address.setOnLongClickListener(this);
     mOperator.setOnLongClickListener(this);
+    mNetwork.setOnLongClickListener(this);
     mLevel.setOnLongClickListener(this);
     mAtm.setOnLongClickListener(this);
     mCapacity.setOnLongClickListener(this);
@@ -410,6 +415,10 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     refreshLatLon();
 
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR), mOperator, mTvOperator);
+
+    final String network = mMapObject.getMetadata(Metadata.MetadataType.FMD_NETWORK);
+    refreshMetadataOrHide(!TextUtils.isEmpty(network) ? getString(R.string.network, network) : "", mNetwork, mTvNetwork);
+
     /// @todo I don't like it when we take all data from mapObject, but for cuisines, we should
     /// go into JNI Framework and rely on some "active object".
     refreshMetadataOrHide(Framework.nativeGetActiveObjectFormattedCuisine(), mCuisine, mTvCuisine);
@@ -605,6 +614,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     }
     else if (id == R.id.ll__place_operator)
       items.add(mTvOperator.getText().toString());
+    else if (id == R.id.ll__place_network)
+      items.add(mTvNetwork.getText().toString());
     else if (id == R.id.ll__place_level)
       items.add(mTvLevel.getText().toString());
     else if (id == R.id.ll__place_atm)
