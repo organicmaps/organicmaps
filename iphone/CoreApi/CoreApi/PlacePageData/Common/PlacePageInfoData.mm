@@ -95,6 +95,7 @@ NSString * GetLocalizedMetadataValueString(MapObject::MetadataID metaID, std::st
           if (value == "yes")
             _outdoorSeating = NSLocalizedString(@"outdoor_seating", nil);
           break;
+        case MetadataID::FMD_NETWORK: _network = [NSString stringWithFormat:NSLocalizedString(@"network", nil), ToNSString(value)]; break;
         default:
           break;
       }

@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) NSString *websiteMenu;
 @property(nonatomic, readonly, nullable) NSString *selfService;
 @property(nonatomic, readonly, nullable) NSString *outdoorSeating;
+@property(nonatomic, readonly, nullable) NSString *network;
 
 @end
 
