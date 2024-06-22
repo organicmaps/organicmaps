@@ -25046,6 +25046,51 @@
     zh-Hans = 容量：%@
     zh-Hant = 容量：%@
 
+  [network]
+    comment = To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations...
+    tags = android,ios
+    en = Network: %@
+    af = Netwerk: %@
+    ar = الشبكة: %@
+    az = Şəbəkə: %@
+    be = Сетка: %@
+    bg = Мрежа: %@
+    ca = Xarxa: %@
+    cs = Síť: %@
+    da = Netværk: %@
+    de = Netzwerk: %@
+    el = Δίκτυο: %@
+    es = Red: %@
+    et = Võrk: %@
+    eu = Sarea: %@
+    fa = شبکه: %@
+    fi = Verkko: %@
+    fr = Réseau : %@
+    he = רשת: %@
+    hi = नेटवर्क: %@
+    hu = Hálózat: %@
+    id = Jaringan: %@
+    it = Rete: %@
+    ja = ネットワーク： %@
+    ko = 네트워크: %@
+    lt = Tinklas: %@
+    mr = नेटवर्क: %@
+    nb = Nettverk: %@
+    nl = Netwerk: %@
+    pl = Sieć: %@
+    pt = Rede: %@
+    ro = Rețea: %@
+    ru = Сеть: %@
+    sk = Sieť: %@
+    sv = Nätverk: %@
+    sw = Mtandao: %@
+    th = เครือข่าย: %@
+    tr = Ağ: %@
+    uk = Мережа: %@
+    vi = Mạng: %@
+    zh-Hans = 网络：%@
+    zh-Hant = 網路： %@
+
   [trip_finished]
     tags = android,ios
     en = You have arrived!

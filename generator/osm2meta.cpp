@@ -568,6 +568,7 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   case Metadata::FMD_DRIVE_THROUGH: valid = ValidateAndFormat_drive_through(v); break;
   case Metadata::FMD_SELF_SERVICE: valid = ValidateAndFormat_self_service(v); break;
   case Metadata::FMD_OUTDOOR_SEATING: valid = ValidateAndFormat_outdoor_seating(v); break;
+  case Metadata::FMD_NETWORK: valid = ValidateAndFormat_operator(v); break;
   // Metadata types we do not get from OSM.
   case Metadata::FMD_CUISINE:
   case Metadata::FMD_DESCRIPTION:   // processed separately

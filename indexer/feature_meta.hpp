@@ -154,6 +154,7 @@ public:
     FMD_WEBSITE_MENU = 46,
     FMD_SELF_SERVICE = 47,
     FMD_OUTDOOR_SEATING = 48,
+    FMD_NETWORK = 49,
     FMD_COUNT
   };
 
