@@ -53,8 +53,14 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>few</key>
+      <string>%d obiekty</string>
+      <key>many</key>
+      <string>%d obiektów</string>
+      <key>one</key>
+      <string>%d obiekt</string>
       <key>other</key>
-      <string>%d miejsce</string>
+      <string>%d objects</string>
     </dict>
   </dict>
 
@@ -68,8 +74,14 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
-      <key>other</key>
+      <key>few</key>
+      <string>%d trasy</string>
+      <key>many</key>
       <string>%d tras</string>
+      <key>one</key>
+      <string>%d trasa</string>
+      <key>other</key>
+      <string>%d tracks</string>
     </dict>
   </dict>
 </dict>
