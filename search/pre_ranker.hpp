@@ -9,11 +9,9 @@
 
 #include "base/macros.hpp"
 
-#include <algorithm>
 #include <limits>
 #include <optional>
 #include <set>
-#include <string>
 #include <unordered_set>
 #include <vector>
 
@@ -89,7 +87,7 @@ public:
                                      : m_params.m_everywhereBatchSize;
   }
   size_t NumSentResults() const { return m_numSentResults; }
-  bool HaveFullyMatchedResult() const { return m_haveFullyMatchedResult; }
+  bool ContinueSearch() const { return !m_haveFullyMatchedResult || Size() < BatchSize(); }
   size_t Limit() const { return m_params.m_limit; }
 
   // Iterate results per-MWM clusters.

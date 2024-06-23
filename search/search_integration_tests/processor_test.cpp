@@ -3007,16 +3007,19 @@ UNIT_CLASS_TEST(ProcessorTest, MatchedFraction)
 
 UNIT_CLASS_TEST(ProcessorTest, AvoidMatchAroundPivotInMwmWithCity)
 {
-  TestCity minsk({-10.0, -10.0}, "Minsk", "en", 10 /* rank */);
-  // World.mwm should intersect viewport.
-  TestCity dummy({10.0, 10.0}, "Dummy", "en", 1 /* rank */);
+  std::string const lang = "en";
 
-  auto worldId = BuildWorld([&](TestMwmBuilder & builder) {
+  TestCity minsk({-10.0, -10.0}, "Minsk", lang, 100 /* rank */);
+  // World.mwm should intersect viewport.
+  TestCity dummy({10.0, 10.0}, "Dummy", lang, 1 /* rank */);
+
+  auto worldId = BuildWorld([&](TestMwmBuilder & builder)
+  {
     builder.Add(minsk);
     builder.Add(dummy);
   });
 
-  TestCafe minskCafe({-9.99, -9.99}, "Minsk cafe", "en");
+  TestCafe minskCafe({-9.99, -9.99}, "Minsk cafe", lang);
   auto minskId = BuildCountry("Minsk", [&](TestMwmBuilder & builder)
   {
     builder.Add(minsk);
@@ -3025,11 +3028,10 @@ UNIT_CLASS_TEST(ProcessorTest, AvoidMatchAroundPivotInMwmWithCity)
 
   SetViewport(m2::RectD(-1.0, -1.0, 1.0, 1.0));
   {
-    // Minsk cafe should not appear here because we have (worldId, minsk) result with all tokens
-    // used.
-    Rules rules = {ExactMatch(worldId, minsk)};
-    TEST(ResultsMatch("Minsk ", rules), ());
-    TEST(ResultsMatch("Minsk", rules), ());
+    // UPD: Of course, we should show Minsk cafe _after_ Minsk city.
+    Rules rules = { ExactMatch(worldId, minsk), ExactMatch(minskId, minskCafe) };
+    TEST(OrderedResultsMatch("Minsk ", rules), ());
+    TEST(OrderedResultsMatch("Minsk", rules), ());
   }
   {
     // We search for pois until we find result with all tokens used. We do not emit relaxed result
