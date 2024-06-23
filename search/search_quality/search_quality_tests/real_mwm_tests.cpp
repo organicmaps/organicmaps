@@ -1383,4 +1383,26 @@ UNIT_CLASS_TEST(MwmTestsFixture, UK_Postcodes_Timing)
   }
 }
 
+UNIT_CLASS_TEST(MwmTestsFixture, CompleteSearch_DistantMWMs)
+{
+  RegisterLocalMapsByPrefix("Russia_Kabardino-Balkaria");
+
+  // Buenos Aires (Palermo)
+  ms::LatLon const center(-34.58524, -58.42516);
+  SetViewportAndLoadMaps(center);
+
+  {
+    auto request = MakeRequest("Эльбрус");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+  }
+
+  {
+    auto request = MakeRequest("гора Эльбрус", "ru");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+    EqualClassifType(Range(results, 0, 1), GetClassifTypes({{"natural", "volcano"}}));
+  }
+}
+
 } // namespace real_mwm_tests

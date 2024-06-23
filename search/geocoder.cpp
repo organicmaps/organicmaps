@@ -628,12 +628,11 @@ void Geocoder::GoImpl(vector<MwmInfoPtr> const & infos, bool inViewport)
     {
       MatchRegions(ctx, Region::TYPE_COUNTRY);
 
+      // Probably, we should process all MWMs "until the end" but I left some _better-than-before_
+      // reasonable criteria (ContinueSearch) not to hang a lot.
       auto const & mwmType = m_context->GetType();
-      if (mwmType.m_viewportIntersected || mwmType.m_containsUserPosition ||
-          !m_preRanker.HaveFullyMatchedResult())
-      {
+      if (mwmType.m_viewportIntersected || mwmType.m_containsUserPosition || m_preRanker.ContinueSearch())
         MatchAroundPivot(ctx);
-      }
     }
 
     if (updatePreranker)
