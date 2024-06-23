@@ -1762,7 +1762,7 @@
     lt = Tęsti
     mr = चालू ठेवा
     nb = Fortsett
-    nl = Ga door
+    nl = Ga verder
     pl = Kontynuuj
     pt = Continuar
     pt-BR = Continuar
@@ -13613,7 +13613,7 @@
     ko = OpenStreetMap에 로그인
     lt = Prisijungti OpenStreetMap
     nb = Logg på OpenStreetMap
-    nl = Inloggen bij OpenStreetMap
+    nl = Log in bij OpenStreetMap
     pl = Zaloguj się do OpenStreetMap
     pt = Entrar no OpenStreetMap
     pt-BR = Entrar no OpenStreetMap
@@ -19341,7 +19341,7 @@
     lt = Tik šiandien
     mr = फक्त आज
     nb = Bare i dag
-    nl = Aleen vandaag
+    nl = Alleen vandaag
     pl = Tylko dzisiaj
     pt = Apenas hoje
     pt-BR = Apenas hoje
