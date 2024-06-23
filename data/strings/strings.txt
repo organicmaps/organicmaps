@@ -75,7 +75,7 @@
     lt = Atšaukti
     mr = रद्द करा
     nb = Avbryt
-    nl = Annuleren
+    nl = Annuleer
     pl = Anuluj
     pt = Cancelar
     pt-BR = Cancelar
@@ -120,7 +120,7 @@
     lt = Atšaukti atsisiuntimą
     mr = डाउनलोड रद्द करा
     nb = Avbryt nedlasting
-    nl = Downloaden annuleren
+    nl = Annuleer downloaden
     pl = Anuluj pobieranie
     pt = Cancelar descarregamento
     pt-BR = Cancelar download
@@ -165,7 +165,7 @@
     lt = Naikinti
     mr = हटवा
     nb = Slett
-    nl = Verwijderen
+    nl = Verwijder
     pl = Usuń
     pt = Eliminar
     pt-BR = Apagar
@@ -606,7 +606,7 @@
     lt = Ieškoti
     mr = शोधा
     nb = Søk
-    nl = Zoeken
+    nl = Zoek
     pl = Wyszukaj
     pt = Pesquisar
     pt-BR = Buscar
@@ -651,7 +651,7 @@
     lt = Ieškoti žemėlapio
     mr = नकाश्यात शोधा
     nb = Søk kart
-    nl = Op de kaart zoeken
+    nl = Zoek op de kaart
     pl = Wyszukaj mapy
     pt = Pesquisar mapa
     pt-BR = Procurar mapa
@@ -786,7 +786,7 @@
     lt = Rodyti žemėlapyje
     mr = नकाशावर दाखवा
     nb = Vis på kartet
-    nl = Op de kaart tonen
+    nl = Toon op de kaart
     pl = Wyświetl na mapie
     pt = Mostrar no mapa
     pt-BR = Mostrar no mapa
@@ -831,7 +831,7 @@
     lt = Atsisiųsti žemėlapį
     mr = नकाशा डाउनलोड करा
     nb = Last ned kart
-    nl = Kaart downloaden
+    nl = Download kaart
     pl = Pobierz mapę
     pt = Descarregar mapa
     pt-BR = Baixar mapa
@@ -921,7 +921,7 @@
     lt = Bandyti dar kartą
     mr = पुन्हा प्रयत्न करा
     nb = Prøv på nytt
-    nl = Opnieuw proberen
+    nl = Probeer opnieuw
     pl = Spróbuj ponownie
     pt = Tentar novamente
     pt-BR = Tentar novamente
@@ -1144,7 +1144,7 @@
     lt = • Greitas, minimalistinis, sukurtas bendruomenės
     mr = • जलद, मिनिमलिस्ट, समुदायाद्वारे विकसित
     nb = • Rask, minimalistisk, utviklet av fellesskapet
-    nl = • Snel, minimalistisch, ontwikkeld door gemeenschap
+    nl = • Snel, minimalistisch, ontwikkeld door de gemeenschap
     pl = • Szybki, minimalistyczny, opracowany przez społeczność
     pt = • Rápido, minimalista, desenvolvido pela comunidade
     ro = • Rapid, minimalist, dezvoltat de comunitate
@@ -1275,7 +1275,7 @@
     lt = Uždaryti
     mr = बंद
     nb = Lukk
-    nl = Sluiten
+    nl = Sluit
     pl = Zamknij
     pt = Fechar
     pt-BR = Fechar
@@ -1363,7 +1363,7 @@
     lt = Atsisiųsti
     mr = डाउनलोड करा
     nb = Last ned
-    nl = Downloaden
+    nl = Download
     pl = Pobierz
     pt = Descarregar
     pt-BR = Baixar
@@ -1717,7 +1717,7 @@
     lt = Pristabdyti
     mr = विराम द्या
     nb = Pause
-    nl = Pauzeren
+    nl = Pauzeer
     pl = Wstrzymaj
     pt = Pausar
     pt-BR = Pausar
@@ -1762,7 +1762,7 @@
     lt = Tęsti
     mr = चालू ठेवा
     nb = Fortsett
-    nl = Doorgaan
+    nl = Ga door
     pl = Kontynuuj
     pt = Continuar
     pt-BR = Continuar
@@ -2391,7 +2391,7 @@
     ko = 지도가 다운로드될 곳을 선택합니다
     mr = नकाशे डाउनलोड करायचे ठिकाण निवडा
     nb = Velg hvor du vil at kartene skal lastes ned til
-    nl = Selecteer de plaats waar kaarten naar gedownload zouden moeten worden
+    nl = Selecteer de map waar kaarten naar gedownload worden
     pl = Określa położenie przechowywania pobranych map
     pt = Selecione o local onde os mapas devem ser descarregados
     pt-BR = Selecione o local para onde os mapas devem ser baixados
@@ -4188,7 +4188,7 @@
     lt = Nepavyko atidaryti failo %1$@\n\n%2$@
     mr = फाइल उघडण्यात अयशस्वी%1$@\n\n%2$@
     nb = Kunne ikke åpne filen %1$@\n\n%2$@
-    nl = Faalde om bestand te openen %1$@\n\n%2$@
+    nl = Bestand openen mislukt %1$@\n\n%2$@
     pl = Nie udało się otworzyć pliku %1$@\n\n%2$@
     pt = Falha ao abrir o ficheiro %1$@\n\n%2$@
     pt-BR = Falha ao abrir o arquivo %1$@\n\n%2$@
@@ -4234,7 +4234,7 @@
     lt = Redaguoti
     mr = संपादन
     nb = Rediger
-    nl = Wijzigen
+    nl = Wijzig
     pl = Edytuj
     pt = Editar
     pt-BR = Editar
@@ -4369,7 +4369,7 @@
     lt = Vyksta žemėlapio atsisiuntimas.
     mr = नकाशा डाउनलोड होत आहे
     nb = Nedlasting av land pågår nå.
-    nl = Het downloaden van het land is nu aan de gang.
+    nl = De kaart wordt nu gedownload.
     pl = Trwa pobieranie mapy kraju.
     pt = O descarregamento do país está a ser feito neste momento.
     pt-BR = O download do país está atualmente em progresso.
@@ -4457,7 +4457,7 @@
     lt = Labas, pažvelk, ką aš prisegiau Organic Maps!
     mr = Organic Maps द्वारे एक खूणपत्र पाठवत आहे!
     nb = Hei, se merket mitt på Organic Maps-kartet
-    nl = Hey, kijk naar mijn pin op Organic Maps!
+    nl = Hey, bekijk mijn pin op Organic Maps!
     pl = Hej, spójrz na mój znacznik w Organic Maps!
     pt = Veja o meu marcador no mapa do Organic Maps.
     pt-BR = Veja o meu marcador no mapa do Organic Maps.
@@ -4501,7 +4501,7 @@
     lt = Labas, pažvelk į mano dabartinę vietą Organic Maps žemėlapyje!
     mr = Organic Maps द्वारे माझे वर्तमान स्थान पाठवत आहे!
     nb = Hei, se posisjonen min på Organic Maps-kartet!
-    nl = Hey, kijk naar mijn huidige locatie op Organic Maps!
+    nl = Hey, bekijk mijn huidige locatie op Organic Maps!
     pl = Zobacz moją aktualną lokalizację na mapie przy użyciu Organic Maps
     pt = Veja a minha localização atual no mapa Organic Maps!
     pt-BR = Veja no mapa a minha localização atual via Organic Maps!
@@ -4590,7 +4590,7 @@
     lt = Bendrinti
     mr = सामायिक
     nb = Del
-    nl = Delen
+    nl = Deel
     pl = Udostępnij
     pt = Partilhar
     pt-BR = Compartilhar
@@ -5249,7 +5249,7 @@
     lt = Rodyti žemėlapyje
     mr = नकाशावर दाखवा
     nb = Vis på skjermen
-    nl = Weergave op het scherm
+    nl = Toon op de kaart
     pl = Wyświetla na ekranie
     pt = Mostrar no ecrã
     pt-BR = Mostrar na tela
@@ -5783,7 +5783,7 @@
     ja = 通りの名前を発表
     ko = "거리 이름 발표"
     nb = Kunngjør gatenavn
-    nl = Straatnamen bekendmaken
+    nl = Straatnamen aankondigen
     pl = Wymawiaj nazwy ulic
     pt = Anunciar nomes de ruas
     ro = Anunțați numele străzilor
@@ -6536,7 +6536,7 @@
     lt = Rodyti žemėlapyje
     mr = नकाशावर पहा
     nb = Vis på kartet
-    nl = Op kaart bekijken
+    nl = Bekijk op de kaart
     pl = Wyświetl na mapie
     pt = Ver no mapa
     pt-BR = Ver no mapa
@@ -6802,7 +6802,7 @@
     lt = Įvertinkite programėlę
     mr = ऍप मानांकित करा
     nb = Ranger appen
-    nl = App beoordelen
+    nl = Beoordeel de app
     pl = Oceń aplikację
     pt = Avaliar a aplicação
     pt-BR = Avaliar o aplicativo
@@ -6936,7 +6936,7 @@
     ko = 기부
     lt = Aukoti
     nb = Donere
-    nl = Doneren
+    nl = Doneer
     pl = Wspomóż
     pt = Doar
     pt-BR = Doar
@@ -7306,7 +7306,7 @@
     lt = El. pašto paskyra nenustatyta. Ją sukonfigūruokite arba susisiekite kitu būdu: %@
     mr = ईमेल वाहक सेट केलेले नाही. कृपया ते सेट करा किंवा वेगळ्या पद्धतीने आमच्याशी %@ वर संपर्क करा
     nb = E-postklienten har ikke blitt konfigurert. Konfigurer den eller bruk en annen måte å kontakte oss på %@
-    nl = De emailcliënt is niet ingesteld. Gelieve de cliënt te configureren of contact met ons op te nemen op %@
+    nl = Het e-mailprogramma is niet ingesteld. Stel het programma in of neem contact met ons op via %@
     pl = Klient pocztowy nie został skonfigurowany. Proszę skonfigurować go, bądź skorzystać z innych opcji, aby się z nami skontaktować na %@
     pt = O programa de email não está configurado. Por favor, configure-o ou utilize qualquer outra forma de nos contactar através de %@
     pt-BR = O cliente de email não está configurado. Por favor, configure-o ou utilize qualquer outro modo para nos contatar através de %@
@@ -7351,7 +7351,7 @@
     lt = Klaida siunčiant laišką
     mr = मेल पाठवताना त्रुटी
     nb = Feil ved sending av e-post
-    nl = Email verzendfout
+    nl = E-mail verzendfout
     pl = Błąd wysyłania wiadomości
     pt = Erro ao enviar o email
     pt-BR = Erro no envio de email
@@ -7396,7 +7396,7 @@
     lt = Kompaso kalibravimas
     mr = होकायंत्र अंशशोधन
     nb = Kompasskalibrering
-    nl = Kompascalibratie
+    nl = Kompaskalibratie
     pl = Kalibracja kompasu
     pt = Calibração da bússola
     pt-BR = Calibração da bússola
@@ -7618,7 +7618,7 @@
     lt = Atšaukti viską
     mr = सर्व रद्द
     nb = Avbryt alle
-    nl = Alles annuleren
+    nl = Annuleer alles
     pl = Anuluj wszystko
     pt = Cancelar tudo
     pt-BR = Cancelar tudo
@@ -7881,7 +7881,7 @@
     lt = Atsisiųsti viską
     mr = सर्व डाउनलोड
     nb = Last ned alle
-    nl = Alles downloaden
+    nl = Download alles
     pl = Pobierz wszystkie
     pt = Descarregar tudo
     pt-BR = Baixar tudo
@@ -8011,7 +8011,7 @@
     lt = Naujinti
     mr = अद्ययावत करा
     nb = Oppdatering
-    nl = Bijwerken
+    nl = Updaten
     pl = Aktualizacja
     pt = Atualizar
     pt-BR = Atualizar
@@ -8231,7 +8231,7 @@
     lt = Bandyti dar kartą
     mr = पुनर्प्रयत्न
     nb = Gjenta
-    nl = Herhalen
+    nl = Probeer opnieuw
     pl = Powtórz
     pt = Repetir
     pt-BR = Repetir
@@ -8275,7 +8275,7 @@
     lt = Naikinti žemėlapį
     mr = नकाशा काढून टाका
     nb = Slett kart
-    nl = Kaart verwijderen
+    nl = Verwijder kaart
     pl = Usuń mapę
     pt = Eliminar mapa
     pt-BR = Apagar mapa
@@ -8319,7 +8319,7 @@
     lt = Naujinti žemėlapį
     mr = नकाशा अद्ययावत करा
     nb = Oppdater kart
-    nl = Kaart bijwerken
+    nl = Update kaart
     pl = Aktualizuj mapę
     pt = Atualizar mapa
     pt-BR = Atualizar mapa
@@ -8590,7 +8590,7 @@
     lt = adresynas
     mr = खूणपत्र
     nb = bokmerk
-    nl = markeren
+    nl = markeer
     pl = zakładka
     pt = favorito
     pt-BR = favorito
@@ -8635,7 +8635,7 @@
     lt = Įjunkite vietovės tarnybas
     mr = कृपया स्थान सेवा सक्रिय करा
     nb = Aktiver posisjonstjenester
-    nl = Schakel Locatie Services in
+    nl = Schakel locatiediensten in
     pl = Proszę włączyć usługi lokalizacji
     pt = Por favor ative os serviços de localização
     pt-BR = Por favor, ative os Serviços de Localização
@@ -8679,7 +8679,7 @@
     lt = Išsaugoti
     mr = साठवा
     nb = Lagre
-    nl = Opslaan
+    nl = Bewaar
     pl = Zapisz
     pt = Guardar
     pt-BR = Salvar
@@ -10186,7 +10186,7 @@
     lt = Suderinkite jūsų pradžios tašką arba tikslą.
     mr = कृपया तुमचा प्रारंभ किंवा इष्टस्थानाचा बिंदू समायोजित करा.
     nb = Endre startpunkt eller bestemmelsessted.
-    nl = Kies een ander startpunt of andere bestemming.
+    nl = Kies een ander startpunt of een andere bestemming.
     pl = Zmień punkt początkowy lub docelowy.
     pt = Ajuste o ponto de partida ou o ponto de chegada.
     pt-BR = Ajuste o ponto de partida ou o ponto de chegada.
@@ -10229,7 +10229,7 @@
     lt = Derinti pradžios tašką
     mr = प्रारंभ बिंदू समायोजित करा
     nb = Endre startpunkt
-    nl = Ander startpunt kiezen
+    nl = Kies ander startpunt
     pl = Zmień punkt początkowy
     pt = Ajuste o ponto de partida
     pt-BR = Ajuste o ponto de partida
@@ -10359,7 +10359,7 @@
     lt = Derinti tikslą
     mr = इष्टस्थान समायोजित करा
     nb = Endre bestemmelsessted
-    nl = Andere bestemming kiezen
+    nl = Kies andere bestemming
     pl = Zmień punkt docelowy
     pt = Ajuste o ponto de chegada
     pt-BR = Ajuste o ponto de chegada
@@ -10883,7 +10883,7 @@
     lt = Rodyti
     mr = दाखवा
     nb = Vis
-    nl = Tonen
+    nl = Toon
     pl = Pokaż
     pt = Mostrar
     pt-BR = Mostrar
@@ -10928,7 +10928,7 @@
     lt = Slėpti
     mr = लपवा
     nb = Skjul
-    nl = Verbergen
+    nl = Verberg
     pl = Ukryj
     pt = Ocultar
     pt-BR = Ocultar
@@ -11193,7 +11193,7 @@
     lt = Ai! Nerasta rezultatų.
     mr = अरेच्चा, काहीच सापडले नाही.
     nb = Beklager, jeg fant ingenting.
-    nl = Sorry, ik heb niets gevonden.
+    nl = Sorry, geen resultaten gevonden.
     pl = Przepraszamy, nic nie znaleziono.
     pt = Lamento, mas não foram encontrados resultados.
     pt-BR = Sinto muito, nenhum resultado foi encontrado.
@@ -11368,7 +11368,7 @@
     lt = Valyti istoriją
     mr = शोध इतिहास पुसून टाका
     nb = Tøm søkehistorikk
-    nl = Zoekgeschiedenis wissen
+    nl = Wis zoekgeschiedenis
     pl = Wyczyść historię wyszukiwania
     pt = Limpar histórico de pesquisas
     pt-BR = Limpar histórico de pesquisa
@@ -11493,7 +11493,7 @@
     lt = Pradėti
     mr = सुरू करा
     nb = Start
-    nl = Beginnen
+    nl = Start
     pl = Start
     pt = Iniciar
     pt-BR = Iniciar
@@ -11842,7 +11842,7 @@
     lt = Planas
     mr = वेळापत्रक जोडा
     nb = Legg til tidsrom
-    nl = Schema toevoegen
+    nl = Voeg schema toe
     pl = Dodaj harmonogram
     pt = Adicionar horário
     ro = Adaugă planificare
@@ -11884,7 +11884,7 @@
     lt = Naikinti planą
     mr = वेळापत्रक मिटवा
     nb = Slett tidsrom
-    nl = Schema verwijderen
+    nl = Verwijder schema
     pl = Usuń harmonogram
     pt = Eliminar horário
     pt-BR = Apagar horário
@@ -11928,7 +11928,7 @@
     lt = Visą dieną (24 valandos)
     mr = दिवसभर (२४ तास)
     nb = Hele dagen (24 timer)
-    nl = Elke dag (dag en nacht)
+    nl = Elke dag (24 uur)
     pl = Całą dobę (24 godziny)
     pt = Todo o dia (24 horas)
     pt-BR = O dia todo (24 horas)
@@ -12312,7 +12312,7 @@
     lt = Taisyti klaidą
     mr = चूक सुधारा
     nb = Rett feil
-    nl = Fout corrigeren
+    nl = Corrigeer fout
     pl = Popraw błąd
     pt = Corrigir erro
     ro = Corectare greșeală
@@ -12569,7 +12569,7 @@
     lt = Siųsti
     mr = पाठवा
     nb = Send
-    nl = Verzenden
+    nl = Verzend
     pl = Wyślij
     pt = Enviar
     pt-BR = Enviar
@@ -12785,7 +12785,7 @@
     lt = Automatinis atsisiuntimas
     mr = स्वयं डाउनलोड
     nb = Automatisk nedlasting
-    nl = Automatische download
+    nl = Download kaarten automatisch
     pl = Automatyczne pobieranie
     pt = Descarregamento automático
     pt-BR = Download automático
@@ -12918,7 +12918,7 @@
     lt = 24/7
     mr = २४/७
     nb = Dag og natt
-    nl = Nacht en dag
+    nl = 24/7
     pl = 24/7
     pt = 24 horas por dia
     pt-BR = 24 horas por dia
@@ -12961,7 +12961,7 @@
     lt = Šiandien uždaryta
     mr = आज बंद
     nb = Fridag i dag
-    nl = Vrije dag vandaag
+    nl = Vandaag gesloten
     pl = Dziś nieczynne
     pt = Fechado hoje
     pt-BR = Fechado hoje
@@ -13004,7 +13004,7 @@
     lt = Uždaryta
     mr = बंद
     nb = Fridag
-    nl = Vrije dag
+    nl = Gesloten
     pl = Nieczynne
     pt = Fechado
     pt-BR = Fechado
@@ -13311,7 +13311,7 @@
     lt = Pridėti darbo valandas
     mr = उघडण्याची वेळ जोड
     nb = Legg til åpningstider
-    nl = Openingsuren toevoegen
+    nl = Voeg openingstijden toe
     pl = Dodaj godziny otwarcia
     pt = Adicionar horário de funcionamento
     pt-BR = Adicionar horário de funcionamento
@@ -13355,7 +13355,7 @@
     lt = Redaguoti darbo valandas
     mr = व्यवसायाची वेळ संपादित करा
     nb = Rediger åpningstider
-    nl = Openingsuren bewerken
+    nl = Bewerk openingstijden
     pl = Edytuj godziny otwarcia
     pt = Editar horário de funcionamento
     pt-BR = Editar horário de funcionamento
@@ -13443,7 +13443,7 @@
     lt = Registruokitės OpenStreetMap
     mr = OpenStreetMap वर नोंदणी करा
     nb = Registrer deg
-    nl = Registeren
+    nl = Registreer bij OpenStreetMap
     pl = Zarejestruj się
     pt = Crie uma conta no OpenStreetMap
     pt-BR = Abra uma conta no OpenStreetMap
@@ -13613,7 +13613,7 @@
     ko = OpenStreetMap에 로그인
     lt = Prisijungti OpenStreetMap
     nb = Logg på OpenStreetMap
-    nl = Inloggen op OpenStreetMap
+    nl = Inloggen bij OpenStreetMap
     pl = Zaloguj się do OpenStreetMap
     pt = Entrar no OpenStreetMap
     pt-BR = Entrar no OpenStreetMap
@@ -13786,7 +13786,7 @@
     lt = Atsijungti
     mr = लॉग आऊट
     nb = Logg ut
-    nl = Uitloggen
+    nl = Log uit
     pl = Wyloguj
     pt = Terminar sessão
     pt-BR = Encerrar sessão
@@ -13917,7 +13917,7 @@
     lt = Redaguoti vietą
     mr = ठिकाण संपादित करा
     nb = Rediger stedet
-    nl = De locatie bewerken
+    nl = Bewerk de locatie
     pl = Edytuj miejsce
     pt = Editar o local
     pt-BR = Editar o local
@@ -14004,7 +14004,7 @@
     lt = Pridėti kalbą
     mr = भाषा जोडा
     nb = Legg til et språk
-    nl = Een taal toevoegen
+    nl = Voeg een taal toe
     pl = Dodaj język
     pt = Adicionar um idioma
     pt-BR = Adicionar um idioma
@@ -14181,7 +14181,7 @@
     lt = Pridėti gatvę
     mr = रस्ता जोडा
     nb = Legg til en gate
-    nl = Een straat toevoegen
+    nl = Voeg een straat toe
     pl = Dodaj ulicę
     pt = Adicionar uma rua
     pt-BR = Adicionar uma rua
@@ -14259,7 +14259,7 @@
     lt = Pasirinkite kalbą
     mr = भाषा निवडा
     nb = Velg et språk
-    nl = Een taal kiezen
+    nl = Kies een taal
     pl = Wybierz język
     pt = Escolher um idioma
     pt-BR = Escolher um idioma
@@ -14302,7 +14302,7 @@
     lt = Pasirinkite gatvę
     mr = रस्ता निवडा
     nb = Velg en gate
-    nl = Een straat kiezen
+    nl = Kies een straat
     pl = Wybierz ulicę
     pt = Escolher uma rua
     pt-BR = Escolher uma rua
@@ -14432,7 +14432,7 @@
     lt = Pasirinkti virtuvę
     mr = पाककृती निवडा
     nb = Velg matrett
-    nl = Selecteer Keuken
+    nl = Selecteer keuken
     pl = Wybierz kuchnię
     pt = Selecione a culinária
     pt-BR = Selecione a culinária
@@ -14476,7 +14476,7 @@
     lt = El. paštas arba naudotojo vardas
     mr = ईमेल किंवा वापरकर्तानाव
     nb = E-postadresse eller brukernavn
-    nl = Emailadres of gebruikersnaam
+    nl = E-mailadres of gebruikersnaam
     pl = Email lub nazwa użytkownika
     pt = Email ou nome de utilizador
     pt-BR = Email ou nome de usuário
@@ -14555,7 +14555,7 @@
     lt = Pridėti telefoną
     mr = फोन जोडा
     nb = Legg til telefon
-    nl = Telefoonnummer toevoegen
+    nl = Voeg telefoonnummer toe
     pl = Dodaj numer telefonu
     ro = Adaugă un număr
     ru = Добавить телефон
@@ -14593,7 +14593,7 @@
     lt = Aukštas
     mr = मजला
     nb = Gulv
-    nl = Etage
+    nl = Verdieping
     pl = Kondygnacja
     pt = Andar
     ro = Etaj
@@ -14722,7 +14722,7 @@
     lt = Naujinti žemėlapius
     mr = नकाशे अद्ययावत करा
     nb = Oppdater kart
-    nl = Kaarten updaten
+    nl = Update kaarten
     pl = Aktualizuj mapy
     pt = Atualizar mapas
     pt-BR = Atualizar mapas
@@ -14810,7 +14810,7 @@
     lt = Rasti žemėlapį
     mr = नकाशा शोधा
     nb = Finn kartet
-    nl = Vind de kaart
+    nl = Vind een kaart
     pl = Znajdź mapę
     pt = Encontrar o mapa
     pt-BR = Encontrar o mapa
@@ -15114,7 +15114,7 @@
     lt = Vilkite žemėlapį, kad pasirinktumėte teisingą objekto vietą.
     mr = वस्तूचे योग्य स्थान निवडण्यासाठी नकाशा सरकवा.
     nb = Dra kartet for å velge riktig beliggenhet for objektet.
-    nl = Trek aan de kaart om de juiste locatie van het object te selecteren.
+    nl = Versleep de kaart om de juiste locatie van het object te selecteren.
     pl = Przeciągnij mapę, aby wybrać poprawną lokalizację obiektu.
     pt = Mova o mapa para selecionar o lugar correto do objeto.
     pt-BR = Mova o mapa para selecionar o lugar correto do objeto.
@@ -15286,7 +15286,7 @@
     lt = Redaguojama
     mr = संपादन
     nb = Redigerer
-    nl = Aan het aanpassen
+    nl = Bewerken
     pl = Edycja
     pt = Edição
     pt-BR = Edição
@@ -15330,7 +15330,7 @@
     lt = Pridedama
     mr = जोडणे
     nb = Legger til
-    nl = Aan het toevoegen
+    nl = Toevoegen
     pl = Dodawanie
     pt = A adicionar
     pt-BR = Adicionando
@@ -15593,7 +15593,7 @@
     lt = Pridėti verslą
     mr = व्यवसाय जोडा
     nb = Legg til organisasjon
-    nl = Een organisatie toevoegen
+    nl = Voeg een organisatie toe
     pl = Dodaj organizację
     pt = Adicionar uma organização
     pt-BR = Adicionar uma empresa
@@ -15679,7 +15679,7 @@
     lt = Keisti vietą
     mr = स्थान बदला
     nb = Endre plassering
-    nl = Locatie wijzigen
+    nl = Wijzig locatie
     pl = Zmień lokalizację
     pt = Mudar local
     pt-BR = Mudar local
@@ -16075,7 +16075,7 @@
     lt = Įveskite pastato numerį
     mr = एक वैध बिल्डिंग क्रमांक प्रविष्ट करा
     nb = Skriv riktig husnummer
-    nl = Een juist huisnummer invoeren
+    nl = Voer een geldig huisnummer in
     pl = Wprowadź poprawny numer domu
     pt = Introduza um número de endereço correto
     pt-BR = Informe o número correto do endereço
@@ -16250,7 +16250,7 @@
     lt = Įveskite ZIP kodą
     mr = वैध पिनकोड प्रविष्ट करा
     nb = Angi riktig postnummer
-    nl = Voer de juiste postcode in
+    nl = Voer een geldige postcode in
     pl = Podaj prawidłowy kod pocztowy
     pt = Introduza o código postal correto
     pt-BR = Informe o CEP correto
@@ -16340,7 +16340,7 @@
     lt = Siųsti pastabą OSM redaktoriams
     mr = OpenStreetMap संपादकांना एक चिठ्ठी पाठवा
     nb = Send et notat til OSM-redaktørene
-    nl = Notitie sturen naar de OSM-editors
+    nl = Stuur een notitie naar de OSM-editors
     pl = Poinformuj redaktorów OSM
     pt = Enviar nota aos editores OSM
     pt-BR = Envie uma observação para os editores do OSM
@@ -16993,7 +16993,7 @@
     lt = 3. Pasirinkite Naudojant programėlę
     mr = ३. "ऍप वापरत असताना" निवडा
     nb = 3.Velg når appen er i bruk
-    nl = 3. Selecteer Terwijl Je de App Gebruikt
+    nl = 3. Selecteer Bij gebruik van app
     pl = 3. Zaznacz Podczas korzystania z aplikacji
     pt = 3. Selecione “Durante a utilização da aplicação“
     pt-BR = 3. Selecione “Durante uso do aplicativo“
@@ -17037,7 +17037,7 @@
     lt = 2. Pasirinkite Privatumas
     mr = 2. गोपनीयता निवडा
     nb = 2. Velg Personvern
-    nl = 2. Selecteer Privacy
+    nl = 2. Selecteer Privacy en beveiliging
     pl = 2. Wybierz Prywatność
     pt = 2. Selecione “Privacidade e segurança“
     pt-BR = 2. Selecione “Privacidade e Segurança“
@@ -17082,7 +17082,7 @@
     lt = 3. Pasirinkite Vietos nustatymo paslaugos
     mr = 3. स्थान सेवा निवडा
     nb = 3. Velg Stedstjenester
-    nl = 3. Selecteer Locatiediensten
+    nl = 3. Selecteer Locatievoorzieningen
     pl = 3. Wybierz Usługi lokalizacji
     pt = 3. Selecione “Serviços de localização“
     pt-BR = 3. Selecione “Serviços de Localização“
@@ -17127,7 +17127,7 @@
     lt = 4. Įjunkite vietos nustatymo paslaugas
     mr = 4. स्थान सेवा चालू करा
     nb = 4. Slå på Stedstjenester
-    nl = 4. Locatiediensten inschakelen
+    nl = 4. Locatievoorzieningen inschakelen
     pl = 4. Włącz usługi lokalizacji
     pt = 4. Ative “Serviços de localização“
     pt-BR = 4. Ative “Serviços de Localização“
@@ -17604,7 +17604,7 @@
     lt = Knyga
     mr = पुस्तक
     nb = Bestill
-    nl = Boeken
+    nl = Boek
     pl = Zarezerwuj
     pt = Reservas
     pt-BR = Reservar
@@ -17781,7 +17781,7 @@
     lt = Skambinti
     mr = फोन करा
     nb = Ring
-    nl = Bellen
+    nl = Bel
     pl = Zadzwoń
     pt = Telefonar
     pt-BR = Ligar
@@ -17824,7 +17824,7 @@
     lt = Redaguoti adresyną
     mr = खूणपत्र संपादित करा
     nb = Rediger bokmerke
-    nl = Bladwijzer bewerken
+    nl = Bewerk bladwijzer
     pl = Edytuj zakładkę
     pt = Editar favorito
     pt-BR = Editar favorito
@@ -17951,7 +17951,7 @@
     lt = Naikinti adresyną
     mr = खूणपत्र पुसा
     nb = Slett bokmerke
-    nl = Bladwijzer verwijderen
+    nl = Verwijder bladwijzer
     pl = Usuń zakładkę
     pt = Eliminar favorito
     pt-BR = Apagar favorito
@@ -18081,7 +18081,7 @@
     lt = Anuliuoti visus vietinius pakeitimus?
     mr = सर्व स्थानिक बदल टाकून द्यायचे?
     nb = Nullstille alle lokale endringer?
-    nl = Alle lokale wijzigingen herstellen?
+    nl = Alle lokale wijzigingen weggooien?
     pl = Usunąć wszystkie lokalne zmiany?
     pt = Eliminar todas as alterações locais?
     pt-BR = Descartar todas as modificações locais?
@@ -18124,7 +18124,7 @@
     lt = Anuliuoti
     mr = टाकून द्या
     nb = Nullstill
-    nl = Herstellen
+    nl = Gooi weg
     pl = Usuń
     pt = Eliminar
     pt-BR = Descartar
@@ -18167,7 +18167,7 @@
     lt = Naikinti pridėtą vietą?
     mr = जोडलेले ठिकाण पुसून टाकायचे?
     nb = Fjerne et tilføyd sted?
-    nl = Een toegevoegde locatie verwijderen?
+    nl = Toegevoegde locatie verwijderen?
     pl = Usunąć dodane miejsce?
     pt = Eliminar o local adicionado?
     pt-BR = Remover local adicionado?
@@ -18211,7 +18211,7 @@
     lt = Naikinti
     mr = पुसा
     nb = Fjern
-    nl = Verwijderen
+    nl = Verwijder
     pl = Usuń
     pt = Eliminar
     pt-BR = Remover
@@ -18373,7 +18373,7 @@
     lt = Įveskite telefono numerį
     mr = वैध संपर्क क्रमांक प्रविष्ट करा
     nb = Skriv riktig telefonnummer
-    nl = Voer het juiste telefoonnummer in
+    nl = Voer een geldig telefoonnummer in
     pl = Wprowadź poprawny numer telefonu
     pt = Introduza um número de telefone correto
     pt-BR = Digite um número de telefone correto
@@ -18645,7 +18645,7 @@
     lt = Naujinti
     mr = अद्ययावत करा
     nb = Oppdatere
-    nl = Updaten
+    nl = Update
     pl = Aktualizuj
     pt = Atualizar
     pt-BR = Atualizar
@@ -18690,7 +18690,7 @@
     lt = Pridėti vietą į OpenStreetMap
     mr = OpenStreetMap मध्ये ठिकाण जोडा
     nb = Legg til sted i OpenStreetMap
-    nl = Plaats toevoegen aan OpenStreetMap
+    nl = Voeg een plaats toe aan OpenStreetMap
     pl = Dodaj miejsce do OpenStreetMap
     pt = Adicionar um local no OpenStreetMap
     pt-BR = Adicionar um local no OpenStreetMap
@@ -18860,7 +18860,7 @@
     lt = Stabdyti
     mr = थांबा
     nb = Stopp
-    nl = Stoppen
+    nl = Stop
     pt = Parar
     ro = Oprește
     ru = Cтоп
@@ -18945,7 +18945,7 @@
     lt = Išjungti
     mr = बंद करा
     nb = Deaktiver
-    nl = Uitschakelen
+    nl = Schakel uit
     pl = Wyłącz
     pt = Desativar
     pt-BR = Desabilitar
@@ -19121,7 +19121,7 @@
     lt = Priimti
     mr = स्वीकारा
     nb = Godta
-    nl = Aanvaarden
+    nl = Accepteer
     pl = Zaakceptuj
     pt = Aceitar
     pt-BR = Aceitar
@@ -19166,7 +19166,7 @@
     lt = Atmesti
     mr = नाकारा
     nb = Avvis
-    nl = Weigeren
+    nl = Weiger
     pl = Odrzuć
     pt = Recusar
     pt-BR = Declinar
@@ -19298,7 +19298,7 @@
     lt = Visada naudoti
     mr = नेहमी वापरा
     nb = Bruk alltid
-    nl = Altijd Gebruiken
+    nl = Gebruik altijd
     pl = Stosuj zawsze
     pt = Utilizar sempre
     pt-BR = Utilizar sempre
@@ -19341,7 +19341,7 @@
     lt = Tik šiandien
     mr = फक्त आज
     nb = Bare i dag
-    nl = Enkel Vandaag
+    nl = Aleen vandaag
     pl = Tylko dzisiaj
     pt = Apenas hoje
     pt-BR = Apenas hoje
@@ -19384,7 +19384,7 @@
     lt = Šiandien nenaudoti
     mr = आज वापरू नका
     nb = Ikke bruk i dag
-    nl = Vandaag niet Gebruiken
+    nl = Gebruik vandaag niet
     pl = Nie stosuj dzisiaj
     pt = Não utilizar hoje
     pt-BR = Não utilizar hoje
@@ -19428,7 +19428,7 @@
     lt = Mobilusis internetas
     mr = मोबाइल इंटरनेट
     nb = Mobilt Internett
-    nl = Mobiel Internet
+    nl = Mobiel internet
     pl = Dane mobilne
     pt = Dados móveis
     pt-BR = Internet móvel
@@ -19517,7 +19517,7 @@
     lt = Niekada nenaudoti
     mr = कधीही वापरू नका
     nb = Aldri bruk
-    nl = Nooit Gebruiken
+    nl = Gebruik nooit
     pl = Nigdy nie stosuj
     pt = Nunca utilizar
     pt-BR = Nunca utilizar
@@ -19561,7 +19561,7 @@
     lt = Visada klausti
     mr = नेहमी विचारा
     nb = Alltid spør
-    nl = Altijd Vragen
+    nl = Vraag altijd
     pl = Zawsze pytaj
     pt = Perguntar sempre
     pt-BR = Perguntar sempre
@@ -19648,7 +19648,7 @@
     lt = Padidinti šrifto dydi žemėlapyje
     mr = नकाशावर टंकाचा (फॉन्टचा) आकार वाढवा
     nb = Forstørr skriften på kartet
-    nl = Lettergrootte op de kaart vergroten
+    nl = Vergroot lettergrootte op de kaart
     pl = Powiększ rozmiar czcionki na mapie
     pt = Aumentar tamanho da fonte no mapa
     pt-BR = Aumentar tamanho da fonte no mapa
@@ -19867,7 +19867,7 @@
     lt = Bendrasis atsiliepimas
     mr = सामान्य अभिप्राय
     nb = Generell tilbakemelding
-    nl = Algemene Feedback
+    nl = Algemene feedback
     pl = Ogólne uwagi
     pt = Opinão geral
     pt-BR = Opinão geral
@@ -20270,7 +20270,7 @@
     lt = Tvarkyti maršrutą
     mr = मार्ग व्यवस्थापन
     nb = Administrere rute
-    nl = Route beheren
+    nl = Beheer route
     pl = Zarządzaj trasą
     pt = Gerir rota
     pt-BR = Gerenciar rota
@@ -20314,7 +20314,7 @@
     lt = Planas
     mr = नियोजन
     nb = Planlegge
-    nl = Plannen
+    nl = Plan
     pl = Zaplanuj
     pt = Planear
     pt-BR = Planejar
@@ -20358,7 +20358,7 @@
     lt = Šalinti
     mr = काढा
     nb = Fjern
-    nl = Verwijderen
+    nl = Verwijder
     pl = Usuń
     pt = Remover
     pt-BR = Remover
@@ -20447,7 +20447,7 @@
     lt = Pridėti sustojimą
     mr = स्टॉप जोडा
     nb = Angi stopp
-    nl = Tussenstop toevoegen
+    nl = Voeg tussenstop toe
     pl = Dodaj postój
     pt = Adicionar paragem
     pt-BR = Adicionar parada
@@ -20855,7 +20855,7 @@
     lt = Įveskite teisingą pavadinimą
     mr = कृपया योग्य नाव प्रविष्ट करा
     nb = Skriv inn korrekt navn
-    nl = Voer een juiste naam in
+    nl = Voer een geldige naam in
     pl = Wprowadź poprawną nazwę
     pt = Introduza um nome correto
     pt-BR = Por favor, digite um nome correto
@@ -20948,7 +20948,7 @@
     lt = Slėpti visus
     mr = सर्व लपवा
     nb = Skjul alle
-    nl = Alles verbergen
+    nl = Verberg alles
     pl = Ukryj wszystkie
     pt = Ocultar tudo
     pt-BR = Ocultar tudo
@@ -20994,7 +20994,7 @@
     lt = Rodyti visus
     mr = सर्व दाखवा
     nb = Vis alle
-    nl = Alles weergeven
+    nl = Toon alles
     pl = Pokaż wszystkie
     pt = Mostrar tudo
     pt-BR = Exibir tudo
@@ -21101,7 +21101,7 @@
     lt = Kurti naują sąrašą
     mr = नवीन यादी जोडा
     nb = Opprett ny liste
-    nl = Nieuwe lijst maken
+    nl = Maak een nieuwe lijst
     pl = Utwórz nową listę
     pt = Criar nova lista
     pt-BR = Criar nova lista
@@ -21147,7 +21147,7 @@
     lt = Žymeklių ir takelių importavimas
     mr = बुकमार्क आणि ट्रॅक आयात करा
     nb = Importer bokmerker og spor
-    nl = Bladwijzers en tracks importeren
+    nl = Importeer bladwijzers en tracks
     pl = Importuj zakładki i trasy
     pt = Importar favoritos e trilhas
     ro = Importați marcaje și piese
@@ -21191,7 +21191,7 @@
     lt = Slėpti ekraną
     mr = पटल (स्क्रीन) लपवा
     nb = Skjul skjerm
-    nl = Scherm Verbergen
+    nl = Verberg scherm
     pl = Ukryj ekran
     pt = Ocultar ecrã
     pt-BR = Ocultar tela
@@ -22043,7 +22043,7 @@
     lt = Konvertuoti
     mr = रूपांतरित करा
     nb = Konvertere
-    nl = Omzetten
+    nl = Zet om
     pl = Konwertuj
     pt = Converter
     pt-BR = Converter
@@ -22135,7 +22135,7 @@
     lt = Kai kurie failai nebuvo konvertuoti.
     mr = काही फायली रूपांतरित झाल्या नाहीत.
     nb = Noen filer ble ikke konvertert.
-    nl = Sommige bestanden werden niet geconverteerd.
+    nl = Sommige bestanden zijn niet geconverteerd.
     pl = Sommige bestanden waren niet geconverteerd.
     pt = Alguns ficheiros não foram convertidos.
     pt-BR = Alguns arquivos não foram convertidos.
@@ -22180,7 +22180,7 @@
     lt = Atkurti
     mr = पूर्ववत् करा
     nb = Restaurere
-    nl = Herstellen
+    nl = Zet terug
     pl = Przywróć
     pt = Restaurar
     pt-BR = Restaurar
@@ -22952,7 +22952,7 @@
     lt = Eksportuoti KMZ
     mr = KMZ निर्यात करा
     nb = Eksporter KMZ
-    nl = KMZ exporteren
+    nl = Exporteer KMZ
     pl = Eksportuj KMZ
     pt = Exportar KMZ
     ro = Export KMZ
@@ -22996,7 +22996,7 @@
     lt = GPX eksportavimas
     mr = GPX निर्यात करा
     nb = Eksporter GPX
-    nl = GPX exporteren
+    nl = Exporteer GPX
     pl = Eksport GPX
     pt = Exportar GPX
     ro = Exportați GPX
@@ -23040,7 +23040,7 @@
     lt = Naikinti sąrašą
     mr = यादी मिटवा
     nb = Slett liste
-    nl = Lijst verwijderen
+    nl = Verwijder lijst
     pl = Usuń listę
     pt = Eliminar lista
     pt-BR = Deletar lista
@@ -23084,7 +23084,7 @@
     lt = Slėpti nuo žemėlapio
     mr = नकाशावरून लपवा
     nb = Skjul fra kart
-    nl = Van de kaart verbergen
+    nl = Verberg van de kaart
     pl = Ukryj mapy
     pt = Remover do mapa
     pt-BR = Esconder do mapa
@@ -23219,7 +23219,7 @@
     lt = Įveskite aprašymą(tekstas arba html)
     mr = वर्णन लिहा (मजकूर किंवा html)
     nb = Lag en beskrivelse (text or html)
-    nl = Maak een beschrijving aan (tekst of html)
+    nl = Voer een beschrijving in (tekst of html)
     pl = Dodaj opis (tekst lub html)
     pt = Introduza uma descrição (texto ou html)
     pt-BR = Digite uma descrição (texto ou html)
@@ -23354,7 +23354,7 @@
     lt = Atsisiųsti
     mr = डाउनलोड करा
     nb = Last ned
-    nl = Downloaden
+    nl = Download
     pl = Pobierz
     pt = Descarregar
     pt-BR = Baixar
@@ -23813,7 +23813,7 @@
     lt = Automatinis
     mr = स्वयंचलित
     nb = Automatisk
-    nl = Auto
+    nl = Wanneer batterij bijna leeg is
     pl = Automatycznie
     pt = Automático
     pt-BR = Automático
@@ -23996,7 +23996,7 @@
     lt = Maršruto pasirinkimo parinktis
     mr = मार्गशोधी पर्याय
     nb = Kjørealternativer
-    nl = Route instellingen
+    nl = Route-instellingen
     pl = Ustawienia nawigacji
     pt = Configurações de direção
     pt-BR = Opções de trajeto
@@ -24222,7 +24222,7 @@
     lt = Nepavyko apskaičiuoti maršruto
     mr = मार्गाची गणना करण्यात अक्षम
     nb = Kan ikke beregne rute
-    nl = Kan route niet opbouwen
+    nl = Kan route niet berekenen
     pl = Brak możliwości zbudowania trasy
     pt = Não foi possível calcular a rota
     pt-BR = Incapaz de calcular rota
@@ -24268,7 +24268,7 @@
     lt = Deja, mums nepavyko rasti maršruto tikriausiai dėl jūsų pasirinktų parinkčių. Pakeiskite jas ir bandykite dar kartą.
     mr = दुर्दैवाने, आम्ही मार्ग शोधू शकलो नाही. ह्याचे कारण कदाचित तुम्ही निवडलेले पर्याय असावे. कृपया सेटिंग बदला आणि पुन्हा प्रयत्न करा.
     nb = Dessverre kunne vi ikke finne en rute sannsynligvis på grunn av dine definerte alternativer. Vennligst endre innstillingene og prøv igjen
-    nl = Helaas konden we geen route opbouwen met de gekozen opties. Wijzig de instellingen en probeer het opnieuw
+    nl = Helaas konden we geen route berekenen met de gekozen opties. Wijzig de instellingen en probeer het opnieuw
     pl = Wyznaczanie trasy nie powiodło się. Przyczyną mogą być ustawienia nawigacji lub niekompletne dane OpenStreetMap. Zmień ustawienia i spróbuj ponownie
     pt = Infelizmente não foi possível criar o percurso com as opções selecionadas. Altere as opções e tente novamente
     pt-BR = Infelizmente, não conseguimos encontrar uma rota, provavelmente por causa das opções escolhidas. Por favor, altere as configurações e tente novamente
@@ -24314,7 +24314,7 @@
     lt = Apibrėžti vengiamus kelius
     mr = टाळण्याचे मार्ग निवडा
     nb = Definer veier som skal unngås
-    nl = Omwegen configureren
+    nl = Configureer wegen om te vermijden
     pl = Dostosuj ścieżkę objazdu
     pt = Definir as estradas a evitar
     pt-BR = Definir as estradas a serem evitadas
@@ -24359,7 +24359,7 @@
     lt = Maršruto pasirinkimo parinktys įjungtos
     mr = मार्गशोधी पर्याय चालू केले
     nb = Kjørealternativer aktivert
-    nl = Omweginstellingen ingeschakeld
+    nl = Route-instellingen ingeschakeld
     pl = Ustawienia objazdu są włączone
     pt = Configurações de direção ativadas
     pt-BR = Opções de direção ativadas
@@ -24447,7 +24447,7 @@
     lt = Neasfaltuoas kelias
     mr = कच्चे मार्ग
     nb = Uasfaltert vei
-    nl = Aardeweg
+    nl = Onverharde weg
     pl = Droga gruntowa
     pt = Estrada não pavimentada
     pt-BR = Pista não pavimentada
@@ -24491,7 +24491,7 @@
     lt = Kelionė keltu
     mr = जल मार्ग
     nb = Fergeovergang
-    nl = Ferry
+    nl = Veerboot
     pl = Przeprawa promowa
     pt = Ferry
     pt-BR = Balsa
@@ -24535,7 +24535,7 @@
     lt = Pirmyn
     mr = चल जाऊया
     nb = La oss begynne
-    nl = Kom op
+    nl = Laten we gaan
     pl = Jedźmy
     pt = Começar
     pt-BR = Vamos
@@ -24579,7 +24579,7 @@
     lt = Tikslas
     mr = इष्टस्थान
     nb = Destinasjon
-    nl = Doel
+    nl = Bestemming
     pl = Meta
     pt = Destino
     pt-BR = Destino
@@ -24624,7 +24624,7 @@
     lt = Centruoti
     mr = पुनरकेंद्रित करा
     nb = Sentrer
-    nl = Centreren
+    nl = Centreer
     pl = Wyśrodkuj
     pt = Recentrar
     pt-BR = Re-centralizar
@@ -25092,7 +25092,7 @@
     lt = Nepavyko sukurti maršruto iki jūsų tikslo. Pasirinkite kitą tašką
     mr = तुमच्या इष्टस्थानापर्यंत मार्ग तयार करण्यात अक्षम. कृपया दुसरे ठिकाण निवडा.
     nb = Kan ikke planlegge rute til din nåværende posisjon. Vennligst velg en annen posisjon
-    nl = Kan route naar het eindpunt niet opbouwen. Kies een andere punt
+    nl = Kan route naar het eindpunt niet opbouwen. Kies een ander eindpunt
     pl = Brak możliwości zbudowania trasy do punktu końcowego. Wybierz inny
     pt = Não foi possível calcular o percurso para o destino. Escolha outro
     pt-BR = Incapaz de traçar rota para o seu destino. Por favor, escolha outro ponto de destino
@@ -25408,7 +25408,7 @@
     lt = Gerai
     mr = ठीक आहे
     nb = Ok
-    nl = Goed
+    nl = Oké
     pl = Ok
     pt = Ok
     pt-BR = Tudo bem
@@ -25680,7 +25680,7 @@
     lt = Rikiuoti adresyną
     mr = खूणपत्रे क्रमाने लावा
     nb = Sortere merker
-    nl = Bladwijzers sorteren
+    nl = Sorteer bladwijzers
     pl = Sortuj znaczniki
     pt = Ordenar favoritos
     pt-BR = Ordenar favoritos
@@ -25725,7 +25725,7 @@
     lt = Rikiuoti numatytai
     mr = डिफॉल्ट क्रमाने लावा
     nb = Sortere som standard
-    nl = Standaard sorteren
+    nl = Standaard sortering
     pl = Sortuj domyślnie
     pt = Ordenação predefinida
     pt-BR = Ordenar por padrão
@@ -25902,7 +25902,7 @@
     lt = Rūšiuoti pagal pavadinimą
     mr = नावानुसार क्रमवारी लावा
     nb = Sorter etter navn
-    nl = Sorteren op naam
+    nl = Sorteer op naam
     pl = Sortuj według nazwy
     pt = Ordenar por nome
     pt-BR = Classificar por nome
@@ -26352,7 +26352,7 @@
     lt = Arti manęs
     mr = माझ्या जवळ
     nb = Nær meg
-    nl = Naast mij
+    nl = Dicht bij mij
     pl = W pobliżu
     pt = Perto de mim
     pt-BR = Próximo de mim
@@ -27061,7 +27061,7 @@
     lt = Ieškoti sąraše
     mr = यादीत शोधा
     nb = Søk på lista
-    nl = In de lijst zoeken
+    nl = Zoek in de lijst
     pl = Wyszukaj na liście
     pt = Pesquisar na lista
     pt-BR = Buscar na lista
@@ -27150,7 +27150,7 @@
     lt = Pasirinkti sąrašą
     mr = यादी निवडा
     nb = Velge liste
-    nl = Lijst kiezen
+    nl = Kies een lijst
     pl = Wybierz listę
     pt = Selecionar lista
     pt-BR = Escolher a lista
@@ -27644,7 +27644,7 @@
     lt = Pakilimas
     mr = चढण
     nb = Stigning
-    nl = Opstijging
+    nl = Stijging
     pl = Wejście
     pt = Subida
     ro = Urcare
@@ -27688,7 +27688,7 @@
     lt = Nusileidimas
     mr = उतरण
     nb = Nedstigning
-    nl = Afdaling
+    nl = Daling
     pl = Zejście
     pt = Descida
     ro = Coborâre
@@ -27911,7 +27911,7 @@
     lt = Laikas:
     mr = वेळ:
     nb = I rute
-    nl = Op weg
+    nl = Tijd:
     pl = Trasa:
     pt = Tempo:
     pt-BR = Tempo:
@@ -28507,7 +28507,7 @@
     lt = Naujinti (%@)
     mr = अद्ययावत करा (%@)
     nb = Oppdater (%@)
-    nl = Bijwerken (%@)
+    nl = Werk bij (%@)
     pl = Zaktualizuj (%@)
     pt = Atualizar (%@)
     pt-BR = Atualizar (%@)
@@ -28555,7 +28555,7 @@
     lt = Atnaujinsiu vėliau
     mr = नंतर स्वतः अद्ययावत करा
     nb = Oppdater manuelt senere
-    nl = Later handmatig bijwerken
+    nl = Werk later handmatig bij
     pl = Zaktualizuj ręcznie później
     pt = Atualizar manualmente mais tarde
     pt-BR = Atualizar manualmente mais tarde
@@ -29428,7 +29428,7 @@
     ko = 전화기에서 계속
     mr = फोनवर सुरू ठेवा
     nb = Fortsett i telefonen
-    nl = Doorgaan in de telefoon
+    nl = Ga verder op de telefoon
     pl = Kontynuuj na telefonie
     pt = Continuar no telemóvel
     pt-BR = Continuar no celular
@@ -29563,7 +29563,7 @@
     ko = 권한 부여
     mr = परवानग्या द्या
     nb = Gi tillatelser
-    nl = Toestemming geven
+    nl = Geef toestemming
     pl = Przyznaj uprawnienia
     pt = Conceder permissão
     pt-BR = Conceder permissão
@@ -29790,7 +29790,7 @@
     lt = Eksportuoti visas žymes ir takelius
     mr = सर्व बुकमार्क आणि ट्रॅक निर्यात करा
     nb = Eksporter alle bokmerker og spor
-    nl = Alle bladwijzers en tracks exporteren
+    nl = Exporteer alle bladwijzers en tracks
     pl = Eksportuj wszystkie zakładki i ścieżki
     pt = Exportar todos os favoritos e trilhos
     pt-BR = Exportar todos os favoritos e trilhas
@@ -29836,7 +29836,7 @@
     lt = Keisti spalvą
     mr = रंग बदला
     nb = Endre farge
-    nl = Kleur veranderen
+    nl = Verander kleur
     pl = Zmień kolor
     pt = Muda de cor
     pt-BR = Mudança de cor
@@ -30109,7 +30109,7 @@
     lt = Priartinti vaizdą
     mr = प्रतिमेचे दृष्य रूप मोठे करा
     nb = Zoom inn
-    nl = Inzoomen
+    nl = Zoom in
     pl = Powiększ
     pt = Ampliar
     pt-BR = Ampliar
@@ -30156,7 +30156,7 @@
     lt = Padidinti mastelį
     mr = झूम कमी करा
     nb = Zoom ut
-    nl = Uitzoomen
+    nl = Zoom uit
     pl = Pomniejsz
     pt = Diminuir o zoom
     ro = A micsora
@@ -30247,7 +30247,7 @@
     lt = Peržiūrėti meniu
     mr = मेनू पहा
     nb = Vis meny
-    nl = Menu bekijken
+    nl = Bekijk menu
     pl = Wyświetl menu
     pt = Ver menu
     pt-BR = Exibir menu
@@ -30294,7 +30294,7 @@
     lt = "iCloud" sinchronizavimo įjungimas
     mr = iCloud सिंक्रोनाइझेशन सक्षम करा
     nb = Aktiver iCloud-synkronisering
-    nl = iCloud-synchronisatie inschakelen
+    nl = Schakel iCloud-synchronisatie in
     pl = Włącz synchronizację iCloud
     pt = Ativar a sincronização do iCloud
     pt-BR = Ativar a sincronização do iCloud
@@ -30480,7 +30480,7 @@
     lt = Įjungti
     mr = सक्षम करा
     nb = Aktivere
-    nl = inschakelen
+    nl = Schakel in
     pl = Włącz
     pt = Ativar
     ro = Activați
