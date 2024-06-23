@@ -346,7 +346,7 @@ public enum BookmarkManager
   static @Nullable String getBookmarksFilenameFromUri(@NonNull ContentResolver resolver, @NonNull Uri uri)
   {
     String filename = null;
-    String scheme = uri.getScheme();
+    final String scheme = uri.getScheme();
     if (scheme.equals("content"))
     {
       try (Cursor cursor = resolver.query(uri, null, null, null, null))
@@ -404,6 +404,10 @@ public enum BookmarkManager
         return filename + ".gpx";
     }
 
+    // WhatsApp doesn't provide correct mime type and extension for GPX files.
+    if (uri.getHost().contains("com.whatsapp.provider.media"))
+      return filename + ".gpx";
+
     return null;
   }
 
@@ -413,7 +417,7 @@ public enum BookmarkManager
     Logger.w(TAG, "Importing bookmarks from " + uri);
     try
     {
-      final String filename = getBookmarksFilenameFromUri(resolver, uri);
+      String filename = getBookmarksFilenameFromUri(resolver, uri);
       if (filename == null)
       {
         Logger.w(TAG, "Could not find a supported file type in " + uri);
