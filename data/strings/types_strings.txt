@@ -30523,6 +30523,7 @@
     af = Uitkykpunt
     ar = نقطة منظر
     az = Baxın
+    be = Аглядальная пляцоўка
     cs = Vyhlídka
     da = Udsigtspunkt
     de = Aussichtspunkt
@@ -30553,8 +30554,8 @@
     tr = Manzara
     uk = Оглядний майданчик
     vi = Điểm nhìn
-    zh-Hans = 观点
-    zh-Hant = 視野
+    zh-Hans = 观景点
+    zh-Hant = 觀景點
 
   [type.tourism.wilderness_hut]
     comment = Typically more basic, not staffed and free (compared to alpine_hut).
