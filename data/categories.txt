@@ -7433,7 +7433,7 @@ ru:Лифт
 tr:Asansör
 mr:उद्वाहक|एलिव्हेटर|लिफ्ट
 
-natural-peak
+@mountain
 en:Peak|mountain|mount|U+1F5FB|U+1F304
 ru:Гора|вершина|пик
 bg:Гора|планина|връх|пик
@@ -7470,6 +7470,10 @@ sk:Hora|pohorie
 sw:Kilele|mlima
 fa:قله|کوه|کوهستان
 mr:शिखर
+
+# Add at least one lang not to be skipped.
+natural-peak|@mountain
+en:Peak
 
 natural-saddle|mountain_pass
 en:4Saddle|Pass
@@ -13558,7 +13562,7 @@ sk:Jaskyňa
 fa:غار
 mr:गुहा
 
-natural-volcano
+natural-volcano|@mountain
 en:4Volcano
 ru:4Вулкан
 bg:4Вулкан
