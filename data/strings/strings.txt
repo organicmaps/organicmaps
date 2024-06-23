@@ -22241,9 +22241,9 @@
     mr = %d वस्तू
     nb = %d sted
     nl = %d plaats
-    pl:one = %d miejsce
-    pl:few = %d miejsca
-    pl:many = %d miejsc
+    pl:few = %d obiekty
+    pl:many = %d obiektów
+    pl:one = %d obiekt
     pt-BR:one = %d objeto
     pt-BR:other = %d objetos
     pt:one = %d objeto
@@ -22309,9 +22309,9 @@
     mr:other = %d ठिकाणे
     nb = %d steder
     nl = %d plaatsen
-    pl:one = %d miejsce
     pl:few = %d miejsca
     pl:many = %d miejsc
+    pl:one = %d miejsce
     pt-BR:one = %d lugar
     pt-BR:other = %d lugares
     pt:one = %d lugar
@@ -22373,9 +22373,9 @@
     mr = %d ट्रॅक
     nb = %d stier
     nl = %d tracks
-    pl:one = %d trasa
     pl:few = %d trasy
     pl:many = %d tras
+    pl:one = %d trasa
     pt-BR:one = %d percurso
     pt-BR:other = %d percursos
     pt:one = %d percurso
