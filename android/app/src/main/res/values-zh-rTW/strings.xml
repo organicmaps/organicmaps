@@ -1931,7 +1931,7 @@
 	<string name="type.tourism.picnic_site">野餐</string>
 	<string name="type.leisure.resort">度假酒店</string>
 	<string name="type.tourism.theme_park">旅遊景點</string>
-	<string name="type.tourism.viewpoint">視野</string>
+	<string name="type.tourism.viewpoint">觀景點</string>
 	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">山屋</string>
 	<string name="type.tourism.zoo">動物園</string>

@@ -1370,6 +1370,7 @@
 	<string name="type.tourism.information.map">Карта</string>
 	<string name="type.tourism.information.office">Турыстычны офіс</string>
 	<string name="type.tourism.information.visitor_centre">Цэнтр для наведвальнікаў</string>
+	<string name="type.tourism.viewpoint">Аглядальная пляцоўка</string>
 	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Турыстычная хатка</string>
 	<string name="type.tourism.zoo.petting">Хатні заапарк</string>

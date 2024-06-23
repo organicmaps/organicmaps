@@ -3813,7 +3813,7 @@
 
 "type.tourism.theme_park" = "旅遊景點";
 
-"type.tourism.viewpoint" = "視野";
+"type.tourism.viewpoint" = "觀景點";
 
 /* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "山屋";

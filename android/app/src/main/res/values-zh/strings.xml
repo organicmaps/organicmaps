@@ -2009,7 +2009,7 @@
 	<string name="type.tourism.picnic_site">野餐地点</string>
 	<string name="type.leisure.resort">度假村</string>
 	<string name="type.tourism.theme_park">主题公园</string>
-	<string name="type.tourism.viewpoint">观点</string>
+	<string name="type.tourism.viewpoint">观景点</string>
 	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">野外住宿小屋</string>
 	<string name="type.tourism.zoo">动物园</string>
