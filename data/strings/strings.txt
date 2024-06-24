@@ -30687,3 +30687,47 @@
     vi = Lỗi: iCloud không khả dụng
     zh-Hans = 错误：iCloud 不可用
     zh-Hant = 錯誤：iCloud 不可用
+
+  [self_service]
+    comment = To indicate if the place proposed self service...
+    tags = android
+    en = Self-service
+    af = Selfdiens
+    ar = الخدمة الذاتية
+    az = Özünəxidmət
+    be = Самаабслугоўванне
+    bg = Самообслужване
+    ca = Autoservei
+    cs = Samoobsluha
+    da = Selvbetjening
+    de = Selbstbedienung
+    el = Αυτοεξυπηρέτηση
+    es = Autoservicio
+    et = Iseteenindus
+    eu = Autozerbitzu
+    fa = سلف سرویس
+    fi = Itsepalvelu
+    fr = Libre-service
+    he = שירות עצמי
+    hi = स्वयं सेवा    hu = Önkiszolgáló
+    id = Layanan mandiri
+    it = Self service
+    ja = セルフサービス
+    ko = 셀프 서비스
+    lt = Savitarna
+    mr = स्व: सेवा    nb = Selvbetjening
+    nl = Zelfbediening
+    pl = Samoobsługa
+    pt = Autosserviço
+    pt-BR = Autoatendimento
+    ro = Autoservire
+    ru = Самообслуживание
+    sk = Samoobslužné služby
+    sv = Självbetjäning
+    sw = Kujihudumia
+    th = บริการตนเอง
+    tr = Self servis
+    uk = Самообслуговування
+    vi = Tự phục vụ
+    zh-Hans = 自助服务
+    zh-Hant = 自助服務
