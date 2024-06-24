@@ -621,6 +621,24 @@
 	  <item quantity="two">Znaleziono %d pliki. Zobaczysz je po konwersji.</item>
 	</plurals>
 	<string name="restore">Przywróć</string>
+	<plurals name="objects">
+	  <item quantity="few">%d obiekty</item>
+	  <item quantity="many">%d obiektów</item>
+	  <item quantity="one">%d obiekt</item>
+	  <item quantity="other">%d obiektu</item>
+	</plurals>
+	<plurals name="places">
+	  <item quantity="few">%d miejsca</item>
+	  <item quantity="many">%d miejsc</item>
+	  <item quantity="one">%d miejsce</item>
+	  <item quantity="other">%d miejsca</item>
+	</plurals>
+	<plurals name="tracks">
+	  <item quantity="few">%d trasy</item>
+	  <item quantity="many">%d tras</item>
+	  <item quantity="one">%d trasa</item>
+	  <item quantity="other">%d trasy</item>
+	</plurals>
 	<!-- Settings privacy group in settings screen -->
 	<string name="privacy">Prywatność</string>
 	<string name="privacy_policy">Polityka prywatności</string>
