@@ -343,6 +343,8 @@
 	<string name="website_menu">Kiungo cha menyu</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Tazama Menyu</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">Kujihudumia</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Anwani/Zuia</string>

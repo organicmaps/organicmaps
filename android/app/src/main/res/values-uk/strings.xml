@@ -827,6 +827,8 @@
 	<string name="website_menu">Посилання на меню</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Переглянути меню</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">Самообслуговування</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адреса/блок</string>
