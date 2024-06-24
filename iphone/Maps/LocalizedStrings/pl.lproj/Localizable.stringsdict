@@ -60,7 +60,7 @@
       <key>one</key>
       <string>%d obiekt</string>
       <key>other</key>
-      <string>%d objects</string>
+      <string>%d obiektu</string>
     </dict>
   </dict>
 
@@ -81,7 +81,7 @@
       <key>one</key>
       <string>%d trasa</string>
       <key>other</key>
-      <string>%d tracks</string>
+      <string>%d trasy</string>
     </dict>
   </dict>
 </dict>
