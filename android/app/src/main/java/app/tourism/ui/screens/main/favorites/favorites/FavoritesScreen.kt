@@ -12,7 +12,7 @@ import app.tourism.ui.common.nav.TopBarActionData
 
 @Composable
 fun FavoritesScreen(
-    onSiteClick: (id: Int) -> Unit,
+    onPlaceClick: (id: Int) -> Unit,
 ) {
     Scaffold(
         topBar = {

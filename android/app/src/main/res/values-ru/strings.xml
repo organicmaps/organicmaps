@@ -2208,4 +2208,11 @@
 	<string name="retry">Попробовать заново</string>
 	<string name="no_network">Не удается соединиться с сервером, проверьте интернет подключение</string>
   <string name="no_image">Нет изображения</string>
+  <string name="tjk">Таджикистан</string>
+	<string name="clear_search_field">Очистить поле поиска</string>
+  <string name="top30">Топ-30 мест</string>
+	<string name="sights">Достопримечательности</string>
+	<string name="restaurants">Рестораны</string>
+	<string name="hotels_tourism">Отели</string>
+  <string name="add_to_favorites">Добавить в избранное</string>
 </resources>

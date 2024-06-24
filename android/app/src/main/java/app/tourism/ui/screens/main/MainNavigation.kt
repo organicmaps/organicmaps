@@ -2,10 +2,12 @@ package app.tourism.ui.screens.main
 
 import android.content.Context
 import android.content.Intent
+import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -15,12 +17,14 @@ import app.tourism.AuthActivity
 import app.tourism.ui.screens.auth.Language
 import app.tourism.ui.screens.language.LanguageScreen
 import app.tourism.ui.screens.main.categories.categories.CategoriesScreen
+import app.tourism.ui.screens.main.categories.categories.CategoriesViewModel
 import app.tourism.ui.screens.main.favorites.favorites.FavoritesScreen
 import app.tourism.ui.screens.main.home.home.HomeScreen
+import app.tourism.ui.screens.main.home.search.SearchScreen
 import app.tourism.ui.screens.main.profile.personal_data.PersonalDataScreen
 import app.tourism.ui.screens.main.profile.profile.ProfileScreen
 import app.tourism.ui.screens.main.profile.profile.ProfileViewModel
-import app.tourism.ui.screens.main.site_details.SiteDetailsScreen
+import app.tourism.ui.screens.main.place_details.PlaceDetailsScreen
 import app.tourism.utils.navigateToMap
 import app.tourism.utils.navigateToMapForRoute
 import kotlinx.serialization.Serializable
@@ -47,40 +51,55 @@ object Profile
 @Serializable
 object PersonalData
 
-// site details
+// place details
 @Serializable
-data class SiteDetails(val id: Int)
+data class PlaceDetails(val id: Int)
 
 @Composable
 fun MainNavigation(rootNavController: NavHostController, themeVM: ThemeViewModel) {
     val context = LocalContext.current
 
-    val onSiteClick: (id: Int) -> Unit = { id ->
-        rootNavController.navigate(SiteDetails(id = id))
+    val categoriesVM: CategoriesViewModel = hiltViewModel()
+
+    val onPlaceClick: (id: Int) -> Unit = { id ->
+        rootNavController.navigate(PlaceDetails(id = id))
     }
     val onMapClick = { navigateToMap(context) }
 
     NavHost(rootNavController, startDestination = "home_tab") {
         composable("home_tab") {
-            HomeNavHost(onSiteClick, onMapClick)
+            HomeNavHost(
+                onPlaceClick,
+                onMapClick,
+                onCategoryClicked = {
+                    rootNavController.navigate("categories_tab") {
+                    popUpTo(rootNavController.graph.findStartDestination().id) {
+                        saveState = true
+                    }
+                    launchSingleTop = true
+                    restoreState = true
+                }
+                },
+                categoriesVM,
+            )
         }
         composable("categories_tab") {
-            CategoriesNavHost(onSiteClick, onMapClick)
+            CategoriesNavHost(onPlaceClick, onMapClick, categoriesVM)
         }
         composable("favorites_tab") {
-            FavoritesNavHost(onSiteClick)
+            FavoritesNavHost(onPlaceClick)
         }
         composable("profile_tab") {
             ProfileNavHost(themeVM = themeVM)
         }
-        composable<SiteDetails> { backStackEntry ->
-            val siteDetails = backStackEntry.toRoute<SiteDetails>()
-            SiteDetailsScreen(
-                id = siteDetails.id,
+        composable<PlaceDetails> { backStackEntry ->
+            val placeDetails = backStackEntry.toRoute<PlaceDetails>()
+            PlaceDetailsScreen(
+                id = placeDetails.id,
                 onBackClick = { rootNavController.navigateUp() },
                 onMapClick = onMapClick,
-                onCreateRoute = { siteLocation ->
-                    navigateToMapForRoute(context, siteLocation)
+                onCreateRoute = { placeLocation ->
+                    navigateToMapForRoute(context, placeLocation)
                 }
             )
         }
@@ -88,7 +107,12 @@ fun MainNavigation(rootNavController: NavHostController, themeVM: ThemeViewModel
 }
 
 @Composable
-fun HomeNavHost(onSiteClick: (id: Int) -> Unit, onMapClick: () -> Unit) {
+fun HomeNavHost(
+    onPlaceClick: (id: Int) -> Unit,
+    onMapClick: () -> Unit,
+    onCategoryClicked: () -> Unit,
+    categoriesVM: CategoriesViewModel,
+) {
     val homeNavController = rememberNavController()
     NavHost(homeNavController, startDestination = Home) {
         composable<Home> {
@@ -96,33 +120,43 @@ fun HomeNavHost(onSiteClick: (id: Int) -> Unit, onMapClick: () -> Unit) {
                 onSearchClick = { query ->
                     homeNavController.navigate(Search(query = query))
                 },
-                onSiteClick = onSiteClick,
-                onMapClick = onMapClick
+                onPlaceClick = onPlaceClick,
+                onMapClick = onMapClick,
+                onCategoryClicked = onCategoryClicked,
+                categoriesVM = categoriesVM
             )
         }
         composable<Search> { backStackEntry ->
             val search = backStackEntry.toRoute<Search>()
-            Search(query = search.query)
+            SearchScreen(
+                onPlaceClick = onPlaceClick,
+                onMapClick = onMapClick,
+                queryArg = search.query,
+            )
         }
     }
 }
 
 @Composable
-fun CategoriesNavHost(onSiteClick: (id: Int) -> Unit, onMapClick: () -> Unit) {
+fun CategoriesNavHost(
+    onPlaceClick: (id: Int) -> Unit,
+    onMapClick: () -> Unit,
+    categoriesVM: CategoriesViewModel,
+) {
     val categoriesNavController = rememberNavController()
     NavHost(categoriesNavController, startDestination = Categories) {
         composable<Categories> {
-            CategoriesScreen(onSiteClick, onMapClick)
+            CategoriesScreen(onPlaceClick, onMapClick, categoriesVM)
         }
     }
 }
 
 @Composable
-fun FavoritesNavHost(onSiteClick: (id: Int) -> Unit) {
+fun FavoritesNavHost(onPlaceClick: (id: Int) -> Unit) {
     val favoritesNavController = rememberNavController()
     NavHost(favoritesNavController, startDestination = Favorites) {
         composable<Favorites> {
-            FavoritesScreen(onSiteClick)
+            FavoritesScreen(onPlaceClick)
         }
     }
 }

@@ -6,7 +6,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import app.organicmaps.R
 import app.tourism.ui.theme.getBorderColor
@@ -31,11 +36,32 @@ object Constants {
         "https://cdn.pixabay.com/photo/2020/03/24/22/34/illustration-4965674_960_720.jpg"
     const val LOGO_URL_EXAMPLE = "https://brandeps.com/logo-download/O/OSCE-logo-vector-01.svg"
 
+    // data
+    val categories = mapOf(
+        "sights" to R.string.sights,
+        "restaurants" to R.string.restaurants,
+        "hotels_tourism" to R.string.hotels_tourism,
+    )
 }
 
 @Composable
-fun Modifier.applyAppBorder() = this.border(
-    width = 1.dp,
-    color = getBorderColor(),
-    shape = RoundedCornerShape(20.dp)
-).clip(RoundedCornerShape(20.dp))
+fun Modifier.applyAppBorder() = this
+    .border(
+        width = 1.dp,
+        color = getBorderColor(),
+        shape = RoundedCornerShape(20.dp)
+    )
+    .clip(RoundedCornerShape(20.dp))
+
+@Composable
+fun Modifier.drawOverlayForTextBehind() =
+    this.drawBehind {
+        val colors = listOf(
+            Color.Black,
+            Color.Transparent
+        )
+        drawRect(
+            brush = Brush.verticalGradient(colors),
+            blendMode = BlendMode.DstIn
+        )
+    }

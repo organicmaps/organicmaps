@@ -25,7 +25,6 @@ import app.organicmaps.util.ConnectionState;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
 import app.tourism.MainActivity;
-import app.tourism.data.dto.SiteLocation;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package app.tourism.ui.screens.main.site_details
+package app.tourism.ui.screens.main.place_details
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -8,15 +8,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import app.organicmaps.R
-import app.tourism.data.dto.SiteLocation
+import app.tourism.data.dto.PlaceLocation
 import app.tourism.ui.common.nav.AppTopBar
 
 @Composable
-fun SiteDetailsScreen(
+fun PlaceDetailsScreen(
     id: Int,
     onBackClick: () -> Boolean,
     onMapClick: () -> Unit,
-    onCreateRoute: (SiteLocation) -> Unit,
+    onCreateRoute: (PlaceLocation) -> Unit,
 ) {
     Scaffold(
         topBar = {

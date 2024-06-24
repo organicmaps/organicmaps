@@ -2,6 +2,7 @@ package app.tourism.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 val Blue = Color(0xFF0688E7)
@@ -20,6 +21,13 @@ val WhiteForText = Color(0xFFFFFFFF)
 
 val BorderDay = Color(0xFFC9D4E7)
 val BorderNight = Color(0xFFFFFFFF)
-
 @Composable
 fun getBorderColor() = if (isSystemInDarkTheme()) BorderNight else BorderDay
+
+val HintDay = Color(0xFFAAABAD)
+val HintNight = Color(0xFFAAABAD)
+@Composable
+fun getHintColor() = if (isSystemInDarkTheme()) HintNight else HintDay
+
+@Composable
+fun getStarColor() = StarYellow

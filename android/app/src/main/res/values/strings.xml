@@ -2248,5 +2248,12 @@
     <string name="chose_language">Select a language</string>
     <string name="retry">Try again</string>
     <string name="no_network">Couldn\'t reach the server, please check connection</string>
-  <string name="no_image">No image</string>
+    <string name="no_image">No image</string>
+    <string name="tjk">Tajikistan</string>
+    <string name="clear_search_field">Clear search field</string>
+    <string name="top30">Top 30 places</string>
+    <string name="sights">Sights</string>
+    <string name="restaurants">Restaurants</string>
+    <string name="hotels_tourism">Hotels</string>
+  <string name="add_to_favorites">Add to favorites</string>
 </resources>

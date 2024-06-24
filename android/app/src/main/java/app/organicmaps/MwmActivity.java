@@ -109,7 +109,7 @@ import app.organicmaps.widget.menu.MainMenu;
 import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageData;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
-import app.tourism.data.dto.SiteLocation;
+import app.tourism.data.dto.PlaceLocation;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -551,7 +551,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     tjkMapDownloadingHandling();
 
-    SiteLocation endPoint = getIntent().getParcelableExtra("end_point");
+    PlaceLocation endPoint = getIntent().getParcelableExtra("end_point");
     if(endPoint != null)
       routeForSiteFromMainActivityHandling(endPoint);
   }
@@ -570,7 +570,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     handler.postDelayed(delayedAction, 1000);
   }
 
-  private void routeForSiteFromMainActivityHandling(SiteLocation endPoint) {
+  private void routeForSiteFromMainActivityHandling(PlaceLocation endPoint) {
     Handler handler = new Handler(Looper.getMainLooper());
     Runnable delayedAction = () -> {
         showRouteForSiteFromMainActivity(endPoint);
@@ -578,7 +578,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     handler.postDelayed(delayedAction, 1000);
   }
 
-  private void showRouteForSiteFromMainActivity(SiteLocation endPoint) {
+  private void showRouteForSiteFromMainActivity(PlaceLocation endPoint) {
     startLocationToPoint(endPoint.toMapObject());
   }
 

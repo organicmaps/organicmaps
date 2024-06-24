@@ -23,6 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import app.organicmaps.R
 import app.tourism.Constants
+import app.tourism.drawOverlayForTextBehind
 import app.tourism.ui.common.HorizontalSpace
 import app.tourism.ui.common.VerticalSpace
 import app.tourism.ui.common.buttons.PrimaryButton
@@ -63,16 +64,7 @@ fun WelcomeScreen(
         Column(
             Modifier
                 .align(Alignment.BottomStart)
-                .drawBehind {
-                    val colors = listOf(
-                        Color.Black,
-                        Color.Transparent
-                    )
-                    drawRect(
-                        brush = Brush.verticalGradient(colors),
-                        blendMode = BlendMode.DstIn
-                    )
-                }
+                .drawOverlayForTextBehind()
                 .padding(Constants.SCREEN_PADDING)
         ) {
             Text(

@@ -1,6 +1,7 @@
 package app.tourism.ui.screens.main
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
@@ -60,6 +61,7 @@ fun MainSection(themeVM: ThemeViewModel) {
                 ) {
                     items.forEach { item ->
                         val isSelected = item.route == navBackStackEntry?.destination?.route
+                        val title = stringResource(id = item.title)
                         NavigationBarItem(
                             colors = NavigationBarItemColors(
                                 disabledIconColor = MaterialTheme.colorScheme.onPrimary,
@@ -71,15 +73,16 @@ fun MainSection(themeVM: ThemeViewModel) {
                                 selectedIndicatorColor = Color.Transparent,
                             ),
                             selected = isSelected,
+
                             label = {
-                                Text(text = item.title, style = TextStyles.b3)
+                                Text(text = title, style = TextStyles.b3)
                             },
                             icon = {
                                 Icon(
                                     painter = painterResource(
                                         if (isSelected) item.selectedIcon else item.unselectedIcon
                                     ),
-                                    contentDescription = item.title
+                                    contentDescription = title,
                                 )
                             },
                             onClick = {
@@ -103,7 +106,7 @@ fun MainSection(themeVM: ThemeViewModel) {
 
 data class BottomNavigationItem(
     val route: String,
-    val title: String,
+    @StringRes val title: Int,
     @DrawableRes val unselectedIcon: Int,
     @DrawableRes val selectedIcon: Int
 )
@@ -113,25 +116,25 @@ fun getNavItems(): List<BottomNavigationItem> {
     return listOf(
         BottomNavigationItem(
             route = "home_tab",
-            title = stringResource(id = R.string.home),
+            title = R.string.home,
             selectedIcon = R.drawable.home_selected,
             unselectedIcon = R.drawable.home,
         ),
         BottomNavigationItem(
             route = "categories_tab",
-            title = stringResource(id = R.string.categories),
+            title = R.string.categories,
             selectedIcon = R.drawable.categories_selected,
             unselectedIcon = R.drawable.categories,
         ),
         BottomNavigationItem(
             route = "favorites_tab",
-            title = stringResource(id = R.string.favorites),
+            title = R.string.favorites,
             selectedIcon = R.drawable.heart_selected,
             unselectedIcon = R.drawable.heart,
         ),
         BottomNavigationItem(
             route = "profile_tab",
-            title = stringResource(id = R.string.profile_tourism),
+            title = R.string.profile_tourism,
             selectedIcon = R.drawable.profile_selected,
             unselectedIcon = R.drawable.profile,
         ),

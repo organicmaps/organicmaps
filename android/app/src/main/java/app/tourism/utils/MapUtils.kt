@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat
 import app.organicmaps.MwmActivity
-import app.tourism.data.dto.SiteLocation
+import app.tourism.data.dto.PlaceLocation
 
 fun navigateToMap(context: Context, clearBackStack: Boolean = false) {
     val intent = Intent(context, MwmActivity::class.java)
@@ -13,8 +13,8 @@ fun navigateToMap(context: Context, clearBackStack: Boolean = false) {
     ContextCompat.startActivity(context, intent, null)
 }
 
-fun navigateToMapForRoute(context: Context, siteLocation: SiteLocation) {
+fun navigateToMapForRoute(context: Context, placeLocation: PlaceLocation) {
     val intent = Intent(context, MwmActivity::class.java)
-    intent.putExtra("end_point", siteLocation)
+    intent.putExtra("end_point", placeLocation)
     ContextCompat.startActivity(context, intent, null)
 }
