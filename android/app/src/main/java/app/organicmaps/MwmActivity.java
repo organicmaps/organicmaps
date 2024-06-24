@@ -1221,7 +1221,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("unused")
   public void onPlacePageActivated(@NonNull PlacePageData data)
   {
-    setFullscreen(false);
     // This will open the place page
     mPlacePageViewModel.setMapObject((MapObject) data);
   }
