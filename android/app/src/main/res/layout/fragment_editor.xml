@@ -241,6 +241,29 @@
               android:layout_centerVertical="true"/>
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/block_self_service"
+            style="@style/MwmWidget.Editor.MetadataBlock.Clickable">
+          <ImageView
+              style="@style/MwmWidget.Editor.MetadataIcon"
+              app:srcCompat="@drawable/ic_wifi"
+              tools:ignore="ContentDescription" />
+          <TextView
+              style="@style/MwmWidget.Editor.FieldLayout.EditText"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_centerVertical="true"
+              android:layout_marginStart="@dimen/editor_margin_left"
+              android:layout_toStartOf="@+id/sw__self_service"
+              android:text="@string/self_service"/>
+          <androidx.appcompat.widget.SwitchCompat
+              android:id="@+id/sw__self_service"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentEnd="true"
+              android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
         <!-- ToDo: Level is missing compared with iOS. -->
 
         <include
