@@ -344,6 +344,9 @@
 	<string name="website_menu">Kiungo cha menyu</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Tazama Menyu</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">Kujihudumia</string>
+	<string name="select_option">Chagua chaguo</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Anwani/Zuia</string>
@@ -957,4 +960,8 @@
 	<string name="type.amenity.events_venue">Ukumbi wa Matukio</string>
 	<string name="type.shop.auction">Mnada</string>
 	<string name="type.shop.collector">Mikusanyiko</string>
+	<string name="type.self_service.yes">Huduma ya kibinafsi inapatikana</string>
+	<string name="type.self_service.only">Kujihudumia pekee</string>
+	<string name="type.self_service.partially">Kujihudumia kwa sehemu</string>
+	<string name="type.self_service.no">Hakuna huduma binafsi</string>
 </resources>

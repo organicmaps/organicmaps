@@ -802,6 +802,9 @@
 	<string name="website_menu">Legătura de meniu</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Vezi meniul</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">Autoservire</string>
+	<string name="select_option">Selectați opțiunea</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresă/Bloc</string>
@@ -1920,4 +1923,8 @@
 	<string name="type.amenity.events_venue">Locul de desfășurare a evenimentelor</string>
 	<string name="type.shop.auction">Licitație</string>
 	<string name="type.shop.collector">Colecții</string>
+	<string name="type.self_service.yes">Autoservire disponibilă</string>
+	<string name="type.self_service.only">Numai autoservire</string>
+	<string name="type.self_service.partially">Autoservire parțială</string>
+	<string name="type.self_service.no">Fără autoservire</string>
 </resources>

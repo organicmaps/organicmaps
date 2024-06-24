@@ -557,6 +557,9 @@
 	<string name="website_menu">मेनू लिंक</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">मेनू देखें</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">स्वयं सेवा    hu = Önkiszolgáló</string>
+	<string name="select_option">विकल्प चुनें</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.cable_car">आकाशीय रज्जुमार्ग</string>
@@ -1187,4 +1190,8 @@
 	<string name="type.piste_type.hike">स्नो हाइकिंग ट्रेल</string>
 	<string name="type.piste_type.connection">पिस्ट कनेक्शन</string>
 	<string name="type.piste_type.skitour">स्किटौर ट्रेल</string>
+	<string name="type.self_service.yes">स्व-सेवा उपलब्ध है</string>
+	<string name="type.self_service.only">केवल स्व-सेवा</string>
+	<string name="type.self_service.partially">आंशिक स्व-सेवा</string>
+	<string name="type.self_service.no">कोई स्व-सेवा नहीं</string>
 </resources>

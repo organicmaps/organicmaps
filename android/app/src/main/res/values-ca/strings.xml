@@ -825,6 +825,9 @@
 	<string name="website_menu">Enllaç del menú</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Visualitza el menú</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">Autoservei</string>
+	<string name="select_option">Seleccioneu l\'opció</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adreça/Bloc</string>
@@ -1233,4 +1236,8 @@
 	<string name="type.amenity.events_venue">Lloc d’esdeveniments</string>
 	<string name="type.shop.auction">Subhasta</string>
 	<string name="type.shop.collector">Col·leccionables</string>
+	<string name="type.self_service.yes">Autoservei disponible</string>
+	<string name="type.self_service.only">Només autoservei</string>
+	<string name="type.self_service.partially">Autoservei parcial</string>
+	<string name="type.self_service.no">Sense autoservei</string>
 </resources>

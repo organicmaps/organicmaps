@@ -824,6 +824,9 @@
 	<string name="website_menu">Valikkolinkki</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Näytä valikko</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">Itsepalvelu</string>
+	<string name="select_option">Valitse vaihtoehto</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Osoite/lohko</string>
@@ -2059,4 +2062,8 @@
 	<string name="type.amenity.events_venue">Tapahtumapaikka</string>
 	<string name="type.shop.auction">Huutokauppa</string>
 	<string name="type.shop.collector">Keräilyesineet</string>
+	<string name="type.self_service.yes">Itsepalvelu saatavilla</string>
+	<string name="type.self_service.only">Vain itsepalvelu</string>
+	<string name="type.self_service.partially">Osittainen itsepalvelu</string>
+	<string name="type.self_service.no">Ei itsepalvelua</string>
 </resources>

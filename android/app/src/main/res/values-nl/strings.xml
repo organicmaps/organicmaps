@@ -820,6 +820,9 @@
 	<string name="website_menu">Menulink</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Bekijk menu</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">Zelfbediening</string>
+	<string name="select_option">Selecteer optie</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adres/blok</string>
@@ -2136,4 +2139,8 @@
 	<string name="type.amenity.events_venue">Evenementenlocatie</string>
 	<string name="type.shop.auction">Veiling</string>
 	<string name="type.shop.collector">Verzamelobjecten</string>
+	<string name="type.self_service.yes">Zelfbediening beschikbaar</string>
+	<string name="type.self_service.only">Alleen zelfbediening</string>
+	<string name="type.self_service.partially">Gedeeltelijke zelfbediening</string>
+	<string name="type.self_service.no">Geen zelfbediening</string>
 </resources>

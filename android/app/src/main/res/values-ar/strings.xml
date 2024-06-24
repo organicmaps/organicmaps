@@ -834,6 +834,9 @@
 	<string name="website_menu">رابط القائمة</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">عرض القائمة</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">الخدمة الذاتية</string>
+	<string name="select_option">حدد الخيار</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">العنوان / البلوك</string>
@@ -2067,4 +2070,8 @@
 	<string name="type.amenity.events_venue">مكان الأحداث</string>
 	<string name="type.shop.auction">مزاد علني</string>
 	<string name="type.shop.collector">مقتنيات</string>
+	<string name="type.self_service.yes">الخدمة الذاتية متاحة</string>
+	<string name="type.self_service.only">الخدمة الذاتية فقط</string>
+	<string name="type.self_service.partially">خدمة ذاتية جزئية</string>
+	<string name="type.self_service.no">لا توجد خدمة ذاتية</string>
 </resources>

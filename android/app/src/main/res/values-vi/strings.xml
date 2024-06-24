@@ -774,6 +774,9 @@
 	<string name="website_menu">Liên kết thực đơn</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Xem thực đơn</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">Tự phục vụ</string>
+	<string name="select_option">Chọn tùy chọn</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Địa chỉ/Khối</string>
@@ -1906,4 +1909,8 @@
 	<string name="type.amenity.events_venue">Địa điểm tổ chức sự kiện</string>
 	<string name="type.shop.auction">Bán đấu giá</string>
 	<string name="type.shop.collector">Đồ sưu tầm</string>
+	<string name="type.self_service.yes">Có sẵn dịch vụ tự phục vụ</string>
+	<string name="type.self_service.only">Chỉ tự phục vụ</string>
+	<string name="type.self_service.partially">Tự phục vụ một phần</string>
+	<string name="type.self_service.no">Không tự phục vụ</string>
 </resources>

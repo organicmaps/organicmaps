@@ -777,6 +777,9 @@
 	<string name="website_menu">لینک منو</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">مشاهده منو</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">سلف سرویس</string>
+	<string name="select_option">گزینه را انتخاب کنید</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">آدرس/بلاک</string>
@@ -1822,4 +1825,8 @@
 	<string name="type.amenity.events_venue">محل برگزاری رویدادها</string>
 	<string name="type.shop.auction">حراج</string>
 	<string name="type.shop.collector">کلکسیونی ها</string>
+	<string name="type.self_service.yes">سلف سرویس در دسترس است</string>
+	<string name="type.self_service.only">فقط سلف سرویس</string>
+	<string name="type.self_service.partially">سلف سرویس جزئی</string>
+	<string name="type.self_service.no">بدون سلف سرویس</string>
 </resources>

@@ -774,6 +774,9 @@
 	<string name="website_menu">Länk till meny</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Visa meny</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">Självbetjäning</string>
+	<string name="select_option">Välj alternativ</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adress/Block</string>
@@ -1896,4 +1899,8 @@
 	<string name="type.amenity.events_venue">Evenemangslokal</string>
 	<string name="type.shop.auction">Auktion</string>
 	<string name="type.shop.collector">Samlingsföremål</string>
+	<string name="type.self_service.yes">Självbetjäning tillgänglig</string>
+	<string name="type.self_service.only">Endast självbetjäning</string>
+	<string name="type.self_service.partially">Delvis självbetjäning</string>
+	<string name="type.self_service.no">Ingen självbetjäning</string>
 </resources>

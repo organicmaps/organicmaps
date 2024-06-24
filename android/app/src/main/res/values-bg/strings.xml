@@ -738,6 +738,9 @@
 	<string name="website_menu">Връзка към менюто</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Преглед на менюто</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">Самообслужване</string>
+	<string name="select_option">Изберете опция</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адрес/Блок</string>
@@ -1220,4 +1223,8 @@
 	<string name="type.amenity.events_venue">Място за провеждане на събития</string>
 	<string name="type.shop.auction">Търг</string>
 	<string name="type.shop.collector">Колекционерски стоки</string>
+	<string name="type.self_service.yes">Налично е самообслужване</string>
+	<string name="type.self_service.only">Само на самообслужване</string>
+	<string name="type.self_service.partially">Частично самообслужване</string>
+	<string name="type.self_service.no">Няма самообслужване</string>
 </resources>

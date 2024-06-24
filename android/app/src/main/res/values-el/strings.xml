@@ -820,6 +820,9 @@
 	<string name="website_menu">Σύνδεσμος μενού</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Προβολή μενού</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">Αυτοεξυπηρέτηση</string>
+	<string name="select_option">Επιλέξτε επιλογή</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Διεύθυνση/Μπλοκ</string>
@@ -1961,4 +1964,8 @@
 	<string name="type.amenity.events_venue">Κέντρο εκδηλώσεων</string>
 	<string name="type.shop.auction">Δημοπρασία</string>
 	<string name="type.shop.collector">Συλλεκτικά αντικείμενα</string>
+	<string name="type.self_service.yes">Διαθέσιμη αυτοεξυπηρέτηση</string>
+	<string name="type.self_service.only">Μόνο αυτοεξυπηρέτηση</string>
+	<string name="type.self_service.partially">Μερική αυτοεξυπηρέτηση</string>
+	<string name="type.self_service.no">Δεν υπάρχει αυτοεξυπηρέτηση</string>
 </resources>

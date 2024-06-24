@@ -813,6 +813,9 @@
 	<string name="website_menu">Menüü link</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Menüü vaatamine</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">Iseteenindus</string>
+	<string name="select_option">Valige valik</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Aadress/plokk</string>
@@ -2133,4 +2136,8 @@
 	<string name="type.amenity.events_venue">Ürituste toimumiskoht</string>
 	<string name="type.shop.auction">Oksjon</string>
 	<string name="type.shop.collector">Kollektsioneeritavad esemed</string>
+	<string name="type.self_service.yes">Iseteenindus saadaval</string>
+	<string name="type.self_service.only">Ainult iseteenindus</string>
+	<string name="type.self_service.partially">Osaline iseteenindus</string>
+	<string name="type.self_service.no">Iseteenindus puudub</string>
 </resources>

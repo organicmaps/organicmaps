@@ -796,6 +796,7 @@
 	<string name="website_menu">Menü link</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Menü megtekintése</string>
+	<string name="select_option">Válassza ki a lehetőséget</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Cím/blokk</string>
@@ -1927,4 +1928,8 @@
 	<string name="type.amenity.events_venue">Rendezvények helyszíne</string>
 	<string name="type.shop.auction">Aukció</string>
 	<string name="type.shop.collector">Gyűjthető tárgyak</string>
+	<string name="type.self_service.yes">Önkiszolgálás elérhető</string>
+	<string name="type.self_service.only">Csak önkiszolgálás</string>
+	<string name="type.self_service.partially">Részleges önkiszolgálás</string>
+	<string name="type.self_service.no">Nincs önkiszolgálás</string>
 </resources>
