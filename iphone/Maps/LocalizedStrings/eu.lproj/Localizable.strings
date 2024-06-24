@@ -923,6 +923,10 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Trafiko datuak ez daude eskuragarri";
 
+"enable_logging" = "Historia gaitu";
+
+"log_file_size" = "Erregistro fitxategiaren tamaina: %@";
+
 "transliteration_title" = "Latinezko transliterazioa";
 
 /* Subway exits for public transport marks on the map */
@@ -1050,6 +1054,8 @@
 "power_managment_setting_auto" = "Automatikoa";
 
 "power_managment_setting_manual_max" = "Energia aurrezpen handiena";
+
+"enable_logging_warning_message" = "Aukera hau diagnostiko helburua duten erregistro ekintzetarako gaituta dago. Honek gure taldeari aplikazioarekin arazoak identifikatzen laguntzen dio. Gaitu aukera Organic Maps laguntzari eskatuta soilik.";
 
 "driving_options_title" = "Bideratzeko aukerak";
 

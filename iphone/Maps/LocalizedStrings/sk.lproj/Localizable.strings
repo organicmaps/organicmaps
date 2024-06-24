@@ -923,6 +923,10 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Dopravné informácie nie sú k dispozícii";
 
+"enable_logging" = "Zapnúť zaznamenávanie";
+
+"log_file_size" = "Veľkosť súboru protokolu: %@";
+
 "transliteration_title" = "Prepis do latinky";
 
 /* Subway exits for public transport marks on the map */
@@ -1050,6 +1054,8 @@
 "power_managment_setting_auto" = "Automaticky";
 
 "power_managment_setting_manual_max" = "Maximálna úspora batérie";
+
+"enable_logging_warning_message" = "Týmto zapnete záznamenávanie diagnostických informácií, ktoré môžete poslať našej technickej podpore v prípade problémov s aplikáciou. Záznam môže obsahovať údaje o vašej polohe.";
 
 "driving_options_title" = "Možnosti trasy";
 

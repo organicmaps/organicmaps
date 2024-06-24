@@ -923,6 +923,10 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Οι πληροφορίες για την κίνηση δεν είναι διαθέσιμες";
 
+"enable_logging" = "Ενεργοποίηση δυνατότητας καταγραφής";
+
+"log_file_size" = "Μέγεθος αρχείου καταγραφής: %@";
+
 "transliteration_title" = "Μεταγραφή στα Λατινικά";
 
 /* Subway exits for public transport marks on the map */
@@ -1050,6 +1054,8 @@
 "power_managment_setting_auto" = "Αυτόματα";
 
 "power_managment_setting_manual_max" = "Πάντα";
+
+"enable_logging_warning_message" = "Αυτή η λειτουργία είναι ενεργοποιημένη για την καταγραφή ενεργειών για διαγνωστικούς σκοπούς. Αυτό βοηθά την ομάδα να εντοπίζει προβλήματα με την εφαρμογή. Να ενεργοποιείτε τη λειτουργία μόνο κατόπιν αιτήματος της υποστήριξης του Organic Maps.";
 
 "driving_options_title" = "Ρυθμίσεις δρομολόγησης";
 

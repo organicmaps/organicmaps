@@ -923,6 +923,10 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Dati sul traffico non disponibili";
 
+"enable_logging" = "Abilita i registri";
+
+"log_file_size" = "Dimensione del file di registro: %@";
+
 "transliteration_title" = "Trascrizione in latino";
 
 /* Subway exits for public transport marks on the map */
@@ -1050,6 +1054,8 @@
 "power_managment_setting_auto" = "Automatico";
 
 "power_managment_setting_manual_max" = "Massimo risparmio energetico";
+
+"enable_logging_warning_message" = "L'opzione attiva i registri per scopi diagnostici. Può essere utile al nostro team per risolvere i problemi dell'app. Abilita temporaneamente questa opzione per registrare e inviarci registri dettagliati sul tuo problema.";
 
 "driving_options_title" = "Impostazioni di deviazione";
 

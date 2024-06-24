@@ -923,6 +923,10 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Traffic data is not available";
 
+"enable_logging" = "Enable logging";
+
+"log_file_size" = "Ukubwa wa faili ya kumbukumbu: %@";
+
 "transliteration_title" = "Tafsiri kwa lugha ya Kilatini";
 
 /* Subway exits for public transport marks on the map */
@@ -1050,6 +1054,8 @@
 "power_managment_setting_auto" = "Kiotomatiki";
 
 "power_managment_setting_manual_max" = "Upeo wa kuhifadhi nishati";
+
+"enable_logging_warning_message" = "Chaguo huwasha data kwa madhumuni ya uchunguzi. Itakuwa muhimu kwa wafanyakazi wetu ambao wanatatua matatizo ya programu. Washa chaguo hili kwa maombi ya mhudumu wa Organic Maps tu.";
 
 "driving_options_title" = "Machaguo ya njia";
 

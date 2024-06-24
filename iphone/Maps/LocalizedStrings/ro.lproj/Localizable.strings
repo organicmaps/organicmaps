@@ -923,6 +923,10 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Datele privind traficul nu sunt disponibile";
 
+"enable_logging" = "Activează jurnalizarea";
+
+"log_file_size" = "Dimensiunea fișierului jurnal: %@";
+
 "transliteration_title" = "Transcrie în alfabet latin";
 
 /* Subway exits for public transport marks on the map */
@@ -1050,6 +1054,8 @@
 "power_managment_setting_auto" = "Automat";
 
 "power_managment_setting_manual_max" = "Economisire maximă a energiei";
+
+"enable_logging_warning_message" = "Opțiunea activează jurnalizarea în scopuri de diagnosticare. Aceasta poate fi utilă echipei noastre pentru a rezolva problemele cu aplicația. Activează temporar această opțiune pentru a înregistra și a ne trimite jurnale detaliate despre problema ta.";
 
 "driving_options_title" = "Opțiuni de ocolire";
 

@@ -923,6 +923,10 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Trafik verileri kullanılamıyor";
 
+"enable_logging" = "Günlüğü etkinleştir";
+
+"log_file_size" = "Günlük dosyası boyutu: %@";
+
 "transliteration_title" = "Latin harf çevirisi";
 
 /* Subway exits for public transport marks on the map */
@@ -1050,6 +1054,8 @@
 "power_managment_setting_auto" = "Otomatik";
 
 "power_managment_setting_manual_max" = "Maksimum güç tasarrufu";
+
+"enable_logging_warning_message" = "Bu seçenek tanılama amacıyla günlüğe kaydetmeyi açar. Ekibimizin uygulamayla ilgili sorunları gidermesine yardımcı olabilir. Sorununuzla ilgili ayrıntılı günlükleri kaydetmek ve bize göndermek için bu seçeneği geçici olarak etkinleştirin.";
 
 "driving_options_title" = "Yönlendirme seçenekleri";
 

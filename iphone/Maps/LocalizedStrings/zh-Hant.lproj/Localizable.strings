@@ -923,6 +923,10 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "無法使用交通資訊";
 
+"enable_logging" = "啟用記錄";
+
+"log_file_size" = "日誌檔案大小：%@";
+
 "transliteration_title" = "音譯為拉丁文";
 
 /* Subway exits for public transport marks on the map */
@@ -1050,6 +1054,8 @@
 "power_managment_setting_auto" = "自動";
 
 "power_managment_setting_manual_max" = "最大程度省電";
+
+"enable_logging_warning_message" = "暫時啟用此選項，以便使用「回報問題」功能在幫助對話框中記錄並手動發送詳細的診斷日誌給我們。日誌可能包含位置資訊。";
 
 "driving_options_title" = "繞行設定";
 

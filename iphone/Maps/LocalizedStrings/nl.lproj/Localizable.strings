@@ -923,6 +923,10 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Verkeersgegevens zijn niet beschikbaar";
 
+"enable_logging" = "Logboekregistratie inschakelen";
+
+"log_file_size" = "Grootte logbestand: %@";
+
 "transliteration_title" = "Transliteratie in het Latijnse alfabet";
 
 /* Subway exits for public transport marks on the map */
@@ -1050,6 +1054,8 @@
 "power_managment_setting_auto" = "Wanneer batterij bijna leeg is";
 
 "power_managment_setting_manual_max" = "Maximale energiebesparing";
+
+"enable_logging_warning_message" = "Deze optie is ingeschakeld voor logboekregistraties voor diagnostische doeleinden. Het helpt bij het identificeren van problemen met de applicatie. Schakel de optie alleen in op verzoek van Organic Maps-ondersteuning.";
 
 "driving_options_title" = "Route-instellingen";
 

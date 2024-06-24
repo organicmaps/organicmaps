@@ -923,6 +923,10 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "ไม่มีข้อมูลการจราจร";
 
+"enable_logging" = "เปิดใช้งานการเก็บล็อก";
+
+"log_file_size" = "ขนาดไฟล์บันทึก: %@";
+
 "transliteration_title" = "การทับศัพท์เป็นภาษาละติน";
 
 /* Subway exits for public transport marks on the map */
@@ -1050,6 +1054,8 @@
 "power_managment_setting_auto" = "อัตโนมัติ";
 
 "power_managment_setting_manual_max" = "ประหยัดพลังงานสูงสุด";
+
+"enable_logging_warning_message" = "ออปชันเพื่อเปิดการบันทึกประวัติการทำงานเพื่อการวินิจฉัย ประวัติดังกล่าวอาจเป็นประโยชน์กับทีมงานช่วยเหลือของเราที่คอยจัดการกับปัญหาที่เจอระหว่างแอปทำงาน โปรดเปิดออปชันดังกล่าวจากการร้องข้อการสนับสนุนจาก Organic Maps เท่านั้น";
 
 "driving_options_title" = "ทางเลือกเส้นทางขับขี่";
 

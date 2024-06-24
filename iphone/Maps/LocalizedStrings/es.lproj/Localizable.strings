@@ -923,6 +923,10 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Los datos de tráfico no están disponibles";
 
+"enable_logging" = "Habilitar historial";
+
+"log_file_size" = "Tamaño del archivo de registro: %@";
+
 "transliteration_title" = "Transliteración al latín";
 
 /* Subway exits for public transport marks on the map */
@@ -1050,6 +1054,8 @@
 "power_managment_setting_auto" = "Automático";
 
 "power_managment_setting_manual_max" = "Ahorro de energía máximo";
+
+"enable_logging_warning_message" = "Esta opción está habilitada para las acciones de registro con fines de diagnóstico. Esto ayuda a nuestro equipo a identificar problemas con la aplicación. Habilite la opción solo a petición del apoyo de Organic Maps.";
 
 "driving_options_title" = "Opciones de enrutamiento";
 

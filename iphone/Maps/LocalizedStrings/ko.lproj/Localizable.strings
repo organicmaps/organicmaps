@@ -923,6 +923,10 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "교통 데이터를 사용할 수 없습니다";
 
+"enable_logging" = "로깅 사용";
+
+"log_file_size" = "로그 파일 크기: %@";
+
 "transliteration_title" = "라틴어로 음역";
 
 /* Subway exits for public transport marks on the map */
@@ -1050,6 +1054,8 @@
 "power_managment_setting_auto" = "자동";
 
 "power_managment_setting_manual_max" = "최대 전력 절약";
+
+"enable_logging_warning_message" = "이 옵션은 진단을 목적으로 로그를 엽니다 이를 통해 앱에 대한 문제를 분석하는 우리의 스탭을 도울 수 있습니다 이 옵션은 오직 Organic Maps 지원 요청에서만 가능합니다.";
 
 "driving_options_title" = "운전 옵션";
 

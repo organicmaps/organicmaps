@@ -923,6 +923,10 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "מידע על עומס תנועה לא זמין.";
 
+"enable_logging" = "הפעל logging";
+
+"log_file_size" = "גודל קובץ יומן: %@";
+
 "transliteration_title" = "תעתיק לאותיות לטיניות";
 
 /* Subway exits for public transport marks on the map */
@@ -1050,6 +1054,8 @@
 "power_managment_setting_auto" = "כשהסוללה חלשה";
 
 "power_managment_setting_manual_max" = "תמיד";
+
+"enable_logging_warning_message" = "הפעל אפשרות זו כדי לתעד ובאופן ידני לשלוח אלינו פרטים דיאגנוסטיים על הבעיה שלך בעזרת הכפתור \"דווח על באג\" בתפריט עזרה. הפרטים עשויים לכלול מידע על מיקום.";
 
 "driving_options_title" = "אפשרויות מסלול";
 

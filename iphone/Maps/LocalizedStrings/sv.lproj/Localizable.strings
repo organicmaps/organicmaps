@@ -923,6 +923,10 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Trafikdata är inte tillgänglig";
 
+"enable_logging" = "Aktivera loggning";
+
+"log_file_size" = "Loggfilens storlek: %@";
+
 "transliteration_title" = "Transkribering till latin";
 
 /* Subway exits for public transport marks on the map */
@@ -1050,6 +1054,8 @@
 "power_managment_setting_auto" = "Automatiskt";
 
 "power_managment_setting_manual_max" = "Maximal energibesparing";
+
+"enable_logging_warning_message" = "Denna funktion aktiveras för loggning av åtgärder för diagnostiska ändamål. Detta hjälper laget att identifiera problem med applikationen. Slå på funktionen endast på begäran av Organic Maps supporttjänst.";
 
 "driving_options_title" = "Omvägsinställningar";
 

@@ -923,6 +923,10 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Няма налични данни за трафика";
 
+"enable_logging" = "Активиране на запис на дневник";
+
+"log_file_size" = "Размер на регистрационния файл: %@";
+
 "transliteration_title" = "Латинска транслитерация";
 
 /* Subway exits for public transport marks on the map */
@@ -1050,6 +1054,8 @@
 "power_managment_setting_auto" = "Автоматично";
 
 "power_managment_setting_manual_max" = "Максимално пестене на енергия";
+
+"enable_logging_warning_message" = "Тази настройка е разрешена, за да се записват действия за диагностични цели, които помагат на нашия екип да идентифицира проблеми с приложението. Временно активирайте тази настройка само за изпращане на подробна информация за проблема, който сте открили с приложението.";
 
 "driving_options_title" = "Опции за маршрутизация";
 

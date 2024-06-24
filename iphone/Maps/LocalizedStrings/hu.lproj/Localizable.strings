@@ -923,6 +923,10 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Forgalmi adatok nem állnak rendelkezésre";
 
+"enable_logging" = "Naplózás engedélyezése";
+
+"log_file_size" = "Naplófájl mérete: %@";
+
 "transliteration_title" = "Átírás latin betűkre";
 
 /* Subway exits for public transport marks on the map */
@@ -1050,6 +1054,8 @@
 "power_managment_setting_auto" = "Automatikus";
 
 "power_managment_setting_manual_max" = "Maximális energiatakarékosság";
+
+"enable_logging_warning_message" = "Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a terméktámogatási csapatunknak, akik elhárítják az alkalmazás hibáit. Csak az Organic Maps terméktámogatásának kérésére kapcsold be ezt az opciót.";
 
 "driving_options_title" = "Útvonaltervezési lehetőségek";
 
