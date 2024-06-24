@@ -629,6 +629,17 @@ public class Utils
     return getStringValueByKey(context, key);
   }
 
+  @Keep
+  @SuppressWarnings("unused")
+  @NonNull
+  public static String getTagValueLocalized(@NonNull Context context, @Nullable String tagKey, @Nullable String value)
+  {
+    if (TextUtils.isEmpty(tagKey) || TextUtils.isEmpty(value))
+      return "";
+
+    return getLocalizedFeatureType(context, tagKey + "-" + value);
+  }
+
   // Called from JNI.
   @Keep
   @SuppressWarnings("unused")
