@@ -923,6 +923,10 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "交通データは利用できません";
 
+"enable_logging" = "ログを有効化";
+
+"log_file_size" = "ログファイルのサイズ: %@";
+
 "transliteration_title" = "ラテン文字への翻字";
 
 /* Subway exits for public transport marks on the map */
@@ -1050,6 +1054,8 @@
 "power_managment_setting_auto" = "自動";
 
 "power_managment_setting_manual_max" = "最大電力節約";
+
+"enable_logging_warning_message" = "このオプションは診断目的でのデータ記録を有効にします。これはこのアプリケーションのトラブルシューティングを担当する当社のサポートスタッフの助けになります。このオプションはOrganic Mapsにリクエストされた場合にのみ有効にしてください。";
 
 "driving_options_title" = "経路オプション";
 

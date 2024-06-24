@@ -923,6 +923,10 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Liikennetietoja ei ole saatavilla";
 
+"enable_logging" = "Ota loki käyttöön";
+
+"log_file_size" = "Lokitiedoston koko: %@";
+
 "transliteration_title" = "Translitterointi latinalaisiksi aakkosiksi";
 
 /* Subway exits for public transport marks on the map */
@@ -1050,6 +1054,8 @@
 "power_managment_setting_auto" = "Automaattinen";
 
 "power_managment_setting_manual_max" = "Täysi virransäästö";
+
+"enable_logging_warning_message" = "Valinta ottaa käyttöön lokikirjaukset diagnostiikkaa varten. Se voi auttaa tukihenkilöstöämme, kun he korjaavat sovelluksen ongelmia. Ota tämä ominaisuus käyttöön vain, jos Organic Maps:n tuki pyytää.";
 
 "driving_options_title" = "Reititysvalinnat";
 

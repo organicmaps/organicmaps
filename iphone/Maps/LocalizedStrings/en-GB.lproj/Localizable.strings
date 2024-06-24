@@ -923,6 +923,10 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Traffic data is not available";
 
+"enable_logging" = "Enable logging";
+
+"log_file_size" = "Log file size: %@";
+
 "transliteration_title" = "Transliteration into Latin alphabet";
 
 /* Subway exits for public transport marks on the map */
@@ -1050,6 +1054,8 @@
 "power_managment_setting_auto" = "When battery is low";
 
 "power_managment_setting_manual_max" = "Always";
+
+"enable_logging_warning_message" = "Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using \"Report a bug\" in the Help dialog. Logs may include location info.";
 
 "driving_options_title" = "Routing options";
 

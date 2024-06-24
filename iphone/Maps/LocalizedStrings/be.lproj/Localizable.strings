@@ -923,6 +923,10 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Інфармацыі пра рух няма";
 
+"enable_logging" = "Уключыць вядзенне журналу";
+
+"log_file_size" = "Памер файла журнала: %@";
+
 "transliteration_title" = "Транслітарацыя лацінкай";
 
 /* Subway exits for public transport marks on the map */
@@ -1050,6 +1054,8 @@
 "power_managment_setting_auto" = "Аўтаматычна";
 
 "power_managment_setting_manual_max" = "Максімальнае захаванне энергіі";
+
+"enable_logging_warning_message" = "Опцыя ўключае запіс журнала падзей для мэтаў дыягностыкі. Гэта можа дапамагчы нашай камандзе вырашаць праблемы з праграмай. Уключайце гэтую опцыю часова, каб запісаць і паслаць нам дэталёвую інфармацыю пра знойденую вамі праблему праз кнопку \"Паведаміць аб памылцы\".";
 
 "driving_options_title" = "Налады пракладкі маршрута";
 
