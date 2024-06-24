@@ -31,8 +31,8 @@ class ChoosePositionMarkHandle : public Handle
   using TBase = Handle;
 
 public:
-  ChoosePositionMarkHandle(uint32_t id, m2::PointF const & pivot, m2::PointF const & size)
-    : Handle(id, dp::Center, pivot, size)
+  ChoosePositionMarkHandle(uint32_t id, m2::PointF const & pivot)
+    : Handle(id, dp::Center, pivot)
   {
     SetIsVisible(true);
   }
@@ -86,9 +86,8 @@ drape_ptr<ShapeRenderer> ChoosePositionMark::Draw(ref_ptr<dp::GraphicsContext> c
 
   provider.InitStream(0, info, make_ref(&vertexes));
 
-  m2::PointF const markSize = region.GetPixelSize();
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<ChoosePositionMarkHandle>(
-    EGuiHandle::GuiHandleChoosePositionMark, m_position.m_pixelPivot, markSize);
+      GuiHandleChoosePositionMark, m_position.m_pixelPivot);
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);

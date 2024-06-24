@@ -74,7 +74,7 @@ private:
 
   MapDataProvider & m_model;
 
-  drape_ptr<base::thread_pool::routine::ThreadPool> m_pool;
+  drape_ptr<base::ThreadPool> m_pool;
 
   ScreenBase m_currentViewport;
   bool m_have3dBuildings;

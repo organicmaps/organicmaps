@@ -284,7 +284,8 @@ bool Bookmark::CanFillPlacePageMetadata() const
 
 void Bookmark::Attach(kml::MarkGroupId groupId)
 {
-  ASSERT(m_groupId == kml::kInvalidMarkGroupId, ());
+  ASSERT_NOT_EQUAL(groupId, kml::kInvalidMarkGroupId, ());
+  ASSERT_EQUAL(m_groupId, kml::kInvalidMarkGroupId, ());
   m_groupId = groupId;
 }
 

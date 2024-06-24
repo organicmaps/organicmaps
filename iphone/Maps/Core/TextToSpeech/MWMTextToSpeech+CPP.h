@@ -9,10 +9,11 @@
 // * name in bcp47;
 // * localized name;
 - (std::vector<std::pair<std::string, std::string>>)availableLanguages;
+- (std::pair<std::string, std::string>)standardLanguage;
 
 @end
 
 namespace tts
 {
-std::string translatedTwine(std::string const & twine);
+std::string translateLocale(std::string const & localeString);
 }  // namespace tts

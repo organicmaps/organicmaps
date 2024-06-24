@@ -58,10 +58,8 @@
 
 #include "3party/open-location-code/openlocationcode.h"
 
-#include <cstdint>
 #include <memory>
 #include <string>
-#include <utility>
 #include <vector>
 
 #include <android/api-level.h>
@@ -596,7 +594,7 @@ void Framework::ExecuteMapApiRequest()
 
 void Framework::DeactivatePopup()
 {
-  m_work.DeactivateMapSelection(false);
+  m_work.DeactivateMapSelection();
 }
 
 /*
@@ -881,8 +879,7 @@ Java_app_organicmaps_Framework_nativeGetParsedCenterLatLon(JNIEnv * env, jclass)
 }
 
 JNIEXPORT void JNICALL
-Java_app_organicmaps_Framework_nativePlacePageActivationListener(JNIEnv *env, jclass clazz,
-                                                                     jobject jListener)
+Java_app_organicmaps_Framework_nativePlacePageActivationListener(JNIEnv *env, jclass, jobject jListener)
 {
   LOG(LINFO, ("Set global map object listener"));
   g_placePageActivationListener = env->NewGlobalRef(jListener);
@@ -890,9 +887,12 @@ Java_app_organicmaps_Framework_nativePlacePageActivationListener(JNIEnv *env, jc
   jmethodID const activatedId = jni::GetMethodID(env, g_placePageActivationListener,
                                                  "onPlacePageActivated",
                                                  "(Lapp/organicmaps/widget/placepage/PlacePageData;)V");
-  // void onPlacePageDeactivated(boolean switchFullScreenMode);
+  // void onPlacePageDeactivated();
   jmethodID const deactivateId = jni::GetMethodID(env, g_placePageActivationListener,
-                                                  "onPlacePageDeactivated", "(Z)V");
+                                                  "onPlacePageDeactivated", "()V");
+  // void onPlacePageDeactivated();
+  jmethodID const switchFullscreenId = jni::GetMethodID(env, g_placePageActivationListener,
+                                                        "onSwitchFullScreenMode", "()V");
   auto const fillPlacePage = [activatedId]()
   {
     JNIEnv * env = jni::GetEnv();
@@ -909,12 +909,18 @@ Java_app_organicmaps_Framework_nativePlacePageActivationListener(JNIEnv *env, jc
     }
     env->CallVoidMethod(g_placePageActivationListener, activatedId, placePageDataRef.get());
   };
-  auto const closePlacePage = [deactivateId](bool switchFullScreenMode)
+  auto const closePlacePage = [deactivateId]()
   {
     JNIEnv * env = jni::GetEnv();
-    env->CallVoidMethod(g_placePageActivationListener, deactivateId, switchFullScreenMode);
+    env->CallVoidMethod(g_placePageActivationListener, deactivateId);
   };
-  frm()->SetPlacePageListeners(fillPlacePage, closePlacePage, fillPlacePage);
+  auto const switchFullscreen = [switchFullscreenId]()
+  {
+    JNIEnv * env = jni::GetEnv();
+    env->CallVoidMethod(g_placePageActivationListener, switchFullscreenId);
+  };
+
+  frm()->SetPlacePageListeners(fillPlacePage, closePlacePage, fillPlacePage, switchFullscreen);
 }
 
 JNIEXPORT void JNICALL
@@ -926,7 +932,7 @@ Java_app_organicmaps_Framework_nativeRemovePlacePageActivationListener(JNIEnv *e
   if (!env->IsSameObject(g_placePageActivationListener, jListener))
     return;
 
-  frm()->SetPlacePageListeners({} /* onOpen */, {} /* onClose */, {} /* onUpdate */);
+  frm()->SetPlacePageListeners({} /* onOpen */, {} /* onClose */, {} /* onUpdate */, {} /* onSwitchFullScreen */);
   LOG(LINFO, ("Remove global map object listener"));
   env->DeleteGlobalRef(g_placePageActivationListener);
   g_placePageActivationListener = nullptr;
@@ -1193,14 +1199,14 @@ Java_app_organicmaps_Framework_nativeDisableFollowing(JNIEnv * env, jclass)
 }
 
 JNIEXPORT jobjectArray JNICALL
-Java_app_organicmaps_Framework_nativeGenerateNotifications(JNIEnv * env, jclass)
+Java_app_organicmaps_Framework_nativeGenerateNotifications(JNIEnv * env, jclass, bool announceStreets)
 {
   ::Framework * fr = frm();
   if (!fr->GetRoutingManager().IsRoutingActive())
     return nullptr;
 
   vector<string> notifications;
-  fr->GetRoutingManager().GenerateNotifications(notifications);
+  fr->GetRoutingManager().GenerateNotifications(notifications, announceStreets);
   if (notifications.empty())
     return nullptr;
 

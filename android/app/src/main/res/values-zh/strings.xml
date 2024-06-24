@@ -220,6 +220,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D 建筑在省电模式下关闭</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">语音指导</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">宣布街道名称</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">启用后，将大声说出要转入的街道或出口的名称。</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">语音语言</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -265,6 +269,8 @@
 	<string name="compass_calibration_recommended">通过以八字形运动移动手机来改善箭头方向，以校准罗盘。</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
 	<string name="compass_calibration_required">以八字动作移动手机，校准罗盘，并在地图上固定箭头方向。</string>
+	<!-- Toast text when user hides UI with a long tap anywhere on the map -->
+	<string name="long_tap_toast">再次长按地图查看界面</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">更新全部</string>
 	<!-- Cancel all button text -->
@@ -490,7 +496,7 @@
 	<string name="editor_more_about_osm">关于 OpenStreetMap 的更多信息</string>
 	<string name="editor_operator">运营者</string>
 	<string name="editor_category_unsuitable_title">找不到合适的类别？</string>
-	<string name="editor_category_unsuitable_text">有机地图只允许添加简单的点类别，即不允许添加城镇、道路、湖泊、建筑轮廓等类别。请直接向<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>添加此类类别。请查看我们的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，了解详细的步骤说明。</string>
+	<string name="editor_category_unsuitable_text">Organic Maps 只允许添加简单的点类别，即无法添加城镇、道路、湖泊、建筑轮廓等类别。请直接向<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>添加此类类别。请查看我们的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，了解详细的步骤说明。</string>
 	<string name="downloader_no_downloaded_maps_title">您尚未下载任何地图</string>
 	<string name="downloader_no_downloaded_maps_message">下载地图来查找位置和离线浏览</string>
 	<!-- abbreviation for meters -->
@@ -591,6 +597,7 @@
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="other">找到%d个文件。 转换后你会看到它。</item>
 	</plurals>
+	<string name="restore">恢复</string>
 	<plurals name="objects">
 	  <item quantity="other">%d 地点</item>
 	</plurals>
@@ -611,7 +618,8 @@
 	<string name="bookmarks_empty_list_title">该列表为空</string>
 	<string name="bookmarks_empty_list_message">要添加新标签，请单击对象卡中的星形图标</string>
 	<string name="category_desc_more">…更多</string>
-	<string name="export_file">导出文件</string>
+	<string name="export_file">导出 KMZ</string>
+	<string name="export_file_gpx">导出 GPX</string>
 	<string name="delete_list">删除列表</string>
 	<string name="public_access">公共访问</string>
 	<string name="limited_access">私人访问</string>
@@ -745,16 +753,16 @@
 	<string name="app_tip_08">您可以轻松修复和改进地图数据。</string>
 	<!-- App tip #09 -->
 	<string name="app_tip_09">我们的主要目标是构建您会喜欢的快速、注重隐私、易于使用的地图。</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">您现在正在手机屏幕上使用有机地图</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">您现在正在手机屏幕上使用 Organic Maps</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">您现在正在汽车屏幕上使用有机地图</string>
+	<string name="car_used_on_the_car_screen">您现在正在汽车屏幕上使用 Organic Maps</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">您已连接到 Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">在手机上继续</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">转到汽车屏幕</string>
+	<string name="car_continue_on_the_phone">在手机上继续</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">转到汽车屏幕</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">本应用程序需要访问您的位置以进行导航。</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -777,6 +785,10 @@
 	<string name="zoom_in">放大</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">放大</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">菜单链接</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">查看菜单</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">地址/区块</string>
@@ -1352,7 +1364,6 @@
 	<string name="type.landuse.churchyard">教堂庭院</string>
 	<string name="type.landuse.commercial">商务办公用地</string>
 	<string name="type.landuse.construction">建设区域</string>
-	<string name="type.landuse.farm">农田</string>
 	<string name="type.landuse.farmland">农业用地</string>
 	<string name="type.landuse.farmyard">农庄</string>
 	<string name="type.landuse.flowerbed">花坛</string>
@@ -2018,7 +2029,6 @@
 	<string name="type.waterway.lock_gate">闸门</string>
 	<string name="type.waterway.river">河流</string>
 	<string name="type.waterway.river.tunnel">河流</string>
-	<string name="type.waterway.riverbank">河流</string>
 	<string name="type.waterway.stream">溪</string>
 	<string name="type.waterway.stream.ephemeral">溪</string>
 	<string name="type.waterway.stream.intermittent">溪</string>

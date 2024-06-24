@@ -4,9 +4,9 @@ protocol SettingsTableViewSwitchCellDelegate {
 }
 
 @objc
-final class SettingsTableViewSwitchCell: MWMTableViewCell {
+class SettingsTableViewSwitchCell: MWMTableViewCell {
 
-  private let switchButton = UISwitch()
+  let switchButton = UISwitch()
 
   @IBOutlet weak var delegate: SettingsTableViewSwitchCellDelegate?
 
@@ -22,6 +22,11 @@ final class SettingsTableViewSwitchCell: MWMTableViewCell {
   var isOn: Bool {
     get { return switchButton.isOn }
     set { switchButton.isOn = newValue }
+  }
+
+  @objc
+  func setOn(_ isOn: Bool, animated: Bool) {
+    switchButton.setOn(isOn, animated: animated)
   }
 
   override func awakeFromNib() {

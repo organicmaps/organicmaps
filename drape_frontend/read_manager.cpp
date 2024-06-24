@@ -4,7 +4,6 @@
 #include "drape_frontend/visual_params.hpp"
 
 #include "base/buffer_vector.hpp"
-#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <functional>
@@ -65,7 +64,7 @@ void ReadManager::Start()
 
   ASSERT_EQUAL(m_counter, 0, ());
 
-  m_pool = make_unique_dp<base::thread_pool::routine::ThreadPool>(kReadingThreadsCount,
+  m_pool = make_unique_dp<base::ThreadPool>(kReadingThreadsCount,
                               std::bind(&ReadManager::OnTaskFinished, this, std::placeholders::_1));
 }
 

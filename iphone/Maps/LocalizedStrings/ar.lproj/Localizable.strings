@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "تعليمات صوتية";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "أعلن أسماء الشوارع";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "عند التمكين ، سيتم نطق اسم الشارع أو المخرج الذي سيتم تشغيله بصوت عالٍ.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "لغة الصوت";
 
@@ -339,6 +345,9 @@
 
 /* Settings item title */
 "pref_calibration_title" = "معايرة البوصلة";
+
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "اضغط مطولاً على الخريطة مرة أخرى لرؤية الواجهة";
 
 /* Update all button text */
 "downloader_update_all_button" = "تحديث الكل";
@@ -499,8 +508,6 @@
 "dialog_routing_application_error" = "تعذر إنشاء مسار نتيجة وجود خطأ في التطبيق.";
 
 "dialog_routing_try_again" = "الرجاء إعادة المحاولة";
-
-"not_now" = "ليس الآن";
 
 "dialog_routing_download_and_build_cross_route" = "هل ترغب في تنزيل الخريطة وإنشاء مسار أفضل يمتد عبر أكثر من خريطة؟";
 
@@ -934,8 +941,6 @@
 
 "start_from_my_position" = "بدء من";
 
-"profile_authorization_error" = "عفوًا، كان هناك خطأ. حاول تسجيل الدخول مرة اخرى.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "برجاء تسجيل الدخول إلى OpenStreetMap لتحميل جميع تعديلات الخريطة تلقائيًا. تعرف على المزيد";
 
@@ -954,6 +959,9 @@
 "bookmark_lists_show_all" = "إظهار الكل";
 
 "bookmarks_create_new_group" = "إنشاء قائمة جديدة";
+
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "استيراد الإشارات المرجعية والمسارات";
 
 "downloader_hide_screen" = "إخفاء الشاشة";
 
@@ -985,17 +993,11 @@
 
 "bookmarks_convert_error_message" = "لم يتم تحويل بعض الملفات.";
 
-"bookmarks_restore_title" = "استعادة هذا النسخة؟";
-
-"error_system_message" = "حدث خطأ غير معروف";
-
 "restore" = "استعادة";
 
 "privacy_policy" = "سياسة الخصوصية";
 
 "terms_of_use" = "شروط الاستخدام";
-
-"button_layer_traffic" = "حركة مرور";
 
 "button_layer_subway" = "مترو الانفاق";
 
@@ -1007,7 +1009,9 @@
 
 "popular_place" = "رائج";
 
-"export_file" = "ملف التصدير";
+"export_file" = "تصدير KMZ";
+
+"export_file_gpx" = "تصدير GPX";
 
 "delete_list" = "حذف القائمة";
 
@@ -1261,6 +1265,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Ar:About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "أنت الآن تستخدم الخرائط العضوية على شاشة الهاتف";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "أنت الآن تستخدم الخرائط العضوية على شاشة السيارة";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "تواصل على الهاتف";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "إلى شاشة السيارة";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "جولة على الأقدام";
 
@@ -1274,6 +1290,36 @@
 "map" = "الخريطة";
 
 "drive_through" = "الشراء من السيارة";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "رابط القائمة";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "تمكين مزامنة iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "تعد مزامنة iCloud ميزة تجريبية قيد التطوير. تأكد من عمل نسخة احتياطية لجميع الإشارات المرجعية والمسارات الخاصة بك.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "تم تعطيل iCloud";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "يرجى تمكين iCloud في إعدادات جهازك لاستخدام هذه الميزة.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "يُمكَِن";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "دعم";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "خطأ: فشل المزامنة بسبب خطأ في الاتصال";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "خطأ: فشل في المزامنة بسبب تجاوز حصة iCloud النسبية";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "خطأ: iCloud غير متوفر";
 
 
 /********** Types **********/
@@ -2424,8 +2470,6 @@
 "type.landuse.construction" = "منطقة بناء";
 
 "type.landuse.education" = "مؤسسة تعليمية";
-
-"type.landuse.farm" = "مزرعة";
 
 "type.landuse.farmland" = "حقل";
 
@@ -3813,8 +3857,6 @@
 "type.waterway.river" = "نهر";
 
 "type.waterway.river.tunnel" = "نهر";
-
-"type.waterway.riverbank" = "نهر";
 
 "type.waterway.stream" = "تيار مائي";
 

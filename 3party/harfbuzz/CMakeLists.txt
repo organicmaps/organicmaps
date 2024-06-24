@@ -36,3 +36,5 @@ target_compile_definitions(${PROJECT_NAME}
 )
 
 target_link_libraries(${PROJECT_NAME} Freetype::Freetype)
+
+add_library(harfbuzz::harfbuzz ALIAS harfbuzz)

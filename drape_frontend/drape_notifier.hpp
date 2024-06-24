@@ -21,12 +21,12 @@ public:
   explicit DrapeNotifier(ref_ptr<ThreadsCommutator> commutator);
 
   uint64_t Notify(ThreadsCommutator::ThreadName threadName,
-                  base::thread_pool::delayed::ThreadPool::Duration const & duration,
+                  base::DelayedThreadPool::Duration const & duration,
                   bool repeating, Functor && functor);
 
 private:
   void NotifyImpl(ThreadsCommutator::ThreadName threadName,
-                  base::thread_pool::delayed::ThreadPool::Duration const & duration, bool repeating,
+                  base::DelayedThreadPool::Duration const & duration, bool repeating,
                   uint64_t notifyId, Functor && functor);
 
   ref_ptr<ThreadsCommutator> m_commutator;

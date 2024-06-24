@@ -94,7 +94,7 @@ struct CompletenessQuery
 
     string mwmName = parts[0].substr(0, idx);
     string const kMwmSuffix = ".mwm";
-    if (!strings::EndsWith(mwmName, kMwmSuffix))
+    if (!mwmName.ends_with(kMwmSuffix))
       MYTHROW(MalformedQueryException, ("Bad mwm name:", s));
 
     string const featureIdStr = parts[0].substr(idx + 1);

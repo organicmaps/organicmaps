@@ -43,7 +43,7 @@ bool FeatureID::IsEqualCountry(base::StringIL const & lst) const
   auto const & name = m_mwmId.GetInfo()->GetCountryName();
   for (char const * e : lst)
   {
-    if (strings::StartsWith(name, e))
+    if (name.starts_with(e))
       return true;
   }
   return false;

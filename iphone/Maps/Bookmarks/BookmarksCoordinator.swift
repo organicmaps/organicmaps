@@ -33,6 +33,15 @@ import UIKit
     state = .closed
   }
 
+  @objc func goBack() {
+    switch state {
+    case .opened:
+      navigationController?.popViewController(animated: true)
+    case .hidden, .closed:
+      close()
+    }
+  }
+
   @objc func hide(categoryId: MWMMarkGroupID) {
     state = .hidden(categoryId: categoryId)
   }
@@ -59,7 +68,7 @@ import UIKit
                         animations: {
                           navigationController.setViewControllers(controllers, animated: false)
       }, completion: nil)
-      FrameworkHelper.deactivateMapSelection(notifyUI: true)
+      FrameworkHelper.deactivateMapSelection()
       self.bookmarksControllers = nil
     case .closed:
       navigationController.popToRootViewController(animated: true)

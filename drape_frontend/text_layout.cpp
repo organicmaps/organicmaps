@@ -3,6 +3,7 @@
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape/bidi.hpp"
+#include "drape/font_constants.hpp"
 
 #include <algorithm>
 #include <iterator>  // std::reverse_iterator
@@ -295,8 +296,7 @@ void TextLayout::Init(strings::UniString && text, float fontSize, ref_ptr<dp::Te
   m_text = std::move(text);
   auto const & vpi = VisualParams::Instance();
   float const fontScale = static_cast<float>(vpi.GetFontScale());
-  float const baseSize = static_cast<float>(vpi.GetGlyphBaseSize());
-  m_textSizeRatio = fontSize * fontScale / baseSize;
+  m_textSizeRatio = fontSize * fontScale / dp::kBaseFontSizePixels;
   textures->GetGlyphRegions(m_text, m_metrics);
 }
 
@@ -330,7 +330,7 @@ float TextLayout::GetPixelLength() const
 
 float TextLayout::GetPixelHeight() const
 {
-  return m_textSizeRatio * VisualParams::Instance().GetGlyphBaseSize();
+  return m_textSizeRatio * dp::kBaseFontSizePixels;
 }
 
 strings::UniString const & TextLayout::GetText() const
@@ -516,7 +516,7 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
 double PathTextLayout::CalculateTextLength(double textPixelLength)
 {
   // We leave a little space on each side of the text.
-  double const kTextBorder = 4.0;
+  double constexpr kTextBorder = 4.0;
   return kTextBorder + textPixelLength;
 }
 
@@ -529,7 +529,7 @@ void PathTextLayout::CalculatePositions(double splineLength, double splineScaleT
   if (textLength > splineLength * 2.0f * splineScaleToPixel)
     return;
 
-  double const kPathLengthScalar = 0.75;
+  double constexpr kPathLengthScalar = 0.75;
   double const pathLength = kPathLengthScalar * splineScaleToPixel * splineLength;
   double const minPeriodSize = GetTextMinPeriod(textLength);
   double const twoTextsAndEmpty = minPeriodSize + textLength;

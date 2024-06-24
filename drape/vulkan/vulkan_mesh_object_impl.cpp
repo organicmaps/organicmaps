@@ -87,8 +87,24 @@ public:
     auto & buffer = m_mesh->m_buffers[bufferInd];
     CHECK(!buffer.m_data.empty(), ());
 
-    // Copy to default or temporary staging buffer.
     auto const sizeInBytes = static_cast<uint32_t>(buffer.m_data.size() * sizeof(buffer.m_data[0]));
+
+    // Set up a barrier to prevent data collisions (write-after-write, write-after-read).
+    VkBufferMemoryBarrier barrier = {};
+    barrier.sType = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
+    barrier.pNext = nullptr;
+    barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT | VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT;
+    barrier.dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+    barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+    barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+    barrier.buffer = m_geometryBuffers[bufferInd].m_buffer;
+    barrier.offset = 0;
+    barrier.size = sizeInBytes;
+    vkCmdPipelineBarrier(commandBuffer, VK_PIPELINE_STAGE_VERTEX_INPUT_BIT | VK_PIPELINE_STAGE_TRANSFER_BIT,
+                         VK_PIPELINE_STAGE_TRANSFER_BIT, 0, 0, nullptr,
+                         1, &barrier, 0, nullptr);
+
+    // Copy to default or temporary staging buffer.
     auto stagingBuffer = vulkanContext->GetDefaultStagingBuffer();
     if (stagingBuffer->HasEnoughSpace(sizeInBytes))
     {
@@ -122,17 +138,9 @@ public:
                       1, &copyRegion);
     }
 
-    // Set up a barrier to prevent data collisions.
-    VkBufferMemoryBarrier barrier = {};
-    barrier.sType = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
-    barrier.pNext = nullptr;
+    // Set up a barrier to prevent data collisions (read-after-write).
     barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
     barrier.dstAccessMask = VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT;
-    barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-    barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-    barrier.buffer = m_geometryBuffers[bufferInd].m_buffer;
-    barrier.offset = 0;
-    barrier.size = sizeInBytes;
     vkCmdPipelineBarrier(commandBuffer, VK_PIPELINE_STAGE_TRANSFER_BIT,
                          VK_PIPELINE_STAGE_VERTEX_INPUT_BIT, 0, 0, nullptr,
                          1, &barrier, 0, nullptr);

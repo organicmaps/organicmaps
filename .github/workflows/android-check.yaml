@@ -23,10 +23,10 @@ on:
       - packaging/**
       - platform/*apple*
       - platform/*_ios*
-      - platform/*_linux* 
-      - platform/*_mac* 
-      - platform/*qt* 
-      - platform/*_win* 
+      - platform/*_linux*
+      - platform/*_mac*
+      - platform/*qt*
+      - platform/*_win*
       - pyhelpers/**
       - qt*/**
       - skin_generator/**
@@ -67,6 +67,11 @@ jobs:
       fail-fast: false
       matrix:
         flavor: [WebDebug, FdroidBeta]
+        include:
+          - flavor: WebDebug
+            arch: arm64
+          - flavor: FdroidBeta
+            arch: arm32
     # Cancels previous jobs if the same branch or PR was updated again.
     concurrency:
       group: ${{ github.workflow }}-${{ matrix.flavor }}-${{ github.event.pull_request.number || github.ref }}
@@ -106,11 +111,11 @@ jobs:
         run: |
           cmake --version
           ninja --version
-          ./gradlew -Parm64 assemble${{ matrix.flavor }}
+          ./gradlew -P${{ matrix.arch }} assemble${{ matrix.flavor }}
 
-      - name: Upload arm64-v8a ${{ matrix.flavor }} apk
+      - name: Upload ${{ matrix.flavor }} apk
         uses: actions/upload-artifact@v4
         with:
-          name: android-arm64-v8a-${{ matrix.flavor }}
+          name: android-${{ matrix.flavor }}
           path: android/app/build/outputs/apk/**/OrganicMaps-*.apk
           if-no-files-found: error

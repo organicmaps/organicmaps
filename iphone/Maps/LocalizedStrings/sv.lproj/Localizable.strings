@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Röstinstruktioner";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Tillkännage gatunamn";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "När det är aktiverat kommer namnet på gatan eller avfarten att svänga in på att sägas upp.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Röstspråk";
 
@@ -339,6 +345,9 @@
 
 /* Settings item title */
 "pref_calibration_title" = "Kompasskalibrering";
+
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "Tryck länge på kartan igen för att se gränssnittet";
 
 /* Update all button text */
 "downloader_update_all_button" = "Uppdatera alla";
@@ -499,8 +508,6 @@
 "dialog_routing_application_error" = "Kan inte skapa väg på grund av ett programfel.";
 
 "dialog_routing_try_again" = "Försök igen";
-
-"not_now" = "Inte nu";
 
 "dialog_routing_download_and_build_cross_route" = "Vill du ladda ned kartan och skapa en optimalare väg som sträcker sig över fler än en karta?";
 
@@ -934,8 +941,6 @@
 
 "start_from_my_position" = "Starta från";
 
-"profile_authorization_error" = "Hoppsan, ett fel har inträffat. Försök att logga in igen.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Logga in på OpenStreetMap för att automatiskt ladda upp alla dina kartredigeringar. Läs mer";
 
@@ -954,6 +959,9 @@
 "bookmark_lists_show_all" = "Visa alla";
 
 "bookmarks_create_new_group" = "Skapa ny lista";
+
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "Importera bokmärken och spår";
 
 "downloader_hide_screen" = "Dölj skärm";
 
@@ -985,17 +993,11 @@
 
 "bookmarks_convert_error_message" = "Vissa filer konverterades inte.";
 
-"bookmarks_restore_title" = "Återställ den här versionen?";
-
-"error_system_message" = "Ett okänt fel uppstod";
-
 "restore" = "Återställa";
 
 "privacy_policy" = "Integritetspolicy";
 
 "terms_of_use" = "Allmänna villkor";
-
-"button_layer_traffic" = "Trafik";
 
 "button_layer_subway" = "Tunnelbana";
 
@@ -1007,7 +1009,9 @@
 
 "popular_place" = "Popular";
 
-"export_file" = "Exportera fil";
+"export_file" = "Exportera KMZ";
+
+"export_file_gpx" = "Exportera GPX";
 
 "delete_list" = "Radera listan";
 
@@ -1261,6 +1265,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Du använder nu Organic Maps på telefonens skärm";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Du använder nu Organic Maps på bilskärmen";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Fortsätt i telefonen";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Till bilens skärm";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Vandring";
 
@@ -1274,6 +1290,36 @@
 "map" = "Karta";
 
 "drive_through" = "Genomkörning";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Länk till meny";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Aktivera iCloud-synkronisering";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "iCloud-synkronisering är en experimentell funktion under utveckling. Se till att du har gjort en säkerhetskopia av alla dina bokmärken och spår.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud är inaktiverat";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Aktivera iCloud i enhetens inställningar för att kunna använda denna funktion.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Aktivera";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Säkerhetskopiering";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Fel: Synkronisering misslyckades på grund av anslutningsfel";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Fel: Synkronisering misslyckades på grund av att iCloud-kvoten överskreds";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Fel: iCloud är inte tillgängligt";
 
 
 /********** Types **********/
@@ -2424,8 +2470,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Jordbruksmark";
 
@@ -3813,8 +3857,6 @@
 "type.waterway.river" = "Flod";
 
 "type.waterway.river.tunnel" = "Flod";
-
-"type.waterway.riverbank" = "Flod";
 
 "type.waterway.stream" = "Flod";
 

@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Голосовые инструкции";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Проговаривать названия улиц";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "При включении название улицы или съезда, на который нужно повернуть, будет произноситься вслух.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Язык подсказок";
 
@@ -339,6 +345,9 @@
 
 /* Settings item title */
 "pref_calibration_title" = "Калибровка компаса";
+
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "Долгое нажатие на карту вернёт интерфейс обратно";
 
 /* Update all button text */
 "downloader_update_all_button" = "Обновить все";
@@ -499,8 +508,6 @@
 "dialog_routing_application_error" = "Не удалось проложить маршрут из-за ошибки приложения.";
 
 "dialog_routing_try_again" = "Попробуйте снова";
-
-"not_now" = "Не сейчас";
 
 "dialog_routing_download_and_build_cross_route" = "Загрузить карту и построить более оптимальный маршрут с пересечением границы карты?";
 
@@ -934,8 +941,6 @@
 
 "start_from_my_position" = "Начать от";
 
-"profile_authorization_error" = "Упс, произошла ошибка. Попробуйте авторизоваться повторно.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Пожалуйста войдите в аккаунт OpenStreetMap.org, чтобы публиковать ваши изменения карты. Подробности по";
 
@@ -954,6 +959,9 @@
 "bookmark_lists_show_all" = "Показать все";
 
 "bookmarks_create_new_group" = "Создать новый список";
+
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "Импортировать метки и треки";
 
 "downloader_hide_screen" = "Скрыть";
 
@@ -985,17 +993,11 @@
 
 "bookmarks_convert_error_message" = "Некоторые файлы не конвертировались.";
 
-"bookmarks_restore_title" = "Восстановить эту версию?";
-
-"error_system_message" = "Произошла неизвестная ошибка";
-
 "restore" = "Восстановить";
 
 "privacy_policy" = "Политика конфиденциальности";
 
 "terms_of_use" = "Условия использования";
-
-"button_layer_traffic" = "Пробки";
 
 "button_layer_subway" = "Метро";
 
@@ -1007,7 +1009,9 @@
 
 "popular_place" = "Популярно";
 
-"export_file" = "Экспортировать файл";
+"export_file" = "Экспорт KMZ";
+
+"export_file_gpx" = "Экспорт GPX";
 
 "delete_list" = "Удалить список";
 
@@ -1261,6 +1265,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/RU:О_проекте";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Сейчас Вы используете Organic Maps на экране телефона";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Сейчас Вы используете Organic Maps на экране автомобиля";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Продолжить в телефоне";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Продолжить в авто";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Активный отдых";
 
@@ -1274,6 +1290,36 @@
 "map" = "Карта";
 
 "drive_through" = "С окошком для водителей";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Ссылка на меню";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Включить синхронизацию с iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "Синхронизация с iCloud - это экспериментальная функция, которая находится в стадии разработки. Убедитесь, что вы сделали резервную копию всех своих меток и треков.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud отключен";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Чтобы воспользоваться этой функцией, включите iCloud в настройках своего устройства.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Включить";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Резервная копия";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Ошибка: Не удалось выполнить синхронизацию из-за ошибки подключения";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Ошибка: Не удалось выполнить синхронизацию из-за превышения квоты iCloud";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Ошибка: iCloud недоступен";
 
 
 /********** Types **********/
@@ -2424,8 +2470,6 @@
 "type.landuse.construction" = "Стройка";
 
 "type.landuse.education" = "Образовательные учреждения";
-
-"type.landuse.farm" = "Ферма";
 
 "type.landuse.farmland" = "Сельскохозяйственная земля";
 
@@ -3813,8 +3857,6 @@
 "type.waterway.river" = "Река";
 
 "type.waterway.river.tunnel" = "Река";
-
-"type.waterway.riverbank" = "Река";
 
 "type.waterway.stream" = "Река";
 

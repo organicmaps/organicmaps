@@ -120,9 +120,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
 
     placePageData.onBookmarkStatusUpdate = { [weak self] in
       guard let self = self else { return }
-      if self.placePageData.bookmarkData == nil {
-        self.actionBarViewController.resetButtons()
-      }
+      self.actionBarViewController.updateBookmarkButtonState(isSelected: self.placePageData.bookmarkData != nil)
       self.previewViewController.placePagePreviewData = self.placePageData.previewData
       self.updateBookmarkRelatedSections()
     }
@@ -192,10 +190,9 @@ extension PlacePageCommonLayout {
       headerViewController.setTitle(title, secondaryTitle: secondaryTitle)
       placePageNavigationViewController.setTitle(title, secondaryTitle: secondaryTitle)
     }
-    self.presenter?.layoutIfNeeded()
+    presenter?.layoutIfNeeded()
     UIView.animate(withDuration: kDefaultAnimationDuration) { [unowned self] in
       self.bookmarkViewController.view.isHidden = !isBookmark
-      self.presenter?.layoutIfNeeded()
     }
   }
 }

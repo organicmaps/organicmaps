@@ -334,7 +334,7 @@ public final class Map
     }
     else
     {
-      nativeSetupWidget(WIDGET_SCALE_FPS_LABEL, UiUtils.dimen(context, R.dimen.margin_base), mHeight - UiUtils.dimen(context, R.dimen.margin_base) * 5, ANCHOR_LEFT_TOP);
+      nativeSetupWidget(WIDGET_SCALE_FPS_LABEL, (float) mWidth / 2 + UiUtils.dimen(context, R.dimen.margin_base) * 2, UiUtils.dimen(context, R.dimen.margin_base), ANCHOR_LEFT_TOP);
       updateCompassOffset(context, mWidth, mCurrentCompassOffsetY, true);
     }
   }

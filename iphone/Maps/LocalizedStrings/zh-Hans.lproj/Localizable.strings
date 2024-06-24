@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "语音指导";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "宣布街道名称";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "启用后，将大声说出要转入的街道或出口的名称。";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "语音语言";
 
@@ -339,6 +345,9 @@
 
 /* Settings item title */
 "pref_calibration_title" = "指南针校准";
+
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "再次长按地图查看界面";
 
 /* Update all button text */
 "downloader_update_all_button" = "更新全部";
@@ -499,8 +508,6 @@
 "dialog_routing_application_error" = "由于应用程序错误，无法创建路线。";
 
 "dialog_routing_try_again" = "请重试";
-
-"not_now" = "现在不用";
 
 "dialog_routing_download_and_build_cross_route" = "您是否要下载地图并创建一条跨越多张地图的更佳路线？";
 
@@ -782,7 +789,7 @@
 
 "location_services_disabled_on_device_4" = "4.打开定位服务";
 
-"location_services_disabled_on_device_additional_message" = "或继续使用 \"有机地图 \"而不定位";
+"location_services_disabled_on_device_additional_message" = "或继续使用 Organic Maps，但无法定位到您目前所在的位置。";
 
 /* abbreviation for meters */
 "m" = "米";
@@ -934,8 +941,6 @@
 
 "start_from_my_position" = "起点";
 
-"profile_authorization_error" = "糟糕，出错了。请尝试重新登录。";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "请登录OpenStreetMap，自动上传您编辑的所有地图。了解更多信息";
 
@@ -954,6 +959,9 @@
 "bookmark_lists_show_all" = "全部顯示";
 
 "bookmarks_create_new_group" = "创建新的列表";
+
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "导入书签和轨迹";
 
 "downloader_hide_screen" = "隱藏屏幕";
 
@@ -985,17 +993,11 @@
 
 "bookmarks_convert_error_message" = "有些文件未被转换。";
 
-"bookmarks_restore_title" = "还原这个版本？";
-
-"error_system_message" = "出现未知错误";
-
 "restore" = "恢复";
 
 "privacy_policy" = "隐私政策";
 
 "terms_of_use" = "使用条款";
-
-"button_layer_traffic" = "路况";
 
 "button_layer_subway" = "地铁";
 
@@ -1007,7 +1009,9 @@
 
 "popular_place" = "Popular";
 
-"export_file" = "导出文件";
+"export_file" = "导出 KMZ";
+
+"export_file_gpx" = "导出 GPX";
 
 "delete_list" = "删除列表";
 
@@ -1261,6 +1265,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "您现在正在手机屏幕上使用 Organic Maps";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "您现在正在汽车屏幕上使用 Organic Maps";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "在手机上继续";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "转到汽车屏幕";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "徒步旅行";
 
@@ -1274,6 +1290,36 @@
 "map" = "地图";
 
 "drive_through" = "驾车通过";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "菜单链接";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "启用 iCloud 同步";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "iCloud 同步是一项正在开发的实验性功能。请确保备份了所有书签和曲目。";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud 已禁用";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "请在设备设置中启用 iCloud，以使用此功能。";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "启用";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "备份";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "错误：由于连接错误，同步失败";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "错误：由于超过 iCloud 配额，同步失败";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "错误：iCloud 不可用";
 
 
 /********** Types **********/
@@ -2424,8 +2470,6 @@
 "type.landuse.construction" = "建设区域";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "农田";
 
 "type.landuse.farmland" = "农业用地";
 
@@ -3813,8 +3857,6 @@
 "type.waterway.river" = "河流";
 
 "type.waterway.river.tunnel" = "河流";
-
-"type.waterway.riverbank" = "河流";
 
 "type.waterway.stream" = "溪";
 

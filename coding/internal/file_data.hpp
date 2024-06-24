@@ -1,11 +1,6 @@
 #pragma once
 
-#include "coding/internal/file64_api.hpp"
-
-#include "base/base.hpp"
 #include "base/macros.hpp"
-
-#include "std/target_os.hpp"
 
 #include <cstddef>
 #include <cstdint>
@@ -18,7 +13,7 @@ class FileData
 {
 public:
   /// @note Do not change order (@see FileData::FileData).
-  enum Op { OP_READ = 0, OP_WRITE_TRUNCATE, OP_WRITE_EXISTING, OP_APPEND };
+  enum class Op { READ = 0, WRITE_TRUNCATE, WRITE_EXISTING, APPEND };
 
   FileData(std::string const & fileName, Op op);
   ~FileData();
@@ -38,8 +33,8 @@ public:
 
 private:
   FILE * m_File;
-  std::string m_FileName;
-  Op m_Op;
+  const std::string m_FileName;
+  const Op m_Op;
 
   std::string GetErrorProlog() const;
 

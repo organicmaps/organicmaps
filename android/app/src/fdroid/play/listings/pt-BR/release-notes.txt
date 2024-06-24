@@ -1,9 +1,8 @@
-• Sort bookmarks and tracks by name
-• Transitioned to the new OpenStreetMap authentication mechanism — all authenticated OSM users must re-login
-• OpenStreetMap data as of April 29
-• Difficult hiking trails are now brown-dotted, expert ones are black
-• Dark blue lines for dedicated cycleways, mixed with white/brown dashes for shared foot/cycle paths
-• Roads are now visible under semi-transparent bridges
-• Fixed GPX import from Google Files app
+• Dados do OpenStreetMap de 28 de maio
+• Pesquisa de CEPs dos EUA e do Reino Unido
+• Anúncios de nomes de ruas em instruções verbais TTS (ative-o nas configurações), graças a Will Bradley
+• Exporta favoritos e trilhas em formato GPX
+• Salva favoritos e trilhas no armazenamento local do dispositivo
+• Adiciona, edita e exibe links da web para cardápios de restaurantes, bares e outros serviços de alimentação
 
-…more details at omaps.org/news
+…mais detalhes em omaps.org/news

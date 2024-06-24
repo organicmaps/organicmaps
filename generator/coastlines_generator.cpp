@@ -214,6 +214,8 @@ public:
   static bool Process(size_t numThreads, size_t baseScale, TIndex const & index,
                       TProcessResultFunc funcResult)
   {
+    /// @todo Replace with base::ComputationalThreadPool
+
     Context ctx;
 
     for (size_t i = 0; i < TCell::TotalCellsOnLevel(baseScale); ++i)

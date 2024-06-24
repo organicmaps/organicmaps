@@ -10,9 +10,10 @@ import androidx.car.app.model.Action;
 import androidx.car.app.model.CarIcon;
 import androidx.car.app.model.Header;
 import androidx.car.app.model.ItemList;
+import androidx.car.app.model.ListTemplate;
 import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
-import androidx.car.app.navigation.model.PlaceListNavigationTemplate;
+import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
 
@@ -56,13 +57,22 @@ public class SearchOnMapScreen extends BaseMapScreen implements NativeSearchList
   @Override
   public Template onGetTemplate()
   {
-    final PlaceListNavigationTemplate.Builder builder = new PlaceListNavigationTemplate.Builder();
+    final MapWithContentTemplate.Builder builder = new MapWithContentTemplate.Builder();
+    builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
+    builder.setContentTemplate(createResultsListTemplate());
+    return builder.build();
+  }
+
+  @NonNull
+  private ListTemplate createResultsListTemplate()
+  {
+    final ListTemplate.Builder builder = new ListTemplate.Builder();
     builder.setHeader(createHeader());
-    builder.setMapActionStrip(UiHelpers.createMapActionStrip(getCarContext(), getSurfaceRenderer()));
     if (mResults == null)
       builder.setLoading(true);
     else
-      builder.setItemList(mResults);
+      builder.setSingleList(mResults);
+
     return builder.build();
   }
 
@@ -107,7 +117,6 @@ public class SearchOnMapScreen extends BaseMapScreen implements NativeSearchList
         SearchRecents.add(title, getCarContext());
         SearchEngine.INSTANCE.cancel();
         SearchEngine.INSTANCE.showResult(resultIndex);
-        getScreenManager().popToRoot();
       });
     }
     else

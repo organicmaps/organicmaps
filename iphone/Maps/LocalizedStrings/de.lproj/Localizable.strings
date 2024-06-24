@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Sprachführung";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Straßennamen ankündigen";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Wenn aktiviert, wird der Name der Straße oder Ausfahrt, in die abgebogen werden soll, laut angekündigt";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Sprache für Sprachführung";
 
@@ -339,6 +345,9 @@
 
 /* Settings item title */
 "pref_calibration_title" = "Kompass-Kalibrierung";
+
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "Tippe erneut lange auf die Karte, um das Interface zu sehen";
 
 /* Update all button text */
 "downloader_update_all_button" = "Alle aktualisieren";
@@ -499,8 +508,6 @@
 "dialog_routing_application_error" = "Route kann wegen eines Anwendungsfehlers nicht erstellt werden.";
 
 "dialog_routing_try_again" = "Bitte versuchen Sie es erneut";
-
-"not_now" = "Nicht jetzt";
 
 "dialog_routing_download_and_build_cross_route" = "Möchten Sie die Karte herunterladen und eine bessere Route erstellen, die mehr als eine Karte umfasst?";
 
@@ -934,8 +941,6 @@
 
 "start_from_my_position" = "Starten von";
 
-"profile_authorization_error" = "Hoppla, es ist ein Fehler aufgetreten. Versuchen Sie erneut, sich anzumelden.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Bitte melde dich bei OpenStreetMap an, um alle deine Kartenbearbeitungen automatisch hochzuladen. Erfahre mehr";
 
@@ -954,6 +959,9 @@
 "bookmark_lists_show_all" = "Alle anzeigen";
 
 "bookmarks_create_new_group" = "Neue Liste erstellen";
+
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "Lesezeichen und Tracks importieren";
 
 "downloader_hide_screen" = "Bildschirm ausblenden";
 
@@ -985,17 +993,11 @@
 
 "bookmarks_convert_error_message" = "Einige Dateien wurden nicht konvertiert.";
 
-"bookmarks_restore_title" = "Diese Version wiederherstellen?";
-
-"error_system_message" = "Ein unbekannter Fehler ist aufgetreten";
-
 "restore" = "Wiederherstellen";
 
 "privacy_policy" = "Datenschutzerklärung";
 
 "terms_of_use" = "Nutzungsbedingungen";
-
-"button_layer_traffic" = "Verkehr";
 
 "button_layer_subway" = "U-Bahn";
 
@@ -1007,7 +1009,9 @@
 
 "popular_place" = "Beliebt";
 
-"export_file" = "Datei exportieren";
+"export_file" = "KMZ exportieren";
+
+"export_file_gpx" = "GPX exportieren";
 
 "delete_list" = "Liste löschen";
 
@@ -1261,6 +1265,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/DE:Über_OSM";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Du verwendest jetzt Organic Maps auf dem Telefondisplay";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Du verwendest jetzt Organic Maps auf dem Bildschirm des Autos";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Weiter am Telefon";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Zum Autobildschirm";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Wandern";
 
@@ -1274,6 +1290,36 @@
 "map" = "Karte";
 
 "drive_through" = "Drive-through";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Link zur Speisekarte";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Aktiviere die iCloud-Syncronisierung";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "Die iCloud-Synchronisierung ist eine experimentelle Funktion, die noch entwickelt wird. Vergewissere dich, dass du eine Sicherungskopie all deiner Lesezeichen und Titel erstellt hast.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud ist deaktiviert";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Bitte aktiviere iCloud in den Einstellungen deines Geräts, um diese Funktion zu nutzen.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Aktiviere";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Sicherung";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Fehler: Synchronisierung aufgrund eines Verbindungsfehlers fehlgeschlagen";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Fehler: Synchronisierung fehlgeschlagen, da iCloud-Kontingent überschritten";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Fehler: iCloud ist nicht verfügbar";
 
 
 /********** Types **********/
@@ -2077,17 +2123,17 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway_link.tunnel" = "Tunnel";
 
-"type.highway.path" = "Weg";
+"type.highway.path" = "Pfad";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Weg";
+"type.highway.path.difficult" = "Schwieriger oder kaum erkennbarer Pfad";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Weg";
+"type.highway.path.expert" = "Alpinwanderweg oder wegloser Pfad";
 
-"type.highway.path.bicycle" = "Radweg";
+"type.highway.path.bicycle" = "Rad- und Fußweg";
 
-"type.highway.footway.bicycle" = "Radweg";
+"type.highway.footway.bicycle" = "Rad- und Fußweg";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Brücke";
@@ -2424,8 +2470,6 @@
 "type.landuse.construction" = "Baustelle";
 
 "type.landuse.education" = "Bildungseinrichtung";
-
-"type.landuse.farm" = "Bauernhof";
 
 "type.landuse.farmland" = "Agrarland";
 
@@ -3813,8 +3857,6 @@
 "type.waterway.river" = "Fluss";
 
 "type.waterway.river.tunnel" = "Fluss";
-
-"type.waterway.riverbank" = "Fluss";
 
 "type.waterway.stream" = "Bach";
 

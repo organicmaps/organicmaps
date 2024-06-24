@@ -18,6 +18,7 @@ NSString * const kUDAutoNightModeOff = @"AutoNightModeOff";
 NSString * const kThemeMode = @"ThemeMode";
 NSString * const kSpotlightLocaleLanguageId = @"SpotlightLocaleLanguageId";
 NSString * const kUDTrackWarningAlertWasShown = @"TrackWarningAlertWasShown";
+NSString * const kiCLoudSynchronizationEnabledKey = @"iCLoudSynchronizationEnabled";
 }  // namespace
 
 @implementation MWMSettings
@@ -156,4 +157,14 @@ NSString * const kUDTrackWarningAlertWasShown = @"TrackWarningAlertWasShown";
   return settings::Get("NY", isNY) ? isNY : false;
 }
 
++ (BOOL)iCLoudSynchronizationEnabled
+{
+  return [NSUserDefaults.standardUserDefaults boolForKey:kiCLoudSynchronizationEnabledKey];
+}
+
++ (void)setICLoudSynchronizationEnabled:(BOOL)iCLoudSyncEnabled
+{
+  [NSUserDefaults.standardUserDefaults setBool:iCLoudSyncEnabled forKey:kiCLoudSynchronizationEnabledKey];
+  [NSNotificationCenter.defaultCenter postNotificationName:NSNotification.iCloudSynchronizationDidChangeEnabledState object:nil];
+}
 @end

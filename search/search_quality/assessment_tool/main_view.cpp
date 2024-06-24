@@ -77,8 +77,9 @@ MainView::MainView(Framework & framework, QRect const & screenGeometry)
         FeatureInfoDialog dialog(this /* parent */, mapObject, address, m_sampleLocale);
         dialog.exec();
       },
-      [this](bool /* switchFullScreenMode */) { m_selectedFeature = FeatureID(); },
-      {} /* onUpdate */);
+      [this]() { m_selectedFeature = FeatureID(); },
+      {} /* onUpdate */,
+      {} /* onSwitchFullScreenMode */);
 }
 
 MainView::~MainView()

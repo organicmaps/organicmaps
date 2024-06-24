@@ -36,6 +36,9 @@ NS_SWIFT_NAME(BookmarksManager)
 
 - (BOOL)areBookmarksLoaded;
 - (void)loadBookmarks;
+- (void)loadBookmarkFile:(NSURL *)url;
+- (void)reloadCategoryAtFilePath:(NSString *)filePath;
+- (void)deleteCategoryAtFilePath:(NSString *)filePath;
 
 - (BOOL)areAllCategoriesEmpty;
 - (BOOL)isCategoryEmpty:(MWMMarkGroupID)groupId;
@@ -61,6 +64,9 @@ NS_SWIFT_NAME(BookmarksManager)
 - (void)setUserCategoriesVisible:(BOOL)isVisible;
 - (void)deleteCategory:(MWMMarkGroupID)groupId;
 - (BOOL)checkCategoryName:(NSString *)name;
+- (BOOL)hasCategory:(MWMMarkGroupID)groupId;
+- (BOOL)hasBookmark:(MWMMarkID)bookmarkId;
+- (BOOL)hasTrack:(MWMTrackID)trackId;
 - (NSArray<NSNumber *> *)availableSortingTypes:(MWMMarkGroupID)groupId hasMyPosition:(BOOL)hasMyPosition;
 - (void)sortBookmarks:(MWMMarkGroupID)groupId
           sortingType:(MWMBookmarksSortingType)sortingType
@@ -90,12 +96,12 @@ NS_SWIFT_NAME(BookmarksManager)
  Shares a specific category with the given group ID.
 
  @param groupId The identifier for the category to be shared.
+ @param fileType Text/Binary/GPX
  @param completion A block that handles the result of the share operation and takes two parameters:
                    - status: The status of the share operation, of type `MWMBookmarksShareStatus`.
                    - urlToALocalFile: The local file URL containing the shared data. This parameter is guaranteed to be non-nil only if `status` is `MWMBookmarksShareStatusSuccess`. In other cases, it will be nil.
 */
-- (void)shareCategory:(MWMMarkGroupID)groupId completion:(SharingResultCompletionHandler)completion;
-
+- (void)shareCategory:(MWMMarkGroupID)groupId fileType:(MWMKmlFileType)fileType completion:(SharingResultCompletionHandler)completion;
 /**
  Shares all categories.
 
@@ -137,6 +143,8 @@ NS_SWIFT_NAME(BookmarksManager)
 
 - (void)moveTrack:(MWMTrackID)trackId
         toGroupId:(MWMMarkGroupID)groupId;
+
+- (BOOL)hasRecentlyDeletedBookmark;
 
 - (instancetype)init __attribute__((unavailable("call +manager instead")));
 - (instancetype)copy __attribute__((unavailable("call +manager instead")));

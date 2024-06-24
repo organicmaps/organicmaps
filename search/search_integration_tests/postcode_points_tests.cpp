@@ -15,30 +15,23 @@
 #include "coding/point_coding.hpp"
 
 #include "base/file_name_utils.hpp"
-#include "base/math.hpp"
-#include "base/stl_helpers.hpp"
-#include "base/string_utils.hpp"
 
-#include <algorithm>
-#include <memory>
-#include <string>
-#include <vector>
 
+namespace postcode_points_tests
+{
 using namespace generator::tests_support;
 using namespace platform::tests_support;
 using namespace search::tests_support;
 using namespace search;
 using namespace std;
 
-namespace
-{
 class PostcodePointsTest : public SearchTest
 {
 };
 
-UNIT_CLASS_TEST(PostcodePointsTest, Smoke)
+UNIT_CLASS_TEST(PostcodePointsTest, SmokeUK)
 {
-  string const countryName = "Wonderland";
+  string const countryName = "United Kingdom";
 
   Platform & platform = GetPlatform();
   auto const & writableDir = platform.WritableDir();
@@ -46,22 +39,19 @@ UNIT_CLASS_TEST(PostcodePointsTest, Smoke)
   auto const postcodesRelativePath = base::JoinPath(writableDir, testFile);
 
   ScopedFile const osmScopedFile(testFile,
+                                 "header\n"
                                  "aa11 0bb, 1.0, 1.0\n"
                                  "aa11 1bb, 2.0, 2.0\n"
-                                 // Missing space. Postcode should be converted to |aa11 2bb|
-                                 // for index.
-                                 "aa112bb, 3.0, 3.0\n"
-                                 // Put here some wrong location to make sure outer postcode
-                                 // will be skipped in index and calculated from inners.
-                                 "aa11, 100.0, 1.0\n");
+                                 "aa11 2bb, 3.0, 3.0\n"
+  );
 
   auto infoGetter = std::make_shared<storage::CountryInfoGetterForTesting>();
-  infoGetter->AddCountry(storage::CountryDef(
-      countryName,
+  infoGetter->AddCountry(storage::CountryDef(countryName,
       m2::RectD(mercator::FromLatLon(0.99, 0.99), mercator::FromLatLon(3.01, 3.01))));
 
-  auto const id = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
-    builder.SetUKPostcodesData(postcodesRelativePath, infoGetter);
+  auto const id = BuildCountry(countryName, [&](TestMwmBuilder & builder)
+  {
+    builder.SetPostcodesData(postcodesRelativePath, indexer::PostcodePointsDatasetType::UK, infoGetter);
   });
 
   auto handle = m_dataSource.GetMwmHandleById(id);
@@ -74,34 +64,65 @@ UNIT_CLASS_TEST(PostcodePointsTest, Smoke)
     vector<m2::PointD> points;
     p.Get(NormalizeAndSimplifyString("aa11 0bb"), points);
     TEST_EQUAL(points.size(), 1, ());
-    TEST(base::AlmostEqualAbs(points[0], mercator::FromLatLon(1.0, 1.0), kMwmPointAccuracy),
-         ());
+    TEST(base::AlmostEqualAbs(points[0], mercator::FromLatLon(1.0, 1.0), kMwmPointAccuracy), ());
   }
   {
     vector<m2::PointD> points;
     p.Get(NormalizeAndSimplifyString("aa11 1bb"), points);
     TEST_EQUAL(points.size(), 1, ());
-    TEST(base::AlmostEqualAbs(points[0], mercator::FromLatLon(2.0, 2.0), kMwmPointAccuracy),
-         ());
+    TEST(base::AlmostEqualAbs(points[0], mercator::FromLatLon(2.0, 2.0), kMwmPointAccuracy), ());
   }
   {
     vector<m2::PointD> points;
     p.Get(NormalizeAndSimplifyString("aa11 2bb"), points);
     TEST_EQUAL(points.size(), 1, ());
-    TEST(base::AlmostEqualAbs(points[0], mercator::FromLatLon(3.0, 3.0), kMwmPointAccuracy),
-         ());
+    TEST(base::AlmostEqualAbs(points[0], mercator::FromLatLon(3.0, 3.0), kMwmPointAccuracy), ());
   }
   {
     vector<m2::PointD> points;
     p.Get(NormalizeAndSimplifyString("aa11"), points);
     TEST_EQUAL(points.size(), 3, ());
     sort(points.begin(), points.end());
-    TEST(base::AlmostEqualAbs(points[0], mercator::FromLatLon(1.0, 1.0), kMwmPointAccuracy),
-         ());
-    TEST(base::AlmostEqualAbs(points[1], mercator::FromLatLon(2.0, 2.0), kMwmPointAccuracy),
-         ());
-    TEST(base::AlmostEqualAbs(points[2], mercator::FromLatLon(3.0, 3.0), kMwmPointAccuracy),
-         ());
+    TEST(base::AlmostEqualAbs(points[0], mercator::FromLatLon(1.0, 1.0), kMwmPointAccuracy), ());
+    TEST(base::AlmostEqualAbs(points[1], mercator::FromLatLon(2.0, 2.0), kMwmPointAccuracy), ());
+    TEST(base::AlmostEqualAbs(points[2], mercator::FromLatLon(3.0, 3.0), kMwmPointAccuracy), ());
+  }
+}
+
+UNIT_CLASS_TEST(PostcodePointsTest, SmokeUS)
+{
+  string const countryName = "United States of America";
+
+  Platform & platform = GetPlatform();
+  auto const & writableDir = platform.WritableDir();
+  string const testFile = "postcodes.csv";
+  auto const postcodesRelativePath = base::JoinPath(writableDir, testFile);
+
+  ScopedFile const osmScopedFile(testFile,
+                                 "header\n"
+                                 R"("00601","18.18027","-66.75266","Adjuntas","PR","Puerto Rico","TRUE","","16834","100.9","72001","Adjuntas","{""72001"": 98.74, ""72141"": 1.26}","Adjuntas|Utuado","72001|72141","FALSE","FALSE","America/Puerto_Rico")"
+  );
+
+  auto infoGetter = std::make_shared<storage::CountryInfoGetterForTesting>();
+  infoGetter->AddCountry(storage::CountryDef(countryName,
+      m2::RectD(mercator::FromLatLon(0, -180), mercator::FromLatLon(90, 0))));
+
+  auto const id = BuildCountry(countryName, [&](TestMwmBuilder & builder)
+  {
+    builder.SetPostcodesData(postcodesRelativePath, indexer::PostcodePointsDatasetType::UK, infoGetter);
+  });
+
+  auto handle = m_dataSource.GetMwmHandleById(id);
+  auto value = handle.GetValue();
+  CHECK(value, ());
+  TEST(value->m_cont.IsExist(POSTCODE_POINTS_FILE_TAG), ());
+
+  PostcodePoints p(*value);
+  {
+    vector<m2::PointD> points;
+    p.Get(NormalizeAndSimplifyString("00601"), points);
+    TEST_EQUAL(points.size(), 1, ());
+    TEST(base::AlmostEqualAbs(points[0], mercator::FromLatLon(18.18027, -66.75266), kMwmPointAccuracy), ());
   }
 }
 
@@ -116,6 +137,7 @@ UNIT_CLASS_TEST(PostcodePointsTest, SearchPostcode)
 
   // Use the same latitude for easier center calculation.
   ScopedFile const osmScopedFile(testFile,
+                                 "header\n"
                                  "BA6 7JP, 5.0, 4.0\n"
                                  "BA6 8JP, 5.0, 6.0\n");
 
@@ -124,8 +146,9 @@ UNIT_CLASS_TEST(PostcodePointsTest, SearchPostcode)
       countryName,
       m2::RectD(mercator::FromLatLon(3.0, 3.0), mercator::FromLatLon(7.0, 7.0))));
 
-  auto const id = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
-    builder.SetUKPostcodesData(postcodesRelativePath, infoGetter);
+  auto const id = BuildCountry(countryName, [&](TestMwmBuilder & builder)
+  {
+    builder.SetPostcodesData(postcodesRelativePath, indexer::PostcodePointsDatasetType::UK, infoGetter);
   });
 
   auto test = [&](string const & query, m2::PointD const & expected) {
@@ -161,6 +184,7 @@ UNIT_CLASS_TEST(PostcodePointsTest, SearchStreetWithPostcode)
 
   ScopedFile const osmScopedFile(
       testFile,
+      "header\n"
       "AA5 6KL, 4.0, 4.0\n"
       "BB7 8MN, 6.0, 6.0\n"
       "XX6 7KL, 4.0, 6.0\n"
@@ -207,8 +231,10 @@ UNIT_CLASS_TEST(PostcodePointsTest, SearchStreetWithPostcode)
   TestStreet streetY(vector<m2::PointD>{mercator::FromLatLon(5.99, 3.99), mercator::FromLatLon(6.01, 4.01)},
                      "Main street", "en");
 
-  auto const id = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
-    builder.SetUKPostcodesData(postcodesRelativePath, infoGetter);
+  auto const id = BuildCountry(countryName, [&](TestMwmBuilder & builder)
+  {
+    builder.SetPostcodesData(postcodesRelativePath, indexer::PostcodePointsDatasetType::UK, infoGetter);
+
     builder.Add(streetA);
     builder.Add(houseA);
     builder.Add(streetB);
@@ -233,4 +259,5 @@ UNIT_CLASS_TEST(PostcodePointsTest, SearchStreetWithPostcode)
   test("Main street XX6 7KL ", streetX);
   test("Main street YY8 9MN ", streetY);
 }
-}  // namespace
+
+} // namespace postcode_points_tests

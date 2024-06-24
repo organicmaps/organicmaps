@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.car.app.CarContext;
 import androidx.car.app.model.Action;
 import androidx.car.app.model.CarIcon;
+import androidx.car.app.model.Header;
 import androidx.car.app.model.MessageTemplate;
 import androidx.car.app.model.ParkedOnlyOnClickListener;
 import androidx.car.app.model.Template;
@@ -45,8 +46,11 @@ public class RequestPermissionsScreen extends BaseScreen
         .setOnClickListener(ParkedOnlyOnClickListener.create(() -> getCarContext().requestPermissions(LOCATION_PERMISSIONS, this::onRequestPermissionsResult)))
         .build();
 
-    builder.setHeaderAction(Action.APP_ICON);
-    builder.setTitle(getCarContext().getString(R.string.app_name));
+    final Header.Builder headerBuilder = new Header.Builder();
+    headerBuilder.setStartHeaderAction(Action.APP_ICON);
+    headerBuilder.setTitle(getCarContext().getString(R.string.app_name));
+
+    builder.setHeader(headerBuilder.build());
     builder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_location_off)).build());
     builder.addAction(grantPermissions);
     return builder.build();

@@ -1,7 +1,8 @@
 #include "drape/texture_manager.hpp"
 
-#include "drape/gl_functions.hpp"
+#include "drape/font_constants.hpp"
 #include "drape/font_texture.hpp"
+#include "drape/gl_functions.hpp"
 #include "drape/symbols_texture.hpp"
 #include "drape/static_texture.hpp"
 #include "drape/stipple_pen_resource.hpp"
@@ -195,12 +196,6 @@ m2::PointU TextureManager::StippleRegion::GetMaskPixelSize() const
   return ref_ptr<StipplePenResourceInfo>(m_info)->GetMaskPixelSize();
 }
 
-//uint32_t TextureManager::StippleRegion::GetPatternPixelLength() const
-//{
-//  ASSERT(m_info->GetType() == Texture::ResourceType::StipplePen, ());
-//  return ref_ptr<StipplePenResourceInfo>(m_info)->GetPatternPixelLength();
-//}
-
 void TextureManager::Release()
 {
   m_hybridGlyphGroups.clear();
@@ -270,6 +265,7 @@ void TextureManager::UpdateGlyphTextures(ref_ptr<dp::GraphicsContext> context)
 ref_ptr<Texture> TextureManager::AllocateGlyphTexture()
 {
   std::lock_guard const lock(m_glyphTexturesMutex);
+  // TODO(AB): Would a bigger texture be better?
   m2::PointU size(kGlyphsTextureSize, kGlyphsTextureSize);
   m_glyphTextures.push_back(make_unique_dp<FontTexture>(size, make_ref(m_glyphManager), make_ref(m_textureAllocator)));
   return make_ref(m_glyphTextures.back());
@@ -473,9 +469,8 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
   // Initialize glyphs.
   m_glyphManager = make_unique_dp<GlyphManager>(params.m_glyphMngParams);
   uint32_t constexpr textureSquare = kGlyphsTextureSize * kGlyphsTextureSize;
-  uint32_t const baseGlyphHeight =
-      static_cast<uint32_t>(params.m_glyphMngParams.m_baseGlyphHeight * kGlyphAreaMultiplier);
-  uint32_t const averageGlyphSquare = baseGlyphHeight * baseGlyphHeight;
+  uint32_t constexpr baseGlyphHeightPixels = static_cast<uint32_t>(dp::kBaseFontSizePixels * kGlyphAreaMultiplier);
+  uint32_t constexpr averageGlyphSquare = baseGlyphHeightPixels * baseGlyphHeightPixels;
   m_maxGlypsCount = static_cast<uint32_t>(ceil(kGlyphAreaCoverage * textureSquare / averageGlyphSquare));
 
   m_isInitialized = true;

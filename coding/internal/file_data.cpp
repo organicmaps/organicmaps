@@ -1,6 +1,7 @@
 #include "coding/internal/file_data.hpp"
 
 #include "coding/constants.hpp"
+#include "coding/internal/file64_api.hpp"
 #include "coding/reader.hpp" // For Reader exceptions.
 #include "coding/writer.hpp" // For Writer exceptions.
 
@@ -15,7 +16,6 @@
 #include <cstring>
 #include <exception>
 #include <fstream>
-#include <thread>
 #include <vector>
 
 #ifdef OMIM_OS_WINDOWS
@@ -28,23 +28,35 @@ namespace base
 {
 using namespace std;
 
+std::ostream & operator<<(std::ostream & stream, FileData::Op op)
+{
+  switch (op)
+  {
+  case FileData::Op::READ: stream << "READ"; break;
+  case FileData::Op::WRITE_TRUNCATE: stream << "WRITE_TRUNCATE"; break;
+  case FileData::Op::WRITE_EXISTING: stream << "WRITE_EXISTING"; break;
+  case FileData::Op::APPEND: stream << "APPEND"; break;
+  }
+  return stream;
+}
+
 FileData::FileData(string const & fileName, Op op)
   : m_FileName(fileName), m_Op(op)
 {
   char const * const modes [] = {"rb", "wb", "r+b", "ab"};
 
-  m_File = fopen(fileName.c_str(), modes[op]);
+  m_File = fopen(fileName.c_str(), modes[static_cast<int>(op)]);
   if (m_File)
   {
 #if defined(_MSC_VER)
     // Move file pointer to the end of the file to make it consistent with other platforms
-    if (op == OP_APPEND)
+    if (op == Op::APPEND)
       fseek64(m_File, 0, SEEK_END);
 #endif
     return;
   }
 
-  if (op == OP_WRITE_EXISTING)
+  if (op == Op::WRITE_EXISTING)
   {
     // Special case, since "r+b" fails if file doesn't exist.
     m_File = fopen(fileName.c_str(), "wb");
@@ -53,7 +65,7 @@ FileData::FileData(string const & fileName, Op op)
   }
 
   // if we're here - something bad is happened
-  if (m_Op != OP_READ)
+  if (m_Op != Op::READ)
     MYTHROW(Writer::OpenException, (GetErrorProlog()));
   else
     MYTHROW(Reader::OpenException, (GetErrorProlog()));
@@ -70,19 +82,12 @@ FileData::~FileData()
 
 string FileData::GetErrorProlog() const
 {
-  char const * s;
-  switch (m_Op)
-  {
-  case OP_READ: s = "Read"; break;
-  case OP_WRITE_TRUNCATE: s = "Write truncate"; break;
-  case OP_WRITE_EXISTING: s = "Write existing"; break;
-  case OP_APPEND: s = "Append"; break;
-  }
-
-  return m_FileName + "; " + s + "; " + strerror(errno);
+  std::ostringstream stream;
+  stream << m_FileName << "; " << m_Op << "; " << strerror(errno);
+  return stream.str();
 }
 
-static int64_t const INVALID_POS = -1;
+static int64_t constexpr INVALID_POS = -1;
 
 uint64_t FileData::Size() const
 {
@@ -126,7 +131,7 @@ uint64_t FileData::Pos() const
 
 void FileData::Seek(uint64_t pos)
 {
-  ASSERT_NOT_EQUAL(m_Op, OP_APPEND, (m_FileName, m_Op, pos));
+  ASSERT_NOT_EQUAL(m_Op, Op::APPEND, (m_FileName, m_Op, pos));
   if (fseek64(m_File, static_cast<off_t>(pos), SEEK_SET))
     MYTHROW(Writer::SeekException, (GetErrorProlog(), pos));
 }
@@ -160,8 +165,8 @@ bool GetFileSize(string const & fName, uint64_t & sz)
 {
   try
   {
-    typedef base::FileData fdata_t;
-    fdata_t f(fName, fdata_t::OP_READ);
+    typedef FileData fdata_t;
+    fdata_t f(fName, fdata_t::Op::READ);
     sz = f.Size();
     return true;
   }
@@ -299,12 +304,12 @@ bool CopyFileX(string const & fOld, string const & fNew)
 
 bool IsEqualFiles(string const & firstFile, string const & secondFile)
 {
-  base::FileData first(firstFile, base::FileData::OP_READ);
-  base::FileData second(secondFile, base::FileData::OP_READ);
+  FileData first(firstFile, FileData::Op::READ);
+  FileData second(secondFile, FileData::Op::READ);
   if (first.Size() != second.Size())
     return false;
 
-  size_t const bufSize = READ_FILE_BUFFER_SIZE;
+  size_t constexpr bufSize = READ_FILE_BUFFER_SIZE;
   vector<char> buf1, buf2;
   buf1.resize(bufSize);
   buf2.resize(bufSize);
@@ -329,7 +334,7 @@ bool IsEqualFiles(string const & firstFile, string const & secondFile)
 
 std::vector<uint8_t> ReadFile(std::string const & filePath)
 {
-  base::FileData file(filePath, base::FileData::OP_READ);
+  FileData file(filePath, FileData::Op::READ);
   uint64_t const sz = file.Size();
   std::vector<uint8_t> contents(sz);
   file.Read(0, contents.data(), sz);

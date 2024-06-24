@@ -199,7 +199,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
 - (void)configNavBar
 {
   self.title =
-      L(self.isCreating ? @"editor_add_place_title" : @"editor_edit_place_title").capitalizedString;
+      L(self.isCreating ? @"editor_add_place_title" : @"editor_edit_place_title");
   self.navigationItem.rightBarButtonItem =
       [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
                                                     target:self
@@ -473,6 +473,17 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
                       cellID:cellID
                         icon:@"ic_placepage_website"
                  placeholder:L(@"website")
+                errorMessage:L(@"error_enter_correct_web")
+                     isValid:isValid
+                keyboardType:UIKeyboardTypeURL];
+    break;
+  }
+  case MetadataID::FMD_WEBSITE_MENU:
+  {
+    [self configTextViewCell:cell
+                      cellID:cellID
+                        icon:@"ic_placepage_website_menu"
+                 placeholder:L(@"website_menu")
                 errorMessage:L(@"error_enter_correct_web")
                      isValid:isValid
                 keyboardType:UIKeyboardTypeURL];

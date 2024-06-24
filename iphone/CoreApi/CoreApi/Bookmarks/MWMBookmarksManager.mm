@@ -84,6 +84,17 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
   }
 }
 
+static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType) {
+  switch (fileType) {
+    case MWMKmlFileTypeText:
+      return KmlFileType::Text;
+    case MWMKmlFileTypeBinary:
+      return KmlFileType::Binary;
+    case MWMKmlFileTypeGpx:
+      return KmlFileType::Gpx;
+  }
+}
+
 @interface MWMBookmarksManager ()
 
 @property(nonatomic, readonly) BookmarkManager & bm;
@@ -190,6 +201,23 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 - (void)loadBookmarks
 {
   self.bm.LoadBookmarks();
+}
+
+- (void)loadBookmarkFile:(NSURL *)url
+{
+  self.bm.LoadBookmark(url.path.UTF8String, false /* isTemporaryFile */);
+}
+
+- (void)reloadCategoryAtFilePath:(NSString *)filePath
+{
+  self.bm.ReloadBookmark(filePath.UTF8String);
+}
+
+- (void)deleteCategoryAtFilePath:(NSString *)filePath
+{
+  auto const groupId = self.bm.GetCategoryByFileName(filePath.UTF8String);
+  if (groupId)
+    [self deleteCategory:groupId];
 }
 
 #pragma mark - Categories
@@ -337,6 +365,21 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 - (BOOL)checkCategoryName:(NSString *)name
 {
   return !self.bm.IsUsedCategoryName(name.UTF8String);
+}
+
+- (BOOL)hasCategory:(MWMMarkGroupID)groupId
+{
+  return self.bm.HasBmCategory(groupId);
+}
+
+- (BOOL)hasBookmark:(MWMMarkID)bookmarkId
+{
+  return self.bm.HasBookmark(bookmarkId);
+}
+
+- (BOOL)hasTrack:(MWMTrackID)trackId
+{
+  return self.bm.HasTrack(trackId);
 }
 
 - (NSArray<NSNumber *> *)availableSortingTypes:(MWMMarkGroupID)groupId hasMyPosition:(BOOL)hasMyPosition{
@@ -566,10 +609,10 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 
 #pragma mark - Category sharing
 
-- (void)shareCategory:(MWMMarkGroupID)groupId completion:(SharingResultCompletionHandler)completion {
+- (void)shareCategory:(MWMMarkGroupID)groupId fileType:(MWMKmlFileType)fileType completion:(SharingResultCompletionHandler)completion {
   self.bm.PrepareFileForSharing({groupId}, [self, completion](auto sharingResult) {
     [self handleSharingResult:sharingResult completion:completion];
-  });
+  }, convertFileTypeToCore(fileType));
 }
 
 - (void)shareAllCategoriesWithCompletion:(SharingResultCompletionHandler)completion {
@@ -726,6 +769,10 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
     auto editSession = self.bm.GetEditSession();
     editSession.MoveTrack(trackId, currentGroupId, groupId);
   }
+}
+
+- (BOOL)hasRecentlyDeletedBookmark {
+  return self.bm.HasRecentlyDeletedBookmark();
 }
 
 - (void)setCategory:(MWMMarkGroupID)groupId authorType:(MWMBookmarkGroupAuthorType)author

@@ -89,7 +89,7 @@ DrawWidget::DrawWidget(Framework & framework, std::unique_ptr<ScreenshotParams> 
   setFocusPolicy(Qt::StrongFocus);
 
   m_framework.SetPlacePageListeners([this]() { ShowPlacePage(); },
-                                    {} /* onClose */, {} /* onUpdate */);
+                                    {} /* onClose */, {} /* onUpdate */, {} /*onSwitchFullScreen */);
 
   auto & routingManager = m_framework.GetRoutingManager();
 
@@ -147,10 +147,10 @@ void DrawWidget::PrepareShutdown()
     routingManager.SaveRoutePoints();
 
     auto style = m_framework.GetMapStyle();
-    if (style == MapStyle::MapStyleVehicleClear)
-      m_framework.MarkMapStyle(MapStyle::MapStyleClear);
+    if (style == MapStyle::MapStyleVehicleLight)
+      m_framework.MarkMapStyle(MapStyle::MapStyleDefaultLight);
     else if (style == MapStyle::MapStyleVehicleDark)
-      m_framework.MarkMapStyle(MapStyle::MapStyleDark);
+      m_framework.MarkMapStyle(MapStyle::MapStyleDefaultDark);
   }
 }
 
@@ -595,9 +595,9 @@ void DrawWidget::FollowRoute()
   {
     routingManager.FollowRoute();
     auto style = m_framework.GetMapStyle();
-    if (style == MapStyle::MapStyleClear)
-      SetMapStyle(MapStyle::MapStyleVehicleClear);
-    else if (style == MapStyle::MapStyleDark)
+    if (style == MapStyle::MapStyleDefaultLight)
+      SetMapStyle(MapStyle::MapStyleVehicleLight);
+    else if (style == MapStyle::MapStyleDefaultDark)
       SetMapStyle(MapStyle::MapStyleVehicleDark);
   }
 }
@@ -612,10 +612,10 @@ void DrawWidget::ClearRoute()
   if (wasActive)
   {
     auto style = m_framework.GetMapStyle();
-    if (style == MapStyle::MapStyleVehicleClear)
-      SetMapStyle(MapStyle::MapStyleClear);
+    if (style == MapStyle::MapStyleVehicleLight)
+      SetMapStyle(MapStyle::MapStyleDefaultLight);
     else if (style == MapStyle::MapStyleVehicleDark)
-      SetMapStyle(MapStyle::MapStyleDark);
+      SetMapStyle(MapStyle::MapStyleDefaultDark);
   }
 
   m_turnsVisualizer.ClearTurns(m_framework.GetDrapeApi());
@@ -703,7 +703,7 @@ void DrawWidget::ShowPlacePage()
   break;
   default: break;
   }
-  m_framework.DeactivateMapSelection(false);
+  m_framework.DeactivateMapSelection();
 }
 
 void DrawWidget::SetRuler(bool enabled)
@@ -716,7 +716,7 @@ void DrawWidget::SetRuler(bool enabled)
 // static
 void DrawWidget::RefreshDrawingRules()
 {
-  SetMapStyle(MapStyleClear);
+  SetMapStyle(MapStyleDefaultLight);
 }
 
 m2::PointD DrawWidget::P2G(m2::PointD const & pt) const

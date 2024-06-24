@@ -108,7 +108,7 @@ public:
     {
       auto const it = std::find_if(prefixes.begin(), prefixes.end(), [name = r.GetString()](char const * prefix)
       {
-        return strings::StartsWith(name, prefix);
+        return name.starts_with(prefix);
       });
 
       TEST(it != prefixes.end(), (r));
@@ -197,12 +197,12 @@ UNIT_CLASS_TEST(MwmTestsFixture, TopPOIs_Smoke)
     auto const & results = request->Results();
     TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
-    Range const range(results, 0, 4);
+    Range const range(results, 0, 5);
     EqualClassifType(range, GetClassifTypes({{"shop"}}));
     TEST_LESS(SortedByDistance(range, center).first, 5000, ());
 
     // parking (< 6km) should be on top.
-    EqualClassifType(Range(results, 4, 6), GetClassifTypes({{"leisure", "playground"}, {"amenity", "parking"}}));
+    EqualClassifType(Range(results, 5, 7), GetClassifTypes({{"leisure", "playground"}, {"amenity", "parking"}}));
   }
 
   // https://github.com/organicmaps/organicmaps/issues/2470
@@ -1283,6 +1283,103 @@ UNIT_CLASS_TEST(MwmTestsFixture, NotAllTokens)
 
     // 5 out of 8 results are banks near Arcos/Marcos. No "Santander" streets occupation on top :)
     TEST_GREATER(CountClassifType(Range(results, 0, 8), cl.GetTypeByPath({"amenity", "bank"})), 4, ());
+  }
+}
+
+UNIT_CLASS_TEST(MwmTestsFixture, CityWithCountry)
+{
+  auto const & cl = classif();
+
+  // "France_Provence-Alpes-Cote dAzur_Maritime Alps" should present!
+  RegisterLocalMapsByPrefix("France_Provence-Alpes-Cote dAzur");
+
+  // Buenos Aires (Palermo)
+  ms::LatLon const center(-34.58524, -58.42516);
+  SetViewportAndLoadMaps(center);
+
+  {
+    auto request = MakeRequest("Nice ");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+
+    // Usually on 3rd place, because "Nice" is a commmon token for POI's name.
+    TEST_EQUAL(CountClassifType(Range(results, 0, kTopPoiResultsCount), cl.GetTypeByPath({"place", "city"})), 1, ());
+  }
+
+  {
+    auto request = MakeRequest("Nice France");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+
+    // Should be on 1st place.
+    EqualClassifType(Range(results, 0, 1), GetClassifTypes({{"place", "city"}}));
+  }
+}
+
+UNIT_CLASS_TEST(MwmTestsFixture, UK_Postcodes)
+{
+  using namespace mercator;
+
+  auto const & cl = classif();
+
+  // "UK_Scotland_South", "UK_England_South East_Brighton" should present!
+  RegisterLocalMapsByPrefix("UK_");
+
+  // London
+  ms::LatLon const center(51.5074515, -0.1277805);
+  SetViewportAndLoadMaps(center);
+
+  {
+    auto request = MakeRequest("G4 9HS");
+    auto const & results = request->Results();
+    TEST(!results.empty(), ());
+
+    TEST_EQUAL(results[0].GetResultType(), search::Result::Type::Postcode, ());
+    TEST(FromLatLon({55.8735083, -4.2764288}).EqualDxDy(results[0].GetFeatureCenter(), kPointEqualityEps), ());
+  }
+
+  {
+    auto request = MakeRequest("Nero G4 9HS");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+
+    TEST_EQUAL(results[0].GetResultType(), search::Result::Type::Feature, ());
+    /// @todo We should rank POIs that are closest to the Postcode on top!
+    // TEST(FromLatLon({55.8736446, -4.2768748}).EqualDxDy(results[0].GetFeatureCenter(), kPointEqualityEps), ());
+    TEST_EQUAL(results[0].GetFeatureType(), cl.GetTypeByPath({"amenity", "cafe"}), ());
+  }
+
+  std::string const houseName = "St. Nicholas Lodge";
+  {
+    auto request = MakeRequest("BN1 3LJ " + houseName);
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+
+    TEST_EQUAL(results[0].GetResultType(), search::Result::Type::Feature, ());
+    TEST_EQUAL(results[0].GetString(), houseName, ());
+  }
+  {
+    auto request = MakeRequest("BN3 " + houseName);
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+
+    TEST_EQUAL(results[0].GetResultType(), search::Result::Type::Feature, ());
+    TEST_EQUAL(results[0].GetString(), houseName, ());
+  }
+}
+
+UNIT_CLASS_TEST(MwmTestsFixture, UK_Postcodes_Timing)
+{
+  using namespace std::chrono;
+
+  ms::LatLon const center(50.8214626, -0.1400561);
+  SetViewportAndLoadMaps(center);
+
+  {
+    auto request = MakeRequest("bn1 butterfly");
+    auto const & results = request->Results();
+    TEST(!results.empty(), ());
+    TEST_LESS(duration_cast<seconds>(request->ResponseTime()).count(), 3, ());
   }
 }
 

@@ -221,6 +221,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">Clădirile 3D sunt oprite în modul de economisire a energiei</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Instrucțiuni vocale</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Anunțați numele străzilor</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Când este activată, numele străzii sau al ieșirii pe care să o pornim va fi rostit cu voce tare.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Limba ghidului vocal</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -262,6 +266,8 @@
 	<string name="compass_calibration_recommended">Îmbunătățiți direcția săgeții prin mișcarea telefonului într-o mișcare în opt pentru a calibra busola.</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
 	<string name="compass_calibration_required">Mișcați telefonul într-o mișcare în formă de opt pentru a calibra busola și a fixa direcția săgeții pe hartă.</string>
+	<!-- Toast text when user hides UI with a long tap anywhere on the map -->
+	<string name="long_tap_toast">Atingeți lung pe hartă din nou pentru a vedea interfața</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Actualizează tot</string>
 	<!-- Cancel all button text -->
@@ -598,6 +604,7 @@
 	  <item quantity="one">A fost găsit %d fișier. Îl vei vedea după conversiune.</item>
 	  <item quantity="other">Au fost găsite %d fișiere. Le vei vedea după conversiune.</item>
 	</plurals>
+	<string name="restore">Restabilește</string>
 	<plurals name="objects">
 	  <item quantity="one">%d obiect</item>
 	  <item quantity="other">%d obiecte</item>
@@ -621,7 +628,8 @@
 	<string name="bookmarks_empty_list_title">Lista este goală</string>
 	<string name="bookmarks_empty_list_message">Pentru a adăuga un loc preferat, ține apăsat un loc pe hartă și după aceea atinge simbolul în formă de stea</string>
 	<string name="category_desc_more">…mai mult</string>
-	<string name="export_file">Exportă fișierul</string>
+	<string name="export_file">Export KMZ</string>
+	<string name="export_file_gpx">Exportați GPX</string>
 	<string name="delete_list">Șterge lista</string>
 	<string name="public_access">Acces public</string>
 	<string name="limited_access">Acces privat</string>
@@ -759,16 +767,16 @@
 	<string name="app_tip_08">Puteți remedia și îmbunătăți cu ușurință datele hărții.</string>
 	<!-- App tip #09 -->
 	<string name="app_tip_09">Scopul nostru principal este să construim hărți rapide, axate pe confidențialitate și ușor de utilizat, care să vă placă.</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Acum utilizați Organic Maps pe ecranul telefonului</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">Acum utilizați Organic Maps pe ecranul telefonului</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Acum utilizați Organic Maps pe ecranul mașinii</string>
+	<string name="car_used_on_the_car_screen">Acum utilizați Organic Maps pe ecranul mașinii</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Sunteți conectat la Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Continuați în telefon</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">La ecranul mașinii</string>
+	<string name="car_continue_on_the_phone">Continuați în telefon</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">La ecranul mașinii</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">Această aplicație necesită accesul la locația dvs. în scopul navigării.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -791,6 +799,10 @@
 	<string name="zoom_in">A mari</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">A micsora</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Legătura de meniu</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Vezi meniul</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresă/Bloc</string>
@@ -1894,7 +1906,6 @@
 	<string name="type.waterway.lock_gate">Ecluză</string>
 	<string name="type.waterway.river">Râu</string>
 	<string name="type.waterway.river.tunnel">Râu</string>
-	<string name="type.waterway.riverbank">Râu</string>
 	<string name="type.waterway.stream">Râu</string>
 	<string name="type.waterway.stream.ephemeral">Râu</string>
 	<string name="type.waterway.stream.intermittent">Râu</string>

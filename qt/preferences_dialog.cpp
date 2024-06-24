@@ -5,7 +5,6 @@
 #include "platform/measurement_utils.hpp"
 #include "platform/settings.hpp"
 
-#include <QtGlobal>  // QT_VERSION_CHECK
 #include <QtGui/QIcon>
 #include <QLocale>
 #include <QtWidgets/QCheckBox>
@@ -58,11 +57,7 @@ namespace qt
       unitsGroup->button(static_cast<int>(u))->setChecked(true);
 
       // Temporary to pass the address of overloaded function.
-#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-      void (QButtonGroup::* buttonClicked)(int) = &QButtonGroup::buttonClicked;
-#else
       void (QButtonGroup::* buttonClicked)(int) = &QButtonGroup::idClicked;
-#endif
       connect(unitsGroup, buttonClicked, [&framework](int i)
       {
         Units u = Units::Metric;

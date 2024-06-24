@@ -41,7 +41,10 @@ public class DotDividerItemDecoration extends RecyclerView.ItemDecoration
       return;
 
     int childCount = parent.getChildCount();
-    for (int i = 0; i < childCount - 1; i++)
+    boolean parentLayoutRTL = (parent.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL);
+
+    for (int i = parentLayoutRTL ? childCount - 1 : 0; parentLayoutRTL ? i > 0 : i < childCount - 1;
+         i += parentLayoutRTL ? -1 : 1)
     {
       View child = parent.getChildAt(i);
 
@@ -53,7 +56,6 @@ public class DotDividerItemDecoration extends RecyclerView.ItemDecoration
       int bottom = top + mDivider.getIntrinsicHeight();
 
       mDivider.setBounds(left, top, right, bottom);
-
       mDivider.draw(c);
     }
   }

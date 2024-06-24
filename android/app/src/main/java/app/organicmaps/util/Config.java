@@ -35,6 +35,7 @@ public final class Config
   private static final String KEY_MISC_AGPS_TIMESTAMP = "AGPSTimestamp";
   private static final String KEY_DONATE_URL = "DonateUrl";
   private static final String KEY_PREF_SEARCH_HISTORY = "SearchHistoryEnabled";
+  private static final String KEY_PREF_LONG_TAP_TOAST_SHOWN = "LongTapToastShown";
 
   /**
    * The total number of app launches.
@@ -425,6 +426,18 @@ public final class Config
         .apply();
   }
 
+  public static boolean wasLongTapToastShown(@NonNull Context context)
+  {
+    return MwmApplication.prefs(context).getBoolean(KEY_PREF_LONG_TAP_TOAST_SHOWN, false);
+  }
+
+  public static void setLongTapToastShown(@NonNull Context context, Boolean newValue)
+  {
+    MwmApplication.prefs(context).edit()
+         .putBoolean(KEY_PREF_LONG_TAP_TOAST_SHOWN, newValue)
+         .apply();
+  }
+
   public static boolean isSearchHistoryEnabled()
   {
     return getBool(KEY_PREF_SEARCH_HISTORY, true);
@@ -442,6 +455,7 @@ public final class Config
       String ENABLED = "TtsEnabled";
       String LANGUAGE = "TtsLanguage";
       String VOLUME = "TtsVolume";
+      String STREETS = "TtsStreetNames";
     }
 
     public interface Defaults
@@ -451,6 +465,8 @@ public final class Config
       float VOLUME_MIN = 0.0f;
       float VOLUME_MAX = 1.0f;
       float VOLUME = VOLUME_MAX;
+
+      boolean STREETS = false; // TTS may mangle some languages, do not announce streets by default
     }
 
     public static boolean isEnabled()
@@ -483,6 +499,17 @@ public final class Config
     {
       setFloat(Keys.VOLUME, volume);
     }
+
+    public static boolean getAnnounceStreets()
+    {
+      return getBool(Keys.STREETS, Defaults.STREETS);
+    }
+
+    public static void setAnnounceStreets(boolean enabled)
+    {
+      setBool(Keys.STREETS, enabled);
+    }
+
   }
 
   private static native boolean nativeHasConfigValue(String name);

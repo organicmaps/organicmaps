@@ -230,6 +230,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">A 3D épületek energiatakarékos módban ki vannak kapcsolva</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Hangutasítások</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Az utcanevek felolvasása</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Ha engedélyezve van, a rendszer hangosan kimondja annak az utcának vagy kijáratnak a nevét, amelyre be kell kanyarodni.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">A hangutasítások nyelve</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -271,6 +275,8 @@
 	<string name="compass_calibration_recommended">Javítsa a nyíl irányát a telefon nyolcas mozgatásával az iránytű kalibrálásához.</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
 	<string name="compass_calibration_required">Mozgassa a telefont egy nyolcas mozdulattal az iránytű kalibrálásához és a nyíl irányának rögzítéséhez a térképen.</string>
+	<!-- Toast text when user hides UI with a long tap anywhere on the map -->
+	<string name="long_tap_toast">Érintse meg újra hosszan a térképet a kezelőfelület megjelenítéséhez.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Mindegyik frissítése</string>
 	<!-- Cancel all button text -->
@@ -558,7 +564,7 @@
 	<string name="prefs_languages_information">TTS rendszert használunk a hangnavigációhoz. Sok Android-os készülék használja a Google TTS-t; töltse le vagy frissítse a Google Play áruházból (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Egyes nyelveknél másik beszédszintetizátort vagy további nyelvi csomagot kell telepítenie az alkalmazás-áruházból (Google Play, Galaxy Store, App Gallery, FDroid). Nyissa meg a készülék beállításait → Nyelv és bevitel → Beszéd → Szöveg-beszéd átalakító kimenet. Itt kezelheti a beszédszintézis beállításokat (például nyelvi csomag letöltése kapcsolat nélküli használatra) és másik szövegfelolvasót jelölhe tki.</string>
 	<string name="prefs_languages_information_off_link">További tájékoztatást találhat még ebben az útmutatóban.</string>
-	<string name="transliteration_title">Átírás latin nyelvre</string>
+	<string name="transliteration_title">Átírás latin betűkre</string>
 	<string name="learn_more">Tudjon meg többet</string>
 	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Kilépés</string>
@@ -595,6 +601,7 @@
 	  <item quantity="one">%d fájlt találtunk. Látni fogja őket a megtérés után.</item>
 	  <item quantity="other">%d fájl található. Látni fogja őket a megtérés után.</item>
 	</plurals>
+	<string name="restore">Visszaállítás</string>
 	<plurals name="objects">
 	  <item quantity="other">%d hely</item>
 	</plurals>
@@ -615,7 +622,8 @@
 	<string name="bookmarks_empty_list_title">A lista üres</string>
 	<string name="bookmarks_empty_list_message">A könyvjelző hozzáadásához, érintsen meg a térképen egy helyet majd érintse meg a csillag ikont</string>
 	<string name="category_desc_more">…tovább</string>
-	<string name="export_file">Fájl exportálása</string>
+	<string name="export_file">KMZ exportálása</string>
+	<string name="export_file_gpx">GPX exportálása</string>
 	<string name="delete_list">Törölni a listát</string>
 	<string name="public_access">Nyílt hozzáférés</string>
 	<string name="limited_access">Személyes hozzáférés</string>
@@ -636,7 +644,7 @@
 	<string name="power_managment_setting_never">Soha</string>
 	<string name="power_managment_setting_auto">Automatikus</string>
 	<string name="power_managment_setting_manual_max">Maximális energiatakarékosság</string>
-	<string name="enable_logging_warning_message">Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a support csapatunknak, akik elhárítják az alkalmazás hibáit. Csak a Organic Maps support kérésére kapcsold be ezt az opciót.</string>
+	<string name="enable_logging_warning_message">Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a terméktámogatási csapatunknak, akik elhárítják az alkalmazás hibáit. Csak az Organic Maps terméktámogatásának kérésére kapcsold be ezt az opciót.</string>
 	<string name="access_rules_author_only">Online szerkesztés</string>
 	<string name="driving_options_title">Útvonaltervezési lehetőségek</string>
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -752,16 +760,16 @@
 	<string name="app_tip_08">Könnyedén javíthatja a térképadatokat.</string>
 	<!-- App tip #09 -->
 	<string name="app_tip_09">Fő célunk az, hogy gyors, az adatvédelemre fókuszáló, könnyen használható térképeket készítsünk, amelyeket szeretni fog.</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Ön most az Organic Maps használja a telefon képernyőjén</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">Ön most az Organic Maps használja a telefon képernyőjén</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Ön most az Organic Mapset használja az autó képernyőjén</string>
+	<string name="car_used_on_the_car_screen">Ön most az Organic Mapset használja az autó képernyőjén</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Ön csatlakozik az Android Auto rendszerhez</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Folytassa a telefonban</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">Az autó képernyőjére</string>
+	<string name="car_continue_on_the_phone">Folytassa a telefonban</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">Az autó képernyőjére</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">Ez az alkalmazás navigációs célokra hozzáférést igényel az Ön tartózkodási helyéhez.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -784,6 +792,10 @@
 	<string name="zoom_in">Nagyítás</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">Kicsinyítés</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Menü link</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Menü megtekintése</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Cím/blokk</string>
@@ -1900,7 +1912,6 @@
 	<string name="type.waterway.lock_gate">Zsilip</string>
 	<string name="type.waterway.river">Folyó</string>
 	<string name="type.waterway.river.tunnel">Folyó</string>
-	<string name="type.waterway.riverbank">Folyó</string>
 	<string name="type.waterway.stream">Folyó</string>
 	<string name="type.waterway.stream.ephemeral">Folyó</string>
 	<string name="type.waterway.stream.intermittent">Folyó</string>

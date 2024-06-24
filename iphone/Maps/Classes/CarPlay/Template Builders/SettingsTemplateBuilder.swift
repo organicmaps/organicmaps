@@ -15,7 +15,6 @@ final class SettingsTemplateBuilder {
     return [createUnpavedButton(options: options),
             createTollButton(options: options),
             createFerryButton(options: options),
-            createTrafficButton(),
             createSpeedcamButton()]
   }
   
@@ -57,18 +56,6 @@ final class SettingsTemplateBuilder {
                                     CarPlayService.shared.popTemplate(animated: true)
     }
     return ferryButton
-  }
-  
-  private class func createTrafficButton() -> CPGridButton {
-    var trafficIconName = "ic_carplay_trafficlight"
-    let isTrafficEnabled = MapOverlayManager.trafficEnabled()
-    if isTrafficEnabled { trafficIconName += "_active" }
-    let trafficButton = CPGridButton(titleVariants: [L("button_layer_traffic")],
-                                     image: UIImage(named: trafficIconName)!) { _ in
-                                      MapOverlayManager.setTrafficEnabled(!isTrafficEnabled)
-                                      CarPlayService.shared.popTemplate(animated: true)
-    }
-    return trafficButton
   }
   
   private class func createSpeedcamButton() -> CPGridButton {

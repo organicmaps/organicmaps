@@ -5,6 +5,7 @@
 
 #include "base/logging.hpp"
 
+#include <cstring>  // strlen
 #include <fstream>
 #include <string>
 #include <vector>
@@ -16,20 +17,20 @@ namespace file_data_test
 
   void MakeFile(std::string const & name)
   {
-    base::FileData f(name, base::FileData::OP_WRITE_TRUNCATE);
+    base::FileData f(name, base::FileData::Op::WRITE_TRUNCATE);
     f.Write(name.c_str(), name.size());
   }
 
   void MakeFile(std::string const & name, size_t const size, const char c)
   {
-    base::FileData f(name, base::FileData::OP_WRITE_TRUNCATE);
+    base::FileData f(name, base::FileData::Op::WRITE_TRUNCATE);
     f.Write(std::string(size, c).c_str(), size);
   }
 
 #ifdef OMIM_OS_WINDOWS
   void CheckFileOK(std::string const & name)
   {
-    base::FileData f(name, base::FileData::OP_READ);
+    base::FileData f(name, base::FileData::Op::READ);
 
     uint64_t const size = f.Size();
     TEST_EQUAL ( size, name.size(), () );
@@ -68,7 +69,7 @@ UNIT_TEST(FileData_NoDiskSpace)
 
   try
   {
-    base::FileData f(name, base::FileData::OP_WRITE_TRUNCATE);
+    base::FileData f(name, base::FileData::Op::WRITE_TRUNCATE);
 
     for (size_t i = 0; i < 100; ++i)
       f.Write(&bytes[0], bytes.size());
@@ -90,7 +91,7 @@ UNIT_TEST(FileData_SharingAV_Windows)
     MakeFile(name1);
 
     // lock file, will check sharing access
-    base::FileData f1(name1, base::FileData::OP_READ);
+    base::FileData f1(name1, base::FileData::Op::READ);
 
     // try rename or delete locked file
     TEST(!base::RenameFileX(name1, name2), ());
@@ -195,7 +196,7 @@ UNIT_TEST(EmptyFile)
 
   {
     // Create empty file with zero size.
-    FileData f(name, base::FileData::OP_WRITE_TRUNCATE);
+    FileData f(name, base::FileData::Op::WRITE_TRUNCATE);
   }
 
   // Check that empty file is on disk.
@@ -225,11 +226,11 @@ UNIT_TEST(File_StdGetLine)
 {
   std::string const fName = "test.txt";
 
-  for (std::string buffer : { "x\nxy\nxyz\nxyzk", "x\nxy\nxyz\nxyzk\n" })
+  for (char const * buffer : { "x\nxy\nxyz\nxyzk", "x\nxy\nxyz\nxyzk\n" })
   {
     {
-      base::FileData f(fName, base::FileData::OP_WRITE_TRUNCATE);
-      f.Write(buffer.c_str(), buffer.size());
+      base::FileData f(fName, base::FileData::Op::WRITE_TRUNCATE);
+      f.Write(buffer, std::strlen(buffer));
     }
 
     {

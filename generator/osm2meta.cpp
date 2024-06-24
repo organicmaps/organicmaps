@@ -286,22 +286,17 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_wikipedia(std::string v)
 
 std::string MetadataTagProcessorImpl::ValidateAndFormat_wikimedia_commons(std::string v)
 {
-
   // Putting the full wikimedia url to this tag is incorrect according to:
   // https://wiki.openstreetmap.org/wiki/Key:wikimedia_commons
   // But it happens often enough that we should guard against it.
   strings::ReplaceFirst(v, "https://commons.wikimedia.org/wiki/", "");
   strings::ReplaceFirst(v, "https://commons.m.wikimedia.org/wiki/", "");
 
-  if (strings::StartsWith(v, "File:") || strings::StartsWith(v, "Category:"))
-  {
+  if (v.starts_with("File:") || v.starts_with("Category:"))
     return v;
-  }
-  else
-  {
-    LOG(LDEBUG, ("Invalid Wikimedia Commons tag value:", v));
-    return {};
-  }
+
+  LOG(LDEBUG, ("Invalid Wikimedia Commons tag value:", v));
+  return {};
 }
 
 std::string MetadataTagProcessorImpl::ValidateAndFormat_airport_iata(std::string const & v) const
@@ -394,7 +389,7 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_duration(std::string con
   size_t pos = 0;
   std::optional<uint32_t> op;
 
-  if (strings::StartsWith(v, "PT"))
+  if (v.starts_with("PT"))
   {
     if (v.size() < 4)
       return {};
@@ -474,7 +469,7 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
     return std::string_view();
   };
 
-  if (strings::StartsWith(k, "description"))
+  if (k.starts_with("description"))
   {
     // Separate description tags processing.
     int8_t langIdx = StringUtf8Multilang::kDefaultCode;
@@ -507,6 +502,7 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
     valid = ValidateAndFormat_operator(v);
     break;
   case Metadata::FMD_WEBSITE: valid = ValidateAndFormat_url(v); break;
+  case Metadata::FMD_WEBSITE_MENU: valid = ValidateAndFormat_url(v); break;
   case Metadata::FMD_CONTACT_FACEBOOK: valid = osm::ValidateAndFormat_facebook(v); break;
   case Metadata::FMD_CONTACT_INSTAGRAM: valid = osm::ValidateAndFormat_instagram(v); break;
   case Metadata::FMD_CONTACT_TWITTER: valid = osm::ValidateAndFormat_twitter(v); break;

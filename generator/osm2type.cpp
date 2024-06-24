@@ -795,7 +795,7 @@ string DeterminePathGrade(OsmElement * p)
 
   string scale = p->GetTag("sac_scale");
   string visibility = p->GetTag("trail_visibility");
-  
+
   if (scale.empty() && visibility.empty())
     return {};
 
@@ -1084,7 +1084,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
       {
         for (auto const & prefix : disusedPrefix)
         {
-          if (strings::StartsWith(tag.m_key, prefix))
+          if (tag.m_key.starts_with(prefix))
           {
             params.ClearPOIAttribs();
             goto exit;
@@ -1391,7 +1391,7 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
           // atoi error value (0) should match empty layer constant.
           static_assert(feature::LAYER_EMPTY == 0);
           params.layer = atoi(v.c_str());
-          params.layer = base::Clamp(params.layer, int8_t(feature::LAYER_LOW), int8_t(feature::LAYER_HIGH));
+          params.layer = base::Clamp(params.layer, int8_t{feature::LAYER_LOW}, int8_t{feature::LAYER_HIGH});
         }
       }},
   });

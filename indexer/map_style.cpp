@@ -2,21 +2,21 @@
 
 #include "base/assert.hpp"
 
-MapStyle const kDefaultMapStyle = MapStyleClear;
+MapStyle const kDefaultMapStyle = MapStyleDefaultLight;
 
 MapStyle MapStyleFromSettings(std::string const & str)
 {
   // MapStyleMerged is service style. It's unavailable for users.
-  if (str == "MapStyleClear")
-    return MapStyleClear;
-  else if (str == "MapStyleDark")
-    return MapStyleDark;
-  else if (str == "MapStyleVehicleClear")
-    return MapStyleVehicleClear;
+  if (str == "MapStyleDefaultLight")
+    return MapStyleDefaultLight;
+  else if (str == "MapStyleDefaultDark")
+    return MapStyleDefaultDark;
+  else if (str == "MapStyleVehicleLight")
+    return MapStyleVehicleLight;
   else if (str == "MapStyleVehicleDark")
     return MapStyleVehicleDark;
-  else if (str == "MapStyleOutdoorsClear")
-    return MapStyleOutdoorsClear;
+  else if (str == "MapStyleOutdoorsLight")
+    return MapStyleOutdoorsLight;
   else if (str == "MapStyleOutdoorsDark")
     return MapStyleOutdoorsDark;
 
@@ -27,20 +27,20 @@ std::string MapStyleToString(MapStyle mapStyle)
 {
   switch (mapStyle)
   {
-  case MapStyleDark:
-    return "MapStyleDark";
-  case MapStyleClear:
-    return "MapStyleClear";
+  case MapStyleDefaultDark:
+    return "MapStyleDefaultDark";
+  case MapStyleDefaultLight:
+    return "MapStyleDefaultLight";
   case MapStyleMerged:
     return "MapStyleMerged";
   case MapStyleVehicleDark:
     return "MapStyleVehicleDark";
-  case MapStyleVehicleClear:
-    return "MapStyleVehicleClear";
+  case MapStyleVehicleLight:
+    return "MapStyleVehicleLight";
   case MapStyleOutdoorsDark:
     return "MapStyleOutdoorsDark";
-  case MapStyleOutdoorsClear:
-    return "MapStyleOutdoorsClear";
+  case MapStyleOutdoorsLight:
+    return "MapStyleOutdoorsLight";
 
   case MapStyleCount:
     break;

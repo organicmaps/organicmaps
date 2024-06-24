@@ -6,10 +6,11 @@ import androidx.car.app.CarContext;
 import androidx.car.app.model.Action;
 import androidx.car.app.model.Header;
 import androidx.car.app.model.ItemList;
+import androidx.car.app.model.ListTemplate;
 import androidx.car.app.model.OnClickListener;
 import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
-import androidx.car.app.navigation.model.MapTemplate;
+import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.lifecycle.LifecycleOwner;
 
 import app.organicmaps.R;
@@ -27,18 +28,8 @@ public class DrivingOptionsScreen extends BaseMapScreen
 {
   public static final Object DRIVING_OPTIONS_RESULT_CHANGED = 0x1;
 
-  private static class DrivingOption
+  private record DrivingOption(RoadType roadType, @StringRes int text)
   {
-    public final RoadType roadType;
-
-    @StringRes
-    public final int text;
-
-    public DrivingOption(RoadType roadType, @StringRes int text)
-    {
-      this.roadType = roadType;
-      this.text = text;
-    }
   }
 
   private final DrivingOption[] mDrivingOptions = {
@@ -62,10 +53,9 @@ public class DrivingOptionsScreen extends BaseMapScreen
   @Override
   public Template onGetTemplate()
   {
-    final MapTemplate.Builder builder = new MapTemplate.Builder();
-    builder.setHeader(createHeader());
+    final MapWithContentTemplate.Builder builder = new MapWithContentTemplate.Builder();
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
-    builder.setItemList(createDrivingOptionsList());
+    builder.setContentTemplate(createDrivingOptionsListTemplate());
     return builder.build();
   }
 
@@ -92,12 +82,12 @@ public class DrivingOptionsScreen extends BaseMapScreen
   }
 
   @NonNull
-  private ItemList createDrivingOptionsList()
+  private ListTemplate createDrivingOptionsListTemplate()
   {
     final ItemList.Builder builder = new ItemList.Builder();
     for (final DrivingOption drivingOption : mDrivingOptions)
       builder.addItem(createDrivingOptionsToggle(drivingOption.roadType, drivingOption.text));
-    return builder.build();
+    return new ListTemplate.Builder().setHeader(createHeader()).setSingleList(builder.build()).build();
   }
 
   @NonNull

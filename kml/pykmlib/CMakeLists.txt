@@ -21,7 +21,6 @@ omim_link_libraries(
   base
   ICU::i18n
   cppjansson
-  oauthcpp
   protobuf
   pugixml
   expat::expat

@@ -389,7 +389,7 @@ IsStreetOrSquareChecker::IsStreetOrSquareChecker()
 IsAddressObjectChecker::IsAddressObjectChecker() : BaseChecker(1 /* level */)
 {
   base::StringIL const paths = {
-    "building", "entrance", "amenity", "shop", "tourism", "historic", "office", "craft", "addr:interpolation"
+    "building", "entrance", "amenity", "shop", "tourism", "historic", "office", "craft", "leisure", "addr:interpolation"
   };
 
   Classificator const & c = classif();

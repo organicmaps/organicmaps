@@ -2,7 +2,6 @@
 
 #include "base/buffer_vector.hpp"
 #include "base/checked_cast.hpp"
-#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <charconv>
@@ -11,8 +10,6 @@
 #include <cstdlib>
 #include <iomanip>
 #include <iterator>
-#include <limits>
-#include <regex>
 #include <sstream>
 #include <string>
 #include <string_view>
@@ -32,6 +29,8 @@ class UniString : public buffer_vector<UniChar, 32>
   using BaseT = buffer_vector<UniChar, 32>;
 
 public:
+  static UniString kSpace;
+
   using value_type = UniChar;
 
   UniString() = default;
@@ -104,6 +103,7 @@ void NormalizeDigits(UniString & us);
 size_t CountNormLowerSymbols(UniString const & s, UniString const & lowStr);
 
 void AsciiToLower(std::string & s);
+void AsciiToUpper(std::string & s);
 
 // All triming functions return a reference on an input string.
 // They do in-place trimming. In general, it does not work for any unicode whitespace except
@@ -111,6 +111,7 @@ void AsciiToLower(std::string & s);
 void Trim(std::string & s);
 void Trim(std::string_view & sv);
 /// Remove any characters that contain in "anyOf" on left and right side of string s
+void Trim(std::string_view & s, std::string_view anyOf);
 void Trim(std::string & s, std::string_view anyOf);
 
 // Replace the first match of the search substring in the input with the format string.
@@ -592,12 +593,7 @@ bool StartsWith(IterT1 beg, IterT1 end, IterT2 begPrefix, IterT2 endPrefix)
 }
 
 bool StartsWith(UniString const & s, UniString const & p);
-bool StartsWith(std::string_view s1, std::string_view s2);
-bool StartsWith(std::string const & s, std::string::value_type c);
-
 bool EndsWith(UniString const & s1, UniString const & s2);
-bool EndsWith(std::string_view s1, std::string_view s2);
-bool EndsWith(std::string const & s, std::string::value_type c);
 
 // If |s| starts with |prefix|, deletes it from |s| and returns true.
 // Otherwise, leaves |s| unmodified and returns false.
@@ -633,13 +629,6 @@ template <typename Container, typename Delimiter>
 typename Container::value_type JoinStrings(Container const & container, Delimiter const & delimiter)
 {
   return JoinStrings(begin(container), end(container), delimiter);
-}
-
-template <typename Fn>
-void ForEachMatched(std::string const & s, std::regex const & regex, Fn && fn)
-{
-  for (std::sregex_token_iterator cur(s.begin(), s.end(), regex), end; cur != end; ++cur)
-    fn(*cur);
 }
 
 // Computes the minimum number of insertions, deletions and

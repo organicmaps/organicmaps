@@ -49,6 +49,9 @@ public:
   /// Throws exceptions from above list.
   void Delete(editor::XMLFeature node);
 
+  /// Add a tag to the changeset
+  void AddChangesetTag(std::string key, std::string value);
+
   /// Allows to see exception details in OSM changesets for easier debugging.
   void SetErrorDescription(std::string const & error);
 

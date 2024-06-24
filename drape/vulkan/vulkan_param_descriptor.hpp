@@ -6,6 +6,7 @@
 
 #include <array>
 #include <cstdint>
+#include <limits>
 #include <string>
 #include <vector>
 
@@ -37,7 +38,7 @@ size_t constexpr kMaxDescriptorSets = 8;
 struct DescriptorSetGroup
 {
   VkDescriptorSet m_descriptorSet = {};
-  VkDescriptorPool m_descriptorPool = {};
+  uint32_t m_descriptorPoolIndex = std::numeric_limits<uint32_t>::max();
 
   std::array<uint32_t, kMaxDescriptorSets> m_ids = {};
   bool m_updated = false;
@@ -45,7 +46,7 @@ struct DescriptorSetGroup
   explicit operator bool()
   {
     return m_descriptorSet != VK_NULL_HANDLE &&
-           m_descriptorPool != VK_NULL_HANDLE;
+           m_descriptorPoolIndex != std::numeric_limits<uint32_t>::max();
   }
 
   void Update(VkDevice device, std::vector<ParamDescriptor> const & descriptors);

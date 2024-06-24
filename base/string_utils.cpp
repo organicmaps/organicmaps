@@ -1,6 +1,7 @@
 #include "base/string_utils.hpp"
 
 #include "base/assert.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -62,6 +63,8 @@ bool ToReal(char const * start, T & result)
 }
 
 }  // namespace
+
+UniString UniString::kSpace = MakeUniString(" ");
 
 bool UniString::IsEqualAscii(char const * s) const
 {
@@ -206,13 +209,27 @@ void AsciiToLower(std::string & s)
   std::transform(s.begin(), s.end(), s.begin(), [](char in)
   {
     char constexpr diff = 'z' - 'Z';
-    static_assert(diff == 'a' - 'A', "");
-    static_assert(diff > 0, "");
+    static_assert(diff == 'a' - 'A');
+    static_assert(diff > 0);
 
     if (in >= 'A' && in <= 'Z')
       return char(in + diff);
     return in;
   });
+}
+
+void AsciiToUpper(std::string & s)
+{
+  std::transform(s.begin(), s.end(), s.begin(), [](char in)
+  {
+    char constexpr diff = 'z' - 'Z';
+    static_assert(diff == 'a' - 'A');
+    static_assert(diff > 0);
+
+    if (in >= 'a' && in <= 'z')
+      return char(in - diff);
+    return in;
+ });
 }
 
 void Trim(std::string & s)
@@ -230,6 +247,21 @@ void Trim(std::string_view & sv)
   }
   else
     sv = {};
+}
+
+void Trim(std::string_view & s, std::string_view anyOf)
+{
+  auto i = s.find_first_not_of(anyOf);
+  if (i != std::string_view::npos)
+  {
+    s.remove_prefix(i);
+
+    i = s.find_last_not_of(anyOf);
+    ASSERT(i != std::string_view::npos, ());
+    s.remove_suffix(s.size() - i - 1);
+  }
+  else
+    s = {};
 }
 
 void Trim(std::string & s, std::string_view anyOf)
@@ -307,16 +339,6 @@ bool StartsWith(UniString const & s, UniString const & p)
   return StartsWith(s.begin(), s.end(), p.begin(), p.end());
 }
 
-bool StartsWith(std::string_view s1, std::string_view s2)
-{
-  return (s1.compare(0, s2.length(), s2) == 0);
-}
-
-bool StartsWith(std::string const & s, std::string::value_type c)
-{
-  return s.empty() ? false : s.front() == c;
-}
-
 bool EndsWith(UniString const & s1, UniString const & s2)
 {
   if (s1.size() < s2.size())
@@ -325,23 +347,9 @@ bool EndsWith(UniString const & s1, UniString const & s2)
   return std::equal(s1.end() - s2.size(), s1.end(), s2.begin());
 }
 
-bool EndsWith(std::string_view s1, std::string_view s2)
-{
-  size_t const n = s1.size();
-  size_t const m = s2.size();
-  if (n < m)
-    return false;
-  return (s1.compare(n - m, m, s2) == 0);
-}
-
-bool EndsWith(std::string const & s, std::string::value_type c)
-{
-  return s.empty() ? false : s.back() == c;
-}
-
 bool EatPrefix(std::string & s, std::string const & prefix)
 {
-  if (!StartsWith(s, prefix))
+  if (!s.starts_with(prefix))
     return false;
 
   CHECK_LESS_OR_EQUAL(prefix.size(), s.size(), ());
@@ -351,7 +359,7 @@ bool EatPrefix(std::string & s, std::string const & prefix)
 
 bool EatSuffix(std::string & s, std::string const & suffix)
 {
-  if (!EndsWith(s, suffix))
+  if (!s.ends_with(suffix))
     return false;
 
   CHECK_LESS_OR_EQUAL(suffix.size(), s.size(), ());

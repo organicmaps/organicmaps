@@ -1,45 +1,20 @@
-• Transitioned to the new OpenStreetMap authentication mechanism — all authenticated OSM users must re-login
-• Updated OpenStreetMap data to April 29
-• Implemented sorting of bookmarks and tracks by name
-• Resolved the issue of isolines reminders appearing on top of other dialogs
-• Corrected the layout of the circular downloading progress bar in selected POIs
-• Fixed the icons for radio on/off buttons
-• Fixed bug allowing to add the same language two times in the OSM editor
-• Aligned RTL languages properly in the bottom menu
-• Adjusted the location of the "more" menu in bookmark lists
-• Added default email client support to the about menu
-• Expanded feature types that could be added to OSM, including marketplaces, taxi stands, kiosks, wilderness huts, garden centers, historic aircraft, cannons, boundary stones, tombs, etc.
-• Indicated the availability of Drive-through service for selected POIs
-• Enabled the ability to toggle Drive-through in the OSM editor
-• Simplified handling of multiple languages feature names in the OSM editor and addressed related bugs
-• Added a "Can't find a suitable category?" prompt in the OSM editor
-• Replaced the "stairs" icon with an elevator icon for displaying the level number of selected POIs
-• Rectified missing local language name versions for specific POIs
-• Enhanced visibility of the $ emoji for paid map features in dark mode
-• Improved bicycle routing for certain scenarios
-• Optimized the app size for better performance
+• iCloud bookmarks and tracks synchronization (EXPERIMENTAL, please enable it in settings)
+• street name announcements in verbal TTS turn instructions (EXPERIMENTAL, please enable it in settings) 
+• use the map when CarPlay is connected
+• search for US zip codes and UK (GB) postcodes
+• export bookmarks and tracks in GPX file format
+• new OpenStreetMap data as of May 28
+• add, edit, and display web links to menus of restaurants, bars, and food services
+• fix missing addresses in fitness centers details
+• add "pastry" and "cakes" search keywords
+• fix Wikipedia links that contain a question mark
+• fix CarPlay text color in dark mode
+• more TTS voice options
+• TTS turn announcements interrupt podcasts instead of ducking them
+• fix some buttons that disappeared when adding a place to the map
+• fix place details not updated after a bookmark's edit
+• fix the non-business hours button in the Editor to work after midnight
 
-Map:
-• Display difficult hiking trails as brown-dotted, expert ones as black-dotted
-• Blue lines under white/brown dashes for shared foot/cycle paths
-• Dark blue lines for dedicated cycleways
-• More consistency in displaying paved paths as white dashed lines, unpaved ones as brown dashed
-• Roads are now visible beneath semi-transparent bridge outlines
-• Added scree and shingle areas; better color of bare rock surfaces
-• Stopped displaying vacant/unused shops
-• Added natural=stone (shown as natural=rock) and miniature golf to the map
-• Separate public transport shelters, basic huts, and lean-tos from generic shelters
-• Added icons for animal enclosures, dry cleaning; updated laundry icon
-• Fixed the issue of font size being too small for smaller cities
-• Made cities labels visible at higher zooms
-• Reduced the opacity of indigenous lands' hatching fill
-• Hatching fill and icons/captions for nature reserves are not displayed at very detailed zoom levels
+Mise à jour des traductions en tchèque, allemand et portugais.
 
-Search:
-• Enhanced category search (padel, subway stations, wilderness huts, etc.)
-• Enabled search for drinking water refill locations, including participating cafes
-• Excluded private swimming pools from search results
-• Added experimental search for "?wiki"
-• Tuned category search rankings for better results
-
-Translations: Basque, German, Greek, Slovak
+Pour plus de détails, veuillez consulter le site https://omaps.org/fr/news

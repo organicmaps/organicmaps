@@ -171,7 +171,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Привіт!\n\nДодаю мої закладки; відкрийте їх у Organic Maps. Якщо застосунок не встановлено, ви можете завантажити його тут: https://omaps.app/get?kmz\n\nНасолоджуйтесь подорожами з Organic Maps!";
+"share_bookmarks_email_body" = "Привіт!\n\nДодаю мої мiтки; відкрийте їх у Organic Maps. Якщо застосунок не встановлено, ви можете завантажити його тут: https://omaps.app/get?kmz\n\nНасолоджуйтесь подорожами з Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Завантаження мiток";
@@ -253,6 +253,12 @@
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Голосові інструкції";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Проговорювати назви вулиць";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Якщо ввімкнено, назва вулиці або виїзду, на яку потрібно повернути, буде вимовлена вголос.";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Мова підказок";
@@ -339,6 +345,9 @@
 
 /* Settings item title */
 "pref_calibration_title" = "Калібрування компаса";
+
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "Ще раз потримайте палець на карті, щоб побачити інтерфейс";
 
 /* Update all button text */
 "downloader_update_all_button" = "Оновити всі";
@@ -499,8 +508,6 @@
 "dialog_routing_application_error" = "Не вдалося прокласти маршрут через помилки програми.";
 
 "dialog_routing_try_again" = "Спробуйте знову";
-
-"not_now" = "Не зараз";
 
 "dialog_routing_download_and_build_cross_route" = "Завантажити мапу і побудувати більш оптимальний маршрут з перетином межі мапи?";
 
@@ -934,8 +941,6 @@
 
 "start_from_my_position" = "Почати з";
 
-"profile_authorization_error" = "Ой, трапилася помилка. Спробуйте увійти знову.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Будь ласка увійдіть в акаунт OpenStreetMap.org, щоб автоматично публікувати зміни до мапи. Подробиці за";
 
@@ -954,6 +959,9 @@
 "bookmark_lists_show_all" = "Показати всі";
 
 "bookmarks_create_new_group" = "Створити новий список";
+
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "Імпортувати мітки та маршрути";
 
 "downloader_hide_screen" = "Приховати екран";
 
@@ -985,17 +993,11 @@
 
 "bookmarks_convert_error_message" = "Деякі файли не конвертувалися.";
 
-"bookmarks_restore_title" = "Відновити цю версію?";
-
-"error_system_message" = "Виникла невідома помилка";
-
 "restore" = "Відновити";
 
 "privacy_policy" = "Політика конфіденційності";
 
 "terms_of_use" = "Умови використання";
-
-"button_layer_traffic" = "Затор";
 
 "button_layer_subway" = "Метрополітен";
 
@@ -1007,7 +1009,9 @@
 
 "popular_place" = "Popular";
 
-"export_file" = "Експортувати файл";
+"export_file" = "Експорт KMZ";
+
+"export_file_gpx" = "Експорт GPX";
 
 "delete_list" = "Видалити список";
 
@@ -1261,6 +1265,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Uk:Про_проект";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Зараз ви використовуєте Organic Maps на екрані телефону";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Ви використовуєте Organic Maps на екрані автомобіля";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Продовжуйте в телефоні";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "На екран автомобіля";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Активний відпочинок";
 
@@ -1274,6 +1290,36 @@
 "map" = "Мапа";
 
 "drive_through" = "З віконцем для водіїв";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Посилання на меню";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Увімкнути синхронізацію з iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "Синхронізація з iCloud - це експериментальна функція, яка перебуває на стадії розробки. Переконайтеся, що ви зробили резервну копію всіх ваших мiток і треків.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud вимкнено";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Щоб скористатися цією функцією, увімкніть iCloud у налаштуваннях вашого пристрою.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Увімкнути";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Резервне копіювання";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Помилка: Не вдалося синхронізувати через помилку з'єднання";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Помилка: Не вдалося синхронізувати через перевищення квоти iCloud";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Помилка: iCloud недоступний";
 
 
 /********** Types **********/
@@ -2424,8 +2470,6 @@
 "type.landuse.construction" = "Будівництво";
 
 "type.landuse.education" = "Освітній заклади";
-
-"type.landuse.farm" = "Ферма";
 
 "type.landuse.farmland" = "Сільськогосподарська земля";
 
@@ -3813,8 +3857,6 @@
 "type.waterway.river" = "Річка";
 
 "type.waterway.river.tunnel" = "Річка";
-
-"type.waterway.riverbank" = "Річка";
 
 "type.waterway.stream" = "Річка";
 

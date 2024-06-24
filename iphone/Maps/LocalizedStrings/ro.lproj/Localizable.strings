@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Instrucțiuni vocale";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Anunțați numele străzilor";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Când este activată, numele străzii sau al ieșirii pe care să o pornim va fi rostit cu voce tare.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Limba ghidului vocal";
 
@@ -339,6 +345,9 @@
 
 /* Settings item title */
 "pref_calibration_title" = "Calibrare busolă";
+
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "Atingeți lung pe hartă din nou pentru a vedea interfața";
 
 /* Update all button text */
 "downloader_update_all_button" = "Actualizează tot";
@@ -499,8 +508,6 @@
 "dialog_routing_application_error" = "Crearea traseului a eșuat din cauza unei erori a aplicației.";
 
 "dialog_routing_try_again" = "Încearcă din nou";
-
-"not_now" = "Nu acum";
 
 "dialog_routing_download_and_build_cross_route" = "Vrei să descarci harta și să creezi un traseu mai bun care include mai multe hărți?";
 
@@ -934,8 +941,6 @@
 
 "start_from_my_position" = "Pornește de la";
 
-"profile_authorization_error" = "A apărut o eroare. Încearcă să te conectezi din nou.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Vă rugăm să vă conectați la OpenStreetMap pentru a încărca automat toate modificările aduse hărții. Aflați mai multe";
 
@@ -954,6 +959,9 @@
 "bookmark_lists_show_all" = "Arată tot";
 
 "bookmarks_create_new_group" = "Creează o listă nouă";
+
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "Importați marcaje și piese";
 
 "downloader_hide_screen" = "Ascunde pagina";
 
@@ -985,17 +993,11 @@
 
 "bookmarks_convert_error_message" = "Unele fișiere nu au fost convertite.";
 
-"bookmarks_restore_title" = "Restabilești această versiune?";
-
-"error_system_message" = "A apărut o eroare necunoscută";
-
 "restore" = "Restabilește";
 
 "privacy_policy" = "Confidențialitate";
 
 "terms_of_use" = "Termeni de utilizare";
-
-"button_layer_traffic" = "Trafic";
 
 "button_layer_subway" = "Metrou";
 
@@ -1007,7 +1009,9 @@
 
 "popular_place" = "Populare";
 
-"export_file" = "Exportă fișierul";
+"export_file" = "Export KMZ";
+
+"export_file_gpx" = "Exportați GPX";
 
 "delete_list" = "Șterge lista";
 
@@ -1261,6 +1265,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Acum utilizați Organic Maps pe ecranul telefonului";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Acum utilizați Organic Maps pe ecranul mașinii";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Continuați în telefon";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "La ecranul mașinii";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Drumeție";
 
@@ -1274,6 +1290,36 @@
 "map" = "Hartă";
 
 "drive_through" = "Servire în mașină";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Legătura de meniu";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Activați Sincronizarea iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "Sincronizarea iCloud este o funcție experimentală aflată în curs de dezvoltare. Asigurați-vă că ați făcut o copie de rezervă a tuturor marcajelor și pieselor dvs.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud este dezactivat";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Vă rugăm să activați iCloud în setările dispozitivului dvs. pentru a utiliza această funcție.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Activați";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Backup";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Eroare: Nu s-a reușit sincronizarea din cauza unei erori de conexiune";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Eroare: Nu s-a reușit sincronizarea din cauza depășirii cotei iCloud";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Eroare: iCloud nu este disponibil";
 
 
 /********** Types **********/
@@ -2424,8 +2470,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Teren arabil";
 
@@ -3813,8 +3857,6 @@
 "type.waterway.river" = "Râu";
 
 "type.waterway.river.tunnel" = "Râu";
-
-"type.waterway.riverbank" = "Râu";
 
 "type.waterway.stream" = "Râu";
 

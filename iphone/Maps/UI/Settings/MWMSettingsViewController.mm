@@ -2,12 +2,15 @@
 #import "MWMAuthorizationCommon.h"
 #import "MWMTextToSpeech+CPP.h"
 #import "SwiftBridge.h"
+#import "MWMActivityViewController.h"
 
 #import <CoreApi/CoreApi.h>
 
 #include "map/gps_tracker.hpp"
 
 using namespace power_management;
+
+static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidShowICloudSynchronizationEnablingAlert";
 
 @interface MWMSettingsViewController ()<SettingsTableViewSwitchCellDelegate>
 
@@ -29,6 +32,7 @@ using namespace power_management;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell *autoZoomCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell *voiceInstructionsCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell *drivingOptionsCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewiCloudSwitchCell *iCloudSynchronizationCell;
 
 
 @end
@@ -180,6 +184,14 @@ using namespace power_management;
       break;
   }
   [self.nightModeCell configWithTitle:L(@"pref_appearance_title") info:nightMode];
+
+  BOOL isICLoudSynchronizationEnabled = [MWMSettings iCLoudSynchronizationEnabled];
+  [self.iCloudSynchronizationCell configWithDelegate:self
+                                               title:@"iCloud Synchronization (Beta)"
+                                                isOn:isICLoudSynchronizationEnabled];
+  [CloudStorageManager.shared addObserver:self onErrorCompletionHandler:^(NSError * _Nullable error) {
+    [self.iCloudSynchronizationCell updateWithError:error];
+  }];
 }
 
 - (void)show3dBuildingsAlert:(UITapGestureRecognizer *)recognizer {
@@ -209,6 +221,68 @@ using namespace power_management;
   [self.drivingOptionsCell configWithTitle:L(@"driving_options_title") info:@""];
 }
 
+- (void)showICloudSynchronizationEnablingAlert:(void (^)(BOOL))isEnabled {
+  UIAlertController * alertController = [UIAlertController alertControllerWithTitle:L(@"enable_icloud_synchronization_title")
+                                                                           message:L(@"enable_icloud_synchronization_message")
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+  UIAlertAction * enableButton = [UIAlertAction actionWithTitle:L(@"enable")
+                                                     style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction * action) {
+    [self setICloudSynchronizationEnablingAlertIsShown];
+    isEnabled(YES);
+  }];
+  UIAlertAction * backupButton = [UIAlertAction actionWithTitle:L(@"backup")
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction * action) {
+    [MWMBookmarksManager.sharedManager shareAllCategoriesWithCompletion:^(MWMBookmarksShareStatus status, NSURL * _Nonnull url) {
+      switch (status) {
+        case MWMBookmarksShareStatusSuccess: {
+          MWMActivityViewController * shareController = [MWMActivityViewController shareControllerForURL:url message:L(@"share_bookmarks_email_body") completionHandler:^(UIActivityType  _Nullable activityType, BOOL completed, NSArray * _Nullable returnedItems, NSError * _Nullable activityError) {
+            [self setICloudSynchronizationEnablingAlertIsShown];
+            isEnabled(completed);
+          }];
+          [shareController presentInParentViewController:self anchorView:self.iCloudSynchronizationCell];
+          break;
+        }
+        case MWMBookmarksShareStatusEmptyCategory:
+          [[MWMToast toastWithText:L(@"bookmarks_error_title_share_empty")] show];
+          isEnabled(NO);
+          break;
+        case MWMBookmarksShareStatusArchiveError:
+        case MWMBookmarksShareStatusFileError:
+          [[MWMToast toastWithText:L(@"dialog_routing_system_error")] show];
+          isEnabled(NO);
+          break;
+      }
+    }];
+  }];
+  UIAlertAction * cancelButton = [UIAlertAction actionWithTitle:L(@"cancel")
+                                                         style:UIAlertActionStyleCancel
+                                                       handler:^(UIAlertAction * action) {
+    isEnabled(NO);
+  }];
+
+  [alertController addAction:cancelButton];
+  if (![MWMBookmarksManager.sharedManager areAllCategoriesEmpty])
+    [alertController addAction:backupButton];
+  [alertController addAction:enableButton];
+  [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)setICloudSynchronizationEnablingAlertIsShown {
+  [NSUserDefaults.standardUserDefaults setBool:YES forKey:kUDDidShowICloudSynchronizationEnablingAlert];
+}
+
+- (void)showICloudIsDisabledAlert {
+  UIAlertController * alertController = [UIAlertController alertControllerWithTitle:L(@"icloud_disabled_title")
+                                                                            message:L(@"icloud_disabled_message")
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
+  UIAlertAction * okButton = [UIAlertAction actionWithTitle:L(@"ok")
+                                                      style:UIAlertActionStyleCancel
+                                                    handler:nil];
+  [alertController addAction:okButton];
+  [self presentViewController:alertController animated:YES completion:nil];
+}
 
 #pragma mark - SettingsTableViewSwitchCellDelegate
 
@@ -241,12 +315,22 @@ using namespace power_management;
     auto &f = GetFramework();
     f.AllowAutoZoom(value);
     f.SaveAutoZoom(value);
+  } else if (cell == self.iCloudSynchronizationCell) {
+    if (![NSUserDefaults.standardUserDefaults boolForKey:kUDDidShowICloudSynchronizationEnablingAlert]) {
+      [self showICloudSynchronizationEnablingAlert:^(BOOL isEnabled) {
+        [self.iCloudSynchronizationCell setOn:isEnabled animated:YES];
+        [MWMSettings setICLoudSynchronizationEnabled:isEnabled];
+      }];
+    } else {
+      [MWMSettings setICLoudSynchronizationEnabled:value];
+    }
   }
 }
 
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  [tableView deselectRowAtIndexPath:indexPath animated:true];
   auto cell = [tableView cellForRowAtIndexPath:indexPath];
   if (cell == self.profileCell) {
     [self performSegueWithIdentifier:@"SettingsToProfileSegue" sender:nil];
@@ -264,6 +348,13 @@ using namespace power_management;
     [self performSegueWithIdentifier:@"SettingsToTTSSegue" sender:nil];
   } else if (cell == self.drivingOptionsCell) {
     [self performSegueWithIdentifier:@"settingsToDrivingOptionsSegue" sender:nil];
+  }
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+  auto cell = [tableView cellForRowAtIndexPath:indexPath];
+  if (cell == self.iCloudSynchronizationCell) {
+    [self showICloudIsDisabledAlert];
   }
 }
 

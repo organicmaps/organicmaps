@@ -20,7 +20,6 @@
 		FAFD414226BBE3FC00D1DE1B /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFD414126BBE3FC00D1DE1B /* libcoding.a */; };
 		FAFD414426BBE88000D1DE1B /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFD414326BBE88000D1DE1B /* libplatform.a */; };
 		FAFD414626BBE88700D1DE1B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFD414526BBE88700D1DE1B /* libz.tbd */; };
-		FAFD414826BBE8F200D1DE1B /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFD414726BBE8F200D1DE1B /* liboauthcpp.a */; };
 		FAFD414A26BBE98B00D1DE1B /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFD414926BBE98B00D1DE1B /* libindexer.a */; };
 		FAFD414C26BBE9BB00D1DE1B /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFD414B26BBE9BB00D1DE1B /* libicu.a */; };
 		FAFD414E26BBE9C300D1DE1B /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFD414D26BBE9C300D1DE1B /* libgeometry.a */; };
@@ -48,7 +47,6 @@
 		FAFD414126BBE3FC00D1DE1B /* libcoding.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcoding.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFD414326BBE88000D1DE1B /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFD414526BBE88700D1DE1B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		FAFD414726BBE8F200D1DE1B /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFD414926BBE98B00D1DE1B /* libindexer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libindexer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFD414B26BBE9BB00D1DE1B /* libicu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libicu.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFD414D26BBE9C300D1DE1B /* libgeometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgeometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,7 +75,6 @@
 				FAFD414E26BBE9C300D1DE1B /* libgeometry.a in Frameworks */,
 				FAFD414C26BBE9BB00D1DE1B /* libicu.a in Frameworks */,
 				FAFD414A26BBE98B00D1DE1B /* libindexer.a in Frameworks */,
-				FAFD414826BBE8F200D1DE1B /* liboauthcpp.a in Frameworks */,
 				FAFD414626BBE88700D1DE1B /* libz.tbd in Frameworks */,
 				FAFD414426BBE88000D1DE1B /* libplatform.a in Frameworks */,
 				FAFD414026BBE3FC00D1DE1B /* libbase.a in Frameworks */,
@@ -145,7 +142,6 @@
 				FAFD414D26BBE9C300D1DE1B /* libgeometry.a */,
 				FAFD414B26BBE9BB00D1DE1B /* libicu.a */,
 				FAFD414926BBE98B00D1DE1B /* libindexer.a */,
-				FAFD414726BBE8F200D1DE1B /* liboauthcpp.a */,
 				FAFD414526BBE88700D1DE1B /* libz.tbd */,
 				FAFD414326BBE88000D1DE1B /* libplatform.a */,
 				FAFD413F26BBE3FC00D1DE1B /* libbase.a */,

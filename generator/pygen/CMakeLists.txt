@@ -37,7 +37,6 @@ omim_link_libraries(
   succinct
   pugixml
   tess2
-  oauthcpp
   sqlite3
   ${CMAKE_DL_LIBS}
   ZLIB::ZLIB

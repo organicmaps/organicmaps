@@ -76,6 +76,8 @@ NEED_BUILD_WORLD_ROADS: false
 # FOOD_TRANSLATIONS_URL:
 # SRTM_PATH:
 # ISOLINES_PATH:
+
+# Local path (not url!) to .csv files.
 # UK_POSTCODES_URL:
 # US_POSTCODES_URL:
 

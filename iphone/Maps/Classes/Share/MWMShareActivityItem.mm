@@ -1,10 +1,10 @@
 #import "MWMShareActivityItem.h"
 
-
 #include <CoreApi/Framework.h>
 #import <CoreApi/PlacePageData.h>
 #import <CoreApi/PlacePagePreviewData.h>
 #import <CoreApi/PlacePageInfoData.h>
+#import <LinkPresentation/LPLinkMetadata.h>
 
 NSString * httpGe0Url(NSString * shortUrl)
 {
@@ -101,6 +101,15 @@ NSString * httpGe0Url(NSString * shortUrl)
               subjectForActivityType:(NSString *)activityType
 {
   return [self subjectDefault];
+}
+
+- (LPLinkMetadata *)activityViewControllerLinkMetadata:(UIActivityViewController *)activityViewController API_AVAILABLE(ios(13.0))
+{
+  LPLinkMetadata * metadata = [[LPLinkMetadata alloc] init];
+  metadata.originalURL = [NSURL URLWithString:[self url:NO]];
+  metadata.title = self.isMyPosition ? L(@"core_my_position") : self.data.previewData.title;
+  metadata.iconProvider = [[NSItemProvider alloc] initWithObject:[UIImage imageNamed:@"imgLogo"]];
+  return metadata;
 }
 
 #pragma mark - Message

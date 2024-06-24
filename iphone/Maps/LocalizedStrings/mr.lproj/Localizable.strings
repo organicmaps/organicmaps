@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "ध्वनी सूचना";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Announce Street Names";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "When enabled, the name of the street or exit to turn onto will be spoken aloud.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "ध्वनी भाषा";
 
@@ -339,6 +345,9 @@
 
 /* Settings item title */
 "pref_calibration_title" = "होकायंत्र अंशशोधन";
+
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "इंटरफेस पाहण्यासाठी पुन्हा नकाशावर दीर्घ टॅप करा";
 
 /* Update all button text */
 "downloader_update_all_button" = "सर्व अद्ययावत";
@@ -499,8 +508,6 @@
 "dialog_routing_application_error" = "ऍप त्रुटीमुळे मार्ग तयार करण्यात अक्षम.";
 
 "dialog_routing_try_again" = "कृपया पुर्नरप्रयत्न करा";
-
-"not_now" = "आता नाही";
 
 "dialog_routing_download_and_build_cross_route" = "एकापेक्षा जास्त नकाशात पसरलेला अधिक चांगला मार्ग तयार करण्यासाठी, नकाशा डाउनलोड केलेला चालेल का?";
 
@@ -934,8 +941,6 @@
 
 "start_from_my_position" = "पासून प्रारंभ";
 
-"profile_authorization_error" = "अरेच्चा, त्रुटी आढळली. पुन्हा प्रवेश करण्याचा प्रयत्न करा.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "तुमची सर्व नकाशा संपादने स्वयंचलितपणे अपलोड करण्यासाठी कृपया OpenStreetMap वर लॉग इन करा.";
 
@@ -954,6 +959,9 @@
 "bookmark_lists_show_all" = "सर्व दाखवा";
 
 "bookmarks_create_new_group" = "नवीन यादी जोडा";
+
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "बुकमार्क आणि ट्रॅक आयात करा";
 
 "downloader_hide_screen" = "पटल (स्क्रीन) लपवा";
 
@@ -985,17 +993,11 @@
 
 "bookmarks_convert_error_message" = "काही फायली रूपांतरित झाल्या नाहीत.";
 
-"bookmarks_restore_title" = "ही आवृत्ती पूर्ववत् करायची?";
-
-"error_system_message" = "एक अज्ञात त्रुटी आढळली";
-
 "restore" = "पूर्ववत् करा";
 
 "privacy_policy" = "गोपनीयता धोरण";
 
 "terms_of_use" = "वापरण्याच्या अटी";
-
-"button_layer_traffic" = "ट्रॅफिक";
 
 "button_layer_subway" = "भुयारी मार्ग";
 
@@ -1007,7 +1009,9 @@
 
 "popular_place" = "लोकप्रिय";
 
-"export_file" = "फाइल निर्यात";
+"export_file" = "KMZ निर्यात करा";
+
+"export_file_gpx" = "GPX निर्यात करा";
 
 "delete_list" = "यादी मिटवा";
 
@@ -1261,6 +1265,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "तुम्ही आता फोन स्क्रीनवर ऑरगॅनिक नकाशे वापरत आहात";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "तुम्ही आता कार स्क्रीनवर ऑरगॅनिक नकाशे वापरत आहात";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "फोनवर सुरू ठेवा";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "कारच्या स्क्रीनकडे";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "गिर्यारोहण";
 
@@ -1274,6 +1290,36 @@
 "map" = "नकाशा";
 
 "drive_through" = "मार्गे चला";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "मेनू लिंक";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "iCloud सिंक्रोनाइझेशन सक्षम करा";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "iCloud सिंक्रोनाइझेशन हे विकासाधीन प्रायोगिक वैशिष्ट्य आहे. तुम्ही तुमच्या सर्व बुकमार्क्स आणि ट्रॅकचा बॅकअप घेतला असल्याची खात्री करा.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud अक्षम आहे";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "कृपया हे वैशिष्ट्य वापरण्यासाठी तुमच्या डिव्हाइसच्या सेटिंग्जमध्ये iCloud सक्षम करा.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "सक्षम करा";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "बॅकअप";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "त्रुटी: कनेक्शन त्रुटीमुळे सिंक्रोनाइझ करण्यात अयशस्वी";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "त्रुटी: iCloud कोटा ओलांडल्यामुळे सिंक्रोनाइझ करण्यात अयशस्वी";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "त्रुटी: iCloud उपलब्ध नाही";
 
 
 /********** Types **********/
@@ -2424,8 +2470,6 @@
 "type.landuse.construction" = "बांधकाम";
 
 "type.landuse.education" = "शैक्षणिक सुविधा";
-
-"type.landuse.farm" = "शेत";
 
 "type.landuse.farmland" = "शेतजमीन";
 
@@ -3813,8 +3857,6 @@
 "type.waterway.river" = "नदी";
 
 "type.waterway.river.tunnel" = "नदी";
-
-"type.waterway.riverbank" = "नदी";
 
 "type.waterway.stream" = "नदी";
 

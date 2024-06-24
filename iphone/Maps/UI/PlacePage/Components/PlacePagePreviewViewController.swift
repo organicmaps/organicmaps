@@ -109,15 +109,16 @@ final class PlacePagePreviewViewController: UIViewController {
   }
 
   func updateHeading(_ angle: CGFloat) {
-    heading = angle
     placePageDirectionView?.imageView.isHidden = false
-    UIView.animate(withDuration: kDefaultAnimationDuration,
+    let duration = heading == nil ? .zero : kDefaultAnimationDuration // skip the initial setup animation
+    UIView.animate(withDuration: duration,
                    delay: 0,
                    options: [.beginFromCurrentState, .curveEaseInOut],
                    animations: { [unowned self] in
                     self.placePageDirectionView?.imageView.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2 - angle)
     })
     fullScreenDirectionView.updateHeading(angle)
+    heading = angle
   }
 
   func updateSpeedAndAltitude(_ speedAndAltitude: String) {

@@ -1,5 +1,14 @@
 # Translations
 
+## Help us to review/proofread translations
+
+You can join our [GitHub translation teams](https://github.com/orgs/organicmaps/teams/translations/teams),
+so any contributor can tag all teams (or a specific language team) to get help with the review.
+
+Please respond in the relevant [GitHub discussion](https://github.com/orgs/organicmaps/discussions/8538), or let us know at hello@organicmaps.app
+
+## Contribute translations directly
+
 Adding and updating translations is easy!
 1. Change the translation file you want, e.g. [strings.txt](../data/strings/strings.txt) ([raw text version](https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/strings/strings.txt))
 2. Commit your changes

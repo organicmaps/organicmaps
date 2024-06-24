@@ -171,10 +171,10 @@
 
 - (BOOL)openUrl:(NSString * _Nonnull)urlString
 {
-  return [self openUrl:urlString inSafari:NO];
+  return [self openUrl:urlString externally:NO];
 }
 
-- (BOOL)openUrl:(NSString *)urlString inSafari:(BOOL)safari
+- (BOOL)openUrl:(NSString *)urlString externally:(BOOL)externally
 {
   // TODO: This is a temporary workaround to open cyrillic/non-ASCII URLs.
   // URLs in OSM are stored in UTF-8. NSURL constructor documentation says:
@@ -205,7 +205,7 @@
     urlc.scheme = @"http";
 
   NSURL * url = urlc.URL;
-  if (safari)
+  if (externally && [UIApplication.sharedApplication canOpenURL:url])
   {
     [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
   }

@@ -8,10 +8,12 @@
 namespace
 {
 std::string const kSuffixDark = "_dark";
-std::string const kSuffixClear = "_clear";
+std::string const kSuffixLight = "_light";
+std::string const kSuffixDefaultDark = "_default_dark";
+std::string const kSuffixDefaultLight = "_default_light";
 std::string const kSuffixVehicleDark = "_vehicle_dark";
-std::string const kSuffixVehicleClear = "_vehicle_clear";
-std::string const kSuffixOutdoorsClear = "_outdoors_clear";
+std::string const kSuffixVehicleLight = "_vehicle_light";
+std::string const kSuffixOutdoorsLight = "_outdoors_light";
 std::string const kSuffixOutdoorsDark = "_outdoors_dark";
 
 std::string const kStylesOverrideDir = "styles";
@@ -27,16 +29,16 @@ std::string GetStyleRulesSuffix(MapStyle mapStyle)
 #else
   switch (mapStyle)
   {
-  case MapStyleDark:
-    return kSuffixDark;
-  case MapStyleClear:
-    return kSuffixClear;
+  case MapStyleDefaultDark:
+    return kSuffixDefaultDark;
+  case MapStyleDefaultLight:
+    return kSuffixDefaultLight;
   case MapStyleVehicleDark:
     return kSuffixVehicleDark;
-  case MapStyleVehicleClear:
-    return kSuffixVehicleClear;
-  case MapStyleOutdoorsClear:
-    return kSuffixOutdoorsClear;
+  case MapStyleVehicleLight:
+    return kSuffixVehicleLight;
+  case MapStyleOutdoorsLight:
+    return kSuffixOutdoorsLight;
   case MapStyleOutdoorsDark:
     return kSuffixOutdoorsDark;
   case MapStyleMerged:
@@ -46,7 +48,7 @@ std::string GetStyleRulesSuffix(MapStyle mapStyle)
     break;
   }
   LOG(LWARNING, ("Unknown map style", mapStyle));
-  return kSuffixClear;
+  return kSuffixDefaultLight;
 #endif // BUILD_DESIGNER
 }
 
@@ -55,18 +57,18 @@ std::string GetStyleResourcesSuffix(MapStyle mapStyle)
 #ifdef BUILD_DESIGNER
   return kSuffixDesignTool;
 #else
-  // We use the same resources for all clear/day and dark/night styles
+  // We use the same resources for all light/day and dark/night styles
   // to avoid textures duplication and package size increasing.
   switch (mapStyle)
   {
-  case MapStyleDark:
+  case MapStyleDefaultDark:
   case MapStyleVehicleDark:
   case MapStyleOutdoorsDark:
     return kSuffixDark;
-  case MapStyleClear:
-  case MapStyleVehicleClear:
-  case MapStyleOutdoorsClear:
-    return kSuffixClear;
+  case MapStyleDefaultLight:
+  case MapStyleVehicleLight:
+  case MapStyleOutdoorsLight:
+    return kSuffixLight;
   case MapStyleMerged:
     return std::string();
 
@@ -74,7 +76,7 @@ std::string GetStyleResourcesSuffix(MapStyle mapStyle)
     break;
   }
   LOG(LWARNING, ("Unknown map style", mapStyle));
-  return kSuffixClear;
+  return kSuffixLight;
 #endif // BUILD_DESIGNER
 }
 }  // namespace
@@ -95,7 +97,7 @@ MapStyle StyleReader::GetCurrentStyle() const
 
 bool StyleReader::IsCarNavigationStyle() const
 {
-  return m_mapStyle == MapStyle::MapStyleVehicleClear ||
+  return m_mapStyle == MapStyle::MapStyleVehicleLight ||
          m_mapStyle == MapStyle::MapStyleVehicleDark;
 }
 

@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Petunjuk Suara";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Umumkan Nama Jalan";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Saat diaktifkan, nama jalan atau jalan keluar untuk berbelok akan diucapkan dengan keras.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Bahasa Suara";
 
@@ -339,6 +345,9 @@
 
 /* Settings item title */
 "pref_calibration_title" = "Kalibrasi kompas";
+
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "Ketuk lama pada peta sekali lagi untuk melihat antarmuka";
 
 /* Update all button text */
 "downloader_update_all_button" = "Perbarui semua";
@@ -499,8 +508,6 @@
 "dialog_routing_application_error" = "Tidak dapat membuat rute karena kesalahan aplikasi.";
 
 "dialog_routing_try_again" = "Mohon coba lagi";
-
-"not_now" = "Jangan Sekarang";
 
 "dialog_routing_download_and_build_cross_route" = "Apakah Anda ingin mengunduh peta dan membuat rute yang lebih optimal yang meliputi lebih dari satu peta?";
 
@@ -934,8 +941,6 @@
 
 "start_from_my_position" = "Mulai dari";
 
-"profile_authorization_error" = "Ah, tadi ada kesalahan. Coba masuk kembali.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Silahkan login ke OpenStreetMap untuk mengupload semua hasil edit peta Anda secara otomatis. Pelajari lebih lanjut";
 
@@ -954,6 +959,9 @@
 "bookmark_lists_show_all" = "Perlihatkan semua";
 
 "bookmarks_create_new_group" = "Buat daftar baru";
+
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "Impor penanda dan trek";
 
 "downloader_hide_screen" = "Sembunyikan Layar";
 
@@ -985,17 +993,11 @@
 
 "bookmarks_convert_error_message" = "Beberapa file tidak dikonversi.";
 
-"bookmarks_restore_title" = "Kembalikan versi ini?";
-
-"error_system_message" = "Terjadi kesalahan yang tidak diketahui";
-
 "restore" = "Mengembalikan";
 
 "privacy_policy" = "Kebijakan privasi";
 
 "terms_of_use" = "Ketentuan penggunaan";
-
-"button_layer_traffic" = "Lalu lintas";
 
 "button_layer_subway" = "Kereta bawah tanah";
 
@@ -1007,7 +1009,9 @@
 
 "popular_place" = "Popular";
 
-"export_file" = "File ekspor";
+"export_file" = "Ekspor KMZ";
+
+"export_file_gpx" = "Ekspor GPX";
 
 "delete_list" = "Hapus Daftar";
 
@@ -1261,6 +1265,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Anda sekarang menggunakan Organic Maps pada layar ponsel";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Anda sekarang menggunakan Organic Maps pada layar mobil";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Lanjutkan di telepon";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Ke layar mobil";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Pendakian";
 
@@ -1274,6 +1290,36 @@
 "map" = "Peta";
 
 "drive_through" = "Berkendara melewati";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Tautan menu";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Mengaktifkan Sinkronisasi iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "Sinkronisasi iCloud adalah fitur eksperimental yang sedang dikembangkan. Pastikan Anda telah membuat cadangan semua penanda dan lagu Anda.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud Dinonaktifkan";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Aktifkan iCloud di pengaturan perangkat Anda untuk menggunakan fitur ini.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Aktifkan";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Cadangan";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Kesalahan: Gagal menyinkronkan karena kesalahan koneksi";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Kesalahan: Gagal menyinkronkan karena kuota iCloud terlampaui";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Kesalahan: iCloud tidak tersedia";
 
 
 /********** Types **********/
@@ -2424,8 +2470,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Lahan pertanian";
 
@@ -3813,8 +3857,6 @@
 "type.waterway.river" = "Sungai";
 
 "type.waterway.river.tunnel" = "Sungai";
-
-"type.waterway.riverbank" = "Sungai";
 
 "type.waterway.stream" = "Sungai";
 

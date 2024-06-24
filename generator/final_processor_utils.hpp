@@ -24,7 +24,7 @@ void ForEachMwmTmp(std::string const & temporaryMwmPath, ToDo && toDo, size_t th
 {
   Platform::FilesList fileList;
   Platform::GetFilesByExt(temporaryMwmPath, DATA_FILE_EXTENSION_TMP, fileList);
-  base::thread_pool::computational::ThreadPool pool(threadsCount);
+  base::ComputationalThreadPool pool(threadsCount);
   for (auto const & filename : fileList)
   {
     auto countryName = filename;
@@ -51,7 +51,7 @@ std::vector<std::vector<std::string>> AppendToMwmTmp(std::vector<feature::Featur
       countryToFbsIndexes[country].emplace_back(i);
   }
 
-  base::thread_pool::computational::ThreadPool pool(threadsCount);
+  base::ComputationalThreadPool pool(threadsCount);
   for (auto && p : countryToFbsIndexes)
   {
     pool.SubmitWork([&, country = std::move(p.first), indexes = std::move(p.second)]()

@@ -221,6 +221,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">Gli edifici 3D sono disattivati in modalità di risparmio energetico</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Istruzioni vocali</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Annunciare i nomi delle strade</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Se abilitato, verrà pronunciato ad alta voce il nome della via o dell\'uscita in cui svoltare.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Lingua per la voce</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -262,6 +266,8 @@
 	<string name="compass_calibration_recommended">Migliorare la direzione della freccia muovendo il telefono con un movimento a otto per calibrare la bussola.</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
 	<string name="compass_calibration_required">Muovere il telefono con un movimento a otto per calibrare la bussola e fissare la direzione della freccia sulla mappa.</string>
+	<!-- Toast text when user hides UI with a long tap anywhere on the map -->
+	<string name="long_tap_toast">Tocca di nuovo a lungo sulla mappa per visualizzare l\'interfaccia</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Aggiorna tutte</string>
 	<!-- Cancel all button text -->
@@ -597,6 +603,7 @@
 	  <item quantity="one">%d file è stato trovato. Lo vedrai dopo la conversione.</item>
 	  <item quantity="other">%d file trovati. Li vedrai dopo la conversione.</item>
 	</plurals>
+	<string name="restore">Ripristina</string>
 	<plurals name="objects">
 	  <item quantity="one">%d oggetto</item>
 	  <item quantity="other">%d oggetti</item>
@@ -620,7 +627,8 @@
 	<string name="bookmarks_empty_list_title">Questo elenco è vuoto</string>
 	<string name="bookmarks_empty_list_message">Per aggiungere un luogo preferito, tieni premuto un punto sulla mappa e poi tocca l\'icona a forma di stella</string>
 	<string name="category_desc_more">…altro</string>
-	<string name="export_file">Esportare il file</string>
+	<string name="export_file">Esportazione KMZ</string>
+	<string name="export_file_gpx">Esportazione GPX</string>
 	<string name="delete_list">Cancella elenco</string>
 	<string name="public_access">Accesso pubblico</string>
 	<string name="limited_access">Accesso privato</string>
@@ -738,6 +746,8 @@
 	<string name="enable_show_on_lock_screen_description">Quando è abilitata, non è necessario sbloccare il dispositivo ogni volta mentre l\'app è in esecuzione.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Dati della mappa da OpenStreetMap</string>
+	<!-- A link to the TTS FAQ -->
+	<string name="tts_info_link">https://organicmaps.app/it/faq/sintesi-vocale-tts-su-android/</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
 	<string name="translated_om_site_url">https://organicmaps.app/it/</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
@@ -762,16 +772,16 @@
 	<string name="app_tip_08">Puoi facilmente correggere e migliorare i dati della mappa.</string>
 	<!-- App tip #09 -->
 	<string name="app_tip_09">Il nostro obiettivo principale è creare mappe veloci, incentrate sulla privacy e facili da usare che adorerai.</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Ora stai utilizzando Organic Maps sullo schermo del telefono</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">Ora stai utilizzando Organic Maps sullo schermo del telefono</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Ora stai utilizzando le Organic Maps sullo schermo dell\'auto</string>
+	<string name="car_used_on_the_car_screen">Ora stai utilizzando le Organic Maps sullo schermo dell\'auto</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Sei connesso ad Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Continua nel telefono</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">Allo schermo dell\'auto</string>
+	<string name="car_continue_on_the_phone">Continua nel telefono</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">Allo schermo dell\'auto</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">Questa applicazione richiede l\'accesso alla tua posizione per la navigazione.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -794,6 +804,10 @@
 	<string name="zoom_in">Ingrandisci</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">Rimpicciolisci</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Link al menu</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Visualizza menu</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Indirizzo/Blocco</string>
@@ -2037,7 +2051,6 @@
 	<string name="type.waterway.lock_gate">Sbarramento</string>
 	<string name="type.waterway.river">Fiume</string>
 	<string name="type.waterway.river.tunnel">Fiume</string>
-	<string name="type.waterway.riverbank">Fiume</string>
 	<string name="type.waterway.stream">Torrente</string>
 	<string name="type.waterway.stream.ephemeral">Torrente</string>
 	<string name="type.waterway.stream.intermittent">Torrente</string>

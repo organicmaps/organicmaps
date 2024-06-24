@@ -58,9 +58,45 @@ final class CarPlayService: NSObject {
       updateContentStyle(configuration.contentStyle)
     }
     FrameworkHelper.updatePositionArrowOffset(false, offset: 5)
+
+    CarPlayWindowScaleAdjuster.updateAppearance(
+      fromWindow: MapsAppDelegate.theApp().window,
+      toWindow: window,
+      isCarplayActivated: true
+    )
   }
 
-  @objc func destroy() {
+  private var savedInterfaceController: CPInterfaceController?
+  @objc func showOnPhone() {
+    savedInterfaceController = interfaceController
+    switchScreenToPhone()
+    showPhoneModeAlert()
+  }
+
+  @objc func showOnCarplay() {
+    if let window, let savedInterfaceController {
+      setup(window: window, interfaceController: savedInterfaceController)
+    }
+  }
+
+  private func showPhoneModeAlert() {
+    let switchToCarAction = CPAlertAction(
+      title: L("car_continue_in_the_car"),
+      style: .default,
+      handler: { [weak self] _ in
+        self?.savedInterfaceController?.dismissTemplate(animated: false)
+        self?.showOnCarplay()
+      }
+    )
+    let alert = CPAlertTemplate(
+      titleVariants: [L("car_used_on_the_phone_screen")],
+      actions: [switchToCarAction]
+    )
+    savedInterfaceController?.dismissTemplate(animated: false)
+    savedInterfaceController?.presentTemplate(alert, animated: false)
+  }
+
+  private func switchScreenToPhone() {
     if let carplayVC = carplayVC {
       carplayVC.removeMapView()
     }
@@ -84,6 +120,21 @@ final class CarPlayService: NSObject {
     interfaceController = nil
     ThemeManager.invalidate()
     FrameworkHelper.updatePositionArrowOffset(true, offset: 0)
+
+    if let window {
+      CarPlayWindowScaleAdjuster.updateAppearance(
+        fromWindow: window,
+        toWindow: MapsAppDelegate.theApp().window,
+        isCarplayActivated: false
+      )
+    }
+  }
+
+  @objc func destroy() {
+    if isCarplayActivated {
+      switchScreenToPhone()
+    }
+    savedInterfaceController = nil
   }
 
   @objc func interfaceStyle() -> UIUserInterfaceStyle {

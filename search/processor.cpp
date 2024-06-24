@@ -770,12 +770,14 @@ void Processor::SearchPostcode()
   string_view query(m_query.m_query);
   strings::Trim(query);
 
+  /// @todo So, "G4 " now doesn't match UK (Glasgow) postcodes as prefix :)
   if (!LooksLikePostcode(query, !m_query.m_prefix.empty()))
     return;
 
   vector<shared_ptr<MwmInfo>> infos;
   m_dataSource.GetMwmsInfo(infos);
 
+  auto const normQuery = NormalizeAndSimplifyString(query);
   for (auto const & info : infos)
   {
     auto handle = m_dataSource.GetMwmHandleById(MwmSet::MwmId(info));
@@ -785,10 +787,10 @@ void Processor::SearchPostcode()
     if (!value.m_cont.IsExist(POSTCODE_POINTS_FILE_TAG))
       continue;
 
+    /// @todo Well, ok for now, but we do only full or "prefix-rect" match w/o possible errors, with only one result.
     PostcodePoints postcodes(value);
-
     vector<m2::PointD> points;
-    postcodes.Get(NormalizeAndSimplifyString(query), points);
+    postcodes.Get(normQuery, points);
     if (points.empty())
       continue;
 
@@ -797,8 +799,9 @@ void Processor::SearchPostcode()
       r.Add(p);
 
     m_emitter.AddResultNoChecks(m_ranker.MakeResult(
-        RankerResult(r.Center(), query), true /* needAddress */, false /* needHighlighting */));
+        RankerResult(r.Center(), query), true /* needAddress */, true /* needHighlighting */));
     m_emitter.Emit();
+
     return;
   }
 }

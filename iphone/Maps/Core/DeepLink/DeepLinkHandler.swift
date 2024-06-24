@@ -16,6 +16,11 @@
   }
 
   func applicationDidOpenUrl(_ url: URL) -> Bool {
+    // File reading should be processed synchronously to avoid permission issues (the Files app will close the file for reading when the application:openURL:options returns).
+    if url.isFileURL {
+      return handleFileImport(url: url)
+    }
+
     // On the cold start, isLaunchedByDeeplink is set and handleDeepLink() call is delayed
     // until the map view will be fully initialized.
     guard !isLaunchedByDeeplink else { return true }
@@ -53,21 +58,27 @@
     LOG(.error, "handleDeepLink is called with nil URL")
     return false
   }
-  
+
+  private func handleFileImport(url: URL) -> Bool {
+    LOG(.info, "handleFileImport: \(url)")
+    let fileCoordinator = NSFileCoordinator()
+    var error: NSError?
+    fileCoordinator.coordinate(readingItemAt: url, options: [], error: &error) { fileURL in
+      DeepLinkParser.addBookmarksFile(fileURL)
+    }
+    if let error {
+      LOG(.error, "Failed to read file: \(error)")
+    }
+    reset()
+    return true
+  }
+
   private func handleDeepLink(url: URL) -> Bool {
     LOG(.info, "handleDeepLink: \(url)")
-
-    if url.scheme == "file" {
-      // Import bookmarks.
-      DeepLinkParser.addBookmarksFile(url)
-      return true  // Async parsing can fail later, but here we always return true.
-    }
-
     // TODO(AB): Rewrite API so iOS and Android will call only one C++ method to clear/set API state.
     // This call is also required for DeepLinkParser.showMap, and it also clears old API points...
     let urlType = DeepLinkParser.parseAndSetApiURL(url)
     switch urlType {
-
     case .route:
       if let adapter = DeepLinkRouteStrategyAdapter(url) {
         MWMRouter.buildApiRoute(with: adapter.type, start: adapter.p1, finish: adapter.p2)

@@ -233,6 +233,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D-Gebäude werden im Energiesparmodus ausgeschaltet</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Sprachführung</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Straßennamen ankündigen</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Wenn aktiviert, wird der Name der Straße oder Ausfahrt, in die abgebogen werden soll, laut angekündigt</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Sprache für Sprachführung</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -274,6 +278,8 @@
 	<string name="compass_calibration_recommended">Verbessern Sie die Pfeilrichtung, indem Sie das Telefon in einer Achterbewegung bewegen, um den Kompass zu kalibrieren.</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
 	<string name="compass_calibration_required">Bewegen Sie das Telefon in einer Achterbewegung, um den Kompass zu kalibrieren und die Pfeilrichtung auf der Karte festzulegen.</string>
+	<!-- Toast text when user hides UI with a long tap anywhere on the map -->
+	<string name="long_tap_toast">Tippe erneut lange auf die Karte, um das Interface zu sehen</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Alle aktualisieren</string>
 	<!-- Cancel all button text -->
@@ -610,6 +616,7 @@
 	  <item quantity="one">%d Datei wurde gefunden. Sie werden sie nach der Konvertierung sehen.</item>
 	  <item quantity="other">%d Dateien wurden gefunden. Sie werden sie nach der Konvertierung sehen.</item>
 	</plurals>
+	<string name="restore">Wiederherstellen</string>
 	<plurals name="objects">
 	  <item quantity="one">%d Objekt</item>
 	  <item quantity="other">%d Objekte</item>
@@ -633,7 +640,8 @@
 	<string name="bookmarks_empty_list_title">Die Liste ist leer</string>
 	<string name="bookmarks_empty_list_message">Zum Hinzufügen eine Lesezeichens tippen Sie in der Karte auf den Ort und dann unten auf das Sternchen</string>
 	<string name="category_desc_more">…mehr</string>
-	<string name="export_file">Datei exportieren</string>
+	<string name="export_file">KMZ exportieren</string>
+	<string name="export_file_gpx">GPX exportieren</string>
 	<string name="delete_list">Liste löschen</string>
 	<string name="public_access">Öffentlicher Zugriff</string>
 	<string name="limited_access">Privater Zugriff</string>
@@ -779,16 +787,16 @@
 	<string name="app_tip_08">Sie können die Kartendaten einfach korrigieren und verbessern.</string>
 	<!-- App tip #09 -->
 	<string name="app_tip_09">Unser Hauptziel ist es, schnelle, datenschutzorientierte und benutzerfreundliche Karten zu erstellen, die Sie lieben werden.</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Du verwendest jetzt Organic Maps auf dem Telefondisplay</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">Du verwendest jetzt Organic Maps auf dem Telefondisplay</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Du verwendest jetzt Organic Maps auf dem Bildschirm des Autos</string>
+	<string name="car_used_on_the_car_screen">Du verwendest jetzt Organic Maps auf dem Bildschirm des Autos</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Du bist mit Android Auto verbunden</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Weiter am Telefon</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">Zum Autobildschirm</string>
+	<string name="car_continue_on_the_phone">Weiter am Telefon</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">Zum Autobildschirm</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">Diese Anwendung benötigt für die Navigation Zugriff auf deinen Standort.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -811,6 +819,10 @@
 	<string name="zoom_in">Vergrößern</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">Herauszoomen</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Link zur Speisekarte</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Speisekarte</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresse/Block</string>
@@ -1210,13 +1222,13 @@
 	<string name="type.highway.motorway_link.bridge">Brücke</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
-	<string name="type.highway.path">Weg</string>
+	<string name="type.highway.path">Pfad</string>
 	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-	<string name="type.highway.path.difficult">Weg</string>
+	<string name="type.highway.path.difficult">Schwieriger oder kaum erkennbarer Pfad</string>
 	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-	<string name="type.highway.path.expert">Weg</string>
-	<string name="type.highway.path.bicycle">Radweg</string>
-	<string name="type.highway.footway.bicycle">Radweg</string>
+	<string name="type.highway.path.expert">Alpinwanderweg oder wegloser Pfad</string>
+	<string name="type.highway.path.bicycle">Rad- und Fußweg</string>
+	<string name="type.highway.footway.bicycle">Rad- und Fußweg</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Brücke</string>
 	<string name="type.highway.path.horse">Reitweg</string>
@@ -1386,7 +1398,6 @@
 	<string name="type.landuse.commercial">Gewerbegebiet</string>
 	<string name="type.landuse.construction">Baustelle</string>
 	<string name="type.landuse.education">Bildungseinrichtung</string>
-	<string name="type.landuse.farm">Bauernhof</string>
 	<string name="type.landuse.farmland">Agrarland</string>
 	<string name="type.landuse.farmyard">Bauernhof</string>
 	<string name="type.landuse.field">Feld</string>
@@ -2068,7 +2079,6 @@
 	<string name="type.waterway.lock_gate">Schleusentor</string>
 	<string name="type.waterway.river">Fluss</string>
 	<string name="type.waterway.river.tunnel">Fluss</string>
-	<string name="type.waterway.riverbank">Fluss</string>
 	<string name="type.waterway.stream">Bach</string>
 	<string name="type.waterway.stream.ephemeral">Bach</string>
 	<string name="type.waterway.stream.intermittent">Bach</string>

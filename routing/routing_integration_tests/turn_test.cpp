@@ -1269,10 +1269,12 @@ UNIT_TEST(Cyprus_Governors_Beach_TurnTestNextRoad)
   TurnItem turn;
   route.GetNearestTurn(d, turn);
   TEST_EQUAL(turn.m_turn, CarDirection::ExitHighwayToLeft, ());
+
   RouteSegment::RoadNameInfo ri;
   route.GetNextTurnStreetName(ri);
   TEST_EQUAL(ri.m_destination, "Governer's Beach; Pentakomo", ());
-  TEST_EQUAL(ri.m_destination_ref, "B1", ());
+  // Aggregated network/ref tags.
+  TEST_EQUAL(ri.m_destination_ref, "CY:B/B1", ());
 }
 
 // Exit which is marked as non-link, but has link tags m_destination_ref and m_destination.

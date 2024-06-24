@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Istruzioni vocali";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Annunciare i nomi delle strade";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Se abilitato, verrà pronunciato ad alta voce il nome della via o dell'uscita in cui svoltare.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Lingua per la voce";
 
@@ -339,6 +345,9 @@
 
 /* Settings item title */
 "pref_calibration_title" = "Calibrazione bussola";
+
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "Tocca di nuovo a lungo sulla mappa per visualizzare l'interfaccia";
 
 /* Update all button text */
 "downloader_update_all_button" = "Aggiorna tutte";
@@ -499,8 +508,6 @@
 "dialog_routing_application_error" = "Impossibile creare il percorso a causa di un errore dell'applicazione.";
 
 "dialog_routing_try_again" = "Riprova";
-
-"not_now" = "Non ora";
 
 "dialog_routing_download_and_build_cross_route" = "Vuoi scaricare la mappa e creare un percorso migliore che si estende su più mappe?";
 
@@ -934,8 +941,6 @@
 
 "start_from_my_position" = "Parti da";
 
-"profile_authorization_error" = "Si è verificato un errore. Prova a ripetere l'accesso più tardi.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Accedi a OpenStreetMap per caricare automaticamente tutte le tue modifiche alla mappa. Per saperne di più";
 
@@ -954,6 +959,9 @@
 "bookmark_lists_show_all" = "Mostra tutto";
 
 "bookmarks_create_new_group" = "Crea un nuovo elenco";
+
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "Importazione di segnalibri e tracce";
 
 "downloader_hide_screen" = "Nascondi schermata";
 
@@ -985,17 +993,11 @@
 
 "bookmarks_convert_error_message" = "Alcuni file non sono stati convertiti.";
 
-"bookmarks_restore_title" = "Ripristinare questa versione?";
-
-"error_system_message" = "Si è verificato un errore sconosciuto";
-
 "restore" = "Ripristina";
 
 "privacy_policy" = "Riservatezza";
 
 "terms_of_use" = "Condizioni d'uso";
-
-"button_layer_traffic" = "Traffico";
 
 "button_layer_subway" = "Metropolitana";
 
@@ -1007,7 +1009,9 @@
 
 "popular_place" = "Popolare";
 
-"export_file" = "Esportare il file";
+"export_file" = "Esportazione KMZ";
+
+"export_file_gpx" = "Esportazione GPX";
 
 "delete_list" = "Cancella elenco";
 
@@ -1261,6 +1265,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/IT:About";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Ora stai utilizzando Organic Maps sullo schermo del telefono";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Ora stai utilizzando le Organic Maps sullo schermo dell'auto";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Continua nel telefono";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Allo schermo dell'auto";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Escursioni";
 
@@ -1274,6 +1290,36 @@
 "map" = "Mappa";
 
 "drive_through" = "Accesso con auto";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Link al menu";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Abilita la sincronizzazione con iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "La sincronizzazione con iCloud è una funzione sperimentale in fase di sviluppo. Assicurati di aver fatto un backup di tutti i tuoi segnalibri e tracce.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud è disabilitato";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Per utilizzare questa funzione, attiva iCloud nelle impostazioni del tuo dispositivo.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Abilitazione";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Backup";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Errore: Impossibile sincronizzare a causa di un errore di connessione";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Errore: Impossibile sincronizzare a causa del superamento della quota iCloud";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Errore: iCloud non è disponibile";
 
 
 /********** Types **********/
@@ -2424,8 +2470,6 @@
 "type.landuse.construction" = "Cantiere";
 
 "type.landuse.education" = "Strutture didattiche";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Terreno agricolo";
 
@@ -3813,8 +3857,6 @@
 "type.waterway.river" = "Fiume";
 
 "type.waterway.river.tunnel" = "Fiume";
-
-"type.waterway.riverbank" = "Fiume";
 
 "type.waterway.stream" = "Torrente";
 

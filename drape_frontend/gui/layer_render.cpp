@@ -198,7 +198,7 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheWidgets(ref_ptr<dp::GraphicsContext
                                                      TWidgetsInitInfo const & initInfo,
                                                      ref_ptr<dp::TextureManager> textures)
 {
-  using TCacheShape = std::function<m2::PointF(ref_ptr<dp::GraphicsContext>, Position anchor,
+  using TCacheShape = std::function<void(ref_ptr<dp::GraphicsContext>, Position anchor,
                                                ref_ptr<LayerRenderer> renderer,
                                                ref_ptr<dp::TextureManager> textures)>;
   static std::map<EWidget, TCacheShape> cacheFunctions{
@@ -332,42 +332,30 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheDebugLabels(ref_ptr<dp::GraphicsCon
 }
 #endif
 
-m2::PointF LayerCacher::CacheCompass(ref_ptr<dp::GraphicsContext> context,
-                                     Position const & position, ref_ptr<LayerRenderer> renderer,
-                                     ref_ptr<dp::TextureManager> textures)
+void LayerCacher::CacheCompass(ref_ptr<dp::GraphicsContext> context, Position const & position,
+                               ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures)
 {
-  m2::PointF compassSize;
   Compass compass = Compass(position);
-  drape_ptr<ShapeRenderer> shape = compass.Draw(context, compassSize, textures,
-    std::bind(&DrapeGui::CallOnCompassTappedHandler, &DrapeGui::Instance()));
+  drape_ptr<ShapeRenderer> shape = compass.Draw(context, textures,
+      std::bind(&DrapeGui::CallOnCompassTappedHandler, &DrapeGui::Instance()));
 
   renderer->AddShapeRenderer(WIDGET_COMPASS, std::move(shape));
-
-  return compassSize;
 }
 
-m2::PointF LayerCacher::CacheRuler(ref_ptr<dp::GraphicsContext> context, Position const & position,
-                                   ref_ptr<LayerRenderer> renderer,
-                                   ref_ptr<dp::TextureManager> textures)
+void LayerCacher::CacheRuler(ref_ptr<dp::GraphicsContext> context, Position const & position,
+                             ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures)
 {
-  m2::PointF rulerSize;
-  renderer->AddShapeRenderer(WIDGET_RULER, Ruler(position).Draw(context, rulerSize, textures));
-  return rulerSize;
+  renderer->AddShapeRenderer(WIDGET_RULER, Ruler(position).Draw(context, textures));
 }
 
-m2::PointF LayerCacher::CacheCopyright(ref_ptr<dp::GraphicsContext> context,
-                                       Position const & position, ref_ptr<LayerRenderer> renderer,
-                                       ref_ptr<dp::TextureManager> textures)
+void LayerCacher::CacheCopyright(ref_ptr<dp::GraphicsContext> context, Position const & position,
+                                 ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures)
 {
-  m2::PointF size;
-  renderer->AddShapeRenderer(WIDGET_COPYRIGHT, CopyrightLabel(position).Draw(context, size, textures));
-  return size;
+  renderer->AddShapeRenderer(WIDGET_COPYRIGHT, CopyrightLabel(position).Draw(context, textures));
 }
 
-m2::PointF LayerCacher::CacheScaleFpsLabel(ref_ptr<dp::GraphicsContext> context,
-                                           Position const & position,
-                                           ref_ptr<LayerRenderer> renderer,
-                                           ref_ptr<dp::TextureManager> textures)
+void LayerCacher::CacheScaleFpsLabel(ref_ptr<dp::GraphicsContext> context, Position const & position,
+                                     ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures)
 {
   MutableLabelDrawer::Params params;
   params.m_alphabet = "MGLFPSAUEDVcale: 1234567890/()";
@@ -391,10 +379,8 @@ m2::PointF LayerCacher::CacheScaleFpsLabel(ref_ptr<dp::GraphicsContext> context,
   };
 
   drape_ptr<ShapeRenderer> scaleRenderer = make_unique_dp<ShapeRenderer>();
-  m2::PointF size = MutableLabelDrawer::Draw(context, params, textures,
-    std::bind(&ShapeRenderer::AddShape, scaleRenderer.get(), _1, _2));
+  MutableLabelDrawer::Draw(context, params, textures, std::bind(&ShapeRenderer::AddShape, scaleRenderer.get(), _1, _2));
 
   renderer->AddShapeRenderer(WIDGET_SCALE_FPS_LABEL, std::move(scaleRenderer));
-  return size;
 }
 }  // namespace gui

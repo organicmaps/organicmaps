@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Ahots argibideak";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Kaleen izenak iragarri";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Gaituta dagoenean, biratzeko kalearen edo irteeraren izena ozen esango da.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Ahots hizkuntza";
 
@@ -339,6 +345,9 @@
 
 /* Settings item title */
 "pref_calibration_title" = "Iparrorratzaren kalibrazioa";
+
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "Sakatu luze berriro mapan interfazea ikusteko";
 
 /* Update all button text */
 "downloader_update_all_button" = "Eguneratu guztiak";
@@ -499,8 +508,6 @@
 "dialog_routing_application_error" = "Ibilbidea ezin izan da sortu aplikazioaren errore baten ondorioz.";
 
 "dialog_routing_try_again" = "Saiatu berriro";
-
-"not_now" = "Orain ez";
 
 "dialog_routing_download_and_build_cross_route" = "Mapa deskargatu eta mapa bat baino gehiago hartzen duen ibilbide hobe bat sortu nahi duzu?";
 
@@ -934,8 +941,6 @@
 
 "start_from_my_position" = "Hasi hemendik";
 
-"profile_authorization_error" = "Errore bat gertatu da. Saiatu berriro saioa hasten.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Hasi saioa OpenStreetMap-en zure mapen aldaketa guztiak automatikoki kargatzeko. Lortu informazio gehiago";
 
@@ -954,6 +959,9 @@
 "bookmark_lists_show_all" = "Erakutsi guztiak";
 
 "bookmarks_create_new_group" = "Sortu zerrenda berria";
+
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "Laster-markak eta ibilbideak inportatu";
 
 "downloader_hide_screen" = "Ezkutatu pantaila";
 
@@ -985,17 +993,11 @@
 
 "bookmarks_convert_error_message" = "Fitxategi batzuk ez dira bihurtu.";
 
-"bookmarks_restore_title" = "Bertsio hau berreskuratu nahi duzu?";
-
-"error_system_message" = "Errore ezezagun bat gertatu da";
-
 "restore" = "Berreskuratu";
 
 "privacy_policy" = "Pribatutasun politika";
 
 "terms_of_use" = "Erabilera baldintzak";
-
-"button_layer_traffic" = "Trafikoa";
 
 "button_layer_subway" = "Metroa";
 
@@ -1007,7 +1009,9 @@
 
 "popular_place" = "Ospetsua";
 
-"export_file" = "Esportatu fitxategia";
+"export_file" = "Esportatu KMZ";
+
+"export_file_gpx" = "Esportatu GPX";
 
 "delete_list" = "Ezabatu zerrenda";
 
@@ -1261,6 +1265,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Organic Maps telefonoaren pantailan erabiltzen ari zara";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Organic Maps autoaren pantailan erabiltzen ari zara";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Jarraitu telefonoan";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Autoaren pantailara";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Landa-eremua";
 
@@ -1274,6 +1290,36 @@
 "map" = "Mapa";
 
 "drive_through" = "Drive-through";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Menuaren esteka";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Gaitu iCloud sinkronizazioa";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "iCloud sinkronizazioa garatzen ari den ezaugarri esperimental bat da. Ziurtatu zure laster-marka eta ibilbide guztien babeskopia egin duzula.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud desgaituta dago";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Mesedez, gaitu iCloud zure gailuaren ezarpenetan eginbide hau erabiltzeko.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Gaitu";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Babeskopia";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Errorea: Ezin izan da sinkronizatu konexio-errore baten ondorioz";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Errorea: Ezin izan da sinkronizatu iCloud kuota gainditu delako";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Errorea: iCloud ez dago erabilgarri";
 
 
 /********** Types **********/
@@ -2424,8 +2470,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Nekazaritza-lurra";
 
@@ -3813,8 +3857,6 @@
 "type.waterway.river" = "Ibai";
 
 "type.waterway.river.tunnel" = "Ibai";
-
-"type.waterway.riverbank" = "Ibai";
 
 "type.waterway.stream" = "Ibai";
 

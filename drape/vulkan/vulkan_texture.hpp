@@ -39,9 +39,16 @@ public:
   VkImage GetImage() const { return m_textureObject.m_image; }
   SamplerKey GetSamplerKey() const;
 
+  void MakeImageLayoutTransition(VkCommandBuffer commandBuffer,
+                                 VkImageLayout newLayout,
+                                 VkPipelineStageFlags srcStageMask,
+                                 VkPipelineStageFlags dstStageMask) const;
+
 private:
   ref_ptr<VulkanObjectManager> m_objectManager;
   VulkanObject m_textureObject;
+  mutable VkImageLayout m_currentLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+  VkImageAspectFlags m_aspectFlags = VK_IMAGE_ASPECT_COLOR_BIT;
   mutable drape_ptr<VulkanStagingBuffer> m_creationStagingBuffer;
   uint32_t m_reservationId = 0;
   bool m_isMutable = false;

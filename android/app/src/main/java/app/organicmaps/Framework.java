@@ -28,7 +28,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.Date;
 import java.util.Locale;
 
@@ -77,7 +76,12 @@ public class Framework
     // Called from JNI
     @Keep
     @SuppressWarnings("unused")
-    void onPlacePageDeactivated(boolean switchFullScreenMode);
+    void onPlacePageDeactivated();
+
+    // Called from JNI
+    @Keep
+    @SuppressWarnings("unused")
+    void onSwitchFullScreenMode();
   }
 
   public interface RoutingListener
@@ -288,7 +292,7 @@ public class Framework
   // an array with one string "Make a right turn.". The next call of the method returns nothing.
   // nativeGenerateTurnNotifications shall be called by the client when a new position is available.
   @Nullable
-  public static native String[] nativeGenerateNotifications();
+  public static native String[] nativeGenerateNotifications(boolean announceStreets);
 
   private static native void nativeSetSpeedCamManagerMode(int mode);
 

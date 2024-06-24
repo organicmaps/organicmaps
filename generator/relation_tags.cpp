@@ -59,7 +59,7 @@ void RelationTagsNode::Process(RelationElement const & e)
     // - used in routing information
     // - used in building addresses matching
     if (p.first == "network" || p.first == "operator" || p.first == "route" ||
-        p.first == "maxspeed" || strings::StartsWith(p.first, "addr:"))
+        p.first == "maxspeed" || p.first.starts_with("addr:"))
     {
       if (!Base::IsKeyTagExists(p.first))
         Base::AddCustomTag(p);
@@ -189,8 +189,8 @@ void RelationTagsWay::Process(RelationElement const & e)
       Base::AddCustomTag("addr:street", p.second);
 
     // All "name" tags should be skipped.
-    if (strings::StartsWith(p.first, "name") || strings::StartsWith(p.first, "int_name") ||
-        strings::StartsWith(p.first, "old_name") || strings::StartsWith(p.first, "alt_name"))
+    if (p.first.starts_with("name") || p.first.starts_with("int_name") ||
+        p.first.starts_with("old_name") || p.first.starts_with("alt_name"))
     {
       continue;
     }

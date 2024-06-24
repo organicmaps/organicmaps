@@ -48,8 +48,10 @@ class InfoItemViewController: UIViewController {
 }
 
 protocol PlacePageInfoViewControllerDelegate: AnyObject {
+  func viewWillAppear()
   func didPressCall()
   func didPressWebsite()
+  func didPressWebsiteMenu()
   func didPressKayak()
   func didPressWikipedia()
   func didPressWikimediaCommons()
@@ -78,6 +80,7 @@ class PlacePageInfoViewController: UIViewController {
   private var rawOpeningHoursView: InfoItemViewController?
   private var phoneView: InfoItemViewController?
   private var websiteView: InfoItemViewController?
+  private var websiteMenuView: InfoItemViewController?
   private var kayakView: InfoItemViewController?
   private var wikipediaView: InfoItemViewController?
   private var wikimediaCommonsView: InfoItemViewController?
@@ -111,7 +114,16 @@ class PlacePageInfoViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    setupViews()
+  }
 
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    delegate?.viewWillAppear()
+  }
+
+  // MARK: private
+  private func setupViews() {
     if let openingHours = placePageInfoData.openingHours {
       openingHoursView.openingHours = openingHours
       addToStack(openingHoursView)
@@ -158,7 +170,19 @@ class PlacePageInfoViewController: UIViewController {
         self?.delegate?.didCopy(website)
       })
     }
-    
+
+    if let websiteMenu = placePageInfoData.websiteMenu {
+      websiteView = createInfoItem(L("website_menu"),
+                                   icon: UIImage(named: "ic_placepage_website_menu"),
+                                   style: .link,
+                                   tapHandler: { [weak self] in
+        self?.delegate?.didPressWebsiteMenu()
+      },
+                                   longPressHandler: { [weak self] in
+        self?.delegate?.didCopy(websiteMenu)
+      })
+    }
+
     if let wikipedia = placePageInfoData.wikipedia {
       wikipediaView = createInfoItem(L("read_in_wikipedia"),
                                      icon: UIImage(named: "ic_placepage_wiki"),
@@ -186,7 +210,7 @@ class PlacePageInfoViewController: UIViewController {
     if let wifi = placePageInfoData.wifiAvailable {
       wifiView = createInfoItem(wifi, icon: UIImage(named: "ic_placepage_wifi"))
     }
-    
+
     if let atm = placePageInfoData.atm {
       atmView = createInfoItem(atm, icon: UIImage(named: "ic_placepage_atm"))
     }
@@ -194,7 +218,7 @@ class PlacePageInfoViewController: UIViewController {
     if let level = placePageInfoData.level {
       levelView = createInfoItem(level, icon: UIImage(named: "ic_placepage_level"))
     }
-    
+
     if let capacity = placePageInfoData.capacity {
       capacityView = createInfoItem(capacity, icon: UIImage(named: "ic_placepage_capacity"))
     }
@@ -202,11 +226,11 @@ class PlacePageInfoViewController: UIViewController {
     if let wheelchair = placePageInfoData.wheelchair {
       wheelchairView = createInfoItem(wheelchair, icon: UIImage(named: "ic_placepage_wheelchair"))
     }
-    
+
     if let driveThrough = placePageInfoData.driveThrough {
       driveThroughView = createInfoItem(driveThrough, icon: UIImage(named: "ic_placepage_drive_through"))
     }
-    
+
     if let email = placePageInfoData.email {
       emailView = createInfoItem(email,
                                  icon: UIImage(named: "ic_placepage_email"),
@@ -218,7 +242,7 @@ class PlacePageInfoViewController: UIViewController {
         self?.delegate?.didCopy(email)
       })
     }
-    
+
     if let facebook = placePageInfoData.facebook {
       facebookView = createInfoItem(facebook,
                                     icon: UIImage(named: "ic_placepage_facebook"),
@@ -230,7 +254,7 @@ class PlacePageInfoViewController: UIViewController {
         self?.delegate?.didCopy(facebook)
       })
     }
-    
+
     if let instagram = placePageInfoData.instagram {
       instagramView = createInfoItem(instagram,
                                      icon: UIImage(named: "ic_placepage_instagram"),
@@ -242,7 +266,7 @@ class PlacePageInfoViewController: UIViewController {
         self?.delegate?.didCopy(instagram)
       })
     }
-    
+
     if let twitter = placePageInfoData.twitter {
       twitterView = createInfoItem(twitter,
                                    icon: UIImage(named: "ic_placepage_twitter"),
@@ -254,7 +278,7 @@ class PlacePageInfoViewController: UIViewController {
         self?.delegate?.didCopy(twitter)
       })
     }
-    
+
     if let vk = placePageInfoData.vk {
       vkView = createInfoItem(vk,
                               icon: UIImage(named: "ic_placepage_vk"),
@@ -266,7 +290,7 @@ class PlacePageInfoViewController: UIViewController {
         self?.delegate?.didCopy(vk)
       })
     }
-    
+
     if let line = placePageInfoData.line {
       lineView = createInfoItem(line,
                                 icon: UIImage(named: "ic_placepage_line"),
@@ -278,7 +302,7 @@ class PlacePageInfoViewController: UIViewController {
         self?.delegate?.didCopy(line)
       })
     }
-    
+
     if let address = placePageInfoData.address {
       addressView = createInfoItem(address,
                                    icon: UIImage(named: "ic_placepage_adress"),
@@ -286,14 +310,14 @@ class PlacePageInfoViewController: UIViewController {
         self?.delegate?.didCopy(address)
       })
     }
-    
+
     if let kayak = placePageInfoData.kayak {
       kayakView = createInfoItem(L("more_on_kayak"),
                                  icon: UIImage(named: "ic_placepage_kayak"),
                                  style: .link,
                                  tapHandler: { [weak self] in
         self?.delegate?.didPressKayak()
-      }, 
+      },
                                  longPressHandler: { [weak self] in
         self?.delegate?.didCopy(kayak)
       })
@@ -304,7 +328,7 @@ class PlacePageInfoViewController: UIViewController {
       if formatId >= coordFormats.count {
         formatId = 0
       }
-      
+
       coordinatesView = createInfoItem(coordFormats[formatId],
                                        icon: UIImage(named: "ic_placepage_coordinate"),
                                        tapHandler: { [unowned self] in
@@ -323,7 +347,6 @@ class PlacePageInfoViewController: UIViewController {
     }
   }
 
-  // MARK: private
   private func createInfoItem(_ info: String,
                               icon: UIImage?,
                               style: Style = .regular,

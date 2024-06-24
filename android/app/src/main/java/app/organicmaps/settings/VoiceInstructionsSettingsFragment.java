@@ -48,6 +48,12 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
   private SeekBarPreference mTtsVolume;
   @NonNull
   @SuppressWarnings("NotNullFieldNotInitialized")
+  private TwoStatePreference mTtsPrefStreetNames;
+  @NonNull
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  private ListPreference mPrefLanguages;
+  @NonNull
+  @SuppressWarnings("NotNullFieldNotInitialized")
   private Preference mTtsLangInfo;
   @NonNull
   @SuppressWarnings("NotNullFieldNotInitialized")
@@ -103,6 +109,13 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
     return false;
   };
 
+  private final Preference.OnPreferenceChangeListener mStreetNameListener = (preference, newValue) -> {
+    boolean set = (Boolean) newValue;
+    Config.TTS.setAnnounceStreets(set);
+
+    return true;
+  };
+
   @Override
   protected int getXmlResources()
   {
@@ -116,6 +129,7 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
 
     mTtsPrefEnabled = getPreference(getString(R.string.pref_tts_enabled));
     mTtsPrefLanguages = getPreference(getString(R.string.pref_tts_language));
+    mTtsPrefStreetNames = findPreference(getString(R.string.pref_tts_street_names));
     mTtsLangInfo = getPreference(getString(R.string.pref_tts_info));
 
     Preference mTtsOpenSystemSettings = getPreference(getString(R.string.pref_tts_open_system_settings));
@@ -184,6 +198,7 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
   {
     mTtsPrefEnabled.setOnPreferenceChangeListener(enable ? mEnabledListener : null);
     mTtsPrefLanguages.setOnPreferenceChangeListener(enable ? mLangListener : null);
+    mTtsPrefStreetNames.setOnPreferenceChangeListener(enable ? mStreetNameListener : null);
   }
 
   private void setLanguage(@NonNull LanguageData lang)

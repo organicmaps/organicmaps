@@ -221,6 +221,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D 建築在省電模式下關閉</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">語音指示</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">宣布街道名稱</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">啟用後，將大聲說出要轉入的街道或出口的名稱。</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">語音語言</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -268,6 +272,8 @@
 	<string name="compass_calibration_recommended">通過以八字形移動手機來校準指南針來改善箭頭方向</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
 	<string name="compass_calibration_required">以 8 字形移動手機以校準指南針並固定地圖上的箭頭方向</string>
+	<!-- Toast text when user hides UI with a long tap anywhere on the map -->
+	<string name="long_tap_toast">再次長按地圖即可看到介面</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">更新全部</string>
 	<!-- Cancel all button text -->
@@ -493,7 +499,7 @@
 	<string name="editor_more_about_osm">關於 OpenStreetMap 的更多資訊</string>
 	<string name="editor_operator">營運者</string>
 	<string name="editor_category_unsuitable_title">找不到合適的類別？</string>
-	<string name="editor_category_unsuitable_text">有機地圖僅允許添加簡單的點類別，這意味著沒有城鎮、道路、湖泊、建築物輪廓等。<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>.請查看我們的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，以了解詳細的逐步說明。</string>
+	<string name="editor_category_unsuitable_text">Organic Maps 只允許添加簡單的點類別，即無法添加城鎮、道路、湖泊、建築輪廓等類別。 請直接向<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>新增此類類別。 請查看我們的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，以了解詳細的步驟說明。</string>
 	<string name="downloader_no_downloaded_maps_title">您尚未下載任何地圖</string>
 	<string name="downloader_no_downloaded_maps_message">下載地圖來尋找位置和離線瀏覽。</string>
 	<!-- abbreviation for meters -->
@@ -513,7 +519,7 @@
 	<!-- A referral link on the place page for some hotels -->
 	<string name="more_on_kayak">照片、評論、預訂</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-	<string name="dialog_kayak_disclaimer">透過此連結進行的每次預訂收到的推薦獎金將用於開發有機地圖</string>
+	<string name="dialog_kayak_disclaimer">透過此連結進行的每次預訂收到的推薦獎金將用於開發 Organic Maps。</string>
 	<!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
 	<string name="dialog_kayak_button">Kayak 上的詳細資訊</string>
 	<string name="placepage_edit_bookmark_button">編輯書籤</string>
@@ -598,6 +604,7 @@
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="other">找到%d個文件。 轉換後你會看到它。</item>
 	</plurals>
+	<string name="restore">恢復</string>
 	<plurals name="objects">
 	  <item quantity="other">%d 地點</item>
 	</plurals>
@@ -618,7 +625,8 @@
 	<string name="bookmarks_empty_list_title">列表為空</string>
 	<string name="bookmarks_empty_list_message">要增加新標籤，請點一下對象卡片中的星型圖標</string>
 	<string name="category_desc_more">…更多</string>
-	<string name="export_file">導出文件</string>
+	<string name="export_file">出口KMZ</string>
+	<string name="export_file_gpx">導出GPX</string>
 	<string name="delete_list">刪除列表</string>
 	<string name="public_access">開放空間</string>
 	<string name="limited_access">私人空間</string>
@@ -754,16 +762,16 @@
 	<string name="app_tip_08">您可以輕鬆修復和改進地圖數據。</string>
 	<!-- App tip #09 -->
 	<string name="app_tip_09">我們的主要目標是構建您會喜歡的快速、注重隱私、易於使用的地圖。</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">您現在正在手機螢幕上使用有機地圖</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">您現在正在手機螢幕上使用 Organic Maps</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">您現在正在汽車螢幕上使用有機地圖</string>
+	<string name="car_used_on_the_car_screen">您現在正在汽車螢幕上使用 Organic Maps</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">您已連接到 Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">繼續打電話</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">到車用螢幕</string>
+	<string name="car_continue_on_the_phone">繼續打電話</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">到車用螢幕</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">此應用程式需要訪問您的位置以進行導航。</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -786,6 +794,10 @@
 	<string name="zoom_in">放大</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">縮小</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">選單連結</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">查看選單</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">地址/區塊</string>
@@ -1933,7 +1945,6 @@
 	<string name="type.waterway.lock_gate">閘門</string>
 	<string name="type.waterway.river">河流</string>
 	<string name="type.waterway.river.tunnel">河流</string>
-	<string name="type.waterway.riverbank">河流</string>
 	<string name="type.waterway.stream">溪</string>
 	<string name="type.waterway.stream.ephemeral">溪</string>
 	<string name="type.waterway.stream.intermittent">溪</string>

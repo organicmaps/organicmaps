@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Səsli təlimatlar";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Küçə adlarını elan edin";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Aktiv edildikdə, dönmək üçün küçənin və ya çıxışın adı ucadan səsləndiriləcək.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Audio Dil";
 
@@ -339,6 +345,9 @@
 
 /* Settings item title */
 "pref_calibration_title" = "Kompas kalibrlənməsi";
+
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "İnterfeysi görmək üçün yenidən xəritəyə uzun müddət toxunun";
 
 /* Update all button text */
 "downloader_update_all_button" = "Hamısını yeniləyin";
@@ -499,8 +508,6 @@
 "dialog_routing_application_error" = "Tətbiq xətası səbəbindən marşrut yaratmaq mümkün olmadı.";
 
 "dialog_routing_try_again" = "Zəhmət olmasa bir daha cəhd edin";
-
-"not_now" = "İndi yox";
 
 "dialog_routing_download_and_build_cross_route" = "Xəritəni endirmək və çoxsaylı xəritələr arasında daha rahat marşrut yaratmaq istərdinizmi?";
 
@@ -934,8 +941,6 @@
 
 "start_from_my_position" = "Buradan başlayın";
 
-"profile_authorization_error" = "Bağışlayın, xəta baş verdi. Yenidən daxil olmağa çalışın.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Bütün xəritə redaktələrinizi avtomatik yükləmək üçün OpenStreetMap-a daxil olun.";
 
@@ -954,6 +959,9 @@
 "bookmark_lists_show_all" = "Hamısını göstər";
 
 "bookmarks_create_new_group" = "Yeni siyahı yaradın";
+
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "Əlfəcinləri və fraqmentləri idxal edin";
 
 "downloader_hide_screen" = "Ekranı Gizlət";
 
@@ -985,17 +993,11 @@
 
 "bookmarks_convert_error_message" = "Bəzi fayllar çevrilmədi.";
 
-"bookmarks_restore_title" = "Bu versiya bərpa edilsin?";
-
-"error_system_message" = "Naməlum xəta baş verdi";
-
 "restore" = "Bərpa";
 
 "privacy_policy" = "Gizlilik Siyasəti";
 
 "terms_of_use" = "İstifadə qaydaları";
-
-"button_layer_traffic" = "Nəqliyyat";
 
 "button_layer_subway" = "Metro";
 
@@ -1007,7 +1009,9 @@
 
 "popular_place" = "Məşhur";
 
-"export_file" = "Faylı ixrac edin";
+"export_file" = "KMZ ixrac edin";
+
+"export_file_gpx" = "GPX ixrac edin";
 
 "delete_list" = "Siyahını silin";
 
@@ -1261,6 +1265,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Tr:About";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "İndi telefon ekranında Organic Maps istifadə edirsiniz";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Hazırda avtomobil ekranında Organic Maps istifadə edirsiniz";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Telefonda davam edin";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Avtomobil ekranına";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Yürüyüş";
 
@@ -1274,6 +1290,36 @@
 "map" = "Xəritə";
 
 "drive_through" = "Sürüşmə";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Menyu keçidi";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "iCloud Sinxronizasiyasını aktivləşdirin";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "iCloud sinxronizasiyası inkişaf mərhələsində olan eksperimental xüsusiyyətdir. Bütün əlfəcinlərinizin və treklərinizin ehtiyat nüsxəsini yaratdığınızdan əmin olun.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud Deaktivdir";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Bu funksiyadan istifadə etmək üçün cihazınızın parametrlərində iCloud-u aktiv edin.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Aktivləşdirin";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Yedəkləmə";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Xəta: Bağlantı xətası səbəbindən sinxronizasiya alınmadı";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Xəta: iCloud kvotasını keçdiyinə görə sinxronizasiya alınmadı";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Xəta: iCloud mövcud deyil";
 
 
 /********** Types **********/
@@ -2424,8 +2470,6 @@
 "type.landuse.construction" = "Struktur";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Ferma";
 
 "type.landuse.farmland" = "Kənd Təsərrüfatı Torpaqları";
 
@@ -3813,8 +3857,6 @@
 "type.waterway.river" = "Çay";
 
 "type.waterway.river.tunnel" = "Çay";
-
-"type.waterway.riverbank" = "Çay";
 
 "type.waterway.stream" = "Çay";
 

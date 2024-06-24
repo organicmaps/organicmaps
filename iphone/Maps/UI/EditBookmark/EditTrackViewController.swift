@@ -42,22 +42,34 @@ final class EditTrackViewController: MWMTableViewController {
     editingCompleted = completion
 
     super.init(style: .grouped)
+
   }
-  
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    updateTrackIfNeeded()
+  }
+
+  deinit {
+    removeFromBookmarksManagerObserverList()
+  }
+
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+
     title = L("track_title")
     navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
                                                         target: self,
                                                         action: #selector(onSave))
-    
+
     tableView.registerNib(cell: BookmarkTitleCell.self)
     tableView.registerNib(cell: MWMButtonCell.self)
+
+    addToBookmarksManagerObserverList()
   }
     
   // MARK: - Table view data source
@@ -123,7 +135,22 @@ final class EditTrackViewController: MWMTableViewController {
   }
   
   // MARK: - Private
-  
+
+  private func updateTrackIfNeeded() {
+    // TODO: Update the track content on the Edit screen instead of closing it when the track gets updated from cloud.
+    if !bookmarksManager.hasTrack(trackId) {
+      goBack()
+    }
+  }
+
+  private func addToBookmarksManagerObserverList() {
+    bookmarksManager.add(self)
+  }
+
+  private func removeFromBookmarksManagerObserverList() {
+    bookmarksManager.remove(self)
+  }
+
   @objc private func onSave() {
     view.endEditing(true)
     BookmarksManager.shared().updateTrack(trackId, setGroupId: trackGroupId, color: trackColor, title: trackTitle ?? "")
@@ -183,5 +210,18 @@ extension EditTrackViewController: SelectBookmarkGroupViewControllerDelegate {
     trackGroupId = groupId
     tableView.reloadRows(at: [IndexPath(row: InfoSectionRows.bookmarkGroup.rawValue, section: Sections.info.rawValue)],
                          with: .none)
+  }
+}
+
+// MARK: - BookmarksObserver
+extension EditTrackViewController: BookmarksObserver {
+  func onBookmarksLoadFinished() {
+    updateTrackIfNeeded()
+  }
+
+  func onBookmarksCategoryDeleted(_ groupId: MWMMarkGroupID) {
+    if trackGroupId == groupId {
+      goBack()
+    }
   }
 }

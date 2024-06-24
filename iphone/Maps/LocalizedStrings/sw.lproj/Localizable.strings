@@ -252,7 +252,13 @@
 "pref_map_3d_buildings_disabled_summary" = "Majengo ya 3D yamezimwa katika hali ya kuokoa nishati";
 
 /* Settings «Route» category: «Tts enabled» title */
-"pref_tts_enable_title" = "Voice Instructions";
+"pref_tts_enable_title" = "Tangaza Majina ya Mitaa";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Tangaza Majina ya Mitaa";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Ikiwashwa, jina la barabara au la kutoka ili kuwasha litasemwa kwa sauti.";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Voice Language";
@@ -339,6 +345,9 @@
 
 /* Settings item title */
 "pref_calibration_title" = "Compass calibration";
+
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "Gusa kwa muda mrefu kwenye ramani tena ili kuona kiolesura";
 
 /* Update all button text */
 "downloader_update_all_button" = "Update All";
@@ -499,8 +508,6 @@
 "dialog_routing_application_error" = "Unable to create route due to an application error.";
 
 "dialog_routing_try_again" = "Please try again";
-
-"not_now" = "Not Now";
 
 "dialog_routing_download_and_build_cross_route" = "Would you like to download the map and create a more optimal route spanning more than one map?";
 
@@ -934,8 +941,6 @@
 
 "start_from_my_position" = "Anzia";
 
-"profile_authorization_error" = "Lo, kumekuwa na hitilafu. Jaribu tena kuingia ndani.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Tafadhali ingia kwenye OpenStreetMap ili kupakia kiotomatiki hariri zako zote za ramani. Pata maelezo zaidi";
 
@@ -954,6 +959,9 @@
 "bookmark_lists_show_all" = "Onyesha zote";
 
 "bookmarks_create_new_group" = "Unda orodha mpya";
+
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "Ingiza alamisho na nyimbo";
 
 "downloader_hide_screen" = "Ficha skrini";
 
@@ -985,17 +993,11 @@
 
 "bookmarks_convert_error_message" = "Baadhi ya faili hazibadilishwa.";
 
-"bookmarks_restore_title" = "Rejesha toleo hili?";
-
-"error_system_message" = "Hitilafu isiyojulikana ilitokea";
-
 "restore" = "Rejesha";
 
 "privacy_policy" = "Sera ya faragha";
 
 "terms_of_use" = "Masharti ya matumizi";
-
-"button_layer_traffic" = "Trafiki";
 
 "button_layer_subway" = "Njia ya chini";
 
@@ -1007,7 +1009,9 @@
 
 "popular_place" = "Popular";
 
-"export_file" = "Tuma faili";
+"export_file" = "Hamisha KMZ";
+
+"export_file_gpx" = "Hamisha GPX";
 
 "delete_list" = "Futa Orodha";
 
@@ -1261,6 +1265,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Sasa unatumia ramani za kikaboni kwenye skrini ya simu";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Sasa unatumia ramani za kikaboni kwenye skrini ya gari";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Endelea kwenye simu";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Kwa skrini ya gari";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Kutembea kwa miguu";
 
@@ -1274,6 +1290,36 @@
 "map" = "Map";
 
 "drive_through" = "Kuendesha-kupitia";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Kiungo cha menyu";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Washa Usawazishaji wa iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "Usawazishaji wa iCloud ni kipengele cha majaribio kinachoendelezwa. Hakikisha kuwa umefanya nakala rudufu ya alamisho na nyimbo zako zote.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud Imezimwa";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Tafadhali wezesha iCloud katika mipangilio ya kifaa chako ili kutumia kipengele hiki.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Wezesha";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Hifadhi nakala";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Hitilafu: Imeshindwa kusawazisha kwa sababu ya hitilafu ya muunganisho";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Hitilafu: Imeshindwa kusawazisha kwa sababu ya mgao wa iCloud uliozidishwa";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Hitilafu: iCloud haipatikani";
 
 
 /********** Types **********/
@@ -2424,8 +2470,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Shamba";
 
@@ -3813,8 +3857,6 @@
 "type.waterway.river" = "River";
 
 "type.waterway.river.tunnel" = "River";
-
-"type.waterway.riverbank" = "River";
 
 "type.waterway.stream" = "Stream";
 

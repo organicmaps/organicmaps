@@ -234,6 +234,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3डी इमारतें बिजली बचत मोड में अक्षम हैं</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">ध्वनि निर्देश</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">सड़कों के नाम की घोषणा करें</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">सक्षम होने पर, सड़क का नाम या मुड़ने के लिए निकास का नाम ज़ोर से बोला जाएगा।</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">आवाज की भाषा</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -283,6 +287,8 @@
 	<string name="copyright">कॉपीराइट</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">एक बग रिपोर्ट करो</string>
+	<!-- Toast text when user hides UI with a long tap anywhere on the map -->
+	<string name="long_tap_toast">इंटरफ़ेस देखने के लिए मानचित्र पर फिर से देर तक टैप करें</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">सब रद्द करो</string>
 	<!-- Downloaded maps list header -->
@@ -446,7 +452,8 @@
 	<string name="terms_of_use">उपयोग की शर्तें</string>
 	<string name="button_layer_subway">भूमिगत मार्ग</string>
 	<string name="layers_title">मानचित्र शैलियाँ और परतें</string>
-	<string name="export_file">फ़ाइल निर्यात करें</string>
+	<string name="export_file">निर्यात KMZ</string>
+	<string name="export_file_gpx">जीपीएक्स निर्यात करें</string>
 	<string name="speedcams_alert_title">गति कैमरा</string>
 	<!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
 	<string name="pref_tts_speedcams_auto">तेज़ गति से गाड़ी चलाने के बारे में चेतावनी दें</string>
@@ -518,16 +525,16 @@
 	<string name="app_tip_08">आप मानचित्र डेटा को आसानी से ठीक और सुधार सकते हैं।</string>
 	<!-- App tip #09 -->
 	<string name="app_tip_09">हमारा मुख्य लक्ष्य तेज़, गोपनीयता-केंद्रित, उपयोग में आसान मानचित्र बनाना है जो आपको पसंद आएंगे।</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">अब आप फ़ोन स्क्रीन पर ऑर्गेनिक मानचित्र का उपयोग कर रहे हैं</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">अब आप फ़ोन स्क्रीन पर ऑर्गेनिक मानचित्र का उपयोग कर रहे हैं</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">अब आप कार स्क्रीन पर ऑर्गेनिक मानचित्र का उपयोग कर रहे हैं</string>
+	<string name="car_used_on_the_car_screen">अब आप कार स्क्रीन पर ऑर्गेनिक मानचित्र का उपयोग कर रहे हैं</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">आप Android Auto से कनेक्ट हैं</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">फ़ोन पर जारी रखें</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">कार स्क्रीन पर</string>
+	<string name="car_continue_on_the_phone">फ़ोन पर जारी रखें</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">कार स्क्रीन पर</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">इस एप्लिकेशन को नेविगेशन उद्देश्यों के लिए आपके स्थान तक पहुंच की आवश्यकता है।</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -550,6 +557,10 @@
 	<string name="zoom_in">ज़ूम इन</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">ज़ूम आउट</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">मेनू लिंक</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">मेनू देखें</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.cable_car">आकाशीय रज्जुमार्ग</string>
@@ -896,7 +907,6 @@
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">ईसाई कब्रिस्तान</string>
 	<string name="type.landuse.commercial">वाणिज्य क्षेत्र</string>
-	<string name="type.landuse.farm">खेत</string>
 	<string name="type.landuse.field">क्षेत्र</string>
 	<string name="type.landuse.forest">वन</string>
 	<string name="type.landuse.forest.mixed">मिश्रित वन</string>

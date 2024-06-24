@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Hlasové instrukce";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Oznamujte názvy ulic";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Je-li povoleno, bude nahlas vyslovován název ulice nebo výjezdu, na který se má odbočit.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Jazyk hlasu";
 
@@ -339,6 +345,9 @@
 
 /* Settings item title */
 "pref_calibration_title" = "Kalibrace kompasu";
+
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "Dlouhým klepnutím na mapu znovu zobrazíte rozhraní.";
 
 /* Update all button text */
 "downloader_update_all_button" = "Aktualizovat vše";
@@ -499,8 +508,6 @@
 "dialog_routing_application_error" = "Trasu se nepodařilo vytvořit z důvodu chyby aplikace.";
 
 "dialog_routing_try_again" = "Prosím, zkuste to znovu";
-
-"not_now" = "Nyní ne";
 
 "dialog_routing_download_and_build_cross_route" = "Chcete mapu stáhnout a vytvořit optimálnější trasu, která vede přes více než jednu mapu?";
 
@@ -934,8 +941,6 @@
 
 "start_from_my_position" = "Začít z";
 
-"profile_authorization_error" = "Jejda, došlo k chybě. Zkuste se přihlásit znovu.";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Přihlaste se do OpenStreetMap, abyste mohli automaticky nahrávat všechny své úpravy mapy. Více informací";
 
@@ -954,6 +959,9 @@
 "bookmark_lists_show_all" = "Zobrazit vše";
 
 "bookmarks_create_new_group" = "Vytvořte nový seznam";
+
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "Import záložek a stop";
 
 "downloader_hide_screen" = "Skrýt obrazovku";
 
@@ -985,17 +993,11 @@
 
 "bookmarks_convert_error_message" = "Některé soubory nebyly převedeny.";
 
-"bookmarks_restore_title" = "Obnovit tuto verzi?";
-
-"error_system_message" = "Nastala neznámá chyba";
-
 "restore" = "Obnovit";
 
 "privacy_policy" = "Zásady ochrany osobních údajů";
 
 "terms_of_use" = "Podmínky užívání";
-
-"button_layer_traffic" = "Zácpy";
 
 "button_layer_subway" = "Metro";
 
@@ -1007,7 +1009,9 @@
 
 "popular_place" = "Popular";
 
-"export_file" = "Exportovat soubor";
+"export_file" = "Export KMZ";
+
+"export_file_gpx" = "Export GPX";
 
 "delete_list" = "Smazat seznam";
 
@@ -1261,6 +1265,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Na obrazovce telefonu nyní používáte aplikaci Organic Maps";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Na obrazovce auta nyní používáte aplikaci Organic Maps";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Pokračujte v telefonu";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Na obrazovku auta";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Pěší turistika";
 
@@ -1274,6 +1290,36 @@
 "map" = "Mapa";
 
 "drive_through" = "Průjezd";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Odkaz na menu";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Povolení synchronizace s iCloudem";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "Synchronizace iCloudu je experimentální funkce, která se vyvíjí. Ujistěte se, že jste si vytvořili zálohu všech svých záložek a skladeb.";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "Služba iCloud je vypnutá";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Chcete-li tuto funkci používat, povolte v nastavení zařízení službu iCloud.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Povolit";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Záloha";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Chyba: Nepodařilo se synchronizovat z důvodu chyby připojení";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Chyba: Nepodařilo se synchronizovat z důvodu překročení kvóty iCloudu";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Chyba: iCloud není k dispozici";
 
 
 /********** Types **********/
@@ -2424,8 +2470,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "Orná půda";
 
@@ -3813,8 +3857,6 @@
 "type.waterway.river" = "Řeka";
 
 "type.waterway.river.tunnel" = "Řeka";
-
-"type.waterway.riverbank" = "Řeka";
 
 "type.waterway.stream" = "Řeka";
 

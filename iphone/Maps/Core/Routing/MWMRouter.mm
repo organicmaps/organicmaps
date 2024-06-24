@@ -189,7 +189,8 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
 + (NSArray<NSString *> *)turnNotifications {
   NSMutableArray<NSString *> *turnNotifications = [@[] mutableCopy];
   std::vector<std::string> notifications;
-  GetFramework().GetRoutingManager().GenerateNotifications(notifications);
+  auto announceStreets = [NSUserDefaults.standardUserDefaults boolForKey:@"UserDefaultsNeedToEnableStreetNamesTTS"];
+  GetFramework().GetRoutingManager().GenerateNotifications(notifications, announceStreets);
 
   for (auto const &text : notifications)
     [turnNotifications addObject:@(text.c_str())];
@@ -432,7 +433,7 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
 
 - (void)onRouteReady:(BOOL)hasWarnings {
   self.routingOptions = [MWMRoutingOptions new];
-  GetFramework().DeactivateMapSelection(true);
+  GetFramework().DeactivateMapSelection();
 
   auto startPoint = [MWMRouter startPoint];
   if (!startPoint || !startPoint.isMyPosition) {

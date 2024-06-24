@@ -234,6 +234,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">Τα τρισδιάστατα κτίρια είναι απενεργοποιημένα σε λειτουργία εξοικονόμησης ενέργειας</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Φωνητικές οδηγίες</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Ανακοινώστε ονόματα οδών</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Όταν είναι ενεργοποιημένο, το όνομα της οδού ή της εξόδου στην οποία θα μεταβείτε θα εκφωνείται δυνατά.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Γλώσσα φωνής</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -277,6 +281,8 @@
 	<string name="compass_calibration_recommended">Βελτιώστε την κατεύθυνση των βελών μετακινώντας το τηλέφωνο με μια κίνηση σχήματος οκτώ για να καλιμπράρετε την πυξίδα.</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
 	<string name="compass_calibration_required">Μετακινήστε το τηλέφωνο με μια κίνηση σχήματος οκτώ για να καλιμπράρετε την πυξίδα και να καθορίσετε την κατεύθυνση του βέλους στο χάρτη.</string>
+	<!-- Toast text when user hides UI with a long tap anywhere on the map -->
+	<string name="long_tap_toast">Πατήστε ξανά παρατεταμένα στο χάρτη για να δείτε το περιβάλλον εργασίας.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Ενημέρωση όλων</string>
 	<!-- Cancel all button text -->
@@ -610,6 +616,7 @@
 	  <item quantity="one">Βρέθηκε %d αρχείο. Θα το δείτε μετά τη μετατροπή.</item>
 	  <item quantity="other">έχουν βρεθεί %d αρχεία. Θα τα δείτε μετά τη μετατροπή.</item>
 	</plurals>
+	<string name="restore">Επαναφορά</string>
 	<plurals name="objects">
 	  <item quantity="one">%d αντικείμενο</item>
 	  <item quantity="other">%d αντικείμενα</item>
@@ -633,7 +640,8 @@
 	<string name="bookmarks_empty_list_title">Η λίστα είναι άδεια</string>
 	<string name="bookmarks_empty_list_message">Για να προσθέσετε σελιδοδείκτη, πατήστε ένα μέρος στο χάρτη και μετά πατήστε το αστεράκι</string>
 	<string name="category_desc_more">…περισσότερα</string>
-	<string name="export_file">Εξαγωγή Αρχείου</string>
+	<string name="export_file">Εξαγωγή KMZ</string>
+	<string name="export_file_gpx">Εξαγωγή GPX</string>
 	<string name="delete_list">Διαγραφή λίστας</string>
 	<string name="public_access">Δημόσια πρόσβαση</string>
 	<string name="limited_access">Περιορισμένη πρόσβαση</string>
@@ -777,16 +785,16 @@
 	<string name="app_tip_08">Μπορείτε εύκολα να διορθώσετε και να βελτιώσετε τα δεδομένα χάρτη.</string>
 	<!-- App tip #09 -->
 	<string name="app_tip_09">Ο κύριος στόχος μας είναι να δημιουργήσουμε γρήγορους, εύχρηστους και με σεβασμό στην ιδιωτικότητα χάρτες που θα λατρέψετε.</string>
-	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Αυτή τη στιγμή το Organic Maps βρίσκεται στην οθόνη του κινητού</string>
+	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+	<string name="car_used_on_the_phone_screen">Αυτή τη στιγμή το Organic Maps βρίσκεται στην οθόνη του κινητού</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Αυτή τη στιγμή το Organic Maps βρίσκεται στην οθόνη του αυτοκινήτου.</string>
+	<string name="car_used_on_the_car_screen">Αυτή τη στιγμή το Organic Maps βρίσκεται στην οθόνη του αυτοκινήτου.</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Είστε συνδεδεμένοι στο Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="aa_continue_on_the_phone">Συνέχεια στο κινητό</string>
-	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="aa_continue_in_the_car">Προς οθόνη αυτοκ.</string>
+	<string name="car_continue_on_the_phone">Συνέχεια στο κινητό</string>
+	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+	<string name="car_continue_in_the_car">Προς οθόνη αυτοκ.</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">Η εφαρμογή απαιτεί πρόσβαση στην τοποθεσία σας για τους σκοπούς της πλοήγησης.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -809,6 +817,10 @@
 	<string name="zoom_in">Μεγέθυνση</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">Σμίκρυνση</string>
+	<!-- Restaurant or other food place's menu URL field in the Editor -->
+	<string name="website_menu">Σύνδεσμος μενού</string>
+	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+	<string name="view_menu">Προβολή μενού</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Διεύθυνση/Μπλοκ</string>
@@ -1935,7 +1947,6 @@
 	<string name="type.waterway.lock_gate">Φράγμα</string>
 	<string name="type.waterway.river">Ποταμός</string>
 	<string name="type.waterway.river.tunnel">Ποταμός</string>
-	<string name="type.waterway.riverbank">Ποταμός</string>
 	<string name="type.waterway.stream">Ποταμός</string>
 	<string name="type.waterway.stream.ephemeral">Ποταμός</string>
 	<string name="type.waterway.stream.intermittent">Ποταμός</string>

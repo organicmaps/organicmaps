@@ -210,7 +210,7 @@
 "done" = "完成";
 
 /* Prints version number in About dialog */
-"version" = "有機地圖版本：%@";
+"version" = "Organic Maps 版本：%@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "軌跡";
@@ -253,6 +253,12 @@
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "語音指示";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "宣布街道名稱";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "啟用後，將大聲說出要轉入的街道或出口的名稱。";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "語音語言";
@@ -339,6 +345,9 @@
 
 /* Settings item title */
 "pref_calibration_title" = "指南針校準";
+
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "再次長按地圖即可看到介面";
 
 /* Update all button text */
 "downloader_update_all_button" = "更新全部";
@@ -499,8 +508,6 @@
 "dialog_routing_application_error" = "由於此錯誤，尚未建立路線。";
 
 "dialog_routing_try_again" = "請再試一次";
-
-"not_now" = "現在不要";
 
 "dialog_routing_download_and_build_cross_route" = "您是否要下載地圖，產生跨越邊界的更好路線？";
 
@@ -782,7 +789,7 @@
 
 "location_services_disabled_on_device_4" = "4.開啟定位服務";
 
-"location_services_disabled_on_device_additional_message" = "或繼續使用沒有位置的有機地圖";
+"location_services_disabled_on_device_additional_message" = "或繼續使用 Organic Maps，但無法定位到您目前所在的位置。";
 
 /* abbreviation for meters */
 "m" = "公尺";
@@ -813,7 +820,7 @@
 "more_on_kayak" = "照片、評論、預訂";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "透過此連結進行的每次預訂收到的推薦獎金將用於開發有機地圖";
+"dialog_kayak_disclaimer" = "透過此連結進行的每次預訂收到的推薦獎金將用於開發 Organic Maps。";
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Kayak 上的詳細資訊";
@@ -934,8 +941,6 @@
 
 "start_from_my_position" = "起點";
 
-"profile_authorization_error" = "噢，發生錯誤。請嘗試再次登入。";
-
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "請登入 OpenStreetMap 自動上傳您所有的地圖編輯內容。了解更多";
 
@@ -954,6 +959,9 @@
 "bookmark_lists_show_all" = "顯示全部";
 
 "bookmarks_create_new_group" = "創建新列表";
+
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "導入書籤和曲目";
 
 "downloader_hide_screen" = "隱藏畫面";
 
@@ -985,17 +993,11 @@
 
 "bookmarks_convert_error_message" = "有些文件未被轉換。";
 
-"bookmarks_restore_title" = "還原這個版本？";
-
-"error_system_message" = "出現未知錯誤";
-
 "restore" = "恢復";
 
 "privacy_policy" = "隱私政策";
 
 "terms_of_use" = "使用條款";
-
-"button_layer_traffic" = "路況";
 
 "button_layer_subway" = "捷運";
 
@@ -1007,7 +1009,9 @@
 
 "popular_place" = "受歡迎的";
 
-"export_file" = "導出文件";
+"export_file" = "出口KMZ";
+
+"export_file_gpx" = "導出GPX";
 
 "delete_list" = "刪除列表";
 
@@ -1261,6 +1265,18 @@
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "您現在正在手機螢幕上使用 Organic Maps";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "您現在正在汽車螢幕上使用 Organic Maps";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "繼續打電話";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "到車用螢幕";
+
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "遠足";
 
@@ -1274,6 +1290,36 @@
 "map" = "地圖";
 
 "drive_through" = "免下車服務";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "選單連結";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "啟用 iCloud 同步";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "iCloud 同步是一項正在開發中的實驗性功能。確保您已備份所有書籤和曲目。";
+
+/* Title for the "iCloud is Disabled" alert. */
+"icloud_disabled_title" = "iCloud 已停用";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "請在您的裝置設定中啟用 iCloud 以使用此功能。";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "使能夠";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "备份";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "錯誤：由於連線錯誤而無法同步";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "錯誤：由於超出 iCloud 配額而無法同步";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "錯誤：iCloud 不可用";
 
 
 /********** Types **********/
@@ -2424,8 +2470,6 @@
 "type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Educational Facility";
-
-"type.landuse.farm" = "Farm";
 
 "type.landuse.farmland" = "農業用地";
 
@@ -3813,8 +3857,6 @@
 "type.waterway.river" = "河流";
 
 "type.waterway.river.tunnel" = "河流";
-
-"type.waterway.riverbank" = "河流";
 
 "type.waterway.stream" = "溪";
 

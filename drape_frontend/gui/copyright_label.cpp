@@ -1,25 +1,19 @@
 #include "copyright_label.hpp"
 #include "drape_gui.hpp"
 #include "gui_text.hpp"
-#include "ruler_helper.hpp"
 
 #include "drape_frontend/animation/opacity_animation.hpp"
-#include "drape_frontend/animation/value_mapping.hpp"
 #include "drape_frontend/batcher_bucket.hpp"
-
-#include "base/timer.hpp"
 
 #include <functional>
 #include <utility>
-
-using namespace std::placeholders;
 
 namespace gui
 {
 namespace
 {
-double const kCopyrightVisibleTime = 10.0f;
-double const kCopyrightHideTime = 0.25f;
+constexpr double kCopyrightVisibleTime = 10.0f;
+constexpr double kCopyrightHideTime = 0.25f;
 
 class CopyrightHandle : public StaticLabelHandle
 {
@@ -27,9 +21,8 @@ class CopyrightHandle : public StaticLabelHandle
 
 public:
   CopyrightHandle(uint32_t id, ref_ptr<dp::TextureManager> textureManager,
-                  dp::Anchor anchor, m2::PointF const & pivot,
-                  m2::PointF const & size, TAlphabet const & alphabet)
-    : TBase(id, textureManager, anchor, pivot, size, alphabet)
+                  dp::Anchor anchor, m2::PointF const & pivot, TAlphabet const & alphabet)
+    : TBase(id, textureManager, anchor, pivot, alphabet)
   {
     SetIsVisible(true);
   }
@@ -73,7 +66,6 @@ CopyrightLabel::CopyrightLabel(Position const & position)
 {}
 
 drape_ptr<ShapeRenderer> CopyrightLabel::Draw(ref_ptr<dp::GraphicsContext> context,
-                                              m2::PointF & size,
                                               ref_ptr<dp::TextureManager> tex) const
 {
   StaticLabel::LabelResult result;
@@ -88,15 +80,15 @@ drape_ptr<ShapeRenderer> CopyrightLabel::Draw(ref_ptr<dp::GraphicsContext> conte
   ASSERT(vertexCount % dp::Batcher::VertexPerQuad == 0, ());
   auto const indexCount = dp::Batcher::IndexPerQuad * vertexCount / dp::Batcher::VertexPerQuad;
 
-  size = m2::PointF(result.m_boundRect.SizeX(), result.m_boundRect.SizeY());
-  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CopyrightHandle>(EGuiHandle::GuiHandleCopyright,
+  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CopyrightHandle>(GuiHandleCopyright,
                                                                         tex, m_position.m_anchor,
-                                                                        m_position.m_pixelPivot, size,
+                                                                        m_position.m_pixelPivot,
                                                                         result.m_alphabet);
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher batcher(indexCount, vertexCount);
   batcher.SetBatcherHash(static_cast<uint64_t>(df::BatcherBucket::Default));
+  using namespace std::placeholders;
   dp::SessionGuard guard(context, batcher, std::bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
   batcher.InsertListOfStrip(context, result.m_state, make_ref(&provider),
                             std::move(handle), dp::Batcher::VertexPerQuad);

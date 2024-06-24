@@ -1,11 +1,10 @@
 /* Keep here changes of the base map style file only. */
-@import("../../clear/include/Basemap.mapcss");
+@import("../../default/include/Basemap.mapcss");
 
 
 /* 6.WATER */
 
 line|z10-[waterway=river],
-line|z10-[waterway=riverbank],
 line|z11-[natural=strait],
 line|z12-[waterway=canal],
 line|z12-[waterway=stream],
@@ -17,7 +16,6 @@ line|z15-[waterway=drain],
 /* 6.2 Line water(river,canal etc.) */
 
 line|z10-[waterway=river],
-line|z10-[waterway=riverbank],
 line|z11-[natural=strait],
 line|z12-[waterway=stream],
 line|z12-[waterway=canal],
@@ -25,11 +23,9 @@ line|z13-[waterway=fish_pass],
 {text-color: @water_label; text-halo-opacity: 0.5; text-halo-radius: 1; text-halo-color: @label_halo_light;}
 
 line|z10[waterway=river],
-line|z10[waterway=riverbank],
 {width: 1.4; opacity: 0.7;}
 
 line|z11-12[waterway=river],
-line|z11-12[waterway=riverbank],
 line|z11-12[natural=strait],
 {width: 2; opacity: 0.7;}
 line|z12[waterway=stream],
@@ -37,7 +33,6 @@ line|z12[waterway=canal],
 {width: 1; opacity: 0.5;}
 
 line|z13[waterway=river],
-line|z13[waterway=riverbank],
 line|z13[natural=strait],
 {width: 2.7;}
 line|z13[waterway=stream],
@@ -50,7 +45,6 @@ line|z13[waterway=stream][intermittent],
 {width: 1; dashes: 2.7,2.7; opacity: 0.7;}
 
 line|z14[waterway=river],
-line|z14[waterway=riverbank],
 line|z14[natural=strait],
 {width: 3.5;}
 line|z14[waterway=stream],
@@ -61,7 +55,6 @@ line|z14[waterway=stream][intermittent],
 {width: 1.4; dashes: 3.5,3.5;}
 
 line|z15-[waterway=river],
-line|z15-[waterway=riverbank],
 line|z15-[natural=strait],
 {width: 4.6;}
 line|z15-[waterway=stream],

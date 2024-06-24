@@ -2,8 +2,8 @@
 
 1.Z-INDEX ROADS
 2.WORLD LEVEL ROAD 4-9 ZOOM
-3.TRUNK & MOTORWAY 7-22 ZOOM
-  3.1 Trunk & Motorway 7-22 ZOOM
+3.TRUNK & MOTORWAY 6-22 ZOOM
+  3.1 Trunk & Motorway 6-22 ZOOM
   3.2 Trunk & Motorway tunnel 12-22 ZOOM
   3.3 Trunk & Motorway bridge 13-22 ZOOM
 4.PRIMARY 8-22 ZOOM
@@ -70,8 +70,11 @@ line|z9[highway=world_towns_level],
 line|z9[highway=world_level]
 {width: 1.2;}
 
-/* 3.TRUNK & MOTORWAY 7-22 ZOOM */
+/* 3.TRUNK & MOTORWAY 6-22 ZOOM */
 
+line|z6[highway=trunk],
+line|z6[highway=motorway],
+{color: @trunk0; opacity: 0.3;}
 line|z7-[highway=trunk],
 line|z7-[highway=motorway],
 {color: @trunk0; opacity: 0.7;}
@@ -93,8 +96,11 @@ line|z14-[highway=motorway_link][bridge?]::bridgeblack,
 line|z14-[highway=trunk_link][bridge?]::bridgeblack,
 {casing-linecap: butt;casing-color:@bridge_casing; casing-opacity: 0.7;}
 
-/* 3.1 Trunk & Motorway 7-22 ZOOM */
+/* 3.1 Trunk & Motorway 6-22 ZOOM */
 
+line|z6[highway=trunk],
+line|z6[highway=motorway],
+{width: 0.9;}
 line|z7[highway=trunk],
 line|z7[highway=motorway]
 {width: 1.05;}

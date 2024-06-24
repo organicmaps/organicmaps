@@ -170,7 +170,7 @@ using namespace osmoh;
   NSString * oh = delegate.openingHours;
 
   auto isSimple = isSimpleMode;
-  if (isSimple && oh)
+  if (isSimple && oh && oh.length)
     isSimple = MakeTimeTableSet(osmoh::OpeningHours(oh.UTF8String), timeTableSet);
 
   delegate.advancedEditor.hidden = isSimple;
@@ -205,7 +205,7 @@ using namespace osmoh;
 - (BOOL)isSimpleModeCapable
 {
   NSString * oh = self.delegate.openingHours;
-  if (!oh)
+  if (!oh || !oh.length)
     return YES;
   ui::TimeTableSet tts;
   return MakeTimeTableSet(osmoh::OpeningHours(oh.UTF8String), tts);
