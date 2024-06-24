@@ -758,10 +758,13 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress, b
       if (item.GetReadableName(city))
         res.PrependCity(city);
     });
-  }
+  } 
 
   if (needHighlighting)
+  {
     HighlightResult(m_params.m_query.m_tokens, m_params.m_query.m_prefix, res);
+    HighlightResult2(m_params.m_query.m_tokens, m_params.m_query.m_prefix, res);
+  }
 
   res.SetRankingInfo(rankerResult.m_dbgInfo);
 
