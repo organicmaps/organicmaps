@@ -791,6 +791,9 @@
 	<string name="website_menu">菜单链接</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">查看菜单</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">自助服务</string>
+	<string name="select_option">选择选项</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">地址/区块</string>
@@ -2048,4 +2051,8 @@
 	<string name="type.amenity.events_venue">活动场所</string>
 	<string name="type.shop.auction">拍卖会</string>
 	<string name="type.shop.collector">收藏品</string>
+	<string name="type.self_service.yes">提供自助服务</string>
+	<string name="type.self_service.only">仅限自助服务</string>
+	<string name="type.self_service.partially">部分自助服务</string>
+	<string name="type.self_service.no">无自助服务</string>
 </resources>

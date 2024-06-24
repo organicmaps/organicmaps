@@ -829,6 +829,9 @@
 	<string name="website_menu">Посилання на меню</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Переглянути меню</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">Самообслуговування</string>
+	<string name="select_option">Виберіть варіант</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адреса/блок</string>
@@ -2144,4 +2147,8 @@
 	<string name="type.amenity.events_venue">Місце проведення подій</string>
 	<string name="type.shop.auction">Аукціон</string>
 	<string name="type.shop.collector">Колекційні речі</string>
+	<string name="type.self_service.yes">Доступне самообслуговування</string>
+	<string name="type.self_service.only">Тільки самообслуговування</string>
+	<string name="type.self_service.partially">Часткове самообслуговування</string>
+	<string name="type.self_service.no">Самообслуговування відсутнє</string>
 </resources>

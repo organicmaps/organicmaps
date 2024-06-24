@@ -803,6 +803,9 @@
 	<string name="website_menu">Menyu keçidi</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Menyuya baxın</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">Özünəxidmət</string>
+	<string name="select_option">Seçim seçin</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Ünvan/Blok</string>
@@ -2089,4 +2092,8 @@
 	<string name="type.amenity.events_venue">Tədbir yeri</string>
 	<string name="type.shop.auction">Hərrac</string>
 	<string name="type.shop.collector">Kolleksiya əşyaları</string>
+	<string name="type.self_service.yes">Özünə xidmət mövcuddur</string>
+	<string name="type.self_service.only">Yalnız özünə xidmət</string>
+	<string name="type.self_service.partially">Qismən özünəxidmət</string>
+	<string name="type.self_service.no">Özünə xidmət yoxdur</string>
 </resources>

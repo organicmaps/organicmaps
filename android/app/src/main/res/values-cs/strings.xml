@@ -787,6 +787,9 @@
 	<string name="website_menu">Odkaz na menu</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Zobrazit menu</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">Samoobsluha</string>
+	<string name="select_option">Vyberte možnost</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresa/blok</string>
@@ -1913,4 +1916,8 @@
 	<string name="type.amenity.events_venue">Místo konání akcí</string>
 	<string name="type.shop.auction">Aukce</string>
 	<string name="type.shop.collector">Sběratelské předměty</string>
+	<string name="type.self_service.yes">K dispozici je samoobsluha</string>
+	<string name="type.self_service.only">Pouze samoobsluha</string>
+	<string name="type.self_service.partially">Částečná samoobsluha</string>
+	<string name="type.self_service.no">Žádná samoobsluha</string>
 </resources>

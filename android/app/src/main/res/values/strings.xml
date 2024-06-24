@@ -861,6 +861,9 @@
 	<string name="website_menu">Menu Link</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">View Menu</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">Self-service</string>
+	<string name="select_option">Select option</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Address/Block</string>
@@ -2207,4 +2210,8 @@
 	<string name="type.amenity.events_venue">Events Venue</string>
 	<string name="type.shop.auction">Auction</string>
 	<string name="type.shop.collector">Collectables</string>
+	<string name="type.self_service.yes">Self-service available</string>
+	<string name="type.self_service.only">Self-service only</string>
+	<string name="type.self_service.partially">Partial self-service</string>
+	<string name="type.self_service.no">No self-service</string>
 </resources>

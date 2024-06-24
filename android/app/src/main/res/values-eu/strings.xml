@@ -821,6 +821,9 @@
 	<string name="website_menu">Menuaren esteka</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Ikusi menua</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">Autozerbitzu</string>
+	<string name="select_option">Hautatu aukera</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Helbidea/Blokea</string>
@@ -2004,4 +2007,8 @@
 	<string name="type.amenity.events_venue">Ekitaldien Lekua</string>
 	<string name="type.shop.auction">Enkantea</string>
 	<string name="type.shop.collector">Bildumagarriak</string>
+	<string name="type.self_service.yes">Autozerbitzua eskuragarri</string>
+	<string name="type.self_service.only">Autozerbitzua soilik</string>
+	<string name="type.self_service.partially">Autozerbitzu partziala</string>
+	<string name="type.self_service.no">Autozerbitzurik ez</string>
 </resources>

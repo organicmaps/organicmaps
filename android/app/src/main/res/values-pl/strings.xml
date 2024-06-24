@@ -827,6 +827,9 @@
 	<string name="website_menu">Link do menu</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Wyświetl menu</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">Samoobsługa</string>
+	<string name="select_option">Wybierz opcję</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adres/Blok</string>
@@ -2086,4 +2089,8 @@
 	<string name="type.amenity.events_venue">Sala bankietowa</string>
 	<string name="type.shop.auction">Dom aukcyjny</string>
 	<string name="type.shop.collector">Przedmioty kolekcjonerskie</string>
+	<string name="type.self_service.yes">Dostępna samoobsługa</string>
+	<string name="type.self_service.only">Tylko samoobsługa</string>
+	<string name="type.self_service.partially">Częściowa samoobsługa</string>
+	<string name="type.self_service.no">Brak samoobsługi</string>
 </resources>

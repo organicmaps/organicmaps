@@ -800,6 +800,9 @@
 	<string name="website_menu">選單連結</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">查看選單</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">自助服務</string>
+	<string name="select_option">選擇選項</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">地址/區塊</string>
@@ -1962,4 +1965,8 @@
 	<string name="type.amenity.events_venue">活動場所</string>
 	<string name="type.shop.auction">拍賣</string>
 	<string name="type.shop.collector">收藏品</string>
+	<string name="type.self_service.yes">提供自助服務</string>
+	<string name="type.self_service.only">僅限自助服務</string>
+	<string name="type.self_service.partially">部分自助服務</string>
+	<string name="type.self_service.no">沒有自助服務</string>
 </resources>

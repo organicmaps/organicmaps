@@ -813,6 +813,9 @@
 	<string name="website_menu">קישור לתפריט</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">תפריט תצוגה</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">שירות עצמי</string>
+	<string name="select_option">בחר אפשרות</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">כתובת/חסימה</string>
@@ -1379,4 +1382,8 @@
 	<string name="type.amenity.events_venue">מקום אירועים</string>
 	<string name="type.shop.auction">מכירה פומבית</string>
 	<string name="type.shop.collector">פריטי אספנות</string>
+	<string name="type.self_service.yes">שירות עצמי זמין</string>
+	<string name="type.self_service.only">שירות עצמי בלבד</string>
+	<string name="type.self_service.partially">שירות עצמי חלקי</string>
+	<string name="type.self_service.no">אין שירות עצמי</string>
 </resources>

@@ -775,6 +775,9 @@
 	<string name="website_menu">메뉴 링크</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">메뉴 보기</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">셀프 서비스</string>
+	<string name="select_option">옵션 선택</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">주소/블록</string>
@@ -1912,4 +1915,8 @@
 	<string name="type.amenity.events_venue">행사장</string>
 	<string name="type.shop.auction">경매</string>
 	<string name="type.shop.collector">수집품</string>
+	<string name="type.self_service.yes">셀프 서비스 사용 가능</string>
+	<string name="type.self_service.only">셀프 서비스 전용</string>
+	<string name="type.self_service.partially">부분 셀프 서비스</string>
+	<string name="type.self_service.no">셀프 서비스 없음</string>
 </resources>

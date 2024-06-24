@@ -778,6 +778,9 @@
 	<string name="website_menu">Tautan menu</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Lihat Menu</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">Layanan mandiri</string>
+	<string name="select_option">Pilih opsi</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Alamat/Blokir</string>
@@ -1898,4 +1901,8 @@
 	<string name="type.amenity.events_venue">Tempat acara</string>
 	<string name="type.shop.auction">Lelang</string>
 	<string name="type.shop.collector">Barang koleksi</string>
+	<string name="type.self_service.yes">Tersedia layanan mandiri</string>
+	<string name="type.self_service.only">Hanya layanan mandiri</string>
+	<string name="type.self_service.partially">Layanan mandiri sebagian</string>
+	<string name="type.self_service.no">Tidak ada layanan mandiri</string>
 </resources>
