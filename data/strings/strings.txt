@@ -22258,6 +22258,7 @@
     pl:few = %d obiekty
     pl:many = %d obiektów
     pl:one = %d obiekt
+    pl:other = %d obiektu
     pt-BR:one = %d objeto
     pt-BR:other = %d objetos
     pt:one = %d objeto
@@ -22326,6 +22327,7 @@
     pl:few = %d miejsca
     pl:many = %d miejsc
     pl:one = %d miejsce
+    pl:other = %d miejsca
     pt-BR:one = %d lugar
     pt-BR:other = %d lugares
     pt:one = %d lugar
@@ -22390,6 +22392,7 @@
     pl:few = %d trasy
     pl:many = %d tras
     pl:one = %d trasa
+    pl:other = %d trasy
     pt-BR:one = %d percurso
     pt-BR:other = %d percursos
     pt:one = %d percurso
