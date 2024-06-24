@@ -198,14 +198,20 @@
 	<string name="prefs_group_route">Navigering</string>
 	<string name="pref_zoom_title">Zoom-knappar</string>
 	<string name="pref_zoom_summary">Visa på skärmen</string>
-	<!-- Settings «Map» category: «Night style» title -->
-	<string name="pref_map_style_title">Nattläge</string>
+	<!-- Settings «Map» category: «Appearance» title -->
+	<string name="pref_map_style_title">Utseende</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Av</string>
 	<!-- Generic «On» string -->
 	<string name="on">På</string>
 	<!-- Generic «Auto» string -->
 	<string name="auto">Auto</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_map_title translation. -->
+	<string name="light">Ljust</string>
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_map_style_title translation. -->
+	<string name="dark">Mörkt</string>
+	<!-- Settings "Appearance" category: "System" title, should be consistent with the pref_map_style_title translation. -->
+	<string name="system">Systemet</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Perspektivvy</string>
 	<!-- Settings «Map» category: «3D buildings» title -->

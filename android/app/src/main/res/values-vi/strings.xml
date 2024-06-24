@@ -200,14 +200,20 @@
 	<string name="prefs_group_route">Điều hướng</string>
 	<string name="pref_zoom_title">Nút Phóng to/Thu nhỏ</string>
 	<string name="pref_zoom_summary">Hiển thị trên màn hình</string>
-	<!-- Settings «Map» category: «Night style» title -->
-	<string name="pref_map_style_title">Chế độ ban đêm</string>
+	<!-- Settings «Map» category: «Appearance» title -->
+	<string name="pref_map_style_title">Giao diện</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Tắt</string>
 	<!-- Generic «On» string -->
 	<string name="on">Bật</string>
 	<!-- Generic «Auto» string -->
 	<string name="auto">Tự động</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_map_title translation. -->
+	<string name="light">Sáng</string>
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_map_style_title translation. -->
+	<string name="dark">Tối</string>
+	<!-- Settings "Appearance" category: "System" title, should be consistent with the pref_map_style_title translation. -->
+	<string name="system">Hệ thống</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Góc nhìn phối cảnh</string>
 	<!-- Settings «Map» category: «3D buildings» title -->

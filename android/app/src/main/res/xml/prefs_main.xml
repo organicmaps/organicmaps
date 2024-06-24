@@ -97,39 +97,39 @@
       android:summary="@string/enable_show_on_lock_screen_description"
       android:defaultValue="true"
       android:order="17"/>
+    <ListPreference
+      android:entries="@array/appearance"
+      android:entryValues="@array/appearance_values"
+      android:key="@string/pref_map_style"
+      android:order="18"
+      android:title="@string/pref_map_style_title"
+      app:singleLineTitle="false" />
   </androidx.preference.PreferenceCategory>
 
   <androidx.preference.PreferenceCategory
     android:key="@string/pref_navigation"
     android:title="@string/prefs_group_route"
     android:order="3">
-    <ListPreference
-      android:key="@string/pref_map_style"
-      android:title="@string/pref_map_style_title"
-      app:singleLineTitle="false"
-      android:entries="@array/map_style"
-      android:entryValues="@array/map_style_values"
-      android:order="1"/>
     <SwitchPreferenceCompat
       android:key="@string/pref_3d"
       android:title="@string/pref_map_3d_title"
       app:singleLineTitle="false"
-      android:order="2"/>
+      android:order="1" />
     <SwitchPreferenceCompat
       android:key="@string/pref_auto_zoom"
       android:title="@string/pref_map_auto_zoom"
       app:singleLineTitle="false"
-      android:order="3"/>
+      android:order="2" />
     <Preference
       android:key="@string/pref_tts_screen"
       android:title="@string/pref_tts_enable_title"
       app:singleLineTitle="false"
       android:persistent="false"
-      android:order="4">
+      android:order="3">
     </Preference>
     <PreferenceScreen
       android:key="@string/prefs_routing"
-      android:order="5"
+      android:order="4"
       android:title="@string/driving_options_title">
       <intent
         android:targetClass="app.organicmaps.settings.DrivingOptionsActivity"

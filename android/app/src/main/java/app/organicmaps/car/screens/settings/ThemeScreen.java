@@ -11,7 +11,6 @@ import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
-
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
@@ -56,7 +55,7 @@ public class ThemeScreen extends BaseMapScreen
   {
     final ItemList.Builder builder = new ItemList.Builder();
     final ThemeUtils.ThemeMode currentThemeMode = ThemeUtils.getThemeMode(getCarContext());
-    builder.addItem(createRadioButton(ThemeUtils.ThemeMode.AUTO, currentThemeMode));
+    builder.addItem(createRadioButton(ThemeUtils.ThemeMode.FOLLOW_SYSTEM, currentThemeMode));
     builder.addItem(createRadioButton(ThemeUtils.ThemeMode.NIGHT, currentThemeMode));
     builder.addItem(createRadioButton(ThemeUtils.ThemeMode.LIGHT, currentThemeMode));
     return new ListTemplate.Builder().setHeader(createHeader()).setSingleList(builder.build()).build();
