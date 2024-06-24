@@ -17,32 +17,24 @@ namespace generator
 {
 using feature::InterpolType;
 
-uint64_t AddressEnricher::RawEntryBase::GetIntHN(std::string const & hn)
+std::pair<uint64_t, uint64_t> AddressEnricher::RawEntryBase::GetHNRange() const
 {
   using namespace search::house_numbers;
 
-  std::vector<TokensT> tokens;
-  ParseHouseNumber(strings::MakeUniString(hn), tokens);
+  std::vector<TokensT> from, to;
+  ParseHouseNumber(strings::MakeUniString(m_from), from);
+  ParseHouseNumber(strings::MakeUniString(m_to), to);
 
-  /// @todo We skip values like 100-200 (expect one address value), but probably should process in future.
-  if (tokens.size() != 1)
-    return kInvalidHN;
-
-  CHECK(!tokens[0].empty(), (hn));
-  auto & t = tokens[0][0];
-  if (t.m_type != Token::TYPE_NUMBER)
-    return kInvalidHN;
-
-  return ToUInt(t.m_value);
-}
-
-std::pair<uint64_t, uint64_t> AddressEnricher::RawEntryBase::GetHNRange() const
-{
-  uint64_t const l = GetIntHN(m_from);
-  uint64_t const r = GetIntHN(m_to);
-  if (l == kInvalidHN || r == kInvalidHN)
+  if (from.size() != 1 || to.size() != 1)
     return kInvalidRange;
-  return {l, r};
+
+  ASSERT(!from[0].empty() && !to[0].empty(), ());
+  auto const & f = from[0][0];
+  auto const & t = to[0][0];
+  if (f.m_type != Token::TYPE_NUMBER || t.m_type != Token::TYPE_NUMBER)
+    return kInvalidRange;
+
+  return { ToUInt(f.m_value), ToUInt(t.m_value) };
 }
 
 std::string DebugPrint(AddressEnricher::Stats const & s)
@@ -160,7 +152,7 @@ void AddressEnricher::ProcessRawEntries(std::string const & path, TFBCollectFn c
 
     if (e.m_points.size() == 1)
     {
-      if (!res.from && !res.to)
+      if (!res.from && !res.to && res.addrsInside == 0)
       {
         ++m_stats.m_addedSingle;
         addNode(e.m_points.front(), e.m_from + " - " + e.m_to);
@@ -275,37 +267,58 @@ AddressEnricher::FoundT AddressEnricher::Match(Entry & e) const
     bool const isStreet = ftypes::IsStreetOrSquareChecker::Instance()(types);
 
     // First of all - compare street's name.
-    strings::UniString street = search::GetNormalizedStreetName(params.GetStreet());
+    strings::UniString fbStreetKey = search::GetNormalizedStreetName(params.GetStreet());
+    std::string streetName; // original street's name, valid if isStreet == true
     if (isStreet)
     {
       // Fancy object, highway=pedestrian with addr: https://www.openstreetmap.org/way/415336229
-      if (!street.empty())
+      if (!fbStreetKey.empty())
         LOG(LWARNING, ("Street with address:", osmID));
 
       // Take 'ref' if 'name' is empty, like here: https://www.openstreetmap.org/way/902910704
       std::string_view name;
       if (params.name.GetString(StringUtf8Multilang::kDefaultCode, name))
-        street = search::GetNormalizedStreetName(name);
+        streetName = name;
       else if (!params.ref.empty())
-        street = search::GetNormalizedStreetName(params.ref);
+        streetName = params.ref;
+
+      if (!streetName.empty())
+        fbStreetKey = search::GetNormalizedStreetName(streetName);
     }
-    if (streetKey != street)
+    if (streetKey != fbStreetKey)
       return;
 
     if (!params.house.IsEmpty())
     {
-      auto const hn = Entry::GetIntHN(params.house.Get());
-      if (hn != Entry::kInvalidHN && range.first <= hn && hn <= range.second && isClose(fb))
-      {
-        ++res.addrsInside;
-        if (range.first == hn)
-          res.from = true;
-        if (range.second == hn)
-          res.to = true;
-      }
+      if (!isClose(fb))
+        return;
+
+      using namespace search::house_numbers;
+      std::vector<TokensT> tokens;
+      ParseHouseNumber(strings::MakeUniString(params.house.Get()), tokens);
+
+      // Iterate via all possible int values (eg: 100-200;202;204).
+      for (auto const & token : tokens)
+        for (auto const & t : token)
+        {
+          if (t.m_type == Token::TYPE_NUMBER)
+          {
+            uint64_t const num = ToUInt(t.m_value);
+            if (range.first <= num && num <= range.second)
+            {
+              ++res.addrsInside;
+              if (range.first == num)
+                res.from = true;
+              if (range.second == num)
+                res.to = true;
+            }
+          }
+        }
     }
     else if (!res.street && isStreet)
     {
+      /// @todo Select the closest street if many options?
+
       // We can't call isClose here, should make "vice-versa" check.
       auto const & geom = fb.GetOuterGeometry();
       for (size_t i = 1; i < geom.size(); ++i)
@@ -316,6 +329,9 @@ AddressEnricher::FoundT AddressEnricher::Match(Entry & e) const
           if (mercator::DistanceOnEarth(p, seg.ClosestPointTo(p)) < kDistanceThresholdM)
           {
             res.street = true;
+            // Assign street's name from OSM for further search index builder matching
+            // (it doesn't work like GetNormalizedStreetName, but like GetStreetNameAsKey).
+            e.m_street = std::move(streetName);
             return;
           }
       }
