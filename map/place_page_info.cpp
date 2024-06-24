@@ -122,7 +122,7 @@ std::string Info::FormatSubtitle(bool withType) const
     append(m_bookmarkCategoryName);
 
   if (withType)
-    append(GetLocalizedType());
+    append(GetAllLocalizedTypes());
 
   // Flats.
   auto const flats = GetMetadata(feature::Metadata::FMD_FLATS);
