@@ -85,13 +85,43 @@ std::string_view MapObject::GetPostcode() const
   return m_metadata.Get(MetadataID::FMD_POSTCODE);
 }
 
-string MapObject::GetLocalizedType() const
+std::string MapObject::GetLocalizedType() const
 {
   ASSERT(!m_types.Empty(), ());
   feature::TypesHolder copy(m_types);
   copy.SortBySpec();
 
   return platform::GetLocalizedTypeName(classif().GetReadableObjectName(copy.GetBestType()));
+}
+
+std::string MapObject::GetAllLocalizedTypes() const
+{
+  ASSERT(!m_types.Empty(), ());
+  feature::TypesHolder copy(m_types);
+  copy.SortBySpec();
+
+  auto const & isPoi = ftypes::IsPoiChecker::Instance();
+
+  std::ostringstream oss;
+  bool isFirst = true;
+  for (auto const type : copy)
+  {
+    // Ignore types that are not POI
+    // Ignore general types that have no subtype
+    // But always show the first/main type
+    if (!isFirst && (!isPoi(type) || ftype::GetLevel(type) == 1))
+      continue;
+    
+    // Add fields separator between types
+    if (isFirst)
+      isFirst = false;
+    else
+      oss << feature::kFieldsSeparator;
+    
+    oss << platform::GetLocalizedTypeName(classif().GetReadableObjectName(type));
+  }
+  
+  return oss.str();
 }
 
 std::string_view MapObject::GetMetadata(MetadataID type) const
