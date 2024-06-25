@@ -3005,7 +3005,7 @@ UNIT_CLASS_TEST(ProcessorTest, MatchedFraction)
   }
 }
 
-UNIT_CLASS_TEST(ProcessorTest, AvoidMatchAroundPivotInMwmWithCity)
+UNIT_CLASS_TEST(ProcessorTest, MatchAroundPivotInMwmWithCity)
 {
   std::string const lang = "en";
 
@@ -3686,6 +3686,26 @@ UNIT_CLASS_TEST(ProcessorTest, NonSearchable_Categories)
   {
     Rules const rules = {ExactMatch(wonderlandId, yesPool)};
     TEST(ResultsMatch("бассейн", rules, "ru"), ());
+  }
+}
+
+UNIT_CLASS_TEST(ProcessorTest, Numeric_POI_Name)
+{
+  TestPOI kiosk({0, 0}, "365", "default");
+  kiosk.SetTypes({{"shop", "kiosk"}});
+
+  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(kiosk);
+  });
+
+  SetViewport(m2::RectD(-0.5, -0.5, 0.5, 0.5));
+
+  {
+    Rules const rules = {ExactMatch(wonderlandId, kiosk)};
+    TEST(ResultsMatch("365", rules), ());
+    TEST(ResultsMatch("365 kiosk", rules), ());
+    TEST(ResultsMatch("киоск 365", rules, "ru"), ());
   }
 }
 

@@ -1573,7 +1573,9 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken, CBV con
           continue;
       }
       else if (layer.m_sortedFeatures->empty() ||
-               house_numbers::LooksLikeHouseNumberStrict(layer.m_subQuery))
+              /// @todo The crutch, but can't invent a better solution now. Should refactor layers iteration.
+              /// @see ProcessorTest_Smoke and Numeric_POI_Name tests.
+               (house_numbers::LooksLikeHouseNumberStrict(layer.m_subQuery) && numTokens > 1))
       {
         continue;
       }
