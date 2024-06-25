@@ -2,7 +2,7 @@ protocol PlacePageViewProtocol: AnyObject {
   var presenter: PlacePagePresenterProtocol! { get set }
 
   func setLayout(_ layout: IPlacePageLayout)
-  func closeAnimated()
+  func closeAnimated(completion: (() -> Void)?)
   func updatePreviewOffset()
   func showNextStop()
   func layoutIfNeeded()
@@ -312,11 +312,13 @@ extension PlacePageViewController: PlacePageViewProtocol {
     }
   }
 
-  func closeAnimated() {
+  @objc
+  func closeAnimated(completion: (() -> Void)? = nil) {
     alternativeSizeClass(iPhone: {
       self.scrollTo(CGPoint(x: 0, y: -self.scrollView.height + 1),
                     forced: true) {
                 self.rootViewController.dismissPlacePage()
+                completion?()
       }
     }, iPad: {
       UIView.animate(withDuration: kDefaultAnimationDuration,
@@ -326,6 +328,7 @@ extension PlacePageViewController: PlacePageViewProtocol {
                       self.view.alpha = 0
       }) { complete in
         self.rootViewController.dismissPlacePage()
+        completion?()
       }
     })
   }

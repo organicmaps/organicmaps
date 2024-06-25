@@ -1,5 +1,5 @@
 @objc class PlacePageBuilder: NSObject {    
-  @objc static func build() -> UIViewController {
+  @objc static func build() -> PlacePageViewController {
     let storyboard = UIStoryboard.instance(.placePage)
     guard let viewController = storyboard.instantiateInitialViewController() as? PlacePageViewController else {
       fatalError()
