@@ -115,6 +115,22 @@
 	<string name="measurement_units">Measurement units</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Choose between miles and kilometers</string>
+	<!-- Button text -->
+	<string name="overwrite">Overwrite</string>
+	<!-- Button text which saves user route -->
+	<string name="user_route_save">Save current route</string>
+	<!-- Title in the user routes fragment -->
+	<string name="user_route_title">My Routes</string>
+	<!-- Title in dialog to confirm user route overwrite -->
+	<string name="user_route_overwrite_title">%1$s already exists</string>
+	<!-- Text in dialog to confirm user route overwrite -->
+	<string name="user_route_overwrite_body">Overwrite existing %1$s?</string>
+	<!-- Title in dialog to confirm user route deletion -->
+	<string name="user_route_delete_title">Delete %1$s?</string>
+	<!-- Text in dialog to confirm user route deletion -->
+	<string name="user_route_delete_body">This action cannot be undone.</string>
+	<!-- Title in dialog to input the name of a user route -->
+	<string name="user_route_input_title">Route name</string>
 
 	<!-- SECTION: Search categories -->
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->

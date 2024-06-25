@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_base"
         android:layout_marginTop="@dimen/margin_base"
-        android:text="My Routes"
+        android:text="@string/user_route_title"
         android:textAppearance="?fontHeadline6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -41,7 +41,7 @@
       android:id="@+id/save_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="Save Current Route"
+      android:text="@string/user_route_save"
       android:layout_gravity="center_horizontal"
       android:padding="16dp"/>
 

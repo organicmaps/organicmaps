@@ -108,6 +108,18 @@
 	<string name="measurement_units">Unidades de medida</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Escolha entre milhas e quilômetros</string>
+	<!-- Button text -->
+	<string name="overwrite">Sobrescrever</string>
+	<!-- Button text which saves user route -->
+	<string name="user_route_save">Salvar rota atual</string>
+	<!-- Title in the user routes fragment -->
+	<string name="user_route_title">Minhas Rotas</string>
+	<!-- Title in dialog to confirm user route deletion -->
+	<string name="user_route_delete_title">Apagar %1$s?</string>
+	<!-- Text in dialog to confirm user route deletion -->
+	<string name="user_route_delete_body">Essa ação não pode ser desfeita.</string>
+	<!-- Title in dialog to input the name of a user route -->
+	<string name="user_route_input_title">Nome da rota</string>
 
 	<!-- SECTION: Search categories -->
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->

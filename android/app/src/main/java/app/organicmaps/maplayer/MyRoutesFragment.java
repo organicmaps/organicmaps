@@ -15,6 +15,7 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -103,9 +104,9 @@ public class MyRoutesFragment extends Fragment
       return;
     if (Framework.nativeHasSavedUserRoute(newRouteName))
     {
-      showConfirmationDialog(newRouteName + " already exists",
-              "Overwrite existing " + newRouteName + "?",
-              "Overwrite");
+      showConfirmationDialog(getString(R.string.user_route_overwrite_title, newRouteName),
+              getString(R.string.user_route_overwrite_body, newRouteName),
+              R.string.overwrite);
       return;
     }
     save(false);
@@ -148,9 +149,9 @@ public class MyRoutesFragment extends Fragment
       return;
     if (Framework.nativeHasSavedUserRoute(newRouteName))
     {
-      showConfirmationDialog(newRouteName + " already exists",
-              "Overwrite existing " + newRouteName + "?",
-              "Overwrite");
+      showConfirmationDialog(getString(R.string.user_route_overwrite_title, newRouteName),
+              getString(R.string.user_route_overwrite_body, newRouteName),
+              R.string.overwrite);
       return;
     }
     rename(false);
@@ -178,9 +179,9 @@ public class MyRoutesFragment extends Fragment
   {
     mDialogCaller = DELETE_ID;
     mCurrentItem = item;
-    showConfirmationDialog("Delete " + item.getRouteName() + "?",
-            "This action cannot be undone.",
-            "Delete");
+    showConfirmationDialog(getString(R.string.user_route_delete_title, item.getRouteName()),
+            getString(R.string.user_route_delete_body),
+            R.string.delete);
   }
 
   private void delete()
@@ -197,7 +198,7 @@ public class MyRoutesFragment extends Fragment
       bottomSheet.dismiss();
   }
 
-  private void showConfirmationDialog(String title, String message, String buttonText)
+  private void showConfirmationDialog(String title, String message, @StringRes int buttonText)
   {
     AlertDialog dialog = new AlertDialog.Builder(this.getContext(), R.style.MwmTheme_AlertDialog)
             .setTitle(title)
@@ -209,7 +210,7 @@ public class MyRoutesFragment extends Fragment
                     case DELETE_ID -> delete();
                 }
             })
-            .setNegativeButton("Cancel", (dialogInterface, i) -> {
+            .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
               switch (mDialogCaller) {
                 case SAVE_ID, RENAME_ID -> retryInput();
               }
@@ -227,16 +228,16 @@ public class MyRoutesFragment extends Fragment
     input.setText(defaultText);
 
     AlertDialog dialog = new AlertDialog.Builder(this.getContext(), R.style.MwmTheme_AlertDialog)
-            .setTitle("Route Name")
+            .setTitle(R.string.user_route_input_title)
             .setView(input)
-            .setPositiveButton("OK", (dialogInterface, i) -> {
+            .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
               mEditText = input.getText().toString();
               switch (mDialogCaller) {
                 case SAVE_ID -> checkSave();
                 case RENAME_ID -> checkRename();
               }
             })
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(R.string.cancel, null)
             .create();
 
     dialog.show();
