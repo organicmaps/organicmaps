@@ -33,7 +33,7 @@ extension PlacePagePresenter: PlacePagePresenterProtocol {
   }
 
   func closeAnimated() {
-    view.closeAnimated()
+    view.closeAnimated(completion: nil)
   }
 
   func updateTopBound(_ bound: CGFloat, duration: TimeInterval) {

@@ -91,7 +91,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
 @property(nonatomic) BOOL needDeferFocusNotification;
 @property(nonatomic) BOOL deferredFocusValue;
-@property(nonatomic) UIViewController *placePageVC;
+@property(nonatomic) PlacePageViewController *placePageVC;
 @property(nonatomic) IBOutlet UIView *placePageContainer;
 
 @end
@@ -140,12 +140,14 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 }
 
 - (void)hideRegularPlacePage {
-  [self.placePageVC.view removeFromSuperview];
-  [self.placePageVC willMoveToParentViewController:nil];
-  [self.placePageVC removeFromParentViewController];
-  self.placePageVC = nil;
-  self.placePageContainer.hidden = YES;
-  [self setPlacePageTopBound:0 duration:0];
+  [self.placePageVC closeAnimatedWithCompletion:^{
+    [self.placePageVC.view removeFromSuperview];
+    [self.placePageVC willMoveToParentViewController:nil];
+    [self.placePageVC removeFromParentViewController];
+    self.placePageVC = nil;
+    self.placePageContainer.hidden = YES;
+    [self setPlacePageTopBound:0 duration:0];
+  }];
 }
 
 - (void)hidePlacePage {
@@ -168,12 +170,17 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
       searchManager.state = MWMSearchManagerStateHidden;
     }
   }
+  // Always show the controls during the navigation or planning mode.
+  if (!isNavigationDashboardHidden)
+    self.controlsManager.hidden = NO;
 }
 
 - (void)onSwitchFullScreen {
-  BOOL const isNavigationDashboardHidden = [MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden;
+  BOOL const isNavigationDashboardHidden = MWMNavigationDashboardManager.sharedManager.state == MWMNavigationDashboardStateHidden;
   BOOL const isSearchHidden = MWMSearchManager.manager.state == MWMSearchManagerStateHidden;
   if (isSearchHidden && isNavigationDashboardHidden) {
+    if (!self.controlsManager.hidden)
+      [self dismissPlacePage];
     self.controlsManager.hidden = !self.controlsManager.hidden;
   }
 }
