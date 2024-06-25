@@ -1248,9 +1248,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void setFullscreen(boolean isFullscreen)
   {
-    if (RoutingController.get().isNavigating()
-        || RoutingController.get().isBuilding()
-        || RoutingController.get().isPlanning())
+    if (RoutingController.get().isNavigating())
       return;
 
     mMapButtonsViewModel.setButtonsHidden(isFullscreen);
@@ -2022,6 +2020,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     closeFloatingPanels();
+    setFullscreen(false);
     RoutingController.get().start();
   }
 
