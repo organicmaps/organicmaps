@@ -473,6 +473,8 @@
 	<string name="email_or_username">Эл. почта или имя пользователя</string>
 	<string name="editor_add_phone">Добавить телефон</string>
 	<string name="level">Этаж</string>
+	<!-- Building level -->
+	<string name="level_value_generic">Этаж: %s</string>
 	<string name="downloader_delete_map_dialog">Вместе с картой удалятся и внесённые вами правки на этой карте.</string>
 	<string name="downloader_update_maps">Обновите карты</string>
 	<string name="downloader_mwm_migration_dialog">Для построения маршрутов необходимо обновить все карты и построить маршрут заново.</string>

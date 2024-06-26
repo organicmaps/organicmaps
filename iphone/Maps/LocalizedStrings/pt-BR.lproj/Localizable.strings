@@ -680,6 +680,9 @@
 
 "level" = "Andar";
 
+/* Building level */
+"level_value_generic" = "Level: %@";
+
 "please_note" = "Aviso";
 
 "downloader_delete_map_dialog" = "Todas as edições no mapa serão excluídas juntamente com o mapa.";

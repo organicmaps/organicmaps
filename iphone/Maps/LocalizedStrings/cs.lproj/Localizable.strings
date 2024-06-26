@@ -680,6 +680,9 @@
 
 "level" = "Podlaží";
 
+/* Building level */
+"level_value_generic" = "Level: %@";
+
 "please_note" = "Vezměte prosím na vědomí";
 
 "downloader_delete_map_dialog" = "Zároveň s touto mapou budou odstraněny také všechny změny na této mapě.";

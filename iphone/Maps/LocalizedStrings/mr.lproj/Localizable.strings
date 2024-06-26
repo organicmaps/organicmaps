@@ -680,6 +680,9 @@
 
 "level" = "मजला";
 
+/* Building level */
+"level_value_generic" = "Level: %@";
+
 "please_note" = "कृपया नोंद घ्या";
 
 "downloader_delete_map_dialog" = "तुमचे सर्व नकाशा संपादने नकाशासह पुसले जातील.";

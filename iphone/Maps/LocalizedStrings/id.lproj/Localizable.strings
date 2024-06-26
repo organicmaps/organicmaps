@@ -680,6 +680,9 @@
 
 "level" = "Tingkat";
 
+/* Building level */
+"level_value_generic" = "Level: %@";
+
 "please_note" = "Harap diperhatikan";
 
 "downloader_delete_map_dialog" = "Semua perubahan peta akan dihapus bersama dengan peta.";

@@ -466,6 +466,8 @@
 	<string name="email_or_username">Email oder Benutzername</string>
 	<string name="editor_add_phone">Telefon hinzufügen</string>
 	<string name="level">Stockwerk</string>
+	<!-- Building level -->
+	<string name="level_value_generic">Stock: %s</string>
 	<string name="downloader_delete_map_dialog">Alle Kartenänderungen werden zusammen mit der Karte gelöscht.</string>
 	<string name="downloader_update_maps">Karten aktualisieren</string>
 	<string name="downloader_mwm_migration_dialog">Um eine Route zu erstellen, müssen Sie alle Karten aktualisieren und dann die Route erneut planen.</string>

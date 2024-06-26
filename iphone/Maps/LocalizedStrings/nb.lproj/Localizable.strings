@@ -680,6 +680,9 @@
 
 "level" = "Gulv";
 
+/* Building level */
+"level_value_generic" = "Level: %@";
+
 "please_note" = "Vær oppmerksom på at";
 
 "downloader_delete_map_dialog" = "Alle endringer i kartet vil slettes sammen med kartet.";

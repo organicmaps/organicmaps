@@ -680,6 +680,9 @@
 
 "level" = "Verdieping";
 
+/* Building level */
+"level_value_generic" = "Level: %@";
+
 "please_note" = "Opgelet";
 
 "downloader_delete_map_dialog" = "Alle wijzigingen aan de kaart zullen samen met de kaart worden verwijderd.";
