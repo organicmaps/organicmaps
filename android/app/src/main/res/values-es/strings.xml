@@ -587,8 +587,10 @@
 	<string name="learn_more">Leer más</string>
 	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Salida</string>
-	<string name="routing_add_start_point">Buscar un origen para el plan de ruta</string>
-	<string name="routing_add_finish_point">Buscar un destino para el plan de ruta</string>
+	<!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
+	<string name="routing_add_start_point">Busca o toca en el mapa para añadir el origen de la ruta</string>
+	<!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
+	<string name="routing_add_finish_point">Busca o toca en el mapa para añadir el destino</string>
 	<string name="placepage_remove_stop">Eliminar</string>
 	<string name="placepage_add_stop">Añadir parada</string>
 	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->

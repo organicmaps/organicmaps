@@ -554,8 +554,10 @@
 	<string name="learn_more">자세히 알아보기</string>
 	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">끝내기</string>
-	<string name="routing_add_start_point">경로 계획을 세우기 위한 시작 지점을 추가하세요</string>
-	<string name="routing_add_finish_point">경로 계획을 세우기 위한 끝 지점을 추가하세요</string>
+	<!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
+	<string name="routing_add_start_point">검색을 사용하거나 지도를 탭하여 경로 시작점을 추가합니다</string>
+	<!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
+	<string name="routing_add_finish_point">검색을 사용하거나 지도를 탭하여 목적지 지점을 추가합니다</string>
 	<string name="placepage_remove_stop">제거</string>
 	<string name="placepage_add_stop">스톱 추가</string>
 	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->

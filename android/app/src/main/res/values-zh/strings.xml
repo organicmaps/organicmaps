@@ -565,8 +565,10 @@
 	<string name="learn_more">了解更多</string>
 	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">退出</string>
-	<string name="routing_add_start_point">添加起点以规划路线</string>
-	<string name="routing_add_finish_point">添加终点以规划路线</string>
+	<!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
+	<string name="routing_add_start_point">使用搜索或点击地图添加路线起点</string>
+	<!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
+	<string name="routing_add_finish_point">使用搜索或点击地图添加目的地点</string>
 	<string name="placepage_remove_stop">移除</string>
 	<string name="placepage_add_stop">添加经停点</string>
 	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->

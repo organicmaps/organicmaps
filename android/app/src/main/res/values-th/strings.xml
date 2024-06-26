@@ -556,8 +556,10 @@
 	<string name="learn_more">ศึกษาเพิ่มเติม</string>
 	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">ออก</string>
-	<string name="routing_add_start_point">เพิ่มจุดเริ่มต้นเพื่อวางแผนเส้นทาง</string>
-	<string name="routing_add_finish_point">เพิ่มจุดสิ้นสุดเพื่อวางแผนเส้นทาง</string>
+	<!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
+	<string name="routing_add_start_point">ใช้การค้นหาหรือแตะบนแผนที่เพื่อเพิ่มจุดเริ่มต้นเส้นทาง</string>
+	<!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
+	<string name="routing_add_finish_point">ใช้การค้นหาหรือแตะบนแผนที่เพื่อเพิ่มจุดปลายทาง</string>
 	<string name="placepage_remove_stop">เอาออก</string>
 	<string name="placepage_add_stop">เพิ่มจุดแวะพัก</string>
 	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->

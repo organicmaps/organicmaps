@@ -925,9 +925,11 @@
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Ukončit";
 
-"routing_add_start_point" = "Zadejte výchozí bod pro plánování trasy";
+/* User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". */
+"routing_add_start_point" = "Pomocí vyhledávání nebo klepnutím na mapu přidejte výchozí bod trasy";
 
-"routing_add_finish_point" = "Zadejte cílový bod pro plánování trasy";
+/* User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". */
+"routing_add_finish_point" = "Pomocí vyhledávání nebo klepnutím na mapu přidejte cílový bod";
 
 "planning_route_manage_route" = "Spravovat trasu";
 
