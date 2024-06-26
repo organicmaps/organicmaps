@@ -4,6 +4,7 @@ protocol PlacePagePresenterProtocol: AnyObject {
   func showNextStop()
   func closeAnimated()
   func updateTopBound(_ bound: CGFloat, duration: TimeInterval)
+  func showAlert(_ alert: UIAlertController)
 }
 
 class PlacePagePresenter: NSObject {
@@ -38,5 +39,9 @@ extension PlacePagePresenter: PlacePagePresenterProtocol {
 
   func updateTopBound(_ bound: CGFloat, duration: TimeInterval) {
     interactor.updateTopBound(bound, duration: duration)
+  }
+
+  func showAlert(_ alert: UIAlertController) {
+    view.showAlert(alert)
   }
 }
