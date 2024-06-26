@@ -108,7 +108,7 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_operator(std::string con
       ftypes::IsMoneyExchangeChecker::Instance()(t) ||
       ftypes::IsFuelStationChecker::Instance()(t) ||
       ftypes::IsRecyclingCentreChecker::Instance()(t) ||
-      ftypes::IsPostOfficeChecker::Instance()(t) ||
+      ftypes::IsPostPoiChecker::Instance()(t) ||
       ftypes::IsCarSharingChecker::Instance()(t) ||
       ftypes::IsCarRentalChecker::Instance()(t) ||
       ftypes::IsBicycleRentalChecker::Instance()(t) ||
