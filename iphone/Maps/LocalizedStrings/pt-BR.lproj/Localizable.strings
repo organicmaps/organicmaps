@@ -925,9 +925,11 @@
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Saída";
 
-"routing_add_start_point" = "Adicionar ponto de partida para planejar uma rota";
+/* User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". */
+"routing_add_start_point" = "Use a busca ou toque no mapa para adicionar um ponto de partida da rota";
 
-"routing_add_finish_point" = "Adicionar ponto final da viagem para planejar uma rota";
+/* User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". */
+"routing_add_finish_point" = "Use a busca ou toque no mapa para adicionar um ponto de destino";
 
 "planning_route_manage_route" = "Gerenciar rota";
 

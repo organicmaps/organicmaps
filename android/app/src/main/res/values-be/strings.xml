@@ -581,8 +581,10 @@
 	<string name="learn_more">Даведацца больш</string>
 	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Выхад</string>
-	<string name="routing_add_start_point">Дадайце пункт адпраўлення, каб пракласці маршрут</string>
-	<string name="routing_add_finish_point">Дадайце пункт прызначэння, каб пракласці маршрут</string>
+	<!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
+	<string name="routing_add_start_point">Скарыстайцеся пошукам або націсніце на мапе, каб дадаць пачатак маршруту</string>
+	<!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
+	<string name="routing_add_finish_point">Скарыстайцеся пошукам або націсніце на мапе, каб дадаць пункт прызначэння</string>
 	<string name="placepage_remove_stop">Выдаліць</string>
 	<string name="placepage_add_stop">Дадаць прыпынак</string>
 	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->

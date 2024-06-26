@@ -417,8 +417,10 @@
 	<string name="prefs_languages_information_off">कुछ भाषाओं के लिए, आपको ऐप स्टोर (Google Play, Galaxy Store, App Gallery, FDroid) से एक स्पीच सिंथेसाइज़र या एक अतिरिक्त भाषा पैक इंस्टॉल करना होगा।\nअपने डिवाइस की सेटिंग्स खोलें → भाषा और इनपुट → स्पीच → टेक्स्ट टू स्पीच आउटपुट.\nयहां आप वाक् संश्लेषण के लिए सेटिंग्स प्रबंधित कर सकते हैं (उदाहरण के लिए, ऑफ़लाइन उपयोग के लिए भाषा पैक डाउनलोड करें) और एक अन्य टेक्स्ट-टू-स्पीच इंजन का चयन कर सकते हैं।</string>
 	<string name="prefs_languages_information_off_link">अधिक जानकारी के लिए कृपया इस गाइड को देखें।</string>
 	<string name="transliteration_title">लैटिन में लिप्यंतरण</string>
-	<string name="routing_add_start_point">मार्ग की योजना बनाने के लिए एक प्रारंभिक बिंदु जोड़ें</string>
-	<string name="routing_add_finish_point">मार्ग की योजना बनाने के लिए एक गंतव्य जोड़ें</string>
+	<!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
+	<string name="routing_add_start_point">मार्ग का प्रारंभिक बिंदु जोड़ने के लिए खोज का उपयोग करें या मानचित्र पर टैप करें</string>
+	<!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
+	<string name="routing_add_finish_point">गंतव्य बिंदु जोड़ने के लिए खोज का उपयोग करें या मानचित्र पर टैप करें</string>
 	<string name="placepage_add_stop">गंतव्य जोड़ें</string>
 	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
 	<string name="alert_reauth_message">कृपया अपने सभी मानचित्र संपादनों को स्वचालित रूप से अपलोड करने के लिए OpenStreetMap पर लॉगिन करें। अधिक जानें <a href="https://github.com/organicmaps/organicmaps/issues/6144">यहां</a>।</string>
