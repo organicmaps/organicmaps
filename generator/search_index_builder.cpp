@@ -254,6 +254,7 @@ template <class FnT> bool InsertPostcodes(FeatureType & f, FnT && fn)
 {
   using namespace search;
 
+  // PostBox only, not IsPostPoiChecker?
   auto const & postBoxChecker = ftypes::IsPostBoxChecker::Instance();
   auto const postcode = f.GetMetadata(feature::Metadata::FMD_POSTCODE);
 

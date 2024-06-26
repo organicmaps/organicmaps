@@ -210,10 +210,11 @@ IsPostBoxChecker::IsPostBoxChecker()
   m_types.push_back(c.GetTypeByPath({"amenity", "post_box"}));
 }
 
-IsPostOfficeChecker::IsPostOfficeChecker()
+IsPostPoiChecker::IsPostPoiChecker()
 {
   Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"amenity", "post_office"}));
+  for (char const * val : {"post_office", "post_box", "parcel_locker"})
+    m_types.push_back(c.GetTypeByPath({"amenity", val}));
 }
 
 IsFuelStationChecker::IsFuelStationChecker()

@@ -83,12 +83,12 @@ public:
   DECLARE_CHECKER_INSTANCE(IsPostBoxChecker);
 };
 
-class IsPostOfficeChecker : public BaseChecker
+class IsPostPoiChecker : public BaseChecker
 {
-  IsPostOfficeChecker();
+  IsPostPoiChecker();
 
 public:
-  DECLARE_CHECKER_INSTANCE(IsPostOfficeChecker);
+  DECLARE_CHECKER_INSTANCE(IsPostPoiChecker);
 };
 
 class IsFuelStationChecker : public BaseChecker
