@@ -680,6 +680,9 @@
 
 "level" = "طبقه";
 
+/* Building level */
+"level_value_generic" = "Level: %@";
+
 "please_note" = "لطفا توجه داشته باشد";
 
 "downloader_delete_map_dialog" = "تمام ویرایش‌های که بر روی نقشه انجام داده اید به همراه نقشه حذف شد.";

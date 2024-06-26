@@ -680,6 +680,9 @@
 
 "level" = "층";
 
+/* Building level */
+"level_value_generic" = "Level: %@";
+
 "please_note" = "참고 사항";
 
 "downloader_delete_map_dialog" = "모든 지도의 변경 사항은 지도와 함께 삭제됩니다.";

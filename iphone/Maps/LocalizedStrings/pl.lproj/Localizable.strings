@@ -680,6 +680,9 @@
 
 "level" = "Kondygnacja";
 
+/* Building level */
+"level_value_generic" = "Level: %@";
+
 "please_note" = "Uwaga!";
 
 "downloader_delete_map_dialog" = "Wszystkie zmiany dotyczące mapy zostaną usunięte wraz z nią.";

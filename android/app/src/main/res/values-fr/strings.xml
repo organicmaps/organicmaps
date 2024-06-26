@@ -472,6 +472,8 @@
 	<string name="email_or_username">Email ou nom d\'utilisateur</string>
 	<string name="editor_add_phone">Ajouter un numéro de téléphone</string>
 	<string name="level">Étage</string>
+	<!-- Building level -->
+	<string name="level_value_generic">Niveau : %s</string>
 	<string name="downloader_delete_map_dialog">Toutes vos modifications de la carte seront supprimées avec elle.</string>
 	<string name="downloader_update_maps">Mettre à jour les cartes</string>
 	<string name="downloader_mwm_migration_dialog">Pour créer un itinéraire, vous devez mettre à jour toutes les cartes puis reprogrammer l\'itinéraire.</string>

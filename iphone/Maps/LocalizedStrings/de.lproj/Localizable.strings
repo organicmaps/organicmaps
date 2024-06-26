@@ -680,6 +680,9 @@
 
 "level" = "Stockwerk";
 
+/* Building level */
+"level_value_generic" = "Stock: %@";
+
 "please_note" = "Bitte beachten";
 
 "downloader_delete_map_dialog" = "Alle Kartenänderungen werden zusammen mit der Karte gelöscht.";

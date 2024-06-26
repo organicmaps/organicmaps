@@ -680,6 +680,9 @@
 
 "level" = "Zemin";
 
+/* Building level */
+"level_value_generic" = "Level: %@";
+
 "please_note" = "Lütfen dikkat";
 
 "downloader_delete_map_dialog" = "Harita ile birlikte tüm harita değişiklikleri de silinecektir.";

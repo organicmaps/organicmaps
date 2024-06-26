@@ -680,6 +680,9 @@
 
 "level" = "Etaj";
 
+/* Building level */
+"level_value_generic" = "Level: %@";
+
 "please_note" = "Reține";
 
 "downloader_delete_map_dialog" = "Toate modificările aduse hărții vor fi șterse împreună cu harta.";

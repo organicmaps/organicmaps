@@ -680,6 +680,9 @@
 
 "level" = "Piano";
 
+/* Building level */
+"level_value_generic" = "Level: %@";
+
 "please_note" = "Avviso";
 
 "downloader_delete_map_dialog" = "Tutte le tue modifiche alla mappa saranno cancellate insieme alla mappa.";

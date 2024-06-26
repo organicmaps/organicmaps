@@ -680,6 +680,9 @@
 
 "level" = "Поверх";
 
+/* Building level */
+"level_value_generic" = "Level: %@";
+
 "please_note" = "Будь ласка, зверніть увагу";
 
 "downloader_delete_map_dialog" = "Разом з мапою будуть видалені й внесені Вами правки на цій мапі.";
