@@ -2,7 +2,6 @@ package app.tourism.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 val Blue = Color(0xFF0688E7)

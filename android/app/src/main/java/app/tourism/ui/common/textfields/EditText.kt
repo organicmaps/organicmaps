@@ -6,6 +6,7 @@ import androidx.compose.animation.core.animateOffsetAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -74,22 +75,25 @@ fun EditText(
 
     val hintCondition = etState == EtState.Unfocused && value.isEmpty()
     val hintOffset by animateOffsetAsState(
-        targetValue = if (hintCondition) Offset(0f, 0f)
-        else Offset(0f, -(hintFontSizeInt * 1.3f))
+        targetValue = if (hintCondition) Offset(0f, hintFontSizeInt * 1.6f)
+        else Offset(0f, 0f)
     )
     val hintSize by animateIntAsState(
         targetValue = if (hintCondition) hintFontSizeInt else (hintFontSizeInt * 0.8).roundToInt()
     )
 
+    val heightModifier =
+        if (maxLines > 1) Modifier.height(IntrinsicSize.Min) else Modifier.height(textFieldHeight)
+
     Column(modifier) {
         BasicTextField(
             modifier = Modifier
-                .height(textFieldHeight)
                 .padding(textFieldPadding)
                 .onFocusChanged {
                     etState = if (it.hasFocus) EtState.Focused else EtState.Unfocused
                 }
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .then(heightModifier),
             value = value,
             onValueChange = {
                 onValueChange(it)
@@ -107,11 +111,7 @@ fun EditText(
             decorationBox = {
                 Row {
                     leadingIcon?.invoke()
-                    Box(
-                        Modifier
-                            .fillMaxSize(),
-                        contentAlignment = Alignment.BottomStart
-                    ) {
+                    Column(Modifier.fillMaxSize()) {
                         Text(
                             modifier = Modifier.offset(hintOffset.x.dp, hintOffset.y.dp),
                             text = hint,
@@ -119,7 +119,7 @@ fun EditText(
                             color = hintColor,
                         )
                         it()
-                        Box(Modifier.align(Alignment.CenterEnd)) {
+                        Box(Modifier.align(Alignment.End)) {
                             trailingIcon?.invoke()
                         }
                     }

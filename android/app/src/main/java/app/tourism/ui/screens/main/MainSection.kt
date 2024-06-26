@@ -46,57 +46,61 @@ fun MainSection(themeVM: ThemeViewModel) {
             MainNavigation(rootNavController = rootNavController, themeVM = themeVM)
 
             Column(modifier = Modifier.align(alignment = Alignment.BottomCenter)) {
-                NavigationBar(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                        .clip(shape = RoundedCornerShape(50.dp)),
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    windowInsets = WindowInsets(
-                        left = 24.dp,
-                        right = 24.dp,
-                        bottom = 0.dp,
-                        top = 0.dp
-                    )
-                ) {
-                    items.forEach { item ->
-                        val isSelected = item.route == navBackStackEntry?.destination?.route
-                        val title = stringResource(id = item.title)
-                        NavigationBarItem(
-                            colors = NavigationBarItemColors(
-                                disabledIconColor = MaterialTheme.colorScheme.onPrimary,
-                                disabledTextColor = MaterialTheme.colorScheme.onPrimary,
-                                selectedIconColor = MaterialTheme.colorScheme.onPrimary,
-                                selectedTextColor = MaterialTheme.colorScheme.onPrimary,
-                                unselectedIconColor = MaterialTheme.colorScheme.onPrimary,
-                                unselectedTextColor = MaterialTheme.colorScheme.onPrimary,
-                                selectedIndicatorColor = Color.Transparent,
-                            ),
-                            selected = isSelected,
-
-                            label = {
-                                Text(text = title, style = TextStyles.b3)
-                            },
-                            icon = {
-                                Icon(
-                                    painter = painterResource(
-                                        if (isSelected) item.selectedIcon else item.unselectedIcon
-                                    ),
-                                    contentDescription = title,
-                                )
-                            },
-                            onClick = {
-                                rootNavController.navigate(item.route) {
-                                    popUpTo(rootNavController.graph.findStartDestination().id) {
-                                        saveState = true
-                                    }
-                                    launchSingleTop = true
-                                    restoreState = true
-                                }
-                            }
+                val destination =
+                    rootNavController.currentBackStackEntryAsState().value?.destination
+                val isCurrentATopScreen = items.any { it.route == destination?.route }
+                if (isCurrentATopScreen)
+                    NavigationBar(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                            .clip(shape = RoundedCornerShape(50.dp)),
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        windowInsets = WindowInsets(
+                            left = 24.dp,
+                            right = 24.dp,
+                            bottom = 0.dp,
+                            top = 0.dp
                         )
+                    ) {
+                        items.forEach { item ->
+                            val isSelected = item.route == navBackStackEntry?.destination?.route
+                            val title = stringResource(id = item.title)
+                            NavigationBarItem(
+                                colors = NavigationBarItemColors(
+                                    disabledIconColor = MaterialTheme.colorScheme.onPrimary,
+                                    disabledTextColor = MaterialTheme.colorScheme.onPrimary,
+                                    selectedIconColor = MaterialTheme.colorScheme.onPrimary,
+                                    selectedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                    unselectedIconColor = MaterialTheme.colorScheme.onPrimary,
+                                    unselectedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                    selectedIndicatorColor = Color.Transparent,
+                                ),
+                                selected = isSelected,
+
+                                label = {
+                                    Text(text = title, style = TextStyles.b3)
+                                },
+                                icon = {
+                                    Icon(
+                                        painter = painterResource(
+                                            if (isSelected) item.selectedIcon else item.unselectedIcon
+                                        ),
+                                        contentDescription = title,
+                                    )
+                                },
+                                onClick = {
+                                    rootNavController.navigate(item.route) {
+                                        popUpTo(rootNavController.graph.findStartDestination().id) {
+                                            saveState = true
+                                        }
+                                        launchSingleTop = true
+                                        restoreState = true
+                                    }
+                                }
+                            )
+                        }
                     }
-                }
                 VerticalSpace(height = 0.dp)
             }
         }

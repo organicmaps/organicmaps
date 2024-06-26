@@ -58,7 +58,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 
 @Composable
-fun PersonalDataScreen(onBackClick: () -> Boolean, profileVM: ProfileViewModel) {
+fun PersonalDataScreen(onBackClick: () -> Unit, profileVM: ProfileViewModel) {
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
     val coroutineScope = rememberCoroutineScope()

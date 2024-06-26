@@ -29,7 +29,7 @@ import app.tourism.ui.theme.TextStyles
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SearchScreen(
-    onPlaceClick: (id: Int) -> Unit,
+    onPlaceClick: (id: Long) -> Unit,
     onMapClick: () -> Unit,
     queryArg: String,
     searchVM: SearchViewModel = hiltViewModel()

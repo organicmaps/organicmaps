@@ -1,7 +1,7 @@
 package app.tourism.data.dto.profile
 
 data class User(
-    val id: Int,
+    val id: Long,
     val avatar: String?,
     val country: String,
     val full_name: String,

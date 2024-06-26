@@ -20,7 +20,7 @@ import app.tourism.utils.changeSystemAppLanguage
 
 @Composable
 fun LanguageScreen(
-    onBackClick: () -> Boolean,
+    onBackClick: () -> Unit,
     vm: LanguageViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -30,7 +30,9 @@ fun LanguageScreen(
         topBar = {
             AppTopBar(
                 title = stringResource(id = R.string.chose_language),
-                onBackClick = onBackClick
+                onBackClick = {
+                    onBackClick()
+                }
             )
         },
         containerColor = MaterialTheme.colorScheme.background,
@@ -40,7 +42,7 @@ fun LanguageScreen(
             VerticalSpace(height = 16.dp)
             SingleChoiceCheckBoxes(
                 itemNames = languages.map { it.name },
-                selectedItemName = if(selectedLanguage != null) selectedLanguage?.name else null,
+                selectedItemName = if (selectedLanguage != null) selectedLanguage?.name else null,
                 onItemChecked = { name ->
                     val language = languages.first { it.name == name }
                     vm.updateLanguage(language)

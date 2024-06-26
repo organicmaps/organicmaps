@@ -5,6 +5,7 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:paddingVertical="12dp"
+  app:ccp_textSize="15sp"
   app:ccp_showArrow="false"
   app:ccp_autoDetectLanguage="true"
   app:ccp_textGravity="LEFT"

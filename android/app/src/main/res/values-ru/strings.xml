@@ -2183,8 +2183,9 @@
 	<string name="gallery">Фотогаллерея</string>
 	<string name="reviews">Отзывы</string>
 	<string name="compose_review">Оставить отзыв</string>
-	<string name="see_all">Посмотреть все</string>
+	<string name="see_all">Все отзывы</string>
 	<string name="more">Развернуть</string>
+	<string name="less">Свернуть</string>
 	<string name="review_title">Отзыв</string>
 	<string name="tap_to_rate">Нажмите, чтобы оценить:</string>
 	<string name="text">Текст</string>
@@ -2215,4 +2216,5 @@
 	<string name="restaurants">Рестораны</string>
 	<string name="hotels_tourism">Отели</string>
   <string name="add_to_favorites">Добавить в избранное</string>
+	<string name="show_route">Посмотреть маршрут</string>
 </resources>

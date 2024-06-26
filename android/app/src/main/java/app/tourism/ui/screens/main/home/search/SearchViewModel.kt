@@ -50,7 +50,7 @@ class SearchViewModel @Inject constructor(
         repeat(15) {
             dummyData.add(
                 PlaceShort(
-                    id = it,
+                    id = it.toLong(),
                     name = "Гиссарская крепость",
                     pic = Constants.IMAGE_URL_EXAMPLE,
                     rating = 5.0,

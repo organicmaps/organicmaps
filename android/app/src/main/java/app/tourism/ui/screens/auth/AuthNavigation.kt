@@ -35,7 +35,7 @@ fun AuthNavigation() {
     val context = LocalContext.current
     val navController = rememberNavController()
 
-    val navigateUp = { navController.navigateUp() }
+    val navigateUp: () -> Unit = { navController.navigateUp() }
 
     NavHost(
         navController = navController,

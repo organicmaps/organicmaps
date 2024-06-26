@@ -1,6 +1,5 @@
 package app.tourism.ui.screens.main.profile.profile
 
-import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.tourism.data.prefs.UserPreferences

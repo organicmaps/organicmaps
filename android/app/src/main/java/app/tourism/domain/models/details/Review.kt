@@ -1,11 +1,10 @@
 package app.tourism.domain.models.details
 
 data class Review(
+    val id: Long,
     val rating: Double? = null,
-    val name: String,
-    val pfpUrl: String? = null,
-    val countryCodeName: String? = null,
+    val user: User,
     val date: String? = null,
-    val text: String? = null,
+    val comment: String? = null,
     val picsUrls: List<String> = emptyList(),
 )

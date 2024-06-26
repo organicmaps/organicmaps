@@ -2,7 +2,6 @@ package app.tourism.ui.screens.main
 
 import android.content.Context
 import android.content.Intent
-import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
@@ -21,10 +20,10 @@ import app.tourism.ui.screens.main.categories.categories.CategoriesViewModel
 import app.tourism.ui.screens.main.favorites.favorites.FavoritesScreen
 import app.tourism.ui.screens.main.home.home.HomeScreen
 import app.tourism.ui.screens.main.home.search.SearchScreen
+import app.tourism.ui.screens.main.place_details.PlaceDetailsScreen
 import app.tourism.ui.screens.main.profile.personal_data.PersonalDataScreen
 import app.tourism.ui.screens.main.profile.profile.ProfileScreen
 import app.tourism.ui.screens.main.profile.profile.ProfileViewModel
-import app.tourism.ui.screens.main.place_details.PlaceDetailsScreen
 import app.tourism.utils.navigateToMap
 import app.tourism.utils.navigateToMapForRoute
 import kotlinx.serialization.Serializable
@@ -53,7 +52,7 @@ object PersonalData
 
 // place details
 @Serializable
-data class PlaceDetails(val id: Int)
+data class PlaceDetails(val id: Long)
 
 @Composable
 fun MainNavigation(rootNavController: NavHostController, themeVM: ThemeViewModel) {
@@ -61,7 +60,7 @@ fun MainNavigation(rootNavController: NavHostController, themeVM: ThemeViewModel
 
     val categoriesVM: CategoriesViewModel = hiltViewModel()
 
-    val onPlaceClick: (id: Int) -> Unit = { id ->
+    val onPlaceClick: (id: Long) -> Unit = { id ->
         rootNavController.navigate(PlaceDetails(id = id))
     }
     val onMapClick = { navigateToMap(context) }
@@ -108,7 +107,7 @@ fun MainNavigation(rootNavController: NavHostController, themeVM: ThemeViewModel
 
 @Composable
 fun HomeNavHost(
-    onPlaceClick: (id: Int) -> Unit,
+    onPlaceClick: (id: Long) -> Unit,
     onMapClick: () -> Unit,
     onCategoryClicked: () -> Unit,
     categoriesVM: CategoriesViewModel,
@@ -139,7 +138,7 @@ fun HomeNavHost(
 
 @Composable
 fun CategoriesNavHost(
-    onPlaceClick: (id: Int) -> Unit,
+    onPlaceClick: (id: Long) -> Unit,
     onMapClick: () -> Unit,
     categoriesVM: CategoriesViewModel,
 ) {
@@ -152,7 +151,7 @@ fun CategoriesNavHost(
 }
 
 @Composable
-fun FavoritesNavHost(onPlaceClick: (id: Int) -> Unit) {
+fun FavoritesNavHost(onPlaceClick: (id: Long) -> Unit) {
     val favoritesNavController = rememberNavController()
     NavHost(favoritesNavController, startDestination = Favorites) {
         composable<Favorites> {
@@ -165,7 +164,7 @@ fun FavoritesNavHost(onPlaceClick: (id: Int) -> Unit) {
 fun ProfileNavHost(themeVM: ThemeViewModel, profileVM: ProfileViewModel = hiltViewModel()) {
     val context = LocalContext.current
     val profileNavController = rememberNavController()
-    val onBackClick = { profileNavController.navigateUp() }
+    val onBackClick: () -> Unit = { profileNavController.navigateUp() }
 
     NavHost(profileNavController, startDestination = Profile) {
         composable<Profile> {

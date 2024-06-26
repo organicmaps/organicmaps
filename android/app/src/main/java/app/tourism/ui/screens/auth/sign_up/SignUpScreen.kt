@@ -43,7 +43,7 @@ import com.hbb20.CountryCodePicker
 @Composable
 fun SignUpScreen(
     onSignUpComplete: () -> Unit,
-    onBackClick: () -> Boolean,
+    onBackClick: () -> Unit,
     vm: SignUpViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current

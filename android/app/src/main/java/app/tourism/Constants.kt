@@ -10,8 +10,6 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import app.organicmaps.R
 import app.tourism.ui.theme.getBorderColor
@@ -33,7 +31,7 @@ object Constants {
     const val IMAGE_URL_EXAMPLE =
         "https://img.freepik.com/free-photo/young-woman-hiker-taking-photo-with-smartphone-on-mountains-peak-in-winter_335224-427.jpg?w=2000"
     const val THUMBNAIL_URL_EXAMPLE =
-        "https://cdn.pixabay.com/photo/2020/03/24/22/34/illustration-4965674_960_720.jpg"
+        "https://render.fineartamerica.com/images/images-profile-flow/400/images-medium-large-5/awesome-solitude-bess-hamiti.jpg"
     const val LOGO_URL_EXAMPLE = "https://brandeps.com/logo-download/O/OSCE-logo-vector-01.svg"
 
     // data

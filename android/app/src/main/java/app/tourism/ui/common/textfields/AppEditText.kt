@@ -5,13 +5,10 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import app.organicmaps.R
 import app.tourism.ui.theme.TextStyles
 
 @Composable
@@ -21,7 +18,8 @@ fun AppEditText(
     hint: String = "",
     isError: () -> Boolean = { false },
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    keyboardActions: KeyboardActions = KeyboardActions.Default
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    maxLines: Int = 1,
 ) {
     EditText(
         value = value,
@@ -42,6 +40,7 @@ fun AppEditText(
         cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
         focusedColor = MaterialTheme.colorScheme.onBackground,
         unfocusedColor = MaterialTheme.colorScheme.onBackground,
-        errorColor = MaterialTheme.colorScheme.onError
+        errorColor = MaterialTheme.colorScheme.onError,
+        maxLines = maxLines,
     )
 }

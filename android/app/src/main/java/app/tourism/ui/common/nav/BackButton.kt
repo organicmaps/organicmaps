@@ -14,12 +14,12 @@ import app.organicmaps.R
 @Composable
 fun BackButton(
     modifier: Modifier = Modifier,
-    onBackClick: () -> Boolean,
+    onBackClick: () -> Unit,
     tint: Color = MaterialTheme.colorScheme.onBackground
 ) {
     Icon(
-        modifier = modifier
-            .size(24.dp)
+        modifier = Modifier
+            .size(30.dp)
             .clickable { onBackClick() }
             .then(modifier),
         painter = painterResource(id = R.drawable.back),

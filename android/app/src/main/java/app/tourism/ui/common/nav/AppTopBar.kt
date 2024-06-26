@@ -24,7 +24,7 @@ import app.tourism.ui.theme.TextStyles
 fun AppTopBar(
     modifier: Modifier = Modifier,
     title: String,
-    onBackClick: (() -> Boolean)? = null,
+    onBackClick: (() -> Unit)? = null,
     actions: List<TopBarActionData> = emptyList()
 ) {
     Column(

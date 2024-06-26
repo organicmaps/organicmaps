@@ -1,6 +1,5 @@
 package app.tourism.ui.common.special
 
-import android.text.Html
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -30,6 +29,7 @@ import app.tourism.ui.common.LoadImg
 import app.tourism.ui.theme.HeartRed
 import app.tourism.ui.theme.TextStyles
 import app.tourism.ui.theme.getStarColor
+import app.tourism.utils.getAnnotatedStringFromHtml
 
 @Composable
 fun PlacesItem(
@@ -65,6 +65,7 @@ fun PlacesItem(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
+                    modifier = Modifier.weight(1f, fill = true),
                     text = place.name,
                     style = TextStyles.h3,
                     maxLines = 1,
@@ -72,7 +73,7 @@ fun PlacesItem(
                 )
 
                 IconButton(
-                    modifier = Modifier.size(20.dp),
+                    modifier = Modifier.size(28.dp),
                     onClick = {
                         onFavoriteChanged(!isFavorite)
                     },
@@ -98,7 +99,7 @@ fun PlacesItem(
 
             place.excerpt?.let {
                 Text(
-                    text = Html.fromHtml(it).toString(),
+                    text = it.getAnnotatedStringFromHtml(),
                     style = TextStyles.b1,
                     maxLines = 3,
                     overflow = TextOverflow.Ellipsis,

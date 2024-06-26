@@ -39,7 +39,7 @@ import app.tourism.ui.utils.showToast
 @Composable
 fun SignInScreen(
     onSignInComplete: () -> Unit,
-    onBackClick: () -> Boolean,
+    onBackClick: () -> Unit,
     vm: SignInViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current

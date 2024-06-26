@@ -3,6 +3,7 @@ package app.tourism
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -10,6 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.lifecycleScope
 import app.organicmaps.DownloadResourcesLegacyActivity
+import app.organicmaps.R
 import app.organicmaps.downloader.CountryItem
 import app.tourism.data.prefs.UserPreferences
 import app.tourism.domain.models.resource.Resource
@@ -36,7 +38,11 @@ class MainActivity : ComponentActivity() {
         navigateToMapToDownloadIfNotPresent()
         navigateToAuthIfNotAuthed()
 
-        enableEdgeToEdge()
+        val blackest = resources.getColor(R.color.button_text) // yes, I know
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.dark(blackest),
+            navigationBarStyle = SystemBarStyle.dark(blackest)
+        )
 
         setContent {
             val isDark = themeVM.theme.collectAsState().value?.code == "dark"

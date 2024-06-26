@@ -1,6 +1,5 @@
 package app.tourism.ui.screens.main.profile.profile
 
-import android.view.LayoutInflater
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -37,7 +36,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
 import app.organicmaps.R
 import app.tourism.Constants
 import app.tourism.applyAppBorder
@@ -52,12 +50,12 @@ import app.tourism.ui.common.VerticalSpace
 import app.tourism.ui.common.buttons.PrimaryButton
 import app.tourism.ui.common.buttons.SecondaryButton
 import app.tourism.ui.common.nav.AppTopBar
+import app.tourism.ui.common.special.CountryAsLabel
 import app.tourism.ui.common.ui_state.Loading
 import app.tourism.ui.screens.main.ThemeViewModel
 import app.tourism.ui.theme.TextStyles
 import app.tourism.ui.theme.getBorderColor
 import app.tourism.ui.utils.showToast
-import com.hbb20.CountryCodePicker
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -160,30 +158,13 @@ fun ProfileBar(personalData: PersonalData) {
         HorizontalSpace(width = 16.dp)
         Column {
             Text(text = personalData.fullName, style = TextStyles.h2)
-            Country(
+            CountryAsLabel(
                 Modifier.fillMaxWidth(),
                 personalData.country,
                 contentColor = MaterialTheme.colorScheme.onBackground.toArgb(),
             )
         }
     }
-}
-
-@Composable
-fun Country(modifier: Modifier = Modifier, countryCodeName: String, contentColor: Int) {
-    AndroidView(
-        modifier = Modifier.then(modifier),
-        factory = { context ->
-            val view = LayoutInflater.from(context)
-                .inflate(R.layout.ccp_as_country_label, null, false)
-            val ccp = view.findViewById<CountryCodePicker>(R.id.ccp)
-            ccp.contentColor = contentColor
-            ccp.setCountryForNameCode(countryCodeName)
-            ccp.showArrow(false)
-            ccp.setCcpClickable(false)
-            view
-        }
-    )
 }
 
 @Composable

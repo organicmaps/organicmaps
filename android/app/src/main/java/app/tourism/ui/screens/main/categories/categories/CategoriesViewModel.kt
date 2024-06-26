@@ -53,6 +53,7 @@ class CategoriesViewModel @Inject constructor(
     fun setFavoriteChanged(item: PlaceShort, isFavorite: Boolean) {
         // todo
     }
+
     init {
         // todo replace with real data
         _selectedCategory.value = SingleChoiceItem("sights", "Sights")
@@ -65,7 +66,7 @@ class CategoriesViewModel @Inject constructor(
         repeat(15) {
             dummyData.add(
                 PlaceShort(
-                    id = it,
+                    id = it.toLong(),
                     name = "Гора Эмина",
                     pic = Constants.IMAGE_URL_EXAMPLE,
                     rating = 5.0,
