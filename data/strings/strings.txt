@@ -13155,7 +13155,7 @@
     af = Open oor %@
     ar = يفتح بعد %@
     az = %@ sonra açılır
-    be = Адкрываецца праз %@
+    be = Адчыняецца праз %@
     ca = Obre en %@
     de = Öffnet in %@
     el = Ανοίγει σε %@
@@ -13178,6 +13178,8 @@
     sk = Otvoria o %@
     tr = %@ sonra açılıyor
     uk = Відкривається через %@
+    zh-Hans = 将于 %@ 后开业
+    zh-Hant = 將於 %@ 後開業
 
   [closes_at]
     tags = ios
@@ -13215,7 +13217,7 @@
     af = Sluit oor %@
     ar = يغلق في غضون %@
     az = %@ sonra bağlanır
-    be = Закрываецца праз %@
+    be = Зачыняецца праз %@
     ca = Tanca en %@
     de = Schließt in %@
     el = Κλείνει σε %@
@@ -13238,6 +13240,8 @@
     sk = Zatvoria o %@
     tr = %@ sonra kapanıyor
     uk = Зачиняється через %@
+    zh-Hans = 将于 %@ 后停业
+    zh-Hant = 將於 %@ 後停業
 
   [closed]
     tags = android,ios
