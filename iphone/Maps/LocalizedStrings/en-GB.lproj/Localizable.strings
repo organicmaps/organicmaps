@@ -1198,7 +1198,7 @@
 
 "transit_not_found" = "Metro navigation in this region is not available yet";
 
-"dialog_pedestrian_route_is_long_header" = "Metro route is not found";
+"dialog_pedestrian_route_is_long_header" = "No metro route found";
 
 "dialog_pedestrian_route_is_long_message" = "Please choose a start or end point closer to a metro station";
 

@@ -1198,7 +1198,7 @@
 
 "transit_not_found" = "Subway navigation in this region is not available yet";
 
-"dialog_pedestrian_route_is_long_header" = "Subway route is not found";
+"dialog_pedestrian_route_is_long_header" = "No subway route found";
 
 "dialog_pedestrian_route_is_long_message" = "Please choose a start or end point closer to a subway station";
 

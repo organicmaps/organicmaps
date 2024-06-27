@@ -764,7 +764,7 @@
 	<string name="religious_places">Religious places</string>
 	<string name="select_list">Select list</string>
 	<string name="transit_not_found">Subway navigation in this region is not available yet</string>
-	<string name="dialog_pedestrian_route_is_long_header">Subway route is not found</string>
+	<string name="dialog_pedestrian_route_is_long_header">No subway route found</string>
 	<string name="dialog_pedestrian_route_is_long_message">Please choose a start or end point closer to a subway station</string>
 	<string name="button_layer_isolines">Contour Lines</string>
 	<string name="isolines_activation_error_dialog">Activating contour lines requires downloading map data for this area</string>
