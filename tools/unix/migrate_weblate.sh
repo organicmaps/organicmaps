@@ -31,3 +31,20 @@ echo "$iphone_strings" | wc -l
 
 # Perform one last migration from source files
 ./tools/unix/generate_localizations.sh
+
+## Prepare iPhone files for Weblate
+
+# Remove blank lines between translatable strings
+sed -i "" -E '/^$/d' $iphone_strings $iphone_infoplist_strings
+# Readd two blank line before header comments
+sed -i "" -E '/^[/][*][*]/i \
+\
+\
+' $iphone_strings $iphone_infoplist_strings
+# Readd blank line before comments
+sed -i "" -E '/^[/][*][^*]/i \
+\
+' $iphone_strings $iphone_infoplist_strings
+# Add a blank line after comment headers
+sed -i "" -E $'/^[/][*][*]/,+1{/^"/s/^"/\\\n"/g;}' $iphone_strings $iphone_infoplist_strings
+sed -i "" '1,/^./{/^$/d;}' $iphone_strings $iphone_infoplist_strings # Drop spurious first line
