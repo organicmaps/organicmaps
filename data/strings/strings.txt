@@ -27234,8 +27234,8 @@
 
   [dialog_pedestrian_route_is_long_header]
     tags = android,ios
-    en = Subway route is not found
-    en-GB = Metro route is not found
+    en = No subway route found
+    en-GB = No metro route found
     af = Moltreinroete nie gevind
     ar = لم يتم العثور على مترو الانفاق
     az = Metro marşrutu tapılmadı
