@@ -9,11 +9,15 @@ class InfoItemViewController: UIViewController {
   @IBOutlet var imageView: UIImageView!
   @IBOutlet var infoLabel: UILabel!
   @IBOutlet var accessoryImage: UIImageView!
-  @IBOutlet var tapGestureRecognizer: UITapGestureRecognizer!
+
+  private var tapGestureRecognizer: UITapGestureRecognizer!
+  private var longPressGestureRecognizer: UILongPressGestureRecognizer!
+  private var accessoryImageTapGestureRecognizer: UITapGestureRecognizer!
 
   var tapHandler: TapHandler?
   var longPressHandler: TapHandler?
-  
+  var accessoryImageTapHandler: TapHandler?
+
   var style: Style = .regular {
     didSet {
       switch style {
@@ -28,22 +32,45 @@ class InfoItemViewController: UIViewController {
     }
   }
 
-  @IBAction func onTap(_ sender: UITapGestureRecognizer) {
-    tapHandler?()
-  }
-
-  @IBAction func onLongPress(_ sender: UILongPressGestureRecognizer) {
-    guard sender.state == .began else { return }
-    longPressHandler?()
-  }
-
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    setupGestureRecognizers()
     if style == .link {
       imageView.styleName = "MWMBlue"
       infoLabel.styleName = "linkBlueText"
     }
+  }
+
+  private func setupGestureRecognizers() {
+    tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTap))
+    longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(onLongPress(_:)))
+    view.addGestureRecognizer(tapGestureRecognizer)
+    view.addGestureRecognizer(longPressGestureRecognizer)
+
+    accessoryImageTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onAccessoryImageTap))
+    accessoryImage.addGestureRecognizer(accessoryImageTapGestureRecognizer)
+  }
+
+  @objc
+  private func onTap() {
+    tapHandler?()
+  }
+
+  @objc
+  private func onLongPress(_ sender: UILongPressGestureRecognizer) {
+    guard sender.state == .began else { return }
+    longPressHandler?()
+  }
+
+  @objc
+  private func onAccessoryImageTap() {
+    accessoryImageTapHandler?()
+  }
+
+  func setAccessory(image: UIImage?, tapHandler: TapHandler? = nil) {
+    accessoryImage.image = image
+    accessoryImage.isHidden = image == nil
+    accessoryImageTapHandler = tapHandler
   }
 }
 
