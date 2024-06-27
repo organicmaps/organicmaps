@@ -1362,6 +1362,9 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Памылка: iCloud недаступны";
 
+/* Title for the "Open In Another App" buton on the PlacePage. */
+"open_in_app" = "Адкрыць у іншай прыладзе";
+
 
 /********** Types **********/
 
