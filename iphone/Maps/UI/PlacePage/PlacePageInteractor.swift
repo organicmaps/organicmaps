@@ -50,6 +50,10 @@ extension PlacePageInteractor: PlacePageInteractorProtocol {
 // MARK: - PlacePageInfoViewControllerDelegate
 
 extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
+  var shouldShowOpenInApp: Bool {
+    !OpenInApplication.availableApps.isEmpty
+  }
+  
   func viewWillAppear() {
     // Skip data reloading on the first appearance, to avoid unnecessary updates.
     guard viewWillAppearIsCalledForTheFirstTime else { return }
@@ -81,7 +85,7 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
         UserDefaults.standard.set(true, forKey: kUDDidShowKayakInformationDialog)
         MWMPlacePageManagerHelper.openKayak(self.placePageData)
       }))
-      self.mapViewController?.present(alert, animated: true)
+      presenter?.showAlert(alert)
     }
   }
 
@@ -122,6 +126,20 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
     let message = String(format: L("copied_to_clipboard"), content)
     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
     Toast.toast(withText: message).show(withAlignment: .bottom)
+  }
+
+  func didPressOpenInApp(from sourceView: UIView) {
+    let availableApps = OpenInApplication.availableApps
+    guard !availableApps.isEmpty else {
+      LOG(.warning, "Applications selection sheet should not be presented when the list of available applications is empty.")
+      return
+    }
+    let openInAppActionSheet = UIAlertController.presentInAppActionSheet(from: sourceView, apps: availableApps) { [weak self] selectedApp in
+      guard let self else { return }
+      let link = selectedApp.linkWith(coordinates: self.placePageData.locationCoordinate, destinationName: self.placePageData.previewData.title)
+      self.mapViewController?.openUrl(link, externally: true)
+    }
+    presenter?.showAlert(openInAppActionSheet)
   }
 }
 

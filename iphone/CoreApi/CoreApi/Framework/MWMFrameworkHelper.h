@@ -40,6 +40,7 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (void)showTrack:(MWMTrackID)trackId;
 + (void)updatePlacePageData;
 + (void)updateAfterDeleteBookmark;
++ (int)currentZoomLevel;
 
 @end
 
