@@ -1,4 +1,5 @@
 #import "MWMGeoUtil.h"
+#import "MWMFrameworkHelper.h"
 
 #include "geometry/mercator.hpp"
 #include "geometry/angles.hpp"
@@ -7,6 +8,7 @@
 #include "platform/localization.hpp"
 #include "platform/settings.hpp"
 #include "platform/measurement_utils.hpp"
+#include "drape_frontend/frontend_renderer.hpp"
 
 @implementation Measure
 
@@ -56,6 +58,11 @@
   auto mp1 = mercator::FromLatLon(p1.latitude, p1.longitude);
   auto mp2 = mercator::FromLatLon(p2.latitude, p2.longitude);
   return ang::AngleTo(mp1, mp2);
+}
+
++ (NSString *)formattedOsmLinkForCoordinate:(CLLocationCoordinate2D)coordinate zoomLevel:(int)zoomLevel {
+  auto const link = measurement_utils::FormatOsmLink(coordinate.latitude, coordinate.longitude, zoomLevel);
+  return [NSString stringWithCString:link.c_str() encoding:NSUTF8StringEncoding];
 }
 
 @end

@@ -624,11 +624,11 @@
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="LQd-fA-r9c">
                                 <rect key="frame" x="0.0" y="0.0" width="367" height="44"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_operator" translatesAutoresizingMaskIntoConstraints="NO" id="l7d-ck-nSv">
-                                        <rect key="frame" x="0.0" y="0.0" width="56" height="44"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_operator" translatesAutoresizingMaskIntoConstraints="NO" id="l7d-ck-nSv">
+                                        <rect key="frame" x="0.0" y="8" width="56" height="28"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="dbx-It-HsN"/>
+                                            <constraint firstAttribute="height" constant="28" id="dbx-It-HsN"/>
                                             <constraint firstAttribute="width" constant="56" id="uhV-yT-jBd"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
@@ -645,21 +645,21 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular16:blackPrimaryText"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_placepage_change" translatesAutoresizingMaskIntoConstraints="NO" id="onF-JL-5dZ">
-                                        <rect key="frame" x="367" y="10" width="24" height="24"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7B8-M6-Hae" userLabel="Accessory Button">
+                                        <rect key="frame" x="323" y="0.0" width="44" height="44"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="24" id="4f7-wJ-RNQ"/>
-                                            <constraint firstAttribute="height" constant="24" id="JCX-T3-d68"/>
+                                            <constraint firstAttribute="height" constant="44" id="cKy-lg-gNZ"/>
+                                            <constraint firstAttribute="width" constant="44" id="g6o-VG-fZY"/>
                                         </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </imageView>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain"/>
+                                    </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="Dzf-g4-a7d"/>
                                     <constraint firstAttribute="bottom" secondItem="8eU-Fj-XRv" secondAttribute="bottom" constant="10" id="Oju-fx-VZb"/>
                                     <constraint firstItem="8eU-Fj-XRv" firstAttribute="top" secondItem="LQd-fA-r9c" secondAttribute="top" constant="10" id="iCj-QI-o3i"/>
+                                    <constraint firstItem="l7d-ck-nSv" firstAttribute="centerY" secondItem="LQd-fA-r9c" secondAttribute="centerY" id="srg-qZ-iXx"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -675,30 +675,15 @@
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                         </userDefinedRuntimeAttributes>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="pe0-Qk-VTv" appends="YES" id="8fl-TA-rH2"/>
-                            <outletCollection property="gestureRecognizers" destination="dX8-SV-o1f" appends="YES" id="qtt-Cp-gk8"/>
-                        </connections>
                     </view>
                     <size key="freeformSize" width="375" height="44"/>
                     <connections>
-                        <outlet property="accessoryImage" destination="onF-JL-5dZ" id="EfX-rZ-lGT"/>
+                        <outlet property="accessoryButton" destination="7B8-M6-Hae" id="Idt-3q-OmT"/>
                         <outlet property="imageView" destination="l7d-ck-nSv" id="Llp-U6-qLx"/>
                         <outlet property="infoLabel" destination="8eU-Fj-XRv" id="72o-pM-iKo"/>
-                        <outlet property="tapGestureRecognizer" destination="pe0-Qk-VTv" id="ysd-CD-jhE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4nU-eg-9AS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="pe0-Qk-VTv">
-                    <connections>
-                        <action selector="onTap:" destination="cJQ-4x-NFc" id="mFE-bW-scr"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="dX8-SV-o1f">
-                    <connections>
-                        <action selector="onLongPress:" destination="cJQ-4x-NFc" id="WUr-7i-Zpb"/>
-                    </connections>
-                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1565.5999999999999" y="-315.74212893553226"/>
         </scene>
@@ -1052,6 +1037,7 @@
                                     <constraint firstAttribute="bottom" secondItem="lDs-cN-zHh" secondAttribute="bottom" constant="8" id="Agh-N6-w5Z"/>
                                     <constraint firstAttribute="trailing" secondItem="lDs-cN-zHh" secondAttribute="trailing" constant="16" id="D3N-gR-IMe"/>
                                     <constraint firstItem="lDs-cN-zHh" firstAttribute="leading" secondItem="4co-gt-uj9" secondAttribute="leading" constant="16" id="O2D-Vn-idh"/>
+                                    <constraint firstAttribute="width" secondItem="4co-gt-uj9" secondAttribute="height" multiplier="375:230" id="QBn-RX-NgM"/>
                                     <constraint firstItem="lDs-cN-zHh" firstAttribute="top" secondItem="4co-gt-uj9" secondAttribute="top" constant="8" id="Uw7-dA-Jsx"/>
                                 </constraints>
                             </view>
@@ -1061,7 +1047,6 @@
                         <constraints>
                             <constraint firstItem="HkQ-xh-NEh" firstAttribute="leading" secondItem="8M2-fC-tzU" secondAttribute="leading" constant="16" id="Cii-0D-QHD"/>
                             <constraint firstAttribute="trailing" secondItem="HkQ-xh-NEh" secondAttribute="trailing" id="HHP-AR-aoc"/>
-                            <constraint firstItem="4co-gt-uj9" firstAttribute="width" secondItem="4co-gt-uj9" secondAttribute="height" multiplier="375:230" id="QBn-RX-NgM"/>
                             <constraint firstItem="HkQ-xh-NEh" firstAttribute="top" secondItem="8M2-fC-tzU" secondAttribute="top" constant="16" id="Ulz-RE-0kg"/>
                             <constraint firstItem="4co-gt-uj9" firstAttribute="leading" secondItem="8M2-fC-tzU" secondAttribute="leading" id="cJh-6h-8Iz"/>
                             <constraint firstItem="4co-gt-uj9" firstAttribute="trailing" secondItem="8M2-fC-tzU" secondAttribute="trailing" id="dHU-bY-LRp"/>
@@ -1822,7 +1807,6 @@
         <image name="ic_arrow_gray_down" width="28" height="28"/>
         <image name="ic_clear_24" width="20" height="20"/>
         <image name="ic_operator" width="28" height="28"/>
-        <image name="ic_placepage_change" width="24" height="24"/>
         <image name="ic_placepage_open_hours" width="28" height="28"/>
         <image name="img_direction_light" width="32" height="32"/>
         <systemColor name="opaqueSeparatorColor">
