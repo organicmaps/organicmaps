@@ -616,11 +616,11 @@
 
 "opens_at" = "Opens at %@";
 
-"opens_in" = "Opens in %@";
+"opens_in" = "將於 %@ 後開業";
 
 "closes_at" = "Closes at %@";
 
-"closes_in" = "Closes in %@";
+"closes_in" = "將於 %@ 後停業";
 
 "closed" = "已關閉";
 

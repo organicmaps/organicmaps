@@ -429,6 +429,8 @@
 	<string name="day_off_today">今天没有营业</string>
 	<string name="day_off">没有营业</string>
 	<string name="today">今天</string>
+	<string name="opens_in">将于 %s 后开业</string>
+	<string name="closes_in">将于 %s 后停业</string>
 	<string name="closed">已关闭</string>
 	<string name="edit_opening_hours">编辑工作时间</string>
 	<string name="no_osm_account">在OpenStreetMap上没有账户吗？</string>
