@@ -414,7 +414,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   {
     refreshLatLon();
 
-    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR), mOperator, mTvOperator);
+    final String operator = mMapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR);
+    refreshMetadataOrHide(!TextUtils.isEmpty(operator) ? getString(R.string.operator, operator) : "", mOperator, mTvOperator);
 
     final String network = mMapObject.getMetadata(Metadata.MetadataType.FMD_NETWORK);
     refreshMetadataOrHide(!TextUtils.isEmpty(network) ? getString(R.string.network, network) : "", mNetwork, mTvNetwork);
