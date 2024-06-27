@@ -198,6 +198,12 @@ IsMoneyExchangeChecker::IsMoneyExchangeChecker()
   m_types.push_back(c.GetTypeByPath({"amenity", "bureau_de_change"}));
 }
 
+IsVendingMachineChecker::IsVendingMachineChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"amenity", "vending_machine"}));
+}
+
 IsSpeedCamChecker::IsSpeedCamChecker()
 {
   Classificator const & c = classif();

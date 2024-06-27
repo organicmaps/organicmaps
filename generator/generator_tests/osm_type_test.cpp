@@ -310,9 +310,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Address)
     TEST_EQUAL(params.house.Get(), "27", ());
     TEST_EQUAL(params.GetStreet(), "Ligsalzstraße", ());
     TEST_EQUAL(params.GetPostcode(), "80339", ());
+    TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_OPERATOR), "Meike Hannig", ());
 
     TEST(params.name.IsEmpty(), ());
-    TEST(!params.GetMetadata().Has(feature::Metadata::FMD_OPERATOR), ());
   }
 }
 

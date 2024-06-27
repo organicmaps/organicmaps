@@ -68,6 +68,14 @@ public:
   DECLARE_CHECKER_INSTANCE(IsMoneyExchangeChecker);
 };
 
+class IsVendingMachineChecker : public BaseChecker
+{
+  IsVendingMachineChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsVendingMachineChecker);
+};
+
 class IsSpeedCamChecker : public BaseChecker
 {
   IsSpeedCamChecker();
