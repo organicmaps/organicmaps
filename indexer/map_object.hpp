@@ -109,6 +109,9 @@ protected:
   /// @returns all localized POI types separated by kFieldsSeparator to display in UI.
   std::string GetAllLocalizedTypes() const;
 
+  /// @returns all readable internal types separated by kFieldsSeparator for debugging.
+  std::string GetAllReadableTypes() const;
+    
   FeatureID m_featureID;
   m2::PointD m_mercator;
 
