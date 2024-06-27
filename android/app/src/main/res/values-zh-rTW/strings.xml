@@ -432,6 +432,8 @@
 	<string name="day_off_today">今天沒有營業</string>
 	<string name="day_off">沒有營業</string>
 	<string name="today">今天</string>
+	<string name="opens_in">將於 %s 後開業</string>
+	<string name="closes_in">將於 %s 後停業</string>
 	<string name="closed">已關閉</string>
 	<string name="edit_opening_hours">編輯營業時間</string>
 	<string name="no_osm_account">沒有 OpenStreetMap 帳號嗎？</string>

@@ -439,8 +439,8 @@
 	<string name="day_off_today">Сёння закрыта</string>
 	<string name="day_off">Закрыта</string>
 	<string name="today">Сёння</string>
-	<string name="opens_in">Адкрываецца праз %s</string>
-	<string name="closes_in">Закрываецца праз %s</string>
+	<string name="opens_in">Адчыняецца праз %s</string>
+	<string name="closes_in">Зачыняецца праз %s</string>
 	<string name="closed">Закрыта</string>
 	<string name="edit_opening_hours">Правіць часы працы</string>
 	<string name="no_osm_account">Не зарэгістраваныя на OpenStreetMap?</string>
