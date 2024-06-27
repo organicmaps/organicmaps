@@ -190,4 +190,9 @@
   buildInfo.m_source = place_page::BuildInfo::Source::Other;
   frm.UpdatePlacePageInfoForCurrentSelection(buildInfo);
 }
+
++ (int)currentZoomLevel {
+  return GetFramework().GetDrawScale();
+}
+
 @end

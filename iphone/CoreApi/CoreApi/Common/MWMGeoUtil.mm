@@ -58,4 +58,9 @@
   return ang::AngleTo(mp1, mp2);
 }
 
++ (NSString *)formattedOsmLinkForCoordinate:(CLLocationCoordinate2D)coordinate zoomLevel:(int)zoomLevel {
+  auto const link = measurement_utils::FormatOsmLink(coordinate.latitude, coordinate.longitude, zoomLevel);
+  return [NSString stringWithCString:link.c_str() encoding:NSUTF8StringEncoding];
+}
+
 @end
