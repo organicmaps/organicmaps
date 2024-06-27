@@ -166,24 +166,6 @@ public class Utils
     return null;
   }
 
-  @SuppressLint("BatteryLife")
-  @RequiresApi(api = Build.VERSION_CODES.M)
-  public static @Nullable Intent makeAppBatteryOptimizationIntent(@NonNull Context context)
-  {
-    Intent intent = new Intent();
-    intent.setData(Uri.parse("package:" + context.getPackageName()));
-    intent.setAction(android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-    if (isIntentSupported(context, intent))
-      return intent;
-    intent.setAction(android.provider.Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
-    if (isIntentSupported(context, intent))
-      return intent;
-    intent.setAction(android.provider.Settings.ACTION_BATTERY_SAVER_SETTINGS);
-    if (isIntentSupported(context, intent))
-      return intent;
-    return null;
-  }
-
   public static @Nullable Intent makePowerSaverSettingIntent(@NonNull Context context)
   {
     Intent intent = new Intent();

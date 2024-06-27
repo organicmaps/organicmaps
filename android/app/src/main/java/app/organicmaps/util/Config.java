@@ -406,27 +406,15 @@ public final class Config
     setBool(KEY_PREF_SEARCH_HISTORY, enabled);
   }
 
-  public static boolean getNeedToRequestBatterySaverPermission(MwmActivity.RequestedBy requestedBy)
+  public static boolean getNeedToRequestBatterySaverPermission(MwmActivity.BatteryPermissionRequestedBy requestedBy)
   {
     final String key = "BatterySaverPermissionRequestFor" + requestedBy.name();
     return getBool(key, true);
   }
 
-  public static void setNeedToReuestBatterySaverPermission(MwmActivity.RequestedBy requestedBy, boolean value)
+  public static void setNeedToRequestBatterySaverPermission(MwmActivity.BatteryPermissionRequestedBy requestedBy, boolean value)
   {
     final String key = "BatterySaverPermissionRequestFor" + requestedBy.name();
-    setBool(key, value);
-  }
-
-  public static boolean getNeedToRequestBatteryOptimisationPermission(MwmActivity.RequestedBy requestBy)
-  {
-    final String key = "BatteryOptimisationPermissionRequestFor" + requestBy.name();
-    return getBool(key, true);
-  }
-
-  public static void setNeedToRequestBatteryOptimisationPermission(MwmActivity.RequestedBy requestBy, boolean value)
-  {
-    final String key = "BatteryOptimisationPermissionRequestFor" + requestBy.name();
     setBool(key, value);
   }
 

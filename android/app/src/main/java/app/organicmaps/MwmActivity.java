@@ -211,8 +211,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @NonNull
   private ActivityResultLauncher<IntentSenderRequest> mLocationResolutionRequest;
 
-  private ActivityResultLauncher<Intent> mBatterySaverPermission;
-
+  @Nullable
   private ActivityResultLauncher<Intent> mDeviceBatterySaverPermission;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
@@ -224,9 +223,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private PowerManagerCompat mPowerManagerCompat;
 
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
   private PowerManager mPowerManager;
 
-  private RequestedBy currRequest;
+  private BatteryPermissionRequestedBy mBatteryPermissionRequestedBy;
 
   public interface LeftAnimationTrackListener
   {
@@ -237,7 +238,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     void onTrackLeftAnimation(float offset);
   }
 
-  public enum RequestedBy
+  public enum BatteryPermissionRequestedBy
   {
     NAVIGATION
   }
@@ -532,8 +533,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
         this::onLocationResolutionResult);
     mPostNotificationPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestPermission(),
         this::onPostNotificationPermissionResult);
-    mBatterySaverPermission = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                                                        this::onBatteryOptimisationPermissionResult);
     mDeviceBatterySaverPermission = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                                                               this::onDeviceBatterySaverPermissionResult);
 
@@ -1933,22 +1932,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Logger.w(TAG, "Permission POST_NOTIFICATIONS has been refused");
   }
 
-  private void onBatteryOptimisationPermissionResult(ActivityResult result)
-  {
-    if (result.getResultCode() == Activity.RESULT_OK)
-    {
-      Logger.i(TAG, "Battery Optimisation have been disabled from App");
-    }
-    else
-      Logger.w(TAG, "Battery Optimisation disable permission has been refused");
-
-    switch (currRequest)
-    {
-      case NAVIGATION -> onRoutingStart();
-    }
-    currRequest = null;
-  }
-
   private void onDeviceBatterySaverPermissionResult(ActivityResult result)
   {
     if (mPowerManagerCompat.isPowerSaveMode(this))
@@ -1958,11 +1941,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     else
       Logger.w(TAG, "Power Save mode is disabled on the device");
 
-    switch (currRequest)
+    switch (mBatteryPermissionRequestedBy)
     {
       case NAVIGATION -> onRoutingStart();
     }
-    currRequest = null;
+    mBatteryPermissionRequestedBy = null;
   }
 
   /**
@@ -2062,11 +2045,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onRoutingStart()
   {
     // Check for battery saver permission
-    if (!requestBatterySaverPermission(RequestedBy.NAVIGATION))
-      return;
-
-    // Check for battery optimisation permission
-    if (!requestBatteryOptimisationPermission(RequestedBy.NAVIGATION))
+    if (!requestBatterySaverPermission(BatteryPermissionRequestedBy.NAVIGATION))
       return;
 
     if (!showStartPointNotice())
@@ -2079,79 +2058,38 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingController.get().start();
   }
 
-  public boolean requestBatterySaverPermission(RequestedBy requestedBy)
+  public boolean requestBatterySaverPermission(BatteryPermissionRequestedBy requestedBy)
   {
     if (!Config.getNeedToRequestBatterySaverPermission(requestedBy))
       return true;
 
-    currRequest = requestedBy;
-    Config.setNeedToReuestBatterySaverPermission(requestedBy, false);
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-    {
-      if (mPowerManagerCompat.isPowerSaveMode(this))
-      {
-        dismissAlertDialog();
-        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-            .setTitle(R.string.power_saver_dialog_title)
-            .setCancelable(false)
-            .setMessage(R.string.power_saver_dialog_summary)
-            .setNegativeButton(R.string.not_now, (dialog, which) -> {
-              switch (requestedBy)
-              {
-                case NAVIGATION -> onRoutingStart();
-              }
-            })
-            .setOnDismissListener(dialog -> mAlertDialog = null);
-
-        final Intent intent = Utils.makePowerSaverSettingIntent(this);
-        if (intent != null)
-        {
-          builder.setPositiveButton(getString(R.string.settings_caps), (dlg, which) -> {
-            mDeviceBatterySaverPermission.launch(intent);
-          });
-        }
-        mAlertDialog = builder.show();
-      }
-    }
-    return false;
-  }
-
-  public boolean requestBatteryOptimisationPermission(RequestedBy requestBy)
-  {
-    if (!Config.getNeedToRequestBatteryOptimisationPermission(requestBy))
+    if (!mPowerManagerCompat.isPowerSaveMode(this))
       return true;
 
-    currRequest = requestBy;
-    Config.setNeedToRequestBatteryOptimisationPermission(requestBy, false);
+    mBatteryPermissionRequestedBy = requestedBy;
+    Config.setNeedToRequestBatterySaverPermission(requestedBy, false);
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+    dismissAlertDialog();
+    final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.power_saver_dialog_title)
+        .setCancelable(false)
+        .setMessage(R.string.power_saver_dialog_summary)
+        .setNegativeButton(R.string.not_now, (dialog, which) -> {
+          switch (requestedBy)
+          {
+            case NAVIGATION -> onRoutingStart();
+          }
+        })
+        .setOnDismissListener(dialog -> mAlertDialog = null);
+
+    final Intent intent = Utils.makePowerSaverSettingIntent(this);
+    if (intent != null)
     {
-      if (!mPowerManager.isIgnoringBatteryOptimizations(getPackageName()))
-      {
-        dismissAlertDialog();
-        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-            .setTitle(R.string.battery_optimisation_dialog_title)
-            .setCancelable(false)
-            .setMessage(R.string.battery_optimisation_dialog_summary)
-            .setNegativeButton(R.string.deny, (dialog, which) -> {
-              switch (requestBy)
-              {
-                case NAVIGATION -> onRoutingStart();
-              }
-            })
-            .setOnDismissListener(dialog -> mAlertDialog = null);
-
-        final Intent intent = Utils.makeAppBatteryOptimizationIntent(this);
-        if (intent != null)
-        {
-          builder.setPositiveButton(getString(R.string.allow), (dlg, which) -> {
-            mBatterySaverPermission.launch(intent);
-          });
-        }
-        mAlertDialog = builder.show();
-      }
+      builder.setPositiveButton(getString(R.string.settings_caps), (dlg, which) -> {
+        mDeviceBatterySaverPermission.launch(intent);
+      });
     }
+    mAlertDialog = builder.show();
     return false;
   }
 
