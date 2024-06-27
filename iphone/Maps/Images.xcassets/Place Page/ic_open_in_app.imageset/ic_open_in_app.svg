@@ -1,0 +1,4 @@
+<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+  <path style="fill:#f0f;stroke:#000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;paint-order:fill markers stroke" d="M20 9V4m-5 0h5m-9 9 9-9"/>
+  <path style="fill:none;fill-opacity:.5;stroke:#000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;paint-order:fill markers stroke" d="M11 6H6a2 2 135 0 0-2 2v10a2 2 45 0 0 2 2h10a2 2 135 0 0 2-2v-5"/>
+</svg>
