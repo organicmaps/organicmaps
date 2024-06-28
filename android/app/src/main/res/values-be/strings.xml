@@ -55,9 +55,11 @@
     <string name="disconnect_usb_cable">Адключыце USB кабель або ўстаўце карту памяці, каб карыстацца Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Вызваліце месца на SD-карце/USB-сховішчы, каб карыстацца праграмай</string>
-    <string name="download_resources">Перад пачаткам працы дазвольце нам спампаваць агульную мапу свету на вашу прыладу.\nГэта патрабуе %s сховішча.</string>
+    <string name="download_resources">Перад пачаткам працы дазвольце нам спампаваць агульную мапу свету на вашу прыладу.
+\nГэта патрабуе %s сховішча.</string>
     <string name="download_resources_continue">Перайсці да мапы</string>
-    <string name="downloading_country_can_proceed">Спампоўванне %s. Цяпер вы можаце\nперайсці да мапы.</string>
+    <string name="downloading_country_can_proceed">Спампоўванне %s. Цяпер вы можаце
+\nперайсці да мапы.</string>
     <string name="download_country_ask">Спампаваць %s?</string>
     <string name="update_country_ask">Абнавіць %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -105,7 +107,8 @@
     <!-- Question dialog for transferring maps from one storage to another -->
     <string name="move_maps">Перамясціць мапы?</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Гэта можа заняць некальмі хвілін.\nКалі ласка, пачакайце…</string>
+    <string name="wait_several_minutes">Гэта можа заняць некальмі хвілін.
+\nКалі ласка, пачакайце…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Адзінкі вымярэння</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -164,7 +167,11 @@
     <string name="description">Нататкі</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">З вамі падзяліліся закладкамі Ogranic Maps</string>
-    <string name="share_bookmarks_email_body">Вітаю!\n\nУ далучаным файле мае закладкі з праграмы Organic Maps. Калі ласка, адкрыйце іх, калі ў вас усталяваны Organic Maps. Калі не, спампуйце праграму для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!</string>
+    <string name="share_bookmarks_email_body">Вітаю!
+\n
+\nУ далучаным файле мае закладкі з праграмы Organic Maps. Калі ласка, адкрыйце іх, калі ў вас усталяваны Organic Maps. Калі не, спампуйце праграму для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz
+\n
+\nПрыемных падарожжаў з Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Загрузка закладак</string>
     <!-- Kmz file successful loading -->
@@ -172,9 +179,12 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Не ўдалося загрузіць закладкі. Файл можа быць пашкоджаны або няспраўны.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Прыкладанне не распазнае тып файла:\n%1$s</string>
+    <string name="unknown_file_type">Прыкладанне не распазнае тып файла:
+\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Не ўдалося адкрыць файл %1$s\n\n%2$s</string>
+    <string name="failed_to_open_file">Не ўдалося адкрыць файл %1$s
+\n
+\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Рэдагаваць</string>
     <!-- Warning message when doing search around current position -->
@@ -190,7 +200,11 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Гэй, глядзі дзе я зараз на мапе Organic Maps!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Прывітанне,\n\nЯ зараз тут: %1$s. Перайдзі па гэтай %2$s або гэтай %3$s спасылцы, каб убачыць месца на мапе.\n\nДзякуй.</string>
+    <string name="my_position_share_email">Прывітанне,
+\n
+\nЯ зараз тут: %1$s. Перайдзі па гэтай %2$s або гэтай %3$s спасылцы, каб убачыць месца на мапе.
+\n
+\nДзякуй.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Абагуліць</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -578,7 +592,8 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Агульны водгук</string>
     <string name="prefs_languages_information">Мы ужываем сістэмны сінтэзатар маўлення (TTS). Многія прылады на Android ужываюць Google TTS, вы можаце спампаваць або абнавіць яго праз Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">Для некаторых моў вам спатрэбіцца ўсталяваць сінтэзатар маўлення або дадатковы моўны пакет з крамы праграм (Google Play, Galaxy Store, App Gallery, F-Droid).\Зайдзіце на вашай прыладзе ў Налады → Мова і ўвод → Маўленне → Сінтэз маўлення.\nТут вы можаце задаць налады сінтэза маўлення (напрыклад, спампаваць моўны пакет для выкарыстання без падключэння да інтэрнэту) або выбраць іншы сінтэзатар маўлення.</string>
+    <string name="prefs_languages_information_off">Для некаторых моў вам спатрэбіцца ўсталяваць сінтэзатар маўлення або дадатковы моўны пакет з крамы праграм (Google Play, Galaxy Store, App Gallery, F-Droid).\Зайдзіце на вашай прыладзе ў Налады → Мова і ўвод → Маўленне → Сінтэз маўлення.
+\nТут вы можаце задаць налады сінтэза маўлення (напрыклад, спампаваць моўны пакет для выкарыстання без падключэння да інтэрнэту) або выбраць іншы сінтэзатар маўлення.</string>
     <string name="prefs_languages_information_off_link">Больш падрабязная інфармацыя знаходзіцца ў гэтым кіраўніцтве.</string>
     <string name="transliteration_title">Транслітарацыя лацінкай</string>
     <string name="learn_more">Даведацца больш</string>

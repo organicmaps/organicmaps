@@ -14,7 +14,9 @@
 
     <!-- SECTION: Other translations -->
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Fallo al abrir el archivo %1$s\n\n%2$s</string>
+    <string name="failed_to_open_file">Fallo al abrir el archivo %1$s
+\n
+\n%2$s</string>
     <!-- Generic «Auto» string -->
     <string name="auto">Automático</string>
     <!-- Settings «Route» category: «Test Voice Directions» title -->

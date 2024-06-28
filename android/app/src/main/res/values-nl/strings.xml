@@ -52,9 +52,11 @@
     <string name="disconnect_usb_cable">Verwijder de USB-kabel of plaats een geheugenkaart om Organic Maps te gebruiken</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Maak eerst ruimte vrij op de SD-kaart/USB-opslag om de app te gebruiken</string>
-    <string name="download_resources">Voordat u start, laten we de algemene wereldkaart naar uw apparaat downloaden.\nDeze neemt %s in beslag.</string>
+    <string name="download_resources">Voordat u start, laten we de algemene wereldkaart naar uw apparaat downloaden.
+\nDeze neemt %s in beslag.</string>
     <string name="download_resources_continue">Ga naar de kaart</string>
-    <string name="downloading_country_can_proceed">%s aan het downloaden. U kunt nu\ndoorgaan naar de kaart.</string>
+    <string name="downloading_country_can_proceed">%s aan het downloaden. U kunt nu
+\ndoorgaan naar de kaart.</string>
     <string name="download_country_ask">%s downloaden?</string>
     <string name="update_country_ask">%s updaten?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -104,7 +106,8 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">Fout bij het verplaatsen van kaartbestanden</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Dit kan enkele minuten duren.\nEven geduld…</string>
+    <string name="wait_several_minutes">Dit kan enkele minuten duren.
+\nEven geduld…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Afstandseenheid</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -163,7 +166,11 @@
     <string name="description">Notities</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Bladwijzers van Organic Maps zijn met u gedeeld</string>
-    <string name="share_bookmarks_email_body">Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app voor je iOS- of Android-apparaat door deze link te volgen: https://omaps.app/get?kmz\n\nGeniet van het reizen met Organic Maps!</string>
+    <string name="share_bookmarks_email_body">Hallo!
+\n
+\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app voor je iOS- of Android-apparaat door deze link te volgen: https://omaps.app/get?kmz
+\n
+\nGeniet van het reizen met Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Bladwijzers worden geladen</string>
     <!-- Kmz file successful loading -->
@@ -171,9 +178,12 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Bladwijzers uploaden is mislukt. Het bestand is mogelijk beschadigd of defect.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Het bestandstype wordt niet herkend door de app:\n%1$s</string>
+    <string name="unknown_file_type">Het bestandstype wordt niet herkend door de app:
+\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Bestand openen mislukt %1$s\n\n%2$s</string>
+    <string name="failed_to_open_file">Bestand openen mislukt %1$s
+\n
+\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Wijzig</string>
     <!-- Warning message when doing search around current position -->
@@ -189,7 +199,11 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hey, bekijk mijn huidige locatie op Organic Maps!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Hoi,\n\nMomenteel ben ik hier: %1$s. Klik op deze %2$s link of deze %3$s link om de plaats op de kaart te zien.\n\nBedankt.</string>
+    <string name="my_position_share_email">Hoi,
+\n
+\nMomenteel ben ik hier: %1$s. Klik op deze %2$s link of deze %3$s link om de plaats op de kaart te zien.
+\n
+\nBedankt.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Deel</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -580,7 +594,9 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Algemene feedback</string>
     <string name="prefs_languages_information">We gebruiken het TTS-systeem voor gesproken instructies. Vele Android toestellen gebruiken Google TTS, u kunt het downloaden of bijwerken in Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">Voor sommige talen dient u een andere spraaksynthesesoftware of een aanvullende taalpakket te installeren van de app store (Google Play, Galaxy Store, App Gallery, FDroid).\nOpen de instellingen van uw toestel → Taal en invoer → Spraak → Uitvoer voor tekst-naar-spraak.\nHier kunt u instellingen voor spraaksynthese beheren (bijvoorbeeld taalpakket downloaden voor offline gebruik) en een andere tekst-naar-spraak engine selecteren.</string>
+    <string name="prefs_languages_information_off">Voor sommige talen dient u een andere spraaksynthesesoftware of een aanvullende taalpakket te installeren van de app store (Google Play, Galaxy Store, App Gallery, FDroid).
+\nOpen de instellingen van uw toestel → Taal en invoer → Spraak → Uitvoer voor tekst-naar-spraak.
+\nHier kunt u instellingen voor spraaksynthese beheren (bijvoorbeeld taalpakket downloaden voor offline gebruik) en een andere tekst-naar-spraak engine selecteren.</string>
     <string name="prefs_languages_information_off_link">Gelieve deze handleiding te lezen voor meer informatie.</string>
     <string name="transliteration_title">Transliteratie in het Latijnse alfabet</string>
     <string name="learn_more">Meer informatie</string>

@@ -53,9 +53,11 @@
     <string name="disconnect_usb_cable">Αποσυνδέστε το καλώδιο USB ή τοποθετήστε την κάρτα μνήμης για να χρησιμοποιήσετε το Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Ελευθερώσετε  χώρο αποθήκευσης στην SD κάρτα/USB πρώτα προκειμένου να χρησιμοποιήσετε την εφαρμογή</string>
-    <string name="download_resources">Πριν ξεκινήσετε τη χρήση της εφαρμογής, επιτρέψτε μας να κατεβάσουμε το γενικό παγκόσμιο χάρτη στη συσκευή σας.\nΘα χρησιμοποιήσει %s αποθηκευτικού χώρου.</string>
+    <string name="download_resources">Πριν ξεκινήσετε τη χρήση της εφαρμογής, επιτρέψτε μας να κατεβάσουμε το γενικό παγκόσμιο χάρτη στη συσκευή σας.
+\nΘα χρησιμοποιήσει %s αποθηκευτικού χώρου.</string>
     <string name="download_resources_continue">Μετάβαση στο χάρτη</string>
-    <string name="downloading_country_can_proceed">Λήψη %s. Μπορείτε τώρα να\nμεταβείτε στο χάρτη.</string>
+    <string name="downloading_country_can_proceed">Λήψη %s. Μπορείτε τώρα να
+\nμεταβείτε στο χάρτη.</string>
     <string name="download_country_ask">Να γίνει λήψη %s;</string>
     <string name="update_country_ask">Να γίνει ενημέρωση %s;</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -105,7 +107,8 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">Σφάλμα κατά τη μετακίνηση των αρχείων</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Αυτό μπορεί να κρατήσει αρκετά λεπτά.\nΠαρακαλώ περιμένετε…</string>
+    <string name="wait_several_minutes">Αυτό μπορεί να κρατήσει αρκετά λεπτά.
+\nΠαρακαλώ περιμένετε…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Μονάδες μέτρησης</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -164,7 +167,11 @@
     <string name="description">Σημειώσεις</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Κοινοποιήθηκαν τα αγαπημένα από το Organic Maps σε εσάς</string>
-    <string name="share_bookmarks_email_body">Γειa!\n\nΣου επισυνάπτω τα αγαπημένα μου. Παρακαλώ άνοιξέ τα με το Organic Maps. Αν δεν το έχεις εγκαταστήσει, μπορείς να το κατεβάσεις από εδώ: https://omaps.app/get?kmz\n\nΚαλή διασκέδαση ταξιδεύοντας με το Organic Maps!</string>
+    <string name="share_bookmarks_email_body">Γειa!
+\n
+\nΣου επισυνάπτω τα αγαπημένα μου. Παρακαλώ άνοιξέ τα με το Organic Maps. Αν δεν το έχεις εγκαταστήσει, μπορείς να το κατεβάσεις από εδώ: https://omaps.app/get?kmz
+\n
+\nΚαλή διασκέδαση ταξιδεύοντας με το Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Φορτώνονται τα αγαπημένα</string>
     <!-- Kmz file successful loading -->
@@ -172,9 +179,12 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Η φόρτωση των αγαπημένων απέτυχε. Το αρχείο μπορεί να είναι κατεστραμμένο ή ελαττωματικό.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Ο τύπος αρχείου δεν αναγνωρίζεται από την εφαρμογή:\n%1$s</string>
+    <string name="unknown_file_type">Ο τύπος αρχείου δεν αναγνωρίζεται από την εφαρμογή:
+\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Αποτυχία ανοίγματος του αρχείου %1$s\n\n%2$s</string>
+    <string name="failed_to_open_file">Αποτυχία ανοίγματος του αρχείου %1$s
+\n
+\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Επεξεργασία</string>
     <!-- Warning message when doing search around current position -->
@@ -190,7 +200,11 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Γεια, δες την τρέχουσα τοποθεσία μου στο χάρτη του Organic Maps!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Γεια,\n\nΑυτή τη στιγμή είμαι εδώ: %1$s. Κάνε κλικ σε αυτό το σύνδεσμο %2$s ή σε αυτόν %3$s για να δεις την τοποθεσία στο χάρτη.\n\nΕυχαριστώ.</string>
+    <string name="my_position_share_email">Γεια,
+\n
+\nΑυτή τη στιγμή είμαι εδώ: %1$s. Κάνε κλικ σε αυτό το σύνδεσμο %2$s ή σε αυτόν %3$s για να δεις την τοποθεσία στο χάρτη.
+\n
+\nΕυχαριστώ.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Κοινοποίηση</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -580,7 +594,9 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Αποστολή γνώμης</string>
     <string name="prefs_languages_information">Χρησιμοποιούμε το σύστημα TTS για τις φωνητικές οδηγίες. Αρκετές συσκευές Android χρησιμοποιούν το Google TTS, μπορείτε να το κατεβάσετε ή να το ενημερώσετε από το Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">Για μερικές γλώσσες θα χρειαστεί να εγκαταστήσετε συνθεσάιζερ ομιλίας ή κάποιο συμπληρωματικό πακέτο γλώσσας από το app store (Google Play, Galaxy Store, App Gallery, FDroid).\nΑνοίξτε τις Ρυθμίσεις της συσκευής σας → Γλώσσα και εισαγωγή → Ομιλία → Μετατροπή κειμένου σε ομιλία.\nΕδώ μπορείτε να διαχειριστείτε τις ρυθμίσεις της σύνθεσης ομιλίας (για παράδειγμα, μπορείτε να κατεβάσετε πακέτο γλώσσας για χρήση εκτός σύνδεσης) και να επιλέξετε άλλη μηχανή μετατροπής κειμένου σε ομιλία.</string>
+    <string name="prefs_languages_information_off">Για μερικές γλώσσες θα χρειαστεί να εγκαταστήσετε συνθεσάιζερ ομιλίας ή κάποιο συμπληρωματικό πακέτο γλώσσας από το app store (Google Play, Galaxy Store, App Gallery, FDroid).
+\nΑνοίξτε τις Ρυθμίσεις της συσκευής σας → Γλώσσα και εισαγωγή → Ομιλία → Μετατροπή κειμένου σε ομιλία.
+\nΕδώ μπορείτε να διαχειριστείτε τις ρυθμίσεις της σύνθεσης ομιλίας (για παράδειγμα, μπορείτε να κατεβάσετε πακέτο γλώσσας για χρήση εκτός σύνδεσης) και να επιλέξετε άλλη μηχανή μετατροπής κειμένου σε ομιλία.</string>
     <string name="prefs_languages_information_off_link">Για περισσότερες πληροφορίες δείτε αυτό τον οδηγό.</string>
     <string name="transliteration_title">Μεταγραφή στα Λατινικά</string>
     <string name="learn_more">Μάθετε περισσότερα</string>

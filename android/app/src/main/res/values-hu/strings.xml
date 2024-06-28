@@ -52,9 +52,11 @@
     <string name="disconnect_usb_cable">Kérjük bontsa az USB kapcsolatot vagy helyezzen be memóriakártyát a Organic Maps használatához</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Kérjük szabadítson fel helyet az SD kártyán / USB tárolón az alkalmazás használatához!</string>
-    <string name="download_resources">Első használat előtt letöltjük a világtérképet.\n%s tárolóhely szükséges.</string>
+    <string name="download_resources">Első használat előtt letöltjük a világtérképet.
+\n%s tárolóhely szükséges.</string>
     <string name="download_resources_continue">Térképhez ugrás</string>
-    <string name="downloading_country_can_proceed">%s letöltése. Mos továbbléphet\na térképhez.</string>
+    <string name="downloading_country_can_proceed">%s letöltése. Mos továbbléphet
+\na térképhez.</string>
     <string name="download_country_ask">Letöltsem %s-t?</string>
     <string name="update_country_ask">Frissítsem %s-t?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -104,7 +106,8 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">Hiba történt a térképfájlok áthelyezése közben</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Ez több percig is eltarthat.\nKérjük várjon…</string>
+    <string name="wait_several_minutes">Ez több percig is eltarthat.
+\nKérjük várjon…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Mértékegységek</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -170,9 +173,12 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Könyvjelzők feltöltése sikertelen. A fájl sérült lehet.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Az alkalmazás nem ismeri fel a fájltípust:\n%1$s</string>
+    <string name="unknown_file_type">Az alkalmazás nem ismeri fel a fájltípust:
+\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Nem sikerült megnyitni a fájlt %1$s\n\n%2$s</string>
+    <string name="failed_to_open_file">Nem sikerült megnyitni a fájlt %1$s
+\n
+\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Szerkeszt</string>
     <!-- Warning message when doing search around current position -->
@@ -188,7 +194,11 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Nézze meg a helyzetemet a Organic Maps térképen!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Üdvözlöm!\n\nJelenleg itt vagyok: %1$s Kattintson erre a hivatkozásra %2$s vagy erre %3$s, hogy lássa a helyet a térképen.\n\nKöszönöm.</string>
+    <string name="my_position_share_email">Üdvözlöm!
+\n
+\nJelenleg itt vagyok: %1$s Kattintson erre a hivatkozásra %2$s vagy erre %3$s, hogy lássa a helyet a térképen.
+\n
+\nKöszönöm.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Megosztás</string>
     <!-- Share by email button text, also used in editor and About. -->

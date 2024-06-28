@@ -52,9 +52,11 @@
     <string name="disconnect_usb_cable">Prosím, odpojte USB kábel alebo vložte pamäťovú kartu pre použitie s Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Prosím, uvoľnite najprv miesto na SD karte/USB úložisku</string>
-    <string name="download_resources">Skôr ako začnete, bude treba stiahnuť základnú mapu sveta.\nZaberie to %s.</string>
+    <string name="download_resources">Skôr ako začnete, bude treba stiahnuť základnú mapu sveta.
+\nZaberie to %s.</string>
     <string name="download_resources_continue">Prejsť na mapu</string>
-    <string name="downloading_country_can_proceed">Sťahovanie %s. Teraz môžete\nprejsť na mapu.</string>
+    <string name="downloading_country_can_proceed">Sťahovanie %s. Teraz môžete
+\nprejsť na mapu.</string>
     <string name="download_country_ask">Stiahnuť %s?</string>
     <string name="update_country_ask">Aktualizovať %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -104,7 +106,8 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">Chyba pri presune mapových súborov</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Táto akcia môže trvať niekoľko minút.\nProsím čakajte…</string>
+    <string name="wait_several_minutes">Táto akcia môže trvať niekoľko minút.
+\nProsím čakajte…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Meracie jednotky</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -163,7 +166,11 @@
     <string name="description">Poznámky</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Zdielané záložky Organic Maps</string>
-    <string name="share_bookmarks_email_body">Ahoj!\n\nV prílohe sú moje záložky z aplikácie Organic Maps. Ak ju nemáš nainštalovanú, môžeš si ju stiahnuť tu: https://omaps.app/get?kmz\n\nPrajem šťastnú cestu s Organic Maps!</string>
+    <string name="share_bookmarks_email_body">Ahoj!
+\n
+\nV prílohe sú moje záložky z aplikácie Organic Maps. Ak ju nemáš nainštalovanú, môžeš si ju stiahnuť tu: https://omaps.app/get?kmz
+\n
+\nPrajem šťastnú cestu s Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Načítavanie záložiek</string>
     <!-- Kmz file successful loading -->
@@ -171,9 +178,12 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Načítavanie záložiek sa nepodarilo. Súbor môže byť poškodený alebo chybný.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Aplikácia nerozpoznáva typ súboru:\n%1$s</string>
+    <string name="unknown_file_type">Aplikácia nerozpoznáva typ súboru:
+\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Nepodarilo sa otvoriť súbor %1$s\n\n%2$s</string>
+    <string name="failed_to_open_file">Nepodarilo sa otvoriť súbor %1$s
+\n
+\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Upraviť</string>
     <!-- Warning message when doing search around current position -->
@@ -189,7 +199,11 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Pozrite si moju aktuálnu polohu na mape Organic Maps</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Ahoj,\n\nPráve som tu: %1$s. Stlačte jeden z týchto odkazov %2$s, %3$s a uvidíte toto miesto na mape.\n\nVďaka</string>
+    <string name="my_position_share_email">Ahoj,
+\n
+\nPráve som tu: %1$s. Stlačte jeden z týchto odkazov %2$s, %3$s a uvidíte toto miesto na mape.
+\n
+\nVďaka</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Zdieľať</string>
     <!-- Share by email button text, also used in editor and About. -->

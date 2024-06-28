@@ -52,9 +52,11 @@
     <string name="disconnect_usb_cable">Vänligen koppla ifrån USB-kabeln eller sätt in ett minneskort för att använda Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Vänligen frigör utrymme på SD-kortet/USB-lagringen först för att använda denna app.</string>
-    <string name="download_resources">Innan du startar, låt oss ladda ner den generella världskartan på din enhet.\nDen behöver %s data.</string>
+    <string name="download_resources">Innan du startar, låt oss ladda ner den generella världskartan på din enhet.
+\nDen behöver %s data.</string>
     <string name="download_resources_continue">Gå till karta</string>
-    <string name="downloading_country_can_proceed">Laddar ner %s. Du kan nu\n fortsätta till kartan.</string>
+    <string name="downloading_country_can_proceed">Laddar ner %s. Du kan nu
+\n fortsätta till kartan.</string>
     <string name="download_country_ask">Ladda ner %s?</string>
     <string name="update_country_ask">Uppdatera %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -92,7 +94,8 @@
     <!-- Question dialog for transferring maps from one storage to another -->
     <string name="move_maps">Flytta kartor?</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Detta kan ta flera minuter.\nVänligen vänta…</string>
+    <string name="wait_several_minutes">Detta kan ta flera minuter.
+\nVänligen vänta…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Längdenheter</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -156,9 +159,12 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Inläsningen av bokmärkena misslyckades. Filen kan vara skadad eller defekt.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Filtypen känns inte igen av appen:\n%1$s</string>
+    <string name="unknown_file_type">Filtypen känns inte igen av appen:
+\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Det gick inte att öppna filen %1$s\n\n%2$s</string>
+    <string name="failed_to_open_file">Det gick inte att öppna filen %1$s
+\n
+\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Redigera</string>
     <!-- Warning message when doing search around current position -->
@@ -174,7 +180,11 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hej, kolla på min nuvarande position på Organic Maps kartan!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Hej,\n\nJag är här nu: %1$s. Klicka på denna länk %2$s eller denna %3$s för att se platsen på kartan.\n\nTack.</string>
+    <string name="my_position_share_email">Hej,
+\n
+\nJag är här nu: %1$s. Klicka på denna länk %2$s eller denna %3$s för att se platsen på kartan.
+\n
+\nTack.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Dela</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -549,7 +559,9 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Allmän feedback</string>
     <string name="prefs_languages_information">Vi använder TTS-system för röstinstruktioner. Flera Android-enheter använder Google TTS. Du kan ladda ned eller uppdatera det på Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">För vissa språk måste du installera en annan talsyntes eller ett annat språkpaket från appbutiken (Google Play Market, Galaxy Store).\nÖppna inställningarna på enheten → Språk och inmatning → Tal → Text till tal-uppspelning.\nHär kan du hantera inställningarna för talsyntes (till exempel, ladda ned språkpaket för användning offline) och välja en annan text till tal-motor.</string>
+    <string name="prefs_languages_information_off">För vissa språk måste du installera en annan talsyntes eller ett annat språkpaket från appbutiken (Google Play Market, Galaxy Store).
+\nÖppna inställningarna på enheten → Språk och inmatning → Tal → Text till tal-uppspelning.
+\nHär kan du hantera inställningarna för talsyntes (till exempel, ladda ned språkpaket för användning offline) och välja en annan text till tal-motor.</string>
     <string name="prefs_languages_information_off_link">Kolla in den här guiden för mer information.</string>
     <string name="transliteration_title">Transkribering till latin</string>
     <string name="learn_more">Läs mer</string>

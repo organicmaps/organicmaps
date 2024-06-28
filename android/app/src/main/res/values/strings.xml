@@ -55,9 +55,11 @@
     <string name="disconnect_usb_cable">Please disconnect USB cable or insert memory card to use Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Please free up some space on the SD card/USB storage first in order to use the app</string>
-    <string name="download_resources">Before you start using the app, please download the general world map to your device.\nIt will use %s of storage.</string>
+    <string name="download_resources">Before you start using the app, please download the general world map to your device.
+\nIt will use %s of storage.</string>
     <string name="download_resources_continue">Go to Map</string>
-    <string name="downloading_country_can_proceed">Downloading %s. You can now\nproceed to the map.</string>
+    <string name="downloading_country_can_proceed">Downloading %s. You can now
+\nproceed to the map.</string>
     <string name="download_country_ask">Download %s?</string>
     <string name="update_country_ask">Update %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -107,7 +109,8 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">Error moving map files</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">This can take several minutes.\nPlease wait…</string>
+    <string name="wait_several_minutes">This can take several minutes.
+\nPlease wait…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Measurement units</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -166,7 +169,11 @@
     <string name="description">Notes</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Organic Maps bookmarks were shared with you</string>
-    <string name="share_bookmarks_email_body">Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don\'t have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!</string>
+    <string name="share_bookmarks_email_body">Hello!
+\n
+\nAttached are my bookmarks; please open them in Organic Maps. If you don\'t have it installed you can download it here: https://omaps.app/get?kmz
+\n
+\nEnjoy travelling with Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Loading Bookmarks</string>
     <!-- Kmz file successful loading -->
@@ -174,9 +181,12 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Failed to load bookmarks. The file may be corrupted or defective.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">The file type is not recognized by the app:\n%1$s</string>
+    <string name="unknown_file_type">The file type is not recognized by the app:
+\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Failed to open file %1$s\n\n%2$s</string>
+    <string name="failed_to_open_file">Failed to open file %1$s
+\n
+\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Edit</string>
     <!-- Warning message when doing search around current position -->
@@ -192,7 +202,11 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hey, check out my current location on the Organic Maps map!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Hi,\n\nI\'m here now: %1$s. Click this link %2$s or this one %3$s to see the place on the map.\n\nThanks.</string>
+    <string name="my_position_share_email">Hi,
+\n
+\nI\'m here now: %1$s. Click this link %2$s or this one %3$s to see the place on the map.
+\n
+\nThanks.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Share</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -611,7 +625,9 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">General Feedback</string>
     <string name="prefs_languages_information">We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play, Galaxy Store, App Gallery, FDroid).\nOpen your device\'s settings → Language and input → Speech → Text to speech output.\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.</string>
+    <string name="prefs_languages_information_off">For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play, Galaxy Store, App Gallery, FDroid).
+\nOpen your device\'s settings → Language and input → Speech → Text to speech output.
+\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.</string>
     <string name="prefs_languages_information_off_link">For more information please check this guide.</string>
     <string name="transliteration_title">Transliteration into Latin alphabet</string>
     <string name="learn_more">Learn more</string>

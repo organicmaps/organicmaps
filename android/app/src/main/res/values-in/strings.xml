@@ -54,7 +54,8 @@
     <string name="disconnect_usb_cable">Mohon lepas kabel USB atau masukkan kartu memori untuk menggunakan Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Mohon bebaskan sejumlah ruang pada kartu SD/penyimpanan USB terlebih dahulu untuk menggunakan aplikasi</string>
-    <string name="download_resources">Sebelum Anda mulai izinkan kami mengunduh peta dunia secara umum ke perangkat Anda.\nHal ini memerlukan data %s.</string>
+    <string name="download_resources">Sebelum Anda mulai izinkan kami mengunduh peta dunia secara umum ke perangkat Anda.
+\nHal ini memerlukan data %s.</string>
     <string name="download_resources_continue">Pergi ke Peta</string>
     <string name="downloading_country_can_proceed">Sedang mengunduh %s. Sekarang Anda dapat melanjutkan ke peta.</string>
     <string name="download_country_ask">Unduh %s?</string>
@@ -94,7 +95,8 @@
     <!-- Question dialog for transferring maps from one storage to another -->
     <string name="move_maps">Pindahkan peta?</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Ini akan memakan waktu beberapa menit.\nMohon tunggu…</string>
+    <string name="wait_several_minutes">Ini akan memakan waktu beberapa menit.
+\nMohon tunggu…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Unit Pengukuran</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -160,9 +162,12 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Gagal mengunggah penanda lokasi. Berkas mungkin rusak.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Jenis file tidak dikenali oleh aplikasi:\n%1$s</string>
+    <string name="unknown_file_type">Jenis file tidak dikenali oleh aplikasi:
+\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Gagal membuka file %1$s\n\n%2$s</string>
+    <string name="failed_to_open_file">Gagal membuka file %1$s
+\n
+\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Edit</string>
     <!-- Warning message when doing search around current position -->
@@ -178,7 +183,11 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hei, lihat lokasiku saat ini di peta Organic Maps!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Hai,\n\nSekarang saya ada di sini: %1$s. Klik tautan ini %2$s atau yang ini %3$s untuk melihat tempatnya di peta.\n\nTerima kasih.</string>
+    <string name="my_position_share_email">Hai,
+\n
+\nSekarang saya ada di sini: %1$s. Klik tautan ini %2$s atau yang ini %3$s untuk melihat tempatnya di peta.
+\n
+\nTerima kasih.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Bagikan</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -553,7 +562,9 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Umpan Balik Umum</string>
     <string name="prefs_languages_information">Kami menggunakan TTS sistem untuk petunjuk suara. Banyak perangkat Android menggunakan Google TTS, Anda dapat mengunduhnya dari Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">Untuk beberapa bahasa, Anda perlu menginstal synthesizer suara atau paket bahasa tambahan dari toko aplikasi (Google Play, Galaxy Store, App Gallery, FDroid).\nBuka pengaturan perangkat Anda → Language and input (Bahasa dan input) → Speech (Suara) → Text to speech (Teks ke suara).\nDi sini, Anda dapat mengelola pengaturan untuk sintesis suara (contohnya, mengunduh paket bahasa untuk penggunaan tanpa internet) dan memilih mesin tekske suara lain.</string>
+    <string name="prefs_languages_information_off">Untuk beberapa bahasa, Anda perlu menginstal synthesizer suara atau paket bahasa tambahan dari toko aplikasi (Google Play, Galaxy Store, App Gallery, FDroid).
+\nBuka pengaturan perangkat Anda → Language and input (Bahasa dan input) → Speech (Suara) → Text to speech (Teks ke suara).
+\nDi sini, Anda dapat mengelola pengaturan untuk sintesis suara (contohnya, mengunduh paket bahasa untuk penggunaan tanpa internet) dan memilih mesin tekske suara lain.</string>
     <string name="prefs_languages_information_off_link">Untuk informasi selengkapnya, bacalah panduan ini.</string>
     <string name="transliteration_title">Transliterasi ke dalam bahasa Latin</string>
     <string name="learn_more">Pelajari selengkapnya</string>

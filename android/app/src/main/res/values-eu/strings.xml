@@ -52,9 +52,11 @@
     <string name="disconnect_usb_cable">Mesedez, deskonektatu USB kablea edo sartu SD memoria Organic Maps erabiltzeko</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Mesedez, egin lekua SD memorian/USB biltegian aplikazioa erabiltzeko</string>
-    <string name="download_resources">Hasi aurretik deskargatu mesedez mundu-mapa orokorra zure gailura.\nMemorian %s erabiliko ditu.</string>
+    <string name="download_resources">Hasi aurretik deskargatu mesedez mundu-mapa orokorra zure gailura.
+\nMemorian %s erabiliko ditu.</string>
     <string name="download_resources_continue">Joan mapara</string>
-    <string name="downloading_country_can_proceed">%s deskargatzen. Orain mapara\n joan zaitezke.</string>
+    <string name="downloading_country_can_proceed">%s deskargatzen. Orain mapara
+\n joan zaitezke.</string>
     <string name="download_country_ask">%s deskargatu?</string>
     <string name="update_country_ask">%s eguneratu?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -104,7 +106,8 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">Ezin izan dira mapak mugitu</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Honek minutu batzuk iraun ditzake.\n Itxaron mesedez…</string>
+    <string name="wait_several_minutes">Honek minutu batzuk iraun ditzake.
+\n Itxaron mesedez…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Neurketa unitateak</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -163,7 +166,10 @@
     <string name="description">Oharrak</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Organic Maps markagailuak zurekin partekatu dira</string>
-    <string name="share_bookmarks_email_body">Kaixo!\nNire markagailuak Organic Maps aplikazioan erantsi ditut. Mesedez, ireki itzazu Organic Maps instalatuta baduzu. Edo, ez baduzu, deskargatu aplikazioa zure iOS edo Android gailurako esteka hau jarraituz: https://omaps.app/get?kmz\n\nGozatu bidaiatzen Organic Maps-ekin!</string>
+    <string name="share_bookmarks_email_body">Kaixo!
+\nNire markagailuak Organic Maps aplikazioan erantsi ditut. Mesedez, ireki itzazu Organic Maps instalatuta baduzu. Edo, ez baduzu, deskargatu aplikazioa zure iOS edo Android gailurako esteka hau jarraituz: https://omaps.app/get?kmz
+\n
+\nGozatu bidaiatzen Organic Maps-ekin!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Markagailuak kargatzen</string>
     <!-- Kmz file successful loading -->
@@ -171,9 +177,12 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Ezin izan dira markagailuak kargatu. Fitxategia hondatuta edo akastuna izan daiteke.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Aplikazioak ez du fitxategi mota ezagutzen:\n%1$s</string>
+    <string name="unknown_file_type">Aplikazioak ez du fitxategi mota ezagutzen:
+\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Ezin izan da fitxategia ireki %1$s\n\n%2$s</string>
+    <string name="failed_to_open_file">Ezin izan da fitxategia ireki %1$s
+\n
+\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Editatu</string>
     <!-- Warning message when doing search around current position -->
@@ -189,7 +198,11 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Ikusi nire uneko kokapena Organic Maps mapan!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Kaixo:\n\nOrain hemen nago: %1$s. Egin klik esteka honetan %2$s edo %3$s honetan mapan ikusteko.\n\nEskerrik asko.</string>
+    <string name="my_position_share_email">Kaixo:
+\n
+\nOrain hemen nago: %1$s. Egin klik esteka honetan %2$s edo %3$s honetan mapan ikusteko.
+\n
+\nEskerrik asko.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Partekatu</string>
     <!-- Share by email button text, also used in editor and About. -->

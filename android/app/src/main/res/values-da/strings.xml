@@ -52,9 +52,11 @@
     <string name="disconnect_usb_cable">Frakobl venligst USB-kabel eller indsæt et memory kort for at bruge Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Frigør venligst plads på dit SD-kort/USB lager først for at bruge denne app</string>
-    <string name="download_resources">Før du starter, så lad os downloade det generelle verdenskort til din enhed.\nIt behøver %s af data.</string>
+    <string name="download_resources">Før du starter, så lad os downloade det generelle verdenskort til din enhed.
+\nIt behøver %s af data.</string>
     <string name="download_resources_continue">Gå til kort</string>
-    <string name="downloading_country_can_proceed">Downloader %s. Du kan nu\nfortsætte til kortet.</string>
+    <string name="downloading_country_can_proceed">Downloader %s. Du kan nu
+\nfortsætte til kortet.</string>
     <string name="download_country_ask">Download %s?</string>
     <string name="update_country_ask">Opdater %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -92,7 +94,8 @@
     <!-- Question dialog for transferring maps from one storage to another -->
     <string name="move_maps">Flyt kort?</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Dette kan tage flere minutter.\nVent venligst…</string>
+    <string name="wait_several_minutes">Dette kan tage flere minutter.
+\nVent venligst…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Måleenhed</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -158,9 +161,12 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Bogmærkerne kunne ikke indlæses. Fil kan være skadet eller defekte.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Filtypen genkendes ikke af appen:\n%1$s</string>
+    <string name="unknown_file_type">Filtypen genkendes ikke af appen:
+\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Kunne ikke åbne filen %1$s\n\n%2$s</string>
+    <string name="failed_to_open_file">Kunne ikke åbne filen %1$s
+\n
+\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Rediger</string>
     <!-- Warning message when doing search around current position -->
@@ -552,7 +558,8 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Generel feedback</string>
     <string name="prefs_languages_information">Vi bruger systemets TTS til stemmevejledning. Mange Android-enheder bruger Google TTS, du kan hente eller opdatere det via Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">For nogle sprog skal du installere en anden talesyntese eller en yderligere sprogpakke fra appbutiken (Google Play, Galaxy Store, App Gallery, FDroid).\nÅbn enhedens indstillinger → Sprog og input → Tale → Tekst til tale. Her kan du administrere indstillingerne for talesyntese (f. eks downloade en sprogpakke til brug offline) og vælge et andet tekst-til-tale program.</string>
+    <string name="prefs_languages_information_off">For nogle sprog skal du installere en anden talesyntese eller en yderligere sprogpakke fra appbutiken (Google Play, Galaxy Store, App Gallery, FDroid).
+\nÅbn enhedens indstillinger → Sprog og input → Tale → Tekst til tale. Her kan du administrere indstillingerne for talesyntese (f. eks downloade en sprogpakke til brug offline) og vælge et andet tekst-til-tale program.</string>
     <string name="prefs_languages_information_off_link">Se denne vejledning for flere oplysninger.</string>
     <string name="transliteration_title">Translitteration til latinsk</string>
     <string name="learn_more">Flere oplysninger</string>

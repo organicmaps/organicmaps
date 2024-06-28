@@ -46,9 +46,11 @@
     <string name="disconnect_usb_cable">Organic Maps kasutamiseks palun ühenda USB kaabel lahti või sisesta mälukaart</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Rakenduse kasutamiseks palun vabasta kõigepealt piisavalt ruumi mälukaardil/USB salvestusseadmel</string>
-    <string name="download_resources">Ennem rakenduse kasutamise alustamist luba meil laadida seadmesse alla maailma üldkaart.\nSee kasutab %s mälumahtu.</string>
+    <string name="download_resources">Ennem rakenduse kasutamise alustamist luba meil laadida seadmesse alla maailma üldkaart.
+\nSee kasutab %s mälumahtu.</string>
     <string name="download_resources_continue">Mine kaardile</string>
-    <string name="downloading_country_can_proceed">Allalaadimine %s. Võid nüüd\nkaardiga jätkata.</string>
+    <string name="downloading_country_can_proceed">Allalaadimine %s. Võid nüüd
+\nkaardiga jätkata.</string>
     <string name="download_country_ask">Laadida alla %s?</string>
     <string name="update_country_ask">Värskendada %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -98,7 +100,8 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">Kaardipaanide teisaldamine ebaõnnestus</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">See võib võtta mitu minutit.\nPalun oota…</string>
+    <string name="wait_several_minutes">See võib võtta mitu minutit.
+\nPalun oota…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Mõõtühikud</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -157,7 +160,10 @@
     <string name="description">Märkmed</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Organic Maps järjehoidjaid jagati Sinuga</string>
-    <string name="share_bookmarks_email_body">Tere!\nManuses on minu järjehoidjad rakendusest Organic Maps. Palun ava need kui Sul on Organic Maps paigaldatud. Või kui ei ole, lae rakendus alla oma iOS või Android seadmesse, järgides seda linki: https:omaps.appget?kmz\n\nNaudi reisimist Organic Maps-iga!</string>
+    <string name="share_bookmarks_email_body">Tere!
+\nManuses on minu järjehoidjad rakendusest Organic Maps. Palun ava need kui Sul on Organic Maps paigaldatud. Või kui ei ole, lae rakendus alla oma iOS või Android seadmesse, järgides seda linki: https:omaps.appget?kmz
+\n
+\nNaudi reisimist Organic Maps-iga!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Järjehoidjate laadimine</string>
     <!-- Kmz file successful loading -->
@@ -165,9 +171,12 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Järjehoidjate laadimine ebaõnnestus. Fail võib olla vigane.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Rakendus ei tunnista failitüüpi:\n%1$s</string>
+    <string name="unknown_file_type">Rakendus ei tunnista failitüüpi:
+\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Faili avamine ebaõnnestus %1$s\n\n%2$s</string>
+    <string name="failed_to_open_file">Faili avamine ebaõnnestus %1$s
+\n
+\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Muuda</string>
     <!-- Warning message when doing search around current position -->
@@ -183,7 +192,11 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hei, vaata minu hetkeasukohta Organic Maps kaardil!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Tere,\n\nOlen praegu siin: %1$s. Ava see link %2$s või see %3$s, et näha seda kohta kaardil.\n\nAitäh.</string>
+    <string name="my_position_share_email">Tere,
+\n
+\nOlen praegu siin: %1$s. Ava see link %2$s või see %3$s, et näha seda kohta kaardil.
+\n
+\nAitäh.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Jaga</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -576,7 +589,9 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Üldine tagasiside</string>
     <string name="prefs_languages_information">Hääljuhiste jaoks kasutame TTS süsteemi. Paljud Android-seadmed kasutavad Google\'i TTS-i, saate selle alla laadida või värskendada teenusest Google Play (https:play.google.comstoreappsdetails?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">Mõne keele puhul peate paigaldama kõnesüntesaatori või täiendava keelepaketi rakenduste poest (Google Play, Galaxy Store, App Gallery, FDroid).\nAvage oma seadme seaded → Keel ja sisend → Kõne → Tekst kõneks väljund.\nSiin saate hallata kõnesünteesi seadeid (näiteks alla laadida keelepaketti võrguühenduseta kasutamiseks) ja valida mõne muu teksti kõneks muutmise mootori.</string>
+    <string name="prefs_languages_information_off">Mõne keele puhul peate paigaldama kõnesüntesaatori või täiendava keelepaketi rakenduste poest (Google Play, Galaxy Store, App Gallery, FDroid).
+\nAvage oma seadme seaded → Keel ja sisend → Kõne → Tekst kõneks väljund.
+\nSiin saate hallata kõnesünteesi seadeid (näiteks alla laadida keelepaketti võrguühenduseta kasutamiseks) ja valida mõne muu teksti kõneks muutmise mootori.</string>
     <string name="prefs_languages_information_off_link">Lisainfo saamiseks palun vaadake seda juhist.</string>
     <string name="transliteration_title">Transliteratsioon ladina keelde</string>
     <string name="learn_more">Lisateave</string>

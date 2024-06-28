@@ -55,9 +55,11 @@
     <string name="disconnect_usb_cable">請拔除 USB 線或插入 SD 卡以使用 Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">請先釋放一些 SD 卡 / USB 儲存空間以使用 Organic Maps。</string>
-    <string name="download_resources">在您開始使用此應用程式之前，請下載全球地圖到您的裝置。\n它將使用 %s 的儲存空間。</string>
+    <string name="download_resources">在您開始使用此應用程式之前，請下載全球地圖到您的裝置。
+\n它將使用 %s 的儲存空間。</string>
     <string name="download_resources_continue">前往地圖</string>
-    <string name="downloading_country_can_proceed">正在下載%s。您現在可以\n繼續查看地圖。</string>
+    <string name="downloading_country_can_proceed">正在下載%s。您現在可以
+\n繼續查看地圖。</string>
     <string name="download_country_ask">下載%s的地圖嗎？</string>
     <string name="update_country_ask">更新%s的地圖嗎？</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -107,7 +109,8 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">移動地圖檔案時出錯</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">這可能需要幾分鐘的時間\n請稍候…</string>
+    <string name="wait_several_minutes">這可能需要幾分鐘的時間
+\n請稍候…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">測量單位</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -166,7 +169,11 @@
     <string name="description">註釋</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">已與您分享 Organic Maps 書籤</string>
-    <string name="share_bookmarks_email_body">您好！\n\n附件是我的書籤，請在 Organic Maps 中打開。如果您沒有安裝 Organic Maps，可以在這裡下載: https://omaps.app/get?kmz\n\n祝您使用 Organic Maps 旅行愉快！</string>
+    <string name="share_bookmarks_email_body">您好！
+\n
+\n附件是我的書籤，請在 Organic Maps 中打開。如果您沒有安裝 Organic Maps，可以在這裡下載: https://omaps.app/get?kmz
+\n
+\n祝您使用 Organic Maps 旅行愉快！</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">正在載入書籤…</string>
     <!-- Kmz file successful loading -->
@@ -174,9 +181,12 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">書籤載入失敗，檔案可能已損壞或不完整。</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">應用程式無法識別該文件類型：\n%1$s</string>
+    <string name="unknown_file_type">應用程式無法識別該文件類型：
+\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">無法打開檔案 %1$s\n\n%2$s</string>
+    <string name="failed_to_open_file">無法打開檔案 %1$s
+\n
+\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">編輯</string>
     <!-- Warning message when doing search around current position -->
@@ -192,7 +202,11 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">嗨，到 Organic Maps 查看我目前的位置！</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">嗨，\n\n我現在在這：%1$s。點擊此連結 %2$s 或此連結 %3$s 來查看在地圖上的位置。\n\n謝謝。</string>
+    <string name="my_position_share_email">嗨，
+\n
+\n我現在在這：%1$s。點擊此連結 %2$s 或此連結 %3$s 來查看在地圖上的位置。
+\n
+\n謝謝。</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">分享</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -595,7 +609,9 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">一般反應</string>
     <string name="prefs_languages_information">我們的語音導航使用“文字轉語音”系統。許多 Android 裝置使用 Google 的文字轉語音系統，您可以從 Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) 下載或更新這一功能。</string>
-    <string name="prefs_languages_information_off">對於某些語言，您需要從應用商店（例如 Google Play Store、Galaxy Store）中安裝其他語音合成器或語言套件。\n打開您的裝置的設定 → 語言和輸入法 → 語音 → 文字轉語音 (TTS) 輸出。\n您可以在這裡管理語音合成的設定（例如，下載語言包供離線使用）和選擇其他文字轉語音引擎。</string>
+    <string name="prefs_languages_information_off">對於某些語言，您需要從應用商店（例如 Google Play Store、Galaxy Store）中安裝其他語音合成器或語言套件。
+\n打開您的裝置的設定 → 語言和輸入法 → 語音 → 文字轉語音 (TTS) 輸出。
+\n您可以在這裡管理語音合成的設定（例如，下載語言包供離線使用）和選擇其他文字轉語音引擎。</string>
     <string name="prefs_languages_information_off_link">如需瞭解更多資訊，請參閱此指南。</string>
     <string name="transliteration_title">拉丁字母音譯</string>
     <string name="learn_more">瞭解更多資訊</string>

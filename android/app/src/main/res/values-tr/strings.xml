@@ -54,9 +54,11 @@
     <string name="disconnect_usb_cable">Organic Maps’i kullanabilmek için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Uygulamayı kullanabilmek için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın</string>
-    <string name="download_resources">Başlamadan önce cihazınıza genel dünya haritasını indirelim.\n%s alan gerekli.</string>
+    <string name="download_resources">Başlamadan önce cihazınıza genel dünya haritasını indirelim.
+\n%s alan gerekli.</string>
     <string name="download_resources_continue">Haritaya Git</string>
-    <string name="downloading_country_can_proceed">%s indiriliyor. Şimdi haritaya\ngidebilirsiniz.</string>
+    <string name="downloading_country_can_proceed">%s indiriliyor. Şimdi haritaya
+\ngidebilirsiniz.</string>
     <string name="download_country_ask">%s indir?</string>
     <string name="update_country_ask">%s güncelle?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -106,7 +108,8 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">Harita dosyalarını taşıma hatası</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Bu işlem birkaç dakika sürebilir.\nLütfen bekleyin…</string>
+    <string name="wait_several_minutes">Bu işlem birkaç dakika sürebilir.
+\nLütfen bekleyin…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Ölçü birimleri</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -165,7 +168,11 @@
     <string name="description">Notlar</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Seninle paylaşılan Organic Maps yer imleri</string>
-    <string name="share_bookmarks_email_body">Merhaba!\n\nEktekiler benim Organic Maps yer imlerim. Eğer Organic Maps\'i yüklediyseniz lütfen ektekileri açın. Eğer yüklemediyseniz, bu bağlantıyı takip ederek iOS ve Android cihazınız için uygulamayı yükleyebilirsiniz: https://omaps.app/get?kmz\n\nOrganic Maps ile seyahat etmenin keyfini çıkarın!</string>
+    <string name="share_bookmarks_email_body">Merhaba!
+\n
+\nEktekiler benim Organic Maps yer imlerim. Eğer Organic Maps\'i yüklediyseniz lütfen ektekileri açın. Eğer yüklemediyseniz, bu bağlantıyı takip ederek iOS ve Android cihazınız için uygulamayı yükleyebilirsiniz: https://omaps.app/get?kmz
+\n
+\nOrganic Maps ile seyahat etmenin keyfini çıkarın!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Yer İmleri Yükleniyor</string>
     <!-- Kmz file successful loading -->
@@ -173,9 +180,12 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Yer İmlerini yükleme işlemi başarısız oldu. Dosya bozuk veya hatalı olabilir.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Dosya türü uygulama tarafından tanınmıyor:\n%1$s</string>
+    <string name="unknown_file_type">Dosya türü uygulama tarafından tanınmıyor:
+\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Dosya açılamadı %1$s\n\n%2$s</string>
+    <string name="failed_to_open_file">Dosya açılamadı %1$s
+\n
+\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Düzenle</string>
     <!-- Warning message when doing search around current position -->
@@ -191,7 +201,11 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hey, Organic Maps’te geçerli konumumu incele!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Merhaba,\n\nŞu anda bulunduğum yer: %1$s. Yeri haritada görmek için %2$s veya %3$s bağlantısına tıkla.\n\nTeşekkürler.</string>
+    <string name="my_position_share_email">Merhaba,
+\n
+\nŞu anda bulunduğum yer: %1$s. Yeri haritada görmek için %2$s veya %3$s bağlantısına tıkla.
+\n
+\nTeşekkürler.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Paylaş</string>
     <!-- Share by email button text, also used in editor and About. -->

@@ -52,9 +52,11 @@
     <string name="disconnect_usb_cable">Desconnecteu el cable USB o inseriu una targeta de memòria per a usar l’Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Allibereu espai en la targeta SD o emmagatzematge USB per a poder usar l’aplicació</string>
-    <string name="download_resources">Abans d’usar l’aplicació, autoritzeu que baixem el mapa del món general al vostre aparell.\nUsarà %s d’emmagatzematge.</string>
+    <string name="download_resources">Abans d’usar l’aplicació, autoritzeu que baixem el mapa del món general al vostre aparell.
+\nUsarà %s d’emmagatzematge.</string>
     <string name="download_resources_continue">Ves al mapa</string>
-    <string name="downloading_country_can_proceed">S’està baixant %s. Mentrestant, podeu\nanar al mapa.</string>
+    <string name="downloading_country_can_proceed">S’està baixant %s. Mentrestant, podeu
+\nanar al mapa.</string>
     <string name="download_country_ask">Voleu baixar %s?</string>
     <string name="update_country_ask">Voleu actualitzar %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -104,7 +106,8 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">S\'ha produït un error en moure els fitxers de mapes</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Això pot trigar uns minuts.\nEspereu…</string>
+    <string name="wait_several_minutes">Això pot trigar uns minuts.
+\nEspereu…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Unitats de mesura</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -163,7 +166,11 @@
     <string name="description">Notes</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Marcadors d\'Organic Maps compartits</string>
-    <string name="share_bookmarks_email_body">Hola!\n\nAdjunto els meus marcadors de l\'aplicació Organic Maps. Obriu-los si teniu l\'Organic Maps instal·lat. O, si no teniu l\'aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://omaps.app/get?kmz\n\nGaudiu viatjant amb l\'Organic Maps!</string>
+    <string name="share_bookmarks_email_body">Hola!
+\n
+\nAdjunto els meus marcadors de l\'aplicació Organic Maps. Obriu-los si teniu l\'Organic Maps instal·lat. O, si no teniu l\'aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://omaps.app/get?kmz
+\n
+\nGaudiu viatjant amb l\'Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">S\'estan carregant els marcadors</string>
     <!-- Kmz file successful loading -->
@@ -171,9 +178,12 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">No s\'ha pogut carregar els marcadors. El fitxer pot ser malmès o defectuós.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">L\'aplicació no reconeix el tipus de fitxer:\n%1$s</string>
+    <string name="unknown_file_type">L\'aplicació no reconeix el tipus de fitxer:
+\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">No s\'ha pogut obrir el fitxer %1$s\n\n%2$s</string>
+    <string name="failed_to_open_file">No s\'ha pogut obrir el fitxer %1$s
+\n
+\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Edita</string>
     <!-- Warning message when doing search around current position -->
@@ -189,7 +199,11 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Ep, mireu la meva ubicació actual en el mapa de l\'Organic Maps!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Hola,\n\nSoc aquí: %1$s. Feu clic en aquest enllaç %2$s o en aquest altre %3$s per a veure el lloc en el mapa.\n\nGràcies.</string>
+    <string name="my_position_share_email">Hola,
+\n
+\nSoc aquí: %1$s. Feu clic en aquest enllaç %2$s o en aquest altre %3$s per a veure el lloc en el mapa.
+\n
+\nGràcies.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Comparteix</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -583,7 +597,9 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Opinió general</string>
     <string name="prefs_languages_information">Usem el sistema de síntesi de veu per a les instruccions de veu. Molts aparells Android use el motor de síntesi de veu de Google, podeu baixar o actualitzar-lo des del Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">Per a algunes llengües, haureu d\'instal·lar un sintetizador de veu o un paquet de llengua addicional des de la botiga d\'apliacions (Google Play, Galazy Store, FDroid).\nObriu la configuració de l\'aparell → Idioma i entrada → Veu → Sortidda de text a veu.\nAquí podeu gestionar la configuració de la síntesi de veu (per exemple, baixar un paquet de llengua per a ús sense connexió) i triar un altre motor de síntesi de veu.</string>
+    <string name="prefs_languages_information_off">Per a algunes llengües, haureu d\'instal·lar un sintetizador de veu o un paquet de llengua addicional des de la botiga d\'apliacions (Google Play, Galazy Store, FDroid).
+\nObriu la configuració de l\'aparell → Idioma i entrada → Veu → Sortidda de text a veu.
+\nAquí podeu gestionar la configuració de la síntesi de veu (per exemple, baixar un paquet de llengua per a ús sense connexió) i triar un altre motor de síntesi de veu.</string>
     <string name="prefs_languages_information_off_link">Per a més informació, vegeu aquesta guia.</string>
     <string name="transliteration_title">Translitertació a l\'alfabet llatí</string>
     <string name="learn_more">Més informació</string>

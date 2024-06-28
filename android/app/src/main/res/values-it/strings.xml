@@ -52,9 +52,11 @@
     <string name="disconnect_usb_cable">Si prega di scollegare il cavo USB o inserire la scheda di memoria per utilizzare Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Libera prima dello spazio sulla scheda Sd/ memoria USB per usare l\'app</string>
-    <string name="download_resources">Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.\nLa dimensione del download è di %s.</string>
+    <string name="download_resources">Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.
+\nLa dimensione del download è di %s.</string>
     <string name="download_resources_continue">Vai alla mappa</string>
-    <string name="downloading_country_can_proceed">Sto scaricando %s. Puoi ora\nprocedere con la mappa.</string>
+    <string name="downloading_country_can_proceed">Sto scaricando %s. Puoi ora
+\nprocedere con la mappa.</string>
     <string name="download_country_ask">Vuoi scaricare %s?</string>
     <string name="update_country_ask">Vuoi aggiornare %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -92,7 +94,8 @@
     <!-- Question dialog for transferring maps from one storage to another -->
     <string name="move_maps">Vuoi spostare le mappe?</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Questo può richiedere diversi minuti.\nAttendere prego…</string>
+    <string name="wait_several_minutes">Questo può richiedere diversi minuti.
+\nAttendere prego…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Unità di misura</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -151,7 +154,11 @@
     <string name="description">Informazioni</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Questi sono i miei luoghi preferiti</string>
-    <string name="share_bookmarks_email_body">Ciao!\n\nIn allegato ci sono i miei luoghi preferiti. Aprili se hai installato Organic Maps. Oppure, se non ce l\'hai, scarica l\'app per iOS o Android seguendo questo link: https://omaps.app/\n\nDivertiti a viaggiare con Organic Maps!</string>
+    <string name="share_bookmarks_email_body">Ciao!
+\n
+\nIn allegato ci sono i miei luoghi preferiti. Aprili se hai installato Organic Maps. Oppure, se non ce l\'hai, scarica l\'app per iOS o Android seguendo questo link: https://omaps.app/
+\n
+\nDivertiti a viaggiare con Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Caricamento luoghi preferiti</string>
     <!-- Kmz file successful loading -->
@@ -159,9 +166,12 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Caricamento dei luoghi preferiti non riuscito. Il file potrebbe essere corrotto o difettoso.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Il tipo di file non è riconosciuto dall\'applicazione:\n%1$s</string>
+    <string name="unknown_file_type">Il tipo di file non è riconosciuto dall\'applicazione:
+\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Impossibile aprire il file %1$s\n\n%2$s</string>
+    <string name="failed_to_open_file">Impossibile aprire il file %1$s
+\n
+\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Modifica</string>
     <!-- Warning message when doing search around current position -->
@@ -177,7 +187,11 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Guarda dove mi trovo attualmente sulla mappa Organic Maps!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Ciao,\n\nSono qui adesso: %1$s. Clicca su questo link %2$s oppure su questo %3$s per vedere il posto sulla mappa.\n\nGrazie.</string>
+    <string name="my_position_share_email">Ciao,
+\n
+\nSono qui adesso: %1$s. Clicca su questo link %2$s oppure su questo %3$s per vedere il posto sulla mappa.
+\n
+\nGrazie.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Condividi</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -567,7 +581,9 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Feedback generale</string>
     <string name="prefs_languages_information">Usiamo il TTS di sistema per le istruzioni vocali. Molti dispositivi Android utilizzano Google TTS, che puoi scaricare o aggiornare da Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">Per alcune lingue, sarà necessario installare un altro sintetizzatore vocale o un language pack aggiuntivo dall\'app store (Google Play, Galaxy Store, App Gallery, FDroid).\nApri le impostazioni del tuo dispositivo → Lingua e inserimento → Da testo a voce → Motore sintesi vocale.\nQui puoi gestire le impostazioni di sintesi vocale (ad esempio, scaricare una lingua per l\'utilizzo offline) e selezionare un altro motore di sintesi vocale.</string>
+    <string name="prefs_languages_information_off">Per alcune lingue, sarà necessario installare un altro sintetizzatore vocale o un language pack aggiuntivo dall\'app store (Google Play, Galaxy Store, App Gallery, FDroid).
+\nApri le impostazioni del tuo dispositivo → Lingua e inserimento → Da testo a voce → Motore sintesi vocale.
+\nQui puoi gestire le impostazioni di sintesi vocale (ad esempio, scaricare una lingua per l\'utilizzo offline) e selezionare un altro motore di sintesi vocale.</string>
     <string name="prefs_languages_information_off_link">Per maggiori informazioni, consulta questa guida.</string>
     <string name="transliteration_title">Trascrizione in latino</string>
     <string name="learn_more">Scopri di più</string>

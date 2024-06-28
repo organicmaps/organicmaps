@@ -52,9 +52,11 @@
     <string name="disconnect_usb_cable">Por favor desligue o cabo USB ou introduza um cartão de memória para utilizar o Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Por favor liberte primeiro algum espaço no cartão SD ou armazenamento USB para utilizar a aplicação</string>
-    <string name="download_resources">Antes de começar, é recomendável descarregar o mapa mundial geral para o seu dispositivo.\nÉ necessário %s de espaço disponível.</string>
+    <string name="download_resources">Antes de começar, é recomendável descarregar o mapa mundial geral para o seu dispositivo.
+\nÉ necessário %s de espaço disponível.</string>
     <string name="download_resources_continue">Ir ao mapa</string>
-    <string name="downloading_country_can_proceed">A descarregar %s. Agora pode\nver o mapa.</string>
+    <string name="downloading_country_can_proceed">A descarregar %s. Agora pode
+\nver o mapa.</string>
     <string name="download_country_ask">Descarregar %s?</string>
     <string name="update_country_ask">Atualizar %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -92,7 +94,8 @@
     <!-- Question dialog for transferring maps from one storage to another -->
     <string name="move_maps">Mover mapas?</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Isto pode demorar alguns minutos.\nPor favor aguarde…</string>
+    <string name="wait_several_minutes">Isto pode demorar alguns minutos.
+\nPor favor aguarde…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Unidades de medida</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -151,7 +154,11 @@
     <string name="description">Notas</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Os favoritos do Organic Maps foram partilhados consigo</string>
-    <string name="share_bookmarks_email_body">Olá!\n\nSegue em anexo os meus favoritos da aplicação Organic Maps. Por favor abra-os se tiver o Organic Maps instalado. Caso não tenha, descarregue a aplicação para o seu dispositivo iOS ou Android com a hiperligação https://omaps.app/get?kmz\n\nDivirta-se a viajar com o Organic Maps!</string>
+    <string name="share_bookmarks_email_body">Olá!
+\n
+\nSegue em anexo os meus favoritos da aplicação Organic Maps. Por favor abra-os se tiver o Organic Maps instalado. Caso não tenha, descarregue a aplicação para o seu dispositivo iOS ou Android com a hiperligação https://omaps.app/get?kmz
+\n
+\nDivirta-se a viajar com o Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">A carregar favoritos</string>
     <!-- Kmz file successful loading -->
@@ -159,9 +166,12 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Surgiu uma falha ao enviar os favoritos. O ficheiro pode estar corrompido ou com defeito.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">O tipo de ficheiro não é reconhecido pela aplicação:\n%1$s</string>
+    <string name="unknown_file_type">O tipo de ficheiro não é reconhecido pela aplicação:
+\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Falha ao abrir o ficheiro %1$s\n\n%2$s</string>
+    <string name="failed_to_open_file">Falha ao abrir o ficheiro %1$s
+\n
+\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Editar</string>
     <!-- Warning message when doing search around current position -->
@@ -177,7 +187,11 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Veja a minha localização atual no mapa Organic Maps!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Olá,\n\nEstou neste momento aqui: %1$s. Clique nesta ligação %2$s ou nesta %3$s para ver o local no mapa.\n\nObrigado.</string>
+    <string name="my_position_share_email">Olá,
+\n
+\nEstou neste momento aqui: %1$s. Clique nesta ligação %2$s ou nesta %3$s para ver o local no mapa.
+\n
+\nObrigado.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Partilhar</string>
     <!-- Share by email button text, also used in editor and About. -->

@@ -52,9 +52,11 @@
     <string name="disconnect_usb_cable">Deconectează cablul USB sau introdu un card de memorie pentru a utiliza Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Spațiul de stocare de pe cardul SD/memoria USB este insuficient pentru a putea utiliza aplicația</string>
-    <string name="download_resources">Înainte de a începe, trebuie descărcată harta generală a lumii în dispozitivul tău.\nSe vor descărca %s.</string>
+    <string name="download_resources">Înainte de a începe, trebuie descărcată harta generală a lumii în dispozitivul tău.
+\nSe vor descărca %s.</string>
     <string name="download_resources_continue">Mergi la hartă</string>
-    <string name="downloading_country_can_proceed">Se descarcă %s. Acum poți\ntrece la hartă.</string>
+    <string name="downloading_country_can_proceed">Se descarcă %s. Acum poți
+\ntrece la hartă.</string>
     <string name="download_country_ask">Descarci %s?</string>
     <string name="update_country_ask">Actualizezi %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -92,7 +94,8 @@
     <!-- Question dialog for transferring maps from one storage to another -->
     <string name="move_maps">Muți hărțile?</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Poate dura câteva minute.\nAșteaptă…</string>
+    <string name="wait_several_minutes">Poate dura câteva minute.
+\nAșteaptă…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Unități de măsură</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -151,7 +154,9 @@
     <string name="description">Detalii</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Îți trimit locurile mele preferate din Organic Maps</string>
-    <string name="share_bookmarks_email_body">Bună!\n\nȚi-am atașat locurile mele preferate din aplicația Organic Maps. Deschide-le dacă ai instalată Organic Maps. Dacă nu, o poți descărca pentru iOS sau Android de aici: https://organicmaps.app/</string>
+    <string name="share_bookmarks_email_body">Bună!
+\n
+\nȚi-am atașat locurile mele preferate din aplicația Organic Maps. Deschide-le dacă ai instalată Organic Maps. Dacă nu, o poți descărca pentru iOS sau Android de aici: https://organicmaps.app/</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Se încarcă locurile preferate</string>
     <!-- Kmz file successful loading -->
@@ -159,9 +164,12 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Încărcarea locurilor preferate a eșuat. Fișierul poate fi defect.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Tipul de fișier nu este recunoscut de aplicație:\n%1$s</string>
+    <string name="unknown_file_type">Tipul de fișier nu este recunoscut de aplicație:
+\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Nu a reușit să deschidă fișierul %1$s\n\n%2$s</string>
+    <string name="failed_to_open_file">Nu a reușit să deschidă fișierul %1$s
+\n
+\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Modifică</string>
     <!-- Warning message when doing search around current position -->
@@ -177,7 +185,11 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Poți vedea poziția mea pe harta Organic Maps!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Bună,\n\nAcum sunt aici: %1$s. Apasă pe adresa %2$s sau pe %3$s pentru a vedea locul pe hartă.\n\nMulțumesc.</string>
+    <string name="my_position_share_email">Bună,
+\n
+\nAcum sunt aici: %1$s. Apasă pe adresa %2$s sau pe %3$s pentru a vedea locul pe hartă.
+\n
+\nMulțumesc.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Trimite</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -568,7 +580,9 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Părere generală</string>
     <string name="prefs_languages_information">Pentru instrucțiuni vocale utilizăm sistemul TTS. Multe dispozitive Android folosesc Google TTS. Poți descărca sau actualiza aplicația din Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">Pentru unele limbi trebuie să instalezi alt sintetizator de voce sau un pachet lingvistic suplimentar din Magazinul de aplicații (Google Play, Galaxy Store, App Gallery, FDroid).\nDeschide setările dispozitivului → Limbă → Transformare text în vorbire → Motor preferat.\nAici poți alege motorul de transformare a textului în vorbire și poți descărca o limbă pentru utilizare fără internet.</string>
+    <string name="prefs_languages_information_off">Pentru unele limbi trebuie să instalezi alt sintetizator de voce sau un pachet lingvistic suplimentar din Magazinul de aplicații (Google Play, Galaxy Store, App Gallery, FDroid).
+\nDeschide setările dispozitivului → Limbă → Transformare text în vorbire → Motor preferat.
+\nAici poți alege motorul de transformare a textului în vorbire și poți descărca o limbă pentru utilizare fără internet.</string>
     <string name="prefs_languages_information_off_link">Consultă acest ghid pentru informații suplimentare.</string>
     <string name="transliteration_title">Transcrie în alfabet latin</string>
     <string name="learn_more">Mai multe</string>

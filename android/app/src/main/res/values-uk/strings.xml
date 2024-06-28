@@ -55,9 +55,11 @@
     <string name="disconnect_usb_cable">Вимкніть USB кабель або вставте SD-карту</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Недостатньо вільного місця на SD карті / в пам\'яті пристрою для використання програми</string>
-    <string name="download_resources">Перш ніж розпочати дозвольте нам завантажити мапу світу на ваш пристрій.\nВона потребує %s даних.</string>
+    <string name="download_resources">Перш ніж розпочати дозвольте нам завантажити мапу світу на ваш пристрій.
+\nВона потребує %s даних.</string>
     <string name="download_resources_continue">Перейти на мапу</string>
-    <string name="downloading_country_can_proceed">Поки завантажується %s\nви можете користуватися програмою.</string>
+    <string name="downloading_country_can_proceed">Поки завантажується %s
+\nви можете користуватися програмою.</string>
     <string name="download_country_ask">Завантажити %s?</string>
     <string name="update_country_ask">Oновити %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -107,7 +109,8 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">Помилка переміщення файлів карти</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Це може зайняти кілька хвилин.\nБудь ласка, зачекайте…</string>
+    <string name="wait_several_minutes">Це може зайняти кілька хвилин.
+\nБудь ласка, зачекайте…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Одиниці виміру</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -166,7 +169,11 @@
     <string name="description">Примітка</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">З вами поділилися мiтками Organic Maps</string>
-    <string name="share_bookmarks_email_body">Привіт!\n\nДодаю мої мiтки; відкрийте їх у Organic Maps. Якщо застосунок не встановлено, ви можете завантажити його тут: https://omaps.app/get?kmz\n\nНасолоджуйтесь подорожами з Organic Maps!</string>
+    <string name="share_bookmarks_email_body">Привіт!
+\n
+\nДодаю мої мiтки; відкрийте їх у Organic Maps. Якщо застосунок не встановлено, ви можете завантажити його тут: https://omaps.app/get?kmz
+\n
+\nНасолоджуйтесь подорожами з Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Завантаження мiток</string>
     <!-- Kmz file successful loading -->
@@ -174,9 +181,12 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Не вдалося завантажити мітки. Файл може бути пошкодженим або несправним.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Тип файлу не розпізнається програмою:\n%1$s</string>
+    <string name="unknown_file_type">Тип файлу не розпізнається програмою:
+\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Не вдалося відкрити файл %1$s\n\n%2$s</string>
+    <string name="failed_to_open_file">Не вдалося відкрити файл %1$s
+\n
+\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Редагувати</string>
     <!-- Warning message when doing search around current position -->
@@ -192,7 +202,11 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Поглянь на моє поточне місцезнаходження на мапі Organic Maps</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Привіт,\n\nЯ зараз тут: %1$s. Натисни на це посилання %2$s або на це посилання %3$s щоб побачити місце на мапі.\n\nДякую.</string>
+    <string name="my_position_share_email">Привіт,
+\n
+\nЯ зараз тут: %1$s. Натисни на це посилання %2$s або на це посилання %3$s щоб побачити місце на мапі.
+\n
+\nДякую.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Подiлитись</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -586,7 +600,9 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Загальний відгук</string>
     <string name="prefs_languages_information">Для озвучування голосових інструкцій ми використовуємо систему TTS. Більшість Android-пристроїв підтримують систему Google TTS. Для завантаження або оновлення перейдіть до магазину Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">Для деяких мов вам знадобиться встановити інший додаток для синтезу мовлення або додатковий мовний пакет з магазину додатків (Google Play, Galaxy Store, App Gallery, FDroid).\nВідкрийте налаштування пристрою → Мови та введення → Мовлення → Синтез мовлення.\nТут ви можете здійснювати управління налаштуваннями синтезу мовлення (наприклад, завантажити мовний пакет для використання офлайн) або вибрати інший програмний рушій для синтезу мовлення.</string>
+    <string name="prefs_languages_information_off">Для деяких мов вам знадобиться встановити інший додаток для синтезу мовлення або додатковий мовний пакет з магазину додатків (Google Play, Galaxy Store, App Gallery, FDroid).
+\nВідкрийте налаштування пристрою → Мови та введення → Мовлення → Синтез мовлення.
+\nТут ви можете здійснювати управління налаштуваннями синтезу мовлення (наприклад, завантажити мовний пакет для використання офлайн) або вибрати інший програмний рушій для синтезу мовлення.</string>
     <string name="prefs_languages_information_off_link">Додаткову інформацію див. у цьому керівництві.</string>
     <string name="transliteration_title">Транслітерація латинськими літерами</string>
     <string name="learn_more">Докладніше</string>

@@ -55,9 +55,11 @@
     <string name="disconnect_usb_cable">Отключите USB кабель или вставьте SD-карту</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Недостаточно свободного места на SD карте/в памяти устройства для использования программы</string>
-    <string name="download_resources">Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство.\nЭто потребует %s данных.</string>
+    <string name="download_resources">Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство.
+\nЭто потребует %s данных.</string>
     <string name="download_resources_continue">Перейти на карту</string>
-    <string name="downloading_country_can_proceed">Пока загружается %s,\nвы можете пользоваться картой.</string>
+    <string name="downloading_country_can_proceed">Пока загружается %s,
+\nвы можете пользоваться картой.</string>
     <string name="download_country_ask">Загрузить %s?</string>
     <string name="update_country_ask">Обновить %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -107,7 +109,8 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">Ошибка перемещения файлов карт</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Это может занять несколько минут.\nПожалуйста, подождите…</string>
+    <string name="wait_several_minutes">Это может занять несколько минут.
+\nПожалуйста, подождите…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Единицы измерения</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -166,7 +169,11 @@
     <string name="description">Примечание</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">С вами поделились метками Organic Maps</string>
-    <string name="share_bookmarks_email_body">Здравствуйте!\n\nВ прикреплённом файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!</string>
+    <string name="share_bookmarks_email_body">Здравствуйте!
+\n
+\nВ прикреплённом файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz
+\n
+\nСпасибо!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Загрузка меток</string>
     <!-- Kmz file successful loading -->
@@ -174,9 +181,12 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Файл с метками не был загружен. Возможно, файл повреждён или неисправен.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Тип файла не поддерживается приложением:\n%1$s</string>
+    <string name="unknown_file_type">Тип файла не поддерживается приложением:
+\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Не удалось открыть файл %1$s\n\n%2$s</string>
+    <string name="failed_to_open_file">Не удалось открыть файл %1$s
+\n
+\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Редактировать</string>
     <!-- Warning message when doing search around current position -->
@@ -192,7 +202,11 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Посмотри на карте Organic Maps, где я сейчас нахожусь</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Привет!\n\nЯ сейчас здесь: %1$s. Чтобы увидеть это место на карте Organic Maps, открой эту ссылку %2$s или эту %3$s\n\nСпасибо.</string>
+    <string name="my_position_share_email">Привет!
+\n
+\nЯ сейчас здесь: %1$s. Чтобы увидеть это место на карте Organic Maps, открой эту ссылку %2$s или эту %3$s
+\n
+\nСпасибо.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Поделиться</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -589,7 +603,9 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Отправить отзыв</string>
     <string name="prefs_languages_information">Подсказки озвучиваются системным синтезатором речи (TTS). На многих устройствах используется Google TTS, его можно загрузить или обновить в Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">Для некоторых языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из магазина приложений (Google Play, Galaxy Store, App Gallery, FDroid).\nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.\nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.</string>
+    <string name="prefs_languages_information_off">Для некоторых языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из магазина приложений (Google Play, Galaxy Store, App Gallery, FDroid).
+\nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.
+\nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.</string>
     <string name="prefs_languages_information_off_link">Более подробная информация — в этом руководстве.</string>
     <string name="transliteration_title">Латинская транслитерация</string>
     <string name="learn_more">Узнать больше</string>

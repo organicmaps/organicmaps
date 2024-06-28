@@ -55,7 +55,8 @@
     <string name="disconnect_usb_cable">Моля, изключете USB кабела или поставете карта с памет.</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Моля, първо освободете място на SD картата/USB паметта, за да можете да използвате приложението.</string>
-    <string name="download_resources">Преди да започнете да използвате приложението, позволете ни да изтеглим общата карта на света на вашето устройство.\nТова ще използва %s от паметта.</string>
+    <string name="download_resources">Преди да започнете да използвате приложението, позволете ни да изтеглим общата карта на света на вашето устройство.
+\nТова ще използва %s от паметта.</string>
     <string name="download_resources_continue">Към картата</string>
     <string name="downloading_country_can_proceed">Изтегляне на %s. Вече можете да преминете към картата.</string>
     <string name="download_country_ask">Изтегляне на %s?</string>
@@ -95,7 +96,8 @@
     <!-- Question dialog for transferring maps from one storage to another -->
     <string name="move_maps">Преместване на карти?</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Това може да отнеме няколко минути.\nМоля изчакайте…</string>
+    <string name="wait_several_minutes">Това може да отнеме няколко минути.
+\nМоля изчакайте…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Мерни единици</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -161,9 +163,12 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Качването на отметките се провали. Файлът може да бъде повреден или дефектен.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Типът на файла не се разпознава от приложението:\n%1$s</string>
+    <string name="unknown_file_type">Типът на файла не се разпознава от приложението:
+\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Неуспешно отваряне на файл %1$s\n\n%2$s</string>
+    <string name="failed_to_open_file">Неуспешно отваряне на файл %1$s
+\n
+\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Редакция</string>
     <!-- Warning message when doing search around current position -->
@@ -179,7 +184,11 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Хей, виж текущото ми местоположение на картата в Organic Maps!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Здравей,\n\nСега съм тук: %1$s. Натисни върху тази връзка %2$s или тази %3$s, за да видиш мястото на картата.\n\nБлагодаря.</string>
+    <string name="my_position_share_email">Здравей,
+\n
+\nСега съм тук: %1$s. Натисни върху тази връзка %2$s или тази %3$s, за да видиш мястото на картата.
+\n
+\nБлагодаря.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Споделяне</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -539,7 +548,9 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Обща обратна връзка</string>
     <string name="prefs_languages_information">Навигирането се озвучава от системен синтезатор на реч (TTS). Много устройства използват Google TTS, който може да бъде изтеглен или актуализиран от Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts).</string>
-    <string name="prefs_languages_information_off">За някои езици може да се наложи да инсталирате допълнителен синтезатор на реч (TTS) от магазина за приложения (Google Play Магазин, Galaxy Store).\nЗа да настроите синтезатора на реч, отидете в Настройки → Езици и въвеждане → Синтезиран говор.\nТук можете да инсталирате допълнителни езикови пакети или да изберете синтезатор на реч.</string>
+    <string name="prefs_languages_information_off">За някои езици може да се наложи да инсталирате допълнителен синтезатор на реч (TTS) от магазина за приложения (Google Play Магазин, Galaxy Store).
+\nЗа да настроите синтезатора на реч, отидете в Настройки → Езици и въвеждане → Синтезиран говор.
+\nТук можете да инсталирате допълнителни езикови пакети или да изберете синтезатор на реч.</string>
     <string name="prefs_languages_information_off_link">За повече информация вижте това ръководство.</string>
     <string name="transliteration_title">Латинска транслитерация</string>
     <string name="learn_more">Научете повече</string>

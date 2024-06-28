@@ -56,7 +56,8 @@
     <string name="not_enough_free_space_on_sdcard">Frigjør plass på SD-kortet/USB-enheten først for å bruke appen</string>
     <string name="download_resources">Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %s med data.</string>
     <string name="download_resources_continue">Gå til kart</string>
-    <string name="downloading_country_can_proceed">Laster ned %s. Du kan nå\nfortsette til kartet.</string>
+    <string name="downloading_country_can_proceed">Laster ned %s. Du kan nå
+\nfortsette til kartet.</string>
     <string name="download_country_ask">Vil du laste ned %s?</string>
     <string name="update_country_ask">Vil du oppdatere %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -165,7 +166,11 @@
     <string name="description">Merknader</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Delte Organic Maps-bokmerker</string>
-    <string name="share_bookmarks_email_body">Hei!\n\nVedlagt er mine bokmerker fra Organic Maps-appen. Åpne de dersom du har Organic Maps installert. Har du ikke har det, last ned appen til iOS eller Android ved å trykke på denne linken: https://omaps.app/get?kmz\n\nNyt reisen med Organic Maps!</string>
+    <string name="share_bookmarks_email_body">Hei!
+\n
+\nVedlagt er mine bokmerker fra Organic Maps-appen. Åpne de dersom du har Organic Maps installert. Har du ikke har det, last ned appen til iOS eller Android ved å trykke på denne linken: https://omaps.app/get?kmz
+\n
+\nNyt reisen med Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Laster inn bokmerker</string>
     <!-- Kmz file successful loading -->
@@ -173,9 +178,12 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Opplasting av bokmerker mislyktes. Filen kan være skadet eller defekt.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Filtypen gjenkjennes ikke av appen:\n%1$s</string>
+    <string name="unknown_file_type">Filtypen gjenkjennes ikke av appen:
+\n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Kunne ikke åpne filen %1$s\n\n%2$s</string>
+    <string name="failed_to_open_file">Kunne ikke åpne filen %1$s
+\n
+\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Rediger</string>
     <!-- Warning message when doing search around current position -->
@@ -191,7 +199,9 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hei, se posisjonen min på Organic Maps-kartet!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Hei,Jeg er her nå: %1$s. Klikk på denne koblingen %2$s eller denne %3$s for å se stedet på kartet.\n\nTakk.</string>
+    <string name="my_position_share_email">Hei,Jeg er her nå: %1$s. Klikk på denne koblingen %2$s eller denne %3$s for å se stedet på kartet.
+\n
+\nTakk.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Del</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -584,7 +594,9 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Generell tilbakemelding</string>
     <string name="prefs_languages_information">Vi bruker system TTS for stemmeveiledning. Mange Android-enheter bruker Google TTS, Du kan laste ned eller oppdatere via Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">For enkelte språk er det nødvendig å installere en annen talesyntese eller en ekstra språkpakke fra appbutikken (Google Play, Galaxy Store, App Gallery, FDroid).\nGå til enhetens innstillinger → Språk og input → Tale → Tekst til tale output.\nHer kan du administrere innstillingene for talesyntese (for eksempel laste ned språkpakke for offline bruk) og velge en annen tekst-til-tale-motor.</string>
+    <string name="prefs_languages_information_off">For enkelte språk er det nødvendig å installere en annen talesyntese eller en ekstra språkpakke fra appbutikken (Google Play, Galaxy Store, App Gallery, FDroid).
+\nGå til enhetens innstillinger → Språk og input → Tale → Tekst til tale output.
+\nHer kan du administrere innstillingene for talesyntese (for eksempel laste ned språkpakke for offline bruk) og velge en annen tekst-til-tale-motor.</string>
     <string name="prefs_languages_information_off_link">Les denne veiledningen for mer informasjon.</string>
     <string name="transliteration_title">Omskrivning til latin</string>
     <string name="learn_more">Finn ut mer</string>
