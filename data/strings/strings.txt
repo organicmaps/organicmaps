@@ -5888,7 +5888,7 @@
 
   [pref_tts_test_voice_title]
     comment = Settings «Route» category: «Test Voice Directions» title
-    tags = android
+    tags = android,ios
     en = Test Voice Directions (TTS, Text-To-Speech)
     ar = اختبار الاتجاهات الصوتية (TTS، تحويل النص إلى كلام)
     az = Test səsli göstərişlər (TTS, Text-to-Speech)
@@ -28858,7 +28858,7 @@
 
   [app_tip_00]
     comment = App Tip #00
-    tags = android
+    tags = android,ios
     en = Thank you for using our community-built maps!
     ar = شكرًا لك على استخدام الخرائط التي أنشأها مجتمعنا!
     az = İcma tərəfindən yaradılmış xəritələrimizdən istifadə etdiyiniz üçün təşəkkür edirik!
@@ -28902,7 +28902,7 @@
 
   [app_tip_01]
     comment = App tip #01
-    tags = android
+    tags = android,ios
     en = With your donations and support, we can create the best maps in the World!
     ar = بتبرعاتكم ودعمكم، يمكننا إنشاء أفضل الخرائط في العالم!
     be = Дзякуючы вашым ахвяраванням і падтрымцы мы можам стварыць лепшыя мапы у свеце!
@@ -28945,7 +28945,7 @@
 
   [app_tip_02]
     comment = App tip #02
-    tags = android
+    tags = android,ios
     en = Do you like our app? Please donate to support the development! Don't like it yet? Please let us know why, and we will fix it!
     ar = هل تحب التطبيق لدينا؟ يرجى التبرع لدعم التنمية! لا أحب ذلك حتى الآن؟ واسمحوا لنا أن نعرف، وسوف نقوم بإصلاحه!
     be = Вам падабаецца наша прылада? Калі ласка, ахвяруйце, каб падтрымаць развіццё! Яшчэ не падабаецца? Калі ласка, напішыце, чаму, і мы гэта выправім!
@@ -28988,7 +28988,7 @@
 
   [app_tip_03]
     comment = App tip #03
-    tags = android
+    tags = android,ios
     en = If you know a software developer, you can ask him or her to implement a feature that you need.
     ar = إذا كنت تعرف أحد مطوري البرامج، فيمكنك أن تطلب منه تنفيذ الميزة التي تحتاجها.
     be = Калі вы ведаеце распрацоўшчыка праграмнага забеспячэння, вы можаце папрасіць яго рэалізаваць неабходную вам функцыю.
@@ -29031,7 +29031,7 @@
 
   [app_tip_04]
     comment = App tip #04
-    tags = android
+    tags = android,ios
     en = Do you know that you can long-tap any place on the map to select it?
     ar = هل تعلم أنه يمكنك النقر لفترة طويلة على أي مكان على الخريطة لتحديده؟
     be = Любое месца на карце можна абраць, калі патрымаць там палец на працягу секунды.
@@ -29074,7 +29074,7 @@
 
   [app_tip_05]
     comment = App tip #05
-    tags = android
+    tags = android,ios
     en = Did you know that your current location on the map can be selected?
     ar = هل تعلم أنه يمكنك تحديد موقعك الحالي على الخريطة؟
     be = А вы ведалі, што сваё месцазнаходжанне на мапе можна абраць?
@@ -29117,7 +29117,7 @@
 
   [app_tip_06]
     comment = App tip #06
-    tags = android
+    tags = android,ios
     en = You can help to translate our app into your language.
     ar = يمكنك المساعدة في ترجمة تطبيقنا إلى لغتك.
     be = Вы можаце дапамагчы перакласці нашу прыладу на вашу мову.
@@ -29160,7 +29160,7 @@
 
   [app_tip_07]
     comment = App tip #07
-    tags = android
+    tags = android,ios
     en = Our app is developed by a few enthusiasts and the community.
     ar = تم تطوير تطبيقنا من قبل عدد قليل من المتحمسين والمجتمع.
     be = Наша прылада распрацавана некалькімі энтузіястамі і супольнасцю.
@@ -29203,7 +29203,7 @@
 
   [app_tip_08]
     comment = App tip #08
-    tags = android
+    tags = android,ios
     en = You can easily fix and improve the map data.
     ar = يمكنك بسهولة إصلاح وتحسين بيانات الخريطة.
     be = Вы можаце лёгка выправіць і палепшыць дадзеныя карты.
@@ -29246,7 +29246,7 @@
 
   [app_tip_09]
     comment = App tip #09
-    tags = android
+    tags = android,ios
     en = Our main goal is to build fast, privacy-focused, easy-to-use maps that you will love.
     ar = هدفنا الرئيسي هو إنشاء خرائط سريعة وسهلة الاستخدام تركز على الخصوصية والتي ستعجبك.
     be = Наша галоўная мэта - ствараць хуткія, арыентаваныя на прыватнасць і простыя ў выкарыстанні карты, якія вам спадабаюцца.

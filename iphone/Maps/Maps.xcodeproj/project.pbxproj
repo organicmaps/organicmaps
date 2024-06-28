@@ -261,6 +261,8 @@
 		47F86D0120C93D8D00FEE291 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F86D0020C93D8D00FEE291 /* TabViewController.swift */; };
 		4A300ED51C6DCFD400140018 /* countries-strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A300ED31C6DCFD400140018 /* countries-strings */; };
 		4B4153B52BF9695500EE4B02 /* MWMTextToSpeechTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4B4153B42BF9695500EE4B02 /* MWMTextToSpeechTests.mm */; };
+		4B83AE492C2E59F800B0C3BC /* TTSTester.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4B83AE482C2E59F800B0C3BC /* TTSTester.mm */; };
+		4B83AE4B2C2E642100B0C3BC /* TTSTesterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B83AE4A2C2E642100B0C3BC /* TTSTesterTest.m */; };
 		6741A9421BF340DE002C974C /* sound-strings in Resources */ = {isa = PBXBuildFile; fileRef = 5605022E1B6211E100169CAD /* sound-strings */; };
 		6741A9451BF340DE002C974C /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0511D6AC0D00645242 /* classificator.txt */; };
 		6741A9491BF340DE002C974C /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA46DA2B12D4166E00968C36 /* countries.txt */; };
@@ -1185,6 +1187,9 @@
 		4A7D89C31B2EBF3B00AC843E /* resources-xhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xhdpi_dark"; path = "../../data/resources-xhdpi_dark"; sourceTree = "<group>"; };
 		4A7D89C41B2EBF3B00AC843E /* resources-xxhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xxhdpi_dark"; path = "../../data/resources-xxhdpi_dark"; sourceTree = "<group>"; };
 		4B4153B42BF9695500EE4B02 /* MWMTextToSpeechTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTextToSpeechTests.mm; sourceTree = "<group>"; };
+		4B83AE472C2E59F800B0C3BC /* TTSTester.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTSTester.h; sourceTree = "<group>"; };
+		4B83AE482C2E59F800B0C3BC /* TTSTester.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TTSTester.mm; sourceTree = "<group>"; };
+		4B83AE4A2C2E642100B0C3BC /* TTSTesterTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTSTesterTest.m; sourceTree = "<group>"; };
 		5605022E1B6211E100169CAD /* sound-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "sound-strings"; path = "../../data/sound-strings"; sourceTree = "<group>"; };
 		6741AA5D1BF340DE002C974C /* Organic Maps (Debug).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Organic Maps (Debug).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B15907026623AE500944BBA /* 00_NotoSansThai-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "00_NotoSansThai-Regular.ttf"; path = "../../data/00_NotoSansThai-Regular.ttf"; sourceTree = "<group>"; };
@@ -2287,6 +2292,8 @@
 				34763EE51F2F392300F4D2D3 /* MWMTextToSpeech.mm */,
 				34763EE91F2F394D00F4D2D3 /* MWMTextToSpeech+CPP.h */,
 				34763EEA1F2F3AD700F4D2D3 /* MWMTextToSpeechObserver.h */,
+				4B83AE472C2E59F800B0C3BC /* TTSTester.h */,
+				4B83AE482C2E59F800B0C3BC /* TTSTester.mm */,
 			);
 			path = TextToSpeech;
 			sourceTree = "<group>";
@@ -2664,6 +2671,7 @@
 		4B4153B72BF970A000EE4B02 /* TextToSpeech */ = {
 			isa = PBXGroup;
 			children = (
+				4B83AE4A2C2E642100B0C3BC /* TTSTesterTest.m */,
 				4B4153B42BF9695500EE4B02 /* MWMTextToSpeechTests.mm */,
 			);
 			path = TextToSpeech;
@@ -4473,6 +4481,7 @@
 				3404755F1E081A4600C92850 /* MWMLocationPredictor.mm in Sources */,
 				993DF11523F6BDB100AC231A /* UISearchBarRenderer.swift in Sources */,
 				F6E2FE041E097BA00083EBEC /* MWMOpeningHoursDaysSelectorTableViewCell.mm in Sources */,
+				4B83AE492C2E59F800B0C3BC /* TTSTester.mm in Sources */,
 				993DF12023F6BDB100AC231A /* TabViewRenderer.swift in Sources */,
 				F6E2FE131E097BA00083EBEC /* MWMOpeningHoursTimeSelectorTableViewCell.mm in Sources */,
 				F626D52F1C3E83F800C17D15 /* MWMTableViewCell.m in Sources */,
@@ -4625,6 +4634,7 @@
 				EDF838C32C00B9D6007E4E67 /* UbiquitousDirectoryMonitorDelegateMock.swift in Sources */,
 				EDF838BE2C00B9D0007E4E67 /* LocalDirectoryMonitorDelegateMock.swift in Sources */,
 				EDF838BF2C00B9D0007E4E67 /* SynchronizationStateManagerTests.swift in Sources */,
+				4B83AE4B2C2E642100B0C3BC /* TTSTesterTest.m in Sources */,
 				EDF838C22C00B9D6007E4E67 /* MetadataItemStubs.swift in Sources */,
 				4B4153B52BF9695500EE4B02 /* MWMTextToSpeechTests.mm in Sources */,
 				EDF838C42C00B9D6007E4E67 /* FileManagerMock.swift in Sources */,

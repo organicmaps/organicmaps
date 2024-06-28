@@ -279,6 +279,13 @@ using Observers = NSHashTable<Observer>;
   return _audioPlayer;
 }
 
+- (void)play:(NSString *)text {
+  if (![self isValid])
+    [self createVoice:[[self class] savedLanguage]];
+  
+  [self speakOneString:text];
+}
+
 #pragma mark - MWMNavigationDashboardObserver
 
 - (void)onTTSStatusUpdated {
