@@ -2380,7 +2380,17 @@ void Framework::SetMapLanguageCode(std::string const & languageCode)
   if (m_drapeEngine == nullptr)
     return;
 
-  m_drapeEngine->UpdateMapStyle();
+  int8_t const languageCodeIndex = [&languageCode]()
+  {
+    if (languageCode.empty())
+      return StringUtf8Multilang::kDefaultCode;
+    int8_t const index = StringUtf8Multilang::GetLangIndex(languageCode);
+    if (index == StringUtf8Multilang::kUnsupportedLanguageCode)
+      return StringUtf8Multilang::kDefaultCode;
+    return index;
+  }();
+
+  m_drapeEngine->SetMapLangIndex(languageCodeIndex);
 }
 
 void Framework::Allow3dMode(bool allow3d, bool allow3dBuildings)
