@@ -99,7 +99,6 @@
     <string name="measurement_units">측정 단위</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">마일과 킬로미터 중에서 선택하십시오</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">어디서먹을까</string>
@@ -147,7 +146,6 @@
     <string name="category_water">물</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">RV용</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">메모</string>
@@ -335,7 +333,6 @@
     <string name="gray">회색</string>
     <!-- blue gray color -->
     <string name="blue_gray">청회색</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">경로를 따라갈 때는 다음 사항에 주의해 주세요:</string>
     <string name="dialog_routing_disclaimer_priority">— 도로 상황, 교통법, 도로 표지판을 항상 내비게이션 안내보다 먼저 고려하세요;</string>
@@ -365,7 +362,6 @@
     <string name="not_now">나중에</string>
     <string name="dialog_routing_download_and_build_cross_route">지도를 다운로드하여, 두 개 이상의 지도를 통과하는 더 최적화된 경로를 설정하시겠습니까?</string>
     <string name="dialog_routing_download_cross_route">이 지도의 경계를 통과하는 더 최적화된 경로를 설정하려면 지도를 다운로드하세요.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">경로를 검색하고 만들기시작하려면, 지도를 다운로드하십시오. 그러면, 더 이상 인터넷 연결이 필요하지 않습니다.</string>
     <string name="search_select_map">지도 선택</string>
@@ -693,7 +689,6 @@
     <string name="moreyear_ago_sorttype">1년 그 이상 전</string>
     <string name="near_me_sorttype">나와 가까운 곳</string>
     <string name="others_sorttype">기타</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">음식</string>
     <string name="tourist_places">명소</string>
@@ -813,7 +808,6 @@
     <string name="track_recording_toast_nothing_to_save">경로가 비어 있음 - 저장할 항목이 없음</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">장치에 적합한 앱이 설치되어 있지 않아 폴더 선택 대화 상자를 표시할 수 없습니다. 파일 관리자 앱을 설치한 후 다시 시도하세요</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">주소/블록</string>
     <string name="type.addr_interpolation.even">주소/블록</string>
@@ -927,7 +921,6 @@
     <string name="type.amenity.post_office">우체국</string>
     <string name="type.amenity.pub">술집</string>
     <string name="type.amenity.public_bookcase">도서 교환</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">재활용센터</string>
     <string name="type.amenity.recycling">재활용 쓰레기통</string>
@@ -1129,7 +1122,6 @@
     <string name="type.healthcare.psychotherapist">심리치료</string>
     <string name="type.healthcare.sample_collection">견본 추출</string>
     <string name="type.healthcare.speech_therapist">대화 요법</string>
-
     <!-- SECTION: Types: Roads -->
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">다리</string>
@@ -1286,7 +1278,6 @@
     <string name="type.area_highway.track">거리</string>
     <string name="type.area_highway.trunk">거리</string>
     <string name="type.area_highway.unclassified">거리</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">역사적 물건</string>
     <string name="type.historic.aircraft">\"역사적인 항공기\"</string>

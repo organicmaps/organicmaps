@@ -115,7 +115,6 @@
     <string name="measurement_units">Measurement units</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Choose between miles and kilometers</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Where to eat</string>
@@ -163,7 +162,6 @@
     <string name="category_water">Water</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">RV Facilities</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notes</string>
@@ -382,7 +380,6 @@
     <string name="gray">Gray</string>
     <!-- blue gray color -->
     <string name="blue_gray">Blue Gray</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">When following the route, please keep in mind:</string>
     <string name="dialog_routing_disclaimer_priority">— Road conditions, traffic laws, and road signs always take priority over the navigation hints;</string>
@@ -412,7 +409,6 @@
     <string name="not_now">Not Now</string>
     <string name="dialog_routing_download_and_build_cross_route">Would you like to download the map and create a more optimal route spanning more than one map?</string>
     <string name="dialog_routing_download_cross_route">Download additional maps to create a better route that crosses the boundaries of this map.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">To start searching and creating routes, please download the map. After that you will no longer need an Internet connection.</string>
     <string name="search_select_map">Select Map</string>
@@ -761,7 +757,6 @@
     <string name="moreyear_ago_sorttype">More than a year ago</string>
     <string name="near_me_sorttype">Near me</string>
     <string name="others_sorttype">Others</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Food</string>
     <string name="tourist_places">Sights</string>
@@ -904,7 +899,6 @@
     <string name="track_recording_toast_nothing_to_save">Track is empty - nothing to save</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Unable to display folder selection dialog because no suitable app is installed on your device. Please install a file manager app and try again.</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Address/Block</string>
     <string name="type.addr_interpolation.even">Address/Block</string>
@@ -1033,7 +1027,6 @@
     <string name="type.amenity.prison">Prison</string>
     <string name="type.amenity.pub">Pub</string>
     <string name="type.amenity.public_bookcase">Book Exchange</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Recycling Center</string>
     <string name="type.amenity.recycling">Recycling Container</string>
@@ -1272,7 +1265,6 @@
     <string name="type.healthcare.psychotherapist">Psychotherapist</string>
     <string name="type.healthcare.sample_collection">Sample Collection Centre</string>
     <string name="type.healthcare.speech_therapist">Logopedics</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Highway</string>
     <string name="type.highway.bridleway">Bridle Path</string>
@@ -1440,7 +1432,6 @@
     <string name="type.area_highway.unclassified">Minor Road</string>
     <string name="type.highway.world_level">highway-world_level</string>
     <string name="type.highway.world_towns_level">highway-world_towns_level</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Historic Object</string>
     <string name="type.historic.aircraft">Historic Aircraft</string>

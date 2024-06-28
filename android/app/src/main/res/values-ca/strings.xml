@@ -112,7 +112,6 @@
     <string name="measurement_units">Unitats de mesura</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Trieu entre milles i quilòmetres</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">On menjar</string>
@@ -160,7 +159,6 @@
     <string name="category_water">Aigua</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Caravanes</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notes</string>
@@ -359,7 +357,6 @@
     <string name="gray">Gris</string>
     <!-- blue gray color -->
     <string name="blue_gray">Gris blavós</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Quan seguiu la ruta, tingueu present:</string>
     <string name="dialog_routing_disclaimer_priority">— Les condicions de la carretera, les normes de trànsit i els senyals de circulació sempre tenen prioritat sobre les indicacions de navegació;</string>
@@ -389,7 +386,6 @@
     <string name="not_now">Ara no</string>
     <string name="dialog_routing_download_and_build_cross_route">Voleu baixar el mapa i crar una ruta més òptima que travessi més d\'un mapa?</string>
     <string name="dialog_routing_download_cross_route">Baixeu mapes addicionals per a crear una ruta millor que creua els límits d\'aquest mapa.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Per a començar a cercar i crear rutes, baixeu el mapa. Després ja no us caldrà connexio a Internet.</string>
     <string name="search_select_map">Seleccioneu un mapa</string>
@@ -733,7 +729,6 @@
     <string name="moreyear_ago_sorttype">Fa més d\'un any</string>
     <string name="near_me_sorttype">Prop meu</string>
     <string name="others_sorttype">Altres</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Menjar</string>
     <string name="tourist_places">Llocs d\'interès</string>
@@ -868,7 +863,6 @@
     <string name="track_recording_toast_nothing_to_save">El recorregut està buit, no hi ha res a desar</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">No es pot mostrar el diàleg de selecció de carpetes perquè no hi ha cap aplicació adequada instal·lada al vostre dispositiu. Instal·leu una aplicació de gestor de fitxers i torneu-ho a provar</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Adreça/Bloc</string>
     <string name="type.addr_interpolation.even">Adreça/Bloc</string>
@@ -997,7 +991,6 @@
     <string name="type.amenity.prison">Presó</string>
     <string name="type.amenity.pub">Taverna</string>
     <string name="type.amenity.public_bookcase">Intercanvi de llibres</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Centre de reciclatge</string>
     <string name="type.amenity.recycling">Contenidor de reciclatge</string>
@@ -1092,12 +1085,10 @@
     <string name="type.entrance.main">Entrada principal</string>
     <string name="type.entrance.exit">Sortida</string>
     <string name="type.fee.no">Gratuït</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway.busway">Carretera dedicada a l\'autobús</string>
     <string name="type.highway.footway.sidewalk">Vorera</string>
     <string name="type.highway.footway.crossing">Pas de vianants</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic.aircraft">Avions històrics</string>
     <string name="type.historic.anchor">Àncora històrica</string>

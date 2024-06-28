@@ -115,7 +115,6 @@
     <string name="measurement_units">Unités de mesure</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Choisir entre miles et kilomètres</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Un endroit pour manger</string>
@@ -163,7 +162,6 @@
     <string name="category_water">Eau</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Aménagements pour camping-car</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notes</string>
@@ -362,7 +360,6 @@
     <string name="gray">Gris</string>
     <!-- blue gray color -->
     <string name="blue_gray">Gris-bleu</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Lorsque vous suivez l\'itinéraire, gardez à l\'esprit les points suivants :</string>
     <string name="dialog_routing_disclaimer_priority">— Les conditions de circulation, le code de la route et les panneaux de signalisation ont la priorité sur l\'appareil de navigation;</string>
@@ -392,7 +389,6 @@
     <string name="not_now">Pas maintenant</string>
     <string name="dialog_routing_download_and_build_cross_route">Voulez-vous télécharger la carte et créer un itinéraire plus direct s\'étendant sur plus d\'une carte?</string>
     <string name="dialog_routing_download_cross_route">Téléchargez des cartes pour créer un itinéraire plus direct sortant des limites de cette carte.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Pour commencer à rechercher et à créer des itinéraires, veuillez télécharger la carte. Après cela, vous n\'aurez plus besoin d\'une connexion Internet.</string>
     <string name="search_select_map">Sélectionner la carte</string>
@@ -735,7 +731,6 @@
     <string name="moreyear_ago_sorttype">Il y a plus d\'un an</string>
     <string name="near_me_sorttype">Près de moi</string>
     <string name="others_sorttype">Autres</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Aliments</string>
     <string name="tourist_places">Choses à voir</string>
@@ -870,7 +865,6 @@
     <string name="track_recording_toast_nothing_to_save">L\'itinéraire est vide - il n\'y a rien à sauvegarder</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Impossible d\'afficher la boîte de dialogue de sélection des dossiers car aucune application appropriée n\'est installée sur votre appareil. Veuillez installer une application de gestion de fichiers et réessayer</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Adresse/Bloc</string>
     <string name="type.addr_interpolation.even">Adresse/Bloc</string>
@@ -991,7 +985,6 @@
     <string name="type.amenity.post_office">Bureau de poste</string>
     <string name="type.amenity.pub">Pub</string>
     <string name="type.amenity.public_bookcase">Microbibliothèque</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Centre de recyclage</string>
     <string name="type.amenity.recycling">Conteneur de recyclage</string>
@@ -1222,7 +1215,6 @@
     <string name="type.healthcare.psychotherapist">Psychothérapie</string>
     <string name="type.healthcare.sample_collection">Prélèvements biologiques</string>
     <string name="type.healthcare.speech_therapist">Logopédie</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway.bridleway">Chemin équestre</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
@@ -1387,7 +1379,6 @@
     <string name="type.area_highway.track">Piste</string>
     <string name="type.area_highway.trunk">Voie rapide</string>
     <string name="type.area_highway.unclassified">Rue</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Objet historique</string>
     <string name="type.historic.aircraft">Avion historique</string>

@@ -100,7 +100,6 @@
     <string name="measurement_units">Måleenhed</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Vælg mellem mil eller kilometer</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Spisesteder</string>
@@ -148,7 +147,6 @@
     <string name="category_water">Vand</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Til RV</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Noter</string>
@@ -332,7 +330,6 @@
     <string name="gray">Grå</string>
     <!-- blue gray color -->
     <string name="blue_gray">Blågrå</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Når du følger en rute, skal du være opmærksom på følgende:</string>
     <string name="dialog_routing_disclaimer_priority">— Vejforhold, færdselsregler og skiltning skal prioriteres højere end anvisningerne fra navigationsappen;</string>
@@ -362,7 +359,6 @@
     <string name="not_now">Ikke nu</string>
     <string name="dialog_routing_download_and_build_cross_route">Ønsker du at downloade kortet og planlægge en mere optimal rute, der strækker sig over mere end ét kort?</string>
     <string name="dialog_routing_download_cross_route">Download kortet for at planlægge en mere optimal rute, der strækker sig ud over dette korts grænser.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">For at begynde at søge efter og oprette ruter bedes du downloade kortet, så du ikke længere har behov for en internetforbindelse.</string>
     <string name="search_select_map">Vælk kortet</string>
@@ -691,7 +687,6 @@
     <string name="moreyear_ago_sorttype">Mere end et år siden</string>
     <string name="near_me_sorttype">I nærheden</string>
     <string name="others_sorttype">Andre</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Mad</string>
     <string name="tourist_places">Seværdigheder</string>
@@ -811,7 +806,6 @@
     <string name="track_recording_toast_nothing_to_save">Ruten er tom - der er ikke noget at gemme</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Kan ikke vise dialogboksen til valg af mappe, fordi der ikke er installeret en passende app på din enhed. Installer venligst en filhåndteringsapp, og prøv igen</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Adresse/blok</string>
     <string name="type.addr_interpolation.even">Adresse/blok</string>
@@ -922,7 +916,6 @@
     <string name="type.amenity.post_office">Postkontor</string>
     <string name="type.amenity.pub">Værtshus</string>
     <string name="type.amenity.public_bookcase">Bog udveksling</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Genbrugsplads</string>
     <string name="type.amenity.recycling">Genbrugscontainer</string>
@@ -1114,7 +1107,6 @@
     <string name="type.healthcare.psychotherapist">Psykoterapi</string>
     <string name="type.healthcare.sample_collection">Prøvetagning</string>
     <string name="type.healthcare.speech_therapist">Tale terapi</string>
-
     <!-- SECTION: Types: Roads -->
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">Bro</string>
@@ -1272,7 +1264,6 @@
     <string name="type.area_highway.track">Gade</string>
     <string name="type.area_highway.trunk">Gade</string>
     <string name="type.area_highway.unclassified">Gade</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Historisk objekt</string>
     <string name="type.historic.aircraft">Historiske fly</string>

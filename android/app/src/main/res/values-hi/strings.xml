@@ -115,7 +115,6 @@
     <string name="measurement_units">नाप की इकाइयां</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">मील और किलोमीटर के बीच चुनें</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">कहाँ खाना है</string>
@@ -163,7 +162,6 @@
     <string name="category_water">जल</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">आरवी सुविधाएं</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">टिप्पणियाँ</string>
@@ -312,7 +310,6 @@
     <string name="enable_location_services">कृपया स्थान सेवाएँ सक्षम करें</string>
     <string name="save">सहेजें</string>
     <string name="create">बनाएं</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">मार्ग का अनुसरण करते समय कृपया ध्यान रखें:</string>
     <string name="dialog_routing_disclaimer_priority">— सड़क की स्थिति, यातायात कानून और सड़क संकेत हमेशा नेविगेशन संकेतों पर प्राथमिकता देते हैं;</string>
@@ -328,7 +325,6 @@
     <string name="dialog_routing_end_not_determined">रूट नहीं बनाया गया. गंतव्य का पता लगाने में असमर्थ.</string>
     <string name="dialog_routing_system_error">सिस्टम त्रुटि</string>
     <string name="dialog_routing_application_error">एप्लिकेशन त्रुटि के कारण मार्ग बनाने में असमर्थ.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">मार्ग खोजना और बनाना शुरू करने के लिए, कृपया मानचित्र डाउनलोड करें। इसके बाद आपको इंटरनेट कनेक्शन की जरूरत नहीं पड़ेगी.</string>
     <!-- «Hide» context menu -->
@@ -501,7 +497,6 @@
     <string name="ok">ठीक है</string>
     <!-- Android -->
     <string name="by_name">नाम द्वारा</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="shops">दुकान</string>
     <string name="dialog_pedestrian_route_is_long_header">सबवे मार्ग नहीं मिला</string>
@@ -598,7 +593,6 @@
     <string name="track_recording_toast_nothing_to_save">मार्ग खाली है - बचाने के लिए कुछ नहीं</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">फ़ोल्डर चयन संवाद प्रदर्शित करने में असमर्थ क्योंकि आपके डिवाइस पर कोई उपयुक्त ऐप इंस्टॉल नहीं है। कृपया एक फ़ाइल प्रबंधक ऐप इंस्टॉल करें और पुनः प्रयास करें।</string>
-
     <!-- SECTION: Types -->
     <string name="type.aerialway.cable_car">आकाशीय रज्जुमार्ग</string>
     <string name="type.aeroway.aerodrome">हवाई अड्डा</string>
@@ -693,7 +687,6 @@
     <string name="type.amenity.prison">कारागार</string>
     <string name="type.amenity.pub">सराय</string>
     <string name="type.amenity.public_bookcase">सार्वजनिक किताबों की अलमारी</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">रीसाइक्लिंग सेंटर</string>
     <string name="type.amenity.recycling">रीसाइक्लिंग कंटेनर</string>
@@ -856,7 +849,6 @@
     <string name="type.healthcare.psychotherapist">मनोचिकित्सक</string>
     <string name="type.healthcare.sample_collection">नमूना संग्रह केंद्र</string>
     <string name="type.healthcare.speech_therapist">वाक उपचार</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">राजमार्ग</string>
     <string name="type.highway.bus_stop">बस स्टॉप</string>
@@ -913,7 +905,6 @@
     <string name="type.area_highway.tertiary">तृतीयक सड़क</string>
     <string name="type.area_highway.track">सड़क</string>
     <string name="type.area_highway.trunk">प्रधान मार्ग</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">ऐतिहासिक वस्तु</string>
     <string name="type.historic.archaeological_site">पुरातत्व स्थल</string>

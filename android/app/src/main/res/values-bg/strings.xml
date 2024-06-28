@@ -102,7 +102,6 @@
     <string name="measurement_units">Мерни единици</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Изберете между километри или мили</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Места за хапване</string>
@@ -150,7 +149,6 @@
     <string name="category_water">Вода</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">За RV</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Бележки</string>
@@ -325,7 +323,6 @@
     <string name="brown">Кафяво</string>
     <!-- pink color -->
     <string name="pink">Розово</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Когато следвате маршрута, моля, имайте предвид:</string>
     <string name="dialog_routing_disclaimer_priority">- Пътната обстановка, законите за движение по пътищата и че пътните знаци винаги имат приоритет пред навигационните подсказки;</string>
@@ -355,7 +352,6 @@
     <string name="not_now">Не сега</string>
     <string name="dialog_routing_download_and_build_cross_route">Бихте ли искали да изтеглите картата и да създадете по-оптимален маршрут, обхващащ повече от една карта?</string>
     <string name="dialog_routing_download_cross_route">За да създадете по-добър маршрут с граничен преход, трябва да изтеглите картата.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">За да започнете да търсите и създавате маршрути, изтеглете картата. Това ще ви позволи да пътувате без интернет връзка.</string>
     <string name="search_select_map">Избор на карта</string>
@@ -669,7 +665,6 @@
     <string name="by_date">По дата</string>
     <!-- Android -->
     <string name="by_name">По име</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="search_in_the_list">Търсене в списъка</string>
     <string name="select_list">Избор на списък</string>
@@ -778,7 +773,6 @@
     <string name="track_recording_toast_nothing_to_save">Маршрутът е празен - няма какво да запазвате</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Не може да се покаже диалогов прозорец за избор на папка, тъй като на вашето устройство не е инсталирано подходящо приложение. Моля, инсталирайте приложение за управление на файлове и опитайте отново</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Адрес/Блок</string>
     <string name="type.addr_interpolation.even">Адрес/Блок</string>
@@ -820,7 +814,6 @@
     <string name="type.amenity.parking_space.disabled">Паркомясто за инвалиди</string>
     <string name="type.amenity.place_of_worship.christian.mormon">Църквата на Исус Христос на светиите от последните дни</string>
     <string name="type.amenity.place_of_worship.christian.jehovahs_witness">Зала на царството на Свидетелите на Йехова</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.recycling.batteries">Батерии</string>
     <!-- Weather shelter (including sun shelters and natural rock shelters). -->
@@ -891,7 +884,6 @@
     <string name="type.healthcare.psychotherapist">Психотерапия</string>
     <string name="type.healthcare.sample_collection">Вземане на проби</string>
     <string name="type.healthcare.speech_therapist">Логопедия</string>
-
     <!-- SECTION: Types: Roads -->
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">Мост</string>
@@ -993,7 +985,6 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.unclassified.tunnel">Тунел</string>
     <string name="type.area_highway.trunk">Автомагистрала</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Исторически обект</string>
     <string name="type.historic.aircraft">Исторически самолет</string>

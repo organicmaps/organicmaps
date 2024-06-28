@@ -17,7 +17,6 @@
     <string name="address">Anwani</string>
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Hifadhi ramani kwenye</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Sehemu ya kula</string>
@@ -37,7 +36,6 @@
     <string name="category_water">Maji</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Kwa RV</string>
-
     <!-- SECTION: Other translations -->
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Aina ya faili haitambuliwi na programu:
@@ -94,11 +92,9 @@
     <string name="gray">Kijivu</string>
     <!-- blue gray color -->
     <string name="blue_gray">Kijivu Buluu</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_change_intermediate">Imeshindwa kupata eneo la kati.</string>
     <string name="dialog_routing_intermediate_not_determined">Tafadhali badilisha eneo lako la kati.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Pakua eneo ambalo unatafuta au jaribu kuongeza jina la mji/kijiji kilicho karibu.</string>
@@ -264,7 +260,6 @@
     <string name="moreyear_ago_sorttype">Zaidi ya mwaka mmoja uliopita</string>
     <string name="near_me_sorttype">Karibu yangu</string>
     <string name="others_sorttype">Nyingine</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Chakula</string>
     <string name="tourist_places">Vivutio</string>
@@ -382,7 +377,6 @@
     <string name="track_recording_toast_nothing_to_save">Njia ni tupu - hakuna cha kuhifadhi</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Haiwezi kuonyesha kidirisha cha kuchagua folda kwa sababu hakuna programu inayofaa iliyosakinishwa kwenye kifaa chako. Tafadhali sakinisha programu ya kidhibiti faili na ujaribu tena</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Anwani/Zuia</string>
     <string name="type.addr_interpolation.even">Anwani/Zuia</string>
@@ -431,7 +425,6 @@
     <string name="type.amenity.place_of_worship.christian.mormon">Kanisa la Yesu Kristo la Watakatifu wa Siku za Mwisho</string>
     <string name="type.amenity.place_of_worship.christian.jehovahs_witness">Ukumbi wa Ufalme wa Mashahidi wa Yehova</string>
     <string name="type.amenity.post_office">Ofisi ya posta</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.recycling.batteries">Betri</string>
     <!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
@@ -498,7 +491,6 @@
     <string name="type.healthcare.psychotherapist">Tiba ya kisaikolojia</string>
     <string name="type.healthcare.sample_collection">Sampuli</string>
     <string name="type.healthcare.speech_therapist">Tiba ya hotuba</string>
-
     <!-- SECTION: Types: Roads -->
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">Daraja</string>
@@ -598,7 +590,6 @@
     <string name="type.highway.unclassified.bridge">Daraja</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.unclassified.tunnel">Mtaro</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Kitu cha kihistoria</string>
     <string name="type.historic.aircraft">Ndege ya kihistoria</string>

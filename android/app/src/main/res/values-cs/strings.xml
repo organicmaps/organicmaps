@@ -100,7 +100,6 @@
     <string name="measurement_units">Měřicí jednotky</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Vyberte si míle nebo kilometry</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Kde se najíst</string>
@@ -148,7 +147,6 @@
     <string name="category_water">Voda</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Pro RV</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Poznámky</string>
@@ -340,7 +338,6 @@
     <string name="gray">Šedá</string>
     <!-- blue gray color -->
     <string name="blue_gray">Modrošedá</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Při navigaci podle trasy mějte na paměti následující:</string>
     <string name="dialog_routing_disclaimer_priority">• Situace na silnici, dopravní předpisy a dopravní značení mají vždy prioritu před pokyny navigace.</string>
@@ -370,7 +367,6 @@
     <string name="not_now">Nyní ne</string>
     <string name="dialog_routing_download_and_build_cross_route">Chcete mapu stáhnout a vytvořit optimálnější trasu, která vede přes více než jednu mapu?</string>
     <string name="dialog_routing_download_cross_route">Stáhnout mapu a vytvořit optimálnější trasu, která překračuje hranice této mapy.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Chcete-li začít hledat a vytvářet trasy, pak si prosím stáhněte mapu a nebudete již potřebovat připojení.</string>
     <string name="search_select_map">Vybrat mapu</string>
@@ -701,7 +697,6 @@
     <string name="moreyear_ago_sorttype">Více než před rokem</string>
     <string name="near_me_sorttype">Blízko mě</string>
     <string name="others_sorttype">Ostatní</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Jídlo</string>
     <string name="tourist_places">Památky</string>
@@ -828,7 +823,6 @@
     <string name="track_recording_toast_nothing_to_save">Trasa je prázdná - není co ukládat</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Nelze zobrazit dialogové okno pro výběr složky, protože v zařízení není nainstalována žádná vhodná aplikace. Nainstalujte si prosím aplikaci pro správu souborů a zkuste to znovu</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Adresa/blok</string>
     <string name="type.addr_interpolation.even">Adresa/blok</string>
@@ -940,7 +934,6 @@
     <string name="type.amenity.post_office">Pošta</string>
     <string name="type.amenity.pub">Hospoda</string>
     <string name="type.amenity.public_bookcase">Knihovna</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Recyklační středisko</string>
     <string name="type.amenity.recycling">Recyklační nádoba</string>
@@ -1141,7 +1134,6 @@
     <string name="type.healthcare.psychotherapist">Psychoterapie</string>
     <string name="type.healthcare.sample_collection">Odběr vzorků</string>
     <string name="type.healthcare.speech_therapist">Logopedie</string>
-
     <!-- SECTION: Types: Roads -->
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">Most</string>
@@ -1299,7 +1291,6 @@
     <string name="type.area_highway.track">Ulice</string>
     <string name="type.area_highway.trunk">Ulice</string>
     <string name="type.area_highway.unclassified">Ulice</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Historický objekt</string>
     <string name="type.historic.aircraft">Historická letadla</string>

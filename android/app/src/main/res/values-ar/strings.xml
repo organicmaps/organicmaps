@@ -115,7 +115,6 @@
     <string name="measurement_units">وحدات القياس</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">اختر من بين الأميال و الكيلومترات.</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">أمكان لتناول الطعام</string>
@@ -163,7 +162,6 @@
     <string name="category_water">ماء</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">منشآت للمنازل المتنقلة</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">ملاحظات</string>
@@ -372,7 +370,6 @@
     <string name="gray">رمادي</string>
     <!-- blue gray color -->
     <string name="blue_gray">رمادي أزرق</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">عند اتباع المسار، يُرجى الانتباه إلى ما يلي:</string>
     <string name="dialog_routing_disclaimer_priority">— إن ظروف الطريق وقوانين وإشارات المرور لها الأولوية على المشورة الملاحية دائماً;</string>
@@ -402,7 +399,6 @@
     <string name="not_now">ليس الآن</string>
     <string name="dialog_routing_download_and_build_cross_route">هل ترغب في تنزيل الخريطة وإنشاء مسار أفضل يمتد عبر أكثر من خريطة؟</string>
     <string name="dialog_routing_download_cross_route">تنزيل خرائط إضافية لإنشاء مسار أفضل يعبر حافة هذه الخريطة.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">لبدء البحث وإنشاء الطرق، يرجى تنزيل الخريطة،  ولن تحتاج إلى اتصال بالإنترنت بعد ذلك.</string>
     <string name="search_select_map">اختيار الخريطة</string>
@@ -744,7 +740,6 @@
     <string name="moreyear_ago_sorttype">منذ أكثر من سنة</string>
     <string name="near_me_sorttype">قريب مني</string>
     <string name="others_sorttype">أخرى</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">طعام</string>
     <string name="tourist_places">أماكن سياحية</string>
@@ -877,7 +872,6 @@
     <string name="track_recording_toast_nothing_to_save">المسار فارغ - لا يوجد شيء للحفظ</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">غير قادر على عرض مربع حوار تحديد المجلد لأنه لا يوجد تطبيق مناسب مثبت على جهازك. يرجى تثبيت تطبيق مدير الملفات والمحاولة مرة أخرى.</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">العنوان / البلوك</string>
     <string name="type.addr_interpolation.even">العنوان / البلوك</string>
@@ -1005,7 +999,6 @@
     <string name="type.amenity.prison">سجن</string>
     <string name="type.amenity.pub">حانة</string>
     <string name="type.amenity.public_bookcase">مكتبة، تبادل كتب</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">مركز إعادة تدوير</string>
     <string name="type.amenity.recycling">حاوية لإعادة التدوير</string>
@@ -1240,7 +1233,6 @@
     <string name="type.healthcare.psychotherapist">العلاج النفسي</string>
     <string name="type.healthcare.sample_collection">أخذ العينات</string>
     <string name="type.healthcare.speech_therapist">علاج النطق</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">طريق السريع</string>
     <string name="type.highway.bridleway">طريق خيول</string>
@@ -1406,7 +1398,6 @@
     <string name="type.area_highway.track">شارع</string>
     <string name="type.area_highway.trunk">شارع وطني</string>
     <string name="type.area_highway.unclassified">شارع صغير</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">مكان تاريخي</string>
     <string name="type.historic.aircraft">الطائرات التاريخية</string>

@@ -99,7 +99,6 @@
     <string name="measurement_units">واحد اندازه‌گیری</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">بین مایل و کیلومتر انتخاب کنید</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">کجا غذا بخوریم</string>
@@ -147,7 +146,6 @@
     <string name="category_water">آب</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">RV برای</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">یادداشت‌ها</string>
@@ -325,7 +323,6 @@
     <string name="gray">خاکستری</string>
     <!-- blue gray color -->
     <string name="blue_gray">خاکستری کبود</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">زمانی که مسیری را دنبال می کنید لطفا به یاد داشته باشید:</string>
     <string name="dialog_routing_disclaimer_priority">—شرایط جاده قوانین راهنمایی و رانندگی و علائم جاده همیشه بر نکات مسیریابی اولویت دارند;</string>
@@ -355,7 +352,6 @@
     <string name="not_now">اکنون خیر</string>
     <string name="dialog_routing_download_and_build_cross_route">ایا مایل به دانلود نقشه و ایجاد مسیر‌های بهینه بیشتری که نقشه‌های بیشتری را پوشش میدهد هستید؟</string>
     <string name="dialog_routing_download_cross_route">دانلود نقشه‌های اضافی برای ایجاد مسیری بهتر که حاشیه‌های این نقشه را رد می کند.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">برای شروع جستجو و مسیر‌یابی لطفا نقشه رادانلود کنید بعد از آن دیگر نیازی به اتصال به اینترنت ندارید و برنامه کاملا آفلاین اجرا می شود.</string>
     <string name="search_select_map">انتخاب نقشه</string>
@@ -689,7 +685,6 @@
     <string name="moreyear_ago_sorttype">بیش از یک سال قبل</string>
     <string name="near_me_sorttype">نزدیک من</string>
     <string name="others_sorttype">دیگران</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">غذا</string>
     <string name="tourist_places">مناظر</string>
@@ -811,7 +806,6 @@
     <string name="track_recording_toast_nothing_to_save">مسیر خالی است - چیزی برای ذخیره کردن وجود ندارد</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">امکان نمایش گفتگوی انتخاب پوشه وجود ندارد زیرا برنامه مناسبی روی دستگاه شما نصب نشده است. لطفاً یک برنامه مدیریت فایل نصب کنید و دوباره امتحان کنید</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">آدرس/بلاک</string>
     <string name="type.addr_interpolation.even">آدرس/بلاک</string>
@@ -923,7 +917,6 @@
     <string name="type.amenity.post_box">صندوق پست</string>
     <string name="type.amenity.post_office">دفتر پست</string>
     <string name="type.amenity.pub">میکده</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">مرکز بازیافت</string>
     <string name="type.amenity.recycling">ظرف بازیافت</string>
@@ -1040,7 +1033,6 @@
     <string name="type.healthcare.psychotherapist">روان درمانی</string>
     <string name="type.healthcare.sample_collection">نمونه برداری</string>
     <string name="type.healthcare.speech_therapist">گفتار درمانی</string>
-
     <!-- SECTION: Types: Roads -->
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">پل</string>
@@ -1197,7 +1189,6 @@
     <string name="type.area_highway.track">جاده</string>
     <string name="type.area_highway.trunk">جاده</string>
     <string name="type.area_highway.unclassified">جاده</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">شیء تاریخی</string>
     <string name="type.historic.aircraft">هواپیمای تاریخی</string>

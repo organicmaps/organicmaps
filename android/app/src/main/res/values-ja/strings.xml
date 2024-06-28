@@ -111,7 +111,6 @@
     <string name="measurement_units">距離の単位</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">マイルまたはキロメートルを選択</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">食事場所</string>
@@ -159,7 +158,6 @@
     <string name="category_water">水</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">RV用</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">メモ</string>
@@ -360,7 +358,6 @@
     <string name="gray">灰色</string>
     <!-- blue gray color -->
     <string name="blue_gray">青灰色</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">案内ルートに従う際は、以下の点にご留意ください：</string>
     <string name="dialog_routing_disclaimer_priority">— 道路の状況や道路交通法、道路標識をナビゲーションよりも常に優先してください。;</string>
@@ -390,7 +387,6 @@
     <string name="not_now">後で</string>
     <string name="dialog_routing_download_and_build_cross_route">マップをダウンロードし、複数マップを利用してより最適なルートを作成しますか？</string>
     <string name="dialog_routing_download_cross_route">このマップの境界を越えて複数マップを利用し、より最適なルートを作成するには、マップをダウンロードしてください。</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">検索とルート作成を開始するには、地図をダウンロードしてください。地図をダウンロードすると、インターネット接続は不要です。</string>
     <string name="search_select_map">地図を選択</string>
@@ -732,7 +728,6 @@
     <string name="moreyear_ago_sorttype">1年以上前</string>
     <string name="near_me_sorttype">近隣</string>
     <string name="others_sorttype">その他</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">食べ物</string>
     <string name="tourist_places">観光地</string>
@@ -865,7 +860,6 @@
     <string name="track_recording_toast_nothing_to_save">ルートが空です - 保存するものがありません</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">デバイスに適切なアプリがインストールされていないため、フォルダ選択ダイアログを表示できません。ファイルマネージャーアプリをインストールして再度お試しください。</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">アドレス/ブロック</string>
     <string name="type.addr_interpolation.even">アドレス/ブロック</string>
@@ -993,7 +987,6 @@
     <string name="type.amenity.prison">刑務所</string>
     <string name="type.amenity.pub">バー</string>
     <string name="type.amenity.public_bookcase">街角文庫</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">リサイクルセンター</string>
     <string name="type.amenity.recycling">リサイクルボックス</string>
@@ -1204,7 +1197,6 @@
     <string name="type.healthcare.psychotherapist">心理療法</string>
     <string name="type.healthcare.sample_collection">サンプリング</string>
     <string name="type.healthcare.speech_therapist">ロゴペディックス</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">道路</string>
     <string name="type.highway.bridleway">馬道</string>
@@ -1369,7 +1361,6 @@
     <string name="type.area_highway.track">ストリート</string>
     <string name="type.area_highway.trunk">ストリート</string>
     <string name="type.area_highway.unclassified">ストリート</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">史跡</string>
     <string name="type.historic.aircraft">歴史的な航空機</string>

@@ -101,7 +101,6 @@
     <string name="measurement_units">Unit Pengukuran</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Pilihlah antara mil dan kilometer</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Tempat makan</string>
@@ -149,7 +148,6 @@
     <string name="category_water">Air</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Untuk RV</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Catatan</string>
@@ -337,7 +335,6 @@
     <string name="gray">Abu-abu</string>
     <!-- blue gray color -->
     <string name="blue_gray">Biru Keabu-abuan</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Saat mengikuti rute, harap diingat:</string>
     <string name="dialog_routing_disclaimer_priority">— Kondisi jalan, peraturan lalu lintas, dan marka jalan harus selalu didahulukan daripada saran navigasi;</string>
@@ -367,7 +364,6 @@
     <string name="not_now">Jangan Sekarang</string>
     <string name="dialog_routing_download_and_build_cross_route">Apakah Anda ingin mengunduh peta dan membuat rute yang lebih optimal yang meliputi lebih dari satu peta?</string>
     <string name="dialog_routing_download_cross_route">Unduh peta untuk membuat rute yang lebih optimal yang melewati ujung peta ini.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Untuk mulai mencari dan membuat rute, silakan unduh peta, dan Anda tidak akan membutuhkan koneksi internet lagi.</string>
     <string name="search_select_map">Pilih Peta</string>
@@ -695,7 +691,6 @@
     <string name="moreyear_ago_sorttype">Lebih dari setahun yang lalu</string>
     <string name="near_me_sorttype">Dekat dengan saya</string>
     <string name="others_sorttype">Lainnya</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Makanan</string>
     <string name="tourist_places">Tempat Rekreasi</string>
@@ -815,7 +810,6 @@
     <string name="track_recording_toast_nothing_to_save">Jalur kosong - tidak ada yang bisa disimpan</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Tidak dapat menampilkan dialog pemilihan folder karena tidak ada aplikasi yang sesuai yang diinstal pada perangkat Anda. Instal aplikasi pengelola file dan coba lagi</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Alamat/Blokir</string>
     <string name="type.addr_interpolation.even">Alamat/Blokir</string>
@@ -924,7 +918,6 @@
     <string name="type.amenity.post_box">Kotak pos</string>
     <string name="type.amenity.post_office">Kantor pos</string>
     <string name="type.amenity.public_bookcase">Rak Buku</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">TPA</string>
     <string name="type.amenity.recycling">Wadah daur ulang</string>
@@ -1124,7 +1117,6 @@
     <string name="type.healthcare.psychotherapist">Psikoterapi</string>
     <string name="type.healthcare.sample_collection">Pengambilan sampel</string>
     <string name="type.healthcare.speech_therapist">Logopedik</string>
-
     <!-- SECTION: Types: Roads -->
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">Menjembatani</string>
@@ -1282,7 +1274,6 @@
     <string name="type.area_highway.track">Jalan</string>
     <string name="type.area_highway.trunk">Jalan</string>
     <string name="type.area_highway.unclassified">Jalan</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Objek bersejarah</string>
     <string name="type.historic.aircraft">Pesawat Bersejarah</string>

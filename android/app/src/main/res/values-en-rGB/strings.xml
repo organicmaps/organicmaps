@@ -7,20 +7,16 @@
     <string name="bookmark_color">Bookmark Colour</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Choose between miles and kilometres</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
     <string name="category_fuel">Petrol</string>
-
     <!-- SECTION: Other translations -->
     <!-- gray color -->
     <string name="gray">Grey</string>
     <!-- blue gray color -->
     <string name="blue_gray">Blue Grey</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_borders">— Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorised places.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="postal_code">Postcode</string>
     <string name="editor_zip_code">Postcode</string>
@@ -40,13 +36,11 @@
     <string name="button_layer_subway">Metro</string>
     <string name="subway_data_unavailable">Metro map is unavailable</string>
     <string name="avoid_motorways">Avoid motorways</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="fuel_places">Petrol Stations</string>
     <string name="transit_not_found">Metro navigation in this region is not available yet</string>
     <string name="dialog_pedestrian_route_is_long_header">No metro route found</string>
     <string name="dialog_pedestrian_route_is_long_message">Please choose a start or end point closer to a metro station</string>
-
     <!-- SECTION: Types -->
     <string name="type.amenity.arts_centre">Arts Centre</string>
     <string name="type.amenity.conference_centre">Conference Centre</string>
@@ -54,7 +48,6 @@
     <string name="type.amenity.fuel">Petrol Station</string>
     <string name="type.amenity.loading_dock">Loading Bay</string>
     <string name="type.amenity.post_box">Postbox</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Recycling Centre</string>
     <string name="type.amenity.taxi">Taxi Rank</string>
@@ -62,11 +55,9 @@
     <string name="type.cuisine.donut">Doughnut</string>
     <string name="type.cuisine.savory_pancakes">Savoury Pancakes</string>
     <string name="type.healthcare.blood_donation">Blood Donation Centre</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway.elevator">Lift</string>
     <string name="type.highway.footway.sidewalk">Pavement</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.leisure.common">Common Land</string>
     <string name="type.leisure.sports_centre">Sports Centre</string>

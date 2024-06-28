@@ -112,7 +112,6 @@
     <string name="measurement_units">Mértékegységek</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Válasszon kilométer és mérföld között</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Hol lehet enni valamit</string>
@@ -160,7 +159,6 @@
     <string name="category_water">Víz</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">RV számára</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Jegyzetek</string>
@@ -350,7 +348,6 @@
     <string name="gray">Szürke</string>
     <!-- blue gray color -->
     <string name="blue_gray">Kékes Szürke</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Az útvonal követése során, kérjük, vegye figyelembe az alábbiakat:</string>
     <string name="dialog_routing_disclaimer_priority">— Az útviszonyok, forgalmi törvények és jelzőtáblák mindig elsőbbséget élveznek a navigációs útmutatásokkal szemben;</string>
@@ -380,7 +377,6 @@
     <string name="not_now">Most nem</string>
     <string name="dialog_routing_download_and_build_cross_route">Szeretné letölteni a térképet és létrehozni egy optimálisabb útvonalat, amely több, mint egy térképen terül el?</string>
     <string name="dialog_routing_download_cross_route">Töltse le a térképet, hogy létrehozzon egy optimálisabb útvonalat, amely áthalad a jelenlegi térkép szélén.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Útvonalak kereséséhez és létrehozásához, kérjük, töltsd le a térképet és többé nem lesz szükséged internetkapcsolatra.</string>
     <string name="search_select_map">Jelöld ki a térképet</string>
@@ -706,7 +702,6 @@
     <string name="moreyear_ago_sorttype">Több mint egy éve</string>
     <string name="near_me_sorttype">Hozzám közel</string>
     <string name="others_sorttype">Más</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Étel</string>
     <string name="tourist_places">Látnivalók</string>
@@ -830,7 +825,6 @@
     <string name="track_recording_toast_nothing_to_save">Az útvonal üres - nincs mit menteni</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Nem lehet megjeleníteni a mappaválasztó párbeszédpanelt, mert nincs megfelelő alkalmazás telepítve a készülékén. Kérjük, telepítsen egy fájlkezelő alkalmazást, és próbálja meg újra</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Cím/blokk</string>
     <string name="type.addr_interpolation.even">Cím/blokk</string>
@@ -944,7 +938,6 @@
     <string name="type.amenity.post_office">Posta</string>
     <string name="type.amenity.pub">Kocsma</string>
     <string name="type.amenity.public_bookcase">Nyilvános könyvespolc</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Újrahasznosító központ</string>
     <string name="type.amenity.recycling">Újrahasznosító konténer</string>
@@ -1145,7 +1138,6 @@
     <string name="type.healthcare.psychotherapist">Pszichoterápia</string>
     <string name="type.healthcare.sample_collection">Mintavétel</string>
     <string name="type.healthcare.speech_therapist">Logopédia</string>
-
     <!-- SECTION: Types: Roads -->
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">Híd</string>
@@ -1303,7 +1295,6 @@
     <string name="type.area_highway.track">Utca</string>
     <string name="type.area_highway.trunk">Elsőrendű közlekedési út</string>
     <string name="type.area_highway.unclassified">Kis utca</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Történelmi tárgy</string>
     <string name="type.historic.aircraft">Történelmi Repülőgép</string>

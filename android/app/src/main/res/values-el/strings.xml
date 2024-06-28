@@ -113,7 +113,6 @@
     <string name="measurement_units">Μονάδες μέτρησης</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Επιλέξετε ανάμεσα σε μίλια και χιλιόμετρα</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Μέρη για φαγητό</string>
@@ -161,7 +160,6 @@
     <string name="category_water">Νερό</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Για RV</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Σημειώσεις</string>
@@ -360,7 +358,6 @@
     <string name="gray">Γκρι</string>
     <!-- blue gray color -->
     <string name="blue_gray">Γκρίζο μπλε</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Όταν ακολουθείτε την διαδρομή, να θυμάστε:</string>
     <string name="dialog_routing_disclaimer_priority">— Οι οδικές συνθήκες, ο κώδικας οδικής κυκλοφορίας και οι σημάνσεις στο δρόμο έχουν πάντα μεγαλύτερη προτεραιότητα από τις συμβουλές πλοήγησης,</string>
@@ -390,7 +387,6 @@
     <string name="not_now">Όχι τώρα</string>
     <string name="dialog_routing_download_and_build_cross_route">Θέλετε να κατεβάσετε το χάρτη και να δημιουργήσετε μια πιο βέλτιστη διαδρομή που εκτείνεται σε περισσότερους από έναν χάρτες;</string>
     <string name="dialog_routing_download_cross_route">Κατεβάστε επιπλέον χάρτες για να δημιουργηθεί μια καλύτερη διαδρομή που διασχίζει τα όρια αυτού του χάρτη.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Για να ξεκινήσετε την αναζήτηση και τη δημιουργία διαδρομών, κατεβάστε το χάρτη. Μετά από αυτό δεν θα χρειάζεστε πλέον σύνδεση στο Internet.</string>
     <string name="search_select_map">Επιλογή χάρτη</string>
@@ -730,7 +726,6 @@
     <string name="moreyear_ago_sorttype">Περισσότερο από ένα χρόνο πριν</string>
     <string name="near_me_sorttype">Δίπλα μου</string>
     <string name="others_sorttype">Άλλα</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Φαγητό</string>
     <string name="tourist_places">Αξιοθέατα</string>
@@ -863,7 +858,6 @@
     <string name="track_recording_toast_nothing_to_save">Η διαδρομή είναι άδεια - δεν υπάρχει τίποτα να αποθηκεύσετε</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Δεν είναι δυνατή η εμφάνιση του διαλόγου επιλογής φακέλου επειδή δεν είναι εγκατεστημένη η κατάλληλη εφαρμογή στη συσκευή σας. Εγκαταστήστε μια εφαρμογή διαχείρισης αρχείων και δοκιμάστε ξανά</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Διεύθυνση/Μπλοκ</string>
     <string name="type.addr_interpolation.even">Διεύθυνση/Μπλοκ</string>
@@ -982,7 +976,6 @@
     <string name="type.amenity.post_office">Ταχυδρομείο</string>
     <string name="type.amenity.pub">Παμπ</string>
     <string name="type.amenity.public_bookcase">Ανταλλαγή βιβλίων</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Κέντρο ανακύκλωσης</string>
     <string name="type.amenity.recycling">Κάδος ανακύκλωσης</string>
@@ -1184,7 +1177,6 @@
     <string name="type.healthcare.psychotherapist">Ψυχοθεραπεία</string>
     <string name="type.healthcare.sample_collection">Δειγματοληψία</string>
     <string name="type.healthcare.speech_therapist">Λογοθεραπεία</string>
-
     <!-- SECTION: Types: Roads -->
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">Γέφυρα</string>
@@ -1342,7 +1334,6 @@
     <string name="type.area_highway.track">Οδός</string>
     <string name="type.area_highway.trunk">Οδός</string>
     <string name="type.area_highway.unclassified">Οδός</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Ιστορικό αντικείμενο</string>
     <string name="type.historic.aircraft">Ιστορικό αεροσκάφος</string>

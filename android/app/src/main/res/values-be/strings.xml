@@ -113,7 +113,6 @@
     <string name="measurement_units">Адзінкі вымярэння</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Выкарыстоўваць кіламетры або мілі</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Дзе паесці</string>
@@ -161,7 +160,6 @@
     <string name="category_water">Вада</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Для аўтадамоў</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Нататкі</string>
@@ -358,7 +356,6 @@
     <string name="gray">Шэры</string>
     <!-- blue gray color -->
     <string name="blue_gray">Блакітна-шэры</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Падчас руху па маршруце памятайце:</string>
     <string name="dialog_routing_disclaimer_priority">— Дарожныя абставіны, правілы дарожнага руху і дарожныя знакі заўсёды маюць прыярытэт над падказкамі навігацыі;</string>
@@ -388,7 +385,6 @@
     <string name="not_now">Не зараз</string>
     <string name="dialog_routing_download_and_build_cross_route">Спампаваць мапу і пракласці лепшы маршрут праз некалькі мап?</string>
     <string name="dialog_routing_download_cross_route">Спампаваць дадатковыя мапы, каб пракласці лепшы маршрут, які перасякае межы гэтай мапы.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Каб шукаць месцы і пракладваць маршруты, спампуйце карту. Пасля гэтага падключэнне да інтэрнэту вам больш не спатрэбіцца.</string>
     <string name="search_select_map">Выбраць мапу</string>
@@ -725,7 +721,6 @@
     <string name="moreyear_ago_sorttype">Больш за год таму</string>
     <string name="near_me_sorttype">Каля мяне</string>
     <string name="others_sorttype">Іншыя</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Ежа</string>
     <string name="tourist_places">Славутасці</string>
@@ -856,7 +851,6 @@
     <string name="track_recording_toast_nothing_to_save">Маршрут пусты - няма чаго захоўваць</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Немагчыма адлюстраваць дыялогавае акно выбару папкі, таму што на вашай прыладзе не ўсталявана адпаведная праграма. Усталюйце праграму для кіравання файламі і паўтарыце спробу</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Адрас/Блок</string>
     <string name="type.addr_interpolation.even">Адрас/Блок</string>
@@ -907,7 +901,6 @@
     <string name="type.amenity.place_of_worship.christian.mormon">Царква Ісуса Хрыста Святых апошніх дзён</string>
     <string name="type.amenity.place_of_worship.christian.jehovahs_witness">Зала царства Сведкаў Іегавы</string>
     <string name="type.amenity.post_box">Паштовая скрыня</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Прыём другсыравіны</string>
     <string name="type.amenity.recycling">Кантэйнер для другаснай сыравіны</string>
@@ -1015,7 +1008,6 @@
     <string name="type.healthcare.psychotherapist">Псіхатэрапія</string>
     <string name="type.healthcare.sample_collection">Збор аналізаў</string>
     <string name="type.healthcare.speech_therapist">лагапедыя</string>
-
     <!-- SECTION: Types: Roads -->
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">Мост</string>
@@ -1117,7 +1109,6 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.unclassified.tunnel">Тунэль</string>
     <string name="type.area_highway.trunk">Траса</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Гістарычны аб\'ект</string>
     <string name="type.historic.aircraft">Гістарычныя самалёты</string>
