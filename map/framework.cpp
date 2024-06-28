@@ -2425,18 +2425,7 @@ void Framework::SaveTransliteration(bool allowTranslit)
 
 std::string Framework::GetMapLanguageCode()
 {
-  std::string languageCode;
-  if (!settings::Get(settings::kMapLanguageCode, languageCode) || languageCode.empty())
-  {
-    for (auto const & systemLanguage : languages::GetSystemPreferred())
-    {
-      std::string const normalizedLang = languages::Normalize(systemLanguage);
-      if (StringUtf8Multilang::GetLangIndex(normalizedLang) != StringUtf8Multilang::kUnsupportedLanguageCode)
-        return normalizedLang;
-    }
-    return std::string(StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode));
-  }
-  return languageCode;
+  return languages::GetCurrentMapLanguage();
 }
 
 void Framework::SetMapLanguageCode(std::string const & languageCode)
@@ -2445,7 +2434,17 @@ void Framework::SetMapLanguageCode(std::string const & languageCode)
   if (m_drapeEngine == nullptr)
     return;
 
-  m_drapeEngine->UpdateMapStyle();
+  int8_t const languageCodeIndex = [&languageCode]()
+  {
+    if (languageCode.empty())
+      return StringUtf8Multilang::kDefaultCode;
+    int8_t const index = StringUtf8Multilang::GetLangIndex(languageCode);
+    if (index == StringUtf8Multilang::kUnsupportedLanguageCode)
+      return StringUtf8Multilang::kDefaultCode;
+    return index;
+  }();
+
+  m_drapeEngine->SetMapLangIndex(languageCodeIndex);
 }
 
 void Framework::Allow3dMode(bool allow3d, bool allow3dBuildings)
@@ -3265,7 +3264,7 @@ void Framework::FillDescription(FeatureType & ft, place_page::Info & info) const
   if (!ft.GetID().m_mwmId.IsAlive())
     return;
   auto const & regionData = ft.GetID().m_mwmId.GetInfo()->GetRegionData();
-  auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
+  auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentMapLanguage());
   auto const langPriority = feature::GetDescriptionLangPriority(regionData, deviceLang);
 
   std::string wikiDescription = m_descriptionsLoader->GetWikiDescription(ft.GetID(), langPriority);
