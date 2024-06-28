@@ -150,6 +150,8 @@ public:
 
   std::string const & GetHouseNumber();
 
+  bool const HasStreetName();
+
   /// @name Get names for feature.
   //@{
   void GetPreferredNames(bool allowTranslit, int8_t deviceLang, feature::NameParamsOut & out);

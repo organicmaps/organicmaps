@@ -806,6 +806,12 @@ string const & FeatureType::GetHouseNumber()
   return m_params.house.Get();
 }
 
+bool const FeatureType::HasStreetName()
+{
+  ParseCommon();
+  return !m_params.name.IsEmpty();
+}
+
 string_view FeatureType::GetName(int8_t lang)
 {
   if (!HasName())

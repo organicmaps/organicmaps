@@ -302,7 +302,13 @@ ftypes::LocalityType GetLocalityIndex(feature::TypesHolder const & types)
 // TODO: Format street and house number according to local country's rules.
 string FormatStreetAndHouse(ReverseGeocoder::Address const & addr)
 {
-  return addr.GetStreetName() + ", " + addr.GetHouseNumber();
+  std::string const streetName = addr.GetStreetName();
+  std::string const houseNumber = addr.GetHouseNumber();
+
+  if (houseNumber.empty())
+    return streetName;
+  else
+    return streetName + ", " + houseNumber;
 }
 
 // TODO: Share common formatting code for search results and place page.

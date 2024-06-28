@@ -275,7 +275,7 @@ void ReverseGeocoder::GetNearbyBuildings(m2::PointD const & center, double radiu
   auto const addBuilding = [&](FeatureType & ft)
   {
     std::string const & hn = GetHouseNumber(ft);
-    if (hn.empty())
+    if (hn.empty() && !ft.HasStreetName())
       return;
 
     auto const distance = feature::GetMinDistanceMeters(ft, center);
