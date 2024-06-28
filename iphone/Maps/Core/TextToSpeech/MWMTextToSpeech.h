@@ -18,6 +18,7 @@
 - (void)setNotificationsLocale:(NSString *)locale;
 - (void)playTurnNotifications:(NSArray<NSString *> *)turnNotifications;
 - (void)playWarningSound;
+- (void)play:(NSString *)text;
 
 - (instancetype)init __attribute__((unavailable("call +tts instead")));
 - (instancetype)copy __attribute__((unavailable("call +tts instead")));
