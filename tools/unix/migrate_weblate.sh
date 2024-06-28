@@ -32,6 +32,9 @@ echo "$iphone_strings" | wc -l
 # Perform one last migration from source files
 ./tools/unix/generate_localizations.sh
 
+# Adapt \n to incluce a line break like Weblate does
+sed -i "" -E '/<string /s/\\n/\n\\n/g' $android_strings_xml
+
 ## Prepare iPhone files for Weblate
 
 # Remove blank lines between translatable strings
