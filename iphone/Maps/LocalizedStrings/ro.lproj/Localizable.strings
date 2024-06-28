@@ -263,6 +263,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Limba ghidului vocal";
 
+/* Settings «Route» category: «Test Voice Directions» title */
+"pref_tts_test_voice_title" = "Testarea indicațiilor vocale (TTS, Text-To-Speech)";
+
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Altceva";
 
@@ -1272,6 +1275,36 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* App Tip #00 */
+"app_tip_00" = "Vă mulțumim că utilizați hărțile create de comunitatea noastră!";
+
+/* App tip #01 */
+"app_tip_01" = "Cu donațiile și sprijinul dumneavoastră, putem crea cele mai bune hărți din lume!";
+
+/* App tip #02 */
+"app_tip_02" = "Îți place aplicația noastră? Vă rugăm să donați pentru a sprijini dezvoltarea! Nu-ți place încă? Vă rugăm să ne anunțați și vom remedia!";
+
+/* App tip #03 */
+"app_tip_03" = "Dacă cunoașteți un dezvoltator de software, îi puteți cere să implementeze o caracteristică de care aveți nevoie.";
+
+/* App tip #04 */
+"app_tip_04" = "Știți că puteți atinge lung orice loc de pe hartă pentru a-l selecta?";
+
+/* App tip #05 */
+"app_tip_05" = "Știți că vă puteți selecta locația curentă pe hartă?";
+
+/* App tip #06 */
+"app_tip_06" = "Puteți ajuta la traducerea aplicației noastre în limba dvs.";
+
+/* App tip #07 */
+"app_tip_07" = "Aplicația noastră este dezvoltată de câțiva entuziaști și de comunitate.";
+
+/* App tip #08 */
+"app_tip_08" = "Puteți remedia și îmbunătăți cu ușurință datele hărții.";
+
+/* App tip #09 */
+"app_tip_09" = "Scopul nostru principal este să construim hărți rapide, axate pe confidențialitate și ușor de utilizat, care să vă placă.";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Acum utilizați Organic Maps pe ecranul telefonului";

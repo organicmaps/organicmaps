@@ -263,6 +263,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Voice Language";
 
+/* Settings «Route» category: «Test Voice Directions» title */
+"pref_tts_test_voice_title" = "Jaribu maelekezo ya sauti (TTS, maandishi-kwa-hotuba)";
+
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Other";
 
@@ -1272,6 +1275,36 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* App Tip #00 */
+"app_tip_00" = "Asante kwa kutumia ramani zetu zilizojengwa na jumuiya!";
+
+/* App tip #01 */
+"app_tip_01" = "Kwa michango na usaidizi wako, tunaweza kuunda ramani bora zaidi Duniani!";
+
+/* App tip #02 */
+"app_tip_02" = "Je, unapenda programu yetu? Tafadhali toa mchango ili kusaidia maendeleo! Je, huipendi bado? Tafadhali tujulishe, na tutarekebisha!";
+
+/* App tip #03 */
+"app_tip_03" = "Ikiwa unajua msanidi programu, unaweza kumwomba kutekeleza kipengele unachohitaji.";
+
+/* App tip #04 */
+"app_tip_04" = "Je, unajua kwamba unaweza kugonga kwa muda mrefu sehemu yoyote kwenye ramani ili kuichagua?";
+
+/* App tip #05 */
+"app_tip_05" = "Je, unajua kwamba unaweza kuchagua eneo lako la sasa kwenye ramani?";
+
+/* App tip #06 */
+"app_tip_06" = "Unaweza kusaidia kutafsiri programu yetu katika lugha yako.";
+
+/* App tip #07 */
+"app_tip_07" = "Programu yetu imeundwa na washiriki wachache na jamii.";
+
+/* App tip #08 */
+"app_tip_08" = "Unaweza kurekebisha na kuboresha data ya ramani kwa urahisi.";
+
+/* App tip #09 */
+"app_tip_09" = "Lengo letu kuu ni kujenga ramani za haraka, zinazozingatia faragha, na rahisi kutumia ambazo utapenda.";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Sasa unatumia ramani za kikaboni kwenye skrini ya simu";

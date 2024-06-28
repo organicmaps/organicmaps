@@ -263,6 +263,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Nastavenia jazyka povelov";
 
+/* Settings «Route» category: «Test Voice Directions» title */
+"pref_tts_test_voice_title" = "Testovanie hlasových pokynov (TTS, Text-To-Speech)";
+
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Iný";
 
@@ -1272,6 +1275,36 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* App Tip #00 */
+"app_tip_00" = "Ďakujeme, že používate naše mapy vytvorené komunitou!";
+
+/* App tip #01 */
+"app_tip_01" = "S vašimi darmi a podporou môžeme vytvoriť tie najlepšie mapy na svete!";
+
+/* App tip #02 */
+"app_tip_02" = "Páči sa vám naša aplikácia? Prosím, prispejte na podporu rozvoja! Ešte sa ti to nepáči? Dajte nám vedieť a my to napravíme!";
+
+/* App tip #03 */
+"app_tip_03" = "Ak poznáte vývojára softvéru, môžete ho požiadať, aby implementoval funkciu, ktorú potrebujete.";
+
+/* App tip #04 */
+"app_tip_04" = "Viete, že na ľubovoľné miesto na mape ho môžete vybrať dlhým klepnutím?";
+
+/* App tip #05 */
+"app_tip_05" = "Viete, že si môžete vybrať svoju aktuálnu polohu na mape?";
+
+/* App tip #06 */
+"app_tip_06" = "Môžete pomôcť preložiť našu aplikáciu do vášho jazyka.";
+
+/* App tip #07 */
+"app_tip_07" = "Naša aplikácia je vyvinutá niekoľkými nadšencami a komunitou.";
+
+/* App tip #08 */
+"app_tip_08" = "Mapové údaje môžete jednoducho opraviť a vylepšiť.";
+
+/* App tip #09 */
+"app_tip_09" = "Naším hlavným cieľom je vytvárať rýchle, na súkromie, ľahko použiteľné mapy, ktoré si zamilujete.";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Na obrazovke telefónu teraz používate službu Organic Maps";

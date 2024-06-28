@@ -263,6 +263,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "語音語言";
 
+/* Settings «Route» category: «Test Voice Directions» title */
+"pref_tts_test_voice_title" = "測試語音指令（TTS、文本轉語音";
+
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "其他";
 
@@ -1272,6 +1275,36 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* App Tip #00 */
+"app_tip_00" = "感謝您使用我們社區構建的地圖！";
+
+/* App tip #01 */
+"app_tip_01" = "有了您的捐贈和支持，我們可以創建世界上最好的地圖！";
+
+/* App tip #02 */
+"app_tip_02" = "您喜歡我們的應用程序嗎？ 請捐款支持發展！ 還不喜歡嗎？ 請告訴我們，我們會修復它！";
+
+/* App tip #03 */
+"app_tip_03" = "如果您認識軟體開發人員，您可以要求他或她實現您需要的功能。";
+
+/* App tip #04 */
+"app_tip_04" = "您知道您可以長按地圖上的任何位置來選擇它嗎？";
+
+/* App tip #05 */
+"app_tip_05" = "您知道您可以在地圖上選擇您目前的位置嗎？";
+
+/* App tip #06 */
+"app_tip_06" = "您可以幫助將我們的應用程序翻譯成您的語言。";
+
+/* App tip #07 */
+"app_tip_07" = "我們的應用程序是由一些愛好者和社區開發的。";
+
+/* App tip #08 */
+"app_tip_08" = "您可以輕鬆修復和改進地圖數據。";
+
+/* App tip #09 */
+"app_tip_09" = "我們的主要目標是構建您會喜歡的快速、注重隱私、易於使用的地圖。";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "您現在正在手機螢幕上使用 Organic Maps";
