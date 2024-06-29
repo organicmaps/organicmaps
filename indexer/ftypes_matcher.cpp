@@ -461,6 +461,7 @@ IsPisteChecker::IsPisteChecker() : BaseChecker(1 /* level */)
 
 IsPoiChecker::IsPoiChecker() : BaseChecker(1 /* level */)
 {
+  /// @todo Should be merged/replaced with search::IsPoiChecker in model.cpp ?
   string_view const poiTypes[] = {
     "amenity",
     "shop",
@@ -473,6 +474,8 @@ IsPoiChecker::IsPoiChecker() : BaseChecker(1 /* level */)
     "office",
     "historic",
     "railway",
+    // But have key difference here. On the one hand we may have some streets as attractions
+    // (Champs-Élysées, Андріївський узвіз), on the other hand streets are not POIs obviously.
     "highway",
     "aeroway",
     "healthcare",

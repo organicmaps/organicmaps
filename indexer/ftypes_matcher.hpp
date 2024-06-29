@@ -316,7 +316,6 @@ public:
   DECLARE_CHECKER_INSTANCE(IsPisteChecker);
 };
 
-/// @todo Should be merged/replaced with search::IsPoiChecker in model.cpp ?
 class IsPoiChecker : public BaseChecker
 {
   IsPoiChecker();
