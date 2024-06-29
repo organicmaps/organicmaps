@@ -52,22 +52,6 @@ public:
   DECLARE_CHECKER_INSTANCE(IsATMChecker);
 };
 
-class IsPaymentTerminalChecker : public BaseChecker
-{
-  IsPaymentTerminalChecker();
-
-public:
-  DECLARE_CHECKER_INSTANCE(IsPaymentTerminalChecker);
-};
-
-class IsMoneyExchangeChecker : public BaseChecker
-{
-  IsMoneyExchangeChecker();
-
-public:
-  DECLARE_CHECKER_INSTANCE(IsMoneyExchangeChecker);
-};
-
 class IsSpeedCamChecker : public BaseChecker
 {
   IsSpeedCamChecker();
@@ -91,43 +75,12 @@ public:
   DECLARE_CHECKER_INSTANCE(IsPostPoiChecker);
 };
 
-class IsFuelStationChecker : public BaseChecker
+class IsOperatorOthersPoiChecker : public BaseChecker
 {
-  IsFuelStationChecker();
-public:
-  DECLARE_CHECKER_INSTANCE(IsFuelStationChecker);
-};
-
-class IsCarSharingChecker : public BaseChecker
-{
-  IsCarSharingChecker();
+  IsOperatorOthersPoiChecker();
 
 public:
-  DECLARE_CHECKER_INSTANCE(IsCarSharingChecker);
-};
-
-class IsCarRentalChecker : public BaseChecker
-{
-  IsCarRentalChecker();
-
-public:
-  DECLARE_CHECKER_INSTANCE(IsCarRentalChecker);
-};
-
-class IsBicycleRentalChecker : public BaseChecker
-{
-  IsBicycleRentalChecker();
-
-public:
-  DECLARE_CHECKER_INSTANCE(IsBicycleRentalChecker);
-};
-
-class IsParkingChecker : public BaseChecker
-{
-  IsParkingChecker();
-
-public:
-  DECLARE_CHECKER_INSTANCE(IsParkingChecker);
+  DECLARE_CHECKER_INSTANCE(IsOperatorOthersPoiChecker);
 };
 
 class IsRecyclingCentreChecker : public BaseChecker

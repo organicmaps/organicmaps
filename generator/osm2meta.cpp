@@ -102,17 +102,13 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_stars(std::string const 
 
 std::string MetadataTagProcessorImpl::ValidateAndFormat_operator(std::string const & v) const
 {
+  using namespace ftypes;
   auto const & t = m_params.m_types;
-  if (ftypes::IsATMChecker::Instance()(t) ||
-      ftypes::IsPaymentTerminalChecker::Instance()(t) ||
-      ftypes::IsMoneyExchangeChecker::Instance()(t) ||
-      ftypes::IsFuelStationChecker::Instance()(t) ||
-      ftypes::IsRecyclingCentreChecker::Instance()(t) ||
-      ftypes::IsPostPoiChecker::Instance()(t) ||
-      ftypes::IsCarSharingChecker::Instance()(t) ||
-      ftypes::IsCarRentalChecker::Instance()(t) ||
-      ftypes::IsBicycleRentalChecker::Instance()(t) ||
-      ftypes::IsParkingChecker::Instance()(t))
+  if (IsATMChecker::Instance()(t) ||
+      IsRecyclingCentreChecker::Instance()(t) ||
+      IsRecyclingContainerChecker::Instance()(t) ||
+      IsPostPoiChecker::Instance()(t) ||
+      IsOperatorOthersPoiChecker::Instance()(t))
   {
     return v;
   }
