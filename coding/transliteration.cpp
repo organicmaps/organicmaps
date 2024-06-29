@@ -76,7 +76,7 @@ void Transliteration::Init(std::string const & icuDataDir)
   m_inited = true;
 }
 
-void Transliteration::SetMode(Transliteration::Mode mode)
+void Transliteration::SetMode(Mode mode)
 {
   m_mode = mode;
 }
