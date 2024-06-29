@@ -108,7 +108,7 @@ void Info::SetMercator(m2::PointD const & mercator)
   m_buildInfo.m_mercator = mercator;
 }
 
-std::string Info::FormatSubtitle(bool withType) const
+std::string Info::FormatSubtitle(bool withMainType) const
 {
   std::string result;
   auto const append = [&result](std::string_view sv)
@@ -121,8 +121,8 @@ std::string Info::FormatSubtitle(bool withType) const
   if (IsBookmark())
     append(m_bookmarkCategoryName);
 
-  if (withType)
-    append(GetAllLocalizedTypes());
+  // Types
+  append(GetLocalizedAllTypes(withMainType));
 
   // Flats.
   auto const flats = GetMetadata(feature::Metadata::FMD_FLATS);
