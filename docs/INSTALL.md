@@ -5,6 +5,7 @@
 - [Desktop](#desktop-app)
 - [Android](#android-app)
 - [iOS](#ios-app)
+- [Map data and styles](#map-data-and-styles)
 
 ## System requirements
 
@@ -664,3 +665,6 @@ Select "OMaps" product scheme.
 - Choose either "iPhone _" or "iPad _" to run in the Simulator.
 
 Compile and run the project ("Product" → "Run").
+
+## Map data and styles
+See readme for the [map generator](https://github.com/organicmaps/organicmaps/blob/master/docs/MAPS.md) and [styles](https://github.com/organicmaps/organicmaps/blob/master/docs/STYLES.md) if you need to customize the map files and styles
