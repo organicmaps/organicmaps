@@ -389,12 +389,10 @@ IsStreetOrSquareChecker::IsStreetOrSquareChecker()
 
 IsAddressObjectChecker::IsAddressObjectChecker() : BaseChecker(1 /* level */)
 {
-  base::StringIL const paths = {
-    "building", "entrance", "amenity", "shop", "tourism", "historic", "office", "craft", "leisure", "addr:interpolation"
-  };
+  m_types = OneLevelPOIChecker().GetTypes();
 
   Classificator const & c = classif();
-  for (auto const & p : paths)
+  for (auto const * p : {"addr:interpolation", "building", "entrance"})
     m_types.push_back(c.GetTypeByPath({p}));
 }
 
@@ -459,31 +457,48 @@ IsPisteChecker::IsPisteChecker() : BaseChecker(1 /* level */)
   m_types.push_back(classif().GetTypeByPath({"piste:type"}));
 }
 
-IsPoiChecker::IsPoiChecker() : BaseChecker(1 /* level */)
+
+OneLevelPOIChecker::OneLevelPOIChecker() : ftypes::BaseChecker(1 /* level */)
 {
-  /// @todo Should be merged/replaced with search::IsPoiChecker in model.cpp ?
-  string_view const poiTypes[] = {
-    "amenity",
-    "shop",
-    "tourism",
-    "leisure",
-    "sport",
-    "craft",
-    "man_made",
-    "emergency",
-    "office",
-    "historic",
-    "railway",
-    // But have key difference here. On the one hand we may have some streets as attractions
-    // (Champs-Élysées, Андріївський узвіз), on the other hand streets are not POIs obviously.
-    "highway",
-    "aeroway",
-    "healthcare",
+  Classificator const & c = classif();
+
+  for (auto const * path : {"amenity",  "craft", "healthcare", "historic", "leisure", "office", "railway",
+                            "shop", "sport", "tourism"})
+    m_types.push_back(c.GetTypeByPath({path}));
+}
+
+TwoLevelPOIChecker::TwoLevelPOIChecker() : ftypes::BaseChecker(2 /* level */)
+{
+  Classificator const & c = classif();
+  base::StringIL arr[] = {
+      {"aeroway", "terminal"},
+      {"aeroway", "gate"},
+      {"building", "train_station"},
+      {"emergency", "defibrillator"},
+      {"emergency", "fire_hydrant"},
+      {"emergency", "phone"},
+      {"highway", "bus_stop"},
+      {"highway", "elevator"},
+      {"highway", "ford"},
+      {"highway", "raceway"},
+      {"highway", "rest_area"},
+      {"highway", "services"},
+      {"highway", "speed_camera"},
+      {"man_made", "lighthouse"},
+      {"man_made", "water_tap"},
+      {"man_made", "water_well"},
+      {"natural", "beach"},
+      {"natural", "geyser"},
+      {"natural", "cave_entrance"},
+      {"natural", "spring"},
+      {"natural", "volcano"},
+      {"waterway", "waterfall"}
   };
 
-  for (auto const & type : poiTypes)
-    m_types.push_back(classif().GetTypeByPath({type}));
+  for (auto const & path : arr)
+    m_types.push_back(c.GetTypeByPath(path));
 }
+
 
 IsAmenityChecker::IsAmenityChecker() : BaseChecker(1 /* level */)
 {

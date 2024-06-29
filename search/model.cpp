@@ -2,78 +2,20 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "base/stl_helpers.hpp"
 
 #include <vector>
+
 
 namespace search
 {
 using namespace ftypes;
 using namespace std;
 
-TwoLevelPOIChecker::TwoLevelPOIChecker() : ftypes::BaseChecker(2 /* level */)
-{
-  Classificator const & c = classif();
-  base::StringIL arr[] = {
-      {"aeroway", "terminal"},
-      {"aeroway", "gate"},
-      {"building", "train_station"},
-      {"emergency", "defibrillator"},
-      {"emergency", "fire_hydrant"},
-      {"emergency", "phone"},
-      {"highway", "bus_stop"},
-      {"highway", "elevator"},
-      {"highway", "ford"},
-      {"highway", "raceway"},
-      {"highway", "rest_area"},
-      {"highway", "services"},
-      {"highway", "speed_camera"},
-      {"man_made", "lighthouse"},
-      {"man_made", "water_tap"},
-      {"man_made", "water_well"},
-      {"natural", "beach"},
-      {"natural", "geyser"},
-      {"natural", "cave_entrance"},
-      {"natural", "spring"},
-      {"natural", "volcano"},
-      {"waterway", "waterfall"}
-  };
-
-  for (auto const & path : arr)
-    m_types.push_back(c.GetTypeByPath(path));
-}
-
 namespace
 {
-/// Should be similar with ftypes::IsAddressObjectChecker object classes.
-class OneLevelPOIChecker : public ftypes::BaseChecker
-{
-public:
-  OneLevelPOIChecker() : ftypes::BaseChecker(1 /* level */)
-  {
-    Classificator const & c = classif();
-
-    auto paths = {
-        "amenity",  "craft", "healthcare", "historic", "leisure", "office", "railway", "shop", "sport", "tourism",
-    };
-    for (auto const & path : paths)
-      m_types.push_back(c.GetTypeByPath({path}));
-  }
-};
-
-/// @todo Should be merged/replaced with ftypes::IsPoiChecker?
-class IsPoiChecker
-{
-public:
-  DECLARE_CHECKER_INSTANCE(IsPoiChecker);
-
-  bool operator()(FeatureType & ft) const { return m_oneLevel(ft) || m_twoLevel(ft); }
-
-private:
-  OneLevelPOIChecker const m_oneLevel;
-  TwoLevelPOIChecker const m_twoLevel;
-};
 
 class IsComplexPoiChecker : public ftypes::BaseChecker
 {

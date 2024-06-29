@@ -14,6 +14,7 @@
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "geometry/mercator.hpp"
@@ -22,13 +23,11 @@
 
 #include "base/cancellable.hpp"
 #include "base/logging.hpp"
-#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <limits>
 #include <memory>
-#include <unordered_map>
 #include <vector>
 
 class DataSource;
