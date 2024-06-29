@@ -393,6 +393,9 @@ private:
     auto const fbs = feature::ReadAllDatRawFormat(path);
     CountryFeaturesCounters actual;
     actual.m_fbs = fbs.size();
+
+    auto const & poiChecker = ftypes::IsPoiChecker::Instance();
+    auto const & isCityTownOrVillage = ftypes::IsCityTownOrVillageChecker::Instance();
     for (auto const & fb : fbs)
     {
       actual.m_geometryPoints += fb.IsPoint() ? 1 : fb.GetPointsCount();
@@ -403,11 +406,9 @@ private:
       else if (fb.IsArea())
         ++actual.m_area;
 
-      auto static const & poiChecker = ftypes::IsPoiChecker::Instance();
       if (poiChecker(fb.GetTypes()))
         ++actual.m_poi;
 
-      auto const & isCityTownOrVillage = ftypes::IsCityTownOrVillageChecker::Instance();
       if (isCityTownOrVillage(fb.GetTypes()))
         ++actual.m_cityTownOrVillage;
 

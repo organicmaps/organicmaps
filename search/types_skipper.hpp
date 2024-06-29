@@ -1,8 +1,7 @@
 #pragma once
 
-#include "search/model.hpp"
-
 #include "indexer/feature_data.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "base/buffer_vector.hpp"
 
@@ -33,6 +32,6 @@ private:
   Cont m_skipAlways[1];
   Cont m_skipSpecialNames[1];
 
-  TwoLevelPOIChecker m_isPoi;
+  ftypes::TwoLevelPOIChecker m_isPoi;
 };
 }  // namespace search

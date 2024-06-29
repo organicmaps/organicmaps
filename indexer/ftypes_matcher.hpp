@@ -316,12 +316,34 @@ public:
   DECLARE_CHECKER_INSTANCE(IsPisteChecker);
 };
 
-class IsPoiChecker : public BaseChecker
+
+class OneLevelPOIChecker : public ftypes::BaseChecker
 {
-  IsPoiChecker();
+public:
+  OneLevelPOIChecker();
+};
+
+/// Describes 2-level POI-exception types that don't belong to any POI-common classes
+/// (amenity, shop, tourism, ...). Used in search algo and search categories index generation.
+class TwoLevelPOIChecker : public ftypes::BaseChecker
+{
+public:
+  TwoLevelPOIChecker();
+};
+
+class IsPoiChecker
+{
 public:
   DECLARE_CHECKER_INSTANCE(IsPoiChecker);
+
+  bool operator()(FeatureType & ft) const { return m_oneLevel(ft) || m_twoLevel(ft); }
+  template <class T> bool operator()(T const & t) const { return m_oneLevel(t) || m_twoLevel(t); }
+
+private:
+  OneLevelPOIChecker const m_oneLevel;
+  TwoLevelPOIChecker const m_twoLevel;
 };
+
 
 class IsAmenityChecker : public BaseChecker
 {
