@@ -186,18 +186,6 @@ IsATMChecker::IsATMChecker()
   m_types.push_back(c.GetTypeByPath({"amenity", "atm"}));
 }
 
-IsPaymentTerminalChecker::IsPaymentTerminalChecker()
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"amenity", "payment_terminal"}));
-}
-
-IsMoneyExchangeChecker::IsMoneyExchangeChecker()
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"amenity", "bureau_de_change"}));
-}
-
 IsSpeedCamChecker::IsSpeedCamChecker()
 {
   Classificator const & c = classif();
@@ -217,34 +205,12 @@ IsPostPoiChecker::IsPostPoiChecker()
     m_types.push_back(c.GetTypeByPath({"amenity", val}));
 }
 
-IsFuelStationChecker::IsFuelStationChecker()
+IsOperatorOthersPoiChecker::IsOperatorOthersPoiChecker()
 {
   Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"amenity", "fuel"}));
-}
-
-IsCarSharingChecker::IsCarSharingChecker()
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"amenity", "car_sharing"}));
-}
-
-IsCarRentalChecker::IsCarRentalChecker()
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"amenity", "car_rental"}));
-}
-
-IsBicycleRentalChecker::IsBicycleRentalChecker()
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"amenity", "bicycle_rental"}));
-}
-
-IsParkingChecker::IsParkingChecker() : BaseChecker(2 /* level */)
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"amenity", "parking"}));
+  for (char const * val : {"bicycle_rental", "bureau_de_change", "car_sharing", "car_rental", "fuel",
+                           "parking", "payment_terminal", "university", "vending_machine"})
+    m_types.push_back(c.GetTypeByPath({"amenity", val}));
 }
 
 IsRecyclingCentreChecker::IsRecyclingCentreChecker() : BaseChecker(3 /* level */)
