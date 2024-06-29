@@ -451,4 +451,117 @@ UNIT_TEST(EditableMapObject_FromFeatureType)
   TEST(emo2.IsPointType(), ());
 }
 
+UNIT_TEST(EditableMapObject_GetLocalizedAllTypes)
+{
+  classificator::Load();
+
+  {
+    EditableMapObject emo;
+    feature::TypesHolder types;
+    types.Add(classif().GetTypeByPath({"amenity", "fuel"}));
+    types.Add(classif().GetTypeByPath({"shop"}));
+    types.Add(classif().GetTypeByPath({"building"}));
+    types.Add(classif().GetTypeByPath({"toilets", "yes"}));
+    emo.SetTypes(types);
+    TEST_EQUAL(emo.GetLocalizedAllTypes(true), std::string("amenity-fuel • shop"), ());
+    TEST_EQUAL(emo.GetLocalizedAllTypes(false), std::string("shop"), ());
+  }
+
+  {
+    EditableMapObject emo;
+    feature::TypesHolder types;
+    types.Add(classif().GetTypeByPath({"amenity", "shelter"}));
+    types.Add(classif().GetTypeByPath({"amenity", "bench"}));
+    types.Add(classif().GetTypeByPath({"highway", "bus_stop"}));
+    emo.SetTypes(types);
+    TEST_EQUAL(emo.GetLocalizedAllTypes(true), std::string("highway-bus_stop • amenity-shelter • amenity-bench"), ());
+    TEST_EQUAL(emo.GetLocalizedAllTypes(false), std::string("amenity-shelter • amenity-bench"), ());
+  }
+
+  {
+    EditableMapObject emo;
+    feature::TypesHolder types;
+    types.Add(classif().GetTypeByPath({"leisure", "pitch"}));
+    types.Add(classif().GetTypeByPath({"sport", "soccer"}));
+    emo.SetTypes(types);
+    TEST_EQUAL(emo.GetLocalizedAllTypes(true), std::string("sport-soccer • leisure-pitch"), ());
+    TEST_EQUAL(emo.GetLocalizedAllTypes(false), std::string("leisure-pitch"), ());
+  }
+
+  {
+    EditableMapObject emo;
+    feature::TypesHolder types;
+    types.Add(classif().GetTypeByPath({"craft", "key_cutter"}));
+    emo.SetTypes(types);
+    TEST_EQUAL(emo.GetLocalizedAllTypes(true), std::string("craft-key_cutter"), ());
+    TEST_EQUAL(emo.GetLocalizedAllTypes(false), std::string(""), ());
+  }
+
+  {
+    EditableMapObject emo;
+    feature::TypesHolder types;
+    types.Add(classif().GetTypeByPath({"amenity", "parking_entrance"}));
+    types.Add(classif().GetTypeByPath({"barrier", "gate"}));
+    emo.SetTypes(types);
+    TEST_EQUAL(emo.GetLocalizedAllTypes(true), std::string("barrier-gate • amenity-parking_entrance"), ());
+    TEST_EQUAL(emo.GetLocalizedAllTypes(false), std::string("amenity-parking_entrance"), ());
+  }
+
+  {
+    EditableMapObject emo;
+    feature::TypesHolder types;
+    types.Add(classif().GetTypeByPath({"barrier", "gate"}));
+    emo.SetTypes(types);
+    TEST_EQUAL(emo.GetLocalizedAllTypes(true), std::string("barrier-gate"), ());
+    TEST_EQUAL(emo.GetLocalizedAllTypes(false), std::string(""), ());
+  }
+
+  {
+    EditableMapObject emo;
+    feature::TypesHolder types;
+    types.Add(classif().GetTypeByPath({"entrance", "main"}));
+    emo.SetTypes(types);
+    TEST_EQUAL(emo.GetLocalizedAllTypes(true), std::string("entrance-main"), ());
+    TEST_EQUAL(emo.GetLocalizedAllTypes(false), std::string(""), ());
+  }
+
+  {
+    EditableMapObject emo;
+    feature::TypesHolder types;
+    types.Add(classif().GetTypeByPath({"entrance", "main"}));
+    types.Add(classif().GetTypeByPath({"barrier", "gate"}));
+    emo.SetTypes(types);
+    TEST_EQUAL(emo.GetLocalizedAllTypes(true), std::string("barrier-gate"), ());
+    TEST_EQUAL(emo.GetLocalizedAllTypes(false), std::string(""), ());
+  }
+
+  {
+    EditableMapObject emo;
+    feature::TypesHolder types;
+    types.Add(classif().GetTypeByPath({"amenity"}));
+    emo.SetTypes(types);
+    TEST_EQUAL(emo.GetLocalizedAllTypes(true), std::string("amenity"), ());
+    TEST_EQUAL(emo.GetLocalizedAllTypes(false), std::string(""), ());
+  }
+
+  {
+    EditableMapObject emo;
+    feature::TypesHolder types;
+    types.Add(classif().GetTypeByPath({"shop"}));
+    emo.SetTypes(types);
+    TEST_EQUAL(emo.GetLocalizedAllTypes(true), std::string("shop"), ());
+    TEST_EQUAL(emo.GetLocalizedAllTypes(false), std::string(""), ());
+  }
+
+  {
+    EditableMapObject emo;
+    feature::TypesHolder types;
+    types.Add(classif().GetTypeByPath({"tourism", "artwork"}));
+    types.Add(classif().GetTypeByPath({"amenity"}));
+    emo.SetTypes(types);
+    TEST_EQUAL(emo.GetLocalizedAllTypes(true), std::string("tourism-artwork"), ());
+    TEST_EQUAL(emo.GetLocalizedAllTypes(false), std::string(""), ());
+  }
+}
+
 } // namespace editable_map_object_test
