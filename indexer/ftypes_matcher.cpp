@@ -482,6 +482,11 @@ IsPoiChecker::IsPoiChecker() : BaseChecker(1 /* level */)
     m_types.push_back(classif().GetTypeByPath({type}));
 }
 
+IsAmenityChecker::IsAmenityChecker() : BaseChecker(1 /* level */)
+{
+  m_types.push_back(classif().GetTypeByPath({"amenity"}));
+}
+
 AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
 {
   base::StringIL const primaryAttractionTypes[] = {

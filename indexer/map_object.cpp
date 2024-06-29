@@ -94,23 +94,35 @@ std::string MapObject::GetLocalizedType() const
   return platform::GetLocalizedTypeName(classif().GetReadableObjectName(copy.GetBestType()));
 }
 
-std::string MapObject::GetAllLocalizedTypes() const
+std::string MapObject::GetLocalizedAllTypes(bool withMainType) const
 {
   ASSERT(!m_types.Empty(), ());
   feature::TypesHolder copy(m_types);
   copy.SortBySpec();
 
   auto const & isPoi = ftypes::IsPoiChecker::Instance();
+  auto const & amenityChecker = ftypes::IsAmenityChecker::Instance();
 
   std::ostringstream oss;
+  bool isMainType = true;
   bool isFirst = true;
   for (auto const type : copy)
   {
-    // Ignore types that are not POI
-    // Ignore general types that have no subtype
-    // But always show the first/main type
-    if (!isFirst && (!isPoi(type) || ftype::GetLevel(type) == 1))
+    if (isMainType && !withMainType)
+    {
+      isMainType = false;
       continue;
+    }
+
+    // Ignore types that are not POI
+    if (!isMainType && !isPoi(type))
+      continue;
+      
+    // Ignore general amenity
+    if (!isMainType && amenityChecker.GetType() == type)
+      continue;
+      
+    isMainType = false;
     
     // Add fields separator between types
     if (isFirst)

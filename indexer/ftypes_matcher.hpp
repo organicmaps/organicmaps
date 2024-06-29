@@ -324,6 +324,15 @@ public:
   DECLARE_CHECKER_INSTANCE(IsPoiChecker);
 };
 
+class IsAmenityChecker : public BaseChecker
+{
+  IsAmenityChecker();
+public:
+  DECLARE_CHECKER_INSTANCE(IsAmenityChecker);
+
+  uint32_t GetType() const { return m_types[0]; }
+};
+
 class AttractionsChecker : public BaseChecker
 {
   size_t m_additionalTypesStart;

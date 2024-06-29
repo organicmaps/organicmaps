@@ -102,12 +102,12 @@ public:
 
   void AssignMetadata(feature::Metadata & dest) const { dest = m_metadata; }
 
+  /// @returns all localized POI types separated by kFieldsSeparator to display in UI.
+  std::string GetLocalizedAllTypes(bool withMainType) const;
+    
 protected:
   /// @returns "the best" single type to display in UI.
   std::string GetLocalizedType() const;
-    
-  /// @returns all localized POI types separated by kFieldsSeparator to display in UI.
-  std::string GetAllLocalizedTypes() const;
 
   FeatureID m_featureID;
   m2::PointD m_mercator;
