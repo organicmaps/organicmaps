@@ -178,14 +178,8 @@ sudo apk add \
 #### macOS
 
 ```bash
-brew install cmake ninja qt@6 git-lfs
+brew install cmake ninja qt@6
 ```
-After installtion git-lfs reuires an extra step
-```
-# Update global git config
-git lfs install
-```
-
 
 ### Windows
 
