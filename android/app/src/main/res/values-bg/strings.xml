@@ -577,14 +577,6 @@
 	  <item quantity="other">Открити са %d файла. Можете да ги видите след конвертирането.</item>
 	</plurals>
 	<string name="restore">Възстановяване</string>
-	<plurals name="objects">
-	  <item quantity="one">%d обект</item>
-	  <item quantity="other">%d обекта</item>
-	</plurals>
-	<plurals name="places">
-	  <item quantity="one">%d място</item>
-	  <item quantity="other">%d места</item>
-	</plurals>
 	<plurals name="tracks">
 	  <item quantity="one">%d пътека</item>
 	  <item quantity="other">%d пътеки</item>

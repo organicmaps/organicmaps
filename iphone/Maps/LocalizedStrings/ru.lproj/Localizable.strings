@@ -680,9 +680,6 @@
 
 "level" = "Этаж";
 
-/* Building level */
-"level_value_generic" = "Этаж: %@";
-
 "please_note" = "Обратите внимание";
 
 "downloader_delete_map_dialog" = "Вместе с картой удалятся и внесённые вами правки на этой карте.";

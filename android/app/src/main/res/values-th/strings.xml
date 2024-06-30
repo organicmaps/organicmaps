@@ -573,6 +573,9 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">ซ่อนทั้งหมด</string>
 	<string name="bookmark_lists_show_all">แสดงทั้งหมด</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d บุ๊กมาร์ก</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">สร้างรายการใหม่</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">นำเข้าบุ๊กมาร์กและแทร็ก</string>
@@ -591,12 +594,6 @@
 	  <item quantity="other">%d ไฟล์ที่ค้นพบ คุณจะเห็นพวกเขาหลังจากการแปลง</item>
 	</plurals>
 	<string name="restore">ฟื้นฟู</string>
-	<plurals name="objects">
-	  <item quantity="other">%d สถานที่</item>
-	</plurals>
-	<plurals name="places">
-	  <item quantity="other">%d สถานที่ต่าง ๆ</item>
-	</plurals>
 	<plurals name="tracks">
 	  <item quantity="other">%d ติดตามต่าง ๆ</item>
 	</plurals>

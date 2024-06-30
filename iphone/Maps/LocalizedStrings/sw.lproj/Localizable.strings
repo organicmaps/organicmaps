@@ -680,9 +680,6 @@
 
 "level" = "Ghorofa";
 
-/* Building level */
-"level_value_generic" = "Level: %@";
-
 "please_note" = "Please note";
 
 "downloader_delete_map_dialog" = "All of your map edits will be deleted with the map.";

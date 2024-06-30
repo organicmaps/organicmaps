@@ -680,9 +680,6 @@
 
 "level" = "Piso";
 
-/* Building level */
-"level_value_generic" = "Level: %@";
-
 "please_note" = "Aviso";
 
 "downloader_delete_map_dialog" = "Todos los cambios en los mapas se borrarán junto con el mapa.";

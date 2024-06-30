@@ -680,9 +680,6 @@
 
 "level" = "Tầng";
 
-/* Building level */
-"level_value_generic" = "Level: %@";
-
 "please_note" = "Xin lưu ý";
 
 "downloader_delete_map_dialog" = "Tất cả những thay đổi của bản đồ sẽ bị xóa cùng với bản đồ đó.";

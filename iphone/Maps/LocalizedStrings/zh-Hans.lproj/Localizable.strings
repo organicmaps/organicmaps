@@ -680,9 +680,6 @@
 
 "level" = "楼层";
 
-/* Building level */
-"level_value_generic" = "Level: %@";
-
 "please_note" = "请注意";
 
 "downloader_delete_map_dialog" = "所有对地图的修改都将与地图一起被删除。";

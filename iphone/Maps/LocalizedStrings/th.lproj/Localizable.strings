@@ -680,9 +680,6 @@
 
 "level" = "ชั้น";
 
-/* Building level */
-"level_value_generic" = "Level: %@";
-
 "please_note" = "โปรดทราบ";
 
 "downloader_delete_map_dialog" = "การเปลี่ยนแปลงแผนที่ทั้งหมดจะถูกลบไปพร้อมกับแผนที่";

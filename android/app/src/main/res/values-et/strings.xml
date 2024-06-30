@@ -596,6 +596,10 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Peida kõik</string>
 	<string name="bookmark_lists_show_all">Kuva kõik</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="one">%d järjehoidja</item>
+	  <item quantity="other">%d järjehoidjat</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Loo uus loetelu</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Importida järjehoidjaid ja lugusid</string>
@@ -615,14 +619,6 @@
 	  <item quantity="other">%d faili leiti. Näed neid peale teisendamist.</item>
 	</plurals>
 	<string name="restore">Taasta</string>
-	<plurals name="objects">
-	  <item quantity="one">%d objekt</item>
-	  <item quantity="other">%d objekti</item>
-	</plurals>
-	<plurals name="places">
-	  <item quantity="one">%d koht</item>
-	  <item quantity="other">%d kohta</item>
-	</plurals>
 	<plurals name="tracks">
 	  <item quantity="other">%d rada</item>
 	</plurals>

@@ -597,6 +597,10 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Amaga-ho tot</string>
 	<string name="bookmark_lists_show_all">Mostra-ho tot</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="one">%d marcador</item>
+	  <item quantity="other">%d marcadors</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Crea una llista</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Importa marcadors i les traces</string>
@@ -616,14 +620,6 @@
 	  <item quantity="other">S\'han trobat %d fiters. Podeu veure\'ls després de la conversió.</item>
 	</plurals>
 	<string name="restore">Restaura</string>
-	<plurals name="objects">
-	  <item quantity="one">%d objecte</item>
-	  <item quantity="other">%d objectes</item>
-	</plurals>
-	<plurals name="places">
-	  <item quantity="one">%d lloc</item>
-	  <item quantity="other">%d llocs</item>
-	</plurals>
 	<plurals name="tracks">
 	  <item quantity="one">%d traça</item>
 	  <item quantity="other">%d traces</item>

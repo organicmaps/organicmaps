@@ -573,6 +573,9 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Sembunyikan semua</string>
 	<string name="bookmark_lists_show_all">Perlihatkan semua</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d markah</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Buat daftar baru</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Impor penanda dan trek</string>
@@ -592,12 +595,6 @@
 	  <item quantity="other">%d file telah ditemukan. Anda akan melihatnya setelah konversi.</item>
 	</plurals>
 	<string name="restore">Mengembalikan</string>
-	<plurals name="objects">
-	  <item quantity="other">tempat %d</item>
-	</plurals>
-	<plurals name="places">
-	  <item quantity="other">tempat %d</item>
-	</plurals>
 	<plurals name="tracks">
 	  <item quantity="other">trek %d</item>
 	</plurals>

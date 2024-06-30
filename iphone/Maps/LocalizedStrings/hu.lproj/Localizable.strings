@@ -680,9 +680,6 @@
 
 "level" = "Szint";
 
-/* Building level */
-"level_value_generic" = "Level: %@";
-
 "please_note" = "Megjegyzés";
 
 "downloader_delete_map_dialog" = "A térképekkel együtt minden rajtuk végzett módosítás is törlésre kerül.";

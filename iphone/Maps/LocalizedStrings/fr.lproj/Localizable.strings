@@ -680,9 +680,6 @@
 
 "level" = "Étage";
 
-/* Building level */
-"level_value_generic" = "Niveau : %@";
-
 "please_note" = "À noter";
 
 "downloader_delete_map_dialog" = "Toutes vos modifications de la carte seront supprimées avec elle.";

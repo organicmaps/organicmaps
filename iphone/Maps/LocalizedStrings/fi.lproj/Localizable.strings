@@ -680,9 +680,6 @@
 
 "level" = "Kerros";
 
-/* Building level */
-"level_value_generic" = "Level: %@";
-
 "please_note" = "Huomaathan, että";
 
 "downloader_delete_map_dialog" = "Kaikki karttaan tehdyt muutokset poistetaan kartan mukana.";

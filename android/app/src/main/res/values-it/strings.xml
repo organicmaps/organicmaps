@@ -587,6 +587,10 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Nascondi tutto</string>
 	<string name="bookmark_lists_show_all">Mostra tutto</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="one">%d preferito</item>
+	  <item quantity="other">%d preferiti</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Crea un nuovo elenco</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Importazione di segnalibri e tracce</string>
@@ -606,14 +610,6 @@
 	  <item quantity="other">%d file trovati. Li vedrai dopo la conversione.</item>
 	</plurals>
 	<string name="restore">Ripristina</string>
-	<plurals name="objects">
-	  <item quantity="one">%d oggetto</item>
-	  <item quantity="other">%d oggetti</item>
-	</plurals>
-	<plurals name="places">
-	  <item quantity="one">%d luogo</item>
-	  <item quantity="other">%d luoghi</item>
-	</plurals>
 	<plurals name="tracks">
 	  <item quantity="one">%d percorso</item>
 	  <item quantity="other">%d percorsi</item>

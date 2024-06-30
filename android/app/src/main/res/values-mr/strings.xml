@@ -568,6 +568,10 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">सर्व लपवा</string>
 	<string name="bookmark_lists_show_all">सर्व दाखवा</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="one">%d खूणपत्र</item>
+	  <item quantity="other">%d खूणपत्रे</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">नवीन यादी जोडा</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">बुकमार्क आणि ट्रॅक आयात करा</string>
@@ -587,13 +591,6 @@
 	  <item quantity="other">%d फाईली सापडल्या. रूपांतरानंतर तुम्ही त्या पाहू शकता.</item>
 	</plurals>
 	<string name="restore">पूर्ववत् करा</string>
-	<plurals name="objects">
-	  <item quantity="other">%d वस्तू</item>
-	</plurals>
-	<plurals name="places">
-	  <item quantity="one">%d ठिकाण</item>
-	  <item quantity="other">%d ठिकाणे</item>
-	</plurals>
 	<plurals name="tracks">
 	  <item quantity="other">%d ट्रॅक</item>
 	</plurals>

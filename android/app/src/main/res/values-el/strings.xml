@@ -600,6 +600,10 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Απόκρυψη όλων</string>
 	<string name="bookmark_lists_show_all">Εμφάνιση όλων</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="one">%d αγαπημένο</item>
+	  <item quantity="other">%d αγαπημένα</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Δημιουργία νέας λίστας</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Εισαγωγή σελιδοδεικτών και διαδρομών</string>
@@ -619,14 +623,6 @@
 	  <item quantity="other">έχουν βρεθεί %d αρχεία. Θα τα δείτε μετά τη μετατροπή.</item>
 	</plurals>
 	<string name="restore">Επαναφορά</string>
-	<plurals name="objects">
-	  <item quantity="one">%d αντικείμενο</item>
-	  <item quantity="other">%d αντικείμενα</item>
-	</plurals>
-	<plurals name="places">
-	  <item quantity="one">%d τοποθεσία</item>
-	  <item quantity="other">%d τοποθεσίες</item>
-	</plurals>
 	<plurals name="tracks">
 	  <item quantity="one">%d διαδρομή</item>
 	  <item quantity="other">%d διαδρομές</item>

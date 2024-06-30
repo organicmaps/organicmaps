@@ -606,6 +606,10 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Piilota kaikki</string>
 	<string name="bookmark_lists_show_all">Näytä kaikki</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="one">%d kirjanmerkki</item>
+	  <item quantity="other">%d kirjanmerkkiä</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Luo uusi luettelo</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Kirjanmerkkien ja reittien tuominen</string>
@@ -625,14 +629,6 @@
 	  <item quantity="other">%d tiedostoa löydettiin. Näet ne muunnoksen jälkeen.</item>
 	</plurals>
 	<string name="restore">Palauta</string>
-	<plurals name="objects">
-	  <item quantity="one">%d kohde</item>
-	  <item quantity="other">%d kohdetta</item>
-	</plurals>
-	<plurals name="places">
-	  <item quantity="one">%d paikka</item>
-	  <item quantity="other">%d paikkaa</item>
-	</plurals>
 	<plurals name="tracks">
 	  <item quantity="one">%d reitti</item>
 	  <item quantity="other">%d reittiä</item>

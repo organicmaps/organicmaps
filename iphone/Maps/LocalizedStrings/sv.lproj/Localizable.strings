@@ -680,9 +680,6 @@
 
 "level" = "Våningsplan";
 
-/* Building level */
-"level_value_generic" = "Level: %@";
-
 "please_note" = "Observera";
 
 "downloader_delete_map_dialog" = "Alla kartändringar kommer att raderas tillsammans med kartan.";

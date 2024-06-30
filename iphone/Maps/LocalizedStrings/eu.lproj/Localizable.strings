@@ -680,9 +680,6 @@
 
 "level" = "Solairua";
 
-/* Building level */
-"level_value_generic" = "Level: %@";
-
 "please_note" = "Abisua";
 
 "downloader_delete_map_dialog" = "Mapan egin dituzun aldaketa guztiak maparekin batera ezabatuko dira.";

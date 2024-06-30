@@ -680,9 +680,6 @@
 
 "level" = "Όροφος";
 
-/* Building level */
-"level_value_generic" = "Level: %@";
-
 "please_note" = "Λάβετε υπόψη";
 
 "downloader_delete_map_dialog" = "Όλες οι αλλαγές που έχετε κάνει στο χάρτη θα διαγραφούν μαζί με το χάρτη.";

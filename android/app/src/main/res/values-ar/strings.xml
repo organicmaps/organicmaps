@@ -617,6 +617,9 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">إخفاء الكل</string>
 	<string name="bookmark_lists_show_all">إظهار الكل</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d من الإشارات المرجعية</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">إنشاء قائمة جديدة</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">استيراد الإشارات المرجعية والمسارات</string>
@@ -635,12 +638,6 @@
 	  <item quantity="other">تم العثور على %d ملفات. سوف تراهم بعد التحويل.</item>
 	</plurals>
 	<string name="restore">استعادة</string>
-	<plurals name="objects">
-	  <item quantity="other">غرض %d</item>
-	</plurals>
-	<plurals name="places">
-	  <item quantity="other">مكان %d</item>
-	</plurals>
 	<plurals name="tracks">
 	  <item quantity="other">مسار %d</item>
 	</plurals>
