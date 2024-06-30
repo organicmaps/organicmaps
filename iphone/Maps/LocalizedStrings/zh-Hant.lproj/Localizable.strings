@@ -1057,10 +1057,10 @@
 "avoid_tolls" = "避開收費公路";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
-"avoid_unpaved" = "規避土路";
+"avoid_unpaved" = "避開未鋪設道路";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
-"avoid_ferry" = "規避渡輪渡口";
+"avoid_ferry" = "避開渡輪";
 
 "avoid_motorways" = "避開高速公路";
 
