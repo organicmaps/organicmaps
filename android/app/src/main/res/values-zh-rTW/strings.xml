@@ -657,9 +657,9 @@
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">避開收費公路</string>
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
-	<string name="avoid_unpaved">規避土路</string>
+	<string name="avoid_unpaved">避開未鋪設道路</string>
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
-	<string name="avoid_ferry">規避渡輪渡口</string>
+	<string name="avoid_ferry">避開渡輪</string>
 	<string name="avoid_motorways">避開高速公路</string>
 	<string name="unable_to_calc_alert_title">無法規劃路線</string>
 	<string name="unable_to_calc_alert_subtitle">很遺憾，我們無法使用所選選項規劃路線。請更改設定，然後重試</string>
