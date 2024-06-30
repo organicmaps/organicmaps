@@ -43,27 +43,6 @@
     </dict>
   </dict>
 
-  <key>objects</key>
-  <dict>
-    <key>NSStringLocalizedFormatKey</key>
-    <string>%#@value@</string>
-    <key>value</key>
-    <dict>
-      <key>NSStringFormatSpecTypeKey</key>
-      <string>NSStringPluralRuleType</string>
-      <key>NSStringFormatValueTypeKey</key>
-      <string>d</string>
-      <key>few</key>
-      <string>%d obiekty</string>
-      <key>many</key>
-      <string>%d obiektów</string>
-      <key>one</key>
-      <string>%d obiekt</string>
-      <key>other</key>
-      <string>%d obiektu</string>
-    </dict>
-  </dict>
-
   <key>tracks</key>
   <dict>
     <key>NSStringLocalizedFormatKey</key>

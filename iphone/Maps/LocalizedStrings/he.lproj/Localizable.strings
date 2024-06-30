@@ -680,9 +680,6 @@
 
 "level" = "קומה";
 
-/* Building level */
-"level_value_generic" = "Level: %@";
-
 "please_note" = "לתשומת לבך";
 
 "downloader_delete_map_dialog" = "כל העריכות שלך במפה יימחקו יחד עם המפה.";

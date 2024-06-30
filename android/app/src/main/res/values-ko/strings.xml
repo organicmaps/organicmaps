@@ -571,6 +571,9 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">모두 숨기기</string>
 	<string name="bookmark_lists_show_all">모두 표시</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d 북마크</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">새 목록 만들기</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">북마크 및 트랙 가져오기</string>
@@ -589,12 +592,6 @@
 	  <item quantity="other">%d 파일을 찾았습니다. 회심 후 그들을 볼 수 있습니다.</item>
 	</plurals>
 	<string name="restore">복원</string>
-	<plurals name="objects">
-	  <item quantity="other">%d 장소</item>
-	</plurals>
-	<plurals name="places">
-	  <item quantity="other">%d 장소들</item>
-	</plurals>
 	<plurals name="tracks">
 	  <item quantity="other">%d 추적</item>
 	</plurals>

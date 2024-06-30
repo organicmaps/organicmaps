@@ -680,9 +680,6 @@
 
 "level" = "Planta";
 
-/* Building level */
-"level_value_generic" = "Level: %@";
-
 "please_note" = "Avís";
 
 "downloader_delete_map_dialog" = "Totes els canvis que heu fet en el mapa s'esborraran conjuntament amb el mapa.";

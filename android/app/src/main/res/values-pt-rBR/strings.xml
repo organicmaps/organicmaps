@@ -554,6 +554,10 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Ocultar tudo</string>
 	<string name="bookmark_lists_show_all">Exibir tudo</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="one">%d favorito</item>
+	  <item quantity="other">%d favoritos</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Criar nova lista</string>
 	<string name="bookmarks_error_message_share_general">Impossível compartilhar devido a um erro do aplicativo</string>
 	<string name="bookmarks_error_title_share_empty">Erro de compartilhamento</string>
@@ -571,14 +575,6 @@
 	  <item quantity="other">%d arquivos foram encontrados. Você os verá depois da conversão.</item>
 	</plurals>
 	<string name="restore">Restaurar</string>
-	<plurals name="objects">
-	  <item quantity="one">%d objeto</item>
-	  <item quantity="other">%d objetos</item>
-	</plurals>
-	<plurals name="places">
-	  <item quantity="one">%d lugar</item>
-	  <item quantity="other">%d lugares</item>
-	</plurals>
 	<plurals name="tracks">
 	  <item quantity="one">%d percurso</item>
 	  <item quantity="other">%d percursos</item>

@@ -441,13 +441,6 @@
 	<string name="please_wait">कृपया प्रतीक्षा करें…</string>
 	<string name="phone_number">फ़ोन नंबर</string>
 	<string name="profile">OpenStreetMap प्रोफ़ाइल</string>
-	<plurals name="objects">
-	  <item quantity="one">%d वस्तु</item>
-	  <item quantity="other">%d वस्तुएं</item>
-	</plurals>
-	<plurals name="places">
-	  <item quantity="other">%d स्थान</item>
-	</plurals>
 	<!-- Settings privacy group in settings screen -->
 	<string name="privacy">निजता</string>
 	<string name="privacy_policy">गोपनीयता नीति</string>

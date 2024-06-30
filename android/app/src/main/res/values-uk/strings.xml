@@ -606,6 +606,11 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Приховати всі</string>
 	<string name="bookmark_lists_show_all">Показати всі</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="few">%d мітки</item>
+	  <item quantity="one">%d мітка</item>
+	  <item quantity="other">%d міток</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Створити новий список</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Імпортувати мітки та маршрути</string>
@@ -626,12 +631,6 @@
 	  <item quantity="other">%d файлів було знайдено. Ви побачите їх після конвертації.</item>
 	</plurals>
 	<string name="restore">Відновити</string>
-	<plurals name="objects">
-	  <item quantity="other">%d місце</item>
-	</plurals>
-	<plurals name="places">
-	  <item quantity="other">%d місць</item>
-	</plurals>
 	<plurals name="tracks">
 	  <item quantity="other">%d треків</item>
 	</plurals>

@@ -680,9 +680,6 @@
 
 "level" = "Mərtəbə";
 
-/* Building level */
-"level_value_generic" = "Level: %@";
-
 "please_note" = "Diqqət edin";
 
 "downloader_delete_map_dialog" = "Bütün xəritə dəyişiklikləri xəritə ilə birlikdə silinəcək.";

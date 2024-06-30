@@ -604,6 +604,9 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Hamısını gizlət</string>
 	<string name="bookmark_lists_show_all">Hamısını göstər</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d əlfəcin</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Yeni siyahı yaradın</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Əlfəcinləri və fraqmentləri idxal edin</string>
@@ -622,12 +625,6 @@
 	  <item quantity="other">%d fayl tapıldı. Dönüşümdən sonra onları görəcəksiniz.</item>
 	</plurals>
 	<string name="restore">Bərpa</string>
-	<plurals name="objects">
-	  <item quantity="other">%d obyekt</item>
-	</plurals>
-	<plurals name="places">
-	  <item quantity="other">%d yer</item>
-	</plurals>
 	<plurals name="tracks">
 	  <item quantity="other">%d istiqamətlər</item>
 	</plurals>

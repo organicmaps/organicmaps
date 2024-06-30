@@ -606,6 +606,9 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">すべて非表示</string>
 	<string name="bookmark_lists_show_all">すべて表示</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d個のブックマーク</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">新しいリストを作成する</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">ブックマークとトラックをインポートする</string>
@@ -624,12 +627,6 @@
 	  <item quantity="other">%d ファイルが見つかりました。 あなたは変換後にそれらを見るでしょう。</item>
 	</plurals>
 	<string name="restore">復元</string>
-	<plurals name="objects">
-	  <item quantity="other">%dの場所</item>
-	</plurals>
-	<plurals name="places">
-	  <item quantity="other">%dの場所</item>
-	</plurals>
 	<plurals name="tracks">
 	  <item quantity="other">%dの追跡</item>
 	</plurals>

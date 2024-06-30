@@ -571,6 +571,9 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Ẩn tất cả</string>
 	<string name="bookmark_lists_show_all">Hiển thị tất cả</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d dấu trang</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Tạo danh sách mới</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Nhập dấu trang và bản nhạc</string>
@@ -590,12 +593,6 @@
 	  <item quantity="other">%d tập tin đã được tìm thấy. Bạn sẽ thấy chúng sau khi chuyển đổi.</item>
 	</plurals>
 	<string name="restore">Khôi phục</string>
-	<plurals name="objects">
-	  <item quantity="other">%d nơi</item>
-	</plurals>
-	<plurals name="places">
-	  <item quantity="other">%d các nơi</item>
-	</plurals>
 	<plurals name="tracks">
 	  <item quantity="other">%d các chặn đường</item>
 	</plurals>

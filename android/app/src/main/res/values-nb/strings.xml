@@ -604,6 +604,9 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Skjul alle</string>
 	<string name="bookmark_lists_show_all">Vis alle</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d bokmerker</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Opprett ny liste</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Importer bokmerker og spor</string>
@@ -623,12 +626,6 @@
 	  <item quantity="other">%d filer funnet. Du vil se dem etter konverteringen.</item>
 	</plurals>
 	<string name="restore">Restaurere</string>
-	<plurals name="objects">
-	  <item quantity="other">%d sted</item>
-	</plurals>
-	<plurals name="places">
-	  <item quantity="other">%d steder</item>
-	</plurals>
 	<plurals name="tracks">
 	  <item quantity="other">%d stier</item>
 	</plurals>

@@ -595,6 +595,10 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">הסתר הכל</string>
 	<string name="bookmark_lists_show_all">הצג הכל</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="one">סימניה %d</item>
+	  <item quantity="other">%d סימניות</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">צור רשימה חדשה</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">ייבוא סימניות ומסלולים</string>
@@ -614,14 +618,6 @@
 	  <item quantity="other">נמצאו %d קבצים. יהיה ניתן לראות אותם לאחר ההמרה.</item>
 	</plurals>
 	<string name="restore">שחזור</string>
-	<plurals name="objects">
-	  <item quantity="one">פריט %d</item>
-	  <item quantity="other">%d פריטים</item>
-	</plurals>
-	<plurals name="places">
-	  <item quantity="one">מקום %d</item>
-	  <item quantity="other">%d מקומות</item>
-	</plurals>
 	<plurals name="tracks">
 	  <item quantity="one">מסלול %d</item>
 	  <item quantity="other">%d מסלולים</item>

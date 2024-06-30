@@ -572,6 +572,9 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Skjul alle</string>
 	<string name="bookmark_lists_show_all">Vis alle</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d bogmærker</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Opret ny liste</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Importer bogmærker og spor</string>
@@ -591,12 +594,6 @@
 	  <item quantity="other">Der er fundet %d filer. Du vil se dem efter konvertering.</item>
 	</plurals>
 	<string name="restore">Gendan</string>
-	<plurals name="objects">
-	  <item quantity="other">%d sted</item>
-	</plurals>
-	<plurals name="places">
-	  <item quantity="other">%d steder</item>
-	</plurals>
 	<plurals name="tracks">
 	  <item quantity="other">%d ruter</item>
 	</plurals>

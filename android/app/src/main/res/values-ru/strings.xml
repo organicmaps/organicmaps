@@ -609,6 +609,11 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Спрятать все</string>
 	<string name="bookmark_lists_show_all">Показать все</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="few">%d метки</item>
+	  <item quantity="one">%d метка</item>
+	  <item quantity="other">%d меток</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Создать новый список</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Импортировать метки и треки</string>
@@ -629,16 +634,6 @@
 	  <item quantity="other">%d файлов было найдено. Вы увидите их после конвертации.</item>
 	</plurals>
 	<string name="restore">Восстановить</string>
-	<plurals name="objects">
-	  <item quantity="few">%d объекта</item>
-	  <item quantity="one">%d объект</item>
-	  <item quantity="other">%d объектов</item>
-	</plurals>
-	<plurals name="places">
-	  <item quantity="few">%d места</item>
-	  <item quantity="one">%d место</item>
-	  <item quantity="other">%d мест</item>
-	</plurals>
 	<plurals name="tracks">
 	  <item quantity="few">%d трека</item>
 	  <item quantity="one">%d трек</item>

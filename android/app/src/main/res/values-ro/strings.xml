@@ -588,6 +588,10 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Ascunde tot</string>
 	<string name="bookmark_lists_show_all">Arată tot</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="one">%d preferat</item>
+	  <item quantity="other">%d preferate</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Creează o listă nouă</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Importați marcaje și piese</string>
@@ -607,14 +611,6 @@
 	  <item quantity="other">Au fost găsite %d fișiere. Le vei vedea după conversiune.</item>
 	</plurals>
 	<string name="restore">Restabilește</string>
-	<plurals name="objects">
-	  <item quantity="one">%d obiect</item>
-	  <item quantity="other">%d obiecte</item>
-	</plurals>
-	<plurals name="places">
-	  <item quantity="one">%d loc</item>
-	  <item quantity="other">%d locuri</item>
-	</plurals>
 	<plurals name="tracks">
 	  <item quantity="one">%d traseu</item>
 	  <item quantity="other">%d trasee</item>

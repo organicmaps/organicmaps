@@ -141,6 +141,9 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">Ficha zote</string>
 	<string name="bookmark_lists_show_all">Onyesha zote</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">Alamisho %d</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Unda orodha mpya</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Ingiza alamisho na nyimbo</string>
@@ -159,12 +162,6 @@
 	  <item quantity="other">Files %d zimepatikana. Utawaona baada ya uongofu.</item>
 	</plurals>
 	<string name="restore">Rejesha</string>
-	<plurals name="objects">
-	  <item quantity="other">Eneo %d</item>
-	</plurals>
-	<plurals name="places">
-	  <item quantity="other">Maeneo %d</item>
-	</plurals>
 	<plurals name="tracks">
 	  <item quantity="other">Njia %d</item>
 	</plurals>

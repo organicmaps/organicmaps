@@ -28,6 +28,18 @@
 	<string name="postal_code">Postcode</string>
 	<string name="editor_zip_code">Postcode</string>
 	<string name="error_enter_correct_zip_code">Enter a valid postcode</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="one">%d bookmark</item>
+	  <item quantity="other">%d bookmarks</item>
+	</plurals>
+	<plurals name="bookmarks_detect_message">
+	  <item quantity="one">%d file was found. You can see it after conversion.</item>
+	  <item quantity="other">%d files were found. You can see them after conversion.</item>
+	</plurals>
+	<plurals name="tracks">
+	  <item quantity="one">%d track</item>
+	  <item quantity="other">%d tracks</item>
+	</plurals>
 	<string name="button_layer_subway">Metro</string>
 	<string name="subway_data_unavailable">Metro map is unavailable</string>
 	<string name="avoid_motorways">Avoid motorways</string>

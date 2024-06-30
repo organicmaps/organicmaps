@@ -591,6 +591,9 @@
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">隱藏全部</string>
 	<string name="bookmark_lists_show_all">顯示全部</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d 個書籤</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">創建新列表</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">導入書籤和曲目</string>
@@ -609,12 +612,6 @@
 	  <item quantity="other">找到%d個文件。 轉換後你會看到它。</item>
 	</plurals>
 	<string name="restore">恢復</string>
-	<plurals name="objects">
-	  <item quantity="other">%d 地點</item>
-	</plurals>
-	<plurals name="places">
-	  <item quantity="other">%d 地點</item>
-	</plurals>
 	<plurals name="tracks">
 	  <item quantity="other">%d 軌跡</item>
 	</plurals>
