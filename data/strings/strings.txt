@@ -24076,7 +24076,7 @@
     tr = Ücretli yollardan kaçının
     uk = Уникати платних доріг
     vi = Tránh đường thu phí
-    zh-Hans = 避免使用收费公路
+    zh-Hans = 避开收费公路
     zh-Hant = 避開收費公路
 
   [avoid_unpaved]
@@ -24122,8 +24122,8 @@
     tr = Asfaltsız yollardan kaçın
     uk = Уникати ґрунтових доріг
     vi = Tránh đường đất
-    zh-Hans = 规避土路
-    zh-Hant = 規避土路
+    zh-Hans = 避开未铺设道路
+    zh-Hant = 避開未鋪設道路
 
   [avoid_ferry]
     comment = Recommended length for CarPlay and Android Auto is around 25-27 characters
@@ -24168,8 +24168,8 @@
     tr = Feribot geçişlerinden kaçın
     uk = Уникати поромів
     vi = Tránh bến phà
-    zh-Hans = 规避渡輪渡口
-    zh-Hant = 規避渡輪渡口
+    zh-Hans = 避开轮渡
+    zh-Hant = 避開渡輪
 
   [avoid_motorways]
     tags = android,ios
