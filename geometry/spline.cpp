@@ -136,8 +136,9 @@ void Spline::InitDirections()
   {
     m_direction[i] = m_position[i + 1] - m_position[i];
     double const len = m_direction[i].Length();
-    ASSERT_GREATER(len, 0, (i));
+//    ASSERT_GREATER(len, 0, (i));
     m_length[i] = len;
+    if(len == 0) continue;
     m_direction[i] = m_direction[i] / len;
   }
 }
