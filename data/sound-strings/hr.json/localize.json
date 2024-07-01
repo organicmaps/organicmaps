@@ -27,6 +27,7 @@
 "onto":"na",
 "take_exit_number":"Izlaz na",
 "take_exit_number_street_verb":"NULL",
+"route_recalculating":"Preračunavanje.",
 "destination":"Stižete.",
 "you_have_reached_the_destination":"Stigli ste.",
 "in_50_meters":"Za pedeset metara",

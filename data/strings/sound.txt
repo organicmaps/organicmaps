@@ -594,6 +594,50 @@
     en = NULL
     nl = Neem
 
+  [route_recalculating]
+    en = Recalculating.
+    af = Herbereken.
+    ar = إعادة الحساب.
+    az = Yenidən hesablanır.
+    be = Пераразлік.
+    bg = Преизчисляване.
+    ca = Recalculant.
+    cs = Přepočítávám.
+    da = Genberegning.
+    de = Neuberechnung.
+    el = Επανυπολογισμός.
+    es = Recalculando.
+    et = Ümberarvutamine.
+    eu = Berriro kalkulatzen.
+    fa = در حال محاسبه مجدد
+    fi = Lasketaan uudelleen.
+    fr = Recalculer.
+    he = חישוב מחדש.
+    hi = पुनर्गणना।
+    hr = Preračunavanje.
+    hu = Újraszámítás.
+    id = Menghitung ulang.
+    it = Ricalcolo.
+    ja = 再計算中。
+    ko = 재계산 중입니다.
+    lt = Perskaičiavimas.
+    mr = पुनर्गणना करत आहे.
+    nb = Rekalkulerer.
+    nl = Herberekenen.
+    pl = Przeliczanie.
+    pt = Recalculando.
+    ro = Recalculare.
+    ru = Перерасчет.
+    sk = Prepočítava sa.
+    sv = Omräkning.
+    sw = Kuhesabu upya.
+    th = กำลังคำนวณใหม่
+    tr = Yeniden hesaplanıyor.
+    uk = Перерахунок.
+    vi = Đang tính toán lại.
+    zh-Hans = 重新计算。
+    zh-Hant = 重新計算。
+
   [destination]
     en = You’ll arrive.
     ar = سوف تصل.
