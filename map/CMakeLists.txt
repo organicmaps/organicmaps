@@ -14,6 +14,8 @@ set(SRC
   bookmarks_search_params.hpp
   chart_generator.cpp
   chart_generator.hpp
+  clustering.hpp
+  clustering.cpp
   elevation_info.cpp
   elevation_info.hpp
   everywhere_search_callback.cpp
