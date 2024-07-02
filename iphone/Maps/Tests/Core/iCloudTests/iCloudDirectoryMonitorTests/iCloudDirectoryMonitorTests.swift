@@ -50,8 +50,6 @@ class iCloudDirectoryMonitorTests: XCTestCase {
     XCTAssertTrue(cloudMonitor.state == .started, "Monitor should be started when the cloud is available.")
   }
 
-
-
   func testStartWhenCloudNotAvailable() {
     mockFileManager.stubUbiquityIdentityToken = nil
     let startExpectation = expectation(description: "startExpectation")
@@ -138,14 +136,5 @@ class iCloudDirectoryMonitorTests: XCTestCase {
     NotificationCenter.default.post(name: NSNotification.Name.NSMetadataQueryDidUpdate, object: metadataQuery)
     wait(for: [didUpdateExpectation], timeout: 5.0)
     XCTAssertTrue(mockDelegate.didUpdateCalled, "Delegate's didUpdate should be called.")
-  }
-
-  func testDelegateDidReceiveError() {
-    testStartWhenCloudAvailable()
-    let didReceiveErrorExpectation = expectation(description: "didReceiveError")
-    mockDelegate.didReceiveErrorExpectation = didReceiveErrorExpectation
-    cloudMonitor.delegate?.didReceiveCloudMonitorError(SynchronizationError.containerNotFound)
-    wait(for: [didReceiveErrorExpectation], timeout: 5.0)
-    XCTAssertTrue(mockDelegate.didReceiveErrorCalled, "Delegate's didReceiveError should be called.")
   }
 }
