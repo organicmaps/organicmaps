@@ -31,7 +31,7 @@ UNIT_TEST(Russia_Moscow_NagatinoUturn_TurnTest)
       .TestValid()
       .TestDirection(CarDirection::UTurnLeft);
 
-  integration::TestRouteLength(route, 248.0);
+  integration::TestRouteLength(route, 251.3);
 }
 
 // Secondary should be preferred against residential.

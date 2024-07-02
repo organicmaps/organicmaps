@@ -204,12 +204,11 @@ UNIT_TEST(Russia_Moscow_Leningradskiy39RepublicOfSouthAfricaCapeTownCenterRouteT
   /// @todo Interesting numbers here
   /// - GraphHopper: 13703 km, 153 h
   /// - Google: 15289 km, 198 h (via Europe?!)
-  /// - OM: 14201 km, 183 h
+  /// - OM: 14486 km, 185 h
   /// - OSRM, Valhalla are failed
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
       FromLatLon(55.79721, 37.53786), {0., 0.},
-      FromLatLon(-33.9286, 18.41837), 14'201'000);
-
+      FromLatLon(-33.9286, 18.41837), 14'493'000);
 }
 
 UNIT_TEST(AlbaniaToMontenegroCrossTest)
@@ -247,16 +246,16 @@ UNIT_TEST(CanadaBridgeCrossToEdwardIsland)
 UNIT_TEST(ParisCrossDestinationInForwardHeapCase)
 {
   // Forward.
-  // OM makes the same as OSRM. GraphHopper and Valhalla make detour via Goussainville (146km).
+  // OM makes the same as OSRM and Valhalla. GraphHopper makes a detour via Goussainville (146km).
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
       FromLatLon(49.85015, 2.24296), {0., 0.},
       FromLatLon(48.85458, 2.36291), 132897);
 
   // Backward.
-  // OM makes the same as OSRM. GraphHopper and Valhalla make different detours.
+  // OM makes the same as GraphHopper and Valhalla. OSRM makes a bit shorter route.
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
       FromLatLon(48.85458, 2.36291), {0., 0.},
-      FromLatLon(49.85027, 2.24283), 131509);
+      FromLatLon(49.85027, 2.24283), 136652);
 }
 
 UNIT_TEST(RussiaSmolenskRussiaMoscowTimeTest)
@@ -848,7 +847,7 @@ UNIT_TEST(Germany_Netherlands_AvoidLoops)
   TEST(routeResult.first, ());
   Route const & route = *routeResult.first;
   TestRouteLength(route, 405159);
-  TestRouteTime(route, 14100);
+  TestRouteTime(route, 13946);
 }
 
 UNIT_TEST(Germany_Cologne_Croatia_Zagreb)
