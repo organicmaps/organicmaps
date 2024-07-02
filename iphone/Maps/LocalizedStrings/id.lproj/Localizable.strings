@@ -263,6 +263,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Bahasa Suara";
 
+/* Settings «Route» category: «Test Voice Directions» title */
+"pref_tts_test_voice_title" = "Menguji petunjuk suara (TTS, Text-To-Speech)";
+
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Lainnya";
 
@@ -1269,6 +1272,36 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* App Tip #00 */
+"app_tip_00" = "Terima kasih telah menggunakan peta buatan komunitas kami!";
+
+/* App tip #01 */
+"app_tip_01" = "Dengan donasi dan dukungan Anda, kami dapat membuat peta terbaik di Dunia!";
+
+/* App tip #02 */
+"app_tip_02" = "Apakah Anda menyukai aplikasi kami? Silakan berdonasi untuk mendukung pengembangan! Belum menyukainya? Harap beri tahu kami, dan kami akan memperbaikinya!";
+
+/* App tip #03 */
+"app_tip_03" = "Jika Anda mengenal seorang pengembang perangkat lunak, Anda dapat memintanya untuk mengimplementasikan fitur yang Anda perlukan.";
+
+/* App tip #04 */
+"app_tip_04" = "Tahukah Anda bahwa Anda dapat mengetuk lama tempat mana pun di peta untuk memilihnya?";
+
+/* App tip #05 */
+"app_tip_05" = "Tahukah Anda bahwa Anda dapat memilih lokasi Anda saat ini di peta?";
+
+/* App tip #06 */
+"app_tip_06" = "Anda dapat membantu menerjemahkan aplikasi kami ke dalam bahasa Anda.";
+
+/* App tip #07 */
+"app_tip_07" = "Aplikasi kami dikembangkan oleh beberapa peminat dan komunitas.";
+
+/* App tip #08 */
+"app_tip_08" = "Anda dapat dengan mudah memperbaiki dan meningkatkan data peta.";
+
+/* App tip #09 */
+"app_tip_09" = "Tujuan utama kami adalah membuat peta yang cepat, berfokus pada privasi, dan mudah digunakan yang akan Anda sukai.";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Anda sekarang menggunakan Organic Maps pada layar ponsel";

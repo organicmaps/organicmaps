@@ -263,6 +263,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Sprache für Sprachführung";
 
+/* Settings «Route» category: «Test Voice Directions» title */
+"pref_tts_test_voice_title" = "Teste Sprachanweisungen (TTS, Text-To-Speech)";
+
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Weitere";
 
@@ -1269,6 +1272,36 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/DE:Über_OSM";
+
+/* App Tip #00 */
+"app_tip_00" = "Danke, dass du unsere von der Community erstellten Karten benutzt!";
+
+/* App tip #01 */
+"app_tip_01" = "Mit Ihren Spenden und Ihrer Unterstützung können wir die besten Karten der Welt erstellen!";
+
+/* App tip #02 */
+"app_tip_02" = "Gefällt Ihnen unsere App? Bitte spenden Sie, um die Entwicklung zu unterstützen! Gefällt es Ihnen noch nicht? Bitte lassen Sie uns wissen warum und wir werden das Problem beheben!";
+
+/* App tip #03 */
+"app_tip_03" = "Wenn Sie einen Softwareentwickler kennen, können Sie ihn oder sie bitten, eine Funktion zu implementieren, die Sie benötigen.";
+
+/* App tip #04 */
+"app_tip_04" = "Wussten Sie, dass Sie jeden Ort auf der Karte lange antippen können, um ihn auszuwählen?";
+
+/* App tip #05 */
+"app_tip_05" = "Wussten Sie, dass Sie Ihren aktuellen Standort auf der Karte auswählen können?";
+
+/* App tip #06 */
+"app_tip_06" = "Sie können dabei helfen, unsere App in Ihre Sprache zu übersetzen.";
+
+/* App tip #07 */
+"app_tip_07" = "Unsere App wird von einigen Enthusiasten und der Community entwickelt.";
+
+/* App tip #08 */
+"app_tip_08" = "Sie können die Kartendaten einfach korrigieren und verbessern.";
+
+/* App tip #09 */
+"app_tip_09" = "Unser Hauptziel ist es, schnelle, datenschutzorientierte und benutzerfreundliche Karten zu erstellen, die Sie lieben werden.";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Du verwendest jetzt Organic Maps auf dem Telefondisplay";

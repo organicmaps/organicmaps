@@ -263,6 +263,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Röstspråk";
 
+/* Settings «Route» category: «Test Voice Directions» title */
+"pref_tts_test_voice_title" = "Testa röstinstruktioner (TTS, Text-To-Speech)";
+
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Övrigt";
 
@@ -1269,6 +1272,36 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* App Tip #00 */
+"app_tip_00" = "Tack för att du använder våra gemenskapsbyggda kartor!";
+
+/* App tip #01 */
+"app_tip_01" = "Med dina donationer och stöd kan vi skapa de bästa kartorna i världen!";
+
+/* App tip #02 */
+"app_tip_02" = "Gillar du vår app? Vänligen donera för att stödja utvecklingen! Gillar du det inte ännu? Meddela oss, så fixar vi det!";
+
+/* App tip #03 */
+"app_tip_03" = "Om du känner en mjukvaruutvecklare kan du be honom eller henne att implementera en funktion som du behöver.";
+
+/* App tip #04 */
+"app_tip_04" = "Vet du att du kan trycka länge på vilken plats som helst på kartan för att välja den?";
+
+/* App tip #05 */
+"app_tip_05" = "Vet du att du kan välja din nuvarande plats på kartan?";
+
+/* App tip #06 */
+"app_tip_06" = "Du kan hjälpa till att översätta vår app till ditt språk.";
+
+/* App tip #07 */
+"app_tip_07" = "Vår app är utvecklad av ett fåtal entusiaster och samhället.";
+
+/* App tip #08 */
+"app_tip_08" = "Du kan enkelt fixa och förbättra kartdata.";
+
+/* App tip #09 */
+"app_tip_09" = "Vårt huvudmål är att bygga snabba, integritetsfokuserade, lättanvända kartor som du kommer att älska.";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Du använder nu Organic Maps på telefonens skärm";

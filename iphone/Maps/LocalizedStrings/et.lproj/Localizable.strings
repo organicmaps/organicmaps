@@ -263,6 +263,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Hääle keel";
 
+/* Settings «Route» category: «Test Voice Directions» title */
+"pref_tts_test_voice_title" = "Testi hääljuhised (TTS, Text-To-Speech)";
+
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Muu";
 
@@ -1269,6 +1272,36 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* App Tip #00 */
+"app_tip_00" = "Aitäh, et kasutate meie kogukonna koostatud kaarte!";
+
+/* App tip #01 */
+"app_tip_01" = "Teie annetuste ja toetusega saame luua maailma parimaid kaarte!";
+
+/* App tip #02 */
+"app_tip_02" = "Kas teile meeldib meie rakendus? Palun annetage arengu toetamiseks! Ei meeldi veel? Palun andke meile teada ja me parandame selle!";
+
+/* App tip #03 */
+"app_tip_03" = "Kui teate mõnda tarkvaraarendajat, võite paluda tal rakendada teile vajalik funktsioon.";
+
+/* App tip #04 */
+"app_tip_04" = "Kas teate, et saate selle valimiseks pikalt puudutada mis tahes kohta kaardil?";
+
+/* App tip #05 */
+"app_tip_05" = "Kas tead, et saad kaardil valida oma praeguse asukoha?";
+
+/* App tip #06 */
+"app_tip_06" = "Saate aidata meie rakendust oma keelde tõlkida.";
+
+/* App tip #07 */
+"app_tip_07" = "Meie rakenduse on välja töötanud mõned entusiastid ja kogukond.";
+
+/* App tip #08 */
+"app_tip_08" = "Saate hõlpsasti kaardiandmeid parandada ja täiustada.";
+
+/* App tip #09 */
+"app_tip_09" = "Meie põhieesmärk on luua kiireid, privaatsusele keskenduvaid ja hõlpsasti kasutatavaid kaarte, mis teile meeldivad.";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Nüüd kasutate telefoni ekraanil Organic Maps";

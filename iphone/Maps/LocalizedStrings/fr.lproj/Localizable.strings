@@ -263,6 +263,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Langue vocale";
 
+/* Settings «Route» category: «Test Voice Directions» title */
+"pref_tts_test_voice_title" = "Teste les instructions vocales (TTS, Text-To-Speech)";
+
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Autre";
 
@@ -1269,6 +1272,36 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/FR:À_propos_d’OpenStreetMap";
+
+/* App Tip #00 */
+"app_tip_00" = "Merci d'utiliser nos cartes créées par la communauté !";
+
+/* App tip #01 */
+"app_tip_01" = "Avec vos dons et votre soutien, nous pouvons créer les meilleures cartes du monde !";
+
+/* App tip #02 */
+"app_tip_02" = "Aimez-vous notre application? Veuillez faire un don pour soutenir le développement ! Vous ne l'aimez pas encore ? S'il vous plaît laissez-nous savoir et nous y remédierons !";
+
+/* App tip #03 */
+"app_tip_03" = "Si vous connaissez un développeur de logiciels, vous pouvez lui demander d'implémenter une fonctionnalité dont vous avez besoin.";
+
+/* App tip #04 */
+"app_tip_04" = "Savez-vous que vous pouvez appuyer longuement sur n'importe quel endroit de la carte pour le sélectionner ?";
+
+/* App tip #05 */
+"app_tip_05" = "Savez-vous que vous pouvez sélectionner votre position actuelle sur la carte ?";
+
+/* App tip #06 */
+"app_tip_06" = "Vous pouvez nous aider à traduire notre application dans votre langue.";
+
+/* App tip #07 */
+"app_tip_07" = "Notre application est développée par quelques passionnés et la communauté.";
+
+/* App tip #08 */
+"app_tip_08" = "Vous pouvez facilement corriger et améliorer les données cartographiques.";
+
+/* App tip #09 */
+"app_tip_09" = "Notre objectif principal est de créer des cartes rapides, axées sur la confidentialité et faciles à utiliser que vous allez adorer.";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Vous utilisez maintenant Organic Maps sur le téléphone";

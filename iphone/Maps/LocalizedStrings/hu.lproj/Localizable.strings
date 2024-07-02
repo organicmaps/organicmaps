@@ -263,6 +263,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "A hangutasítások nyelve";
 
+/* Settings «Route» category: «Test Voice Directions» title */
+"pref_tts_test_voice_title" = "Hangutasítások tesztelése (TTS, Text-To-Speech)";
+
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Egyéb";
 
@@ -1269,6 +1272,36 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Hu:Névjegy";
+
+/* App Tip #00 */
+"app_tip_00" = "Köszönjük, hogy használja a közösség által készített térképeinket!";
+
+/* App tip #01 */
+"app_tip_01" = "Adományaival és támogatásával létrehozhatjuk a világ legjobb térképes alkalmazását!";
+
+/* App tip #02 */
+"app_tip_02" = "Tetszik az alkalmazásunk? Kérjük, adományozzon a fejlesztés támogatása érdekében! Még nem tetszik? Kérjük, jelezze felénk miért, és mi megoldjuk!";
+
+/* App tip #03 */
+"app_tip_03" = "Ha ismer egy szoftverfejlesztőt, megkérheti őt egy olyan funkció megvalósítására, amelyre szüksége van.";
+
+/* App tip #04 */
+"app_tip_04" = "Tudja, hogy a térkép bármely pontjára hosszan koppintva kiválaszthatja azt?";
+
+/* App tip #05 */
+"app_tip_05" = "Tudja, hogy kijelölheti pozícióját a térképen?";
+
+/* App tip #06 */
+"app_tip_06" = "Ön is segíthet alkalmazásunkat lefordítani a nyelvére.";
+
+/* App tip #07 */
+"app_tip_07" = "Alkalmazásunkat néhány közreműködő és a közösség fejlesztette ki.";
+
+/* App tip #08 */
+"app_tip_08" = "Könnyedén javíthatja a térképadatokat.";
+
+/* App tip #09 */
+"app_tip_09" = "Fő célunk az, hogy gyors, az adatvédelemre fókuszáló, könnyen használható térképeket készítsünk, amelyeket szeretni fog.";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Ön most az Organic Maps használja a telefon képernyőjén";

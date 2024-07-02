@@ -263,6 +263,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Ngôn ngữ Giọng nói";
 
+/* Settings «Route» category: «Test Voice Directions» title */
+"pref_tts_test_voice_title" = "Kiểm tra chỉ đường bằng giọng nói (TTS, chuyển văn bản thành giọng nói)";
+
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Khác";
 
@@ -1269,6 +1272,36 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* App Tip #00 */
+"app_tip_00" = "Cảm ơn bạn đã sử dụng bản đồ do cộng đồng xây dựng của chúng tôi!";
+
+/* App tip #01 */
+"app_tip_01" = "Với sự đóng góp và hỗ trợ của bạn, chúng tôi có thể tạo ra những bản đồ tốt nhất trên Thế giới!";
+
+/* App tip #02 */
+"app_tip_02" = "Bạn có thích ứng dụng của chúng tôi không? Hãy quyên góp để hỗ trợ sự phát triển! Bạn chưa thích nó? Vui lòng cho chúng tôi biết và chúng tôi sẽ khắc phục nó!";
+
+/* App tip #03 */
+"app_tip_03" = "Nếu bạn biết một nhà phát triển phần mềm, bạn có thể yêu cầu họ triển khai một tính năng mà bạn cần.";
+
+/* App tip #04 */
+"app_tip_04" = "Bạn có biết rằng bạn có thể nhấn và giữ bất kỳ địa điểm nào trên bản đồ để chọn địa điểm đó không?";
+
+/* App tip #05 */
+"app_tip_05" = "Bạn có biết rằng bạn có thể chọn vị trí hiện tại của mình trên bản đồ không?";
+
+/* App tip #06 */
+"app_tip_06" = "Bạn có thể giúp dịch ứng dụng của chúng tôi sang ngôn ngữ của bạn.";
+
+/* App tip #07 */
+"app_tip_07" = "Ứng dụng của chúng tôi được phát triển bởi một số người đam mê và cộng đồng.";
+
+/* App tip #08 */
+"app_tip_08" = "Bạn có thể dễ dàng sửa chữa và cải thiện dữ liệu bản đồ.";
+
+/* App tip #09 */
+"app_tip_09" = "Mục tiêu chính của chúng tôi là xây dựng các bản đồ nhanh chóng, tập trung vào quyền riêng tư, dễ sử dụng mà bạn sẽ yêu thích.";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Bạn hiện đang sử dụng bản đồ không phải trả tiền trên màn hình điện thoại";

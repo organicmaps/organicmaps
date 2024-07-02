@@ -263,6 +263,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "שפת קול";
 
+/* Settings «Route» category: «Test Voice Directions» title */
+"pref_tts_test_voice_title" = "בדיקת הנחיות קוליות (TTS, טקסט לדיבור)";
+
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "אחר";
 
@@ -1269,6 +1272,36 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* App Tip #00 */
+"app_tip_00" = "תודה על השימוש במפות שנבנו בקהילה שלנו!";
+
+/* App tip #01 */
+"app_tip_01" = "עם התרומות והתמיכה שלך, נוכל ליצור את המפות הטובות בעולם!";
+
+/* App tip #02 */
+"app_tip_02" = "האם אתה אוהב את האפליקציה שלנו? אנא תרמו כדי לתמוך בפיתוח! לא אוהב את זה עדיין? אנא הודע לנו, ואנחנו נתקן את זה!";
+
+/* App tip #03 */
+"app_tip_03" = "אם אתה מכיר מפתח תוכנה, אתה יכול לבקש ממנו ליישם תכונה שאתה צריך.";
+
+/* App tip #04 */
+"app_tip_04" = "האם אתה יודע שאתה יכול ללחוץ ארוכות על כל מקום במפה כדי לבחור אותו?";
+
+/* App tip #05 */
+"app_tip_05" = "האם אתה יודע שאתה יכול לבחור את המיקום הנוכחי שלך על המפה?";
+
+/* App tip #06 */
+"app_tip_06" = "אתה יכול לעזור לתרגם את האפליקציה שלנו לשפה שלך.";
+
+/* App tip #07 */
+"app_tip_07" = "האפליקציה שלנו פותחה על ידי כמה חובבים והקהילה.";
+
+/* App tip #08 */
+"app_tip_08" = "אתה יכול בקלות לתקן ולשפר את נתוני המפה.";
+
+/* App tip #09 */
+"app_tip_09" = "המטרה העיקרית שלנו היא לבנות מפות מהירות, ממוקדות פרטיות, קלות לשימוש שתאהבו.";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "אתה משתמש כעת ב-Organic Maps במסך הטלפון";

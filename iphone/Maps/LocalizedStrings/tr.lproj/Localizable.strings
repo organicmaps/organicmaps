@@ -263,6 +263,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Ses Dili";
 
+/* Settings «Route» category: «Test Voice Directions» title */
+"pref_tts_test_voice_title" = "Sesli yönlendirmeleri test edin (TTS, Text-To-Speech)";
+
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Diğer";
 
@@ -1269,6 +1272,36 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Tr:About";
+
+/* App Tip #00 */
+"app_tip_00" = "Topluluk tarafından oluşturulan haritalarımızı kullandığınız için teşekkür ederiz!";
+
+/* App tip #01 */
+"app_tip_01" = "Bağışlarınız ve desteğinizle dünyanın en iyi haritalarını yaratabiliriz!";
+
+/* App tip #02 */
+"app_tip_02" = "Uygulamamızı beğendiniz mi? Gelişimi desteklemek için lütfen bağış yapın! Henüz beğenmedin mi? Lütfen bize bildirin, düzelteceğiz!";
+
+/* App tip #03 */
+"app_tip_03" = "Bir yazılım geliştirici tanıyorsanız, ondan ihtiyacınız olan bir özelliği uygulamasını isteyebilirsiniz.";
+
+/* App tip #04 */
+"app_tip_04" = "Haritadaki herhangi bir yeri seçmek için uzun süre dokunabileceğinizi biliyor musunuz?";
+
+/* App tip #05 */
+"app_tip_05" = "Haritada mevcut konumunuzu seçebileceğinizi biliyor musunuz?";
+
+/* App tip #06 */
+"app_tip_06" = "Uygulamamızın kendi dilinize çevrilmesine yardımcı olabilirsiniz.";
+
+/* App tip #07 */
+"app_tip_07" = "Uygulamamız birkaç meraklı ve topluluk tarafından geliştirilmiştir.";
+
+/* App tip #08 */
+"app_tip_08" = "Harita verilerini kolayca düzeltebilir ve iyileştirebilirsiniz.";
+
+/* App tip #09 */
+"app_tip_09" = "Temel amacımız hızlı, gizlilik odaklı, kullanımı kolay, seveceğiniz haritalar oluşturmaktır.";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Artık telefon ekranında Organic Maps kullanıyorsunuz";

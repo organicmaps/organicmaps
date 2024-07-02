@@ -263,6 +263,9 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Мова агучвання";
 
+/* Settings «Route» category: «Test Voice Directions» title */
+"pref_tts_test_voice_title" = "Тэставыя галасавыя ўказанні (TTS, Text-To-Speech)";
+
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Іншы";
 
@@ -1269,6 +1272,36 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* App Tip #00 */
+"app_tip_00" = "Дзякуй за выкарыстанне нашых карт, створаных супольнасцю!";
+
+/* App tip #01 */
+"app_tip_01" = "Дзякуючы вашым ахвяраванням і падтрымцы мы можам стварыць лепшыя мапы у свеце!";
+
+/* App tip #02 */
+"app_tip_02" = "Вам падабаецца наша прылада? Калі ласка, ахвяруйце, каб падтрымаць развіццё! Яшчэ не падабаецца? Калі ласка, напішыце, чаму, і мы гэта выправім!";
+
+/* App tip #03 */
+"app_tip_03" = "Калі вы ведаеце распрацоўшчыка праграмнага забеспячэння, вы можаце папрасіць яго рэалізаваць неабходную вам функцыю.";
+
+/* App tip #04 */
+"app_tip_04" = "Любое месца на карце можна абраць, калі патрымаць там палец на працягу секунды.";
+
+/* App tip #05 */
+"app_tip_05" = "А вы ведалі, што сваё месцазнаходжанне на мапе можна абраць?";
+
+/* App tip #06 */
+"app_tip_06" = "Вы можаце дапамагчы перакласці нашу прыладу на вашу мову.";
+
+/* App tip #07 */
+"app_tip_07" = "Наша прылада распрацавана некалькімі энтузіястамі і супольнасцю.";
+
+/* App tip #08 */
+"app_tip_08" = "Вы можаце лёгка выправіць і палепшыць дадзеныя карты.";
+
+/* App tip #09 */
+"app_tip_09" = "Наша галоўная мэта - ствараць хуткія, арыентаваныя на прыватнасць і простыя ў выкарыстанні карты, якія вам спадабаюцца.";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
 "car_used_on_the_phone_screen" = "Вы выкарыстоўваеце Organic Maps на экране тэлефона";
