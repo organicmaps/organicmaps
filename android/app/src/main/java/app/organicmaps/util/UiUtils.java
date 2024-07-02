@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -229,15 +230,26 @@ public final class UiUtils
   public static void setFullscreen(@NonNull Activity activity, boolean fullscreen)
   {
     final Window window = activity.getWindow();
-    final View decorView = window.getDecorView();
-    WindowInsetsControllerCompat wic = Objects.requireNonNull(WindowCompat.getInsetsController(window, decorView));
-    if (fullscreen)
+
+    if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.R)
     {
-      wic.hide(WindowInsetsCompat.Type.systemBars());
-      wic.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+      if (fullscreen)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+      else
+        window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
     else
-      wic.show(WindowInsetsCompat.Type.systemBars());
+    {
+      final View decorView = window.getDecorView();
+      WindowInsetsControllerCompat wic = Objects.requireNonNull(WindowCompat.getInsetsController(window, decorView));
+      if (fullscreen)
+      {
+        wic.hide(WindowInsetsCompat.Type.systemBars());
+        wic.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+      }
+      else
+        wic.show(WindowInsetsCompat.Type.systemBars());
+    }
   }
 
   public static void setupTransparentStatusBar(@NonNull Activity activity)
