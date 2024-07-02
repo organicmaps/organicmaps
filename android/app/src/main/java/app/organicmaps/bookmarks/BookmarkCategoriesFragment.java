@@ -62,7 +62,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
 
   public static final String BOOKMARKS_CATEGORIES_MENU_ID = "BOOKMARKS_CATEGORIES_BOTTOM_SHEET";
 
-  private ActivityResultLauncher<Intent> shareLauncher;
+  private ActivityResultLauncher<SharingUtils.SharingIntent> shareLauncher;
 
   @Nullable
   private BookmarkCategory mSelectedCategory;

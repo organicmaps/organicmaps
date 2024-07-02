@@ -8,29 +8,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import app.organicmaps.R;
 import app.organicmaps.WebContainerDelegate;
 import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.util.Constants;
+import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class FaqFragment extends BaseMwmFragment
 {
+  private ActivityResultLauncher<SharingUtils.SharingIntent> shareLauncher;
+
   @NonNull
   private final DialogInterface.OnClickListener mDialogClickListener = new DialogInterface.OnClickListener()
   {
     private void sendGeneralFeedback()
     {
-      Utils.sendFeedback(requireActivity());
+      Utils.sendFeedback(shareLauncher, requireActivity());
     }
 
     private void reportBug()
     {
-      Utils.sendBugReport(requireActivity(), "", "");
+      Utils.sendBugReport(shareLauncher, requireActivity(), "", "");
     }
 
     @Override
@@ -75,6 +79,8 @@ public class FaqFragment extends BaseMwmFragment
           feedbackFab.show();
       });
     }
+
+    shareLauncher = SharingUtils.RegisterLauncher(this);
 
     return root;
   }
