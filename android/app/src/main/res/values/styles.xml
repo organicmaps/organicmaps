@@ -117,15 +117,6 @@
     <item name="cornerSize">50%</item>
   </style>
 
-
-  <style name="MwmWidget.PlacePage.EditText" parent="Widget.AppCompat.EditText">
-    <item name="android:imeOptions">actionDone</item>
-    <item name="android:textAppearance">@style/MwmTextAppearance.PlacePage</item>
-    <item name="android:textColorHint">?secondary</item>
-    <item name="android:textCursorDrawable">@null</item>
-    <item name="android:fontFamily">@string/robotoRegular</item>
-  </style>
-
   <style name="MwmWidget.ToolbarStyle" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
     <item name="android:background">?colorPrimary</item>
     <item name="android:displayOptions">homeAsUp|showTitle</item>

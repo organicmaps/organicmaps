@@ -38,7 +38,7 @@
           app:endIconTint="?android:textColorSecondary">
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/edit_list_name_view"
-          style="@style/MwmWidget.PlacePage.EditText"
+          style="@style/MwmWidget.Editor.CustomTextInput"
           android:hint="@string/list"
           android:layout_width="match_parent"
           android:layout_height="wrap_content" />
@@ -49,7 +49,7 @@
       android:textColorHint="?android:textColorSecondary">
     <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/edit_description"
-      style="@style/MwmWidget.PlacePage.EditText"
+      style="@style/MwmWidget.Editor.CustomTextInput"
       android:hint="@string/bookmark_list_description_hint"
       android:minHeight="@dimen/height_item_multiline"
       android:paddingStart="@dimen/margin_base"

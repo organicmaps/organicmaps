@@ -27,7 +27,7 @@
       app:endIconTint="?android:textColorSecondary">
       <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/et__bookmark_name"
-        style="@style/MwmWidget.PlacePage.EditText"
+        style="@style/MwmWidget.Editor.CustomTextInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/name"
@@ -93,7 +93,7 @@
     app:layout_constraintTop_toBottomOf="@+id/rl__bookmark_set">
     <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/et__description"
-      style="@style/MwmWidget.PlacePage.EditText"
+      style="@style/MwmWidget.Editor.CustomTextInput"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:padding="@dimen/margin_half_double_plus"
