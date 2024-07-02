@@ -773,6 +773,8 @@
 	<string name="website_menu">Liên kết thực đơn</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Xem thực đơn</string>
+	<!-- To indicate if the place proposed self service... -->
+	<string name="self_service">Tự phục vụ</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Địa chỉ/Khối</string>

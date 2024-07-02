@@ -106,6 +106,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private TextView mTvWheelchair;
   private View mDriveThrough;
   private TextView mTvDriveThrough;
+  private View mSelfService;
+  private TextView mTvSelfService;
   private View mCuisine;
   private TextView mTvCuisine;
   private View mEntrance;
@@ -248,6 +250,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mTvWheelchair = mFrame.findViewById(R.id.tv__place_wheelchair);
     mDriveThrough = mFrame.findViewById(R.id.ll__place_drive_through);
     mTvDriveThrough = mFrame.findViewById(R.id.tv__place_drive_through);
+    mSelfService = mFrame.findViewById(R.id.ll__place_self_service);
+    mTvSelfService = mFrame.findViewById(R.id.tv__place_self_service);
     mCuisine = mFrame.findViewById(R.id.ll__place_cuisine);
     mTvCuisine = mFrame.findViewById(R.id.tv__place_cuisine);
     mEntrance = mFrame.findViewById(R.id.ll__place_entrance);
@@ -267,6 +271,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mCapacity.setOnLongClickListener(this);
     mWheelchair.setOnLongClickListener(this);
     mDriveThrough.setOnLongClickListener(this);
+    mSelfService.setOnLongClickListener(this);
 
     mDownloaderIcon = new DownloaderStatusIcon(mPreview.findViewById(R.id.downloader_status_frame));
 
@@ -420,6 +425,12 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     if (driveThrough.equals("yes"))
     {
       refreshMetadataOrHide(getString(R.string.drive_through), mDriveThrough, mTvDriveThrough);
+    }
+
+    final String selfService = mMapObject.getMetadata(Metadata.MetadataType.FMD_SELF_SERVICE);
+    if (selfService.equals("yes"))
+    {
+      refreshMetadataOrHide(getString(R.string.self_service), mSelfService, mTvSelfService);
     }
 
 //    showTaxiOffer(mapObject);
