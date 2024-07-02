@@ -266,7 +266,7 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
     noEmptyNames.insert(cl.GetTypeByPath(tags));
 
   uint32_t const commTower = cl.GetTypeByPath({"man_made", "tower", "communication"});
-  search::TwoLevelPOIChecker isPoi;
+  ftypes::TwoLevelPOIChecker isPoi;
   auto const isNoEmptyName = [commTower, &isPoi, &noEmptyNames](uint32_t t)
   {
     if (t != commTower)

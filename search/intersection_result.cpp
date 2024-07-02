@@ -1,5 +1,7 @@
 #include "search/intersection_result.hpp"
 
+#include "base/assert.hpp"
+
 #include <sstream>
 
 namespace search

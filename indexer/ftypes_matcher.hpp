@@ -52,22 +52,6 @@ public:
   DECLARE_CHECKER_INSTANCE(IsATMChecker);
 };
 
-class IsPaymentTerminalChecker : public BaseChecker
-{
-  IsPaymentTerminalChecker();
-
-public:
-  DECLARE_CHECKER_INSTANCE(IsPaymentTerminalChecker);
-};
-
-class IsMoneyExchangeChecker : public BaseChecker
-{
-  IsMoneyExchangeChecker();
-
-public:
-  DECLARE_CHECKER_INSTANCE(IsMoneyExchangeChecker);
-};
-
 class IsSpeedCamChecker : public BaseChecker
 {
   IsSpeedCamChecker();
@@ -91,43 +75,12 @@ public:
   DECLARE_CHECKER_INSTANCE(IsPostPoiChecker);
 };
 
-class IsFuelStationChecker : public BaseChecker
+class IsOperatorOthersPoiChecker : public BaseChecker
 {
-  IsFuelStationChecker();
-public:
-  DECLARE_CHECKER_INSTANCE(IsFuelStationChecker);
-};
-
-class IsCarSharingChecker : public BaseChecker
-{
-  IsCarSharingChecker();
+  IsOperatorOthersPoiChecker();
 
 public:
-  DECLARE_CHECKER_INSTANCE(IsCarSharingChecker);
-};
-
-class IsCarRentalChecker : public BaseChecker
-{
-  IsCarRentalChecker();
-
-public:
-  DECLARE_CHECKER_INSTANCE(IsCarRentalChecker);
-};
-
-class IsBicycleRentalChecker : public BaseChecker
-{
-  IsBicycleRentalChecker();
-
-public:
-  DECLARE_CHECKER_INSTANCE(IsBicycleRentalChecker);
-};
-
-class IsParkingChecker : public BaseChecker
-{
-  IsParkingChecker();
-
-public:
-  DECLARE_CHECKER_INSTANCE(IsParkingChecker);
+  DECLARE_CHECKER_INSTANCE(IsOperatorOthersPoiChecker);
 };
 
 class IsRecyclingCentreChecker : public BaseChecker
@@ -316,13 +269,34 @@ public:
   DECLARE_CHECKER_INSTANCE(IsPisteChecker);
 };
 
-/// @todo Should be merged/replaced with search::IsPoiChecker in model.cpp ?
-class IsPoiChecker : public BaseChecker
+
+class OneLevelPOIChecker : public ftypes::BaseChecker
 {
-  IsPoiChecker();
+public:
+  OneLevelPOIChecker();
+};
+
+/// Describes 2-level POI-exception types that don't belong to any POI-common classes
+/// (amenity, shop, tourism, ...). Used in search algo and search categories index generation.
+class TwoLevelPOIChecker : public ftypes::BaseChecker
+{
+public:
+  TwoLevelPOIChecker();
+};
+
+class IsPoiChecker
+{
 public:
   DECLARE_CHECKER_INSTANCE(IsPoiChecker);
+
+  bool operator()(FeatureType & ft) const { return m_oneLevel(ft) || m_twoLevel(ft); }
+  template <class T> bool operator()(T const & t) const { return m_oneLevel(t) || m_twoLevel(t); }
+
+private:
+  OneLevelPOIChecker const m_oneLevel;
+  TwoLevelPOIChecker const m_twoLevel;
 };
+
 
 class IsAmenityChecker : public BaseChecker
 {

@@ -555,9 +555,15 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
     if (FLAGS_generate_popular_places)
     {
       if (!FLAGS_wikipedia_pages.empty())
+      {
+        // Used for World.wmw (it doesn't have DESCRIPTIONS_FILE_TAG)
         BuildPopularPlacesFromWikiDump(dataFile, FLAGS_wikipedia_pages, FLAGS_idToWikidata);
+      }
       else
+      {
+        // Used for countries.
         BuildPopularPlacesFromDescriptions(dataFile);
+      }
     }
 
     if (FLAGS_generate_traffic_keys)

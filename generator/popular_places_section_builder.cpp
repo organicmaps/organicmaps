@@ -66,6 +66,7 @@ template <class RankGetterT> void BuildPopularPlacesImpl(std::string const & mwm
 
   auto const & placeChecker = ftypes::IsPlaceChecker::Instance();
   auto const & poiChecker = ftypes::IsPoiChecker::Instance();
+  auto const & streetChecker = ftypes::IsWayChecker::Instance();
 
   std::vector<PopularityIndex> content;
   feature::ForEachFeature(mwmFile, [&](FeatureType & ft, uint32_t featureId)
@@ -73,7 +74,7 @@ template <class RankGetterT> void BuildPopularPlacesImpl(std::string const & mwm
     ASSERT_EQUAL(content.size(), featureId, ());
     PopularityIndex rank = 0;
 
-    if (placeChecker(ft) || poiChecker(ft))
+    if (placeChecker(ft) || poiChecker(ft) || streetChecker(ft))
     {
       rank = getter(ft, featureId);
       if (rank > 0)

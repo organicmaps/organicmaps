@@ -131,21 +131,6 @@ UNIT_TEST(GetHighwayClassTest)
   TEST_EQUAL(ftypes::GetHighwayClass(types4), ftypes::HighwayClass::Undefined, ());
 }
 
-UNIT_TEST(IsPoiChecker)
-{
-  classificator::Load();
-  Classificator const & c = classif();
-  auto const & checker = ftypes::IsPoiChecker::Instance();
-
-  for (char const * t : { "amenity", "shop", "tourism", "leisure", "sport", "craft", "man_made", "emergency",
-                          "office", "historic", "railway", "highway", "aeroway" })
-  {
-    TEST(checker(c.GetTypeByPath({t})), ());
-  }
-
-  TEST(!checker(c.GetTypeByPath({"building"})), ());
-}
-
 UNIT_TEST(IsAttractionsChecker)
 {
   classificator::Load();
