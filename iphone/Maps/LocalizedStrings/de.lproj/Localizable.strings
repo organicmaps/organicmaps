@@ -764,6 +764,9 @@
 
 "editor_operator" = "Eigentümer";
 
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+"operator" = "Eigentümer: %@";
+
 "downloader_no_downloaded_maps_title" = "Keine Karten heruntergeladen";
 
 "downloader_no_downloaded_maps_message" = "Laden Sie Karten für die Offline-Suche und Navigation herunter.";
@@ -1107,6 +1110,9 @@
 
 /* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
 "capacity" = "Kapazität: %@";
+
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+"network" = "Netzwerk: %@";
 
 "trip_finished" = "Sie sind angekommen!";
 

@@ -16544,6 +16544,51 @@
     zh-Hans = 运营者
     zh-Hant = 營運者
 
+  [operator]
+    comment = To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations...
+    tags = android,ios
+    en = Owner: %@
+    af = Eienaar: %@
+    ar = المالك: %@
+    az = Sahibi: %@
+    be = Уладальнік: %@
+    bg = Собственик: %@
+    ca = Propietari: %@
+    cs = Operátor: %@
+    da = Bruger: %@
+    de = Eigentümer: %@
+    el = Ιδιοκτήτης: %@
+    es = Operador: %@
+    et = Omanik: %@
+    eu = Eragilea: %@
+    fa = مالک: %@
+    fi = Operaattori: %@
+    fr = Opérateur : %@
+    he = בעלים: %@
+    hi = मालिक: %@
+    hu = Üzemeltető: %@
+    id = Pemilik: %@
+    it = Proprietario: %@
+    ja = オペレーター: %@
+    ko = 소유자: %@
+    lt = Savininkas: %@
+    mr = मालक: %@
+    nb = Eier: %@
+    nl = Uitvoerder: %@
+    pl = Operator: %@
+    pt = Operador: %@
+    pt-BR = Operador: %@
+    ro = Proprietar: %@
+    ru = Владелец: %@
+    sk = Prevádzkovateľ: %@
+    sv = Användare: %@
+    th = เจ้าของ: %@
+    tr = İşletmeci: %@
+    uk = Власник: %@
+    vi = Đơn vị điều hành: %@
+    zh-Hans = 运营者: %@
+    zh-Hant = 營運者: %@
+
   [editor_category_unsuitable_title]
     tags = android
     en = Can't find a suitable category?
@@ -24865,6 +24910,51 @@
     vi = Công suất: %@
     zh-Hans = 容量：%@
     zh-Hant = 容量：%@
+
+  [network]
+    comment = To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations...
+    tags = android,ios
+    en = Network: %@
+    af = Netwerk: %@
+    ar = الشبكة: %@
+    az = Şəbəkə: %@
+    be = Сетка: %@
+    bg = Мрежа: %@
+    ca = Xarxa: %@
+    cs = Síť: %@
+    da = Netværk: %@
+    de = Netzwerk: %@
+    el = Δίκτυο: %@
+    es = Red: %@
+    et = Võrk: %@
+    eu = Sarea: %@
+    fa = شبکه: %@
+    fi = Verkko: %@
+    fr = Réseau : %@
+    he = רשת: %@
+    hi = नेटवर्क: %@
+    hu = Hálózat: %@
+    id = Jaringan: %@
+    it = Rete: %@
+    ja = ネットワーク： %@
+    ko = 네트워크: %@
+    lt = Tinklas: %@
+    mr = नेटवर्क: %@
+    nb = Nettverk: %@
+    nl = Netwerk: %@
+    pl = Sieć: %@
+    pt = Rede: %@
+    ro = Rețea: %@
+    ru = Сеть: %@
+    sk = Sieť: %@
+    sv = Nätverk: %@
+    sw = Mtandao: %@
+    th = เครือข่าย: %@
+    tr = Ağ: %@
+    uk = Мережа: %@
+    vi = Mạng: %@
+    zh-Hans = 网络：%@
+    zh-Hant = 網路： %@
 
   [trip_finished]
     tags = android,ios

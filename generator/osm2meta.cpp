@@ -112,7 +112,9 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_operator(std::string con
       ftypes::IsCarSharingChecker::Instance()(t) ||
       ftypes::IsCarRentalChecker::Instance()(t) ||
       ftypes::IsBicycleRentalChecker::Instance()(t) ||
-      ftypes::IsParkingChecker::Instance()(t))
+      ftypes::IsParkingChecker::Instance()(t) ||
+      ftypes::IsBuildingChecker::Instance()(t) ||
+      ftypes::IsVendingMachineChecker::Instance()(t))
   {
     return v;
   }
@@ -554,6 +556,7 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   case Metadata::FMD_CAPACITY: valid = ValidateAndFormat_capacity(v); break;
   case Metadata::FMD_LOCAL_REF: valid = ValidateAndFormat_local_ref(v); break;
   case Metadata::FMD_DRIVE_THROUGH: valid = ValidateAndFormat_drive_through(v); break;
+  case Metadata::FMD_NETWORK: valid = ValidateAndFormat_operator(v); break;
   // Metadata types we do not get from OSM.
   case Metadata::FMD_CUISINE:
   case Metadata::FMD_DESCRIPTION:   // processed separately
