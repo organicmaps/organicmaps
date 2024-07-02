@@ -2206,4 +2206,12 @@
 	<string name="type.amenity.events_venue">Events Venue</string>
 	<string name="type.shop.auction">Auction</string>
 	<string name="type.shop.collector">Collectables</string>
+  <string name="battery_optimisation_dialog_title">Stop optimizing battery usage?</string>
+  <string name="battery_optimisation_dialog_summary">Organic Maps will be able to run in background. Its battery Usage Won\'t be restricted.</string>
+	<string name="deny">Deny</string>
+	<string name="allow">Allow</string>
+	<string name="power_saver_dialog_title">Turn Off Power Saving Mode</string>
+	<string name="power_saver_dialog_summary">For the most accurate navigation, we recommend disabling Power Save Mode in your phone\'s Battery settings. Please disable it from your settings.</string>
+	<string name="settings_caps">SETTINGS</string>
+	<string name="not_now">NOT NOW</string>
 </resources>
