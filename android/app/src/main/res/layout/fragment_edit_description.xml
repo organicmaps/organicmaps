@@ -32,7 +32,7 @@
     app:layout_constraintTop_toBottomOf="@+id/toolbar">
     <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/et__description"
-      style="@style/MwmWidget.PlacePage.EditText"
+      style="@style/MwmWidget.Editor.CustomTextInput"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:hint="@string/edit_description_hint"
