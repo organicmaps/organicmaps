@@ -1362,6 +1362,9 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "त्रुटी: iCloud उपलब्ध नाही";
 
+/* Title for the "Open In Another App" buton on the PlacePage. */
+"open_in_app" = "दुसऱ्या ॲपमध्ये उघडा";
+
 
 /********** Types **********/
 

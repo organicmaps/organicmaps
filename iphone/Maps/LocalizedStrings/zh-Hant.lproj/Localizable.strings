@@ -1362,6 +1362,9 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "錯誤：iCloud 不可用";
 
+/* Title for the "Open In Another App" buton on the PlacePage. */
+"open_in_app" = "在另一個應用程式中打開";
+
 
 /********** Types **********/
 

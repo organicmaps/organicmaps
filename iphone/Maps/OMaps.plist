@@ -92,6 +92,14 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>mailto</string>
+		<string>comgooglemaps</string>
+		<string>osmandmaps</string>
+		<string>yandexmaps</string>
+		<string>dgis</string>
+		<string>citymapper</string>
+		<string>moovit</string>
+		<string>uber</string>
+		<string>waze</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
