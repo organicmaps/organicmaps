@@ -166,6 +166,7 @@ FrontendRenderer::FrontendRenderer(Params && params)
   , m_blockTapEvents(params.m_blockTapEvents)
   , m_choosePositionMode(false)
   , m_screenshotMode(params.m_myPositionParams.m_hints.m_screenshotMode)
+  , m_mapLangIndex(StringUtf8Multilang::kDefaultCode)
   , m_viewport(params.m_viewport)
   , m_modelViewChangedHandler(std::move(params.m_modelViewChangedHandler))
   , m_tapEventInfoHandler(std::move(params.m_tapEventHandler))
@@ -762,7 +763,17 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       }
       break;
     }
+    case Message::Type::SetMapLangIndex:
+    {
+      ref_ptr<SetMapLangIndexMessage> const msg = message;
 
+      if (m_mapLangIndex != msg->MapLangIndex())
+      {
+        m_mapLangIndex = msg->MapLangIndex();
+        m_forceUpdateScene = true;
+      }
+      break;
+    }
   case Message::Type::FlushCirclesPack:
     {
       ref_ptr<FlushCirclesPackMessage> msg = message;
