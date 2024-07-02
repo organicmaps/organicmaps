@@ -81,6 +81,16 @@ namespace qt
       });
     }
 
+    QCheckBox * transliterationCheckBox = new QCheckBox("Transliterate to Latin");
+    {
+      transliterationCheckBox->setChecked(framework.LoadTransliteration());
+      connect(transliterationCheckBox, &QCheckBox::stateChanged, [&framework](int i)
+      {
+        framework.SaveTransliteration(static_cast<bool>(i));
+        framework.AllowTransliteration(static_cast<bool>(i));
+      });
+    }
+
     QCheckBox * developerModeCheckBox = new QCheckBox("Developer Mode");
     {
       bool developerMode;
@@ -121,6 +131,7 @@ namespace qt
     QVBoxLayout * finalLayout = new QVBoxLayout();
     finalLayout->addWidget(unitsRadioBox);
     finalLayout->addWidget(largeFontCheckBox);
+    finalLayout->addWidget(transliterationCheckBox);
     finalLayout->addWidget(developerModeCheckBox);
 #ifdef BUILD_DESIGNER
     finalLayout->addWidget(indexRegenCheckBox);

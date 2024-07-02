@@ -42,7 +42,7 @@ void GetMwmLangName(feature::RegionData const & regionData, StrUtf8 const & src,
   }
 }
 
-bool GetTransliteratedName(feature::RegionData const & regionData, StrUtf8 const & src, string & out)
+bool GetTransliteratedName(RegionData const & regionData, StrUtf8 const & src, string & out)
 {
   vector<int8_t> mwmLangCodes;
   regionData.GetLanguages(mwmLangCodes);
