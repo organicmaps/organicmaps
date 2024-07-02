@@ -50,10 +50,21 @@ std::string Metadata::GetWikiURL() const
   return ToWikiURL(string(Get(FMD_WIKIPEDIA)));
 }
 
-string Metadata::ToWikimediaCommonsURL(std::string const & v)
+string Metadata::ToWikimediaCommonsURL(std::string v)
 {
   if (v.empty())
     return v;
+
+  // ? character should be corrected to form a valid URL's path.  
+  for (auto i = 0; i < v.size(); ++i)
+  {
+    auto & c = v[i];
+    if (c == '?')
+    {
+      c = '%';
+      v.insert(i + 1, "3F");  // ? => %3F
+    }
+  }
 
   return "https://commons.wikimedia.org/wiki/" + v;
 }
