@@ -63,4 +63,5 @@
   <string name="auto_enum_value" translatable="false">AUTO</string>
   <string name="placepage_behavior" translatable="false">com.google.android.material.bottomsheet.BottomSheetBehavior</string>
   <string name="car_notification_channel_name" translatable="false">CAR_NOTIFICATION_CHANNEL</string>
+  <string name="trace_path_name">Trace Path</string>
 </resources>

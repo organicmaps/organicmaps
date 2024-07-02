@@ -37,6 +37,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   private static final long INTERVAL_FOLLOW_MS = 0;
   private static final long INTERVAL_NOT_FOLLOW_MS = 3000;
   private static final long INTERVAL_NAVIGATION_MS = 0;
+  private static final long INTERVAL_TRACK_RECORDING = 0;
 
   private static final long AGPS_EXPIRATION_TIME_MS = 16 * 60 * 60 * 1000; // 16 hours
 
@@ -293,6 +294,9 @@ public class LocationHelper implements BaseLocationProvider.Listener
     if (RoutingController.get().isNavigating())
       return INTERVAL_NAVIGATION_MS;
 
+    if (TrackRecorder.nativeIsEnabled())
+      return INTERVAL_TRACK_RECORDING;
+
     final int mode = Map.isEngineCreated() ? LocationState.getMode() : LocationState.NOT_FOLLOW_NO_POSITION;
     return switch (mode)
     {
@@ -373,8 +377,9 @@ public class LocationHelper implements BaseLocationProvider.Listener
   /**
    * Resume location services when entering the foreground.
    */
-  public void resumeLocationInForeground()
+  public void onAppForeground()
   {
+    Logger.i(TAG, "Location helper knows app came in foreground");
     if (isActive())
       return;
     else if (!Map.isEngineCreated())

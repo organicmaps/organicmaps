@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import app.organicmaps.R;
+import app.organicmaps.location.TrackRecorder;
 import app.organicmaps.util.Config;
 
 import java.util.ArrayList;
@@ -56,6 +57,11 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>
     }
     else
       iv.setImageResource(item.iconRes);
+    if(item.iconRes == R.drawable.ic_trace_path_off && TrackRecorder.nativeIsEnabled())
+    {
+      iv.setImageResource(R.drawable.ic_trace_path_on);
+      iv.setImageTintMode(null);
+    }
     viewHolder.getContainer().setOnClickListener((v) -> onMenuItemClick(item));
     viewHolder.getTitleTextView().setText(item.titleRes);
     TextView badge = viewHolder.getBadgeTextView();

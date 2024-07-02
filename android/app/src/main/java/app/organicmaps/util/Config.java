@@ -57,6 +57,8 @@ public final class Config
    */
   private static final String KEY_MISC_FIRST_START_DIALOG_SEEN = "FirstStartDialogSeen";
 
+  private static final String KEY_MISC_TRACE_PATH_DISCLAIMER_ACCEPTED = "TracePathDisclaimerAccepted";
+
   private Config() {}
 
   private static int getInt(String key, int def)
@@ -204,6 +206,16 @@ public final class Config
   public static void acceptRoutingDisclaimer()
   {
     setBool(KEY_MISC_DISCLAIMER_ACCEPTED);
+  }
+
+  public static boolean isTracePathDisclaimerAccepted()
+  {
+    return getBool(KEY_MISC_TRACE_PATH_DISCLAIMER_ACCEPTED);
+  }
+
+  public static void acceptTracePathDisclaimer()
+  {
+    setBool(KEY_MISC_TRACE_PATH_DISCLAIMER_ACCEPTED);
   }
 
   public static boolean isKayakDisclaimerAccepted()

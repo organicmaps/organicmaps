@@ -21,6 +21,7 @@ import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.downloader.MapManager;
 import app.organicmaps.downloader.UpdateInfo;
+import app.organicmaps.location.TrackRecorder;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.ThemeUtils;
@@ -208,6 +209,18 @@ public class MapButtonsController extends Fragment
     mBadgeDrawable.setNumber(count);
     mBadgeDrawable.setVisible(count > 0);
     BadgeUtils.attachBadgeDrawable(mBadgeDrawable, menuButton);
+
+    if(count == 0)
+    {
+      BadgeUtils.detachBadgeDrawable(mBadgeDrawable, menuButton);
+      mBadgeDrawable = BadgeDrawable.create(context);
+      mBadgeDrawable.setMaxCharacterCount(0);
+      mBadgeDrawable.setHorizontalOffset(verticalOffset);
+      mBadgeDrawable.setVerticalOffset(dpToPx(9, context));
+      mBadgeDrawable.setBackgroundColor(getResources().getColor(R.color.base_accent));
+      mBadgeDrawable.setVisible(TrackRecorder.nativeIsEnabled());
+      BadgeUtils.attachBadgeDrawable(mBadgeDrawable, menuButton);
+    }
   }
 
   private boolean isBehindPlacePage(View v)
