@@ -50,7 +50,7 @@ std::string Metadata::GetWikiURL() const
   return ToWikiURL(string(Get(FMD_WIKIPEDIA)));
 }
 
-string Metadata::ToWikimediaCommonsURL(std::string v)
+std::string Metadata::ToWikimediaCommonsURL(std::string v)
 {
   if (v.empty())
     return v;
@@ -62,7 +62,7 @@ string Metadata::ToWikimediaCommonsURL(std::string v)
     if (c == '?')
     {
       c = '%';
-      v.insert(i + 1, "3F");  // ? => %3F
+      v.insert(++i, "3F");  // ? => %3F
     }
   }
 
