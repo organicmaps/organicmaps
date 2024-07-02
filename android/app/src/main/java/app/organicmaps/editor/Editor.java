@@ -4,6 +4,7 @@ import android.content.Context;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.Size;
 import androidx.annotation.WorkerThread;
 
@@ -96,7 +97,7 @@ public final class Editor
   public static native void nativeSetNames(@NonNull LocalizedName[] names);
   public static native LocalizedName nativeMakeLocalizedName(String langCode, String name);
   public static native Language[] nativeGetSupportedLanguages();
-
+  public static native boolean nativeIsServiceLanguage(String lang);
   public static native LocalizedStreet nativeGetStreet();
   public static native void nativeSetStreet(LocalizedStreet street);
   @NonNull
