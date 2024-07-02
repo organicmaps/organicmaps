@@ -96,7 +96,6 @@ std::string MapObject::GetLocalizedType() const
 
 std::string MapObject::GetLocalizedAllTypes(bool withMainType) const
 {
-  ASSERT(!m_types.Empty(), ());
   feature::TypesHolder copy(m_types);
   copy.SortBySpec();
 
