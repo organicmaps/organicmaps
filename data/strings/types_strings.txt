@@ -17388,6 +17388,7 @@
   [type.man_made.cairn]
     en = Cairn
     af = Klipstapel
+    ar = كوم من الحجارة
     az = Kurqan
     de = Steinmännchen
     es = Mojón
@@ -17461,6 +17462,7 @@
   [type.man_made.survey_point]
     en = Survey Point
     af = Meetpunt
+    ar = نقطة مسح ميداني
     be = Геадэзічны пункт
     de = Vermessungspunkt
     el = Γεωδαιτικό σημείο
@@ -17539,6 +17541,7 @@
   [type.man_made.mast]
     en = Mast
     af = Mas
+    ar = عمود برج
     az = Birbaşa
     be = Мачта/вышка
     es = Mástil
