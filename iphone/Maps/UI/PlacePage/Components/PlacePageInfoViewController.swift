@@ -362,28 +362,48 @@ class PlacePageInfoViewController: UIViewController {
       })
     }
 
-    var formatId = self.coordinatesFormatId
-    if let coordFormats = self.placePageInfoData.coordFormats as? Array<String> {
-      if formatId >= coordFormats.count {
-        formatId = 0
-      }
+    setupCoordinatesView()
+    setupOpenWithAppView()
+  }
 
-      coordinatesView = createInfoItem(coordFormats[formatId],
-                                       icon: UIImage(named: "ic_placepage_coordinate"),
-                                       accessoryImage: UIImage(named: "ic_placepage_change"),
-                                       tapHandler: { [unowned self] in
-        let formatId = (self.coordinatesFormatId + 1) % coordFormats.count
-        self.coordinatesFormatId = formatId
-        let coordinates: String = coordFormats[formatId]
-        self.coordinatesView?.infoLabel.text = coordinates
-      },
-                                       longPressHandler: { [unowned self] in
-        let coordinates: String = coordFormats[self.coordinatesFormatId]
-        self.delegate?.didCopy(coordinates)
-      })
+  private func setupCoordinatesView() {
+    guard let coordFormats = placePageInfoData.coordFormats as? Array<String> else { return }
+    var formatId = coordinatesFormatId
+    if formatId >= coordFormats.count {
+      formatId = 0
     }
 
-    setupOpenWithAppView()
+    func setCoordinatesSelected(formatId: Int) {
+      coordinatesFormatId = formatId
+      let coordinates: String = coordFormats[formatId]
+      coordinatesView?.infoLabel.text = coordinates
+    }
+
+    func copyCoordinatesToPasteboard() {
+      let coordinates: String = coordFormats[coordinatesFormatId]
+      self.delegate?.didCopy(coordinates)
+    }
+
+    coordinatesView = createInfoItem(coordFormats[formatId],
+                                     icon: UIImage(named: "ic_placepage_coordinate"),
+                                     accessoryImage: UIImage(named: "ic_placepage_change"),
+                                     tapHandler: { [unowned self] in
+      let formatId = (self.coordinatesFormatId + 1) % coordFormats.count
+      setCoordinatesSelected(formatId: formatId)
+    },
+                                     longPressHandler: {
+      copyCoordinatesToPasteboard()
+    })
+    if #available(iOS 14.0, *) {
+      let menu = UIMenu(children: coordFormats.enumerated().map { (index, format) in
+        UIAction(title: format, handler: { _ in
+          setCoordinatesSelected(formatId: index)
+          copyCoordinatesToPasteboard()
+        })
+      })
+      coordinatesView?.accessoryButton.menu = menu
+      coordinatesView?.accessoryButton.showsMenuAsPrimaryAction = true
+    }
   }
 
   private func setupOpenWithAppView() {
