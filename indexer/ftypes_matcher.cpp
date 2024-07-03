@@ -656,8 +656,6 @@ IsWifiChecker::IsWifiChecker()
 
 IsEatChecker::IsEatChecker()
 {
-  // The order should be the same as in "enum class Type" declaration.
-  /// @todo amenity=ice_cream if we already have biergarten :)
   base::StringIL const types[] = {{"amenity", "cafe"},
                                   {"amenity", "fast_food"},
                                   {"amenity", "restaurant"},
@@ -665,6 +663,9 @@ IsEatChecker::IsEatChecker()
                                   {"amenity", "pub"},
                                   {"amenity", "biergarten"},
                                   {"amenity", "food_court"},
+                                  {"shop","bakery"},
+                                  {"shop","pastry"},
+                                  {"amenity","ice_cream"}
   };
 
   Classificator const & c = classif();
