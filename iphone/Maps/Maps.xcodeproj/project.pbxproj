@@ -485,6 +485,7 @@
 		ED79A5D72BDF8D6100952D1F /* SynchronizationStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5CF2BDF8D6100952D1F /* SynchronizationStateManager.swift */; };
 		ED79A5D82BDF8D6100952D1F /* DefaultLocalDirectoryMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5D02BDF8D6100952D1F /* DefaultLocalDirectoryMonitor.swift */; };
 		ED7CCC4F2C1362E300E2A737 /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7CCC4E2C1362E300E2A737 /* FileType.swift */; };
+		ED808D0F2C38407800D52585 /* CircleImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED808D0E2C38407800D52585 /* CircleImageButton.swift */; };
 		ED8270F02C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8270EF2C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift */; };
 		ED9966802B94FBC20083CE55 /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED99667D2B94FBC20083CE55 /* ColorPicker.swift */; };
 		EDBD68072B625724005DD151 /* LocationServicesDisabledAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDBD68062B625724005DD151 /* LocationServicesDisabledAlert.xib */; };
@@ -1403,6 +1404,7 @@
 		ED79A5CF2BDF8D6100952D1F /* SynchronizationStateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationStateManager.swift; sourceTree = "<group>"; };
 		ED79A5D02BDF8D6100952D1F /* DefaultLocalDirectoryMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultLocalDirectoryMonitor.swift; sourceTree = "<group>"; };
 		ED7CCC4E2C1362E300E2A737 /* FileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileType.swift; sourceTree = "<group>"; };
+		ED808D0E2C38407800D52585 /* CircleImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageButton.swift; sourceTree = "<group>"; };
 		ED8270EF2C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewDetailedSwitchCell.swift; sourceTree = "<group>"; };
 		ED99667D2B94FBC20083CE55 /* ColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
 		EDBD68062B625724005DD151 /* LocationServicesDisabledAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationServicesDisabledAlert.xib; sourceTree = "<group>"; };
@@ -2941,6 +2943,7 @@
 				99C964252428C0F700E41723 /* PlacePageHeaderViewController.swift */,
 				99C964262428C0F700E41723 /* PlacePageHeaderBuilder.swift */,
 				99C9642F2428C27A00E41723 /* PlacePageHeaderView.swift */,
+				ED808D0E2C38407800D52585 /* CircleImageButton.swift */,
 			);
 			path = PlacePageHeader;
 			sourceTree = "<group>";
@@ -4492,6 +4495,7 @@
 				FA8E808925F412E2002A1434 /* FirstSession.mm in Sources */,
 				F6E2FF691E097BA00083EBEC /* MWMUnitsController.mm in Sources */,
 				6741AA031BF340DE002C974C /* MWMActivityViewController.mm in Sources */,
+				ED808D0F2C38407800D52585 /* CircleImageButton.swift in Sources */,
 				CDCA27382237F1BD00167D87 /* BookmarkInfo.swift in Sources */,
 				993DF11A23F6BDB100AC231A /* UIBarButtonItemRenderer.swift in Sources */,
 				34AB668C1FC5AA330078E451 /* NavigationStreetNameView.swift in Sources */,
