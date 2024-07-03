@@ -2638,19 +2638,19 @@
 
 "type.man_made.breakwater" = "Breakwater";
 
-"type.man_made.cairn" = "Cairn";
+"type.man_made.cairn" = "كوم من الحجارة";
 
 "type.man_made.chimney" = "مدخنة";
 
 "type.man_made.cutline" = "Cutline";
 
-"type.man_made.survey_point" = "Survey Point";
+"type.man_made.survey_point" = "نقطة مسح ميداني";
 
 "type.man_made.flagpole" = "سارية علم";
 
 "type.man_made.lighthouse" = "منارة";
 
-"type.man_made.mast" = "Mast";
+"type.man_made.mast" = "عمود برج";
 
 "type.man_made.pier" = "رصيف بحري";
 
