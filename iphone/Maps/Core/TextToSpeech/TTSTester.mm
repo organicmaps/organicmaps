@@ -1,8 +1,9 @@
 #import "TTSTester.h"
 
-#include <CoreApi/Framework.h>
 #include "LocaleTranslator.h"
 #include "MWMTextToSpeech.h"
+
+#include "base/logging.hpp"
 
 @implementation TTSTester
 

@@ -6,6 +6,8 @@
 
 #include "platform/localization.hpp"
 
+#include "search/result.hpp"
+
 namespace {
 NSString *GetLocalizedTypeName(search::Result const &result) {
   return @(result.GetLocalizedFeatureType().c_str());

@@ -1,4 +1,4 @@
-@objc (MWMSpinnerAlert)
+@objc(MWMSpinnerAlert)
 final class SpinnerAlert: MWMAlert {
   @IBOutlet private weak var progressView: UIView!
   @IBOutlet private weak var title: UILabel!

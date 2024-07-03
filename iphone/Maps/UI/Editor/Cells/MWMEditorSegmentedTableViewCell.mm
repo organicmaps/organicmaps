@@ -70,6 +70,8 @@
     case 2:
       value = Yes;
       break;
+    default:
+      NSAssert(false, @"Unexpected YesNoUnknown value %ld", static_cast<long>(self.segmentedControl.selectedSegmentIndex));
   }
 
   [self.delegate cell:self changeSegmented:value];

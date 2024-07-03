@@ -263,7 +263,6 @@ private extension URL {
 
 private extension Data {
   func write(to url: URL, options: Data.WritingOptions = .atomic, lastModificationDate: TimeInterval? = nil) throws {
-    var url = url
     try write(to: url, options: options)
     if let lastModificationDate {
       try url.setResourceModificationDate(Date(timeIntervalSince1970: lastModificationDate))

@@ -1,6 +1,6 @@
 #import "MWMSearchCell.h"
 
-#include <CoreApi/Framework.h>
+#include "search/result.hpp"
 
 @interface MWMSearchCell ()
 

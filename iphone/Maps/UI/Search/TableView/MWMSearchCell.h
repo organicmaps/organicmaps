@@ -1,6 +1,6 @@
 #import "MWMTableViewCell.h"
 
-#include "search/result.hpp"
+namespace search { class Result; }
 
 @interface MWMSearchCell : MWMTableViewCell
 
