@@ -68,6 +68,7 @@ fun ProfileScreen(
 ) {
     val context = LocalContext.current
     val personalData = profileVM.profileDataResource.collectAsState().value
+    val currencyRates = profileVM.currencyRates.collectAsState().value
     val signOutResponse = profileVM.signOutResponse.collectAsState().value
 
     ObserveAsEvents(flow = profileVM.uiEventsChannelFlow) { event ->
@@ -97,9 +98,10 @@ fun ProfileScreen(
                     VerticalSpace(height = 32.dp)
                 }
             }
-            // todo currency rates. Couldn't find free api or library :(
-            CurrencyRates(currencyRates = CurrencyRates(10.88, 10.88, 10.88))
-            VerticalSpace(height = 20.dp)
+            if (currencyRates != null) {
+                CurrencyRates(currencyRates = currencyRates)
+                VerticalSpace(height = 20.dp)
+            }
             GenericProfileItem(
                 label = stringResource(R.string.personal_data),
                 icon = R.drawable.profile,
@@ -181,15 +183,15 @@ fun CurrencyRates(modifier: Modifier = Modifier, currencyRates: CurrencyRates) {
     ) {
         CurrencyRatesItem(
             currency = stringResource(id = R.string.usd),
-            value = currencyRates.usd.toString(),
+            value = "%.2f".format(currencyRates.usd),
         )
         CurrencyRatesItem(
             currency = stringResource(id = R.string.eur),
-            value = currencyRates.eur.toString(),
+            value = "%.2f".format(currencyRates.eur),
         )
         CurrencyRatesItem(
             currency = stringResource(id = R.string.rub),
-            value = currencyRates.rub.toString(),
+            value = "%.2f".format(currencyRates.rub),
         )
     }
 }

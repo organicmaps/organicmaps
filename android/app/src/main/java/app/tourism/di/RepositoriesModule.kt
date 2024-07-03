@@ -1,11 +1,17 @@
 package app.tourism.di
 
+import android.content.Context
+import app.tourism.data.prefs.UserPreferences
+import app.tourism.data.remote.CurrencyApi
 import app.tourism.data.remote.TourismApi
 import app.tourism.data.repositories.AuthRepository
+import app.tourism.data.repositories.CurrencyRepository
 import app.tourism.data.repositories.ProfileRepository
+import app.tourism.db.Database
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -20,7 +26,20 @@ object RepositoriesModule {
 
     @Provides
     @Singleton
-    fun provideProfileRepository(api: TourismApi): ProfileRepository {
-        return ProfileRepository(api)
+    fun provideProfileRepository(
+        api: TourismApi,
+        userPreferences: UserPreferences,
+        @ApplicationContext context: Context,
+    ): ProfileRepository {
+        return ProfileRepository(api, userPreferences, context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCurrencyRepository(
+        api: CurrencyApi,
+        db: Database
+    ): CurrencyRepository {
+        return CurrencyRepository(api, db)
     }
 }

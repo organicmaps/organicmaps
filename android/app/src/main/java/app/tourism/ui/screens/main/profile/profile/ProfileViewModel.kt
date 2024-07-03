@@ -1,14 +1,19 @@
 package app.tourism.ui.screens.main.profile.profile
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.organicmaps.R
 import app.tourism.data.prefs.UserPreferences
 import app.tourism.data.repositories.AuthRepository
+import app.tourism.data.repositories.CurrencyRepository
 import app.tourism.data.repositories.ProfileRepository
 import app.tourism.domain.models.SimpleResponse
+import app.tourism.domain.models.profile.CurrencyRates
 import app.tourism.domain.models.profile.PersonalData
 import app.tourism.domain.models.resource.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,6 +25,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
+    @ApplicationContext private val context: Context,
+    private val currencyRepository: CurrencyRepository,
     private val profileRepository: ProfileRepository,
     private val authRepository: AuthRepository,
     private val userPreferences: UserPreferences
@@ -34,17 +41,19 @@ class ProfileViewModel @Inject constructor(
     fun setPfpFile(pfpFile: File) {
         _pfpFile.value = pfpFile
     }
-    
+
     private val _fullName = MutableStateFlow("")
     val fullName = _fullName.asStateFlow()
 
     fun setFullName(value: String) {
         _fullName.value = value
     }
-    
+
 
     private val _email = MutableStateFlow("")
     val email = _email.asStateFlow()
+
+    private var currentEmail = ""
 
     fun setEmail(value: String) {
         _email.value = value
@@ -81,15 +90,34 @@ class ProfileViewModel @Inject constructor(
 
     fun save() {
         viewModelScope.launch {
-            // todo
+            if (_personalDataResource.value is Resource.Success) {
+                profileRepository.updateProfile(
+                    fullName = fullName.value,
+                    country = countryCodeName.value ?: "",
+                    email = if (currentEmail == email.value) null else email.value,
+                    pfpFile.value
+                ).collectLatest { resource ->
+                    if (resource is Resource.Success) {
+                        resource.data?.let { updatePersonalDataInMemory(it) }
+                        uiChannel.send(UiEvent.ShowToast(context.getString(R.string.saved)))
+                    }
+                    if (resource is Resource.Error) {
+                        uiChannel.send(UiEvent.ShowToast(resource.message ?: ""))
+                    }
+                }
+            }
         }
     }
 
 
     private fun updatePersonalDataInMemory(personalData: PersonalData) {
         personalData.let {
+            _personalDataResource.value = Resource.Success(it)
             setFullName(it.fullName)
-            setEmail(it.email)
+            it.email.let { email ->
+                setEmail(email)
+                currentEmail = email
+            }
             setCountryCodeName(it.country)
         }
     }
@@ -116,8 +144,24 @@ class ProfileViewModel @Inject constructor(
     }
     // endregion requests
 
+    // region currency
+    private val _currencyRates = MutableStateFlow<CurrencyRates?>(null)
+    val currencyRates = _currencyRates.asStateFlow()
+
+    fun getCurrency() {
+        viewModelScope.launch {
+            currencyRepository.getCurrency().collectLatest {
+                if (it is Resource.Success) {
+                    _currencyRates.value = it.data
+                }
+            }
+        }
+    }
+    // endregion currency
+
     init {
         getPersonalData()
+        getCurrency()
     }
 }
 

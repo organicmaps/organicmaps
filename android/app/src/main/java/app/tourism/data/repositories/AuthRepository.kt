@@ -10,9 +10,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class AuthRepository(private val api: TourismApi) {
-    fun signIn(username: String, password: String): Flow<Resource<AuthResponse>> = flow {
+    fun signIn(email: String, password: String): Flow<Resource<AuthResponse>> = flow {
         handleCall(
-            call = { api.signIn(username, password) },
+            call = { api.signIn(email, password) },
             mapper = { it.toAuthResponse() }
         )
     }
@@ -22,7 +22,7 @@ class AuthRepository(private val api: TourismApi) {
             call = {
                 api.signUp(
                     registrationData.fullName,
-                    registrationData.username,
+                    registrationData.email,
                     registrationData.password,
                     registrationData.passwordConfirmation,
                     registrationData.country

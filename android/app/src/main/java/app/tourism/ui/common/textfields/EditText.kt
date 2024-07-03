@@ -109,9 +109,9 @@ fun EditText(
             keyboardActions = keyboardActions,
             visualTransformation = visualTransformation,
             decorationBox = {
-                Row {
+                Row(verticalAlignment = Alignment.Bottom) {
                     leadingIcon?.invoke()
-                    Column(Modifier.fillMaxSize()) {
+                    Column(Modifier.fillMaxSize().weight(1f)) {
                         Text(
                             modifier = Modifier.offset(hintOffset.x.dp, hintOffset.y.dp),
                             text = hint,
@@ -119,10 +119,8 @@ fun EditText(
                             color = hintColor,
                         )
                         it()
-                        Box(Modifier.align(Alignment.End)) {
-                            trailingIcon?.invoke()
-                        }
                     }
+                    trailingIcon?.invoke()
                 }
             }
         )

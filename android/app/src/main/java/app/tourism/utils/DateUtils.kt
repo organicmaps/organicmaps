@@ -33,3 +33,8 @@ fun String.toUserFriendlyDate(dateFormat: String = "yyyy-MM-dd"): String {
     }
     return userFriendlyDate
 }
+
+fun getCurrentDate(dateFormat: String = "yyyy-MM-dd"): String {
+    val sdf = SimpleDateFormat(dateFormat)
+    return sdf.format(Date())
+}

@@ -29,6 +29,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.organicmaps.R
 import app.tourism.Constants
+import app.tourism.domain.models.resource.Resource
 import app.tourism.ui.ObserveAsEvents
 import app.tourism.ui.common.BlurryContainer
 import app.tourism.ui.common.VerticalSpace
@@ -52,9 +53,11 @@ fun SignUpScreen(
     val registrationData = vm.registrationData.collectAsState().value
     val fullName = registrationData?.fullName
     var countryNameCode = registrationData?.country
-    val username = registrationData?.username
+    val email = registrationData?.email
     val password = registrationData?.password
     val confirmPassword = registrationData?.passwordConfirmation
+
+    val signUpResponse = vm.signUpResponse.collectAsState().value
 
     ObserveAsEvents(flow = vm.uiEventsChannelFlow) { event ->
         when (event) {
@@ -130,9 +133,9 @@ fun SignUpScreen(
                     )
                     VerticalSpace(height = 16.dp)
                     AuthEditText(
-                        value = username ?: "",
-                        onValueChange = { vm.setUsername(it) },
-                        hint = stringResource(id = R.string.username),
+                        value = email ?: "",
+                        onValueChange = { vm.setEmail(it) },
+                        hint = stringResource(id = R.string.email),
                         keyboardActions = KeyboardActions(
                             onNext = {
                                 focusManager.moveFocus(FocusDirection.Next)
@@ -157,13 +160,14 @@ fun SignUpScreen(
                         value = confirmPassword ?: "",
                         onValueChange = { vm.setConfirmPassword(it) },
                         hint = stringResource(id = R.string.confirm_password),
-                        keyboardActions = KeyboardActions(onDone = { onSignUpComplete() }),
+                        keyboardActions = KeyboardActions(onDone = { vm.signUp() }),
                         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                     )
                     VerticalSpace(height = 48.dp)
                     PrimaryButton(
                         modifier = Modifier.fillMaxWidth(),
                         label = stringResource(id = R.string.sign_up),
+                        isLoading = signUpResponse is Resource.Loading,
                         onClick = { vm.signUp() },
                     )
                 }

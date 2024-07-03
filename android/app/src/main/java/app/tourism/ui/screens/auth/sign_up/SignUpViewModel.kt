@@ -1,13 +1,17 @@
 package app.tourism.ui.screens.auth.sign_up
 
+import android.content.Context
+import android.util.Patterns.EMAIL_ADDRESS
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.organicmaps.R
 import app.tourism.data.prefs.UserPreferences
 import app.tourism.data.repositories.AuthRepository
 import app.tourism.domain.models.auth.AuthResponse
 import app.tourism.domain.models.auth.RegistrationData
 import app.tourism.domain.models.resource.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,6 +22,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val authRepository: AuthRepository,
     private val userPreferences: UserPreferences
 ) : ViewModel() {
@@ -44,8 +49,8 @@ class SignUpViewModel @Inject constructor(
         _registrationData.value = _registrationData.value?.copy(country = value)
     }
 
-    fun setUsername(value: String) {
-        _registrationData.value = _registrationData.value?.copy(username = value)
+    fun setEmail(value: String) {
+        _registrationData.value = _registrationData.value?.copy(email = value)
     }
 
     fun setPassword(value: String) {
@@ -62,7 +67,7 @@ class SignUpViewModel @Inject constructor(
     fun signUp() {
         viewModelScope.launch {
             registrationData.value?.let {
-                if (validatePasswordIsTheSame()) {
+                if (validateEverything()) {
                     authRepository.signUp(it).collectLatest { resource ->
                         _signUpResponse.value = resource
                         if (resource is Resource.Success) {
@@ -77,8 +82,30 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
+    private fun validateEverything(): Boolean {
+        return validatePasswordIsTheSame() && validateEmail()
+    }
+
     private fun validatePasswordIsTheSame(): Boolean {
-        return registrationData.value?.password == registrationData.value?.passwordConfirmation
+        if (registrationData.value?.password == registrationData.value?.passwordConfirmation) {
+            return true
+        } else {
+            viewModelScope.launch {
+                uiChannel.send(UiEvent.ShowToast(context.getString(R.string.passwords_not_same)))
+            }
+            return false
+        }
+    }
+
+    private fun validateEmail(): Boolean {
+        if (EMAIL_ADDRESS.matcher(registrationData.value?.email ?: "").matches())
+            return true
+        else {
+            viewModelScope.launch {
+                uiChannel.send(UiEvent.ShowToast(context.getString(R.string.wrong_email_format)))
+            }
+            return false
+        }
     }
 }
 

@@ -19,7 +19,7 @@ fun BackButton(
 ) {
     Icon(
         modifier = Modifier
-            .size(30.dp)
+            .size(24.dp)
             .clickable { onBackClick() }
             .then(modifier),
         painter = painterResource(id = R.drawable.back),

@@ -19,6 +19,7 @@ import app.tourism.ui.screens.main.MainSection
 import app.tourism.ui.screens.main.ThemeViewModel
 import app.tourism.ui.screens.main.profile.profile.ProfileViewModel
 import app.tourism.ui.theme.OrganicMapsTheme
+import app.tourism.utils.changeSystemAppLanguage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -68,6 +69,15 @@ class MainActivity : ComponentActivity() {
         profileVM.getPersonalData()
         lifecycleScope.launch {
             profileVM.profileDataResource.collectLatest {
+                if (it is Resource.Success) {
+                    it.data?.language?.let { lang ->
+                        changeSystemAppLanguage(this@MainActivity, lang)
+                        userPreferences.setLanguage(lang)
+                    }
+                    it.data?.theme?.let { theme ->
+                        themeVM.setTheme(theme)
+                    }
+                }
                 if (it is Resource.Error) {
                     if (it.message?.contains("unauth", ignoreCase = true) == true)
                         navigateToAuth()

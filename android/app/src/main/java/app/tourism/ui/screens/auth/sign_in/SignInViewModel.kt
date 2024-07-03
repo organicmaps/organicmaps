@@ -23,11 +23,11 @@ class SignInViewModel @Inject constructor(
     private val uiChannel = Channel<UiEvent>()
     val uiEventsChannelFlow = uiChannel.receiveAsFlow()
 
-    private val _username = MutableStateFlow("")
-    val username = _username.asStateFlow()
+    private val _email = MutableStateFlow("")
+    val email = _email.asStateFlow()
 
-    fun setUsername(value: String) {
-        _username.value = value
+    fun setEmail(value: String) {
+        _email.value = value
     }
 
     private val _password = MutableStateFlow("")
@@ -43,7 +43,7 @@ class SignInViewModel @Inject constructor(
 
     fun signIn() {
         viewModelScope.launch {
-            authRepository.signIn(username.value, password.value)
+            authRepository.signIn(email.value, password.value)
                 .collectLatest { resource ->
                     _signInResponse.value = resource
                     if (resource is Resource.Success) {

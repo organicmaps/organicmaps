@@ -45,7 +45,7 @@ fun SignInScreen(
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
 
-    val userName = vm.username.collectAsState().value
+    val userName = vm.email.collectAsState().value
     val password = vm.password.collectAsState().value
 
     val signInResponse = vm.signInResponse.collectAsState().value
@@ -93,8 +93,8 @@ fun SignInScreen(
                     VerticalSpace(height = 32.dp)
                     AuthEditText(
                         value = userName,
-                        onValueChange = { vm.setUsername(it) },
-                        hint = stringResource(id = R.string.username),
+                        onValueChange = { vm.setEmail(it) },
+                        hint = stringResource(id = R.string.email),
                         keyboardActions = KeyboardActions(
                             onNext = {
                                 focusManager.moveFocus(FocusDirection.Next)

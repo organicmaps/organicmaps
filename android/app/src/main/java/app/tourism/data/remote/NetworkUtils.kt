@@ -4,6 +4,8 @@ import app.tourism.domain.models.SimpleResponse
 import app.tourism.domain.models.resource.Resource
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.FlowCollector
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONException
 import retrofit2.HttpException
 import retrofit2.Response
@@ -48,3 +50,6 @@ inline fun <T, reified R> Response<T>.parseError(): Resource<R> {
         Resource.Error(e.toString())
     }
 }
+
+fun String.toFormDataRequestBody() = this.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+

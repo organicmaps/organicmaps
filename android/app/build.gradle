@@ -396,6 +396,8 @@ dependencies {
     implementation "com.github.skydoves:cloudy:0.1.2"
     // countries
     implementation 'com.hbb20:ccp:2.7.3'
+    // webview
+    implementation "androidx.webkit:webkit:1.11.0"
 
   //Background processing
   def coroutines = '1.8.1'
@@ -409,6 +411,7 @@ dependencies {
   def retrofit = '2.11.0'
   implementation "com.squareup.retrofit2:retrofit:$retrofit"
   implementation "com.squareup.retrofit2:converter-gson:$retrofit"
+  implementation "com.squareup.retrofit2:converter-simplexml:$retrofit"
   def okhttp = '5.0.0-alpha.14'
   implementation "com.squareup.okhttp3:okhttp:$okhttp"
   implementation "com.squareup.okhttp3:logging-interceptor:$okhttp"

@@ -4,17 +4,22 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import app.organicmaps.R
+import app.tourism.ui.theme.TextStyles
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 
@@ -25,7 +30,7 @@ fun LoadImg(
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
     contentScale: ContentScale = ContentScale.Crop
 ) {
-    if (url != null)
+    if (url != null && url.isNotBlank())
         CoilImg(
             modifier = modifier,
             url = url,
@@ -34,12 +39,17 @@ fun LoadImg(
         )
     else
         Column(
-            modifier,
+            Modifier
+                .background(color = MaterialTheme.colorScheme.surface, shape = CircleShape)
+                .then(modifier),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {
-            Image(painter = painterResource(id = R.drawable.image), contentDescription = null)
-            Text(text = stringResource(id = R.string.no_image))
+            Text(
+                text = stringResource(id = R.string.no_image),
+                style = TextStyles.b2,
+                textAlign = TextAlign.Center
+            )
         }
 }
 

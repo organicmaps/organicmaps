@@ -19,7 +19,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -41,6 +45,7 @@ import app.tourism.domain.models.resource.Resource
 import app.tourism.ui.ObserveAsEvents
 import app.tourism.ui.common.HorizontalSpace
 import app.tourism.ui.common.ImagePicker
+import app.tourism.ui.common.LoadImg
 import app.tourism.ui.common.SpaceForNavBar
 import app.tourism.ui.common.VerticalSpace
 import app.tourism.ui.common.buttons.PrimaryButton
@@ -62,6 +67,8 @@ fun PersonalDataScreen(onBackClick: () -> Unit, profileVM: ProfileViewModel) {
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
     val coroutineScope = rememberCoroutineScope()
+
+    var imageChanged by remember { mutableStateOf(false) }
 
     val personalData = profileVM.profileDataResource.collectAsState().value
     val pfpFile = profileVM.pfpFile.collectAsState().value
@@ -94,14 +101,21 @@ fun PersonalDataScreen(onBackClick: () -> Unit, profileVM: ProfileViewModel) {
                     Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    AsyncImage(
-                        modifier = Modifier
+                    val pfpModifier =
+                        Modifier
                             .size(100.dp)
-                            .clip(CircleShape),
-                        model = pfpFile,
-                        contentScale = ContentScale.Crop,
-                        contentDescription = null,
-                    )
+                            .clip(CircleShape)
+                    if (!imageChanged)
+                        LoadImg(modifier = pfpModifier, url = data.pfpUrl)
+                    else
+                        AsyncImage(
+                            modifier = Modifier
+                                .size(100.dp)
+                                .clip(CircleShape),
+                            model = pfpFile,
+                            contentScale = ContentScale.Crop,
+                            contentDescription = null,
+                        )
                     HorizontalSpace(width = 20.dp)
                     ImagePicker(
                         showPreview = false,
@@ -110,6 +124,7 @@ fun PersonalDataScreen(onBackClick: () -> Unit, profileVM: ProfileViewModel) {
                                 profileVM.setPfpFile(
                                     File(FileUtils(context).getPath(uri))
                                 )
+                                imageChanged = true
                             }
                         }
                     ) {
@@ -158,6 +173,7 @@ fun PersonalDataScreen(onBackClick: () -> Unit, profileVM: ProfileViewModel) {
                     text = stringResource(id = R.string.country),
                     fontSize = 12.sp
                 )
+                val backgroundColor = MaterialTheme.colorScheme.background.toArgb()
                 val lContentColor = MaterialTheme.colorScheme.onBackground.toArgb()
                 AndroidView(
                     factory = { context ->
@@ -172,6 +188,7 @@ fun PersonalDataScreen(onBackClick: () -> Unit, profileVM: ProfileViewModel) {
                             setArrowColor(lContentColor)
 
                             setCountryForNameCode(countryCodeName)
+                            setDialogBackgroundColor(backgroundColor)
                             setOnCountryChangeListener {
                                 profileVM.setCountryCodeName(ccp.selectedCountryNameCode)
                             }

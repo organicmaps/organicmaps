@@ -2217,4 +2217,7 @@
 	<string name="hotels_tourism">Отели</string>
   <string name="add_to_favorites">Добавить в избранное</string>
 	<string name="show_route">Посмотреть маршрут</string>
+	<string name="passwords_not_same">Пароли не схожи</string>
+	<string name="wrong_email_format">Неправильный формат имейла</string>
+	<string name="saved">Сохранено</string>
 </resources>

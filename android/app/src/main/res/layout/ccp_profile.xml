@@ -9,7 +9,6 @@
   app:ccp_autoDetectLanguage="true"
   app:ccp_textGravity="LEFT"
   app:ccp_padding="0dp"
-  app:ccpDialog_background="@color/transparent"
   app:ccpDialog_cornerRadius="16dp"
   app:ccp_showFullName="true"
   app:ccp_showPhoneCode="false">

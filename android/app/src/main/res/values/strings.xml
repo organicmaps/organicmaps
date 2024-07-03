@@ -2258,4 +2258,7 @@
   <string name="hotels_tourism">Hotels</string>
   <string name="add_to_favorites">Add to favorites</string>
   <string name="show_route">Show route</string>
+  <string name="passwords_not_same">Passwords are not the same</string>
+  <string name="wrong_email_format">Wrong email format</string>
+  <string name="saved">Saved</string>
 </resources>
