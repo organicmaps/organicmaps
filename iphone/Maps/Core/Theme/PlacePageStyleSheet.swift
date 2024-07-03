@@ -111,8 +111,9 @@ class PlacePageStyleSheet: IStyleSheet {
       s.clip = true
     }
 
-    theme.add(styleName: "PPCloseButton") { (s) -> (Void) in
-      s.tintColor = colors.blackDividers
+    theme.add(styleName: "PPHeaderCircleIcon") { (s) -> (Void) in
+      s.tintColor = colors.iconOpaqueGrayTint
+      s.backgroundColor = colors.iconOpaqueGrayBackground
     }
 
     theme.add(styleName: "ChartView") { (s) -> (Void) in

@@ -69,4 +69,6 @@ let alpha100: CGFloat = 1.0
   var outdoorColor: UIColor { get }
   var lonelyPlanetLogoColor: UIColor { get }
   var carplayPlaceholderBackground: UIColor { get }
+  var iconOpaqueGrayTint: UIColor { get }
+  var iconOpaqueGrayBackground: UIColor { get }
 }

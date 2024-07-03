@@ -3,7 +3,7 @@
     <device id="ipad9_7" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,16 +30,12 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="layers_title"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2xW-dK-D9y">
-                                <rect key="frame" x="294" y="10" width="30" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2xW-dK-D9y" customClass="CircleImageButton" customModule="Organic_Maps" customModuleProvider="target">
+                                <rect key="frame" x="296" y="11" width="28" height="28"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="BD2-bz-n13"/>
-                                    <constraint firstAttribute="width" constant="30" id="Thu-MY-dQm"/>
+                                    <constraint firstAttribute="height" constant="28" id="BD2-bz-n13"/>
+                                    <constraint firstAttribute="width" constant="28" id="Thu-MY-dQm" customClass="I"/>
                                 </constraints>
-                                <state key="normal" image="ic_clear_24"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PPCloseButton"/>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="onCloseButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="8vd-Pg-Suh"/>
                                 </connections>
@@ -189,6 +185,7 @@
                 <constraint firstItem="njF-e1-oar" firstAttribute="leading" secondItem="75k-vD-FSR" secondAttribute="leading" id="nhe-Sa-Mlo"/>
             </constraints>
             <connections>
+                <outlet property="closeButton" destination="2xW-dK-D9y" id="RQI-hb-JpS"/>
                 <outlet property="isoLinesButton" destination="edA-Mo-3Vx" id="qoC-8w-EqY"/>
                 <outlet property="outdoorButton" destination="g13-pK-Eig" id="ib1-aw-Qv9"/>
                 <outlet property="subwayButton" destination="4US-fZ-cyg" id="eQB-HR-Wgl"/>
@@ -200,6 +197,5 @@
         <image name="btn_menu_isomaps" width="151" height="151"/>
         <image name="btn_menu_outdoors" width="151" height="151"/>
         <image name="btn_menu_subway" width="151" height="151"/>
-        <image name="ic_clear_24" width="20" height="20"/>
     </resources>
 </document>
