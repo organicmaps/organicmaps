@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -21,14 +20,16 @@ import app.organicmaps.util.Constants;
 import app.organicmaps.util.DateUtils;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.Utils;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textview.MaterialTextView;
 
 public class HelpFragment extends BaseMwmFragment implements View.OnClickListener
 {
   private String mDonateUrl;
 
-  private TextView setupItem(@IdRes int id, boolean tint, @NonNull View frame)
+  private MaterialTextView setupItem(@IdRes int id, boolean tint, @NonNull View frame)
   {
-    final TextView view = frame.findViewById(id);
+    final MaterialTextView view = frame.findViewById(id);
     view.setOnClickListener(this);
     if (tint)
       Graphics.tint(view);
@@ -41,13 +42,13 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     mDonateUrl = Config.getDonateUrl(requireContext());
     View root = inflater.inflate(R.layout.about, container, false);
 
-    ((TextView) root.findViewById(R.id.version))
+    ((MaterialTextView) root.findViewById(R.id.version))
         .setText(BuildConfig.VERSION_NAME);
 
     final boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
 
     final String dataVersion = DateUtils.getShortDateFormatter().format(Framework.getDataVersion());
-    final TextView osmPresentationView = root.findViewById(R.id.osm_presentation);
+    final MaterialTextView osmPresentationView = root.findViewById(R.id.osm_presentation);
     if (osmPresentationView != null)
       osmPresentationView.setText(getString(R.string.osm_presentation, dataVersion));
 
@@ -63,15 +64,15 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     setupItem(R.id.mastodon, false, root);
     setupItem(R.id.openstreetmap, true, root);
     setupItem(R.id.faq, true, root);
-    setupItem(R.id.report, isLandscape, root);
+    root.findViewById(R.id.report).setOnClickListener(this);
 
-    final TextView supportUsView = root.findViewById(R.id.support_us);
+    final MaterialTextView supportUsView = root.findViewById(R.id.support_us);
     if (BuildConfig.FLAVOR.equals("google") && !TextUtils.isEmpty(mDonateUrl))
       supportUsView.setVisibility(View.GONE);
     else
-      setupItem(R.id.support_us, true, root);
+      root.findViewById(R.id.support_us).setOnClickListener(this);
 
-    final TextView donateView = root.findViewById(R.id.donate);
+    final MaterialButton donateView = root.findViewById(R.id.donate);
     if (TextUtils.isEmpty(mDonateUrl))
       donateView.setVisibility(View.GONE);
     else
@@ -79,7 +80,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
       if (Config.isNY())
         donateView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_christmas_tree, 0,
             R.drawable.ic_christmas_tree, 0);
-      setupItem(R.id.donate, isLandscape, root);
+      root.findViewById(R.id.donate).setOnClickListener(this);
     }
 
     if (BuildConfig.REVIEW_URL.isEmpty())

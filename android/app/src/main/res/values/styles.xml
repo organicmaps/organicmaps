@@ -45,6 +45,7 @@
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:background">?buttonBackground</item>
+    <item name="backgroundTint">@color/light_gray</item>
     <item name="android:stateListAnimator">@null</item>
     <item name="android:fontFamily">@string/robotoMedium</item>
     <item name="android:textAllCaps">true</item>
@@ -53,6 +54,7 @@
 
   <style name="MwmWidget.Button.Accent">
     <item name="android:background">?accentButtonBackground</item>
+    <item name="backgroundTint">?colorAccent</item>
     <item name="android:textColor">?accentButtonTextColor</item>
   </style>
 
