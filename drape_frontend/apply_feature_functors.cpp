@@ -49,7 +49,6 @@ namespace
 double const kMinVisibleFontSize = 8.0;
 
 df::ColorConstant const kPoiDeletedMaskColor = "PoiDeletedMask";
-df::ColorConstant const kPoiHotelTextOutlineColor = "PoiHotelTextOutline";
 df::ColorConstant const kRoadShieldBlackTextColor = "RoadShieldBlackText";
 df::ColorConstant const kRoadShieldWhiteTextColor = "RoadShieldWhiteText";
 df::ColorConstant const kRoadShieldUKYellowTextColor = "RoadShieldUKYellowText";
