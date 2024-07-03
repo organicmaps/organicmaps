@@ -215,7 +215,7 @@ public:
   df::SelectionShape::ESelectedObject GetSelectedObject() const { return m_selectedObject; }
 
 private:
-  std::string FormatSubtitle(bool withMainType) const;
+  std::string FormatSubtitle(bool withTypes, bool withMainType) const;
   std::string GetBookmarkName();
 
   place_page::BuildInfo m_buildInfo;
