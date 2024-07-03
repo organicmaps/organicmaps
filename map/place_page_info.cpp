@@ -96,7 +96,7 @@ void Info::SetFromFeatureType(FeatureType & ft)
       m_uiTitle.append(" (").append(lRef).append(")");
   }
 
-  m_uiSubtitle = FormatSubtitle(!emptyTitle /* withType */);
+  m_uiSubtitle = FormatSubtitle(IsFeature() /* withTypes */, !emptyTitle /* withMainType */);
 
   // apply to all types after checks
   m_isHotel = ftypes::IsHotelChecker::Instance()(ft);
@@ -108,7 +108,7 @@ void Info::SetMercator(m2::PointD const & mercator)
   m_buildInfo.m_mercator = mercator;
 }
 
-std::string Info::FormatSubtitle(bool withMainType) const
+std::string Info::FormatSubtitle(bool withTypes, bool withMainType) const
 {
   std::string result;
   auto const append = [&result](std::string_view sv)
@@ -120,6 +120,9 @@ std::string Info::FormatSubtitle(bool withMainType) const
 
   if (IsBookmark())
     append(m_bookmarkCategoryName);
+
+  if (!withTypes)
+    return result;
 
   // Types
   append(GetLocalizedAllTypes(withMainType));
@@ -282,7 +285,7 @@ void Info::SetFromBookmarkProperties(kml::Properties const & p)
 void Info::SetBookmarkId(kml::MarkId bookmarkId)
 {
   m_bookmarkId = bookmarkId;
-  m_uiSubtitle = FormatSubtitle(IsFeature() /* withType */);
+  m_uiSubtitle = FormatSubtitle(IsFeature() /* withTypes */, IsFeature() /* withMainType */);
 }
 
 bool Info::ShouldShowEditPlace() const
