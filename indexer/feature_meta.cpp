@@ -55,11 +55,13 @@ std::string Metadata::ToWikimediaCommonsURL(std::string v)
   if (v.empty())
     return v;
 
-  // ? character should be corrected to form a valid URL's path.  
+  // Spaces and ? characters should be corrected to form a valid URL's path.
   for (auto i = 0; i < v.size(); ++i)
   {
     auto & c = v[i];
-    if (c == '?')
+    if (c == ' ')
+      c = '_';
+    else if (c == '?')
     {
       c = '%';
       v.insert(++i, "3F");  // ? => %3F
