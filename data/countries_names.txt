@@ -52685,6 +52685,7 @@
   en = Mosul, Erbil, Kirkuk, Tikrit
   ar = الموصل، أربيل، كركوك، تكريت
   az = Mosul, Ərbil, Kərkük, Tikrit
+  be = Масул, Эрбіл, Кірук, Цікрыт
   cs = Mosul, Erbíl, Kirkúk, Tikrít
   da = Mosul, Erbil, Kirkuk, Tikrit
   de = Mossul, Erbil, Kirkuk, Tikrit
@@ -52722,6 +52723,7 @@
   en = Baghdad, Basra, Hillah, Ramadi
   ar = بغداد، البصرة، الحلة، الرمادي
   az = Bağdad, Bəsrə, Hillə, Ramadi
+  be = Багдад, Басра, Хіл, Рамадзі
   cs = Bagdád, Basra, Hilla, Ramádí
   da = Bagdad, Basra, Hillah, Ramadi
   de = Bagdad, Basra, Hilla, Ramadi
