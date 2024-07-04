@@ -184,7 +184,7 @@ std::string Info::FormatSubtitle(bool withTypes, bool withMainType) const
 
   // Internet.
   if (HasWifi())
-    append(m_localizedWifiString);
+    append(platform::GetLocalizedString("category_wifi"));
 
   // Toilets.
   if (HasToilets())

@@ -524,7 +524,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
     // TODO(Vlad, IgorTomko): Support all other possible Internet statuses.
     [tCell configWithDelegate:self
                          icon:[UIImage imageNamed:@"ic_placepage_wifi"]
-                         text:L(@"wifi")
+                         text:L(@"category_wifi")
                            on:m_mapObject.GetInternet() == feature::Internet::Wlan];
     break;
   }
