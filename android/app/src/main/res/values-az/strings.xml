@@ -93,7 +93,7 @@
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Xəritələrin yüklənəcəyi qovluğu seçin</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
-	<string name="maps_storage_downloaded">Xəritələr</string>
+	<string name="maps_storage_downloaded">Endirilmiş xəritələr: %s</string>
 	<!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
 	<string name="maps_storage_internal">Daxili xüsusi saxlama</string>
 	<!-- Shared storage type in Maps Storage settings (a primary storage usually) -->

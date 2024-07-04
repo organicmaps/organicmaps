@@ -94,7 +94,7 @@
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Выберите место, где будут храниться загруженные карты</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
-	<string name="maps_storage_downloaded">Загруженные карты</string>
+	<string name="maps_storage_downloaded">Загруженные карты: %s</string>
 	<!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
 	<string name="maps_storage_internal">Внутренний скрытый накопитель</string>
 	<!-- Shared storage type in Maps Storage settings (a primary storage usually) -->

@@ -90,7 +90,7 @@
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">مسیری را که نقشه‌ها باید در آن دانلود شود را انتخاب کنید</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
-	<string name="maps_storage_downloaded">نقشه‌ها</string>
+	<string name="maps_storage_downloaded">نقشه‌ها: %s</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">آیا نقشه‌ها جابه‌جا شود؟</string>
 	<!-- Ask user to wait several minutes (some long process in modal dialog). -->

@@ -91,7 +91,7 @@
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">지도가 다운로드될 곳을 선택합니다</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
-	<string name="maps_storage_downloaded">지도</string>
+	<string name="maps_storage_downloaded">다운로드한 지도: %s</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">지도를 이동합니까?</string>
 	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
