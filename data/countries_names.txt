@@ -52717,7 +52717,8 @@
   no = Mosul, Erbil, Kirkuk, Tikrit
   sr = Мосул, Ербил, Киркук, Тикрит
   sl = Mosul, Erbil, Kirkuk, Tikrit
-  zh = 摩苏尔, 埃尔比勒, 基尔库克, 提克里特
+  zh-hans = 摩苏尔, 埃尔比勒, 基尔库克, 提克里特
+  zh-hant = 摩蘇爾, 埃爾比勒, 基爾庫克, 提克里特
 
 [Iraq_South Description]
   en = Baghdad, Basra, Hillah, Ramadi
@@ -52755,7 +52756,8 @@
   no = Bagdad, Basra, Hillah, Ramadi
   sr = Багдад, Басра, Хила, Рамади
   sl = Bagdad, Basra, Hilla, Ramadi
-  zh = 巴格达, 巴士拉, 希拉, 拉马迪
+  zh-hans = 巴格达, 巴士拉, 希拉, 拉马迪
+  zh-hant = 巴格達, 巴士拉, 希拉, 拉馬迪
 
 [Ireland_Connacht Description]
   en = Galway City, Swinford, Mohill
