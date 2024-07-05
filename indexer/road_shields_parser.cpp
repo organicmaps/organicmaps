@@ -7,6 +7,7 @@
 
 #include <algorithm>
 #include <array>
+#include <cctype>
 #include <unordered_map>
 #include <utility>
 
@@ -61,6 +62,9 @@ std::unordered_map<std::string, RoadShieldType> const kRoadNetworkShields = {
     // Estonia parser produces more specific shield types, incl. Generic_Orange.
     //{"ee:national", RoadShieldType::Generic_Red},
     //{"ee:regional", RoadShieldType::Generic_White},
+    {"in:ne", RoadShieldType::IN_NationalExpressway},
+    {"in:nh", RoadShieldType::IN_NationalHighway},
+    {"in:sh", RoadShieldType::IN_StateHighway},
     {"fr:a-road", RoadShieldType::Generic_Red},
     {"jp:national", RoadShieldType::Generic_Blue},
     {"jp:regional", RoadShieldType::Generic_Blue},
@@ -226,6 +230,36 @@ public:
 
     if (base::IsExist(kStatesCode, shieldParts[0]))
       return RoadShield(RoadShieldType::Generic_White, roadNumber, additionalInfo);
+
+    return RoadShield(RoadShieldType::Default, rawText);
+  }
+};
+
+class IndiaRoadShieldParser : public RoadShieldParser
+{
+public:
+  explicit IndiaRoadShieldParser(std::string const & baseRoadNumber) : RoadShieldParser(baseRoadNumber) {}
+  RoadShield ParseRoadShield(std::string_view rawText) const override
+  {
+    std::string shieldText(rawText);
+
+    std::erase_if(shieldText, [](char c) { return c == '-';});
+    std::erase_if(shieldText, ::isspace);
+
+    if (shieldText.size() <= 2)
+      return RoadShield(RoadShieldType::Default, rawText);
+
+    std::string_view roadType = std::string_view(shieldText).substr(0, 2);
+    std::string_view roadNumber = std::string_view(shieldText).substr(2);
+
+    if (roadType == "NE")
+      return RoadShield(RoadShieldType::IN_NationalExpressway, roadNumber);
+
+    if (roadType == "NH")
+      return RoadShield(RoadShieldType::IN_NationalHighway, roadNumber);
+
+    if (roadType == "SH")
+      return RoadShield(RoadShieldType::IN_StateHighway, roadNumber);
 
     return RoadShield(RoadShieldType::Default, rawText);
   }
@@ -632,6 +666,8 @@ RoadShieldsSetT GetRoadShields(std::string const & mwmName, std::string const & 
     return USRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "UK")
     return UKRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "India")
+    return IndiaRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "Russia")
     return RussiaRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "France")
@@ -693,6 +729,9 @@ std::string DebugPrint(RoadShieldType shieldType)
   case RoadShieldType::Generic_Green: return "green";
   case RoadShieldType::Generic_Orange: return "orange";
   case RoadShieldType::Generic_Red: return "red";
+  case RoadShieldType::IN_NationalExpressway: return "IN National Expressway";
+  case RoadShieldType::IN_NationalHighway: return "IN National Highway";
+  case RoadShieldType::IN_StateHighway: return "IN State Highway";
   case RoadShieldType::US_Interstate: return "US interstate";
   case RoadShieldType::US_Highway: return "US highway";
   case RoadShieldType::UK_Highway: return "UK highway";
