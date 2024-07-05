@@ -87,6 +87,11 @@
 		AC6A585728057EF6003EABAF /* StringUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = AC6A585628057CC1003EABAF /* StringUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED0B1FF42CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.h in Headers */ = {isa = PBXBuildFile; fileRef = ED0B1FF22CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED0B1FF52CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED0B1FF32CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.mm */; };
+		ED49D7222CED0395004AF27E /* ProductsConfiguration+Core.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED49D7202CED0395004AF27E /* ProductsConfiguration+Core.mm */; };
+		ED49D7242CED03AC004AF27E /* ProductsConfiguration+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = ED49D7232CED03A8004AF27E /* ProductsConfiguration+Core.h */; };
+		ED49D75B2CEF8BD2004AF27E /* ProductsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED49D7562CEF850F004AF27E /* ProductsConfiguration.swift */; };
+		ED49D75F2CEFA8C0004AF27E /* Product+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = ED49D75E2CEFA8C0004AF27E /* Product+Core.h */; };
+		ED49D7612CEFA8E1004AF27E /* Product+Core.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED49D7602CEFA8E1004AF27E /* Product+Core.mm */; };
 		ED965B0D2CD67A470049E39E /* DistanceFormatter.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED965B0A2CD67A470049E39E /* DistanceFormatter.mm */; };
 		ED965B102CD67A470049E39E /* DistanceFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = ED965B092CD67A470049E39E /* DistanceFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED965B132CD67A9B0049E39E /* AltitudeFormatter.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED965B122CD67A9B0049E39E /* AltitudeFormatter.mm */; };
@@ -187,6 +192,11 @@
 		AC6A585628057CC1003EABAF /* StringUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringUtils.h; sourceTree = "<group>"; };
 		ED0B1FF22CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkInAppFeatureHighlightData.h; sourceTree = "<group>"; };
 		ED0B1FF32CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkInAppFeatureHighlightData.mm; sourceTree = "<group>"; };
+		ED49D7202CED0395004AF27E /* ProductsConfiguration+Core.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "ProductsConfiguration+Core.mm"; sourceTree = "<group>"; };
+		ED49D7232CED03A8004AF27E /* ProductsConfiguration+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ProductsConfiguration+Core.h"; sourceTree = "<group>"; };
+		ED49D7562CEF850F004AF27E /* ProductsConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsConfiguration.swift; sourceTree = "<group>"; };
+		ED49D75E2CEFA8C0004AF27E /* Product+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Product+Core.h"; sourceTree = "<group>"; };
+		ED49D7602CEFA8E1004AF27E /* Product+Core.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "Product+Core.mm"; sourceTree = "<group>"; };
 		ED965B092CD67A470049E39E /* DistanceFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DistanceFormatter.h; sourceTree = "<group>"; };
 		ED965B0A2CD67A470049E39E /* DistanceFormatter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DistanceFormatter.mm; sourceTree = "<group>"; };
 		ED965B112CD67A9B0049E39E /* AltitudeFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AltitudeFormatter.h; sourceTree = "<group>"; };
@@ -310,6 +320,11 @@
 				47F701ED238C86F000D18E95 /* PlacePageButtonsData.h */,
 				47F701F1238C877C00D18E95 /* PlacePageButtonsData+Core.h */,
 				47F701EE238C86F000D18E95 /* PlacePageButtonsData.mm */,
+				ED49D7562CEF850F004AF27E /* ProductsConfiguration.swift */,
+				ED49D7232CED03A8004AF27E /* ProductsConfiguration+Core.h */,
+				ED49D7202CED0395004AF27E /* ProductsConfiguration+Core.mm */,
+				ED49D75E2CEFA8C0004AF27E /* Product+Core.h */,
+				ED49D7602CEFA8E1004AF27E /* Product+Core.mm */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -487,6 +502,7 @@
 				9957FADB237ACB1100855F48 /* DeepLinkSearchData.h in Headers */,
 				479F7056234FB7F200011E2E /* MWMBookmarksManager.h in Headers */,
 				47942D83237CC52E00DEFAE3 /* MWMOpeningHours.h in Headers */,
+				ED49D7242CED03AC004AF27E /* ProductsConfiguration+Core.h in Headers */,
 				4718C4322355FC3C00640DF1 /* MWMNetworkPolicy.h in Headers */,
 				47CA68EC2506F6F100671019 /* MWMTrack+Core.h in Headers */,
 				47F4F1FD23A3D1AC0022FD56 /* MWMMapNodeAttributes+Core.h in Headers */,
@@ -496,6 +512,7 @@
 				47942DA0237D954400DEFAE3 /* PlacePageBookmarkData+Core.h in Headers */,
 				479F704B234F78AB00011E2E /* MWMFrameworkHelper.h in Headers */,
 				47D9019923AC236100D9364C /* MWMMapUpdateInfo+Core.h in Headers */,
+				ED49D75F2CEFA8C0004AF27E /* Product+Core.h in Headers */,
 				47942D6E237CC3E800DEFAE3 /* PlacePagePreviewData+Core.h in Headers */,
 				47942D87237CC55800DEFAE3 /* MWMOpeningHoursCommon.h in Headers */,
 				47942DAB237ED9FE00DEFAE3 /* IOpeningHoursLocalization.h in Headers */,
@@ -615,18 +632,21 @@
 				47D9019623AC22E500D9364C /* MWMMapUpdateInfo.mm in Sources */,
 				47CA68E42506D29000671019 /* MWMBookmarkColor.mm in Sources */,
 				471AB98E23AB925D00F56D49 /* MWMMapSearchResult.mm in Sources */,
+				ED49D7612CEFA8E1004AF27E /* Product+Core.mm in Sources */,
 				47C637D62354AEBE00E12DE0 /* MWMMapOverlayManager.mm in Sources */,
 				475784C32344B422008291A4 /* Framework.cpp in Sources */,
 				4718C4332355FC3C00640DF1 /* MWMNetworkPolicy.mm in Sources */,
 				47CA68E92506F61400671019 /* MWMTrack.mm in Sources */,
 				472602A924092C5B00731135 /* MWMGeoUtil.mm in Sources */,
 				47F701F0238C86F000D18E95 /* PlacePageButtonsData.mm in Sources */,
+				ED49D7222CED0395004AF27E /* ProductsConfiguration+Core.mm in Sources */,
 				9940622123EAC57900493D1A /* ElevationHeightPoint.m in Sources */,
 				ED965B2A2CDA1C440049E39E /* DateTimeFormatter.swift in Sources */,
 				47EEAFF42350CEDB005CF316 /* AppInfo.mm in Sources */,
 				47E8163623B1889C008FD836 /* MWMStorage.mm in Sources */,
 				ED965B0D2CD67A470049E39E /* DistanceFormatter.mm in Sources */,
 				EDC4E3512C5D222D009286A2 /* RecentlyDeletedCategory.mm in Sources */,
+				ED49D75B2CEF8BD2004AF27E /* ProductsConfiguration.swift in Sources */,
 				47CA68DE2502022400671019 /* MWMBookmark.mm in Sources */,
 				9957FAE9237AE5B000855F48 /* Logger.mm in Sources */,
 				ED965B222CD8F5AA0049E39E /* DurationFormatter.mm in Sources */,
@@ -643,7 +663,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = NO;
+				DEFINES_MODULE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -665,7 +685,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = NO;
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				HEADER_SEARCH_PATHS = (
