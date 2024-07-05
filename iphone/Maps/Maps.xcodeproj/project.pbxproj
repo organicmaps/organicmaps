@@ -477,6 +477,9 @@
 		ED1ADA332BC6B1B40029209F /* CarPlayServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1ADA322BC6B1B40029209F /* CarPlayServiceTests.swift */; };
 		ED3EAC202B03C88100220A4A /* BottomTabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3EAC1F2B03C88100220A4A /* BottomTabBarButton.swift */; };
 		ED43B8BD2C12063500D07BAA /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43B8BC2C12063500D07BAA /* DocumentPicker.swift */; };
+		ED4DC7792CAEDECC0029B338 /* ProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4DC7742CAEDECC0029B338 /* ProductsViewController.swift */; };
+		ED4DC7782CAEDECC0029B338 /* ProductButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4DC7732CAEDECC0029B338 /* ProductButton.swift */; };
+		ED4DC7772CAEDECC0029B338 /* ProductsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4DC7752CAEDECC0029B338 /* ProductsViewModel.swift */; };
 		ED63CEB92BDF8F9D006155C4 /* SettingsTableViewiCloudSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED63CEB62BDF8F9C006155C4 /* SettingsTableViewiCloudSwitchCell.swift */; };
 		ED77556E2C2C490B0051E656 /* UIAlertController+openInAppActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED77556D2C2C490B0051E656 /* UIAlertController+openInAppActionSheet.swift */; };
 		ED79A5AB2BD7AA9C00952D1F /* LoadingOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5AA2BD7AA9C00952D1F /* LoadingOverlayViewController.swift */; };
@@ -1405,6 +1408,9 @@
 		ED43B8BC2C12063500D07BAA /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
 		ED48BBB817C2B1E2003E7E92 /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
 		ED48BBB917C2B1E2003E7E92 /* CircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleView.m; sourceTree = "<group>"; };
+		ED4DC7732CAEDECC0029B338 /* ProductButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductButton.swift; sourceTree = "<group>"; };
+		ED4DC7742CAEDECC0029B338 /* ProductsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsViewController.swift; sourceTree = "<group>"; };
+		ED4DC7752CAEDECC0029B338 /* ProductsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsViewModel.swift; sourceTree = "<group>"; };
 		ED63CEB62BDF8F9C006155C4 /* SettingsTableViewiCloudSwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewiCloudSwitchCell.swift; sourceTree = "<group>"; };
 		ED77556D2C2C490B0051E656 /* UIAlertController+openInAppActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+openInAppActionSheet.swift"; sourceTree = "<group>"; };
 		ED79A5AA2BD7AA9C00952D1F /* LoadingOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingOverlayViewController.swift; sourceTree = "<group>"; };
@@ -2943,6 +2949,7 @@
 				993DF0C223F6BD0600AC231A /* ElevationDetails */,
 				99DEF9D523E420D2006BFD21 /* ElevationProfile */,
 				EDE8EAE32C2DB74A002777F5 /* OpenInAppActionSheet */,
+				ED4DC7762CAEDECC0029B338 /* Products */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -3112,6 +3119,16 @@
 				ED43B8BC2C12063500D07BAA /* DocumentPicker.swift */,
 			);
 			path = DocumentPicker;
+			sourceTree = "<group>";
+		};
+		ED4DC7762CAEDECC0029B338 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ED4DC7732CAEDECC0029B338 /* ProductButton.swift */,
+				ED4DC7742CAEDECC0029B338 /* ProductsViewController.swift */,
+				ED4DC7752CAEDECC0029B338 /* ProductsViewModel.swift */,
+			);
+			path = Products;
 			sourceTree = "<group>";
 		};
 		ED79A5A92BD7AA7500952D1F /* LoadingOverlay */ = {
@@ -4468,6 +4485,9 @@
 				34BF0CC71C31304A00D097EB /* MWMAuthorizationCommon.mm in Sources */,
 				34AB664D1FC5AA330078E451 /* RouteManagerFooterView.swift in Sources */,
 				6741A9E01BF340DE002C974C /* MWMDownloaderDialogHeader.mm in Sources */,
+				ED4DC7772CAEDECC0029B338 /* ProductsViewModel.swift in Sources */,
+				ED4DC7782CAEDECC0029B338 /* ProductButton.swift in Sources */,
+				ED4DC7792CAEDECC0029B338 /* ProductsViewController.swift in Sources */,
 				CDCA2748223FD24600167D87 /* MWMCarPlaySearchResultObject.mm in Sources */,
 				475ED78824C7D0F30063ADC7 /* ValueStepperView.swift in Sources */,
 				3454D7E01E07F045004AF2AD /* UITextField+RuntimeAttributes.m in Sources */,
