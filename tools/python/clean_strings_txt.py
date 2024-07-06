@@ -25,6 +25,7 @@ CORE_RE = re.compile(r'GetLocalizedString\("(.*?)"\)')
 IOS_RE = re.compile(r'L\(.*?"(\w+)".*?(?:"(\w+)")?\)')
 IOS_NS_RE = re.compile(r'NSLocalizedString\(\s*?@?"(\w+)"')
 IOS_XML_RE = re.compile(r'value=\"(.*?)\"')
+IOS_APPTIPS_RE = re.compile(r'app_tip_\d\d')
 
 ANDROID_JAVA_RE = re.compile(r'R\.string\.([\w_]*)')
 ANDROID_JAVA_PLURAL_RE = re.compile(r'R\.plurals\.([\w_]*)')
@@ -63,6 +64,11 @@ def grep_ios():
     ret = filter_ios_grep(ret)
     logging.info("Found in iOS: {0}".format(len(ret)))
     ret.update(get_hardcoded())
+
+    # iOS code scans resources for all available app_tip_XX strings.
+    grep = "grep app_tip_ {0}/data/strings/strings.txt".format(OMIM_ROOT)
+    ret2 = exec_shell(grep)
+    ret.update(parenthesize(strings_from_grepped(ret2, IOS_APPTIPS_RE)))
 
     return ret
 
