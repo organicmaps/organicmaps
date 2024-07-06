@@ -233,6 +233,9 @@ public final class UiUtils
 
     if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.R)
     {
+      // On older versions of Android there is layout issue on exit from fullscreen mode.
+      // For such versions we use old-style fullscreen mode.
+      // See https://github.com/organicmaps/organicmaps/pull/8551 for details
       if (fullscreen)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
       else
