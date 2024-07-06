@@ -979,6 +979,13 @@ void Framework::SetVisibleViewport(m2::RectD const & rect)
   m_drapeEngine->SetVisibleViewport(rect);
 }
 
+int Framework::GetCurrentZoomLevel() const
+{
+  if (m_drapeEngine == nullptr)
+    return scales::GetUpperComfortScale();
+  return m_drapeEngine->GetCurrentZoomLevel();
+}
+
 void Framework::ShowRect(m2::RectD const & rect, int maxScale, bool animation, bool useVisibleViewport)
 {
   if (m_drapeEngine == nullptr)

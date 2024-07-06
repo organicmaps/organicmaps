@@ -166,6 +166,11 @@ void DrapeEngine::SetVisibleViewport(m2::RectD const & rect) const
                                   MessagePriority::Normal);
 }
 
+int DrapeEngine::GetCurrentZoomLevel() const
+{
+  return m_frontend->GetCurrentZoom();
+}
+
 void DrapeEngine::Invalidate()
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,

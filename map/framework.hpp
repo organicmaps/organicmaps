@@ -505,6 +505,8 @@ public:
   m2::RectD GetCurrentViewport() const;
   void SetVisibleViewport(m2::RectD const & rect);
 
+  int GetCurrentZoomLevel() const;
+
   /// - Check minimal visible scale according to downloaded countries.
   void ShowRect(m2::RectD const & rect, int maxScale = -1, bool animation = true,
                 bool useVisibleViewport = false);

@@ -2524,6 +2524,12 @@ void FrontendRenderer::ChangeModelView(double autoScale, m2::PointD const & user
   AddUserEvent(make_unique_dp<FollowAndRotateEvent>(userPos, pxZero, azimuth, autoScale, parallelAnimCreator));
 }
 
+int FrontendRenderer::GetCurrentZoom() const
+{
+  ASSERT(IsValidCurrentZoom(), ());
+  return m_currentZoomLevel;
+}
+
 void FrontendRenderer::OnEnterBackground()
 {
   m_myPositionController->OnEnterBackground();
