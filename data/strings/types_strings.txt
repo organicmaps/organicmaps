@@ -25308,7 +25308,6 @@
 
   [type.shop.hardware]
     en = Hardware Store
-    en-GB = Ironmongers
     af = Ysterware
     ar = محل معدات
     az = Hardware mağazası
