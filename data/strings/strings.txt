@@ -29,6 +29,7 @@
     ko = 뒤로
     lt = Atgal
     mr = मागे
+    mt = Lura
     nb = Tilbake
     nl = Terug
     pl = Wróć
@@ -74,6 +75,7 @@
     ko = 취소하기
     lt = Atšaukti
     mr = रद्द करा
+    mt = Ikkanċella
     nb = Avbryt
     nl = Annuleer
     pl = Anuluj
@@ -119,6 +121,7 @@
     ko = 다운로드 취소하기
     lt = Atšaukti atsisiuntimą
     mr = डाउनलोड रद्द करा
+    mt = Ikkanċella it-Tniżżil
     nb = Avbryt nedlasting
     nl = Annuleer downloaden
     pl = Anuluj pobieranie
@@ -164,6 +167,7 @@
     ko = 삭제하기
     lt = Naikinti
     mr = हटवा
+    mt = Ħassar
     nb = Slett
     nl = Verwijder
     pl = Usuń
@@ -208,6 +212,7 @@
     ko = 지도 다운로드받기
     lt = Atsisiųsti žemėlapius
     mr = नकाशे डाउनलोड करा
+    mt = Niżżel il-mapep
     nb = Last ned kart
     nl = Download kaarten
     pl = Pobierz mapy
@@ -253,6 +258,7 @@
     ko = 다운로드에 실패하였습니다. 다시 시도하려면 터치하세요.
     lt = Atsisiuntimas nepavyko. Bakstelėkite, kad bandytumėte iš naujo.
     mr = डाउनलोड अयशस्वी झाले. पुन्हा प्रयत्न करण्यासाठी स्पर्श करा.
+    mt = It-tniżżil falla. Għaffas biex terġa tipprova.
     nb = Nedlastingen mislyktes – trykk på nytt for å prøve en gang til
     nl = Downloaden is mislukt. Tik om het opnieuw te proberen.
     pl = Nie udało się pobrać. Proszę nacisnąć, aby spróbować ponownie.
@@ -298,6 +304,7 @@
     ko = 다운로드 중…
     lt = Atsisiunčiama…
     mr = डाउनलोड करत आहे…
+    mt = Tniżżil…
     nb = Laster ned …
     nl = Downloaden…
     pl = Pobieranie…
@@ -344,6 +351,7 @@
     ko = 킬로미터
     lt = Kilometrai
     mr = किलोमीटर
+    mt = Kilometri
     nb = Kilometer
     nl = Kilometers
     pl = Kilometry
@@ -389,6 +397,7 @@
     ko = 리뷰 남기기
     lt = Palikite atsiliepimą
     mr = अभिप्राय द्या
+    mt = Ħalli l-analiżi tiegħek
     nb = Legg inn en vurdering
     nl = Laat een review achter
     pl = Napisz recenzję
@@ -470,6 +479,7 @@
     ko = 마일
     lt = Mylios
     mr = मैल
+    mt = Mili
     nb = Miles
     nl = Mijlen
     pl = Mile
@@ -515,6 +525,7 @@
     ko = 나의 위치
     lt = Mano vieta
     mr = माझे स्थान
+    mt = Il-Pożizzjoni Kurrenti
     nb = Min posisjon
     nl = Mijn locatie
     pl = Moje położenie
@@ -560,6 +571,7 @@
     ko = 나중에
     lt = Vėliau
     mr = नंतर
+    mt = Aktar tard
     nb = Senere
     nl = Later
     pl = Później
@@ -605,6 +617,7 @@
     ko = 검색하기
     lt = Ieškoti
     mr = शोधा
+    mt = Fittex
     nb = Søk
     nl = Zoek
     pl = Wyszukaj
@@ -650,6 +663,7 @@
     ko = 지도 검색하기
     lt = Ieškoti žemėlapio
     mr = नकाश्यात शोधा
+    mt = Fittex fuq il-mappa
     nb = Søk kart
     nl = Zoek op de kaart
     pl = Wyszukaj mapy
@@ -695,6 +709,7 @@
     ko = 네
     lt = Taip
     mr = होय
+    mt = Iva
     nb = Ja
     nl = Ja
     pl = Tak
@@ -740,6 +755,7 @@
     ko = 현재 이 기기 또는 애플리케이션에 대한 모든 위치 서비스가 비활성화되어 있습니다. 설정에서 활성화하십시오.
     lt = Šiuo metu jūsų įrenginio ar programėlės visos vietovės tarnybos yra išjungtos. Įjunkite jas nustatymuose.
     mr = आपल्या उपकरणात किंवा ऍप मध्ये स्थानसेवा सध्या बंद आहेत. कृपया सेटिंग मधून त्यांना चालू  करा.
+    mt = Bħalissa għandek kull Servizzi tal-Lokażżjoni fuq dan l-apparat jew l-applikazzjoni mitfijin. Jekk jogħġbok erġa ixgħelhom ġos-Settings.
     nb = Du har for øyeblikket deaktivert alle posisjonstjenester for denne enheten eller applikasjonen. Slå dem på i «Innstillinger».
     nl = U heeft momenteel alle locatieservices voor dit apparaat of deze app uitgeschakeld. Schakel ze in bij Instellingen.
     pl = Usługi lokalizacji są aktualnie wyłączone dla tego urządzenia lub aplikacji. Proszę włączyć je w ustawieniach.
@@ -785,6 +801,7 @@
     ko = 지도에 표시
     lt = Rodyti žemėlapyje
     mr = नकाशावर दाखवा
+    mt = Uri fuq il-mappa
     nb = Vis på kartet
     nl = Toon op de kaart
     pl = Wyświetl na mapie
@@ -830,6 +847,7 @@
     ko = 지도 다운로드
     lt = Atsisiųsti žemėlapį
     mr = नकाशा डाउनलोड करा
+    mt = Niżżel il-mappa
     nb = Last ned kart
     nl = Download kaart
     pl = Pobierz mapę
@@ -875,6 +893,7 @@
     ko = 다운로드에 실패하였습니다
     lt = Atsisiuntimas nepavyko
     mr = डाउनलोड अयशस्वी
+    mt = It-tniżżil falla
     nb = Laster ned mislyktes
     nl = Downloaden is mislukt
     pl = Nie udało się pobrać
@@ -920,6 +939,7 @@
     ko = 다시 시도
     lt = Bandyti dar kartą
     mr = पुन्हा प्रयत्न करा
+    mt = Erġa prova
     nb = Prøv på nytt
     nl = Probeer opnieuw
     pl = Spróbuj ponownie
@@ -964,6 +984,7 @@
     ko = Organic Maps 정보
     lt = Apie Organic Maps
     mr = Organic Maps बद्दल
+    mt = Dwar Organic Maps
     nb = Om Organic Maps
     nl = Over Organic Maps
     pl = O aplikacji Organic Maps
@@ -1006,6 +1027,7 @@
     ja = すべての人のために無料で、愛を込めて作られています
     ko = 사랑으로 만든 모든 사람에게 무료
     lt = Nemokama visiems, sukurta su meile
+    mt = B' xejn għal kulħadd, magħmul bl-imħabba
     nb = Gratis for alle, laget med kjærlighet
     nl = Gratis voor iedereen, met liefde gemaakt
     pl = Darmowa dla wszystkich, wykonana z miłością
@@ -1049,6 +1071,7 @@
     ja = •広告、追跡なし、データ収集なし
     ko = • 광고 없음, 추적 없음, 데이터 수집 없음
     lt = • Nėra reklamų, sekimo, duomenų rinkimo
+    mt = • Bla reklami, bla traċċar, bla kollezjoni ta' data
     nb = • Ingen annonser, ingen sporing, ingen datainnsamling
     nl = • Geen advertenties, geen tracking, geen gegevensverzameling
     pl = • Bez reklam, bez śledzenia, bez gromadzenia danych
@@ -1096,6 +1119,7 @@
     ko = • 배터리 소모 없음, 오프라인에서 작동
     lt = • Neišsikrauna akumuliatorius, veikia neprisijungus prie interneto
     mr = • बॅटरी संपत नाही, ऑफलाइन कार्य करते
+    mt = • Bla ħela ta' batterija, jaħdem offline
     nb = • Ingen batterislitasje, fungerer offline
     nl = • Geen batterijverlies, werkt offline
     pl = • Nie zużywa baterii, działa w trybie offline
@@ -1143,6 +1167,7 @@
     ko = • 빠르고 미니멀한, 커뮤니티가 개발한
     lt = • Greitas, minimalistinis, sukurtas bendruomenės
     mr = • जलद, मिनिमलिस्ट, समुदायाद्वारे विकसित
+    mt = • Malajr, minimalista, żvillupat mill-komunità
     nb = • Rask, minimalistisk, utviklet av fellesskapet
     nl = • Snel, minimalistisch, ontwikkeld door de gemeenschap
     pl = • Szybki, minimalistyczny, opracowany przez społeczność
@@ -1185,6 +1210,7 @@
     ja = 愛好家とボランティアによって作成されたオープンソースアプリケーション。
     ko = 애호가와 자원 봉사자가 만든 오픈 소스 응용 프로그램.
     lt = Atvirojo kodo programėlė, sukurta entuziastų ir savanorių.
+    mt = Apliażżjoni tas-sors miftuħ magħmula min dilettanti u il-voluntiera
     nb = Open source-applikasjon opprettet av entusiaster og frivillige.
     nl = Open-source applicatie gemaakt door enthousiastelingen en vrijwilligers.
     pl = Aplikacja typu open source stworzona przez entuzjastów i wolontariuszy.
@@ -1229,6 +1255,7 @@
     ja = ロケーション設定
     ko = 위치 설정
     mr = स्थान सेटिंग्ज
+    mt = Settings tal-lokażżjoni
     nb = Innstillinger for plassering
     nl = Locatie-instellingen
     pl = Ustawienia lokalizacji
@@ -1274,6 +1301,7 @@
     ko = 닫기
     lt = Uždaryti
     mr = बंद
+    mt = Ġħalaq
     nb = Lukk
     nl = Sluit
     pl = Zamknij
@@ -1318,6 +1346,7 @@
     ko = 하드웨어 촉진 OpenGL이 요구됩니다. 애석하게도 귀하의 장치는 지원되지 않습니다.
     lt = Programėlei reikia aparatinės įrangos spartinamos OpenGL. Deja, jūsų įrenginys nepalaikomas.
     mr = ह्या ऍपला हार्डवेअर प्रवेगक OpenGL आवश्यक आहे. दुर्दैवाने, तुमच्या उपकरणाला ह्याचा आधार नाही.
+    mt = L-applikazzjoni għanda bżonn 'hardware accelerated OpenGL'. Sfortunatament, l-apparat tiegħek ma jappoġġjax dan.
     nb = En maskinvareakselerert OpenGL kreves. Dessverre støttes ikke enheten din.
     nl = Een hardware geaccellereerde OpenGL is nodig. Jammer genoeg wordt uw apparaat niet ondersteund.
     pl = Wymagana jest sprzętowa akceleracja OpenGL. Aktualne urządzenie nie jest obsługiwane.
@@ -1362,6 +1391,7 @@
     ko = 다운로드
     lt = Atsisiųsti
     mr = डाउनलोड करा
+    mt = Niżżel
     nb = Last ned
     nl = Download
     pl = Pobierz
@@ -1406,6 +1436,7 @@
     ko = Organic Maps를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오
     lt = Atjunkite USB laidą arba įdėkite atminties kortelę, kad naudotumėte Organic Maps
     mr = Organic Maps वापरण्यासाठी कृपया USB केबल काढून टाका किंवा मेमरी कार्ड घाला
+    mt = Jekk jogħġbok neħħi il-USB kejbil jew daħħal karta tal-memorja biex tuża Organic Maps
     nb = Koble fra USB-kabelen eller sett inn minnekortet for å bruke Organic Maps
     nl = Verwijder de USB-kabel of plaats een geheugenkaart om Organic Maps te gebruiken
     pl = Proszę odłączyć kabel USB albo włożyć kartę pamięci, aby korzystać z Organic Maps
@@ -1451,6 +1482,7 @@
     ko = 앱을 사용하려면 먼저 SD 카드/USB 저장소의 여유 공간을 확보하세요
     lt = Atlaisvinkite vietos jūsų saugykloje, kad galėtumėte naudotis programėle
     mr = कृपया ऍप वापरण्यासाठी प्रथम SD कार्ड/USB स्टोरेजवरील काही जागा मोकळी करा
+    mt = Jekk jogħġbok żid ftit spazju fuq il-karta tal-memorja jew il-ħażna tal-USB biex tkun tista tuża l-applikazzjoni
     nb = Frigjør plass på SD-kortet/USB-enheten først for å bruke appen
     nl = Maak eerst ruimte vrij op de SD-kaart/USB-opslag om de app te gebruiken
     pl = Proszę zwolnić trochę pamięci na karcie SD/pamięci USB, aby korzystać z aplikacji
@@ -1495,6 +1527,7 @@
     ko = 시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.\n%@ 데이터가 필요합니다.
     lt = Leiskite mums atsisiųsti bendrąjį pasaulio žemėlapį į jūsų įrenginį prieš pradėdami naudotis programėle.\nTai užims %@ saugyklos.
     mr = ऍपचा वापर सुरू करण्यापूर्वी, आम्हाला तुमच्या उपकरणावर जगाचा सामान्य नकाशा डाउनलोड करण्याची परवानगी द्या.\nते %@ जागा वापरेल.
+    mt = Qabel ma tibda tuża l-applikazzjoni, niżżel il-mappa ġenerali tad-dinja fuq l-apparat. \nDan ser juża %@ ta' storage.
     nb = Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %@ med data.
     nl = Voordat u start, laten we de algemene wereldkaart naar uw apparaat downloaden.\nDeze neemt %@ in beslag.
     pl = Przed rozpoczęciem prosimy o pobranie ogólnej mapy świata na urządzenie.\nWymaga to %@ danych.
@@ -1539,6 +1572,7 @@
     ko = 지도로 이동
     lt = Eiti į žemėlapį
     mr = नकाशावर जा
+    mt = Mur għal Mappa
     nb = Gå til kart
     nl = Ga naar de kaart
     pl = Przejdź do mapy
@@ -1583,6 +1617,7 @@
     ko = %@다운로드. 이제지도를 진행할 수 있습니다.
     lt = Atsisiunčiama %@. Dabar galite\neiti į žemėlapį.
     mr = %@ डाउनलोड करत आहे.\nतुम्ही आता नकाशावर जाऊ शकता.
+    mt = Tniżżil %@. Issa tista\ntkompli għal mappa.
     nb = Laster ned %@. Du kan nå\nfortsette til kartet.
     nl = %@ aan het downloaden. U kunt nu\ndoorgaan naar de kaart.
     pl = Pobieranie %@. Można teraz\nprzejść do mapy.
@@ -1627,6 +1662,7 @@
     ko = %@다운로드?
     lt = Atsisiųsti %@?
     mr = %@ डाउनलोड करायचे?
+    mt = Tniżżel %@?
     nb = Vil du laste ned %@?
     nl = %@ downloaden?
     pl = Pobrać %@?
@@ -1671,6 +1707,7 @@
     ko = %@업데이트?
     lt = Naujinti %@?
     mr = %@ अद्ययावत करायचे?
+    mt = Aġġorna %@?
     nb = Vil du oppdatere %@?
     nl = %@ updaten?
     pl = Uaktualnić %@?
@@ -1716,6 +1753,7 @@
     ko = 중지
     lt = Pristabdyti
     mr = विराम द्या
+    mt = Pawsa
     nb = Pause
     nl = Pauzeer
     pl = Wstrzymaj
@@ -1761,6 +1799,7 @@
     ko = 계속
     lt = Tęsti
     mr = चालू ठेवा
+    mt = Kompli
     nb = Fortsett
     nl = Ga verder
     pl = Kontynuuj
@@ -1806,6 +1845,7 @@
     ko = %@다운로드가 실패했습니다
     lt = %@ atsisiuntimas nepavyko
     mr = %@ डाउनलोड अयशस्वी
+    mt = %@ tniżżil falla
     nb = Nedlasting av %@ mislyktes
     nl = %@ download is mislukt
     pl = Nie udało się pobrać %@
@@ -1851,6 +1891,7 @@
     ko = 새로운 목록 추가
     lt = Pridėti naują sąrašą
     mr = नवीन यादी जोडा
+    mt = Żid lista ġdida
     nb = Legg til nytt sett
     nl = Voeg nieuwe groep toe
     pl = Dodaj nowy zestaw
@@ -1897,6 +1938,7 @@
     ko = 색상 즐겨찾기에 추가
     lt = Adresyno spalva
     mr = खूणपत्र रंग
+    mt = Kulur tal-Bookmark
     nb = Bokmerk farge
     nl = Bladwijzerkleur
     pl = Kolor zakładki
@@ -1941,6 +1983,7 @@
     ko = 집합 이름을 즐겨찾기에 추가
     lt = Adresyno sąrašo pavadinimas
     mr = खूणपत्र यादीचे नाव
+    mt = Isem tal-lista tal-Bookmark
     nb = Bokmerk settnavn
     nl = Naam van bladwijzergroep
     pl = Nazwa zestawu zakładek
@@ -1984,6 +2027,7 @@
     ko = 세트를 즐겨찾기에 추가
     lt = Adresyno sąrašai
     mr = खूणपत्र याद्या
+    mt = Listi tal-Bookmark
     nb = Bokmerk sett
     nl = Bladwijzergroepen
     pl = Zestawy zakładek
@@ -2073,6 +2117,7 @@
     ja = ブックマークとトラック
     ko = 북마크 및 트랙
     mr = खूणपत्रे आणि ट्रॅक
+    mt = Bookmarks u Korsi
     nb = Bokmerker og ruter
     nl = Bladwijzers en tracks
     pl = Zakładki i trasy
@@ -2118,6 +2163,7 @@
     ko = 내 장소
     lt = Mano vietos
     mr = माझी ठिकाणे
+    mt = Il-Postijiet Tiegħi
     nb = Mine steder
     nl = Mijn plaatsen
     pl = Moje miejsca
@@ -2163,6 +2209,7 @@
     ko = 이름
     lt = Pavadinimas
     mr = नाव
+    mt = Isem
     nb = Navn
     nl = Naam
     pl = Nazwa
@@ -2209,6 +2256,7 @@
     ko = 주소
     lt = Adresas
     mr = पत्ता
+    mt = Indirizz
     nb = Adresse
     nl = Adres
     pl = Adres
@@ -2255,6 +2303,7 @@
     ko = 목록
     lt = Sąrašas
     mr = यादी
+    mt = Lista
     nb = Liste
     nl = Lijst
     pl = Lista
@@ -2345,6 +2394,7 @@
     ko = 지도 저장 위치:
     lt = Išsaugoti žemėlapius į
     mr = नकाशे येथे साठवा
+    mt = Issalvagwardja il-mapep ġo
     nb = Lagre kart på
     nl = Kaarten opslaan in
     pl = Zapisz mapy do
@@ -2390,6 +2440,7 @@
     ja = マップのダウンロード先を選択してください
     ko = 지도가 다운로드될 곳을 선택합니다
     mr = नकाशे डाउनलोड करायचे ठिकाण निवडा
+    mt = Għażel il-post fejn tixtieq tniżżel il-mapep.
     nb = Velg hvor du vil at kartene skal lastes ned til
     nl = Selecteer de map waar kaarten naar gedownload worden
     pl = Określa położenie przechowywania pobranych map
@@ -2434,6 +2485,7 @@
     ja = マップ
     ko = 지도
     lt = Atsisiųsti žemėlapiai
+    mt = Mapep imniżżla
     nb = Kart
     nl = Kaarten
     pl = Mapy
@@ -2471,6 +2523,7 @@
     hu = Belső privát tárhely
     ja = アプリ固有のストレージ
     lt = Vidinė privati saugykla
+    mt = Ħażna internali privata
     nb = Intern privat lagring
     nl = Intern persoonlijk geheugen
     pl = Wewnętrzna pamięć prywatna
@@ -2501,6 +2554,7 @@
     hu = Belső közös tárhely
     ja = 共有ストレージ
     lt = Vidinė bendra saugykla
+    mt = Ħażna internali maqsuma
     nb = Intern delt lagring
     nl = Intern gedeeld geheugen
     pl = Wewnętrzna pamięć współdzielona
@@ -2531,6 +2585,7 @@
     hu = SD-kártya
     ja = SDカード
     lt = SD kortelė
+    mt = Karta SD
     nb = SD-kort
     nl = SD-kaart
     pl = Karta SD
@@ -2561,6 +2616,7 @@
     hu = Külső közös tárhely
     ja = 外部ストレージ
     lt = Išorinė bendra saugykla
+    mt = Ħażna esterna maqsuma
     nb = Ekstern delt lagring
     nl = Extern gedeeld geheugen
     pl = Zewnętrzna pamięć współdzielona
@@ -2591,6 +2647,7 @@
     hu = %1$@ szabad %2$@-ból
     ja = %2$@ のうち %1$@ の空き容量
     lt = %1$@ laisva iš %2$@
+    mt = %1$@ b' xejn min %2$@
     nb = %1$@ ledig av %2$@
     nl = %1$@ beschikbaar van %2$@
     pl = %1$@ wolne z %2$@
@@ -2629,6 +2686,7 @@
     ko = 지도를 이동합니까?
     lt = Perkelti žemėlapius?
     mr = नकाशे हलवायचे?
+    mt = Iċċaqlaq il-mapep?
     nb = Flytt kart?
     nl = Kaarten verplaatsen?
     pl = Przenieść mapy?
@@ -2665,6 +2723,7 @@
     hu = Hiba történt a térképfájlok áthelyezése közben
     ja = マップ移動中にエラーが発生
     lt = Klaida perkeliant žemėlapio failus
+    mt = Errur waqt it-tmexxija tal-fajls tal-mapep
     nb = Kunne ikke flytte kart
     nl = Fout bij het verplaatsen van kaartbestanden
     pl = Błąd przenoszenia plików map
@@ -2703,6 +2762,7 @@
     ko = 이 작업은 수 분 소요될 수 있습니다.\n잠시 기다리세요…
     lt = Tai gali užtrukti kelias minutes.\nLuktelėkite…
     mr = यास काही मिनिटे लागू शकतात.\nकृपया प्रतीक्षा करा…
+    mt = Din tista tieħu diversi minuti. \nJekk jogħġbok stenna…
     nb = Dette kan ta flere minutter. Vent et øyeblikk …
     nl = Dit kan enkele minuten duren.\nEven geduld…
     pl = To może zająć kilka minut.\nProszę czekać…
@@ -2748,6 +2808,7 @@
     ko = 측정 단위
     lt = Matavimo vienetai
     mr = मापन एकके
+    mt = Unitajiet tal-kejl
     nb = Måleenheter
     nl = Afstandseenheid
     pl = Jednostki miary
@@ -2794,6 +2855,7 @@
     ko = 마일과 킬로미터 중에서 선택하십시오
     lt = Pasirinkite tarp mylių ir kilometrų
     mr = मैल की किलोमीटर ह्यामध्ये निवडा
+    mt = Għażel bejn mili u kilometri
     nb = Velg mellom miles og kilometer
     nl = Kies tussen mijlen en kilometers
     pl = Wybiera pomiędzy milami, a kilometrami
@@ -2841,6 +2903,7 @@
     ko = 어디서먹을까
     lt = Kur valgyti
     mr = जेवायचे ठिकाण
+    mt = Għażel fejn tiekol
     nb = Spisesteder
     nl = Waar iets gaan eten
     pl = Gdzie zjeść
@@ -2887,6 +2950,7 @@
     ko = 식료품들
     lt = Bakalėjos
     mr = किराणा
+    mt = Tal-Merċa
     nb = Dagligvarer
     nl = Boodschappen
     pl = Produkty
@@ -2933,6 +2997,7 @@
     ko = 수송
     lt = Transportas
     mr = वाहतूक
+    mt = Trasport
     nb = Transport
     nl = Transport
     pl = Transport
@@ -3024,6 +3089,7 @@
     ko = 주차
     lt = Parkingas
     mr = वाहनतळ
+    mt = Parkeġġ
     nb = Parkering
     nl = Parkeerplaats
     pl = Parking
@@ -3069,6 +3135,7 @@
     ko = 쇼핑
     lt = Apsipirkimas
     mr = खरेदी
+    mt = Xiri
     nb = Shopping
     nl = Winkelen
     pl = Zakupy
@@ -3159,6 +3226,7 @@
     ko = 호텔
     lt = Viešbutis
     mr = मुक्कामगृह
+    mt = Lukanda
     nb = Hotell
     nl = Hotel
     pl = Hotel
@@ -3204,6 +3272,7 @@
     ko = 관광
     lt = Įžymybės
     mr = पर्यटन
+    mt = Siti
     nb = Severdigheter
     nl = Bezienswaardigheden
     pl = Atrakcje turystyczne
@@ -3249,6 +3318,7 @@
     ko = 엔터테인먼트
     lt = Pramogos
     mr = मनोरंजन
+    mt = Divertiment
     nb = Underholdning
     nl = Amusement
     pl = Rozrywka
@@ -3294,6 +3364,7 @@
     ko = ATM
     lt = Bankomatas
     mr = ATM
+    mt = ATM
     nb = Minibank
     nl = Geldautomaat
     pl = Bankomat
@@ -3339,6 +3410,7 @@
     ko = 유흥
     lt = Naktinis gyvenimas
     mr = नाईटलाईफ
+    mt = Ħajja tal-lejl
     nb = Nattliv
     nl = Nachtleven
     pl = Życie nocne
@@ -3385,6 +3457,7 @@
     ko = 가족 기념일
     lt = Šeimos atostogos
     mr = कौटुंबिक सुट्टी
+    mt = Vaganza tal-Familja
     nb = Familieferie
     nl = Gezinsvakantie
     pl = Wypoczynek z dziećmi
@@ -3431,6 +3504,7 @@
     ko = 은행
     lt = Bankas
     mr = बँक
+    mt = Bank
     nb = Bank
     nl = Bank
     pl = Bank
@@ -3476,6 +3550,7 @@
     ko = 약국
     lt = Vaistinė
     mr = औषधालय
+    mt = Spiżerija
     nb = Apotek
     nl = Apotheek
     pl = Apteka
@@ -3521,6 +3596,7 @@
     ko = 병원
     lt = Ligoninė
     mr = रुग्णालय
+    mt = Sptar
     nb = Sykehus
     nl = Ziekenhuis
     pl = Szpital
@@ -3567,6 +3643,7 @@
     ko = 화장실
     lt = Tualetas
     mr = शौचालय
+    mt = Loki
     nb = Toalett
     nl = Toilet
     pl = Toaleta
@@ -3612,6 +3689,7 @@
     ko = 우편
     lt = Paštas
     mr = टपाल
+    mt = Uffiċċju postali
     nb = Post
     nl = Post
     pl = Poczta
@@ -3657,6 +3735,7 @@
     ko = 치안대
     lt = Policija
     mr = पोलीस
+    mt = Puliżija
     nb = Politi
     nl = Politie
     pl = Policja
@@ -3701,6 +3780,7 @@
     ko = WiFi 인터넷
     lt = WiFi
     mr = WiFi
+    mt = WiFi
     nb = WiFi
     nl = WiFi
     pl = WiFi
@@ -3746,6 +3826,7 @@
     ko = 재활용
     lt = Perdirbimas
     mr = भंगारवाला
+    mt = Riċiklaġġ
     nb = Resirkulering
     nl = Recycling
     pl = Recykling
@@ -3792,6 +3873,7 @@
     ko = 물
     lt = Vanduo
     mr = पाणी
+    mt = Ilma
     nb = Vann
     nl = Water
     pl = Woda
@@ -3837,6 +3919,7 @@
     ja = RV用
     ko = RV용
     lt = Rekreacinio transporto aikštelės
+    mt = Faċilitajiet tal-RV
     nb = Bobilanlegg
     nl = Caravanfaciliteiten
     pl = Kamper
@@ -3885,6 +3968,7 @@
     ko = 메모
     lt = Užrašai
     mr = चिठ्ठया
+    mt = Noti
     nb = Merknader
     nl = Notities
     pl = Notatki
@@ -3928,6 +4012,7 @@
     ko = 귀하와 공유된 Organic Maps 즐겨찾기
     lt = Su jumis bendrinamas Organic Maps adresynas
     mr = Organic Maps द्वारे तुम्हाला खूणपत्रे सामायिक केले
+    mt = Organic Maps bookmarks maqsuma miegħek
     nb = Delte Organic Maps-bokmerker
     nl = Bladwijzers van Organic Maps zijn met u gedeeld
     pl = Udostępnione zakładki z Organic Maps
@@ -3964,6 +4049,7 @@
     ja = こんにちは！\n\n添付ファイルOrganic Mapsのお気に入りリストです。もしインストールされていない場合はここからダウンロードができます： https://omaps.app/get?kmz\n\n旅行を楽しむときはOrganic Mapsを使用してください!
     lt = Labas!\n\nČia prisegtas mano adresynas iš Organic Maps programėlės. Atidaryk jį, jei esi įdiegęs Organic Maps, arba atsisiųsk programėlę savo iOS arba Android įrenginyje su šią nuorodą: https://omaps.app/get?kmz\n\Mėgaukis keliavimu su Organic Maps!
     mr = नमस्कार!\n\nOrganic Maps ऍप मधील माझे खूणपत्रे संलग्न केले आहेत. तुम्ही Organic Maps इन्स्टॉल केले असल्यास हे खूणपत्रे उघडा. इन्स्टॉल केले नसल्यास, पुढील दुव्यावर जाऊन तुमच्या iOS किंवा अँड्रॉइड उपकरणावर हे डाउनलोड करा: https://omaps.app/get?kmz\n\nOrganic Maps सह प्रवासाचा आनंद घ्या!
+    mt = Helow!\n\nMehmuża huma il-bookmarks; iftaħhom ġo Organic Maps. Jekk mhuwiex installat tista tniżżlu min hawn: https://omaps.app/get?kmz\n\nĦu pjaċir ivvjaġġa ġo Organic Maps!
     nb = Hei!\n\nVedlagt er mine bokmerker fra Organic Maps-appen. Åpne de dersom du har Organic Maps installert. Har du ikke har det, last ned appen til iOS eller Android ved å trykke på denne linken: https://omaps.app/get?kmz\n\nNyt reisen med Organic Maps!
     nl = Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app voor je iOS- of Android-apparaat door deze link te volgen: https://omaps.app/get?kmz\n\nGeniet van het reizen met Organic Maps!
     pl = Cześć!\n\nZałączam moje zakładki z aplikacji Organic Maps. Proszę otwórz je jeżeli masz zaintalowane Organic Maps. Lub, jeżeli nie masz, pobierz aplikację na swoje urządzenie iOS/Android za pomocą tego linka: https://omaps.app/get?kmz\n\nMiłego podróżowania z Organic Maps!
@@ -4005,6 +4091,7 @@
     ko = 즐겨찾기 로드
     lt = Įkeliamas adresynas
     mr = खूणपत्रे वाचत आहे
+    mt = Tgħobijja tal-bookmarks
     nb = Laster inn bokmerker
     nl = Bladwijzers worden geladen
     pl = Wczytywanie zakładek
@@ -4050,6 +4137,7 @@
     ko = 즐겨찾기가 성공적으로 로드되었습니다! 지도 또는 즐겨찾기 관리자 화면에서 찾으실 수 있습니다.
     lt = Adresynas įkeltas! Galite rasti jį žemėlapyje arba adresyno tvarkytuvės ekrane.
     mr = खूणपत्रे वाचून झाले! ते तुम्ही नकाशावर किंवा खूणपत्र व्यवस्थापक पटलावर पाहू शकता.
+    mt = Bookmarks mgħobbija b'suċċess!Tista issibhom ġol-mappa jew fuq l-iskrin tal-Maniġer tal-Bookmarks.
     nb = Bokmerkene ble lastet inn! Du finner dem på kartet eller på skjermen «Bokmerkeadministrasjon».
     nl = Bladwijzers succesvol geüpload! U vindt ze op de kaart of op het scherm van de Bladwijzerbeheerder.
     pl = Wczytano zakładki! Można odnaleźć je na mapie lub na ekranie menedżera zakładek.
@@ -4095,6 +4183,7 @@
     ko = 즐겨찾기 업로드가 실패했습니다. 파일이 훼손되었거나 결함이 있을지도 모릅니다.
     lt = Nepavyko įkelti adresyno. Failas gali būti pažeistas.
     mr = खूणपत्रे वाचण्यात अपयश. फाइल दूषित किंवा बिघडलेली असू शकते.
+    mt = It-tgħobbija tal-bookmarks falliet. Il-fajl jista jkun korrott jew difettuż.
     nb = Opplasting av bokmerker mislyktes. Filen kan være skadet eller defekt.
     nl = Bladwijzers uploaden is mislukt. Het bestand is mogelijk beschadigd of defect.
     pl = Nieudane wczytywanie zakładek. Plik może być uszkodzony lub posiadać defekty.
@@ -4140,6 +4229,7 @@
     ko = 파일 형식이 앱에서 인식되지 않습니다:\n%1$@
     lt = Programa neatpažįsta failo tipo:\n%1$@
     mr = फाइल प्रकार ॲपद्वारे ओळखला जात नाही:\n%1$@
+    mt = It-tip tal-fajl mhuwiex rikonoxxut mill-applikazzjoni:\n%1$@
     nb = Filtypen gjenkjennes ikke av appen:\n%1$@
     nl = Het bestandstype wordt niet herkend door de app:\n%1$@
     pl = Typ pliku nie jest rozpoznawany przez aplikację:\n%1$@
@@ -4187,6 +4277,7 @@
     ko = 파일을 열지 못했습니다 %1$@\n\n%2$@
     lt = Nepavyko atidaryti failo %1$@\n\n%2$@
     mr = फाइल उघडण्यात अयशस्वी%1$@\n\n%2$@
+    mt = Il-fajl falla biex jiftaħ %1$@\n\n%2$@
     nb = Kunne ikke åpne filen %1$@\n\n%2$@
     nl = Bestand openen mislukt %1$@\n\n%2$@
     pl = Nie udało się otworzyć pliku %1$@\n\n%2$@
@@ -4233,6 +4324,7 @@
     ko = 편집
     lt = Redaguoti
     mr = संपादन
+    mt = Editja
     nb = Rediger
     nl = Wijzig
     pl = Edytuj
@@ -4278,6 +4370,7 @@
     ko = 귀하의 위치를 아직 알아내지 못 했습니다
     lt = Jūsų vieta dar nenustatyta
     mr = तुमचे स्थान अद्याप निश्चित केलेले नाही
+    mt = Il-lokażżjoni tiegħek mhuwiex determinat s'issa
     nb = Posisjonen din har ikke blitt fastslått enda
     nl = Je locatie is nog niet vastgesteld
     pl = Nie określono jeszcze aktualnego położenia
@@ -4323,6 +4416,7 @@
     ko = 죄송합니다, 지도 스토리지 설정이 비활성화되어 있습니다.
     lt = Atsiprašome, šiuo metu žemėlapio saugyklos nustatymai yra išjungti.
     mr = क्षमस्व, नकाशा साठवायचे सेटिंग सध्या बंद आहेत.
+    mt = Jiddispjaċini, is-settings tal-Ħażna tal-Mappa huma mitfija bħalissa.
     nb = Beklager, innstillingene for kartlagring er for øyeblikket deaktivert.
     nl = Sorry, instellingen voor kaartopslag zijn momenteel uitgeschakeld.
     pl = Przepraszamy, ustawienia pamięci mapy są aktualnie wyłączone.
@@ -4368,6 +4462,7 @@
     ko = 국가 다운로드가 지금 진행 중입니다.
     lt = Vyksta žemėlapio atsisiuntimas.
     mr = नकाशा डाउनलोड होत आहे
+    mt = It-tniżżil tal-mappa għaddej bħalissa.
     nb = Nedlasting av land pågår nå.
     nl = De kaart wordt nu gedownload.
     pl = Trwa pobieranie mapy kraju.
@@ -4412,6 +4507,7 @@
     ko = 현재 위치를 알아 보십시오. %1$@ 또는 %2$@ 열기
     lt = Labas, pažvelk į mano dabartinę vietą Organic Maps! %1$@ arba %2$@ Neturi atjungtinių žemėlapių? Atsisiųsk čia: https://omaps.app/get
     mr = मी आता इथे आहे %1$@ किंवा %2$@ Organic Maps डाउनलोड करा: https://omaps.app/get
+    mt = Ara il-lokażżjoni kurrenti tiegħi ġo Organic Maps! %1$@ or %2$@ M'għandekx mapep offlajn? Niżżel hawn: https://omaps.app/get
     nb = Hei, se posisjonen min på Organic Maps! %1$@ eller %2$@ Har du ikke offline-kart? Last dem ned her: https://omaps.app/get
     nl = Hey, kijk naar mijn huidige locatie op Organic Maps! %1$@ of %2$@ Heeft u geen offline-kaarten? Download ze hier: https://omaps.app/get
     pl = Hej, spójrz na moją aktualną lokalizację w Organic Maps! %1$@ lub %2$@ Nie masz map offline? Pobierz tutaj: https://omaps.app/get
@@ -4456,6 +4552,7 @@
     ko = Organic Maps 지도에서 내 핀 보기
     lt = Labas, pažvelk, ką aš prisegiau Organic Maps!
     mr = Organic Maps द्वारे एक खूणपत्र पाठवत आहे!
+    mt = Merħba, ara il-pin tiegħi fuq Organic Maps!
     nb = Hei, se merket mitt på Organic Maps-kartet
     nl = Hey, bekijk mijn pin op Organic Maps!
     pl = Hej, spójrz na mój znacznik w Organic Maps!
@@ -4500,6 +4597,7 @@
     ko = Organic Maps 지도에서 제 현재 위치를 살펴 보시기 바랍니다
     lt = Labas, pažvelk į mano dabartinę vietą Organic Maps žemėlapyje!
     mr = Organic Maps द्वारे माझे वर्तमान स्थान पाठवत आहे!
+    mt = Merħba, ara il-lokażżjoni kurrenti tiegħi fuq il-mappa ta'Organic Maps!
     nb = Hei, se posisjonen min på Organic Maps-kartet!
     nl = Hey, bekijk mijn huidige locatie op Organic Maps!
     pl = Zobacz moją aktualną lokalizację na mapie przy użyciu Organic Maps
@@ -4544,6 +4642,7 @@
     ko = 안녕하세요.\n\n지금 다음 위치에 있습니다: %1$@. %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.
     lt = Labas,\nŠiuo metu esu čia: %1$@. Spustelėk ant %2$@ arba %3$@, kad pamatytum mano vietą žemėlapyje.\n\nAčiū.
     mr = नमस्कार,\n\nमी आता इथे आहे: %1$@. नकाशावर ठिकाण पाहण्यासाठी या %2$@ किंवा या %3$@ वर क्लिक करा.\n\nआभारी.
+    mt = Merħba, \n\nJien qiegħed hawn: %1$@. Għaffas din il-link %2$@ jew fuq din %3$@ biex tara il-post fuq il-mappa.\n\nGrazzi.
     nb = Hei,Jeg er her nå: %1$@. Klikk på denne koblingen %2$@ eller denne %3$@ for å se stedet på kartet.\n\nTakk.
     nl = Hoi,\n\nMomenteel ben ik hier: %1$@. Klik op deze %2$@ link of deze %3$@ link om de plaats op de kaart te zien.\n\nBedankt.
     pl = Cześć,\n\nJestem teraz tutaj: %1$@. Naciśnij na ten link %2$@ lub ten %3$@, aby zobaczyć to miejsce na mapie.\n\nDziękuję.
@@ -4589,6 +4688,7 @@
     ko = 공유
     lt = Bendrinti
     mr = सामायिक
+    mt = Aqsam
     nb = Del
     nl = Deel
     pl = Udostępnij
@@ -4634,6 +4734,7 @@
     ko = 이메일
     lt = El. paštas
     mr = ई-मेल
+    mt = E-mejl
     nb = E-post
     nl = E-mail
     pl = Email
@@ -5934,7 +6035,7 @@
   [pref_tts_playing_test_voice]
     comment = Settings «Route» category: Pop-up message when clicking «Test Voice Directions»
     tags = android
-    en = Check the volume or system Text-To-Speech settings if you don't hear the voice now.
+    en = Check the volume or system Text-To-Speech settings if you don'zi hear the voice now.
     ar = تحقق من مستوى الصوت أو إعدادات تحويل النص إلى كلام في النظام إذا كنت لا تسمع الصوت الآن.
     az = İndi səs eşitmirsinizsə, səs səviyyəsini və ya sistemin mətndən nitqə çevirmə parametrlərini yoxlayın.
     be = Праверце гучнасць або сістэмныя налады пераўтварэння тэксту ў маўленне, калі вы зараз не чуеце голас.
