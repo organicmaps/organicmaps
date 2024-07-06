@@ -165,10 +165,6 @@
   [[MWMMapViewControlsManager manager].placePageManager book:data];
 }
 
-+ (void)share:(PlacePageData *)data {
-  [[MWMMapViewControlsManager manager].placePageManager share:data];
-}
-
 + (void)routeFrom:(PlacePageData *)data {
   [[MWMMapViewControlsManager manager].placePageManager routeFrom:data];
 }

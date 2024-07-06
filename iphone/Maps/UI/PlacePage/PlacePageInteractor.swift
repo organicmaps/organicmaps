@@ -258,10 +258,8 @@ extension PlacePageInteractor: PlacePageHeaderViewControllerDelegate {
   }
 
   func previewDidPressShare(from sourceView: UIView) {
-    guard let shareViewController = ActivityViewController.share(forPlacePage: placePageData), let mapViewController else {
-      LOG(.error, "Failed to instantiate ActivityViewController.")
-      return
-    }
+    guard let mapViewController else { return }
+    let shareViewController = ActivityViewController.share(forPlacePage: placePageData)
     shareViewController.present(inParentViewController: mapViewController, anchorView: sourceView)
   }
 }

@@ -6,13 +6,13 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(ActivityViewController)
 @interface MWMActivityViewController : UIActivityViewController
 
-+ (nullable instancetype)shareControllerForEditorViral;
++ (instancetype)shareControllerForEditorViral;
 
-+ (nullable instancetype)shareControllerForMyPosition:(CLLocationCoordinate2D)location;
++ (instancetype)shareControllerForMyPosition:(CLLocationCoordinate2D)location;
 
-+ (nullable instancetype)shareControllerForPlacePage:(PlacePageData *)data;
++ (instancetype)shareControllerForPlacePage:(PlacePageData *)data;
 
-+ (nullable instancetype)shareControllerForURL:(nullable NSURL *)url
++ (instancetype)shareControllerForURL:(nullable NSURL *)url
                               message:(NSString *)message
                     completionHandler:(nullable UIActivityViewControllerCompletionWithItemsHandler)completionHandler;
 

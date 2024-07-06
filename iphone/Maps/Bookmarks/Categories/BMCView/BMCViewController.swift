@@ -87,7 +87,7 @@ final class BMCViewController: MWMViewController {
           { [weak self] _, _, _, _ in
             self?.viewModel?.finishShareCategory()
           }
-          shareController?.present(inParentViewController: self, anchorView: anchorView)
+          shareController.present(inParentViewController: self, anchorView: anchorView)
         case .emptyCategory:
           MWMAlertViewController.activeAlert().presentInfoAlert(L("bookmarks_error_title_share_empty"),
                                                                 text: L("bookmarks_error_message_share_empty"))
