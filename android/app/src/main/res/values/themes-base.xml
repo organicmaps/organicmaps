@@ -146,7 +146,7 @@
     <item name="android:textColorPrimary">@color/text_light</item>
     <item name="android:textColorPrimaryInverse">@color/text_dark</item>
     <item name="android:textColorSecondary">@color/text_light_subtitle</item>
-    <item name="bottom_sheet_icon_color">@color/bg_night_primary</item>
+    <item name="bottom_sheet_icon_color">@color/text_light</item>
     <item name="android:windowBackground">?windowBackgroundForced</item>
     <item name="android:colorPrimaryDark">@color/bg_primary_dark_night</item>
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
@@ -164,7 +164,7 @@
     <item name="fullscreenDialogTheme">@style/MwmTheme.DialogFragment.Fullscreen.Night</item>
     <item name="colorPrimary">@color/bg_primary_night</item>
     <item name="colorControlNormal">?secondary</item>
-    <item name="colorAccent">@color/bg_night_primary</item>
+    <item name="colorAccent">@color/base_accent_night</item>
     <item name="colorAccentTransparent">@color/base_accent_transparent</item>
     <item name="colorBtnHighlight">@color/white_24</item>
     <item name="panel">@color/bg_panel_night</item>
@@ -182,12 +182,12 @@
 
     <item name="navNextTurnFrame">@drawable/bg_nav_next_turn_night</item>
     <item name="navNextNextTurnFrame">@drawable/bg_nav_next_next_turn_night</item>
-    <item name="navLanesCardBackgroundColor">@color/bg_night_primary</item>
+    <item name="navLanesCardBackgroundColor">@color/base_accent_night</item>
 
     <item name="buttonBackground">@drawable/button_night</item>
     <item name="buttonTextColor">@color/button_text_night</item>
     <item name="buttonTextColorDisabled">@color/button_text_disabled_night</item>
-    <item name="buttonDialogTextColor">@color/bg_night_primary</item>
+    <item name="buttonDialogTextColor">@color/base_accent_night</item>
 
     <item name="accentButtonBackground">@color/bg_night_primary</item>
     <item name="accentButtonTextColor">@color/button_accent_text_night</item>

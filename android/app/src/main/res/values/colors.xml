@@ -7,11 +7,11 @@
   <color name="text_light">@color/white_primary</color>
   <color name="text_light_subtitle">@color/white_secondary</color>
   <color name="text_light_hint">@color/white_lightest</color>
-  <color name="base_accent_night">@color/bg_night_primary</color>
-  <color name="base_accent_pressed_night">@color/bg_night_primary_light</color>
+  <color name="base_accent">#006C35</color>
+  <color name="base_accent_pressed">#00562B</color>
+  <color name="base_accent_night">#FF4BB9E6</color>
+  <color name="base_accent_pressed_night">#FF3C9BBE</color>
   <color name="base_accent_transparent">#1E249CF2</color>
-  <color name="base_accent">@color/bg_primary</color>
-  <color name="base_accent_pressed">@color/bg_primary</color>
 
   <color name="base_red">#FFF54137</color>
   <color name="dark_red">#F51E30</color>
@@ -52,7 +52,7 @@
   <color name="light_gray">#F5F5F5</color>
   <color name="extended_green">#3C8C3C</color>
   <color name="icon_tint_night">#FFC4C6C7</color>
-  <color name="icon_tint">@color/bg_primary</color>
+  <color name="icon_tint">@color/base_accent</color>
 
   <color name="icon_tint_light">#FFBDBDBD</color>
   <color name="icon_tint_light_night">#FF76797C</color>
@@ -63,8 +63,8 @@
   <color name="logo">#006C35</color>
 
   <!-- Backgrounds -->
-  <color name="bg_night_primary">#02BB43</color>
-  <color name="bg_night_primary_light">#00DA4D</color>
+  <color name="bg_night_primary">#FF4BB9E6</color>
+  <color name="bg_night_primary_light">#FF3C9BBE</color>
   <color name="bg_window">#FFEEEEEE</color>
   <color name="bg_window_night">#FF32363A</color>
   <color name="bg_primary">#006C35</color>
@@ -99,9 +99,8 @@
   <color name="button_text_night">#FFFFFFFF</color>
   <color name="button_text_disabled">#42000000</color>
   <color name="button_text_disabled_night">#4CFFFFFF</color>
-
-  <color name="button_accent_normal">@color/bg_primary</color>
-  <color name="button_accent_normal_night">@color/bg_night_primary</color>
+  <color name="button_accent_normal">@color/base_accent</color>
+  <color name="button_accent_normal_night">@color/base_accent_night</color>
   <color name="button_accent_pressed">@color/bg_primary</color>
   <color name="button_accent_pressed_night">@color/bg_night_primary_light</color>
   <color name="button_accent_disabled">@color/black_12</color>
