@@ -304,7 +304,7 @@
     ko = 다운로드 중…
     lt = Atsisiunčiama…
     mr = डाउनलोड करत आहे…
-    mt = Tniżżil...
+    mt = Tniżżil…
     nb = Laster ned …
     nl = Downloaden…
     pl = Pobieranie…
@@ -4416,7 +4416,7 @@
     ko = 죄송합니다, 지도 스토리지 설정이 비활성화되어 있습니다.
     lt = Atsiprašome, šiuo metu žemėlapio saugyklos nustatymai yra išjungti.
     mr = क्षमस्व, नकाशा साठवायचे सेटिंग सध्या बंद आहेत.
-    mt = Jiddispjaċini, is-settings tal-Ħażna tal-Mappa huma mitfija bħalissa. 
+    mt = Jiddispjaċini, is-settings tal-Ħażna tal-Mappa huma mitfija bħalissa.
     nb = Beklager, innstillingene for kartlagring er for øyeblikket deaktivert.
     nl = Sorry, instellingen voor kaartopslag zijn momenteel uitgeschakeld.
     pl = Przepraszamy, ustawienia pamięci mapy są aktualnie wyłączone.
@@ -6035,7 +6035,7 @@
   [pref_tts_playing_test_voice]
     comment = Settings «Route» category: Pop-up message when clicking «Test Voice Directions»
     tags = android
-    en = Check the volume or system Text-To-Speech settings if you don't hear the voice now.
+    en = Check the volume or system Text-To-Speech settings if you don'zi hear the voice now.
     ar = تحقق من مستوى الصوت أو إعدادات تحويل النص إلى كلام في النظام إذا كنت لا تسمع الصوت الآن.
     az = İndi səs eşitmirsinizsə, səs səviyyəsini və ya sistemin mətndən nitqə çevirmə parametrlərini yoxlayın.
     be = Праверце гучнасць або сістэмныя налады пераўтварэння тэксту ў маўленне, калі вы зараз не чуеце голас.
