@@ -143,11 +143,6 @@ using namespace storage;
                             intermediateIndex:intermediateIndex];
 }
 
-- (void)share:(PlacePageData *)data {
-  MWMActivityViewController * shareVC = [MWMActivityViewController shareControllerForPlacePage:data];
-  [shareVC presentInParentViewController:self.ownerViewController anchorView:nil]; // TODO: add anchor for iPad
-}
-
 - (void)editPlace
 {
   [self.ownerViewController openEditor];

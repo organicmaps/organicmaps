@@ -246,7 +246,7 @@ extension BookmarksListViewController: IBookmarksListView {
                                                        message: L("share_bookmarks_email_body")) { (_, _, _, _) in
       completion()
     }
-    shareController?.present(inParentViewController: self, anchorView: self.toolBar)
+    shareController.present(inParentViewController: self, anchorView: self.toolBar)
   }
 
   func showError(title: String, message: String) {
