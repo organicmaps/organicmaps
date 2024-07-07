@@ -275,6 +275,29 @@
               android:background="?dividerHorizontal"/>
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/block_outdoor_seating"
+            style="@style/MwmWidget.Editor.MetadataBlock.Clickable">
+          <ImageView
+              style="@style/MwmWidget.Editor.MetadataIcon"
+              app:srcCompat="@drawable/ic_outdoor_seating"
+              tools:ignore="ContentDescription" />
+          <TextView
+              style="@style/MwmWidget.Editor.FieldLayout.EditText"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_centerVertical="true"
+              android:layout_marginStart="@dimen/editor_margin_left"
+              android:layout_toStartOf="@+id/sw__outdoor_seating"
+              android:text="@string/outdoor_seating"/>
+          <androidx.appcompat.widget.SwitchCompat
+              android:id="@+id/sw__outdoor_seating"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentEnd="true"
+              android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
         <!-- ToDo: Level is missing compared with iOS. -->
 
         <include
