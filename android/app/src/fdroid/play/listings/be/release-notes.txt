@@ -1,10 +1,9 @@
-• Better address search in the USA based on US Censor TIGER data
-• Fixed rendering of texts in Indic, Arabic, Thai, Lao, Khmer, Myanmar, Tibetan, Hangul, Hebrew scripts
-• OSM data as of July 2
-• Single tap selects any point on the map, long tap toggles full-screen mode
-• Accidentally deleted bookmark on the map can be restored
-• Fixed GPX import from WhatsApp
-• Display major roads earlier on the world overview map
-• Show more categories for a selected POI
+• Палепшаны пошук адрасоў у ЗША
+• Выпраўлена адмалёўка тэкстаў на мовах Індыі, арабскай, тайскай, лаоскай, Хмерскай, М'янме, тыбецкай, хангула, іўрыта
+• Дадзеныя OSM за 2 ліпеня
+• Звычайны націск на мапу выбірае любое месца на мапе, доўгі націск пераключае рэжым поўнага экрана
+• Выпадкова выдаленая закладка на мапе зараз можа быць адноўлена
+• Выпраўлены імпарт GPX з WhatsApp
+• Пры выбары месца зараз можна пабачыць ўсе яго катэгорыі (тыпы)
 
-…more details at omaps.org/news
+…больш падрабязней на omaps.org/news
