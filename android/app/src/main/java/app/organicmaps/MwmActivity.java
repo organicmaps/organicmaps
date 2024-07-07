@@ -904,6 +904,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void startLocationToPoint(final @Nullable MapObject endPoint)
   {
     closeFloatingPanels();
+    if (isFullscreen())
+      setFullscreen(false);
+
     if (LocationState.getMode() == LocationState.NOT_FOLLOW_NO_POSITION)
     {
       // Calls onMyPositionModeChanged(PENDING_POSITION).
@@ -1221,7 +1224,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("unused")
   public void onPlacePageActivated(@NonNull PlacePageData data)
   {
-    setFullscreen(false);
     // This will open the place page
     mPlacePageViewModel.setMapObject((MapObject) data);
   }
@@ -1244,14 +1246,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     setFullscreen(!isFullscreen());
     if (isFullscreen())
+    {
+      closePlacePage();
       showFullscreenToastIfNeeded();
+    }
   }
 
   private void setFullscreen(boolean isFullscreen)
   {
     if (RoutingController.get().isNavigating()
-        || RoutingController.get().isBuilding()
-        || RoutingController.get().isPlanning())
+            || RoutingController.get().isBuilding()
+            || RoutingController.get().isPlanning())
       return;
 
     mMapButtonsViewModel.setButtonsHidden(isFullscreen);
@@ -2023,6 +2028,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     closeFloatingPanels();
+    setFullscreen(false);
     RoutingController.get().start();
   }
 
