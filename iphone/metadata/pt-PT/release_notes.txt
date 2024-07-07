@@ -1,18 +1,31 @@
-• Novos dados OpenStreetMap de 28 de maio
-• Backup do iCloud para favoritos e trilhos (EXPERIMENTAL, habilite-o nas configurações)
-• Anúncios de nomes de ruas em instruções verbais TTS (EXPERIMENTAL, ative-o nas configurações)
-• Use o mapa quando o CarPlay estiver conectado
-• Pesquise códigos postais dos EUA e do Reino Unido
-• Exporte favoritos e trilhos em formato GPX
-• Adicione, edite e exiba links da web para cardápios de restaurantes, bares e serviços de alimentação
-• Correção de endereços ausentes em academias
-• Adição de palavras-chave de pesquisa para "pastelaria" e "bolos"
-• Correção de links da Wikipédia que contenham um ponto de interrogação
-• Correção da cor do texto do CarPlay no modo escuro
-• Mais opções de voz TTS
-• Os anúncios TTS interrompem os podcasts em vez de evitá-los
-• Correção de alguns botões que desapareciam ao adicionar um lugar ao mapa
-• Correção de detalhes do local não atualizados após a edição de um favorito
-• Correção do botão de horário sem funcionamento no Editor para funcionar depois da meia-noite
+- Better address search in the USA based on Topologically Integrated Geographic Encoding and Referencing system (TIGER) data. Map size for the USA has increased from 10Gb to 13Gb (including Wikipedia and elevation data)
+- Fixed rendering of texts in Indic (covering Devanagari, Bengali, Gujarati, Gurmukhi, Kannada, Malayalam, Oriya, Tamil, Telugu), Arabic (N'Ko, Syriac, Mongolian), Thai and Lao, Khmer, Myanmar, Tibetan, Hangul, Hebrew scripts
+- New Malayalam and Bengali fonts
 
-Atualizadas as traduções de Alemão, Português e Tcheco.
+- Use Import button in Bookmarks and Tracks dialog to load KML, KMZ, GPX files
+- Fix importing files via the Files app on a cold start
+- Added a TTS voice test button in navigation settings
+- Enable logs in settings to help us with bug fixing
+- Open social media links in installed applications
+- Removed a non-working traffic button from CarPlay
+- Replaced circle checkbox with a rounded rect in the time editor
+- Correct dark mode startup background color
+- OpenStreetMap data as of July 2
+- Single tap now selects any point on the map, even if the map is empty
+- Changed long tap to toggle full-screen mode
+- Accidentally deleted bookmark on the map now can be restored immediately (Save button changes to Restore)
+- Display major roads earlier on the world overview map
+- A selected place now shows more types/categories/amenities
+- Clearer label for POI's building level
+- Display good quality fine gravel pedestrian paths as white dashed
+- Support more road/path surface types (bricks, stone, grass paver, soil)
+- More clear hints when building a route
+
+Search: 
+- Mountain search also shows volcanoes
+- Better search results for faraway places
+- Search now finds places with a number in their names
+- Find parcel lockers using their ref numbers
+
+Translations:
+- Updated Belarusian, Chinese, Dutch, Euskara, Hungarian, Polish, Portuguese, Russian, Ukrainian translations.
