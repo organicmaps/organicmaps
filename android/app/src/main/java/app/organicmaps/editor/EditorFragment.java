@@ -102,6 +102,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private TextView mCuisine;
   private SwitchCompat mWifi;
   private TextView mSelfService;
+  private SwitchCompat mOutdoorSeating;
 
   // Default Metadata entries.
   private static final class MetadataEntry
@@ -197,6 +198,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mSelfService.setText(Utils.getTagValueLocalized(view.getContext(), "self_service", selfServiceMetadata));
     initMetadataEntry(Metadata.MetadataType.FMD_OPERATOR, 0);
     mWifi.setChecked(Editor.nativeHasWifi());
+    mOutdoorSeating.setChecked(Editor.nativeGetSwitchInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(),"yes"));
     refreshOpeningTime();
     refreshEditableFields();
     refreshResetButton();
@@ -218,6 +220,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     Editor.nativeSetBuildingLevels(mBuildingLevels.getText().toString());
     Editor.nativeSetHasWifi(mWifi.isChecked());
     Editor.nativeSetNames(mParent.getNamesAsArray());
+
+    Editor.nativeSetSwitchInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(), mOutdoorSeating.isChecked(), "yes", "no");
 
     for (var e : mMetadata.entrySet())
       Editor.nativeSetMetadata(e.getKey().toInt(), e.getValue().mEdit.getText().toString());
@@ -460,6 +464,9 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     blockSelfService.setOnClickListener(this);
     mSelfService = view.findViewById(R.id.self_service);
 
+    View blockOutdoorSeating = view.findViewById(R.id.block_outdoor_seating);
+    mOutdoorSeating = view.findViewById(R.id.sw__outdoor_seating);
+    blockOutdoorSeating.setOnClickListener(this);
     View blockOpeningHours = view.findViewById(R.id.block_opening_hours);
     mEditOpeningHours = blockOpeningHours.findViewById(R.id.edit_opening_hours);
     mEditOpeningHours.setOnClickListener(this);
@@ -478,6 +485,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mDetailsBlocks.put(Metadata.MetadataType.FMD_CUISINE, blockCuisine);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_INTERNET, blockWifi);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_SELF_SERVICE, blockSelfService);
+    mDetailsBlocks.put(Metadata.MetadataType.FMD_OUTDOOR_SEATING, blockOutdoorSeating);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_WEBSITE, websiteBlock);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_WEBSITE_MENU, websiteMenuBlock);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_EMAIL, emailBlock);
@@ -536,6 +544,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       Utils.openUrl(requireActivity(), getString(R.string.osm_wiki_about_url));
     else if (id == R.id.reset)
       reset();
+    else if (id == R.id.block_outdoor_seating)
+      mOutdoorSeating.toggle();
   }
 
   private void showAdditionalNames(boolean show)
