@@ -1246,7 +1246,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     setFullscreen(!isFullscreen());
     if (isFullscreen())
+    {
+      closePlacePage();
       showFullscreenToastIfNeeded();
+    }
   }
 
   private void setFullscreen(boolean isFullscreen)
