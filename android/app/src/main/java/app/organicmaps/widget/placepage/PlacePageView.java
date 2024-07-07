@@ -110,6 +110,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private TextView mTvSelfService;
   private View mCuisine;
   private TextView mTvCuisine;
+  private View mOutdoorSeating;
+  private TextView mTvOutdoorSeating;
   private View mEntrance;
   private TextView mTvEntrance;
   private View mEditPlace;
@@ -237,6 +239,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mTvLatlon = mFrame.findViewById(R.id.tv__place_latlon);
     mWifi = mFrame.findViewById(R.id.ll__place_wifi);
     mTvWiFi = mFrame.findViewById(R.id.tv__place_wifi);
+    mOutdoorSeating = mFrame.findViewById(R.id.ll__place_outdoor_seating);
+    mTvOutdoorSeating = mFrame.findViewById(R.id.tv__place_outdoor_seating);
     mOperator = mFrame.findViewById(R.id.ll__place_operator);
     mOperator.setOnClickListener(this);
     mTvOperator = mFrame.findViewById(R.id.tv__place_operator);
@@ -272,6 +276,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mWheelchair.setOnLongClickListener(this);
     mDriveThrough.setOnLongClickListener(this);
     mSelfService.setOnLongClickListener(this);
+    mOutdoorSeating.setOnLongClickListener(this);
 
     mDownloaderIcon = new DownloaderStatusIcon(mPreview.findViewById(R.id.downloader_status_frame));
 
@@ -429,6 +434,12 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
     final String selfService = mMapObject.getMetadata(Metadata.MetadataType.FMD_SELF_SERVICE);
     refreshMetadataOrHide(Utils.getTagValueLocalized(getContext(), "self_service", selfService), mSelfService, mTvSelfService);
+
+    final String outdoorSeating = mMapObject.getMetadata(Metadata.MetadataType.FMD_OUTDOOR_SEATING);
+    if (outdoorSeating.equals("yes"))
+    {
+      refreshMetadataOrHide(getString(R.string.outdoor_seating), mOutdoorSeating, mTvOutdoorSeating);
+    }
 
 //    showTaxiOffer(mapObject);
 
@@ -599,6 +610,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       items.add(mTvWheelchair.getText().toString());
     else if (id == R.id.ll__place_drive_through)
       items.add(mTvDriveThrough.getText().toString());
+    else if (id == R.id.ll__place_outdoor_seating)
+      items.add(mTvOutdoorSeating.getText().toString());
 
     final Context context = requireContext();
     if (items.size() == 1)
