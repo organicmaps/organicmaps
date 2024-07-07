@@ -904,6 +904,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void startLocationToPoint(final @Nullable MapObject endPoint)
   {
     closeFloatingPanels();
+    if (isFullscreen())
+      setFullscreen(false);
+
     if (LocationState.getMode() == LocationState.NOT_FOLLOW_NO_POSITION)
     {
       // Calls onMyPositionModeChanged(PENDING_POSITION).
@@ -1248,7 +1251,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void setFullscreen(boolean isFullscreen)
   {
-    if (RoutingController.get().isNavigating())
+    if (RoutingController.get().isNavigating()
+            || RoutingController.get().isBuilding()
+            || RoutingController.get().isPlanning())
       return;
 
     mMapButtonsViewModel.setButtonsHidden(isFullscreen);
