@@ -1,10 +1,9 @@
-• Better address search in the USA based on US Census TIGER data
-• Fixed rendering of texts in Indic, Arabic, Thai, Lao, Khmer, Myanmar, Tibetan, Hangul, Hebrew scripts
-• OSM data as of July 2
-• Single tap selects any point on the map, long tap toggles full-screen mode
-• Accidentally deleted bookmark on the map can be restored
-• Fixed GPX import from WhatsApp
-• Display major roads earlier on the world overview map
-• Show more categories for a selected POI
+• Javított címkeresés az USA -ban
+• Javítottuk a szövegek renderelését indiai, arab, thai, laoszi, khmer, mianmari, tibeti, hangul és héber nyelveken
+• Július 2-i OSM adatok
+• Egy érintéssel már bármilyen pontot kiválaszthat a térképen, a hosszú érintés teljes képernyős nézetet kapcsol be
+• A véletlenül kitörölt könyvjelzők már visszaállíthatóak
+• A GPX fájlok WhatsApp-ból való importálását kijavítottuk
+• Több kategória megjelenítése egy kiválasztott POI-hoz
 
-…more details at omaps.org/news
+…több: omaps.org/hu/news
