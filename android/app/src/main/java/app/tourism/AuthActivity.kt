@@ -10,16 +10,26 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.lifecycleScope
 import app.organicmaps.R
+import app.tourism.data.repositories.PlacesRepository
 import app.tourism.ui.screens.auth.AuthNavigation
 import app.tourism.ui.theme.OrganicMapsTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AuthActivity : ComponentActivity() {
+    @Inject
+    lateinit var placesRepository: PlacesRepository
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        lifecycleScope.launch {
+            placesRepository.downloadAllDataIfFirstTime()
+        }
         enableEdgeToEdge(
             statusBarStyle = SystemBarStyle.dark(resources.getColor(R.color.black_primary)),
             navigationBarStyle = SystemBarStyle.dark(resources.getColor(R.color.black_primary))

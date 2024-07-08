@@ -1,13 +1,17 @@
 package app.tourism.ui.screens.main.categories.categories
 
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -25,6 +29,7 @@ import app.tourism.ui.common.special.PlacesItem
 @Composable
 fun CategoriesScreen(
     onPlaceClick: (id: Long) -> Unit,
+    onSearchClick: (String) -> Unit,
     onMapClick: () -> Unit,
     categoriesVM: CategoriesViewModel = hiltViewModel()
 ) {
@@ -33,6 +38,11 @@ fun CategoriesScreen(
         val categories = categories.collectAsState().value
         val selectedCategory = selectedCategory.collectAsState().value
         val places = places.collectAsState().value
+
+        LaunchedEffect(true) {
+            if (selectedCategory == null)
+                categoriesVM.setSelectedCategory(categories.first())
+        }
 
         Scaffold(
             topBar = {
@@ -47,26 +57,28 @@ fun CategoriesScreen(
                     ),
                 )
             },
-            contentWindowInsets = Constants.USUAL_WINDOW_INSETS
+            contentWindowInsets = WindowInsets(bottom = 0.dp)
         ) { paddingValues ->
-            LazyColumn(
-                Modifier
-                    .padding(paddingValues),
-            ) {
+            LazyColumn(Modifier.padding(paddingValues)) {
                 item {
                     Column {
-                        VerticalSpace(height = 16.dp)
+                        Column(modifier = Modifier.padding(horizontal = Constants.SCREEN_PADDING)) {
+                            VerticalSpace(height = 16.dp)
 
-                        AppSearchBar(
-                            modifier = Modifier.fillMaxWidth(),
-                            query = query,
-                            onQueryChanged = ::setQuery,
-                            onSearchClicked = ::search,
-                            onClearClicked = ::clearSearchField,
-                        )
-                        VerticalSpace(height = 16.dp)
-
+                            AppSearchBar(
+                                modifier = Modifier.fillMaxWidth(),
+                                query = query,
+                                onQueryChanged = ::setQuery,
+                                onSearchClicked = onSearchClick,
+                                onClearClicked = ::clearSearchField,
+                            )
+                            VerticalSpace(height = 16.dp)
+                        }
                         HorizontalSingleChoice(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .horizontalScroll(rememberScrollState())
+                                .padding(horizontal = Constants.SCREEN_PADDING),
                             items = categories,
                             selected = selectedCategory,
                             onSelectedChanged = ::setSelectedCategory,
@@ -76,7 +88,7 @@ fun CategoriesScreen(
                 }
 
                 items(places) { item ->
-                    Column {
+                    Column(modifier = Modifier.padding(horizontal = Constants.SCREEN_PADDING)) {
                         PlacesItem(
                             place = item,
                             onPlaceClick = { onPlaceClick(item.id) },

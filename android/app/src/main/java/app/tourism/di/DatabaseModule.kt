@@ -2,7 +2,7 @@ package app.tourism.di
 
 import android.app.Application
 import androidx.room.Room
-import app.tourism.db.Database
+import app.tourism.data.db.Database
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

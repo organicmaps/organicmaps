@@ -11,28 +11,49 @@ import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
 
-suspend inline fun <T, reified R> FlowCollector<Resource<R>>.handleCall(
+suspend inline fun <T, reified R> FlowCollector<Resource<R>>.handleGenericCall(
     call: () -> Response<T>,
     mapper: (T) -> R,
     emitLoadingStatusBeforeCall: Boolean = true
 ) {
-    if(emitLoadingStatusBeforeCall) emit(Resource.Loading())
+    if (emitLoadingStatusBeforeCall) emit(Resource.Loading())
     try {
         val response = call()
         val body = response.body()?.let { mapper(it) }
         if (response.isSuccessful) emit(Resource.Success(body))
-
         else emit(response.parseError())
-    } catch(e: HttpException) {
+    } catch (e: HttpException) {
         emit(
             Resource.Error(
-            message = "Упс! Что-то пошло не так."
-        ))
-    } catch(e: IOException) {
+                message = "Упс! Что-то пошло не так."
+            )
+        )
+    } catch (e: IOException) {
         emit(
             Resource.Error(
+                message = "Не удается соединиться с сервером, проверьте интернет подключение"
+            )
+        )
+    } catch (e: Exception) {
+        emit(Resource.Error(message = "Упс! Что-то пошло не так."))
+    }
+}
+
+suspend inline fun <reified T> handleResponse(call: () -> Response<T>): Resource<T> {
+    try {
+        val response = call()
+        if (response.isSuccessful) {
+            val body = response.body()!!
+            return Resource.Success(body)
+        } else return response.parseError()
+    } catch (e: HttpException) {
+        return Resource.Error(message = "Упс! Что-то пошло не так.")
+    } catch (e: IOException) {
+        return Resource.Error(
             message = "Не удается соединиться с сервером, проверьте интернет подключение"
-        ))
+        )
+    } catch (e: Exception) {
+        return Resource.Error(message = "Упс! Что-то пошло не так.")
     }
 }
 

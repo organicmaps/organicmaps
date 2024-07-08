@@ -1,4 +1,4 @@
-package app.tourism.db.entities
+package app.tourism.data.db.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

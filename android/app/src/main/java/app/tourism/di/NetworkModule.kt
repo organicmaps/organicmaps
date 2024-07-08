@@ -6,7 +6,7 @@ import app.tourism.data.prefs.UserPreferences
 import app.tourism.data.remote.CurrencyApi
 import app.tourism.data.remote.TourismApi
 import app.tourism.data.repositories.CurrencyRepository
-import app.tourism.db.Database
+import app.tourism.data.db.Database
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

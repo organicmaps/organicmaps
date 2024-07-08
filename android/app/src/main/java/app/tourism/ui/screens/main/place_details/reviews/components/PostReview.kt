@@ -26,38 +26,56 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.organicmaps.R
 import app.tourism.Constants
+import app.tourism.domain.models.resource.Resource
+import app.tourism.ui.ObserveAsEvents
 import app.tourism.ui.common.ImagePicker
 import app.tourism.ui.common.VerticalSpace
 import app.tourism.ui.common.buttons.PrimaryButton
 import app.tourism.ui.common.special.RatingBar
 import app.tourism.ui.common.textfields.AppEditText
 import app.tourism.ui.screens.main.place_details.reviews.PostReviewViewModel
+import app.tourism.ui.screens.main.place_details.reviews.UiEvent
 import app.tourism.ui.theme.TextStyles
 import app.tourism.ui.theme.getBorderColor
+import app.tourism.ui.utils.showToast
 import app.tourism.utils.FileUtils
 import coil.compose.AsyncImage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
+import kotlin.math.roundToInt
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun PostReview(
+    placeId: Long,
     modifier: Modifier = Modifier,
+    onPostReviewSuccess: () -> Unit,
     postReviewVM: PostReviewViewModel = hiltViewModel(),
 ) {
     val scope = rememberCoroutineScope()
+    val focusManager = LocalFocusManager.current
     val context = LocalContext.current
 
     val rating = postReviewVM.rating.collectAsState().value
     val comment = postReviewVM.comment.collectAsState().value
     val files = postReviewVM.files.collectAsState().value
+
+    val postReviewResponse = postReviewVM.postReviewResponse.collectAsState().value
+
+    ObserveAsEvents(flow = postReviewVM.uiEventsChannelFlow) { event ->
+        when (event) {
+            UiEvent.CloseReviewBottomSheet -> onPostReviewSuccess()
+            is UiEvent.ShowToast -> context.showToast(event.message)
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -74,7 +92,10 @@ fun PostReview(
         ) {
             Text(text = stringResource(id = R.string.tap_to_rate), style = TextStyles.b3)
             VerticalSpace(height = 4.dp)
-            RatingBar(rating = rating, onRatingChanged = { postReviewVM.setRating(it) })
+            RatingBar(
+                rating = rating.roundToInt(),
+                onRatingChanged = { postReviewVM.setRating(it) },
+            )
         }
         VerticalSpace(height = 16.dp)
 
@@ -105,6 +126,7 @@ fun PostReview(
                             File(FileUtils(context).getPath(uri))
                         )
                     }
+                    focusManager.clearFocus()
                 }
             ) {
                 AddPhoto()
@@ -114,7 +136,8 @@ fun PostReview(
 
         PrimaryButton(
             label = stringResource(id = R.string.send),
-            onClick = { postReviewVM.postReview() },
+            onClick = { postReviewVM.postReview(placeId) },
+            isLoading = postReviewResponse is Resource.Loading
         )
         VerticalSpace(height = 64.dp)
     }

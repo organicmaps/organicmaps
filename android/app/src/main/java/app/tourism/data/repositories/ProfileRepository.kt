@@ -1,9 +1,11 @@
 package app.tourism.data.repositories
 
 import android.content.Context
+import app.tourism.data.dto.profile.LanguageDto
+import app.tourism.data.dto.profile.ThemeDto
 import app.tourism.data.prefs.UserPreferences
 import app.tourism.data.remote.TourismApi
-import app.tourism.data.remote.handleCall
+import app.tourism.data.remote.handleGenericCall
 import app.tourism.data.remote.toFormDataRequestBody
 import app.tourism.domain.models.profile.PersonalData
 import app.tourism.domain.models.resource.Resource
@@ -21,7 +23,7 @@ class ProfileRepository(
     @ApplicationContext private val context: Context
 ) {
     fun getPersonalData(): Flow<Resource<PersonalData>> = flow {
-        handleCall(
+        handleGenericCall(
             call = { api.getUser() },
             mapper = {
                 it.data.toPersonalData()
@@ -46,7 +48,7 @@ class ProfileRepository(
             val language = userPreferences.getLanguage()?.code
             val theme = userPreferences.getTheme()?.code
 
-            handleCall(
+            handleGenericCall(
                 call = {
                     api.updateProfile(
                         fullName = fullName.toFormDataRequestBody(),
@@ -63,7 +65,7 @@ class ProfileRepository(
 
     suspend fun updateLanguage(code: String) {
         try {
-            api.updateProfile(language = code.toFormDataRequestBody())
+            api.updateLanguage(language = LanguageDto(code))
         } catch (e: Exception) {
             println(e.message)
         }
@@ -71,7 +73,7 @@ class ProfileRepository(
 
     suspend fun updateTheme(code: String) {
         try {
-            api.updateProfile(theme = code.toFormDataRequestBody())
+            api.updateTheme(theme = ThemeDto(code))
         } catch (e: Exception) {
             println(e.message)
         }

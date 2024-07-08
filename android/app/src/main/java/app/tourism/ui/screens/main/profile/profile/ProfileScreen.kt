@@ -254,6 +254,7 @@ fun ThemeSwitch(modifier: Modifier = Modifier, themeVM: ThemeViewModel) {
             onCheckedChange = { isDark ->
                 val themeCode = if (isDark) "dark" else "light"
                 themeVM.setTheme(themeCode)
+                themeVM.updateThemeOnServer(themeCode)
             },
             colors = SwitchDefaults.colors(uncheckedTrackColor = MaterialTheme.colorScheme.background)
         )

@@ -1,4 +1,4 @@
-package app.tourism.ui.screens.main.home.home
+package app.tourism.ui.screens.main.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -100,12 +100,7 @@ fun HomeScreen(
                     modifier = Modifier.fillMaxWidth(),
                     query = query,
                     onQueryChanged = { homeVM.setQuery(it) },
-                    onSearchClicked = {
-                        // search field will be cleared only here
-                        // when it navigates to SearchScreen query value will be preserved there
-                        homeVM.clearSearchField()
-                        onSearchClick(it)
-                    },
+                    onSearchClicked = onSearchClick,
                     onClearClicked = { homeVM.clearSearchField() },
                 )
             }
@@ -121,7 +116,7 @@ fun HomeScreen(
                     onPlaceClick(item.id)
                 },
                 setFavoriteChanged = { item, isFavorite ->
-
+                    homeVM.setFavoriteChanged(item, isFavorite)
                 },
             )
             VerticalSpace(height = 24.dp)
@@ -133,7 +128,7 @@ fun HomeScreen(
                     onPlaceClick(item.id)
                 },
                 setFavoriteChanged = { item, isFavorite ->
-
+                    homeVM.setFavoriteChanged(item, isFavorite)
                 },
             )
 
@@ -192,7 +187,7 @@ private fun HorizontalPlaces(
                     Place(
                         place = it,
                         onPlaceClick = { onPlaceClick(it) },
-                        isFavorite = false,
+                        isFavorite = it.isFavorite,
                         onFavoriteChanged = { isFavorite ->
                             setFavoriteChanged(it, isFavorite)
                         },
@@ -226,7 +221,7 @@ private fun Place(
             .clickable { onPlaceClick() }
             .then(modifier),
     ) {
-        LoadImg(url = place.pic)
+        LoadImg(url = place.cover)
 
         Column(
             Modifier
@@ -241,6 +236,7 @@ private fun Place(
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
             )
+            VerticalSpace(height = 4.dp)
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(text = "%.1f".format(place.rating), style = textStyle)
                 HorizontalSpace(width = 2.dp)
@@ -263,7 +259,8 @@ private fun Place(
             },
         ) {
             Icon(
-                painterResource(id = if (isFavorite) R.drawable.heart_selected else R.drawable.heart),
+                modifier = Modifier.size(20.dp),
+                painter = painterResource(id = if (isFavorite) R.drawable.heart_selected else R.drawable.heart),
                 contentDescription = stringResource(id = R.string.add_to_favorites),
                 tint = Color.White,
             )

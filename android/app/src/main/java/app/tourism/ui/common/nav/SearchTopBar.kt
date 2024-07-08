@@ -23,7 +23,7 @@ fun SearchTopBar(
     modifier: Modifier = Modifier,
     query: String,
     onQueryChanged: (String) -> Unit,
-    onSearchClicked: (String) -> Unit,
+    onSearchClicked: ((String) -> Unit)? = null,
     onClearClicked: () -> Unit,
     onBackClicked: () -> Unit
 ) {
@@ -60,7 +60,7 @@ fun SearchTopBar(
                     )
                 }
         },
-        keyboardActions = KeyboardActions(onSearch = { onSearchClicked(query) }),
+        keyboardActions = KeyboardActions(onSearch = { onSearchClicked?.invoke(query) }),
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
         colors = TextFieldDefaults.colors(
             focusedContainerColor = MaterialTheme.colorScheme.background,

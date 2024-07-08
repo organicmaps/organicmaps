@@ -29,7 +29,7 @@ fun AppSearchBar(
     modifier: Modifier = Modifier,
     query: String,
     onQueryChanged: (String) -> Unit,
-    onSearchClicked: (String) -> Unit,
+    onSearchClicked: ((String) -> Unit)? = null,
     onClearClicked: () -> Unit,
 ) {
     var isActive by remember { mutableStateOf(false) }
@@ -51,7 +51,7 @@ fun AppSearchBar(
         singleLine = true,
         maxLines = 1,
         leadingIcon = {
-            IconButton(onClick = { onSearchClicked(query) }) {
+            IconButton(onClick = { onSearchClicked?.invoke(query) }) {
                 Icon(
                     painter = painterResource(id = R.drawable.search),
                     contentDescription = searchLabel,
@@ -69,7 +69,7 @@ fun AppSearchBar(
                 }
         },
         shape = RoundedCornerShape(16.dp),
-        keyboardActions = KeyboardActions(onSearch = { onSearchClicked(query) }),
+        keyboardActions = KeyboardActions(onSearch = { onSearchClicked?.invoke(query) }),
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
         colors = TextFieldDefaults.colors(
             focusedContainerColor = MaterialTheme.colorScheme.surface,

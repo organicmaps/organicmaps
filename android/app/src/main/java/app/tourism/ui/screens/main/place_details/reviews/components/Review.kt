@@ -55,7 +55,8 @@ import app.tourism.ui.theme.getHintColor
 fun Review(
     modifier: Modifier = Modifier,
     review: Review,
-    onMoreClick: (picsUrls: List<String>) -> Unit
+    onMoreClick: (picsUrls: List<String>) -> Unit,
+    onDeleteClick: ((reviewId: Long) -> Unit)? = null,
 ) {
     Column {
         HorizontalDivider(color = MaterialTheme.colorScheme.surface)
@@ -73,9 +74,9 @@ fun Review(
         }
         VerticalSpace(height = 16.dp)
 
-        review.rating?.let {
+        review.rating.let {
             RatingBar(
-                rating = it.toFloat(),
+                rating = it,
                 size = 24.dp,
             )
             VerticalSpace(height = 16.dp)
@@ -128,9 +129,14 @@ fun User(modifier: Modifier = Modifier, user: User) {
         )
         HorizontalSpace(width = 8.dp)
         Column {
-
-            Text(text = user.name, style = TextStyles.h4, fontWeight = FontWeight.W600)
-            user.countryCodeName?.let {
+            Text(
+                text = user.name,
+                style = TextStyles.h4,
+                fontWeight = FontWeight.W600,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+            user.countryCodeName.let {
                 CountryAsLabel(
                     Modifier.fillMaxWidth(),
                     user.countryCodeName,

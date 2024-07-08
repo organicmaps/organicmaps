@@ -1,6 +1,7 @@
 package app.tourism.ui.screens.main.place_details.reviews
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -28,6 +29,10 @@ fun ReviewsNavigation(
     val onBackClick: () -> Unit = { navController.navigateUp() }
     val onMoreClick: (picsUrls: List<String>) -> Unit = {
         navController.navigate(ReviewPics(urls = it))
+    }
+
+    LaunchedEffect(Unit) {
+        reviewsVM.getReviews(placeId)
     }
 
     NavHost(navController = navController, startDestination = Reviews) {

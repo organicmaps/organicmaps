@@ -2,6 +2,7 @@ package app.tourism.ui.screens.main.categories.categories
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,7 +28,7 @@ fun HorizontalSingleChoice(
     unselectedColor: Color = MaterialTheme.colorScheme.background,
     itemModifier: Modifier = Modifier,
 ) {
-    Row(Modifier.then(modifier)) {
+    Row(Modifier.then(modifier), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
         items.forEach {
             SingleChoiceItem(
                 modifier = itemModifier,
@@ -39,7 +40,6 @@ fun HorizontalSingleChoice(
                 selectedColor = selectedColor,
                 unselectedColor = unselectedColor
             )
-            HorizontalSpace(width = 12.dp)
         }
     }
 }

@@ -7,7 +7,9 @@ import app.tourism.data.remote.TourismApi
 import app.tourism.data.repositories.AuthRepository
 import app.tourism.data.repositories.CurrencyRepository
 import app.tourism.data.repositories.ProfileRepository
-import app.tourism.db.Database
+import app.tourism.data.db.Database
+import app.tourism.data.repositories.PlacesRepository
+import app.tourism.data.repositories.ReviewsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,6 +25,27 @@ object RepositoriesModule {
     fun provideAuthRepository(api: TourismApi): AuthRepository {
         return AuthRepository(api)
     }
+
+    @Provides
+    @Singleton
+    fun providePlacesRepository(
+        api: TourismApi,
+        db: Database,
+        @ApplicationContext context: Context,
+    ): PlacesRepository {
+        return PlacesRepository(api, db, context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideReviewsRepository(
+        api: TourismApi,
+        db: Database,
+        @ApplicationContext context: Context,
+    ): ReviewsRepository {
+        return ReviewsRepository(api, db)
+    }
+
 
     @Provides
     @Singleton

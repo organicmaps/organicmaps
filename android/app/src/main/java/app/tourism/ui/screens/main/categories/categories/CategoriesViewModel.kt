@@ -1,19 +1,29 @@
 package app.tourism.ui.screens.main.categories.categories
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
-import app.tourism.Constants
+import androidx.lifecycle.viewModelScope
+import app.organicmaps.R
+import app.tourism.data.repositories.PlacesRepository
+import app.tourism.domain.models.categories.PlaceCategory
 import app.tourism.domain.models.common.PlaceShort
+import app.tourism.domain.models.resource.Resource
 import app.tourism.ui.models.SingleChoiceItem
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CategoriesViewModel @Inject constructor(
+    @ApplicationContext context: Context,
+    private val placesRepository: PlacesRepository,
 ) : ViewModel() {
     private val uiChannel = Channel<UiEvent>()
     val uiEventsChannelFlow = uiChannel.receiveAsFlow()
@@ -24,10 +34,6 @@ class CategoriesViewModel @Inject constructor(
 
     fun setQuery(value: String) {
         _query.value = value
-    }
-
-    fun search(value: String) {
-        // todo
     }
 
     fun clearSearchField() {
@@ -51,30 +57,34 @@ class CategoriesViewModel @Inject constructor(
     val places = _places.asStateFlow()
 
     fun setFavoriteChanged(item: PlaceShort, isFavorite: Boolean) {
-        // todo
+        viewModelScope.launch(Dispatchers.IO) {
+            placesRepository.setFavorite(item.id, isFavorite)
+        }
+    }
+
+    private fun onCategoryChangeGetPlaces() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _selectedCategory.collectLatest { item ->
+                item?.key?.let { id ->
+                    val categoryId = id as Long
+                    placesRepository.getPlacesByCategory(categoryId).collectLatest { resource ->
+                        if (resource is Resource.Success) {
+                            resource.data?.let { _places.value = it }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     init {
-        // todo replace with real data
-        _selectedCategory.value = SingleChoiceItem("sights", "Sights")
         _categories.value = listOf(
-            SingleChoiceItem("sights", "Sights"),
-            SingleChoiceItem("restaurants", "Restaurants"),
-            SingleChoiceItem("hotels", "Hotels"),
+            SingleChoiceItem(PlaceCategory.Sights.id, context.getString(R.string.sights)),
+            SingleChoiceItem(PlaceCategory.Restaurants.id, context.getString(R.string.restaurants)),
+            SingleChoiceItem(PlaceCategory.Hotels.id, context.getString(R.string.hotels)),
         )
-        val dummyData = mutableListOf<PlaceShort>()
-        repeat(15) {
-            dummyData.add(
-                PlaceShort(
-                    id = it.toLong(),
-                    name = "Гора Эмина",
-                    pic = Constants.IMAGE_URL_EXAMPLE,
-                    rating = 5.0,
-                    excerpt = "завтрак включен, бассейн, сауна, с видом на озеро"
-                )
-            )
-        }
-        _places.update { dummyData }
+        _selectedCategory.value = categories.value.first()
+        onCategoryChangeGetPlaces()
     }
 }
 

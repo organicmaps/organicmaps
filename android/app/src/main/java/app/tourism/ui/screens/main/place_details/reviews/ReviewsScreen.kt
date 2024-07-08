@@ -38,6 +38,7 @@ import app.tourism.ui.theme.TextStyles
 import app.tourism.ui.theme.getStarColor
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -93,7 +94,7 @@ fun ReviewsScreen(
                             Text(text = stringResource(id = R.string.compose_review))
                         }
 
-                        RatingBar(rating = it.toFloat())
+                        RatingBar(rating = it.roundToInt())
                     }
                     VerticalSpace(height = 24.dp)
 
@@ -111,13 +112,18 @@ fun ReviewsScreen(
 
         userReview?.let {
             item {
-                Review(review = userReview, onMoreClick = onMoreClick)
+                Review(
+                    review = userReview,
+                    onMoreClick = onMoreClick,
+                    onDeleteClick = {}
+                )
             }
         }
 
-        items(3) {
-            Review(review = reviews[it], onMoreClick = onMoreClick)
-        }
+        if (reviews.firstOrNull() != null)
+            item {
+                Review(review = reviews[0], onMoreClick = onMoreClick)
+            }
     }
 
     if (showReviewBottomSheet)
@@ -126,6 +132,11 @@ fun ReviewsScreen(
             containerColor = MaterialTheme.colorScheme.background,
             onDismissRequest = { showReviewBottomSheet = false },
         ) {
-            PostReview()
+            PostReview(
+                placeId,
+                onPostReviewSuccess = {
+                    showReviewBottomSheet = false
+                },
+            )
         }
 }

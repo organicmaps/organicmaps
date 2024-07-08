@@ -22,9 +22,9 @@ import app.tourism.ui.theme.TextStyles
 @Composable
 fun PlaceTabRow(modifier: Modifier = Modifier, tabIndex: Int, onTabIndexChanged: (Int) -> Unit) {
     val tabs = listOf(
-        SingleChoiceItem("0", stringResource(id = R.string.description_tourism)),
-        SingleChoiceItem("1", stringResource(id = R.string.gallery)),
-        SingleChoiceItem("2", stringResource(id = R.string.reviews)),
+        SingleChoiceItem(0, stringResource(id = R.string.description_tourism)),
+        SingleChoiceItem(1, stringResource(id = R.string.gallery)),
+        SingleChoiceItem(2, stringResource(id = R.string.reviews)),
     )
 
     val shape = RoundedCornerShape(50.dp)
@@ -40,12 +40,9 @@ fun PlaceTabRow(modifier: Modifier = Modifier, tabIndex: Int, onTabIndexChanged:
         tabs.forEach {
             SingleChoiceItem(
                 item = it,
-                isSelected = it.key?.toInt() == tabIndex,
+                isSelected = it.key == tabIndex,
                 onClick = {
-                    val key = it.key?.toInt()
-                    if (key != null) {
-                        onTabIndexChanged(key)
-                    }
+                    onTabIndexChanged(it.key as Int)
                 },
             )
         }

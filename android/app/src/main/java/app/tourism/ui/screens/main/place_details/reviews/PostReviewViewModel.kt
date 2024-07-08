@@ -1,17 +1,30 @@
 package app.tourism.ui.screens.main.place_details.reviews
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import app.organicmaps.R
+import app.tourism.data.repositories.ReviewsRepository
+import app.tourism.domain.models.SimpleResponse
+import app.tourism.domain.models.details.ReviewToPost
+import app.tourism.domain.models.resource.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
 class PostReviewViewModel @Inject constructor(
+    @ApplicationContext private val context: Context,
+    private val reviewsRepository: ReviewsRepository
 ) : ViewModel() {
     private val uiChannel = Channel<UiEvent>()
     val uiEventsChannelFlow = uiChannel.receiveAsFlow()
@@ -51,7 +64,31 @@ class PostReviewViewModel @Inject constructor(
         }
     }
 
-    fun postReview() {
+    private val _postReviewResponse = MutableStateFlow<Resource<SimpleResponse>?>(null)
+    val postReviewResponse = _postReviewResponse.asStateFlow()
 
+    fun postReview(id: Long) {
+        viewModelScope.launch(Dispatchers.Unconfined) {
+            reviewsRepository.postReview(
+                ReviewToPost(
+                    placeId = id,
+                    comment = _comment.value,
+                    rating = _rating.value.toInt(),
+                    images = _files.value
+                )
+            ).collectLatest {
+                _postReviewResponse.value = it
+                if (it is Resource.Success) {
+                    uiChannel.send(
+                        UiEvent.ShowToast(it.message ?: context.getString(R.string.great_success))
+                    )
+                    uiChannel.send(UiEvent.CloseReviewBottomSheet)
+                } else if (it is Resource.Error) {
+                    uiChannel.send(
+                        UiEvent.ShowToast(it.message ?: context.getString(R.string.smth_went_wrong))
+                    )
+                }
+            }
+        }
     }
 }

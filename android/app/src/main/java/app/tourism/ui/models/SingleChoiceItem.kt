@@ -1,6 +1,6 @@
 package app.tourism.ui.models
 
 data class SingleChoiceItem(
-    val key: String?,
+    val key: Any,
     val label: String
 )

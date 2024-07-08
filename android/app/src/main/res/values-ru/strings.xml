@@ -2208,7 +2208,7 @@
 	<string name="chose_language">Выберите язык</string>
 	<string name="retry">Попробовать заново</string>
 	<string name="no_network">Не удается соединиться с сервером, проверьте интернет подключение</string>
-  <string name="no_image">Нет изображения</string>
+  <string name="no_image">Нет фото</string>
   <string name="tjk">Таджикистан</string>
 	<string name="clear_search_field">Очистить поле поиска</string>
   <string name="top30">Топ-30 мест</string>
@@ -2220,4 +2220,5 @@
 	<string name="passwords_not_same">Пароли не схожи</string>
 	<string name="wrong_email_format">Неправильный формат имейла</string>
 	<string name="saved">Сохранено</string>
+	<string name="great_success">Мне нраится😄</string>
 </resources>

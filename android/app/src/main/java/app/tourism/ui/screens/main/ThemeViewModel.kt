@@ -21,6 +21,9 @@ class ThemeViewModel @Inject constructor(
     fun setTheme(themeCode: String) {
         _theme.value = userPreferences.themes.first { it.code == themeCode }
         userPreferences.setTheme(themeCode)
+    }
+
+    fun updateThemeOnServer(themeCode: String){
         viewModelScope.launch {
             profileRepository.updateTheme(themeCode)
         }

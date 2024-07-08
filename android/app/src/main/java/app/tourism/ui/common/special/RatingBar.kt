@@ -17,7 +17,7 @@ import app.tourism.ui.theme.getStarColor
 
 @Composable
 fun RatingBar(
-    rating: Float,
+    rating: Int,
     size: Dp = 30.dp,
     maxRating: Int = 5,
     onRatingChanged: ((Float) -> Unit)? = null,

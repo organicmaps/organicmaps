@@ -10,6 +10,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -37,14 +38,18 @@ fun PlaceDetailsScreen(
 
     val place = placeVM.place.collectAsState().value
 
+    LaunchedEffect(true) {
+        placeVM.observePlace(id)
+    }
+
     Scaffold(
         topBar = {
             place?.let {
                 PlaceTopBar(
                     title = it.name,
-                    picUrl = it.pic,
+                    picUrl = it.cover,
                     isFavorite = it.isFavorite,
-                    onFavoriteChanged = { placeVM.setFavoriteChanged(id, it) },
+                    onFavoriteChanged = { isFavorite -> placeVM.setFavoriteChanged(id, isFavorite) },
                     onMapClick = onMapClick,
                     onBackClick = onBackClick,
                 )
@@ -57,7 +62,7 @@ fun PlaceDetailsScreen(
                 val pagerState = rememberPagerState(pageCount = { 3 })
 
                 VerticalSpace(height = 16.dp)
-                Box(modifier = Modifier.padding(horizontal = Constants.SCREEN_PADDING)){
+                Box(modifier = Modifier.padding(horizontal = Constants.SCREEN_PADDING)) {
                     PlaceTabRow(
                         tabIndex = pagerState.currentPage,
                         onTabIndexChanged = {
@@ -79,7 +84,7 @@ fun PlaceDetailsScreen(
                             DescriptionScreen(
                                 description = place.description,
                                 onCreateRoute = {
-                                    place.placeLocation?.let { onCreateRoute(it) }
+                                    onCreateRoute(place.placeLocation)
                                 },
                             )
                         }

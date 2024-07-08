@@ -1,17 +1,13 @@
 package app.tourism.data.repositories
 
+import app.tourism.data.db.Database
 import app.tourism.data.dto.currency.CurrenciesList
 import app.tourism.data.remote.CurrencyApi
-import app.tourism.data.remote.handleCall
-import app.tourism.db.Database
+import app.tourism.data.remote.handleGenericCall
 import app.tourism.domain.models.profile.CurrencyRates
 import app.tourism.domain.models.resource.Resource
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kotlin.Double.Companion.NaN
 
 class CurrencyRepository(private val api: CurrencyApi, private val db: Database) {
@@ -22,7 +18,7 @@ class CurrencyRepository(private val api: CurrencyApi, private val db: Database)
             emit(Resource.Success(it.toCurrencyRates()))
         }
 
-        handleCall(
+        handleGenericCall(
             call = { api.getCurrency() },
             mapper = {
                 val currencyRates = getCurrencyRatesFromXml(it)

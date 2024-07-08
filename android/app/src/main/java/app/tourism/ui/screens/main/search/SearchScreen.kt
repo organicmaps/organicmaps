@@ -1,4 +1,4 @@
-package app.tourism.ui.screens.main.home.search
+package app.tourism.ui.screens.main.search
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
@@ -30,6 +30,7 @@ import app.tourism.ui.theme.TextStyles
 @Composable
 fun SearchScreen(
     onPlaceClick: (id: Long) -> Unit,
+    onBackClick: () -> Unit,
     onMapClick: () -> Unit,
     queryArg: String,
     searchVM: SearchViewModel = hiltViewModel()
@@ -53,6 +54,7 @@ fun SearchScreen(
                         onClick = onMapClick
                     ),
                 ),
+                onBackClick = onBackClick
             )
         },
         contentWindowInsets = Constants.USUAL_WINDOW_INSETS
@@ -66,7 +68,6 @@ fun SearchScreen(
                         modifier = Modifier.fillMaxWidth(),
                         query = query,
                         onQueryChanged = { searchVM.setQuery(it) },
-                        onSearchClicked = { searchVM.search(it) },
                         onClearClicked = { searchVM.clearSearchField() },
                     )
                     VerticalSpace(height = 16.dp)

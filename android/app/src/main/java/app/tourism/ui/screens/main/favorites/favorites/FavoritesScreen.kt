@@ -1,9 +1,11 @@
 package app.tourism.ui.screens.main.favorites.favorites
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -30,6 +32,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun FavoritesScreen(
     onPlaceClick: (id: Long) -> Unit,
@@ -51,9 +54,11 @@ fun FavoritesScreen(
                         modifier = Modifier.focusRequester(focusRequester),
                         query = query,
                         onQueryChanged = { favoritesVM.setQuery(it) },
-                        onSearchClicked = { favoritesVM.search(it) },
                         onClearClicked = { favoritesVM.clearSearchField() },
-                        onBackClicked = { isSearchActive = false },
+                        onBackClicked = {
+                            isSearchActive = false
+                            favoritesVM.setQuery("")
+                        },
                     )
                 }
             } else {
@@ -83,8 +88,8 @@ fun FavoritesScreen(
                 VerticalSpace(16.dp)
             }
 
-            items(places) { item ->
-                Column {
+            items(places, key = { it.id }) { item ->
+                Column(Modifier.animateItem()) {
                     PlacesItem(
                         place = item,
                         onPlaceClick = { onPlaceClick(item.id) },

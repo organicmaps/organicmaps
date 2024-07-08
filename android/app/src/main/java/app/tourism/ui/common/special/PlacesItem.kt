@@ -50,9 +50,12 @@ fun PlacesItem(
             .clickable { onPlaceClick() }
             .then(modifier)
     ) {
-        LoadImg(modifier = Modifier
-            .size(height)
-            .clip(shape), url = place.pic)
+        LoadImg(
+            modifier = Modifier
+                .size(height)
+                .clip(shape),
+            url = place.cover,
+        )
         Column(
             Modifier
                 .fillMaxHeight(0.9f)

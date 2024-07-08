@@ -1,17 +1,27 @@
 package app.tourism.data.remote
 
+import app.tourism.data.dto.AllDataDto
+import app.tourism.data.dto.CategoryDto
+import app.tourism.data.dto.FavoritesDto
 import app.tourism.data.dto.auth.AuthResponseDto
+import app.tourism.data.dto.place.ReviewDto
+import app.tourism.data.dto.profile.LanguageDto
+import app.tourism.data.dto.profile.ThemeDto
 import app.tourism.data.dto.profile.UserData
 import app.tourism.domain.models.SimpleResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
+import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Part
+import retrofit2.http.Path
 
 interface TourismApi {
     // region auth
@@ -52,6 +62,50 @@ interface TourismApi {
         @Part("_method") _method: RequestBody? = "PUT".toFormDataRequestBody(),
         @Part avatar: MultipartBody.Part? = null
     ): Response<UserData>
+
+    @PUT("profile/lang")
+    suspend fun updateLanguage(@Body language: LanguageDto): Response<UserData>
+
+    @PUT("profile/theme")
+    suspend fun updateTheme(@Body theme: ThemeDto): Response<UserData>
     // endregion profile
 
+    // region places
+    @GET("marks/{id}")
+    suspend fun getPlacesByCategory(@Path("id") id: Long): Response<CategoryDto>
+
+    @GET("marks/all")
+    suspend fun getAllPlaces(): Response<AllDataDto>
+    // endregion places
+
+    // region favorites
+    @GET("favourite-marks")
+    suspend fun getFavorites(): Response<FavoritesDto>
+
+    @POST("favourite-marks")
+    suspend fun addFavorites(@Body ids: List<Long>): Response<SimpleResponse>
+
+    @DELETE("favourite-marks")
+    suspend fun removeFromFavorites(@Body ids: List<Long>): Response<SimpleResponse>
+    // endregion favorites
+
+    // region reviews
+    @GET("feedbacks/{id}")
+    suspend fun getReviewsByPlaceId(id: Long): Response<List<ReviewDto>>
+
+    @Multipart
+    @POST("feedbacks")
+    suspend fun postReview(
+        @Part("message") comment: RequestBody? = null,
+        @Part("mark_id") placeId: RequestBody? = null,
+        @Part("points") points: RequestBody? = null,
+        @Part images: List<MultipartBody.Part>? = null
+    ): Response<SimpleResponse>
+
+    @DELETE("feedbacks/{mark_id}")
+    suspend fun deleteReview(
+        @Path("mark_id") placeId: Long,
+        @Body reviewsIds: List<Long>,
+    ): Response<SimpleResponse>
+    // endregion reviews
 }

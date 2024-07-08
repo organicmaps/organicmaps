@@ -1,7 +1,7 @@
 package app.tourism.data.repositories
 
 import app.tourism.data.remote.TourismApi
-import app.tourism.data.remote.handleCall
+import app.tourism.data.remote.handleGenericCall
 import app.tourism.domain.models.SimpleResponse
 import app.tourism.domain.models.auth.AuthResponse
 import app.tourism.domain.models.auth.RegistrationData
@@ -11,14 +11,14 @@ import kotlinx.coroutines.flow.flow
 
 class AuthRepository(private val api: TourismApi) {
     fun signIn(email: String, password: String): Flow<Resource<AuthResponse>> = flow {
-        handleCall(
+        handleGenericCall(
             call = { api.signIn(email, password) },
             mapper = { it.toAuthResponse() }
         )
     }
 
     fun signUp(registrationData: RegistrationData) = flow {
-        handleCall(
+        handleGenericCall(
             call = {
                 api.signUp(
                     registrationData.fullName,
@@ -33,7 +33,7 @@ class AuthRepository(private val api: TourismApi) {
     }
 
     fun signOut(): Flow<Resource<SimpleResponse>> = flow {
-        handleCall(
+        handleGenericCall(
             call = { api.signOut() },
             mapper = { it }
         )
