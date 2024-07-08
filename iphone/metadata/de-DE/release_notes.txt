@@ -2,13 +2,13 @@
 • Feste Textanzeige in indischen (Devanagari, Bengali, Gujarati, Gurmukhi, Kannada, Malayalam, Oriya, Tamil, Telugu), arabischen (N'ko, Syrisch, Mongolisch), thailändischen und laotischen, Khmer, Myanmar, tibetischen, Hangul und hebräischen Sprachen
 • Neue Schriftarten für die Sprachen Malayalam und Bengali
 
-• Durch normales Tippen auf die Karte können Sie jetzt einen beliebigen Punkt auswählen, auch wenn die Karte leer ist.
-• Langes Drücken auf die Karte schaltet in den Vollbildmodus.
+• Einfaches Antippen auf die Karte können Sie jetzt einen beliebigen Punkt auswählen, auch wenn die Karte leer ist
+• Langes Antippen auf die Karte schaltet in den Vollbildmodus
 
-• OpenStreetMap-Daten ab dem 2. Juli
+• OpenStreetMap-Daten vom 2. Juli
 • Ausgewählter Ort zeigt jetzt eine vollständige Liste der Objekttypen (Kategorien) an diesem Ort
 • Versehentlich gelöschte Markierungen auf der Karte können nun sofort wiederhergestellt werden (die Schaltfläche "Speichern" ändert sich in "Wiederherstellen")
-• KML-, KMZ- und GPX-Dateien können über die Schaltfläche "Importieren" im Dialogfeld "Beschriftungen und Tracks" importiert werden (Beschriftungen und Tracks können auch importiert werden, indem sie aus einer anderen Anwendung "freigegeben" und dann "Mit Organic Maps öffnen" ausgewählt werden).
+• KML-, KMZ- und GPX-Dateien können über die Schaltfläche "Importieren" im Dialogfeld "Beschriftungen und Tracks" importiert werden (Beschriftungen und Tracks können auch importiert werden, indem sie aus einer anderen Anwendung "freigegeben" und dann "Mit Organic Maps öffnen" ausgewählt werden)
 • Der Import von KML-, KMZ- und GPX-Dateien über die Dateien-App beim ersten Start der App wurde korrigiert.
 • In den Navigationseinstellungen wurde eine Schaltfläche zur Überprüfung auf Sprachanweisungen (TTS) hinzugefügt
 • Sie können jetzt in den Einstellungen die Protokollierung aktivieren, um uns bei der Fehlersuche zu helfen
