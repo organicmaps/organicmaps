@@ -1,4 +1,4 @@
-• Better address search in the USA based on US Censor TIGER data
+• Better address search in the USA based on US Census TIGER data
 • Fixed rendering of texts in Indic, Arabic, Thai, Lao, Khmer, Myanmar, Tibetan, Hangul, Hebrew scripts
 • OSM data as of July 2
 • Single tap selects any point on the map, long tap toggles full-screen mode
