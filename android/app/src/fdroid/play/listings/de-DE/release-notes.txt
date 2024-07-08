@@ -1,8 +1,7 @@
-• OpenStreetMap-Daten, Stand: 28. Mai
-• Suche nach US-Postleitzahlen und UK (GB)-Postleitzahlen
-• Ansagen von Straßennamen in verbalen TTS-Abbiegeanweisungen (bitte in den Einstellungen aktivieren)
-• Lesezeichen und Tracks im GPX-Dateiformat exportieren
-• Speichern von Lesezeichen und Tracks auf einem lokalen Gerät
-• Hinzufügen, Bearbeiten und Anzeigen von Weblinks zu Speisekarten von Restaurants, Bars und anderen gastronomischen Betrieben
-
-…mehr Details unter omaps.org/de/news
+• Bessere Adressensuche in den USA
+• Korrigierte Darstellung von Texten in indischer, arabischer, thailändischer, laotischer, khmerischer, myanmarischer, tibetischer, hangulischer und hebräischer Schrift
+• OSM-Daten vom 2. Juli
+• Einfaches Antippen wählt einen beliebigen Punkt auf der Karte, langes Antippen schaltet in den Vollbildmodus um
+• Versehentlich auf der Karte gelöschte Lesezeichen können wiederhergestellt werden
+• GPX Import Problem aus WhatsApp behoben
+…mehr Details omaps.org/de/news

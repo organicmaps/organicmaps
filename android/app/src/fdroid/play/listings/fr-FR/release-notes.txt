@@ -1,7 +1,8 @@
-• Données OpenStreetMap en date du 28 mai
-• recherche de codes postaux américains et britanniques (GB)
-• annonce des noms de rue dans les instructions verbales de changement de direction (veuillez l'activer dans les paramètres)
-• exporter les signets et les traces au format GPX et les enregistrer localement
-• ajouter, modifier et afficher des liens web vers des menus de restaurants, de bars et d'autres services de restauration
+• Amélioration de la recherche d'adresses aux États-Unis
+• Correction du rendu des textes en alphabet indien, arabe, thaï, lao, khmer, myanmar, tibétain, hangul et hébreu
+• Données OSM à partir du 2 juillet
+• Une simple pression permet de sélectionner n'importe quel point de la carte, une pression prolongée permet de basculer en mode plein écran
+• Correction de l'importation GPX depuis WhatsApp
+• Afficher plus de catégories pour un POI sélectionné
 
 …plus de détails sur omaps.org/fr/news

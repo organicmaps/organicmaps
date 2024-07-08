@@ -1,18 +1,35 @@
-• iCloud bookmarks and tracks synchronization (EXPERIMENTAL, please enable it in settings)
-• street name announcements in verbal TTS turn instructions (EXPERIMENTAL, please enable it in settings) 
-• use the map when CarPlay is connected
-• search for US zip codes and UK (GB) postcodes
-• export bookmarks and tracks in GPX file format
-• new OpenStreetMap data as of May 28
-• add, edit, and display web links to menus of restaurants, bars, and food services
-• fix missing addresses in fitness centers details
-• add "pastry" and "cakes" search keywords
-• fix Wikipedia links that contain a question mark
-• fix CarPlay text color in dark mode
-• more TTS voice options
-• TTS turn announcements interrupt podcasts instead of ducking them
-• fix some buttons that disappeared when adding a place to the map
-• fix place details not updated after a bookmark's edit
-• fix the non-business hours button in the Editor to work after midnight
+• Beter zoeken naar adressen in de VS op basis van TIGER-gegevens (Topologically Integrated Geographic Encoding and Referencing system). Kaartgrootte voor de VS is toegenomen van 10Gb tot 13Gb (inclusief Wikipedia en hoogtegegevens)
+• Vaste weergave van teksten in Indic (waaronder Devanagari, Bengali, Gujarati, Gurmukhi, Kannada, Malayalam, Oriya, Tamil, Telugu), Arabisch (N'Ko, Syrisch, Mongools), Thai en Lao, Khmer, Myanmar, Tibetaans, Hangul, Hebreeuws schrift.
+• Nieuwe lettertypen voor Malayalam en Bengaals
 
-Updated Czech, German, Portuguese translations.
+• Eén keer tikken selecteert nu elk punt op de kaart, zelfs als de kaart leeg is
+• Veranderd: lang tikken wisselt nu volledig-schermmodus
+• OpenStreetMap-gegevens vanaf 2 juli
+• Een geselecteerde plaats toont nu meer soorten/categorieën/kenmerken
+• Per ongeluk verwijderde bladwijzer op de kaart kan nu onmiddellijk worden hersteld (knop Opslaan verandert in Herstellen)
+• Gebruik de knop Importeren in het dialoogvenster Bladwijzers en tracks om KML-, KMZ- en GPX-bestanden te laden (bladwijzers en tracks kunnen ook worden geïmporteerd door ze te "delen" vanuit een andere app en vervolgens te kiezen voor "Openen met Organic Maps")
+• Fix voor het importeren van bestanden via de Bestanden-app bij een koude start
+• Een TTS-stemtestknop toegevoegd in de navigatie-instellingen
+• Logboeken ingeschakeld in instellingen om ons te helpen bij het oplossen van bugs
+• Links naar sociale media openen nu in geïnstalleerde toepassingen
+• Een niet-werkende verkeersknop uit CarPlay verwijderd
+• Cirkelvormige checkbox vervangen door een afgeronde rechthoek in de tijd-editor
+
+Stijlen:
+• Achtergrondkleur in donkere modus opstarten gecorrigeerd
+• Grote wegen worden eerder op de wereldoverzichtskaart getoond
+• Duidelijker label voor POI's gebouwniveau
+• Weergave van voetpaden van goede kwaliteit met fijn grind als witte streepjes
+• Ondersteunt meer soorten weg-/padoppervlakken (stenen, gras, bestrating, aarde)
+• Duidelijkere hints bij het bouwen van een route
+
+Zoeken:
+• Zoeken op bergen toont ook vulkanen
+• Betere zoekresultaten voor verre plaatsen
+• Zoeken vindt nu plaatsen met een nummer in hun naam
+• Pakketkluisjes vinden met behulp van hun referentienummer
+
+Vertalingen:
+• Bijgewerkte vertalingen in het Wit-Russisch, Chinees, Nederlands, Euskara, Hongaars, Pools, Portugees, Russisch, Oekraïens.
+
+Lees meer details op https://omaps.org/nl/news

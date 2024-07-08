@@ -1,8 +1,9 @@
-• OpenStreetMap data as of May 28
-• search for US zip codes and UK (GB) postcodes
-• street name announcements in verbal TTS turn instructions (please enable it in settings), thanks to Will Bradley
-• export bookmarks and tracks in GPX file format
-• save bookmarks and tracks to a local device storage
-• add, edit, and display web links to menus of restaurants, bars, and other food services
+• Покращено пошук адрес у США
+• Коректно малюються тексти мовами Індії, арабською, тайською, лао, кхмерською, м'янма, тибетською, хангул, івритом
+• Дані OSM за 2 липня
+• Звичайне натискання вибирає будь-яке місце на карті, довге натискання перемикає повноекранний режим
+• Випадково видалена мітка на карті тепер може бути відновлена
+• Виправлено імпорт GPX з WhatsApp
+• Під час вибору місця тепер відображаються всі його категорії (типи)
 
-…more details at omaps.org/news
+…і багато іншого на omaps.org/uk/news

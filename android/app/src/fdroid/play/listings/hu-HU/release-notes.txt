@@ -1,8 +1,9 @@
-• OpenStreetMap data as of May 28
-• search for US zip codes and UK (GB) postcodes
-• street name announcements in verbal TTS turn instructions (please enable it in settings), thanks to Will Bradley
-• export bookmarks and tracks in GPX file format
-• save bookmarks and tracks to a local device storage
-• add, edit, and display web links to menus of restaurants, bars, and other food services
+• Javított címkeresés az USA -ban
+• Javítottuk a szövegek renderelését indiai, arab, thai, laoszi, khmer, mianmari, tibeti, hangul és héber nyelveken
+• Július 2-i OSM adatok
+• Egy érintéssel már bármilyen pontot kiválaszthat a térképen, a hosszú érintés teljes képernyős nézetet kapcsol be
+• A véletlenül kitörölt könyvjelzők már visszaállíthatóak
+• A GPX fájlok WhatsApp-ból való importálását kijavítottuk
+• Több kategória megjelenítése egy kiválasztott POI-hoz
 
-…more details at omaps.org/news
+…több: omaps.org/hu/news
