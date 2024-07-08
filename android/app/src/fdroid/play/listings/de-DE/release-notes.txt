@@ -4,5 +4,4 @@
 • Einfaches Antippen wählt einen beliebigen Punkt auf der Karte, langes Antippen schaltet in den Vollbildmodus um
 • Versehentlich auf der Karte gelöschte Lesezeichen können wiederhergestellt werden
 • GPX Import Problem aus WhatsApp behoben
-
-…mehr Details unter omaps.org/de/news
+…mehr Details omaps.org/de/news
