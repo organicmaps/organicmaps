@@ -220,14 +220,20 @@
 	<string name="prefs_group_route">Навігація</string>
 	<string name="pref_zoom_title">Кнопки трансфокації</string>
 	<string name="pref_zoom_summary">Відображення на екрані</string>
-	<!-- Settings «Map» category: «Night style» title -->
-	<string name="pref_map_style_title">Нічний режим</string>
+	<!-- Settings «Map» category: «Appearance» title -->
+	<string name="pref_map_style_title">Вигляд</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Вимкнуто</string>
 	<!-- Generic «On» string -->
 	<string name="on">Увімкнуто</string>
 	<!-- Generic «Auto» string -->
 	<string name="auto">Автоматично</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_map_title translation. -->
+	<string name="light">Світлий</string>
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_map_style_title translation. -->
+	<string name="dark">Темний</string>
+	<!-- Settings "Appearance" category: "System" title, should be consistent with the pref_map_style_title translation. -->
+	<string name="system">Система</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Перспективний вид</string>
 	<!-- Settings «Map» category: «3D buildings» title -->

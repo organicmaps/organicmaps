@@ -1738,7 +1738,7 @@
 
 "type.barrier.chain" = "Cadena";
 
-"type.barrier.city_wall" = "Muro de la ciudad";
+"type.barrier.city_wall" = "City Wall";
 
 "type.barrier.cycle_barrier" = "Barrera para bicicletas";
 

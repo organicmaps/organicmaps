@@ -220,20 +220,20 @@
 	<string name="prefs_group_route">Navigation</string>
 	<string name="pref_zoom_title">Zoom buttons</string>
 	<string name="pref_zoom_summary">Display on the map</string>
-	<!-- Settings «Map» category: «Night style» title -->
-  <string name="pref_map_style_title">Appearance</string>
+	<!-- Settings «Map» category: «Appearance» title -->
+	<string name="pref_map_style_title">Appearance</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Off</string>
 	<!-- Generic «On» string -->
 	<string name="on">On</string>
 	<!-- Generic «Auto» string -->
 	<string name="auto">Auto</string>
-  <!-- Generic «Light» string -->
-  <string name="light">Light</string>
-  <!-- Generic «Dark» string -->
-  <string name="dark">Dark</string>
-  <!-- Generic «System» string -->
-  <string name="system">System</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_map_title translation. -->
+	<string name="light">Light</string>
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_map_style_title translation. -->
+	<string name="dark">Dark</string>
+	<!-- Settings "Appearance" category: "System" title, should be consistent with the pref_map_style_title translation. -->
+	<string name="system">System</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Perspective view</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -251,7 +251,7 @@
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
 	<string name="pref_tts_test_voice_title">Test Voice Directions (TTS, Text-To-Speech)</string>
 	<!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
-	<string name="pref_tts_playing_test_voice">Check the volume or system Text-To-Speech settings if you don\'t hear the voice now.</string>
+	<string name="pref_tts_playing_test_voice">Check the volume or system Text-To-Speech settings if you don\'zi hear the voice now.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Not Available</string>
 	<string name="pref_map_auto_zoom">Auto zoom</string>
