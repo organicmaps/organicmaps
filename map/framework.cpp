@@ -2175,6 +2175,14 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
     // Selection circle should match feature
     FillFeatureInfo(selectedFeature, outInfo);
 
+    if (!outInfo.IsBookmark() && !isBuildingSelected)
+    {
+      // Search for a bookmark at POI position instead of tap position
+      auto mark = FindBookMarkInPosition(outInfo.GetMercator());
+      if (mark)
+        FillBookmarkInfo(*static_cast<Bookmark const *>(mark), outInfo);
+    }
+
     if (isBuildingSelected)
       outInfo.SetMercator(buildInfo.m_mercator); // Move selection circle to tap position inside a building.
   }
@@ -2252,6 +2260,26 @@ UserMark const * Framework::FindUserMarkInTapPosition(place_page::BuildInfo cons
     {
       return type == UserMark::Type::TRACK_INFO || type == UserMark::Type::TRACK_SELECTION;
     });
+  return mark;
+}
+
+UserMark const * Framework::FindBookMarkInPosition(m2::PointD const & mercator) const
+{
+  auto const & bm = GetBookmarkManager();
+
+  UserMark const * mark = bm.FindNearestUserMark(
+      [this, &mercator](UserMark::Type type)
+      {
+        if (type == UserMark::Type::BOOKMARK || type == UserMark::Type::TRACK_INFO)
+          return df::TapInfo::GetBookmarkTapRect(mercator, m_currentModelView);
+
+        if (type == UserMark::Type::ROUTING || type == UserMark::Type::ROAD_WARNING)
+          return df::TapInfo::GetRoutingPointTapRect(mercator, m_currentModelView);
+
+        return df::TapInfo::GetDefaultTapRect(mercator, m_currentModelView);
+      },
+      [](UserMark::Type type) { return true; });
+
   return mark;
 }
 

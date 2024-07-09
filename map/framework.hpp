@@ -362,6 +362,7 @@ private:
   void BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelectionInfo, place_page::Info & info);
   Track::TrackSelectionInfo FindTrackInTapPosition(place_page::BuildInfo const & buildInfo) const;
   UserMark const * FindUserMarkInTapPosition(place_page::BuildInfo const & buildInfo) const;
+  UserMark const * FindBookMarkInPosition(m2::PointD const & mercator) const;
   FeatureID FindBuildingAtPoint(m2::PointD const & mercator) const;
 
   void UpdateMinBuildingsTapZoom();
