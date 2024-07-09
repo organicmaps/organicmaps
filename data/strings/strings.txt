@@ -1083,7 +1083,7 @@
     sv = • Inga annonser, ingen spårning, ingen datainsamling
     sw = • Hakuna matangazo, hakuna ufuatiliaji, hakuna mkusanyiko wa data
     th = • ไม่มีโฆษณาไม่มีการติดตามไม่มีการรวบรวมข้อมูล
-    tr = • Reklam yok, takip yok, veri toplama yok
+    tr = • Reklam yok, izleyici yok, veri toplama yok
     uk = • Без реклами, без трекінгу, без стеження
     vi = • Không có quảng cáo, không theo dõi, không thu thập dữ liệu
     zh-Hans = •没有广告，不会跟踪您，更不会收集您的数据
@@ -1131,7 +1131,7 @@
     sv = • Ingen batteriförbrukning, fungerar offline
     sw = • Hakuna betri kuisha, inafanya kazi nje ya mtandao
     th = • ไม่มีแบตเตอรี่หมด ทำงานแบบออฟไลน์
-    tr = • Pil tüketimi yok, çevrimdışı çalışıyor
+    tr = • Pilinizi tüketmez, çevrimdışı çalışır
     uk = • Не розряджає батарею, працює в автономному режимі
     vi = • Không hao pin, hoạt động offline
     zh-Hans = • 无需耗费电池，可离线工作
@@ -1178,7 +1178,7 @@
     sv = • Snabb, minimalistisk, utvecklad av gemenskapen
     sw = • Haraka, minimalist, iliyotengenezwa na jumuiya
     th = • รวดเร็ว เรียบง่าย พัฒนาโดยชุมชน
-    tr = • Hızlı, minimalist, topluluk tarafından geliştirildi
+    tr = • Hızlı, minimalist, topluluk tarafından geliştirilmiş
     uk = • Швидкий, мінімалістичний, розроблений спільнотою
     vi = • Nhanh chóng, tối giản, được phát triển bởi cộng đồng
     zh-Hans = • 快速、简约、由社区开发
@@ -2128,7 +2128,7 @@
     sk = Záložky a stopy
     sv = Bokmärken och rutter
     th = บุ๊กมาร์กและการติดตาม
-    tr = Yer İmleri ve Kayıtlar
+    tr = Yer İmleri ve Kayıtlı Rotalar
     uk = Мітки та маршрути
     vi = Đánh dấu và dấu vết
     zh-Hans = 书签和轨迹
@@ -4925,7 +4925,7 @@
     sv = Organic Maps version: %@
     sw = Toleo la Organic Maps: %@
     th = เวอร์ชัน Organic Maps: %@
-    tr = Organic Maps sürüm: %@
+    tr = Organic Maps sürümü: %@
     uk = Версія Organic Maps: %@.
     vi = Phiên bản Organic Maps: %@
     zh-Hans = Organic Maps 版本: %@
@@ -5061,7 +5061,7 @@
     sk = Stopy
     sv = Rutter
     th = การติดตาม
-    tr = Yol Kayıtları
+    tr = Kayıtlı Rotalar
     uk = Маршрути
     vi = Dấu vết
     zh-Hans = 轨迹
@@ -5447,7 +5447,7 @@
     sk = Vzhľad
     sv = Utseende
     th = รูปแบบ
-    tr = Görünüş
+    tr = Görünüm
     uk = Вигляд
     vi = Giao diện
     zh-Hans = 外观
@@ -5759,7 +5759,7 @@
     sk = 3D budovy
     sv = 3D-byggnader
     th = ตึก 3D
-    tr = 3D yapılar
+    tr = 3B yapılar
     uk = Будівлі у 3D
     vi = Nhà cửa 3D
     zh-Hans = 3D 建筑
@@ -5893,7 +5893,7 @@
     sv = Tillkännage gatunamn
     sw = Tangaza Majina ya Mitaa
     th = ประกาศชื่อถนน
-    tr = Sokak İsimlerini Duyur
+    tr = Sokak İsimlerini de Söyle
     uk = Проговорювати назви вулиць
     vi = Thông báo tên đường
     zh-Hans = 宣布街道名称
@@ -5936,7 +5936,7 @@
     sv = När det är aktiverat kommer namnet på gatan eller avfarten att svänga in på att sägas upp.
     sw = Ikiwashwa, jina la barabara au la kutoka ili kuwasha litasemwa kwa sauti.
     th = เมื่อเปิดใช้งาน ชื่อของถนนหรือทางออกที่จะเลี้ยวจะถูกพูดออกมาดัง ๆ
-    tr = Etkinleştirildiğinde, dönülecek sokağın veya çıkışın adı yüksek sesle söylenecektir.
+    tr = Etkinleştirildiğinde, dönülecek sokağın veya çıkışın adı sesli olarak söylenecektir.
     uk = Якщо ввімкнено, назва вулиці або виїзду, на яку потрібно повернути, буде вимовлена вголос.
     vi = Nếu bật, sẽ đọc to tên đường hoặc lối ra để rẽ vào.
     zh-Hans = 启用后，将大声说出要转入的街道或出口的名称。
@@ -6206,7 +6206,7 @@
     sk = Posledná trasa
     sv = Senaste resväg
     th = เส้นทางล่าสุด
-    tr = En sonki kayıt
+    tr = En sonki rotayı kaydet
     uk = Недавній маршрут
     vi = Tìm kiếm gần đây
     zh-Hans = 最近的路径
@@ -6559,7 +6559,7 @@
     sv = Detta gör att du kan spara en resväg för en viss tidsperiod och visa den på kartan. Obs: aktivering av den här funktionen ökar batterianvändningen. Spåret tas bort automatiskt från kartan när tidsintervallet slutar gälla.
     sw = Inakuwezesha kurekodi njia uliyosafiria kwa kipindi fulani na uione kwenye ramani. Tafadhali kumbuka: ukiwezesha utendaji huu betri itatumika zaidi. Njia hiyo itaondolewa kiotomatiki kwenye ramani baada ya mpishano wa muda kuisha.
     th = ช่วยให้คุณบันทึกเส้นทางที่คุณเดินทางในช่วงระยะเวลาหนึ่งแล้วดูบนแผนที่ได้ โปรดทราบว่า: การเปิดใช้งานฟังก์ชั่นนี้จะทำให้การใช้งานแบตเตอรี่เพิ่มมากขึ้น การติดตามจะถูกเอาออกไปโดยอัตโนมัติจากแผนที่หลังจากผ่านช่วงเวลาที่กำหนด
-    tr = Bu özellik, belirli bir süre içinde katedilen yolu kaydetmenizi ve harita üzerinde izlemenizi sağlar. Lütfen unutmayın: bu işlevin etkinleştirilmesi pil tüketiminin artmasına neden olur. Takip, zaman aralığının sona ermesinin ardından otomatik olarak haritadan kaldırılacaktır.
+    tr = Bu özellik, belirli bir süre içinde katedilen yolu kaydetmenizi ve harita üzerinde görüntülemenizi sağlar. Lütfen unutmayın: bu özelliğin etkinleştirilmesi pil tüketiminin artmasına neden olur. Kaydedilen rota, zaman aralığının sona ermesinin ardından otomatik olarak haritadan kaldırılacaktır.
     uk = Ця функція дозволяє прокласти подоланий маршрут протягом певного проміжку часу та переглянути його на мапі. Звертаємо вашу увагу, що вмикання цієї функції пришвидшить розрядження акумулятора. Щойно сплине заданий проміжок часу, прокладений маршрут буде видалено з мапи.
     vi = Chức năng này cho phép bạn ghi lại đường đi trong một khoảng thời gian nhất định và xem nó trên bản đồ. Xin lưu ý: việc kích hoạt chức năng này sẽ tăng mức sử dụng pin. Đường đi sẽ tự động bị xóa khỏi bản đồ sau khi kết thúc khoảng thời gian nói trên.
     zh-Hans = 它允许您记录一定时间段内的旅行路径，并在地图上查看。请注意：激活此功能会导致电量消耗加快。过期后，轨迹将从地图中自动移除。
@@ -6912,7 +6912,7 @@
     sk = Ohodnotiť aplikáciu
     sv = Ge appen ett betyg
     th = ให้คะแนนแอป
-    tr = Uygulamayı değerlendir
+    tr = Uygulamayı değerlendirin
     uk = Оцінити застосунок
     vi = Cho điểm ứng dụng
     zh-Hans = 为我们评分
@@ -7094,7 +7094,7 @@
     sv = Donera för att bygga de bästa kartorna tillsammans!
     sw = Changia ili kuunda ramani bora pamoja!
     th = บริจาคเพื่อสร้างแผนที่ที่ดีที่สุดด้วยกัน!
-    tr = Birlikte en iyi haritaları oluşturmak için bağış yapın!
+    tr = En iyi harita uygulamasını birlikte geliştirmemiz için bağış yapın!
     uk = Пожертвуйте, щоб разом створювати найкращі мапи!
     vi = Hãy quyên góp để cùng nhau xây dựng những bản đồ tốt nhất!
     zh-Hans = 捐赠，共同打造最好的地图！
@@ -7230,7 +7230,7 @@
     sk = Nahlásiť chybu
     sv = Rapportera en bugg
     th = แจ้งข้อผิดพลาด
-    tr = Hata bildir
+    tr = Hata bildirin
     uk = Сповістити про помилку
     vi = Báo cáo lỗi
     zh-Hans = 报告问题
@@ -7277,7 +7277,7 @@
     sv = Rapportera eller korrigera felaktiga kartdata
     sw = Ripoti au urekebishe data isiyo sahihi ya ramani
     th = รายงานหรือแก้ไขข้อมูลแผนที่ที่ไม่ถูกต้อง
-    tr = Hatalı harita verilerini bildirin veya düzeltin
+    tr = Haritadaki hataları bildirin veya düzeltin
     uk = Повідомляйте або виправляйте невірні картографічні дані
     vi = Báo cáo hoặc sửa dữ liệu bản đồ không chính xác
     zh-Hans = 报告或修复错误的地图数据
@@ -7324,7 +7324,7 @@
     sv = Att arbeta frivilligt
     sw = Kujitolea
     th = อาสาสมัคร
-    tr = Gönüllü Olmak İçin
+    tr = Gönüllümüz Olun
     uk = Стати волонтером
     vi = Tình nguyện
     zh-Hans = 志愿服务
@@ -7371,7 +7371,7 @@
     sv = Följ och kontakta oss:
     sw = Fuata na uwasiliane nasi:
     th = ติดตามและติดต่อเรา:
-    tr = Takip edin ve bizimle iletişime geçin:
+    tr = Bizi takip edin ve iletişime geçin:
     uk = Підписуйтесь та зв'язуйтесь з нами:
     vi = Theo dõi và liên hệ với chúng tôi:
     zh-Hans = 关注并联系我们：
@@ -12895,7 +12895,7 @@
     sk = Automaticky stiahnuť
     sv = Automatisk nedladdning
     th = ดาวน์โหลดอัตโนมัติ
-    tr = Otomatik indir
+    tr = Haritaları otomatik olarak indir
     uk = Автоматичне завантаження
     vi = Tự động tải về
     zh-Hans = 自动下载
@@ -13814,7 +13814,7 @@
     sk = Zabudli ste heslo?
     sv = Glömt lösenord?
     th = ลืมรหัสผ่าน?
-    tr = Şifreni mi unuttun?
+    tr = Şifrenizi mi unuttunuz?
     uk = Забули пароль?
     vi = Quên mật khẩu?
     zh-Hans = 忘记密码
@@ -14707,7 +14707,7 @@
     sv = Våningsplan
     sw = Ghorofa
     th = ชั้น
-    tr = Zemin
+    tr = Kat
     uk = Поверх
     vi = Tầng
     zh-Hans = 楼层
@@ -14720,6 +14720,7 @@
     de = Stock: %s
     fr = Niveau : %s
     ru = Этаж: %s
+    tr = Kat sayısı:  %s
 
   [please_note]
     tags = ios
@@ -15192,7 +15193,7 @@
     sk = Overené zmeny
     sv = Verifierade ändringar
     th = การเปลี่ยนแปลงที่อนุมัติแล้ว
-    tr = Doğrulanan Değişiklikler
+    tr = Doğrulanan Düzenleme
     uk = Виправлення, що ураховані
     vi = Các thay đổi đã được xác thực
     zh-Hans = 已验证的更改
@@ -15891,7 +15892,7 @@
     sv = Gemenskapsskapade OpenStreetMap-data från och med %@. Läs mer om hur du redigerar och uppdaterar kartan på OpenStreetMap.org
     sw = Data ya OpenStreetMap iliyoundwa na jumuiya kufikia %@. Pata maelezo zaidi kuhusu jinsi ya kuhariri na kusasisha ramani katika OpenStreetMap.org
     th = ข้อมูล OpenStreetMap ที่สร้างโดยชุมชน ณ %@ เรียนรู้เพิ่มเติมเกี่ยวกับวิธีแก้ไขและอัปเดตแผนที่ได้ที่ OpenStreetMap.org
-    tr = Topluluk tarafından oluşturulan OpenStreetMap verileri %@ itibariyle. OpenStreetMap.org adresinde haritanın nasıl düzenleneceği ve güncelleneceği hakkında daha fazla bilgi edinin
+    tr = %@ tarihine ait topluluk tarafından oluşturulmuş OpenStreetMap verilerini kullanıyorsunuz. OpenStreetMap.org adresinden haritayı nasıl düzenleyebileceğiniz hakkında bilgi edinebilirsiniz
     uk = Дані OpenStreetMap, створені спільнотою, станом на %@. Дізнайтеся більше про те, як редагувати та оновлювати мапу на OpenStreetMap.org
     vi = Dữ liệu OpenStreetMap do cộng đồng tạo ra kể từ %@. Tìm hiểu thêm về cách chỉnh sửa và cập nhật bản đồ tại OpenStreetMap.org
     zh-Hans = 截至 %@ 的社区创建的 OpenStreetMap 数据。在OpenStreetMap.org网站上了解更多有关如何编辑和更新地图的信息。
@@ -19595,7 +19596,7 @@
     sk = Na zobrazenie podrobnejších informácií o miestach, napríklad fotografií, cien a recenzií, sa vyžaduje mobilný internet.
     sv = Mobil internet krävs för att visa detaljerad information om platser, som t. ex. fotografier, priser och omdömen.
     th = จำเป็นต้องใช้อินเทอร์เน็ตมือถือในการแสดงข้อมูลโดยรายละเอียดเกี่ยวกับสถานที่ เช่น รูปถ่าย ราคา และรีวิว
-    tr = Mekanlar ve yer imlerinizle ilgili ayrıntılı bilgileri görüntülemek ve harita güncelleme bildirimleri için mobil internet gereklidir.
+    tr = Harita güncelleme bildirimleri ve yapılan düzenlemelerin yüklenmesi için mobil internet gereklidir.
     uk = Використання мобільних даних необхідно для сповіщень про оновлення карти та для відображення докладної інформації про місця та мітки.
     vi = Internet di động là cần thiết để hiển thị thông tin chi tiết về các nơi, ví dụ như ảnh chụp, giá cả và đánh giá.
     zh-Hans = 要显示地点的详细信息（例如照片、价格和评价），需要使用移动网络。
@@ -21318,7 +21319,7 @@
     sv = Importera bokmärken och spår
     sw = Ingiza alamisho na nyimbo
     th = นำเข้าบุ๊กมาร์กและแทร็ก
-    tr = Yer i̇mlerini ve parçaları i̇çe aktarma
+    tr = Yer İmlerini ve Rotaları İçe Aktar
     uk = Імпортувати мітки та маршрути
     vi = Nhập dấu trang và bản nhạc
     zh-Hans = 导入书签和轨迹
@@ -22420,7 +22421,7 @@
     sv = %d spår
     sw = Njia %d
     th = %d ติดตามต่าง ๆ
-    tr = %d kayıt
+    tr = %d rota
     uk = %d треків
     vi = %d các chặn đường
     zh-Hans = %d 跟踪
@@ -22694,7 +22695,7 @@
     sv = Kartstilar och lager
     sw = Mitindo ya Ramani na Tabaka
     th = รูปแบบและเลเยอร์ของแผนที่
-    tr = Harita Stilleri ve Katmanları
+    tr = Harita Stilleri ve Katmanlar
     uk = Стилі та шари мапи
     vi = Kiểu và lớp bản đồ
     zh-Hans = 地图样式和图层
@@ -22998,7 +22999,7 @@
     sv = Exportera KMZ
     sw = Hamisha KMZ
     th = ส่งออก KMZ
-    tr = KMZ'yi Dışa Aktar
+    tr = KMZ Olarak Dışa Aktar
     uk = Експорт KMZ
     vi = Xuất KMZ
     zh-Hans = 导出 KMZ
@@ -23042,7 +23043,7 @@
     sv = Exportera GPX
     sw = Hamisha GPX
     th = ส่งออก GPX
-    tr = GPX'i Dışa Aktar
+    tr = GPX Olarak Dışa Aktar
     uk = Експорт GPX
     vi = Xuất GPX
     zh-Hans = 导出 GPX
@@ -23676,7 +23677,7 @@
     sv = Varna aldrig
     sw = Kamwe usionye
     th = ไม่เคยเตือนเกี่ยวกับกล้องตรวจจับความเร็ว
-    tr = Hiç bir zaman uyarma
+    tr = Hiçbir zaman uyarma
     uk = Ніколи не попереджати
     vi = Không bao giờ cảnh báo
     zh-Hans = 永远不会对摄像头发出警告
@@ -24087,7 +24088,7 @@
     sv = Undvik avgiftsbelagda vägar
     sw = Epuka barabara za ushuru
     th = หลีกเลี่ยงถนนที่เก็บค่าผ่านทาง
-    tr = Ücretli yollardan kaçının
+    tr = Ücretli yollardan kaçın
     uk = Уникати платних доріг
     vi = Tránh đường thu phí
     zh-Hans = 避开收费公路
@@ -24223,7 +24224,7 @@
     sv = Undvik motorvägen
     sw = Epuka barabara
     th = หลีกเลี่ยงมอเตอร์เวย์
-    tr = Otoyoldan kaçının
+    tr = Otobandan kaçın
     uk = Уникати автострад
     vi = Tránh xa lộ
     zh-Hans = 避开高速公路
@@ -28951,7 +28952,7 @@
     sv = Med dina donationer och stöd kan vi skapa de bästa kartorna i världen!
     sw = Kwa michango na usaidizi wako, tunaweza kuunda ramani bora zaidi Duniani!
     th = ด้วยการบริจาคและการสนับสนุนของคุณ เราสามารถสร้างแผนที่ที่ดีที่สุดในโลกได้!
-    tr = Bağışlarınız ve desteğinizle dünyanın en iyi haritalarını yaratabiliriz!
+    tr = Bağışlarınız ve desteğinizle dünyanın en iyi haritalar uygulamasını oluşturabiliriz!
     uk = Завдяки вашим пожертвам і підтримці ми зможемо створити найкращі карти світу!
     vi = Với sự đóng góp và hỗ trợ của bạn, chúng tôi có thể tạo ra những bản đồ tốt nhất trên Thế giới!
     zh-Hans = 有了您的捐赠和支持，我们可以创建世界上最好的地图！
@@ -29837,7 +29838,7 @@
     sv = Exportera alla bokmärken och spår
     sw = Hamisha Alamisho na Nyimbo zote
     th = ส่งออกบุ๊กมาร์กและแทร็กทั้งหมด
-    tr = Tüm Yer İmlerini ve Parçaları Dışa Aktar
+    tr = Tüm Yer İmlerini ve Rotaları Dışa Aktar
     uk = Експортувати всі мітки та маршрути
     vi = Xuất tất cả Dấu trang và Bản nhạc
     zh-Hans = 导出所有书签和曲目
@@ -29930,7 +29931,7 @@
     sv = Inställningar för talsyntes
     sw = Mipangilio ya usanisi wa hotuba ya mfumo
     th = การตั้งค่าการสังเคราะห์เสียงพูดของระบบ
-    tr = Konuşma sentezleme sistemi ayarları
+    tr = Konuşma sentezleme ile ilgili sistem ayarları
     uk = Системні налаштування синтезу мови
     vi = Cài đặt tổng hợp giọng nói của hệ thống
     zh-Hans = 语音合成系统设置
@@ -30389,7 +30390,7 @@
     sv = iCloud-synkronisering är en experimentell funktion under utveckling. Se till att du har gjort en säkerhetskopia av alla dina bokmärken och spår.
     sw = Usawazishaji wa iCloud ni kipengele cha majaribio kinachoendelezwa. Hakikisha kuwa umefanya nakala rudufu ya alamisho na nyimbo zako zote.
     th = การซิงโครไนซ์ iCloud เป็นคุณสมบัติทดลองที่อยู่ระหว่างการพัฒนา ตรวจสอบให้แน่ใจว่าคุณได้สำรองข้อมูลบุ๊กมาร์กและแทร็กทั้งหมดของคุณแล้ว
-    tr = iCloud senkronizasyonu geliştirme aşamasında olan deneysel bir özelliktir. Tüm yer imlerinizin ve parçalarınızın yedeğini aldığınızdan emin olun.
+    tr = iCloud senkronizasyonu geliştirme aşamasında olan deneysel bir özelliktir. Tüm yer imlerinizin ve kayıtlı rotalarınızın yedeğini aldığınızdan emin olun.
     uk = Синхронізація з iCloud - це експериментальна функція, яка перебуває на стадії розробки. Переконайтеся, що ви зробили резервну копію всіх ваших мiток і треків.
     vi = Đồng bộ hóa iCloud là một tính năng thử nghiệm đang được phát triển. Đảm bảo rằng bạn đã tạo bản sao lưu tất cả dấu trang và bản nhạc của mình.
     zh-Hans = iCloud 同步是一项正在开发的实验性功能。请确保备份了所有书签和曲目。
@@ -30574,7 +30575,7 @@
     sv = Säkerhetskopiering
     sw = Hifadhi nakala
     th = สำรองข้อมูล
-    tr = Yedekleme
+    tr = Yedekle
     uk = Резервне копіювання
     vi = Hỗ trợ
     zh-Hans = 备份
@@ -30668,7 +30669,7 @@
     sv = Fel: Synkronisering misslyckades på grund av att iCloud-kvoten överskreds
     sw = Hitilafu: Imeshindwa kusawazisha kwa sababu ya mgao wa iCloud uliozidishwa
     th = ข้อผิดพลาด: ไม่สามารถซิงโครไนซ์ได้เนื่องจากเกินโควต้า iCloud
-    tr = Hata: iCloud kotası aşıldığı için senkronize edilemedi
+    tr = Hata: iCloud depolama alanı dolu olduğu için senkronize edilemedi
     uk = Помилка: Не вдалося синхронізувати через перевищення квоти iCloud
     vi = Lỗi: Không thể đồng bộ hóa do vượt quá hạn ngạch iCloud
     zh-Hans = 错误：由于超过 iCloud 配额，同步失败
