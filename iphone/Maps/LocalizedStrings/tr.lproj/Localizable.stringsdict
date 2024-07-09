@@ -50,7 +50,7 @@
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
       <key>other</key>
-      <string>%d kayıt</string>
+      <string>%d rota</string>
     </dict>
   </dict>
 </dict>

@@ -54,13 +54,13 @@
 "about_headline" = "Sevgiyle yapılmış, herkes için ücretsiz harita";
 
 /* Text in About screen */
-"about_proposition_1" = "• Reklam yok, takip yok, veri toplama yok";
+"about_proposition_1" = "• Reklam yok, izleyici yok, veri toplama yok";
 
 /* Text in About screen */
-"about_proposition_2" = "• Pil tüketimi yok, çevrimdışı çalışıyor";
+"about_proposition_2" = "• Pilinizi tüketmez, çevrimdışı çalışır";
 
 /* Text in About screen */
-"about_proposition_3" = "• Hızlı, minimalist, topluluk tarafından geliştirildi";
+"about_proposition_3" = "• Hızlı, minimalist, topluluk tarafından geliştirilmiş";
 
 "close" = "Kapat";
 
@@ -82,7 +82,7 @@
 "bookmarks" = "Yer İmleri";
 
 /* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
-"bookmarks_and_tracks" = "Yer İmleri ve Kayıtlar";
+"bookmarks_and_tracks" = "Yer İmleri ve Kayıtlı Rotalar";
 
 /* Default bookmark list name */
 "core_my_places" = "Yerlerim";
@@ -210,10 +210,10 @@
 "done" = "Bitti";
 
 /* Prints version number in About dialog */
-"version" = "Organic Maps sürüm: %@";
+"version" = "Organic Maps sürümü: %@";
 
 /* Title for tracks category in bookmarks manager */
-"tracks_title" = "Yol Kayıtları";
+"tracks_title" = "Kayıtlı Rotalar";
 
 /* Length of track in cell that describes route */
 "length" = "Uzunluk";
@@ -225,7 +225,7 @@
 "pref_zoom_title" = "Yakınlaştırma butonları";
 
 /* Settings «Map» category: «Appearance» title */
-"pref_appearance_title" = "Görünüş";
+"pref_appearance_title" = "Görünüm";
 
 /* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_light" = "Açık";
@@ -246,7 +246,7 @@
 "pref_map_3d_title" = "Perspektif görünüm";
 
 /* Settings «Map» category: «3D buildings» title */
-"pref_map_3d_buildings_title" = "3D yapılar";
+"pref_map_3d_buildings_title" = "3B yapılar";
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
 "pref_map_3d_buildings_disabled_summary" = "3D binalar güç tasarrufu modunda kapatılır";
@@ -255,10 +255,10 @@
 "pref_tts_enable_title" = "Sesli Yönlendirme";
 
 /* Settings «Route» category: «Tts announce street names» title */
-"pref_tts_street_names_title" = "Sokak İsimlerini Duyur";
+"pref_tts_street_names_title" = "Sokak İsimlerini de Söyle";
 
 /* Settings «Route» category: «Tts announce street names» description */
-"pref_tts_street_names_description" = "Etkinleştirildiğinde, dönülecek sokağın veya çıkışın adı yüksek sesle söylenecektir.";
+"pref_tts_street_names_description" = "Etkinleştirildiğinde, dönülecek sokağın veya çıkışın adı sesli olarak söylenecektir.";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Ses Dili";
@@ -270,7 +270,7 @@
 "pref_tts_other_section_title" = "Diğer";
 
 /* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "En sonki kayıt";
+"pref_track_record_title" = "En sonki rotayı kaydet";
 
 "pref_map_auto_zoom" = "Otomatik yakınlaştırma";
 
@@ -286,7 +286,7 @@
 
 "duration_1_day" = "1 gün";
 
-"recent_track_help_text" = "Bu özellik, belirli bir süre içinde katedilen yolu kaydetmenizi ve harita üzerinde izlemenizi sağlar. Lütfen unutmayın: bu işlevin etkinleştirilmesi pil tüketiminin artmasına neden olur. Takip, zaman aralığının sona ermesinin ardından otomatik olarak haritadan kaldırılacaktır.";
+"recent_track_help_text" = "Bu özellik, belirli bir süre içinde katedilen yolu kaydetmenizi ve harita üzerinde görüntülemenizi sağlar. Lütfen unutmayın: bu özelliğin etkinleştirilmesi pil tüketiminin artmasına neden olur. Kaydedilen rota, zaman aralığının sona ermesinin ardından otomatik olarak haritadan kaldırılacaktır.";
 
 "placepage_distance" = "Mesafe";
 
@@ -311,7 +311,7 @@
 "vk" = "VK";
 
 /* Text in menu */
-"rate_the_app" = "Uygulamayı değerlendir";
+"rate_the_app" = "Uygulamayı değerlendirin";
 
 /* Text in menu */
 "help" = "Yardım";
@@ -323,22 +323,22 @@
 "donate" = "Bağış yapın";
 
 /* Tex label above the Donate button */
-"donate_description" = "Birlikte en iyi haritaları oluşturmak için bağış yapın!";
+"donate_description" = "En iyi harita uygulamasını birlikte geliştirmemiz için bağış yapın!";
 
 /* Button in the main Help dialog */
 "copyright" = "Telif hakkı";
 
 /* Text in menu + Button in the main Help dialog */
-"report_a_bug" = "Hata bildir";
+"report_a_bug" = "Hata bildirin";
 
 /* Button in the About screen */
-"report_incorrect_map_bug" = "Hatalı harita verilerini bildirin veya düzeltin";
+"report_incorrect_map_bug" = "Haritadaki hataları bildirin veya düzeltin";
 
 /* Button in the About screen */
-"volunteer" = "Gönüllü Olmak İçin";
+"volunteer" = "Gönüllümüz Olun";
 
 /* "Social media" section header in the About screen */
-"follow_us" = "Takip edin ve bizimle iletişime geçin:";
+"follow_us" = "Bizi takip edin ve iletişime geçin:";
 
 /* Alert text */
 "email_error_body" = "E-posta istemcisi henüz kurulmamış. Lütfen e-posta istemcisini yapılandırın veya bize %@ adresinden ulaşmak için başka bir yöntem deneyin";
@@ -597,7 +597,7 @@
 
 "editor_report_problem_send_button" = "Gönder";
 
-"autodownload" = "Otomatik indir";
+"autodownload" = "Haritaları otomatik olarak indir";
 
 /* Place Page opening hours text */
 "closed_now" = "Şu anda kapalı";
@@ -641,7 +641,7 @@
 
 "login_osm" = "OpenStreetMap'e giriş yap";
 
-"forgot_password" = "Şifreni mi unuttun?";
+"forgot_password" = "Şifrenizi mi unuttunuz?";
 
 "osm_account" = "OSM Hesabı";
 
@@ -681,7 +681,7 @@
 
 "phone" = "Telefon";
 
-"level" = "Zemin";
+"level" = "Kat";
 
 "please_note" = "Lütfen dikkat";
 
@@ -699,7 +699,7 @@
 
 "downloader_no_space_message" = "Lütfen gereksiz verileri silin";
 
-"editor_profile_changes" = "Doğrulanan Değişiklikler";
+"editor_profile_changes" = "Doğrulanan Düzenleme";
 
 "editor_focus_map_on_location" = "Objenin doğru konumunu seçmek için haritayı sürükleyin.";
 
@@ -727,7 +727,7 @@
 "message_invalid_feature_position" = "Buraya bir nesne konumlandırılamıyor";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
-"osm_presentation" = "Topluluk tarafından oluşturulan OpenStreetMap verileri %@ itibariyle. OpenStreetMap.org adresinde haritanın nasıl düzenleneceği ve güncelleneceği hakkında daha fazla bilgi edinin";
+"osm_presentation" = "%@ tarihine ait topluluk tarafından oluşturulmuş OpenStreetMap verilerini kullanıyorsunuz. OpenStreetMap.org adresinden haritayı nasıl düzenleyebileceğiniz hakkında bilgi edinebilirsiniz";
 
 "login_to_make_edits_visible" = "Diğer kullanıcıların yaptığınız değişiklikleri görebilmesi için OpenStreetMap.org'da oturum açın.";
 
@@ -907,7 +907,7 @@
 "mobile_data" = "Mobil İnternet";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
-"mobile_data_description" = "Mekanlar ve yer imlerinizle ilgili ayrıntılı bilgileri görüntülemek ve harita güncelleme bildirimleri için mobil internet gereklidir.";
+"mobile_data_description" = "Harita güncelleme bildirimleri ve yapılan düzenlemelerin yüklenmesi için mobil internet gereklidir.";
 
 "mobile_data_option_never" = "Asla Kullanma";
 
@@ -970,7 +970,7 @@
 "bookmarks_create_new_group" = "Yeni liste oluştur";
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
-"bookmarks_import" = "Yer i̇mlerini ve parçaları i̇çe aktarma";
+"bookmarks_import" = "Yer İmlerini ve Rotaları İçe Aktar";
 
 "downloader_hide_screen" = "Ekranı Gizle";
 
@@ -1010,7 +1010,7 @@
 
 "button_layer_subway" = "Metro";
 
-"layers_title" = "Harita Stilleri ve Katmanları";
+"layers_title" = "Harita Stilleri ve Katmanlar";
 
 "subway_data_unavailable" = "Metro haritası mevcut değil";
 
@@ -1018,9 +1018,9 @@
 
 "popular_place" = "Popüler";
 
-"export_file" = "KMZ'yi Dışa Aktar";
+"export_file" = "KMZ Olarak Dışa Aktar";
 
-"export_file_gpx" = "GPX'i Dışa Aktar";
+"export_file_gpx" = "GPX Olarak Dışa Aktar";
 
 "delete_list" = "Listeyi sil";
 
@@ -1043,7 +1043,7 @@
 "pref_tts_speedcams_always" = "Her zaman uyar";
 
 /* Speed camera settings menu option - Never warn (about speedcams) */
-"pref_tts_speedcams_never" = "Hiç bir zaman uyarma";
+"pref_tts_speedcams_never" = "Hiçbir zaman uyarma";
 
 "power_managment_title" = "Güç tasarrufu modu";
 
@@ -1060,7 +1060,7 @@
 "driving_options_title" = "Yönlendirme seçenekleri";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
-"avoid_tolls" = "Ücretli yollardan kaçının";
+"avoid_tolls" = "Ücretli yollardan kaçın";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_unpaved" = "Asfaltsız yollardan kaçın";
@@ -1068,7 +1068,7 @@
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Feribot geçişlerinden kaçın";
 
-"avoid_motorways" = "Otoyoldan kaçının";
+"avoid_motorways" = "Otobandan kaçın";
 
 "unable_to_calc_alert_title" = "Rota hesaplanamıyor";
 
@@ -1280,7 +1280,7 @@
 "app_tip_00" = "Topluluk tarafından oluşturulan haritalarımızı kullandığınız için teşekkür ederiz!";
 
 /* App tip #01 */
-"app_tip_01" = "Bağışlarınız ve desteğinizle dünyanın en iyi haritalarını yaratabiliriz!";
+"app_tip_01" = "Bağışlarınız ve desteğinizle dünyanın en iyi haritalar uygulamasını oluşturabiliriz!";
 
 /* App tip #02 */
 "app_tip_02" = "Uygulamamızı beğendiniz mi? Gelişimi desteklemek için lütfen bağış yapın! Henüz beğenmedin mi? Lütfen bize bildirin, düzelteceğiz!";
@@ -1322,7 +1322,7 @@
 "button_layer_outdoor" = "Yürüyüş";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
-"bookmarks_export" = "Tüm Yer İmlerini ve Parçaları Dışa Aktar";
+"bookmarks_export" = "Tüm Yer İmlerini ve Rotaları Dışa Aktar";
 
 /* Text for the editing the Track's color button. */
 "change_color" = "Renk değiştir";
@@ -1339,7 +1339,7 @@
 "enable_icloud_synchronization_title" = "iCloud Senkronizasyonunu Etkinleştir";
 
 /* Message for the "Enable iCloud Syncronization" alert. */
-"enable_icloud_synchronization_message" = "iCloud senkronizasyonu geliştirme aşamasında olan deneysel bir özelliktir. Tüm yer imlerinizin ve parçalarınızın yedeğini aldığınızdan emin olun.";
+"enable_icloud_synchronization_message" = "iCloud senkronizasyonu geliştirme aşamasında olan deneysel bir özelliktir. Tüm yer imlerinizin ve kayıtlı rotalarınızın yedeğini aldığınızdan emin olun.";
 
 /* Title for the "iCloud is Disabled" alert. */
 "icloud_disabled_title" = "iCloud Devre Dışı";
@@ -1351,13 +1351,13 @@
 "enable" = "Etkinleştir";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
-"backup" = "Yedekleme";
+"backup" = "Yedekle";
 
 /* iCloud error message: Failed to synchronize due to connection error */
 "icloud_synchronization_error_connection_error" = "Hata oluştu: Bağlantı hatası nedeniyle senkronizasyon başarısız oldu";
 
 /* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
-"icloud_synchronization_error_quota_exceeded" = "Hata: iCloud kotası aşıldığı için senkronize edilemedi";
+"icloud_synchronization_error_quota_exceeded" = "Hata: iCloud depolama alanı dolu olduğu için senkronize edilemedi";
 
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Hata: iCloud kullanılamıyor";
