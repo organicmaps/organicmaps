@@ -6035,7 +6035,7 @@
   [pref_tts_playing_test_voice]
     comment = Settings «Route» category: Pop-up message when clicking «Test Voice Directions»
     tags = android
-    en = Check the volume or system Text-To-Speech settings if you don'zi hear the voice now.
+    en = Check the volume or system Text-To-Speech settings if you don't hear the voice now.
     ar = تحقق من مستوى الصوت أو إعدادات تحويل النص إلى كلام في النظام إذا كنت لا تسمع الصوت الآن.
     az = İndi səs eşitmirsinizsə, səs səviyyəsini və ya sistemin mətndən nitqə çevirmə parametrlərini yoxlayın.
     be = Праверце гучнасць або сістэмныя налады пераўтварэння тэксту ў маўленне, калі вы зараз не чуеце голас.
