@@ -148,7 +148,8 @@ jobs:
           {
             cat ${{ env.RELEASE_NOTES }}
             echo ""
-            echo "See [more details](https://organicmaps.app/news/) on our website when apps are published."
+            echo "See [a detailed announce](https://organicmaps.app/news/) on our website when app updates are published in all stores."
+            echo "You can get automatic app updates from GitHub [using Obtanium](https://github.com/organicmaps/organicmaps/wiki/Installing-Organic-Maps-from-GitHub-using-Obtanium)."
             echo ""
             echo "sha256sum:"
             echo -e '\n```'
