@@ -34,3 +34,7 @@ jobs:
       - name: Lint appstream data with flatpak Builder
         shell: bash
         run: flatpak run --command=flatpak-builder-lint org.flatpak.Builder appstream packaging/app.organicmaps.desktop.metainfo.xml
+
+      - name: Run appstreamcli in pedantic mode
+        shell: bash
+        run: flatpak run --command=appstreamcli org.flatpak.Builder validate --pedantic packaging/app.organicmaps.desktop.metainfo.xml
