@@ -16,6 +16,7 @@ namespace feature
   static constexpr std::string_view kToiletsSymbol = "🚻";
   static constexpr std::string_view kAtmSymbol = "💳";
   static constexpr std::string_view kWheelchairSymbol = "♿️";
+  static constexpr std::string_view kWifiSymbol = "🛜";
 
   /// OSM internet_access tag values.
   enum class Internet
