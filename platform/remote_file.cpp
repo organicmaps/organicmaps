@@ -31,6 +31,7 @@ RemoteFile::Result RemoteFile::Download(std::string const & filePath) const
   platform::HttpClient request(m_url);
   request.SetRawHeaders(m_defaultHeaders);
   request.SetTimeout(kRequestTimeoutInSec);
+  request.SetFollowRedirects(m_allowRedirection);
   if (!m_accessToken.empty())
     request.SetRawHeader("Authorization", "Bearer " + m_accessToken);
   if (request.RunHttpRequest())
