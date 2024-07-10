@@ -60162,17 +60162,18 @@
   uk = Чернівці, Сторожинець, Заставна
 
 [Ukraine_Dnipropetrovsk Oblast Description]
-  en = Dnipropetrovsk, Krivoy Rog, Dniprodzerzhynsk
-  cs = Dněpropetrovsk, Krivoj Rog
-  de = Dnipropetrowsk, Krywyj Rih, Dniprodserschynsk
-  el = Ντινοπετρόβσκ, Κριβόι Ρογκ, Ντιπροντζερίνσκ
-  fr = Dnipropetrovsk, Kryvyï Rih, Dniprodzerjynsk
-  hu = Dnyipropetrovszk, Krivij Rih, Dnyiprodzserzsinszk
-  ja = クリヴォログ
-  pl = Dniepropetrowsk, Krzywy Róg, Dnieprodzierżyńsk
-  ru = Днепропетровск, Кривой Рог, Днепродзержинск
-  sk = Dnepropetrovsk
-  uk = Дніпропетровськ, Кривий Ріг, Дніпродзержинськ
+  en = Dnipro, Krivoy Rog, Kamyanske
+  cs = Dnipro, Krivoj Rog, Kamjanske
+  de = Dnipro, Krywyj Rih, Kamjanske
+  el = Ντνιπρό, Κριβόι Ρογκ, Καμιανσκέ
+  es = Dnipró, Kryvyi Rih, Kamianské
+  fr = Dnipro, Kryvyï Rih, Kamianske
+  hu = Dnyipro, Krivij Rih, Kamjanszke
+  ja = ドニプロ, クルィヴィーイ・リーフ, カーミヤンシケ
+  pl = Dniepr, Krzywy Róg, Kamieńskie
+  ru = Днепр, Кривой Рог, Каменское
+  sk = Dnipro, Kryvyj Rih
+  uk = Дніпро, Кривий Ріг, Кам'янське
 
 [Ukraine_Donetsk Oblast Description]
   en = Donetsk, Mariupol, Makiivka
@@ -60280,14 +60281,15 @@
   uk = Хмельницький, Кам’янець-Подільський, Шепетівка
 
 [Ukraine_Kirovohrad Oblast Description]
-  en = Kirovohrad, Oleksandriia, Svitlovodsk
-  de = Kirowohrad, Olexandrija, Switlowodsk
-  el = Κιροβογκράντ, Ολεκσαντρία, Σβέτλοβοντσκ
-  fr = Kirovohrad, Svitlovodsk
-  hu = Kirovohrad, Olekszandrija, Svitlovodsk
-  pl = Kirowohrad, Aleksandria, Switłowodsk
-  ru = Кировоград, Александрия, Светловодск
-  uk = Кіровоград, Олександрія, Світловодськ
+  en = Kropyvnytskyi, Oleksandriia, Svitlovodsk
+  de = Kropyvnytskyj, Olexandrija, Switlowodsk
+  el = Κροπιβνίτσκι, Ολεκσαντρία, Σβέτλοβοντσκ
+  es = Kropivnitski, Oleksandria, Svitlovodsk
+  fr = Kropyvnytskyï, Oleksandria, Svitlovodsk
+  hu = Kropivnickij, Olekszandrija, Svitlovodsk
+  pl = Kropywnycki, Aleksandria, Switłowodsk
+  ru = Кропивницкий, Александрия, Светловодск
+  uk = Кропивницький, Олександрія, Світловодськ
 
 [Ukraine_Kyiv Oblast Description]
   en = Kyiv, Bila Tserkva, Brovary
