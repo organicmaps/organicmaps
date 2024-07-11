@@ -377,6 +377,8 @@ string ReverseGeocoder::Address::FormatAddress() const
 
   // TODO (@m, @y): we can add "Near" prefix here in future according
   // to the distance.
+  LOG(LDEBUG,("WB FormatAddress",m_street.m_name,m_building.m_name));
+
   if (m_building.m_distanceMeters > 200.0)
     return {};
 
