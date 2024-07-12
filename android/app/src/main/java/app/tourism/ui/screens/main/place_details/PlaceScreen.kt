@@ -49,7 +49,12 @@ fun PlaceDetailsScreen(
                     title = it.name,
                     picUrl = it.cover,
                     isFavorite = it.isFavorite,
-                    onFavoriteChanged = { isFavorite -> placeVM.setFavoriteChanged(id, isFavorite) },
+                    onFavoriteChanged = { isFavorite ->
+                        placeVM.setFavoriteChanged(
+                            id,
+                            isFavorite
+                        )
+                    },
                     onMapClick = onMapClick,
                     onBackClick = onBackClick,
                 )
@@ -84,7 +89,7 @@ fun PlaceDetailsScreen(
                             DescriptionScreen(
                                 description = place.description,
                                 onCreateRoute = {
-                                    onCreateRoute(place.placeLocation)
+                                    place.placeLocation?.let { it1 -> onCreateRoute(it1) }
                                 },
                             )
                         }

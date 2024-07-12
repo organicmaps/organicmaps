@@ -3,8 +3,11 @@ package app.tourism.data.remote
 import app.tourism.data.dto.AllDataDto
 import app.tourism.data.dto.CategoryDto
 import app.tourism.data.dto.FavoritesDto
+import app.tourism.data.dto.FavoritesIdsDto
+import app.tourism.data.dto.HashDto
 import app.tourism.data.dto.auth.AuthResponseDto
-import app.tourism.data.dto.place.ReviewDto
+import app.tourism.data.dto.place.ReviewIdsDto
+import app.tourism.data.dto.place.ReviewsDto
 import app.tourism.data.dto.profile.LanguageDto
 import app.tourism.data.dto.profile.ThemeDto
 import app.tourism.data.dto.profile.UserData
@@ -17,11 +20,13 @@ import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.HTTP
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface TourismApi {
     // region auth
@@ -72,7 +77,10 @@ interface TourismApi {
 
     // region places
     @GET("marks/{id}")
-    suspend fun getPlacesByCategory(@Path("id") id: Long): Response<CategoryDto>
+    suspend fun getPlacesByCategory(
+        @Path("id") id: Long,
+        @Query("hash") hash: String
+    ): Response<CategoryDto>
 
     @GET("marks/all")
     suspend fun getAllPlaces(): Response<AllDataDto>
@@ -83,15 +91,15 @@ interface TourismApi {
     suspend fun getFavorites(): Response<FavoritesDto>
 
     @POST("favourite-marks")
-    suspend fun addFavorites(@Body ids: List<Long>): Response<SimpleResponse>
+    suspend fun addFavorites(@Body ids: FavoritesIdsDto): Response<SimpleResponse>
 
-    @DELETE("favourite-marks")
-    suspend fun removeFromFavorites(@Body ids: List<Long>): Response<SimpleResponse>
+    @HTTP(method = "DELETE", path = "favourite-marks", hasBody = true)
+    suspend fun removeFromFavorites(@Body ids: FavoritesIdsDto): Response<SimpleResponse>
     // endregion favorites
 
     // region reviews
     @GET("feedbacks/{id}")
-    suspend fun getReviewsByPlaceId(id: Long): Response<List<ReviewDto>>
+    suspend fun getReviewsByPlaceId(@Path("id") id: Long): Response<ReviewsDto>
 
     @Multipart
     @POST("feedbacks")
@@ -102,10 +110,9 @@ interface TourismApi {
         @Part images: List<MultipartBody.Part>? = null
     ): Response<SimpleResponse>
 
-    @DELETE("feedbacks/{mark_id}")
-    suspend fun deleteReview(
-        @Path("mark_id") placeId: Long,
-        @Body reviewsIds: List<Long>,
+    @HTTP(method = "DELETE", path = "feedbacks", hasBody = true)
+    suspend fun deleteReviews(
+        @Body feedbacks: ReviewIdsDto,
     ): Response<SimpleResponse>
     // endregion reviews
 }

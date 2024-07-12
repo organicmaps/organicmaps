@@ -35,6 +35,9 @@ class UserPreferences(context: Context) {
 
     fun getToken() = sharedPref.getString("token", "")
     fun setToken(value: String?) = sharedPref.edit { putString("token", value) }
+
+    fun getUserId() = sharedPref.getString("user_id", "")
+    fun setUserId(value: String?) = sharedPref.edit { putString("user_id", value) }
 }
 
 data class Language(val code: String, val name: String)

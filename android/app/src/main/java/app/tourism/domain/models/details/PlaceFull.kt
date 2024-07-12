@@ -10,7 +10,7 @@ data class PlaceFull(
     val rating: Double,
     val excerpt: String,
     val description: String,
-    val placeLocation: PlaceLocation,
+    val placeLocation: PlaceLocation?,
     val cover: String,
     val pics: List<String> = emptyList(),
     val reviews: List<Review>? = null,
@@ -33,7 +33,7 @@ data class PlaceFull(
         excerpt = excerpt,
         description = description,
         gallery = pics,
-        coordinates = placeLocation.toCoordinatesEntity(),
+        coordinates = placeLocation?.toCoordinatesEntity(),
         cover = cover,
         isFavorite = isFavorite,
     )

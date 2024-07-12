@@ -1,5 +1,6 @@
 package app.tourism.ui.screens.main.home
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.tourism.data.repositories.PlacesRepository
@@ -8,6 +9,7 @@ import app.tourism.domain.models.categories.PlaceCategory
 import app.tourism.domain.models.common.PlaceShort
 import app.tourism.domain.models.resource.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,6 +21,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
+    @ApplicationContext val context: Context,
     private val placesRepository: PlacesRepository
 ) : ViewModel() {
     private val uiChannel = Channel<UiEvent>()
@@ -65,11 +68,11 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private val _downloadResponse = MutableStateFlow<Resource<SimpleResponse>?>(null)
+    private val _downloadResponse = MutableStateFlow<Resource<SimpleResponse>>(Resource.Idle())
     val downloadResponse = _downloadResponse.asStateFlow()
-    private fun downloadAllDataIfFirstTime() {
+    private fun downloadAllData() {
         viewModelScope.launch(Dispatchers.IO) {
-            placesRepository.downloadAllDataIfFirstTime().collectLatest {
+            placesRepository.downloadAllData().collectLatest {
                 _downloadResponse.value = it
             }
         }
@@ -82,7 +85,7 @@ class HomeViewModel @Inject constructor(
     }
 
     init {
-        downloadAllDataIfFirstTime()
+        downloadAllData()
         getTopSights()
         getTopRestaurants()
     }

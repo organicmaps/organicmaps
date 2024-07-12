@@ -13,6 +13,7 @@ data class User(
     val username: String
 ) {
     fun toPersonalData() = PersonalData(
+        id = id,
         fullName = full_name,
         country = country,
         pfpUrl = avatar,

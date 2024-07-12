@@ -16,7 +16,7 @@ data class PlaceEntity(
     val description: String,
     val cover: String,
     val gallery: List<String>,
-    @Embedded val coordinates: CoordinatesEntity,
+    @Embedded val coordinates: CoordinatesEntity?,
     val rating: Double,
     val isFavorite: Boolean
 ) {
@@ -26,7 +26,7 @@ data class PlaceEntity(
         rating = rating,
         excerpt = excerpt,
         description = description,
-        placeLocation = coordinates.toPlaceLocation(name),
+        placeLocation = coordinates?.toPlaceLocation(name),
         cover = cover,
         pics = gallery,
         isFavorite = isFavorite

@@ -70,12 +70,15 @@ class MainActivity : ComponentActivity() {
         lifecycleScope.launch {
             profileVM.profileDataResource.collectLatest {
                 if (it is Resource.Success) {
-                    it.data?.language?.let { lang ->
-                        changeSystemAppLanguage(this@MainActivity, lang)
-                        userPreferences.setLanguage(lang)
-                    }
-                    it.data?.theme?.let { theme ->
-                        themeVM.setTheme(theme)
+                    it.data?.apply {
+                        language?.let { lang ->
+                            changeSystemAppLanguage(this@MainActivity, lang)
+                            userPreferences.setLanguage(lang)
+                        }
+                        theme?.let { theme ->
+                            themeVM.setTheme(theme)
+                        }
+                        userPreferences.setUserId(id.toString())
                     }
                 }
                 if (it is Resource.Error) {

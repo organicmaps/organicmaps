@@ -3,9 +3,12 @@ package app.tourism.data.repositories
 import android.content.Context
 import app.organicmaps.R
 import app.tourism.data.db.Database
+import app.tourism.data.db.entities.FavoriteToSyncEntity
 import app.tourism.data.db.entities.HashEntity
 import app.tourism.data.db.entities.PlaceEntity
 import app.tourism.data.db.entities.ReviewEntity
+import app.tourism.data.dto.FavoritesIdsDto
+import app.tourism.data.dto.HashDto
 import app.tourism.data.dto.place.PlaceDto
 import app.tourism.data.remote.TourismApi
 import app.tourism.data.remote.handleGenericCall
@@ -24,14 +27,14 @@ import kotlinx.coroutines.flow.flow
 
 class PlacesRepository(
     private val api: TourismApi,
-    private val db: Database,
+    db: Database,
     @ApplicationContext private val context: Context,
 ) {
     private val placesDao = db.placesDao
     private val reviewsDao = db.reviewsDao
     private val hashesDao = db.hashesDao
 
-    fun downloadAllDataIfFirstTime(): Flow<Resource<SimpleResponse>> = flow {
+    fun downloadAllData(): Flow<Resource<SimpleResponse>> = flow {
         val hashes = hashesDao.getHashes()
 
         val favoritesResponse = handleResponse { api.getFavorites() }
@@ -93,6 +96,8 @@ class PlacesRepository(
                     SimpleResponse(message = context.getString(R.string.great_success))
                 }
             )
+        } else {
+            emit(Resource.Success(SimpleResponse(message = context.getString(R.string.great_success))))
         }
     }
 
@@ -103,27 +108,24 @@ class PlacesRepository(
         }
     }
 
-    fun getPlacesByCategory(id: Long): Flow<Resource<List<PlaceShort>>> = channelFlow {
+    fun getPlacesByCategoryFromDbFlow(id: Long): Flow<Resource<List<PlaceShort>>> = channelFlow {
+        placesDao.getPlacesByCategoryId(categoryId = id)
+            .collectLatest { placeEntities ->
+                send(Resource.Success(placeEntities.map { it.toPlaceShort() }))
+            }
+    }
+
+    suspend fun getPlacesByCategoryFromApiIfThereIsChange(id: Long) {
         val hash = hashesDao.getHash(id)
 
-        if (hash.value.isNotBlank()) {
-            placesDao.getPlacesByCategoryId(categoryId = id)
-                .collectLatest { placeEntities ->
-                    send(Resource.Success(placeEntities.map { it.toPlaceShort() }))
-                }
-        }
+        val favorites = placesDao.getFavoritePlaces("")
+        val resource =
+            handleResponse { api.getPlacesByCategory(id, hash?.value ?: "") }
 
-        var favorites = listOf<PlaceEntity>()
-        placesDao.getFavoritePlaces("").collectLatest {
-            favorites = it
-        }
-
-        val resource = handleResponse { api.getPlacesByCategory(id) }
-        if (resource is Resource.Success) {
+        if (hash != null && resource is Resource.Success)
             resource.data?.let { categoryDto ->
-                if (hash.value != categoryDto.hash) {
+                if (categoryDto.data.isNotEmpty()) {
                     // update places
-                    hashesDao.insertHash(hash.copy(value = categoryDto.hash))
                     placesDao.deleteAllPlacesByCategory(categoryId = id)
 
                     val places = categoryDto.data.map { placeDto ->
@@ -142,9 +144,12 @@ class PlacesRepository(
                     }
                     reviewsDao.deleteAllReviews()
                     reviewsDao.insertReviews(reviewsEntities)
+
+                    // update hash
+                    hashesDao.insertHash(hash.copy(value = categoryDto.hash))
                 }
             }
-        }
+
     }
 
     fun getTopPlaces(id: Long): Flow<Resource<List<PlaceShort>>> = channelFlow {
@@ -162,7 +167,7 @@ class PlacesRepository(
     }
 
     fun getFavorites(q: String): Flow<Resource<List<PlaceShort>>> = channelFlow {
-        placesDao.getFavoritePlaces("%$q%")
+        placesDao.getFavoritePlacesFlow("%$q%")
             .collectLatest { placeEntities ->
                 send(Resource.Success(placeEntities.map { it.toPlaceShort() }))
             }
@@ -170,5 +175,23 @@ class PlacesRepository(
 
     suspend fun setFavorite(placeId: Long, isFavorite: Boolean) {
         placesDao.setFavorite(placeId, isFavorite)
+
+        val favoritesIdsDto = FavoritesIdsDto(marks = listOf(placeId))
+
+        val favoriteToSyncEntity = FavoriteToSyncEntity(placeId, isFavorite)
+        placesDao.addFavoriteToSync(favoriteToSyncEntity)
+        val response: Resource<SimpleResponse> = if (isFavorite)
+            handleResponse { api.addFavorites(favoritesIdsDto) }
+        else
+            handleResponse { api.removeFromFavorites(favoritesIdsDto) }
+
+        if (response is Resource.Success)
+            placesDao.removeFavoriteToSync(favoriteToSyncEntity.placeId)
+        else if (response is Resource.Error)
+            placesDao.addFavoriteToSync(favoriteToSyncEntity)
+    }
+
+    fun syncFavorites() {
+
     }
 }

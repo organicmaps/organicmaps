@@ -25,14 +25,13 @@ import app.tourism.ui.common.buttons.PrimaryButton
 import app.tourism.ui.theme.TextStyles
 
 @Composable
-fun NetworkError(
+fun Error(
     modifier: Modifier = Modifier,
     errorMessage: String? = null,
     status: Boolean = true,
     onEntireScreen: Boolean = true,
     onRetry: (() -> Unit)? = null
 ) {
-    println("error message: $errorMessage")
     if (status) {
         Column(
             modifier = if (onEntireScreen) modifier
@@ -55,7 +54,7 @@ fun NetworkError(
             Text(
                 text = errorMessage
                     ?: stringResource(id = if (onEntireScreen) R.string.no_network else R.string.smth_went_wrong),
-                style = TextStyles.h1,
+                style = TextStyles.h3,
                 textAlign = Center
             )
 
@@ -83,8 +82,8 @@ fun NetworkError(
 @Composable
 fun NetworkError_preview() {
     Column {
-        NetworkError(status = true, onEntireScreen = false) {}
+        Error(status = true, onEntireScreen = false) {}
         VerticalSpace(height = 16.dp)
-        NetworkError(status = true) {}
+        Error(status = true) {}
     }
 }

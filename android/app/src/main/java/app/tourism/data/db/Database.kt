@@ -8,13 +8,22 @@ import app.tourism.data.db.dao.HashesDao
 import app.tourism.data.db.dao.PlacesDao
 import app.tourism.data.db.dao.ReviewsDao
 import app.tourism.data.db.entities.CurrencyRatesEntity
+import app.tourism.data.db.entities.FavoriteToSyncEntity
 import app.tourism.data.db.entities.HashEntity
 import app.tourism.data.db.entities.PlaceEntity
 import app.tourism.data.db.entities.ReviewEntity
+import app.tourism.data.db.entities.ReviewPlannedToPostEntity
 
 @Database(
-    entities = [PlaceEntity::class, ReviewEntity::class, HashEntity::class, CurrencyRatesEntity::class],
-    version = 2,
+    entities = [
+        PlaceEntity::class,
+        ReviewEntity::class,
+        ReviewPlannedToPostEntity::class,
+        FavoriteToSyncEntity::class,
+        HashEntity::class,
+        CurrencyRatesEntity::class
+    ],
+    version = 8,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

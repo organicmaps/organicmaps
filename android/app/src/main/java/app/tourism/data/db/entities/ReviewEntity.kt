@@ -13,7 +13,8 @@ data class ReviewEntity(
     val comment: String,
     val date: String,
     val rating: Int,
-    val images: List<String>
+    val images: List<String>,
+    val deletionPlanned: Boolean = false,
 ) {
     fun toReview() = Review(
         id = id,
@@ -23,5 +24,6 @@ data class ReviewEntity(
         date = date,
         comment = comment,
         picsUrls = images,
+        deletionPlanned = deletionPlanned,
     )
 }

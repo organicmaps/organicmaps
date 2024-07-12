@@ -1,6 +1,7 @@
 package app.tourism.domain.models.profile
 
 data class PersonalData(
+    val id: Long,
     val fullName: String,
     val country: String,
     val pfpUrl: String?,

@@ -2262,4 +2262,10 @@
   <string name="wrong_email_format">Wrong email format</string>
   <string name="saved">Saved</string>
   <string name="great_success">Great success😄</string>
+  <string name="review_deleted">Review was successfully deleted</string>
+  <string name="delete_review">Delete review</string>
+  <string name="deletion_warning">Are you sure you wanna delete this?</string>
+  <string name="deletionPlanned">Deleting…</string>
+  <string name="plz_wait_dowloading">Please, wait, data being downloaded</string>
+  <string name="empty_list">Пусто</string>
 </resources>

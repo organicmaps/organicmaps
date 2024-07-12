@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import app.tourism.data.db.entities.ReviewEntity
+import app.tourism.data.db.entities.ReviewPlannedToPostEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -15,10 +16,13 @@ interface ReviewsDao {
     suspend fun insertReview(review: ReviewEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertReviews(review: List<ReviewEntity>)
+    suspend fun insertReviews(reviews: List<ReviewEntity>)
 
-    @Delete
-    suspend fun deleteReview(review: ReviewEntity)
+    @Query("DELETE FROM reviews WHERE id = :id")
+    suspend fun deleteReview(id: Long)
+
+    @Query("DELETE FROM reviews WHERE id = :idsList")
+    suspend fun deleteReviews(idsList: List<Long>)
 
     @Query("DELETE FROM reviews")
     suspend fun deleteAllReviews()
@@ -28,4 +32,16 @@ interface ReviewsDao {
 
     @Query("SELECT * FROM reviews WHERE placeId = :placeId")
     fun getReviewsForPlace(placeId: Long): Flow<List<ReviewEntity>>
+
+    @Query("UPDATE reviews SET deletionPlanned = :deletionPlanned WHERE id = :id")
+    fun markReviewForDeletion(id: Long, deletionPlanned: Boolean = true)
+
+    @Query("SELECT * FROM reviews WHERE deletionPlanned = 1")
+    fun getReviewsPlannedForDeletion(): List<ReviewEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertReviewPlannedToPost(review: ReviewPlannedToPostEntity)
+
+    @Query("SELECT * FROM reviews_planned_to_post")
+    fun getReviewsPlannedToPost(): List<ReviewPlannedToPostEntity>
 }

@@ -3,6 +3,7 @@ package app.tourism.ui.screens.main.categories.categories
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import app.organicmaps.R
 import app.tourism.data.repositories.PlacesRepository
 import app.tourism.domain.models.categories.PlaceCategory
@@ -63,18 +64,22 @@ class CategoriesViewModel @Inject constructor(
     }
 
     private fun onCategoryChangeGetPlaces() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             _selectedCategory.collectLatest { item ->
                 item?.key?.let { id ->
                     val categoryId = id as Long
-                    placesRepository.getPlacesByCategory(categoryId).collectLatest { resource ->
-                        if (resource is Resource.Success) {
-                            resource.data?.let { _places.value = it }
+                    placesRepository.getPlacesByCategoryFromApiIfThereIsChange(categoryId)
+                    placesRepository.getPlacesByCategoryFromDbFlow(categoryId)
+                        .collectLatest { resource ->
+                            if (resource is Resource.Success) {
+                                resource.data?.let { _places.value = it }
+                            }
                         }
-                    }
+
                 }
             }
         }
+
     }
 
     init {

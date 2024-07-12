@@ -43,7 +43,7 @@ object RepositoriesModule {
         db: Database,
         @ApplicationContext context: Context,
     ): ReviewsRepository {
-        return ReviewsRepository(api, db)
+        return ReviewsRepository(context, api, db)
     }
 
 

@@ -28,7 +28,7 @@ class AuthActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launch {
-            placesRepository.downloadAllDataIfFirstTime()
+            placesRepository.downloadAllData()
         }
         enableEdgeToEdge(
             statusBarStyle = SystemBarStyle.dark(resources.getColor(R.color.black_primary)),

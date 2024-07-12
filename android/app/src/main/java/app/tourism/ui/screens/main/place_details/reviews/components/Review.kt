@@ -38,7 +38,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.organicmaps.R
-import app.tourism.Constants
 import app.tourism.domain.models.details.Review
 import app.tourism.domain.models.details.User
 import app.tourism.ui.common.HorizontalSpace
@@ -56,7 +55,7 @@ fun Review(
     modifier: Modifier = Modifier,
     review: Review,
     onMoreClick: (picsUrls: List<String>) -> Unit,
-    onDeleteClick: ((reviewId: Long) -> Unit)? = null,
+    onDeleteClick: (() -> Unit)? = null,
 ) {
     Column {
         HorizontalDivider(color = MaterialTheme.colorScheme.surface)
@@ -68,19 +67,21 @@ fun Review(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             User(modifier = Modifier.weight(1f), user = review.user)
-            review.date?.let {
-                Text(text = it, style = TextStyles.b2, color = getHintColor())
+            if (review.deletionPlanned) {
+                Text(stringResource(id = R.string.deletionPlanned))
+            } else {
+                review.date?.let {
+                    Text(text = it, style = TextStyles.b2, color = getHintColor())
+                }
             }
         }
         VerticalSpace(height = 16.dp)
 
-        review.rating.let {
-            RatingBar(
-                rating = it,
-                size = 24.dp,
-            )
-            VerticalSpace(height = 16.dp)
-        }
+        RatingBar(
+            rating = review.rating,
+            size = 24.dp,
+        )
+        VerticalSpace(height = 16.dp)
 
         val maxPics = 3
         val theresMore = review.picsUrls.size > maxPics
@@ -104,8 +105,17 @@ fun Review(
             VerticalSpace(height = 16.dp)
         }
 
-        review.comment?.let {
-            Comment(comment = it)
+        if(!review.comment.isNullOrBlank()) {
+            Comment(comment = review.comment)
+            VerticalSpace(height = 16.dp)
+        }
+
+        onDeleteClick?.let {
+            TextButton(
+                onClick = { onDeleteClick() },
+            ) {
+                Text(text = stringResource(id = R.string.delete_review))
+            }
             VerticalSpace(height = 16.dp)
         }
     }
@@ -127,8 +137,9 @@ fun User(modifier: Modifier = Modifier, user: User) {
                 .clip(CircleShape),
             url = user.pfpUrl,
         )
-        HorizontalSpace(width = 8.dp)
+        HorizontalSpace(width = 12.dp)
         Column {
+            VerticalSpace(height = 6.dp)
             Text(
                 text = user.name,
                 style = TextStyles.h4,
@@ -136,19 +147,18 @@ fun User(modifier: Modifier = Modifier, user: User) {
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
-            user.countryCodeName.let {
-                CountryAsLabel(
-                    Modifier.fillMaxWidth(),
-                    user.countryCodeName,
-                    contentColor = MaterialTheme.colorScheme.onBackground.toArgb(),
-                )
-            }
+            CountryAsLabel(
+                Modifier.fillMaxWidth(),
+                user.countryCodeName,
+                contentColor = MaterialTheme.colorScheme.onBackground.toArgb(),
+            )
         }
     }
 }
 
 @Composable
 fun Comment(modifier: Modifier = Modifier, comment: String) {
+    var hasOverflown by remember { mutableStateOf(false) }
     var expanded by remember { mutableStateOf(false) }
 
     val shape = RoundedCornerShape(20.dp)
@@ -159,11 +169,7 @@ fun Comment(modifier: Modifier = Modifier, comment: String) {
             .background(color = MaterialTheme.colorScheme.surface, shape = shape)
             .clip(shape)
             .clickable { onClick() }
-            .padding(
-                start = Constants.SCREEN_PADDING,
-                end = Constants.SCREEN_PADDING,
-                top = Constants.SCREEN_PADDING,
-            )
+            .padding(start = 16.dp, end = 16.dp, top = 16.dp)
             .then(modifier),
     ) {
         Text(
@@ -171,9 +177,16 @@ fun Comment(modifier: Modifier = Modifier, comment: String) {
             style = TextStyles.h4.copy(fontWeight = FontWeight.W400),
             maxLines = if (expanded) 6969 else 2,
             overflow = TextOverflow.Ellipsis,
+            onTextLayout = {
+                if (it.hasVisualOverflow) hasOverflown = true
+            }
         )
-        TextButton(onClick = { onClick() }, contentPadding = PaddingValues(0.dp)) {
-            Text(text = stringResource(id = if (expanded) R.string.less else R.string.more))
+        if (hasOverflown) {
+            TextButton(onClick = { onClick() }, contentPadding = PaddingValues(0.dp)) {
+                Text(text = stringResource(id = if (expanded) R.string.less else R.string.more))
+            }
+        } else {
+            VerticalSpace(height = 16.dp)
         }
     }
 }
@@ -185,7 +198,7 @@ fun ReviewPic(modifier: Modifier = Modifier, url: String) {
         modifier = Modifier
             .width(73.dp)
             .height(65.dp)
-            .clip(RoundedCornerShape(4.dp))
+            .clip(imageShape)
             .then(modifier),
         url = url,
     )
@@ -221,4 +234,6 @@ fun Modifier.getImageProperties() =
     this
         .width(73.dp)
         .height(65.dp)
-        .clip(RoundedCornerShape(4.dp))
+        .clip(imageShape)
+
+val imageShape = RoundedCornerShape(4.dp)

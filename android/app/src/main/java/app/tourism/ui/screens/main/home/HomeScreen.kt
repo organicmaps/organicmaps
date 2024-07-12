@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -31,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -42,7 +44,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import app.organicmaps.R
 import app.tourism.Constants
 import app.tourism.domain.models.common.PlaceShort
+import app.tourism.domain.models.resource.Resource
 import app.tourism.drawOverlayForTextBehind
+import app.tourism.ui.ObserveAsEvents
 import app.tourism.ui.common.AppSearchBar
 import app.tourism.ui.common.BorderedItem
 import app.tourism.ui.common.HorizontalSpace
@@ -51,10 +55,13 @@ import app.tourism.ui.common.SpaceForNavBar
 import app.tourism.ui.common.VerticalSpace
 import app.tourism.ui.common.nav.AppTopBar
 import app.tourism.ui.common.nav.TopBarActionData
+import app.tourism.ui.common.ui_state.Error
+import app.tourism.ui.common.ui_state.Loading
 import app.tourism.ui.screens.main.categories.categories.CategoriesViewModel
 import app.tourism.ui.screens.main.categories.categories.HorizontalSingleChoice
 import app.tourism.ui.theme.TextStyles
 import app.tourism.ui.theme.getStarColor
+import app.tourism.ui.utils.showToast
 
 @Composable
 fun HomeScreen(
@@ -65,9 +72,19 @@ fun HomeScreen(
     homeVM: HomeViewModel = hiltViewModel(),
     categoriesVM: CategoriesViewModel,
 ) {
+    val context = LocalContext.current
+
     val query = homeVM.query.collectAsState().value
     val sights = homeVM.sights.collectAsState().value
     val restaurants = homeVM.restaurants.collectAsState().value
+
+    val downloadResponse = homeVM.downloadResponse.collectAsState().value
+
+    ObserveAsEvents(flow = homeVM.uiEventsChannelFlow) { event ->
+        when (event) {
+            is UiEvent.ShowToast -> context.showToast(event.message)
+        }
+    }
 
     LaunchedEffect(true) {
         categoriesVM.setSelectedCategory(null)
@@ -88,51 +105,67 @@ fun HomeScreen(
         },
         contentWindowInsets = WindowInsets(left = 0.dp, right = 0.dp, top = 0.dp, bottom = 0.dp)
     ) { paddingValues ->
-        Column(
-            Modifier
-                .padding(paddingValues)
-                .verticalScroll(rememberScrollState())
-        ) {
-            Column(Modifier.padding(horizontal = Constants.SCREEN_PADDING)) {
+        if (downloadResponse is Resource.Success)
+            Column(
+                Modifier
+                    .padding(paddingValues)
+                    .verticalScroll(rememberScrollState())
+            ) {
+                Column(Modifier.padding(horizontal = Constants.SCREEN_PADDING)) {
+                    VerticalSpace(height = 16.dp)
+
+                    AppSearchBar(
+                        modifier = Modifier.fillMaxWidth(),
+                        query = query,
+                        onQueryChanged = { homeVM.setQuery(it) },
+                        onSearchClicked = onSearchClick,
+                        onClearClicked = { homeVM.clearSearchField() },
+                    )
+                }
                 VerticalSpace(height = 16.dp)
 
-                AppSearchBar(
-                    modifier = Modifier.fillMaxWidth(),
-                    query = query,
-                    onQueryChanged = { homeVM.setQuery(it) },
-                    onSearchClicked = onSearchClick,
-                    onClearClicked = { homeVM.clearSearchField() },
+                Categories(categoriesVM, onCategoryClicked)
+                VerticalSpace(height = 24.dp)
+
+                HorizontalPlaces(
+                    title = stringResource(id = R.string.sights),
+                    items = sights,
+                    onPlaceClick = { item ->
+                        onPlaceClick(item.id)
+                    },
+                    setFavoriteChanged = { item, isFavorite ->
+                        homeVM.setFavoriteChanged(item, isFavorite)
+                    },
                 )
+                VerticalSpace(height = 24.dp)
+
+                HorizontalPlaces(
+                    title = stringResource(id = R.string.restaurants),
+                    items = restaurants,
+                    onPlaceClick = { item ->
+                        onPlaceClick(item.id)
+                    },
+                    setFavoriteChanged = { item, isFavorite ->
+                        homeVM.setFavoriteChanged(item, isFavorite)
+                    },
+                )
+
+                SpaceForNavBar()
             }
-            VerticalSpace(height = 16.dp)
-
-            Categories(categoriesVM, onCategoryClicked)
-            VerticalSpace(height = 24.dp)
-
-            HorizontalPlaces(
-                title = stringResource(id = R.string.sights),
-                items = sights,
-                onPlaceClick = { item ->
-                    onPlaceClick(item.id)
-                },
-                setFavoriteChanged = { item, isFavorite ->
-                    homeVM.setFavoriteChanged(item, isFavorite)
-                },
+        if (downloadResponse is Resource.Loading) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(text = stringResource(id = R.string.plz_wait_dowloading))
+                    VerticalSpace(height = 16.dp)
+                    Loading(onEntireScreen = false)
+                }
+            }
+        }
+        if (downloadResponse is Resource.Error) {
+            Error(
+                errorMessage = downloadResponse.message
+                    ?: stringResource(id = R.string.smth_went_wrong),
             )
-            VerticalSpace(height = 24.dp)
-
-            HorizontalPlaces(
-                title = stringResource(id = R.string.restaurants),
-                items = restaurants,
-                onPlaceClick = { item ->
-                    onPlaceClick(item.id)
-                },
-                setFavoriteChanged = { item, isFavorite ->
-                    homeVM.setFavoriteChanged(item, isFavorite)
-                },
-            )
-
-            SpaceForNavBar()
         }
     }
 }

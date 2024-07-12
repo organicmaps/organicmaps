@@ -15,7 +15,7 @@ interface HashesDao {
     suspend fun insertHashes(hashes: List<HashEntity>)
 
     @Query("SELECT * FROM hashes WHERE categoryId = :id")
-    suspend fun getHash(id: Long): HashEntity
+    suspend fun getHash(id: Long): HashEntity?
 
     @Query("SELECT * FROM hashes")
     suspend fun getHashes(): List<HashEntity>

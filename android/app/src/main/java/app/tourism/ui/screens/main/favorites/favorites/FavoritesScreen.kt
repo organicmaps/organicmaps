@@ -28,6 +28,7 @@ import app.tourism.ui.common.nav.AppTopBar
 import app.tourism.ui.common.nav.SearchTopBar
 import app.tourism.ui.common.nav.TopBarActionData
 import app.tourism.ui.common.special.PlacesItem
+import app.tourism.ui.common.ui_state.EmptyList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -88,19 +89,24 @@ fun FavoritesScreen(
                 VerticalSpace(16.dp)
             }
 
-            items(places, key = { it.id }) { item ->
-                Column(Modifier.animateItem()) {
-                    PlacesItem(
-                        place = item,
-                        onPlaceClick = { onPlaceClick(item.id) },
-                        isFavorite = item.isFavorite,
-                        onFavoriteChanged = { isFavorite ->
-                            favoritesVM.setFavoriteChanged(item, isFavorite)
-                        },
-                    )
-                    VerticalSpace(height = 16.dp)
+            if (places.isNotEmpty())
+                items(places, key = { it.id }) { item ->
+                    Column(Modifier.animateItem()) {
+                        PlacesItem(
+                            place = item,
+                            onPlaceClick = { onPlaceClick(item.id) },
+                            isFavorite = item.isFavorite,
+                            onFavoriteChanged = { isFavorite ->
+                                favoritesVM.setFavoriteChanged(item, isFavorite)
+                            },
+                        )
+                        VerticalSpace(height = 16.dp)
+                    }
                 }
-            }
+            else
+                item {
+                    EmptyList()
+                }
 
             item {
                 Column {
