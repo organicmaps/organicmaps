@@ -331,6 +331,7 @@ string ReverseGeocoder::GetLocalizedRegionAddress(RegionAddress const & addr,
     addrStr = nameGetter.GetLocalizedFullName(addr.m_countryId);
   }
 
+  LOG(LWARNING, ("WAB LocalizedRegionAddress", addrStr));
   return addrStr;
 }
 

@@ -229,8 +229,8 @@ uint32_t RankerResult::GetBestType(vector<uint32_t> const * preferredTypes /* = 
   return m_types.GetBestType();
 }
 
-// RankerResult::RegionInfo ------------------------------------------------------------------------
-bool RankerResult::RegionInfo::GetCountryId(storage::CountryInfoGetter const & infoGetter,
+// RegionInfo ------------------------------------------------------------------------
+bool RegionInfo::GetCountryId(storage::CountryInfoGetter const & infoGetter,
                                             storage::CountryId & countryId) const
 {
   if (!m_countryId.empty())
