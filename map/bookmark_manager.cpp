@@ -27,6 +27,10 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
+#ifndef _MSC_VER
+#include <sys/time.h>
+#endif
+
 #include <algorithm>
 #include <chrono>
 #include <iomanip>
@@ -402,6 +406,59 @@ void BookmarkManager::DeleteBookmark(kml::MarkId bmId)
 void BookmarkManager::ResetRecentlyDeletedBookmark()
 {
   m_recentlyDeletedBookmark.reset();
+}
+
+bool BookmarkManager::HasRecentlyDeletedCategories() const
+{
+  Platform::FilesList files;
+  Platform::GetFilesByExt(GetBookmarksDirectory(), kDeletedExtension, files);
+  return !files.empty();
+}
+
+BookmarkManager::KMLDataCollectionPtr BookmarkManager::GetRecentlyDeletedCategories()
+{
+  auto collection = LoadBookmarks(GetBookmarksDirectory(), kDeletedExtension, KmlFileType::Text,
+                                  [](kml::FileData const &)
+                                  {
+    return true;
+  });
+  return collection;
+}
+
+bool BookmarkManager::IsRecentlyDeletedCategory(const std::string &filePath) const
+{
+  return base::GetFileExtension(filePath) == kDeletedExtension;
+}
+
+void BookmarkManager::RecoverRecentlyDeletedCategoriesAtPaths(std::vector<std::string> const & deletedFilePaths)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  GetPlatform().RunTask(Platform::Thread::File, [this, deletedFilePaths]()
+  {
+    for (auto const & deletedFilePath : deletedFilePaths)
+    {
+      CHECK(IsRecentlyDeletedCategory(deletedFilePath), ("The category at path", deletedFilePath, " should be 'deleted'."));
+      ASSERT(Platform::IsFileExistsByFullPath(deletedFilePath), ("Deleted file should exist to be recovered.", deletedFilePath));
+      auto filePath = base::FilenameWithoutExt(deletedFilePath);
+      if (Platform::IsFileExistsByFullPath(filePath))
+        filePath = GenerateValidAndUniqueFilePathForKML(base::GetNameFromFullPathWithoutExt(deletedFilePath));
+      UpdateLastModifiedTime(deletedFilePath);
+      base::MoveFileX(deletedFilePath, filePath);
+      GetPlatform().RunTask(Platform::Thread::Gui, [this, filePath]() {
+        ReloadBookmark(filePath);
+      });
+    }
+  });
+}
+
+void BookmarkManager::DeleteRecentlyDeletedCategoriesAtPaths(std::vector<std::string> const & deletedFilePaths)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  for (auto const & deletedFilePath : deletedFilePaths)
+  {
+    CHECK(IsRecentlyDeletedCategory(deletedFilePath), ("The category at path", deletedFilePath, " should be 'deleted'."));
+    FileWriter::DeleteFileX(deletedFilePath);
+  }
 }
 
 void BookmarkManager::DetachUserMark(kml::MarkId bmId, kml::MarkGroupId catId)
@@ -2056,10 +2113,10 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
         kmlData = LoadKmlFile(fileToLoad, KmlFileType::Text);
       else if (ext == kGpxExtension)
         kmlData = LoadKmlFile(fileToLoad, KmlFileType::Gpx);
+      else if (ext == kDeletedExtension)
+        kmlData = nullptr;
       else
-      {
         ASSERT(false, ("Unsupported bookmarks extension", ext));
-      }
 
       base::DeleteFileX(fileToLoad);
 
@@ -2102,6 +2159,8 @@ void BookmarkManager::ReloadBookmarkRoutine(std::string const & filePath)
       kmlData = LoadKmlFile(filePath, KmlFileType::Text);
     else if (ext == kGpxExtension)
       kmlData = LoadKmlFile(filePath, KmlFileType::Gpx);
+    else if (ext == kDeletedExtension)
+      kmlData = nullptr;
     else
       ASSERT(false, ("Unsupported bookmarks extension", ext));
 
@@ -2485,7 +2544,7 @@ void BookmarkManager::CheckAndResetLastIds()
     idStorage.ResetTrackId();
 }
 
-bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId, bool deleteFile)
+bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId, bool permanently)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto it = m_categories.find(groupId);
@@ -2495,13 +2554,32 @@ bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId, bool deleteFile
   ClearGroup(groupId);
   m_changesTracker.OnDeleteGroup(groupId);
 
-  if (deleteFile)
-    FileWriter::DeleteFileX(it->second->GetFileName());
+  auto const filePath = it->second->GetFileName();
+  if (permanently)
+    FileWriter::DeleteFileX(filePath);
+  else
+  {
+    UpdateLastModifiedTime(filePath);
+    auto const deletedFilePath = GenerateValidAndUniqueDeletedFilePath(base::FileNameFromFullPath(filePath));
+    base::MoveFileX(filePath, deletedFilePath);
+  }
 
   DeleteCompilations(it->second->GetCategoryData().m_compilationIds);
   m_categories.erase(it);
   UpdateBmGroupIdList();
   return true;
+}
+
+void BookmarkManager::UpdateLastModifiedTime(const std::string & filePath)
+{
+  struct timeval tv[2];
+  gettimeofday(&tv[0], NULL);
+  tv[1] = tv[0];
+  #ifdef _MSC_VER
+  _utime(filePath.c_str(), nullptr);
+  #else
+  utimes(filePath.c_str(), nullptr);
+  #endif
 }
 
 namespace
@@ -3573,9 +3651,9 @@ void BookmarkManager::EditSession::SetCategoryCustomProperty(kml::MarkGroupId ca
   m_bmManager.SetCategoryCustomProperty(categoryId, key, value);
 }
 
-bool BookmarkManager::EditSession::DeleteBmCategory(kml::MarkGroupId groupId)
+bool BookmarkManager::EditSession::DeleteBmCategory(kml::MarkGroupId groupId, bool permanently)
 {
-  return m_bmManager.DeleteBmCategory(groupId, true);
+  return m_bmManager.DeleteBmCategory(groupId, permanently);
 }
 
 void BookmarkManager::EditSession::NotifyChanges()

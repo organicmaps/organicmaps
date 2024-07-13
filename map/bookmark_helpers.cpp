@@ -252,17 +252,19 @@ std::string GenerateUniqueFileName(std::string const & path, std::string name, s
     name.resize(name.size() - ext.size());
 
   size_t counter = 1;
-  std::string suffix, res;
+  std::string suffix, resultFilePath, deletedFilePath;
   do
   {
-    res = name;
-    res = base::JoinPath(path, res.append(suffix).append(ext));
-    if (!Platform::IsFileExistsByFullPath(res))
+    resultFilePath = name;
+    deletedFilePath = name;
+    resultFilePath = base::JoinPath(path, resultFilePath.append(suffix).append(ext));
+    deletedFilePath = base::JoinPath(path, deletedFilePath.append(suffix).append(ext).append(kDeletedExtension));
+    if (!Platform::IsFileExistsByFullPath(resultFilePath) && !Platform::IsFileExistsByFullPath(deletedFilePath))
       break;
     suffix = strings::to_string(counter++);
   } while (true);
 
-  return res;
+  return resultFilePath;
 }
 
 std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName)
@@ -281,6 +283,15 @@ std::string GenerateValidAndUniqueFilePathForGPX(std::string const & fileName)
     filePath = kDefaultBookmarksFileName;
 
   return GenerateUniqueFileName(GetBookmarksDirectory(), std::move(filePath), kGpxExtension);
+}
+
+std::string GenerateValidAndUniqueDeletedFilePath(std::string const & fileName)
+{
+  std::string filePath = RemoveInvalidSymbols(fileName);
+  if (filePath.empty())
+    filePath = kDefaultBookmarksFileName;
+
+  return GenerateUniqueFileName(GetBookmarksDirectory(), std::move(filePath), kDeletedExtension);
 }
 
 std::string const kDefaultBookmarksFileName = "Bookmarks";
