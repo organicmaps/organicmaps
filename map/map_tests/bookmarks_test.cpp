@@ -247,7 +247,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
   bmManager.GetEditSession().ClearGroup(groupId1);
   TEST_EQUAL(bmManager.GetUserMarkIds(groupId1).size(), 0, ());
 
-  bmManager.GetEditSession().DeleteBmCategory(groupId1);
+  bmManager.GetEditSession().DeleteBmCategory(groupId1, true);
   TEST_EQUAL(bmManager.HasBmCategory(groupId1), false, ());
   TEST_EQUAL(bmManager.GetBmGroupsCount(), 0, ());
 
@@ -262,7 +262,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
   CheckBookmarks(bmManager, groupId2);
   TEST_EQUAL(bmManager.IsVisible(groupId2), true, ());
 
-  bmManager.GetEditSession().DeleteBmCategory(groupId2);
+  bmManager.GetEditSession().DeleteBmCategory(groupId2, true);
   TEST_EQUAL(bmManager.HasBmCategory(groupId2), false, ());
 
   BookmarkManager::KMLDataCollection kmlDataCollection3;
@@ -1095,7 +1095,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
   auto const fileNameTmp = fileName + ".backup";
   TEST(base::CopyFileX(fileName, fileNameTmp), ());
 
-  bmManager.GetEditSession().DeleteBmCategory(catId);
+  bmManager.GetEditSession().DeleteBmCategory(catId, true);
 
   auto const file2Name = "file2";
   BookmarkManager::KMLDataCollection kmlDataCollection2;
