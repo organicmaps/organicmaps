@@ -98,15 +98,19 @@
   <screenshots>
     <screenshot type="default">
       <image>https://organicmaps.app/images/screenshots/Desktop_light_routing.png</image>
+      <caption>Routing in dark mode</caption>
     </screenshot>
     <screenshot>
       <image>https://organicmaps.app/images/screenshots/Desktop_dark_routing.png</image>
+      <caption>Routing in light mode</caption>
     </screenshot>
     <screenshot>
       <image>https://organicmaps.app/images/screenshots/Desktop_light_overview.png</image>
+      <caption>Map overview in light mode</caption>
     </screenshot>
     <screenshot>
       <image>https://organicmaps.app/images/screenshots/Desktop_dark_overview.png</image>
+      <caption>Map overview in dark mode</caption>
     </screenshot>
   </screenshots>
 
