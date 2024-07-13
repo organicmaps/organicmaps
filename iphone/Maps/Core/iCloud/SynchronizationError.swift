@@ -6,6 +6,7 @@
   case containerNotFound
   case failedToOpenLocalDirectoryFileDescriptor
   case failedToRetrieveLocalDirectoryContent
+  case fileManagerMismatch
 }
 
 extension SynchronizationError: LocalizedError {
@@ -21,6 +22,8 @@ extension SynchronizationError: LocalizedError {
       return "Failed to open local directory file descriptor"
     case .failedToRetrieveLocalDirectoryContent:
       return "Failed to retrieve local directory content"
+    case .fileManagerMismatch:
+      return "File managers should be the same."
     }
   }
 }

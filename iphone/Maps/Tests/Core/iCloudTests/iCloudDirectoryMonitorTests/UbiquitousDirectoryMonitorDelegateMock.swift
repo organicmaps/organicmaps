@@ -10,15 +10,15 @@ class UbiquitousDirectoryMonitorDelegateMock: CloudDirectoryMonitorDelegate {
   var didUpdateExpectation: XCTestExpectation?
   var didReceiveErrorExpectation: XCTestExpectation?
 
-  var contents = CloudContents()
+  var contents = CloudContentsMetadata()
 
-  func didFinishGathering(contents: CloudContents) {
+  func didFinishGathering(contents: CloudContentsMetadata) {
     didFinishGatheringCalled = true
     didFinishGatheringExpectation?.fulfill()
     self.contents = contents
   }
 
-  func didUpdate(contents: CloudContents) {
+  func didUpdate(contents: CloudContentsMetadata) {
     didUpdateCalled = true
     didUpdateExpectation?.fulfill()
     self.contents = contents

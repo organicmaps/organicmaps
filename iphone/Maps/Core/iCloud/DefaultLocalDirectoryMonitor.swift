@@ -20,8 +20,8 @@ protocol LocalDirectoryMonitor: DirectoryMonitor {
 }
 
 protocol LocalDirectoryMonitorDelegate : AnyObject {
-  func didFinishGathering(contents: LocalContents)
-  func didUpdate(contents: LocalContents)
+  func didFinishGathering(contents: LocalContentsMetadata)
+  func didUpdate(contents: LocalContentsMetadata)
   func didReceiveLocalMonitorError(_ error: Error)
 }
 
@@ -36,7 +36,7 @@ final class DefaultLocalDirectoryMonitor: LocalDirectoryMonitor {
   }
 
   let fileManager: FileManager
-  let fileType: FileType
+  let fileTypes: [FileType]
   private let resourceKeys: [URLResourceKey] = [.nameKey]
   private var dispatchSource: DispatchSourceFileSystemObject?
   private var dispatchSourceDebounceState: DispatchSourceDebounceState = .stopped
@@ -52,7 +52,7 @@ final class DefaultLocalDirectoryMonitor: LocalDirectoryMonitor {
   init(fileManager: FileManager, directory: URL, fileType: FileType = .kml) throws {
     self.fileManager = fileManager
     self.directory = directory
-    self.fileType = fileType
+    self.fileTypes = [fileType, .deleted]
     try fileManager.createDirectoryIfNeeded(at: directory)
   }
 
@@ -143,17 +143,16 @@ final class DefaultLocalDirectoryMonitor: LocalDirectoryMonitor {
     dispatchSourceDebounceState = .started(source: source)
 
     do {
-      let files = try fileManager.contentsOfDirectory(at: directory, includingPropertiesForKeys: [], options: [.skipsHiddenFiles], fileExtension: fileType.fileExtension)
+      let files = try fileManager.contentsOfDirectory(at: directory, includingPropertiesForKeys: [], options: [.skipsHiddenFiles], fileTypes: fileTypes)
       let contents = files.compactMap { url in
         do {
-          let metadataItem = try LocalMetadataItem(fileUrl: url)
-          return metadataItem
+          return try LocalMetadataItem(fileUrl: url)
         } catch {
           delegate?.didReceiveLocalMonitorError(error)
           return nil
         }
       }
-      let contentMetadataItems = LocalContents(contents)
+      let contentMetadataItems = LocalContentsMetadata(contents)
 
       if !didFinishGatheringIsCalled {
         didFinishGatheringIsCalled = true
@@ -209,8 +208,8 @@ private extension FileManager {
     }
   }
 
-  func contentsOfDirectory(at url: URL, includingPropertiesForKeys keys: [URLResourceKey]?, options: FileManager.DirectoryEnumerationOptions, fileExtension: String) throws -> [URL] {
+  func contentsOfDirectory(at url: URL, includingPropertiesForKeys keys: [URLResourceKey]?, options: FileManager.DirectoryEnumerationOptions, fileTypes: [FileType]) throws -> [URL] {
     let files = try contentsOfDirectory(at: url, includingPropertiesForKeys: keys, options: options)
-    return files.filter { $0.pathExtension == fileExtension }
+    return files.filter { fileTypes.map(\.fileExtension).contains($0.pathExtension) }
   }
 }

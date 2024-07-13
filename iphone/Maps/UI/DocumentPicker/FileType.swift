@@ -10,6 +10,7 @@ extension FileType {
   static let kml = FileType(fileExtension: "kml", typeIdentifier: "com.google.earth.kml")
   static let kmz = FileType(fileExtension: "kmz", typeIdentifier: "com.google.earth.kmz")
   static let gpx = FileType(fileExtension: "gpx", typeIdentifier: "com.topografix.gpx")
+  static let deleted = FileType(fileExtension: "deleted", typeIdentifier: "deleted")
 }
 
 // MARK: - FileType + UTType

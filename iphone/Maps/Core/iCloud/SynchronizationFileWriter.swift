@@ -1,4 +1,12 @@
 final class SynchronizationFileWriter {
+  
+  enum WritingResult {
+    case success
+    case reloadCategoriesAtURLs([URL])
+    case deleteCategoriesAtURLs([URL])
+    case failure(Error)
+  }
+
   private let fileManager: FileManager
   private let backgroundQueue = DispatchQueue(label: "iCloud.app.organicmaps.backgroundQueue", qos: .background)
   private let fileCoordinator: NSFileCoordinator
@@ -15,17 +23,18 @@ final class SynchronizationFileWriter {
     self.cloudDirectoryUrl = cloudDirectoryUrl
   }
 
-  func processEvent(_ event: OutgoingEvent, completion: @escaping WritingResultCompletionHandler) {
+  func processEvent(_ event: OutgoingCloudEvent, completion: @escaping WritingResultCompletionHandler) {
     backgroundQueue.async { [weak self] in
       guard let self else { return }
       switch event {
-      case .createLocalItem(let cloudMetadataItem): self.createInLocalContainer(cloudMetadataItem, completion: completion)
-      case .updateLocalItem(let cloudMetadataItem): self.updateInLocalContainer(cloudMetadataItem, completion: completion)
-      case .removeLocalItem(let cloudMetadataItem): self.removeFromLocalContainer(cloudMetadataItem, completion: completion)
-      case .startDownloading(let cloudMetadataItem): self.startDownloading(cloudMetadataItem, completion: completion)
-      case .createCloudItem(let localMetadataItem): self.createInCloudContainer(localMetadataItem, completion: completion)
-      case .updateCloudItem(let localMetadataItem): self.updateInCloudContainer(localMetadataItem, completion: completion)
-      case .removeCloudItem(let localMetadataItem): self.removeFromCloudContainer(localMetadataItem, completion: completion)
+      case .createLocalItem(let cloudItem): self.createInLocalContainer(cloudItem, completion: completion)
+      case .updateLocalItem(let cloudItem): self.updateInLocalContainer(cloudItem, completion: completion)
+      case .removeLocalItem(let localItem): self.removeFromLocalContainer(localItem, completion: completion)
+      case .startDownloading(let cloudItem): self.startDownloading(cloudItem, completion: completion)
+      case .createCloudItem(let localItem): self.createInCloudContainer(localItem, completion: completion)
+      case .updateCloudItem(let localItem): self.updateInCloudContainer(localItem, completion: completion)
+      case .removeCloudItem(let cloudItem): self.removeFromCloudContainer(cloudItem, completion: completion)
+      case .trashCloudItem(let localItem): self.trashFromCloudContainer(localItem, completion: completion)
       case .resolveVersionsConflict(let cloudMetadataItem): self.resolveVersionsConflict(cloudMetadataItem, completion: completion)
       case .resolveInitialSynchronizationConflict(let localMetadataItem): self.resolveInitialSynchronizationConflict(localMetadataItem, completion: completion)
       case .didFinishInitialSynchronization: completion(.success)
@@ -79,41 +88,40 @@ final class SynchronizationFileWriter {
     }
   }
 
-  private func removeFromLocalContainer(_ cloudMetadataItem: CloudMetadataItem, completion: @escaping WritingResultCompletionHandler) {
-    LOG(.debug, "Start removing file \(cloudMetadataItem.fileName) from the local directory...")
-    let targetLocalFileUrl = cloudMetadataItem.relatedLocalItemUrl(to: localDirectoryUrl)
-    guard fileManager.fileExists(atPath: targetLocalFileUrl.path) else {
-      LOG(.debug, "File \(cloudMetadataItem.fileName) doesn't exist in the local directory and cannot be removed.")
+  private func removeFromLocalContainer(_ localItem: LocalMetadataItem, completion: @escaping WritingResultCompletionHandler) {
+    LOG(.debug, "Start removing file \(localItem.fileName) from the local directory...")
+    guard fileManager.fileExists(atPath: localItem.fileUrl.path) else {
+      LOG(.debug, "File \(localItem.fileName) doesn't exist in the local directory and cannot be removed.")
       completion(.success)
       return
     }
-    completion(.deleteCategoriesAtURLs([targetLocalFileUrl]))
-    LOG(.debug, "File \(cloudMetadataItem.fileName) is removed from the local directory successfully.")
+    completion(.deleteCategoriesAtURLs([localItem.fileUrl]))
+    LOG(.debug, "File \(localItem.fileName) is removed from the local directory successfully.")
   }
 
-  private func createInCloudContainer(_ localMetadataItem: LocalMetadataItem, completion: @escaping WritingResultCompletionHandler) {
-    let targetCloudFileUrl = localMetadataItem.relatedCloudItemUrl(to: cloudDirectoryUrl)
+  private func createInCloudContainer(_ localItem: LocalMetadataItem, completion: @escaping WritingResultCompletionHandler) {
+    let targetCloudFileUrl = localItem.relatedCloudItemUrl(to: cloudDirectoryUrl)
     guard !fileManager.fileExists(atPath: targetCloudFileUrl.path) else {
-      LOG(.debug, "File \(localMetadataItem.fileName) already exists in the cloud directory.")
+      LOG(.debug, "File \(localItem.fileName) already exists in the cloud directory.")
       completion(.success)
       return
     }
-    writeToCloudContainer(localMetadataItem, completion: completion)
+    writeToCloudContainer(localItem, completion: completion)
   }
 
-  private func updateInCloudContainer(_ localMetadataItem: LocalMetadataItem, completion: @escaping WritingResultCompletionHandler) {
-    writeToCloudContainer(localMetadataItem, completion: completion)
+  private func updateInCloudContainer(_ localItem: LocalMetadataItem, completion: @escaping WritingResultCompletionHandler) {
+    writeToCloudContainer(localItem, completion: completion)
   }
 
-  private func writeToCloudContainer(_ localMetadataItem: LocalMetadataItem, completion: @escaping WritingResultCompletionHandler) {
-    LOG(.debug, "Start writing file \(localMetadataItem.fileName) to the cloud directory...")
-    let targetCloudFileUrl = localMetadataItem.relatedCloudItemUrl(to: cloudDirectoryUrl)
+  private func writeToCloudContainer(_ localItem: LocalMetadataItem, completion: @escaping WritingResultCompletionHandler) {
+    LOG(.debug, "Start writing file \(localItem.fileName) to the cloud directory...")
+    let targetCloudFileUrl = localItem.relatedCloudItemUrl(to: cloudDirectoryUrl)
     var coordinationError: NSError?
-    fileCoordinator.coordinate(readingItemAt: localMetadataItem.fileUrl, writingItemAt: targetCloudFileUrl, error: &coordinationError) { readingUrl, writingUrl in
+    fileCoordinator.coordinate(readingItemAt: localItem.fileUrl, writingItemAt: targetCloudFileUrl, error: &coordinationError) { readingUrl, writingUrl in
       do {
-        let fileData = try localMetadataItem.fileData()
-        try fileData.write(to: writingUrl, lastModificationDate: localMetadataItem.lastModificationDate)
-        LOG(.debug, "File \(localMetadataItem.fileName) is copied to the cloud directory successfully.")
+        let fileData = try localItem.fileData()
+        try fileData.write(to: writingUrl, lastModificationDate: localItem.lastModificationDate)
+        LOG(.debug, "File \(localItem.fileName) is copied to the cloud directory successfully.")
         completion(.success)
       } catch {
         completion(.failure(error))
@@ -125,13 +133,24 @@ final class SynchronizationFileWriter {
     }
   }
 
-  private func removeFromCloudContainer(_ localMetadataItem: LocalMetadataItem, completion: @escaping WritingResultCompletionHandler) {
-    LOG(.debug, "Start trashing file \(localMetadataItem.fileName)...")
+  private func removeFromCloudContainer(_ cloudItem: CloudMetadataItem, completion: @escaping WritingResultCompletionHandler) {
+    LOG(.debug, "Start removing file \(cloudItem.fileName)...")
     do {
-      let targetCloudFileUrl = localMetadataItem.relatedCloudItemUrl(to: cloudDirectoryUrl)
-      try removeDuplicatedFileFromTrashDirectoryIfNeeded(cloudDirectoryUrl: cloudDirectoryUrl, fileName: localMetadataItem.fileName)
-      try self.fileManager.trashItem(at: targetCloudFileUrl, resultingItemURL: nil)
-      LOG(.debug, "File \(localMetadataItem.fileName) was trashed successfully.")
+      try fileManager.removeItem(at: cloudItem.fileUrl)
+      LOG(.debug, "File \(cloudItem.fileName) was removed successfully.")
+      completion(.success)
+    } catch {
+      completion(.failure(error))
+    }
+  }
+
+  private func trashFromCloudContainer(_ localItem: LocalMetadataItem, completion: @escaping WritingResultCompletionHandler) {
+    LOG(.debug, "Start trashing file \(localItem.fileName)...")
+    do {
+      let targetCloudFileUrl = localItem.relatedCloudItemUrl(to: cloudDirectoryUrl)
+      try removeDuplicatedFileFromTrashDirectoryIfNeeded(cloudDirectoryUrl: cloudDirectoryUrl, fileName: localItem.fileName)
+      try fileManager.trashItem(at: targetCloudFileUrl, resultingItemURL: nil)
+      LOG(.debug, "File \(localItem.fileName) was trashed successfully.")
       completion(.success)
     } catch {
       completion(.failure(error))
@@ -159,12 +178,12 @@ final class SynchronizationFileWriter {
   }
 
   // MARK: - Merge conflicts resolving
-  private func resolveVersionsConflict(_ cloudMetadataItem: CloudMetadataItem, completion: @escaping WritingResultCompletionHandler) {
-    LOG(.debug, "Start resolving version conflict for file \(cloudMetadataItem.fileName)...")
+  private func resolveVersionsConflict(_ cloudItem: CloudMetadataItem, completion: @escaping WritingResultCompletionHandler) {
+    LOG(.debug, "Start resolving version conflict for file \(cloudItem.fileName)...")
 
-    guard let versionsInConflict = NSFileVersion.unresolvedConflictVersionsOfItem(at: cloudMetadataItem.fileUrl), !versionsInConflict.isEmpty,
-          let currentVersion = NSFileVersion.currentVersionOfItem(at: cloudMetadataItem.fileUrl) else {
-      LOG(.debug, "No versions in conflict found for file \(cloudMetadataItem.fileName).")
+    guard let versionsInConflict = NSFileVersion.unresolvedConflictVersionsOfItem(at: cloudItem.fileUrl), !versionsInConflict.isEmpty,
+          let currentVersion = NSFileVersion.currentVersionOfItem(at: cloudItem.fileUrl) else {
+      LOG(.debug, "No versions in conflict found for file \(cloudItem.fileName).")
       completion(.success)
       return
     }
@@ -177,12 +196,12 @@ final class SynchronizationFileWriter {
     }
 
     guard let latestVersionInConflict = sortedVersions.first else {
-      LOG(.debug, "No latest version in conflict found for file \(cloudMetadataItem.fileName).")
+      LOG(.debug, "No latest version in conflict found for file \(cloudItem.fileName).")
       completion(.success)
       return
     }
 
-    let targetCloudFileCopyUrl = generateNewFileUrl(for: cloudMetadataItem.fileUrl)
+    let targetCloudFileCopyUrl = generateNewFileUrl(for: cloudItem.fileUrl)
     var coordinationError: NSError?
     fileCoordinator.coordinate(writingItemAt: currentVersion.url,
                                options: [.forReplacing],
@@ -191,27 +210,27 @@ final class SynchronizationFileWriter {
                                error: &coordinationError) { currentVersionUrl, copyVersionUrl in
       // Check that during the coordination block, the current version of the file have not been already resolved by another process.
       guard let unresolvedVersions = NSFileVersion.unresolvedConflictVersionsOfItem(at: currentVersionUrl), !unresolvedVersions.isEmpty else {
-        LOG(.debug, "File \(cloudMetadataItem.fileName) was already resolved.")
+        LOG(.debug, "File \(cloudItem.fileName) was already resolved.")
         completion(.success)
         return
       }
       do {
         // Check if the file was already resolved by another process. The in-memory versions should be marked as resolved.
         guard !fileManager.fileExists(atPath: copyVersionUrl.path) else {
-          LOG(.debug, "File \(cloudMetadataItem.fileName) was already resolved.")
+          LOG(.debug, "File \(cloudItem.fileName) was already resolved.")
           try NSFileVersion.removeOtherVersionsOfItem(at: currentVersionUrl)
           completion(.success)
           return
         }
 
-        LOG(.debug, "Duplicate file \(cloudMetadataItem.fileName)...")
+        LOG(.debug, "Duplicate file \(cloudItem.fileName)...")
         try latestVersionInConflict.replaceItem(at: copyVersionUrl)
         // The modification date should be updated to mark files that was involved into the resolving process.
-        try currentVersionUrl.setResourceModificationDate(Date())
-        try copyVersionUrl.setResourceModificationDate(Date())
+        try currentVersionUrl.updateResourceModificationDate()
+        try copyVersionUrl.updateResourceModificationDate()
         unresolvedVersions.forEach { $0.isResolved = true }
         try NSFileVersion.removeOtherVersionsOfItem(at: currentVersionUrl)
-        LOG(.debug, "File \(cloudMetadataItem.fileName) was successfully resolved.")
+        LOG(.debug, "File \(cloudItem.fileName) was successfully resolved.")
         completion(.success)
         return
       } catch {
@@ -225,12 +244,12 @@ final class SynchronizationFileWriter {
     }
   }
 
-  private func resolveInitialSynchronizationConflict(_ localMetadataItem: LocalMetadataItem, completion: @escaping WritingResultCompletionHandler) {
-    LOG(.debug, "Start resolving initial sync conflict for file \(localMetadataItem.fileName) by copying with a new name...")
+  private func resolveInitialSynchronizationConflict(_ localItem: LocalMetadataItem, completion: @escaping WritingResultCompletionHandler) {
+    LOG(.debug, "Start resolving initial sync conflict for file \(localItem.fileName) by copying with a new name...")
     do {
-      let newFileUrl = generateNewFileUrl(for: localMetadataItem.fileUrl, addDeviceName: true)
-      try fileManager.copyItem(at: localMetadataItem.fileUrl, to: newFileUrl)
-      LOG(.debug, "File \(localMetadataItem.fileName) was successfully resolved.")
+      let newFileUrl = generateNewFileUrl(for: localItem.fileUrl, addDeviceName: true)
+      try fileManager.copyItem(at: localItem.fileUrl, to: newFileUrl)
+      LOG(.debug, "File \(localItem.fileName) was successfully resolved.")
       completion(.reloadCategoriesAtURLs([newFileUrl]))
     } catch {
       completion(.failure(error))
@@ -253,7 +272,7 @@ final class SynchronizationFileWriter {
 
 // MARK: - URL + ResourceValues
 private extension URL {
-  func setResourceModificationDate(_ date: Date) throws {
+  func updateResourceModificationDate(_ date: Date = Date()) throws {
     var url = self
     var resource = try resourceValues(forKeys:[.contentModificationDateKey])
     resource.contentModificationDate = date
@@ -261,12 +280,13 @@ private extension URL {
   }
 }
 
+// MARK: - Date + WritingWithUpdateResourceModificationDate
+
 private extension Data {
   func write(to url: URL, options: Data.WritingOptions = .atomic, lastModificationDate: TimeInterval? = nil) throws {
     try write(to: url, options: options)
     if let lastModificationDate {
-      try url.setResourceModificationDate(Date(timeIntervalSince1970: lastModificationDate))
+      try url.updateResourceModificationDate(Date(timeIntervalSince1970: lastModificationDate))
     }
   }
 }
-

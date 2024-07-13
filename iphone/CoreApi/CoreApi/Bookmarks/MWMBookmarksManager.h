@@ -26,19 +26,24 @@ typedef void (^SearchBookmarksCompletionBlock)(NSArray<MWMBookmark *> *bookmarks
 typedef void (^SortBookmarksCompletionBlock)(NSArray<MWMBookmarksSection *> * _Nullable sortedSections);
 typedef void (^SharingResultCompletionHandler)(MWMBookmarksShareStatus status, NSURL * _Nullable urlToALocalFile);
 
+@protocol RecentlyDeletedCategoriesManager <NSObject, BookmarksObservable>
+- (NSArray<RecentlyDeletedCategory *> *)getRecentlyDeletedCategories;
+- (void)deleteRecentlyDeletedCategoryAtURLs:(NSArray<NSURL *> *)urls;
+- (void)recoverRecentlyDeletedCategoriesAtURLs:(NSArray<NSURL *> *)urls;
+@end
+
 NS_SWIFT_NAME(BookmarksManager)
-@interface MWMBookmarksManager : NSObject
+@interface MWMBookmarksManager : NSObject <BookmarksObservable, RecentlyDeletedCategoriesManager>
 
 + (MWMBookmarksManager *)sharedManager;
-
-- (void)addObserver:(id<MWMBookmarksObserver>)observer;
-- (void)removeObserver:(id<MWMBookmarksObserver>)observer;
 
 - (BOOL)areBookmarksLoaded;
 - (void)loadBookmarks;
 - (void)loadBookmarkFile:(NSURL *)url;
+/// Reloads the category at the given file path.
 - (void)reloadCategoryAtFilePath:(NSString *)filePath;
-- (void)deleteCategoryAtFilePath:(NSString *)filePath;
+/// Removes the category at the given file path with the related file without marking the file as deleted.
+- (void)removeCategoryAtFilePath:(NSString *)filePath;
 
 - (BOOL)areAllCategoriesEmpty;
 - (BOOL)isCategoryEmpty:(MWMMarkGroupID)groupId;

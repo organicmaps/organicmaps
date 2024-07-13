@@ -3,22 +3,16 @@ enum VoidResult {
   case failure(Error)
 }
 
-enum WritingResult {
-  case success
-  case reloadCategoriesAtURLs([URL])
-  case deleteCategoriesAtURLs([URL])
-  case failure(Error)
-}
-
 typealias VoidResultCompletionHandler = (VoidResult) -> Void
-typealias WritingResultCompletionHandler = (WritingResult) -> Void
+typealias WritingResultCompletionHandler = (SynchronizationFileWriter.WritingResult) -> Void
 
 let kTrashDirectoryName = ".Trash"
 private let kBookmarksDirectoryName = "bookmarks"
 private let kICloudSynchronizationDidChangeEnabledStateNotificationName = "iCloudSynchronizationDidChangeEnabledStateNotification"
 private let kUDDidFinishInitialCloudSynchronization = "kUDDidFinishInitialCloudSynchronization"
 
-@objc @objcMembers final class CloudStorageManager: NSObject {
+@objc @objcMembers 
+final class CloudStorageManager: NSObject {
 
   fileprivate struct Observation {
     weak var observer: AnyObject?
@@ -45,7 +39,7 @@ private let kUDDidFinishInitialCloudSynchronization = "kUDDidFinishInitialCloudS
     let fileManager = FileManager.default
     let fileType = FileType.kml
     let cloudDirectoryMonitor = iCloudDocumentsDirectoryMonitor(fileManager: fileManager, fileType: fileType)
-    let synchronizationStateManager = DefaultSynchronizationStateManager(isInitialSynchronization: CloudStorageManager.isInitialSynchronization)
+    let synchronizationStateManager = CloudSynchronizationStateManager(isInitialSynchronization: CloudStorageManager.isInitialSynchronization)
     do {
       let localDirectoryMonitor = try DefaultLocalDirectoryMonitor(fileManager: fileManager, directory: fileManager.bookmarksDirectoryUrl, fileType: fileType)
       let clodStorageManager = try CloudStorageManager(fileManager: fileManager,
@@ -68,7 +62,7 @@ private let kUDDidFinishInitialCloudSynchronization = "kUDDidFinishInitialCloudS
        localDirectoryMonitor: LocalDirectoryMonitor,
        synchronizationStateManager: SynchronizationStateManager) throws {
     guard fileManager === cloudDirectoryMonitor.fileManager, fileManager === localDirectoryMonitor.fileManager else {
-      throw NSError(domain: "CloudStorageManger", code: 0, userInfo: [NSLocalizedDescriptionKey: "File managers should be the same."])
+      throw SynchronizationError.fileManagerMismatch
     }
     self.fileManager = fileManager
     self.settings = settings
@@ -177,12 +171,12 @@ private extension CloudStorageManager {
 
 // MARK: - iCloudStorageManger + LocalDirectoryMonitorDelegate
 extension CloudStorageManager: LocalDirectoryMonitorDelegate {
-  func didFinishGathering(contents: LocalContents) {
+  func didFinishGathering(contents: LocalContentsMetadata) {
     let events = synchronizationStateManager.resolveEvent(.didFinishGatheringLocalContents(contents))
     processEvents(events)
   }
 
-  func didUpdate(contents: LocalContents) {
+  func didUpdate(contents: LocalContentsMetadata) {
     let events = synchronizationStateManager.resolveEvent(.didUpdateLocalContents(contents))
     processEvents(events)
   }
@@ -194,12 +188,12 @@ extension CloudStorageManager: LocalDirectoryMonitorDelegate {
 
 // MARK: - iCloudStorageManger + CloudDirectoryMonitorDelegate
 extension CloudStorageManager: CloudDirectoryMonitorDelegate {
-  func didFinishGathering(contents: CloudContents) {
+  func didFinishGathering(contents: CloudContentsMetadata) {
     let events = synchronizationStateManager.resolveEvent(.didFinishGatheringCloudContents(contents))
     processEvents(events)
   }
 
-  func didUpdate(contents: CloudContents) {
+  func didUpdate(contents: CloudContentsMetadata) {
     let events = synchronizationStateManager.resolveEvent(.didUpdateCloudContents(contents))
     processEvents(events)
   }
@@ -211,7 +205,7 @@ extension CloudStorageManager: CloudDirectoryMonitorDelegate {
 
 // MARK: - Private methods
 private extension CloudStorageManager {
-  func processEvents(_ events: [OutgoingEvent]) {
+  func processEvents(_ events: [OutgoingCloudEvent]) {
     guard !events.isEmpty else {
       synchronizationError = nil
       return
@@ -225,7 +219,7 @@ private extension CloudStorageManager {
     }
   }
 
-  func writingResultHandler(for event: OutgoingEvent) -> WritingResultCompletionHandler {
+  func writingResultHandler(for event: OutgoingCloudEvent) -> WritingResultCompletionHandler {
     return { [weak self] result in
       guard let self else { return }
       DispatchQueue.main.async {
@@ -236,9 +230,9 @@ private extension CloudStorageManager {
             UserDefaults.standard.set(true, forKey: kUDDidFinishInitialCloudSynchronization)
           }
         case .reloadCategoriesAtURLs(let urls):
-          urls.forEach { self.bookmarksManager.reloadCategory(atFilePath: $0.path) }
+          urls.forEach { self.bookmarksManager.reloadCategory(atFilePath: $0.standardizedFileURL.path) }
         case .deleteCategoriesAtURLs(let urls):
-          urls.forEach { self.bookmarksManager.deleteCategory(atFilePath: $0.path) }
+          urls.forEach { self.bookmarksManager.removeCategory(atFilePath: $0.standardizedFileURL.path) }
         case .failure(let error):
           self.processError(error)
         }
@@ -257,6 +251,7 @@ private extension CloudStorageManager {
       case .iCloudIsNotAvailable: fallthrough
       case .failedToOpenLocalDirectoryFileDescriptor: fallthrough
       case .failedToRetrieveLocalDirectoryContent: fallthrough
+      case .fileManagerMismatch: fallthrough
       case .containerNotFound:
         stopSynchronization()
       }
@@ -293,8 +288,12 @@ extension CloudStorageManager {
 
 // MARK: - FileManager + Directories
 extension FileManager {
-  var bookmarksDirectoryUrl: URL {
-    urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent(kBookmarksDirectoryName, isDirectory: true)
+  fileprivate var documentsDirectoryUrl: URL {
+    urls(for: .documentDirectory, in: .userDomainMask).first!
+  }
+
+  fileprivate var bookmarksDirectoryUrl: URL {
+    documentsDirectoryUrl.appendingPathComponent(kBookmarksDirectoryName, isDirectory: true)
   }
 
   func trashDirectoryUrl(for baseDirectoryUrl: URL) throws -> URL {
@@ -315,7 +314,7 @@ extension Notification.Name {
   public static let iCloudSynchronizationDidChangeEnabledState = Notification.Name.iCloudSynchronizationDidChangeEnabledStateNotification
 }
 
-// MARK: - Dictionary + RemoveUnreachable
+// MARK: - Dictionary + RemoveUnreachableSubscribers
 private extension Dictionary where Key == ObjectIdentifier, Value == CloudStorageManager.Observation {
   mutating func removeUnreachable() -> Self {
     for (id, observation) in self {

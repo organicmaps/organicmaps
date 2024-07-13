@@ -2,18 +2,18 @@ import XCTest
 @testable import Organic_Maps__Debug_
 
 class LocalDirectoryMonitorDelegateMock: LocalDirectoryMonitorDelegate {
-  var contents = LocalContents()
+  var contents = LocalContentsMetadata()
 
   var didFinishGatheringExpectation: XCTestExpectation?
   var didUpdateExpectation: XCTestExpectation?
   var didReceiveErrorExpectation: XCTestExpectation?
 
-  func didFinishGathering(contents: LocalContents) {
+  func didFinishGathering(contents: LocalContentsMetadata) {
     self.contents = contents
     didFinishGatheringExpectation?.fulfill()
   }
 
-  func didUpdate(contents: LocalContents) {
+  func didUpdate(contents: LocalContentsMetadata) {
     self.contents = contents
     didUpdateExpectation?.fulfill()
   }

@@ -9,6 +9,7 @@
 #include "Framework.h"
 
 #include "map/bookmarks_search_params.hpp"
+#include "map/bookmark_helpers.hpp"
 
 #include "coding/internal/file_data.hpp"
 
@@ -208,16 +209,33 @@ static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType) {
   self.bm.LoadBookmark(url.path.UTF8String, false /* isTemporaryFile */);
 }
 
-- (void)reloadCategoryAtFilePath:(NSString *)filePath
-{
-  self.bm.ReloadBookmark(filePath.UTF8String);
+- (void)reloadCategoryAtFilePath:(NSString *)filePath {
+  auto const filePathStr = filePath.UTF8String;
+  if (self.bm.IsRecentlyDeletedCategory(filePathStr)) {
+    [self loopObservers:^(id<MWMBookmarksObserver> observer) {
+      if ([observer respondsToSelector:@selector(onRecentlyDeletedBookmarksCategoriesChanged)])
+        [observer onRecentlyDeletedBookmarksCategoriesChanged];
+    }];
+  } else {
+    self.bm.ReloadBookmark(filePathStr);
+  }
 }
 
-- (void)deleteCategoryAtFilePath:(NSString *)filePath
+- (void)removeCategoryAtFilePath:(NSString *)filePath
 {
-  auto const groupId = self.bm.GetCategoryByFileName(filePath.UTF8String);
-  if (groupId)
-    [self deleteCategory:groupId];
+  auto const filePathStr = filePath.UTF8String;
+  auto const groupId = self.bm.GetCategoryByFileName(filePathStr);
+  if (groupId != kml::kInvalidMarkGroupId) {
+    self.bm.GetEditSession().DeleteBmCategory(groupId, true /* permanently */);
+    [self loopObservers:^(id<MWMBookmarksObserver> observer) {
+      if ([observer respondsToSelector:@selector(onBookmarksCategoryDeleted:)])
+        [observer onBookmarksCategoryDeleted:groupId];
+    }];
+  } else if (self.bm.IsRecentlyDeletedCategory(filePathStr)) {
+    [self deleteRecentlyDeletedCategoryAtURLs:@[[NSURL fileURLWithPath:filePath]]];
+  } else {
+    LOG(LWARNING, ("Category not found by file path:", filePathStr));
+  }
 }
 
 #pragma mark - Categories
