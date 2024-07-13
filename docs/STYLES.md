@@ -107,7 +107,7 @@ A whole map needs to be [regenerated](MAPS.md) for the changes to take effect if
 Map style files syntax is based on [MapCSS/0.2](https://wiki.openstreetmap.org/wiki/MapCSS/0.2),
 though the specification is not supported in full and there are OM-specific extensions to it.
 
-The `tools/unix/generate_drules.sh` script uses a customized version of [Kothic](https://github.com/kothic/kothic)
+The `tools/unix/generate_drules.sh` script uses a customized version of [Kothic](https://github.com/organicmaps/kothic)
 stylesheet processor to compile MapCSS files into binary drawing rules files `data/drules_proto*.bin`.
 The processor also produces text versions of these files (`data/drules_proto*.txt`) to ease debugging.
 

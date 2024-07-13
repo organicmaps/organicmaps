@@ -34,7 +34,7 @@ Main:
 Additional:
 - Text-to-speech strings for navigation: [`data/strings/sound.txt`](../data/strings/sound.txt)
 
-- Android stores description: [`android/src/google/play/`](../android/src/google/play/)
+- Android stores description: [`android/app/src/fdroid/play/`](../android/app/src/fdroid/play/)
 - Apple AppStore description: [`iphone/metadata/`](../iphone/metadata/)
 
 - Popular brands of map features: [`data/strings/brands_strings.txt`](../data/strings/brands_strings.txt)
