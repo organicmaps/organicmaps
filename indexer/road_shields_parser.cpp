@@ -72,6 +72,9 @@ std::unordered_map<std::string, RoadShieldType> const kRoadNetworkShields = {
     {"pl:national", RoadShieldType::Generic_Red},
     {"pl:regional", RoadShieldType::Generic_Orange},
     {"pl:local", RoadShieldType::Generic_White},
+    {"tr:motorway", RoadShieldType::Generic_Orange},
+    {"tr:road", RoadShieldType::Generic_Blue},
+    {"tr:provincial", RoadShieldType::Generic_White},
     {"ua:national", RoadShieldType::Generic_Blue},
     {"ua:regional", RoadShieldType::Generic_Blue},
     {"ua:territorial", RoadShieldType::Generic_White},
@@ -548,7 +551,7 @@ class CyprusRoadShieldParser : public SimpleRoadShieldParser
 {
 public:
   explicit CyprusRoadShieldParser(std::string const & baseRoadNumber)
-    : SimpleRoadShieldParser(baseRoadNumber, {// North Cuprus.
+    : SimpleRoadShieldParser(baseRoadNumber, {// North Cyprus.
                                               {"D.", RoadShieldType::Generic_Blue},   // White font.
                                               {"GM.", RoadShieldType::Generic_White}, // Blue font.
                                               {"GZ.", RoadShieldType::Generic_White}, // Blue font.
@@ -561,6 +564,21 @@ public:
                                               {"E", RoadShieldType::Generic_Blue},    // Yellow font.
                                               {"F", RoadShieldType::Generic_Blue},    // Yellow font.
                                               {"U", RoadShieldType::Generic_Blue}})   // Yellow font.
+  {
+  }
+};
+
+class TurkeyRoadShieldParser : public SimpleRoadShieldParser
+//TODO: Implement provincial road shields, formatted as (province number, between 01-81)-(two digit number)
+{
+public:
+  explicit TurkeyRoadShieldParser(std::string const & baseRoadNumber)
+    : SimpleRoadShieldParser(baseRoadNumber, {
+                                              {"O-", RoadShieldType::Generic_Orange}, // Black font. Hexagon.
+                                              {"D.", RoadShieldType::Generic_Blue}, // White font.
+                                              {"D-", RoadShieldType::Generic_Blue}, // White font.
+                                              {"D", RoadShieldType::Generic_Blue}, // White font.
+                                              {"D ", RoadShieldType::Generic_Blue}}) // White font.
   {
   }
 };
@@ -658,6 +676,8 @@ RoadShieldsSetT GetRoadShields(std::string const & mwmName, std::string const & 
     return MexicoRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "Cyprus")
     return CyprusRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "Turkey")
+    return TurkeyRoadShieldParser(roadNumber).GetRoadShields();
 
   return SimpleRoadShieldParser(roadNumber, SimpleRoadShieldParser::ShieldTypes()).GetRoadShields();
 }
