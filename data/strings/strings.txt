@@ -152,7 +152,7 @@
     da = Slet
     de = Löschen
     el = Διαγραφή
-    es = Eliminar
+    es = Borrar
     et = Kustuta
     eu = Ezabatu
     fa = حذف
@@ -382,7 +382,7 @@
     da = Lav en bedømmelse
     de = Bewertung abgeben
     el = Αφήστε μια κριτική
-    es = Escribir una opinión
+    es = Escribe un revisión
     et = Jäta arvamus
     eu = Idatzi iritzia
     fa = نظر خود را بیان کنید
@@ -878,7 +878,7 @@
     da = Download mislykket
     de = Herunterladen fehlgeschlagen
     el = Η λήψη απέτυχε
-    es = Error durante la descarga
+    es = La descarga fallo
     et = Allalaadimine ebaõnnestus
     eu = Deskargak huts egin du
     fa = دانلود با شکست مواجه شد
@@ -2426,7 +2426,7 @@
     da = Vælg destination hvor dine kort skal downloades til
     de = Wählen Sie den Speicherort für die heruntergeladenen Karten
     el = Επιλέξτε την τοποθεσία λήψης των χαρτών
-    es = Seleccione el lugar donde deben descargarse los mapas
+    es = Seleccione el lugar para descargar mapas
     et = Vali asukoht, kuhu kaardid tuleks alla laadida
     eu = Hautatu mapak non deskargatu behar diren
     fa = مسیری را که نقشه‌ها باید در آن دانلود شود را انتخاب کنید
@@ -2713,7 +2713,7 @@
     ca = S'ha produït un error en moure els fitxers de mapes
     de = Fehler beim Verschieben der Karten
     el = Σφάλμα κατά τη μετακίνηση των αρχείων
-    es = Error al mover los archivos de mapas
+    es = Error moviendo los archivos de mapas
     et = Kaardipaanide teisaldamine ebaõnnestus
     eu = Ezin izan dira mapak mugitu
     fi = Karttatiedostojen siirtovirhe
@@ -10184,7 +10184,7 @@
     da = Der blev ikke fundet en rute
     de = Route kann nicht ermittelt werden
     el = Δε μπορεί να εντοπιστεί η διαδρομή
-    es = Imposible de encontrar una ruta
+    es = No se puede localizar la ruta
     et = Marsruuti ei õnnestu leida
     eu = Ezin da ibilbiderik aurkitu
     fa = ناتوان در تعیین مسیر
