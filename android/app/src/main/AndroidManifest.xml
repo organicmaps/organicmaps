@@ -24,6 +24,7 @@
   <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
   <!--
     https://developer.android.com/reference/androidx/core/app/JobIntentService:
     When running on Android O, the JobScheduler will take care of wake locks
@@ -71,8 +72,17 @@
     android:theme="@style/MwmTheme"
     android:usesCleartextTraffic="true"
     tools:targetApi="33">
+    <receiver
+      android:name="app.tourism.data.remote.WifiReceiver"
+      android:exported="true">
+      <intent-filter>
+        <action android:name="android.net.wifi.STATE_CHANGE" />
+      </intent-filter>
+    </receiver>
+
     <activity
       android:name="app.tourism.AuthActivity"
+      android:screenOrientation="portrait"
       android:exported="false"
       android:windowSoftInputMode="adjustResize|adjustPan"
       android:theme="@style/MwmTheme" />
@@ -352,6 +362,7 @@
 
     <activity
       android:name="app.tourism.MainActivity"
+      android:screenOrientation="portrait"
       android:exported="false"
       android:theme="@style/MwmTheme" />
     <activity

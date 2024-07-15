@@ -1,6 +1,8 @@
 package app.tourism
 
 import android.content.Intent
+import android.content.IntentFilter
+import android.net.wifi.WifiManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
@@ -14,6 +16,7 @@ import app.organicmaps.DownloadResourcesLegacyActivity
 import app.organicmaps.R
 import app.organicmaps.downloader.CountryItem
 import app.tourism.data.prefs.UserPreferences
+import app.tourism.data.remote.WifiReceiver
 import app.tourism.domain.models.resource.Resource
 import app.tourism.ui.screens.main.MainSection
 import app.tourism.ui.screens.main.ThemeViewModel
@@ -25,8 +28,11 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    private val wifiReceiver = WifiReceiver()
+
     @Inject
     lateinit var userPreferences: UserPreferences
 
@@ -35,6 +41,10 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val intentFilter = IntentFilter()
+        intentFilter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION)
+        registerReceiver(wifiReceiver, intentFilter)
 
         navigateToMapToDownloadIfNotPresent()
         navigateToAuthIfNotAuthed()
@@ -93,5 +103,10 @@ class MainActivity : ComponentActivity() {
         val intent = Intent(this, AuthActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(this, intent, null)
+    }
+
+    override fun onDestroy() {
+        unregisterReceiver(wifiReceiver)
+        super.onDestroy()
     }
 }

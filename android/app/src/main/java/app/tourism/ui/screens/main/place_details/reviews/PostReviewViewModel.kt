@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import app.organicmaps.R
 import app.tourism.data.repositories.ReviewsRepository
 import app.tourism.domain.models.SimpleResponse
+import app.tourism.domain.models.details.Review
 import app.tourism.domain.models.details.ReviewToPost
 import app.tourism.domain.models.resource.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -35,7 +36,6 @@ class PostReviewViewModel @Inject constructor(
     fun setRating(value: Float) {
         _rating.value = value
     }
-
 
     private val _comment = MutableStateFlow("")
     val comment = _comment.asStateFlow()
@@ -87,6 +87,9 @@ class PostReviewViewModel @Inject constructor(
                     uiChannel.send(
                         UiEvent.ShowToast(it.message ?: context.getString(R.string.smth_went_wrong))
                     )
+                    if (it.message == context.getString(R.string.review_will_be_published)) {
+                        uiChannel.send(UiEvent.CloseReviewBottomSheet)
+                    }
                 }
             }
         }

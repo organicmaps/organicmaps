@@ -9,8 +9,8 @@ data class ReviewToPost(
     val rating: Int,
     val images: List<File>,
 ) {
-    fun toReviewPlannedToPostEntity(): ReviewPlannedToPostEntity {
-        val imagesPaths = images.map { it.path }
+    fun toReviewPlannedToPostEntity(compressedImages: List<File>): ReviewPlannedToPostEntity {
+        val imagesPaths = compressedImages.map { it.path }
 
         return ReviewPlannedToPostEntity(
             placeId = placeId,

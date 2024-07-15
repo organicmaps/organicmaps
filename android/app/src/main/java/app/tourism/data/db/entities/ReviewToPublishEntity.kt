@@ -16,7 +16,6 @@ data class ReviewPlannedToPostEntity(
 ) {
     fun toReviewsPlannedToPostDto(): ReviewToPost {
         val imageFiles = images.map { File(it) }
-        imageFiles.first().path
 
         return ReviewToPost(
             placeId, comment, rating, imageFiles

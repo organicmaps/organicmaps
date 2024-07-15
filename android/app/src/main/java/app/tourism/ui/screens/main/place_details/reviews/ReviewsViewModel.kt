@@ -63,6 +63,18 @@ class ReviewsViewModel @Inject constructor(
             }
         }
     }
+
+
+    private val _isThereReviewPlannedToPublish = MutableStateFlow(false)
+    val isThereReviewPlannedToPublish = _isThereReviewPlannedToPublish.asStateFlow()
+
+    init {
+        viewModelScope.launch(Dispatchers.IO) {
+            reviewsRepository.isThereReviewPlannedToPublish().collectLatest {
+                _isThereReviewPlannedToPublish.value = it
+            }
+        }
+    }
 }
 
 enum class DeleteReviewStatus { DELETED, IN_PROCESS }

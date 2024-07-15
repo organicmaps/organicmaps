@@ -1,11 +1,10 @@
 package app.tourism.data.db.dao
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import app.tourism.data.db.entities.FavoriteToSyncEntity
+import app.tourism.data.db.entities.FavoriteSyncEntity
 import app.tourism.data.db.entities.PlaceEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -22,7 +21,7 @@ interface PlacesDao {
     suspend fun deleteAllPlacesByCategory(categoryId: Long)
 
     @Query("SELECT * FROM places WHERE UPPER(name) LIKE UPPER(:q)")
-    fun search(q: String= ""): Flow<List<PlaceEntity>>
+    fun search(q: String = ""): Flow<List<PlaceEntity>>
 
     @Query("SELECT * FROM places WHERE categoryId = :categoryId")
     fun getPlacesByCategoryId(categoryId: Long): Flow<List<PlaceEntity>>
@@ -43,8 +42,14 @@ interface PlacesDao {
     suspend fun setFavorite(placeId: Long, isFavorite: Boolean)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addFavoriteToSync(favoriteToSyncEntity: FavoriteToSyncEntity)
+    suspend fun addFavoriteSync(favoriteSyncEntity: FavoriteSyncEntity)
 
     @Query("DELETE FROM favorites_to_sync WHERE placeId = :placeId")
-    suspend fun removeFavoriteToSync(placeId: Long)
+    suspend fun removeFavoriteSync(placeId: Long)
+
+    @Query("DELETE FROM favorites_to_sync WHERE placeId in (:placeId)")
+    suspend fun removeFavoriteSync(placeId: List<Long>)
+
+    @Query("SELECT * FROM favorites_to_sync")
+    fun getFavoriteSyncData(): List<FavoriteSyncEntity>
 }

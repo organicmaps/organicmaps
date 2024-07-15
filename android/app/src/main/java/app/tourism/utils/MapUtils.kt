@@ -18,3 +18,20 @@ fun navigateToMapForRoute(context: Context, placeLocation: PlaceLocation) {
     intent.putExtra("end_point", placeLocation)
     ContextCompat.startActivity(context, intent, null)
 }
+
+fun isInsideTajikistan(latitude: Double, longitude: Double): Boolean {
+    val minLatitude = 36.4
+    val maxLatitude = 41.3
+    val minLongitude = 67.1
+    val maxLongitude = 75.5
+
+    if (latitude < minLatitude || latitude > maxLatitude) {
+        return false
+    }
+
+    if (longitude < minLongitude || longitude > maxLongitude) {
+        return false
+    }
+
+    return true
+}

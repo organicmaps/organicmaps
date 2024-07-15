@@ -62,6 +62,8 @@ fun ReviewsScreen(
     val userReview = reviewsVM.userReview.collectAsState().value
     val reviews = reviewsVM.reviews.collectAsState().value
 
+    val isThereReviewPlannedToPublish = reviewsVM.isThereReviewPlannedToPublish.collectAsState().value
+
     ObserveAsEvents(flow = reviewsVM.uiEventsChannelFlow) { event ->
         if (event is UiEvent.ShowToast) context.showToast(event.message)
     }
@@ -90,7 +92,7 @@ fun ReviewsScreen(
                             Text(text = "%.1f".format(rating) + "/5", style = TextStyles.h1)
                         }
 
-                        if (userReview == null) {
+                        if (userReview == null && !isThereReviewPlannedToPublish) {
                             TextButton(
                                 onClick = {
                                     showReviewBottomSheet = true

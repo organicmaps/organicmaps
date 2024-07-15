@@ -1,6 +1,7 @@
 package app.tourism.data.repositories
 
 import android.content.Context
+import app.organicmaps.R
 import app.tourism.data.db.Database
 import app.tourism.data.dto.place.ReviewIdsDto
 import app.tourism.data.remote.TourismApi
@@ -11,6 +12,8 @@ import app.tourism.domain.models.SimpleResponse
 import app.tourism.domain.models.details.Review
 import app.tourism.domain.models.details.ReviewToPost
 import app.tourism.domain.models.resource.Resource
+import app.tourism.utils.compress
+import app.tourism.utils.saveToInternalStorage
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,8 +41,14 @@ class ReviewsRepository(
         }
     }
 
+    fun isThereReviewPlannedToPublish(): Flow<Boolean> = channelFlow {
+        reviewsDao.getReviewsPlannedToPostFlow().collectLatest { reviewsEntities ->
+            send(reviewsEntities.isNotEmpty())
+        }
+    }
+
     suspend fun getReviewsFromApi(id: Long) {
-        val getReviewsResponse = handleResponse { api.getReviewsByPlaceId(id) }
+        val getReviewsResponse = handleResponse(call = { api.getReviewsByPlaceId(id) }, context)
         if (getReviewsResponse is Resource.Success) {
             reviewsDao.deleteAllPlaceReviews(id)
             getReviewsResponse.data?.data?.map { it.toReview().toReviewEntity() }
@@ -48,96 +57,117 @@ class ReviewsRepository(
     }
 
     fun postReview(review: ReviewToPost): Flow<Resource<SimpleResponse>> = flow {
+        emit(Resource.Loading())
+        val imageFiles = mutableListOf<File>()
+        review.images.forEach { imageFiles.add(compress(it, context)) }
+        
         if (isOnline(context)) {
-            emit(Resource.Loading())
-            val postReviewResponse = handleResponse {
-                api.postReview(
-                    placeId = review.placeId.toString().toFormDataRequestBody(),
-                    comment = review.comment.toFormDataRequestBody(),
-                    points = review.rating.toString().toFormDataRequestBody(),
-                    images = getMultipartFromImageFiles(review.images)
-                )
-            }
-            emit(postReviewResponse)
+            val postReviewResponse = handleResponse(
+                call = {
+                    api.postReview(
+                        placeId = review.placeId.toString().toFormDataRequestBody(),
+                        comment = review.comment.toFormDataRequestBody(),
+                        points = review.rating.toString().toFormDataRequestBody(),
+                        images = getMultipartFromImageFiles(imageFiles)
+                    )
+                },
+                context
+            )
 
             if (postReviewResponse is Resource.Success) {
                 updateReviewsForDb(review.placeId)
+                emit(Resource.Success(SimpleResponse(context.getString(R.string.review_was_published))))
+            } else if (postReviewResponse is Resource.Error) {
+                emit(Resource.Error(postReviewResponse.message ?: ""))
             }
         } else {
-            reviewsDao.insertReviewPlannedToPost(review.toReviewPlannedToPostEntity())
+            try {
+                saveToInternalStorage(imageFiles, context)
+                reviewsDao.insertReviewPlannedToPost(review.toReviewPlannedToPostEntity(imageFiles))
+                emit(Resource.Error(context.getString(R.string.review_will_be_published)))
+            } catch (e: OutOfMemoryError) {
+                e.printStackTrace()
+                emit(Resource.Error(context.getString(R.string.smth_went_wrong)))
+            }
         }
     }
 
     fun deleteReview(id: Long): Flow<Resource<SimpleResponse>> =
         flow {
-            reviewsDao.markReviewForDeletion(id)
-            val deleteReviewResponse =
-                handleResponse {
-                    api.deleteReviews(ReviewIdsDto(listOf(id)))
+            if (isOnline(context)) {
+                val deleteReviewResponse =
+                    handleResponse(
+                        call = { api.deleteReviews(ReviewIdsDto(listOf(id))) },
+                        context,
+                    )
+
+                if (deleteReviewResponse is Resource.Success) {
+                    reviewsDao.deleteReview(id)
                 }
-
-            if (deleteReviewResponse is Resource.Success) {
-                reviewsDao.deleteReview(id)
+                emit(deleteReviewResponse)
+            } else {
+                reviewsDao.markReviewForDeletion(id)
             }
-            emit(deleteReviewResponse)
-
-//            val token = UserPreferences(context).getToken()
-//
-//            val client = OkHttpClient()
-//            val mediaType = "application/json".toMediaType()
-//            val body = "{\n    \"feedbacks\": [$id]\n}".toRequestBody(mediaType)
-//            val request = Request.Builder()
-//                .url("http://192.168.1.80:8888/api/feedbacks")
-//                .method("DELETE", body)
-//                .addHeader("Accept", "application/json")
-//                .addHeader("Content-Type", "application/json")
-//                .addHeader("Authorization", "Bearer $token")
-//                .build()
-//            val response = client.newCall(request).execute()
-
         }
 
-    fun syncReviews() {
-        val coroutineScope = CoroutineScope(Dispatchers.IO)
-        coroutineScope.launch {
-            deleteReviewsThatWereNotDeletedOnTheServer()
-            publishReviewsThatWereNotPublished()
-        }
+    suspend fun syncReviews() {
+        deleteReviewsThatWereNotDeletedOnTheServer()
+        publishReviewsThatWereNotPublished()
     }
 
     private suspend fun deleteReviewsThatWereNotDeletedOnTheServer() {
         val reviews = reviewsDao.getReviewsPlannedForDeletion()
-        if (reviews.isEmpty()) {
+        if (reviews.isNotEmpty()) {
             val reviewsIds = reviews.map { it.id }
-            val response = handleResponse { api.deleteReviews(ReviewIdsDto(reviewsIds)) }
+            val response =
+                handleResponse(call = { api.deleteReviews(ReviewIdsDto(reviewsIds)) }, context)
             if (response is Resource.Success) {
                 reviewsDao.deleteReviews(reviewsIds)
             }
         }
-        // todo
     }
 
     private suspend fun publishReviewsThatWereNotPublished() {
         val reviewsPlannedToPostEntities = reviewsDao.getReviewsPlannedToPost()
-        if (reviewsPlannedToPostEntities.isEmpty()) {
+        if (reviewsPlannedToPostEntities.isNotEmpty()) {
             val reviews = reviewsPlannedToPostEntities.map { it.toReviewsPlannedToPostDto() }
             reviews.forEach {
                 CoroutineScope(Dispatchers.IO).launch {
-                    api.postReview(
-                        placeId = it.placeId.toString().toFormDataRequestBody(),
-                        comment = it.comment.toFormDataRequestBody(),
-                        points = it.rating.toString().toFormDataRequestBody(),
-                        images = getMultipartFromImageFiles(it.images)
+                    val response = handleResponse(
+                        call = {
+                            api.postReview(
+                                placeId = it.placeId.toString().toFormDataRequestBody(),
+                                comment = it.comment.toFormDataRequestBody(),
+                                points = it.rating.toString().toFormDataRequestBody(),
+                                images = getMultipartFromImageFiles(it.images)
+                            )
+                        },
+                        context,
                     )
+                    if (response is Resource.Success) {
+                        try {
+                            updateReviewsForDb(it.placeId)
+                            reviewsDao.deleteReviewPlannedToPost(it.placeId)
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    } else if (response is Resource.Error) {
+                        try {
+                            reviewsDao.deleteReviewPlannedToPost(it.placeId)
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
                 }
             }
         }
     }
 
     private suspend fun updateReviewsForDb(id: Long) {
-        val getReviewsResponse = handleResponse {
-            api.getReviewsByPlaceId(id)
-        }
+        val getReviewsResponse = handleResponse(
+            call = { api.getReviewsByPlaceId(id) },
+            context
+        )
         if (getReviewsResponse is Resource.Success) {
             reviewsDao.deleteAllPlaceReviews(id)
             val reviews =

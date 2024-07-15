@@ -1,5 +1,6 @@
 package app.tourism.data.repositories
 
+import android.content.Context
 import app.tourism.data.db.Database
 import app.tourism.data.dto.currency.CurrenciesList
 import app.tourism.data.remote.CurrencyApi
@@ -10,7 +11,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlin.Double.Companion.NaN
 
-class CurrencyRepository(private val api: CurrencyApi, private val db: Database) {
+class CurrencyRepository(
+    private val api: CurrencyApi,
+    private val db: Database,
+    val context: Context
+) {
     val currenciesDao = db.currencyRatesDao
 
     suspend fun getCurrency(): Flow<Resource<CurrencyRates>> = flow {
@@ -25,6 +30,7 @@ class CurrencyRepository(private val api: CurrencyApi, private val db: Database)
                 db.currencyRatesDao.updateCurrencyRates(currencyRates.toCurrencyRatesEntity())
                 currencyRates
             },
+            context
         )
     }
 

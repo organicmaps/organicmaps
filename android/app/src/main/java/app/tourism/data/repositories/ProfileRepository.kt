@@ -27,7 +27,8 @@ class ProfileRepository(
             call = { api.getUser() },
             mapper = {
                 it.data.toPersonalData()
-            }
+            },
+            context
         )
     }
 
@@ -59,7 +60,8 @@ class ProfileRepository(
                         avatar = pfpMultipart
                     )
                 },
-                mapper = { it.data.toPersonalData() }
+                mapper = { it.data.toPersonalData() },
+                context
             )
         }
 

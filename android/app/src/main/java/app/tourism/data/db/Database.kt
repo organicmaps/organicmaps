@@ -8,7 +8,7 @@ import app.tourism.data.db.dao.HashesDao
 import app.tourism.data.db.dao.PlacesDao
 import app.tourism.data.db.dao.ReviewsDao
 import app.tourism.data.db.entities.CurrencyRatesEntity
-import app.tourism.data.db.entities.FavoriteToSyncEntity
+import app.tourism.data.db.entities.FavoriteSyncEntity
 import app.tourism.data.db.entities.HashEntity
 import app.tourism.data.db.entities.PlaceEntity
 import app.tourism.data.db.entities.ReviewEntity
@@ -19,7 +19,7 @@ import app.tourism.data.db.entities.ReviewPlannedToPostEntity
         PlaceEntity::class,
         ReviewEntity::class,
         ReviewPlannedToPostEntity::class,
-        FavoriteToSyncEntity::class,
+        FavoriteSyncEntity::class,
         HashEntity::class,
         CurrencyRatesEntity::class
     ],

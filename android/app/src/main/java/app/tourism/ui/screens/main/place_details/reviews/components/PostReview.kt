@@ -118,26 +118,28 @@ fun PostReview(
                     },
                 )
             }
-            ImagePicker(
-                showPreview = false,
-                onSuccess = { uri ->
-                    scope.launch(Dispatchers.IO) {
-                        postReviewVM.addFile(
-                            File(FileUtils(context).getPath(uri))
-                        )
+            if (files.size <= 10)
+                ImagePicker(
+                    showPreview = false,
+                    onSuccess = { uri ->
+                        scope.launch(Dispatchers.IO) {
+                            postReviewVM.addFile(
+                                File(FileUtils(context).getPath(uri))
+                            )
+                        }
+                        focusManager.clearFocus()
                     }
-                    focusManager.clearFocus()
+                ) {
+                    AddPhoto()
                 }
-            ) {
-                AddPhoto()
-            }
         }
         VerticalSpace(height = 32.dp)
 
         PrimaryButton(
             label = stringResource(id = R.string.send),
             onClick = { postReviewVM.postReview(placeId) },
-            isLoading = postReviewResponse is Resource.Loading
+            isLoading = postReviewResponse is Resource.Loading,
+            enabled = postReviewResponse !is Resource.Loading
         )
         VerticalSpace(height = 64.dp)
     }

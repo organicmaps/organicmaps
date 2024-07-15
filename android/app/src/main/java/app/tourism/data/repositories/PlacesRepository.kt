@@ -3,12 +3,11 @@ package app.tourism.data.repositories
 import android.content.Context
 import app.organicmaps.R
 import app.tourism.data.db.Database
-import app.tourism.data.db.entities.FavoriteToSyncEntity
+import app.tourism.data.db.entities.FavoriteSyncEntity
 import app.tourism.data.db.entities.HashEntity
 import app.tourism.data.db.entities.PlaceEntity
 import app.tourism.data.db.entities.ReviewEntity
 import app.tourism.data.dto.FavoritesIdsDto
-import app.tourism.data.dto.HashDto
 import app.tourism.data.dto.place.PlaceDto
 import app.tourism.data.remote.TourismApi
 import app.tourism.data.remote.handleGenericCall
@@ -37,7 +36,7 @@ class PlacesRepository(
     fun downloadAllData(): Flow<Resource<SimpleResponse>> = flow {
         val hashes = hashesDao.getHashes()
 
-        val favoritesResponse = handleResponse { api.getFavorites() }
+        val favoritesResponse = handleResponse(call = { api.getFavorites() }, context)
 
         if (hashes.isEmpty()) {
             handleGenericCall(
@@ -83,6 +82,11 @@ class PlacesRepository(
                     reviewsDao.deleteAllReviews()
                     reviewsDao.insertReviews(reviewsEntities)
 
+                    // update favorites
+                    favorites?.forEach {
+                        placesDao.setFavorite(it.id, it.isFavorite)
+                    }
+
                     // update hashes
                     hashesDao.insertHashes(
                         listOf(
@@ -94,7 +98,8 @@ class PlacesRepository(
 
                     // return response
                     SimpleResponse(message = context.getString(R.string.great_success))
-                }
+                },
+                context
             )
         } else {
             emit(Resource.Success(SimpleResponse(message = context.getString(R.string.great_success))))
@@ -120,7 +125,7 @@ class PlacesRepository(
 
         val favorites = placesDao.getFavoritePlaces("")
         val resource =
-            handleResponse { api.getPlacesByCategory(id, hash?.value ?: "") }
+            handleResponse(call = { api.getPlacesByCategory(id, hash?.value ?: "") }, context)
 
         if (hash != null && resource is Resource.Success)
             resource.data?.let { categoryDto ->
@@ -178,20 +183,45 @@ class PlacesRepository(
 
         val favoritesIdsDto = FavoritesIdsDto(marks = listOf(placeId))
 
-        val favoriteToSyncEntity = FavoriteToSyncEntity(placeId, isFavorite)
-        placesDao.addFavoriteToSync(favoriteToSyncEntity)
+        val favoriteSyncEntity = FavoriteSyncEntity(placeId, isFavorite)
+        placesDao.addFavoriteSync(favoriteSyncEntity)
         val response: Resource<SimpleResponse> = if (isFavorite)
-            handleResponse { api.addFavorites(favoritesIdsDto) }
+            handleResponse(call = { api.addFavorites(favoritesIdsDto) }, context)
         else
-            handleResponse { api.removeFromFavorites(favoritesIdsDto) }
+            handleResponse(call = { api.removeFromFavorites(favoritesIdsDto) }, context)
 
         if (response is Resource.Success)
-            placesDao.removeFavoriteToSync(favoriteToSyncEntity.placeId)
+            placesDao.removeFavoriteSync(favoriteSyncEntity.placeId)
         else if (response is Resource.Error)
-            placesDao.addFavoriteToSync(favoriteToSyncEntity)
+            placesDao.addFavoriteSync(favoriteSyncEntity)
     }
 
-    fun syncFavorites() {
+    suspend fun syncFavorites() {
+        val favoritesToSyncEntities = placesDao.getFavoriteSyncData()
 
+        val favoritesToAdd = favoritesToSyncEntities.filter { it.isFavorite }.map { it.placeId }
+        val favoritesToRemove = favoritesToSyncEntities.filter { !it.isFavorite }.map { it.placeId }
+
+        if (favoritesToAdd.isNotEmpty()) {
+            val responseToAddFavs =
+                handleResponse(
+                    call = { api.addFavorites(FavoritesIdsDto(favoritesToAdd)) },
+                    context
+                )
+            if (responseToAddFavs is Resource.Success) {
+                placesDao.removeFavoriteSync(favoritesToAdd)
+            }
+        }
+
+        if (favoritesToRemove.isNotEmpty()) {
+            val responseToRemoveFavs =
+                handleResponse(
+                    call = { api.removeFromFavorites(FavoritesIdsDto(favoritesToRemove)) },
+                    context
+                )
+            if (responseToRemoveFavs is Resource.Success) {
+                placesDao.removeFavoriteSync(favoritesToRemove)
+            }
+        }
     }
 }

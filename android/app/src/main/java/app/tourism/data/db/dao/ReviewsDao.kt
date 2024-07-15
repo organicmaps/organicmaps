@@ -21,7 +21,7 @@ interface ReviewsDao {
     @Query("DELETE FROM reviews WHERE id = :id")
     suspend fun deleteReview(id: Long)
 
-    @Query("DELETE FROM reviews WHERE id = :idsList")
+    @Query("DELETE FROM reviews WHERE id in (:idsList)")
     suspend fun deleteReviews(idsList: List<Long>)
 
     @Query("DELETE FROM reviews")
@@ -42,6 +42,12 @@ interface ReviewsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertReviewPlannedToPost(review: ReviewPlannedToPostEntity)
 
+    @Query("DELETE FROM reviews_planned_to_post WHERE placeId = :placeId")
+    suspend fun deleteReviewPlannedToPost(placeId: Long)
+
     @Query("SELECT * FROM reviews_planned_to_post")
     fun getReviewsPlannedToPost(): List<ReviewPlannedToPostEntity>
+
+    @Query("SELECT * FROM reviews_planned_to_post")
+    fun getReviewsPlannedToPostFlow(): Flow<List<ReviewPlannedToPostEntity>>
 }

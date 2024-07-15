@@ -45,7 +45,9 @@ class HomeViewModel @Inject constructor(
     val sights = _sights.asStateFlow()
     private fun getTopSights() {
         viewModelScope.launch(Dispatchers.IO) {
-            placesRepository.getTopPlaces(id = PlaceCategory.Sights.id)
+            val categoryId = PlaceCategory.Sights.id
+            placesRepository.getPlacesByCategoryFromApiIfThereIsChange(categoryId)
+            placesRepository.getTopPlaces(categoryId)
                 .collectLatest { resource ->
                     if (resource is Resource.Success) {
                         resource.data?.let { _sights.value = it }
@@ -59,7 +61,9 @@ class HomeViewModel @Inject constructor(
     val restaurants = _restaurants.asStateFlow()
     private fun getTopRestaurants() {
         viewModelScope.launch(Dispatchers.IO) {
-            placesRepository.getTopPlaces(id = PlaceCategory.Restaurants.id)
+            val categoryId = PlaceCategory.Restaurants.id
+            placesRepository.getPlacesByCategoryFromApiIfThereIsChange(categoryId)
+            placesRepository.getTopPlaces(categoryId)
                 .collectLatest { resource ->
                     if (resource is Resource.Success) {
                         resource.data?.let { _restaurants.value = it }

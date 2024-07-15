@@ -2,8 +2,7 @@ package app.tourism.data.remote
 
 import android.content.Context
 import android.net.ConnectivityManager
-import android.util.Log
-import androidx.core.content.ContextCompat.getSystemService
+import app.organicmaps.R
 import app.tourism.domain.models.SimpleResponse
 import app.tourism.domain.models.resource.Resource
 import com.google.gson.Gson
@@ -15,10 +14,10 @@ import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
 
-
-suspend inline fun <T, reified R> FlowCollector<Resource<R>>.handleGenericCall(
+suspend inline fun <T, reified Re> FlowCollector<Resource<Re>>.handleGenericCall(
     call: () -> Response<T>,
-    mapper: (T) -> R,
+    mapper: (T) -> Re,
+    context: Context,
     emitLoadingStatusBeforeCall: Boolean = true
 ) {
     if (emitLoadingStatusBeforeCall) emit(Resource.Loading())
@@ -29,25 +28,20 @@ suspend inline fun <T, reified R> FlowCollector<Resource<R>>.handleGenericCall(
         else emit(response.parseError())
     } catch (e: HttpException) {
         e.printStackTrace()
-        emit(
-            Resource.Error(
-                message = "Упс! Что-то пошло не так."
-            )
-        )
+        emit(Resource.Error(context.getString(R.string.smth_went_wrong)))
     } catch (e: IOException) {
         e.printStackTrace()
-        emit(
-            Resource.Error(
-                message = "Не удается соединиться с сервером, проверьте интернет подключение"
-            )
-        )
+        emit(Resource.Error(context.getString(R.string.no_network)))
     } catch (e: Exception) {
         e.printStackTrace()
-        emit(Resource.Error(message = "Упс! Что-то пошло не так."))
+        emit(Resource.Error(context.getString(R.string.smth_went_wrong)))
     }
 }
 
-suspend inline fun <reified T> handleResponse(call: () -> Response<T>): Resource<T> {
+suspend inline fun <reified T> handleResponse(
+    call: () -> Response<T>,
+    context: Context,
+): Resource<T> {
     try {
         val response = call()
         if (response.isSuccessful) {
@@ -56,15 +50,13 @@ suspend inline fun <reified T> handleResponse(call: () -> Response<T>): Resource
         } else return response.parseError()
     } catch (e: HttpException) {
         e.printStackTrace()
-        return Resource.Error(message = "Упс! Что-то пошло не так.")
+        return Resource.Error(context.getString(R.string.smth_went_wrong))
     } catch (e: IOException) {
         e.printStackTrace()
-        return Resource.Error(
-            message = "Не удается соединиться с сервером, проверьте интернет подключение"
-        )
+        return Resource.Error(context.getString(R.string.no_network))
     } catch (e: Exception) {
         e.printStackTrace()
-        return Resource.Error(message = "Упс! Что-то пошло не так.")
+        return Resource.Error(context.getString(R.string.smth_went_wrong))
     }
 }
 

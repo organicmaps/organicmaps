@@ -22,8 +22,11 @@ import javax.inject.Singleton
 object RepositoriesModule {
     @Provides
     @Singleton
-    fun provideAuthRepository(api: TourismApi): AuthRepository {
-        return AuthRepository(api)
+    fun provideAuthRepository(
+        api: TourismApi,
+        @ApplicationContext context: Context,
+    ): AuthRepository {
+        return AuthRepository(api, context)
     }
 
     @Provides
@@ -61,8 +64,9 @@ object RepositoriesModule {
     @Singleton
     fun provideCurrencyRepository(
         api: CurrencyApi,
-        db: Database
+        db: Database,
+        @ApplicationContext context: Context,
     ): CurrencyRepository {
-        return CurrencyRepository(api, db)
+        return CurrencyRepository(api, db, context )
     }
 }

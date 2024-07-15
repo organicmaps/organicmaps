@@ -6,6 +6,7 @@ import app.tourism.data.dto.FavoritesDto
 import app.tourism.data.dto.FavoritesIdsDto
 import app.tourism.data.dto.HashDto
 import app.tourism.data.dto.auth.AuthResponseDto
+import app.tourism.data.dto.place.ReviewDto
 import app.tourism.data.dto.place.ReviewIdsDto
 import app.tourism.data.dto.place.ReviewsDto
 import app.tourism.data.dto.profile.LanguageDto
@@ -108,7 +109,7 @@ interface TourismApi {
         @Part("mark_id") placeId: RequestBody? = null,
         @Part("points") points: RequestBody? = null,
         @Part images: List<MultipartBody.Part>? = null
-    ): Response<SimpleResponse>
+    ): Response<ReviewDto>
 
     @HTTP(method = "DELETE", path = "feedbacks", hasBody = true)
     suspend fun deleteReviews(

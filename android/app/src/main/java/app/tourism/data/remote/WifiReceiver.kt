@@ -3,35 +3,31 @@ package app.tourism.data.remote
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
-import android.net.ConnectivityManager.NetworkCallback
-import android.net.Network
-import android.net.NetworkRequest
+import android.net.NetworkInfo
+import android.net.wifi.WifiManager
 import app.tourism.data.repositories.PlacesRepository
 import app.tourism.data.repositories.ReviewsRepository
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class WifiReceiver : BroadcastReceiver() {
-    @Inject
-    lateinit var reviewsRepository: ReviewsRepository
-
-    @Inject
-    lateinit var placesRepository: PlacesRepository
+    @Inject lateinit var reviewsRepository: ReviewsRepository
+    @Inject lateinit var placesRepository: PlacesRepository
 
     override fun onReceive(context: Context, intent: Intent) {
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val builder = NetworkRequest.Builder()
+        val info: NetworkInfo? = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO)
 
-        cm.registerNetworkCallback(
-            builder.build(),
-            object : NetworkCallback() {
-                override fun onAvailable(network: Network) {
-                    super.onAvailable(network)
-
-                    reviewsRepository.syncReviews()
-                    placesRepository.syncFavorites()
-                }
+        if (info != null && info.isConnected) {
+            CoroutineScope(Dispatchers.IO).launch {
+                delay(2000L) // to avoid errors
+                CoroutineScope(Dispatchers.IO).launch { reviewsRepository.syncReviews() }
+                CoroutineScope(Dispatchers.IO).launch { placesRepository.syncFavorites() }
             }
-        )
+        }
     }
 }
