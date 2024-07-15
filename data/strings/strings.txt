@@ -13692,6 +13692,51 @@
     zh-Hans = 登录
     zh-Hant = 登入
 
+  [not_signed_in]
+    comment = Status message indicating that user did not login to OSM profile yet.
+    tags = android
+    en = Not signed in
+    af = Nie ingeteken nie
+    ar = لم يتم تسجيل الدخول
+    az = Giriş edilməyib
+    be = Не ўвайшлі ў сістэму
+    bg = Не е влязъл в системата
+    ca = No heu iniciat sessió
+    cs = Nejste přihlášeni
+    da = Ikke logget ind
+    de = Nicht angemeldet
+    el = Δεν έχετε συνδεθεί
+    es = No se ha iniciado sesión
+    et = Pole sisse logitud
+    eu = Ez zaude saiatuta
+    fa = وارد نشده‌اید
+    fi = Et ole kirjautunut sisään
+    fr = Non connecté•e
+    he = לא מחובר
+    hi = साइन इन नहीं किया गया है
+    hu = Nincs bejelentkezve
+    id = Belum masuk
+    it = Non sei connesso
+    ja = サインインしていません
+    ko = 로그인되지 않음
+    lt = Neprisijungta
+    mr = साइन इन केलेले नाही
+    nb = Ikke logget inn
+    nl = Niet ingelogd
+    pl = Nie zalogowano
+    pt = Sessão não iniciada
+    ro = Neautentificat
+    ru = Не выполнен вход
+    sk = Nie ste prihlásený
+    sv = Inte inloggad
+    sw = Hujasajiliwa
+    th = ยังไม่ได้ลงชื่อเข้าใช้
+    tr = Giriş yapılmadı
+    uk = Не ввійшли
+    vi = Chưa đăng nhập
+    zh-Hans = 未登录
+    zh-Hant = 未登入
+
   [login_osm]
     tags = android,ios
     en = Login to OpenStreetMap
