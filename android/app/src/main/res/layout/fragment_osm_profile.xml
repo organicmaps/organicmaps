@@ -101,9 +101,8 @@
         android:paddingTop="@dimen/margin_half"
         android:paddingBottom="@dimen/margin_half"
         android:text="@string/history"
-        android:textAppearance="@style/MwmTextAppearance.Body4"
+        android:textAppearance="@style/MwmTextAppearance.Body2"
         android:textColor="?colorAccent"
-        android:textSize="@dimen/text_size_body_1"
         app:layout_constraintTop_toTopOf="parent"/>
     <TextView
         android:id="@+id/about_osm"
@@ -115,9 +114,8 @@
         android:paddingTop="@dimen/margin_half"
         android:paddingBottom="@dimen/margin_half"
         android:text="@string/editor_more_about_osm"
-        android:textAppearance="@style/MwmTextAppearance.Body4"
+        android:textAppearance="@style/MwmTextAppearance.Body3"
         android:textColor="?colorAccent"
-        android:textSize="@dimen/text_size_body_4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/osm_history"
         app:layout_constraintVertical_bias="1" />
