@@ -26,7 +26,7 @@ import javax.inject.Singleton
 object NetworkModule {
     @Provides
     @Singleton
-    fun provideApi(@Named(MAIN_OKHTTP_LABEL) okHttpClient: OkHttpClient): TourismApi {
+    fun provideApi(okHttpClient: OkHttpClient): TourismApi {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -37,8 +37,10 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    @Named(MAIN_OKHTTP_LABEL)
-    fun provideHttpClient(@ApplicationContext context: Context, userPreferences: UserPreferences): OkHttpClient {
+    fun provideHttpClient(
+        @ApplicationContext context: Context,
+        userPreferences: UserPreferences
+    ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(
                 HttpLoggingInterceptor()
@@ -63,29 +65,13 @@ object NetworkModule {
             }.build()
     }
 
-
-    @Provides
-    @Singleton
-    @Named(CURRENCY_OKHTTP_LABEL)
-    fun provideHttpClientForCurrencyRetrofit(): OkHttpClient {
-        val okHttpClient = OkHttpClient.Builder()
-        okHttpClient.readTimeout(1, TimeUnit.MINUTES)
-        okHttpClient.connectTimeout(1, TimeUnit.MINUTES)
-            .addInterceptor(
-                HttpLoggingInterceptor()
-                    .setLevel(HttpLoggingInterceptor.Level.BODY)
-            )
-
-        return okHttpClient.build()
-    }
-
     @Provides
     @Singleton
     @Named(CURRENCY_RETROFIT_LABEL)
-    fun provideCurrencyRetrofit(@Named(CURRENCY_OKHTTP_LABEL) client: OkHttpClient): Retrofit {
+    fun provideCurrencyRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(CurrencyApi.BASE_URL)
-            .addConverterFactory(SimpleXmlConverterFactory.create())
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
     }
@@ -97,6 +83,4 @@ object NetworkModule {
     }
 }
 
-const val MAIN_OKHTTP_LABEL = "main okhttp"
 const val CURRENCY_RETROFIT_LABEL = "currency retrofit"
-const val CURRENCY_OKHTTP_LABEL = "currency okhttp"

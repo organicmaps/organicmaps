@@ -28,3 +28,25 @@
 # R8 crypts the source line numbers in all log messages.
 # https://github.com/organicmaps/organicmaps/issues/6559#issuecomment-1812039926
 -dontoptimize
+
+# For some unknown reason we couldn't find out, requests are not working properly
+# when the app is shrinked and/or minified, so we keep all of these things out from R8 effects.
+-keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation
+-keep,allowobfuscation,allowshrinking interface retrofit2.Call
+-keep,allowobfuscation,allowshrinking class retrofit2.Response
+
+-if interface * { @retrofit2.http.* public *** *(...); }
+-keep,allowoptimization,allowshrinking,allowobfuscation class <3>
+
+-keep class app.tourism.data.remote.** { *; }
+
+-keep public class app.tourism.data.dto.** {
+  public void set*(***);
+  public *** get*();
+  public protected private *;
+}
+-keep public class app.tourism.domain.models.** {
+  public void set*(***);
+  public *** get*();
+  public protected private *;
+}

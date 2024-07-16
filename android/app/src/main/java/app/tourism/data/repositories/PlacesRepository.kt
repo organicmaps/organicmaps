@@ -44,9 +44,10 @@ class PlacesRepository(
                 mapper = { data ->
                     // get data
                     val favorites =
-                        if (favoritesResponse is Resource.Success) favoritesResponse.data?.data?.map {
-                            it.toPlaceFull(true)
-                        } else null
+                        if (favoritesResponse is Resource.Success)
+                            favoritesResponse.data?.data?.map {
+                                it.toPlaceFull(true)
+                            } else null
 
                     val reviews = mutableListOf<Review>()
 

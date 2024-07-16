@@ -124,6 +124,7 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static app.organicmaps.location.LocationState.FOLLOW;
 import static app.organicmaps.location.LocationState.FOLLOW_AND_ROTATE;
 import static app.organicmaps.location.LocationState.LOCATION_TAG;
+import static app.tourism.ui.utils.ShowToastKt.showToast;
 import static app.tourism.utils.MapUtilsKt.isInsideTajikistan;
 
 public class MwmActivity extends BaseMwmFragmentActivity

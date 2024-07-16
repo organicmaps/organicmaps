@@ -2250,7 +2250,7 @@
   <string name="retry">Try again</string>
   <string name="no_network">Couldn\'t reach the server, please check connection</string>
   <string name="no_image">No image</string>
-  <string name="tjk">Tajikistan 🫠🌸☮</string>
+  <string name="tjk">Tajikistan</string>
   <string name="clear_search_field">Clear search field</string>
   <string name="top30">Top 30 places</string>
   <string name="sights">Sights</string>
@@ -2271,4 +2271,5 @@
   <string name="review_will_be_published">Review will be published when you are online</string>
   <string name="review_was_published">Review was successfully published</string>
   <string name="failed_to_publish_review">Failed to publish review\n</string>
+  <string name="plz_dont_go_out_of_tjk">Please, don\'t go out of Tajikistan</string>
 </resources>
