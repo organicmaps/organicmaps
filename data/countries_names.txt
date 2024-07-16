@@ -18047,6 +18047,7 @@
   el = Ιράκ
   es = Irak
   et = Iraak
+  eu = Irak
   fi = Irak
   fr = Irak
   he = עיראק
@@ -18069,7 +18070,7 @@
   sk = Irak
   sl = Irak
   sv = Irak
-  th = อิรัก
+  th = ประเทศอิรัก
   tr = Irak
   uk = Ірак
   vi = Iraq
