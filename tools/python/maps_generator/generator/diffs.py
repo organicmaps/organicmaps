@@ -32,8 +32,12 @@ def calculate_diff(params):
     if out.exists():
         status = Status.NOTHING_TO_DO
     else:
-        res = subprocess.run("mwm_diff_tool " + old.as_posix() + " " + new.as_posix() + " " + out.as_posix())
+        # FIXME: running as a single string without shell=True doesn't work (did it ever?) and mwm_diff_tool is actually pymwm_diff CMAKE target
+        res = subprocess.run(["mwm_diff_tool", "make", old.as_posix(), new.as_posix(), out.as_posix()],
+            stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
         if res.returncode != 0:
+            # TODO: better handling of tool errors
+            print(res.stdout)
             return Status.INTERNAL_ERROR, params
 
     diff_size = out.stat().st_size
@@ -53,20 +57,20 @@ def calculate_diff(params):
 def mwm_diff_calculation(data_dir, logger, depth):
     data = list(data_dir.get_mwms())[:depth]
 
-    results = map(calculate_diff, data)
-    for status, params in results:
+    for params in data:
+        status, params = calculate_diff(params)
         if Status.is_error(status):
             raise Exception(status.format(**params))
         logger.info(status.format(**params))
 
 
 class DataDir(object):
-    def __init__(self, mwm_name, new_version_dir, old_version_root_dir):
-        self.mwm_name = mwm_name
-        self.diff_name = self.mwm_name + ".mwmdiff"
+    def __init__(self, country_name, new_version_dir, old_version_root_dir):
+        self.mwm_name = country_name + ".mwm"
+        self.diff_name = country_name + ".mwmdiff"
 
         self.new_version_dir = Path(new_version_dir)
-        self.new_version_path = Path(new_version_dir, mwm_name)
+        self.new_version_path = Path(new_version_dir, self.mwm_name)
         self.old_version_root_dir = Path(old_version_root_dir)
 
     def get_mwms(self):
@@ -95,7 +99,7 @@ if __name__ == "__main__":
     logger.setLevel(logging.DEBUG)
 
     data_dir = DataDir(
-        mwm_name=sys.argv[1], new_version_dir=sys.argv[2],
+        country_name=sys.argv[1], new_version_dir=sys.argv[2],
         old_version_root_dir=sys.argv[3],
     )
     mwm_diff_calculation(data_dir, logger, depth=1)

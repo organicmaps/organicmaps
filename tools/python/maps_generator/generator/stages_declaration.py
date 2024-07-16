@@ -15,6 +15,7 @@ from collections import defaultdict
 from multiprocessing.pool import ThreadPool
 from typing import AnyStr
 from typing import Type
+from pathlib import Path
 
 import maps_generator.generator.diffs as diffs
 import maps_generator.generator.stages_tests as st
@@ -316,10 +317,13 @@ class StageRoutingTransit(Stage):
 @country_stage
 @production_only
 class StageMwmDiffs(Stage):
+    """Create diffs for old versions of a single country."""
     def apply(self, env: Env, country, logger, **kwargs):
+        # FIXME: not sure what these were supposed to be, but .mwm and mwm_version is required...
+        # FIXME: this uses the "live" maps directory layout for old versions, should it use maps_build instead?
         data_dir = diffs.DataDir(
-            mwm_name=env.build_name,
-            new_version_dir=env.build_path,
+            country_name=country,
+            new_version_dir=Path(env.build_path, env.mwm_version),
             old_version_root_dir=settings.DATA_ARCHIVE_DIR,
         )
         diffs.mwm_diff_calculation(data_dir, logger, depth=settings.DIFF_VERSION_DEPTH)

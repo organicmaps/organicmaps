@@ -5,28 +5,35 @@
 #include <iostream>
 #include <cstring>
 
+void usage(char* executable) {
+  std::cout <<
+    "Usage: " << executable << " { make | apply } OLD.mwm NEW.mwm DIFF.mwmdiff\n"
+    "make\n"
+    "  Writes the diff between `OLD.mwm` and `NEW.mwm` files to `DIFF.mwmdiff`\n"
+    "apply\n"
+    "  Applies the diff at `DIFF.mwmdiff` to `OLD.mwm` and stores result at `NEW.mwm`.\n"
+    "WARNING: THERE IS NO MWM VALIDITY CHECK!\n"
+    "WARNING: EXISTING FILES WILL BE OVERWRITTEN!\n";
+}
+
 int main(int argc, char ** argv)
 {
-  if (argc < 5)
+  if (argc != 5)
   {
-    std::cout <<
-        "Usage: " << argv[0] << " make|apply olderMWMDir newerMWMDir diffDir\n"
-        "make\n"
-        "  Creates the diff between newer and older MWM versions at `diffDir`\n"
-        "apply\n"
-        "  Applies the diff at `diffDir` to the mwm at `olderMWMDir` and stores result at `newerMWMDir`.\n"
-        "WARNING: THERE IS NO MWM VALIDITY CHECK!\n";
+    usage(argv[0]);
     return -1;
   }
-  char const * olderMWMDir{argv[2]}, * newerMWMDir{argv[3]}, * diffDir{argv[4]};
-  if (0 == std::strcmp(argv[1], "make"))
-    return generator::mwm_diff::MakeDiff(olderMWMDir, newerMWMDir, diffDir);
-
-  // apply
-  base::Cancellable cancellable;
-  auto const res = generator::mwm_diff::ApplyDiff(olderMWMDir, newerMWMDir, diffDir, cancellable);
-  if (res == generator::mwm_diff::DiffApplicationResult::Ok)
-    return 0;
+  char const * olderMWM{argv[2]}, * newerMWM{argv[3]}, * diffPath{argv[4]};
+  if (0 == std::strcmp(argv[1], "make")) {
+    return generator::mwm_diff::MakeDiff(olderMWM, newerMWM, diffPath);
+  } else if (0 == std::strcmp(argv[1], "apply")) {
+    base::Cancellable cancellable;
+    auto const res = generator::mwm_diff::ApplyDiff(olderMWM, newerMWM, diffPath, cancellable);
+    if (res == generator::mwm_diff::DiffApplicationResult::Ok)
+      return 0;
+  } else {
+    usage(argv[0]);
+  }
 
   return -1;  // Failed, Cancelled.
 }
