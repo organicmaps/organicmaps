@@ -1,4 +1,4 @@
-package app.tourism.data.dto
+package app.tourism.data.dto.currency
 
 import app.tourism.data.db.entities.CurrencyRatesEntity
 import app.tourism.domain.models.profile.CurrencyRates

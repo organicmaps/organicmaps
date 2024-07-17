@@ -17,10 +17,13 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.skydoves.cloudy.Cloudy
+import com.skydoves.cloudy.CloudyState
 
 @Composable
 fun BlurryContainer(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
     val localDensity = LocalDensity.current
+
+    val cloudyState = remember { mutableStateOf<CloudyState>(CloudyState.Nothing) }
 
     Box(Modifier.then(modifier)) {
         var height by remember { mutableStateOf(0.dp) }
@@ -30,16 +33,22 @@ fun BlurryContainer(modifier: Modifier = Modifier, content: @Composable () -> Un
                 .fillMaxWidth()
                 .height(height)
                 .align(Alignment.Center)
-                .clip(RoundedCornerShape(16.dp))
+                .clip(RoundedCornerShape(16.dp)),
+
+            onStateChanged = {
+                println("cloudyState: $cloudyState")
+                cloudyState.value = it
+            }
         ) {}
-        Column(
-            Modifier
-                .align(Alignment.Center)
-                .onSizeChanged { newSize ->
-                    height = with(localDensity) { newSize.height.toDp() }
-                }
-        ) {
-            content()
-        }
+        if (cloudyState.value is CloudyState.Success || cloudyState.value is CloudyState.Error || cloudyState.value is CloudyState.Loading)
+            Column(
+                Modifier
+                    .align(Alignment.Center)
+                    .onSizeChanged { newSize ->
+                        height = with(localDensity) { newSize.height.toDp() }
+                    }
+            ) {
+                content()
+            }
     }
 }

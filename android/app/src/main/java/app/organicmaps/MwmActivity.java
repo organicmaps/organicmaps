@@ -564,10 +564,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Runnable delayedAction = () -> {
       CountryItem mCurrentCountry = CountryItem.fill("Tajikistan");
 
+      goToTjkIfNotThere();
       if(mCurrentCountry.status != CountryItem.STATUS_DONE) {
         // navigate to Dushanbe so it automatically downloads Tajikistan map
-        blockScreen();
-        Framework.nativeZoomToPoint(38.5598, 68.7870, 10, true);
+        goToDushanbe();
       }
     };
     handler.postDelayed(delayedAction, 1000);
@@ -585,15 +585,30 @@ public class MwmActivity extends BaseMwmFragmentActivity
     startLocationToPoint(endPoint.toMapObject());
   }
 
+  private void goToTjkIfNotThere() {
+    final double[] center = Framework.nativeGetScreenRectCenter();
+    final double lat = center[0];
+    final double lon = center[1];
+    if(!isInsideTajikistan(lat, lon))
+      goToTjk();
+  }
+
+  private void goToDushanbe() {
+    Framework.nativeZoomToPoint(38.5598, 68.7870, 10, false);
+  }
+
+  public void goToTjk() {
+    Framework.nativeZoomToPoint(38.5598, 68.7870, 8, false);
+  }
+
   public void blockScreen() {
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-  }
+  } 
 
   public void removeScreenBlock() {
     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
   }
-
 
   private void refreshLightStatusBar()
   {

@@ -5,8 +5,6 @@ import app.tourism.BASE_URL
 import app.tourism.data.prefs.UserPreferences
 import app.tourism.data.remote.CurrencyApi
 import app.tourism.data.remote.TourismApi
-import app.tourism.data.repositories.CurrencyRepository
-import app.tourism.data.db.Database
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,8 +14,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.simplexml.SimpleXmlConverterFactory
-import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
 

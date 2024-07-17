@@ -1,6 +1,6 @@
 package app.tourism.data.remote
 
-import app.tourism.data.dto.CurrencyRatesDataDto
+import app.tourism.data.dto.currency.CurrencyRatesDataDto
 import retrofit2.Response
 import retrofit2.http.GET
 

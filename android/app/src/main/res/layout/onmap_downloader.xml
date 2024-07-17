@@ -28,7 +28,6 @@
       android:fontFamily="@string/robotoMedium"
       android:textStyle="normal"
       android:gravity="center_horizontal"
-      android:text="@string/wait_tjk_map_downloading"
       android:textSize="16sp"
       tools:ignore="UnusedAttribute"/>
     <TextView

@@ -87,12 +87,14 @@ fun SignUpScreen(
         Column(
             Modifier
                 .fillMaxWidth()
-                .align(alignment = Alignment.TopCenter)) {
+                .align(alignment = Alignment.TopCenter)
+        ) {
             VerticalSpace(height = 48.dp)
-            BlurryContainer(
-                Modifier
-                    .padding(Constants.SCREEN_PADDING),
-            ) {
+            Box(Modifier.padding(Constants.SCREEN_PADDING)) {
+                Image(
+                    painter = painterResource(id = R.drawable.blur_background),
+                    contentDescription = null
+                )
                 Column(
                     Modifier.padding(36.dp)
                 ) {

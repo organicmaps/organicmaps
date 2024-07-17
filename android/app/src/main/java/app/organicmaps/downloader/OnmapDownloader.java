@@ -7,10 +7,12 @@ import android.location.Location;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -27,6 +29,7 @@ import app.organicmaps.util.UiUtils;
 import app.tourism.MainActivity;
 
 import java.util.List;
+import java.util.Objects;
 
 public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 {
@@ -34,11 +37,14 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 
   private final MwmActivity mActivity;
   private final View mFrame;
+  private final TextView mTitle;
   private final TextView mSize;
   private final WheelProgressView mProgress;
   private final Button mButton;
 
   private int mStorageSubscriptionSlot;
+
+  private boolean alreadyNavigating = false;
 
   @Nullable
   private CountryItem mCurrentCountry;
@@ -101,6 +107,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     {
       mCurrentCountry = (TextUtils.isEmpty(countryId) ? null : CountryItem.fill(countryId));
       updateState(true);
+      stopIfNotTjk();
     }
   };
 
@@ -109,19 +116,12 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     updateStateInternal(shouldAutoDownload);
   }
 
-  private static boolean isMapDownloading(@Nullable CountryItem country)
-  {
-    if (country == null) return false;
-
-    boolean enqueued = country.status == CountryItem.STATUS_ENQUEUED;
-    boolean progress = country.status == CountryItem.STATUS_PROGRESS;
-    boolean applying = country.status == CountryItem.STATUS_APPLYING;
-    return enqueued || progress || applying;
-  }
-
   private void updateProgressState(boolean shouldAutoDownload)
   {
-    navigationToMainActivityHandling();
+    if(!alreadyNavigating) {
+      alreadyNavigating = true;
+      navigationToMainActivityHandling();
+    }
     updateStateInternal(shouldAutoDownload);
   }
 
@@ -144,6 +144,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 
       if (showFrame)
       {
+        setUiForTjkDownload();
         UiUtils.showIf(progress || enqueued, mProgress);
         UiUtils.showIf(!progress && !enqueued, mButton);
 
@@ -151,6 +152,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 
         if (progress)
         {
+          mActivity.blockScreen();
           mProgress.setPending(false);
           mProgress.setProgress(Math.round(mCurrentCountry.progress));
           sizeText = StringUtils.formatUsingSystemLocale("%1$s %2$.2f%%",
@@ -160,6 +162,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
         {
           if (enqueued)
           {
+            mActivity.blockScreen();
             sizeText = mActivity.getString(R.string.downloader_queued);
             mProgress.setPending(true);
           }
@@ -187,6 +190,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 
             mButton.setText(failed ? R.string.downloader_retry
                                    : R.string.download);
+            mActivity.removeScreenBlock();
           }
         }
 
@@ -197,10 +201,23 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     UiUtils.showIf(showFrame, mFrame);
   }
 
+  public void stopIfNotTjk() {
+    if(mCurrentCountry != null && !Objects.equals(mCurrentCountry.id, "Tajikistan")) {
+      mActivity.goToTjk();
+      Toast.makeText(mActivity, R.string.plz_dont_go_out_of_tjk, Toast.LENGTH_LONG).show();
+      MapManager.nativeCancel(mCurrentCountry.id);
+    }
+  }
+
+  public void setUiForTjkDownload() {
+    mTitle.setText(mActivity.getString(R.string.wait_tjk_map_downloading));
+  }
+
   public OnmapDownloader(MwmActivity activity)
   {
     mActivity = activity;
     mFrame = activity.findViewById(R.id.onmap_downloader);
+    mTitle = mFrame.findViewById(R.id.downloader_title);
     mSize = mFrame.findViewById(R.id.downloader_size);
 
     View controls = mFrame.findViewById(R.id.downloader_controls_frame);

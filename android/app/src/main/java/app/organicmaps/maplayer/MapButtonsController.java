@@ -43,6 +43,8 @@ public class MapButtonsController extends Fragment
   @Nullable
   private View mBottomButtonsFrame;
   @Nullable
+  private View mBackButton;
+  @Nullable
   private FloatingActionButton mToggleMapLayerButton;
 
   @Nullable
@@ -81,6 +83,7 @@ public class MapButtonsController extends Fragment
     mInnerLeftButtonsFrame = mFrame.findViewById(R.id.map_buttons_inner_left);
     mInnerRightButtonsFrame = mFrame.findViewById(R.id.map_buttons_inner_right);
     mBottomButtonsFrame = mFrame.findViewById(R.id.map_buttons_bottom);
+    mBackButton = mFrame.findViewById(R.id.back_btn);
 
     final FloatingActionButton helpButton = mFrame.findViewById(R.id.help_button);
     if (helpButton != null)
@@ -151,6 +154,11 @@ public class MapButtonsController extends Fragment
       UiUtils.setViewInsetsPadding(view, windowInsets);
       return windowInsets;
     });
+
+    if(mBackButton != null) {
+        mBackButton.setOnClickListener((v) -> activity.getOnBackPressedDispatcher().onBackPressed());
+    }
+
     return mFrame;
   }
 

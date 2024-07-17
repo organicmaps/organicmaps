@@ -68,18 +68,26 @@ class CategoriesViewModel @Inject constructor(
             _selectedCategory.collectLatest { item ->
                 item?.key?.let { id ->
                     val categoryId = id as Long
-                    placesRepository.getPlacesByCategoryFromApiIfThereIsChange(categoryId)
                     placesRepository.getPlacesByCategoryFromDbFlow(categoryId)
                         .collectLatest { resource ->
                             if (resource is Resource.Success) {
                                 resource.data?.let { _places.value = it }
                             }
                         }
-
                 }
             }
         }
+    }
 
+    private fun onCategoryChangeGetPlacesFromApiAlso() {
+        viewModelScope.launch {
+            _selectedCategory.collectLatest { item ->
+                item?.key?.let { id ->
+                    val categoryId = id as Long
+                    placesRepository.getPlacesByCategoryFromApiIfThereIsChange(categoryId)
+                }
+            }
+        }
     }
 
     init {
@@ -90,6 +98,7 @@ class CategoriesViewModel @Inject constructor(
         )
         _selectedCategory.value = categories.value.first()
         onCategoryChangeGetPlaces()
+        onCategoryChangeGetPlacesFromApiAlso()
     }
 }
 

@@ -46,8 +46,8 @@ class MainActivity : ComponentActivity() {
         intentFilter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION)
         registerReceiver(wifiReceiver, intentFilter)
 
-        navigateToMapToDownloadIfNotPresent()
         navigateToAuthIfNotAuthed()
+        navigateToMapToDownloadIfNotPresent()
 
         val blackest = resources.getColor(R.color.button_text) // yes, I know
         enableEdgeToEdge(
@@ -74,7 +74,10 @@ class MainActivity : ComponentActivity() {
 
     private fun navigateToAuthIfNotAuthed() {
         val token = userPreferences.getToken()
-        if (token.isNullOrEmpty()) navigateToAuth()
+        if (token.isNullOrEmpty()) {
+            navigateToAuth()
+            return
+        }
 
         profileVM.getPersonalData()
         lifecycleScope.launch {

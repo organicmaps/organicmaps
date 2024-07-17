@@ -2,6 +2,7 @@ package app.tourism.ui.screens.auth.sign_in
 
 import PasswordEditText
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -25,6 +27,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.organicmaps.R
+import app.tourism.BASE_URL
 import app.tourism.Constants
 import app.tourism.domain.models.resource.Resource
 import app.tourism.ui.ObserveAsEvents
@@ -35,6 +38,7 @@ import app.tourism.ui.common.nav.BackButton
 import app.tourism.ui.common.textfields.AuthEditText
 import app.tourism.ui.theme.TextStyles
 import app.tourism.ui.utils.showToast
+import app.tourism.utils.openUrlInBrowser
 
 @Composable
 fun SignInScreen(
@@ -78,11 +82,12 @@ fun SignInScreen(
                 .fillMaxWidth()
                 .align(Alignment.TopCenter)
         ) {
-            VerticalSpace(height = 48.dp)
-            BlurryContainer(
-                Modifier
-                    .padding(Constants.SCREEN_PADDING),
-            ) {
+            VerticalSpace(height = 80.dp)
+            Box(Modifier.padding(Constants.SCREEN_PADDING)) {
+                Image(
+                    painter = painterResource(id = R.drawable.blur_background),
+                    contentDescription = null
+                )
                 Column(Modifier.padding(36.dp)) {
                     Text(
                         modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -117,6 +122,21 @@ fun SignInScreen(
                         isLoading = signInResponse is Resource.Loading,
                         onClick = { vm.signIn() },
                     )
+                    VerticalSpace(height = 16.dp)
+
+                    TextButton(
+                        onClick = {
+                            openUrlInBrowser(
+                                context,
+                                "http://192.168.1.80:8888/forgot-password"
+                            )
+                        },
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.forgot_password),
+                            color = Color.White
+                        )
+                    }
                 }
             }
         }
