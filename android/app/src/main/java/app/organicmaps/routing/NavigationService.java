@@ -153,7 +153,7 @@ public class NavigationService extends Service implements LocationListener
         .setOnlyAlertOnce(true)
         .setSmallIcon(R.drawable.ic_splash)
         .setContentIntent(pendingIntent)
-        .addAction(0, context.getString(R.string.core_exit), exitPendingIntent)
+        .addAction(0, context.getString(R.string.navigation_stop_button), exitPendingIntent)
         .setColorized(isColorizedSupported())
         .setColor(ContextCompat.getColor(context, R.color.notification));
 
