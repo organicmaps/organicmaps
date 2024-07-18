@@ -714,8 +714,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     {
       if (types.length > 0)
         items.add(new MenuBottomSheetItem(R.string.sort, R.drawable.ic_sort, this::onSortOptionSelected));
-      items.add(new MenuBottomSheetItem(R.string.export_file, R.drawable.ic_share, () -> onShareOptionSelected(KmlFileType.Text)));
-      items.add(new MenuBottomSheetItem(R.string.export_file_gpx, R.drawable.ic_share, () -> onShareOptionSelected(KmlFileType.Gpx)));
+      items.add(new MenuBottomSheetItem(R.string.export_file, R.drawable.ic_file_kmz, () -> onShareOptionSelected(KmlFileType.Text)));
+      items.add(new MenuBottomSheetItem(R.string.export_file_gpx, R.drawable.ic_file_gpx, () -> onShareOptionSelected(KmlFileType.Gpx)));
     }
     items.add(new MenuBottomSheetItem(R.string.edit, R.drawable.ic_settings, this::onSettingsOptionSelected));
     if (!isLastOwnedCategory())

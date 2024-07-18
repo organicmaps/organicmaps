@@ -183,11 +183,11 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
           () -> onShowActionSelected(mSelectedCategory)));
       items.add(new MenuBottomSheetItem(
           R.string.export_file,
-          R.drawable.ic_share,
+          R.drawable.ic_file_kmz,
           () -> onShareActionSelected(mSelectedCategory, KmlFileType.Text)));
       items.add(new MenuBottomSheetItem(
           R.string.export_file_gpx,
-          R.drawable.ic_share,
+          R.drawable.ic_file_gpx,
           () -> onShareActionSelected(mSelectedCategory, KmlFileType.Gpx)));
       // Disallow deleting the last category
       if (getAdapter().getBookmarkCategories().size() > 1)
