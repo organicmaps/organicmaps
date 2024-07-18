@@ -18914,7 +18914,7 @@
     az = Dayan
     be = Cпыніць
     ca = Atura't
-    de = Stopp
+    de = Beenden
     el = τέλος
     es = Detener
     et = Lõpeta
