@@ -1,4 +1,5 @@
 #include "platform/preferred_languages.hpp"
+#include "platform/settings.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 
@@ -171,9 +172,24 @@ std::string GetCurrentNorm()
   return Normalize(GetCurrentOrig());
 }
 
-std::string GetCurrentTwine()
+std::string GetCurrentMapLanguage()
 {
-  std::string const lang = GetCurrentOrig();
+  std::string languageCode;
+  if (!settings::Get(settings::kMapLanguageCode, languageCode) || languageCode.empty())
+  {
+    for (auto const & systemLanguage : languages::GetSystemPreferred())
+    {
+      std::string const normalizedLang = languages::Normalize(systemLanguage);
+      if (StringUtf8Multilang::GetLangIndex(normalizedLang) != StringUtf8Multilang::kUnsupportedLanguageCode)
+        return normalizedLang;
+    }
+    return std::string(StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode));
+  }
+  return languageCode;
+}
+
+std::string GetTwine(std::string const & lang)
+{
   // Special cases for different Chinese variations.
   if (lang.find("zh") == 0)
   {
@@ -193,4 +209,15 @@ std::string GetCurrentTwine()
   // Use short (2 or 3 chars) versions for all other languages.
   return Normalize(lang);
 }
+
+std::string GetCurrentTwine()
+{
+  return GetTwine(GetCurrentOrig());
+}
+
+std::string GetCurrentMapTwine()
+{
+  return GetTwine(GetCurrentMapLanguage());
+}
+
 }  // namespace languages

@@ -2360,18 +2360,7 @@ void Framework::SaveTransliteration(bool allowTranslit)
 
 std::string Framework::GetMapLanguageCode()
 {
-  std::string languageCode;
-  if (!settings::Get(settings::kMapLanguageCode, languageCode) || languageCode.empty())
-  {
-    for (auto const & systemLanguage : languages::GetSystemPreferred())
-    {
-      std::string const normalizedLang = languages::Normalize(systemLanguage);
-      if (StringUtf8Multilang::GetLangIndex(normalizedLang) != StringUtf8Multilang::kUnsupportedLanguageCode)
-        return normalizedLang;
-    }
-    return std::string(StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode));
-  }
-  return languageCode;
+  return languages::GetCurrentMapLanguage();
 }
 
 void Framework::SetMapLanguageCode(std::string const & languageCode)
