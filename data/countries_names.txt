@@ -49729,31 +49729,31 @@
   vi = La Habana
 
 [Cyprus Description]
-  en = Nicosia, Nicosia, Limassol
-  ar = نيقوسيا, نيقوسيا
-  az = Nikosiya, Nikosiya, Limassol
-  cs = Nikósie, Nikósie
-  da = Nicosia, Nicosia
-  de = Nikosia, Nikosia
-  el = Λευκωσία, Λευκωσία, Λεμεσός
-  es = Nicosia, Nicosia
-  fr = Nicosie, Nicosie, Limassol
-  he = ניקוסיה, ניקוסיה
-  hu = Nicosia, Nicosia, Limassol
-  it = Nicosia, Nicosia
-  ja = ニコシア, ニコシア
-  ko = 니코시아, 니코시아
-  nl = Nicosia, Nicosia
-  pl = Nikozja, Nikozja
-  pt = Nicósia, Nicósia
-  ro = Nicosia, Nicosia
-  ru = Никосия, Никосия, Лимасол
-  sk = Nikózia, Nikózia
-  sv = Nicosia, Nicosia
-  th = นิโคเซีย, นิโคเซีย
-  tr = Lefkoşa, Lefkoşa, Limasol
-  uk = Нікосія, Нікосія
-  vi = Nicosia, Nicosia
+  en = Nicosia, Limassol
+  ar = نيقوسياا
+  az = Nikosiya, Limassol
+  cs = Nikósie
+  da = Nicosia
+  de = Nikosia
+  el = Λευκωσία, Λεμεσός
+  es = Nicosia
+  fr = Nicosie, Limassol
+  he = ניקוסיה
+  hu = Nicosia, Limassol
+  it = Nicosia
+  ja = ニコシア
+  ko = 니코시아
+  nl = Nicosia
+  pl = Nikozja
+  pt = Nicósia
+  ro = Nicosia
+  ru = Никосия, Лимасcол
+  sk = Nikózia
+  sv = Nicosia
+  th = นิโคเซีย
+  tr = Lefkoşa, Limasol
+  uk = Нікосія
+  vi = Nicosia
 
 [Czech_Jihovychod_Jihomoravsky kraj Description]
   en = Brno, Znojmo, Břeclav
