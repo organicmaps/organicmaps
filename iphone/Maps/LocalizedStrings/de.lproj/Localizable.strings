@@ -873,7 +873,7 @@
 
 "editor_share_to_all_dialog_message_2" = "Freiwillige von OpenStreetMap werden die Änderungen prüfen und sich bei Fragen mit Ihnen in Verbindung setzen.";
 
-"navigation_stop_button" = "Stopp";
+"navigation_stop_button" = "Beenden";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Aufzeichnung Ihrer kürzlich gefahrenen Route deaktivieren?";
