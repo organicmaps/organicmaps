@@ -258,16 +258,22 @@ public:
       // This height gives 16 instead of expected 22-23.
       // int32_t const height = metrics.height >> 6;
 
-      outMetrics.AddGlyphMetrics(static_cast<int16_t>(fontIndex), glyphId, xOffset, yOffset, xAdvance, GetLineHeigthPixels());
+      outMetrics.AddGlyphMetrics(static_cast<int16_t>(fontIndex), glyphId, xOffset, yOffset, xAdvance,
+                                 GetLineHeigthPixels(metrics.vertAdvance));
     }
   }
 
-  int32_t GetLineHeigthPixels() const
+private:
+  int32_t GetLineHeigthPixels(FT_Pos vertAdvance) const
   {
-    auto const vertAdvance = m_fontFace->glyph->metrics.vertAdvance;
-    auto const yMax = vertAdvance && vertAdvance < m_fontFace->bbox.yMax ? vertAdvance : m_fontFace->bbox.yMax;
-    int32_t const bboxYMax = FT_MulFix(yMax, m_fontFace->size->metrics.y_scale) >> 6;
+    // Freetype says that vertAdvance is unreliable if it contains a synthesized value in case of FT_HAS_VERTICAL
+    // returning false. Testing on supported fonts shows that non-zero vertAdvance can be trusted as a line height.
+    if (vertAdvance > 0 && vertAdvance < m_fontFace->bbox.yMax) [[likely]]
+      return vertAdvance >> 6;
+
+    int32_t const bboxYMax = FT_MulFix(m_fontFace->bbox.yMax, m_fontFace->size->metrics.y_scale) >> 6;
     int32_t const bboxYMmin = FT_MulFix(m_fontFace->bbox.yMin, m_fontFace->size->metrics.y_scale) >> 6;
+
     return bboxYMax - bboxYMmin;
   }
 
@@ -682,7 +688,7 @@ text::TextMetrics GlyphManager::ShapeText(std::string_view utf8, int fontPixelHe
     // TODO(AB): Is there a better way? E.g. clear a half of the cache?
     m_impl->m_textMetricsCache.clear();
   }
-  
+
   m_impl->m_textMetricsCache.emplace(utf8, allGlyphs);
 
   return allGlyphs;
