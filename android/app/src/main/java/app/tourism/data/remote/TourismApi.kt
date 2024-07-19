@@ -53,7 +53,6 @@ interface TourismApi {
     // endregion auth
 
     // region profile
-    // todo api request not finished yet
     @GET("user")
     suspend fun getUser(): Response<UserData>
 

@@ -224,10 +224,12 @@ extension BookmarksListViewController: IBookmarksListView {
       actionSheet.addAction(action)
     }
     actionSheet.addAction(UIAlertAction(title: L("cancel"), style: .cancel, handler: nil))
-    let barButtonItem = switch source {
-      case .sort: sortToolbarItem
-      case .more: moreToolbarItem
-    }
+    let barButtonItem: UIBarButtonItem = {
+        switch source {
+        case .sort: return sortToolbarItem
+        case .more: return moreToolbarItem
+        }
+    }()
     actionSheet.popoverPresentationController?.barButtonItem = barButtonItem
     present(actionSheet, animated: true)
   }
