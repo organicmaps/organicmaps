@@ -74,6 +74,11 @@ static BOOL _fileLoggingEnabled = NO;
 
 + (void)setFileLoggingEnabled:(BOOL)fileLoggingEnabled {
   fileLoggingEnabled ? [self enableFileLogging] : [self disableFileLogging];
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    LOG_SHORT(LINFO, ("Local time:", NSDate.date.description.UTF8String, ", Time Zone:", NSTimeZone.defaultTimeZone.abbreviation.UTF8String));
+  });
+  LOG(LINFO, ("File logging is enabled:", _fileLoggingEnabled ? "YES" : "NO"));
 }
 
 + (BOOL)fileLoggingEnabled {
@@ -179,7 +184,6 @@ bool AssertMessage(base::SrcPoint const & src, std::string const & message)
   logger.fileHandle = fileHandle;
 
   _fileLoggingEnabled = YES;
-  LOG(LINFO, ("File logging is enabled"));
 }
 
 + (void)disableFileLogging {
@@ -190,7 +194,6 @@ bool AssertMessage(base::SrcPoint const & src, std::string const & message)
   [self removeFileAtPath:kLogFilePath];
 
   _fileLoggingEnabled = NO;
-  LOG(LINFO, ("File logging is disabled"));
 }
 
 + (void)logMessageWithLevel:(base::LogLevel)level src:(base::SrcPoint const &)src message:(std::string const &)message {

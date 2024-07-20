@@ -64,8 +64,9 @@ Platform::Platform()
   UIDevice * device = UIDevice.currentDevice;
   device.batteryMonitoringEnabled = YES;
 
-  NSLog(@"Device: %@, SystemName: %@, SystemVersion: %@", device.model, device.systemName,
-        device.systemVersion);
+  LOG(LINFO, ("Device:", device.model.UTF8String, "SystemName:",
+              device.systemName.UTF8String, "SystemVersion:",
+              device.systemVersion.UTF8String));
 }
 
 //static
