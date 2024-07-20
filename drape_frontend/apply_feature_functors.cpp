@@ -204,7 +204,10 @@ m2::PointF GetOffset(int offsetX, int offsetY)
 bool IsSymbolRoadShield(ftypes::RoadShield const & shield)
 {
   return shield.m_type == ftypes::RoadShieldType::US_Interstate ||
-         shield.m_type == ftypes::RoadShieldType::US_Highway;
+         shield.m_type == ftypes::RoadShieldType::US_Highway ||
+         shield.m_type == ftypes::RoadShieldType::IN_NationalExpressway ||
+         shield.m_type == ftypes::RoadShieldType::IN_NationalHighway ||
+         shield.m_type == ftypes::RoadShieldType::IN_StateHighway;
 }
 
 std::string GetRoadShieldSymbolName(ftypes::RoadShield const & shield, double fontScale)
@@ -215,6 +218,12 @@ std::string GetRoadShieldSymbolName(ftypes::RoadShield const & shield, double fo
     result = shield.m_name.size() <= 2 ? "shield-us-i-thin" : "shield-us-i-wide";
   else if (shield.m_type == ftypes::RoadShieldType::US_Highway)
     result = shield.m_name.size() <= 2 ? "shield-us-hw-thin" : "shield-us-hw-wide";
+  else if (shield.m_type == ftypes::RoadShieldType::IN_NationalExpressway)
+    result = "shield-in-ne-thin";
+  else if (shield.m_type == ftypes::RoadShieldType::IN_NationalHighway)
+    result = shield.m_name.size() <= 3 ? "shield-in-nh-thin": "shield-in-nh-wide";
+  else if (shield.m_type == ftypes::RoadShieldType::IN_StateHighway)
+    result = shield.m_name.size() <= 3 ? "shield-in-sh-thin": "shield-in-sh-wide";
   else
   {
     ASSERT(false, ("This shield type doesn't support symbols:", shield.m_type));
@@ -246,6 +255,9 @@ void UpdateRoadShieldTextFont(dp::FontDecl & font, ftypes::RoadShield const & sh
   static base::SmallMapBase<RoadShieldType, df::ColorConstant> kColors = {
       {RoadShieldType::Generic_Green, kRoadShieldWhiteTextColor},
       {RoadShieldType::Generic_Blue, kRoadShieldWhiteTextColor},
+      {RoadShieldType::IN_NationalExpressway, kRoadShieldWhiteTextColor},
+      {RoadShieldType::IN_NationalHighway, kRoadShieldBlackTextColor},
+      {RoadShieldType::IN_StateHighway, kRoadShieldWhiteTextColor},
       {RoadShieldType::UK_Highway, kRoadShieldUKYellowTextColor},
       {RoadShieldType::US_Interstate, kRoadShieldWhiteTextColor},
       {RoadShieldType::US_Highway, kRoadShieldBlackTextColor},
