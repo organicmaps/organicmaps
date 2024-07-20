@@ -20,6 +20,7 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
 import app.organicmaps.background.OsmUploadWork;
+import app.organicmaps.downloader.Android7RootCertificateWorkaround;
 import app.organicmaps.downloader.DownloaderNotifier;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.display.DisplayManager;
@@ -141,6 +142,8 @@ public class MwmApplication extends Application implements Application.ActivityL
     super.onCreate();
     Logger.i(TAG, "Initializing application");
     LogsManager.INSTANCE.initFileLogging(this);
+
+    Android7RootCertificateWorkaround.initializeIfNeeded(this);
 
     // Set configuration directory as early as possible.
     // Other methods may explicitly use Config, which requires settingsDir to be set.
