@@ -53,7 +53,21 @@ setup_opensource() {
 }
 ' > "$BASE_PATH/$PRIVATE_PROPERTIES"
   echo '<?xml version="1.0" encoding="utf-8"?>
-<network-security-config/>
+<network-security-config>
+  <base-config>
+    <trust-anchors>
+      <!-- Certificates are required for Android 7 and below. See the link for details:
+           https://community.letsencrypt.org/t/letsencrypt-certificates-fails-on-android-phones-running-android-7-or-older/205686 -->
+      <certificates src="@raw/isrgrootx1" />
+      <certificates src="@raw/globalsignr4" />
+      <certificates src="@raw/gtsrootr1" />
+      <certificates src="@raw/gtsrootr2" />
+      <certificates src="@raw/gtsrootr3" />
+      <certificates src="@raw/gtsrootr4" />
+      <certificates src="system" />
+    </trust-anchors>
+  </base-config>
+</network-security-config>
 ' > "$BASE_PATH/$PRIVATE_NETWORK_CONFIG"
   rm -f "$BASE_PATH/$PRIVATE_GOOGLE_SERVICES"
 }

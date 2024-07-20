@@ -28,6 +28,8 @@ import android.text.TextUtils;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
+
+import app.organicmaps.downloader.Android7RootCertificateWorkaround;
 import app.organicmaps.util.log.Logger;
 
 import java.io.BufferedInputStream;
@@ -70,6 +72,7 @@ public final class HttpClient
     try
     {
       connection = (HttpURLConnection) new URL(p.url).openConnection();
+      Android7RootCertificateWorkaround.applyFixIfNeeded(connection);
 
       // NullPointerException, MalformedUrlException, IOException
       // Redirects from http to https or vice versa are not supported by Android implementation.
