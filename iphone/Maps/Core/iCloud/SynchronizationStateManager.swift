@@ -215,10 +215,10 @@ final class DefaultSynchronizationStateManager: SynchronizationStateManager {
 
   private static func getItemsWithErrors(_ cloudContents: CloudContents) -> [SynchronizationError] {
      cloudContents.reduce(into: [SynchronizationError](), { partialResult, cloudItem in
-      if let downloadingError = cloudItem.downloadingError, let synchronizationError = SynchronizationError.fromError(downloadingError) {
+       if let downloadingError = cloudItem.downloadingError, let synchronizationError = downloadingError.ubiquitousError {
         partialResult.append(synchronizationError)
       }
-      if let uploadingError = cloudItem.uploadingError, let synchronizationError = SynchronizationError.fromError(uploadingError) {
+       if let uploadingError = cloudItem.uploadingError, let synchronizationError = uploadingError.ubiquitousError {
         partialResult.append(synchronizationError)
       }
     })

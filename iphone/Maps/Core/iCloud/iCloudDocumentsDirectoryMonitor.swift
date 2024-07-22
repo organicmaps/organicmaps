@@ -141,65 +141,34 @@ class iCloudDocumentsDirectoryMonitor: NSObject, CloudDirectoryMonitor {
     return metadataQuery
   }
 
-  class func getContentsFromNotification(_ notification: Notification, _ onError: (Error) -> Void) -> CloudContents {
+  class func getContentsFromNotification(_ notification: Notification) throws -> CloudContents {
     guard let metadataQuery = notification.object as? NSMetadataQuery,
           let metadataItems = metadataQuery.results as? [NSMetadataItem] else {
-      return []
+      throw SynchronizationError.failedToRetrieveMetadataQueryContent
     }
-
-    let cloudMetadataItems = CloudContents(metadataItems.compactMap { item in
-      do {
-        return try CloudMetadataItem(metadataItem: item)
-      } catch {
-        onError(error)
-        return nil
-      }
-    })
-    return cloudMetadataItems
+    return try metadataItems.map { try CloudMetadataItem(metadataItem: $0) }
   }
 
   // There are no ways to retrieve the content of iCloud's .Trash directory on the macOS because it uses different file system and place trashed content in the /Users/<user_name>/.Trash which cannot be observed without access.
   // When we get a new notification and retrieve the metadata from the object the actual list of items in iOS contains both current and deleted files (which is in .Trash/ directory now) but on macOS we only have absence of the file. So there are no way to get list of deleted items on macOS on didFinishGathering state.
   // Due to didUpdate state we can get the list of deleted items on macOS from the userInfo property but cannot get their new url.
-  class func getTrashContentsFromNotification(_ notification: Notification, _ onError: (Error) -> Void) -> CloudContents {
-    guard let removedItems = notification.userInfo?[NSMetadataQueryUpdateRemovedItemsKey] as? [NSMetadataItem] else { return [] }
-    return CloudContents(removedItems.compactMap { metadataItem in
-      do {
-        var item = try CloudMetadataItem(metadataItem: metadataItem)
-        // on macOS deleted file will not be in the ./Trash directory, but it doesn't mean that it is not removed because it is placed in the NSMetadataQueryUpdateRemovedItems array.
-        item.isRemoved = true
-        return item
-      } catch {
-        onError(error)
-        return nil
-      }
-    })
+  class func getTrashContentsFromNotification(_ notification: Notification) throws -> CloudContents {
+    guard let removedItems = notification.userInfo?[NSMetadataQueryUpdateRemovedItemsKey] as? [NSMetadataItem] else {
+      return []
+    }
+    return try removedItems.map { try CloudMetadataItem(metadataItem: $0, isRemoved: true) }
   }
 
-  class func getTrashedContentsFromTrashDirectory(fileManager: FileManager, ubiquitousDocumentsDirectory: URL?, onError: (Error) -> Void) -> CloudContents {
+  class func getTrashedContentsFromTrashDirectory(fileManager: FileManager, ubiquitousDocumentsDirectory: URL) throws -> CloudContents {
     // There are no ways to retrieve the content of iCloud's .Trash directory on macOS.
     if #available(iOS 14.0, *), ProcessInfo.processInfo.isiOSAppOnMac {
       return []
     }
-    // On iOS we can get the list of deleted items from the .Trash directory but only when iCloud is enabled.
-    guard let ubiquitousDocumentsDirectory,
-          let trashDirectoryUrl = try? fileManager.trashDirectoryUrl(for: ubiquitousDocumentsDirectory),
-          let removedItems = try? fileManager.contentsOfDirectory(at: trashDirectoryUrl,
-                                                                  includingPropertiesForKeys: [.isDirectoryKey],
-                                                                  options: [.skipsPackageDescendants, .skipsSubdirectoryDescendants]) else {
-      return []
-    }
-    let removedCloudMetadataItems = CloudContents(removedItems.compactMap { url in
-      do {
-        var item = try CloudMetadataItem(fileUrl: url)
-        item.isRemoved = true
-        return item
-      } catch {
-        onError(error)
-        return nil
-      }
-    })
-    return removedCloudMetadataItems
+    let trashDirectoryUrl = try fileManager.trashDirectoryUrl(for: ubiquitousDocumentsDirectory)
+    let removedItems = try fileManager.contentsOfDirectory(at: trashDirectoryUrl,
+                                                           includingPropertiesForKeys: [.isDirectoryKey],
+                                                           options: [.skipsPackageDescendants, .skipsSubdirectoryDescendants])
+    return try removedItems.map { try CloudMetadataItem(fileUrl: $0, isRemoved: true) }
   }
 }
 
@@ -236,16 +205,18 @@ private extension iCloudDocumentsDirectoryMonitor {
   }
 
   @objc func queryDidFinishGathering(_ notification: Notification) {
-    guard isCloudAvailable() else { return }
+    guard isCloudAvailable(), let ubiquitousDocumentsDirectory else { return }
     metadataQuery?.disableUpdates()
     LOG(.debug, "iCloudMonitor: Query did finish gathering")
-    let contents = Self.getContentsFromNotification(notification, metadataQueryErrorHandler)
-    let trashedContents = Self.getTrashedContentsFromTrashDirectory(fileManager: fileManager,
-                                                                   ubiquitousDocumentsDirectory: ubiquitousDocumentsDirectory,
-                                                                   onError: metadataQueryErrorHandler)
-    LOG(.debug, "iCloudMonitor: Cloud contents count: \(contents.count)")
-    LOG(.debug, "iCloudMonitor: Trashed contents count: \(trashedContents.count)")
-    delegate?.didFinishGathering(contents: contents + trashedContents)
+    do {
+      let contents = try Self.getContentsFromNotification(notification)
+      let trashedContents = try Self.getTrashedContentsFromTrashDirectory(fileManager: fileManager, ubiquitousDocumentsDirectory: ubiquitousDocumentsDirectory)
+      LOG(.debug, "iCloudMonitor: Cloud contents count: \(contents.count)")
+      LOG(.debug, "iCloudMonitor: Trashed contents count: \(trashedContents.count)")
+      delegate?.didFinishGathering(contents: contents + trashedContents)
+    } catch {
+      delegate?.didReceiveCloudMonitorError(error)
+    }
     metadataQuery?.enableUpdates()
   }
 
@@ -253,17 +224,15 @@ private extension iCloudDocumentsDirectoryMonitor {
     guard isCloudAvailable() else { return }
     metadataQuery?.disableUpdates()
     LOG(.debug, "iCloudMonitor: Query did update")
-    let contents = Self.getContentsFromNotification(notification, metadataQueryErrorHandler)
-    let trashedContents = Self.getTrashContentsFromNotification(notification, metadataQueryErrorHandler)
-    LOG(.debug, "iCloudMonitor: Cloud contents count: \(contents.count)")
-    LOG(.debug, "iCloudMonitor: Trashed contents count: \(trashedContents.count)")
-    delegate?.didUpdate(contents: contents + trashedContents)
-    metadataQuery?.enableUpdates()
-  }
-
-  private var metadataQueryErrorHandler: (Error) -> Void {
-    { [weak self] error in
-      self?.delegate?.didReceiveCloudMonitorError(error)
+    do {
+      let contents = try Self.getContentsFromNotification(notification)
+      let trashedContents = try Self.getTrashContentsFromNotification(notification)
+      LOG(.debug, "iCloudMonitor: Cloud contents count: \(contents.count)")
+      LOG(.debug, "iCloudMonitor: Trashed contents count: \(trashedContents.count)")
+      delegate?.didUpdate(contents: contents + trashedContents)
+    } catch {
+      delegate?.didReceiveCloudMonitorError(error)
     }
+    metadataQuery?.enableUpdates()
   }
 }

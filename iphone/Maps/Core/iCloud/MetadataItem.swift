@@ -23,9 +23,10 @@ struct CloudMetadataItem: MetadataItem {
 
 extension LocalMetadataItem {
   init(fileUrl: URL) throws {
-      throw NSError(domain: "LocalMetadataItem", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to initialize LocalMetadataItem from URL"])
     let resources = try fileUrl.resourceValues(forKeys: [.contentModificationDateKey])
     guard let lastModificationDate = resources.contentModificationDate?.roundedTime else {
+      LOG(.error, "Failed to initialize LocalMetadataItem from URL's resources: \(resources)")
+      throw SynchronizationError.failedToCreateMetadataItem
     }
     self.fileName = fileUrl.lastPathComponent
     self.fileUrl = fileUrl
@@ -38,36 +39,44 @@ extension LocalMetadataItem {
 }
 
 extension CloudMetadataItem {
-  init(metadataItem: NSMetadataItem) throws {
+  init(metadataItem: NSMetadataItem, isRemoved: Bool = false) throws {
     guard let fileName = metadataItem.value(forAttribute: NSMetadataItemFSNameKey) as? String,
           let fileUrl = metadataItem.value(forAttribute: NSMetadataItemURLKey) as? URL,
           let downloadStatus = metadataItem.value(forAttribute: NSMetadataUbiquitousItemDownloadingStatusKey) as? String,
           let lastModificationDate = (metadataItem.value(forAttribute: NSMetadataItemFSContentChangeDateKey) as? Date)?.roundedTime,
           let hasUnresolvedConflicts = metadataItem.value(forAttribute: NSMetadataUbiquitousItemHasUnresolvedConflictsKey) as? Bool else {
-      throw NSError(domain: "CloudMetadataItem", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to initialize CloudMetadataItem from NSMetadataItem"])
+      let allAttributes = metadataItem.values(forAttributes: metadataItem.attributes)
+      LOG(.error, "Failed to initialize CloudMetadataItem from NSMetadataItem: \(allAttributes.debugDescription)")
+      throw SynchronizationError.failedToCreateMetadataItem
     }
     self.fileName = fileName
     self.fileUrl = fileUrl
     self.isDownloaded = downloadStatus == NSMetadataUbiquitousItemDownloadingStatusCurrent
     self.lastModificationDate = lastModificationDate
-    self.isRemoved = CloudMetadataItem.isInTrash(fileUrl)
+    self.isRemoved = isRemoved || CloudMetadataItem.isInTrash(fileUrl)
     self.hasUnresolvedConflicts = hasUnresolvedConflicts
     self.downloadingError = metadataItem.value(forAttribute: NSMetadataUbiquitousItemDownloadingErrorKey) as? NSError
     self.uploadingError = metadataItem.value(forAttribute: NSMetadataUbiquitousItemUploadingErrorKey) as? NSError
   }
 
-  init(fileUrl: URL) throws {
-    let resources = try fileUrl.resourceValues(forKeys: [.nameKey, .contentModificationDateKey, .ubiquitousItemDownloadingStatusKey, .ubiquitousItemHasUnresolvedConflictsKey, .ubiquitousItemDownloadingErrorKey, .ubiquitousItemUploadingErrorKey])
+  init(fileUrl: URL, isRemoved: Bool = false) throws {
+    let resources = try fileUrl.resourceValues(forKeys: [.nameKey,
+                                                         .contentModificationDateKey,
+                                                         .ubiquitousItemDownloadingStatusKey,
+                                                         .ubiquitousItemHasUnresolvedConflictsKey,
+                                                         .ubiquitousItemDownloadingErrorKey,
+                                                         .ubiquitousItemUploadingErrorKey])
     guard let downloadStatus = resources.ubiquitousItemDownloadingStatus,
           let lastModificationDate = resources.contentModificationDate?.roundedTime,
           let hasUnresolvedConflicts = resources.ubiquitousItemHasUnresolvedConflicts else {
-      throw NSError(domain: "CloudMetadataItem", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to initialize CloudMetadataItem from NSMetadataItem"])
+      LOG(.error, "Failed to initialize CloudMetadataItem from \(fileUrl) resources: \(resources.allValues)")
+      throw SynchronizationError.failedToCreateMetadataItem
     }
     self.fileName = fileUrl.lastPathComponent
     self.fileUrl = fileUrl
     self.isDownloaded = downloadStatus.rawValue == NSMetadataUbiquitousItemDownloadingStatusCurrent
     self.lastModificationDate = lastModificationDate
-    self.isRemoved = CloudMetadataItem.isInTrash(fileUrl)
+    self.isRemoved = isRemoved || CloudMetadataItem.isInTrash(fileUrl)
     self.hasUnresolvedConflicts = hasUnresolvedConflicts
     self.downloadingError = resources.ubiquitousItemDownloadingError
     self.uploadingError = resources.ubiquitousItemUploadingError

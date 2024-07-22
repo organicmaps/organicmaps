@@ -53,7 +53,9 @@ final class DefaultLocalDirectoryMonitor: LocalDirectoryMonitor {
     self.fileManager = fileManager
     self.directory = directory
     self.fileType = fileType
-    try fileManager.createDirectoryIfNeeded(at: directory)
+    if !fileManager.fileExists(atPath: directory.path) {
+      try fileManager.createDirectory(at: directory, withIntermediateDirectories: true)
+    }
   }
 
   // MARK: - Public methods
@@ -143,31 +145,23 @@ final class DefaultLocalDirectoryMonitor: LocalDirectoryMonitor {
     dispatchSourceDebounceState = .started(source: source)
 
     do {
-      let files = try fileManager.contentsOfDirectory(at: directory, includingPropertiesForKeys: [], options: [.skipsHiddenFiles], fileExtension: fileType.fileExtension)
-      let contents = files.compactMap { url in
-        do {
-          let metadataItem = try LocalMetadataItem(fileUrl: url)
-          return metadataItem
-        } catch {
-          delegate?.didReceiveLocalMonitorError(error)
-          return nil
-        }
-      }
-      let contentMetadataItems = LocalContents(contents)
+      let files = try fileManager
+        .contentsOfDirectory(at: directory, includingPropertiesForKeys: [.contentModificationDateKey], options: [.skipsHiddenFiles])
+        .filter { $0.pathExtension == fileType.fileExtension }
+      let contents: LocalContents = try files.map { try LocalMetadataItem(fileUrl: $0) }
 
       if !didFinishGatheringIsCalled {
         didFinishGatheringIsCalled = true
         LOG(.debug, "LocalMonitor: didFinishGathering called.")
-        LOG(.debug, "LocalMonitor: contentMetadataItems count: \(contentMetadataItems.count)")
-        delegate?.didFinishGathering(contents: contentMetadataItems)
+        LOG(.debug, "LocalMonitor: contentMetadataItems count: \(contents.count)")
+        delegate?.didFinishGathering(contents: contents)
       } else {
         LOG(.debug, "LocalMonitor: didUpdate called.")
-        LOG(.debug, "LocalMonitor: contentMetadataItems count: \(contentMetadataItems.count)")
-        delegate?.didUpdate(contents: contentMetadataItems)
+        LOG(.debug, "LocalMonitor: contentMetadataItems count: \(contents.count)")
+        delegate?.didUpdate(contents: contents)
       }
     } catch {
-      LOG(.debug, "\(error)")
-      delegate?.didReceiveLocalMonitorError(SynchronizationError.failedToRetrieveLocalDirectoryContent)
+      delegate?.didReceiveLocalMonitorError(error)
     }
   }
 
@@ -201,16 +195,5 @@ private extension FileManager {
       close(directoryFileDescriptor)
     }
     return dispatchSource
-  }
-
-  func createDirectoryIfNeeded(at url: URL) throws {
-    if !fileExists(atPath: url.path) {
-      try createDirectory(at: url, withIntermediateDirectories: true)
-    }
-  }
-
-  func contentsOfDirectory(at url: URL, includingPropertiesForKeys keys: [URLResourceKey]?, options: FileManager.DirectoryEnumerationOptions, fileExtension: String) throws -> [URL] {
-    let files = try contentsOfDirectory(at: url, includingPropertiesForKeys: keys, options: options)
-    return files.filter { $0.pathExtension == fileExtension }
   }
 }

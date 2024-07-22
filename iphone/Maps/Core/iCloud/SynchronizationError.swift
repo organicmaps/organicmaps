@@ -6,6 +6,8 @@
   case containerNotFound
   case failedToOpenLocalDirectoryFileDescriptor
   case failedToRetrieveLocalDirectoryContent
+  case failedToCreateMetadataItem
+  case failedToRetrieveMetadataQueryContent
 }
 
 extension SynchronizationError: LocalizedError {
@@ -21,13 +23,17 @@ extension SynchronizationError: LocalizedError {
       return "Failed to open local directory file descriptor"
     case .failedToRetrieveLocalDirectoryContent:
       return "Failed to retrieve local directory content"
+    case .failedToCreateMetadataItem:
+      return "Failed to create metadata item."
+    case .failedToRetrieveMetadataQueryContent:
+      return "Failed to retrieve NSMetadataQuery content."
     }
   }
 }
 
-extension SynchronizationError {
-  static func fromError(_ error: Error) -> SynchronizationError? {
-    let nsError = error as NSError
+extension Error {
+  var ubiquitousError: SynchronizationError? {
+    let nsError = self as NSError
     switch nsError.code {
       // NSURLUbiquitousItemDownloadingErrorKey contains an error with this code when the item has not been uploaded to iCloud by the other devices yet
     case NSUbiquitousFileUnavailableError:

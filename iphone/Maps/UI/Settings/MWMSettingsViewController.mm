@@ -185,15 +185,14 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
   }
   [self.nightModeCell configWithTitle:L(@"pref_appearance_title") info:nightMode];
 
-  BOOL isICLoudSynchronizationEnabled = [MWMSettings iCLoudSynchronizationEnabled];
   [self.iCloudSynchronizationCell configWithDelegate:self
                                                title:@"iCloud Synchronization (Beta)"
-                                                isOn:isICLoudSynchronizationEnabled];
+                                                isOn:[MWMSettings iCLoudSynchronizationEnabled]];
 
   __weak __typeof(self) weakSelf = self;
-  [CloudStorageManager.shared addObserver:self onErrorCompletionHandler:^(NSError * _Nullable error) {
+  [CloudStorageManager.shared addObserver:self synchronizationStateDidChangeHandler:^(CloudStorageSynchronizationState * state) {
     __strong auto strongSelf = weakSelf;
-    [strongSelf.iCloudSynchronizationCell updateWithError:error];
+    [strongSelf.iCloudSynchronizationCell updateWithSynchronizationState:state];
   }];
 
   [self.enableLoggingCell configWithDelegate:self title:L(@"enable_logging") isOn:MWMSettings.isFileLoggingEnabled];
@@ -330,7 +329,6 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
   } else if (cell == self.iCloudSynchronizationCell) {
     if (![NSUserDefaults.standardUserDefaults boolForKey:kUDDidShowICloudSynchronizationEnablingAlert]) {
       [self showICloudSynchronizationEnablingAlert:^(BOOL isEnabled) {
-        [self.iCloudSynchronizationCell setOn:isEnabled animated:YES];
         [MWMSettings setICLoudSynchronizationEnabled:isEnabled];
       }];
     } else {

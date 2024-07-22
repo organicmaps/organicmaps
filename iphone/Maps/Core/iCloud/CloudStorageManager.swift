@@ -18,11 +18,23 @@ private let kBookmarksDirectoryName = "bookmarks"
 private let kICloudSynchronizationDidChangeEnabledStateNotificationName = "iCloudSynchronizationDidChangeEnabledStateNotification"
 private let kUDDidFinishInitialCloudSynchronization = "kUDDidFinishInitialCloudSynchronization"
 
+final class CloudStorageSynchronizationState: NSObject {
+  let isAvailable: Bool
+  let isOn: Bool
+  let error: NSError?
+
+  init(isAvailable: Bool, isOn: Bool, error: NSError?) {
+    self.isAvailable = isAvailable
+    self.isOn = isOn
+    self.error = error
+  }
+}
+
 @objc @objcMembers final class CloudStorageManager: NSObject {
 
   fileprivate struct Observation {
     weak var observer: AnyObject?
-    var onErrorCompletionHandler: ((NSError?) -> Void)?
+    var onSynchronizationStateDidChangeHandler: ((CloudStorageSynchronizationState) -> Void)?
   }
 
   let fileManager: FileManager
@@ -33,7 +45,7 @@ private let kUDDidFinishInitialCloudSynchronization = "kUDDidFinishInitialCloudS
   private let synchronizationStateManager: SynchronizationStateManager
   private var fileWriter: SynchronizationFileWriter?
   private var observers = [ObjectIdentifier: CloudStorageManager.Observation]()
-  private var synchronizationError: SynchronizationError? {
+  private var synchronizationError: Error? {
     didSet { notifyObserversOnSynchronizationError(synchronizationError) }
   }
 
@@ -104,13 +116,11 @@ private extension CloudStorageManager {
         guard let self else { return }
         switch result {
         case .failure(let error):
-          self.stopSynchronization()
           self.processError(error)
         case .success(let cloudDirectoryUrl):
           self.localDirectoryMonitor.start { result in
             switch result {
             case .failure(let error):
-              self.stopSynchronization()
               self.processError(error)
             case .success(let localDirectoryUrl):
               self.fileWriter = SynchronizationFileWriter(fileManager: self.fileManager,
@@ -124,13 +134,30 @@ private extension CloudStorageManager {
     }
   }
 
-  func stopSynchronization() {
+  func stopSynchronization(withError error: Error? = nil) {
     LOG(.debug, "Stop synchronization")
     localDirectoryMonitor.stop()
     cloudDirectoryMonitor.stop()
-    synchronizationError = nil
     fileWriter = nil
     synchronizationStateManager.resetState()
+    if let error {
+      settings.setICLoudSynchronizationEnabled(false)
+      synchronizationError = error
+      MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("icloud_synchronization_error_alert_title"),
+                                                               message: L("icloud_synchronization_error_alert_message"),
+                                                               rightButtonTitle: L("report_a_bug"),
+                                                               leftButtonTitle: L("cancel"),
+                                                               rightButtonAction: {
+        UIApplication.shared.showLoadingOverlay {
+          let logFileURL = Logger.getLogFileURL()
+          UIApplication.shared.hideLoadingOverlay {
+            MailComposer.default.sendEmailWith(header: "Organic Maps Bugreport", 
+                                               toRecipients: [AboutInfo.reportABug.link!],
+                                               attachmentFileURL: logFileURL)
+          }
+        }
+      })
+    }
   }
 
   func pauseSynchronization() {
@@ -228,53 +255,60 @@ private extension CloudStorageManager {
   func writingResultHandler(for event: OutgoingEvent) -> WritingResultCompletionHandler {
     return { [weak self] result in
       guard let self else { return }
-      DispatchQueue.main.async {
-        switch result {
-        case .success:
-          // Mark that initial synchronization is finished.
-          if case .didFinishInitialSynchronization = event {
-            UserDefaults.standard.set(true, forKey: kUDDidFinishInitialCloudSynchronization)
-          }
-        case .reloadCategoriesAtURLs(let urls):
-          urls.forEach { self.bookmarksManager.reloadCategory(atFilePath: $0.path) }
-        case .deleteCategoriesAtURLs(let urls):
-          urls.forEach { self.bookmarksManager.deleteCategory(atFilePath: $0.path) }
-        case .failure(let error):
-          self.processError(error)
+      switch result {
+      case .success:
+        // Mark that initial synchronization is finished.
+        if case .didFinishInitialSynchronization = event {
+          UserDefaults.standard.set(true, forKey: kUDDidFinishInitialCloudSynchronization)
         }
+      case .reloadCategoriesAtURLs(let urls):
+        DispatchQueue.main.async {
+          urls.forEach { self.bookmarksManager.reloadCategory(atFilePath: $0.path) }
+        }
+      case .deleteCategoriesAtURLs(let urls):
+        DispatchQueue.main.async {
+          urls.forEach { self.bookmarksManager.deleteCategory(atFilePath: $0.path) }
+        }
+      case .failure(let error):
+        self.processError(error)
       }
     }
   }
 
   // MARK: - Error handling
   func processError(_ error: Error) {
-    if let synchronizationError = error as? SynchronizationError {
-      LOG(.debug, "Synchronization error: \(error.localizedDescription)")
-      switch synchronizationError {
-      case .fileUnavailable: break
-      case .fileNotUploadedDueToQuota: break
-      case .ubiquityServerNotAvailable: break
-      case .iCloudIsNotAvailable: fallthrough
-      case .failedToOpenLocalDirectoryFileDescriptor: fallthrough
-      case .failedToRetrieveLocalDirectoryContent: fallthrough
-      case .containerNotFound:
+    switch error {
+    case let syncError as SynchronizationError:
+      switch syncError {
+      case .fileUnavailable,
+           .fileNotUploadedDueToQuota,
+           .ubiquityServerNotAvailable:
+        LOG(.warning, "Synchronization Warning: \(syncError.localizedDescription)")
+        synchronizationError = syncError
+      case .iCloudIsNotAvailable:
+        LOG(.warning, "Synchronization Warning: \(error.localizedDescription)")
         stopSynchronization()
+      case .failedToOpenLocalDirectoryFileDescriptor,
+           .failedToRetrieveLocalDirectoryContent,
+           .containerNotFound,
+           .failedToCreateMetadataItem,
+           .failedToRetrieveMetadataQueryContent:
+        LOG(.error, "Synchronization Error: \(error.localizedDescription)")
+        stopSynchronization(withError: error)
       }
-      self.synchronizationError = synchronizationError
-    } else {
-      // TODO: Handle non-synchronization errors
-      LOG(.debug, "Non-synchronization error: \(error.localizedDescription)")
+    default:
+      LOG(.debug, "Non-synchronization Error: \(error.localizedDescription)")
+      stopSynchronization(withError: error)
     }
   }
 }
 
 // MARK: - CloudStorageManger Observing
 extension CloudStorageManager {
-  func addObserver(_ observer: AnyObject, onErrorCompletionHandler: @escaping (NSError?) -> Void) {
+  func addObserver(_ observer: AnyObject, synchronizationStateDidChangeHandler: @escaping (CloudStorageSynchronizationState) -> Void) {
     let id = ObjectIdentifier(observer)
-    observers[id] = Observation(observer: observer, onErrorCompletionHandler:onErrorCompletionHandler)
-    // Notify the new observer immediately to handle initial state.
-    observers[id]?.onErrorCompletionHandler?(synchronizationError as NSError?)
+    observers[id] = Observation(observer: observer, onSynchronizationStateDidChangeHandler: synchronizationStateDidChangeHandler)
+    notifyObserversOnSynchronizationError(synchronizationError)
   }
 
   func removeObserver(_ observer: AnyObject) {
@@ -282,10 +316,13 @@ extension CloudStorageManager {
     observers.removeValue(forKey: id)
   }
 
-  private func notifyObserversOnSynchronizationError(_ error: SynchronizationError?) {
-    self.observers.removeUnreachable().forEach { _, observable in
+  private func notifyObserversOnSynchronizationError(_ error: Error?) {
+    let state = CloudStorageSynchronizationState(isAvailable: cloudDirectoryMonitor.isCloudAvailable(),
+                                     isOn: settings.iCLoudSynchronizationEnabled(),
+                                     error: error as? NSError)
+    observers.removeUnreachable().forEach { _, observable in
       DispatchQueue.main.async {
-        observable.onErrorCompletionHandler?(error as NSError?)
+        observable.onSynchronizationStateDidChangeHandler?(state)
       }
     }
   }
