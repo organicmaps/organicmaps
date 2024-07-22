@@ -10,7 +10,7 @@ enum SocialMedia {
   case organicMapsEmail
   case github
 
-  var link: String? {
+  var link: String {
     switch self {
     case .telegram:
       return L("telegram_url")

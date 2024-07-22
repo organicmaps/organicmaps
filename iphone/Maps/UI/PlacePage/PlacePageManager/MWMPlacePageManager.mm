@@ -274,7 +274,7 @@ using namespace storage;
 }
 
 - (void)openEmail:(PlacePageData *)data {
-  [UIApplication.sharedApplication openURL:data.infoData.emailUrl options:@{} completionHandler:nil];
+  [MailComposer sendEmailWithSubject:nil body:nil toRecipients:@[data.infoData.email] attachmentFileURL:nil];
 }
 
 - (void)openElevationDifficultPopup:(PlacePageData *)data {
