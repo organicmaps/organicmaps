@@ -3,7 +3,6 @@ package app.tourism.ui.screens.main.categories.categories
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import app.organicmaps.R
 import app.tourism.data.repositories.PlacesRepository
 import app.tourism.domain.models.categories.PlaceCategory

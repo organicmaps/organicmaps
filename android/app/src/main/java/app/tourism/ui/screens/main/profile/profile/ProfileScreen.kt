@@ -1,11 +1,13 @@
 package app.tourism.ui.screens.main.profile.profile
 
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -21,7 +23,6 @@ import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -52,6 +53,7 @@ import app.tourism.ui.common.buttons.PrimaryButton
 import app.tourism.ui.common.buttons.SecondaryButton
 import app.tourism.ui.common.nav.AppTopBar
 import app.tourism.ui.common.special.CountryAsLabel
+import app.tourism.ui.common.special.CountryFlag
 import app.tourism.ui.common.ui_state.Loading
 import app.tourism.ui.screens.main.ThemeViewModel
 import app.tourism.ui.theme.TextStyles
@@ -172,36 +174,44 @@ fun ProfileBar(personalData: PersonalData) {
 
 @Composable
 fun CurrencyRates(modifier: Modifier = Modifier, currencyRates: CurrencyRates) {
-    // todo
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .applyAppBorder()
-            .padding(horizontal = 15.dp, vertical = 24.dp)
+            .padding(horizontal = 15.dp, vertical = 18.dp)
             .then(modifier),
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
     ) {
         CurrencyRatesItem(
-            currency = stringResource(id = R.string.usd),
+            countryCode = "US",
             value = "%.2f".format(currencyRates.usd),
         )
         CurrencyRatesItem(
-            currency = stringResource(id = R.string.eur),
+            countryCode = "EU",
             value = "%.2f".format(currencyRates.eur),
         )
         CurrencyRatesItem(
-            currency = stringResource(id = R.string.rub),
+            countryCode = "RU",
             value = "%.2f".format(currencyRates.rub),
         )
     }
 }
 
 @Composable
-fun CurrencyRatesItem(currency: String, value: String) {
-    Row {
-        Text(text = currency, style = TextStyles.b1)
-        HorizontalSpace(width = 4.dp)
+fun CurrencyRatesItem(countryCode: String, value: String) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        if (countryCode == "EU")
+            Row {
+                Image(
+                    modifier = Modifier.height(21.dp),
+                    painter = painterResource(id = R.drawable.eu_flag),
+                    contentDescription = null
+                )
+                HorizontalSpace(width = 8.dp)
+            }
+        else
+            CountryFlag(countryCodeName = countryCode)
         Text(text = value, style = TextStyles.b1.copy(fontWeight = FontWeight.SemiBold))
     }
 }

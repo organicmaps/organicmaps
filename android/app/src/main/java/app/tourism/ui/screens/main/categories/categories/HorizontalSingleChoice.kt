@@ -14,7 +14,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import app.tourism.applyAppBorder
-import app.tourism.ui.common.HorizontalSpace
 import app.tourism.ui.models.SingleChoiceItem
 import app.tourism.ui.theme.TextStyles
 

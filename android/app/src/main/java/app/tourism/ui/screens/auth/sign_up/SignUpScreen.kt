@@ -31,7 +31,6 @@ import app.organicmaps.R
 import app.tourism.Constants
 import app.tourism.domain.models.resource.Resource
 import app.tourism.ui.ObserveAsEvents
-import app.tourism.ui.common.BlurryContainer
 import app.tourism.ui.common.VerticalSpace
 import app.tourism.ui.common.buttons.PrimaryButton
 import app.tourism.ui.common.nav.BackButton

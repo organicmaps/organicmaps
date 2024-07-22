@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hbb20.CountryCodePicker xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/ccp"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  app:ccp_padding="0dp"
+  app:ccp_showFlag="true"
+  app:ccp_showArrow="false"
+  app:ccp_showFullName="false"
+  app:ccp_showNameCode="false"
+  app:ccp_showPhoneCode="false"
+  app:ccp_clickable="false">
+
+</com.hbb20.CountryCodePicker>

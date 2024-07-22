@@ -1,8 +1,10 @@
 package app.tourism
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -15,7 +17,7 @@ import app.organicmaps.R
 import app.tourism.ui.theme.getBorderColor
 
 const val TAG = "GLOBAL_TAG"
-const val BASE_URL = "http://192.168.1.80:8888/api/"
+const val BASE_URL = "https://product.rebus.tj"
 
 object Constants {
     // UI
@@ -53,13 +55,11 @@ fun Modifier.applyAppBorder() = this
 
 @Composable
 fun Modifier.drawOverlayForTextBehind() =
-    this.drawBehind {
-        val colors = listOf(
-            Color.Black,
-            Color.Transparent
+    this.background(
+        brush = Brush.verticalGradient(
+            colors = listOf(
+                Color.Transparent,
+                Color.Black.copy(alpha = 0.8f),
+            )
         )
-        drawRect(
-            brush = Brush.verticalGradient(colors),
-            blendMode = BlendMode.DstIn
-        )
-    }
+    )

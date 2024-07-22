@@ -2,7 +2,6 @@ package app.tourism.ui.screens.auth.sign_in
 
 import PasswordEditText
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,7 +30,6 @@ import app.tourism.BASE_URL
 import app.tourism.Constants
 import app.tourism.domain.models.resource.Resource
 import app.tourism.ui.ObserveAsEvents
-import app.tourism.ui.common.BlurryContainer
 import app.tourism.ui.common.VerticalSpace
 import app.tourism.ui.common.buttons.PrimaryButton
 import app.tourism.ui.common.nav.BackButton
@@ -128,7 +126,7 @@ fun SignInScreen(
                         onClick = {
                             openUrlInBrowser(
                                 context,
-                                "http://192.168.1.80:8888/forgot-password"
+                                "$BASE_URL/forgot-password"
                             )
                         },
                     ) {

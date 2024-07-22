@@ -24,7 +24,7 @@ object NetworkModule {
     @Singleton
     fun provideApi(okHttpClient: OkHttpClient): TourismApi {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl("$BASE_URL/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
@@ -66,7 +66,7 @@ object NetworkModule {
     @Named(CURRENCY_RETROFIT_LABEL)
     fun provideCurrencyRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl("$BASE_URL/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

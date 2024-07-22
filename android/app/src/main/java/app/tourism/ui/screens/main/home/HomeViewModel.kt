@@ -1,8 +1,10 @@
 package app.tourism.ui.screens.main.home
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.organicmaps.util.log.Logger
 import app.tourism.data.repositories.PlacesRepository
 import app.tourism.domain.models.SimpleResponse
 import app.tourism.domain.models.categories.PlaceCategory
@@ -44,15 +46,20 @@ class HomeViewModel @Inject constructor(
     private val _sights = MutableStateFlow<List<PlaceShort>>(emptyList())
     val sights = _sights.asStateFlow()
     private fun getTopSights() {
+        val categoryId = PlaceCategory.Sights.id
         viewModelScope.launch(Dispatchers.IO) {
-            val categoryId = PlaceCategory.Sights.id
-            placesRepository.getPlacesByCategoryFromApiIfThereIsChange(categoryId)
             placesRepository.getTopPlaces(categoryId)
                 .collectLatest { resource ->
                     if (resource is Resource.Success) {
-                        resource.data?.let { _sights.value = it }
+                        resource.data?.let {
+                            _sights.value = it
+                            Log.d("lok narosh", it.toString())
+                        }
                     }
                 }
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            placesRepository.getPlacesByCategoryFromApiIfThereIsChange(categoryId)
         }
     }
 
@@ -60,15 +67,20 @@ class HomeViewModel @Inject constructor(
     private val _restaurants = MutableStateFlow<List<PlaceShort>>(emptyList())
     val restaurants = _restaurants.asStateFlow()
     private fun getTopRestaurants() {
+        val categoryId = PlaceCategory.Restaurants.id
         viewModelScope.launch(Dispatchers.IO) {
-            val categoryId = PlaceCategory.Restaurants.id
-            placesRepository.getPlacesByCategoryFromApiIfThereIsChange(categoryId)
             placesRepository.getTopPlaces(categoryId)
                 .collectLatest { resource ->
                     if (resource is Resource.Success) {
-                        resource.data?.let { _restaurants.value = it }
+                        resource.data?.let {
+                            Log.d("lok narosh", it.toString())
+                            _restaurants.value = it
+                        }
                     }
                 }
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            placesRepository.getPlacesByCategoryFromApiIfThereIsChange(categoryId)
         }
     }
 

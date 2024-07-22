@@ -90,11 +90,13 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
   private void navigationToMainActivityHandling() {
     Handler handler = new Handler(Looper.getMainLooper());
     Runnable delayedAction = () -> {
-      if(mCurrentCountry.present) {
+      if(mCurrentCountry.present && !alreadyNavigating) {
+        alreadyNavigating = true;
         mActivity.removeScreenBlock();
         Intent intent = new Intent(mActivity, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(mActivity, intent, null);
+        alreadyNavigating = true;
       }
     };
     handler.postDelayed(delayedAction, 1000);
@@ -118,10 +120,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 
   private void updateProgressState(boolean shouldAutoDownload)
   {
-    if(!alreadyNavigating) {
-      alreadyNavigating = true;
-      navigationToMainActivityHandling();
-    }
+    navigationToMainActivityHandling();
     updateStateInternal(shouldAutoDownload);
   }
 

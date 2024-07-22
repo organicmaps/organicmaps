@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import app.organicmaps.R
 import app.tourism.data.repositories.ReviewsRepository
 import app.tourism.domain.models.SimpleResponse
-import app.tourism.domain.models.details.Review
 import app.tourism.domain.models.details.ReviewToPost
 import app.tourism.domain.models.resource.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel

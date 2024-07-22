@@ -1,14 +1,14 @@
 package app.tourism.di
 
 import android.content.Context
+import app.tourism.data.db.Database
 import app.tourism.data.prefs.UserPreferences
 import app.tourism.data.remote.CurrencyApi
 import app.tourism.data.remote.TourismApi
 import app.tourism.data.repositories.AuthRepository
 import app.tourism.data.repositories.CurrencyRepository
-import app.tourism.data.repositories.ProfileRepository
-import app.tourism.data.db.Database
 import app.tourism.data.repositories.PlacesRepository
+import app.tourism.data.repositories.ProfileRepository
 import app.tourism.data.repositories.ReviewsRepository
 import dagger.Module
 import dagger.Provides

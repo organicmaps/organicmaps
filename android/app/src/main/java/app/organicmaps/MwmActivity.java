@@ -564,10 +564,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Runnable delayedAction = () -> {
       CountryItem mCurrentCountry = CountryItem.fill("Tajikistan");
 
-      goToTjkIfNotThere();
       if(mCurrentCountry.status != CountryItem.STATUS_DONE) {
         // navigate to Dushanbe so it automatically downloads Tajikistan map
         goToDushanbe();
+      } else {
+        goToTjkIfNotThere();
       }
     };
     handler.postDelayed(delayedAction, 1000);

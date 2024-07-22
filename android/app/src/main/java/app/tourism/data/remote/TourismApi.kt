@@ -4,7 +4,6 @@ import app.tourism.data.dto.AllDataDto
 import app.tourism.data.dto.CategoryDto
 import app.tourism.data.dto.FavoritesDto
 import app.tourism.data.dto.FavoritesIdsDto
-import app.tourism.data.dto.HashDto
 import app.tourism.data.dto.auth.AuthResponseDto
 import app.tourism.data.dto.place.ReviewDto
 import app.tourism.data.dto.place.ReviewIdsDto
@@ -17,7 +16,6 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET

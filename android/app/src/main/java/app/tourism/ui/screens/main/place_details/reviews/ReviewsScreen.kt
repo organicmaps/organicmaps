@@ -33,7 +33,6 @@ import app.tourism.Constants
 import app.tourism.ui.ObserveAsEvents
 import app.tourism.ui.common.HorizontalSpace
 import app.tourism.ui.common.VerticalSpace
-import app.tourism.ui.common.special.RatingBar
 import app.tourism.ui.screens.main.place_details.reviews.components.PostReview
 import app.tourism.ui.screens.main.place_details.reviews.components.Review
 import app.tourism.ui.theme.TextStyles
@@ -42,7 +41,6 @@ import app.tourism.ui.utils.showToast
 import app.tourism.ui.utils.showYesNoAlertDialog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
