@@ -11,8 +11,9 @@
   if (self) {
     _showAddPlace = rawData.ShouldShowAddPlace();
     _showEditPlace = rawData.ShouldShowEditPlace();
-    _showAddBusiness = rawData.ShouldShowAddBusiness();
-    if (_showAddPlace || _showEditPlace || _showAddBusiness)
+    _enableAddPlace = rawData.ShouldEnableAddPlace();
+    _enableEditPlace = rawData.ShouldEnableEditPlace();
+    if (_showAddPlace || _showEditPlace || _enableAddPlace || _enableEditPlace)
       return self;
   }
   return nil;
