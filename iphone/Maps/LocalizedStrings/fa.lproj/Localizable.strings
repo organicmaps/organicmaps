@@ -1353,6 +1353,12 @@
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "پشتیبان گیری";
 
+/* Title for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_title" = "همگام سازی iCloud شکست خورده است";
+
+/* Message for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_message" = "آیا می خواهید یک گزارش اشکال برای توسعه دهندگان ارسال کنید؟";
+
 /* iCloud error message: Failed to synchronize due to connection error */
 "icloud_synchronization_error_connection_error" = "خطا: به دلیل خطای اتصال همگام سازی نشد";
 

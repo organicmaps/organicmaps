@@ -1353,6 +1353,12 @@
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "Sauvegarde";
 
+/* Title for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_title" = "Échec de la synchronisation iCloud";
+
+/* Message for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_message" = "Veux-tu envoyer un rapport de bogue aux développeurs ?";
+
 /* iCloud error message: Failed to synchronize due to connection error */
 "icloud_synchronization_error_connection_error" = "Erreur : La synchronisation a échoué en raison d'une erreur de connexion";
 

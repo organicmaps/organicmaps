@@ -1353,6 +1353,12 @@
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "Säkerhetskopiering";
 
+/* Title for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_title" = "fel i iCloud-synkroniseringen";
+
+/* Message for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_message" = "Vill du skicka en felrapport till utvecklarna?";
+
 /* iCloud error message: Failed to synchronize due to connection error */
 "icloud_synchronization_error_connection_error" = "Fel: Synkronisering misslyckades på grund av anslutningsfel";
 

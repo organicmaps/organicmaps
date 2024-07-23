@@ -1353,6 +1353,12 @@
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "बैकअप";
 
+/* Title for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_title" = "iCloud सिंक्रनाइज़ेशन विफलता";
+
+/* Message for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_message" = "क्या आप डेवलपर्स को बग रिपोर्ट भेजना चाहेंगे?";
+
 /* iCloud error message: Failed to synchronize due to connection error */
 "icloud_synchronization_error_connection_error" = "त्रुटि: कनेक्शन त्रुटि के कारण सिंक्रनाइज़ करने में विफल";
 

@@ -1353,6 +1353,12 @@
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "สำรองข้อมูล";
 
+/* Title for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_title" = "การซิงโครไนซ์ iCloud ล้มเหลว";
+
+/* Message for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_message" = "คุณต้องการส่งรายงานข้อผิดพลาดไปยังนักพัฒนาหรือไม่?";
+
 /* iCloud error message: Failed to synchronize due to connection error */
 "icloud_synchronization_error_connection_error" = "ข้อผิดพลาด: ไม่สามารถซิงโครไนซ์ได้เนื่องจากข้อผิดพลาดในการเชื่อมต่อ";
 

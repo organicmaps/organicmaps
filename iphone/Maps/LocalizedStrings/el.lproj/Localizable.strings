@@ -1353,6 +1353,12 @@
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "Δημιουργία αντιγράφων ασφαλείας";
 
+/* Title for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_title" = "Αποτυχία συγχρονισμού iCloud";
+
+/* Message for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_message" = "Θα θέλατε να στείλετε μια αναφορά σφάλματος στους προγραμματιστές;";
+
 /* iCloud error message: Failed to synchronize due to connection error */
 "icloud_synchronization_error_connection_error" = "Σφάλμα: Αποτυχία συγχρονισμού λόγω σφάλματος σύνδεσης";
 
