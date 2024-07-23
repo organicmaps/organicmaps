@@ -113,8 +113,10 @@ public:
 
   /// Edit and add
   bool ShouldShowAddPlace() const;
-  bool ShouldShowAddBusiness() const { return m_canEditOrAdd && IsBuilding(); }
   bool ShouldShowEditPlace() const;
+
+  bool ShouldEnableAddPlace() const { return m_canEditOrAdd; };
+  bool ShouldEnableEditPlace() const { return m_canEditOrAdd; };
 
   /// @returns true if Back API button should be displayed.
   bool HasApiUrl() const { return !m_apiUrl.empty(); }

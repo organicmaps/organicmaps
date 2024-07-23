@@ -15,6 +15,7 @@
 #include "search/engine.hpp"
 #include "search/locality_finder.hpp"
 
+#include "storage/storage.hpp"
 #include "storage/country_info_getter.hpp"
 #include "storage/storage_helpers.hpp"
 
@@ -653,7 +654,7 @@ void Framework::FillNotMatchedPlaceInfo(place_page::Info & info, m2::PointD cons
     info.SetCustomNameWithCoordinates(mercator, m_stringsBundle.GetString("core_placepage_unknown_place"));
   else
     info.SetCustomName(customTitle);
-  info.SetCanEditOrAdd(CanEditMap());
+  info.SetCanEditOrAdd(CanEditMapForPosition(mercator));
   info.SetMercator(mercator);
 }
 
@@ -679,11 +680,9 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
   FillDescription(ft, info);
 
   auto const mwmInfo = ft.GetID().m_mwmId.GetInfo();
-  bool const isMapVersionEditable = mwmInfo && mwmInfo->m_version.IsEditableMap();
-  bool const canEditOrAdd = featureStatus != FeatureStatus::Obsolete && CanEditMap() &&
-                            isMapVersionEditable;
+  bool const isMapVersionEditable = CanEditMapForPosition(info.GetMercator());
+  bool const canEditOrAdd = featureStatus != FeatureStatus::Obsolete && isMapVersionEditable;
   info.SetCanEditOrAdd(canEditOrAdd);
-  //info.SetPopularity(m_popularityLoader.Get(ft.GetID()));
 
   // Fill countryId for place page info
   auto const & types = info.GetTypes();
@@ -2855,9 +2854,10 @@ void SetHostingBuildingAddress(FeatureID const & hostingBuildingFid, DataSource 
 }
 }  // namespace
 
-bool Framework::CanEditMap() const
+bool Framework::CanEditMapForPosition(m2::PointD const & position) const
 {
-  return !GetStorage().IsDownloadInProgress();
+  ASSERT(m_infoGetter, ("CountryInfoGetter shouldn't be nullprt."));
+  return GetStorage().IsAllowedToEditVersion(m_infoGetter->GetRegionCountryId(position));
 }
 
 bool Framework::CreateMapObject(m2::PointD const & mercator, uint32_t const featureType,
