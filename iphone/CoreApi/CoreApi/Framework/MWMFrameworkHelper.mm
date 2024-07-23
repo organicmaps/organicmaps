@@ -162,8 +162,9 @@
   GetFramework().GetSearchAPI().SearchInDownloader(std::move(params));
 }
 
-+ (BOOL)canEditMap {
-  return GetFramework().CanEditMap();
++ (BOOL)canEditMapAtViewportCenter {
+  auto &f = GetFramework();
+  return f.CanEditMapForPosition(f.GetViewportCenter());
 }
 
 + (void)showOnMap:(MWMMarkGroupID)categoryId {

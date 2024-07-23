@@ -42,6 +42,15 @@ namespace
 {
 string const kDownloadQueueKey = "DownloadQueue";
 
+uint64_t constexpr kMaxSecondsTillNoEdits = 3600 * 24 * 31 * 2;
+
+// Editing maps older than approximately three months old is disabled, since the data
+// is most likely already fixed on OSM. Not limited to the latest one or two versions,
+// because a user can forget to update maps after a new app version has been installed
+// automatically in the background.
+// Number of months when version is a timestamp in format yymmdd.
+int64_t const kOutdatedVersionDiffLimit = 3 * 100;
+
 void DeleteCountryIndexes(LocalCountryFile const & localFile)
 {
   platform::CountryIndexes::DeleteFromDisk(localFile);
@@ -1267,6 +1276,22 @@ bool Storage::IsNodeDownloaded(CountryId const & countryId) const
 bool Storage::HasLatestVersion(CountryId const & countryId) const
 {
   return CountryStatusEx(countryId) == Status::OnDisk;
+}
+
+bool Storage::IsAllowedToEditVersion(CountryId const & countryId) const
+{
+  auto const status = CountryStatusEx(countryId);
+  switch (status) 
+  {
+    case Status::OnDisk: return true;
+    case Status::OnDiskOutOfDate:
+    {
+      auto const localFile = GetLatestLocalFile(countryId);
+      ASSERT(localFile, ("Local file shouldn't be nullptr."));
+      return m_currentVersion - localFile->GetVersion() < kOutdatedVersionDiffLimit;
+    }
+    default: return false;
+  }
 }
 
 int64_t Storage::GetVersion(CountryId const & countryId) const

@@ -721,10 +721,8 @@ protected:
   void RegisterCountryFilesOnRoute(std::shared_ptr<routing::NumMwmIds> ptr) const override;
 
 public:
-  /// @name Editor interface.
-  /// Initializes feature for Create Object UI.
   /// @returns false in case when coordinate is in the ocean or mwm is not downloaded.
-  bool CanEditMap() const;
+  bool CanEditMapForPosition(m2::PointD const & position) const;
 
   bool CreateMapObject(m2::PointD const & mercator, uint32_t const featureType, osm::EditableMapObject & emo) const;
   /// @returns false if feature is invalid or can't be edited.

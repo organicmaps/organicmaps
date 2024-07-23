@@ -59,7 +59,7 @@ extension BottomMenuPresenter {
     let cell = tableView.dequeueReusableCell(cell: BottomMenuItemCell.self)!
     switch CellType(rawValue: correctedRow(indexPath.row))! {
     case .addPlace:
-      let enabled = MWMNavigationDashboardManager.shared().state == .hidden && FrameworkHelper.canEditMap()
+      let enabled = MWMNavigationDashboardManager.shared().state == .hidden && FrameworkHelper.canEditMapAtViewportCenter()
       cell.configure(imageName: "ic_add_place",
                      title: L("placepage_add_place_button"),
                      badgeCount: 0,
