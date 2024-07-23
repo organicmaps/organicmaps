@@ -1335,6 +1335,9 @@
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "메뉴 링크";
 
+/* Message for the bug report alert. */
+"bugreport_alert_message" = "개발자에게 버그 리포트를 보내시겠습니까?\n오가닉 맵은 오류 정보를 자동으로 수집하지 않으므로 사용자의 도움을 받아야 합니다. 오가닉 맵을 이용해 주셔서 미리 감사드립니다!";
+
 /* Title for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_title" = "iCloud 동기화 활성화";
 
@@ -1353,6 +1356,9 @@
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "백업";
 
+/* Title for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_title" = "iCloud 동기화 실패";
+
 /* iCloud error message: Failed to synchronize due to connection error */
 "icloud_synchronization_error_connection_error" = "오류입니다: 연결 오류로 인해 동기화하지 못했습니다.";
 
@@ -1362,7 +1368,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "오류: iCloud를 사용할 수 없습니다.";
 
-/* Title for the "Open In Another App" buton on the PlacePage. */
+/* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "다른 앱에서 열기";
 
 

@@ -1335,6 +1335,9 @@
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Lien vers le menu";
 
+/* Message for the bug report alert. */
+"bugreport_alert_message" = "Veux-tu envoyer un rapport de bogue aux développeurs ?\nNous comptons sur nos utilisateurs, car Organic Maps ne recueille pas automatiquement d'informations sur les erreurs. Merci d'avance de soutenir Organic Maps !";
+
 /* Title for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_title" = "Activer la synchronisation iCloud";
 
@@ -1353,6 +1356,9 @@
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "Sauvegarde";
 
+/* Title for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_title" = "Échec de la synchronisation iCloud";
+
 /* iCloud error message: Failed to synchronize due to connection error */
 "icloud_synchronization_error_connection_error" = "Erreur : La synchronisation a échoué en raison d'une erreur de connexion";
 
@@ -1362,7 +1368,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Erreur : iCloud n'est pas disponible";
 
-/* Title for the "Open In Another App" buton on the PlacePage. */
+/* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "Ouvrir dans une autre application";
 
 

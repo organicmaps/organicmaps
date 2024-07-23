@@ -1335,6 +1335,9 @@
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Länk till meny";
 
+/* Message for the bug report alert. */
+"bugreport_alert_message" = "Vill du skicka en felrapport till utvecklarna?\nVi förlitar oss på våra användare eftersom organiska kartor inte samlar in någon felinformation automatiskt. Tack på förhand för att du stöder Organic Maps!";
+
 /* Title for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_title" = "Aktivera iCloud-synkronisering";
 
@@ -1353,6 +1356,9 @@
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "Säkerhetskopiering";
 
+/* Title for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_title" = "fel i iCloud-synkroniseringen";
+
 /* iCloud error message: Failed to synchronize due to connection error */
 "icloud_synchronization_error_connection_error" = "Fel: Synkronisering misslyckades på grund av anslutningsfel";
 
@@ -1362,7 +1368,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Fel: iCloud är inte tillgängligt";
 
-/* Title for the "Open In Another App" buton on the PlacePage. */
+/* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "Öppna i en annan app";
 
 

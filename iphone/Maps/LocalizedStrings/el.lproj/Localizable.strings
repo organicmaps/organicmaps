@@ -1335,6 +1335,9 @@
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Σύνδεσμος μενού";
 
+/* Message for the bug report alert. */
+"bugreport_alert_message" = "Θα θέλατε να στείλετε μια αναφορά σφάλματος στους προγραμματιστές;\nΒασιζόμαστε στους χρήστες μας, καθώς οι Organic Maps δεν συλλέγουν αυτόματα καμία πληροφορία σφάλματος. Σας ευχαριστούμε εκ των προτέρων για την υποστήριξη των Organic Maps!";
+
 /* Title for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_title" = "Ενεργοποίηση συγχρονισμού iCloud";
 
@@ -1353,6 +1356,9 @@
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "Δημιουργία αντιγράφων ασφαλείας";
 
+/* Title for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_title" = "Αποτυχία συγχρονισμού iCloud";
+
 /* iCloud error message: Failed to synchronize due to connection error */
 "icloud_synchronization_error_connection_error" = "Σφάλμα: Αποτυχία συγχρονισμού λόγω σφάλματος σύνδεσης";
 
@@ -1362,7 +1368,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Σφάλμα: Το iCloud δεν είναι διαθέσιμο";
 
-/* Title for the "Open In Another App" buton on the PlacePage. */
+/* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "Άνοιγμα σε άλλη εφαρμογή";
 
 

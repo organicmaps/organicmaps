@@ -1335,6 +1335,9 @@
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Kiungo cha menyu";
 
+/* Message for the bug report alert. */
+"bugreport_alert_message" = "Je, ungependa kutuma ripoti ya hitilafu kwa wasanidi programu?\nTunategemea watumiaji wetu kwani Ramani za Kikaboni hazikusanyi maelezo yoyote ya hitilafu kiotomatiki. Asante mapema kwa kusaidia Ramani za Organic!";
+
 /* Title for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_title" = "Washa Usawazishaji wa iCloud";
 
@@ -1353,6 +1356,9 @@
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "Hifadhi nakala";
 
+/* Title for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_title" = "Imeshindwa kusawazisha iCloud";
+
 /* iCloud error message: Failed to synchronize due to connection error */
 "icloud_synchronization_error_connection_error" = "Hitilafu: Imeshindwa kusawazisha kwa sababu ya hitilafu ya muunganisho";
 
@@ -1362,7 +1368,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Hitilafu: iCloud haipatikani";
 
-/* Title for the "Open In Another App" buton on the PlacePage. */
+/* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "Fungua Katika Programu Nyingine";
 
 

@@ -1335,6 +1335,9 @@
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "選單連結";
 
+/* Message for the bug report alert. */
+"bugreport_alert_message" = "您想向開發人員發送錯誤報告嗎？\n我們依賴我們的用戶，因為有機地圖不會自動收集任何錯誤訊息。預先感謝您對有機地圖的支持！";
+
 /* Title for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_title" = "啟用 iCloud 同步";
 
@@ -1353,6 +1356,9 @@
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "备份";
 
+/* Title for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_title" = "iCloud 同步失敗";
+
 /* iCloud error message: Failed to synchronize due to connection error */
 "icloud_synchronization_error_connection_error" = "錯誤：由於連線錯誤而無法同步";
 
@@ -1362,7 +1368,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "錯誤：iCloud 不可用";
 
-/* Title for the "Open In Another App" buton on the PlacePage. */
+/* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "在另一個應用程式中打開";
 
 
