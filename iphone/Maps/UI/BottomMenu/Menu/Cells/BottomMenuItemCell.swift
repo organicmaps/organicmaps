@@ -14,7 +14,7 @@ class BottomMenuItemCell: UITableViewCell {
     }
   }
   
-  private var isEnabled: Bool = true
+  private(set) var isEnabled: Bool = true
   private var isPromo: Bool = false
   
   func configure(imageName: String, title: String, badgeCount: UInt, enabled: Bool) {
