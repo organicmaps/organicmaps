@@ -30258,6 +30258,52 @@
     zh-Hans = 查看菜单
     zh-Hant = 查看選單
 
+  [bugreport_alert_message]
+    comment = Message for the bug report alert.
+    tags = ios
+    en = Would you like to send a bug report to the developers?\nWe rely on our users as Organic Maps doesn't collect any error information automatically. Thank you in advance for supporting Organic Maps!
+    af = Wil jy 'n foutverslag aan die ontwikkelaars stuur?\nOns maak staat op ons gebruikers aangesien Organic Maps nie outomaties enige foutinligting insamel nie. By voorbaat dankie vir die ondersteuning van Organic Maps!
+    ar = هل ترغب في إرسال تقرير عن الأخطاء إلى المطورين؟\nنحن نعتمد على مستخدمينا لأن تطبيق Organic Maps لا يجمع أي معلومات عن الأخطاء تلقائيًا. شكرًا لك مقدمًا على دعم الخرائط العضوية!
+    az = Tərtibatçılara səhv hesabatı göndərmək istərdinizmi?\nÜzvi Xəritələr heç bir səhv məlumatını avtomatik toplamadığından istifadəçilərimizə etibar edirik. Üzvi Xəritələri dəstəklədiyiniz üçün əvvəlcədən təşəkkür edirik!
+    be = Хочаце адправіць справаздачу пра памылку распрацоўшчыкам?\nМы разлічваем на нашых карыстальнікаў, бо Organic Maps не збірае ніякай інфармацыі пра памылкі аўтаматычна. Загадзя дзякуем за падтрымку Organic Maps!
+    bg = Искате ли да изпратите доклад за грешка на разработчиците?\nРазчитаме на нашите потребители, тъй като Organic Maps не събира информация за грешки автоматично. Благодарим ви предварително, че подкрепяте Organic Maps!
+    ca = Voleu enviar un informe d'error als desenvolupadors?\nConfiem en els nostres usuaris, ja que Organic Maps no recull cap informació d'error automàticament. Gràcies per avançat per donar suport a Organic Maps!
+    cs = Chcete poslat vývojářům hlášení o chybě?\nSpoléháme na naše uživatele, protože společnost Organic Maps neshromažďuje žádné informace o chybách automaticky. Předem vám děkujeme za podporu Organic Maps!
+    da = Vil du gerne sende en fejlrapport til udviklerne?\nVi er afhængige af vores brugere, da Organic Maps ikke indsamler nogen fejloplysninger automatisk. Tak på forhånd for at støtte Organic Maps!
+    de = Willst du einen Fehlerbericht an die Entwickler schicken?\nWir sind auf unsere Nutzer angewiesen, da Organic Maps keine Fehlerinformationen automatisch sammelt. Wir danken dir im Voraus für deine Unterstützung von Organic Maps!
+    el = Θα θέλατε να στείλετε μια αναφορά σφάλματος στους προγραμματιστές;\nΒασιζόμαστε στους χρήστες μας, καθώς οι Organic Maps δεν συλλέγουν αυτόματα καμία πληροφορία σφάλματος. Σας ευχαριστούμε εκ των προτέρων για την υποστήριξη των Organic Maps!
+    es = ¿Quieres enviar un informe de error a los desarrolladores?\nConfiamos en nuestros usuarios, ya que Mapas ecológicos no recoge ninguna información sobre errores de forma automática. ¡Gracias de antemano por apoyar a Organic Maps!
+    et = Kas soovite saata arendajatele veateate?\nMe toetume oma kasutajatele, kuna Organic Maps ei kogu automaatselt mingit veateavet. Täname teid juba ette Organic Maps'i toetamise eest!
+    eu = Akatsen txostena bidali nahi diezu garatzaileei?\nGure erabiltzaileengan oinarritzen gara Organic Maps-ek ez baitu automatikoki akatsen informaziorik biltzen. Eskerrik asko aldez aurretik Maps organikoak laguntzeagatik!
+    fa = آیا می خواهید یک گزارش اشکال برای توسعه دهندگان ارسال کنید؟\nما به کاربران خود تکیه می کنیم زیرا نقشه های ارگانیک هیچ گونه اطلاعات خطا را به طور خودکار جمع آوری نمی کند. پیشاپیش از شما برای حمایت از نقشه های ارگانیک سپاسگزاریم!
+    fi = Haluatko lähettää vikailmoituksen kehittäjille?\nLuotamme käyttäjiin, sillä Organic Maps ei kerää virhetietoja automaattisesti. Kiitos etukäteen Organic Mapsin tukemisesta!
+    fr = Veux-tu envoyer un rapport de bogue aux développeurs ?\nNous comptons sur nos utilisateurs, car Organic Maps ne recueille pas automatiquement d'informations sur les erreurs. Merci d'avance de soutenir Organic Maps !
+    he = האם תרצה לשלוח דוח באג למפתחים?\nאנו סומכים על המשתמשים שלנו מכיוון שמפות אורגניות לא אוספות כל מידע על שגיאות באופן אוטומטי. תודה מראש על התמיכה במפות אורגניות!
+    hi = क्या आप डेवलपर्स को बग रिपोर्ट भेजना चाहेंगे?\nहम अपने उपयोगकर्ताओं पर भरोसा करते हैं क्योंकि ऑर्गेनिक मैप्स स्वचालित रूप से कोई त्रुटि जानकारी एकत्र नहीं करता है। ऑर्गेनिक मैप्स का समर्थन करने के लिए अग्रिम धन्यवाद!
+    hu = Szeretne hibajelentést küldeni a fejlesztőknek?\nFelhasználóinkra támaszkodunk, mivel az Organic Maps nem gyűjt automatikusan hibainformációkat. Előre is köszönjük, hogy támogatja az Organic Maps-et!
+    id = Apakah Anda ingin mengirim laporan bug ke pengembang?\nKami mengandalkan pengguna kami karena Organic Maps tidak mengumpulkan informasi kesalahan secara otomatis. Terima kasih sebelumnya karena telah mendukung Peta Organik!
+    it = Vuoi inviare una segnalazione di bug agli sviluppatori?\nCi affidiamo ai nostri utenti perché Organic Maps non raccoglie automaticamente informazioni sugli errori. Ti ringraziamo in anticipo per il supporto a Organic Maps!
+    ja = 開発者にバグレポートを送りたいか？\nオーガニック・マップはエラー情報を自動収集しないため、我々はユーザーに依存している。Organic Mapsを応援してくださりありがとう！
+    ko = 개발자에게 버그 리포트를 보내시겠습니까?\n오가닉 맵은 오류 정보를 자동으로 수집하지 않으므로 사용자의 도움을 받아야 합니다. 오가닉 맵을 이용해 주셔서 미리 감사드립니다!
+    lt = Ar norėtumėte išsiųsti pranešimą apie klaidą kūrėjams?\nMes pasikliaujame savo naudotojais, nes "Organic Maps" nerenka jokios informacijos apie klaidas automatiškai. Iš anksto dėkojame, kad remiate "Organic Maps"!
+    mr = तुम्ही विकासकांना बग अहवाल पाठवू इच्छिता?\nआम्ही आमच्या वापरकर्त्यांवर अवलंबून आहोत कारण सेंद्रिय नकाशे कोणतीही त्रुटी माहिती स्वयंचलितपणे संकलित करत नाही. ऑरगॅनिक नकाशेला समर्थन दिल्याबद्दल आगाऊ धन्यवाद!
+    nb = Vil du sende en feilrapport til utviklerne?\nVi er avhengige av brukerne våre, da Organic Maps ikke samler inn noen feilinformasjon automatisk. Takk på forhånd for at du støtter Organic Maps!
+    nl = Wil je een bugrapport naar de ontwikkelaars sturen?\nWe vertrouwen op onze gebruikers, want Organic Maps verzamelt geen foutinformatie automatisch. Alvast bedankt voor je steun aan Organic Maps!
+    pl = Chcesz wysłać raport o błędzie do deweloperów?\nPolegamy na naszych użytkownikach, ponieważ Organic Maps nie zbiera żadnych informacji o błędach automatycznie. Z góry dziękujemy za wspieranie Organic Maps!
+    pt = Gostarias de enviar um relatório de erro para os programadores?\nContamos com os nossos utilizadores, uma vez que o Organic Maps não recolhe automaticamente qualquer informação de erro. Agradecemos desde já o teu apoio ao Organic Maps!
+    pt-BR = Você gostaria de enviar um relatório de bug para os desenvolvedores?\nDependemos de nossos usuários, pois o Organic Maps não coleta nenhuma informação de erro automaticamente. Agradecemos antecipadamente por você apoiar o Organic Maps!
+    ro = Doriți să trimiteți un raport de eroare dezvoltatorilor?\nNe bazăm pe utilizatorii noștri, deoarece Organic Maps nu colectează automat nicio informație privind erorile. Vă mulțumim anticipat pentru susținerea Organic Maps!
+    ru = Хотите отправить разработчикам сообщение об ошибке?\nМы полагаемся на наших пользователей, так как Organic Maps не собирает информацию об ошибках автоматически. Заранее спасибо за поддержку Organic Maps!
+    sk = Chcete poslať vývojárom hlásenie o chybe?\nSpoliehame sa na našich používateľov, pretože spoločnosť Organic Maps nezhromažďuje žiadne informácie o chybách automaticky. Vopred vám ďakujeme za podporu Organic Maps!
+    sv = Vill du skicka en felrapport till utvecklarna?\nVi förlitar oss på våra användare eftersom organiska kartor inte samlar in någon felinformation automatiskt. Tack på förhand för att du stöder Organic Maps!
+    sw = Je, ungependa kutuma ripoti ya hitilafu kwa wasanidi programu?\nTunategemea watumiaji wetu kwani Ramani za Kikaboni hazikusanyi maelezo yoyote ya hitilafu kiotomatiki. Asante mapema kwa kusaidia Ramani za Organic!
+    th = คุณต้องการส่งรายงานข้อผิดพลาดไปยังนักพัฒนาหรือไม่?\nเราไว้วางใจผู้ใช้ของเราเนื่องจาก Organic Maps จะไม่รวบรวมข้อมูลข้อผิดพลาดใด ๆ โดยอัตโนมัติ ขอขอบคุณล่วงหน้าสำหรับการสนับสนุน Organic Maps!
+    tr = Geliştiricilere bir hata raporu göndermek ister misiniz?\nOrganic Maps otomatik olarak herhangi bir hata bilgisi toplamadığı için kullanıcılarımıza güveniyoruz. Organic Maps'i desteklediğiniz için şimdiden teşekkür ederiz!
+    uk = Бажаєте надіслати розробникам звіт про помилку?\nМи покладаємося на наших користувачів, оскільки Organic Maps не збирає інформацію про помилки автоматично. Заздалегідь дякуємо за підтримку Organic Maps!
+    vi = Bạn có muốn gửi báo cáo lỗi cho nhà phát triển không?\nChúng tôi dựa vào người dùng của mình vì Bản đồ không phải trả tiền không tự động thu thập bất kỳ thông tin lỗi nào. Cảm ơn bạn trước vì đã ủng hộ Organic Maps!
+    zh-Hans = 您想向开发人员发送错误报告吗？\n由于有机地图不会自动收集任何错误信息，因此我们只能依靠我们的用户。感谢您对有机地图的支持！
+    zh-Hant = 您想向開發人員發送錯誤報告嗎？\n我們依賴我們的用戶，因為有機地圖不會自動收集任何錯誤訊息。預先感謝您對有機地圖的支持！
+
   [enable_icloud_synchronization_title]
     comment = Title for the "Enable iCloud Syncronization" alert.
     tags = ios
@@ -30536,6 +30582,52 @@
     vi = Hỗ trợ
     zh-Hans = 备份
     zh-Hant = 备份
+
+  [icloud_synchronization_error_alert_title]
+    comment = Title for the "iCloud synchronization failure" alert.
+    tags = ios
+    en = iCloud synchronization failure
+    af = iCloud-sinchronisasie mislukking
+    ar = فشل مزامنة iCloud
+    az = iCloud sinxronizasiya uğursuzluğu
+    be = Збой сінхранізацыі iCloud
+    bg = Неуспешна синхронизация на iCloud
+    ca = Error de sincronització d'iCloud
+    cs = Selhání synchronizace iCloudu
+    da = Fejl i iCloud-synkronisering
+    de = iCloud-Synchronisierung fehlgeschlagen
+    el = Αποτυχία συγχρονισμού iCloud
+    es = Fallo de sincronización de iCloud
+    et = iCloudi sünkroniseerimise tõrge
+    eu = iCloud sinkronizazioaren hutsegitea
+    fa = همگام سازی iCloud شکست خورده است
+    fi = iCloud-synkronoinnin epäonnistuminen
+    fr = Échec de la synchronisation iCloud
+    he = כשל בסינכרון iCloud
+    hi = iCloud सिंक्रनाइज़ेशन विफलता
+    hu = iCloud-szinkronizálási hiba
+    id = Kegagalan sinkronisasi iCloud
+    it = Mancata sincronizzazione di iCloud
+    ja = iCloud同期の失敗
+    ko = iCloud 동기화 실패
+    lt = "iCloud" sinchronizavimo sutrikimas
+    mr = iCloud सिंक्रोनाइझेशन अयशस्वी
+    nb = iCloud-synkroniseringsfeil
+    nl = Storing iCloud-synchronisatie
+    pl = Błąd synchronizacji iCloud
+    pt = Falha de sincronização do iCloud
+    pt-BR = Falha na sincronização do iCloud
+    ro = Eșecul sincronizării iCloud
+    ru = Сбой синхронизации iCloud
+    sk = Zlyhanie synchronizácie iCloud
+    sv = fel i iCloud-synkroniseringen
+    sw = Imeshindwa kusawazisha iCloud
+    th = การซิงโครไนซ์ iCloud ล้มเหลว
+    tr = iCloud senkronizasyon hatası
+    uk = Збій синхронізації iCloud
+    vi = Lỗi đồng bộ hóa iCloud
+    zh-Hans = iCloud 同步失败
+    zh-Hant = iCloud 同步失敗
 
   [icloud_synchronization_error_connection_error]
     comment = iCloud error message: Failed to synchronize due to connection error
