@@ -488,7 +488,7 @@
     ro = Mile
     ru = Мили
     sk = Míle
-    sv = Mil
+    sv = Mile
     th = ไมล์
     tr = Mil
     uk = Милі
@@ -902,7 +902,7 @@
     ro = Descărcarea a eșuat
     ru = Ошибка загрузки
     sk = Sťahovanie zlyhalo
-    sv = Downloading har misslyckats
+    sv = Nedladdningen misslyckades
     th = การดาวน์โหลดล้มเหลว
     tr = İndirme başarısız oldu
     uk = Помилка завантаження
@@ -1036,7 +1036,7 @@
     ro = Gratuit pentru toată lumea, făcut cu dragoste
     ru = Бесплатно для всех, сделано с любовью
     sk = Zadarmo pre každého, vyrobené s láskou
-    sv = Gratis för alla, gjorda med kärlek
+    sv = Gratis för alla, skapad med kärlek
     sw = Bure kwa kila mtu, iliyotengenezwa na upendo
     th = ฟรีสำหรับทุกคนทำด้วยความรัก
     tr = Sevgiyle yapılmış, herkes için ücretsiz harita
@@ -1218,7 +1218,7 @@
     ro = Aplicație open-source creată de entuziaști și voluntari.
     ru = Приложение с открытым исходным кодом, созданное энтузиастами и волонтёрами.
     sk = Aplikácia s otvoreným zdrojovým kódom vytvorená nadšencami a dobrovoľníkmi.
-    sv = Open-källansökan skapad av entusiaster och frivilliga.
+    sv = Öppen källkod-app skapad av entusiaster och frivilliga.
     sw = Maombi ya chanzo-wazi iliyoundwa na wanaovutia na wanaojitolea.
     th = แอปพลิเคชันโอเพนซอร์ซที่สร้างขึ้นโดยผู้ที่ชื่นชอบและอาสาสมัคร
     tr = Teknoloji tutkunları ve gönüllüler tarafından oluşturulan açık kaynaklı bir uygulama.
@@ -1264,7 +1264,7 @@
     ro = Setări de locație
     ru = Настройки местоположения
     sk = Nastavenia polohy
-    sv = Inställningar för plats
+    sv = Platsinställningar
     sw = Mipangilio ya mahali
     th = การตั้งค่าตำแหน่ง
     tr = Konum ayarları
@@ -1491,7 +1491,7 @@
     ro = Spațiul de stocare de pe cardul SD/memoria USB este insuficient pentru a putea utiliza aplicația
     ru = Недостаточно свободного места на SD карте/в памяти устройства для использования программы
     sk = Prosím, uvoľnite najprv miesto na SD karte/USB úložisku
-    sv = Vänligen frigör utrymme på SD-kortet/USB-lagringen först för att använda denna app.
+    sv = Vänligen frigör utrymme på SD-kortet/USB-lagringen först för att använda appen.
     th = โปรดเพิ่มพื้นที่บางส่วนบนการ์ด SD /พื้นที่จัดเก็บ USB ก่อนเพื่อใช้แอป
     tr = Uygulamayı kullanabilmek için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın
     uk = Недостатньо вільного місця на SD карті / в пам'яті пристрою для використання програми
@@ -1536,7 +1536,7 @@
     ro = Înainte de a începe, trebuie descărcată harta generală a lumii în dispozitivul tău.\nSe vor descărca %@.
     ru = Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство.\nЭто потребует %@ данных.
     sk = Skôr ako začnete, bude treba stiahnuť základnú mapu sveta.\nZaberie to %@.
-    sv = Innan du startar, låt oss ladda ner den generella världskartan på din enhet.\nDen behöver %@ data.
+    sv = Innan du startar, låt oss ladda ner den allmäna världskartan på din enhet.\nDen behöver %@ data.
     th = ก่อนที่คุณจะเริ่มต้น โปรดให้เราดาวน์โหลดแผนที่โลกลงในอุปกรณ์ของคุณ\nจำเป็นต้องใช้ %@ ของข้อมูล
     tr = Başlamadan önce cihazınıza genel dünya haritasını indirelim.\n%@ alan gerekli.
     uk = Перш ніж розпочати дозвольте нам завантажити мапу світу на ваш пристрій.\nВона потребує %@ даних.
@@ -1854,7 +1854,7 @@
     ro = Descărcarea %@ a eșuat
     ru = Не удалось загрузить %@
     sk = Sťahovanie zlyhalo: %@
-    sv = %@ nedladdning misslyckades
+    sv = %@ nedladdningen misslyckades
     th = การดาวน์โหลด %@ ล้มเหลว
     tr = %@ indirme işlemi başarısız oldu
     uk = Не вдалося завантажити %@
@@ -2449,7 +2449,7 @@
     ro = Alege locul în care vrei să fie descărcate hărțile.
     ru = Выберите место, где будут храниться загруженные карты
     sk = Vyberte miesto, kam sa majú sťahovať mapy
-    sv = Välj en plats dit kartor ska laddas ner
+    sv = Välj en plats för nedladdade kartor
     th = เลือกสถานที่ที่ต้องการดาวน์โหลดใช้แผนที่
     tr = Haritaların indirileceği yeri seçin
     uk = Виберіть місце, куди повинні бути завантажені мапи
@@ -2494,7 +2494,7 @@
     ro = Hărți
     ru = Загруженные карты
     sk = Mapy
-    sv = Kartor
+    sv = Nedladdade kartor
     th = แผนที่
     tr = Haritalar
     uk = Завантаженнi мапи
@@ -2864,7 +2864,7 @@
     ro = Alege între mile și kilometri
     ru = Использовать километры или мили
     sk = Vyberte si míle alebo kilometre
-    sv = Välj mellan mil och kilometer
+    sv = Välj mellan mile och kilometer
     th = เลือกระหว่างไมล์และกิโลเมตร
     tr = Mil veya kilometre seçimini yap
     uk = Використовувати милі чи кілометри
@@ -2912,7 +2912,7 @@
     ro = Unde să mănânci
     ru = Где поесть
     sk = Kde sa najesť
-    sv = Var att äta
+    sv = Matmöjligheter
     sw = Sehemu ya kula
     th = กินร้านไหนดี
     tr = Nerede yenir
@@ -2959,7 +2959,7 @@
     ro = Alimentare
     ru = Продукты
     sk = Potraviny
-    sv = Produkter
+    sv = Matvaror
     sw = Migahawani
     th = ซื้อของกินของใช้
     tr = Market
@@ -3052,7 +3052,7 @@
     ro = Benzinărie
     ru = Заправка
     sk = Čerpacia stanica
-    sv = Bensin
+    sv = Bensinstation
     th = ก๊าซ
     tr = Benzinlik
     uk = Заправка
@@ -3188,7 +3188,7 @@
     ro = La mâna a doua
     ru = Секонд-хенд
     sk = Second-hand
-    sv = Begagnad
+    sv = Begagnat
     sw = Mtumba
     th = มือสอง
     tr = İkinci el
@@ -3419,7 +3419,7 @@
     ro = Viață nocturnă
     ru = Ночная жизнь
     sk = Nočný život
-    sv = Nattliv
+    sv = Nöjesliv
     sw = Shughuli za usiku
     th = ไนท์ไลฟ์
     tr = Gece hayatı
@@ -3466,7 +3466,7 @@
     ro = Divertisment cu copiii
     ru = Отдых с детьми
     sk = Rodinná dovolenka
-    sv = Semester med barn
+    sv = Familjesemester
     sw = Mapumziko ya familia
     th = วันหยุดสำหรับครอบครัว
     tr = Aile tatili
@@ -4379,7 +4379,7 @@
     ro = Poziția ta nu a fost stabilită încă
     ru = Ваше местоположение ещё не определено
     sk = Vaša poloha zatiaľ nebola určená
-    sv = Din position har inte bestämts ännu
+    sv = Din position har inte fastslagits ännu
     th = ตำแหน่งที่ตั้งของคุณยังไม่ได้รับการกำหนด
     tr = Konumunuz henüz belirlenmedi
     uk = Ваше місце розташування не визначено
@@ -4425,7 +4425,7 @@
     ro = Opțiunile pentru stocarea hărților sunt dezactivate în acest moment.
     ru = Извините, настройки места хранения карт сейчас недоступны.
     sk = Prepáčte, nastavenie uloženia máp je dočasne nedostupné.
-    sv = Ledsen, Kartlagring är inaktiverat i inställningar
+    sv = Tyvärr, kartlagring är inaktiverat i inställningar
     th = ขออภัย ไม่มีการเปิดใช้งานการตั้งค่าพื้นที่จัดเก็บแผนที่ในปัจจุบัน
     tr = Üzgünüz, Harita Depolama ayarları şu anda devre dışı.
     uk = Вибачте, налаштування папки з мапами зараз недоступні.
@@ -4471,7 +4471,7 @@
     ro = Harta este în curs de descărcare.
     ru = Идет процесс загрузки карт.
     sk = Práve prebieha sťahovanie krajiny.
-    sv = Nedladdning av landet är startat nu.
+    sv = Kartan har börjat laddas ner.
     th = กำลังดำเนินการดาวน์โหลดประเทศในตอนนี้
     tr = Harita indirme işlemi şu anda sürüyor.
     uk = Зараз відбувається завантаження країни.
@@ -4561,7 +4561,7 @@
     ro = Poți vedea locul meu preferat pe harta Organic Maps!
     ru = Смотри мою метку на карте Organic Maps
     sk = Pozri na moju značku na mape Organic Maps
-    sv = Hej, kolla på min pin på Organic Maps kartan
+    sv = Hej, kolla min kartnål på Organic Maps kartan
     th = เฮ้ ตรวจสอบหมุดของฉันที่ แผนที่ Organic Maps!
     tr = Hey, Organic Maps haritasında raptiyemi incele!
     uk = Поглянь на мою мiтку на мапі Organic Maps
@@ -4651,7 +4651,7 @@
     ro = Bună,\n\nAcum sunt aici: %1$@. Apasă pe adresa %2$@ sau pe %3$@ pentru a vedea locul pe hartă.\n\nMulțumesc.
     ru = Привет!\n\nЯ сейчас здесь: %1$@. Чтобы увидеть это место на карте Organic Maps, открой эту ссылку %2$@ или эту %3$@\n\nСпасибо.
     sk = Ahoj,\n\nPráve som tu: %1$@. Stlačte jeden z týchto odkazov %2$@, %3$@ a uvidíte toto miesto na mape.\n\nVďaka
-    sv = Hej,\n\nJag är här nu: %1$@. Klicka på denna länk %2$@ eller denna %3$@ för att se platsen på kartan.\n\nTack.
+    sv = Hej,\n\nJag är här nu: %1$@. Klicka på länken %2$@ eller här %3$@ för att se platsen på kartan.\n\nTack.
     th = หวัดดี\n\nฉันอยู่ที่นี่ตอนนี้: %1$@. คลิกลิงก์นี้ %2$@ หรือลิงก์นี้ %3$@ เพื่อดูสถานที่บนแผนที่\n\nขอบคุณ
     tr = Merhaba,\n\nŞu anda bulunduğum yer: %1$@. Yeri haritada görmek için %2$@ veya %3$@ bağlantısına tıkla.\n\nTeşekkürler.
     uk = Привіт,\n\nЯ зараз тут: %1$@. Натисни на це посилання %2$@ або на це посилання %3$@ щоб побачити місце на мапі.\n\nДякую.
@@ -4788,7 +4788,7 @@
     ro = Copiat în notițe: %@
     ru = Скопировано в буфер обмена: %@
     sk = Skopírované do schránky: %@
-    sv = Kopierat till urklippsbordet: %@
+    sv = Kopierat till urklipp: %@
     th = คัดลอกไปยังคลิปบอร์ด: %@
     tr = Panoya kopyalandı: %@
     uk = Скопійовано в буфер обміну: %@
@@ -4922,7 +4922,7 @@
     ro = Versiunea Organic Maps: %@
     ru = Версия Organic Maps: %@
     sk = Verzia Organic Maps: %@
-    sv = Organic Maps version: %@
+    sv = Organic Maps-version: %@
     sw = Toleo la Organic Maps: %@
     th = เวอร์ชัน Organic Maps: %@
     tr = Organic Maps sürümü: %@
@@ -5148,7 +5148,7 @@
     ro = Trimite poziția mea
     ru = Поделиться местоположением
     sk = Zdieľať moje umiestnenie
-    sv = Dela Min Plats
+    sv = Dela min plats
     th = แชร์ตำแหน่งที่ตั้งของฉัน
     tr = Konumumu Paylaş
     uk = Поділитися моїм місцезнаходженням
@@ -5357,7 +5357,7 @@
     ro = Arată pe hartă
     ru = Показать на карте
     sk = Zobraziť na obrazovke
-    sv = Visa på skärmen
+    sv = Visa på kartan
     th = แสดงบนหน้าจอ
     tr = Haritada göster
     uk = Відображення на екрані
@@ -5890,7 +5890,7 @@
     ro = Anunțați numele străzilor
     ru = Проговаривать названия улиц
     sk = Oznámte názvy ulíc
-    sv = Tillkännage gatunamn
+    sv = Läs upp gatunamn
     sw = Tangaza Majina ya Mitaa
     th = ประกาศชื่อถนน
     tr = Sokak İsimlerini de Söyle
@@ -5933,7 +5933,7 @@
     ro = Când este activată, numele străzii sau al ieșirii pe care să o pornim va fi rostit cu voce tare.
     ru = При включении название улицы или съезда, на который нужно повернуть, будет произноситься вслух.
     sk = Keď je táto možnosť povolená, nahlas sa vysloví názov ulice alebo výjazdu, na ktorý sa má odbočiť.
-    sv = När det är aktiverat kommer namnet på gatan eller avfarten att svänga in på att sägas upp.
+    sv = När det är aktiverat kommer namnet på gatan eller avfarten att svänga in på att läsas upp.
     sw = Ikiwashwa, jina la barabara au la kutoka ili kuwasha litasemwa kwa sauti.
     th = เมื่อเปิดใช้งาน ชื่อของถนนหรือทางออกที่จะเลี้ยวจะถูกพูดออกมาดัง ๆ
     tr = Etkinleştirildiğinde, dönülecek sokağın veya çıkışın adı sesli olarak söylenecektir.
@@ -6556,7 +6556,7 @@
     ro = Permite înregistrarea traseului parcurs pentru o anumită perioadă de timp și urmărește-l pe hartă. Atenție: activarea acestei funcții crește consumul bateriei. Traseul va fi eliminat automat de pe hartă după expirarea intervalului de timp.
     ru = Эта функция позволяет записывать пройденный путь за определённый период времени и видеть его на карте. Внимание: активация этой функции может привести к повышенному расходу батареи. Записанный трек будет удалён с карты по истечении этого срока.
     sk = Umožňuje zaznamenať precestovanú trasu za určité obdobie a zobraziť ju na mape. Upozornenie: zapnutie tejto funkcie spôsobí vyššiu spotrebu batérie. Trasa sa z mapy automaticky odstráni po uplynutí časového intervalu.
-    sv = Detta gör att du kan spara en resväg för en viss tidsperiod och visa den på kartan. Obs: aktivering av den här funktionen ökar batterianvändningen. Spåret tas bort automatiskt från kartan när tidsintervallet slutar gälla.
+    sv = Spara en resväg en viss period och visa den på kartan. Obs: den här funktionen ökar batterianvändningen. Spåret tas bort automatiskt från kartan när efter tidsperioden.
     sw = Inakuwezesha kurekodi njia uliyosafiria kwa kipindi fulani na uione kwenye ramani. Tafadhali kumbuka: ukiwezesha utendaji huu betri itatumika zaidi. Njia hiyo itaondolewa kiotomatiki kwenye ramani baada ya mpishano wa muda kuisha.
     th = ช่วยให้คุณบันทึกเส้นทางที่คุณเดินทางในช่วงระยะเวลาหนึ่งแล้วดูบนแผนที่ได้ โปรดทราบว่า: การเปิดใช้งานฟังก์ชั่นนี้จะทำให้การใช้งานแบตเตอรี่เพิ่มมากขึ้น การติดตามจะถูกเอาออกไปโดยอัตโนมัติจากแผนที่หลังจากผ่านช่วงเวลาที่กำหนด
     tr = Bu özellik, belirli bir süre içinde katedilen yolu kaydetmenizi ve harita üzerinde görüntülemenizi sağlar. Lütfen unutmayın: bu özelliğin etkinleştirilmesi pil tüketiminin artmasına neden olur. Kaydedilen rota, zaman aralığının sona ermesinin ardından otomatik olarak haritadan kaldırılacaktır.
@@ -6910,7 +6910,7 @@
     ro = Evaluează aplicația
     ru = Оценить приложение
     sk = Ohodnotiť aplikáciu
-    sv = Ge appen ett betyg
+    sv = Betygsätt appen
     th = ให้คะแนนแอป
     tr = Uygulamayı değerlendirin
     uk = Оцінити застосунок
@@ -7183,7 +7183,7 @@
     ro = Drepturi de autor
     ru = Копирайт
     sk = Autorské práva
-    sv = Copyright
+    sv = Upphovsrätt
     th = ลิขสิทธิ์
     tr = Telif hakkı
     uk = Копірайт
@@ -7321,7 +7321,7 @@
     ro = Pentru a fi voluntar
     ru = Cтать волонтёром
     sk = Dobrovoľníctvo
-    sv = Att arbeta frivilligt
+    sv = Bli volontär
     sw = Kujitolea
     th = อาสาสมัคร
     tr = Gönüllümüz Olun
@@ -7414,7 +7414,7 @@
     ro = Aplicația de email nu a fost stabilită. Stabilește-o sau utilizează alt mod de a ne contacta la %@.
     ru = Почтовый клиент не настроен. Настройте его или используйте другие способы для связи. Наш адрес - %@.
     sk = Emailový klient nebol nastavený. Nakonfigurujte ho prosím alebo použite iný spôsob k tomu, abyste nás kontaktovali na %@
-    sv = Emailklienten har inte konfigurerats. Konfigurera den eller använd ett annat sätt att kontakta oss på %@
+    sv = Emailklienten har inte konfigurerats. Ställ in den eller använd ett annat sätt att kontakta oss på %@
     th = อีเมลลูกค้ายังไม่ได้รับการจัดตั้งขึ้น กรุณาตั้งค่าหรือใช้วิธีอื่นที่จะติดต่อเราที่ %@
     tr = E-posta istemcisi henüz kurulmamış. Lütfen e-posta istemcisini yapılandırın veya bize %@ adresinden ulaşmak için başka bir yöntem deneyin
     uk = Поштовий клієнт не налаштований. Налаштуйте його або скористайтеся іншими способами зв'язку. Наша адреса – %@.
@@ -7548,7 +7548,7 @@
     ro = Îmbunătățiți direcția săgeții prin mișcarea telefonului într-o mișcare în opt pentru a calibra busola.
     ru = Улучшите направление стрелки, перемещая телефон восьмёркой, чтобы откалибровать компас.
     sk = Zlepšite smer šípok pohybom telefónu v tvare osmičky, aby ste kalibrovali kompas.
-    sv = Förbättra pilens riktning genom att flytta telefonen i en åttarörelse för att kalibrera kompassen.
+    sv = Förbättra pilens riktning genom att röra telefonen i en åttarörelse för att kalibrera kompassen.
     th = ปรับปรุงทิศทางลูกศรโดยขยับโทรศัพท์เป็นเลขแปดเพื่อปรับเทียบเข็มทิศ
     tr = Pusulayı kalibre etmek için telefonu sekiz şeklinde hareket ettirerek ok yönünü iyileştirin.
     uk = Покращіть напрямок стрілки, повернувши телефон вісімкою, щоб відкалібрувати компас.
@@ -7592,7 +7592,7 @@
     ro = Mișcați telefonul într-o mișcare în formă de opt pentru a calibra busola și a fixa direcția săgeții pe hartă.
     ru = Двигайте телефон восьмёркой, чтобы откалибровать компас и зафиксировать направление стрелки на карте.
     sk = Pohybom telefónu v tvare osmičky kalibrujte kompas a zafixujte smer šípky na mape.
-    sv = Flytta telefonen i en åttarörelse för att kalibrera kompassen och fastställa pilens riktning på kartan.
+    sv = Rör telefonen i en åttarörelse för att kalibrera kompassen och fastställa pilens riktning på kartan.
     th = ขยับโทรศัพท์เป็นเลขแปดเพื่อปรับเทียบเข็มทิศและกำหนดทิศทางลูกศรบนแผนที่
     tr = Pusulayı kalibre etmek ve haritadaki ok yönünü düzeltmek için telefonu sekiz şeklinde hareket ettirin.
     uk = Рухайте телефон вісімкою, щоб відкалібрувати компас і зафіксувати напрямок стрілки на карті.
@@ -7636,7 +7636,7 @@
     ro = Atingeți lung pe hartă din nou pentru a vedea interfața
     ru = Долгое нажатие на карту вернёт интерфейс обратно
     sk = Opätovným dlhým ťuknutím na mapu zobrazíte rozhranie
-    sv = Tryck länge på kartan igen för att se gränssnittet
+    sv = Tryck länge på kartan för att se gränssnittet
     sw = Gusa kwa muda mrefu kwenye ramani tena ili kuona kiolesura
     th = แตะยาวบนแผนที่อีกครั้งเพื่อดูอินเทอร์เฟซ
     tr = Arayüzü görmek için haritaya tekrar uzun dokunun
@@ -8251,7 +8251,7 @@
     ro = Pot fi create numai trasee cuprinse de harta unei singure regiuni.
     ru = Маршрут может быть проложен только внутри карты одного региона.
     sk = Cesty môžu byť vytvorené len tak, že sú plne obsiahnuté v jednej mape.
-    sv = Rutter kan endast skapas om de finns inom en enda karta.
+    sv = Rutter kan endast skapas om de finns inom en enda kart-region.
     th = สามารถสร้างเส้นทางแบบสมบูรณ์ได้เฉพาะที่มีอยู่ในแผนที่เดียวเท่านั้น
     tr = Rotalar sadece tamamen tek bir harita dâhilinde oluşturulabilir.
     uk = Маршрут бути прокладений всередині мапи тільки одного регіону.
@@ -8339,7 +8339,7 @@
     ro = Mai încearcă
     ru = Повторить
     sk = Zopakovať
-    sv = Repetera
+    sv = Försök igen
     th = ทำซ้ำ
     tr = Tekrar dene
     uk = Повторити
@@ -8610,7 +8610,7 @@
     ro = Pentru a crea un traseu, este necesar ca toate hărțile de la poziția ta până la destinație să fie descărcate și actualizate.
     ru = Для создания маршрута необходимо загрузить и обновить все карты на пути следования.
     sk = Aby bolo možné naplánovať cestu, je potrebné stiahnuť všetky mapy od vašej pozície po cieľové miesto.
-    sv = Att kunna skapa en navigeringsväg kräver att alla kartorna från din plats till din destination är nerladdade och uppdaterade.
+    sv = Navigering kräver att alla kartor från din position till destinationen är nerladdade och uppdaterade.
     th = การสร้างเส้นทางจำเป็นต้องใช้แผนที่จากสถานที่ตั้งของคุณไปยังปลายทางที่มีการดาวน์โหลดและอัปเดต
     tr = Rota oluşturabilmemiz için bulunduğunuz yerden hedefinize kadar olan tüm haritaları indirmemiz ve güncellememiz gerekiyor.
     uk = Для створення маршруту необхідно щоб всі мапи, починаючи від вашого місцезнаходження і до пункту призначення, були завантажені та оновлені.
@@ -9278,7 +9278,7 @@
     ro = Violet închis
     ru = Тёмно-пурпурный
     sk = Tmavofialová
-    sv = Mörk purpur
+    sv = Mörklila
     sw = Zambarau Iliyoiva
     th = สีม่วงเข้ม
     tr = Koyu Mor
@@ -9727,7 +9727,7 @@
     ro = — Harta poate conține greșeli, iar traseul sugerat pentru a ajunge la destinație nu e întotdeauna cel mai bun;
     ru = — Карта может быть неточной, а предложенный маршрут не всегда оптимален;
     sk = — Mapa nemusí byť presná a navrhovaná trasa nemusí byť vždy optimálna na dosiahnutie cieľa;
-    sv = — Kartan kan vara felaktig och den föreslagna vägen inte alltid är det optimala sättet att ta sig till destinationen;
+    sv = — Kartan kan vara felaktig och den föreslagna vägen inte alltid är det optimala sättet att ta sig till destinationen på;
     th = — แผนที่อาจมีความคลาดเคลื่อนและเส้นทางที่แนะนำอาจไม่ใช่เส้นทางที่เหมาะสมที่สุดเสมอไปสำหรับการไปยังที่หมาย;
     tr = — Harita doğru olmayabilir, önerilen rota da hedefinize ulaşmak için en uygun yol olmayabilir;
     uk = — Мапа може бути неточною, а запропонований маршрут не завжди оптимальний;
@@ -9947,7 +9947,7 @@
     ro = Crearea traseului a eșuat. Coordonatele GPS actuale nu au putut fi identificate.
     ru = Маршрут не построен. Текущая геопозиция не определена.
     sk = Nedá sa vytvoriť trasa. Aktuálne súradnice GPS sa nedajú identifikovať.
-    sv = Kan inte skapa väg. Nuvarande GPS-koordinater kan inte identifieras.
+    sv = Kan inte skapa rutt. Nuvarande GPS-koordinater går inte att läsa.
     th = ไม่สามารถสร้างเส้นทางได้ ไม่สามารถระบุพิกัด GPS ปัจจุบันได้
     tr = Rota oluşturulamıyor. Mevcut GPS koordinatları tanımlanamadı.
     uk = Маршрут не побудовано. Поточну геопозицію не визначено.
@@ -10077,7 +10077,7 @@
     ro = Localizarea coordonatelor GPS curente a eșuat. Pentru a calcula traseul, activează serviciile de localizare.
     ru = Текущая геопозиция не определена. Для построения маршрута включите режим определения геопозиции.
     sk = Aktuálne súradnice GPS sa nedajú lokalizovať. Aktivujte lokalizačné služby na výpočet trasy.
-    sv = Kan inte lokalisera nuvarande GPS-koordinater. Aktivera platstjänster för att beräkna väg.
+    sv = Kan inte läsa nuvarande GPS-koordinater. Aktivera platstjänster för att hitta en rutt.
     th = ไม่สามารถหาตำแหน่งพิกัด GPS ปัจจุบันได้ เปิดใช้บริการหาตำแหน่งเพื่อคำนวณเส้นทาง
     tr = Mevcut GPS koordinatları belirlenemiyor. Rota hesaplamak için konum hizmetlerini etkinleştirin.
     uk = Поточну геопозицію не визначено. Для побудови маршруту увімкніть режим визначення геопозиції.
@@ -10163,7 +10163,7 @@
     ro = Pentru calcularea traseului, descarcă și actualizează toate hărțile și informațiile traseului pentru calea estimată.
     ru = Для построения маршрута загрузите и обновите все карты и файлы маршрутов по пути следования.
     sk = Prevezmite si a aktualizujte všetky mapy a informácie o trase pozdĺž naplánovanej trasy na výpočet trasy.
-    sv = Ladda ned och uppdatera all kart- och väginformation längs den beräknade vägbanan för att beräkna vägen.
+    sv = Ladda ned och uppdatera all kart- och väginformation längs den beräknade sträckan för att hitta en rutt.
     th = ดาวน์โหลดและอัปเดตแผนที่กับข้อมูลเส้นทางทั้งหมดตามเส้นทางที่คาดหมายเพื่อคำนวณเส้นทาง
     tr = Planlanan yoldaki tüm harita ve rota bilgilerini indirip güncelleyerek rotayı hesaplayın.
     uk = Для побудови маршруту завантажте і обновіть всі мапи і файли маршрутів на шляху руху.
@@ -10207,7 +10207,7 @@
     ro = Localizarea traseului a eșuat
     ru = Маршрут не найден
     sk = Trasa sa nedá lokalizovať
-    sv = Kan inte lokalisera väg
+    sv = Kan inte hitta rutt
     th = ไม่สามารถหาเส้นทางได้
     tr = Rota belirlenemiyor
     uk = Маршрут не знайдено
@@ -10251,7 +10251,7 @@
     ro = Crearea traseului a eșuat.
     ru = Не получилось построить маршрут.
     sk = Trasa sa nedá vytvoriť.
-    sv = Kan inte skapa väg.
+    sv = Kan inte hitta rutt.
     th = ไม่สามารถสร้างเส้นทางได้
     tr = Rota oluşturulamıyor.
     uk = Не вдалося побудувати маршрут.
@@ -10294,7 +10294,7 @@
     ro = Modifică punctul de pornire sau destinația.
     ru = Пожалуйста, измените начальную или конечную точку маршрута.
     sk = Prosím, upravte váš východiskový bod alebo cieľové miesto.
-    sv = Justera din startpunkt eller din destination.
+    sv = Justera din startpunkt eller destination.
     th = กรุณาปรับจุดเริ่มต้นหรือที่หมายของคุณ
     tr = Lütfen başlangıç noktanızı veya hedefinizi ayarlayın.
     uk = Будь ласка, змініть початкову або кінцеву точку маршруту.
@@ -10381,7 +10381,7 @@
     ro = Traseul nu a fost creat. Localizarea punctului de pornire a eșuat.
     ru = Маршрут не построен. Не определена начальная точка маршрута.
     sk = Trasa nebola vytvorená. Nedá sa lokalizovať východiskový bod.
-    sv = Ingen väg skapades. Kan inte lokalisera startpunkt.
+    sv = Ingen rutt hittades. Hittar inte startpunkt.
     th = ไม่มีการสร้างเส้นทาง ไม่สามารถหาจุดเริ่มต้นได้
     tr = Rota oluşturulamadı. Başlangıç noktası belirlenemiyor.
     uk = Маршрут не побудовано. Не визначено початкову точку маршруту.
@@ -10511,7 +10511,7 @@
     ro = Traseul nu a fost creat. Localizarea destinației a eșuat.
     ru = Маршрут не построен. Не определена конечная точка маршрута.
     sk = Trasa nebola vytvorená. Nedá sa lokalizovať cieľové miesto.
-    sv = Ingen väg skapades. Kan inte lokalisera destination.
+    sv = Ingen rutt hittades. Kan inte hitta destinationen.
     th = ไม่มีการสร้างเส้นทาง ไม่สามารถหาที่หมายได้
     tr = Rota oluşturulamadı. Hedef belirlenemiyor.
     uk = Маршрут не побудовано. Не визначено кінцеву точку маршруту.
@@ -10554,7 +10554,7 @@
     ro = Alege un punct de destinație mai aproape de un drum.
     ru = Пожалуйста, выберите конечную точку маршрута ближе к дороге.
     sk = Vyberte cieľové miesto nachádzajúce sa bližšie k ceste.
-    sv = Välj en destinationspunkt närmare en väg.
+    sv = Välj en destination närmare en väg.
     th = กรุณาเลือกที่หมายที่ใกล้ถนนมากขึ้น
     tr = Lütfen yola daha yakın bir hedef noktası seçin.
     uk = Будь ласка, виберіть кінцеву точку маршруту ближче до дороги.
@@ -10729,7 +10729,7 @@
     ro = Crearea traseului a eșuat din cauza unei erori a aplicației.
     ru = Не удалось проложить маршрут из-за ошибки приложения.
     sk = Nedá sa vytvoriť trasa z dôvodu aplikačnej chyby.
-    sv = Kan inte skapa väg på grund av ett programfel.
+    sv = Kan inte hitta rutt pga ett programfel.
     th = ไม่สามารถสร้างเส้นทางได้เนื่องจากเกิดข้อผิดพลาดของแอปพลิเคชัน
     tr = Uygulama hatası nedeniyle rota oluşturulamadı.
     uk = Не вдалося прокласти маршрут через помилки програми.
@@ -10815,7 +10815,7 @@
     ro = Vrei să descarci harta și să creezi un traseu mai bun care include mai multe hărți?
     ru = Загрузить карту и построить более оптимальный маршрут с пересечением границы карты?
     sk = Chcete si prevziať mapu a vytvoriť optimálnejšiu trasu, ktorá si vyžaduje viac ako jednu mapu?
-    sv = Vill du ladda ned kartan och skapa en optimalare väg som sträcker sig över fler än en karta?
+    sv = Vill du ladda ned kartan och hitta en bättre sträcka via fler än en karta?
     th = คุณต้องการดาวน์โหลดแผนที่และสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเกินหนึ่งแผนที่หรือไม่?
     tr = Haritayı indirerek birden fazla haritaya uzanan daha uygun bir rota oluşturmak ister misiniz?
     uk = Завантажити мапу і побудувати більш оптимальний маршрут з перетином межі мапи?
@@ -10858,7 +10858,7 @@
     ro = Descarcă hărți suplimentare pentru a crea un traseu mai bun care să traverseze limitele acestei hărți.
     ru = Для построения более оптимального маршрута с пересечением границы требуется загрузить карту.
     sk = Prevezmite si mapu na vytvorenie optimálnejšej trasy, ktorá prekračuje okraje tejto mapy.
-    sv = Ladda ned kartan för att skapa en optimalare väg som sträcker sig utanför den här kartan.
+    sv = Ladda ned kartan för att skapa en bättre sträcka utanför den här kartan.
     th = ดาวน์โหลดแผนที่เพื่อสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเลยขอบของแผนที่นี้
     tr = Bu haritanın bir kısmından geçen daha uygun bir rota oluşturmak için haritayı indirin.
     uk = Для побудови більш оптимального маршруту з перетином межі потрібно завантажити мапу.
@@ -10904,7 +10904,7 @@
     ro = Pentru a putea începe căutarea și crearea unor trasee, descarcă harta. După aceasta nu vei mai avea nevoie de conexiune la internet.
     ru = Для поиска мест и построения маршрутов скачайте карту, и интернет вам больше не понадобится.
     sk = Stiahnutím mapy už nebudete potrebovať pripojenie k internetu a môžete si začať vyhľadávať a vytvárať trasy.
-    sv = För att börja söka och skapa rutter, ladda ner kartan, och du behöver inte Internet-anslutning längre.
+    sv = För att börja söka och hitta rutter, ladda ner kartan. Efter det behöver du ingen internetanslutning längre.
     th = เพื่อเริ่มต้นการค้นหาและสร้างเส้นทาง โปรดดาวน์โหลดแผนที่ และคุณจะไม่จำเป็นต้องทำการเชื่อมต่ออินเทอร์เน็ตอีกต่อไป
     tr = Aramak ve rota oluşturmaya başlamak için lütfen haritayı indirin. İndirdikten sonra artık internet bağlantısına ihtiyacınız olmayacak.
     uk = Щоб розпочати пошук та створення маршрутів, будь ласка, завантажте мапу і вам більше ніколи не знадобиться інтернет-з’єднання.
@@ -10947,7 +10947,7 @@
     ro = Alege harta
     ru = Выбрать карту
     sk = Vybrať mapu
-    sv = Välj kartan
+    sv = Välj karta
     th = เลือกแผนที่
     tr = Haritayı Seçin
     uk = Вибрати мапу
@@ -11036,7 +11036,7 @@
     ro = Ascunde
     ru = Скрыть
     sk = Skryť
-    sv = Göm
+    sv = Dölj
     th = ซ่อน
     tr = Gizle
     uk = Приховати
@@ -11081,7 +11081,7 @@
     ro = Planificarea traseului a eșuat
     ru = Ошибка построения маршрута
     sk = Plánovanie trasy zlyhalo
-    sv = Ruttplanering misslyckades
+    sv = Ruttplaneringen misslyckades
     th = การวางแผนเส้นทางล้มเหลว
     tr = Rota Planlaması Başarısız
     uk = Збій планування маршруту
@@ -11345,7 +11345,7 @@
     ro = Încearcă să modifici condițiile căutării.
     ru = Попробуйте изменить условия поиска.
     sk = Vyskúšajte, prosím, iný hľadaný výraz.
-    sv = Försök med en annan sökförfrågan.
+    sv = Försök med en annan söktext.
     th = โปรดลองใช้คำถามอื่น
     tr = Lütfen başka bir sorgu girin.
     uk = Спробуйте змінити запит.
