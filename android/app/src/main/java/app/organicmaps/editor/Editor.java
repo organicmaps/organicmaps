@@ -87,6 +87,17 @@ public final class Editor
   public static native boolean nativeHasWifi();
   public static native void nativeSetHasWifi(boolean hasWifi);
 
+  public static void nativeSetSwitchInput(int id, Boolean switchValue, String checkedValue, String uncheckedValue)
+  {
+    nativeSetMetadata(id, switchValue ? checkedValue : uncheckedValue);
+  }
+
+  public static boolean nativeGetSwitchInput(int id, String checkedValue)
+  {
+    String value = nativeGetMetadata(id);
+    return value.equals(checkedValue);
+  }
+
   public static native boolean nativeIsAddressEditable();
   public static native boolean nativeIsNameEditable();
   public static native boolean nativeIsPointType();
