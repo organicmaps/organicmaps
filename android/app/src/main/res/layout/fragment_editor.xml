@@ -241,6 +241,40 @@
               android:layout_centerVertical="true"/>
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/block_self_service"
+            style="@style/MwmWidget.Editor.MetadataBlock.Clickable"
+            android:paddingBottom="@dimen/margin_half"
+            android:paddingTop="@dimen/margin_half">
+          <ImageView
+              style="@style/MwmWidget.Editor.MetadataIcon"
+              app:srcCompat="@drawable/ic_self_service"
+              tools:ignore="ContentDescription" />
+          <TextView
+              android:id="@+id/self_service_title"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="@dimen/editor_margin_left"
+              android:text="@string/self_service"
+              android:textAppearance="@style/MwmTextAppearance.Body4"/>
+          <TextView
+              android:id="@+id/self_service"
+              style="@style/MwmWidget.Editor.FieldLayout"
+              android:layout_below="@id/self_service_title"
+              android:layout_marginTop="@dimen/margin_quarter"
+              android:gravity="center_vertical"
+              android:textAppearance="@style/MwmTextAppearance.Body1"
+              tools:text="Red str."
+              app:drawableEndCompat="@drawable/ic_arrow_down" />
+          <View
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:layout_alignStart="@id/self_service"
+              android:layout_below="@id/self_service"
+              android:layout_marginTop="@dimen/margin_quarter_plus"
+              android:background="?dividerHorizontal"/>
+        </RelativeLayout>
+
         <!-- ToDo: Level is missing compared with iOS. -->
 
         <include

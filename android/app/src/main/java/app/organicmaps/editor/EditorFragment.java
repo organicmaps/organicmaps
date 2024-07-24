@@ -101,6 +101,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private TextView mEditPhoneLink;
   private TextView mCuisine;
   private SwitchCompat mWifi;
+  private TextView mSelfService;
 
   // Default Metadata entries.
   private static final class MetadataEntry
@@ -192,6 +193,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     initMetadataEntry(Metadata.MetadataType.FMD_CONTACT_LINE, R.string.error_enter_correct_line_page);
 
     mCuisine.setText(Editor.nativeGetFormattedCuisine());
+    String selfServiceMetadata = Editor.nativeGetMetadata(Metadata.MetadataType.FMD_SELF_SERVICE.toInt());
+    mSelfService.setText(Utils.getTagValueLocalized(view.getContext(), "self_service", selfServiceMetadata));
     initMetadataEntry(Metadata.MetadataType.FMD_OPERATOR, 0);
     mWifi.setChecked(Editor.nativeHasWifi());
     refreshOpeningTime();
@@ -452,6 +455,11 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     View blockWifi = view.findViewById(R.id.block_wifi);
     mWifi = view.findViewById(R.id.sw__wifi);
     blockWifi.setOnClickListener(this);
+
+    View blockSelfService = view.findViewById(R.id.block_self_service);
+    blockSelfService.setOnClickListener(this);
+    mSelfService = view.findViewById(R.id.self_service);
+
     View blockOpeningHours = view.findViewById(R.id.block_opening_hours);
     mEditOpeningHours = blockOpeningHours.findViewById(R.id.edit_opening_hours);
     mEditOpeningHours.setOnClickListener(this);
@@ -469,6 +477,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mDetailsBlocks.put(Metadata.MetadataType.FMD_PHONE_NUMBER, blockPhone);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_CUISINE, blockCuisine);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_INTERNET, blockWifi);
+    mDetailsBlocks.put(Metadata.MetadataType.FMD_SELF_SERVICE, blockSelfService);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_WEBSITE, websiteBlock);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_WEBSITE_MENU, websiteMenuBlock);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_EMAIL, emailBlock);
@@ -508,6 +517,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       mParent.editPhone();
     else if (id == R.id.block_wifi)
       mWifi.toggle();
+    else if (id == R.id.block_self_service)
+      mParent.editSelfService();
     else if (id == R.id.block_street)
       mParent.editStreet();
     else if (id == R.id.block_cuisine)
