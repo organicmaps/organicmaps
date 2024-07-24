@@ -3817,6 +3817,8 @@
 
 "type.tourism.attraction.specified" = "Atrakcja turystyczna";
 
+"type.tourism.camp_pitch" = "Miejsce na kemping";
+
 "type.tourism.camp_site" = "Kamping";
 
 "type.tourism.caravan_site" = "Pole namiotowe";

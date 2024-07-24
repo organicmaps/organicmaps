@@ -3817,6 +3817,8 @@
 
 "type.tourism.attraction.specified" = "Turismiatraktsioon";
 
+"type.tourism.camp_pitch" = "Telkimisplats";
+
 "type.tourism.camp_site" = "Telkimine";
 
 "type.tourism.caravan_site" = "Haagiselamute park";

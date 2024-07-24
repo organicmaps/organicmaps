@@ -3817,6 +3817,8 @@
 
 "type.tourism.attraction.specified" = "Attraction";
 
+"type.tourism.camp_pitch" = "Camp Pitch";
+
 "type.tourism.camp_site" = "Campground";
 
 "type.tourism.caravan_site" = "RV Park";
