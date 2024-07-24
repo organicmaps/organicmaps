@@ -450,8 +450,13 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     else
     {
       UiUtils.showIf(Editor.nativeShouldShowEditPlace(), mEditPlace);
-      UiUtils.showIf(Editor.nativeShouldShowAddBusiness(), mAddOrganisation);
       UiUtils.showIf(Editor.nativeShouldShowAddPlace(), mAddPlace);
+      mEditPlace.setEnabled(Editor.nativeShouldEnableEditPlace());
+      mAddPlace.setEnabled(Editor.nativeShouldEnableAddPlace());
+      TextView mTvEditPlace = mEditPlace.findViewById(R.id.tv__editor);
+      TextView mTvAddPlace = mAddPlace.findViewById(R.id.tv__editor);
+      mTvEditPlace.setTextColor(Editor.nativeShouldEnableEditPlace() ? getResources().getColor(R.color.base_accent) : getResources().getColor(R.color.button_accent_text_disabled));
+      mTvAddPlace.setTextColor(Editor.nativeShouldEnableEditPlace() ? getResources().getColor(R.color.base_accent) : getResources().getColor(R.color.button_accent_text_disabled));
       UiUtils.showIf(UiUtils.isVisible(mEditPlace)
                      || UiUtils.isVisible(mAddOrganisation)
                      || UiUtils.isVisible(mAddPlace), mEditTopSpace);
