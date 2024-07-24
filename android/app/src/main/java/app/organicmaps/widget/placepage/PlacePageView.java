@@ -431,8 +431,9 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     else
     {
       UiUtils.showIf(Editor.nativeShouldShowEditPlace(), mEditPlace);
-      UiUtils.showIf(Editor.nativeShouldShowAddBusiness(), mAddOrganisation);
       UiUtils.showIf(Editor.nativeShouldShowAddPlace(), mAddPlace);
+      mEditPlace.setEnabled(Editor.nativeShouldEnableEditPlace());
+      mAddPlace.setEnabled(Editor.nativeShouldEnableAddPlace());
       UiUtils.showIf(UiUtils.isVisible(mEditPlace)
                      || UiUtils.isVisible(mAddOrganisation)
                      || UiUtils.isVisible(mAddPlace), mEditTopSpace);
