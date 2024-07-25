@@ -600,11 +600,11 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     }
   }
 
-  private boolean onTrackMenuItemClicked(long trackId)
+  private void onDeleteTrackSelected(long trackId)
   {
     BookmarkManager.INSTANCE.deleteTrack(trackId);
-    getAdapter().notifyDataSetChanged();
-    return false;
+    getBookmarkListAdapter().onDelete(mSelectedPosition);
+    getBookmarkListAdapter().notifyDataSetChanged();
   }
 
   @Override
@@ -735,7 +735,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private ArrayList<MenuBottomSheetItem> getTrackMenuItems(final Track track)
   {
     ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
-    items.add(new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete, () -> onTrackMenuItemClicked(track.getTrackId())));
+    items.add(new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete, () -> onDeleteTrackSelected(track.getTrackId())));
     return items;
   }
 

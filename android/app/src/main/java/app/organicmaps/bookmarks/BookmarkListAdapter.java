@@ -410,6 +410,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
             new Holders.TrackViewHolder(inflater.inflate(R.layout.item_track, parent,
                                                          false));
         trackHolder.setOnClickListener(mClickListener);
+        trackHolder.setOnLongClickListener(mLongClickListener);
         holder = trackHolder;
         break;
       case TYPE_BOOKMARK:
