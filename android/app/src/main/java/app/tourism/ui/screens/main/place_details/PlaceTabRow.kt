@@ -13,11 +13,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import app.organicmaps.R
 import app.tourism.ui.models.SingleChoiceItem
+import app.tourism.ui.theme.DarkestBlue
+import app.tourism.ui.theme.SelectedDay
+import app.tourism.ui.theme.SelectedNight
+import app.tourism.ui.theme.SelectedTextDay
+import app.tourism.ui.theme.SelectedTextNight
 import app.tourism.ui.theme.TextStyles
+import app.tourism.ui.theme.getSelectedColor
+import app.tourism.ui.theme.getSelectedTextColor
 
 @Composable
 fun PlaceTabRow(modifier: Modifier = Modifier, tabIndex: Int, onTabIndexChanged: (Int) -> Unit) {
@@ -32,7 +40,10 @@ fun PlaceTabRow(modifier: Modifier = Modifier, tabIndex: Int, onTabIndexChanged:
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(color = MaterialTheme.colorScheme.surface, shape)
+            .background(
+                color = MaterialTheme.colorScheme.surface,
+                shape
+            )
             .then(modifier)
             .padding(8.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -56,19 +67,24 @@ private fun SingleChoiceItem(
     onClick: () -> Unit,
 ) {
     val shape = RoundedCornerShape(50.dp)
+    val notSelectedColor = MaterialTheme.colorScheme.surface
+    val notSelectedTextColor = MaterialTheme.colorScheme.onBackground
+    val selectedColor = getSelectedColor()
+    val selectedTextColor = getSelectedTextColor()
+
     Text(
         modifier = Modifier
             .wrapContentSize()
             .clip(shape)
             .clickable { onClick() }
             .background(
-                color = if (isSelected) MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)
-                else MaterialTheme.colorScheme.surface,
+                color = if (isSelected) selectedColor else notSelectedColor,
                 shape = shape
             )
             .padding(8.dp),
         text = item.label,
         style = TextStyles.b1,
+        color = if (isSelected) selectedTextColor else notSelectedTextColor,
         maxLines = 1
     )
 }

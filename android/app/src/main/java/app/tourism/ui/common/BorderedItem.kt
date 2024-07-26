@@ -11,6 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import app.tourism.ui.theme.TextStyles
+import app.tourism.ui.theme.getSelectedColor
+import app.tourism.ui.theme.getSelectedTextColor
 
 @Composable
 fun BorderedItem(
@@ -23,7 +25,7 @@ fun BorderedItem(
     Text(
         modifier = Modifier
             .background(
-                color = if (highlighted) MaterialTheme.colorScheme.surface
+                color = if (highlighted) getSelectedColor()
                 else MaterialTheme.colorScheme.background,
                 shape = shape
             )
@@ -34,6 +36,7 @@ fun BorderedItem(
             .padding(12.dp)
             .then(modifier),
         text = label,
+        color = getSelectedTextColor(),
         style = TextStyles.h4
     )
 }

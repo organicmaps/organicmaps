@@ -16,6 +16,8 @@ import androidx.compose.ui.unit.dp
 import app.tourism.applyAppBorder
 import app.tourism.ui.models.SingleChoiceItem
 import app.tourism.ui.theme.TextStyles
+import app.tourism.ui.theme.getSelectedColor
+import app.tourism.ui.theme.getSelectedTextColor
 
 @Composable
 fun HorizontalSingleChoice(
@@ -23,7 +25,7 @@ fun HorizontalSingleChoice(
     items: List<SingleChoiceItem>,
     selected: SingleChoiceItem?,
     onSelectedChanged: (SingleChoiceItem) -> Unit,
-    selectedColor: Color = MaterialTheme.colorScheme.surface,
+    selectedColor: Color = getSelectedColor(),
     unselectedColor: Color = MaterialTheme.colorScheme.background,
     itemModifier: Modifier = Modifier,
 ) {
@@ -49,8 +51,8 @@ private fun SingleChoiceItem(
     item: SingleChoiceItem,
     isSelected: Boolean,
     onClick: () -> Unit,
-    selectedColor: Color = MaterialTheme.colorScheme.surface,
-    unselectedColor: Color = MaterialTheme.colorScheme.background,
+    selectedColor: Color,
+    unselectedColor: Color,
 ) {
     val shape = RoundedCornerShape(16.dp)
     Text(
@@ -68,6 +70,7 @@ private fun SingleChoiceItem(
             .padding(12.dp)
             .then(modifier),
         text = item.label,
+        color = if (isSelected) getSelectedTextColor() else MaterialTheme.colorScheme.onBackground,
         style = TextStyles.h4
     )
 }

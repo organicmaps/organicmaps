@@ -1,6 +1,7 @@
 package app.tourism.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
@@ -28,5 +29,19 @@ val HintNight = Color(0xFFAAABAD)
 @Composable
 fun getHintColor() = if (isSystemInDarkTheme()) HintNight else HintDay
 
+val SelectedDay = Blue.copy(alpha = 0.1f)
+val SelectedNight = Color(0xFFFFFFFF)
+@Composable
+fun getSelectedColor() = if (isDark()) SelectedNight else SelectedDay
+
+val SelectedTextDay = Color.Black
+val SelectedTextNight = Color.Black
+@Composable
+fun getSelectedTextColor() = if (isDark()) SelectedTextNight else SelectedTextDay
+
 @Composable
 fun getStarColor() = StarYellow
+
+// for some reason isSystemInDarkTheme() not working here
+@Composable
+fun isDark(): Boolean = MaterialTheme.colorScheme.background == DarkestBlue
