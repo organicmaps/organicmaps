@@ -19,7 +19,7 @@ public:
   void Add(SearchRequest const & query);
 
   /// Returns several last saved queries from newest to oldest query.
-  /// @see kMaxSuggestCount in implementation file.
+  /// @see kMaxSuggestionsCount in implementation file.
   std::list<SearchRequest> const & Get() const { return m_topQueries; }
 
   /// Clear last queries storage. All data will be lost.
