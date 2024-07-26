@@ -504,10 +504,11 @@ UNIT_TEST(RussiaMoscowNotCrossingTollRoadTest)
   }
 
   {
-    // Normal route via the motorway toll road - long but fast (like Valhalla).
-    // - 20595.3 is OK (Graphopper)
+    // Normal route via the motorway toll road - long but fast (like Graphopper).
+    // - 20595.4 is OK (Graphopper)
     // - 19203.7 is OK (OSRM)
-    CalculateRouteAndTestRouteLength(vehicleComponents, start, {0.0, 0.0}, finish[0], 21930.7);
+    // - 21930.7 is OK (Valhalla)
+    CalculateRouteAndTestRouteLength(vehicleComponents, start, {0.0, 0.0}, finish[0], 20594.4);
     CalculateRouteAndTestRouteLength(vehicleComponents, start, {0.0, 0.0}, finish[1], 22015.4);
   }
 }
@@ -951,6 +952,7 @@ UNIT_TEST(Netherlands_CrossMwm_Ferry)
 // https://github.com/organicmaps/organicmaps/issues/6278
 UNIT_TEST(Turkey_PreferSecondary_NotResidential)
 {
+  /// @todo Now the app wrongly takes tertiary (no limits) vs primary/secondary (with maxspeed = 30).
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
                                    FromLatLon(41.0529, 28.9201), {0., 0.},
                                    FromLatLon(41.0731, 28.9407), 4783.85);
