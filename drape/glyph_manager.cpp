@@ -645,6 +645,9 @@ text::TextMetrics GlyphManager::ShapeText(std::string_view utf8, int fontPixelHe
   hb_language_t const hbLanguage = OrganicMapsLanguageToHarfbuzzLanguage(lang);
 
   text::TextMetrics allGlyphs;
+  // For SplitText it's enough to know if the last visual (first logical) segment is RTL.
+  allGlyphs.m_isRTL = segments.back().m_direction == HB_DIRECTION_RTL;
+
   // TODO(AB): Check if it's slower or faster.
   allGlyphs.m_glyphs.reserve(icu::UnicodeString{false, text.data(), static_cast<int32_t>(text.size())}.countChar32());
 

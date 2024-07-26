@@ -130,6 +130,7 @@ struct LineMetrics
 };
 
 // Scan longer shaped glyphs, and try to split them into two strings if a space glyph is present.
+// NOTE: Works only for LTR texts. Implementation should be mirrored for RTL.
 buffer_vector<LineMetrics, 2> SplitText(bool forceNoWrap, float textScale, dp::GlyphFontAndId space, dp::text::TextMetrics const & str)
 {
   // Add the whole line by default.
@@ -289,7 +290,8 @@ StraightTextLayout::StraightTextLayout(std::string const & text, float fontSize,
   m_shapedGlyphs = textures->ShapeSingleTextLine(dp::kBaseFontSizePixels, text, &m_glyphRegions);
 
   // TODO(AB): Use ICU's BreakIterator to split text properly in different languages without spaces.
-  auto const lines = SplitText(forceNoWrap, m_textSizeRatio, textures->GetSpaceGlyph(), m_shapedGlyphs);
+  // TODO(AB): Implement SplitText for RTL languages.
+  auto const lines = SplitText(forceNoWrap || m_shapedGlyphs.m_isRTL, m_textSizeRatio, textures->GetSpaceGlyph(), m_shapedGlyphs);
   m_rowsCount = lines.size();
 
   float summaryHeight = 0.;
