@@ -1,6 +1,6 @@
 • Bessere Adressensuche in den USA
 • Korrigierte Darstellung von Texten in indischer, arabischer, thailändischer, laotischer, khmerischer, myanmarischer, tibetischer, hangulischer und hebräischer Schrift
-• OSM-Daten vom 23. Juli
+• OSM-Daten vom 23.Juli
 • Einfaches Antippen wählt einen beliebigen Punkt auf der Karte, langes Antippen schaltet in den Vollbildmodus um
 • Versehentlich auf der Karte gelöschte Lesezeichen können wiederhergestellt werden
 • GPX Import Problem aus WhatsApp behoben
