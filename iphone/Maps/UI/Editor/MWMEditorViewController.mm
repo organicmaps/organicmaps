@@ -577,7 +577,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
   {
     MWMEditorSelectTableViewCell * tCell = static_cast<MWMEditorSelectTableViewCell *>(cell);
     [tCell configWithDelegate:self
-                         icon:[UIImage imageNamed:@"ic_placepage_adress"]
+                         icon:[UIImage imageNamed:@"ic_placepage_address"]
                          text:@(m_mapObject.GetStreet().m_defaultName.c_str())
                   placeholder:L(@"add_street")];
     break;
