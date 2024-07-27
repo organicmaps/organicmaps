@@ -115,6 +115,16 @@
   </screenshots>
 
   <releases>
+   <release version="2024.07.27-8" date="2024-07-27">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>OpenStreetMap data as of July 23</li>
+           <li>Fixed multiline RTL texts</li>
+           <li>Fixed indentation for Chinese, Japanese and Korean characters when Noto font is used</li>
+         </ul>
+     </description>
+   </release>
    <release version="2024.07.08-3" date="2024-07-08">
      <description>
        <p>Highlights:</p>
