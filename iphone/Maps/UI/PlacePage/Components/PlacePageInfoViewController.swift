@@ -329,7 +329,7 @@ class PlacePageInfoViewController: UIViewController {
 
     if let address = placePageInfoData.address {
       addressView = createInfoItem(address,
-                                   icon: UIImage(named: "ic_placepage_adress"),
+                                   icon: UIImage(named: "ic_placepage_address"),
                                    longPressHandler: { [weak self] in
         self?.delegate?.didCopy(address)
       })
