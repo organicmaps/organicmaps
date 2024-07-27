@@ -4,7 +4,7 @@
 
 • Eén keer tikken selecteert nu elk punt op de kaart, zelfs als de kaart leeg is
 • Veranderd: lang tikken wisselt nu volledig-schermmodus
-• OpenStreetMap-gegevens vanaf 2 juli
+• OpenStreetMap-gegevens vanaf 23 juli
 • Een geselecteerde plaats toont nu meer soorten/categorieën/kenmerken
 • Per ongeluk verwijderde bladwijzer op de kaart kan nu onmiddellijk worden hersteld (knop Opslaan verandert in Herstellen)
 • Gebruik de knop Importeren in het dialoogvenster Bladwijzers en tracks om KML-, KMZ- en GPX-bestanden te laden (bladwijzers en tracks kunnen ook worden geïmporteerd door ze te "delen" vanuit een andere app en vervolgens te kiezen voor "Openen met Organic Maps")

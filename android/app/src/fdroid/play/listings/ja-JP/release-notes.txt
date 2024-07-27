@@ -1,6 +1,6 @@
 • Better address search in the USA based on US Census TIGER data
 • Fixed rendering of texts in Indic, Arabic, Thai, Lao, Khmer, Myanmar, Tibetan, Hangul, Hebrew scripts
-• OSM data as of July 2
+• OSM data as of July 23
 • Single tap selects any point on the map, long tap toggles full-screen mode
 • Accidentally deleted bookmark on the map can be restored
 • Fixed GPX import from WhatsApp

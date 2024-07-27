@@ -1,11 +1,12 @@
 • Better address search in the USA based on Topologically Integrated Geographic Encoding and Referencing system (TIGER) data. Map size for the USA has increased from 10Gb to 13Gb (including Wikipedia and elevation data)
 • Fixed rendering of texts in Indic (covering Devanagari, Bengali, Gujarati, Gurmukhi, Kannada, Malayalam, Oriya, Tamil, Telugu), Arabic (N'Ko, Syriac, Mongolian), Thai and Lao, Khmer, Myanmar, Tibetan, Hangul, Hebrew scripts
 • New Malayalam and Bengali fonts
+• Fixed multiline RTL texts
 
 • Single tap now selects any point on the map, even if the map is empty
 • Changed long tap to toggle full-screen mode
 
-• OpenStreetMap data as of July 2
+• OpenStreetMap data as of July 23
 • A selected place now shows more types/categories/amenities
 • Accidentally deleted bookmark on the map now can be restored immediately (Save button changes to Restore)
 • Use Import button in Bookmarks and Tracks dialog to load KML, KMZ, GPX files (bookmarks and tracks can also be imported by "sharing" them from any other app, and then choosing "Open with Organic Maps")

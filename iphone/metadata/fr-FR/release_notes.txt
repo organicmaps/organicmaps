@@ -5,7 +5,7 @@
 • Une pression normale sur la carte permet désormais de sélectionner n'importe quel point, même si la carte est vide
 • Un appui long sur la carte permet de passer en mode plein écran
 
-• Données OpenStreetMap à partir du 2 juillet
+• Données OpenStreetMap à partir du 23 juillet
 • L'emplacement sélectionné affiche désormais une liste complète des types d'objets (catégories) à cet emplacement
 • Les marques supprimées accidentellement sur la carte peuvent désormais être immédiatement restaurées (le bouton "Enregistrer" devient "Restaurer").
 • Les fichiers KML, KMZ, GPX peuvent être importés en utilisant le bouton Importer dans la boîte de dialogue " Étiquettes et traces " pour charger les fichiers KML, KMZ, GPX (les étiquettes et les traces peuvent également être importées en les " partageant " à partir de n'importe quelle autre application et en sélectionnant ensuite " Ouvrir avec Organic Maps ")

@@ -1,6 +1,6 @@
 • Ulepszone wyszukiwanie adresów w Stanach Zjednoczonych
 • Poprawiony rendering tekstu w pismach indyjskim, arabskim, tajskim, laotańskim, khmerskim, birmańskim, tybetańskim, hangul, hebrajskim
-• Dane OSM z 2 lipca
+• Dane OSM z 23 lipca
 • Pojedyncze dotknięcie zaznacza punkt na mapie, długie dotknięcie przełącza tryb pełnoekranowy
 • Przypadkowo usunięte zakładki można teraz przywrócić
 • Poprawiony import GPX z WhatsApp
