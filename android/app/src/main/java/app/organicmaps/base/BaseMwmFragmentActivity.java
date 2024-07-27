@@ -3,6 +3,7 @@ package app.organicmaps.base;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -16,12 +17,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
-
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.SplashActivity;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.RtlUtils;
+import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
@@ -126,6 +127,14 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
       // Workaround described in https://code.google.com/p/android/issues/detail?id=93731
       UiThread.runLater(this::recreate);
     }
+  }
+
+  @Override
+  public void onConfigurationChanged(@NonNull Configuration newConfig)
+  {
+    super.onConfigurationChanged(newConfig);
+    ThemeSwitcher.INSTANCE.restart(false);
+    UiThread.runLater(this::recreate);
   }
 
   @Override

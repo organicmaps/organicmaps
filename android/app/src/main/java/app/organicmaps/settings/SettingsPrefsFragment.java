@@ -22,6 +22,7 @@ import app.organicmaps.help.HelpActivity;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationProviderFactory;
 import app.organicmaps.routing.RoutingOptions;
+import app.organicmaps.search.SearchRecents;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.NetworkPolicy;
 import app.organicmaps.util.PowerManagment;
@@ -29,7 +30,6 @@ import app.organicmaps.util.SharedPropertiesUtils;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.log.LogsManager;
-import app.organicmaps.search.SearchRecents;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class SettingsPrefsFragment extends BaseXmlSettingsFragment
@@ -455,7 +455,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   {
     DEFAULT(R.string.theme_default),
     NIGHT(R.string.theme_night),
-    AUTO(R.string.theme_auto);
+    FOLLOW_SYSTEM(R.string.theme_follow_system);
 
     private final int mModeStringId;
 
@@ -472,7 +472,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
         if (context.getResources().getString(each.mModeStringId).equals(src))
           return each;
       }
-      return AUTO;
+      return FOLLOW_SYSTEM;
     }
   }
 
