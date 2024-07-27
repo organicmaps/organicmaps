@@ -184,6 +184,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   protected void onSafeCreate(@Nullable Bundle savedInstanceState)
   {
     super.onSafeCreate(savedInstanceState);
+    UiUtils.setLightStatusBar(this, true);
     setContentView(R.layout.activity_download_resources);
     initViewsAndListeners();
 
