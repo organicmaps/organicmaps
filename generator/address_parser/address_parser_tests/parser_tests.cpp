@@ -1,7 +1,7 @@
 #include "testing/testing.hpp"
 
-#include "processor.hpp"
-#include "tiger_parser.hpp"
+#include "../processor.hpp"
+#include "../tiger_parser.hpp"
 
 #include "generator/generator_tests_support/test_generator.hpp"
 
