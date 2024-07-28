@@ -162,7 +162,7 @@ endif()
 
 if (NOT PLATFORM_LINUX)
   # On Linux, ICU data is loaded from the shared library.
-  copy_resources(icudt73l.dat)
+  copy_resources(icudt75l.dat)
 endif()
 
 if (PLATFORM_MAC)
