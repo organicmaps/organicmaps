@@ -20,8 +20,4 @@ target_link_libraries(address_parser_tool
   gflags::gflags
 )
 
-omim_add_test(address_parser_tests parser_tests.cpp)
-target_link_libraries(address_parser_tests
-  ${PROJECT_NAME}
-  generator_tests_support
-)
+omim_add_test_subdirectory(address_parser_tests)
