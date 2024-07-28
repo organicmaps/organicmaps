@@ -279,7 +279,8 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   @Override
   public void onBuiltRoute()
   {
-    Framework.nativeDeactivatePopup();
+    // TODO: It is required to call this method to deactivate the popup. Unfortunately, due to the latest changes, calling this method cancels route building.
+    // Framework.nativeDeactivatePopup();
     mMapObject = mRoutingController.getEndPoint();
     invalidate();
   }
