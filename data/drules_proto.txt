@@ -34947,6 +34947,13 @@ cont {
       priority: 4400
     }
   }
+  element {
+    scale: 20
+    symbol {
+      name: "speedcam-s"
+      priority: 4400
+    }
+  }
 }
 cont {
   name: "highway-steps"
@@ -37716,6 +37723,13 @@ cont {
   name: "highway-traffic_signals"
   element {
     scale: 19
+    symbol {
+      name: "traffic_signals"
+      priority: 3165
+    }
+  }
+  element {
+    scale: 20
     symbol {
       name: "traffic_signals"
       priority: 3165
@@ -63362,6 +63376,13 @@ cont {
       priority: 15
     }
   }
+  element {
+    scale: 20
+    area {
+      color: 3641313805
+      priority: 15
+    }
+  }
 }
 cont {
   name: "piste:type-downhill-area"
@@ -63409,6 +63430,13 @@ cont {
   }
   element {
     scale: 19
+    area {
+      color: 3653532415
+      priority: 15
+    }
+  }
+  element {
+    scale: 20
     area {
       color: 3653532415
       priority: 15
@@ -63593,6 +63621,13 @@ cont {
       priority: 15
     }
   }
+  element {
+    scale: 20
+    area {
+      color: 3641387003
+      priority: 15
+    }
+  }
 }
 cont {
   name: "piste:type-downhill-expert"
@@ -63767,6 +63802,13 @@ cont {
   }
   element {
     scale: 19
+    area {
+      color: 3642885669
+      priority: 15
+    }
+  }
+  element {
+    scale: 20
     area {
       color: 3642885669
       priority: 15
@@ -64078,6 +64120,13 @@ cont {
       priority: 15
     }
   }
+  element {
+    scale: 20
+    area {
+      color: 3657174555
+      priority: 15
+    }
+  }
 }
 cont {
   name: "piste:type-downhill-novice"
@@ -64252,6 +64301,13 @@ cont {
   }
   element {
     scale: 19
+    area {
+      color: 3227511598
+      priority: 15
+    }
+  }
+  element {
+    scale: 20
     area {
       color: 3227511598
       priority: 15
@@ -64848,6 +64904,13 @@ cont {
   }
   element {
     scale: 19
+    area {
+      color: 3653532415
+      priority: 15
+    }
+  }
+  element {
+    scale: 20
     area {
       color: 3653532415
       priority: 15
