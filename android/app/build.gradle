@@ -443,9 +443,12 @@ task prepareGoogleReleaseListing {
 
 play {
   enabled.set(false)
-  track.set('alpha')
+  track.set('production')
   defaultToAppBundles.set(true)
   releaseStatus.set(ReleaseStatus.IN_PROGRESS)
+  // With 0.2 instead of 0.2d there is an error:
+  // Cannot set the value of extension 'play' property 'userFraction' of type java.lang.Double using an instance of type java.math.BigDecimal.
+  userFraction.set(0.2d)
   serviceAccountCredentials.set(file('google-play.json'))
 }
 
