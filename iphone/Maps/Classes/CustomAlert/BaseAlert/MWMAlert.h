@@ -34,6 +34,7 @@
 + (MWMAlert *)spinnerAlertWithTitle:(NSString *)title cancel:(MWMVoidBlock)cancel;
 + (MWMAlert *)bookmarkConversionErrorAlert;
 + (MWMAlert *)tagsLoadingErrorAlertWithOkBlock:okBlock cancelBlock:cancelBlock;
++ (MWMAlert *)bugReportAlertWithTitle:(NSString *)title;
 
 + (MWMAlert *)defaultAlertWithTitle:(NSString *)title
                             message:(NSString *)message

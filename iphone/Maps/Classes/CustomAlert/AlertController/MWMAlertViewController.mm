@@ -192,6 +192,10 @@ static NSString *const kAlertControllerNibIdentifier = @"MWMAlertViewController"
   [self displayAlert:[MWMAlert tagsLoadingErrorAlertWithOkBlock:okBlock cancelBlock:cancelBlock]];
 }
 
+- (void)presentBugReportAlertWithTitle:(nonnull NSString *)title {
+  [self displayAlert:[MWMAlert bugReportAlertWithTitle:title]];
+}
+
 - (void)presentDefaultAlertWithTitle:(nonnull NSString *)title
                              message:(nullable NSString *)message
                     rightButtonTitle:(nonnull NSString *)rightButtonTitle
