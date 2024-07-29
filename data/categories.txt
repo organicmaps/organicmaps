@@ -5971,7 +5971,7 @@ fa:زباله دانی
 mr:कचरापेटी
 
 amenity-recycling-centre|@category_recycling
-en:4Recycling Centre|U+1F6AE|U+267B
+en:4Recycling Centre|Tip|Dump|U+1F6AE|U+267B
 en-US:4Recycling Center|U+1F6AE|U+267B
 be:5Пункт прыёму другаснай сыравіны
 ru:5Пункт приёма вторсырья
