@@ -171,6 +171,10 @@
   return [MWMDefaultAlert tagsLoadingErrorAlertWithOkBlock:okBlock cancelBlock:cancelBlock];
 }
 
++ (MWMAlert *)bugReportAlertWithTitle:(NSString *)title {
+  return [MWMDefaultAlert bugReportAlertWithTitle:title];
+}
+
 + (MWMAlert *)defaultAlertWithTitle:(NSString *)title
                             message:(NSString *)message
                    rightButtonTitle:(NSString *)rightButtonTitle
