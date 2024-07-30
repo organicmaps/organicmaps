@@ -597,6 +597,11 @@ void Framework::DeactivatePopup()
   m_work.DeactivateMapSelection();
 }
 
+void Framework::DeactivateMapSelectionCircle()
+{
+  m_work.DeactivateMapSelectionCircle();
+}
+
 /*
 string Framework::GetOutdatedCountriesString()
 {
@@ -1449,6 +1454,12 @@ JNIEXPORT void JNICALL
 Java_app_organicmaps_Framework_nativeDeactivatePopup(JNIEnv * env, jclass)
 {
   return g_framework->DeactivatePopup();
+}
+
+JNIEXPORT void JNICALL
+Java_app_organicmaps_Framework_nativeDeactivateMapSelectionCircle(JNIEnv * env, jclass)
+{
+  return g_framework->DeactivateMapSelectionCircle();
 }
 
 JNIEXPORT void JNICALL

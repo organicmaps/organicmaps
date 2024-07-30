@@ -309,6 +309,7 @@ private:
 
 public:
   void DeactivateMapSelection();
+  void DeactivateMapSelectionCircle();
   void SwitchFullScreen();
   /// Used to "refresh" UI in some cases (e.g. feature editing).
   void UpdatePlacePageInfoForCurrentSelection(
