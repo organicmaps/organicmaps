@@ -168,6 +168,7 @@ namespace android
     void ExecuteMapApiRequest();
 
     void DeactivatePopup();
+    void DeactivateMapSelectionCircle();
 
 //    std::string GetOutdatedCountriesString();
 

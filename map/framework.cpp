@@ -1923,6 +1923,12 @@ void Framework::DeactivateMapSelection()
   }
 }
 
+void Framework::DeactivateMapSelectionCircle()
+{
+    if (m_drapeEngine != nullptr)
+        m_drapeEngine->DeselectObject();
+}
+
 void Framework::SwitchFullScreen()
 {
   if (m_onSwitchFullScreen)
