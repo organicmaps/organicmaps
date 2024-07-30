@@ -65,7 +65,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private static final String TRACK_MENU_ID = "TRACK_MENU_BOTTOM_SHEET";
   private static final String OPTIONS_MENU_ID = "OPTIONS_MENU_BOTTOM_SHEET";
 
-  private ActivityResultLauncher<Intent> shareLauncher;
+  private ActivityResultLauncher<SharingUtils.SharingIntent> shareLauncher;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull

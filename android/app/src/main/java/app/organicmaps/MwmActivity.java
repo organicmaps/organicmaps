@@ -208,6 +208,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private ActivityResultLauncher<IntentSenderRequest> mLocationResolutionRequest;
+  @NonNull
+  private ActivityResultLauncher<SharingUtils.SharingIntent> mShareLauncher;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -516,6 +518,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
         this::onLocationResolutionResult);
     mPostNotificationPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestPermission(),
         this::onPostNotificationPermissionResult);
+
+    mShareLauncher = SharingUtils.RegisterLauncher(this);
 
     mDisplayManager = DisplayManager.from(this);
     if (mDisplayManager.isCarDisplayUsed())
@@ -2040,7 +2044,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .setTitle(R.string.load_kmz_title)
         .setMessage(getString(R.string.unknown_file_type, uri))
         .setPositiveButton(R.string.ok, null)
-        .setNegativeButton(R.string.report_a_bug, (dialog, which) -> Utils.sendBugReport(this,
+        .setNegativeButton(R.string.report_a_bug, (dialog, which) -> Utils.sendBugReport(mShareLauncher, this,
             getString(R.string.load_kmz_title), getString(R.string.unknown_file_type, uri)))
         .setOnDismissListener(dialog -> mAlertDialog = null)
         .show();
@@ -2054,7 +2058,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .setTitle(R.string.load_kmz_title)
         .setMessage(getString(R.string.failed_to_open_file, uri, error))
         .setPositiveButton(R.string.ok, null)
-        .setNegativeButton(R.string.report_a_bug, (dialog, which) -> Utils.sendBugReport(this,
+        .setNegativeButton(R.string.report_a_bug, (dialog, which) -> Utils.sendBugReport(mShareLauncher, this,
             getString(R.string.load_kmz_title), getString(R.string.failed_to_open_file, uri, error)))
         .setOnDismissListener(dialog -> mAlertDialog = null)
         .show();
