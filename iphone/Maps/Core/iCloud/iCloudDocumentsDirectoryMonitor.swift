@@ -96,7 +96,9 @@ class iCloudDocumentsDirectoryMonitor: NSObject, CloudDirectoryMonitor {
     DispatchQueue.global().async {
       guard let containerUrl = self.fileManager.url(forUbiquityContainerIdentifier: self.containerIdentifier) else {
         LOG(.debug, "iCloudMonitor: Failed to retrieve container's URL for:\(self.containerIdentifier)")
-        completion?(.failure(SynchronizationError.containerNotFound))
+        DispatchQueue.main.async {
+          completion?(.failure(SynchronizationError.containerNotFound))
+        }
         return
       }
       let documentsContainerUrl = containerUrl.appendingPathComponent(kDocumentsDirectoryName)
@@ -105,12 +107,17 @@ class iCloudDocumentsDirectoryMonitor: NSObject, CloudDirectoryMonitor {
         do {
           try self.fileManager.createDirectory(at: documentsContainerUrl, withIntermediateDirectories: true)
         } catch {
-          completion?(.failure(SynchronizationError.containerNotFound))
+          DispatchQueue.main.async {
+            completion?(.failure(error))
+          }
+          return
         }
       }
       LOG(.debug, "iCloudMonitor: Ubiquity directory URL: \(documentsContainerUrl)")
       self.ubiquitousDocumentsDirectory = documentsContainerUrl
-      completion?(.success(documentsContainerUrl))
+      DispatchQueue.main.async {
+        completion?(.success(documentsContainerUrl))
+      }
     }
   }
 
@@ -193,9 +200,10 @@ private extension iCloudDocumentsDirectoryMonitor {
 
   func startQuery() {
     metadataQuery = Self.buildMetadataQuery(for: fileType)
-    guard let metadataQuery, !metadataQuery.isStarted else { return }
     LOG(.debug, "iCloudMonitor: Start metadata query")
-    metadataQuery.start()
+    DispatchQueue.main.async {
+      self.metadataQuery?.start()
+    }
   }
 
   func stopQuery() {

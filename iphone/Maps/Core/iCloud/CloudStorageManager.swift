@@ -242,22 +242,20 @@ private extension CloudStorageManager {
   func writingResultHandler(for event: OutgoingEvent) -> WritingResultCompletionHandler {
     return { [weak self] result in
       guard let self else { return }
-      switch result {
-      case .success:
-        // Mark that initial synchronization is finished.
-        if case .didFinishInitialSynchronization = event {
-          UserDefaults.standard.set(true, forKey: kUDDidFinishInitialCloudSynchronization)
-        }
-      case .reloadCategoriesAtURLs(let urls):
-        DispatchQueue.main.async {
+      DispatchQueue.main.async {
+        switch result {
+        case .success:
+          // Mark that initial synchronization is finished.
+          if case .didFinishInitialSynchronization = event {
+            UserDefaults.standard.set(true, forKey: kUDDidFinishInitialCloudSynchronization)
+          }
+        case .reloadCategoriesAtURLs(let urls):
           urls.forEach { self.bookmarksManager.reloadCategory(atFilePath: $0.path) }
-        }
-      case .deleteCategoriesAtURLs(let urls):
-        DispatchQueue.main.async {
+        case .deleteCategoriesAtURLs(let urls):
           urls.forEach { self.bookmarksManager.deleteCategory(atFilePath: $0.path) }
+        case .failure(let error):
+          self.processError(error)
         }
-      case .failure(let error):
-        self.processError(error)
       }
     }
   }
