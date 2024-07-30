@@ -67,6 +67,10 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     return vc
   } ()
 
+  lazy var donateViewController: DonationViewController = {
+    DonationViewController(nibName: nil, bundle: nil)
+  } ()
+
   lazy var buttonsViewController: PlacePageButtonsViewController = {
     let vc = storyboard.instantiateViewController(ofType: PlacePageButtonsViewController.self)
     vc.buttonsData = placePageData.buttonsData!
@@ -112,6 +116,12 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
 
     if placePageData.infoData != nil {
       viewControllers.append(infoViewController)
+    }
+
+    // TODO: here will be additional conditions to show or not donate section
+    let isDonationEnabled = Settings.donateUrl() != nil
+    if isDonationEnabled {
+      viewControllers.append(donateViewController)
     }
 
     if placePageData.buttonsData != nil {

@@ -485,6 +485,7 @@
 		ED79A5D72BDF8D6100952D1F /* SynchronizationStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5CF2BDF8D6100952D1F /* SynchronizationStateManager.swift */; };
 		ED79A5D82BDF8D6100952D1F /* DefaultLocalDirectoryMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5D02BDF8D6100952D1F /* DefaultLocalDirectoryMonitor.swift */; };
 		ED7CCC4F2C1362E300E2A737 /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7CCC4E2C1362E300E2A737 /* FileType.swift */; };
+		ED808D072C37FAB600D52585 /* DonationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED808D062C37FAB600D52585 /* DonationViewController.swift */; };
 		ED8270F02C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8270EF2C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift */; };
 		ED9857082C4ED02D00694F6C /* MailComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9857072C4ED02D00694F6C /* MailComposer.swift */; };
 		ED9966802B94FBC20083CE55 /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED99667D2B94FBC20083CE55 /* ColorPicker.swift */; };
@@ -1404,6 +1405,7 @@
 		ED79A5CF2BDF8D6100952D1F /* SynchronizationStateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationStateManager.swift; sourceTree = "<group>"; };
 		ED79A5D02BDF8D6100952D1F /* DefaultLocalDirectoryMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultLocalDirectoryMonitor.swift; sourceTree = "<group>"; };
 		ED7CCC4E2C1362E300E2A737 /* FileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileType.swift; sourceTree = "<group>"; };
+		ED808D062C37FAB600D52585 /* DonationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationViewController.swift; sourceTree = "<group>"; };
 		ED8270EF2C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewDetailedSwitchCell.swift; sourceTree = "<group>"; };
 		ED9857072C4ED02D00694F6C /* MailComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailComposer.swift; sourceTree = "<group>"; };
 		ED99667D2B94FBC20083CE55 /* ColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
@@ -2918,6 +2920,7 @@
 				99A906DC23F6F7030005872B /* PlacePagePreviewViewController.swift */,
 				99A906D823F6F7030005872B /* WikiDescriptionViewController.swift */,
 				4726254821C27D4B00C7BAAD /* PlacePageDescriptionViewController.swift */,
+				ED808D062C37FAB600D52585 /* DonationViewController.swift */,
 				99C964222428C0D500E41723 /* PlacePageHeader */,
 				993DF0C223F6BD0600AC231A /* ElevationDetails */,
 				99DEF9D523E420D2006BFD21 /* ElevationProfile */,
@@ -4567,6 +4570,7 @@
 				ED9857082C4ED02D00694F6C /* MailComposer.swift in Sources */,
 				99F8B4C623B644A6009FF0B4 /* MapStyleSheet.swift in Sources */,
 				99012851244732DB00C72B10 /* BottomTabBarViewController.swift in Sources */,
+				ED808D072C37FAB600D52585 /* DonationViewController.swift in Sources */,
 				F63AF5061EA6162400A1DB98 /* FilterTypeCell.swift in Sources */,
 				993DF10623F6BDB100AC231A /* UIColor+rgba.swift in Sources */,
 				EDC3573B2B7B5029001AE9CA /* CALayer+SetCorner.swift in Sources */,
