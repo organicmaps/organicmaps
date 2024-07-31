@@ -26,29 +26,21 @@
             </objects>
             <point key="canvasLocation" x="136.64122137404578" y="4.9295774647887329"/>
         </scene>
-        <!--Hosting Controller-->
-        <scene sceneID="vS6-zd-FzX">
-            <objects>
-                <hostingController id="ZxD-Dx-Ftz" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bGA-TI-Q6E" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1949" y="5"/>
-        </scene>
-        <!--Auth View Controller-->
+        <!--Welcome View Controller-->
         <scene sceneID="8Gm-3q-IU4">
             <objects>
-                <viewController id="G0d-aL-jnC" customClass="AuthViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="G0d-aL-jnC" customClass="WelcomeViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nm7-4k-j8y">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tkg-eG-TrL">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <connections>
-                                    <segue destination="ZxD-Dx-Ftz" kind="embed" destinationCreationSelector="embedSwiftUIView:" id="a5L-1u-mLi"/>
-                                </connections>
-                            </containerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Welcome" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4PD-sl-0HD">
+                                <rect key="frame" x="261" y="216" width="71" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="IhI-x3-rtr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

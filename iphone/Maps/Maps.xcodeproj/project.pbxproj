@@ -261,12 +261,10 @@
 		47F86D0120C93D8D00FEE291 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F86D0020C93D8D00FEE291 /* TabViewController.swift */; };
 		4A300ED51C6DCFD400140018 /* countries-strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A300ED31C6DCFD400140018 /* countries-strings */; };
 		4B4153B52BF9695500EE4B02 /* MWMTextToSpeechTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4B4153B42BF9695500EE4B02 /* MWMTextToSpeechTests.mm */; };
-		5236A36F2C525A0A00E3A7AD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5236A36E2C525A0A00E3A7AD /* HomeViewController.swift */; };
-		5236A3712C525A3400E3A7AD /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5236A3702C525A3400E3A7AD /* AuthViewController.swift */; };
 		524634C62C53BC3100FDCABA /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 524634C22C53BB3A00FDCABA /* Auth.storyboard */; };
 		524634CD2C57232400FDCABA /* TourismMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 524634CC2C57232400FDCABA /* TourismMain.storyboard */; };
-		52E2D39D2C58E74100A8843A /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E2D39C2C58E74100A8843A /* HomeScreen.swift */; };
-		52E2D3A02C58E7A300A8843A /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E2D39F2C58E7A300A8843A /* WelcomeScreen.swift */; };
+		52E2D3A42C59F9CE00A8843A /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E2D3A32C59F9CE00A8843A /* WelcomeViewController.swift */; };
+		52E2D3A62C5A017400A8843A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E2D3A52C5A017400A8843A /* HomeViewController.swift */; };
 		6741A9421BF340DE002C974C /* sound-strings in Resources */ = {isa = PBXBuildFile; fileRef = 5605022E1B6211E100169CAD /* sound-strings */; };
 		6741A9451BF340DE002C974C /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0511D6AC0D00645242 /* classificator.txt */; };
 		6741A9491BF340DE002C974C /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA46DA2B12D4166E00968C36 /* countries.txt */; };
@@ -1187,12 +1185,10 @@
 		4A7D89C31B2EBF3B00AC843E /* resources-xhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xhdpi_dark"; path = "../../data/resources-xhdpi_dark"; sourceTree = "<group>"; };
 		4A7D89C41B2EBF3B00AC843E /* resources-xxhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xxhdpi_dark"; path = "../../data/resources-xxhdpi_dark"; sourceTree = "<group>"; };
 		4B4153B42BF9695500EE4B02 /* MWMTextToSpeechTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTextToSpeechTests.mm; sourceTree = "<group>"; };
-		5236A36E2C525A0A00E3A7AD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		5236A3702C525A3400E3A7AD /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		524634C22C53BB3A00FDCABA /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		524634CC2C57232400FDCABA /* TourismMain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TourismMain.storyboard; sourceTree = "<group>"; };
-		52E2D39C2C58E74100A8843A /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
-		52E2D39F2C58E7A300A8843A /* WelcomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreen.swift; sourceTree = "<group>"; };
+		52E2D3A32C59F9CE00A8843A /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		52E2D3A52C5A017400A8843A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5605022E1B6211E100169CAD /* sound-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "sound-strings"; path = "../../data/sound-strings"; sourceTree = "<group>"; };
 		6741AA5D1BF340DE002C974C /* Organic Maps (Debug).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Organic Maps (Debug).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B15907026623AE500944BBA /* 00_NotoSansThai-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "00_NotoSansThai-Regular.ttf"; path = "../../data/00_NotoSansThai-Regular.ttf"; sourceTree = "<group>"; };
@@ -2711,7 +2707,6 @@
 			isa = PBXGroup;
 			children = (
 				52E2D39B2C58E72900A8843A /* Screens */,
-				5236A36E2C525A0A00E3A7AD /* HomeViewController.swift */,
 				524634CC2C57232400FDCABA /* TourismMain.storyboard */,
 			);
 			path = Home;
@@ -2721,7 +2716,6 @@
 			isa = PBXGroup;
 			children = (
 				52E2D39E2C58E78700A8843A /* Screens */,
-				5236A3702C525A3400E3A7AD /* AuthViewController.swift */,
 				524634C22C53BB3A00FDCABA /* Auth.storyboard */,
 			);
 			path = Auth;
@@ -2730,7 +2724,7 @@
 		52E2D39B2C58E72900A8843A /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				52E2D39C2C58E74100A8843A /* HomeScreen.swift */,
+				52E2D3A52C5A017400A8843A /* HomeViewController.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -2738,7 +2732,7 @@
 		52E2D39E2C58E78700A8843A /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				52E2D39F2C58E7A300A8843A /* WelcomeScreen.swift */,
+				52E2D3A32C59F9CE00A8843A /* WelcomeViewController.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -4317,6 +4311,7 @@
 				F6E2FEE51E097BA00083EBEC /* MWMSearchNoResults.m in Sources */,
 				3DBD7BE42425015C00ED9FE8 /* ParntersStyleSheet.swift in Sources */,
 				F6E2FF631E097BA00083EBEC /* MWMTTSLanguageViewController.mm in Sources */,
+				52E2D3A42C59F9CE00A8843A /* WelcomeViewController.swift in Sources */,
 				4715273524907F8200E91BBA /* BookmarkColorViewController.swift in Sources */,
 				47E3C7292111E614008B3B27 /* FadeInAnimatedTransitioning.swift in Sources */,
 				ED79A5D42BDF8D6100952D1F /* MetadataItem.swift in Sources */,
@@ -4425,7 +4420,6 @@
 				F6E2FD561E097BA00083EBEC /* MWMMapDownloaderButtonTableViewCell.m in Sources */,
 				9901284F244732DB00C72B10 /* BottomTabBarPresenter.swift in Sources */,
 				CDB4D5002231412900104869 /* MapTemplateBuilder.swift in Sources */,
-				52E2D39D2C58E74100A8843A /* HomeScreen.swift in Sources */,
 				34AB66171FC5AA320078E451 /* MWMiPhoneRoutePreview.m in Sources */,
 				99A906EA23F6F7030005872B /* PlacePageInfoViewController.swift in Sources */,
 				993DF11723F6BDB100AC231A /* UINavigationBarRenderer.swift in Sources */,
@@ -4505,7 +4499,6 @@
 				F6E2FD6B1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.m in Sources */,
 				CDCA27842245090900167D87 /* ListenerContainer.swift in Sources */,
 				47E3C7252111E41B008B3B27 /* DimmedModalPresentationController.swift in Sources */,
-				5236A3712C525A3400E3A7AD /* AuthViewController.swift in Sources */,
 				3472B5CB200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift in Sources */,
 				34FE5A6F1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */,
 				993DF10D23F6BDB100AC231A /* UIPageControlRenderer.swift in Sources */,
@@ -4514,6 +4507,7 @@
 				6741AA031BF340DE002C974C /* MWMActivityViewController.mm in Sources */,
 				CDCA27382237F1BD00167D87 /* BookmarkInfo.swift in Sources */,
 				993DF11A23F6BDB100AC231A /* UIBarButtonItemRenderer.swift in Sources */,
+				52E2D3A62C5A017400A8843A /* HomeViewController.swift in Sources */,
 				34AB668C1FC5AA330078E451 /* NavigationStreetNameView.swift in Sources */,
 				993DF12923F6BDB100AC231A /* ThemeManager.swift in Sources */,
 				337F98A621D37B7400C8AC27 /* SearchTabViewController.swift in Sources */,
@@ -4631,7 +4625,6 @@
 				340475651E081A4600C92850 /* MWMRouter.mm in Sources */,
 				47E3C72F2111F472008B3B27 /* CoverVerticalModalTransitioning.swift in Sources */,
 				34E776101F14B165003040B3 /* VisibleArea.swift in Sources */,
-				5236A36F2C525A0A00E3A7AD /* HomeViewController.swift in Sources */,
 				995F1613244F0AA50060631D /* BottomMenuLayersCell.swift in Sources */,
 				993DF10723F6BDB100AC231A /* UIColor+image.swift in Sources */,
 				3454D7D71E07F045004AF2AD /* UIKitCategories.m in Sources */,
@@ -4648,7 +4641,6 @@
 				3444DFDE1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */,
 				CDCA278622451F5000167D87 /* RouteInfo.swift in Sources */,
 				3467CEB6202C6FA900D3C670 /* BMCNotificationsCell.swift in Sources */,
-				52E2D3A02C58E7A300A8843A /* WelcomeScreen.swift in Sources */,
 				337F98B221D3BAE600C8AC27 /* SearchCategoriesViewController.swift in Sources */,
 				F6E2FE0A1E097BA00083EBEC /* MWMOpeningHoursDeleteScheduleTableViewCell.mm in Sources */,
 				3454D7DA1E07F045004AF2AD /* UILabel+RuntimeAttributes.m in Sources */,
@@ -4862,7 +4854,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4892,7 +4884,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
