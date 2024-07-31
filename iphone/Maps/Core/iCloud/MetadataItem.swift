@@ -91,6 +91,12 @@ extension CloudMetadataItem {
   }
 }
 
+extension MetadataItem {
+  var shortDebugDescription: String {
+    "File path: \(fileUrl.path), lastModified: \(lastModificationDate)"
+  }
+}
+
 extension LocalMetadataItem {
   func relatedCloudItemUrl(to cloudContainer: URL) -> URL {
     cloudContainer.appendingPathComponent(fileName)
@@ -103,6 +109,10 @@ extension Array where Element: MetadataItem {
   }
   func firstByName(_ item: any MetadataItem) -> Element? {
     return first(where: { $0.fileName == item.fileName })
+  }
+
+  var shortDebugDescription: String {
+    map { $0.shortDebugDescription }.joined(separator: "\n")
   }
 }
 

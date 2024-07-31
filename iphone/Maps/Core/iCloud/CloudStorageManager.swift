@@ -104,7 +104,7 @@ final class CloudStorageSynchronizationState: NSObject {
 private extension CloudStorageManager {
   // MARK: - Synchronization Lifecycle
   func startSynchronization() {
-    LOG(.debug, "Start synchronization...")
+    LOG(.info, "Start synchronization...")
     switch cloudDirectoryMonitor.state {
     case .started:
       LOG(.debug, "Synchronization is already started")
@@ -135,7 +135,7 @@ private extension CloudStorageManager {
   }
 
   func stopSynchronization(withError error: Error? = nil) {
-    LOG(.debug, "Stop synchronization")
+    LOG(.info, "Stop synchronization")
     localDirectoryMonitor.stop()
     cloudDirectoryMonitor.stop()
     fileWriter = nil
@@ -148,13 +148,13 @@ private extension CloudStorageManager {
   }
 
   func pauseSynchronization() {
-    LOG(.debug, "Pause synchronization")
+    LOG(.info, "Pause synchronization")
     localDirectoryMonitor.pause()
     cloudDirectoryMonitor.pause()
   }
 
   func resumeSynchronization() {
-    LOG(.debug, "Resume synchronization")
+    LOG(.info, "Resume synchronization")
     localDirectoryMonitor.resume()
     cloudDirectoryMonitor.resume()
   }
@@ -230,10 +230,7 @@ private extension CloudStorageManager {
       synchronizationError = nil
       return
     }
-
-    LOG(.debug, "Start processing events...")
     events.forEach { [weak self] event in
-      LOG(.debug, "Processing event: \(event)")
       guard let self, let fileWriter else { return }
       fileWriter.processEvent(event, completion: writingResultHandler(for: event))
     }
@@ -249,13 +246,9 @@ private extension CloudStorageManager {
           UserDefaults.standard.set(true, forKey: kUDDidFinishInitialCloudSynchronization)
         }
       case .reloadCategoriesAtURLs(let urls):
-        DispatchQueue.main.async {
-          urls.forEach { self.bookmarksManager.reloadCategory(atFilePath: $0.path) }
-        }
+        urls.forEach { self.bookmarksManager.reloadCategory(atFilePath: $0.path) }
       case .deleteCategoriesAtURLs(let urls):
-        DispatchQueue.main.async {
-          urls.forEach { self.bookmarksManager.deleteCategory(atFilePath: $0.path) }
-        }
+        urls.forEach { self.bookmarksManager.deleteCategory(atFilePath: $0.path) }
       case .failure(let error):
         self.processError(error)
       }
@@ -284,7 +277,7 @@ private extension CloudStorageManager {
         stopSynchronization(withError: error)
       }
     default:
-      LOG(.debug, "Non-synchronization Error: \(error.localizedDescription)")
+      LOG(.error, "System Error: \(error.localizedDescription)")
       stopSynchronization(withError: error)
     }
   }

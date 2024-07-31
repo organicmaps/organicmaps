@@ -75,10 +75,14 @@ final class DefaultSynchronizationStateManager: SynchronizationStateManager {
     case .didUpdateCloudContents(let contents):
       outgoingEvents = resolveDidUpdateCloudContents(contents)
     }
+    LOG(.info, "Cloud content: \n\(currentCloudContents.shortDebugDescription)")
+    LOG(.info, "Local content: \n\(currentLocalContents.shortDebugDescription)")
+    LOG(.info, "Events to process: \n\(outgoingEvents)")
     return outgoingEvents
   }
 
   func resetState() {
+    LOG(.debug, "Resetting state")
     currentLocalContents.removeAll()
     currentCloudContents.removeAll()
     localContentsGatheringIsFinished = false
