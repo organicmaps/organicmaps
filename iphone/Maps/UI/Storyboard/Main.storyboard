@@ -17,7 +17,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M1g-LC-NOC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1598" y="-625"/>
+            <point key="canvasLocation" x="1508" y="-557"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="Wq1-a3-f7n">
@@ -313,6 +313,7 @@
                         <segue destination="Psz-BY-Fy4" kind="presentation" identifier="PP2BookmarkEditingIPAD" modalPresentationStyle="formSheet" id="k6v-a7-5DO"/>
                         <segue destination="DdR-kk-MnB" kind="show" identifier="Map2Settings" id="Uyr-xb-oJc"/>
                         <segue destination="SOp-Vz-BSi" kind="presentation" identifier="Map2TourismMain" modalPresentationStyle="fullScreen" id="ZyV-kc-eXo"/>
+                        <segue destination="6OK-aq-fiY" kind="presentation" identifier="Map2Auth" modalPresentationStyle="fullScreen" id="ZTS-EN-BxZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cKg-Q7-bFd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1147,6 +1148,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0um-vd-4vd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3780" y="2227.8169014084506"/>
+        </scene>
+        <!--Auth-->
+        <scene sceneID="Z0v-ES-xur">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Auth" id="6OK-aq-fiY" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="ghK-ag-Bkb"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZN4-4E-FRu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1492" y="-657"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
