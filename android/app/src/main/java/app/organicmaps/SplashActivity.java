@@ -21,6 +21,7 @@ import app.organicmaps.display.DisplayManager;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.LocationUtils;
+import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.concurrency.UiThread;
@@ -41,6 +42,8 @@ public class SplashActivity extends AppCompatActivity
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private ActivityResultLauncher<String[]> mPermissionRequest;
+  @NonNull
+  private ActivityResultLauncher<SharingUtils.SharingIntent> mShareLauncher;
 
   @NonNull
   private final Runnable mInitCoreDelayedTask = this::init;
@@ -63,6 +66,7 @@ public class SplashActivity extends AppCompatActivity
     setContentView(R.layout.activity_splash);
     mPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
         result -> Config.setLocationRequested());
+    mShareLauncher = SharingUtils.RegisterLauncher(this);
 
     if (DisplayManager.from(this).isCarDisplayUsed())
     {
@@ -109,18 +113,19 @@ public class SplashActivity extends AppCompatActivity
   {
     mCanceled = true;
     new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-        .setTitle(titleId)
-        .setMessage(messageId)
-        .setPositiveButton(
-          R.string.report_a_bug,
-          (dialog, which) -> Utils.sendBugReport(
-            this,
-            "Fatal Error",
-            Log.getStackTraceString(error)
-          )
+      .setTitle(titleId)
+      .setMessage(messageId)
+      .setPositiveButton(
+        R.string.report_a_bug,
+        (dialog, which) -> Utils.sendBugReport(
+          mShareLauncher,
+          this,
+          "Fatal Error",
+          Log.getStackTraceString(error)
         )
-        .setCancelable(false)
-        .show();
+      )
+      .setCancelable(false)
+      .show();
   }
 
   private void init()
