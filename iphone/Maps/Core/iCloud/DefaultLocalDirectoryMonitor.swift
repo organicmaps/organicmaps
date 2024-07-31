@@ -63,10 +63,11 @@ final class DefaultLocalDirectoryMonitor: LocalDirectoryMonitor {
     guard state != .started else { return }
 
     let nowTimer = Timer.scheduledTimer(withTimeInterval: .zero, repeats: false) { [weak self] _ in
-      LOG(.debug, "LocalMonitor: Initial timer firing...")
+      LOG(.debug, "Initial timer firing...")
       self?.debounceTimerDidFire()
     }
 
+    LOG(.debug, "Start local monitor.")
     if let dispatchSource {
       dispatchSourceDebounceState = .debounce(source: dispatchSource, timer: nowTimer)
       resume()
@@ -92,7 +93,7 @@ final class DefaultLocalDirectoryMonitor: LocalDirectoryMonitor {
 
   func stop() {
     guard state == .started else { return }
-    LOG(.debug, "LocalMonitor: Stop.")
+    LOG(.debug, "Stop.")
     suspendDispatchSource()
     didFinishGatheringIsCalled = false
     dispatchSourceDebounceState = .stopped
@@ -101,21 +102,21 @@ final class DefaultLocalDirectoryMonitor: LocalDirectoryMonitor {
 
   func pause() {
     guard state == .started else { return }
-    LOG(.debug, "LocalMonitor: Pause.")
+    LOG(.debug, "Pause.")
     suspendDispatchSource()
     state = .paused
   }
 
   func resume() {
     guard state != .started else { return }
-    LOG(.debug, "LocalMonitor: Resume.")
+    LOG(.debug, "Resume.")
     resumeDispatchSource()
     state = .started
   }
 
   // MARK: - Private
   private func queueDidFire() {
-    LOG(.debug, "LocalMonitor: Queue did fire.")
+    LOG(.debug, "Queue did fire.")
     let debounceTimeInterval = 0.5
     switch dispatchSourceDebounceState {
     case .started(let source):
@@ -135,9 +136,9 @@ final class DefaultLocalDirectoryMonitor: LocalDirectoryMonitor {
   }
 
   private func debounceTimerDidFire() {
-    LOG(.debug, "LocalMonitor: Debounce timer did fire.")
+    LOG(.debug, "Debounce timer did fire.")
     guard state == .started else {
-      LOG(.debug, "LocalMonitor: State is not started. Skip iteration.")
+      LOG(.debug, "State is not started. Skip iteration.")
       return
     }
     guard case .debounce(let source, let timer) = dispatchSourceDebounceState else { fatalError() }
@@ -148,16 +149,15 @@ final class DefaultLocalDirectoryMonitor: LocalDirectoryMonitor {
       let files = try fileManager
         .contentsOfDirectory(at: directory, includingPropertiesForKeys: [.contentModificationDateKey], options: [.skipsHiddenFiles])
         .filter { $0.pathExtension == fileType.fileExtension }
+      LOG(.info, "Local directory content: \(files.map { $0.lastPathComponent }) ")
       let contents: LocalContents = try files.map { try LocalMetadataItem(fileUrl: $0) }
 
       if !didFinishGatheringIsCalled {
         didFinishGatheringIsCalled = true
-        LOG(.debug, "LocalMonitor: didFinishGathering called.")
-        LOG(.debug, "LocalMonitor: contentMetadataItems count: \(contents.count)")
+        LOG(.debug, "didFinishGathering will be called")
         delegate?.didFinishGathering(contents: contents)
       } else {
-        LOG(.debug, "LocalMonitor: didUpdate called.")
-        LOG(.debug, "LocalMonitor: contentMetadataItems count: \(contents.count)")
+        LOG(.debug, "didUpdate will be called")
         delegate?.didUpdate(contents: contents)
       }
     } catch {
@@ -167,7 +167,7 @@ final class DefaultLocalDirectoryMonitor: LocalDirectoryMonitor {
 
   private func suspendDispatchSource() {
     if !dispatchSourceIsSuspended {
-      LOG(.debug, "LocalMonitor: Suspend dispatch source.")
+      LOG(.debug, "Suspend dispatch source.")
       dispatchSource?.suspend()
       dispatchSourceIsSuspended = true
       dispatchSourceIsResumed = false
@@ -176,7 +176,7 @@ final class DefaultLocalDirectoryMonitor: LocalDirectoryMonitor {
 
   private func resumeDispatchSource() {
     if !dispatchSourceIsResumed {
-      LOG(.debug, "LocalMonitor: Resume dispatch source.")
+      LOG(.debug, "Resume dispatch source.")
       dispatchSource?.resume()
       dispatchSourceIsResumed = true
       dispatchSourceIsSuspended = false
