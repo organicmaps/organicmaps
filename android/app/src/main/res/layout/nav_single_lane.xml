@@ -9,6 +9,6 @@
   android:adjustViewBounds="true"
   android:scaleType="fitCenter"
   android:theme="?navigationTheme"
-  app:tint="?iconTint"
+  app:tint="?navLaneArrowInactiveColor"
   app:srcCompat="@drawable/ic_then_right"
   tools:showIn="@layout/layout_nav_top" />
