@@ -45,9 +45,9 @@ size_t const kMinCommonTypesCount = 3;
 double const kNearDistanceInMeters = 20 * 1000.0;
 double const kMyPositionTrackSnapInMeters = 20.0;
 
-std::string const kKMLMimeType = "application/vnd.google-earth.kml";
+std::string const kKMLMimeType = "application/vnd.google-earth.kml+xml";
 std::string const kKMZMimeType = "application/vnd.google-earth.kmz";
-std::string const kGPXMimeType = "application/gpx";
+std::string const kGPXMimeType = "application/gpx+xml";
 
 class FindMarkFunctor
 {
@@ -105,7 +105,7 @@ BookmarkManager::SharingResult ExportSingleFileKml(BookmarkManager::KMLDataColle
   if (!CreateZipFromFiles({filePath}, tmpFilePath))
     return {{categoryId}, BookmarkManager::SharingResult::Code::ArchiveError, "Could not create archive."};
 
-  return {{categoryId}, std::move(tmpFilePath), kKMLMimeType};
+  return {{categoryId}, std::move(tmpFilePath), kKMZMimeType};
 }
 
 BookmarkManager::SharingResult ExportSingleFileGpx(BookmarkManager::KMLDataCollectionPtr::element_type::value_type const & kmlToShare)
