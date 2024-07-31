@@ -127,7 +127,7 @@ sudo apt update && sudo apt install -y \
 | CMake     | `3.22.1`        | `20.04` and older       | Install newer `cmake` from [PPA](https://apt.kitware.com/) or from `snap`<br> with `sudo snap install --classic cmake` |
 | FreeType  | `2.13.1`        | `22.04` and older       | Install newer `libfreetype6` and `libfreetype-dev` from [PPA](https://launchpad.net/~reviczky/+archive/ubuntu/freetype) |
 | GeoClue   | `2.5.7`         | `20.04` and older       | Install newer `geoclue-2.0` from [PPA](https://launchpad.net/~savoury1/+archive/ubuntu/backports) |
-| Qt 6      | `6.2.0`         | `20.04` and older       | Add [PPA](https://launchpad.net/~savoury1/+archive/ubuntu/qt-6-2) and [install packages](#fully-supported-versions) |
+| Qt 6      | `6.4.0`         | `22.04` and older       | Build and install Qt 6.4 manually |
 
 
 ```bash
