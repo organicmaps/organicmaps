@@ -740,6 +740,8 @@
 	<string name="enable_show_on_lock_screen">在鎖定螢幕上顯示</string>
 	<!-- Description in preferences -->
 	<string name="enable_show_on_lock_screen_description">啟用後，即使設備已鎖定，應用程式仍會在鎖定螢幕上運作。</string>
+	<!-- Current language of the map! -->
+	<string name="change_map_locale">地圖語言</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">地圖數據來自 OpenStreetMap</string>
 	<!-- App Tip #00 -->

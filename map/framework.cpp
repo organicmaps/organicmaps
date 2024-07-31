@@ -1528,6 +1528,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
 
   Allow3dMode(allow3d, allow3dBuildings);
 
+  SetMapLanguageCode(GetMapLanguageCode());
+
   LoadViewport();
 
   if (m_connectToGpsTrack)
@@ -2379,6 +2381,30 @@ void Framework::SaveTransliteration(bool allowTranslit)
 {
   settings::Set(kTranslitMode, allowTranslit ? Transliteration::Mode::Enabled
                                              : Transliteration::Mode::Disabled);
+}
+
+std::string Framework::GetMapLanguageCode()
+{
+  return languages::GetCurrentMapLanguage();
+}
+
+void Framework::SetMapLanguageCode(std::string const & languageCode)
+{
+  settings::Set(settings::kMapLanguageCode, languageCode);
+  if (m_drapeEngine == nullptr)
+    return;
+
+  int8_t const languageCodeIndex = [&languageCode]()
+  {
+    if (languageCode.empty())
+      return StringUtf8Multilang::kDefaultCode;
+    int8_t const index = StringUtf8Multilang::GetLangIndex(languageCode);
+    if (index == StringUtf8Multilang::kUnsupportedLanguageCode)
+      return StringUtf8Multilang::kDefaultCode;
+    return index;
+  }();
+
+  m_drapeEngine->SetMapLangIndex(languageCodeIndex);
 }
 
 void Framework::Allow3dMode(bool allow3d, bool allow3dBuildings)
