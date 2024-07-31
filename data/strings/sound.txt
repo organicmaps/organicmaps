@@ -53,7 +53,7 @@
     en = Turn right.
     ar = انعطف يميناً.
     be = Павярніце направа.
-    ca = Gireu a a dreta.
+    ca = Gireu a la dreta.
     cs = Odbočte vpravo.
     da = Drej til højre.
     de = Rechts abbiegen.
@@ -147,7 +147,8 @@
     da = Kør ind i rundkørslen.
     de = Fahren Sie in den Kreisverkehr ein.
     el = Μπείτε στην κυκλική διασταύρωση.
-    es = Entre a la rotonda.
+    es = Entre en la rotonda.
+    es-MX = Entre a la glorieta.
     eu = Sartu biribilgunera.
     fa = به میدان وارد شوید.
     fi = Aja liikenneympyrään.
@@ -200,6 +201,7 @@
     de = Aus dem Kreisverkehr ausfahren.
     el = Βγείτε από την κυκλική διασταύρωση.
     es = Salga de la rotonda.
+    es-MX = Salga de la glorieta.
     eu = Irten biribilgunetik.
     fa = از میدان خارج شوید.
     fi = Poistu liikenneympyrästä.
@@ -246,7 +248,7 @@
     en = Keep left.
     ar = الزم اليسار.
     be = Трымайцеся лявей.
-    ca = Manteniu-vos a l'esquerra
+    ca = Manteniu-vos a l'esquerra.
     cs = Držte se vlevo.
     da = Hold til venstre.
     de = Halten Sie sich links.
@@ -554,7 +556,7 @@
     en = Take exit
     ar = خروج إلى
     be = З'езд на
-    ca = Agafa la sortida
+    ca = Agafeu la sortida
     cs = výstup na
     da = Afkørsel ad
     de = Nehmen Sie die Ausfahrt auf
