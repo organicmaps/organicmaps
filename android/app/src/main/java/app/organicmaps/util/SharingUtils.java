@@ -25,11 +25,14 @@ import app.organicmaps.R;
 import app.organicmaps.SplashActivity;
 import app.organicmaps.bookmarks.data.BookmarkInfo;
 import app.organicmaps.bookmarks.data.MapObject;
+import app.organicmaps.util.log.Logger;
 
 public class SharingUtils
 {
+  private static final String TAG = SharingUtils.class.getSimpleName();
+  private static final String KML_MIME_TYPE = "application/vnd.google-earth.kml+xml";
   private static final String KMZ_MIME_TYPE = "application/vnd.google-earth.kmz";
-  private static final String GPX_MIME_TYPE = "application/gpx";
+  private static final String GPX_MIME_TYPE = "application/gpx+xml";
   private static final String TEXT_MIME_TYPE = "text/plain";
   public static class ShareInfo
   {
@@ -224,6 +227,7 @@ public class SharingUtils
     if (!info.mFileName.isEmpty())
     {
       final Uri fileUri = StorageUtils.getUriForFilePath(context, info.mFileName);
+      Logger.i(TAG, "Sharing file " + info.mMimeType + " " + info.mFileName + " with URI " + fileUri);
       intent.putExtra(Intent.EXTRA_STREAM, fileUri);
       intent.setDataAndType(fileUri, info.mMimeType);
 
