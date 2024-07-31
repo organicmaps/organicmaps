@@ -65,8 +65,7 @@ final class SynchronizationFileWriter {
     LOG(.debug, "File \(cloudMetadataItem.fileName) is downloaded to the local iCloud container. Start coordinating and writing file...")
     fileCoordinator.coordinate(readingItemAt: cloudMetadataItem.fileUrl, writingItemAt: targetLocalFileUrl, error: &coordinationError) { readingUrl, writingUrl in
       do {
-        let cloudFileData = try Data(contentsOf: readingUrl)
-        try cloudFileData.write(to: writingUrl, options: .atomic, lastModificationDate: cloudMetadataItem.lastModificationDate)
+        try fileManager.replaceFileSafe(at: writingUrl, with: readingUrl)
         LOG(.debug, "File \(cloudMetadataItem.fileName) is copied to local directory successfully. Start reloading bookmarks...")
         completion(.reloadCategoriesAtURLs([writingUrl]))
       } catch {
@@ -111,8 +110,7 @@ final class SynchronizationFileWriter {
     var coordinationError: NSError?
     fileCoordinator.coordinate(readingItemAt: localMetadataItem.fileUrl, writingItemAt: targetCloudFileUrl, error: &coordinationError) { readingUrl, writingUrl in
       do {
-        let fileData = try localMetadataItem.fileData()
-        try fileData.write(to: writingUrl, lastModificationDate: localMetadataItem.lastModificationDate)
+        try fileManager.replaceFileSafe(at: writingUrl, with: readingUrl)
         LOG(.debug, "File \(localMetadataItem.fileName) is copied to the cloud directory successfully.")
         completion(.success)
       } catch {
@@ -251,6 +249,22 @@ final class SynchronizationFileWriter {
   }
 }
 
+// MARK: - FileManager + FileReplacing
+private extension FileManager {
+  func replaceFileSafe(at targetUrl: URL, with sourceUrl: URL) throws {
+    guard fileExists(atPath: targetUrl.path) else {
+      LOG(.debug, "Source file \(targetUrl.lastPathComponent) doesn't exist. The file will be copied.")
+      try copyItem(at: sourceUrl, to: targetUrl)
+      return
+    }
+    let tmpDirectoryUrl = try url(for: .itemReplacementDirectory, in: .userDomainMask, appropriateFor: targetUrl, create: true)
+    let tmpUrl = tmpDirectoryUrl.appendingPathComponent(sourceUrl.lastPathComponent)
+    try copyItem(at: sourceUrl, to: tmpUrl)
+    try replaceItem(at: targetUrl, withItemAt: tmpUrl, backupItemName: nil, options: [.usingNewMetadataOnly], resultingItemURL: nil)
+    LOG(.debug, "File \(targetUrl.lastPathComponent) was replaced successfully.")
+  }
+}
+
 // MARK: - URL + ResourceValues
 private extension URL {
   func setResourceModificationDate(_ date: Date) throws {
@@ -260,13 +274,3 @@ private extension URL {
     try url.setResourceValues(resource)
   }
 }
-
-private extension Data {
-  func write(to url: URL, options: Data.WritingOptions = .atomic, lastModificationDate: TimeInterval? = nil) throws {
-    try write(to: url, options: options)
-    if let lastModificationDate {
-      try url.setResourceModificationDate(Date(timeIntervalSince1970: lastModificationDate))
-    }
-  }
-}
-
