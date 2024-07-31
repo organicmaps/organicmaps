@@ -25,9 +25,9 @@ public class LanesDrawable extends Drawable
   @ColorRes
   private static final int ACTIVE_LANE_TINT_RES = R.color.white_primary;
   @ColorRes
-  private static final int INACTIVE_LANE_TINT_RES = R.color.icon_tint_light;
+  private static final int INACTIVE_LANE_TINT_RES = R.color.white_38;
   @ColorRes
-  private static final int INACTIVE_LANE_TINT_NIGHT_RES = R.color.icon_tint_light_night;
+  private static final int INACTIVE_LANE_TINT_NIGHT_RES = R.color.white_40;
 
   @DimenRes
   private static final int MARGIN_RES = R.dimen.margin_quarter;
