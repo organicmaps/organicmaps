@@ -92,6 +92,8 @@ public:
 
   static Languages const & GetSupportedLanguages();
 
+  static bool IsServiceLang(std::string_view lang);
+
   // These names require separate search/street processing.
   static bool IsAltOrOldName(int8_t langCode)
   {
