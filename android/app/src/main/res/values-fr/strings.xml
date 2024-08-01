@@ -449,6 +449,8 @@
 	<string name="no_osm_account">Vous n\'avez pas de compte sur OpenStreetMap ?</string>
 	<string name="register_at_openstreetmap">S\'inscrire sur OpenStreetMap</string>
 	<string name="login">Connexion</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">Non connecté•e</string>
 	<string name="login_osm">Se connecter à OpenStreetMap</string>
 	<string name="password">Mot de passe</string>
 	<string name="forgot_password">Mot de passe oublié ?</string>

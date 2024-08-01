@@ -447,6 +447,8 @@
 	<string name="no_osm_account">OpenStreetMap hesabınız yoxdur?</string>
 	<string name="register_at_openstreetmap">OpenStreetMap üçün qeydiyyatdan keçin</string>
 	<string name="login">Daxil ol</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">Giriş edilməyib</string>
 	<string name="login_osm">OpenStreetMap-a daxil olun</string>
 	<string name="password">Parol</string>
 	<string name="forgot_password">Parolu unutmusunuz?</string>

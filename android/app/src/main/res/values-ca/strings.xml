@@ -441,6 +441,8 @@
 	<string name="no_osm_account">No teniu commpte d\'OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Registre a OpenStreetMap</string>
 	<string name="login">Inicia sessió</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">No heu iniciat sessió</string>
 	<string name="password">Contrasenya</string>
 	<string name="forgot_password">Heu oblidat la contrasenya?</string>
 	<string name="logout">Tanca la sessió</string>

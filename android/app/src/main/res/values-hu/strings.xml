@@ -438,6 +438,8 @@
 	<string name="no_osm_account">Nem rendelkezel még OpenStreetMap-felhasználói fiókkal?</string>
 	<string name="register_at_openstreetmap">Regisztráció</string>
 	<string name="login">Bejelentkezés</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">Nincs bejelentkezve</string>
 	<string name="login_osm">Jelentkezzen be az OpenStreetMap-be</string>
 	<string name="password">Jelszó</string>
 	<string name="forgot_password">Elfelejtett jelszó?</string>

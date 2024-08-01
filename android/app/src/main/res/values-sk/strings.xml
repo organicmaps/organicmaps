@@ -445,6 +445,8 @@
 	<string name="no_osm_account">Nemáte účet v OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Zaregistrovať sa</string>
 	<string name="login">Prihlásiť sa</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">Nie ste prihlásený</string>
 	<string name="login_osm">Prihláste sa do OpenStreetMap</string>
 	<string name="password">Heslo</string>
 	<string name="forgot_password">Zabudli ste heslo?</string>

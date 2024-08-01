@@ -450,6 +450,8 @@
 	<string name="no_osm_account">Не зарегистрированы в OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Зарегистрироваться</string>
 	<string name="login">Войти</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">Не выполнен вход</string>
 	<string name="login_osm">Войти в OpenStreetMap</string>
 	<string name="password">Пароль</string>
 	<string name="forgot_password">Забыли пароль?</string>

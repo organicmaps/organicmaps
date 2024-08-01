@@ -424,6 +424,8 @@
 	<string name="no_osm_account">OpenStreetMap에서 계정이 없습니까?</string>
 	<string name="register_at_openstreetmap">등록</string>
 	<string name="login">로그인</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">로그인되지 않음</string>
 	<string name="login_osm">OpenStreetMap에 로그인</string>
 	<string name="password">암호</string>
 	<string name="forgot_password">암호를 잊으 셨나요?</string>

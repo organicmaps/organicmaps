@@ -426,6 +426,8 @@
 	<string name="no_osm_account">Tidak ada akun di OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Mendaftar</string>
 	<string name="login">Masuk</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">Belum masuk</string>
 	<string name="login_osm">Masuk ke OpenStreetMap</string>
 	<string name="password">Kata sandi</string>
 	<string name="forgot_password">Lupa kata sandi?</string>

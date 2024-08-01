@@ -433,6 +433,8 @@
 	<string name="no_osm_account">Nu ai un cont OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Înscrie-te</string>
 	<string name="login">Autentificare</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">Neautentificat</string>
 	<string name="login_osm">Conectați-vă la OpenStreetMap</string>
 	<string name="password">Parola</string>
 	<string name="forgot_password">Ai uitat parola?</string>
