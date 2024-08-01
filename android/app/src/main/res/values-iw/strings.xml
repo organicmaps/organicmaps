@@ -439,6 +439,8 @@
 	<string name="no_osm_account">אין לך חשבון OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">הירשם ב-OpenStreetMap</string>
 	<string name="login">כניסה</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">לא מחובר</string>
 	<string name="login_osm">היכנס ל-OpenStreetMap</string>
 	<string name="password">סיסמה</string>
 	<string name="forgot_password">שכחת סיסמה?</string>

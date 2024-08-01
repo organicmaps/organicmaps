@@ -447,6 +447,8 @@
 	<string name="no_osm_account">Har du ingen konto hos OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Registrer deg</string>
 	<string name="login">Logg inn</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">Ikke logget inn</string>
 	<string name="login_osm">Logg på OpenStreetMap</string>
 	<string name="password">Passord</string>
 	<string name="forgot_password">Glemt passordet?</string>

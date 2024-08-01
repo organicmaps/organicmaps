@@ -436,6 +436,8 @@
 	<string name="no_osm_account">在OpenStreetMap上没有账户吗？</string>
 	<string name="register_at_openstreetmap">注册</string>
 	<string name="login">登录</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">未登录</string>
 	<string name="login_osm">登录 OpenStreetMap</string>
 	<string name="password">密码</string>
 	<string name="forgot_password">忘记密码</string>

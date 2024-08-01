@@ -449,6 +449,8 @@
 	<string name="no_osm_account">Eikö sinulla ole OpenStreetMap-tiliä?</string>
 	<string name="register_at_openstreetmap">Rekisteröidy</string>
 	<string name="login">Kirjaudu sisään</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">Et ole kirjautunut sisään</string>
 	<string name="login_osm">Kirjaudu OpenStreetMapiin</string>
 	<string name="password">Salasana</string>
 	<string name="forgot_password">Unohtuiko salasana?</string>

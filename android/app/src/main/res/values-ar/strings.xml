@@ -460,6 +460,8 @@
 	<string name="no_osm_account">ليس لديك حساب في خريطة الشارع المفتوحة؟</string>
 	<string name="register_at_openstreetmap">التسجيل في خريطة الشارع المفتوحة</string>
 	<string name="login">تسجيل الدخول</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">لم يتم تسجيل الدخول</string>
 	<string name="login_osm">تسجيل الدخول الى OpenStreetMap</string>
 	<string name="password">كلمة المرور</string>
 	<string name="forgot_password">هل نسيت كلمة المرور؟</string>

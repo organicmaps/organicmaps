@@ -355,6 +355,8 @@
 	<string name="edit_opening_hours">व्यावसायिक घंटे संपादित करें</string>
 	<string name="no_osm_account">आपके पास अभी तक OpenStreetMap खाता नहीं है?</string>
 	<string name="register_at_openstreetmap">Openstreetmap पर पंजीकरण करें</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">साइन इन नहीं किया गया है</string>
 	<string name="edit_place">स्थान संपादित करें</string>
 	<string name="add_language">एक भाषा जोड़ें</string>
 	<string name="street">गली</string>

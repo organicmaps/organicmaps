@@ -448,6 +448,8 @@
 	<string name="no_osm_account">Δεν έχετε λογαριασμό OpenStreetMap;</string>
 	<string name="register_at_openstreetmap">Εγγραφή στο OpenStreetMap</string>
 	<string name="login">Σύνδεση</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">Δεν έχετε συνδεθεί</string>
 	<string name="login_osm">Συνδεθείτε στο OpenStreetMap</string>
 	<string name="password">Κωδικός πρόσβασης</string>
 	<string name="forgot_password">Ξαχάσατε τον κωδικό πρόσβασης;</string>

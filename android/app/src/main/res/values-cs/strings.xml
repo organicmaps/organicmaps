@@ -428,6 +428,8 @@
 	<string name="no_osm_account">Nemáte účet u OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Registrace</string>
 	<string name="login">Přihlásit se</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">Nejste přihlášeni</string>
 	<string name="login_osm">Přihlaste se do OpenStreetMap</string>
 	<string name="password">Heslo</string>
 	<string name="forgot_password">Zapomenuté heslo?</string>

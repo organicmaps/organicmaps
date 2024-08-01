@@ -414,6 +414,8 @@
 	<string name="no_osm_account">Нямате акаунт в OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Регистриране в OpenStreetMap</string>
 	<string name="login">Вход</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">Не е влязъл в системата</string>
 	<string name="login_osm">Влезте в OpenStreetMap</string>
 	<string name="password">Парола</string>
 	<string name="forgot_password">Забравили сте паролата си?</string>

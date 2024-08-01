@@ -424,6 +424,8 @@
 	<string name="no_osm_account">Bạn chưa có tài khoản tại OpenStreetMap ư?</string>
 	<string name="register_at_openstreetmap">Đăng ký</string>
 	<string name="login">Đăng nhập</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">Chưa đăng nhập</string>
 	<string name="login_osm">Đăng nhập vào OpenStreetMap</string>
 	<string name="password">Mật khẩu</string>
 	<string name="forgot_password">Quên mật khẩu?</string>

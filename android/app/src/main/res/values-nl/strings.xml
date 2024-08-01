@@ -443,6 +443,8 @@
 	<string name="no_osm_account">Geen account bij OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Registreer bij OpenStreetMap</string>
 	<string name="login">Log in</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">Niet ingelogd</string>
 	<string name="login_osm">Log in bij OpenStreetMap</string>
 	<string name="password">Wachtwoord</string>
 	<string name="forgot_password">Wachtwoord vergeten?</string>

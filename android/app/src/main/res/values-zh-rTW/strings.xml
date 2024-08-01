@@ -439,6 +439,8 @@
 	<string name="no_osm_account">沒有 OpenStreetMap 帳號嗎？</string>
 	<string name="register_at_openstreetmap">註冊</string>
 	<string name="login">登入</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">未登入</string>
 	<string name="login_osm">登錄 OpenStreetMap</string>
 	<string name="password">密碼</string>
 	<string name="forgot_password">忘記密碼</string>

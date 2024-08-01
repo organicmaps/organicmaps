@@ -445,6 +445,8 @@
 	<string name="no_osm_account">Ez al duzu OpenStreetMap konturik?</string>
 	<string name="register_at_openstreetmap">Eman izena OpenStreetMap-en</string>
 	<string name="login">Saioa hasi</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">Ez zaude saiatuta</string>
 	<string name="login_osm">Hasi saioa OpenStreetMap-en</string>
 	<string name="password">Pasahitza</string>
 	<string name="forgot_password">Pasahitza ahaztu duzu?</string>

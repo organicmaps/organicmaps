@@ -415,6 +415,8 @@
 	<string name="no_osm_account">OpenStreetMap खाते नाही?</string>
 	<string name="register_at_openstreetmap">OpenStreetMap वर नोंदणी करा</string>
 	<string name="login">लॉग इन</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">साइन इन केलेले नाही</string>
 	<string name="password">पासवर्ड</string>
 	<string name="forgot_password">पासवर्ड विसरलात?</string>
 	<string name="logout">लॉग आऊट</string>

@@ -419,6 +419,8 @@
 	<string name="no_osm_account">آیا حساب OpenStreetMap ندارید؟</string>
 	<string name="register_at_openstreetmap">ثبت نام در OpenStreetMap</string>
 	<string name="login">ورود</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">وارد نشده‌اید</string>
 	<string name="login_osm">شوید OpenStreetMap وارد</string>
 	<string name="password">رمز عبور</string>
 	<string name="forgot_password">رمز عبور خود را فراموش کردید؟</string>

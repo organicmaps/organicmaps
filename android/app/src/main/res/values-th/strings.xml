@@ -426,6 +426,8 @@
 	<string name="no_osm_account">ไม่มีบัญชีใน OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">ลงทะเบียน</string>
 	<string name="login">ล็อกอิน</string>
+	<!-- Status message indicating that user did not login to OSM profile yet. -->
+	<string name="not_signed_in">ยังไม่ได้ลงชื่อเข้าใช้</string>
 	<string name="login_osm">เข้าสู่ระบบ OpenStreetMap</string>
 	<string name="password">รหัสผ่าน</string>
 	<string name="forgot_password">ลืมรหัสผ่าน?</string>
