@@ -233,10 +233,11 @@ public class SharingUtils
 
       // Properly set permissions for intent, see
       // https://developer.android.com/reference/androidx/core/content/FileProvider#include-the-permission-in-an-intent
-      intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+      intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK);
+
       if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
         intent.setClipData(ClipData.newRawUri("", fileUri));
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK);
       }
 
       Intent saveIntent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
