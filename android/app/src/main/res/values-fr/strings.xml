@@ -19,6 +19,7 @@
 	<string name="kilometres">Kilomètres</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">Mo</string>
+	<string name="gb">Go</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Miles</string>
 	<!-- A text for current gps location point/arrow selected on the map -->

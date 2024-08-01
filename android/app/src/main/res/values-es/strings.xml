@@ -28,20 +28,20 @@
 	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">Buscar en el mapa</string>
 	<!-- Location services are disabled by user alert - message -->
-	<string name="location_is_disabled_long_text">No se puede acceder a los servicios de localización en este dispositivo o aplicación. Por favor, actívelos en los ajustes.</string>
+	<string name="location_is_disabled_long_text">No se puede acceder a los servicios de localización en este dispositivo o aplicación. Actívelos en la configuración.</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Mostrar en el mapa</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">Error durante la descarga</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Intentar otra vez</string>
-	<string name="about_menu_title">Sobre Organic Maps</string>
+	<string name="about_menu_title">Acerca de Organic Maps</string>
 	<!-- Text in About screen -->
 	<string name="about_headline">Gratis para todos, hecho con amor</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_1">• Sin anuncios, sin seguimiento, sin recopilación de datos</string>
+	<string name="about_proposition_1">• Sin anuncios, sin rastreo, sin recopilación de datos</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• No consume batería, funciona sin conexión</string>
+	<string name="about_proposition_2">• Consumo de batería mínimo, funciona sin conexión</string>
 	<!-- Text in About screen -->
 	<string name="about_proposition_3">• Rápido, minimalista, desarrollado por la comunidad</string>
 	<!-- Text in About screen -->
@@ -52,9 +52,9 @@
 	<string name="unsupported_phone">La aplicación requiere OpenGL acelerado por hardware. Lamentablemente, su dispositivo no es compatible.</string>
 	<string name="download">Descargar</string>
 	<!-- Used in DownloadResources startup screen -->
-	<string name="disconnect_usb_cable">Por favor, desconecte el cable USB o inserte una memoria SD para usar Organic Maps</string>
+	<string name="disconnect_usb_cable">Desconecte el cable USB o inserte una tarjeta de memoria SD para usar Organic Maps</string>
 	<!-- Used in DownloadResources startup screen -->
-	<string name="not_enough_free_space_on_sdcard">Por favor, libere primero espacio en la memoria SD/almacenamiento USB para usar la aplicación</string>
+	<string name="not_enough_free_space_on_sdcard">Libere primero espacio en la memoria SD o almacenamiento USB para usar la aplicación</string>
 	<string name="download_resources">Antes de comenzar, permita que descarguemos en su dispositivo un mapamundi general.\nSe requieren %s de almacenamiento.</string>
 	<string name="download_resources_continue">Ir al mapa</string>
 	<string name="downloading_country_can_proceed">Descargando %s. Puede ahora\nproceder al mapa</string>
@@ -65,7 +65,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Continuar</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
-	<string name="download_country_failed">%s la descarga ha fallado</string>
+	<string name="download_country_failed">No se pudo descargar %s</string>
 	<!-- "Add new bookmark list" dialog title -->
 	<string name="add_new_set">Agregar un grupo nuevo</string>
 	<!-- Bookmark Color dialog title -->
@@ -467,16 +467,16 @@
 	<string name="cuisine">Cocina</string>
 	<string name="select_cuisine">Seleccionar cocina</string>
 	<!-- login text field -->
-	<string name="email_or_username">Email ó usuario</string>
+	<string name="email_or_username">Correo electrónico o usuario</string>
 	<string name="editor_add_phone">Añadir teléfono</string>
 	<string name="level">Piso</string>
-	<string name="downloader_delete_map_dialog">Todos los cambios en los mapas se borrarán junto con el mapa.</string>
-	<string name="downloader_update_maps">Autodescarga de mapas</string>
+	<string name="downloader_delete_map_dialog">Todas las ediciones hechas al mapa se eliminarán junto con este.</string>
+	<string name="downloader_update_maps">Actualizar mapas</string>
 	<string name="downloader_mwm_migration_dialog">Para crear una ruta, es necesario actualizar todos los mapas y volver a planificar la ruta.</string>
 	<string name="downloader_search_field_hint">Buscar en el mapa</string>
-	<string name="common_check_internet_connection_dialog">Por favor, verifique los ajustes y asegúrese de que su dispositivo esté conectado a Internet.</string>
+	<string name="common_check_internet_connection_dialog">Revise la configuración y asegúrese de que su dispositivo esté conectado a Internet.</string>
 	<string name="downloader_no_space_title">No hay suficiente espacio</string>
-	<string name="downloader_no_space_message">Por favor, elimine los datos innecesarios</string>
+	<string name="downloader_no_space_message">Elimine los datos innecesarios</string>
 	<string name="editor_login_error_dialog">Error de inicio de sesión.</string>
 	<string name="editor_profile_changes">Cambios verificados</string>
 	<string name="editor_focus_map_on_location">Arrastre el mapa para seleccionar la ubicación correcta del objeto.</string>
@@ -491,7 +491,7 @@
 	<string name="message_invalid_feature_position">No se puede ubicar ningún objeto aquí</string>
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">Datos de OpenStreetMap creados por la comunidad a partir de %s. Más información sobre cómo editar y actualizar el mapa en OpenStreetMap.org</string>
-	<string name="login_to_make_edits_visible">Inicie sesión en OpenStreetMap.org para que otros usuarios puedan ver los cambios que haya efectuado.</string>
+	<string name="login_to_make_edits_visible">Acceda a openstreetmap.org para que otros usuarios puedan ver los cambios que haya efectuado.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d de %2$d</string>
 	<string name="download_over_mobile_header">¿Descargar con conexión de red móvil?</string>
@@ -811,20 +811,20 @@
 	<string name="browser_not_available">El navegador web no está disponible</string>
 	<string name="volume">Volumen</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
-	<string name="bookmarks_export">Exportar todos los Marcadores y Tracks</string>
+	<string name="bookmarks_export">Exportar todos los marcadores y pistas</string>
 	<!-- button in (app) TTS settings, to open the system TTS settings. -->
-	<string name="pref_tts_open_system_settings">Ajustes del sistema de síntesis de voz</string>
+	<string name="pref_tts_open_system_settings">Configuración de síntesis de voz del sistema</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
-	<string name="pref_tts_no_system_tts">No se ha encontrado la configuración de Síntesis de Voz, ¿estás seguro de que tu dispositivo la admite?</string>
-	<string name="drive_through">Servicio al auto</string>
-	<string name="clear_the_search">Borrar la búsqueda</string>
-	<string name="zoom_in">Ampliar</string>
+	<string name="pref_tts_no_system_tts">No se encontraron las configuraciones de síntesis de voz. ¿Está seguro de que su dispositivo la admite?</string>
+	<string name="drive_through">Servicio al coche</string>
+	<string name="clear_the_search">Borrar búsqueda</string>
+	<string name="zoom_in">Acercar</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
 	<string name="zoom_out">Alejar</string>
 	<!-- Restaurant or other food place's menu URL field in the Editor -->
 	<string name="website_menu">Enlace al menú</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
-	<string name="view_menu">Ver Menú</string>
+	<string name="view_menu">Ver menú</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Dirección/Bloque</string>
@@ -858,14 +858,14 @@
 	<string name="type.amenity.bicycle_repair_station">Estación de reparación de bicicletas</string>
 	<string name="type.amenity.biergarten">Biergarten</string>
 	<string name="type.amenity.brothel">Burdel</string>
-	<string name="type.amenity.bureau_de_change">Cambio de divisas</string>
+	<string name="type.amenity.bureau_de_change">Casa de cambio</string>
 	<string name="type.amenity.bus_station">Estación de autobuses</string>
 	<string name="type.amenity.cafe">Café</string>
-	<string name="type.amenity.car_rental">Coche de alquiler</string>
+	<string name="type.amenity.car_rental">Alquiler de coches</string>
 	<string name="type.amenity.car_sharing">Compartir coche</string>
 	<string name="type.amenity.car_wash">Lavado de coches</string>
 	<string name="type.amenity.casino">Casino</string>
-	<string name="type.amenity.gambling">Juegos de azar</string>
+	<string name="type.amenity.gambling">Juegos de apuestas</string>
 	<string name="type.leisure.adult_gaming_centre">Centro de juegos para adultos</string>
 	<string name="type.leisure.amusement_arcade">Arcade</string>
 	<string name="type.amenity.charging_station">Estación de carga</string>
@@ -881,11 +881,11 @@
 	<string name="type.amenity.conference_centre">Centro de conferencias</string>
 	<string name="type.amenity.courthouse">Juzgado</string>
 	<string name="type.amenity.dentist">Dentista</string>
-	<string name="type.amenity.doctors">Consulta del médico</string>
+	<string name="type.amenity.doctors">Consultorio médico</string>
 	<string name="type.amenity.drinking_water">Agua potable</string>
 	<string name="type.drinking_water.yes">Agua potable</string>
 	<string name="type.amenity.driving_school">Autoescuela</string>
-	<string name="type.amenity.exhibition_centre">Centro de Exposiciones</string>
+	<string name="type.amenity.exhibition_centre">Centro de exposiciones</string>
 	<string name="type.amenity.money_transfer">Transferencia de dinero</string>
 	<string name="type.amenity.music_school">Escuela de música</string>
 	<string name="type.amenity.language_school">Escuela de idiomas</string>
@@ -904,7 +904,7 @@
 	<string name="type.amenity.hunting_stand">Puesto de caza</string>
 	<string name="type.amenity.ice_cream">Heladería</string>
 	<string name="type.amenity.internet_cafe">Cibercafé</string>
-	<string name="type.amenity.kindergarten">Guardería</string>
+	<string name="type.amenity.kindergarten">Escuela infantil</string>
 	<string name="type.amenity.library">Biblioteca</string>
 	<string name="type.amenity.loading_dock">Muelle de carga</string>
 	<string name="type.amenity.marketplace">Mercado</string>
@@ -913,8 +913,8 @@
 	<string name="type.amenity.nursing_home">Residencia de ancianos</string>
 	<string name="type.amenity.parking">Aparcamiento</string>
 	<string name="type.amenity.parking.fee">Aparcamiento</string>
-	<string name="type.amenity.parking.multi.storey">Aparcamiento de varios pisos</string>
-	<string name="type.amenity.parking.multi.storey.fee">Aparcamiento de varios pisos</string>
+	<string name="type.amenity.parking.multi.storey">Edificio de aparcamiento</string>
+	<string name="type.amenity.parking.multi.storey.fee">Edificio de aparcamiento</string>
 	<string name="type.amenity.parking.no.access">Aparcamiento privado</string>
 	<string name="type.amenity.parking.permissive">Aparcamiento privado</string>
 	<string name="type.amenity.parking.private">Aparcamiento privado</string>
@@ -943,7 +943,7 @@
 	<string name="type.amenity.place_of_worship.christian">Iglesia</string>
 	<string name="type.amenity.place_of_worship.christian.mormon">Iglesia de Jesucristo de los Santos de los Últimos Días</string>
 	<string name="type.amenity.place_of_worship.christian.jehovahs_witness">Salón del Reino de los Testigos de Jehová</string>
-	<string name="type.amenity.place_of_worship.hindu">Templo hindú</string>
+	<string name="type.amenity.place_of_worship.hindu">Templo hinduista</string>
 	<string name="type.amenity.place_of_worship.jewish">Sinagoga</string>
 	<string name="type.amenity.place_of_worship.muslim">Mezquita</string>
 	<string name="type.amenity.place_of_worship.shinto">Santuario sintoísta</string>
@@ -971,7 +971,7 @@
 	<string name="type.recycling.cans">Latas</string>
 	<string name="type.recycling.shoes">Calzado</string>
 	<string name="type.recycling.green_waste">Orgánico</string>
-	<string name="type.recycling.cartons">Cartones de bebida</string>
+	<string name="type.recycling.cartons">Envases de cartón</string>
 	<string name="type.amenity.restaurant">Restaurante</string>
 	<string name="type.amenity.sanitary_dump_station">Estación de vaciado para caravanas</string>
 	<string name="type.amenity.school">Escuela</string>
@@ -980,11 +980,13 @@
 	<!-- A weather shelter by the public transport stop. -->
 	<string name="type.amenity.shelter.public_transport">Refugio</string>
 	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
-	<string name="type.amenity.shelter.basic_hut">Cabaña de Vivac</string>
+	<string name="type.amenity.shelter.basic_hut">Cabaña de vivac</string>
+	<!-- A traditional 3-walled shelter (one side open), suitable for overnight camping. -->
+	<string name="type.amenity.shelter.lean_to">Alpende</string>
 	<string name="type.amenity.public_bath">Baños públicos</string>
 	<string name="type.amenity.shower">Ducha</string>
-	<string name="type.amenity.stripclub">Club de striptease</string>
-	<string name="type.amenity.taxi">Taxi</string>
+	<string name="type.amenity.stripclub">Club de estriptis</string>
+	<string name="type.amenity.taxi">Sitio de taxis</string>
 	<string name="type.amenity.telephone">Teléfono</string>
 	<string name="type.amenity.theatre">Teatro</string>
 	<string name="type.amenity.toilets">WC</string>
@@ -998,8 +1000,8 @@
 	<string name="type.amenity.vending_machine.drinks">Máquina expendedora de bebidas</string>
 	<string name="type.amenity.vending_machine.food">Máquina expendedora de comida</string>
 	<string name="type.amenity.vending_machine.newspapers">Máquina expendedora de periódicos</string>
-	<string name="type.amenity.vending_machine.parking_tickets">Máquina de pago de aparcamiento</string>
-	<string name="type.amenity.vending_machine.public_transport_tickets">Máquina expendedora de boletos para el transporte público</string>
+	<string name="type.amenity.vending_machine.parking_tickets">Parquímetro</string>
+	<string name="type.amenity.vending_machine.public_transport_tickets">Máquina expendedora de billetes de transporte público</string>
 	<string name="type.amenity.vending_machine.sweets">Máquina expendedora de dulces</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Maquina expendedora de bolsas para excrementos</string>
 	<string name="type.amenity.parcel_locker">Taquilla de paquetes</string>
@@ -1007,25 +1009,25 @@
 	<string name="type.amenity.vending_machine.fuel">Maquina expendedora de combustible</string>
 	<string name="type.amenity.veterinary">Clínica veterinaria</string>
 	<string name="type.amenity.waste_basket">Papelera</string>
-	<string name="type.amenity.waste_disposal">Basura</string>
+	<string name="type.amenity.waste_disposal">Contenedor de basura</string>
 	<string name="type.amenity.waste_transfer_station">Estación de transferencia de residuos</string>
 	<string name="type.amenity.water_point">Fuente de agua para caravanas</string>
 	<string name="type.barrier">Barrera</string>
 	<string name="type.barrier.block">Bloque</string>
 	<string name="type.barrier.bollard">Bolardo</string>
-	<string name="type.barrier.border_control">Control de fronteras</string>
+	<string name="type.barrier.border_control">Control fronterizo</string>
 	<string name="type.barrier.chain">Cadena</string>
-	<string name="type.barrier.city_wall">Muro de la ciudad</string>
+	<string name="type.barrier.city_wall">Muralla</string>
 	<string name="type.barrier.cycle_barrier">Barrera para bicicletas</string>
 	<string name="type.waterway.ditch">Zanja de drenaje</string>
 	<string name="type.natural.water.moat">Foso</string>
 	<string name="type.natural.water.wastewater">Aguas residuales</string>
 	<string name="type.barrier.entrance">Entrada</string>
 	<string name="type.barrier.fence">Valla</string>
-	<string name="type.barrier.gate">Puerta</string>
+	<string name="type.barrier.gate">Verja</string>
 	<string name="type.barrier.hedge">Seto</string>
 	<string name="type.barrier.kissing_gate">Puerta peatonal</string>
-	<string name="type.barrier.lift_gate">Barrera</string>
+	<string name="type.barrier.lift_gate">Barrera levadiza</string>
 	<string name="type.barrier.retaining_wall">Muro de contención</string>
 	<string name="type.barrier.stile">Escalón</string>
 	<string name="type.barrier.turnstile">Torniquete</string>
@@ -1377,7 +1379,7 @@
 	<string name="type.historic.castle.shiro">Castillo japonés</string>
 	<string name="type.historic.castle.stately">Castillo</string>
 	<string name="type.historic.city_gate">Puerta de la ciudad</string>
-	<string name="type.historic.citywalls">Muro de la ciudad</string>
+	<string name="type.historic.citywalls">Muralla</string>
 	<string name="type.historic.fort">Fuerte</string>
 	<string name="type.historic.gallows">Horca</string>
 	<string name="type.historic.locomotive">Locomotora histórica</string>
@@ -1388,7 +1390,7 @@
 	<string name="type.historic.memorial.statue">Estatua</string>
 	<string name="type.historic.memorial.stolperstein">Stolperstein</string>
 	<string name="type.historic.stone">Piedra histórica</string>
-	<string name="type.historic.memorial.war_memorial">Monumento a la guerra</string>
+	<string name="type.historic.memorial.war_memorial">Memorial de guerra</string>
 	<string name="type.historic.mine">Mina histórica</string>
 	<string name="type.historic.monument">Monumento</string>
 	<string name="type.historic.pillory">Picota</string>
@@ -1892,7 +1894,7 @@
 	<string name="type.shop.alcohol">Licorería</string>
 	<string name="type.shop.bakery">Panadería</string>
 	<string name="type.shop.bathroom_furnishing">Equipamiento de baño</string>
-	<string name="type.shop.beauty">Centro de belleza</string>
+	<string name="type.shop.beauty">Salón de belleza</string>
 	<string name="type.shop.beverages">Bebidas</string>
 	<string name="type.shop.bicycle">Tienda de bicicletas</string>
 	<string name="type.shop.bookmaker">Casa de apuestas</string>
@@ -1913,7 +1915,7 @@
 	<string name="type.shop.confectionery">Confitería</string>
 	<string name="type.shop.convenience">Tienda de barrio</string>
 	<string name="type.shop.copyshop">Centro de copiado</string>
-	<string name="type.shop.cosmetics">Productos cosméticos</string>
+	<string name="type.shop.cosmetics">Tienda de cosméticos</string>
 	<string name="type.shop.curtain">Cortinas</string>
 	<string name="type.shop.deli">Tienda de delicatessen</string>
 	<string name="type.shop.department_store">Grandes almacenes</string>
@@ -2044,15 +2046,15 @@
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Albergue de montaña</string>
 	<string name="type.tourism.apartment">Apartamento de vacaciones</string>
-	<string name="type.tourism.artwork">Obras de arte</string>
-	<string name="type.tourism.artwork.architecture">Obras de arte</string>
-	<string name="type.tourism.artwork.painting">Obras de arte</string>
-	<string name="type.tourism.artwork.sculpture">Obras de arte</string>
-	<string name="type.tourism.artwork.statue">Obras de arte</string>
+	<string name="type.tourism.artwork">Obra de arte</string>
+	<string name="type.tourism.artwork.architecture">Arte arquitectónico</string>
+	<string name="type.tourism.artwork.painting">Pintura</string>
+	<string name="type.tourism.artwork.sculpture">Escultura</string>
+	<string name="type.tourism.artwork.statue">Estatua</string>
 	<string name="type.tourism.attraction">Atracción turística</string>
 	<string name="type.attraction.animal">Recinto de animales</string>
 	<string name="type.tourism.attraction.specified">Atracción turística</string>
-	<string name="type.tourism.camp_site">Camping</string>
+	<string name="type.tourism.camp_site">Paraje de campamento</string>
 	<string name="type.tourism.caravan_site">Zona de caravanas</string>
 	<!-- A rentable countryside vacation house. -->
 	<string name="type.tourism.chalet">Casa de vacaciones</string>
@@ -2070,18 +2072,18 @@
 	<string name="type.tourism.museum">Museo</string>
 	<string name="type.tourism.picnic_site">Zona de picnic</string>
 	<string name="type.leisure.resort">Resort</string>
-	<string name="type.tourism.theme_park">Parque de atracciones</string>
-	<string name="type.tourism.viewpoint">Vista panorámica</string>
+	<string name="type.tourism.theme_park">Parque temático</string>
+	<string name="type.tourism.viewpoint">Mirador</string>
 	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Cabaña</string>
-	<string name="type.tourism.zoo">Zoo</string>
-	<string name="type.tourism.zoo.petting">Zoológico de animales acariciables</string>
-	<string name="type.traffic_calming">Reducción de velocidad</string>
+	<string name="type.tourism.zoo">Zoológico</string>
+	<string name="type.tourism.zoo.petting">Zoológico interactivo</string>
+	<string name="type.traffic_calming">Pacificación del tráfico</string>
 	<string name="type.traffic_calming.bump">Banda reductora</string>
 	<string name="type.traffic_calming.hump">Resalte</string>
 	<string name="type.waterway">Curso de agua</string>
 	<string name="type.waterway.canal">Canal</string>
-	<string name="type.waterway.canal.tunnel">Canal</string>
+	<string name="type.waterway.canal.tunnel">Túnel de canal</string>
 	<string name="type.waterway.fish_pass">Escalera de peces</string>
 	<string name="type.waterway.dam">Presa</string>
 	<string name="type.barrier.ditch">Zanja</string>
@@ -2099,7 +2101,7 @@
 	<string name="type.waterway.stream.intermittent">Arroyo intermitente</string>
 	<string name="type.waterway.stream.tunnel">Arroyo</string>
 	<string name="type.waterway.waterfall">Cascada</string>
-	<string name="type.waterway.weir">Presa</string>
+	<string name="type.waterway.weir">Aliviadero</string>
 	<string name="type.wheelchair">Silla de ruedas</string>
 	<string name="type.wheelchair.limited">Parcialmente accesible en silla de ruedas</string>
 	<string name="type.wheelchair.no">No accesible en silla de ruedas</string>

@@ -24,7 +24,7 @@
 "kilometres" = "Kilómetros";
 
 /* Leave Review dialog - Review button */
-"leave_a_review" = "Escribir una opinión";
+"leave_a_review" = "Escribir reseña";
 
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Millas";
@@ -54,13 +54,13 @@
 "about_headline" = "Gratis para todos, hecho con amor";
 
 /* Text in About screen */
-"about_proposition_1" = "• Sin anuncios, sin seguimiento, sin recopilación de datos";
+"about_proposition_1" = "• Sin anuncios, sin rastreo, sin recopilación de datos";
 
 /* Text in About screen */
-"about_proposition_2" = "• Sin consumo de batería, funciona sin conexión";
+"about_proposition_2" = "• Consumo de batería mínimo, funciona sin conexión";
 
 /* Text in About screen */
-"about_proposition_3" = "• Rápido, minimalista, desarrollado por la comunidad.";
+"about_proposition_3" = "• Rápido, minimalista, desarrollado por la comunidad";
 
 "close" = "Cerrar";
 
@@ -677,27 +677,27 @@
 "select_cuisine" = "Seleccionar cocina";
 
 /* login text field */
-"email_or_username" = "Email ó usuario";
+"email_or_username" = "Correo electrónico o usuario";
 
 "phone" = "Teléfono";
 
 "level" = "Piso";
 
-"please_note" = "Aviso";
+"please_note" = "Atención";
 
-"downloader_delete_map_dialog" = "Todos los cambios en los mapas se borrarán junto con el mapa.";
+"downloader_delete_map_dialog" = "Todas las ediciones hechas al mapa se eliminarán junto con este.";
 
-"downloader_update_maps" = "Autodescarga de mapas";
+"downloader_update_maps" = "Actualizar mapas";
 
 "downloader_search_field_hint" = "Buscar en el mapa";
 
 "migration_download_error_dialog" = "Error de descarga";
 
-"common_check_internet_connection_dialog" = "Por favor, verifique los ajustes y asegúrese de que su dispositivo esté conectado a Internet.";
+"common_check_internet_connection_dialog" = "Revise la configuración y asegúrese de que su dispositivo esté conectado a Internet.";
 
 "downloader_no_space_title" = "No hay suficiente espacio";
 
-"downloader_no_space_message" = "Por favor, elimine los datos innecesarios";
+"downloader_no_space_message" = "Elimine los datos innecesarios";
 
 "editor_profile_changes" = "Cambios verificados";
 
@@ -720,7 +720,7 @@
 
 "editor_edit_place_category_title" = "Categoría";
 
-"whatsnew_editor_message_1" = "Añadir lugares nuevos al mapa y editar los lugares actuales directamente desde la aplicación.";
+"whatsnew_editor_message_1" = "Añada lugares nuevos al mapa y edite los existentes directamente desde la aplicación.";
 
 "dialog_incorrect_feature_position" = "Cambiar ubicación";
 
@@ -729,10 +729,10 @@
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Datos de OpenStreetMap creados por la comunidad a partir de %@. Obtenga más información sobre cómo editar y actualizar el mapa en OpenStreetMap.org";
 
-"login_to_make_edits_visible" = "Inicie sesión en OpenStreetMap.org para que otros usuarios puedan ver los cambios que haya efectuado.";
+"login_to_make_edits_visible" = "Acceda a openstreetmap.org para que otros usuarios puedan ver los cambios que haya efectuado.";
 
 /* Error dialog no space */
-"migration_no_space_message" = "Necesita más espacio para descargar. Por favor, elimine los datos innecesarios.";
+"migration_no_space_message" = "Necesita más espacio para descargar. Elimine los datos innecesarios.";
 
 "editor_sharing_title" = "He mejorado los mapas de Organic Maps";
 
@@ -1336,22 +1336,22 @@
 "website_menu" = "Enlace al menú";
 
 /* Message for the bug report alert. */
-"bugreport_alert_message" = "¿Quieres enviar un informe de error a los desarrolladores?\nConfiamos en nuestros usuarios, ya que Mapas ecológicos no recoge ninguna información sobre errores de forma automática. ¡Gracias de antemano por apoyar a Organic Maps!";
+"bugreport_alert_message" = "¿Quiere enviar un informe de error a los desarrolladores?\nDependemos de nuestros usuarios, ya que Organic Maps no recoge ninguna información sobre errores de forma automática. ¡Gracias de antemano por apoyar a Organic Maps!";
 
 /* Title for the "Enable iCloud Syncronization" alert. */
-"enable_icloud_synchronization_title" = "Habilitar la sincronización de iCloud";
+"enable_icloud_synchronization_title" = "Activar la sincronización con iCloud";
 
 /* Message for the "Enable iCloud Syncronization" alert. */
-"enable_icloud_synchronization_message" = "La sincronización de iCloud es una función experimental en desarrollo. Asegúrese de haber realizado una copia de seguridad de todos sus marcadores y pistas.";
+"enable_icloud_synchronization_message" = "La sincronización de iCloud es una función experimental en desarrollo. Asegúrese de haber realizado un respaldo de todos sus marcadores y pistas.";
 
 /* Title for the "iCloud is Disabled" alert. */
 "icloud_disabled_title" = "iCloud está desactivado";
 
 /* Message for the "iCloud is Disabled" alert. */
-"icloud_disabled_message" = "Activa iCloud en los ajustes de tu dispositivo para utilizar esta función.";
+"icloud_disabled_message" = "Active iCloud en la configuración del dispositivo para utilizar esta función.";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
-"enable" = "Activa";
+"enable" = "Activar";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
 "backup" = "Respaldo";
@@ -1360,10 +1360,10 @@
 "icloud_synchronization_error_alert_title" = "Fallo de sincronización de iCloud";
 
 /* iCloud error message: Failed to synchronize due to connection error */
-"icloud_synchronization_error_connection_error" = "Error: No se ha podido sincronizar debido a un error de conexión";
+"icloud_synchronization_error_connection_error" = "Error: no se ha podido sincronizar debido a un error de conexión";
 
 /* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
-"icloud_synchronization_error_quota_exceeded" = "Error: No se ha podido sincronizar porque se ha superado la cuota de iCloud";
+"icloud_synchronization_error_quota_exceeded" = "Error: no se ha podido sincronizar porque se ha superado la cuota de iCloud";
 
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Error: iCloud no está disponible";
@@ -1428,7 +1428,7 @@
 
 "type.amenity.bicycle_parking" = "Estacionamiento de bicicletas";
 
-"type.amenity.bicycle_rental" = "Alquiler de bicicletas";
+"type.amenity.bicycle_rental" = "Renta de bicicletas";
 
 "type.amenity.bicycle_repair_station" = "Estación de reparación de bicicletas";
 
@@ -1436,21 +1436,21 @@
 
 "type.amenity.brothel" = "Burdel";
 
-"type.amenity.bureau_de_change" = "Cambio de divisas";
+"type.amenity.bureau_de_change" = "Casa de cambio";
 
 "type.amenity.bus_station" = "Estación de autobuses";
 
 "type.amenity.cafe" = "Café";
 
-"type.amenity.car_rental" = "Coche de alquiler";
+"type.amenity.car_rental" = "Renta de coches";
 
 "type.amenity.car_sharing" = "Compartir coche";
 
-"type.amenity.car_wash" = "Lavado de coches";
+"type.amenity.car_wash" = "Autolavado";
 
 "type.amenity.casino" = "Casino";
 
-"type.amenity.gambling" = "Juegos de azar";
+"type.amenity.gambling" = "Juegos de apuestas";
 
 "type.leisure.adult_gaming_centre" = "Centro de juegos para adultos";
 
@@ -1482,7 +1482,7 @@
 
 "type.amenity.dentist" = "Dentista";
 
-"type.amenity.doctors" = "Consulta del médico";
+"type.amenity.doctors" = "Consultorio médico";
 
 "type.amenity.drinking_water" = "Agua potable";
 
@@ -1490,7 +1490,7 @@
 
 "type.amenity.driving_school" = "Autoescuela";
 
-"type.amenity.exhibition_centre" = "Centro de Exposiciones";
+"type.amenity.exhibition_centre" = "Centro de exposiciones";
 
 "type.amenity.money_transfer" = "Transferencia de dinero";
 
@@ -1526,7 +1526,7 @@
 
 "type.amenity.internet_cafe" = "Cibercafé";
 
-"type.amenity.kindergarten" = "Guardería";
+"type.amenity.kindergarten" = "Jardín de niños";
 
 "type.amenity.library" = "Biblioteca";
 
@@ -1544,9 +1544,9 @@
 
 "type.amenity.parking.fee" = "Estacionamiento";
 
-"type.amenity.parking.multi.storey" = "Estacionamiento de varios pisos";
+"type.amenity.parking.multi.storey" = "Edificio de estacionamiento";
 
-"type.amenity.parking.multi.storey.fee" = "Estacionamiento de varios pisos";
+"type.amenity.parking.multi.storey.fee" = "Edificio de estacionamiento";
 
 "type.amenity.parking.no.access" = "Estacionamiento privado";
 
@@ -1554,7 +1554,7 @@
 
 "type.amenity.parking.private" = "Estacionamiento privado";
 
-"type.amenity.parking.park_and_ride" = "Estacionamiento";
+"type.amenity.parking.park_and_ride" = "Estacionamiento intermodal";
 
 "type.amenity.parking.underground" = "Estacionamiento subterráneo";
 
@@ -1604,7 +1604,7 @@
 
 "type.amenity.place_of_worship.christian.jehovahs_witness" = "Salón del Reino de los Testigos de Jehová";
 
-"type.amenity.place_of_worship.hindu" = "Templo hindú";
+"type.amenity.place_of_worship.hindu" = "Templo hinduista";
 
 "type.amenity.place_of_worship.jewish" = "Sinagoga";
 
@@ -1659,7 +1659,7 @@
 
 "type.recycling.green_waste" = "Orgánico";
 
-"type.recycling.cartons" = "Cartones de bebida";
+"type.recycling.cartons" = "Envases de cartón";
 
 "type.amenity.restaurant" = "Restaurante";
 
@@ -1674,18 +1674,18 @@
 "type.amenity.shelter.public_transport" = "Refugio";
 
 /* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
-"type.amenity.shelter.basic_hut" = "Cabaña Vivac";
+"type.amenity.shelter.basic_hut" = "Cabaña vivac";
 
 /* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
-"type.amenity.shelter.lean_to" = "Lean-to Shelter";
+"type.amenity.shelter.lean_to" = "Alpende";
 
 "type.amenity.public_bath" = "Baños públicos";
 
 "type.amenity.shower" = "Ducha";
 
-"type.amenity.stripclub" = "Club de striptease";
+"type.amenity.stripclub" = "Club de estriptis";
 
-"type.amenity.taxi" = "Taxi";
+"type.amenity.taxi" = "Sitio de taxis";
 
 "type.amenity.telephone" = "Teléfono";
 
@@ -1713,15 +1713,15 @@
 
 "type.amenity.vending_machine.newspapers" = "Máquina expendedora de periódicos";
 
-"type.amenity.vending_machine.parking_tickets" = "Máquina de pago de aparcamiento";
+"type.amenity.vending_machine.parking_tickets" = "Parquímetro";
 
-"type.amenity.vending_machine.public_transport_tickets" = "Máquina expendedora de billetes de transporte público";
+"type.amenity.vending_machine.public_transport_tickets" = "Máquina expendedora de boletos de transporte público";
 
 "type.amenity.vending_machine.sweets" = "Máquina expendedora de dulces";
 
 "type.amenity.vending_machine.excrement_bags" = "Maquina expendedora de bolsas para excrementos";
 
-"type.amenity.parcel_locker" = "Taquilla de paquetes";
+"type.amenity.parcel_locker" = "Recogida de paquetería";
 
 "type.amenity.vehicle_inspection" = "Inspección de vehículos";
 
@@ -1731,7 +1731,7 @@
 
 "type.amenity.waste_basket" = "Papelera";
 
-"type.amenity.waste_disposal" = "Basura";
+"type.amenity.waste_disposal" = "Contenedor de basura";
 
 "type.amenity.waste_transfer_station" = "Estación de transferencia de residuos";
 
@@ -1743,11 +1743,11 @@
 
 "type.barrier.bollard" = "Bolardo";
 
-"type.barrier.border_control" = "Control de fronteras";
+"type.barrier.border_control" = "Control fronterizo";
 
 "type.barrier.chain" = "Cadena";
 
-"type.barrier.city_wall" = "Muro de la ciudad";
+"type.barrier.city_wall" = "Muralla";
 
 "type.barrier.cycle_barrier" = "Barrera para bicicletas";
 
@@ -1761,13 +1761,13 @@
 
 "type.barrier.fence" = "Valla";
 
-"type.barrier.gate" = "Puerta";
+"type.barrier.gate" = "Verja";
 
 "type.barrier.hedge" = "Seto";
 
-"type.barrier.kissing_gate" = "Puerta";
+"type.barrier.kissing_gate" = "Verja";
 
-"type.barrier.lift_gate" = "Barrera";
+"type.barrier.lift_gate" = "Pluma de acceso";
 
 "type.barrier.retaining_wall" = "Muro de contención";
 
@@ -2419,7 +2419,7 @@
 
 "type.historic.city_gate" = "Puerta de la ciudad";
 
-"type.historic.citywalls" = "Muro de la ciudad";
+"type.historic.citywalls" = "Muralla";
 
 "type.historic.fort" = "Fuerte";
 
@@ -2441,7 +2441,7 @@
 
 "type.historic.stone" = "Piedra histórica";
 
-"type.historic.memorial.war_memorial" = "Monumento a la guerra";
+"type.historic.memorial.war_memorial" = "Memorial de guerra";
 
 "type.historic.mine" = "Mina histórica";
 
@@ -2495,9 +2495,9 @@
 
 "type.junction" = "Cruce";
 
-"type.junction.circular" = "Rotonda";
+"type.junction.circular" = "Glorieta";
 
-"type.junction.roundabout" = "Rotonda";
+"type.junction.roundabout" = "Glorieta";
 
 "type.landuse" = "Uso del suelo";
 
@@ -3509,7 +3509,7 @@
 
 "type.shop.bathroom_furnishing" = "Equipamiento de baño";
 
-"type.shop.beauty" = "Centro de belleza";
+"type.shop.beauty" = "Salón de belleza";
 
 "type.shop.beverages" = "Bebidas";
 
@@ -3551,7 +3551,7 @@
 
 "type.shop.copyshop" = "Centro de copiado";
 
-"type.shop.cosmetics" = "Productos cosméticos";
+"type.shop.cosmetics" = "Tienda de cosméticos";
 
 "type.shop.curtain" = "Cortinas";
 
@@ -3810,15 +3810,15 @@
 
 "type.tourism.apartment" = "Apartamento de vacaciones";
 
-"type.tourism.artwork" = "Obras de arte";
+"type.tourism.artwork" = "Obra de arte";
 
-"type.tourism.artwork.architecture" = "Obras de arte";
+"type.tourism.artwork.architecture" = "Arte arquitectónico";
 
-"type.tourism.artwork.painting" = "Obras de arte";
+"type.tourism.artwork.painting" = "Pintura";
 
-"type.tourism.artwork.sculpture" = "Obras de arte";
+"type.tourism.artwork.sculpture" = "Escultura";
 
-"type.tourism.artwork.statue" = "Obras de arte";
+"type.tourism.artwork.statue" = "Estatua";
 
 "type.tourism.attraction" = "Atracción turística";
 
@@ -3826,7 +3826,7 @@
 
 "type.tourism.attraction.specified" = "Atracción turística";
 
-"type.tourism.camp_site" = "Camping";
+"type.tourism.camp_site" = "Paraje de campamento";
 
 "type.tourism.caravan_site" = "Zona de caravanas";
 
@@ -3861,18 +3861,18 @@
 
 "type.leisure.resort" = "Resort";
 
-"type.tourism.theme_park" = "Parque de atracciones";
+"type.tourism.theme_park" = "Parque temático";
 
-"type.tourism.viewpoint" = "Vista panorámica";
+"type.tourism.viewpoint" = "Mirador";
 
 /* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "Cabaña";
 
-"type.tourism.zoo" = "Zoo";
+"type.tourism.zoo" = "Zoológico";
 
-"type.tourism.zoo.petting" = "Zoológico de animales acariciables";
+"type.tourism.zoo.petting" = "Zoológico interactivo";
 
-"type.traffic_calming" = "Reducción de velocidad";
+"type.traffic_calming" = "Pacificación del tráfico";
 
 "type.traffic_calming.bump" = "Banda reductora";
 
@@ -3882,9 +3882,9 @@
 
 "type.waterway.canal" = "Canal";
 
-"type.waterway.canal.tunnel" = "Canal";
+"type.waterway.canal.tunnel" = "Túnel de canal";
 
-"type.waterway.fish_pass" = "Escalera de pescado";
+"type.waterway.fish_pass" = "Escalera de peces";
 
 "type.waterway.dam" = "Presa";
 
@@ -3918,7 +3918,7 @@
 
 "type.waterway.waterfall" = "Cascada";
 
-"type.waterway.weir" = "Presa";
+"type.waterway.weir" = "Aliviadero";
 
 "type.wheelchair" = "Silla de ruedas";
 

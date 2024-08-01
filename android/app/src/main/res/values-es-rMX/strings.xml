@@ -4,10 +4,6 @@
 <!-- Language: es-MX -->
 <resources>
 	<!-- SECTION: Strings -->
-	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Sin consumo de batería, funciona sin conexión</string>
-	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Rápido, minimalista, desarrollado por la comunidad.</string>
 	<!-- The button that opens system location settings -->
 	<string name="location_settings">Configuración de ubicación</string>
 	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -216,47 +212,31 @@
 	<string name="enable_keep_screen_on">Mantener la pantalla encendida</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">Cuando está habilitado, la pantalla siempre estará encendida cuando se muestre el mapa.</string>
-	<!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-	<string name="car_used_on_the_phone_screen">Ahora usa Organic Maps en la pantalla del teléfono</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
 	<string name="car_used_on_the_car_screen">Ahora usa Organic Maps en la pantalla del automóvil</string>
-	<!-- Displayed on the phone screen. Android Auto connected -->
-	<string name="aa_connected_title">Se ha conectado a Android Auto</string>
-	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-	<string name="car_continue_on_the_phone">Continuar en el teléfono</string>
 	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
 	<string name="car_continue_in_the_car">A la pantalla del auto</string>
-	<!-- Ask user to grant location permissions -->
-	<string name="aa_location_permissions_request">Esta aplicación requiere acceso a su ubicación para fines de navegación.</string>
-	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
-	<string name="aa_grant_permissions">Conceder permisos</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">Conectado al automóvil</string>
-	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
-	<string name="bookmarks_export">Exportar todos los marcadores y pistas</string>
-	<!-- button in (app) TTS settings, to open the system TTS settings. -->
-	<string name="pref_tts_open_system_settings">Configuración de síntesis de voz del sistema</string>
-	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
-	<string name="pref_tts_no_system_tts">No se encontraron las configuraciones de síntesis de voz. ¿Está seguro de que su dispositivo la admite?</string>
-	<string name="clear_the_search">Limpiar la búsqueda</string>
-	<string name="zoom_in">Acercarse</string>
-	<!-- Accessibility text for the zoom-out button on the map -->
-	<string name="zoom_out">Disminuir el zoom</string>
+	<string name="drive_through">Servicio al auto</string>
 
 	<!-- SECTION: Types -->
-	<string name="type.amenity">Infraestructura</string>
 	<string name="type.amenity.arts_centre">Centro de artes</string>
 	<string name="type.amenity.bbq">Parrilla</string>
 	<string name="type.amenity.bicycle_parking">Estacionamiento de bicicletas</string>
+	<string name="type.amenity.bicycle_rental">Renta de bicicletas</string>
+	<string name="type.amenity.car_rental">Renta de coches</string>
+	<string name="type.amenity.car_wash">Autolavado</string>
+	<string name="type.amenity.kindergarten">Jardín de niños</string>
 	<string name="type.amenity.motorcycle_parking">Estacionamiento de motocicletas</string>
 	<string name="type.amenity.parking">Estacionamiento</string>
 	<string name="type.amenity.parking.fee">Estacionamiento</string>
-	<string name="type.amenity.parking.multi.storey">Estacionamiento de varios pisos</string>
-	<string name="type.amenity.parking.multi.storey.fee">Estacionamiento de varios pisos</string>
+	<string name="type.amenity.parking.multi.storey">Edificio de estacionamiento</string>
+	<string name="type.amenity.parking.multi.storey.fee">Edificio de estacionamiento</string>
 	<string name="type.amenity.parking.no.access">Estacionamiento privado</string>
 	<string name="type.amenity.parking.permissive">Estacionamiento privado</string>
 	<string name="type.amenity.parking.private">Estacionamiento privado</string>
-	<string name="type.amenity.parking.park_and_ride">Estacionamiento</string>
+	<string name="type.amenity.parking.park_and_ride">Estacionamiento intermodal</string>
 	<string name="type.amenity.parking.underground">Estacionamiento subterráneo</string>
 	<string name="type.amenity.parking.underground.fee">Estacionamiento subterráneo</string>
 	<string name="type.amenity.parking.underground.private">Estacionamiento subterráneo privado</string>
@@ -274,14 +254,15 @@
 	<string name="type.amenity.parking_space.private">Plaza de estacionamiento</string>
 	<string name="type.amenity.parking_space.underground">Plaza de estacionamiento</string>
 	<string name="type.amenity.parking_space.disabled">Plaza de estacionamiento para discapacitados</string>
-	<string name="type.amenity.post_office">Oficina de correos</string>
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.scrap_metal">Desechos de metal</string>
 	<string name="type.recycling.small_appliances">Desechos electrónicos</string>
 	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
-	<string name="type.amenity.shelter.basic_hut">Cabaña Vivac</string>
-	<string name="type.amenity.vending_machine.public_transport_tickets">Máquina expendedora de billetes de transporte público</string>
+	<string name="type.amenity.shelter.basic_hut">Cabaña vivac</string>
+	<string name="type.amenity.vending_machine.public_transport_tickets">Máquina expendedora de boletos de transporte público</string>
+	<string name="type.amenity.parcel_locker">Recogida de paquetería</string>
+	<string name="type.barrier.lift_gate">Pluma de acceso</string>
 	<!-- Borders between countries. -->
 	<string name="type.boundary.administrative.2">Frontera de país</string>
 	<string name="type.boundary.national_park">Parque nacional</string>
@@ -393,6 +374,8 @@
 	<string name="type.area_highway.footway">Camino</string>
 
 	<!-- SECTION: Types: Historic -->
+	<string name="type.junction.circular">Glorieta</string>
+	<string name="type.junction.roundabout">Glorieta</string>
 	<string name="type.landuse.churchyard">Camposanto</string>
 	<string name="type.landuse.farmland">Terreno agrícola</string>
 	<string name="type.landuse.grass">Césped</string>
@@ -551,8 +534,6 @@
 	<string name="type.sport.tennis">Cancha de tenis</string>
 	<!-- A rentable countryside vacation house. -->
 	<string name="type.tourism.chalet">Cabaña de vacaciones</string>
-	<string name="type.waterway.fish_pass">Escalera de pescado</string>
-	<string name="type.piste_type.hike">Ruta de senderismo en la nieve</string>
 	<string name="type.piste_type.connection">Conexión de pista</string>
 	<string name="type.piste_type.skitour">Sendero de esquí</string>
 </resources>
