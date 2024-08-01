@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
@@ -28,7 +27,6 @@ public class ToggleMapLayerFragment extends Fragment
   private static final String LAYERS_MENU_ID = "LAYERS_MENU_BOTTOM_SHEET";
   @Nullable
   private LayersAdapter mAdapter;
-  private MapButtonsViewModel mMapButtonsViewModel;
 
   @Nullable
   @Override
@@ -36,7 +34,6 @@ public class ToggleMapLayerFragment extends Fragment
   {
     View mRoot = inflater.inflate(R.layout.fragment_toggle_map_layer, container, false);
 
-    mMapButtonsViewModel = new ViewModelProvider(requireActivity()).get(MapButtonsViewModel.class);
     MaterialButton mCloseButton = mRoot.findViewById(R.id.close_button);
     mCloseButton.setOnClickListener(view -> closeLayerBottomSheet());
 

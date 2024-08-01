@@ -17,7 +17,7 @@ public class SubwayManager
     mSchemeChangedListener = new OnTransitSchemeChangedListener.Default(application);
   }
 
-  public void setEnabled(boolean isEnabled)
+  static public void setEnabled(boolean isEnabled)
   {
     if (isEnabled == isEnabled())
       return;
@@ -26,7 +26,7 @@ public class SubwayManager
     Framework.nativeSaveSettingSchemeEnabled(isEnabled);
   }
 
-  public boolean isEnabled()
+  static public boolean isEnabled()
   {
     return Framework.nativeIsTransitSchemeEnabled();
   }

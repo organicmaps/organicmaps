@@ -1,6 +1,8 @@
 package app.organicmaps.maplayer;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -17,10 +19,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
+import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.downloader.MapManager;
 import app.organicmaps.downloader.UpdateInfo;
+import app.organicmaps.maplayer.isolines.IsolinesManager;
+import app.organicmaps.maplayer.subway.SubwayManager;
+import app.organicmaps.maplayer.traffic.TrafficManager;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.ThemeUtils;
@@ -109,6 +116,8 @@ public class MapButtonsController extends Fragment
     if (mToggleMapLayerButton != null)
     {
       mToggleMapLayerButton.setOnClickListener(view -> mMapButtonClickListener.onMapButtonClick(MapButtons.toggleMapLayer));
+      if (TrafficManager.INSTANCE.isEnabled() || IsolinesManager.isEnabled() || SubwayManager.isEnabled() || Framework.nativeIsOutdoorsLayerEnabled())
+        mToggleMapLayerButton.setColorFilter(Color.BLUE);
       mToggleMapLayerButton.setVisibility(View.VISIBLE);
     }
     final View menuButton = mFrame.findViewById(R.id.menu_button);
