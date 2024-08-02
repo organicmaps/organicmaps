@@ -19,6 +19,8 @@
 			<string>%d закладка</string>
 			<key>few</key>
 			<string>%d закладкі</string>
+			<key>many</key>
+			<string>%d закладак</string>
 			<key>other</key>
 			<string>%d закладак</string>
 		</dict>
@@ -53,6 +55,8 @@
 			<string>%d сцежка</string>
 			<key>few</key>
 			<string>%d сцежкі</string>
+			<key>many</key>
+			<string>%d сцежак</string>
 			<key>other</key>
 			<string>%d сцежак</string>
 		</dict>

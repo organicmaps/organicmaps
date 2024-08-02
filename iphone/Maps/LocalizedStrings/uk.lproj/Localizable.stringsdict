@@ -19,6 +19,8 @@
 			<string>%d мітка</string>
 			<key>few</key>
 			<string>%d мітки</string>
+			<key>many</key>
+			<string>%d міток</string>
 			<key>other</key>
 			<string>%d міток</string>
 		</dict>
@@ -38,6 +40,8 @@
 			<string>%d файл був знайдений. Ви побачите його після перетворення.</string>
 			<key>few</key>
 			<string>%d файлу були знайдені. Ви побачите їх після конвертації.</string>
+			<key>many</key>
+			<string>%d файлів було знайдено. Ви побачите їх після конвертації.</string>
 			<key>other</key>
 			<string>%d файлів було знайдено. Ви побачите їх після конвертації.</string>
 		</dict>
@@ -53,6 +57,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>many</key>
+			<string>%d треків</string>
 			<key>other</key>
 			<string>%d треків</string>
 		</dict>

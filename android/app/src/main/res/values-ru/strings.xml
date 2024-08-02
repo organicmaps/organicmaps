@@ -627,6 +627,7 @@
     <plurals name="bookmarks_places">
         <item quantity="one">%d метка</item>
         <item quantity="few">%d метки</item>
+        <item quantity="many">%d меток</item>
         <item quantity="other">%d меток</item>
     </plurals>
     <string name="bookmarks_create_new_group">Создать новый список</string>
@@ -646,12 +647,14 @@
     <plurals name="bookmarks_detect_message">
         <item quantity="one">%d файл был найден. Вы увидите его после конвертации.</item>
         <item quantity="few">%d файла были найдены. Вы увидите их после конвертации.</item>
+        <item quantity="many">%d файлов было найдено. Вы увидите их после конвертации.</item>
         <item quantity="other">%d файлов было найдено. Вы увидите их после конвертации.</item>
     </plurals>
     <string name="restore">Восстановить</string>
     <plurals name="tracks">
         <item quantity="one">%d трек</item>
         <item quantity="few">%d трека</item>
+        <item quantity="many">%d треков</item>
         <item quantity="other">%d треков</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->

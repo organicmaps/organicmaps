@@ -615,6 +615,7 @@
     <plurals name="bookmarks_places">
         <item quantity="one">%d закладка</item>
         <item quantity="few">%d закладкі</item>
+        <item quantity="many">%d закладак</item>
         <item quantity="other">%d закладак</item>
     </plurals>
     <string name="bookmarks_create_new_group">Стварыць новы спіс</string>
@@ -635,6 +636,7 @@
     <plurals name="tracks">
         <item quantity="one">%d сцежка</item>
         <item quantity="few">%d сцежкі</item>
+        <item quantity="many">%d сцежак</item>
         <item quantity="other">%d сцежак</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->

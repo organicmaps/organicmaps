@@ -15,6 +15,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>many</key>
+			<string>Zakładki: %d</string>
 			<key>other</key>
 			<string>Zakładki: %d</string>
 		</dict>
@@ -34,6 +36,8 @@
 			<string>Znaleziono %d plik. Zobaczysz to po konwersji.</string>
 			<key>two</key>
 			<string>Znaleziono %d pliki. Zobaczysz je po konwersji.</string>
+			<key>many</key>
+			<string>Znaleziono %d plików. Zobaczysz je po konwersji.</string>
 			<key>other</key>
 			<string>Znaleziono %d plików. Zobaczysz je po konwersji.</string>
 		</dict>

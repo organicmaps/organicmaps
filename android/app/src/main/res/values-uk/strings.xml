@@ -624,6 +624,7 @@
     <plurals name="bookmarks_places">
         <item quantity="one">%d мітка</item>
         <item quantity="few">%d мітки</item>
+        <item quantity="many">%d міток</item>
         <item quantity="other">%d міток</item>
     </plurals>
     <string name="bookmarks_create_new_group">Створити новий список</string>
@@ -643,10 +644,12 @@
     <plurals name="bookmarks_detect_message">
         <item quantity="one">%d файл був знайдений. Ви побачите його після перетворення.</item>
         <item quantity="few">%d файлу були знайдені. Ви побачите їх після конвертації.</item>
+        <item quantity="many">%d файлів було знайдено. Ви побачите їх після конвертації.</item>
         <item quantity="other">%d файлів було знайдено. Ви побачите їх після конвертації.</item>
     </plurals>
     <string name="restore">Відновити</string>
     <plurals name="tracks">
+        <item quantity="many">%d треків</item>
         <item quantity="other">%d треків</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
