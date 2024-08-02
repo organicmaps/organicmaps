@@ -18360,7 +18360,7 @@
     hu = Köves törmelék
     id = Scree berbatu
     it = Ghiaia pietrosa
-    ja = 石がゴロゴロしている
+    ja = がれ
     ko = 스토니 스크리
     lt = Akmenuoti skardžiai
     mr = स्क्री
