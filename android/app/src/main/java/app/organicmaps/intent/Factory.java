@@ -3,6 +3,7 @@ package app.organicmaps.intent;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.IntentCompat;
@@ -127,6 +128,15 @@ public class Factory
             Framework.nativeStopLocationFollow();
             Framework.nativeSetViewportCenter(latlon[0], latlon[1], SEARCH_IN_VIEWPORT_ZOOM);
           }
+
+          return true;
+        }
+        case RequestType.OAUTH2:
+        {
+          SearchEngine.INSTANCE.cancelInteractiveSearch();
+
+          final String oauth2code = Framework.nativeGetParsedOAuth2Code();
+          Log.i("TAG", oauth2code);
 
           return true;
         }
