@@ -34,7 +34,7 @@
 			<string>d</string>
 			<key>one</key>
 			<string>Znaleziono %d plik. Zobaczysz to po konwersji.</string>
-			<key>two</key>
+			<key>few</key>
 			<string>Znaleziono %d pliki. Zobaczysz je po konwersji.</string>
 			<key>many</key>
 			<string>Znaleziono %d plików. Zobaczysz je po konwersji.</string>

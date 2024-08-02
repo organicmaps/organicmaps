@@ -22104,10 +22104,10 @@
     nb:other = %d filer funnet. Du vil se dem etter konverteringen.
     nl:one = %d bestand gevonden. Je ziet het na het converteren.
     nl:other = Er zijn %d bestanden gevonden. Je zult ze na de conversie zien.
+    pl:few = Znaleziono %d pliki. Zobaczysz je po konwersji.
     pl:many = Znaleziono %d plików. Zobaczysz je po konwersji.
     pl:one = Znaleziono %d plik. Zobaczysz to po konwersji.
     pl:other = Znaleziono %d plików. Zobaczysz je po konwersji.
-    pl:two = Znaleziono %d pliki. Zobaczysz je po konwersji.
     pt-BR:one = %d arquivo foi encontrado. Você vai ver depois da conversão.
     pt-BR:other = %d arquivos foram encontrados. Você os verá depois da conversão.
     pt:one = %d ficheiro encontrado. Pode vê-lo depois da conversão.
