@@ -36,6 +36,8 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
   private TextInputEditText mLoginInput;
   private TextInputEditText mPasswordInput;
 
+  private String mArgOAuth2Code;
+
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -62,6 +64,19 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     final String dataVersion = DateUtils.getShortDateFormatter().format(Framework.getDataVersion());
     ((TextView) view.findViewById(R.id.osm_presentation))
         .setText(getString(R.string.osm_presentation, dataVersion));
+
+    readArguments();
+    if (mArgOAuth2Code != null && !mArgOAuth2Code.isEmpty())
+      continueOAuth2Flow(mArgOAuth2Code);
+  }
+
+  private void readArguments()
+  {
+    final Bundle arguments = getArguments();
+    if (arguments == null)
+      return;
+
+    mArgOAuth2Code = arguments.getString(OsmLoginActivity.EXTRA_OAUTH2CODE);
   }
 
   private void login()
@@ -82,7 +97,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
 
   private void loginWithBrowser()
   {
-    mLoginWebsiteButton.setEnabled(false);
+    enableInput(false);
 
     String[] oauthParams = OsmOAuth.nativeOAuthParams();
     Uri oauth2url = Uri.parse(oauthParams[0] + "/oauth2/authorize")
@@ -108,6 +123,35 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     mLoginInput.setEnabled(enable);
     mLoginButton.setEnabled(enable);
     mLostPasswordButton.setEnabled(enable);
+    mLoginWebsiteButton.setEnabled(enable);
+  }
+
+  // This method is called by MwmActivity & UrlProcessor when "om://oauth2/osm/callback?code=XXX" is handled
+  private void continueOAuth2Flow(String oauth2code)
+  {
+    if (!isAdded())
+      return;
+
+    if (oauth2code == null || oauth2code.length()==0)
+    {
+      enableInput(true);
+      onAuthFail();
+    }
+    else
+    {
+      // Do not enable UI until we finish interaction with OAuth2 API
+      enableInput(false);
+
+      ThreadPool.getWorker().execute(() -> {
+        // Finish OAuth2 auth flow and get username for UI.
+        final String oauthToken = OsmOAuth.nativeAuthWithOAuth2Code(oauth2code);
+        final String username = (oauthToken == null) ? null : OsmOAuth.nativeGetOsmUsername(oauthToken);
+        UiThread.run(() -> {
+          enableInput(true);
+          processAuth(oauthToken, username);
+        });
+      });
+    }
   }
 
   private void processAuth(String oauthToken, String username)
@@ -136,7 +180,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
   {
     OsmOAuth.setAuthorization(requireContext(), oauthToken, username);
     final Bundle extras = requireActivity().getIntent().getExtras();
-    if (extras != null && extras.getBoolean("redirectToProfile", false))
+    if (extras != null && extras.getBoolean(ProfileActivity.EXTRA_REDIRECT_TO_PROFILE, false))
       startActivity(new Intent(requireContext(), ProfileActivity.class));
     requireActivity().finish();
   }

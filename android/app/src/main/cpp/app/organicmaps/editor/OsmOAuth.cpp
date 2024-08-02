@@ -67,6 +67,27 @@ Java_app_organicmaps_editor_OsmOAuth_nativeAuthWithPassword(JNIEnv * env, jclass
 }
 
 JNIEXPORT jstring JNICALL
+Java_app_organicmaps_editor_OsmOAuth_nativeAuthWithOAuth2Code(JNIEnv * env, jclass clazz, jstring oauth2code)
+{
+  OsmOAuth auth = OsmOAuth::ServerAuth();
+  try
+  {
+    auto token = auth.FinishAuthorization(ToNativeString(env, oauth2code));
+    if (!token.empty())
+    {
+        auth.SetAuthToken(token);
+        return ToJavaString(env, token);
+    }
+    LOG(LWARNING, ("nativeAuthWithOAuth2Code: invalid OAuth2 code"));
+  }
+  catch (std::exception const & ex)
+  {
+    LOG(LWARNING, ("nativeAuthWithOAuth2Code error ", ex.what()));
+  }
+  return nullptr;
+}
+
+JNIEXPORT jstring JNICALL
 Java_app_organicmaps_editor_OsmOAuth_nativeGetOsmUsername(JNIEnv * env, jclass, jstring oauthToken)
 {
   UserPreferences prefs;

@@ -114,6 +114,13 @@ public final class OsmOAuth
   @Nullable
   public static native String nativeAuthWithPassword(String login, String password);
 
+  /**
+   * @return string with OAuth2 token
+   */
+  @WorkerThread
+  @Nullable
+  public static native String nativeAuthWithOAuth2Code(String oauth2code);
+
   @WorkerThread
   @Nullable
   public static native String nativeGetOsmUsername(String oauthToken);
