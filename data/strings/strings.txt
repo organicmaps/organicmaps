@@ -3775,7 +3775,7 @@
     fi = WiFi
     fr = WiFi
     hi = वाईफ़ाई
-    hu = WiFi
+    hu = Wi-Fi
     id = WiFi
     it = Wi-Fi
     ja = 無線LAN
@@ -4729,7 +4729,7 @@
     fr = Email
     he = דוא"ל
     hi = ईमेल
-    hu = Email
+    hu = E-mail
     id = Surel
     it = E-mail
     ja = Eメール
@@ -5344,7 +5344,7 @@
     fr = Afficher à l'écran
     he = הצג על המסך
     hi = मानचित्र पर बटन प्रदर्शित करें
-    hu = Mutassa a kijelzőn
+    hu = Megjelenítés a kijelzőn
     id = Tampilkan pada layar
     it = Mostra sulla mappa
     ja = 画面上に表示
@@ -7032,7 +7032,7 @@
     fr = Faire un don
     he = לתרום
     hi = दान देना
-    hu = Adományozni
+    hu = Adományozás
     id = Menyumbangkan
     it = Donare
     ja = 寄付
@@ -7124,7 +7124,7 @@
     fr = Soutenir le projet
     he = תמכו בפרויקט
     hi = परियोजना का समर्थन करें
-    hu = Támogassa a projektet
+    hu = A projekt támogatása
     id = Mendukung proyek
     it = Sostieni il progetto
     ja = プロジェクトを支援する
@@ -7401,7 +7401,7 @@
     fr = Le client de courriel n'a pas été configuré. Veuillez le configurer ou nous contacter à %@
     he = יישום הדוא"ל לא הוגדר. אנא הגדירו אותו או השתמשו בכל דרך אחרת על מנת ליצור עמנו קשר בכתובת %@
     hi = ईमेल क्लाइंट सेट अप नहीं किया गया है. कृपया इसे कॉन्फ़िगर करें या %@ पर हमसे संपर्क करें
-    hu = Az email kliens nincs beállítva. Kérjük, konfiguráld vagy próbálj meg valamilyen más módon kapcsolatba lépni velünk a %@ email címen keresztül.
+    hu = Az e-mail kliens nincs beállítva. Kérjük, konfiguráld vagy próbálj meg valamilyen más módon kapcsolatba lépni velünk a %@ e-mail címen keresztül.
     id = Surel pelanggan belum diatur. Mohon konfigurasikan atau gunakan cara lain untuk menghubungi kami di %@
     it = L'app per e-mail non è stata configurata. Si prega di configurarla o di usare altro metodo per contattarci all'indirizzo %@
     ja = メールアプリは設定されていません。設定するか、%@にご連絡ください。
@@ -7446,7 +7446,7 @@
     fr = Erreur d'envoi de courriel
     he = שגיאה בשליחת דוא"ל
     hi = ईमेल भेजने में त्रुटि
-    hu = Hiba az email küldése során
+    hu = Hiba az e-mail küldése során
     id = Gangguan pengiriman surel
     it = Errore invio e-mail
     ja = メール送信エラー
@@ -8506,7 +8506,7 @@
     fr = Détermine rapidement ta position approximative via Bluetooth, WiFi ou le réseau mobile
     he = קבע במהירות את המיקום המשוער שלך באמצעות Bluetooth, WiFi או רשת סלולרית
     hi = ब्लूटूथ, वाईफाई या मोबाइल नेटवर्क का उपयोग करके तुरंत अपना अनुमानित स्थान निर्धारित करें
-    hu = Bluetooth, WiFi vagy mobilhálózat segítségével gyorsan meghatározhatja hozzávetőleges tartózkodási helyét
+    hu = Bluetooth, Wi-Fi vagy mobilhálózat segítségével gyorsan meghatározhatja hozzávetőleges tartózkodási helyét
     id = Dengan cepat menentukan perkiraan lokasi Anda melalui Bluetooth, WiFi, atau jaringan seluler
     it = Determina rapidamente la tua posizione approssimativa tramite Bluetooth, WiFi o rete mobile
     ja = Bluetooth、WiFi、またはモバイルネットワーク経由で、おおよその位置を素早く特定する
@@ -11376,7 +11376,7 @@
     fr = Historique de recherche
     he = חיפושים קודמים
     hi = खोज इतिहास
-    hu = Előző keresések
+    hu = Keresési előzmények
     id = Riwayat Pencarian
     it = Cronologia delle ricerche
     ja = 検索履歴
@@ -14620,7 +14620,7 @@
     fi = Sähköposti tai käyttäjätunnus
     fr = Email ou nom d'utilisateur
     he = דוא"ל או שם משתמש
-    hu = Email vagy felhasználónév
+    hu = E-mail vagy felhasználónév
     id = Surel atau nama pengguna
     it = E-mail o nome utente
     ja = メールアドレスまたはユーザー名
@@ -18568,7 +18568,7 @@
     fi = Syötä kelvollinen sähköpostiosoite
     fr = Saisissez un email valide
     he = הזן דוא"ל תקין
-    hu = Adj meg egy érvényes email-címet
+    hu = Adj meg egy érvényes e-mail címet
     id = Masukkan surel valid
     it = Inserisci un'e-mail valida
     ja = 有効なメールアドレスを入力してください
