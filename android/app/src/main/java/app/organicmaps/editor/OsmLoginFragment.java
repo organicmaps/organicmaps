@@ -1,6 +1,8 @@
 package app.organicmaps.editor;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +31,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
 {
   private ProgressBar mProgress;
   private Button mLoginButton;
+  private Button mLoginWebsiteButton;
   private Button mLostPasswordButton;
   private TextInputEditText mLoginInput;
   private TextInputEditText mPasswordInput;
@@ -47,6 +50,8 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     getToolbarController().setTitle(R.string.login);
     mLoginInput = view.findViewById(R.id.osm_username);
     mPasswordInput = view.findViewById(R.id.osm_password);
+    mLoginWebsiteButton = view.findViewById(R.id.login_website);
+    mLoginWebsiteButton.setOnClickListener((v) -> loginWithBrowser());
     mLoginButton = view.findViewById(R.id.login);
     mLoginButton.setOnClickListener((v) -> login());
     mLostPasswordButton = view.findViewById(R.id.lost_password);
@@ -73,6 +78,28 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
       final String username1 = (oauthToken == null) ? null : OsmOAuth.nativeGetOsmUsername(oauthToken);
       UiThread.run(() -> processAuth(oauthToken, username1));
     });
+  }
+
+  private void loginWithBrowser()
+  {
+    mLoginWebsiteButton.setEnabled(false);
+
+    String[] oauthParams = OsmOAuth.nativeOAuthParams();
+    Uri oauth2url = Uri.parse(oauthParams[0] + "/oauth2/authorize")
+            .buildUpon()
+            .appendQueryParameter("client_id", oauthParams[1])
+            .appendQueryParameter("scope", oauthParams[3])
+            .appendQueryParameter("redirect_uri", oauthParams[4])
+            .appendQueryParameter("response_type", "code")
+            .build();
+    try {
+      Intent myIntent = new Intent(Intent.ACTION_VIEW, oauth2url);
+      startActivity(myIntent);
+    } catch (ActivityNotFoundException e) {
+      //Toast.makeText(this, "No application can handle this request."
+      //        + " Please install a webbrowser",  Toast.LENGTH_LONG).show();
+      e.printStackTrace();
+    }
   }
 
   private void enableInput(boolean enable)
