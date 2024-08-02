@@ -115,6 +115,10 @@
     case .crosshair:
       // Not supported on iOS.
       return false;
+      
+    case .oAuth2:
+      // TODO: support OAuth2
+      return false;
 
     case .incorrect:
       // Invalid URL or API parameters.
