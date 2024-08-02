@@ -40,6 +40,8 @@ sed -i "" -E '/^$/d' $android_strings_xml
 for xml_file in $android_strings_xml; do
 	truncate -s -1  $xml_file
 done
+# Remove 'other' translation form for languages that don't have it in Weblate
+#sed -i "" -E '/<item quantity="other">/d' android/app/src/main/res/values-{be,pl,ru,uk}/strings.xml
 
 ## Prepare iPhone files for Weblate
 
@@ -57,3 +59,6 @@ sed -i "" -E '/^[/][*][^*]/i \
 # Add a blank line after comment headers
 sed -i "" -E $'/^[/][*][*]/,+1{/^"/s/^"/\\\n"/g;}' $iphone_strings $iphone_infoplist_strings
 sed -i "" '1,/^./{/^$/d;}' $iphone_strings $iphone_infoplist_strings # Drop spurious first line
+
+# Remove 'other' translation form for languages that don't have it in Weblate
+sed -i "" -E '/<key>other<\/key>/,+1d' iphone/Maps/LocalizedStrings/{be,pl,ru,uk}.lproj/Localizable.stringsdict

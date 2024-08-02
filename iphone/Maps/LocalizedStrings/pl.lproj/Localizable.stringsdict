@@ -17,8 +17,6 @@
 			<string>d</string>
 			<key>many</key>
 			<string>Zakładki: %d</string>
-			<key>other</key>
-			<string>Zakładki: %d</string>
 		</dict>
 	</dict>
 
@@ -37,8 +35,6 @@
 			<key>few</key>
 			<string>Znaleziono %d pliki. Zobaczysz je po konwersji.</string>
 			<key>many</key>
-			<string>Znaleziono %d plików. Zobaczysz je po konwersji.</string>
-			<key>other</key>
 			<string>Znaleziono %d plików. Zobaczysz je po konwersji.</string>
 		</dict>
 	</dict>
@@ -59,8 +55,6 @@
 			<string>%d trasy</string>
 			<key>many</key>
 			<string>%d tras</string>
-			<key>other</key>
-			<string>%d trasy</string>
 		</dict>
 	</dict>
 </dict>

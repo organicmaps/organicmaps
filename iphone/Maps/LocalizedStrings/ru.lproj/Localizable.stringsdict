@@ -21,8 +21,6 @@
 			<string>%d метки</string>
 			<key>many</key>
 			<string>%d меток</string>
-			<key>other</key>
-			<string>%d меток</string>
 		</dict>
 	</dict>
 
@@ -42,8 +40,6 @@
 			<string>%d файла были найдены. Вы увидите их после конвертации.</string>
 			<key>many</key>
 			<string>%d файлов было найдено. Вы увидите их после конвертации.</string>
-			<key>other</key>
-			<string>%d файлов было найдено. Вы увидите их после конвертации.</string>
 		</dict>
 	</dict>
 
@@ -62,8 +58,6 @@
 			<key>few</key>
 			<string>%d трека</string>
 			<key>many</key>
-			<string>%d треков</string>
-			<key>other</key>
 			<string>%d треков</string>
 		</dict>
 	</dict>

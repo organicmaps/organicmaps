@@ -21,8 +21,6 @@
 			<string>%d закладкі</string>
 			<key>many</key>
 			<string>%d закладак</string>
-			<key>other</key>
-			<string>%d закладак</string>
 		</dict>
 	</dict>
 
@@ -36,8 +34,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>other</key>
-			<string>%d files were found. You can see them after conversion.</string>
 		</dict>
 	</dict>
 
@@ -56,8 +52,6 @@
 			<key>few</key>
 			<string>%d сцежкі</string>
 			<key>many</key>
-			<string>%d сцежак</string>
-			<key>other</key>
 			<string>%d сцежак</string>
 		</dict>
 	</dict>
