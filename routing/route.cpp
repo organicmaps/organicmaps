@@ -186,6 +186,14 @@ void Route::GetNextTurnStreetName(RouteSegment::RoadNameInfo & roadNameInfo) con
   GetClosestStreetNameAfterIdx(turn.m_index, roadNameInfo);
 }
 
+void Route::GetNextNextTurnStreetName(RouteSegment::RoadNameInfo & roadNameInfo) const
+{
+  double distance;
+  TurnItem turn;
+  GetNextTurn(distance, turn);
+  GetClosestStreetNameAfterIdx(turn.m_index, roadNameInfo);
+}
+
 // If exit is false, returns ref and name.
 // If exit is true, returns m_junction_ref, m_destination_ref, m_destination, m_name.
 // Handling of incomplete data or non-standard data:

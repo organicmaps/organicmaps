@@ -99,7 +99,7 @@
                                                      targetUnitsIndex:static_cast<UInt8>(info.m_distToTarget.GetUnits())
                                                        distanceToTurn:info.m_distToTurn.GetDistance()
                                                        turnUnitsIndex:static_cast<UInt8>(info.m_distToTurn.GetUnits())
-                                                           streetName:@(info.m_displayedStreetName.c_str())
+                                                           streetName:@(info.m_nextStreetName.c_str())
                                                         turnImageName:[self turnImageName:info.m_turn isPrimary:YES]
                                                     nextTurnImageName:[self turnImageName:info.m_nextTurn isPrimary:NO]
                                                              speedMps:speedMps

@@ -417,16 +417,17 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
   info.m_exitNum = turn.m_exitNum;
   info.m_time = static_cast<int>(std::max(kMinimumETASec, m_route->GetCurrentTimeToEndSec()));
-  RouteSegment::RoadNameInfo sourceRoadNameInfo, targetRoadNameInfo;
-  m_route->GetCurrentStreetName(sourceRoadNameInfo);
-  GetFullRoadName(sourceRoadNameInfo, info.m_sourceName);
-  m_route->GetNextTurnStreetName(targetRoadNameInfo);
-  GetFullRoadName(targetRoadNameInfo, info.m_targetName);
+  RouteSegment::RoadNameInfo currentRoadNameInfo, nextRoadNameInfo, nextNextRoadNameInfo;
+  m_route->GetCurrentStreetName(currentRoadNameInfo);
+  GetFullRoadName(currentRoadNameInfo, info.m_currentStreetName);
+  m_route->GetNextTurnStreetName(nextRoadNameInfo);
+  GetFullRoadName(nextRoadNameInfo, info.m_nextStreetName);
+  m_route->GetNextNextTurnStreetName(nextNextRoadNameInfo);
+  GetFullRoadName(nextNextRoadNameInfo, info.m_nextNextStreetName);
 
   info.m_completionPercent = GetCompletionPercent();
 
-  // Lane information and next street name.
-  info.m_displayedStreetName = info.m_targetName;
+  // Lane information
   info.m_lanes.clear();
   if (distanceToTurnMeters < kShowLanesMinDistInMeters || m_route->GetCurrentTimeToNearestTurnSec() < 60.0)
   {

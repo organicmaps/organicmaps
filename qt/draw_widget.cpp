@@ -504,7 +504,7 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
       LOG(LDEBUG, ("Distance:", loc.m_distToTarget, "Time:", loc.m_time,
                    DebugPrint(loc.m_pedestrianTurn),
                    "in", loc.m_distToTurn.ToString(),
-                   loc.m_targetName.empty() ? "" : "to " + loc.m_targetName ));
+                   loc.m_nextStreetName.empty() ? "" : "to " + loc.m_nextStreetName ));
     }
     else
     {
@@ -515,7 +515,7 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
       LOG(LDEBUG, ("Distance:", loc.m_distToTarget, "Time:", loc.m_time, speed,
                    GetTurnString(loc.m_turn), (loc.m_exitNum != 0 ? ":" + std::to_string(loc.m_exitNum) : ""),
                    "in", loc.m_distToTurn.ToString(),
-                   loc.m_targetName.empty() ? "" : "to " + loc.m_targetName ));
+                   loc.m_nextStreetName.empty() ? "" : "to " + loc.m_nextStreetName ));
     }
   }
 }
