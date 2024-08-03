@@ -113,7 +113,7 @@
   <style name="MwmTheme.DialogFragment.Fullscreen.Night" parent="Theme.AppCompat">
     <item name="colorPrimary">@color/bg_primary_night</item>
     <item name="android:colorPrimaryDark">?statusBar</item>
-    <item name="colorAccent">@color/base_accent_night</item>
+    <item name="colorAccent">@color/bg_night_primary</item>
     <item name="clickableBackground">?selectableItemBackground</item>
     <item name="colorControlNormal">@color/text_dark_hint</item>
     <item name="android:windowIsFloating">false</item>
