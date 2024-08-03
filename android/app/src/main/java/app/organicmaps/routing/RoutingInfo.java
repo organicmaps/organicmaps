@@ -24,6 +24,8 @@ public class RoutingInfo
   public final String currentStreet;
   // The next street name.
   public final String nextStreet;
+  // The next next street name.
+  public final String nextNextStreet;
   public final double completionPercent;
   // For vehicle routing.
   public final CarDirection carDirection;
@@ -136,7 +138,7 @@ public class RoutingInfo
     }
   }
 
-  public RoutingInfo(Distance distToTarget, Distance distToTurn, String currentStreet, String nextStreet, double completionPercent,
+  public RoutingInfo(Distance distToTarget, Distance distToTurn, String currentStreet, String nextStreet, String nextNextStreet, double completionPercent,
                      int vehicleTurnOrdinal, int vehicleNextTurnOrdinal, int pedestrianTurnOrdinal, int exitNum,
                      int totalTime, SingleLaneInfo[] lanes, boolean speedLimitExceeded,
                      boolean shouldPlayWarningSignal)
@@ -145,6 +147,7 @@ public class RoutingInfo
     this.distToTurn = distToTurn;
     this.currentStreet = currentStreet;
     this.nextStreet = nextStreet;
+    this.nextNextStreet = nextNextStreet;
     this.totalTimeInSeconds = totalTime;
     this.completionPercent = completionPercent;
     this.carDirection = CarDirection.values()[vehicleTurnOrdinal];
