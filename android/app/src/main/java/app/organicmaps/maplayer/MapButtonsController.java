@@ -17,10 +17,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.downloader.MapManager;
 import app.organicmaps.downloader.UpdateInfo;
+import app.organicmaps.maplayer.isolines.IsolinesManager;
+import app.organicmaps.maplayer.subway.SubwayManager;
+import app.organicmaps.maplayer.traffic.TrafficManager;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.ThemeUtils;
@@ -43,7 +47,7 @@ public class MapButtonsController extends Fragment
   @Nullable
   private View mBottomButtonsFrame;
   @Nullable
-  private FloatingActionButton mToggleMapLayerButton;
+  private LayersButton mToggleMapLayerButton;
 
   @Nullable
   private MyPositionButton mNavMyPosition;
@@ -210,6 +214,17 @@ public class MapButtonsController extends Fragment
     BadgeUtils.attachBadgeDrawable(mBadgeDrawable, menuButton);
   }
 
+  public void updateLayerButton()
+  {
+    if (mToggleMapLayerButton == null)
+      return;
+    final boolean buttonSelected = TrafficManager.INSTANCE.isEnabled()
+                                   || IsolinesManager.isEnabled()
+                                   || SubwayManager.isEnabled()
+                                   || Framework.nativeIsOutdoorsLayerEnabled();
+    mToggleMapLayerButton.setHasActiveLayers(buttonSelected);
+  }
+
   private boolean isBehindPlacePage(View v)
   {
     if (mPlacePageViewModel == null)
@@ -315,6 +330,7 @@ public class MapButtonsController extends Fragment
     super.onResume();
     mSearchWheel.onResume();
     updateMenuBadge();
+    updateLayerButton();
   }
 
   @Override
