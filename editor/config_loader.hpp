@@ -1,6 +1,5 @@
 #pragma once
 
-#include "base/atomic_shared_ptr.hpp"
 #include "base/exception.hpp"
 #include "base/logging.hpp"
 
@@ -50,7 +49,7 @@ private:
 class ConfigLoader
 {
 public:
-  explicit ConfigLoader(base::AtomicSharedPtr<EditorConfig> & config);
+  explicit ConfigLoader(std::atomic<std::shared_ptr<EditorConfig>> & config);
   ~ConfigLoader();
 
   // Static methods for production and testing.
@@ -65,7 +64,7 @@ private:
   bool SaveAndReload(pugi::xml_document const & doc);
   void ResetConfig(pugi::xml_document const & doc);
 
-  base::AtomicSharedPtr<EditorConfig> & m_config;
+  std::atomic<std::shared_ptr<EditorConfig>> & m_config;
 
   Waiter m_waiter;
   std::thread m_loaderThread;
