@@ -150,6 +150,12 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
       case 24:
         recentTrack = L(@"duration_1_day");
         break;
+      case 72:
+        recentTrack = L(@"duration_3_days");
+        break;
+      case 168:
+        recentTrack = L(@"duration_1_week");
+        break;
       default:
         NSAssert(false, @"Incorrect hours value");
         break;

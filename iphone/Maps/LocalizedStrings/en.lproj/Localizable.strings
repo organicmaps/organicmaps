@@ -286,6 +286,10 @@
 
 "duration_1_day" = "1 day";
 
+"duration_3_days" = "3 days";
+
+"duration_1_week" = "1 week";
+
 "recent_track_help_text" = "Record and show your traveled path within the given period of time on the map. Please note: this noticably increases battery usage.";
 
 "placepage_distance" = "Distance";
