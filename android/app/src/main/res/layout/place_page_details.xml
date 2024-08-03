@@ -83,6 +83,8 @@
 
   <include android:visibility="gone" layout="@layout/place_page_add"/>
 
+  <include android:visibility="visible" layout="@layout/place_page_open_in"/>
+
   <android.widget.Space
     android:layout_width="match_parent"
     android:layout_height="@dimen/place_page_buttons_height"/>
