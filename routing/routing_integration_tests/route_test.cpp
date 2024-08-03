@@ -998,4 +998,21 @@ UNIT_TEST(LATAM_UsePrimary_NotTrunkDetour)
   /// Looks like it is bad to assign maxspeed for _all_ connected links if it is defined for the middle one.
 }
 
+// https://github.com/organicmaps/organicmaps/issues/8729
+// https://github.com/organicmaps/organicmaps/issues/8541
+UNIT_TEST(USA_UseDirt_WithMaxspeed)
+{
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
+                                   FromLatLon(46.5361985, -111.943183), {0., 0.},
+                                   FromLatLon(46.4925409, -112.105446), 20906.5);
+
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
+                                   FromLatLon(46.7336967, -111.926), {0., 0.},
+                                   FromLatLon(46.7467037, -111.917147), 3527.79);
+
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
+                                   FromLatLon(42.3889581, 19.7812567), {0., 0.},
+                                   FromLatLon(42.3878106, 19.7831402), 247.139);
+}
+
 } // namespace route_test

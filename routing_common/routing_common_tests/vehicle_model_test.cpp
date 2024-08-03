@@ -222,18 +222,23 @@ UNIT_CLASS_TEST(VehicleModelTest, SpeedFactor)
 
 UNIT_CLASS_TEST(VehicleModelTest, MaxspeedFactor)
 {
-  Maxspeed const maxspeed90 =
-      Maxspeed(measurement_utils::Units::Metric, 90 /* forward speed */, kInvalidSpeed);
+  auto constexpr units = measurement_utils::Units::Metric;
+
+  Maxspeed const maxspeed90 = Maxspeed(units, 90, kInvalidSpeed);
+
+  // pavedBad == unpavedBad for the roads with explicitly defined speeds.
   CheckSpeedWithParams({secondary, unpavedBad},
                        SpeedParams(true /* forward */, false /* in city */, maxspeed90),
-                       SpeedKMpH(18.0));
+                       SpeedKMpH(36.0, 45.0));
+  CheckSpeedWithParams({secondary, pavedBad},
+                       SpeedParams(true /* forward */, false /* in city */, maxspeed90),
+                       SpeedKMpH(36.0, 45.0));
 
   CheckSpeedWithParams({primary, pavedGood},
                        SpeedParams(true /* forward */, false /* in city */, maxspeed90),
                        SpeedKMpH(72.0, 81.0));
 
-  Maxspeed const maxspeed9070 =
-      Maxspeed(measurement_utils::Units::Metric, 90 /* forward speed */, 70);
+  Maxspeed const maxspeed9070 = Maxspeed(units, 90, 70);
   CheckSpeedWithParams({primary, pavedGood},
                        SpeedParams(true /* forward */, false /* in city */, maxspeed9070),
                        SpeedKMpH(72.0, 81.0));
@@ -241,8 +246,7 @@ UNIT_CLASS_TEST(VehicleModelTest, MaxspeedFactor)
                        SpeedParams(false /* forward */, false /* in city */, maxspeed9070),
                        SpeedKMpH(56.0, 63.0));
 
-  Maxspeed const maxspeed60 =
-      Maxspeed(measurement_utils::Units::Metric, 60 /* forward speed */, kInvalidSpeed);
+  Maxspeed const maxspeed60 = Maxspeed(units, 60, kInvalidSpeed);
   CheckSpeedWithParams({residential, pavedGood},
                        SpeedParams(true /* forward */, false /* in city */, maxspeed60),
                        SpeedKMpH(24.0, 27.0));
