@@ -118,7 +118,13 @@ struct SpeedFactor
   constexpr SpeedFactor(double factor) noexcept : m_weight(factor), m_eta(factor) {}
   constexpr SpeedFactor(double weight, double eta) noexcept : m_weight(weight), m_eta(eta) {}
 
-  bool IsValid() const { return m_weight > 0.0 && m_eta > 0.0; }
+  bool IsValid() const { return m_weight > 0.0 && m_weight <= 1.0 && m_eta > 0.0 && m_eta <= 1.0; }
+  void SetMin(SpeedFactor const & f)
+  {
+    ASSERT(f.IsValid(), ());
+    m_weight = std::max(f.m_weight, m_weight);
+    m_eta = std::max(f.m_eta, m_eta);
+  }
 
   bool operator==(SpeedFactor const & rhs) const
   {
@@ -341,6 +347,7 @@ private:
   base::SmallMap<uint32_t, bool> m_roadTypes;
   // Mapping surface types psurface={paved_good/paved_bad/unpaved_good/unpaved_bad} to surface speed factors.
   base::SmallMapBase<uint32_t, SpeedFactor> m_surfaceFactors;
+  SpeedFactor m_minSurfaceFactorForMaxspeed;
 
   /// @todo Do we really need a separate map here or can merge with the m_roadTypes map?
   base::SmallMapBase<uint32_t, InOutCitySpeedKMpH> m_addRoadTypes;

@@ -52,6 +52,9 @@ VehicleModel::VehicleModel(Classificator const & classif, LimitsInitList const &
     ASSERT_GREATER(speedFactor.m_weight, 0.0, ());
     ASSERT_GREATER(speedFactor.m_eta, 0.0, ());
     m_surfaceFactors.Insert(classif.GetTypeByPath(v.m_type), speedFactor);
+
+    if (v.m_type[1] == "paved_bad")
+      m_minSurfaceFactorForMaxspeed = speedFactor;
   }
 }
 
@@ -146,6 +149,10 @@ SpeedKMpH VehicleModel::GetTypeSpeedImpl(FeatureTypes const & types, SpeedParams
       MaxspeedType const s = params.m_maxspeed.GetSpeedKmPH(params.m_forward);
       ASSERT(s != kInvalidSpeed, (*hwType, params.m_forward, params.m_maxspeed));
       speed = {static_cast<double>(s)};
+
+      // Looks like a crutch, limit surface factor if maxspeed is set.
+      /// @see USA_UseDirt_WithMaxspeed test.
+      surfaceFactor.SetMin(m_minSurfaceFactorForMaxspeed);
     }
     else
     {
