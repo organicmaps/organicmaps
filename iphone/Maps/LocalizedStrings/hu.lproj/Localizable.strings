@@ -157,7 +157,7 @@
 "category_police" = "Rendőrség";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
-"category_wifi" = "WiFi";
+"category_wifi" = "Wi-Fi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
 "category_recycling" = "Újrahasznosítás";
@@ -198,7 +198,7 @@
 "share" = "Megosztás";
 
 /* Share by email button text, also used in editor and About. */
-"email" = "Email";
+"email" = "E-mail";
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "A vágólapra másolva: %@";
@@ -320,7 +320,7 @@
 "faq" = "Gyakran Ismételt Kérdések";
 
 /* Button in the main menu */
-"donate" = "Adományozni";
+"donate" = "Adományozás";
 
 /* Tex label above the Donate button */
 "donate_description" = "Adományozz, hogy együtt építsük a legjobb térképeket!";
@@ -341,10 +341,10 @@
 "follow_us" = "Kövessen és lépjen kapcsolatba velünk:";
 
 /* Alert text */
-"email_error_body" = "Az email kliens nincs beállítva. Kérjük, konfiguráld vagy próbálj meg valamilyen más módon kapcsolatba lépni velünk a %@ email címen keresztül.";
+"email_error_body" = "Az e-mail kliens nincs beállítva. Kérjük, konfiguráld vagy próbálj meg valamilyen más módon kapcsolatba lépni velünk a %@ e-mail címen keresztül.";
 
 /* Alert title */
-"email_error_title" = "Hiba az email küldése során";
+"email_error_title" = "Hiba az e-mail küldése során";
 
 /* Settings item title */
 "pref_calibration_title" = "Iránytű kalibrálás";
@@ -542,7 +542,7 @@
 
 "search_not_found_query" = "Próbáljon másik lekérdezést.";
 
-"search_history_title" = "Előző keresések";
+"search_history_title" = "Keresési előzmények";
 
 "search_history_text" = "Aktuális keresés gyors elérése.";
 
@@ -677,7 +677,7 @@
 "select_cuisine" = "Válassz Konyhát";
 
 /* login text field */
-"email_or_username" = "Email vagy felhasználónév";
+"email_or_username" = "E-mail vagy felhasználónév";
 
 "phone" = "Telefonszám";
 
@@ -859,7 +859,7 @@
 
 "error_enter_correct_web" = "Adj meg egy érvényes weboldalcímet";
 
-"error_enter_correct_email" = "Adj meg egy érvényes email-címet";
+"error_enter_correct_email" = "Adj meg egy érvényes e-mail címet";
 
 "refresh" = "Frissítés";
 

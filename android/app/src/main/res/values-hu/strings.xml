@@ -153,7 +153,7 @@
 	<!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
 	<string name="category_police">Rendőrség</string>
 	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-	<string name="category_wifi">WiFi</string>
+	<string name="category_wifi">Wi-Fi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
 	<string name="category_recycling">Újrahasznosítás</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
@@ -195,7 +195,7 @@
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">Megosztás</string>
 	<!-- Share by email button text, also used in editor and About. -->
-	<string name="email">Email</string>
+	<string name="email">E-mail</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">A vágólapra másolva: %s</string>
 	<!-- Used for bookmark editing -->
@@ -213,7 +213,7 @@
 	<string name="prefs_group_information">Információk</string>
 	<string name="prefs_group_route">Navigáció</string>
 	<string name="pref_zoom_title">Nagyítás/kicsinyítés gombok</string>
-	<string name="pref_zoom_summary">Mutassa a kijelzőn</string>
+	<string name="pref_zoom_summary">Megjelenítés a kijelzőn</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Éjszakai üzemmód</string>
 	<!-- Generic «Off» string -->
@@ -264,9 +264,9 @@
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Gyakran Ismételt Kérdések</string>
 	<!-- Button in the main menu -->
-	<string name="donate">Adományozni</string>
+	<string name="donate">Adományozás</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Támogassa a projektet</string>
+	<string name="how_to_support_us">A projekt támogatása</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Szerzői jog</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -305,7 +305,7 @@
 	<!-- Preference title -->
 	<string name="google_play_services">Google Play helymeghatározási szolgáltatások</string>
 	<!-- Preference text -->
-	<string name="pref_use_google_play">Bluetooth, WiFi vagy mobilhálózat segítségével gyorsan meghatározhatja hozzávetőleges tartózkodási helyét</string>
+	<string name="pref_use_google_play">Bluetooth, Wi-Fi vagy mobilhálózat segítségével gyorsan meghatározhatja hozzávetőleges tartózkodási helyét</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Tölts le térképeket az útvonal mellett</string>
 	<!-- Text for routing error dialog -->
@@ -390,7 +390,7 @@
 	<string name="history">Előzmények</string>
 	<string name="search_not_found">Sajnos, semmit nem találtam.</string>
 	<string name="search_not_found_query">Próbáljon másik lekérdezést.</string>
-	<string name="search_history_title">Előző keresések</string>
+	<string name="search_history_title">Keresési előzmények</string>
 	<string name="search_history_text">Aktuális keresés gyors elérése.</string>
 	<string name="clear_search">A keresési előzmények törlése</string>
 	<string name="p2p_your_location">Az Ön helyzete</string>
@@ -458,7 +458,7 @@
 	<string name="cuisine">Konyha</string>
 	<string name="select_cuisine">Válassz Konyhát</string>
 	<!-- login text field -->
-	<string name="email_or_username">Email vagy felhasználónév</string>
+	<string name="email_or_username">E-mail vagy felhasználónév</string>
 	<string name="level">Szint</string>
 	<string name="downloader_delete_map_dialog">A térképekkel együtt minden rajtuk végzett módosítás is törlésre kerül.</string>
 	<string name="downloader_update_maps">Térképek frissítése</string>
@@ -533,7 +533,7 @@
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Adja meg a helyes telefonszámot</string>
 	<string name="error_enter_correct_web">Adj meg egy érvényes weboldalcímet</string>
-	<string name="error_enter_correct_email">Adj meg egy érvényes email-címet</string>
+	<string name="error_enter_correct_email">Adj meg egy érvényes e-mail címet</string>
 	<string name="placepage_add_place_button">Hely hozzáadása az OpenStreetMap-hez</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Szeretnéd elküldeni az összes felhasználónak?</string>
