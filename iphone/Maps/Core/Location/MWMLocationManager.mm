@@ -34,6 +34,53 @@ enum class GeoMode
   BicycleRouting
 };
 
+std::string DebugPrint(GeoMode geoMode) {
+  using enum GeoMode;
+  switch (geoMode) {
+    case Pending: return "Pending";
+    case InPosition: return "InPosition";
+    case NotInPosition: return "NotInPosition";
+    case FollowAndRotate: return "FollowAndRotate";
+    case VehicleRouting: return "VehicleRouting";
+    case PedestrianRouting: return "PedestrianRouting";
+    case BicycleRouting: return "BicycleRouting";
+  }
+  CHECK(false, ("Unsupported value", static_cast<int>(geoMode)));
+}
+
+std::string DebugPrint(MWMMyPositionMode mode) {
+  switch (mode) {
+    case MWMMyPositionModePendingPosition: return "MWMMyPositionModePendingPosition";
+    case MWMMyPositionModeNotFollowNoPosition: return "MWMMyPositionModeNotFollowNoPosition";
+    case MWMMyPositionModeNotFollow: return "MWMMyPositionModeNotFollow";
+    case MWMMyPositionModeFollow: return "MWMMyPositionModeFollow";
+    case MWMMyPositionModeFollowAndRotate: return "MWMMyPositionModeFollowAndRotate";
+  }
+  CHECK(false, ("Unsupported value", static_cast<int>(mode)));
+}
+
+std::string DebugPrint(MWMLocationStatus status) {
+  switch (status) {
+    case MWMLocationStatusNoError: return "MWMLocationStatusNoError";
+    case MWMLocationStatusNotSupported: return "MWMLocationStatusNotSupported";
+    case MWMLocationStatusDenied: return "MWMLocationStatusDenied";
+    case MWMLocationStatusGPSIsOff: return "MWMLocationStatusGPSIsOff";
+    case MWMLocationStatusTimeout: return "MWMLocationStatusTimeout";
+  }
+  CHECK(false, ("Unsupported value", static_cast<int>(status)));
+}
+
+std::string DebugPrint(CLAuthorizationStatus status) {
+  switch (status) {
+    case kCLAuthorizationStatusNotDetermined: return "kCLAuthorizationStatusNotDetermined";
+    case kCLAuthorizationStatusRestricted: return "kCLAuthorizationStatusRestricted";
+    case kCLAuthorizationStatusDenied: return "kCLAuthorizationStatusDenied";
+    case kCLAuthorizationStatusAuthorizedAlways: return "kCLAuthorizationStatusAuthorizedAlways";
+    case kCLAuthorizationStatusAuthorizedWhenInUse: return "kCLAuthorizationStatusAuthorizedWhenInUse";
+  }
+  CHECK(false, ("Unsupported value", static_cast<int>(status)));
+}
+
 struct DesiredAccuracy
 {
   CLLocationAccuracy charging;
@@ -221,9 +268,10 @@ void setShowLocationAlert(BOOL needShow) {
 
 #pragma mark - Observer notifications
 
-- (void)processLocationStatus:(MWMLocationStatus)locationError
+- (void)processLocationStatus:(MWMLocationStatus)locationStatus
 {
-  self.lastLocationStatus = locationError;
+  LOG(LINFO, ("Location status updated from", DebugPrint(self.lastLocationStatus), "to", DebugPrint(locationStatus)));
+  self.lastLocationStatus = locationStatus;
   if (self.lastLocationStatus != MWMLocationStatusNoError)
     self.frameworkUpdateMode |= MWMLocationFrameworkUpdateStatus;
   for (Observer observer in self.observers)
@@ -295,7 +343,7 @@ void setShowLocationAlert(BOOL needShow) {
     }
     break;
   case MWMLocationStatusTimeout:
-    ASSERT(false, ("MWMLocationStatusTimeout is Unused on iOS, (only used on Qt)"));
+    CHECK(false, ("MWMLocationStatusTimeout is only used in Qt/Desktop builds"));
   }
 }
 
@@ -303,6 +351,7 @@ void setShowLocationAlert(BOOL needShow) {
 
 + (void)setMyPositionMode:(MWMMyPositionMode)mode
 {
+  LOG(LINFO, ("MyPositionMode updated to", DebugPrint(mode)));
   MWMLocationManager * manager = [self manager];
   [manager.predictor setMyPositionMode:mode];
   [manager processLocationStatus:manager.lastLocationStatus];
@@ -360,6 +409,7 @@ void setShowLocationAlert(BOOL needShow) {
 
 - (void)setGeoMode:(GeoMode)geoMode
 {
+  LOG(LINFO, ("GeoMode updated to", geoMode));
   if (_geoMode == geoMode)
     return;
   _geoMode = geoMode;
@@ -394,6 +444,8 @@ void setShowLocationAlert(BOOL needShow) {
   locationManager.desiredAccuracy =
       isCharging ? settings.accuracy.charging : settings.accuracy.battery;
   locationManager.distanceFilter = settings.distanceFilter;
+  LOG(LINFO, ("Refreshed GeoMode settings: accuracy", locationManager.desiredAccuracy,
+                "distance filter", locationManager.distanceFilter, "charging", isCharging));
 }
 
 - (CLLocationManager *)locationManager
@@ -432,6 +484,7 @@ void setShowLocationAlert(BOOL needShow) {
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
+  LOG(LWARNING, ("CLLocationManagerDelegate: Did fail with error:", error.localizedDescription.UTF8String));
   if (self.lastLocationStatus == MWMLocationStatusNoError && error.code == kCLErrorDenied)
     [self processLocationStatus:MWMLocationStatusDenied];
 }
@@ -440,6 +493,7 @@ void setShowLocationAlert(BOOL needShow) {
 // or user changes location access in the application settings.
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
+  LOG(LWARNING, ("CLLocationManagerDelegate: Authorization status has changed to", DebugPrint(status)));
   switch (status) {
     case kCLAuthorizationStatusAuthorizedWhenInUse:
     case kCLAuthorizationStatusAuthorizedAlways:
@@ -456,6 +510,16 @@ void setShowLocationAlert(BOOL needShow) {
         [self processLocationStatus:MWMLocationStatusGPSIsOff];
       break;
   }
+}
+
+- (void)locationManagerDidPauseLocationUpdates:(CLLocationManager *)manager
+{
+  LOG(LINFO, ("CLLocationManagerDelegate: Location updates were paused"));
+}
+
+- (void)locationManagerDidResumeLocationUpdates:(CLLocationManager *)manager
+{
+  LOG(LINFO, ("CLLocationManagerDelegate: Location updates were resumed"));
 }
 
 #pragma mark - Start / Stop
@@ -486,8 +550,7 @@ void setShowLocationAlert(BOOL needShow) {
 
 - (void)startUpdatingLocationFor:(CLLocationManager *)manager
 {
-  LOG(LINFO, ("startUpdatingLocation"));
-
+  LOG(LINFO, ("Start updating location"));
   [manager startUpdatingLocation];
   if ([CLLocationManager headingAvailable])
     [manager startUpdatingHeading];
@@ -519,7 +582,7 @@ void setShowLocationAlert(BOOL needShow) {
 
 - (void)stop
 {
-  LOG(LINFO, ("stopUpdatingLocation"));
+  LOG(LINFO, ("Stop updating location"));
   CLLocationManager * locationManager = self.locationManager;
   [locationManager stopUpdatingLocation];
   if ([CLLocationManager headingAvailable])
@@ -579,5 +642,7 @@ void setShowLocationAlert(BOOL needShow) {
 + (void)enableLocationAlert {
   setShowLocationAlert(YES);
 }
+
+#pragma mark - Helpers
 
 @end
