@@ -823,6 +823,8 @@
 	<string name="website_menu">Lenke til menyen</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Vis meny</string>
+	<!-- Title for the "Open In Another App" button on the PlacePage. -->
+	<string name="open_in_app">Åpne i en annen app</string>
 	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_title">Slå av strømsparingsmodus</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->

@@ -776,6 +776,8 @@
 	<string name="website_menu">Liên kết thực đơn</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Xem thực đơn</string>
+	<!-- Title for the "Open In Another App" button on the PlacePage. -->
+	<string name="open_in_app">Mở trong ứng dụng khác</string>
 	<!-- To indicate if the place proposed self service... -->
 	<string name="self_service">Tự phục vụ</string>
 	<string name="select_option">Chọn tùy chọn</string>

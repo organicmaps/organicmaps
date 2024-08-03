@@ -778,6 +778,8 @@
 	<string name="website_menu">ลิงค์เมนู</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">ดูเมนู</string>
+	<!-- Title for the "Open In Another App" button on the PlacePage. -->
+	<string name="open_in_app">เปิดในแอปอื่น</string>
 	<!-- To indicate if the place proposed self service... -->
 	<string name="self_service">บริการตนเอง</string>
 	<string name="select_option">เลือกตัวเลือก</string>

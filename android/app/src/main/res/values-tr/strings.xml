@@ -832,6 +832,8 @@
 	<string name="website_menu">Menü bağlantısı</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Menüyü Görüntüle</string>
+	<!-- Title for the "Open In Another App" button on the PlacePage. -->
+	<string name="open_in_app">Başka Bir Uygulamada Aç</string>
 	<!-- To indicate if the place proposed self service... -->
 	<string name="self_service">Self servis</string>
 	<string name="select_option">Seçeneği seçin</string>

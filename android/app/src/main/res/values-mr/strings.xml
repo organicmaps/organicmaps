@@ -788,6 +788,8 @@
 	<string name="website_menu">मेनू लिंक</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">मेनू पहा</string>
+	<!-- Title for the "Open In Another App" button on the PlacePage. -->
+	<string name="open_in_app">दुसऱ्या ॲपमध्ये उघडा</string>
 	<!-- To indicate if the place proposed self service... -->
 	<string name="self_service">स्व: सेवा    nb = Selvbetjening</string>
 	<string name="select_option">पर्याय निवडा    nb = Velg alternativ</string>

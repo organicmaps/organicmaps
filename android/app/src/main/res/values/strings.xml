@@ -864,6 +864,8 @@
 	<string name="website_menu">Menu Link</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">View Menu</string>
+	<!-- Title for the "Open In Another App" button on the PlacePage. -->
+	<string name="open_in_app">Open In Another App</string>
 	<!-- To indicate if the place proposed self service... -->
 	<string name="self_service">Self-service</string>
 	<string name="select_option">Select option</string>
