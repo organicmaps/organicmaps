@@ -2,7 +2,11 @@
 
 #include "platform/distance.hpp"
 #include "platform/measurement_utils.hpp"
+#include "platform/platform_tests/locale_utils.hpp"
 #include "platform/settings.hpp"
+
+#include <iostream>
+#include <string>
 
 namespace platform
 {
@@ -65,6 +69,8 @@ UNIT_TEST(Distance_CreateFormatted)
 
 UNIT_TEST(Distance_CreateAltitudeFormatted)
 {
+  std::string groupSep = GetSystemGroupSeparator();
+
   {
     ScopedSettings const guard(measurement_utils::Units::Metric);
 
@@ -78,12 +84,12 @@ UNIT_TEST(Distance_CreateAltitudeFormatted)
   {
     ScopedSettings const guard(measurement_utils::Units::Metric);
 
-    TEST_EQUAL(Distance::FormatAltitude(12345), MakeDistanceStr("12,345", "m"), ());
+    TEST_EQUAL(Distance::FormatAltitude(12345), MakeDistanceStr("12" + groupSep + "345", "m"), ());
   }
   {
     ScopedSettings const guard(measurement_utils::Units::Imperial);
 
-    TEST_EQUAL(Distance::FormatAltitude(10000), MakeDistanceStr("32,808", "ft"), ());
+    TEST_EQUAL(Distance::FormatAltitude(10000), MakeDistanceStr("32" + groupSep + "808", "ft"), ());
   }
 }
 
@@ -171,6 +177,8 @@ UNIT_TEST(Distance_To)
 
 UNIT_TEST(Distance_ToPlatformUnitsFormatted)
 {
+  std::string decSep = GetSystemDecimalSeparator();
+
   {
     ScopedSettings const guard(measurement_utils::Units::Metric);
 
@@ -207,8 +215,8 @@ UNIT_TEST(Distance_ToPlatformUnitsFormatted)
 
     TEST_EQUAL(newDistance.GetUnits(), Distance::Units::Miles, (d.ToString()));
     TEST_ALMOST_EQUAL_ULPS(newDistance.GetDistance(), 6.8, (d.ToString()));
-    TEST_EQUAL(newDistance.GetDistanceString(), "6.8", (d.ToString()));
-    TEST_EQUAL(newDistance.ToString(), MakeDistanceStr("6.8", "mi"), (d.ToString()));
+    TEST_EQUAL(newDistance.GetDistanceString(), "6" + decSep + "8", (d.ToString()));
+    TEST_EQUAL(newDistance.ToString(), MakeDistanceStr("6" + decSep + "8", "mi"), (d.ToString()));
   }
 }
 
@@ -340,6 +348,8 @@ UNIT_TEST(Distance_FormattedDistance)
     {Distance(999'999, Units::Feet),       189,   Units::Miles,      "189",    MakeDistanceStr("189", "mi")},
   };
 
+  Locale loc = GetCurrentLocale();
+
   // clang-format on
   for (TestData const & data : testData)
   {
@@ -349,8 +359,8 @@ UNIT_TEST(Distance_FormattedDistance)
     {
       TEST_ALMOST_EQUAL_ULPS(d.GetDistance(), data.formattedDistance, (data.distance));
       TEST_EQUAL(d.GetUnits(), data.formattedUnits, (data.distance));
-      TEST_EQUAL(d.GetDistanceString(), data.formattedDistanceString, (data.distance));
-      TEST_EQUAL(d.ToString(), data.formattedString, (data.distance));
+      TEST_EQUAL(d.GetDistanceString(), LocalizeValueString(data.formattedDistanceString, loc), (data.distance));
+      TEST_EQUAL(d.ToString(), LocalizeValueString(data.formattedString, loc), (data.distance));
     }
   }
 }
