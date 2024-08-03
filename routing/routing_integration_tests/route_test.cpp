@@ -986,4 +986,16 @@ UNIT_TEST(Spain_NoMaxSpeeds_KeepTrunk_NotTrunkLink)
                                    FromLatLon(43.3685773, -3.42580007), 1116.79);
 }
 
+// https://github.com/organicmaps/organicmaps/issues/8823
+UNIT_TEST(LATAM_UsePrimary_NotTrunkDetour)
+{
+  // 10247 or less should be here.
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
+                                   FromLatLon(4.737768, -74.077599), {0., 0.},
+                                   FromLatLon(4.684999, -74.046393), 10247.3);
+
+  /// @todo Still have the strange detour at the end. Due to the 20/30 km/h assignment for the primary_link.
+  /// Looks like it is bad to assign maxspeed for _all_ connected links if it is defined for the middle one.
+}
+
 } // namespace route_test
