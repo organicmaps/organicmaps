@@ -294,6 +294,8 @@ void setShowLocationAlert(BOOL needShow) {
       setShowLocationAlert(NO);
     }
     break;
+  case MWMLocationStatusTimeout:
+    ASSERT(false, ("MWMLocationStatusTimeout is Unused on iOS, (only used on Qt)"));
   }
 }
 
@@ -312,6 +314,7 @@ void setShowLocationAlert(BOOL needShow) {
     case MWMRouterTypePublicTransport:
     case MWMRouterTypePedestrian: manager.geoMode = GeoMode::PedestrianRouting; break;
     case MWMRouterTypeBicycle: manager.geoMode = GeoMode::BicycleRouting; break;
+    case MWMRouterTypeRuler: break;
     }
   }
   else
