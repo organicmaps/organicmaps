@@ -805,6 +805,8 @@
 	<!-- To indicate if the place proposed self service... -->
 	<string name="self_service">Autoservire</string>
 	<string name="select_option">Selectați opțiunea</string>
+	<!-- To indicate if restaurant or other place has outdoor seating -->
+	<string name="outdoor_seating">Scaune în aer liber</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresă/Bloc</string>

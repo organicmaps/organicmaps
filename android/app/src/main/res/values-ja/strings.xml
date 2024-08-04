@@ -826,6 +826,8 @@
 	<!-- To indicate if the place proposed self service... -->
 	<string name="self_service">セルフサービス</string>
 	<string name="select_option">オプションを選択する</string>
+	<!-- To indicate if restaurant or other place has outdoor seating -->
+	<string name="outdoor_seating">屋外席</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">アドレス/ブロック</string>

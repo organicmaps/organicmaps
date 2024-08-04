@@ -778,6 +778,8 @@
 	<!-- To indicate if the place proposed self service... -->
 	<string name="self_service">셀프 서비스</string>
 	<string name="select_option">옵션 선택</string>
+	<!-- To indicate if restaurant or other place has outdoor seating -->
+	<string name="outdoor_seating">야외 좌석</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">주소/블록</string>
