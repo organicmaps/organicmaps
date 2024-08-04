@@ -2708,7 +2708,7 @@
 "type.natural.shingle" = "小石";
 
 /* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
-"type.natural.scree" = "石がゴロゴロしている";
+"type.natural.scree" = "がれ";
 
 "type.natural.bay" = "港湾";
 

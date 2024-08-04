@@ -1476,7 +1476,7 @@
 	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
 	<string name="type.natural.shingle">小石</string>
 	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
-	<string name="type.natural.scree">石がゴロゴロしている</string>
+	<string name="type.natural.scree">がれ</string>
 	<string name="type.natural.bay">港湾</string>
 	<string name="type.natural.beach">ビーチ</string>
 	<string name="type.natural.beach.sand">砂浜</string>
