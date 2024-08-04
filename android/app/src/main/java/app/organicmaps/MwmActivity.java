@@ -777,7 +777,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
         closeFloatingPanels();
         showBottomSheet(MAIN_MENU_ID);
       }
-      case help -> showHelp();
     }
   }
 
@@ -2177,6 +2176,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         items.add(new MenuBottomSheetItem(R.string.donate, R.drawable.ic_donate, this::onDonateOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.settings, R.drawable.ic_settings, this::onSettingsOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.share_my_location, R.drawable.ic_share, this::onShareLocationOptionSelected));
+      items.add(new MenuBottomSheetItem(R.string.about_menu_title, R.drawable.logo, this::showHelp));
       return items;
     }
     return null;

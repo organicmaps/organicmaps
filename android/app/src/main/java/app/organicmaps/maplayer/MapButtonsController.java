@@ -86,18 +86,6 @@ public class MapButtonsController extends Fragment
     mInnerRightButtonsFrame = mFrame.findViewById(R.id.map_buttons_inner_right);
     mBottomButtonsFrame = mFrame.findViewById(R.id.map_buttons_bottom);
 
-    final FloatingActionButton helpButton = mFrame.findViewById(R.id.help_button);
-    if (helpButton != null)
-    {
-      if (Config.isNY() && !TextUtils.isEmpty(Config.getDonateUrl(requireContext())))
-        helpButton.setImageResource(R.drawable.ic_christmas_tree);
-      else
-        helpButton.setImageResource(R.drawable.logo);
-      // Keep this button colorful in normal theme.
-      if (!ThemeUtils.isNightTheme(requireContext()))
-        helpButton.getDrawable().setTintList(null);
-    }
-
     final View zoomFrame = mFrame.findViewById(R.id.zoom_buttons_container);
     mFrame.findViewById(R.id.nav_zoom_in)
           .setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.zoomIn));
@@ -129,8 +117,6 @@ public class MapButtonsController extends Fragment
         }
       });
     }
-    if (helpButton != null)
-      helpButton.setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.help));
 
     mSearchWheel = new SearchWheel(mFrame,
                                    (v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.search),
@@ -151,8 +137,6 @@ public class MapButtonsController extends Fragment
       mButtonsMap.put(MapButtons.toggleMapLayer, mToggleMapLayerButton);
     if (menuButton != null)
       mButtonsMap.put(MapButtons.menu, menuButton);
-    if (helpButton != null)
-      mButtonsMap.put(MapButtons.help, helpButton);
 
     ViewCompat.setOnApplyWindowInsetsListener(mFrame, (view, windowInsets) -> {
       UiUtils.setViewInsetsPadding(view, windowInsets);
@@ -365,8 +349,7 @@ public class MapButtonsController extends Fragment
     zoom,
     search,
     bookmarks,
-    menu,
-    help
+    menu
   }
 
   public interface MapButtonClickListener
