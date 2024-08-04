@@ -827,6 +827,8 @@
 	<!-- To indicate if the place proposed self service... -->
 	<string name="self_service">Itsepalvelu</string>
 	<string name="select_option">Valitse vaihtoehto</string>
+	<!-- To indicate if restaurant or other place has outdoor seating -->
+	<string name="outdoor_seating">Ulkona istuminen</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Osoite/lohko</string>

@@ -826,6 +826,8 @@
 	<!-- To indicate if the place proposed self service... -->
 	<string name="self_service">Selbstbedienung</string>
 	<string name="select_option">Option auswählen</string>
+	<!-- To indicate if restaurant or other place has outdoor seating -->
+	<string name="outdoor_seating">Sitzplätze im Freien</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresse/Block</string>

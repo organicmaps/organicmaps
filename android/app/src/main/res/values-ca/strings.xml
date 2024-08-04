@@ -828,6 +828,8 @@
 	<!-- To indicate if the place proposed self service... -->
 	<string name="self_service">Autoservei</string>
 	<string name="select_option">Seleccioneu l\'opció</string>
+	<!-- To indicate if restaurant or other place has outdoor seating -->
+	<string name="outdoor_seating">Seients a l\'aire lliure</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adreça/Bloc</string>

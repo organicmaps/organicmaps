@@ -791,6 +791,8 @@
 	<!-- To indicate if the place proposed self service... -->
 	<string name="self_service">Autosserviço</string>
 	<string name="select_option">Selecionar opção</string>
+	<!-- To indicate if restaurant or other place has outdoor seating -->
+	<string name="outdoor_seating">Assentos ao ar livre</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Morada/Bloco</string>

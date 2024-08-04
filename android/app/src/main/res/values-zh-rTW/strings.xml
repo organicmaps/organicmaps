@@ -803,6 +803,8 @@
 	<!-- To indicate if the place proposed self service... -->
 	<string name="self_service">自助服務</string>
 	<string name="select_option">選擇選項</string>
+	<!-- To indicate if restaurant or other place has outdoor seating -->
+	<string name="outdoor_seating">戶外座位</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">地址/區塊</string>

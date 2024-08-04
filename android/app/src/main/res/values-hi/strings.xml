@@ -560,6 +560,8 @@
 	<!-- To indicate if the place proposed self service... -->
 	<string name="self_service">स्वयं सेवा    hu = Önkiszolgáló</string>
 	<string name="select_option">विकल्प चुनें</string>
+	<!-- To indicate if restaurant or other place has outdoor seating -->
+	<string name="outdoor_seating">घर के बाहर बैठने</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.cable_car">आकाशीय रज्जुमार्ग</string>
