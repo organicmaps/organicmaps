@@ -613,6 +613,14 @@ E.g.
 ./gradlew -Parm64 -PenableVulkanDiagnostics=ON runGoogleDebug
 ```
 
+#### Enable tracing
+1. Set `enableTrace=ON` in `gradle.properties`.
+2. Follow the guide https://perfetto.dev/docs/quickstart/android-tracing to set-up Perfetto
+Example of command line for running system tracing:
+```
+./record_android_trace -a app.organicmaps.debug -o trace_file.perfetto-trace -t 30s -b 64mb sched freq idle am wm gfx view binder_driver hal dalvik camera input res memory
+```
+
 ## iOS app
 
 ### Preparing
