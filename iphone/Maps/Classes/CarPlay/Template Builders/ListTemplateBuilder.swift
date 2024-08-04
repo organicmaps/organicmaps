@@ -89,13 +89,22 @@ final class ListTemplateBuilder {
   private class func obtainBookmarks(template: CPListTemplate, categoryId: MWMMarkGroupID) {
     let bookmarkManager = BookmarksManager.shared()
     let bookmarks = bookmarkManager.bookmarks(forCategory: categoryId)
-    let items = bookmarks.map({ (bookmark) -> CPListItem in
+    var items = bookmarks.map({ (bookmark) -> CPListItem in
       let item = CPListItem(text: bookmark.prefferedName, detailText: bookmark.address)
       item.userInfo = ListItemInfo(type: CPConstants.ListItemType.bookmarks,
                                    metadata: BookmarkInfo(categoryId: categoryId,
                                                           bookmarkId: bookmark.bookmarkId))
       return item
     })
+    if #available(iOS 15.0, *) {
+      let maxItemCount = CPListTemplate.maximumItemCount - 1
+      if items.count >= maxItemCount {
+        items = Array(items.prefix(maxItemCount))
+        let cropWarning = CPListItem(text: L("not_all_shown_bookmarks_carplay"), detailText: L("switch_to_phone_bookmarks_carplay"))
+        cropWarning.isEnabled = false
+        items.append(cropWarning)
+      }
+    }
     let section = CPListSection(items: items)
     template.updateSections([section])
   }
