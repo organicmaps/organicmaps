@@ -6524,7 +6524,7 @@
 
   [recent_track_help_text]
     tags = ios
-    en = Record and show your traveled path within the given period of time on the map. Please note: this noticably increases battery usage.
+    en = Record and show your traveled path within the given period of time on the map. Please note: this noticeably increases battery usage.
     af = Hierdie opsie laat u toe om die afgelegde pad vir ’n sekere tydperk op te neem en dit op die kaart te sien. Let wel: aktivering van hierdie funksie verhoog batterygebruik. Die pad word outomaties van die kaart geskrap nadat die tydsinterval verstryk.
     ar = يتيح لك هذا الخيار تسجيل مسار السفر لفترة معينة وعرضه على الخريطة. الرجاء ملاحظة: يؤدي تنشيط هذه الوظيفة إلى زيادة استهلاك البطارية. سوف تتم إزالة المسار تلقائيًا من الخريطة بعد انتهاء الفاصل الزمني.
     az = Bu funksiya müəyyən vaxt ərzində qət edilən məsafəni qeyd etməyə və xəritədə izləməyə imkan verir. Diqqət edin: bu funksiyanın işə salınması batareya istehlakının artması ilə nəticələnəcək. Müddət bitdikdən sonra izləmə avtomatik olaraq xəritədən silinəcək.
