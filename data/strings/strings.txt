@@ -30933,3 +30933,47 @@
     vi = Chọn tùy chọn
     zh-Hans = 选择选项
     zh-Hant = 選擇選項
+
+  [outdoor_seating]
+    comment = To indicate if restaurant or other place has outdoor seating
+    tags = android
+    en = Outdoor seating
+    af = Buitelug sitplek
+    ar = مقاعد خارجية
+    az = Çöldə oturma
+    be = Месцы на адкрытым паветры
+    bg = Места за сядане на открито
+    ca = Seients a l'aire lliure
+    cs = Venkovní posezení
+    da = Udendørs siddepladser
+    de = Sitzplätze im Freien
+    el = Εξωτερικά καθίσματα
+    es = Asientos al aire libre
+    et = Istekohad õues
+    eu = Kanpoko eserlekuak
+    fa = نشستن در فضای باز
+    fi = Ulkona istuminen
+    fr = Places en terrasse
+    he = ישיבה בחוץ
+    hi = घर के बाहर बैठने
+    hu = Kültéri ülőhelyek
+    id = Tempat duduk di luar ruangan
+    it = Posti a sedere all'aperto
+    ja = 屋外席
+    ko = 야외 좌석
+    lt = Lauko sėdimosios vietos
+    mr = बाहेरची आसनव्यवस्था    nb = Uteservering
+    nl = Zitplaatsen buiten
+    pl = Siedzenia na zewnątrz
+    pt = Assentos ao ar livre
+    ro = Scaune în aer liber
+    ru = Сидения на открытом воздухе
+    sk = Vonkajšie sedenie
+    sv = Sittplatser utomhus
+    sw = Viti vya nje
+    th = ที่นั่งกลางแจ้ง
+    tr = Açık oturma alanı
+    uk = Сидіння на відкритому повітрі
+    vi = Chỗ ngồi ngoài trời
+    zh-Hans = 室外座位
+    zh-Hant = 戶外座位
