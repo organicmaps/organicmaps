@@ -493,7 +493,6 @@ private:
                           bool isAnim, bool isAutoScale, Animation::TAction const & onFinishAction = nullptr,
                           TAnimationCreator const & parallelAnimCreator = nullptr);
   void SetAutoPerspective(bool isAutoPerspective);
-  void CheckAutoRotate();
 
   m2::AnyRectD GetCurrentRect() const;
 
