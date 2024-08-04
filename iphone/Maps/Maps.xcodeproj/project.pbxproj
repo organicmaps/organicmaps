@@ -263,6 +263,19 @@
 		4B4153B52BF9695500EE4B02 /* MWMTextToSpeechTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4B4153B42BF9695500EE4B02 /* MWMTextToSpeechTests.mm */; };
 		524634C62C53BC3100FDCABA /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 524634C22C53BB3A00FDCABA /* Auth.storyboard */; };
 		524634CD2C57232400FDCABA /* TourismMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 524634CC2C57232400FDCABA /* TourismMain.storyboard */; };
+		528D72A12C5BBBF700D53210 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 528D72A02C5BBBF700D53210 /* Colors.xcassets */; };
+		52D588A92C5CD56200AB96B3 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D588A82C5CD56200AB96B3 /* Color.swift */; };
+		52D588BA2C5CE2E800AB96B3 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D588B92C5CE2E800AB96B3 /* Font.swift */; };
+		52D588C52C5CEAF900AB96B3 /* Gilroy-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52D588BB2C5CEAF800AB96B3 /* Gilroy-Thin.ttf */; };
+		52D588C62C5CEAF900AB96B3 /* Gilroy-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52D588BC2C5CEAF800AB96B3 /* Gilroy-Bold.ttf */; };
+		52D588C72C5CEAF900AB96B3 /* Gilroy-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52D588BD2C5CEAF800AB96B3 /* Gilroy-Heavy.ttf */; };
+		52D588C82C5CEAF900AB96B3 /* Gilroy-UltraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52D588BE2C5CEAF800AB96B3 /* Gilroy-UltraLight.ttf */; };
+		52D588C92C5CEAF900AB96B3 /* Gilroy-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52D588BF2C5CEAF800AB96B3 /* Gilroy-Medium.ttf */; };
+		52D588CA2C5CEAF900AB96B3 /* Gilroy-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52D588C02C5CEAF800AB96B3 /* Gilroy-Black.ttf */; };
+		52D588CB2C5CEAF900AB96B3 /* Gilroy-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52D588C12C5CEAF800AB96B3 /* Gilroy-Regular.ttf */; };
+		52D588CC2C5CEAF900AB96B3 /* Gilroy-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52D588C22C5CEAF800AB96B3 /* Gilroy-SemiBold.ttf */; };
+		52D588CD2C5CEAF900AB96B3 /* Gilroy-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52D588C32C5CEAF800AB96B3 /* Gilroy-Light.ttf */; };
+		52D588CE2C5CEAF900AB96B3 /* Gilroy-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52D588C42C5CEAF900AB96B3 /* Gilroy-ExtraBold.ttf */; };
 		52E2D3A42C59F9CE00A8843A /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E2D3A32C59F9CE00A8843A /* WelcomeViewController.swift */; };
 		52E2D3A62C5A017400A8843A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E2D3A52C5A017400A8843A /* HomeViewController.swift */; };
 		6741A9421BF340DE002C974C /* sound-strings in Resources */ = {isa = PBXBuildFile; fileRef = 5605022E1B6211E100169CAD /* sound-strings */; };
@@ -1187,6 +1200,19 @@
 		4B4153B42BF9695500EE4B02 /* MWMTextToSpeechTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTextToSpeechTests.mm; sourceTree = "<group>"; };
 		524634C22C53BB3A00FDCABA /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		524634CC2C57232400FDCABA /* TourismMain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TourismMain.storyboard; sourceTree = "<group>"; };
+		528D72A02C5BBBF700D53210 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		52D588A82C5CD56200AB96B3 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		52D588B92C5CE2E800AB96B3 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		52D588BB2C5CEAF800AB96B3 /* Gilroy-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Thin.ttf"; sourceTree = "<group>"; };
+		52D588BC2C5CEAF800AB96B3 /* Gilroy-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Bold.ttf"; sourceTree = "<group>"; };
+		52D588BD2C5CEAF800AB96B3 /* Gilroy-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Heavy.ttf"; sourceTree = "<group>"; };
+		52D588BE2C5CEAF800AB96B3 /* Gilroy-UltraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-UltraLight.ttf"; sourceTree = "<group>"; };
+		52D588BF2C5CEAF800AB96B3 /* Gilroy-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Medium.ttf"; sourceTree = "<group>"; };
+		52D588C02C5CEAF800AB96B3 /* Gilroy-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Black.ttf"; sourceTree = "<group>"; };
+		52D588C12C5CEAF800AB96B3 /* Gilroy-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Regular.ttf"; sourceTree = "<group>"; };
+		52D588C22C5CEAF800AB96B3 /* Gilroy-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-SemiBold.ttf"; sourceTree = "<group>"; };
+		52D588C32C5CEAF800AB96B3 /* Gilroy-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Light.ttf"; sourceTree = "<group>"; };
+		52D588C42C5CEAF900AB96B3 /* Gilroy-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-ExtraBold.ttf"; sourceTree = "<group>"; };
 		52E2D3A32C59F9CE00A8843A /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		52E2D3A52C5A017400A8843A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5605022E1B6211E100169CAD /* sound-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "sound-strings"; path = "../../data/sound-strings"; sourceTree = "<group>"; };
@@ -2689,6 +2715,7 @@
 		5236A3692C52588000E3A7AD /* Tourism */ = {
 			isa = PBXGroup;
 			children = (
+				52D588B62C5CE10200AB96B3 /* Fonts */,
 				5236A36C2C5258AC00E3A7AD /* Presentation */,
 			);
 			path = Tourism;
@@ -2697,10 +2724,21 @@
 		5236A36C2C5258AC00E3A7AD /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				528D729F2C5BB7D100D53210 /* Theme */,
 				52B189982C53B9FD00B5B6F9 /* Auth */,
 				52B189972C53B9E900B5B6F9 /* Home */,
 			);
 			path = Presentation;
+			sourceTree = "<group>";
+		};
+		528D729F2C5BB7D100D53210 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				528D72A02C5BBBF700D53210 /* Colors.xcassets */,
+				52D588A82C5CD56200AB96B3 /* Color.swift */,
+				52D588B92C5CE2E800AB96B3 /* Font.swift */,
+			);
+			path = Theme;
 			sourceTree = "<group>";
 		};
 		52B189972C53B9E900B5B6F9 /* Home */ = {
@@ -2719,6 +2757,23 @@
 				524634C22C53BB3A00FDCABA /* Auth.storyboard */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		52D588B62C5CE10200AB96B3 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				52D588C02C5CEAF800AB96B3 /* Gilroy-Black.ttf */,
+				52D588BC2C5CEAF800AB96B3 /* Gilroy-Bold.ttf */,
+				52D588C42C5CEAF900AB96B3 /* Gilroy-ExtraBold.ttf */,
+				52D588BD2C5CEAF800AB96B3 /* Gilroy-Heavy.ttf */,
+				52D588C32C5CEAF800AB96B3 /* Gilroy-Light.ttf */,
+				52D588BF2C5CEAF800AB96B3 /* Gilroy-Medium.ttf */,
+				52D588C12C5CEAF800AB96B3 /* Gilroy-Regular.ttf */,
+				52D588C22C5CEAF800AB96B3 /* Gilroy-SemiBold.ttf */,
+				52D588BB2C5CEAF800AB96B3 /* Gilroy-Thin.ttf */,
+				52D588BE2C5CEAF800AB96B3 /* Gilroy-UltraLight.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		52E2D39B2C58E72900A8843A /* Screens */ = {
@@ -4042,6 +4097,7 @@
 				6741A9591BF340DE002C974C /* 05_khmeros.ttf in Resources */,
 				34AB66801FC5AA330078E451 /* MWMiPhoneRoutePreview.xib in Resources */,
 				6741A95B1BF340DE002C974C /* 06_code2000.ttf in Resources */,
+				52D588CA2C5CEAF900AB96B3 /* Gilroy-Black.ttf in Resources */,
 				471A7BC22481D44B00A0D4C1 /* BookmarkTitleCell.xib in Resources */,
 				6741A99F1BF340DE002C974C /* 07_roboto_medium.ttf in Resources */,
 				FA637ED329A500BE00D8921A /* drules_proto_outdoors_light.txt in Resources */,
@@ -4057,6 +4113,7 @@
 				676507611C10559B00830BB3 /* colors.txt in Resources */,
 				6741A9711BF340DE002C974C /* copyright.html in Resources */,
 				4A300ED51C6DCFD400140018 /* countries-strings in Resources */,
+				52D588CB2C5CEAF900AB96B3 /* Gilroy-Regular.ttf in Resources */,
 				6741A9491BF340DE002C974C /* countries.txt in Resources */,
 				6741A9871BF340DE002C974C /* drules_proto_default_light.bin in Resources */,
 				6741A97E1BF340DE002C974C /* drules_proto_default_dark.bin in Resources */,
@@ -4071,12 +4128,14 @@
 				34F73F9F1E082FF800AC1FD6 /* Localizable.strings in Resources */,
 				340E1EF21E2F614400CE49BF /* Main.storyboard in Resources */,
 				F6E2FE521E097BA00083EBEC /* MWMActionBarButton.xib in Resources */,
+				52D588CC2C5CEAF900AB96B3 /* Gilroy-SemiBold.ttf in Resources */,
 				EDBD68072B625724005DD151 /* LocationServicesDisabledAlert.xib in Resources */,
 				993DF0CA23F6BD0600AC231A /* ElevationDetailsViewController.xib in Resources */,
 				F623DA6F1C9C2E62006A3436 /* MWMAddPlaceNavigationBar.xib in Resources */,
 				6741A9991BF340DE002C974C /* MWMAlertViewController.xib in Resources */,
 				4501B1942077C35A001B9173 /* resources-xxxhdpi_light in Resources */,
 				3467CEB7202C6FA900D3C670 /* BMCNotificationsCell.xib in Resources */,
+				52D588C62C5CEAF900AB96B3 /* Gilroy-Bold.ttf in Resources */,
 				4761BE2B252D3DB900EE2DE4 /* SubgroupCell.xib in Resources */,
 				99F9A0E72462CA1700AE21E0 /* DownloadAllView.xib in Resources */,
 				349D1AD51E2E325B004A2006 /* BottomMenuItemCell.xib in Resources */,
@@ -4095,6 +4154,7 @@
 				34D3B0331E389D05004100F9 /* MWMEditorCategoryCell.xib in Resources */,
 				F6E2FDCB1E097BA00083EBEC /* MWMEditorNotesFooter.xib in Resources */,
 				34D3B0391E389D05004100F9 /* MWMEditorSelectTableViewCell.xib in Resources */,
+				52D588CD2C5CEAF900AB96B3 /* Gilroy-Light.ttf in Resources */,
 				34AB663B1FC5AA330078E451 /* RouteManagerViewController.xib in Resources */,
 				34D3B03F1E389D05004100F9 /* MWMEditorSwitchTableViewCell.xib in Resources */,
 				467F341B2BCA928B00CDC7DE /* MWMEditorSegmentedTableViewCell.xib in Resources */,
@@ -4104,6 +4164,7 @@
 				6741A96D1BF340DE002C974C /* MWMLocationAlert.xib in Resources */,
 				3406FA191C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib in Resources */,
 				A630D1EA207CA95900976DEA /* Localizable.stringsdict in Resources */,
+				52D588C92C5CEAF900AB96B3 /* Gilroy-Medium.ttf in Resources */,
 				F6E2FD591E097BA00083EBEC /* MWMMapDownloaderButtonTableViewCell.xib in Resources */,
 				F62607FF207B83C400176C5A /* MWMSpinnerAlert.xib in Resources */,
 				F6E2FD621E097BA00083EBEC /* MWMMapDownloaderLargeCountryTableViewCell.xib in Resources */,
@@ -4144,6 +4205,7 @@
 				F6E2FF061E097BA00083EBEC /* SearchHistoryClearCell.xib in Resources */,
 				BB7626B61E85599C0031D71C /* icudt73l.dat in Resources */,
 				34AB665C1FC5AA330078E451 /* TransportTransitIntermediatePoint.xib in Resources */,
+				52D588CE2C5CEAF900AB96B3 /* Gilroy-ExtraBold.ttf in Resources */,
 				F6E2FF151E097BA00083EBEC /* SearchHistoryQueryCell.xib in Resources */,
 				F6E2FEE81E097BA00083EBEC /* MWMSearchNoResults.xib in Resources */,
 				34AB660E1FC5AA320078E451 /* NavigationControlView.xib in Resources */,
@@ -4158,6 +4220,7 @@
 				F6D67CDE2062BBA60032FD38 /* MWMBCCreateCategoryAlert.xib in Resources */,
 				3490D2E31CE9DD2500D0B838 /* MWMSideButtonsView.xib in Resources */,
 				F6E2FE2E1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.xib in Resources */,
+				52D588C72C5CEAF900AB96B3 /* Gilroy-Heavy.ttf in Resources */,
 				3463BA691DE81DB90082417F /* MWMTrafficButtonViewController.xib in Resources */,
 				F623DA6C1C9C2731006A3436 /* opening_hours_how_to_edit.html in Resources */,
 				447DB4C42BA78665000DF4C2 /* MWMOsmReauthAlert.xib in Resources */,
@@ -4175,6 +4238,7 @@
 				6741A9901BF340DE002C974C /* resources-mdpi_dark in Resources */,
 				6741A9981BF340DE002C974C /* resources-xhdpi_light in Resources */,
 				6741A9611BF340DE002C974C /* resources-xhdpi_dark in Resources */,
+				52D588C52C5CEAF900AB96B3 /* Gilroy-Thin.ttf in Resources */,
 				6741A94D1BF340DE002C974C /* resources-xxhdpi_light in Resources */,
 				3404F49E2028A2430090E401 /* BMCActionsCell.xib in Resources */,
 				6741A9551BF340DE002C974C /* resources-xxhdpi_dark in Resources */,
@@ -4183,6 +4247,8 @@
 				44360A112A7D35440016F412 /* TransportRuler.xib in Resources */,
 				6741A9421BF340DE002C974C /* sound-strings in Resources */,
 				F69018BD1E9F7CB600B3C10B /* MWMAutoupdateController.xib in Resources */,
+				52D588C82C5CEAF900AB96B3 /* Gilroy-UltraLight.ttf in Resources */,
+				528D72A12C5BBBF700D53210 /* Colors.xcassets in Resources */,
 				6741A97D1BF340DE002C974C /* synonyms.txt in Resources */,
 				CDB4D4D7222D248900104869 /* CarPlayStoryboard.storyboard in Resources */,
 				4707E4B42372FF480017DF6E /* PlacePage.storyboard in Resources */,
@@ -4278,6 +4344,7 @@
 				47E8163323B17734008FD836 /* MWMStorage+UI.m in Sources */,
 				993DF11123F6BDB100AC231A /* UILabelRenderer.swift in Sources */,
 				34AB66471FC5AA330078E451 /* RouteManagerTableView.swift in Sources */,
+				52D588BA2C5CE2E800AB96B3 /* Font.swift in Sources */,
 				9989273C2449E60200260CE2 /* BottomMenuInteractor.swift in Sources */,
 				47DF72B922520CE20004AB10 /* MWMRoutingOptions.mm in Sources */,
 				999FC12023ABA9AD00B0E6F9 /* SearchStyleSheet.swift in Sources */,
@@ -4464,6 +4531,7 @@
 				ED79A5AB2BD7AA9C00952D1F /* LoadingOverlayViewController.swift in Sources */,
 				34AB66111FC5AA320078E451 /* NavigationTurnsView.swift in Sources */,
 				475ED78624C7C7300063ADC7 /* ValueStepperViewRenderer.swift in Sources */,
+				52D588A92C5CD56200AB96B3 /* Color.swift in Sources */,
 				3490D2E11CE9DD2500D0B838 /* MWMSideButtonsView.mm in Sources */,
 				47F4F21523A6F06F0022FD56 /* AvailableMapsDataSource.swift in Sources */,
 				99012852244732DB00C72B10 /* BottomTabBarBuilder.swift in Sources */,

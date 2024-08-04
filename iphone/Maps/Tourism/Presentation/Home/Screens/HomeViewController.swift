@@ -2,24 +2,39 @@ import UIKit
 
 class HomeViewController: UIViewController {
   
-  private let label: UILabel = {
+  private let label1: UILabel = {
     let label = UILabel()
-    label.text = "Hello, World!"
+    label.text = "Label 1"
     label.textAlignment = .center
     label.translatesAutoresizingMaskIntoConstraints = false
+    label.textColor = Color.primary
+    Font.applyStyle(to: label, style: Font.h1)
+    return label
+  }()
+  
+  private let label2: UILabel = {
+    let label = UILabel()
+    label.text = "Label 2!"
+    label.textAlignment = .center
+    label.translatesAutoresizingMaskIntoConstraints = false
+    label.textColor = Color.onBackground
+    Font.applyStyle(to: label, style: Font.b1)
     return label
   }()
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    view.backgroundColor = .white
+    view.backgroundColor = Color.background
     
-    view.addSubview(label)
+    view.addSubview(label1)
+    view.addSubview(label2)
     
     NSLayoutConstraint.activate([
-      label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+      label1.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+      label1.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+      label2.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+      label2.topAnchor.constraint(equalTo: label1.bottomAnchor, constant: 20)
     ])
   }
 }

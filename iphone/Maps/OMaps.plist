@@ -107,24 +107,34 @@
 		<dict>
 			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
 			<true/>
-			<key>NSUbiquitousContainerName</key>
-			<string>OrganicMaps</string>
 			<key>NSUbiquitousContainerSupportedFolderLevels</key>
 			<string>ANY</string>
+			<key>NSUbiquitousContainerName</key>
+			<string>OrganicMaps</string>
 		</dict>
 		<key>iCloud.app.organicmaps.debug</key>
 		<dict>
 			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
 			<true/>
-			<key>NSUbiquitousContainerName</key>
-			<string>OrganicMapsDEBUG</string>
 			<key>NSUbiquitousContainerSupportedFolderLevels</key>
 			<string>ANY</string>
+			<key>NSUbiquitousContainerName</key>
+			<string>OrganicMapsDEBUG</string>
 		</dict>
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
 		<string>FredokaOne-Regular.ttf</string>
+		<string>Gilroy-Black.ttf</string>
+		<string>Gilroy-Heavy.ttf</string>
+		<string>Gilroy-ExtraBold</string>
+		<string>Gilroy-Bold.ttf</string>
+		<string>Gilroy-SemiBold.ttf</string>
+		<string>Gilroy-Medium.ttf</string>
+		<string>Gilroy-Regular.ttf</string>
+		<string>Gilroy-Light.ttf</string>
+		<string>Gilroy-Thin.ttf</string>
+		<string>Gilroy-UltraLight.ttf</string>
 	</array>
 	<key>UIApplicationShortcutItems</key>
 	<array>
@@ -236,26 +246,5 @@
 			</dict>
 		</dict>
 	</array>
-	<key>NSUbiquitousContainers</key>
-	<dict>
-		<key>iCloud.app.organicmaps</key>
-		<dict>
-			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
-			<true/>
-			<key>NSUbiquitousContainerSupportedFolderLevels</key>
-			<string>ANY</string>
-			<key>NSUbiquitousContainerName</key>
-			<string>OrganicMaps</string>
-		</dict>
-		<key>iCloud.app.organicmaps.debug</key>
-		<dict>
-			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
-			<true/>
-			<key>NSUbiquitousContainerSupportedFolderLevels</key>
-			<string>ANY</string>
-			<key>NSUbiquitousContainerName</key>
-			<string>OrganicMapsDEBUG</string>
-		</dict>
-	</dict>
 </dict>
 </plist>
