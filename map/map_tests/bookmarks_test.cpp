@@ -1530,4 +1530,45 @@ UNIT_CLASS_TEST(Runner, Bookmarks_BrokenFile)
   auto kmlData = LoadKmlFile(fileName, KmlFileType::Binary);
   TEST(kmlData == nullptr, ());
 }
+
+UNIT_CLASS_TEST(Runner, Bookmarks_RecentlyDeleted)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  auto const dir = GetBookmarksDirectory();
+  bool const delDirOnExit = Platform::MkDir(dir) == Platform::ERR_OK;
+  SCOPE_GUARD(dirDeleter, [&](){ if (delDirOnExit) (void)Platform::RmDir(dir); });
+
+  std::string const filePath = base::JoinPath(dir, "file" + std::string{kKmlExtension});
+  BookmarkManager::KMLDataCollection kmlDataCollection;
+  kmlDataCollection.emplace_back(filePath, LoadKmlData(MemReader(kmlString, std::strlen(kmlString)), KmlFileType::Text));
+
+  FileWriter w(filePath);
+  w.Write(kmlDataCollection.data(), kmlDataCollection.size());
+
+  TEST(kmlDataCollection.back().second, ());
+  bmManager.CreateCategories(std::move(kmlDataCollection));
+  TEST_EQUAL(bmManager.GetBmGroupsCount(), 1, ());
+
+  auto const groupId = bmManager.GetUnsortedBmGroupsIdList().front();
+
+  bmManager.GetEditSession().DeleteBmCategory(groupId, false /* permanently */);
+  TEST_EQUAL(bmManager.GetBmGroupsCount(), 0, ());
+
+  auto const deletedCategories = bmManager.GetRecentlyDeletedCategories();
+  TEST_EQUAL(deletedCategories->size(), 1, ());
+  TEST(bmManager.HasRecentlyDeletedCategories(), ());
+
+  auto const & deletedCategory = deletedCategories->front();
+  auto const deletedFilePath = deletedCategory.first;
+  TEST_EQUAL(base::FileNameFromFullPath(deletedCategory.first), base::FileNameFromFullPath(filePath), ());
+
+  bmManager.DeleteRecentlyDeletedCategoriesAtPaths({ deletedFilePath });
+  TEST_EQUAL(bmManager.GetBmGroupsCount(), 0, ());
+  TEST_EQUAL(bmManager.GetRecentlyDeletedCategories()->size(), 0, ());
+  TEST(!bmManager.HasRecentlyDeletedCategories(), ());
+
+  TEST(!Platform::IsFileExistsByFullPath(filePath), ());
+  TEST(!Platform::IsFileExistsByFullPath(deletedFilePath), ());
+}
 } // namespace bookmarks_test

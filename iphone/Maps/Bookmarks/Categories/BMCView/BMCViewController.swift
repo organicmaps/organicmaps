@@ -157,12 +157,17 @@ final class BMCViewController: MWMViewController {
     let deleteAction = UIAlertAction(title: delete, style: .destructive, handler: { [viewModel] _ in
       viewModel!.deleteCategory(at: index)
     })
-    deleteAction.isEnabled = (viewModel.numberOfRows(section: .categories) > 1)
+    deleteAction.isEnabled = (viewModel.canDeleteCategory())
     actionSheet.addAction(deleteAction)
     let cancel = L("cancel")
     actionSheet.addAction(UIAlertAction(title: cancel, style: .cancel, handler: nil))
 
     present(actionSheet, animated: true, completion: nil)
+  }
+
+  private func openRecentlyDeleted() {
+    let recentlyDeletedController = RecentlyDeletedCategoriesViewController()
+    MapViewController.topViewController().navigationController?.pushViewController(recentlyDeletedController, animated: true)
   }
 }
 
@@ -229,7 +234,7 @@ extension BMCViewController: UITableViewDelegate {
       return false
     }
 
-    return viewModel.numberOfRows(section: .categories) > 1
+    return viewModel.canDeleteCategory()
   }
 
   func tableView(_ tableView: UITableView,
@@ -275,6 +280,7 @@ extension BMCViewController: UITableViewDelegate {
       case .create: createNewCategory()
       case .exportAll: shareAllCategories(anchor: tableView.cellForRow(at: indexPath))
       case .import: showImportDialog()
+      case .recentlyDeleted: openRecentlyDeleted()
       }
     default:
       assertionFailure()

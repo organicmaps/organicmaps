@@ -493,6 +493,11 @@
 		EDBD68072B625724005DD151 /* LocationServicesDisabledAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDBD68062B625724005DD151 /* LocationServicesDisabledAlert.xib */; };
 		EDBD680B2B62572E005DD151 /* LocationServicesDisabledAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBD680A2B62572E005DD151 /* LocationServicesDisabledAlert.swift */; };
 		EDC3573B2B7B5029001AE9CA /* CALayer+SetCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC3573A2B7B5029001AE9CA /* CALayer+SetCorner.swift */; };
+		EDC4E34B2C5D1BEF009286A2 /* RecentlyDeletedCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E3472C5D1BEF009286A2 /* RecentlyDeletedCategoriesViewController.swift */; };
+		EDC4E34C2C5D1BEF009286A2 /* RecentlyDeletedCategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E3482C5D1BEF009286A2 /* RecentlyDeletedCategoriesViewModel.swift */; };
+		EDC4E34D2C5D1BEF009286A2 /* RecentlyDeletedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E3492C5D1BEF009286A2 /* RecentlyDeletedTableViewCell.swift */; };
+		EDC4E3612C5E2576009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E3412C5D1BD3009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift */; };
+		EDC4E3692C5E6F5B009286A2 /* MockRecentlyDeletedCategoriesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E3402C5D1BD3009286A2 /* MockRecentlyDeletedCategoriesManager.swift */; };
 		EDE243DD2B6D2E640057369B /* AboutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE243D52B6CF3980057369B /* AboutController.swift */; };
 		EDE243E52B6D3F400057369B /* OSMView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE243E42B6D3F400057369B /* OSMView.swift */; };
 		EDE243E72B6D55610057369B /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE243E02B6D3EA00057369B /* InfoView.swift */; };
@@ -1414,6 +1419,11 @@
 		EDBD68062B625724005DD151 /* LocationServicesDisabledAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationServicesDisabledAlert.xib; sourceTree = "<group>"; };
 		EDBD680A2B62572E005DD151 /* LocationServicesDisabledAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServicesDisabledAlert.swift; sourceTree = "<group>"; };
 		EDC3573A2B7B5029001AE9CA /* CALayer+SetCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+SetCorner.swift"; sourceTree = "<group>"; };
+		EDC4E3402C5D1BD3009286A2 /* MockRecentlyDeletedCategoriesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockRecentlyDeletedCategoriesManager.swift; sourceTree = "<group>"; };
+		EDC4E3412C5D1BD3009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedCategoriesViewModelTests.swift; sourceTree = "<group>"; };
+		EDC4E3472C5D1BEF009286A2 /* RecentlyDeletedCategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedCategoriesViewController.swift; sourceTree = "<group>"; };
+		EDC4E3482C5D1BEF009286A2 /* RecentlyDeletedCategoriesViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedCategoriesViewModel.swift; sourceTree = "<group>"; };
+		EDC4E3492C5D1BEF009286A2 /* RecentlyDeletedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedTableViewCell.swift; sourceTree = "<group>"; };
 		EDE243D52B6CF3980057369B /* AboutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutController.swift; sourceTree = "<group>"; };
 		EDE243E02B6D3EA00057369B /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		EDE243E42B6D3F400057369B /* OSMView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSMView.swift; sourceTree = "<group>"; };
@@ -2068,6 +2078,7 @@
 		3404F4A02028A6C00090E401 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				EDC4E34A2C5D1BEF009286A2 /* RecentlyDeleted */,
 				33046837219C605E0041F3A8 /* Category settings */,
 				343D7B6D202AF4CA007D56A8 /* Actions */,
 				3404F48F202898CC0090E401 /* BMCModels.swift */,
@@ -3074,6 +3085,7 @@
 		ED1ADA312BC6B19E0029209F /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				EDC4E3442C5D1BD3009286A2 /* Bookmarks */,
 				4B4153B82BF970B800EE4B02 /* Classes */,
 				4B4153B62BF9709100EE4B02 /* Core */,
 			);
@@ -3125,6 +3137,41 @@
 				ED99667D2B94FBC20083CE55 /* ColorPicker.swift */,
 			);
 			path = ColorPicker;
+			sourceTree = "<group>";
+		};
+		EDC4E3422C5D1BD3009286A2 /* RecentlyDeletedTests */ = {
+			isa = PBXGroup;
+			children = (
+				EDC4E3402C5D1BD3009286A2 /* MockRecentlyDeletedCategoriesManager.swift */,
+				EDC4E3412C5D1BD3009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift */,
+			);
+			path = RecentlyDeletedTests;
+			sourceTree = "<group>";
+		};
+		EDC4E3432C5D1BD3009286A2 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				EDC4E3422C5D1BD3009286A2 /* RecentlyDeletedTests */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		EDC4E3442C5D1BD3009286A2 /* Bookmarks */ = {
+			isa = PBXGroup;
+			children = (
+				EDC4E3432C5D1BD3009286A2 /* Categories */,
+			);
+			path = Bookmarks;
+			sourceTree = "<group>";
+		};
+		EDC4E34A2C5D1BEF009286A2 /* RecentlyDeleted */ = {
+			isa = PBXGroup;
+			children = (
+				EDC4E3472C5D1BEF009286A2 /* RecentlyDeletedCategoriesViewController.swift */,
+				EDC4E3482C5D1BEF009286A2 /* RecentlyDeletedCategoriesViewModel.swift */,
+				EDC4E3492C5D1BEF009286A2 /* RecentlyDeletedTableViewCell.swift */,
+			);
+			path = RecentlyDeleted;
 			sourceTree = "<group>";
 		};
 		EDE8EAE32C2DB74A002777F5 /* OpenInAppActionSheet */ = {
@@ -4347,6 +4394,7 @@
 				3463BA671DE81DB90082417F /* MWMTrafficButtonViewController.mm in Sources */,
 				ED79A5D52BDF8D6100952D1F /* SynchronizationError.swift in Sources */,
 				993DF10323F6BDB100AC231A /* MainTheme.swift in Sources */,
+				EDC4E34D2C5D1BEF009286A2 /* RecentlyDeletedTableViewCell.swift in Sources */,
 				34AB66051FC5AA320078E451 /* MWMNavigationDashboardManager+Entity.mm in Sources */,
 				993DF12A23F6BDB100AC231A /* Style.swift in Sources */,
 				34ABA6171C2D185C00FE1BEC /* MWMAuthorizationOSMLoginViewController.mm in Sources */,
@@ -4439,6 +4487,7 @@
 				342CC5F21C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm in Sources */,
 				340475591E081A4600C92850 /* WebViewController.m in Sources */,
 				3404F4992028A20D0090E401 /* BMCCategoryCell.swift in Sources */,
+				EDC4E34C2C5D1BEF009286A2 /* RecentlyDeletedCategoriesViewModel.swift in Sources */,
 				F62607FD207B790300176C5A /* SpinnerAlert.swift in Sources */,
 				3444DFD21F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */,
 				3472B5E1200F86C800DC6CD5 /* MWMEditorHelper.mm in Sources */,
@@ -4488,6 +4537,7 @@
 				3454D7C21E07F045004AF2AD /* NSString+Categories.m in Sources */,
 				34E7761F1F14DB48003040B3 /* PlacePageArea.swift in Sources */,
 				ED79A5D82BDF8D6100952D1F /* DefaultLocalDirectoryMonitor.swift in Sources */,
+				EDC4E34B2C5D1BEF009286A2 /* RecentlyDeletedCategoriesViewController.swift in Sources */,
 				ED8270F02C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift in Sources */,
 				4728F69322CF89A400E00028 /* GradientView.swift in Sources */,
 				F6381BF61CD12045004CA943 /* LocaleTranslator.mm in Sources */,
@@ -4673,9 +4723,11 @@
 				ED1ADA332BC6B1B40029209F /* CarPlayServiceTests.swift in Sources */,
 				EDF838C32C00B9D6007E4E67 /* UbiquitousDirectoryMonitorDelegateMock.swift in Sources */,
 				EDF838BE2C00B9D0007E4E67 /* LocalDirectoryMonitorDelegateMock.swift in Sources */,
+				EDC4E3692C5E6F5B009286A2 /* MockRecentlyDeletedCategoriesManager.swift in Sources */,
 				EDF838BF2C00B9D0007E4E67 /* SynchronizationStateManagerTests.swift in Sources */,
 				4B83AE4B2C2E642100B0C3BC /* TTSTesterTest.m in Sources */,
 				EDF838C22C00B9D6007E4E67 /* MetadataItemStubs.swift in Sources */,
+				EDC4E3612C5E2576009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift in Sources */,
 				4B4153B52BF9695500EE4B02 /* MWMTextToSpeechTests.mm in Sources */,
 				EDF838C42C00B9D6007E4E67 /* FileManagerMock.swift in Sources */,
 			);

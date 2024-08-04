@@ -404,6 +404,59 @@ void BookmarkManager::ResetRecentlyDeletedBookmark()
   m_recentlyDeletedBookmark.reset();
 }
 
+bool BookmarkManager::HasRecentlyDeletedCategories() const
+{
+  Platform::FilesList files;
+  Platform::GetFilesByExt(GetTrashDirectory(), kKmlExtension, files);
+  return !files.empty();
+}
+
+BookmarkManager::KMLDataCollectionPtr BookmarkManager::GetRecentlyDeletedCategories()
+{
+  auto collection = LoadBookmarks(GetTrashDirectory(), kKmlExtension, KmlFileType::Text,
+                                  [](kml::FileData const &)
+                                  {
+    return true;
+  });
+  return collection;
+}
+
+bool BookmarkManager::IsRecentlyDeletedCategory(const std::string &filePath) const
+{
+  Platform::FilesList files;
+  Platform::GetFilesByExt(GetTrashDirectory(), kKmlExtension, files);
+  auto const it = std::find(files.begin(), files.end(), base::FileNameFromFullPath(filePath));
+  return it != files.end();
+}
+
+void BookmarkManager::RecoverRecentlyDeletedCategoriesAtPaths(std::vector<std::string> const & filePaths)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  GetPlatform().RunTask(Platform::Thread::File, [this, filePaths]()
+  {
+    for (auto const & deletedFilePath : filePaths)
+    {
+      CHECK(IsRecentlyDeletedCategory(deletedFilePath), ("The category at path", deletedFilePath, "should be in the trash."));
+      CHECK(Platform::IsFileExistsByFullPath(deletedFilePath), ("File should exist to be recovered.", deletedFilePath));
+      auto recoveredFilePath = GenerateValidAndUniqueFilePathForKML(base::GetNameFromFullPathWithoutExt(deletedFilePath));
+      base::MoveFileX(deletedFilePath, recoveredFilePath);
+      GetPlatform().RunTask(Platform::Thread::Gui, [this, recoveredFilePath]() {
+        ReloadBookmark(recoveredFilePath);
+      });
+    }
+  });
+}
+
+void BookmarkManager::DeleteRecentlyDeletedCategoriesAtPaths(std::vector<std::string> const & deletedFilePaths)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  for (auto const & deletedFilePath : deletedFilePaths)
+  {
+    CHECK(IsRecentlyDeletedCategory(deletedFilePath), ("The category at path", deletedFilePath, " should be in the trash."));
+    base::DeleteFileX(deletedFilePath);
+  }
+}
+
 void BookmarkManager::DetachUserMark(kml::MarkId bmId, kml::MarkGroupId catId)
 {
   GetGroup(catId)->DetachUserMark(bmId);
@@ -2057,9 +2110,7 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
       else if (ext == kGpxExtension)
         kmlData = LoadKmlFile(fileToLoad, KmlFileType::Gpx);
       else
-      {
         ASSERT(false, ("Unsupported bookmarks extension", ext));
-      }
 
       base::DeleteFileX(fileToLoad);
 
@@ -2485,7 +2536,7 @@ void BookmarkManager::CheckAndResetLastIds()
     idStorage.ResetTrackId();
 }
 
-bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId, bool deleteFile)
+bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId, bool permanently)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto it = m_categories.find(groupId);
@@ -2495,8 +2546,14 @@ bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId, bool deleteFile
   ClearGroup(groupId);
   m_changesTracker.OnDeleteGroup(groupId);
 
-  if (deleteFile)
-    FileWriter::DeleteFileX(it->second->GetFileName());
+  auto const filePath = it->second->GetFileName();
+  if (permanently)
+    base::DeleteFileX(filePath);
+  else
+  {
+    auto const trashedFilePath = GenerateValidAndUniqueTrashedFilePath(base::FileNameFromFullPath(filePath));
+    base::MoveFileX(filePath, trashedFilePath);
+  }
 
   DeleteCompilations(it->second->GetCategoryData().m_compilationIds);
   m_categories.erase(it);
@@ -3573,9 +3630,9 @@ void BookmarkManager::EditSession::SetCategoryCustomProperty(kml::MarkGroupId ca
   m_bmManager.SetCategoryCustomProperty(categoryId, key, value);
 }
 
-bool BookmarkManager::EditSession::DeleteBmCategory(kml::MarkGroupId groupId)
+bool BookmarkManager::EditSession::DeleteBmCategory(kml::MarkGroupId groupId, bool permanently)
 {
-  return m_bmManager.DeleteBmCategory(groupId, true);
+  return m_bmManager.DeleteBmCategory(groupId, permanently);
 }
 
 void BookmarkManager::EditSession::NotifyChanges()

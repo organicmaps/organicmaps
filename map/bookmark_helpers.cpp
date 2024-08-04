@@ -225,6 +225,14 @@ std::string GetBookmarksDirectory()
   return base::JoinPath(GetPlatform().SettingsDir(), "bookmarks");
 }
 
+std::string GetTrashDirectory()
+{
+  std::string const trashDir = base::JoinPath(GetPlatform().SettingsDir(), std::string{kTrashDirectoryName});
+  if (!Platform::IsFileExistsByFullPath(trashDir) && !Platform::MkDirChecked(trashDir))
+    CHECK(false, ("Failed to create .Trash directory."));
+  return trashDir;
+}
+
 std::string RemoveInvalidSymbols(std::string const & name)
 {
   strings::UniString filtered;
@@ -281,6 +289,15 @@ std::string GenerateValidAndUniqueFilePathForGPX(std::string const & fileName)
     filePath = kDefaultBookmarksFileName;
 
   return GenerateUniqueFileName(GetBookmarksDirectory(), std::move(filePath), kGpxExtension);
+}
+
+std::string GenerateValidAndUniqueTrashedFilePath(std::string const & fileName)
+{
+  std::string extension = base::GetFileExtension(fileName);
+  std::string filePath = RemoveInvalidSymbols(fileName);
+  if (filePath.empty())
+    filePath = kDefaultBookmarksFileName;
+  return GenerateUniqueFileName(GetTrashDirectory(), std::move(filePath), extension);
 }
 
 std::string const kDefaultBookmarksFileName = "Bookmarks";

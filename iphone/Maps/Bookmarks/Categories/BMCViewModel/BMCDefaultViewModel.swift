@@ -37,6 +37,9 @@ final class BMCDefaultViewModel: NSObject {
     if !manager.areAllCategoriesEmpty() {
       actions.append(.exportAll)
     }
+    if manager.hasRecentlyDeletedCategories() {
+      actions.append(.recentlyDeleted)
+    }
   }
 
   private func setNotifications() {
@@ -62,19 +65,19 @@ final class BMCDefaultViewModel: NSObject {
 
 extension BMCDefaultViewModel {
   func numberOfSections() -> Int {
-    return sections.count
+    sections.count
   }
 
   func sectionType(section: Int) -> BMCSection {
-    return sections[section]
+    sections[section]
   }
 
   func sectionIndex(section: BMCSection) -> Int {
-    return sections.firstIndex(of: section)!
+    sections.firstIndex(of: section)!
   }
 
   func numberOfRows(section: Int) -> Int {
-    return numberOfRows(section: sectionType(section: section))
+    numberOfRows(section: sectionType(section: section))
   }
 
   func numberOfRows(section: BMCSection) -> Int {
@@ -86,15 +89,19 @@ extension BMCDefaultViewModel {
   }
 
   func category(at index: Int) -> BookmarkGroup {
-    return categories[index]
+    categories[index]
+  }
+
+  func canDeleteCategory() -> Bool {
+    categories.count > 1
   }
 
   func action(at index: Int) -> BMCAction {
-    return actions[index]
+    actions[index]
   }
 
   func notification(at index: Int) -> BMCNotification {
-    return notifications[index]
+    notifications[index]
   }
 
   func areAllCategoriesHidden() -> Bool {
@@ -130,7 +137,7 @@ extension BMCDefaultViewModel {
   }
 
   func checkCategory(name: String) -> Bool {
-    return manager.checkCategoryName(name)
+    manager.checkCategoryName(name)
   }
 
   func shareCategoryFile(at index: Int, fileType: KmlFileType, handler: @escaping SharingResultCompletionHandler) {
@@ -164,12 +171,11 @@ extension BMCDefaultViewModel {
   }
 
   func areNotificationsEnabled() -> Bool {
-    return manager.areNotificationsEnabled()
+    manager.areNotificationsEnabled()
   }
 }
 
 extension BMCDefaultViewModel: BookmarksObserver {
-
   func onBookmarksLoadFinished() {
     reloadData()
   }
