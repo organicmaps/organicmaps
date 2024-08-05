@@ -171,7 +171,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "你好！\n\n附件為 Organic Maps app 的書籤，如果你有安裝 Organic Maps 則直接開啟，如果沒有的話，請先在 iOS 或是 Android 裝置，從下面連結下載：https://omaps.app/get?kmz\n\n旅行時用上 Organic Maps!";
+"share_bookmarks_email_body" = "您好！\n\n附件是我的書籤，請在 Organic Maps 中打開。如果您沒有安裝 Organic Maps，可以在這裡下載: https://omaps.app/get?kmz\n\n祝您使用 Organic Maps 旅行愉快！";
 
 /* message title of loading file */
 "load_kmz_title" = "正在載入書籤…";
@@ -185,17 +185,11 @@
 /* resource for context menu */
 "edit" = "編輯";
 
-/* Warning message when doing search around current position */
-"unknown_current_position" = "您的位置尚未定位完成";
-
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "嘿，看看我在 Organic Maps 地圖上的圖釘！";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "嗨，到 Organic Maps 地圖查看我的目前位置！";
-
-/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
-"share" = "分享";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "電子郵件";
@@ -217,8 +211,6 @@
 
 /* Length of track in cell that describes route */
 "length" = "長度";
-
-"share_my_location" = "分享我的位置";
 
 "prefs_group_route" = "導航";
 
@@ -255,10 +247,10 @@
 "pref_tts_enable_title" = "語音指示";
 
 /* Settings «Route» category: «Tts announce street names» title */
-"pref_tts_street_names_title" = "宣布街道名稱";
+"pref_tts_street_names_title" = "播報街道名稱";
 
 /* Settings «Route» category: «Tts announce street names» description */
-"pref_tts_street_names_description" = "啟用後，將大聲說出要轉入的街道或出口的名稱。";
+"pref_tts_street_names_description" = "啟用後，將大聲播報即將進入的街道或出口的名稱。";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "語音語言";
@@ -553,7 +545,7 @@
 "read_in_wikipedia" = "維基百科";
 
 /* Place Page link to Wikimedia Commons. */
-"wikimedia_commons" = "Wikimedia Commons";
+"wikimedia_commons" = "維基共享資源";
 
 "p2p_your_location" = "您的位置";
 
@@ -565,7 +557,7 @@
 
 "p2p_only_from_current" = "導航只能從您目前的位置開始。";
 
-"p2p_reroute_from_current" = "你是否想要規劃目前位置的路線？";
+"p2p_reroute_from_current" = "您是否想要規劃目前位置的路線？";
 
 "editor_time_add" = "新增排程";
 
@@ -582,7 +574,7 @@
 
 "editor_time_title" = "營業時間";
 
-"editor_time_advanced" = "進階模式";
+"editor_time_advanced" = "高級模式";
 
 "editor_time_simple" = "簡易模式";
 
@@ -594,7 +586,7 @@
 
 "editor_done_dialog_1" = "您已經改變了世界地圖。別藏私！告訴您的朋友們一起來編輯。";
 
-"share_with_friends" = "和朋友分享";
+"share_with_friends" = "与朋友分享";
 
 "editor_report_problem_send_button" = "發送";
 
@@ -608,9 +600,9 @@
 
 "twentyfour_seven" = "全天候";
 
-"day_off_today" = "今天沒有營業";
+"day_off_today" = "今天不營業";
 
-"day_off" = "沒有營業";
+"day_off" = "不營業";
 
 "today" = "今天";
 
@@ -626,7 +618,7 @@
 
 "closes_in" = "將於 %@ 後停業";
 
-"closed" = "已關閉";
+"closed" = "已停止營業";
 
 "add_opening_hours" = "新增營業時間";
 
@@ -728,9 +720,9 @@
 "message_invalid_feature_position" = "物件無法設置在這裡";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
-"osm_presentation" = "截至 %@ 的社群創建的 OpenStreetMap 資料。請訪問 OpenStreetMap.org 以了解有關如何編輯和更新地圖的更多信息";
+"osm_presentation" = "截至 %@ 的社群創建的 OpenStreetMap 資料。請訪問 OpenStreetMap.org 以了解更多有關如何編輯和更新地圖的更多信息。";
 
-"login_to_make_edits_visible" = "登入來讓其他使用者能看到您所作出的修改。";
+"login_to_make_edits_visible" = "登入，讓其他使用者能看到您所作出的修改。";
 
 /* Error dialog no space */
 "migration_no_space_message" = "為了下載，您需要更多的空間。請刪除不必要的資料。";
@@ -934,10 +926,10 @@
 "core_exit" = "退出";
 
 /* User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". */
-"routing_add_start_point" = "使用搜尋或點擊地圖新增路線起點";
+"routing_add_start_point" = "請使用搜尋或點擊地圖以新增路線起點";
 
 /* User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". */
-"routing_add_finish_point" = "使用搜尋或點擊地圖新增目的地點";
+"routing_add_finish_point" = "請使用搜尋或點擊地圖以新增目的地";
 
 "planning_route_manage_route" = "管理路線";
 
@@ -945,9 +937,9 @@
 
 "placepage_remove_stop" = "移除";
 
-"planning_route_remove_title" = "在此拖曳以移除";
+"planning_route_remove_title" = "拖曳到此處以移除";
 
-"placepage_add_stop" = "新增停靠站";
+"placepage_add_stop" = "新增經停點";
 
 "start_from_my_position" = "起點";
 
@@ -964,14 +956,14 @@
 "bookmark_lists" = "清單";
 
 /* Do not display all bookmark lists on the map */
-"bookmark_lists_hide_all" = "隱藏全部";
+"bookmark_lists_hide_all" = "全部隱藏";
 
-"bookmark_lists_show_all" = "顯示全部";
+"bookmark_lists_show_all" = "全部顯示";
 
 "bookmarks_create_new_group" = "創建新列表";
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
-"bookmarks_import" = "導入書籤和曲目";
+"bookmarks_import" = "導入書籤和軌跡";
 
 "downloader_hide_screen" = "隱藏畫面";
 
@@ -1033,12 +1025,12 @@
 
 "download_button" = "下載";
 
-"speedcams_alert_title" = "超速照相機";
+"speedcams_alert_title" = "限速拍照";
 
 "place_description_title" = "地點說明";
 
 /* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
-"pref_tts_speedcams_auto" = "警告超速";
+"pref_tts_speedcams_auto" = "超速行駛時發出警告";
 
 /* Speed camera settings menu option - Always warn (about speedcams) */
 "pref_tts_speedcams_always" = "始終提醒照相機";
@@ -1246,7 +1238,7 @@
 "downloader_loading_ios" = "載入";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_title" = "更新您下載的地圖";
+"whats_new_auto_update_title" = "更新已下載的地圖";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_message" = "更新地圖以讓物件資訊保持在最新狀態";
@@ -1258,10 +1250,10 @@
 "whats_new_auto_update_button_later" = "稍後手動更新";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "刪除路徑";
+"placepage_delete_track_button" = "刪除軌跡";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "路徑名稱";
+"placepage_track_name_hint" = "軌跡名稱";
 
 /* move track or bookmark from the list button text */
 "move" = "移動";
@@ -1276,10 +1268,10 @@
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
 
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
-"translated_om_site_url" = "https://organicmaps.app/";
+"translated_om_site_url" = "https://organicmaps.app/zh-Hans/";
 
 /* Link to OSM wiki for Editor, Profile and About pages */
-"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Zh-hant:%E9%97%9C%E6%96%BCOpenStreetMap";
 
 /* App Tip #00 */
 "app_tip_00" = "感謝您使用我們社區構建的地圖！";
@@ -1288,10 +1280,10 @@
 "app_tip_01" = "有了您的捐贈和支持，我們可以創建世界上最好的地圖！";
 
 /* App tip #02 */
-"app_tip_02" = "您喜歡我們的應用程序嗎？ 請捐款支持發展！ 還不喜歡嗎？ 請告訴我們，我們會修復它！";
+"app_tip_02" = "您喜歡我們的應用程序嗎？請捐款以支持發展！還不喜歡嗎？請告訴我們，我們會修復您提到的問題！";
 
 /* App tip #03 */
-"app_tip_03" = "如果您認識軟體開發人員，您可以要求他或她實現您需要的功能。";
+"app_tip_03" = "如果您認識軟體開發人員，您可以要求他實現您需要的功能。";
 
 /* App tip #04 */
 "app_tip_04" = "您知道您可以長按地圖上的任何位置來選擇它嗎？";

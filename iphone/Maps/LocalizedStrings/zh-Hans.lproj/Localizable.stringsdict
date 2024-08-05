@@ -20,7 +20,7 @@
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
       <key>other</key>
-      <string>%d 個書籤</string>
+      <string>%d 个书签</string>
     </dict>
   </dict>
 

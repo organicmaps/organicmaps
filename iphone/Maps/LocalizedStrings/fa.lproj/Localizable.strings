@@ -185,17 +185,11 @@
 /* resource for context menu */
 "edit" = "ویرایش";
 
-/* Warning message when doing search around current position */
-"unknown_current_position" = "مکان شما هنوز مشخص نشده است";
-
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hey, check out my pin in Organic Maps!";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Hey, check out my current location on the Organic Maps map!";
-
-/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
-"share" = "اشتراک گذاری";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "ایمیل";
@@ -217,8 +211,6 @@
 
 /* Length of track in cell that describes route */
 "length" = "طول";
-
-"share_my_location" = "به اشتراک گذاری موقعیت مکانی من";
 
 "prefs_group_route" = "مسیریابی";
 

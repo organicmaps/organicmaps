@@ -185,17 +185,11 @@
 /* resource for context menu */
 "edit" = "Upraviť";
 
-/* Warning message when doing search around current position */
-"unknown_current_position" = "Vaša poloha zatiaľ nebola určená";
-
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Pozri na moju značku na mape Organic Maps";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Pozrite si moju aktuálnu polohu na mape Organic Maps";
-
-/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
-"share" = "Zdieľať";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "Email";
@@ -217,8 +211,6 @@
 
 /* Length of track in cell that describes route */
 "length" = "Dĺžka";
-
-"share_my_location" = "Zdieľať moje umiestnenie";
 
 "prefs_group_route" = "Navigácia";
 

@@ -185,17 +185,11 @@
 /* resource for context menu */
 "edit" = "Edytuj";
 
-/* Warning message when doing search around current position */
-"unknown_current_position" = "Nie określono jeszcze aktualnego położenia";
-
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hej, spójrz na mój znacznik w Organic Maps!";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Zobacz moją aktualną lokalizację na mapie przy użyciu Organic Maps";
-
-/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
-"share" = "Udostępnij";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "Email";
@@ -217,8 +211,6 @@
 
 /* Length of track in cell that describes route */
 "length" = "Długość";
-
-"share_my_location" = "Udostępnij aktualne położenie";
 
 "prefs_group_route" = "Nawigacja";
 

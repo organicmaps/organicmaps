@@ -185,17 +185,11 @@
 /* resource for context menu */
 "edit" = "संपादन";
 
-/* Warning message when doing search around current position */
-"unknown_current_position" = "तुमचे स्थान अद्याप निश्चित केलेले नाही";
-
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Organic Maps द्वारे एक खूणपत्र पाठवत आहे!";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Organic Maps द्वारे माझे वर्तमान स्थान पाठवत आहे!";
-
-/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
-"share" = "सामायिक";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "ई-मेल";
@@ -217,8 +211,6 @@
 
 /* Length of track in cell that describes route */
 "length" = "लांबी";
-
-"share_my_location" = "माझे स्थान सामायिक करा";
 
 "prefs_group_route" = "मार्गनिर्देशन";
 
