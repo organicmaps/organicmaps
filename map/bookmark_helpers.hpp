@@ -69,6 +69,7 @@ std::string_view constexpr kKmzExtension = ".kmz";
 std::string_view constexpr kKmlExtension = ".kml";
 std::string_view constexpr kKmbExtension = ".kmb";
 std::string_view constexpr kGpxExtension = ".gpx";
+std::string_view constexpr kDeletedExtension = ".deleted";
 extern std::string const kDefaultBookmarksFileName;
 
 enum class KmlFileType
@@ -96,6 +97,7 @@ std::string RemoveInvalidSymbols(std::string const & name);
 std::string GenerateUniqueFileName(const std::string & path, std::string name, std::string_view ext = kKmlExtension);
 std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName);
 std::string GenerateValidAndUniqueFilePathForGPX(std::string const & fileName);
+std::string GenerateValidAndUniqueDeletedFilePath(std::string const & fileName);
 /// @}
 
 /// @name SerDes helpers.
