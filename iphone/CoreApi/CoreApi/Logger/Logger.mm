@@ -16,6 +16,7 @@
 + (void)enableFileLogging;
 + (void)disableFileLogging;
 + (void)logMessageWithLevel:(base::LogLevel)level src:(base::SrcPoint const &)src message:(std::string const &)message;
++ (void)tryWriteToFile:(std::string const &)logString;
 + (NSURL *)getZippedLogFile:(NSString *)logFilePath;
 + (void)removeFileAtPath:(NSString *)filePath;
 + (base::LogLevel)baseLevel:(LogLevel)level;
@@ -203,21 +204,24 @@ bool AssertMessage(base::SrcPoint const & src, std::string const & message)
   // TODO: (KK) Either guard this call, or refactor thread ids in logHelper.
   logHelper.WriteProlog(output, level);
   logHelper.WriteLog(output, src, message);
-  
+
   auto const logString = output.str();
 
-  Logger * logger = [self logger];
   // Log the message into the system log.
-  os_log(logger.osLogger, "%{public}s", logString.c_str());
+  os_log([self logger].osLogger, "%{public}s", logString.c_str());
 
-  dispatch_async([self fileLoggingQueue], ^{
-    // Write the log message into the file.
-    NSFileHandle * fileHandle = logger.fileHandle;
-    if (fileHandle != nil) {
-      [fileHandle seekToEndOfFile];
-      [fileHandle writeData:[NSData dataWithBytes:logString.c_str() length:logString.length()]];
-    }
-  });
+  if (level < base::GetDefaultLogAbortLevel())
+    dispatch_async([self fileLoggingQueue], ^{ [self tryWriteToFile:logString]; });
+  else
+    [self tryWriteToFile:logString];
+}
+
++ (void)tryWriteToFile:(std::string const &)logString {
+  NSFileHandle * fileHandle = [self logger].fileHandle;
+  if (fileHandle != nil) {
+    [fileHandle seekToEndOfFile];
+    [fileHandle writeData:[NSData dataWithBytes:logString.c_str() length:logString.length()]];
+  }
 }
 
 + (NSURL *)getZippedLogFile:(NSString *)logFilePath {
