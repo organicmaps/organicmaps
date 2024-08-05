@@ -3937,3 +3937,149 @@
 "type.shop.auction" = "Auction";
 
 "type.shop.collector" = "Collectables";
+
+
+// MARK: Tourism
+
+"organization_name" = "Committee for Tourism Development under the Government of the Republic of Tajikistan ";
+
+"smth_went_wrong" = "Error";
+
+"wait_tjk_map_downloading" = "Please wait, the map of Tajikistan is loading, stay in the app";
+
+"welcome_to_tjk" = "Welcome to Tajikistan";
+
+"sign_in" = "Log in";
+
+"sign_up" = "Registration";
+
+"sign_in_title" = "Entry";
+
+"sign_up_title" = "Registration";
+
+"username" = "Login";
+
+"full_name" = "Full name";
+
+"country" = "Country";
+
+"confirm_password" = "Repeat the password";
+
+"home" = "Home";
+
+"favorites" = "Favorites";
+
+"account" = "Account";
+
+"change" = "Edit";
+
+"found" = "Found it";
+
+"popular_in_tjk" = "Popular in Tajikistan";
+
+"popular_in" = "Popular in";
+
+"description_tourism" = "Description";
+
+"gallery" = "Photogallery";
+
+"reviews" = "Feedbacks";
+
+"compose_review" = "Leave feedback";
+
+"see_all" = "All reviews";
+
+"more" = "Unfold";
+
+"less" = "Show less";
+
+"review_title" = "Feedback";
+
+"tap_to_rate" = "Click to rate:";
+
+"text" = "Text";
+
+"upload_photo" = "Upload photo";
+
+"send" = "Send";
+
+"profile_tourism" = "Profile";
+
+"usd" = "USD";
+
+"eur" = "EUR";
+
+"rub" = "RUB";
+
+"personal_data" = "Personal information";
+
+"language" = "Language";
+
+"current_language" = "English";
+
+"dark_theme" = "Dark theme";
+
+"light_theme" = "Light theme";
+
+"sign_out" = "Exit";
+
+"sign_out_title" = "Exit";
+
+"sign_out_warning" = "Are you sure you want to get out?";
+
+"update_data" = "Edit data";
+
+"phone" = "Phone number";
+
+"chose_language" = "Select a language";
+
+"retry" = "Try again";
+
+"no_network" = "Couldn't reach the server, please check connection";
+
+"no_image" = "No image";
+
+"tjk" = "Tajikistan";
+
+"clear_search_field" = "Clear search field";
+
+"top30" = "Top 30 places";
+
+"sights" = "Sights";
+
+"restaurants" = "Restaurants";
+
+"hotels_tourism" = "Hotels";
+
+"add_to_favorites" = "Add to favorites";
+
+"show_route" = "Show route";
+
+"passwords_not_same" = "Passwords are not the same";
+
+"wrong_email_format" = "Wrong email format";
+
+"saved" = "Saved";
+
+"great_success" = "Great success😄";
+
+"review_deleted" = "Review was successfully deleted";
+
+"delete_review" = "Delete review";
+
+"deletion_warning" = "Are you sure you wanna delete this?";
+
+"deletionPlanned" = "Deleting…";
+
+"plz_wait_dowloading" = "Please, wait, data being downloaded";
+
+"empty_list" = "Пусто";
+
+"review_will_be_published" = "Review will be published when you are online";
+
+"review_was_published" = "Review was successfully published";
+
+"failed_to_publish_review" = "Failed to publish review\n";
+
+"plz_dont_go_out_of_tjk" = "Please, don't go out of Tajikistan, it's Tajikistan app";
+

@@ -4,7 +4,7 @@ class HomeViewController: UIViewController {
   
   private let label1: UILabel = {
     let label = UILabel()
-    label.text = "Label 1"
+    label.text = L("bookmark_list_description_hint")
     label.textAlignment = .center
     label.translatesAutoresizingMaskIntoConstraints = false
     label.textColor = Color.primary
@@ -14,7 +14,7 @@ class HomeViewController: UIViewController {
   
   private let label2: UILabel = {
     let label = UILabel()
-    label.text = "Label 2!"
+    label.text = L("welcome_to_tjk")
     label.textAlignment = .center
     label.translatesAutoresizingMaskIntoConstraints = false
     label.textColor = Color.onBackground
