@@ -11288,7 +11288,7 @@
     fr = Désolé, je n'ai rien trouvé.
     he = אופס, לא נמצאו תוצאות.
     hi = उफ़, कोई परिणाम नहीं मिला.
-    hu = Sajnos, semmit nem találtam.
+    hu = Sajnos, semmit sem találtunk.
     id = Maaf, saya tidak menemukan apa pun.
     it = Non ho trovato nulla.
     ja = 該当するものは見つかりませんでした。
@@ -11332,7 +11332,7 @@
     fr = Veuillez essayer un autre mot-clé.
     he = נסו לשנות את תנאי החיפוש.
     hi = अपना खोज मानदण्ड बदलने का प्रयास करें।
-    hu = Próbáljon másik lekérdezést.
+    hu = Próbáljon másik kifejezést.
     id = Silakan coba kueri lainnya.
     it = Prova con un'altra ricerca.
     ja = 条件を変えて検索してみてください。
@@ -11419,7 +11419,7 @@
     fi = Näytä viimeaikaiset hakusi.
     fr = Accédez rapidement aux dernières recherches.
     he = צפה בחיפושים האחרונים שלך.
-    hu = Aktuális keresés gyors elérése.
+    hu = Legutóbbi keresések gyors elérése.
     id = Akses kueri pencarian terbaru dengan cepat.
     it = Visualizza le ricerche recenti.
     ja = 最近の検索を表示します。
