@@ -4362,7 +4362,7 @@
 
   [unknown_current_position]
     comment = Warning message when doing search around current position
-    tags = android,ios
+    tags = android
     en = Your location hasn't been determined yet
     af = U ligging is nog nie vasgestel nie
     ar = لم يتم تحديد موقعك بعد.
@@ -4680,7 +4680,7 @@
 
   [share]
     comment = Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.
-    tags = android,ios
+    tags = android
     en = Share
     af = Deel
     ar = مشاركة
@@ -5132,7 +5132,7 @@
     zh-Hant = 長度
 
   [share_my_location]
-    tags = android,ios
+    tags = android
     en = Share My Location
     af = Deel my ligging
     ar = مشاركة موقعي
