@@ -6025,7 +6025,7 @@
     eu = Probatu ahots bidezko jarraibideak (TTS, Text-To-Speech)
     fa = تست مسیرهای صوتی (TTS، تبدیل متن به گفتار)
     fi = Testaa puheohjeita (TTS, Text-To-Speech).
-    fr = Teste les instructions vocales (TTS, Text-To-Speech)
+    fr = Tester les instructions vocales (TTS, Text-To-Speech)
     he = בדיקת הנחיות קוליות (TTS, טקסט לדיבור)
     hi = ध्वनि निर्देशों का परीक्षण करें (टीटीएस, टेक्स्ट-टू-स्पीच)
     hu = Hangutasítások tesztelése (TTS, Text-To-Speech)
@@ -19045,6 +19045,7 @@
     eu = Gelditu
     fa = توقف
     fi = Lopeta
+    fr = Arrêter
     he = עצור
     hu = Megállítás
     id = Berhenti
@@ -28978,6 +28979,7 @@
     az = https://t.me/OrganicMapsTR # Probably better than Ru
     be = https://t.me/OrganicMapsRu
     fa = https://t.me/OrganicMapsIR
+    fr = https://t.me/OrganicMapsFR
     ru = https://t.me/OrganicMapsRu
     tr = https://t.me/OrganicMapsTR
 
@@ -28985,6 +28987,7 @@
     comment = Instagram account url for the "?" About page
     tags = android,ios
     en = https://www.instagram.com/organicmaps.app
+    fr = https://www.instagram.com/organicmapsfr.app
     tr = https://www.instagram.com/organicmapstr
 
   [tts_info_link]
@@ -28992,6 +28995,7 @@
     tags = android
     en = https://organicmaps.app/faq/text-to-speech-android-tts/
     es = https://organicmaps.app/es/faq/instrucciones-de-voz-tts-en-android/
+    fr = https://organicmaps.app/fr/faq/voice/synthèse-vocale-tts-sur-android/
     it = https://organicmaps.app/it/faq/sintesi-vocale-tts-su-android/
     ru = https://organicmaps.app/ru/faq/синтез-речи-tts-на-android/
 
