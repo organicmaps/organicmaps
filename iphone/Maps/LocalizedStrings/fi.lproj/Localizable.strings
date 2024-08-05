@@ -185,17 +185,11 @@
 /* resource for context menu */
 "edit" = "Muokkaa";
 
-/* Warning message when doing search around current position */
-"unknown_current_position" = "Sijaintiasi ei ole vielä määritetty";
-
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hei, katso merkintäni Organic Maps-kartalla!";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Hei, kurkkaa tämänhetkinen sijaintini Organic Maps:n kartalla!";
-
-/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
-"share" = "Jaa";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "Sähköposti";
@@ -217,8 +211,6 @@
 
 /* Length of track in cell that describes route */
 "length" = "Pituus";
-
-"share_my_location" = "Jaa sijaintini";
 
 "prefs_group_route" = "Navigointi";
 

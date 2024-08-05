@@ -171,7 +171,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
+"share_bookmarks_email_body" = "您好！\n\n附件是我的书签，请在 Organic Maps 中打开。如果您没有安装 Organic Maps，可以在这里下载: https://omaps.app/get?kmz\n\n祝您使用 Organic Maps 旅行愉快！";
 
 /* message title of loading file */
 "load_kmz_title" = "加载书签";
@@ -185,17 +185,11 @@
 /* resource for context menu */
 "edit" = "编辑";
 
-/* Warning message when doing search around current position */
-"unknown_current_position" = "您的位置尚未确定";
-
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "嘿，在 Organic Maps 上查看我标注的图钉吧！";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "嗨，到 Organic Maps 查看我的当前位置！";
-
-/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
-"share" = "分享";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "邮件";
@@ -217,8 +211,6 @@
 
 /* Length of track in cell that describes route */
 "length" = "长度";
-
-"share_my_location" = "共享我的位置";
 
 "prefs_group_route" = "导航";
 
@@ -255,10 +247,10 @@
 "pref_tts_enable_title" = "语音指导";
 
 /* Settings «Route» category: «Tts announce street names» title */
-"pref_tts_street_names_title" = "宣布街道名称";
+"pref_tts_street_names_title" = "播报街道名称";
 
 /* Settings «Route» category: «Tts announce street names» description */
-"pref_tts_street_names_description" = "启用后，将大声说出要转入的街道或出口的名称。";
+"pref_tts_street_names_description" = "启用后，将大声播报即将进入的街道或出口的名称。";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "语音语言";
@@ -552,7 +544,7 @@
 "read_in_wikipedia" = "维基百科";
 
 /* Place Page link to Wikimedia Commons. */
-"wikimedia_commons" = "Wikimedia Commons";
+"wikimedia_commons" = "维基共享资源";
 
 "p2p_your_location" = "您的位置";
 
@@ -564,7 +556,7 @@
 
 "p2p_only_from_current" = "导航只能从您目前的位置开始。";
 
-"p2p_reroute_from_current" = "你是否想要规划当前位置的路线？";
+"p2p_reroute_from_current" = "您是否想要规划当前位置的路线？";
 
 "editor_time_add" = "添加计划";
 
@@ -583,9 +575,9 @@
 
 "editor_time_advanced" = "高级模式";
 
-"editor_time_simple" = "简单模式";
+"editor_time_simple" = "简易模式";
 
-"editor_hours_closed" = "非营业时间";
+"editor_hours_closed" = "休息时间";
 
 "editor_example_values" = "示例值";
 
@@ -607,9 +599,9 @@
 
 "twentyfour_seven" = "全天候";
 
-"day_off_today" = "今天没有营业";
+"day_off_today" = "今天不营业";
 
-"day_off" = "没有营业";
+"day_off" = "不营业";
 
 "today" = "今天";
 
@@ -625,9 +617,9 @@
 
 "closes_in" = "将于 %@ 后停业";
 
-"closed" = "已关闭";
+"closed" = "已停止营业";
 
-"add_opening_hours" = "添加工作时间";
+"add_opening_hours" = "添加营业时间";
 
 "no_osm_account" = "在OpenStreetMap上没有账户吗？";
 
@@ -727,7 +719,7 @@
 "message_invalid_feature_position" = "对象无法设置在这里";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
-"osm_presentation" = "截至 %@ 的社区创建的 OpenStreetMap 数据。在OpenStreetMap.org网站上了解更多有关如何编辑和更新地图的信息。";
+"osm_presentation" = "截至 %@ 的社区创建的 OpenStreetMap 数据。请访问 OpenStreetMap.org 以了解更多有关如何编辑和更新地图的信息。";
 
 "login_to_make_edits_visible" = "登录，让其他用户能看到您所作出的修改。";
 
@@ -933,10 +925,10 @@
 "core_exit" = "退出";
 
 /* User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". */
-"routing_add_start_point" = "使用搜索或点击地图添加路线起点";
+"routing_add_start_point" = "请使用搜索或点击地图以添加路线起点";
 
 /* User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". */
-"routing_add_finish_point" = "使用搜索或点击地图添加目的地点";
+"routing_add_finish_point" = "请使用搜索或点击地图以添加目的地";
 
 "planning_route_manage_route" = "管理路线";
 
@@ -944,7 +936,7 @@
 
 "placepage_remove_stop" = "移除";
 
-"planning_route_remove_title" = "拖动到此处以移除";
+"planning_route_remove_title" = "拖拽到此处以移除";
 
 "placepage_add_stop" = "添加经停点";
 
@@ -963,9 +955,9 @@
 "bookmark_lists" = "列表";
 
 /* Do not display all bookmark lists on the map */
-"bookmark_lists_hide_all" = "全部隱藏";
+"bookmark_lists_hide_all" = "全部隐藏";
 
-"bookmark_lists_show_all" = "全部顯示";
+"bookmark_lists_show_all" = "全部显示";
 
 "bookmarks_create_new_group" = "创建新的列表";
 
@@ -1032,12 +1024,12 @@
 
 "download_button" = "下载";
 
-"speedcams_alert_title" = "高速摄像机";
+"speedcams_alert_title" = "限速拍照";
 
 "place_description_title" = "地点说明";
 
 /* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
-"pref_tts_speedcams_auto" = "警告您超速行驶";
+"pref_tts_speedcams_auto" = "超速行驶时发出警告";
 
 /* Speed camera settings menu option - Always warn (about speedcams) */
 "pref_tts_speedcams_always" = "始终提醒摄像头";
@@ -1210,9 +1202,9 @@
 
 "button_layer_isolines" = "等高线";
 
-"isolines_activation_error_dialog" = "如需使用高度线，请更新或下载所需区域的地图";
+"isolines_activation_error_dialog" = "如需使用等高线，请更新或下载所需区域的地图";
 
-"isolines_location_error_dialog" = "暂时无法获取该地区的高低线";
+"isolines_location_error_dialog" = "暂时无法获取该地区的等高线";
 
 "elevation_profile_diff_level" = "难度等级";
 
@@ -1253,13 +1245,13 @@
 "whats_new_auto_update_button_later" = "稍后手动更新";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Delete Track";
+"placepage_delete_track_button" = "删除轨迹";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Track Name";
+"placepage_track_name_hint" = "轨迹名称";
 
 /* move track or bookmark from the list button text */
-"move" = "Move";
+"move" = "移动";
 
 /* edit track screen title */
 "track_title" = "追踪";
@@ -1271,22 +1263,22 @@
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
 
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
-"translated_om_site_url" = "https://organicmaps.app/";
+"translated_om_site_url" = "https://organicmaps.app/zh-Hans/";
 
 /* Link to OSM wiki for Editor, Profile and About pages */
-"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Zh-hans:%E5%85%B3%E4%BA%8E";
 
 /* App Tip #00 */
-"app_tip_00" = "感谢您使用我们的社区地图！";
+"app_tip_00" = "感谢您使用我们社区构建的地图！";
 
 /* App tip #01 */
 "app_tip_01" = "有了您的捐赠和支持，我们可以创建世界上最好的地图！";
 
 /* App tip #02 */
-"app_tip_02" = "您喜欢我们的应用程序吗？ 请捐款支持发展！ 还不喜欢吗？ 请告诉我们，我们会修复它！";
+"app_tip_02" = "您喜欢我们的应用程序吗？请捐款以支持发展！还不喜欢吗？请告诉我们，我们会修复您提到的问题！";
 
 /* App tip #03 */
-"app_tip_03" = "如果您认识软件开发人员，您可以要求他或她实现您需要的功能。";
+"app_tip_03" = "如果您认识软件开发人员，您可以要求他实现您需要的功能。";
 
 /* App tip #04 */
 "app_tip_04" = "您知道您可以长按地图上的任何位置来选择它吗？";

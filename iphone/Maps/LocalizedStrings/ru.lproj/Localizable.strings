@@ -185,17 +185,11 @@
 /* resource for context menu */
 "edit" = "Редактировать";
 
-/* Warning message when doing search around current position */
-"unknown_current_position" = "Ваше местоположение ещё не определено";
-
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Смотри мою метку на карте Organic Maps";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Посмотри на карте Organic Maps, где я сейчас нахожусь";
-
-/* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
-"share" = "Поделиться";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "Email";
@@ -217,8 +211,6 @@
 
 /* Length of track in cell that describes route */
 "length" = "Длина";
-
-"share_my_location" = "Поделиться местоположением";
 
 "prefs_group_route" = "Навигация";
 

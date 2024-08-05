@@ -17,6 +17,9 @@
 	<string name="downloading">下载…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">公里</string>
+	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
+	<string name="mb">MB</string>
+	<string name="gb">GB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">英里</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
@@ -92,8 +95,20 @@
 	<string name="maps_storage_summary">选取地图应该下载的位置</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
 	<string name="maps_storage_downloaded">地图</string>
+	<!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+	<string name="maps_storage_internal">内部私人存储</string>
+	<!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+	<string name="maps_storage_shared">内部共享存储</string>
+	<!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+	<string name="maps_storage_removable">SD 卡</string>
+	<!-- Generic external storage type in Maps Storage settings -->
+	<string name="maps_storage_external">外部共享存储</string>
+	<!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+	<string name="maps_storage_free_size">剩余 %1$s / 总计 %2$s</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">移动地图？</string>
+	<!-- Error moving map files from one storage to another -->
+	<string name="move_maps_error">移动地图文件时出错</string>
 	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">这可能需要几分钟的时间。\n请稍候…</string>
 	<!-- Measurement units title in settings activity -->
@@ -154,6 +169,7 @@
 	<string name="description">注释</string>
 	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Organic Maps 书签已与您共享</string>
+	<string name="share_bookmarks_email_body">您好！\n\n附件是我的书签，请在 Organic Maps 中打开。如果您没有安装 Organic Maps，可以在这里下载: https://omaps.app/get?kmz\n\n祝您使用 Organic Maps 旅行愉快！</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">加载书签</string>
 	<!-- Kmz file successful loading -->
@@ -179,7 +195,7 @@
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">嗨，到 Organic Maps 查看我的当前位置！</string>
 	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-	<string name="my_position_share_email">嗨，\n\n我现在在这:%1$s。点击此链 接%2$s或此链接 %3$s来查看在地图上的位置。\n\n谢谢。</string>
+	<string name="my_position_share_email">嗨，\n\n我现在在这：%1$s。点击此链接 %2$s 或此链接 %3$s 来查看在地图上的位置。\n\n谢谢。</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">分享</string>
 	<!-- Share by email button text, also used in editor and About. -->
@@ -221,9 +237,9 @@
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">语音指导</string>
 	<!-- Settings «Route» category: «Tts announce street names» title -->
-	<string name="pref_tts_street_names_title">宣布街道名称</string>
+	<string name="pref_tts_street_names_title">播报街道名称</string>
 	<!-- Settings «Route» category: «Tts announce street names» description -->
-	<string name="pref_tts_street_names_description">启用后，将大声说出要转入的街道或出口的名称。</string>
+	<string name="pref_tts_street_names_description">启用后，将大声播报即将进入的街道或出口的名称。</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">语音语言</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -241,6 +257,8 @@
 	<string name="duration_1_day">1天</string>
 	<string name="placepage_distance">距离</string>
 	<string name="search_show_on_map">在地图上查看</string>
+	<!-- Menu button -->
+	<string name="menu">菜单</string>
 	<!-- Text in menu -->
 	<string name="website">网站</string>
 	<!-- Text in About menu, opens Organic Maps news website -->
@@ -389,12 +407,14 @@
 	<string name="clear_search">清除搜索记录</string>
 	<!-- Place Page link to Wikipedia article (if map object has it). -->
 	<string name="read_in_wikipedia">维基百科</string>
+	<!-- Place Page link to Wikimedia Commons. -->
+	<string name="wikimedia_commons">维基共享资源</string>
 	<string name="p2p_your_location">您的位置</string>
 	<string name="p2p_start">开始</string>
 	<string name="p2p_from_here">从这出发</string>
 	<string name="p2p_to_here">到这去</string>
 	<string name="p2p_only_from_current">导航只能从您目前的位置开始。</string>
-	<string name="p2p_reroute_from_current">你是否想要规划当前位置的路线？</string>
+	<string name="p2p_reroute_from_current">您是否想要规划当前位置的路线？</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">下一页</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->
@@ -410,12 +430,12 @@
 	<string name="editor_time_add_closed">添加非营业时间</string>
 	<string name="editor_time_title">营业时间</string>
 	<string name="editor_time_advanced">高级模式</string>
-	<string name="editor_time_simple">简单模式</string>
-	<string name="editor_hours_closed">非营业时间</string>
+	<string name="editor_time_simple">简易模式</string>
+	<string name="editor_hours_closed">休息时间</string>
 	<string name="editor_example_values">示例值</string>
 	<string name="editor_correct_mistake">纠正错误</string>
 	<string name="editor_add_select_location">位置</string>
-	<string name="editor_report_problem_desription_1">请详细描述此问题以便OpenStreetMap社区能够修复此错误。</string>
+	<string name="editor_report_problem_desription_1">请详细描述此问题以便 OpenStreetMap 社区能够修复此错误。</string>
 	<string name="editor_report_problem_desription_2">或者在https://www.openstreetmap.org/上亲自修复此错误。</string>
 	<string name="editor_report_problem_send_button">发送</string>
 	<string name="editor_report_problem_title">问题</string>
@@ -426,12 +446,12 @@
 	<!-- Place Page opening hours text -->
 	<string name="daily">每天</string>
 	<string name="twentyfour_seven">全天候</string>
-	<string name="day_off_today">今天没有营业</string>
-	<string name="day_off">没有营业</string>
+	<string name="day_off_today">今天不营业</string>
+	<string name="day_off">不营业</string>
 	<string name="today">今天</string>
 	<string name="opens_in">将于 %s 后开业</string>
 	<string name="closes_in">将于 %s 后停业</string>
-	<string name="closed">已关闭</string>
+	<string name="closed">已停止营业</string>
 	<string name="edit_opening_hours">编辑工作时间</string>
 	<string name="no_osm_account">在OpenStreetMap上没有账户吗？</string>
 	<string name="register_at_openstreetmap">注册</string>
@@ -450,6 +470,8 @@
 	<string name="details">详细信息</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">添加街道</string>
+	<!-- Error to display when a new street name is not entered in the New street dialog -->
+	<string name="empty_street_name_error">请输入街道名称</string>
 	<string name="choose_language">选择语言</string>
 	<string name="choose_street">选择街道</string>
 	<string name="postal_code">邮政编码</string>
@@ -459,6 +481,8 @@
 	<string name="email_or_username">邮箱或用户名</string>
 	<string name="editor_add_phone">新增电话号码</string>
 	<string name="level">楼层</string>
+	<!-- Building level -->
+	<string name="level_value_generic">楼层：%s</string>
 	<string name="downloader_delete_map_dialog">所有对地图的修改都将与地图一起被删除。</string>
 	<string name="downloader_update_maps">更新地图</string>
 	<string name="downloader_mwm_migration_dialog">为了创建路线，您需要更新全部地图并重新规划路线。</string>
@@ -479,7 +503,7 @@
 	<string name="editor_report_problem_other_title">一个不同的问题</string>
 	<string name="message_invalid_feature_position">对象无法设置在这里</string>
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">截至 %s 的社区创建的 OpenStreetMap 数据。在OpenStreetMap.org网站上了解更多有关如何编辑和更新地图的信息。</string>
+	<string name="osm_presentation">截至 %s 的社区创建的 OpenStreetMap 数据。请访问 OpenStreetMap.org 以了解更多有关如何编辑和更新地图的信息。</string>
 	<string name="login_to_make_edits_visible">登录，让其他用户能看到您所作出的修改。</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d个/共%2$d个</string>
@@ -529,10 +553,17 @@
 	<string name="editor_remove_place_message">删除已添加的位置？</string>
 	<string name="editor_remove_place_button">删除</string>
 	<string name="editor_place_doesnt_exist">该地点不存在</string>
+	<!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+	<string name="delete_place_empty_comment_error">请注明删除该地点的原因</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">输入正确的电话号码</string>
 	<string name="error_enter_correct_web">输入有效网址</string>
 	<string name="error_enter_correct_email">输入有效电子邮箱</string>
+	<string name="error_enter_correct_facebook_page">请输入有效的 Facebook 网页地址、账号或页面名称</string>
+	<string name="error_enter_correct_instagram_page">请输入有效的 Instagram 用户名或网页地址</string>
+	<string name="error_enter_correct_twitter_page">请输入有效的 Twitter 用户名或网页地址</string>
+	<string name="error_enter_correct_vk_page">请输入有效的 VK 用户名或网页地址</string>
+	<string name="error_enter_correct_line_page">请输入有效的 LINE ID 或网页地址</string>
 	<string name="placepage_add_place_button">将地点添加到 OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">您想要发给所有用户吗？</string>
@@ -569,9 +600,9 @@
 	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">退出</string>
 	<!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-	<string name="routing_add_start_point">使用搜索或点击地图添加路线起点</string>
+	<string name="routing_add_start_point">请使用搜索或点击地图以添加路线起点</string>
 	<!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-	<string name="routing_add_finish_point">使用搜索或点击地图添加目的地点</string>
+	<string name="routing_add_finish_point">请使用搜索或点击地图以添加目的地</string>
 	<string name="placepage_remove_stop">移除</string>
 	<string name="placepage_add_stop">添加经停点</string>
 	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
@@ -583,10 +614,10 @@
 	<string name="error_enter_correct_name">请输入正确的名称</string>
 	<string name="bookmark_lists">列表</string>
 	<!-- Do not display all bookmark lists on the map -->
-	<string name="bookmark_lists_hide_all">全部隱藏</string>
-	<string name="bookmark_lists_show_all">全部顯示</string>
+	<string name="bookmark_lists_hide_all">全部隐藏</string>
+	<string name="bookmark_lists_show_all">全部显示</string>
 	<plurals name="bookmarks_places">
-	  <item quantity="other">%d 個書籤</item>
+	  <item quantity="other">%d 个书签</item>
 	</plurals>
 	<string name="bookmarks_create_new_group">创建新的列表</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
@@ -627,12 +658,12 @@
 	<string name="limited_access">私人访问</string>
 	<string name="bookmark_list_description_hint">请添加说明（文字或html）</string>
 	<string name="not_shared">私人</string>
-	<string name="speedcams_alert_title">高速摄像机</string>
+	<string name="speedcams_alert_title">限速拍照</string>
 	<string name="place_description_title">地点说明</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">加载地图</string>
 	<!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
-	<string name="pref_tts_speedcams_auto">警告您超速行驶</string>
+	<string name="pref_tts_speedcams_auto">超速行驶时发出警告</string>
 	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
 	<string name="pref_tts_speedcams_always">始终提醒摄像头</string>
 	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
@@ -714,8 +745,8 @@
 	<string name="dialog_pedestrian_route_is_long_header">地铁路线图未找到</string>
 	<string name="dialog_pedestrian_route_is_long_message">选择地铁站附近的起点和终点</string>
 	<string name="button_layer_isolines">等高线</string>
-	<string name="isolines_activation_error_dialog">如需使用高度线，请更新或下载所需区域的地图</string>
-	<string name="isolines_location_error_dialog">暂时无法获取该地区的高低线</string>
+	<string name="isolines_activation_error_dialog">如需使用等高线，请更新或下载所需区域的地图</string>
+	<string name="isolines_location_error_dialog">暂时无法获取该地区的等高线</string>
 	<string name="elevation_profile_ascent">上坡</string>
 	<string name="elevation_profile_descent">下坡</string>
 	<string name="elevation_profile_minaltitude">最小高度</string>
@@ -726,6 +757,14 @@
 	<string name="isolines_toast_zooms_1_10">放大地图以查看等高线</string>
 	<string name="downloader_loading_ios">加载</string>
 	<string name="download_map_title">下载世界地图</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error">无法在内部存储或 SD 卡上创建文件夹和移动文件</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error_title">磁盘错误</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="connection_failure">磁盘错误</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disconnect_usb_cable_title">断开 USB 线缆</string>
 	<string name="enable_keep_screen_on">保持屏幕打开</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">启用后，显示地图时屏幕将始终打开。</string>
@@ -735,14 +774,18 @@
 	<string name="enable_show_on_lock_screen_description">启用后，即使设备已锁定，应用程序仍将在锁屏上运行。</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">地图数据来自 OpenStreetMap</string>
+	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+	<string name="translated_om_site_url">https://organicmaps.app/zh-Hans/</string>
+	<!-- Link to OSM wiki for Editor, Profile and About pages -->
+	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Zh-hans:%1$E5%%85%%B3%2$E4%%BA%3$8E</string>
 	<!-- App Tip #00 -->
-	<string name="app_tip_00">感谢您使用我们的社区地图！</string>
+	<string name="app_tip_00">感谢您使用我们社区构建的地图！</string>
 	<!-- App tip #01 -->
 	<string name="app_tip_01">有了您的捐赠和支持，我们可以创建世界上最好的地图！</string>
 	<!-- App tip #02 -->
-	<string name="app_tip_02">您喜欢我们的应用程序吗？ 请捐款支持发展！ 还不喜欢吗？ 请告诉我们，我们会修复它！</string>
+	<string name="app_tip_02">您喜欢我们的应用程序吗？请捐款以支持发展！还不喜欢吗？请告诉我们，我们会修复您提到的问题！</string>
 	<!-- App tip #03 -->
-	<string name="app_tip_03">如果您认识软件开发人员，您可以要求他或她实现您需要的功能。</string>
+	<string name="app_tip_03">如果您认识软件开发人员，您可以要求他实现您需要的功能。</string>
 	<!-- App tip #04 -->
 	<string name="app_tip_04">您知道您可以长按地图上的任何位置来选择它吗？</string>
 	<!-- App tip #05 -->
@@ -779,7 +822,7 @@
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">导出所有书签和曲目</string>
 	<!-- button in (app) TTS settings, to open the system TTS settings. -->
-	<string name="pref_tts_open_system_settings">语音合成系统设置</string>
+	<string name="pref_tts_open_system_settings">文本转语音系统设置</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">未找到语音合成设置，您确定您的设备支持该设置吗？</string>
 	<string name="drive_through">驾车通过</string>
