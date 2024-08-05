@@ -13,6 +13,7 @@ import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 
+import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
@@ -63,6 +64,7 @@ public class SettingsScreen extends BaseMapScreen
     final ItemList.Builder builder = new ItemList.Builder();
     builder.addItem(createThemeItem());
     builder.addItem(createRoutingOptionsItem());
+    builder.addItem(create3dBuildingsItem());
     builder.addItem(createSharedPrefsToggle(R.string.big_font, Config::isLargeFontsSize, Config::setLargeFontsSize));
     builder.addItem(createSharedPrefsToggle(R.string.transliteration_title, Config::isTransliteration, Config::setTransliteration));
     builder.addItem(createHelpItem());
@@ -88,6 +90,19 @@ public class SettingsScreen extends BaseMapScreen
     builder.setOnClickListener(() -> getScreenManager().pushForResult(new DrivingOptionsScreen(getCarContext(), getSurfaceRenderer()), this::setResult));
     builder.setBrowsable(true);
     return builder.build();
+  }
+
+  @NonNull
+  private Item create3dBuildingsItem()
+  {
+    final Framework.Params3dMode _3d = new Framework.Params3dMode();
+    Framework.nativeGet3dMode(_3d);
+
+    final OnClickListener listener = () -> {
+      Framework.nativeSet3dMode(_3d.enabled, !_3d.buildings);
+      invalidate();
+    };
+    return Toggle.create(getCarContext(), R.string.pref_map_3d_buildings_title, listener, _3d.buildings);
   }
 
   @NonNull
