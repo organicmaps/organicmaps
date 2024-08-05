@@ -434,6 +434,8 @@
     th = MB
     tr = MB
     uk = МБ
+    zh-Hans = MB
+    zh-Hant = MB
 
   [gb]
     tags = android
@@ -450,6 +452,8 @@
     lt = GB
     ru = ГБ
     uk = ГБ
+    zh-Hans = GB
+    zh-Hant = GB
 
   [miles]
     comment = Choose measurement on first launch alert - choose imperial system button
@@ -2534,6 +2538,8 @@
     sk = Interné privátne úložisko
     tr = Dahili özel depolama
     uk = Внутрішнє приватне сховище
+    zh-Hans = 内部私人存储
+    zh-Hant = 內部私人儲存
 
   [maps_storage_shared]
     comment = Shared storage type in Maps Storage settings (a primary storage usually)
@@ -2565,6 +2571,8 @@
     sk = Interné zdieľané úložisko
     tr = Dahili paylaşılan depolama
     uk = Внутрішнє спільне сховище
+    zh-Hans = 内部共享存储
+    zh-Hant = 內部共享儲存
 
   [maps_storage_removable]
     comment = Removable external storage type in Maps Storage settings, e.g. an SD card
@@ -2596,6 +2604,8 @@
     sk = SD karta
     tr = SD kart
     uk = SD-карта
+    zh-Hans = SD 卡
+    zh-Hant = SD 卡
 
   [maps_storage_external]
     comment = Generic external storage type in Maps Storage settings
@@ -2627,6 +2637,8 @@
     sk = Externé zdieľané úložisko
     tr = Harici paylaşılan depolama
     uk = Зовнiшне спільне сховище
+    zh-Hans = 外部共享存储
+    zh-Hant = 外部共享儲存
 
   [maps_storage_free_size]
     comment = Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB"
@@ -2658,6 +2670,8 @@
     sk = Voľných %1$@ z %2$@
     tr = %2$@'ın %1$@'ı boş
     uk = %1$@ вільно з %2$@
+    zh-Hans = 剩余 %1$@ / 总计 %2$@
+    zh-Hant = 剩餘 %1$@ / 總計 %2$@
 
   [move_maps]
     comment = Question dialog for transferring maps from one storage to another
@@ -2734,6 +2748,8 @@
     sk = Chyba pri presune mapových súborov
     tr = Harita dosyalarını taşıma hatası
     uk = Помилка переміщення файлів карти
+    zh-Hans = 移动地图文件时出错
+    zh-Hant = 移動地圖檔案時出錯
 
   [wait_several_minutes]
     comment = Ask user to wait several minutes (some long process in modal dialog).
@@ -4062,7 +4078,8 @@
     sk = Ahoj!\n\nV prílohe sú moje záložky z aplikácie Organic Maps. Ak ju nemáš nainštalovanú, môžeš si ju stiahnuť tu: https://omaps.app/get?kmz\n\nPrajem šťastnú cestu s Organic Maps!
     tr = Merhaba!\n\nEktekiler benim Organic Maps yer imlerim. Eğer Organic Maps'i yüklediyseniz lütfen ektekileri açın. Eğer yüklemediyseniz, bu bağlantıyı takip ederek iOS ve Android cihazınız için uygulamayı yükleyebilirsiniz: https://omaps.app/get?kmz\n\nOrganic Maps ile seyahat etmenin keyfini çıkarın!
     uk = Привіт!\n\nДодаю мої мiтки; відкрийте їх у Organic Maps. Якщо застосунок не встановлено, ви можете завантажити його тут: https://omaps.app/get?kmz\n\nНасолоджуйтесь подорожами з Organic Maps!
-    zh-Hant = 你好！\n\n附件為 Organic Maps app 的書籤，如果你有安裝 Organic Maps 則直接開啟，如果沒有的話，請先在 iOS 或是 Android 裝置，從下面連結下載：https://omaps.app/get?kmz\n\n旅行時用上 Organic Maps!
+    zh-Hans = 您好！\n\n附件是我的书签，请在 Organic Maps 中打开。如果您没有安装 Organic Maps，可以在这里下载: https://omaps.app/get?kmz\n\n祝您使用 Organic Maps 旅行愉快！
+    zh-Hant = 您好！\n\n附件是我的書籤，請在 Organic Maps 中打開。如果您沒有安裝 Organic Maps，可以在這裡下載: https://omaps.app/get?kmz\n\n祝您使用 Organic Maps 旅行愉快！
 
   [load_kmz_title]
     comment = message title of loading file
@@ -4658,7 +4675,7 @@
     tr = Merhaba,\n\nŞu anda bulunduğum yer: %1$@. Yeri haritada görmek için %2$@ veya %3$@ bağlantısına tıkla.\n\nTeşekkürler.
     uk = Привіт,\n\nЯ зараз тут: %1$@. Натисни на це посилання %2$@ або на це посилання %3$@ щоб побачити місце на мапі.\n\nДякую.
     vi = Chào,\n\nTôi hiện đang ở đây: %1$@. Hãy nhấn vào liên kết này %2$@ hoặc liên kết này %3$@ để xem địa điểm trên bản đồ.\n\nCám ơn.
-    zh-Hans = 嗨，\n\n我现在在这:%1$@。点击此链 接%2$@或此链接 %3$@来查看在地图上的位置。\n\n谢谢。
+    zh-Hans = 嗨，\n\n我现在在这：%1$@。点击此链接 %2$@ 或此链接 %3$@ 来查看在地图上的位置。\n\n谢谢。
     zh-Hant = 嗨，\n\n我現在在這：%1$@。點擊此連結 %2$@ 或此連結 %3$@ 來查看在地圖上的位置。\n\n謝謝。
 
   [share]
@@ -5898,8 +5915,8 @@
     tr = Sokak İsimlerini de Söyle
     uk = Проговорювати назви вулиць
     vi = Thông báo tên đường
-    zh-Hans = 宣布街道名称
-    zh-Hant = 宣布街道名稱
+    zh-Hans = 播报街道名称
+    zh-Hant = 播報街道名稱
 
   [pref_tts_street_names_description]
     comment = Settings «Route» category: «Tts announce street names» description
@@ -5941,8 +5958,8 @@
     tr = Etkinleştirildiğinde, dönülecek sokağın veya çıkışın adı sesli olarak söylenecektir.
     uk = Якщо ввімкнено, назва вулиці або виїзду, на яку потрібно повернути, буде вимовлена вголос.
     vi = Nếu bật, sẽ đọc to tên đường hoặc lối ra để rẽ vào.
-    zh-Hans = 启用后，将大声说出要转入的街道或出口的名称。
-    zh-Hant = 啟用後，將大聲說出要轉入的街道或出口的名稱。
+    zh-Hans = 启用后，将大声播报即将进入的街道或出口的名称。
+    zh-Hant = 啟用後，將大聲播報即將進入的街道或出口的名稱。
 
   [pref_tts_language_title]
     comment = Settings «Route» category: «Tts language» title
@@ -6674,6 +6691,8 @@
     pl = Menu
     ru = Меню
     uk = Меню
+    zh-Hans = 菜单
+    zh-Hant = 菜單
 
   [website]
     comment = Text in menu
@@ -6828,7 +6847,6 @@
     tags = android
     en = OpenStreetMap
     ar = خريطة الشارع المفتوحة
-    zh-Hant = 開放街圖
 
   [feedback]
     comment = Settings: Send feedback button and dialog title
@@ -11568,6 +11586,8 @@
     en = Wikimedia Commons
     ja = ウィキメディア・コモンズ
     lt = Vikiteka
+    zh-Hans = 维基共享资源
+    zh-Hant = 維基共享資源
 
   [p2p_your_location]
     tags = android,ios
@@ -11829,8 +11849,8 @@
     tr = Mevcut konumunuzdan bir rota planlamamızı ister misiniz?
     uk = Хочете спланувати маршрут із поточного місцезнаходження?
     vi = Bạn có muốn chúng tôi vạch đường từ vị trí hiện tại của bạn không?
-    zh-Hans = 你是否想要规划当前位置的路线？
-    zh-Hant = 你是否想要規劃目前位置的路線？
+    zh-Hans = 您是否想要规划当前位置的路线？
+    zh-Hant = 您是否想要規劃目前位置的路線？
 
   [next_button]
     comment = Edit open hours/set time and minutes dialog
@@ -12303,7 +12323,7 @@
     uk = Розширений режим
     vi = Chế độ nâng cao
     zh-Hans = 高级模式
-    zh-Hant = 進階模式
+    zh-Hant = 高級模式
 
   [editor_time_simple]
     tags = android,ios
@@ -12344,7 +12364,7 @@
     tr = Basit Mod
     uk = Простий режим
     vi = Chế độ đơn giản
-    zh-Hans = 简单模式
+    zh-Hans = 简易模式
     zh-Hant = 簡易模式
 
   [editor_hours_closed]
@@ -12386,7 +12406,7 @@
     tr = Kapalı olduğu saatler
     uk = Перерва
     vi = Giờ đóng cửa
-    zh-Hans = 非营业时间
+    zh-Hans = 休息时间
     zh-Hant = 休息時間
 
   [editor_example_values]
@@ -12601,7 +12621,7 @@
     uk = Поділитися з друзями
     vi = Chia sẻ với bạn bè
     zh-Hans = 与朋友分享
-    zh-Hant = 和朋友分享
+    zh-Hant = 与朋友分享
 
   [editor_report_problem_desription_1]
     tags = android
@@ -12643,8 +12663,8 @@
     tr = OpenStreetMap topluluğunun hatayı düzeltmesi için lütfen problemi detaylı bir şekilde açıklayın.
     uk = Будь-ласка, напишіть детально про проблему, щоб суспільство OpenStreetMap виправило помилку.
     vi = Xin mô tả chi tiết vấn đề để cộng đồng OpenStreetMap có thể sửa lỗi đó.
-    zh-Hans = 请详细描述此问题以便OpenStreetMap社区能够修复此错误。
-    zh-Hant = 請詳細描述此問題以便 OpenStreetMap 社群修復此錯誤。
+    zh-Hans = 请详细描述此问题以便 OpenStreetMap 社区能够修复此错误。
+    zh-Hant = 請詳細描述此問題以便 OpenStreetMap 社群能夠修復此錯誤。
 
   [editor_report_problem_desription_2]
     tags = android
@@ -13121,8 +13141,8 @@
     tr = Bugün kapalı
     uk = Сьогодні зачинено
     vi = Nghỉ hôm nay
-    zh-Hans = 今天没有营业
-    zh-Hant = 今天沒有營業
+    zh-Hans = 今天不营业
+    zh-Hant = 今天不營業
 
   [day_off]
     tags = android,ios
@@ -13164,8 +13184,8 @@
     tr = Kapalı
     uk = Зачинено
     vi = Ngày nghỉ
-    zh-Hans = 没有营业
-    zh-Hant = 沒有營業
+    zh-Hans = 不营业
+    zh-Hant = 不營業
 
   [today]
     tags = android,ios
@@ -13432,8 +13452,8 @@
     tr = Kapalı
     uk = Зачинено
     vi = Đã đóng
-    zh-Hans = 已关闭
-    zh-Hant = 已關閉
+    zh-Hans = 已停止营业
+    zh-Hant = 已停止營業
 
   [add_opening_hours]
     tags = ios
@@ -13475,7 +13495,7 @@
     tr = Açılış saatlerini ekle
     uk = Додати години роботи
     vi = Thêm giờ làm việc
-    zh-Hans = 添加工作时间
+    zh-Hans = 添加营业时间
     zh-Hant = 新增營業時間
 
   [edit_opening_hours]
@@ -14427,6 +14447,8 @@
     sk = Zadajte názov ulice
     tr = Lütfen bir sokak adı girin
     uk = Введіть назву вулиці
+    zh-Hans = 请输入街道名称
+    zh-Hant = 請輸入街道名稱
 
   [choose_language]
     tags = android,ios
@@ -14813,6 +14835,8 @@
     fr = Niveau : %s
     ru = Этаж: %s
     tr = Kat sayısı:  %s
+    zh-Hans = 楼层：%s
+    zh-Hant = 樓層：%s
 
   [please_note]
     tags = ios
@@ -15943,8 +15967,8 @@
     tr = %@ tarihine ait topluluk tarafından oluşturulmuş OpenStreetMap verilerini kullanıyorsunuz. OpenStreetMap.org adresinden haritayı nasıl düzenleyebileceğiniz hakkında bilgi edinebilirsiniz
     uk = Дані OpenStreetMap, створені спільнотою, станом на %@. Дізнайтеся більше про те, як редагувати та оновлювати мапу на OpenStreetMap.org
     vi = Dữ liệu OpenStreetMap do cộng đồng tạo ra kể từ %@. Tìm hiểu thêm về cách chỉnh sửa và cập nhật bản đồ tại OpenStreetMap.org
-    zh-Hans = 截至 %@ 的社区创建的 OpenStreetMap 数据。在OpenStreetMap.org网站上了解更多有关如何编辑和更新地图的信息。
-    zh-Hant = 截至 %@ 的社群創建的 OpenStreetMap 資料。請訪問 OpenStreetMap.org 以了解有關如何編輯和更新地圖的更多信息
+    zh-Hans = 截至 %@ 的社区创建的 OpenStreetMap 数据。请访问 OpenStreetMap.org 以了解更多有关如何编辑和更新地图的信息。
+    zh-Hant = 截至 %@ 的社群創建的 OpenStreetMap 資料。請訪問 OpenStreetMap.org 以了解更多有關如何編輯和更新地圖的更多信息。
 
   [login_to_make_edits_visible]
     tags = android,ios
@@ -15988,7 +16012,7 @@
     uk = Увійдіть у OpenStreetMap.org, щоб ваші зміни побачили інші користувачі.
     vi = Đăng nhập để người dùng khác có thể nhìn thấy những thay đổi bạn đã thực hiện.
     zh-Hans = 登录，让其他用户能看到您所作出的修改。
-    zh-Hant = 登入來讓其他使用者能看到您所作出的修改。
+    zh-Hant = 登入，讓其他使用者能看到您所作出的修改。
 
   [migration_no_space_message]
     comment = Error dialog no space
@@ -18462,6 +18486,8 @@
     sk = Prosím, uveďte prečo chcete zmazať toto miesto
     tr = Lütfen bu yerin silinmesinin nedenini belirtin
     uk = Будь ласка, вкажіть причину видалення
+    zh-Hans = 请注明删除该地点的原因
+    zh-Hant = 請註明刪除該地點的原因
 
   [text_more_button]
     tags = ios
@@ -18663,7 +18689,8 @@
     sk = Zadajte platnú facebookovú adresu, účet alebo názov stránky
     tr = Geçerli bir Facebook web adresi, hesap veya sayfa adı girin
     uk = Введіть вірну веб-адресу Facebook сторінки або і'мя користувача
-    zh-Hant = 輸入有效臉書網址、帳號或粉絲頁名稱
+    zh-Hans = 请输入有效的 Facebook 网页地址、账号或页面名称
+    zh-Hant = 請輸入有效的 Facebook 網頁地址、帳號或頁面名稱
 
   [error_enter_correct_instagram_page]
     tags = android
@@ -18692,7 +18719,8 @@
     sk = Zadajte platné používateľské meno alebo webovú adresu pre Instagram
     tr = Geçerli bir İnstagram web adresi veya hesap adı girin
     uk = Введіть вірну веб-адресу Instagram сторінки або і'мя користувача
-    zh-Hant = 輸入有效 Instagram 網址或帳號名稱
+    zh-Hans = 请输入有效的 Instagram 用户名或网页地址
+    zh-Hant = 請輸入有效的 Instagram 用戶名或網頁地址
 
   [error_enter_correct_twitter_page]
     tags = android
@@ -18721,7 +18749,8 @@
     sk = Zadajte platné používateľské meno alebo adresu pre Twitter/X
     tr = Geçerli bir Twitter web adresi veya kullanıcı adı girin
     uk = Введіть вірну веб-адресу Twitter сторінки або і'мя користувача
-    zh-Hant = 輸入有效推特網址或使用者名稱
+    zh-Hans = 请输入有效的 Twitter 用户名或网页地址
+    zh-Hant = 請輸入有效的 Twitter 用戶名或網頁地址
 
   [error_enter_correct_vk_page]
     tags = android
@@ -18749,7 +18778,8 @@
     sk = Zadajte platné používateľské meno alebo adresu pre VK
     tr = Geçerli bir VK web adresi veya hesap adı girin
     uk = Введіть вірну веб-адресу VK сторінки або і'мя користувача
-    zh-Hant = 輸入有效 VK 網益止或帳號名稱
+    zh-Hans = 请输入有效的 VK 用户名或网页地址
+    zh-Hant = 請輸入有效的 VK 用戶名或網頁地址
 
   [error_enter_correct_line_page]
     tags = android
@@ -18778,6 +18808,8 @@
     sk = Zadajte platné LINE ID alebo webovú adresu
     tr = Geçerli bir LINE web adresi veya LINE ID'si girin
     uk = Введіть вірну веб-адресу LINE сторінки або LINE ID
+    zh-Hans = 请输入有效的 LINE ID 或网页地址
+    zh-Hant = 請輸入有效的 LINE ID 或網頁地址
 
   [refresh]
     tags = ios
@@ -20401,8 +20433,8 @@
     tr = Bir rota başlangıç noktası eklemek için aramayı kullanın veya haritaya dokunun
     uk = Скористайтеся пошуком або торкніться мапи, щоб додати початкову точку маршруту
     vi = Sử dụng tìm kiếm hoặc nhấn vào bản đồ để thêm điểm bắt đầu tuyến đường
-    zh-Hans = 使用搜索或点击地图添加路线起点
-    zh-Hant = 使用搜尋或點擊地圖新增路線起點
+    zh-Hans = 请使用搜索或点击地图以添加路线起点
+    zh-Hant = 請使用搜尋或點擊地圖以新增路線起點
 
   [routing_add_finish_point]
     tags = android,ios
@@ -20447,8 +20479,8 @@
     tr = Bir hedef noktası eklemek için aramayı kullanın veya haritaya dokunun
     uk = Скористайтеся пошуком або торкніться мапи, щоб додати пункт призначення
     vi = Sử dụng tìm kiếm hoặc nhấn vào bản đồ để thêm điểm đến
-    zh-Hans = 使用搜索或点击地图添加目的地点
-    zh-Hant = 使用搜尋或點擊地圖新增目的地點
+    zh-Hans = 请使用搜索或点击地图以添加目的地
+    zh-Hant = 請使用搜尋或點擊地圖以新增目的地
 
   [planning_route_manage_route]
     tags = ios
@@ -20624,8 +20656,8 @@
     tr = Kaldırmak için buraya sürükleyin
     uk = Перетягніть сюди, щоб видалити
     vi = Kéo vào đây để xóa
-    zh-Hans = 拖动到此处以移除
-    zh-Hant = 在此拖曳以移除
+    zh-Hans = 拖拽到此处以移除
+    zh-Hant = 拖曳到此處以移除
 
   [placepage_add_stop]
     tags = android,ios
@@ -20670,7 +20702,7 @@
     uk = Додати зупинку
     vi = Thêm điểm dừng
     zh-Hans = 添加经停点
-    zh-Hant = 新增停靠站
+    zh-Hant = 新增經停點
 
   [start_from_my_position]
     tags = ios
@@ -21170,8 +21202,8 @@
     tr = Tümünü gizle
     uk = Приховати всі
     vi = Ẩn tất cả
-    zh-Hans = 全部隱藏
-    zh-Hant = 隱藏全部
+    zh-Hans = 全部隐藏
+    zh-Hant = 全部隱藏
 
   [bookmark_lists_show_all]
     tags = android,ios
@@ -21216,8 +21248,8 @@
     tr = Tümünü göster
     uk = Показати всі
     vi = Hiển thị tất cả
-    zh-Hans = 全部顯示
-    zh-Hant = 顯示全部
+    zh-Hans = 全部显示
+    zh-Hant = 全部顯示
 
   [bookmarks_places]
     tags = android,ios
@@ -21279,7 +21311,7 @@
     uk:one = %d мітка
     uk:other = %d міток
     vi = %d dấu trang
-    zh-Hans = %d 個書籤
+    zh-Hans = %d 个书签
     zh-Hant = %d 個書籤
 
   [bookmarks_create_new_group]
@@ -21371,7 +21403,7 @@
     uk = Імпортувати мітки та маршрути
     vi = Nhập dấu trang và bản nhạc
     zh-Hans = 导入书签和轨迹
-    zh-Hant = 導入書籤和曲目
+    zh-Hant = 導入書籤和軌跡
 
   [downloader_hide_screen]
     tags = ios
@@ -23497,8 +23529,8 @@
     tr = Hız kameraları
     uk = Камери швидкості
     vi = Tăn tốc độ máy ảnh
-    zh-Hans = 高速摄像机
-    zh-Hant = 超速照相機
+    zh-Hans = 限速拍照
+    zh-Hant = 限速拍照
 
   [place_description_title]
     tags = android,ios
@@ -23634,8 +23666,8 @@
     tr = Hız sınırını aşma riski varsa uyar
     uk = Попереджати якщо швидкість перевищена
     vi = Cảnh báo về việc chạy quá tốc độ
-    zh-Hans = 警告您超速行驶
-    zh-Hant = 警告超速
+    zh-Hans = 超速行驶时发出警告
+    zh-Hant = 超速行駛時發出警告
 
   [pref_tts_speedcams_always]
     comment = Speed camera settings menu option - Always warn (about speedcams)
@@ -27568,7 +27600,7 @@
     tr = Arazi katmanını etkinleştirmek ve kullanmak için lütfen haritayı güncelleyin veya indirin
     uk = Щоб скористатися лініями висот, оновіть чи завантажте карту потрібної місцевості
     vi = Để sử dụng các đường chỉ độ cao, hãy cập nhật hoặc tải xuống bản đồ của khu vực bạn mong muốn
-    zh-Hans = 如需使用高度线，请更新或下载所需区域的地图
+    zh-Hans = 如需使用等高线，请更新或下载所需区域的地图
     zh-Hant = 如需使用等高線，請更新或下載所需區域的地圖
 
   [isolines_location_error_dialog]
@@ -27613,7 +27645,7 @@
     tr = Arazi katmanı henüz bu bölgede mevcut değil
     uk = Лінії висот ще недоступні в цьому регіоні
     vi = Đường hiển thị độ cao hiện chưa khả dụng tại khu vực này
-    zh-Hans = 暂时无法获取该地区的高低线
+    zh-Hans = 暂时无法获取该地区的等高线
     zh-Hant = 暫時無法獲取該地區的等高線
 
   [elevation_profile_diff_level]
@@ -28297,6 +28329,8 @@
     sk = Nepodarilo sa vytvoriť priečinok a presunúť súbory do internej pamäte alebo na SD kartu
     tr = Dahili aygıtın belleğinde veya SD kartta klasör oluşturulamıyor ve dosyalar taşınamıyor
     uk = Неможливо створити папку та перемістити файли до внутрішньої памʼяті або SD карти
+    zh-Hans = 无法在内部存储或 SD 卡上创建文件夹和移动文件
+    zh-Hant = 無法在內部儲存或 SD 卡上建立資料夾和移動檔案
 
   [disk_error_title]
     tags = android
@@ -28325,6 +28359,8 @@
     ru = Ошибка диска
     tr = Disk hatası
     uk = Помилка диска
+    zh-Hans = 磁盘错误
+    zh-Hant = 磁碟錯誤
 
   [connection_failure]
     comment = Used in DownloadResources startup screen
@@ -28358,6 +28394,8 @@
     sk = Chyba spojenia
     tr = Bağlantı hatası
     uk = Помилка підключення
+    zh-Hans = 磁盘错误
+    zh-Hant = 磁碟錯誤
 
   [disconnect_usb_cable_title]
     comment = Used in DownloadResources startup screen
@@ -28390,7 +28428,8 @@
     sk = Odpojte USB kábel
     tr = USB kablosunu çıkarın
     uk = Від'єднайте кабель USB
-    zh-Hant = 拔除 USB 線
+    zh-Hans = 断开 USB 线缆
+    zh-Hant = 斷開 USB 線纜
 
   [enable_keep_screen_on]
     tags = android
@@ -28599,7 +28638,7 @@
     uk = Оновити завантажені мапи
     vi = Cập nhật các bản đồ đã tải về của bạn
     zh-Hans = 更新已下载的地图
-    zh-Hant = 更新您下載的地圖
+    zh-Hant = 更新已下載的地圖
 
   [whats_new_auto_update_message]
     comment = Autoupdate dialog on start
@@ -28775,7 +28814,8 @@
     sk = Zmazať záznam trasy
     tr = Kaydı Sil
     uk = Видалити трек
-    zh-Hant = 刪除路徑
+    zh-Hans = 删除轨迹
+    zh-Hant = 刪除軌跡
 
   [placepage_track_name_hint]
     comment = Placeholder for track name input on track edit screen
@@ -28807,7 +28847,8 @@
     sk = Názov trasy
     tr = Yol Kaydı Adı
     uk = Назва треку
-    zh-Hant = 路徑名稱
+    zh-Hans = 轨迹名称
+    zh-Hant = 軌跡名稱
 
   [move]
     comment = move track or bookmark from the list button text
@@ -28839,6 +28880,7 @@
     sk = Presunúť
     tr = Taşı
     uk = Перемістити
+    zh-Hans = 移动
     zh-Hant = 移動
 
   [track_title]
@@ -28977,6 +29019,8 @@
     sv = https://organicmaps.app/sv/
     tr = https://organicmaps.app/tr/
     uk = https://organicmaps.app/uk/
+    zh-Hans = https://organicmaps.app/zh-Hans/
+    zh-Hant = https://organicmaps.app/zh-Hans/
 
   [osm_wiki_about_url]
     comment = Link to OSM wiki for Editor, Profile and About pages
@@ -29001,6 +29045,8 @@
     ru = https://wiki.openstreetmap.org/wiki/RU:О_проекте
     tr = https://wiki.openstreetmap.org/wiki/Tr:About
     uk = https://wiki.openstreetmap.org/wiki/Uk:Про_проект
+    zh-Hans = https://wiki.openstreetmap.org/wiki/Zh-hans:%E5%85%B3%E4%BA%8E
+    zh-Hant = https://wiki.openstreetmap.org/wiki/Zh-hant:%E9%97%9C%E6%96%BCOpenStreetMap
 
   [comma_separated_pair]
     comment = A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks
@@ -29048,7 +29094,7 @@
     tr = Topluluk tarafından oluşturulan haritalarımızı kullandığınız için teşekkür ederiz!
     uk = Дякуємо, що користуєтесь нашими мапами, створеними спільнотою!
     vi = Cảm ơn bạn đã sử dụng bản đồ do cộng đồng xây dựng của chúng tôi!
-    zh-Hans = 感谢您使用我们的社区地图！
+    zh-Hans = 感谢您使用我们社区构建的地图！
     zh-Hant = 感謝您使用我們社區構建的地圖！
 
   [app_tip_01]
@@ -29134,8 +29180,8 @@
     tr = Uygulamamızı beğendiniz mi? Gelişimi desteklemek için lütfen bağış yapın! Henüz beğenmedin mi? Lütfen bize bildirin, düzelteceğiz!
     uk = Вам подобається наш додаток? Підтримайте його розвиток грошима! Поки ще не подобається? Будь ласка, повідомте нам, чому, і ми це виправимо!
     vi = Bạn có thích ứng dụng của chúng tôi không? Hãy quyên góp để hỗ trợ sự phát triển! Bạn chưa thích nó? Vui lòng cho chúng tôi biết và chúng tôi sẽ khắc phục nó!
-    zh-Hans = 您喜欢我们的应用程序吗？ 请捐款支持发展！ 还不喜欢吗？ 请告诉我们，我们会修复它！
-    zh-Hant = 您喜歡我們的應用程序嗎？ 請捐款支持發展！ 還不喜歡嗎？ 請告訴我們，我們會修復它！
+    zh-Hans = 您喜欢我们的应用程序吗？请捐款以支持发展！还不喜欢吗？请告诉我们，我们会修复您提到的问题！
+    zh-Hant = 您喜歡我們的應用程序嗎？請捐款以支持發展！還不喜歡嗎？請告訴我們，我們會修復您提到的問題！
 
   [app_tip_03]
     comment = App tip #03
@@ -29177,8 +29223,8 @@
     tr = Bir yazılım geliştirici tanıyorsanız, ondan ihtiyacınız olan bir özelliği uygulamasını isteyebilirsiniz.
     uk = Якщо у вас є знайомий розробник програмного забезпечення, ви можете попросити його реалізувати потрібну вам функцію.
     vi = Nếu bạn biết một nhà phát triển phần mềm, bạn có thể yêu cầu họ triển khai một tính năng mà bạn cần.
-    zh-Hans = 如果您认识软件开发人员，您可以要求他或她实现您需要的功能。
-    zh-Hant = 如果您認識軟體開發人員，您可以要求他或她實現您需要的功能。
+    zh-Hans = 如果您认识软件开发人员，您可以要求他实现您需要的功能。
+    zh-Hant = 如果您認識軟體開發人員，您可以要求他實現您需要的功能。
 
   [app_tip_04]
     comment = App tip #04
@@ -30063,8 +30109,8 @@
     tr = Konuşma sentezleme ile ilgili sistem ayarları
     uk = Системні налаштування синтезу мови
     vi = Cài đặt tổng hợp giọng nói của hệ thống
-    zh-Hans = 语音合成系统设置
-    zh-Hant = 系統語音合成設定
+    zh-Hans = 文本转语音系统设置
+    zh-Hant = 文本轉語音系統設定
 
   [pref_tts_no_system_tts]
     comment = toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found.
