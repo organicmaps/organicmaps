@@ -1380,7 +1380,7 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
       }},
       {"ref", "*", [&params](string & k, string & v)
       {
-        // Get reference; its used for selected types only, see FeatureBuilder::PreSerialize().
+        // Get reference; it's used for selected types only, see FeatureBuilder::PreSerialize().
         params.ref = std::move(v);
       }},
       {"layer", "*", [&params](string & k, string & v)
@@ -1393,6 +1393,10 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
           params.layer = atoi(v.c_str());
           params.layer = base::Clamp(params.layer, int8_t{feature::LAYER_LOW}, int8_t{feature::LAYER_HIGH});
         }
+      }},
+      {"is_sidepath:of:name", "*", [&params](string & k, string & v)
+      {
+        params.SetDefaultNameIfEmpty(std::move(v));
       }},
   });
 
