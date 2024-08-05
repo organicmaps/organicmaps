@@ -37,6 +37,7 @@
   <uses-permission android:name="android.permission.WAKE_LOCK"/>
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION"/>
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE"/>
   <!--
     Android 13 (API level 33) and higher supports a runtime permission for sending non-exempt (including Foreground
     Services (FGS)) notifications from an app.
@@ -436,12 +437,15 @@
         android:name="app.organicmaps.MapPlaceholderActivity"/>
     <service
         android:name="app.organicmaps.car.CarAppService"
-        android:foregroundServiceType="location"
-        android:exported="true">
+        android:exported="true"
+        android:foregroundServiceType="specialUse"
+        tools:ignore="ExportedService">
       <intent-filter>
         <action android:name="androidx.car.app.CarAppService" />
         <category android:name="androidx.car.app.category.NAVIGATION" />
       </intent-filter>
+      <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+          android:value="@string/android_auto_fgs_explanation_for_special_use"/>
     </service>
 
     <service
