@@ -220,6 +220,8 @@
 	<string name="prefs_group_route">Navigation</string>
 	<string name="pref_zoom_title">Zoom buttons</string>
 	<string name="pref_zoom_summary">Display on the map</string>
+	<!--Title of Recent track Recorder in settings-->
+	<string name="trace_path">Trace Path</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Night Mode</string>
 	<!-- Generic «Off» string -->
@@ -840,6 +842,10 @@
 	<string name="aa_location_permissions_request">This application requires access to your location for navigation purposes.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
 	<string name="aa_grant_permissions">Grant Permissions</string>
+	<!--Title That will be displayed on notification when track Recording will be turned on-->
+	<string name="recent_track_recorder_running">Recent Track Recorder is Running</string>
+	<!--Discription That will be displayed on notification when track Recording will be turned on-->
+	<string name="recent_track_rec_notif_desc">Recording your traversed tracks in background</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">Connected to car</string>
 	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -2221,4 +2227,19 @@
 	<string name="type.self_service.only">Self-service only</string>
 	<string name="type.self_service.partially">Partial self-service</string>
 	<string name="type.self_service.no">No self-service</string>
+	<string name="instruction_1">- Instruction 1</string>
+	<string name="instruction_2">- Instruction 2</string>
+	<string name="instruction_3">- Instruction 3</string>
+	<string name="instruction_4">- Instruction 4</string>
+	<string name="have_a_nice_day">Have a nice Day ; )</string>
+	<string name="Alert_dialogue_title">Please Follow These Guidlines</string>
+  <string name="trace_path_is_on">Trace Path is On</string>
+	<string name="trace_path_is_off">Trace Path is Off</string>
+  <string name="battery_saver_dialog_title">Battery Saver is enabled</string>
+	<string name="battery_saver_dialog_summary">Please disable the battery saver for Organic Maps to use Trace Path feature effectively Otherwise Tracks May have some gaps</string>
+	<string name="enable">Enable</string>
+	<string name="power_saver_dialog_title">Power Saving Mode enabled</string>
+	<string name="power_saver_dialog_summary">Please Disable Power Saving mode to use Trace Path without any  gaps.</string>
+	<string name="location_update_warning_title">Location Updation Failed</string>
+	<string name="location_update_warning_desc">Due to some errors location is not being updated. Which may result in inaccuracy and gaps in recorded track.</string>
 </resources>
