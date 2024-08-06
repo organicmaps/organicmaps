@@ -352,6 +352,7 @@
 	<string name="dialog_routing_system_error">Грешка в системата</string>
 	<string name="dialog_routing_application_error">Не е възможно да се създаде маршрут поради грешка в приложението.</string>
 	<string name="dialog_routing_try_again">Моля, опитайте отново</string>
+	<string name="not_now">Не сега</string>
 	<string name="dialog_routing_download_and_build_cross_route">Бихте ли искали да изтеглите картата и да създадете по-оптимален маршрут, обхващащ повече от една карта?</string>
 	<string name="dialog_routing_download_cross_route">За да създадете по-добър маршрут с граничен преход, трябва да изтеглите картата.</string>
 
@@ -743,6 +744,10 @@
 	<string name="select_option">Изберете опция</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">Места за сядане на открито</string>
+	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_title">Изключване на режима за пестене на енергия</string>
+	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_summary">За най-точна навигация препоръчваме да деактивирате режима за пестене на енергия в настройките на батерията на телефона.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адрес/Блок</string>

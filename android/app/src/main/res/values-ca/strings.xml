@@ -381,6 +381,7 @@
 	<string name="dialog_routing_system_error">Error de sistema</string>
 	<string name="dialog_routing_application_error">No s\'ha pogut crear la ruta a causa d\'un error de l\'aplicació.</string>
 	<string name="dialog_routing_try_again">Torneu-ho a intentar</string>
+	<string name="not_now">Ara no</string>
 	<string name="dialog_routing_download_and_build_cross_route">Voleu baixar el mapa i crar una ruta més òptima que travessi més d\'un mapa?</string>
 	<string name="dialog_routing_download_cross_route">Baixeu mapes addicionals per a crear una ruta millor que creua els límits d\'aquest mapa.</string>
 
@@ -830,6 +831,10 @@
 	<string name="select_option">Seleccioneu l\'opció</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">Seients a l\'aire lliure</string>
+	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_title">Desactiva el mode d\'estalvi d\'energia</string>
+	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_summary">Per a una navegació més precisa, recomanem desactivar el mode d\'estalvi d\'energia a la configuració de la bateria del telèfon.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adreça/Bloc</string>
