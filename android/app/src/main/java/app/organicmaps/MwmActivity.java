@@ -95,6 +95,7 @@ import app.organicmaps.settings.SettingsActivity;
 import app.organicmaps.settings.UnitLocale;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.LocationUtils;
+import app.organicmaps.util.PowerManagment;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.ThemeUtils;
@@ -119,6 +120,7 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static app.organicmaps.location.LocationState.FOLLOW;
 import static app.organicmaps.location.LocationState.FOLLOW_AND_ROTATE;
 import static app.organicmaps.location.LocationState.LOCATION_TAG;
+import static app.organicmaps.util.PowerManagment.POWER_MANAGEMENT_TAG;
 
 public class MwmActivity extends BaseMwmFragmentActivity
     implements PlacePageActivationListener,
@@ -156,6 +158,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private static final String MAIN_MENU_ID = "MAIN_MENU_BOTTOM_SHEET";
   private static final String LAYERS_MENU_ID = "LAYERS_MENU_BOTTOM_SHEET";
+
+  private static final String POWER_SAVE_DISCLAIMER_SHOWN = "POWER_SAVE_DISCLAIMER_SHOWN";
 
   @Nullable
   private MapFragment mMapFragment;
@@ -208,8 +212,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private ActivityResultLauncher<IntentSenderRequest> mLocationResolutionRequest;
+  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private ActivityResultLauncher<SharingUtils.SharingIntent> mShareLauncher;
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private ActivityResultLauncher<Intent> mPowerSaveSettings;
+  @NonNull
+  private PowerSaveDisclaimerState mPowerSaveDisclaimerState = PowerSaveDisclaimerState.WAS_NOT_SHOWN;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -225,6 +235,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     void onTrackFinished(boolean collapsed);
 
     void onTrackLeftAnimation(float offset);
+  }
+
+  public enum PowerSaveDisclaimerState
+  {
+    WAS_NOT_SHOWN,
+    SHOWING_FOR_NAVIGATION,
+    //SHOWING_FOR_TRACK_RECORDING,
+    SHOWN,
   }
 
   public static Intent createShowMapIntent(@NonNull Context context, @Nullable String countryId)
@@ -518,6 +536,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
         this::onLocationResolutionResult);
     mPostNotificationPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestPermission(),
         this::onPostNotificationPermissionResult);
+    mPowerSaveSettings = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                                                    o -> onResumeAfterCheckingPowerSaveSettings());
 
     mShareLauncher = SharingUtils.RegisterLauncher(this);
 
@@ -968,6 +988,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       // orientation changing, etc. Otherwise, the saved route might be restored at undesirable moment.
       RoutingController.get().deleteSavedRoute();
 
+    outState.putBoolean(POWER_SAVE_DISCLAIMER_SHOWN,
+                        mPowerSaveDisclaimerState == PowerSaveDisclaimerState.SHOWN);
     super.onSaveInstanceState(outState);
   }
 
@@ -991,6 +1013,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (!mIsTabletLayout && RoutingController.get().isPlanning())
       mRoutingPlanInplaceController.restoreState(savedInstanceState);
+
+    if (savedInstanceState.getBoolean(POWER_SAVE_DISCLAIMER_SHOWN, false))
+      mPowerSaveDisclaimerState = PowerSaveDisclaimerState.SHOWN;
   }
 
   @Override
@@ -1148,6 +1173,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mLocationResolutionRequest = null;
     mPostNotificationPermissionRequest.unregister();
     mPostNotificationPermissionRequest = null;
+    mPowerSaveSettings.unregister();
+    mPowerSaveSettings = null;
     if (mRemoveDisplayListener && !isChangingConfigurations())
       mDisplayManager.removeListener(DisplayType.Device);
   }
@@ -1929,6 +1956,21 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Logger.w(TAG, "Permission POST_NOTIFICATIONS has been refused");
   }
 
+  private void onResumeAfterCheckingPowerSaveSettings()
+  {
+    final PowerSaveDisclaimerState state = mPowerSaveDisclaimerState;
+    // Don't show the disclaimer until end of the current session.
+    mPowerSaveDisclaimerState = PowerSaveDisclaimerState.SHOWN;
+    switch (state)
+    {
+      case SHOWING_FOR_NAVIGATION -> {
+        Logger.d(POWER_MANAGEMENT_TAG, "Resuming navigation");
+        onRoutingStart();
+      }
+      case SHOWN, WAS_NOT_SHOWN -> Logger.w(POWER_MANAGEMENT_TAG, "Ignoring dangling callback");
+    }
+  }
+
   /**
    * Called by GoogleFusedLocationProvider to request to GPS and/or Wi-Fi.
    * @param pendingIntent an intent to launch.
@@ -2031,9 +2073,56 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!showRoutingDisclaimer())
       return;
 
+    // Check for battery saver permission
+    if (!requestBatterySaverPermission(PowerSaveDisclaimerState.SHOWING_FOR_NAVIGATION))
+      return;
+
     closeFloatingPanels();
     setFullscreen(false);
     RoutingController.get().start();
+  }
+
+  public boolean requestBatterySaverPermission(@NonNull PowerSaveDisclaimerState requestedBy)
+  {
+    if (!PowerManagment.isSystemPowerSaveMode(this))
+    {
+      Logger.i(POWER_MANAGEMENT_TAG, "Power Save mode is disabled on the device");
+      return true;
+    }
+    Logger.w(POWER_MANAGEMENT_TAG, "Power Save mode is enabled on the device");
+
+    if (mPowerSaveDisclaimerState != PowerSaveDisclaimerState.WAS_NOT_SHOWN)
+    {
+      Logger.i(POWER_MANAGEMENT_TAG, "The Power Save disclaimer has been already shown in this session");
+      return true;
+    }
+
+    final Intent intent = PowerManagment.makeSystemPowerSaveSettingIntent(this);
+    if (intent == null)
+    {
+      Logger.w(POWER_MANAGEMENT_TAG, "No known way to launch the system Power Save settings");
+      return true;
+    }
+
+    dismissAlertDialog();
+    final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.power_save_dialog_title)
+        .setCancelable(false)
+        .setMessage(R.string.power_save_dialog_summary)
+        .setNegativeButton(R.string.not_now, (dialog, which) -> {
+          Logger.d(POWER_MANAGEMENT_TAG, "The Power Save disclaimer was ignored");
+          mPowerSaveDisclaimerState = requestedBy;
+          onResumeAfterCheckingPowerSaveSettings();
+        })
+        .setOnDismissListener(dialog -> mAlertDialog = null)
+        .setPositiveButton(R.string.settings, (dlg, which) -> {
+          Logger.d(POWER_MANAGEMENT_TAG, "Launching the system Power Save settings");
+          mPowerSaveDisclaimerState = requestedBy;
+          mPowerSaveSettings.launch(intent);
+        });
+    Logger.d(POWER_MANAGEMENT_TAG, "Displaying the Power Save disclaimer");
+    mAlertDialog = builder.show();
+    return false;
   }
 
   @Override
