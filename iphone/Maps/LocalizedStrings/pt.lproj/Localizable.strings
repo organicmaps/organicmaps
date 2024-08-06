@@ -1131,6 +1131,10 @@
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "O percurso será convertido num percurso para automóvel";
 
+"not_all_shown_bookmarks_carplay" = "Nem todos os marcadores são mostrados";
+
+"switch_to_phone_bookmarks_carplay" = "Muda para o telemóvel para ver todos os favoritos";
+
 "ok" = "Ok";
 
 "speedcams_alert_title_carplay_1" = "Radares";

@@ -1131,6 +1131,10 @@
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "L'itinéraire sera changé en mode Voiture";
 
+"not_all_shown_bookmarks_carplay" = "Tous les signets ne sont pas affichés";
+
+"switch_to_phone_bookmarks_carplay" = "Passe au téléphone pour voir tous les signets";
+
 "ok" = "Ok";
 
 "speedcams_alert_title_carplay_1" = "Radars de vitesse";

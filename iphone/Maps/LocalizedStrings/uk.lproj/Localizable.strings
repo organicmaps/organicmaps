@@ -1131,6 +1131,10 @@
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "Маршрут буде змінено на автомобільний";
 
+"not_all_shown_bookmarks_carplay" = "Відображаються не всі мітки";
+
+"switch_to_phone_bookmarks_carplay" = "Перейдіть на телефон, щоб побачити всі мітки";
+
 "ok" = "Ок";
 
 "speedcams_alert_title_carplay_1" = "Камери";

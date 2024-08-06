@@ -1131,6 +1131,10 @@
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "A rota será alterada para uma de automóvel";
 
+"not_all_shown_bookmarks_carplay" = "Nem todos os marcadores são exibidos";
+
+"switch_to_phone_bookmarks_carplay" = "Mudar para o telefone para ver todos os favoritos";
+
 "ok" = "Tudo bem";
 
 "speedcams_alert_title_carplay_1" = "Radares";

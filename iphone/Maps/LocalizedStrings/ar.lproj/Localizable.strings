@@ -1131,6 +1131,10 @@
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "سيتم تعديل الطريق ليكون خاص بالسيارة";
 
+"not_all_shown_bookmarks_carplay" = "لا يتم عرض جميع الإشارات المرجعية";
+
+"switch_to_phone_bookmarks_carplay" = "قم بالتبديل إلى الهاتف لرؤية جميع الإشارات المرجعية";
+
 "ok" = "موافق";
 
 "speedcams_alert_title_carplay_1" = "كاميرات السرعة";

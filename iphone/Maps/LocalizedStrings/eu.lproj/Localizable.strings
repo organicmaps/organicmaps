@@ -1131,6 +1131,10 @@
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "Ibilbidea auto modura aldatuko da";
 
+"not_all_shown_bookmarks_carplay" = "Ez dira laster-marka guztiak erakusten";
+
+"switch_to_phone_bookmarks_carplay" = "Aldatu telefonora laster-mark guztiak ikusteko";
+
 "ok" = "Ados";
 
 "speedcams_alert_title_carplay_1" = "Abiadura kamerak.";

@@ -1131,6 +1131,10 @@
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "Az útvonal módosítva lesz egy autó számára";
 
+"not_all_shown_bookmarks_carplay" = "Nem minden könyvjelző jelenik meg";
+
+"switch_to_phone_bookmarks_carplay" = "Váltson a telefonra az összes könyvjelző megtekintéséhez";
+
 "ok" = "Oké";
 
 "speedcams_alert_title_carplay_1" = "Traffipaxok";

@@ -1131,6 +1131,10 @@
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "该路线将改为汽车（路线）";
 
+"not_all_shown_bookmarks_carplay" = "并非所有书签都会显示";
+
+"switch_to_phone_bookmarks_carplay" = "切换到手机查看所有书签";
+
 "ok" = "好的";
 
 "speedcams_alert_title_carplay_1" = "摄像头";

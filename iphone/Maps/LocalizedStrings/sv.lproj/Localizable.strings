@@ -1131,6 +1131,10 @@
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "Ruten kommer att ändras till bil";
 
+"not_all_shown_bookmarks_carplay" = "Alla bokmärken visas inte";
+
+"switch_to_phone_bookmarks_carplay" = "Växla till telefonen för att se alla bokmärken";
+
 "ok" = "Ok";
 
 "speedcams_alert_title_carplay_1" = "Kameror";

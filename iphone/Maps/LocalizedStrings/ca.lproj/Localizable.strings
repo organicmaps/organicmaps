@@ -1131,6 +1131,10 @@
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "La ruta es convertira a una d'automòbil";
 
+"not_all_shown_bookmarks_carplay" = "No es mostren totes les adreces d'interès";
+
+"switch_to_phone_bookmarks_carplay" = "Canvia al telèfon per veure totes les adreces d'interès";
+
 "ok" = "D'acord";
 
 "speedcams_alert_title_carplay_1" = "Radars";
