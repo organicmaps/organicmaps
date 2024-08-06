@@ -263,7 +263,19 @@
 		4B4153B52BF9695500EE4B02 /* MWMTextToSpeechTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4B4153B42BF9695500EE4B02 /* MWMTextToSpeechTests.mm */; };
 		524634C62C53BC3100FDCABA /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 524634C22C53BB3A00FDCABA /* Auth.storyboard */; };
 		524634CD2C57232400FDCABA /* TourismMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 524634CC2C57232400FDCABA /* TourismMain.storyboard */; };
+		527D5E752C60A1F800736A85 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 527D5E742C60A1F800736A85 /* Images.xcassets */; };
+		527D5E782C60D94B00736A85 /* AppButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527D5E772C60D94B00736A85 /* AppButton.swift */; };
+		527D5E7B2C60E05D00736A85 /* LanguageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527D5E7A2C60E05D00736A85 /* LanguageUtils.swift */; };
+		527D5E7F2C60E69C00736A85 /* Layouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527D5E7E2C60E69C00736A85 /* Layouting.swift */; };
+		527D5E822C60EFEE00736A85 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527D5E812C60EFEE00736A85 /* UIViewExtensions.swift */; };
 		528D72A12C5BBBF700D53210 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 528D72A02C5BBBF700D53210 /* Colors.xcassets */; };
+		52B573EC2C61E1C10047FAC9 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B573EB2C61E1C10047FAC9 /* SignInViewController.swift */; };
+		52B573F02C61E4110047FAC9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B573EF2C61E4110047FAC9 /* Constants.swift */; };
+		52B573F22C61E8980047FAC9 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B573F12C61E8980047FAC9 /* SignUpViewController.swift */; };
+		52B573F52C61F11E0047FAC9 /* AuhtTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B573F42C61F11E0047FAC9 /* AuhtTextField.swift */; };
+		52B573F72C61F4D00047FAC9 /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B573F62C61F4D00047FAC9 /* PasswordTextField.swift */; };
+		52B573F92C6223CE0047FAC9 /* AuthBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B573F82C6223CE0047FAC9 /* AuthBackButton.swift */; };
+		52B573FC2C623ECF0047FAC9 /* CountryPickerView in Frameworks */ = {isa = PBXBuildFile; productRef = 52B573FB2C623ECF0047FAC9 /* CountryPickerView */; };
 		52D588A92C5CD56200AB96B3 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D588A82C5CD56200AB96B3 /* Color.swift */; };
 		52D588BA2C5CE2E800AB96B3 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D588B92C5CE2E800AB96B3 /* Font.swift */; };
 		52D588C52C5CEAF900AB96B3 /* Gilroy-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52D588BB2C5CEAF800AB96B3 /* Gilroy-Thin.ttf */; };
@@ -1200,7 +1212,18 @@
 		4B4153B42BF9695500EE4B02 /* MWMTextToSpeechTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTextToSpeechTests.mm; sourceTree = "<group>"; };
 		524634C22C53BB3A00FDCABA /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		524634CC2C57232400FDCABA /* TourismMain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TourismMain.storyboard; sourceTree = "<group>"; };
+		527D5E742C60A1F800736A85 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		527D5E772C60D94B00736A85 /* AppButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppButton.swift; sourceTree = "<group>"; };
+		527D5E7A2C60E05D00736A85 /* LanguageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageUtils.swift; sourceTree = "<group>"; };
+		527D5E7E2C60E69C00736A85 /* Layouting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layouting.swift; sourceTree = "<group>"; };
+		527D5E812C60EFEE00736A85 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		528D72A02C5BBBF700D53210 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		52B573EB2C61E1C10047FAC9 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		52B573EF2C61E4110047FAC9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		52B573F12C61E8980047FAC9 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		52B573F42C61F11E0047FAC9 /* AuhtTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuhtTextField.swift; sourceTree = "<group>"; };
+		52B573F62C61F4D00047FAC9 /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
+		52B573F82C6223CE0047FAC9 /* AuthBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthBackButton.swift; sourceTree = "<group>"; };
 		52D588A82C5CD56200AB96B3 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		52D588B92C5CE2E800AB96B3 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		52D588BB2C5CEAF800AB96B3 /* Gilroy-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Thin.ttf"; sourceTree = "<group>"; };
@@ -1760,6 +1783,7 @@
 				FA853BEF26BC5BA40026D455 /* libdescriptions.a in Frameworks */,
 				FA853BEB26BC5B9E0026D455 /* libbsdiff.a in Frameworks */,
 				FA853BED26BC5B9E0026D455 /* libmwm_diff.a in Frameworks */,
+				52B573FC2C623ECF0047FAC9 /* CountryPickerView in Frameworks */,
 				FA853BE926BC5B8B0026D455 /* libopen_location_code.a in Frameworks */,
 				FA853BE726BC5B820026D455 /* libstb_image.a in Frameworks */,
 				FA853BE526BC5B660026D455 /* libvulkan_wrapper.a in Frameworks */,
@@ -2715,8 +2739,11 @@
 		5236A3692C52588000E3A7AD /* Tourism */ = {
 			isa = PBXGroup;
 			children = (
+				527D5E792C60E04900736A85 /* Utils */,
 				52D588B62C5CE10200AB96B3 /* Fonts */,
 				5236A36C2C5258AC00E3A7AD /* Presentation */,
+				527D5E742C60A1F800736A85 /* Images.xcassets */,
+				52B573EF2C61E4110047FAC9 /* Constants.swift */,
 			);
 			path = Tourism;
 			sourceTree = "<group>";
@@ -2724,11 +2751,40 @@
 		5236A36C2C5258AC00E3A7AD /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				527D5E7D2C60E68200736A85 /* Utils */,
+				527D5E762C60D92900736A85 /* Components */,
 				528D729F2C5BB7D100D53210 /* Theme */,
 				52B189982C53B9FD00B5B6F9 /* Auth */,
 				52B189972C53B9E900B5B6F9 /* Home */,
 			);
 			path = Presentation;
+			sourceTree = "<group>";
+		};
+		527D5E762C60D92900736A85 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				52B573F32C61F10B0047FAC9 /* TextFields */,
+				527D5E772C60D94B00736A85 /* AppButton.swift */,
+				52B573F82C6223CE0047FAC9 /* AuthBackButton.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		527D5E792C60E04900736A85 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				527D5E7A2C60E05D00736A85 /* LanguageUtils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		527D5E7D2C60E68200736A85 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				527D5E7E2C60E69C00736A85 /* Layouting.swift */,
+				527D5E812C60EFEE00736A85 /* UIViewExtensions.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		528D729F2C5BB7D100D53210 /* Theme */ = {
@@ -2757,6 +2813,15 @@
 				524634C22C53BB3A00FDCABA /* Auth.storyboard */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		52B573F32C61F10B0047FAC9 /* TextFields */ = {
+			isa = PBXGroup;
+			children = (
+				52B573F42C61F11E0047FAC9 /* AuhtTextField.swift */,
+				52B573F62C61F4D00047FAC9 /* PasswordTextField.swift */,
+			);
+			path = TextFields;
 			sourceTree = "<group>";
 		};
 		52D588B62C5CE10200AB96B3 /* Fonts */ = {
@@ -2788,6 +2853,8 @@
 			isa = PBXGroup;
 			children = (
 				52E2D3A32C59F9CE00A8843A /* WelcomeViewController.swift */,
+				52B573EB2C61E1C10047FAC9 /* SignInViewController.swift */,
+				52B573F12C61E8980047FAC9 /* SignUpViewController.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -3944,6 +4011,9 @@
 				FA456C4D26BDCC9400B83C20 /* PBXTargetDependency */,
 			);
 			name = OMaps;
+			packageProductDependencies = (
+				52B573FB2C623ECF0047FAC9 /* CountryPickerView */,
+			);
 			productName = Maps;
 			productReference = 6741AA5D1BF340DE002C974C /* Organic Maps (Debug).app */;
 			productType = "com.apple.product-type.application";
@@ -4040,6 +4110,9 @@
 				hi,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
+			packageReferences = (
+				52B573FA2C623ECF0047FAC9 /* XCRemoteSwiftPackageReference "CountryPickerView" */,
+			);
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -4232,6 +4305,7 @@
 				6741A9741BF340DE002C974C /* resources-6plus_dark in Resources */,
 				677A2DE21C0DD50900635A00 /* resources-default in Resources */,
 				F607C1881C032A8800B53A87 /* resources-hdpi_light in Resources */,
+				527D5E752C60A1F800736A85 /* Images.xcassets in Resources */,
 				F607C18A1C032A8800B53A87 /* resources-hdpi_dark in Resources */,
 				FA637ED229A500BE00D8921A /* drules_proto_outdoors_light.bin in Resources */,
 				6741A97F1BF340DE002C974C /* resources-mdpi_light in Resources */,
@@ -4351,6 +4425,7 @@
 				3D15ACEE2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm in Sources */,
 				9977E6A32480F9BF0073780C /* BottomMenuLayerButtonRenderer.swift in Sources */,
 				3454D7D11E07F045004AF2AD /* UIImage+RGBAData.m in Sources */,
+				52B573EC2C61E1C10047FAC9 /* SignInViewController.swift in Sources */,
 				6741A9B71BF340DE002C974C /* EAGLView.mm in Sources */,
 				6741A9B81BF340DE002C974C /* MapViewController.mm in Sources */,
 				34AB662C1FC5AA330078E451 /* RouteManagerViewModel.swift in Sources */,
@@ -4373,6 +4448,7 @@
 				CDCA278E2248F34C00167D87 /* MWMRoutingManager.mm in Sources */,
 				34D3AFF21E37945B004100F9 /* UITableView+Cells.swift in Sources */,
 				34D3B0301E389D05004100F9 /* MWMEditorCategoryCell.m in Sources */,
+				52B573F72C61F4D00047FAC9 /* PasswordTextField.swift in Sources */,
 				F653CE191C71F62700A453F1 /* MWMAddPlaceNavigationBar.mm in Sources */,
 				340475621E081A4600C92850 /* MWMNetworkPolicy+UI.m in Sources */,
 				F6E2FEE51E097BA00083EBEC /* MWMSearchNoResults.m in Sources */,
@@ -4393,6 +4469,7 @@
 				44360A0D2A7D34990016F412 /* TransportRuler.swift in Sources */,
 				CD6E8677226774C700D1EDF7 /* CPConstants.swift in Sources */,
 				99A906DE23F6F7030005872B /* PlacePageBookmarkViewController.swift in Sources */,
+				52B573F92C6223CE0047FAC9 /* AuthBackButton.swift in Sources */,
 				F6791B141C43DF0B007A8A6E /* MWMStartButton.m in Sources */,
 				9977E6A12480E1EE0073780C /* BottomMenuLayerButton.swift in Sources */,
 				471527372491C20500E91BBA /* SelectBookmarkGroupViewController.swift in Sources */,
@@ -4423,6 +4500,7 @@
 				470F0B7D238842EA006AEC94 /* ExpandableLabel.swift in Sources */,
 				B33D21AF20DAF9F000BAD749 /* Toast.swift in Sources */,
 				6741A9D41BF340DE002C974C /* MWMAlertViewController.mm in Sources */,
+				52B573F52C61F11E0047FAC9 /* AuhtTextField.swift in Sources */,
 				34D3B0181E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.swift in Sources */,
 				993DF12223F6BDB100AC231A /* UINavigationItemRenderer.swift in Sources */,
 				993DF12B23F6BDB100AC231A /* StyleManager.swift in Sources */,
@@ -4443,6 +4521,7 @@
 				F6E2FF481E097BA00083EBEC /* SettingsTableViewSelectableCell.swift in Sources */,
 				ED63CEB92BDF8F9D006155C4 /* SettingsTableViewiCloudSwitchCell.swift in Sources */,
 				47CA68D4250043C000671019 /* BookmarksListPresenter.swift in Sources */,
+				527D5E7F2C60E69C00736A85 /* Layouting.swift in Sources */,
 				F6E2FF451E097BA00083EBEC /* SettingsTableViewLinkCell.swift in Sources */,
 				34C9BD0A1C6DBCDA000DC38D /* MWMNavigationController.m in Sources */,
 				ED1080A72B791CFE0023F27E /* SocialMediaCollectionViewHeader.swift in Sources */,
@@ -4463,12 +4542,14 @@
 				34AB66741FC5AA330078E451 /* BaseRoutePreviewStatus.swift in Sources */,
 				8C4FB9C72BEFEFF400D44877 /* CarPlayWindowScaleAdjuster.swift in Sources */,
 				349D1CE41E3F836900A878FD /* UIViewController+Hierarchy.swift in Sources */,
+				52B573F02C61E4110047FAC9 /* Constants.swift in Sources */,
 				8CB13C3B2BF1276A004288F2 /* CarplayPlaceholderView.swift in Sources */,
 				CDB4D4E1222D70DF00104869 /* CarPlayMapViewController.swift in Sources */,
 				471AB98923AA8A3500F56D49 /* IDownloaderDataSource.swift in Sources */,
 				EDE243E72B6D55610057369B /* InfoView.swift in Sources */,
 				F692F3831EA0FAF5001E82EB /* MWMAutoupdateController.mm in Sources */,
 				34BF0CC71C31304A00D097EB /* MWMAuthorizationCommon.mm in Sources */,
+				527D5E822C60EFEE00736A85 /* UIViewExtensions.swift in Sources */,
 				34AB664D1FC5AA330078E451 /* RouteManagerFooterView.swift in Sources */,
 				6741A9E01BF340DE002C974C /* MWMDownloaderDialogHeader.mm in Sources */,
 				CDCA2748223FD24600167D87 /* MWMCarPlaySearchResultObject.mm in Sources */,
@@ -4567,6 +4648,7 @@
 				F6E2FD6B1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.m in Sources */,
 				CDCA27842245090900167D87 /* ListenerContainer.swift in Sources */,
 				47E3C7252111E41B008B3B27 /* DimmedModalPresentationController.swift in Sources */,
+				52B573F22C61E8980047FAC9 /* SignUpViewController.swift in Sources */,
 				3472B5CB200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift in Sources */,
 				34FE5A6F1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */,
 				993DF10D23F6BDB100AC231A /* UIPageControlRenderer.swift in Sources */,
@@ -4607,6 +4689,7 @@
 				347040301EA6470700038379 /* BorderedButton.swift in Sources */,
 				F6E2FF4B1E097BA00083EBEC /* SettingsTableViewSwitchCell.swift in Sources */,
 				993DF12623F6BDB100AC231A /* SwizzleStyle.m in Sources */,
+				527D5E782C60D94B00736A85 /* AppButton.swift in Sources */,
 				993DF10E23F6BDB100AC231A /* UIButtonRenderer.swift in Sources */,
 				99514BBB23E82B450085D3A7 /* ElevationProfileBuilder.swift in Sources */,
 				34AB66381FC5AA330078E451 /* RouteManagerCell.swift in Sources */,
@@ -4692,6 +4775,7 @@
 				34B924431DC8A29C0008D971 /* MWMMailViewController.m in Sources */,
 				340475651E081A4600C92850 /* MWMRouter.mm in Sources */,
 				47E3C72F2111F472008B3B27 /* CoverVerticalModalTransitioning.swift in Sources */,
+				527D5E7B2C60E05D00736A85 /* LanguageUtils.swift in Sources */,
 				34E776101F14B165003040B3 /* VisibleArea.swift in Sources */,
 				995F1613244F0AA50060631D /* BottomMenuLayersCell.swift in Sources */,
 				993DF10723F6BDB100AC231A /* UIColor+image.swift in Sources */,
@@ -5106,6 +5190,25 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		52B573FA2C623ECF0047FAC9 /* XCRemoteSwiftPackageReference "CountryPickerView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kizitonwose/CountryPickerView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		52B573FB2C623ECF0047FAC9 /* CountryPickerView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 52B573FA2C623ECF0047FAC9 /* XCRemoteSwiftPackageReference "CountryPickerView" */;
+			productName = CountryPickerView;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
 }

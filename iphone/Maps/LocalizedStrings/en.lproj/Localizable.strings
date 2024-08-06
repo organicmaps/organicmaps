@@ -3965,6 +3965,12 @@
 
 "confirm_password" = "Repeat the password";
 
+"tourism_email" = "Email";
+
+"tourism_password" = "Repeat the password";
+
+"tourism_forgot_password" = "Forgot password?";
+
 "home" = "Home";
 
 "favorites" = "Favorites";

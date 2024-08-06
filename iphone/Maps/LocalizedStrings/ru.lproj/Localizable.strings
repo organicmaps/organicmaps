@@ -3963,6 +3963,12 @@
 
 "country" = "Страна";
 
+"tourism_email" = "Email";
+
+"tourism_password" = "Пароль";
+
+"tourism_forgot_password" = "Забыли пароль?";
+
 "confirm_password" = "Повторите пароль";
 
 "home" = "Главная";
