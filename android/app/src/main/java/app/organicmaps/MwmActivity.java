@@ -70,6 +70,8 @@ import app.organicmaps.location.LocationListener;
 import app.organicmaps.location.LocationState;
 import app.organicmaps.location.SensorHelper;
 import app.organicmaps.location.SensorListener;
+import app.organicmaps.location.TrackRecorder;
+import app.organicmaps.location.TrackRecordingService;
 import app.organicmaps.maplayer.MapButtonsController;
 import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.maplayer.ToggleMapLayerFragment;
@@ -228,6 +230,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean mRemoveDisplayListener = true;
   private int mLastUiMode = Configuration.UI_MODE_TYPE_UNDEFINED;
 
+  private boolean mTracePathLocationPermission = false;
+  private boolean mTracePathNotificationPermission = false;
+
   public interface LeftAnimationTrackListener
   {
     void onTrackStarted(boolean collapsed);
@@ -241,7 +246,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     WAS_NOT_SHOWN,
     SHOWING_FOR_NAVIGATION,
-    //SHOWING_FOR_TRACK_RECORDING,
+    SHOWING_FOR_RECORDING,
     SHOWN,
   }
 
@@ -271,6 +276,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
       onNavigationStarted();
     else if (RoutingController.get().hasSavedRoute())
       RoutingController.get().restoreRoute();
+
+    // This is for the case when track recording was enabled but due to any reasons
+    // App crashed so we need the restart or stop the whole service again properly
+    // by checking all the necessary permissions
+    if (TrackRecorder.nativeIsEnabled())
+      startTrackRecording();
 
     processIntent();
     migrateOAuthCredentials();
@@ -1922,8 +1933,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       if (LocationState.getMode() == LocationState.NOT_FOLLOW_NO_POSITION)
         LocationState.nativeSwitchToNextMode();
+
+      if (mTracePathLocationPermission && LocationUtils.checkFineLocationPermission(this))
+      {
+        mTracePathLocationPermission = false;
+        startTrackRecording();
+      }
+
       return;
     }
+    mTracePathLocationPermission = false;
 
     Logger.w(LOCATION_TAG, "Permissions ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION have been refused");
     // Calls onMyPositionModeChanged(NOT_FOLLOW_NO_POSITION).
@@ -1966,6 +1985,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
       case SHOWING_FOR_NAVIGATION -> {
         Logger.d(POWER_MANAGEMENT_TAG, "Resuming navigation");
         onRoutingStart();
+      }
+      case SHOWING_FOR_RECORDING -> {
+        Logger.d(POWER_MANAGEMENT_TAG, "Resuming track recording");
+        startTrackRecording();
       }
       case SHOWN, WAS_NOT_SHOWN -> Logger.w(POWER_MANAGEMENT_TAG, "Ignoring dangling callback");
     }
@@ -2241,6 +2264,88 @@ public class MwmActivity extends BaseMwmFragmentActivity
     startActivity(intent);
   }
 
+  private boolean showTrackRecorderDisclaimer()
+  {
+    if (Config.isTrackRecordingDisclaimerAccepted())
+      return true;
+
+    final StringBuilder builder = new StringBuilder();
+    for (int resId : new int[]{ R.string.instruction_1, R.string.instruction_2, R.string.instruction_3, R.string.instruction_4, R.string.have_a_nice_day})
+      builder.append(getString(resId)).append("\n\n");
+
+    dismissAlertDialog();
+    mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.Alert_dialogue_title)
+        .setMessage(builder.toString())
+        .setCancelable(false)
+        .setNegativeButton(R.string.cancel, null)
+        .setPositiveButton(R.string.ok, (dlg, which) -> {
+          Config.acceptTrackRecordingDisclaimer();
+          startTrackRecording();
+        })
+        .setOnDismissListener(dialog -> mAlertDialog = null)
+        .show();
+
+    return false;
+  }
+
+  private void startTrackRecording()
+  {
+    if (!LocationUtils.checkFineLocationPermission(this))
+    {
+      Logger.i(TAG, "Location permission not granted");
+      // This variable is a simple hack to re initiate the flow
+      // according to action of user. Calling it hack because we are avoiding
+      // creation of new methods by using this variable.
+      mTracePathLocationPermission = true;
+      mLocationPermissionRequest.launch(new String[] { ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION });
+      return;
+    }
+
+    // Check for battery saver permission
+    if (!requestBatterySaverPermission(PowerSaveDisclaimerState.SHOWING_FOR_RECORDING))
+      return;
+
+    requestPostNotificationsPermission();
+
+    /*
+    if (!mTracePathNotificationPermission &&
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+        ActivityCompat.checkSelfPermission(this, POST_NOTIFICATIONS) != PERMISSION_GRANTED)
+    {
+      Logger.i(TAG, "Permissions POST_NOTIFICATIONS is not granted");
+      // This variable is a simple hack to re initiate the flow
+      // according to action of user. Calling it hack because we are avoiding
+      // creation of new methods by using this variable.
+      mTracePathNotificationPermission = true;
+      mPostNotificationPermissionRequest.launch(POST_NOTIFICATIONS);
+      return;
+    }
+     */
+
+    if (!showTrackRecorderDisclaimer())
+      return;
+
+    Toast.makeText(this, getString(R.string.trace_path_is_on), Toast.LENGTH_SHORT).show();
+    TrackRecordingService.startForegroundService(getApplicationContext());
+    mMapButtonsViewModel.setTrackRecorderState(true);
+  }
+
+  private void stopTrackRecording()
+  {
+    Toast.makeText(this, getString(R.string.trace_path_is_off), Toast.LENGTH_SHORT).show();
+    TrackRecordingService.stopService(getApplicationContext());
+    mMapButtonsViewModel.setTrackRecorderState(false);
+  }
+
+  private void onTrackRecordingOptionSelected()
+  {
+    if (TrackRecorder.nativeIsEnabled())
+      stopTrackRecording();
+    else
+      startTrackRecording();
+  }
+
   public void onShareLocationOptionSelected()
   {
     closeFloatingPanels();
@@ -2265,6 +2370,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (!TextUtils.isEmpty(mDonatesUrl))
         items.add(new MenuBottomSheetItem(R.string.donate, R.drawable.ic_donate, this::onDonateOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.settings, R.drawable.ic_settings, this::onSettingsOptionSelected));
+      items.add(new MenuBottomSheetItem(R.string.trace_path, R.drawable.ic_trace_path_off, this::onTrackRecordingOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.share_my_location, R.drawable.ic_share, this::onShareLocationOptionSelected));
       return items;
     }
