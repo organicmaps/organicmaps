@@ -1131,6 +1131,10 @@
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "Il percorso sarà convertito in un percorso automobilistico";
 
+"not_all_shown_bookmarks_carplay" = "Non tutti i segnalibri vengono visualizzati";
+
+"switch_to_phone_bookmarks_carplay" = "Passa al telefono per vedere tutti i segnalibri";
+
 "ok" = "Ok";
 
 "speedcams_alert_title_carplay_1" = "Autovelox";

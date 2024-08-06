@@ -1131,6 +1131,10 @@
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "Trasa zostanie zmieniona na samochodową";
 
+"not_all_shown_bookmarks_carplay" = "Nie wszystkie zakładki są wyświetlane";
+
+"switch_to_phone_bookmarks_carplay" = "Przełącz się na telefon, aby zobaczyć wszystkie zakładki";
+
 "ok" = "Ok";
 
 "speedcams_alert_title_carplay_1" = "Kamery";

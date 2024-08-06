@@ -1131,6 +1131,10 @@
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "Маршрут будзе ператвораны ў аўтамабільны";
 
+"not_all_shown_bookmarks_carplay" = "Не ўсе закладкі паказаны";
+
+"switch_to_phone_bookmarks_carplay" = "Пераключыцеся на тэлефон, каб убачыць усе закладкі";
+
 "ok" = "Ок";
 
 "speedcams_alert_title_carplay_1" = "Камеры";

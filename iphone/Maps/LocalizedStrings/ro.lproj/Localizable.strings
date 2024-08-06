@@ -1131,6 +1131,10 @@
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "Traseul va fi înlocuit cu unul pentru autovehicule";
 
+"not_all_shown_bookmarks_carplay" = "Nu sunt afișate toate marcajele";
+
+"switch_to_phone_bookmarks_carplay" = "Treceți la telefon pentru a vedea toate marcajele";
+
 "ok" = "Bine";
 
 "speedcams_alert_title_carplay_1" = "Radare";

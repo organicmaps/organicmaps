@@ -1131,6 +1131,10 @@
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "Njia itaboreshwa kuwa ya gari";
 
+"not_all_shown_bookmarks_carplay" = "Sio vialamisho vyote vinavyoonyeshwa";
+
+"switch_to_phone_bookmarks_carplay" = "Badili utumie simu ili kuona alamisho zote";
+
 "ok" = "Sawa";
 
 "speedcams_alert_title_carplay_1" = "Kam za kasi";

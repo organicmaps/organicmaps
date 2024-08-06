@@ -1131,6 +1131,10 @@
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "Reitti muutetaan autoilijan reitiksi";
 
+"not_all_shown_bookmarks_carplay" = "Kaikkia kirjanmerkkejä ei näytetä";
+
+"switch_to_phone_bookmarks_carplay" = "Siirry puhelimeen nähdäksesi kaikki kirjanmerkit";
+
 "ok" = "Ok";
 
 "speedcams_alert_title_carplay_1" = "Nopeuskamerat";

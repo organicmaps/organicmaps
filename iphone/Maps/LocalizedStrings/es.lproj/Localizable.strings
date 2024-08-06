@@ -1131,6 +1131,10 @@
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "La ruta se cambiará a coche";
 
+"not_all_shown_bookmarks_carplay" = "No se muestran todos los marcadores";
+
+"switch_to_phone_bookmarks_carplay" = "Cambia al teléfono para ver todos los favoritos";
+
 "ok" = "Ok";
 
 "speedcams_alert_title_carplay_1" = "Cám.velocidad";

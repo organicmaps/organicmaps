@@ -1131,6 +1131,10 @@
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "Tuyến đường sẽ được thay đổi thành tuyến dành cho xe ô tô";
 
+"not_all_shown_bookmarks_carplay" = "Không phải tất cả dấu trang đều được hiển thị";
+
+"switch_to_phone_bookmarks_carplay" = "Chuyển sang điện thoại để xem tất cả dấu trang";
+
 "ok" = "Ok";
 
 "speedcams_alert_title_carplay_1" = "Сam tốc độ";

@@ -1131,6 +1131,10 @@
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "車ルートに変更されます";
 
+"not_all_shown_bookmarks_carplay" = "すべてのブックマークが表示されるわけではない";
+
+"switch_to_phone_bookmarks_carplay" = "携帯電話に切り替えてすべてのブックマークを見る";
+
 "ok" = "OK";
 
 "speedcams_alert_title_carplay_1" = "速度警告";

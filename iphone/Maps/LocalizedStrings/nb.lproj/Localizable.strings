@@ -1131,6 +1131,10 @@
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "Rute vil oppdateres til kjørerute";
 
+"not_all_shown_bookmarks_carplay" = "Ikke alle bokmerker vises";
+
+"switch_to_phone_bookmarks_carplay" = "Bytt til telefonen for å se alle bokmerker";
+
 "ok" = "Ok";
 
 "speedcams_alert_title_carplay_1" = "Kamera-info";

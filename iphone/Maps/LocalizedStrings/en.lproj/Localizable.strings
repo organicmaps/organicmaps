@@ -1131,6 +1131,10 @@
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "The route will be converted into an automobile one";
 
+"not_all_shown_bookmarks_carplay" = "Not all bookmarks are shown";
+
+"switch_to_phone_bookmarks_carplay" = "Switch to the phone to see all bookmarks";
+
 "ok" = "OK";
 
 "speedcams_alert_title_carplay_1" = "Speedсams";

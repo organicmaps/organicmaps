@@ -1131,6 +1131,10 @@
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "De route wordt veranderd naar een autoroute";
 
+"not_all_shown_bookmarks_carplay" = "Niet alle bladwijzers worden getoond";
+
+"switch_to_phone_bookmarks_carplay" = "Schakel over naar de telefoon om alle bladwijzers te zien";
+
 "ok" = "Oké";
 
 "speedcams_alert_title_carplay_1" = "Snelheidscamera's";

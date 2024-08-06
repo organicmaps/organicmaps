@@ -1131,6 +1131,10 @@
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "मार्ग को ऑटोमोबाइल में परिवर्तित किया जाएगा";
 
+"not_all_shown_bookmarks_carplay" = "सभी बुकमार्क नहीं दिखाए गए हैं";
+
+"switch_to_phone_bookmarks_carplay" = "सभी बुकमार्क देखने के लिए फ़ोन पर स्विच करें";
+
 "ok" = "ठीक है";
 
 "speedcams_alert_title_carplay_1" = "स्पीडकैम्स";

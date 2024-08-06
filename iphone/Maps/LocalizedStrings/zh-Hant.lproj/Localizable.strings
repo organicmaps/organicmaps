@@ -1131,6 +1131,10 @@
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "該路線將改為汽車（路線）";
 
+"not_all_shown_bookmarks_carplay" = "未顯示所有書籤";
+
+"switch_to_phone_bookmarks_carplay" = "切換到手機查看所有書籤";
+
 "ok" = "好";
 
 "speedcams_alert_title_carplay_1" = "測速照相機";
