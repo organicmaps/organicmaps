@@ -22183,7 +22183,6 @@
     he:other = נמצאו %d קבצים. יהיה ניתן לראות אותם לאחר ההמרה.
     hu:one = %d fájlt találtunk. Látni fogja őket a megtérés után.
     hu:other = %d fájl található. Látni fogja őket a megtérés után.
-    id:one = %d file ditemukan. Anda akan melihatnya setelah mengonversi.
     id:other = %d file telah ditemukan. Anda akan melihatnya setelah konversi.
     it:one = %d file è stato trovato. Lo vedrai dopo la conversione.
     it:other = %d file trovati. Li vedrai dopo la conversione.
@@ -22219,7 +22218,6 @@
     uk:few = %d файлу були знайдені. Ви побачите їх після конвертації.
     uk:one = %d файл був знайдений. Ви побачите його після перетворення.
     uk:other = %d файлів було знайдено. Ви побачите їх після конвертації.
-    vi:one = %d dã tìm thấy một tệp. Bạn sẽ thấy nó sau khi chuyển đổi.
     vi:other = %d tập tin đã được tìm thấy. Bạn sẽ thấy chúng sau khi chuyển đổi.
     zh-Hans = 找到%d个文件。 转换后你会看到它。
     zh-Hant = 找到%d個文件。 轉換後你會看到它。
