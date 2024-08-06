@@ -62,6 +62,10 @@ sed -i "" '1,/^./{/^$/d;}' $iphone_strings $iphone_infoplist_strings # Drop spur
 sed -i "" -E '/^$/d' $iphone_stringsdict
 # Remove comments - these don't roundtrip in Weblate
 sed -i "" -E '/^<!--/d' $iphone_stringsdict
+# Add missing EOF newline
+for stringdict_file in $iphone_stringsdict; do
+	echo >> "$stringdict_file"
+done
 
 # Remove 'other' translation form for languages that don't have it in Weblate
 sed -i "" -E '/<key>other<\/key>/,+1d' iphone/Maps/LocalizedStrings/{be,pl,ru,uk}.lproj/Localizable.stringsdict
