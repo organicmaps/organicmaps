@@ -384,6 +384,7 @@
 	<string name="dialog_routing_system_error">Erreur système</string>
 	<string name="dialog_routing_application_error">Impossible de créer l\'itinéraire à cause d\'une erreur dans l\'application.</string>
 	<string name="dialog_routing_try_again">Veuillez réessayer</string>
+	<string name="not_now">Pas maintenant</string>
 	<string name="dialog_routing_download_and_build_cross_route">Voulez-vous télécharger la carte et créer un itinéraire plus direct s\'étendant sur plus d\'une carte?</string>
 	<string name="dialog_routing_download_cross_route">Téléchargez des cartes pour créer un itinéraire plus direct sortant des limites de cette carte.</string>
 
@@ -834,6 +835,10 @@
 	<string name="select_option">Sélectionner une option</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">Places en terrasse</string>
+	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_title">Désactiver le mode économie d\'énergie</string>
+	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_summary">Pour une navigation plus précise, nous te recommandons de désactiver le mode d\'économie d\'énergie dans les paramètres de la batterie du téléphone.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresse/Bloc</string>

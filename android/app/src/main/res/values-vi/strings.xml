@@ -362,6 +362,7 @@
 	<string name="dialog_routing_system_error">Lỗi hệ thống</string>
 	<string name="dialog_routing_application_error">Không thể tạo tuyến đường do lỗi ứng dụng.</string>
 	<string name="dialog_routing_try_again">Vui lòng thử lại</string>
+	<string name="not_now">Lúc khác</string>
 	<string name="dialog_routing_download_and_build_cross_route">Bạn có muốn tải về bản đồ và tạo một tuyến đường tối ưu hơn kéo dài trên nhiều hơn một bản đồ?</string>
 	<string name="dialog_routing_download_cross_route">Tải về bản đồ để tạo tuyến đường tối ưu hơn mà đi qua cạnh của bản đồ này.</string>
 
@@ -779,6 +780,10 @@
 	<string name="select_option">Chọn tùy chọn</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">Chỗ ngồi ngoài trời</string>
+	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_title">Tắt Chế Độ Tiết Kiệm Pin</string>
+	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_summary">Để điều hướng chính xác nhất, chúng tôi khuyên bạn nên tắt chế độ tiết kiệm năng lượng trong cài đặt pin của điện thoại.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Địa chỉ/Khối</string>

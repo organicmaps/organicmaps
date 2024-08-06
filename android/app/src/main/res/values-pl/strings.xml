@@ -381,6 +381,7 @@
 	<string name="dialog_routing_system_error">Błąd systemowy</string>
 	<string name="dialog_routing_application_error">Nie można wyznaczyć trasy z powodu błędu aplikacji.</string>
 	<string name="dialog_routing_try_again">Spróbuj ponownie</string>
+	<string name="not_now">Nie teraz</string>
 	<string name="dialog_routing_download_and_build_cross_route">Chcesz pobrać mapę i wyznaczyć lepszą trasę, obejmującą więcej map?</string>
 	<string name="dialog_routing_download_cross_route">Pobierz mapę i wyznacz lepszą trasę, wykraczającą poza granice bieżącej mapy.</string>
 
@@ -832,6 +833,10 @@
 	<string name="select_option">Wybierz opcję</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">Siedzenia na zewnątrz</string>
+	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_title">Wyłącz tryb oszczędzania energii</string>
+	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_summary">Aby uzyskać najbardziej dokładną nawigację, zalecamy wyłączenie trybu oszczędzania energii w ustawieniach baterii telefonu.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adres/Blok</string>

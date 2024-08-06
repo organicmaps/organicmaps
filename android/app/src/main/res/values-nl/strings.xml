@@ -379,6 +379,7 @@
 	<string name="dialog_routing_system_error">Systeemfout</string>
 	<string name="dialog_routing_application_error">Route samenstellen mislukt door een applicatiefout.</string>
 	<string name="dialog_routing_try_again">Probeer het opnieuw</string>
+	<string name="not_now">Niet nu</string>
 	<string name="dialog_routing_download_and_build_cross_route">Wilt u de kaart downloaden en een betere route samenstellen die meer dan één kaart beslaat?</string>
 	<string name="dialog_routing_download_cross_route">Download de kaart om een betere route samen te stellen die de grenzen van deze kaart overschrijdt.</string>
 
@@ -825,6 +826,10 @@
 	<string name="select_option">Selecteer optie</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">Zitplaatsen buiten</string>
+	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_title">Schakel energiebesparingsmodus uit</string>
+	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_summary">Voor de meest nauwkeurige navigatie raden we aan om de energiebesparende modus uit te schakelen in de batterij-instellingen van de telefoon.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adres/blok</string>

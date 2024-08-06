@@ -367,6 +367,7 @@
 	<string name="dialog_routing_system_error">Eroare de sistem</string>
 	<string name="dialog_routing_application_error">Crearea traseului a eșuat din cauza unei erori a aplicației.</string>
 	<string name="dialog_routing_try_again">Încearcă din nou</string>
+	<string name="not_now">Nu acum</string>
 	<string name="dialog_routing_download_and_build_cross_route">Vrei să descarci harta și să creezi un traseu mai bun care include mai multe hărți?</string>
 	<string name="dialog_routing_download_cross_route">Descarcă hărți suplimentare pentru a crea un traseu mai bun care să traverseze limitele acestei hărți.</string>
 
@@ -807,6 +808,10 @@
 	<string name="select_option">Selectați opțiunea</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">Scaune în aer liber</string>
+	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_title">Dezactivați modul de economisire a energiei</string>
+	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_summary">Pentru o navigare cât mai precisă, vă recomandăm să dezactivați modul de economisire a energiei în setările pentru baterie ale telefonului.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresă/Bloc</string>

@@ -373,6 +373,7 @@
 	<string name="dialog_routing_system_error">שגיאת מערכת</string>
 	<string name="dialog_routing_application_error">לא ניתן ליצור מסלול עקב שגיאת אפליקציה.</string>
 	<string name="dialog_routing_try_again">נסה שוב</string>
+	<string name="not_now">לא עכשיו</string>
 	<string name="dialog_routing_download_and_build_cross_route">האם ברצונך להוריד את המפה וליצור מסלול מיטבי יותר, הכולל יותר מאשר מפה אחת?</string>
 	<string name="dialog_routing_download_cross_route">הורד מפות נוספות כדי ליצור מסלול יותר טוב שחוצה את גבולות המפה הזו.</string>
 
@@ -818,6 +819,10 @@
 	<string name="select_option">בחר אפשרות</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">ישיבה בחוץ</string>
+	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_title">כבה מצב חיסכון באנרגיה</string>
+	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_summary">לניווט המדויק ביותר, אנו ממליצים להשבית את מצב חיסכון בחשמל בהגדרות הסוללה של הטלפון.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">כתובת/חסימה</string>

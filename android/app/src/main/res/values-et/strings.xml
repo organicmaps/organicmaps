@@ -373,6 +373,7 @@
 	<string name="dialog_routing_system_error">Süsteemi viga</string>
 	<string name="dialog_routing_application_error">Marsruuti ei saa koostada rakenduse vea tõttu.</string>
 	<string name="dialog_routing_try_again">Palun proovi uuesti</string>
+	<string name="not_now">Mitte praegu</string>
 	<string name="dialog_routing_download_and_build_cross_route">Kas sooviksid kaardi alla laadida ja luua optimaalsema rohkem kui ühte kaarti hõlmava marsruudi?</string>
 	<string name="dialog_routing_download_cross_route">Lae alla täiendavad kaardid, et luua parem, selle kaardi piire ületav marsruut.</string>
 
@@ -818,6 +819,10 @@
 	<string name="select_option">Valige valik</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">Istekohad õues</string>
+	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_title">Lülita välja energiasäästurežiim</string>
+	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_summary">Kõige täpsema navigeerimise tagamiseks soovitame telefoni aku seadetes energiasäästurežiimi välja lülitada.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Aadress/plokk</string>

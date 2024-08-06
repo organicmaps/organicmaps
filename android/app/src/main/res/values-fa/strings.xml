@@ -355,6 +355,7 @@
 	<string name="dialog_routing_system_error">خطای سیستم</string>
 	<string name="dialog_routing_application_error">ناتوان در ایجاد مسیر به علت خطای برنامه.</string>
 	<string name="dialog_routing_try_again">لطفا دوباره تلاش کنید</string>
+	<string name="not_now">اکنون خیر</string>
 	<string name="dialog_routing_download_and_build_cross_route">ایا مایل به دانلود نقشه و ایجاد مسیر‌های بهینه بیشتری که نقشه‌های بیشتری را پوشش میدهد هستید؟</string>
 	<string name="dialog_routing_download_cross_route">دانلود نقشه‌های اضافی برای ایجاد مسیری بهتر که حاشیه‌های این نقشه را رد می کند.</string>
 
@@ -782,6 +783,10 @@
 	<string name="select_option">گزینه را انتخاب کنید</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">نشستن در فضای باز</string>
+	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_title">خاموش کردن حالت صرفه‌جویی در مصرف انرژی</string>
+	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_summary">برای دقیقu200cترین ناوبری، توصیه میu200cکنیم حالت صرفهu200cجویی در مصرف انرژی را در تنظیمات باتری گوشی غیرفعال کنید.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">آدرس/بلاک</string>

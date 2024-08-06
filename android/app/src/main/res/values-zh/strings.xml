@@ -370,6 +370,7 @@
 	<string name="dialog_routing_system_error">系统错误</string>
 	<string name="dialog_routing_application_error">由于应用程序错误，无法创建路线。</string>
 	<string name="dialog_routing_try_again">请重试</string>
+	<string name="not_now">现在不用</string>
 	<string name="dialog_routing_download_and_build_cross_route">您是否要下载地图并创建一条跨越多张地图的更佳路线？</string>
 	<string name="dialog_routing_download_cross_route">下载地图，创建一条跨越此地图边缘的更佳路线。</string>
 
@@ -796,6 +797,10 @@
 	<string name="select_option">选择选项</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">室外座位</string>
+	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_title">关闭省电模式</string>
+	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_summary">为了获得最准确的导航，我们建议在手机电池设置中禁用省电模式。</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">地址/区块</string>

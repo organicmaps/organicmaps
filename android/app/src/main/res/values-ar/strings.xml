@@ -394,6 +394,7 @@
 	<string name="dialog_routing_system_error">خطأ في النظام</string>
 	<string name="dialog_routing_application_error">تعذر إنشاء مسار نتيجة وجود خطأ في التطبيق.</string>
 	<string name="dialog_routing_try_again">الرجاء إعادة المحاولة</string>
+	<string name="not_now">ليس الآن</string>
 	<string name="dialog_routing_download_and_build_cross_route">هل ترغب في تنزيل الخريطة وإنشاء مسار أفضل يمتد عبر أكثر من خريطة؟</string>
 	<string name="dialog_routing_download_cross_route">تنزيل خرائط إضافية لإنشاء مسار أفضل يعبر حافة هذه الخريطة.</string>
 
@@ -839,6 +840,10 @@
 	<string name="select_option">حدد الخيار</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">مقاعد خارجية</string>
+	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_title">إيقاف تشغيل وضع توفير الطاقة</string>
+	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_summary">للحصول على التنقل الأكثر دقة، نوصي بتعطيل وضع توفير الطاقة في إعدادات بطارية الهاتف.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">العنوان / البلوك</string>

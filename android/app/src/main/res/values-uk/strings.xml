@@ -384,6 +384,7 @@
 	<string name="dialog_routing_system_error">Системна помилка</string>
 	<string name="dialog_routing_application_error">Не вдалося прокласти маршрут через помилки програми.</string>
 	<string name="dialog_routing_try_again">Спробуйте знову</string>
+	<string name="not_now">Не зараз</string>
 	<string name="dialog_routing_download_and_build_cross_route">Завантажити мапу і побудувати більш оптимальний маршрут з перетином межі мапи?</string>
 	<string name="dialog_routing_download_cross_route">Для побудови більш оптимального маршруту з перетином межі потрібно завантажити мапу.</string>
 
@@ -834,6 +835,10 @@
 	<string name="select_option">Виберіть варіант</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">Сидіння на відкритому повітрі</string>
+	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_title">Вимкнути режим енергозбереження</string>
+	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_summary">Для найбільш точної навігації ми рекомендуємо вимкнути режим енергозбереження в налаштуваннях батареї телефону.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адреса/блок</string>

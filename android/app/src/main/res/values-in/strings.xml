@@ -364,6 +364,7 @@
 	<string name="dialog_routing_system_error">Kesalahan sistem</string>
 	<string name="dialog_routing_application_error">Tidak dapat membuat rute karena kesalahan aplikasi.</string>
 	<string name="dialog_routing_try_again">Mohon coba lagi</string>
+	<string name="not_now">Jangan Sekarang</string>
 	<string name="dialog_routing_download_and_build_cross_route">Apakah Anda ingin mengunduh peta dan membuat rute yang lebih optimal yang meliputi lebih dari satu peta?</string>
 	<string name="dialog_routing_download_cross_route">Unduh peta untuk membuat rute yang lebih optimal yang melewati ujung peta ini.</string>
 
@@ -783,6 +784,10 @@
 	<string name="select_option">Pilih opsi</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">Tempat duduk di luar ruangan</string>
+	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_title">Matikan Mode Hemat Daya</string>
+	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_summary">Untuk navigasi yang paling akurat, kami sarankan untuk menonaktifkan mode hemat daya dalam pengaturan baterai ponsel.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Alamat/Blokir</string>

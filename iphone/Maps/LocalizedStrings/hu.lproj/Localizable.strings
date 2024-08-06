@@ -538,13 +538,13 @@
 
 "history" = "Előzmények";
 
-"search_not_found" = "Sajnos, semmit nem találtam.";
+"search_not_found" = "Sajnos, semmit sem találtunk.";
 
-"search_not_found_query" = "Próbáljon másik lekérdezést.";
+"search_not_found_query" = "Próbáljon másik kifejezést.";
 
 "search_history_title" = "Keresési előzmények";
 
-"search_history_text" = "Aktuális keresés gyors elérése.";
+"search_history_text" = "Legutóbbi keresések gyors elérése.";
 
 "clear_search" = "A keresési előzmények törlése";
 

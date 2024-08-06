@@ -376,6 +376,7 @@
 	<string name="dialog_routing_system_error">Rendszerhiba</string>
 	<string name="dialog_routing_application_error">Egy alkalmazáshiba miatt nem sikerült az útvonal létrehozása.</string>
 	<string name="dialog_routing_try_again">Kérjük, próbálja újra</string>
+	<string name="not_now">Most nem</string>
 	<string name="dialog_routing_download_and_build_cross_route">Szeretné letölteni a térképet és létrehozni egy optimálisabb útvonalat, amely több, mint egy térképen terül el?</string>
 	<string name="dialog_routing_download_cross_route">Töltse le a térképet, hogy létrehozzon egy optimálisabb útvonalat, amely áthalad a jelenlegi térkép szélén.</string>
 
@@ -388,10 +389,10 @@
 	<string name="hide">Elrejt</string>
 	<string name="categories">Kategóriák</string>
 	<string name="history">Előzmények</string>
-	<string name="search_not_found">Sajnos, semmit nem találtam.</string>
-	<string name="search_not_found_query">Próbáljon másik lekérdezést.</string>
+	<string name="search_not_found">Sajnos, semmit sem találtunk.</string>
+	<string name="search_not_found_query">Próbáljon másik kifejezést.</string>
 	<string name="search_history_title">Keresési előzmények</string>
-	<string name="search_history_text">Aktuális keresés gyors elérése.</string>
+	<string name="search_history_text">Legutóbbi keresések gyors elérése.</string>
 	<string name="clear_search">A keresési előzmények törlése</string>
 	<string name="p2p_your_location">Az Ön helyzete</string>
 	<string name="p2p_start">Indítás</string>
@@ -799,6 +800,10 @@
 	<string name="select_option">Válassza ki a lehetőséget</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">Kültéri ülőhelyek</string>
+	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_title">Kapcsolja ki az energiatakarékos módot</string>
+	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+	<string name="power_save_dialog_summary">A legpontosabb navigáció érdekében javasoljuk az energiatakarékos üzemmód kikapcsolását a telefon akkumulátor-beállításaiban.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Cím/blokk</string>
