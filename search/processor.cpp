@@ -726,6 +726,15 @@ void Processor::SearchPlusCode()
   string query(m_query.m_query);
   strings::Trim(query);
 
+  // Remove the region information added by Google Maps
+  size_t firstCommaPosition = query.find(",");
+  if (firstCommaPosition != string::npos) {
+    size_t spaceBeforeCommaPosition = input.rfind(" ", firstCommaPosition);
+    if (spaceBeforeCommaPosition != string::npos) {
+      query = query.substr(0, spaceBeforeCommaPosition);
+    }
+  }
+
   if (openlocationcode::IsFull(query))
   {
     openlocationcode::CodeArea const area = openlocationcode::Decode(query);
