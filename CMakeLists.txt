@@ -149,6 +149,12 @@ if (BUILD_DESIGNER)
   add_definitions(-DBUILD_DESIGNER)
 endif()
 
+option(BUILD_STANDALONE "Build standalone application" OFF)
+if (BUILD_STANDALONE)
+  message(STATUS "Standalone building is enabled")
+  add_definitions(-DBUILD_STANDALONE)
+endif()
+
 option(USE_ASAN "Enable Address Sanitizer" OFF)
 option(USE_TSAN "Enable Thread Sanitizer" OFF)
 option(USE_LIBFUZZER "Enable LibFuzzer" OFF)
