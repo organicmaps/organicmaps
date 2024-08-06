@@ -276,6 +276,7 @@
 		52B573F72C61F4D00047FAC9 /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B573F62C61F4D00047FAC9 /* PasswordTextField.swift */; };
 		52B573F92C6223CE0047FAC9 /* AuthBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B573F82C6223CE0047FAC9 /* AuthBackButton.swift */; };
 		52B573FC2C623ECF0047FAC9 /* CountryPickerView in Frameworks */ = {isa = PBXBuildFile; productRef = 52B573FB2C623ECF0047FAC9 /* CountryPickerView */; };
+		52B573FE2C624A520047FAC9 /* CountryPickerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B573FD2C624A520047FAC9 /* CountryPickerUtils.swift */; };
 		52D588A92C5CD56200AB96B3 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D588A82C5CD56200AB96B3 /* Color.swift */; };
 		52D588BA2C5CE2E800AB96B3 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D588B92C5CE2E800AB96B3 /* Font.swift */; };
 		52D588C52C5CEAF900AB96B3 /* Gilroy-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52D588BB2C5CEAF800AB96B3 /* Gilroy-Thin.ttf */; };
@@ -1224,6 +1225,7 @@
 		52B573F42C61F11E0047FAC9 /* AuhtTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuhtTextField.swift; sourceTree = "<group>"; };
 		52B573F62C61F4D00047FAC9 /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
 		52B573F82C6223CE0047FAC9 /* AuthBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthBackButton.swift; sourceTree = "<group>"; };
+		52B573FD2C624A520047FAC9 /* CountryPickerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryPickerUtils.swift; sourceTree = "<group>"; };
 		52D588A82C5CD56200AB96B3 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		52D588B92C5CE2E800AB96B3 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		52D588BB2C5CEAF800AB96B3 /* Gilroy-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Thin.ttf"; sourceTree = "<group>"; };
@@ -2766,6 +2768,7 @@
 				52B573F32C61F10B0047FAC9 /* TextFields */,
 				527D5E772C60D94B00736A85 /* AppButton.swift */,
 				52B573F82C6223CE0047FAC9 /* AuthBackButton.swift */,
+				52B573FD2C624A520047FAC9 /* CountryPickerUtils.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -4527,6 +4530,7 @@
 				ED1080A72B791CFE0023F27E /* SocialMediaCollectionViewHeader.swift in Sources */,
 				F6E2FE311E097BA00083EBEC /* MWMStreetEditorViewController.mm in Sources */,
 				F6E2FE281E097BA00083EBEC /* MWMOpeningHoursSection.mm in Sources */,
+				52B573FE2C624A520047FAC9 /* CountryPickerUtils.swift in Sources */,
 				3406FA161C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm in Sources */,
 				340416481E7BF28E00E2B6D6 /* UIView+Snapshot.swift in Sources */,
 				F6E2FE251E097BA00083EBEC /* MWMOpeningHoursModel.mm in Sources */,

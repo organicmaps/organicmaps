@@ -53,15 +53,7 @@ class SignUpViewController: UIViewController {
     return textField
   }()
   
-  private let cpv: CountryPickerView = {
-    let cpv = CountryPickerView()
-    cpv.textColor = .white
-    cpv.translatesAutoresizingMaskIntoConstraints = false
-    cpv.showCountryNameInView = true
-    cpv.showPhoneCodeInView = false
-    cpv.showCountryCodeInView = false
-    return cpv
-  }()
+  private let cpv: CountryPickerView = getCountryPickerView()
   
   private let underline: UIView = {
     let underline = UIView()
