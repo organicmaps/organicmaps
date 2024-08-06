@@ -51,5 +51,11 @@ public final class Constants
     private Package() {}
   }
 
+  public static class Vendor
+  {
+    public static final String HUAWEI = "HUAWEI";
+    public static final String XIAOMI = "XIAOMI";
+  }
+
   private Constants() {}
 }

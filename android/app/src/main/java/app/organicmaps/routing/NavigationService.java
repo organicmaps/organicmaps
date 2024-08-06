@@ -4,6 +4,7 @@ import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.POST_NOTIFICATIONS;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+import static app.organicmaps.util.Constants.Vendor.XIAOMI;
 
 import android.annotation.SuppressLint;
 import android.app.ForegroundServiceStartNotAllowedException;
@@ -125,7 +126,7 @@ public class NavigationService extends Service implements LocationListener
     // Nice colorized notifications should be supported on API=26 and later.
     // Nonetheless, even on API=32, Xiaomi uses their own legacy implementation that displays white-on-white instead.
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
-        !"xiaomi".equalsIgnoreCase(Build.MANUFACTURER);
+        !XIAOMI.equalsIgnoreCase(Build.MANUFACTURER);
   }
 
   @NonNull
