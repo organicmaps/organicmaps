@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -308,12 +309,9 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
 
         final Context context = requireActivity();
         final Uri rootUri = data.getData();
-        final ProgressDialog dialog = new ProgressDialog(context, R.style.MwmTheme_ProgressDialog);
-        dialog.setMessage(getString(R.string.wait_several_minutes));
-        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.setIndeterminate(true);
-        dialog.setCancelable(false);
-        dialog.show();
+        ProgressBar progressBar = getView().findViewById(R.id.bookmarkProgressBar);
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setIndeterminate(true);
         Logger.d(TAG, "Importing bookmarks from " + rootUri);
         MwmApplication app = MwmApplication.from(context);
         final File tempDir = new File(StorageUtils.getTempPath(app));
@@ -326,8 +324,11 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
                   found.incrementAndGet();
               });
           UiThread.run(() -> {
-            if (dialog.isShowing())
-              dialog.dismiss();
+            if (progressBar.getVisibility() == View.VISIBLE)
+            {
+              progressBar.setVisibility(View.GONE);
+              progressBar.setIndeterminate(false);
+            }
             int found_val = found.get();
             String message = context.getResources().getQuantityString(
                 R.plurals.bookmarks_detect_message, found_val, found_val);
