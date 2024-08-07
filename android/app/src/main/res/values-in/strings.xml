@@ -590,7 +590,6 @@
 	<string name="phone_number">Nomor telepon</string>
 	<string name="profile">Profil OpenStreetMap</string>
 	<plurals name="bookmarks_detect_message">
-	  <item quantity="one">%d file ditemukan. Anda akan melihatnya setelah mengonversi.</item>
 	  <item quantity="other">%d file telah ditemukan. Anda akan melihatnya setelah konversi.</item>
 	</plurals>
 	<string name="restore">Mengembalikan</string>
