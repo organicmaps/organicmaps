@@ -37,6 +37,8 @@ import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.util.log.Logger;
+import app.organicmaps.widget.placepage.sections.PlacePageBookmarkFragment;
+
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.ArrayList;
@@ -45,12 +47,16 @@ import java.util.List;
 public class PlacePageController extends Fragment implements
                                                   PlacePageView.PlacePageViewListener,
                                                   PlacePageButtons.PlacePageButtonClickListener,
+                                                  PlacePageButtons.PlacePageButtonLongClickListener,
                                                   MenuBottomSheetFragment.MenuBottomSheetInterface,
+                                                  EditBookmarkFragment.EditBookmarkListener,
                                                   Observer<MapObject>
 {
   private static final String TAG = PlacePageController.class.getSimpleName();
   private static final String PLACE_PAGE_BUTTONS_FRAGMENT_TAG = "PLACE_PAGE_BUTTONS";
   private static final String PLACE_PAGE_FRAGMENT_TAG = "PLACE_PAGE";
+  private static final String PLACEPAGE_CATEGORY_SELECTOR_BOTTOM_SHEET = "PLACEPAGE_CATEGORY_SELECTOR_BOTTOM_SHEET";
+
 
   private static final float PREVIEW_PLUS_RATIO = 0.45f;
   private BottomSheetBehavior<View> mPlacePageBehavior;
@@ -113,6 +119,7 @@ public class PlacePageController extends Fragment implements
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
+
     final FragmentActivity activity = requireActivity();
     mPlacePageRouteSettingsListener = (MwmActivity) activity;
 
@@ -193,9 +200,10 @@ public class PlacePageController extends Fragment implements
     {
       final PlacePageButton bsItem = PlacePageButtonFactory.createButton(currentItems.get(i), requireActivity());
       items.add(new MenuBottomSheetItem(
-          bsItem.getTitle(),
-          bsItem.getIcon(),
-          () -> onPlacePageButtonClick(bsItem.getType())
+              bsItem.getTitle(),
+              bsItem.getIcon(),
+              () -> onPlacePageButtonClick(bsItem.getType()),
+              () -> onPlacePageButtonLongClick(bsItem.getType())
       ));
     }
     return items;
@@ -371,6 +379,15 @@ public class PlacePageController extends Fragment implements
     }
   }
 
+  @Override
+  public void onPlacePageButtonLongClick(PlacePageButtons.ButtonType item)
+  {
+    switch (item)
+    {
+      case BOOKMARK_SAVE -> onBookmarkBtnLongClicked();
+    }
+  }
+
   private void onBookmarkBtnClicked()
   {
     // mMapObject is set to null when the place page closes
@@ -382,6 +399,15 @@ public class PlacePageController extends Fragment implements
       Framework.nativeDeleteBookmarkFromMapObject();
     else
       BookmarkManager.INSTANCE.addNewBookmark(mMapObject.getLat(), mMapObject.getLon());
+  }
+
+  private void onBookmarkBtnLongClicked()
+  {
+      final FragmentActivity activity = requireActivity();
+      EditBookmarkFragment.createBookmark(mMapObject.getLat(), mMapObject.getLon(),
+              activity,
+              activity.getSupportFragmentManager(),
+              this);
   }
 
   private void onBackBtnClicked()
@@ -617,6 +643,11 @@ public class PlacePageController extends Fragment implements
     mPlacePageBehavior.removeBottomSheetCallback(mDefaultBottomSheetCallback);
     mViewModel.getMapObject().removeObserver(this);
     mViewModel.getPlacePageDistanceToTop().removeObserver(mPlacePageDistanceToTopObserver);
+  }
+
+  @Override
+  public void onBookmarkSaved(long bookmarkId, boolean movedFromCategory) {
+
   }
 
   public interface PlacePageRouteSettingsListener
