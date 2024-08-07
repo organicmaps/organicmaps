@@ -528,7 +528,7 @@ void setShowLocationAlert(BOOL needShow) {
 {
   auto app = UIApplication.sharedApplication;
   auto delegate = static_cast<MapsAppDelegate *>(app.delegate);
-  if (delegate.isDrapeEngineCreated && app.applicationState == UIApplicationStateActive)
+  if (delegate.isDrapeEngineCreated)
   {
     auto & f = GetFramework();
     if (self.frameworkUpdateMode & MWMLocationFrameworkUpdateLocation)
