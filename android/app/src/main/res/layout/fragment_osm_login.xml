@@ -63,87 +63,19 @@
       <Button
           android:id="@+id/login_website"
           style="@style/MwmWidget.Button.Accent"
+          android:layout_marginTop="@dimen/margin_base"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:text="Login with OSM website"
           android:textAppearance="@style/MwmTextAppearance.Body2.Light" />
-      <com.google.android.material.textfield.TextInputLayout
-        style="@style/MwmWidget.Editor.CustomTextInput"
-        android:layout_marginTop="@dimen/margin_half"
-        android:textColorHint="?android:textColorSecondary"
-        app:endIconMode="custom">
-        <com.google.android.material.textfield.TextInputEditText
-          android:id="@+id/osm_username"
-          style="@style/MwmWidget.Editor.FieldLayout.EditText"
-          android:autofillHints="emailAddress"
-          android:hint="@string/email_or_username" />
-      </com.google.android.material.textfield.TextInputLayout>
-      <com.google.android.material.textfield.TextInputLayout
-        style="@style/MwmWidget.Editor.CustomTextInput"
-        android:layout_marginTop="@dimen/margin_base"
-        android:textColorHint="?android:textColorSecondary"
-        app:endIconMode="password_toggle"
-        app:endIconTint="?android:textColorSecondary">
-        <com.google.android.material.textfield.TextInputEditText
-          android:id="@+id/osm_password"
-          style="@style/MwmWidget.Editor.FieldLayout.EditText"
-          android:autofillHints="password"
-          android:hint="@string/password"
-          android:inputType="textPassword" />
-      </com.google.android.material.textfield.TextInputLayout>
-      <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_base">
-        <Button
-          android:id="@+id/login"
-          style="@style/MwmWidget.Button.Accent"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@string/login_osm"
-          android:textAppearance="@style/MwmTextAppearance.Body2.Light" />
-        <ProgressBar
-          android:id="@+id/osm_login_progress"
-          android:layout_width="@dimen/editor_auth_btn_height"
-          android:layout_height="@dimen/editor_auth_btn_height"
-          android:layout_gravity="center"
-          android:elevation="@dimen/design_fab_elevation"
-          android:visibility="gone" />
-      </FrameLayout>
       <Button
-        android:id="@+id/lost_password"
-        style="@style/MwmWidget.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:background="?clickableBackground"
-        android:padding="@dimen/margin_half"
-        android:text="@string/forgot_password"
-        android:textAppearance="@style/MwmTextAppearance.Body3" />
-      <com.google.android.material.divider.MaterialDivider
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_base"
-        android:layout_marginBottom="@dimen/margin_base" />
-      <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@string/robotoRegular"
-        android:text="@string/no_osm_account"
-        android:textAppearance="@style/MwmTextAppearance.Body2"
-        android:textColor="?android:textColorPrimary" />
-      <Button
-        android:id="@+id/register"
+        android:id="@+id/login_username"
         style="@style/MwmWidget.Button.Accent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Login with username"
         android:layout_marginTop="@dimen/margin_base"
-        android:background="@drawable/button_editor_light"
-        android:fontFamily="@string/robotoMedium"
-        android:padding="@dimen/margin_quarter"
-        android:text="@string/register_at_openstreetmap"
-        android:textAppearance="@style/MwmTextAppearance.Body2"
-        android:textColor="@color/text_dark" />
+        android:textAppearance="@style/MwmTextAppearance.Body2.Light" />
     </LinearLayout>
   </ScrollView>
 </LinearLayout>
