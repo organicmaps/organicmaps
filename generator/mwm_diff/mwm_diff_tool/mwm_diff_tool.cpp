@@ -25,7 +25,8 @@ int main(int argc, char ** argv)
   }
   char const * olderMWM{argv[2]}, * newerMWM{argv[3]}, * diffPath{argv[4]};
   if (0 == std::strcmp(argv[1], "make")) {
-    return generator::mwm_diff::MakeDiff(olderMWM, newerMWM, diffPath);
+    if (generator::mwm_diff::MakeDiff(olderMWM, newerMWM, diffPath))
+      return 0;
   } else if (0 == std::strcmp(argv[1], "apply")) {
     base::Cancellable cancellable;
     auto const res = generator::mwm_diff::ApplyDiff(olderMWM, newerMWM, diffPath, cancellable);
