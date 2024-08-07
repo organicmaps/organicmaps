@@ -19,6 +19,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import app.organicmaps.Framework;
 import app.organicmaps.R;
@@ -212,7 +214,7 @@ public class SharingUtils
 
   public static void shareFile(Context context, ActivityResultLauncher<SharingIntent> launcher, ShareInfo info)
   {
-    Intent intent = new Intent(Intent.ACTION_SEND);
+    Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
 
     if (!info.mSubject.isEmpty())
       intent.putExtra(Intent.EXTRA_SUBJECT, info.mSubject);
@@ -228,15 +230,16 @@ public class SharingUtils
     {
       final Uri fileUri = StorageUtils.getUriForFilePath(context, info.mFileName);
       Logger.i(TAG, "Sharing file " + info.mMimeType + " " + info.mFileName + " with URI " + fileUri);
-      intent.putExtra(Intent.EXTRA_STREAM, fileUri);
+      intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, new ArrayList<>(List.of(fileUri)));
       intent.setDataAndType(fileUri, info.mMimeType);
 
       // Properly set permissions for intent, see
       // https://developer.android.com/reference/androidx/core/content/FileProvider#include-the-permission-in-an-intent
-      intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+      intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK);
+
       if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
         intent.setClipData(ClipData.newRawUri("", fileUri));
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK);
       }
 
       Intent saveIntent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
