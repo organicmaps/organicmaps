@@ -5,6 +5,8 @@
 
 #include "map/bookmark_helpers.hpp"
 #include "map/place_page_info.hpp"
+#include "map/gps_tracker.hpp"
+#include "geometry/point2d.hpp"
 
 
 #include "coding/zip_creator.hpp"
@@ -17,6 +19,9 @@
 
 #include <limits>
 #include <utility>
+
+#include <android/log.h>
+#define TAG "BookmarkManager.cpp"
 
 using namespace jni;
 using namespace std::placeholders;
@@ -354,6 +359,50 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeDeleteTrack(
     JNIEnv *, jobject, jlong trkId)
 {
   frm()->GetBookmarkManager().GetEditSession().DeleteTrack(static_cast<kml::TrackId>(trkId));
+}
+
+JNIEXPORT void JNICALL
+Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeAddTrackToLastEditedCategory(JNIEnv * env)
+{
+  __android_log_print(ANDROID_LOG_DEBUG, TAG, "received in native add track last edited category");
+  if (!GpsTracker::Instance().IsRecentTrackCollectionInitialized())
+    return;
+  __android_log_print(ANDROID_LOG_DEBUG, TAG, "yes recent track collection is initialized");
+
+  BookmarkManager & bmMng = frm()->GetBookmarkManager();
+
+  std::vector<location::GpsTrackInfo> track = GpsTracker::Instance().GetRecentTrackCollectionTrack();
+
+  kml::TrackData trkData;
+  trkData.m_id = kml::kInvalidTrackId;
+  trkData.m_name = {{1,"Temporary Name"},{7,"Temporary Name"}};
+
+  struct kml::MultiGeometry m_geometry;
+  std::vector<m2::PointD> points;
+
+  for (auto const & point : track)
+    points.emplace_back(mercator::FromLatLon(point.m_latitude, point.m_longitude));
+
+  if(points.size() > 0) m_geometry.FromPoints(points);
+  __android_log_print(ANDROID_LOG_DEBUG, TAG, "points have been converted into m_geometry");
+  __android_log_print(ANDROID_LOG_DEBUG, TAG, "points size: %f", points.size());
+  trkData.m_geometry = std::move(m_geometry);
+
+  std::vector<kml::TrackLayer> m_layers;
+  struct kml::TrackLayer layer;
+  struct kml::ColorData colorData;
+  colorData.m_rgba = 4278190335; //red color
+  layer.m_color = colorData;
+  m_layers.emplace_back(layer);
+  trkData.m_layers = std::move(m_layers);
+
+  __android_log_print(ANDROID_LOG_DEBUG, TAG, "geometry has been moved into trkData");
+  auto const lastEditedCategory = frm()->LastEditedBMCategory();
+
+  auto const * createdTrack = bmMng.GetEditSession().CreateTrack(std::move(trkData));
+  __android_log_print(ANDROID_LOG_DEBUG,TAG,"track has been created");
+  bmMng.GetEditSession().AttachTrack(createdTrack->GetId(), lastEditedCategory);
+  __android_log_print(ANDROID_LOG_DEBUG,TAG,"Attach Track is done");
 }
 
 JNIEXPORT jobject JNICALL

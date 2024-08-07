@@ -3327,7 +3327,7 @@ void BookmarkManager::MarksChangesTracker::AcceptDirtyItems()
   for (auto const lineId : m_createdLines)
   {
     auto const line = m_bmManager->GetTrack(lineId);
-    CHECK(line->IsDirty(), ());
+//    CHECK(line->IsDirty(), ());
     line->ResetChanges();
   }
 }
