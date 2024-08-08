@@ -4707,6 +4707,7 @@
     eu = Kartoia
     fi = Pahvi
     fr = Carton
+    he = קרטון
     it = Cartone
     mr = पुठ्ठा
     nl = Karton
@@ -4730,6 +4731,7 @@
     eu = Latak
     fi = Tölkit
     fr = Emballages métalliques
+    he = פחיות
     it = Lattine
     mr = कॅन
     nl = Blikafval
@@ -4753,6 +4755,7 @@
     eu = Oinetakoak
     fi = Kengät
     fr = Chaussures
+    he = נעליים
     it = Scarpe
     mr = पादत्राणे
     nl = Schoenen
@@ -4776,6 +4779,7 @@
     eu = Organikoa
     fi = Biojäte
     fr = Déchets organiques
+    he = פסולת אורגנית/ירוקה
     it = Umido
     nl = GFT afval
     pl = Odpady zielone
@@ -4821,6 +4825,7 @@
     eu = Jatetxea
     fa = غذا
     fi = Ravintola
+    he = מסעדה
     hi = रेस्तरां
     hu = Étterem
     id = Restoran
@@ -4880,6 +4885,7 @@
     fa = مدرسه
     fi = Koulu
     fr = École
+    he = בית ספר
     hi = विद्यालय
     hu = Iskola
     id = Sekolah
@@ -5065,6 +5071,7 @@
     fa = حمام
     fi = Suihku
     fr = Douche
+    he = מקלחת
     hi = फुहारा
     hu = Tusoló
     id = Pancuran
@@ -5142,6 +5149,7 @@
     eu = Taxia
     fa = تاکسی
     fi = Taksi
+    he = תחנת מוניות
     hi = टैक्सी
     id = Taksi
     it = Taxi
@@ -5177,6 +5185,7 @@
     fa = تلفن خانه
     fi = Puhelin
     fr = Téléphone
+    he = טלפון
     hi = टेलीफ़ोन
     hu = Telefon
     id = Telepon
@@ -5216,6 +5225,7 @@
     fa = سرگرمی
     fi = Teatteri
     fr = Théâtre
+    he = תיאטרון
     hi = रंगमंच
     hu = Színház
     id = Teater
@@ -5254,6 +5264,7 @@
     fa = دستشویی
     fi = WC
     fr = Toilettes
+    he = שירותים
     hi = शौचालय
     hu = Mosdó
     it = Servizi igienici
@@ -5296,6 +5307,7 @@
     fa = گردشگری
     fi = Kaupungintalo
     fr = Mairie
+    he = בית העיריה
     hi = नगर भवन
     hu = Városháza
     id = Balai kota
@@ -5335,6 +5347,7 @@
     fa = دانشگاه
     fi = Yliopisto
     fr = Université
+    he = אוניברסיטה
     hi = विश्वविद्यालय
     hu = Egyetem
     id = Universitas
@@ -5370,6 +5383,7 @@
     eu = Makina saltzailea
     fi = Myyntiautomaatti
     fr = Distributeur automatique
+    he = מכונת ממכר אוטומטית
     hi = वितरक मशीन
     it = Distributore automatico
     ja = 自動販売機
@@ -5401,6 +5415,7 @@
     fa = ماشین سیگار فروشی
     fi = Savukeautomaatti
     fr = Distributeur de cigarettes
+    he = מכונה לממכר סיגריות
     hi = सिगरेट वितरक मशीन
     hu = Cigarettaautomata
     id = Mesin rokok
@@ -5436,6 +5451,7 @@
     eu = Kafea saltzeko makina
     fi = Kahviautomaatti
     fr = Distributeur de café
+    he = מכונה לממכר קפה
     hi = कॉफ़ी वितरक
     it = Macchina del caffè
     mr = कॉफी विक्रीयंत्र
@@ -5540,6 +5556,7 @@
     eu = Egunkariak saltzeko makina
     fi = Sanomalehtiautomaatti
     fr = Distributeur de journaux
+    he = מתקן עיתונים
     hi = समाचार पत्र वितरक
     it = Distributore automatico di giornali
     mr = वृत्तपत्र विक्रीयंत्र
@@ -5567,6 +5584,7 @@
     fa = پارکو متر
     fi = Pysäköintimaksuautomaatti
     fr = Horodateur
+    he = מדחן
     hi = पार्किंग टिकट
     hu = Parkolóautomata
     id = Mesin pembayaran tiket parkir
@@ -5608,6 +5626,7 @@
     fa = دستگاه فروش خودکار بلیط های حمل و نقل عمومی
     fi = Julkisen liikenteen lippuautomaatti
     fr = Distributeur de billets de transport en commun
+    he = מכונת כרטיסים
     hi = टिकट मशीन
     hu = Jegyautomata tömegközlekedési eszközökhöz
     id = Mesin penjual otomatis tiket transportasi umum
