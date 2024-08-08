@@ -9,4 +9,10 @@ Java_app_organicmaps_util_Language_nativeNormalize(JNIEnv *env, jclass type, jst
   std::string locale = languages::Normalize(jni::ToNativeString(env, lang));
   return jni::ToJavaString(env, locale);
 }
+
+JNIEXPORT void JNICALL
+Java_app_organicmaps_util_Language_nativeRefreshSystemLocale(JNIEnv *, jclass)
+{
+  measurement_utils::RefreshSystemLocale();
+}
 }

@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.location.Location;
 import android.net.Uri;
@@ -94,6 +96,7 @@ import app.organicmaps.settings.RoadType;
 import app.organicmaps.settings.SettingsActivity;
 import app.organicmaps.settings.UnitLocale;
 import app.organicmaps.util.Config;
+import app.organicmaps.util.Language;
 import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.PowerManagment;
 import app.organicmaps.util.SharingUtils;
@@ -227,6 +230,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private boolean mRemoveDisplayListener = true;
   private int mLastUiMode = Configuration.UI_MODE_TYPE_UNDEFINED;
+
+  private BroadcastReceiver mLocaleChangeReceiver;
 
   public interface LeftAnimationTrackListener
   {
@@ -568,6 +573,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
      */
     if (Map.isEngineCreated())
       onRenderingInitializationFinished();
+
+    // Force native system locale initialization at app start-up.
+    Language.nativeRefreshSystemLocale();
+
+    // Setup BroadcastReceiver to receive changes of system locale.
+    mLocaleChangeReceiver = new BroadcastReceiver()
+    {
+      @Override
+      public void onReceive(Context context, Intent intent)
+      {
+        // Refresh the native c++ system locale.
+        Language.nativeRefreshSystemLocale();
+      }
+    };
+
+    registerReceiver(mLocaleChangeReceiver, new IntentFilter(Intent.ACTION_LOCALE_CHANGED));
   }
 
   private void refreshLightStatusBar()
