@@ -2,16 +2,13 @@ package app.organicmaps.editor;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Size;
 import androidx.annotation.WorkerThread;
-import androidx.fragment.app.FragmentManager;
 
 import app.organicmaps.MwmApplication;
-import app.organicmaps.util.NetworkPolicy;
 
 public final class OsmOAuth
 {
@@ -64,15 +61,29 @@ public final class OsmOAuth
     return MwmApplication.prefs(context).getString(PREF_OSM_OAUTH2_TOKEN, "");
   }
 
-  public static String getUsername(@NonNull Context context)
+  public static String getUsername(@NonNull Context context, boolean internet_allowed)
   {
-    return MwmApplication.prefs(context).getString(PREF_OSM_USERNAME, "");
+    final SharedPreferences prefs = MwmApplication.prefs(context);
+
+    if (internet_allowed)
+    {
+      final String token = getAuthToken(context);
+      final String username = OsmOAuth.nativeGetOsmUsername(token);
+
+      if(username != null && !username.isEmpty())
+        prefs.edit().putString(PREF_OSM_USERNAME, username).apply();
+    }
+    return prefs.getString(PREF_OSM_USERNAME, "Error: should be unreachable");
   }
 
-  public static Bitmap getProfilePicture(@NonNull Context context)
+  public static String getProfilePicturePath(@NonNull Context context, boolean internet_allowed)
   {
-    //TODO(HB): load and store image in cache here
-    return null;
+    String token = "";
+    if (internet_allowed)
+      token = getAuthToken(context);
+
+    // If token is empty, will only return cached image
+    return nativeGetOsmProfilePicturePath(token);
   }
 
   public static void setAuthorization(@NonNull Context context, String oauthToken, String username)
@@ -95,7 +106,21 @@ public final class OsmOAuth
 
   public static String getHistoryUrl(@NonNull Context context)
   {
-    return nativeGetHistoryUrl(getUsername(context));
+    return nativeGetHistoryUrl(getUsername(context, false));
+  }
+
+
+  public static int getOsmChangesetsCount(@NonNull Context context, boolean internet_allowed) {
+    final SharedPreferences prefs = MwmApplication.prefs(context);
+
+    if (internet_allowed) {
+      final String token = getAuthToken(context);
+      final int editsCount = OsmOAuth.nativeGetOsmChangesetsCount(token);
+      if(editsCount > 0)
+        prefs.edit().putInt(PREF_OSM_CHANGESETS_COUNT, editsCount).apply();
+    }
+
+    return prefs.getInt(PREF_OSM_CHANGESETS_COUNT, 0);
   }
 
   /**
@@ -112,7 +137,7 @@ public final class OsmOAuth
 
   @WorkerThread
   @Nullable
-  public static native String nativeGetOsmProfilePictureUrl(String oauthToken);
+  public static native String nativeGetOsmProfilePicturePath(String oauthToken);
 
   @WorkerThread
   @NonNull
@@ -123,22 +148,4 @@ public final class OsmOAuth
    */
   @WorkerThread
   private static native int nativeGetOsmChangesetsCount(String oauthToken);
-
-  @WorkerThread
-  public static int getOsmChangesetsCount(@NonNull Context context, @NonNull FragmentManager fm) {
-    final int[] editsCount = {-1};
-    NetworkPolicy.checkNetworkPolicy(fm, policy -> {
-      if (!policy.canUseNetwork())
-        return;
-
-      final String token = getAuthToken(context);
-      editsCount[0] = OsmOAuth.nativeGetOsmChangesetsCount(token);
-    });
-    final SharedPreferences prefs = MwmApplication.prefs(context);
-    if (editsCount[0] < 0)
-      return prefs.getInt(PREF_OSM_CHANGESETS_COUNT, 0);
-
-    prefs.edit().putInt(PREF_OSM_CHANGESETS_COUNT, editsCount[0]).apply();
-    return editsCount[0];
-  }
 }
