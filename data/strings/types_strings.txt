@@ -389,8 +389,8 @@
     et = Värav
     eu = Ontziratzeko atea
     fi = Portti
-    he = שער
     fr = Porte d'embarquement
+    he = שער
     it = Cancello aeroportuale
     ja = 搭乗口
     mr = दार
@@ -419,8 +419,8 @@
     eu = Heliportua
     fa = پد فرود بالگرد
     fi = Helikopterialusta
-    he = מנחת מסוקים
     fr = Hélisurface
+    he = מנחת מסוקים
     hu = Helikopterleszálló
     id = Landasan helikopter
     it = Piattaforma per elicotteri
