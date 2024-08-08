@@ -95,21 +95,6 @@ private:
 #endif
 };
 
-struct RegionInfo
-{
-    storage::CountryId m_countryId;
-    m2::PointD m_point;
-
-    void SetParams(storage::CountryId const & countryId, m2::PointD const & point)
-    {
-        m_countryId = countryId;
-        m_point = point;
-    }
-
-    bool GetCountryId(storage::CountryInfoGetter const & infoGetter,
-                      storage::CountryId & countryId) const;
-};
-
 // Second result class. Objects are created during reading of features.
 // Read and fill needed info for ranking and getting final results.
 class RankerResult
@@ -121,6 +106,21 @@ public:
     Feature,
     Building,  //!< Buildings are not filtered out in duplicates filter.
     Postcode
+  };
+
+  struct RegionInfo
+  {
+    storage::CountryId m_countryId;
+    m2::PointD m_point;
+
+    void SetParams(storage::CountryId const & countryId, m2::PointD const & point)
+    {
+      m_countryId = countryId;
+      m_point = point;
+    }
+
+    bool GetCountryId(storage::CountryInfoGetter const & infoGetter,
+                      storage::CountryId & countryId) const;
   };
 
   /// For Type::Feature and Type::Building.
