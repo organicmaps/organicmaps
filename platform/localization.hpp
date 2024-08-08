@@ -2,10 +2,7 @@
 
 #include <string>
 
-namespace measurement_utils
-{
-enum class Units;
-}
+#include "platform/measurement_utils.hpp"
 
 namespace platform
 {
