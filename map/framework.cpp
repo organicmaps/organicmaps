@@ -701,8 +701,10 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
     info.SetTopmostCountryIds(std::move(countries));
   }
   if (ftypes::IsAddressObjectChecker::Instance()(ft)) {
-    info.SetTitleAndAddress(GetAddressAtPoint(feature::GetCenter(ft)).FormatAddress(countryId));
+    info.SetAddress(GetAddressAtPoint(feature::GetCenter(ft)).FormatAddress(countryId)); // SetTitleAndAddress
   }
+  info.SetFromFeatureType(ft);
+  FillDescription(ft, info);
 }
 
 void Framework::FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const
