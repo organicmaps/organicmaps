@@ -61,7 +61,7 @@ sed -i "" '1,/^./{/^$/d;}' $iphone_strings $iphone_infoplist_strings # Drop spur
 # Remove blank lines
 sed -i "" -E '/^$/d' $iphone_stringsdict
 # Remove comments - these don't roundtrip in Weblate
-sed -i "" -E '/^<!--/d' $iphone_stringsdict
+#sed -i "" -E '/^<!--/d' $iphone_stringsdict
 # Add missing EOF newline
 #for stringdict_file in $iphone_stringsdict; do
 #	echo >> "$stringdict_file"
