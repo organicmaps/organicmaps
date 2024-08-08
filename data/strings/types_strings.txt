@@ -950,6 +950,7 @@
     fa = فاحشه خانه
     fi = Bordelli
     fr = Maison de prostitution
+    he = בית בושת
     hi = वेश्यालय
     hu = Bordélyház
     id = Hiburan
@@ -1148,6 +1149,7 @@
     eu = Partekatu autoa
     fi = Autojen yhteiskäyttö
     fr = Station d'autopartage
+    he = רכב שיתופי
     hi = गाड़ी साँझा
     hu = Közösségi autóbérlés
     id = Berbagi mobil
@@ -26778,6 +26780,7 @@
     fa = فروشگاه
     fi = Kenkäkauppa
     fr = Magasin de chaussures
+    he = חנות נעליים
     hi = जूते की दुकान
     hu = Cipőbolt
     id = Toko sepatu
@@ -29720,6 +29723,7 @@
     eu = Turismoa
     fi = Turismi
     fr = Tourisme
+    he = תיירות
     hi = पर्यटन
     it = Turismo
     ja = 観光
