@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import app.organicmaps.R;
 import app.organicmaps.location.LocationHelper;
@@ -16,6 +18,7 @@ import app.organicmaps.routing.RoutingInfo;
 import app.organicmaps.sound.TtsPlayer;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.StringUtils;
+import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
@@ -46,6 +49,8 @@ public class NavMenu
   private final NavMenuListener mNavMenuListener;
 
   private int currentPeekHeight = 0;
+  private double mCurrentSpeedLimit;
+  private boolean mIsSpeedLimitExceeded = false;
 
 
   public interface OnMenuSizeChangedListener
@@ -211,8 +216,20 @@ public class NavMenu
 
     Pair<String, String> speedAndUnits = StringUtils.nativeFormatSpeedAndUnits(last.getSpeed());
 
+    if (mCurrentSpeedLimit > 0.0)
+    {
+      Pair<String, String> speedLimitAndUnits = StringUtils.nativeFormatSpeedAndUnits(last.getSpeed());
+      mSpeedValue.setText(speedAndUnits.first + " / " + speedLimitAndUnits.first);
+    }
+    else
+      mSpeedValue.setText(speedAndUnits.first);
+
+    if (mIsSpeedLimitExceeded)
+      mSpeedValue.setTextColor(ContextCompat.getColor(mActivity, R.color.base_red));
+    else
+      mSpeedValue.setTextColor(ThemeUtils.getColor(mActivity, android.R.attr.textColorPrimary));
+
     mSpeedUnits.setText(speedAndUnits.second);
-    mSpeedValue.setText(speedAndUnits.first);
     mSpeedViewContainer.setActivated(info.isSpeedLimitExceeded());
   }
 
@@ -223,6 +240,8 @@ public class NavMenu
     mDistanceValue.setText(info.distToTarget.mDistanceStr);
     mDistanceUnits.setText(info.distToTarget.getUnitsStr(mActivity.getApplicationContext()));
     mRouteProgress.setProgressCompat((int) info.completionPercent, true);
+    mCurrentSpeedLimit = info.speedLimitMps;
+    mIsSpeedLimitExceeded = info.isSpeedLimitExceeded();
   }
 
   public interface NavMenuListener
