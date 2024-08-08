@@ -237,6 +237,7 @@ string DebugPrint(Result const & result)
   ostringstream os;
   os << "Result [";
   os << "name: " << result.GetString();
+  os << ", addr: " << result.GetAddress();
   os << ", type: " << readableType;
   os << ", info: " << DebugPrint(result.GetRankingInfo());
 
