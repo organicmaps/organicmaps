@@ -12,6 +12,9 @@ import sys
 
 TRANS_CMD = 'trans'
 
+# By default, most languages use formal translations.
+INFORMAL_LANGUAGES = ['pt-BR']
+
 # Use DeepL when possible with a fall back to Google.
 # List of Google Translate target languages: https://cloud.google.com/translate/docs/languages
 GOOGLE_TARGET_LANGUAGES = [
@@ -155,7 +158,7 @@ def deepl_translate_one(text, source_language, target_language):
       'text': text,
       'source_lang': source_language.lower(),
       'target_lang': target_language,
-      'formality': 'prefer_less',
+      'formality': 'prefer_less' if target_language in INFORMAL_LANGUAGES else 'prefer_more',
   }
   headers = {'Content-Type': 'application/x-www-form-urlencoded'}
   response = requests.request('POST', url, headers=headers, data=payload)
