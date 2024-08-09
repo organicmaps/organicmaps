@@ -290,6 +290,7 @@
     fa = فرودگاه
     fi = Lentokenttä
     fr = Aéroport
+    he = שדה תעופה
     hi = हवाई अड्डा
     hu = Repülőtér
     id = Bandar udara
@@ -329,6 +330,7 @@
     fa = فرودگاه
     fi = Kansainvälinen lentokenttä
     fr = Aéroport
+    he = שדה תעופה בינלאומי
     hi = अंतर्राष्ट्रीय हवाई अड्डा
     hu = Repülőtér
     id = Bandar udara
@@ -363,6 +365,7 @@
     et = Platvorm
     eu = Plataforma
     fr = Aire de stationnement pour aéronefs
+    he = חניית מטוסים
     it = Area di stazionamento per aeromobili
     ja = エプロン
     nl = Platform
@@ -387,6 +390,7 @@
     eu = Ontziratzeko atea
     fi = Portti
     fr = Porte d'embarquement
+    he = שער
     it = Cancello aeroportuale
     ja = 搭乗口
     mr = दार
@@ -416,6 +420,7 @@
     fa = پد فرود بالگرد
     fi = Helikopterialusta
     fr = Hélisurface
+    he = מנחת מסוקים
     hu = Helikopterleszálló
     id = Landasan helikopter
     it = Piattaforma per elicotteri
@@ -449,6 +454,7 @@
     eu = Pista
     fi = Kiitorata
     fr = Piste d'aviation
+    he = מסלול המראה
     hi = उड़ानपट्टी
     it = Pista di decollo/atterraggio
     ja = 滑走路
@@ -476,6 +482,7 @@
     eu = Taxiway
     fi = Rullaustie
     fr = Taxiway
+    he = מסלול הסעה
     it = Pista di rullaggio
     ja = 誘導路
     nl = Taxibaan
@@ -610,6 +617,7 @@
     fa = خودپرداز
     fi = Pankkiautomaatti
     fr = GAB
+    he = כספומט
     hi = एटीएम
     hu = Bankautomata
     it = Bancomat
@@ -642,6 +650,7 @@
     fa = بانک
     fi = Pankki
     fr = Banque
+    he = בנק
     hi = बैंक
     it = Banca
     ja = 銀行
@@ -673,6 +682,7 @@
     eu = Taberna
     fa = میکده
     fi = Baari
+    he = בר
     hi = मधुशाला
     hu = Bár
     it = Bar alcolico
@@ -751,6 +761,7 @@
     fa = سَکو
     fi = Penkki
     fr = Banc
+    he = ספסל
     hi = बेंच
     hu = Pad
     id = Bangku panjang
@@ -792,6 +803,7 @@
     fa = پارکینگ دوچرخه
     fi = Polkupyöräpysäköinti
     fr = Parking à vélo
+    he = חניית אופניים
     hi = साइकिल पार्किंग
     hu = Kerékpárparkoló
     id = Parkir Sepeda
@@ -832,6 +844,7 @@
     fa = مکان اجاره دوچرخه
     fi = Polkupyöränvuokraus
     fr = Location de vélos
+    he = השכרת אופניים
     hi = साइकिल किराए के लिए
     hu = Kerékpárkölcsönző
     id = Penyewaan Sepeda
@@ -869,6 +882,7 @@
     fa = ایستگاه تعمیر دوچرخه
     fi = Polkupyörän korjausasema
     fr = Station de réparation de vélos
+    he = תחנת תיקון אופניים
     hi = साइकिल मरम्मत स्टेशन
     hu = Kerékpárjavító állomás
     it = Stazione di riparazione biciclette
@@ -936,6 +950,7 @@
     fa = فاحشه خانه
     fi = Bordelli
     fr = Maison de prostitution
+    he = בית בושת
     hi = वेश्यालय
     hu = Bordélyház
     id = Hiburan
@@ -1014,6 +1029,7 @@
     fa = حمل و نقل
     fi = Linja-autoasema
     fr = Gare routière
+    he = תחנת אוטובוס
     hi = बस स्टेशन
     hu = Buszpályaudvar
     id = Stasiun bus
@@ -1053,6 +1069,7 @@
     fa = کافه
     fi = Kahvila
     fr = Café
+    he = קפה
     hi = कॉफ़ीख़ाना
     hu = Kávézó
     id = Kafe
@@ -1093,6 +1110,7 @@
     fa = مکان اجاره ماشین
     fi = Autovuokraamo
     fr = Location de voitures
+    he = השכרת רכב
     hi = किराए पर गाड़ियाँ
     hu = Autókölcsönző
     id = Rental mobil
@@ -1131,6 +1149,7 @@
     eu = Partekatu autoa
     fi = Autojen yhteiskäyttö
     fr = Station d'autopartage
+    he = רכב שיתופי
     hi = गाड़ी साँझा
     hu = Közösségi autóbérlés
     id = Berbagi mobil
@@ -1170,6 +1189,7 @@
     fa = کارواش
     fi = Autopesula
     fr = Station de lavage
+    he = שטיפת רכב
     hi = कार धुलाई
     hu = Autómosó
     id = Cuci Mobil
@@ -1208,6 +1228,7 @@
     fa = قمارخانه
     fi = Kasino
     fr = Casino
+    he = קזינו
     hi = कैसीनो
     hu = Kaszinó
     id = Hiburan
@@ -1370,6 +1391,7 @@
     fa = ایستگاه شارژ
     fi = Latausasema
     fr = Borne de recharge
+    he = תחנת טעינה
     hi = चार्जिंग स्टेशन
     hu = Töltőállomás
     id = Pusat Pengisian Daya
@@ -1532,6 +1554,7 @@
     fa = سرگرمی
     fi = Elokuvateatteri
     fr = Cinéma
+    he = קולנוע
     hi = सिनेमा-घर
     hu = Mozi
     id = Bioskop
@@ -1572,7 +1595,7 @@
     fa = ﮓﻨﯿﻟﻮﺑ ﻦﻟﺎﺳ
     fi = Keilarata
     fr = Salle de bowling
-    he = גנילואב םלוא
+    he = אולם באולינג
     hi = बोलिंग ऐली
     hu = Tekepálya
     id = Arena Bowling
@@ -1613,6 +1636,7 @@
     fa = کلینیک
     fi = Klinikka
     fr = Clinique
+    he = מרפאה
     hi = चिकित्सालय
     hu = Klinika
     id = Klinik
@@ -1652,6 +1676,7 @@
     fa = دانشگاه
     fi = Korkeakoulu
     fr = Enseignement post-secondaire
+    he = מכללה
     hi = महाविद्यालय
     hu = Főiskola
     id = Kampus
@@ -1691,6 +1716,7 @@
     fa = مرکزاجتماعی
     fi = Monitoimitalo
     fr = Salle polyvalente
+    he = מרכז קהילתי
     hi = सामुदायिक केंद्र
     hu = Közösségi központ
     id = Pusat komunitas
@@ -1813,6 +1839,7 @@
     fa = دادگاه
     fi = Oikeustalo
     fr = Palais de justice
+    he = בית המשפט
     hi = न्यायालय
     hu = Bíróság
     id = Gedung pengadilan
@@ -1890,6 +1917,7 @@
     fa = کلینیک
     fi = Lääkärin vastaanotto
     fr = Cabinet médical
+    he = רופא
     hi = चिकित्सक
     hu = Rendelő
     id = Praktik dokter
@@ -1928,6 +1956,7 @@
     fa = اب اشامیدنی
     fi = Juomavesi
     fr = Eau potable
+    he = מי שתיה
     hi = पीने का पानी
     hu = Ivóvíz
     id = Air minum
@@ -1972,6 +2001,7 @@
     fa = اموزشگاه رانندگی
     fi = Autokoulu
     fr = Auto-école
+    he = בית ספר לנהיגה
     hi = ड्राइविंग स्कूल
     hu = Autósiskola
     id = Sekolah Mengemudi
@@ -2098,7 +2128,7 @@
     fa = ﯽﻘﯿﺳﻮﻣ ﻩﺎﮕﺷﺯﻮﻣﺁ
     fi = Musiikkikoulu
     fr = École de musique
-    he = הקיזומל רפס תיב
+    he = בית ספר למוזיקה
     hi = संगीत विद्यालय
     hu = Zeneiskola
     id = Sekolah musik
@@ -2139,7 +2169,7 @@
     fa = ﻥﺎﺑﺯ ﻪﺳﺭﺪﻣ
     fi = Kielikoulu
     fr = École de langue
-    he = תופשל רפס תיב
+    he = בית ספר לשפות
     hi = भाषा का स्कूल
     hu = Nyelviskola
     id = Sekolah bahasa
@@ -2178,6 +2208,7 @@
     fa = سفارت
     fi = Suurlähetystö
     fr = Ambassade
+    he = שגרירות
     hi = दूतावास
     hu = Nagykövetség
     id = Kedutaan
@@ -2217,6 +2248,7 @@
     fa = فست فود
     fi = Pikaruokala
     fr = Restauration rapide
+    he = מזון מהיר
     hi = फास्ट फूड
     hu = Gyorsétterem
     id = Cepat saji
@@ -2296,6 +2328,7 @@
     fa = ایستگاه اتش نشانی
     fi = Paloasema
     fr = Caserne de pompiers
+    he = תחנת כיבוי אש
     hi = दमकल केंद्र
     hu = Tűzoltóság
     id = Kantor pemadam kebakaran
@@ -2357,6 +2390,7 @@
     fa = فواره
     fi = Suihkulähde
     fr = Fontaine
+    he = מזרקה
     hi = झरना
     hu = Szökőkút
     id = Air mancur
@@ -2398,6 +2432,7 @@
     fa = سوخت
     fi = Huoltoasema
     fr = Station-service
+    he = תחנת דלק
     hi = पेट्रोल पंप
     hu = Benzinkút
     id = Pompa bensin
@@ -2439,6 +2474,7 @@
     fa = قبرستان
     fi = Hautausmaa
     fr = Cimetière
+    he = בית קברות
     hi = क़ब्रिस्तान
     hu = Temető
     id = Pemakaman
@@ -2474,6 +2510,7 @@
     et = Kristlik surnuaed
     fi = Kristillinen hautausmaa
     fr = Cimetière chrétien
+    he = בית קברות נוצרי
     hi = ईसाई कब्रिस्तान
     it = Cimitero cristiano
     ja = キリスト教墓地
@@ -2504,6 +2541,7 @@
     fa = بیمارستان
     fi = Sairaala
     fr = Hôpital
+    he = בית חולים
     hi = चिकित्सालय
     hu = Kórház
     id = Rumahsakit
@@ -2582,6 +2620,7 @@
     fa = غذا
     fi = Jäätelökioski
     fr = Stand de crèmes glacées
+    he = גלידה
     hi = आइसक्रीम
     hu = Fagylaltárus
     id = Kios Es Krim
@@ -2621,6 +2660,7 @@
     fa = کافی نت
     fi = Internetkahvila
     fr = Cybercafé
+    he = קפה אינטרנט
     hi = इंटरनेट कैफे
     hu = Internet kávézó
     id = Kafe Internet
@@ -2659,6 +2699,7 @@
     fa = مهدکودک
     fi = Päiväkoti
     fr = Crèche
+    he = גן ילדים
     hi = किंडरगार्टन
     hu = Óvoda
     id = Taman kanak-kanak
@@ -2698,6 +2739,7 @@
     fa = کتابخانه
     fi = Kirjasto
     fr = Bibliothèque
+    he = ספריה
     hi = पुस्तकालय
     hu = Könyvtár
     id = Perpustakaan
@@ -2780,6 +2822,7 @@
     fa = فروشگاه
     fi = Kauppatori
     fr = Marché
+    he = זירת מסחר
     hi = बाजार
     hu = Piac
     id = Pasar
@@ -2820,6 +2863,7 @@
     fa = پارکینگ موتورسیکلت
     fi = Moottoripyörien pysäköinti
     fr = Parking moto
+    he = חניית אופנועים
     hi = मोटरसाइकिल पार्किंग
     hu = Motorbicikli parkoló
     id = Tempat Parkir Sepeda Motor
@@ -2859,6 +2903,7 @@
     fa = کلوپ شبانه
     fi = Yökerho
     fr = Discothèque
+    he = מועדון לילה
     hi = नाइट क्लब
     hu = Éjszakai mulató
     id = Kelab malam
@@ -2940,7 +2985,7 @@
     fa = پارکینگ
     fi = Parkkipaikka
     fr = Stationnement
-    he = היָנָחֲ
+    he = חניה
     hi = पार्किंग
     hu = Parkoló
     id = Parkir
@@ -2986,7 +3031,7 @@
     fa = ﻪﻘﺒﻃ ﺪﻨﭼ ﮓﻨﯿﮐﺭﺎﭘ
     fi = Monikerroksinen pysäköinti
     fr = Stationnement à plusieurs étages
-    he = תומוק בר הינח
+    he = חניון רב קומות
     hi = पार्किंग गैरेज
     hu = Többszintes parkoló
     id = Parkir Bertingkat
@@ -3038,7 +3083,7 @@
     fa = ﯽﺻﺎﺼﺘﺧﺍ ﮓﻨﯿﮐﺭﺎﭘ
     fi = Yksityinen pysäköinti
     fr = Stationnement privé
-    he = תיטרפ הינח
+    he = חניה פרטית
     hi = निजी पार्किंग
     hu = Magánparkoló
     id = Parkir pribadi
@@ -3079,6 +3124,7 @@
     fa = پارکینگ
     fi = Liityntäpysäköinti
     fr = Parking relais
+    he = חניית חנה וסע
     hi = पार्क करें और सवारी करें
     hu = P+R Parkoló
     id = Parkir
@@ -3121,7 +3167,7 @@
     fa = ﯽﻨﯿﻣﺯ ﺮﯾﺯ ﮓﻨﯿﮐﺭﺎﭘ
     fi = Maanalainen pysäköinti
     fr = Stationnement souterrain
-    he = תיעקרק - תת הינח
+    he = חניה תת קרקעית
     hi = भूमिगत कार पार्क
     hu = Mélygarázs
     id = Parkir bawah tanah
@@ -3382,7 +3428,7 @@
     fa = ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ
     fi = Pysäköinnin sisäänkäynti
     fr = Entrée parking
-    he = הינחל הסינכ
+    he = כניסה לחניה
     hi = पार्किंग प्रवेश द्वार
     hu = Parkoló bejárata
     id = Pintu masuk parkir
@@ -3467,6 +3513,7 @@
     fa = جای پارک
     fi = Parkkipaikka
     fr = Place de stationnement
+    he = מקום חניה
     hi = पार्किंग की जगह
     hu = Parkolóhely
     id = Tempat parkir
@@ -3518,7 +3565,7 @@
     fa = ﻦﯿﻟﻮﻠﻌﻣ ﮎﺭﺎﭘ ﯼﺎﺟ
     fi = Vammaispysäköinti
     fr = Place de stationnement handicapé
-    he = םיכנל הינח
+    he = חניה לנכים
     hi = दिव्यांग पार्किंग स्थान
     hu = Mozgássérült parkolóhely
     id = Tempat parkir penyandang cacat
@@ -3557,6 +3604,7 @@
     fa = دستگاه کارتخوان
     fi = Maksupääte
     fr = Terminal de paiement
+    he = מסוף תשלום
     hi = भुगतान टर्मिनल
     hu = Fizetőterminál
     id = Terminal Pembayaran
@@ -3596,6 +3644,7 @@
     fa = داروخانه
     fi = Apteekki
     fr = Pharmacie
+    he = בית מרקחת
     hi = दवाखाना
     hu = Gyógyszertár
     id = Apotek
@@ -3635,6 +3684,7 @@
     fa = گردشگری
     fi = Uskonnollinen kohde
     fr = Lieu de culte
+    he = מקום דתי
     hi = उपासनास्थल
     hu = Templom
     id = Tempat ibadah
@@ -3712,6 +3762,7 @@
     fa = گردشگری
     fi = Kirkko
     fr = Église
+    he = כנסיה
     hi = गिरजाघर
     hu = Templom
     id = Gereja
@@ -3792,7 +3843,7 @@
     fa = سال مملکت شاهدان یهوه
     fi = Jehovan todistajien valtakunnansali
     fr = Salle du Royaume des Témoins de Jéhovah
-    he = בית הכנסת של עדי יהוה
+    he = כנסיה של עדי יהוה
     hu = Jehova Tanúinak Királysága terem
     id = Aula Kerajaan Saksi-Saksi Yehuwa
     it = Sala del Regno dei Testimoni di Geova
@@ -3869,6 +3920,7 @@
     eu = Sinagoga
     fa = گردشگری
     fi = Synagoga
+    he = בית כנסת
     hi = यहूदी मंदिर
     hu = Zsinagóga
     id = Sinagoge
@@ -3908,6 +3960,7 @@
     fa = گردشگری
     fi = Moskeija
     fr = Mosquée
+    he = מסגד
     hi = मस्जिद
     hu = Mecset
     id = Masjid
@@ -4024,6 +4077,7 @@
     eu = Polizia
     fa = کلانتری
     fi = Poliisi
+    he = משטרה
     hi = थाना
     hu = Rendőrség
     id = Polisi
@@ -4065,6 +4119,7 @@
     fa = صندوق پست
     fi = Postilaatikko
     fr = Boîte aux lettres
+    he = תיבת דואר
     hi = पोस्ट बॉक्स
     hu = Levelesláda
     id = Kotak pos
@@ -4104,6 +4159,7 @@
     fa = دفتر پست
     fi = Postitoimisto
     fr = Bureau de poste
+    he = דואר
     hi = डाकघर
     hu = Posta
     id = Kantor pos
@@ -4139,6 +4195,7 @@
     et = Vangla
     eu = Kartzela
     fi = Vankila
+    he = בית כלא
     hi = कारागार
     it = Prigione
     ja = 刑務所
@@ -4170,6 +4227,7 @@
     fa = میکده
     fi = Pubi
     fr = Pub
+    he = פאב
     hi = सराय
     hu = Kocsma
     it = Taverna
@@ -4247,6 +4305,7 @@
     fa = مرکز بازیافت
     fi = Kierrätyskeskus
     fr = Centre de recyclage
+    he = מרכז מיחזור
     hi = रीसाइक्लिंग सेंटर
     hu = Újrahasznosító központ
     id = TPA
@@ -4287,6 +4346,7 @@
     fa = ظرف بازیافت
     fi = Kierrätysjäteastia
     fr = Conteneur de recyclage
+    he = מיכל מיחזור
     hi = रीसाइक्लिंग कंटेनर
     hu = Újrahasznosító konténer
     id = Wadah daur ulang
@@ -4331,7 +4391,7 @@
     fa = ﺎﻫ ﯼﺮﺗﺎﺑ
     fi = Paristot
     fr = Batteries
-    he = תוללוס
+    he = סוללות
     hu = Elemek
     id = Baterai
     it = Batterie
@@ -4372,6 +4432,7 @@
     fa = لباسهای قدیمی
     fi = Vaatteet
     fr = Vêtements usagés
+    he = בגדים
     hu = Régi ruhák
     id = Pakaian lama
     it = Vestiti usati
@@ -4411,6 +4472,7 @@
     fa = بطریهای شیشهای
     fi = Lasipullot
     fr = Verre
+    he = בקבוקי זכוכית
     hu = Üvegpalackok
     id = Botol kaca
     it = Contenitori in vetro
@@ -4450,6 +4512,7 @@
     fa = پسماند کاغذ
     fi = Paperi
     fr = Papier usagé
+    he = נייר
     hu = Papírhulladék
     id = Limbah kertas
     it = Rifiuti in carta e cartone
@@ -4489,6 +4552,7 @@
     fa = پسماند پلاستیک
     fi = Muovi
     fr = Déchets plastiques
+    he = פלסטיק
     hu = Műanyaghulladék
     id = Limbah plastik
     it = Rifiuti in plastica
@@ -4528,6 +4592,7 @@
     fa = بطریهای پلاستیک
     fi = Muovipullot
     fr = Bouteilles en plastique
+    he = בקבוקי פלסטיק
     hu = Műanyag palackok
     id = Botol-botol plastik
     it = Bottiglie di plastica
@@ -4568,6 +4633,7 @@
     fa = ضایعات فلزی
     fi = Metalliromu
     fr = Ferraille
+    he = גרוטאות מתכת
     hu = Fémhulladék
     id = Besi tua
     it = Rifiuti metallici
@@ -4607,6 +4673,7 @@
     fa = پسماند الکترونیکی
     fi = SER
     fr = Déchets d'équipements électriques
+    he = פסולת אלקטרונית
     hu = Elektromos hulladék
     id = Limbah elektronik
     it = Rifiuti di apparecchiature elettriche ed elettroniche
@@ -4642,6 +4709,7 @@
     eu = Kartoia
     fi = Pahvi
     fr = Carton
+    he = קרטון
     it = Cartone
     mr = पुठ्ठा
     nl = Karton
@@ -4665,6 +4733,7 @@
     eu = Latak
     fi = Tölkit
     fr = Emballages métalliques
+    he = פחיות
     it = Lattine
     mr = कॅन
     nl = Blikafval
@@ -4688,6 +4757,7 @@
     eu = Oinetakoak
     fi = Kengät
     fr = Chaussures
+    he = נעליים
     it = Scarpe
     mr = पादत्राणे
     nl = Schoenen
@@ -4711,6 +4781,7 @@
     eu = Organikoa
     fi = Biojäte
     fr = Déchets organiques
+    he = פסולת אורגנית/ירוקה
     it = Umido
     nl = GFT afval
     pl = Odpady zielone
@@ -4756,6 +4827,7 @@
     eu = Jatetxea
     fa = غذا
     fi = Ravintola
+    he = מסעדה
     hi = रेस्तरां
     hu = Étterem
     id = Restoran
@@ -4815,6 +4887,7 @@
     fa = مدرسه
     fi = Koulu
     fr = École
+    he = בית ספר
     hi = विद्यालय
     hu = Iskola
     id = Sekolah
@@ -5000,6 +5073,7 @@
     fa = حمام
     fi = Suihku
     fr = Douche
+    he = מקלחת
     hi = फुहारा
     hu = Tusoló
     id = Pancuran
@@ -5077,6 +5151,7 @@
     eu = Taxia
     fa = تاکسی
     fi = Taksi
+    he = תחנת מוניות
     hi = टैक्सी
     id = Taksi
     it = Taxi
@@ -5112,6 +5187,7 @@
     fa = تلفن خانه
     fi = Puhelin
     fr = Téléphone
+    he = טלפון
     hi = टेलीफ़ोन
     hu = Telefon
     id = Telepon
@@ -5151,6 +5227,7 @@
     fa = سرگرمی
     fi = Teatteri
     fr = Théâtre
+    he = תיאטרון
     hi = रंगमंच
     hu = Színház
     id = Teater
@@ -5189,6 +5266,7 @@
     fa = دستشویی
     fi = WC
     fr = Toilettes
+    he = שירותים
     hi = शौचालय
     hu = Mosdó
     it = Servizi igienici
@@ -5231,6 +5309,7 @@
     fa = گردشگری
     fi = Kaupungintalo
     fr = Mairie
+    he = בית העיריה
     hi = नगर भवन
     hu = Városháza
     id = Balai kota
@@ -5270,6 +5349,7 @@
     fa = دانشگاه
     fi = Yliopisto
     fr = Université
+    he = אוניברסיטה
     hi = विश्वविद्यालय
     hu = Egyetem
     id = Universitas
@@ -5305,6 +5385,7 @@
     eu = Makina saltzailea
     fi = Myyntiautomaatti
     fr = Distributeur automatique
+    he = מכונת ממכר אוטומטית
     hi = वितरक मशीन
     it = Distributore automatico
     ja = 自動販売機
@@ -5336,6 +5417,7 @@
     fa = ماشین سیگار فروشی
     fi = Savukeautomaatti
     fr = Distributeur de cigarettes
+    he = מכונה לממכר סיגריות
     hi = सिगरेट वितरक मशीन
     hu = Cigarettaautomata
     id = Mesin rokok
@@ -5371,6 +5453,7 @@
     eu = Kafea saltzeko makina
     fi = Kahviautomaatti
     fr = Distributeur de café
+    he = מכונה לממכר קפה
     hi = कॉफ़ी वितरक
     it = Macchina del caffè
     mr = कॉफी विक्रीयंत्र
@@ -5475,6 +5558,7 @@
     eu = Egunkariak saltzeko makina
     fi = Sanomalehtiautomaatti
     fr = Distributeur de journaux
+    he = מתקן עיתונים
     hi = समाचार पत्र वितरक
     it = Distributore automatico di giornali
     mr = वृत्तपत्र विक्रीयंत्र
@@ -5502,6 +5586,7 @@
     fa = پارکو متر
     fi = Pysäköintimaksuautomaatti
     fr = Horodateur
+    he = מדחן
     hi = पार्किंग टिकट
     hu = Parkolóautomata
     id = Mesin pembayaran tiket parkir
@@ -5543,6 +5628,7 @@
     fa = دستگاه فروش خودکار بلیط های حمل و نقل عمومی
     fi = Julkisen liikenteen lippuautomaatti
     fr = Distributeur de billets de transport en commun
+    he = מכונת כרטיסים
     hi = टिकट मशीन
     hu = Jegyautomata tömegközlekedési eszközökhöz
     id = Mesin penjual otomatis tiket transportasi umum
@@ -26694,6 +26780,7 @@
     fa = فروشگاه
     fi = Kenkäkauppa
     fr = Magasin de chaussures
+    he = חנות נעליים
     hi = जूते की दुकान
     hu = Cipőbolt
     id = Toko sepatu
@@ -29636,6 +29723,7 @@
     eu = Turismoa
     fi = Turismi
     fr = Tourisme
+    he = תיירות
     hi = पर्यटन
     it = Turismo
     ja = 観光
