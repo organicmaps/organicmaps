@@ -7,6 +7,7 @@
 #include "storage/map_files_downloader.hpp"
 #include "storage/storage_helpers.hpp"
 
+#include "platform/country_defines.hpp"
 #include "platform/downloader_utils.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/mwm_version.hpp"
@@ -716,7 +717,8 @@ void Storage::OnDownloadFinished(QueuedCountry const & queuedCountry, DownloadSt
     OnFinishDownloading();
   };
 
-  if (status == DownloadStatus::Completed && m_integrityValidationEnabled)
+  // FIXME: can't verify diff w/ hash of complete file before applying - downloads diff in loop on error
+  if (status == DownloadStatus::Completed && m_integrityValidationEnabled && fileType != MapFileType::Diff)
   {
     /// @todo Can/Should be combined with ApplyDiff routine when we will restore it.
     /// While this is simple and working solution, I think that Downloader component

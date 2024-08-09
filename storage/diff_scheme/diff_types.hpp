@@ -21,7 +21,9 @@ struct DiffInfo final
 {
   DiffInfo(uint64_t size, uint64_t version) : m_size(size), m_version(version) {}
 
+  // Diff file size in bytes.
   uint64_t m_size;
+  // Map version that diff must be applied to.
   uint64_t m_version;
   bool m_isApplied = false;
 };
