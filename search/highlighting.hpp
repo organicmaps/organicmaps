@@ -60,4 +60,5 @@ void SearchStringTokensIntersectionRanges(std::string const & s, LowTokensIter i
 // Adds to |res| the ranges that match the query tokens and, therefore, should be highlighted.
 // The query is passed in |tokens| and |prefix|.
 void HighlightResult(QueryTokens const & tokens, strings::UniString const & prefix, Result & res);
+void HighlightResult2(QueryTokens const & tokens, strings::UniString const & prefix, Result & res);
 }  // namespace search
