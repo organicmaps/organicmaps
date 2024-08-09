@@ -84,13 +84,24 @@ public class LocationUtils
 
   public static boolean isLocationBetterThanLast(@NonNull Location newLocation, @NonNull Location lastLocation)
   {
-    // As described in isAccuracySatisfied, GPS may have zero accuracy "for some reasons".
-    if (isFromGpsProvider(lastLocation) && lastLocation.getAccuracy() == 0.0f)
+    final boolean lastFromGps = isFromGpsProvider(lastLocation);
+    final boolean newFromGps = isFromGpsProvider(newLocation);
+
+    // New GPS is always better than last fused/network or last GPS.
+    if (newFromGps)
       return true;
 
-    double speed = Math.max(DEFAULT_SPEED_MPS, (newLocation.getSpeed() + lastLocation.getSpeed()) / 2.0);
-    double lastAccuracy = lastLocation.getAccuracy() + speed * LocationUtils.getTimeDiff(lastLocation, newLocation);
-    return newLocation.getAccuracy() < lastAccuracy;
+    // New fused/network location is better than GPS only if its radius is outside of the last GPS location.
+    if (!newFromGps && lastFromGps)
+    {
+      final float distanceInMeters = lastLocation.distanceTo(newLocation);
+      if (distanceInMeters > newLocation.getAccuracy())
+        return true;
+      return false;
+    }
+
+    // Here we compare only fused/network with fused/network. Fused can be from GPS btw.
+    return newLocation.getAccuracy() <= lastLocation.getAccuracy();
   }
 
   public static boolean areLocationServicesTurnedOn(@NonNull Context context)
