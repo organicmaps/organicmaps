@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -14,6 +15,7 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -33,6 +35,7 @@ import androidx.annotation.DimenRes;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.core.app.NavUtils;
 import androidx.core.os.BundleCompat;
@@ -165,6 +168,43 @@ public class Utils
     intent.setData(uri);
     if (isIntentSupported(context, intent))
       return intent;
+    return null;
+  }
+
+  @SuppressLint("BatteryLife")
+  @RequiresApi(api = Build.VERSION_CODES.M)
+  public static @Nullable Intent makeAppBatteryOptimizationIntent(@NonNull Context context)
+  {
+    Intent intent = new Intent();
+    intent.setData(Uri.parse("package:" + context.getPackageName()));
+    intent.setAction(android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+    if(isIntentSupported(context, intent))
+      return intent;
+    intent.setAction(android.provider.Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+    if(isIntentSupported(context, intent))
+      return intent;
+    intent.setAction(android.provider.Settings.ACTION_BATTERY_SAVER_SETTINGS);
+    if(isIntentSupported(context,intent))
+      return intent;
+    return null;
+  }
+
+  public static @Nullable Intent makePowerSaverSettingIntent(@NonNull Context context)
+  {
+    Intent intent = new Intent();
+    intent.setData(Uri.parse("package:" + context.getPackageName()));
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1)
+    {
+      intent.setAction(Settings.ACTION_BATTERY_SAVER_SETTINGS);
+      if (isIntentSupported(context, intent))
+        return intent;
+    }
+    if (Build.MANUFACTURER.equalsIgnoreCase("xiaomi"))
+    {
+      intent.setComponent(new ComponentName("com.miui.securitycenter", "com.miui.powercenter.PowerMainActivity"));
+      if (isIntentSupported(context, intent))
+        return intent;
+    }
     return null;
   }
 

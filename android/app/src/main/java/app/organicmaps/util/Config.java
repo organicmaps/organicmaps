@@ -7,7 +7,6 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceManager;
 import app.organicmaps.BuildConfig;
-import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 
@@ -56,6 +55,8 @@ public final class Config
    * True if the first start animation has been seen.
    */
   private static final String KEY_MISC_FIRST_START_DIALOG_SEEN = "FirstStartDialogSeen";
+
+  private static final String KEY_MISC_TRACK_RECORDING_DISCLAIMER_ACCEPTED = "TrackRecorderDisclaimerAccepted";
 
   private Config() {}
 
@@ -204,6 +205,16 @@ public final class Config
   public static void acceptRoutingDisclaimer()
   {
     setBool(KEY_MISC_DISCLAIMER_ACCEPTED);
+  }
+
+  public static boolean isTrackRecordingDisclaimerAccepted()
+  {
+    return getBool(KEY_MISC_TRACK_RECORDING_DISCLAIMER_ACCEPTED);
+  }
+
+  public static void acceptTrackRecordingDisclaimer()
+  {
+    setBool(KEY_MISC_TRACK_RECORDING_DISCLAIMER_ACCEPTED);
   }
 
   public static boolean isKayakDisclaimerAccepted()

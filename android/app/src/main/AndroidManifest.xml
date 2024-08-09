@@ -42,7 +42,7 @@
     Services (FGS)) notifications from an app.
   //-->
   <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-
+  <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
   <uses-permission android:name="androidx.car.app.NAVIGATION_TEMPLATES"/>
   <uses-permission android:name="androidx.car.app.ACCESS_SURFACE"/>
 
@@ -450,6 +450,13 @@
         android:exported="false"
         android:enabled="true"
         android:stopWithTask="false"/>
+
+    <service android:name=".location.TrackRecordingService"
+      android:foregroundServiceType="location"
+      android:exported="false"
+      android:enabled="true"
+      android:stopWithTask="false"
+      />
 
     <provider
       android:name="androidx.core.content.FileProvider"
