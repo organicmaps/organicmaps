@@ -23,12 +23,22 @@ using namespace settings;
 using namespace std;
 using namespace strings;
 
+// Global Locale variable to store system locale.
+static Locale g_systemLocale = { "", "", "", ".", "," };
+
+void RefreshSystemLocale()
+{
+  SetSystemLocale(GetCurrentLocale());
+}
+
+void SetSystemLocale(platform::Locale newLocale)
+{
+  g_systemLocale = newLocale;
+}
+
 string ToStringPrecision(double d, int pr)
 {
-  // We assume that the app will be restarted if a user changes device's locale.
-  static Locale const loc = GetCurrentLocale();
-
-  return ToStringPrecisionLocale(loc, d, pr);
+  return ToStringPrecisionLocale(g_systemLocale, d, pr);
 }
 
 string ToStringPrecisionLocale(Locale loc, double d, int pr)
