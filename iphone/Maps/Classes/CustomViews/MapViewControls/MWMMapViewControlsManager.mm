@@ -148,9 +148,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
     applyPosition:hasPoint
     position:point
     doneBlock:^{
-      auto &f = GetFramework();
-
-      if (IsPointCoveredByDownloadedMaps(f.GetViewportCenter(), f.GetStorage(), f.GetCountryInfoGetter()))
+      if ([MWMFrameworkHelper canEditMapAtViewportCenter])
         [ownerController performSegueWithIdentifier:kMapToCategorySelectorSegue sender:nil];
       else
         [ownerController.alertController presentIncorrectFeauturePositionAlert];

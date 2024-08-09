@@ -43,8 +43,6 @@ public:
   /// \return version as YYMMDD.
   uint32_t GetVersion() const;
 
-  bool IsEditableMap() const;
-
   /// @name Used in tests only.
   /// @{
   void SetFormat(Format format) { m_format = format; }

@@ -188,13 +188,23 @@ Java_app_organicmaps_editor_Editor_nativeShouldShowAddPlace(JNIEnv *, jclass)
 }
 
 JNIEXPORT jboolean JNICALL
-Java_app_organicmaps_editor_Editor_nativeShouldShowAddBusiness(JNIEnv *, jclass)
+Java_app_organicmaps_editor_Editor_nativeShouldEnableEditPlace(JNIEnv *, jclass)
 {
   ::Framework * frm = g_framework->NativeFramework();
   if (!frm->HasPlacePageInfo())
     return static_cast<jboolean>(false);
 
-  return g_framework->GetPlacePageInfo().ShouldShowAddBusiness();
+  return g_framework->GetPlacePageInfo().ShouldEnableEditPlace();
+}
+
+JNIEXPORT jboolean JNICALL
+Java_app_organicmaps_editor_Editor_nativeShouldEnableAddPlace(JNIEnv *, jclass)
+{
+  ::Framework * frm = g_framework->NativeFramework();
+  if (!frm->HasPlacePageInfo())
+    return static_cast<jboolean>(false);
+
+  return g_framework->GetPlacePageInfo().ShouldEnableAddPlace();
 }
 
 JNIEXPORT jintArray JNICALL

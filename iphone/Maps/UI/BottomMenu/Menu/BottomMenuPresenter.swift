@@ -59,7 +59,7 @@ extension BottomMenuPresenter {
     let cell = tableView.dequeueReusableCell(cell: BottomMenuItemCell.self)!
     switch CellType(rawValue: correctedRow(indexPath.row))! {
     case .addPlace:
-      let enabled = MWMNavigationDashboardManager.shared().state == .hidden && FrameworkHelper.canEditMap()
+      let enabled = MWMNavigationDashboardManager.shared().state == .hidden && FrameworkHelper.canEditMapAtViewportCenter()
       cell.configure(imageName: "ic_add_place",
                      title: L("placepage_add_place_button"),
                      badgeCount: 0,
@@ -88,6 +88,13 @@ extension BottomMenuPresenter {
 //MARK: -- UITableDelegate
 
 extension BottomMenuPresenter {
+  func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+    if let cell = tableView.cellForRow(at: indexPath) as? BottomMenuItemCell {
+      return cell.isEnabled ? indexPath : nil
+    }
+    return indexPath
+  }
+
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     guard indexPath.section == Sections.items.rawValue else {
       return

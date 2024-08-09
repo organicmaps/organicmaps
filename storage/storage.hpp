@@ -378,6 +378,9 @@ public:
   /// \brief Returns true if the last version of countryId has been downloaded.
   bool HasLatestVersion(CountryId const & countryId) const;
 
+  /// \brief Returns true if the version of countryId can be used to update maps.
+  bool IsAllowedToEditVersion(CountryId const & countryId) const;
+
   /// Returns version of downloaded mwm or zero.
   int64_t GetVersion(CountryId const & countryId) const;
 

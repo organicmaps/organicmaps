@@ -16,11 +16,6 @@ namespace version
 {
 namespace
 {
-// Editing maps older than approximately two months old is disabled, since the data
-// is most likely already fixed on OSM. Not limited to the latest one or two versions,
-// because a user can forget to update maps after a new app version has been installed
-// automatically in the background.
-uint64_t constexpr kMaxSecondsTillNoEdits = 3600 * 24 * 31 * 2;
 char const MWM_PROLOG[] = "MWM";
 }
 
@@ -46,11 +41,6 @@ uint32_t MwmVersion::GetVersion() const
 {
   auto const tm = base::GmTime(base::SecondsSinceEpochToTimeT(m_secondsSinceEpoch));
   return base::GenerateYYMMDD(tm.tm_year, tm.tm_mon, tm.tm_mday);
-}
-
-bool MwmVersion::IsEditableMap() const
-{
-  return m_secondsSinceEpoch + kMaxSecondsTillNoEdits > base::SecondsSinceEpoch();
 }
 
 std::string DebugPrint(Format f)
