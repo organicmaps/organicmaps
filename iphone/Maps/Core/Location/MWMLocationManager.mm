@@ -226,7 +226,6 @@ void setShowLocationAlert(BOOL needShow) {
 + (void)applicationDidBecomeActive
 {
   [self start];
-  [[self manager] updateFrameworkInfo];
 }
 
 + (void)applicationWillResignActive
@@ -594,8 +593,6 @@ void setShowLocationAlert(BOOL needShow) {
 - (void)updateFrameworkInfo
 {
   auto app = UIApplication.sharedApplication;
-  if (app.applicationState != UIApplicationStateActive)
-    return;
   auto delegate = static_cast<MapsAppDelegate *>(app.delegate);
   if (delegate.isDrapeEngineCreated)
   {
