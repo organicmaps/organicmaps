@@ -792,12 +792,21 @@ UNIT_TEST(Slovenia_Croatia_CrossBorderPenalty)
 
 UNIT_TEST(USA_Birmingham_AL_KeyWest_FL_NoMotorway)
 {
-  RoutingOptionSetter optionsGuard(RoutingOptions::Motorway);
-
-  // Closer to OSRM and GraphHopper.
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
-      FromLatLon(33.5209837, -86.807945), {0., 0.},
-      FromLatLon(24.5534713, -81.7932587), 1'495'860);
+      FromLatLon(28.9666499, -82.127271), {0., 0.},
+      FromLatLon(25.8633542, -80.3878891), 457734);
+
+  /// @note These tests works good on release server, my desktop release skips MWM Florida_Orlando ...
+  /// 15 vs 8 cross-mwm candidates.
+
+  auto const start = FromLatLon(33.5209837, -86.807945);
+  auto const finish = FromLatLon(24.5534713, -81.7932587);
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
+      start, {0., 0.}, finish, 1'471'410);
+
+  RoutingOptionSetter optionsGuard(RoutingOptions::Motorway);
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
+      start, {0., 0.}, finish, 1'495'860);
 }
 
 UNIT_TEST(Turkey_Salarialaca_Sanliurfa)
