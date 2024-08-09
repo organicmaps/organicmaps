@@ -16,7 +16,7 @@ enum class MeasurementType
   Altitude
 };
 
-const LocalizedUnits & GetLocalizedUnits(measurement_utils::Units units, MeasurementType measurementType)
+LocalizedUnits const & GetLocalizedUnits(measurement_utils::Units units, MeasurementType measurementType)
 {
   static LocalizedUnits const UnitsLenghImperial = {GetLocalizedString("ft"), GetLocalizedString("mi")};
   static LocalizedUnits const UnitsLenghMetric = {GetLocalizedString("m"), GetLocalizedString("km")};
@@ -45,12 +45,12 @@ const LocalizedUnits & GetLocalizedUnits(measurement_utils::Units units, Measure
 }
 }  // namespace
 
-LocalizedUnits GetLocalizedDistanceUnits()
+LocalizedUnits const & GetLocalizedDistanceUnits()
 {
   return GetLocalizedUnits(measurement_utils::GetMeasurementUnits(), MeasurementType::Distance);
 }
 
-LocalizedUnits GetLocalizedAltitudeUnits()
+LocalizedUnits const & GetLocalizedAltitudeUnits()
 {
   return GetLocalizedUnits(measurement_utils::GetMeasurementUnits(), MeasurementType::Altitude);
 }
@@ -60,7 +60,7 @@ const std::string & GetLocalizedSpeedUnits(measurement_utils::Units units)
   return GetLocalizedUnits(units, MeasurementType::Speed).m_high;
 }
 
-std::string GetLocalizedSpeedUnits()
+std::string const & GetLocalizedSpeedUnits()
 {
   return GetLocalizedSpeedUnits(measurement_utils::GetMeasurementUnits());
 }
