@@ -376,7 +376,8 @@
 	<string name="categories">Kategorier</string>
 	<string name="history">Historik</string>
 	<string name="search_not_found">Desværre, jeg fandt ikke noget.</string>
-	<string name="search_not_found_query">Prøv en anden forespørgsel.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Download den region, hvor du søger, eller prøv at tilføje et nærliggende bynavn.</string>
 	<string name="search_history_title">Søgehistorik</string>
 	<string name="search_history_text">Gå hurtigt ind på seneste forespørgsel.</string>
 	<string name="clear_search">Ryd historiksøgning</string>

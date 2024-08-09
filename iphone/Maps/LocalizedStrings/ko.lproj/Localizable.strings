@@ -540,7 +540,8 @@
 
 "search_not_found" = "죄송합니다. 아무것도 찾지 못했습니다.";
 
-"search_not_found_query" = "다른 쿼리를 시도하십시오.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "검색하려는 지역을 다운로드하거나 가까운 도시/마을 이름을 추가해 보세요.";
 
 "search_history_title" = "검색 기록";
 

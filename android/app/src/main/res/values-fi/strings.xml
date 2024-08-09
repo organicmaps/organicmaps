@@ -397,7 +397,8 @@
 	<string name="categories">Luokat</string>
 	<string name="history">Historia</string>
 	<string name="search_not_found">Pahoittelut, hakutuloksia ei ole.</string>
-	<string name="search_not_found_query">Yritä jotain toista hakusanaa.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Lataa alue, jolta etsit, tai yritä lisätä läheisen kaupungin tai kylän nimi.</string>
 	<string name="search_history_title">Hakuhistoria</string>
 	<string name="search_history_text">Näytä viimeaikaiset hakusi.</string>
 	<string name="clear_search">Poista hakuhistoria</string>

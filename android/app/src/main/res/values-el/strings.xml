@@ -396,7 +396,8 @@
 	<string name="categories">Κατηγορίες</string>
 	<string name="history">Ιστορικό</string>
 	<string name="search_not_found">Ωχ, δε βρέθηκαν αποτελέσματα.</string>
-	<string name="search_not_found_query">Δοκιμάστε να αλλάξετε τα κριτήρια αναζήτησης.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Κατεβάστε την περιοχή στην οποία ψάχνετε ή δοκιμάστε να προσθέσετε το όνομα μιας κοντινής πόλης/χωριού.</string>
 	<string name="search_history_title">Ιστορικό αναζητήσεων</string>
 	<string name="search_history_text">Προβολή πρόσφατων αναζητήσεων.</string>
 	<string name="clear_search">Εκκαθάριση ιστορικού αναζητήσεων</string>

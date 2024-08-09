@@ -540,7 +540,8 @@
 
 "search_not_found" = "Desværre, jeg fandt ikke noget.";
 
-"search_not_found_query" = "Prøv en anden forespørgsel.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Download den region, hvor du søger, eller prøv at tilføje et nærliggende bynavn.";
 
 "search_history_title" = "Søgehistorik";
 

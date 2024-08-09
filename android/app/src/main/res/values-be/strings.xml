@@ -394,7 +394,8 @@
 	<string name="categories">Катэгорыі</string>
 	<string name="history">Гісторыя</string>
 	<string name="search_not_found">Нічога не знойдзена.</string>
-	<string name="search_not_found_query">Паспрабуйце змяніць крытэрыі пошуку.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Спампуйце рэгіён, у якім вы шукаеце, або паспрабуйце дадаць назву бліжэйшага горада/вёскі.</string>
 	<string name="search_history_title">Гісторыя пошуку</string>
 	<string name="search_history_text">Праглядзець свае апошнія пошукі.</string>
 	<string name="clear_search">Ачысціць гісторыю пошуку</string>

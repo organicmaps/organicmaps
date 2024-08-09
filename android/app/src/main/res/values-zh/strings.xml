@@ -384,7 +384,8 @@
 	<string name="categories">类别</string>
 	<string name="history">历史</string>
 	<string name="search_not_found">很抱歉，没有找到任何地点。</string>
-	<string name="search_not_found_query">请尝试搜索其它关键词。</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">下载要搜索的地区或尝试添加附近的城镇/村庄名称。</string>
 	<string name="search_history_title">搜索历史记录</string>
 	<string name="search_history_text">快速访问最近的搜索查询。</string>
 	<string name="clear_search">清除搜索记录</string>

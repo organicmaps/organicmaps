@@ -393,7 +393,8 @@
 	<string name="categories">Categorieën</string>
 	<string name="history">Geschiedenis</string>
 	<string name="search_not_found">Sorry, geen resultaten gevonden.</string>
-	<string name="search_not_found_query">Probeer een andere zoekopdracht.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Download de regio waar u zoekt of probeer een nabijgelegen stad/dorpnaam toe te voegen.</string>
 	<string name="search_history_title">Zoekgeschiedenis</string>
 	<string name="search_history_text">Snel toegang tot recente zoekopdrachten.</string>
 	<string name="clear_search">Wis zoekgeschiedenis</string>

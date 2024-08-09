@@ -540,7 +540,8 @@
 
 "search_not_found" = "很抱歉，沒有找到任何地點。";
 
-"search_not_found_query" = "請嘗試搜尋其它關鍵詞。";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "下載您要搜尋的區域或嘗試新增附近的城鎮/村莊名稱。";
 
 "search_history_title" = "搜尋歷史紀錄";
 

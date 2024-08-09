@@ -540,7 +540,8 @@
 
 "search_not_found" = "Nu s-a găsit nimic.";
 
-"search_not_found_query" = "Încearcă să modifici condițiile căutării.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Descărcați regiunea în care căutați sau încercați să adăugați numele unei localități din apropiere.";
 
 "search_history_title" = "Istoricul căutărilor";
 

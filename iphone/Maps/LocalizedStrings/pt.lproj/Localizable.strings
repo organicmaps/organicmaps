@@ -540,7 +540,8 @@
 
 "search_not_found" = "Lamento, mas não foram encontrados resultados.";
 
-"search_not_found_query" = "Por favor, tente outro termo de pesquisa.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Descarregue a região onde está a pesquisar ou tente adicionar o nome de uma cidade ou aldeia próxima.";
 
 "search_history_title" = "Histórico de pesquisas";
 

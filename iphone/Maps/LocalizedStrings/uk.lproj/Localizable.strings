@@ -540,7 +540,8 @@
 
 "search_not_found" = "На жаль, нічого не знайдено.";
 
-"search_not_found_query" = "Спробуйте змінити запит.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Завантажте регіон, де ви шукаєте, або спробуйте додати назву найближчого міста/села.";
 
 "search_history_title" = "Історія пошуку";
 

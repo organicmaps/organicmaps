@@ -540,7 +540,8 @@
 
 "search_not_found" = "ขออภัย ฉันไม่พบสิ่งใด";
 
-"search_not_found_query" = "โปรดลองใช้คำถามอื่น";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "ดาวน์โหลดภูมิภาคที่คุณกำลังค้นหาหรือลองเพิ่มชื่อเมือง/หมู่บ้านใกล้เคียง";
 
 "search_history_title" = "ประวัติการค้นหา";
 

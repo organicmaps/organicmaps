@@ -540,7 +540,8 @@
 
 "search_not_found" = "Désolé, je n'ai rien trouvé.";
 
-"search_not_found_query" = "Veuillez essayer un autre mot-clé.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Téléchargez la région dans laquelle vous effectuez votre recherche ou essayez d'ajouter le nom d'une ville ou d'un village proche.";
 
 "search_history_title" = "Historique de recherche";
 

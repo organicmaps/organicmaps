@@ -380,7 +380,8 @@
 	<string name="categories">Kategorie</string>
 	<string name="history">Historie</string>
 	<string name="search_not_found">Omlouváme se, nic nebylo nalezeno.</string>
-	<string name="search_not_found_query">Zkuste zadat jiný hledaný výraz.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Stáhněte si oblast, ve které hledáte, nebo zkuste přidat název blízkého města/obce.</string>
 	<string name="search_history_title">Prohledat historii</string>
 	<string name="search_history_text">Získejte rychlý přístup k hledaným výrazům.</string>
 	<string name="clear_search">Vymazat historii vyhledávání</string>

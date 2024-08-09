@@ -540,7 +540,8 @@
 
 "search_not_found" = "Przepraszamy, nic nie znaleziono.";
 
-"search_not_found_query" = "Wpisz inne zapytanie.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Proszę pobrać region, w którym Państwo szukają lub spróbować dodać nazwę pobliskiego miasta/wsi.";
 
 "search_history_title" = "Historia wyszukiwania";
 

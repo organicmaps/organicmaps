@@ -540,7 +540,8 @@
 
 "search_not_found" = "Üzr istəyirik, heç bir nəticə tapılmadı.";
 
-"search_not_found_query" = "Axtarış kriteriyalarınızı dəyişməyə cəhd edin.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Axtardığınız bölgəni endirin və ya yaxınlıqdakı şəhər/kənd adını əlavə etməyə cəhd edin.";
 
 "search_history_title" = "Axtarış tarixçəsi";
 

@@ -540,7 +540,8 @@
 
 "search_not_found" = "Sorry, geen resultaten gevonden.";
 
-"search_not_found_query" = "Probeer een andere zoekopdracht.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Download de regio waar u zoekt of probeer een nabijgelegen stad/dorpnaam toe te voegen.";
 
 "search_history_title" = "Zoekgeschiedenis";
 

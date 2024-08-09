@@ -540,7 +540,8 @@
 
 "search_not_found" = "К сожалению, мы ничего не нашли.";
 
-"search_not_found_query" = "Попробуйте изменить условия поиска.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Загрузите регион, в котором ищете, или попробуйте добавить название близлежащего города/деревни.";
 
 "search_history_title" = "История поиска";
 

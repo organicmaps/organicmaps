@@ -395,7 +395,8 @@
 	<string name="categories">Kategoriak</string>
 	<string name="history">Historiala</string>
 	<string name="search_not_found">Barkatu, ez dut ezer aurkitu.</string>
-	<string name="search_not_found_query">Saiatu bilaketa-irizpideak aldatzen.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Deskargatu bilatzen ari zaren eskualdea edo saiatu inguruko herri/herri izena gehitzen.</string>
 	<string name="search_history_title">Bilaketa historia</string>
 	<string name="search_history_text">Ikusi azken bilaketak.</string>
 	<string name="clear_search">Garbitu bilaketa historia</string>

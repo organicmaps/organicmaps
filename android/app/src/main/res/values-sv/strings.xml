@@ -374,7 +374,8 @@
 	<string name="categories">Kategorier</string>
 	<string name="history">Historik</string>
 	<string name="search_not_found">Ledsen, jag hittade ingenting.</string>
-	<string name="search_not_found_query">Försök med en annan sökförfrågan.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Ladda ner den region där du söker eller försök att lägga till ett närliggande stads- eller bynamn.</string>
 	<string name="search_history_title">Sökhistorik</string>
 	<string name="search_history_text">Få snabbare åtkomst till senaste sökförfrågan.</string>
 	<string name="clear_search">Rensa sökhistorik</string>

@@ -540,7 +540,8 @@
 
 "search_not_found" = "該当するものは見つかりませんでした。";
 
-"search_not_found_query" = "条件を変えて検索してみてください。";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "検索する地域をダウンロードするか、近隣の町村名を追加してみてください。";
 
 "search_history_title" = "検索履歴";
 

@@ -540,7 +540,8 @@
 
 "search_not_found" = "Ľutujeme, ale nič sme nenašli.";
 
-"search_not_found_query" = "Vyskúšajte, prosím, iný hľadaný výraz.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Stiahnite si región, v ktorom hľadáte, alebo skúste pridať názov blízkeho mesta/obce.";
 
 "search_history_title" = "História vyhľadávania";
 

@@ -540,7 +540,8 @@
 
 "search_not_found" = "Ωχ, δε βρέθηκαν αποτελέσματα.";
 
-"search_not_found_query" = "Δοκιμάστε να αλλάξετε τα κριτήρια αναζήτησης.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Κατεβάστε την περιοχή στην οποία ψάχνετε ή δοκιμάστε να προσθέσετε το όνομα μιας κοντινής πόλης/χωριού.";
 
 "search_history_title" = "Ιστορικό αναζητήσεων";
 

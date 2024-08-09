@@ -387,7 +387,8 @@
 	<string name="categories">Kategooriad</string>
 	<string name="history">Ajalugu</string>
 	<string name="search_not_found">Vabandust, tulemusi ei leitud.</string>
-	<string name="search_not_found_query">Proovi muuta otsingutingimusi.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Laadige alla piirkond, kus te otsite, või proovige lisada lähedalasuva linna/küla nimi.</string>
 	<string name="search_history_title">Otsinguajalugu</string>
 	<string name="search_history_text">Vaata hiljutisi otsinguid.</string>
 	<string name="clear_search">Tühjenda otsinguajalugu</string>

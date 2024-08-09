@@ -540,7 +540,8 @@
 
 "search_not_found" = "उफ़, कोई परिणाम नहीं मिला.";
 
-"search_not_found_query" = "अपना खोज मानदण्ड बदलने का प्रयास करें।";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "उस क्षेत्र को डाउनलोड करें जहां आप खोज रहे हैं या पास के शहर/गांव का नाम जोड़ने का प्रयास करें।";
 
 "search_history_title" = "खोज इतिहास";
 

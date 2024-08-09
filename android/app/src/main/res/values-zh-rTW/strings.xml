@@ -387,7 +387,8 @@
 	<string name="categories">類別</string>
 	<string name="history">記錄</string>
 	<string name="search_not_found">很抱歉，沒有找到任何地點。</string>
-	<string name="search_not_found_query">請嘗試搜尋其它關鍵詞。</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">下載您要搜尋的區域或嘗試新增附近的城鎮/村莊名稱。</string>
 	<string name="search_history_title">搜尋歷史紀錄</string>
 	<string name="search_history_text">檢視最近的搜尋。</string>
 	<string name="clear_search">清除搜尋記錄</string>

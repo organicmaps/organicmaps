@@ -378,7 +378,8 @@
 	<string name="categories">Kategori</string>
 	<string name="history">Riwayat</string>
 	<string name="search_not_found">Maaf, saya tidak menemukan apa pun.</string>
-	<string name="search_not_found_query">Silakan coba kueri lainnya.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Unduh wilayah tempat Anda mencari atau coba tambahkan nama kota/desa terdekat.</string>
 	<string name="search_history_title">Riwayat Pencarian</string>
 	<string name="search_history_text">Akses kueri pencarian terbaru dengan cepat.</string>
 	<string name="clear_search">Bersihkan riwayat pencarian</string>

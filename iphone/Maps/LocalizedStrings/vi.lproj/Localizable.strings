@@ -540,7 +540,8 @@
 
 "search_not_found" = "Xin lỗi, tôi không tìm thấy kết quả nào.";
 
-"search_not_found_query" = "Vui lòng thử câu hỏi khác.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Tải xuống khu vực bạn đang tìm kiếm hoặc thử thêm tên thị trấn/làng gần đó.";
 
 "search_history_title" = "Lịch sử tìm kiếm";
 

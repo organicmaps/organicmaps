@@ -540,7 +540,8 @@
 
 "search_not_found" = "Ledsen, jag hittade ingenting.";
 
-"search_not_found_query" = "Försök med en annan sökförfrågan.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Ladda ner den region där du söker eller försök att lägga till ett närliggande stads- eller bynamn.";
 
 "search_history_title" = "Sökhistorik";
 

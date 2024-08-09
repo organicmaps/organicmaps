@@ -381,7 +381,8 @@
 	<string name="categories">Categorias</string>
 	<string name="history">Histórico</string>
 	<string name="search_not_found">Lamento, mas não foram encontrados resultados.</string>
-	<string name="search_not_found_query">Por favor, tente outro termo de pesquisa.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Descarregue a região onde está a pesquisar ou tente adicionar o nome de uma cidade ou aldeia próxima.</string>
 	<string name="search_history_title">Histórico de pesquisas</string>
 	<string name="search_history_text">Ver as pesquisas recentes.</string>
 	<string name="clear_search">Limpar histórico de pesquisas</string>

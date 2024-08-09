@@ -540,7 +540,8 @@
 
 "search_not_found" = "Üzgünüz, hiç bir şey bulamadık.";
 
-"search_not_found_query" = "Lütfen başka bir sorgu girin.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Arama yaptığınız bölgeyi indirin veya yakındaki bir kasaba/köy adını eklemeyi deneyin.";
 
 "search_history_title" = "Arama Geçmişi";
 

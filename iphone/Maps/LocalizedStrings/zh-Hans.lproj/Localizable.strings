@@ -540,7 +540,8 @@
 
 "search_not_found" = "很抱歉，没有找到任何地点。";
 
-"search_not_found_query" = "请尝试搜索其它关键词。";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "下载要搜索的地区或尝试添加附近的城镇/村庄名称。";
 
 "search_history_title" = "搜索历史记录";
 

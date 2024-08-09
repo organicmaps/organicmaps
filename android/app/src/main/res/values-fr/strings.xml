@@ -398,7 +398,8 @@
 	<string name="categories">Catégories</string>
 	<string name="history">Historique</string>
 	<string name="search_not_found">Désolé, je n\'ai rien trouvé.</string>
-	<string name="search_not_found_query">Veuillez essayer un autre mot-clé.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Téléchargez la région dans laquelle vous effectuez votre recherche ou essayez d\'ajouter le nom d\'une ville ou d\'un village proche.</string>
 	<string name="search_history_title">Historique de recherche</string>
 	<string name="search_history_text">Accédez rapidement aux dernières recherches.</string>
 	<string name="clear_search">Effacer l\'historique de recherche</string>

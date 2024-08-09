@@ -540,7 +540,8 @@
 
 "search_not_found" = "Ups! No s'ha trobat cap resultat.";
 
-"search_not_found_query" = "Proveu de canviar els criteris de cerca.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Baixeu la regió on esteu cercant o proveu d'afegir un nom de ciutat o poble proper.";
 
 "search_history_title" = "Historial de cerca";
 

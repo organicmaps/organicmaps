@@ -540,7 +540,8 @@
 
 "search_not_found" = "За съжаление не са намерени резултати.";
 
-"search_not_found_query" = "Опитайте да промените критериите за търсене.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Изтеглете региона, в който търсите, или опитайте да добавите име на близък град/село.";
 
 "search_history_title" = "История на търсенията";
 

@@ -393,7 +393,8 @@
 	<string name="categories">Kategorien</string>
 	<string name="history">Verlauf</string>
 	<string name="search_not_found">Leider wurde nichts gefunden.</string>
-	<string name="search_not_found_query">Versuchen Sie bitte eine andere Suchanfrage.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Laden Sie die Region herunter, in der Sie suchen, oder fügen Sie den Namen einer nahe gelegenen Stadt oder eines Dorfes hinzu.</string>
 	<string name="search_history_title">Suchverlauf</string>
 	<string name="search_history_text">Hier werden Ihre letzten Suchanfragen angezeigt.</string>
 	<string name="clear_search">Suchverlauf löschen</string>
