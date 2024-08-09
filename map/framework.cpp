@@ -1738,6 +1738,11 @@ url_scheme::SearchRequest Framework::GetParsedSearchRequest() const
   return m_parsedMapApi.GetSearchRequest();
 }
 
+std::string Framework::GetParsedOAuth2Code() const
+{
+  return m_parsedMapApi.GetOAuth2Code();
+}
+
 std::string const & Framework::GetParsedAppName() const
 {
   return m_parsedMapApi.GetAppName();

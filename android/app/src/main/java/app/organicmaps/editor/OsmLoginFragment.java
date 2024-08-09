@@ -1,6 +1,8 @@
 package app.organicmaps.editor;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,9 +31,12 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
 {
   private ProgressBar mProgress;
   private Button mLoginButton;
+  private Button mLoginWebsiteButton;
   private Button mLostPasswordButton;
   private TextInputEditText mLoginInput;
   private TextInputEditText mPasswordInput;
+
+  private String mArgOAuth2Code;
 
   @Nullable
   @Override
@@ -47,6 +52,8 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     getToolbarController().setTitle(R.string.login);
     mLoginInput = view.findViewById(R.id.osm_username);
     mPasswordInput = view.findViewById(R.id.osm_password);
+    mLoginWebsiteButton = view.findViewById(R.id.login_website);
+    mLoginWebsiteButton.setOnClickListener((v) -> loginWithBrowser());
     mLoginButton = view.findViewById(R.id.login);
     mLoginButton.setOnClickListener((v) -> login());
     mLostPasswordButton = view.findViewById(R.id.lost_password);
@@ -57,6 +64,19 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     final String dataVersion = DateUtils.getShortDateFormatter().format(Framework.getDataVersion());
     ((TextView) view.findViewById(R.id.osm_presentation))
         .setText(getString(R.string.osm_presentation, dataVersion));
+
+    readArguments();
+    if (mArgOAuth2Code != null && !mArgOAuth2Code.isEmpty())
+      continueOAuth2Flow(mArgOAuth2Code);
+  }
+
+  private void readArguments()
+  {
+    final Bundle arguments = getArguments();
+    if (arguments == null)
+      return;
+
+    mArgOAuth2Code = arguments.getString(OsmLoginActivity.EXTRA_OAUTH2CODE);
   }
 
   private void login()
@@ -75,12 +95,63 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     });
   }
 
+  private void loginWithBrowser()
+  {
+    enableInput(false);
+
+    String[] oauthParams = OsmOAuth.nativeOAuthParams();
+    Uri oauth2url = Uri.parse(oauthParams[0] + "/oauth2/authorize")
+            .buildUpon()
+            .appendQueryParameter("client_id", oauthParams[1])
+            .appendQueryParameter("scope", oauthParams[3])
+            .appendQueryParameter("redirect_uri", oauthParams[4])
+            .appendQueryParameter("response_type", "code")
+            .build();
+    try {
+      Intent myIntent = new Intent(Intent.ACTION_VIEW, oauth2url);
+      startActivity(myIntent);
+    } catch (ActivityNotFoundException e) {
+      //Toast.makeText(this, "No application can handle this request."
+      //        + " Please install a webbrowser",  Toast.LENGTH_LONG).show();
+      e.printStackTrace();
+    }
+  }
+
   private void enableInput(boolean enable)
   {
     mPasswordInput.setEnabled(enable);
     mLoginInput.setEnabled(enable);
     mLoginButton.setEnabled(enable);
     mLostPasswordButton.setEnabled(enable);
+    mLoginWebsiteButton.setEnabled(enable);
+  }
+
+  // This method is called by MwmActivity & UrlProcessor when "om://oauth2/osm/callback?code=XXX" is handled
+  private void continueOAuth2Flow(String oauth2code)
+  {
+    if (!isAdded())
+      return;
+
+    if (oauth2code == null || oauth2code.length()==0)
+    {
+      enableInput(true);
+      onAuthFail();
+    }
+    else
+    {
+      // Do not enable UI until we finish interaction with OAuth2 API
+      enableInput(false);
+
+      ThreadPool.getWorker().execute(() -> {
+        // Finish OAuth2 auth flow and get username for UI.
+        final String oauthToken = OsmOAuth.nativeAuthWithOAuth2Code(oauth2code);
+        final String username = (oauthToken == null) ? null : OsmOAuth.nativeGetOsmUsername(oauthToken);
+        UiThread.run(() -> {
+          enableInput(true);
+          processAuth(oauthToken, username);
+        });
+      });
+    }
   }
 
   private void processAuth(String oauthToken, String username)
@@ -109,7 +180,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
   {
     OsmOAuth.setAuthorization(requireContext(), oauthToken, username);
     final Bundle extras = requireActivity().getIntent().getExtras();
-    if (extras != null && extras.getBoolean("redirectToProfile", false))
+    if (extras != null && extras.getBoolean(ProfileActivity.EXTRA_REDIRECT_TO_PROFILE, false))
       startActivity(new Intent(requireContext(), ProfileActivity.class));
     requireActivity().finish();
   }

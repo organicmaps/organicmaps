@@ -60,6 +60,13 @@
         android:text="@string/login_to_make_edits_visible"
         android:textAppearance="@style/MwmTextAppearance.Body2"
         android:textColor="?android:textColorPrimary" />
+      <Button
+          android:id="@+id/login_website"
+          style="@style/MwmWidget.Button.Accent"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Login with OSM website"
+          android:textAppearance="@style/MwmTextAppearance.Body2.Light" />
       <com.google.android.material.textfield.TextInputLayout
         style="@style/MwmWidget.Editor.CustomTextInput"
         android:layout_marginTop="@dimen/margin_half"

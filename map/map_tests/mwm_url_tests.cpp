@@ -474,6 +474,23 @@ UNIT_TEST(AppNameTest)
   }
 }
 
+UNIT_TEST(OAuth2Test)
+{
+  {
+    ParsedMapApi api("om://oauth2/osm/callback?code=THE_MEGA_CODE");
+    TEST_EQUAL(api.GetRequestType(), UrlType::OAuth2, ());
+    TEST_EQUAL(api.GetOAuth2Code(), "THE_MEGA_CODE", ());
+  }
+  {
+    ParsedMapApi api("om://oauth2/google/callback?code=THE_MEGA_CODE");
+    TEST_EQUAL(api.GetRequestType(), UrlType::Incorrect, ());
+  }
+  {
+    ParsedMapApi api("om://oauth2/osm/callback?code=");
+    TEST_EQUAL(api.GetRequestType(), UrlType::Incorrect, ());
+  }
+}
+
 namespace
 {
 string generatePartOfUrl(url_scheme::MapPoint const & point)

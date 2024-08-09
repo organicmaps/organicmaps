@@ -93,6 +93,13 @@ public:
   /// @param[api] If false, request is made to m_baseUrl.
   Response DirectRequest(std::string const & method, bool api = true) const;
 
+  // Getters
+  std::string GetBaseUrl() const { return m_baseUrl; }
+  std::string GetClientId() const { return m_oauth2params.m_clientId; }
+  std::string GetClientSecret() const { return m_oauth2params.m_clientSecret; }
+  std::string GetScope() const { return m_oauth2params.m_scope; }
+  std::string GetRedirectUri() const { return m_oauth2params.m_redirectUri; }
+
   /// @name Methods for WebView-based authentication.
   //@{
   std::string FinishAuthorization(std::string const & oauth2code) const;
