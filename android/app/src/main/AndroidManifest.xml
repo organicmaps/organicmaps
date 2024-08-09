@@ -436,7 +436,6 @@
         android:name="app.organicmaps.MapPlaceholderActivity"/>
     <service
         android:name="app.organicmaps.car.CarAppService"
-        android:foregroundServiceType="location"
         android:exported="true">
       <intent-filter>
         <action android:name="androidx.car.app.CarAppService" />
