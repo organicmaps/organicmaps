@@ -1953,4 +1953,10 @@ Java_app_organicmaps_Framework_nativeGetKayakHotelLink(JNIEnv * env, jclass, jst
   return url.empty() ? nullptr : jni::ToJavaString(env, url);
 }
 
+JNIEXPORT jint JNICALL
+Java_app_organicmaps_Framework_nativeGetUnits(JNIEnv *, jclass)
+{
+  return static_cast<jint>(measurement_utils::GetMeasurementUnits());
+}
+
 }  // extern "C"

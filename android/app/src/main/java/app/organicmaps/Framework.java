@@ -60,6 +60,10 @@ public class Framework
   public static final int ROUTER_TYPE_TRANSIT = 3;
   public static final int ROUTER_TYPE_RULER = 4;
 
+  // Units values shall be the same as the ones defined in c++ in <platform/measurement_utils.hpp>.
+  public static final int UNITS_METRIC = 0;
+  public static final int UNITS_IMPERIAL = 1;
+
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ROUTE_REBUILD_AFTER_POINTS_LOADING})
   public @interface RouteRecommendationType {}
@@ -460,4 +464,6 @@ public class Framework
   @Nullable
   public static native String nativeGetKayakHotelLink(@NonNull String countryIsoCode, @NonNull String uri,
                                                       long firstDaySec, long lastDaySec, boolean isReferral);
+
+  public static native int nativeGetUnits();
 }
