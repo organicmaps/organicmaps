@@ -4,11 +4,23 @@
 #include "platform/measurement_utils.hpp"
 #include "platform/settings.hpp"
 
+#include <algorithm>
+
 namespace platform
 {
-std::string MakeDistanceStr(std::string const & value, std::string const & unit)
+std::string MakeDistanceStr(std::string value, std::string const & unit)
 {
-  return value + kNarrowNonBreakingSpace + unit;
+  static Locale const loc = GetCurrentLocale();
+
+  constexpr char kHardCodedGroupingSeparator = ',';
+  if (auto found = value.find(kHardCodedGroupingSeparator); found != std::string::npos)
+    value.replace(found, 1, loc.m_groupingSeparator);
+
+  constexpr char kHardCodedDecimalSeparator = '.';
+  if (auto found = value.find(kHardCodedDecimalSeparator); found != std::string::npos)
+    value.replace(found, 1, loc.m_decimalSeparator);
+
+  return value.append(kNarrowNonBreakingSpace).append(unit);
 }
 
 struct ScopedSettings
