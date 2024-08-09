@@ -1263,8 +1263,8 @@ UNIT_CLASS_TEST(MwmTestsFixture, PostOffice_Viewport)
     TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
     Range allRange(results, true /* all */);
 
-    /// @todo office are near the "Poststrasse". Remove after fixing _near the street_ penalty.
-    EqualClassifType(allRange, GetClassifTypes({{"amenity", "post_office"}, {"office"}}));
+    /// @todo townhall and office are near the "Poststrasse". Remove after fixing _near the street_ penalty.
+    EqualClassifType(allRange, GetClassifTypes({{"amenity", "post_office"}, {"amenity", "townhall"}, {"office"}}));
   }
 }
 
