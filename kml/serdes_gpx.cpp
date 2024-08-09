@@ -412,8 +412,13 @@ void SaveBookmarkData(Writer & writer, BookmarkData const & bookmarkData)
 {
   auto const [lat, lon] = mercator::ToLatLon(bookmarkData.m_point);
   writer << "<wpt lat=\"" << CoordToString(lat) << "\" lon=\"" << CoordToString(lon) << "\">\n";
-  if (auto const name = GetDefaultLanguage(bookmarkData.m_name))
-    writer << kIndent2 << "<name>" << name.value() << "</name>\n";
+  // If user customized the default bookmark name, it's saved in m_customName.
+  auto name = GetDefaultLanguage(bookmarkData.m_customName);
+  if (!name)
+    name = GetDefaultLanguage(bookmarkData.m_name);  // Original POI name stored when bookmark was created.
+  if (name)
+    writer << kIndent2 << "<name>" << *name << "</name>\n";
+
   if (auto const description = GetDefaultLanguage(bookmarkData.m_description))
   {
     writer << kIndent2 << "<cmt>";
