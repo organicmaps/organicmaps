@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import app.organicmaps.Framework;
+import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmDialogFragment;
 import app.organicmaps.bookmarks.data.DistanceAndAzimut;
@@ -45,11 +46,15 @@ public class DirectionFragment extends BaseMwmDialogFragment
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
     final View root = inflater.inflate(R.layout.fragment_direction, container, false);
+    final MwmActivity mwmActivity = (MwmActivity) requireActivity();
     root.setOnTouchListener((v, event) -> {
+      root.performClick();
+      mwmActivity.hideOrShowUIWithoutClosingPlacePage(false);
       dismiss();
       return false;
     });
     initViews(root);
+    mwmActivity.hideOrShowUIWithoutClosingPlacePage(true);
     if (savedInstanceState != null)
       setMapObject(Utils.getParcelable(savedInstanceState, EXTRA_MAP_OBJECT, MapObject.class));
 
