@@ -218,8 +218,8 @@ public class NavMenu
 
     if (mCurrentSpeedLimit > 0.0)
     {
-      Pair<String, String> speedLimitAndUnits = StringUtils.nativeFormatSpeedAndUnits(last.getSpeed());
-      mSpeedValue.setText(speedAndUnits.first + " / " + speedLimitAndUnits.first);
+      Pair<String, String> speedLimitAndUnits = StringUtils.nativeFormatSpeedAndUnits(mCurrentSpeedLimit);
+      mSpeedValue.setText(speedAndUnits.first + "\u202F/\u202F" + speedLimitAndUnits.first);
     }
     else
       mSpeedValue.setText(speedAndUnits.first);
