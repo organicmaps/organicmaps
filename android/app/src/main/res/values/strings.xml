@@ -418,7 +418,8 @@
 	<string name="categories">Categories</string>
 	<string name="history">History</string>
 	<string name="search_not_found">Oops, no results found.</string>
-	<string name="search_not_found_query">Try changing your search criteria.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Download the region where you are searching or try adding a nearby town/village name.</string>
 	<string name="search_history_title">Search History</string>
 	<string name="search_history_text">View your recent searches.</string>
 	<string name="clear_search">Clear Search History</string>

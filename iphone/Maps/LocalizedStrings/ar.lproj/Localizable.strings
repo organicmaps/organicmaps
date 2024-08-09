@@ -540,7 +540,8 @@
 
 "search_not_found" = "المعذرة، لم أعثر على أية نتائج.";
 
-"search_not_found_query" = "يرجى تجربة معاير بحث أخرى.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "قم بتنزيل المنطقة التي تبحث فيها أو حاول إضافة اسم بلدة/قرية قريبة.";
 
 "search_history_title" = "سجل البحث";
 

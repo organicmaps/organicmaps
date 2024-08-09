@@ -395,7 +395,8 @@
 	<string name="categories">Categories</string>
 	<string name="history">Historial</string>
 	<string name="search_not_found">Ups! No s\'ha trobat cap resultat.</string>
-	<string name="search_not_found_query">Proveu de canviar els criteris de cerca.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Baixeu la regió on esteu cercant o proveu d\'afegir un nom de ciutat o poble proper.</string>
 	<string name="search_history_title">Historial de cerca</string>
 	<string name="search_history_text">Mostra les cerques recents.</string>
 	<string name="clear_search">Buida l\'historial de cerques.</string>

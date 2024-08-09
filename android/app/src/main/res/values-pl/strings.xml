@@ -395,7 +395,8 @@
 	<string name="categories">Kategorie</string>
 	<string name="history">Historia</string>
 	<string name="search_not_found">Przepraszamy, nic nie znaleziono.</string>
-	<string name="search_not_found_query">Wpisz inne zapytanie.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Proszę pobrać region, w którym Państwo szukają lub spróbować dodać nazwę pobliskiego miasta/wsi.</string>
 	<string name="search_history_title">Historia wyszukiwania</string>
 	<string name="search_history_text">Uzyskaj szybki dostęp do ostatniego hasła wyszukiwania.</string>
 	<string name="clear_search">Wyczyść historię wyszukiwania</string>

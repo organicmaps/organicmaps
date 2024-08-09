@@ -540,7 +540,8 @@
 
 "search_not_found" = "Oops, no results found.";
 
-"search_not_found_query" = "Try changing your search criteria.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Download the region where you are searching or try adding a nearby town/village name.";
 
 "search_history_title" = "Search History";
 

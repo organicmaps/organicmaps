@@ -540,7 +540,8 @@
 
 "search_not_found" = "Нічога не знойдзена.";
 
-"search_not_found_query" = "Паспрабуйце змяніць крытэрыі пошуку.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Спампуйце рэгіён, у якім вы шукаеце, або паспрабуйце дадаць назву бліжэйшага горада/вёскі.";
 
 "search_history_title" = "Гісторыя пошуку";
 

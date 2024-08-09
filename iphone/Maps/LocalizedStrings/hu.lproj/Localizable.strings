@@ -540,7 +540,8 @@
 
 "search_not_found" = "Sajnos, semmit sem találtunk.";
 
-"search_not_found_query" = "Próbáljon másik kifejezést.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Töltse le a keresett régiót, vagy próbálja meg hozzáadni egy közeli város/falu nevét.";
 
 "search_history_title" = "Keresési előzmények";
 

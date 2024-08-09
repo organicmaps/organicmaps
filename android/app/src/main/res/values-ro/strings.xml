@@ -381,7 +381,8 @@
 	<string name="categories">Categorii</string>
 	<string name="history">Cronologie</string>
 	<string name="search_not_found">Nu s-a găsit nimic.</string>
-	<string name="search_not_found_query">Încearcă să modifici condițiile căutării.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Descărcați regiunea în care căutați sau încercați să adăugați numele unei localități din apropiere.</string>
 	<string name="search_history_title">Istoricul căutărilor</string>
 	<string name="search_history_text">Arată căutările recente.</string>
 	<string name="clear_search">Șterge istoricul căutărilor</string>

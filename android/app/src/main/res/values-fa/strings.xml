@@ -369,7 +369,8 @@
 	<string name="categories">دسته‌بندی‌ها</string>
 	<string name="history">تاریخچه</string>
 	<string name="search_not_found">متاسفانه چیزی پیدا نشد</string>
-	<string name="search_not_found_query">با تغییر در معیار‌های جستجو دوباره امتحان کنید</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">منطقه ای را که در آن جستجو می کنید دانلود کنید یا نام شهر/ روستای اطراف را اضافه کنید.</string>
 	<string name="search_history_title">سوابق جستجو</string>
 	<string name="search_history_text">مشاهده جستجو‌های اخیر</string>
 	<string name="clear_search">پاک کردن سابقه جستجوها</string>

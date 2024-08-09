@@ -540,7 +540,8 @@
 
 "search_not_found" = "Maaf, saya tidak menemukan apa pun.";
 
-"search_not_found_query" = "Silakan coba kueri lainnya.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Unduh wilayah tempat Anda mencari atau coba tambahkan nama kota/desa terdekat.";
 
 "search_history_title" = "Riwayat Pencarian";
 

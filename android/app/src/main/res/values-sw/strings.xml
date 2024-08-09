@@ -98,6 +98,8 @@
 	<string name="dialog_routing_intermediate_not_determined">Tafadhali badilisha eneo lako la kati.</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Pakua eneo ambalo unatafuta au jaribu kuongeza jina la mji/kijiji kilicho karibu.</string>
 	<!-- Status message indicating that user did not login to OSM profile yet. -->
 	<string name="not_signed_in">Hujasajiliwa</string>
 	<string name="login_osm">Ingia kwa OpenStreetMap</string>

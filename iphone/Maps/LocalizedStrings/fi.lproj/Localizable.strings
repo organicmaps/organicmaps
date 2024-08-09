@@ -540,7 +540,8 @@
 
 "search_not_found" = "Pahoittelut, hakutuloksia ei ole.";
 
-"search_not_found_query" = "Yritä jotain toista hakusanaa.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Lataa alue, jolta etsit, tai yritä lisätä läheisen kaupungin tai kylän nimi.";
 
 "search_history_title" = "Hakuhistoria";
 

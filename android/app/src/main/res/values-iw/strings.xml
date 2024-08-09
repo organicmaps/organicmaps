@@ -387,7 +387,8 @@
 	<string name="categories">קטגוריות</string>
 	<string name="history">היסטוריה</string>
 	<string name="search_not_found">אופס, לא נמצאו תוצאות.</string>
-	<string name="search_not_found_query">נסו לשנות את תנאי החיפוש.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">יש להוריד את האזור בו החיפוש מתבצע או להוסיף שם עיר/כפר קרוב.</string>
 	<string name="search_history_title">חיפושים קודמים</string>
 	<string name="search_history_text">צפה בחיפושים האחרונים שלך.</string>
 	<string name="clear_search">נקה היסטוריית חיפוש</string>

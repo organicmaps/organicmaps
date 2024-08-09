@@ -381,7 +381,8 @@
 	<string name="categories">Categorie</string>
 	<string name="history">Cronologia</string>
 	<string name="search_not_found">Non ho trovato nulla.</string>
-	<string name="search_not_found_query">Prova con un\'altra ricerca.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Scarichi la regione in cui sta effettuando la ricerca o provi ad aggiungere il nome di una città/villaggio vicino.</string>
 	<string name="search_history_title">Cronologia delle ricerche</string>
 	<string name="search_history_text">Visualizza le ricerche recenti.</string>
 	<string name="clear_search">Cancella сronologia ricerche</string>

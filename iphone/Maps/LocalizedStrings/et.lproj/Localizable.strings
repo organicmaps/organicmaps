@@ -540,7 +540,8 @@
 
 "search_not_found" = "Vabandust, tulemusi ei leitud.";
 
-"search_not_found_query" = "Proovi muuta otsingutingimusi.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Laadige alla piirkond, kus te otsite, või proovige lisada lähedalasuva linna/küla nimi.";
 
 "search_history_title" = "Otsinguajalugu";
 

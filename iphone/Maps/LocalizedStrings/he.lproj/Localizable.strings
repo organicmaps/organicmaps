@@ -540,7 +540,8 @@
 
 "search_not_found" = "אופס, לא נמצאו תוצאות.";
 
-"search_not_found_query" = "נסו לשנות את תנאי החיפוש.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "יש להוריד את האזור בו החיפוש מתבצע או להוסיף שם עיר/כפר קרוב.";
 
 "search_history_title" = "חיפושים קודמים";
 

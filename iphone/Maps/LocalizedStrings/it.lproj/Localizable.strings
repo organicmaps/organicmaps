@@ -540,7 +540,8 @@
 
 "search_not_found" = "Non ho trovato nulla.";
 
-"search_not_found_query" = "Prova con un'altra ricerca.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Scarichi la regione in cui sta effettuando la ricerca o provi ad aggiungere il nome di una città/villaggio vicino.";
 
 "search_history_title" = "Cronologia delle ricerche";
 

@@ -331,7 +331,8 @@
 	<string name="categories">श्रेणियाँ</string>
 	<string name="history">इतिहास</string>
 	<string name="search_not_found">उफ़, कोई परिणाम नहीं मिला.</string>
-	<string name="search_not_found_query">अपना खोज मानदण्ड बदलने का प्रयास करें।</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">उस क्षेत्र को डाउनलोड करें जहां आप खोज रहे हैं या पास के शहर/गांव का नाम जोड़ने का प्रयास करें।</string>
 	<string name="search_history_title">खोज इतिहास</string>
 	<string name="clear_search">स्पष्ट इतिहास की खोज</string>
 	<!-- Place Page link to Wikipedia article (if map object has it). -->

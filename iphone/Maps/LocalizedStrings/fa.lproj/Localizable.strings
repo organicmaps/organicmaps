@@ -540,7 +540,8 @@
 
 "search_not_found" = "متاسفانه چیزی پیدا نشد";
 
-"search_not_found_query" = "با تغییر در معیار‌های جستجو دوباره امتحان کنید";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "منطقه ای را که در آن جستجو می کنید دانلود کنید یا نام شهر/ روستای اطراف را اضافه کنید.";
 
 "search_history_title" = "سوابق جستجو";
 

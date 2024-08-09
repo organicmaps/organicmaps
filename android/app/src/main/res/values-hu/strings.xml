@@ -390,7 +390,8 @@
 	<string name="categories">Kategóriák</string>
 	<string name="history">Előzmények</string>
 	<string name="search_not_found">Sajnos, semmit sem találtunk.</string>
-	<string name="search_not_found_query">Próbáljon másik kifejezést.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Töltse le a keresett régiót, vagy próbálja meg hozzáadni egy közeli város/falu nevét.</string>
 	<string name="search_history_title">Keresési előzmények</string>
 	<string name="search_history_text">Legutóbbi keresések gyors elérése.</string>
 	<string name="clear_search">A keresési előzmények törlése</string>

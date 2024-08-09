@@ -398,7 +398,8 @@
 	<string name="categories">Категорії</string>
 	<string name="history">Історія</string>
 	<string name="search_not_found">На жаль, нічого не знайдено.</string>
-	<string name="search_not_found_query">Спробуйте змінити запит.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Завантажте регіон, де ви шукаєте, або спробуйте додати назву найближчого міста/села.</string>
 	<string name="search_history_title">Історія пошуку</string>
 	<string name="search_history_text">Швидкий доступ до недавніх результатів пошуку.</string>
 	<string name="clear_search">Очистити історію пошуку</string>

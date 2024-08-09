@@ -395,7 +395,8 @@
 	<string name="categories">Kateqoriyalar</string>
 	<string name="history">Keçmiş</string>
 	<string name="search_not_found">Üzr istəyirik, heç bir nəticə tapılmadı.</string>
-	<string name="search_not_found_query">Axtarış kriteriyalarınızı dəyişməyə cəhd edin.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Axtardığınız bölgəni endirin və ya yaxınlıqdakı şəhər/kənd adını əlavə etməyə cəhd edin.</string>
 	<string name="search_history_title">Axtarış tarixçəsi</string>
 	<string name="search_history_text">Son axtarışlara baxın.</string>
 	<string name="clear_search">Axtarış Tarixçəsini silin</string>

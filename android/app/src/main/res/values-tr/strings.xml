@@ -395,7 +395,8 @@
 	<string name="categories">Kategoriler</string>
 	<string name="history">Geçmiş</string>
 	<string name="search_not_found">Üzgünüz, hiç bir şey bulamadık.</string>
-	<string name="search_not_found_query">Lütfen başka bir sorgu girin.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Arama yaptığınız bölgeyi indirin veya yakındaki bir kasaba/köy adını eklemeyi deneyin.</string>
 	<string name="search_history_title">Arama Geçmişi</string>
 	<string name="search_history_text">Son aramaları görüntüleyin.</string>
 	<string name="clear_search">Arama Geçmişini Temizle</string>

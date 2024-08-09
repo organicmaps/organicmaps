@@ -366,7 +366,8 @@
 	<string name="categories">Категории</string>
 	<string name="history">История</string>
 	<string name="search_not_found">За съжаление не са намерени резултати.</string>
-	<string name="search_not_found_query">Опитайте да промените критериите за търсене.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Изтеглете региона, в който търсите, или опитайте да добавите име на близък град/село.</string>
 	<string name="search_history_title">История на търсенията</string>
 	<string name="search_history_text">Преглед на последните търсения.</string>
 	<string name="clear_search">Изчистване на историята на търсенията</string>

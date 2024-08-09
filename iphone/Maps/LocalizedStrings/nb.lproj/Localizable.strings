@@ -540,7 +540,8 @@
 
 "search_not_found" = "Beklager, jeg fant ingenting.";
 
-"search_not_found_query" = "Vennligst prøv et annet søk.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Last ned regionen du søker i, eller prøv å legge til et bynavn i nærheten.";
 
 "search_history_title" = "Søkehistorikk";
 

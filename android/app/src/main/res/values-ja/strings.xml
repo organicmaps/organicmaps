@@ -395,7 +395,8 @@
 	<string name="categories">カテゴリー</string>
 	<string name="history">履歴</string>
 	<string name="search_not_found">該当するものは見つかりませんでした。</string>
-	<string name="search_not_found_query">条件を変えて検索してみてください。</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">検索する地域をダウンロードするか、近隣の町村名を追加してみてください。</string>
 	<string name="search_history_title">検索履歴</string>
 	<string name="search_history_text">最近の検索を表示します。</string>
 	<string name="clear_search">検索履歴を消去</string>

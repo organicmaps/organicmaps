@@ -540,7 +540,8 @@
 
 "search_not_found" = "Barkatu, ez dut ezer aurkitu.";
 
-"search_not_found_query" = "Saiatu bilaketa-irizpideak aldatzen.";
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Deskargatu bilatzen ari zaren eskualdea edo saiatu inguruko herri/herri izena gehitzen.";
 
 "search_history_title" = "Bilaketa historia";
 

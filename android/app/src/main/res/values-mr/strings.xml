@@ -365,7 +365,8 @@
 	<string name="categories">प्रवर्ग</string>
 	<string name="history">इतिहास</string>
 	<string name="search_not_found">अरेच्चा, काहीच सापडले नाही.</string>
-	<string name="search_not_found_query">तुमचे शोध निकष बदलण्याचा प्रयत्न करा.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">तुम्ही जिथे शोधत आहात तो प्रदेश डाउनलोड करा किंवा जवळच्या शहर/गावाचे नाव जोडण्याचा प्रयत्न करा.</string>
 	<string name="search_history_title">शोध इतिहास</string>
 	<string name="search_history_text">अलीकडील शोध पहा.</string>
 	<string name="clear_search">शोध इतिहास पुसून टाका</string>

@@ -393,7 +393,8 @@
 	<string name="categories">Kategórie</string>
 	<string name="history">Archív</string>
 	<string name="search_not_found">Ľutujeme, ale nič sme nenašli.</string>
-	<string name="search_not_found_query">Vyskúšajte, prosím, iný hľadaný výraz.</string>
+	<!-- The message when user did not find anything in the search. -->
+	<string name="search_not_found_query">Stiahnite si región, v ktorom hľadáte, alebo skúste pridať názov blízkeho mesta/obce.</string>
 	<string name="search_history_title">História vyhľadávania</string>
 	<string name="search_history_text">Rýchlo pristupujte k nedávnym hľadaným výrazom.</string>
 	<string name="clear_search">Vymazať históriu vyhľadávania</string>
