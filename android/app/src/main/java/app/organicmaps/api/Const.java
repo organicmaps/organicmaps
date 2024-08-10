@@ -9,6 +9,9 @@ public class Const
   public static final String EXTRA_PREFIX = AUTHORITY + ".extra";
   public static final String ACTION_PREFIX = AUTHORITY + ".action";
 
+  // Request extras
+  public static final String EXTRA_PICK_POINT = EXTRA_PREFIX + ".PICK_POINT";
+
   // Response extras
   public static final String EXTRA_POINT_NAME = EXTRA_PREFIX + ".POINT_NAME";
   public static final String EXTRA_POINT_LAT = EXTRA_PREFIX + ".POINT_LAT";

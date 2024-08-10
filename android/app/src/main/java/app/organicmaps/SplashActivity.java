@@ -18,6 +18,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import app.organicmaps.display.DisplayManager;
+import app.organicmaps.intent.Factory;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.LocationUtils;
@@ -39,6 +40,9 @@ public class SplashActivity extends AppCompatActivity
 
   private boolean mCanceled = false;
 
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private ActivityResultLauncher<Intent> mApiRequest;
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private ActivityResultLauncher<String[]> mPermissionRequest;
@@ -66,6 +70,10 @@ public class SplashActivity extends AppCompatActivity
     setContentView(R.layout.activity_splash);
     mPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
         result -> Config.setLocationRequested());
+    mApiRequest = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+      setResult(result.getResultCode(), result.getData());
+      finish();
+    });
     mShareLauncher = SharingUtils.RegisterLauncher(this);
 
     if (DisplayManager.from(this).isCarDisplayUsed())
@@ -107,6 +115,8 @@ public class SplashActivity extends AppCompatActivity
     super.onDestroy();
     mPermissionRequest.unregister();
     mPermissionRequest = null;
+    mApiRequest.unregister();
+    mApiRequest = null;
   }
 
   private void showFatalErrorDialog(@StringRes int titleId, @StringRes int messageId, Exception error)
@@ -171,6 +181,13 @@ public class SplashActivity extends AppCompatActivity
     // Flags like FLAG_ACTIVITY_NEW_TASK and FLAG_ACTIVITY_RESET_TASK_IF_NEEDED will break the cold start of the app.
     // https://github.com/organicmaps/organicmaps/pull/7287
     intent.setFlags(intent.getFlags() & (Intent.FLAG_ACTIVITY_FORWARD_RESULT | Intent.FLAG_GRANT_READ_URI_PERMISSION));
+
+    if (Factory.isStartedForApiResult(intent))
+    {
+      // Wait for the result from MwmActivity for API callers.
+      mApiRequest.launch(intent);
+      return;
+    }
 
     Config.setFirstStartDialogSeen(this);
     startActivity(intent);

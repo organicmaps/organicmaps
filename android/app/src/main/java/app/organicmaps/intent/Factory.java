@@ -28,11 +28,14 @@ import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
+import static app.organicmaps.api.Const.EXTRA_PICK_POINT;
+
 public class Factory
 {
   public static boolean isStartedForApiResult(@NonNull Intent intent)
   {
-    return (intent.getFlags() & Intent.FLAG_ACTIVITY_FORWARD_RESULT) != 0;
+    return ((intent.getFlags() & Intent.FLAG_ACTIVITY_FORWARD_RESULT) != 0)
+           || intent.getBooleanExtra(EXTRA_PICK_POINT, false);
   }
 
   public static class KmzKmlProcessor implements IntentProcessor

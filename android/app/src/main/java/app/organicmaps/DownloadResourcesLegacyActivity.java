@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.CallSuper;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
@@ -22,6 +24,7 @@ import androidx.annotation.StyleRes;
 import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.downloader.CountryItem;
 import app.organicmaps.downloader.MapManager;
+import app.organicmaps.intent.Factory;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.util.Config;
@@ -58,6 +61,9 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
   @Nullable
   private Dialog mAlertDialog;
+
+  @NonNull
+  private ActivityResultLauncher<Intent> mApiRequest;
 
   private boolean mAreResourcesDownloaded;
 
@@ -187,6 +193,10 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     UiUtils.setLightStatusBar(this, true);
     setContentView(R.layout.activity_download_resources);
     initViewsAndListeners();
+    mApiRequest = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+      setResult(result.getResultCode(), result.getData());
+      finish();
+    });
 
     if (prepareFilesDownload(false))
     {
@@ -205,6 +215,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   protected void onSafeDestroy()
   {
     super.onSafeDestroy();
+    mApiRequest.unregister();
+    mApiRequest = null;
     Utils.keepScreenOn(Config.isKeepScreenOnEnabled(), getWindow());
     if (mCountryDownloadListenerSlot != 0)
     {
@@ -346,6 +358,14 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
     // Disable animation because MwmActivity should appear exactly over this one
     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+    // See {@link SplashActivity.processNavigation()}
+    if (Factory.isStartedForApiResult(intent))
+    {
+      // Wait for the result from MwmActivity for API callers.
+      mApiRequest.launch(intent);
+      return;
+    }
 
     startActivity(intent);
     finish();
