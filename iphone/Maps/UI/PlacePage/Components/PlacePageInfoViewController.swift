@@ -127,6 +127,8 @@ class PlacePageInfoViewController: UIViewController {
   private var openWithAppView: InfoItemViewController?
   private var capacityView: InfoItemViewController?
   private var wheelchairView: InfoItemViewController?
+  private var selfServiceView: InfoItemViewController?
+  private var outdoorSeatingView: InfoItemViewController?
   private var driveThroughView: InfoItemViewController?
 
   var placePageInfoData: PlacePageInfoData!
@@ -249,6 +251,14 @@ class PlacePageInfoViewController: UIViewController {
 
     if let wheelchair = placePageInfoData.wheelchair {
       wheelchairView = createInfoItem(wheelchair, icon: UIImage(named: "ic_placepage_wheelchair"))
+    }
+
+    if let selfService = placePageInfoData.selfService {
+      selfServiceView = createInfoItem(selfService, icon: UIImage(named: "ic_placepage_self_service"))
+    }
+
+    if let outdoorSeating = placePageInfoData.outdoorSeating {
+      outdoorSeatingView = createInfoItem(outdoorSeating, icon: UIImage(named: "ic_placepage_outdoor_seating"))
     }
 
     if let driveThrough = placePageInfoData.driveThrough {

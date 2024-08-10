@@ -32,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) NSString *wheelchair;
 @property(nonatomic, readonly, nullable) NSString *driveThrough;
 @property(nonatomic, readonly, nullable) NSString *websiteMenu;
+@property(nonatomic, readonly, nullable) NSString *selfService;
+@property(nonatomic, readonly, nullable) NSString *outdoorSeating;
 
 @end
 
