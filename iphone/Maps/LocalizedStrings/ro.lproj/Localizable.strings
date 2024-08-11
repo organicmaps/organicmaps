@@ -1368,6 +1368,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "Deschidere în altă aplicație";
 
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "Scaune în aer liber";
+
 
 /********** Types **********/
 
@@ -3980,3 +3983,11 @@
 "type.shop.auction" = "Licitație";
 
 "type.shop.collector" = "Colecții";
+
+"type.self_service.yes" = "Autoservire disponibilă";
+
+"type.self_service.only" = "Numai autoservire";
+
+"type.self_service.partially" = "Autoservire parțială";
+
+"type.self_service.no" = "Fără autoservire";

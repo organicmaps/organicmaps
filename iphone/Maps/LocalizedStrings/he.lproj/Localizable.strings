@@ -1368,6 +1368,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "פתח באפליקציה אחרת";
 
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "ישיבה בחוץ";
+
 
 /********** Types **********/
 
@@ -3980,3 +3983,11 @@
 "type.shop.auction" = "מכירה פומבית";
 
 "type.shop.collector" = "פריטי אספנות";
+
+"type.self_service.yes" = "שירות עצמי זמין";
+
+"type.self_service.only" = "שירות עצמי בלבד";
+
+"type.self_service.partially" = "שירות עצמי חלקי";
+
+"type.self_service.no" = "אין שירות עצמי";

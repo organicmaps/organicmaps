@@ -1368,6 +1368,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "در یک برنامه دیگر باز کنید";
 
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "نشستن در فضای باز";
+
 
 /********** Types **********/
 
@@ -3980,3 +3983,11 @@
 "type.shop.auction" = "حراج";
 
 "type.shop.collector" = "کلکسیونی ها";
+
+"type.self_service.yes" = "سلف سرویس در دسترس است";
+
+"type.self_service.only" = "فقط سلف سرویس";
+
+"type.self_service.partially" = "سلف سرویس جزئی";
+
+"type.self_service.no" = "بدون سلف سرویس";

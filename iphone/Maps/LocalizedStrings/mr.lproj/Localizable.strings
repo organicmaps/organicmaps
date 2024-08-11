@@ -1368,6 +1368,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "दुसऱ्या ॲपमध्ये उघडा";
 
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "बाहेरची आसनव्यवस्था    nb = Uteservering";
+
 
 /********** Types **********/
 
@@ -3980,3 +3983,11 @@
 "type.shop.auction" = "लिलाव";
 
 "type.shop.collector" = "संग्रहणीय वस्तू";
+
+"type.self_service.yes" = "स्वयं-सेवा उपलब्ध";
+
+"type.self_service.only" = "फक्त स्व-सेवा";
+
+"type.self_service.partially" = "आंशिक स्व-सेवा";
+
+"type.self_service.no" = "स्व-सेवा नाही";

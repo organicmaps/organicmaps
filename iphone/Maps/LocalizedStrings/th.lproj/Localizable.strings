@@ -1368,6 +1368,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "เปิดในแอปอื่น";
 
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "ที่นั่งกลางแจ้ง";
+
 
 /********** Types **********/
 
@@ -3980,3 +3983,11 @@
 "type.shop.auction" = "ประมูล";
 
 "type.shop.collector" = "ของสะสม";
+
+"type.self_service.yes" = "มีบริการด้วยตนเอง";
+
+"type.self_service.only" = "บริการตนเองเท่านั้น";
+
+"type.self_service.partially" = "การบริการตนเองบางส่วน";
+
+"type.self_service.no" = "ไม่มีบริการตนเอง";

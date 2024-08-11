@@ -1368,6 +1368,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "Başqa Tətbiqdə Açın";
 
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "Çöldə oturma";
+
 
 /********** Types **********/
 
@@ -3980,3 +3983,11 @@
 "type.shop.auction" = "Hərrac";
 
 "type.shop.collector" = "Kolleksiya əşyaları";
+
+"type.self_service.yes" = "Özünə xidmət mövcuddur";
+
+"type.self_service.only" = "Yalnız özünə xidmət";
+
+"type.self_service.partially" = "Qismən özünəxidmət";
+
+"type.self_service.no" = "Özünə xidmət yoxdur";

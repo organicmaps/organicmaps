@@ -1368,6 +1368,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "別のアプリで開く";
 
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "屋外席";
+
 
 /********** Types **********/
 
@@ -3980,3 +3983,11 @@
 "type.shop.auction" = "オークション";
 
 "type.shop.collector" = "コレクタブル";
+
+"type.self_service.yes" = "セルフサービス可能";
+
+"type.self_service.only" = "セルフサービスのみ";
+
+"type.self_service.partially" = "一部セルフサービス";
+
+"type.self_service.no" = "セルフサービスはない";

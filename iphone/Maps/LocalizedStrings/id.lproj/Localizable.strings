@@ -1368,6 +1368,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "Buka di Aplikasi Lain";
 
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "Tempat duduk di luar ruangan";
+
 
 /********** Types **********/
 
@@ -3980,3 +3983,11 @@
 "type.shop.auction" = "Lelang";
 
 "type.shop.collector" = "Barang koleksi";
+
+"type.self_service.yes" = "Tersedia layanan mandiri";
+
+"type.self_service.only" = "Hanya layanan mandiri";
+
+"type.self_service.partially" = "Layanan mandiri sebagian";
+
+"type.self_service.no" = "Tidak ada layanan mandiri";

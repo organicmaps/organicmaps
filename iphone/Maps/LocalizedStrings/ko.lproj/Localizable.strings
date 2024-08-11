@@ -1368,6 +1368,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "다른 앱에서 열기";
 
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "야외 좌석";
+
 
 /********** Types **********/
 
@@ -3980,3 +3983,11 @@
 "type.shop.auction" = "경매";
 
 "type.shop.collector" = "수집품";
+
+"type.self_service.yes" = "셀프 서비스 사용 가능";
+
+"type.self_service.only" = "셀프 서비스 전용";
+
+"type.self_service.partially" = "부분 셀프 서비스";
+
+"type.self_service.no" = "셀프 서비스 없음";
