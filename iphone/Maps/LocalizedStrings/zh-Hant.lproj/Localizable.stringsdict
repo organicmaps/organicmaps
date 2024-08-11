@@ -35,7 +35,7 @@
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
       <key>other</key>
-      <string>找到%d個文件。 轉換後你會看到它。</string>
+      <string>找到 %d 個文件，轉換後您才能看到它們。</string>
     </dict>
   </dict>
 
@@ -50,7 +50,7 @@
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
       <key>other</key>
-      <string>%d 軌跡</string>
+      <string>%d 個軌跡</string>
     </dict>
   </dict>
 </dict>
