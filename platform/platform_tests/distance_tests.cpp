@@ -83,15 +83,7 @@ UNIT_TEST(Distance_CreateAltitudeFormatted)
     ScopedSettings const guard(measurement_utils::Units::Metric);
 
     TEST_EQUAL(Distance::FormatAltitude(5), MakeDistanceStr("5", Meters), ());
-  }
-  {
-    ScopedSettings const guard(measurement_utils::Units::Metric);
-
-    TEST_EQUAL(Distance::FormatAltitude(-8849), MakeDistanceStr("-8,849", Meters), ());
-  }
-  {
-    ScopedSettings const guard(measurement_utils::Units::Metric);
-
+    TEST_EQUAL(Distance::FormatAltitude(-8849), MakeDistanceStr("-8849", Meters), ());
     TEST_EQUAL(Distance::FormatAltitude(12345), MakeDistanceStr("12,345", Meters), ());
   }
   {
@@ -289,11 +281,11 @@ UNIT_TEST(Distance_FormattedDistance)
     {Distance(100.01,  Kilometers), 100,   Kilometers, "100"},
     {Distance(115,     Kilometers), 115,   Kilometers, "115"},
     {Distance(999,     Kilometers), 999,   Kilometers, "999"},
-    {Distance(1000,    Kilometers), 1000,  Kilometers, "1,000"},
-    {Distance(1049.99, Kilometers), 1050,  Kilometers, "1,050"},
-    {Distance(1050,    Kilometers), 1050,  Kilometers, "1,050"},
-    {Distance(1050.01, Kilometers), 1050,  Kilometers, "1,050"},
-    {Distance(1234,    Kilometers), 1234,  Kilometers, "1,234"},
+    {Distance(1000,    Kilometers), 1000,  Kilometers, "1000"},
+    {Distance(1049.99, Kilometers), 1050,  Kilometers, "1050"},
+    {Distance(1050,    Kilometers), 1050,  Kilometers, "1050"},
+    {Distance(1050.01, Kilometers), 1050,  Kilometers, "1050"},
+    {Distance(1234,    Kilometers), 1234,  Kilometers, "1234"},
     {Distance(12345,   Kilometers), 12345, Kilometers, "12,345"},
 
     // From Feet to Feet
@@ -316,9 +308,9 @@ UNIT_TEST(Distance_FormattedDistance)
     {Distance(54,      Miles),      54,    Miles,      "54"},
     {Distance(145,     Miles),      145,   Miles,      "145"},
     {Distance(999,     Miles),      999,   Miles,      "999"},
-    {Distance(1149.99, Miles),      1150,  Miles,      "1,150"},
-    {Distance(1150,    Miles),      1150,  Miles,      "1,150"},
-    {Distance(1150.01, Miles),      1150,  Miles,      "1,150"},
+    {Distance(1149.99, Miles),      1150,  Miles,      "1150"},
+    {Distance(1150,    Miles),      1150,  Miles,      "1150"},
+    {Distance(1150.01, Miles),      1150,  Miles,      "1150"},
     {Distance(12345.0, Miles),      12345, Miles,      "12,345"},
 
     // From Meters to Kilometers
