@@ -1368,6 +1368,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "Otevřít v jiné aplikaci";
 
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "Venkovní posezení";
+
 
 /********** Types **********/
 
@@ -3980,3 +3983,11 @@
 "type.shop.auction" = "Aukce";
 
 "type.shop.collector" = "Sběratelské předměty";
+
+"type.self_service.yes" = "K dispozici je samoobsluha";
+
+"type.self_service.only" = "Pouze samoobsluha";
+
+"type.self_service.partially" = "Částečná samoobsluha";
+
+"type.self_service.no" = "Žádná samoobsluha";

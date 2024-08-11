@@ -1368,6 +1368,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "Apri in un'altra applicazione";
 
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "Posti a sedere all'aperto";
+
 
 /********** Types **********/
 
@@ -3980,3 +3983,11 @@
 "type.shop.auction" = "Asta";
 
 "type.shop.collector" = "Oggetti da collezione";
+
+"type.self_service.yes" = "Disponibile in self-service";
+
+"type.self_service.only" = "Solo self-service";
+
+"type.self_service.partially" = "Self-service parziale";
+
+"type.self_service.no" = "Nessun self-service";

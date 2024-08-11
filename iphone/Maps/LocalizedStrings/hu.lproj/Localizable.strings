@@ -1368,6 +1368,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "Megnyitás egy másik alkalmazásban";
 
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "Kültéri ülőhelyek";
+
 
 /********** Types **********/
 
@@ -3980,3 +3983,11 @@
 "type.shop.auction" = "Aukció";
 
 "type.shop.collector" = "Gyűjthető tárgyak";
+
+"type.self_service.yes" = "Önkiszolgálás elérhető";
+
+"type.self_service.only" = "Csak önkiszolgálás";
+
+"type.self_service.partially" = "Részleges önkiszolgálás";
+
+"type.self_service.no" = "Nincs önkiszolgálás";

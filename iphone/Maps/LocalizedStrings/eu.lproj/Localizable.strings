@@ -1368,6 +1368,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "Ireki beste aplikazio batean";
 
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "Kanpoko eserlekuak";
+
 
 /********** Types **********/
 
@@ -3980,3 +3983,11 @@
 "type.shop.auction" = "Enkantea";
 
 "type.shop.collector" = "Bildumagarriak";
+
+"type.self_service.yes" = "Autozerbitzua eskuragarri";
+
+"type.self_service.only" = "Autozerbitzua soilik";
+
+"type.self_service.partially" = "Autozerbitzu partziala";
+
+"type.self_service.no" = "Autozerbitzurik ez";

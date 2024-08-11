@@ -1368,6 +1368,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "Öppna i en annan app";
 
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "Sittplatser utomhus";
+
 
 /********** Types **********/
 
@@ -3980,3 +3983,11 @@
 "type.shop.auction" = "Auktion";
 
 "type.shop.collector" = "Samlingsföremål";
+
+"type.self_service.yes" = "Självbetjäning tillgänglig";
+
+"type.self_service.only" = "Endast självbetjäning";
+
+"type.self_service.partially" = "Delvis självbetjäning";
+
+"type.self_service.no" = "Ingen självbetjäning";

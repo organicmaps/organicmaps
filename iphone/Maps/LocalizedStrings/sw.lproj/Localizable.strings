@@ -1368,6 +1368,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "Fungua Katika Programu Nyingine";
 
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "Viti vya nje";
+
 
 /********** Types **********/
 
@@ -3980,3 +3983,11 @@
 "type.shop.auction" = "Mnada";
 
 "type.shop.collector" = "Mikusanyiko";
+
+"type.self_service.yes" = "Huduma ya kibinafsi inapatikana";
+
+"type.self_service.only" = "Kujihudumia pekee";
+
+"type.self_service.partially" = "Kujihudumia kwa sehemu";
+
+"type.self_service.no" = "Hakuna huduma binafsi";

@@ -1368,6 +1368,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "Avatud teises rakenduses";
 
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "Istekohad õues";
+
 
 /********** Types **********/
 
@@ -3980,3 +3983,11 @@
 "type.shop.auction" = "Oksjon";
 
 "type.shop.collector" = "Kollektsioneeritavad esemed";
+
+"type.self_service.yes" = "Iseteenindus saadaval";
+
+"type.self_service.only" = "Ainult iseteenindus";
+
+"type.self_service.partially" = "Osaline iseteenindus";
+
+"type.self_service.no" = "Iseteenindus puudub";

@@ -1368,6 +1368,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "Отваряне в друго приложение";
 
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "Места за сядане на открито";
+
 
 /********** Types **********/
 
@@ -3980,3 +3983,11 @@
 "type.shop.auction" = "Търг";
 
 "type.shop.collector" = "Колекционерски стоки";
+
+"type.self_service.yes" = "Налично е самообслужване";
+
+"type.self_service.only" = "Само на самообслужване";
+
+"type.self_service.partially" = "Частично самообслужване";
+
+"type.self_service.no" = "Няма самообслужване";

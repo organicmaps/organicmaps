@@ -1368,6 +1368,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "Άνοιγμα σε άλλη εφαρμογή";
 
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "Εξωτερικά καθίσματα";
+
 
 /********** Types **********/
 
@@ -3980,3 +3983,11 @@
 "type.shop.auction" = "Δημοπρασία";
 
 "type.shop.collector" = "Συλλεκτικά αντικείμενα";
+
+"type.self_service.yes" = "Διαθέσιμη αυτοεξυπηρέτηση";
+
+"type.self_service.only" = "Μόνο αυτοεξυπηρέτηση";
+
+"type.self_service.partially" = "Μερική αυτοεξυπηρέτηση";
+
+"type.self_service.no" = "Δεν υπάρχει αυτοεξυπηρέτηση";
