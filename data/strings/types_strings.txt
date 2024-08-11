@@ -32238,7 +32238,6 @@
     zh-Hant = 收藏品
 
   [type.self_service.yes]
-    tags = android
     en = Self-service available
     af = Selfbediening beskikbaar
     ar = الخدمة الذاتية متاحة
@@ -32283,7 +32282,6 @@
     zh-Hant = 提供自助服務
 
   [type.self_service.only]
-    tags = android
     en = Self-service only
     af = Slegs selfbediening
     ar = الخدمة الذاتية فقط
@@ -32328,7 +32326,6 @@
     zh-Hant = 僅限自助服務
 
   [type.self_service.partially]
-    tags = android
     en = Partial self-service
     af = Gedeeltelike selfbediening
     ar = خدمة ذاتية جزئية
@@ -32373,7 +32370,6 @@
     zh-Hant = 部分自助服務
 
   [type.self_service.no]
-    tags = android
     en = No self-service
     af = Geen selfbediening nie
     ar = لا توجد خدمة ذاتية

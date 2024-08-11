@@ -31115,7 +31115,7 @@
 
   [outdoor_seating]
     comment = To indicate if restaurant or other place has outdoor seating
-    tags = android
+    tags = android,ios
     en = Outdoor seating
     af = Buitelug sitplek
     ar = مقاعد خارجية
