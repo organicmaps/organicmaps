@@ -188,7 +188,7 @@ tr:4Ulaşım
 uk:5Транспорт
 vi:Giao thông
 zh-Hans:交通
-zh-Hant:運輸
+zh-Hant:交通
 el:Συγκοινωνία
 he:תחבורה
 sk:Doprava
@@ -228,7 +228,7 @@ th:ก๊าซ
 tr:3Benzinlik|3Yakıt|3Akaryakıt|2Dizel|2Gaz
 uk:3бензин|3дызель|4паліва|газ
 vi:Khí đốt
-zh-Hans:汽油
+zh-Hans:加油站
 zh-Hant:加油站
 el:Υγρά Καύσιμα
 he:גז
@@ -353,8 +353,8 @@ th:โรงแรม
 tr:Otel|Oteller
 uk:4Готель|готелі
 vi:Khách sạn
-zh-Hans:旅店|酒店|賓館
-zh-Hant:飯店|酒店|宾馆
+zh-Hans:酒店|旅店|賓館
+zh-Hant:旅馆|飯店|酒店|宾馆
 el:4Ξενοδοχείο|Διαμονή|Ξενοδοχεία
 he:מלון|בתי
 sk:Hotel|Hotely
@@ -559,7 +559,7 @@ tr:3Bankamatik
 uk:3Банкомат
 vi:ATM
 zh-Hans:自动取款机
-zh-Hant:1自動櫃員機
+zh-Hant:1自動提款機
 el:ATM
 he:כספומט
 sk:3Bankomat
@@ -604,8 +604,8 @@ th:สำหรับ RV
 tr:4Karavan Tesisleri
 uk:Для автобудинків|5Автодім|5Автобудинок|5Трейлер|5Караван|Будинок на колесах
 vi:Đối với RV
-zh-Hans:房车用
-zh-Hant:房車用
+zh-Hans:房车设施
+zh-Hant:露營車設施
 ca:Autocaravana
 
 amenity-atm|@category_atm
@@ -725,7 +725,7 @@ tr:İkinci el
 uk:Секонд-хенд
 vi:Đồ cũ
 zh-Hans:二手货
-zh-Hant:二手
+zh-Hant:二手貨
 
 amenity-bank|@category_bank
 en:money|U+1F3E6|U+1F4B0|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
@@ -5781,7 +5781,7 @@ sv:apotekare
 th:เภสัชกร
 uk:3ліки
 zh-Hans:药店|药剂师
-zh-Hant:成藥
+zh-Hant:藥局
 el:φαρμακείο|φαρμακοποιός|χορήγηση φαρμάκων
 fa:داروخانه
 
@@ -5817,7 +5817,7 @@ th:3ไปรษณีย์
 tr:3Posta
 uk:3Пошта
 vi:Bưu điện
-zh-Hans:1邮政
+zh-Hans:1邮局
 zh-Hant:1郵局
 el:Ταχυδρομείο
 he:דואר
