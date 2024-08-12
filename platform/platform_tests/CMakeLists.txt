@@ -10,6 +10,7 @@ set(SRC
   jansson_test.cpp
   language_test.cpp
   local_country_file_tests.cpp
+  locale_utils.cpp
   location_test.cpp
   measurement_tests.cpp
   platform_test.cpp
