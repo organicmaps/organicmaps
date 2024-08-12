@@ -190,7 +190,7 @@ std::string NotificationManager::GenerateFirstTurnSound(TurnItem const & turn, d
               m_settings.RoundByPresetSoundedDistancesUnits(distToPronounceUnits);
           m_nextTurnNotificationProgress = PronouncedNotification::First;
 
-          LOG(LINFO,("TTS Distance to pronounce/turn/start/speed:",distanceToPronounceNotificationM,distanceToTurnMeters,startPronounceDistMeters,m_speedMetersPerSecond));
+          LOG(LINFO, ("TTS meters to pronounce", distanceToPronounceNotificationM, "meters to turn", distanceToTurnMeters, "meters to start pronounce", startPronounceDistMeters, "speed m/s", m_speedMetersPerSecond));
           return GenerateTurnText(roundedDistToPronounceUnits, turn.m_exitNum, false /* useThenInsteadOfDistance */,
                                   turn, nextStreetInfo);
         }
