@@ -251,7 +251,7 @@ private:
     NonOwningReaderSource source(reader);
     m_header.Deserialize(source);
 
-    if (m_header.m_version == Version::V8)
+    if (m_header.m_version == Version::V8 || m_header.m_version == Version::V9)
     {
       // Check if file has Opensource V8 or MapsMe V8.
       // Actual V8 format has 6 offset (uint64_t) in header. While V8MM has 5 offsets.
