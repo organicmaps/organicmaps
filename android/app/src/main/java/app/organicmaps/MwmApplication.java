@@ -29,6 +29,8 @@ import app.organicmaps.downloader.MapManager;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationState;
 import app.organicmaps.location.SensorHelper;
+import app.organicmaps.location.TrackRecorder;
+import app.organicmaps.location.TrackRecordingService;
 import app.organicmaps.maplayer.isolines.IsolinesManager;
 import app.organicmaps.maplayer.subway.SubwayManager;
 import app.organicmaps.maplayer.traffic.TrafficManager;
@@ -160,6 +162,7 @@ public class MwmApplication extends Application implements Application.ActivityL
 
     DownloaderNotifier.createNotificationChannel(this);
     NavigationService.createNotificationChannel(this);
+    TrackRecordingService.createNotificationChannel(this);
 
     registerActivityLifecycleCallbacks(this);
     mSubwayManager = new SubwayManager(this);
@@ -368,6 +371,8 @@ public class MwmApplication extends Application implements Application.ActivityL
       Logger.i(LOCATION_TAG, "Navigation is in progress, keeping location in the background");
     else if (!Map.isEngineCreated() || LocationState.getMode() == LocationState.PENDING_POSITION)
       Logger.i(LOCATION_TAG, "PENDING_POSITION mode, keeping location in the background");
+    else if (TrackRecorder.nativeIsEnabled())
+      Logger.i(LOCATION_TAG, "Track Recordr is active, keeping location in the background");
     else
     {
       Logger.i(LOCATION_TAG, "Stopping location in the background");
