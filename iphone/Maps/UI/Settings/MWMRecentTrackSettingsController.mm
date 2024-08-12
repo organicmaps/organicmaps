@@ -24,7 +24,7 @@ typedef NS_ENUM(NSUInteger, DurationInHours) { One = 1, Two = 2, Six = 6, Twelve
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  self.title = L(@"pref_track_record_title");
+  self.title = L(@"recent_track");
 
   if (!GpsTracker::Instance().IsEnabled())
   {

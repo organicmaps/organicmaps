@@ -6186,10 +6186,10 @@
     zh-Hans = 其他
     zh-Hant = 其他
 
-  [pref_track_record_title]
-    comment = Settings «Map» category: «Record track» title
-    tags = ios
-    en = Recent track
+  [recent_track]
+    comment = The name of the feature in the main menu, settings, and messages.
+    tags = android,ios
+    en = Recent Track
     af = Onlangse pad
     ar = المسار الأخير
     az = Son marşrut
@@ -16984,7 +16984,7 @@
     zh-Hant = 下載地圖來尋找位置和離線瀏覽。
 
   [current_location_unknown_error_title]
-    tags = ios
+    tags = android,ios
     en = Current location is unknown.
     af = Huidige ligging is onbekend.
     ar = الموقع الحالي غير معروف.
@@ -19287,7 +19287,7 @@
     zh-Hant = 來看看
 
   [recent_track_background_dialog_message]
-    tags = ios
+    tags = android,ios
     en = Organic Maps uses your location in the background to record your recently travelled route.
     af = Organic Maps gebruik u ligging in die agtergrond om u onlangs berese roete op te neem.
     ar = يستخدم Organic Maps موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.
@@ -19329,6 +19329,52 @@
     vi = Organic Maps sử dụng định vị của bạn trong ứng dụng chạy nền để ghi lại tuyến đường đã đi gần đây của bạn.
     zh-Hans = Organic Maps 在后台使用您的位置记录您最近去过的路线。
     zh-Hant = Organic Maps 在後臺使用您的位置記錄您最近去過的路線。
+
+  [track_recording]
+    comment = Shown as toast when starting the recent track recording
+    tags = android
+    en = Recording the track
+    af = Opname van die spoor
+    ar = تسجيل المسار
+    az = Marşrutu qeyd etmək
+    be = Запіс маршруту
+    bg = Записване на пътя
+    ca = Enregistrament de la pista
+    cs = Záznam trasy
+    da = Registrering af sporet
+    de = Aufnahme der Strecke
+    el = Καταγραφή της διαδρομής
+    es = Registro de la pista
+    et = Rada registreerimine
+    eu = Ibilbidea grabatzea
+    fa = ضبط مسیر
+    fi = Reitin kirjaaminen
+    fr = Enregistreur de traces
+    he = הקלטת המסלול
+    hi = ट्रैक रिकॉर्ड करना
+    hu = A nyomvonal rögzítése
+    id = Merekam jejak
+    it = Registrazione della traccia
+    ja = トラックの記録
+    ko = 트랙 기록하기
+    lt = Maršruto registravimas
+    mr = ट्रॅक रेकॉर्ड करत आहे
+    nb = Registrere sporet
+    nl = Het spoor opnemen
+    pl = Rejestrowanie trasy
+    pt = Registar a pista
+    pt-BR = Registro da pista
+    ro = Înregistrarea traseului
+    ru = Запись трека
+    sk = Zaznamenávanie trasy
+    sv = Registrering av spåret
+    sw = Kurekodi wimbo
+    th = การบันทึกเส้นทาง
+    tr = Yolun kaydedilmesi
+    uk = Запис маршруту
+    vi = Ghi lại hành trình
+    zh-Hans = 记录轨迹
+    zh-Hant = 記錄軌跡
 
   [general_settings]
     tags = ios
