@@ -33,7 +33,7 @@ echo "$iphone_strings" | wc -l
 ./tools/unix/generate_localizations.sh
 
 # Adapt \n to incluce a line break like Weblate does
-sed -i "" -E '/<string /s/\\n/\n\\n/g' $android_strings_xml
+#sed -i "" -E '/<string /s/\\n/\n\\n/g' $android_strings_xml
 # Remove blank lines before <! SECTION...
 #sed -i "" -E '/^$/d' $android_strings_xml
 # Remove EOF newlines
