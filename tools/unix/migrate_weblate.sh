@@ -68,4 +68,4 @@ sed -i "" '1,/^./{/^$/d;}' $iphone_strings $iphone_infoplist_strings # Drop spur
 #done
 
 # Remove 'other' translation form for languages that don't have it in Weblate
-sed -i "" -E '/<key>other<\/key>/,+1d' iphone/Maps/LocalizedStrings/{be,pl,ru,uk}.lproj/Localizable.stringsdict
+#sed -i "" -E '/<key>other<\/key>/,+1d' iphone/Maps/LocalizedStrings/{be,pl,ru,uk}.lproj/Localizable.stringsdict
