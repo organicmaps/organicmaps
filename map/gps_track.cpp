@@ -69,7 +69,7 @@ GpsTrack::~GpsTrack()
 void GpsTrack::AddPoint(location::GpsInfo const & point)
 {
   {
-    lock_guard<mutex> lg(m_dataGuard);
+    std::lock_guard lg(m_dataGuard);
     m_points.emplace_back(point);
   }
   ScheduleTask();
@@ -78,7 +78,7 @@ void GpsTrack::AddPoint(location::GpsInfo const & point)
 void GpsTrack::AddPoints(vector<location::GpsInfo> const & points)
 {
   {
-    lock_guard<mutex> lg(m_dataGuard);
+    std::lock_guard lg(m_dataGuard);
     m_points.insert(m_points.end(), points.begin(), points.end());
   }
   ScheduleTask();
@@ -87,11 +87,18 @@ void GpsTrack::AddPoints(vector<location::GpsInfo> const & points)
 void GpsTrack::Clear()
 {
   {
-    lock_guard<mutex> lg(m_dataGuard);
+    std::lock_guard lg(m_dataGuard);
     m_points.clear();
     m_needClear = true;
   }
   ScheduleTask();
+}
+
+bool GpsTrack::IsEmpty() const
+{
+  if (!m_collection)
+    return true;
+  return m_collection->IsEmpty();
 }
 
 void GpsTrack::SetDuration(hours duration)
@@ -99,7 +106,7 @@ void GpsTrack::SetDuration(hours duration)
   ASSERT_GREATER(duration.count(), 0, ());
 
   {
-    lock_guard<mutex> lg(m_dataGuard);
+    std::lock_guard lg(m_dataGuard);
     if (m_duration == duration)
       return;
     m_duration = duration;
@@ -110,7 +117,7 @@ void GpsTrack::SetDuration(hours duration)
 
 hours GpsTrack::GetDuration() const
 {
-  lock_guard<mutex> lg(m_dataGuard);
+  std::lock_guard lg(m_dataGuard);
   return m_duration;
 }
 
@@ -223,7 +230,7 @@ void GpsTrack::ProcessPoints()
   bool needClear;
   // Steal data for processing
   {
-    lock_guard<mutex> lg(m_dataGuard);
+    std::lock_guard lg(m_dataGuard);
     originPoints.swap(m_points);
     duration = m_duration;
     needClear = m_needClear;

@@ -17,6 +17,8 @@ public:
   void SetEnabled(bool enabled);
 
   std::chrono::hours GetDuration() const;
+  bool IsEmpty() const;
+
   void SetDuration(std::chrono::hours duration);
 
   using TGpsTrackDiffCallback =
@@ -27,6 +29,9 @@ public:
   void Disconnect();
 
   void OnLocationUpdated(location::GpsInfo const & info);
+
+  using GpsTrackCallback = std::function<bool(location::GpsTrackInfo const &, size_t)>;
+  void ForEachTrackPoint(GpsTrackCallback const & callback) const;
 
 private:
   GpsTracker();
