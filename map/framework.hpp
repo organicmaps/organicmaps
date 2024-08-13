@@ -435,6 +435,12 @@ public:
   void ConnectToGpsTracker();
   void DisconnectFromGpsTracker();
 
+  void StartTrackRecording();
+  void StopTrackRecording();
+  void SaveTrackRecordingWithName(std::string const & name);
+  bool IsTrackRecordingEmpty() const;
+  bool IsTrackRecordingEnabled() const;
+
   void SetMapStyle(MapStyle mapStyle);
   void MarkMapStyle(MapStyle mapStyle);
   MapStyle GetMapStyle() const;
