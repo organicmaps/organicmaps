@@ -63,8 +63,8 @@ private:
     using is_transparent = void;
 
     // std::size_t operator()(const char* str) const        { return hash_type{}(str); }
-    std::size_t operator()(std::string_view str) const   { return hash_type{}(str); }
-    std::size_t operator()(std::string const & str) const { return hash_type{}(str); }
+    size_t operator()(std::string_view str) const   { return hash_type{}(str); }
+    size_t operator()(std::string const & str) const { return hash_type{}(str); }
   };
 
   std::unordered_map<std::string, std::shared_ptr<Brand>, StringViewHash, std::equal_to<>> m_keyToName;
