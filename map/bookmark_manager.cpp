@@ -3,6 +3,7 @@
 #include "map/user_mark.hpp"
 #include "map/user_mark_id_storage.hpp"
 #include "map/track_mark.hpp"
+#include "map/gps_tracker.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/selection_shape.hpp"
@@ -1139,6 +1140,56 @@ kml::CompilationType BookmarkManager::GetCompilationType(kml::MarkGroupId id) co
   auto const compilation = m_compilations.find(id);
   CHECK(compilation != m_compilations.cend(), ());
   return compilation->second->GetCategoryData().m_type;
+}
+
+void BookmarkManager::SaveTrackRecording(std::string trackName)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto const & tracker = GpsTracker::Instance();
+  CHECK(!tracker.IsEmpty(), ("Track recording should be not be empty"));
+
+  kml::MultiGeometry::LineT line;
+  tracker.ForEachTrackPoint([&line](location::GpsTrackInfo const & pt, size_t id)->bool
+  {
+    line.emplace_back(mercator::FromLatLon(pt.m_latitude, pt.m_longitude));
+    return true;
+  });
+
+  kml::TrackData trackData;
+  if (trackName.empty())
+    trackName = GenerateTrackRecordingName();
+  kml::SetDefaultStr(trackData.m_name, trackName);
+
+  kml::MultiGeometry geometry;
+  geometry.m_lines.push_back(std::move(line));
+  trackData.m_geometry = std::move(geometry);
+
+  kml::ColorData colorData;
+  colorData.m_rgba = GenerateTrackRecordingColor().GetRGBA();
+  kml::TrackLayer layer;
+  layer.m_color = colorData;
+
+  std::vector<kml::TrackLayer> m_layers;
+  m_layers.emplace_back(layer);
+  trackData.m_layers = std::move(m_layers);
+  trackData.m_timestamp = kml::TimestampClock::now();
+
+  auto editSession = GetEditSession();
+  auto const track = editSession.CreateTrack(std::move(trackData));
+  auto const groupId = LastEditedBMCategory();
+  AttachTrack(track->GetId(), groupId);
+}
+
+std::string BookmarkManager::GenerateTrackRecordingName() const
+{
+  /// @TODO(KK): - improve the track name generation
+  return platform::GetLocalizedMyPositionBookmarkName();
+}
+
+dp::Color BookmarkManager::GenerateTrackRecordingColor() const
+{
+  /// @TODO(KK): - improve the color generation
+  return kml::ColorFromPredefinedColor(kml::GetRandomPredefinedColor());
 }
 
 void BookmarkManager::PrepareBookmarksAddresses(std::vector<SortBookmarkData> & bookmarksForSort,
