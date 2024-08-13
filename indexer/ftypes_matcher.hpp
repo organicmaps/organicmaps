@@ -202,6 +202,13 @@ public:
   DECLARE_CHECKER_INSTANCE(IsAddressObjectChecker);
 };
 
+class IsAddressChecker : public BaseChecker
+{
+  IsAddressChecker();
+public:
+  DECLARE_CHECKER_INSTANCE(IsAddressChecker);
+};
+
 class IsVillageChecker : public BaseChecker
 {
   IsVillageChecker();

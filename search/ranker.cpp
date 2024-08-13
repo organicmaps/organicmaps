@@ -484,6 +484,14 @@ private:
     // Insert exact address (street and house number) instead of empty result name.
     if (!m_isViewportMode && name.empty())
     {
+      feature::TypesHolder featureTypes(*ft);
+      featureTypes.SortBySpec();
+      auto const bestType = featureTypes.GetBestType();
+      auto const addressChecker = ftypes::IsAddressChecker::Instance();
+    
+      if (!addressChecker.IsMatched(bestType))
+        return ft;
+
       ReverseGeocoder::Address addr;
       if (GetExactAddress(*ft, center, addr))
       {
