@@ -1,17 +1,16 @@
 #pragma once
 
-#include "routing/lanes/lane_info.hpp"
+#include "routing/base/followed_polyline.hpp"
+#include "routing/edge_estimator.hpp"
 #include "routing/routing_options.hpp"
 #include "routing/routing_settings.hpp"
 #include "routing/segment.hpp"
 #include "routing/transit_info.hpp"
 #include "routing/turns.hpp"
 
-#include "routing/base/followed_polyline.hpp"
+#include "traffic/speed_groups.hpp"
 
 #include "routing_common/maxspeed_conversion.hpp"
-
-#include "traffic/speed_groups.hpp"
 
 #include "platform/country_file.hpp"
 
@@ -20,6 +19,7 @@
 
 #include "base/assert.hpp"
 #include "base/math.hpp"
+#include "base/small_map.hpp"
 
 #include <limits>
 #include <memory>
@@ -49,7 +49,7 @@ public:
     SpeedCamera() = default;
     SpeedCamera(double coef, uint8_t maxSpeedKmPH) : m_coef(coef), m_maxSpeedKmPH(maxSpeedKmPH) {}
 
-    bool EqualCoef(SpeedCamera const & rhs) const { return AlmostEqualAbs(m_coef, rhs.m_coef, 1.0E-5); }
+    bool EqualCoef(SpeedCamera const & rhs) const { return base::AlmostEqualAbs(m_coef, rhs.m_coef, 1.0E-5); }
 
     bool operator<(SpeedCamera const & rhs) const
     {
@@ -126,12 +126,9 @@ public:
 
   RouteSegment(Segment const & segment, turns::TurnItem const & turn, geometry::PointWithAltitude const & junction,
                RoadNameInfo const & roadNameInfo)
-    : m_segment(segment)
-    , m_turn(turn)
-    , m_junction(junction)
-    , m_roadNameInfo(roadNameInfo)
-    , m_transitInfo(nullptr)
-  {}
+    : m_segment(segment), m_turn(turn), m_junction(junction), m_roadNameInfo(roadNameInfo), m_transitInfo(nullptr)
+  {
+  }
 
   void ClearTurn()
   {
@@ -228,10 +225,7 @@ public:
 
     SubrouteAttrs(geometry::PointWithAltitude const & start, geometry::PointWithAltitude const & finish,
                   size_t beginSegmentIdx, size_t endSegmentIdx)
-      : m_start(start)
-      , m_finish(finish)
-      , m_beginSegmentIdx(beginSegmentIdx)
-      , m_endSegmentIdx(endSegmentIdx)
+      : m_start(start), m_finish(finish), m_beginSegmentIdx(beginSegmentIdx), m_endSegmentIdx(endSegmentIdx)
     {
       CHECK_LESS_OR_EQUAL(beginSegmentIdx, endSegmentIdx, ());
     }
@@ -266,10 +260,9 @@ public:
   struct SubrouteSettings final
   {
     SubrouteSettings(RoutingSettings const & routingSettings, std::string const & router, SubrouteUid id)
-      : m_routingSettings(routingSettings)
-      , m_router(router)
-      , m_id(id)
-    {}
+      : m_routingSettings(routingSettings), m_router(router), m_id(id)
+    {
+    }
 
     RoutingSettings const m_routingSettings;
     std::string const m_router;
@@ -286,11 +279,9 @@ public:
 
   template <class TIter>
   Route(std::string const & router, TIter beg, TIter end, uint64_t routeId)
-    : m_router(router)
-    , m_routingSettings(GetRoutingSettings(VehicleType::Car))
-    , m_poly(beg, end)
-    , m_routeId(routeId)
-  {}
+    : m_router(router), m_routingSettings(GetRoutingSettings(VehicleType::Car)), m_poly(beg, end), m_routeId(routeId)
+  {
+  }
 
   Route(std::string const & router, std::vector<m2::PointD> const & points, uint64_t routeId,
         std::string const & name = std::string());
@@ -320,6 +311,8 @@ public:
   std::vector<RouteSegment> & GetRouteSegments() { return m_routeSegments; }
   std::vector<RouteSegment> const & GetRouteSegments() const { return m_routeSegments; }
   RoutingSettings const & GetCurrentRoutingSettings() const { return m_routingSettings; }
+
+  std::optional<EdgeEstimator::Strategy> GetStrategy() const { return m_strategy; }
 
   void SetCurrentSubrouteIdx(size_t currentSubrouteIdx) { m_currentSubrouteIdx = currentSubrouteIdx; }
 
@@ -414,6 +407,8 @@ public:
 
   inline void SetRoutingSettings(RoutingSettings const & routingSettings) { m_routingSettings = routingSettings; }
 
+  inline void SetStrategy(EdgeEstimator::Strategy strategy) { m_strategy = strategy; }
+
   // Subroute interface.
   /// \returns Number of subroutes.
   /// \note Intermediate points separate a route into several subroutes.
@@ -476,6 +471,7 @@ private:
   double GetCurrentTimeFromBeginSec() const;
 
   std::string m_router;
+  std::optional<EdgeEstimator::Strategy> m_strategy;
   RoutingSettings m_routingSettings;
   std::string m_name;
 
@@ -496,6 +492,26 @@ private:
   // Mwms which are crossed by the route where speed cameras are prohibited.
   std::vector<platform::CountryFile> m_speedCamPartlyProhibitedMwms;
 };
+
+class Routes
+{
+public:
+  // should this just be a regular const ref?
+  std::shared_ptr<const Route> GetRoute(EdgeEstimator::Strategy strategy);
+  void SetRoute(EdgeEstimator::Strategy strategy, std::shared_ptr<Route> route);
+
+private:
+  base::SmallMapBase<EdgeEstimator::Strategy, std::shared_ptr<Route>> m_routes;
+};
+
+// NOTE: Should strategy just be included into Route, and avoid having this extra struct
+// or is this separation fine? If it is, then perhaps the name could be simplified to avoid such
+// verbosity. Or maybe use inheritance?
+// struct RouteWithStrategy
+// {
+//   std::shared_ptr<Route> m_route;
+//   EdgeEstimator::Strategy m_strategy;
+// };
 
 /// \returns true if |turn| is not equal to turns::CarDirection::None or
 /// |turns::PedestrianDirection::None|.

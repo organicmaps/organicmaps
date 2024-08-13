@@ -1,7 +1,8 @@
 #include "routing/async_router.hpp"
+
 #include "routing/routing_options.hpp"
 
-#include "geometry/mercator.hpp"
+#include "platform/platform.hpp"
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
@@ -123,10 +124,7 @@ void AsyncRouter::RouterDelegateProxy::OnPointCheck(ms::LatLon const & pt)
 // -------------------------------------------------------------------------------------------------
 
 AsyncRouter::AsyncRouter(PointCheckCallback const & pointCheckCallback)
-  : m_threadExit(false)
-  , m_hasRequest(false)
-  , m_clearState(false)
-  , m_pointCheckCallback(pointCheckCallback)
+  : m_threadExit(false), m_clearState(false), m_pointCheckCallback(pointCheckCallback)
 {
   m_thread = threads::SimpleThread(&AsyncRouter::ThreadFunc, this);
 }
@@ -156,6 +154,7 @@ void AsyncRouter::SetRouter(std::unique_ptr<IRouter> && router, std::unique_ptr<
 }
 
 void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & direction, bool adjustToPrevRoute,
+                                 std::vector<EdgeEstimator::Strategy> strategies,
                                  ReadyCallbackOwnership const & readyCallback,
                                  NeedMoreMapsCallback const & needMoreMapsCallback,
                                  RemoveRouteCallback const & removeRouteCallback,
@@ -169,10 +168,17 @@ void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD con
 
   ResetDelegate();
 
-  m_delegateProxy = std::make_shared<RouterDelegateProxy>(readyCallback, needMoreMapsCallback, removeRouteCallback,
-                                                          m_pointCheckCallback, progressCallback, timeoutSec);
+  for (auto strategy : strategies)
+  {
+    // TODO: investigate why make_shared was being problematic; something to do with implicitly
+    // deleted constructors on RouterDelegateProxy??
+    m_requestQueue.push(std::shared_ptr<Request>(
+        new Request{RouterDelegateProxy(readyCallback, needMoreMapsCallback, removeRouteCallback, m_pointCheckCallback,
+                                        progressCallback, timeoutSec),
+                    strategy}));
+    LOG(LINFO, ("Pushed request", static_cast<int>(strategy), m_requestQueue.size()));
+  }
 
-  m_hasRequest = true;
   m_threadCondVar.notify_one();
 }
 
@@ -228,10 +234,17 @@ void AsyncRouter::LogCode(RouterResultCode code, double const elapsedSec)
 
 void AsyncRouter::ResetDelegate()
 {
-  if (m_delegateProxy)
+  if (m_request)
   {
-    m_delegateProxy->Cancel();
-    m_delegateProxy.reset();
+    m_request->m_delegateProxy.Cancel();
+    m_request.reset();
+  }
+
+  // also have to cancel and clear all queued requests
+  while (!m_requestQueue.empty())
+  {
+    m_requestQueue.front()->m_delegateProxy.Cancel();
+    m_requestQueue.pop();
   }
 }
 
@@ -241,7 +254,14 @@ void AsyncRouter::ThreadFunc()
   {
     {
       unique_lock ul(m_guard);
-      m_threadCondVar.wait(ul, [this]() { return m_threadExit || m_hasRequest || m_clearState; });
+
+      LOG(LINFO, ("Waiting for queued request"));
+      m_threadCondVar.wait(ul,
+                           [this]()
+                           {
+                             LOG(LINFO, ("Testing queued request", m_requestQueue.size()));
+                             return m_threadExit || !m_requestQueue.empty() || m_clearState;
+                           });
 
       if (m_clearState && m_router)
       {
@@ -252,8 +272,10 @@ void AsyncRouter::ThreadFunc()
       if (m_threadExit)
         break;
 
-      if (!m_hasRequest)
+      if (m_requestQueue.empty())
         continue;
+
+      LOG(LINFO, ("CalculateRoute dequeued:", static_cast<int>(m_requestQueue.front()->m_strategy)));
     }
 
     CalculateRoute();
@@ -263,7 +285,7 @@ void AsyncRouter::ThreadFunc()
 void AsyncRouter::CalculateRoute()
 {
   Checkpoints checkpoints;
-  std::shared_ptr<RouterDelegateProxy> delegateProxy;
+  std::shared_ptr<Request> request;
   m2::PointD startDirection;
   bool adjustToPrevRoute = false;
   std::shared_ptr<AbsentRegionsFinder> absentRegionsFinder;
@@ -274,21 +296,22 @@ void AsyncRouter::CalculateRoute()
   {
     unique_lock ul(m_guard);
 
-    bool hasRequest = m_hasRequest;
-    m_hasRequest = false;
+    bool hasRequest = !m_requestQueue.empty();
     if (!hasRequest)
       return;
     if (!m_router)
       return;
-    if (!m_delegateProxy)
-      return;
+
+    m_request = m_requestQueue.front();
+    m_requestQueue.pop();
+    LOG(LINFO, ("CalculateRoute POPPED:", static_cast<int>(m_request->m_strategy), m_requestQueue.size()));
 
     checkpoints = m_checkpoints;
     startDirection = m_startDirection;
     adjustToPrevRoute = m_adjustToPrevRoute;
-    delegateProxy = m_delegateProxy;
     router = m_router;
     absentRegionsFinder = m_absentRegionsFinder;
+    request = m_request;
     routeId = ++m_routeCounter;
     routerName = router->GetName();
     router->SetGuides(std::move(m_guides));
@@ -296,6 +319,7 @@ void AsyncRouter::CalculateRoute()
   }
 
   auto route = std::make_shared<Route>(router->GetName(), routeId);
+  route->SetStrategy(request->m_strategy);
   RouterResultCode code;
 
   base::Timer timer;
@@ -307,20 +331,20 @@ void AsyncRouter::CalculateRoute()
                 "m. checkpoints:", checkpoints, "startDirection:", startDirection, "router name:", router->GetName()));
 
     if (absentRegionsFinder)
-      absentRegionsFinder->GenerateAbsentRegions(checkpoints, delegateProxy->GetDelegate());
+      absentRegionsFinder->GenerateAbsentRegions(checkpoints, request->m_delegateProxy.GetDelegate());
 
     RoutingOptions const routingOptions = RoutingOptions::LoadCarOptionsFromSettings();
     router->SetEstimatorOptions(routingOptions.GetOptions());
 
-    EdgeEstimator::Strategy routingStrategy = EdgeEstimator::LoadRoutingStrategyFromSettings();
-    router->SetEstimatorStrategy(routingStrategy);
+    router->SetEstimatorStrategy(request->m_strategy);
 
     // Run basic request.
-    code = router->CalculateRoute(checkpoints, startDirection, adjustToPrevRoute, delegateProxy->GetDelegate(), *route);
+    code = router->CalculateRoute(checkpoints, startDirection, adjustToPrevRoute,
+                                  request->m_delegateProxy.GetDelegate(), *route);
     router->SetGuides({});
     elapsedSec = timer.ElapsedSeconds();  // routing time
     LogCode(code, elapsedSec);
-    LOG(LINFO, ("ETA:", route->GetTotalTimeSec(), "sec."));
+    LOG(LINFO, ("ETA:", route->GetTotalTimeSec(), "sec.", static_cast<int>(request->m_strategy)));
   }
   catch (RootException const & e)
   {
@@ -329,7 +353,7 @@ void AsyncRouter::CalculateRoute()
     // Note. After call of this method |route| should be used only on ui thread.
     // And |route| should stop using on routing background thread, in this method.
     GetPlatform().RunTask(Platform::Thread::Gui,
-                          [delegateProxy, route, code]() { delegateProxy->OnReady(route, code); });
+                          [request, route, code]() { request->m_delegateProxy.OnReady(route, code); });
     return;
   }
 
@@ -339,7 +363,7 @@ void AsyncRouter::CalculateRoute()
     // Note. After call of this method |route| should be used only on ui thread.
     // And |route| should stop using on routing background thread, in this method.
     GetPlatform().RunTask(Platform::Thread::Gui,
-                          [delegateProxy, route, code]() { delegateProxy->OnReady(route, code); });
+                          [request, route, code]() { request->m_delegateProxy.OnReady(route, code); });
   }
 
   bool const needAbsentRegions = (code != RouterResultCode::Cancelled && route->GetRouterId() != "ruler-router");
@@ -367,11 +391,11 @@ void AsyncRouter::CalculateRoute()
     if (code == RouterResultCode::NeedMoreMaps)
     {
       GetPlatform().RunTask(Platform::Thread::Gui,
-                            [delegateProxy, routeId, absent]() { delegateProxy->OnNeedMoreMaps(routeId, absent); });
+                            [request, routeId, absent]() { request->m_delegateProxy.OnNeedMoreMaps(routeId, absent); });
     }
     else
     {
-      GetPlatform().RunTask(Platform::Thread::Gui, [delegateProxy, code]() { delegateProxy->OnRemoveRoute(code); });
+      GetPlatform().RunTask(Platform::Thread::Gui, [request, code]() { request->m_delegateProxy.OnRemoveRoute(code); });
     }
   }
 }
