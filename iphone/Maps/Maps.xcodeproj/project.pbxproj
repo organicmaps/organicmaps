@@ -630,6 +630,7 @@
 		FA637ED329A500BE00D8921A /* drules_proto_outdoors_light.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA637ECF29A500BE00D8921A /* drules_proto_outdoors_light.txt */; };
 		FA637ED429A500BE00D8921A /* drules_proto_outdoors_dark.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA637ED029A500BE00D8921A /* drules_proto_outdoors_dark.txt */; };
 		FA637ED529A500BE00D8921A /* drules_proto_outdoors_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = FA637ED129A500BE00D8921A /* drules_proto_outdoors_dark.bin */; };
+		FA80EB6B2C6BEB9300C5E8E5 /* 00_NotoSansHebrew-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA80EB682C6BEB9300C5E8E5 /* 00_NotoSansHebrew-Regular.ttf */; };
 		FA853BA726BC3ACE0026D455 /* CoreApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BA626BC3ACE0026D455 /* CoreApi.framework */; };
 		FA853BA926BC3B8A0026D455 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BA826BC3B8A0026D455 /* libbase.a */; };
 		FA853BAB26BC3B8A0026D455 /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BAA26BC3B8A0026D455 /* libcoding.a */; };
@@ -1663,6 +1664,7 @@
 		FA637ED029A500BE00D8921A /* drules_proto_outdoors_dark.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = drules_proto_outdoors_dark.txt; path = ../../data/drules_proto_outdoors_dark.txt; sourceTree = "<group>"; };
 		FA637ED129A500BE00D8921A /* drules_proto_outdoors_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_outdoors_dark.bin; path = ../../data/drules_proto_outdoors_dark.bin; sourceTree = "<group>"; };
 		FA64D9A813F975AD00350ECF /* types.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = types.txt; path = ../../data/types.txt; sourceTree = SOURCE_ROOT; };
+		FA80EB682C6BEB9300C5E8E5 /* 00_NotoSansHebrew-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "00_NotoSansHebrew-Regular.ttf"; path = "../../data/00_NotoSansHebrew-Regular.ttf"; sourceTree = "<group>"; };
 		FA853BA626BC3ACE0026D455 /* CoreApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CoreApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BA826BC3B8A0026D455 /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA853BAA26BC3B8A0026D455 /* libcoding.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcoding.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3787,6 +3789,7 @@
 			children = (
 				6B679E88266BFD090074AE2A /* 00_NotoNaskhArabic-Regular.ttf */,
 				FAC4E60F2C1FA9FC0043979C /* 00_NotoSansBengali-Regular.ttf */,
+				FA80EB682C6BEB9300C5E8E5 /* 00_NotoSansHebrew-Regular.ttf */,
 				6B15907026623AE500944BBA /* 00_NotoSansThai-Regular.ttf */,
 				FA45118E2A5EC15100CD8F64 /* 00_NotoSerifDevanagari-Regular.ttf */,
 				FAC4E6092C1FA4C40043979C /* 00_NotoSansMalayalam-Regular.ttf */,
@@ -4073,6 +4076,7 @@
 				340E1EF21E2F614400CE49BF /* Main.storyboard in Resources */,
 				F6E2FE521E097BA00083EBEC /* MWMActionBarButton.xib in Resources */,
 				EDBD68072B625724005DD151 /* LocationServicesDisabledAlert.xib in Resources */,
+				FA80EB6B2C6BEB9300C5E8E5 /* 00_NotoSansHebrew-Regular.ttf in Resources */,
 				993DF0CA23F6BD0600AC231A /* ElevationDetailsViewController.xib in Resources */,
 				F623DA6F1C9C2E62006A3436 /* MWMAddPlaceNavigationBar.xib in Resources */,
 				6741A9991BF340DE002C974C /* MWMAlertViewController.xib in Resources */,

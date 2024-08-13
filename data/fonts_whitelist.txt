@@ -20,3 +20,5 @@ Malayalam /system/fonts/NotoSansMalayalam-Regular.ttf
 Malayalam 00_NotoSansMalayalam-Regular.ttf
 Bengali /system/fonts/NotoSansBengali-Regular.ttf
 Bengali 00_NotoSansBengali-Regular.ttf
+Hebrew /system/fonts/NotoSansHebrew-Regular.ttf
+Hebrew 00_NotoSansHebrew-Regular.ttf

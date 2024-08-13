@@ -196,6 +196,7 @@ void Platform::GetFontNames(FilesList & res) const
   char constexpr const * arrDef[] = {
     "00_NotoNaskhArabic-Regular.ttf",
     "00_NotoSansBengali-Regular.ttf",
+    "00_NotoSansHebrew-Regular.ttf",
     "00_NotoSansMalayalam-Regular.ttf",
     "00_NotoSansThai-Regular.ttf",
     "00_NotoSerifDevanagari-Regular.ttf",
