@@ -535,6 +535,9 @@ std::string Route::DebugPrintTurns() const
     // Always print first elemenst as Start.
     if (i == 0 || !turn.IsTurnNone())
     {
+      res += DebugPrint(mercator::ToLatLon(m_routeSegments[i].GetJunction()));
+      res += "\n";
+
       res += DebugPrint(turn);
       res += "\n";
 
