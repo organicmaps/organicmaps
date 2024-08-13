@@ -251,6 +251,8 @@ private:
     NonOwningReaderSource source(reader);
     m_header.Deserialize(source);
 
+    // The recent MapsMe update increased the version number, but it is not clear yet what changed/added in a newer version.
+    // Revise V9 in case of discovered crashes.
     if (m_header.m_version == Version::V8 || m_header.m_version == Version::V9)
     {
       // Check if file has Opensource V8 or MapsMe V8.
