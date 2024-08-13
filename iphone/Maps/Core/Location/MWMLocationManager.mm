@@ -617,23 +617,6 @@ void setShowLocationAlert(BOOL needShow) {
   }
 }
 
-#pragma mark - Property
-
-- (void)setFrameworkUpdateMode:(MWMLocationFrameworkUpdate)frameworkUpdateMode
-{
-  if (frameworkUpdateMode != _frameworkUpdateMode &&
-      _frameworkUpdateMode == MWMLocationFrameworkUpdateNone &&
-      frameworkUpdateMode != MWMLocationFrameworkUpdateNone)
-  {
-    _frameworkUpdateMode = frameworkUpdateMode;
-    [self updateFrameworkInfo];
-  }
-  else
-  {
-    _frameworkUpdateMode = frameworkUpdateMode;
-  }
-}
-
 #pragma mark - Location alert
 
 + (void)enableLocationAlert {
