@@ -6,6 +6,7 @@
 
 #include "base/assert.hpp"
 #include "base/bits.hpp"
+#include "base/logging.hpp"
 #include "base/macros.hpp"
 #include "base/math.hpp"
 #include "base/string_utils.hpp"
@@ -27,10 +28,24 @@ std::string ToStringPrecision(double d, int pr)
 
 std::string ToStringPrecisionLocale(platform::Locale const & loc, double d, int pr)
 {
-  // TODO(AB): Check if snprintf is faster.
-  std::ostringstream ss;
-  ss << std::setprecision(pr) << std::fixed << d;
-  std::string out = ss.str();
+  std::string formatBuf("%0.0f");
+  if (pr > 0)
+  {
+    if (pr < 10)
+      formatBuf[3] = '0' + pr;  // E.g. replace %0.0f with %0.1f
+    else
+      LOG(LERROR, ("Too big unsupported precision", pr));
+  }
+
+  char textBuf[50];
+  int const n = std::snprintf(textBuf, sizeof(textBuf), formatBuf.c_str(), d);
+  if (n < 0 || n >= static_cast<int>(sizeof(textBuf)))
+  {
+    LOG(LERROR, ("snprintf", pr, d, "failed with", n));
+    return std::to_string(static_cast<int64_t>(d));
+  }
+
+  std::string out(textBuf);
 
   // std::locale does not work on Android NDK, so decimal and grouping (thousands) separator
   // shall be customized manually here.
