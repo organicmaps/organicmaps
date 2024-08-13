@@ -630,10 +630,11 @@ uint16_t RoadWarningMark::GetPriority() const
   {
     switch (m_type)
     {
-    case RoadWarningMarkType::Toll: return static_cast<uint16_t>(Priority::RoadWarningFirstToll);
-    case RoadWarningMarkType::Ferry: return static_cast<uint16_t>(Priority::RoadWarningFirstFerry);
-    case RoadWarningMarkType::Dirty: return static_cast<uint16_t>(Priority::RoadWarningFirstDirty);
-    case RoadWarningMarkType::Count: CHECK(false, ()); break;
+    using enum RoadWarningMarkType;
+    case Toll: return static_cast<uint16_t>(Priority::RoadWarningFirstToll);
+    case Ferry: return static_cast<uint16_t>(Priority::RoadWarningFirstFerry);
+    case Dirty: return static_cast<uint16_t>(Priority::RoadWarningFirstDirty);
+    case Count: CHECK(false, ()); break;
     }
   }
   return static_cast<uint16_t>(Priority::RoadWarning);
@@ -665,16 +666,17 @@ void RoadWarningMark::SetDistance(std::string const & distance)
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> RoadWarningMark::GetSymbolNames() const
 {
-  std::string symbolName;
+  std::string_view symbolName;
   switch (m_type)
   {
-  case RoadWarningMarkType::Toll: symbolName = "paid_road"; break;
-  case RoadWarningMarkType::Ferry: symbolName = "ferry"; break;
-  case RoadWarningMarkType::Dirty: symbolName = "unpaved_road"; break;
-  case RoadWarningMarkType::Count: CHECK(false, ()); break;
+  using enum RoadWarningMarkType;
+  case Toll: symbolName = "paid_road"; break;
+  case Ferry: symbolName = "ferry"; break;
+  case Dirty: symbolName = "unpaved_road"; break;
+  case Count: CHECK(false, ()); break;
   }
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
-  symbol->insert(std::make_pair(1 /* zoomLevel */, symbolName));
+  symbol->emplace(1 /* zoomLevel */, symbolName);
   return symbol;
 }
 
@@ -683,10 +685,11 @@ std::string RoadWarningMark::GetLocalizedRoadWarningType(RoadWarningMarkType typ
 {
   switch (type)
   {
-  case RoadWarningMarkType::Toll: return platform::GetLocalizedString("toll_road");
-  case RoadWarningMarkType::Ferry: return platform::GetLocalizedString("ferry_crossing");
-  case RoadWarningMarkType::Dirty: return platform::GetLocalizedString("unpaved_road");
-  case RoadWarningMarkType::Count: CHECK(false, ("Invalid road warning mark type", type)); break;
+  using enum RoadWarningMarkType;
+  case Toll: return platform::GetLocalizedString("toll_road");
+  case Ferry: return platform::GetLocalizedString("ferry_crossing");
+  case Dirty: return platform::GetLocalizedString("unpaved_road");
+  case Count: CHECK(false, ("Invalid road warning mark type", type)); break;
   }
   return {};
 }
@@ -695,10 +698,11 @@ std::string DebugPrint(RoadWarningMarkType type)
 {
   switch (type)
   {
-  case RoadWarningMarkType::Toll: return "Toll";
-  case RoadWarningMarkType::Ferry: return "Ferry";
-  case RoadWarningMarkType::Dirty: return "Dirty";
-  case RoadWarningMarkType::Count: return "Count";
+  using enum RoadWarningMarkType;
+  case Toll: return "Toll";
+  case Ferry: return "Ferry";
+  case Dirty: return "Dirty";
+  case Count: return "Count";
   }
   UNREACHABLE();
 }

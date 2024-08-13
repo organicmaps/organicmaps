@@ -13,7 +13,7 @@ enum class Units
   Imperial = 1
 };
 
-std::string DebugPrint(Units units);
+std::string_view DebugPrint(Units units);
 
 Units GetMeasurementUnits();
 
@@ -64,5 +64,5 @@ std::string OSMDistanceToMetersString(std::string const & osmRawValue,
                                       bool supportZeroAndNegativeValues = true,
                                       int digitsAfterComma = 2);
 std::string ToStringPrecision(double d, int pr);
-std::string ToStringPrecisionLocale(platform::Locale loc, double d, int pr);
+std::string ToStringPrecisionLocale(platform::Locale const & locale, double d, int pr);
 }  // namespace measurement_utils
