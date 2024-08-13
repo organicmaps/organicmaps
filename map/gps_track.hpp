@@ -38,6 +38,8 @@ public:
   /// @note Callback is called with 'toRemove' points, if some points were removed.
   void Clear();
 
+  bool IsEmpty() const;
+
   /// Sets tracking duration in hours.
   /// @note Callback is called with 'toRemove' points, if some points were removed.
   /// By default, duration is 24h.
@@ -60,6 +62,12 @@ public:
   /// @note When sink is attached, it receives all points in 'toAdd' at first time,
   /// next time callbacks it receives only modifications. It simplifies getter/callback model.
   void SetCallback(TGpsTrackDiffCallback callback);
+
+  template <typename F>
+  void ForEachPoint(F && f) const
+  {
+    m_collection->ForEach(std::move(f));
+  }
 
 private:
   DISALLOW_COPY_AND_MOVE(GpsTrack);
