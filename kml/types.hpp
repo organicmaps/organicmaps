@@ -8,6 +8,8 @@
 #include "base/internal/message.hpp"  // DebugPrint(Timestamp)
 #include "base/visitor.hpp"
 
+#include "drape/color.hpp"
+
 #include <string>
 #include <vector>
 
@@ -63,6 +65,31 @@ inline std::string DebugPrint(PredefinedColor color)
   case PredefinedColor::Count: return {};
   }
   UNREACHABLE();
+}
+
+inline dp::Color ColorFromPredefinedColor(PredefinedColor color)
+{
+  switch (color)
+  {
+    case kml::PredefinedColor::Red: return dp::Color(229, 27, 35, 255);
+    case kml::PredefinedColor::Pink: return dp::Color(255, 65, 130, 255);
+    case kml::PredefinedColor::Purple: return dp::Color(155, 36, 178, 255);
+    case kml::PredefinedColor::DeepPurple: return dp::Color(102, 57, 191, 255);
+    case kml::PredefinedColor::Blue: return dp::Color(0, 102, 204, 255);
+    case kml::PredefinedColor::LightBlue: return dp::Color(36, 156, 242, 255);
+    case kml::PredefinedColor::Cyan: return dp::Color(20, 190, 205, 255);
+    case kml::PredefinedColor::Teal: return dp::Color(0, 165, 140, 255);
+    case kml::PredefinedColor::Green: return dp::Color(60, 140, 60, 255);
+    case kml::PredefinedColor::Lime: return dp::Color(147, 191, 57, 255);
+    case kml::PredefinedColor::Yellow: return dp::Color(255, 200, 0, 255);
+    case kml::PredefinedColor::Orange: return dp::Color(255, 150, 0, 255);
+    case kml::PredefinedColor::DeepOrange: return dp::Color(240, 100, 50, 255);
+    case kml::PredefinedColor::Brown: return dp::Color(128, 70, 51, 255);
+    case kml::PredefinedColor::Gray: return dp::Color(115, 115, 115, 255);
+    case kml::PredefinedColor::BlueGray: return dp::Color(89, 115, 128, 255);
+    case kml::PredefinedColor::None:
+    case kml::PredefinedColor::Count: return ColorFromPredefinedColor(kml::PredefinedColor::Red);
+  }
 }
 
 enum class AccessRules : uint8_t
