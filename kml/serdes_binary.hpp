@@ -271,7 +271,7 @@ private:
           m_header.m_tracksOffset == 0x28 || m_header.m_stringsOffset == 0x28 ||
           m_header.m_compilationsOffset == 0x28)
       {
-        LOG(LWARNING, ("KMB file has version V8MM"));
+        LOG(LINFO, ("KMB file has version V8MM"));
         m_header.m_version = Version::V8MM;
         m_header.m_eosOffset = m_header.m_stringsOffset;
         m_header.m_stringsOffset = m_header.m_compilationsOffset;
@@ -286,7 +286,7 @@ private:
           m_header.m_tracksOffset == 0x28 || m_header.m_stringsOffset == 0x28 ||
           m_header.m_compilationsOffset == 0x28)
       {
-        LOG(LWARNING, ("KMB file has version V9MM"));
+        LOG(LINFO, ("KMB file has version V9MM"));
         m_header.m_version = Version::V9MM;
         m_header.m_eosOffset = m_header.m_stringsOffset;
         m_header.m_stringsOffset = m_header.m_compilationsOffset;
