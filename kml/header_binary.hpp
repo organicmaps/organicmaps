@@ -30,8 +30,8 @@ enum class Version : uint8_t
              // (first byte is 0x08), but it's not compatible with V8 from this repo. It has
              // no compilations.
   V9MM = 11  // In July 2024 MapsMe released version with a new KMB format. Technically its version is 9
-             // (first byte is 0x09), but it's not compatible with OrganicMaps V9 from this repo. It has
-             // extra flag in tracks data.
+             // (first byte is 0x09), but it's not compatible with OrganicMaps V9 from this repo.
+             // It supports multiline geometry.
 };
 
 struct Header
