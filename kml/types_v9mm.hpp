@@ -5,7 +5,7 @@
 
 namespace kml
 {
-struct TrackDataV9MM
+struct TrackDataV9MM : TrackDataV8MM
 {
   DECLARE_VISITOR_AND_DEBUG_PRINT(TrackDataV9MM, visitor(m_id, "id"),
                                   visitor(m_localId, "localId"),
@@ -25,56 +25,6 @@ struct TrackDataV9MM
 
   DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description, m_nearestToponyms, m_properties)
 
-  bool operator==(TrackDataV9MM const & data) const
-  {
-    return m_id == data.m_id && m_localId == data.m_localId && m_name == data.m_name &&
-           m_description == data.m_description && m_layers == data.m_layers &&
-           IsEqual(m_timestamp, data.m_timestamp) && m_geometry == data.m_geometry &&
-           m_visible == data.m_visible && m_nearestToponyms == data.m_nearestToponyms &&
-           m_properties == data.m_properties;
-  }
-
-  bool operator!=(TrackDataV9MM const & data) const { return !operator==(data); }
-
-  TrackData ConvertToLatestVersion() const
-  {
-    TrackData data;
-    data.m_id = m_id;
-    data.m_localId = m_localId;
-    data.m_name = m_name;
-    data.m_description = m_description;
-    data.m_layers = m_layers;
-    data.m_timestamp = m_timestamp;
-    data.m_geometry = m_geometry;
-    data.m_visible = m_visible;
-    data.m_nearestToponyms = m_nearestToponyms;
-    data.m_properties = m_properties;
-    return data;
-  }
-
-  // Unique id (it will not be serialized in text files).
-  TrackId m_id = kInvalidTrackId;
-  // Local track id.
-  LocalId m_localId = 0;
-  // Track's name.
-  LocalizableString m_name;
-  // Track's description.
-  LocalizableString m_description;
-  // Layers.
-  std::vector<TrackLayer> m_layers;
-  // Creation timestamp.
-  TimestampMillis m_timestamp{};
-  MultiGeometry m_geometry;
-  // Visibility.
-  bool m_visible = true;
-  // These constants were introduced in KMB V8MM. Usually have value 0. Don't know its purpose.
-  uint8_t m_constant1 = 0;
-  uint8_t m_constant2 = 0;
-  uint8_t m_constant3 = 0;
-  // Nearest toponyms.
-  std::vector<std::string> m_nearestToponyms;
-  // Key-value properties.
-  Properties m_properties;
   // Extra field introduced in V9MM.
   bool m_flag1 = true;
 };
