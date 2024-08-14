@@ -49,8 +49,6 @@ public class NavMenu
   private final NavMenuListener mNavMenuListener;
 
   private int currentPeekHeight = 0;
-  private double mCurrentSpeedLimit;
-  private boolean mIsSpeedLimitExceeded = false;
 
 
   public interface OnMenuSizeChangedListener
@@ -216,21 +214,20 @@ public class NavMenu
 
     Pair<String, String> speedAndUnits = StringUtils.nativeFormatSpeedAndUnits(last.getSpeed());
 
-    if (mCurrentSpeedLimit > 0.0)
+    if (info.speedLimitMps > 0.0)
     {
-      Pair<String, String> speedLimitAndUnits = StringUtils.nativeFormatSpeedAndUnits(mCurrentSpeedLimit);
+      Pair<String, String> speedLimitAndUnits = StringUtils.nativeFormatSpeedAndUnits(info.speedLimitMps);
       mSpeedValue.setText(speedAndUnits.first + "\u202F/\u202F" + speedLimitAndUnits.first);
     }
     else
       mSpeedValue.setText(speedAndUnits.first);
 
-    if (mIsSpeedLimitExceeded)
+    if (info.isSpeedLimitExceeded())
       mSpeedValue.setTextColor(ContextCompat.getColor(mActivity, R.color.base_red));
     else
       mSpeedValue.setTextColor(ThemeUtils.getColor(mActivity, android.R.attr.textColorPrimary));
 
     mSpeedUnits.setText(speedAndUnits.second);
-    mSpeedViewContainer.setActivated(info.isSpeedLimitExceeded());
   }
 
   public void update(@NonNull RoutingInfo info)
@@ -240,8 +237,6 @@ public class NavMenu
     mDistanceValue.setText(info.distToTarget.mDistanceStr);
     mDistanceUnits.setText(info.distToTarget.getUnitsStr(mActivity.getApplicationContext()));
     mRouteProgress.setProgressCompat((int) info.completionPercent, true);
-    mCurrentSpeedLimit = info.speedLimitMps;
-    mIsSpeedLimitExceeded = info.isSpeedLimitExceeded();
   }
 
   public interface NavMenuListener
