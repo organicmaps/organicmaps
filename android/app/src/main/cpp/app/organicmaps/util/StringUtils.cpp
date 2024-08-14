@@ -57,6 +57,14 @@ JNIEXPORT jobject JNICALL Java_app_organicmaps_util_StringUtils_nativeFormatSpee
                       platform::GetLocalizedSpeedUnits(units));
 }
 
+JNIEXPORT jobject JNICALL Java_app_organicmaps_util_StringUtils_nativeStringFormatSpeedAndUnits(
+        JNIEnv * env, jclass thiz, jdouble metersPerSecond)
+{
+  auto const units = measurement_utils::GetMeasurementUnits();
+  return jni::ToJavaString(env, measurement_utils::FormatSpeedNumeric(metersPerSecond, units) +
+                           ";" + platform::GetLocalizedSpeedUnits(units));
+}
+
 JNIEXPORT jobject JNICALL
 Java_app_organicmaps_util_StringUtils_nativeFormatDistance(JNIEnv * env, jclass, jdouble distanceInMeters)
 {

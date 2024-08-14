@@ -155,7 +155,7 @@ public class NavigationController implements TrafficManager.TrafficCallback,
       updateVehicle(info);
 
     updateStreetView(info);
-    mNavMenu.update(info);
+    mNavMenu.update(info, Framework.nativeGetUnits());
   }
 
   private void updateStreetView(@NonNull RoutingInfo info)
