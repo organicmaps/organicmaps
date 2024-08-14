@@ -849,8 +849,8 @@ UNIT_TEST(Kml_Deserialization_From_Bin_V8_And_V8MM)
     TEST(false, ("Exception raised", exc.what()));
   }
 
-  // Can't compare dataFromBinV8.m_categoryData and dataFromBinV8MM.m_categoryData directly
-  // because new format has less properties and different m_id. Compare some properties here:
+          // Can't compare dataFromBinV8.m_categoryData and dataFromBinV8MM.m_categoryData directly
+          // because new format has less properties and different m_id. Compare some properties here:
   TEST_EQUAL(dataFromBinV8.m_categoryData.m_name, dataFromBinV8MM.m_categoryData.m_name, ());
   TEST_EQUAL(dataFromBinV8.m_categoryData.m_description, dataFromBinV8MM.m_categoryData.m_description, ());
   TEST_EQUAL(dataFromBinV8.m_categoryData.m_annotation, dataFromBinV8MM.m_categoryData.m_annotation, ());
@@ -863,6 +863,48 @@ UNIT_TEST(Kml_Deserialization_From_Bin_V8_And_V8MM)
 
   TEST_EQUAL(dataFromBinV8.m_bookmarksData, dataFromBinV8MM.m_bookmarksData, ());
   TEST_EQUAL(dataFromBinV8.m_tracksData, dataFromBinV8MM.m_tracksData, ());
+}
+
+UNIT_TEST(Kml_Deserialization_From_KMB_V9MM)
+{
+  kml::FileData dataFromBinV8;
+  try
+  {
+    MemReader reader(kBinKmlV8.data(), kBinKmlV8.size());
+    kml::binary::DeserializerKml des(dataFromBinV8);
+    des.Deserialize(reader);
+  }
+  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
+  {
+    TEST(false, ("Exception raised", exc.what()));
+  }
+
+  kml::FileData dataFromBinV9MM;
+  try
+  {
+    MemReader reader(kBinKmlV9MM.data(), kBinKmlV9MM.size());
+    kml::binary::DeserializerKml des(dataFromBinV9MM);
+    des.Deserialize(reader);
+  }
+  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
+  {
+    TEST(false, ("Exception raised", exc.what()));
+  }
+
+  // Can't compare dataFromBinV8.m_categoryData and dataFromBinV9MM.m_categoryData directly
+  // because new format has less properties and different m_id. Compare some properties here:
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_name, dataFromBinV9MM.m_categoryData.m_name, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_description, dataFromBinV9MM.m_categoryData.m_description, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_annotation, dataFromBinV9MM.m_categoryData.m_annotation, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_accessRules, dataFromBinV9MM.m_categoryData.m_accessRules, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_visible, dataFromBinV9MM.m_categoryData.m_visible, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_rating, dataFromBinV9MM.m_categoryData.m_rating, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_reviewsNumber, dataFromBinV9MM.m_categoryData.m_reviewsNumber, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_tags, dataFromBinV9MM.m_categoryData.m_tags, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_properties, dataFromBinV9MM.m_categoryData.m_properties, ());
+
+  TEST_EQUAL(dataFromBinV8.m_bookmarksData, dataFromBinV9MM.m_bookmarksData, ());
+  TEST_EQUAL(dataFromBinV8.m_tracksData, dataFromBinV9MM.m_tracksData, ());
 }
 
 UNIT_TEST(Kml_Ver_2_3)
