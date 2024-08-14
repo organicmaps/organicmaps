@@ -1376,6 +1376,21 @@
 /* To indicate if restaurant or other place has outdoor seating */
 "outdoor_seating" = "室外座位";
 
+/* Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. */
+"bookmarks_recently_deleted" = "最近删除的列表";
+
+/* Title for the "Clear" button on the Recently Deleted Lists screen. */
+"clear" = "清除";
+
+/* Title for the "Delete All" button on the Recently Deleted Lists screen. */
+"delete_all" = "全部删除";
+
+/* Title for the "Recover" button on the Recently Deleted Lists screen. */
+"recover" = "恢复";
+
+/* Title for the "Recover All" button on the Recently Deleted Lists screen. */
+"recover_all" = "全部恢复";
+
 
 /********** Types **********/
 

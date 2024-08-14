@@ -1376,6 +1376,21 @@
 /* To indicate if restaurant or other place has outdoor seating */
 "outdoor_seating" = "Places en terrasse";
 
+/* Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. */
+"bookmarks_recently_deleted" = "Listes récemment supprimées";
+
+/* Title for the "Clear" button on the Recently Deleted Lists screen. */
+"clear" = "Effacer";
+
+/* Title for the "Delete All" button on the Recently Deleted Lists screen. */
+"delete_all" = "Supprimer tout";
+
+/* Title for the "Recover" button on the Recently Deleted Lists screen. */
+"recover" = "Récupérer";
+
+/* Title for the "Recover All" button on the Recently Deleted Lists screen. */
+"recover_all" = "Tout récupérer";
+
 
 /********** Types **********/
 

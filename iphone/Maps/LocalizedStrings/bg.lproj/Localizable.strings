@@ -1376,6 +1376,21 @@
 /* To indicate if restaurant or other place has outdoor seating */
 "outdoor_seating" = "Места за сядане на открито";
 
+/* Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. */
+"bookmarks_recently_deleted" = "Наскоро изтрити списъци";
+
+/* Title for the "Clear" button on the Recently Deleted Lists screen. */
+"clear" = "Изчистване";
+
+/* Title for the "Delete All" button on the Recently Deleted Lists screen. */
+"delete_all" = "Изтриване на всички";
+
+/* Title for the "Recover" button on the Recently Deleted Lists screen. */
+"recover" = "Възстановяване";
+
+/* Title for the "Recover All" button on the Recently Deleted Lists screen. */
+"recover_all" = "Възстанови всички";
+
 
 /********** Types **********/
 
