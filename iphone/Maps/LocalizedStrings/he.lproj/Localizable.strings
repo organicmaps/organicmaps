@@ -1376,6 +1376,21 @@
 /* To indicate if restaurant or other place has outdoor seating */
 "outdoor_seating" = "ישיבה בחוץ";
 
+/* Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. */
+"bookmarks_recently_deleted" = "רשימות שנמחקו לאחרונה";
+
+/* Title for the "Clear" button on the Recently Deleted Lists screen. */
+"clear" = "נקה";
+
+/* Title for the "Delete All" button on the Recently Deleted Lists screen. */
+"delete_all" = "מחק הכל";
+
+/* Title for the "Recover" button on the Recently Deleted Lists screen. */
+"recover" = "לשחזר";
+
+/* Title for the "Recover All" button on the Recently Deleted Lists screen. */
+"recover_all" = "לשחזר הכל";
+
 
 /********** Types **********/
 

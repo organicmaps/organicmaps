@@ -1376,6 +1376,21 @@
 /* To indicate if restaurant or other place has outdoor seating */
 "outdoor_seating" = "야외 좌석";
 
+/* Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. */
+"bookmarks_recently_deleted" = "최근 삭제한 목록";
+
+/* Title for the "Clear" button on the Recently Deleted Lists screen. */
+"clear" = "지우기";
+
+/* Title for the "Delete All" button on the Recently Deleted Lists screen. */
+"delete_all" = "모두 삭제";
+
+/* Title for the "Recover" button on the Recently Deleted Lists screen. */
+"recover" = "복구";
+
+/* Title for the "Recover All" button on the Recently Deleted Lists screen. */
+"recover_all" = "모두 복구";
+
 
 /********** Types **********/
 
