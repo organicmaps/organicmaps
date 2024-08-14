@@ -4,6 +4,7 @@ protocol BottomMenuInteractorProtocol: AnyObject {
   func downloadMaps()
   func donate()
   func openSettings()
+  func shareLocation(cell: BottomMenuItemCell)
 }
 
 @objc protocol BottomMenuDelegate {
@@ -59,5 +60,18 @@ extension BottomMenuInteractor: BottomMenuInteractorProtocol {
   func openSettings() {
     close()
     mapViewController?.performSegue(withIdentifier: "Map2Settings", sender: nil)
+  }
+
+  func shareLocation(cell: BottomMenuItemCell) {
+    let lastLocation = LocationManager.lastLocation()
+    guard let coordinates = lastLocation?.coordinate else {
+      let alert = UIAlertController(title: L("unknown_current_position"), message: nil, preferredStyle: .alert)
+      alert.addAction(UIAlertAction(title: L("ok"), style: .default, handler: nil))
+      viewController?.present(alert, animated: true, completion: nil)
+      return;
+    }
+    guard let viewController = viewController else { return }
+    let vc = ActivityViewController.share(forMyPosition: coordinates)
+    vc.present(inParentViewController: viewController, anchorView: cell.anchorView)
   }
 }

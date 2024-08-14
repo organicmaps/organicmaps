@@ -8,6 +8,7 @@ class BottomMenuPresenter: NSObject {
     case downloadMaps
     case donate
     case settings
+    case share
   }
   enum Sections: Int {
     case layers
@@ -79,6 +80,11 @@ extension BottomMenuPresenter {
                      title: L("settings"),
                      badgeCount: 0,
                      enabled: true)
+    case .share:
+      cell.configure(imageName: "ic_menu_share",
+                     title: L("share_my_location"),
+                     badgeCount: 0,
+                     enabled: true)
     }
     return cell
   }
@@ -102,6 +108,10 @@ extension BottomMenuPresenter {
       interactor.donate()
     case .settings:
       interactor.openSettings()
+    case .share:
+      if let cell = tableView.cellForRow(at: indexPath) as? BottomMenuItemCell {
+        interactor.shareLocation(cell: cell)
+      }
     }
   }
 }
