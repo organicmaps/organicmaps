@@ -38,4 +38,19 @@ void MultiGeometry::FromPoints(std::vector<m2::PointD> const & points)
   ASSERT(line.size() > 1, ());
   m_lines.push_back(std::move(line));
 }
+
+MultiGeometry mergeGeometry(std::vector<MultiGeometry> aGeometries)
+{
+  MultiGeometry merged;
+  for (auto const & geometry : aGeometries)
+  {
+    for (auto const & line : geometry.m_lines)
+    {
+      merged.m_lines.push_back(line);
+    }
+  }
+
+  return merged;
+}
+
 }  // namespace kml
