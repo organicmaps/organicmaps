@@ -185,6 +185,9 @@
 /* resource for context menu */
 "edit" = "Editatu";
 
+/* Warning message when doing search around current position */
+"unknown_current_position" = "Zure kokapena ez da oraindik zehaztu";
+
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Begiratu nire markagailua Organic Maps mapan!";
 
@@ -211,6 +214,8 @@
 
 /* Length of track in cell that describes route */
 "length" = "Luzera";
+
+"share_my_location" = "Partekatu nire kokapena";
 
 "prefs_group_route" = "Nabigazioa";
 

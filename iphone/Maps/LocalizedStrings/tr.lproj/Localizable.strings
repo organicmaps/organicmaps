@@ -185,6 +185,9 @@
 /* resource for context menu */
 "edit" = "Düzenle";
 
+/* Warning message when doing search around current position */
+"unknown_current_position" = "Konumunuz henüz belirlenmedi";
+
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hey, Organic Maps haritasında raptiyemi incele!";
 
@@ -211,6 +214,8 @@
 
 /* Length of track in cell that describes route */
 "length" = "Uzunluk";
+
+"share_my_location" = "Konumumu Paylaş";
 
 "prefs_group_route" = "Navigasyon";
 

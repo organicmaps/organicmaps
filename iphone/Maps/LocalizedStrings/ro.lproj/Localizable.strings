@@ -185,6 +185,9 @@
 /* resource for context menu */
 "edit" = "Modifică";
 
+/* Warning message when doing search around current position */
+"unknown_current_position" = "Poziția ta nu a fost stabilită încă";
+
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Poți vedea locul meu preferat pe harta Organic Maps!";
 
@@ -211,6 +214,8 @@
 
 /* Length of track in cell that describes route */
 "length" = "Lungime";
+
+"share_my_location" = "Trimite poziția mea";
 
 "prefs_group_route" = "Navigare";
 

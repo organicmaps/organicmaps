@@ -185,6 +185,9 @@
 /* resource for context menu */
 "edit" = "편집";
 
+/* Warning message when doing search around current position */
+"unknown_current_position" = "귀하의 위치를 아직 알아내지 못 했습니다";
+
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Organic Maps 지도에서 내 핀 보기";
 
@@ -211,6 +214,8 @@
 
 /* Length of track in cell that describes route */
 "length" = "길이";
+
+"share_my_location" = "내 위치 공유";
 
 "prefs_group_route" = "네비게이션";
 

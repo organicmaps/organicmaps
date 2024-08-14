@@ -185,6 +185,9 @@
 /* resource for context menu */
 "edit" = "Wijzig";
 
+/* Warning message when doing search around current position */
+"unknown_current_position" = "Je locatie is nog niet vastgesteld";
+
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hey, bekijk mijn pin op Organic Maps!";
 
@@ -211,6 +214,8 @@
 
 /* Length of track in cell that describes route */
 "length" = "Lengte";
+
+"share_my_location" = "Deel mijn locatie";
 
 "prefs_group_route" = "Navigatie";
 

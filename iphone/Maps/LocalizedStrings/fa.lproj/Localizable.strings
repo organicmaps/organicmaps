@@ -185,6 +185,9 @@
 /* resource for context menu */
 "edit" = "ویرایش";
 
+/* Warning message when doing search around current position */
+"unknown_current_position" = "مکان شما هنوز مشخص نشده است";
+
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hey, check out my pin in Organic Maps!";
 
@@ -211,6 +214,8 @@
 
 /* Length of track in cell that describes route */
 "length" = "طول";
+
+"share_my_location" = "به اشتراک گذاری موقعیت مکانی من";
 
 "prefs_group_route" = "مسیریابی";
 

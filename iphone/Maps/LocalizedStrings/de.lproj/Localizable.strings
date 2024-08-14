@@ -185,6 +185,9 @@
 /* resource for context menu */
 "edit" = "Bearbeiten";
 
+/* Warning message when doing search around current position */
+"unknown_current_position" = "Ihr Standort konnte noch nicht ermittelt werden";
+
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hey, sieh dir meine Stecknadel auf der Organic Maps-Karte an!";
 
@@ -211,6 +214,8 @@
 
 /* Length of track in cell that describes route */
 "length" = "Länge";
+
+"share_my_location" = "Meinen Standort teilen";
 
 "prefs_group_route" = "Navigation";
 

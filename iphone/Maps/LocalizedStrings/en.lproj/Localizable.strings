@@ -185,6 +185,9 @@
 /* resource for context menu */
 "edit" = "Edit";
 
+/* Warning message when doing search around current position */
+"unknown_current_position" = "Your location hasn't been determined yet";
+
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hey, check out my pin in Organic Maps!";
 
@@ -211,6 +214,8 @@
 
 /* Length of track in cell that describes route */
 "length" = "Length";
+
+"share_my_location" = "Share My Location";
 
 "prefs_group_route" = "Navigation";
 

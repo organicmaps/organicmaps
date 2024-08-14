@@ -185,6 +185,9 @@
 /* resource for context menu */
 "edit" = "Szerkeszt";
 
+/* Warning message when doing search around current position */
+"unknown_current_position" = "Még nem határoztuk meg az aktuális helyzetét";
+
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Nézze meg a Organic Maps jelzőmet";
 
@@ -211,6 +214,8 @@
 
 /* Length of track in cell that describes route */
 "length" = "Hossz";
+
+"share_my_location" = "Helyzetem megosztása";
 
 "prefs_group_route" = "Navigáció";
 
