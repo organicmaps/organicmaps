@@ -340,7 +340,8 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeDeleteCategory(
      JNIEnv *, jobject, jlong catId)
 {
   auto const categoryId = static_cast<kml::MarkGroupId>(catId);
-  return static_cast<jboolean>(frm()->GetBookmarkManager().GetEditSession().DeleteBmCategory(categoryId));
+  // `permanently` should be set to false when the Recently Deleted Lists feature be implemented
+  return static_cast<jboolean>(frm()->GetBookmarkManager().GetEditSession().DeleteBmCategory(categoryId, true /* permanently */));
 }
 
 JNIEXPORT void JNICALL
