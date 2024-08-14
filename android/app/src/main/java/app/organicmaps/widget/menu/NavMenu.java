@@ -222,12 +222,20 @@ public class NavMenu
     else
       mSpeedValue.setText(speedAndUnits.first);
 
-    if (info.isSpeedLimitExceeded())
-      mSpeedValue.setTextColor(ContextCompat.getColor(mActivity, R.color.base_red));
+    if (last.getSpeed() > info.speedLimitMps)
+    {
+      if (info.isSpeedCamLimitExceeded())
+        // White text on red background for camera speeding
+        mSpeedValue.setTextColor(ContextCompat.getColor(mActivity, R.color.white_primary));
+      else
+        // Black text for speeding if there's no camera
+        mSpeedValue.setTextColor(ContextCompat.getColor(mActivity, R.color.base_red));
+    }
     else
       mSpeedValue.setTextColor(ThemeUtils.getColor(mActivity, android.R.attr.textColorPrimary));
 
     mSpeedUnits.setText(speedAndUnits.second);
+    mSpeedViewContainer.setActivated(info.isSpeedCamLimitExceeded());
   }
 
   public void update(@NonNull RoutingInfo info)

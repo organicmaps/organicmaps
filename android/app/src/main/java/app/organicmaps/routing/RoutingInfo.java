@@ -37,7 +37,7 @@ public class RoutingInfo
   // Current speed limit in meters per second.
   // If no info about speed limit then speedLimitMps < 0.
   public final double speedLimitMps;
-  private final boolean speedLimitExceeded;
+  private final boolean speedCamLimitExceeded;
   private final boolean shouldPlayWarningSignal;
 
   /**
@@ -159,13 +159,13 @@ public class RoutingInfo
     this.exitNum = exitNum;
     this.pedestrianTurnDirection = PedestrianTurnDirection.values()[pedestrianTurnOrdinal];
     this.speedLimitMps = speedLimitMps;
-    this.speedLimitExceeded = speedLimitExceeded;
+    this.speedCamLimitExceeded = speedLimitExceeded;
     this.shouldPlayWarningSignal = shouldPlayWarningSignal;
   }
 
-  public boolean isSpeedLimitExceeded()
+  public boolean isSpeedCamLimitExceeded()
   {
-    return speedLimitExceeded;
+    return speedCamLimitExceeded;
   }
 
   public boolean shouldPlayWarningSignal()
