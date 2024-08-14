@@ -21134,6 +21134,7 @@
     be:few = %d закладкі
     be:many = %d закладак
     be:one = %d закладка
+    be:other = %d закладак
     ca:one = %d marcador
     ca:other = %d marcadors
     cs = %d záložek
@@ -21165,6 +21166,7 @@
     nb = %d bokmerker
     nl = %d bladwijzers
     pl:many = Zakładki: %d
+    pl:other = Zakładki: %d
     pt-BR:one = %d favorito
     pt-BR:other = %d favoritos
     pt:one = %d favorito
@@ -21174,6 +21176,7 @@
     ru:few = %d метки
     ru:many = %d меток
     ru:one = %d метка
+    ru:other = %d меток
     sk = %d záložiek
     sv = %d bokmärken
     sw = Alamisho %d
@@ -21182,6 +21185,7 @@
     uk:few = %d мітки
     uk:many = %d міток
     uk:one = %d мітка
+    uk:other = %d міток
     vi = %d dấu trang
     zh-Hans = %d 个书签
     zh-Hant = %d 個書籤
@@ -22103,6 +22107,7 @@
     pl:few = Znaleziono %d pliki. Zobaczysz je po konwersji.
     pl:many = Znaleziono %d plików. Zobaczysz je po konwersji.
     pl:one = Znaleziono %d plik. Zobaczysz to po konwersji.
+    pl:other = Znaleziono %d plików. Zobaczysz je po konwersji.
     pt-BR:one = %d arquivo foi encontrado. Você vai ver depois da conversão.
     pt-BR:other = %d arquivos foram encontrados. Você os verá depois da conversão.
     pt:one = %d ficheiro encontrado. Pode vê-lo depois da conversão.
@@ -22112,6 +22117,7 @@
     ru:few = %d файла были найдены. Вы увидите их после конвертации.
     ru:many = %d файлов было найдено. Вы увидите их после конвертации.
     ru:one = %d файл был найден. Вы увидите его после конвертации.
+    ru:other = %d файлов было найдено. Вы увидите их после конвертации.
     sk:few = Boli nájdené %d súbory. Uvidíte ich po konverzii.
     sk:one = Bol nájdený %d súbor. Uvidíte to po konverzii.
     sk:other = Bolo nájdených %d súborov. Uvidíte ich po konverzii.
@@ -22124,6 +22130,7 @@
     uk:few = %d файлу були знайдені. Ви побачите їх після конвертації.
     uk:many = %d файлів було знайдено. Ви побачите їх після конвертації.
     uk:one = %d файл був знайдений. Ви побачите його після перетворення.
+    uk:other = %d файлів було знайдено. Ви побачите їх після конвертації.
     vi:other = %d tập tin đã được tìm thấy. Bạn sẽ thấy chúng sau khi chuyển đổi.
     zh-Hans = 找到 %d 个文件，转换后您才能看到它们。
     zh-Hant = 找到 %d 個文件，轉換後您才能看到它們。
@@ -22322,6 +22329,7 @@
     be:few = %d сцежкі
     be:many = %d сцежак
     be:one = %d сцежка
+    be:other = %d сцежак
     bg:one = %d пътека
     bg:other = %d пътеки
     ca:one = %d traça
@@ -22357,6 +22365,7 @@
     pl:few = %d trasy
     pl:many = %d tras
     pl:one = %d trasa
+    pl:other = %d trasy
     pt-BR:one = %d percurso
     pt-BR:other = %d percursos
     pt:one = %d percurso
@@ -22366,12 +22375,14 @@
     ru:few = %d трека
     ru:many = %d треков
     ru:one = %d трек
+    ru:other = %d треков
     sk = %d sledovania
     sv = %d spår
     sw = Njia %d
     th = %d ติดตามต่าง ๆ
     tr = %d rota
     uk:many = %d треків
+    uk:other = %d треків
     vi = %d các chặn đường
     zh-Hans = %d 个轨迹
     zh-Hant = %d 個軌跡
