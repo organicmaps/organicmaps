@@ -910,6 +910,34 @@ UNIT_TEST(Kml_Deserialization_From_KMB_V8_And_V9MM)
   TEST_EQUAL(dataFromBinV8.m_tracksData, dataFromBinV9MM.m_tracksData, ());
 }
 
+UNIT_TEST(Kml_Deserialization_From_KMB_V9MM_With_MultiGeometry)
+{
+  kml::FileData dataFromBinV9MM;
+  try
+  {
+    MemReader reader(kBinKmlMultiGeometryV9MM.data(), kBinKmlMultiGeometryV9MM.size());
+    kml::binary::DeserializerKml des(dataFromBinV9MM);
+    des.Deserialize(reader);
+  }
+  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
+  {
+    TEST(false, ("Failed to deserialize data from KMB V9MM", exc.what()));
+  }
+
+  TEST_EQUAL(dataFromBinV9MM.m_tracksData.size(), 1, ());
+
+  // Verify that geometry has two lines
+  auto lines = dataFromBinV9MM.m_tracksData[0].m_geometry.m_lines;
+  TEST_EQUAL(lines.size(), 2, ());
+
+  // Verify that each line has 3 points
+  auto line1 = lines[0];
+  auto line2 = lines[1];
+
+  TEST_EQUAL(line1.size(), 3, ());
+  TEST_EQUAL(line2.size(), 3, ());
+}
+
 UNIT_TEST(Kml_Ver_2_3)
 {
   std::string_view constexpr data = R"(<?xml version="1.0" encoding="UTF-8"?>
