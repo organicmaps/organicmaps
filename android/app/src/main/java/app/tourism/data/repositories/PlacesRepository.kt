@@ -35,7 +35,6 @@ class PlacesRepository(
 
     fun downloadAllData(): Flow<Resource<SimpleResponse>> = flow {
         val hashes = hashesDao.getHashes()
-
         val favoritesResponse = handleResponse(call = { api.getFavorites() }, context)
 
         if (hashes.isEmpty()) {

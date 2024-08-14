@@ -155,10 +155,10 @@ class WelcomeViewController: UIViewController {
   }
   
   @objc private func signInClicked() {
-    navigationController?.pushViewController(SignInViewController(), animated: false)
+    performSegue(withIdentifier: "Welcome2SignIn", sender: nil)
   }
   
   @objc private func signUpClicked() {
-    navigationController?.pushViewController(SignUpViewController(), animated: false)
+    performSegue(withIdentifier: "Welcome2SignUp", sender: nil)
   }
 }

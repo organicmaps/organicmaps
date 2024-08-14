@@ -1,7 +1,10 @@
 import UIKit
+import Combine
 import CountryPickerView
 
 class SignUpViewController: UIViewController {
+  private var cancellables = Set<AnyCancellable>()
+  private var authRepository = AuthRepositoryImpl(authService: AuthServiceImpl())
   
   private let backButton: BackButton = {
     let backButton = BackButton()
@@ -190,12 +193,33 @@ class SignUpViewController: UIViewController {
     ])
     
     backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-    signUpButton.addTarget(self, action: #selector(signUpClicked), for: .touchUpInside)
     forgotPasswordButton.addTarget(self, action: #selector(forgotPasswordTapped), for: .touchUpInside)
   }
   
+  // MARK: -  buttons listeners
   @objc private func signUpClicked() {
-    // TODO: signUpClicked
+    signUpButton.isLoading = true
+    authRepository.signUp(
+      body: SignUpRequest(
+        fullName: nameTextField.text ?? "",
+        email: emailTextField.text ?? "",
+        password: passwordTextField.text ?? "",
+        passwordConfirmation: confirmPasswordTextField.text ?? "",
+        country: cpv.selectedCountry.code
+      )
+    )
+    .sink(receiveCompletion: { [weak self] completion in
+      switch completion {
+      case .finished:
+        self?.navigateToMain()
+      case .failure(let error):
+        self?.showError(message: error.errorDescription)
+      }
+    }, receiveValue: { response in
+      self.view.showToast(message: "token: \(response.token)}", duration: 4)
+    }
+    )
+    .store(in: &cancellables)
   }
   
   @objc private func forgotPasswordTapped() {
@@ -206,5 +230,16 @@ class SignUpViewController: UIViewController {
   
   @objc private func backButtonTapped() {
     self.navigationController?.popViewController(animated: false)
+  }
+  
+  // MARK: - other functions
+  private func showError(message: String) {
+    signUpButton.isLoading = false
+    showAlert(title: L("error"), message: message)
+  }
+  
+  private func navigateToMain() {
+    signUpButton.isLoading = false
+    performSegue(withIdentifier: "SignUp2TourismMain", sender: nil)
   }
 }

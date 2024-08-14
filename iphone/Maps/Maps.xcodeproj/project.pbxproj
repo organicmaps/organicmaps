@@ -263,6 +263,16 @@
 		4B4153B52BF9695500EE4B02 /* MWMTextToSpeechTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4B4153B42BF9695500EE4B02 /* MWMTextToSpeechTests.mm */; };
 		524634C62C53BC3100FDCABA /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 524634C22C53BB3A00FDCABA /* Auth.storyboard */; };
 		524634CD2C57232400FDCABA /* TourismMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 524634CC2C57232400FDCABA /* TourismMain.storyboard */; };
+		5260D3CE2C64F60200C673B4 /* APIEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5260D3CD2C64F60200C673B4 /* APIEndpoints.swift */; };
+		5260D3D12C64F7F100C673B4 /* SignInRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5260D3D02C64F7F100C673B4 /* SignInRequestDTO.swift */; };
+		5260D3D82C64F8BC00C673B4 /* AuthResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5260D3D72C64F8BC00C673B4 /* AuthResponseDTO.swift */; };
+		5260D3DA2C661FF000C673B4 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5260D3D92C661FF000C673B4 /* NetworkError.swift */; };
+		5260D3DE2C66237700C673B4 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5260D3DD2C66237700C673B4 /* AuthService.swift */; };
+		5260D3E02C6624B900C673B4 /* AuthRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5260D3DF2C6624B900C673B4 /* AuthRepositoryImpl.swift */; };
+		5260D3E32C66289900C673B4 /* SignInRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5260D3E22C66289900C673B4 /* SignInRequest.swift */; };
+		5260D3E52C66290500C673B4 /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5260D3E42C66290500C673B4 /* AuthResponse.swift */; };
+		5260D3E82C66439400C673B4 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5260D3E72C66439400C673B4 /* AuthRepository.swift */; };
+		5260D3EB2C6967DD00C673B4 /* UITextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5260D3EA2C6967DD00C673B4 /* UITextFieldExtensions.swift */; };
 		527D5E752C60A1F800736A85 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 527D5E742C60A1F800736A85 /* Images.xcassets */; };
 		527D5E782C60D94B00736A85 /* AppButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527D5E772C60D94B00736A85 /* AppButton.swift */; };
 		527D5E7B2C60E05D00736A85 /* LanguageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527D5E7A2C60E05D00736A85 /* LanguageUtils.swift */; };
@@ -291,6 +301,10 @@
 		52D588CE2C5CEAF900AB96B3 /* Gilroy-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52D588C42C5CEAF900AB96B3 /* Gilroy-ExtraBold.ttf */; };
 		52E2D3A42C59F9CE00A8843A /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E2D3A32C59F9CE00A8843A /* WelcomeViewController.swift */; };
 		52E2D3A62C5A017400A8843A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E2D3A52C5A017400A8843A /* HomeViewController.swift */; };
+		52E95F022C6B32E500A3FE2E /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E95F012C6B32E500A3FE2E /* ErrorResponse.swift */; };
+		52E95F042C6B71B900A3FE2E /* CombineNetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E95F032C6B71B900A3FE2E /* CombineNetworkHelper.swift */; };
+		52E95F072C6B7E2400A3FE2E /* SignUpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E95F062C6B7E2400A3FE2E /* SignUpRequest.swift */; };
+		52E95F0B2C6B8CC800A3FE2E /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E95F0A2C6B8CC800A3FE2E /* UIViewControllerExtensions.swift */; };
 		6741A9421BF340DE002C974C /* sound-strings in Resources */ = {isa = PBXBuildFile; fileRef = 5605022E1B6211E100169CAD /* sound-strings */; };
 		6741A9451BF340DE002C974C /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0511D6AC0D00645242 /* classificator.txt */; };
 		6741A9491BF340DE002C974C /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA46DA2B12D4166E00968C36 /* countries.txt */; };
@@ -1213,6 +1227,16 @@
 		4B4153B42BF9695500EE4B02 /* MWMTextToSpeechTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTextToSpeechTests.mm; sourceTree = "<group>"; };
 		524634C22C53BB3A00FDCABA /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		524634CC2C57232400FDCABA /* TourismMain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TourismMain.storyboard; sourceTree = "<group>"; };
+		5260D3CD2C64F60200C673B4 /* APIEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoints.swift; sourceTree = "<group>"; };
+		5260D3D02C64F7F100C673B4 /* SignInRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInRequestDTO.swift; sourceTree = "<group>"; };
+		5260D3D72C64F8BC00C673B4 /* AuthResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponseDTO.swift; sourceTree = "<group>"; };
+		5260D3D92C661FF000C673B4 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		5260D3DD2C66237700C673B4 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		5260D3DF2C6624B900C673B4 /* AuthRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryImpl.swift; sourceTree = "<group>"; };
+		5260D3E22C66289900C673B4 /* SignInRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInRequest.swift; sourceTree = "<group>"; };
+		5260D3E42C66290500C673B4 /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
+		5260D3E72C66439400C673B4 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
+		5260D3EA2C6967DD00C673B4 /* UITextFieldExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtensions.swift; sourceTree = "<group>"; };
 		527D5E742C60A1F800736A85 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		527D5E772C60D94B00736A85 /* AppButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppButton.swift; sourceTree = "<group>"; };
 		527D5E7A2C60E05D00736A85 /* LanguageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageUtils.swift; sourceTree = "<group>"; };
@@ -1240,6 +1264,10 @@
 		52D588C42C5CEAF900AB96B3 /* Gilroy-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-ExtraBold.ttf"; sourceTree = "<group>"; };
 		52E2D3A32C59F9CE00A8843A /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		52E2D3A52C5A017400A8843A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		52E95F012C6B32E500A3FE2E /* ErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
+		52E95F032C6B71B900A3FE2E /* CombineNetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineNetworkHelper.swift; sourceTree = "<group>"; };
+		52E95F062C6B7E2400A3FE2E /* SignUpRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequest.swift; sourceTree = "<group>"; };
+		52E95F0A2C6B8CC800A3FE2E /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		5605022E1B6211E100169CAD /* sound-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "sound-strings"; path = "../../data/sound-strings"; sourceTree = "<group>"; };
 		6741AA5D1BF340DE002C974C /* Organic Maps (Debug).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Organic Maps (Debug).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B15907026623AE500944BBA /* 00_NotoSansThai-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "00_NotoSansThai-Regular.ttf"; path = "../../data/00_NotoSansThai-Regular.ttf"; sourceTree = "<group>"; };
@@ -2741,10 +2769,11 @@
 		5236A3692C52588000E3A7AD /* Tourism */ = {
 			isa = PBXGroup;
 			children = (
+				5260D3C72C64F52C00C673B4 /* Resources */,
+				5260D3C52C64B85B00C673B4 /* Domain */,
+				5260D3C42C64B84600C673B4 /* Data */,
 				527D5E792C60E04900736A85 /* Utils */,
-				52D588B62C5CE10200AB96B3 /* Fonts */,
 				5236A36C2C5258AC00E3A7AD /* Presentation */,
-				527D5E742C60A1F800736A85 /* Images.xcassets */,
 				52B573EF2C61E4110047FAC9 /* Constants.swift */,
 			);
 			path = Tourism;
@@ -2753,6 +2782,7 @@
 		5236A36C2C5258AC00E3A7AD /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				5260D3E92C6967AF00C673B4 /* Extensions */,
 				527D5E7D2C60E68200736A85 /* Utils */,
 				527D5E762C60D92900736A85 /* Components */,
 				528D729F2C5BB7D100D53210 /* Theme */,
@@ -2760,6 +2790,154 @@
 				52B189972C53B9E900B5B6F9 /* Home */,
 			);
 			path = Presentation;
+			sourceTree = "<group>";
+		};
+		5260D3C42C64B84600C673B4 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				5260D3DB2C66205700C673B4 /* Repositories */,
+				5260D3CA2C64F59700C673B4 /* Prefs */,
+				5260D3C92C64F58A00C673B4 /* Db */,
+				5260D3C82C64F58300C673B4 /* Network */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		5260D3C52C64B85B00C673B4 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				5260D3E62C66437B00C673B4 /* Repositories */,
+				5260D3C62C64B87D00C673B4 /* Models */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		5260D3C62C64B87D00C673B4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				52E95EFE2C6B32D900A3FE2E /* Responses */,
+				5260D3E12C66287D00C673B4 /* Auth */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5260D3C72C64F52C00C673B4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				52D588B62C5CE10200AB96B3 /* Fonts */,
+				527D5E742C60A1F800736A85 /* Images.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		5260D3C82C64F58300C673B4 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				52E95F052C6B797E00A3FE2E /* EminoFire */,
+				5260D3DC2C66236500C673B4 /* Services */,
+				5260D3CF2C64F7E200C673B4 /* DTO */,
+				5260D3CD2C64F60200C673B4 /* APIEndpoints.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		5260D3C92C64F58A00C673B4 /* Db */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Db;
+			sourceTree = "<group>";
+		};
+		5260D3CA2C64F59700C673B4 /* Prefs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Prefs;
+			sourceTree = "<group>";
+		};
+		5260D3CF2C64F7E200C673B4 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				5260D3D62C64F87800C673B4 /* Currency */,
+				5260D3D52C64F87500C673B4 /* Place */,
+				5260D3D42C64F87200C673B4 /* Profile */,
+				5260D3D22C64F84700C673B4 /* Auth */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		5260D3D22C64F84700C673B4 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				5260D3D02C64F7F100C673B4 /* SignInRequestDTO.swift */,
+				5260D3D72C64F8BC00C673B4 /* AuthResponseDTO.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		5260D3D42C64F87200C673B4 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		5260D3D52C64F87500C673B4 /* Place */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Place;
+			sourceTree = "<group>";
+		};
+		5260D3D62C64F87800C673B4 /* Currency */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Currency;
+			sourceTree = "<group>";
+		};
+		5260D3DB2C66205700C673B4 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				5260D3DF2C6624B900C673B4 /* AuthRepositoryImpl.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		5260D3DC2C66236500C673B4 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				5260D3DD2C66237700C673B4 /* AuthService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		5260D3E12C66287D00C673B4 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				5260D3E22C66289900C673B4 /* SignInRequest.swift */,
+				5260D3E42C66290500C673B4 /* AuthResponse.swift */,
+				52E95F062C6B7E2400A3FE2E /* SignUpRequest.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		5260D3E62C66437B00C673B4 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				5260D3E72C66439400C673B4 /* AuthRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		5260D3E92C6967AF00C673B4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5260D3EA2C6967DD00C673B4 /* UITextFieldExtensions.swift */,
+				527D5E812C60EFEE00736A85 /* UIViewExtensions.swift */,
+				52E95F0A2C6B8CC800A3FE2E /* UIViewControllerExtensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		527D5E762C60D92900736A85 /* Components */ = {
@@ -2785,7 +2963,6 @@
 			isa = PBXGroup;
 			children = (
 				527D5E7E2C60E69C00736A85 /* Layouting.swift */,
-				527D5E812C60EFEE00736A85 /* UIViewExtensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2860,6 +3037,23 @@
 				52B573F12C61E8980047FAC9 /* SignUpViewController.swift */,
 			);
 			path = Screens;
+			sourceTree = "<group>";
+		};
+		52E95EFE2C6B32D900A3FE2E /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				52E95F012C6B32E500A3FE2E /* ErrorResponse.swift */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
+		52E95F052C6B797E00A3FE2E /* EminoFire */ = {
+			isa = PBXGroup;
+			children = (
+				5260D3D92C661FF000C673B4 /* NetworkError.swift */,
+				52E95F032C6B71B900A3FE2E /* CombineNetworkHelper.swift */,
+			);
+			path = EminoFire;
 			sourceTree = "<group>";
 		};
 		97B4E9271851DAB300BEC5D7 /* Custom Views */ = {
@@ -4362,6 +4556,7 @@
 				F6E2FF5A1E097BA00083EBEC /* MWMNightModeController.m in Sources */,
 				471A7BB8247FE3C300A0D4C1 /* URL+Query.swift in Sources */,
 				47F86D0120C93D8D00FEE291 /* TabViewController.swift in Sources */,
+				52E95F022C6B32E500A3FE2E /* ErrorResponse.swift in Sources */,
 				99536113235DB86C008B218F /* InsetsLabel.swift in Sources */,
 				6741A9A51BF340DE002C974C /* MWMShareActivityItem.mm in Sources */,
 				994F790723E85C5900660E75 /* DifficultyView.swift in Sources */,
@@ -4397,6 +4592,7 @@
 				34F742321E0834F400AC1FD6 /* UIViewController+Navigation.m in Sources */,
 				340475811E081B3300C92850 /* iosOGLContextFactory.mm in Sources */,
 				99F3EB0623F418A200C713F8 /* PlacePagePresenter.swift in Sources */,
+				52E95F072C6B7E2400A3FE2E /* SignUpRequest.swift in Sources */,
 				AA1C7E3E269A2DD600BAADF2 /* EditTrackViewController.swift in Sources */,
 				34AB66561FC5AA330078E451 /* TransportTransitPedestrian.swift in Sources */,
 				993DF0C823F6BD0600AC231A /* ElevationDetailsViewController.swift in Sources */,
@@ -4443,6 +4639,7 @@
 				F6E2FF2D1E097BA00083EBEC /* MWMSearchCell.mm in Sources */,
 				3454D7C51E07F045004AF2AD /* UIButton+Orientation.m in Sources */,
 				34AB66831FC5AA330078E451 /* NavigationAddPointToastView.swift in Sources */,
+				52E95F0B2C6B8CC800A3FE2E /* UIViewControllerExtensions.swift in Sources */,
 				F6E2FE4C1E097BA00083EBEC /* MWMPlacePageManager.mm in Sources */,
 				3404757E1E081B3300C92850 /* iosOGLContext.mm in Sources */,
 				993F5513237C622700545511 /* DeepLinkHandler.swift in Sources */,
@@ -4492,6 +4689,7 @@
 				993DF11023F6BDB100AC231A /* MWMButtonRenderer.swift in Sources */,
 				3463BA671DE81DB90082417F /* MWMTrafficButtonViewController.mm in Sources */,
 				ED79A5D52BDF8D6100952D1F /* SynchronizationError.swift in Sources */,
+				5260D3DA2C661FF000C673B4 /* NetworkError.swift in Sources */,
 				993DF10323F6BDB100AC231A /* MainTheme.swift in Sources */,
 				34AB66051FC5AA320078E451 /* MWMNavigationDashboardManager+Entity.mm in Sources */,
 				993DF12A23F6BDB100AC231A /* Style.swift in Sources */,
@@ -4543,6 +4741,7 @@
 				F6E2FD711E097BA00083EBEC /* MWMMapDownloaderTableViewCell.m in Sources */,
 				F6E2FE4F1E097BA00083EBEC /* MWMActionBarButton.m in Sources */,
 				47F86CFF20C936FC00FEE291 /* TabView.swift in Sources */,
+				5260D3CE2C64F60200C673B4 /* APIEndpoints.swift in Sources */,
 				34AB66741FC5AA330078E451 /* BaseRoutePreviewStatus.swift in Sources */,
 				8C4FB9C72BEFEFF400D44877 /* CarPlayWindowScaleAdjuster.swift in Sources */,
 				349D1CE41E3F836900A878FD /* UIViewController+Hierarchy.swift in Sources */,
@@ -4585,6 +4784,7 @@
 				349A13831DEC138C00C7DB60 /* MWMMobileInternetAlert.m in Sources */,
 				6741A9EC1BF340DE002C974C /* MWMCircularProgress.m in Sources */,
 				993DF11923F6BDB100AC231A /* UITextFieldRenderer.swift in Sources */,
+				5260D3E82C66439400C673B4 /* AuthRepository.swift in Sources */,
 				342CC5F21C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm in Sources */,
 				340475591E081A4600C92850 /* WebViewController.m in Sources */,
 				3404F4992028A20D0090E401 /* BMCCategoryCell.swift in Sources */,
@@ -4651,6 +4851,7 @@
 				F6E2FE821E097BA00083EBEC /* MWMPlacePageOpeningHoursDayView.m in Sources */,
 				F6E2FD6B1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.m in Sources */,
 				CDCA27842245090900167D87 /* ListenerContainer.swift in Sources */,
+				5260D3E52C66290500C673B4 /* AuthResponse.swift in Sources */,
 				47E3C7252111E41B008B3B27 /* DimmedModalPresentationController.swift in Sources */,
 				52B573F22C61E8980047FAC9 /* SignUpViewController.swift in Sources */,
 				3472B5CB200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift in Sources */,
@@ -4685,6 +4886,7 @@
 				6741AA0B1BF340DE002C974C /* MWMMapViewControlsManager.mm in Sources */,
 				F6E2FED91E097BA00083EBEC /* MWMSearchContentView.m in Sources */,
 				EDFDFB4C2B722C9C0013A44C /* InfoTableViewCell.swift in Sources */,
+				5260D3DE2C66237700C673B4 /* AuthService.swift in Sources */,
 				47CA68F8250F8AB700671019 /* BookmarksListSectionHeader.swift in Sources */,
 				F6BD1D211CA412920047B8E8 /* MWMOsmAuthAlert.mm in Sources */,
 				47CF2E6323BA0DD500D11C30 /* CopyLabel.swift in Sources */,
@@ -4719,10 +4921,12 @@
 				3404164C1E7BF42E00E2B6D6 /* UIView+Coordinates.swift in Sources */,
 				99F3EB0323F4178200C713F8 /* PlacePageCommonLayout.swift in Sources */,
 				99C6532223F2F506004322F3 /* IPlacePageLayout.swift in Sources */,
+				5260D3D82C64F8BC00C673B4 /* AuthResponseDTO.swift in Sources */,
 				99F8B4C623B644A6009FF0B4 /* MapStyleSheet.swift in Sources */,
 				99012851244732DB00C72B10 /* BottomTabBarViewController.swift in Sources */,
 				F63AF5061EA6162400A1DB98 /* FilterTypeCell.swift in Sources */,
 				993DF10623F6BDB100AC231A /* UIColor+rgba.swift in Sources */,
+				52E95F042C6B71B900A3FE2E /* CombineNetworkHelper.swift in Sources */,
 				EDC3573B2B7B5029001AE9CA /* CALayer+SetCorner.swift in Sources */,
 				47E3C7332111F4D8008B3B27 /* CoverVerticalDismissalAnimator.swift in Sources */,
 				471AB99423ABA3BD00F56D49 /* SearchMapsDataSource.swift in Sources */,
@@ -4731,6 +4935,7 @@
 				47F67D1521CAB21B0069754E /* MWMImageCoder.m in Sources */,
 				34AB66861FC5AA330078E451 /* MWMNavigationInfoView.mm in Sources */,
 				34C9BD051C6DB693000DC38D /* MWMViewController.m in Sources */,
+				5260D3E02C6624B900C673B4 /* AuthRepositoryImpl.swift in Sources */,
 				F6E2FDA41E097BA00083EBEC /* MWMCuisineEditorViewController.mm in Sources */,
 				3454D7CB1E07F045004AF2AD /* UIColor+MapsMeColor.m in Sources */,
 				34B127EA1FBDD410008713D9 /* MWMRouterTransitStepInfo.mm in Sources */,
@@ -4751,6 +4956,7 @@
 				3454D7BF1E07F045004AF2AD /* DateComponentsFormatter+ETA.swift in Sources */,
 				991FCA2423B11E61009AD684 /* BookmarksStyleSheet.swift in Sources */,
 				993DF12823F6BDB100AC231A /* IStyleSheet.swift in Sources */,
+				5260D3E32C66289900C673B4 /* SignInRequest.swift in Sources */,
 				6741AA1C1BF340DE002C974C /* MWMRoutingDisclaimerAlert.m in Sources */,
 				34D3B0481E389D05004100F9 /* MWMNoteCell.m in Sources */,
 				CD9AD967228067F500EC174A /* MapInfo.swift in Sources */,
@@ -4760,6 +4966,7 @@
 				993DF0C923F6BD0600AC231A /* ElevationDetailsBuilder.swift in Sources */,
 				674A7E301C0DB10B003D48E1 /* MWMMapWidgets.mm in Sources */,
 				34AB66291FC5AA330078E451 /* RouteManagerViewController.swift in Sources */,
+				5260D3D12C64F7F100C673B4 /* SignInRequestDTO.swift in Sources */,
 				3404754D1E081A4600C92850 /* MWMKeyboard.m in Sources */,
 				EDE243E52B6D3F400057369B /* OSMView.swift in Sources */,
 				993DF10C23F6BDB100AC231A /* MWMTableViewCellRenderer.swift in Sources */,
@@ -4794,6 +5001,7 @@
 				6741AA2B1BF340DE002C974C /* CircleView.m in Sources */,
 				4788739220EE326500F6826B /* VerticallyAlignedButton.swift in Sources */,
 				EDFDFB462B7139490013A44C /* AboutInfo.swift in Sources */,
+				5260D3EB2C6967DD00C673B4 /* UITextFieldExtensions.swift in Sources */,
 				3444DFDE1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */,
 				CDCA278622451F5000167D87 /* RouteInfo.swift in Sources */,
 				3467CEB6202C6FA900D3C670 /* BMCNotificationsCell.swift in Sources */,
@@ -5010,7 +5218,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5040,7 +5248,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

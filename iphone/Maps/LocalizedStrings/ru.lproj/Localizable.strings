@@ -3945,6 +3945,10 @@
 
 "smth_went_wrong" = "Упс, что-то пошло не так";
 
+"server_error" = "Ошибка сервера, попробуйте позже";
+
+"error" = "Ошибка";
+
 "wait_tjk_map_downloading" = "Пожалуйста, подождите, идет загрузка карты Таджикистана. Оставайтесь в приложении";
 
 "welcome_to_tjk" = "Добро пожаловать в Таджикистан";
@@ -3957,6 +3961,8 @@
 
 "sign_up_title" = "Регистрация";
 
+"signed_in_successfully" = "Successfully signed in";
+
 "username" = "Логин";
 
 "full_name" = "Ф.И.О";
@@ -3967,9 +3973,9 @@
 
 "tourism_password" = "Пароль";
 
-"tourism_forgot_password" = "Забыли пароль?";
-
 "confirm_password" = "Повторите пароль";
+
+"tourism_forgot_password" = "Забыли пароль?";
 
 "home" = "Главная";
 

@@ -1,6 +1,9 @@
 import UIKit
+import Combine
 
 class SignInViewController: UIViewController {
+  private var cancellables = Set<AnyCancellable>()
+  private var authRepository = AuthRepositoryImpl(authService: AuthServiceImpl())
   
   private let backButton: BackButton = {
     let backButton = BackButton()
@@ -60,7 +63,7 @@ class SignInViewController: UIViewController {
   }()
   
   private let signInButton: AppButton = {
-    let button = AppButton(label: L("sign_in"), isPrimary: true, target: self, action: #selector(signInClicked))
+    let button = AppButton(label: L("sign_in"), isPrimary: true, target: self, action: #selector(signInTapped))
     return button
   }()
   
@@ -136,14 +139,27 @@ class SignInViewController: UIViewController {
       forgotPasswordButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 32),
       forgotPasswordButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -32)
     ])
-
+    
     backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-    signInButton.addTarget(self, action: #selector(signInClicked), for: .touchUpInside)
     forgotPasswordButton.addTarget(self, action: #selector(forgotPasswordTapped), for: .touchUpInside)
   }
   
-  @objc private func signInClicked() {
-    // Implement sign-in logic
+  // MARK: -  buttons listeners
+  @objc private func signInTapped() {
+    signInButton.isLoading = true
+    authRepository.signIn(body: SignInRequest(email: emailTextField.text ?? "", password: passwordTextField.text ?? ""))
+      .sink(receiveCompletion: { [weak self] completion in
+        switch completion {
+        case .finished:
+          self?.navigateToMain()
+        case .failure(let error):
+          self?.showError(message: error.errorDescription)
+        }
+      }, receiveValue: { response in
+        self.view.showToast(message: "token: \(response.token)}", duration: 4)
+      }
+      )
+      .store(in: &cancellables)
   }
   
   @objc private func forgotPasswordTapped() {
@@ -153,6 +169,17 @@ class SignInViewController: UIViewController {
   }
   
   @objc private func backButtonTapped() {
-      self.navigationController?.popViewController(animated: false)
+    self.navigationController?.popViewController(animated: false)
+  }
+  
+  // MARK: - other functions
+  private func showError(message: String) {
+    signInButton.isLoading = false
+    showAlert(title: L("error"), message: message)
+  }
+  
+  private func navigateToMain() {
+    signInButton.isLoading = false
+    performSegue(withIdentifier: "SignIn2TourismMain", sender: nil)
   }
 }

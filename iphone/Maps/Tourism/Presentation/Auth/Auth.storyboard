@@ -37,12 +37,67 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="qa9-uW-F3Q"/>
+                    <connections>
+                        <segue destination="J78-oP-pWB" kind="show" identifier="Welcome2SignIn" animates="NO" id="dni-ew-efi"/>
+                        <segue destination="PCK-6F-qRE" kind="show" identifier="Welcome2SignUp" animates="NO" id="sDY-vr-Bsq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lb9-tw-Sa4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1043.5114503816794" y="4.9295774647887329"/>
         </scene>
+        <!--Sign In View Controller-->
+        <scene sceneID="Oo8-4Z-4pa">
+            <objects>
+                <viewController id="J78-oP-pWB" customClass="SignInViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7eI-FN-D6E">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="h4f-Zd-hVE"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="acf-TH-9as"/>
+                    <connections>
+                        <segue destination="SpU-MR-vde" kind="presentation" identifier="SignIn2TourismMain" modalPresentationStyle="fullScreen" id="9PR-2J-Khi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mSk-pw-srk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2036" y="-417"/>
+        </scene>
+        <!--TourismMain-->
+        <scene sceneID="oxW-gS-U9t">
+            <objects>
+                <viewControllerPlaceholder storyboardName="TourismMain" id="SpU-MR-vde" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="uCX-Cn-USK"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Sw-8G-vub" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2748" y="5"/>
+        </scene>
+        <!--Sign Up View Controller-->
+        <scene sceneID="fAv-hj-s3Y">
+            <objects>
+                <viewController id="PCK-6F-qRE" customClass="SignUpViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UkM-na-85T">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="fqO-s4-jMi"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="obe-U1-ZFo"/>
+                    <connections>
+                        <segue destination="SpU-MR-vde" kind="presentation" identifier="SignUp2TourismMain" modalPresentationStyle="fullScreen" id="cRd-fQ-a1X"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KxT-0k-28A" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2036" y="419"/>
+        </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="cRd-fQ-a1X"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

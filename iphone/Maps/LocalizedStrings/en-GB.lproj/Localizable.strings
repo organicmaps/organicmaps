@@ -3945,6 +3945,10 @@
 
 "smth_went_wrong" = "Error";
 
+"error" = "Error";
+
+"server_error" = "Server error, try later";
+
 "wait_tjk_map_downloading" = "Please wait, the map of Tajikistan is loading, stay in the app";
 
 "welcome_to_tjk" = "Welcome to Tajikistan";
@@ -3957,6 +3961,8 @@
 
 "sign_up_title" = "Registration";
 
+"signed_in_successfully" = "Successfully signed in";
+
 "username" = "Login";
 
 "full_name" = "Full name";
@@ -3965,7 +3971,9 @@
 
 "tourism_email" = "Email";
 
-"tourism_password" = "Repeat the password";
+"tourism_password" = "Password";
+
+"confirm_password" = "Repeat the password";
 
 "tourism_forgot_password" = "Forgot password?";
 

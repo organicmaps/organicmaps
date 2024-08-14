@@ -16,6 +16,7 @@ class AppButton: UIButton {
   init(label: String, isPrimary: Bool, icon: UIImage? = nil, target: Any?, action: Selector) {
     super.init(frame: .zero)
     
+    originalButtonText = label
     setTitle(label, for: .normal)
     
     isPrimary ? setPrimaryAppearance() : setSecondaryAppearance()
@@ -90,7 +91,6 @@ class AppButton: UIButton {
   
   private func updateLoadingState() {
     if isLoading {
-      originalButtonText = title(for: .normal)
       setTitle("", for: .normal)
       activityIndicator.startAnimating()
       isUserInteractionEnabled = false
