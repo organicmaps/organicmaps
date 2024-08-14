@@ -185,6 +185,9 @@
 /* resource for context menu */
 "edit" = "Редактировать";
 
+/* Warning message when doing search around current position */
+"unknown_current_position" = "Ваше местоположение ещё не определено";
+
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Смотри мою метку на карте Organic Maps";
 
@@ -211,6 +214,8 @@
 
 /* Length of track in cell that describes route */
 "length" = "Длина";
+
+"share_my_location" = "Поделиться местоположением";
 
 "prefs_group_route" = "Навигация";
 

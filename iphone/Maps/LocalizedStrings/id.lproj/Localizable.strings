@@ -185,6 +185,9 @@
 /* resource for context menu */
 "edit" = "Edit";
 
+/* Warning message when doing search around current position */
+"unknown_current_position" = "Lokasi Anda belum ditentukan";
+
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hei, lihat pinku di peta Organic Maps";
 
@@ -211,6 +214,8 @@
 
 /* Length of track in cell that describes route */
 "length" = "Panjang";
+
+"share_my_location" = "Bagikan Lokasi Saya";
 
 "prefs_group_route" = "Navigasi";
 

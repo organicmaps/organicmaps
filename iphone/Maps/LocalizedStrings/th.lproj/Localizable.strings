@@ -185,6 +185,9 @@
 /* resource for context menu */
 "edit" = "แก้ไข";
 
+/* Warning message when doing search around current position */
+"unknown_current_position" = "ตำแหน่งที่ตั้งของคุณยังไม่ได้รับการกำหนด";
+
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "เฮ้ ตรวจสอบหมุดของฉันที่ แผนที่ Organic Maps!";
 
@@ -211,6 +214,8 @@
 
 /* Length of track in cell that describes route */
 "length" = "ระยะเวลา";
+
+"share_my_location" = "แชร์ตำแหน่งที่ตั้งของฉัน";
 
 "prefs_group_route" = "การนำทาง";
 

@@ -185,6 +185,9 @@
 /* resource for context menu */
 "edit" = "संपादन करना";
 
+/* Warning message when doing search around current position */
+"unknown_current_position" = "आपका स्थान अभी तक निर्धारित नहीं किया गया है";
+
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "अरे, ऑर्गेनिक मैप्स में मेरा पिन देखें!";
 
@@ -211,6 +214,8 @@
 
 /* Length of track in cell that describes route */
 "length" = "लंबाई";
+
+"share_my_location" = "मेरा स्थान साझा करें";
 
 "prefs_group_route" = "मार्गदर्शन";
 

@@ -185,6 +185,9 @@
 /* resource for context menu */
 "edit" = "ערוך";
 
+/* Warning message when doing search around current position */
+"unknown_current_position" = "מיקומך לא אותר עדיין";
+
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "היי, בדוק את הסיכה שלי במפה של Organic Maps!";
 
@@ -211,6 +214,8 @@
 
 /* Length of track in cell that describes route */
 "length" = "אורך";
+
+"share_my_location" = "שיתוף מיקום שלי";
 
 "prefs_group_route" = "ניווט";
 

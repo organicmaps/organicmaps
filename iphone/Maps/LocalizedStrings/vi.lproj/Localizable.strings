@@ -185,6 +185,9 @@
 /* resource for context menu */
 "edit" = "Sửa";
 
+/* Warning message when doing search around current position */
+"unknown_current_position" = "Chưa xác định được vị trí của bạn";
+
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Này, hãy xem ghim của tôi tại Organic Maps map";
 
@@ -211,6 +214,8 @@
 
 /* Length of track in cell that describes route */
 "length" = "Độ dài";
+
+"share_my_location" = "Chia sẻ Vị trí của tôi";
 
 "prefs_group_route" = "Điều hướng";
 

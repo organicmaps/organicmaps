@@ -185,6 +185,9 @@
 /* resource for context menu */
 "edit" = "编辑";
 
+/* Warning message when doing search around current position */
+"unknown_current_position" = "您的位置尚未确定";
+
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "嘿，在 Organic Maps 上查看我标注的图钉吧！";
 
@@ -211,6 +214,8 @@
 
 /* Length of track in cell that describes route */
 "length" = "长度";
+
+"share_my_location" = "共享我的位置";
 
 "prefs_group_route" = "导航";
 
