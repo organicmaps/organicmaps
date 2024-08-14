@@ -849,8 +849,8 @@ UNIT_TEST(Kml_Deserialization_From_Bin_V8_And_V8MM)
     TEST(false, ("Exception raised", exc.what()));
   }
 
-          // Can't compare dataFromBinV8.m_categoryData and dataFromBinV8MM.m_categoryData directly
-          // because new format has less properties and different m_id. Compare some properties here:
+// Can't compare dataFromBinV8.m_categoryData and dataFromBinV8MM.m_categoryData directly
+// because new format has less properties and different m_id. Compare some properties here:
   TEST_EQUAL(dataFromBinV8.m_categoryData.m_name, dataFromBinV8MM.m_categoryData.m_name, ());
   TEST_EQUAL(dataFromBinV8.m_categoryData.m_description, dataFromBinV8MM.m_categoryData.m_description, ());
   TEST_EQUAL(dataFromBinV8.m_categoryData.m_annotation, dataFromBinV8MM.m_categoryData.m_annotation, ());
@@ -876,7 +876,7 @@ UNIT_TEST(Kml_Deserialization_From_KMB_V8_And_V9MM)
   }
   catch (kml::binary::DeserializerKml::DeserializeException const & exc)
   {
-    TEST(false, ("Exception raised", exc.what()));
+    TEST(false, ("Failed to deserialize data from KMB V8 and V9MM", exc.what()));
   }
 
   kml::FileData dataFromBinV9MM;
@@ -888,7 +888,7 @@ UNIT_TEST(Kml_Deserialization_From_KMB_V8_And_V9MM)
   }
   catch (kml::binary::DeserializerKml::DeserializeException const & exc)
   {
-    TEST(false, ("Exception raised", exc.what()));
+    TEST(false, ("Failed to deserialize data from KMB V9MM", exc.what()));
   }
 
   // Can't compare dataFromBinV8.m_categoryData and dataFromBinV9MM.m_categoryData directly

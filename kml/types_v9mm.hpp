@@ -25,12 +25,12 @@ struct TrackDataV9MM : TrackDataV8MM
 
   DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description, m_nearestToponyms, m_properties)
 
-  // Extra field introduced in V9MM.
+  // Extra field introduced in V9MM for tracks.
   bool m_flag1 = true;
 };
 
 
-// FileDataV8MM contains the same sections as FileDataV8MM but with changed m_tracksData format
+// Contains the same sections as FileDataV8MM but with changed m_tracksData format
 struct FileDataV9MM
 {
   DECLARE_VISITOR_AND_DEBUG_PRINT(FileDataV9MM, visitor(m_serverId, "serverId"),

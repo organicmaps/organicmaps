@@ -26,10 +26,10 @@ enum class Version : uint8_t
             // tags to kml
   V9 = 9,   // 01 October 2020: add minZoom to bookmarks
   Latest = V9,
-  V8MM = 10, // 27 July 2023: MapsMe release version v15.0.71617. Technically it's version is 8
+  V8MM = 10, // 27 July 2023: MapsMe released version v15.0.71617. Technically its version is 8
              // (first byte is 0x08), but it's not compatible with V8 from this repo. It has
              // no compilations.
-  V9MM = 11  // In July 2024 MapsMe release version with new KMB format. Technically its version is 9
+  V9MM = 11  // In July 2024 MapsMe released version with a new KMB format. Technically its version is 9
              // (first byte is 0x09), but it's not compatible with OrganicMaps V9 from this repo. It has
              // extra flag in tracks data.
 };
