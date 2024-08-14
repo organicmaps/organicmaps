@@ -865,7 +865,7 @@ UNIT_TEST(Kml_Deserialization_From_Bin_V8_And_V8MM)
   TEST_EQUAL(dataFromBinV8.m_tracksData, dataFromBinV8MM.m_tracksData, ());
 }
 
-UNIT_TEST(Kml_Deserialization_From_KMB_V9MM)
+UNIT_TEST(Kml_Deserialization_From_KMB_V8_And_V9MM)
 {
   kml::FileData dataFromBinV8;
   try
@@ -903,7 +903,10 @@ UNIT_TEST(Kml_Deserialization_From_KMB_V9MM)
   TEST_EQUAL(dataFromBinV8.m_categoryData.m_tags, dataFromBinV9MM.m_categoryData.m_tags, ());
   TEST_EQUAL(dataFromBinV8.m_categoryData.m_properties, dataFromBinV9MM.m_categoryData.m_properties, ());
 
+  dataFromBinV8.m_bookmarksData[0].m_id = dataFromBinV9MM.m_bookmarksData[0].m_id; // V8 and V9MM bookmarks have different IDs. Fix ID value manually.
   TEST_EQUAL(dataFromBinV8.m_bookmarksData, dataFromBinV9MM.m_bookmarksData, ());
+
+  dataFromBinV8.m_tracksData[0].m_id = dataFromBinV9MM.m_tracksData[0].m_id; // V8 and V9MM tracks have different IDs. Fix ID value manually.
   TEST_EQUAL(dataFromBinV8.m_tracksData, dataFromBinV9MM.m_tracksData, ());
 }
 
