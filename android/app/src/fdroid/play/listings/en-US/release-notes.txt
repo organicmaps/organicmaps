@@ -1,4 +1,4 @@
-• New OSM data as of August 1
+• New OSM data as of August 10
 • Display current speed limit and traffic light icons in car navigator
 • Announce street names in pedestrian navigation
 • Properly export modified bookmark names in GPX
