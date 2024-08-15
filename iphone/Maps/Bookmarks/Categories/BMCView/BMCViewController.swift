@@ -105,7 +105,7 @@ final class BMCViewController: MWMViewController {
     let settingsController = CategorySettingsViewController(bookmarkGroup: BookmarksManager.shared().category(withId: category.categoryId))
     settingsController.delegate = self
 
-    MapViewController.topViewController().navigationController?.pushViewController(settingsController,
+    MapViewController.shared()?.navigationController?.pushViewController(settingsController,
                                                                                    animated: true)
   }
 
@@ -113,7 +113,7 @@ final class BMCViewController: MWMViewController {
     let bmViewController = BookmarksListBuilder.build(markGroupId: category.categoryId,
                                                       bookmarksCoordinator: coordinator,
                                                       delegate: self)
-    MapViewController.topViewController().navigationController?.pushViewController(bmViewController,
+    MapViewController.shared()?.navigationController?.pushViewController(bmViewController,
                                                                                    animated: true)
   }
 
