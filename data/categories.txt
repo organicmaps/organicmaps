@@ -16515,3 +16515,44 @@ uk:Інвалідний візок|5Інвалід
 vi:Xe lăn
 zh-Hans:轮椅
 zh-Hant:輪椅
+
+amenity-social_facility
+en:Social Facility
+ar:المرفق الاجتماعي
+be:Сацыяльная ўстанова
+bg:Социално съоръжение
+ca:Equipament Social
+cs:Sociální zařízení
+da:Social facilitet
+de:Soziale Einrichtung
+el:Κοινωνική διευκόλυνση
+es:Servicio social
+et:Sotsiaalne rajatis
+eu:Gizarte-ekipamendua
+fa:تسهیلات اجتماعی
+fi:Sosiaalinen väline
+fr:Établissement de services sociaux
+he:מתקן חברתי
+hi:सामाजिक सुविधा
+hu:Szociális létesítmény
+id:Fasilitas Sosial
+it:Struttura sociale
+ja:社会施設
+ko:사회 시설
+mr:सामाजिक सुविधा
+nb:Sosialt anlegg
+nl:Sociale voorziening
+pl:Obiekt socjalny
+pt:Instituição de serviços sociais
+pt-BR:Unidade de assistência social
+ro:Facilitate socială
+ru:Социальное учреждение
+sk:Sociálne zariadenie
+sv:Social anläggning
+sw:Kituo cha Kijamii
+th:สิ่งอำนวยความสะดวกทางสังคม
+tr:Sosyal Tesis
+uk:Соціальна установа
+vi:Cơ sở xã hội
+zh-Hans:社会设施
+zh-Hant:社會設施

@@ -952,6 +952,8 @@ node|z17-[amenity=courthouse],
 area|z17-[amenity=courthouse],
 node|z17-[amenity=nursing_home],
 area|z17-[amenity=nursing_home],
+node|z17-[amenity=social_facility],
+area|z17-[amenity=social_facility],
 node|z17-[amenity=kindergarten],
 area|z17-[amenity=kindergarten],
 node|z17-[amenity=childcare],
@@ -1560,6 +1562,10 @@ area|z17-[amenity=courthouse]
 node|z17-[amenity=nursing_home],
 area|z17-[amenity=nursing_home]
 {icon-image: home-m.svg;}
+
+node|z17-[amenity=social_facility],
+area|z17-[amenity=social_facility]
+{icon-image: social_facility-m.svg;}
 
 node|z17-[amenity=cinema],
 area|z17-[amenity=cinema]
