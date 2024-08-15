@@ -49,10 +49,10 @@
       <TextView
           android:id="@+id/downloader_size"
           android:layout_width="match_parent"
-          android:layout_height="24sp"
+          android:layout_height="48sp"
           android:layout_margin="@dimen/margin_half"
-          android:gravity="center_horizontal|center_vertical"
-          android:lines="1"
+          android:gravity="center_horizontal|top"
+          android:lines="2"
           android:textAppearance="@style/MwmTextAppearance.Body2"
           app:autoSizeMaxTextSize="@dimen/text_size_body_2"
           app:autoSizeMinTextSize="@dimen/text_size_body_2_min"
