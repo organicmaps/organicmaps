@@ -1,8 +1,6 @@
 #pragma once
 
-#include "coding/reader.hpp"
 #include "coding/serdes_binary_header.hpp"
-#include "coding/write_to_sink.hpp"
 
 #include <cstdint>
 
@@ -33,6 +31,11 @@ enum class Version : uint8_t
              // (first byte is 0x09), but it's not compatible with OrganicMaps V9 from this repo.
              // It supports multiline geometry.
 };
+
+inline std::string DebugPrint(Version v)
+{
+  return ::DebugPrint(static_cast<int>(v));
+}
 
 struct Header
 {

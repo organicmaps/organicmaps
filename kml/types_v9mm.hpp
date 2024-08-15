@@ -6,7 +6,7 @@
 namespace kml
 {
 
-MultiGeometry mergeGeometry(std::vector<MultiGeometry> aGeometries);
+MultiGeometry mergeGeometry(std::vector<MultiGeometry> && aGeometries);
 
 struct TrackDataV9MM : TrackDataV8MM
 {
@@ -27,7 +27,7 @@ struct TrackDataV9MM : TrackDataV8MM
 
   DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description, m_nearestToponyms, m_properties)
 
-  TrackData ConvertToLatestVersion() const
+  TrackData ConvertToLatestVersion()
   {
     TrackData data;
     data.m_id = m_id;
@@ -36,7 +36,7 @@ struct TrackDataV9MM : TrackDataV8MM
     data.m_description = m_description;
     data.m_layers = m_layers;
     data.m_timestamp = m_timestamp;
-    data.m_geometry = mergeGeometry(m_multiGeometry);
+    data.m_geometry = mergeGeometry(std::move(m_multiGeometry));
     data.m_visible = m_visible;
     data.m_nearestToponyms = m_nearestToponyms;
     data.m_properties = m_properties;
@@ -48,49 +48,6 @@ struct TrackDataV9MM : TrackDataV8MM
 
 
 // Contains the same sections as FileDataV8MM but with changed m_tracksData format
-struct FileDataV9MM
-{
-  DECLARE_VISITOR_AND_DEBUG_PRINT(FileDataV9MM, visitor(m_serverId, "serverId"),
-                                  visitor(m_categoryData, "category"),
-                                  visitor(m_bookmarksData, "bookmarks"),
-                                  visitor(m_tracksData, "tracks"))
+using FileDataV9MM = FileDataMMImpl<TrackDataV9MM>;
 
-  bool operator==(FileDataV9MM const & data) const
-  {
-    return m_serverId == data.m_serverId && m_categoryData == data.m_categoryData &&
-           m_bookmarksData == data.m_bookmarksData && m_tracksData == data.m_tracksData;
-  }
-
-  bool operator!=(FileDataV9MM const & data) const { return !operator==(data); }
-
-  FileData ConvertToLatestVersion()
-  {
-    FileData data;
-    data.m_deviceId = m_deviceId;
-    data.m_serverId = m_serverId;
-
-    data.m_categoryData = m_categoryData.ConvertToLatestVersion();
-
-    data.m_bookmarksData.reserve(m_bookmarksData.size());
-    for (auto & d : m_bookmarksData)
-      data.m_bookmarksData.emplace_back(d.ConvertToLatestVersion());
-
-    data.m_tracksData.reserve(m_tracksData.size());
-    for (auto & t : m_tracksData)
-      data.m_tracksData.emplace_back(t.ConvertToLatestVersion());
-
-    return data;
-  }
-
-  // Device id (it will not be serialized in text files).
-  std::string m_deviceId;
-  // Server id.
-  std::string m_serverId;
-  // Category's data.
-  CategoryDataV8MM m_categoryData;
-  // Bookmarks collection.
-  std::vector<BookmarkDataV8MM> m_bookmarksData;
-  // Tracks collection.
-  std::vector<TrackDataV9MM> m_tracksData;
-};
 }  // namespace kml

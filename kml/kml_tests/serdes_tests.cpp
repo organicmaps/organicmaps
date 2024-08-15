@@ -7,6 +7,8 @@
 
 #include "indexer/classificator_loader.hpp"
 
+#include "platform/platform.hpp"
+
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/hex.hpp"
@@ -19,7 +21,6 @@
 
 #include <cstring>
 #include <functional>
-#include <memory>
 #include <sstream>
 #include <vector>
 

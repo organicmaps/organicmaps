@@ -39,16 +39,12 @@ void MultiGeometry::FromPoints(std::vector<m2::PointD> const & points)
   m_lines.push_back(std::move(line));
 }
 
-MultiGeometry mergeGeometry(std::vector<MultiGeometry> aGeometries)
+MultiGeometry mergeGeometry(std::vector<MultiGeometry> && aGeometries)
 {
   MultiGeometry merged;
-  for (auto const & geometry : aGeometries)
-  {
-    for (auto const & line : geometry.m_lines)
-    {
-      merged.m_lines.push_back(line);
-    }
-  }
+  for (auto && geometry : aGeometries)
+    for (auto && line : geometry.m_lines)
+      merged.m_lines.push_back(std::move(line));
 
   return merged;
 }
