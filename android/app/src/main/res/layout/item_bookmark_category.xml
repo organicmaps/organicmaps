@@ -10,8 +10,8 @@
     android:id="@+id/checkbox"
     android:layout_width="@dimen/margin_double_plus"
     android:layout_height="match_parent"
-    android:layout_centerVertical="true"
     android:layout_marginStart="@dimen/margin_quarter"
+    android:layout_marginTop="@dimen/margin_base"
     android:background="@null"
     android:button="@drawable/button_visibility_centre_inset"
     android:buttonTint="?accentColorSelector" />
@@ -50,7 +50,7 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:layout_alignParentEnd="true"
-    android:layout_centerVertical="true"
+    android:layout_marginTop="@dimen/margin_base"
     android:background="?selectableItemBackgroundBorderless"
     android:importantForAccessibility="no"
     android:paddingHorizontal="@dimen/margin_half"
