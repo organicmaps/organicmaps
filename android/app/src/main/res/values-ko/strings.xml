@@ -225,6 +225,8 @@
 	<string name="pref_tts_playing_test_voice">지금 음성이 들리지 않으면 볼륨 또는 시스템 텍스트 음성 변환 설정을 확인하세요.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">사용할 수 없음</string>
+	<!-- The name of the feature in the main menu, settings, and messages. -->
+	<string name="recent_track">최근 추적</string>
 	<string name="pref_map_auto_zoom">자동 줌</string>
 	<string name="duration_disabled">선택 안 함</string>
 	<string name="duration_1_hour">1시간</string>
@@ -491,6 +493,7 @@
 	<string name="editor_category_unsuitable_text">오가닉 지도에서는 단순한 포인트 카테고리만 추가할 수 있으므로 도시, 도로, 호수, 건물 윤곽선 등은 추가할 수 없습니다. 이러한 카테고리는 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> 에 직접 추가하세요. 자세한 단계별 지침은 <a href="https://organicmaps.app/faq/editing/advanced-map-editing">가이드</a>를 참조하세요.</string>
 	<string name="downloader_no_downloaded_maps_title">지도를 다운로드하지 않았습니다</string>
 	<string name="downloader_no_downloaded_maps_message">오프라인으로 위치를 검색하려면 지도를 다운로드하세요.</string>
+	<string name="current_location_unknown_error_title">현재 위치를 알 수 없습니다.</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -529,6 +532,9 @@
 	<string name="editor_share_to_all_dialog_message_1">개인 정보를 입력하지 않았는지 확인하십시오.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap 편집자가 변경 사항을 확인하고 질문이 있는 경우 귀하에게 연락할 것입니다.</string>
 	<string name="navigation_stop_button">중지</string>
+	<string name="recent_track_background_dialog_message">Organic Maps는 최근 여행한 경로를 녹음하기 위해 배경 화면에서 지역 위치 서비스를 사용합니다.</string>
+	<!-- Shown as toast when starting the recent track recording -->
+	<string name="track_recording">트랙 기록하기</string>
 	<!-- For the first routing -->
 	<string name="accept">동의</string>
 	<!-- For the first routing -->

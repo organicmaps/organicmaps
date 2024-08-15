@@ -242,6 +242,8 @@
 	<string name="pref_tts_playing_test_voice">Controleer het volume of de tekst-naar-spraak instellingen van het systeem als je de stem nu niet hoort.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Niet beschikbaar</string>
+	<!-- The name of the feature in the main menu, settings, and messages. -->
+	<string name="recent_track">Recente track</string>
 	<string name="pref_map_auto_zoom">Automatisch zoomen</string>
 	<string name="duration_disabled">Uit</string>
 	<string name="duration_1_hour">1 uur</string>
@@ -513,6 +515,7 @@
 	<string name="editor_category_unsuitable_text">Met Organic Maps kun je alleen eenvoudige puntcategorieën toevoegen, dus geen steden, wegen, meren, contouren van gebouwen, enzovoort. Voeg zulke categorieën direct toe aan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Bekijk onze <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gids</a> voor gedetailleerde stap voor stap instructies.</string>
 	<string name="downloader_no_downloaded_maps_title">U hebt geen kaarten gedownload</string>
 	<string name="downloader_no_downloaded_maps_message">Download kaarten om een locatie te zoeken en offline te navigeren.</string>
+	<string name="current_location_unknown_error_title">Huidige locatie is onbekend.</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -558,6 +561,9 @@
 	<string name="editor_share_to_all_dialog_message_1">Controleer dat je geen persoonlijke gegevens hebt ingevoerd.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap-editors zullen de wijzigingen controleren en contact met u opnemen als ze vragen hebben.</string>
 	<string name="navigation_stop_button">Stop</string>
+	<string name="recent_track_background_dialog_message">Organic Maps gebruikt uw geografische positie op de achtergrond om uw onlangs afgelegde route vast te leggen.</string>
+	<!-- Shown as toast when starting the recent track recording -->
+	<string name="track_recording">Het spoor opnemen</string>
 	<!-- For the first routing -->
 	<string name="accept">Accepteer</string>
 	<!-- For the first routing -->

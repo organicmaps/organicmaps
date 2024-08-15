@@ -230,6 +230,8 @@
 	<string name="pref_tts_playing_test_voice">Verifique o volume ou as configurações de conversão de texto em fala do sistema se você não estiver ouvindo a voz agora.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Não disponível</string>
+	<!-- The name of the feature in the main menu, settings, and messages. -->
+	<string name="recent_track">Percurso recente</string>
 	<string name="pref_map_auto_zoom">Zoom automático</string>
 	<string name="duration_disabled">Desligado</string>
 	<string name="duration_1_hour">1 hora</string>
@@ -474,6 +476,7 @@
 	<string name="editor_category_unsuitable_text">O Organic Maps permite que você adicione apenas categorias de pontos simples, o que significa que não há cidades, estradas, lagos, contornos de edifícios etc. Por favor, adicione essas categorias diretamente no <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte nosso <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guia</a> para obter instruções detalhadas passo a passo.</string>
 	<string name="downloader_no_downloaded_maps_title">Você não fez o download de nenhum mapa</string>
 	<string name="downloader_no_downloaded_maps_message">Baixe mapas para pesquisar locais e usar navegação offline.</string>
+	<string name="current_location_unknown_error_title">A localização atual é desconhecida.</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -511,6 +514,9 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Certifique-se de não ter incluído nenhum dado pessoal.</string>
 	<string name="editor_share_to_all_dialog_message_2">Os editores do OpenStreetMap verificarão as mudanças e entrarão em contato com você se tiverem alguma dúvida.</string>
+	<string name="recent_track_background_dialog_message">O Organic Maps usa sua localização geográfica em segundo plano para registrar sua rota recente.</string>
+	<!-- Shown as toast when starting the recent track recording -->
+	<string name="track_recording">Registro da pista</string>
 	<!-- For the first routing -->
 	<string name="accept">Aceitar</string>
 	<!-- For the first routing -->

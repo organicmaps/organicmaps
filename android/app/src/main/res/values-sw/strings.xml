@@ -116,6 +116,8 @@
 	<string name="dialog_kayak_button">Maelezo kuhusu Kayak</string>
 	<string name="placepage_add_place_button">Ongeza Mahali kwa OpenStreetMap</string>
 	<string name="editor_share_to_all_dialog_message_2">Wahariri wa OpenStreetMap watakagua mabadiliko na kuwasiliana nawe ikiwa wana maswali yoyote.</string>
+	<!-- Shown as toast when starting the recent track recording -->
+	<string name="track_recording">Kurekodi wimbo</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Maoni Jumla</string>
 	<string name="prefs_languages_information">Tunatumia maagizo ya sautii ya TTS ya mfumo. Vifaa vingi vya Android vinatumia Google TTS, unaweza kuipakua au kuisasisha kwenye Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
