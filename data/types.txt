@@ -1596,3 +1596,4 @@ amenity|recycling|container
 *railway|station|subway|boston
 *railway|subway_entrance|boston
 *leisure|miniature_golf
+*amenity|social_facility

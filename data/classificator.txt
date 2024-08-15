@@ -155,6 +155,7 @@ world  +
             public_transport  -
             {}
         shower  -
+        social_facility  -
         stripclub  -
         taxi  -
         telephone  -

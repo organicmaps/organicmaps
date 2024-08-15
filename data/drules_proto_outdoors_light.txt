@@ -12575,6 +12575,73 @@ cont {
   }
 }
 cont {
+  name: "amenity-social_facility"
+  element {
+    scale: 17
+    symbol {
+      name: "social_facility-m"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "social_facility-m"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "social_facility-m"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "social_facility-m"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+}
+cont {
   name: "amenity-stripclub"
   element {
     scale: 18
