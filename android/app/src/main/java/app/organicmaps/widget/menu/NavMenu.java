@@ -225,7 +225,6 @@ public class NavMenu
     if (last.getSpeed() > info.speedLimitMps)
     {
       if (info.isSpeedCamLimitExceeded())
-        // White text on red background for camera speeding
         mSpeedValue.setTextColor(ContextCompat.getColor(mActivity, R.color.white_primary));
       else
         // Black text for speeding if there's no camera
