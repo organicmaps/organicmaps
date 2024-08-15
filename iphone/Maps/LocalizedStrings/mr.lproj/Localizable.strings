@@ -4011,3 +4011,6 @@
 "type.self_service.partially" = "आंशिक स्व-सेवा";
 
 "type.self_service.no" = "स्व-सेवा नाही";
+
+/* https://wiki.openstreetmap.org/wiki/Key:social_facility */
+"type.amenity.social_facility" = "सामाजिक सुविधा";

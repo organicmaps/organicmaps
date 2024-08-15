@@ -2101,4 +2101,6 @@
 	<string name="type.self_service.only">Tylko samoobsługa</string>
 	<string name="type.self_service.partially">Częściowa samoobsługa</string>
 	<string name="type.self_service.no">Brak samoobsługi</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+	<string name="type.amenity.social_facility">Obiekt socjalny</string>
 </resources>

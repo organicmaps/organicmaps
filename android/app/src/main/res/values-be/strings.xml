@@ -1404,4 +1404,6 @@
 	<string name="type.self_service.only">Толькі самаабслугоўванне</string>
 	<string name="type.self_service.partially">Частковае самаабслугоўванне</string>
 	<string name="type.self_service.no">Няма самаабслугоўвання</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+	<string name="type.amenity.social_facility">Сацыяльная ўстанова</string>
 </resources>

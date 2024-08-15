@@ -1925,4 +1925,6 @@
 	<string name="type.self_service.only">บริการตนเองเท่านั้น</string>
 	<string name="type.self_service.partially">การบริการตนเองบางส่วน</string>
 	<string name="type.self_service.no">ไม่มีบริการตนเอง</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+	<string name="type.amenity.social_facility">สิ่งอำนวยความสะดวกทางสังคม</string>
 </resources>

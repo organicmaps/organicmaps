@@ -1837,4 +1837,6 @@
 	<string name="type.self_service.only">فقط سلف سرویس</string>
 	<string name="type.self_service.partially">سلف سرویس جزئی</string>
 	<string name="type.self_service.no">بدون سلف سرویس</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+	<string name="type.amenity.social_facility">تسهیلات اجتماعی</string>
 </resources>

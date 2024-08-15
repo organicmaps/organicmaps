@@ -1911,4 +1911,6 @@
 	<string name="type.self_service.only">Endast självbetjäning</string>
 	<string name="type.self_service.partially">Delvis självbetjäning</string>
 	<string name="type.self_service.no">Ingen självbetjäning</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+	<string name="type.amenity.social_facility">Social anläggning</string>
 </resources>

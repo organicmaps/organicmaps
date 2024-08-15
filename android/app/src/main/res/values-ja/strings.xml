@@ -2095,4 +2095,6 @@
 	<string name="type.self_service.only">セルフサービスのみ</string>
 	<string name="type.self_service.partially">一部セルフサービス</string>
 	<string name="type.self_service.no">セルフサービスはない</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+	<string name="type.amenity.social_facility">社会施設</string>
 </resources>

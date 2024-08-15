@@ -1494,4 +1494,6 @@
 	<string name="type.self_service.only">שירות עצמי בלבד</string>
 	<string name="type.self_service.partially">שירות עצמי חלקי</string>
 	<string name="type.self_service.no">אין שירות עצמי</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+	<string name="type.amenity.social_facility">מתקן חברתי</string>
 </resources>

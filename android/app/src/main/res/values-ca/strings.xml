@@ -1248,4 +1248,6 @@
 	<string name="type.self_service.only">Només autoservei</string>
 	<string name="type.self_service.partially">Autoservei parcial</string>
 	<string name="type.self_service.no">Sense autoservei</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+	<string name="type.amenity.social_facility">Equipament Social</string>
 </resources>

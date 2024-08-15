@@ -2151,4 +2151,6 @@
 	<string name="type.self_service.only">Sólo autoservicio</string>
 	<string name="type.self_service.partially">Autoservicio parcial</string>
 	<string name="type.self_service.no">Sin autoservicio</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+	<string name="type.amenity.social_facility">Servicio social</string>
 </resources>

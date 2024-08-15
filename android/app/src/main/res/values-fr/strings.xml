@@ -2104,4 +2104,6 @@
 	<string name="type.self_service.only">En libre-service uniquement</string>
 	<string name="type.self_service.partially">En libre-service partiellement</string>
 	<string name="type.self_service.no">Pas en libre-service</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+	<string name="type.amenity.social_facility">Établissement de services sociaux</string>
 </resources>

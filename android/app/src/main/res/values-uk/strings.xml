@@ -2159,4 +2159,6 @@
 	<string name="type.self_service.only">Тільки самообслуговування</string>
 	<string name="type.self_service.partially">Часткове самообслуговування</string>
 	<string name="type.self_service.no">Самообслуговування відсутнє</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+	<string name="type.amenity.social_facility">Соціальна установа</string>
 </resources>

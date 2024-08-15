@@ -2132,4 +2132,6 @@
 	<string name="type.self_service.only">Nur Selbstbedienung</string>
 	<string name="type.self_service.partially">Teilweise Selbstbedienung</string>
 	<string name="type.self_service.no">Keine Selbstbedienung</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+	<string name="type.amenity.social_facility">Soziale Einrichtung</string>
 </resources>

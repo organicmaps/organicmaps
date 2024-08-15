@@ -2082,4 +2082,6 @@
 	<string name="type.self_service.only">الخدمة الذاتية فقط</string>
 	<string name="type.self_service.partially">خدمة ذاتية جزئية</string>
 	<string name="type.self_service.no">لا توجد خدمة ذاتية</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+	<string name="type.amenity.social_facility">المرفق الاجتماعي</string>
 </resources>

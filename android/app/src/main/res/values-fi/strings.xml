@@ -2074,4 +2074,6 @@
 	<string name="type.self_service.only">Vain itsepalvelu</string>
 	<string name="type.self_service.partially">Osittainen itsepalvelu</string>
 	<string name="type.self_service.no">Ei itsepalvelua</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+	<string name="type.amenity.social_facility">Sosiaalinen väline</string>
 </resources>

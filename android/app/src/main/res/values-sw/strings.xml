@@ -972,4 +972,6 @@
 	<string name="type.self_service.only">Kujihudumia pekee</string>
 	<string name="type.self_service.partially">Kujihudumia kwa sehemu</string>
 	<string name="type.self_service.no">Hakuna huduma binafsi</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+	<string name="type.amenity.social_facility">Kituo cha Kijamii</string>
 </resources>

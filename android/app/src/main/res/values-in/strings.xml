@@ -1912,4 +1912,6 @@
 	<string name="type.self_service.only">Hanya layanan mandiri</string>
 	<string name="type.self_service.partially">Layanan mandiri sebagian</string>
 	<string name="type.self_service.no">Tidak ada layanan mandiri</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+	<string name="type.amenity.social_facility">Fasilitas Sosial</string>
 </resources>
