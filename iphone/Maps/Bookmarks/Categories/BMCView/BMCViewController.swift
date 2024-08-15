@@ -105,16 +105,14 @@ final class BMCViewController: MWMViewController {
     let settingsController = CategorySettingsViewController(bookmarkGroup: BookmarksManager.shared().category(withId: category.categoryId))
     settingsController.delegate = self
 
-    MapViewController.shared()?.navigationController?.pushViewController(settingsController,
-                                                                                   animated: true)
+    MapViewController.shared()?.navigationController?.pushViewController(settingsController, animated: true)
   }
 
   private func openCategory(category: BookmarkGroup) {
     let bmViewController = BookmarksListBuilder.build(markGroupId: category.categoryId,
                                                       bookmarksCoordinator: coordinator,
                                                       delegate: self)
-    MapViewController.shared()?.navigationController?.pushViewController(bmViewController,
-                                                                                   animated: true)
+    MapViewController.shared()?.navigationController?.pushViewController(bmViewController, animated: true)
   }
 
   private func setCategoryVisible(_ visible: Bool, at index: Int) {
