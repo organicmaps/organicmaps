@@ -1,8 +1,9 @@
-• Amélioration de la recherche d'adresses aux États-Unis
-• Correction du rendu des textes en alphabet indien, arabe, thaï, lao, khmer, myanmar, tibétain, hangul et hébreu
-• Données OSM à partir du 2 juillet
-• Une simple pression permet de sélectionner n'importe quel point de la carte, une pression prolongée permet de basculer en mode plein écran
-• Correction de l'importation GPX depuis WhatsApp
-• Afficher plus de catégories pour un POI sélectionné
+• Nouvelles données OSM à partir du 10 août
+• Afficher la limite de vitesse
+• Annoncer les noms de rue dans la navigation piétonne
+• Prise en charge des informations relatives au libre-service et aux places assises en extérieur d'un lieu
+• Correction des directions de virage dans Android Auto
+• Les pistes importées peuvent désormais être supprimées
+• Correction de l'enregistrement sur Google Drive, de l'importation KMB et de l'exportation des noms de signets modifiés dans GPX
 
-…plus de détails sur omaps.org/fr/news
+omaps.org/fr/news

@@ -1,36 +1,34 @@
-• Verbesserte Adressensuche in den USA auf der Grundlage von TIGER-Daten (Topologically Integrated Geographic Encoding and Referencing System). Die Kartengröße für die USA wurde von 10 GB auf 13 GB erhöht (einschließlich Wikipedia und Höhendaten)
-• Feste Textanzeige in indischen (Devanagari, Bengali, Gujarati, Gurmukhi, Kannada, Malayalam, Oriya, Tamil, Telugu), arabischen (N'ko, Syrisch, Mongolisch), thailändischen und laotischen, Khmer, Myanmar, tibetischen, Hangul und hebräischen Sprachen
-• Neue Schriftarten für die Sprachen Malayalam und Bengali
+Bitte lassen Sie unser Team wissen, wenn Sie diese Versionshinweise lesen und sie für Sie wichtig sind.
 
-• Einfaches Antippen auf die Karte können Sie jetzt einen beliebigen Punkt auswählen, auch wenn die Karte leer ist
-• Langes Antippen auf die Karte schaltet in den Vollbildmodus
+• Neue OpenStreetMap-Daten ab dem 10. August
 
-• OpenStreetMap-Daten vom 2. Juli
-• Ausgewählter Ort zeigt jetzt eine vollständige Liste der Objekttypen (Kategorien) an diesem Ort
-• Versehentlich gelöschte Markierungen auf der Karte können nun sofort wiederhergestellt werden (die Schaltfläche "Speichern" ändert sich in "Wiederherstellen")
-• KML-, KMZ- und GPX-Dateien können über die Schaltfläche "Importieren" im Dialogfeld "Beschriftungen und Tracks" importiert werden (Beschriftungen und Tracks können auch importiert werden, indem sie aus einer anderen Anwendung "freigegeben" und dann "Mit Organic Maps öffnen" ausgewählt werden)
-• Der Import von KML-, KMZ- und GPX-Dateien über die Dateien-App beim ersten Start der App wurde korrigiert.
-• In den Navigationseinstellungen wurde eine Schaltfläche zur Überprüfung auf Sprachanweisungen (TTS) hinzugefügt
-• Sie können jetzt in den Einstellungen die Protokollierung aktivieren, um uns bei der Fehlersuche zu helfen
-• Links zu sozialen Medien werden in installierten Apps geöffnet
-• Nicht funktionierende Stau-Schaltfläche aus CarPlay entfernt
-• Runde Schaltflächen im Zeit-Editor wurden durch runde Rechtecke ersetzt
+Neue Funktionen:
+• Es wurde eine Schaltfläche hinzugefügt, um einen ausgewählten Ort in anderen installierten Anwendungen zu öffnen
+• Gelöschte Listen von Lesezeichen und Tracks können nun aus dem Ordner „Kürzlich gelöscht“ wiederhergestellt werden
+• Ampelsymbole werden im Auto-Navigationsmodus angezeigt
+• Ausgewählte Orte mit WiFi zeigen das Emoji-Symbol an
+• Anzeige von Straßenschildern in Indien
+• Anzeige, ob Selbstbedienung und Sitzplätze im Freien für einen ausgewählten Ort verfügbar sind
 
-Stile:
-• Die Hintergrundfarbe des dunklen Modus beim Start der App wurde angepasst
-• Wichtige Straßen werden in der Weltübersichtskarte früher angezeigt
-• Deutlichere Beschriftung der Etage eines Ortes in einem Gebäude
-• Feinkiesige Fußwege guter Qualität werden mit weißen gepunkteten Linien angezeigt
-• Unterstützung für mehr Straßen- und Wegebeläge (Ziegel, Stein, Gras, Erde)
-• Verbesserter Tooltip-Text beim Erstellen einer Route
-
-Suche:
-• Bergsuche findet auch Vulkane
-• Verbesserte Suchergebnisse für abgelegene Orte
-• Die Suche findet jetzt auch Orte mit einer Nummer im Namen.
-• Suche nach Paketschließfächern anhand ihrer Nummern
+Verbesserungen und Korrekturen:
+• Die Schaltfläche „Teilen“ wurde von der unteren Leiste zur Schaltfläche „X“ auf der Seite mit den Ortsinformationen verschoben.
+• Behobene Sprachführung, wenn Organic Maps im Hintergrund läuft
+• Verbesserte Routenführung bei schlechtem Belag und fehlender Geschwindigkeitsbegrenzung
+• Ansage von Straßennamen in der Fußgängernavigation
+• Falsche Auswahl eines mit Lesezeichen versehenen Ortes beim Tippen auf seinen Titel behoben
+• Deaktivierung der Kartenrotation beim Einrasten auf den Nordwinkel
+• Aktualisierte FAQ in der App
+• Speichern von 50 statt 10 letzten Suchen
+• Geänderte Lesezeichennamen werden nun korrekt in GPX exportiert
+• Karten, die älter als 3 Monate sind, können nicht mehr bearbeitet werden
+• Verwendung der Schriftart NotoSans anstelle von Serif für Hebräisch
+• Import von KMB-Dateien korrigiert
+• Warnung anzeigen, wenn CarPlay nicht alle Lesezeichen anzeigen kann
+• Fehlerbericht bei unerwarteten iCloud-Synchronisationsfehlern
+• Verschiedene Icon-Korrekturen für die Ortsinformationsseite
+• Der Download-Fortschrittstext auf dem Kartenbildschirm springt nicht mehr
+• Fehler behoben, bei dem der letzte Titel nach einem Neustart nicht gespeichert wurde
 
 Übersetzungen:
-• Weißrussisch, Chinesisch, Niederländisch, Euskara, Ungarisch, Polnisch, Portugiesisch, Russisch, Ukrainisch - die Übersetzungen wurden aktualisiert
-
-Lesen Sie mehr unter https://omaps.app/de/news
+• Verbesserte Übersetzungen für Katalanisch, Chinesisch, Hebräisch, Hindi, Japanisch, Spanisch, Türkisch, Ukrainisch und Ungarisch
+• Aktualisierte Namen und Übersetzungen der Kartenregionen Zypern, Irak und Spanien

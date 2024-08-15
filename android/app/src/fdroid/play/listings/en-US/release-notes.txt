@@ -1,10 +1,12 @@
-• Better address search in the USA based on US Census TIGER data
-• Fixed rendering of texts in Indic, Arabic, Thai, Lao, Khmer, Myanmar, Tibetan, Hangul, Hebrew scripts
-• OSM data as of July 2
-• Single tap selects any point on the map, long tap toggles full-screen mode
-• Accidentally deleted bookmark on the map can be restored
-• Fixed GPX import from WhatsApp
-• Display major roads earlier on the world overview map
-• Show more categories for a selected POI
+• New OSM data as of August 10
+• Display current speed limit and traffic light icons in car navigator
+• Announce street names in pedestrian navigation
+• Properly export modified bookmark names in GPX
+• Display road shields in India
+• Self-service and outdoor seating support
+• Fixed import of KMB files
+• Fixed turn directions in Android Auto
+• Imported tracks can now be deleted
+• Fixed saving to Google Drive
 
 …more details at omaps.org/news

@@ -1,7 +1,10 @@
-• Bessere Adressensuche in den USA
-• Korrigierte Darstellung von Texten in indischer, arabischer, thailändischer, laotischer, khmerischer, myanmarischer, tibetischer, hangulischer und hebräischer Schrift
-• OSM-Daten vom 2. Juli
-• Einfaches Antippen wählt einen beliebigen Punkt auf der Karte, langes Antippen schaltet in den Vollbildmodus um
-• Versehentlich auf der Karte gelöschte Lesezeichen können wiederhergestellt werden
-• GPX Import Problem aus WhatsApp behoben
+• Neue OSM-Daten ab 10. August
+• Geschwindigkeitsbegrenzung anzeigen
+• Straßennamen in der Fußgängernavigation ansagen
+• Unterstützung für Selbstbedienung und Sitzplätze im Freien
+• Abbiegehinweise in Android Auto korrigiert
+• Importierte Tracks können jetzt gelöscht werden
+• Speichern in Google Drive, KMB-Import und Export geänderter Lesezeichennamen in GPX korrigiert
+• Aktualisierte Übersetzungen und FAQ in der App
+
 …mehr Details omaps.org/de/news

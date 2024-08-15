@@ -1,36 +1,34 @@
-• Better address search in the USA based on Topologically Integrated Geographic Encoding and Referencing system (TIGER) data. Map size for the USA has increased from 10Gb to 13Gb (including Wikipedia and elevation data)
-• Fixed rendering of texts in Indic (covering Devanagari, Bengali, Gujarati, Gurmukhi, Kannada, Malayalam, Oriya, Tamil, Telugu), Arabic (N'Ko, Syriac, Mongolian), Thai and Lao, Khmer, Myanmar, Tibetan, Hangul, Hebrew scripts
-• New Malayalam and Bengali fonts
+Ti preghiamo di far sapere al nostro team se leggi queste note di rilascio e se sono importanti per te.
 
-• Single tap now selects any point on the map, even if the map is empty
-• Changed long tap to toggle full-screen mode
+• Dati OpenStreetMap aggiornati al 10 agosto
 
-• OpenStreetMap data as of July 2
-• A selected place now shows more types/categories/amenities
-• Accidentally deleted bookmark on the map now can be restored immediately (Save button changes to Restore)
-• Use Import button in Bookmarks and Tracks dialog to load KML, KMZ, GPX files (bookmarks and tracks can also be imported by "sharing" them from any other app, and then choosing "Open with Organic Maps")
-• Fix importing files via the Files app on a cold start
-• Added a TTS voice test button in navigation settings
-• Enable logs in settings to help us with bug fixing
-• Open social media links in installed applications
-• Removed a non-working traffic button from CarPlay
-• Replaced circle checkbox with a rounded rect in the time editor
+Nuove caratteristiche:
+• Aggiunto un pulsante per aprire un luogo selezionato in altre applicazioni installate
+• Elenchi di segnalibri e tracce cancellate di recente possono ora essere ripristinate dal cestino
+• Icone dei semafori vengono ora visualizzate nella modalità di navigazione in auto
+• Mostra simbolo emoji Wi-Fi del luoghi selezionati 
+• Visualizzazione dei cartelli stradali in India
+• Mostra self-service e posti a sedere all'aperto per un luogo selezionato
 
-Styles:
-• Correct dark mode startup background color
-• Display major roads earlier on the world overview map
-• Clearer label for POI's building level
-• Display good quality fine gravel pedestrian paths as white dashed
-• Support more road/path surface types (bricks, stone, grass paver, soil)
-• More clear hints when building a route
+Miglioramenti e correzioni:
+• Spostato il pulsante Condividi dalla barra inferiore al pulsante X nella pagina Informazioni sul luogo
+• Correzione delle indicazioni vocali quando Organic Maps è in background
+• Miglioramento del percorso in caso di superfici danneggiate e limiti di velocità mancanti
+• Annuncio dei nomi delle strade nella modalità navigazione pedonale
+• Corretta la selezione errata di un luogo inserito tra i segnalibri quando si tocca il titolo
+• Disabilitata la rotazione della mappa con orientamento a nord
+• Aggiornate le FAQ nell'app
+• Salvataggio di 50 ricerche recenti invece delle precedenti 10
+• Corretta esportazione dei nomi modificati dei segnalibri in GPX
+• Mappe più vecchie di 3 mesi non possono essere modificate
+• Utilizzo del font NotoSans al posto di Serif per l'ebraico
+• Corretta importazione dei file KMB
+• Mostra un avviso se CarPlay non può visualizzare tutti i segnalibri
+• Segnalazione bug in caso di errori imprevisti di sincronizzazione con iCloud
+• Corrette varie icone della pagina Informazioni sul luogo
+• Il testo di avanzamento del download della mappa non salta più
+• Corretto un bug quando la Traccia recente non veniva salvata dopo il riavvio
 
-Search:
-• Mountain search also shows volcanoes
-• Better search results for faraway places
-• Search now finds places with a number in their names
-• Find parcel lockers using their ref numbers
-
-Translations:
-• Updated Belarusian, Chinese, Dutch, Euskara, Hungarian, Polish, Portuguese, Russian, Ukrainian translations.
-
-Read more details at https://omaps.org/news
+Traduzioni:
+• Migliorate traduzioni in catalano, cinese, ebraico, hindi, ungherese, giapponese, spagnolo, turco e ucraino
+• Aggiornati nomi delle regioni e traduzioni delle mappe di Cipro, Iraq e Spagna

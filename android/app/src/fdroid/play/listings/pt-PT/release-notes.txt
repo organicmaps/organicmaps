@@ -1,10 +1,10 @@
-• Better address search in the USA based on US Census TIGER data
-• Fixed rendering of texts in Indic, Arabic, Thai, Lao, Khmer, Myanmar, Tibetan, Hangul, Hebrew scripts
-• OSM data as of July 2
-• Single tap selects any point on the map, long tap toggles full-screen mode
-• Accidentally deleted bookmark on the map can be restored
-• Fixed GPX import from WhatsApp
-• Display major roads earlier on the world overview map
-• Show more categories for a selected POI
+• Novos dados OSM de 10/08
+• Mostra o limite de velocidade
+• Anuncia nomes de ruas para peões
+• Suporte para autoatendimento e assentos ao ar livre
+• Correção de direções de conversão no Android Auto
+• Trilhos importados podem ser excluídos
+• Correção de salvamento no Google Drive, importação de KMB e exportação de nomes de favoritos modificados em GPX
+• Destaca o botão Camadas quando Ar-Livre, Relevo ou Metro estiverem ativados
 
-…more details at omaps.org/news
+…mais detalhes em omaps.org/pt/news

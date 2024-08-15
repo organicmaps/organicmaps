@@ -1,9 +1,11 @@
-• Javított címkeresés az USA -ban
-• Javítottuk a szövegek renderelését indiai, arab, thai, laoszi, khmer, mianmari, tibeti, hangul és héber nyelveken
-• Július 2-i OSM adatok
-• Egy érintéssel már bármilyen pontot kiválaszthat a térképen, a hosszú érintés teljes képernyős nézetet kapcsol be
-• A véletlenül kitörölt könyvjelzők már visszaállíthatóak
-• A GPX fájlok WhatsApp-ból való importálását kijavítottuk
-• Több kategória megjelenítése egy kiválasztott POI-hoz
+• New OSM data as of August 10
+• Display the speed limit
+• Announce street names in pedestrian navigation
+• Self-service and outdoor seating support
+• Fixed turn directions in Android Auto
+• Imported tracks can now be deleted
+• Fixed saving to Google Drive, KMB import, and modified bookmark names export in GPX
+• Highlight top left Layers button when Subway, Elevation or Outdoors are activated
+• Updated translations and FAQ in the app
 
-…több: omaps.org/hu/news
+…more details at omaps.org/news
