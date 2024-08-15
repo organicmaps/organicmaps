@@ -239,6 +239,8 @@
 	<string name="pref_tts_playing_test_voice">Ellenőrizze a hangerőt vagy a rendszer szöveg-beszéd beállításait, ha most nem hallja a hangot.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Nem áll rendelkezésre</string>
+	<!-- The name of the feature in the main menu, settings, and messages. -->
+	<string name="recent_track">Legutolsó útvonal</string>
 	<string name="pref_map_auto_zoom">Automatikus nagyítás</string>
 	<string name="duration_disabled">Kikapcsolva</string>
 	<string name="duration_1_hour">1 óra</string>
@@ -543,6 +545,9 @@
 	<string name="editor_share_to_all_dialog_message_1">Győződj meg arról, hogy nem adsz meg semmilyen személyes információt.</string>
 	<string name="editor_share_to_all_dialog_message_2">Az OpenStreetMap szerkesztői ellenőrzik a változásokat, és felveszik Önnel a kapcsolatot, ha kérdéseik vannak.</string>
 	<string name="navigation_stop_button">Megállítás</string>
+	<string name="recent_track_background_dialog_message">A Organic Maps a geopozíciód használatával a háttérben rögzíti a legutóbb megtett utad.</string>
+	<!-- Shown as toast when starting the recent track recording -->
+	<string name="track_recording">A nyomvonal rögzítése</string>
 	<!-- For the first routing -->
 	<string name="accept">Elfogad</string>
 	<!-- For the first routing -->

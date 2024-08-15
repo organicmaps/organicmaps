@@ -227,6 +227,8 @@
 	<string name="pref_tts_playing_test_voice">ตรวจสอบระดับเสียงหรือการตั้งค่าการอ่านออกเสียงข้อความของระบบหากคุณไม่ได้ยินเสียงในตอนนี้</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">ไม่สามารถใช้ได้</string>
+	<!-- The name of the feature in the main menu, settings, and messages. -->
+	<string name="recent_track">เส้นทางล่าสุด</string>
 	<string name="pref_map_auto_zoom">ซูมอัตโนมัติ</string>
 	<string name="duration_disabled">ปิด</string>
 	<string name="duration_1_hour">1 ชั่วโมง</string>
@@ -493,6 +495,7 @@
 	<string name="editor_category_unsuitable_text">แผนที่ทั่วไปอนุญาตให้เพิ่มหมวดหมู่จุดธรรมดาเท่านั้น ซึ่งหมายความว่าไม่มีเมือง ถนน ทะเลสาบ โครงร่างอาคาร ฯลฯ โปรดเพิ่มหมวดหมู่ดังกล่าวลงใน <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. ดู<a href="https://organicmaps.app/faq/editing/advanced-map-editing">คำแนะนำ</a> ของเราเพื่อดูคำแนะนำโดยละเอียดทีละขั้นตอน</string>
 	<string name="downloader_no_downloaded_maps_title">คุณยังไม่ได้ดาวน์โหลดแผนที่</string>
 	<string name="downloader_no_downloaded_maps_message">ดาวน์โหลดแผนที่เพื่อค้นหาสถานที่ และนำทางแบบออฟไลน์</string>
+	<string name="current_location_unknown_error_title">ไม่ทราบชื่อของที่ตั้งปัจจุบัน</string>
 	<!-- abbreviation for meters -->
 	<string name="m">ม.</string>
 	<!-- abbreviation for kilometers -->
@@ -531,6 +534,9 @@
 	<string name="editor_share_to_all_dialog_message_1">ตรวจสอบว่าคุณไม่ได้กรอกข้อมูลส่วนตัวใด ๆ</string>
 	<string name="editor_share_to_all_dialog_message_2">ผู้แก้ไข OpenStreetMap จะตรวจสอบการเปลี่ยนแปลงและติดต่อคุณหากมีคำถามใดๆ</string>
 	<string name="navigation_stop_button">หยุด</string>
+	<string name="recent_track_background_dialog_message">Organic Maps ใช้ตำแหน่งทางภูมิศาสตร์ของคุณในพื้นหลังเพื่อบันทึกเส้นทางที่คุณเดินทางเมื่อเร็ว ๆ นี้</string>
+	<!-- Shown as toast when starting the recent track recording -->
+	<string name="track_recording">การบันทึกเส้นทาง</string>
 	<!-- For the first routing -->
 	<string name="accept">ยอมรับ</string>
 	<!-- For the first routing -->

@@ -227,6 +227,8 @@
 	<string name="pref_tts_playing_test_voice">Periksa pengaturan volume atau pengaturan teks-ke-ucapan sistem jika anda tidak mendengar suara sekarang.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Tidak Tersedia</string>
+	<!-- The name of the feature in the main menu, settings, and messages. -->
+	<string name="recent_track">Jalur terkini</string>
 	<string name="pref_map_auto_zoom">Perbesar otomatis</string>
 	<string name="duration_disabled">Nonaktif</string>
 	<string name="duration_1_hour">1 jam</string>
@@ -493,6 +495,7 @@
 	<string name="editor_category_unsuitable_text">Organic Maps hanya memungkinkan untuk menambahkan kategori titik sederhana, yang berarti tidak ada kota, jalan, danau, garis besar bangunan, dll. Silahkan tambahkan kategori tersebut secara langsung ke <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Lihat <a href="https://organicmaps.app/faq/editing/advanced-map-editing">panduan</a> kami untuk petunjuk langkah demi langkah yang terperinci.</string>
 	<string name="downloader_no_downloaded_maps_title">Tidak ada peta apa pun yang diunduh</string>
 	<string name="downloader_no_downloaded_maps_message">Unduh peta untuk menemukan lokasi dan bernavigasi secara offline.</string>
+	<string name="current_location_unknown_error_title">Lokasi saat ini tidak diketahui.</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -531,6 +534,9 @@
 	<string name="editor_share_to_all_dialog_message_1">Pastikan Anda tidak memasukkan data pribadi apa pun.</string>
 	<string name="editor_share_to_all_dialog_message_2">Editor OpenStreetMap akan memeriksa perubahan dan menghubungi Anda jika ada pertanyaan.</string>
 	<string name="navigation_stop_button">Berhenti</string>
+	<string name="recent_track_background_dialog_message">Organic Maps menggunakan geoposisi di latar belakang untuk merekam rute yang baru Anda lalui.</string>
+	<!-- Shown as toast when starting the recent track recording -->
+	<string name="track_recording">Merekam jejak</string>
 	<!-- For the first routing -->
 	<string name="accept">Terima</string>
 	<!-- For the first routing -->

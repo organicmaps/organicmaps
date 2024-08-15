@@ -244,6 +244,8 @@
 	<string name="pref_tts_playing_test_voice">Sesi şimdi duymuyorsanız ses seviyesini veya sistem metin okuma ayarlarını kontrol edin.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Mevcut Değil</string>
+	<!-- The name of the feature in the main menu, settings, and messages. -->
+	<string name="recent_track">En sonki rotayı kaydet</string>
 	<string name="pref_map_auto_zoom">Otomatik yakınlaştırma</string>
 	<string name="duration_disabled">Kapalı</string>
 	<string name="duration_1_hour">1 saat</string>
@@ -519,6 +521,7 @@
 	<string name="editor_category_unsuitable_text">Organik Haritalar yalnızca basit nokta kategorileri eklemeye izin verir, yani kasaba, yol, göl, bina ana hatları vb. yoktur. Lütfen bu tür kategorileri doğrudan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>\'a ekleyin. Adım adım ayrıntılı talimatlar için <a href="https://organicmaps.app/faq/editing/advanced-map-editing">rehberimize</a> göz atın.</string>
 	<string name="downloader_no_downloaded_maps_title">Hiç harita indirmediniz</string>
 	<string name="downloader_no_downloaded_maps_message">Çevrimdışı olarak adres bulmak ve gezinmek için haritaları indirin.</string>
+	<string name="current_location_unknown_error_title">Geçerli konum bilinmiyor.</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -564,6 +567,9 @@
 	<string name="editor_share_to_all_dialog_message_1">Herhangi bir kişisel bilgi girmediğinizden emin olun.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap editörleri değişikliklerinizi kontrol edecek ve bir soruları olursa sizinle iletişime geçecekler.</string>
 	<string name="navigation_stop_button">Dur</string>
+	<string name="recent_track_background_dialog_message">Organic Maps, en son seyahat ettiğiniz rotayı kaydetmek için arka planda coğrafi konumunuzu kullanır.</string>
+	<!-- Shown as toast when starting the recent track recording -->
+	<string name="track_recording">Yolun kaydedilmesi</string>
 	<!-- For the first routing -->
 	<string name="accept">Kabul et</string>
 	<!-- For the first routing -->

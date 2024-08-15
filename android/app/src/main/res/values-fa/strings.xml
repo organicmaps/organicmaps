@@ -218,6 +218,8 @@
 	<string name="pref_tts_playing_test_voice">اگر اکنون صدا را نمی شنوید، میزان صدا یا تنظیمات تبدیل متن به گفتار سیستم را بررسی کنید.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">موجود نیست</string>
+	<!-- The name of the feature in the main menu, settings, and messages. -->
+	<string name="recent_track">مسیر اخیر</string>
 	<string name="pref_map_auto_zoom">بزرگنمایی خودکار</string>
 	<string name="duration_disabled">خاموش</string>
 	<string name="duration_1_hour">1 ساعت</string>
@@ -488,6 +490,7 @@
 	<string name="editor_category_unsuitable_text">Organic Maps اجازه میu200cدهد فقط دستهu200cهای نقطهu200cای ساده را اضافه کند، یعنی هیچ شهر، جاده، دریاچه، طرح کلی ساختمان و غیره وجود ندارد. لطفاً این دستهu200cها را مستقیماً به <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> اضافه کنید. برای دستورالعملu200cهای گام به گام، <a href="https://organicmaps.app/faq/editing/advanced-map-editing">راهنمای</a> ما را بررسی کنید.</string>
 	<string name="downloader_no_downloaded_maps_title">شما هیچ نقشه دانلود شده ای ندارید</string>
 	<string name="downloader_no_downloaded_maps_message">برای جست وجو یک مکان و استفاده از قابلیت ناوبری، نقشه‌ها را دانلود کنید.</string>
+	<string name="current_location_unknown_error_title">مکان فعلیتان ناشناس است.</string>
 	<!-- abbreviation for meters -->
 	<string name="m">متر</string>
 	<!-- abbreviation for kilometers -->
@@ -526,6 +529,9 @@
 	<string name="editor_share_to_all_dialog_message_1">مطمئن شوید که هیچ اطلاعات شخصی وارد نکرده باشد.</string>
 	<string name="editor_share_to_all_dialog_message_2">ویرایشگران OpenStreetMap ﺗﻐﯿﯿﺮﺍﺕ ﺭﺍ ﺑﺮﺭﺳﯽ ﮐﺮﺩﻩ ﻭ ﺩﺭ ﺻﻮﺭﺕ ﺩﺍﺷﺘﻦ ﻫﺮﮔﻮﻧﻪ ﺳﻮﺍﻝ ﺑﺎ ﺷﻤﺎ ﺗﻤﺎﺱ ﺧﻮﺍﻫﻨﺪ ﮔﺮﻓﺖ.</string>
 	<string name="navigation_stop_button">توقف</string>
+	<string name="recent_track_background_dialog_message">Organic Maps  از اطلاعات موقعیت مکانی شما در پس ضمینه برای ذخیره مسیر‌هایی که اخیرا سفر کرده اید استفاده می کند.</string>
+	<!-- Shown as toast when starting the recent track recording -->
+	<string name="track_recording">ضبط مسیر</string>
 	<!-- For the first routing -->
 	<string name="accept">موافقم</string>
 	<!-- For the first routing -->

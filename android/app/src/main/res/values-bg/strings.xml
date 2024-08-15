@@ -232,6 +232,8 @@
 	<string name="pref_tts_playing_test_voice">Проверете силата на звука или системните настройки за преобразуване на текст в реч, ако сега не чувате гласа.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Не е налично</string>
+	<!-- The name of the feature in the main menu, settings, and messages. -->
+	<string name="recent_track">Скорошна пътека</string>
 	<string name="pref_map_auto_zoom">Автоматично мащабиране</string>
 	<string name="duration_disabled">Изключено</string>
 	<string name="duration_1_hour">1 час</string>
@@ -483,6 +485,7 @@
 	<string name="editor_category_unsuitable_text">Organic Maps позволява да се добавят само прости категории точки, т.е. без градове, пътища, езера, очертания на сгради и т.н. Моля, добавяйте такива категории директно в <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Вижте нашето <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ръководство</a> за подробни инструкции стъпка по стъпка.</string>
 	<string name="downloader_no_downloaded_maps_title">Не сте изтеглили никакви карти</string>
 	<string name="downloader_no_downloaded_maps_message">Изтеглете картите, от които се нуждаете, за да намирате места и да навигирате без интернет.</string>
+	<string name="current_location_unknown_error_title">Настоящото местоположение е неизвестно.</string>
 	<!-- abbreviation for meters -->
 	<string name="m">м</string>
 	<!-- abbreviation for kilometers -->
@@ -517,6 +520,9 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Уверете се, че не сте въвели никакви лични данни.</string>
 	<string name="editor_share_to_all_dialog_message_2">Редакторите на OpenStreetMap ще проверят промените и ще се свържат с вас, ако имат въпроси.</string>
+	<string name="recent_track_background_dialog_message">Organic Maps използва геопозицията ви във фонов режим за записване на последния ви маршрут.</string>
+	<!-- Shown as toast when starting the recent track recording -->
+	<string name="track_recording">Записване на пътя</string>
 	<!-- For the first routing -->
 	<string name="accept">Приемане</string>
 	<!-- For the first routing -->

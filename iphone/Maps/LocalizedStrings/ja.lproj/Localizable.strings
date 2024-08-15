@@ -261,8 +261,8 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "その他";
 
-/* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "最近のトラック";
+/* The name of the feature in the main menu, settings, and messages. */
+"recent_track" = "最近のトラック";
 
 "pref_map_auto_zoom" = "自動ズーム";
 

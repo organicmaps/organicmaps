@@ -243,6 +243,8 @@
 	<string name="pref_tts_playing_test_voice">Праверце гучнасць або сістэмныя налады пераўтварэння тэксту ў маўленне, калі вы зараз не чуеце голас.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Не даступны</string>
+	<!-- The name of the feature in the main menu, settings, and messages. -->
+	<string name="recent_track">Нядаўні маршрут</string>
 	<string name="pref_map_auto_zoom">Аўтаматычны маштаб</string>
 	<string name="duration_disabled">Выключана</string>
 	<string name="duration_1_hour">1 гадзіна</string>
@@ -515,6 +517,7 @@
 	<string name="editor_category_unsuitable_text">Organic Maps дазваляе дадаваць на мапу толькі простыя тыпы аб\'ектаў, гэта значыць без гарадаў, дарог, азёр і будынкаў. Калі ласка, дадайце такія катэгорыі на сайце <a href="https://www.openstreetmap.org/">OpenStreetMap.org </a>. Мы таксама рэкамендуем азнаёміцца ​​з <a href="https://organicmaps.app/faq/editing/advanced-map-editing/">падрабязнымі інструкцыямі і іншымі прыкладаннямі для рэдагавання мапы</a>.</string>
 	<string name="downloader_no_downloaded_maps_title">Вы не спампавалі ніводнай мапы</string>
 	<string name="downloader_no_downloaded_maps_message">Спампуйце мапы, каб шукаць месцы і карыстацца навігацыяй без інтэрнэту.</string>
+	<string name="current_location_unknown_error_title">Месцазнаходжанне невядома.</string>
 	<!-- abbreviation for meters -->
 	<string name="m">м</string>
 	<!-- abbreviation for kilometers -->
@@ -556,6 +559,9 @@
 	<string name="editor_share_to_all_dialog_message_1">Упэўніцеся, што вы не ўвялі ніякіх асабістых даных.</string>
 	<string name="editor_share_to_all_dialog_message_2">Рэдактары OpenStreetMap правераць змены і звяжуцца з вамі, калі ў іх узнікнуць пытанні.</string>
 	<string name="navigation_stop_button">Cпыніць</string>
+	<string name="recent_track_background_dialog_message">Organic Maps выкарыстоўвае вашу геалакацыю ў фонавым рэжыме, каб запісваць ваш нядаўна пройдзены маршрут.</string>
+	<!-- Shown as toast when starting the recent track recording -->
+	<string name="track_recording">Запіс маршруту</string>
 	<!-- For the first routing -->
 	<string name="accept">Прыняць</string>
 	<!-- For the first routing -->
