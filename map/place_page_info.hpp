@@ -18,6 +18,8 @@
 #include <string>
 #include <vector>
 
+class Framework;
+
 namespace place_page
 {
 enum class OpeningMode
@@ -199,7 +201,7 @@ public:
   storage::CountriesVec const & GetTopmostCountryIds() const { return m_topmostCountryIds; }
 
   /// MapObject
-  void SetFromFeatureType(FeatureType & ft);
+  void SetFromFeatureType(FeatureType & ft, Framework const * framework);
 
   void SetWikiDescription(std::string && description) { m_description = std::move(description); }
 
