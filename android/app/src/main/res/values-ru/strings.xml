@@ -2180,4 +2180,6 @@
 	<string name="type.self_service.only">Только самообслуживание</string>
 	<string name="type.self_service.partially">Частичное самообслуживание</string>
 	<string name="type.self_service.no">Никакого самообслуживания</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+	<string name="type.amenity.social_facility">Социальное учреждение</string>
 </resources>

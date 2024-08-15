@@ -2152,4 +2152,6 @@
 	<string name="type.self_service.only">Yalnızca self servis</string>
 	<string name="type.self_service.partially">Kısmi self servis</string>
 	<string name="type.self_service.no">Self servis yok</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+	<string name="type.amenity.social_facility">Sosyal Tesis</string>
 </resources>

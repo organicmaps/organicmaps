@@ -4011,3 +4011,6 @@
 "type.self_service.partially" = "Delvis selvbetjening";
 
 "type.self_service.no" = "Ingen selvbetjening";
+
+/* https://wiki.openstreetmap.org/wiki/Key:social_facility */
+"type.amenity.social_facility" = "Social facilitet";

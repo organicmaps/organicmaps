@@ -4011,3 +4011,6 @@
 "type.self_service.partially" = "خدمة ذاتية جزئية";
 
 "type.self_service.no" = "لا توجد خدمة ذاتية";
+
+/* https://wiki.openstreetmap.org/wiki/Key:social_facility */
+"type.amenity.social_facility" = "المرفق الاجتماعي";

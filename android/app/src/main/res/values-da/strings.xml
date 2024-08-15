@@ -1901,4 +1901,6 @@
 	<string name="type.self_service.only">Kun selvbetjening</string>
 	<string name="type.self_service.partially">Delvis selvbetjening</string>
 	<string name="type.self_service.no">Ingen selvbetjening</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+	<string name="type.amenity.social_facility">Social facilitet</string>
 </resources>

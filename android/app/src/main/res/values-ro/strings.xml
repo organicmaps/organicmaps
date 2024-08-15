@@ -1935,4 +1935,6 @@
 	<string name="type.self_service.only">Numai autoservire</string>
 	<string name="type.self_service.partially">Autoservire parțială</string>
 	<string name="type.self_service.no">Fără autoservire</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+	<string name="type.amenity.social_facility">Facilitate socială</string>
 </resources>

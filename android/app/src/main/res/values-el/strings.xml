@@ -1976,4 +1976,6 @@
 	<string name="type.self_service.only">Μόνο αυτοεξυπηρέτηση</string>
 	<string name="type.self_service.partially">Μερική αυτοεξυπηρέτηση</string>
 	<string name="type.self_service.no">Δεν υπάρχει αυτοεξυπηρέτηση</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+	<string name="type.amenity.social_facility">Κοινωνική διευκόλυνση</string>
 </resources>

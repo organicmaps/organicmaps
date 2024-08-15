@@ -2109,4 +2109,6 @@
 	<string name="type.self_service.only">Len samoobslužné služby</string>
 	<string name="type.self_service.partially">Čiastočná samoobsluha</string>
 	<string name="type.self_service.no">Žiadna samoobsluha</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+	<string name="type.amenity.social_facility">Sociálne zariadenie</string>
 </resources>

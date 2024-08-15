@@ -4011,3 +4011,6 @@
 "type.self_service.partially" = "Osittainen itsepalvelu";
 
 "type.self_service.no" = "Ei itsepalvelua";
+
+/* https://wiki.openstreetmap.org/wiki/Key:social_facility */
+"type.amenity.social_facility" = "Sosiaalinen väline";

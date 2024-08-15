@@ -4011,3 +4011,6 @@
 "type.self_service.partially" = "Gedeeltelijke zelfbediening";
 
 "type.self_service.no" = "Geen zelfbediening";
+
+/* https://wiki.openstreetmap.org/wiki/Key:social_facility */
+"type.amenity.social_facility" = "Sociale voorziening";

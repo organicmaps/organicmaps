@@ -2222,4 +2222,6 @@
 	<string name="type.self_service.only">Self-service only</string>
 	<string name="type.self_service.partially">Partial self-service</string>
 	<string name="type.self_service.no">No self-service</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+	<string name="type.amenity.social_facility">Social Facility</string>
 </resources>

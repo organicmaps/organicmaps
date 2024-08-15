@@ -1940,4 +1940,6 @@
 	<string name="type.self_service.only">Csak önkiszolgálás</string>
 	<string name="type.self_service.partially">Részleges önkiszolgálás</string>
 	<string name="type.self_service.no">Nincs önkiszolgálás</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+	<string name="type.amenity.social_facility">Szociális létesítmény</string>
 </resources>

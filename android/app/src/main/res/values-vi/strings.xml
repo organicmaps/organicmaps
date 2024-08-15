@@ -1920,4 +1920,6 @@
 	<string name="type.self_service.only">Chỉ tự phục vụ</string>
 	<string name="type.self_service.partially">Tự phục vụ một phần</string>
 	<string name="type.self_service.no">Không tự phục vụ</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+	<string name="type.amenity.social_facility">Cơ sở xã hội</string>
 </resources>

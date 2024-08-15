@@ -4011,3 +4011,6 @@
 "type.self_service.partially" = "Autoservicio parcial";
 
 "type.self_service.no" = "Sin autoservicio";
+
+/* https://wiki.openstreetmap.org/wiki/Key:social_facility */
+"type.amenity.social_facility" = "Servicio social";

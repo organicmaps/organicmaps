@@ -4011,3 +4011,6 @@
 "type.self_service.partially" = "Tự phục vụ một phần";
 
 "type.self_service.no" = "Không tự phục vụ";
+
+/* https://wiki.openstreetmap.org/wiki/Key:social_facility */
+"type.amenity.social_facility" = "Cơ sở xã hội";

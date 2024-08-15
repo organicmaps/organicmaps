@@ -186,7 +186,7 @@
 "edit" = "編輯";
 
 /* Warning message when doing search around current position */
-"unknown_current_position" = "您的位置尚未定位完成";
+"unknown_current_position" = "您的位置尚未確定";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "嘿，看看我在 Organic Maps 上標記的圖釘吧！";
@@ -4011,3 +4011,6 @@
 "type.self_service.partially" = "部分自助服務";
 
 "type.self_service.no" = "沒有自助服務";
+
+/* https://wiki.openstreetmap.org/wiki/Key:social_facility */
+"type.amenity.social_facility" = "社會設施";

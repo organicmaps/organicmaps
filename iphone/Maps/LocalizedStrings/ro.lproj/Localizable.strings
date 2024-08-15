@@ -4011,3 +4011,6 @@
 "type.self_service.partially" = "Autoservire parțială";
 
 "type.self_service.no" = "Fără autoservire";
+
+/* https://wiki.openstreetmap.org/wiki/Key:social_facility */
+"type.amenity.social_facility" = "Facilitate socială";
