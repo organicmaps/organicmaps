@@ -368,6 +368,12 @@ void setShowLocationAlert(BOOL needShow) {
   }
 }
 
++ (void)checkLocationStatus
+{
+  setShowLocationAlert(YES);
+  [self.manager processLocationStatus:self.manager.lastLocationStatus];
+}
+
 #pragma mark - Prediction
 
 - (MWMLocationPredictor *)predictor
