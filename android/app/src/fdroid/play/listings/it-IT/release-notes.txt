@@ -1,11 +1,12 @@
-• New OSM data as of August 10
-• Display the speed limit
-• Announce street names in pedestrian navigation
-• Self-service and outdoor seating support
-• Fixed turn directions in Android Auto
-• Imported tracks can now be deleted
-• Fixed saving to Google Drive, KMB import, and modified bookmark names export in GPX
-• Highlight top left Layers button when Subway, Elevation or Outdoors are activated
-• Updated translations and FAQ in the app
+Dati OSM aggiornati al 10 agosto
 
-…more details at omaps.org/news
+• Mostra limite di velocità
+• Annuncia nomi delle strade in modalità pedonale
+• Mostra self-service e posti a sedere all'aperto
+• Corrette indicazioni di svolta in Android Auto
+• Elimina tracce importate
+• Salva su Google Drive, importa KMB ed esporta segnalibri modificati in GPX
+• Pulsante livelli in alto a sinistra più evidente in modalità metro, altitudine o all'aperto
+• Traduzioni e FAQ aggiornate nell'app
+
+…ulteriori dettagli su omaps.org/it/news

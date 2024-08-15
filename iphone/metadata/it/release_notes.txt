@@ -1,36 +1,34 @@
-Please let our team know if you read these release notes and if they are important to you.
+Ti preghiamo di far sapere al nostro team se leggi queste note di rilascio e se sono importanti per te.
 
-• New OpenStreetMap data as of August 10
+• Dati OpenStreetMap aggiornati al 10 agosto
 
-New Features:
-• Added a button to open a selected place in other installed apps
-• Deleted lists of bookmarks and tracks can now be restored from the Recently Deleted folder
-• Traffic light icons are displayed in car navigation mode
-• Selected places with WiFi show the emoji symbol
-• Display road shields in India
-• See if self-service and outdoor seating are available for a selected place
+Nuove caratteristiche:
+• Aggiunto un pulsante per aprire un luogo selezionato in altre applicazioni installate
+• Elenchi di segnalibri e tracce cancellate di recente possono ora essere ripristinate dal cestino
+• Icone dei semafori vengono ora visualizzate nella modalità di navigazione in auto
+• Mostra simbolo emoji Wi-Fi del luoghi selezionati 
+• Visualizzazione dei cartelli stradali in India
+• Mostra self-service e posti a sedere all'aperto per un luogo selezionato
 
-Improvements and fixes:
-• Moved the Share button from the bottom bar to the X button on the Place Information page
-• Fixed voice directions when Organic Maps is in the background
-• Improved routing in cases of bad surface and missing speed limit
-• Announce street names in pedestrian navigation
-• Fixed wrong selection of a bookmarked place when tapping on its title
-• Disabled map rotation snapping to the north angle
-• Updated FAQ in the app
-• Store 50 recent searches instead of 10
-• Properly export modified bookmark names in GPX
-• Maps older than 3 months can not be edited
-• Use NotoSans font instead of Serif for Hebrew
-• Fixed import of KMB files
-• Show warning if CarPlay can't display all bookmarks
-• Report a bug in case of unexpected iCloud sync errors
-• Various icon fixes for the Place Information page
-• Download progress text on the map screen doesn't jump anymore
-• Fixed a bug when Recent Track was not saved after restart
+Miglioramenti e correzioni:
+• Spostato il pulsante Condividi dalla barra inferiore al pulsante X nella pagina Informazioni sul luogo
+• Correzione delle indicazioni vocali quando Organic Maps è in background
+• Miglioramento del percorso in caso di superfici danneggiate e limiti di velocità mancanti
+• Annuncio dei nomi delle strade nella modalità navigazione pedonale
+• Corretta la selezione errata di un luogo inserito tra i segnalibri quando si tocca il titolo
+• Disabilitata la rotazione della mappa con orientamento a nord
+• Aggiornate le FAQ nell'app
+• Salvataggio di 50 ricerche recenti invece delle precedenti 10
+• Corretta esportazione dei nomi modificati dei segnalibri in GPX
+• Mappe più vecchie di 3 mesi non possono essere modificate
+• Utilizzo del font NotoSans al posto di Serif per l'ebraico
+• Corretta importazione dei file KMB
+• Mostra un avviso se CarPlay non può visualizzare tutti i segnalibri
+• Segnalazione bug in caso di errori imprevisti di sincronizzazione con iCloud
+• Corrette varie icone della pagina Informazioni sul luogo
+• Il testo di avanzamento del download della mappa non salta più
+• Corretto un bug quando la Traccia recente non veniva salvata dopo il riavvio
 
-Translations:
-• Improved Catalan, Chinese, Hebrew, Hindi, Hungarian, Japanese,  Spanish, Turkish, Ukrainian translations
-• Updated Cyprus, Iraq, Spain map region names and translations
-
-
+Traduzioni:
+• Migliorate traduzioni in catalano, cinese, ebraico, hindi, ungherese, giapponese, spagnolo, turco e ucraino
+• Aggiornati nomi delle regioni e traduzioni delle mappe di Cipro, Iraq e Spagna
