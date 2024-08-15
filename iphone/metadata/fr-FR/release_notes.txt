@@ -1,36 +1,34 @@
-• Amélioration de la recherche d'adresses aux États-Unis sur la base des données TIGER (Topologically Integrated Geographic Encoding and Referencing System). La taille de la carte pour les États-Unis est passée de 10 à 13 Go (y compris Wikipédia et les données d'élévation)
-• Affichage de texte fixe dans les langues indiennes (Devanagari, Bengali, Gujarati, Gurmukhi, Kannada, Malayalam, Oriya, Tamil, Telugu), arabe (N'ko, syriaque, mongol), thaï et lao, khmer, myanmar, tibétain, hangul, hébreu
-• Nouvelles polices pour les langues malayalam et bengali
+N'hésitez pas à informer notre équipe si vous avez lu ces notes de version et qu'elles sont importantes pour vous.
 
-• Une pression normale sur la carte permet désormais de sélectionner n'importe quel point, même si la carte est vide
-• Un appui long sur la carte permet de passer en mode plein écran
+• Nouvelles données OpenStreetMap à partir du 10 août
 
-• Données OpenStreetMap à partir du 2 juillet
-• L'emplacement sélectionné affiche désormais une liste complète des types d'objets (catégories) à cet emplacement
-• Les marques supprimées accidentellement sur la carte peuvent désormais être immédiatement restaurées (le bouton "Enregistrer" devient "Restaurer").
-• Les fichiers KML, KMZ, GPX peuvent être importés en utilisant le bouton Importer dans la boîte de dialogue " Étiquettes et traces " pour charger les fichiers KML, KMZ, GPX (les étiquettes et les traces peuvent également être importées en les " partageant " à partir de n'importe quelle autre application et en sélectionnant ensuite " Ouvrir avec Organic Maps ")
-• Correction de l'importation des fichiers KML, KMZ, GPX via l'application Fichiers lorsque l'application est lancée pour la première fois.
-• Ajout d'un bouton pour vérifier les instructions vocales (TTS) dans les paramètres de navigation
-• Vous pouvez désormais activer l'enregistrement dans les paramètres pour nous aider à corriger les bogues.
-• Les liens vers les médias sociaux s'ouvrent dans les applications installées
-• Suppression du bouton "embouteillages" non fonctionnel de CarPlay
-• Les boutons ronds de l'éditeur de temps ont été remplacés par des rectangles arrondis
+Nouvelles fonctionnalités :
+• Ajout d'un bouton permettant d'ouvrir un lieu sélectionné dans d'autres applications installées
+• Les listes de signets et de traces supprimées peuvent désormais être restaurées à partir du dossier Récemment supprimé
+• Les icônes des feux de circulation sont affichées en mode de navigation automobile.
+• Les lieux sélectionnés avec WiFi affichent le symbole emoji
+• Afficher les boucliers routiers en Inde
+• Voir si le libre-service et les places assises à l'extérieur sont disponibles pour un lieu sélectionné
 
-Styles :
-• Ajustement de la couleur d'arrière-plan du mode sombre au lancement de l'application
-• Les routes principales sont affichées plus tôt sur la carte du monde
-• Étiquetage plus clair de l'étage d'un lieu dans un bâtiment
-• Les sentiers de bonne qualité en gravier fin sont affichés avec des lignes blanches en pointillés
-• Prise en charge d'un plus grand nombre de types de surfaces de routes/chemins (brique, pierre, gazon, sol)
-• Amélioration du texte de l'infobulle lors de la construction d'un itinéraire
-
-Recherche :
-• La recherche de montagnes trouve également les volcans
-• Amélioration des résultats de recherche pour les lieux éloignés
-• La recherche trouve désormais les lieux dont le nom contient un numéro
-• Recherche de casiers à colis par leur numéro
+Améliorations et corrections :
+• Le bouton Partager a été déplacé de la barre inférieure au bouton X sur la page Informations sur le lieu
+• Correction des indications vocales lorsque Organic Maps est en arrière-plan
+• Amélioration de l'itinéraire en cas de mauvais revêtement et d'absence de limitation de vitesse
+• Annonce des noms de rue dans la navigation piétonne
+• Correction de la mauvaise sélection d'un lieu marqué d'un signet lorsque l'on tape sur son titre
+• Désactivation de la rotation de la carte par rapport à l'angle nord
+• Mise à jour de la FAQ dans l'application
+• Mémorisation de 50 recherches récentes au lieu de 10
+• Exportation correcte des noms de signets modifiés dans GPX
+• Les cartes datant de plus de 3 mois ne peuvent pas être éditées
+• Utilisation de la police NotoSans au lieu de Serif pour l'hébreu
+• Correction de l'importation des fichiers KMB
+• Affichage d'un avertissement si CarPlay ne peut pas afficher tous les signets
+• Signaler un bogue en cas d'erreurs de synchronisation iCloud inattendues
+• Diverses corrections d'icônes pour la page Informations sur les lieux
+• Le texte sur la progression du téléchargement sur l'écran de la carte ne saute plus
+• Correction d'un bug lorsque la piste récente n'était pas sauvegardée après le redémarrage
 
 Traductions :
-• Les traductions en biélorusse, chinois, néerlandais, euskara, hongrois, polonais, portugais, russe et ukrainien ont été mises à jour
-
-Pour en savoir plus, consultez le site https://omaps.app/ru/news
+• Amélioration des traductions en catalan, chinois, hébreu, hindi, hongrois, japonais, espagnol, turc et ukrainien
+• Mise à jour des noms et des traductions des régions de Chypre, d'Irak et d'Espagne

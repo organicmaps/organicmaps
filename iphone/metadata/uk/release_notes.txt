@@ -1,36 +1,36 @@
-• Покращено пошук адрес у США на основі даних Topologically Integrated Geographic Encoding and Referencing System (TIGER). Розмір карти для США збільшився з 10 Гб до 13 Гб (включно з Вікіпедією і даними про рельєф)
-• Виправлено відображення текстів індійською (деванагарі, бенгальська, гуджараті, гурмукхі, каннада, малаялам, орія, тамільська, телугу), арабською (н'ко, сирійська, монгольська), тайською та лаоською, кхмерською, м'янманською, тибетською, хангульською, івритською мовами
-• Нові шрифти для малаяламської та бенгальської мов
+Please let our team know if you read these release notes and if they are important to you.
 
-• Звичайне натискання на карту тепер дає змогу вибрати будь-яку точку, навіть якщо карта порожня
-• Тривале натискання на карту перемикає повноекранний режим
+• New OpenStreetMap data as of August 10
 
-• Дані OpenStreetMap станом на 2 липня
-• Обране місце тепер показує повний список типів (категорій) об'єктів у цій точці
-• Випадково видалену мітку на карті тепер можна відразу ж відновити (кнопка "Зберегти" змінюється на "Відновити")
-• KML, KMZ, GPX файли можна імпортувати за допомогою кнопки Імпорт у діалозі "Мітки та треки" для завантаження файлів KML, KMZ, GPX (мітки та треки також можна імпортувати, "поділившись" ними з будь-якого іншого додатка, а потім вибравши "Відкрити за допомогою Organic Maps")
-• Виправлено імпорт KML, KMZ, GPX через додаток "Файли" під час першого запуску програми
-• Додано кнопку перевірки голосових інструкцій (TTS) у налаштуваннях навігації
-• Тепер можна ввімкнути запис логів у налаштуваннях, щоб допомогти нам у виправленні помилок
-• Посилання на соцмережі відкриваються у встановлених додатках
-• Видалено непрацюючу кнопку заторів із CarPlay
-• Круглі кнопки в редакторі часу замінені на закруглені прямокутники
+New Features:
+• Added a button to open a selected place in other installed apps
+• Deleted lists of bookmarks and tracks can now be restored from the Recently Deleted folder
+• Traffic light icons are displayed in car navigation mode
+• Selected places with WiFi show the emoji symbol
+• Display road shields in India
+• See if self-service and outdoor seating are available for a selected place
 
-Стилі:
-• Коригування кольору фону темного режиму під час запуску програми
-• Основні дороги відображаються раніше на оглядовій карті світу
-• Більш зрозуміле маркування поверху місця в будівлі
-• Пішохідні доріжки з дрібного гравію хорошої якості відображаються білим пунктиром
-• Підтримка більшої кількості типів поверхні доріг/стежок (цегла, камінь, трав'яний асфальт, ґрунт)
-• Покращено текст підказок під час побудови маршруту
+Improvements and fixes:
+• Moved the Share button from the bottom bar to the X button on the Place Information page
+• Fixed voice directions when Organic Maps is in the background
+• Improved routing in cases of bad surface and missing speed limit
+• Announce street names in pedestrian navigation
+• Fixed wrong selection of a bookmarked place when tapping on its title
+• Disabled map rotation snapping to the north angle
+• Updated FAQ in the app
+• Store 50 recent searches instead of 10
+• Properly export modified bookmark names in GPX
+• Maps older than 3 months can not be edited
+• Use NotoSans font instead of Serif for Hebrew
+• Fixed import of KMB files
+• Show warning if CarPlay can't display all bookmarks
+• Report a bug in case of unexpected iCloud sync errors
+• Various icon fixes for the Place Information page
+• Download progress text on the map screen doesn't jump anymore
+• Fixed a bug when Recent Track was not saved after restart
 
-Пошук:
-• Пошук гір також знаходить вулкани
-• Покращено результати пошуку для віддалених місць
-• Пошук тепер знаходить місця з номером у назві
-• Пошук камер зберігання посилок за їхніми номерами
+Translations:
+• Improved Catalan, Chinese, Hebrew, Hindi, Hungarian, Japanese,  Spanish, Turkish, Ukrainian translations
+• Updated Cyprus, Iraq, Spain map region names and translations
 
-Переклади:
-• Оновлено білоруський, китайський, голландський, еускара, угорський, польський, португальський, російський, український, російський переклади
 
-Докладніше читайте на https://omaps.app/uk/news
