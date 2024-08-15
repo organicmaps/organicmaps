@@ -1,9 +1,11 @@
-• Ulepszone wyszukiwanie adresów w Stanach Zjednoczonych
-• Poprawiony rendering tekstu w pismach indyjskim, arabskim, tajskim, laotańskim, khmerskim, birmańskim, tybetańskim, hangul, hebrajskim
-• Dane OSM z 2 lipca
-• Pojedyncze dotknięcie zaznacza punkt na mapie, długie dotknięcie przełącza tryb pełnoekranowy
-• Przypadkowo usunięte zakładki można teraz przywrócić
-• Poprawiony import GPX z WhatsApp
-• Więcej kategorii widocznych dla zaznaczonego POI
+• New OSM data as of August 10
+• Display the speed limit
+• Announce street names in pedestrian navigation
+• Self-service and outdoor seating support
+• Fixed turn directions in Android Auto
+• Imported tracks can now be deleted
+• Fixed saving to Google Drive, KMB import, and modified bookmark names export in GPX
+• Highlight top left Layers button when Subway, Elevation or Outdoors are activated
+• Updated translations and FAQ in the app
 
-…więcej szczegółów na omaps.org/pl/news
+…more details at omaps.org/news
