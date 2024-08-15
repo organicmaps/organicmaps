@@ -32,5 +32,3 @@ Improvements and fixes:
 Translations:
 • Improved Catalan, Chinese, Hebrew, Hindi, Hungarian, Japanese,  Spanish, Turkish, Ukrainian translations
 • Updated Cyprus, Iraq, Spain map region names and translations
-
-
