@@ -7,6 +7,8 @@
 
 #include "indexer/classificator_loader.hpp"
 
+#include "platform/platform.hpp"
+
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/hex.hpp"
@@ -19,7 +21,6 @@
 
 #include <cstring>
 #include <functional>
-#include <memory>
 #include <sstream>
 #include <vector>
 
@@ -849,8 +850,8 @@ UNIT_TEST(Kml_Deserialization_From_Bin_V8_And_V8MM)
     TEST(false, ("Exception raised", exc.what()));
   }
 
-  // Can't compare dataFromBinV8.m_categoryData and dataFromBinV8MM.m_categoryData directly
-  // because new format has less properties and different m_id. Compare some properties here:
+// Can't compare dataFromBinV8.m_categoryData and dataFromBinV8MM.m_categoryData directly
+// because new format has less properties and different m_id. Compare some properties here:
   TEST_EQUAL(dataFromBinV8.m_categoryData.m_name, dataFromBinV8MM.m_categoryData.m_name, ());
   TEST_EQUAL(dataFromBinV8.m_categoryData.m_description, dataFromBinV8MM.m_categoryData.m_description, ());
   TEST_EQUAL(dataFromBinV8.m_categoryData.m_annotation, dataFromBinV8MM.m_categoryData.m_annotation, ());
@@ -863,6 +864,79 @@ UNIT_TEST(Kml_Deserialization_From_Bin_V8_And_V8MM)
 
   TEST_EQUAL(dataFromBinV8.m_bookmarksData, dataFromBinV8MM.m_bookmarksData, ());
   TEST_EQUAL(dataFromBinV8.m_tracksData, dataFromBinV8MM.m_tracksData, ());
+}
+
+UNIT_TEST(Kml_Deserialization_From_KMB_V8_And_V9MM)
+{
+  kml::FileData dataFromBinV8;
+  try
+  {
+    MemReader reader(kBinKmlV8.data(), kBinKmlV8.size());
+    kml::binary::DeserializerKml des(dataFromBinV8);
+    des.Deserialize(reader);
+  }
+  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
+  {
+    TEST(false, ("Failed to deserialize data from KMB V8 and V9MM", exc.what()));
+  }
+
+  kml::FileData dataFromBinV9MM;
+  try
+  {
+    MemReader reader(kBinKmlV9MM.data(), kBinKmlV9MM.size());
+    kml::binary::DeserializerKml des(dataFromBinV9MM);
+    des.Deserialize(reader);
+  }
+  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
+  {
+    TEST(false, ("Failed to deserialize data from KMB V9MM", exc.what()));
+  }
+
+  // Can't compare dataFromBinV8.m_categoryData and dataFromBinV9MM.m_categoryData directly
+  // because new format has less properties and different m_id. Compare some properties here:
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_name, dataFromBinV9MM.m_categoryData.m_name, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_description, dataFromBinV9MM.m_categoryData.m_description, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_annotation, dataFromBinV9MM.m_categoryData.m_annotation, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_accessRules, dataFromBinV9MM.m_categoryData.m_accessRules, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_visible, dataFromBinV9MM.m_categoryData.m_visible, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_rating, dataFromBinV9MM.m_categoryData.m_rating, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_reviewsNumber, dataFromBinV9MM.m_categoryData.m_reviewsNumber, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_tags, dataFromBinV9MM.m_categoryData.m_tags, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_properties, dataFromBinV9MM.m_categoryData.m_properties, ());
+
+  dataFromBinV8.m_bookmarksData[0].m_id = dataFromBinV9MM.m_bookmarksData[0].m_id; // V8 and V9MM bookmarks have different IDs. Fix ID value manually.
+  TEST_EQUAL(dataFromBinV8.m_bookmarksData, dataFromBinV9MM.m_bookmarksData, ());
+
+  dataFromBinV8.m_tracksData[0].m_id = dataFromBinV9MM.m_tracksData[0].m_id; // V8 and V9MM tracks have different IDs. Fix ID value manually.
+  TEST_EQUAL(dataFromBinV8.m_tracksData, dataFromBinV9MM.m_tracksData, ());
+}
+
+UNIT_TEST(Kml_Deserialization_From_KMB_V9MM_With_MultiGeometry)
+{
+  kml::FileData dataFromBinV9MM;
+  try
+  {
+    MemReader reader(kBinKmlMultiGeometryV9MM.data(), kBinKmlMultiGeometryV9MM.size());
+    kml::binary::DeserializerKml des(dataFromBinV9MM);
+    des.Deserialize(reader);
+  }
+  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
+  {
+    TEST(false, ("Failed to deserialize data from KMB V9MM", exc.what()));
+  }
+
+  TEST_EQUAL(dataFromBinV9MM.m_tracksData.size(), 1, ());
+
+  // Verify that geometry has two lines
+  auto lines = dataFromBinV9MM.m_tracksData[0].m_geometry.m_lines;
+  TEST_EQUAL(lines.size(), 2, ());
+
+  // Verify that each line has 3 points
+  auto line1 = lines[0];
+  auto line2 = lines[1];
+
+  TEST_EQUAL(line1.size(), 3, ());
+  TEST_EQUAL(line2.size(), 3, ());
 }
 
 UNIT_TEST(Kml_Ver_2_3)
