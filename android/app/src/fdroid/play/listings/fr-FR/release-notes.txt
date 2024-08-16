@@ -1,9 +1,9 @@
 • Nouvelles données OSM à partir du 10 août
 • Afficher la limite de vitesse
 • Annoncer les noms de rue dans la navigation piétonne
-• Prise en charge du libre-service et des places assises en extérieur
+• Prise en charge des informations relatives au libre-service et aux places assises en extérieur d'un lieu
 • Correction des directions de virage dans Android Auto
 • Les pistes importées peuvent désormais être supprimées
 • Correction de l'enregistrement sur Google Drive, de l'importation KMB et de l'exportation des noms de signets modifiés dans GPX
 
-…plus de détails sur omaps.org/fr/news
+omaps.org/fr/news
