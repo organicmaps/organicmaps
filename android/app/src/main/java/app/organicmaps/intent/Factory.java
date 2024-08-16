@@ -34,8 +34,11 @@ public class Factory
 {
   public static boolean isStartedForApiResult(@NonNull Intent intent)
   {
-    return ((intent.getFlags() & Intent.FLAG_ACTIVITY_FORWARD_RESULT) != 0)
-           || intent.getBooleanExtra(EXTRA_PICK_POINT, false);
+    // Previously, we relied on the implicit FORWARD_RESULT_FLAG to detect if the caller was
+    // waiting for a result. However, this approach proved to be less reliable than using
+    // the explicit EXTRA_PICK_POINT flag.
+    // https://github.com/organicmaps/organicmaps/pull/8910
+    return intent.getBooleanExtra(EXTRA_PICK_POINT, false);
   }
 
   public static class KmzKmlProcessor implements IntentProcessor
