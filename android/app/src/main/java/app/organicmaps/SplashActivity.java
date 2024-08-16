@@ -2,6 +2,7 @@ package app.organicmaps;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static app.organicmaps.api.Const.EXTRA_PICK_POINT;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -174,13 +175,15 @@ public class SplashActivity extends AppCompatActivity
       return;
     }
 
-    // Re-use original intent to retain all flags and payload.
+    // Re-use original intent with the known safe subset of flags to retain security permissions.
     // https://github.com/organicmaps/organicmaps/issues/6944
     final Intent intent = Objects.requireNonNull(getIntent());
     intent.setComponent(new ComponentName(this, DownloadResourcesLegacyActivity.class));
-    // Flags like FLAG_ACTIVITY_NEW_TASK and FLAG_ACTIVITY_RESET_TASK_IF_NEEDED will break the cold start of the app.
+    // FLAG_ACTIVITY_NEW_TASK and FLAG_ACTIVITY_RESET_TASK_IF_NEEDED break the cold start.
     // https://github.com/organicmaps/organicmaps/pull/7287
-    intent.setFlags(intent.getFlags() & (Intent.FLAG_ACTIVITY_FORWARD_RESULT | Intent.FLAG_GRANT_READ_URI_PERMISSION));
+    // FORWARD_RESULT_FLAG conflicts with the ActivityResultLauncher.
+    // https://github.com/organicmaps/organicmaps/issues/8984
+    intent.setFlags(intent.getFlags() & Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
     if (Factory.isStartedForApiResult(intent))
     {
