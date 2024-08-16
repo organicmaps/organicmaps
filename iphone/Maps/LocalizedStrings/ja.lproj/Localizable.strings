@@ -765,6 +765,9 @@
 
 "editor_operator" = "オペレーター";
 
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+"operator" = "オペレーター: %@";
+
 "downloader_no_downloaded_maps_title" = "マップをダウンロードしていません";
 
 "downloader_no_downloaded_maps_message" = "ロケーションの検索とオフラインナビゲートのためにマップをダウンロードしてください。";
@@ -1108,6 +1111,9 @@
 
 /* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
 "capacity" = "定員：%@";
+
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+"network" = "ネットワーク： %@";
 
 "trip_finished" = "到着しました!";
 

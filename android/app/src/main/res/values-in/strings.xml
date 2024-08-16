@@ -490,6 +490,8 @@
 	<string name="editor_detailed_description">Saran perubahan Anda akan dikirimkan ke komunitas OpenStreetMap. Jelaskan detail yang tidak dapat diedit di Organic Maps.</string>
 	<string name="editor_more_about_osm">Selengkapnya tentang OpenStreetMap</string>
 	<string name="editor_operator">Pemilik</string>
+	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="operator">Pemilik: %s</string>
 	<string name="editor_category_unsuitable_title">Tidak dapat menemukan kategori yang sesuai?</string>
 	<string name="editor_category_unsuitable_text">Organic Maps hanya memungkinkan untuk menambahkan kategori titik sederhana, yang berarti tidak ada kota, jalan, danau, garis besar bangunan, dll. Silahkan tambahkan kategori tersebut secara langsung ke <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Lihat <a href="https://organicmaps.app/faq/editing/advanced-map-editing">panduan</a> kami untuk petunjuk langkah demi langkah yang terperinci.</string>
 	<string name="downloader_no_downloaded_maps_title">Tidak ada peta apa pun yang diunduh</string>
@@ -661,6 +663,8 @@
 	<string name="no_available">Tidak</string>
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Kapasitas: %s</string>
+	<!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="network">Jaringan: %s</string>
 	<string name="trip_finished">Anda telah tiba!</string>
 	<string name="ok">Oke</string>
 	<!-- max. 10 symbols, both iOS and Android -->

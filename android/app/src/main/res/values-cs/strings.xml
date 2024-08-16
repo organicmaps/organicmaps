@@ -494,6 +494,8 @@
 	<string name="editor_detailed_description">Vámi navržené změny odešleme do komunity OpenStreetMap. Popište podrobnosti, které nelze upravit v Organic Maps.</string>
 	<string name="editor_more_about_osm">Více o projektu OpenStreetMap</string>
 	<string name="editor_operator">Operátor</string>
+	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="operator">Operátor: %s</string>
 	<string name="editor_category_unsuitable_title">Nemůžete najít vhodnou kategorii?</string>
 	<string name="editor_category_unsuitable_text">Organické mapy umožňují přidávat pouze jednoduché kategorie bodů, tedy žádná města, silnice, jezera, obrysy budov atd. Takové kategorie prosím přidávejte přímo na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Podrobné pokyny krok za krokem najdete v našem <a href="https://organicmaps.app/faq/editing/advanced-map-editing">průvodci</a>.</string>
 	<string name="downloader_no_downloaded_maps_title">Nemáte stažené žádné mapy</string>
@@ -666,6 +668,8 @@
 	<string name="no_available">Ne</string>
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Kapacita: %s</string>
+	<!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="network">Síť: %s</string>
 	<string name="trip_finished">Přijeli jste!</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->

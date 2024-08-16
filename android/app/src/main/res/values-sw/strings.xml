@@ -229,6 +229,8 @@
 	<string name="no_available">Hapana</string>
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Uwezo: %s</string>
+	<!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="network">Mtandao: %s</string>
 	<string name="trip_finished">Umefika!</string>
 	<string name="ok">Sawa</string>
 	<!-- max. 10 symbols, both iOS and Android -->

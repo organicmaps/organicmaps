@@ -506,6 +506,8 @@
 	<string name="editor_detailed_description">ההצעות שלך לשינוי המפה יישלחו לקהילת OpenStreetMap. יש לתאר פרטים נוספים שלא ניתן לערוך ב-Organic Maps.</string>
 	<string name="editor_more_about_osm">עוד על OpenStreetMap</string>
 	<string name="editor_operator">בעלים</string>
+	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="operator">בעלים: %s</string>
 	<string name="editor_category_unsuitable_title">לא מוצאים קטגוריה מתאימה?</string>
 	<string name="editor_category_unsuitable_text">באמצעות Organic Maps ניתן להוסיף קטגוריות נקודה פשוטות בלבד, כלומר לא ניתן להוסיף עיירות, כבישים, אגמים, מבנים וכו\'. אנא הוסיפו קטגוריות כאלה ישירות ל-<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. עיינו <a href="https://organicmaps.app/faq/editing/advanced-map-editing">במדריך</a> שלנו לקבלת הוראות מפורטות.</string>
 	<string name="downloader_no_downloaded_maps_title">לא הורדת אף מפה</string>
@@ -686,6 +688,8 @@
 	<string name="no_available">לא</string>
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">קיבולת: %s</string>
+	<!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="network">רשת: %s</string>
 	<string name="trip_finished">הגעת!</string>
 	<string name="ok">אוקיי</string>
 	<!-- max. 10 symbols, both iOS and Android -->

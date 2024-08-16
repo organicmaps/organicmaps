@@ -765,6 +765,9 @@
 
 "editor_operator" = "Användare";
 
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+"operator" = "Användare: %@";
+
 "downloader_no_downloaded_maps_title" = "Du har inte laddat ner några kartor";
 
 "downloader_no_downloaded_maps_message" = "Ladda ner kartor för att hitta platsen och navigera offline.";
@@ -1108,6 +1111,9 @@
 
 /* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
 "capacity" = "Kapacitet: %@";
+
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+"network" = "Nätverk: %@";
 
 "trip_finished" = "Du är framme!";
 

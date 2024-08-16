@@ -513,6 +513,8 @@
 	<string name="editor_detailed_description">Heu suggerit canvis en el mapa que s’enviaran a la comunitat de l’OpenStreetMap. Descriviu qualsevol detall addicional que no es pugui editar amb l’Organic Maps.</string>
 	<string name="editor_more_about_osm">Més sobre l\'OpenStreetMap</string>
 	<string name="editor_operator">Propietari</string>
+	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="operator">Propietari: %s</string>
 	<string name="editor_category_unsuitable_title">No trobeu una categoria adequada?</string>
 	<string name="editor_category_unsuitable_text">Organic Maps només permet afegir categories de punts simples, això vol dir que no hi ha ciutats, carreteres, llacs, contorns d\'edificis, etc. Si us plau, afegiu aquestes categories directament a <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulteu la nostra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guia</a> per obtenir instruccions detallades pas a pas.</string>
 	<string name="downloader_no_downloaded_maps_title">No heu baixat cap mapa</string>
@@ -694,6 +696,8 @@
 	<string name="no_available">No</string>
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Capacitat: %s</string>
+	<!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="network">Xarxa: %s</string>
 	<string name="trip_finished">Heu arribat!</string>
 	<string name="ok">D\'acord</string>
 	<!-- max. 10 symbols, both iOS and Android -->

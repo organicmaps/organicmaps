@@ -512,6 +512,8 @@
 	<string name="editor_detailed_description">Iradoki dituzun aldaketak OpenStreetMap komunitatean argitaratuko dira. Deskribatu mapa organikoetan editatu ezin diren xehetasunak.</string>
 	<string name="editor_more_about_osm">OpenStreetMap-i buruzko informazio gehiago</string>
 	<string name="editor_operator">Eragilea</string>
+	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="operator">Eragilea: %s</string>
 	<string name="editor_category_unsuitable_title">Ezin duzu kategoria egokirik aurkitu?</string>
 	<string name="editor_category_unsuitable_text">Organic Maps-ek puntu kategoria soilak gehitzeko aukera ematen du, hau da, ez da herririk, errepiderik, lakurik, eraikinen eskemarik, etab. Gehitu kategoria horiek zuzenean <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Begiratu gure <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gida</a> urratsez urrats argibide zehatzak lortzeko.</string>
 	<string name="downloader_no_downloaded_maps_title">Ez duzu maparik deskargatu</string>
@@ -692,6 +694,8 @@
 	<string name="no_available">Ez</string>
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Edukiera: %s</string>
+	<!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="network">Sarea: %s</string>
 	<string name="trip_finished">Iritsi zara!</string>
 	<string name="ok">Ados</string>
 	<!-- max. 10 symbols, both iOS and Android -->

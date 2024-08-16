@@ -514,6 +514,8 @@
 	<string name="editor_detailed_description">Təklif etdiyiniz dəyişikliklər OpenStreetMap icmasına yerləşdiriləcək. Zəhmət olmasa Organic Maps\'da redaktə edilə bilməyən əlavə detalları izah edin.</string>
 	<string name="editor_more_about_osm">OpenStreetMap haqqında əlavə məlumat</string>
 	<string name="editor_operator">Sahibi</string>
+	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="operator">Sahibi: %s</string>
 	<string name="editor_category_unsuitable_title">Uyğun kateqoriya tapa bilmirsiniz?</string>
 	<string name="editor_category_unsuitable_text">Üzvi Xəritələr yalnız sadə nöqtə kateqoriyaları əlavə etməyə imkan verir, bu o deməkdir ki, şəhərlər, yollar, göllər, bina konturları və s. yoxdur. Lütfən, belə kateqoriyaları birbaşa <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> saytına əlavə edin. Ətraflı addım-addım təlimatlar üçün <a href="https://organicmaps.app/faq/editing/advanced-map-editing">bələdçimizi</a> yoxlayın.</string>
 	<string name="downloader_no_downloaded_maps_title">Siz heç bir xəritə endirməmisiniz</string>
@@ -690,6 +692,8 @@
 	<string name="yes_available">Var</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Yox</string>
+	<!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="network">Şəbəkə: %s</string>
 	<string name="trip_finished">Sən gəldin!</string>
 	<string name="ok">Yaxşı</string>
 	<!-- max. 10 symbols, both iOS and Android -->

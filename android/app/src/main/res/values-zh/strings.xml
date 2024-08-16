@@ -525,6 +525,8 @@
 	<string name="editor_detailed_description">您建议的更改将发送至 OpenStreetMap 社区。说明无法在 Organic Maps 编辑的详情。</string>
 	<string name="editor_more_about_osm">关于 OpenStreetMap 的更多信息</string>
 	<string name="editor_operator">经营者</string>
+	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="operator">运营者: %s</string>
 	<string name="editor_category_unsuitable_title">找不到合适的类别？</string>
 	<string name="editor_category_unsuitable_text">Organic Maps 只允许添加简单的点类别，即无法添加城镇、道路、湖泊、建筑轮廓等类别。请直接向 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> 添加此类类别。请查看我们的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，了解详细的步骤说明。</string>
 	<string name="downloader_no_downloaded_maps_title">您尚未下载任何地图</string>
@@ -703,6 +705,8 @@
 	<string name="no_available">否</string>
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">容量：%s</string>
+	<!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="network">网络：%s</string>
 	<string name="trip_finished">您已到达目的地！</string>
 	<string name="ok">好的</string>
 	<!-- max. 10 symbols, both iOS and Android -->

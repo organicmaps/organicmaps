@@ -765,6 +765,9 @@
 
 "editor_operator" = "Operaattori";
 
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+"operator" = "Operaattori: %@";
+
 "downloader_no_downloaded_maps_title" = "Et ole ladannut yhtään karttaa";
 
 "downloader_no_downloaded_maps_message" = "Lataa karttoja löytääksesi paikkoja ja navigoidaksesi offline-tilassa.";
@@ -1108,6 +1111,9 @@
 
 /* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
 "capacity" = "Kapasiteetti: %@";
+
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+"network" = "Verkko: %@";
 
 "trip_finished" = "Olet perillä!";
 
