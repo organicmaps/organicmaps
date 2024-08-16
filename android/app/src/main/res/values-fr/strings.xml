@@ -243,7 +243,7 @@
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Langue vocale</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
-	<string name="pref_tts_test_voice_title">Teste les instructions vocales (TTS, Text-To-Speech)</string>
+	<string name="pref_tts_test_voice_title">Tester les instructions vocales (TTS, Text-To-Speech)</string>
 	<!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
 	<string name="pref_tts_playing_test_voice">Vérifie le volume ou les paramètres de synthèse vocale du système si tu n\'entends pas la voix maintenant.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
@@ -566,6 +566,7 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Assurez-vous de n’avoir pas saisi de données personnelles.</string>
 	<string name="editor_share_to_all_dialog_message_2">Les contributeurs d\'OpenStreetMap vérifieront vos modifications et vous contacteront s\'ils ont des questions.</string>
+	<string name="navigation_stop_button">Arrêter</string>
 	<!-- For the first routing -->
 	<string name="accept">Accepter</string>
 	<!-- For the first routing -->
@@ -771,6 +772,12 @@
 	<string name="enable_show_on_lock_screen_description">Lorsqu\'il est activé, vous n\'avez pas besoin de déverrouiller votre appareil à chaque fois que l\'application est en fonctionnement.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Données cartographiques d\'OpenStreetMap</string>
+	<!-- Telegram group url for the "?" About page -->
+	<string name="telegram_url">https://t.me/OrganicMapsFR</string>
+	<!-- Instagram account url for the "?" About page -->
+	<string name="instagram_url">https://www.instagram.com/organicmapsfr.app</string>
+	<!-- A link to the TTS FAQ -->
+	<string name="tts_info_link">https://organicmaps.app/fr/faq/voice/synthèse-vocale-tts-sur-android/</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
 	<string name="translated_om_site_url">https://organicmaps.app/fr/</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
@@ -990,6 +997,7 @@
 	<string name="type.amenity.public_bath">Bain public</string>
 	<string name="type.amenity.shower">Douche</string>
 	<string name="type.amenity.stripclub">Club de strip-tease</string>
+	<string name="type.amenity.taxi">Station de taxis</string>
 	<string name="type.amenity.telephone">Téléphone</string>
 	<string name="type.amenity.theatre">Théâtre</string>
 	<string name="type.amenity.toilets">Toilettes</string>
@@ -1194,6 +1202,7 @@
 	<string name="type.healthcare.speech_therapist">Logopédie</string>
 
 	<!-- SECTION: Types: Roads -->
+	<string name="type.highway">Autoroute</string>
 	<string name="type.highway.bridleway">Chemin équestre</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">Pont</string>
@@ -1400,6 +1409,7 @@
 	<string name="type.historic.wayside_cross">Croix de chemin</string>
 	<string name="type.historic.wayside_shrine">Oratoire</string>
 	<string name="type.historic.wreck">Naufrage</string>
+	<string name="type.junction">Jonction</string>
 	<string name="type.junction.circular">Rond-point</string>
 	<string name="type.junction.roundabout">Rond-point</string>
 	<string name="type.landuse">Utilisation du sol</string>
@@ -1484,6 +1494,8 @@
 	<string name="type.man_made.water_tower">Château d\'eau</string>
 	<string name="type.man_made.water_well">Puits à eau</string>
 	<string name="type.man_made.windmill">Moulin à vent</string>
+	<string name="type.military">Installations militaires</string>
+	<string name="type.military.bunker">Bunker</string>
 	<string name="type.mountain_pass">Col de montagne</string>
 	<string name="type.natural">Nature</string>
 	<!-- A rocky land cover. -->
@@ -1586,6 +1598,7 @@
 	<string name="type.power.plant.hydro">Centrale hydroélectrique</string>
 	<string name="type.power.plant.solar">Centrale solaire</string>
 	<string name="type.power.plant.wind">Ferme d\'éoliennes</string>
+	<string name="type.power.station">Centrale électrique</string>
 	<string name="type.power.substation">Poste électrique</string>
 	<string name="type.power.tower">Pylône électrique</string>
 	<string name="type.public_transport.platform">Quai de transport en commun</string>
@@ -2031,7 +2044,9 @@
 	<string name="type.tourism.artwork.painting">Œuvre</string>
 	<string name="type.tourism.artwork.sculpture">Œuvre</string>
 	<string name="type.tourism.artwork.statue">Œuvre</string>
+	<string name="type.tourism.attraction">Attraction</string>
 	<string name="type.attraction.animal">Enclos pour animaux</string>
+	<string name="type.tourism.attraction.specified">Attraction</string>
 	<string name="type.tourism.camp_site">Camping</string>
 	<string name="type.tourism.caravan_site">Aire de camping-car</string>
 	<!-- A rentable countryside vacation house. -->
@@ -2046,6 +2061,7 @@
 	<string name="type.tourism.information.map">Carte touristique</string>
 	<string name="type.tourism.information.office">Office de tourisme</string>
 	<string name="type.tourism.information.visitor_centre">centre de visite</string>
+	<string name="type.tourism.motel">Motel</string>
 	<string name="type.tourism.museum">Musée</string>
 	<string name="type.tourism.picnic_site">Terrain de pique-nique</string>
 	<string name="type.leisure.resort">Complexe touristique</string>
@@ -2053,15 +2069,21 @@
 	<string name="type.tourism.viewpoint">Belvédère</string>
 	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Refuge non gardé</string>
+	<string name="type.tourism.zoo">Zoo</string>
 	<string name="type.tourism.zoo.petting">Zoo pour enfants</string>
 	<string name="type.traffic_calming.bump">Ralentisseur</string>
 	<string name="type.traffic_calming.hump">Ralentisseur</string>
+	<string name="type.waterway">Cours d\'eau</string>
+	<string name="type.waterway.canal">Canal</string>
+	<string name="type.waterway.canal.tunnel">Tunnel du canal</string>
 	<string name="type.waterway.fish_pass">Échelle à poissons</string>
 	<string name="type.waterway.dam">Barrage</string>
 	<string name="type.barrier.ditch">Fossé</string>
 	<string name="type.natural.water.ditch">Fossé de drainage</string>
 	<string name="type.waterway.ditch.tunnel">Drain</string>
 	<string name="type.waterway.dock">Cale</string>
+	<string name="type.waterway.drain">Drainage</string>
+	<string name="type.natural.water.drain">Drainage</string>
 	<string name="type.waterway.drain.tunnel">Drain</string>
 	<string name="type.waterway.lock_gate">Porte d\'écluse</string>
 	<string name="type.waterway.river">Rivière</string>
@@ -2072,11 +2094,14 @@
 	<string name="type.waterway.stream.tunnel">Ruisseau</string>
 	<string name="type.waterway.waterfall">Cascade</string>
 	<string name="type.waterway.weir">Seuil</string>
+	<string name="type.wheelchair">Fauteuil roulant</string>
 	<string name="type.wheelchair.limited">Partiellement équipé pour l\'usage des fauteuils roulants</string>
 	<string name="type.wheelchair.no">Non équipé pour l\'usage des fauteuils roulants</string>
 	<string name="type.wheelchair.yes">Équipé pour l\'usage des fauteuils roulants</string>
 	<string name="type.aerialway.j.bar">Téléski</string>
 	<string name="type.aerialway.magic_carpet">Tapis roulant</string>
+	<string name="type.aerialway.platter">Élévateur de plateau</string>
+	<string name="type.aerialway.rope_tow">Tractage à la corde</string>
 	<string name="type.piste_type.downhill">Piste de ski alpin</string>
 	<string name="type.piste_type.downhill.area">Piste de ski alpin</string>
 	<string name="type.piste_type.downhill.advanced">Piste de ski alpin</string>

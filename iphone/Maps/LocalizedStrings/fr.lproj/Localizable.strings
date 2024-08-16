@@ -261,7 +261,7 @@
 "pref_tts_language_title" = "Langue vocale";
 
 /* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Teste les instructions vocales (TTS, Text-To-Speech)";
+"pref_tts_test_voice_title" = "Tester les instructions vocales (TTS, Text-To-Speech)";
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Autre";
@@ -871,7 +871,7 @@
 
 "editor_share_to_all_dialog_message_2" = "Les contributeurs d'OpenStreetMap vérifieront vos modifications et vous contacteront s'ils ont des questions.";
 
-"navigation_stop_button" = "Stop";
+"navigation_stop_button" = "Arrêter";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Souhaitez-vous désactiver l'enregistrement de vos itinéraires récents ?";
@@ -1267,10 +1267,10 @@
 "track_title" = "Route";
 
 /* Telegram group url for the "?" About page */
-"telegram_url" = "https://t.me/OrganicMapsApp";
+"telegram_url" = "https://t.me/OrganicMapsFR";
 
 /* Instagram account url for the "?" About page */
-"instagram_url" = "https://www.instagram.com/organicmaps.app";
+"instagram_url" = "https://www.instagram.com/organicmapsfr.app";
 
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/fr/";
@@ -1690,7 +1690,7 @@
 
 "type.amenity.stripclub" = "Club de strip-tease";
 
-"type.amenity.taxi" = "Taxi Stand";
+"type.amenity.taxi" = "Station de taxis";
 
 "type.amenity.telephone" = "Téléphone";
 
@@ -2100,7 +2100,7 @@
 
 /********** Types: Roads **********/
 
-"type.highway" = "Highway";
+"type.highway" = "Autoroute";
 
 "type.highway.bridleway" = "Chemin équestre";
 
@@ -2498,7 +2498,7 @@
 
 "type.internet_access.wlan" = "Internet";
 
-"type.junction" = "Junction";
+"type.junction" = "Jonction";
 
 "type.junction.circular" = "Rond-point";
 
@@ -2698,7 +2698,7 @@
 
 "type.mapswithme.grid" = "mapswithme-grid";
 
-"type.military" = "Military";
+"type.military" = "Installations militaires";
 
 "type.military.bunker" = "Bunker";
 
@@ -2905,7 +2905,7 @@
 
 "type.power.plant.wind" = "Ferme d'éoliennes";
 
-"type.power.station" = "Power Station";
+"type.power.station" = "Centrale électrique";
 
 "type.power.substation" = "Poste électrique";
 
@@ -3883,11 +3883,11 @@
 
 "type.traffic_calming.hump" = "Ralentisseur";
 
-"type.waterway" = "Waterway";
+"type.waterway" = "Cours d'eau";
 
 "type.waterway.canal" = "Canal";
 
-"type.waterway.canal.tunnel" = "Canal Tunnel";
+"type.waterway.canal.tunnel" = "Tunnel du canal";
 
 "type.waterway.fish_pass" = "Échelle à poissons";
 
@@ -3901,9 +3901,9 @@
 
 "type.waterway.dock" = "Cale";
 
-"type.waterway.drain" = "Drain";
+"type.waterway.drain" = "Drainage";
 
-"type.natural.water.drain" = "Drain";
+"type.natural.water.drain" = "Drainage";
 
 "type.waterway.drain.tunnel" = "Drain";
 
@@ -3925,7 +3925,7 @@
 
 "type.waterway.weir" = "Seuil";
 
-"type.wheelchair" = "Wheelchair";
+"type.wheelchair" = "Fauteuil roulant";
 
 "type.wheelchair.limited" = "Partiellement équipé pour l'usage des fauteuils roulants";
 
@@ -3937,9 +3937,9 @@
 
 "type.aerialway.magic_carpet" = "Tapis roulant";
 
-"type.aerialway.platter" = "Platter Lift";
+"type.aerialway.platter" = "Élévateur de plateau";
 
-"type.aerialway.rope_tow" = "Rope Tow";
+"type.aerialway.rope_tow" = "Tractage à la corde";
 
 "type.aerialway.t.bar" = "T-bar Lift";
 
