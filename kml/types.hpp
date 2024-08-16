@@ -92,6 +92,8 @@ inline dp::Color ColorFromPredefinedColor(PredefinedColor color)
   }
 }
 
+kml::PredefinedColor GetRandomPredefinedColor();
+
 enum class AccessRules : uint8_t
 {
   // Do not change the order because of binary serialization.
