@@ -489,6 +489,8 @@
 	<string name="editor_detailed_description">Dine foreslåede ændringer vil blive sendt til OpenStreetMap fællesskabet. Beskrive detaljer, som ikke kan redigeres i Organic Maps.</string>
 	<string name="editor_more_about_osm">Mere om OpenStreetMap</string>
 	<string name="editor_operator">Bruger</string>
+	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="operator">Bruger: %s</string>
 	<string name="editor_category_unsuitable_title">Kan du ikke finde en passende kategori?</string>
 	<string name="editor_category_unsuitable_text">Organic Maps giver kun mulighed for at tilføje simple punktkategorier, dvs. ingen byer, veje, søer, bygningsomrids osv. Tilføj venligst sådanne kategorier direkte til <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Se vores <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detaljerede trin for trin-instruktioner.</string>
 	<string name="downloader_no_downloaded_maps_title">Du har ikke hentet alle kort</string>
@@ -660,6 +662,8 @@
 	<string name="no_available">Nej</string>
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Kapacitet: %s</string>
+	<!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="network">Netværk: %s</string>
 	<string name="trip_finished">Du er ankommet!</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->

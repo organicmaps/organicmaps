@@ -387,6 +387,8 @@
 	<string name="editor_detailed_description">आपके सुझाए गए मानचित्र परिवर्तन OpenStreetMap समुदाय को भेजे जाएंगे। कृपया किसी भी अतिरिक्त विवरण का वर्णन करें जिसे ऑर्गेनिक मानचित्र में संपादित नहीं किया जा सकता है।</string>
 	<string name="editor_more_about_osm">OpenStreetMap के बारे में अधिक जानकारी</string>
 	<string name="editor_operator">मालिक</string>
+	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="operator">मालिक: %s</string>
 	<string name="editor_category_unsuitable_title">कोई उपयुक्त श्रेणी नहीं मिल रही?</string>
 	<string name="editor_category_unsuitable_text">ऑर्गेनिक मैप्स केवल सरल बिंदु श्रेणियां जोड़ने की अनुमति देता है, जिसका अर्थ है कि शहर, सड़कें, झीलें, भवन की रूपरेखा आदि नहीं। कृपया ऐसी श्रेणियां सीधे <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> पर जोड़ें।. विस्तृत चरण-दर-चरण निर्देशों के लिए हमारी <a href="https://organicmaps.app/faq/editing/advanced-map-editing">मार्गदर्शिका</a> देखें।</string>
 	<!-- abbreviation for meters -->
@@ -481,6 +483,8 @@
 	<string name="no_available">नहीं</string>
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">क्षमता: %s</string>
+	<!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="network">नेटवर्क: %s</string>
 	<string name="ok">ठीक है</string>
 	<!-- Android -->
 	<string name="by_name">नाम द्वारा</string>

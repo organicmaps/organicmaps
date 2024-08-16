@@ -765,6 +765,9 @@
 
 "editor_operator" = "Üzemeltető";
 
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+"operator" = "Üzemeltető: %@";
+
 "downloader_no_downloaded_maps_title" = "Még nem töltött le térképet";
 
 "downloader_no_downloaded_maps_message" = "Töltse le a szükséges térképeket, hogy megtalálja a helyet és internet nélkül is navigálhasson.";
@@ -1108,6 +1111,9 @@
 
 /* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
 "capacity" = "Kapacitás: %@";
+
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+"network" = "Hálózat: %@";
 
 "trip_finished" = "Megérkeztél!";
 

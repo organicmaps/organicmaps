@@ -765,6 +765,9 @@
 
 "editor_operator" = "Sahibi";
 
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+"operator" = "Sahibi: %@";
+
 "downloader_no_downloaded_maps_title" = "Siz heç bir xəritə endirməmisiniz";
 
 "downloader_no_downloaded_maps_message" = "Ünvanları tapmaq və oflayn naviqasiya etmək üçün xəritələri endirin.";
@@ -1108,6 +1111,9 @@
 
 /* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
 "capacity" = "Capacity: %@";
+
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+"network" = "Şəbəkə: %@";
 
 "trip_finished" = "Sən gəldin!";
 

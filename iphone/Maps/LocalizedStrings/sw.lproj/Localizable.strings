@@ -765,6 +765,9 @@
 
 "editor_operator" = "Owner";
 
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+"operator" = "Owner: %@";
+
 "downloader_no_downloaded_maps_title" = "You haven't downloaded any maps";
 
 "downloader_no_downloaded_maps_message" = "Download maps to search and navigate offline.";
@@ -1108,6 +1111,9 @@
 
 /* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
 "capacity" = "Uwezo: %@";
+
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+"network" = "Mtandao: %@";
 
 "trip_finished" = "Umefika!";
 

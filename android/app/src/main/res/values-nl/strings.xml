@@ -509,6 +509,8 @@
 	<string name="editor_detailed_description">Uw voorgestelde wijzigingen worden verzonden naar de OpenStreetMap-gemeenschap. Beschrijf de details die niet kunnen worden bewerkt in Organic Maps.</string>
 	<string name="editor_more_about_osm">Meer over OpenStreetMap</string>
 	<string name="editor_operator">Uitvoerder</string>
+	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="operator">Uitvoerder: %s</string>
 	<string name="editor_category_unsuitable_title">Kun je geen geschikte categorie vinden?</string>
 	<string name="editor_category_unsuitable_text">Met Organic Maps kun je alleen eenvoudige puntcategorieën toevoegen, dus geen steden, wegen, meren, contouren van gebouwen, enzovoort. Voeg zulke categorieën direct toe aan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Bekijk onze <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gids</a> voor gedetailleerde stap voor stap instructies.</string>
 	<string name="downloader_no_downloaded_maps_title">U hebt geen kaarten gedownload</string>
@@ -688,6 +690,8 @@
 	<string name="no_available">Nee</string>
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Capaciteit: %s</string>
+	<!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="network">Netwerk: %s</string>
 	<string name="trip_finished">U bent aangekomen!</string>
 	<string name="ok">Oké</string>
 	<!-- max. 10 symbols, both iOS and Android -->

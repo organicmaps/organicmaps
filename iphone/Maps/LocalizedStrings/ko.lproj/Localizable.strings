@@ -765,6 +765,9 @@
 
 "editor_operator" = "소유자";
 
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+"operator" = "소유자: %@";
+
 "downloader_no_downloaded_maps_title" = "지도를 다운로드하지 않았습니다";
 
 "downloader_no_downloaded_maps_message" = "오프라인으로 위치를 검색하려면 지도를 다운로드하세요.";
@@ -1108,6 +1111,9 @@
 
 /* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
 "capacity" = "수용 인원: %@";
+
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+"network" = "네트워크: %@";
 
 "trip_finished" = "도착했습니다!";
 

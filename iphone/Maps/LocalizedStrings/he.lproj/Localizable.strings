@@ -765,6 +765,9 @@
 
 "editor_operator" = "בעלים";
 
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+"operator" = "בעלים: %@";
+
 "downloader_no_downloaded_maps_title" = "לא הורדת אף מפה";
 
 "downloader_no_downloaded_maps_message" = "הורד מפה כדי לחפש ולנווט ללא חיבור לאינטרנט.";
@@ -1108,6 +1111,9 @@
 
 /* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
 "capacity" = "קיבולת: %@";
+
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+"network" = "רשת: %@";
 
 "trip_finished" = "הגעת!";
 

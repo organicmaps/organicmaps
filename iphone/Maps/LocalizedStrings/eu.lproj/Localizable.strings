@@ -765,6 +765,9 @@
 
 "editor_operator" = "Eragilea";
 
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+"operator" = "Eragilea: %@";
+
 "downloader_no_downloaded_maps_title" = "Ez duzu maparik deskargatu";
 
 "downloader_no_downloaded_maps_message" = "Deskargatu mapak kokapena aurkitzeko eta lineaz kanpo nabigatzeko.";
@@ -1108,6 +1111,9 @@
 
 /* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
 "capacity" = "Edukiera: %@";
+
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+"network" = "Sarea: %@";
 
 "trip_finished" = "Iritsi zara!";
 

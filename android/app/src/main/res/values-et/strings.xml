@@ -505,6 +505,8 @@
 	<string name="editor_detailed_description">Teie soovitatud kaardimuudatused saadetakse OpenStreetMapi kogukonnale. Kirjeldage kõiki täiendavaid üksikasju, mida ei saa Organic Maps-is muuta.</string>
 	<string name="editor_more_about_osm">Rohkem OpenStreetMap kohta</string>
 	<string name="editor_operator">Omanik</string>
+	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="operator">Omanik: %s</string>
 	<string name="editor_category_unsuitable_title">Ei leia sobivat kategooriat?</string>
 	<string name="editor_category_unsuitable_text">Organic Maps võimaldab lisada ainult lihtsaid punktikategooriaid, see tähendab, et ei mingeid linnu, teid, järvi, hoonete piirjooni jne. Palun lisage sellised kategooriad otse <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Vaadake meie <a href="https://organicmaps.app/faq/editing/advanced-map-editing">juhendit</a> üksikasjalike samm-sammuliste juhiste saamiseks.</string>
 	<string name="downloader_no_downloaded_maps_title">Sa ei ole kaarte alla laadinud</string>
@@ -685,6 +687,8 @@
 	<string name="no_available">Ei</string>
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Mahutavus: %s</string>
+	<!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="network">Võrk: %s</string>
 	<string name="trip_finished">Oled kohal!</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->

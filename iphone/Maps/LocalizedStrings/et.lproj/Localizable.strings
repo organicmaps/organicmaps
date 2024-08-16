@@ -765,6 +765,9 @@
 
 "editor_operator" = "Omanik";
 
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+"operator" = "Omanik: %@";
+
 "downloader_no_downloaded_maps_title" = "Sa ei ole kaarte alla laadinud";
 
 "downloader_no_downloaded_maps_message" = "Lae alla kaardid asukoha otsimiseks ja võrguühenduseta navigeerimise kasutamiseks.";
@@ -1108,6 +1111,9 @@
 
 /* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
 "capacity" = "Mahutavus: %@";
+
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+"network" = "Võrk: %@";
 
 "trip_finished" = "Oled kohal!";
 

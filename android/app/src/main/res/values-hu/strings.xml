@@ -501,6 +501,8 @@
 	<string name="editor_detailed_description">Javasolt változtatásait elküldjük az OpenStreetMap közösségnek. Írja le a további információkat, amelyek nem szerkeszthetők a Organic Maps-ben.</string>
 	<string name="editor_more_about_osm">További részletek az OpenStreetMap-ról</string>
 	<string name="editor_operator">Üzemeltető</string>
+	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="operator">Üzemeltető: %s</string>
 	<string name="editor_category_unsuitable_title">Nem találja a megfelelő kategóriát?</string>
 	<string name="editor_category_unsuitable_text">Az Organic Maps csak egyszerű pontkategóriák hozzáadását teszi lehetővé, azaz nem tartalmaz városokat, utakat, tavakat, épületek körvonalait stb. Kérjük, hogy az ilyen kategóriákat közvetlenül a <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> oldalon adja hozzá. A részletes, lépésről lépésre történő útmutatásért tekintse meg <a href="https://organicmaps.app/faq/editing/advanced-map-editing">útmutatónkat</a>.</string>
 	<string name="downloader_no_downloaded_maps_title">Még nem töltött le térképet</string>
@@ -673,6 +675,8 @@
 	<string name="no_available">Nem</string>
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Kapacitás: %s</string>
+	<!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="network">Hálózat: %s</string>
 	<string name="trip_finished">Megérkeztél!</string>
 	<string name="ok">Oké</string>
 	<!-- max. 10 symbols, both iOS and Android -->

@@ -765,6 +765,9 @@
 
 "editor_operator" = "Proprietar";
 
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+"operator" = "Proprietar: %@";
+
 "downloader_no_downloaded_maps_title" = "Nu ai descărcat nicio hartă";
 
 "downloader_no_downloaded_maps_message" = "Descarcă hărți pentru a căuta un loc și a naviga fără conectare la internet.";
@@ -1108,6 +1111,9 @@
 
 /* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
 "capacity" = "Capacitate: %@";
+
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+"network" = "Rețea: %@";
 
 "trip_finished" = "Ai ajuns!";
 

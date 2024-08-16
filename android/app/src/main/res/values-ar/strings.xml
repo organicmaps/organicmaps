@@ -526,6 +526,8 @@
 	<string name="editor_detailed_description">سيتم إرسال التغييرات التي اقترحتها إلى مجتمع خريطة الشارع المفتوحة. اذكر التفاصيل التي لا يمكن تحريرها في Organic Maps</string>
 	<string name="editor_more_about_osm">المزيد عن خريطة الشارع المفتوحة</string>
 	<string name="editor_operator">المالك</string>
+	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="operator">المالك: %s</string>
 	<string name="editor_category_unsuitable_title">لا يمكن العثور على فئة مناسبة؟</string>
 	<string name="editor_category_unsuitable_text">تسمح الخرائط العضوية بإضافة فئات نقاط بسيطة فقط، وهذا يعني عدم وجود بلدات وطرق وبحيرات ومخططات للمباني وما إلى ذلك. يرجى إضافة هذه الفئات مباشرة إلى <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. راجع موقعنا <a href="https://organicmaps.app/faq/editing/advanced-map-editing">دليل</a> للحصول على تعليمات مفصلة خطوة بخطوة.</string>
 	<string name="downloader_no_downloaded_maps_title">لم تقم بتنزيل أية خرائط</string>
@@ -704,6 +706,8 @@
 	<string name="no_available">لا</string>
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">السعة: %s</string>
+	<!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="network">الشبكة: %s</string>
 	<string name="trip_finished">لقد وصلت!</string>
 	<string name="ok">موافق</string>
 	<!-- max. 10 symbols, both iOS and Android -->

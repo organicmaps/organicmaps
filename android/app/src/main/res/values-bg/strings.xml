@@ -479,6 +479,8 @@
 	<string name="editor_detailed_description">Предложените от вас промени по картата ще бъдат изпратени до общността на OpenStreetMap. Опишете всички допълнителни подробности, които не могат да бъдат въведени в Organic Maps.</string>
 	<string name="editor_more_about_osm">Повече за OpenStreetMap</string>
 	<string name="editor_operator">Собственик</string>
+	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="operator">Собственик: %s</string>
 	<string name="editor_category_unsuitable_title">Не можете да намерите подходяща категория?</string>
 	<string name="editor_category_unsuitable_text">Organic Maps позволява да се добавят само прости категории точки, т.е. без градове, пътища, езера, очертания на сгради и т.н. Моля, добавяйте такива категории директно в <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Вижте нашето <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ръководство</a> за подробни инструкции стъпка по стъпка.</string>
 	<string name="downloader_no_downloaded_maps_title">Не сте изтеглили никакви карти</string>
@@ -641,6 +643,8 @@
 	<string name="no_available">Не</string>
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Капацитет: %s</string>
+	<!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="network">Мрежа: %s</string>
 	<string name="ok">Ок</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Сортиране…</string>

@@ -515,6 +515,8 @@
 	<string name="editor_detailed_description">Önerdiğiniz değişiklikler OpenStreetMap topluluğuna gönderilecek. Organic Maps’te düzenlenemeyen ayrıntıları açıklayın.</string>
 	<string name="editor_more_about_osm">OpenStreetMap hakkında ek bilgi</string>
 	<string name="editor_operator">İşletmeci</string>
+	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="operator">İşletmeci: %s</string>
 	<string name="editor_category_unsuitable_title">Uygun bir kategori bulamıyor musunuz?</string>
 	<string name="editor_category_unsuitable_text">Organik Haritalar yalnızca basit nokta kategorileri eklemeye izin verir, yani kasaba, yol, göl, bina ana hatları vb. yoktur. Lütfen bu tür kategorileri doğrudan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>\'a ekleyin. Adım adım ayrıntılı talimatlar için <a href="https://organicmaps.app/faq/editing/advanced-map-editing">rehberimize</a> göz atın.</string>
 	<string name="downloader_no_downloaded_maps_title">Hiç harita indirmediniz</string>
@@ -693,6 +695,8 @@
 	<string name="no_available">Yok</string>
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Kapasite: %s</string>
+	<!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="network">Ağ: %s</string>
 	<string name="trip_finished">Vardınız!</string>
 	<string name="ok">Tamam</string>
 	<!-- max. 10 symbols, both iOS and Android -->

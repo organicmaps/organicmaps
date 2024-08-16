@@ -499,6 +499,8 @@
 	<string name="editor_detailed_description">Modificările aduse hărții, sugerate de tine, vor fi trimise comunității OpenStreetMap. Descrie orice detalii suplimentare care nu pot fi modificate în Organic Maps.</string>
 	<string name="editor_more_about_osm">Mai multe despre OpenStreetMap</string>
 	<string name="editor_operator">Proprietar</string>
+	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="operator">Proprietar: %s</string>
 	<string name="editor_category_unsuitable_title">Nu găsiți o categorie potrivită?</string>
 	<string name="editor_category_unsuitable_text">Organic Maps permite adăugarea doar a unor categorii de puncte simple, ceea ce înseamnă că nu există orașe, drumuri, lacuri, contururi de clădiri, etc. Vă rugăm să adăugați astfel de categorii direct la <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consultați <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ghidul nostru</a> pentru instrucțiuni detaliate pas cu pas.</string>
 	<string name="downloader_no_downloaded_maps_title">Nu ai descărcat nicio hartă</string>
@@ -678,6 +680,8 @@
 	<string name="no_available">Nu</string>
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Capacitate: %s</string>
+	<!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="network">Rețea: %s</string>
 	<string name="trip_finished">Ai ajuns!</string>
 	<string name="ok">Bine</string>
 	<!-- max. 10 symbols, both iOS and Android -->

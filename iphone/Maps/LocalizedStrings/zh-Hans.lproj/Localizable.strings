@@ -765,6 +765,9 @@
 
 "editor_operator" = "经营者";
 
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+"operator" = "运营者: %@";
+
 "downloader_no_downloaded_maps_title" = "您尚未下载任何地图";
 
 "downloader_no_downloaded_maps_message" = "下载地图来查找位置和离线浏览。";
@@ -1108,6 +1111,9 @@
 
 /* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
 "capacity" = "容量：%@";
+
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+"network" = "网络：%@";
 
 "trip_finished" = "您已到达目的地！";
 

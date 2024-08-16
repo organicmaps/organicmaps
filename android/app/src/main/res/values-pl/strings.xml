@@ -513,6 +513,8 @@
 	<string name="editor_detailed_description">Twoje sugestie zmian zostaną wysłane do społeczności OpenStreetMap. Opisz szczegóły, których nie można edytować w Organic Maps.</string>
 	<string name="editor_more_about_osm">Więcej o OpenStreetMap</string>
 	<string name="editor_operator">Operator</string>
+	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="operator">Operator: %s</string>
 	<string name="editor_category_unsuitable_title">Nie możesz znaleźć odpowiedniej kategorii?</string>
 	<string name="editor_category_unsuitable_text">Organic Maps pozwala na dodawanie tylko prostych kategorii punktów, co oznacza brak miast, dróg, jezior, obrysów budynków itp. Dodaj takie kategorie bezpośrednio do <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Sprawdź nasz <a href="https://organicmaps.app/faq/editing/advanced-map-editing">przewodnik</a>, aby uzyskać szczegółowe instrukcje krok po kroku.</string>
 	<string name="downloader_no_downloaded_maps_title">Nie pobrano żadnych map</string>
@@ -695,6 +697,8 @@
 	<string name="no_available">Nie</string>
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Pojemność: %s</string>
+	<!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="network">Sieć: %s</string>
 	<string name="trip_finished">Jesteś na miejscu!</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->

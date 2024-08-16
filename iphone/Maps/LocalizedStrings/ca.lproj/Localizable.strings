@@ -765,6 +765,9 @@
 
 "editor_operator" = "Propietari";
 
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+"operator" = "Propietari: %@";
+
 "downloader_no_downloaded_maps_title" = "No heu baixat cap mapa";
 
 "downloader_no_downloaded_maps_message" = "Baixeu mapes per a cercar una ubicacio i usar la navegació sense connexió.";
@@ -1108,6 +1111,9 @@
 
 /* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
 "capacity" = "Capacitat: %@";
+
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+"network" = "Xarxa: %@";
 
 "trip_finished" = "Heu arribat!";
 

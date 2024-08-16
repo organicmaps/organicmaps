@@ -511,6 +511,8 @@
 	<string name="editor_detailed_description">Прапанаваныя вамі змены будуць дасланы суполцы OpenStreetMap. Апішыце любыя дадатковыя дэталі, якія нельга рэдагаваць у Organic Maps.</string>
 	<string name="editor_more_about_osm">Падрабязней пра OpenStreetMap</string>
 	<string name="editor_operator">Уладальнік</string>
+	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="operator">Уладальнік: %s</string>
 	<string name="editor_category_unsuitable_title">Няма прыдатнай катэгорыі?</string>
 	<string name="editor_category_unsuitable_text">Organic Maps дазваляе дадаваць на мапу толькі простыя тыпы аб\'ектаў, гэта значыць без гарадаў, дарог, азёр і будынкаў. Калі ласка, дадайце такія катэгорыі на сайце <a href="https://www.openstreetmap.org/">OpenStreetMap.org </a>. Мы таксама рэкамендуем азнаёміцца ​​з <a href="https://organicmaps.app/faq/editing/advanced-map-editing/">падрабязнымі інструкцыямі і іншымі прыкладаннямі для рэдагавання мапы</a>.</string>
 	<string name="downloader_no_downloaded_maps_title">Вы не спампавалі ніводнай мапы</string>
@@ -686,6 +688,8 @@
 	<string name="no_available">Няма</string>
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Ёмістасць: %s</string>
+	<!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="network">Сетка: %s</string>
 	<string name="trip_finished">Вы прыбылі!</string>
 	<string name="ok">Ок</string>
 	<!-- max. 10 symbols, both iOS and Android -->

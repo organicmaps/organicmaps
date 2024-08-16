@@ -487,6 +487,8 @@
 	<string name="editor_detailed_description">귀하가 제안한 변경 사항은 OpenStreetMap 커뮤니티로 전송됩니다. Organic Maps에서 편집할 수 없는 세부정보를 작성해 주세요.</string>
 	<string name="editor_more_about_osm">OpenStreetMap 정보</string>
 	<string name="editor_operator">소유자</string>
+	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="operator">소유자: %s</string>
 	<string name="editor_category_unsuitable_title">적합한 카테고리를 찾을 수 없나요?</string>
 	<string name="editor_category_unsuitable_text">오가닉 지도에서는 단순한 포인트 카테고리만 추가할 수 있으므로 도시, 도로, 호수, 건물 윤곽선 등은 추가할 수 없습니다. 이러한 카테고리는 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> 에 직접 추가하세요. 자세한 단계별 지침은 <a href="https://organicmaps.app/faq/editing/advanced-map-editing">가이드</a>를 참조하세요.</string>
 	<string name="downloader_no_downloaded_maps_title">지도를 다운로드하지 않았습니다</string>
@@ -658,6 +660,8 @@
 	<string name="no_available">아니오</string>
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">수용 인원: %s</string>
+	<!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="network">네트워크: %s</string>
 	<string name="trip_finished">도착했습니다!</string>
 	<string name="ok">OK</string>
 	<!-- max. 10 symbols, both iOS and Android -->

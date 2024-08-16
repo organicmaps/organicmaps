@@ -515,6 +515,8 @@
 	<string name="editor_detailed_description">Зміни, що ви запропонували, буде відправлено до OpenStreetMap. Опишіть подробиці про об\'єкт, які не можна редагувати у Organic Maps.</string>
 	<string name="editor_more_about_osm">Більше про OpenStreetMap</string>
 	<string name="editor_operator">Власник</string>
+	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="operator">Власник: %s</string>
 	<string name="editor_category_unsuitable_title">Не можете знайти відповідну категорію?</string>
 	<string name="editor_category_unsuitable_text">Organic Maps дозволяють додавати до мапи лише прості типи об\'єктів, тобто без міст, доріг, озер та контурів будівель. Будь ласка, додайте такі категорії на сайті <a href="https://www.openstreetmap.org/">OpenStreetMap.org</a>. Ми також рекомендуємо ознайомитися із <a href="https://organicmaps.app/faq/editing/advanced-map-editing/">детальними інструкціями та іншими додатками для редагування карти</a>.</string>
 	<string name="downloader_no_downloaded_maps_title">Ви не маєте завантажених мап</string>
@@ -697,6 +699,8 @@
 	<string name="no_available">Ні</string>
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Місткість: %s</string>
+	<!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="network">Мережа: %s</string>
 	<string name="trip_finished">Ви прибули!</string>
 	<string name="ok">Ок</string>
 	<!-- max. 10 symbols, both iOS and Android -->

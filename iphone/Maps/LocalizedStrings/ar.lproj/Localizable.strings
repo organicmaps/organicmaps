@@ -765,6 +765,9 @@
 
 "editor_operator" = "المالك";
 
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+"operator" = "المالك: %@";
+
 "downloader_no_downloaded_maps_title" = "لم تقم بتنزيل أية خرائط";
 
 "downloader_no_downloaded_maps_message" = "قم بتنزيل خرائط للبحث عن مكان واستخدام الملاحة بدون اتصال بالإنترنت.";
@@ -1108,6 +1111,9 @@
 
 /* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
 "capacity" = "السعة: %@";
+
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+"network" = "الشبكة: %@";
 
 "trip_finished" = "لقد وصلت!";
 

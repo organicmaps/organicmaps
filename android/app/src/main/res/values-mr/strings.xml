@@ -480,6 +480,8 @@
 	<string name="editor_detailed_description">तुम्ही सुचवलेले नकाशातील बदल OpenStreetMap समुदायाला पाठवले जातील. Organic Maps मध्ये संपादित न करता येणाऱ्या अधिक तपशीलांचे वर्णन करा.</string>
 	<string name="editor_more_about_osm">OpenStreetMap बद्दल अधिक</string>
 	<string name="editor_operator">मालक</string>
+	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="operator">मालक: %s</string>
 	<string name="editor_category_unsuitable_title">योग्य श्रेणी शोधू शकत नाही?</string>
 	<string name="editor_category_unsuitable_text">ऑरगॅनिक नकाशे फक्त साध्या बिंदू श्रेणी जोडण्याची परवानगी देतात, म्हणजे शहरे, रस्ते, तलाव, इमारत बाह्यरेखा इ. कृपया अशा श्रेणी थेट <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> वर जोडा. तपशीलवार चरण-दर-चरण सूचनांसाठी आमचे <a href="https://organicmaps.app/faq/editing/advanced-map-editing">मार्गदर्शक</a> पहा.</string>
 	<string name="downloader_no_downloaded_maps_title">तुम्ही कोणतेही नकाशे डाउनलोड केलेले नाहीत</string>
@@ -657,6 +659,8 @@
 	<string name="no_available">नाही</string>
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">क्षमता: %s</string>
+	<!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="network">नेटवर्क: %s</string>
 	<string name="trip_finished">तुम्ही पोचलात!</string>
 	<string name="ok">ठीक आहे</string>
 	<!-- max. 10 symbols, both iOS and Android -->

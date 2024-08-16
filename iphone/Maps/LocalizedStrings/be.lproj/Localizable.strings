@@ -765,6 +765,9 @@
 
 "editor_operator" = "Уладальнік";
 
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+"operator" = "Уладальнік: %@";
+
 "downloader_no_downloaded_maps_title" = "Вы не спампавалі ніводнай мапы";
 
 "downloader_no_downloaded_maps_message" = "Спампуйце мапы, каб шукаць месцы і карыстацца навігацыяй без інтэрнэту.";
@@ -1108,6 +1111,9 @@
 
 /* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
 "capacity" = "Ёмістасць: %@";
+
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+"network" = "Сетка: %@";
 
 "trip_finished" = "Вы прыбылі!";
 

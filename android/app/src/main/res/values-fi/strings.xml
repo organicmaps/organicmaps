@@ -515,6 +515,8 @@
 	<string name="editor_detailed_description">Ehdottamasi muutokset lähetetään OpenStreetMap-yhteisöön. Kuvaa tiedot, joita ei voi muokata Organic Maps:ssä.</string>
 	<string name="editor_more_about_osm">Lisätietoja OpenStreetMap:sta</string>
 	<string name="editor_operator">Operaattori</string>
+	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="operator">Operaattori: %s</string>
 	<string name="editor_category_unsuitable_title">Etkö löydä sopivaa luokkaa?</string>
 	<string name="editor_category_unsuitable_text">Organic Maps mahdollistaa vain yksinkertaisten pisteluokkien lisäämisen, eli ei kaupunkeja, teitä, järviä, rakennusten ääriviivoja jne. Lisää tällaiset luokat suoraan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Tarkista <a href="https://organicmaps.app/faq/editing/advanced-map-editing">oppaastamme</a> yksityiskohtaiset ohjeet vaihe vaiheelta.</string>
 	<string name="downloader_no_downloaded_maps_title">Et ole ladannut yhtään karttaa</string>
@@ -696,6 +698,8 @@
 	<string name="no_available">Ei</string>
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Kapasiteetti: %s</string>
+	<!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+	<string name="network">Verkko: %s</string>
 	<string name="trip_finished">Olet perillä!</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
