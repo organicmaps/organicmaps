@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import androidx.preference.SeekBarPreference;
+import androidx.preference.SwitchPreferenceCompat;
 import androidx.preference.TwoStatePreference;
 
 import app.organicmaps.Framework;
@@ -39,16 +39,16 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
 
   @NonNull
   @SuppressWarnings("NotNullFieldNotInitialized")
-  private TwoStatePreference mTtsPrefEnabled;
+  private SwitchPreferenceCompat mTtsPrefEnabled;
   @NonNull
   @SuppressWarnings("NotNullFieldNotInitialized")
-  private ListPreference mTtsPrefLanguages;
+  private CustomListPreference mTtsPrefLanguages;
   @NonNull
   @SuppressWarnings("NotNullFieldNotInitialized")
-  private SeekBarPreference mTtsVolume;
+  private CustomSeekBarPreference mTtsVolume;
   @NonNull
   @SuppressWarnings("NotNullFieldNotInitialized")
-  private TwoStatePreference mTtsPrefStreetNames;
+  private CustomSwitchPreferenceCompat mTtsPrefStreetNames;
   @NonNull
   @SuppressWarnings("NotNullFieldNotInitialized")
   private ListPreference mPrefLanguages;
@@ -57,7 +57,8 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
   private Preference mTtsLangInfo;
   @NonNull
   @SuppressWarnings("NotNullFieldNotInitialized")
-  private Preference mTtsVoiceTest;
+  private CustomPreference mTtsVoiceTest;
+
   private List<String> mTtsTestStringArray;
   private int mTestStringIndex;
 
@@ -72,6 +73,7 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
     {
       TtsPlayer.setEnabled(false);
       mTtsPrefLanguages.setEnabled(false);
+      mTtsPrefStreetNames.setEnabled(false);
       mTtsVolume.setEnabled(false);
       mTtsLangInfo.setSummary(R.string.prefs_languages_information_off);
       mTtsVoiceTest.setEnabled(false);
@@ -79,6 +81,7 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
     }
 
     mTtsLangInfo.setSummary(R.string.prefs_languages_information);
+    mTtsPrefStreetNames.setEnabled(true);
     mTtsVolume.setEnabled(true);
     mTtsVoiceTest.setEnabled(true);
 
@@ -226,6 +229,7 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
       mTtsPrefEnabled.setSummary(R.string.pref_tts_unavailable);
       mTtsPrefLanguages.setEnabled(false);
       mTtsPrefLanguages.setSummary(null);
+      mTtsPrefStreetNames.setEnabled(false);
       mTtsVolume.setEnabled(false);
       mTtsVoiceTest.setEnabled(false);
       mTtsLangInfo.setSummary(R.string.prefs_languages_information_off);
@@ -258,6 +262,7 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
     mTtsPrefLanguages.setEnabled(available && TtsPlayer.isEnabled());
     mTtsPrefLanguages.setSummary(available ? mCurrentLanguage.name : null);
     mTtsPrefLanguages.setValue(available ? mCurrentLanguage.internalCode : null);
+    mTtsPrefStreetNames.setEnabled(enabled && available && TtsPlayer.isEnabled());
     mTtsVolume.setEnabled(enabled && available && TtsPlayer.isEnabled());
     mTtsVoiceTest.setEnabled(enabled && available && TtsPlayer.isEnabled());
 

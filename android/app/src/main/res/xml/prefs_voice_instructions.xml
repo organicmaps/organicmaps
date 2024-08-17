@@ -6,18 +6,18 @@
   <SwitchPreferenceCompat
       android:key="@string/pref_tts_enabled"
       android:title="@string/pref_tts_enable_title" />
-  <SwitchPreferenceCompat
+  <app.organicmaps.settings.CustomSwitchPreferenceCompat
       android:key="@string/pref_tts_street_names"
       android:title="@string/pref_tts_street_names_title"
       android:summary="@string/pref_tts_street_names_description"
       android:defaultValue="false" />
-  <ListPreference
+  <app.organicmaps.settings.CustomListPreference
       android:key="@string/pref_tts_language"
       android:title="@string/pref_tts_language_title" />
-  <SeekBarPreference
+  <app.organicmaps.settings.CustomSeekBarPreference
       android:key="@string/pref_tts_volume"
       android:title="@string/volume" />
-  <Preference
+  <app.organicmaps.settings.CustomPreference
       android:key="@string/pref_tts_test_voice"
       android:title="@string/pref_tts_test_voice_title" />
   <Preference
