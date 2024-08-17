@@ -101,10 +101,11 @@ using Observers = NSHashTable<Observer>;
 
     NSError * err = nil;
     if (![[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
-                                          withOptions:AVAudioSessionCategoryOptionMixWithOthers |
-                                                      AVAudioSessionCategoryOptionDuckOthers
+                                          mode:AVAudioSessionModeVoicePrompt
+                                          options:AVAudioSessionCategoryOptionInterruptSpokenAudioAndMixWithOthers |
+                                                  AVAudioSessionCategoryOptionDuckOthers
                                                 error:&err]) {
-      LOG(LWARNING, ("[ setCategory]] error.", [err localizedDescription]));
+      LOG(LWARNING, ("Couldn't configure audio session: ", [err localizedDescription]));
     }
 
     // Set initial StreetNamesTTS setting
@@ -240,18 +241,11 @@ using Observers = NSHashTable<Observer>;
     stopSession();
     return;
   } else {
-    AVAudioSessionMode mode = AVAudioSessionModeDefault;
-    if ([MWMCarPlayService shared].isCarplayActivated) {
-      mode = AVAudioSessionModeVoicePrompt;
-    }
-    if (![[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
-                                                 mode:mode
-                                              options:
-                                                  AVAudioSessionCategoryOptionInterruptSpokenAudioAndMixWithOthers |
-                                                  AVAudioSessionCategoryOptionDuckOthers
-                                                error:nil] ||
-        ![[AVAudioSession sharedInstance] setActive:YES error:nil])
+    NSError * err = nil;
+    if (![[AVAudioSession sharedInstance] setActive:YES error:&err]) {
+      LOG(LWARNING, ("Couldn't active audio session: ", [err localizedDescription]));
       return;
+    }
 
     for (NSString * notification in turnNotifications)
       [self speakOneString:notification];
