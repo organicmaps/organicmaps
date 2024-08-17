@@ -153,6 +153,7 @@ int LatLonParser::GetCoordinatesPriority(string const & token)
 }
 
 std::string const kLatLon = R"(([+-]?\d+(?:\.\d+)?)(?:%2C|,)(?: |%20|\+)*([+-]?\d+(?:\.\d+)?)(:?, *([+-]?\d+(?:\.\d+)?))?)";
+//std::string const kLatLon = R"(([+-]?\d+(?:\.\d+)?)(?:%2C|,)(?: |%20|\+)*([+-]?\d+(?:\.\d+)?)((?:%2C|,)(?: |%20|\+)*([+-]?\d+(?:\.\d+)?))?)";
 
 GeoParser::GeoParser()
   : m_latlonRe(kLatLon), m_zoomRe(kFloatIntScale)
