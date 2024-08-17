@@ -443,7 +443,7 @@ task prepareGoogleReleaseListing {
 
 play {
   enabled.set(false)
-  track.set('alpha')
+  track.set('production')
   defaultToAppBundles.set(true)
   releaseStatus.set(ReleaseStatus.IN_PROGRESS)
   serviceAccountCredentials.set(file('google-play.json'))
