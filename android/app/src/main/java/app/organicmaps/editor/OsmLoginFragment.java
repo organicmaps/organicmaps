@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
+import app.organicmaps.util.Config;
 import app.organicmaps.util.Constants;
 import app.organicmaps.util.DateUtils;
 import app.organicmaps.util.InputUtils;
@@ -57,6 +58,17 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     final String dataVersion = DateUtils.getShortDateFormatter().format(Framework.getDataVersion());
     ((TextView) view.findViewById(R.id.osm_presentation))
         .setText(getString(R.string.osm_presentation, dataVersion));
+
+    if (!Config.isOsmLoginEnabled(requireContext()))
+    {
+      new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
+          .setMessage(R.string.osm_login_not_available)
+          .setCancelable(true)
+          .setNegativeButton(R.string.details, (dialog, which) ->
+              Utils.openUrl(requireContext(), "https://organicmaps.app/news/2024-08-17/last-night-organic-maps-was-removed-from-the-play-store-without-any-warnings-or-additional-details-due-to-not-meeting-the-requirements-for-the-family-program/"))
+          .setOnDismissListener(dialog -> requireActivity().finish())
+          .show();
+    }
   }
 
   private void login()
