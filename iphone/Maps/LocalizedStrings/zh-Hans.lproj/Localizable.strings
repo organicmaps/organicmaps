@@ -215,7 +215,7 @@
 /* Length of track in cell that describes route */
 "length" = "长度";
 
-"share_my_location" = "共享我的位置";
+"share_my_location" = "分享我的位置";
 
 "prefs_group_route" = "导航";
 

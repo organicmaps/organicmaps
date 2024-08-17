@@ -799,6 +799,8 @@
 	<string name="button_layer_outdoor">טיול רגלי</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">דפדפן אינטרנט אינו זמין</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">הרשאת OpenStreetMap אינה זמינה באופן זמני עקב הגבלות חדשות ב-Google Play 😾\nהצוות שלנו עובד כדי לפתור בעיה זו. אנא התאזרו בסבלנות 🙏</string>
 	<string name="volume">כרך</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">ייצא את כל הסימניות והרצועות</string>

@@ -788,6 +788,8 @@
 	<string name="button_layer_outdoor">Drumeție</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Browserul web nu este disponibil</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">Autorizația OpenStreetMap nu este disponibilă temporar din cauza noilor restricții din Google Play 😾\nEchipa noastră lucrează pentru a rezolva această problemă. Vă rugăm să aveți răbdare 🙏</string>
 	<string name="volume">Volum</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Exportați toate marcajele și piesele</string>

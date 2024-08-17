@@ -815,6 +815,8 @@
 	<string name="button_layer_outdoor">Yürüyüş</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Web tarayıcısı mevcut değil</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">Google Play\'deki yeni kısıtlamalar nedeniyle OpenStreetMap yetkilendirmesi geçici olarak kullanılamıyor 😾\nEkibimiz bu sorunu çözmek için çalışıyor. Lütfen sabırlı olun 🙏</string>
 	<string name="volume">Ses</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Tüm Yer İmlerini ve Rotaları Dışa Aktar</string>

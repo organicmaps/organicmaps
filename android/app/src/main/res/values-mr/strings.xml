@@ -771,6 +771,8 @@
 	<string name="button_layer_outdoor">गिर्यारोहण</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">वेब ब्राउझर उपलब्ध नाही</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">Google Play मधील नवीन निर्बंधांमुळे OpenStreetMap अधिकृतता तात्पुरती अनुपलब्ध आहे 😾\nआमची टीम या समस्येचे निराकरण करण्यासाठी काम करत आहे. कृपया धीर धरा 🙏</string>
 	<string name="volume">व्हॉल्यूम</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">सर्व बुकमार्क आणि ट्रॅक निर्यात करा</string>

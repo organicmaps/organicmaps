@@ -820,6 +820,8 @@
 	<string name="button_layer_outdoor">徒步旅行</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">网络浏览器不可用</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">由于 Google Play 的新限制，OpenStreetMap 授权暂时不可用 😾\n我们的团队正在努力解决这个问题。请耐心等待 🙏</string>
 	<string name="volume">音量</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">导出所有书签和轨迹</string>

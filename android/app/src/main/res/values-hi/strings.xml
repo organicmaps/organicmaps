@@ -542,6 +542,8 @@
 	<string name="button_layer_outdoor">लंबी पैदल यात्रा</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">वेब ब्राउज़र उपलब्ध नहीं है</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">Google Play में नए प्रतिबंधों के कारण OpenStreetMap प्राधिकरण अस्थायी रूप से अनुपलब्ध है 😾\nहमारी टीम इस समस्या को हल करने के लिए काम कर रही है। कृपया धैर्य रखें 🙏</string>
 	<string name="volume">आवाज़</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">सभी बुकमार्क और ट्रैक निर्यात करें</string>

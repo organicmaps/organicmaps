@@ -806,6 +806,8 @@
 	<string name="button_layer_outdoor">Fotturer</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Nettleser er ikke tilgjengelig</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">OpenStreetMap-autorisasjon er midlertidig utilgjengelig på grunn av nye begrensninger i Google Play 😾\nTeamet vårt jobber med å løse dette problemet. Vennligst vær tålmodig 🙏</string>
 	<string name="volume">Volum</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Eksporter alle bokmerker og spor</string>

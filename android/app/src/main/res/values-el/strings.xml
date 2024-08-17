@@ -806,6 +806,8 @@
 	<string name="button_layer_outdoor">Πεζοπορία</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Δεν είναι διαθέσιμος ο περιηγητής</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">Η εξουσιοδότηση του OpenStreetMap δεν είναι προσωρινά διαθέσιμη λόγω νέων περιορισμών στο Google Play 😾\nΗ ομάδα μας εργάζεται για την επίλυση αυτού του προβλήματος. Παρακαλούμε να είστε υπομονετικοί 🙏</string>
 	<string name="volume">Ένταση ήχου</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Εξαγωγή όλων των σελιδοδεικτών και των διαδρομών</string>

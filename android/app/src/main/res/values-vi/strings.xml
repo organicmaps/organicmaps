@@ -759,6 +759,8 @@
 	<string name="button_layer_outdoor">Đi bộ đường dài</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Trình duyệt web không khả dụng</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">Ủy quyền OpenStreetMap tạm thời không khả dụng do các hạn chế mới trong Google Play 😾\nNhóm của chúng tôi đang nỗ lực giải quyết vấn đề này. Xin hãy kiên nhẫn 🙏</string>
 	<string name="volume">Âm lượng</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Xuất tất cả Dấu trang và Bản nhạc</string>

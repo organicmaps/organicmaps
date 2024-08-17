@@ -789,6 +789,8 @@
 	<string name="aa_connected_to_car_notification_title">Avtomobilə qoşulub</string>
 	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
 	<string name="button_layer_outdoor">Yürüyüş</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">OpenStreetMap avtorizasiyası Google Play-də yeni məhdudiyyətlər səbəbindən müvəqqəti olaraq əlçatan deyil 😾\nKomandamız bu problemi həll etmək üçün çalışır. Xahiş edirəm səbr edin 🙏</string>
 	<string name="volume">Həcm</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Bütün Əlfəcinləri və Parçaları ixrac edin</string>

@@ -810,6 +810,8 @@
 	<string name="button_layer_outdoor">Vaellus</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Verkkoselain ei ole käytettävissä</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">OpenStreetMap-valtuutus ei ole tilapäisesti käytettävissä Google Playn uusien rajoitusten vuoksi 😾\nTiimimme työskentelee ongelman ratkaisemiseksi. Ole kärsivällinen 🙏</string>
 	<string name="volume">Äänenvoimakkuus</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Vie kaikki kirjanmerkit ja kappaleet</string>

@@ -809,6 +809,8 @@
 	<string name="button_layer_outdoor">Wandern</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Webbrowser ist nicht verfügbar</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">Die OpenStreetMap-Autorisierung ist aufgrund neuer Einschränkungen in Google Play vorübergehend nicht verfügbar 😾\nUnser Team arbeitet daran, dieses Problem zu beheben. Bitte haben Sie Geduld 🙏</string>
 	<string name="volume">Lautstärke</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Alle Lesezeichen und Tracks exportieren</string>

@@ -761,6 +761,8 @@
 	<string name="button_layer_outdoor">하이킹</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">웹 브라우저를 사용할 수 없습니다.</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">구글플레이의 새로운 제한 사항으로 인해 일시적으로 오픈스트리트맵 인증을 사용할 수 없습니다 😾\n저희 팀이 이 문제를 해결하기 위해 노력하고 있습니다. 잠시만 기다려주세요 🙏</string>
 	<string name="volume">볼륨</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">모든 북마크 및 트랙 내보내기</string>

@@ -811,6 +811,8 @@
 	<string name="button_layer_outdoor">Senderisme</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">El navegador web no està disponible</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">L\'autorització d\'OpenStreetMap no està disponible temporalment a causa de noves restriccions a Google Play 😾\nEl nostre equip està treballant per resoldre aquest problema. Si us plau, tingueu paciència 🙏</string>
 	<string name="volume">Volum</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Exporta totes les adreces d\'interès i pistes</string>

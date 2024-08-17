@@ -813,6 +813,8 @@
 	<string name="button_layer_outdoor">Turystyka piesza</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Przeglądarka internetowa jest niedostępna</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">Autoryzacja OpenStreetMap jest tymczasowo niedostępna z powodu nowych ograniczeń w Google Play 😾\nNasz zespół pracuje nad rozwiązaniem tego problemu. Prosimy uzbroić się w cierpliwość 🙏</string>
 	<string name="volume">Głośność</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Eksportuj wszystkie zakładki i ścieżki</string>

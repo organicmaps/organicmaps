@@ -809,6 +809,8 @@
 	<string name="button_layer_outdoor">ハイキング</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">ウェブブラウザが利用できない</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">Google Playの新しい制限により、OpenStreetMapの認証が一時的に利用できなくなっています。しばらくお待ちください。</string>
 	<string name="volume">音量</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">すべてのブックマークとトラックをエクスポートする</string>

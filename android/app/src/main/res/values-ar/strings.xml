@@ -820,6 +820,8 @@
 	<string name="button_layer_outdoor">جولة على الأقدام</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">متصفح الويب غير متوفر</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">تفويض OpenStreetMap غير متاح مؤقتًا بسبب القيود الجديدة في Google Play 😾\nيعمل فريقنا على حل هذه المشكلة. يرجى التحلي بالصبر 🙏</string>
 	<string name="volume">مستوى الصوت</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">تصدير كافة الإشارات المرجعية والمسارات</string>
