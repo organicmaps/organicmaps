@@ -115,7 +115,6 @@ UNIT_TEST(GeoUrl_Geo)
   TEST_ALMOST_EQUAL_ABS(info.m_lon, -48.28712359999999, kEps, ());
 
   // URL encoded with altitude
-  // Bare RFC5870 URI with lat,lon,altitude.
   TEST(parser.Parse("geo:53.666%2C-27.666%2C+1000", info), ());
   TEST(info.IsLatLonValid(), ());
   TEST_ALMOST_EQUAL_ABS(info.m_lat, 53.666, kEps, ());
