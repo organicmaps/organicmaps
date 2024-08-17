@@ -1270,6 +1270,7 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   {
   case Result::Type::Feature:
     info.m_mercator = result.GetFeatureCenter();
+    info.m_match = place_page::BuildInfo::Match::Nothing;
     info.m_featureId = result.GetFeatureID();
     info.m_isGeometrySelectionAllowed = true;
     break;
@@ -2180,7 +2181,7 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
     // Selection circle should match feature
     FillFeatureInfo(selectedFeature, outInfo);
 
-    if (!outInfo.IsBookmark() && !isBuildingSelected)
+    if (buildInfo.IsUserMarkMatchingEnabled() && !outInfo.IsBookmark() && !isBuildingSelected)
     {
       // Search for a bookmark at POI position instead of tap position
       auto mark = FindBookMarkInPosition(outInfo.GetMercator());
