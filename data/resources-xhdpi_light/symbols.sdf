@@ -735,26 +735,27 @@
   <symbol maxX="1392" maxY="689" minX="1358" minY="667" name="railway-crossing-l"/>
   <symbol maxX="1416" maxY="689" minX="1392" minY="667" name="main_entrance-s"/>
   <symbol maxX="1438" maxY="689" minX="1416" minY="667" name="gate-s"/>
-  <symbol maxX="1458" maxY="689" minX="1438" minY="667" name="exit-s"/>
-  <symbol maxX="1472" maxY="689" minX="1458" minY="667" name="entrance-s"/>
-  <symbol maxX="1494" maxY="689" minX="1472" minY="667" name="cycle_barrier-s"/>
-  <symbol maxX="1522" maxY="689" minX="1494" minY="667" name="cave-m"/>
-  <symbol maxX="1548" maxY="689" minX="1522" minY="667" name="bench"/>
-  <symbol maxX="1562" maxY="689" minX="1548" minY="667" name="barrier-entrance-s"/>
-  <symbol maxX="1586" maxY="687" minX="1562" minY="667" name="volcano-m"/>
-  <symbol maxX="1618" maxY="687" minX="1586" minY="667" name="subway-minsk-m"/>
-  <symbol maxX="1656" maxY="687" minX="1618" minY="667" name="subway-malaga-s"/>
-  <symbol maxX="1696" maxY="687" minX="1656" minY="667" name="subway-malaga-m"/>
-  <symbol maxX="1726" maxY="687" minX="1696" minY="667" name="subway-kolkata-s"/>
-  <symbol maxX="1758" maxY="687" minX="1726" minY="667" name="subway-kiev-s"/>
-  <symbol maxX="1798" maxY="687" minX="1758" minY="667" name="subway-edmonton-m"/>
-  <symbol maxX="1836" maxY="687" minX="1798" minY="667" name="subway-baku-s"/>
-  <symbol maxX="1856" maxY="687" minX="1836" minY="667" name="star-m"/>
-  <symbol maxX="1886" maxY="687" minX="1856" minY="667" name="railway-crossing-m"/>
-  <symbol maxX="1908" maxY="687" minX="1886" minY="667" name="plaque"/>
-  <symbol maxX="1940" maxY="685" minX="1908" minY="667" name="subway-taipei-s"/>
-  <symbol maxX="1970" maxY="685" minX="1940" minY="667" name="subway-minsk-s"/>
-  <symbol maxX="2010" maxY="685" minX="1970" minY="667" name="subway-chongqing-s"/>
+  <symbol maxX="1470" maxY="689" minX="1438" minY="667" name="ford-m"/>
+  <symbol maxX="1490" maxY="689" minX="1470" minY="667" name="exit-s"/>
+  <symbol maxX="1504" maxY="689" minX="1490" minY="667" name="entrance-s"/>
+  <symbol maxX="1526" maxY="689" minX="1504" minY="667" name="cycle_barrier-s"/>
+  <symbol maxX="1554" maxY="689" minX="1526" minY="667" name="cave-m"/>
+  <symbol maxX="1580" maxY="689" minX="1554" minY="667" name="bench"/>
+  <symbol maxX="1594" maxY="689" minX="1580" minY="667" name="barrier-entrance-s"/>
+  <symbol maxX="1618" maxY="687" minX="1594" minY="667" name="volcano-m"/>
+  <symbol maxX="1650" maxY="687" minX="1618" minY="667" name="subway-minsk-m"/>
+  <symbol maxX="1688" maxY="687" minX="1650" minY="667" name="subway-malaga-s"/>
+  <symbol maxX="1728" maxY="687" minX="1688" minY="667" name="subway-malaga-m"/>
+  <symbol maxX="1758" maxY="687" minX="1728" minY="667" name="subway-kolkata-s"/>
+  <symbol maxX="1790" maxY="687" minX="1758" minY="667" name="subway-kiev-s"/>
+  <symbol maxX="1830" maxY="687" minX="1790" minY="667" name="subway-edmonton-m"/>
+  <symbol maxX="1868" maxY="687" minX="1830" minY="667" name="subway-baku-s"/>
+  <symbol maxX="1888" maxY="687" minX="1868" minY="667" name="star-m"/>
+  <symbol maxX="1918" maxY="687" minX="1888" minY="667" name="railway-crossing-m"/>
+  <symbol maxX="1940" maxY="687" minX="1918" minY="667" name="plaque"/>
+  <symbol maxX="1972" maxY="685" minX="1940" minY="667" name="subway-taipei-s"/>
+  <symbol maxX="2002" maxY="685" minX="1972" minY="667" name="subway-minsk-s"/>
+  <symbol maxX="2042" maxY="685" minX="2002" minY="667" name="subway-chongqing-s"/>
   <symbol maxX="40" maxY="711" minX="0" minY="693" name="subway-baku-m"/>
   <symbol maxX="58" maxY="711" minX="40" minY="693" name="star-s"/>
   <symbol maxX="76" maxY="709" minX="58" minY="693" name="volcano-s"/>
@@ -765,12 +766,11 @@
   <symbol maxX="208" maxY="709" minX="172" minY="693" name="arrow-m"/>
   <symbol maxX="222" maxY="707" minX="208" minY="693" name="zero-icon"/>
   <symbol maxX="236" maxY="707" minX="222" minY="693" name="peakt-s"/>
-  <symbol maxX="262" maxY="707" minX="236" minY="693" name="ford-m"/>
-  <symbol maxX="282" maxY="705" minX="262" minY="693" name="mountain-pass-m"/>
-  <symbol maxX="294" maxY="705" minX="282" minY="693" name="mast-m"/>
-  <symbol maxX="306" maxY="705" minX="294" minY="693" name="dot-m"/>
-  <symbol maxX="332" maxY="705" minX="306" minY="693" name="arrow-s"/>
-  <symbol maxX="346" maxY="703" minX="332" minY="693" name="mountain-pass-s"/>
-  <symbol maxX="364" maxY="701" minX="346" minY="693" name="arrow-xs"/>
+  <symbol maxX="256" maxY="705" minX="236" minY="693" name="mountain-pass-m"/>
+  <symbol maxX="268" maxY="705" minX="256" minY="693" name="mast-m"/>
+  <symbol maxX="280" maxY="705" minX="268" minY="693" name="dot-m"/>
+  <symbol maxX="306" maxY="705" minX="280" minY="693" name="arrow-s"/>
+  <symbol maxX="320" maxY="703" minX="306" minY="693" name="mountain-pass-s"/>
+  <symbol maxX="338" maxY="701" minX="320" minY="693" name="arrow-xs"/>
  </file>
 </root>
