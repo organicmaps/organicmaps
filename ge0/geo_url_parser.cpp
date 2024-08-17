@@ -207,7 +207,8 @@ bool GeoParser::Parse(std::string const & raw, GeoURLInfo & info) const
     {
       // no match? try URL decoding before giving up
       coordinates = url::UrlDecode(coordinates);
-      if (!std::regex_match(coordinates, m, m_latlonRe) || m.size() < 3){
+      if (!std::regex_match(coordinates, m, m_latlonRe) || m.size() < 3)
+      {
         LOG(LWARNING, ("Missing coordinates in", raw));
         return false;
       }
