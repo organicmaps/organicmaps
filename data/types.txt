@@ -1598,3 +1598,4 @@ amenity|recycling|container
 *leisure|miniature_golf
 *amenity|social_facility
 *craft
+*emergency|emergency_ward_entrance

@@ -14910,7 +14910,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "barrier-entrance-s"
+      name: "entrance-barrier-s"
       priority: 220
     }
     caption {
@@ -14926,7 +14926,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "barrier-entrance-s"
+      name: "entrance-barrier-s"
       priority: 220
     }
     caption {
@@ -14942,7 +14942,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "barrier-entrance-s"
+      name: "entrance-barrier-s"
       priority: 220
     }
     caption {
@@ -14958,7 +14958,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "barrier-entrance-s"
+      name: "entrance-barrier-s"
       priority: 220
     }
     caption {
@@ -14974,7 +14974,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "barrier-entrance-s"
+      name: "entrance-barrier-s"
       priority: 220
     }
     caption {
@@ -19505,6 +19505,57 @@ cont {
   }
 }
 cont {
+  name: "emergency-emergency_ward_entrance"
+  element {
+    scale: 18
+    symbol {
+      name: "entrance-emergency-s"
+      priority: 250
+    }
+    caption {
+      primary {
+        height: 10
+        color: 7763574
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9750
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "entrance-emergency-s"
+      priority: 250
+    }
+    caption {
+      primary {
+        height: 10
+        color: 7763574
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9750
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "entrance-emergency-s"
+      priority: 250
+    }
+    caption {
+      primary {
+        height: 10
+        color: 7763574
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9750
+    }
+  }
+}
+cont {
   name: "emergency-fire_hydrant"
   element {
     scale: 19
@@ -19622,7 +19673,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "exit-s"
+      name: "entrance-exit-s"
       priority: -10000
     }
     caption {
@@ -19644,7 +19695,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "exit-s"
+      name: "entrance-exit-s"
       priority: -10000
     }
     caption {
@@ -19669,7 +19720,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "main_entrance-s"
+      name: "entrance-main-s"
       priority: 220
     }
     caption {
@@ -19691,7 +19742,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "main_entrance-s"
+      name: "entrance-main-s"
       priority: 220
     }
     caption {
@@ -19713,7 +19764,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "main_entrance-s"
+      name: "entrance-main-s"
       priority: 220
     }
     caption {

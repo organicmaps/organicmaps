@@ -8568,6 +8568,57 @@ cont {
   }
 }
 cont {
+  name: "emergency-emergency_ward_entrance"
+  element {
+    scale: 18
+    symbol {
+      name: "entrance-emergency-s"
+      priority: 500
+    }
+    caption {
+      primary {
+        height: 13
+        color: 7566195
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9500
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "entrance-emergency-s"
+      priority: 500
+    }
+    caption {
+      primary {
+        height: 13
+        color: 7566195
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9500
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "entrance-emergency-s"
+      priority: 500
+    }
+    caption {
+      primary {
+        height: 13
+        color: 7566195
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9500
+    }
+  }
+}
+cont {
   name: "entrance"
   element {
     scale: 19
@@ -8619,7 +8670,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "exit-s"
+      name: "entrance-exit-s"
       priority: -10000
     }
     caption {
@@ -8641,7 +8692,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "exit-s"
+      name: "entrance-exit-s"
       priority: -10000
     }
     caption {
@@ -8666,7 +8717,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "main_entrance-s"
+      name: "entrance-main-s"
       priority: 20
     }
     caption {
@@ -8688,7 +8739,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "main_entrance-s"
+      name: "entrance-main-s"
       priority: 20
     }
     caption {
@@ -8710,7 +8761,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "main_entrance-s"
+      name: "entrance-main-s"
       priority: 20
     }
     caption {
