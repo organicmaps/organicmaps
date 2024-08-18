@@ -12094,6 +12094,7 @@
     et = Valjarada
     fi = Ratsastustie
     fr = Chemin équestre
+    he = שביל סוסים
     it = sentiero per cavalli
     ja = 馬道
     nb = Ridevei
@@ -12187,6 +12188,7 @@
     fa = حمل و نقل
     fi = Bussipysäkki
     fr = Arrêt de bus
+    he = תחנת אוטובוס
     hi = बस स्टॉप
     hu = Buszmegálló
     id = Halte bus
@@ -12226,6 +12228,7 @@
     fa = جاده در دست ساخت است
     fi = Rakenteilla oleva tie
     fr = Route en construction
+    he = כביש בבניה
     hi = निर्माणाधीन सड़क
     hu = Útépítés
     id = Jalan sedang dibangun
@@ -12261,6 +12264,7 @@
     eu = Bizikletabidea
     fi = Pyörätie
     fr = Piste cyclable
+    he = שביל אופניים
     hi = साइकिल मार्ग
     it = Pista ciclabile
     ja = 自転車道
@@ -12311,6 +12315,7 @@
     eu = Igogailua
     fi = Hissi
     fr = Ascenseur
+    he = מעלית
     hi = उत्थापक
     it = Ascensore
     mr = उद्वाहक(लिफ्ट)
@@ -12338,6 +12343,7 @@
     fa = مسیر
     fi = Polku
     fr = Chemin
+    he = שביל הליכה
     hi = पैदलपथ
     hu = Ösvény
     id = Jalur
@@ -12460,6 +12466,7 @@
     es = Zona peatonal
     et = Jalakäijate ala
     fi = Jalankulkualue
+    he = אזור להולכי רגל
     mr = पादचारी झोन
     nl = Voetgangerszone
     pl = Obszar chodnika
@@ -12477,6 +12484,7 @@
     es = Puente peatonal
     et = Jalakäijate sild
     fi = Jalankulkusilta
+    he = גשר הולכי רגל
     mr = पादचारी पूल
     nl = Voetgangersbrug
     pl = Most dla pieszych
@@ -12493,6 +12501,7 @@
     es = Túnel peatonal
     et = Jalakäijate tunnel
     fi = Jalankulkutunneli
+    he = מנהרה להולכי רגל
     mr = पादचारी बोगदा
     nl = Voetgangerstunnel
     pl = Tunel dla pieszych
@@ -12552,6 +12561,7 @@
     fa = جاده
     fi = Asuinkatu
     fr = Zone de rencontre
+    he = רחוב מגורים
     hu = Utca
     id = Jalan
     it = Via
@@ -12599,6 +12609,7 @@
     fa = جاده
     fi = Moottoritie
     fr = Autoroute
+    he = כביש מהיר
     hi = राजमार्ग
     hu = Autópálya
     id = Jalan
@@ -12667,6 +12678,7 @@
     fa = تقاطع
     fi = Poistumistie
     fr = Sortie
+    he = יציאה
     hi = राजमार्ग निकास
     hu = Kijárat
     id = Keluar
@@ -12827,6 +12839,7 @@
     fa = جاده
     fi = Jalankulkutie
     fr = Rue piétonne
+    he = מדרחוב
     hi = पैदल यात्रीयों की सड़क
     hu = Sétálóutca
     id = Jalan
@@ -12911,6 +12924,7 @@
     fa = جاده
     fi = Pääkatu
     fr = Rue
+    he = כביש ראשי
     hi = प्राथमिक सड़क
     hu = Utca
     id = Jalan
@@ -12979,6 +12993,7 @@
     fa = کانال
     fi = Kilparata
     fr = Circuit
+    he = מסלול מרוצים
     hi = दौड़ का मैदान
     hu = Versenypálya
     id = Lintasan balap
@@ -13017,6 +13032,7 @@
     fa = جاده
     fi = Katu
     fr = Rue
+    he = רחוב מגורים
     hu = Utca
     id = Jalan
     it = Via
@@ -13419,6 +13435,7 @@
     fa = دوربین سرعت سنج
     fi = Nopeusvalvontakamera
     fr = Radar de vitesse
+    he = מצלמת מהירות
     hi = तेज़ गति कैमेरा
     hu = Traffipax
     id = Kamera Kecepatan
@@ -13457,6 +13474,7 @@
     fa = مسیر
     fi = Portaat
     fr = Escaliers
+    he = מדרגות
     hu = Lépcső
     id = Jalur
     it = Scale
@@ -13500,6 +13518,7 @@
     fa = جاده
     fi = Katu
     fr = Rue
+    he = כביש שלישוני
     hi = तृतीयक सड़क
     hu = Utca
     id = Jalan
@@ -13626,6 +13645,7 @@
     fa = چراغ راهنما
     fi = Liikennevalot
     fr = Feux de circulation
+    he = רמזור
     hi = ट्रैफिक लाइट
     hu = Közlekedési lámpa
     id = Lampu lalu lintas
@@ -14022,7 +14042,7 @@
     fa = میدان جنگ
     fi = Taistelukenttä
     fr = Champ de bataille
-    he = שדה קרב
+    he = שדה קרב היסטורי
     hi = लड़ाई का मैदान
     hu = Csatatér
     id = Medan Perang
@@ -14560,7 +14580,7 @@
     fa = گردشگری
     fi = Arvokas linna
     fr = Château
-    he = שאטו
+    he = טירה מפוארת
     hu = Kastély
     id = Kastel
     it = Castello
@@ -15183,7 +15203,7 @@
     fa = گردشگری
     fi = Monumentti
     fr = Monument
-    he = מונומנט
+    he = אנדרטה
     hi = स्मारक
     hu = Műemlék
     id = Monumen
@@ -15263,7 +15283,7 @@
     fa = گردشگری
     fi = Rauniot
     fr = Ruines
-    he = חורבות
+    he = חורבות עתיקות
     hi = खँडहर
     hu = Romok
     id = Reruntuhan
@@ -15509,7 +15529,7 @@
     fa = غرق کشتی
     fi = Haaksirikko
     fr = Naufrage
-    he = לְנַפֵּץ
+    he = ספינה טרופה
     hu = Hajóroncs
     id = Kecelakaan kapal
     it = Naufragio
@@ -15605,6 +15625,7 @@
     es = Internet
     et = Internet
     fa = وای فای
+    he = אינטרנט
     hi = वाई-फाई उपलब्ध
     ja = インターネット
     ko = 인터넷
@@ -15629,6 +15650,7 @@
     es = Cruce
     et = Ristmik
     fi = Risteys
+    he = צומת
     it = Incrocio
     ja = 交差点
     mr = जंक्शन
@@ -15655,6 +15677,7 @@
     eu = Biribilgunea
     fi = Liikenneympyrä
     fr = Rond-point
+    he = מעגל תנועה
     hi = गोल चक्कर
     it = Rotonda
     ja = ラウンドアバウト
@@ -15836,6 +15859,7 @@
     et = Kommertspiirkond
     fi = Kaupallinen alue
     fr = Zone commerciale
+    he = אזור מסחרי
     hi = वाणिज्य क्षेत्र
     it = Area commerciale
     ja = 商業用地
@@ -15860,6 +15884,7 @@
     et = Ehitus
     fi = Rakennustyömaa
     fr = Chantier de construction
+    he = אתר בניה
     it = Cantiere
     ja = 建設工事中
     mr = बांधकाम
@@ -15962,6 +15987,7 @@
     et = Põld
     fi = Kenttä
     fr = Champ
+    he = שדה
     hi = क्षेत्र
     mr = क्षेत्र
     nl = Veld
@@ -15990,7 +16016,7 @@
     fa = باغچه
     fi = Kukkapenkki
     fr = Plate-bande
-    he = מיטת פרחים
+    he = ערוגת פרחים
     hu = Virágágyás
     id = Hamparan bunga
     it = Aiuola
@@ -16030,6 +16056,7 @@
     fa = جنگل
     fi = Metsä
     fr = Forêt
+    he = יער
     hi = वन
     hu = Erdő
     id = Hutan
@@ -16068,6 +16095,7 @@
     fa = جنگل
     fi = Havumetsä
     fr = Forêt de conifères
+    he = יער מחטניים
     hu = Tűlevelű erdő
     id = Hutan
     it = Foresta di conifere
@@ -16105,6 +16133,7 @@
     fa = جنگل
     fi = Lehtimetsä
     fr = Forêt de feuillus
+    he = יער נשירים
     hu = Lombhullató erdő
     id = Hutan
     it = Foresta de cidua
@@ -16142,6 +16171,7 @@
     fa = جنگل
     fi = Sekametsä
     fr = Forêt
+    he = יער מעורב-עלים
     hi = मिश्रित वन
     hu = Erdő
     id = Hutan
@@ -16203,6 +16233,7 @@
     fa = چمن زار
     fi = Ruohikko
     fr = Gazon
+    he = דשא
     hi = घास
     hu = Gyep
     id = Lapangan rumput
@@ -16237,6 +16268,7 @@
     et = Ehituskrunt
     fi = Vihreä kenttä
     fr = Terrain vierge
+    he = ירוק טבעי
     ja = 建設予定地
     mr = हरितक्षेत्र
     pl = Obszar pod zabudowę
@@ -16256,6 +16288,7 @@
     et = Kasvuhoone
     fi = Kasvihuone
     fr = Culture sous serre
+    he = חממה
     ja = 温室栽培
     mr = हरितगृह
     nl = Kassen
@@ -16277,6 +16310,7 @@
     et = Tööstusmaa
     fi = Teollisuusalue
     fr = Zone industrielle
+    he = אזור תעשיה
     it = Zona industriale
     ja = 工業用地
     mr = औद्योगिक जमीन
@@ -16306,6 +16340,7 @@
     fa = دفن گاه زباله
     fi = Kaatopaikka
     fr = Décharge
+    he = מטמנה
     hu = Hulladéklerakó
     id = TPA
     it = Luogo di scarico
@@ -16339,6 +16374,7 @@
     et = Heinamaa
     fi = Niitty
     fr = Prairie
+    he = אחו
     it = Radura
     ja = 牧草地
     mr = कुरण
@@ -16362,6 +16398,7 @@
     et = Militaarala
     fi = Sotilasalue
     fr = Terrain militaire
+    he = שטח צבאי
     it = Area militare
     ja = 軍用地
     mr = लष्करी क्षेत्र
@@ -16385,6 +16422,7 @@
     et = Viljapuuaed
     fi = Hedelmätarha
     fr = Vergers
+    he = פרדס
     it = Frutteto
     ja = 果樹園
     mr = फळबागा
@@ -16408,6 +16446,7 @@
     et = Karjäär
     fi = Louhos
     fr = Carrières
+    he = מחצבה
     it = Cava
     ja = 採石場
     mr = खाण
@@ -16498,6 +16537,7 @@
     fa = اب
     fi = Vesiallas
     fr = Bassin de retenue
+    he = מאגר
     hu = Tározó
     id = Air
     it = Bacino
@@ -16529,6 +16569,7 @@
     et = Elamumaa
     fi = Asuinalue
     fr = Zone résidentielle
+    he = אזור מגורים
     it = Area residentiale
     ja = 住宅地
     mr = निवासी जमीन
@@ -16552,6 +16593,7 @@
     et = Jaekaubandusmaa
     fi = Kauppa-alue
     fr = Zone commerciale
+    he = אזור קמעונאות
     it = Area commerciale
     ja = 小売店エリア
     mr = किरकोळ जमीन
@@ -16575,6 +16617,7 @@
     et = Tiik
     fi = Suolalampi
     fr = Marais salants
+    he = בריכת מלח
     it = Salina
     ja = 塩田
     mr = तलाव
@@ -16614,6 +16657,7 @@
     es = Viñedo
     et = Viinamarjaistandus
     fr = Vignes
+    he = כרם
     it = Vigne
     ja = ブドウ園
     mr = द्राक्षमळा
@@ -16634,6 +16678,7 @@
     de = Freizeit
     es = Ocio
     et = Lõõgastus
+    he = פנאי
     hi = अवकाश
     it = Tempo libero
     ja = レジャー
@@ -16656,6 +16701,7 @@
     de = öffentliche Grünfläche
     es = Zona pública
     et = Avalik maa
+    he = קרקע ציבורית
     ja = レジャー(共有地)
     mr = सार्वजनिक जमीन
     nl = Openbare grond
@@ -16682,6 +16728,7 @@
     fa = محدوده مخصوص سگ
     fi = Koirien ulkoilupaikka
     fr = Parc canin
+    he = פארק כלבים
     hi = श्वान पार्क
     hu = Kutyás terület
     id = Area untuk anjing
@@ -16721,6 +16768,7 @@
     fa = باشگاه بدنسازی
     fi = Kuntosali
     fr = Centre fitness
+    he = חדר כושר
     hi = फिटनेस सेंटर
     hu = Fitnesz-terem
     id = Pusat kebugaran
@@ -16836,6 +16884,7 @@
     fa = گردشگری
     fi = Puutarha
     fr = Jardin
+    he = גן
     hi = बाग
     hu = Kert
     id = Situs arkeologi
