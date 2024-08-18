@@ -505,6 +505,7 @@
 	<string name="editor_edit_place_category_title">الفئة</string>
 	<string name="detailed_problem_description">وصف مفصّل للمشكلة</string>
 	<string name="editor_report_problem_other_title">مشكلة أخرى</string>
+	<string name="placepage_add_business_button">إضافة مؤسسة</string>
 	<string name="message_invalid_feature_position">لا يمكن تحديد موقع الكائن هنا</string>
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">بيانات OpenStreetMap التي أنشأها المجتمع اعتبارًا من %s. تعرف على المزيد حول كيفية تعديل الخريطة وتحديثها على OpenStreetMap.org</string>

@@ -503,6 +503,7 @@
 	<string name="editor_edit_place_category_title">类别</string>
 	<string name="detailed_problem_description">问题的详细描述</string>
 	<string name="editor_report_problem_other_title">不同的问题</string>
+	<string name="placepage_add_business_button">将地点添加到</string>
 	<string name="message_invalid_feature_position">地点不能放置在这里</string>
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">截至 %s 的社区创建的 OpenStreetMap 数据。请访问 OpenStreetMap.org 以了解有关如何编辑和更新地图的信息。</string>

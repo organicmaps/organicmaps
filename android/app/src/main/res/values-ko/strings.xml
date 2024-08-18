@@ -466,6 +466,7 @@
 	<string name="editor_edit_place_category_title">범주</string>
 	<string name="detailed_problem_description">문제에 대한 자세한 설명</string>
 	<string name="editor_report_problem_other_title">다른 문제</string>
+	<string name="placepage_add_business_button">조직 추가</string>
 	<string name="message_invalid_feature_position">목적지를 이곳에서 찾을 수 없습니다</string>
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">커뮤니티에서 만든 오픈스트리트맵 데이터(%s 기준). 지도를 편집하고 업데이트하는 방법에 대한 자세한 내용은 OpenStreetMap.org에서 확인하세요.</string>

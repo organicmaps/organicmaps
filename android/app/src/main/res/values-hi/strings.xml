@@ -375,6 +375,7 @@
 	<!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
 	<string name="editor_default_language_hint">जैसा कि स्थानीय भाषा में लिखा गया है</string>
 	<string name="editor_edit_place_category_title">वर्ग</string>
+	<string name="placepage_add_business_button">व्यवसाय जोड़ें</string>
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">समुदाय-निर्मित OpenStreetMap डेटा %s तक। OpenStreetMap.org पर मानचित्र को संपादित और अपडेट करने के तरीके के बारे में और जानें</string>
 	<string name="login_to_make_edits_visible">अपने परिवर्तनों को दुनिया के सामने प्रकाशित करने के लिए openingstreetmap.org पर लॉग इन करें।</string>

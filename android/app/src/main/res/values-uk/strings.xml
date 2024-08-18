@@ -494,6 +494,7 @@
 	<string name="editor_edit_place_category_title">Категорія</string>
 	<string name="detailed_problem_description">Детальний опис проблеми</string>
 	<string name="editor_report_problem_other_title">Інші проблема</string>
+	<string name="placepage_add_business_button">Додати організацію</string>
 	<string name="message_invalid_feature_position">Об\'єкт не може перебувати в цьому місцезнаходженні</string>
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">Дані OpenStreetMap, створені спільнотою, станом на %s. Дізнайтеся більше про те, як редагувати та оновлювати мапу на OpenStreetMap.org</string>

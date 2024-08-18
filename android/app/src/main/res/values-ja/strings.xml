@@ -494,6 +494,7 @@
 	<string name="editor_edit_place_category_title">カテゴリ</string>
 	<string name="detailed_problem_description">問題の詳細な説明</string>
 	<string name="editor_report_problem_other_title">異なる問題</string>
+	<string name="placepage_add_business_button">ビジネスを追加</string>
 	<string name="message_invalid_feature_position">ここにはオブジェクトを配置できません</string>
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">コミュニティが作成した OpenStreetMap のデータは OpenStreetMap.org までです。地図の編集や更新の方法については、%sを参照してください。</string>

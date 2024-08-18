@@ -459,6 +459,7 @@
 	<string name="editor_edit_place_category_title">प्रवर्ग</string>
 	<string name="detailed_problem_description">समस्येचे तपशिलात वर्णन</string>
 	<string name="editor_report_problem_other_title">वेगळी समस्या</string>
+	<string name="placepage_add_business_button">व्यवसाय जोडा</string>
 	<string name="message_invalid_feature_position">इथे कोणतीही वस्तू ठेवू शकत नाही</string>
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">समुदाय-निर्मित OpenStreetMap डेटा %s नुसार. OpenStreetMap.org वर नकाशा संपादित आणि अपडेट कसा करायचा याबद्दल अधिक जाणून घ्या</string>

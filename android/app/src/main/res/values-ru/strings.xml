@@ -497,6 +497,7 @@
 	<string name="editor_edit_place_category_title">Категория</string>
 	<string name="detailed_problem_description">Подробное описание проблемы</string>
 	<string name="editor_report_problem_other_title">Другая проблема</string>
+	<string name="placepage_add_business_button">Добавить организацию</string>
 	<string name="message_invalid_feature_position">Объект не может находиться в этом месте</string>
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">Созданные сообществом данные OpenStreetMap по состоянию на %s. Узнайте больше о том, как редактировать и обновлять карту, на сайте OpenStreetMap.org.</string>

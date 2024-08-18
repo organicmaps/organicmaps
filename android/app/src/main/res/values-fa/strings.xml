@@ -463,6 +463,7 @@
 	<string name="editor_edit_place_category_title">دسته بندی</string>
 	<string name="detailed_problem_description">توضیح مفصل در مورد مشکل</string>
 	<string name="editor_report_problem_other_title">مشکلی دیگر</string>
+	<string name="placepage_add_business_button">اضافه کردن یک تجارت</string>
 	<string name="message_invalid_feature_position">نمی توان شی ای در این مکان باشد</string>
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">داده های OpenStreetMap ایجاد شده توسط انجمن از %s. درباره نحوه ویرایش و به روز رسانی نقشه در OpenStreetMap.org بیشتر بیاموزید</string>
