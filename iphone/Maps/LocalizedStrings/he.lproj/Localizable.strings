@@ -2117,12 +2117,12 @@
 
 "type.highway" = "Highway";
 
-"type.highway.bridleway" = "Bridle Path";
+"type.highway.bridleway" = "שביל סוסים";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.bridleway.bridge" = "לְגַשֵׁר";
 
-"type.highway.bridleway.permissive" = "Bridle Path";
+"type.highway.bridleway.permissive" = "שביל סוסים";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "מִנהָרָה";
@@ -2135,39 +2135,39 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.busway.tunnel" = "מִנהָרָה";
 
-"type.highway.bus_stop" = "Bus Stop";
+"type.highway.bus_stop" = "תחנת אוטובוס";
 
-"type.highway.construction" = "Road Under Construction";
+"type.highway.construction" = "כביש בבניה";
 
-"type.highway.cycleway" = "Cycle Path";
+"type.highway.cycleway" = "שביל אופניים";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.cycleway.bridge" = "לְגַשֵׁר";
 
-"type.highway.cycleway.permissive" = "Cycle Path";
+"type.highway.cycleway.permissive" = "שביל אופניים";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.cycleway.tunnel" = "מִנהָרָה";
 
-"type.highway.elevator" = "Elevator";
+"type.highway.elevator" = "מעלית";
 
-"type.highway.footway" = "Foot Path";
+"type.highway.footway" = "שביל הליכה";
 
 "type.highway.footway.sidewalk" = "מדרכה";
 
 "type.highway.footway.crossing" = "מעבר הולכי רגל";
 
-"type.highway.footway.area" = "Foot Path";
+"type.highway.footway.area" = "אזור להולכי רגל";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.footway.bridge" = "לְגַשֵׁר";
+"type.highway.footway.bridge" = "גשר הולכי רגל";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.footway.tunnel" = "מִנהָרָה";
+"type.highway.footway.tunnel" = "מנהרה להולכי רגל";
 
 "type.highway.ford" = "Ford";
 
-"type.highway.living_street" = "Living Street";
+"type.highway.living_street" = "רחוב מגורים";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.living_street.bridge" = "לְגַשֵׁר";
@@ -2175,7 +2175,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.living_street.tunnel" = "מִנהָרָה";
 
-"type.highway.motorway" = "Motorway";
+"type.highway.motorway" = "כביש מהיר";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway.bridge" = "לְגַשֵׁר";
@@ -2183,9 +2183,9 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway.tunnel" = "מִנהָרָה";
 
-"type.highway.motorway_junction" = "Road Exit";
+"type.highway.motorway_junction" = "יציאה";
 
-"type.highway.motorway_link" = "Motorway";
+"type.highway.motorway_link" = "כביש מהיר";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway_link.bridge" = "לְגַשֵׁר";
@@ -2213,9 +2213,9 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "מִנהָרָה";
 
-"type.highway.pedestrian" = "Pedestrian Street";
+"type.highway.pedestrian" = "מדרחוב";
 
-"type.highway.pedestrian.area" = "Pedestrian Street";
+"type.highway.pedestrian.area" = "מדרחוב";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.pedestrian.bridge" = "לְגַשֵׁר";
@@ -2223,7 +2223,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "מִנהָרָה";
 
-"type.highway.primary" = "Primary Road";
+"type.highway.primary" = "כביש ראשי";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.primary.bridge" = "לְגַשֵׁר";
@@ -2231,7 +2231,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary.tunnel" = "מִנהָרָה";
 
-"type.highway.primary_link" = "Primary Road";
+"type.highway.primary_link" = "כביש ראשי";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.primary_link.bridge" = "לְגַשֵׁר";
@@ -2239,11 +2239,11 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary_link.tunnel" = "מִנהָרָה";
 
-"type.highway.raceway" = "Racetrack";
+"type.highway.raceway" = "מסלול מרוצים";
 
-"type.highway.residential" = "Residential Street";
+"type.highway.residential" = "רחוב מגורים";
 
-"type.highway.residential.area" = "Residential Street";
+"type.highway.residential.area" = "רחוב מגורים";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.residential.bridge" = "לְגַשֵׁר";
@@ -2296,9 +2296,9 @@
 
 "type.highway.services" = "Service Area";
 
-"type.highway.speed_camera" = "Speed Camera";
+"type.highway.speed_camera" = "מצלמת מהירות";
 
-"type.highway.steps" = "Stairs";
+"type.highway.steps" = "מדרגות";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.steps.bridge" = "לְגַשֵׁר";
@@ -2306,7 +2306,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "מִנהָרָה";
 
-"type.highway.tertiary" = "Tertiary Road";
+"type.highway.tertiary" = "כביש שלישוני";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.tertiary.bridge" = "לְגַשֵׁר";
@@ -2314,7 +2314,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary.tunnel" = "מִנהָרָה";
 
-"type.highway.tertiary_link" = "Tertiary Road";
+"type.highway.tertiary_link" = "כביש שלישוני";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.tertiary_link.bridge" = "לְגַשֵׁר";
@@ -2336,7 +2336,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "מִנהָרָה";
 
-"type.highway.traffic_signals" = "Traffic Lights";
+"type.highway.traffic_signals" = "רמזור";
 
 "type.highway.trunk" = "Trunk Road";
 
@@ -2364,29 +2364,29 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "מִנהָרָה";
 
-"type.area_highway.cycleway" = "Cycle Path";
+"type.area_highway.cycleway" = "שביל אופניים";
 
-"type.area_highway.footway" = "Foot Path";
+"type.area_highway.footway" = "שביל הליכה";
 
-"type.area_highway.living_street" = "Living Street";
+"type.area_highway.living_street" = "רחוב מגורים";
 
-"type.area_highway.motorway" = "Motorway";
+"type.area_highway.motorway" = "כביש מהיר";
 
 "type.area_highway.path" = "Path";
 
-"type.area_highway.pedestrian" = "Pedestrian Street";
+"type.area_highway.pedestrian" = "מדרחוב";
 
-"type.area_highway.primary" = "Primary Road";
+"type.area_highway.primary" = "כביש ראשי";
 
-"type.area_highway.residential" = "Residential Street";
+"type.area_highway.residential" = "רחוב מגורים";
 
 "type.area_highway.secondary" = "Secondary Road";
 
 "type.area_highway.service" = "Service Road";
 
-"type.area_highway.tertiary" = "Tertiary Road";
+"type.area_highway.tertiary" = "כביש שלישוני";
 
-"type.area_highway.steps" = "Stairs";
+"type.area_highway.steps" = "מדרגות";
 
 "type.area_highway.track" = "Track";
 
@@ -2409,7 +2409,7 @@
 
 "type.historic.archaeological_site" = "אתר ארכיאולוגי";
 
-"type.historic.battlefield" = "שדה קרב";
+"type.historic.battlefield" = "שדה קרב היסטורי";
 
 "type.historic.boundary_stone" = "אבן גבול";
 
@@ -2435,7 +2435,7 @@
 
 "type.historic.castle.shiro" = "טירה יפנית";
 
-"type.historic.castle.stately" = "שאטו";
+"type.historic.castle.stately" = "טירה מפוארת";
 
 "type.historic.city_gate" = "שער העיר";
 
@@ -2465,11 +2465,11 @@
 
 "type.historic.mine" = "מכרה היסטורי";
 
-"type.historic.monument" = "מונומנט";
+"type.historic.monument" = "אנדרטה";
 
 "type.historic.pillory" = "עמוד הקלון";
 
-"type.historic.ruins" = "חורבות";
+"type.historic.ruins" = "חורבות עתיקות";
 
 "type.historic.ship" = "אונייה";
 
@@ -2481,7 +2481,7 @@
 
 "type.historic.wayside_shrine" = "מקדש בצד הדרך";
 
-"type.historic.wreck" = "לְנַפֵּץ";
+"type.historic.wreck" = "ספינה טרופה";
 
 "type.hwtag" = "hwtag";
 
@@ -2511,13 +2511,13 @@
 
 "type.internet_access" = "Internet";
 
-"type.internet_access.wlan" = "Internet";
+"type.internet_access.wlan" = "אינטרנט";
 
-"type.junction" = "Junction";
+"type.junction" = "צומת";
 
-"type.junction.circular" = "Roundabout";
+"type.junction.circular" = "מעגל תנועה";
 
-"type.junction.roundabout" = "Roundabout";
+"type.junction.roundabout" = "מעגל תנועה";
 
 "type.landuse" = "Landuse";
 
@@ -2535,9 +2535,9 @@
 
 "type.landuse.churchyard" = "Churchyard";
 
-"type.landuse.commercial" = "Commercial Area";
+"type.landuse.commercial" = "אזור מסחרי";
 
-"type.landuse.construction" = "Construction Area";
+"type.landuse.construction" = "אתר בניה";
 
 "type.landuse.education" = "Educational Facility";
 
@@ -2545,69 +2545,69 @@
 
 "type.landuse.farmyard" = "Farmyard";
 
-"type.landuse.field" = "Field";
+"type.landuse.field" = "שדה";
 
-"type.landuse.flowerbed" = "מיטת פרחים";
+"type.landuse.flowerbed" = "ערוגת פרחים";
 
-"type.landuse.forest" = "Forest";
+"type.landuse.forest" = "יער";
 
-"type.landuse.forest.coniferous" = "Coniferous Forest";
+"type.landuse.forest.coniferous" = "יער מחטניים";
 
-"type.landuse.forest.deciduous" = "Deciduous Forest";
+"type.landuse.forest.deciduous" = "יער נשירים";
 
-"type.landuse.forest.mixed" = "Mixed-Leaf Forest";
+"type.landuse.forest.mixed" = "יער מעורב-עלים";
 
 "type.landuse.garages" = "Garages";
 
-"type.landuse.grass" = "Grass";
+"type.landuse.grass" = "דשא";
 
-"type.landuse.greenfield" = "Greenfield";
+"type.landuse.greenfield" = "ירוק טבעי";
 
-"type.landuse.greenhouse_horticulture" = "Greenhouse";
+"type.landuse.greenhouse_horticulture" = "חממה";
 
-"type.landuse.industrial" = "Industrial Area";
+"type.landuse.industrial" = "אזור תעשיה";
 
-"type.landuse.landfill" = "Landfill";
+"type.landuse.landfill" = "מטמנה";
 
-"type.landuse.meadow" = "Meadow";
+"type.landuse.meadow" = "אחו";
 
-"type.landuse.military" = "Military Area";
+"type.landuse.military" = "שטח צבאי";
 
-"type.landuse.orchard" = "Orchard";
+"type.landuse.orchard" = "פרדס";
 
-"type.landuse.quarry" = "Quarry";
+"type.landuse.quarry" = "מחצבה";
 
 "type.landuse.railway" = "Railway Premises";
 
 "type.landuse.recreation_ground" = "Recreation Ground";
 
-"type.landuse.reservoir" = "Reservoir";
+"type.landuse.reservoir" = "מאגר";
 
-"type.landuse.residential" = "Residential Area";
+"type.landuse.residential" = "אזור מגורים";
 
-"type.landuse.retail" = "Retail Area";
+"type.landuse.retail" = "אזור קמעונאות";
 
-"type.landuse.salt_pond" = "Salt Pond";
+"type.landuse.salt_pond" = "בריכת מלח";
 
 "type.landuse.village_green" = "Land";
 
-"type.landuse.vineyard" = "Vineyard";
+"type.landuse.vineyard" = "כרם";
 
-"type.leisure" = "Leisure";
+"type.leisure" = "פנאי";
 
-"type.leisure.common" = "Public Land";
+"type.leisure.common" = "קרקע ציבורית";
 
-"type.leisure.dog_park" = "Dog Park";
+"type.leisure.dog_park" = "פארק כלבים";
 
-"type.leisure.fitness_centre" = "Fitness Centre";
+"type.leisure.fitness_centre" = "חדר כושר";
 
 "type.leisure.fitness_station" = "Fitness Station";
 
 "type.leisure.dance" = "םידוקיר םלוא";
 
-"type.leisure.garden" = "Garden";
+"type.leisure.garden" = "גן";
 
-"type.leisure.garden.residential" = "Garden";
+"type.leisure.garden.residential" = "גן";
 
 "type.leisure.golf_course" = "Golf Course";
 

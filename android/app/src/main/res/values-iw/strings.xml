@@ -1117,8 +1117,10 @@
 	<string name="type.healthcare.speech_therapist">ריפוי בדיבור</string>
 
 	<!-- SECTION: Types: Roads -->
+	<string name="type.highway.bridleway">שביל סוסים</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.bridleway.permissive">שביל סוסים</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">מִנהָרָה</string>
 	<string name="type.highway.busway">ידועיי סובוטוא שיבכ</string>
@@ -1126,24 +1128,35 @@
 	<string name="type.highway.busway.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.busway.tunnel">מִנהָרָה</string>
+	<string name="type.highway.bus_stop">תחנת אוטובוס</string>
+	<string name="type.highway.construction">כביש בבניה</string>
+	<string name="type.highway.cycleway">שביל אופניים</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.cycleway.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.cycleway.permissive">שביל אופניים</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.cycleway.tunnel">מִנהָרָה</string>
+	<string name="type.highway.elevator">מעלית</string>
+	<string name="type.highway.footway">שביל הליכה</string>
 	<string name="type.highway.footway.sidewalk">מדרכה</string>
 	<string name="type.highway.footway.crossing">מעבר הולכי רגל</string>
+	<string name="type.highway.footway.area">אזור להולכי רגל</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.footway.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.footway.bridge">גשר הולכי רגל</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.footway.tunnel">מִנהָרָה</string>
+	<string name="type.highway.footway.tunnel">מנהרה להולכי רגל</string>
+	<string name="type.highway.living_street">רחוב מגורים</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.living_street.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.living_street.tunnel">מִנהָרָה</string>
+	<string name="type.highway.motorway">כביש מהיר</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.motorway.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway.tunnel">מִנהָרָה</string>
+	<string name="type.highway.motorway_junction">יציאה</string>
+	<string name="type.highway.motorway_link">כביש מהיר</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.motorway_link.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1152,18 +1165,25 @@
 	<string name="type.highway.path.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">מִנהָרָה</string>
+	<string name="type.highway.pedestrian">מדרחוב</string>
+	<string name="type.highway.pedestrian.area">מדרחוב</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.pedestrian.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.pedestrian.tunnel">מִנהָרָה</string>
+	<string name="type.highway.primary">כביש ראשי</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.primary.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.primary.tunnel">מִנהָרָה</string>
+	<string name="type.highway.primary_link">כביש ראשי</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.primary_link.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.primary_link.tunnel">מִנהָרָה</string>
+	<string name="type.highway.raceway">מסלול מרוצים</string>
+	<string name="type.highway.residential">רחוב מגורים</string>
+	<string name="type.highway.residential.area">רחוב מגורים</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.residential.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1186,14 +1206,18 @@
 	<string name="type.highway.service.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.service.tunnel">מִנהָרָה</string>
+	<string name="type.highway.speed_camera">מצלמת מהירות</string>
+	<string name="type.highway.steps">מדרגות</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.steps.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.steps.tunnel">מִנהָרָה</string>
+	<string name="type.highway.tertiary">כביש שלישוני</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.tertiary.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.tertiary.tunnel">מִנהָרָה</string>
+	<string name="type.highway.tertiary_link">כביש שלישוני</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.tertiary_link.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1202,6 +1226,7 @@
 	<string name="type.highway.track.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">מִנהָרָה</string>
+	<string name="type.highway.traffic_signals">רמזור</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.trunk.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1214,13 +1239,22 @@
 	<string name="type.highway.unclassified.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.unclassified.tunnel">מִנהָרָה</string>
+	<string name="type.area_highway.cycleway">שביל אופניים</string>
+	<string name="type.area_highway.footway">שביל הליכה</string>
+	<string name="type.area_highway.living_street">רחוב מגורים</string>
+	<string name="type.area_highway.motorway">כביש מהיר</string>
+	<string name="type.area_highway.pedestrian">מדרחוב</string>
+	<string name="type.area_highway.primary">כביש ראשי</string>
+	<string name="type.area_highway.residential">רחוב מגורים</string>
+	<string name="type.area_highway.tertiary">כביש שלישוני</string>
+	<string name="type.area_highway.steps">מדרגות</string>
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">חפץ היסטורי</string>
 	<string name="type.historic.aircraft">מטוס היסטורי</string>
 	<string name="type.historic.anchor">עוגן היסטורי</string>
 	<string name="type.historic.archaeological_site">אתר ארכיאולוגי</string>
-	<string name="type.historic.battlefield">שדה קרב</string>
+	<string name="type.historic.battlefield">שדה קרב היסטורי</string>
 	<string name="type.historic.boundary_stone">אבן גבול</string>
 	<string name="type.historic.cannon">תוֹתָח</string>
 	<string name="type.historic.castle">טירה</string>
@@ -1233,7 +1267,7 @@
 	<string name="type.historic.castle.manor">אחוזה</string>
 	<string name="type.historic.castle.palace">ארמון</string>
 	<string name="type.historic.castle.shiro">טירה יפנית</string>
-	<string name="type.historic.castle.stately">שאטו</string>
+	<string name="type.historic.castle.stately">טירה מפוארת</string>
 	<string name="type.historic.city_gate">שער העיר</string>
 	<string name="type.historic.citywalls">חומת העיר</string>
 	<string name="type.historic.fort">מִבצָר</string>
@@ -1248,22 +1282,53 @@
 	<string name="type.historic.stone">אבן היסטורית</string>
 	<string name="type.historic.memorial.war_memorial">אנדרטת מלחמה</string>
 	<string name="type.historic.mine">מכרה היסטורי</string>
-	<string name="type.historic.monument">מונומנט</string>
+	<string name="type.historic.monument">אנדרטה</string>
 	<string name="type.historic.pillory">עמוד הקלון</string>
-	<string name="type.historic.ruins">חורבות</string>
+	<string name="type.historic.ruins">חורבות עתיקות</string>
 	<string name="type.historic.ship">אונייה</string>
 	<string name="type.historic.tank">טנק היסטורי</string>
 	<string name="type.historic.tomb">קֶבֶר</string>
 	<string name="type.historic.wayside_cross">צלב בצד הדרך</string>
 	<string name="type.historic.wayside_shrine">מקדש בצד הדרך</string>
-	<string name="type.historic.wreck">לְנַפֵּץ</string>
+	<string name="type.historic.wreck">ספינה טרופה</string>
+	<string name="type.internet_access.wlan">אינטרנט</string>
+	<string name="type.junction">צומת</string>
+	<string name="type.junction.circular">מעגל תנועה</string>
+	<string name="type.junction.roundabout">מעגל תנועה</string>
 	<string name="type.landuse.basin">אגן מים</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">בית קברות</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">בית קברות נוצרי</string>
-	<string name="type.landuse.flowerbed">מיטת פרחים</string>
+	<string name="type.landuse.commercial">אזור מסחרי</string>
+	<string name="type.landuse.construction">אתר בניה</string>
+	<string name="type.landuse.field">שדה</string>
+	<string name="type.landuse.flowerbed">ערוגת פרחים</string>
+	<string name="type.landuse.forest">יער</string>
+	<string name="type.landuse.forest.coniferous">יער מחטניים</string>
+	<string name="type.landuse.forest.deciduous">יער נשירים</string>
+	<string name="type.landuse.forest.mixed">יער מעורב-עלים</string>
+	<string name="type.landuse.grass">דשא</string>
+	<string name="type.landuse.greenfield">ירוק טבעי</string>
+	<string name="type.landuse.greenhouse_horticulture">חממה</string>
+	<string name="type.landuse.industrial">אזור תעשיה</string>
+	<string name="type.landuse.landfill">מטמנה</string>
+	<string name="type.landuse.meadow">אחו</string>
+	<string name="type.landuse.military">שטח צבאי</string>
+	<string name="type.landuse.orchard">פרדס</string>
+	<string name="type.landuse.quarry">מחצבה</string>
+	<string name="type.landuse.reservoir">מאגר</string>
+	<string name="type.landuse.residential">אזור מגורים</string>
+	<string name="type.landuse.retail">אזור קמעונאות</string>
+	<string name="type.landuse.salt_pond">בריכת מלח</string>
+	<string name="type.landuse.vineyard">כרם</string>
+	<string name="type.leisure">פנאי</string>
+	<string name="type.leisure.common">קרקע ציבורית</string>
+	<string name="type.leisure.dog_park">פארק כלבים</string>
+	<string name="type.leisure.fitness_centre">חדר כושר</string>
 	<string name="type.leisure.dance">םידוקיר םלוא</string>
+	<string name="type.leisure.garden">גן</string>
+	<string name="type.leisure.garden.residential">גן</string>
 	<string name="type.leisure.hackerspace">האקרספייס</string>
 	<string name="type.leisure.outdoor_seating">ישיבה בחוץ</string>
 	<string name="type.leisure.picnic_table">קינקיפ ןחלוש</string>
