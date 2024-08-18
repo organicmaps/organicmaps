@@ -11345,7 +11345,7 @@
     ro = Încearcă să modifici condițiile căutării.
     ru = Попробуйте изменить условия поиска.
     sk = Vyskúšajte, prosím, iný hľadaný výraz.
-    sv = Försök med en annan söktext.
+    sv = Försök med en annan sökning.
     th = โปรดลองใช้คำถามอื่น
     tr = Lütfen başka bir sorgu girin.
     uk = Спробуйте змінити запит.
@@ -11432,7 +11432,7 @@
     ro = Arată căutările recente.
     ru = Быстрый доступ к последним поисковым запросам.
     sk = Rýchlo pristupujte k nedávnym hľadaným výrazom.
-    sv = Få snabbare åtkomst till senaste sökförfrågan.
+    sv = Se senaste sökningar.
     th = เข้าถึงคำถามที่ใช้ในการค้นหาเมื่อเร็ว ๆ นี้ได้อย่างรวดเร็ว
     tr = Son aramaları görüntüleyin.
     uk = Швидкий доступ до недавніх результатів пошуку.
@@ -11645,7 +11645,7 @@
     ro = De la
     ru = Отсюда
     sk = Cesta z
-    sv = Från
+    sv = Rutt från
     th = จาก
     tr = Başlangıç
     uk = Звідси
@@ -11733,7 +11733,7 @@
     ro = Navigația este disponibilă doar având ca punct de plecare poziția ta actuală.
     ru = Навигация возможна только из текущего местоположения.
     sk = Navigácia je dostupná iba z vašej aktuálnej polohy.
-    sv = Navigering är endast tillgänglig från din aktuella plats.
+    sv = Navigering är enbart möjlig från din nuvarande plats.
     th = สามารถใช้การนำทางได้เฉพาะจากตำแหน่งที่ตั้งปัจจุบันของคุณเท่านั้น
     tr = Navigasyon sadece şu anki konumunuzdan mevcut.
     uk = Маршрут можна прокласти лише з поточного місцезнаходження.
@@ -12591,7 +12591,7 @@
     ro = Descrie problema în detaliu, astfel încât comunitatea OpenStreetMap să poată remedia eroarea.
     ru = Пожалуйста, напишите подробно о проблеме, чтобы сообщество OpenStreetMap исправило ошибку.
     sk = Prosím, pridajte detailný popis problému, aby mohla komunita OpenStreetMap opraviť danú chybu.
-    sv = Beskriv problemet i detalj så att OpenStreetMaps community kan lösa felet.
+    sv = Beskriv problemet i detalj så att OpenStreetMaps community kan lösa det.
     th = กรุณาอธิบายปัญหาโดยละเอียดเพื่อที่ชุมชน OpenStreetMap จะสามารถแก้ไขข้อผิดพลาดได้
     tr = OpenStreetMap topluluğunun hatayı düzeltmesi için lütfen problemi detaylı bir şekilde açıklayın.
     uk = Будь-ласка, напишіть детально про проблему, щоб суспільство OpenStreetMap виправило помилку.
@@ -12806,7 +12806,7 @@
     ro = Închis pentru întreținere
     ru = Закрыто на ремонт
     sk = Zatvorené kvôli prebiehajúcej údržbe
-    sv = Stängd för underhåll
+    sv = Stängt för underhåll
     th = ปิดปรับปรุง
     tr = Bakım için kapalı
     uk = Зачинено на ремонт
@@ -13026,7 +13026,7 @@
     ro = 24/7
     ru = Круглосуточно
     sk = Deň a noc
-    sv = dag och natt
+    sv = Dygnet runt
     th = ทั้งกลางวันและกลางคืน
     tr = 7/24
     uk = Цілодобово
@@ -14887,7 +14887,7 @@
     ro = Pentru a crea un traseu, trebuie să actualizezi toate hărțile, iar apoi să planifici traseul încă o dată.
     ru = Для построения маршрутов необходимо обновить все карты и построить маршрут заново.
     sk = Ak chcete vytvoriť cestu, musíte najskôr aktualizovať všetky mapy a potom odznova naplánovať trasu.
-    sv = För att skapa en rutt måste du uppdatera alla kartor och sedan planera rutten igen.
+    sv = För att hitta en rutt måste du uppdatera alla kartor och sedan försöka igen.
     th = ในการสร้างเส้นทาง คุณต้องอัปเดตแผนที่ทั้งหมดแล้ววางแผนเส้นทางอีกครั้ง
     tr = Bir rota oluşturmak için tüm haritaları güncellemeli ve ardından rotayı tekrar planlamalısınız.
     uk = Для побудови маршруту необхідно оновити усі мапи та побудувати маршрут заново.
@@ -15061,7 +15061,7 @@
     ro = Spațiu insuficient
     ru = Недостаточно места
     sk = Nemáte dostatok miesta
-    sv = Ej tillräckligt utrymme
+    sv = Otillräckligt utrymme
     th = มีพื้นที่ไม่เพียงพอ
     tr = Yeterli alan yok
     uk = Недостатньо місця
@@ -15321,7 +15321,7 @@
     ro = Popular
     ru = Популярные
     sk = Obľúbené
-    sv = Populära
+    sv = Populärt
     th = ยอดนิยม
     tr = Popüler
     uk = Популярні
@@ -15495,7 +15495,7 @@
     ro = Numele locului
     ru = Название места
     sk = Názov miesta
-    sv = Namn på platsen
+    sv = Platsens namn
     th = ชื่อสถานที่
     tr = Yerin adı
     uk = Назва місця
@@ -15627,7 +15627,7 @@
     ro = Descriere detaliată a problemei
     ru = Подробное описание проблемы
     sk = Podrobný popis problému
-    sv = Detaljerad beskrivning av ett problem
+    sv = Detaljerad beskrivning av problemet
     th = คำอธิบายปัญหาอย่างละเอียด
     tr = Sorunun ayrıntılı açıklaması
     uk = Детальний опис проблеми
@@ -15670,7 +15670,7 @@
     ro = Altă problemă
     ru = Другая проблема
     sk = Iný problém
-    sv = Ett annat problem
+    sv = Annat problem
     th = ปัญหาอีกอย่างหนึ่ง
     tr = Farklı bir sorun
     uk = Інші проблема
@@ -15713,7 +15713,7 @@
     ro = Adaugă locuri noi pe hartă și modifică-le pe cele existente direct din aplicație.
     ru = Добавляйте новые объекты и редактируйте старые прямо из приложения.
     sk = Na mapu môžete pridávať nové miesta a upravovať tie, ktoré sú už pridané.
-    sv = Lägg till nya platser till kartan och redigera de befintliga direkt från appen.
+    sv = Lägg till nya platser på kartan och redigera de befintliga direkt i appen.
     th = เพิ่มสถานที่ใหม่ ๆ ไปยังแผนที่ และแก้ไขสถานที่ที่มีอยู่เดิมจากแอปโดยตรง
     tr = Doğrudan uygulamadan haritaya yeni yerler ekleyin ve mevcut yerleri düzenleyin.
     uk = Додати нові місця до мапи і редагувати існуючі місця прямо з програми.
@@ -15845,7 +15845,7 @@
     ro = Date OpenStreetMap create de comunitate la data de %@. Aflați mai multe despre cum să editați și să actualizați harta la OpenStreetMap.org
     ru = Созданные сообществом данные OpenStreetMap по состоянию на %@. Узнайте больше о том, как редактировать и обновлять карту, на сайте OpenStreetMap.org.
     sk = Údaje OpenStreetMap vytvorené komunitou od %@. Viac informácií o tom, ako upravovať a aktualizovať mapu, nájdete na stránke OpenStreetMap.org
-    sv = Gemenskapsskapade OpenStreetMap-data från och med %@. Läs mer om hur du redigerar och uppdaterar kartan på OpenStreetMap.org
+    sv = Community-skapade OpenStreetMap-data från och med %@. Läs mer om hur du redigerar och uppdaterar kartan på OpenStreetMap.org
     sw = Data ya OpenStreetMap iliyoundwa na jumuiya kufikia %@. Pata maelezo zaidi kuhusu jinsi ya kuhariri na kusasisha ramani katika OpenStreetMap.org
     th = ข้อมูล OpenStreetMap ที่สร้างโดยชุมชน ณ %@ เรียนรู้เพิ่มเติมเกี่ยวกับวิธีแก้ไขและอัปเดตแผนที่ได้ที่ OpenStreetMap.org
     tr = %@ tarihine ait topluluk tarafından oluşturulmuş OpenStreetMap verilerini kullanıyorsunuz. OpenStreetMap.org adresinden haritayı nasıl düzenleyebileceğiniz hakkında bilgi edinebilirsiniz
@@ -15978,7 +15978,7 @@
     ro = Am îmbunătățit hărțile Organic Maps
     ru = Я улучшил карты Organic Maps
     sk = Vďaka mne sú mapy na Organic Maps lepšie
-    sv = Jag förbättrade kartorna hos Organic Maps
+    sv = Jag förbättrade kartorna åt Organic Maps
     th = ฉันได้ปรับปรุงแผนที่ Organic Maps
     tr = Organic Maps haritalarını geliştirdim
     uk = Я покращив мапи Organic Maps
@@ -16417,7 +16417,7 @@
     ro = Trimite un mesaj către editorii OSM
     ru = Отправить заметку редакторам OSM
     sk = Odoslať poznámku OSM editorom
-    sv = Skicka en not till OSM-redaktörer
+    sv = Skicka ett meddelande till OSM-redaktörerna
     sw = Tuma ujumbe kwenye vihariri vya OSM
     th = ส่งข้อความไปยังตัวปรับแต่ง OSM
     tr = OSM editörlerine bir not gönderin
@@ -16638,7 +16638,7 @@
     ro = Nu găsiți o categorie potrivită?
     ru = Нет подходящей категории?
     sk = Nemôžete nájsť vhodnú kategóriu?
-    sv = Kan du inte hitta en lämplig kategori?
+    sv = Hittar du ingen lämplig kategori?
     sw = Je, huwezi kupata aina inayofaa?
     th = ไม่พบหมวดหมู่ที่เหมาะสมใช่ไหม?
     tr = Uygun bir kategori bulamıyor musunuz?
@@ -16856,7 +16856,7 @@
     ro = S-a produs o eroare la căutarea poziției tale. Verifică dacă dispozitivul funcționează corect și încearcă din nou.
     ru = При поиске местоположения произошла неизвестная ошибка. Проверьте работоспособность устройства и попробуйте найти местоположение позднее.
     sk = Počas vyhľadávania vašej pozície došlo k chybe. Skontrolujte, či zariadenie pracuje správne a skúste to znova.
-    sv = Ett fel inträffade vid sökning efter din plats. Kontrollera att din enhet fungerar och försök igen senare.
+    sv = Ett fel inträffade när din plats försökte hittas. Kontrollera att din enhet fungerar och försök igen senare.
     th = มีข้อผิดพลาดเกิดขึ้นในขณะที่กำลังหาที่ตั้งที่คุณอยู่ โปรดตรวจสอบอุปกรณ์ของคุณว่าทำงานถูกต้อง และลองใหม่อีกครั้ง
     tr = Konumunuz aranırken bir hata oluştu. Cihazınızın düzgün çalışıp çalışmadığını kontrol edin ve daha sonra tekrar deneyin.
     uk = Під час пошуку місцезнаходження сталася невідома помилка. Перевірте працездатність пристрою та спробуйте відшукати місцеположення пізніше.
@@ -17384,7 +17384,7 @@
     ro = km/h
     ru = км/ч
     sk = km/h
-    sv = km/h
+    sv = km/tim
     th = กม./ชม.
     tr = km/sa
     uk = км/год
@@ -17510,7 +17510,7 @@
     ro = mph
     ru = ми/ч
     sk = mph
-    sv = mph
+    sv = mi/tim
     th = ไมล์/ชม.
     tr = saatte mil
     uk = ми/год
@@ -17552,7 +17552,7 @@
     ro = h
     ru = ч
     sk = hod
-    sv = h
+    sv = tim
     th = ชม.
     tr = sa
     uk = год
@@ -17770,7 +17770,7 @@
     ro = Bonusul de recomandare primit pentru fiecare rezervare prin acest link este destinat dezvoltării Organic Maps.
     ru = Реферальный бонус, полученный за каждое бронирование по этой ссылке, идёт на разработку Organic Maps.
     sk = Bonus získaný za každú rezerváciu prostredníctvom tohto odkazu ide na rozvoj služby Organic Maps.
-    sv = Hänvisningsbonusen som erhålls för varje bokning via denna länk går till utvecklingen av Organic Maps.
+    sv = Hänvisningsbonusen för varje bokning via denna länk går till utvecklingen av Organic Maps.
     sw = Bonasi ya rufaa inayopokelewa kwa kila nafasi uliyohifadhi kupitia kiungo hiki huenda kwenye uundaji wa ramani za kikaboni.
     th = โบนัสการแนะนำที่ได้รับสำหรับการจองแต่ละครั้งผ่านลิงก์นี้จะนำไปใช้ในการพัฒนาแผนที่ทั่วไป
     tr = Bu bağlantı üzerinden yapılan her rezervasyon için alınan yönlendirme bonusu Organic Maps'in geliştirilmesine harcanmaktadır.
@@ -17944,7 +17944,7 @@
     ro = Numele locului preferat
     ru = Название метки
     sk = Názov záložky
-    sv = Namn bokmärke
+    sv = Bokmärkesnamn
     th = ชื่อของ Bookmark
     tr = Yer İmi Adı
     uk = Назва мiтки
@@ -18493,7 +18493,7 @@
     ro = Introdu o adresă web corectă
     ru = Введите корректный веб-адрес
     sk = Zadajte platnú webovú adresu
-    sv = Ange en giltig webadress
+    sv = Ange en giltig webbadress
     th = กรอกที่อยู่เว็บที่ถูกต้อง
     tr = Geçerli bir web adresi girin
     uk = Введіть вірну адресу веб-сайту
@@ -18856,7 +18856,7 @@
     ro = Asigură-te că nu ai introdus niciun fel de date personale.
     ru = Убедитесь, что вы не ввели личные данные.
     sk = Nezadávajte žiadne osobné udaje.
-    sv = Se till att du inte angett någon personinformation
+    sv = Var noga med att inte ange någon personinformation
     th = ตรวจสอบว่าคุณไม่ได้กรอกข้อมูลส่วนตัวใด ๆ
     tr = Herhangi bir kişisel bilgi girmediğinizden emin olun.
     uk = Переконайтеся, що ви не ввели особисті дані.
@@ -18979,7 +18979,7 @@
     ro = Dezactivezi înregistrarea celui mai recent traseu efectuat?
     ru = Выключить запись недавно пройденого пути?
     sk = Znemožniť nahrávanie vami nedávno precestovanej trasy?
-    sv = Avaktivera inspelning av din senaste resta rutt?
+    sv = Stäng av inspelningen av din senaste rutt?
     th = ปิดการใช้งานการบันทึกเส้นทางที่คุณเดินทางเมื่อเร็ว ๆ นี้?
     tr = En son seyahat edilen rotanızı kaydetmeyi devre dışı bırakmak istiyor musunuz?
     uk = Вимкнути запис нещодавно пройденого шляху?
@@ -30034,7 +30034,7 @@
     en = Clear the search
     af = Vee die soektog uit
     ar = مسح البحث
-    az = Axtarışı təmizləyin
+    az = Axtarışı təmizləyinYou can deploy Codestral Mamba using the mistral-inference SDK, which relies on the reference implementations from Mamba’s GitHub repository. The model can also be deployed through TensorRT-LLM. For local inference, keep an eye out for support in llama.cpp. You may download the raw weights from HuggingFace. This is an instructed model, with 7,285,403,648 parameters.
     be = Ачысціць пошук
     bg = Изчистване на търсенето
     ca = Esborra la cerca
@@ -30093,7 +30093,7 @@
     eu = Handitu
     fa = بزرگنمایی
     fi = Suurenna
-    fr = Zoom avant
+    fr = Zoom avantYou can deploy Codestral Mamba using the mistral-inference SDK, which relies on the reference implementations from Mamba’s GitHub repository. The model can also be deployed through TensorRT-LLM. For local inference, keep an eye out for support in llama.cpp. You may download the raw weights from HuggingFace. This is an instructed model, with 7,285,403,648 parameters.
     he = לְהִתְמַקֵד
     hi = ज़ूम इन
     hu = Nagyítás
