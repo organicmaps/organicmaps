@@ -547,9 +547,9 @@ node|z19-[entrance],
 node|z19-[amenity=loading_dock],
 {icon-image: entrance-s.svg; font-size: 13; text-offset: 1;}
 node|z19-[entrance=exit],
-{icon-image: exit-s.svg; font-size: 13; text-offset: 1;}
+{icon-image: entrance-exit-s.svg; font-size: 13; text-offset: 1;}
 node|z18-[entrance=main],
-{icon-image: main_entrance-s.svg; font-size: 13; text-offset: 1;}
+{icon-image: entrance-main-s.svg; font-size: 13; text-offset: 1;}
 
 /* 8.3 Airports */
 area|z14-[aeroway=terminal]
