@@ -60,7 +60,6 @@
 
 #include <functional>
 #include <memory>
-#include <optional>
 #include <string>
 #include <vector>
 
@@ -341,7 +340,7 @@ public:
   void InvalidateRendering();
   void EnableDebugRectRendering(bool enabled);
 
-  void EnableChoosePositionMode(bool enable, bool enableBounds, bool applyPosition, m2::PointD const & position);
+  void EnableChoosePositionMode(bool enable, bool enableBounds, m2::PointD const * optionalPosition);
   void BlockTapEvents(bool block);
 
   using TCurrentCountryChanged = std::function<void(storage::CountryId const &)>;

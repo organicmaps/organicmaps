@@ -188,7 +188,7 @@ namespace android
     void Set3dMode(bool allow3d, bool allow3dBuildings);
     void Get3dMode(bool & allow3d, bool & allow3dBuildings);
 
-    void SetChoosePositionMode(ChoosePositionMode mode, bool isBusiness, bool hasPosition, m2::PointD const & position);
+    void SetChoosePositionMode(ChoosePositionMode mode, bool isBusiness, m2::PointD const * optionalPosition);
     ChoosePositionMode GetChoosePositionMode();
 
     void UpdateMyPositionRoutingOffset(int offsetY);

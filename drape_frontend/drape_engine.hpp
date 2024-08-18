@@ -191,8 +191,7 @@ public:
                             std::vector<uint32_t> && toRemove);
   void ClearGpsTrackPoints();
 
-  void EnableChoosePositionMode(bool enable, std::vector<m2::TriangleD> && boundAreaTriangles,
-                                bool hasPosition, m2::PointD const & position);
+  void EnableChoosePositionMode(bool enable, std::vector<m2::TriangleD> && boundAreaTriangles, m2::PointD const * optionalPosition);
   void BlockTapEvents(bool block);
 
   void SetKineticScrollEnabled(bool enabled);
