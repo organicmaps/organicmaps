@@ -50,7 +50,7 @@ area|z18-[office],
 
 node|z18-[craft],
 area|z18-[craft],
-{icon-image: hand-m.svg;}
+{icon-image: craft-m.svg;}
 
 node|z16-[shop],
 area|z16-[shop],
@@ -2070,7 +2070,7 @@ area|z16[shop=video_games]
 {icon-image: video-games-m.svg;}
 node|z16[shop=tattoo],
 area|z16[shop=tattoo]
-{icon-image: hand-m.svg;}
+{icon-image: craft-m.svg;}
 node|z16[shop=erotic],
 area|z16[shop=erotic]
 {icon-image: erotic-m.svg;}
@@ -2297,7 +2297,7 @@ area|z17-[shop=video_games]
 {icon-image: video-games-m.svg;icon-min-distance: 24;}
 node|z17-[shop=tattoo],
 area|z17-[shop=tattoo]
-{icon-image: hand-m.svg;icon-min-distance: 24;}
+{icon-image: craft-m.svg;icon-min-distance: 24;}
 node|z17-[shop=erotic],
 area|z17-[shop=erotic]
 {icon-image: erotic-m.svg;icon-min-distance: 24;}
