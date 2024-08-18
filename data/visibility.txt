@@ -375,6 +375,7 @@ world  000000000000000000000  +
     emergency  000000000000000000000  +
         assembly_point  000000000000000000000  -
         defibrillator  000000000000000000000  -
+        emergency_ward_entrance  000000000000000000111  -
         fire_hydrant  000000000000000000000  -
         phone  000000000000000000000  -
         {}
