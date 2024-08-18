@@ -2523,13 +2523,12 @@ void Framework::SaveOutdoorsEnabled(bool enabled)
   settings::Set(kOutdoorsEnabledKey, enabled);
 }
 
-void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, bool applyPosition,
-                                         m2::PointD const & position)
+void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, m2::PointD const * optionalPosition)
 {
   if (m_drapeEngine != nullptr)
   {
     m_drapeEngine->EnableChoosePositionMode(enable,
-      enableBounds ? GetSelectedFeatureTriangles() : vector<m2::TriangleD>(), applyPosition, position);
+      enableBounds ? GetSelectedFeatureTriangles() : vector<m2::TriangleD>(), optionalPosition);
   }
 }
 

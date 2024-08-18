@@ -167,14 +167,12 @@ void DrawWidget::ShowAll()
 void DrawWidget::ChoosePositionModeEnable()
 {
   m_framework.BlockTapEvents(true /* block */);
-  m_framework.EnableChoosePositionMode(true /* enable */, false /* enableBounds */,
-                                       false /* applyPosition */, m2::PointD() /* position */);
+  m_framework.EnableChoosePositionMode(true /* enable */, false /* enableBounds */, nullptr /* optionalPosition */);
 }
 
 void DrawWidget::ChoosePositionModeDisable()
 {
-  m_framework.EnableChoosePositionMode(false /* enable */, false /* enableBounds */,
-                                       false /* applyPosition */, m2::PointD() /* position */);
+  m_framework.EnableChoosePositionMode(false /* enable */, false /* enableBounds */, nullptr /* optionalPosition */);
   m_framework.BlockTapEvents(false /* block */);
 }
 

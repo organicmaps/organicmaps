@@ -5,7 +5,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MWMMapViewControlsManager (AddPlace)
 
-- (void)addPlace:(BOOL)isBusiness hasPoint:(BOOL)hasPoint point:(m2::PointD const &)point;
+- (void)addPlace:(BOOL)isBusiness position:(m2::PointD const *)optionalPosition;
 
 @end
 

@@ -399,7 +399,7 @@ public class Framework
   }
   /**
    * @param mode - see ChoosePositionMode values.
-   * @param isBusiness selection area will be bounded by building borders, if its true(eg. true for businesses in buildings).
+   * @param isBusiness selection area will be bounded by building borders, if its true (eg. true for businesses in buildings).
    * @param applyPosition if true, map'll be animated to currently selected object.
    */
   public static native void nativeSetChoosePositionMode(@ChoosePositionMode int mode, boolean isBusiness,

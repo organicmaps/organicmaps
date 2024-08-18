@@ -448,12 +448,11 @@ void Framework::Get3dMode(bool & allow3d, bool & allow3dBuildings)
   m_work.Load3dMode(allow3d, allow3dBuildings);
 }
 
-void Framework::SetChoosePositionMode(ChoosePositionMode mode, bool isBusiness,
-                                      bool hasPosition, m2::PointD const & position)
+void Framework::SetChoosePositionMode(ChoosePositionMode mode, bool isBusiness, m2::PointD const * optionalPosition)
 {
   m_isChoosePositionMode = mode;
   m_work.BlockTapEvents(mode != ChoosePositionMode::None);
-  m_work.EnableChoosePositionMode(mode != ChoosePositionMode::None, isBusiness, hasPosition, position);
+  m_work.EnableChoosePositionMode(mode != ChoosePositionMode::None, isBusiness, optionalPosition);
 }
 
 ChoosePositionMode Framework::GetChoosePositionMode()
@@ -1775,10 +1774,13 @@ JNIEXPORT void JNICALL
 Java_app_organicmaps_Framework_nativeSetChoosePositionMode(JNIEnv *, jclass, jint mode, jboolean isBusiness,
                                                            jboolean applyPosition)
 {
-  auto const pos = applyPosition && frm()->HasPlacePageInfo()
-      ? g_framework->GetPlacePageInfo().GetMercator()
-      : m2::PointD();
-  g_framework->SetChoosePositionMode(static_cast<android::ChoosePositionMode>(mode), isBusiness, applyPosition, pos);
+  // TODO(AB): Move this code into the Framework to share with iOS and other platforms.
+  auto const f = frm();
+  if (applyPosition && f->HasPlacePageInfo())
+    g_framework->SetChoosePositionMode(static_cast<android::ChoosePositionMode>(mode), isBusiness,
+                                       &f->GetCurrentPlacePageInfo().GetMercator());
+  else
+    g_framework->SetChoosePositionMode(static_cast<android::ChoosePositionMode>(mode), isBusiness, nullptr);
 }
 
 JNIEXPORT jint JNICALL

@@ -130,10 +130,10 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 }
 
 - (void)addPlace {
-  [self addPlace:NO hasPoint:NO point:m2::PointD()];
+  [self addPlace:NO position:nullptr];
 }
 
-- (void)addPlace:(BOOL)isBusiness hasPoint:(BOOL)hasPoint point:(m2::PointD const &)point {
+- (void)addPlace:(BOOL)isBusiness position:(m2::PointD const *)optionalPosition {
   MapViewController *ownerController = self.ownerController;
 
   self.isAddingPlace = YES;
@@ -145,8 +145,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
   [MWMAddPlaceNavigationBar showInSuperview:ownerController.view
     isBusiness:isBusiness
-    applyPosition:hasPoint
-    position:point
+    position:optionalPosition
     doneBlock:^{
       if ([MWMFrameworkHelper canEditMapAtViewportCenter])
         [ownerController performSegueWithIdentifier:kMapToCategorySelectorSegue sender:nil];
