@@ -5151,6 +5151,7 @@
     eu = Taxia
     fa = تاکسی
     fi = Taksi
+    fr = Station de taxis
     he = תחנת מוניות
     hi = टैक्सी
     id = Taksi
@@ -12070,6 +12071,7 @@
     es = Carretera
     et = Maantee
     fi = Valtatie
+    fr = Autoroute
     hi = राजमार्ग
     it = Via
     ja = 道路
@@ -15629,6 +15631,7 @@
     es = Cruce
     et = Ristmik
     fi = Risteys
+    fr = Jonction
     it = Incrocio
     ja = 交差点
     mr = जंक्शन
@@ -18240,6 +18243,7 @@
     de = Militärisches Objekt
     es = Militar
     et = Militaarobjekt
+    fr = Installations militaires
     it = Forze armate
     ja = 軍事
     mr = लष्करी
@@ -18264,6 +18268,7 @@
     eu = Bunkerra
     fa = پناهگاه
     fi = Bunkkeri
+    fr = Bunker
     it = Bunker
     ja = 掩蔽壕
     ko = 벙커
@@ -21692,6 +21697,7 @@
     de = Umspannwerk
     es = Estación eléctrica
     et = Elektrijaam
+    fr = Centrale électrique
     hi = बिजली घर
     ja = 変電所
     mr = विद्युत घर
@@ -30071,6 +30077,7 @@
     eu = Erakarpen turistikoa
     fa = گردشگری
     fi = Nähtävyys
+    fr = Attraction
     hi = पर्यटन स्थल
     hu = Látnivaló
     id = Atraksi
@@ -30657,6 +30664,7 @@
     et = Motell
     fa = هتل
     fi = Motelli
+    fr = Motel
     hi = मोटेल
     it = Motel
     ja = モーテル
@@ -30907,6 +30915,7 @@
     et = Loomaaed
     fa = گردشگری
     fi = Eläintarha
+    fr = Zoo
     hi = चिड़ियाघर
     hu = Állatkert
     id = Kebun binatang
@@ -31040,6 +31049,7 @@
     es = Curso de agua
     et = Veetee
     fi = Vesiväylä
+    fr = Cours d'eau
     ja = 水域
     mr = जलमार्ग
     nl = Waterweg
@@ -31064,6 +31074,7 @@
     et = Kanal
     fa = کانال اب
     fi = Kanaali
+    fr = Canal
     hi = नहर
     hu = Csatorna
     id = Kanal
@@ -31099,6 +31110,7 @@
     et = Kanal
     fa = کانال اب
     fi = Kanaali
+    fr = Tunnel du canal
     hi = नहर
     hu = Csatorna
     id = Kanal
@@ -31283,6 +31295,7 @@
     de = Abfluss
     es = Desagüe
     et = Kuivenduskraav
+    fr = Drainage
     it = Canale di scolo
     ja = 用水路
     mr = नाला
@@ -31570,6 +31583,7 @@
     et = Ratastool
     eu = Gurpil-aulkia
     fi = Rullatuoli
+    fr = Fauteuil roulant
     hi = पहियाकुर्सी
     it = Sedia a rotelle
     ja = 車椅子
@@ -31740,6 +31754,7 @@
     es = Telesilla de disco
     et = Plaatlift
     fi = Sompahissi
+    fr = Élévateur de plateau
     nl = Sleeplift
     pt = Telesqui de disco
     pt-BR = Telesqui de disco
@@ -31756,6 +31771,7 @@
     es = Telesilla de cuerda
     et = Köislift
     fi = Naruhissi
+    fr = Tractage à la corde
     nl = Touwlift
     pt = Telesqui de corda
     pt-BR = Telesqui de corda
