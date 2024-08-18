@@ -15794,6 +15794,50 @@
     zh-Hans = 不同的问题
     zh-Hant = 不同的問題
 
+  [placepage_add_business_button]
+    tags = android
+    en = Add business
+    af = Voeg besigheid toe
+    ar = إضافة مؤسسة
+    az = Təşkilat əlavə edin
+    be = Дадаць установу
+    bg = Добавяне на бизнес
+    ca = Afegeix un negoci
+    cs = Přidat organizaci
+    da = Tilføj organisationen
+    de = Organisation hinzufügen
+    el = Προσθήκη επιχείρησης
+    es = Añadir organización
+    et = Lisa ettevõte
+    eu = Gehitu aktibitatea
+    fa = اضافه کردن یک تجارت
+    fi = Lisää organisaatio
+    fr = Ajouter une entreprise
+    he = הוסף בית עסק
+    hi = व्यवसाय जोड़ें
+    hu = Szervezet hozzáadása
+    id = Tambahkan organisasi
+    it = Aggiungi attività
+    ja = ビジネスを追加
+    ko = 조직 추가
+    lt = Pridėti verslą
+    mr = व्यवसाय जोडा
+    nb = Legg til organisasjon
+    nl = Voeg een organisatie toe
+    pl = Dodaj organizację
+    pt = Adicionar uma organização
+    pt-BR = Adicionar uma empresa
+    ro = Adaugă o firmă
+    ru = Добавить организацию
+    sk = Pridať organizáciu
+    sv = Lägg till organisation
+    th = เพิ่มองค์กร
+    tr = Kuruluş ekle
+    uk = Додати організацію
+    vi = Thêm tổ chức
+    zh-Hans = 将地点添加到
+    zh-Hant = 將地點添加到
+
   [whatsnew_editor_message_1]
     tags = ios
     en = Add new places to the map, and edit existing ones directly from the app.
