@@ -490,6 +490,7 @@
 	<string name="editor_edit_place_category_title">Катэгорыя</string>
 	<string name="detailed_problem_description">Падрабязнае апісанне праблемы</string>
 	<string name="editor_report_problem_other_title">Іншая праблема</string>
+	<string name="placepage_add_business_button">Дадаць установу</string>
 	<string name="message_invalid_feature_position">Аб\'ект не можа знаходзіцца тут</string>
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">Створаныя супольнасцю даныя OpenStreetMap па стане на %s. Даведайцеся больш пра тое, як рэдагаваць і абнаўляць карту на OpenStreetMap.org</string>

@@ -519,6 +519,7 @@
 	<string name="editor_edit_place_category_title">Category</string>
 	<string name="detailed_problem_description">Detailed description of the issue</string>
 	<string name="editor_report_problem_other_title">Different problem</string>
+	<string name="placepage_add_business_button">Add business</string>
 	<string name="message_invalid_feature_position">No object can be located here</string>
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">Community-created OpenStreetMap data as of %s. Learn more about how to edit and update the map at OpenStreetMap.org</string>

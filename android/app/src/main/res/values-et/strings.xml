@@ -484,6 +484,7 @@
 	<string name="editor_edit_place_category_title">Kategooria</string>
 	<string name="detailed_problem_description">Probleemi üksikasjalik kirjeldus</string>
 	<string name="editor_report_problem_other_title">Erinev probleem</string>
+	<string name="placepage_add_business_button">Lisa ettevõte</string>
 	<string name="message_invalid_feature_position">Ükski objekt ei saa siin asuda</string>
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">Ühenduse loodud OpenStreetMapi andmed alates %s. Lisateave selle kohta, kuidas kaarti redigeerida ja uuendada, on aadressil OpenStreetMap.org.</string>

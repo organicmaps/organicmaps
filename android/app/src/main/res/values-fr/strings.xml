@@ -497,6 +497,7 @@
 	<string name="editor_edit_place_category_title">Catégorie</string>
 	<string name="detailed_problem_description">Description détaillée du problème</string>
 	<string name="editor_report_problem_other_title">Autre problème</string>
+	<string name="placepage_add_business_button">Ajouter une entreprise</string>
 	<string name="message_invalid_feature_position">Aucun objet ne peut être localisé ici</string>
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">Données OpenStreetMap créées par la communauté en date du %s. Pour en savoir plus sur la façon de modifier et de mettre à jour la carte, consulte le site OpenStreetMap.org.</string>

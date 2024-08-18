@@ -494,6 +494,7 @@
 	<string name="editor_edit_place_category_title">Kategoria</string>
 	<string name="detailed_problem_description">Ongelman tarkka kuvaus</string>
 	<string name="editor_report_problem_other_title">Eri ongelma</string>
+	<string name="placepage_add_business_button">Lisää organisaatio</string>
 	<string name="message_invalid_feature_position">Kohdetta ei voida asettaa tänne</string>
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">Yhteisön luomat OpenStreetMap-tiedot %s:sta alkaen. Lisätietoja kartan muokkaamisesta ja päivittämisestä osoitteessa OpenStreetMap.org.</string>

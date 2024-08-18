@@ -458,6 +458,7 @@
 	<string name="editor_edit_place_category_title">Категория</string>
 	<string name="detailed_problem_description">Подробно описание на проблема</string>
 	<string name="editor_report_problem_other_title">Друг проблем</string>
+	<string name="placepage_add_business_button">Добавяне на бизнес</string>
 	<string name="message_invalid_feature_position">Тук не може да бъде намерен обект</string>
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">Създадени от общността данни от OpenStreetMap към %s. Научете повече за това как да редактирате и актуализирате картата в OpenStreetMap.org</string>
