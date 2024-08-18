@@ -11,6 +11,6 @@
     android:id="@+id/tv__editor"
     style="@style/PlacePageMetadataText.Button"
     android:gravity="center"
-    android:text="@string/placepage_add_place_button"/>
+    android:text="@string/placepage_add_business_button"/>
 
 </LinearLayout>
