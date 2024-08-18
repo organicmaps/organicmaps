@@ -18651,6 +18651,57 @@ cont {
   }
 }
 cont {
+  name: "craft"
+  element {
+    scale: 18
+    symbol {
+      name: "craft-m"
+      priority: 500
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9500
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "craft-m"
+      priority: 500
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9500
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "craft-m"
+      priority: 500
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9500
+    }
+  }
+}
+cont {
   name: "craft-beekeeper"
   element {
     scale: 17
@@ -120849,7 +120900,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "hand-m"
+      name: "craft-m"
       priority: 1600
       min_distance: 10
     }
@@ -120866,7 +120917,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "hand-m"
+      name: "craft-m"
       priority: 1600
       min_distance: 24
     }
@@ -120883,7 +120934,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hand-m"
+      name: "craft-m"
       priority: 1600
       min_distance: 24
     }
@@ -120900,7 +120951,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-m"
+      name: "craft-m"
       priority: 1600
       min_distance: 24
     }
@@ -120917,7 +120968,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "hand-m"
+      name: "craft-m"
       priority: 1600
       min_distance: 24
     }
