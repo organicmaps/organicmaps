@@ -2111,4 +2111,6 @@
 	<string name="type.self_service.no">Pas en libre-service</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Établissement de services sociaux</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
+	<string name="type.emergency.emergency_ward_entrance">Entrée du service des urgences</string>
 </resources>

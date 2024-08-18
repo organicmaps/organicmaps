@@ -1934,4 +1934,6 @@
 	<string name="type.self_service.no">셀프 서비스 없음</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">사회 시설</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
+	<string name="type.emergency.emergency_ward_entrance">응급 병동 입구</string>
 </resources>

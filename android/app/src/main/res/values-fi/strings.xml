@@ -2081,4 +2081,6 @@
 	<string name="type.self_service.no">Ei itsepalvelua</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Sosiaalinen väline</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
+	<string name="type.emergency.emergency_ward_entrance">Hätäosaston sisäänkäynti</string>
 </resources>

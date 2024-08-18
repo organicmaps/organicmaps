@@ -1927,4 +1927,6 @@
 	<string name="type.self_service.no">Không tự phục vụ</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Cơ sở xã hội</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
+	<string name="type.emergency.emergency_ward_entrance">Lối vào khu cấp cứu</string>
 </resources>

@@ -1849,4 +1849,6 @@
 	<string name="type.self_service.no">Sem autoatendimento</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Unidade de assistência social</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
+	<string name="type.emergency.emergency_ward_entrance">Entrada da ala de emergência</string>
 </resources>
