@@ -1942,4 +1942,6 @@
 	<string name="type.self_service.no">Fără autoservire</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Facilitate socială</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
+	<string name="type.emergency.emergency_ward_entrance">Intrarea secției de urgență</string>
 </resources>

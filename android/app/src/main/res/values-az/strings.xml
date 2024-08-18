@@ -2111,4 +2111,6 @@
 	<string name="type.self_service.no">Özünə xidmət yoxdur</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Sosial obyekt</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
+	<string name="type.emergency.emergency_ward_entrance">Təcili yardım şöbəsinin girişi</string>
 </resources>

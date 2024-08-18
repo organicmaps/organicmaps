@@ -1208,4 +1208,6 @@
 	<string name="type.self_service.no">कोई स्व-सेवा नहीं</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">सामाजिक सुविधा</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
+	<string name="type.emergency.emergency_ward_entrance">आपातकालीन वार्ड प्रवेश द्वार</string>
 </resources>

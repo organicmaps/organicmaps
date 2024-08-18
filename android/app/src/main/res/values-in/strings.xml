@@ -1919,4 +1919,6 @@
 	<string name="type.self_service.no">Tidak ada layanan mandiri</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Fasilitas Sosial</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
+	<string name="type.emergency.emergency_ward_entrance">Pintu Masuk Bangsal Darurat</string>
 </resources>

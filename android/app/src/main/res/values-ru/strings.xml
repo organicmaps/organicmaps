@@ -2187,4 +2187,6 @@
 	<string name="type.self_service.no">Никакого самообслуживания</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Социальное учреждение</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
+	<string name="type.emergency.emergency_ward_entrance">Вход в отделение неотложной помощи</string>
 </resources>

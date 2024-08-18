@@ -2116,4 +2116,6 @@
 	<string name="type.self_service.no">Žiadna samoobsluha</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Sociálne zariadenie</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
+	<string name="type.emergency.emergency_ward_entrance">Vchod do pohotovostného oddelenia</string>
 </resources>

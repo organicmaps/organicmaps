@@ -1943,4 +1943,6 @@
 	<string name="type.self_service.no">स्व-सेवा नाही</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">सामाजिक सुविधा</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
+	<string name="type.emergency.emergency_ward_entrance">आपत्कालीन प्रभाग प्रवेशद्वार</string>
 </resources>
