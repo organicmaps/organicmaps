@@ -1493,7 +1493,7 @@ node|z16-[barrier=turnstile],
 {icon-image: dot-m.svg;font-size: 11;}
 
 node|z16-[barrier=entrance],
-{icon-image: barrier-entrance-s.svg; font-size: 11;}
+{icon-image: entrance-barrier-s.svg; font-size: 11;}
 
 node|z16-[barrier=gate],
 node|z16-[barrier=kissing_gate],
