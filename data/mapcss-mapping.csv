@@ -1713,3 +1713,4 @@ railway|subway_entrance|boston;[railway=subway_entrance][city=boston];;name;int_
 leisure|miniature_golf;1598;
 amenity|social_facility;1599;
 craft;[craft?];;name;int_name;1600;
+emergency|emergency_ward_entrance;1601;

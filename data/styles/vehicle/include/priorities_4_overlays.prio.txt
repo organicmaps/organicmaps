@@ -680,6 +680,7 @@ amenity-parking-private                             # icon z17- (also has captio
 amenity-parking-street_side-private                 # icon z17- (also has caption(optional) z17-, area z15-)
 amenity-parking-underground-private                 # icon z17- (also has caption(optional) z17-)
 amenity-parking_entrance-private                    # icon z19-
+emergency-emergency_ward_entrance                   # icon z18- (also has caption(optional) z18-)
 === 500
 
 natural-wetland                                     # caption z16- (also has area z11-)
@@ -1153,6 +1154,7 @@ entrance-main                                       # icon z18- (also has captio
 # amenity-parking-private                           # caption(optional) z17- (also has icon z17-, area z15-)
 # amenity-parking-street_side-private               # caption(optional) z17- (also has icon z17-, area z15-)
 # amenity-parking-underground-private               # caption(optional) z17- (also has icon z17-)
+# emergency-emergency_ward_entrance                 # caption(optional) z18- (also has icon z18-)
 # === -9500
 
 # railway-tram_stop                                 # caption(optional) z17- (also has icon z17-)
