@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,8 +24,6 @@ import app.organicmaps.util.concurrency.UiThread;
 
 public class OsmLoginFragment extends BaseMwmToolbarFragment
 {
-  private FrameLayout loginBottomSheet;
-  //private BottomSheetBehavior<FrameLayout> standardBottomSheetBehavior;
   private Button mLoginUsernameButton;
   private Button mLoginWebsiteButton;
 
@@ -75,18 +72,13 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
 
   private void loginWithBrowser()
   {
-    String[] oauthParams = OsmOAuth.nativeOAuthParams();
-    Uri oauth2url = Uri.parse(oauthParams[0] + "/oauth2/authorize")
-            .buildUpon()
-            .appendQueryParameter("client_id", oauthParams[1])
-            .appendQueryParameter("scope", oauthParams[3])
-            .appendQueryParameter("redirect_uri", oauthParams[4])
-            .appendQueryParameter("response_type", "code")
-            .build();
-    try {
-      Intent myIntent = new Intent(Intent.ACTION_VIEW, oauth2url);
+    try
+    {
+      Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(OsmOAuth.nativeGetOAuth2Url()));
       startActivity(myIntent);
-    } catch (ActivityNotFoundException e) {
+    }
+    catch (ActivityNotFoundException e)
+    {
       //Toast.makeText(this, "No application can handle this request."
       //        + " Please install a webbrowser",  Toast.LENGTH_LONG).show();
       e.printStackTrace();
@@ -100,9 +92,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
       return;
 
     if (oauth2code == null || oauth2code.isEmpty())
-    {
       onAuthFail();
-    }
     else
     {
       ThreadPool.getWorker().execute(() -> {

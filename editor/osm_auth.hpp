@@ -109,6 +109,7 @@ public:
   {
     return m_baseUrl + "/user/" + user + "/history";
   }
+  std::string BuildOAuth2Url() const;
   //@}
 
 private:
@@ -143,7 +144,6 @@ private:
   /// @returns valid key and secret or throws otherwise.
   std::string FetchRequestToken(SessionID const & sid) const;
   std::string FetchAccessToken(SessionID const & sid) const;
-  //AuthResult FetchAccessToken(SessionID const & sid);
 };
 
 std::string DebugPrint(OsmOAuth::Response const & code);

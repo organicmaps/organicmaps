@@ -34,18 +34,11 @@ bool LoadOsmUserPreferences(std::string const & oauthToken, UserPreferences & ou
 extern "C"
 {
 
-JNIEXPORT jobjectArray JNICALL
-Java_app_organicmaps_editor_OsmOAuth_nativeOAuthParams(JNIEnv * env, jclass clazz)
+JNIEXPORT jstring JNICALL
+Java_app_organicmaps_editor_OsmOAuth_nativeGetOAuth2Url(JNIEnv * env, jclass)
 {
-    OsmOAuth auth = OsmOAuth::ServerAuth();
-    jobjectArray oauthParams = env->NewObjectArray(5, env->FindClass("java/lang/String"), nullptr);
-    env->SetObjectArrayElement(oauthParams, 0, ToJavaString(env, auth.GetBaseUrl()));
-    env->SetObjectArrayElement(oauthParams, 1, ToJavaString(env, auth.GetClientId()));
-    env->SetObjectArrayElement(oauthParams, 2, ToJavaString(env, auth.GetClientSecret()));
-    env->SetObjectArrayElement(oauthParams, 3, ToJavaString(env, auth.GetScope()));
-    env->SetObjectArrayElement(oauthParams, 4, ToJavaString(env, auth.GetRedirectUri()));
-
-    return oauthParams;
+    auto const auth = OsmOAuth::ServerAuth();
+    return ToJavaString(env, auth.BuildOAuth2Url());
 }
 
 JNIEXPORT jstring JNICALL
@@ -67,7 +60,7 @@ Java_app_organicmaps_editor_OsmOAuth_nativeAuthWithPassword(JNIEnv * env, jclass
 }
 
 JNIEXPORT jstring JNICALL
-Java_app_organicmaps_editor_OsmOAuth_nativeAuthWithOAuth2Code(JNIEnv * env, jclass clazz, jstring oauth2code)
+Java_app_organicmaps_editor_OsmOAuth_nativeAuthWithOAuth2Code(JNIEnv * env, jclass, jstring oauth2code)
 {
   OsmOAuth auth = OsmOAuth::ServerAuth();
   try
@@ -78,7 +71,7 @@ Java_app_organicmaps_editor_OsmOAuth_nativeAuthWithOAuth2Code(JNIEnv * env, jcla
         auth.SetAuthToken(token);
         return ToJavaString(env, token);
     }
-    LOG(LWARNING, ("nativeAuthWithOAuth2Code: invalid OAuth2 code"));
+    LOG(LWARNING, ("nativeAuthWithOAuth2Code: invalid OAuth2 code", oauth2code));
   }
   catch (std::exception const & ex)
   {

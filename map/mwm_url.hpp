@@ -96,7 +96,7 @@ public:
 
   std::string const & GetOAuth2Code() const
   {
-    ASSERT_EQUAL(m_requestType, UrlType::OAuth2, ("Expected Search API"));
+    ASSERT_EQUAL(m_requestType, UrlType::OAuth2, ("Expected OAuth2 API"));
     return m_oauth2code;
   }
 

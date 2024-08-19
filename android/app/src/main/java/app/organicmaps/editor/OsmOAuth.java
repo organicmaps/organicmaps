@@ -104,7 +104,7 @@ public final class OsmOAuth
    Returns 5 strings: ServerURL, ClientId, ClientSecret, Scope, RedirectUri
    */
   @NonNull
-  public static native String[] nativeOAuthParams();
+  public static native String nativeGetOAuth2Url();
 
   /**
    * @return string with OAuth2 token
