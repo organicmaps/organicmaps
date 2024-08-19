@@ -1712,3 +1712,4 @@ railway|station|subway|boston;[railway=station][transport=subway][city=boston],[
 railway|subway_entrance|boston;[railway=subway_entrance][city=boston];;name;int_name;1597;
 leisure|miniature_golf;1598;
 amenity|social_facility;1599;
+craft;[craft?];;name;int_name;1600;
