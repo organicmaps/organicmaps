@@ -509,6 +509,7 @@ node|z18-[addr:housenumber][addr:street]::int_name,
 {text: int_name; text-color: @housenumber; text-position: center;}
 
 node|z18-[entrance=main],
+node|z18-[emergency=emergency_ward_entrance],
 node|z19-[entrance],
 node|z19-[entrance=exit],
 node|z19-[amenity=loading_dock],
@@ -550,6 +551,8 @@ node|z19-[entrance=exit],
 {icon-image: entrance-exit-s.svg; font-size: 13; text-offset: 1;}
 node|z18-[entrance=main],
 {icon-image: entrance-main-s.svg; font-size: 13; text-offset: 1;}
+node|z18-[emergency=emergency_ward_entrance],
+{icon-image: entrance-emergency-s.svg; font-size: 13; text-offset: 1;}
 
 /* 8.3 Airports */
 area|z14-[aeroway=terminal]

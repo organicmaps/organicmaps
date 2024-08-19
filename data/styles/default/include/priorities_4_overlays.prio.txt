@@ -1158,6 +1158,7 @@ amenity-motorcycle_parking                          # icon z17- (also has captio
 amenity-parking-permissive                          # icon z16- (also has caption(optional) z18-, area z15-)
 amenity-parking_entrance                            # icon z17- (also has caption(optional) z19-)
 amenity-parking_entrance-permissive                 # icon z17- (also has caption(optional) z19-)
+emergency-emergency_ward_entrance                   # icon z18- (also has caption(optional) z18-)
 === 250
 
 building                                            # caption z16- (also has area z14-)
@@ -2044,6 +2045,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # amenity-parking-permissive                        # caption(optional) z18- (also has icon z16-, area z15-)
 # amenity-parking_entrance                          # caption(optional) z19- (also has icon z17-)
 # amenity-parking_entrance-permissive               # caption(optional) z19- (also has icon z17-)
+# emergency-emergency_ward_entrance                 # caption(optional) z18- (also has icon z18-)
 # === -9750
 
 # power-plant-wind                                  # caption(optional) z16- (also has icon z15-)
