@@ -63,119 +63,32 @@
       <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_half">
-        <com.google.android.material.textfield.TextInputLayout
-          android:id="@+id/osm_username_container"
-          style="@style/MwmWidget.Editor.CustomTextInput"
-          android:layout_width="0dp"
-          android:layout_marginEnd="@dimen/margin_half"
-          android:textColorHint="?android:textColorSecondary"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toStartOf="@id/osm_password_container"
-          app:layout_constraintTop_toTopOf="parent"
-          app:endIconMode="custom">
-          <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/osm_username"
-            style="@style/MwmWidget.Editor.FieldLayout.EditText"
-            android:autofillHints="emailAddress"
-            android:hint="@string/email_or_username" />
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-          android:id="@+id/osm_password_container"
-          style="@style/MwmWidget.Editor.CustomTextInput"
-          android:layout_width="0dp"
-          android:textColorHint="?android:textColorSecondary"
-          app:layout_constraintStart_toEndOf="@id/osm_username_container"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          app:endIconMode="password_toggle"
-          app:endIconTint="?android:textColorSecondary">
-          <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/osm_password"
-            style="@style/MwmWidget.Editor.FieldLayout.EditText"
-            android:autofillHints="password"
-            android:hint="@string/password"
-            android:inputType="textPassword" />
-        </com.google.android.material.textfield.TextInputLayout>
-      </androidx.constraintlayout.widget.ConstraintLayout>
-      <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_base">
-        <FrameLayout
-          android:id="@+id/login_container"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toEndOf="@id/lost_password"
-          app:layout_constraintTop_toTopOf="parent">
-          <Button
-            android:id="@+id/login"
-            style="@style/MwmWidget.Button.Accent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/login_osm"
-            android:textAppearance="@style/MwmTextAppearance.Body2.Light" />
-          <ProgressBar
-            android:id="@+id/osm_login_progress"
-            android:layout_width="@dimen/editor_auth_btn_height"
-            android:layout_height="@dimen/editor_auth_btn_height"
-            android:layout_gravity="center"
-            android:elevation="@dimen/design_fab_elevation"
-            android:visibility="gone" />
-        </FrameLayout>
-        <Button
-          android:id="@+id/lost_password"
-          style="@style/MwmWidget.Button"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:background="?clickableBackground"
-          android:gravity="start|center_vertical"
-          android:padding="@dimen/margin_half"
-          android:text="@string/forgot_password"
-          android:textAppearance="@style/MwmTextAppearance.Body3"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toStartOf="@id/login_container"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent" />
-      </androidx.constraintlayout.widget.ConstraintLayout>
-      <com.google.android.material.divider.MaterialDivider
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_base"
-        android:layout_marginBottom="@dimen/margin_base" />
-      <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-          android:id="@+id/register_text"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:fontFamily="@string/robotoRegular"
-          android:gravity="start|center_vertical"
-          android:text="@string/no_osm_account"
-          android:textAppearance="@style/MwmTextAppearance.Body2"
-          android:textColor="?android:textColorPrimary"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toStartOf="@id/register"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginBottom="@dimen/margin_base">
         <Button
-          android:id="@+id/register"
+          android:id="@+id/login_website"
           style="@style/MwmWidget.Button.Accent"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:background="@drawable/button_editor_light"
-          android:fontFamily="@string/robotoMedium"
-          android:padding="@dimen/margin_quarter"
-          android:text="@string/register_at_openstreetmap"
-          android:textAppearance="@style/MwmTextAppearance.Body2"
-          android:textColor="@color/text_dark"
+          android:padding="@dimen/margin_half"
+            android:layout_marginEnd="@dimen/margin_base"
+          android:text="Login with OSM website"
+          android:textAppearance="@style/MwmTextAppearance.Body2.Light"
           app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toEndOf="@id/register_text"
+          app:layout_constraintEnd_toStartOf="@id/login_username"
+          app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent" />
+        <Button
+          android:id="@+id/login_username"
+          style="@style/MwmWidget.Button.Accent"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:text="Login with username"
+          android:textAppearance="@style/MwmTextAppearance.Body2.Light"
+          app:layout_constraintStart_toEndOf="@id/login_website"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent" />
       </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
   </ScrollView>
