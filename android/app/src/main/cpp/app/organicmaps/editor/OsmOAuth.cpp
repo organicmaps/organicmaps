@@ -37,8 +37,8 @@ extern "C"
 JNIEXPORT jstring JNICALL
 Java_app_organicmaps_editor_OsmOAuth_nativeGetOAuth2Url(JNIEnv * env, jclass)
 {
-    auto const auth = OsmOAuth::ServerAuth();
-    return ToJavaString(env, auth.BuildOAuth2Url());
+  auto const auth = OsmOAuth::ServerAuth();
+  return ToJavaString(env, auth.BuildOAuth2Url());
 }
 
 JNIEXPORT jstring JNICALL

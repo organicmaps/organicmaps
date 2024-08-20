@@ -282,7 +282,7 @@ string OsmOAuth::BuildOAuth2Url() const
        {"scope", m_oauth2params.m_scope},
        {"response_type", "code"}
    });
-   return requestTokenUrl + "?" + requestTokenQuery;
+   return requestTokenUrl.append('?').append(requestTokenQuery);
 }
 
 string OsmOAuth::FinishAuthorization(string const & oauth2code) const

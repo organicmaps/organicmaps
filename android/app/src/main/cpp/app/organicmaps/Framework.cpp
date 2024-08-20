@@ -865,8 +865,8 @@ Java_app_organicmaps_Framework_nativeGetParsedAppName(JNIEnv * env, jclass)
 JNIEXPORT jstring JNICALL
 Java_app_organicmaps_Framework_nativeGetParsedOAuth2Code(JNIEnv * env, jclass)
 {
-    std::string const & code = frm()->GetParsedOAuth2Code();
-    return jni::ToJavaString(env, code);
+  std::string const & code = frm()->GetParsedOAuth2Code();
+  return jni::ToJavaString(env, code);
 }
 
 JNIEXPORT jstring JNICALL

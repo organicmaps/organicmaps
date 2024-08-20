@@ -24,7 +24,8 @@ import app.organicmaps.util.Utils;
 import app.organicmaps.util.concurrency.ThreadPool;
 import app.organicmaps.util.concurrency.UiThread;
 
-public class OsmLoginBottomFragment extends BottomSheetDialogFragment {
+public class OsmLoginBottomFragment extends BottomSheetDialogFragment
+{
     final private OsmLoginFragment parentFragment;
     private TextInputEditText mLoginInput;
     private TextInputEditText mPasswordInput;
