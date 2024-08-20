@@ -19,6 +19,7 @@ import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
 import app.organicmaps.util.DateUtils;
+import app.organicmaps.util.Utils;
 import app.organicmaps.util.concurrency.ThreadPool;
 import app.organicmaps.util.concurrency.UiThread;
 
@@ -72,17 +73,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
 
   private void loginWithBrowser()
   {
-    try
-    {
-      Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(OsmOAuth.nativeGetOAuth2Url()));
-      startActivity(myIntent);
-    }
-    catch (ActivityNotFoundException e)
-    {
-      //Toast.makeText(this, "No application can handle this request."
-      //        + " Please install a webbrowser",  Toast.LENGTH_LONG).show();
-      e.printStackTrace();
-    }
+    Utils.openUri(requireContext(), Uri.parse(OsmOAuth.nativeGetOAuth2Url()));
   }
 
   // This method is called by MwmActivity & UrlProcessor when "om://oauth2/osm/callback?code=XXX" is handled
