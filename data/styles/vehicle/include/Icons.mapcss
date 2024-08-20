@@ -443,6 +443,8 @@ node|z15-[amenity=cafe],
 area|z15-[amenity=cafe],
 node|z16-[amenity=restaurant],
 area|z16-[amenity=restaurant],
+node|z16-[amenity=pub],
+area|z16-[amenity=pub],
 node|z17-[amenity=fast_food],
 area|z17-[amenity=fast_food],
 {text: name;text-color: @poi_label;text-offset: 1;font-size: 13;}
@@ -456,16 +458,22 @@ area|z16[amenity=cafe]
 node|z16[amenity=restaurant],
 area|z16[amenity=restaurant]
 {icon-image: restaurant-m.svg;icon-min-distance: 22;font-size: 12.75;}
+node|z16[amenity=pub],
+area|z16[amenity=pub]
+{icon-image: beer-m.svg;icon-min-distance: 22;font-size: 12.75;}
+
 node|z17[amenity=cafe],
 area|z17[amenity=cafe]
 {icon-image: cafe-m.svg;icon-min-distance: 20;font-size: 13.75;}
 node|z17[amenity=restaurant],
 area|z17[amenity=restaurant]
 {icon-image: restaurant-m.svg;icon-min-distance: 22;font-size: 13.75;}
+node|z17[amenity=pub],
+area|z17[amenity=pub]
+{icon-image: beer-m.svg;icon-min-distance: 22;font-size: 13.75;}
 node|z17[amenity=fast_food],
 area|z17[amenity=fast_food]
 {icon-image: fastfood-m.svg;icon-min-distance: 25;font-size: 13.75;}
-
 
 node|z18[amenity=cafe],
 area|z18[amenity=cafe]
@@ -473,6 +481,9 @@ area|z18[amenity=cafe]
 node|z18[amenity=restaurant],
 area|z18[amenity=restaurant]
 {icon-image: restaurant-m.svg;icon-min-distance: 25;font-size: 14.5;}
+node|z18[amenity=pub],
+area|z18[amenity=pub]
+{icon-image: beer-m.svg;icon-min-distance: 25;font-size: 14.5;}
 node|z18[amenity=fast_food],
 area|z18[amenity=fast_food]
 {icon-image: fastfood-m.svg;icon-min-distance: 25;font-size: 14.5;}
@@ -483,10 +494,12 @@ area|z19-[amenity=cafe]
 node|z19-[amenity=restaurant],
 area|z19-[amenity=restaurant]
 {icon-image: restaurant-m.svg;icon-min-distance: 40;font-size: 14.5;}
+node|z19-[amenity=pub],
+area|z19-[amenity=pub]
+{icon-image: beer-m.svg;icon-min-distance: 40;font-size: 14.5;}
 node|z19-[amenity=fast_food],
 area|z19-[amenity=fast_food]
 {icon-image: fastfood-m.svg;icon-min-distance: 45;font-size: 14.5;}
-
 
 /* 5.AMENITY (infrastructure) */
 node|z17-[amenity=place_of_worship],
