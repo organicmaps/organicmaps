@@ -4960,6 +4960,94 @@ cont {
   }
 }
 cont {
+  name: "amenity-pub"
+  element {
+    scale: 16
+    symbol {
+      name: "beer-m"
+      priority: 750
+      min_distance: 22
+    }
+    caption {
+      primary {
+        height: 12
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9250
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "beer-m"
+      priority: 750
+      min_distance: 22
+    }
+    caption {
+      primary {
+        height: 13
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9250
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "beer-m"
+      priority: 750
+      min_distance: 25
+    }
+    caption {
+      primary {
+        height: 14
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9250
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "beer-m"
+      priority: 750
+      min_distance: 40
+    }
+    caption {
+      primary {
+        height: 14
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9250
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "beer-m"
+      priority: 750
+      min_distance: 40
+    }
+    caption {
+      primary {
+        height: 14
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9250
+    }
+  }
+}
+cont {
   name: "amenity-restaurant"
   element {
     scale: 16
