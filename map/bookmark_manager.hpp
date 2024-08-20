@@ -145,6 +145,7 @@ public:
 
     void MoveBookmark(kml::MarkId bmID, kml::MarkGroupId curGroupID, kml::MarkGroupId newGroupID);
     void UpdateBookmark(kml::MarkId bmId, kml::BookmarkData const & bm);
+    void UpdateTrack(kml::TrackId trackId, kml::TrackData const & trackData);
 
     void AttachBookmark(kml::MarkId bmId, kml::MarkGroupId groupId);
     void DetachBookmark(kml::MarkId bmId, kml::MarkGroupId groupId);
@@ -599,6 +600,7 @@ private:
 
   void MoveBookmark(kml::MarkId bmID, kml::MarkGroupId curGroupID, kml::MarkGroupId newGroupID);
   void UpdateBookmark(kml::MarkId bmId, kml::BookmarkData const & bm);
+  void UpdateTrack(kml::TrackId trackId, kml::TrackData const & trackData);
 
   UserMark const * GetMark(kml::MarkId markId) const;
 
