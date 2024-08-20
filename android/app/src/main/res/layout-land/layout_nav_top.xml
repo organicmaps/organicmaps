@@ -122,4 +122,86 @@
 
     <include layout="@layout/nav_lanes" />
   </FrameLayout>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/next_stop_frame"
+    android:layout_width="130dp"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="8dp"
+    android:layout_marginTop="8dp"
+    android:background="?navNextNextTurnFrame"
+    app:layout_constraintLeft_toLeftOf="@id/nav_next_turn_container"
+    app:layout_constraintTop_toBottomOf="@id/nav_next_turn_container">
+
+    <ImageView
+      android:id="@+id/ic_route_stop"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_margin="2dp"
+      android:gravity="center_vertical"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:srcCompat="@drawable/ic_route_stop" />
+
+    <TextView
+      android:id="@+id/next_stop_pos"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_margin="8dp"
+      android:layout_marginStart="4dp"
+      android:background="@android:color/transparent"
+      android:gravity="center_vertical"
+      android:text="99"
+      android:textSize="18sp"
+      android:textColor="@color/white_primary"
+      android:textStyle="bold"
+      app:layout_constraintBottom_toBottomOf="@id/ic_route_stop"
+      app:layout_constraintStart_toStartOf="@id/ic_route_stop"
+      app:layout_constraintEnd_toEndOf="@id/ic_route_stop"
+      app:layout_constraintTop_toTopOf="@id/ic_route_stop" />
+
+    <TextView
+      android:id="@+id/distance_to_next_stop"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="8dp"
+      android:layout_marginTop="2dp"
+      android:background="@android:color/transparent"
+      android:text="9999 Km"
+      android:textSize="16sp"
+      android:textStyle="bold"
+      app:layout_constraintLeft_toRightOf="@id/ic_route_stop"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+      android:id="@+id/remaining_time_to_next_stop"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="8dp"
+      android:layout_marginTop="2dp"
+      android:layout_marginBottom="2dp"
+      android:background="@android:color/transparent"
+      android:text="99h 59 min"
+      android:textSize="16sp"
+      android:textStyle="bold"
+      app:layout_constraintLeft_toRightOf="@id/ic_route_stop"
+      app:layout_constraintTop_toBottomOf="@id/distance_to_next_stop" />
+
+    <TextView
+      android:id="@+id/eta_to_next_stop"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="8dp"
+      android:layout_marginTop="2dp"
+      android:layout_marginBottom="2dp"
+      android:background="@android:color/transparent"
+      android:text="23:59"
+      android:textSize="16sp"
+      android:textStyle="bold"
+      app:layout_constraintLeft_toRightOf="@id/ic_route_stop"
+      app:layout_constraintTop_toBottomOf="@id/remaining_time_to_next_stop"
+      app:layout_constraintBottom_toBottomOf="parent" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

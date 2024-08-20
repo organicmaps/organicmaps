@@ -39,6 +39,10 @@ public class RoutingInfo
   public final double speedLimitMps;
   private final boolean speedCamLimitExceeded;
   private final boolean shouldPlayWarningSignal;
+  // Next stop info.
+  public final int nextStopPos;
+  public final Distance distToNextStop;
+  public final int timeToNextStop;
 
   /**
    * IMPORTANT : Order of enum values MUST BE the same as native CarDirection enum.
@@ -144,7 +148,7 @@ public class RoutingInfo
   public RoutingInfo(Distance distToTarget, Distance distToTurn, String currentStreet, String nextStreet, String nextNextStreet, double completionPercent,
                      int vehicleTurnOrdinal, int vehicleNextTurnOrdinal, int pedestrianTurnOrdinal, int exitNum,
                      int totalTime, SingleLaneInfo[] lanes, double speedLimitMps, boolean speedLimitExceeded,
-                     boolean shouldPlayWarningSignal)
+                     boolean shouldPlayWarningSignal, int nextStopPos, Distance distToNextStop, int timeToNextStop)
   {
     this.distToTarget = distToTarget;
     this.distToTurn = distToTurn;
@@ -161,6 +165,9 @@ public class RoutingInfo
     this.speedLimitMps = speedLimitMps;
     this.speedCamLimitExceeded = speedLimitExceeded;
     this.shouldPlayWarningSignal = shouldPlayWarningSignal;
+    this.nextStopPos = nextStopPos;
+    this.distToNextStop = distToNextStop;
+    this.timeToNextStop = timeToNextStop;
   }
 
   public boolean isSpeedCamLimitExceeded()
