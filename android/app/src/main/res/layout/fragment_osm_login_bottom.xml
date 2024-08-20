@@ -22,35 +22,35 @@
       android:padding="@dimen/margin_base"
       tools:ignore="ScrollViewSize">
       <LinearLayout
-          android:id="@+id/login_bottom_sheet"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="vertical">
+        android:id="@+id/login_bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/MwmWidget.Editor.CustomTextInput"
-            android:layout_marginTop="@dimen/margin_half"
-            android:textColorHint="?android:textColorSecondary"
-            app:endIconMode="custom">
+          style="@style/MwmWidget.Editor.CustomTextInput"
+          android:layout_marginTop="@dimen/margin_half"
+          android:textColorHint="?android:textColorSecondary"
+          app:endIconMode="custom">
           <com.google.android.material.textfield.TextInputEditText
-              android:id="@+id/osm_username"
-              style="@style/MwmWidget.Editor.FieldLayout.EditText"
-              android:padding="@dimen/margin_half_double_plus"
-              android:autofillHints="emailAddress"
-              android:hint="@string/email_or_username" />
+            android:id="@+id/osm_username"
+            style="@style/MwmWidget.Editor.FieldLayout.EditText"
+            android:padding="@dimen/margin_half_double_plus"
+            android:autofillHints="emailAddress"
+            android:hint="@string/email_or_username" />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/MwmWidget.Editor.CustomTextInput"
-            android:textColorHint="?android:textColorSecondary"
-            app:endIconMode="password_toggle"
-            app:endIconTint="?android:textColorSecondary">
+          style="@style/MwmWidget.Editor.CustomTextInput"
+          android:textColorHint="?android:textColorSecondary"
+          app:endIconMode="password_toggle"
+          app:endIconTint="?android:textColorSecondary">
           <com.google.android.material.textfield.TextInputEditText
-              android:id="@+id/osm_password"
-              style="@style/MwmWidget.Editor.FieldLayout.EditText"
-              android:padding="@dimen/margin_half_double_plus"
-              android:autofillHints="password"
-              android:hint="@string/password"
-              android:inputType="textPassword" />
+            android:id="@+id/osm_password"
+            style="@style/MwmWidget.Editor.FieldLayout.EditText"
+            android:padding="@dimen/margin_half_double_plus"
+            android:autofillHints="password"
+            android:hint="@string/password"
+            android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
       </LinearLayout>
 
@@ -64,7 +64,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:text="Login with username"
-            android:layout_marginTop="@dimen/margin_half"
+          android:layout_marginTop="@dimen/margin_half"
           android:textAppearance="@style/MwmTextAppearance.Body2.Light" />
         <ProgressBar
           android:id="@+id/osm_login_progress"
@@ -76,32 +76,32 @@
       </FrameLayout>
 
       <LinearLayout
-          android:layout_width="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/margin_base">
+        <Button
+          android:id="@+id/lost_password"
+          style="@style/MwmWidget.Button"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:orientation="horizontal"
-          android:layout_marginTop="@dimen/margin_base">
+          android:layout_gravity="start"
+          android:layout_weight="1"
+          android:background="?clickableBackground"
+          android:padding="@dimen/margin_quarter"
+          android:text="@string/forgot_password"
+          android:textAppearance="@style/MwmTextAppearance.Body3" />
         <Button
-            android:id="@+id/lost_password"
-            style="@style/MwmWidget.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_weight="1"
-            android:background="?clickableBackground"
-            android:padding="@dimen/margin_quarter"
-            android:text="@string/forgot_password"
-            android:textAppearance="@style/MwmTextAppearance.Body3" />
-        <Button
-            android:id="@+id/register"
-            style="@style/MwmWidget.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="end"
-            android:background="?clickableBackground"
-            android:padding="@dimen/margin_quarter"
-            android:text="@string/register_at_openstreetmap"
-            android:textAppearance="@style/MwmTextAppearance.Body3" />
+          android:id="@+id/register"
+          style="@style/MwmWidget.Button"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:layout_gravity="end"
+          android:background="?clickableBackground"
+          android:padding="@dimen/margin_quarter"
+          android:text="@string/register_at_openstreetmap"
+          android:textAppearance="@style/MwmTextAppearance.Body3" />
       </LinearLayout>
     </LinearLayout>
   </ScrollView>
