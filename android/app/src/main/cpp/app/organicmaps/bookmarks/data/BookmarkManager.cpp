@@ -791,10 +791,44 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeSetBookmarkParams(
 }
 
 JNIEXPORT void JNICALL
+Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeSetTrackParams(
+    JNIEnv * env, jclass, jlong trackId,
+    jstring name, jint color, jstring descr)
+{
+  auto const * nTrack = frm()->GetBookmarkManager().GetTrack(static_cast<kml::TrackId>(trackId));
+  ASSERT(nTrack, ("Track must not be null with id:", trackId));
+
+  kml::TrackData trackData(nTrack->GetData());
+  auto const trkName = jni::ToNativeString(env, name);
+  if (nTrack->GetName() != trkName)
+    kml::SetDefaultStr(trackData.m_name, trkName);
+  if (descr)
+    kml::SetDefaultStr(trackData.m_description, jni::ToNativeString(env, descr));
+  trackData.m_layers[0].m_color.m_rgba = static_cast<uint32_t>((color << 8) + 255);
+
+  g_framework->ReplaceTrack(static_cast<kml::TrackId>(trackId), trackData);
+}
+
+JNIEXPORT jstring JNICALL
+Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeGetTrackDescription(
+    JNIEnv * env, jclass, jlong trackId)
+{
+  return jni::ToJavaString(env, frm()->GetBookmarkManager().GetTrack(static_cast<kml::TrackId>(trackId))->GetDescription());
+}
+
+JNIEXPORT void JNICALL
 Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeChangeBookmarkCategory(
   JNIEnv *, jclass, jlong oldCat, jlong newCat, jlong bmk)
 {
   g_framework->MoveBookmark(static_cast<kml::MarkId>(bmk), static_cast<kml::MarkGroupId>(oldCat),
+                            static_cast<kml::MarkGroupId>(newCat));
+}
+
+JNIEXPORT void JNICALL
+Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeChangeTrackCategory(
+  JNIEnv *, jclass, jlong oldCat, jlong newCat, jlong trackId)
+{
+  g_framework->MoveTrack(static_cast<kml::TrackId>(trackId), static_cast<kml::MarkGroupId>(oldCat),
                             static_cast<kml::MarkGroupId>(newCat));
 }
 

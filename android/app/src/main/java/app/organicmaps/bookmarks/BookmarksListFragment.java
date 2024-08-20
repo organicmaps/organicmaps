@@ -677,6 +677,20 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
         });
   }
 
+  private void onTrackEditActionSelected()
+  {
+    Track track = (Track) getBookmarkListAdapter().getItem(mSelectedPosition);
+    EditBookmarkFragment.editTrack(
+        track.getCategoryId(), track.getTrackId(), requireActivity(), getChildFragmentManager(),
+        (trackId, movedFromCategory) ->
+        {
+          if (movedFromCategory)
+            resetSearchAndSort();
+          else
+            getBookmarkListAdapter().notifyDataSetChanged();
+        });
+  }
+
   private void onDeleteActionSelected()
   {
     BookmarkListAdapter adapter = getBookmarkListAdapter();
@@ -742,6 +756,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private ArrayList<MenuBottomSheetItem> getTrackMenuItems(final Track track)
   {
     ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
+    items.add(new MenuBottomSheetItem(R.string.edit, R.drawable.ic_edit, this::onTrackEditActionSelected));
     items.add(new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete, () -> onDeleteTrackSelected(track.getTrackId())));
     return items;
   }
