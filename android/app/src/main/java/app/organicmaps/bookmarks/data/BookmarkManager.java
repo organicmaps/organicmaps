@@ -631,9 +631,14 @@ public enum BookmarkManager
   }
 
   public void setTrackParams(@IntRange(from = 0) long trackId, @NonNull String name,
-                             @Icon.PredefinedColor int color, @NonNull String descr)
+                             int color, @NonNull String descr)
   {
     nativeSetTrackParams(trackId, name, color, descr);
+  }
+
+  public void changeTrackColor(@IntRange(from = 0) long trackId, int color)
+  {
+    nativeChangeTrackColor(trackId, color);
   }
 
   public void changeBookmarkCategory(@IntRange(from = 0) long oldCatId,
@@ -866,6 +871,9 @@ public enum BookmarkManager
                                                      @NonNull String name,
                                                      @Icon.PredefinedColor int color,
                                                      @NonNull String descr);
+
+  private static native void nativeChangeTrackColor(@IntRange(from = 0) long trackId,
+                                                    @Icon.PredefinedColor int color);
 
   private static native void nativeSetTrackParams(@IntRange(from = 0) long trackId,
                                                   @NonNull String name,

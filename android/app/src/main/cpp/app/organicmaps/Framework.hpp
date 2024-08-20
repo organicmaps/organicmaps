@@ -158,6 +158,7 @@ namespace android
     void Scale(::Framework::EScaleMode mode);
     void Scale(m2::PointD const & centerPt, int targetZoom, bool animate);
 
+    void ChangeTrackColor(kml::TrackId trackId, uint32_t color);
     void ReplaceBookmark(kml::MarkId markId, kml::BookmarkData & bm);
     void ReplaceTrack(kml::TrackId trackId, kml::TrackData & trackData);
     void MoveBookmark(kml::MarkId markId, kml::MarkGroupId curCat, kml::MarkGroupId newCat);
