@@ -526,6 +526,7 @@ historic-wayside_cross                              # icon z16- (also has captio
 historic-wayside_shrine                             # icon z16- (also has caption(optional) z17-)
 === 800
 
+amenity-pub                                         # icon z16- (also has caption(optional) z16-)
 amenity-restaurant                                  # icon z16- (also has caption(optional) z16-)
 === 750
 
@@ -1014,6 +1015,7 @@ entrance-main                                       # icon z18- (also has captio
 # historic-wayside_shrine                           # caption(optional) z17- (also has icon z16-)
 # === -9200
 
+# amenity-pub                                       # caption(optional) z16- (also has icon z16-)
 # amenity-restaurant                                # caption(optional) z16- (also has icon z16-)
 # === -9250
 
