@@ -55,6 +55,7 @@ public:
   size_t GetLayerCount() const override;
   dp::Color GetColor(size_t layerIndex) const override;
   void SetColor(dp::Color color);
+  void SetColor(uint32_t color);
   float GetWidth(size_t layerIndex) const override;
   float GetDepth(size_t layerIndex) const override;
   void ForEachGeometry(GeometryFnT && fn) const override;

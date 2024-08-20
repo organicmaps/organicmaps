@@ -790,21 +790,23 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeSetBookmarkParams(
   g_framework->ReplaceBookmark(static_cast<kml::MarkId>(bmk), bmData);
 }
 
+constexpr static uint8_t ExtractByte(uint32_t number, uint8_t byteIdx) { return (number >> (8 * byteIdx)) & 0xFF; }
+
 JNIEXPORT void JNICALL
 Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeSetTrackParams(
     JNIEnv * env, jclass, jlong trackId,
     jstring name, jint color, jstring descr)
 {
   auto const * nTrack = frm()->GetBookmarkManager().GetTrack(static_cast<kml::TrackId>(trackId));
-  ASSERT(nTrack, ("Track must not be null with id:", trackId));
+  CHECK(nTrack, ("Track must not be null with id:", trackId));
 
   kml::TrackData trackData(nTrack->GetData());
   auto const trkName = jni::ToNativeString(env, name);
-  if (nTrack->GetName() != trkName)
-    kml::SetDefaultStr(trackData.m_name, trkName);
-  if (descr)
-    kml::SetDefaultStr(trackData.m_description, jni::ToNativeString(env, descr));
-  trackData.m_layers[0].m_color.m_rgba = static_cast<uint32_t>((color << 8) + 255);
+  kml::SetDefaultStr(trackData.m_name, trkName);
+  kml::SetDefaultStr(trackData.m_description, jni::ToNativeString(env, descr));
+
+  uint8_t alpha = ExtractByte(color, 3);
+  trackData.m_layers[0].m_color.m_rgba = static_cast<uint32_t>(shift(color,8) + alpha);
 
   g_framework->ReplaceTrack(static_cast<kml::TrackId>(trackId), trackData);
 }
@@ -830,6 +832,14 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeChangeTrackCategory(
 {
   g_framework->MoveTrack(static_cast<kml::TrackId>(trackId), static_cast<kml::MarkGroupId>(oldCat),
                             static_cast<kml::MarkGroupId>(newCat));
+}
+
+JNIEXPORT void JNICALL
+Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeChangeTrackColor(
+  JNIEnv *, jclass, jlong trackId, jint color)
+{
+  uint8_t alpha = ExtractByte(color, 3);
+  g_framework->ChangeTrackColor(static_cast<kml::TrackId>(trackId), static_cast<uint32_t>(shift(color,8) + alpha));
 }
 
 JNIEXPORT jobject JNICALL

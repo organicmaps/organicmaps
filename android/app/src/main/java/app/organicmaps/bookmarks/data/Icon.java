@@ -219,6 +219,16 @@ public class Icon implements Parcelable
     return ARGB_COLORS[mColor];
   }
 
+  public static int getColorPosition(int color)
+  {
+    for (int index = 1; index < ARGB_COLORS.length; index++)
+    {
+      if (ARGB_COLORS[index] == color)
+        return index;
+    }
+    return -1;
+  }
+
   @BookmarkIconType
   public int getType()
   {
