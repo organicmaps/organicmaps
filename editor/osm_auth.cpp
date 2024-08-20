@@ -275,14 +275,14 @@ string OsmOAuth::FetchRequestToken(SessionID const & sid) const
 
 string OsmOAuth::BuildOAuth2Url() const
 {
-   string const requestTokenUrl = m_baseUrl + "/oauth2/authorize";
+   string requestTokenUrl = m_baseUrl + "/oauth2/authorize";
    string const requestTokenQuery = BuildPostRequest({
        {"client_id", m_oauth2params.m_clientId},
        {"redirect_uri", m_oauth2params.m_redirectUri},
        {"scope", m_oauth2params.m_scope},
        {"response_type", "code"}
    });
-   return requestTokenUrl.append('?').append(requestTokenQuery);
+   return requestTokenUrl.append("?").append(requestTokenQuery);
 }
 
 string OsmOAuth::FinishAuthorization(string const & oauth2code) const
