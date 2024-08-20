@@ -993,7 +993,7 @@
 	<string name="type.cemetery.grave">רבק</string>
 	<string name="type.craft">מְלָאכָה</string>
 	<string name="type.craft.beekeeper">כוורן</string>
-	<string name="type.craft.blacksmith">נַפָּח</string>
+	<string name="type.craft.blacksmith">נַפָּח</string>
 	<string name="type.craft.brewery">מבשלה</string>
 	<string name="type.craft.caterer">קייטרינג</string>
 	<string name="type.craft.carpenter">נגר</string>
@@ -1120,20 +1120,20 @@
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.bridleway">שביל סוסים</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.bridleway.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.bridleway.bridge">לְגַשֵׁר</string>
 	<string name="type.highway.bridleway.permissive">שביל סוסים</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">מִנהָרָה</string>
 	<string name="type.highway.busway">ידועיי סובוטוא שיבכ</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.busway.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.busway.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.busway.tunnel">מִנהָרָה</string>
 	<string name="type.highway.bus_stop">תחנת אוטובוס</string>
 	<string name="type.highway.construction">כביש בבניה</string>
 	<string name="type.highway.cycleway">שביל אופניים</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.cycleway.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.cycleway.bridge">לְגַשֵׁר</string>
 	<string name="type.highway.cycleway.permissive">שביל אופניים</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.cycleway.tunnel">מִנהָרָה</string>
@@ -1148,96 +1148,96 @@
 	<string name="type.highway.footway.tunnel">מנהרה להולכי רגל</string>
 	<string name="type.highway.living_street">רחוב מגורים</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.living_street.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.living_street.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.living_street.tunnel">מִנהָרָה</string>
 	<string name="type.highway.motorway">כביש מהיר</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.motorway.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.motorway.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway.tunnel">מִנהָרָה</string>
 	<string name="type.highway.motorway_junction">יציאה</string>
 	<string name="type.highway.motorway_link">כביש מהיר</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.motorway_link.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.motorway_link.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">מִנהָרָה</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.path.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.path.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">מִנהָרָה</string>
 	<string name="type.highway.pedestrian">מדרחוב</string>
 	<string name="type.highway.pedestrian.area">מדרחוב</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.pedestrian.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.pedestrian.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.pedestrian.tunnel">מִנהָרָה</string>
 	<string name="type.highway.primary">כביש ראשי</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.primary.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.primary.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.primary.tunnel">מִנהָרָה</string>
 	<string name="type.highway.primary_link">כביש ראשי</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.primary_link.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.primary_link.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.primary_link.tunnel">מִנהָרָה</string>
 	<string name="type.highway.raceway">מסלול מרוצים</string>
 	<string name="type.highway.residential">רחוב מגורים</string>
 	<string name="type.highway.residential.area">רחוב מגורים</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.residential.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.residential.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.residential.tunnel">מִנהָרָה</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.road.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.road.bridge">לְגַשֵׁר</string>
 	<!-- A bridge structure outline. -->
-	<string name="type.man_made.bridge">לְגַשֵׁר</string>
+	<string name="type.man_made.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">מִנהָרָה</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.secondary.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.secondary.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.secondary.tunnel">מִנהָרָה</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.secondary_link.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.secondary_link.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.secondary_link.tunnel">מִנהָרָה</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.service.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.service.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.service.tunnel">מִנהָרָה</string>
 	<string name="type.highway.speed_camera">מצלמת מהירות</string>
 	<string name="type.highway.steps">מדרגות</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.steps.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.steps.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.steps.tunnel">מִנהָרָה</string>
 	<string name="type.highway.tertiary">כביש שלישוני</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.tertiary.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.tertiary.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.tertiary.tunnel">מִנהָרָה</string>
 	<string name="type.highway.tertiary_link">כביש שלישוני</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.tertiary_link.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.tertiary_link.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.tertiary_link.tunnel">מִנהָרָה</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.track.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.track.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">מִנהָרָה</string>
 	<string name="type.highway.traffic_signals">רמזור</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.trunk.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.trunk.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.trunk.tunnel">מִנהָרָה</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.trunk_link.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.trunk_link.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.trunk_link.tunnel">מִנהָרָה</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.unclassified.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.unclassified.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.unclassified.tunnel">מִנהָרָה</string>
 	<string name="type.area_highway.cycleway">שביל אופניים</string>
@@ -1277,7 +1277,7 @@
 	<string name="type.historic.memorial">אתר הנצחה</string>
 	<string name="type.historic.memorial.cross">צלב זיכרון</string>
 	<string name="type.historic.memorial.plaque">לוחית זיכרון</string>
-	<string name="type.historic.memorial.sculpture">פֶּסֶל</string>
+	<string name="type.historic.memorial.sculpture">פֶּסֶל</string>
 	<string name="type.historic.memorial.statue">פסל</string>
 	<string name="type.historic.memorial.stolperstein">אבן נגף</string>
 	<string name="type.historic.stone">אבן היסטורית</string>
@@ -1351,7 +1351,7 @@
 	<string name="type.natural.earth_bank">צוּק</string>
 	<string name="type.man_made.embankment">סוֹלְלָה</string>
 	<string name="type.natural.coastline">חוף</string>
-	<string name="type.natural.desert">רבָּדמִ</string>
+	<string name="type.natural.desert">מדבר</string>
 	<string name="type.natural.geyser">גייזר</string>
 	<string name="type.natural.glacier">קרחון</string>
 	<string name="type.natural.grassland">ערבה</string>
@@ -1395,7 +1395,7 @@
 	<string name="type.place.country">ארץ</string>
 	<string name="type.place.county">נפה</string>
 	<string name="type.place.farm">חווה חקלאית</string>
-	<string name="type.place.hamlet">כְּפָר קָטָן</string>
+	<string name="type.place.hamlet">כְּפָר קָטָן</string>
 	<string name="type.place.island">אי</string>
 	<string name="type.place.islet">איון</string>
 	<string name="type.place.isolated_dwelling">דירת מגורים מבודדת</string>
@@ -1420,7 +1420,7 @@
 	<string name="type.power.plant.hydro">תחנת כוח הידרואלקטרית</string>
 	<string name="type.power.plant.solar">תחנת כוח סולארית</string>
 	<string name="type.power.plant.wind">תחנת כוח רוח</string>
-	<string name="type.railway.funicular">רַכֶּבֶל</string>
+	<string name="type.railway.funicular">רַכֶּבֶל</string>
 	<string name="type.railway.rail.highspeed">רכבת מהירה</string>
 	<string name="type.railway.rail.tourism">רכבת תיירות</string>
 	<string name="type.railway.rail.main">מסילת רכבת</string>
@@ -1447,36 +1447,82 @@
 	<string name="type.railway.rail.utility.tunnel">מנהרת הרכבת</string>
 	<string name="type.railway.rail.spur.tunnel">מנהרת הרכבת</string>
 	<string name="type.railway.rail.service.tunnel">מנהרת הרכבת</string>
-	<string name="type.railway.station.funicular">רַכֶּבֶל</string>
+	<string name="type.railway.station.funicular">רַכֶּבֶל</string>
 	<string name="type.shop.bathroom_furnishing">ריהוט חדר רחצה</string>
 	<string name="type.shop.cannabis">חנות קנאביס</string>
+	<string name="type.shop.car_repair.tyres">פנצ\'ריה</string>
+	<string name="type.shop.caravan">סוחר בקראוונים</string>
 	<string name="type.shop.carpet">שטיחים</string>
+	<string name="type.shop.chocolate">חנות שוקולדים</string>
+	<string name="type.shop.clothes">חנות בגדים</string>
+	<string name="type.shop.coffee">בית קפה</string>
+	<string name="type.shop.computer">חנות מחשבים</string>
+	<string name="type.shop.convenience">חנות נוחות</string>
+	<string name="type.shop.copyshop">חנות דפוס ושעתוק</string>
+	<string name="type.shop.cosmetics">חנות קוסמטיקה</string>
 	<string name="type.shop.curtain">וילונות</string>
-	<string name="type.shop.deli">תוינדעמ תונח</string>
+	<string name="type.shop.deli">מעדניה</string>
+	<string name="type.shop.department_store">חנות כל-בו גדולה</string>
+	<string name="type.shop.doityourself">חנות לשיפוץ הבית</string>
+	<string name="type.shop.dry_cleaning">ניקוי יבש</string>
+	<string name="type.shop.electronics">חנות מוצרי חשמל</string>
+	<string name="type.shop.erotic">חנות אירוטיקה</string>
+	<string name="type.shop.fabric">חנות בדים</string>
 	<string name="type.shop.farm">הווחל ןוזמ תונח</string>
 	<string name="type.shop.fashion_accessories">אביזרי אופנה</string>
-	<string name="type.shop.gas">חנות דלק</string>
+	<string name="type.shop.florist">חנות פרחים</string>
+	<string name="type.shop.funeral_directors">מנהלי הלוויות</string>
+	<string name="type.shop.furniture">חנות רהיטים</string>
+	<string name="type.shop.gas">חנות גז</string>
+	<string name="type.shop.gift">חנות מתנות</string>
+	<string name="type.shop.greengrocer">ירקן</string>
 	<string name="type.shop.grocery">תלֶוֹכּמַ</string>
-	<string name="type.shop.hardware">ןיינב ירמוחל תונח</string>
-	<string name="type.shop.health_food">תואירב ןוזמ תונח</string>
+	<string name="type.shop.hairdresser">מספרה</string>
+	<string name="type.shop.hardware">חנות לחומרי בניין</string>
+	<string name="type.shop.health_food">חנות מזון בריאות</string>
 	<string name="type.shop.herbalist">חנות עשבי תיבול</string>
 	<string name="type.shop.hifi">אודיו HiFi</string>
-	<string name="type.shop.houseware">תיב ילכל תונח</string>
-	<string name="type.shop.kitchen">םיחבטמ תונח</string>
+	<string name="type.shop.houseware">חנות כלי בית</string>
+	<string name="type.shop.jewelry">חנות תכשיטים</string>
+	<string name="type.shop.kiosk">קיוסק</string>
+	<string name="type.shop.kitchen">חנות מטבחים</string>
+	<string name="type.shop.laundry">מכבסה</string>
+	<string name="type.shop.mall">קניון</string>
+	<string name="type.shop.massage">מכון עיסוי</string>
+	<string name="type.shop.mobile_phone">חנות מכשירי סלולר</string>
+	<string name="type.shop.money_lender">הלוואות כספים</string>
+	<string name="type.shop.motorcycle">חנות אופנועים</string>
 	<string name="type.shop.motorcycle_repair">תיקון אופנועים</string>
+	<string name="type.shop.music">חנות תקליטים</string>
+	<string name="type.shop.musical_instrument">חנות כלי נגינה</string>
+	<string name="type.shop.newsagent">דוכן עיתונים</string>
+	<string name="type.shop.optician">אופטיקה</string>
 	<string name="type.shop.outpost">נקודת איסוף</string>
-	<string name="type.shop.pastry">הפאמ</string>
+	<string name="type.shop.pastry">מגדניה</string>
+	<string name="type.shop.pawnbroker">משכנתאות</string>
+	<string name="type.shop.pet">חנות בעלי חיים</string>
 	<string name="type.shop.pet_grooming">טיפוח חיות מחמד</string>
+	<string name="type.shop.photo">חנות צילום</string>
 	<string name="type.shop.rental">חנות להשכרה</string>
 	<string name="type.shop.rental.bicycle">חנות להשכרת אופניים</string>
+	<string name="type.shop.seafood">חנות דגים</string>
 	<string name="type.shop.second_hand">היינש די תונח</string>
 	<string name="type.shop.shoes">חנות נעליים</string>
+	<string name="type.shop.stationery">חנות כלי כתיבה</string>
+	<string name="type.shop.supermarket">סופרמרקט</string>
+	<string name="type.shop.tattoo">מכון קעקועים</string>
+	<string name="type.shop.tea">חנות תה</string>
+	<string name="type.shop.ticket">חנות כרטיסים</string>
+	<string name="type.shop.toys">חנות צעצועים</string>
+	<string name="type.shop.travel_agency">סוכנות נסיעות</string>
+	<string name="type.shop.tyres">פנצ\'ריה</string>
+	<string name="type.shop.variety_store">חנות חיסכון</string>
 	<string name="type.shop.agrarian">חנות חקלאית</string>
 	<string name="type.shop.antiques">תוֹקיתִעַ</string>
 	<string name="type.shop.appliance">חנות מוצרי חשמל</string>
 	<!-- maybe change to Art Gallery for en-US when supported -->
 	<string name="type.shop.art">תויונמוא תונח</string>
-	<string name="type.shop.baby_goods">םידליל תונח</string>
+	<string name="type.shop.baby_goods">חנות מוצרי תינוקות</string>
 	<string name="type.shop.bag">םיקית תונח</string>
 	<string name="type.shop.bed">חנות מיטות</string>
 	<string name="type.shop.boutique">קיטוב</string>
@@ -1488,31 +1534,35 @@
 	<string name="type.shop.fishing">גייד תונח</string>
 	<string name="type.shop.interior_decoration">םינפ יטושיק</string>
 	<string name="type.shop.lottery">הלרגה יסיטרכ</string>
-	<string name="type.shop.medical_supply">יאופר דויצ</string>
-	<string name="type.shop.nutrition_supplements">הנוזת יפסות</string>
-	<string name="type.shop.paint">םיעבצ</string>
-	<string name="type.shop.perfumery">תמַשְׂבָּ</string>
-	<string name="type.shop.sewing">הריפת דויצ</string>
+	<string name="type.shop.medical_supply">חנות ציוד רפואי</string>
+	<string name="type.shop.nutrition_supplements">חנות תוספי תזונה</string>
+	<string name="type.shop.paint">חנות צבעים</string>
+	<string name="type.shop.perfumery">חנות בשמים</string>
+	<string name="type.shop.sewing">חנות לציוד תפירה</string>
 	<string name="type.shop.storage_rental">ןוסחא תרכשה</string>
-	<string name="type.shop.tobacco">קבָּטַ</string>
+	<string name="type.shop.tobacco">קבָּטַ</string>
 	<string name="type.shop.trade">הקפסאב רחוס</string>
-	<string name="type.shop.watches">םינועש</string>
+	<string name="type.shop.watches">חנות שעונים</string>
 	<string name="type.shop.wholesale">תיאנוטיס תונח</string>
 	<string name="type.sport">ספורט</string>
 	<string name="type.sport.american_football">כדורגל אמריקאי</string>
 	<string name="type.sport.archery">קַשׁתוּת</string>
+	<string name="type.sport.athletics">אתלטיקה</string>
 	<string name="type.sport.australian_football">פוטבול אוסטרלי</string>
 	<string name="type.sport.baseball">בייסבול</string>
+	<string name="type.sport.basketball">כדורסל</string>
 	<string name="type.sport.beachvolleyball">כדורעף חופים</string>
 	<string name="type.sport.bowls">כדורת דשא</string>
 	<string name="type.sport.chess">שחמט</string>
 	<string name="type.sport.cricket">קריקט</string>
 	<string name="type.sport.curling">קרלינג</string>
-	<string name="type.sport.equestrian">רכיבה</string>
+	<string name="type.sport.equestrian">רכיבת סוסים</string>
 	<string name="type.sport.golf">גולף</string>
 	<string name="type.sport.gymnastics">התעמלות</string>
 	<string name="type.sport.handball">כדוריד</string>
 	<string name="type.sport.multi">ענפי ספורט שונים</string>
+	<!-- Used to tag a scuba diving site. -->
+	<string name="type.sport.scuba_diving">אתר צלילה</string>
 	<string name="type.sport.shooting">ירי ספורטיבי</string>
 	<string name="type.sport.skateboard">סקייטבורדינג</string>
 	<string name="type.sport.skiing">סקי</string>
@@ -1521,8 +1571,8 @@
 	<string name="type.sport.table_tennis">טניס שולחן</string>
 	<string name="type.sport.tennis">טֶנִיס</string>
 	<string name="type.sport.volleyball">כדורעף</string>
-	<string name="type.sport.10pin">בָּאוּלִינְג</string>
-	<string name="type.sport.9pin">בָּאוּלִינְג</string>
+	<string name="type.sport.10pin">בָּאוּלִינְג</string>
+	<string name="type.sport.9pin">בָּאוּלִינְג</string>
 	<string name="type.sport.padel">לדאפ</string>
 	<string name="type.sport.futsal">לסטופ</string>
 	<string name="type.sport.ice_hockey">חרק יקוה</string>
@@ -1534,12 +1584,25 @@
 	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">בקתת הרים</string>
 	<string name="type.tourism.apartment">דירת נופש</string>
+	<string name="type.tourism.artwork">יצירת אומנות</string>
+	<string name="type.tourism.artwork.architecture">יצירת אמנות אדריכלית</string>
+	<string name="type.tourism.artwork.painting">ציור</string>
+	<string name="type.tourism.artwork.sculpture">פסל אומנותי</string>
+	<string name="type.tourism.artwork.statue">פסל</string>
+	<string name="type.tourism.attraction">אטרקציה תיירותית</string>
 	<string name="type.attraction.animal">מתחם בעלי חיים</string>
+	<string name="type.tourism.attraction.specified">אטרקציה תיירותית</string>
+	<string name="type.tourism.camp_site">אתר מחנאות</string>
+	<string name="type.tourism.caravan_site">חניון קרוואנים</string>
 	<!-- A rentable countryside vacation house. -->
 	<string name="type.tourism.chalet">בית נופש</string>
+	<string name="type.tourism.gallery">גלריה לאמנות</string>
+	<string name="type.tourism.guest_house">בית הארחה</string>
+	<string name="type.tourism.hostel">אכסניה</string>
+	<string name="type.tourism.hotel">מלון</string>
 	<string name="type.tourism.information">מידע לתייר</string>
 	<string name="type.tourism.information.board">לוח מידע</string>
-	<string name="type.tourism.information.guidepost">מנחה</string>
+	<string name="type.tourism.information.guidepost">מדריך</string>
 	<string name="type.tourism.information.map">מפת תיירות</string>
 	<string name="type.tourism.information.office">משרד תיירות</string>
 	<string name="type.tourism.information.visitor_centre">מרכז מבקרים</string>
