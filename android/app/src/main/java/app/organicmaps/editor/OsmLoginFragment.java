@@ -35,8 +35,6 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
   private TextInputEditText mLoginInput;
   private TextInputEditText mPasswordInput;
 
-  private String mArgOAuth2Code;
-
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -75,18 +73,18 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
       mLostPasswordButton.setOnClickListener((v) -> Utils.openUrl(requireActivity(), Constants.Url.OSM_RECOVER_PASSWORD));
     }
 
-    readArguments();
-    if (mArgOAuth2Code != null && !mArgOAuth2Code.isEmpty())
-      continueOAuth2Flow(mArgOAuth2Code);
+    String code = readOAuth2CodeFromArguments();
+    if (code != null && !code.isEmpty())
+      continueOAuth2Flow(code);
   }
 
-  private void readArguments()
+  private String readOAuth2CodeFromArguments()
   {
     final Bundle arguments = getArguments();
     if (arguments == null)
-      return;
+      return null;
 
-    mArgOAuth2Code = arguments.getString(OsmLoginActivity.EXTRA_OAUTH2CODE);
+    return arguments.getString(OsmLoginActivity.EXTRA_OAUTH2CODE);
   }
 
   private void login()
@@ -109,7 +107,6 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
   {
     Utils.openUri(requireContext(), Uri.parse(OsmOAuth.nativeGetOAuth2Url()));
   }
-
 
   private void enableInput(boolean enable)
   {
@@ -160,11 +157,13 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
       onAuthFail();
     else
     {
-      ThreadPool.getWorker().execute(() -> {
+      ThreadPool.getWorker().execute(() ->
+      {
         // Finish OAuth2 auth flow and get username for UI.
         final String oauthToken = OsmOAuth.nativeAuthWithOAuth2Code(oauth2code);
         final String username = (oauthToken == null) ? null : OsmOAuth.nativeGetOsmUsername(oauthToken);
-        UiThread.run(() -> {
+        UiThread.run(() ->
+        {
           processAuth(oauthToken, username);
         });
       });
