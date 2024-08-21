@@ -577,6 +577,7 @@ public:
 
   ParsedRoutingData GetParsedRoutingData() const;
   url_scheme::SearchRequest GetParsedSearchRequest() const;
+  std::string GetParsedOAuth2Code() const;
   std::string const & GetParsedAppName() const;
   std::string const & GetParsedBackUrl() const;
   ms::LatLon GetParsedCenterLatLon() const;
