@@ -21465,7 +21465,7 @@
     el = Εισαγωγή σελιδοδεικτών και διαδρομών
     es = Importar marcadores y trazas
     et = Importida järjehoidjaid ja lugusid
-    eu = Laster-markak eta ibilbideak inportatu
+    eu = Inportatu markagailuak eta ibilbideak
     fa = وارد کردن نشانکu200cها و آهنگu200cها
     fi = Kirjanmerkkien ja reittien tuominen
     fr = Importer des signets et des parcours
