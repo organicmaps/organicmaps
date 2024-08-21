@@ -507,6 +507,7 @@
     et = Terminal
     eu = Terminala
     fi = Terminaali
+    he = מסוף נוסעים
     it = Terminal aeroportuale
     ja = 空港ターミナルビル
     mr = टर्मिनल
@@ -579,6 +580,7 @@
     fa = مرکز هنری
     fi = Taidekeskus
     fr = Centre artistique
+    he = מרכז אומנויות
     hi = कला केंद्र
     hu = Művészeti központ
     id = Pusat kesenian
@@ -2288,6 +2290,7 @@
     fa = حمل و نقل
     fi = Lautta
     fr = Terminal de ferry
+    he = מסוף מעבורות
     hi = नौका टर्मिनल
     hu = Komp
     id = Terminal
@@ -2581,6 +2584,7 @@
     fa = شکارگاه
     fi = Metsästyspaikka
     fr = Mirador
+    he = עמדת ציד
     hi = शिकार स्टैंड
     hu = Vadászles
     id = Lokasi berburu
@@ -30767,6 +30771,7 @@
     et = Motell
     fa = هتل
     fi = Motelli
+    he = מלון דרכים/מלונית
     hi = मोटेल
     it = Motel
     ja = モーテル
@@ -30798,6 +30803,7 @@
     fa = گردشگری
     fi = Museo
     fr = Musée
+    he = מוזיאון
     hi = संग्रहालय
     hu = Múzeum
     it = Museo
@@ -30832,6 +30838,7 @@
     fa = مکان پیک نیک
     fi = Piknikpaikat
     fr = Terrain de pique-nique
+    he = פיקניק
     hi = पिकनिक स्थल
     hu = Piknikező hely
     id = Lokasi piknik
@@ -30867,6 +30874,7 @@
     fa = هتل
     fi = Lomakohteet
     fr = Complexe touristique
+    he = אתר נופש
     hu = Resort hotel
     id = Sanggraloka
     it = Resort
@@ -30904,6 +30912,7 @@
     fa = گردشگری
     fi = Huvipuisto
     fr = Parc d'attractions
+    he = לונה פארק
     hu = Túrizmus
     id = Pemandangan
     it = Parco divertimenti
@@ -30942,6 +30951,7 @@
     fa = گردشگری
     fi = Näköalatasanne
     fr = Belvédère
+    he = תצפית
     hi = दृष्टिकोण
     hu = Kilátó
     id = Titik pandang
@@ -31017,6 +31027,7 @@
     et = Loomaaed
     fa = گردشگری
     fi = Eläintarha
+    he = גן חיות
     hi = चिड़ियाघर
     hu = Állatkert
     id = Kebun binatang
@@ -31130,6 +31141,7 @@
     es = Resalte
     et = Liikluse aeglustussaar
     fr = Ralentisseur
+    he = פס האטה
     it = Dosso
     ja = スピードハンプ
     nl = Verkeersheuvel
@@ -31150,6 +31162,7 @@
     es = Curso de agua
     et = Veetee
     fi = Vesiväylä
+    he = נתיב מים
     ja = 水域
     mr = जलमार्ग
     nl = Waterweg
@@ -31174,6 +31187,7 @@
     et = Kanal
     fa = کانال اب
     fi = Kanaali
+    he = תעלת מים
     hi = नहर
     hu = Csatorna
     id = Kanal
@@ -31209,6 +31223,7 @@
     et = Kanal
     fa = کانال اب
     fi = Kanaali
+    he = תעלת מים תת קרקעית
     hi = नहर
     hu = Csatorna
     id = Kanal
@@ -31282,6 +31297,7 @@
     et = Tamm
     fi = Pato
     fr = Barrage
+    he = סכר
     hi = बाँध
     it = Diga
     ja = ダム
@@ -31305,6 +31321,7 @@
     et = Kraav
     fi = Oja
     fr = Fossé
+    he = שוחה
     it = Fosso
     ja = 排水路
     mr = खंदक
@@ -31337,7 +31354,7 @@
     fa = کولورت
     fi = Holvirumpu
     fr = Drain
-    he = גִשׁרוֹן
+    he = מעבר מים
     hu = Vízelvezető
     id = Gorong-gorong
     it = Cunicolo
@@ -32037,6 +32054,7 @@
     et = Kelgurada
     fi = Kelkkarata
     fr = Piste de luge
+    he = מסלול מזחלות
     it = Pista per slitte
     nl = Sleebaan
     pt = Pista para trenós
@@ -32196,7 +32214,7 @@
     fa = مسیر اسکیتور
     fi = Skitour Trail
     fr = Sentier Skitour
-    he = שביל סקי
+    he = סיור סקי
     hi = स्किटौर ट्रेल
     hu = Skitúra ösvény
     id = Jalur Skitour
@@ -32240,7 +32258,7 @@
     fa = محل برگزاری رویدادها
     fi = Tapahtumapaikka
     fr = Lieu des événements
-    he = מקום אירועים
+    he = מתחם אירועים
     hu = Rendezvények helyszíne
     id = Tempat acara
     it = Sede degli eventi
