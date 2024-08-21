@@ -10,6 +10,8 @@ import androidx.annotation.Size;
 import androidx.annotation.WorkerThread;
 import androidx.fragment.app.FragmentManager;
 
+import java.util.Map;
+
 import app.organicmaps.MwmApplication;
 import app.organicmaps.util.NetworkPolicy;
 
@@ -98,6 +100,12 @@ public final class OsmOAuth
     return nativeGetHistoryUrl(getUsername(context));
   }
 
+  /*
+   Returns 5 strings: ServerURL, ClientId, ClientSecret, Scope, RedirectUri
+   */
+  @NonNull
+  public static native String nativeGetOAuth2Url();
+
   /**
    * @return string with OAuth2 token
    */
@@ -105,6 +113,13 @@ public final class OsmOAuth
   @Size(2)
   @Nullable
   public static native String nativeAuthWithPassword(String login, String password);
+
+  /**
+   * @return string with OAuth2 token
+   */
+  @WorkerThread
+  @Nullable
+  public static native String nativeAuthWithOAuth2Code(String oauth2code);
 
   @WorkerThread
   @Nullable
