@@ -353,7 +353,7 @@ static NSString *const kDefaultAlertNibName = @"MWMDefaultAlert";
                                                message:L(@"bugreport_alert_message")
                                       rightButtonTitle:L(@"report_a_bug")
                                        leftButtonTitle:L(@"cancel")
-                                     rightButtonAction:^{ [MailComposer sendBugReport]; }
+                                     rightButtonAction:^{ [MailComposer sendBugReportWithTitle:title]; }
                                                    log:nil];
   [alert setNeedsCloseAlertAfterEnterBackground];
   return alert;
