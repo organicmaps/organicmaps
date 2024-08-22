@@ -36,8 +36,8 @@
     tr = Sağdan devam edin.
     uk = Тримайтеся правіше.
     vi = Đi về phía phải.
-    zh-Hans = 向右行驶
-    zh-Hant = 向右走。
+    zh-Hans = 向右前方行驶。
+    zh-Hant = 向右前方行駛。
 
   [make_a_slight_right_turn_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_slight_right_turn is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -85,7 +85,7 @@
     tr = Sağa dönün.
     uk = Поверніть праворуч.
     vi = Rẽ phải.
-    zh-Hans = 右转
+    zh-Hans = 右转。
     zh-Hant = 右轉。
 
   [make_a_right_turn_street]
@@ -130,7 +130,7 @@
     tr = Tam sağa dönün.
     uk = Різко вправо.
     vi = Rẽ ngoặt bên phải.
-    zh-Hans = 向右急转
+    zh-Hans = 向右急转。
     zh-Hant = 向右急轉。
 
   [make_a_sharp_right_turn_street]
@@ -176,8 +176,8 @@
     tr = Kavşağa girin.
     uk = В'їзд на кільцеву транспортну розв'язку.
     vi = Đi vào vòng xoay.
-    zh-Hans = 进入环岛。
-    zh-Hant = 進入環狀交叉路口。
+    zh-Hans = 驶入环岛。
+    zh-Hant = 駛入環狀交叉路口。
 
   [enter_the_roundabout_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal enter_the_roundabout is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -230,7 +230,7 @@
     uk = З'їзд з кільцевої транспортної розв'язки.
     vi = Ra khỏi vòng xoay.
     zh-Hans = 驶出环岛。
-    zh-Hant = 離開環狀交叉路口。
+    zh-Hant = 駛出環狀交叉路口。
 
   [leave_the_roundabout_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal leave_the_roundabout is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -280,8 +280,8 @@
     tr = Soldan devam edin.
     uk = Тримайтеся лівіше.
     vi = Đi về phía trái.
-    zh-Hans = 向左行驶
-    zh-Hant = 向左走。
+    zh-Hans = 向左前方行驶。
+    zh-Hant = 向左前方行駛。
 
   [make_a_slight_left_turn_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_slight_left_turn is insufficient. For most languages that don't need this, the value should be the word NULL
@@ -329,7 +329,7 @@
     tr = Sola dönün.
     uk = Поверніть ліворуч.
     vi = Rẽ trái.
-    zh-Hans = 左转
+    zh-Hans = 左转。
     zh-Hant = 左轉。
 
   [make_a_left_turn_street]
@@ -374,7 +374,7 @@
     tr = Tam sola dönün.
     uk = Різкий поворот наліво.
     vi = Rẽ ngoặt bên trái.
-    zh-Hans = 向左急转
+    zh-Hans = 向左急转。
     zh-Hant = 向左急轉。
 
   [make_a_sharp_left_turn_street]
@@ -419,7 +419,7 @@
     tr = U dönüşü yapın.
     uk = Зробіть розворот.
     vi = Quay đầu.
-    zh-Hans = 掉头
+    zh-Hans = 掉头。
     zh-Hant = 掉頭。
 
   [make_a_u_turn_street]
@@ -468,8 +468,8 @@
     tr = Düz ilerleyin.
     uk = Їдьте прямо.
     vi = Đi thẳng.
-    zh-Hans = 直行
-    zh-Hant = 直行。
+    zh-Hans = 继续直行。
+    zh-Hant = 繼續直行。
 
   [exit]
     en = Exit.
@@ -508,8 +508,8 @@
     tr = çıkın.
     uk = З'їзд.
     vi = Đi theo lối ra
-    zh-Hans = 驶出。
-    zh-Hant = 出口。
+    zh-Hans = 驶出当前路段。
+    zh-Hant = 駛出當前路段。
 
   [onto]
     comment = Used in dist_direction_onto_street in position 3 unless take_exit_number is specified. For languages that don't have an "onto" word, (e.g. eu, ja, ko), the value should be the word NULL
@@ -548,8 +548,8 @@
     tr = yönünde
     uk = на
     vi = vào
-    zh-Hans = 上
-    zh-Hant = 上
+    zh-Hans = 驶入到
+    zh-Hant = 駛入到
 
   [take_exit_number]
     comment = Used in dist_direction_onto_street instead of "Exit" when there's an exit number after. Replaces the "onto" string as well. (There is no take_exit_number_street since this string is only used when announcing street names anyway.)
@@ -713,8 +713,8 @@
     tr = Elli metre sonra
     uk = Через п'ятдесят метрів
     vi = Trong năm mươi mét nữa
-    zh-Hans = 前方五十米
-    zh-Hant = 前方五十米
+    zh-Hans = 在五十米后
+    zh-Hant = 在五十公尺後
 
   [in_100_meters]
     en = In one hundred meters
@@ -753,8 +753,8 @@
     tr = Yüz metre sonra
     uk = Через сто метрів
     vi = Trong một trăm mét nữa
-    zh-Hans = 前方一百米
-    zh-Hant = 前方一百米
+    zh-Hans = 在一百米后
+    zh-Hant = 在一百公尺後
 
   [in_200_meters]
     en = In two hundred meters
@@ -793,8 +793,8 @@
     tr = İki yüz metre sonra
     uk = Через двісті метрів
     vi = Trong hai trăm mét nữa
-    zh-Hans = 前方两百米
-    zh-Hant = 前方兩百米
+    zh-Hans = 在两百米后
+    zh-Hant = 在兩百公尺後
 
   [in_250_meters]
     en = In two hundred and fifty meters
@@ -833,8 +833,8 @@
     tr = İki yüz elli metre sonra
     uk = Через двісті п'ятдесят метрів
     vi = Trong hai trăm năm mươi mét
-    zh-Hans = 前方两百五十米
-    zh-Hant = 前方兩百五十米
+    zh-Hans = 在两百五十米后
+    zh-Hant = 在兩百五十公尺後
 
   [in_300_meters]
     en = In three hundred meters
@@ -873,8 +873,8 @@
     tr = Üç yüz metre sonra
     uk = Через триста метрів
     vi = Trong ba trăm mét nữa
-    zh-Hans = 前方三百米
-    zh-Hant = 前方三百米
+    zh-Hans = 在三百米后
+    zh-Hant = 在三百公尺後
 
   [in_400_meters]
     en = In four hundred meters
@@ -913,8 +913,8 @@
     tr = Dört yüz metre sonra
     uk = Через чотириста метрів
     vi = Trong bốn trăm mét nữa
-    zh-Hans = 前方四百米
-    zh-Hant = 前方四百米
+    zh-Hans = 在四百米后
+    zh-Hant = 在四百公尺後
 
   [in_500_meters]
     en = In five hundred meters
@@ -953,8 +953,8 @@
     tr = Beş yüz metre sonra
     uk = Через п’ятсот метрів
     vi = Trong năm trăm mét nữa
-    zh-Hans = 前方五百米
-    zh-Hant = 前方五百米
+    zh-Hans = 在五百米后
+    zh-Hant = 在五百公尺後
 
   [in_600_meters]
     en = In six hundred meters
@@ -993,8 +993,8 @@
     tr = Altı yüz metre sonra
     uk = Через шістсот метрів
     vi = Trong sáu trăm mét nữa
-    zh-Hans = 前方六百米
-    zh-Hant = 前方六百米
+    zh-Hans = 在六百米后
+    zh-Hant = 在六百公尺後
 
   [in_700_meters]
     en = In seven hundred meters
@@ -1033,8 +1033,8 @@
     tr = Yedi yüz metre sonra
     uk = Через сімсот метрів
     vi = Trong bảy trăm mét nữa
-    zh-Hans = 前方七百米
-    zh-Hant = 前方七百米
+    zh-Hans = 在七百米后
+    zh-Hant = 在七百公尺後
 
   [in_750_meters]
     en = In seven hundred and fifty meters
@@ -1073,8 +1073,8 @@
     tr = Yedi yüz elli metre sonra
     uk = Через сімсот п'ятьдесят метрів
     vi = Trong bảy trăm năm mươi mét nữa
-    zh-Hans = 前方七百五十米
-    zh-Hant = 前方七百五十米
+    zh-Hans = 在七百五十米后
+    zh-Hant = 在七百五十公尺後
 
   [in_800_meters]
     en = In eight hundred meters
@@ -1113,8 +1113,8 @@
     tr = Sekiz yüz metre sonra
     uk = Через вісімсот метрів
     vi = Trong tám trăm mét nữa
-    zh-Hans = 前方八百米
-    zh-Hant = 前方八百米
+    zh-Hans = 在八百米后
+    zh-Hant = 在八百公尺後
 
   [in_900_meters]
     en = In nine hundred meters
@@ -1153,8 +1153,8 @@
     tr = Dokuz yüz metre sonra
     uk = Через дев'ятсот метрів
     vi = Trong chín trăm mét nữa
-    zh-Hans = 前方九百米
-    zh-Hant = 前方九百米
+    zh-Hans = 在九百米后
+    zh-Hant = 在九百公尺後
 
   [in_1_kilometer]
     en = In one kilometer
@@ -1193,8 +1193,8 @@
     tr = Bir kilometre sonra
     uk = Через однин кілометр
     vi = Trong một kilômét nữa
-    zh-Hans = 前方一公里
-    zh-Hant = 前方一千米
+    zh-Hans = 在一公里后
+    zh-Hant = 在一公里後
 
   [in_1_5_kilometers]
     en = In one and a half kilometers
@@ -1233,8 +1233,8 @@
     tr = Bir buçuk kilometre sonra
     uk = Через півтора кілометра
     vi = Trong một kilômét rưỡi nữa
-    zh-Hans = 前方一点五公里
-    zh-Hant = 前方一千五百米
+    zh-Hans = 在一点五公里后
+    zh-Hant = 在一點五公里後
 
   [in_2_kilometers]
     en = In two kilometers
@@ -1273,8 +1273,8 @@
     tr = İki kilometre sonra
     uk = Через два кілометри
     vi = Trong hai kilômét nữa
-    zh-Hans = 前方两公里
-    zh-Hant = 前方兩千米
+    zh-Hans = 在两公里后
+    zh-Hant = 在兩公里后
 
   [in_2_5_kilometers]
     en = In two and a half kilometers
@@ -1313,8 +1313,8 @@
     tr = İki buçuk kilometre sonra
     uk = Через два з половиною кілометра
     vi = Trong hai kilômét rưỡi nữa
-    zh-Hans = 前方两点五公里
-    zh-Hant = 前方兩千五百米
+    zh-Hans = 在两点五公里后
+    zh-Hant = 在兩點五公里后
 
   [in_3_kilometers]
     en = In three kilometers
@@ -1353,8 +1353,8 @@
     tr = Üç kilometre sonra
     uk = Через три кілометри
     vi = Trong ba kilômét nữa
-    zh-Hans = 前方三公里
-    zh-Hant = 前方三千米
+    zh-Hans = 在三公里后
+    zh-Hant = 在三公里後
 
   [then]
     en = Then
@@ -2015,8 +2015,8 @@
     tr = Elli fit sonra
     uk = Через п'ятдесят футів
     vi = Trong năm mươi feet nữa
-    zh-Hans = 前方五十英尺
-    zh-Hant = 前方五十英尺
+    zh-Hans = 在五十英尺后
+    zh-Hant = 在五十英尺後
 
   [in_100_feet]
     en = In one hundred feet
@@ -2055,8 +2055,8 @@
     tr = Yüz fit sonra
     uk = Через сто футів
     vi = Trong một trăm feet nữa
-    zh-Hans = 前方一百英尺
-    zh-Hant = 前方一百英尺
+    zh-Hans = 在一百英尺后
+    zh-Hant = 在一百英尺後
 
   [in_200_feet]
     en = In two hundred feet
@@ -2095,8 +2095,8 @@
     tr = İki yüz fit sonra
     uk = Через двісті футів
     vi = Trong hai trăm feet nữa
-    zh-Hans = 前方两百英尺
-    zh-Hant = 前方兩百英尺
+    zh-Hans = 在两百英尺后
+    zh-Hant = 在兩百英尺後
 
   [in_300_feet]
     en = In three hundred feet
@@ -2135,8 +2135,8 @@
     tr = Üç yüz fit sonra
     uk = Через триста футів
     vi = Trong ba trăm feet nữa
-    zh-Hans = 前方三百英尺
-    zh-Hant = 前方三百英尺
+    zh-Hans = 在三百英尺后
+    zh-Hant = 在三百英尺後
 
   [in_400_feet]
     en = In four hundred feet
@@ -2175,8 +2175,8 @@
     tr = Dört yüz fit sonra
     uk = Через чотириста футів
     vi = Trong bốn trăm feet nữa
-    zh-Hans = 前方四百英尺
-    zh-Hant = 前方四百英尺
+    zh-Hans = 在四百英尺后
+    zh-Hant = 在四百英尺後
 
   [in_500_feet]
     en = In five hundred feet
@@ -2215,8 +2215,8 @@
     tr = Beş yüz fit sonra
     uk = Через п'ятсот футів
     vi = Trong năm trăm feet nữa
-    zh-Hans = 前方五百英尺
-    zh-Hant = 前方五百英尺
+    zh-Hans = 在五百英尺后
+    zh-Hant = 在五百英尺後
 
   [in_600_feet]
     en = In six hundred feet
@@ -2255,8 +2255,8 @@
     tr = Altı yüz fit sonra
     uk = Через шістсот футів
     vi = Trong sáu trăm feet nữa
-    zh-Hans = 前方六百英尺
-    zh-Hant = 前方六百英尺
+    zh-Hans = 在六百英尺后
+    zh-Hant = 在六百英尺後
 
   [in_700_feet]
     en = In seven hundred feet
@@ -2295,8 +2295,8 @@
     tr = Yedi yüz fit sonra
     uk = Через сімсот футів
     vi = Trong bảy trăm feet nữa
-    zh-Hans = 前方七百英尺
-    zh-Hant = 前方七百英尺
+    zh-Hans = 在七百英尺后
+    zh-Hant = 在七百英尺後
 
   [in_800_feet]
     en = In eight hundred feet
@@ -2335,8 +2335,8 @@
     tr = Sekiz yüz fit sonra
     uk = Через вісімсот футів
     vi = Trong tám trăm feet nữa
-    zh-Hans = 前方八百英尺
-    zh-Hant = 前方八百英尺
+    zh-Hans = 在八百英尺后
+    zh-Hant = 在八百英尺後
 
   [in_900_feet]
     en = In nine hundred feet
@@ -2375,8 +2375,8 @@
     tr = Dokuz yüz fit sonra
     uk = Через дев'ятсот футів
     vi = Trong chín trăm feet nữa
-    zh-Hans = 前方九百英尺
-    zh-Hant = 前方九百英尺
+    zh-Hans = 在九百英尺后
+    zh-Hant = 在九百英尺後
 
   [in_1000_feet]
     en = In one thousand feet
@@ -2415,8 +2415,8 @@
     tr = Bin fit sonra
     uk = Через тисячу футів
     vi = Trong một ngàn feet nữa
-    zh-Hans = 前方一千英尺
-    zh-Hant = 前方一千英尺
+    zh-Hans = 在一千英尺后
+    zh-Hant = 在一千英尺後
 
   [in_1500_feet]
     en = In fifteen hundred feet
@@ -2455,8 +2455,8 @@
     tr = Bin beş yüz fit sonra
     uk = Через півтори тисячі футів
     vi = Trong một ngàn năm trăm feet nữa
-    zh-Hans = 前方一千五百英尺
-    zh-Hant = 前方一千五百英尺
+    zh-Hans = 在一千五百英尺后
+    zh-Hant = 在一千五百英尺後
 
   [in_2000_feet]
     en = In two thousand feet
@@ -2495,8 +2495,8 @@
     tr = İki bin fit sonra
     uk = Через дві тисячі футів
     vi = Trong hai ngàn feet nữa
-    zh-Hans = 前方两千英尺
-    zh-Hant = 前方兩千英尺
+    zh-Hans = 在两千英尺后
+    zh-Hant = 在兩千英尺後
 
   [in_2500_feet]
     en = In twenty five hundred feet
@@ -2535,8 +2535,8 @@
     tr = İki bin beş yüz fit sonra
     uk = Через дві з половиною тисячі футів
     vi = Trong hai ngàn năm trăm feet nữa
-    zh-Hans = 前方两千五百英尺
-    zh-Hant = 前方兩千五百英尺
+    zh-Hans = 在两千五百英尺后
+    zh-Hant = 在兩千五百英尺後
 
   [in_3000_feet]
     en = In three thousand feet
@@ -2575,8 +2575,8 @@
     tr = Üç bin fit sonra
     uk = Через три тисячі футів
     vi = Trong ba ngàn feet nữa
-    zh-Hans = 前方三千英尺
-    zh-Hant = 前方三千英尺
+    zh-Hans = 在三千英尺后
+    zh-Hant = 在三千英尺後
 
   [in_3500_feet]
     en = In thirty five hundred feet
@@ -2615,8 +2615,8 @@
     tr = Üç bin beş yüz fit sonra
     uk = Через три з половиною тисячі футів
     vi = Trong ba ngàn năm trăm feet nữa
-    zh-Hans = 前方三千五百英尺
-    zh-Hant = 前方三千五百英尺
+    zh-Hans = 在三千五百英尺后
+    zh-Hant = 在三千五百英尺後
 
   [in_4000_feet]
     en = In four thousand feet
@@ -2655,8 +2655,8 @@
     tr = Dört bin fit sonra
     uk = Через чотири тисячі футів
     vi = Trong bốn ngàn feet nữa
-    zh-Hans = 前方四千英尺
-    zh-Hant = 前方四千英尺
+    zh-Hans = 在四千英尺后
+    zh-Hant = 在四千英尺後
 
   [in_4500_feet]
     en = In forty five hundred feet
@@ -2695,8 +2695,8 @@
     tr = Dört bin beş yüz fit sonra
     uk = Через чотири з половиною тисячі футів
     vi = Trong bốn ngàn năm trăm feet nữa
-    zh-Hans = 前方四千五百英尺
-    zh-Hant = 前方四千五百英尺
+    zh-Hans = 在四千五百英尺后
+    zh-Hant = 在四千五百英尺後
 
   [in_5000_feet]
     en = In five thousand feet
@@ -2735,8 +2735,8 @@
     tr = Beş bin fit sonra
     uk = Через п'ять тисяч футів
     vi = Trong năm ngàn feet nữa
-    zh-Hans = 前方五千英尺
-    zh-Hant = 前方五千英尺
+    zh-Hans = 在五千英尺后
+    zh-Hant = 在五千英尺後
 
   [in_1_mile]
     en = In one mile
@@ -2775,8 +2775,8 @@
     tr = Bir mil sonra
     uk = Через одну милю
     vi = Trong một dặm nữa
-    zh-Hans = 前方一英里
-    zh-Hant = 前方一英里
+    zh-Hans = 在一英里后
+    zh-Hant = 在一英里後
 
   [in_1_5_miles]
     en = In one and a half miles
@@ -2815,8 +2815,8 @@
     tr = Bir buçuk mil sonra
     uk = Через півтори милі
     vi = Trong một dặm rưỡi nữa
-    zh-Hans = 前方一点五英里
-    zh-Hant = 前方一點五英里
+    zh-Hans = 在一点五英里后
+    zh-Hant = 在一點五英里後
 
   [in_2_miles]
     en = In two miles
@@ -2855,8 +2855,8 @@
     tr = İki mil sonra
     uk = Через дві милі
     vi = Trong hai dặm nữa
-    zh-Hans = 前方两英里
-    zh-Hant = 前方兩英里
+    zh-Hans = 在两英里后
+    zh-Hant = 在兩英里後
 
   [unknown_camera]
     en = Camera ahead
