@@ -617,7 +617,6 @@
 		F6E2FF4B1E097BA00083EBEC /* SettingsTableViewSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FD3A1E097BA00083EBEC /* SettingsTableViewSwitchCell.swift */; };
 		F6E2FF571E097BA00083EBEC /* MWMMobileInternetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FD411E097BA00083EBEC /* MWMMobileInternetViewController.m */; };
 		F6E2FF5A1E097BA00083EBEC /* MWMNightModeController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FD431E097BA00083EBEC /* MWMNightModeController.m */; };
-		F6E2FF5D1E097BA00083EBEC /* MWMRecentTrackSettingsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FD451E097BA00083EBEC /* MWMRecentTrackSettingsController.mm */; };
 		F6E2FF601E097BA00083EBEC /* MWMSettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FD471E097BA00083EBEC /* MWMSettingsViewController.mm */; };
 		F6E2FF631E097BA00083EBEC /* MWMTTSLanguageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FD491E097BA00083EBEC /* MWMTTSLanguageViewController.mm */; };
 		F6E2FF661E097BA00083EBEC /* MWMTTSSettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FD4B1E097BA00083EBEC /* MWMTTSSettingsViewController.mm */; };
@@ -1641,8 +1640,6 @@
 		F6E2FD411E097BA00083EBEC /* MWMMobileInternetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMMobileInternetViewController.m; sourceTree = "<group>"; };
 		F6E2FD421E097BA00083EBEC /* MWMNightModeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNightModeController.h; sourceTree = "<group>"; };
 		F6E2FD431E097BA00083EBEC /* MWMNightModeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMNightModeController.m; sourceTree = "<group>"; };
-		F6E2FD441E097BA00083EBEC /* MWMRecentTrackSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRecentTrackSettingsController.h; sourceTree = "<group>"; };
-		F6E2FD451E097BA00083EBEC /* MWMRecentTrackSettingsController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRecentTrackSettingsController.mm; sourceTree = "<group>"; };
 		F6E2FD461E097BA00083EBEC /* MWMSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSettingsViewController.h; sourceTree = "<group>"; };
 		F6E2FD471E097BA00083EBEC /* MWMSettingsViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSettingsViewController.mm; sourceTree = "<group>"; };
 		F6E2FD481E097BA00083EBEC /* MWMTTSLanguageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTTSLanguageViewController.h; sourceTree = "<group>"; };
@@ -3802,8 +3799,6 @@
 				F6E2FD411E097BA00083EBEC /* MWMMobileInternetViewController.m */,
 				F6E2FD421E097BA00083EBEC /* MWMNightModeController.h */,
 				F6E2FD431E097BA00083EBEC /* MWMNightModeController.m */,
-				F6E2FD441E097BA00083EBEC /* MWMRecentTrackSettingsController.h */,
-				F6E2FD451E097BA00083EBEC /* MWMRecentTrackSettingsController.mm */,
 				F6E2FD461E097BA00083EBEC /* MWMSettingsViewController.h */,
 				F6E2FD471E097BA00083EBEC /* MWMSettingsViewController.mm */,
 				F6E2FD481E097BA00083EBEC /* MWMTTSLanguageViewController.h */,
@@ -4286,7 +4281,6 @@
 				99536113235DB86C008B218F /* InsetsLabel.swift in Sources */,
 				6741A9A51BF340DE002C974C /* MWMShareActivityItem.mm in Sources */,
 				994F790723E85C5900660E75 /* DifficultyView.swift in Sources */,
-				F6E2FF5D1E097BA00083EBEC /* MWMRecentTrackSettingsController.mm in Sources */,
 				34AB66651FC5AA330078E451 /* TransportTransitTrain.swift in Sources */,
 				FA85D44E279B738F00B858E9 /* CopyableLabel.swift in Sources */,
 				993DF11C23F6BDB100AC231A /* UITableViewHeaderFooterViewRenderer.swift in Sources */,
