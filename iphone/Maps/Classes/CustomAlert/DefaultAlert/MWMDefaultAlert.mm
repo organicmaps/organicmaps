@@ -303,7 +303,7 @@ static NSString *const kDefaultAlertNibName = @"MWMDefaultAlert";
   MWMDefaultAlert *alert = [self defaultAlertWithTitle:L(@"recent_track_background_dialog_title")
                                                message:L(@"recent_track_background_dialog_message")
                                       rightButtonTitle:L(@"off_recent_track_background_button")
-                                       leftButtonTitle:L(@"continue_download")
+                                       leftButtonTitle:L(@"continue")
                                      rightButtonAction:block
                                        log:@"Track warning alert"];
   return alert;
