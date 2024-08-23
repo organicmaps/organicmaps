@@ -292,7 +292,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     mBtnNames[PAUSE] = getString(R.string.pause);
 
     mBtnListeners[RESUME] = v -> onResumeClicked();
-    mBtnNames[RESUME] = getString(R.string.continue_download);
+    mBtnNames[RESUME] = getString(R.string.continue);
 
     mBtnListeners[TRY_AGAIN] = v -> onTryAgainClicked();
     mBtnNames[TRY_AGAIN] = getString(R.string.try_again);
