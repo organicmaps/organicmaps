@@ -62,7 +62,7 @@
 "download" = "Ladda ner";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "Fortsätt";
+"continue_button" = "Fortsätt";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Lägg till ny samling";

@@ -63,7 +63,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Pysäytä</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">Jatka</string>
+	<string name="continue_button">Jatka</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s lataus epäonnistui</string>
 	<!-- "Add new bookmark list" dialog title -->

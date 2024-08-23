@@ -60,7 +60,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Pausar</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">Continuar</string>
+	<string name="continue_button">Continuar</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">O descarregamento de %s falhou</string>
 	<!-- "Add new bookmark list" dialog title -->

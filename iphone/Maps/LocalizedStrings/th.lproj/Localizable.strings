@@ -62,7 +62,7 @@
 "download" = "ดาวน์โหลด";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "ดำเนินการต่อ";
+"continue_button" = "ดำเนินการต่อ";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "เพิ่มชุดใหม่";

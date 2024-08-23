@@ -63,7 +63,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">暫停</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">繼續</string>
+	<string name="continue_button">繼續</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s的地圖下載失敗</string>
 	<!-- "Add new bookmark list" dialog title -->

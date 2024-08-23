@@ -62,7 +62,7 @@
 "download" = "Last ned";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "Fortsett";
+"continue_button" = "Fortsett";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Legg til nytt sett";

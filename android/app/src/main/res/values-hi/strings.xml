@@ -63,7 +63,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">विराम</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">जारी रखने के लिए</string>
+	<string name="continue_button">जारी रखने के लिए</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s डाउनलोड विफल हो गया है</string>
 	<!-- "Add new bookmark list" dialog title -->

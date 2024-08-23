@@ -60,7 +60,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">一時停止</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">続行</string>
+	<string name="continue_button">続行</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%sのダウンロードが失敗しました</string>
 	<!-- "Add new bookmark list" dialog title -->
