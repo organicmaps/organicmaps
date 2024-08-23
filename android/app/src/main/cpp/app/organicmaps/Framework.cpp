@@ -1259,7 +1259,7 @@ Java_app_organicmaps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass)
       jni::GetConstructorID(env, klass,
                             "(Lapp/organicmaps/util/Distance;Lapp/organicmaps/util/Distance;"
                             "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;DIIIII"
-                            "[Lapp/organicmaps/routing/SingleLaneInfo;DZZ)V");
+                            "[Lapp/organicmaps/routing/SingleLaneInfo;DZZZ)V");
 
   vector<routing::FollowingInfo::SingleLaneInfoClient> const & lanes = info.m_lanes;
   jobjectArray jLanes = nullptr;
@@ -1287,6 +1287,8 @@ Java_app_organicmaps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass)
   }
 
   auto const & rm = frm()->GetRoutingManager();
+  auto const * gpsInfo = fr->GetLastLocation();
+  auto const isSpeedLimitExceeded = routing::RoutingSession::IsSpeedLimitExceeded(gpsInfo->m_speed, info.m_speedLimitMps, measurement_utils::GetMeasurementUnits());
   auto const isSpeedCamLimitExceeded = rm.IsRoutingActive() ? rm.IsSpeedCamLimitExceeded() : false;
   auto const shouldPlaySignal = frm()->GetRoutingManager().GetSpeedCamManager().ShouldPlayBeepSignal();
   jobject const result = env->NewObject(
@@ -1294,8 +1296,8 @@ Java_app_organicmaps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass)
       ToJavaDistance(env, info.m_distToTurn), jni::ToJavaString(env, info.m_currentStreetName),
       jni::ToJavaString(env, info.m_nextStreetName), jni::ToJavaString(env, info.m_nextNextStreetName),
       info.m_completionPercent, info.m_turn, info.m_nextTurn, info.m_pedestrianTurn, info.m_exitNum,
-      info.m_time, jLanes, info.m_speedLimitMps, static_cast<jboolean>(isSpeedCamLimitExceeded),
-      static_cast<jboolean>(shouldPlaySignal));
+      info.m_time, jLanes, info.m_speedLimitMps, static_cast<jboolean>(isSpeedLimitExceeded),
+      static_cast<jboolean>(isSpeedCamLimitExceeded), static_cast<jboolean>(shouldPlaySignal));
   ASSERT(result, (jni::DescribeException()));
   return result;
 }

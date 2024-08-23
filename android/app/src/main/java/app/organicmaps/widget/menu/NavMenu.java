@@ -222,7 +222,7 @@ public class NavMenu
     else
       mSpeedValue.setText(speedAndUnits.first);
 
-    if (info.speedLimitMps > 0.0 && last.getSpeed() > info.speedLimitMps)
+    if (info.speedLimitExceeded)
     {
       if (info.isSpeedCamLimitExceeded())
         mSpeedValue.setTextColor(ContextCompat.getColor(mActivity, R.color.white_primary));
