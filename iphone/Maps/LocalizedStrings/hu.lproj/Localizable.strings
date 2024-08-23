@@ -62,7 +62,7 @@
 "download" = "Letöltés";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "Folytatás";
+"continue_button" = "Folytatás";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Új csoport létrehozása";

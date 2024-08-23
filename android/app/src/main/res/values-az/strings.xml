@@ -62,7 +62,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Dayan</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">Davam et</string>
+	<string name="continue_button">Davam et</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s endirmə uğursuz oldu</string>
 	<!-- "Add new bookmark list" dialog title -->

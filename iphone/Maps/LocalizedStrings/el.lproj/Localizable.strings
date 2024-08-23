@@ -62,7 +62,7 @@
 "download" = "Λήψη";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "Συνέχεια";
+"continue_button" = "Συνέχεια";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Δημιουργία νέας λίστας";

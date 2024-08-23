@@ -62,7 +62,7 @@
 "download" = "Deskargatu";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "Jarraitu";
+"continue_button" = "Jarraitu";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Gehitu zerrenda berri bat";

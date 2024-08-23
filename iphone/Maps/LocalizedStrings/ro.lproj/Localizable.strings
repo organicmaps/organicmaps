@@ -62,7 +62,7 @@
 "download" = "Descarcă";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "Continuă";
+"continue_button" = "Continuă";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Adaugă o listă nouă";

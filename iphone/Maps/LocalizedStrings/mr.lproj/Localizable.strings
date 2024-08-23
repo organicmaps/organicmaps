@@ -62,7 +62,7 @@
 "download" = "डाउनलोड करा";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "चालू ठेवा";
+"continue_button" = "चालू ठेवा";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "नवीन यादी जोडा";
