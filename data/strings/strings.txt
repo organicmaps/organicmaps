@@ -1776,7 +1776,7 @@
     zh-Hans = 暂停
     zh-Hant = 暫停
 
-  [continue_download]
+  [continue_button]
     comment = REMOVE THIS STRING AFTER REFACTORING
     tags = android,ios
     en = Continue
