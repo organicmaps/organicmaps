@@ -61,7 +61,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Παύση</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">Συνέχεια</string>
+	<string name="continue">Συνέχεια</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">η λήψη %s απέτυχε</string>
 	<!-- "Add new bookmark list" dialog title -->

@@ -62,7 +62,7 @@
 "download" = "Stáhnout";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "Pokračovat";
+"continue" = "Pokračovat";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Přidat novou skupinu záložek";

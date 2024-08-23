@@ -62,7 +62,7 @@
 "download" = "Baixa";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "Continua";
+"continue" = "Continua";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Afegeix una llista nova";

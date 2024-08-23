@@ -62,7 +62,7 @@
 "download" = "下載";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "繼續";
+"continue" = "繼續";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "新增新的書籤列表";

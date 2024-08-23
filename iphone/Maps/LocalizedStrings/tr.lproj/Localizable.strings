@@ -62,7 +62,7 @@
 "download" = "İndir";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "Devam";
+"continue" = "Devam";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Yeni Liste Ekle";

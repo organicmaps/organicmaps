@@ -62,7 +62,7 @@
 "download" = "Unduh";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "Lanjutkan";
+"continue" = "Lanjutkan";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Tambahkan Set baru";

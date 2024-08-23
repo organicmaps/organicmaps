@@ -54,7 +54,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">विराम द्या</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">चालू ठेवा</string>
+	<string name="continue">चालू ठेवा</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s डाउनलोड अयशस्वी</string>
 	<!-- "Add new bookmark list" dialog title -->

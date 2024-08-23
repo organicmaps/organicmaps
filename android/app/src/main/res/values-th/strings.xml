@@ -62,7 +62,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">หยุดชั่วคราว</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">ดำเนินการต่อ</string>
+	<string name="continue">ดำเนินการต่อ</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">การดาวน์โหลด %s ล้มเหลว</string>
 	<!-- "Add new bookmark list" dialog title -->

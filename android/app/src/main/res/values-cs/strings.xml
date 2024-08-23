@@ -60,7 +60,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Pauza</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">Pokračovat</string>
+	<string name="continue">Pokračovat</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">Stahování selhalo: %s</string>
 	<!-- "Add new bookmark list" dialog title -->

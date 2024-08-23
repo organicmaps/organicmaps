@@ -60,7 +60,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">הפסק</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">המשך</string>
+	<string name="continue">המשך</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">הורדה של %s נכשלה</string>
 	<!-- "Add new bookmark list" dialog title -->

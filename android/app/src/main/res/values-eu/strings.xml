@@ -60,7 +60,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Pausa</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">Jarraitu</string>
+	<string name="continue">Jarraitu</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s deskargak huts egin du</string>
 	<!-- "Add new bookmark list" dialog title -->

@@ -63,7 +63,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">توقيف مؤقت</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">استمرار</string>
+	<string name="continue">استمرار</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">فشلت عملية تنزيل %s</string>
 	<!-- "Add new bookmark list" dialog title -->

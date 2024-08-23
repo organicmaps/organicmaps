@@ -62,7 +62,7 @@
 "download" = "הורדה";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "המשך";
+"continue" = "המשך";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "הוסף רשימה חדשה";

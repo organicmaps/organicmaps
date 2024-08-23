@@ -62,7 +62,7 @@
 "download" = "Загрузить";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "Продолжить";
+"continue" = "Продолжить";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Добавить список";

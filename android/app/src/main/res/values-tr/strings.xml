@@ -62,7 +62,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Duraklat</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">Devam</string>
+	<string name="continue">Devam</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s indirme işlemi başarısız oldu</string>
 	<!-- "Add new bookmark list" dialog title -->

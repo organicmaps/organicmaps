@@ -60,7 +60,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">중지</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">계속</string>
+	<string name="continue">계속</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s다운로드가 실패했습니다</string>
 	<!-- "Add new bookmark list" dialog title -->

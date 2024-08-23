@@ -62,7 +62,7 @@
 "download" = "Download";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "Continue";
+"continue" = "Continue";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Add a New List";

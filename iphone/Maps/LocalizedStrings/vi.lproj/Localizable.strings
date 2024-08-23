@@ -62,7 +62,7 @@
 "download" = "Tải xuống";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "Tiếp tục";
+"continue" = "Tiếp tục";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Thêm Bộ Mới";

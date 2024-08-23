@@ -62,7 +62,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Jeda</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">Lanjutkan</string>
+	<string name="continue">Lanjutkan</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s gagal diunduh</string>
 	<!-- "Add new bookmark list" dialog title -->

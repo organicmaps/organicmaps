@@ -61,7 +61,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">مکث</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">ادامه</string>
+	<string name="continue">ادامه</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s دانلود با شکست مواجه شد</string>
 	<!-- "Add new bookmark list" dialog title -->

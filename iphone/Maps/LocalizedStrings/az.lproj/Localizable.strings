@@ -62,7 +62,7 @@
 "download" = "Yüklə";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "Davam et";
+"continue" = "Davam et";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Yeni Siyahı əlavə edin";
