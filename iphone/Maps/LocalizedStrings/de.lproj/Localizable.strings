@@ -1392,6 +1392,18 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Alles wiederherstellen";
 
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Anhalten ohne zu speichern";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Routenaufzeichnung speichern?";
+
+/* Message for the alert when saving a track recording. */
+"track_recording_alert_message" = "Ihre Route wird in der aktuellen Liste gespeichert";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Route ist leer - nichts zu speichern";
+
 
 /********** Types **********/
 

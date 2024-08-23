@@ -1392,6 +1392,18 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "กู้คืนทั้งหมด";
 
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "หยุดโดยไม่บันทึก";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "บันทึกการบันทึกเส้นทางใช่ไหม";
+
+/* Message for the alert when saving a track recording. */
+"track_recording_alert_message" = "เส้นทางของคุณจะถูกบันทึกลงในรายการล่าสุด";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "เส้นทางว่างเปล่า - ไม่มีอะไรจะบันทึก";
+
 
 /********** Types **********/
 

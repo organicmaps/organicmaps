@@ -1392,6 +1392,18 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Odzyskaj wszystko";
 
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Zatrzymaj bez zapisywania";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Zapisać nagranie trasy?";
+
+/* Message for the alert when saving a track recording. */
+"track_recording_alert_message" = "Państwa trasa zostanie zapisana na najnowszej liście";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Trasa jest pusta - nic do zapisania";
+
 
 /********** Types **********/
 

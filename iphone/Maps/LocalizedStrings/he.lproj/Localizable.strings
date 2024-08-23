@@ -1392,6 +1392,18 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "לשחזר הכל";
 
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "עצור בלי לשמור";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "לשמור את הקלטת המסלול?";
+
+/* Message for the alert when saving a track recording. */
+"track_recording_alert_message" = "המסלול שלך יישמר לרשימה העדכנית ביותר";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "המסלול ריק - אין מה לשמור";
+
 
 /********** Types **********/
 

@@ -1392,6 +1392,18 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Recuperar tudo";
 
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Parar sem guardar";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Guardar gravação de rota?";
+
+/* Message for the alert when saving a track recording. */
+"track_recording_alert_message" = "A sua rota será guardada na lista mais recente";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "A rota está vazia - não há nada para guardar";
+
 
 /********** Types **********/
 

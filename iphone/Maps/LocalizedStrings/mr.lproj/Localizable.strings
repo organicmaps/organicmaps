@@ -1392,6 +1392,18 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "सर्व पुनर्प्राप्त करा";
 
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "जतन न करता थांबवा";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "मार्ग रेकॉर्डिंग सेव्ह करायचे?";
+
+/* Message for the alert when saving a track recording. */
+"track_recording_alert_message" = "तुमचा मार्ग नवीनतम सूचीमध्ये जतन केला जाईल";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "मार्ग रिकामा आहे - जतन करण्यासाठी काहीही नाही";
+
 
 /********** Types **********/
 

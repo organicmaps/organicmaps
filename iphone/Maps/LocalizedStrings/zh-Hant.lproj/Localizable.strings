@@ -1392,6 +1392,18 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "全部恢復";
 
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "停止而不保存";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "儲存軌跡記錄？";
+
+/* Message for the alert when saving a track recording. */
+"track_recording_alert_message" = "您的路徑將會儲存到最新清單中";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "軌跡為空 - 沒有可保存的內容";
+
 
 /********** Types **********/
 

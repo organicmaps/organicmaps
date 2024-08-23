@@ -1392,6 +1392,18 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Alles herstellen";
 
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Stoppen zonder op te slaan";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Opname van route opslaan?";
+
+/* Message for the alert when saving a track recording. */
+"track_recording_alert_message" = "Uw route wordt opgeslagen in de nieuwste lijst";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Route is leeg - niets om op te slaan";
+
 
 /********** Types **********/
 

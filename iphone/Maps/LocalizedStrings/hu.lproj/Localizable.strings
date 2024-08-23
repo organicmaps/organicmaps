@@ -1392,6 +1392,18 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Mindent visszaállít";
 
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Megállás mentés nélkül";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Útvonalrögzítés mentése?";
+
+/* Message for the alert when saving a track recording. */
+"track_recording_alert_message" = "Az útvonalad a legújabb listára kerül";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Az útvonal üres - nincs mit menteni";
+
 
 /********** Types **********/
 

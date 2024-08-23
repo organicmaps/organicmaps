@@ -1392,6 +1392,18 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Återställ allt";
 
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Stoppa utan att spara";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Spara inspelning av spår?";
+
+/* Message for the alert when saving a track recording. */
+"track_recording_alert_message" = "Din rutt kommer att sparas i den senaste listan";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Routen är tom - inget att spara";
+
 
 /********** Types **********/
 

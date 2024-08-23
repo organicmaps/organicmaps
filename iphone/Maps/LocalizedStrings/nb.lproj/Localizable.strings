@@ -1392,6 +1392,18 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Gjenopprett alt";
 
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Stopp uten å lagre";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Lagre ruteopptak?";
+
+/* Message for the alert when saving a track recording. */
+"track_recording_alert_message" = "Ruten din blir lagret i den nyeste listen";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Ruten er tom - ingenting å lagre";
+
 
 /********** Types **********/
 

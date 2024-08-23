@@ -1392,6 +1392,18 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Tout récupérer";
 
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Arrêter sans enregistrer";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Sauvegarder l'enregistrement d'une trace ?";
+
+/* Message for the alert when saving a track recording. */
+"track_recording_alert_message" = "Votre itinéraire sera sauvegardé dans la liste la plus récente";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "L'itinéraire est vide - il n'y a rien à sauvegarder";
+
 
 /********** Types **********/
 

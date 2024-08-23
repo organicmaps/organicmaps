@@ -1392,6 +1392,18 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Obnoviť všetko";
 
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Zastaviť bez uloženia";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Uložiť nahrávanie trasy?";
+
+/* Message for the alert when saving a track recording. */
+"track_recording_alert_message" = "Vaša trasa sa uloží do najnovšieho zoznamu";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Trasa je prázdna - nie je čo ukladať";
+
 
 /********** Types **********/
 
