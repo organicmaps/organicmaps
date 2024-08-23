@@ -28,6 +28,11 @@ import java.util.concurrent.TimeUnit;
 
 public class NavMenu
 {
+  // If the current speed exceeds the allowed speed by 0.5 we do not show any warnings.
+  // If the speed exceeds by more than 1 we inform the user about speed violation.
+  // This constant should be treated as kmph or mph depending on locale.
+  public static final double SPEED_LIMIT_THRESHOLD = 1.0;
+
   private final BottomSheetBehavior<View> mNavBottomSheetBehavior;
   private final View mBottomSheetBackground;
   private final View mHeaderFrame;
@@ -222,7 +227,8 @@ public class NavMenu
     else
       mSpeedValue.setText(speedAndUnits.first);
 
-    if (info.speedLimitMps > 0.0 && last.getSpeed() > info.speedLimitMps)
+    final double speedLimitThresholdMps = StringUtils.nativeLocalizedSpeedToMps(SPEED_LIMIT_THRESHOLD);
+    if (info.speedLimitMps > 0.0 && last.getSpeed() > info.speedLimitMps + speedLimitThresholdMps)
     {
       if (info.isSpeedCamLimitExceeded())
         mSpeedValue.setTextColor(ContextCompat.getColor(mActivity, R.color.white_primary));

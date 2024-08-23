@@ -31,6 +31,7 @@ public class StringUtils
 
   public static native Pair<String, String> nativeFormatSpeedAndUnits(double metersPerSecond);
   public static native Distance nativeFormatDistance(double meters);
+  public static native double nativeLocalizedSpeedToMps(double speed);
   @NonNull
   public static native Pair<String, String> nativeGetLocalizedDistanceUnits();
   @NonNull

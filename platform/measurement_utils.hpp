@@ -29,9 +29,11 @@ inline double FeetToMiles(double ft) { return ft * 0.00018939; }
 inline double InchesToMeters(double in) { return in / 39.370; }
 inline double NauticalMilesToMeters(double nmi) { return nmi * 1852; }
 inline double constexpr KmphToMps(double kmph) { return kmph * 1000 / 3600; }
+inline double constexpr MphToMps(double mph) { return MiphToKmph(mph) * 1000 / 3600; }
 
 double ToSpeedKmPH(double speed, Units units);
 double MpsToUnits(double mps, Units units);
+double UnitsToMps(double speed, Units units);
 
 /// @return Speed value string (without suffix) in km/h for Metric and in mph for Imperial.
 std::string FormatSpeedNumeric(double metersPerSecond, Units units);

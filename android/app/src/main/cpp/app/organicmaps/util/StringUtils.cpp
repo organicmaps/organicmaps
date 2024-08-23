@@ -82,4 +82,10 @@ Java_app_organicmaps_util_StringUtils_nativeGetLocalizedSpeedUnits(JNIEnv * env,
 {
   return jni::ToJavaString(env, platform::GetLocalizedSpeedUnits());
 }
+
+JNIEXPORT jdouble JNICALL
+Java_app_organicmaps_util_StringUtils_nativeLocalizedSpeedToMps(JNIEnv * env, jclass, jdouble speed)
+{
+    return measurement_utils::UnitsToMps(speed, measurement_utils::GetMeasurementUnits());
+}
 } // extern "C"

@@ -184,6 +184,16 @@ double MpsToUnits(double metersPerSecond, Units units)
   UNREACHABLE();
 }
 
+double UnitsToMps(double speed, Units units)
+{
+  switch (units)
+  {
+    case Units::Imperial: return MphToMps(speed); break;
+    case Units::Metric: return KmphToMps(speed); break;
+  }
+  UNREACHABLE();
+}
+
 std::string FormatSpeedNumeric(double metersPerSecond, Units units)
 {
   double const unitsPerHour = MpsToUnits(metersPerSecond, units);
