@@ -396,7 +396,7 @@ This is important, otherwise the following menus won't be visible.
 Install Android SDK and NDK:
 
 - Open "SDK Manager" (under "More Actions" in a welcome screen or a three-dot menu in a list of recent projects screen or "Tools" top menu item in an open project).
-- Select "Android 14.0 ("Upside Down Cake") / API Level 34" SDK.
+- Select "Android 15.0 ("Vanilla Ice Cream") / API Level 35" SDK.
 - Switch to "SDK Tools" tab.
 - Check "Show Package Details" checkbox.
 - Select "NDK (Side by side)" version **26.3.11579264**.
