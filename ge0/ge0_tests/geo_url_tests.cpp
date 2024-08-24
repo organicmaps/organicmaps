@@ -120,6 +120,12 @@ UNIT_TEST(GeoUrl_Geo)
   TEST_ALMOST_EQUAL_ABS(info.m_lat, 53.666, kEps, ());
   TEST_ALMOST_EQUAL_ABS(info.m_lon, -27.666, kEps, ());
 
+  TEST(parser.Parse("geo:-32.899583,139.043969&z=12", info), ("& instead of ? from a user report"));
+  TEST(info.IsLatLonValid(), ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lat, -32.899583, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lon, 139.043969, kEps, ());
+  TEST_EQUAL(info.m_zoom, 12,());
+
   // Invalid coordinates.
   TEST(!parser.Parse("geo:0,0garbage", info), ());
   TEST(!parser.Parse("geo:garbage0,0", info), ());
