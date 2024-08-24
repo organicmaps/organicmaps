@@ -1,18 +1,12 @@
 #pragma once
 
 #include "search/mwm_context.hpp"
-//#include "search/projection_on_street.hpp"
 #include "search/stats_cache.hpp"
-
-//#include "indexer/feature.hpp"
-//#include "indexer/feature_algo.hpp"
 
 #include "geometry/rect2d.hpp"
 
 #include "base/macros.hpp"
 
-//#include <algorithm>
-#include <memory>
 #include <vector>
 
 namespace search
@@ -25,6 +19,8 @@ class MwmContext;
 class StreetVicinityLoader
 {
 public:
+  static bool IsStreet(FeatureType & ft);
+
   struct Street
   {
     inline bool IsEmpty() const { return m_rect.IsEmptyInterior(); }
