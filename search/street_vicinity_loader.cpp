@@ -41,17 +41,19 @@ StreetVicinityLoader::Street const & StreetVicinityLoader::GetStreet(uint32_t fe
   return r.first;
 }
 
+bool StreetVicinityLoader::IsStreet(FeatureType & ft)
+{
+  auto const geomType = ft.GetGeomType();
+  // Highway should be line or area.
+  bool const isLineOrArea = (geomType == feature::GeomType::Line || geomType == feature::GeomType::Area);
+  // Square also maybe a point (besides line or area).
+  return ((isLineOrArea && ftypes::IsWayChecker::Instance()(ft)) || ftypes::IsSquareChecker::Instance()(ft));
+}
+
 void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
 {
   auto feature = m_context->GetFeature(featureId);
-  if (!feature)
-    return;
-
-  bool const isStreet =
-      (feature->GetGeomType() == feature::GeomType::Line &&
-       ftypes::IsWayChecker::Instance()(*feature)) ||
-      ftypes::IsSquareChecker::Instance()(*feature);
-  if (!isStreet)
+  if (!feature || !IsStreet(*feature))
     return;
 
   /// @todo Can be optimized here. Do not aggregate rect, but aggregate covering intervals for each segment, instead.
