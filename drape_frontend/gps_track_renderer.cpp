@@ -312,6 +312,6 @@ void GpsTrackRenderer::Update()
 void GpsTrackRenderer::Clear()
 {
   m_points.clear();
-  m_needUpdate = true;
+  ClearRenderData();
 }
 }  // namespace df
