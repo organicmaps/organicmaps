@@ -56,6 +56,8 @@
 #include "base/math.hpp"
 #include "base/sunrise_sunset.hpp"
 
+#include "ge0/url_generator.hpp"
+
 #include "3party/open-location-code/openlocationcode.h"
 
 #include <memory>
@@ -954,7 +956,16 @@ Java_app_organicmaps_Framework_nativeGetGe0Url(JNIEnv * env, jclass, jdouble lat
 {
   ::Framework * fr = frm();
   double const scale = (zoomLevel > 0 ? zoomLevel : fr->GetDrawScale());
-  string const url = fr->CodeGe0url(lat, lon, scale, jni::ToNativeString(env, name));
+  string const url = ge0::GenerateShortShowMapUrl(lat, lon, scale, jni::ToNativeString(env, name));
+  return jni::ToJavaString(env, url);
+}
+
+JNIEXPORT jstring JNICALL
+Java_app_organicmaps_Framework_nativeGetGeoUri(JNIEnv * env, jclass, jdouble lat, jdouble lon, jdouble zoomLevel, jstring name)
+{
+  ::Framework * fr = frm();
+  double const scale = (zoomLevel > 0 ? zoomLevel : fr->GetDrawScale());
+  string const url = ge0::GenerateGeoUri(lat, lon, scale, jni::ToNativeString(env, name));
   return jni::ToJavaString(env, url);
 }
 
