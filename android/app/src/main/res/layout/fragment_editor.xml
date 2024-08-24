@@ -290,12 +290,13 @@
               android:layout_marginStart="@dimen/editor_margin_left"
               android:layout_toStartOf="@+id/sw__outdoor_seating"
               android:text="@string/outdoor_seating"/>
-          <androidx.appcompat.widget.SwitchCompat
+
+          <com.google.android.material.checkbox.MaterialCheckBox
               android:id="@+id/sw__outdoor_seating"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_alignParentEnd="true"
-              android:layout_centerVertical="true"/>
+              android:layout_centerVertical="true" />
         </RelativeLayout>
 
         <!-- ToDo: Level is missing compared with iOS. -->

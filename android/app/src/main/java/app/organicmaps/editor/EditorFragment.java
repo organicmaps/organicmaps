@@ -20,9 +20,14 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragment;
@@ -38,9 +43,6 @@ import app.organicmaps.util.Option;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class EditorFragment extends BaseMwmFragment implements View.OnClickListener
 {
@@ -102,7 +104,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private TextView mCuisine;
   private SwitchCompat mWifi;
   private TextView mSelfService;
-  private SwitchCompat mOutdoorSeating;
+  private MaterialCheckBox mOutdoorSeating;
 
   // Default Metadata entries.
   private static final class MetadataEntry
@@ -198,7 +200,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mSelfService.setText(Utils.getTagValueLocalized(view.getContext(), "self_service", selfServiceMetadata));
     initMetadataEntry(Metadata.MetadataType.FMD_OPERATOR, 0);
     mWifi.setChecked(Editor.nativeHasWifi());
-    mOutdoorSeating.setChecked(Editor.nativeGetSwitchInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(),"yes"));
+    mOutdoorSeating.setCheckedState(Editor.nativeGetCheckboxInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(), "yes"));
     refreshOpeningTime();
     refreshEditableFields();
     refreshResetButton();
@@ -221,7 +223,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     Editor.nativeSetHasWifi(mWifi.isChecked());
     Editor.nativeSetNames(mParent.getNamesAsArray());
 
-    Editor.nativeSetSwitchInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(), mOutdoorSeating.isChecked(), "yes", "no");
+    Editor.nativeSetCheckboxInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(), mOutdoorSeating.getCheckedState(), "yes", "no");
 
     for (var e : mMetadata.entrySet())
       Editor.nativeSetMetadata(e.getKey().toInt(), e.getValue().mEdit.getText().toString());

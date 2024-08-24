@@ -103,6 +103,7 @@ public:
 
   static bool IsValidMetadata(MetadataID type, std::string const & value);
   void SetMetadata(MetadataID type, std::string value);
+
   bool UpdateMetadataValue(std::string_view key, std::string value);
 
   void SetOpeningHours(std::string oh);
@@ -128,6 +129,8 @@ public:
   static bool ValidateEmail(std::string const & email);
   static bool ValidateLevel(std::string const & level);
   static bool ValidateName(std::string const & name);
+  static bool ValidateSelfService(std::string const &IsSelfService);
+  static bool ValidateYesNoValue(std::string const &value);
 
   /// Check whether langCode can be used as default name.
   static bool CanUseAsDefaultName(int8_t const langCode, std::vector<int8_t> const & nativeMwmLanguages);

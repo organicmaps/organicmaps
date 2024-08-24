@@ -267,6 +267,8 @@ bool EditableMapObject::IsValidMetadata(MetadataID type, std::string const & val
   case MetadataID::FMD_POSTCODE: return ValidatePostCode(value);
   case MetadataID::FMD_PHONE_NUMBER: return ValidatePhoneList(value);
   case MetadataID::FMD_EMAIL: return ValidateEmail(value);
+  case MetadataID::FMD_SELF_SERVICE: return ValidateSelfService(value);
+  case MetadataID::FMD_OUTDOOR_SEATING: return ValidateYesNoValue(value);
 
   default: return true;
   }
@@ -576,6 +578,16 @@ bool EditableMapObject::ValidateName(string const & name)
       return false;
   }
   return true;
+}
+
+bool EditableMapObject::ValidateSelfService(std::string const &isSelfService)
+{
+    return isSelfService == "only" || isSelfService == "partially" || ValidateYesNoValue(isSelfService);
+}
+
+bool EditableMapObject::ValidateYesNoValue(std::string const &value)
+{
+    return value == "yes" || value == "no";
 }
 
 bool AreObjectsEqualIgnoringStreet(EditableMapObject const & lhs, EditableMapObject const & rhs)
