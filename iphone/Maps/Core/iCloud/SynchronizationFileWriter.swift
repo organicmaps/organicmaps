@@ -14,7 +14,7 @@ final class SynchronizationFileWriter {
     self.localDirectoryUrl = localDirectoryUrl
     self.cloudDirectoryUrl = cloudDirectoryUrl
   }
-  
+
   func processEvent(_ event: OutgoingEvent, completion: @escaping WritingResultCompletionHandler) {
     let resultCompletion: WritingResultCompletionHandler = { result in
       DispatchQueue.main.sync { completion(result) }
@@ -128,8 +128,13 @@ final class SynchronizationFileWriter {
 
   private func removeFromCloudContainer(_ localMetadataItem: LocalMetadataItem, completion: @escaping WritingResultCompletionHandler) {
     LOG(.info, "Start trashing file \(localMetadataItem.fileName)...")
+    let targetCloudFileUrl = localMetadataItem.relatedCloudItemUrl(to: cloudDirectoryUrl)
+    guard fileManager.fileExists(atPath: targetCloudFileUrl.path) else {
+      LOG(.warning, "File \(localMetadataItem.fileName) doesn't exist in the cloud directory and cannot be moved to the trash.")
+      completion(.success)
+      return
+    }
     do {
-      let targetCloudFileUrl = localMetadataItem.relatedCloudItemUrl(to: cloudDirectoryUrl)
       try removeDuplicatedFileFromTrashDirectoryIfNeeded(cloudDirectoryUrl: cloudDirectoryUrl, fileName: localMetadataItem.fileName)
       try self.fileManager.trashItem(at: targetCloudFileUrl, resultingItemURL: nil)
       LOG(.debug, "File \(localMetadataItem.fileName) was trashed successfully.")
