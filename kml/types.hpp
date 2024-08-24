@@ -45,24 +45,25 @@ inline std::string DebugPrint(PredefinedColor color)
 {
   switch (color)
   {
-  case PredefinedColor::None: return "None";
-  case PredefinedColor::Red: return "Red";
-  case PredefinedColor::Blue: return "Blue";
-  case PredefinedColor::Purple: return "Purple";
-  case PredefinedColor::Yellow: return "Yellow";
-  case PredefinedColor::Pink: return "Pink";
-  case PredefinedColor::Brown: return "Brown";
-  case PredefinedColor::Green: return "Green";
-  case PredefinedColor::Orange: return "Orange";
-  case PredefinedColor::DeepPurple: return "DeepPurple";
-  case PredefinedColor::LightBlue: return "LightBlue";
-  case PredefinedColor::Cyan: return "Cyan";
-  case PredefinedColor::Teal: return "Teal";
-  case PredefinedColor::Lime: return "Lime";
-  case PredefinedColor::DeepOrange: return "DeepOrange";
-  case PredefinedColor::Gray: return "Gray";
-  case PredefinedColor::BlueGray: return "BlueGray";
-  case PredefinedColor::Count: return {};
+  using enum kml::PredefinedColor;
+  case None: return "None";
+  case Red: return "Red";
+  case Blue: return "Blue";
+  case Purple: return "Purple";
+  case Yellow: return "Yellow";
+  case Pink: return "Pink";
+  case Brown: return "Brown";
+  case Green: return "Green";
+  case Orange: return "Orange";
+  case DeepPurple: return "DeepPurple";
+  case LightBlue: return "LightBlue";
+  case Cyan: return "Cyan";
+  case Teal: return "Teal";
+  case Lime: return "Lime";
+  case DeepOrange: return "DeepOrange";
+  case Gray: return "Gray";
+  case BlueGray: return "BlueGray";
+  case Count: return {};
   }
   UNREACHABLE();
 }
@@ -71,24 +72,25 @@ inline dp::Color ColorFromPredefinedColor(PredefinedColor color)
 {
   switch (color)
   {
-    case kml::PredefinedColor::Red: return dp::Color(229, 27, 35, 255);
-    case kml::PredefinedColor::Pink: return dp::Color(255, 65, 130, 255);
-    case kml::PredefinedColor::Purple: return dp::Color(155, 36, 178, 255);
-    case kml::PredefinedColor::DeepPurple: return dp::Color(102, 57, 191, 255);
-    case kml::PredefinedColor::Blue: return dp::Color(0, 102, 204, 255);
-    case kml::PredefinedColor::LightBlue: return dp::Color(36, 156, 242, 255);
-    case kml::PredefinedColor::Cyan: return dp::Color(20, 190, 205, 255);
-    case kml::PredefinedColor::Teal: return dp::Color(0, 165, 140, 255);
-    case kml::PredefinedColor::Green: return dp::Color(60, 140, 60, 255);
-    case kml::PredefinedColor::Lime: return dp::Color(147, 191, 57, 255);
-    case kml::PredefinedColor::Yellow: return dp::Color(255, 200, 0, 255);
-    case kml::PredefinedColor::Orange: return dp::Color(255, 150, 0, 255);
-    case kml::PredefinedColor::DeepOrange: return dp::Color(240, 100, 50, 255);
-    case kml::PredefinedColor::Brown: return dp::Color(128, 70, 51, 255);
-    case kml::PredefinedColor::Gray: return dp::Color(115, 115, 115, 255);
-    case kml::PredefinedColor::BlueGray: return dp::Color(89, 115, 128, 255);
-    case kml::PredefinedColor::None:
-    case kml::PredefinedColor::Count: return ColorFromPredefinedColor(kml::PredefinedColor::Red);
+  using enum kml::PredefinedColor;
+  case Red: return dp::Color(229, 27, 35, 255);
+  case Pink: return dp::Color(255, 65, 130, 255);
+  case Purple: return dp::Color(155, 36, 178, 255);
+  case DeepPurple: return dp::Color(102, 57, 191, 255);
+  case Blue: return dp::Color(0, 102, 204, 255);
+  case LightBlue: return dp::Color(36, 156, 242, 255);
+  case Cyan: return dp::Color(20, 190, 205, 255);
+  case Teal: return dp::Color(0, 165, 140, 255);
+  case Green: return dp::Color(60, 140, 60, 255);
+  case Lime: return dp::Color(147, 191, 57, 255);
+  case Yellow: return dp::Color(255, 200, 0, 255);
+  case Orange: return dp::Color(255, 150, 0, 255);
+  case DeepOrange: return dp::Color(240, 100, 50, 255);
+  case Brown: return dp::Color(128, 70, 51, 255);
+  case Gray: return dp::Color(115, 115, 115, 255);
+  case BlueGray: return dp::Color(89, 115, 128, 255);
+  case None:
+  case Count: return ColorFromPredefinedColor(kml::PredefinedColor::Red);
   }
 }
 
@@ -111,13 +113,14 @@ inline std::string DebugPrint(AccessRules accessRules)
 {
   switch (accessRules)
   {
-  case AccessRules::Local: return "Local";
-  case AccessRules::Public: return "Public";
-  case AccessRules::DirectLink: return "DirectLink";
-  case AccessRules::P2P: return "P2P";
-  case AccessRules::Paid: return "Paid";
-  case AccessRules::AuthorOnly: return "AuthorOnly";
-  case AccessRules::Count: return {};
+  using enum kml::AccessRules;
+  case Local: return "Local";
+  case Public: return "Public";
+  case DirectLink: return "DirectLink";
+  case P2P: return "P2P";
+  case Paid: return "Paid";
+  case AuthorOnly: return "AuthorOnly";
+  case Count: return {};
   }
   UNREACHABLE();
 }
@@ -134,9 +137,10 @@ inline std::string DebugPrint(CompilationType compilationType)
 {
   switch (compilationType)
   {
-  case CompilationType::Category: return "Category";
-  case CompilationType::Collection: return "Collection";
-  case CompilationType::Day: return "Day";
+  using enum kml::CompilationType;
+  case Category: return "Category";
+  case Collection: return "Collection";
+  case Day: return "Day";
   }
   UNREACHABLE();
 }
@@ -181,34 +185,35 @@ inline std::string ToString(BookmarkIcon icon)
 {
   switch (icon)
   {
-  case BookmarkIcon::None: return "None";
-  case BookmarkIcon::Hotel: return "Hotel";
-  case BookmarkIcon::Animals: return "Animals";
-  case BookmarkIcon::Buddhism: return "Buddhism";
-  case BookmarkIcon::Building: return "Building";
-  case BookmarkIcon::Christianity: return "Christianity";
-  case BookmarkIcon::Entertainment: return "Entertainment";
-  case BookmarkIcon::Exchange: return "Exchange";
-  case BookmarkIcon::Food: return "Food";
-  case BookmarkIcon::Gas: return "Gas";
-  case BookmarkIcon::Judaism: return "Judaism";
-  case BookmarkIcon::Medicine: return "Medicine";
-  case BookmarkIcon::Mountain: return "Mountain";
-  case BookmarkIcon::Museum: return "Museum";
-  case BookmarkIcon::Islam: return "Islam";
-  case BookmarkIcon::Park: return "Park";
-  case BookmarkIcon::Parking: return "Parking";
-  case BookmarkIcon::Shop: return "Shop";
-  case BookmarkIcon::Sights: return "Sights";
-  case BookmarkIcon::Swim: return "Swim";
-  case BookmarkIcon::Water: return "Water";
-  case BookmarkIcon::Bar: return "Bar";
-  case BookmarkIcon::Transport: return "Transport";
-  case BookmarkIcon::Viewpoint: return "Viewpoint";
-  case BookmarkIcon::Sport: return "Sport";
-  case BookmarkIcon::Start: return "Start";
-  case BookmarkIcon::Finish: return "Finish";
-  case BookmarkIcon::Count: return {};
+  using enum kml::BookmarkIcon;
+  case None: return "None";
+  case Hotel: return "Hotel";
+  case Animals: return "Animals";
+  case Buddhism: return "Buddhism";
+  case Building: return "Building";
+  case Christianity: return "Christianity";
+  case Entertainment: return "Entertainment";
+  case Exchange: return "Exchange";
+  case Food: return "Food";
+  case Gas: return "Gas";
+  case Judaism: return "Judaism";
+  case Medicine: return "Medicine";
+  case Mountain: return "Mountain";
+  case Museum: return "Museum";
+  case Islam: return "Islam";
+  case Park: return "Park";
+  case Parking: return "Parking";
+  case Shop: return "Shop";
+  case Sights: return "Sights";
+  case Swim: return "Swim";
+  case Water: return "Water";
+  case Bar: return "Bar";
+  case Transport: return "Transport";
+  case Viewpoint: return "Viewpoint";
+  case Sport: return "Sport";
+  case Start: return "Start";
+  case Finish: return "Finish";
+  case Count: return {};
   }
   UNREACHABLE();
 }
