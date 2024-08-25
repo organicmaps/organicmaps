@@ -13,7 +13,7 @@
 "download_maps" = "下載地圖";
 
 /* Settings/Downloader - info for country which started downloading */
-"downloading" = "正在下載…";
+"downloading" = "下載中…";
 
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "公里";
@@ -49,7 +49,7 @@
 "about_headline" = "對每個人都免費，用愛製成";
 
 /* Text in About screen */
-"about_proposition_1" = "• 沒有廣告，不會跟踪您，更不會收集您的數據";
+"about_proposition_1" = "• 沒有廣告，不會跟蹤您，更不會收集您的數據";
 
 /* Text in About screen */
 "about_proposition_2" = "• 無需耗費太多電量，可離線工作";
@@ -95,7 +95,7 @@
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
-"category_eat" = "在哪兒吃";
+"category_eat" = "在哪裡吃";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! */
 "category_food" = "食品";
@@ -113,7 +113,7 @@
 "category_shopping" = "購物";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
-"category_secondhand" = "二手貨";
+"category_secondhand" = "二手商店";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
 "category_hotel" = "旅館";
@@ -241,10 +241,10 @@
 "pref_map_3d_buildings_title" = "3D 建築";
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
-"pref_map_3d_buildings_disabled_summary" = "3D 建築在省電模式下處於關閉狀態";
+"pref_map_3d_buildings_disabled_summary" = "3D 建築在省電模式下將會關閉";
 
 /* Settings «Route» category: «Tts enabled» title */
-"pref_tts_enable_title" = "語音指示";
+"pref_tts_enable_title" = "語音提示";
 
 /* Settings «Route» category: «Tts announce street names» title */
 "pref_tts_street_names_title" = "播報街道名稱";
@@ -256,7 +256,7 @@
 "pref_tts_language_title" = "語音語言";
 
 /* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "測試語音指令（TTS，文本轉語音系統）";
+"pref_tts_test_voice_title" = "測試語音指令（TTS，文字轉語音系統）";
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "其他";
@@ -280,7 +280,7 @@
 
 "recent_track_help_text" = "記錄並顯示您在指定時間段內的旅行軌跡。請注意：這會顯著增加電池消耗。";
 
-"placepage_distance" = "距离";
+"placepage_distance" = "距離";
 
 "search_show_on_map" = "在地圖上查看";
 
@@ -324,13 +324,13 @@
 "report_a_bug" = "報告問題";
 
 /* Button in the About screen */
-"report_incorrect_map_bug" = "報告或修復不正確的地圖數據";
+"report_incorrect_map_bug" = "回報或修復不正確的地圖數據";
 
 /* Button in the About screen */
 "volunteer" = "志願者";
 
 /* "Social media" section header in the About screen */
-"follow_us" = "關注並聯絡我們：";
+"follow_us" = "追蹤並聯絡我們：";
 
 /* Alert text */
 "email_error_body" = "電子郵件客戶端未設定。請配置電子郵件客戶端或通過 %@ 聯絡我們。";
@@ -339,7 +339,7 @@
 "email_error_title" = "電子郵件發送失敗";
 
 /* Settings item title */
-"pref_calibration_title" = "指南針校準";
+"pref_calibration_title" = "校正指南針";
 
 /* Toast text when user hides UI with a long tap anywhere on the map */
 "long_tap_toast" = "再次長按地圖即可查看介面";
@@ -354,7 +354,7 @@
 "downloader_available_maps" = "可用";
 
 /* Country queued for download */
-"downloader_queued" = "已加入到下載隊列";
+"downloader_queued" = "已加入到下載清單";
 
 "downloader_near_me_subtitle" = "在我附近";
 
@@ -466,7 +466,7 @@
 
 "dialog_routing_check_gps" = "檢查 GPS 訊號";
 
-"dialog_routing_error_location_not_found" = "無法規劃路線。無法識別當前 GPS 座標。";
+"dialog_routing_error_location_not_found" = "無法規劃路線。無法識別目前 GPS 座標。";
 
 "dialog_routing_location_turn_wifi" = "請檢查您的 GPS 訊號。啟用無線網路將改善定位精度。";
 
@@ -494,9 +494,9 @@
 
 "dialog_routing_select_closer_end" = "請選擇更接近道路的目的地位置。";
 
-"dialog_routing_change_intermediate" = "無法定位途徑點。";
+"dialog_routing_change_intermediate" = "無法定位途經點。";
 
-"dialog_routing_intermediate_not_determined" = "請調整您的途徑點。";
+"dialog_routing_intermediate_not_determined" = "請調整您的途經點。";
 
 "dialog_routing_system_error" = "系統錯誤";
 
@@ -518,19 +518,19 @@
 "hide" = "隱藏";
 
 /* Failed planning route message in navigation view */
-"routing_planning_error" = "路線計劃失敗";
+"routing_planning_error" = "路線規劃失敗";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "已到達 %@";
+"routing_arrive" = "已抵達 %@";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "要規劃路線，請下載並更新所有沿路線的地圖。";
+"dialog_routing_download_and_update_maps" = "要規劃路線，請下載並更新所有沿線的地圖。";
 
 "categories" = "類別";
 
 "history" = "歷史";
 
-"search_not_found" = "很抱歉，沒有搜到任何地點。";
+"search_not_found" = "很抱歉，沒有搜尋到任何地點。";
 
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "下載您要搜尋的區域的地圖，或嘗試輸入附近的城鎮或村莊名稱。";
@@ -551,9 +551,9 @@
 
 "p2p_start" = "開始";
 
-"p2p_from_here" = "從這出發";
+"p2p_from_here" = "從這裡出發";
 
-"p2p_to_here" = "到這去";
+"p2p_to_here" = "到這裡去";
 
 "p2p_only_from_current" = "導航只能從您目前的位置開始。";
 
@@ -566,7 +566,7 @@
 /* Text for allday switch. */
 "editor_time_allday" = "全天 (24 小時)";
 
-"editor_time_open" = "正在營業";
+"editor_time_open" = "營業中";
 
 "editor_time_close" = "已歇業";
 
@@ -586,9 +586,9 @@
 
 "editor_done_dialog_1" = "您已經改變了世界地圖。請別再藏私了！告訴您的朋友們並一起來編輯地圖。";
 
-"share_with_friends" = "与朋友分享";
+"share_with_friends" = "與朋友分享";
 
-"editor_report_problem_send_button" = "發送";
+"editor_report_problem_send_button" = "傳送";
 
 "autodownload" = "自動下載";
 
@@ -676,7 +676,7 @@
 
 "level" = "樓層";
 
-"please_note" = "請註意";
+"please_note" = "請注意";
 
 "downloader_delete_map_dialog" = "所有對地圖的修改都將與地圖一起被刪除。";
 
@@ -713,14 +713,14 @@
 
 "editor_edit_place_category_title" = "類別";
 
-"whatsnew_editor_message_1" = "新增新地點到地圖，並直接通過此應用編輯已存在的地點。";
+"whatsnew_editor_message_1" = "新增新地點到地圖，並直接透過此應用編輯已存在的地點。";
 
 "dialog_incorrect_feature_position" = "更改位置";
 
 "message_invalid_feature_position" = "地點無法放置在這裡";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
-"osm_presentation" = "截至 %@ 的社群創建的 OpenStreetMap 資料。請訪問 OpenStreetMap.org 以了解有關如何編輯和更新地圖的更多信息。";
+"osm_presentation" = "截至 %@ 的社群創建的 OpenStreetMap 資料。請訪問 OpenStreetMap.org 以了解有關如何編輯和更新地圖的更多資訊。";
 
 "login_to_make_edits_visible" = "登入，讓其他使用者能看到您所作出的修改。";
 
@@ -732,7 +732,7 @@
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d / %2$d";
 
-"download_over_mobile_header" = "用手機網路連線下載嗎？";
+"download_over_mobile_header" = "用行動數據連線下載嗎？";
 
 "download_over_mobile_message" = "如果您使用行動數據或漫遊來進行下載，將可能導致額外的費用。";
 
@@ -750,7 +750,7 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "未知地點";
 
-"editor_other_info" = "給 OSM 社區發送標記";
+"editor_other_info" = "給 OSM 社區發送註解";
 
 "editor_detailed_description_hint" = "詳細註釋";
 
@@ -780,7 +780,7 @@
 "location_services_disabled_2" = "2. 點擊位置";
 
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
-"location_services_disabled_3" = "3. 點擊“使用 App 期間”";
+"location_services_disabled_3" = "3. 點擊“僅在使用該應用程式時允許”";
 
 "location_services_disabled_on_device_2" = "2. 點擊“隱私權”";
 
@@ -834,7 +834,7 @@
 
 "placepage_delete_bookmark_button" = "刪除書籤";
 
-"editor_edits_sent_message" = "您的註釋將發送至 OpenStreetMap";
+"editor_edits_sent_message" = "您的註解將發送至 OpenStreetMap";
 
 "editor_comment_hint" = "備註…";
 
@@ -872,12 +872,12 @@
 "navigation_stop_button" = "停止";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
-"recent_track_background_dialog_title" = "禁止記錄您最近去過的路線嗎？";
+"recent_track_background_dialog_title" = "取消記錄您最近去過的路線嗎？";
 
 "off_recent_track_background_button" = "禁用";
 
 /* For sharing via SMS and so on */
-"sharing_call_action_look" = "來看看";
+"sharing_call_action_look" = "查看";
 
 "recent_track_background_dialog_message" = "Organic Maps 在後臺使用您的位置記錄您最近去過的路線。";
 
@@ -909,7 +909,7 @@
 
 "mobile_data_option_ask" = "一律詢問";
 
-"traffic_update_maps_text" = "諾要顯示交通資料，必須更新地圖。";
+"traffic_update_maps_text" = "若要顯示交通資料，必須更新地圖。";
 
 "big_font" = "增加地圖上的字體大小";
 
@@ -942,7 +942,7 @@
 
 "planning_route_remove_title" = "拖曳到此處以移除";
 
-"placepage_add_stop" = "新增經停點";
+"placepage_add_stop" = "新增中途點";
 
 "start_from_my_position" = "起點";
 
@@ -1028,7 +1028,7 @@
 
 "download_button" = "下載";
 
-"speedcams_alert_title" = "限速拍照";
+"speedcams_alert_title" = "測速照相";
 
 "place_description_title" = "地點說明";
 
@@ -1036,10 +1036,10 @@
 "pref_tts_speedcams_auto" = "超速行駛時發出警告";
 
 /* Speed camera settings menu option - Always warn (about speedcams) */
-"pref_tts_speedcams_always" = "始終提醒照相機";
+"pref_tts_speedcams_always" = "始終提醒測速照相機";
 
 /* Speed camera settings menu option - Never warn (about speedcams) */
-"pref_tts_speedcams_never" = "永遠不會對照相機發出警告";
+"pref_tts_speedcams_never" = "永遠不會對測速照相機發出警告";
 
 "power_managment_title" = "省電模式";
 
@@ -1059,7 +1059,7 @@
 "avoid_tolls" = "避開收費公路";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
-"avoid_unpaved" = "避開未鋪砌道路";
+"avoid_unpaved" = "避開無鋪面道路";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "避開渡輪";
@@ -1076,7 +1076,7 @@
 
 "toll_road" = "收費公路";
 
-"unpaved_road" = "未鋪砌道路";
+"unpaved_road" = "未鋪面道路";
 
 "ferry_crossing" = "渡輪";
 
@@ -1084,13 +1084,13 @@
 
 "pick_destination" = "目的地";
 
-"follow_my_position" = "重新居中";
+"follow_my_position" = "重新置中";
 
 "search_results" = "搜尋結果";
 
 "then_turn" = "然後";
 
-"redirect_route_alert" = "您想重新規劃路線嗎？";
+"redirect_route_alert" = "您想要重新規劃路線嗎？";
 
 /* A generic "Yes" button in dialogs */
 "yes" = "是";
@@ -1136,7 +1136,7 @@
 
 "ok" = "好的";
 
-"speedcams_alert_title_carplay_1" = "限速拍照";
+"speedcams_alert_title_carplay_1" = "測速照相";
 
 "speedcams_alert_title_carplay_2" = "超速警告";
 
@@ -1205,7 +1205,7 @@
 
 "religious_places" = "宗教場所";
 
-"transit_not_found" = "本區域的地鐵導航目前不可用";
+"transit_not_found" = "本區域的捷運導航目前不可用";
 
 "dialog_pedestrian_route_is_long_header" = "未找到捷運路線圖";
 
@@ -1286,7 +1286,7 @@
 "app_tip_01" = "有了您的捐贈和支持，我們可以創造世界上最好的地圖！";
 
 /* App tip #02 */
-"app_tip_02" = "您喜歡我們的應用程序嗎？請捐款以支持發展！還不喜歡嗎？請告訴我們，我們會修復您提到的問題！";
+"app_tip_02" = "您喜歡我們的應用程式嗎？請捐款以支持發展！還不喜歡嗎？請告訴我們，我們會修復您提到的問題！";
 
 /* App tip #03 */
 "app_tip_03" = "如果您認識軟體開發人員，您可以要求他實現您需要的功能。";
@@ -1319,7 +1319,7 @@
 "car_continue_on_the_phone" = "在手機上繼續";
 
 /* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
-"car_continue_in_the_car" = "轉到汽車屏幕";
+"car_continue_in_the_car" = "轉到汽車螢幕";
 
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "徒步旅行";
@@ -1333,7 +1333,7 @@
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "地圖";
 
-"drive_through" = "免下車通道";
+"drive_through" = "得來速通道";
 
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "選單連結";
@@ -1357,7 +1357,7 @@
 "enable" = "啟用";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
-"backup" = "备份";
+"backup" = "備份";
 
 /* Title for the "iCloud synchronization failure" alert. */
 "icloud_synchronization_error_alert_title" = "iCloud 同步失敗";
