@@ -1148,26 +1148,33 @@ void BookmarkManager::SaveTrackRecording(std::string trackName)
   auto const & tracker = GpsTracker::Instance();
   CHECK(!tracker.IsEmpty(), ("Track recording should be not be empty"));
 
-  kml::MultiGeometry::LineT line;
-  tracker.ForEachTrackPoint([&line](location::GpsInfo const & pt, size_t id)->bool
+  kml::MultiGeometry geometry;
+  geometry.m_lines.emplace_back();
+  geometry.m_timestamps.emplace_back();
+  auto & line = geometry.m_lines.back();
+  auto & timestamps = geometry.m_timestamps.back();
+  auto const trackSize = tracker.GetTrackSize();
+  line.reserve(trackSize);
+  timestamps.reserve(trackSize);
+
+  tracker.ForEachTrackPoint([&line, &timestamps](location::GpsInfo const & pt, size_t id)->bool
   {
-    line.emplace_back(mercator::FromLatLon(pt.m_latitude, pt.m_longitude));
+    line.emplace_back(mercator::FromLatLon(pt.m_latitude, pt.m_longitude), pt.m_altitude);
+    timestamps.emplace_back(pt.m_timestamp);
     return true;
   });
 
   kml::TrackData trackData;
+  trackData.m_geometry = std::move(geometry);
+
   if (trackName.empty())
     trackName = GenerateTrackRecordingName();
   kml::SetDefaultStr(trackData.m_name, trackName);
 
-  kml::MultiGeometry geometry;
-  geometry.m_lines.push_back(std::move(line));
-  trackData.m_geometry = std::move(geometry);
-
   kml::ColorData colorData;
   colorData.m_rgba = GenerateTrackRecordingColor().GetRGBA();
   kml::TrackLayer layer;
-  layer.m_color = colorData;
+  layer.m_color = std::move(colorData);
 
   std::vector<kml::TrackLayer> m_layers;
   m_layers.emplace_back(layer);

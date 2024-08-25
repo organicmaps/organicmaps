@@ -39,6 +39,7 @@ public:
   void Clear();
 
   bool IsEmpty() const;
+  size_t GetSize() const;
 
   /// Sets tracking duration in hours.
   /// @note Callback is called with 'toRemove' points, if some points were removed.

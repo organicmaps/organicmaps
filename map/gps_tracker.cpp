@@ -99,6 +99,11 @@ bool GpsTracker::IsEmpty() const
   return m_track.IsEmpty();
 }
 
+size_t GpsTracker::GetTrackSize() const
+{
+  return m_track.GetSize();
+}
+
 void GpsTracker::Connect(TGpsTrackDiffCallback const & fn)
 {
   m_track.SetCallback(fn);
