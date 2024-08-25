@@ -9,9 +9,9 @@
 	<string name="delete">刪除</string>
 	<string name="download_maps">下載地圖</string>
 	<!-- Settings/Downloader - info for country when download fails -->
-	<string name="download_has_failed">下載失敗，點擊以再試一次</string>
+	<string name="download_has_failed">下載失敗，點擊後再試一次</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
-	<string name="downloading">正在下載…</string>
+	<string name="downloading">下載中…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">公里</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
@@ -28,7 +28,7 @@
 	<!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
 	<string name="search_map">搜尋地圖</string>
 	<!-- Location services are disabled by user alert - message -->
-	<string name="location_is_disabled_long_text">您當前已禁用此裝置或應用程式的所有位置服務，請在設定中啟用。</string>
+	<string name="location_is_disabled_long_text">您目前已禁用此裝置或應用程式的所有位置權限，請在設定中啟用。</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">在地圖上顯示</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
@@ -39,7 +39,7 @@
 	<!-- Text in About screen -->
 	<string name="about_headline">對每個人都免費，用愛製成</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_1">• 沒有廣告，不會跟踪您，更不會收集您的數據</string>
+	<string name="about_proposition_1">• 沒有廣告，不會跟蹤您，更不會收集您的數據</string>
 	<!-- Text in About screen -->
 	<string name="about_proposition_2">• 無需耗費太多電量，可離線工作</string>
 	<!-- Text in About screen -->
@@ -49,7 +49,7 @@
 	<!-- The button that opens system location settings -->
 	<string name="location_settings">位置設定</string>
 	<string name="close">關閉</string>
-	<string name="unsupported_phone">該應用程式需要硬體加速的 OpenGL。很遺憾，您的裝置不受支持。</string>
+	<string name="unsupported_phone">該應用程式需要硬體加速的 OpenGL。很遺憾，您的裝置不受支援。</string>
 	<string name="download">下載</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable">請拔除 USB 線或插入 SD 卡以使用 Organic Maps</string>
@@ -115,7 +115,7 @@
 
 	<!-- SECTION: Search categories -->
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
-	<string name="category_eat">在哪兒吃</string>
+	<string name="category_eat">在哪裡吃</string>
 	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
 	<string name="category_food">食品</string>
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
@@ -127,7 +127,7 @@
 	<!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
 	<string name="category_shopping">購物</string>
 	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
-	<string name="category_secondhand">二手貨</string>
+	<string name="category_secondhand">二手商店</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
 	<string name="category_hotel">旅館</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
@@ -230,9 +230,9 @@
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D 建築</string>
 	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
-	<string name="pref_map_3d_buildings_disabled_summary">3D 建築在省電模式下處於關閉狀態</string>
+	<string name="pref_map_3d_buildings_disabled_summary">3D 建築在省電模式下將會關閉</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
-	<string name="pref_tts_enable_title">語音指示</string>
+	<string name="pref_tts_enable_title">語音提示</string>
 	<!-- Settings «Route» category: «Tts announce street names» title -->
 	<string name="pref_tts_street_names_title">播報街道名稱</string>
 	<!-- Settings «Route» category: «Tts announce street names» description -->
@@ -240,11 +240,11 @@
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">語音語言</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
-	<string name="pref_tts_test_voice_title">測試語音指令（TTS，文本轉語音系統）</string>
+	<string name="pref_tts_test_voice_title">測試語音指令（TTS，文字轉語音系統）</string>
 	<!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
-	<string name="pref_tts_playing_test_voice">如果您現在聽不到聲音，請檢查音量或系統文本轉語音系統的設定。</string>
+	<string name="pref_tts_playing_test_voice">如果您現在聽不到聲音，請檢查音量或系統文字轉語音系統的設定。</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
-	<string name="pref_tts_unavailable">不可用</string>
+	<string name="pref_tts_unavailable">無法使用</string>
 	<!-- The name of the feature in the main menu, settings, and messages. -->
 	<string name="recent_track">最近的軌跡</string>
 	<string name="pref_map_auto_zoom">自動縮放</string>
@@ -254,7 +254,7 @@
 	<string name="duration_6_hours">6 小時</string>
 	<string name="duration_12_hours">12 小時</string>
 	<string name="duration_1_day">1 天</string>
-	<string name="placepage_distance">距离</string>
+	<string name="placepage_distance">距離</string>
 	<string name="search_show_on_map">在地圖上查看</string>
 	<!-- Menu button -->
 	<string name="menu">菜單</string>
@@ -267,7 +267,7 @@
 	<!-- Text in menu -->
 	<string name="twitter">X (推特)</string>
 	<!-- Settings: Send feedback button and dialog title -->
-	<string name="feedback">反饋</string>
+	<string name="feedback">回饋</string>
 	<!-- Text in menu -->
 	<string name="rate_the_app">為我們評分</string>
 	<!-- Text in menu -->
@@ -283,9 +283,9 @@
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">報告問題</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
-	<string name="compass_calibration_recommended">通過以 8 字形移動手機來改善箭頭方向，以校準羅盤。</string>
+	<string name="compass_calibration_recommended">以 8 字形移動手機來改善箭頭方向，以校準羅盤。</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
-	<string name="compass_calibration_required">通過以 8 字形移動手機以校準羅盤，並在地圖上固定箭頭方向。</string>
+	<string name="compass_calibration_required">以 8 字形移動手機以校準指北針，並在地圖上固定箭頭方向。</string>
 	<!-- Toast text when user hides UI with a long tap anywhere on the map -->
 	<string name="long_tap_toast">再次長按地圖即可查看介面</string>
 	<!-- Update all button text -->
@@ -295,7 +295,7 @@
 	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">已下載</string>
 	<!-- Country queued for download -->
-	<string name="downloader_queued">已加入到下載隊列</string>
+	<string name="downloader_queued">已加入到下載清單</string>
 	<string name="downloader_near_me_subtitle">在我附近</string>
 	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">地圖</string>
@@ -316,7 +316,7 @@
 	<!-- Preference title -->
 	<string name="google_play_services">Google Play 定位服務</string>
 	<!-- Preference text -->
-	<string name="pref_use_google_play">使用藍牙、WiFi 或行動網路快速確定您的大致位置</string>
+	<string name="pref_use_google_play">使用藍牙、WiFi 或行動數據快速確定您的大致位置</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">下載路線上的所有地圖</string>
 	<!-- Text for routing error dialog -->
@@ -369,7 +369,7 @@
 	<string name="dialog_routing_disclaimer_borders">— 小心對待國界區的路線：我們的應用程式建立的路線有時會在未經授權的地方跨越國界；</string>
 	<string name="dialog_routing_disclaimer_beware">上路時請當心，祝您一路平安！</string>
 	<string name="dialog_routing_check_gps">檢查 GPS 訊號</string>
-	<string name="dialog_routing_error_location_not_found">無法規劃路線。無法識別當前 GPS 座標。</string>
+	<string name="dialog_routing_error_location_not_found">無法規劃路線。無法識別目前 GPS 座標。</string>
 	<string name="dialog_routing_location_turn_wifi">請檢查您的 GPS 訊號。啟用無線網路將改善定位精度。</string>
 	<string name="dialog_routing_location_turn_on">啟用定位服務</string>
 	<string name="dialog_routing_location_unknown_turn_on">無法定位目前 GPS 座標。請啟用定位服務以規劃路線。</string>
@@ -382,8 +382,8 @@
 	<string name="dialog_routing_change_end">調整目的地</string>
 	<string name="dialog_routing_end_not_determined">路線未規劃。無法定位目的地。</string>
 	<string name="dialog_routing_select_closer_end">請選擇更接近道路的目的地位置。</string>
-	<string name="dialog_routing_change_intermediate">無法定位途徑點。</string>
-	<string name="dialog_routing_intermediate_not_determined">請調整您的途徑點。</string>
+	<string name="dialog_routing_change_intermediate">無法定位途經點。</string>
+	<string name="dialog_routing_intermediate_not_determined">請調整您的途經點。</string>
 	<string name="dialog_routing_system_error">系統錯誤</string>
 	<string name="dialog_routing_application_error">由於應用程式出錯，因此無法規劃路線。</string>
 	<string name="dialog_routing_try_again">請再試一次</string>
@@ -400,7 +400,7 @@
 	<string name="hide">隱藏</string>
 	<string name="categories">類別</string>
 	<string name="history">歷史</string>
-	<string name="search_not_found">很抱歉，沒有搜到任何地點。</string>
+	<string name="search_not_found">很抱歉，沒有搜尋到任何地點。</string>
 	<!-- The message when user did not find anything in the search. -->
 	<string name="search_not_found_query">下載您要搜尋的區域的地圖，或嘗試輸入附近的城鎮或村莊名稱。</string>
 	<string name="search_history_title">搜尋歷史紀錄</string>
@@ -412,8 +412,8 @@
 	<string name="wikimedia_commons">維基共享資源</string>
 	<string name="p2p_your_location">您的位置</string>
 	<string name="p2p_start">開始</string>
-	<string name="p2p_from_here">從這出發</string>
-	<string name="p2p_to_here">到這去</string>
+	<string name="p2p_from_here">從這裡出發</string>
+	<string name="p2p_to_here">到這裡去</string>
 	<string name="p2p_only_from_current">導航只能從您目前的位置開始。</string>
 	<string name="p2p_reroute_from_current">您是否想要規劃目前位置的路線？</string>
 	<!-- Edit open hours/set time and minutes dialog -->
@@ -426,7 +426,7 @@
 	<string name="editor_time_delete">刪除排程</string>
 	<!-- Text for allday switch. -->
 	<string name="editor_time_allday">全天 (24 小時)</string>
-	<string name="editor_time_open">正在營業</string>
+	<string name="editor_time_open">營業中</string>
 	<string name="editor_time_close">已歇業</string>
 	<string name="editor_time_add_closed">新增休息時間</string>
 	<string name="editor_time_title">營業時間</string>
@@ -438,7 +438,7 @@
 	<string name="editor_add_select_location">位置</string>
 	<string name="editor_report_problem_desription_1">請詳細描述此問題以便 OpenStreetMap 社群能夠修復此錯誤。</string>
 	<string name="editor_report_problem_desription_2">或者在 https://www.openstreetmap.org/ 上親自修復此錯誤</string>
-	<string name="editor_report_problem_send_button">發送</string>
+	<string name="editor_report_problem_send_button">傳送</string>
 	<string name="editor_report_problem_title">問題</string>
 	<string name="editor_report_problem_no_place_title">該地點不存在</string>
 	<string name="editor_report_problem_under_construction_title">因維護而關閉</string>
@@ -505,11 +505,11 @@
 	<string name="placepage_add_business_button">將地點添加到</string>
 	<string name="message_invalid_feature_position">地點無法放置在這裡</string>
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">截至 %s 的社群創建的 OpenStreetMap 資料。請訪問 OpenStreetMap.org 以了解有關如何編輯和更新地圖的更多信息。</string>
+	<string name="osm_presentation">截至 %s 的社群創建的 OpenStreetMap 資料。請訪問 OpenStreetMap.org 以了解有關如何編輯和更新地圖的更多資訊。</string>
 	<string name="login_to_make_edits_visible">登入，讓其他使用者能看到您所作出的修改。</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d / %2$d</string>
-	<string name="download_over_mobile_header">用手機網路連線下載嗎？</string>
+	<string name="download_over_mobile_header">用行動數據連線下載嗎？</string>
 	<string name="download_over_mobile_message">如果您使用行動數據或漫遊來進行下載，將可能導致額外的費用。</string>
 	<string name="error_enter_correct_house_number">輸入正確的門牌號碼</string>
 	<string name="editor_storey_number">樓層數量（最多 %d 層）</string>
@@ -519,7 +519,7 @@
 	<string name="error_enter_correct_zip_code">輸入正確的郵遞區號</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">未知地點</string>
-	<string name="editor_other_info">給 OSM 社區發送標記</string>
+	<string name="editor_other_info">給 OSM 社區發送註解</string>
 	<string name="editor_detailed_description_hint">詳細註釋</string>
 	<string name="editor_detailed_description">您建議的變更將傳送至 OpenStreetMap 社群。說明無法在 Organic Maps 中編輯的詳細資料。</string>
 	<string name="editor_more_about_osm">關於 OpenStreetMap 的更多資訊</string>
@@ -592,7 +592,7 @@
 	<string name="mobile_data_description">要顯示地點的詳細資訊（例如照片、價格和評價），需要使用手機網絡。</string>
 	<string name="mobile_data_option_never">絕不使用</string>
 	<string name="mobile_data_option_ask">一律詢問</string>
-	<string name="traffic_update_maps_text">諾要顯示交通資料，必須更新地圖。</string>
+	<string name="traffic_update_maps_text">若要顯示交通資料，必須更新地圖。</string>
 	<string name="big_font">增加地圖上的字體大小</string>
 	<string name="traffic_update_app">請更新 Organic Maps</string>
 	<!-- "traffic" as in "road congestion" -->
@@ -600,8 +600,8 @@
 	<string name="enable_logging">啟用日誌記錄</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">一般反應</string>
-	<string name="prefs_languages_information">我們的語音導航使用“文本轉語音”系統。許多 Android 裝置使用 Google 的文本轉語音系統，您可以從 Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) 下載或更新這一功能。</string>
-	<string name="prefs_languages_information_off">對於某些語言，您需要從應用商店（例如 Google Play Store、Galaxy Store）中安裝其他語音合成器或語言包。\n打開您的裝置的設定 → 語言和輸入法 → 語音 → 文字轉語音 (TTS) 輸出。\n您可以在這裡管理語音合成的設定（例如，下載語言包供離線使用）和選擇其他文字轉語音引擎。</string>
+	<string name="prefs_languages_information">我們的語音導航使用“文字轉語音”系統。許多 Android 裝置使用 Google 的文字轉語音系統，您可以從 Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) 下載或更新這一功能。</string>
+	<string name="prefs_languages_information_off">對於某些語言，您需要從應用商店（例如 Google Play Store、Galaxy Store）中安裝其他語音合成器或語言套件。\n打開您的裝置的設定 → 語言和輸入法 → 語音 → 文字轉語音 (TTS) 輸出。\n您可以在這裡管理語音合成的設定（例如，下載語言包供離線使用）和選擇其他文字轉語音引擎。</string>
 	<string name="prefs_languages_information_off_link">如需瞭解更多資訊，請參閱此指南。</string>
 	<string name="transliteration_title">拉丁字母音譯</string>
 	<string name="learn_more">瞭解更多資訊</string>
@@ -612,11 +612,11 @@
 	<!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
 	<string name="routing_add_finish_point">請搜尋地點或點擊地圖以新增目的地</string>
 	<string name="placepage_remove_stop">移除</string>
-	<string name="placepage_add_stop">新增經停點</string>
+	<string name="placepage_add_stop">新增中途點</string>
 	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
-	<string name="alert_reauth_message">請登入 OpenStreetMap 以自動上傳您的所有地圖編輯。諾要了解更多資訊請點擊<a href="https://github.com/organicmaps/organicmaps/issues/6144">這裡</a>。</string>
-	<string name="dialog_error_storage_title">儲存空間訪問問題</string>
-	<string name="dialog_error_storage_message">外部儲存空間不可用，很可能是因為 SD 卡已移除、毀損，或檔案系統處於唯讀狀態。請進行檢查，然後通過 support\@organicmaps.app 聯絡我們。</string>
+	<string name="alert_reauth_message">請登入 OpenStreetMap 以自動上傳您的所有地圖編輯。若要了解更多資訊請點擊<a href="https://github.com/organicmaps/organicmaps/issues/6144">這裡</a>。</string>
+	<string name="dialog_error_storage_title">儲存空間存儲問題</string>
+	<string name="dialog_error_storage_message">外部儲存空間不可用，很可能是因為 SD 卡已移除、毀損，或檔案系統處於唯讀狀態。請進行檢查，然後透過 support\@organicmaps.app 聯絡我們。</string>
 	<string name="setting_emulate_bad_storage">模擬不良儲存空間</string>
 	<string name="core_entrance">入口</string>
 	<string name="error_enter_correct_name">請輸入正確的名稱</string>
@@ -633,7 +633,7 @@
 	<string name="bookmarks_error_message_share_general">由於應用程式出錯，導致無法分享</string>
 	<string name="bookmarks_error_title_share_empty">無法分享</string>
 	<string name="bookmarks_error_message_share_empty">無法分享空列表</string>
-	<string name="bookmarks_error_title_empty_list_name">名字不能為空</string>
+	<string name="bookmarks_error_title_empty_list_name">名字不能為空白</string>
 	<string name="bookmarks_error_message_empty_list_name">請輸入列表名稱</string>
 	<string name="bookmarks_new_list_hint">新的列表</string>
 	<string name="bookmarks_error_title_list_name_already_taken">這個名稱已經被使用了</string>
@@ -662,20 +662,20 @@
 	<string name="export_file">導出為 KMZ</string>
 	<string name="export_file_gpx">導出為 GPX</string>
 	<string name="delete_list">刪除列表</string>
-	<string name="public_access">允許公眾訪問</string>
-	<string name="limited_access">不允許訪問的私人空間</string>
+	<string name="public_access">允許大眾進入</string>
+	<string name="limited_access">不允許進入的私人空間</string>
 	<string name="bookmark_list_description_hint">增加說明（文字或 html）</string>
 	<string name="not_shared">私人</string>
-	<string name="speedcams_alert_title">限速拍照</string>
+	<string name="speedcams_alert_title">測速照相</string>
 	<string name="place_description_title">地點說明</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">載入地圖</string>
 	<!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
 	<string name="pref_tts_speedcams_auto">超速行駛時發出警告</string>
 	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
-	<string name="pref_tts_speedcams_always">始終提醒照相機</string>
+	<string name="pref_tts_speedcams_always">始終提醒測速照相機</string>
 	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
-	<string name="pref_tts_speedcams_never">永遠不會對照相機發出警告</string>
+	<string name="pref_tts_speedcams_never">永遠不會對測速照相機發出警告</string>
 	<string name="power_managment_title">省電模式</string>
 	<string name="power_managment_description">如果開啟省電模式，應用程序將根據手機的當前電量關閉耗電功能</string>
 	<string name="power_managment_setting_never">從不</string>
@@ -687,7 +687,7 @@
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">避開收費公路</string>
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
-	<string name="avoid_unpaved">避開未鋪砌道路</string>
+	<string name="avoid_unpaved">避開無鋪面道路</string>
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_ferry">避開渡輪</string>
 	<string name="avoid_motorways">避開高速公路</string>
@@ -696,7 +696,7 @@
 	<string name="define_to_avoid_btn">選擇要避開的道路</string>
 	<string name="change_driving_options_btn">繞行設定已開啟</string>
 	<string name="toll_road">收費公路</string>
-	<string name="unpaved_road">未鋪砌道路</string>
+	<string name="unpaved_road">未鋪面道路</string>
 	<string name="ferry_crossing">渡輪</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">是</string>
@@ -751,7 +751,7 @@
 	<string name="search_in_the_list">在列表中搜尋</string>
 	<string name="religious_places">宗教場所</string>
 	<string name="select_list">選擇列表</string>
-	<string name="transit_not_found">本區域的地鐵導航目前不可用</string>
+	<string name="transit_not_found">本區域的捷運導航目前不可用</string>
 	<string name="dialog_pedestrian_route_is_long_header">未找到捷運路線圖</string>
 	<string name="dialog_pedestrian_route_is_long_message">選擇捷運站附近的起點和終點</string>
 	<string name="button_layer_isolines">等高線</string>
@@ -774,7 +774,7 @@
 	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">磁碟錯誤</string>
 	<!-- Used in DownloadResources startup screen -->
-	<string name="disconnect_usb_cable_title">斷開 USB 線纜</string>
+	<string name="disconnect_usb_cable_title">斷開 USB 線路</string>
 	<string name="enable_keep_screen_on">保持螢幕開啟</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">啟用後，顯示地圖時畫面將始終開啟。</string>
@@ -793,7 +793,7 @@
 	<!-- App tip #01 -->
 	<string name="app_tip_01">有了您的捐贈和支持，我們可以創造世界上最好的地圖！</string>
 	<!-- App tip #02 -->
-	<string name="app_tip_02">您喜歡我們的應用程序嗎？請捐款以支持發展！還不喜歡嗎？請告訴我們，我們會修復您提到的問題！</string>
+	<string name="app_tip_02">您喜歡我們的應用程式嗎？請捐款以支持發展！還不喜歡嗎？請告訴我們，我們會修復您提到的問題！</string>
 	<!-- App tip #03 -->
 	<string name="app_tip_03">如果您認識軟體開發人員，您可以要求他實現您需要的功能。</string>
 	<!-- App tip #04 -->
@@ -817,7 +817,7 @@
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
 	<string name="car_continue_on_the_phone">在手機上繼續</string>
 	<!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-	<string name="car_continue_in_the_car">轉到汽車屏幕</string>
+	<string name="car_continue_in_the_car">轉到汽車螢幕</string>
 	<!-- Ask user to grant location permissions -->
 	<string name="aa_location_permissions_request">此應用程式需要訪問您的位置以進行導航。</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
@@ -832,10 +832,10 @@
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">匯出所有書籤和軌跡</string>
 	<!-- button in (app) TTS settings, to open the system TTS settings. -->
-	<string name="pref_tts_open_system_settings">文本轉語音系統設定</string>
+	<string name="pref_tts_open_system_settings">文字轉語音系統設定</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">未找到語音合成設定，您確定您的裝置支援該設定嗎？</string>
-	<string name="drive_through">免下車通道</string>
+	<string name="drive_through">得來速通道</string>
 	<string name="clear_the_search">清除搜尋</string>
 	<string name="zoom_in">放大</string>
 	<!-- Accessibility text for the zoom-out button on the map -->
