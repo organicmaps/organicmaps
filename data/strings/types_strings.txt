@@ -12851,6 +12851,7 @@
     ref = type.highway.path
     en = Difficult or Indistinct Trail
     de = Schwieriger oder kaum erkennbarer Pfad
+    it = Sentiero difficile o poco tracciato
     ru = Сложная или плохо видимая тропа
 
   [type.highway.path.expert]
@@ -12858,6 +12859,7 @@
     ref = type.highway.path
     en = Expert or Indiscernible Trail
     de = Alpinwanderweg oder wegloser Pfad
+    it = Sentiero estremamente difficile o molto poco tracciato
     ru = Очень сложная или неразличимая тропа
 
   [type.highway.path.bicycle]
