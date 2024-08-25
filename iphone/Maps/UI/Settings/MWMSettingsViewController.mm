@@ -155,7 +155,7 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
         break;
     }
   }
-  [self.recentTrackCell configWithTitle:L(@"pref_track_record_title") info:recentTrack];
+  [self.recentTrackCell configWithTitle:L(@"recent_track") info:recentTrack];
 
   [self.fontScaleCell configWithDelegate:self title:L(@"big_font") isOn:[MWMSettings largeFontSize]];
 
