@@ -1405,7 +1405,7 @@
 
 "type.aerialway.cable_car" = "纜車";
 
-"type.aerialway.chair_lift" = "Chair Lift";
+"type.aerialway.chair_lift" = "纜車";
 
 "type.aerialway.drag_lift" = "纜車要素";
 
@@ -1527,7 +1527,7 @@
 
 "type.amenity.fire_station" = "消防局";
 
-"type.amenity.food_court" = "Food Court";
+"type.amenity.food_court" = "美食廣場";
 
 "type.amenity.fountain" = "噴泉";
 
@@ -1698,7 +1698,7 @@
 "type.amenity.shelter.basic_hut" = "露營小屋";
 
 /* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
-"type.amenity.shelter.lean_to" = "Lean-to Shelter";
+"type.amenity.shelter.lean_to" = "三面避難所";
 
 "type.amenity.public_bath" = "公共浴場";
 
@@ -1720,33 +1720,33 @@
 
 "type.amenity.university" = "大學";
 
-"type.amenity.vending_machine" = "Vending Machine";
+"type.amenity.vending_machine" = "自動售貨機";
 
 "type.amenity.vending_machine.cigarettes" = "香菸自動販賣機";
 
-"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+"type.amenity.vending_machine.coffee" = "咖啡售賣機";
 
-"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+"type.amenity.vending_machine.condoms" = "避孕套售賣機";
 
 "type.amenity.vending_machine.drinks" = "飲料自動販賣機";
 
-"type.amenity.vending_machine.food" = "Food Dispenser";
+"type.amenity.vending_machine.food" = "食品售賣機";
 
-"type.amenity.vending_machine.newspapers" = "Newspaper Dispenser";
+"type.amenity.vending_machine.newspapers" = "報紙售賣機";
 
 "type.amenity.vending_machine.parking_tickets" = "違規停車罰單繳費機";
 
 "type.amenity.vending_machine.public_transport_tickets" = "公共交通售票機";
 
-"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
+"type.amenity.vending_machine.sweets" = "糖果售賣機";
 
-"type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
+"type.amenity.vending_machine.excrement_bags" = "排泄物袋售賣機";
 
 "type.amenity.parcel_locker" = "包裹儲物櫃";
 
 "type.amenity.vehicle_inspection" = "車輛檢驗";
 
-"type.amenity.vending_machine.fuel" = "Fuel Pump";
+"type.amenity.vending_machine.fuel" = "燃油泵";
 
 "type.amenity.veterinary" = "獸醫";
 
@@ -1758,7 +1758,7 @@
 
 "type.amenity.water_point" = "飲水站";
 
-"type.barrier" = "Barrier";
+"type.barrier" = "障礙物";
 
 "type.barrier.block" = "街區";
 
@@ -1766,11 +1766,11 @@
 
 "type.barrier.border_control" = "邊境管制";
 
-"type.barrier.chain" = "Chain";
+"type.barrier.chain" = "鏈條";
 
 "type.barrier.city_wall" = "城牆";
 
-"type.barrier.cycle_barrier" = "Cycle Barrier";
+"type.barrier.cycle_barrier" = "自行車障礙";
 
 "type.waterway.ditch" = "排水溝";
 
@@ -1780,17 +1780,17 @@
 
 "type.barrier.entrance" = "入口";
 
-"type.barrier.fence" = "Fence";
+"type.barrier.fence" = "籬笆";
 
-"type.barrier.gate" = "大門";
+"type.barrier.gate" = "門";
 
-"type.barrier.hedge" = "Hedge";
+"type.barrier.hedge" = "灌木籬笆";
 
-"type.barrier.kissing_gate" = "大門";
+"type.barrier.kissing_gate" = "門";
 
 "type.barrier.lift_gate" = "遮斷機";
 
-"type.barrier.retaining_wall" = "Retaining Wall";
+"type.barrier.retaining_wall" = "擋土牆";
 
 "type.barrier.stile" = "梯磴";
 
@@ -1800,20 +1800,20 @@
 
 "type.barrier.toll_booth" = "收費站";
 
-"type.barrier.wall" = "Wall";
+"type.barrier.wall" = "墻";
 
-"type.boundary" = "Boundary";
+"type.boundary" = "邊界";
 
 "type.boundary.administrative" = "Administrative Boundary";
 
 /* Borders between countries. */
-"type.boundary.administrative.2" = "National Border";
+"type.boundary.administrative.2" = "國家行政區域界線";
 
 /* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
-"type.boundary.administrative.3" = "Regional Boundary";
+"type.boundary.administrative.3" = "行政區域邊界";
 
 /* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
-"type.boundary.administrative.4" = "Regional Boundary";
+"type.boundary.administrative.4" = "行政區域邊界";
 
 "type.boundary.national_park" = "國家公園";
 
@@ -1846,7 +1846,7 @@
 
 "type.building.train_station" = "鐵道";
 
-"type.building.warehouse" = "Warehouse";
+"type.building.warehouse" = "倉庫";
 
 "type.cemetery.grave" = "墓穴";
 
@@ -2071,7 +2071,7 @@
 
 "type.cuisine.vietnamese" = "越南料理";
 
-"type.emergency" = "Emergency";
+"type.emergency" = "緊急服務";
 
 "type.emergency.assembly_point" = "緊急集合點";
 
@@ -2116,14 +2116,14 @@
 
 /********** Types: Roads **********/
 
-"type.highway" = "Highway";
+"type.highway" = "道路";
 
-"type.highway.bridleway" = "Bridle Path";
+"type.highway.bridleway" = "馬道";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.bridleway.bridge" = "橋";
 
-"type.highway.bridleway.permissive" = "Bridle Path";
+"type.highway.bridleway.permissive" = "允許通行的騎馬道";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "隧道";
@@ -2140,28 +2140,28 @@
 
 "type.highway.construction" = "在建道路";
 
-"type.highway.cycleway" = "Cycle Path";
+"type.highway.cycleway" = "自行車道";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.cycleway.bridge" = "橋";
 
-"type.highway.cycleway.permissive" = "Cycle Path";
+"type.highway.cycleway.permissive" = "允許通行的自行車道";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.cycleway.tunnel" = "隧道";
 
-"type.highway.elevator" = "Elevator";
+"type.highway.elevator" = "電梯";
 
 "type.highway.footway" = "人行步道";
 
 "type.highway.footway.sidewalk" = "人行道";
 
-"type.highway.footway.crossing" = "行人穿越道";
+"type.highway.footway.crossing" = "過街人行橫道";
 
 "type.highway.footway.area" = "人行步道";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.footway.bridge" = "橋";
+"type.highway.footway.bridge" = "行人過街天橋";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "隧道";
@@ -2281,9 +2281,9 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary_link.tunnel" = "隧道";
 
-"type.highway.service" = "輔助道路";
+"type.highway.service" = "服務道路";
 
-"type.highway.service.area" = "輔助道路";
+"type.highway.service.area" = "服務道路";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.service.bridge" = "橋";
@@ -2365,7 +2365,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "隧道";
 
-"type.area_highway.cycleway" = "Cycle Path";
+"type.area_highway.cycleway" = "自行車道";
 
 "type.area_highway.footway" = "人行步道";
 
@@ -2383,7 +2383,7 @@
 
 "type.area_highway.secondary" = "次要道路";
 
-"type.area_highway.service" = "輔助道路";
+"type.area_highway.service" = "服務道路";
 
 "type.area_highway.tertiary" = "三级道路";
 
@@ -2512,21 +2512,21 @@
 
 "type.internet_access" = "互聯網";
 
-"type.internet_access.wlan" = "互聯網";
+"type.internet_access.wlan" = "無線網路";
 
-"type.junction" = "Junction";
+"type.junction" = "交叉口";
 
-"type.junction.circular" = "Roundabout";
+"type.junction.circular" = "環形交叉口";
 
-"type.junction.roundabout" = "Roundabout";
+"type.junction.roundabout" = "環形交叉口";
 
-"type.landuse" = "Landuse";
+"type.landuse" = "土地利用要素";
 
-"type.landuse.allotments" = "Allotments";
+"type.landuse.allotments" = "市民農園";
 
 "type.landuse.basin" = "水庫";
 
-"type.landuse.brownfield" = "Brownfield";
+"type.landuse.brownfield" = "廢棄的工業用地";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery" = "墓地";
@@ -2536,17 +2536,17 @@
 
 "type.landuse.churchyard" = "教堂庭院";
 
-"type.landuse.commercial" = "Commercial Area";
+"type.landuse.commercial" = "商業區";
 
-"type.landuse.construction" = "Construction Area";
+"type.landuse.construction" = "建設區域";
 
-"type.landuse.education" = "Educational Facility";
+"type.landuse.education" = "教育設施";
 
 "type.landuse.farmland" = "農業用地";
 
-"type.landuse.farmyard" = "Farmyard";
+"type.landuse.farmyard" = "農家庭院";
 
-"type.landuse.field" = "Field";
+"type.landuse.field" = "田地";
 
 "type.landuse.flowerbed" = "花壇";
 
@@ -2558,45 +2558,45 @@
 
 "type.landuse.forest.mixed" = "樹林";
 
-"type.landuse.garages" = "Garages";
+"type.landuse.garages" = "車庫";
 
 "type.landuse.grass" = "草坪";
 
-"type.landuse.greenfield" = "Greenfield";
+"type.landuse.greenfield" = "待開發荒地";
 
-"type.landuse.greenhouse_horticulture" = "Greenhouse";
+"type.landuse.greenhouse_horticulture" = "溫室";
 
-"type.landuse.industrial" = "Industrial Area";
+"type.landuse.industrial" = "工業用地";
 
-"type.landuse.landfill" = "堆積場";
+"type.landuse.landfill" = "垃圾填埋場";
 
-"type.landuse.meadow" = "Meadow";
+"type.landuse.meadow" = "草地";
 
-"type.landuse.military" = "Military Area";
+"type.landuse.military" = "軍事用地";
 
-"type.landuse.orchard" = "Orchard";
+"type.landuse.orchard" = "果園";
 
-"type.landuse.quarry" = "Quarry";
+"type.landuse.quarry" = "礦場";
 
 "type.landuse.railway" = "鐵路設施";
 
-"type.landuse.recreation_ground" = "Recreation Ground";
+"type.landuse.recreation_ground" = "娛樂場地";
 
 "type.landuse.reservoir" = "水庫";
 
-"type.landuse.residential" = "Residential Area";
+"type.landuse.residential" = "住宅區";
 
-"type.landuse.retail" = "Retail Area";
+"type.landuse.retail" = "零售區";
 
-"type.landuse.salt_pond" = "Salt Pond";
+"type.landuse.salt_pond" = "鹽田";
 
-"type.landuse.village_green" = "Land";
+"type.landuse.village_green" = "村莊綠地";
 
-"type.landuse.vineyard" = "Vineyard";
+"type.landuse.vineyard" = "葡萄園";
 
 "type.leisure" = "Leisure";
 
-"type.leisure.common" = "Public Land";
+"type.leisure.common" = "公共用地";
 
 "type.leisure.dog_park" = "遛狗區";
 
@@ -2612,13 +2612,13 @@
 
 "type.leisure.golf_course" = "高爾夫球場";
 
-"type.leisure.miniature_golf" = "Minigolf";
+"type.leisure.miniature_golf" = "小型高爾夫球場";
 
 "type.leisure.hackerspace" = "駭客空間";
 
-"type.leisure.ice_rink" = "Ice Rink";
+"type.leisure.ice_rink" = "滑冰場";
 
-"type.leisure.marina" = "Marina";
+"type.leisure.marina" = "遊艇碼頭";
 
 "type.leisure.nature_reserve" = "自然保護區";
 
@@ -2638,7 +2638,7 @@
 
 "type.leisure.playground" = "遊樂場";
 
-"type.leisure.recreation_ground" = "Recreation Ground";
+"type.leisure.recreation_ground" = "娛樂場地";
 
 "type.leisure.sauna" = "桑拿";
 
@@ -2662,7 +2662,7 @@
 
 "type.leisure.water_park" = "水上樂園";
 
-"type.leisure.beach_resort" = "Beach Resort";
+"type.leisure.beach_resort" = "海濱度假區";
 
 "type.man_made" = "Man Made";
 
@@ -3544,7 +3544,7 @@
 
 "type.shop.cannabis" = "大麻商店";
 
-"type.shop.car" = "買車";
+"type.shop.car" = "車店";
 
 "type.shop.car_parts" = "汽車零件";
 
@@ -3558,17 +3558,17 @@
 
 "type.shop.chemist" = "藥妝店";
 
-"type.shop.chocolate" = "購物";
+"type.shop.chocolate" = "巧克力店";
 
 "type.shop.clothes" = "買衣服";
 
-"type.shop.coffee" = "購物";
+"type.shop.coffee" = "咖啡店";
 
-"type.shop.computer" = "電腦商店";
+"type.shop.computer" = "電腦店";
 
 "type.shop.confectionery" = "糕餅店";
 
-"type.shop.convenience" = "便利商店";
+"type.shop.convenience" = "便利店";
 
 "type.shop.copyshop" = "復印店";
 
@@ -3584,11 +3584,11 @@
 
 "type.shop.dry_cleaning" = "乾洗";
 
-"type.shop.electronics" = "電子產品";
+"type.shop.electronics" = "電子產品商店";
 
 "type.shop.erotic" = "情趣用品店";
 
-"type.shop.fabric" = "購物";
+"type.shop.fabric" = "布料店";
 
 "type.shop.farm" = "農場食品店";
 
@@ -3624,7 +3624,7 @@
 
 "type.shop.jewelry" = "珠寶店";
 
-"type.shop.kiosk" = "小舖";
+"type.shop.kiosk" = "售貨亭";
 
 "type.shop.kitchen" = "廚房用品店";
 
@@ -3638,13 +3638,13 @@
 
 "type.shop.money_lender" = "購物";
 
-"type.shop.motorcycle" = "機車行";
+"type.shop.motorcycle" = "摩托車商店";
 
 "type.shop.motorcycle_repair" = "摩托車維修";
 
-"type.shop.music" = "購物";
+"type.shop.music" = "唱片店";
 
-"type.shop.musical_instrument" = "購物";
+"type.shop.musical_instrument" = "樂器店";
 
 "type.shop.newsagent" = "報攤";
 
@@ -3682,11 +3682,11 @@
 
 "type.shop.tattoo" = "刺青店";
 
-"type.shop.tea" = "購物";
+"type.shop.tea" = "茶葉店";
 
 "type.shop.ticket" = "售票處";
 
-"type.shop.toys" = "玩具商店";
+"type.shop.toys" = "玩具店";
 
 "type.shop.travel_agency" = "旅行社";
 
@@ -3909,7 +3909,7 @@
 
 "type.waterway.dam" = "Dam";
 
-"type.barrier.ditch" = "Ditch";
+"type.barrier.ditch" = "溝渠";
 
 "type.natural.water.ditch" = "排水溝";
 
@@ -3943,21 +3943,21 @@
 
 "type.wheelchair" = "Wheelchair";
 
-"type.wheelchair.limited" = "部分配備為殘疾人專用";
+"type.wheelchair.limited" = "部分配備輪椅通道";
 
-"type.wheelchair.no" = "未配備殘疾人專用";
+"type.wheelchair.no" = "未配備輪椅通道";
 
-"type.wheelchair.yes" = "配備殘疾人專用";
+"type.wheelchair.yes" = "配備輪椅通道";
 
-"type.aerialway.j.bar" = "J-bar Lift";
+"type.aerialway.j.bar" = "J 型拖牽";
 
-"type.aerialway.magic_carpet" = "Magic Carpet";
+"type.aerialway.magic_carpet" = "魔毯";
 
-"type.aerialway.platter" = "Platter Lift";
+"type.aerialway.platter" = "盤式拖牽";
 
-"type.aerialway.rope_tow" = "Rope Tow";
+"type.aerialway.rope_tow" = "纜繩拖牽";
 
-"type.aerialway.t.bar" = "T-bar Lift";
+"type.aerialway.t.bar" = "T 型拖牽";
 
 "type.piste_type.downhill" = "Downhill Ski Run";
 
