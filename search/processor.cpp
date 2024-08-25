@@ -729,7 +729,7 @@ void Processor::SearchPlusCode()
   // Remove the region information added by Google Maps
   size_t firstCommaPosition = query.find(",");
   if (firstCommaPosition != string::npos) {
-    size_t spaceBeforeCommaPosition = input.rfind(" ", firstCommaPosition);
+    size_t spaceBeforeCommaPosition = query.rfind(" ", firstCommaPosition);
     if (spaceBeforeCommaPosition != string::npos) {
       query = query.substr(0, spaceBeforeCommaPosition);
     }
