@@ -53,6 +53,7 @@ MarkId constexpr kInvalidMarkId = std::numeric_limits<MarkId>::max();
 MarkId constexpr kDebugMarkId = kInvalidMarkId - 1;
 TrackId constexpr kInvalidTrackId = std::numeric_limits<TrackId>::max();
 CompilationId constexpr kInvalidCompilationId = std::numeric_limits<CompilationId>::max();
+double constexpr kInvalidTimestamp = 0.0;
 
 inline uint64_t ToSecondsSinceEpoch(Timestamp const & time)
 {

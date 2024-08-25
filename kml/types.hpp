@@ -344,26 +344,43 @@ struct TrackLayer
 struct MultiGeometry
 {
   using LineT = std::vector<geometry::PointWithAltitude>;
-  std::vector<LineT> m_lines;
+  using TimeT = std::vector<double>;
 
-  void Clear() { m_lines.clear(); }
+  std::vector<LineT> m_lines;
+  std::vector<TimeT> m_timestamps;
+
+  void Clear() {
+    m_lines.clear();
+    m_timestamps.clear();
+  }
+
+  /// @TODO(KK): should timestamps be validated and how?
   bool IsValid() const { return !m_lines.empty(); }
 
   bool operator==(MultiGeometry const & rhs) const
   {
-    return IsEqual(m_lines, rhs.m_lines);
+    return IsEqual(m_lines, rhs.m_lines) && m_timestamps == rhs.m_timestamps;
   }
 
   friend std::string DebugPrint(MultiGeometry const & geom)
   {
+    /// @TODO(KK): Add timestamps.
     return ::DebugPrint(geom.m_lines);
   }
 
   void FromPoints(std::vector<m2::PointD> const & points);
   void Assign(std::initializer_list<geometry::PointWithAltitude> lst)
   {
+    /// @TODO(KK): Assign is used only in tests
     m_lines.emplace_back();
     m_lines.back().assign(lst);
+  }
+
+  double TimestampForPoint(size_t lineIndex, size_t pointIndex) const
+  {
+    CHECK_LESS(lineIndex, m_timestamps.size(), ());
+    CHECK_LESS(pointIndex, m_timestamps[lineIndex].size(), ());
+    return m_timestamps[lineIndex][pointIndex];
   }
 };
 
