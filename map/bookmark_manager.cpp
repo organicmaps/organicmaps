@@ -1157,6 +1157,7 @@ void BookmarkManager::SaveTrackRecording(std::string trackName)
   tracker.ForEachTrackPoint([&line, &timestamps](location::GpsInfo const & pt, size_t id)->bool
   {
     line.emplace_back(mercator::FromLatLon(pt.m_latitude, pt.m_longitude), pt.m_altitude);
+    timestamps.emplace_back(pt.m_timestamp);
     return true;
   });
 
@@ -1167,6 +1168,7 @@ void BookmarkManager::SaveTrackRecording(std::string trackName)
 
   kml::MultiGeometry geometry;
   geometry.m_lines.push_back(std::move(line));
+  geometry.m_timestamps.push_back(std::move(timestamps));
   trackData.m_geometry = std::move(geometry);
 
   kml::ColorData colorData;
