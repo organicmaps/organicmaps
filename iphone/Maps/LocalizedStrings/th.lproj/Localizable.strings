@@ -62,7 +62,7 @@
 "download" = "ดาวน์โหลด";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "ดำเนินการต่อ";
+"continue_button" = "ดำเนินการต่อ";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "เพิ่มชุดใหม่";
@@ -261,8 +261,8 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "อื่น ๆ";
 
-/* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "เส้นทางล่าสุด";
+/* The name of the feature in the main menu, settings, and messages. */
+"recent_track" = "เส้นทางล่าสุด";
 
 "pref_map_auto_zoom" = "ซูมอัตโนมัติ";
 

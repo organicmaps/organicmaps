@@ -62,7 +62,7 @@
 "download" = "Pobierz";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "Kontynuuj";
+"continue_button" = "Kontynuuj";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Dodaj nowy zestaw";
@@ -261,8 +261,8 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Inny";
 
-/* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Ostatnia trasa";
+/* The name of the feature in the main menu, settings, and messages. */
+"recent_track" = "Ostatnia trasa";
 
 "pref_map_auto_zoom" = "Automatyczne powiększanie";
 

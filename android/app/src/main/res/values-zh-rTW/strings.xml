@@ -63,7 +63,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">暫停</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">繼續</string>
+	<string name="continue_button">繼續</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s的地圖下載失敗</string>
 	<!-- "Add new bookmark list" dialog title -->
@@ -245,6 +245,8 @@
 	<string name="pref_tts_playing_test_voice">如果您現在聽不到聲音，請檢查音量或系統文本轉語音系統的設定。</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">不可用</string>
+	<!-- The name of the feature in the main menu, settings, and messages. -->
+	<string name="recent_track">最近的軌跡</string>
 	<string name="pref_map_auto_zoom">自動縮放</string>
 	<string name="duration_disabled">關閉</string>
 	<string name="duration_1_hour">1 小時</string>
@@ -528,6 +530,7 @@
 	<string name="editor_category_unsuitable_text">Organic Maps 只允許添加簡單的點類別，即無法添加城鎮、道路、湖泊、建築輪廓等類別。請直接向 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> 新增此類類別。請查看我們的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，以了解詳細的步驟說明。</string>
 	<string name="downloader_no_downloaded_maps_title">您尚未下載任何地圖</string>
 	<string name="downloader_no_downloaded_maps_message">下載地圖來尋找位置和離線瀏覽。</string>
+	<string name="current_location_unknown_error_title">目前位置未知。</string>
 	<!-- abbreviation for meters -->
 	<string name="m">公尺</string>
 	<!-- abbreviation for kilometers -->
@@ -573,6 +576,9 @@
 	<string name="editor_share_to_all_dialog_message_1">確保您沒有輸入任何個人資料。</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap 編輯人員將檢查更改並在有任何問題時與您聯繫。</string>
 	<string name="navigation_stop_button">停止</string>
+	<string name="recent_track_background_dialog_message">Organic Maps 在後臺使用您的位置記錄您最近去過的路線。</string>
+	<!-- Shown as toast when starting the recent track recording -->
+	<string name="track_recording">記錄軌跡</string>
 	<!-- For the first routing -->
 	<string name="accept">接受</string>
 	<!-- For the first routing -->

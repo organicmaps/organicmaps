@@ -60,7 +60,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Pausa</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">Continua</string>
+	<string name="continue_button">Continua</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">La baixada de %s ha fallat</string>
 	<!-- "Add new bookmark list" dialog title -->
@@ -242,6 +242,8 @@
 	<string name="pref_tts_playing_test_voice">Comproveu el volum o la configuració de text a veu del sistema si ara no escolteu la veu.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">No disponible</string>
+	<!-- The name of the feature in the main menu, settings, and messages. -->
+	<string name="recent_track">Traces recents</string>
 	<string name="pref_map_auto_zoom">Zoom automàtic</string>
 	<string name="duration_disabled">Desactivada</string>
 	<string name="duration_1_hour">1 hora</string>
@@ -516,6 +518,7 @@
 	<string name="editor_category_unsuitable_text">Organic Maps només permet afegir categories de punts simples, això vol dir que no hi ha ciutats, carreteres, llacs, contorns d\'edificis, etc. Si us plau, afegiu aquestes categories directament a <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulteu la nostra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guia</a> per obtenir instruccions detallades pas a pas.</string>
 	<string name="downloader_no_downloaded_maps_title">No heu baixat cap mapa</string>
 	<string name="downloader_no_downloaded_maps_message">Baixeu mapes per a cercar una ubicacio i usar la navegació sense connexió.</string>
+	<string name="current_location_unknown_error_title">Es desconeix la ubicació actual.</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -561,6 +564,9 @@
 	<string name="editor_share_to_all_dialog_message_1">Assegureu-vos que no heu introduït cap dada personal.</string>
 	<string name="editor_share_to_all_dialog_message_2">Revisarem els canvis. Si tenim cap pregunta contactem amb vós via correu electrònic.</string>
 	<string name="navigation_stop_button">Atura\'t</string>
+	<string name="recent_track_background_dialog_message">Organic Maps usa la vostra ubicaicó en segon pla per a enregistrar la ruta que heu fet recentment.</string>
+	<!-- Shown as toast when starting the recent track recording -->
+	<string name="track_recording">Enregistrament de la pista</string>
 	<!-- For the first routing -->
 	<string name="accept">D\'acord</string>
 	<!-- For the first routing -->

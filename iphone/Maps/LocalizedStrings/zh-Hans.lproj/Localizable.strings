@@ -62,7 +62,7 @@
 "download" = "下载";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "继续";
+"continue_button" = "继续";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "添加新的书签列表";
@@ -261,8 +261,8 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "其他";
 
-/* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "最近的轨迹";
+/* The name of the feature in the main menu, settings, and messages. */
+"recent_track" = "最近的轨迹";
 
 "pref_map_auto_zoom" = "自动缩放";
 

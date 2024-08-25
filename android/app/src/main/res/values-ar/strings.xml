@@ -63,7 +63,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">توقيف مؤقت</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">استمرار</string>
+	<string name="continue_button">استمرار</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">فشلت عملية تنزيل %s</string>
 	<!-- "Add new bookmark list" dialog title -->
@@ -245,6 +245,8 @@
 	<string name="pref_tts_playing_test_voice">تحقق من مستوى الصوت أو إعدادات تحويل النص إلى كلام في النظام إذا كنت لا تسمع الصوت الآن.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">غير متاح</string>
+	<!-- The name of the feature in the main menu, settings, and messages. -->
+	<string name="recent_track">المسار الأخير</string>
 	<string name="pref_map_auto_zoom">تكبير تلقائي</string>
 	<string name="duration_disabled">لا يعمل</string>
 	<string name="duration_1_hour">1 ساعة</string>
@@ -530,6 +532,7 @@
 	<string name="editor_category_unsuitable_text">تسمح الخرائط العضوية بإضافة فئات نقاط بسيطة فقط، وهذا يعني عدم وجود بلدات وطرق وبحيرات ومخططات للمباني وما إلى ذلك. يرجى إضافة هذه الفئات مباشرة إلى <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. راجع موقعنا <a href="https://organicmaps.app/faq/editing/advanced-map-editing">دليل</a> للحصول على تعليمات مفصلة خطوة بخطوة.</string>
 	<string name="downloader_no_downloaded_maps_title">لم تقم بتنزيل أية خرائط</string>
 	<string name="downloader_no_downloaded_maps_message">قم بتنزيل خرائط للبحث عن مكان واستخدام الملاحة بدون اتصال بالإنترنت.</string>
+	<string name="current_location_unknown_error_title">الموقع الحالي غير معروف.</string>
 	<!-- abbreviation for meters -->
 	<string name="m">متر</string>
 	<!-- abbreviation for kilometers -->
@@ -575,6 +578,9 @@
 	<string name="editor_share_to_all_dialog_message_1">تأكد من أنك لم تقم بإدخال أية بيانات شخصية.</string>
 	<string name="editor_share_to_all_dialog_message_2">سيتحقق محررو خرائط الشارع المفتوحة من التغييرات ويتواصلون معك إذا كان لديهم أي أسئلة.</string>
 	<string name="navigation_stop_button">توقف</string>
+	<string name="recent_track_background_dialog_message">يستخدم Organic Maps موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.</string>
+	<!-- Shown as toast when starting the recent track recording -->
+	<string name="track_recording">تسجيل المسار</string>
 	<!-- For the first routing -->
 	<string name="accept">قبول</string>
 	<!-- For the first routing -->

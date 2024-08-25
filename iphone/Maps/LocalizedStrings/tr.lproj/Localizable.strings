@@ -62,7 +62,7 @@
 "download" = "İndir";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "Devam";
+"continue_button" = "Devam";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Yeni Liste Ekle";
@@ -261,8 +261,8 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Diğer";
 
-/* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "En sonki rotayı kaydet";
+/* The name of the feature in the main menu, settings, and messages. */
+"recent_track" = "En sonki rotayı kaydet";
 
 "pref_map_auto_zoom" = "Otomatik yakınlaştırma";
 

@@ -60,7 +60,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Pauză</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">Continuă</string>
+	<string name="continue_button">Continuă</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">Descărcarea %s a eșuat</string>
 	<!-- "Add new bookmark list" dialog title -->
@@ -230,6 +230,8 @@
 	<string name="pref_tts_playing_test_voice">Dacă nu auziți vocea acum, verificați volumul sau setările sistemului text-to-speech.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Nu există</string>
+	<!-- The name of the feature in the main menu, settings, and messages. -->
+	<string name="recent_track">Traseu recent</string>
 	<string name="pref_map_auto_zoom">Zoom automat</string>
 	<string name="duration_disabled">Oprit</string>
 	<string name="duration_1_hour">1 oră</string>
@@ -503,6 +505,7 @@
 	<string name="editor_category_unsuitable_text">Organic Maps permite adăugarea doar a unor categorii de puncte simple, ceea ce înseamnă că nu există orașe, drumuri, lacuri, contururi de clădiri, etc. Vă rugăm să adăugați astfel de categorii direct la <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consultați <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ghidul nostru</a> pentru instrucțiuni detaliate pas cu pas.</string>
 	<string name="downloader_no_downloaded_maps_title">Nu ai descărcat nicio hartă</string>
 	<string name="downloader_no_downloaded_maps_message">Descarcă hărți pentru a căuta un loc și a naviga fără conectare la internet.</string>
+	<string name="current_location_unknown_error_title">Poziția actuală este necunoscută.</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -546,6 +549,9 @@
 	<string name="editor_share_to_all_dialog_message_1">Asigură-te că nu ai introdus niciun fel de date personale.</string>
 	<string name="editor_share_to_all_dialog_message_2">Editorii OpenStreetMap vor verifica modificările și vor lua legătura cu dvs. dacă au întrebări.</string>
 	<string name="navigation_stop_button">Oprește</string>
+	<string name="recent_track_background_dialog_message">Organic Maps folosește poziția ta geografică pentru a înregistra cel mai recent traseu urmat.</string>
+	<!-- Shown as toast when starting the recent track recording -->
+	<string name="track_recording">Înregistrarea traseului</string>
 	<!-- For the first routing -->
 	<string name="accept">Acceptă</string>
 	<!-- For the first routing -->

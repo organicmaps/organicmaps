@@ -60,7 +60,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Tạm dừng</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">Tiếp tục</string>
+	<string name="continue_button">Tiếp tục</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s</string>
 	<!-- "Add new bookmark list" dialog title -->
@@ -225,6 +225,8 @@
 	<string name="pref_tts_playing_test_voice">Kiểm tra cài đặt âm lượng hoặc chuyển văn bản sang giọng nói của hệ thống nếu bây giờ bạn không nghe thấy giọng nói.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Không có sẵn</string>
+	<!-- The name of the feature in the main menu, settings, and messages. -->
+	<string name="recent_track">Tìm kiếm gần đây</string>
 	<string name="pref_map_auto_zoom">Ống dòm tự động</string>
 	<string name="duration_disabled">Tắt</string>
 	<string name="duration_1_hour">1 giờ</string>
@@ -491,6 +493,7 @@
 	<string name="editor_category_unsuitable_text">Bản đồ không phải trả tiền chỉ cho phép thêm các danh mục điểm đơn giản, nghĩa là không có thị trấn, đường, hồ, đường viền tòa nhà, v.v. Vui lòng thêm các danh mục đó trực tiếp vào <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Hãy xem <a href="https://organicmaps.app/faq/editing/advanced-map-editing">hướng dẫn</a> của chúng tôi để biết hướng dẫn chi tiết từng bước.</string>
 	<string name="downloader_no_downloaded_maps_title">Bạn chưa tải về bất kỳ bản đồ nào</string>
 	<string name="downloader_no_downloaded_maps_message">Tải về bản đồ để tìm địa điểm và định hướng ngoại tuyến.</string>
+	<string name="current_location_unknown_error_title">Chưa biết địa điểm hiện tại.</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -529,6 +532,9 @@
 	<string name="editor_share_to_all_dialog_message_1">Chắc chắn rằng bạn không nhập bất kỳ thông tin cá nhân nào.</string>
 	<string name="editor_share_to_all_dialog_message_2">Các biên tập viên của OpenStreetMap sẽ kiểm tra các thay đổi và liên hệ với bạn nếu họ có bất kỳ câu hỏi nào.</string>
 	<string name="navigation_stop_button">Dừng</string>
+	<string name="recent_track_background_dialog_message">Organic Maps sử dụng định vị của bạn trong ứng dụng chạy nền để ghi lại tuyến đường đã đi gần đây của bạn.</string>
+	<!-- Shown as toast when starting the recent track recording -->
+	<string name="track_recording">Ghi lại hành trình</string>
 	<!-- For the first routing -->
 	<string name="accept">Chấp nhận</string>
 	<!-- For the first routing -->

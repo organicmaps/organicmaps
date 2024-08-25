@@ -15,10 +15,10 @@ final class MailComposer: NSObject {
   }
 
   /// Composes an email with the additional app information and the log file attachment for the developers.
-  static func sendBugReport() {
+  static func sendBugReportWith(title: String) {
     func subject() -> String {
       let appInfo = AppInfo.shared()
-      return String(format:"[%@-%@ iOS] %@", appInfo.bundleVersion, appInfo.buildNumber, "Organic Maps Bugreport")
+      return String(format:"[%@-%@ iOS] %@", appInfo.bundleVersion, appInfo.buildNumber, title)
     }
 
     func body() -> String {

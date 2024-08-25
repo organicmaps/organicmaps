@@ -62,7 +62,7 @@
 "download" = "डाउन लोड करना";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "जारी रखने के लिए";
+"continue_button" = "जारी रखने के लिए";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "एक नई सूची जोड़ें";
@@ -261,8 +261,8 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "अन्य";
 
-/* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "हालिया ट्रैक";
+/* The name of the feature in the main menu, settings, and messages. */
+"recent_track" = "हालिया ट्रैक";
 
 "pref_map_auto_zoom" = "ऑटो ज़ूम";
 

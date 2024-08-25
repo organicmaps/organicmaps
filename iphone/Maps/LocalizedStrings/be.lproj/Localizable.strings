@@ -62,7 +62,7 @@
 "download" = "Спампаваць";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "Працягнуць";
+"continue_button" = "Працягнуць";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Дадаць спіс";
@@ -261,8 +261,8 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Іншы";
 
-/* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Нядаўні маршрут";
+/* The name of the feature in the main menu, settings, and messages. */
+"recent_track" = "Нядаўні маршрут";
 
 "pref_map_auto_zoom" = "Аўтаматычны маштаб";
 

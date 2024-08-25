@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import app.organicmaps.R;
+import app.organicmaps.location.TrackRecorder;
 import app.organicmaps.util.Config;
 
 import java.util.ArrayList;
@@ -65,6 +66,15 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>
       badge.setVisibility(View.VISIBLE);
     } else {
       badge.setVisibility(View.GONE);
+    }
+
+    if (item.iconRes == R.drawable.ic_trace_path_off && TrackRecorder.nativeIsEnabled())
+    {
+      iv.setImageResource(R.drawable.ic_trace_path_on);
+      iv.setImageTintMode(null);
+      viewHolder.getTitleTextView().setText(R.string.recent_track);
+      badge.setBackgroundResource(R.drawable.track_recorder_badge);
+      badge.setVisibility(View.VISIBLE);
     }
   }
 

@@ -60,7 +60,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">一時停止</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">続行</string>
+	<string name="continue_button">続行</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%sのダウンロードが失敗しました</string>
 	<!-- "Add new bookmark list" dialog title -->
@@ -242,6 +242,8 @@
 	<string name="pref_tts_playing_test_voice">音声が聞こえない場合は、音量またはシステムの音声合成設定を確認する。</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">利用不可</string>
+	<!-- The name of the feature in the main menu, settings, and messages. -->
+	<string name="recent_track">最近のトラック</string>
 	<string name="pref_map_auto_zoom">自動ズーム</string>
 	<string name="duration_disabled">オフ</string>
 	<string name="duration_1_hour">1時間</string>
@@ -519,6 +521,7 @@
 	<string name="editor_category_unsuitable_text">つまり、町、道路、湖、建物の輪郭などは追加できない。そのようなカテゴリーは<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>に直接追加してほしい。私たちの<a href="https://organicmaps.app/faq/editing/advanced-map-editing">ガイド</a>のステップバイステップの詳細な手順をチェックする。</string>
 	<string name="downloader_no_downloaded_maps_title">マップをダウンロードしていません</string>
 	<string name="downloader_no_downloaded_maps_message">ロケーションの検索とオフラインナビゲートのためにマップをダウンロードしてください。</string>
+	<string name="current_location_unknown_error_title">現在地は不明です。</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -564,6 +567,9 @@
 	<string name="editor_share_to_all_dialog_message_1">個人情報を入力していないことを確認してください。</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap の編集者が変更を確認し、質問があれば連絡します。</string>
 	<string name="navigation_stop_button">停止</string>
+	<string name="recent_track_background_dialog_message">Organic Mapsは、あなたの位置情報をバックグラウンドで使用して最近の走行ルートを記録します。</string>
+	<!-- Shown as toast when starting the recent track recording -->
+	<string name="track_recording">トラックの記録</string>
 	<!-- For the first routing -->
 	<string name="accept">了解</string>
 	<!-- For the first routing -->

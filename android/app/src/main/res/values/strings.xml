@@ -63,7 +63,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Pause</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">Continue</string>
+	<string name="continue_button">Continue</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s download has failed</string>
 	<!-- "Add new bookmark list" dialog title -->
@@ -245,6 +245,8 @@
 	<string name="pref_tts_playing_test_voice">Check the volume or system Text-To-Speech settings if you don\'t hear the voice now.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Not Available</string>
+	<!-- The name of the feature in the main menu, settings, and messages. -->
+	<string name="recent_track">Recent Track</string>
 	<string name="pref_map_auto_zoom">Auto zoom</string>
 	<string name="duration_disabled">Off</string>
 	<string name="duration_1_hour">1 hour</string>
@@ -544,6 +546,7 @@
 	<string name="editor_category_unsuitable_text">Organic Maps allows to add simple point categories only, that means no towns, roads, lakes, building outlines, etc. Please add such categories directly to <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Check our <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detailed step by step instructions.</string>
 	<string name="downloader_no_downloaded_maps_title">You haven\'t downloaded any maps</string>
 	<string name="downloader_no_downloaded_maps_message">Download maps to search and navigate offline.</string>
+	<string name="current_location_unknown_error_title">Current location is unknown.</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -589,6 +592,9 @@
 	<string name="editor_share_to_all_dialog_message_1">Make sure you did not enter any private or personal data.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap editors will check the changes and contact you if they have any questions.</string>
 	<string name="navigation_stop_button">Stop</string>
+	<string name="recent_track_background_dialog_message">Organic Maps uses your location in the background to record your recently travelled route.</string>
+	<!-- Shown as toast when starting the recent track recording -->
+	<string name="track_recording">Recording the track</string>
 	<!-- For the first routing -->
 	<string name="accept">Accept</string>
 	<!-- For the first routing -->

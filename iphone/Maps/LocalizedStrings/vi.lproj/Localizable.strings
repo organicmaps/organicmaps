@@ -62,7 +62,7 @@
 "download" = "Tải xuống";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "Tiếp tục";
+"continue_button" = "Tiếp tục";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Thêm Bộ Mới";
@@ -261,8 +261,8 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Khác";
 
-/* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Tìm kiếm gần đây";
+/* The name of the feature in the main menu, settings, and messages. */
+"recent_track" = "Tìm kiếm gần đây";
 
 "pref_map_auto_zoom" = "Ống dòm tự động";
 

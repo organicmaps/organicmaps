@@ -62,7 +62,7 @@
 "download" = "Descarregar";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "Continuar";
+"continue_button" = "Continuar";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Adicionar conjunto novo";
@@ -261,8 +261,8 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Outro";
 
-/* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Percurso recente";
+/* The name of the feature in the main menu, settings, and messages. */
+"recent_track" = "Percurso recente";
 
 "pref_map_auto_zoom" = "Ampliação automática";
 

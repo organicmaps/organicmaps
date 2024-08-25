@@ -54,7 +54,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Peata</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">Jätka</string>
+	<string name="continue_button">Jätka</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s allalaadimine ebaõnnestus</string>
 	<!-- "Add new bookmark list" dialog title -->
@@ -236,6 +236,8 @@
 	<string name="pref_tts_playing_test_voice">Kontrollige helitugevust või süsteemi teksti kõnetamise seadeid, kui te ei kuule nüüd häält.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Ei ole saadaval</string>
+	<!-- The name of the feature in the main menu, settings, and messages. -->
+	<string name="recent_track">Hiljutine rada</string>
 	<string name="pref_map_auto_zoom">Automaatne zoom</string>
 	<string name="duration_disabled">Väljas</string>
 	<string name="duration_1_hour">1 tund</string>
@@ -509,6 +511,7 @@
 	<string name="editor_category_unsuitable_text">Organic Maps võimaldab lisada ainult lihtsaid punktikategooriaid, see tähendab, et ei mingeid linnu, teid, järvi, hoonete piirjooni jne. Palun lisage sellised kategooriad otse <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Vaadake meie <a href="https://organicmaps.app/faq/editing/advanced-map-editing">juhendit</a> üksikasjalike samm-sammuliste juhiste saamiseks.</string>
 	<string name="downloader_no_downloaded_maps_title">Sa ei ole kaarte alla laadinud</string>
 	<string name="downloader_no_downloaded_maps_message">Lae alla kaardid asukoha otsimiseks ja võrguühenduseta navigeerimise kasutamiseks.</string>
+	<string name="current_location_unknown_error_title">Hetkeasukoht on teadmata.</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -554,6 +557,9 @@
 	<string name="editor_share_to_all_dialog_message_1">Palun kontrolli, et Sa ei sisestanud isiklikke andmeid.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap muutjad kontrollivad muudatused üle ja võtavad küsimuste korral Sinuga ühendust.</string>
 	<string name="navigation_stop_button">Lõpeta</string>
+	<string name="recent_track_background_dialog_message">Organic Maps kasutab Sinu geograafilist asukohta taustal Sinu hiljuti läbitud teekonna salvestamiseks.</string>
+	<!-- Shown as toast when starting the recent track recording -->
+	<string name="track_recording">Rada registreerimine</string>
 	<!-- For the first routing -->
 	<string name="accept">Nõustu</string>
 	<!-- For the first routing -->

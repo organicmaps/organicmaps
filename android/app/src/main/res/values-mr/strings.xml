@@ -54,7 +54,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">विराम द्या</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">चालू ठेवा</string>
+	<string name="continue_button">चालू ठेवा</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s डाउनलोड अयशस्वी</string>
 	<!-- "Add new bookmark list" dialog title -->
@@ -216,6 +216,8 @@
 	<string name="pref_tts_playing_test_voice">तुम्हाला आता आवाज ऐकू येत नसल्यास व्हॉल्यूम किंवा सिस्टम टेक्स्ट-टू-स्पीच सेटिंग्ज तपासा.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">उपलब्ध नाही</string>
+	<!-- The name of the feature in the main menu, settings, and messages. -->
+	<string name="recent_track">अलीकडील ट्रॅक</string>
 	<string name="pref_map_auto_zoom">स्वयं झूम</string>
 	<string name="duration_disabled">बंद</string>
 	<string name="duration_1_hour">१ तास</string>
@@ -484,6 +486,7 @@
 	<string name="editor_category_unsuitable_text">ऑरगॅनिक नकाशे फक्त साध्या बिंदू श्रेणी जोडण्याची परवानगी देतात, म्हणजे शहरे, रस्ते, तलाव, इमारत बाह्यरेखा इ. कृपया अशा श्रेणी थेट <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> वर जोडा. तपशीलवार चरण-दर-चरण सूचनांसाठी आमचे <a href="https://organicmaps.app/faq/editing/advanced-map-editing">मार्गदर्शक</a> पहा.</string>
 	<string name="downloader_no_downloaded_maps_title">तुम्ही कोणतेही नकाशे डाउनलोड केलेले नाहीत</string>
 	<string name="downloader_no_downloaded_maps_message">स्थान शोधण्यासाठी नकाशे डाउनलोड करा आणि ऑफलाइन मार्गनिर्देशन वापरा.</string>
+	<string name="current_location_unknown_error_title">वर्तमान स्थान अज्ञात आहे.</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -526,6 +529,9 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">आपण कोणतीही वैयक्तिक माहिती प्रविष्ट केला नाही याची खात्री करा.</string>
 	<string name="navigation_stop_button">थांबा</string>
+	<string name="recent_track_background_dialog_message">तुम्ही अलीकडे प्रवास केलेला मार्ग रेकॉर्ड करण्यासाठी Organic Maps पार्श्वभूमीत तुमचे स्थान वापरते.</string>
+	<!-- Shown as toast when starting the recent track recording -->
+	<string name="track_recording">ट्रॅक रेकॉर्ड करत आहे</string>
 	<!-- For the first routing -->
 	<string name="accept">स्वीकारा</string>
 	<!-- For the first routing -->

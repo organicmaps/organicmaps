@@ -60,7 +60,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Pause</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">Fortfahren</string>
+	<string name="continue_button">Fortfahren</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s Herunterladen fehlgeschlagen</string>
 	<!-- "Add new bookmark list" dialog title -->
@@ -242,6 +242,8 @@
 	<string name="pref_tts_playing_test_voice">Überprüfe die Lautstärke oder die Text-to-speech Einstellungen des Systems, wenn du die Stimme jetzt nicht hörst.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Nicht verfügbar</string>
+	<!-- The name of the feature in the main menu, settings, and messages. -->
+	<string name="recent_track">Letzter Track</string>
 	<string name="pref_map_auto_zoom">Auto-Zoom</string>
 	<string name="duration_disabled">Aus</string>
 	<string name="duration_1_hour">1 Stunde</string>
@@ -515,6 +517,7 @@
 	<string name="editor_category_unsuitable_text">Mit Organic Maps kann nur einfache Punktkategorien hinzufügen, d.h. keine Städte, Straßen, Seen, Gebäudeumrisse, etc. Bitte füge solche Kategorien direkt bei <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> hinzu. In unserem <a href="https://organicmaps.app/faq/editing/advanced-map-editing">Leitfaden</a> findest du eine detaillierte Schritt-für-Schritt-Anleitung.</string>
 	<string name="downloader_no_downloaded_maps_title">Keine Karten heruntergeladen</string>
 	<string name="downloader_no_downloaded_maps_message">Laden Sie Karten für die Offline-Suche und Navigation herunter.</string>
+	<string name="current_location_unknown_error_title">Aktueller Standort unbekannt</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -560,6 +563,9 @@
 	<string name="editor_share_to_all_dialog_message_1">Stellen Sie sicher, dass Sie keine persönlichen oder privaten Daten eingegeben haben.</string>
 	<string name="editor_share_to_all_dialog_message_2">Freiwillige von OpenStreetMap werden die Änderungen prüfen und sich bei Fragen mit Ihnen in Verbindung setzen.</string>
 	<string name="navigation_stop_button">Beenden</string>
+	<string name="recent_track_background_dialog_message">Organic Maps verwendet Ihre Geoposition im Hintergrund, um Ihre kürzlich gefahrene Route aufzunehmen.</string>
+	<!-- Shown as toast when starting the recent track recording -->
+	<string name="track_recording">Aufnahme der Strecke</string>
 	<!-- For the first routing -->
 	<string name="accept">Annehmen</string>
 	<!-- For the first routing -->

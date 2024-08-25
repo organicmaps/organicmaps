@@ -70,6 +70,8 @@ import app.organicmaps.location.LocationListener;
 import app.organicmaps.location.LocationState;
 import app.organicmaps.location.SensorHelper;
 import app.organicmaps.location.SensorListener;
+import app.organicmaps.location.TrackRecorder;
+import app.organicmaps.location.TrackRecordingService;
 import app.organicmaps.maplayer.MapButtonsController;
 import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.maplayer.ToggleMapLayerFragment;
@@ -204,6 +206,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private ActivityResultLauncher<String[]> mLocationPermissionRequest;
+  private boolean mLocationPermissionRequestedForRecording = false;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -241,7 +244,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     WAS_NOT_SHOWN,
     SHOWING_FOR_NAVIGATION,
-    //SHOWING_FOR_TRACK_RECORDING,
+    SHOWING_FOR_RECORDING,
     SHOWN,
   }
 
@@ -271,6 +274,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
       onNavigationStarted();
     else if (RoutingController.get().hasSavedRoute())
       RoutingController.get().restoreRoute();
+
+    // This is for the case when track recording was enabled but due to any reasons
+    // App crashed so we need the restart or stop the whole service again properly
+    // by checking all the necessary permissions
+    if (TrackRecorder.nativeIsEnabled())
+    {
+      TrackRecorder.nativeSetEnabled(false);
+      startTrackRecording(false);
+    }
 
     processIntent();
     migrateOAuthCredentials();
@@ -1918,10 +1930,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
         Logger.w(LOCATION_TAG, "Permission " + permission + " has been refused");
     }
 
+    boolean requestedForRecording = mLocationPermissionRequestedForRecording;
+    mLocationPermissionRequestedForRecording = false;
     if (LocationUtils.checkLocationPermission(this))
     {
       if (LocationState.getMode() == LocationState.NOT_FOLLOW_NO_POSITION)
         LocationState.nativeSwitchToNextMode();
+
+      if (requestedForRecording && LocationUtils.checkFineLocationPermission(this))
+        startTrackRecording(true);
+
       return;
     }
 
@@ -1966,6 +1984,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
       case SHOWING_FOR_NAVIGATION -> {
         Logger.d(POWER_MANAGEMENT_TAG, "Resuming navigation");
         onRoutingStart();
+      }
+      case SHOWING_FOR_RECORDING -> {
+        Logger.d(POWER_MANAGEMENT_TAG, "Resuming track recording");
+        startTrackRecording(true);
       }
       case SHOWN, WAS_NOT_SHOWN -> Logger.w(POWER_MANAGEMENT_TAG, "Ignoring dangling callback");
     }
@@ -2241,6 +2263,46 @@ public class MwmActivity extends BaseMwmFragmentActivity
     startActivity(intent);
   }
 
+  private void startTrackRecording(boolean toast)
+  {
+    if (!LocationUtils.checkFineLocationPermission(this))
+    {
+      Logger.i(TAG, "Location permission not granted");
+      // This variable is a simple hack to re initiate the flow
+      // according to action of user. Calling it hack because we are avoiding
+      // creation of new methods by using this variable.
+      mLocationPermissionRequestedForRecording = true;
+      mLocationPermissionRequest.launch(new String[] { ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION });
+      return;
+    }
+
+    // Check for battery saver permission
+    if (!requestBatterySaverPermission(PowerSaveDisclaimerState.SHOWING_FOR_RECORDING))
+      return;
+
+    requestPostNotificationsPermission();
+
+    if (toast)
+      Toast.makeText(this, R.string.track_recording, Toast.LENGTH_SHORT).show();
+    TrackRecordingService.startForegroundService(getApplicationContext());
+    mMapButtonsViewModel.setTrackRecorderState(true);
+  }
+
+  private void stopTrackRecording()
+  {
+    //Toast.makeText(this, R.string.track_recording_disabled, Toast.LENGTH_SHORT).show();
+    TrackRecordingService.stopService(getApplicationContext());
+    mMapButtonsViewModel.setTrackRecorderState(false);
+  }
+
+  private void onTrackRecordingOptionSelected()
+  {
+    if (TrackRecorder.nativeIsEnabled())
+      stopTrackRecording();
+    else
+      startTrackRecording(true);
+  }
+
   public void onShareLocationOptionSelected()
   {
     closeFloatingPanels();
@@ -2265,6 +2327,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (!TextUtils.isEmpty(mDonatesUrl))
         items.add(new MenuBottomSheetItem(R.string.donate, R.drawable.ic_donate, this::onDonateOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.settings, R.drawable.ic_settings, this::onSettingsOptionSelected));
+      items.add(new MenuBottomSheetItem(R.string.recent_track, R.drawable.ic_trace_path_off, -1, this::onTrackRecordingOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.share_my_location, R.drawable.ic_share, this::onShareLocationOptionSelected));
       return items;
     }

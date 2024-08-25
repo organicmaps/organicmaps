@@ -60,7 +60,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Pauza</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">Pokračovať</string>
+	<string name="continue_button">Pokračovať</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">Sťahovanie zlyhalo: %s</string>
 	<!-- "Add new bookmark list" dialog title -->
@@ -242,6 +242,8 @@
 	<string name="pref_tts_playing_test_voice">Ak teraz nepočujete hlas, skontrolujte hlasitosť alebo systémové nastavenia prevodu textu na reč.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Nie je k dispozícii</string>
+	<!-- The name of the feature in the main menu, settings, and messages. -->
+	<string name="recent_track">Posledná trasa</string>
 	<string name="pref_map_auto_zoom">Automatický zoom</string>
 	<string name="duration_disabled">Vypnúť</string>
 	<string name="duration_1_hour">1 hodina</string>
@@ -515,6 +517,7 @@
 	<string name="editor_category_unsuitable_text">Organické mapy umožňujú pridávať len jednoduché kategórie bodov, teda žiadne mestá, cesty, jazerá, obrysy budov atď. Takéto kategórie pridávajte priamo na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Pozrite si náš <a href="https://organicmaps.app/faq/editing/advanced-map-editing">príručku</a>, kde nájdete podrobné pokyny krok za krokom.</string>
 	<string name="downloader_no_downloaded_maps_title">Neprevzali ste žiadne mapy</string>
 	<string name="downloader_no_downloaded_maps_message">Prevziať mapy na nájdenie pozície a navigovanie off-line.</string>
+	<string name="current_location_unknown_error_title">Súčasná pozícia je neznáma.</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -559,6 +562,9 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Nezadávajte žiadne osobné udaje.</string>
 	<string name="editor_share_to_all_dialog_message_2">Redaktori OpenStreetMap skontrolujú zmeny a budú vás kontaktovať, ak budú mať nejaké otázky.</string>
+	<string name="recent_track_background_dialog_message">Organic Maps používa vašu geopozíciu na pozadí pre zaznamenávanie vami nedávno precestovanej trasy.</string>
+	<!-- Shown as toast when starting the recent track recording -->
+	<string name="track_recording">Zaznamenávanie trasy</string>
 	<!-- For the first routing -->
 	<string name="accept">Prijať</string>
 	<!-- For the first routing -->

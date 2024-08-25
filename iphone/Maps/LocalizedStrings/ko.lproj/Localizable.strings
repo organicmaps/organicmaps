@@ -62,7 +62,7 @@
 "download" = "다운로드";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "계속";
+"continue_button" = "계속";
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "새로운 목록 추가";
@@ -261,8 +261,8 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "다른 언어";
 
-/* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "최근 추적";
+/* The name of the feature in the main menu, settings, and messages. */
+"recent_track" = "최근 추적";
 
 "pref_map_auto_zoom" = "자동 줌";
 
