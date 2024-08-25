@@ -860,6 +860,7 @@
 	<string name="type.addr_interpolation.odd">地址/區塊</string>
 	<string name="type.aerialway">纜車要素</string>
 	<string name="type.aerialway.cable_car">纜車</string>
+	<string name="type.aerialway.chair_lift">纜車</string>
 	<string name="type.aerialway.drag_lift">纜車要素</string>
 	<string name="type.aerialway.gondola">循環式索道</string>
 	<string name="type.aerialway.mixed_lift">纜車</string>
@@ -920,6 +921,7 @@
 	<string name="type.amenity.fast_food">速食店</string>
 	<string name="type.amenity.ferry_terminal">渡船</string>
 	<string name="type.amenity.fire_station">消防局</string>
+	<string name="type.amenity.food_court">美食廣場</string>
 	<string name="type.amenity.fountain">噴泉</string>
 	<string name="type.amenity.fuel">加氣站</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
@@ -1002,6 +1004,8 @@
 	<string name="type.amenity.shelter.public_transport">隱藏處</string>
 	<!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
 	<string name="type.amenity.shelter.basic_hut">露營小屋</string>
+	<!-- A traditional 3-walled shelter (one side open), suitable for overnight camping. -->
+	<string name="type.amenity.shelter.lean_to">三面避難所</string>
 	<string name="type.amenity.public_bath">公共浴場</string>
 	<string name="type.amenity.shower">淋浴間</string>
 	<string name="type.amenity.stripclub">脫衣舞俱樂部</string>
@@ -1012,32 +1016,54 @@
 	<string name="type.toilets.yes">廁所</string>
 	<string name="type.amenity.townhall">市政廳</string>
 	<string name="type.amenity.university">大學</string>
+	<string name="type.amenity.vending_machine">自動售貨機</string>
 	<string name="type.amenity.vending_machine.cigarettes">香菸自動販賣機</string>
+	<string name="type.amenity.vending_machine.coffee">咖啡售賣機</string>
+	<string name="type.amenity.vending_machine.condoms">避孕套售賣機</string>
 	<string name="type.amenity.vending_machine.drinks">飲料自動販賣機</string>
+	<string name="type.amenity.vending_machine.food">食品售賣機</string>
+	<string name="type.amenity.vending_machine.newspapers">報紙售賣機</string>
 	<string name="type.amenity.vending_machine.parking_tickets">違規停車罰單繳費機</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">公共交通售票機</string>
+	<string name="type.amenity.vending_machine.sweets">糖果售賣機</string>
+	<string name="type.amenity.vending_machine.excrement_bags">排泄物袋售賣機</string>
 	<string name="type.amenity.parcel_locker">包裹儲物櫃</string>
 	<string name="type.amenity.vehicle_inspection">車輛檢驗</string>
+	<string name="type.amenity.vending_machine.fuel">燃油泵</string>
 	<string name="type.amenity.veterinary">獸醫</string>
 	<string name="type.amenity.waste_basket">垃圾箱</string>
 	<string name="type.amenity.waste_disposal">垃圾</string>
 	<string name="type.amenity.waste_transfer_station">垃圾轉運站</string>
 	<string name="type.amenity.water_point">飲水站</string>
+	<string name="type.barrier">障礙物</string>
 	<string name="type.barrier.block">街區</string>
 	<string name="type.barrier.bollard">柱</string>
 	<string name="type.barrier.border_control">邊境管制</string>
+	<string name="type.barrier.chain">鏈條</string>
 	<string name="type.barrier.city_wall">城牆</string>
+	<string name="type.barrier.cycle_barrier">自行車障礙</string>
 	<string name="type.waterway.ditch">排水溝</string>
 	<string name="type.natural.water.moat">護城河</string>
 	<string name="type.natural.water.wastewater">廢水</string>
 	<string name="type.barrier.entrance">入口</string>
-	<string name="type.barrier.gate">大門</string>
-	<string name="type.barrier.kissing_gate">大門</string>
+	<string name="type.barrier.fence">籬笆</string>
+	<string name="type.barrier.gate">門</string>
+	<string name="type.barrier.hedge">灌木籬笆</string>
+	<string name="type.barrier.kissing_gate">門</string>
 	<string name="type.barrier.lift_gate">遮斷機</string>
+	<string name="type.barrier.retaining_wall">擋土牆</string>
 	<string name="type.barrier.stile">梯磴</string>
 	<string name="type.barrier.turnstile">旋轉門</string>
 	<string name="type.barrier.swing_gate">遮斷機</string>
 	<string name="type.barrier.toll_booth">收費站</string>
+	<string name="type.barrier.wall">墻</string>
+	<string name="type.boundary">邊界</string>
+	<!-- Borders between countries. -->
+	<string name="type.boundary.administrative.2">國家行政區域界線</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.3">行政區域邊界</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.4">行政區域邊界</string>
 	<string name="type.boundary.national_park">國家公園</string>
 	<string name="type.boundary.aboriginal_lands">原住民土地</string>
 	<string name="type.boundary.protected_area">保護區</string>
@@ -1054,6 +1080,7 @@
 	<string name="type.building_part">建築物</string>
 	<string name="type.building.garage">車庫</string>
 	<string name="type.building.train_station">鐵道</string>
+	<string name="type.building.warehouse">倉庫</string>
 	<string name="type.cemetery.grave">墓穴</string>
 	<string name="type.craft">工藝作坊</string>
 	<string name="type.craft.beekeeper">蜂農</string>
@@ -1166,6 +1193,7 @@
 	<string name="type.cuisine.vegan">全素料理</string>
 	<string name="type.cuisine.vegetarian">素食</string>
 	<string name="type.cuisine.vietnamese">越南料理</string>
+	<string name="type.emergency">緊急服務</string>
 	<string name="type.emergency.assembly_point">緊急集合點</string>
 	<string name="type.emergency.defibrillator">心臟電擊器</string>
 	<string name="type.emergency.fire_hydrant">消防栓</string>
@@ -1188,8 +1216,11 @@
 	<string name="type.healthcare.speech_therapist">言語治療</string>
 
 	<!-- SECTION: Types: Roads -->
+	<string name="type.highway">道路</string>
+	<string name="type.highway.bridleway">馬道</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.bridleway.bridge">橋</string>
+	<string name="type.highway.bridleway.permissive">允許通行的騎馬道</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.bridleway.tunnel">隧道</string>
 	<string name="type.highway.busway">巴士專用道</string>
@@ -1199,16 +1230,19 @@
 	<string name="type.highway.busway.tunnel">隧道</string>
 	<string name="type.highway.bus_stop">巴士站</string>
 	<string name="type.highway.construction">在建道路</string>
+	<string name="type.highway.cycleway">自行車道</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.cycleway.bridge">橋</string>
+	<string name="type.highway.cycleway.permissive">允許通行的自行車道</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.cycleway.tunnel">隧道</string>
+	<string name="type.highway.elevator">電梯</string>
 	<string name="type.highway.footway">人行步道</string>
 	<string name="type.highway.footway.sidewalk">人行道</string>
-	<string name="type.highway.footway.crossing">行人穿越道</string>
+	<string name="type.highway.footway.crossing">過街人行橫道</string>
 	<string name="type.highway.footway.area">人行步道</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.footway.bridge">橋</string>
+	<string name="type.highway.footway.bridge">行人過街天橋</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">隧道</string>
 	<string name="type.highway.ford">淺灘</string>
@@ -1281,8 +1315,8 @@
 	<string name="type.highway.secondary_link.bridge">橋</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.secondary_link.tunnel">隧道</string>
-	<string name="type.highway.service">輔助道路</string>
-	<string name="type.highway.service.area">輔助道路</string>
+	<string name="type.highway.service">服務道路</string>
+	<string name="type.highway.service.area">服務道路</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.service.bridge">橋</string>
 	<string name="type.highway.service.driveway">車道</string>
@@ -1331,6 +1365,7 @@
 	<string name="type.highway.unclassified.bridge">橋</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.unclassified.tunnel">隧道</string>
+	<string name="type.area_highway.cycleway">自行車道</string>
 	<string name="type.area_highway.footway">人行步道</string>
 	<string name="type.area_highway.living_street">路</string>
 	<string name="type.area_highway.motorway">高速公路</string>
@@ -1339,7 +1374,7 @@
 	<string name="type.area_highway.primary">主要道路</string>
 	<string name="type.area_highway.residential">住宅區道路</string>
 	<string name="type.area_highway.secondary">次要道路</string>
-	<string name="type.area_highway.service">輔助道路</string>
+	<string name="type.area_highway.service">服務道路</string>
 	<string name="type.area_highway.tertiary">三级道路</string>
 	<string name="type.area_highway.steps">人行步道</string>
 	<string name="type.area_highway.track">土路</string>
@@ -1389,23 +1424,49 @@
 	<string name="type.historic.wayside_shrine">路旁神龕</string>
 	<string name="type.historic.wreck">沉船</string>
 	<string name="type.internet_access">互聯網</string>
-	<string name="type.internet_access.wlan">互聯網</string>
+	<string name="type.internet_access.wlan">無線網路</string>
+	<string name="type.junction">交叉口</string>
+	<string name="type.junction.circular">環形交叉口</string>
+	<string name="type.junction.roundabout">環形交叉口</string>
+	<string name="type.landuse">土地利用要素</string>
+	<string name="type.landuse.allotments">市民農園</string>
 	<string name="type.landuse.basin">水庫</string>
+	<string name="type.landuse.brownfield">廢棄的工業用地</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">墓地</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">基督教墓地</string>
 	<string name="type.landuse.churchyard">教堂庭院</string>
+	<string name="type.landuse.commercial">商業區</string>
+	<string name="type.landuse.construction">建設區域</string>
+	<string name="type.landuse.education">教育設施</string>
 	<string name="type.landuse.farmland">農業用地</string>
+	<string name="type.landuse.farmyard">農家庭院</string>
+	<string name="type.landuse.field">田地</string>
 	<string name="type.landuse.flowerbed">花壇</string>
 	<string name="type.landuse.forest">樹林</string>
 	<string name="type.landuse.forest.coniferous">樹林</string>
 	<string name="type.landuse.forest.deciduous">樹林</string>
 	<string name="type.landuse.forest.mixed">樹林</string>
+	<string name="type.landuse.garages">車庫</string>
 	<string name="type.landuse.grass">草坪</string>
-	<string name="type.landuse.landfill">堆積場</string>
+	<string name="type.landuse.greenfield">待開發荒地</string>
+	<string name="type.landuse.greenhouse_horticulture">溫室</string>
+	<string name="type.landuse.industrial">工業用地</string>
+	<string name="type.landuse.landfill">垃圾填埋場</string>
+	<string name="type.landuse.meadow">草地</string>
+	<string name="type.landuse.military">軍事用地</string>
+	<string name="type.landuse.orchard">果園</string>
+	<string name="type.landuse.quarry">礦場</string>
 	<string name="type.landuse.railway">鐵路設施</string>
+	<string name="type.landuse.recreation_ground">娛樂場地</string>
 	<string name="type.landuse.reservoir">水庫</string>
+	<string name="type.landuse.residential">住宅區</string>
+	<string name="type.landuse.retail">零售區</string>
+	<string name="type.landuse.salt_pond">鹽田</string>
+	<string name="type.landuse.village_green">村莊綠地</string>
+	<string name="type.landuse.vineyard">葡萄園</string>
+	<string name="type.leisure.common">公共用地</string>
 	<string name="type.leisure.dog_park">遛狗區</string>
 	<string name="type.leisure.fitness_centre">健身中心</string>
 	<string name="type.leisure.fitness_station">健身房</string>
@@ -1413,7 +1474,10 @@
 	<string name="type.leisure.garden">花園</string>
 	<string name="type.leisure.garden.residential">花園</string>
 	<string name="type.leisure.golf_course">高爾夫球場</string>
+	<string name="type.leisure.miniature_golf">小型高爾夫球場</string>
 	<string name="type.leisure.hackerspace">駭客空間</string>
+	<string name="type.leisure.ice_rink">滑冰場</string>
+	<string name="type.leisure.marina">遊艇碼頭</string>
 	<string name="type.leisure.nature_reserve">自然保護區</string>
 	<string name="type.leisure.outdoor_seating">戶外座位</string>
 	<string name="type.leisure.park">公園</string>
@@ -1423,6 +1487,7 @@
 	<string name="type.leisure.picnic_table">野餐桌</string>
 	<string name="type.leisure.pitch">運動場</string>
 	<string name="type.leisure.playground">遊樂場</string>
+	<string name="type.leisure.recreation_ground">娛樂場地</string>
 	<string name="type.leisure.sauna">桑拿</string>
 	<string name="type.leisure.sports_centre">體育中心</string>
 	<string name="type.sport.climbing">攀登中心</string>
@@ -1431,6 +1496,7 @@
 	<string name="type.leisure.swimming_pool">游泳池</string>
 	<string name="type.leisure.swimming_pool.private">游泳池</string>
 	<string name="type.leisure.water_park">水上樂園</string>
+	<string name="type.leisure.beach_resort">海濱度假區</string>
 	<string name="type.man_made.chimney">工廠煙囪</string>
 	<string name="type.man_made.flagpole">旗桿</string>
 	<string name="type.man_made.lighthouse">燈塔</string>
@@ -1815,19 +1881,19 @@
 	<string name="type.shop.books">書店</string>
 	<string name="type.shop.butcher">肉商</string>
 	<string name="type.shop.cannabis">大麻商店</string>
-	<string name="type.shop.car">買車</string>
+	<string name="type.shop.car">車店</string>
 	<string name="type.shop.car_parts">汽車零件</string>
 	<string name="type.shop.car_repair">汽車維修</string>
 	<string name="type.shop.car_repair.tyres">輪胎修補</string>
 	<string name="type.shop.caravan">房车經銷商</string>
 	<string name="type.shop.carpet">地毯</string>
 	<string name="type.shop.chemist">藥妝店</string>
-	<string name="type.shop.chocolate">購物</string>
+	<string name="type.shop.chocolate">巧克力店</string>
 	<string name="type.shop.clothes">買衣服</string>
-	<string name="type.shop.coffee">購物</string>
-	<string name="type.shop.computer">電腦商店</string>
+	<string name="type.shop.coffee">咖啡店</string>
+	<string name="type.shop.computer">電腦店</string>
 	<string name="type.shop.confectionery">糕餅店</string>
-	<string name="type.shop.convenience">便利商店</string>
+	<string name="type.shop.convenience">便利店</string>
 	<string name="type.shop.copyshop">復印店</string>
 	<string name="type.shop.cosmetics">化妆品</string>
 	<string name="type.shop.curtain">窗簾</string>
@@ -1835,9 +1901,9 @@
 	<string name="type.shop.department_store">百貨公司</string>
 	<string name="type.shop.doityourself">五金行</string>
 	<string name="type.shop.dry_cleaning">乾洗</string>
-	<string name="type.shop.electronics">電子產品</string>
+	<string name="type.shop.electronics">電子產品商店</string>
 	<string name="type.shop.erotic">情趣用品店</string>
-	<string name="type.shop.fabric">購物</string>
+	<string name="type.shop.fabric">布料店</string>
 	<string name="type.shop.farm">農場食品店</string>
 	<string name="type.shop.fashion_accessories">時尚配飾</string>
 	<string name="type.shop.florist">花店</string>
@@ -1855,17 +1921,17 @@
 	<string name="type.shop.hifi">高保真音響</string>
 	<string name="type.shop.houseware">家居用品商店</string>
 	<string name="type.shop.jewelry">珠寶店</string>
-	<string name="type.shop.kiosk">小舖</string>
+	<string name="type.shop.kiosk">售貨亭</string>
 	<string name="type.shop.kitchen">廚房用品店</string>
 	<string name="type.shop.laundry">洗衣店</string>
 	<string name="type.shop.mall">商场</string>
 	<string name="type.shop.massage">按摩館</string>
 	<string name="type.shop.mobile_phone">手機專賣店</string>
 	<string name="type.shop.money_lender">購物</string>
-	<string name="type.shop.motorcycle">機車行</string>
+	<string name="type.shop.motorcycle">摩托車商店</string>
 	<string name="type.shop.motorcycle_repair">摩托車維修</string>
-	<string name="type.shop.music">購物</string>
-	<string name="type.shop.musical_instrument">購物</string>
+	<string name="type.shop.music">唱片店</string>
+	<string name="type.shop.musical_instrument">樂器店</string>
 	<string name="type.shop.newsagent">報攤</string>
 	<string name="type.shop.optician">眼鏡店</string>
 	<string name="type.shop.outdoor">室外設備</string>
@@ -1884,9 +1950,9 @@
 	<string name="type.shop.stationery">文具用品店</string>
 	<string name="type.shop.supermarket">超級市場</string>
 	<string name="type.shop.tattoo">刺青店</string>
-	<string name="type.shop.tea">購物</string>
+	<string name="type.shop.tea">茶葉店</string>
 	<string name="type.shop.ticket">售票處</string>
-	<string name="type.shop.toys">玩具商店</string>
+	<string name="type.shop.toys">玩具店</string>
 	<string name="type.shop.travel_agency">旅行社</string>
 	<string name="type.shop.tyres">輪胎店</string>
 	<string name="type.shop.variety_store">雜貨店</string>
@@ -1994,6 +2060,7 @@
 	<string name="type.waterway.canal">運河</string>
 	<string name="type.waterway.canal.tunnel">運河</string>
 	<string name="type.waterway.fish_pass">魚梯</string>
+	<string name="type.barrier.ditch">溝渠</string>
 	<string name="type.natural.water.ditch">排水溝</string>
 	<string name="type.waterway.ditch.tunnel">涵洞</string>
 	<string name="type.waterway.drain.tunnel">涵洞</string>
@@ -2005,9 +2072,14 @@
 	<string name="type.waterway.stream.intermittent">溪</string>
 	<string name="type.waterway.stream.tunnel">溪</string>
 	<string name="type.waterway.waterfall">瀑布</string>
-	<string name="type.wheelchair.limited">部分配備為殘疾人專用</string>
-	<string name="type.wheelchair.no">未配備殘疾人專用</string>
-	<string name="type.wheelchair.yes">配備殘疾人專用</string>
+	<string name="type.wheelchair.limited">部分配備輪椅通道</string>
+	<string name="type.wheelchair.no">未配備輪椅通道</string>
+	<string name="type.wheelchair.yes">配備輪椅通道</string>
+	<string name="type.aerialway.j.bar">J 型拖牽</string>
+	<string name="type.aerialway.magic_carpet">魔毯</string>
+	<string name="type.aerialway.platter">盤式拖牽</string>
+	<string name="type.aerialway.rope_tow">纜繩拖牽</string>
+	<string name="type.aerialway.t.bar">T 型拖牽</string>
 	<string name="type.piste_type.snow_park">冰雪公園</string>
 	<string name="type.piste_type.hike">雪地健行路線</string>
 	<string name="type.piste_type.connection">滑雪道連接</string>

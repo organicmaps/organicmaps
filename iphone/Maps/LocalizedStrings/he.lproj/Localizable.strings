@@ -1395,25 +1395,25 @@
 
 /********** Types **********/
 
-"type.addr_interpolation" = "כתובת/חסימה";
+"type.addr_interpolation" = "כתובת/שכונה";
 
-"type.addr_interpolation.even" = "כתובת/חסימה";
+"type.addr_interpolation.even" = "כתובת/שכונה";
 
-"type.addr_interpolation.odd" = "כתובת/חסימה";
+"type.addr_interpolation.odd" = "כתובת/שכונה";
 
 "type.aerialway" = "Aerialway";
 
-"type.aerialway.cable_car" = "Cable Car";
+"type.aerialway.cable_car" = "רכבל";
 
-"type.aerialway.chair_lift" = "Chair Lift";
+"type.aerialway.chair_lift" = "רכבל סקי";
 
-"type.aerialway.drag_lift" = "Drag Lift";
+"type.aerialway.drag_lift" = "מעלית גרר לסקי";
 
-"type.aerialway.gondola" = "Gondola";
+"type.aerialway.gondola" = "מעלית גונדולה";
 
-"type.aerialway.mixed_lift" = "Mixed Lift";
+"type.aerialway.mixed_lift" = "רכבל מעורב";
 
-"type.aerialway.station" = "Aerialway Station";
+"type.aerialway.station" = "תחנת רכבל";
 
 "type.aeroway" = "Airspace Infrastructure";
 
@@ -1431,11 +1431,11 @@
 
 "type.aeroway.taxiway" = "מסלול הסעה";
 
-"type.aeroway.terminal" = "Terminal";
+"type.aeroway.terminal" = "מסוף נוסעים";
 
-"type.amenity" = "Amenity";
+"type.amenity" = "נוחיות";
 
-"type.amenity.arts_centre" = "Arts Center";
+"type.amenity.arts_centre" = "מרכז אומנויות";
 
 "type.amenity.atm" = "כספומט";
 
@@ -1453,15 +1453,15 @@
 
 "type.amenity.bicycle_repair_station" = "תחנת תיקון אופניים";
 
-"type.amenity.biergarten" = "Biergarten";
+"type.amenity.biergarten" = "ביר גרדן";
 
 "type.amenity.brothel" = "בית בושת";
 
-"type.amenity.bureau_de_change" = "Currency Exchange";
+"type.amenity.bureau_de_change" = "המרת מטבע חוץ";
 
 "type.amenity.bus_station" = "תחנת אוטובוס";
 
-"type.amenity.cafe" = "קפה";
+"type.amenity.cafe" = "בית קפה";
 
 "type.amenity.car_rental" = "השכרת רכב";
 
@@ -1473,9 +1473,9 @@
 
 "type.amenity.gambling" = "הימורים";
 
-"type.leisure.adult_gaming_centre" = "מרכז משחקים למבוגרים";
+"type.leisure.adult_gaming_centre" = "מרכז בידור למבוגרים";
 
-"type.leisure.amusement_arcade" = "מִקמֶרֶת";
+"type.leisure.amusement_arcade" = "משחקי ארקייד";
 
 "type.amenity.charging_station" = "תחנת טעינה";
 
@@ -1483,11 +1483,11 @@
 
 "type.amenity.charging_station.motorcar" = "תחנת טעינה למכוניות";
 
-"type.amenity.childcare" = "Nursery";
+"type.amenity.childcare" = "גנון";
 
 "type.amenity.cinema" = "קולנוע";
 
-"type.leisure.bowling_alley" = "אולם באולינג";
+"type.leisure.bowling_alley" = "אולם כדורת";
 
 "type.amenity.clinic" = "מרפאה";
 
@@ -1499,15 +1499,15 @@
 
 "type.amenity.conference_centre" = "מרכז כנסים";
 
-"type.amenity.courthouse" = "בית המשפט";
+"type.amenity.courthouse" = "בית משפט";
 
-"type.amenity.dentist" = "Dentist";
+"type.amenity.dentist" = "מרפאת שיניים";
 
 "type.amenity.doctors" = "רופא";
 
-"type.amenity.drinking_water" = "מי שתיה";
+"type.amenity.drinking_water" = "מי שתייה";
 
-"type.drinking_water.yes" = "מי שתיה";
+"type.drinking_water.yes" = "מי שתייה";
 
 "type.amenity.driving_school" = "בית ספר לנהיגה";
 
@@ -1523,11 +1523,11 @@
 
 "type.amenity.fast_food" = "מזון מהיר";
 
-"type.amenity.ferry_terminal" = "Ferry";
+"type.amenity.ferry_terminal" = "מסוף מעבורות";
 
 "type.amenity.fire_station" = "תחנת כיבוי אש";
 
-"type.amenity.food_court" = "Food Court";
+"type.amenity.food_court" = "מתחם מזון";
 
 "type.amenity.fountain" = "מזרקה";
 
@@ -1541,9 +1541,9 @@
 
 "type.amenity.hospital" = "בית חולים";
 
-"type.amenity.hunting_stand" = "Hunting Stand";
+"type.amenity.hunting_stand" = "עמדת ציד";
 
-"type.amenity.ice_cream" = "גלידה";
+"type.amenity.ice_cream" = "חנות גלידה";
 
 "type.amenity.internet_cafe" = "קפה אינטרנט";
 
@@ -1551,7 +1551,7 @@
 
 "type.amenity.library" = "ספריה";
 
-"type.amenity.loading_dock" = "רציף טעינה";
+"type.amenity.loading_dock" = "מתחם העמסה";
 
 "type.amenity.marketplace" = "זירת מסחר";
 
@@ -1559,57 +1559,57 @@
 
 "type.amenity.nightclub" = "מועדון לילה";
 
-"type.amenity.nursing_home" = "Nursing Home";
+"type.amenity.nursing_home" = "בית אבות";
 
-"type.amenity.parking" = "חניה";
+"type.amenity.parking" = "חנייה";
 
-"type.amenity.parking.fee" = "חניה";
+"type.amenity.parking.fee" = "חנייה";
 
 "type.amenity.parking.multi.storey" = "חניון רב קומות";
 
 "type.amenity.parking.multi.storey.fee" = "חניון רב קומות";
 
-"type.amenity.parking.no.access" = "חניה פרטית";
+"type.amenity.parking.no.access" = "חנייה פרטית";
 
-"type.amenity.parking.permissive" = "חניה פרטית";
+"type.amenity.parking.permissive" = "חנייה פרטית";
 
-"type.amenity.parking.private" = "חניה פרטית";
+"type.amenity.parking.private" = "חנייה פרטית";
 
 "type.amenity.parking.park_and_ride" = "חניית חנה וסע";
 
-"type.amenity.parking.underground" = "חניה תת קרקעית";
+"type.amenity.parking.underground" = "חנייה תת קרקעית";
 
-"type.amenity.parking.underground.fee" = "חניה תת קרקעית";
+"type.amenity.parking.underground.fee" = "חנייה תת קרקעית";
 
-"type.amenity.parking.underground.private" = "חניה תת קרקעית פרטית";
+"type.amenity.parking.underground.private" = "חנייה תת קרקעית פרטית";
 
-"type.amenity.parking.street_side" = "חניה בצד הרחוב";
+"type.amenity.parking.street_side" = "חנייה בצד הרחוב";
 
-"type.amenity.parking.street_side.fee" = "חניה בצד הרחוב";
+"type.amenity.parking.street_side.fee" = "חנייה בצד הרחוב";
 
-"type.amenity.parking.street_side.private" = "חניה פרטית בצד הרחוב";
+"type.amenity.parking.street_side.private" = "חנייה פרטית בצד הרחוב";
 
 "type.amenity.parking.lane" = "חנייה בנתיב";
 
 "type.amenity.parking.lane.fee" = "חנייה בנתיב";
 
-"type.amenity.parking.lane.private" = "חניה פרטית בנתיב";
+"type.amenity.parking.lane.private" = "חנייה פרטית בנתיב";
 
-"type.amenity.parking_entrance" = "כניסה לחניה";
+"type.amenity.parking_entrance" = "כניסה לחנייה";
 
-"type.amenity.parking_entrance.private" = "כניסה פרטית לחניה";
+"type.amenity.parking_entrance.private" = "כניסה פרטית לחנייה";
 
-"type.amenity.parking_entrance.permissive" = "כניסה לחניה";
+"type.amenity.parking_entrance.permissive" = "כניסה לחנייה";
 
-"type.amenity.parking_space" = "מקום חניה";
+"type.amenity.parking_space" = "מקום חנייה";
 
-"type.amenity.parking_space.permissive" = "מקום חניה";
+"type.amenity.parking_space.permissive" = "מקום חנייה";
 
-"type.amenity.parking_space.private" = "מקום חניה";
+"type.amenity.parking_space.private" = "מקום חנייה";
 
-"type.amenity.parking_space.underground" = "מקום חניה";
+"type.amenity.parking_space.underground" = "מקום חנייה";
 
-"type.amenity.parking_space.disabled" = "חניה לנכים";
+"type.amenity.parking_space.disabled" = "חנייה לנכים";
 
 "type.amenity.payment_terminal" = "מסוף תשלום";
 
@@ -1617,35 +1617,35 @@
 
 "type.amenity.place_of_worship" = "מקום דתי";
 
-"type.amenity.place_of_worship.buddhist" = "Buddhist Temple";
+"type.amenity.place_of_worship.buddhist" = "מקדש בודהיסטי";
 
-"type.amenity.place_of_worship.christian" = "כנסיה";
+"type.amenity.place_of_worship.christian" = "כנסייה נוצרית";
 
-"type.amenity.place_of_worship.christian.mormon" = "כנסיית ישוע המשיח של קדושי אחרון הימים";
+"type.amenity.place_of_worship.christian.mormon" = "כנסייה מורמונית";
 
-"type.amenity.place_of_worship.christian.jehovahs_witness" = "כנסיה של עדי יהוה";
+"type.amenity.place_of_worship.christian.jehovahs_witness" = "כנסייה של עדי יהוה";
 
-"type.amenity.place_of_worship.hindu" = "Hindu Temple";
+"type.amenity.place_of_worship.hindu" = "מקדש הודי";
 
 "type.amenity.place_of_worship.jewish" = "בית כנסת";
 
 "type.amenity.place_of_worship.muslim" = "מסגד";
 
-"type.amenity.place_of_worship.shinto" = "Shinto Shrine";
+"type.amenity.place_of_worship.shinto" = "מקדש שינטו";
 
-"type.amenity.place_of_worship.taoist" = "Taoist Temple";
+"type.amenity.place_of_worship.taoist" = "מקדש טאואיסטי";
 
 "type.amenity.police" = "משטרה";
 
 "type.amenity.post_box" = "תיבת דואר";
 
-"type.amenity.post_office" = "דואר";
+"type.amenity.post_office" = "סניף דואר";
 
 "type.amenity.prison" = "בית כלא";
 
 "type.amenity.pub" = "פאב";
 
-"type.amenity.public_bookcase" = "Book Exchange";
+"type.amenity.public_bookcase" = "כוננית ספרים ציבורית";
 
 
 /********** Types: Recycling **********/
@@ -1672,7 +1672,7 @@
 
 "type.recycling.small_appliances" = "פסולת אלקטרונית";
 
-"type.recycling.cardboard" = "קרטון";
+"type.recycling.cardboard" = "לוחות קרטון";
 
 "type.recycling.cans" = "פחיות";
 
@@ -1680,11 +1680,11 @@
 
 "type.recycling.green_waste" = "פסולת אורגנית/ירוקה";
 
-"type.recycling.cartons" = "Cartons";
+"type.recycling.cartons" = "קרטון";
 
 "type.amenity.restaurant" = "מסעדה";
 
-"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
+"type.amenity.sanitary_dump_station" = "עמדת ריקון מיכלים לקראוונים";
 
 "type.amenity.school" = "בית ספר";
 
@@ -1700,13 +1700,13 @@
 /* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
 "type.amenity.shelter.lean_to" = "מחסה ללינה";
 
-"type.amenity.public_bath" = "אמבטיה ציבורית";
+"type.amenity.public_bath" = "מרחצאות ציבוריות";
 
 "type.amenity.shower" = "מקלחת";
 
 "type.amenity.stripclub" = "מועדון חשפנות";
 
-"type.amenity.taxi" = "תחנת מוניות";
+"type.amenity.taxi" = "עמדת מוניות";
 
 "type.amenity.telephone" = "טלפון";
 
@@ -1716,21 +1716,21 @@
 
 "type.toilets.yes" = "שירותים";
 
-"type.amenity.townhall" = "בית העיריה";
+"type.amenity.townhall" = "בניין עירייה";
 
 "type.amenity.university" = "אוניברסיטה";
 
-"type.amenity.vending_machine" = "מכונת ממכר אוטומטית";
+"type.amenity.vending_machine" = "מכונת ממכר";
 
-"type.amenity.vending_machine.cigarettes" = "מכונה לממכר סיגריות";
+"type.amenity.vending_machine.cigarettes" = "מכונת סיגריות";
 
-"type.amenity.vending_machine.coffee" = "מכונה לממכר קפה";
+"type.amenity.vending_machine.coffee" = "מכונת קפה";
 
-"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+"type.amenity.vending_machine.condoms" = "מכונת קונדומים";
 
-"type.amenity.vending_machine.drinks" = "Drinks Dispenser";
+"type.amenity.vending_machine.drinks" = "מכונת משקאות";
 
-"type.amenity.vending_machine.food" = "Food Dispenser";
+"type.amenity.vending_machine.food" = "מכונת מזון";
 
 "type.amenity.vending_machine.newspapers" = "מתקן עיתונים";
 
@@ -1738,21 +1738,21 @@
 
 "type.amenity.vending_machine.public_transport_tickets" = "מכונת כרטיסים";
 
-"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
+"type.amenity.vending_machine.sweets" = "מכונת דברי מתיקה";
 
-"type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
+"type.amenity.vending_machine.excrement_bags" = "מתקן שקיות פסולת";
 
-"type.amenity.parcel_locker" = "Parcel Locker";
+"type.amenity.parcel_locker" = "תא חבילות";
 
-"type.amenity.vehicle_inspection" = "לבדיקה טכנית";
+"type.amenity.vehicle_inspection" = "בדיקת כלי רכב";
 
-"type.amenity.vending_machine.fuel" = "Fuel Pump";
+"type.amenity.vending_machine.fuel" = "משאבת דלק";
 
-"type.amenity.veterinary" = "Veterinary Doctor";
+"type.amenity.veterinary" = "וטרינר";
 
-"type.amenity.waste_basket" = "Trash Bin";
+"type.amenity.waste_basket" = "פח אשפה";
 
-"type.amenity.waste_disposal" = "Dumpster";
+"type.amenity.waste_disposal" = "מיכל אשפה";
 
 "type.amenity.waste_transfer_station" = "Waste Transfer Station";
 
@@ -3874,22 +3874,22 @@
 
 "type.tourism.information.visitor_centre" = "מרכז מבקרים";
 
-"type.tourism.motel" = "Motel";
+"type.tourism.motel" = "מלון דרכים/מלונית";
 
-"type.tourism.museum" = "Museum";
+"type.tourism.museum" = "מוזיאון";
 
-"type.tourism.picnic_site" = "Picnic Site";
+"type.tourism.picnic_site" = "פיקניק";
 
-"type.leisure.resort" = "Resort";
+"type.leisure.resort" = "אתר נופש";
 
-"type.tourism.theme_park" = "Theme Park";
+"type.tourism.theme_park" = "לונה פארק";
 
-"type.tourism.viewpoint" = "Viewpoint";
+"type.tourism.viewpoint" = "תצפית";
 
 /* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "בקתה לא מאוישת";
 
-"type.tourism.zoo" = "Zoo";
+"type.tourism.zoo" = "גן חיות";
 
 "type.tourism.zoo.petting" = "פינת חי";
 
@@ -3897,23 +3897,23 @@
 
 "type.traffic_calming.bump" = "Traffic Bump";
 
-"type.traffic_calming.hump" = "Traffic Hump";
+"type.traffic_calming.hump" = "פס האטה";
 
-"type.waterway" = "Waterway";
+"type.waterway" = "נתיב מים";
 
-"type.waterway.canal" = "Canal";
+"type.waterway.canal" = "תעלת מים";
 
-"type.waterway.canal.tunnel" = "Canal Tunnel";
+"type.waterway.canal.tunnel" = "תעלת מים תת קרקעית";
 
 "type.waterway.fish_pass" = "סולם דגים";
 
-"type.waterway.dam" = "Dam";
+"type.waterway.dam" = "סכר";
 
-"type.barrier.ditch" = "Ditch";
+"type.barrier.ditch" = "שוחה";
 
 "type.natural.water.ditch" = "תעלת ניקוז";
 
-"type.waterway.ditch.tunnel" = "גִשׁרוֹן";
+"type.waterway.ditch.tunnel" = "מעבר מים";
 
 "type.waterway.dock" = "Waterway Dock";
 
@@ -3921,7 +3921,7 @@
 
 "type.natural.water.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "גִשׁרוֹן";
+"type.waterway.drain.tunnel" = "מעבר מים";
 
 "type.waterway.lock_gate" = "Lock Gate";
 
@@ -3987,9 +3987,9 @@
 
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
-"type.piste_type.sled" = "Sledding Piste";
+"type.piste_type.sled" = "מסלול מזחלות";
 
-"type.piste_type.sled.area" = "Sledding Piste";
+"type.piste_type.sled.area" = "מסלול מזחלות";
 
 "type.piste_type.snow_park" = "פארק שלג";
 
@@ -3997,9 +3997,9 @@
 
 "type.piste_type.connection" = "חיבור למסלולים";
 
-"type.piste_type.skitour" = "שביל סקי";
+"type.piste_type.skitour" = "סיור סקי";
 
-"type.amenity.events_venue" = "מקום אירועים";
+"type.amenity.events_venue" = "מתחם אירועים";
 
 "type.shop.auction" = "מכירה פומבית";
 
