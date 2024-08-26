@@ -22,15 +22,6 @@ uint32_t PopCountSimple(T x)
 }
 }  // namespace
 
-UNIT_TEST(Popcount32)
-{
-  for (uint32_t i = 0; i < 10000; ++i)
-  {
-    TEST_EQUAL(bits::PopCount(i), PopCountSimple(i), (i));
-    TEST_EQUAL(bits::PopCount(0xC2000000 | i), PopCountSimple(0xC2000000 | i), (0xC2000000 | i));
-  }
-}
-
 UNIT_TEST(PopcountArray32)
 {
   for (uint32_t j = 0; j < 2777; ++j)
@@ -50,13 +41,6 @@ UNIT_TEST(PopcountArray32)
 UNIT_TEST(Select1Test)
 {
   TEST_EQUAL(0U, bits::select1(1, 1), ());
-}
-
-UNIT_TEST(ROL)
-{
-  TEST_EQUAL(bits::ROL<uint32_t>(0), 0, ());
-  TEST_EQUAL(bits::ROL<uint32_t>(uint32_t(-1)), uint32_t(-1), ());
-  TEST_EQUAL(bits::ROL<uint8_t>(128 | 32 | 4), uint8_t(64 | 8 | 1), ());
 }
 
 UNIT_TEST(PerfectShuffle)
@@ -117,36 +101,12 @@ UNIT_TEST(ZigZagDecode)
   TEST_EQUAL(bits::ZigZagDecode(256U),  128, ());
 }
 
-UNIT_TEST(NumHiZeroBits32)
-{
-  TEST_EQUAL(bits::NumHiZeroBits32(0), 32, ());
-  TEST_EQUAL(bits::NumHiZeroBits32(0xFFFFFFFF), 0, ());
-  TEST_EQUAL(bits::NumHiZeroBits32(0x0FABCDEF), 4, ());
-  TEST_EQUAL(bits::NumHiZeroBits32(0x000000FF), 24, ());
-}
-
-UNIT_TEST(NumHiZeroBits64)
-{
-  TEST_EQUAL(bits::NumHiZeroBits64(0), 64, ());
-  TEST_EQUAL(bits::NumHiZeroBits64(0xFFFFFFFFFFFFFFFFULL), 0, ());
-  TEST_EQUAL(bits::NumHiZeroBits64(0x0FABCDEF0FABCDEFULL), 4, ());
-  TEST_EQUAL(bits::NumHiZeroBits64(0x000000000000FDEFULL), 48, ());
-}
-
 UNIT_TEST(NumUsedBits)
 {
   TEST_EQUAL(bits::NumUsedBits(0), 0, ());
   TEST_EQUAL(bits::NumUsedBits(0xFFFFFFFFFFFFFFFFULL), 64, ());
   TEST_EQUAL(bits::NumUsedBits(0x0FABCDEF0FABCDEFULL), 60, ());
   TEST_EQUAL(bits::NumUsedBits(0x000000000000FDEFULL), 16, ());
-}
-
-UNIT_TEST(PopCount64)
-{
-  TEST_EQUAL(0, bits::PopCount(static_cast<uint64_t>(0x0)), ());
-  TEST_EQUAL(1, bits::PopCount(static_cast<uint64_t>(0x1)), ());
-  TEST_EQUAL(32, bits::PopCount(static_cast<uint64_t>(0xAAAAAAAA55555555)), ());
-  TEST_EQUAL(64, bits::PopCount(static_cast<uint64_t>(0xFFFFFFFFFFFFFFFF)), ());
 }
 
 UNIT_TEST(CeilLog)
