@@ -69,6 +69,7 @@ std::map<MWMEditorCellID, Class> const kCellType2Class {
     {MetadataID::FMD_INTERNET, [MWMEditorSwitchTableViewCell class]},
     {MetadataID::FMD_DRIVE_THROUGH, [MWMEditorSegmentedTableViewCell class]},
     {MetadataID::FMD_SELF_SERVICE, [MWMEditorSegmentedTableViewCell class]},
+    {MetadataID::FMD_OUTDOOR_SEATING, [MWMEditorSegmentedTableViewCell class]},
     {MWMEditorCellTypeNote, [MWMNoteCell class]},
     {MWMEditorCellTypeReportButton, [MWMButtonCell class]}
 };
@@ -660,6 +661,15 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
                          value:feature::YesNoUnknownFromString(m_mapObject.GetMetadata(feature::Metadata::FMD_SELF_SERVICE))];
     break;
   }
+  case MetadataID::FMD_OUTDOOR_SEATING:
+  {
+    MWMEditorSegmentedTableViewCell * tCell = static_cast<MWMEditorSegmentedTableViewCell *>(cell);
+    [tCell configWithDelegate:self
+                         icon:[UIImage imageNamed:@"ic_placepage_outdoor_seating"]
+                         text:L(@"outdoor_seating")
+                         value:feature::YesNoUnknownFromString(m_mapObject.GetMetadata(feature::Metadata::FMD_OUTDOOR_SEATING))];
+    break;
+  } 
   case MetadataID::FMD_CONTACT_FACEBOOK:
   {
     [self configTextViewCell:cell
@@ -996,6 +1006,22 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
           break;
       }
       break;
+
+    case MetadataID::FMD_OUTDOOR_SEATING:
+      switch (changeSegmented)
+      {
+        case Yes:
+          m_mapObject.SetMetadata(feature::Metadata::FMD_OUTDOOR_SEATING, "yes");
+          break;
+        case No:
+          m_mapObject.SetMetadata(feature::Metadata::FMD_OUTDOOR_SEATING, "no");
+          break;
+        case Unknown:
+          m_mapObject.SetMetadata(feature::Metadata::FMD_OUTDOOR_SEATING, "");
+          break;
+      }
+      break;
+
   default: NSAssert(false, @"Invalid field for changeSegmented"); break;
   }
 }
