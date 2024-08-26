@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -103,6 +104,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private SwitchCompat mWifi;
   private TextView mSelfService;
   private SwitchCompat mOutdoorSeating;
+  private boolean hasMOutdoorSeatingChanges = false;
 
   // Default Metadata entries.
   private static final class MetadataEntry
@@ -221,7 +223,10 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     Editor.nativeSetHasWifi(mWifi.isChecked());
     Editor.nativeSetNames(mParent.getNamesAsArray());
 
-    Editor.nativeSetSwitchInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(), mOutdoorSeating.isChecked(), "yes", "no");
+    if(hasMOutdoorSeatingChanges)
+    {
+      Editor.nativeSetSwitchInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(), mOutdoorSeating.isChecked(), "yes", "no");
+    }
 
     for (var e : mMetadata.entrySet())
       Editor.nativeSetMetadata(e.getKey().toInt(), e.getValue().mEdit.getText().toString());
@@ -467,6 +472,13 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     View blockOutdoorSeating = view.findViewById(R.id.block_outdoor_seating);
     mOutdoorSeating = view.findViewById(R.id.sw__outdoor_seating);
     blockOutdoorSeating.setOnClickListener(this);
+    mOutdoorSeating.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+    {
+      @Override
+      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        hasMOutdoorSeatingChanges = true;
+      }
+    });
     View blockOpeningHours = view.findViewById(R.id.block_opening_hours);
     mEditOpeningHours = blockOpeningHours.findViewById(R.id.edit_opening_hours);
     mEditOpeningHours.setOnClickListener(this);
