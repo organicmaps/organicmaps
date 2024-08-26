@@ -54,11 +54,11 @@ namespace location
     double m_altitude = 0.0;              //!< metres
     double m_verticalAccuracy = -1.0;     //!< metres
     double m_bearing = -1.0;              //!< positive degrees from the true North
-    double m_speedMpS = -1.0;             //!< metres per second
+    double m_speed = -1.0;                //!< metres per second
 
     bool IsValid() const { return m_source != EUndefined; }
     bool HasBearing() const { return m_bearing >= 0.0; }
-    bool HasSpeed() const { return m_speedMpS >= 0.0; }
+    bool HasSpeed() const { return m_speed >= 0.0; }
     bool HasVerticalAccuracy() const { return m_verticalAccuracy >= 0.0; }
   };
 
@@ -78,7 +78,7 @@ namespace location
       : m_timestamp(info.m_timestamp)
       , m_latitude(info.m_latitude)
       , m_longitude(info.m_longitude)
-      , m_speed(info.m_speedMpS)
+      , m_speed(info.m_speed)
     {}
     GpsTrackInfo & operator=(GpsInfo const & info)
     {
