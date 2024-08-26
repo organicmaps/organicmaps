@@ -24,7 +24,7 @@ static location::GpsInfo gpsInfoFromLocation(CLLocation * l, location::TLocation
     info.m_bearing = l.course;
 
   if (l.speed >= 0.0)
-    info.m_speedMpS = l.speed;
+    info.m_speed = l.speed;
   return info;
 }
 

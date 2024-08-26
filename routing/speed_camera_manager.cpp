@@ -57,7 +57,7 @@ void SpeedCameraManager::OnLocationPositionChanged(location::GpsInfo const & inf
     }
     else if (!m_closestCamera.NoSpeed())
     {
-      m_speedLimitExceeded = IsSpeedHigh(distFromCurrentPosAndClosestCam, info.m_speedMpS, m_closestCamera);
+      m_speedLimitExceeded = IsSpeedHigh(distFromCurrentPosAndClosestCam, info.m_speed, m_closestCamera);
     }
   }
 
@@ -68,7 +68,7 @@ void SpeedCameraManager::OnLocationPositionChanged(location::GpsInfo const & inf
     // invalidate |closestSpeedCam|.
     auto const closestSpeedCam = m_cachedSpeedCameras.front();
 
-    if (NeedToUpdateClosestCamera(passedDistanceMeters, info.m_speedMpS, closestSpeedCam))
+    if (NeedToUpdateClosestCamera(passedDistanceMeters, info.m_speed, closestSpeedCam))
     {
       m_closestCamera = closestSpeedCam;
       ResetNotifications();
@@ -78,10 +78,10 @@ void SpeedCameraManager::OnLocationPositionChanged(location::GpsInfo const & inf
   }
 
   if (m_closestCamera.IsValid() &&
-      SetNotificationFlags(passedDistanceMeters, info.m_speedMpS, m_closestCamera))
+      SetNotificationFlags(passedDistanceMeters, info.m_speed, m_closestCamera))
   {
     // If some notifications available now.
-    SendNotificationStat(passedDistanceMeters, info.m_speedMpS, m_closestCamera);
+    SendNotificationStat(passedDistanceMeters, info.m_speed, m_closestCamera);
   }
 }
 

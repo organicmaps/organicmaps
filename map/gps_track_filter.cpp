@@ -145,7 +145,7 @@ bool GpsTrackFilter::IsGoodPoint(location::GpsInfo const & info) const
   double const speedFromLast = distanceFromLast / timeFromLast;
 
   // Filter by acceleration: skip point if it jumps too far in short time
-  double const accelerationFromLast = (speedFromLast - lastInfo.m_speedMpS) / timeFromLast;
+  double const accelerationFromLast = (speedFromLast - lastInfo.m_speed) / timeFromLast;
   if (accelerationFromLast > kMaxAcceptableAcceleration)
     return false;
 
