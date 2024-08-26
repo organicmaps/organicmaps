@@ -6276,7 +6276,7 @@
     zh-Hant = 自動縮放
 
   [duration_disabled]
-    tags = android,ios
+    tags = ios
     en = Off
     af = Af
     ar = لا يعمل
@@ -6320,7 +6320,7 @@
     zh-Hant = 關閉
 
   [duration_1_hour]
-    tags = android,ios
+    tags = ios
     en = 1 hour
     af = 1 uur
     ar = 1 ساعة
@@ -6364,7 +6364,7 @@
     zh-Hant = 1 小時
 
   [duration_2_hours]
-    tags = android,ios
+    tags = ios
     en = 2 hours
     af = 2 uur
     ar = 2 ساعة
@@ -6408,7 +6408,7 @@
     zh-Hant = 2 小時
 
   [duration_6_hours]
-    tags = android,ios
+    tags = ios
     en = 6 hours
     af = 6 uur
     ar = 6 ساعات
@@ -6452,7 +6452,7 @@
     zh-Hant = 6 小時
 
   [duration_12_hours]
-    tags = android,ios
+    tags = ios
     en = 12 hours
     af = 12 uur
     ar = 12 ساعة
@@ -6496,7 +6496,7 @@
     zh-Hant = 12 小時
 
   [duration_1_day]
-    tags = android,ios
+    tags = ios
     en = 1 day
     af = 1 dag
     ar = 1 يوم
@@ -19287,7 +19287,7 @@
     zh-Hant = 查看
 
   [recent_track_background_dialog_message]
-    tags = android,ios
+    tags = ios
     en = Organic Maps uses your location in the background to record your recently travelled route.
     af = Organic Maps gebruik u ligging in die agtergrond om u onlangs berese roete op te neem.
     ar = يستخدم Organic Maps موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.
