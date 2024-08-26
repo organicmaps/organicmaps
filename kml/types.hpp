@@ -376,11 +376,9 @@ struct MultiGeometry
     m_lines.back().assign(lst);
   }
 
-  double TimestampForPoint(size_t lineIndex, size_t pointIndex) const
+  bool HasTimestampsFor(size_t lineIndex) const
   {
-    CHECK_LESS(lineIndex, m_timestamps.size(), ());
-    CHECK_LESS(pointIndex, m_timestamps[lineIndex].size(), ());
-    return m_timestamps[lineIndex][pointIndex];
+    return !(m_timestamps.empty() || lineIndex >= m_timestamps.size() || m_timestamps[lineIndex].empty());
   }
 };
 

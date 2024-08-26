@@ -457,18 +457,32 @@ void SaveTrackData(Writer & writer, TrackData const & trackData)
     writer << "</color>\n" << kIndent2 << "</extensions>\n";
   }
   bool const trackHasAltitude = TrackHasAltitudes(trackData);
-  for (auto const & line : trackData.m_geometry.m_lines)
+  auto const & geom = trackData.m_geometry;
+  for (size_t lineIndex = 0; lineIndex < geom.m_lines.size(); ++lineIndex)
   {
+    auto const & line = geom.m_lines[lineIndex];
     writer << kIndent2 << "<trkseg>\n";
-    for (auto const & point : line)
+    for (size_t pointIndex = 0; pointIndex < line.size(); ++pointIndex)
     {
+      auto const & point = line[pointIndex];
       auto const [lat, lon] = mercator::ToLatLon(point);
+      
       writer << kIndent4 << "<trkpt lat=\"" << CoordToString(lat) << "\" lon=\"" << CoordToString(lon) << "\">\n";
+      
       if (trackHasAltitude)
         writer << kIndent6 << "<ele>" << CoordToString(point.GetAltitude()) << "</ele>\n";
+      if (geom.HasTimestampsFor(lineIndex))
+      {
+        CHECK_EQUAL(line.size(), geom.m_timestamps[lineIndex].size(), ("Timestamps size mismatch for track:", lineIndex));
+        auto const timestamp = geom.m_timestamps[lineIndex][pointIndex];
+        auto const timestampStr = base::SecondsSinceEpochToString(timestamp);
+        writer << kIndent6 << "<time>" << timestampStr << "</time>\n";
+      }
       writer << kIndent4 << "</trkpt>\n";
+      ++pointIndex;
     }
     writer << kIndent2 << "</trkseg>\n";
+    ++lineIndex;
   }
   writer << "</trk>\n";
 }
