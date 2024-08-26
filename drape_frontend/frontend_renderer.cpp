@@ -1278,7 +1278,7 @@ std::pair<FeatureID, kml::MarkId> FrontendRenderer::GetVisiblePOI(m2::RectD cons
   if (selectResult.empty())
     return {FeatureID(), kml::kInvalidMarkId};
 
-  double minSquaredDist = std::numeric_limits<double>::infinity();
+  double minSquaredDist = std::numeric_limits<double>::max();
   ref_ptr<dp::OverlayHandle> closestOverlayHandle;
   for (ref_ptr<dp::OverlayHandle> const & handle : selectResult)
   {
