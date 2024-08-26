@@ -248,12 +248,6 @@
 	<!-- The name of the feature in the main menu, settings, and messages. -->
 	<string name="recent_track">最近的軌跡</string>
 	<string name="pref_map_auto_zoom">自動縮放</string>
-	<string name="duration_disabled">關閉</string>
-	<string name="duration_1_hour">1 小時</string>
-	<string name="duration_2_hours">2 小時</string>
-	<string name="duration_6_hours">6 小時</string>
-	<string name="duration_12_hours">12 小時</string>
-	<string name="duration_1_day">1 天</string>
 	<string name="placepage_distance">距離</string>
 	<string name="search_show_on_map">在地圖上查看</string>
 	<!-- Menu button -->
@@ -576,7 +570,6 @@
 	<string name="editor_share_to_all_dialog_message_1">確保您沒有輸入任何個人資料。</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap 編輯人員將檢查更改並在有任何問題時與您聯繫。</string>
 	<string name="navigation_stop_button">停止</string>
-	<string name="recent_track_background_dialog_message">Organic Maps 在後臺使用您的位置記錄您最近去過的路線。</string>
 	<!-- Shown as toast when starting the recent track recording -->
 	<string name="track_recording">記錄軌跡</string>
 	<!-- For the first routing -->

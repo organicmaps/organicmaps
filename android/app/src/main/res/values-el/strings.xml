@@ -246,12 +246,6 @@
 	<!-- The name of the feature in the main menu, settings, and messages. -->
 	<string name="recent_track">Πρόσφατη διαδρομή</string>
 	<string name="pref_map_auto_zoom">Αυτόματη μεγέθυνση</string>
-	<string name="duration_disabled">Απενεργ.</string>
-	<string name="duration_1_hour">1 ώρα</string>
-	<string name="duration_2_hours">2 ώρες</string>
-	<string name="duration_6_hours">6 ώρες</string>
-	<string name="duration_12_hours">12 ώρες</string>
-	<string name="duration_1_day">1 ημέρα</string>
 	<string name="placepage_distance">Απόσταση</string>
 	<string name="search_show_on_map">Προβολή στο χάρτη</string>
 	<!-- Menu button -->
@@ -561,7 +555,6 @@
 	<string name="editor_share_to_all_dialog_message_1">Βεβαιωθείτε ότι δεν έχετε εισάγει προσωπικά δεδομένα.</string>
 	<string name="editor_share_to_all_dialog_message_2">Οι συντάκτες του OpenStreetMap θα ελέγξουν τις αλλαγές και θα επικοινωνήσουν μαζί σας εάν έχουν απορίες.</string>
 	<string name="navigation_stop_button">τέλος</string>
-	<string name="recent_track_background_dialog_message">Το Organic Maps χρησιμοποιεί την τοποθεσία σας στο παρασκήνιο για την καταγραφή των πρόσφατων διαδρομών σας.</string>
 	<!-- Shown as toast when starting the recent track recording -->
 	<string name="track_recording">Καταγραφή της διαδρομής</string>
 	<!-- For the first routing -->

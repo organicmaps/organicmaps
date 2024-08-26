@@ -245,12 +245,6 @@
 	<!-- The name of the feature in the main menu, settings, and messages. -->
 	<string name="recent_track">Azken arrastoa</string>
 	<string name="pref_map_auto_zoom">Zoom automatikoa</string>
-	<string name="duration_disabled">Desaktibatuta</string>
-	<string name="duration_1_hour">ordu 1</string>
-	<string name="duration_2_hours">2 ordu</string>
-	<string name="duration_6_hours">6 ordu</string>
-	<string name="duration_12_hours">12 ordu</string>
-	<string name="duration_1_day">egun 1</string>
 	<string name="placepage_distance">Distantzia</string>
 	<string name="search_show_on_map">Ikusi mapan</string>
 	<!-- Menu button -->
@@ -563,7 +557,6 @@
 	<string name="editor_share_to_all_dialog_message_1">Ziurtatu ez duzula datu pertsonalik sartu.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap editoreek aldaketak egiaztatuko dituzte eta zurekin harremanetan jarriko dira zalantzaren bat izanez gero.</string>
 	<string name="navigation_stop_button">Gelditu</string>
-	<string name="recent_track_background_dialog_message">Organic Maps-ek zure geokokapena erabiltzen du atzeko planoan egindako azken ibilbidea erregistratzeko.</string>
 	<!-- Shown as toast when starting the recent track recording -->
 	<string name="track_recording">Ibilbidea grabatzea</string>
 	<!-- For the first routing -->

@@ -248,12 +248,6 @@
 	<!-- The name of the feature in the main menu, settings, and messages. -->
 	<string name="recent_track">المسار الأخير</string>
 	<string name="pref_map_auto_zoom">تكبير تلقائي</string>
-	<string name="duration_disabled">لا يعمل</string>
-	<string name="duration_1_hour">1 ساعة</string>
-	<string name="duration_2_hours">2 ساعة</string>
-	<string name="duration_6_hours">6 ساعات</string>
-	<string name="duration_12_hours">12 ساعة</string>
-	<string name="duration_1_day">1 يوم</string>
 	<string name="placepage_distance">المسافة</string>
 	<string name="search_show_on_map">مشاهدة على الخريطة</string>
 	<!-- Menu button -->
@@ -578,7 +572,6 @@
 	<string name="editor_share_to_all_dialog_message_1">تأكد من أنك لم تقم بإدخال أية بيانات شخصية.</string>
 	<string name="editor_share_to_all_dialog_message_2">سيتحقق محررو خرائط الشارع المفتوحة من التغييرات ويتواصلون معك إذا كان لديهم أي أسئلة.</string>
 	<string name="navigation_stop_button">توقف</string>
-	<string name="recent_track_background_dialog_message">يستخدم Organic Maps موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.</string>
 	<!-- Shown as toast when starting the recent track recording -->
 	<string name="track_recording">تسجيل المسار</string>
 	<!-- For the first routing -->

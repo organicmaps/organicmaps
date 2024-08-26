@@ -242,12 +242,6 @@
 	<!-- The name of the feature in the main menu, settings, and messages. -->
 	<string name="recent_track">Legutolsó útvonal</string>
 	<string name="pref_map_auto_zoom">Automatikus nagyítás</string>
-	<string name="duration_disabled">Kikapcsolva</string>
-	<string name="duration_1_hour">1 óra</string>
-	<string name="duration_2_hours">2 óra</string>
-	<string name="duration_6_hours">6 óra</string>
-	<string name="duration_12_hours">12 óra</string>
-	<string name="duration_1_day">1 nap</string>
 	<string name="placepage_distance">Távolság</string>
 	<string name="search_show_on_map">Megtekintés a térképen</string>
 	<!-- Text in menu -->
@@ -545,7 +539,6 @@
 	<string name="editor_share_to_all_dialog_message_1">Győződj meg arról, hogy nem adsz meg semmilyen személyes információt.</string>
 	<string name="editor_share_to_all_dialog_message_2">Az OpenStreetMap szerkesztői ellenőrzik a változásokat, és felveszik Önnel a kapcsolatot, ha kérdéseik vannak.</string>
 	<string name="navigation_stop_button">Megállítás</string>
-	<string name="recent_track_background_dialog_message">A Organic Maps a geopozíciód használatával a háttérben rögzíti a legutóbb megtett utad.</string>
 	<!-- Shown as toast when starting the recent track recording -->
 	<string name="track_recording">A nyomvonal rögzítése</string>
 	<!-- For the first routing -->

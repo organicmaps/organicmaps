@@ -239,12 +239,6 @@
 	<!-- The name of the feature in the main menu, settings, and messages. -->
 	<string name="recent_track">Hiljutine rada</string>
 	<string name="pref_map_auto_zoom">Automaatne zoom</string>
-	<string name="duration_disabled">Väljas</string>
-	<string name="duration_1_hour">1 tund</string>
-	<string name="duration_2_hours">2 tundi</string>
-	<string name="duration_6_hours">6 tundi</string>
-	<string name="duration_12_hours">12 tundi</string>
-	<string name="duration_1_day">1 päev</string>
 	<string name="placepage_distance">Kaugus</string>
 	<string name="search_show_on_map">Vaata kaardil</string>
 	<!-- Text in menu -->
@@ -557,7 +551,6 @@
 	<string name="editor_share_to_all_dialog_message_1">Palun kontrolli, et Sa ei sisestanud isiklikke andmeid.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap muutjad kontrollivad muudatused üle ja võtavad küsimuste korral Sinuga ühendust.</string>
 	<string name="navigation_stop_button">Lõpeta</string>
-	<string name="recent_track_background_dialog_message">Organic Maps kasutab Sinu geograafilist asukohta taustal Sinu hiljuti läbitud teekonna salvestamiseks.</string>
 	<!-- Shown as toast when starting the recent track recording -->
 	<string name="track_recording">Rada registreerimine</string>
 	<!-- For the first routing -->

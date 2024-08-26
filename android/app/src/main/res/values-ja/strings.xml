@@ -245,12 +245,6 @@
 	<!-- The name of the feature in the main menu, settings, and messages. -->
 	<string name="recent_track">最近のトラック</string>
 	<string name="pref_map_auto_zoom">自動ズーム</string>
-	<string name="duration_disabled">オフ</string>
-	<string name="duration_1_hour">1時間</string>
-	<string name="duration_2_hours">2時間</string>
-	<string name="duration_6_hours">6時間</string>
-	<string name="duration_12_hours">12時間</string>
-	<string name="duration_1_day">1日</string>
 	<string name="placepage_distance">距離</string>
 	<string name="search_show_on_map">地図に表示</string>
 	<!-- Menu button -->
@@ -567,7 +561,6 @@
 	<string name="editor_share_to_all_dialog_message_1">個人情報を入力していないことを確認してください。</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap の編集者が変更を確認し、質問があれば連絡します。</string>
 	<string name="navigation_stop_button">停止</string>
-	<string name="recent_track_background_dialog_message">Organic Mapsは、あなたの位置情報をバックグラウンドで使用して最近の走行ルートを記録します。</string>
 	<!-- Shown as toast when starting the recent track recording -->
 	<string name="track_recording">トラックの記録</string>
 	<!-- For the first routing -->
