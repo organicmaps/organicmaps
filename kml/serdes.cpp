@@ -33,20 +33,20 @@ bool IsTrack(std::string const & s)
   return s == "Track" || s == "gx:Track";
 }
 
-std::string const kKmlHeader =
-  "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<kml xmlns=\"http://earth.google.com/kml/2.2\">\n"
+std::string_view constexpr kKmlHeader =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "<kml xmlns=\"http://www.opengis.net/kml/2.2\" xmlns:gx=\"http://www.google.com/kml/ext/2.2\">\n"
     "<Document>\n";
 
-std::string const kKmlFooter =
-  "</Document>\n"
+std::string_view constexpr kKmlFooter =
+    "</Document>\n"
     "</kml>\n";
 
-std::string const kExtendedDataHeader =
-  "<ExtendedData xmlns:mwm=\"https://omaps.app\">\n";
+std::string_view constexpr kExtendedDataHeader =
+    "<ExtendedData xmlns:mwm=\"https://omaps.app\">\n";
 
-std::string const kExtendedDataFooter =
-  "</ExtendedData>\n";
+std::string_view constexpr kExtendedDataFooter =
+    "</ExtendedData>\n";
 
 std::string const kCompilationFooter = "</" + kCompilation + ">\n";
 
