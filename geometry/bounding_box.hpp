@@ -49,11 +49,11 @@ public:
   DECLARE_DEBUG_PRINT(BoundingBox)
 
 private:
-  static_assert(std::numeric_limits<double>::has_infinity, "");
-  static double constexpr kPositiveInfinity = std::numeric_limits<double>::infinity();
-  static double constexpr kNegativeInfinity = -kPositiveInfinity;
+  // Infinity can not be used with -ffast-math
+  static double constexpr kLargestDouble = std::numeric_limits<double>::max();
+  static double constexpr kLowestDouble = std::numeric_limits<double>::lowest();
 
-  m2::PointD m_min = m2::PointD(kPositiveInfinity, kPositiveInfinity);
-  m2::PointD m_max = m2::PointD(kNegativeInfinity, kNegativeInfinity);
+  m2::PointD m_min = m2::PointD(kLargestDouble, kLargestDouble);
+  m2::PointD m_max = m2::PointD(kLowestDouble, kLowestDouble);
 };
 }  // namespace m2
