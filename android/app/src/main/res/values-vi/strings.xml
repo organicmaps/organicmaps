@@ -228,12 +228,6 @@
 	<!-- The name of the feature in the main menu, settings, and messages. -->
 	<string name="recent_track">Tìm kiếm gần đây</string>
 	<string name="pref_map_auto_zoom">Ống dòm tự động</string>
-	<string name="duration_disabled">Tắt</string>
-	<string name="duration_1_hour">1 giờ</string>
-	<string name="duration_2_hours">2 giờ</string>
-	<string name="duration_6_hours">6 giờ</string>
-	<string name="duration_12_hours">12 giờ</string>
-	<string name="duration_1_day">1 ngày</string>
 	<string name="placepage_distance">Khoảng cách</string>
 	<string name="search_show_on_map">Xem trên bản đồ</string>
 	<!-- Text in menu -->
@@ -532,7 +526,6 @@
 	<string name="editor_share_to_all_dialog_message_1">Chắc chắn rằng bạn không nhập bất kỳ thông tin cá nhân nào.</string>
 	<string name="editor_share_to_all_dialog_message_2">Các biên tập viên của OpenStreetMap sẽ kiểm tra các thay đổi và liên hệ với bạn nếu họ có bất kỳ câu hỏi nào.</string>
 	<string name="navigation_stop_button">Dừng</string>
-	<string name="recent_track_background_dialog_message">Organic Maps sử dụng định vị của bạn trong ứng dụng chạy nền để ghi lại tuyến đường đã đi gần đây của bạn.</string>
 	<!-- Shown as toast when starting the recent track recording -->
 	<string name="track_recording">Ghi lại hành trình</string>
 	<!-- For the first routing -->

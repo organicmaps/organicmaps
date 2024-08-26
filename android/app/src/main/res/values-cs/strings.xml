@@ -232,12 +232,6 @@
 	<!-- The name of the feature in the main menu, settings, and messages. -->
 	<string name="recent_track">Historie polohy</string>
 	<string name="pref_map_auto_zoom">Automatické zvětšení</string>
-	<string name="duration_disabled">Vypnuto</string>
-	<string name="duration_1_hour">1 hodina</string>
-	<string name="duration_2_hours">2 hodiny</string>
-	<string name="duration_6_hours">6 hodin</string>
-	<string name="duration_12_hours">12 hodin</string>
-	<string name="duration_1_day">1 den</string>
 	<string name="placepage_distance">Vzdálenost</string>
 	<string name="search_show_on_map">Zobrazit na mapě</string>
 	<!-- Text in menu -->
@@ -537,7 +531,6 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Ujistěte se, že jste nezadali žádná osobní data.</string>
 	<string name="editor_share_to_all_dialog_message_2">Redaktoři OpenStreetMap zkontrolují změny a budou vás kontaktovat, pokud budou mít nějaké dotazy.</string>
-	<string name="recent_track_background_dialog_message">Organic Maps používají geopozici na pozadí, aby se zaznamenala vaše nedávno ujetá trasa.</string>
 	<!-- Shown as toast when starting the recent track recording -->
 	<string name="track_recording">Záznam trasy</string>
 	<!-- For the first routing -->

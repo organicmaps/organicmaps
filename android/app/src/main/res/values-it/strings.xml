@@ -233,12 +233,6 @@
 	<!-- The name of the feature in the main menu, settings, and messages. -->
 	<string name="recent_track">Percorso recente</string>
 	<string name="pref_map_auto_zoom">Zoom automatico</string>
-	<string name="duration_disabled">Spento</string>
-	<string name="duration_1_hour">1 ora</string>
-	<string name="duration_2_hours">2 ore</string>
-	<string name="duration_6_hours">6 ore</string>
-	<string name="duration_12_hours">12 ore</string>
-	<string name="duration_1_day">1 giorno</string>
 	<string name="placepage_distance">Distanza</string>
 	<string name="search_show_on_map">Visualizza sulla mappa</string>
 	<!-- Text in menu -->
@@ -548,7 +542,6 @@
 	<string name="editor_share_to_all_dialog_message_1">Assicurati di non aver inserito alcun dato personale.</string>
 	<string name="editor_share_to_all_dialog_message_2">Gli editori di OpenStreetMap controlleranno le modifiche e si metteranno in contatto con te in caso di domande.</string>
 	<string name="navigation_stop_button">Ferma</string>
-	<string name="recent_track_background_dialog_message">Organic Maps usa la tua posizione geografica per registrare il tuo percorso effettuato più di recente.</string>
 	<!-- Shown as toast when starting the recent track recording -->
 	<string name="track_recording">Registrazione della traccia</string>
 	<!-- For the first routing -->
@@ -1240,9 +1233,9 @@
 	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
 	<string name="type.highway.path">Sentiero</string>
 	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-	<string name="type.highway.path.difficult">Sentiero</string>
+	<string name="type.highway.path.difficult">Sentiero difficile o poco tracciato</string>
 	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-	<string name="type.highway.path.expert">Sentiero</string>
+	<string name="type.highway.path.expert">Sentiero estremamente difficile o molto poco tracciato</string>
 	<string name="type.highway.path.bicycle">Sentiero</string>
 	<string name="type.highway.footway.bicycle">Sentiero</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->

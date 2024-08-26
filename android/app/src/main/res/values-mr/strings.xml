@@ -219,12 +219,6 @@
 	<!-- The name of the feature in the main menu, settings, and messages. -->
 	<string name="recent_track">अलीकडील ट्रॅक</string>
 	<string name="pref_map_auto_zoom">स्वयं झूम</string>
-	<string name="duration_disabled">बंद</string>
-	<string name="duration_1_hour">१ तास</string>
-	<string name="duration_2_hours">२ तास</string>
-	<string name="duration_6_hours">६ तास</string>
-	<string name="duration_12_hours">१२ तास</string>
-	<string name="duration_1_day">१ दिवस</string>
 	<string name="placepage_distance">अंतर</string>
 	<string name="search_show_on_map">नकाशावर पहा</string>
 	<!-- Text in menu -->
@@ -529,7 +523,6 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">आपण कोणतीही वैयक्तिक माहिती प्रविष्ट केला नाही याची खात्री करा.</string>
 	<string name="navigation_stop_button">थांबा</string>
-	<string name="recent_track_background_dialog_message">तुम्ही अलीकडे प्रवास केलेला मार्ग रेकॉर्ड करण्यासाठी Organic Maps पार्श्वभूमीत तुमचे स्थान वापरते.</string>
 	<!-- Shown as toast when starting the recent track recording -->
 	<string name="track_recording">ट्रॅक रेकॉर्ड करत आहे</string>
 	<!-- For the first routing -->

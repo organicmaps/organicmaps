@@ -248,12 +248,6 @@
 	<!-- The name of the feature in the main menu, settings, and messages. -->
 	<string name="recent_track">Recent Track</string>
 	<string name="pref_map_auto_zoom">Auto zoom</string>
-	<string name="duration_disabled">Off</string>
-	<string name="duration_1_hour">1 hour</string>
-	<string name="duration_2_hours">2 hours</string>
-	<string name="duration_6_hours">6 hours</string>
-	<string name="duration_12_hours">12 hours</string>
-	<string name="duration_1_day">1 day</string>
 	<string name="placepage_distance">Distance</string>
 	<string name="search_show_on_map">View on map</string>
 	<!-- Menu button -->
@@ -592,7 +586,6 @@
 	<string name="editor_share_to_all_dialog_message_1">Make sure you did not enter any private or personal data.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap editors will check the changes and contact you if they have any questions.</string>
 	<string name="navigation_stop_button">Stop</string>
-	<string name="recent_track_background_dialog_message">Organic Maps uses your location in the background to record your recently travelled route.</string>
 	<!-- Shown as toast when starting the recent track recording -->
 	<string name="track_recording">Recording the track</string>
 	<!-- For the first routing -->

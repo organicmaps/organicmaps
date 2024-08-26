@@ -246,12 +246,6 @@
 	<!-- The name of the feature in the main menu, settings, and messages. -->
 	<string name="recent_track">हालिया ट्रैक</string>
 	<string name="pref_map_auto_zoom">ऑटो ज़ूम</string>
-	<string name="duration_disabled">बंद</string>
-	<string name="duration_1_hour">1 घंटा</string>
-	<string name="duration_2_hours">2 घंटे</string>
-	<string name="duration_6_hours">6 घंटे</string>
-	<string name="duration_12_hours">12 घंटे</string>
-	<string name="duration_1_day">1 दिन</string>
 	<string name="placepage_distance">दूरी</string>
 	<string name="search_show_on_map">मानचित्र पर देखें</string>
 	<!-- Menu button -->
@@ -406,7 +400,6 @@
 	<string name="editor_remove_place_button">मिटाना</string>
 	<string name="editor_place_doesnt_exist">जगह मौजूद नहीं है</string>
 	<string name="placepage_add_place_button">OpenStreetMap में स्थान जोड़ें</string>
-	<string name="recent_track_background_dialog_message">Organic Maps आपके हाल ही में यात्रा किए गए मार्ग को रिकॉर्ड करने के लिए पृष्ठभूमि में आपके स्थान का उपयोग करता है।</string>
 	<!-- Shown as toast when starting the recent track recording -->
 	<string name="track_recording">ट्रैक रिकॉर्ड करना</string>
 	<!-- For the first routing -->

@@ -248,12 +248,6 @@
 	<!-- The name of the feature in the main menu, settings, and messages. -->
 	<string name="recent_track">Недавний путь</string>
 	<string name="pref_map_auto_zoom">Автозум</string>
-	<string name="duration_disabled">Выключено</string>
-	<string name="duration_1_hour">1 час</string>
-	<string name="duration_2_hours">2 часа</string>
-	<string name="duration_6_hours">6 часов</string>
-	<string name="duration_12_hours">12 часов</string>
-	<string name="duration_1_day">1 сутки</string>
 	<string name="placepage_distance">Расстояние</string>
 	<string name="search_show_on_map">Посмотреть на карте</string>
 	<!-- Menu button -->
@@ -570,7 +564,6 @@
 	<string name="editor_share_to_all_dialog_message_1">Убедитесь, что вы не ввели личные данные.</string>
 	<string name="editor_share_to_all_dialog_message_2">Редакторы OpenStreetMap проверят изменения и свяжутся с вами, если у них возникнут вопросы.</string>
 	<string name="navigation_stop_button">Cтоп</string>
-	<string name="recent_track_background_dialog_message">Organic Maps использует вашу геопозицию в фоновом режиме для записи недавно пройденного пути.</string>
 	<!-- Shown as toast when starting the recent track recording -->
 	<string name="track_recording">Запись трека</string>
 	<!-- For the first routing -->
