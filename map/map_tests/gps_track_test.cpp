@@ -47,7 +47,7 @@ public:
     , m_gotCallback(false)
   {
   }
-  void OnUpdate(vector<pair<size_t, location::GpsTrackInfo>> && toAdd,
+  void OnUpdate(vector<pair<size_t, location::GpsInfo>> && toAdd,
                 pair<size_t, size_t> const & toRemove)
   {
     m_toAdd = std::move(toAdd);
@@ -71,7 +71,7 @@ public:
     return m_cv.wait_for(ul, t, [this]()->bool{ return m_gotCallback; });
   }
 
-  vector<pair<size_t, location::GpsTrackInfo>> m_toAdd;
+  vector<pair<size_t, location::GpsInfo>> m_toAdd;
   pair<size_t, size_t> m_toRemove;
 
 private:
