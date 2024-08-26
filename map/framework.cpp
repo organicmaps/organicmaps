@@ -1693,7 +1693,7 @@ bool Framework::IsTrackRecordingEnabled() const
   return GpsTracker::Instance().IsEnabled();
 }
 
-void Framework::OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::GpsTrackInfo>> && toAdd,
+void Framework::OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::GpsInfo>> && toAdd,
                                                pair<size_t, size_t> const & toRemove)
 {
   ASSERT(m_drapeEngine.get() != nullptr, ());

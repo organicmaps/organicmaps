@@ -53,7 +53,7 @@ public:
   /// @param toRemove - range of point indices to remove, or pair(kInvalidId,kInvalidId) if nothing to remove
   /// @note Calling of a GpsTrack.SetCallback function from the callback causes deadlock.
   using TGpsTrackDiffCallback =
-      std::function<void(std::vector<std::pair<size_t, location::GpsTrackInfo>> && toAdd,
+      std::function<void(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
                          std::pair<size_t, size_t> const & toRemove)>;
 
   /// Sets callback on change of gps track.
@@ -79,7 +79,7 @@ private:
   void InitCollection(std::chrono::hours duration);
   void UpdateStorage(bool needClear, std::vector<location::GpsInfo> const & points);
   void UpdateCollection(std::chrono::hours duration, bool needClear,
-                        std::vector<location::GpsTrackInfo> const & points,
+                        std::vector<location::GpsInfo> const & points,
                         std::pair<size_t, size_t> & addedIds,
                         std::pair<size_t, size_t> & evictedIds);
   void NotifyCallback(std::pair<size_t, size_t> const & addedIds,

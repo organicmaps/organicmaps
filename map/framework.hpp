@@ -462,7 +462,7 @@ private:
   storage::CountryId m_lastReportedCountry;
   TCurrentCountryChanged m_currentCountryChanged;
 
-  void OnUpdateGpsTrackPointsCallback(std::vector<std::pair<size_t, location::GpsTrackInfo>> && toAdd,
+  void OnUpdateGpsTrackPointsCallback(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
                                       std::pair<size_t, size_t> const & toRemove);
 
   CachingRankTableLoader m_popularityLoader;

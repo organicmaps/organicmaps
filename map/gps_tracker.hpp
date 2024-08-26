@@ -22,7 +22,7 @@ public:
   void SetDuration(std::chrono::hours duration);
 
   using TGpsTrackDiffCallback =
-      std::function<void(std::vector<std::pair<size_t, location::GpsTrackInfo>> && toAdd,
+      std::function<void(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
                          std::pair<size_t, size_t> const & toRemove)>;
 
   void Connect(TGpsTrackDiffCallback const & fn);
@@ -30,7 +30,7 @@ public:
 
   void OnLocationUpdated(location::GpsInfo const & info);
 
-  using GpsTrackCallback = std::function<bool(location::GpsTrackInfo const &, size_t)>;
+  using GpsTrackCallback = std::function<bool(location::GpsInfo const &, size_t)>;
   void ForEachTrackPoint(GpsTrackCallback const & callback) const;
 
 private:

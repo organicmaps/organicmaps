@@ -1149,7 +1149,7 @@ void BookmarkManager::SaveTrackRecording(std::string trackName)
   CHECK(!tracker.IsEmpty(), ("Track recording should be not be empty"));
 
   kml::MultiGeometry::LineT line;
-  tracker.ForEachTrackPoint([&line](location::GpsTrackInfo const & pt, size_t id)->bool
+  tracker.ForEachTrackPoint([&line](location::GpsInfo const & pt, size_t id)->bool
   {
     line.emplace_back(mercator::FromLatLon(pt.m_latitude, pt.m_longitude));
     return true;

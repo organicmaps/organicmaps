@@ -195,7 +195,7 @@ void GpsTrack::InitCollection(hours duration)
       originPoints.emplace_back(originPoint);
       if (originPoints.size() == originPoints.capacity())
       {
-        vector<location::GpsTrackInfo> points;
+        vector<location::GpsInfo> points;
         m_filter->Process(originPoints, points);
 
         pair<size_t, size_t> evictedIds;
@@ -208,7 +208,7 @@ void GpsTrack::InitCollection(hours duration)
 
     if (!originPoints.empty())
     {
-      vector<location::GpsTrackInfo> points;
+      vector<location::GpsInfo> points;
       m_filter->Process(originPoints, points);
 
       pair<size_t, size_t> evictedIds;
@@ -249,7 +249,7 @@ void GpsTrack::ProcessPoints()
   if (!m_collection)
     return;
 
-  vector<location::GpsTrackInfo> points;
+  vector<location::GpsInfo> points;
   m_filter->Process(originPoints, points);
 
   pair<size_t, size_t> addedIds;
@@ -285,7 +285,7 @@ void GpsTrack::UpdateStorage(bool needClear, vector<location::GpsInfo> const & p
   }
 }
 
-void GpsTrack::UpdateCollection(hours duration, bool needClear, vector<location::GpsTrackInfo> const & points,
+void GpsTrack::UpdateCollection(hours duration, bool needClear, vector<location::GpsInfo> const & points,
                                 pair<size_t, size_t> & addedIds, pair<size_t, size_t> & evictedIds)
 {
   // Apply Clear, SetDuration and Add points
@@ -323,9 +323,9 @@ void GpsTrack::NotifyCallback(pair<size_t, size_t> const & addedIds, pair<size_t
   {
     m_needSendSnapshop = false;
 
-    vector<pair<size_t, location::GpsTrackInfo>> toAdd;
+    vector<pair<size_t, location::GpsInfo>> toAdd;
     toAdd.reserve(m_collection->GetSize());
-    m_collection->ForEach([&toAdd](location::GpsTrackInfo const & point, size_t id)->bool
+    m_collection->ForEach([&toAdd](location::GpsInfo const & point, size_t id)->bool
     {
       toAdd.emplace_back(id, point);
       return true;
@@ -338,13 +338,13 @@ void GpsTrack::NotifyCallback(pair<size_t, size_t> const & addedIds, pair<size_t
   }
   else
   {
-    vector<pair<size_t, location::GpsTrackInfo>> toAdd;
+    vector<pair<size_t, location::GpsInfo>> toAdd;
     if (addedIds.first != kInvalidId)
     {
       size_t const addedCount = addedIds.second - addedIds.first + 1;
       ASSERT_GREATER_OR_EQUAL(m_collection->GetSize(), addedCount, ());
       toAdd.reserve(addedCount);
-      m_collection->ForEach([&toAdd](location::GpsTrackInfo const & point, size_t id)->bool
+      m_collection->ForEach([&toAdd](location::GpsInfo const & point, size_t id)->bool
       {
         toAdd.emplace_back(id, point);
         return true;
