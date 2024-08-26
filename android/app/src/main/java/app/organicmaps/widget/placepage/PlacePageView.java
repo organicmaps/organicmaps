@@ -446,10 +446,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     refreshMetadataOrHide(Utils.getTagValueLocalized(getContext(), "self_service", selfService), mSelfService, mTvSelfService);
 
     final String outdoorSeating = mMapObject.getMetadata(Metadata.MetadataType.FMD_OUTDOOR_SEATING);
-    if (outdoorSeating.equals("yes"))
-    {
-      refreshMetadataOrHide(getString(R.string.outdoor_seating), mOutdoorSeating, mTvOutdoorSeating);
-    }
+    refreshMetadataOrHide(outdoorSeating.equals("yes") ? getString(R.string.outdoor_seating) : "", mOutdoorSeating, mTvOutdoorSeating);
 
 //    showTaxiOffer(mapObject);
 
