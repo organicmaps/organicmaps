@@ -128,6 +128,14 @@ Java_app_organicmaps_editor_Editor_nativeSetMetadata(JNIEnv * env, jclass, jint 
   g_editableMapObject.SetMetadata(metaID, jni::ToNativeString(env, value));
 }
 
+JNIEXPORT void JNICALL
+Java_app_organicmaps_editor_Editor_nativeRemoveMetadata(JNIEnv * env, jclass, jint id)
+{
+    auto const metaID = static_cast<osm::MapObject::MetadataID>(id);
+    ASSERT_LESS(metaID, osm::MapObject::MetadataID::FMD_COUNT, ());
+    g_editableMapObject.RemoveMetadata(metaID);
+}
+
 JNIEXPORT jint JNICALL
 Java_app_organicmaps_editor_Editor_nativeGetStars(JNIEnv * env, jclass)
 {

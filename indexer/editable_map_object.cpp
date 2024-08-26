@@ -289,6 +289,11 @@ void EditableMapObject::SetMetadata(MetadataID type, std::string value)
   m_metadata.Set(type, std::move(value));
 }
 
+void EditableMapObject::RemoveMetadata(MetadataID type)
+{
+  m_metadata.Drop(type);
+}
+
 bool EditableMapObject::UpdateMetadataValue(string_view key, string value)
 {
   MetadataID type;

@@ -20,6 +20,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textfield.TextInputEditText;
@@ -102,7 +103,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private TextView mCuisine;
   private SwitchCompat mWifi;
   private TextView mSelfService;
-  private SwitchCompat mOutdoorSeating;
+  private MaterialButtonToggleGroup mOutdoorSeating;
 
   // Default Metadata entries.
   private static final class MetadataEntry
@@ -198,7 +199,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mSelfService.setText(Utils.getTagValueLocalized(view.getContext(), "self_service", selfServiceMetadata));
     initMetadataEntry(Metadata.MetadataType.FMD_OPERATOR, 0);
     mWifi.setChecked(Editor.nativeHasWifi());
-    mOutdoorSeating.setChecked(Editor.nativeGetSwitchInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(),"yes"));
+    mOutdoorSeating.check(Editor.nativeGetToogleButtonInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(), R.id.outdoor_seating_yes, R.id.outdoor_seating_no, R.id.outdoor_seating_none));
     refreshOpeningTime();
     refreshEditableFields();
     refreshResetButton();
@@ -221,7 +222,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     Editor.nativeSetHasWifi(mWifi.isChecked());
     Editor.nativeSetNames(mParent.getNamesAsArray());
 
-    Editor.nativeSetSwitchInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(), mOutdoorSeating.isChecked(), "yes", "no");
+    Editor.nativeSetToogleButtonInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(), mOutdoorSeating.getCheckedButtonId(), R.id.outdoor_seating_yes, R.id.outdoor_seating_none);
 
     for (var e : mMetadata.entrySet())
       Editor.nativeSetMetadata(e.getKey().toInt(), e.getValue().mEdit.getText().toString());
@@ -465,8 +466,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mSelfService = view.findViewById(R.id.self_service);
 
     View blockOutdoorSeating = view.findViewById(R.id.block_outdoor_seating);
-    mOutdoorSeating = view.findViewById(R.id.sw__outdoor_seating);
-    blockOutdoorSeating.setOnClickListener(this);
+    mOutdoorSeating = view.findViewById(R.id.tb__outdoor_seating);
     View blockOpeningHours = view.findViewById(R.id.block_opening_hours);
     mEditOpeningHours = blockOpeningHours.findViewById(R.id.edit_opening_hours);
     mEditOpeningHours.setOnClickListener(this);
@@ -544,8 +544,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       Utils.openUrl(requireActivity(), getString(R.string.osm_wiki_about_url));
     else if (id == R.id.reset)
       reset();
-    else if (id == R.id.block_outdoor_seating)
-      mOutdoorSeating.toggle();
   }
 
   private void showAdditionalNames(boolean show)
