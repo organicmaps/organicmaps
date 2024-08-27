@@ -12646,6 +12646,7 @@
     fa = گدار
     fi = Kahluupaikka
     fr = Gué
+    he = מקום צליחה
     hu = Gázló
     id = Menyeberang
     it = Guado
@@ -12682,7 +12683,7 @@
     fa = جاده
     fi = Asuinkatu
     fr = Zone de rencontre
-    he = רחוב מגורים
+    he = רחוב משולב
     hu = Utca
     id = Jalan
     it = Via
@@ -12707,13 +12708,11 @@
 
   [type.highway.living_street.bridge]
     ref = type.highway.road.bridge
-    he = גשר ברחוב מגורים
 
   [type.highway.living_street.tunnel]
     ref = type.highway.road.tunnel
     de = Spielstraßentunnel
     et = Tänavatunnel
-    he = מנהרה ברחוב מגורים
     pl = Tunel ulicy
     pt-BR = Túnel rodoviário
 
@@ -12866,6 +12865,7 @@
     fa = مسیر
     fi = Polku
     fr = Chemin
+    he = שביל
     hi = पथ
     hu = Ösvény
     id = Jalur
@@ -12894,6 +12894,7 @@
     ref = type.highway.path
     en = Difficult or Indistinct Trail
     de = Schwieriger oder kaum erkennbarer Pfad
+    he = רמה 3/6) שביל קשה או לא ברור)
     it = Sentiero difficile o poco tracciato
     ru = Сложная или плохо видимая тропа
 
@@ -12902,6 +12903,7 @@
     ref = type.highway.path
     en = Expert or Indiscernible Trail
     de = Alpinwanderweg oder wegloser Pfad
+    he = רמה 4+/6) מסלול למומחים או ללא שבילים מסודרים)
     it = Sentiero estremamente difficile o molto poco tracciato
     ru = Очень сложная или неразличимая тропа
 
@@ -12915,6 +12917,7 @@
     es = Camino para bicicletas
     et = Jalgratta- ja jalgtee
     fi = Pyörä- ja jalkatie
+    he = שביל להולכי רגל ואופניים
     mr = सायकल आणि पाऊलवाट
     nl = Fietspad
     pl = Ścieżka dla rowerów
@@ -12939,6 +12942,7 @@
     es = Sendero de herradura
     et = Valjarada
     fi = Ratsastuspolku
+    he = שביל לרכיבת סוסים
     nl = Ruiterpad
     pt-BR = Caminho para cavaleiros
     ru = Конная тропа
@@ -12996,6 +13000,7 @@
     es = Zona peatonal
     et = Jalakäijate ala
     fi = Jalankulkualue
+    he = אזור הולכי רגל
     it = Area pedonale
     mr = पादचारी झोन
     pl = Obszar deptaka
@@ -13012,6 +13017,7 @@
     es = Puente peatonal
     et = Jalakäijate sild
     fi = Jalankulkusilta
+    he = גשר הולכי רגל
     mr = पादचारी पूल
     nl = Voetgangersbrug
     pl = Most dla pieszych
@@ -13027,6 +13033,7 @@
     es = Túnel peatonal
     et = Jalakäijate tunnel
     fi = Jalankulkutunneli
+    he = מנהרה להולכי רגל
     mr = पादचारी बोगदा
     nl = Voetgangerstunnel
     pl = Tunel dla pieszych
@@ -13207,6 +13214,7 @@
     eu = Atseden gunea
     fi = Levähdyspaikka
     fr = Aire de repos
+    he = תחנת ריענון
     hi = बाकी क्षेत्र
     hu = Pihenőzóna
     id = Tempat istirahat
@@ -13245,6 +13253,7 @@
     fa = جاده
     fi = Katu
     fr = Rue
+    he = כביש
     hi = सड़क
     hu = Út
     id = Jalan
@@ -13287,7 +13296,7 @@
     fa = پل
     fi = Silta
     fr = Pont
-    he = לְגַשֵׁר
+    he = גשר
     hu = Híd
     id = Menjembatani
     it = Ponte
@@ -13373,6 +13382,7 @@
     fa = جاده
     fi = Katu
     fr = Rue
+    he = כביש משני
     hi = माध्यमिक सड़क
     hu = Utca
     id = Jalan
@@ -13445,6 +13455,7 @@
     fa = جاده
     fi = Huoltotie
     fr = Rue
+    he = כביש שירות
     hi = सर्विस रोड
     hu = Szervizút
     id = Jalan
@@ -13484,6 +13495,7 @@
     de = Grundstückszufahrt
     et = Sissesõidutee
     fi = Ajotie
+    he = כביש גישה
     mr = चालकमार्ग
     pl = Droga podjazdowa
     pt-BR = Via de acesso
@@ -13502,6 +13514,7 @@
     et = Parkla vahetee
     fi = Pysäköintikäytävä
     fr = Allée
+    he = מעבר במגרש חניה
     mr = पार्किंग गल्ली
     pl = Miejsca parkingowe
     pt = Estrada de estacionamento
@@ -13532,6 +13545,7 @@
     et = Teenindusala
     fi = Palvelualue
     fr = Aire de service
+    he = מתחם שירות
     ja = サービスエリア
     mr = सेवा क्षेत्र
     nl = Servicegebied
@@ -13714,6 +13728,7 @@
     fa = جاده
     fi = Katu
     fr = Piste
+    he = מסלול
     hi = सड़क
     hu = Utca
     id = Jalan
@@ -13811,6 +13826,7 @@
     fa = جاده
     fi = Päätie
     fr = Voie rapide
+    he = כביש בין עירוני
     hi = प्रधान मार्ग
     hu = Elsőrendű közlekedési út
     id = Jalan
@@ -13880,6 +13896,7 @@
     fa = جاده
     fi = Katu
     fr = Rue
+    he = כביש לא מסומן/מזערי
     hu = Kis utca
     id = Jalan
     it = Via
@@ -14334,7 +14351,7 @@
     fa = قلعه رومی
     fi = Roomalaisleiri
     fr = Camp romain
-    he = קסטרום
+    he = מבצר רומי
     hu = Római erődítmény
     id = Benteng Romawi
     it = Castra
@@ -14375,7 +14392,7 @@
     fa = قلعه
     fi = Linnake
     fr = Château fort
-    he = טירה
+    he = טירת הגנה
     hi = गढ़
     hu = Kastély
     id = Kastel
@@ -15079,7 +15096,7 @@
     fa = گردشگری
     fi = Veistos
     fr = Sculpture
-    he = פֶּסֶל
+    he = פסל אומנותי
     hu = Szobor
     id = Tugu peringatan
     it = Scultura
@@ -15684,39 +15701,51 @@
 
   [type.hwtag.bidir_bicycle]
     en = hwtag-bidir_bicycle
+    he = מסלול אופניים דו סיטרי
 
   [type.hwtag.onedir_bicycle]
     en = hwtag-onedir_bicycle
+    he = מסלול אופניים חד סיטרי
 
   [type.hwtag.lit]
     en = hwtag-lit
+    he = מואר
 
   [type.hwtag.nobicycle]
     en = hwtag-nobicycle
+    he = אין כניסה לאופניים
 
   [type.hwtag.nocar]
     en = hwtag-nocar
+    he = אין כניסה לכלי רכב
 
   [type.hwtag.nofoot]
     en = hwtag-nofoot
+    he = אין כניסה להולכי רגל
 
   [type.hwtag.oneway]
     en = hwtag-oneway
+    he = חד סיטרי
 
   [type.hwtag.private]
     en = hwtag-private
+    he = פרטי
 
   [type.hwtag.toll]
     en = hwtag-toll
+    he = אגרה
 
   [type.hwtag.yesbicycle]
     en = hwtag-yesbicycle
+    he = הכניסה לאופניים מותרת
 
   [type.hwtag.yescar]
     en = hwtag-yescar
+    he = הכניסה לכלי רכב מותרת
 
   [type.hwtag.yesfoot]
     en = hwtag-yesfoot
+    he = הכניסה להולכי רגל מותרת
 
   [type.internet_access]
     en = Internet
@@ -15727,6 +15756,7 @@
     es = Internet
     et = Internet
     fa = وای فای
+    he = אינטרנט
     hi = इंटरनेट उपलब्ध
     ja = インターネット
     ko = 인터넷
@@ -15750,7 +15780,7 @@
     es = Internet
     et = Internet
     fa = وای فای
-    he = אינטרנט
+    he = אינטרנט אלחוטי
     hi = वाई-फाई उपलब्ध
     ja = インターネット
     ko = 인터넷
