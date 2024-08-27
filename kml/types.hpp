@@ -376,6 +376,18 @@ struct MultiGeometry
     m_lines.back().assign(lst);
   }
 
+  bool HasTimestamps() const
+  {
+    if (m_timestamps.empty())
+      return false;
+    for (auto const & timestamp : m_timestamps)
+    {
+      if (!timestamp.empty())
+        return true;
+    }
+    return false;
+  }
+
   bool HasTimestampsFor(size_t lineIndex) const
   {
     return !(m_timestamps.empty() || lineIndex >= m_timestamps.size() || m_timestamps[lineIndex].empty());

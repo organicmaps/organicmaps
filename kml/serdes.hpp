@@ -83,6 +83,8 @@ private:
   void SetOrigin(std::string const & s);
   static void ParseAndAddPoints(MultiGeometry::LineT & line, std::string_view s,
                                 char const * blockSeparator, char const * coordSeparator);
+  void ParseAndAddTimestamps(MultiGeometry::TimeT & timestamps, std::string_view s,
+                                        char const * blockSeparator);
   void ParseLineString(std::string const & s);
 
   bool MakeValid();

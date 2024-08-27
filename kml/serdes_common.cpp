@@ -25,6 +25,13 @@ std::string PointToString(geometry::PointWithAltitude const & pt)
   return PointToString(pt.GetPoint());
 }
 
+std::string PointToGxString(geometry::PointWithAltitude const & pt)
+{
+  std::string str = PointToString(pt);
+  std::replace(str.begin(), str.end(), ',', ' ');
+  return str;
+}
+
 void SaveStringWithCDATA(Writer & writer, std::string s)
 {
   if (s.empty())

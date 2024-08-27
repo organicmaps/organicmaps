@@ -13,6 +13,8 @@
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
+#include <chrono>
+
 namespace kml
 {
 namespace
@@ -455,7 +457,7 @@ void SaveTrackLayer(Writer & writer, TrackLayer const & layer,
   writer << indent << "<width>" << strings::to_string(layer.m_lineWidth) << "</width>\n";
 }
 
-void SaveTrackGeometry(Writer & writer, MultiGeometry const & geom)
+void SaveTrackGeometryAsLineString(Writer & writer, MultiGeometry const & geom)
 {
   size_t const sz = geom.m_lines.size();
   if (sz == 0)
@@ -478,18 +480,66 @@ void SaveTrackGeometry(Writer & writer, MultiGeometry const & geom)
       ASSERT(false, ());
       continue;
     }
-
     writer << linesIndent << "<LineString><coordinates>";
-
     writer << PointToString(e[0]);
     for (size_t i = 1; i < e.size(); ++i)
       writer << " " << PointToString(e[i]);
-
     writer << "</coordinates></LineString>\n";
+  }
+  
+  if (sz > 1)
+    writer << kIndent4 << "</MultiGeometry>\n";
+}
+
+void SaveTrackGeometryAsGxTrack(Writer & writer, MultiGeometry const & geom)
+{
+  size_t const sz = geom.m_lines.size();
+  if (sz == 0)
+  {
+    ASSERT(false, ());
+    return;
+  }
+
+  auto linesIndent = kIndent4;
+  if (sz > 1)
+  {
+    linesIndent = kIndent8;
+    writer << kIndent4 << "<gx:MultiTrack>\n";
+    /// @TODO(KK): add the <altitudeMode>absolute</altitudeMode> if needed
+  }
+
+  for (size_t lineIndex = 0; lineIndex < geom.m_lines.size(); ++lineIndex)
+  {
+    auto const & line = geom.m_lines[lineIndex];
+    if (line.empty())
+    {
+      ASSERT(false, ());
+      continue;
+    }
+
+    writer << linesIndent << "<gx:Track>\n";
+    /// @TODO(KK): add the <altitudeMode>absolute</altitudeMode> if needed
+    if (geom.HasTimestampsFor(lineIndex))
+    {
+      /// @TODO(KK): Is it the proper way to handle timestamps for tracks sizes mismatch? Maybe it will be better to skip the timestamps section and throws an error if smth happens?
+      CHECK_EQUAL(geom.m_lines.size(), geom.m_timestamps.size(), ("Timestamps size mismatch"));
+      auto const & timestampsForLine = geom.m_timestamps[lineIndex];
+      for (size_t pointIndex = 0; pointIndex < line.size(); ++pointIndex)
+      {
+        CHECK_EQUAL(line.size(), timestampsForLine.size(), ("Timestamps size mismatch for track:", lineIndex));
+        auto const timeStr = base::SecondsSinceEpochToString(timestampsForLine[pointIndex]);
+        writer << linesIndent << kIndent4 << "<when>" << timeStr << "</when>\n";
+      }
+    }
+
+    for (const auto & point : line)
+      writer << linesIndent << kIndent4 << "<gx:coord>" << PointToGxString(point) << "</gx:coord>\n";
+
+    writer << linesIndent << "</gx:Track>\n";
   }
 
   if (sz > 1)
-    writer << kIndent4 << "</MultiGeometry>\n";
+    writer << kIndent4 << "</gx:MultiTrack>\n";
 }
 
 void SaveTrackExtendedData(Writer & writer, TrackData const & trackData)
@@ -546,7 +596,10 @@ void SaveTrackData(Writer & writer, TrackData const & trackData)
            << "</when></TimeStamp>\n";
   }
 
-  SaveTrackGeometry(writer, trackData.m_geometry);
+  if (trackData.m_geometry.HasTimestamps())
+    SaveTrackGeometryAsGxTrack(writer, trackData.m_geometry);
+  else
+    SaveTrackGeometryAsLineString(writer, trackData.m_geometry);
 
   SaveTrackExtendedData(writer, trackData);
 
@@ -679,6 +732,13 @@ void KmlParser::ParseAndAddPoints(MultiGeometry::LineT & line, std::string_view 
   });
 }
 
+void KmlParser::ParseAndAddTimestamps(MultiGeometry::TimeT & timestamps, std::string_view s,
+                                  char const * blockSeparator)
+{
+  auto const ts = base::StringToTimestamp(std::string{s});
+  timestamps.emplace_back(ts);
+}
+
 void KmlParser::ParseLineString(std::string const & s)
 {
   // If m_org is not empty, then it's still a Bookmark but with track data
@@ -769,6 +829,7 @@ bool KmlParser::Push(std::string movedTag)
   {
     m_geometryType = GEOMETRY_TYPE_LINE;
     m_geometry.m_lines.emplace_back();
+    m_geometry.m_timestamps.emplace_back();
   }
   return true;
 }
@@ -973,7 +1034,12 @@ void KmlParser::CharData(std::string & value)
     {
       if (!IsTrack(prevTag))
         return false;
-
+      if (currTag == "when")
+      {
+        auto & timestamps = m_geometry.m_timestamps;
+        ASSERT(!timestamps.empty(), ());
+        ParseAndAddTimestamps(timestamps.back(), value, "\n\r\t");
+      }
       if (currTag == "coord" || currTag == "gx:coord")
       {
         auto & lines = m_geometry.m_lines;

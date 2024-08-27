@@ -23,6 +23,7 @@ uint32_t ToRGBA(Channel red, Channel green, Channel blue, Channel alpha)
 std::string PointToString(m2::PointD const & org);
 
 std::string PointToString(geometry::PointWithAltitude const & pt);
+std::string PointToGxString(geometry::PointWithAltitude const & pt);
 
 void SaveStringWithCDATA(Writer & writer, std::string s);
 
