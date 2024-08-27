@@ -6,7 +6,7 @@
 namespace kml
 {
 
-std::string PointToString(m2::PointD const & org)
+std::string PointToString(m2::PointD const & org, char const separator)
 {
   double const lon = mercator::XToLon(org.x);
   double const lat = mercator::YToLat(org.y);
@@ -14,15 +14,24 @@ std::string PointToString(m2::PointD const & org)
   std::ostringstream ss;
   ss.precision(8);
 
-  ss << lon << "," << lat;
+  ss << lon << separator << lat;
   return ss.str();
 }
 
-std::string PointToString(geometry::PointWithAltitude const & pt)
+std::string PointToLineString(geometry::PointWithAltitude const & pt)
 {
+  char constexpr kSeparator = ',';
   if (pt.GetAltitude() != geometry::kInvalidAltitude)
-    return PointToString(pt.GetPoint()) + "," + strings::to_string(pt.GetAltitude());
-  return PointToString(pt.GetPoint());
+    return PointToString(pt.GetPoint(), kSeparator) + kSeparator + strings::to_string(pt.GetAltitude());
+  return PointToString(pt.GetPoint(), kSeparator);
+}
+
+std::string PointToGxString(geometry::PointWithAltitude const & pt)
+{
+  char constexpr kSeparator = ' ';
+  if (pt.GetAltitude() != geometry::kInvalidAltitude)
+    return PointToString(pt.GetPoint(), kSeparator) + kSeparator + strings::to_string(pt.GetAltitude());
+  return PointToString(pt.GetPoint(), kSeparator);
 }
 
 void SaveStringWithCDATA(Writer & writer, std::string s)

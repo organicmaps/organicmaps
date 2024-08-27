@@ -74,7 +74,7 @@ bool GpxParser::MakeValid()
     {
       // Set default name.
       if (m_name.empty())
-        m_name = kml::PointToString(m_org);
+        m_name = kml::PointToLineString(m_org);
 
       // Set default pin.
       if (m_predefinedColor == PredefinedColor::None)
