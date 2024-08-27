@@ -2131,7 +2131,7 @@
 "type.highway.busway" = "כביש יעודי לאוטובוס/מת\"צ";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.busway.bridge" = "לְגַשֵׁר";
+"type.highway.busway.bridge" = "גשר";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.busway.tunnel" = "מִנהָרָה";
@@ -2166,20 +2166,20 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "מנהרה להולכי רגל";
 
-"type.highway.ford" = "Ford";
+"type.highway.ford" = "מקום צליחה";
 
-"type.highway.living_street" = "רחוב מגורים";
+"type.highway.living_street" = "רחוב משולב";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.living_street.bridge" = "גשר ברחוב מגורים";
+"type.highway.living_street.bridge" = "גשר";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.living_street.tunnel" = "מנהרה ברחוב מגורים";
+"type.highway.living_street.tunnel" = "מִנהָרָה";
 
 "type.highway.motorway" = "כביש מהיר";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.motorway.bridge" = "לְגַשֵׁר";
+"type.highway.motorway.bridge" = "גשר";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway.tunnel" = "מִנהָרָה";
@@ -2189,45 +2189,45 @@
 "type.highway.motorway_link" = "כביש מהיר";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.motorway_link.bridge" = "לְגַשֵׁר";
+"type.highway.motorway_link.bridge" = "גשר";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway_link.tunnel" = "מִנהָרָה";
 
-"type.highway.path" = "Path";
+"type.highway.path" = "שביל";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Path";
+"type.highway.path.difficult" = "רמה 3/6) שביל קשה או לא ברור)";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Path";
+"type.highway.path.expert" = "רמה 4+/6) מסלול למומחים או ללא שבילים מסודרים)";
 
-"type.highway.path.bicycle" = "Path";
+"type.highway.path.bicycle" = "שביל להולכי רגל ואופניים";
 
-"type.highway.footway.bicycle" = "Path";
+"type.highway.footway.bicycle" = "שביל להולכי רגל ואופניים";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.path.bridge" = "לְגַשֵׁר";
+"type.highway.path.bridge" = "גשר";
 
-"type.highway.path.horse" = "Path";
+"type.highway.path.horse" = "שביל לרכיבת סוסים";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "מִנהָרָה";
 
 "type.highway.pedestrian" = "מדרחוב";
 
-"type.highway.pedestrian.area" = "מדרחוב";
+"type.highway.pedestrian.area" = "אזור הולכי רגל";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.pedestrian.bridge" = "לְגַשֵׁר";
+"type.highway.pedestrian.bridge" = "גשר הולכי רגל";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.pedestrian.tunnel" = "מִנהָרָה";
+"type.highway.pedestrian.tunnel" = "מנהרה להולכי רגל";
 
 "type.highway.primary" = "כביש ראשי";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.primary.bridge" = "לְגַשֵׁר";
+"type.highway.primary.bridge" = "גשר";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary.tunnel" = "מִנהָרָה";
@@ -2235,7 +2235,7 @@
 "type.highway.primary_link" = "כביש ראשי";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.primary_link.bridge" = "לְגַשֵׁר";
+"type.highway.primary_link.bridge" = "גשר";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary_link.tunnel" = "מִנהָרָה";
@@ -2247,62 +2247,62 @@
 "type.highway.residential.area" = "רחוב מגורים";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.residential.bridge" = "לְגַשֵׁר";
+"type.highway.residential.bridge" = "גשר";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.residential.tunnel" = "מִנהָרָה";
 
-"type.highway.rest_area" = "Rest Area";
+"type.highway.rest_area" = "תחנת ריענון";
 
-"type.highway.road" = "Road";
+"type.highway.road" = "כביש";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.road.bridge" = "לְגַשֵׁר";
+"type.highway.road.bridge" = "גשר";
 
 /* A bridge structure outline. */
-"type.man_made.bridge" = "לְגַשֵׁר";
+"type.man_made.bridge" = "גשר";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.road.tunnel" = "מִנהָרָה";
 
-"type.highway.secondary" = "Secondary Road";
+"type.highway.secondary" = "כביש משני";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.secondary.bridge" = "לְגַשֵׁר";
+"type.highway.secondary.bridge" = "גשר";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary.tunnel" = "מִנהָרָה";
 
-"type.highway.secondary_link" = "Secondary Road";
+"type.highway.secondary_link" = "כביש משני";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.secondary_link.bridge" = "לְגַשֵׁר";
+"type.highway.secondary_link.bridge" = "גשר";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary_link.tunnel" = "מִנהָרָה";
 
-"type.highway.service" = "Service Road";
+"type.highway.service" = "כביש שירות";
 
-"type.highway.service.area" = "Service Road";
+"type.highway.service.area" = "כביש שירות";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.service.bridge" = "לְגַשֵׁר";
+"type.highway.service.bridge" = "גשר";
 
-"type.highway.service.driveway" = "Service Road";
+"type.highway.service.driveway" = "כביש גישה";
 
-"type.highway.service.parking_aisle" = "Service Road";
+"type.highway.service.parking_aisle" = "מעבר במגרש חניה";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.service.tunnel" = "מִנהָרָה";
 
-"type.highway.services" = "Service Area";
+"type.highway.services" = "מתחם שירות";
 
 "type.highway.speed_camera" = "מצלמת מהירות";
 
 "type.highway.steps" = "מדרגות";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.steps.bridge" = "לְגַשֵׁר";
+"type.highway.steps.bridge" = "גשר";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "מִנהָרָה";
@@ -2310,7 +2310,7 @@
 "type.highway.tertiary" = "כביש שלישוני";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.tertiary.bridge" = "לְגַשֵׁר";
+"type.highway.tertiary.bridge" = "גשר";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary.tunnel" = "מִנהָרָה";
@@ -2318,49 +2318,49 @@
 "type.highway.tertiary_link" = "כביש שלישוני";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.tertiary_link.bridge" = "לְגַשֵׁר";
+"type.highway.tertiary_link.bridge" = "גשר";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary_link.tunnel" = "מִנהָרָה";
 
-"type.highway.track" = "Track";
+"type.highway.track" = "מסלול";
 
-"type.highway.track.area" = "Track";
+"type.highway.track.area" = "מסלול";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.track.bridge" = "לְגַשֵׁר";
+"type.highway.track.bridge" = "גשר";
 
-"type.highway.track.grade1" = "Track";
+"type.highway.track.grade1" = "מסלול";
 
-"type.highway.track.no.access" = "Track";
+"type.highway.track.no.access" = "מסלול";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "מִנהָרָה";
 
 "type.highway.traffic_signals" = "רמזור";
 
-"type.highway.trunk" = "Trunk Road";
+"type.highway.trunk" = "כביש בין עירוני";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.trunk.bridge" = "לְגַשֵׁר";
+"type.highway.trunk.bridge" = "גשר";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk.tunnel" = "מִנהָרָה";
 
-"type.highway.trunk_link" = "Trunk Road";
+"type.highway.trunk_link" = "כביש בין עירוני";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.trunk_link.bridge" = "לְגַשֵׁר";
+"type.highway.trunk_link.bridge" = "גשר";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk_link.tunnel" = "מִנהָרָה";
 
-"type.highway.unclassified" = "Minor Road";
+"type.highway.unclassified" = "כביש לא מסומן/מזערי";
 
-"type.highway.unclassified.area" = "Minor Road";
+"type.highway.unclassified.area" = "כביש לא מסומן/מזערי";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.unclassified.bridge" = "לְגַשֵׁר";
+"type.highway.unclassified.bridge" = "גשר";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "מִנהָרָה";
@@ -2369,11 +2369,11 @@
 
 "type.area_highway.footway" = "שביל הליכה";
 
-"type.area_highway.living_street" = "רחוב מגורים";
+"type.area_highway.living_street" = "רחוב משולב";
 
 "type.area_highway.motorway" = "כביש מהיר";
 
-"type.area_highway.path" = "Path";
+"type.area_highway.path" = "שביל";
 
 "type.area_highway.pedestrian" = "מדרחוב";
 
@@ -2381,19 +2381,19 @@
 
 "type.area_highway.residential" = "רחוב מגורים";
 
-"type.area_highway.secondary" = "Secondary Road";
+"type.area_highway.secondary" = "כביש משני";
 
-"type.area_highway.service" = "Service Road";
+"type.area_highway.service" = "כביש שירות";
 
 "type.area_highway.tertiary" = "כביש שלישוני";
 
 "type.area_highway.steps" = "מדרגות";
 
-"type.area_highway.track" = "Track";
+"type.area_highway.track" = "מסלול";
 
-"type.area_highway.trunk" = "Trunk Road";
+"type.area_highway.trunk" = "כביש בין עירוני";
 
-"type.area_highway.unclassified" = "Minor Road";
+"type.area_highway.unclassified" = "כביש לא מסומן/מזערי";
 
 "type.highway.world_level" = "highway-world_level";
 
@@ -2418,9 +2418,9 @@
 
 "type.historic.castle" = "טירה";
 
-"type.historic.castle.castrum" = "קסטרום";
+"type.historic.castle.castrum" = "מבצר רומי";
 
-"type.historic.castle.defensive" = "טירה";
+"type.historic.castle.defensive" = "טירת הגנה";
 
 "type.historic.castle.fortified_church" = "כנסייה מבוצרת";
 
@@ -2454,7 +2454,7 @@
 
 "type.historic.memorial.plaque" = "לוחית זיכרון";
 
-"type.historic.memorial.sculpture" = "פֶּסֶל";
+"type.historic.memorial.sculpture" = "פסל אומנותי";
 
 "type.historic.memorial.statue" = "פסל";
 
@@ -2486,33 +2486,33 @@
 
 "type.hwtag" = "hwtag";
 
-"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+"type.hwtag.bidir_bicycle" = "מסלול אופניים דו סיטרי";
 
-"type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+"type.hwtag.onedir_bicycle" = "מסלול אופניים חד סיטרי";
 
-"type.hwtag.lit" = "hwtag-lit";
+"type.hwtag.lit" = "מואר";
 
-"type.hwtag.nobicycle" = "hwtag-nobicycle";
+"type.hwtag.nobicycle" = "אין כניסה לאופניים";
 
-"type.hwtag.nocar" = "hwtag-nocar";
+"type.hwtag.nocar" = "אין כניסה לכלי רכב";
 
-"type.hwtag.nofoot" = "hwtag-nofoot";
+"type.hwtag.nofoot" = "אין כניסה להולכי רגל";
 
-"type.hwtag.oneway" = "hwtag-oneway";
+"type.hwtag.oneway" = "חד סיטרי";
 
-"type.hwtag.private" = "hwtag-private";
+"type.hwtag.private" = "פרטי";
 
-"type.hwtag.toll" = "hwtag-toll";
+"type.hwtag.toll" = "אגרה";
 
-"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+"type.hwtag.yesbicycle" = "הכניסה לאופניים מותרת";
 
-"type.hwtag.yescar" = "hwtag-yescar";
+"type.hwtag.yescar" = "הכניסה לכלי רכב מותרת";
 
-"type.hwtag.yesfoot" = "hwtag-yesfoot";
+"type.hwtag.yesfoot" = "הכניסה להולכי רגל מותרת";
 
-"type.internet_access" = "Internet";
+"type.internet_access" = "אינטרנט";
 
-"type.internet_access.wlan" = "אינטרנט";
+"type.internet_access.wlan" = "אינטרנט אלחוטי";
 
 "type.junction" = "צומת";
 

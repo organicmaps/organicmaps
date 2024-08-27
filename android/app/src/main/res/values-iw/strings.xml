@@ -1201,7 +1201,7 @@
 	<string name="type.highway.bridleway.tunnel">מנהרה לסוסים</string>
 	<string name="type.highway.busway">כביש יעודי לאוטובוס/מת\"צ</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.busway.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.busway.bridge">גשר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.busway.tunnel">מִנהָרָה</string>
 	<string name="type.highway.bus_stop">תחנת אוטובוס</string>
@@ -1221,109 +1221,141 @@
 	<string name="type.highway.footway.bridge">גשר הולכי רגל</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">מנהרה להולכי רגל</string>
-	<string name="type.highway.living_street">רחוב מגורים</string>
+	<string name="type.highway.ford">מקום צליחה</string>
+	<string name="type.highway.living_street">רחוב משולב</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.living_street.bridge">גשר ברחוב מגורים</string>
+	<string name="type.highway.living_street.bridge">גשר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.living_street.tunnel">מנהרה ברחוב מגורים</string>
+	<string name="type.highway.living_street.tunnel">מִנהָרָה</string>
 	<string name="type.highway.motorway">כביש מהיר</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.motorway.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.motorway.bridge">גשר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway.tunnel">מִנהָרָה</string>
 	<string name="type.highway.motorway_junction">יציאה</string>
 	<string name="type.highway.motorway_link">כביש מהיר</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.motorway_link.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.motorway_link.bridge">גשר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">מִנהָרָה</string>
+	<string name="type.highway.path">שביל</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">רמה 3/6) שביל קשה או לא ברור)</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">רמה 4+/6) מסלול למומחים או ללא שבילים מסודרים)</string>
+	<string name="type.highway.path.bicycle">שביל להולכי רגל ואופניים</string>
+	<string name="type.highway.footway.bicycle">שביל להולכי רגל ואופניים</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.path.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.path.bridge">גשר</string>
+	<string name="type.highway.path.horse">שביל לרכיבת סוסים</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">מִנהָרָה</string>
 	<string name="type.highway.pedestrian">מדרחוב</string>
-	<string name="type.highway.pedestrian.area">מדרחוב</string>
+	<string name="type.highway.pedestrian.area">אזור הולכי רגל</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.pedestrian.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.pedestrian.bridge">גשר הולכי רגל</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.pedestrian.tunnel">מִנהָרָה</string>
+	<string name="type.highway.pedestrian.tunnel">מנהרה להולכי רגל</string>
 	<string name="type.highway.primary">כביש ראשי</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.primary.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.primary.bridge">גשר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.primary.tunnel">מִנהָרָה</string>
 	<string name="type.highway.primary_link">כביש ראשי</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.primary_link.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.primary_link.bridge">גשר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.primary_link.tunnel">מִנהָרָה</string>
 	<string name="type.highway.raceway">מסלול מרוצים</string>
 	<string name="type.highway.residential">רחוב מגורים</string>
 	<string name="type.highway.residential.area">רחוב מגורים</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.residential.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.residential.bridge">גשר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.residential.tunnel">מִנהָרָה</string>
+	<string name="type.highway.rest_area">תחנת ריענון</string>
+	<string name="type.highway.road">כביש</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.road.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.road.bridge">גשר</string>
 	<!-- A bridge structure outline. -->
-	<string name="type.man_made.bridge">לְגַשֵׁר</string>
+	<string name="type.man_made.bridge">גשר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.road.tunnel">מִנהָרָה</string>
+	<string name="type.highway.secondary">כביש משני</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.secondary.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.secondary.bridge">גשר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.secondary.tunnel">מִנהָרָה</string>
+	<string name="type.highway.secondary_link">כביש משני</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.secondary_link.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.secondary_link.bridge">גשר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.secondary_link.tunnel">מִנהָרָה</string>
+	<string name="type.highway.service">כביש שירות</string>
+	<string name="type.highway.service.area">כביש שירות</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.service.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.service.bridge">גשר</string>
+	<string name="type.highway.service.driveway">כביש גישה</string>
+	<string name="type.highway.service.parking_aisle">מעבר במגרש חניה</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.service.tunnel">מִנהָרָה</string>
+	<string name="type.highway.services">מתחם שירות</string>
 	<string name="type.highway.speed_camera">מצלמת מהירות</string>
 	<string name="type.highway.steps">מדרגות</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.steps.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.steps.bridge">גשר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.steps.tunnel">מִנהָרָה</string>
 	<string name="type.highway.tertiary">כביש שלישוני</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.tertiary.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.tertiary.bridge">גשר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.tertiary.tunnel">מִנהָרָה</string>
 	<string name="type.highway.tertiary_link">כביש שלישוני</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.tertiary_link.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.tertiary_link.bridge">גשר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.tertiary_link.tunnel">מִנהָרָה</string>
+	<string name="type.highway.track">מסלול</string>
+	<string name="type.highway.track.area">מסלול</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.track.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.track.bridge">גשר</string>
+	<string name="type.highway.track.grade1">מסלול</string>
+	<string name="type.highway.track.no.access">מסלול</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">מִנהָרָה</string>
 	<string name="type.highway.traffic_signals">רמזור</string>
+	<string name="type.highway.trunk">כביש בין עירוני</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.trunk.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.trunk.bridge">גשר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.trunk.tunnel">מִנהָרָה</string>
+	<string name="type.highway.trunk_link">כביש בין עירוני</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.trunk_link.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.trunk_link.bridge">גשר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.trunk_link.tunnel">מִנהָרָה</string>
+	<string name="type.highway.unclassified">כביש לא מסומן/מזערי</string>
+	<string name="type.highway.unclassified.area">כביש לא מסומן/מזערי</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.unclassified.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.unclassified.bridge">גשר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.unclassified.tunnel">מִנהָרָה</string>
 	<string name="type.area_highway.cycleway">שביל אופניים</string>
 	<string name="type.area_highway.footway">שביל הליכה</string>
-	<string name="type.area_highway.living_street">רחוב מגורים</string>
+	<string name="type.area_highway.living_street">רחוב משולב</string>
 	<string name="type.area_highway.motorway">כביש מהיר</string>
+	<string name="type.area_highway.path">שביל</string>
 	<string name="type.area_highway.pedestrian">מדרחוב</string>
 	<string name="type.area_highway.primary">כביש ראשי</string>
 	<string name="type.area_highway.residential">רחוב מגורים</string>
+	<string name="type.area_highway.secondary">כביש משני</string>
+	<string name="type.area_highway.service">כביש שירות</string>
 	<string name="type.area_highway.tertiary">כביש שלישוני</string>
 	<string name="type.area_highway.steps">מדרגות</string>
+	<string name="type.area_highway.track">מסלול</string>
+	<string name="type.area_highway.trunk">כביש בין עירוני</string>
+	<string name="type.area_highway.unclassified">כביש לא מסומן/מזערי</string>
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">חפץ היסטורי</string>
@@ -1334,8 +1366,8 @@
 	<string name="type.historic.boundary_stone">אבן גבול</string>
 	<string name="type.historic.cannon">תוֹתָח</string>
 	<string name="type.historic.castle">טירה</string>
-	<string name="type.historic.castle.castrum">קסטרום</string>
-	<string name="type.historic.castle.defensive">טירה</string>
+	<string name="type.historic.castle.castrum">מבצר רומי</string>
+	<string name="type.historic.castle.defensive">טירת הגנה</string>
 	<string name="type.historic.castle.fortified_church">כנסייה מבוצרת</string>
 	<string name="type.historic.castle.fortress">מִבצָר</string>
 	<string name="type.historic.castle.hillfort">מבצר גבעה</string>
@@ -1352,7 +1384,7 @@
 	<string name="type.historic.memorial">אתר הנצחה</string>
 	<string name="type.historic.memorial.cross">צלב זיכרון</string>
 	<string name="type.historic.memorial.plaque">לוחית זיכרון</string>
-	<string name="type.historic.memorial.sculpture">פֶּסֶל</string>
+	<string name="type.historic.memorial.sculpture">פסל אומנותי</string>
 	<string name="type.historic.memorial.statue">פסל</string>
 	<string name="type.historic.memorial.stolperstein">אבן נגף</string>
 	<string name="type.historic.stone">אבן היסטורית</string>
@@ -1367,7 +1399,20 @@
 	<string name="type.historic.wayside_cross">צלב בצד הדרך</string>
 	<string name="type.historic.wayside_shrine">מקדש בצד הדרך</string>
 	<string name="type.historic.wreck">ספינה טרופה</string>
-	<string name="type.internet_access.wlan">אינטרנט</string>
+	<string name="type.hwtag.bidir_bicycle">מסלול אופניים דו סיטרי</string>
+	<string name="type.hwtag.onedir_bicycle">מסלול אופניים חד סיטרי</string>
+	<string name="type.hwtag.lit">מואר</string>
+	<string name="type.hwtag.nobicycle">אין כניסה לאופניים</string>
+	<string name="type.hwtag.nocar">אין כניסה לכלי רכב</string>
+	<string name="type.hwtag.nofoot">אין כניסה להולכי רגל</string>
+	<string name="type.hwtag.oneway">חד סיטרי</string>
+	<string name="type.hwtag.private">פרטי</string>
+	<string name="type.hwtag.toll">אגרה</string>
+	<string name="type.hwtag.yesbicycle">הכניסה לאופניים מותרת</string>
+	<string name="type.hwtag.yescar">הכניסה לכלי רכב מותרת</string>
+	<string name="type.hwtag.yesfoot">הכניסה להולכי רגל מותרת</string>
+	<string name="type.internet_access">אינטרנט</string>
+	<string name="type.internet_access.wlan">אינטרנט אלחוטי</string>
 	<string name="type.junction">צומת</string>
 	<string name="type.junction.circular">מעגל תנועה</string>
 	<string name="type.junction.roundabout">מעגל תנועה</string>
