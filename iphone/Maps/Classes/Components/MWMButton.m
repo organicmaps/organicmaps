@@ -158,7 +158,7 @@ static NSString * const kSelectedPattern = @"%@_selected_%@";
   else if ([coloring isEqualToString:@"MWMGray"])
     self.coloring = MWMButtonColoringGray;
   else
-    NSAssert(false, @"Invalid UIButton's coloring!");
+    UnexpectedCondition(@"Invalid UIButton's coloring!");
 }
 
 @end

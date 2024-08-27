@@ -77,7 +77,7 @@ CGFloat const kAnimationDuration = .05;
       alert.messageLabel.text = L(@"dialog_routing_download_cross_route");
       break;
     default:
-      NSAssert(false, @"Incorrect code!");
+      UnexpectedCondition(@"Incorrect code!");
       break;
   }
   alert.cancelBlock = cancelBlock;

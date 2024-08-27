@@ -80,7 +80,7 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 {
   if (![segue.identifier isEqualToString:kToEditorSegue])
   {
-    NSAssert(false, @"incorrect segue");
+    UnexpectedCondition(@"incorrect segue");
     return;
   }
   MWMEditorViewController * dest =
@@ -107,7 +107,7 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
   auto & f = GetFramework();
   auto const type = classif().GetTypeByReadableObjectName(self.selectedType.UTF8String);
   if (!f.CreateMapObject(f.GetViewportCenter(), type, emo))
-    NSAssert(false, @"This call should never fail, because IsPointCoveredByDownloadedMaps is "
+    UnexpectedCondition(@"This call should never fail, because IsPointCoveredByDownloadedMaps is "
                     @"always called before!");
   return emo;
 }

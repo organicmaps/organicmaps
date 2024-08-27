@@ -308,7 +308,7 @@ struct StreetNamesCellStrategy : BaseCellStategy
       m_languages.push_back(m_additionalTTSLanguage);
     break;
   case 3: m_languages[size - 1] = m_additionalTTSLanguage; break;
-  default: NSAssert(false, @"Incorrect language's count"); break;
+  default: UnexpectedCondition(@"Incorrect language's count"); break;
   }
   [self.tableView reloadData];
 }

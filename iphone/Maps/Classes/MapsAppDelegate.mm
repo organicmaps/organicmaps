@@ -343,7 +343,7 @@ using namespace osm_auth_ios;
     if ([vc isKindOfClass:[MapViewController class]])
       return vc;
   }
-  NSAssert(false, @"Please check the logic");
+  UnexpectedCondition(@"Please check the logic");
   return nil;
 }
 

@@ -391,7 +391,7 @@ using namespace osmoh;
         [self setStartTime:self.cachedStartTime endTime:self.cachedEndTime isClosed:YES];
         break;
       default:
-        NSAssert(false, @"Invalid case");
+        UnexpectedCondition(@"Invalid case");
         break;
     }
   }

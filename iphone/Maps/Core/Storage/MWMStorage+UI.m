@@ -11,7 +11,7 @@
   } else if (error.code == kStorageRoutingActive) {
     [[MWMAlertViewController activeAlertController] presentDeleteMapProhibitedAlert];
   } else {
-    NSAssert(NO, @"Unknown error code");
+    UnexpectedCondition(@"Unknown error code");
   }
 }
 

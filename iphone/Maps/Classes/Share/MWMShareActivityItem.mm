@@ -35,7 +35,7 @@ NSString * httpGe0Url(NSString * shortUrl)
 
 - (instancetype)initForPlacePageObject:(id<MWMPlacePageObject>)object
 {
-  NSAssert(false, @"deprecated");
+  UnexpectedCondition(@"deprecated");
 
   return nil;
 }

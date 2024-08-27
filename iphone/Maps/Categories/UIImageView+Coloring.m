@@ -80,6 +80,7 @@
   }
 }
 
+
 - (void)setColoring:(NSString *)coloring
 {
   if ([coloring isEqualToString:@"MWMBlue"])
@@ -95,7 +96,7 @@
   else if ([coloring isEqualToString:@"MWMWhite"])
     self.mwm_coloring = MWMImageColoringWhite;
   else
-    NSAssert(false, @"Incorrect UIImageView's coloring");
+    UnexpectedCondition(@"Incorrect UIImageView's coloring", coloring);
 }
 
 @end

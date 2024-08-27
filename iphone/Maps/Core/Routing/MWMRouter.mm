@@ -215,7 +215,7 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
 }
 + (void)addPoint:(MWMRoutePoint *)point {
   if (!point) {
-    NSAssert(NO, @"Point can not be nil");
+    UnexpectedCondition(@"Point can not be nil");
     return;
   }
 

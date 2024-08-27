@@ -50,7 +50,7 @@
       case MWMThemeVehicleNight:
         return MapStyleVehicleDark;
       case MWMThemeAuto:
-        NSAssert(NO, @"Invalid theme");
+        UnexpectedCondition(@"Invalid MWMThemeAuto theme");
         return MapStyleDefaultLight;
     }
   }(theme);

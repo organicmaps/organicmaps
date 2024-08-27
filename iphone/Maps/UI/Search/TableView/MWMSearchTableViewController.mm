@@ -75,7 +75,7 @@ NSString *GetLocalizedTypeName(search::Result const &result) {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   if ([MWMSearch resultsCount] == 0) {
-    NSAssert(false, @"Invalid reload with outdated SearchIndex");
+    UnexpectedCondition(@"Invalid reload with outdated SearchIndex");
     return [tableView dequeueReusableCellWithCellClass:[MWMSearchCommonCell class] indexPath:indexPath];
   }
 

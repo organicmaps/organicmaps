@@ -179,7 +179,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
 - (void)setFeatureToEdit:(FeatureID const &)fid
 {
   if (!GetFramework().GetEditableMapObject(fid, m_mapObject))
-    NSAssert(false, @"Incorrect featureID.");
+    UnexpectedCondition(@"Incorrect featureID.");
 }
 
 - (void)setEditableMapObject:(osm::EditableMapObject const &)emo
@@ -217,7 +217,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
 {
   if (![self.view endEditing:YES])
   {
-    NSAssert(false, @"We can't save map object because one of text fields can't apply it's text!");
+    UnexpectedCondition(@"We can't save map object because one of text fields can't apply it's text!");
     return;
   }
 
@@ -719,7 +719,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
       case FeatureStatus::Untouched: return L(@"editor_place_doesnt_exist");
       case FeatureStatus::Deleted:
       case FeatureStatus::Obsolete:  // TODO(Vlad): Either make a valid button or disable it.
-        NSAssert(false, @"Incorrect feature status!");
+        UnexpectedCondition(@"Incorrect feature status!");
         return L(@"editor_place_doesnt_exist");
       case FeatureStatus::Modified: return L(@"editor_reset_edits_button");
       case FeatureStatus::Created: return L(@"editor_remove_place_button");
@@ -730,7 +730,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
     break;
   }
   default:
-    NSAssert(false, @"Invalid field for editor: %d", (int)cellID);
+    UnexpectedCondition(@"Invalid field for editor: %d", (int)cellID);
     break;
   }
 }
@@ -956,7 +956,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
   case MetadataID::FMD_INTERNET:
     m_mapObject.SetInternet(changeSwitch ? feature::Internet::Wlan : feature::Internet::Unknown);
     break;
-  default: NSAssert(false, @"Invalid field for changeSwitch"); break;
+  default: UnexpectedCondition(@"Invalid field for changeSwitch"); break;
   }
 }
 
@@ -979,7 +979,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
           break;
       }
       break;
-  default: NSAssert(false, @"Invalid field for changeSegmented"); break;
+  default: UnexpectedCondition(@"Invalid field for changeSegmented"); break;
   }
 }
 
@@ -1000,7 +1000,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
     [self performSegueWithIdentifier:kCategoryEditorSegue sender:nil];
     break;
   case MWMEditorCellTypeReportButton: [self tapOnButtonCell:cell]; break;
-  default: NSAssert(false, @"Invalid field for cellSelect"); break;
+  default: UnexpectedCondition(@"Invalid field for cellSelect"); break;
   }
 }
 
@@ -1024,7 +1024,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
   auto revertAction = ^(BOOL isCreated) {
     auto & f = GetFramework();
     if (!f.RollBackChanges(fid))
-      NSAssert(false, @"We shouldn't call this if we can't roll back!");
+      UnexpectedCondition(@"We shouldn't call this if we can't roll back!");
 
     f.GetSearchAPI().PokeSearchInViewport();
     [self goBack];

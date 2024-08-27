@@ -39,7 +39,7 @@ typedef NS_ENUM(NSUInteger, DurationInHours) { One = 1, Two = 2, Six = 6, Twelve
     case Six: _selectedCell = self.sixHours; break;
     case Twelve: _selectedCell = self.twelveHours; break;
     case Day: _selectedCell = self.oneDay; break;
-    default: NSAssert(false, @"Incorrect hours value"); break;
+    default: UnexpectedCondition(@"Incorrect hours value"); break;
     }
   }
   self.selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;

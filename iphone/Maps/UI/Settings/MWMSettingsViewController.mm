@@ -151,7 +151,7 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
         recentTrack = L(@"duration_1_day");
         break;
       default:
-        NSAssert(false, @"Incorrect hours value");
+        UnexpectedCondition(@"Incorrect hours value");
         break;
     }
   }
@@ -170,12 +170,12 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
   NSString * nightMode = nil;
   switch ([MWMSettings theme]) {
     case MWMThemeVehicleDay:
-      NSAssert(false, @"Invalid case");
+      UnexpectedCondition(@"Invalid case");
     case MWMThemeDay:
       nightMode = L(@"pref_appearance_light");
       break;
     case MWMThemeVehicleNight:
-      NSAssert(false, @"Invalid case");
+      UnexpectedCondition(@"Invalid case");
     case MWMThemeNight:
       nightMode = L(@"pref_appearance_dark");
       break;
