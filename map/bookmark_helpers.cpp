@@ -199,10 +199,57 @@ void ValidateKmlData(std::unique_ptr<kml::FileData> & data)
   if (!data)
     return;
 
+  // Filter points with the duplicated coordinates.
   for (auto & t : data->m_tracksData)
   {
     if (t.m_layers.empty())
       t.m_layers.emplace_back(kml::KmlParser::GetDefaultTrackLayer());
+
+    kml::MultiGeometry validGeometry;
+
+    auto const & geometry = t.m_geometry;
+    for (size_t lineIndex = 0; lineIndex < geometry.m_lines.size(); ++lineIndex)
+    {
+      auto const & line = geometry.m_lines[lineIndex];
+      auto const & timestamps = geometry.m_timestamps[lineIndex];
+
+      if (line.empty())
+      {
+        LOG(LWARNING, ("Empty line in track:", t.m_name[kml::kDefaultLang]));
+        continue;
+      }
+
+      kml::MultiGeometry::LineT validLine;
+      kml::MultiGeometry::TimeT validTimestamps;
+
+      auto const hasTimestamps = geometry.HasTimestampsFor(lineIndex);
+      if (hasTimestamps && timestamps.size() != line.size())
+        MYTHROW(kml::DeserializerKml::DeserializeException, ("Timestamps count doesn't match points count."));
+
+      for (size_t pointIndex = 0; pointIndex < line.size(); ++pointIndex)
+      {
+        auto const & prevPoint = validLine.back();
+        auto const & currPoint = line[pointIndex];
+
+        // We don't expect vertical surfaces, so do not compare heights here.
+        // Will get a lot of duplicating points otherwise after import some user KMLs.
+        // https://github.com/organicmaps/organicmaps/issues/3895
+        if (validLine.empty() || !AlmostEqualAbs(prevPoint.GetPoint(), currPoint.GetPoint(), kMwmPointAccuracy))
+        {
+          validLine.push_back(currPoint);
+          if (hasTimestamps)
+            validTimestamps.push_back(timestamps[pointIndex]);
+        }
+      }
+
+      if (!validLine.empty())
+      {
+        validGeometry.m_lines.push_back(validLine);
+        validGeometry.m_timestamps.push_back(validTimestamps);
+      }
+    }
+
+    t.m_geometry = std::move(validGeometry);
   }
 }
 

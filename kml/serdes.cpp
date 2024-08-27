@@ -674,11 +674,7 @@ void KmlParser::ParseAndAddPoints(MultiGeometry::LineT & line, std::string_view 
     geometry::PointWithAltitude point;
     if (ParsePointWithAltitude(v, coordSeparator, point))
     {
-      // We don't expect vertical surfaces, so do not compare heights here.
-      // Will get a lot of duplicating points otherwise after import some user KMLs.
-      // https://github.com/organicmaps/organicmaps/issues/3895
-      if (line.empty() || !AlmostEqualAbs(line.back().GetPoint(), point.GetPoint(), kMwmPointAccuracy))
-        line.emplace_back(point);
+      line.emplace_back(point);
     }
   });
 }
