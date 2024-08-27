@@ -1008,12 +1008,40 @@
 	<string name="type.amenity.veterinary">וטרינר</string>
 	<string name="type.amenity.waste_basket">פח אשפה</string>
 	<string name="type.amenity.waste_disposal">מיכל אשפה</string>
+	<string name="type.amenity.waste_transfer_station">תחנת מעבר פסולת</string>
+	<string name="type.amenity.water_point">נקודת מילוי מיכלי מים</string>
+	<string name="type.barrier">מחסום</string>
+	<string name="type.barrier.block">חסימה</string>
+	<string name="type.barrier.bollard">עמוד</string>
+	<string name="type.barrier.border_control">ביקורת גבולות</string>
+	<string name="type.barrier.chain">שרשרת</string>
 	<string name="type.barrier.city_wall">חומת העיר</string>
+	<string name="type.barrier.cycle_barrier">מחסום אופניים</string>
 	<string name="type.waterway.ditch">תעלת ניקוז</string>
-	<string name="type.natural.water.moat">ןגֵמָ תלַעָתְ</string>
+	<string name="type.natural.water.moat">תעלת מגן</string>
 	<string name="type.natural.water.wastewater">שפכים</string>
-	<string name="type.barrier.turnstile">קרוסלת</string>
-	<string name="type.boundary.aboriginal_lands">ארצות ילידים</string>
+	<string name="type.barrier.entrance">כניסה</string>
+	<string name="type.barrier.fence">גדר</string>
+	<string name="type.barrier.gate">שער</string>
+	<string name="type.barrier.hedge">גדר חיה</string>
+	<string name="type.barrier.kissing_gate">שער מנע בקר</string>
+	<string name="type.barrier.lift_gate">שער מתרומם</string>
+	<string name="type.barrier.retaining_wall">קיר תמך</string>
+	<string name="type.barrier.stile">מדרגות למעבר מעל גדר</string>
+	<string name="type.barrier.turnstile">מחסום כניסה מסתובב</string>
+	<string name="type.barrier.swing_gate">שער מתנדנד</string>
+	<string name="type.barrier.toll_booth">תא אגרה</string>
+	<string name="type.barrier.wall">חומה</string>
+	<string name="type.boundary">גבול</string>
+	<string name="type.boundary.administrative">גבול מנהלי</string>
+	<!-- Borders between countries. -->
+	<string name="type.boundary.administrative.2">גבול לאומי</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.3">גבול אזורי</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.4">גבול אזורי</string>
+	<string name="type.boundary.national_park">פארק לאומי</string>
+	<string name="type.boundary.aboriginal_lands">קרקעות ילידים</string>
 	<string name="type.boundary.protected_area">אזור מוגן</string>
 	<string name="type.boundary.protected_area.1">אזור מוגן</string>
 	<string name="type.boundary.protected_area.2">אזור מוגן</string>
@@ -1021,9 +1049,15 @@
 	<string name="type.boundary.protected_area.4">אזור מוגן</string>
 	<string name="type.boundary.protected_area.5">אזור מוגן</string>
 	<string name="type.boundary.protected_area.6">אזור מוגן</string>
+	<string name="type.building">מבנה</string>
 	<!-- Duplicates [address] in strings.txt -->
 	<string name="type.building.address">כתובת</string>
-	<string name="type.cemetery.grave">רבק</string>
+	<string name="type.building.has_parts">מבנה</string>
+	<string name="type.building_part">מבנה</string>
+	<string name="type.building.garage">מחסן/חניה</string>
+	<string name="type.building.train_station">תחנת רכבת</string>
+	<string name="type.building.warehouse">מחסן</string>
+	<string name="type.cemetery.grave">קבר</string>
 	<string name="type.craft">מְלָאכָה</string>
 	<string name="type.craft.beekeeper">כוורן</string>
 	<string name="type.craft.blacksmith">נַפָּח</string>
@@ -1034,14 +1068,14 @@
 	<string name="type.craft.electrician">חשמלאי</string>
 	<string name="type.craft.electronics_repair">תיקון אלקטרוניקה</string>
 	<string name="type.craft.gardener">גנן</string>
-	<string name="type.craft.grinding_mill">טחינה טחינה</string>
-	<string name="type.craft.handicraft">אומנות</string>
+	<string name="type.craft.grinding_mill">מטחנה</string>
+	<string name="type.craft.handicraft">מלאכת יד</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">חימום, אוורור ומיזוג אוויר</string>
-	<string name="type.craft.key_cutter">חיתוך מפתח</string>
-	<string name="type.craft.locksmith">פורץ מנעולים</string>
-	<string name="type.craft.metal_construction">עובד מתכת</string>
-	<string name="type.craft.painter">צייר</string>
+	<string name="type.craft.key_cutter">שיכפול מפתחות</string>
+	<string name="type.craft.locksmith">מנעולן</string>
+	<string name="type.craft.metal_construction">עבודות מתכת</string>
+	<string name="type.craft.painter">צבעי</string>
 	<string name="type.craft.photographer">צלם</string>
 	<string name="type.shop.camera">חנות מצלמות</string>
 	<string name="type.craft.plumber">שרברב</string>
@@ -1058,7 +1092,7 @@
 	<string name="type.cuisine.bagel">בייגל</string>
 	<string name="type.cuisine.balkan">מטבח בלקני</string>
 	<string name="type.cuisine.barbecue">ברביקיו</string>
-	<string name="type.cuisine.bavarian">מטבח של בוואריה</string>
+	<string name="type.cuisine.bavarian">מטבח בווארי</string>
 	<string name="type.cuisine.beef_bowl">קערת בשר בקר</string>
 	<string name="type.cuisine.brazilian">מטבח ברזילאי</string>
 	<string name="type.cuisine.breakfast">ארוחת בוקר</string>
@@ -1068,7 +1102,7 @@
 	<string name="type.cuisine.caribbean">מטבח קריבי</string>
 	<string name="type.cuisine.chicken">עוף</string>
 	<string name="type.cuisine.chinese">מטבח סיני</string>
-	<string name="type.cuisine.coffee_shop">הֶפָק</string>
+	<string name="type.cuisine.coffee_shop">קפה</string>
 	<string name="type.cuisine.crepe">קרפ</string>
 	<string name="type.cuisine.croatian">מטבח קרואטי</string>
 	<string name="type.cuisine.curry">קארי</string>
@@ -1077,11 +1111,11 @@
 	<string name="type.cuisine.donut">דונאט</string>
 	<string name="type.cuisine.ethiopian">מטבח אתיופי</string>
 	<string name="type.cuisine.filipino">מטבח פיליפיני</string>
-	<string name="type.cuisine.fine_dining">אכילה במסעדות יוקרה</string>
+	<string name="type.cuisine.fine_dining">גורמה</string>
 	<string name="type.cuisine.fish">דגים</string>
-	<string name="type.cuisine.fish_and_chips">פיש אנד צ\'יפס</string>
+	<string name="type.cuisine.fish_and_chips">דג וצ\'יפס</string>
 	<string name="type.cuisine.french">מטבח צרפתי</string>
-	<string name="type.cuisine.friture">פריטורה</string>
+	<string name="type.cuisine.friture">טיגון</string>
 	<string name="type.cuisine.georgian">מטבח גיאורגי</string>
 	<string name="type.cuisine.german">מטבח גרמני</string>
 	<string name="type.cuisine.greek">מטבח יווני</string>
@@ -1102,7 +1136,7 @@
 	<string name="type.cuisine.lao">מטבח לאו</string>
 	<string name="type.cuisine.lebanese">מטבח לבנוני</string>
 	<string name="type.cuisine.local">מטבח מקומי</string>
-	<string name="type.cuisine.malagasy">מלגאסי</string>
+	<string name="type.cuisine.malagasy">מטבח מדגאסקי</string>
 	<string name="type.cuisine.malaysian">מטבח מלזי</string>
 	<string name="type.cuisine.mediterranean">מטבח ים-תיכוני</string>
 	<string name="type.cuisine.mexican">מטבח מקסיקני</string>
@@ -1121,7 +1155,7 @@
 	<string name="type.cuisine.russian">מטבח רוסי</string>
 	<string name="type.cuisine.sandwich">סנדוויץ\'</string>
 	<string name="type.cuisine.sausage">נקניק</string>
-	<string name="type.cuisine.savory_pancakes">חביתיות טעימות</string>
+	<string name="type.cuisine.savory_pancakes">חביתיות מתובלות</string>
 	<string name="type.cuisine.seafood">מאכלי ים</string>
 	<string name="type.cuisine.soba">אטריות סובה</string>
 	<string name="type.cuisine.spanish">מטבח ספרדי</string>
@@ -1134,12 +1168,19 @@
 	<string name="type.cuisine.vegan">מטבח טבעוני</string>
 	<string name="type.cuisine.vegetarian">מטבח צמחוני</string>
 	<string name="type.cuisine.vietnamese">מטבח וייטנאמי</string>
-	<string name="type.emergency.assembly_point">נקודת כינוס חירום</string>
+	<string name="type.emergency">חרום</string>
+	<string name="type.emergency.assembly_point">נקודת כינוס בחירום</string>
+	<string name="type.emergency.defibrillator">דפיברילטור/מפעם</string>
+	<string name="type.emergency.fire_hydrant">ברז כיבוי אש</string>
+	<string name="type.emergency.phone">טלפון חירום</string>
+	<!-- This is for secondary entrances, for main entrances see type.entrance.main -->
+	<string name="type.entrance">כניסה</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
-	<string name="type.entrance.main">תישארה הסינכ</string>
+	<string name="type.entrance.main">כניסה ראשית</string>
 	<string name="type.entrance.exit">יְצִיאָה</string>
+	<string name="type.fee.yes">₪</string>
 	<string name="type.fee.no">חינם</string>
-	<string name="type.healthcare.laboratory">תיאופר הדבעמ</string>
+	<string name="type.healthcare.laboratory">מעבדה רפואית</string>
 	<string name="type.healthcare.physiotherapist">פיזיותרפיסט</string>
 	<string name="type.healthcare.alternative">רפואה אלטרנטיבית</string>
 	<string name="type.healthcare.audiologist">אודיולוגיה</string>
@@ -1147,17 +1188,18 @@
 	<string name="type.healthcare.optometrist">אופטומטריה</string>
 	<string name="type.healthcare.podiatrist">פודיאטריה</string>
 	<string name="type.healthcare.psychotherapist">פסיכותרפיה</string>
-	<string name="type.healthcare.sample_collection">דְגִימָה</string>
+	<string name="type.healthcare.sample_collection">מרכז איסוף דגימות</string>
 	<string name="type.healthcare.speech_therapist">ריפוי בדיבור</string>
 
 	<!-- SECTION: Types: Roads -->
+	<string name="type.highway">כביש</string>
 	<string name="type.highway.bridleway">שביל סוסים</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.bridleway.bridge">לְגַשֵׁר</string>
-	<string name="type.highway.bridleway.permissive">שביל סוסים</string>
+	<string name="type.highway.bridleway.bridge">גשר סוסים</string>
+	<string name="type.highway.bridleway.permissive">דרך מותרת לרכיבת סוסים</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.bridleway.tunnel">מִנהָרָה</string>
-	<string name="type.highway.busway">ידועיי סובוטוא שיבכ</string>
+	<string name="type.highway.bridleway.tunnel">מנהרה לסוסים</string>
+	<string name="type.highway.busway">כביש יעודי לאוטובוס/מת\"צ</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.busway.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1166,10 +1208,10 @@
 	<string name="type.highway.construction">כביש בבניה</string>
 	<string name="type.highway.cycleway">שביל אופניים</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.cycleway.bridge">לְגַשֵׁר</string>
-	<string name="type.highway.cycleway.permissive">שביל אופניים</string>
+	<string name="type.highway.cycleway.bridge">גשר לאופניים</string>
+	<string name="type.highway.cycleway.permissive">דרך מותרת לרכיבת אופניים</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.cycleway.tunnel">מִנהָרָה</string>
+	<string name="type.highway.cycleway.tunnel">מנהרה לאופניים</string>
 	<string name="type.highway.elevator">מעלית</string>
 	<string name="type.highway.footway">שביל הליכה</string>
 	<string name="type.highway.footway.sidewalk">מדרכה</string>
@@ -1181,9 +1223,9 @@
 	<string name="type.highway.footway.tunnel">מנהרה להולכי רגל</string>
 	<string name="type.highway.living_street">רחוב מגורים</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
-	<string name="type.highway.living_street.bridge">לְגַשֵׁר</string>
+	<string name="type.highway.living_street.bridge">גשר ברחוב מגורים</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.living_street.tunnel">מִנהָרָה</string>
+	<string name="type.highway.living_street.tunnel">מנהרה ברחוב מגורים</string>
 	<string name="type.highway.motorway">כביש מהיר</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.motorway.bridge">לְגַשֵׁר</string>
