@@ -5969,6 +5969,7 @@
     et = Jäätmete üleandmise jaam
     fi = Jätteiden vastaanottoasema
     fr = Station de transfert de déchets
+    he = תחנת מעבר פסולת
     hi = कचरा स्थानांतरण स्टेशन
     it = Centro trasferimento rifiuti
     mr = कचरा हस्तांतरण केंद्र
@@ -5999,6 +6000,7 @@
     fa = شیر آب قابل شرب
     fi = Vesipiste
     fr = Point d’eau
+    he = נקודת מילוי מיכלי מים
     hi = पानी की टंकी पुनः भरने का स्थान
     hu = Vízvételi pont
     id = Titik Air
@@ -6033,6 +6035,7 @@
     eu = Hesia
     fi = Este
     fr = Barrière
+    he = מחסום
     it = Barriera
     ja = 障害物
     mr = अडथळा
@@ -6064,6 +6067,7 @@
     fa = بلوک
     fi = Este
     fr = Bloc
+    he = חסימה
     hu = Blokk
     id = Blok
     it = Blocco
@@ -6102,6 +6106,7 @@
     fa = ستون
     fi = Tolppa
     fr = Poteau
+    he = עמוד
     hu = Oszlop
     id = Pilar
     it = Pilastro
@@ -6140,6 +6145,7 @@
     fa = کنترل مرزی
     fi = Rajavalvonta
     fr = Contrôle aux frontières
+    he = ביקורת גבולות
     hu = Határállomás
     id = Gerbang perbatasan
     it = Controllo di frontiera
@@ -6175,6 +6181,7 @@
     eu = Katea
     fi = Ketju
     fr = Chaîne
+    he = שרשרת
     it = Catena
     mr = साखळी
     nl = Ketting
@@ -6201,6 +6208,7 @@
     eu = Bizikleta-hesia
     fi = Polkupyöräeste
     fr = Barrière à vélos
+    he = מחסום אופניים
     it = Barriera per biciclette
     ja = バリカー
     mr = सायकल अडथळा
@@ -6275,7 +6283,7 @@
     fa = ﻕﺪﻨﺧ
     fi = Vallihauta
     fr = Fossé
-    he = ןגֵמָ תלַעָתְ
+    he = תעלת מגן
     hu = Várárok
     id = Parit
     it = Fossato
@@ -6355,6 +6363,7 @@
     fa = ورودی
     fi = Sisäänkäynti
     fr = Entrée
+    he = כניסה
     hu = Bejárat
     id = Pintu masuk
     it = Ingresso
@@ -6389,6 +6398,7 @@
     eu = Hesia
     fi = Aita
     fr = Clôture
+    he = גדר
     it = Steccato
     ja = フェンス
     mr = कुंपण
@@ -6420,6 +6430,7 @@
     fa = ورودی
     fi = Portti
     fr = Porte
+    he = שער
     hu = Kapu
     id = Gerbang
     it = Cancello
@@ -6454,6 +6465,7 @@
     eu = Estaldura
     fi = Pensasaita
     fr = Haie
+    he = גדר חיה
     it = Siepe
     ja = 生垣
     mr = झुडुपांचे कुंपण
@@ -6474,6 +6486,7 @@
     es = Puerta peatonal
     et = Suudlemisvärav
     fr = Portillon à chicane mobile
+    he = שער מנע בקר
     nl = Voetgangershek
     pt = Quebra-corpo
     pt-BR = Quebra-corpo
@@ -6496,6 +6509,7 @@
     fa = اسانسور
     fi = Nostopuomi
     fr = Barrière levante
+    he = שער מתרומם
     hu = Sorompó
     id = Polisi tidur
     it = Sbarra
@@ -6530,6 +6544,7 @@
     eu = Euste-horma
     fi = Tukimuuri
     fr = Mur de soutènement
+    he = קיר תמך
     it = Muro di sostegno
     ja = 擁壁
     mr = संधारक भिंत
@@ -6558,6 +6573,7 @@
     fa = پلکان
     fi = Portaat
     fr = Échalier
+    he = מדרגות למעבר מעל גדר
     hu = Átjáró
     id = Undakan
     it = Scaletta per recinzioni
@@ -6597,7 +6613,7 @@
     fa = گردان
     fi = Kääntöportti
     fr = Tourniquet
-    he = קרוסלת
+    he = מחסום כניסה מסתובב
     hu = Forgókorlát
     id = Pintu putar
     it = Tornello
@@ -6638,6 +6654,7 @@
     fa = اسانسور
     fi = Kääntöpuomi
     fr = Barrière tournante
+    he = שער מתנדנד
     hu = Sorompó
     id = Polisi tidur
     it = Barriera ferroviaria
@@ -6675,6 +6692,7 @@
     fa = گیشه عوارضی
     fi = Tietulliasema
     fr = Poste de péage
+    he = תא אגרה
     hu = Díjfizető kapu
     id = Gerbang tol
     it = Casello di pedaggio
@@ -6708,6 +6726,7 @@
     eu = Horma
     fi = Muuri
     fr = Mur
+    he = חומה
     hi = दीवार
     it = Muro
     ja = 壁
@@ -6734,6 +6753,7 @@
     eu = Muga
     fi = Raja
     fr = Frontière
+    he = גבול
     it = Confine
     ja = 境界線
     mr = सीमा
@@ -6759,6 +6779,7 @@
     eu = Muga administratiboa
     fi = Hallinnollinen raja
     fr = Frontière administrative
+    he = גבול מנהלי
     it = Confine amministrativo
     ja = 行政境界
     mr = प्रशासकीय सीमा
@@ -6785,6 +6806,7 @@
     eu = Herrialdeko muga
     fi = Valtakunnanraja
     fr = Frontière nationale
+    he = גבול לאומי
     it = Confine nazionale
     mr = राष्ट्रीय सीमा
     nl = Natiegrens
@@ -6808,6 +6830,7 @@
     et = Piirkondlik piir
     eu = Eskualdeko muga
     fr = Frontière régionale
+    he = גבול אזורי
     it = Confine regionale
     mr = प्रादेशिक सीमा
     nl = Regiogrens
@@ -6840,6 +6863,7 @@
     fa = پارک ملی
     fi = Kansallispuisto
     fr = Parc national
+    he = פארק לאומי
     hu = Nemzeti park
     id = Taman Nasional
     it = Parco nazionale
@@ -6881,7 +6905,7 @@
     fa = سرزمین های بومی
     fi = Alkuperäiskansojen maat
     fr = Terres indigènes
-    he = ארצות ילידים
+    he = קרקעות ילידים
     hi = स्वदेशी भूमि
     hu = Bennszülött földek
     id = Tanah adat
@@ -6981,6 +7005,7 @@
     fa = ساختمان
     fi = Rakennus
     fr = Bâtiment
+    he = מבנה
     hi = भवन
     hu = Épület
     id = Gedung
@@ -7067,6 +7092,7 @@
     eu = Garajea
     fa = گاراژ
     fi = Autotalli
+    he = מחסן/חניה
     hu = Garázs
     id = Garasi
     it = Garage
@@ -7103,6 +7129,7 @@
     fa = ایستگاه قطار
     fi = Rautatieasema
     fr = Gare ferroviaire
+    he = תחנת רכבת
     hi = रेलवे स्टेशन
     hu = Vasútállomás
     id = Rel kereta api
@@ -7137,6 +7164,7 @@
     eu = Biltegia
     fi = Varasto
     fr = Entrepôt
+    he = מחסן
     hi = मालगोदाम
     it = Magazzino
     mr = वखार
@@ -7168,7 +7196,7 @@
     fa = ﺮﺒﻗ
     fi = Hauta
     fr = Tombe
-    he = רבק
+    he = קבר
     hi = कब्र
     hu = Sír
     id = Kuburan
@@ -7617,7 +7645,7 @@
     fa = آسیاب آسیاب
     fi = Jauhatusmylly
     fr = Moulin à broyer
-    he = טחינה טחינה
+    he = מטחנה
     hu = Csiszolómalom
     id = Pabrik penggilingan
     it = Mulino a macina
@@ -7658,7 +7686,7 @@
     fa = صنایع دستی
     fi = Käsityö
     fr = Artisanat
-    he = אומנות
+    he = מלאכת יד
     hi = हस्तशिल्प
     hu = Kézművesség
     id = Kriya
@@ -7742,7 +7770,7 @@
     fa = برش کلید
     fi = Avaimen leikkaaminen
     fr = Reproduction de clés
-    he = חיתוך מפתח
+    he = שיכפול מפתחות
     hu = Kulcsvágás
     id = Pemotongan Kunci
     it = Taglio chiave
@@ -7784,7 +7812,7 @@
     fa = قفل ساز
     fi = Lukkoseppä
     fr = Serrurier
-    he = פורץ מנעולים
+    he = מנעולן
     hu = Lakatos
     id = Tukang kunci
     it = Fabbro
@@ -7825,7 +7853,7 @@
     fa = اهن کار
     fi = Metallimies
     fr = Constructions métalliques
-    he = עובד מתכת
+    he = עבודות מתכת
     hu = Lakatos
     id = Tukang besi
     it = Metalmeccanico
@@ -7865,7 +7893,7 @@
     fa = نقاش
     fi = Maalari
     fr = Peintre
-    he = צייר
+    he = צבעי
     hu = Festő
     id = Tukang cat
     it = Imbianchino
@@ -8526,7 +8554,7 @@
     eu = Bavariako sukaldaritza
     fi = Baijerilainen keittiö
     fr = Cuisine bavaroise
-    he = מטבח של בוואריה
+    he = מטבח בווארי
     hi = बवेरियन व्यंजन
     hu = Bajor konyha
     id = Masakan bavaria
@@ -8917,7 +8945,7 @@
     eu = Kafea
     fi = Kahvi
     fr = Café
-    he = הֶפָק
+    he = קפה
     hi = कॉफ़ी
     hu = Kávé
     id = Kopi
@@ -9256,7 +9284,7 @@
     eu = Jatetxe dotorea
     fi = Hieno ravintola
     fr = Restaurant gastronomique
-    he = אכילה במסעדות יוקרה
+    he = גורמה
     hi = ठीक भोजन
     hu = Exkluzív étterem
     id = Adiboga
@@ -9327,7 +9355,7 @@
     es = Pescado rebozado con patatas
     et = Kala ja krõpsud
     eu = Arrain arrautza patatekin
-    he = פיש אנד צ'יפס
+    he = דג וצ'יפס
     hi = मछली और चिप्स
     hu = Hal és sültkrumpli
     id = Ikan dan kentang goreng
@@ -9400,7 +9428,7 @@
     eu = Frijituak
     fi = Uppopaistettu
     fr = Friterie
-    he = פריטורה
+    he = טיגון
     hi = पकोड़े
     hu = Olajban sütött ételek
     id = Gorengan
@@ -10182,7 +10210,7 @@
     eu = Malgaxeko sukaldaritza
     fi = Madagaskarilainen keittiö
     fr = Cuisine malgache
-    he = מלגאסי
+    he = מטבח מדגאסקי
     hi = मालागासी व्यंजन
     hu = Madagaszkári konyha
     id = Masakan madagaskar
@@ -10890,7 +10918,7 @@
     eu = Krepe gaziak
     fi = Suolaiset letut
     fr = Crêpes salées
-    he = חביתיות טעימות
+    he = חביתיות מתובלות
     hi = दिलकश पेनकेक्स
     hu = Sós palacsinta
     id = Panekuk gurih
@@ -11370,6 +11398,7 @@
     et = Hädaabi
     fi = Hätätila
     fr = Urgence
+    he = חרום
     it = Emergenza
     mr = आणीबाणी
     nl = Noodgeval
@@ -11399,7 +11428,7 @@
     fa = محل تجمع اضطراری
     fi = Hätäkokouspiste
     fr = Point de rassemblement d'urgence
-    he = נקודת כינוס חירום
+    he = נקודת כינוס בחירום
     hu = Sürgősségi gyülekezési pont
     id = Titik Berkumpul Darurat
     it = Punto di raccolta di emergenza
@@ -11438,6 +11467,7 @@
     fa = دستگاه شوک
     fi = Defibrillaattori
     fr = Défibrillateur
+    he = דפיברילטור/מפעם
     hi = डीफ़िब्रिलिएटर
     hu = Defibrillátor
     id = Defibrilator
@@ -11476,6 +11506,7 @@
     fa = شیر آتش‌نشانی
     fi = Paloposti
     fr = Bouche d’incendie
+    he = ברז כיבוי אש
     hi = फ़ायर हाइड्रेंट
     hu = Tűzcsap
     id = Keran Kebakaran
@@ -11514,6 +11545,7 @@
     fa = تلفن اضطراری
     fi = Hätäpuhelin
     fr = Téléphone d'urgence
+    he = טלפון חירום
     hi = आपातकालीन फ़ोन
     hu = Sürgősségi telefon
     id = Telepon darurat
@@ -11553,6 +11585,7 @@
     fa = ورودی
     fi = Sisäänkäynti
     fr = Entrée
+    he = כניסה
     hi = प्रवेश द्वार
     hu = Bejárat
     id = Pintu masuk
@@ -11595,7 +11628,7 @@
     fa = ﯽﻠﺻﺍ ﯼﺩﻭﺭﻭ
     fi = Pääsisäänkäynti
     fr = Entrée principale
-    he = תישארה הסינכ
+    he = כניסה ראשית
     hu = Főbejárat
     id = Pintu masuk utama
     it = Entrata principale
@@ -11664,6 +11697,7 @@
 
   [type.fee.yes]
     en = $
+    he = ₪
     zh-Hans = ¥
 
   [type.fee.no]
@@ -11724,7 +11758,7 @@
     fa = ﯽﮑﺷﺰﭘ ﻩﺎﮕﺸﯾﺎﻣﺯﺁ
     fi = Lääketieteellinen laboratorio
     fr = Laboratoire médical
-    he = תיאופר הדבעמ
+    he = מעבדה רפואית
     hi = प्रयोगशाला
     hu = Orvosi laboratórium
     id = Laboratorium medis
@@ -12061,7 +12095,7 @@
     fa = نمونه برداری
     fi = Näytteenotto
     fr = Prélèvements biologiques
-    he = דְגִימָה
+    he = מרכז איסוף דגימות
     hi = नमूना संग्रह केंद्र
     hu = Mintavétel
     id = Pengambilan sampel
@@ -12139,6 +12173,7 @@
     es = Carretera
     et = Maantee
     fi = Valtatie
+    he = כביש
     hi = राजमार्ग
     it = Via
     ja = 道路
@@ -12181,12 +12216,14 @@
 
   [type.highway.bridleway.bridge]
     ref = type.highway.road.bridge
+    he = גשר סוסים
     ja = 馬道(橋)
     pl = Most drogowy dla koni
     pt-BR = Ponte para cavaleiros
 
   [type.highway.bridleway.permissive]
     ref = type.highway.bridleway
+    he = דרך מותרת לרכיבת סוסים
     pl = Droga dla koni ograniczona
     pt-BR = Caminho para cavaleiros permissivo
     zh-Hans = 允许通行的骑马道
@@ -12194,6 +12231,7 @@
 
   [type.highway.bridleway.tunnel]
     ref = type.highway.road.tunnel
+    he = מנהרה לסוסים
     ja = 馬道(トンネル)
     pl = Tunel drogowy dla koni
     pt-BR = Túnel para cavaleiros
@@ -12216,7 +12254,7 @@
     fa = ﺱﻮﺑﻮﺗﺍ ﯽﺻﺎﺼﺘﺧﺍ ﻩﺩﺎﺟ
     fi = Busseille varattu tie
     fr = Route réservée aux bus
-    he = ידועיי סובוטוא שיבכ
+    he = כביש יעודי לאוטובוס/מת"צ
     hu = Kijelölt buszút
     id = Jalan khusus bus
     it = Strada dedicata agli autobus
@@ -12357,6 +12395,7 @@
   [type.highway.cycleway.bridge]
     ref = type.highway.road.bridge
     et = Jalgrattasild
+    he = גשר לאופניים
     ja = 自転車道(橋)
     nl = Fietsbrug
     pl = Most drogowy dla rowerów
@@ -12365,6 +12404,7 @@
   [type.highway.cycleway.permissive]
     ref = type.highway.cycleway
     et = Piiratud jalgrattatee
+    he = דרך מותרת לרכיבת אופניים
     pl = Droga rowerowa ograniczona
     pt-BR = Caminho para ciclistas permissivo
     zh-Hans = 允许通行的自行车道
@@ -12373,6 +12413,7 @@
   [type.highway.cycleway.tunnel]
     ref = type.highway.road.tunnel
     et = Jalgratta tunnel
+    he = מנהרה לאופניים
     ja = 自転車道(トンネル)
     nl = Fietstunnel
     pl = Tunel drogowy dla rowerów
@@ -12666,11 +12707,13 @@
 
   [type.highway.living_street.bridge]
     ref = type.highway.road.bridge
+    he = גשר ברחוב מגורים
 
   [type.highway.living_street.tunnel]
     ref = type.highway.road.tunnel
     de = Spielstraßentunnel
     et = Tänavatunnel
+    he = מנהרה ברחוב מגורים
     pl = Tunel ulicy
     pt-BR = Túnel rodoviário
 
