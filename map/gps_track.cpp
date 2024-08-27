@@ -96,7 +96,7 @@ void GpsTrack::Clear()
 
 size_t GpsTrack::GetSize() const
 {
-  CHECK(!m_collection, ());
+  CHECK(m_collection != nullptr, ());
   return m_collection->GetSize();
 }
 
