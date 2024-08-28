@@ -187,8 +187,8 @@
 	<string name="done">Færdig</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap-data: %s</string>
-	<!-- Confirmation in downloading countries dialog -->
-	<string name="are_you_sure">Er du sikker på, at du vil fortsætte?</string>
+	<!-- Confirmation for OpenStreetMap log out. -->
+	<string name="osm_log_out_confirmation">Er du sikker på, at du vil logge ud af din OpenStreetMap-konto?</string>
 	<!-- Title for tracks category in bookmarks manager -->
 	<string name="tracks_title">Ruter</string>
 	<!-- Length of track in cell that describes route -->

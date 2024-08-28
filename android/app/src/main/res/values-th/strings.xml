@@ -189,8 +189,8 @@
 	<string name="done">เสร็จแล้ว</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">ข้อมูล OpenStreetMap: %s</string>
-	<!-- Confirmation in downloading countries dialog -->
-	<string name="are_you_sure">คุณแน่ใจหรือไม่ว่าคุณต้องการดำเนินการต่อ?</string>
+	<!-- Confirmation for OpenStreetMap log out. -->
+	<string name="osm_log_out_confirmation">คุณแน่ใจหรือไม่ว่าต้องการออกจากระบบบัญชี OpenStreetMap ของคุณ?</string>
 	<!-- Title for tracks category in bookmarks manager -->
 	<string name="tracks_title">การติดตาม</string>
 	<!-- Length of track in cell that describes route -->

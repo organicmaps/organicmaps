@@ -45,6 +45,8 @@
 	<string name="failed_to_open_file">Imeshindwa kufungua faili %1$s\n\n%2$s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Data ya OpenStreetMap: %s</string>
+	<!-- Confirmation for OpenStreetMap log out. -->
+	<string name="osm_log_out_confirmation">Je, una uhakika unataka kuondoka kwenye akaunti yako ya OpenStreetMap?</string>
 	<!-- Generic «Auto» string -->
 	<string name="auto">Auto</string>
 	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->

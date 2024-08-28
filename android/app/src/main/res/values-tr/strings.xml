@@ -202,8 +202,8 @@
 	<string name="done">Bitti</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap verileri: %s</string>
-	<!-- Confirmation in downloading countries dialog -->
-	<string name="are_you_sure">Devam etmek istediğinizden emin misiniz?</string>
+	<!-- Confirmation for OpenStreetMap log out. -->
+	<string name="osm_log_out_confirmation">OpenStreetMap hesabınızdan çıkış yapmak istediğinizden emin misiniz?</string>
 	<!-- Title for tracks category in bookmarks manager -->
 	<string name="tracks_title">Kayıtlı Rotalar</string>
 	<!-- Length of track in cell that describes route -->

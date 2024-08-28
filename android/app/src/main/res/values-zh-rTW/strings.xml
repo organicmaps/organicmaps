@@ -203,8 +203,8 @@
 	<string name="done">完成</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap 數據：%s</string>
-	<!-- Confirmation in downloading countries dialog -->
-	<string name="are_you_sure">您確定要繼續嗎？</string>
+	<!-- Confirmation for OpenStreetMap log out. -->
+	<string name="osm_log_out_confirmation">您確定要登出您的 OpenStreetMap 帳戶嗎？</string>
 	<!-- Title for tracks category in bookmarks manager -->
 	<string name="tracks_title">軌跡</string>
 	<!-- Length of track in cell that describes route -->

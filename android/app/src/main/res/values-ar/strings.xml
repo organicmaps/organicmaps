@@ -203,8 +203,8 @@
 	<string name="done">تم</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">بيانات خريطة الشارع المفتوحة: %s</string>
-	<!-- Confirmation in downloading countries dialog -->
-	<string name="are_you_sure">هل أنت واثق أنك تريد الاستمرار؟</string>
+	<!-- Confirmation for OpenStreetMap log out. -->
+	<string name="osm_log_out_confirmation">هل أنت متأكد أنك تريد تسجيل الخروج من حساب OpenStreetMap الخاص بك؟</string>
 	<!-- Title for tracks category in bookmarks manager -->
 	<string name="tracks_title">المسارات</string>
 	<!-- Length of track in cell that describes route -->
