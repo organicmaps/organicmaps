@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -476,7 +477,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mOpeningHours.setOnClickListener(this);
     final View cardMore = view.findViewById(R.id.cv__more);
     mDescription = findInput(cardMore);
-    cardMore.findViewById(R.id.about_osm).setOnClickListener(this);
+    TextView osmInfo = view.findViewById(R.id.osm_info);
+    osmInfo.setMovementMethod(LinkMovementMethod.getInstance());
     mReset = view.findViewById(R.id.reset);
     mReset.setOnClickListener(this);
 
@@ -540,8 +542,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     }
     else if (id == R.id.add_langs)
       mParent.addLanguage();
-    else if (id == R.id.about_osm)
-      Utils.openUrl(requireActivity(), getString(R.string.osm_wiki_about_url));
     else if (id == R.id.reset)
       reset();
     else if (id == R.id.block_outdoor_seating)
