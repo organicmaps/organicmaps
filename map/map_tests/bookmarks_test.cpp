@@ -813,7 +813,7 @@ UNIT_TEST(Bookmarks_Sorting)
       kml::TrackData trackData;
       trackData.m_id = id;
       trackData.m_name = kml::LocalizableString{{kml::kDefaultLangCode, name}};
-      trackData.m_geometry.Assign({{{0.0, 0.0}, 1}, {{1.0, 0.0}, 2}});
+      trackData.m_geometry.AddLine({{{0.0, 0.0}, 1}, {{1.0, 0.0}, 2}});
       if (hours != kUnknownTime)
         trackData.m_timestamp = currentTime - hours;
       auto const * track = es.CreateTrack(std::move(trackData));

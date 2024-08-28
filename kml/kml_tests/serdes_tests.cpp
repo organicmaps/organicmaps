@@ -101,7 +101,7 @@ kml::FileData GenerateKmlFileData()
                         {7.0, {kml::PredefinedColor::None, 0x00ff00ff}}};
   trackData.m_timestamp = kml::TimestampClock::from_time_t(900);
 
-  trackData.m_geometry.Assign({
+  trackData.m_geometry.AssignPoints({
     {{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}
   });
 
