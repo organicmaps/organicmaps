@@ -61,7 +61,6 @@
 	<!-- SECTION: Strings for downloading map from search -->
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">Datos de OpenStreetMap creados por la comunidad a partir de %s. Obtenga más información sobre cómo editar y actualizar el mapa en OpenStreetMap.org</string>
-	<string name="editor_other_info">Enviar nota a los editores de OSM</string>
 	<!-- A referral link on the place page for some hotels -->
 	<string name="more_on_kayak">Fotos, reseñas, reservas.</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->

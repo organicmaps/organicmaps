@@ -469,9 +469,12 @@
 	<string name="error_enter_correct_zip_code">वैध पिनकोड प्रविष्ट करा</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">अज्ञात ठिकाण</string>
-	<string name="editor_other_info">OpenStreetMap संपादकांना एक चिठ्ठी पाठवा</string>
-	<string name="editor_detailed_description_hint">तपशीलवार टिप्पणी</string>
-	<string name="editor_detailed_description">तुम्ही सुचवलेले नकाशातील बदल OpenStreetMap समुदायाला पाठवले जातील. Organic Maps मध्ये संपादित न करता येणाऱ्या अधिक तपशीलांचे वर्णन करा.</string>
+	<!-- Title for OSM note section in the editor -->
+	<string name="editor_other_info">OpenStreetMap स्वयंसेवकांसाठी टीप (पर्यायी)</string>
+	<!-- Hint of the input field in the OSM note section of the editor -->
+	<string name="editor_note_hint">नकाशामधील त्रुटी किंवा सेंद्रिय नकाशे वापरून काय संपादित केले जाऊ शकत नाही याचे वर्णन करा</string>
+	<!-- Information about OSM at the top of the editing page -->
+	<string name="editor_about_osm">तुमची संपादने सार्वजनिक <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> डेटाबेसवर अपलोड केली जातात. कृपया वैयक्तिक किंवा कॉपीराइट केलेली माहिती जोडू नका.</string>
 	<string name="editor_more_about_osm">OpenStreetMap बद्दल अधिक</string>
 	<string name="editor_operator">मालक</string>
 	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->

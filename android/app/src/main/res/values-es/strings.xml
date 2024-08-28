@@ -502,9 +502,12 @@
 	<string name="error_enter_correct_zip_code">Introduzca el código postal correcto</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Lugar desconocido</string>
-	<string name="editor_other_info">Enviar nota a los editores de OSM</string>
-	<string name="editor_detailed_description_hint">Comentario detallado</string>
-	<string name="editor_detailed_description">Los cambios que ha sugerido se enviarán a la comunidad de OpenStreetMap. Describa los detalles que no pueden editarse en Organic Maps.</string>
+	<!-- Title for OSM note section in the editor -->
+	<string name="editor_other_info">Nota para los voluntarios de OpenStreetMap (opcional)</string>
+	<!-- Hint of the input field in the OSM note section of the editor -->
+	<string name="editor_note_hint">Describa los errores en el mapa o las cosas que no se pueden editar con Organic Maps</string>
+	<!-- Information about OSM at the top of the editing page -->
+	<string name="editor_about_osm">Sus ediciones se cargan en la base de datos pública <a href="https://wiki.openstreetmap.org/wiki/ES:Acerca_de_OpenStreetMap">OpenStreetMap</a>. Por favor, no añada información personal o protegida por derechos de autor.</string>
 	<string name="editor_more_about_osm">Más acerca de OpenStreetMap</string>
 	<string name="editor_operator">Operador</string>
 	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->

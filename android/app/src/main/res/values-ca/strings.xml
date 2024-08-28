@@ -501,9 +501,12 @@
 	<string name="error_enter_correct_zip_code">Introduïu un codi postal vàlid</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Lloc desconegut</string>
-	<string name="editor_other_info">Envia una nota als editors de l’OSM</string>
-	<string name="editor_detailed_description_hint">Comentari detallat</string>
-	<string name="editor_detailed_description">Heu suggerit canvis en el mapa que s’enviaran a la comunitat de l’OpenStreetMap. Descriviu qualsevol detall addicional que no es pugui editar amb l’Organic Maps.</string>
+	<!-- Title for OSM note section in the editor -->
+	<string name="editor_other_info">Nota per als voluntaris d\'OpenStreetMap (opcional)</string>
+	<!-- Hint of the input field in the OSM note section of the editor -->
+	<string name="editor_note_hint">Descriu errors al mapa o què no es pot editar amb Mapes orgànics</string>
+	<!-- Information about OSM at the top of the editing page -->
+	<string name="editor_about_osm">Les vostres edicions es pengen a la base de dades pública <a href="https://wiki.openstreetmap.org/wiki/Ca:About">OpenStreetMap</a>. Si us plau, no afegiu informació personal o amb drets d\'autor.</string>
 	<string name="editor_more_about_osm">Més sobre l\'OpenStreetMap</string>
 	<string name="editor_operator">Propietari</string>
 	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->

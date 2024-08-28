@@ -500,9 +500,12 @@
 	<string name="error_enter_correct_zip_code">Sartu baliozko posta-kodea</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Toki ezezaguna</string>
-	<string name="editor_other_info">Bidali oharra OSM editoreei</string>
-	<string name="editor_detailed_description_hint">Iruzkin zehatza</string>
-	<string name="editor_detailed_description">Iradoki dituzun aldaketak OpenStreetMap komunitatean argitaratuko dira. Deskribatu mapa organikoetan editatu ezin diren xehetasunak.</string>
+	<!-- Title for OSM note section in the editor -->
+	<string name="editor_other_info">OpenStreetMap-eko boluntarioentzako oharra (aukerakoa)</string>
+	<!-- Hint of the input field in the OSM note section of the editor -->
+	<string name="editor_note_hint">Deskribatu mapan akatsak edo mapa organikoak erabiliz editatu ezin dena</string>
+	<!-- Information about OSM at the top of the editing page -->
+	<string name="editor_about_osm">Zure aldaketak <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> datu-base publikora kargatzen dira. Mesedez, ez gehitu informazio pertsonalik edo copyrightdun informaziorik.</string>
 	<string name="editor_more_about_osm">OpenStreetMap-i buruzko informazio gehiago</string>
 	<string name="editor_operator">Eragilea</string>
 	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->

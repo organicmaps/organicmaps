@@ -733,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Nieznane miejsce";
 
-"editor_other_info" = "Poinformuj redaktorów OSM";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Uwaga dla wolontariuszy OpenStreetMap (opcjonalnie)";
 
 "editor_detailed_description_hint" = "Szczegółowy komentarz";
 

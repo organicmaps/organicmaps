@@ -504,9 +504,12 @@
 	<string name="error_enter_correct_zip_code">Geçerli bir posta kodu girin</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Bilinmeyen Yer</string>
-	<string name="editor_other_info">OSM editörlerine bir not gönderin</string>
-	<string name="editor_detailed_description_hint">Ayrıntılı yorum</string>
-	<string name="editor_detailed_description">Önerdiğiniz değişiklikler OpenStreetMap topluluğuna gönderilecek. Organic Maps’te düzenlenemeyen ayrıntıları açıklayın.</string>
+	<!-- Title for OSM note section in the editor -->
+	<string name="editor_other_info">OpenStreetMap gönüllülerine not (isteğe bağlı)</string>
+	<!-- Hint of the input field in the OSM note section of the editor -->
+	<string name="editor_note_hint">Haritadaki hataları veya Organik Haritalar ile düzenlenemeyen şeyleri tanımlayın</string>
+	<!-- Information about OSM at the top of the editing page -->
+	<string name="editor_about_osm">Düzenlemeleriniz halka açık <a href="https://wiki.openstreetmap.org/wiki/Tr:About">OpenStreetMap</a> veritabanına yüklenir. Lütfen kişisel veya telif hakkıyla korunan bilgiler eklemeyin.</string>
 	<string name="editor_more_about_osm">OpenStreetMap hakkında ek bilgi</string>
 	<string name="editor_operator">İşletmeci</string>
 	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->

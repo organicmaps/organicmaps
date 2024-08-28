@@ -529,9 +529,12 @@
 	<string name="error_enter_correct_zip_code">Enter a valid ZIP code</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Unknown Place</string>
-	<string name="editor_other_info">Send a note to OSM editors</string>
-	<string name="editor_detailed_description_hint">Detailed comment</string>
-	<string name="editor_detailed_description">Your suggested map changes will be sent to the OpenStreetMap community. Please describe any additional details that cannot be edited in Organic Maps.</string>
+	<!-- Title for OSM note section in the editor -->
+	<string name="editor_other_info">Note to OpenStreetMap volunteers (optional)</string>
+	<!-- Hint of the input field in the OSM note section of the editor -->
+	<string name="editor_note_hint">Describe errors on the map or things that cannot be edited with Organic Maps</string>
+	<!-- Information about OSM at the top of the editing page -->
+	<string name="editor_about_osm">Your edits are uploaded to the public <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> database. Please do not add personal or copyrighted information.</string>
 	<string name="editor_more_about_osm">More about OpenStreetMap</string>
 	<string name="editor_operator">Owner</string>
 	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->

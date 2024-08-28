@@ -482,9 +482,12 @@
 	<string name="error_enter_correct_zip_code">Zadejte správné PSČ</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Neznámé místo</string>
-	<string name="editor_other_info">Odeslat poznámku editorům OSM</string>
-	<string name="editor_detailed_description_hint">Podrobný komentář</string>
-	<string name="editor_detailed_description">Vámi navržené změny odešleme do komunity OpenStreetMap. Popište podrobnosti, které nelze upravit v Organic Maps.</string>
+	<!-- Title for OSM note section in the editor -->
+	<string name="editor_other_info">Poznámka pro dobrovolníky OpenStreetMap (nepovinné)</string>
+	<!-- Hint of the input field in the OSM note section of the editor -->
+	<string name="editor_note_hint">Popište chyby na mapě nebo věci, které nelze upravit pomocí aplikace Organic Maps.</string>
+	<!-- Information about OSM at the top of the editing page -->
+	<string name="editor_about_osm">Vaše úpravy se nahrají do veřejné databáze <a href="https://wiki.openstreetmap.org/wiki/Cs:Co_je_OpenStreetMap">OpenStreetMap</a>. Nepřidávejte prosím osobní informace nebo informace chráněné autorskými právy.</string>
 	<string name="editor_more_about_osm">Více o projektu OpenStreetMap</string>
 	<string name="editor_operator">Operátor</string>
 	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
@@ -734,6 +737,8 @@
 	<string name="splash_subtitle">Mapová data z OpenStreetMap</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
 	<string name="translated_om_site_url">https://organicmaps.app/cs/</string>
+	<!-- Link to OSM wiki for Editor, Profile and About pages -->
+	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Cs:Co_je_OpenStreetMap</string>
 	<!-- App Tip #00 -->
 	<string name="app_tip_00">Děkujeme, že používáte naše komunitní mapy!</string>
 	<!-- App tip #01 -->

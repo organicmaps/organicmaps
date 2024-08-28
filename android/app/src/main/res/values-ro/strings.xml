@@ -488,9 +488,12 @@
 	<string name="error_enter_correct_zip_code">Introdu codul poștal corect</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Loc necunoscut</string>
-	<string name="editor_other_info">Trimite un mesaj către editorii OSM</string>
-	<string name="editor_detailed_description_hint">Comentariu detaliat</string>
-	<string name="editor_detailed_description">Modificările aduse hărții, sugerate de tine, vor fi trimise comunității OpenStreetMap. Descrie orice detalii suplimentare care nu pot fi modificate în Organic Maps.</string>
+	<!-- Title for OSM note section in the editor -->
+	<string name="editor_other_info">Notă pentru voluntarii OpenStreetMap (opțional)</string>
+	<!-- Hint of the input field in the OSM note section of the editor -->
+	<string name="editor_note_hint">Descrieți erorile de pe hartă sau lucrurile care nu pot fi editate cu Organic Maps</string>
+	<!-- Information about OSM at the top of the editing page -->
+	<string name="editor_about_osm">Edițiile dvs. sunt încărcate în baza de date publică <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. Vă rugăm să nu adăugați informații personale sau protejate prin drepturi de autor.</string>
 	<string name="editor_more_about_osm">Mai multe despre OpenStreetMap</string>
 	<string name="editor_operator">Proprietar</string>
 	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->

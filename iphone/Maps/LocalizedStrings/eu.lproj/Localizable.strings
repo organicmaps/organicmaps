@@ -733,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Toki ezezaguna";
 
-"editor_other_info" = "Bidali oharra OSM editoreei";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "OpenStreetMap-eko boluntarioentzako oharra (aukerakoa)";
 
 "editor_detailed_description_hint" = "Iruzkin zehatza";
 

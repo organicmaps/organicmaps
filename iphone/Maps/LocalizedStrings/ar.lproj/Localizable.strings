@@ -733,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "مكان غير معروف";
 
-"editor_other_info" = "ارسل ملاحظة إلى محرري خريطة الشارع المفتوحة";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "ملاحظة لمتطوعي OpenStreetMap (اختياري)";
 
 "editor_detailed_description_hint" = "تعليق مفصّل";
 

@@ -459,9 +459,8 @@
 	<string name="error_enter_correct_zip_code">Informe o CEP correto</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Local desconhecido</string>
-	<string name="editor_other_info">Envie uma observação para os editores do OSM</string>
-	<string name="editor_detailed_description_hint">Comentário detalhado</string>
-	<string name="editor_detailed_description">Suas sugestões de mudança serão enviadas para a comunidade OpenStreetMap. Descreva em detalhes o que não pode ser editado com o Organic Maps.</string>
+	<!-- Information about OSM at the top of the editing page -->
+	<string name="editor_about_osm">As suas edições são enviadas à base de dados pública <a href="https://wiki.openstreetmap.org/wiki/Pt:Sobre_o_OpenStreetMap">OpenStreetMap</a>. Não adicione informações pessoais ou protegidas por direitos autorais.</string>
 	<string name="editor_more_about_osm">Mais sobre OpenStreetMap</string>
 	<string name="editor_operator">Operador</string>
 	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->

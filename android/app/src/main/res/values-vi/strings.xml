@@ -476,9 +476,12 @@
 	<string name="error_enter_correct_zip_code">Nhập Mã ZIP chính xác</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Địa Điểm Chưa Biết</string>
-	<string name="editor_other_info">Gửi ghi chú cho ban biên tập OSM</string>
-	<string name="editor_detailed_description_hint">Nhận xét chi tiết</string>
-	<string name="editor_detailed_description">Những thay đổi đề nghị của bạn sẽ được gửi đến cộng đồng OpenStreetMap. Mô tả các chi tiết không thể sửa trong Organic Maps.</string>
+	<!-- Title for OSM note section in the editor -->
+	<string name="editor_other_info">Lưu ý dành cho tình nguyện viên OpenStreetMap (tùy chọn)</string>
+	<!-- Hint of the input field in the OSM note section of the editor -->
+	<string name="editor_note_hint">Mô tả lỗi trên bản đồ hoặc những gì không thể chỉnh sửa bằng Bản đồ không phải trả tiền</string>
+	<!-- Information about OSM at the top of the editing page -->
+	<string name="editor_about_osm">Các chỉnh sửa của bạn sẽ được tải lên cơ sở dữ liệu <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> công khai. Vui lòng không thêm thông tin cá nhân hoặc có bản quyền.</string>
 	<string name="editor_more_about_osm">Thông tin bổ sung về OpenStreetMap</string>
 	<string name="editor_operator">Đơn vị điều hành</string>
 	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->

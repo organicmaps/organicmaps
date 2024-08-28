@@ -107,7 +107,12 @@
 	<string name="editor_default_language_hint">Kama ilivyoandikwa katika lugha ya kienyeji</string>
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">Data ya OpenStreetMap iliyoundwa na jumuiya kufikia %s. Pata maelezo zaidi kuhusu jinsi ya kuhariri na kusasisha ramani katika OpenStreetMap.org</string>
-	<string name="editor_other_info">Tuma ujumbe kwenye vihariri vya OSM</string>
+	<!-- Title for OSM note section in the editor -->
+	<string name="editor_other_info">Kumbuka kwa wanaojitolea wa OpenStreetMap (si lazima)</string>
+	<!-- Hint of the input field in the OSM note section of the editor -->
+	<string name="editor_note_hint">Eleza hitilafu kwenye ramani au kile ambacho hakiwezi kuhaririwa kwa kutumia Ramani za Kikaboni</string>
+	<!-- Information about OSM at the top of the editing page -->
+	<string name="editor_about_osm">Mabadiliko yako yanapakiwa kwenye hifadhidata ya <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> ya umma. Tafadhali usiongeze maelezo ya kibinafsi au yenye hakimiliki.</string>
 	<string name="editor_category_unsuitable_title">Je, huwezi kupata aina inayofaa?</string>
 	<string name="editor_category_unsuitable_text">Ramani za Kikaboni huruhusu kuongeza kategoria rahisi pekee, hiyo inamaanisha hakuna miji, barabara, maziwa, muhtasari wa majengo, n.k. Tafadhali ongeza kategoria kama hizo moja kwa moja kwenye <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Angalia <a href="https://organicmaps.app/faq/editing/advanced-map-editing">mwongozo wetu</a> kwa maagizo ya kina ya hatua kwa hatua.</string>
 	<!-- A referral link on the place page for some hotels -->

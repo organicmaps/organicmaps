@@ -478,9 +478,12 @@
 	<string name="error_enter_correct_zip_code">กรุณาใส่รหัสไปรษณีย์ที่ถูกต้อง</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">ไม่ทราบชื่อสถานที่</string>
-	<string name="editor_other_info">ส่งข้อความไปยังตัวปรับแต่ง OSM</string>
-	<string name="editor_detailed_description_hint">ข้อคิดเห็นอย่างละเอียด</string>
-	<string name="editor_detailed_description">คำแนะนำการเปลี่ยนแปลงของคุณจะถูกส่งไปยังกลุ่ม OpenStreetMap โปรดอธิบายรายละเอียดที่ Organic Maps ไม่สามารถแก้ไขได้</string>
+	<!-- Title for OSM note section in the editor -->
+	<string name="editor_other_info">หมายเหตุถึงอาสาสมัคร OpenStreetMap (ไม่บังคับ)</string>
+	<!-- Hint of the input field in the OSM note section of the editor -->
+	<string name="editor_note_hint">อธิบายข้อผิดพลาดในแผนที่หรือสิ่งที่ไม่สามารถแก้ไขได้โดยใช้แผนที่ทั่วไป</string>
+	<!-- Information about OSM at the top of the editing page -->
+	<string name="editor_about_osm">การแก้ไขของคุณจะถูกอัปโหลดไปยังฐานข้อมูล <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> สาธารณะ กรุณาอย่าเพิ่มข้อมูลส่วนบุคคลหรือข้อมูลที่มีลิขสิทธิ์</string>
 	<string name="editor_more_about_osm">ข้อมูลเพิ่มเติมเกี่ยวกับ OpenStreetMap</string>
 	<string name="editor_operator">เจ้าของ</string>
 	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->

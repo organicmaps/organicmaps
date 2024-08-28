@@ -473,9 +473,12 @@
 	<string name="error_enter_correct_zip_code">یک کد‌ پستی معتبر وارد کنید</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">مکان ناشناس</string>
-	<string name="editor_other_info">ارسال یادداشت به ویرایش‌کنندگان OSM</string>
-	<string name="editor_detailed_description_hint">اظهار نظر بیشتر</string>
-	<string name="editor_detailed_description">شما یک سری تغییرات در نقشه را برای انجمن OpenStreetMap ارسال کردید.جزئیات اضافی را که نتوانستید در Organic Maps ویرایش کنید را برایشان بنویسید.</string>
+	<!-- Title for OSM note section in the editor -->
+	<string name="editor_other_info">توجه به داوطلبان OpenStreetMap (اختیاری)</string>
+	<!-- Hint of the input field in the OSM note section of the editor -->
+	<string name="editor_note_hint">خطاهای موجود در نقشه یا مواردی که با استفاده از نقشه های ارگانیک قابل ویرایش نیستند را شرح دهید</string>
+	<!-- Information about OSM at the top of the editing page -->
+	<string name="editor_about_osm">ویرایش های شما در پایگاه داده عمومی <a href="https://wiki.openstreetmap.org/wiki/Fa:About_OpenStreetMap">OpenStreetMap</a> آپلود می شود. لطفا اطلاعات شخصی یا دارای حق چاپ را اضافه نکنید.</string>
 	<string name="editor_more_about_osm">در مورد OpenStreetMap بیشتر بدانید</string>
 	<string name="editor_operator">مالک</string>
 	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->

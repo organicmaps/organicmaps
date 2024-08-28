@@ -507,9 +507,12 @@
 	<string name="error_enter_correct_zip_code">Введите корректный почтовый индекс</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Неизвестное место</string>
-	<string name="editor_other_info">Отправить заметку редакторам OSM</string>
-	<string name="editor_detailed_description_hint">Подробный комментарий</string>
-	<string name="editor_detailed_description">Предложенные вами изменения на карте будут отправлены в OpenStreetMap. Опишите дополнительные сведения об объекте, которые Organic Maps не позволяет отредактировать.</string>
+	<!-- Title for OSM note section in the editor -->
+	<string name="editor_other_info">Примечание для волонтеров OpenStreetMap (необязательно)</string>
+	<!-- Hint of the input field in the OSM note section of the editor -->
+	<string name="editor_note_hint">Опишите ошибки на карте или то, что нельзя редактировать с помощью Organic Maps</string>
+	<!-- Information about OSM at the top of the editing page -->
+	<string name="editor_about_osm">Ваши правки будут загружены в общедоступную базу данных <a href="https://wiki.openstreetmap.org/wiki/RU:О_проекте">OpenStreetMap</a>. Пожалуйста, не добавляйте личную информацию или информацию, защищенную авторским правом.</string>
 	<string name="editor_more_about_osm">Подробнее об OpenStreetMap</string>
 	<string name="editor_operator">Владелец</string>
 	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->

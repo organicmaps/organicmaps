@@ -733,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "अज्ञात ठिकाण";
 
-"editor_other_info" = "OpenStreetMap संपादकांना एक चिठ्ठी पाठवा";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "OpenStreetMap स्वयंसेवकांसाठी टीप (पर्यायी)";
 
 "editor_detailed_description_hint" = "तपशीलवार टिप्पणी";
 
