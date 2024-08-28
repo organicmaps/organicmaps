@@ -34,6 +34,7 @@ import app.organicmaps.downloader.MapManager;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.routing.RoutingController;
+import app.organicmaps.util.KeyboardVisibilityHelper;
 import app.organicmaps.widget.PlaceholderView;
 import app.organicmaps.widget.SearchToolbarController;
 import app.organicmaps.util.SharedPropertiesUtils;
@@ -50,6 +51,7 @@ public class SearchFragment extends BaseMwmFragment
                                     CategoriesAdapter.CategoriesUiListener
 {
   private long mLastQueryTimestamp;
+  private KeyboardVisibilityHelper keyboardVisibilityHelper;
   @NonNull
   private final List<HiddenCommand> mHiddenCommands = new ArrayList<>();
 
@@ -243,7 +245,16 @@ public class SearchFragment extends BaseMwmFragment
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
-    return inflater.inflate(R.layout.fragment_search, container, false);
+    View view = inflater.inflate(R.layout.fragment_search, container, false);
+
+    keyboardVisibilityHelper = new KeyboardVisibilityHelper(requireActivity(), isVisible -> {
+      if (!isVisible)
+      {
+        mToolbarController.deactivate();
+      }
+    });
+
+    return view;
   }
 
   @CallSuper
@@ -333,6 +344,17 @@ public class SearchFragment extends BaseMwmFragment
   {
     super.onStop();
     mToolbarController.detach();
+  }
+
+  @Override
+  public void onDestroyView()
+  {
+    super.onDestroyView();
+
+    if (keyboardVisibilityHelper != null)
+    {
+      keyboardVisibilityHelper.detach();
+    }
   }
 
   @Override
