@@ -5,6 +5,8 @@
 #include "kml/serdes.hpp"
 #include "kml/serdes_binary.hpp"
 
+#include "map/bookmark_helpers.hpp"
+
 #include "indexer/classificator_loader.hpp"
 
 #include "platform/platform.hpp"
@@ -101,7 +103,7 @@ kml::FileData GenerateKmlFileData()
                         {7.0, {kml::PredefinedColor::None, 0x00ff00ff}}};
   trackData.m_timestamp = kml::TimestampClock::from_time_t(900);
 
-  trackData.m_geometry.AssignPoints({
+  trackData.m_geometry.AddLine({
     {{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}
   });
 
@@ -159,317 +161,43 @@ kml::FileData GenerateKmlFileData()
   return result;
 }
 
-char const * kGeneratedKml =
-R"(<?xml version="1.0" encoding="UTF-8"?>
-<kml xmlns="http://earth.google.com/kml/2.2">
-<Document>
-  <Style id="placemark-red">
-    <IconStyle>
-      <Icon>
-        <href>https://omaps.app/placemarks/placemark-red.png</href>
-      </Icon>
-    </IconStyle>
-  </Style>
-  <Style id="placemark-blue">
-    <IconStyle>
-      <Icon>
-        <href>https://omaps.app/placemarks/placemark-blue.png</href>
-      </Icon>
-    </IconStyle>
-  </Style>
-  <Style id="placemark-purple">
-    <IconStyle>
-      <Icon>
-        <href>https://omaps.app/placemarks/placemark-purple.png</href>
-      </Icon>
-    </IconStyle>
-  </Style>
-  <Style id="placemark-yellow">
-    <IconStyle>
-      <Icon>
-        <href>https://omaps.app/placemarks/placemark-yellow.png</href>
-      </Icon>
-    </IconStyle>
-  </Style>
-  <Style id="placemark-pink">
-    <IconStyle>
-      <Icon>
-        <href>https://omaps.app/placemarks/placemark-pink.png</href>
-      </Icon>
-    </IconStyle>
-  </Style>
-  <Style id="placemark-brown">
-    <IconStyle>
-      <Icon>
-        <href>https://omaps.app/placemarks/placemark-brown.png</href>
-      </Icon>
-    </IconStyle>
-  </Style>
-  <Style id="placemark-green">
-    <IconStyle>
-      <Icon>
-        <href>https://omaps.app/placemarks/placemark-green.png</href>
-      </Icon>
-    </IconStyle>
-  </Style>
-  <Style id="placemark-orange">
-    <IconStyle>
-      <Icon>
-        <href>https://omaps.app/placemarks/placemark-orange.png</href>
-      </Icon>
-    </IconStyle>
-  </Style>
-  <Style id="placemark-deeppurple">
-    <IconStyle>
-      <Icon>
-        <href>https://omaps.app/placemarks/placemark-deeppurple.png</href>
-      </Icon>
-    </IconStyle>
-  </Style>
-  <Style id="placemark-lightblue">
-    <IconStyle>
-      <Icon>
-        <href>https://omaps.app/placemarks/placemark-lightblue.png</href>
-      </Icon>
-    </IconStyle>
-  </Style>
-  <Style id="placemark-cyan">
-    <IconStyle>
-      <Icon>
-        <href>https://omaps.app/placemarks/placemark-cyan.png</href>
-      </Icon>
-    </IconStyle>
-  </Style>
-  <Style id="placemark-teal">
-    <IconStyle>
-      <Icon>
-        <href>https://omaps.app/placemarks/placemark-teal.png</href>
-      </Icon>
-    </IconStyle>
-  </Style>
-  <Style id="placemark-lime">
-    <IconStyle>
-      <Icon>
-        <href>https://omaps.app/placemarks/placemark-lime.png</href>
-      </Icon>
-    </IconStyle>
-  </Style>
-  <Style id="placemark-deeporange">
-    <IconStyle>
-      <Icon>
-        <href>https://omaps.app/placemarks/placemark-deeporange.png</href>
-      </Icon>
-    </IconStyle>
-  </Style>
-  <Style id="placemark-gray">
-    <IconStyle>
-      <Icon>
-        <href>https://omaps.app/placemarks/placemark-gray.png</href>
-      </Icon>
-    </IconStyle>
-  </Style>
-  <Style id="placemark-bluegray">
-    <IconStyle>
-      <Icon>
-        <href>https://omaps.app/placemarks/placemark-bluegray.png</href>
-      </Icon>
-    </IconStyle>
-  </Style>
-  <name>Test category</name>
-  <description>Test description</description>
-  <visibility>1</visibility>
-  <ExtendedData xmlns:mwm="https://omaps.app">
-    <mwm:serverId>AAAA-BBBB-CCCC-DDDD</mwm:serverId>
-    <mwm:name>
-      <mwm:lang code="ru">Тестовая категория</mwm:lang>
-      <mwm:lang code="default">Test category</mwm:lang>
-    </mwm:name>
-    <mwm:annotation>
-      <mwm:lang code="en">Test annotation</mwm:lang>
-      <mwm:lang code="default">Test annotation</mwm:lang>
-    </mwm:annotation>
-    <mwm:description>
-      <mwm:lang code="ru">Тестовое описание</mwm:lang>
-      <mwm:lang code="default">Test description</mwm:lang>
-    </mwm:description>
-    <mwm:imageUrl>https://localhost/123.png</mwm:imageUrl>
-    <mwm:author id="12345">Organic Maps</mwm:author>
-    <mwm:lastModified>1970-01-01T00:16:40Z</mwm:lastModified>
-    <mwm:rating>8.9</mwm:rating>
-    <mwm:reviewsNumber>567</mwm:reviewsNumber>
-    <mwm:accessRules>Public</mwm:accessRules>
-    <mwm:tags>
-      <mwm:value>mountains</mwm:value>
-      <mwm:value>ski</mwm:value>
-      <mwm:value>snowboard</mwm:value>
-    </mwm:tags>
-    <mwm:toponyms>
-      <mwm:value>12345</mwm:value>
-      <mwm:value>54321</mwm:value>
-    </mwm:toponyms>
-    <mwm:languageCodes>
-      <mwm:value>en</mwm:value>
-      <mwm:value>ja</mwm:value>
-      <mwm:value>ru</mwm:value>
-    </mwm:languageCodes>
-    <mwm:properties>
-      <mwm:value key="property1">value1</mwm:value>
-      <mwm:value key="property2">value2</mwm:value>
-    </mwm:properties>
-    <mwm:compilation id="1" type="Collection">
-      <mwm:name>
-        <mwm:lang code="ru">Тестовая коллекция</mwm:lang>
-        <mwm:lang code="default">Test collection</mwm:lang>
-      </mwm:name>
-      <mwm:annotation>
-        <mwm:lang code="en">Test collection annotation</mwm:lang>
-        <mwm:lang code="default">Test collection annotation</mwm:lang>
-      </mwm:annotation>
-      <mwm:description>
-        <mwm:lang code="ru">Тестовое описание коллекции</mwm:lang>
-        <mwm:lang code="default">Test collection description</mwm:lang>
-      </mwm:description>
-      <mwm:visibility>1</mwm:visibility>
-      <mwm:imageUrl>https://localhost/1234.png</mwm:imageUrl>
-      <mwm:author id="54321">Organic Maps</mwm:author>
-      <mwm:lastModified>1970-01-01T00:16:39Z</mwm:lastModified>
-      <mwm:rating>5.9</mwm:rating>
-      <mwm:reviewsNumber>333</mwm:reviewsNumber>
-      <mwm:accessRules>Public</mwm:accessRules>
-      <mwm:tags>
-        <mwm:value>mountains</mwm:value>
-        <mwm:value>ski</mwm:value>
-      </mwm:tags>
-      <mwm:toponyms>
-        <mwm:value>8</mwm:value>
-        <mwm:value>9</mwm:value>
-      </mwm:toponyms>
-      <mwm:languageCodes>
-        <mwm:value>en</mwm:value>
-        <mwm:value>ja</mwm:value>
-        <mwm:value>ru</mwm:value>
-      </mwm:languageCodes>
-      <mwm:properties>
-        <mwm:value key="property1">value1</mwm:value>
-        <mwm:value key="property2">value2</mwm:value>
-      </mwm:properties>
-    </mwm:compilation>
-    <mwm:compilation id="4" type="Category">
-      <mwm:name>
-        <mwm:lang code="ru">Тестовая категория</mwm:lang>
-        <mwm:lang code="default">Test category</mwm:lang>
-      </mwm:name>
-      <mwm:annotation>
-        <mwm:lang code="en">Test category annotation</mwm:lang>
-        <mwm:lang code="default">Test category annotation</mwm:lang>
-      </mwm:annotation>
-      <mwm:description>
-        <mwm:lang code="ru">Тестовое описание категории</mwm:lang>
-        <mwm:lang code="default">Test category description</mwm:lang>
-      </mwm:description>
-      <mwm:visibility>0</mwm:visibility>
-      <mwm:imageUrl>https://localhost/134.png</mwm:imageUrl>
-      <mwm:author id="11111">Organic Maps</mwm:author>
-      <mwm:lastModified>1970-01-01T00:05:23Z</mwm:lastModified>
-      <mwm:rating>3.3</mwm:rating>
-      <mwm:reviewsNumber>222</mwm:reviewsNumber>
-      <mwm:accessRules>Public</mwm:accessRules>
-      <mwm:tags>
-        <mwm:value>mountains</mwm:value>
-        <mwm:value>bike</mwm:value>
-      </mwm:tags>
-      <mwm:toponyms>
-        <mwm:value>10</mwm:value>
-        <mwm:value>11</mwm:value>
-      </mwm:toponyms>
-      <mwm:languageCodes>
-        <mwm:value>en</mwm:value>
-        <mwm:value>ja</mwm:value>
-        <mwm:value>ru</mwm:value>
-      </mwm:languageCodes>
-      <mwm:properties>
-        <mwm:value key="property1">value1</mwm:value>
-        <mwm:value key="property2">value2</mwm:value>
-      </mwm:properties>
-    </mwm:compilation>
-  </ExtendedData>
-  <Placemark>
-    <name>Мое любимое место</name>
-    <description>Test bookmark description</description>
-    <TimeStamp><when>1970-01-01T00:13:20Z</when></TimeStamp>
-    <styleUrl>#placemark-blue</styleUrl>
-    <Point><coordinates>45.9242,49.326859</coordinates></Point>
-    <ExtendedData xmlns:mwm="https://omaps.app">
-      <mwm:name>
-        <mwm:lang code="ru">Тестовая метка</mwm:lang>
-        <mwm:lang code="default">Test bookmark</mwm:lang>
-      </mwm:name>
-      <mwm:description>
-        <mwm:lang code="ru">Тестовое описание метки</mwm:lang>
-        <mwm:lang code="default">Test bookmark description</mwm:lang>
-      </mwm:description>
-      <mwm:featureTypes>
-        <mwm:value>historic-castle</mwm:value>
-        <mwm:value>historic-memorial</mwm:value>
-      </mwm:featureTypes>
-      <mwm:customName>
-        <mwm:lang code="en">My favorite place</mwm:lang>
-        <mwm:lang code="default">Мое любимое место</mwm:lang>
-      </mwm:customName>
-      <mwm:scale>15</mwm:scale>
-      <mwm:boundTracks>
-        <mwm:value>0</mwm:value>
-      </mwm:boundTracks>
-      <mwm:visibility>0</mwm:visibility>
-      <mwm:nearestToponym>12345</mwm:nearestToponym>
-      <mwm:minZoom>10</mwm:minZoom>
-      <mwm:properties>
-        <mwm:value key="bm_property1">value1</mwm:value>
-        <mwm:value key="bm_property2">value2</mwm:value>
-        <mwm:value key="score">5</mwm:value>
-      </mwm:properties>
-      <mwm:compilations>1,2,3,4,5</mwm:compilations>
-    </ExtendedData>
-  </Placemark>
-  <Placemark>
-    <name>Test track</name>
-    <description>Test track description</description>
-    <Style><LineStyle>
-      <color>FF0000FF</color>
-      <width>6</width>
-    </LineStyle></Style>
-    <TimeStamp><when>1970-01-01T00:15:00Z</when></TimeStamp>
-    <LineString><coordinates>45.9242,49.326859,1 45.2244,48.941288,2 45.1964,49.401948,3</coordinates></LineString>
-    <ExtendedData xmlns:mwm="https://omaps.app">
-      <mwm:name>
-        <mwm:lang code="ru">Тестовый трек</mwm:lang>
-        <mwm:lang code="default">Test track</mwm:lang>
-      </mwm:name>
-      <mwm:description>
-        <mwm:lang code="ru">Тестовое описание трека</mwm:lang>
-        <mwm:lang code="default">Test track description</mwm:lang>
-      </mwm:description>
-      <mwm:localId>0</mwm:localId>
-      <mwm:additionalStyle>
-        <mwm:additionalLineStyle>
-          <color>FF00FF00</color>
-          <width>7</width>
-        </mwm:additionalLineStyle>
-      </mwm:additionalStyle>
-      <mwm:visibility>0</mwm:visibility>
-      <mwm:nearestToponyms>
-        <mwm:value>12345</mwm:value>
-        <mwm:value>54321</mwm:value>
-        <mwm:value>98765</mwm:value>
-      </mwm:nearestToponyms>
-      <mwm:properties>
-        <mwm:value key="tr_property1">value1</mwm:value>
-        <mwm:value key="tr_property2">value2</mwm:value>
-      </mwm:properties>
-    </ExtendedData>
-  </Placemark>
-</Document>
-</kml>)";
+kml::FileData GenerateKmlFileDataForTrackWithoutTimestamps()
+{
+  auto data = GenerateKmlFileData();
+  auto & trackData = data.m_tracksData[0];
+  trackData.m_geometry.Clear();
+  trackData.m_geometry.AddLine({
+    {{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}
+  });
+  trackData.m_geometry.AddTimestamps({});
+  return data;
+}
+
+kml::FileData GenerateKmlFileDataForTrackWithTimestamps()
+{
+  auto data = GenerateKmlFileData();
+  auto & trackData = data.m_tracksData[0];
+  trackData.m_geometry.Clear();
+  
+  // track 1 (without timestamps)
+  trackData.m_geometry.AddLine({
+    {{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}
+  });
+  trackData.m_geometry.AddTimestamps({});
+  
+  // track 2
+  trackData.m_geometry.AddLine({
+    {{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}
+  });
+  trackData.m_geometry.AddTimestamps({0.0, 1.0, 2.0});
+
+  // track 3
+  trackData.m_geometry.AddLine({
+    {{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}
+  });
+  trackData.m_geometry.AddTimestamps({0.0, 1.0});
+  return data;
+}
 }  // namespace
 
 // 1. Check text and binary deserialization from the prepared sources in memory.
@@ -478,16 +206,12 @@ UNIT_TEST(Kml_Deserialization_Text_Bin_Memory)
   UNUSED_VALUE(FormatBytesFromBuffer({}));
 
   kml::FileData dataFromText;
-  try
+  TEST_NO_THROW(
   {
     kml::DeserializerKml des(dataFromText);
     MemReader reader(kTextKml, strlen(kTextKml));
     des.Deserialize(reader);
-  }
-  catch (kml::DeserializerKml::DeserializeException const & exc)
-  {
-    TEST(false, ("Exception raised", exc.what()));
-  }
+  }, ());
 
 // TODO: uncomment to output bytes to the log.
 //  std::vector<uint8_t> buffer;
@@ -499,16 +223,12 @@ UNIT_TEST(Kml_Deserialization_Text_Bin_Memory)
 //  LOG(LINFO, (FormatBytesFromBuffer(buffer)));
 
   kml::FileData dataFromBin;
-  try
+  TEST_NO_THROW(
   {
     MemReader reader(kBinKml.data(), kBinKml.size());
     kml::binary::DeserializerKml des(dataFromBin);
     des.Deserialize(reader);
-  }
-  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
-  {
-    TEST(false, ("Exception raised", exc.what()));
-  }
+  }, ());
 
   TEST_EQUAL(dataFromText, dataFromBin, ());
 }
@@ -574,35 +294,27 @@ UNIT_TEST(Kml_Deserialization_Text_File)
 {
   std::string const kmlFile = base::JoinPath(GetPlatform().TmpDir(), "tmp.kml");
   SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, kmlFile));
-  try
+  TEST_NO_THROW(
   {
     FileWriter file(kmlFile);
     file.Write(kTextKml, strlen(kTextKml));
-  }
-  catch (FileWriter::Exception const & exc)
-  {
-    TEST(false, ("Exception raised", exc.what()));
-  }
+  }, ());
 
   kml::FileData dataFromFile;
-  try
+  TEST_NO_THROW(
   {
     kml::DeserializerKml des(dataFromFile);
     FileReader reader(kmlFile);
     des.Deserialize(reader);
-  }
-  catch (FileReader::Exception const & exc)
-  {
-    TEST(false, ("Exception raised", exc.what()));
-  }
+  }, ());
 
   kml::FileData dataFromText;
+  TEST_NO_THROW(
   {
     kml::DeserializerKml des(dataFromText);
     MemReader reader(kTextKml, strlen(kTextKml));
     des.Deserialize(reader);
-  }
-
+  }, ());
   TEST_EQUAL(dataFromFile, dataFromText, ());
 }
 
@@ -611,34 +323,27 @@ UNIT_TEST(Kml_Deserialization_Bin_File)
 {
   std::string const kmbFile = base::JoinPath(GetPlatform().TmpDir(), "tmp.kmb");
   SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, kmbFile));
-  try
+  TEST_NO_THROW(
   {
     FileWriter file(kmbFile);
     file.Write(kBinKml.data(), kBinKml.size());
-  }
-  catch (FileWriter::Exception & exc)
-  {
-    TEST(false, ("Exception raised", exc.what()));
-  }
+  }, ());
 
   kml::FileData dataFromFile;
-  try
+  TEST_NO_THROW(
   {
     kml::binary::DeserializerKml des(dataFromFile);
     FileReader reader(kmbFile);
     des.Deserialize(reader);
-  }
-  catch (FileReader::Exception const & exc)
-  {
-    TEST(false, ("Exception raised", exc.what()));
-  }
+  }, ());
 
   kml::FileData dataFromBin;
+  TEST_NO_THROW(
   {
     kml::binary::DeserializerKml des(dataFromBin);
     MemReader reader(kBinKml.data(), kBinKml.size());
     des.Deserialize(reader);
-  }
+  }, ());
 
   TEST_EQUAL(dataFromFile, dataFromBin, ());
 }
@@ -651,28 +356,20 @@ UNIT_TEST(Kml_Serialization_Bin_File)
 
   std::string const kmbFile = base::JoinPath(GetPlatform().TmpDir(), "tmp.kmb");
   SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, kmbFile));
-  try
+  TEST_NO_THROW(
   {
     kml::binary::SerializerKml ser(data);
     FileWriter writer(kmbFile);
     ser.Serialize(writer);
-  }
-  catch (FileWriter::Exception const & exc)
-  {
-    TEST(false, ("Exception raised", exc.what()));
-  }
+  }, ());
 
   kml::FileData dataFromFile;
-  try
+  TEST_NO_THROW(
   {
     kml::binary::DeserializerKml des(dataFromFile);
     FileReader reader(kmbFile);
     des.Deserialize(reader);
-  }
-  catch (FileReader::Exception const & exc)
-  {
-    TEST(false, ("Exception raised", exc.what()));
-  }
+  }, ());
 
   TEST_EQUAL(data, dataFromFile, ());
 }
@@ -681,28 +378,20 @@ UNIT_TEST(Kml_Serialization_Bin_File)
 // The text in the file can be not equal to the original generated data, because
 // text representation does not support all features, e.g. we do not store ids for
 // bookmarks and tracks.
-UNIT_TEST(Kml_Serialization_Text_File)
+UNIT_TEST(Kml_Serialization_Text_File_Track_Without_Timestamps)
 {
   classificator::Load();
 
-  auto data = GenerateKmlFileData();
+  auto data = GenerateKmlFileDataForTrackWithoutTimestamps();
 
   std::string const kmlFile = base::JoinPath(GetPlatform().TmpDir(), "tmp.kml");
   SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, kmlFile));
-  try
+  TEST_NO_THROW(
   {
     kml::SerializerKml ser(data);
     FileWriter sink(kmlFile);
     ser.Serialize(sink);
-  }
-  catch (kml::SerializerKml::SerializeException const & exc)
-  {
-    TEST(false, ("Exception raised", exc.what()));
-  }
-  catch (FileWriter::Exception const & exc)
-  {
-    TEST(false, ("Exception raised", exc.what()));
-  }
+  }, ());
 
 // TODO: uncomment to output KML to the log.
 //  std::string buffer;
@@ -713,84 +402,111 @@ UNIT_TEST(Kml_Serialization_Text_File)
 //  }
 //  LOG(LINFO, (buffer));
 
-  kml::FileData dataFromFile;
-  try
+  kml::FileData dataFromGeneratedFile;
+  TEST_NO_THROW(
   {
-    kml::DeserializerKml des(dataFromFile);
+    kml::DeserializerKml des(dataFromGeneratedFile);
     FileReader reader(kmlFile);
     des.Deserialize(reader);
-  }
-  catch (FileReader::Exception const & exc)
+  }, ());
+  TEST_EQUAL(dataFromGeneratedFile, data, ());
+
+  kml::FileData dataFromFile;
+  TEST_NO_THROW(
   {
-    TEST(false, ("Exception raised", exc.what()));
-  }
+    kml::DeserializerKml des(dataFromFile);
+    FileReader reader(GetPlatform().TestsDataPathForFile("kml_test_data/generated.kml"));
+    des.Deserialize(reader);
+  }, ());
   TEST_EQUAL(dataFromFile, data, ());
 
-  kml::FileData dataFromMemory;
+  std::string dataFromFileBuffer;
   {
-    kml::DeserializerKml des(dataFromMemory);
-    MemReader reader(kGeneratedKml, strlen(kGeneratedKml));
-    des.Deserialize(reader);
+    MemWriter<decltype(dataFromFileBuffer)> sink(dataFromFileBuffer);
+    kml::SerializerKml ser(dataFromFile);
+    ser.Serialize(sink);
   }
-  TEST_EQUAL(dataFromMemory, data, ());
+  std::string dataFromGeneratedFileBuffer;
+  {
+    MemWriter<decltype(dataFromGeneratedFileBuffer)> sink(dataFromGeneratedFileBuffer);
+    kml::SerializerKml ser(dataFromGeneratedFile);
+    ser.Serialize(sink);
+  }
+  TEST_EQUAL(dataFromFileBuffer, dataFromGeneratedFileBuffer, ());
+}
+
+UNIT_TEST(Kml_Serialization_Text_File_Tracks_With_Timestamps)
+{
+  classificator::Load();
+
+  auto data = GenerateKmlFileDataForTrackWithTimestamps();
+
+  std::string const kmlFile = base::JoinPath(GetPlatform().TmpDir(), "tmp.kml");
+  SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, kmlFile));
+  TEST_NO_THROW(
+  {
+    kml::SerializerKml ser(data);
+    FileWriter sink(kmlFile);
+    ser.Serialize(sink);
+  }, ());
+
+  kml::FileData dataFromGeneratedFile;
+  TEST_NO_THROW(
+  {
+    kml::DeserializerKml des(dataFromGeneratedFile);
+    FileReader reader(kmlFile);
+    des.Deserialize(reader);
+  }, ());
+  TEST_EQUAL(dataFromGeneratedFile, data, ());
+
+  kml::FileData dataFromFile;
+  TEST_NO_THROW(
+  {
+    kml::DeserializerKml des(dataFromFile);
+    FileReader reader(GetPlatform().TestsDataPathForFile("kml_test_data/generated_mixed_tracks.kml"));
+    des.Deserialize(reader);
+  }, ());
+  TEST_EQUAL(dataFromFile, data, ());
 }
 
 // 8. Check binary deserialization of v.3 format.
 UNIT_TEST(Kml_Deserialization_From_Bin_V3_And_V4)
 {
   kml::FileData dataFromBinV3;
-  try
+  TEST_NO_THROW(
   {
     MemReader reader(kBinKmlV3.data(), kBinKmlV3.size());
     kml::binary::DeserializerKml des(dataFromBinV3);
     des.Deserialize(reader);
-  }
-  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
-  {
-    TEST(false, ("Exception raised", exc.what()));
-  }
+  }, ());
 
   kml::FileData dataFromBinV4;
-  try
+  TEST_NO_THROW(
   {
     MemReader reader(kBinKmlV4.data(), kBinKmlV4.size());
     kml::binary::DeserializerKml des(dataFromBinV4);
     des.Deserialize(reader);
-  }
-  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
-  {
-    TEST(false, ("Exception raised", exc.what()));
-  }
-
+  }, ());
   TEST_EQUAL(dataFromBinV3, dataFromBinV4, ());
 }
 
 UNIT_TEST(Kml_Deserialization_From_Bin_V6_And_V7)
 {
   kml::FileData dataFromBinV6;
-  try
+  TEST_NO_THROW(
   {
     MemReader reader(kBinKmlV6.data(), kBinKmlV6.size());
     kml::binary::DeserializerKml des(dataFromBinV6);
     des.Deserialize(reader);
-  }
-  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
-  {
-    TEST(false, ("Exception raised", exc.what()));
-  }
+  }, ());
 
   kml::FileData dataFromBinV7;
-  try
+  TEST_NO_THROW(
   {
     MemReader reader(kBinKmlV7.data(), kBinKmlV7.size());
     kml::binary::DeserializerKml des(dataFromBinV7);
     des.Deserialize(reader);
-  }
-  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
-  {
-    TEST(false, ("Exception raised", exc.what()));
-  }
-
+  }, ());
   TEST_EQUAL(dataFromBinV6, dataFromBinV7, ());
 }
 
@@ -798,57 +514,40 @@ UNIT_TEST(Kml_Deserialization_From_Bin_V6_And_V7)
 UNIT_TEST(Kml_Deserialization_From_Bin_V7_And_V8)
 {
   kml::FileData dataFromBinV7;
-  try
+  TEST_NO_THROW(
   {
     MemReader reader(kBinKmlV7.data(), kBinKmlV7.size());
     kml::binary::DeserializerKml des(dataFromBinV7);
     des.Deserialize(reader);
-  }
-  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
-  {
-    TEST(false, ("Exception raised", exc.what()));
-  }
+  }, ());
 
   kml::FileData dataFromBinV8;
-  try
+  TEST_NO_THROW(
   {
     MemReader reader(kBinKmlV8.data(), kBinKmlV8.size());
     kml::binary::DeserializerKml des(dataFromBinV8);
     des.Deserialize(reader);
-  }
-  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
-  {
-    TEST(false, ("Exception raised", exc.what()));
-  }
-
+  }, ());
   TEST_EQUAL(dataFromBinV7, dataFromBinV8, ());
 }
 
 UNIT_TEST(Kml_Deserialization_From_Bin_V8_And_V8MM)
 {
   kml::FileData dataFromBinV8;
-  try
+  TEST_NO_THROW(
   {
     MemReader reader(kBinKmlV8.data(), kBinKmlV8.size());
     kml::binary::DeserializerKml des(dataFromBinV8);
     des.Deserialize(reader);
-  }
-  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
-  {
-    TEST(false, ("Exception raised", exc.what()));
-  }
+  }, ());
 
   kml::FileData dataFromBinV8MM;
-  try
+  TEST_NO_THROW(
   {
     MemReader reader(kBinKmlV8MM.data(), kBinKmlV8MM.size());
     kml::binary::DeserializerKml des(dataFromBinV8MM);
     des.Deserialize(reader);
-  }
-  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
-  {
-    TEST(false, ("Exception raised", exc.what()));
-  }
+  }, ());
 
 // Can't compare dataFromBinV8.m_categoryData and dataFromBinV8MM.m_categoryData directly
 // because new format has less properties and different m_id. Compare some properties here:
@@ -869,28 +568,20 @@ UNIT_TEST(Kml_Deserialization_From_Bin_V8_And_V8MM)
 UNIT_TEST(Kml_Deserialization_From_KMB_V8_And_V9MM)
 {
   kml::FileData dataFromBinV8;
-  try
+  TEST_NO_THROW(
   {
     MemReader reader(kBinKmlV8.data(), kBinKmlV8.size());
     kml::binary::DeserializerKml des(dataFromBinV8);
     des.Deserialize(reader);
-  }
-  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
-  {
-    TEST(false, ("Failed to deserialize data from KMB V8 and V9MM", exc.what()));
-  }
+  }, ());
 
   kml::FileData dataFromBinV9MM;
-  try
+  TEST_NO_THROW(
   {
     MemReader reader(kBinKmlV9MM.data(), kBinKmlV9MM.size());
     kml::binary::DeserializerKml des(dataFromBinV9MM);
     des.Deserialize(reader);
-  }
-  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
-  {
-    TEST(false, ("Failed to deserialize data from KMB V9MM", exc.what()));
-  }
+  }, ());
 
   // Can't compare dataFromBinV8.m_categoryData and dataFromBinV9MM.m_categoryData directly
   // because new format has less properties and different m_id. Compare some properties here:
@@ -914,16 +605,12 @@ UNIT_TEST(Kml_Deserialization_From_KMB_V8_And_V9MM)
 UNIT_TEST(Kml_Deserialization_From_KMB_V9MM_With_MultiGeometry)
 {
   kml::FileData dataFromBinV9MM;
-  try
+  TEST_NO_THROW(
   {
     MemReader reader(kBinKmlMultiGeometryV9MM.data(), kBinKmlMultiGeometryV9MM.size());
     kml::binary::DeserializerKml des(dataFromBinV9MM);
     des.Deserialize(reader);
-  }
-  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
-  {
-    TEST(false, ("Failed to deserialize data from KMB V9MM", exc.what()));
-  }
+  }, ());
 
   TEST_EQUAL(dataFromBinV9MM.m_tracksData.size(), 1, ());
 
@@ -1003,22 +690,26 @@ UNIT_TEST(Kml_Ver_2_3)
   )";
 
   kml::FileData fData;
-  try
+  TEST_NO_THROW(
   {
     MemReader const reader(data);
     kml::DeserializerKml des(fData);
     des.Deserialize(reader);
-  }
-  catch (kml::DeserializerKml::DeserializeException const & ex)
-  {
-    TEST(false, ("Exception raised", ex.Msg()));
-  }
+  }, ());
 
   TEST_EQUAL(fData.m_tracksData.size(), 1, ());
-  auto const & lines = fData.m_tracksData[0].m_geometry.m_lines;
+  auto const & geom = fData.m_tracksData[0].m_geometry;
+  auto const & lines = geom.m_lines;
+  auto const & timestamps = geom.m_timestamps;
   TEST_EQUAL(lines.size(), 2, ());
   TEST_EQUAL(lines[0].size(), 7, ());
   TEST_EQUAL(lines[1].size(), 6, ());
+  TEST(geom.HasTimestamps(), ());
+  TEST(geom.HasTimestampsFor(0), ());
+  TEST(geom.HasTimestampsFor(1), ());
+  TEST_EQUAL(timestamps.size(), 2, ());
+  TEST_EQUAL(timestamps[0].size(), 7, ());
+  TEST_EQUAL(timestamps[1].size(), 6, ());
 }
 
 UNIT_TEST(Kml_Placemark_contains_both_Bookmark_and_Track_data)
@@ -1049,19 +740,18 @@ UNIT_TEST(Kml_Placemark_contains_both_Bookmark_and_Track_data)
   )";
 
   kml::FileData fData;
-  try
+  TEST_NO_THROW(
   {
     MemReader const reader(input);
     kml::DeserializerKml des(fData);
     des.Deserialize(reader);
-  }
-  catch (kml::DeserializerKml::DeserializeException const & ex)
-  {
-    TEST(false, ("Exception raised", ex.Msg()));
-  }
+  }, ());
 
   TEST_EQUAL(fData.m_bookmarksData.size(), 2, ());
   TEST_EQUAL(fData.m_tracksData.size(), 2, ());
+
+  TEST(!fData.m_tracksData[0].m_geometry.HasTimestamps(), ());
+  TEST(!fData.m_tracksData[1].m_geometry.HasTimestamps(), ());
 }
 
 // See https://github.com/organicmaps/organicmaps/issues/5800
@@ -1089,18 +779,47 @@ UNIT_TEST(Fix_Invisible_Color_Bug_In_Gpx_Tracks)
   )";
 
   kml::FileData fData;
-  try
+  TEST_NO_THROW(
   {
     kml::DeserializerKml(fData).Deserialize(MemReader(input));
-  }
-  catch (kml::DeserializerKml::DeserializeException const & ex)
-  {
-    TEST(false, ("Exception raised", ex.Msg()));
-  }
+  }, ());
 
   TEST_EQUAL(fData.m_tracksData.size(), 2, ());
   TEST_EQUAL(fData.m_tracksData[0].m_layers.size(), 1, ());
   auto const & layer = fData.m_tracksData[0].m_layers[0];
   TEST_EQUAL(layer.m_color.m_rgba, kml::kDefaultTrackColor, ("Wrong transparency should be fixed"));
   TEST_EQUAL(layer.m_lineWidth, 3, ());
+}
+
+UNIT_TEST(Kml_Tracks_With_Different_Points_And_Timestamps_Order)
+{
+  kml::FileData dataFromFile;
+  TEST_NO_THROW(
+  {
+    kml::DeserializerKml des(dataFromFile);
+    FileReader reader(GetPlatform().TestsDataPathForFile("kml_test_data/track_with_timestams_different_orders.kml"));
+    des.Deserialize(reader);
+  }, ());
+  TEST_EQUAL(dataFromFile.m_tracksData.size(), 1, ());
+  auto const & geom = dataFromFile.m_tracksData[0].m_geometry;
+  TEST_EQUAL(geom.m_lines.size(), 4, ());
+  TEST_EQUAL(geom.m_timestamps.size(), 4, ());
+  TEST_EQUAL(geom.m_lines[0], geom.m_lines[1], ());
+  TEST_EQUAL(geom.m_lines[0], geom.m_lines[2], ());
+  TEST_EQUAL(geom.m_lines[0], geom.m_lines[3], ());
+  TEST_EQUAL(geom.m_timestamps[0], geom.m_timestamps[1], ());
+  TEST_EQUAL(geom.m_timestamps[0], geom.m_timestamps[2], ());
+  TEST_EQUAL(geom.m_timestamps[0], geom.m_timestamps[3], ());
+}
+
+UNIT_TEST(Kml_Track_Points_And_Timestamps_Sizes_Mismatch)
+{
+  kml::FileData dataFromFile;
+  TEST_ANY_THROW(
+  {
+    kml::DeserializerKml des(dataFromFile);
+    FileReader reader(GetPlatform().TestsDataPathForFile("kml_test_data/track_with_timestamps_mismatch.kml"));
+    des.Deserialize(reader);
+  }, ());
+  TEST_EQUAL(dataFromFile.m_tracksData.size(), 0, ());
 }
