@@ -750,7 +750,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Onbekende locatie";
 
-"editor_other_info" = "Stuur een notitie naar de OSM-editors";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Opmerking voor OpenStreetMap vrijwilligers (optioneel)";
 
 "editor_detailed_description_hint" = "Gedetailleerde reactie";
 

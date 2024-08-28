@@ -750,7 +750,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Địa Điểm Chưa Biết";
 
-"editor_other_info" = "Gửi ghi chú cho ban biên tập OSM";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Lưu ý dành cho tình nguyện viên OpenStreetMap (tùy chọn)";
 
 "editor_detailed_description_hint" = "Nhận xét chi tiết";
 

@@ -504,9 +504,12 @@
 	<string name="error_enter_correct_zip_code">Anna kelvollinen postinumero</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Tuntematon paikka</string>
-	<string name="editor_other_info">Lähetä muistilappu OSM-toimittajille</string>
-	<string name="editor_detailed_description_hint">Yksityiskohtainen kommentti</string>
-	<string name="editor_detailed_description">Ehdottamasi muutokset lähetetään OpenStreetMap-yhteisöön. Kuvaa tiedot, joita ei voi muokata Organic Maps:ssä.</string>
+	<!-- Title for OSM note section in the editor -->
+	<string name="editor_other_info">Huomautus OpenStreetMapin vapaaehtoisille (valinnainen)</string>
+	<!-- Hint of the input field in the OSM note section of the editor -->
+	<string name="editor_note_hint">Kuvaile kartassa olevia virheitä tai asioita, joita ei voi muokata Organic Mapsilla.</string>
+	<!-- Information about OSM at the top of the editing page -->
+	<string name="editor_about_osm">Muokkauksesi ladataan julkiseen <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>-tietokantaan. Älä lisää henkilökohtaisia tai tekijänoikeudella suojattuja tietoja.</string>
 	<string name="editor_more_about_osm">Lisätietoja OpenStreetMap:sta</string>
 	<string name="editor_operator">Operaattori</string>
 	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->

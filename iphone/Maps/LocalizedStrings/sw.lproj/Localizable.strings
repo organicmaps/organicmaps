@@ -750,7 +750,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Unknown Place";
 
-"editor_other_info" = "Tuma ujumbe kwenye vihariri vya OSM";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Kumbuka kwa wanaojitolea wa OpenStreetMap (si lazima)";
 
 "editor_detailed_description_hint" = "Detailed comment";
 

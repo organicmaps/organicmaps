@@ -502,9 +502,12 @@
 	<string name="error_enter_correct_zip_code">Angi riktig postnummer</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Ukjent sted</string>
-	<string name="editor_other_info">Send et notat til OSM-redaktørene</string>
-	<string name="editor_detailed_description_hint">Detaljert kommentar</string>
-	<string name="editor_detailed_description">De foreslåtte endringene vil sendes til OpenStreetMap-gruppen. Beskriv detaljene som ikke kan redigeres i Organic Maps.</string>
+	<!-- Title for OSM note section in the editor -->
+	<string name="editor_other_info">Merknad til OpenStreetMap-frivillige (valgfritt)</string>
+	<!-- Hint of the input field in the OSM note section of the editor -->
+	<string name="editor_note_hint">Beskriv feil på kartet eller ting som ikke kan redigeres med Organic Maps</string>
+	<!-- Information about OSM at the top of the editing page -->
+	<string name="editor_about_osm">Dine endringer lastes opp til den offentlige <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>-databasen. Vennligst ikke legg til personlig eller opphavsrettsbeskyttet informasjon.</string>
 	<string name="editor_more_about_osm">Mer om OpenStreetMap</string>
 	<string name="editor_operator">Eier</string>
 	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->

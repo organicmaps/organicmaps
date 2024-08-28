@@ -500,9 +500,12 @@
 	<string name="error_enter_correct_zip_code">Увядзіце правільны паштовы індэкс</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Невядомае месца</string>
-	<string name="editor_other_info">Адправіць нататку рэдактарам OSM</string>
-	<string name="editor_detailed_description_hint">Падрабязны каментарый</string>
-	<string name="editor_detailed_description">Прапанаваныя вамі змены будуць дасланы суполцы OpenStreetMap. Апішыце любыя дадатковыя дэталі, якія нельга рэдагаваць у Organic Maps.</string>
+	<!-- Title for OSM note section in the editor -->
+	<string name="editor_other_info">Заўвага для валанцёраў OpenStreetMap (неабавязкова)</string>
+	<!-- Hint of the input field in the OSM note section of the editor -->
+	<string name="editor_note_hint">Апішыце памылкі на карце ці тое, што нельга рэдагаваць з дапамогай Organic Maps</string>
+	<!-- Information about OSM at the top of the editing page -->
+	<string name="editor_about_osm">Вашы праўкі загружаюцца ў публічную базу дадзеных <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. Калі ласка, не дадавайце асабістую інфармацыю або інфармацыю, абароненую аўтарскім правам.</string>
 	<string name="editor_more_about_osm">Падрабязней пра OpenStreetMap</string>
 	<string name="editor_operator">Уладальнік</string>
 	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->

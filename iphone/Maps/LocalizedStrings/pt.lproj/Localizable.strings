@@ -750,7 +750,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Local desconhecido";
 
-"editor_other_info" = "Enviar nota aos editores OSM";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Nota para os voluntários do OpenStreetMap (opcional)";
 
 "editor_detailed_description_hint" = "Comentário detalhado";
 

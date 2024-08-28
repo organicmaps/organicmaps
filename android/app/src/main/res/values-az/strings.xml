@@ -502,9 +502,12 @@
 	<string name="error_enter_correct_zip_code">Etibarlı poçt kodu daxil edin</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Naməlum yer</string>
-	<string name="editor_other_info">OSM redaktorlarına qeyd göndərin</string>
-	<string name="editor_detailed_description_hint">Ətraflı şərh</string>
-	<string name="editor_detailed_description">Təklif etdiyiniz dəyişikliklər OpenStreetMap icmasına yerləşdiriləcək. Zəhmət olmasa Organic Maps\'da redaktə edilə bilməyən əlavə detalları izah edin.</string>
+	<!-- Title for OSM note section in the editor -->
+	<string name="editor_other_info">OpenStreetMap könüllüləri üçün qeyd (isteğe bağlı)</string>
+	<!-- Hint of the input field in the OSM note section of the editor -->
+	<string name="editor_note_hint">Xəritədəki səhvləri və ya Üzvi Xəritələrdən istifadə edərək redaktə edilə bilməyənləri təsvir edin</string>
+	<!-- Information about OSM at the top of the editing page -->
+	<string name="editor_about_osm">Redaktələriniz ictimai <a href="https://wiki.openstreetmap.org/wiki/Tr:About">OpenStreetMap</a> verilənlər bazasına yüklənir. Zəhmət olmasa şəxsi və ya müəllif hüquqları ilə qorunan məlumatları əlavə etməyin.</string>
 	<string name="editor_more_about_osm">OpenStreetMap haqqında əlavə məlumat</string>
 	<string name="editor_operator">Sahibi</string>
 	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->

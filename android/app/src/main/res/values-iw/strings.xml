@@ -494,9 +494,12 @@
 	<string name="error_enter_correct_zip_code">יש להזין מיקוד תקין</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">מיקום לא ידוע</string>
-	<string name="editor_other_info">שלח הערה לעורכי OSM</string>
-	<string name="editor_detailed_description_hint">הערה מפורטת</string>
-	<string name="editor_detailed_description">ההצעות שלך לשינוי המפה יישלחו לקהילת OpenStreetMap. יש לתאר פרטים נוספים שלא ניתן לערוך ב-Organic Maps.</string>
+	<!-- Title for OSM note section in the editor -->
+	<string name="editor_other_info">הערה למתנדבי OpenStreetMap (אופציונלי)</string>
+	<!-- Hint of the input field in the OSM note section of the editor -->
+	<string name="editor_note_hint">תארו שגיאות במפה או דברים שלא ניתן לערוך באמצעות Organic Maps</string>
+	<!-- Information about OSM at the top of the editing page -->
+	<string name="editor_about_osm">העריכות שלך מועלות למסד הנתונים הציבורי של <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. נא לא להוסיף מידע אישי או מוגן בזכויות יוצרים.</string>
 	<string name="editor_more_about_osm">עוד על OpenStreetMap</string>
 	<string name="editor_operator">בעלים</string>
 	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->

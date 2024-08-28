@@ -376,9 +376,12 @@
 	<string name="downloader_of">%2$d में से %1$d</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">अनजान जगह</string>
-	<string name="editor_other_info">OpenStreetMap संपादकों को एक नोट भेजें</string>
-	<string name="editor_detailed_description_hint">विस्तृत टिप्पणी</string>
-	<string name="editor_detailed_description">आपके सुझाए गए मानचित्र परिवर्तन OpenStreetMap समुदाय को भेजे जाएंगे। कृपया किसी भी अतिरिक्त विवरण का वर्णन करें जिसे ऑर्गेनिक मानचित्र में संपादित नहीं किया जा सकता है।</string>
+	<!-- Title for OSM note section in the editor -->
+	<string name="editor_other_info">OpenStreetMap स्वयंसेवकों के लिए नोट (वैकल्पिक)</string>
+	<!-- Hint of the input field in the OSM note section of the editor -->
+	<string name="editor_note_hint">मानचित्र में त्रुटियों का वर्णन करें या ऑर्गेनिक मानचित्र का उपयोग करके क्या संपादित नहीं किया जा सकता है</string>
+	<!-- Information about OSM at the top of the editing page -->
+	<string name="editor_about_osm">आपके संपादन सार्वजनिक <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> डेटाबेस पर अपलोड किए जाते हैं। कृपया व्यक्तिगत या कॉपीराइट जानकारी न जोड़ें।</string>
 	<string name="editor_more_about_osm">OpenStreetMap के बारे में अधिक जानकारी</string>
 	<string name="editor_operator">मालिक</string>
 	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->

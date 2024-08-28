@@ -750,7 +750,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Неизвестно място";
 
-"editor_other_info" = "Изпращане на бележка до редакторите на OSM";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Забележка към доброволците на OpenStreetMap (по избор)";
 
 "editor_detailed_description_hint" = "Подробен коментар";
 
@@ -1277,7 +1278,7 @@
 "translated_om_site_url" = "https://organicmaps.app/";
 
 /* Link to OSM wiki for Editor, Profile and About pages */
-"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Bg:About";
 
 /* App Tip #00 */
 "app_tip_00" = "Благодарим ви, че използвате нашите карти, създадени от общността!";

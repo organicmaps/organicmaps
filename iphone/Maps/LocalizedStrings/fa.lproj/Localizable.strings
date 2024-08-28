@@ -750,7 +750,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "مکان ناشناس";
 
-"editor_other_info" = "ارسال یادداشت به ویرایش‌کنندگان OSM";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "توجه به داوطلبان OpenStreetMap (اختیاری)";
 
 "editor_detailed_description_hint" = "اظهار نظر بیشتر";
 

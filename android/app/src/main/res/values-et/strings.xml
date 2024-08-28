@@ -494,9 +494,12 @@
 	<string name="error_enter_correct_zip_code">Sisesta korrektne postiindeks</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Tundmatu koht</string>
-	<string name="editor_other_info">Saada märkus OSM muutjatele</string>
-	<string name="editor_detailed_description_hint">Üksikasjalik kommentaar</string>
-	<string name="editor_detailed_description">Teie soovitatud kaardimuudatused saadetakse OpenStreetMapi kogukonnale. Kirjeldage kõiki täiendavaid üksikasju, mida ei saa Organic Maps-is muuta.</string>
+	<!-- Title for OSM note section in the editor -->
+	<string name="editor_other_info">Märkus OpenStreetMapi vabatahtlikele (vabatahtlik)</string>
+	<!-- Hint of the input field in the OSM note section of the editor -->
+	<string name="editor_note_hint">Kirjeldage kaardil olevaid vigu või asju, mida ei saa Organic Mapsiga muuta.</string>
+	<!-- Information about OSM at the top of the editing page -->
+	<string name="editor_about_osm">Teie muudatused laaditakse üles avalikku <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> andmebaasi. Palun ärge lisage isiklikku või autoriõigusega kaitstud teavet.</string>
 	<string name="editor_more_about_osm">Rohkem OpenStreetMap kohta</string>
 	<string name="editor_operator">Omanik</string>
 	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->

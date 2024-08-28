@@ -498,9 +498,12 @@
 	<string name="error_enter_correct_zip_code">Voer een geldige postcode in</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Onbekende locatie</string>
-	<string name="editor_other_info">Stuur een notitie naar de OSM-editors</string>
-	<string name="editor_detailed_description_hint">Gedetailleerde reactie</string>
-	<string name="editor_detailed_description">Uw voorgestelde wijzigingen worden verzonden naar de OpenStreetMap-gemeenschap. Beschrijf de details die niet kunnen worden bewerkt in Organic Maps.</string>
+	<!-- Title for OSM note section in the editor -->
+	<string name="editor_other_info">Opmerking voor OpenStreetMap vrijwilligers (optioneel)</string>
+	<!-- Hint of the input field in the OSM note section of the editor -->
+	<string name="editor_note_hint">Beschrijf fouten op de kaart of dingen die niet bewerkt kunnen worden met Organic Maps</string>
+	<!-- Information about OSM at the top of the editing page -->
+	<string name="editor_about_osm">Uw bewerkingen worden geüpload naar de openbare &lt;a href="https://wiki.openstreetmap.org/wiki/NL:Wat_is_OpenStreetMap%3F">OpenStreetMap&lt;/a> database. Voeg geen persoonlijke of auteursrechtelijk beschermde informatie toe.</string>
 	<string name="editor_more_about_osm">Meer over OpenStreetMap</string>
 	<string name="editor_operator">Uitvoerder</string>
 	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->

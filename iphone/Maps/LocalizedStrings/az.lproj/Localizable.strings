@@ -750,7 +750,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Naməlum yer";
 
-"editor_other_info" = "OSM redaktorlarına qeyd göndərin";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "OpenStreetMap könüllüləri üçün qeyd (isteğe bağlı)";
 
 "editor_detailed_description_hint" = "Ətraflı şərh";
 
