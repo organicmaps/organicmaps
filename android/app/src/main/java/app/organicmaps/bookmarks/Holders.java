@@ -455,20 +455,17 @@ public class Holders
               @NonNull BookmarkListAdapter.SectionsDataSource sectionsDataSource)
     {
       mTitle.setText(sectionsDataSource.getCategory().getName());
-      bindDescriptionIfEmpty(sectionsDataSource.getCategory());
+      bindDescription(sectionsDataSource.getCategory());
     }
 
-    private void bindDescriptionIfEmpty(@NonNull BookmarkCategory category)
+    private void bindDescription(@NonNull BookmarkCategory category)
     {
-      if (TextUtils.isEmpty(mDescText.getText()))
-      {
-        String desc = TextUtils.isEmpty(category.getAnnotation())
-                      ? category.getDescription()
-                      : category.getAnnotation();
+      String desc = TextUtils.isEmpty(category.getAnnotation())
+                    ? category.getDescription()
+                    : category.getAnnotation();
 
-        Spanned spannedDesc = Utils.fromHtml(desc);
-        mDescText.setText(spannedDesc);
-      }
+      Spanned spannedDesc = Utils.fromHtml(desc);
+      mDescText.setText(spannedDesc);
     }
   }
 }
