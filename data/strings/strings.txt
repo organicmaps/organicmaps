@@ -16233,53 +16233,143 @@
     zh-Hant = 未知地點
 
   [editor_other_info]
+    comment = Title for OSM note section in the editor
     tags = android,ios
-    en = Send a note to OSM editors
-    af = Stuur ’n nota aan OSM-wysigers
-    ar = ارسل ملاحظة إلى محرري خريطة الشارع المفتوحة
-    az = OSM redaktorlarına qeyd göndərin
-    be = Адправіць нататку рэдактарам OSM
-    bg = Изпращане на бележка до редакторите на OSM
-    ca = Envia una nota als editors de l’OSM
-    cs = Odeslat poznámku editorům OSM
-    da = Send en besked til OSM-redaktører
-    de = Notiz an Freiwillige von OpenStreetMap senden
-    el = Σημείωμα στους συντάκτες του OSM
-    es = Enviar nota a los editores de OSM
-    es-MX = Enviar nota a los editores de OSM
-    et = Saada märkus OSM muutjatele
-    eu = Bidali oharra OSM editoreei
-    fa = ارسال یادداشت به ویرایش‌کنندگان OSM
-    fi = Lähetä muistilappu OSM-toimittajille
-    fr = Informer les contributeurs OSM
-    he = שלח הערה לעורכי OSM
-    hi = OpenStreetMap संपादकों को एक नोट भेजें
-    hu = Küldjön jegyzetet az OSM editornak
-    id = Kirim catatan ke editor OSM
-    it = Invia un messaggio a OSM
-    ja = OSMエディタにメモを送信
-    ko = OSM 편집인들에게 쪽지 보내기
-    lt = Siųsti pastabą OSM redaktoriams
-    mr = OpenStreetMap संपादकांना एक चिठ्ठी पाठवा
-    nb = Send et notat til OSM-redaktørene
-    nl = Stuur een notitie naar de OSM-editors
-    pl = Poinformuj redaktorów OSM
-    pt = Enviar nota aos editores OSM
-    pt-BR = Envie uma observação para os editores do OSM
-    ro = Trimite un mesaj către editorii OSM
-    ru = Отправить заметку редакторам OSM
-    sk = Odoslať poznámku OSM editorom
-    sv = Skicka en not till OSM-redaktörer
-    sw = Tuma ujumbe kwenye vihariri vya OSM
-    th = ส่งข้อความไปยังตัวปรับแต่ง OSM
-    tr = OSM editörlerine bir not gönderin
-    uk = Надіслати нотатку редакторам OSM
-    vi = Gửi ghi chú cho ban biên tập OSM
-    zh-Hans = 给 OSM 社区发送标记
-    zh-Hant = 給 OSM 社區發送註解
+    en = Note to OpenStreetMap volunteers (optional)
+    af = Nota aan OpenStreetMap-vrywilligers (opsioneel)
+    ar = ملاحظة لمتطوعي OpenStreetMap (اختياري)
+    az = OpenStreetMap könüllüləri üçün qeyd (isteğe bağlı)
+    be = Заўвага для валанцёраў OpenStreetMap (неабавязкова)
+    bg = Забележка към доброволците на OpenStreetMap (по избор)
+    ca = Nota per als voluntaris d'OpenStreetMap (opcional)
+    cs = Poznámka pro dobrovolníky OpenStreetMap (nepovinné)
+    da = Note til OpenStreetMap-frivillige (valgfrit)
+    de = Hinweis an Freiwillige von OpenStreetMap (optional)
+    el = Σημείωση για τους εθελοντές του OpenStreetMap (προαιρετική)
+    es = Nota para los voluntarios de OpenStreetMap (opcional)
+    et = Märkus OpenStreetMapi vabatahtlikele (vabatahtlik)
+    eu = OpenStreetMap-eko boluntarioentzako oharra (aukerakoa)
+    fa = توجه به داوطلبان OpenStreetMap (اختیاری)
+    fi = Huomautus OpenStreetMapin vapaaehtoisille (valinnainen)
+    fr = Note aux volontaires OpenStreetMap (facultatif)
+    he = הערה למתנדבי OpenStreetMap (אופציונלי)
+    hi = OpenStreetMap स्वयंसेवकों के लिए नोट (वैकल्पिक)
+    hu = Megjegyzés az OpenStreetMap önkénteseinek (nem kötelező)
+    id = Catatan untuk relawan OpenStreetMap (opsional)
+    it = Nota per i volontari di OpenStreetMap (opzionale)
+    ja = OpenStreetMapボランティアへの注意（オプション）
+    ko = 오픈스트리트맵 자원 봉사자 참고 사항(선택 사항)
+    lt = Pastaba OpenStreetMap savanoriams (neprivaloma)
+    mr = OpenStreetMap स्वयंसेवकांसाठी टीप (पर्यायी)
+    nb = Merknad til OpenStreetMap-frivillige (valgfritt)
+    nl = Opmerking voor OpenStreetMap vrijwilligers (optioneel)
+    pl = Uwaga dla wolontariuszy OpenStreetMap (opcjonalnie)
+    pt = Nota para os voluntários do OpenStreetMap (opcional)
+    ro = Notă pentru voluntarii OpenStreetMap (opțional)
+    ru = Примечание для волонтеров OpenStreetMap (необязательно)
+    sk = Poznámka pre dobrovoľníkov OpenStreetMap (nepovinné)
+    sv = Meddelande till OpenStreetMap-volontärer (valfritt)
+    sw = Kumbuka kwa wanaojitolea wa OpenStreetMap (si lazima)
+    th = หมายเหตุถึงอาสาสมัคร OpenStreetMap (ไม่บังคับ)
+    tr = OpenStreetMap gönüllülerine not (isteğe bağlı)
+    uk = Примітка для волонтерів OpenStreetMap (необов'язково)
+    vi = Lưu ý dành cho tình nguyện viên OpenStreetMap (tùy chọn)
+    zh-Hans = OpenStreetMap 志愿者须知（可选）
+    zh-Hant = OpenStreetMap 志工注意事項（可選）
+
+  [editor_note_hint]
+    comment = Hint of the input field in the OSM note section of the editor
+    tags = android
+    en = Describe errors on the map or things that cannot be edited with Organic Maps
+    af = Beskryf foute in die kaart of wat nie met Organiese Kaarte geredigeer kan word nie
+    ar = وصف الأخطاء على الخريطة أو الأشياء التي لا يمكن تحريرها باستخدام الخرائط العضوية
+    az = Xəritədəki səhvləri və ya Üzvi Xəritələrdən istifadə edərək redaktə edilə bilməyənləri təsvir edin
+    be = Апішыце памылкі на карце ці тое, што нельга рэдагаваць з дапамогай Organic Maps
+    bg = Описване на грешки в картата или неща, които не могат да бъдат редактирани с Organic Maps
+    ca = Descriu errors al mapa o què no es pot editar amb Mapes orgànics
+    cs = Popište chyby na mapě nebo věci, které nelze upravit pomocí aplikace Organic Maps.
+    da = Beskriv fejl på kortet eller ting, der ikke kan redigeres med Organic Maps
+    de = Beschreiben Sie Kartenfehler oder Dinge, die mit Organic Maps nicht bearbeitet werden können
+    el = Περιγράψτε λάθη στο χάρτη ή πράγματα που δεν μπορούν να επεξεργαστούν με τους Organic Maps
+    es = Describa los errores en el mapa o las cosas que no se pueden editar con Organic Maps
+    et = Kirjeldage kaardil olevaid vigu või asju, mida ei saa Organic Mapsiga muuta.
+    eu = Deskribatu mapan akatsak edo mapa organikoak erabiliz editatu ezin dena
+    fa = خطاهای موجود در نقشه یا مواردی که با استفاده از نقشه های ارگانیک قابل ویرایش نیستند را شرح دهید
+    fi = Kuvaile kartassa olevia virheitä tai asioita, joita ei voi muokata Organic Mapsilla.
+    fr = Décrivez les erreurs sur la carte ou les éléments qui ne peuvent pas être modifiés avec Organic Maps.
+    he = תארו שגיאות במפה או דברים שלא ניתן לערוך באמצעות Organic Maps
+    hi = मानचित्र में त्रुटियों का वर्णन करें या ऑर्गेनिक मानचित्र का उपयोग करके क्या संपादित नहीं किया जा सकता है
+    hu = Írja le a térképen található hibákat vagy olyan dolgokat, amelyeket nem lehet az Organic Maps segítségével szerkeszteni.
+    id = Jelaskan kesalahan pada peta atau hal-hal yang tidak dapat diedit dengan Peta Organik
+    it = Descriva gli errori sulla mappa o le cose che non possono essere modificate con Organic Maps
+    ja = 地図上のエラーやOrganic Mapsで編集できないものについて説明します。
+    ko = 지도의 오류 또는 오가닉 맵으로 편집할 수 없는 항목에 대해 설명합니다.
+    lt = Aprašykite žemėlapyje esančias klaidas arba dalykus, kurių negalima redaguoti naudojant "Organic Maps
+    mr = नकाशामधील त्रुटी किंवा सेंद्रिय नकाशे वापरून काय संपादित केले जाऊ शकत नाही याचे वर्णन करा
+    nb = Beskriv feil på kartet eller ting som ikke kan redigeres med Organic Maps
+    nl = Beschrijf fouten op de kaart of dingen die niet bewerkt kunnen worden met Organic Maps
+    pl = Proszę opisać błędy na mapie lub rzeczy, których nie można edytować za pomocą Organic Maps.
+    pt = Descreva erros no mapa ou coisas que não podem ser editadas com o Organic Maps
+    ro = Descrieți erorile de pe hartă sau lucrurile care nu pot fi editate cu Organic Maps
+    ru = Опишите ошибки на карте или то, что нельзя редактировать с помощью Organic Maps
+    sk = Popíšte chyby na mape alebo veci, ktoré sa nedajú upraviť pomocou aplikácie Mapy Organic
+    sv = Beskriv fel på kartan eller saker som inte kan redigeras med Organic Maps
+    sw = Eleza hitilafu kwenye ramani au kile ambacho hakiwezi kuhaririwa kwa kutumia Ramani za Kikaboni
+    th = อธิบายข้อผิดพลาดในแผนที่หรือสิ่งที่ไม่สามารถแก้ไขได้โดยใช้แผนที่ทั่วไป
+    tr = Haritadaki hataları veya Organik Haritalar ile düzenlenemeyen şeyleri tanımlayın
+    uk = Опишіть помилки на карті або те, що не можна редагувати за допомогою Organic Maps
+    vi = Mô tả lỗi trên bản đồ hoặc những gì không thể chỉnh sửa bằng Bản đồ không phải trả tiền
+    zh-Hans = 描述地图上的错误或无法用有机地图编辑的内容
+    zh-Hant = 描述地圖中的錯誤或無法使用有機地圖編輯的內容
+
+  [editor_about_osm]
+    comment = Information about OSM at the top of the editing page
+    tags = android
+    en = Your edits are uploaded to the public <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> database. Please do not add personal or copyrighted information.
+    af = Jou wysigings word opgelaai na die publieke <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>-databasis. Moet asseblief nie persoonlike of kopiereginligting byvoeg nie.
+    ar = يتم تحميل تعديلاتك على قاعدة البيانات العامة <a href="https://wiki.openstreetmap.org/wiki/Ar:About_OpenStreetMap">OpenStreetMap</a>. يرجى عدم إضافة معلومات شخصية أو محمية بحقوق الطبع والنشر.
+    az = Redaktələriniz ictimai <a href="https://wiki.openstreetmap.org/wiki/Tr:About">OpenStreetMap</a> verilənlər bazasına yüklənir. Zəhmət olmasa şəxsi və ya müəllif hüquqları ilə qorunan məlumatları əlavə etməyin.
+    be = Вашы праўкі загружаюцца ў публічную базу дадзеных <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. Калі ласка, не дадавайце асабістую інфармацыю або інфармацыю, абароненую аўтарскім правам.
+    bg = Вашите редакции се качват в публичната база данни <a href="https://wiki.openstreetmap.org/wiki/Bg:About">OpenStreetMap</a>. Моля, не добавяйте лична информация или информация, защитена с авторски права.
+    ca = Les vostres edicions es pengen a la base de dades pública <a href="https://wiki.openstreetmap.org/wiki/Ca:About">OpenStreetMap</a>. Si us plau, no afegiu informació personal o amb drets d'autor.
+    cs = Vaše úpravy se nahrají do veřejné databáze <a href="https://wiki.openstreetmap.org/wiki/Cs:Co_je_OpenStreetMap">OpenStreetMap</a>. Nepřidávejte prosím osobní informace nebo informace chráněné autorskými právy.
+    da = Dine ændringer uploades til den offentlige <a href="https://wiki.openstreetmap.org/wiki/Da:Om_OpenStreetMap">OpenStreetMap</a>-database. Tilføj venligst ikke personlige eller ophavsretligt beskyttede oplysninger.
+    de = Ihre Bearbeitungen werden in die öffentliche <a href="https://wiki.openstreetmap.org/wiki/DE:Über_OSM">OpenStreetMap</a> Datenbank hochgeladen. Bitte tragen Sie keine privaten oder urheberrechtlich geschützten Informationen ein.
+    el = Οι επεξεργασίες σας μεταφορτώνονται στη δημόσια βάση δεδομένων <a href="https://wiki.openstreetmap.org/wiki/El:About_OpenStreetMap">OpenStreetMap</a>. Παρακαλούμε μην προσθέτετε προσωπικές πληροφορίες ή πληροφορίες που προστατεύονται από πνευματικά δικαιώματα.
+    es = Sus ediciones se cargan en la base de datos pública <a href="https://wiki.openstreetmap.org/wiki/ES:Acerca_de_OpenStreetMap">OpenStreetMap</a>. Por favor, no añada información personal o protegida por derechos de autor.
+    et = Teie muudatused laaditakse üles avalikku <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> andmebaasi. Palun ärge lisage isiklikku või autoriõigusega kaitstud teavet.
+    eu = Zure aldaketak <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> datu-base publikora kargatzen dira. Mesedez, ez gehitu informazio pertsonalik edo copyrightdun informaziorik.
+    fa = ویرایش های شما در پایگاه داده عمومی <a href="https://wiki.openstreetmap.org/wiki/Fa:About_OpenStreetMap">OpenStreetMap</a> آپلود می شود. لطفا اطلاعات شخصی یا دارای حق چاپ را اضافه نکنید.
+    fi = Muokkauksesi ladataan julkiseen <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>-tietokantaan. Älä lisää henkilökohtaisia tai tekijänoikeudella suojattuja tietoja.
+    fr = Vos modifications sont téléchargées dans la base de données publique <a href="https://wiki.openstreetmap.org/wiki/FR:%C3%80_propos_d%E2%80%99OpenStreetMap">OpenStreetMap</a>. Veuillez ne pas ajouter d'informations personnelles ou protégées par le droit d'auteur.
+    he = העריכות שלך מועלות למסד הנתונים הציבורי של <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. נא לא להוסיף מידע אישי או מוגן בזכויות יוצרים.
+    hi = आपके संपादन सार्वजनिक <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> डेटाबेस पर अपलोड किए जाते हैं। कृपया व्यक्तिगत या कॉपीराइट जानकारी न जोड़ें।
+    hu = Az Ön szerkesztései feltöltődnek a nyilvános <a href="https://wiki.openstreetmap.org/wiki/Hu:Névjegy">OpenStreetMap</a> adatbázisba. Kérjük, ne adjon hozzá személyes vagy szerzői jogvédelem alatt álló információkat.
+    id = Hasil editan Anda akan diunggah ke database <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> publik. Mohon untuk tidak menambahkan informasi pribadi atau informasi yang memiliki hak cipta.
+    it = Le sue modifiche vengono caricate nel database pubblico <a href="https://wiki.openstreetmap.org/wiki/IT:About">OpenStreetMap</a>. La preghiamo di non aggiungere informazioni personali o protette da copyright.
+    ja = あなたの編集は公開されている<a href="https://wiki.openstreetmap.org/wiki/JA:参加する">OpenStreetMap</a>データベースにアップロードされます。個人情報や著作権のある情報は追加しないでください。
+    ko = 수정한 내용은 공개 <a href="https://wiki.openstreetmap.org/wiki/Ko:OpenStreetMap_소개">OpenStreetMap</a> 데이터베이스에 업로드됩니다. 개인 정보나 저작권이 있는 정보는 추가하지 마세요.
+    lt = Jūsų pakeitimai įkeliami į viešą <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> duomenų bazę. Prašome nedėti asmeninės ar autorių teisėmis apsaugotos informacijos.
+    mr = तुमची संपादने सार्वजनिक <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> डेटाबेसवर अपलोड केली जातात. कृपया वैयक्तिक किंवा कॉपीराइट केलेली माहिती जोडू नका.
+    nb = Dine endringer lastes opp til den offentlige <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>-databasen. Vennligst ikke legg til personlig eller opphavsrettsbeskyttet informasjon.
+    nl = Uw bewerkingen worden geüpload naar de openbare <a href="https://wiki.openstreetmap.org/wiki/NL:Wat_is_OpenStreetMap%3F">OpenStreetMap</a> database. Voeg geen persoonlijke of auteursrechtelijk beschermde informatie toe.
+    pl = Państwa zmiany są przesyłane do publicznej bazy danych <a href="https://wiki.openstreetmap.org/wiki/Pl:Wstęp">OpenStreetMap</a>. Prosimy nie dodawać informacji osobistych lub chronionych prawem autorskim.
+    pt = As suas edições são carregadas para a base de dados pública <a href="https://wiki.openstreetmap.org/wiki/Pt:Sobre_o_OpenStreetMap">OpenStreetMap</a>. Por favor, não adicione informações pessoais ou protegidas por direitos de autor.
+    pt-BR = As suas edições são enviadas à base de dados pública <a href="https://wiki.openstreetmap.org/wiki/Pt:Sobre_o_OpenStreetMap">OpenStreetMap</a>. Não adicione informações pessoais ou protegidas por direitos autorais.
+    ro = Edițiile dvs. sunt încărcate în baza de date publică <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. Vă rugăm să nu adăugați informații personale sau protejate prin drepturi de autor.
+    ru = Ваши правки будут загружены в общедоступную базу данных <a href="https://wiki.openstreetmap.org/wiki/RU:О_проекте">OpenStreetMap</a>. Пожалуйста, не добавляйте личную информацию или информацию, защищенную авторским правом.
+    sk = Vaše úpravy sa nahrajú do verejnej databázy <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. Prosím, nepridávajte osobné informácie alebo informácie chránené autorskými právami.
+    sv = Dina redigeringar laddas upp till den offentliga <a href="https://wiki.openstreetmap.org/wiki/Sv:Om_OpenStreetMap">OpenStreetMap</a>-databasen. Lägg inte till personlig eller upphovsrättsskyddad information.
+    sw = Mabadiliko yako yanapakiwa kwenye hifadhidata ya <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> ya umma. Tafadhali usiongeze maelezo ya kibinafsi au yenye hakimiliki.
+    th = การแก้ไขของคุณจะถูกอัปโหลดไปยังฐานข้อมูล <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> สาธารณะ กรุณาอย่าเพิ่มข้อมูลส่วนบุคคลหรือข้อมูลที่มีลิขสิทธิ์
+    tr = Düzenlemeleriniz halka açık <a href="https://wiki.openstreetmap.org/wiki/Tr:About">OpenStreetMap</a> veritabanına yüklenir. Lütfen kişisel veya telif hakkıyla korunan bilgiler eklemeyin.
+    uk = Ваші правки завантажуються до публічної бази даних <a href="https://wiki.openstreetmap.org/wiki/Uk:Про_проект">OpenStreetMap</a>. Будь ласка, не додавайте особисту або захищену авторським правом інформацію.
+    vi = Các chỉnh sửa của bạn sẽ được tải lên cơ sở dữ liệu <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> công khai. Vui lòng không thêm thông tin cá nhân hoặc có bản quyền.
+    zh-Hans = 您的编辑内容将上传到公共<a href="https://wiki.openstreetmap.org/wiki/Zh-hans:%E5%85%B3%E4%BA%8E">OpenStreetMap</a>数据库。请勿添加个人或受版权保护的信息。
+    zh-Hant = 您的編輯內容將上傳至公用 <a href="https://wiki.openstreetmap.org/wiki/Zh-hant:%E9%97%9C%E6%96%BCOpenStreetMap">OpenStreetMap</a> 資料庫。請不要添加個人或版權資訊。
 
   [editor_detailed_description_hint]
-    tags = android,ios
+    tags = ios
     en = Detailed comment
     af = Gedetailleerde kommentaar
     ar = تعليق مفصّل
@@ -16323,7 +16413,7 @@
     zh-Hant = 詳細註釋
 
   [editor_detailed_description]
-    tags = android,ios
+    tags = ios
     en = Your suggested map changes will be sent to the OpenStreetMap community. Please describe any additional details that cannot be edited in Organic Maps.
     af = U het kaartveranderinge voorgestel wat na die OpenStreetMap-gemeenskap gestuur sal word. Beskryf asb. enige bykomende detail wat nie in Organic Maps gewysig kan word nie.
     ar = سيتم إرسال التغييرات التي اقترحتها إلى مجتمع خريطة الشارع المفتوحة. اذكر التفاصيل التي لا يمكن تحريرها في Organic Maps
@@ -28900,13 +28990,15 @@
     en = https://wiki.openstreetmap.org/wiki/About_OpenStreetMap
     ar = https://wiki.openstreetmap.org/wiki/Ar:About_OpenStreetMap
     az = https://wiki.openstreetmap.org/wiki/Tr:About
+    bg = https://wiki.openstreetmap.org/wiki/Bg:About
     ca = https://wiki.openstreetmap.org/wiki/Ca:About
+    cs = https://wiki.openstreetmap.org/wiki/Cs:Co_je_OpenStreetMap
     da = https://wiki.openstreetmap.org/wiki/Da:Om_OpenStreetMap
     de = https://wiki.openstreetmap.org/wiki/DE:Über_OSM
     el = https://wiki.openstreetmap.org/wiki/El:About_OpenStreetMap
     es = https://wiki.openstreetmap.org/wiki/ES:Acerca_de_OpenStreetMap
     fa = https://wiki.openstreetmap.org/wiki/Fa:About_OpenStreetMap
-    fr = https://wiki.openstreetmap.org/wiki/FR:À_propos_d’OpenStreetMap
+    fr = https://wiki.openstreetmap.org/wiki/FR:%C3%80_propos_d%E2%80%99OpenStreetMap
     hu = https://wiki.openstreetmap.org/wiki/Hu:Névjegy
     it = https://wiki.openstreetmap.org/wiki/IT:About
     ja = https://wiki.openstreetmap.org/wiki/JA:参加する
