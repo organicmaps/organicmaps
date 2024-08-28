@@ -200,8 +200,8 @@
 	<string name="done">Fertig</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap-Daten: %s</string>
-	<!-- Confirmation in downloading countries dialog -->
-	<string name="are_you_sure">Möchten Sie wirklich fortfahren?</string>
+	<!-- Confirmation for OpenStreetMap log out. -->
+	<string name="osm_log_out_confirmation">Sind Sie sicher, dass Sie sich von Ihrem OpenStreetMap-Konto abmelden möchten?</string>
 	<!-- Title for tracks category in bookmarks manager -->
 	<string name="tracks_title">Tracks</string>
 	<!-- Length of track in cell that describes route -->

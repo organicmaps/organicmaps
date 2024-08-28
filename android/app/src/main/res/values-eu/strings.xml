@@ -200,8 +200,8 @@
 	<string name="done">Eginda</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap datuak: %s</string>
-	<!-- Confirmation in downloading countries dialog -->
-	<string name="are_you_sure">Ziur jarraitu nahi duzula?</string>
+	<!-- Confirmation for OpenStreetMap log out. -->
+	<string name="osm_log_out_confirmation">Ziur zure OpenStreetMap kontutik saioa amaitu nahi duzula?</string>
 	<!-- Title for tracks category in bookmarks manager -->
 	<string name="tracks_title">Arrastoak</string>
 	<!-- Length of track in cell that describes route -->

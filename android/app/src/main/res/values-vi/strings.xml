@@ -187,8 +187,8 @@
 	<string name="done">Xong</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Dữ liệu OpenStreetMap: %s</string>
-	<!-- Confirmation in downloading countries dialog -->
-	<string name="are_you_sure">Bạn có chắc muốn tiếp tục không?</string>
+	<!-- Confirmation for OpenStreetMap log out. -->
+	<string name="osm_log_out_confirmation">Bạn có chắc chắn muốn đăng xuất khỏi tài khoản OpenStreetMap của mình không?</string>
 	<!-- Title for tracks category in bookmarks manager -->
 	<string name="tracks_title">Dấu vết</string>
 	<!-- Length of track in cell that describes route -->

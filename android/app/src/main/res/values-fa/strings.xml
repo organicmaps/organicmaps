@@ -176,8 +176,8 @@
 	<string name="done">انجام شد</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap: %s داده‌های</string>
-	<!-- Confirmation in downloading countries dialog -->
-	<string name="are_you_sure">برای ادامه کار مطمئن اید؟</string>
+	<!-- Confirmation for OpenStreetMap log out. -->
+	<string name="osm_log_out_confirmation">آیا مطمئن هستید که می خواهید از حساب OpenStreetMap خود خارج شوید؟</string>
 	<!-- Title for tracks category in bookmarks manager -->
 	<string name="tracks_title">مسیر</string>
 	<!-- Length of track in cell that describes route -->

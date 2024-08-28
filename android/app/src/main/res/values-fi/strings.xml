@@ -202,8 +202,8 @@
 	<string name="done">Valmis</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap-tiedot: %s</string>
-	<!-- Confirmation in downloading countries dialog -->
-	<string name="are_you_sure">Oletko varma että haluat jatkaa?</string>
+	<!-- Confirmation for OpenStreetMap log out. -->
+	<string name="osm_log_out_confirmation">Haluatko varmasti kirjautua ulos OpenStreetMap-tililtäsi?</string>
 	<!-- Title for tracks category in bookmarks manager -->
 	<string name="tracks_title">Reitit</string>
 	<!-- Length of track in cell that describes route -->

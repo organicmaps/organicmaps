@@ -178,8 +178,8 @@
 	<string name="done">झाले</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">OpenStreetMap डेटा: %s</string>
-	<!-- Confirmation in downloading countries dialog -->
-	<string name="are_you_sure">खात्रीपूर्वक पुढे जायचे?</string>
+	<!-- Confirmation for OpenStreetMap log out. -->
+	<string name="osm_log_out_confirmation">तुमची खात्री आहे की तुम्ही तुमच्या OpenStreetMap खात्यातून लॉग आउट करू इच्छिता?</string>
 	<!-- Title for tracks category in bookmarks manager -->
 	<string name="tracks_title">ट्रॅक</string>
 	<!-- Length of track in cell that describes route -->
