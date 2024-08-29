@@ -1261,9 +1261,9 @@
 	<string name="type.highway.motorway_link.tunnel">隧道</string>
 	<string name="type.highway.path">小道</string>
 	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-	<string name="type.highway.path.difficult">小道</string>
+	<string name="type.highway.path.difficult">难走或难见的小路</string>
 	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-	<string name="type.highway.path.expert">小道</string>
+	<string name="type.highway.path.expert">非常困难或难以分辨的路径</string>
 	<string name="type.highway.path.bicycle">小道</string>
 	<string name="type.highway.footway.bicycle">小道</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->

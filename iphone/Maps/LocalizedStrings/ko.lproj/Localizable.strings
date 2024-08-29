@@ -1374,6 +1374,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "다른 앱에서 열기";
 
+/* To indicate if the place proposed self service... */
+"self_service" = "셀프 서비스";
+
 /* To indicate if restaurant or other place has outdoor seating */
 "outdoor_seating" = "야외 좌석";
 
@@ -2197,10 +2200,10 @@
 "type.highway.path" = "길";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "길";
+"type.highway.path.difficult" = "어렵거나 잘 보이지 않는 트레일";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "길";
+"type.highway.path.expert" = "매우 어렵거나 구별하기 어려운 흔적";
 
 "type.highway.path.bicycle" = "길";
 

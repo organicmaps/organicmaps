@@ -1374,6 +1374,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "เปิดในแอปอื่น";
 
+/* To indicate if the place proposed self service... */
+"self_service" = "บริการตนเอง";
+
 /* To indicate if restaurant or other place has outdoor seating */
 "outdoor_seating" = "ที่นั่งกลางแจ้ง";
 
@@ -2197,10 +2200,10 @@
 "type.highway.path" = "เส้นทาง";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "เส้นทาง";
+"type.highway.path.difficult" = "เส้นทางที่ยากลำบากหรือมองเห็นได้ไม่ดี";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "เส้นทาง";
+"type.highway.path.expert" = "เส้นทางที่ยากมากหรือแยกไม่ออก";
 
 "type.highway.path.bicycle" = "เส้นทาง";
 

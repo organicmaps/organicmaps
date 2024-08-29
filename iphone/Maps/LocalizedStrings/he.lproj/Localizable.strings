@@ -1374,6 +1374,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "פתח באפליקציה אחרת";
 
+/* To indicate if the place proposed self service... */
+"self_service" = "שירות עצמי";
+
 /* To indicate if restaurant or other place has outdoor seating */
 "outdoor_seating" = "ישיבה בחוץ";
 
@@ -2197,10 +2200,10 @@
 "type.highway.path" = "שביל";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "רמה 3/6) שביל קשה או לא ברור)";
+"type.highway.path.difficult" = "שביל קשה או לא נראה לעין";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "רמה 4+/6) מסלול למומחים או ללא שבילים מסודרים)";
+"type.highway.path.expert" = "מסלול קשה מאוד או בלתי ניתן להבחנה";
 
 "type.highway.path.bicycle" = "שביל להולכי רגל ואופניים";
 

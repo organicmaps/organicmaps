@@ -1150,9 +1150,9 @@
 	<string name="type.highway.motorway_link.tunnel">อุโมงค์</string>
 	<string name="type.highway.path">เส้นทาง</string>
 	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-	<string name="type.highway.path.difficult">เส้นทาง</string>
+	<string name="type.highway.path.difficult">เส้นทางที่ยากลำบากหรือมองเห็นได้ไม่ดี</string>
 	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-	<string name="type.highway.path.expert">เส้นทาง</string>
+	<string name="type.highway.path.expert">เส้นทางที่ยากมากหรือแยกไม่ออก</string>
 	<string name="type.highway.path.bicycle">เส้นทาง</string>
 	<string name="type.highway.footway.bicycle">เส้นทาง</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->

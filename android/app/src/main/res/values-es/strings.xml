@@ -1258,9 +1258,9 @@
 	<string name="type.highway.motorway_link.tunnel">Túnel</string>
 	<string name="type.highway.path">Camino</string>
 	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-	<string name="type.highway.path.difficult">Camino</string>
+	<string name="type.highway.path.difficult">Sendero difícil o poco visible</string>
 	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-	<string name="type.highway.path.expert">Camino</string>
+	<string name="type.highway.path.expert">Sendero muy difícil o indistinguible</string>
 	<string name="type.highway.path.bicycle">Camino para bicicletas</string>
 	<string name="type.highway.footway.bicycle">Camino para bicicletas</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->

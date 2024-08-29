@@ -898,8 +898,16 @@
 	<string name="type.highway.motorway_link.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Тунел</string>
+	<string name="type.highway.path">Път</string>
+	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+	<string name="type.highway.path.difficult">Трудна или слабо видима пътека</string>
+	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+	<string name="type.highway.path.expert">Много трудна или неразличима пътека</string>
+	<string name="type.highway.path.bicycle">Път</string>
+	<string name="type.highway.footway.bicycle">Път</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Мост</string>
+	<string name="type.highway.path.horse">Път</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Тунел</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -966,6 +974,7 @@
 	<string name="type.highway.unclassified.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.unclassified.tunnel">Тунел</string>
+	<string name="type.area_highway.path">Път</string>
 	<string name="type.area_highway.trunk">Автомагистрала</string>
 
 	<!-- SECTION: Types: Historic -->

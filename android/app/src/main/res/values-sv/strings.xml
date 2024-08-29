@@ -1143,9 +1143,9 @@
 	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
 	<string name="type.highway.path">Gångväg</string>
 	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-	<string name="type.highway.path.difficult">Gångväg</string>
+	<string name="type.highway.path.difficult">Svår eller dåligt synlig led</string>
 	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-	<string name="type.highway.path.expert">Gångväg</string>
+	<string name="type.highway.path.expert">Mycket svår eller omöjlig att urskilja spår</string>
 	<string name="type.highway.path.bicycle">Gångväg</string>
 	<string name="type.highway.footway.bicycle">Gångväg</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->

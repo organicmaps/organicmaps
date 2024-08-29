@@ -1144,9 +1144,9 @@
 	<string name="type.highway.motorway_link.tunnel">Terowongan</string>
 	<string name="type.highway.path">Jalur</string>
 	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-	<string name="type.highway.path.difficult">Jalur</string>
+	<string name="type.highway.path.difficult">Jejak yang sulit atau kurang terlihר)</string>
 	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-	<string name="type.highway.path.expert">Jalur</string>
+	<string name="type.highway.path.expert">Jejak yang sangat sulit atau tidak dapat dibedakם)</string>
 	<string name="type.highway.path.bicycle">Jalur</string>
 	<string name="type.highway.footway.bicycle">Jalur</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->

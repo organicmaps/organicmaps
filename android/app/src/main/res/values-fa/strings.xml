@@ -1064,9 +1064,9 @@
 	<string name="type.highway.motorway_link.tunnel">تونل</string>
 	<string name="type.highway.path">مسیر</string>
 	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-	<string name="type.highway.path.difficult">مسیر</string>
+	<string name="type.highway.path.difficult">مسیر دشوار یا ضعیف قابل مشاهده است</string>
 	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-	<string name="type.highway.path.expert">مسیر</string>
+	<string name="type.highway.path.expert">مسیر بسیار دشوار یا غیر قابل تشخیص</string>
 	<string name="type.highway.path.bicycle">مسیر</string>
 	<string name="type.highway.footway.bicycle">مسیر</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->

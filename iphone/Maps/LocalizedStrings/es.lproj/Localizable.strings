@@ -1374,6 +1374,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "Abrir en otra aplicación";
 
+/* To indicate if the place proposed self service... */
+"self_service" = "Autoservicio";
+
 /* To indicate if restaurant or other place has outdoor seating */
 "outdoor_seating" = "Asientos al aire libre";
 
@@ -2197,10 +2200,10 @@
 "type.highway.path" = "Camino";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Camino";
+"type.highway.path.difficult" = "Sendero difícil o poco visible";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Camino";
+"type.highway.path.expert" = "Sendero muy difícil o indistinguible";
 
 "type.highway.path.bicycle" = "Camino para bicicletas";
 

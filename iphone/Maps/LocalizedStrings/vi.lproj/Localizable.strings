@@ -1374,6 +1374,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "Mở trong ứng dụng khác";
 
+/* To indicate if the place proposed self service... */
+"self_service" = "Tự phục vụ";
+
 /* To indicate if restaurant or other place has outdoor seating */
 "outdoor_seating" = "Chỗ ngồi ngoài trời";
 
@@ -2197,10 +2200,10 @@
 "type.highway.path" = "Đường";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Đường";
+"type.highway.path.difficult" = "Đường đi khó hoặc khó nhìn thấy";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Đường";
+"type.highway.path.expert" = "Đường đi rất khó khăn hoặc không thể phân biệt được";
 
 "type.highway.path.bicycle" = "Đường";
 

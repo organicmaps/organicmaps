@@ -1374,6 +1374,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "Başka Bir Uygulamada Aç";
 
+/* To indicate if the place proposed self service... */
+"self_service" = "Self servis";
+
 /* To indicate if restaurant or other place has outdoor seating */
 "outdoor_seating" = "Açık oturma alanı";
 
@@ -2197,10 +2200,10 @@
 "type.highway.path" = "Yol";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Yol";
+"type.highway.path.difficult" = "Zor veya kötü görünür patika";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Yol";
+"type.highway.path.expert" = "Çok zor veya ayırt edilemeyen iz";
 
 "type.highway.path.bicycle" = "Bisiklet ve Yürüyüş Yolu";
 

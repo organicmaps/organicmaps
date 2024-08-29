@@ -844,9 +844,9 @@
 	<string name="type.highway.motorway_link">फ्रीवे प्रवेश</string>
 	<string name="type.highway.path">पथ</string>
 	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-	<string name="type.highway.path.difficult">पथ</string>
+	<string name="type.highway.path.difficult">कठिन या ख़राब दिखाई देने वाला मार्ग</string>
 	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-	<string name="type.highway.path.expert">पथ</string>
+	<string name="type.highway.path.expert">बहुत कठिन या अप्रभेद्य पथ</string>
 	<string name="type.highway.path.bicycle">पथ</string>
 	<string name="type.highway.footway.bicycle">पथ</string>
 	<string name="type.highway.path.horse">पथ</string>

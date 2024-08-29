@@ -1261,9 +1261,9 @@
 	<string name="type.highway.motorway_link.tunnel">نفق</string>
 	<string name="type.highway.path">مسار</string>
 	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-	<string name="type.highway.path.difficult">مسار</string>
+	<string name="type.highway.path.difficult">درب صعب أو ضعيف الرؤية</string>
 	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-	<string name="type.highway.path.expert">مسار</string>
+	<string name="type.highway.path.expert">أثر صعب للغاية أو لا يمكن تمييزه</string>
 	<string name="type.highway.path.bicycle">مسار للمشاة والدراجات معاً</string>
 	<string name="type.highway.footway.bicycle">مسار للمشاة والدراجات معاً</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->

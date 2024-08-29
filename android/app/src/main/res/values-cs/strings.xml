@@ -1158,9 +1158,9 @@
 	<string name="type.highway.motorway_link.tunnel">Tunel</string>
 	<string name="type.highway.path">Cesta</string>
 	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-	<string name="type.highway.path.difficult">Cesta</string>
+	<string name="type.highway.path.difficult">Obtížná nebo špatně viditelná stezka</string>
 	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-	<string name="type.highway.path.expert">Cesta</string>
+	<string name="type.highway.path.expert">Velmi obtížná nebo nezřetelná stopa</string>
 	<string name="type.highway.path.bicycle">Cesta</string>
 	<string name="type.highway.footway.bicycle">Cesta</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->

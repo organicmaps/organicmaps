@@ -1225,9 +1225,9 @@
 	<string name="type.highway.motorway_link.tunnel">トンネル</string>
 	<string name="type.highway.path">歩道</string>
 	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-	<string name="type.highway.path.difficult">歩道</string>
+	<string name="type.highway.path.difficult">困難な、または見通しの悪いトレイル</string>
 	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-	<string name="type.highway.path.expert">歩道</string>
+	<string name="type.highway.path.expert">非常に難しい、または区別がつかないトレイル</string>
 	<string name="type.highway.path.bicycle">歩道</string>
 	<string name="type.highway.footway.bicycle">歩道</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->

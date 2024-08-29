@@ -1374,6 +1374,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "Deschidere în altă aplicație";
 
+/* To indicate if the place proposed self service... */
+"self_service" = "Autoservire";
+
 /* To indicate if restaurant or other place has outdoor seating */
 "outdoor_seating" = "Scaune în aer liber";
 
@@ -2197,10 +2200,10 @@
 "type.highway.path" = "Cale";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Cale";
+"type.highway.path.difficult" = "Traseu dificil sau puțin vizibil";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Cale";
+"type.highway.path.expert" = "Traseu foarte dificil sau imposibil de distins";
 
 "type.highway.path.bicycle" = "Cale";
 

@@ -1242,9 +1242,9 @@
 	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
 	<string name="type.highway.path">Rada</string>
 	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-	<string name="type.highway.path.difficult">Rada</string>
+	<string name="type.highway.path.difficult">Raske või halvasti nähtav rada</string>
 	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-	<string name="type.highway.path.expert">Rada</string>
+	<string name="type.highway.path.expert">Väga raske või eristamatu rada</string>
 	<string name="type.highway.path.bicycle">Jalgratta- ja jalgtee</string>
 	<string name="type.highway.footway.bicycle">Jalgratta- ja jalgtee</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->

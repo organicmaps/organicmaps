@@ -1122,9 +1122,9 @@
 	<string name="type.highway.motorway_link.tunnel">बोगदा</string>
 	<string name="type.highway.path">पथ</string>
 	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-	<string name="type.highway.path.difficult">पथ</string>
+	<string name="type.highway.path.difficult">अवघड किंवा खराब दृश्यमान पायवाट</string>
 	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-	<string name="type.highway.path.expert">पथ</string>
+	<string name="type.highway.path.expert">अतिशय अवघड किंवा वेगळे न करता येणारी पायवाट</string>
 	<string name="type.highway.path.bicycle">सायकल आणि पाऊलवाट</string>
 	<string name="type.highway.footway.bicycle">सायकल आणि पाऊलवाट</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->

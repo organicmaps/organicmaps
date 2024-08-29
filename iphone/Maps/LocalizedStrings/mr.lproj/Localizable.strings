@@ -1374,6 +1374,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "दुसऱ्या ॲपमध्ये उघडा";
 
+/* To indicate if the place proposed self service... */
+"self_service" = "स्व: सेवा    nb = Selvbetjening";
+
 /* To indicate if restaurant or other place has outdoor seating */
 "outdoor_seating" = "बाहेरची आसनव्यवस्था    nb = Uteservering";
 
@@ -2197,10 +2200,10 @@
 "type.highway.path" = "पथ";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "पथ";
+"type.highway.path.difficult" = "अवघड किंवा खराब दृश्यमान पायवाट";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "पथ";
+"type.highway.path.expert" = "अतिशय अवघड किंवा वेगळे न करता येणारी पायवाट";
 
 "type.highway.path.bicycle" = "सायकल आणि पाऊलवाट";
 

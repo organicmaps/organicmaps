@@ -1374,6 +1374,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "Ireki beste aplikazio batean";
 
+/* To indicate if the place proposed self service... */
+"self_service" = "Autozerbitzu";
+
 /* To indicate if restaurant or other place has outdoor seating */
 "outdoor_seating" = "Kanpoko eserlekuak";
 
@@ -2197,10 +2200,10 @@
 "type.highway.path" = "Bidea";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Bidea";
+"type.highway.path.difficult" = "Ibilbide zaila edo gaizki ikusten da";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Bidea";
+"type.highway.path.expert" = "Oso bide zaila edo bereiztezina";
 
 "type.highway.path.bicycle" = "Bidea";
 

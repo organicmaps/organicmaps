@@ -1374,6 +1374,9 @@
 /* Title for the "Open In Another App" button on the PlacePage. */
 "open_in_app" = "Buka di Aplikasi Lain";
 
+/* To indicate if the place proposed self service... */
+"self_service" = "Layanan mandiri";
+
 /* To indicate if restaurant or other place has outdoor seating */
 "outdoor_seating" = "Tempat duduk di luar ruangan";
 
@@ -2197,10 +2200,10 @@
 "type.highway.path" = "Jalur";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Jalur";
+"type.highway.path.difficult" = "Jejak yang sulit atau kurang terlihר)";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Jalur";
+"type.highway.path.expert" = "Jejak yang sangat sulit atau tidak dapat dibedakם)";
 
 "type.highway.path.bicycle" = "Jalur";
 

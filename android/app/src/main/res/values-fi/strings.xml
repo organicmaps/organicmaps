@@ -1242,9 +1242,9 @@
 	<string name="type.highway.motorway_link.tunnel">Tunneli</string>
 	<string name="type.highway.path">Polku</string>
 	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-	<string name="type.highway.path.difficult">Polku</string>
+	<string name="type.highway.path.difficult">Vaikea tai huonosti näkyvä reitti</string>
 	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-	<string name="type.highway.path.expert">Polku</string>
+	<string name="type.highway.path.expert">Erittäin vaikea tai erottamaton jälki</string>
 	<string name="type.highway.path.bicycle">Pyörä- ja jalkatie</string>
 	<string name="type.highway.footway.bicycle">Pyörä- ja jalkatie</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->

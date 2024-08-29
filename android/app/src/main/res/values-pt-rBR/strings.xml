@@ -1128,11 +1128,10 @@
 	<string name="type.highway.motorway_link.bridge">Ponte</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Túnel</string>
-	<string name="type.highway.path">Caminho</string>
 	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-	<string name="type.highway.path.difficult">Caminho</string>
+	<string name="type.highway.path.difficult">Trilha difícil ou pouco visível</string>
 	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-	<string name="type.highway.path.expert">Caminho</string>
+	<string name="type.highway.path.expert">Trilha muito difícil ou indistinguível</string>
 	<string name="type.highway.path.bicycle">Caminho para ciclistas</string>
 	<string name="type.highway.footway.bicycle">Caminho para ciclistas</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1235,7 +1234,6 @@
 	<string name="type.area_highway.footway">Caminho pedonal</string>
 	<string name="type.area_highway.living_street">Rua residencial</string>
 	<string name="type.area_highway.motorway">Rodovia</string>
-	<string name="type.area_highway.path">Caminho</string>
 	<string name="type.area_highway.pedestrian">Caminho pedonal</string>
 	<string name="type.area_highway.primary">Estrada</string>
 	<string name="type.area_highway.residential">Rua residencial</string>
