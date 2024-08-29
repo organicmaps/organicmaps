@@ -95,12 +95,10 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     {
       mBookmarksSectionIndex = SectionPosition.INVALID_POSITION;
       mTracksSectionIndex = SectionPosition.INVALID_POSITION;
-      mDescriptionSectionIndex = SectionPosition.INVALID_POSITION;
 
       mSectionsCount = 0;
-      // Hide the category description
-      if (hasDescription())
-       mDescriptionSectionIndex = mSectionsCount++;
+      // We must always show the description, even if it's blank.
+      mDescriptionSectionIndex = mSectionsCount++;
       if (getCategory().getTracksCount() > 0)
         mTracksSectionIndex = mSectionsCount++;
       if (getCategory().getBookmarksCount() > 0)

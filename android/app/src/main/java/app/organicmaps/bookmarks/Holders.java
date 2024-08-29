@@ -466,6 +466,8 @@ public class Holders
 
       Spanned spannedDesc = Utils.fromHtml(desc);
       mDescText.setText(spannedDesc);
+
+      UiUtils.showIf(!TextUtils.isEmpty(spannedDesc), mDescText);
     }
   }
 }
