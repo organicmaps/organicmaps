@@ -5521,6 +5521,64 @@ cont {
   }
 }
 cont {
+  name: "amenity-dojo"
+  element {
+    scale: 17
+    symbol {
+      name: "martial-arts-m"
+      priority: 1250
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "martial-arts-m"
+      priority: 1250
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "martial-arts-m"
+      priority: 1250
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "martial-arts-m"
+      priority: 1250
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+}
+cont {
   name: "amenity-drinking_water"
   element {
     scale: 16
@@ -50746,6 +50804,77 @@ cont {
 }
 cont {
   name: "leisure-sports_centre"
+  element {
+    scale: 17
+    symbol {
+      name: "pitch-m"
+      priority: 1250
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "pitch-m"
+      priority: 1250
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "pitch-m"
+      priority: 1250
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "pitch-m"
+      priority: 1250
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+}
+cont {
+  name: "leisure-sports_hall"
   element {
     scale: 17
     symbol {

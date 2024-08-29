@@ -1599,3 +1599,5 @@ amenity|recycling|container
 *amenity|social_facility
 *craft
 *emergency|emergency_ward_entrance
+*amenity|dojo
+*leisure|sports_hall

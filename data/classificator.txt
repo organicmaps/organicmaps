@@ -60,6 +60,7 @@ world  +
         courthouse  -
         dentist  -
         doctors  -
+        dojo  -
         drinking_water  -
         driving_school  -
         events_venue  -
@@ -672,6 +673,7 @@ world  +
         sauna  -
         slipway  -
         sports_centre  -
+        sports_hall  -
         stadium  -
         swimming_pool  +
             private  -
