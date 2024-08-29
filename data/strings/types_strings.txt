@@ -32836,3 +32836,47 @@
     vi = Lối vào khu cấp cứu
     zh-Hans = 急诊室入口
     zh-Hant = 急診病房入口
+
+  [type.amenity.dojo]
+    comment = https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo
+    en = Dojo
+    af = Dojo
+    ar = دوجو
+    az = Dojo
+    be = Додзе
+    bg = Доджо
+    ca = Dojo
+    cs = Dojo
+    da = Dojo
+    de = Dojo
+    el = Dojo
+    es = Dojo
+    et = Dojo
+    eu = Dojoa
+    fa = دوجو
+    fi = Dojo
+    fr = Dojo
+    he = דוג'ו
+    hi = डोजो
+    hu = Dojo
+    id = Dojo
+    it = Dojo
+    ja = 道場
+    ko = 도장
+    lt = Dojo
+    mr = डोजो
+    nb = Dojo
+    nl = Dojo
+    pl = Dojo
+    pt = Dojo
+    ro = Dojo
+    ru = Додзё
+    sk = Dojo
+    sv = Dojo
+    sw = Dojo
+    th = โดโจ
+    tr = Dojo
+    uk = Додзьо
+    vi = võ đường
+    zh-Hans = 道场
+    zh-Hant = 道場

@@ -1025,6 +1025,7 @@ sport-soccer                                        # icon z17- (also has captio
 === 1300
 
 amenity-atm                                         # icon z18- (also has caption(optional) z18-)
+amenity-dojo                                        # icon z17- (also has caption(optional) z18-)
 isoline-step_50                                     # pathtext z16- (also has line z14-)
 landuse-recreation_ground                           # caption z15- (also has area z12-)
 leisure-recreation_ground                           # caption z17-
@@ -1935,6 +1936,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # === -8700
 
 # amenity-atm                                       # caption(optional) z18- (also has icon z18-)
+# amenity-dojo                                      # caption(optional) z18- (also has icon z17-)
 # leisure-sports_centre                             # caption(optional) z17- (also has icon z17-)
 # === -8750
 
