@@ -826,6 +826,10 @@
 	<string name="power_save_dialog_title">Disattiva la modalità di risparmio energetico</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Per una navigazione più accurata, ti consigliamo di disabilitare la modalità di risparmio energetico nelle impostazioni della batteria del telefono.</string>
+	<string name="self_service_yes">Disponibile in self-service</string>
+	<string name="self_service_only">Solo self-service</string>
+	<string name="self_service_partially">Self-service parziale</string>
+	<string name="self_service_no">Nessun self-service</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Indirizzo/Blocco</string>
@@ -1240,9 +1244,9 @@
 	<string name="type.highway.motorway_link.tunnel">Tunnel</string>
 	<string name="type.highway.path">Sentiero</string>
 	<!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-	<string name="type.highway.path.difficult">Sentiero</string>
+	<string name="type.highway.path.difficult">Sentiero difficile o poco tracciato</string>
 	<!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-	<string name="type.highway.path.expert">Sentiero</string>
+	<string name="type.highway.path.expert">Sentiero estremamente difficile o molto poco tracciato</string>
 	<string name="type.highway.path.bicycle">Sentiero</string>
 	<string name="type.highway.footway.bicycle">Sentiero</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -2097,10 +2101,6 @@
 	<string name="type.amenity.events_venue">Sede degli eventi</string>
 	<string name="type.shop.auction">Asta</string>
 	<string name="type.shop.collector">Oggetti da collezione</string>
-	<string name="type.self_service.yes">Disponibile in self-service</string>
-	<string name="type.self_service.only">Solo self-service</string>
-	<string name="type.self_service.partially">Self-service parziale</string>
-	<string name="type.self_service.no">Nessun self-service</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Struttura sociale</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

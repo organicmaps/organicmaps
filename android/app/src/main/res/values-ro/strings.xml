@@ -821,6 +821,10 @@
 	<string name="power_save_dialog_title">Dezactivați modul de economisire a energiei</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Pentru o navigare cât mai precisă, vă recomandăm să dezactivați modul de economisire a energiei în setările pentru baterie ale telefonului.</string>
+	<string name="self_service_yes">Autoservire disponibilă</string>
+	<string name="self_service_only">Numai autoservire</string>
+	<string name="self_service_partially">Autoservire parțială</string>
+	<string name="self_service_no">Fără autoservire</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresă/Bloc</string>
@@ -1939,10 +1943,6 @@
 	<string name="type.amenity.events_venue">Locul de desfășurare a evenimentelor</string>
 	<string name="type.shop.auction">Licitație</string>
 	<string name="type.shop.collector">Colecții</string>
-	<string name="type.self_service.yes">Autoservire disponibilă</string>
-	<string name="type.self_service.only">Numai autoservire</string>
-	<string name="type.self_service.partially">Autoservire parțială</string>
-	<string name="type.self_service.no">Fără autoservire</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Facilitate socială</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

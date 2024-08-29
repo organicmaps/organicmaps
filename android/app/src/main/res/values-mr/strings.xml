@@ -804,6 +804,10 @@
 	<string name="power_save_dialog_title">पॉवर सेव्हिंग मोड बंद करा</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">सर्वात अचूक नेव्हिगेशनसाठी, आम्ही फोनच्या बॅटरी सेटिंग्जमध्ये पॉवर सेव्हिंग मोड अक्षम करण्याची शिफारस करतो.</string>
+	<string name="self_service_yes">स्वयं-सेवा उपलब्ध</string>
+	<string name="self_service_only">फक्त स्व-सेवा</string>
+	<string name="self_service_partially">आंशिक स्व-सेवा</string>
+	<string name="self_service_no">स्व-सेवा नाही</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">पत्ता/ब्लॉक</string>
@@ -1940,10 +1944,6 @@
 	<string name="type.amenity.events_venue">कार्यक्रमाचे ठिकाण</string>
 	<string name="type.shop.auction">लिलाव</string>
 	<string name="type.shop.collector">संग्रहणीय वस्तू</string>
-	<string name="type.self_service.yes">स्वयं-सेवा उपलब्ध</string>
-	<string name="type.self_service.only">फक्त स्व-सेवा</string>
-	<string name="type.self_service.partially">आंशिक स्व-सेवा</string>
-	<string name="type.self_service.no">स्व-सेवा नाही</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">सामाजिक सुविधा</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

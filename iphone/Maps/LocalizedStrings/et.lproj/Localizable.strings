@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Taasta kõik";
 
+"self_service_yes" = "Iseteenindus saadaval";
+
+"self_service_only" = "Ainult iseteenindus";
+
+"self_service_partially" = "Osaline iseteenindus";
+
+"self_service_no" = "Iseteenindus puudub";
+
 
 /********** Types **********/
 

@@ -846,6 +846,10 @@
 	<string name="power_save_dialog_title">Wyłącz tryb oszczędzania energii</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Aby uzyskać najbardziej dokładną nawigację, zalecamy wyłączenie trybu oszczędzania energii w ustawieniach baterii telefonu.</string>
+	<string name="self_service_yes">Dostępna samoobsługa</string>
+	<string name="self_service_only">Tylko samoobsługa</string>
+	<string name="self_service_partially">Częściowa samoobsługa</string>
+	<string name="self_service_no">Brak samoobsługi</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adres/Blok</string>
@@ -2105,10 +2109,6 @@
 	<string name="type.amenity.events_venue">Sala bankietowa</string>
 	<string name="type.shop.auction">Dom aukcyjny</string>
 	<string name="type.shop.collector">Przedmioty kolekcjonerskie</string>
-	<string name="type.self_service.yes">Dostępna samoobsługa</string>
-	<string name="type.self_service.only">Tylko samoobsługa</string>
-	<string name="type.self_service.partially">Częściowa samoobsługa</string>
-	<string name="type.self_service.no">Brak samoobsługi</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Obiekt socjalny</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

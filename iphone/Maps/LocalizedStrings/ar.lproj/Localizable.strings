@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "استرداد الكل";
 
+"self_service_yes" = "الخدمة الذاتية متاحة";
+
+"self_service_only" = "الخدمة الذاتية فقط";
+
+"self_service_partially" = "خدمة ذاتية جزئية";
+
+"self_service_no" = "لا توجد خدمة ذاتية";
+
 
 /********** Types **********/
 

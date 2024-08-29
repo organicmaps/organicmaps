@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Recupera tutto";
 
+"self_service_yes" = "Disponibile in self-service";
+
+"self_service_only" = "Solo self-service";
+
+"self_service_partially" = "Self-service parziale";
+
+"self_service_no" = "Nessun self-service";
+
 
 /********** Types **********/
 
@@ -2197,10 +2205,10 @@
 "type.highway.path" = "Sentiero";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Sentiero";
+"type.highway.path.difficult" = "Sentiero difficile o poco tracciato";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Sentiero";
+"type.highway.path.expert" = "Sentiero estremamente difficile o molto poco tracciato";
 
 "type.highway.path.bicycle" = "Sentiero";
 

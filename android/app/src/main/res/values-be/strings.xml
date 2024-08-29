@@ -833,6 +833,10 @@
 	<string name="power_save_dialog_title">Выключыць рэжым энергазберажэння</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Для найбольш дакладнай навігацыі рэкамендуем адключыць рэжым энергазберажэння ў наладах батарэі тэлефона.</string>
+	<string name="self_service_yes">Маецца самаабслугоўванне</string>
+	<string name="self_service_only">Толькі самаабслугоўванне</string>
+	<string name="self_service_partially">Частковае самаабслугоўванне</string>
+	<string name="self_service_no">Няма самаабслугоўвання</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адрас/Блок</string>
@@ -1408,10 +1412,6 @@
 	<string name="type.amenity.events_venue">Месца правядзення мерапрыемстваў</string>
 	<string name="type.shop.auction">Аўкцыён</string>
 	<string name="type.shop.collector">Калекцыйныя прадметы</string>
-	<string name="type.self_service.yes">Маецца самаабслугоўванне</string>
-	<string name="type.self_service.only">Толькі самаабслугоўванне</string>
-	<string name="type.self_service.partially">Частковае самаабслугоўванне</string>
-	<string name="type.self_service.no">Няма самаабслугоўвання</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Сацыяльная ўстанова</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

@@ -757,6 +757,10 @@
 	<string name="power_save_dialog_title">Изключване на режима за пестене на енергия</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">За най-точна навигация препоръчваме да деактивирате режима за пестене на енергия в настройките на батерията на телефона.</string>
+	<string name="self_service_yes">Налично е самообслужване</string>
+	<string name="self_service_only">Само на самообслужване</string>
+	<string name="self_service_partially">Частично самообслужване</string>
+	<string name="self_service_no">Няма самообслужване</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адрес/Блок</string>
@@ -1239,10 +1243,6 @@
 	<string name="type.amenity.events_venue">Място за провеждане на събития</string>
 	<string name="type.shop.auction">Търг</string>
 	<string name="type.shop.collector">Колекционерски стоки</string>
-	<string name="type.self_service.yes">Налично е самообслужване</string>
-	<string name="type.self_service.only">Само на самообслужване</string>
-	<string name="type.self_service.partially">Частично самообслужване</string>
-	<string name="type.self_service.no">Няма самообслужване</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Социално съоръжение</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

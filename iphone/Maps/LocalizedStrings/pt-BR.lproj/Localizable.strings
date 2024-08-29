@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Recuperar tudo";
 
+"self_service_yes" = "Autoatendimento disponível";
+
+"self_service_only" = "Somente autoatendimento";
+
+"self_service_partially" = "Autoatendimento parcial";
+
+"self_service_no" = "Sem autoatendimento";
+
 
 /********** Types **********/
 

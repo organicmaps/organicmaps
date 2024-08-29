@@ -835,6 +835,10 @@
 	<string name="power_save_dialog_title">Vypnúť režim úspory energie</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Pre čo najpresnejšiu navigáciu odporúčame vypnúť režim úspory energie v nastaveniach batérie telefónu.</string>
+	<string name="self_service_yes">K dispozícii je samoobsluha</string>
+	<string name="self_service_only">Len samoobslužné služby</string>
+	<string name="self_service_partially">Čiastočná samoobsluha</string>
+	<string name="self_service_no">Žiadna samoobsluha</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresa/blok</string>
@@ -2113,10 +2117,6 @@
 	<string name="type.amenity.events_venue">Miesto konania podujatí</string>
 	<string name="type.shop.auction">Aukcia</string>
 	<string name="type.shop.collector">Zberateľské predmety</string>
-	<string name="type.self_service.yes">K dispozícii je samoobsluha</string>
-	<string name="type.self_service.only">Len samoobslužné služby</string>
-	<string name="type.self_service.partially">Čiastočná samoobsluha</string>
-	<string name="type.self_service.no">Žiadna samoobsluha</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Sociálne zariadenie</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

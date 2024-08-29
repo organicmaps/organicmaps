@@ -848,6 +848,10 @@
 	<string name="power_save_dialog_title">Güç Tasarrufu Modunu Kapat</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">En doğru navigasyon için, telefonun pil ayarlarında güç tasarrufu modunu devre dışı bırakmanızı öneririz.</string>
+	<string name="self_service_yes">Self servis mevcut</string>
+	<string name="self_service_only">Yalnızca self servis</string>
+	<string name="self_service_partially">Kısmi self servis</string>
+	<string name="self_service_no">Self servis yok</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adres/Blok</string>
@@ -2156,10 +2160,6 @@
 	<string name="type.amenity.events_venue">Etkinlik mekanı</string>
 	<string name="type.shop.auction">Müzayede</string>
 	<string name="type.shop.collector">Koleksiyon eşyaları</string>
-	<string name="type.self_service.yes">Self servis mevcut</string>
-	<string name="type.self_service.only">Yalnızca self servis</string>
-	<string name="type.self_service.partially">Kısmi self servis</string>
-	<string name="type.self_service.no">Self servis yok</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Sosyal Tesis</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

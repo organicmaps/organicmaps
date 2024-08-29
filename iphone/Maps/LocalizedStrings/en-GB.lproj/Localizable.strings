@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Recover All";
 
+"self_service_yes" = "Self-service available";
+
+"self_service_only" = "Self-service only";
+
+"self_service_partially" = "Partial self-service";
+
+"self_service_no" = "No self-service";
+
 
 /********** Types **********/
 

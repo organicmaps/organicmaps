@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "לשחזר הכל";
 
+"self_service_yes" = "שירות עצמי זמין";
+
+"self_service_only" = "שירות עצמי בלבד";
+
+"self_service_partially" = "שירות עצמי חלקי";
+
+"self_service_no" = "אין שירות עצמי";
+
 
 /********** Types **********/
 

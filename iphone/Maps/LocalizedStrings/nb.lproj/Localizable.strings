@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Gjenopprett alt";
 
+"self_service_yes" = "Selvbetjening tilgjengelig";
+
+"self_service_only" = "Kun selvbetjening";
+
+"self_service_partially" = "Delvis selvbetjening";
+
+"self_service_no" = "Ingen selvbetjening";
+
 
 /********** Types **********/
 

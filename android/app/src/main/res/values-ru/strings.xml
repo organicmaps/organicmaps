@@ -857,6 +857,10 @@
 	<string name="power_save_dialog_title">Отключить режим энергосбережения</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Для наиболее точной навигации мы рекомендуем отключить режим энергосбережения в настройках батареи телефона.</string>
+	<string name="self_service_yes">Самообслуживание доступно</string>
+	<string name="self_service_only">Только самообслуживание</string>
+	<string name="self_service_partially">Частичное самообслуживание</string>
+	<string name="self_service_no">Никакого самообслуживания</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адрес/Блок</string>
@@ -2184,10 +2188,6 @@
 	<string name="type.amenity.events_venue">Место проведения мероприятий</string>
 	<string name="type.shop.auction">Аукцион</string>
 	<string name="type.shop.collector">Коллекции</string>
-	<string name="type.self_service.yes">Самообслуживание доступно</string>
-	<string name="type.self_service.only">Только самообслуживание</string>
-	<string name="type.self_service.partially">Частичное самообслуживание</string>
-	<string name="type.self_service.no">Никакого самообслуживания</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Социальное учреждение</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

@@ -832,6 +832,10 @@
 	<string name="power_save_dialog_title">Lülita välja energiasäästurežiim</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Kõige täpsema navigeerimise tagamiseks soovitame telefoni aku seadetes energiasäästurežiimi välja lülitada.</string>
+	<string name="self_service_yes">Iseteenindus saadaval</string>
+	<string name="self_service_only">Ainult iseteenindus</string>
+	<string name="self_service_partially">Osaline iseteenindus</string>
+	<string name="self_service_no">Iseteenindus puudub</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Aadress/plokk</string>
@@ -2152,10 +2156,6 @@
 	<string name="type.amenity.events_venue">Ürituste toimumiskoht</string>
 	<string name="type.shop.auction">Oksjon</string>
 	<string name="type.shop.collector">Kollektsioneeritavad esemed</string>
-	<string name="type.self_service.yes">Iseteenindus saadaval</string>
-	<string name="type.self_service.only">Ainult iseteenindus</string>
-	<string name="type.self_service.partially">Osaline iseteenindus</string>
-	<string name="type.self_service.no">Iseteenindus puudub</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Sotsiaalne rajatis</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

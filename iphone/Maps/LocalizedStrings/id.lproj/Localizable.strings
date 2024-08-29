@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Pulihkan Semua";
 
+"self_service_yes" = "Tersedia layanan mandiri";
+
+"self_service_only" = "Hanya layanan mandiri";
+
+"self_service_partially" = "Layanan mandiri sebagian";
+
+"self_service_no" = "Tidak ada layanan mandiri";
+
 
 /********** Types **********/
 

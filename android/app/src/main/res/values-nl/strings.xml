@@ -839,6 +839,10 @@
 	<string name="power_save_dialog_title">Schakel energiebesparingsmodus uit</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Voor de meest nauwkeurige navigatie raden we aan om de energiebesparende modus uit te schakelen in de batterij-instellingen van de telefoon.</string>
+	<string name="self_service_yes">Zelfbediening beschikbaar</string>
+	<string name="self_service_only">Alleen zelfbediening</string>
+	<string name="self_service_partially">Gedeeltelijke zelfbediening</string>
+	<string name="self_service_no">Geen zelfbediening</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adres/blok</string>
@@ -2155,10 +2159,6 @@
 	<string name="type.amenity.events_venue">Evenementenlocatie</string>
 	<string name="type.shop.auction">Veiling</string>
 	<string name="type.shop.collector">Verzamelobjecten</string>
-	<string name="type.self_service.yes">Zelfbediening beschikbaar</string>
-	<string name="type.self_service.only">Alleen zelfbediening</string>
-	<string name="type.self_service.partially">Gedeeltelijke zelfbediening</string>
-	<string name="type.self_service.no">Geen zelfbediening</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Sociale voorziening</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

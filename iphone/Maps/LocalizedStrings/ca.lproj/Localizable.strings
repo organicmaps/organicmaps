@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Recuperar-ho tot";
 
+"self_service_yes" = "Autoservei disponible";
+
+"self_service_only" = "Només autoservei";
+
+"self_service_partially" = "Autoservei parcial";
+
+"self_service_no" = "Sense autoservei";
+
 
 /********** Types **********/
 

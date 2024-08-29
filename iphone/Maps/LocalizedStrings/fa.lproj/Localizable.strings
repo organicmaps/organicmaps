@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "بازیابی همه";
 
+"self_service_yes" = "سلف سرویس در دسترس است";
+
+"self_service_only" = "فقط سلف سرویس";
+
+"self_service_partially" = "سلف سرویس جزئی";
+
+"self_service_no" = "بدون سلف سرویس";
+
 
 /********** Types **********/
 

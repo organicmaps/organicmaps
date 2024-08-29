@@ -794,6 +794,10 @@
 	<string name="power_save_dialog_title">ปิดโหมดประหยัดพลังงาน</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">เพื่อการนำทางที่แม่นยำที่สุด เราขอแนะนำให้ปิดใช้งานโหมดประหยัดพลังงานในการตั้งค่าแบตเตอรี่ของโทรศัพท์</string>
+	<string name="self_service_yes">มีบริการด้วยตนเอง</string>
+	<string name="self_service_only">บริการตนเองเท่านั้น</string>
+	<string name="self_service_partially">การบริการตนเองบางส่วน</string>
+	<string name="self_service_no">ไม่มีบริการตนเอง</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">ที่อยู่/บล็อค</string>
@@ -1929,10 +1933,6 @@
 	<string name="type.amenity.events_venue">สถานที่จัดงาน</string>
 	<string name="type.shop.auction">ประมูล</string>
 	<string name="type.shop.collector">ของสะสม</string>
-	<string name="type.self_service.yes">มีบริการด้วยตนเอง</string>
-	<string name="type.self_service.only">บริการตนเองเท่านั้น</string>
-	<string name="type.self_service.partially">การบริการตนเองบางส่วน</string>
-	<string name="type.self_service.no">ไม่มีบริการตนเอง</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">สิ่งอำนวยความสะดวกทางสังคม</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

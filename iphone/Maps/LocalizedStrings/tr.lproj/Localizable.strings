@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Hepsini Kurtar";
 
+"self_service_yes" = "Self servis mevcut";
+
+"self_service_only" = "Yalnızca self servis";
+
+"self_service_partially" = "Kısmi self servis";
+
+"self_service_no" = "Self servis yok";
+
 
 /********** Types **********/
 

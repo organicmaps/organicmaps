@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Palauta kaikki";
 
+"self_service_yes" = "Itsepalvelu saatavilla";
+
+"self_service_only" = "Vain itsepalvelu";
+
+"self_service_partially" = "Osittainen itsepalvelu";
+
+"self_service_no" = "Ei itsepalvelua";
+
 
 /********** Types **********/
 

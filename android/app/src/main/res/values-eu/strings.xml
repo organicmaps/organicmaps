@@ -840,6 +840,10 @@
 	<string name="power_save_dialog_title">Desaktibatu energia aurrezteko modua</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Nabigazio zehatzena lortzeko, telefonoaren bateriaren ezarpenetan energia aurrezteko modua desgaitzea gomendatzen dugu.</string>
+	<string name="self_service_yes">Autozerbitzua eskuragarri</string>
+	<string name="self_service_only">Autozerbitzua soilik</string>
+	<string name="self_service_partially">Autozerbitzu partziala</string>
+	<string name="self_service_no">Autozerbitzurik ez</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Helbidea/Blokea</string>
@@ -2023,10 +2027,6 @@
 	<string name="type.amenity.events_venue">Ekitaldien Lekua</string>
 	<string name="type.shop.auction">Enkantea</string>
 	<string name="type.shop.collector">Bildumagarriak</string>
-	<string name="type.self_service.yes">Autozerbitzua eskuragarri</string>
-	<string name="type.self_service.only">Autozerbitzua soilik</string>
-	<string name="type.self_service.partially">Autozerbitzu partziala</string>
-	<string name="type.self_service.no">Autozerbitzurik ez</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Gizarte-ekipamendua</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

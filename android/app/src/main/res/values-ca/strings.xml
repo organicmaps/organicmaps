@@ -844,6 +844,10 @@
 	<string name="power_save_dialog_title">Desactiva el mode d\'estalvi d\'energia</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Per a una navegació més precisa, recomanem desactivar el mode d\'estalvi d\'energia a la configuració de la bateria del telèfon.</string>
+	<string name="self_service_yes">Autoservei disponible</string>
+	<string name="self_service_only">Només autoservei</string>
+	<string name="self_service_partially">Autoservei parcial</string>
+	<string name="self_service_no">Sense autoservei</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adreça/Bloc</string>
@@ -1252,10 +1256,6 @@
 	<string name="type.amenity.events_venue">Lloc d’esdeveniments</string>
 	<string name="type.shop.auction">Subhasta</string>
 	<string name="type.shop.collector">Col·leccionables</string>
-	<string name="type.self_service.yes">Autoservei disponible</string>
-	<string name="type.self_service.only">Només autoservei</string>
-	<string name="type.self_service.partially">Autoservei parcial</string>
-	<string name="type.self_service.no">Sense autoservei</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Equipament Social</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

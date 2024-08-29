@@ -796,6 +796,10 @@
 	<string name="power_save_dialog_title">خاموش کردن حالت صرفه‌جویی در مصرف انرژی</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">برای دقیقu200cترین ناوبری، توصیه میu200cکنیم حالت صرفهu200cجویی در مصرف انرژی را در تنظیمات باتری گوشی غیرفعال کنید.</string>
+	<string name="self_service_yes">سلف سرویس در دسترس است</string>
+	<string name="self_service_only">فقط سلف سرویس</string>
+	<string name="self_service_partially">سلف سرویس جزئی</string>
+	<string name="self_service_no">بدون سلف سرویس</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">آدرس/بلاک</string>
@@ -1841,10 +1845,6 @@
 	<string name="type.amenity.events_venue">محل برگزاری رویدادها</string>
 	<string name="type.shop.auction">حراج</string>
 	<string name="type.shop.collector">کلکسیونی ها</string>
-	<string name="type.self_service.yes">سلف سرویس در دسترس است</string>
-	<string name="type.self_service.only">فقط سلف سرویس</string>
-	<string name="type.self_service.partially">سلف سرویس جزئی</string>
-	<string name="type.self_service.no">بدون سلف سرویس</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">تسهیلات اجتماعی</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

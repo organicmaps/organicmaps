@@ -853,6 +853,10 @@
 	<string name="power_save_dialog_title">关闭省电模式</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">为了获得最准确的导航，我们建议在手机电池设置中停用省电模式。</string>
+	<string name="self_service_yes">提供自助服务</string>
+	<string name="self_service_only">仅限自助服务</string>
+	<string name="self_service_partially">部分自助服务</string>
+	<string name="self_service_no">无自助服务</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">地址/区块</string>
@@ -2134,10 +2138,6 @@
 	<string name="type.amenity.events_venue">活动场所</string>
 	<string name="type.shop.auction">拍卖会</string>
 	<string name="type.shop.collector">收藏品</string>
-	<string name="type.self_service.yes">提供自助服务</string>
-	<string name="type.self_service.only">仅限自助服务</string>
-	<string name="type.self_service.partially">部分自助服务</string>
-	<string name="type.self_service.no">无自助服务</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">社会设施</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

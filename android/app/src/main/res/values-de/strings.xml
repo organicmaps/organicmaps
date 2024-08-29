@@ -842,6 +842,10 @@
 	<string name="power_save_dialog_title">Energiesparmodus deaktivieren</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Für eine möglichst genaue Navigation empfehlen wir, den Energiesparmodus in den Akku-Einstellungen des Telefons zu deaktivieren.</string>
+	<string name="self_service_yes">Selbstbedienung verfügbar</string>
+	<string name="self_service_only">Nur Selbstbedienung</string>
+	<string name="self_service_partially">Teilweise Selbstbedienung</string>
+	<string name="self_service_no">Keine Selbstbedienung</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresse/Block</string>
@@ -2136,10 +2140,6 @@
 	<string name="type.amenity.events_venue">Veranstaltungszentrum</string>
 	<string name="type.shop.auction">Auktion</string>
 	<string name="type.shop.collector">Sammlerstücke</string>
-	<string name="type.self_service.yes">Selbstbedienung verfügbar</string>
-	<string name="type.self_service.only">Nur Selbstbedienung</string>
-	<string name="type.self_service.partially">Teilweise Selbstbedienung</string>
-	<string name="type.self_service.no">Keine Selbstbedienung</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Soziale Einrichtung</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

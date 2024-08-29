@@ -574,6 +574,10 @@
 	<string name="power_save_dialog_title">पावर सेविंग मोड बंद करें</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">सबसे सटीक नेविगेशन के लिए, हम फ़ोन की बैटरी सेटिंग्स में पावर सेविंग मोड को अक्षम करने की सलाह देते हैं।</string>
+	<string name="self_service_yes">स्व-सेवा उपलब्ध है</string>
+	<string name="self_service_only">केवल स्व-सेवा</string>
+	<string name="self_service_partially">आंशिक स्व-सेवा</string>
+	<string name="self_service_no">कोई स्व-सेवा नहीं</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.cable_car">आकाशीय रज्जुमार्ग</string>
@@ -1204,10 +1208,6 @@
 	<string name="type.piste_type.hike">स्नो हाइकिंग ट्रेल</string>
 	<string name="type.piste_type.connection">पिस्ट कनेक्शन</string>
 	<string name="type.piste_type.skitour">स्किटौर ट्रेल</string>
-	<string name="type.self_service.yes">स्व-सेवा उपलब्ध है</string>
-	<string name="type.self_service.only">केवल स्व-सेवा</string>
-	<string name="type.self_service.partially">आंशिक स्व-सेवा</string>
-	<string name="type.self_service.no">कोई स्व-सेवा नहीं</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">सामाजिक सुविधा</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

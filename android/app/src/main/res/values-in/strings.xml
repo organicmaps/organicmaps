@@ -796,6 +796,10 @@
 	<string name="power_save_dialog_title">Matikan Mode Hemat Daya</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Untuk navigasi yang paling akurat, kami sarankan untuk menonaktifkan mode hemat daya dalam pengaturan baterai ponsel.</string>
+	<string name="self_service_yes">Tersedia layanan mandiri</string>
+	<string name="self_service_only">Hanya layanan mandiri</string>
+	<string name="self_service_partially">Layanan mandiri sebagian</string>
+	<string name="self_service_no">Tidak ada layanan mandiri</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Alamat/Blokir</string>
@@ -1916,10 +1920,6 @@
 	<string name="type.amenity.events_venue">Tempat acara</string>
 	<string name="type.shop.auction">Lelang</string>
 	<string name="type.shop.collector">Barang koleksi</string>
-	<string name="type.self_service.yes">Tersedia layanan mandiri</string>
-	<string name="type.self_service.only">Hanya layanan mandiri</string>
-	<string name="type.self_service.partially">Layanan mandiri sebagian</string>
-	<string name="type.self_service.no">Tidak ada layanan mandiri</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Fasilitas Sosial</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

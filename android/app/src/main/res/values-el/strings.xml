@@ -839,6 +839,10 @@
 	<string name="power_save_dialog_title">Απενεργοποίηση λειτουργίας εξοικονόμησης ενέργειας</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Για την πιο ακριβή πλοήγηση, συνιστούμε να απενεργοποιήσετε τη λειτουργία εξοικονόμησης ενέργειας στις ρυθμίσεις μπαταρίας του τηλεφώνου.</string>
+	<string name="self_service_yes">Διαθέσιμη αυτοεξυπηρέτηση</string>
+	<string name="self_service_only">Μόνο αυτοεξυπηρέτηση</string>
+	<string name="self_service_partially">Μερική αυτοεξυπηρέτηση</string>
+	<string name="self_service_no">Δεν υπάρχει αυτοεξυπηρέτηση</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Διεύθυνση/Μπλοκ</string>
@@ -1980,10 +1984,6 @@
 	<string name="type.amenity.events_venue">Κέντρο εκδηλώσεων</string>
 	<string name="type.shop.auction">Δημοπρασία</string>
 	<string name="type.shop.collector">Συλλεκτικά αντικείμενα</string>
-	<string name="type.self_service.yes">Διαθέσιμη αυτοεξυπηρέτηση</string>
-	<string name="type.self_service.only">Μόνο αυτοεξυπηρέτηση</string>
-	<string name="type.self_service.partially">Μερική αυτοεξυπηρέτηση</string>
-	<string name="type.self_service.no">Δεν υπάρχει αυτοεξυπηρέτηση</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Κοινωνική διευκόλυνση</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

@@ -822,6 +822,10 @@
 	<string name="power_save_dialog_title">Enerjiyə qənaət rejimini söndürün</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Ən dəqiq naviqasiya üçün telefonun batareya parametrlərində enerjiyə qənaət rejimini söndürməyi tövsiyə edirik.</string>
+	<string name="self_service_yes">Özünə xidmət mövcuddur</string>
+	<string name="self_service_only">Yalnız özünə xidmət</string>
+	<string name="self_service_partially">Qismən özünəxidmət</string>
+	<string name="self_service_no">Özünə xidmət yoxdur</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Ünvan/Blok</string>
@@ -2108,10 +2112,6 @@
 	<string name="type.amenity.events_venue">Tədbir yeri</string>
 	<string name="type.shop.auction">Hərrac</string>
 	<string name="type.shop.collector">Kolleksiya əşyaları</string>
-	<string name="type.self_service.yes">Özünə xidmət mövcuddur</string>
-	<string name="type.self_service.only">Yalnız özünə xidmət</string>
-	<string name="type.self_service.partially">Qismən özünəxidmət</string>
-	<string name="type.self_service.no">Özünə xidmət yoxdur</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Sosial obyekt</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

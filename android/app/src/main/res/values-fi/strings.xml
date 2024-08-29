@@ -843,6 +843,10 @@
 	<string name="power_save_dialog_title">Poista virransäästötila käytöstä</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Jotta navigointi olisi mahdollisimman tarkkaa, suosittelemme virransäästötilan poistamista käytöstä puhelimen akkuasetuksista.</string>
+	<string name="self_service_yes">Itsepalvelu saatavilla</string>
+	<string name="self_service_only">Vain itsepalvelu</string>
+	<string name="self_service_partially">Osittainen itsepalvelu</string>
+	<string name="self_service_no">Ei itsepalvelua</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Osoite/lohko</string>
@@ -2078,10 +2082,6 @@
 	<string name="type.amenity.events_venue">Tapahtumapaikka</string>
 	<string name="type.shop.auction">Huutokauppa</string>
 	<string name="type.shop.collector">Keräilyesineet</string>
-	<string name="type.self_service.yes">Itsepalvelu saatavilla</string>
-	<string name="type.self_service.only">Vain itsepalvelu</string>
-	<string name="type.self_service.partially">Osittainen itsepalvelu</string>
-	<string name="type.self_service.no">Ei itsepalvelua</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Sosiaalinen väline</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

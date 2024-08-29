@@ -832,6 +832,10 @@
 	<string name="power_save_dialog_title">כבה מצב חיסכון באנרגיה</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">לניווט המדויק ביותר, אנו ממליצים להשבית את מצב חיסכון בחשמל בהגדרות הסוללה של הטלפון.</string>
+	<string name="self_service_yes">שירות עצמי זמין</string>
+	<string name="self_service_only">שירות עצמי בלבד</string>
+	<string name="self_service_partially">שירות עצמי חלקי</string>
+	<string name="self_service_no">אין שירות עצמי</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">כתובת/שכונה</string>
@@ -1675,10 +1679,6 @@
 	<string name="type.amenity.events_venue">מתחם אירועים</string>
 	<string name="type.shop.auction">מכירה פומבית</string>
 	<string name="type.shop.collector">פריטי אספנות</string>
-	<string name="type.self_service.yes">שירות עצמי זמין</string>
-	<string name="type.self_service.only">שירות עצמי בלבד</string>
-	<string name="type.self_service.partially">שירות עצמי חלקי</string>
-	<string name="type.self_service.no">אין שירות עצמי</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">מתקן חברתי</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

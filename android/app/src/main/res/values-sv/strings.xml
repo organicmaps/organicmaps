@@ -793,6 +793,10 @@
 	<string name="power_save_dialog_title">Stäng av energisparläget</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">För att få den mest exakta navigeringen rekommenderar vi att du avaktiverar energisparläget i telefonens batteriinställningar.</string>
+	<string name="self_service_yes">Självbetjäning tillgänglig</string>
+	<string name="self_service_only">Endast självbetjäning</string>
+	<string name="self_service_partially">Delvis självbetjäning</string>
+	<string name="self_service_no">Ingen självbetjäning</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adress/Block</string>
@@ -1915,10 +1919,6 @@
 	<string name="type.amenity.events_venue">Evenemangslokal</string>
 	<string name="type.shop.auction">Auktion</string>
 	<string name="type.shop.collector">Samlingsföremål</string>
-	<string name="type.self_service.yes">Självbetjäning tillgänglig</string>
-	<string name="type.self_service.only">Endast självbetjäning</string>
-	<string name="type.self_service.partially">Delvis självbetjäning</string>
-	<string name="type.self_service.no">Ingen självbetjäning</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Social anläggning</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

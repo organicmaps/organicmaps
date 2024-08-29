@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Guztia berreskuratu";
 
+"self_service_yes" = "Autozerbitzua eskuragarri";
+
+"self_service_only" = "Autozerbitzua soilik";
+
+"self_service_partially" = "Autozerbitzu partziala";
+
+"self_service_no" = "Autozerbitzurik ez";
+
 
 /********** Types **********/
 

@@ -853,6 +853,10 @@
 	<string name="power_save_dialog_title">إيقاف تشغيل وضع توفير الطاقة</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">للحصول على التنقل الأكثر دقة، نوصي بتعطيل وضع توفير الطاقة في إعدادات بطارية الهاتف.</string>
+	<string name="self_service_yes">الخدمة الذاتية متاحة</string>
+	<string name="self_service_only">الخدمة الذاتية فقط</string>
+	<string name="self_service_partially">خدمة ذاتية جزئية</string>
+	<string name="self_service_no">لا توجد خدمة ذاتية</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">العنوان / البلوك</string>
@@ -2086,10 +2090,6 @@
 	<string name="type.amenity.events_venue">مكان الأحداث</string>
 	<string name="type.shop.auction">مزاد علني</string>
 	<string name="type.shop.collector">مقتنيات</string>
-	<string name="type.self_service.yes">الخدمة الذاتية متاحة</string>
-	<string name="type.self_service.only">الخدمة الذاتية فقط</string>
-	<string name="type.self_service.partially">خدمة ذاتية جزئية</string>
-	<string name="type.self_service.no">لا توجد خدمة ذاتية</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">المرفق الاجتماعي</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

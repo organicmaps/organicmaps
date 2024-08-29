@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Аднавіць усё";
 
+"self_service_yes" = "Маецца самаабслугоўванне";
+
+"self_service_only" = "Толькі самаабслугоўванне";
+
+"self_service_partially" = "Частковае самаабслугоўванне";
+
+"self_service_no" = "Няма самаабслугоўвання";
+
 
 /********** Types **********/
 

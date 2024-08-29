@@ -807,6 +807,10 @@
 	<string name="power_save_dialog_title">Desativar o modo de economia de energia</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Para uma navegação mais precisa, recomendamos que desactive o modo de poupança de energia nas definições da bateria do telemóvel.</string>
+	<string name="self_service_yes">Auto-atendimento disponível</string>
+	<string name="self_service_only">Somente autosserviço</string>
+	<string name="self_service_partially">Autosserviço parcial</string>
+	<string name="self_service_no">Sem autosserviço</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Morada/Bloco</string>
@@ -2102,10 +2106,6 @@
 	<string name="type.amenity.events_venue">Local dos eventos</string>
 	<string name="type.shop.auction">Leilão</string>
 	<string name="type.shop.collector">Objectos de colecção</string>
-	<string name="type.self_service.yes">Auto-atendimento disponível</string>
-	<string name="type.self_service.only">Somente autosserviço</string>
-	<string name="type.self_service.partially">Autosserviço parcial</string>
-	<string name="type.self_service.no">Sem autosserviço</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Instituição de serviços sociais</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

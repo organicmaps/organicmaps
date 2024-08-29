@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "सभी पुनः प्राप्त करें";
 
+"self_service_yes" = "स्व-सेवा उपलब्ध है";
+
+"self_service_only" = "केवल स्व-सेवा";
+
+"self_service_partially" = "आंशिक स्व-सेवा";
+
+"self_service_no" = "कोई स्व-सेवा नहीं";
+
 
 /********** Types **********/
 

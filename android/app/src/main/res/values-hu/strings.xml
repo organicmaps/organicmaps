@@ -812,6 +812,10 @@
 	<string name="power_save_dialog_title">Kapcsolja ki az energiatakarékos módot</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">A legpontosabb navigáció érdekében javasoljuk az energiatakarékos üzemmód kikapcsolását a telefon akkumulátor-beállításaiban.</string>
+	<string name="self_service_yes">Önkiszolgálás elérhető</string>
+	<string name="self_service_only">Csak önkiszolgálás</string>
+	<string name="self_service_partially">Részleges önkiszolgálás</string>
+	<string name="self_service_no">Nincs önkiszolgálás</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Cím/blokk</string>
@@ -1943,10 +1947,6 @@
 	<string name="type.amenity.events_venue">Rendezvények helyszíne</string>
 	<string name="type.shop.auction">Aukció</string>
 	<string name="type.shop.collector">Gyűjthető tárgyak</string>
-	<string name="type.self_service.yes">Önkiszolgálás elérhető</string>
-	<string name="type.self_service.only">Csak önkiszolgálás</string>
-	<string name="type.self_service.partially">Részleges önkiszolgálás</string>
-	<string name="type.self_service.no">Nincs önkiszolgálás</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
 	<string name="type.amenity.social_facility">Szociális létesítmény</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
