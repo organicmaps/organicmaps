@@ -2634,7 +2634,7 @@
 
 "type.leisure.picnic_table" = "Mesa de picnic";
 
-"type.leisure.pitch" = "Complejo deportivo";
+"type.leisure.pitch" = "Cancha";
 
 "type.leisure.playground" = "Patio de recreo";
 
@@ -2644,7 +2644,7 @@
 
 "type.leisure.slipway" = "Rampa de barcos";
 
-"type.leisure.sports_centre" = "Polideportivo";
+"type.leisure.sports_centre" = "Complejo deportivo";
 
 "type.sport.climbing" = "Centro de escalada";
 
@@ -4018,3 +4018,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Entrada a urgencias";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Dojo";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Pabellón deportivo";

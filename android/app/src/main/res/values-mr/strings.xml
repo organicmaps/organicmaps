@@ -1941,4 +1941,8 @@
 	<string name="type.amenity.social_facility">सामाजिक सुविधा</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
 	<string name="type.emergency.emergency_ward_entrance">आपत्कालीन प्रभाग प्रवेशद्वार</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->
+	<string name="type.amenity.dojo">डोजो</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
+	<string name="type.leisure.sports_hall">क्रीडा हॉल</string>
 </resources>

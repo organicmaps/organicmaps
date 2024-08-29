@@ -1930,4 +1930,8 @@
 	<string name="type.amenity.social_facility">สิ่งอำนวยความสะดวกทางสังคม</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
 	<string name="type.emergency.emergency_ward_entrance">ทางเข้าแผนกฉุกเฉิน</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->
+	<string name="type.amenity.dojo">โดโจ</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
+	<string name="type.leisure.sports_hall">ห้องกีฬา</string>
 </resources>
