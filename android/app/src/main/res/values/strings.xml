@@ -2227,4 +2227,8 @@
 	<string name="type.amenity.social_facility">Social Facility</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
 	<string name="type.emergency.emergency_ward_entrance">Emergency Ward Entrance</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->
+	<string name="type.amenity.dojo">Dojo</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
+	<string name="type.leisure.sports_hall">Sports hall</string>
 </resources>

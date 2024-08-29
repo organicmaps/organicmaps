@@ -1478,12 +1478,12 @@
 	<string name="type.leisure.park.permissive">Parque</string>
 	<string name="type.leisure.park.private">Parque</string>
 	<string name="type.leisure.picnic_table">Mesa de picnic</string>
-	<string name="type.leisure.pitch">Complejo deportivo</string>
+	<string name="type.leisure.pitch">Cancha</string>
 	<string name="type.leisure.playground">Patio de recreo</string>
 	<string name="type.leisure.recreation_ground">Zona recreativa</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.slipway">Rampa de barcos</string>
-	<string name="type.leisure.sports_centre">Polideportivo</string>
+	<string name="type.leisure.sports_centre">Complejo deportivo</string>
 	<string name="type.sport.climbing">Centro de escalada</string>
 	<string name="type.sport.yoga">Centro de yoga</string>
 	<string name="type.leisure.stadium">Estadio</string>
@@ -2156,4 +2156,8 @@
 	<string name="type.amenity.social_facility">Servicio social</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
 	<string name="type.emergency.emergency_ward_entrance">Entrada a urgencias</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->
+	<string name="type.amenity.dojo">Dojo</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
+	<string name="type.leisure.sports_hall">Pabellón deportivo</string>
 </resources>

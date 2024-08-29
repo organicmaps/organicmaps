@@ -1932,4 +1932,8 @@
 	<string name="type.amenity.social_facility">사회 시설</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
 	<string name="type.emergency.emergency_ward_entrance">응급 병동 입구</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->
+	<string name="type.amenity.dojo">도장</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
+	<string name="type.leisure.sports_hall">스포츠 홀</string>
 </resources>

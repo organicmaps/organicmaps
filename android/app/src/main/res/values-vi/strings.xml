@@ -1925,4 +1925,8 @@
 	<string name="type.amenity.social_facility">Cơ sở xã hội</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
 	<string name="type.emergency.emergency_ward_entrance">Lối vào khu cấp cứu</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->
+	<string name="type.amenity.dojo">võ đường</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
+	<string name="type.leisure.sports_hall">Nhà thi đấu thể thao</string>
 </resources>

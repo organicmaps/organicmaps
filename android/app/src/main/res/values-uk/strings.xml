@@ -2164,4 +2164,8 @@
 	<string name="type.amenity.social_facility">Соціальна установа</string>
 	<!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
 	<string name="type.emergency.emergency_ward_entrance">Вхід до відділення невідкладної допомоги</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->
+	<string name="type.amenity.dojo">Додзьо</string>
+	<!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
+	<string name="type.leisure.sports_hall">Спортивний зал</string>
 </resources>
