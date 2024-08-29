@@ -31,6 +31,7 @@
       android:layout_height="wrap_content">
         <com.google.android.material.textfield.TextInputLayout
           android:id="@+id/edit_list_name_input"
+          app:hintAnimationEnabled="false"
           style="@style/MwmWidget.Editor.CustomTextInput"
           android:textColorHint="?android:textColorSecondary"
           app:endIconMode="custom"
@@ -45,6 +46,7 @@
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
     <com.google.android.material.textfield.TextInputLayout
+      app:hintAnimationEnabled="false"
       style="@style/MwmWidget.Editor.CustomTextInput"
       android:textColorHint="?android:textColorSecondary">
     <com.google.android.material.textfield.TextInputEditText
