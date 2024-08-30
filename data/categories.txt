@@ -16556,3 +16556,44 @@ uk:Соціальна установа
 vi:Cơ sở xã hội
 zh-Hans:社会设施
 zh-Hant:社會設施
+
+leisure-sports_hall
+en:Sports hall
+ar:الصالة الرياضية
+be:Спартыўная зала
+bg:Спортна зала
+ca:Pavelló esportiu
+cs:Sportovní hala
+da:Sportshal
+de:Sporthalle
+el:Αθλητική αίθουσα
+es:Pabellón deportivo
+et:Spordisaal
+eu:Kiroldegia
+fa:سالن ورزشی
+fi:Urheiluhalli
+fr:Salle de sport
+he:אולם ספורט
+hi:खेल हॉल
+hu:Sportcsarnok
+id:Ruang olahraga
+it:Palazzetto dello sport
+ja:スポーツホール
+ko:스포츠 홀
+mr:क्रीडा हॉल
+nb:Idrettshall
+nl:Sporthal
+pl:Hala sportowa
+pt:Pavilhão desportivo
+pt-BR:Salão de esportes
+ro:Sală de sport
+ru:Спортивный зал
+sk:Športová hala
+sv:Idrottshall
+sw:Ukumbi wa michezo
+th:ห้องกีฬา
+tr:Spor salonu
+uk:Спортивний зал
+vi:Nhà thi đấu thể thao
+zh-Hans:体育馆
+zh-Hant:體育館

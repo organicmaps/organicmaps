@@ -1715,3 +1715,4 @@ amenity|social_facility;1599;
 craft;[craft?];;name;int_name;1600;
 emergency|emergency_ward_entrance;1601;
 amenity|dojo;1602;
+leisure|sports_hall;1603;
