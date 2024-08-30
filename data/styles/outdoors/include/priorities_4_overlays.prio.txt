@@ -1020,8 +1020,8 @@ sport-scuba_diving                                  # icon z17- (also has captio
 sport-shooting                                      # icon z17- (also has caption(optional) z17-)
 === 1350
 
-sport-multi                                         # icon z17- (also has caption(optional) z17-, area z15-)
-sport-soccer                                        # icon z17- (also has caption(optional) z17-, area z15-)
+sport-multi                                         # icon z17- (also has caption(optional) z17-)
+sport-soccer                                        # icon z17- (also has caption(optional) z17-)
 === 1300
 
 amenity-atm                                         # icon z18- (also has caption(optional) z18-)
@@ -1029,7 +1029,7 @@ amenity-dojo                                        # icon z17- (also has captio
 isoline-step_50                                     # pathtext z15- (also has line z13-)
 landuse-recreation_ground                           # caption z15- (also has area z12-)
 leisure-recreation_ground                           # caption z17-
-leisure-sports_centre                               # icon z17- (also has caption(optional) z17-)
+leisure-sports_centre                               # icon z17- (also has caption(optional) z17-, area z15-)
 leisure-sports_hall                                 # icon z17- (also has caption(optional) z17-)
 === 1250
 
@@ -1932,13 +1932,13 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # sport-shooting                                    # caption(optional) z17- (also has icon z17-)
 # === -8650
 
-# sport-multi                                       # caption(optional) z17- (also has icon z17-, area z15-)
-# sport-soccer                                      # caption(optional) z17- (also has icon z17-, area z15-)
+# sport-multi                                       # caption(optional) z17- (also has icon z17-)
+# sport-soccer                                      # caption(optional) z17- (also has icon z17-)
 # === -8700
 
 # amenity-atm                                       # caption(optional) z18- (also has icon z18-)
 # amenity-dojo                                      # caption(optional) z18- (also has icon z17-)
-# leisure-sports_centre                             # caption(optional) z17- (also has icon z17-)
+# leisure-sports_centre                             # caption(optional) z17- (also has icon z17-, area z15-)
 # leisure-sports_hall                               # caption(optional) z17- (also has icon z17-)
 # === -8750
 
