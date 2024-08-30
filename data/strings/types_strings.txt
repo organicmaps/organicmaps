@@ -17433,7 +17433,7 @@
     da = Sportsplads
     de = Sportplatz
     el = Γήπεδο αθλοπαιδιών
-    es = Complejo deportivo
+    es = Cancha
     et = Spordiväljak
     eu = Kiroldegia
     fa = زمین ورزشی
@@ -17585,7 +17585,7 @@
     da = Idrætscenter
     de = Sportzentrum
     el = Αθλητικό κέντρο
-    es = Polideportivo
+    es = Complejo deportivo
     et = Spordikeskus
     eu = Kiroldegia
     fa = مرکزورزشی
