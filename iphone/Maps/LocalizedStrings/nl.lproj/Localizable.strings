@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Automatisch zoomen";
 
-"duration_disabled" = "Uit";
-
-"duration_1_hour" = "1 uur";
-
-"duration_2_hours" = "2 uur";
-
-"duration_6_hours" = "6 uur";
-
-"duration_12_hours" = "12 uur";
-
-"duration_1_day" = "1 dag";
-
-"recent_track_help_text" = "Dit laat u toe het afgelegde traject voor een bepaalde periode te registreren en te bekijken op de kaart. Merk op: activatie van deze functie veroorzaakt een hoger batterijverbruik. Het traject wordt automatisch van de kaart verwijderd nadat het tijdsinterval verloopt.";
-
 "placepage_distance" = "Afstand";
 
 "search_show_on_map" = "Bekijk op de kaart";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Alles herstellen";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Route opnemen";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Stop opname van route";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Stoppen zonder op te slaan";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Opname voortzetten";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Opname opslaan in bladwijzers en tracks?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Route is leeg - niets om op te slaan";
 
 
 /********** Types **********/

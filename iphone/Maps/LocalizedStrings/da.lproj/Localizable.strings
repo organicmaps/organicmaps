@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Auto zoom";
 
-"duration_disabled" = "Fra";
-
-"duration_1_hour" = "1 time";
-
-"duration_2_hours" = "2 timer";
-
-"duration_6_hours" = "6 timer";
-
-"duration_12_hours" = "12 timer";
-
-"duration_1_day" = "1 dag";
-
-"recent_track_help_text" = "Det giver dig mulighed at optage en rejsterute for en bestemt periode og se den på kortet. Bemærk: aktivering af denne funktion forårsager øget batteriforbrug. Sporet vil blive fjernet automatisk fra kortet efter at tidsintervallet er udløbet.";
-
 "placepage_distance" = "Afstand";
 
 "search_show_on_map" = "Vis på kortet";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Gendan alle";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Optag rute";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Stop optagelse af rute";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Stop uden at gemme";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Fortsæt optagelse";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Gemme i bogmærker og ruter?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Ruten er tom - der er ikke noget at gemme";
 
 
 /********** Types **********/

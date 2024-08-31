@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Zoom automatikoa";
 
-"duration_disabled" = "Desaktibatuta";
-
-"duration_1_hour" = "ordu 1";
-
-"duration_2_hours" = "2 ordu";
-
-"duration_6_hours" = "6 ordu";
-
-"duration_12_hours" = "12 ordu";
-
-"duration_1_day" = "egun 1";
-
-"recent_track_help_text" = "Denbora tarte jakin batean egindako arrastoa erregistratu eta mapan ikusteko aukera ematen du. Kontuan izan funtzio hau aktibatzea bateriaren kontsumoa handitzen dela. Ibilbide-erregistroa automatikoki kenduko da mapatik denbora-tarte hori igaro ondoren.";
-
 "placepage_distance" = "Distantzia";
 
 "search_show_on_map" = "Ikusi mapan";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Guztia berreskuratu";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Ibilbidearen grabaketa";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Gelditu ibilbidearen grabaketa";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Gelditu gordetzeko gabe";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Jarraitu grabatzen";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Ibilbidearen grabaketa markagailuetan eta ibilbideetan gorde nahi duzu?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Ibilbidea hutsik dago; ez dago ezer gordetzeko";
 
 
 /********** Types **********/

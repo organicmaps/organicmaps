@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Zoom automàtic";
 
-"duration_disabled" = "Desactivada";
-
-"duration_1_hour" = "1 hora";
-
-"duration_2_hours" = "2 hores";
-
-"duration_6_hours" = "6 hores";
-
-"duration_12_hours" = "12 hores";
-
-"duration_1_day" = "1 dia";
-
-"recent_track_help_text" = "Aquesta opció et permet registrar el recorregut recorregut durant un període determinat i veure'l al mapa. Tingues en compte: l'activació d'aquesta funció provoca un augment de l'ús de la bateria. La pista s'eliminarà automàticament del mapa un cop expiri l'interval de temps.";
-
 "placepage_distance" = "Distància";
 
 "search_show_on_map" = "Veure al mapa";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Recuperar-ho tot";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Gravar ruta";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Aturar la gravació de la ruta";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Atura sense desar";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Continuar enregistrant";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Vols desar la gravació a Marcadors i Traces?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "El recorregut està buit, no hi ha res a desar";
 
 
 /********** Types **********/

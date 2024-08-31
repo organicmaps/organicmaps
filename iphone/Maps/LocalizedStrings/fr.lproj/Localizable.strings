@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Zoom automatique";
 
-"duration_disabled" = "Désactivé";
-
-"duration_1_hour" = "1 heure";
-
-"duration_2_hours" = "2 heures";
-
-"duration_6_hours" = "6 heures";
-
-"duration_12_hours" = "12 heures";
-
-"duration_1_day" = "1 jour";
-
-"recent_track_help_text" = "Ceci vous permet d’enregistrer le chemin emprunté pendant un certain temps et de le voir sur la carte. Veuillez noter : l’activation de cette fonction entraîne une grande utilisation de la batterie. La route sera supprimée automatiquement de la carte lorsque l’intervalle de temps sera arrivé à expiration.";
-
 "placepage_distance" = "Distance";
 
 "search_show_on_map" = "Voir sur la carte";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Tout récupérer";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Enregistrer la trace";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Arrêter l'enregistrement de la trace";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Arrêter sans enregistrer";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Continuer l'enregistrement";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Sauvegarder dans les signets et parcours ?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "L'itinéraire est vide - il n'y a rien à sauvegarder";
 
 
 /********** Types **********/

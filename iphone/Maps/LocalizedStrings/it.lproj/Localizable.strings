@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Zoom automatico";
 
-"duration_disabled" = "Spento";
-
-"duration_1_hour" = "1 ora";
-
-"duration_2_hours" = "2 ore";
-
-"duration_6_hours" = "6 ore";
-
-"duration_12_hours" = "12 ore";
-
-"duration_1_day" = "1 giorno";
-
-"recent_track_help_text" = "Consente di registrare il percorso effettuato in un determinato periodo di tempo e di vederlo sulla mappa. Nota: l'attivazione di questa funzione incrementa l'uso della batteria. Il percorso viene rimosso automaticamente dalla mappa allo scadere dell'intervallo di tempo.";
-
 "placepage_distance" = "Distanza";
 
 "search_show_on_map" = "Visualizza sulla mappa";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Recupera tutto";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Registra percorso";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Interrompi registrazione del percorso";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Interrompi senza salvare";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Continua registrazione";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Salvare nella lista luoghi preferiti e percorsi?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Il percorso è vuoto - non c'è nulla da salvare";
 
 
 /********** Types **********/

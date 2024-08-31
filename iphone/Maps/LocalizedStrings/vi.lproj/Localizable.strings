@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Ống dòm tự động";
 
-"duration_disabled" = "Tắt";
-
-"duration_1_hour" = "1 giờ";
-
-"duration_2_hours" = "2 giờ";
-
-"duration_6_hours" = "6 giờ";
-
-"duration_12_hours" = "12 giờ";
-
-"duration_1_day" = "1 ngày";
-
-"recent_track_help_text" = "Chức năng này cho phép bạn ghi lại đường đi trong một khoảng thời gian nhất định và xem nó trên bản đồ. Xin lưu ý: việc kích hoạt chức năng này sẽ tăng mức sử dụng pin. Đường đi sẽ tự động bị xóa khỏi bản đồ sau khi kết thúc khoảng thời gian nói trên.";
-
 "placepage_distance" = "Khoảng cách";
 
 "search_show_on_map" = "Xem trên bản đồ";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Khôi phục tất cả";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Ghi âm đường đi";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Dừng ghi âm đường đi";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Dừng mà không lưu";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Tiếp tục ghi âm";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Lưu bản ghi vào đánh dấu và dấu vết?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Tuyến đường trống - không có gì để lưu";
 
 
 /********** Types **********/

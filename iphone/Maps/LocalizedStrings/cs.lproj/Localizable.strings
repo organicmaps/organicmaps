@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Automatické zvětšení";
 
-"duration_disabled" = "Vypnuto";
-
-"duration_1_hour" = "1 hodina";
-
-"duration_2_hours" = "2 hodiny";
-
-"duration_6_hours" = "6 hodin";
-
-"duration_12_hours" = "12 hodin";
-
-"duration_1_day" = "1 den";
-
-"recent_track_help_text" = "To vám umožňuje zaznamenávat ujetou cestu po určitou dobu a vidět ji na mapě. Poznámka: aktivace této funkce způsobuje zvýšenou spotřebu baterie. Trať bude automaticky odebrána z mapy poté, co vyprší časový interval.";
-
 "placepage_distance" = "Vzdálenost";
 
 "search_show_on_map" = "Zobrazit na mapě";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Obnovit vše";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Nahrát trasu";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Zastavit nahrávání trasy";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Zastavit bez uložení";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Pokračovat v nahrávání";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Uložit do záložek a stop?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Trasa je prázdná - není co ukládat";
 
 
 /********** Types **********/

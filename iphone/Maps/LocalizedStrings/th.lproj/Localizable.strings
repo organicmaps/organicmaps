@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "ซูมอัตโนมัติ";
 
-"duration_disabled" = "ปิด";
-
-"duration_1_hour" = "1 ชั่วโมง";
-
-"duration_2_hours" = "2 ชั่วโมง";
-
-"duration_6_hours" = "6 ชั่วโมง";
-
-"duration_12_hours" = "12 ชั่วโมง";
-
-"duration_1_day" = "1 วัน";
-
-"recent_track_help_text" = "ช่วยให้คุณบันทึกเส้นทางที่คุณเดินทางในช่วงระยะเวลาหนึ่งแล้วดูบนแผนที่ได้ โปรดทราบว่า: การเปิดใช้งานฟังก์ชั่นนี้จะทำให้การใช้งานแบตเตอรี่เพิ่มมากขึ้น การติดตามจะถูกเอาออกไปโดยอัตโนมัติจากแผนที่หลังจากผ่านช่วงเวลาที่กำหนด";
-
 "placepage_distance" = "ระยะห่าง";
 
 "search_show_on_map" = "ดูบนแผนที่";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "กู้คืนทั้งหมด";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "บันทึกเส้นทาง";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "หยุดการบันทึกเส้นทาง";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "หยุดโดยไม่บันทึก";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "ดำเนินการบันทึกต่อ";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "บันทึกการบันทึกลงในบุ๊กมาร์กและการติดตามใช่ไหม";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "เส้นทางว่างเปล่า - ไม่มีอะไรจะบันทึก";
 
 
 /********** Types **********/

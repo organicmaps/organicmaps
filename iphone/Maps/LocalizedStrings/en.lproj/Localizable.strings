@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Auto zoom";
 
-"duration_disabled" = "Off";
-
-"duration_1_hour" = "1 hour";
-
-"duration_2_hours" = "2 hours";
-
-"duration_6_hours" = "6 hours";
-
-"duration_12_hours" = "12 hours";
-
-"duration_1_day" = "1 day";
-
-"recent_track_help_text" = "Record and show your traveled path within the given period of time on the map. Please note: this noticeably increases battery usage.";
-
 "placepage_distance" = "Distance";
 
 "search_show_on_map" = "View on map";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Recover All";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Record Track";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Stop Track Recording";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Stop Without Saving";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Continue Recording";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Save into Bookmarks and Tracks?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Track is empty - nothing to save";
 
 
 /********** Types **********/

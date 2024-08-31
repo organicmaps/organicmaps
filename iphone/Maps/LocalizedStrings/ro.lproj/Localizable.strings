@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Zoom automat";
 
-"duration_disabled" = "Oprit";
-
-"duration_1_hour" = "1 oră";
-
-"duration_2_hours" = "2 ore";
-
-"duration_6_hours" = "6 ore";
-
-"duration_12_hours" = "12 ore";
-
-"duration_1_day" = "1 zi";
-
-"recent_track_help_text" = "Permite înregistrarea traseului parcurs pentru o anumită perioadă de timp și urmărește-l pe hartă. Atenție: activarea acestei funcții crește consumul bateriei. Traseul va fi eliminat automat de pe hartă după expirarea intervalului de timp.";
-
 "placepage_distance" = "Distanță";
 
 "search_show_on_map" = "Vezi pe hartă";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Recuperează tot";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Înregistrați traseul";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Opriți înregistrarea traseului";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Oprire fără salvare";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Continuați înregistrarea";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Salvați în Locuri preferate și trasee?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Traseul este gol - nu este nimic de salvat";
 
 
 /********** Types **********/

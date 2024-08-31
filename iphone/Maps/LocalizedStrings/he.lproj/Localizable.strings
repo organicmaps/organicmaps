@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "זום אוטומטי";
 
-"duration_disabled" = "כבוי";
-
-"duration_1_hour" = "1 שעה";
-
-"duration_2_hours" = "2 שעות";
-
-"duration_6_hours" = "6 שעות";
-
-"duration_12_hours" = "12 שעות";
-
-"duration_1_day" = "1 יום";
-
-"recent_track_help_text" = "האפשרות הזו מאפשרת להקליט את המסלול שלך למשך זמן מסוים ולראות אותו במפה. שימו לב: הפעלת האפשרות הזו גורמת לגדילה בצריכת הסוללה. המסלול יימחק מהמפה לאחר הזמן שהוגדר.";
-
 "placepage_distance" = "מרחק";
 
 "search_show_on_map" = "הראה במפה";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "לשחזר הכל";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "הקלטת המסלול";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "להפסיק את הקלטת המסלול";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "עצור בלי לשמור";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "להמשיך להקליט";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "לשמור את הקלטת המסלול בסימניות ומסלולים?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "המסלול ריק - אין מה לשמור";
 
 
 /********** Types **********/
