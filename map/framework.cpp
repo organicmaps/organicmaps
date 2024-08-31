@@ -794,14 +794,14 @@ void Framework::FillRoadTypeMarkInfo(RoadWarningMark const & roadTypeMark, place
 void Framework::ShowBookmark(kml::MarkId id)
 {
   auto const * mark = m_bmManager->GetBookmark(id);
+  if (mark)
   ShowBookmark(mark);
+  else
+    ASSERT(false, ("ShowBookmark was called with invalid id", id));
 }
 
 void Framework::ShowBookmark(Bookmark const * mark)
 {
-  if (mark == nullptr)
-    return;
-
   StopLocationFollow();
 
   place_page::BuildInfo info;
@@ -816,11 +816,8 @@ void Framework::ShowBookmark(Bookmark const * mark)
   auto es = GetBookmarkManager().GetEditSession();
   es.SetIsVisible(mark->GetGroupId(), true /* visible */);
 
-  if (m_drapeEngine != nullptr)
-  {
-    m_drapeEngine->SetModelViewCenter(mark->GetPivot(), scale, true /* isAnim */,
-                                      true /* trackVisibleViewport */);
-  }
+  if (m_drapeEngine)
+    m_drapeEngine->SetModelViewCenter(mark->GetPivot(), scale, true /* isAnim */, true /* trackVisibleViewport */);
 
   ActivateMapSelection();
 }
@@ -860,7 +857,7 @@ void Framework::ShowBookmarkCategory(kml::MarkGroupId categoryId, bool animation
   auto es = bm.GetEditSession();
   es.SetIsVisible(categoryId, true /* visible */);
 
-  auto const trackIds = bm.GetTrackIds(categoryId);
+  auto const & trackIds = bm.GetTrackIds(categoryId);
   for (auto trackId : trackIds)
   {
     if (!bm.GetTrack(trackId)->IsInteractive())
@@ -881,7 +878,7 @@ void Framework::ShowFeature(FeatureID const & featureId)
 
   if (m_drapeEngine != nullptr)
   {
-    auto const pt = m_currentPlacePageInfo->GetMercator();
+    auto const & pt = m_currentPlacePageInfo->GetMercator();
     auto const scale = scales::GetUpperComfortScale();
     m_drapeEngine->SetModelViewCenter(pt, scale, true /* isAnim */, true /* trackVisibleViewport */);
   }
@@ -2171,7 +2168,7 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
         break;
       }
       default:
-        ASSERT(false, ("FindNearestUserMark returned invalid mark."));
+    CHECK(false, ("Unexpected user mark type", mark->GetMarkType()));
       }
 
       SetPlacePageLocation(outInfo);
