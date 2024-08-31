@@ -362,7 +362,6 @@ private:
   void BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelectionInfo, place_page::Info & info);
   Track::TrackSelectionInfo FindTrackInTapPosition(place_page::BuildInfo const & buildInfo) const;
   UserMark const * FindUserMarkInTapPosition(place_page::BuildInfo const & buildInfo) const;
-  UserMark const * FindBookMarkInPosition(m2::PointD const & mercator) const;
   FeatureID FindBuildingAtPoint(m2::PointD const & mercator) const;
 
   void UpdateMinBuildingsTapZoom();
@@ -609,6 +608,8 @@ private:
                                std::string const & customTitle = {}) const;
   void FillPostcodeInfo(std::string const & postcode, m2::PointD const & mercator,
                         place_page::Info & info) const;
+
+  void FillUserMarkInfo(UserMark const * mark, place_page::Info & outInfo);
 
   void FillInfoFromFeatureType(FeatureType & ft, place_page::Info & info) const;
   void FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const;
