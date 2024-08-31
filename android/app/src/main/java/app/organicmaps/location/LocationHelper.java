@@ -294,7 +294,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
     if (RoutingController.get().isNavigating())
       return INTERVAL_NAVIGATION_MS;
 
-    if (TrackRecorder.nativeIsEnabled())
+    if (TrackRecorder.nativeIsTrackRecordingEnabled())
       return INTERVAL_TRACK_RECORDING;
 
     final int mode = Map.isEngineCreated() ? LocationState.getMode() : LocationState.NOT_FOLLOW_NO_POSITION;

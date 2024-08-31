@@ -106,6 +106,7 @@ import app.organicmaps.util.Utils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.util.log.Logger;
+import app.organicmaps.widget.StackedButtonsDialog;
 import app.organicmaps.widget.menu.MainMenu;
 import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageData;
@@ -278,11 +279,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     // This is for the case when track recording was enabled but due to any reasons
     // App crashed so we need the restart or stop the whole service again properly
     // by checking all the necessary permissions
-    if (TrackRecorder.nativeIsEnabled())
-    {
-      TrackRecorder.nativeSetEnabled(false);
+    if (TrackRecorder.nativeIsTrackRecordingEnabled())
       startTrackRecording(false);
-    }
 
     processIntent();
     migrateOAuthCredentials();
@@ -2290,17 +2288,47 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void stopTrackRecording()
   {
-    //Toast.makeText(this, R.string.track_recording_disabled, Toast.LENGTH_SHORT).show();
     TrackRecordingService.stopService(getApplicationContext());
     mMapButtonsViewModel.setTrackRecorderState(false);
   }
 
   private void onTrackRecordingOptionSelected()
   {
-    if (TrackRecorder.nativeIsEnabled())
-      stopTrackRecording();
+    if (TrackRecorder.nativeIsTrackRecordingEnabled())
+      showTrackSaveDialog();
     else
       startTrackRecording(true);
+  }
+
+  private void showTrackSaveDialog()
+  {
+    if (TrackRecorder.nativeIsTrackRecordingEmpty())
+    {
+      Toast.makeText(this, R.string.track_recording_toast_nothing_to_save, Toast.LENGTH_SHORT)
+           .show();
+      stopTrackRecording();
+      return;
+    }
+
+    dismissAlertDialog();
+    mAlertDialog = new StackedButtonsDialog.Builder(this)
+        .setTitle(R.string.track_recording_alert_title)
+        .setCancelable(false)
+        // Negative/Positive/Neutral doesn't do not have the usual meaning here.
+        .setPositiveButton(R.string.continue_recording, (dialog, which) -> {
+          mAlertDialog = null;
+        })
+        .setNeutralButton(R.string.stop_without_saving, (dialog, which) -> {
+          stopTrackRecording();
+          mAlertDialog = null;
+        })
+        .setNegativeButton(R.string.save, (dialog, which) -> {
+          TrackRecorder.nativeSaveTrackRecordingWithName("");
+          stopTrackRecording();
+          mAlertDialog = null;
+        })
+        .build();
+    mAlertDialog.show();
   }
 
   public void onShareLocationOptionSelected()
@@ -2327,7 +2355,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (!TextUtils.isEmpty(mDonatesUrl))
         items.add(new MenuBottomSheetItem(R.string.donate, R.drawable.ic_donate, this::onDonateOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.settings, R.drawable.ic_settings, this::onSettingsOptionSelected));
-      items.add(new MenuBottomSheetItem(R.string.recent_track, R.drawable.ic_trace_path_off, -1, this::onTrackRecordingOptionSelected));
+      items.add(new MenuBottomSheetItem(R.string.start_track_recording, R.drawable.ic_track_recording_off, -1, this::onTrackRecordingOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.share_my_location, R.drawable.ic_share, this::onShareLocationOptionSelected));
       return items;
     }

@@ -138,7 +138,7 @@ public class NavigationService extends Service implements LocationListener
     final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;
     final Intent contentIntent = new Intent(context, MwmActivity.class);
     final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, contentIntent,
-        PendingIntent.FLAG_CANCEL_CURRENT | FLAG_IMMUTABLE);
+        PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
 
     final Intent exitIntent = new Intent(context, NavigationService.class);
     exitIntent.setAction(STOP_NAVIGATION);
