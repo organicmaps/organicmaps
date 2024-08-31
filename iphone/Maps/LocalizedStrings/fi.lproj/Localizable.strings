@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Automaattinen zoomaus";
 
-"duration_disabled" = "Pois päältä";
-
-"duration_1_hour" = "1 tunti";
-
-"duration_2_hours" = "2 tuntia";
-
-"duration_6_hours" = "6 tuntia";
-
-"duration_12_hours" = "12 tuntia";
-
-"duration_1_day" = "1 päivä";
-
-"recent_track_help_text" = "Toiminnon avulla voit tallentaa kuljetun reitin tietyltä ajalta ja nähdä sen kartalla: Huomautus: tämän toiminnon aktivoiminen lisää akun käyttöä. Reitti poistetaan kartalta automaattisesti ajanjakson päätyttyä.";
-
 "placepage_distance" = "Etäisyys";
 
 "search_show_on_map" = "Näytä kartalla";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Palauta kaikki";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Reitin tallennus";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Lopeta reitin tallennus";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Lopeta tallentamatta";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Jatka tallennusta";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Tallenna kirjanmerkkeihin ja reitteihin?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Reitti on tyhjä - ei mitään tallennettavaa";
 
 
 /********** Types **********/

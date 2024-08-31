@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "تكبير تلقائي";
 
-"duration_disabled" = "لا يعمل";
-
-"duration_1_hour" = "1 ساعة";
-
-"duration_2_hours" = "2 ساعة";
-
-"duration_6_hours" = "6 ساعات";
-
-"duration_12_hours" = "12 ساعة";
-
-"duration_1_day" = "1 يوم";
-
-"recent_track_help_text" = "يتيح لك هذا الخيار تسجيل مسار السفر لفترة معينة وعرضه على الخريطة. الرجاء ملاحظة: يؤدي تنشيط هذه الوظيفة إلى زيادة استهلاك البطارية. سوف تتم إزالة المسار تلقائيًا من الخريطة بعد انتهاء الفاصل الزمني.";
-
 "placepage_distance" = "المسافة";
 
 "search_show_on_map" = "مشاهدة على الخريطة";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "استرداد الكل";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "تسجيل المسار";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "إيقاف تسجيل المسار";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "التوقف بدون حفظ";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "متابعة التسجيل";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "حفظ في الإشارات المرجعية والمسارات؟";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "المسار فارغ - لا يوجد شيء للحفظ";
 
 
 /********** Types **********/

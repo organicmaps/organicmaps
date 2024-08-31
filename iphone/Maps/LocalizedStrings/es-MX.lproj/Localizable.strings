@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Zoom automático";
 
-"duration_disabled" = "Desactivada";
-
-"duration_1_hour" = "1 hora";
-
-"duration_2_hours" = "2 horas";
-
-"duration_6_hours" = "6 horas";
-
-"duration_12_hours" = "12 horas";
-
-"duration_1_day" = "1 día";
-
-"recent_track_help_text" = "Permite registrar el recorrido realizado durante un determinado periodo de tiempo y verlo en el mapa. Tenga en cuenta que la activación de esta función aumenta el consumo de la batería. El registro del recorrido se eliminará automáticamente del mapa una vez vencido dicho periodo de tiempo.";
-
 "placepage_distance" = "Distancia";
 
 "search_show_on_map" = "Ver en el mapa";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Recuperar todo";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Grabar ruta";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Detener grabación de ruta";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Parar sin guardar";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Continuar grabación";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "¿Guardar en Marcadores y Rutas?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "La ruta está vacía - no hay nada que guardar";
 
 
 /********** Types **********/

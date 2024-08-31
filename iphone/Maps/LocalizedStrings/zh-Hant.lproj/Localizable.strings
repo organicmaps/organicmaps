@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "自動縮放";
 
-"duration_disabled" = "關閉";
-
-"duration_1_hour" = "1 小時";
-
-"duration_2_hours" = "2 小時";
-
-"duration_6_hours" = "6 小時";
-
-"duration_12_hours" = "12 小時";
-
-"duration_1_day" = "1 天";
-
-"recent_track_help_text" = "記錄並顯示您在指定時間段內的旅行軌跡。請注意：這會顯著增加電池消耗。";
-
 "placepage_distance" = "距離";
 
 "search_show_on_map" = "在地圖上查看";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "全部恢復";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "錄製軌跡";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "停止軌跡記錄";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "停止而不保存";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "繼續錄製";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "儲存到書籤和軌跡？";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "軌跡為空 - 沒有可保存的內容";
 
 
 /********** Types **********/

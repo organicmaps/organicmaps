@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Otomatik yakınlaştırma";
 
-"duration_disabled" = "Kapalı";
-
-"duration_1_hour" = "1 saat";
-
-"duration_2_hours" = "2 saat";
-
-"duration_6_hours" = "6 saat";
-
-"duration_12_hours" = "12 saat";
-
-"duration_1_day" = "1 gün";
-
-"recent_track_help_text" = "Bu özellik, belirli bir süre içinde katedilen yolu kaydetmenizi ve harita üzerinde görüntülemenizi sağlar. Lütfen unutmayın: bu özelliğin etkinleştirilmesi pil tüketiminin artmasına neden olur. Kaydedilen rota, zaman aralığının sona ermesinin ardından otomatik olarak haritadan kaldırılacaktır.";
-
 "placepage_distance" = "Mesafe";
 
 "search_show_on_map" = "Haritada görüntüle";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Hepsini Kurtar";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Parkur kaydı";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Parkur kaydını durdur";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Kaydetmeden durdur";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Kaydı devam ettir";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Parkur kaydını yer imleri ve kayıtlı rotalara kaydedin mi?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Rota boş - kaydedilecek bir şey yok";
 
 
 /********** Types **********/

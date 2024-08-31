@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Automatikus nagyítás";
 
-"duration_disabled" = "Kikapcsolva";
-
-"duration_1_hour" = "1 óra";
-
-"duration_2_hours" = "2 óra";
-
-"duration_6_hours" = "6 óra";
-
-"duration_12_hours" = "12 óra";
-
-"duration_1_day" = "1 nap";
-
-"recent_track_help_text" = "Ez lehetővé teszi a bejárt útvonal rögzítését és megtekintését a térképen bizonyos időre. Kérjük, vegye figyelembe, hogy ezen funkció aktiválásával megnöveli az akkumulátor használatát. Az útvonal automatikusan törlődik a térképről az időtartam lejártával.";
-
 "placepage_distance" = "Távolság";
 
 "search_show_on_map" = "Megtekintés a térképen";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Mindent visszaállít";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Útvonal rögzítése";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Állítsa le az útvonalrögzítést";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Megállás mentés nélkül";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Felvétel folytatása";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Útvonalrögzítés mentése a könyvjelzők és nyomvonalak közé?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Az útvonal üres - nincs mit menteni";
 
 
 /********** Types **********/

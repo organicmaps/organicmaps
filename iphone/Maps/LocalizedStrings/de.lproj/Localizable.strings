@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Auto-Zoom";
 
-"duration_disabled" = "Aus";
-
-"duration_1_hour" = "1 Stunde";
-
-"duration_2_hours" = "2 Stunden";
-
-"duration_6_hours" = "6 Stunden";
-
-"duration_12_hours" = "12 Stunden";
-
-"duration_1_day" = "1 Tag";
-
-"recent_track_help_text" = "So können Sie die zurückgelegte Strecke für einen bestimmten Zeitraum aufzeichnen und auf der Karte sehen. Hinweis: Die Aktivierung dieser Funktion führt zu erhöhtem Batterieverbrauch. Die Aufzeichnung wird nach Ablauf des Zeitintervalls automatisch von der Karte entfernt.";
-
 "placepage_distance" = "Entfernung";
 
 "search_show_on_map" = "Auf der Karte ansehen";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Alles wiederherstellen";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Track aufnehmen";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Aufnahme des Tracks stoppen";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Anhalten ohne zu speichern";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Aufnahme fortsetzen";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "In Lesezeichen und Tracks speichern?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Route ist leer - nichts zu speichern";
 
 
 /********** Types **********/
