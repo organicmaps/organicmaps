@@ -1,18 +1,15 @@
 package app.organicmaps.location;
 
-import android.Manifest;
 import android.app.ForegroundServiceStartNotAllowedException;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,6 +32,7 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 public class TrackRecordingService extends Service implements LocationListener
 {
   public static final String TRACK_REC_CHANNEL_ID = "TRACK RECORDING";
+  private static final String STOP_TRACK_RECORDING = "STOP_TRACK_RECORDING";
   public static final int TRACK_REC_NOTIFICATION_ID = 54321;
   private NotificationCompat.Builder mNotificationBuilder;
   private static final String TAG = TrackRecordingService.class.getSimpleName();
@@ -44,6 +42,7 @@ public class TrackRecordingService extends Service implements LocationListener
   private boolean mWarningNotification = false;
   private NotificationCompat.Builder mWarningBuilder;
   private PendingIntent mPendingIntent;
+  private PendingIntent mExitPendingIntent;
 
   @Nullable
   @Override
@@ -55,10 +54,8 @@ public class TrackRecordingService extends Service implements LocationListener
   @RequiresPermission(value = ACCESS_FINE_LOCATION)
   public static void startForegroundService(@NonNull Context context)
   {
-    if (TrackRecorder.nativeGetDuration() != 24)
-      TrackRecorder.nativeSetDuration(24);
-    if (!TrackRecorder.nativeIsEnabled())
-      TrackRecorder.nativeSetEnabled(true);
+    if (!TrackRecorder.nativeIsTrackRecordingEnabled())
+      TrackRecorder.nativeStartTrackRecording();
     LocationHelper.from(context).restartWithNewMode();
     ContextCompat.startForegroundService(context, new Intent(context, TrackRecordingService.class));
   }
@@ -68,7 +65,7 @@ public class TrackRecordingService extends Service implements LocationListener
     final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
     final NotificationChannelCompat channel = new NotificationChannelCompat.Builder(TRACK_REC_CHANNEL_ID,
                                                                                     NotificationManagerCompat.IMPORTANCE_LOW)
-        .setName(context.getString(R.string.recent_track))
+        .setName(context.getString(R.string.track_recording))
         .setLightsEnabled(false)
         .setVibrationEnabled(false)
         .build();
@@ -83,8 +80,21 @@ public class TrackRecordingService extends Service implements LocationListener
     final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;
     final Intent contentIntent = new Intent(context, MwmActivity.class);
     mPendingIntent = PendingIntent.getActivity(context, 0, contentIntent,
-                                               PendingIntent.FLAG_CANCEL_CURRENT | FLAG_IMMUTABLE);
+                                               PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
     return mPendingIntent;
+  }
+
+  private PendingIntent getExitPendingIntent(@NonNull Context context)
+  {
+    if (mExitPendingIntent != null)
+      return mExitPendingIntent;
+
+    final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;
+    final Intent exitIntent = new Intent(context, TrackRecordingService.class);
+    exitIntent.setAction(STOP_TRACK_RECORDING);
+    mExitPendingIntent = PendingIntent.getService(context, 1, exitIntent,
+                                                  PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
+    return mExitPendingIntent;
   }
 
   @NonNull
@@ -101,8 +111,8 @@ public class TrackRecordingService extends Service implements LocationListener
         .setShowWhen(true)
         .setOnlyAlertOnce(true)
         .setSmallIcon(R.drawable.ic_splash)
-        .setContentTitle(context.getString(R.string.recent_track))
-        .setContentText(context.getString(R.string.track_recording))
+        .setContentTitle(context.getString(R.string.track_recording))
+        .addAction(0, context.getString(R.string.navigation_stop_button), getExitPendingIntent(context))
         .setContentIntent(getPendingIntent(context))
         .setColor(ContextCompat.getColor(context, R.color.notification));
 
@@ -120,8 +130,8 @@ public class TrackRecordingService extends Service implements LocationListener
   {
     mNotificationBuilder = null;
     mWarningBuilder = null;
-    if (TrackRecorder.nativeIsEnabled())
-      TrackRecorder.nativeSetEnabled(false);
+    if (TrackRecorder.nativeIsTrackRecordingEnabled())
+      TrackRecorder.nativeStopTrackRecording();
     mHandler.removeCallbacks(mLocationTimeoutRunnable);
     LocationHelper.from(this).removeListener(this);
     // The notification is cancelled automatically by the system.
@@ -130,6 +140,20 @@ public class TrackRecordingService extends Service implements LocationListener
   @Override
   public int onStartCommand(@NonNull Intent intent, int flags, int startId)
   {
+    final String action = intent.getAction();
+    if (action != null && action.equals(STOP_TRACK_RECORDING))
+    {
+      if (TrackRecorder.nativeIsTrackRecordingEnabled())
+      {
+        if (!TrackRecorder.nativeIsTrackRecordingEmpty())
+          TrackRecorder.nativeSaveTrackRecordingWithName("");
+        else
+          TrackRecorder.nativeStopTrackRecording();
+      }
+      stopSelf();
+      return START_NOT_STICKY;
+    }
+
     if (!MwmApplication.from(this).arePlatformAndCoreInitialized())
     {
       Logger.w(TAG, "Application is not initialized");
@@ -146,7 +170,7 @@ public class TrackRecordingService extends Service implements LocationListener
       return START_NOT_STICKY; // The service will be stopped by stopSelf().
     }
 
-    if (!TrackRecorder.nativeIsEnabled())
+    if (!TrackRecorder.nativeIsTrackRecordingEnabled())
     {
       Logger.i(TAG, "Service can't be started because Track Recorder is turned off in settings");
       stopSelf();
@@ -201,6 +225,7 @@ public class TrackRecordingService extends Service implements LocationListener
         .setSmallIcon(R.drawable.warning_icon)
         .setContentTitle(context.getString(R.string.current_location_unknown_error_title))
         .setContentText(context.getString(R.string.dialog_routing_location_turn_wifi))
+        .addAction(0, context.getString(R.string.navigation_stop_button), getExitPendingIntent(context))
         .setContentIntent(getPendingIntent(context))
         .setColor(ContextCompat.getColor(context, R.color.notification_warning));
 

@@ -6187,51 +6187,6 @@
     zh-Hans = 其他
     zh-Hant = 其他
 
-  [recent_track]
-    comment = The name of the feature in the main menu, settings, and messages.
-    tags = android
-    en = Recent Track
-    af = Onlangse pad
-    ar = المسار الأخير
-    az = Son marşrut
-    be = Нядаўні маршрут
-    bg = Скорошна пътека
-    ca = Traces recents
-    cs = Historie polohy
-    da = Seneste sti
-    de = Letzter Track
-    el = Πρόσφατη διαδρομή
-    es = Trayecto reciente
-    et = Hiljutine rada
-    eu = Azken arrastoa
-    fa = مسیر اخیر
-    fi = Viimeisin reitti
-    fr = Parcours récent
-    he = מסלול אחרון
-    hi = हालिया ट्रैक
-    hu = Legutolsó útvonal
-    id = Jalur terkini
-    it = Percorso recente
-    ja = 最近のトラック
-    ko = 최근 추적
-    lt = Pastaras takas
-    mr = अलीकडील ट्रॅक
-    nb = Siste rute
-    nl = Recente track
-    pl = Ostatnia trasa
-    pt = Percurso recente
-    pt-BR = Percurso recente
-    ro = Traseu recent
-    ru = Недавний путь
-    sk = Posledná trasa
-    sv = Senaste resväg
-    th = เส้นทางล่าสุด
-    tr = En sonki rotayı kaydet
-    uk = Недавній маршрут
-    vi = Tìm kiếm gần đây
-    zh-Hans = 最近的轨迹
-    zh-Hant = 最近的軌跡
-
   [pref_map_auto_zoom]
     tags = android,ios
     en = Auto zoom
@@ -31445,7 +31400,7 @@
 
   [start_track_recording]
     comment = Prompt to start recording a track.
-    tags = ios
+    tags = android,ios
     en = Record Track
     af = Registreer roete
     ar = تسجيل المسار
@@ -31491,7 +31446,7 @@
 
   [stop_track_recording]
     comment = Prompt for stopping a track recording.
-    tags = ios
+    tags = android,ios
     en = Stop Track Recording
     af = Stop roete-opname
     ar = إيقاف تسجيل المسار
@@ -31537,7 +31492,7 @@
 
   [stop_without_saving]
     comment = Title for the "Stop Without Saving" action for the alert when saving a track recording.
-    tags = ios
+    tags = android,ios
     en = Stop Without Saving
     af = Stop sonder om te stoor
     ar = التوقف بدون حفظ
@@ -31583,7 +31538,7 @@
 
   [continue_recording]
     comment = Title for the "Stop Without Saving" action for the alert when saving a track recording.
-    tags = ios
+    tags = android,ios
     en = Continue Recording
     af = Voortgaan met Opname
     ar = متابعة التسجيل
@@ -31629,7 +31584,7 @@
 
   [track_recording_alert_title]
     comment = Title for the alert when saving a track recording.
-    tags = ios
+    tags = android,ios
     en = Save into Bookmarks and Tracks?
     af = Stoor na Boekmerke en paaie?
     ar = حفظ في الإشارات المرجعية والمسارات؟
@@ -31675,7 +31630,7 @@
 
   [track_recording_toast_nothing_to_save]
     comment = Message for the toast when saving the track recording is finished but nothing to save.
-    tags = ios
+    tags = android,ios
     en = Track is empty - nothing to save
     af = Roete is leeg - niks om te red nie
     ar = المسار فارغ - لا يوجد شيء للحفظ
