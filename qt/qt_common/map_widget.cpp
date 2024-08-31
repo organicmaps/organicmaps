@@ -25,6 +25,12 @@
 #include <QtGui/QAction>
 #include <QtWidgets/QMenu>
 
+// Fraction of the viewport for a move event
+static constexpr float kViewportFractionRoughMove = 0.2;
+
+// Fraction of the viewport for a small move event
+static constexpr float kViewportFractionSmoothMove = 0.1;
+
 namespace qt::common
 {
 //#define ENABLE_AA_SWITCH
@@ -61,12 +67,20 @@ void MapWidget::BindHotkeys(QWidget & parent)
       {Qt::Key_Equal, SLOT(ScalePlus())},
       {Qt::Key_Plus, SLOT(ScalePlus())},
       {Qt::Key_Minus, SLOT(ScaleMinus())},
-      {static_cast<int>(Qt::ALT) + static_cast<int>(Qt::Key_Equal), SLOT(ScalePlusLight())},
-      {static_cast<int>(Qt::ALT) + static_cast<int>(Qt::Key_Plus), SLOT(ScalePlusLight())},
-      {static_cast<int>(Qt::ALT) + static_cast<int>(Qt::Key_Minus), SLOT(ScaleMinusLight())},
+      {Qt::Key_Right, SLOT(MoveRight())},
+      {Qt::Key_Left, SLOT(MoveLeft())},
+      {Qt::Key_Up, SLOT(MoveUp())},
+      {Qt::Key_Down, SLOT(MoveDown())},
+      {Qt::ALT | Qt::Key_Equal, SLOT(ScalePlusLight())},
+      {Qt::ALT | Qt::Key_Plus, SLOT(ScalePlusLight())},
+      {Qt::ALT | Qt::Key_Minus, SLOT(ScaleMinusLight())},
+      {Qt::ALT | Qt::Key_Right, SLOT(MoveRightSmooth())},
+      {Qt::ALT | Qt::Key_Left, SLOT(MoveLeftSmooth())},
+      {Qt::ALT | Qt::Key_Up, SLOT(MoveUpSmooth())},
+      {Qt::ALT | Qt::Key_Down, SLOT(MoveDownSmooth())},
 #ifdef ENABLE_AA_SWITCH
-      {static_cast<int>(Qt::ALT) + static_cast<int>(Qt::Key_A), SLOT(AntialiasingOn())},
-      {static_cast<int>(Qt::ALT) + static_cast<int>(Qt::Key_S), SLOT(AntialiasingOff())},
+      {Qt::ALT | Qt::Key_A, SLOT(AntialiasingOn())},
+      {Qt::ALT | Qt::Key_S, SLOT(AntialiasingOff())},
 #endif
   };
 
@@ -117,6 +131,22 @@ void MapWidget::ScaleMinus() { m_framework.Scale(Framework::SCALE_MIN, true); }
 void MapWidget::ScalePlusLight() { m_framework.Scale(Framework::SCALE_MAG_LIGHT, true); }
 
 void MapWidget::ScaleMinusLight() { m_framework.Scale(Framework::SCALE_MIN_LIGHT, true); }
+
+void MapWidget::MoveRight() { m_framework.Move(-kViewportFractionRoughMove, 0, true); }
+
+void MapWidget::MoveRightSmooth() { m_framework.Move(-kViewportFractionSmoothMove, 0, true); }
+
+void MapWidget::MoveLeft() { m_framework.Move(kViewportFractionRoughMove, 0, true); }
+
+void MapWidget::MoveLeftSmooth() { m_framework.Move(kViewportFractionSmoothMove, 0, true); }
+
+void MapWidget::MoveUp() { m_framework.Move(0, -kViewportFractionRoughMove, true); }
+
+void MapWidget::MoveUpSmooth() { m_framework.Move(0, -kViewportFractionSmoothMove, true); }
+
+void MapWidget::MoveDown() { m_framework.Move(0, kViewportFractionRoughMove, true); }
+
+void MapWidget::MoveDownSmooth() { m_framework.Move(0, kViewportFractionSmoothMove, true); }
 
 void MapWidget::AntialiasingOn()
 {
