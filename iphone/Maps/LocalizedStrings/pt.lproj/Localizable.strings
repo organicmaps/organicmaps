@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Ampliação automática";
 
-"duration_disabled" = "Desligado";
-
-"duration_1_hour" = "1 hora";
-
-"duration_2_hours" = "2 horas";
-
-"duration_6_hours" = "6 horas";
-
-"duration_12_hours" = "12 horas";
-
-"duration_1_day" = "1 dia";
-
-"recent_track_help_text" = "Permite-lhe gravar um caminho percorrido durante um determinado período e vê-lo no papa. Nota: esta funcionalidade usa mais bateria. A rota será automaticamente removida do mapa após o intervalo de tempo expirar.";
-
 "placepage_distance" = "Distância";
 
 "search_show_on_map" = "Ver no mapa";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Recuperar tudo";
+
+/* Prompt for recording a track. */
+"start_track_recording" = "Gravar rota";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Parar gravação de rota";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Parar sem guardar";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Continuar gravação";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Guardar em favoritos e trilhas?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "A rota está vazia - não há nada para guardar";
 
 
 /********** Types **********/

@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "بزرگنمایی خودکار";
 
-"duration_disabled" = "خاموش";
-
-"duration_1_hour" = "1 ساعت";
-
-"duration_2_hours" = "2 ساعت";
-
-"duration_6_hours" = "6 ساعت";
-
-"duration_12_hours" = "12 ساعت";
-
-"duration_1_day" = "1 روز";
-
-"recent_track_help_text" = "با این قابلیت شما می توانید مسیری که می پیمایید را در یک دوره مشخص ضبط نماید و آن را بر روی نقشه ببینید.لطفا توجه نمایید:فعال سازی این قابلیت باعث افزایش مصرف باتری موبایل شما می شود.مسیر به طور خودکار بعد از مدت مشخص شده حذف خواهد شد";
-
 "placepage_distance" = "مسافت";
 
 "search_show_on_map" = "مشاهده بر روی نقشه";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "بازیابی همه";
+
+/* Prompt for recording a track. */
+"start_track_recording" = "ضبط مسیر";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "توقف ضبط مسیر";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "توقف بدون ذخیره";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "ادامه ضبط";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "ذخیره‌سازی در نشانه‌ها و مسیر؟";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "مسیر خالی است - چیزی برای ذخیره کردن وجود ندارد";
 
 
 /********** Types **********/

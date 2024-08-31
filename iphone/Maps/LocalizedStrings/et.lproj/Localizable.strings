@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Automaatne zoom";
 
-"duration_disabled" = "Väljas";
-
-"duration_1_hour" = "1 tund";
-
-"duration_2_hours" = "2 tundi";
-
-"duration_6_hours" = "6 tundi";
-
-"duration_12_hours" = "12 tundi";
-
-"duration_1_day" = "1 päev";
-
-"recent_track_help_text" = "See valik võimaldab salvestada läbitud tee teatud ajaks ja näha seda kaardil. Pange tähele: selle funktsiooni aktiveerimine suurendab aku kasutust. Rada eemaldatakse automaatselt kaardilt pärast ajaintervalli möödumist.";
-
 "placepage_distance" = "Kaugus";
 
 "search_show_on_map" = "Vaata kaardil";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Taasta kõik";
+
+/* Prompt for recording a track. */
+"start_track_recording" = "Raja salvestamine";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Peata raja salvestamine";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Lõpeta ilma salvestamata";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Jätka salvestamist";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Salvesta järjehoidjatesse ja radadesse?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Rada on tühi - ei ole midagi salvestada";
 
 
 /********** Types **********/

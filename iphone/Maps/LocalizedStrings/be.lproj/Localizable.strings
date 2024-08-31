@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Аўтаматычны маштаб";
 
-"duration_disabled" = "Выключана";
-
-"duration_1_hour" = "1 гадзіна";
-
-"duration_2_hours" = "2 гадзіны";
-
-"duration_6_hours" = "6 гадзін";
-
-"duration_12_hours" = "12 гадзін";
-
-"duration_1_day" = "1 дзень";
-
-"recent_track_help_text" = "Гэтая функцыя дазваляе запісваць пройдзены шлях за пэўны перыяд і бачыць яго на мапе. Увага: уключэнне гэтай функцыі павялічвае выкарыстанне батарэі. Запісаны маршрут будзе выдалены з карты па заканчэнні гэтага тэрміна.";
-
 "placepage_distance" = "Адлегласць";
 
 "search_show_on_map" = "Паглядзець на мапе";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Аднавіць усё";
+
+/* Prompt for recording a track. */
+"start_track_recording" = "Запіс маршруту";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Спыніць запіс маршруту";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Спыніць без захавання";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Працягнуць запіс";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Захаваць у закладкі і сцежкі?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Маршрут пусты - няма чаго захоўваць";
 
 
 /********** Types **********/

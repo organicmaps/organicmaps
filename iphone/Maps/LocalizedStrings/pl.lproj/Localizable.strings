@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Automatyczne powiększanie";
 
-"duration_disabled" = "Wyłączona";
-
-"duration_1_hour" = "1 godzina";
-
-"duration_2_hours" = "2 godziny";
-
-"duration_6_hours" = "6 godzin";
-
-"duration_12_hours" = "12 godzin";
-
-"duration_1_day" = "1 dzień";
-
-"recent_track_help_text" = "Umożliwia na pewien okres zapisanie przebytej trasy i obejrzenie jej na mapie. Uwaga: włączenie tej funkcji spowoduje większe zużycie baterii. Trasa zostanie usunięta z mapy automatycznie po upływie określonego czasu.";
-
 "placepage_distance" = "Dystans";
 
 "search_show_on_map" = "Wyświetl na mapie";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Odzyskaj wszystko";
+
+/* Prompt for recording a track. */
+"start_track_recording" = "Nagraj trasę";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Zatrzymać nagrywanie trasy";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Zatrzymaj bez zapisywania";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Kontynuuj nagrywanie";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Zapisać nagranie w zakładkach i trasach?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Trasa jest pusta - nic do zapisania";
 
 
 /********** Types **********/

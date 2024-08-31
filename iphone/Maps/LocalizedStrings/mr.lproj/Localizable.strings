@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "स्वयं झूम";
 
-"duration_disabled" = "बंद";
-
-"duration_1_hour" = "१ तास";
-
-"duration_2_hours" = "२ तास";
-
-"duration_6_hours" = "६ तास";
-
-"duration_12_hours" = "१२ तास";
-
-"duration_1_day" = "१ दिवस";
-
-"recent_track_help_text" = "हे कार्य तुम्हाला ठराविक कालावधीसाठी प्रवास केलेला मार्ग रेकॉर्ड करण्याची आणि नकाशावर पाहण्याची सोय देतो.  सावधान: हे कार्य चालू केल्याने बॅटरीचा वापर वाढतो. कालावधी संपल्यानंतर ट्रॅक स्वयंचलितपणे नकाशावरून पुसला जाईल.";
-
 "placepage_distance" = "अंतर";
 
 "search_show_on_map" = "नकाशावर पहा";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "सर्व पुनर्प्राप्त करा";
+
+/* Prompt for recording a track. */
+"start_track_recording" = "ट्रॅक रेकॉर्ड करा";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "ट्रॅक रेकॉर्डिंग थांबवा";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "जतन न करता थांबवा";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "रेकॉर्डिंग चालू ठेवा";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "मार्ग रेकॉर्डिंग खूणपत्रे आणि ट्रॅकमध्ये सेव्ह करायचे?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "मार्ग रिकामा आहे - जतन करण्यासाठी काहीही नाही";
 
 
 /********** Types **********/

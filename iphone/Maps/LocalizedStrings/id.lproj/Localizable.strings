@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Perbesar otomatis";
 
-"duration_disabled" = "Nonaktif";
-
-"duration_1_hour" = "1 jam";
-
-"duration_2_hours" = "2 jam";
-
-"duration_6_hours" = "6 jam";
-
-"duration_12_hours" = "12 jam";
-
-"duration_1_day" = "1 hari";
-
-"recent_track_help_text" = "Ini memungkinkan Anda untuk merekam jalur yang telah dilalui selama jangka waktu tertentu dan melihatnya pada peta. Harap ketahui: aktivasi fungsi ini menyebabkan peningkatan penggunaan baterai. Trek akan dihapus secara otomatis dari peta setelah selang waktu berakhir.";
-
 "placepage_distance" = "Jarak";
 
 "search_show_on_map" = "Tampilkan pada peta";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Pulihkan Semua";
+
+/* Prompt for recording a track. */
+"start_track_recording" = "Merekam jalur";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Hentikan perekaman jalur";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Berhenti tanpa menyimpan";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Lanjutkan perekaman";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Menyimpan ke penanda dan jalur?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Jalur kosong - tidak ada yang bisa disimpan";
 
 
 /********** Types **********/

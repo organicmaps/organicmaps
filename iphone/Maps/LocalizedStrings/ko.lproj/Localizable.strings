@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "자동 줌";
 
-"duration_disabled" = "선택 안 함";
-
-"duration_1_hour" = "1시간";
-
-"duration_2_hours" = "2시간";
-
-"duration_6_hours" = "6시간";
-
-"duration_12_hours" = "12시간";
-
-"duration_1_day" = "1일";
-
-"recent_track_help_text" = "특정 기간 동안 이동된 경로를 기록하고 지도에서 그 경로를 볼 수 있습니다. 참고: 이 기능을 활성화하면 배터리 사용량이 증가하게 됩니다. 시간 간격이 만료된 후 지도에서 해당 트랙이 자동으로 제거됩니다.";
-
 "placepage_distance" = "거리";
 
 "search_show_on_map" = "지도 보기";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "모두 복구";
+
+/* Prompt for recording a track. */
+"start_track_recording" = "트랙 녹음";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "트랙 기록을 중지하시겠습니까";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "저장하지 않고 중지";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "녹화 계속하기";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "북마크 및 트랙에 저장하시겠습니까?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "경로가 비어 있음 - 저장할 항목이 없음";
 
 
 /********** Types **********/

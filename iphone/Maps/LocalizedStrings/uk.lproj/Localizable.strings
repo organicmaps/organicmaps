@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Автозум";
 
-"duration_disabled" = "Вимкнуто";
-
-"duration_1_hour" = "1 година";
-
-"duration_2_hours" = "2 години";
-
-"duration_6_hours" = "6 годин";
-
-"duration_12_hours" = "12 годин";
-
-"duration_1_day" = "1 день";
-
-"recent_track_help_text" = "Ця функція дозволяє прокласти подоланий маршрут протягом певного проміжку часу та переглянути його на мапі. Звертаємо вашу увагу, що вмикання цієї функції пришвидшить розрядження акумулятора. Щойно сплине заданий проміжок часу, прокладений маршрут буде видалено з мапи.";
-
 "placepage_distance" = "Відстань";
 
 "search_show_on_map" = "Подивитись на мапі";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Відновити все";
+
+/* Prompt for recording a track. */
+"start_track_recording" = "Записати маршрут";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Зупинити запис маршруту";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Зупинити без збереження";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Продовжити запис";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Зберегти в мітки та маршрути?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Маршрут порожній - нічого зберігати";
 
 
 /********** Types **********/

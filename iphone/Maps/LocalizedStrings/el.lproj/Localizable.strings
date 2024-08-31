@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Αυτόματη μεγέθυνση";
 
-"duration_disabled" = "Απενεργ.";
-
-"duration_1_hour" = "1 ώρα";
-
-"duration_2_hours" = "2 ώρες";
-
-"duration_6_hours" = "6 ώρες";
-
-"duration_12_hours" = "12 ώρες";
-
-"duration_1_day" = "1 ημέρα";
-
-"recent_track_help_text" = "Σας επιτρέπει να καταγράψετε τη διαδρομή που έχει διανυθεί για συγκεκριμένο χρονικό διάστημα και να την δείτε στο χάρτη. Λάβετε υπόψη: η ενεργοποίηση αυτής της λειτουργίας κάνει έντονη χρήση της μπαταρίας. Η διαδρομή θα αφαιρεθεί αυτόματα από το χάρτη μετά τη λήξη του μεσοδιαστήματος.";
-
 "placepage_distance" = "Απόσταση";
 
 "search_show_on_map" = "Προβολή στο χάρτη";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Ανάκτηση όλων";
+
+/* Prompt for recording a track. */
+"start_track_recording" = "Εγγραφή διαδρομής";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Σταματήστε την εγγραφή διαδρομής";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Σταματήστε χωρίς αποθήκευση";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Συνέχεια εγγραφής";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Αποθήκευση στα Αγαπημένα και Διαδρομές;";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Η διαδρομή είναι άδεια - δεν υπάρχει τίποτα να αποθηκεύσετε";
 
 
 /********** Types **********/

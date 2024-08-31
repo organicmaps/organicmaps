@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Avtomatik böyütmə";
 
-"duration_disabled" = "Bağlı";
-
-"duration_1_hour" = "1 saat";
-
-"duration_2_hours" = "2 saat";
-
-"duration_6_hours" = "6 saat";
-
-"duration_12_hours" = "12 saat";
-
-"duration_1_day" = "1 gün";
-
-"recent_track_help_text" = "Bu funksiya müəyyən vaxt ərzində qət edilən məsafəni qeyd etməyə və xəritədə izləməyə imkan verir. Diqqət edin: bu funksiyanın işə salınması batareya istehlakının artması ilə nəticələnəcək. Müddət bitdikdən sonra izləmə avtomatik olaraq xəritədən silinəcək.";
-
 "placepage_distance" = "Məsafə";
 
 "search_show_on_map" = "Xəritədə baxın";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Hamısını bərpa et";
+
+/* Prompt for recording a track. */
+"start_track_recording" = "Marşrut qeydi";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Marşrut qeydini dayandır";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Saxlamadan dayandırın";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Qeyd etməyə davam et";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Əlfəcinlər və qeydlərə yadda saxla?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Marşrut boşdur - saxlamaq üçün heç nə yoxdur";
 
 
 /********** Types **********/

@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Автоматично мащабиране";
 
-"duration_disabled" = "Изключено";
-
-"duration_1_hour" = "1 час";
-
-"duration_2_hours" = "2 часа";
-
-"duration_6_hours" = "6 часа";
-
-"duration_12_hours" = "12 часа";
-
-"duration_1_day" = "1 ден";
-
-"recent_track_help_text" = "Тази опция ви позволява да запишете изминатия път за определен период и да го видите на картата. Моля, обърнете внимание: активирането на тази функция води до повишено използване на батерията.";
-
 "placepage_distance" = "Distance";
 
 "search_show_on_map" = "Преглед на картата";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Възстанови всички";
+
+/* Prompt for recording a track. */
+"start_track_recording" = "Запис на маршрут";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Спри запис на маршрут";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Спрете без запазване";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Продължи записа";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Запазване в отметки и пътеки?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Маршрутът е празен - няма какво да запазвате";
 
 
 /********** Types **********/

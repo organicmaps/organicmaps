@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Automatisk zoom";
 
-"duration_disabled" = "Av";
-
-"duration_1_hour" = "1 timme";
-
-"duration_2_hours" = "2 timmar";
-
-"duration_6_hours" = "6 timmar";
-
-"duration_12_hours" = "12 timmar";
-
-"duration_1_day" = "1 dag";
-
-"recent_track_help_text" = "Detta gör att du kan spara en resväg för en viss tidsperiod och visa den på kartan. Obs: aktivering av den här funktionen ökar batterianvändningen. Spåret tas bort automatiskt från kartan när tidsintervallet slutar gälla.";
-
 "placepage_distance" = "Avstånd";
 
 "search_show_on_map" = "Visa på kartan";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Återställ allt";
+
+/* Prompt for recording a track. */
+"start_track_recording" = "Spela in spår";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Stoppa inspelning av spår";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Stoppa utan att spara";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Fortsätt spela in";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Spara inspelning i bokmärken och rutter?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Routen är tom - inget att spara";
 
 
 /********** Types **********/

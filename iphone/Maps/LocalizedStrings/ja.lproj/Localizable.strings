@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "自動ズーム";
 
-"duration_disabled" = "オフ";
-
-"duration_1_hour" = "1時間";
-
-"duration_2_hours" = "2時間";
-
-"duration_6_hours" = "6時間";
-
-"duration_12_hours" = "12時間";
-
-"duration_1_day" = "1日";
-
-"recent_track_help_text" = "移動経路を一定期間記録し、地図上で確認できるようにします。注意：この機能を有効にすると、バッテリーの消費量が増えます。表示期間が終了すると、走行軌跡は地図から自動的に削除されます。";
-
 "placepage_distance" = "距離";
 
 "search_show_on_map" = "地図に表示";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "すべて復元";
+
+/* Prompt for recording a track. */
+"start_track_recording" = "トラックを録音する";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "トラック記録を停止しますか";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "保存せずに停止";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "録画を続ける";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "ブックマークとトラックに保存しますか？";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "ルートが空です - 保存するものがありません";
 
 
 /********** Types **********/

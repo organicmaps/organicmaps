@@ -266,20 +266,6 @@
 
 "pref_map_auto_zoom" = "Автозум";
 
-"duration_disabled" = "Выключено";
-
-"duration_1_hour" = "1 час";
-
-"duration_2_hours" = "2 часа";
-
-"duration_6_hours" = "6 часов";
-
-"duration_12_hours" = "12 часов";
-
-"duration_1_day" = "1 сутки";
-
-"recent_track_help_text" = "Эта функция позволяет записывать пройденный путь за определённый период времени и видеть его на карте. Внимание: активация этой функции может привести к повышенному расходу батареи. Записанный трек будет удалён с карты по истечении этого срока.";
-
 "placepage_distance" = "Расстояние";
 
 "search_show_on_map" = "Посмотреть на карте";
@@ -1391,6 +1377,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Восстановить всё";
+
+/* Prompt for recording a track. */
+"start_track_recording" = "Записать трек";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Остановить запись трека";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Остановить без сохранения";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Продолжить запись";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Сохранить в метки и треки?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Трек пуст - нечего сохранять";
 
 
 /********** Types **********/
