@@ -397,7 +397,7 @@
     eu = Ontziratzeko atea
     fi = Portti
     fr = Porte d'embarquement
-    he = שער
+    he = שער עליה למטוס
     it = Cancello aeroportuale
     ja = 搭乗口
     mr = दार
@@ -13763,6 +13763,7 @@
 
   [type.highway.track.no.access]
     ref = type.highway.track
+    he = מסלול ללא גישה
 
   [type.highway.track.tunnel]
     ref = type.highway.road.tunnel
@@ -15466,7 +15467,7 @@
     fa = گردشگری
     fi = Alus
     fr = Navire
-    he = אונייה
+    he = ספינה
     hi = जलयान
     hu = Turizmus
     id = Pemandangan
@@ -15833,7 +15834,7 @@
     eu = Biribilgunea
     fi = Liikenneympyrä
     fr = Rond-point
-    he = מעגל תנועה
+    he = כיכר
     hi = गोल चक्कर
     it = Rotonda
     ja = ラウンドアバウト
@@ -15862,6 +15863,7 @@
     et = Maakasutus
     fi = Maankäyttö
     fr = Utilisation du sol
+    he = שימושי קרקע
     hi = भूमि उपयोग
     ja = 土地利用
     mr = भूमी उपयोग
@@ -15886,6 +15888,7 @@
     et = Peenrad
     fi = Siirtolapuutarha
     fr = Jardins familiaux
+    he = חלקות חקלאיות
     it = Orti comunitari
     ja = 市民農園
     mr = वाटप
@@ -15950,6 +15953,7 @@
     et = Ehitusmaa
     fi = Tuhoalue
     fr = Friche industrielle
+    he = קרקע מזוהמת
     ja = 再開発用地
     pl = Teren do zabudowy
     pt = Terreno industrial devoluto
@@ -15987,6 +15991,7 @@
     fa = حیاط کلیسا
     fi = Kirkon piha
     fr = Cour d'église
+    he = חצר כנסיה
     hu = Templomkert
     id = Halaman gereja
     it = Sagrato della chiesa
@@ -16070,6 +16075,7 @@
     et = Haridusrajatised
     fi = Koulutuslaitos
     fr = Établissements éducatifs
+    he = קריית חינוך
     it = Strutture didattiche
     mr = शैक्षणिक सुविधा
     nl = Educatieve voorzieningen
@@ -16097,6 +16103,7 @@
     fa = زمین کشاورزی
     fi = Maatalousmaa
     fr = Terrains agricoles
+    he = אדמה חקלאית
     hu = Termőföld
     id = Lahan pertanian
     it = Terreno agricolo
@@ -16129,6 +16136,7 @@
     et = Taluõu
     fi = Maatila
     fr = Ferme
+    he = חצר חקלאית
     it = Fattoria
     ja = 農地
     nl = Boerenerf
