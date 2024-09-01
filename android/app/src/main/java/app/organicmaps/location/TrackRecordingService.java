@@ -83,7 +83,7 @@ public class TrackRecordingService extends Service implements LocationListener
     final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;
     final Intent contentIntent = new Intent(context, MwmActivity.class);
     mPendingIntent = PendingIntent.getActivity(context, 0, contentIntent,
-                                               PendingIntent.FLAG_CANCEL_CURRENT | FLAG_IMMUTABLE);
+                                               PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
     return mPendingIntent;
   }
 
