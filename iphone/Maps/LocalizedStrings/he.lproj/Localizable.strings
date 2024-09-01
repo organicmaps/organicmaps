@@ -1423,7 +1423,7 @@
 
 "type.aeroway.apron" = "חניית מטוסים";
 
-"type.aeroway.gate" = "שער";
+"type.aeroway.gate" = "שער עליה למטוס";
 
 "type.aeroway.helipad" = "מנחת מסוקים";
 
@@ -2332,7 +2332,7 @@
 
 "type.highway.track.grade1" = "מסלול";
 
-"type.highway.track.no.access" = "מסלול";
+"type.highway.track.no.access" = "מסלול ללא גישה";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "מִנהָרָה";
@@ -2472,7 +2472,7 @@
 
 "type.historic.ruins" = "חורבות עתיקות";
 
-"type.historic.ship" = "אונייה";
+"type.historic.ship" = "ספינה";
 
 "type.historic.tank" = "טנק היסטורי";
 
@@ -2516,17 +2516,17 @@
 
 "type.junction" = "צומת";
 
-"type.junction.circular" = "מעגל תנועה";
+"type.junction.circular" = "כיכר";
 
-"type.junction.roundabout" = "מעגל תנועה";
+"type.junction.roundabout" = "כיכר";
 
-"type.landuse" = "Landuse";
+"type.landuse" = "שימושי קרקע";
 
-"type.landuse.allotments" = "Allotments";
+"type.landuse.allotments" = "חלקות חקלאיות";
 
 "type.landuse.basin" = "אגן מים";
 
-"type.landuse.brownfield" = "Brownfield";
+"type.landuse.brownfield" = "קרקע מזוהמת";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery" = "בית קברות";
@@ -2534,17 +2534,17 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "בית קברות נוצרי";
 
-"type.landuse.churchyard" = "Churchyard";
+"type.landuse.churchyard" = "חצר כנסיה";
 
 "type.landuse.commercial" = "אזור מסחרי";
 
 "type.landuse.construction" = "אתר בניה";
 
-"type.landuse.education" = "Educational Facility";
+"type.landuse.education" = "קריית חינוך";
 
-"type.landuse.farmland" = "Farmland";
+"type.landuse.farmland" = "אדמה חקלאית";
 
-"type.landuse.farmyard" = "Farmyard";
+"type.landuse.farmyard" = "חצר חקלאית";
 
 "type.landuse.field" = "שדה";
 

@@ -839,7 +839,7 @@
 	<string name="type.aeroway.aerodrome">שדה תעופה</string>
 	<string name="type.aeroway.aerodrome.international">שדה תעופה בינלאומי</string>
 	<string name="type.aeroway.apron">חניית מטוסים</string>
-	<string name="type.aeroway.gate">שער</string>
+	<string name="type.aeroway.gate">שער עליה למטוס</string>
 	<string name="type.aeroway.helipad">מנחת מסוקים</string>
 	<string name="type.aeroway.runway">מסלול המראה</string>
 	<string name="type.aeroway.taxiway">מסלול הסעה</string>
@@ -1321,7 +1321,7 @@
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.track.bridge">גשר</string>
 	<string name="type.highway.track.grade1">מסלול</string>
-	<string name="type.highway.track.no.access">מסלול</string>
+	<string name="type.highway.track.no.access">מסלול ללא גישה</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">מִנהָרָה</string>
 	<string name="type.highway.traffic_signals">רמזור</string>
@@ -1393,7 +1393,7 @@
 	<string name="type.historic.monument">אנדרטה</string>
 	<string name="type.historic.pillory">עמוד הקלון</string>
 	<string name="type.historic.ruins">חורבות עתיקות</string>
-	<string name="type.historic.ship">אונייה</string>
+	<string name="type.historic.ship">ספינה</string>
 	<string name="type.historic.tank">טנק היסטורי</string>
 	<string name="type.historic.tomb">קֶבֶר</string>
 	<string name="type.historic.wayside_cross">צלב בצד הדרך</string>
@@ -1414,15 +1414,22 @@
 	<string name="type.internet_access">אינטרנט</string>
 	<string name="type.internet_access.wlan">אינטרנט אלחוטי</string>
 	<string name="type.junction">צומת</string>
-	<string name="type.junction.circular">מעגל תנועה</string>
-	<string name="type.junction.roundabout">מעגל תנועה</string>
+	<string name="type.junction.circular">כיכר</string>
+	<string name="type.junction.roundabout">כיכר</string>
+	<string name="type.landuse">שימושי קרקע</string>
+	<string name="type.landuse.allotments">חלקות חקלאיות</string>
 	<string name="type.landuse.basin">אגן מים</string>
+	<string name="type.landuse.brownfield">קרקע מזוהמת</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">בית קברות</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">בית קברות נוצרי</string>
+	<string name="type.landuse.churchyard">חצר כנסיה</string>
 	<string name="type.landuse.commercial">אזור מסחרי</string>
 	<string name="type.landuse.construction">אתר בניה</string>
+	<string name="type.landuse.education">קריית חינוך</string>
+	<string name="type.landuse.farmland">אדמה חקלאית</string>
+	<string name="type.landuse.farmyard">חצר חקלאית</string>
 	<string name="type.landuse.field">שדה</string>
 	<string name="type.landuse.flowerbed">ערוגת פרחים</string>
 	<string name="type.landuse.forest">יער</string>
