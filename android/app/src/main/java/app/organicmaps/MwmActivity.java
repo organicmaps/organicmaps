@@ -279,10 +279,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     // App crashed so we need the restart or stop the whole service again properly
     // by checking all the necessary permissions
     if (TrackRecorder.nativeIsEnabled())
-    {
-      TrackRecorder.nativeSetEnabled(false);
       startTrackRecording(false);
-    }
 
     processIntent();
     migrateOAuthCredentials();
@@ -1937,11 +1934,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (LocationState.getMode() == LocationState.NOT_FOLLOW_NO_POSITION)
         LocationState.nativeSwitchToNextMode();
 
-      if (requestedForRecording && LocationUtils.checkFineLocationPermission(this))
-        startTrackRecording(true);
+      if (requestedForRecording)
+      {
+        if (LocationUtils.checkFineLocationPermission(this))
+          startTrackRecording(true);
+        else if (TrackRecorder.nativeIsEnabled())
+          TrackRecorder.nativeSetEnabled(false);
+      }
 
       return;
     }
+    else if (requestedForRecording && TrackRecorder.nativeIsEnabled())
+      TrackRecorder.nativeSetEnabled(false);
 
     Logger.w(LOCATION_TAG, "Permissions ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION have been refused");
     // Calls onMyPositionModeChanged(NOT_FOLLOW_NO_POSITION).
