@@ -12,16 +12,12 @@
 namespace gpx_tests
 {
 static kml::FileData loadGpxFromString(std::string_view content) {
-  try
+  TEST_NO_THROW(
   {
     kml::FileData dataFromText;
     kml::DeserializerGpx(dataFromText).Deserialize(MemReader(content));
     return dataFromText;
-  }
-  catch (kml::DeserializerGpx::DeserializeException const & exc)
-  {
-    TEST(false, ("Exception raised", exc.what()));
-  }
+  }, ());
 }
 
 static kml::FileData loadGpxFromFile(std::string const & file) {
@@ -54,7 +50,7 @@ UNIT_TEST(Gpx_ImportExportEmpty_Test)
   importExportCompare("gpx_test_data/export_test_empty.gpx");
 }
 
-UNIT_TEST(Gpx_Test_Point)
+UNIT_TEST(Gpx_Test_Point_With_Valid_Timestamp)
 {
   std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
 <gpx version="1.0">
@@ -77,37 +73,23 @@ UNIT_TEST(Gpx_Test_Point)
   TEST_EQUAL(dataFromText, data, ());
 }
 
-UNIT_TEST(Gpx_Test_Route)
+UNIT_TEST(Gpx_Test_Point_With_Invalid_Timestamp)
 {
   std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
 <gpx version="1.0">
-<trk>
-    <name>new</name>
-    <type>Cycling</type>
-    <trkseg>
-      <trkpt lat="54.23955053156179" lon="24.114990234375004">
-          <ele>130.5</ele>
-      </trkpt>
-      <trkpt lat="54.32933804825253" lon="25.136718750000004">
-          <ele>0.0</ele>
-      </trkpt>
-      <trkpt lat="54.05293900056246" lon="25.72998046875">
-          <ele>0.0</ele>
-      </trkpt>
-    </trkseg>
-    <trkseg>
-      <trkpt lat="55.23955053156179" lon="25.114990234375004">
-          <ele>131.5</ele>
-      </trkpt>
-      <trkpt lat="54.32933804825253" lon="25.136718750000004">
-          <ele>0.0</ele>
-      </trkpt>
-    </trkseg>
-</trk>
-</gpx>
+ <wpt lat="42.81025" lon="-1.65727">
+  <time>2022-09-05T08:39:39.3700X</time>
+  <name>Waypoint 1</name>
+ </wpt>
 )";
 
-  kml::FileData const dataFromText = loadGpxFromString(input);
+  TEST_ANY_THROW({ kml::FileData const dataFromText = loadGpxFromString(input); }, ());
+}
+
+UNIT_TEST(Gpx_Test_Track_Without_Timestamps)
+{
+  auto const fileName = "gpx_test_data/track_without_timestamps.gpx";
+  kml::FileData const dataFromText = loadGpxFromFile(fileName);
   auto const & lines = dataFromText.m_tracksData[0].m_geometry.m_lines;
   TEST_EQUAL(lines.size(), 2, ());
   {
@@ -128,8 +110,48 @@ UNIT_TEST(Gpx_Test_Route)
     TEST_EQUAL(layer.m_color.m_rgba, kml::kDefaultTrackColor, ());
     TEST_EQUAL(layer.m_color.m_predefinedColor, kml::PredefinedColor::None, ());
     TEST_EQUAL(layer.m_lineWidth, kml::kDefaultTrackWidth, ());
+    auto const & geometry = dataFromText.m_tracksData[0].m_geometry;
+    TEST_EQUAL(geometry.m_timestamps.size(), 2, ());
+    TEST(geometry.m_timestamps[0].empty(), ());
+    TEST(geometry.m_timestamps[1].empty(), ());
+    TEST(!geometry.HasTimestamps(), ());
+    TEST(!geometry.HasTimestampsFor(0), ());
+    TEST(!geometry.HasTimestampsFor(1), ());
   }
+}
 
+UNIT_TEST(Gpx_Test_Track_With_Timestamps)
+{
+  auto const fileName = "gpx_test_data/track_with_timestamps.gpx";
+  kml::FileData const dataFromText = loadGpxFromFile(fileName);
+  auto const & geometry = dataFromText.m_tracksData[0].m_geometry;
+  TEST_EQUAL(geometry.m_lines.size(), 2, ());
+  TEST_EQUAL(geometry.m_timestamps.size(), 2, ());
+  TEST(geometry.IsValid(), ());
+  TEST(geometry.HasTimestamps(), ());
+  TEST(geometry.HasTimestampsFor(0), ());
+  TEST(geometry.HasTimestampsFor(1), ());
+}
+
+UNIT_TEST(Gpx_Test_Track_With_Timestamps_Mismatch)
+{
+  auto const fileName = GetPlatform().TestsDataPathForFile("gpx_test_data/track_with_timestamps_broken.gpx");
+  std::string text;
+  FileReader(fileName).ReadAsString(text);
+  try
+  {
+    kml::FileData dataFromText;
+    kml::DeserializerGpx(dataFromText).Deserialize(MemReader(text));
+    TEST(false, ("DeserializeException should be raised"));
+  }
+  catch (kml::DeserializerGpx::DeserializeException const & exc)
+  {
+    TEST(true, ("Exception raised", exc.what()));
+  }
+  catch (std::exception const & exc)
+  {
+    TEST(false, ("DeserializeException should be raised"));
+  }
 }
 
 UNIT_TEST(Gpx_Altitude_Issues)
@@ -179,8 +201,10 @@ UNIT_TEST(GpxStudio)
 UNIT_TEST(OsmTrack)
 {
   kml::FileData const dataFromFile = loadGpxFromFile("gpx_test_data/osm_track.gpx");
-  auto line = dataFromFile.m_tracksData[0].m_geometry.m_lines[0];
+  auto const & line = dataFromFile.m_tracksData[0].m_geometry.m_lines[0];
+  auto const & timestamps = dataFromFile.m_tracksData[0].m_geometry.m_timestamps[0];
   TEST_EQUAL(line.size(), 182, ());
+  TEST_EQUAL(timestamps.size(), 182, ());
 }
 
 UNIT_TEST(TowerCollector)
