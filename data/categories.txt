@@ -203,6 +203,7 @@ ru:3бензин|3дизель|4топливо|газ
 be:3бензін|3дызель|4паліва|газ
 bg:Гориво|Бензиностанция
 ar:1وقود|بنزين|سولار|ديزل|وقود الحافلات
+ca:Benzinera
 cs:2Čerpací stanice|Benzinová pumpa|benzinka
 da:Brændstof|Benzin
 nl:3Benzine
@@ -236,7 +237,7 @@ he:גז
 sk:3Čerpacia stanica
 sw:Sheli
 fa:سوخت|بنزین|دیزل|گازوئیل
-ca:Benzinera
+
 
 # First keyword should match [category_parking] definition in strings.txt!
 @category_parking
@@ -245,6 +246,7 @@ ru:4Парковка
 be:4Паркоўка
 bg:4Паркинг
 ar:موقف سيارات|مرافق ركن السيارات
+ca:Aparcament
 cs:4Parkoviště
 da:4Parkering
 nl:4Parkeerplaats
@@ -277,7 +279,7 @@ el:Χώρος στάθμευσης
 he:חניה
 sk:4Parkovisko
 fa:پارکینگ
-ca:Aparcament
+
 
 # First keyword should match [category_shopping] definition in strings.txt!
 @category_shopping
@@ -286,6 +288,7 @@ ru:3Шоппинг|4Покупки
 ar:تسوق
 be:3Шопінг|4Закупы
 bg:3Шопинг
+ca:Compres
 cs:Nákupy
 da:Indkøb
 de:4Shopping
@@ -319,7 +322,7 @@ uk:3Шопінг
 vi:Đi mua sắm
 zh-Hans:购物
 zh-Hant:購物
-ca:Compres
+
 
 # First keyword should match [category_hotel] definition in strings.txt!
 @category_hotel
@@ -328,6 +331,7 @@ ru:4Гостиница|отель|отели
 be:4Гатэль|гатэлі
 bg:Хотел|хотели
 ar:فندق|الفنادق
+ca:Hotel|Hotels
 cs:Hotel|Hotely
 da:Hotel|Hoteller
 nl:Hotel|Hotels
@@ -360,7 +364,7 @@ el:4Ξενοδοχείο|Διαμονή|Ξενοδοχεία
 he:מלון|בתי
 sk:Hotel|Hotely
 fa:هتل|هتل ها
-ca:Hotel|Hotels
+
 
 # First keyword should match [category_tourism] definition in strings.txt!
 @category_tourism
@@ -369,6 +373,7 @@ ru:4Достопримечательности|3Туризм
 be:4Славутасці|4турызм
 bg:5Забележителности|4Туризъм
 ar:سياحة
+ca:Turisme
 cs:Pamětihodnost
 da:5Seværdigheder|4Turisme|3sightseeing
 nl:5Bezienswaardigheden|4Toerisme
@@ -401,7 +406,7 @@ el:4Αξιοθέατα
 he:נקודות עיניין
 sk:Pamätihodnosť
 fa:منظره|گردشگری
-ca:Turisme
+
 
 # First keyword should match [category_entertainment] definition in strings.txt!
 @category_entertainment
@@ -410,6 +415,7 @@ ru:Развлечения
 be:Забавы
 bg:Развлечение
 ar:ترفيه وتسلية|تسلية
+ca:Entreteniment
 cs:Zábava
 da:Underholdning
 nl:Uitgaan
@@ -442,7 +448,7 @@ el:Ψυχαγωγία
 he:בידור
 sk:Zábava
 fa:سرگرمی
-ca:Entreteniment
+
 
 # First keyword should match [category_nightlife] definition in strings.txt!
 @category_nightlife
@@ -451,6 +457,7 @@ ru:Ночная жизнь|С друзьями|Вечер с друзьями|п
 be:Начное жыццё|патусіць
 bg:Нощен живот|С приятели
 ar:أنشطة ترفيه ليلية
+ca:Vida nocturna
 cs:Noční život
 da:Natteliv
 nl:Nachtleven
@@ -483,7 +490,7 @@ el:Νυχτερινή Ζωή
 sk:Nočný život
 sw:Shughuli za usiku
 fa:تفریحات شبانه
-ca:Vida nocturna
+
 
 # First keyword should match [category_children] definition in strings.txt!
 @category_children
@@ -492,6 +499,7 @@ ru:Отдых с детьми
 be:Сямейны адпачынак
 bg:Семейна почивка
 ar:عطلة عائلية
+ca:Vacances familiars
 cs:Dovolená s dětmi
 da:Familieferie
 nl:Gezinsvakantie
@@ -524,7 +532,7 @@ el:Οικογενειακές Διακοπές
 sk:Rodinná dovolenka
 sw:Mapumziko ya familia
 fa:تعطیلات خانوادگی
-ca:Vacances familiars
+
 
 # First keyword should match [category_atm] definition in strings.txt!
 @category_atm
@@ -533,6 +541,7 @@ ru:3Банкомат
 be:3Банкамат
 bg:3Банкомат
 ar:ماكينة صرافة آلية|صراف|صراف آلي|صراف آلي
+ca:Caixer automàtic
 cs:3Bankomat
 da:3Hæveautomat
 nl:3Geldautomaat
@@ -566,7 +575,7 @@ he:כספומט
 sk:3Bankomat
 sw:Benki|fedha
 fa:خود پرداز
-ca:Caixer automàtic
+
 
 # First keyword should match [category_rv] definition in strings.txt!
 @category_rv
@@ -613,6 +622,7 @@ en:money|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 ru:деньги
 bg:пари
 ar:ماكينة صراف آلي|الأموال|فلوس|صرافة آلية|نقود
+ca:diners
 cs:spořitelna|peníze
 da:penge
 nl:geld
@@ -643,7 +653,7 @@ zh-Hant:1atm|理財|錢|金錢
 el:χρήματα
 sk:sporiteľna|peniaze
 fa:دستگاه خودپرداز
-ca:diners
+
 
 # First keyword should match [category_bank] definition in strings.txt!
 @category_bank
@@ -652,6 +662,7 @@ ru:3Банк
 be:3Банк
 bg:3Банка
 ar:بنك
+ca:Banc
 cs:3Banka
 da:3Bank
 nl:3Bank
@@ -684,7 +695,7 @@ he:בנק
 sk:3Banka
 sw:Benki|fedha
 fa:بانک
-ca:Banc
+
 
 # First keyword should match [category_secondhand] definition in strings.txt!
 @category_secondhand
@@ -732,6 +743,7 @@ en:money|U+1F3E6|U+1F4B0|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 ru:деньги
 bg:пари
 ar:بنك|الأموال|فلوس|نقود|مال
+ca:diners
 cs:peníze
 da:3penge
 nl:geld
@@ -761,7 +773,7 @@ zh-Hant:錢
 el:χρήματα
 sk:peniaze
 fa:بانک
-ca:diners
+
 
 # First keyword should match [category_recycling] definition in strings.txt!
 @category_recycling
@@ -770,6 +782,7 @@ ru:Переработка|5Переработка отходов|Утилиза�
 be:Перапрацоўка|5Перапрацоўка адходаў|Утылізацыя адходаў|5Прыём другаснай сыравіны|5Здаць другсыравіну|Паасобны збор смецця|Сартаванне смецця|Паўторнае выкарыстанне|Утыль
 bg:Рециклиране|Преизползване|Разделно събиране|Сепаратор
 ar:إعادة تدوير|استغلال المخلفات|المواد القابلة لإعادة التدوير|جمع القمامة بشكل منفصل|فرز النفايات|إعادة الاستخدام
+ca:Reciclatge|Reciclatge de residus|Eliminació de residus|Materials reciclables|Recollida selectiva d’escombraries|Classificació de residus|Reutilització
 cs:Recyklace|Využití odpadu|Recyklovatelné|Oddělený sběr odpadků|Třídění odpadu|Opětovné použití
 da:Genbrug|Affaldsudnyttelse|Genanvendelig|Separate dagrenovationer|Affaldssortering
 nl:Recycling|Afvalgebruik|Recyclebaar materiaal|Gescheiden afvalinzameling|Afval sorteren|Hergebruik
@@ -801,13 +814,14 @@ sk:Recyklácia|Využitie odpadu|Recyklovateľné|Separovaný zber odpadu|Trieden
 zh-Hans:回收|废物利用|可回收物|垃圾分类收集|垃圾分类|再利用
 zh-Hant:回收|廢物利用|可回收物|垃圾分類收集|垃圾分類|再利用
 fa:بازیافت|مدیریت پسماند|مواد بازیافتنی|جمعآوری جداگانۀ زبالهها |تفکیک پسماند|بازمصرف
-ca:Reciclatge|Reciclatge de residus|Eliminació de residus|Materials reciclables|Recollida selectiva d’escombraries|Classificació de residus|Reutilització
+
 
 amenity-bureau_de_change
 en:3Currency Exchange|3exchange|money|U+1F4B1|U+1F4B2|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 ru:3Обмен валюты|обмен валют|обменник|4валюта|деньги
 bg:Чейндж бюро|пари|обмяна|валути
 ar:تحويل عملات|تغيير عملات|الصرف|الأموال|صرف عملات|صرف
+ca:Canvi de divises|diners
 cs:3Směnárna|peníze
 da:3Vekselbureau|3penge
 nl:3Wisselkantoor|3geld wisselen|wisselen|geld
@@ -838,13 +852,14 @@ zh-Hant:1匯率|理財|外幣|兌換|貨幣|換錢
 el:Συνάλλαγμα|ανταλλακτήριο|χρήματα
 sk:3Zmenáreň|peniaze
 fa:صرافی
-ca:Canvi de divises|diners
+
 
 amenity-bar|amenity-pub|@category_eat|@category_nightlife
 en:2Bar|2pub|beer|drink|U+1F37A|U+1F37B|U+1F376|tavern|bars and pubs|brew pub|cocktail lounge
 ru:2Бар|2паб|пиво|выпить|пивной ресторан|пивбар|крафт|коктейль бар|пивная|коктейли|алкоголь|алкогольные напитки
 bg:2Бар|кръчма|бира|питие|напитка|таверна|коктейл|пиво|алкохол
 ar:بار|حانة|خمارة|بيرة|شراب
+ca:Bar
 cs:2Bar|hospoda|pivo|pití|tekutiny
 da:2Bar|værtshus|kro|øl|pub|drink
 nl:2Bar|2pub|kroeg|bier|drinken
@@ -877,13 +892,14 @@ el:Μπαρ|Παμπ|μπύρα|ποτό|φαγητό
 sk:2Bar|pohostinstvo|pivo|pitie|tekutiny
 sw:Baa|vinywaji
 fa:میکده|کاباره
-ca:Bar
+
 
 amenity-cafe|@category_eat
 en:3Cafe|3restaurant|U+2615|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B|U+1F375|coffee|cafeteria
 ru:3Кафе|3ресторан|кофейня|кофе
 bg:3Кафе|3ресторант|кафене
 ar:مقهى|مطعم|طعام|قهوة|كافتيريا
+ca:Cafè|Cafeteria
 cs:3Kavárna|restaurace|hospoda
 da:3Café|restaurant
 nl:3Tearoom|3brasserie|3café|3restaurant
@@ -916,13 +932,14 @@ el:Καφετέρια|εστιατόριο|φαγητό
 sk:3Kaviareň|reštaurácia|pohostinstvo
 sw:Mgahawa|hoteli|chakula
 fa:کافه|قهوه فروشی|قهوه خانه
-ca:Cafè|Cafeteria
+
 
 amenity-fast_food|@category_eat
 en:4Fast Food|3restaurant|3cafe|takeaway|U+1F354|U+1F355|U+1F35F|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|food to go|junk food
 ru:3Фастфуд|3ресторан|3кафе|закусочная|быстрое питание|снеки|перекусить|экспресс-питание
 bg:Бързо хранене|Фастфууд|кафе|храна|за вкъщи|ресторант|закусвалня
 ar:وجبات سريعة|مطعم|مقهى|وجبة جاهزة|طعام
+ca:Menjar ràpid
 cs:2Rychlé občerstvení|4fastfood|kavárna|restaurace
 da:4Fastfood|restaurant|café|takeaway
 nl:4Fast food|3frituur|fritkot|3restaurant|afhaaleten
@@ -954,13 +971,14 @@ zh-Hant:1速食店|麥當勞|肯德雞|漢堡王|頂呱呱|薯條|速食|用餐|
 el:Ταχυφαγίο|καφετέρια|φαγητό για το σπίτι|φαγητό
 sk:2Rýchle občerstvenie|4fastfood|3kaviareň|reštaurácia
 fa:فست فود|غذای حاضری
-ca:Menjar ràpid
+
 
 amenity-restaurant|@category_eat
 en:3Restaurant|3cafe|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B
 ru:3Ресторан|3кафе
 bg:3ресторант|3кафе
 ar:2مطعم|مقهى|طعام
+ca:Restaurant
 cs:3Restaurace|hospoda|kavárna
 da:3Restaurant|café
 nl:3Restaurant|3café
@@ -993,7 +1011,7 @@ el:Εστιατόριο|καφετέρια|φαγητό
 sk:3Reštaurácia|pohostinstvo|kaviareň
 sw:Hoteli|restorenti|mgahawa|chakula
 fa:رستوران
-ca:Restaurant
+
 
 amenity-fuel|@category_fuel
 en:Gas Station|Petrol Station|3Filling Station|U+26FD
@@ -2274,6 +2292,7 @@ en:3Marketplace|market
 ru:3Рынок|базар
 bg:3Пазар
 ar:سوق|السوق|متجر
+ca:Mercat
 cs:4Tržiště|samoobsluha|market
 da:3Markedsplads|marked
 nl:3Markt
@@ -2303,7 +2322,7 @@ el:Αγορά|αγορά|κατάστημα
 sk:3Trhovisko|samoobsluha
 sw:Soko
 fa:بازار
-ca:Mercat
+
 
 amenity-money_transfer
 en:Money Transfer
@@ -2387,6 +2406,7 @@ fa:لباس فروشی|بوتیک
 shop-caravan|@category_rv|@shop
 en:2RV dealership|4Caravan dealership|Motorhome dealership
 be:Аўтадом|Продаж аўтадамоў
+ca:Venda de caravanas|Venda de autocaravanas|Venda de motorhomes
 de:5Wohnmobilhändler|5Wohnwagenhändler
 es:Venta de caravanas|Venta de autocaravanas|Venta de motorhomes
 et:Haagiselamute müük
@@ -2395,7 +2415,7 @@ hi:4कैंपर डीलर
 ru:Автодом|Продажа автодомов
 tr:Karavan galerisi
 uk:Продаж автобудинків
-ca:Venda de caravanas|Venda de autocaravanas|Venda de motorhomes
+
 
 shop-car|@shop
 en:3Car Dealership|Auto Dealer|U+1F697|U+1F698|U+1F699
