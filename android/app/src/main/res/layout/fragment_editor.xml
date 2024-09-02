@@ -277,7 +277,7 @@
 
         <RelativeLayout
             android:id="@+id/block_outdoor_seating"
-            style="@style/MwmWidget.Editor.MetadataBlock.Clickable">
+            style="@style/MwmWidget.Editor.MetadataBlock">
           <ImageView
               style="@style/MwmWidget.Editor.MetadataIcon"
               app:srcCompat="@drawable/ic_outdoor_seating"
@@ -288,14 +288,37 @@
               android:layout_height="wrap_content"
               android:layout_centerVertical="true"
               android:layout_marginStart="@dimen/editor_margin_left"
-              android:layout_toStartOf="@+id/sw__outdoor_seating"
+              android:layout_toStartOf="@+id/tb__outdoor_seating"
               android:text="@string/outdoor_seating"/>
-          <androidx.appcompat.widget.SwitchCompat
-              android:id="@+id/sw__outdoor_seating"
+          <com.google.android.material.button.MaterialButtonToggleGroup
+              android:id="@+id/tb__outdoor_seating"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_alignParentEnd="true"
-              android:layout_centerVertical="true"/>
+              android:layout_centerVertical="true"
+              app:singleSelection="true">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/outdoor_seating_no"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_cancel"
+                app:iconGravity="textStart"
+                style="?attr/materialButtonOutlinedStyle"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/outdoor_seating_none"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_minus"
+                app:iconGravity="textStart"
+                style="?attr/materialButtonOutlinedStyle"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/outdoor_seating_yes"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_done"
+                app:iconGravity="textStart"
+                style="?attr/materialButtonOutlinedStyle"/>
+          </com.google.android.material.button.MaterialButtonToggleGroup>
         </RelativeLayout>
 
         <!-- ToDo: Level is missing compared with iOS. -->

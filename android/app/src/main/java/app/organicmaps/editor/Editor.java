@@ -66,6 +66,7 @@ public final class Editor
   public static native String nativeGetMetadata(int id);
   public static native boolean nativeIsMetadataValid(int id, String value);
   public static native void nativeSetMetadata(int id, String value);
+  public static native void nativeRemoveMetadata(int id);
   public static native String nativeGetOpeningHours();
   public static native void nativeSetOpeningHours(String openingHours);
   public static String nativeGetPhone()
@@ -89,15 +90,26 @@ public final class Editor
   public static native boolean nativeHasWifi();
   public static native void nativeSetHasWifi(boolean hasWifi);
 
-  public static void nativeSetSwitchInput(int id, Boolean switchValue, String checkedValue, String uncheckedValue)
+  public static void nativeSetToogleButtonInput(int id, int checkedButtonId, int yesButtonId, int noneButtonId)
   {
-    nativeSetMetadata(id, switchValue ? checkedValue : uncheckedValue);
+    if (checkedButtonId == noneButtonId)
+    {
+      nativeRemoveMetadata(id);
+    }
+    else
+    {
+      nativeSetMetadata(id, checkedButtonId == yesButtonId ? "yes" : "no");
+    }
   }
 
-  public static boolean nativeGetSwitchInput(int id, String checkedValue)
+  public static int nativeGetToogleButtonInput(int id, int yesButtonId, int noButtonId, int noneButtonId)
   {
     String value = nativeGetMetadata(id);
-    return value.equals(checkedValue);
+    return switch (value){
+      case "yes" -> yesButtonId;
+      case "no" -> noButtonId;
+      default -> noneButtonId;
+    };
   }
 
   public static native boolean nativeIsAddressEditable();

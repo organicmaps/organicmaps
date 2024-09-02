@@ -103,6 +103,7 @@ public:
 
   static bool IsValidMetadata(MetadataID type, std::string const & value);
   void SetMetadata(MetadataID type, std::string value);
+  void RemoveMetadata(MetadataID type);
   bool UpdateMetadataValue(std::string_view key, std::string value);
 
   void SetOpeningHours(std::string oh);
