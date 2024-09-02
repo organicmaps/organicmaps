@@ -1,10 +1,12 @@
 package app.organicmaps.bookmarks;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -254,7 +256,19 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
       intent.putExtra(DocumentsContract.EXTRA_EXCLUDE_SELF, true);
-    startActivityForResult(intent, REQ_CODE_IMPORT_DIRECTORY);
+
+    PackageManager packageManager = requireActivity().getPackageManager();
+    if (intent.resolveActivity(packageManager) != null)
+      startActivityForResult(intent, REQ_CODE_IMPORT_DIRECTORY);
+    else
+      showNoFileManagerError();
+  }
+
+  private void showNoFileManagerError() {
+    new AlertDialog.Builder(requireActivity())
+        .setMessage(R.string.error_no_file_manager_app)
+        .setPositiveButton(android.R.string.ok, (dialog, which) -> dialog.dismiss())
+        .show();
   }
 
   @Override
