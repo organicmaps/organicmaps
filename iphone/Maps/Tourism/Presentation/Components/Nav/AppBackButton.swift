@@ -6,10 +6,10 @@ struct AppBackButton: View {
   
   var body: some View {
     Button(action: onBackClick) {
-      Image(systemName: "chevron.left")
-        .resizable()
-        .frame(width: 24, height: 24)
+      Image(systemName: "arrow.left")
+        .scaleEffect(1.5)
         .foregroundColor(tint)
+        .padding(4)
     }
   }
 }

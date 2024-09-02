@@ -16,7 +16,7 @@ class WelcomeViewController: UIViewController {
     let label = UILabel()
     label.text = L("current_language")
     label.textColor = .white
-    Font.applyStyle(to: label, style: Font.h4)
+    UIKitFont.applyStyle(to: label, style: UIKitFont.h4)
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
   }()
@@ -33,7 +33,7 @@ class WelcomeViewController: UIViewController {
     let label = UILabel()
     label.text = L("welcome_to_tjk")
     label.textColor = .white
-    Font.applyStyle(to: label, style: Font.h1)
+    UIKitFont.applyStyle(to: label, style: UIKitFont.h1)
     applyWrapContent(label: label)
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
@@ -63,7 +63,7 @@ class WelcomeViewController: UIViewController {
     let label = UILabel()
     label.text = "©"
     label.textColor = .white
-    Font.applyStyle(to: label, style: Font.h1)
+    UIKitFont.applyStyle(to: label, style: UIKitFont.h1)
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
   }()
@@ -72,7 +72,7 @@ class WelcomeViewController: UIViewController {
     let label = UILabel()
     label.text = L("organization_name")
     label.textColor = .white
-    Font.applyStyle(to: label, style: Font.h4)
+    UIKitFont.applyStyle(to: label, style: UIKitFont.h4)
     applyWrapContent(label: label)
     label.translatesAutoresizingMaskIntoConstraints = false
     return label

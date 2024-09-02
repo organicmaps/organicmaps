@@ -1,9 +1,19 @@
-//
-//  ProfileRepository.swift
-//  OMaps
-//
-//  Created by Macbook Pro on 16/08/24.
-//  Copyright © 2024 Organic Maps. All rights reserved.
-//
-
 import Foundation
+import Combine
+
+protocol ProfileRepository {
+  var personalDataPassThroughSubject: PassthroughSubject<PersonalData, ResourceError> { get }
+  
+  func getPersonalData()
+  
+  func updateProfile(
+    fullName: String,
+    country: String,
+    email: String,
+    pfpUrl: UIImage?
+  ) -> AnyPublisher<PersonalData, ResourceError>
+  
+  func updateLanguage(code: String)
+  
+  func updateTheme(code: String)
+}

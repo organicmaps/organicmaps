@@ -1,6 +1,6 @@
 import Foundation
 
-struct PersonalData: Identifiable {
+struct PersonalData: Identifiable, Codable {
     let id: Int64
     let fullName: String
     let country: String

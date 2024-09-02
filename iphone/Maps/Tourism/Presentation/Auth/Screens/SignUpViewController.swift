@@ -216,7 +216,7 @@ class SignUpViewController: UIViewController {
         self?.showError(message: error.errorDescription)
       }
     }, receiveValue: { response in
-      self.view.showToast(message: "token: \(response.token)}", duration: 4)
+      UserPreferences.shared.setToken(value: response.token)
     }
     )
     .store(in: &cancellables)

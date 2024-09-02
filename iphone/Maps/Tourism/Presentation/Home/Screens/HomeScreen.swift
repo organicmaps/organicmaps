@@ -1,9 +1,13 @@
-
 import SwiftUI
 
 struct HomeScreen: View {
     var body: some View {
-        Text("Oh, Hi Mark!")
+      VStack() {
+          VStack(spacing: 10) {
+              Text("Oh, Hi Mark!")
+          }
+          Spacer()
+      }
     }
 }
 

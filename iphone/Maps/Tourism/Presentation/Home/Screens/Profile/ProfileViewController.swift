@@ -5,52 +5,62 @@ class ProfileViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    integrateSwiftUIScreen(ProfileScreen())
+    let profileVM = ProfileViewModel(
+      currencyRepository: CurrencyRepositoryImpl(
+        currencyService: CurrencyServiceImpl(),
+        currencyPersistenceController: CurrencyPersistenceController.shared
+      ),
+      profileRepository: ProfileRepositoryImpl(
+        personalDataService: ProfileServiceImpl(),
+        personalDataPersistenceController: PersonalDataPersistenceController.shared
+      ),
+      authRepository: AuthRepositoryImpl(authService: AuthServiceImpl()),
+      userPreferences: UserPreferences.shared
+    )
+    integrateSwiftUIScreen(
+      ProfileScreen(
+        profileVM: profileVM,
+        onPersonalDataClick: {
+            let destinationVC = PersonalDataViewController(profileVM: profileVM)
+            self.navigationController?.pushViewController(destinationVC, animated: true)
+        }
+      )
+    )
   }
 }
 
 struct ProfileScreen: View {
-  @ObservedObject var profileVM: ProfileViewModel = ProfileViewModel(
-    currencyRepository: CurrencyRepositoryImpl(
-      currencyService: CurrencyServiceImpl(),
-      currencyPersistenceController: CurrencyPersistenceController.shared
-    ),
-    profileRepository: ProfileRepositoryImpl(
-      personalDataService: PersonalDataServiceImpl(),
-      personalDataPersistenceController: PersonalDataPersistenceController.shared
-    ),
-    authRepository: AuthRepositoryImpl(authService: AuthServiceImpl()),
-    userPreferences: UserPreferences.shared
-  )
-  
+  @ObservedObject var profileVM: ProfileViewModel
+  let onPersonalDataClick: () -> Void
   @ObservedObject var themeVM: ThemeViewModel = ThemeViewModel(userPreferences: UserPreferences.shared)
   @State private var isSheetOpen = false
   @State private var signOutLoading = false
   
+  @State private var navigateToPersonalData = false
   @State private var showToast = false
-  
-  func onPersonalDataClick() {
-    // TODO: cmon
-  }
   
   func onLanguageClick () {
     navigateToLanguageSettings()
   }
   
   var body: some View {
+    NavigationLink(destination: PersonalDataScreen(profileVM: profileVM), isActive: $navigateToPersonalData) {
+      EmptyView()
+    }.hidden()
+    
     ScrollView {
       VStack (alignment: .leading) {
         AppTopBar(title: L("tourism_profile"))
-        Spacer().frame(height: 16)
+        VerticalSpace(height: 16)
         
         if let personalData = profileVM.personalData {
           ProfileBar(personalData: personalData)
         }
-        Spacer().frame(height: 32)
+        VerticalSpace(height: 32)
         
         if let currencyRates = profileVM.currencyRates {
           CurrencyRatesView(currencyRates: currencyRates)
-          Spacer().frame(height: 20)
+          VerticalSpace(height: 20)
         }
         
         GenericProfileItem(
@@ -60,7 +70,7 @@ struct ProfileScreen: View {
             onPersonalDataClick()
           }
         )
-        Spacer().frame(height: 20)
+        VerticalSpace(height: 20)
         
         GenericProfileItem(
           label: L("language"),
@@ -69,9 +79,9 @@ struct ProfileScreen: View {
             onLanguageClick()
           }
         )
-        Spacer().frame(height: 20)
+        VerticalSpace(height: 20)
         ThemeSwitch(themeViewModel: themeVM)
-        Spacer().frame(height: 20)
+        VerticalSpace(height: 20)
         
         GenericProfileItem(
           label: L("sign_out"),
@@ -116,7 +126,7 @@ struct ProfileBar: View {
         .frame(width: 100, height: 100)
         .clipShape(Circle())
       
-      Spacer().frame(width: 16)
+      HorizontalSpace(width: 16)
       
       VStack(alignment: .leading) {
         Text(personalData.fullName)
@@ -245,16 +255,15 @@ struct SignOutWarning: View {
         .font(.headline)
       
       HStack {
-        Button("Cancel", action: onCancelClick)
-          .padding()
-          .background(SwiftUI.Color.clear)
-          .cornerRadius(8)
+        SecondaryButton(
+          label: L("cancel"),
+          onClick: onCancelClick
+        )
         
-        Button("Sign Out", action: onSignOutClick)
-          .padding()
-          .background(Color.heartRed)
-          .foregroundColor(Color.onBackground)
-          .cornerRadius(8)
+        PrimaryButton(
+          label: L("sign_out"),
+          onClick: onSignOutClick
+        )
       }
     }
     .padding()

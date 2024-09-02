@@ -1,9 +1,9 @@
 struct AuthResponse: Codable {
-    let token: String
+  let token: String
 }
 
 extension AuthResponse {
-    init(from dto: AuthResponseDTO) {
-        self.token = dto.token
-    }
+  init(from dto: AuthResponseDTO) {
+    self.token = dto.token
+  }
 }

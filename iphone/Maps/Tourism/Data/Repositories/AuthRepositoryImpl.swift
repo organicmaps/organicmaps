@@ -7,20 +7,20 @@ class AuthRepositoryImpl: AuthRepository {
     self.authService = authService
   }
   
-  func signIn(body: SignInRequest) -> AnyPublisher<AuthResponse, NetworkError> {
-    return authService.signIn(body: body).map { dto in
-      AuthResponse.init(from: dto)
-    }
-    .eraseToAnyPublisher()
+  func signIn(body: SignInRequest) -> AnyPublisher<AuthResponse, ResourceError> {
+    return authService.signIn(body: SignInRequestDTO.init(from: body))
+      .map { dto in AuthResponse.init(from: dto) }
+      .eraseToAnyPublisher()
   }
   
-  func signUp(body: SignUpRequest) -> AnyPublisher<AuthResponse, NetworkError> {
-    return authService.signUp(body: body).map { dto in AuthResponse.init(from: dto) }
-    .eraseToAnyPublisher()
+  func signUp(body: SignUpRequest) -> AnyPublisher<AuthResponse, ResourceError> {
+    return authService.signUp(body: SignUpRequestDTO.init(from: body))
+      .map { dto in AuthResponse.init(from: dto) }
+      .eraseToAnyPublisher()
   }
   
-  func signOut() -> AnyPublisher<AuthResponse, NetworkError> {
-    return authService.signOut().map { dto in AuthResponse.init(from: dto) }
-    .eraseToAnyPublisher()
+  func signOut() -> AnyPublisher<SimpleResponse, ResourceError> {
+    return authService.signOut()
+      .eraseToAnyPublisher()
   }
 }

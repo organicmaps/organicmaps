@@ -8,8 +8,6 @@
 	<array>
 		<string>applinks:omaps.app</string>
 	</array>
-	<key>com.apple.developer.carplay-maps</key>
-	<true/>
 	<key>com.apple.developer.icloud-container-identifiers</key>
 	<array>
 		<string>iCloud.app.organicmaps.debug</string>

@@ -209,7 +209,7 @@ using namespace osm_auth_ios;
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
   LOG(LINFO, ("applicationDidBecomeActive - begin"));
-  [[MapViewController sharedController]performSegueWithIdentifier:@"Map2Auth" sender:nil];
+  [[MapViewController sharedController]performSegueWithIdentifier:@"Map2TourismMain" sender:nil];
 
   auto & f = GetFramework();
   f.EnterForeground();

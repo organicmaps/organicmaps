@@ -11,6 +11,9 @@ class CombineNetworkHelper {
     request.httpMethod = method
     request.addValue("application/json", forHTTPHeaderField: "Accept")
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    if let token = UserPreferences.shared.getToken() {
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    }
     
     headers.forEach { key, value in
       request.addValue(value, forHTTPHeaderField: key)
@@ -29,6 +32,7 @@ class CombineNetworkHelper {
   
   static func decodeResponse<T: Decodable>(data: Data, as type: T.Type = T.self) throws -> T {
     let decoder = JSONDecoder()
+    decoder.keyDecodingStrategy = .convertFromSnakeCase
     return try decoder.decode(type, from: data)
   }
   
@@ -37,7 +41,7 @@ class CombineNetworkHelper {
       throw ResourceError.other(message: "Network request error")
     }
     
-    debugPrint("Status Code: \(httpResponse.statusCode)")
+    print("Status Code: \(httpResponse.statusCode)")
     
     switch httpResponse.statusCode {
     case 200...299:
@@ -53,7 +57,7 @@ class CombineNetworkHelper {
   }
   
   static func handleMappingError(_ error: Error) -> ResourceError {
-    debugPrint("Mapping error: \(error)")
+    print("Mapping error: \(error)")
     return error as? ResourceError ?? ResourceError.other(message: "\(error)")
   }
   
@@ -76,13 +80,18 @@ class CombineNetworkHelper {
   }
   
   // MARK: - HTTP requests
-  static func get<T: Decodable>(url: URL, headers: [String: String] = [:], decoder: JSONDecoder = JSONDecoder()) -> AnyPublisher<T, ResourceError> {
+  static func get<T: Decodable>(path: String, headers: [String: String] = [:], decoder: JSONDecoder = JSONDecoder()) -> AnyPublisher<T, ResourceError> {
+    guard let url = URL(string: path) else {
+      print("Invalid url")
+      return Fail(error: ResourceError.other(message: "Invalid url")).eraseToAnyPublisher()
+    }
+    
     return performRequest(url: url, method: "GET", headers: headers, decoder: decoder)
   }
   
   static func post<T: Decodable, U: Encodable>(path: String, body: U, headers: [String: String] = [:], decoder: JSONDecoder = JSONDecoder()) -> AnyPublisher<T, ResourceError> {
     guard let url = URL(string: path) else {
-      debugPrint("Invalid url")
+      print("Invalid url")
       return Fail(error: ResourceError.other(message: "Invalid url")).eraseToAnyPublisher()
     }
     
@@ -96,7 +105,7 @@ class CombineNetworkHelper {
   
   static func postWithoutBody<T: Decodable>(path: String, headers: [String: String] = [:], decoder: JSONDecoder = JSONDecoder()) -> AnyPublisher<T, ResourceError> {
     guard let url = URL(string: path) else {
-      debugPrint("Invalid url")
+      print("Invalid url")
       return Fail(error: ResourceError.other(message: "Invalid url")).eraseToAnyPublisher()
     }
     

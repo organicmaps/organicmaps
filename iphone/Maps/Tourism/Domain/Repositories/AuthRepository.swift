@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 protocol AuthRepository {
-  func signIn(body: SignInRequest) -> AnyPublisher<AuthResponse, NetworkError>
-  func signUp(body: SignUpRequest) -> AnyPublisher<AuthResponse, NetworkError>
-  func signOut() -> AnyPublisher<AuthResponse, NetworkError>
+  func signIn(body: SignInRequest) -> AnyPublisher<AuthResponse, ResourceError>
+  func signUp(body: SignUpRequest) -> AnyPublisher<AuthResponse, ResourceError>
+  func signOut() -> AnyPublisher<SimpleResponse, ResourceError>
 }

@@ -95,6 +95,14 @@ struct TextStyle {
     let lineHeight: CGFloat
 }
 
+extension Text {
+    func textStyle(_ style: TextStyle) -> some View {
+        self
+            .font(style.font)
+            .lineSpacing(style.lineHeight)
+    }
+}
+
 
 // MARK: - used in UIKit
 

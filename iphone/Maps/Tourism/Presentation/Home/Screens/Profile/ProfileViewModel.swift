@@ -10,7 +10,10 @@ class ProfileViewModel: ObservableObject {
   var onMessageToUserRequested: ((String) -> Void)? = nil
   var onSignOutCompleted: (() -> Void)? = nil
   
-  @Published var pfpFile: URL? = nil
+  @Published var pfpFromRemote: URL? = nil
+  @Published var pfpToUpload = UIImage()
+  @Published var isImagePickerUsed: Bool = false
+  
   @Published var fullName: String = ""
   @Published var email: String = ""
   @Published var countryCodeName: String? = nil
@@ -33,12 +36,17 @@ class ProfileViewModel: ObservableObject {
     // Automatically fetch data when initialized
     getPersonalData()
     getCurrency()
+    $pfpToUpload.sink { image in
+      if image != self.pfpToUpload {
+        self.isImagePickerUsed = true
+      }
+    }.store(in: &cancellables)
   }
   
   // MARK: - Methods
   
-  func setPfpFile(pfpFile: URL) {
-    self.pfpFile = pfpFile
+  func setPfp(_ pfp: URL) {
+    self.pfpFromRemote = pfp
   }
   
   func setFullName(_ value: String) {
@@ -61,39 +69,45 @@ class ProfileViewModel: ObservableObject {
         }
       } receiveValue: { resource in
         self.personalData = resource
+        if let pfpUrl = resource.pfpUrl {
+          self.pfpFromRemote = URL(string: pfpUrl)
+        }
+        self.fullName = resource.fullName
+        self.email = resource.email
+        self.countryCodeName = resource.country
       }
       .store(in: &cancellables)
     
     profileRepository.getPersonalData()
   }
   
-  //  func save() {
-  //    guard case let .success(personalData) = personalDataResource else { return }
-  //1
-  //    profileRepository.updateProfile(
-  //      fullName: fullName,
-  //      country: countryCodeName ?? "",
-  //      email: email != personalData.email ? email : nil,
-  //      pfpUrl: pfpFile
-  //    )
-  //    .sink { completion in
-  //      if case let .failure(error) = completion {
-  //        self.showToast(message: error.localizedDescription)
-  //      }
-  //    } receiveValue: { resource in
-  //      if case let .success(personalData) = resource {
-  //        self.updatePersonalDataInMemory(personalData: personalData)
-  //        self.showToast(message: "Saved")
-  //      }
-  //    }
-  //    .store(in: &cancellables)
-  //  }
-  //
-  //  private func updatePersonalDataInMemory(personalData: PersonalData) {
-  //    self.fullName = personalData.fullName
-  //    self.email = personalData.email
-  //    self.countryCodeName = personalData.country
-  //  }
+  func save() {
+    if(!fullName.isEmpty && ((countryCodeName?.isEmpty) != nil) && !email.isEmpty) {
+      profileRepository.updateProfile(
+        fullName: fullName,
+        country: countryCodeName!,
+        email: email,
+        pfpUrl: pfpToUpload
+      )
+      .sink { completion in
+        if case let .failure(error) = completion {
+          self.onMessageToUserRequested?(error.errorDescription)
+        }
+      } receiveValue: { resource in
+          self.updatePersonalDataInMemory(personalData: resource)
+          self.onMessageToUserRequested?(L("saved"))
+      }
+      .store(in: &cancellables)
+    } else {
+      self.onMessageToUserRequested?(L("please_fill_all_fields"))
+    }
+  }
+  
+  private func updatePersonalDataInMemory(personalData: PersonalData) {
+    self.fullName = personalData.fullName
+    self.email = personalData.email
+    self.countryCodeName = personalData.country
+  }
   
   func getCurrency() {
     currencyRepository.currencyPassThroughSubject
