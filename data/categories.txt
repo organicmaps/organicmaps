@@ -2323,7 +2323,6 @@ sk:3Trhovisko|samoobsluha
 sw:Soko
 fa:بازار
 
-
 amenity-money_transfer
 en:Money Transfer
 ar:تحويل المال
@@ -2415,7 +2414,6 @@ hi:4कैंपर डीलर
 ru:Автодом|Продажа автодомов
 tr:Karavan galerisi
 uk:Продаж автобудинків
-
 
 shop-car|@shop
 en:3Car Dealership|Auto Dealer|U+1F697|U+1F698|U+1F699
