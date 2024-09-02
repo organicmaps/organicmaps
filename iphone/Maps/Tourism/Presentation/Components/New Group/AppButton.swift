@@ -44,9 +44,9 @@ class AppButton: UIButton {
   // MARK: Styles
   private func setPrimaryAppearance() {
     setTitleColor(.white, for: .normal)
-    self.backgroundColor = Color.primary
+    self.backgroundColor = UIKitColor.primary
     if let lab = self.titleLabel  {
-      Font.applyStyle(to: lab, style: Font.h4)
+      UIKitFont.applyStyle(to: lab, style: UIKitFont.h4)
     }
     layer.cornerRadius = 16
   }

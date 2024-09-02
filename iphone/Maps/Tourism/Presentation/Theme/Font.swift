@@ -1,4 +1,104 @@
-class Font {
+import SwiftUI
+// MARK: - used in SwiftUI
+extension Font {
+    static func black(size: CGFloat) -> Font {
+        return Font.custom("Gilroy-Black", size: size)
+    }
+    
+    static func bold(size: CGFloat) -> Font {
+        return Font.custom("Gilroy-Bold", size: size)
+    }
+    
+    static func extraBold(size: CGFloat) -> Font {
+        return Font.custom("Gilroy-ExtraBold", size: size)
+    }
+    
+    static func heavy(size: CGFloat) -> Font {
+        return Font.custom("Gilroy-Heavy", size: size)
+    }
+    
+    static func light(size: CGFloat) -> Font {
+        return Font.custom("Gilroy-Light", size: size)
+    }
+    
+    static func medium(size: CGFloat) -> Font {
+        return Font.custom("Gilroy-Medium", size: size)
+    }
+    
+    static func regular(size: CGFloat) -> Font {
+        return Font.custom("Gilroy-Regular", size: size)
+    }
+    
+    static func semiBold(size: CGFloat) -> Font {
+        return Font.custom("Gilroy-SemiBold", size: size)
+    }
+    
+    static func thin(size: CGFloat) -> Font {
+        return Font.custom("Gilroy-Thin", size: size)
+    }
+    
+    static func ultraLight(size: CGFloat) -> Font {
+        return Font.custom("Gilroy-UltraLight", size: size)
+    }
+}
+
+extension TextStyle {
+    static let genericStyle = TextStyle(
+        font: .regular(size: 16.0),
+        lineHeight: 18
+    )
+    
+    static let humongous = TextStyle(
+        font: .extraBold(size: 36.0),
+        lineHeight: 40
+    )
+    
+    static let h1 = TextStyle(
+        font: .semiBold(size: 32.0),
+        lineHeight: 36
+    )
+    
+    static let h2 = TextStyle(
+        font: .semiBold(size: 24.0),
+        lineHeight: 36
+    )
+    
+    static let h3 = TextStyle(
+        font: .semiBold(size: 20.0),
+        lineHeight: 22
+    )
+    
+    static let h4 = TextStyle(
+        font: .medium(size: 16.0),
+        lineHeight: 18
+    )
+    
+    static let b1 = TextStyle(
+        font: .regular(size: 14.0),
+        lineHeight: 16
+    )
+    
+    static let b2 = TextStyle(
+        font: .regular(size: 12.0),
+        lineHeight: 14
+    )
+    
+    static let b3 = TextStyle(
+        font: .regular(size: 10.0),
+        lineHeight: 12
+    )
+}
+
+
+struct TextStyle {
+    let font: Font
+    let lineHeight: CGFloat
+}
+
+
+// MARK: - used in UIKit
+
+class UIKitFont {
   // MARK: - Font by Weights
   class func black(size: CGFloat) -> UIFont {
     return getCustomFont(withName: "Gilroy-Black", size: size)
@@ -41,47 +141,47 @@ class Font {
   }
   
   // MARK: - Font by Styles
-  static let genericStyle = TextStyle(
+  static let genericStyle = UIKitTextStyle(
     font: regular(size: 16.0),
     lineHeight: 18
   )
   
-  static let humongous = TextStyle(
+  static let humongous = UIKitTextStyle(
     font: extraBold(size: 36.0),
     lineHeight: 40
   )
   
-  static let h1 = TextStyle(
+  static let h1 = UIKitTextStyle(
     font: semiBold(size: 32.0),
     lineHeight: 36
   )
   
-  static let h2 = TextStyle(
+  static let h2 = UIKitTextStyle(
     font: semiBold(size: 24.0),
     lineHeight: 36
   )
   
-  static let h3 = TextStyle(
+  static let h3 = UIKitTextStyle(
     font: semiBold(size: 20.0),
     lineHeight: 22
   )
   
-  static let h4 = TextStyle(
+  static let h4 = UIKitTextStyle(
     font: medium(size: 16.0),
     lineHeight: 18
   )
   
-  static let b1 = TextStyle(
+  static let b1 = UIKitTextStyle(
     font: regular(size: 14.0),
     lineHeight: 16
   )
   
-  static let b2 = TextStyle(
+  static let b2 = UIKitTextStyle(
     font: regular(size: 12.0),
     lineHeight: 14
   )
   
-  static let b3 = TextStyle(
+  static let b3 = UIKitTextStyle(
     font: regular(size: 10.0),
     lineHeight: 12
   )
@@ -94,7 +194,7 @@ class Font {
     return UIFont.systemFont(ofSize: size)
   }
   
-  static func applyStyle(to label: UILabel, style: TextStyle) {
+  static func applyStyle(to label: UILabel, style: UIKitTextStyle) {
     label.font = style.font
     label.adjustsFontForContentSizeCategory = true
     let lineHeight = style.lineHeight
@@ -107,7 +207,7 @@ class Font {
   }
 }
 
-struct TextStyle {
+struct UIKitTextStyle {
   let font: UIFont
   let lineHeight: CGFloat
 }

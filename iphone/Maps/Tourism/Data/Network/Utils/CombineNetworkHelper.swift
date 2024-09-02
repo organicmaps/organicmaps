@@ -1,11 +1,11 @@
 import Foundation
 import Combine
 
-// EminoFire is kinda "library" for the abstraction of http code.
-// It is named after the inventor of this piece Emin
+// EminoFire is a kind of "library" for the abstraction of http code.
+// It is named after the inventor of this piece - Emin
 
 class CombineNetworkHelper {
-  
+  // MARK: - Lower level code
   static func createRequest(url: URL, method: String, headers: [String: String] = [:], body: Data? = nil) -> URLRequest {
     var request = URLRequest(url: url)
     request.httpMethod = method
@@ -34,7 +34,7 @@ class CombineNetworkHelper {
   
   static func handleResponse<T: Decodable>(data: Data, response: URLResponse, decoder: JSONDecoder = JSONDecoder()) throws -> T {
     guard let httpResponse = response as? HTTPURLResponse else {
-      throw NetworkError.other(message: "Network request error")
+      throw ResourceError.other(message: "Network request error")
     }
     
     debugPrint("Status Code: \(httpResponse.statusCode)")
@@ -44,24 +44,24 @@ class CombineNetworkHelper {
       return try decodeResponse(data: data, as: T.self)
     case 422:
       let decodedResponse = try decodeResponse(data: data, as: ErrorResponse.self)
-      throw NetworkError.errorToUser(message: decodedResponse.message)
+      throw ResourceError.errorToUser(message: decodedResponse.message)
     case 500...599:
-      throw NetworkError.serverError(message: "Server Error: \(httpResponse.statusCode)")
+      throw ResourceError.serverError(message: "Server Error: \(httpResponse.statusCode)")
     default:
-      throw NetworkError.other(message: "Unknown error")
+      throw ResourceError.other(message: "Unknown error")
     }
   }
   
-  static func handleMappingError(_ error: Error) -> NetworkError {
+  static func handleMappingError(_ error: Error) -> ResourceError {
     debugPrint("Mapping error: \(error)")
-    return error as? NetworkError ?? NetworkError.other(message: "\(error)")
+    return error as? ResourceError ?? ResourceError.other(message: "\(error)")
   }
   
   static func performRequest<T: Decodable>(url: URL,
                                            method: String,
                                            body: Data? = nil,
                                            headers: [String: String] = [:],
-                                           decoder: JSONDecoder = JSONDecoder()) -> AnyPublisher<T, NetworkError> {
+                                           decoder: JSONDecoder = JSONDecoder()) -> AnyPublisher<T, ResourceError> {
     let request = createRequest(url: url, method: method, headers: headers, body: body)
     
     return URLSession.shared.dataTaskPublisher(for: request)
@@ -75,28 +75,29 @@ class CombineNetworkHelper {
       .eraseToAnyPublisher()
   }
   
-  static func get<T: Decodable>(url: URL, headers: [String: String] = [:], decoder: JSONDecoder = JSONDecoder()) -> AnyPublisher<T, NetworkError> {
+  // MARK: - HTTP requests
+  static func get<T: Decodable>(url: URL, headers: [String: String] = [:], decoder: JSONDecoder = JSONDecoder()) -> AnyPublisher<T, ResourceError> {
     return performRequest(url: url, method: "GET", headers: headers, decoder: decoder)
   }
   
-  static func post<T: Decodable, U: Encodable>(path: String, body: U, headers: [String: String] = [:], decoder: JSONDecoder = JSONDecoder()) -> AnyPublisher<T, NetworkError> {
+  static func post<T: Decodable, U: Encodable>(path: String, body: U, headers: [String: String] = [:], decoder: JSONDecoder = JSONDecoder()) -> AnyPublisher<T, ResourceError> {
     guard let url = URL(string: path) else {
       debugPrint("Invalid url")
-      return Fail(error: NetworkError.other(message: "Invalid url")).eraseToAnyPublisher()
+      return Fail(error: ResourceError.other(message: "Invalid url")).eraseToAnyPublisher()
     }
     
     do {
       let jsonData = try encodeRequestBody(body)
       return performRequest(url: url, method: "POST", body: jsonData, headers: headers, decoder: decoder)
     } catch {
-      return Fail(error: NetworkError.other(message: "Encoding error: \(error)")).eraseToAnyPublisher()
+      return Fail(error: ResourceError.other(message: "Encoding error: \(error)")).eraseToAnyPublisher()
     }
   }
   
-  static func postWithoutBody<T: Decodable>(path: String, headers: [String: String] = [:], decoder: JSONDecoder = JSONDecoder()) -> AnyPublisher<T, NetworkError> {
+  static func postWithoutBody<T: Decodable>(path: String, headers: [String: String] = [:], decoder: JSONDecoder = JSONDecoder()) -> AnyPublisher<T, ResourceError> {
     guard let url = URL(string: path) else {
       debugPrint("Invalid url")
-      return Fail(error: NetworkError.other(message: "Invalid url")).eraseToAnyPublisher()
+      return Fail(error: ResourceError.other(message: "Invalid url")).eraseToAnyPublisher()
     }
     
     return performRequest(url: url, method: "POST", headers: headers, decoder: decoder)

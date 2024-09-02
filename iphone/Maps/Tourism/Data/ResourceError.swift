@@ -1,7 +1,8 @@
 import Foundation
 
-enum NetworkError: LocalizedError {
+enum ResourceError: Error {
   case serverError(message: String)
+  case cacheError
   case other(message: String)
   case errorToUser(message: String)
   
@@ -9,6 +10,8 @@ enum NetworkError: LocalizedError {
     switch self {
     case .serverError:
       return L("server_error")
+    case .cacheError:
+      return L("cache_error")
     case .other:
       return L("smth_went_wrong")
     case .errorToUser(let message):
