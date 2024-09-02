@@ -31659,3 +31659,8 @@
     vi = Khôi phục tất cả
     zh-Hans = 全部恢复
     zh-Hant = 全部恢復
+
+  [error_no_file_manager_app]
+    comment = Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks
+    tags = android
+    en = Unable to display folder selection dialog because no suitable app is installed on your device. Please install a file manager app and try again
