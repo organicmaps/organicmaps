@@ -6,8 +6,7 @@ import app.organicmaps.content.DataSource;
 
 import java.util.List;
 
-public class CategoryDataSource implements
-                                DataSource<BookmarkCategory>
+public class CategoryDataSource implements DataSource<BookmarkCategory>
 {
   @NonNull
   private BookmarkCategory mCategory;
