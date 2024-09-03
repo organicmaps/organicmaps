@@ -521,8 +521,7 @@ void SaveGxTracks(Writer & writer, MultiGeometry const & geom)
     /// @TODO(KK): add the <altitudeMode>absolute</altitudeMode> if needed
 
     auto const & timestampsForLine = geom.m_timestamps[lineIndex];
-    if (line.size() != timestampsForLine.size())
-      CHECK_EQUAL(line.size(), timestampsForLine.size(), ());
+    CHECK_EQUAL(line.size(), timestampsForLine.size(), ());
 
     for (size_t pointIndex = 0; pointIndex < line.size(); ++pointIndex)
       writer << linesIndent << kIndent4 << "<when>" << base::SecondsSinceEpochToString(timestampsForLine[pointIndex]) << "</when>\n";
