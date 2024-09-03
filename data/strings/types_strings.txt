@@ -16488,7 +16488,7 @@
     et = Tööstusmaa
     fi = Teollisuusalue
     fr = Zone industrielle
-    he = אזור תעשיה
+    he = אזור תעשייה
     it = Zona industriale
     ja = 工業用地
     mr = औद्योगिक जमीन
@@ -16659,6 +16659,7 @@
     fa = محدوده راه آهن
     fi = Rautatierakennukset
     fr = Installations ferroviaires
+    he = שטחי רכבת
     hu = Vasúti terület
     id = Stasiun kereta api
     it = Impianti ferroviari
@@ -16692,6 +16693,7 @@
     et = Puhkeväljak
     fi = Virkistysalue
     fr = Aire de jeux
+    he = אזור מיועד לבילוי
     it = Area divertimento
     ja = レクリエーション
     mr = मनोरंजन मैदान
@@ -16825,6 +16827,7 @@
     de = Dorfplatz
     es = Espacio verde
     et = Maa
+    he = כפר ירוק
     ja = 村の中心
     mr = जमीन
     nl = Dorpspark
@@ -16960,7 +16963,7 @@
     fa = باشگاه بدنسازی
     fi = Kuntosali
     fr = Centre fitness
-    he = חדר כושר
+    he = מכון כושר
     hi = फिटनेस सेंटर
     hu = Fitnesz-terem
     id = Pusat kebugaran
@@ -16999,6 +17002,7 @@
     fa = پارک سلامت
     fi = Kuntokeskus
     fr = Station de fitness
+    he = תחנת כושר
     hi = फिटनेस स्टेशन
     hu = Fitneszállomás
     id = Stasiun Kebugaran
@@ -17038,7 +17042,7 @@
     fa = ﺺﻗﺭ ﻦﻟﺎﺳ
     fi = Tanssisali
     fr = Salle de danse
-    he = םידוקיר םלוא
+    he = היכל ריקודים
     hu = Táncterem
     id = Lantai dansa
     it = Sala da ballo
@@ -17108,6 +17112,7 @@
     be = Частный сад
     es = Jardín residencial
     et = Elamu aed
+    he = גן מגורים
     pl = Ogród przydomowy
     pt = Jardim residencial
     pt-BR = Jardim residencial
@@ -17131,6 +17136,7 @@
     fa = زمین گلف
     fi = Golf-rata
     fr = Terrain de golf
+    he = מגרש גולף
     hu = Golfpálya
     id = Lapangan golf
     it = Campo da golf
@@ -17168,6 +17174,7 @@
     eu = Minigolf
     fi = Minigolf
     fr = Minigolf
+    he = מיני גולף
     hu = Minigolf
     it = Minigolf
     ja = ミニゴルフ
@@ -17196,7 +17203,7 @@
     es-MX = Espacio hacker
     fa = فضای هکرها
     fi = Hacklab
-    he = האקרספייס
+    he = משרד היי טק משותף
     hi = हैकर्सस्पेस
     ja = ハッカースペース
     ko = 해커스 스페이스
@@ -17215,6 +17222,7 @@
     es = Pisa de patinaje
     et = Liuväli
     fr = Patinoire
+    he = החלקה על קרח
     it = Pista di pattinaggio
     ja = アイスリンク
     mr = हिम क्रीडा क्षेत्र
@@ -17239,6 +17247,7 @@
     es = Marina
     et = Marina
     fi = Venesatama
+    he = מרינה
     hi = मरीना
     it = Porto turistico
     ja = マリーナ
@@ -17267,6 +17276,7 @@
     eu = Erreserbatutako lurraldea
     fi = Luonnonsuojelualue
     fr = Réserve naturelle
+    he = שמורת טבע
     hi = संरक्षित प्रकृतिक्षेत्र
     hu = Védett terület
     id = Cagar Alam
@@ -17347,6 +17357,7 @@
     fa = پارک
     fi = Puisto
     fr = Parc
+    he = פארק
     hi = उद्यान
     hu = Park
     id = Taman
@@ -17374,6 +17385,7 @@
   [type.leisure.park.no.access]
     ref = type.leisure.park
     en = Private Park
+    he = פארק סגור לכניסה
 
   [type.leisure.park.permissive]
     ref = type.leisure.park
@@ -17381,6 +17393,7 @@
   [type.leisure.park.private]
     ref = type.leisure.park
     en = Private Park
+    he = פארק פרטי
 
   [type.leisure.picnic_table]
     en = Picnic Table
@@ -17399,7 +17412,7 @@
     fa = ﮏﯿﻨﮑﯿﭘ ﺰﯿﻣ
     fi = Piknik-pöytä
     fr = Table de pique-nique
-    he = קינקיפ ןחלוש
+    he = שולחן פיקניק
     hi = पिकनिक मेज
     hu = Piknikasztal
     id = Meja piknik
@@ -17439,6 +17452,7 @@
     fa = زمین ورزشی
     fi = Urheilukenttä
     fr = Terrain de sport
+    he = מגרש ספורט
     hu = Sportpálya
     id = Lapangan olahraga
     it = Campo sportivo
@@ -17476,6 +17490,7 @@
     fa = زمین بازی
     fi = Leikkikenttä
     fr = Aire de jeu
+    he = מגרש משחקים
     hi = खेल का मैदान
     hu = Játszótér
     id = Taman bermain
@@ -17505,6 +17520,7 @@
     de = Freizeitgelände
     es = Zona recreativa
     et = Puhkeväljak
+    he = אזור מיועד לבילוי
     mr = मनोरंजन मैदान
     nl = Recreatieterrein
     pl = Teren rekreacji
@@ -17532,6 +17548,7 @@
     fa = سونا
     fi = Sauna
     fr = Sauna
+    he = סאונה
     hi = सॉना
     hu = Szauna
     id = Sauna
@@ -17563,6 +17580,7 @@
     es = Rampa de barcos
     et = Elling
     fr = Cale de mise à l'eau
+    he = ממשה
     it = Scivolo per navi
     ja = スリップウェイ
     nl = Scheepshelling
@@ -17591,6 +17609,7 @@
     fa = مرکزورزشی
     fi = Urheilukeskus
     fr = Centre sportif
+    he = מרכז ספורט
     hu = Sportközpont
     id = Olahraga
     it = Centro sportivo
@@ -17630,6 +17649,7 @@
     fa = مرکز صعود
     fi = Kiipeilykeskus
     fr = Centre d'escalade
+    he = טיפוס
     hu = Hegymászó központ
     id = Pusat Peralatan Mendaki
     it = Centro di arrampicata
@@ -17668,6 +17688,7 @@
     fa = سالن یوگا
     fi = Joogastudio
     fr = Yoga
+    he = יוגה
     hi = योग
     hu = Jógastúdió
     id = Studio Yoga
@@ -17705,6 +17726,7 @@
     fa = استادیوم
     fi = Stadion
     fr = Stade
+    he = אצטדיון
     hi = क्रीडांगन
     hu = Stadion
     id = Stadion
@@ -17745,6 +17767,7 @@
     fa = استخرشنا
     fi = Uima-allas
     fr = Piscine
+    he = בריכת שחייה
     hu = Úszómedence
     id = Kolam renang
     it = Piscina
@@ -17773,6 +17796,7 @@
     es = Piscina privada
     et = Privaatne bassein
     fr = Piscine privée
+    he = בריכת שחייה פרטית
     it = Piscina privata
     nl = Privé zwembad
     sk = Súkromné kúpalisko
@@ -17815,6 +17839,7 @@
     fa = گردشگری
     fi = Vesipuisto
     fr = Centre aquatique
+    he = פארק מים
     hi = वाटर पार्क
     hu = Aquapark
     id = Taman air
