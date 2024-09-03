@@ -50805,7 +50805,25 @@ cont {
 cont {
   name: "leisure-sports_centre"
   element {
+    scale: 15
+    area {
+      color: 14539184
+      priority: -1810
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 14539184
+      priority: -1810
+    }
+  }
+  element {
     scale: 17
+    area {
+      color: 14539184
+      priority: -1810
+    }
     symbol {
       name: "pitch-m"
       priority: 1250
@@ -50823,6 +50841,10 @@ cont {
   }
   element {
     scale: 18
+    area {
+      color: 14539184
+      priority: -1810
+    }
     symbol {
       name: "pitch-m"
       priority: 1250
@@ -50840,6 +50862,10 @@ cont {
   }
   element {
     scale: 19
+    area {
+      color: 14539184
+      priority: -1810
+    }
     symbol {
       name: "pitch-m"
       priority: 1250
@@ -50857,6 +50883,10 @@ cont {
   }
   element {
     scale: 20
+    area {
+      color: 14539184
+      priority: -1810
+    }
     symbol {
       name: "pitch-m"
       priority: 1250
@@ -50983,7 +51013,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 13749671
+      color: 14144428
       priority: -1750
     }
     symbol {
@@ -51004,7 +51034,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 13749671
+      color: 14144428
       priority: -1750
     }
     symbol {
@@ -51025,7 +51055,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 13749671
+      color: 14144428
       priority: -1750
     }
     symbol {
@@ -51046,7 +51076,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 13749671
+      color: 14144428
       priority: -1750
     }
     symbol {
@@ -51067,7 +51097,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 13749671
+      color: 14144428
       priority: -1750
     }
     symbol {
@@ -51088,7 +51118,7 @@ cont {
   element {
     scale: 20
     area {
-      color: 13749671
+      color: 14144428
       priority: -1750
     }
     symbol {
@@ -119016,25 +119046,7 @@ cont {
 cont {
   name: "sport-multi"
   element {
-    scale: 15
-    area {
-      color: 13749671
-      priority: -1790
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 13749671
-      priority: -1790
-    }
-  }
-  element {
     scale: 17
-    area {
-      color: 13749671
-      priority: -1790
-    }
     symbol {
       name: "pitch-m"
       priority: 1300
@@ -119052,10 +119064,6 @@ cont {
   }
   element {
     scale: 18
-    area {
-      color: 13749671
-      priority: -1790
-    }
     symbol {
       name: "pitch-m"
       priority: 1300
@@ -119073,10 +119081,6 @@ cont {
   }
   element {
     scale: 19
-    area {
-      color: 13749671
-      priority: -1790
-    }
     symbol {
       name: "pitch-m"
       priority: 1300
@@ -119094,10 +119098,6 @@ cont {
   }
   element {
     scale: 20
-    area {
-      color: 13749671
-      priority: -1790
-    }
     symbol {
       name: "pitch-m"
       priority: 1300
@@ -119543,25 +119543,7 @@ cont {
 cont {
   name: "sport-soccer"
   element {
-    scale: 15
-    area {
-      color: 13749671
-      priority: -1790
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 13749671
-      priority: -1790
-    }
-  }
-  element {
     scale: 17
-    area {
-      color: 13749671
-      priority: -1790
-    }
     symbol {
       name: "soccer-m"
       priority: 1300
@@ -119579,10 +119561,6 @@ cont {
   }
   element {
     scale: 18
-    area {
-      color: 13749671
-      priority: -1790
-    }
     symbol {
       name: "soccer-m"
       priority: 1300
@@ -119600,10 +119578,6 @@ cont {
   }
   element {
     scale: 19
-    area {
-      color: 13749671
-      priority: -1790
-    }
     symbol {
       name: "soccer-m"
       priority: 1300
@@ -119621,10 +119595,6 @@ cont {
   }
   element {
     scale: 20
-    area {
-      color: 13749671
-      priority: -1790
-    }
     symbol {
       name: "soccer-m"
       priority: 1300
