@@ -56,7 +56,11 @@ class SignUpViewController: UIViewController {
     return textField
   }()
   
-  private let cpv: CountryPickerView = getCountryPickerView()
+  private let cpv: CountryPickerView = {
+    let cpv = getCountryPickerView()
+    cpv.textColor = .white
+    return cpv
+  }()
   
   private let underline: UIView = {
     let underline = UIView()
@@ -131,12 +135,12 @@ class SignUpViewController: UIViewController {
       
       // Back Button
       backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-      backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+      backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
       
       // Container View
       containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
       containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-      containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -60),
+      containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -32),
       
       // Blur View
       blurView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),

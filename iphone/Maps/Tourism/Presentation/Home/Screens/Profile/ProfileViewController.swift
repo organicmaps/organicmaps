@@ -11,7 +11,7 @@ class ProfileViewController: UIViewController {
         currencyPersistenceController: CurrencyPersistenceController.shared
       ),
       profileRepository: ProfileRepositoryImpl(
-        personalDataService: ProfileServiceImpl(),
+        personalDataService: ProfileServiceImpl(userPreferences: UserPreferences.shared),
         personalDataPersistenceController: PersonalDataPersistenceController.shared
       ),
       authRepository: AuthRepositoryImpl(authService: AuthServiceImpl()),
@@ -37,7 +37,6 @@ struct ProfileScreen: View {
   @State private var signOutLoading = false
   
   @State private var navigateToPersonalData = false
-  @State private var showToast = false
   
   func onLanguageClick () {
     navigateToLanguageSettings()
@@ -58,51 +57,41 @@ struct ProfileScreen: View {
         }
         VerticalSpace(height: 32)
         
-        if let currencyRates = profileVM.currencyRates {
-          CurrencyRatesView(currencyRates: currencyRates)
-          VerticalSpace(height: 20)
+        VStack(spacing: 20) {
+          if let currencyRates = profileVM.currencyRates {
+            CurrencyRatesView(currencyRates: currencyRates)
+          }
+          
+          GenericProfileItem(
+            label: L("personal_data"),
+            icon: "person.circle",
+            onClick: {
+              onPersonalDataClick()
+            }
+          )
+          
+          GenericProfileItem(
+            label: L("language"),
+            icon: "globe",
+            onClick: {
+              onLanguageClick()
+            }
+          )
+          
+          ThemeSwitch(themeViewModel: themeVM)
+          
+          GenericProfileItem(
+            label: L("sign_out"),
+            icon: "rectangle.portrait.and.arrow.right",
+            isLoading: signOutLoading,
+            onClick: {
+              isSheetOpen = true
+            }
+          )
         }
-        
-        GenericProfileItem(
-          label: L("personal_data"),
-          icon: "person.circle",
-          onClick: {
-            onPersonalDataClick()
-          }
-        )
-        VerticalSpace(height: 20)
-        
-        GenericProfileItem(
-          label: L("language"),
-          icon: "globe",
-          onClick: {
-            onLanguageClick()
-          }
-        )
-        VerticalSpace(height: 20)
-        ThemeSwitch(themeViewModel: themeVM)
-        VerticalSpace(height: 20)
-        
-        GenericProfileItem(
-          label: L("sign_out"),
-          icon: "rectangle.portrait.and.arrow.right",
-          isLoading: signOutLoading,
-          onClick: {
-            isSheetOpen = true
-          }
-        )
       }
       .padding(16)
     }
-    .overlay(
-      Group {
-        if showToast {
-          ToastView(message: "This is a toast message", isPresented: $showToast)
-            .padding(.bottom)
-        }
-      },
-      alignment: .bottom
-    )
     .sheet(isPresented: $isSheetOpen) {
       SignOutWarning(
         onSignOutClick: {

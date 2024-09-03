@@ -101,7 +101,7 @@ class SignInViewController: UIViewController {
       
       // Back Button
       backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-      backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+      backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
       
       // Container View
       containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),

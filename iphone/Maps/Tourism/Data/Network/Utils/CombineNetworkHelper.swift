@@ -1,9 +1,6 @@
 import Foundation
 import Combine
 
-// EminoFire is a kind of "library" for the abstraction of http code.
-// It is named after the inventor of this piece - Emin
-
 class CombineNetworkHelper {
   // MARK: - Lower level code
   static func createRequest(url: URL, method: String, headers: [String: String] = [:], body: Data? = nil) -> URLRequest {
@@ -101,6 +98,14 @@ class CombineNetworkHelper {
     } catch {
       return Fail(error: ResourceError.other(message: "Encoding error: \(error)")).eraseToAnyPublisher()
     }
+  }
+
+  static func postt<T: Decodable>(path: String, body: Data, headers: [String: String] = [:], decoder: JSONDecoder = JSONDecoder()) -> AnyPublisher<T, ResourceError> {
+    guard let url = URL(string: path) else {
+      print("Invalid url")
+      return Fail(error: ResourceError.other(message: "Invalid url")).eraseToAnyPublisher()
+    }
+    return performRequest(url: url, method: "POST", body: body, headers: headers, decoder: decoder)
   }
   
   static func postWithoutBody<T: Decodable>(path: String, headers: [String: String] = [:], decoder: JSONDecoder = JSONDecoder()) -> AnyPublisher<T, ResourceError> {

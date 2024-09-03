@@ -181,7 +181,6 @@
 		3D15ACEE2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D15ACED2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm */; };
 		3D2D79BA2C7C508E0062BC3D /* SingleEntityCoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D79B92C7C508E0062BC3D /* SingleEntityCoreDataController.swift */; };
 		3D2D79BC2C7C5E300062BC3D /* ProfileRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D79BB2C7C5E300062BC3D /* ProfileRepositoryImpl.swift */; };
-		3D2D79C12C7C7EA00062BC3D /* PersonalData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D79BF2C7C7EA00062BC3D /* PersonalData.xcdatamodeld */; };
 		3D2D79C32C7C80E60062BC3D /* PersonalDataPersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D79C22C7C80E60062BC3D /* PersonalDataPersistenceController.swift */; };
 		3D2D79CC2C7C8C350062BC3D /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D79CB2C7C8C350062BC3D /* ProfileService.swift */; };
 		3D2D79D32C7CF4F70062BC3D /* PersonalDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D79D22C7CF4F70062BC3D /* PersonalDataViewController.swift */; };
@@ -191,7 +190,6 @@
 		3D2D79DB2C7D15410062BC3D /* SecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D79DA2C7D15410062BC3D /* SecondaryButton.swift */; };
 		3D2D79DD2C7DE34B0062BC3D /* PhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D79DC2C7DE34B0062BC3D /* PhotoPickerView.swift */; };
 		3D585BF42C760850005DF71F /* UIScreenExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D585BF32C760850005DF71F /* UIScreenExtensions.swift */; };
-		3D585BFA2C768C3A005DF71F /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D585BF92C768C3A005DF71F /* ToastView.swift */; };
 		3DA3FC992C75ED2A0065E4D6 /* changeTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA3FC982C75ED2A0065E4D6 /* changeTheme.swift */; };
 		3DBD7BE42425015C00ED9FE8 /* ParntersStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7BE32425015C00ED9FE8 /* ParntersStyleSheet.swift */; };
 		3DEE1AEB21F72CD300054A91 /* MWMPowerManagmentViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE1AEA21F72CD300054A91 /* MWMPowerManagmentViewController.mm */; };
@@ -304,7 +302,9 @@
 		527D5E822C60EFEE00736A85 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527D5E812C60EFEE00736A85 /* UIViewExtensions.swift */; };
 		528D72A12C5BBBF700D53210 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 528D72A02C5BBBF700D53210 /* Colors.xcassets */; };
 		5292123D2C7359FC007B97E1 /* CountryPickerView in Frameworks */ = {isa = PBXBuildFile; productRef = 5292123C2C7359FC007B97E1 /* CountryPickerView */; };
-		529212422C735A61007B97E1 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 529212412C735A61007B97E1 /* SDWebImageSwiftUI */; };
+		529A5F0A2C858F82004FE4A1 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 529A5F092C858F82004FE4A1 /* SDWebImageSwiftUI */; };
+		529A5F162C8595BB004FE4A1 /* PersonalData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F112C859535004FE4A1 /* PersonalData.xcdatamodeld */; };
+		529A5F192C85BFF0004FE4A1 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F182C85BFF0004FE4A1 /* ToastView.swift */; };
 		52B573EC2C61E1C10047FAC9 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B573EB2C61E1C10047FAC9 /* SignInViewController.swift */; };
 		52B573F02C61E4110047FAC9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B573EF2C61E4110047FAC9 /* Constants.swift */; };
 		52B573F22C61E8980047FAC9 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B573F12C61E8980047FAC9 /* SignUpViewController.swift */; };
@@ -1149,7 +1149,6 @@
 		3D15ACEF2155118800F725D5 /* MWMObjectsCategorySelectorDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMObjectsCategorySelectorDataSource.h; sourceTree = "<group>"; };
 		3D2D79B92C7C508E0062BC3D /* SingleEntityCoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleEntityCoreDataController.swift; sourceTree = "<group>"; };
 		3D2D79BB2C7C5E300062BC3D /* ProfileRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepositoryImpl.swift; sourceTree = "<group>"; };
-		3D2D79C02C7C7EA00062BC3D /* PersonalData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PersonalData.xcdatamodel; sourceTree = "<group>"; };
 		3D2D79C22C7C80E60062BC3D /* PersonalDataPersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDataPersistenceController.swift; sourceTree = "<group>"; };
 		3D2D79CB2C7C8C350062BC3D /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		3D2D79D22C7CF4F70062BC3D /* PersonalDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDataViewController.swift; sourceTree = "<group>"; };
@@ -1159,7 +1158,6 @@
 		3D2D79DA2C7D15410062BC3D /* SecondaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryButton.swift; sourceTree = "<group>"; };
 		3D2D79DC2C7DE34B0062BC3D /* PhotoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerView.swift; sourceTree = "<group>"; };
 		3D585BF32C760850005DF71F /* UIScreenExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScreenExtensions.swift; sourceTree = "<group>"; };
-		3D585BF92C768C3A005DF71F /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ToastView.swift; path = ../../../../../../../../Documents/ToastView.swift; sourceTree = "<group>"; };
 		3DA3FC982C75ED2A0065E4D6 /* changeTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = changeTheme.swift; sourceTree = "<group>"; };
 		3DBD7BE32425015C00ED9FE8 /* ParntersStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParntersStyleSheet.swift; sourceTree = "<group>"; };
 		3DEE1AE921F72CD300054A91 /* MWMPowerManagmentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPowerManagmentViewController.h; sourceTree = "<group>"; };
@@ -1303,6 +1301,8 @@
 		527D5E7E2C60E69C00736A85 /* Layouting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layouting.swift; sourceTree = "<group>"; };
 		527D5E812C60EFEE00736A85 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		528D72A02C5BBBF700D53210 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		529A5F122C859535004FE4A1 /* PersonalData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PersonalData.xcdatamodel; sourceTree = "<group>"; };
+		529A5F182C85BFF0004FE4A1 /* ToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		52B573EB2C61E1C10047FAC9 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		52B573EF2C61E4110047FAC9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		52B573F12C61E8980047FAC9 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -1894,7 +1894,7 @@
 				FA853BDB26BC54CD0026D455 /* libtraffic.a in Frameworks */,
 				FA853BD926BC54C80026D455 /* libexpat.a in Frameworks */,
 				FA853BD726BC54650026D455 /* libpugixml.a in Frameworks */,
-				529212422C735A61007B97E1 /* SDWebImageSwiftUI in Frameworks */,
+				529A5F0A2C858F82004FE4A1 /* SDWebImageSwiftUI in Frameworks */,
 				FA853BD526BC545D0026D455 /* libagg.a in Frameworks */,
 				FA853BD326BC54530026D455 /* libtransit.a in Frameworks */,
 				FA853BA926BC3B8A0026D455 /* libbase.a in Frameworks */,
@@ -2718,14 +2718,6 @@
 			path = Buttons;
 			sourceTree = "<group>";
 		};
-		3D585BF82C768C2C005DF71F /* Toast */ = {
-			isa = PBXGroup;
-			children = (
-				3D585BF92C768C3A005DF71F /* ToastView.swift */,
-			);
-			path = Toast;
-			sourceTree = "<group>";
-		};
 		447DB4B72BA7826D000DF4C2 /* ReauthAlert */ = {
 			isa = PBXGroup;
 			children = (
@@ -3089,7 +3081,7 @@
 		527D5E762C60D92900736A85 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				3D585BF82C768C2C005DF71F /* Toast */,
+				529A5F172C85BF99004FE4A1 /* ToastView */,
 				3D585BF72C768BED005DF71F /* Buttons */,
 				52522F442C6DFD220015709C /* Nav */,
 				52B573F32C61F10B0047FAC9 /* TextFields */,
@@ -3127,6 +3119,14 @@
 				52D588B92C5CE2E800AB96B3 /* Font.swift */,
 			);
 			path = Theme;
+			sourceTree = "<group>";
+		};
+		529A5F172C85BF99004FE4A1 /* ToastView */ = {
+			isa = PBXGroup;
+			children = (
+				529A5F182C85BFF0004FE4A1 /* ToastView.swift */,
+			);
+			path = ToastView;
 			sourceTree = "<group>";
 		};
 		52B189972C53B9E900B5B6F9 /* Home */ = {
@@ -3213,8 +3213,8 @@
 		52ED91A02C72007C000EE25B /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
+				529A5F112C859535004FE4A1 /* PersonalData.xcdatamodeld */,
 				52ED91A12C7200C4000EE25B /* Currency.xcdatamodeld */,
-				3D2D79BF2C7C7EA00062BC3D /* PersonalData.xcdatamodeld */,
 			);
 			path = DataModels;
 			sourceTree = "<group>";
@@ -4373,7 +4373,7 @@
 			name = OMaps;
 			packageProductDependencies = (
 				5292123C2C7359FC007B97E1 /* CountryPickerView */,
-				529212412C735A61007B97E1 /* SDWebImageSwiftUI */,
+				529A5F092C858F82004FE4A1 /* SDWebImageSwiftUI */,
 			);
 			productName = Maps;
 			productReference = 6741AA5D1BF340DE002C974C /* Organic Maps (Debug).app */;
@@ -4473,7 +4473,7 @@
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			packageReferences = (
 				5292123B2C7359FC007B97E1 /* XCRemoteSwiftPackageReference "CountryPickerView" */,
-				529212402C735A61007B97E1 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				529A5F082C858F82004FE4A1 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
@@ -4738,6 +4738,7 @@
 				34AB665F1FC5AA330078E451 /* TransportTransitIntermediatePoint.swift in Sources */,
 				34B846A82029E8110081ECCD /* BMCDefaultViewModel.swift in Sources */,
 				993DF12123F6BDB100AC231A /* UIViewControllerRenderer.swift in Sources */,
+				529A5F192C85BFF0004FE4A1 /* ToastView.swift in Sources */,
 				34D3AFF61E37A36A004100F9 /* UICollectionView+Cells.swift in Sources */,
 				4767CDA420AAF66B00BD8166 /* NSAttributedString+HTML.swift in Sources */,
 				6741A9A91BF340DE002C974C /* MWMDefaultAlert.mm in Sources */,
@@ -4833,6 +4834,7 @@
 				ED79A5D42BDF8D6100952D1F /* MetadataItem.swift in Sources */,
 				34AB667D1FC5AA330078E451 /* MWMRoutePreview.mm in Sources */,
 				993DF11B23F6BDB100AC231A /* UIViewRenderer.swift in Sources */,
+				529A5F162C8595BB004FE4A1 /* PersonalData.xcdatamodeld in Sources */,
 				99C964302428C27A00E41723 /* PlacePageHeaderView.swift in Sources */,
 				9989273A2449E60200260CE2 /* BottomMenuViewController.swift in Sources */,
 				47E3C72D2111E6A2008B3B27 /* FadeTransitioning.swift in Sources */,
@@ -4917,7 +4919,6 @@
 				990128562449A82500C72B10 /* BottomTabBarView.swift in Sources */,
 				F6E2FD711E097BA00083EBEC /* MWMMapDownloaderTableViewCell.m in Sources */,
 				F6E2FE4F1E097BA00083EBEC /* MWMActionBarButton.m in Sources */,
-				3D2D79C12C7C7EA00062BC3D /* PersonalData.xcdatamodeld in Sources */,
 				47F86CFF20C936FC00FEE291 /* TabView.swift in Sources */,
 				5260D3CE2C64F60200C673B4 /* APIEndpoints.swift in Sources */,
 				34AB66741FC5AA330078E451 /* BaseRoutePreviewStatus.swift in Sources */,
@@ -4974,7 +4975,6 @@
 				3404F4992028A20D0090E401 /* BMCCategoryCell.swift in Sources */,
 				F62607FD207B790300176C5A /* SpinnerAlert.swift in Sources */,
 				3444DFD21F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */,
-				3D585BFA2C768C3A005DF71F /* ToastView.swift in Sources */,
 				3472B5E1200F86C800DC6CD5 /* MWMEditorHelper.mm in Sources */,
 				3D2D79CC2C7C8C350062BC3D /* ProfileService.swift in Sources */,
 				99F3EB1123F418C900C713F8 /* PlacePageBuilder.swift in Sources */,
@@ -5618,12 +5618,12 @@
 				minimumVersion = 3.0.0;
 			};
 		};
-		529212402C735A61007B97E1 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+		529A5F082C858F82004FE4A1 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
 			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 3.0.0;
+				kind = exactVersion;
+				version = 2.0.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -5634,22 +5634,21 @@
 			package = 5292123B2C7359FC007B97E1 /* XCRemoteSwiftPackageReference "CountryPickerView" */;
 			productName = CountryPickerView;
 		};
-		529212412C735A61007B97E1 /* SDWebImageSwiftUI */ = {
+		529A5F092C858F82004FE4A1 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 529212402C735A61007B97E1 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			package = 529A5F082C858F82004FE4A1 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		3D2D79BF2C7C7EA00062BC3D /* PersonalData.xcdatamodeld */ = {
+		529A5F112C859535004FE4A1 /* PersonalData.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				3D2D79C02C7C7EA00062BC3D /* PersonalData.xcdatamodel */,
+				529A5F122C859535004FE4A1 /* PersonalData.xcdatamodel */,
 			);
-			currentVersion = 3D2D79C02C7C7EA00062BC3D /* PersonalData.xcdatamodel */;
-			name = PersonalData.xcdatamodeld;
-			path = /Users/llcrebus/Projects/Tourism/iphone/Maps/Tourism/Data/Db/DataModels/PersonalData.xcdatamodeld;
+			currentVersion = 529A5F122C859535004FE4A1 /* PersonalData.xcdatamodel */;
+			path = PersonalData.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

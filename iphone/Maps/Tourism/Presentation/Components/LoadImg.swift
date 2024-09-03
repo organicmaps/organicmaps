@@ -9,9 +9,8 @@ struct LoadImageView: View {
   var body: some View {
     if let urlString = url {
       let errorImage = Image(systemName: "error_centered")
-      WebImage(url: URL(string: urlString)) { image in
-        image.image?.resizable()
-      }
+      WebImage(url: URL(string: urlString))
+      .resizable()
       .onSuccess(perform: { image, data, cacheType in
         isError = false
       })

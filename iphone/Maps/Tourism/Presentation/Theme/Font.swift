@@ -97,9 +97,10 @@ struct TextStyle {
 
 extension Text {
     func textStyle(_ style: TextStyle) -> some View {
-        self
+        let calibrationFactor: CGFloat = 0.2
+        return self
             .font(style.font)
-            .lineSpacing(style.lineHeight)
+            .lineSpacing(style.lineHeight * calibrationFactor)
     }
 }
 

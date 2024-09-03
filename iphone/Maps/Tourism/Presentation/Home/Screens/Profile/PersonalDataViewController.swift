@@ -27,7 +27,7 @@ struct PersonalDataScreen: View {
   @ObservedObject var profileVM: ProfileViewModel
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
   
-  @State private var showSheet = false
+  @State private var showPhotoPicker = false
   
   var body: some View {
     ScrollView {
@@ -55,7 +55,7 @@ struct PersonalDataScreen: View {
           
           Spacer().frame(width: 32)
           
-          // upload photo button
+          // photo picker
           Group {
             Image(systemName: "photo.badge.arrow.down")
               .foregroundColor(Color.onBackground)
@@ -65,7 +65,7 @@ struct PersonalDataScreen: View {
               .textStyle(TextStyle.h4)
           }
           .onTapGesture {
-            showSheet = true
+            showPhotoPicker = true
           }
         }
         
@@ -97,15 +97,24 @@ struct PersonalDataScreen: View {
         PrimaryButton(
           label: L("save"),
           onClick: {
-            
+            profileVM.save()
           }
         )
       }
       .padding()
-      .sheet(isPresented: $showSheet) {
+      .sheet(isPresented: $showPhotoPicker) {
         ImagePicker(sourceType: .photoLibrary, selectedImage: $profileVM.pfpToUpload)
       }
     }
+    .overlay(
+      Group {
+        if profileVM.shouldShowMessage {
+          ToastView(message: profileVM.messageToShow, isPresented: $profileVM.shouldShowMessage)
+            .padding(.bottom)
+        }
+      },
+      alignment: .bottom
+    )
     .background(Color.background)
   }
 }

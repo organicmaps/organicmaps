@@ -57,7 +57,7 @@ class ProfileRepositoryImpl: ProfileRepository {
   func updateProfile(
     fullName: String,
     country: String,
-    email: String,
+    email: String?,
     pfpUrl: UIImage?
   ) -> AnyPublisher<PersonalData, ResourceError> {
     return profileService.updateProfile(
