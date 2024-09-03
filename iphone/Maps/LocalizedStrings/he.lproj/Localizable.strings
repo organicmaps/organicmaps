@@ -2566,7 +2566,7 @@
 
 "type.landuse.greenhouse_horticulture" = "חממה";
 
-"type.landuse.industrial" = "אזור תעשיה";
+"type.landuse.industrial" = "אזור תעשייה";
 
 "type.landuse.landfill" = "מטמנה";
 
@@ -2578,9 +2578,9 @@
 
 "type.landuse.quarry" = "מחצבה";
 
-"type.landuse.railway" = "Railway Premises";
+"type.landuse.railway" = "שטחי רכבת";
 
-"type.landuse.recreation_ground" = "Recreation Ground";
+"type.landuse.recreation_ground" = "אזור מיועד לבילוי";
 
 "type.landuse.reservoir" = "מאגר";
 
@@ -2590,7 +2590,7 @@
 
 "type.landuse.salt_pond" = "בריכת מלח";
 
-"type.landuse.village_green" = "Land";
+"type.landuse.village_green" = "כפר ירוק";
 
 "type.landuse.vineyard" = "כרם";
 
@@ -2600,67 +2600,67 @@
 
 "type.leisure.dog_park" = "פארק כלבים";
 
-"type.leisure.fitness_centre" = "חדר כושר";
+"type.leisure.fitness_centre" = "מכון כושר";
 
-"type.leisure.fitness_station" = "Fitness Station";
+"type.leisure.fitness_station" = "תחנת כושר";
 
-"type.leisure.dance" = "םידוקיר םלוא";
+"type.leisure.dance" = "היכל ריקודים";
 
 "type.leisure.garden" = "גן";
 
-"type.leisure.garden.residential" = "גן";
+"type.leisure.garden.residential" = "גן מגורים";
 
-"type.leisure.golf_course" = "Golf Course";
+"type.leisure.golf_course" = "מגרש גולף";
 
-"type.leisure.miniature_golf" = "Minigolf";
+"type.leisure.miniature_golf" = "מיני גולף";
 
-"type.leisure.hackerspace" = "האקרספייס";
+"type.leisure.hackerspace" = "משרד היי טק משותף";
 
-"type.leisure.ice_rink" = "Ice Rink";
+"type.leisure.ice_rink" = "החלקה על קרח";
 
-"type.leisure.marina" = "Marina";
+"type.leisure.marina" = "מרינה";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "שמורת טבע";
 
 "type.leisure.outdoor_seating" = "ישיבה בחוץ";
 
-"type.leisure.park" = "Park";
+"type.leisure.park" = "פארק";
 
-"type.leisure.park.no.access" = "Park";
+"type.leisure.park.no.access" = "פארק סגור לכניסה";
 
-"type.leisure.park.permissive" = "Park";
+"type.leisure.park.permissive" = "פארק";
 
-"type.leisure.park.private" = "Park";
+"type.leisure.park.private" = "פארק פרטי";
 
-"type.leisure.picnic_table" = "קינקיפ ןחלוש";
+"type.leisure.picnic_table" = "שולחן פיקניק";
 
-"type.leisure.pitch" = "Sport Pitch";
+"type.leisure.pitch" = "מגרש ספורט";
 
-"type.leisure.playground" = "Playground";
+"type.leisure.playground" = "מגרש משחקים";
 
-"type.leisure.recreation_ground" = "Recreation Ground";
+"type.leisure.recreation_ground" = "אזור מיועד לבילוי";
 
-"type.leisure.sauna" = "Sauna";
+"type.leisure.sauna" = "סאונה";
 
-"type.leisure.slipway" = "Slipway";
+"type.leisure.slipway" = "ממשה";
 
-"type.leisure.sports_centre" = "Sports Center";
+"type.leisure.sports_centre" = "מרכז ספורט";
 
-"type.sport.climbing" = "Climbing Centre";
+"type.sport.climbing" = "טיפוס";
 
-"type.sport.yoga" = "Yoga Studio";
+"type.sport.yoga" = "יוגה";
 
-"type.leisure.stadium" = "Stadium";
+"type.leisure.stadium" = "אצטדיון";
 
-"type.leisure.swimming_pool" = "Swimming Pool";
+"type.leisure.swimming_pool" = "בריכת שחייה";
 
-"type.leisure.swimming_pool.private" = "Swimming Pool";
+"type.leisure.swimming_pool.private" = "בריכת שחייה פרטית";
 
 "type.leisure.track" = "Track";
 
 "type.leisure.track.area" = "Track";
 
-"type.leisure.water_park" = "Water Park";
+"type.leisure.water_park" = "פארק מים";
 
 "type.leisure.beach_resort" = "Beach Resort";
 
