@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "모두 복구";
 
+"self_service_yes" = "셀프 서비스 사용 가능";
+
+"self_service_only" = "셀프 서비스 전용";
+
+"self_service_partially" = "부분 셀프 서비스";
+
+"self_service_no" = "셀프 서비스 없음";
+
 
 /********** Types **********/
 

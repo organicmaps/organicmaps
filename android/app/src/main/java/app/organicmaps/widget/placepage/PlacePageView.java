@@ -34,6 +34,7 @@ import app.organicmaps.downloader.CountryItem;
 import app.organicmaps.downloader.DownloaderStatusIcon;
 import app.organicmaps.downloader.MapManager;
 import app.organicmaps.editor.Editor;
+import app.organicmaps.editor.SelfServiceAdapter;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.location.SensorHelper;
@@ -443,7 +444,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     }
 
     final String selfService = mMapObject.getMetadata(Metadata.MetadataType.FMD_SELF_SERVICE);
-    refreshMetadataOrHide(Utils.getTagValueLocalized(getContext(), "self_service", selfService), mSelfService, mTvSelfService);
+    refreshMetadataOrHide(Utils.getTagValueLocalized(getContext(), SelfServiceAdapter.mItems, selfService), mSelfService, mTvSelfService);
 
     final String outdoorSeating = mMapObject.getMetadata(Metadata.MetadataType.FMD_OUTDOOR_SEATING);
     refreshMetadataOrHide(outdoorSeating.equals("yes") ? getString(R.string.outdoor_seating) : "", mOutdoorSeating, mTvOutdoorSeating);

@@ -195,7 +195,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
     mCuisine.setText(Editor.nativeGetFormattedCuisine());
     String selfServiceMetadata = Editor.nativeGetMetadata(Metadata.MetadataType.FMD_SELF_SERVICE.toInt());
-    mSelfService.setText(Utils.getTagValueLocalized(view.getContext(), "self_service", selfServiceMetadata));
+    mSelfService.setText(Utils.getTagValueLocalized(view.getContext(), SelfServiceAdapter.mItems, selfServiceMetadata));
     initMetadataEntry(Metadata.MetadataType.FMD_OPERATOR, 0);
     mWifi.setChecked(Editor.nativeHasWifi());
     // TODO Reimplement this to avoid https://github.com/organicmaps/organicmaps/issues/9049

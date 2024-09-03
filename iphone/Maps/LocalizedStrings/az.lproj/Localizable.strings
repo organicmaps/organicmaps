@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Hamısını bərpa et";
 
+"self_service_yes" = "Özünə xidmət mövcuddur";
+
+"self_service_only" = "Yalnız özünə xidmət";
+
+"self_service_partially" = "Qismən özünəxidmət";
+
+"self_service_no" = "Özünə xidmət yoxdur";
+
 
 /********** Types **********/
 

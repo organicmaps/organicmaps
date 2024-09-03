@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Khôi phục tất cả";
 
+"self_service_yes" = "Có sẵn dịch vụ tự phục vụ";
+
+"self_service_only" = "Chỉ tự phục vụ";
+
+"self_service_partially" = "Tự phục vụ một phần";
+
+"self_service_no" = "Không tự phục vụ";
+
 
 /********** Types **********/
 

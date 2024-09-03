@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Mindent visszaállít";
 
+"self_service_yes" = "Önkiszolgálás elérhető";
+
+"self_service_only" = "Csak önkiszolgálás";
+
+"self_service_partially" = "Részleges önkiszolgálás";
+
+"self_service_no" = "Nincs önkiszolgálás";
+
 
 /********** Types **********/
 

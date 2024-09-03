@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Recuperar todo";
 
+"self_service_yes" = "Autoservicio disponible";
+
+"self_service_only" = "Sólo autoservicio";
+
+"self_service_partially" = "Autoservicio parcial";
+
+"self_service_no" = "Sin autoservicio";
+
 
 /********** Types **********/
 
@@ -1768,7 +1776,7 @@
 
 "type.barrier.chain" = "Cadena";
 
-"type.barrier.city_wall" = "Muralla";
+"type.barrier.city_wall" = "City Wall";
 
 "type.barrier.cycle_barrier" = "Barrera para bicicletas";
 

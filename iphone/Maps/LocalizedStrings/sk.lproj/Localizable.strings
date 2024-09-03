@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Obnoviť všetko";
 
+"self_service_yes" = "K dispozícii je samoobsluha";
+
+"self_service_only" = "Len samoobslužné služby";
+
+"self_service_partially" = "Čiastočná samoobsluha";
+
+"self_service_no" = "Žiadna samoobsluha";
+
 
 /********** Types **********/
 

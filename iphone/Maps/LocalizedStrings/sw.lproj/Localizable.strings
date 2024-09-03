@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Rejesha yote";
 
+"self_service_yes" = "Huduma ya kibinafsi inapatikana";
+
+"self_service_only" = "Kujihudumia pekee";
+
+"self_service_partially" = "Kujihudumia kwa sehemu";
+
+"self_service_no" = "Hakuna huduma binafsi";
+
 
 /********** Types **********/
 

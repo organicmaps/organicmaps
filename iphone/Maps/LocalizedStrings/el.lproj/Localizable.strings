@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Ανάκτηση όλων";
 
+"self_service_yes" = "Διαθέσιμη αυτοεξυπηρέτηση";
+
+"self_service_only" = "Μόνο αυτοεξυπηρέτηση";
+
+"self_service_partially" = "Μερική αυτοεξυπηρέτηση";
+
+"self_service_no" = "Δεν υπάρχει αυτοεξυπηρέτηση";
+
 
 /********** Types **********/
 

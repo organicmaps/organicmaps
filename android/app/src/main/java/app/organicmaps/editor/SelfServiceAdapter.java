@@ -11,12 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import app.organicmaps.R;
-import app.organicmaps.util.UiUtils;
-import app.organicmaps.util.Utils;
+import app.organicmaps.util.Utils.TagTranslationValue;
 
 public class SelfServiceAdapter extends RecyclerView.Adapter<SelfServiceAdapter.ViewHolder>
 {
-  private final String[] mItems = new String[]{"yes", "only", "partially", "no"};
+  public static final TagTranslationValue[] mItems = new TagTranslationValue[]{
+          new TagTranslationValue("yes", R.string.self_service_yes),
+          new TagTranslationValue("only", R.string.self_service_only),
+          new TagTranslationValue("partially", R.string.self_service_partially),
+          new TagTranslationValue("no", R.string.self_service_no)
+  };
   private final SelfServiceFragment mFragment;
   private String mSelectedOption;
 
@@ -70,15 +74,15 @@ public class SelfServiceAdapter extends RecyclerView.Adapter<SelfServiceAdapter.
     public void bind(int position)
     {
       Context context = itemView.getContext();
-      selected.setChecked(mSelectedOption.equals(mItems[position]));
-      String text = Utils.getTagValueLocalized(context, "self_service", mItems[position]);
+      selected.setChecked(mSelectedOption.equals(mItems[position].tagValue()));
+      String text = context.getString(mItems[position].translation());
       selfServiceDef.setText(text);
     }
 
     @Override
     public void onClick(View v)
     {
-      mSelectedOption = mItems[getBindingAdapterPosition()];
+      mSelectedOption = mItems[getBindingAdapterPosition()].tagValue();
       notifyDataSetChanged();
       mFragment.saveSelection(mSelectedOption);
     }

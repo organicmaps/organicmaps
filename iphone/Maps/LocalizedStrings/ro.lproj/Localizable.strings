@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Recuperează tot";
 
+"self_service_yes" = "Autoservire disponibilă";
+
+"self_service_only" = "Numai autoservire";
+
+"self_service_partially" = "Autoservire parțială";
+
+"self_service_no" = "Fără autoservire";
+
 
 /********** Types **********/
 

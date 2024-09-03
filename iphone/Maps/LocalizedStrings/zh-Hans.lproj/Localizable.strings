@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "全部恢复";
 
+"self_service_yes" = "提供自助服务";
+
+"self_service_only" = "仅限自助服务";
+
+"self_service_partially" = "部分自助服务";
+
+"self_service_no" = "无自助服务";
+
 
 /********** Types **********/
 

@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Tout récupérer";
 
+"self_service_yes" = "Libre-service disponible";
+
+"self_service_only" = "En libre-service uniquement";
+
+"self_service_partially" = "En libre-service partiellement";
+
+"self_service_no" = "Pas en libre-service";
+
 
 /********** Types **********/
 

@@ -38,13 +38,7 @@ import androidx.core.app.NavUtils;
 import androidx.core.os.BundleCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import app.organicmaps.BuildConfig;
-import app.organicmaps.MwmActivity;
-import app.organicmaps.MwmApplication;
-import app.organicmaps.R;
-import app.organicmaps.util.concurrency.UiThread;
-import app.organicmaps.util.log.Logger;
-import app.organicmaps.util.log.LogsManager;
+
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.Closeable;
@@ -54,6 +48,15 @@ import java.text.DecimalFormatSymbols;
 import java.util.Currency;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
+
+import app.organicmaps.BuildConfig;
+import app.organicmaps.MwmActivity;
+import app.organicmaps.MwmApplication;
+import app.organicmaps.R;
+import app.organicmaps.util.concurrency.UiThread;
+import app.organicmaps.util.log.Logger;
+import app.organicmaps.util.log.LogsManager;
 
 @Keep
 public class Utils
@@ -627,17 +630,6 @@ public class Utils
     return getStringValueByKey(context, key);
   }
 
-  @Keep
-  @SuppressWarnings("unused")
-  @NonNull
-  public static String getTagValueLocalized(@NonNull Context context, @Nullable String tagKey, @Nullable String value)
-  {
-    if (TextUtils.isEmpty(tagKey) || TextUtils.isEmpty(value))
-      return "";
-
-    return getLocalizedFeatureType(context, tagKey + "-" + value);
-  }
-
   // Called from JNI.
   @Keep
   @SuppressWarnings("unused")
@@ -751,7 +743,7 @@ public class Utils
 
   public static Spanned fromHtml(@NonNull String htmlDescription)
   {
-    if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N)
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N)
       return fromHtmlOld(htmlDescription);
     return Html.fromHtml(htmlDescription, Html.FROM_HTML_MODE_LEGACY);
   }
@@ -767,7 +759,7 @@ public class Utils
                                                    int flags)
       throws PackageManager.NameNotFoundException
   {
-    if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
       return getApplicationInfoOld(manager, packageName, flags);
     return manager.getApplicationInfo(packageName, PackageManager.ApplicationInfoFlags.of(flags));
   }
@@ -782,8 +774,27 @@ public class Utils
   public static PackageInfo getPackageInfo(@NonNull PackageManager manager, @NonNull String packageName, int flags)
       throws PackageManager.NameNotFoundException
   {
-    if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
       return getPackageInfoOld(manager, packageName, flags);
     return manager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(flags));
+  }
+
+  public record TagTranslationValue(String tagValue, Integer translation){}
+
+  @Keep
+  @SuppressWarnings("unused")
+  @NonNull
+  public static String getTagValueLocalized(@NonNull Context context, TagTranslationValue[] tagTranslationValues, String value)
+  {
+    if (tagTranslationValues.length == 0 || TextUtils.isEmpty(value))
+      return "";
+
+    for(TagTranslationValue tagValue : tagTranslationValues){
+      if(Objects.equals(tagValue.tagValue(), value)){
+        return context.getString(tagValue.translation());
+      }
+    }
+
+    return context.getString(0);
   }
 }

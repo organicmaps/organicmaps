@@ -1392,6 +1392,14 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Alles wiederherstellen";
 
+"self_service_yes" = "Selbstbedienung verfügbar";
+
+"self_service_only" = "Nur Selbstbedienung";
+
+"self_service_partially" = "Teilweise Selbstbedienung";
+
+"self_service_no" = "Keine Selbstbedienung";
+
 
 /********** Types **********/
 
