@@ -31371,7 +31371,7 @@
     fa = ضبط مسیر
     fi = Reitin tallennus
     fr = Enregistrer la trace
-    he = הקלטת המסלול
+    he = הקלט מסלול
     hi = ट्रैक रिकॉर्ड करें
     hu = Útvonal rögzítése
     id = Merekam jalur
@@ -31417,7 +31417,7 @@
     fa = توقف ضبط مسیر
     fi = Lopeta reitin tallennus
     fr = Arrêter l'enregistrement de la trace
-    he = להפסיק את הקלטת המסלול
+    he = הפסק הקלטת מסלול
     hi = ट्रैक रिकॉर्डिंग रोकें
     hu = Állítsa le az útvonalrögzítést
     id = Hentikan perekaman jalur
@@ -31463,7 +31463,7 @@
     fa = توقف بدون ذخیره
     fi = Lopeta tallentamatta
     fr = Arrêter sans enregistrer
-    he = עצור בלי לשמור
+    he = הפסק בלי לשמור
     hi = बिना सहेजे रुकें
     hu = Megállás mentés nélkül
     id = Berhenti tanpa menyimpan
@@ -31509,7 +31509,7 @@
     fa = ادامه ضبط
     fi = Jatka tallennusta
     fr = Continuer l'enregistrement
-    he = להמשיך להקליט
+    he = המשך להקליט
     hi = रिकॉर्डिंग जारी रखें
     hu = Felvétel folytatása
     id = Lanjutkan perekaman
@@ -31555,7 +31555,7 @@
     fa = ذخیره‌سازی در نشانه‌ها و مسیر؟
     fi = Tallenna kirjanmerkkeihin ja reitteihin?
     fr = Sauvegarder dans les signets et parcours ?
-    he = לשמור את הקלטת המסלול בסימניות ומסלולים?
+    he = לשמור בסימניות ומסלולים?
     hi = मार्ग रिकॉर्डिंग बुकमार्क और ट्रैक में सहेजें?
     hu = Útvonalrögzítés mentése a könyvjelzők és nyomvonalak közé?
     id = Menyimpan ke penanda dan jalur?
