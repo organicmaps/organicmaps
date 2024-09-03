@@ -28,6 +28,7 @@
     ja = 戻る
     ko = 뒤로
     lt = Atgal
+    lv = Atpakaļ
     mr = मागे
     mt = Lura
     nb = Tilbake
@@ -74,6 +75,7 @@
     ja = キャンセル
     ko = 취소하기
     lt = Atšaukti
+    lv = Atcelt
     mr = रद्द करा
     mt = Ikkanċella
     nb = Avbryt
@@ -120,6 +122,7 @@
     ja = ダウンロードをキャンセル
     ko = 다운로드 취소하기
     lt = Atšaukti atsisiuntimą
+    lv = Atsaukt lejupielādi
     mr = डाउनलोड रद्द करा
     mt = Ikkanċella it-Tniżżil
     nb = Avbryt nedlasting
@@ -166,6 +169,7 @@
     ja = 削除
     ko = 삭제하기
     lt = Naikinti
+    lv = Dzēst
     mr = हटवा
     mt = Ħassar
     nb = Slett
@@ -211,6 +215,7 @@
     ja = マップをダウンロード
     ko = 지도 다운로드받기
     lt = Atsisiųsti žemėlapius
+    lv = Lejupielādēt kartes
     mr = नकाशे डाउनलोड करा
     mt = Niżżel il-mapep
     nb = Last ned kart
@@ -257,6 +262,7 @@
     ja = ダウンロードが失敗しました。もう一度試すには画面をタッチしてください。
     ko = 다운로드에 실패하였습니다. 다시 시도하려면 터치하세요.
     lt = Atsisiuntimas nepavyko. Bakstelėkite, kad bandytumėte iš naujo.
+    lv = Lejupielāde neizdevās. Pieskarieties, lai mēģinātu vēlreiz.
     mr = डाउनलोड अयशस्वी झाले. पुन्हा प्रयत्न करण्यासाठी स्पर्श करा.
     mt = It-tniżżil falla. Għaffas biex terġa tipprova.
     nb = Nedlastingen mislyktes – trykk på nytt for å prøve en gang til
@@ -303,6 +309,7 @@
     ja = ダウンロード中…
     ko = 다운로드 중…
     lt = Atsisiunčiama…
+    lv = Lejupielādē…
     mr = डाउनलोड करत आहे…
     mt = Tniżżil…
     nb = Laster ned …
@@ -350,6 +357,7 @@
     ja = キロメートル
     ko = 킬로미터
     lt = Kilometrai
+    lv = Kilometri
     mr = किलोमीटर
     mt = Kilometri
     nb = Kilometer
@@ -396,6 +404,7 @@
     ja = 評価する
     ko = 리뷰 남기기
     lt = Palikite atsiliepimą
+    lv = Atstājiet atsauksmi
     mr = अभिप्राय द्या
     mt = Ħalli l-analiżi tiegħek
     nb = Legg inn en vurdering
@@ -483,6 +492,7 @@
     ja = マイル
     ko = 마일
     lt = Mylios
+    lv = Jūdzes
     mr = मैल
     mt = Mili
     nb = Miles
@@ -529,6 +539,7 @@
     ja = 現在地
     ko = 나의 위치
     lt = Mano vieta
+    lv = Mana vieta
     mr = माझे स्थान
     mt = Il-Pożizzjoni Kurrenti
     nb = Min posisjon
@@ -575,6 +586,7 @@
     ja = 後で
     ko = 나중에
     lt = Vėliau
+    lv = Vēlāk
     mr = नंतर
     mt = Aktar tard
     nb = Senere
@@ -621,6 +633,7 @@
     ja = 検索
     ko = 검색하기
     lt = Ieškoti
+    lv = Meklēt
     mr = शोधा
     mt = Fittex
     nb = Søk
@@ -667,6 +680,7 @@
     ja = マップを検索
     ko = 지도 검색하기
     lt = Ieškoti žemėlapio
+    lv = Meklēt kartē
     mr = नकाश्यात शोधा
     mt = Fittex fuq il-mappa
     nb = Søk kart
@@ -713,6 +727,7 @@
     ja = はい
     ko = 네
     lt = Taip
+    lv = Jā
     mr = होय
     mt = Iva
     nb = Ja
@@ -759,6 +774,7 @@
     ja = 位置情報サービスが無効になっているか、このアプリからの位置情報利用が制限されています。端末の設定を有効化してください。
     ko = 현재 이 기기 또는 애플리케이션에 대한 모든 위치 서비스가 비활성화되어 있습니다. 설정에서 활성화하십시오.
     lt = Šiuo metu jūsų įrenginio ar programėlės visos vietovės tarnybos yra išjungtos. Įjunkite jas nustatymuose.
+    lv = Šobrīd ierīcē visi atrašanās vietas pakalpojumi vai to nodrošinošās programmas ir izslēgtas. Ieslēdziet tās iestatījumos.
     mr = आपल्या उपकरणात किंवा ऍप मध्ये स्थानसेवा सध्या बंद आहेत. कृपया सेटिंग मधून त्यांना चालू  करा.
     mt = Bħalissa għandek kull Servizzi tal-Lokażżjoni fuq dan l-apparat jew l-applikazzjoni mitfijin. Jekk jogħġbok erġa ixgħelhom ġos-Settings.
     nb = Du har for øyeblikket deaktivert alle posisjonstjenester for denne enheten eller applikasjonen. Slå dem på i «Innstillinger».
@@ -805,6 +821,7 @@
     ja = 地図に表示
     ko = 지도에 표시
     lt = Rodyti žemėlapyje
+    lv = Rādīt kartē
     mr = नकाशावर दाखवा
     mt = Uri fuq il-mappa
     nb = Vis på kartet
@@ -851,6 +868,7 @@
     ja = 地図をダウンロード
     ko = 지도 다운로드
     lt = Atsisiųsti žemėlapį
+    lv = Lejupielādēt karti
     mr = नकाशा डाउनलोड करा
     mt = Niżżel il-mappa
     nb = Last ned kart
@@ -897,6 +915,7 @@
     ja = のダウンロードに失敗しました
     ko = 다운로드에 실패하였습니다
     lt = Atsisiuntimas nepavyko
+    lv = Lejupielāde neizdevās
     mr = डाउनलोड अयशस्वी
     mt = It-tniżżil falla
     nb = Laster ned mislyktes
@@ -943,6 +962,7 @@
     ja = 再実行
     ko = 다시 시도
     lt = Bandyti dar kartą
+    lv = Mēģināt vēlreiz
     mr = पुन्हा प्रयत्न करा
     mt = Erġa prova
     nb = Prøv på nytt
@@ -988,6 +1008,7 @@
     ja = Organic Mapsについて
     ko = Organic Maps 정보
     lt = Apie Organic Maps
+    lv = Par „Organic Maps“
     mr = Organic Maps बद्दल
     mt = Dwar Organic Maps
     nb = Om Organic Maps
@@ -1033,6 +1054,7 @@
     ja = すべての人のために無料で、愛を込めて作られています
     ko = 사랑으로 만든 모든 사람에게 무료
     lt = Nemokama visiems, sukurta su meile
+    lv = Bezmaksas, pieejama visiem un veidota ar mīlestību
     mt = B' xejn għal kulħadd, magħmul bl-imħabba
     nb = Gratis for alle, laget med kjærlighet
     nl = Gratis voor iedereen, met liefde gemaakt
@@ -1078,6 +1100,7 @@
     ja = •広告、追跡なし、データ収集なし
     ko = • 광고 없음, 추적 없음, 데이터 수집 없음
     lt = • Nėra reklamų, sekimo, duomenų rinkimo
+    lv = • Nesatur reklāmas, izsekošanu un nevāc datus
     mt = • Bla reklami, bla traċċar, bla kollezjoni ta' data
     nb = • Ingen annonser, ingen sporing, ingen datainnsamling
     nl = • Geen advertenties, geen tracking, geen gegevensverzameling
@@ -1124,6 +1147,7 @@
     ja = • バッテリーの消耗がなく、オフラインで動作する
     ko = • 배터리 소모 없음, 오프라인에서 작동
     lt = • Neišsikrauna akumuliatorius, veikia neprisijungus prie interneto
+    lv = • Neizlādē bateriju, darbojas bez interneta pieslēguma
     mr = • बॅटरी संपत नाही, ऑफलाइन कार्य करते
     mt = • Bla ħela ta' batterija, jaħdem offline
     nb = • Ingen batterislitasje, fungerer offline
@@ -1171,6 +1195,7 @@
     ja = • 高速、ミニマリスト、コミュニティによる開発
     ko = • 빠르고 미니멀한, 커뮤니티가 개발한
     lt = • Greitas, minimalistinis, sukurtas bendruomenės
+    lv = • Ātra, minimālistiska un kopienas izstrādāta
     mr = • जलद, मिनिमलिस्ट, समुदायाद्वारे विकसित
     mt = • Malajr, minimalista, żvillupat mill-komunità
     nb = • Rask, minimalistisk, utviklet av fellesskapet
@@ -1216,6 +1241,7 @@
     ja = 愛好家とボランティアによって作成されたオープンソースアプリケーション。
     ko = 애호가와 자원 봉사자가 만든 오픈 소스 응용 프로그램.
     lt = Atvirojo kodo programėlė, sukurta entuziastų ir savanorių.
+    lv = Atvērtā pirmkoda programma, ko veidojuši entuziasti un brīvprātīgie.
     mt = Apliażżjoni tas-sors miftuħ magħmula min dilettanti u il-voluntiera
     nb = Open source-applikasjon opprettet av entusiaster og frivillige.
     nl = Open-source applicatie gemaakt door enthousiastelingen en vrijwilligers.
@@ -1260,6 +1286,7 @@
     it = Impostazioni della posizione
     ja = ロケーション設定
     ko = 위치 설정
+    lv = Atrašanās vietas iestatījumi
     mr = स्थान सेटिंग्ज
     mt = Settings tal-lokażżjoni
     nb = Innstillinger for plassering
@@ -1306,6 +1333,7 @@
     ja = 閉じる
     ko = 닫기
     lt = Uždaryti
+    lv = Aizvērt
     mr = बंद
     mt = Ġħalaq
     nb = Lukk
@@ -1351,6 +1379,7 @@
     ja = ハードウェアアクセラレーションされたOpenGLが必要です。残念ながらご利用中のデバイスではサポートされていません。
     ko = 하드웨어 촉진 OpenGL이 요구됩니다. 애석하게도 귀하의 장치는 지원되지 않습니다.
     lt = Programėlei reikia aparatinės įrangos spartinamos OpenGL. Deja, jūsų įrenginys nepalaikomas.
+    lv = Lietotnei nepieciešams „OpenGL“ aparatūras paātrinājums, bet diemžēl Jūsu ierīce to neatbalsta.
     mr = ह्या ऍपला हार्डवेअर प्रवेगक OpenGL आवश्यक आहे. दुर्दैवाने, तुमच्या उपकरणाला ह्याचा आधार नाही.
     mt = L-applikazzjoni għanda bżonn 'hardware accelerated OpenGL'. Sfortunatament, l-apparat tiegħek ma jappoġġjax dan.
     nb = En maskinvareakselerert OpenGL kreves. Dessverre støttes ikke enheten din.
@@ -1396,6 +1425,7 @@
     ja = ダウンロード
     ko = 다운로드
     lt = Atsisiųsti
+    lv = Lejupielādēt
     mr = डाउनलोड करा
     mt = Niżżel
     nb = Last ned
@@ -1441,6 +1471,7 @@
     ja = Organic Mapsを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください
     ko = Organic Maps를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오
     lt = Atjunkite USB laidą arba įdėkite atminties kortelę, kad naudotumėte Organic Maps
+    lv = Lai lietotu „Organic Maps“, atvienojiet USB kabeli vai ievietojiet atmiņas karti.
     mr = Organic Maps वापरण्यासाठी कृपया USB केबल काढून टाका किंवा मेमरी कार्ड घाला
     mt = Jekk jogħġbok neħħi il-USB kejbil jew daħħal karta tal-memorja biex tuża Organic Maps
     nb = Koble fra USB-kabelen eller sett inn minnekortet for å bruke Organic Maps
@@ -1487,6 +1518,7 @@
     ja = アプリを起動するにはSDカード/USBストレージの空き容量を確保する必要があります
     ko = 앱을 사용하려면 먼저 SD 카드/USB 저장소의 여유 공간을 확보하세요
     lt = Atlaisvinkite vietos jūsų saugykloje, kad galėtumėte naudotis programėle
+    lv = Lietotnes izmantošanai atbrīvojiet vietu ierīces krātuvē
     mr = कृपया ऍप वापरण्यासाठी प्रथम SD कार्ड/USB स्टोरेजवरील काही जागा मोकळी करा
     mt = Jekk jogħġbok żid ftit spazju fuq il-karta tal-memorja jew il-ħażna tal-USB biex tkun tista tuża l-applikazzjoni
     nb = Frigjør plass på SD-kortet/USB-enheten først for å bruke appen
@@ -1532,6 +1564,7 @@
     ja = 利用を開始する前におおまかな世界地図をダウンロードします。これには%@の空き容量が必要です。
     ko = 시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.\n%@ 데이터가 필요합니다.
     lt = Leiskite mums atsisiųsti bendrąjį pasaulio žemėlapį į jūsų įrenginį prieš pradėdami naudotis programėle.\nTai užims %@ saugyklos.
+    lv = Pirms lietotnes izmantošanas lejupielādējiet kopējo pasaules karti.\nTā ierīce krātuvē aizņems %@ vietas.
     mr = ऍपचा वापर सुरू करण्यापूर्वी, आम्हाला तुमच्या उपकरणावर जगाचा सामान्य नकाशा डाउनलोड करण्याची परवानगी द्या.\nते %@ जागा वापरेल.
     mt = Qabel ma tibda tuża l-applikazzjoni, niżżel il-mappa ġenerali tad-dinja fuq l-apparat. \nDan ser juża %@ ta' storage.
     nb = Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %@ med data.
@@ -1577,6 +1610,7 @@
     ja = マップを表示
     ko = 지도로 이동
     lt = Eiti į žemėlapį
+    lv = Iet uz karti
     mr = नकाशावर जा
     mt = Mur għal Mappa
     nb = Gå til kart
@@ -1622,6 +1656,7 @@
     ja = %@をダウンロードしました\nマップを表示可能です
     ko = %@다운로드. 이제지도를 진행할 수 있습니다.
     lt = Atsisiunčiama %@. Dabar galite\neiti į žemėlapį.
+    lv = Lejupielādē „%@“. Tagad varat\niet uz karti.
     mr = %@ डाउनलोड करत आहे.\nतुम्ही आता नकाशावर जाऊ शकता.
     mt = Tniżżil %@. Issa tista\ntkompli għal mappa.
     nb = Laster ned %@. Du kan nå\nfortsette til kartet.
@@ -1667,6 +1702,7 @@
     ja = %@をダウンロードしますか？
     ko = %@다운로드?
     lt = Atsisiųsti %@?
+    lv = Vai lejupielādēt „%@“?
     mr = %@ डाउनलोड करायचे?
     mt = Tniżżel %@?
     nb = Vil du laste ned %@?
@@ -1712,6 +1748,7 @@
     ja = %@を更新しますか？
     ko = %@업데이트?
     lt = Naujinti %@?
+    lv = Vai atjaunināt „%@“?
     mr = %@ अद्ययावत करायचे?
     mt = Aġġorna %@?
     nb = Vil du oppdatere %@?
@@ -1758,6 +1795,7 @@
     ja = 一時停止
     ko = 중지
     lt = Pristabdyti
+    lv = Pauze
     mr = विराम द्या
     mt = Pawsa
     nb = Pause
@@ -1804,6 +1842,7 @@
     ja = 続行
     ko = 계속
     lt = Tęsti
+    lv = Turpināt
     mr = चालू ठेवा
     mt = Kompli
     nb = Fortsett
@@ -1850,6 +1889,7 @@
     ja = %@のダウンロードが失敗しました
     ko = %@다운로드가 실패했습니다
     lt = %@ atsisiuntimas nepavyko
+    lv = „%@“ lejupielāde neizdevās
     mr = %@ डाउनलोड अयशस्वी
     mt = %@ tniżżil falla
     nb = Nedlasting av %@ mislyktes
@@ -1896,6 +1936,7 @@
     ja = 新しいセットを作成
     ko = 새로운 목록 추가
     lt = Pridėti naują sąrašą
+    lv = Pievienot jaunu sarakstu
     mr = नवीन यादी जोडा
     mt = Żid lista ġdida
     nb = Legg til nytt sett
@@ -1941,6 +1982,7 @@
     ja = ブックマークセット名称
     ko = 집합 이름을 즐겨찾기에 추가
     lt = Adresyno sąrašo pavadinimas
+    lv = Grāmatzīmju saraksta nosaukums
     mr = खूणपत्र यादीचे नाव
     mt = Isem tal-lista tal-Bookmark
     nb = Bokmerk settnavn
@@ -1985,6 +2027,7 @@
     ja = ブックマークセット
     ko = 세트를 즐겨찾기에 추가
     lt = Adresyno sąrašai
+    lv = Grāmatzīmju saraksti
     mr = खूणपत्र याद्या
     mt = Listi tal-Bookmark
     nb = Bokmerk sett
@@ -2031,6 +2074,7 @@
     ja = ブックマーク
     ko = 북마크
     lt = Adresynas
+    lv = Grāmatzīmes
     mr = खूणपत्रे
     nb = Bokmerker
     nl = Bladwijzers
@@ -2075,6 +2119,7 @@
     it = Luoghi preferiti e percorsi
     ja = ブックマークとトラック
     ko = 북마크 및 트랙
+    lv = Grāmatzīmes un ceļi
     mr = खूणपत्रे आणि ट्रॅक
     mt = Bookmarks u Korsi
     nb = Bokmerker og ruter
@@ -2121,6 +2166,7 @@
     ja = マイロケーション
     ko = 내 장소
     lt = Mano vietos
+    lv = Manas vietas
     mr = माझी ठिकाणे
     mt = Il-Postijiet Tiegħi
     nb = Mine steder
@@ -2167,6 +2213,7 @@
     ja = 名称
     ko = 이름
     lt = Pavadinimas
+    lv = Nosaukums
     mr = नाव
     mt = Isem
     nb = Navn
@@ -2214,6 +2261,7 @@
     ja = 住所
     ko = 주소
     lt = Adresas
+    lv = Adrese
     mr = पत्ता
     mt = Indirizz
     nb = Adresse
@@ -2261,6 +2309,7 @@
     ja = 一覧
     ko = 목록
     lt = Sąrašas
+    lv = Saraksts
     mr = यादी
     mt = Lista
     nb = Liste
@@ -2307,6 +2356,7 @@
     ja = 設定
     ko = 설정
     lt = Nustatymai
+    lv = Iestatījumi
     mr = सेटिंग
     nb = Innstillinger
     nl = Instellingen
@@ -2352,6 +2402,7 @@
     ja = 地図の保存先
     ko = 지도 저장 위치:
     lt = Išsaugoti žemėlapius į
+    lv = Kartes saglabāšanas vieta
     mr = नकाशे येथे साठवा
     mt = Issalvagwardja il-mapep ġo
     nb = Lagre kart på
@@ -2398,6 +2449,7 @@
     it = Seleziona il luogo in cui le mappe devono essere scaricate
     ja = マップのダウンロード先を選択してください
     ko = 지도가 다운로드될 곳을 선택합니다
+    lv = Norādiet mapi, kurā lejupielādēt kartes.
     mr = नकाशे डाउनलोड करायचे ठिकाण निवडा
     mt = Għażel il-post fejn tixtieq tniżżel il-mapep.
     nb = Velg hvor du vil at kartene skal lastes ned til
@@ -2444,6 +2496,7 @@
     ja = マップ
     ko = 지도
     lt = Atsisiųsti žemėlapiai
+    lv = Lejupielādētās kartes
     mt = Mapep imniżżla
     nb = Kart
     nl = Kaarten
@@ -2482,6 +2535,7 @@
     hu = Belső privát tárhely
     ja = アプリ固有のストレージ
     lt = Vidinė privati saugykla
+    lv = Iekšējā privātā krātuve
     mt = Ħażna internali privata
     nb = Intern privat lagring
     nl = Intern persoonlijk geheugen
@@ -2515,6 +2569,7 @@
     hu = Belső közös tárhely
     ja = 共有ストレージ
     lt = Vidinė bendra saugykla
+    lv = Iekšējā kopīgā krātuve
     mt = Ħażna internali maqsuma
     nb = Intern delt lagring
     nl = Intern gedeeld geheugen
@@ -2548,6 +2603,7 @@
     hu = SD-kártya
     ja = SDカード
     lt = SD kortelė
+    lv = SD karte
     mt = Karta SD
     nb = SD-kort
     nl = SD-kaart
@@ -2581,6 +2637,7 @@
     hu = Külső közös tárhely
     ja = 外部ストレージ
     lt = Išorinė bendra saugykla
+    lv = Ārējā kopīgā krātuve
     mt = Ħażna esterna maqsuma
     nb = Ekstern delt lagring
     nl = Extern gedeeld geheugen
@@ -2614,6 +2671,7 @@
     hu = %1$@ szabad %2$@-ból
     ja = %2$@ のうち %1$@ の空き容量
     lt = %1$@ laisva iš %2$@
+    lv = %1$@ brīva vieta no %2$@
     mt = %1$@ b' xejn min %2$@
     nb = %1$@ ledig av %2$@
     nl = %1$@ beschikbaar van %2$@
@@ -2654,6 +2712,7 @@
     ja = マップを移動しますか？
     ko = 지도를 이동합니까?
     lt = Perkelti žemėlapius?
+    lv = Vai kartes pārvietot?
     mr = नकाशे हलवायचे?
     mt = Iċċaqlaq il-mapep?
     nb = Flytt kart?
@@ -2692,6 +2751,7 @@
     hu = Hiba történt a térképfájlok áthelyezése közben
     ja = マップ移動中にエラーが発生
     lt = Klaida perkeliant žemėlapio failus
+    lv = Kļūda, pārvietojot kartes datnes
     mt = Errur waqt it-tmexxija tal-fajls tal-mapep
     nb = Kunne ikke flytte kart
     nl = Fout bij het verplaatsen van kaartbestanden
@@ -2732,6 +2792,7 @@
     ja = 数分かかる場合があります。\nしばらくお待ち下さい…
     ko = 이 작업은 수 분 소요될 수 있습니다.\n잠시 기다리세요…
     lt = Tai gali užtrukti kelias minutes.\nLuktelėkite…
+    lv = Tas var aizņemt vairākas minūtes.\nUzgaidiet…
     mr = यास काही मिनिटे लागू शकतात.\nकृपया प्रतीक्षा करा…
     mt = Din tista tieħu diversi minuti. \nJekk jogħġbok stenna…
     nb = Dette kan ta flere minutter. Vent et øyeblikk …
@@ -2778,6 +2839,7 @@
     ja = 距離の単位
     ko = 측정 단위
     lt = Matavimo vienetai
+    lv = Mērvienības
     mr = मापन एकके
     mt = Unitajiet tal-kejl
     nb = Måleenheter
@@ -2825,6 +2887,7 @@
     ja = マイルまたはキロメートルを選択
     ko = 마일과 킬로미터 중에서 선택하십시오
     lt = Pasirinkite tarp mylių ir kilometrų
+    lv = Izvēlieties starp jūdzēm un kilometriem
     mr = मैल की किलोमीटर ह्यामध्ये निवडा
     mt = Għażel bejn mili u kilometri
     nb = Velg mellom miles og kilometer
@@ -2873,6 +2936,7 @@
     ja = 食事場所
     ko = 어디서먹을까
     lt = Kur valgyti
+    lv = Kur paēst
     mr = जेवायचे ठिकाण
     mt = Għażel fejn tiekol
     nb = Spisesteder
@@ -2920,6 +2984,7 @@
     ja = 食料雑貨
     ko = 식료품들
     lt = Bakalėjos
+    lv = Pārtikas preces
     mr = किराणा
     mt = Tal-Merċa
     nb = Dagligvarer
@@ -2967,6 +3032,7 @@
     ja = 交通機関
     ko = 수송
     lt = Transportas
+    lv = Transports
     mr = वाहतूक
     mt = Trasport
     nb = Transport
@@ -3014,6 +3080,7 @@
     ja = ガソリンスタンド
     ko = 연료
     lt = Degalai
+    lv = Degvielas uzpildes stacija
     mr = पेट्रोल
     nb = Drivstoff
     nl = Benzine
@@ -3059,6 +3126,7 @@
     ja = 駐車場
     ko = 주차
     lt = Parkingas
+    lv = Autostāvvieta
     mr = वाहनतळ
     mt = Parkeġġ
     nb = Parkering
@@ -3105,6 +3173,7 @@
     ja = ショッピング
     ko = 쇼핑
     lt = Apsipirkimas
+    lv = Iepirkšanās
     mr = खरेदी
     mt = Xiri
     nb = Shopping
@@ -3150,6 +3219,7 @@
     it = Di seconda mano
     ja = 中古品
     ko = 중고
+    lv = Lietotas preces
     mr = वापरलेले
     nb = Brukt
     nl = Tweedehands
@@ -3196,6 +3266,7 @@
     ja = ホテル
     ko = 호텔
     lt = Viešbutis
+    lv = Viesnīca
     mr = मुक्कामगृह
     mt = Lukanda
     nb = Hotell
@@ -3242,6 +3313,7 @@
     ja = 観光
     ko = 관광
     lt = Įžymybės
+    lv = Apskates objekti
     mr = पर्यटन
     mt = Siti
     nb = Severdigheter
@@ -3288,6 +3360,7 @@
     ja = エンターテイメント
     ko = 엔터테인먼트
     lt = Pramogos
+    lv = Izklaide
     mr = मनोरंजन
     mt = Divertiment
     nb = Underholdning
@@ -3334,6 +3407,7 @@
     ja = ATM
     ko = ATM
     lt = Bankomatas
+    lv = Bankomāts
     mr = ATM
     mt = ATM
     nb = Minibank
@@ -3380,6 +3454,7 @@
     ja = ナイトライフ
     ko = 유흥
     lt = Naktinis gyvenimas
+    lv = Naktsdzīve
     mr = नाईटलाईफ
     mt = Ħajja tal-lejl
     nb = Nattliv
@@ -3427,6 +3502,7 @@
     ja = 家族の休日
     ko = 가족 기념일
     lt = Šeimos atostogos
+    lv = Atpūta ģimenei
     mr = कौटुंबिक सुट्टी
     mt = Vaganza tal-Familja
     nb = Familieferie
@@ -3474,6 +3550,7 @@
     ja = 銀行
     ko = 은행
     lt = Bankas
+    lv = Banka
     mr = बँक
     mt = Bank
     nb = Bank
@@ -3520,6 +3597,7 @@
     ja = 薬局
     ko = 약국
     lt = Vaistinė
+    lv = Aptieka
     mr = औषधालय
     mt = Spiżerija
     nb = Apotek
@@ -3566,6 +3644,7 @@
     ja = 病院
     ko = 병원
     lt = Ligoninė
+    lv = Slimnīca
     mr = रुग्णालय
     mt = Sptar
     nb = Sykehus
@@ -3613,6 +3692,7 @@
     ja = トイレ
     ko = 화장실
     lt = Tualetas
+    lv = Tualete
     mr = शौचालय
     mt = Loki
     nb = Toalett
@@ -3659,6 +3739,7 @@
     ja = 郵便局
     ko = 우편
     lt = Paštas
+    lv = Pasts
     mr = टपाल
     mt = Uffiċċju postali
     nb = Post
@@ -3705,6 +3786,7 @@
     ja = 警察
     ko = 치안대
     lt = Policija
+    lv = Policija
     mr = पोलीस
     mt = Puliżija
     nb = Politi
@@ -3750,6 +3832,7 @@
     ja = 無線LAN
     ko = WiFi 인터넷
     lt = WiFi
+    lv = WiFi
     mr = WiFi
     mt = WiFi
     nb = WiFi
@@ -3796,6 +3879,7 @@
     ja = リサイクル
     ko = 재활용
     lt = Perdirbimas
+    lv = Pārstrāde
     mr = भंगारवाला
     mt = Riċiklaġġ
     nb = Resirkulering
@@ -3843,6 +3927,7 @@
     ja = 水
     ko = 물
     lt = Vanduo
+    lv = Ūdens
     mr = पाणी
     mt = Ilma
     nb = Vann
@@ -3890,6 +3975,7 @@
     ja = RV用
     ko = RV용
     lt = Rekreacinio transporto aikštelės
+    lv = Dzīvojamo auto labierīcības
     mt = Faċilitajiet tal-RV
     nb = Bobilanlegg
     nl = Caravanfaciliteiten
@@ -3938,6 +4024,7 @@
     ja = メモ
     ko = 메모
     lt = Užrašai
+    lv = Piezīmes
     mr = चिठ्ठया
     mt = Noti
     nb = Merknader
@@ -3982,6 +4069,7 @@
     ja = Organic Mapsのお気に入りリストが共有されました
     ko = 귀하와 공유된 Organic Maps 즐겨찾기
     lt = Su jumis bendrinamas Organic Maps adresynas
+    lv = Ar jums kopīgoja „Oranic Maps“ grāmatzīmes
     mr = Organic Maps द्वारे तुम्हाला खूणपत्रे सामायिक केले
     mt = Organic Maps bookmarks maqsuma miegħek
     nb = Delte Organic Maps-bokmerker
@@ -4019,6 +4107,7 @@
     it = Ciao!\n\nIn allegato ci sono i miei luoghi preferiti. Aprili se hai installato Organic Maps. Oppure, se non ce l'hai, scarica l'app per iOS o Android seguendo questo link: https://omaps.app/\n\nDivertiti a viaggiare con Organic Maps!
     ja = こんにちは！\n\n添付ファイルOrganic Mapsのお気に入りリストです。もしインストールされていない場合はここからダウンロードができます： https://omaps.app/get?kmz\n\n旅行を楽しむときはOrganic Mapsを使用してください!
     lt = Labas!\n\nČia prisegtas mano adresynas iš Organic Maps programėlės. Atidaryk jį, jei esi įdiegęs Organic Maps, arba atsisiųsk programėlę savo iOS arba Android įrenginyje su šią nuorodą: https://omaps.app/get?kmz\n\Mėgaukis keliavimu su Organic Maps!
+    lv = Sveiki!\n\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās „Organic Maps“ lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://omaps.app/get?kmz\n\nBaudiet ceļošanu ar „Oranic Maps“!
     mr = नमस्कार!\n\nOrganic Maps ऍप मधील माझे खूणपत्रे संलग्न केले आहेत. तुम्ही Organic Maps इन्स्टॉल केले असल्यास हे खूणपत्रे उघडा. इन्स्टॉल केले नसल्यास, पुढील दुव्यावर जाऊन तुमच्या iOS किंवा अँड्रॉइड उपकरणावर हे डाउनलोड करा: https://omaps.app/get?kmz\n\nOrganic Maps सह प्रवासाचा आनंद घ्या!
     mt = Helow!\n\nMehmuża huma il-bookmarks; iftaħhom ġo Organic Maps. Jekk mhuwiex installat tista tniżżlu min hawn: https://omaps.app/get?kmz\n\nĦu pjaċir ivvjaġġa ġo Organic Maps!
     nb = Hei!\n\nVedlagt er mine bokmerker fra Organic Maps-appen. Åpne de dersom du har Organic Maps installert. Har du ikke har det, last ned appen til iOS eller Android ved å trykke på denne linken: https://omaps.app/get?kmz\n\nNyt reisen med Organic Maps!
@@ -4062,6 +4151,7 @@
     ja = お気に入りをロード中
     ko = 즐겨찾기 로드
     lt = Įkeliamas adresynas
+    lv = Ielādē grāmatzīmes
     mr = खूणपत्रे वाचत आहे
     mt = Tgħobijja tal-bookmarks
     nb = Laster inn bokmerker
@@ -4108,6 +4198,7 @@
     ja = お気に入りをロードできました。 お気に入りはマップ上、またはお気に入り管理画面に表示されます。
     ko = 즐겨찾기가 성공적으로 로드되었습니다! 지도 또는 즐겨찾기 관리자 화면에서 찾으실 수 있습니다.
     lt = Adresynas įkeltas! Galite rasti jį žemėlapyje arba adresyno tvarkytuvės ekrane.
+    lv = Grāmatzīmes ir ielādētas! Tās varat atrast kartē un grāmatzīmju pārvaldīšanas ekrānā.
     mr = खूणपत्रे वाचून झाले! ते तुम्ही नकाशावर किंवा खूणपत्र व्यवस्थापक पटलावर पाहू शकता.
     mt = Bookmarks mgħobbija b'suċċess!Tista issibhom ġol-mappa jew fuq l-iskrin tal-Maniġer tal-Bookmarks.
     nb = Bokmerkene ble lastet inn! Du finner dem på kartet eller på skjermen «Bokmerkeadministrasjon».
@@ -4154,6 +4245,7 @@
     ja = お気に入りのロードに失敗しました。ファイルが破損していた、または問題があった可能性があります。
     ko = 즐겨찾기 업로드가 실패했습니다. 파일이 훼손되었거나 결함이 있을지도 모릅니다.
     lt = Nepavyko įkelti adresyno. Failas gali būti pažeistas.
+    lv = Grāmatzīmes ielādēt neizdevās. Iespējams, datne ir bojāta.
     mr = खूणपत्रे वाचण्यात अपयश. फाइल दूषित किंवा बिघडलेली असू शकते.
     mt = It-tgħobbija tal-bookmarks falliet. Il-fajl jista jkun korrott jew difettuż.
     nb = Opplasting av bokmerker mislyktes. Filen kan være skadet eller defekt.
@@ -4200,6 +4292,7 @@
     ja = ファイルタイプがアプリに認識されない：\n%1$@
     ko = 파일 형식이 앱에서 인식되지 않습니다:\n%1$@
     lt = Programa neatpažįsta failo tipo:\n%1$@
+    lv = Lietotne neatpazīst datnes tipu:\n%1$@
     mr = फाइल प्रकार ॲपद्वारे ओळखला जात नाही:\n%1$@
     mt = It-tip tal-fajl mhuwiex rikonoxxut mill-applikazzjoni:\n%1$@
     nb = Filtypen gjenkjennes ikke av appen:\n%1$@
@@ -4248,6 +4341,7 @@
     ja = ファイルを開けなかった %1$@\n\n%2$@
     ko = 파일을 열지 못했습니다 %1$@\n\n%2$@
     lt = Nepavyko atidaryti failo %1$@\n\n%2$@
+    lv = Neizdevās atvērt datni %1$@\n\n%2$@
     mr = फाइल उघडण्यात अयशस्वी%1$@\n\n%2$@
     mt = Il-fajl falla biex jiftaħ %1$@\n\n%2$@
     nb = Kunne ikke åpne filen %1$@\n\n%2$@
@@ -4295,6 +4389,7 @@
     ja = 編集
     ko = 편집
     lt = Redaguoti
+    lv = Rediģēt
     mr = संपादन
     mt = Editja
     nb = Rediger
@@ -4341,6 +4436,7 @@
     ja = 現在の座標が未確定です
     ko = 귀하의 위치를 아직 알아내지 못 했습니다
     lt = Jūsų vieta dar nenustatyta
+    lv = Jūsu atrašanās vieta vēl nav noteikta
     mr = तुमचे स्थान अद्याप निश्चित केलेले नाही
     mt = Il-lokażżjoni tiegħek mhuwiex determinat s'issa
     nb = Posisjonen din har ikke blitt fastslått enda
@@ -4387,6 +4483,7 @@
     ja = 恐れ入りますが、マップストレージ設定が無効になっています。
     ko = 죄송합니다, 지도 스토리지 설정이 비활성화되어 있습니다.
     lt = Atsiprašome, šiuo metu žemėlapio saugyklos nustatymai yra išjungti.
+    lv = Atvainojamies, bet kartes saglabāšanas iestatījumi šobrīd ir izslēgti.
     mr = क्षमस्व, नकाशा साठवायचे सेटिंग सध्या बंद आहेत.
     mt = Jiddispjaċini, is-settings tal-Ħażna tal-Mappa huma mitfija bħalissa.
     nb = Beklager, innstillingene for kartlagring er for øyeblikket deaktivert.
@@ -4433,6 +4530,7 @@
     ja = ダウンロード中です
     ko = 국가 다운로드가 지금 진행 중입니다.
     lt = Vyksta žemėlapio atsisiuntimas.
+    lv = Notiek kartes lejupielāde.
     mr = नकाशा डाउनलोड होत आहे
     mt = It-tniżżil tal-mappa għaddej bħalissa.
     nb = Nedlasting av land pågår nå.
@@ -4478,6 +4576,7 @@
     ja = Organic Maps で私の現在地が見れます！%1$@ または %2$@ オフラインマップはまだインストールしていないですか？ここからダウンロード： https://omaps.app/get
     ko = 현재 위치를 알아 보십시오. %1$@ 또는 %2$@ 열기
     lt = Labas, pažvelk į mano dabartinę vietą Organic Maps! %1$@ arba %2$@ Neturi atjungtinių žemėlapių? Atsisiųsk čia: https://omaps.app/get
+    lv = Apskatiet manu atrašanās vietu „Organic Maps“ lietotnē! %1$@ vai %2$@ Vai Jums nav nesaistes kartes? Lejupielādējiet to: https://omaps.app/get
     mr = मी आता इथे आहे %1$@ किंवा %2$@ Organic Maps डाउनलोड करा: https://omaps.app/get
     mt = Ara il-lokażżjoni kurrenti tiegħi ġo Organic Maps! %1$@ or %2$@ M'għandekx mapep offlajn? Niżżel hawn: https://omaps.app/get
     nb = Hei, se posisjonen min på Organic Maps! %1$@ eller %2$@ Har du ikke offline-kart? Last dem ned her: https://omaps.app/get
@@ -4523,6 +4622,7 @@
     ja = Organic Mapsでピン情報を確認
     ko = Organic Maps 지도에서 내 핀 보기
     lt = Labas, pažvelk, ką aš prisegiau Organic Maps!
+    lv = Hei, apskatiet manu grāmatzīmi „Organic Maps“ kartē!
     mr = Organic Maps द्वारे एक खूणपत्र पाठवत आहे!
     mt = Merħba, ara il-pin tiegħi fuq Organic Maps!
     nb = Hei, se merket mitt på Organic Maps-kartet
@@ -4568,6 +4668,7 @@
     ja = Organic Mapsで現在地を確認
     ko = Organic Maps 지도에서 제 현재 위치를 살펴 보시기 바랍니다
     lt = Labas, pažvelk į mano dabartinę vietą Organic Maps žemėlapyje!
+    lv = Hei, apskati manu atrašanās vietu „Oganic Maps“ kartē!
     mr = Organic Maps द्वारे माझे वर्तमान स्थान पाठवत आहे!
     mt = Merħba, ara il-lokażżjoni kurrenti tiegħi fuq il-mappa ta'Organic Maps!
     nb = Hei, se posisjonen min på Organic Maps-kartet!
@@ -4613,6 +4714,7 @@
     ja = 私の現在地はここ: %1$@\n\nリンクをクリックすると詳細がマップに表示されます。\n\n%2$@\n\n%3$@
     ko = 안녕하세요.\n\n지금 다음 위치에 있습니다: %1$@. %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.
     lt = Labas,\nŠiuo metu esu čia: %1$@. Spustelėk ant %2$@ arba %3$@, kad pamatytum mano vietą žemėlapyje.\n\nAčiū.
+    lv = Hei,\n\nŠobrīd atrodos te: %1$@. Spied uz šīs %2$@ vai šīs %3$@ saites, lai kartē redzētu manu atrašanās vietu.\n\nPaldies!
     mr = नमस्कार,\n\nमी आता इथे आहे: %1$@. नकाशावर ठिकाण पाहण्यासाठी या %2$@ किंवा या %3$@ वर क्लिक करा.\n\nआभारी.
     mt = Merħba, \n\nJien qiegħed hawn: %1$@. Għaffas din il-link %2$@ jew fuq din %3$@ biex tara il-post fuq il-mappa.\n\nGrazzi.
     nb = Hei,Jeg er her nå: %1$@. Klikk på denne koblingen %2$@ eller denne %3$@ for å se stedet på kartet.\n\nTakk.
@@ -4659,6 +4761,7 @@
     ja = 共有
     ko = 공유
     lt = Bendrinti
+    lv = Kopīgot
     mr = सामायिक
     mt = Aqsam
     nb = Del
@@ -4705,6 +4808,7 @@
     ja = Eメール
     ko = 이메일
     lt = El. paštas
+    lv = E-pasts
     mr = ई-मेल
     mt = E-mejl
     nb = E-post
@@ -4751,6 +4855,7 @@
     ja = クリップボードにコピーしました: %@
     ko = 클립보드에 복사됨: %@
     lt = Nukopijuota į iškarpinę: %@
+    lv = Nokopēts starpliktuvē: %@
     mr = क्लिपबोर्डावर कॉपी केले: %@
     nb = Kopiert til utklippstavlen: %@
     nl = Naar het klembord gekopieerd: %@
@@ -4796,6 +4901,7 @@
     ja = 情報
     ko = 정보
     lt = Informacija
+    lv = Informācija
     mr = माहिती
     nb = Informasjon
     nl = Info
@@ -4841,6 +4947,7 @@
     ja = 完了
     ko = 완료
     lt = Baigta
+    lv = Pabeigts
     mr = झाले
     nb = Ferdig
     nl = Klaar
@@ -4886,6 +4993,7 @@
     ja = Organic Mapsバージョン: %@
     ko = Organic Maps 버전: %@
     lt = Organic Maps versija: %@
+    lv = „Organic Maps“ versija: %@
     mr = Organic Maps आवृत्ती: %@
     nb = Organic Maps versjon: %@
     nl = Organic Maps versie: %@
@@ -4931,6 +5039,7 @@
     ja = OpenStreetMapデータ：%@
     ko = OpenStreetMap 데이터: %@
     lt = OpenStreetMap duomenys: %@
+    lv = „OpenStreetMap“ dati: %@
     mr = OpenStreetMap डेटा: %@
     nb = OpenStreetMap-data: %@
     nl = OpenStreetMap-gegevens: %@
@@ -4977,6 +5086,7 @@
     ja = 本当にOpenStreetMapアカウントからログアウトしますか？
     ko = 오픈스트리트맵 계정에서 로그아웃하시겠습니까?
     lt = Ar tikrai norite atsijungti nuo "OpenStreetMap" paskyros?
+    lv = Vai tiešām vēlaties izrakstīties no „OpenStreetMap“ konta?
     mr = तुमची खात्री आहे की तुम्ही तुमच्या OpenStreetMap खात्यातून लॉग आउट करू इच्छिता?
     nb = Er du sikker på at du vil logge ut av OpenStreetMap-kontoen din?
     nl = Weet u zeker dat u wilt uitloggen uit uw OpenStreetMap account?
@@ -5023,6 +5133,7 @@
     ja = トラック
     ko = 트랙
     lt = Takai
+    lv = Ceļi
     mr = ट्रॅक
     nb = Ruter
     nl = Tracks
@@ -5068,6 +5179,7 @@
     ja = 距離
     ko = 길이
     lt = Ilgis
+    lv = Garums
     mr = लांबी
     nb = Lengde
     nl = Lengte
@@ -5112,6 +5224,7 @@
     ja = 現在地を共有する
     ko = 내 위치 공유
     lt = Bendrinti mano vietą
+    lv = Kopīgot manu atrašanās vietu
     mr = माझे स्थान सामायिक करा
     nb = Del posisjonen min
     nl = Deel mijn locatie
@@ -5153,6 +5266,7 @@
     it = Opzioni generali
     ja = 一般
     lt = Bendrieji nustatymai
+    lv = Pamata iestatījumi
     mr = सर्वसामान्य सेटिंग
     nb = Generelle instillinger
     nl = Algemene instellingen
@@ -5192,6 +5306,7 @@
     it = Informazioni
     ja = 情報
     lt = Informacija
+    lv = Informācija
     mr = माहिती
     nb = Informasjon
     nl = Informatie
@@ -5233,6 +5348,7 @@
     ja = ナビゲーション
     ko = 네비게이션
     lt = Navigacija
+    lv = Navigācija
     mr = मार्गनिर्देशन
     nb = Navigasjon
     nl = Navigatie
@@ -5277,6 +5393,7 @@
     ja = ズームボタン
     ko = 확대/축소 버튼
     lt = Mastelio mygtukai
+    lv = Tālummaiņas pogas
     mr = झूम बटणे
     nb = Zoom-knapper
     nl = Zoomknoppen
@@ -5321,6 +5438,7 @@
     ja = 画面上に表示
     ko = 화면에 표시
     lt = Rodyti žemėlapyje
+    lv = Rādīt kartē
     mr = नकाशावर दाखवा
     nb = Vis på skjermen
     nl = Toon op de kaart
@@ -5366,6 +5484,7 @@
     ja = 夜間モード
     ko = 나이트 모드
     lt = Nakties režimas
+    lv = Nakts režīms
     mr = रात्र मोड
     nb = Nattmodus
     nl = Nachtmodus
@@ -5409,6 +5528,7 @@
     ja = 外観
     ko = 모양
     lt = Išvaizda
+    lv = Izskats
     mr = प्रतिमा
     nb = Utseende
     nl = Weergave
@@ -5453,6 +5573,7 @@
     ja = ライト
     ko = 라이트
     lt = Šviesus
+    lv = Gaišs
     mr = प्रकाश
     nb = Lys
     nl = Licht
@@ -5497,6 +5618,7 @@
     ja = ダーク
     ko = 다크
     lt = Tamsus
+    lv = Tumšs
     mr = अंधार
     nb = Mørke
     nl = Donker
@@ -5541,6 +5663,7 @@
     ja = オフ
     ko = 끄기
     lt = Išjungtas
+    lv = Izslēgts
     mr = बंद
     nb = Av
     nl = Uit
@@ -5585,6 +5708,7 @@
     ja = オン
     ko = 켜기
     lt = Įjungtas
+    lv = Ieslēgts
     mr = चालू
     nb = På
     nl = Aan
@@ -5630,6 +5754,7 @@
     ja = 自動
     ko = 자동
     lt = Automatinis
+    lv = Automātisks
     mr = स्वयं
     nb = Auto
     nl = Automatisch
@@ -5676,6 +5801,7 @@
     ja = パースペクティブ表示
     ko = 원근 보기
     lt = Perspektyvinė peržiūra
+    lv = Perspektīvas skats
     mr = यथार्थ दृश्य
     nb = Perspektivvisning
     nl = Perspectiefbeeld
@@ -5721,6 +5847,7 @@
     ja = 3Dビル
     ko = 주변 건물 3D
     lt = 3D pastatai
+    lv = 3D ēkas
     mr = त्रिमिती (3D) इमारती
     nb = Bygninger i 3D
     nl = 3D-gebouwen
@@ -5766,6 +5893,7 @@
     ja = 省電力モードで建物の 3D 表示がオフになっている
     ko = 3D 빌딩은 절전 모드에서 꺼집니다.
     lt = 3D pastatai yra išjungti energijos taupymo režime
+    lv = Energotaupības režīmā 3D ēkas ir izslēgtas
     mr = 3D इमारती वीज बचत मोडमध्ये बंद केल्या आहेत
     nb = 3D-bygninger er slått av i strømsparingsmodus
     nl = 3D-gebouwen worden uitgeschakeld in de energiebesparende modus
@@ -5812,6 +5940,7 @@
     ja = 音声指示
     ko = 음성 지침
     lt = Balso instrukcijos
+    lv = Balss instrukcijas
     mr = ध्वनी सूचना
     nb = Taleinstrukser
     nl = Gesproken instructies
@@ -5856,6 +5985,7 @@
     it = Annunciare i nomi delle strade
     ja = 通りの名前を発表
     ko = "거리 이름 발표"
+    lv = Izrunāt ielu nosaukumus
     nb = Kunngjør gatenavn
     nl = Straatnamen aankondigen
     pl = Wymawiaj nazwy ulic
@@ -5898,6 +6028,7 @@
     it = Se abilitato, verrà pronunciato ad alta voce il nome della via o dell'uscita in cui svoltare.
     ja = 有効にすると、右折する通りまたは出口の名前が読み上げられます。
     ko = "사용하도록 설정하면 회전할 거리 또는 출구의 이름을 소리내어 말합니다."
+    lv = Kad ieslēgts, ielas vai ceļa nobrauktuves nosaukumu skaļi izrunās.
     nb = Når aktivert, vil navnet på gaten eller avkjørselen du skal svinge inn på, bli lest opp.
     nl = Indien ingeschakeld, wordt de naam van de straat of afrit waar u afslaat hardop uitgesproken.
     pl = Po włączeniu nazwa ulicy lub zjazdu, w który należy skręcić, zostanie wymówiona na głos.
@@ -5943,6 +6074,7 @@
     ja = 音声言語
     ko = 음성 언어
     lt = Balso kalba
+    lv = Balss valoda
     mr = ध्वनी भाषा
     nb = Talespråk
     nl = Gesproken taal
@@ -5987,6 +6119,7 @@
     it = Prova le indicazioni vocali (TTS, Text-To-Speech)
     ja = 音声案内をテストする（TTS、Text-To-Speech）
     ko = 음성 길 안내 테스트(TTS, 텍스트 음성 변환)
+    lv = Pārbaudīt balss norādes (TTS, teksta pārvēršana runā)
     mr = चाचणी आवाज दिशानिर्देश (TTS, टेक्स्ट-टू-स्पीच)
     nb = Test taleanvisninger (TTS, tekst-til-tale)
     nl = Test gesproken aanwijzingen (TTS, Text-To-Speech)
@@ -6032,6 +6165,7 @@
     it = Controlla il volume o le impostazioni del sistema di sintesi vocale se ora non senti la voce.
     ja = 音声が聞こえない場合は、音量またはシステムの音声合成設定を確認する。
     ko = 지금 음성이 들리지 않으면 볼륨 또는 시스템 텍스트 음성 변환 설정을 확인하세요.
+    lv = Ja nedzirdat balsi, pārbaudiet skaļumu vai teksta pārvēršanas runā iestatījumus.
     mr = तुम्हाला आता आवाज ऐकू येत नसल्यास व्हॉल्यूम किंवा सिस्टम टेक्स्ट-टू-स्पीच सेटिंग्ज तपासा.
     nb = Kontroller volumet eller systeminnstillingene for tekst-til-tale hvis du ikke hører stemmen nå.
     nl = Controleer het volume of de tekst-naar-spraak instellingen van het systeem als je de stem nu niet hoort.
@@ -6078,6 +6212,7 @@
     ja = 利用不可
     ko = 사용할 수 없음
     lt = Neprieinama
+    lv = Nav pieejama
     mr = उपलब्ध नाही
     nb = Ikke tilgjengelig
     nl = Niet beschikbaar
@@ -6123,6 +6258,7 @@
     ja = その他
     ko = 다른 언어
     lt = Kita
+    lv = Cita
     mr = इतर
     nb = Andre
     nl = Andere
@@ -6167,6 +6303,7 @@
     ja = 自動ズーム
     ko = 자동 줌
     lt = Automatinis mastelis
+    lv = Automātisks mērogs
     mr = स्वयं झूम
     nb = Automatisk zooming
     nl = Automatisch zoomen
@@ -6210,6 +6347,7 @@
     ja = 距離
     ko = 거리
     lt = Atstumas
+    lv = Attālums
     mr = अंतर
     nb = Avstand
     nl = Afstand
@@ -6254,6 +6392,7 @@
     ja = 地図に表示
     ko = 지도 보기
     lt = Rodyti žemėlapyje
+    lv = Rādīt kartē
     mr = नकाशावर पहा
     nb = Vis på kartet
     nl = Bekijk op de kaart
@@ -6287,6 +6426,7 @@
     hi = मेन्यू
     ja = メニュー
     lt = Meniu
+    lv = Izvēlne
     nb = Meny
     pl = Menu
     ru = Меню
@@ -6322,6 +6462,7 @@
     ja = ウェブサイト
     ko = 웹사이트
     lt = Svetainė
+    lv = Tīmekļa vietne
     mr = संकेतस्थळ
     nb = Nettside
     nl = Website
@@ -6367,6 +6508,7 @@
     ja = ニュース
     ko = 소식
     lt = Naujienos
+    lv = Jaunumi
     mr = बातम्या
     nb = Nyheter
     nl = Nieuws
@@ -6476,6 +6618,7 @@
     ja = フィードバック
     ko = 피드백
     lt = Atsiliepimas
+    lv = Atsauksmes
     mr = अभिप्राय
     nb = Tilbakemelding
     nl = Feedback
@@ -6521,6 +6664,7 @@
     ja = アプリを評価
     ko = 앱 평가
     lt = Įvertinkite programėlę
+    lv = Novērtējiet lietotni
     mr = ऍप मानांकित करा
     nb = Ranger appen
     nl = Beoordeel de app
@@ -6566,6 +6710,7 @@
     ja = ヘルプ
     ko = 도움말
     lt = Pagalba
+    lv = Palīdzība
     mr = मदत
     nb = Hjelp
     nl = Hulp
@@ -6611,6 +6756,7 @@
     ja = よくある質問
     ko = 질문과 답변
     lt = Dažniausiai užduodami klausimai
+    lv = Biežāk uzdotie jautājumi
     mr = वारंवार विचारलेले प्रश्न
     nb = Spørsmål og svar
     nl = Vragen en antwoorden
@@ -6656,6 +6802,7 @@
     ja = 寄付
     ko = 기부
     lt = Aukoti
+    lv = Ziedot
     nb = Donere
     nl = Doneer
     pl = Wspomóż
@@ -6702,6 +6849,7 @@
     ja = 寄付して最高の地図を一緒に作ろう！
     ko = 기부하여 최고의 지도를 함께 만들어 보세요!
     lt = Paaukokite, kad kartu sukurtume geriausius žemėlapius!
+    lv = Ziedojiet, lai kopā varam veidot vislabākās kartes!
     mr = एकत्र सर्वोत्तम नकाशे तयार करण्यासाठी देणगी द्या!
     nb = Doner for å bygge de beste kartene sammen!
     nl = Doneer om samen de beste kaarten te bouwen!
@@ -6748,6 +6896,7 @@
     ja = プロジェクトを支援する
     ko = 프로젝트 지원
     lt = Palaikykite projektą
+    lv = Atbalstiet projektu
     mr = प्रकल्पाला पाठठिंबा द्या
     nb = Støtt prosjektet
     nl = Steun het project
@@ -6794,6 +6943,7 @@
     ja = 著作権
     ko = 저작권
     lt = Autoriaus teisės
+    lv = Autortiesības
     mr = प्रकाशन अधिकार (कॉपीराईट)
     nb = Opphavsrett
     nl = Auteursrechten
@@ -6839,6 +6989,7 @@
     ja = バグを報告
     ko = 오류 신고
     lt = Pranešti klaidą
+    lv = Ziņot par kļūdu
     mr = त्रुटी कळवा
     nb = Rapporter en feil
     nl = Meld een fout
@@ -6885,6 +7036,7 @@
     ja = 誤った地図データを報告または修正する
     ko = 잘못된 지도 데이터 신고 또는 수정
     lt = Praneškite arba ištaisykite neteisingus žemėlapio duomenis
+    lv = Ziņojiet vai labojiet kļūdainus kartes datus
     mr = चुकीच्या नकाशा डेटाचा अहवाल द्या किंवा त्याचे निराकरण करा
     nb = Rapportere eller korrigere feil kartdata
     nl = Rapporteer of repareer onjuiste kaartgegevens
@@ -6932,6 +7084,7 @@
     ja = ボランティアに参加する
     ko = 자원봉사에 참여하려면
     lt = Savanoriauti
+    lv = Brīvprātīgi palīdzēt
     mr = स्वयंसेवक करण्यासाठी
     nb = Frivillig arbeid
     nl = Vrijwilligerswerk
@@ -6979,6 +7132,7 @@
     ja = フォローして連絡しよう：
     ko = 팔로우하고 문의하세요:
     lt = Sekite ir susisiekite su mumis:
+    lv = Sekojiet un sazinieties ar mums:
     mr = अनुसरण करा आणि आमच्याशी संपर्क साधा:
     nb = Følg og kontakt oss:
     nl = Volg ons en neem contact met ons op:
@@ -7025,6 +7179,7 @@
     ja = メールアプリは設定されていません。設定するか、%@にご連絡ください。
     ko = 이메일 클라이언트가 설정되지 않았습니다. 이를 구성하거나 %@로 연락할 다른 방법을 사용하십시오.
     lt = El. pašto paskyra nenustatyta. Ją sukonfigūruokite arba susisiekite kitu būdu: %@
+    lv = E-pasta klients nav sagatavots darbam. Konfigurējiet to vai sazinieties ar mums: %@
     mr = ईमेल वाहक सेट केलेले नाही. कृपया ते सेट करा किंवा वेगळ्या पद्धतीने आमच्याशी %@ वर संपर्क करा
     nb = E-postklienten har ikke blitt konfigurert. Konfigurer den eller bruk en annen måte å kontakte oss på %@
     nl = Het e-mailprogramma is niet ingesteld. Stel het programma in of neem contact met ons op via %@
@@ -7070,6 +7225,7 @@
     ja = メール送信エラー
     ko = 메일 전송 중 오류
     lt = Klaida siunčiant laišką
+    lv = Kļūda, nosūtot vēstuli
     mr = मेल पाठवताना त्रुटी
     nb = Feil ved sending av e-post
     nl = E-mail verzendfout
@@ -7115,6 +7271,7 @@
     ja = コンパスの調整
     ko = 나침반 보정
     lt = Kompaso kalibravimas
+    lv = Kompasa kalibrēšana
     mr = होकायंत्र अंशशोधन
     nb = Kompasskalibrering
     nl = Kompaskalibratie
@@ -7159,6 +7316,7 @@
     ja = 携帯電話を8の字に動かしてコンパスを較正することで、矢印の方向を改善します。
     ko = 나침반을 보정하기 위해 휴대폰을 8자 모양으로 움직여 화살표 방향을 개선하세요.
     lt = Patobulinkite rodyklės kryptį judindami telefoną aštuoniukės judesiu, kad kompasas būtų sukalibruotas.
+    lv = Uzlabojiet bultiņas virzienu, pārvietojot tālruni astoņniekā, kas kalibrēs kompasu.
     mr = कंपास कॅलिब्रेट करण्यासाठी फोनला आकृती-आठ मोशनमध्ये हलवून बाणाची दिशा सुधारा.
     nb = Forbedre pilretningen ved å bevege telefonen i en åttetallsbevegelse for å kalibrere kompasset.
     nl = Verbeter de richting van de pijl door de telefoon in een achtvormige beweging te bewegen om het kompas te kalibreren.
@@ -7203,6 +7361,7 @@
     ja = 携帯電話を8の字に動かしてコンパスを校正し、地図上の矢印の方向を固定します。
     ko = 휴대폰을 8자 모양으로 움직여 나침반을 보정하고 지도에서 화살표 방향을 수정합니다.
     lt = Judinkite telefoną aštuoniukės formos judesiu, kad sukalibruotumėte kompasą ir žemėlapyje nustatytumėte rodyklės kryptį.
+    lv = Pārvietojot tālruni astoņniekā, lai kalibrētu kompasu un labotu bultas virzienu kartē.
     mr = होकायंत्र कॅलिब्रेट करण्यासाठी आणि नकाशावर बाणाची दिशा निश्चित करण्यासाठी फोनला आकृती-आठ मोशनमध्ये हलवा.
     nb = Beveg telefonen i en åttetallsbevegelse for å kalibrere kompasset og fikse pilretningen på kartet.
     nl = Beweeg de telefoon in een achtvormige beweging om het kompas te kalibreren en de pijl op de kaart in de juiste richting te doen wijzen.
@@ -7248,6 +7407,7 @@
     ja = インターフェイスを見るには、もう一度地図をロングタップする。
     ko = 지도를 다시 길게 탭하면 인터페이스가 표시됩니다.
     lt = Dar kartą ilgai bakstelėkite žemėlapį, kad pamatytumėte sąsają
+    lv = Vēlreiz piespiediet un paturiet uz kartes, lai redzētu saskarni
     mr = इंटरफेस पाहण्यासाठी पुन्हा नकाशावर दीर्घ टॅप करा
     nb = Trykk lenge på kartet igjen for å se grensesnittet
     nl = Tik nogmaals lang op de kaart om de interface te zien
@@ -7292,6 +7452,7 @@
     ja = 全てをアップデート
     ko = 모두 업데이트
     lt = Naujinti viską
+    lv = Atjaunināt visu
     mr = सर्व अद्ययावत
     nb = Oppdater alle
     nl = Update alles
@@ -7337,6 +7498,7 @@
     ja = すべてキャンセル
     ko = 모두 취소
     lt = Atšaukti viską
+    lv = Atcelt visu
     mr = सर्व रद्द
     nb = Avbryt alle
     nl = Annuleer alles
@@ -7382,6 +7544,7 @@
     ja = ダウンロード済み
     ko = 다운로드
     lt = Atsisiųsta
+    lv = Lejupielādētās
     mr = डाउनलोड केले
     nb = Lastet ned
     nl = Gedownload
@@ -7425,6 +7588,7 @@
     ja = 利用可能
     ko = 사용 가능
     lt = Prieinama
+    lv = Pieejamas
     mr = उपलब्ध
     nb = Tilgjengelig
     nl = Beschikbaar
@@ -7469,6 +7633,7 @@
     ja = キューに追加済み
     ko = 대기
     lt = Eilėje
+    lv = Rindota
     mr = रांगेत
     nb = Lagt i kø
     nl = In de wachtrij
@@ -7512,6 +7677,7 @@
     ja = 現在地付近
     ko = 내 근처
     lt = Arti manęs
+    lv = Man tuvumā
     mr = माझ्या जवळ
     nb = I nærheten
     nl = Bij mij in de buurt
@@ -7556,6 +7722,7 @@
     ja = 地図
     ko = 지도
     lt = Žemėlapiai
+    lv = Kartes
     mr = नकाशे
     nb = Kart
     nl = Kaarten
@@ -7600,6 +7767,7 @@
     ja = 全てをダウンロード
     ko = 모두 다운로드
     lt = Atsisiųsti viską
+    lv = Lejupielādēt visu
     mr = सर्व डाउनलोड
     nb = Last ned alle
     nl = Download alles
@@ -7644,6 +7812,7 @@
     ja = ダウンロード中：
     ko = 다운로드 중:
     lt = Atsisiunčiama:
+    lv = Lejupielādē:
     mr = डाउनलोड करत आहे:
     nb = Laster ned:
     nl = Aan het downloaden:
@@ -7686,6 +7855,7 @@
     ja = 見つかりました
     ko = 검색 결과
     lt = Rasta
+    lv = Atrasts
     mr = आढळले
     nb = Funnet
     nl = Gevonden
@@ -7730,6 +7900,7 @@
     ja = を更新
     ko = 업데이트
     lt = Naujinti
+    lv = Atjaunināt
     mr = अद्ययावत करा
     nb = Oppdatering
     nl = Updaten
@@ -7774,6 +7945,7 @@
     ja = 失敗
     ko = 실패함
     lt = Nepavyko
+    lv = Neizdevās
     mr = अयशस्वी
     nb = Mislyktes
     nl = Mislukt
@@ -7818,6 +7990,7 @@
     ja = 地図を削除するにはナビゲーションを停止してください。
     ko = 지도를 삭제하시려면 길 찾기를 멈추세요.
     lt = Sustabdykite navigaciją, kad panaikintumėte žemėlapį.
+    lv = Lai dzēstu karti, apturiet navigāciju.
     mr = नकाशा मिटवण्यासाठी, मार्गनिर्देशन थांबवा
     nb = Stans navigeringen for å slette kartet.
     nl = Stop de navigatie om de kaart te verwijderen.
@@ -7862,6 +8035,7 @@
     ja = 一つの地図に完全に収まるルートのみ作成可能です。
     ko = 경로는 하나의 지도에 완전히 포함되도록만 생성할 수 있습니다.
     lt = Maršrutai gali būti sukurti, jei jie yra vieno regiono žemėlapio ribose.
+    lv = Maršrutus var izveidot, ja atrodas vienas reģiona kartes robežās.
     mr = केवळ एका प्रदेशाच्या नकाशामध्ये पूर्णपणे समाविष्ट असलेले मार्ग तयार केले जाऊ शकतात.
     nb = Det kan bare opprettes ruter som passer fullstendig innenfor ett enkelt kart.
     nl = Enkel routes die volledig in één kaart passen, kunnen gecreëerd worden.
@@ -7906,6 +8080,7 @@
     ja = 地図をダウンロード
     ko = 지도 다운로드
     lt = Atsisiųsti žemėlapį
+    lv = Lejupielādēt karti
     mr = नकाशा डाउनलोड करा
     nb = Last ned kartet
     nl = Download de kaart
@@ -7950,6 +8125,7 @@
     ja = 再試行
     ko = 반복
     lt = Bandyti dar kartą
+    lv = Mēģināt vēlreiz
     mr = पुनर्प्रयत्न
     nb = Gjenta
     nl = Probeer opnieuw
@@ -7994,6 +8170,7 @@
     ja = 地図を削除
     ko = 지도 삭제
     lt = Naikinti žemėlapį
+    lv = Dzēst karti
     mr = नकाशा काढून टाका
     nb = Slett kart
     nl = Verwijder kaart
@@ -8038,6 +8215,7 @@
     ja = 地図を更新
     ko = 지도 업데이트
     lt = Naujinti žemėlapį
+    lv = Atjaunināt karti
     mr = नकाशा अद्ययावत करा
     nb = Oppdater kart
     nl = Update kaart
@@ -8084,6 +8262,7 @@
     ja = Google Play位置情報サービス
     ko = Google Play 위치 서비스
     lt = Google Play vietos nustatymo paslaugos
+    lv = „Google Play“ vietas noteikšanas pakalpojumi
     mr = Google Play स्थान सेवा
     nb = Google Play Stedstjenester
     nl = Google Play-locatieservices
@@ -8130,6 +8309,7 @@
     ja = Bluetooth、WiFi、またはモバイルネットワーク経由で、おおよその位置を素早く特定する
     ko = 블루투스, WiFi 또는 모바일 네트워크를 통해 대략적인 위치를 빠르게 파악할 수 있습니다
     lt = Greitai nustatykite apytikslę savo buvimo vietą per "Bluetooth", "WiFi" arba mobilųjį tinklą
+    lv = Ātri nosakiet atrašanās vietu, izmantojot „Bluetooth“, „WiFi“ vai mobilo tīklu
     mr = ब्लूटूथ, वायफाय किंवा मोबाइल नेटवर्क वापरून तुमचे अंदाजे स्थान द्रुतपणे निर्धारित करा
     nb = Finn raskt ut din omtrentlige posisjon via Bluetooth, WiFi eller mobilnettverk
     nl = Bepaal snel je locatie bij benadering via Bluetooth, WiFi of een mobiel netwerk
@@ -8176,6 +8356,7 @@
     ja = ルート上の地図をダウンロード
     ko = 경로를 따라 지도 다운로드
     lt = Atsisųsti visus žemėlapius palei jūsų maršrutą
+    lv = Lejupielādēt visas maršruta kartes
     mr = तुमच्या मार्गावरील सर्व नकाशे डाउनलोड करा
     nb = Last ned kart langs ruten
     nl = Download kaarten op de route
@@ -8221,6 +8402,7 @@
     ja = ルートの作成には現在位置から目的地までのすべての地図をダウンロードし、最新のものにする必要があります。
     ko = 경로를 만드는 것은 사용자의 위치에서의 모든 지도를 다운로드되고 업데이트된 대상으로 필요합니다.
     lt = Jei norite sukurti maršrutą, jums reikės atsisiųsti ir atnaujinti visus žemėlapius iš jūsų vietos ir tikslo.
+    lv = Lai izveidotu maršrutu, lejupielādējiet un atjauniniet visas kartes no jūsu atrašanās vietas līdz galamērķim.
     mr = मार्ग तयार करण्यासाठी आम्हाला तुमच्या स्थानापासून तुमच्या इष्टस्थानापर्यंताचे सर्व नकाशे डाउनलोड करून अद्ययावत करावे लागतील.
     nb = Når du skal opprette en rute må du ha oppdatert alle kartene fra ditt ståsted til din destinasjon.
     nl = Voor het creëren van een route is het nodig dat alle kaarten van uw locatie naar uw bestemming gedownload en bijgewerkt zijn.
@@ -8265,6 +8447,7 @@
     ja = 空き容量が足りません
     ko = 여유 공간 부족
     lt = Nepakanka vietos
+    lv = Trūkst vietas
     mr = पुरेशी जागा नाही
     nb = Ikke nok ledig minne
     nl = Niet genoeg ruimte
@@ -8309,6 +8492,7 @@
     ja = お気に入り
     ko = 북마크
     lt = adresynas
+    lv = grāmatzīme
     mr = खूणपत्र
     nb = bokmerk
     nl = markeer
@@ -8354,6 +8538,7 @@
     ja = 位置情報サービスを有効化してください
     ko = 위치 서비스를 작동시켜 주십시요.
     lt = Įjunkite vietovės tarnybas
+    lv = Ieslēdziet ierīces atrašanās vietas noteikšanas pakalpojumus
     mr = कृपया स्थान सेवा सक्रिय करा
     nb = Aktiver posisjonstjenester
     nl = Schakel locatiediensten in
@@ -8398,6 +8583,7 @@
     ja = 保存
     ko = 저장
     lt = Išsaugoti
+    lv = Saglabāt
     mr = साठवा
     nb = Lagre
     nl = Bewaar
@@ -8441,6 +8627,7 @@
     ja = 詳細（テキストまたはHTML）
     ko = 설명(텍스트 또는 HTML)
     lt = Jūsų aprašymai (tekstas arba HTML)
+    lv = Jūsu apraksti (teksts vai HTML)
     mr = तुमचे वर्णन (मजकूर किंवा html)
     nb = Dine beskrivelser (tekst eller html)
     nl = Uw omschrijvingen (tekst of html)
@@ -8485,6 +8672,7 @@
     ja = 作成
     ko = 만들기기
     lt = kurti
+    lv = izveidot
     mr = तयार करा
     nb = opprett
     nl = aanmaken
@@ -8530,6 +8718,7 @@
     ja = 赤
     ko = 빨간색
     lt = Raudonas
+    lv = Sarkana
     mr = लाल
     nb = Rød
     nl = Rood
@@ -8575,6 +8764,7 @@
     ja = 黄色
     ko = 노란색
     lt = Geltonas
+    lv = Dzeltena
     mr = पिवळा
     nb = Gul
     nl = Geel
@@ -8620,6 +8810,7 @@
     ja = 青
     ko = 파란색
     lt = Mėlynas
+    lv = Zila
     mr = निळा
     nb = Blå
     nl = Blauw
@@ -8665,6 +8856,7 @@
     ja = 緑
     ko = 녹색
     lt = Žalias
+    lv = Zaļa
     mr = हिरवा
     nb = Grønn
     nl = Groen
@@ -8710,6 +8902,7 @@
     ja = 紫
     ko = 보라색
     lt = Violetinis
+    lv = Violeta
     mr = जांभळा
     nb = Lilla
     nl = Paars
@@ -8755,6 +8948,7 @@
     ja = オレンジ
     ko = 오렌지색
     lt = Oranžinis
+    lv = Oranža
     mr = भगवा
     nb = Oransje
     nl = Oranje
@@ -8800,6 +8994,7 @@
     ja = 茶色
     ko = 갈색
     lt = Rudas
+    lv = Brūna
     mr = तपकिरी
     nb = Brun
     nl = Bruin
@@ -8845,6 +9040,7 @@
     ja = ピンク
     ko = 분홍색
     lt = Rožinis
+    lv = Rozā
     mr = गुलाबी
     nb = Rosa
     nl = Roze
@@ -8889,6 +9085,7 @@
     ja = 濃い紫
     ko = 진보라색
     lt = Tamsiai violetinis
+    lv = Tumši violeta
     mr = गडद जांभळा
     nb = Mørkepurpur
     nl = Donkerpaars
@@ -8934,6 +9131,7 @@
     ja = 空色
     ko = 하늘색
     lt = Šviesiai mėlynas
+    lv = Gaiši zila
     mr = फिकट निळा
     nb = Lyseblå
     nl = Lichtblauw
@@ -8978,6 +9176,7 @@
     ja = 青緑
     ko = 시안
     lt = Žydras
+    lv = Ciāna
     mr = हिरवट निळा (फिकट)
     nb = Blågrønn
     nl = Blauwgroen
@@ -9022,6 +9221,7 @@
     ja = ティール
     ko = 틸
     lt = Tamsiai žydras
+    lv = Tumši ciāna
     mr = हिरवट निळा (गडद)
     nb = Smaragdgrønn
     nl = Smaragdgroen
@@ -9066,6 +9266,7 @@
     ja = ライム
     ko = 라임
     lt = Citrininis
+    lv = Dzeltenzaļa
     mr = पोपटी
     nb = Limegrønn
     nl = Limoen
@@ -9111,6 +9312,7 @@
     ja = 濃いオレンジ
     ko = 진주황색
     lt = Tamsiai oranžinis
+    lv = Tumši oranža
     mr = नारंगी
     nb = Mørkeoransje
     nl = Donkeroranje
@@ -9157,6 +9359,7 @@
     ja = 灰色
     ko = 회색
     lt = Pilkas
+    lv = Pelēka
     mr = राखाडी
     nb = Grå
     nl = Grijs
@@ -9203,6 +9406,7 @@
     ja = 青灰色
     ko = 청회색
     lt = Mėlynai pilkas
+    lv = Zilpelēka
     mr = निळा राखाडी
     nb = Gråblå
     nl = Grijsblauw
@@ -9250,6 +9454,7 @@
     ja = 案内ルートに従う際は、以下の点にご留意ください：
     ko = 경로를 따라갈 때는 다음 사항에 주의해 주세요:
     lt = Keliaudami maršrutu įsidėmėkite:
+    lv = Sekojot maršrutam, ievērojiet:
     mr = प्रवास करताना, कृपात लक्षात ठेवा:
     nb = Husk følgende når du følger ruten:
     nl = Belangrijk bij het volgen van een route:
@@ -9294,6 +9499,7 @@
     ja = — 道路の状況や道路交通法、道路標識をナビゲーションよりも常に優先してください。;
     ko = — 도로 상황, 교통법, 도로 표지판을 항상 내비게이션 안내보다 먼저 고려하세요;
     lt = — Kelių kokybė, eismo taisyklės ir kelio ženklai turi aukštesnį prioritetą už navigacijos užuominas;
+    lv = — Apstākļiem uz ceļa, ceļu satiksmes noteikumiem un ceļazīmēm vienmēr ir priekšroka pār navigācijas ieteikumiem;
     mr = — मार्गनिर्देशक संकेतांपेक्षा रस्त्याची परिस्थिती, वाहतुकीचे नियम व वाहतुकीचे चिन्ह ह्यांना जास्त प्राधान्य द्या;
     nb = – Veiforhold, trafikkregler og skilt skal alltid prioriteres fremfor navigasjonsråd;
     nl = — De toestand van het wegdek, de verkeersregels en de -borden hebben altijd voorrang op het advies van het navigatiesysteem;
@@ -9338,6 +9544,7 @@
     ja = — マップは必ずしも正確であるとは限らず、また案内ルートが常に目的地までの最適なルートであるとは限りません。;
     ko = — 지도는 부정확할 수 있으며, 제안된 경로보다 나은 경로가 존재할 수도 있습니다;
     lt = — Žemėlapis gali būti klaidingas ir patariamas maršrutas ne visada bus optimalus būdas pasiekti tikslą;
+    lv = — Karte var būt kļūdaina, kā arī ieteiktais maršruts ne vienmēr būs optimālākais galamērķa sasniegšanai;
     mr = — नकाशा चुकीचा असू शकतो, आणि सुचवलेला मार्ग हा इष्टस्थानापर्यंत पोहोचण्यासाठी नेहमी सर्वोत्तम मार्ग असेलच असे नाही;
     nb = – Kartet kan inneholde unøyaktigheter, og den foreslåtte ruten er ikke nødvendigvis alltid den mest optimale veien;
     nl = — De kaart kan onnauwkeurig zijn en de voorgestelde route is niet altijd de meest optimale manier om uw bestemming te bereiken;
@@ -9382,6 +9589,7 @@
     ja = — 表示されるルートはあくまでも推奨ルートとしてご利用ください。;
     ko = — 제안된 경로는 권장 사항으로만 참고하세요;
     lt = — Patariami maršrutai turi būti suprasti kaip rekomendacijos;
+    lv = — Jāsaprot, ka ieteiktie maršruti ir tikai ieteikumi;
     mr = — सुचवलेले मार्ग ह्यांना केवळ शिफारसी म्हणून समजावे;
     nb = – Foreslåtte ruter bør bare anses som anbefalinger;
     nl = — Beschouw de voorgestelde routes enkel als aanbevelingen;
@@ -9427,6 +9635,7 @@
     ja = — 国境付近のルートにご注意ください。アプリの作成したルートは時々入国の許可されていない国への国境を超える場合があります;
     ko = — 국경 지역에서 경로를 주의하십시오: 앱에 의해 생성된 경로는 허가받지 않은 장소에서 국가 경계에 걸쳐 종종 일어날 수 있습니다;
     lt = — Būkite atsargūs su maršrutais šalia sienų ribų: maršrutai, sukurti mūsų programėlės, kartais pereina valstybių sienas neleistinose vietose.
+    lv = — Esiet uzmanīgi ar maršrutiem pie valsts robežām: mūsu lietotnes ģenerētie maršruti reizēm var šķērsot valsts robežas neatļautās vietās.
     mr = — सीमेजवळच्या मार्गांबाबतीत सावधानी बाळगा: इथे प्रकाशित मार्ग कधीकधी अनधिकृतरित्या देशाची सीमा ओलांडू शकतात.
     nb = — Vær forsiktig når det gjelder ruter i grenseområder: rutene som appen vår oppretter kan komme til å krysse landegrenser i uatoriserte områder;
     nl = — Wees voorzichtig met de routes in de grenszones: de routes die door onze app gecreëerd zijn, gaan wellicht door landgrenzen in ongeautoriseerde plaatsen;
@@ -9471,6 +9680,7 @@
     ja = よく注意して安全運転を心がけましょう！
     ko = 항상 안전에 주의하세요!
     lt = Būkite budrūs ir saugūs keliuose!
+    lv = Uz ceļa esiet modri un uzmanīgi!
     mr = कृपया वाटेवर सतर्क आणि सुरक्षित रहा!
     nb = Kjør trygt!
     nl = Blijf alert en rij veilig!
@@ -9514,6 +9724,7 @@
     ja = GPS信号をご確認ください
     ko = GPS 신호 확인
     lt = Tikrinti GPS signalą
+    lv = Pārbaudīt GPS signālu
     mr = GPS सिग्नल तपासा
     nb = Sjekk GPS-signal
     nl = Controleer gps-signaal
@@ -9558,6 +9769,7 @@
     ja = 案内ルートを作成できません。現在のGPS座標が認識できません。
     ko = 경로를 설정할 수 없습니다. 현재 GPS 좌표를 확인할 수 없습니다.
     lt = Nepavyko sukurti maršruto. Nepavyko nustatyti dabartinių GPS koordinačių.
+    lv = Neizdevās izveidot maršrutu. Neizdevās noteikt pašreizējās GPS koordinātes.
     mr = मार्ग तयार करण्यात अक्षम. वर्तमान GPS सहनिर्देशक ओळखता आले नाहीत.
     nb = Ingen rute ble opprettet. Nåværende GPS-koordinater ble ikke funnet.
     nl = Route samenstellen mislukt. De huidige gps-coördinaten kunnen niet worden geïdentificeerd.
@@ -9601,6 +9813,7 @@
     ja = GPS信号をご確認ください。Wi-Fiを有効にするとより正確な位置情報を取得できます。
     ko = GPS 신호를 확인해주세요. Wi-Fi를 켜면 위치 정확도가 높아집니다.
     lt = Patikrinkite GPS signalą. Wi-Fi įjungimas pagerins vietos tikslumą.
+    lv = Pārbaudiet GPS signālu. „Wi-Fi“ ieslēgšana uzlabos atrašanās vietas precizitāti.
     mr = कृपया तुमचा GPS सिग्नल तपासा. WiFi चालू केल्याने तुमच्या स्थानाची अचूकता सुधारेल.
     nb = Sjekk GPS-signalet. Resultatet blir mer nøyaktig når du bruker wi-fi.
     nl = Controleer uw gps-signaal. Schakel wifi in voor een betere locatiebepaling.
@@ -9644,6 +9857,7 @@
     ja = 位置情報サービスを有効にしてください
     ko = 위치 서비스 활성화
     lt = Įjungti vietovės tarnybas
+    lv = Ieslēgt vietas noteikšanas servisus
     mr = स्थान सेवा चालू करा
     nb = Aktiver stedstjenester
     nl = Schakel locatiediensten in
@@ -9688,6 +9902,7 @@
     ja = 現在地のGPSコードを確認できません。案内ルートを作成するには、位置情報サービスを有効にしてください。
     ko = 현재 GPS 좌표를 찾을 수 없습니다. 경로를 계산하려면 위치 서비스를 활성화하세요.
     lt = Įjunkite, kad nustatytumėte dabartines GPS koordinates. Įjunkite vietovės tarnybas, kad apskaičiuotumėte maršrutą.
+    lv = Neizdodas noteikt pašreizējās GPS koordinātes. Ieslēdziet atrašanās vietas servisus, lai aprēķināt maršrutu.
     mr = वर्तमान GPS सहनिर्देशक शोधण्यात अक्षम. मार्गाची गणना करण्यासाठी स्थान सेवा चालू करा.
     nb = Nåværende GPS-koordinater ble ikke funnet. Aktiver stedstjenester for å beregne en rute.
     nl = De huidige gps-coördinaten kunnen niet worden gevonden. Schakel locatiediensten in om de route te berekenen.
@@ -9731,6 +9946,7 @@
     ja = 必要なファイルをダウンロード
     ko = 필수 파일 다운로드
     lt = Atsisiųsti reikalingus failus
+    lv = Lejupielādēt nepieciešamās datnes
     mr = आवश्यक फाईली डाउनलोड करा
     nb = Last ned nødvendige filer
     nl = Download de vereiste bestanden
@@ -9774,6 +9990,7 @@
     ja = 案内ルートを作成するには、表示されたパスに従ってすべてのマップ、ルート情報をダウンロードまたはアップデートしてください。
     ko = 경로를 계산하려면 모든 지도와 예상 경로 정보를 다운로드하고 업데이트하세요.
     lt = Atsisiųsti ir atnaujinti visus žemėlapius ir maršrutų informaciją palei planuojamą kelią, kad apskaičiuotumėte maršrutą.
+    lv = Lejupielādēt un atjaunināt visas kartes, kas varētu būt plānotajā maršrutā.
     mr = मार्ग शोधण्यासाठी प्रक्षेपित वाटेभोवतीचे सर्व नकाशे व मार्गनिर्देशक माहिती डाउनलोड करा.
     nb = Last ned og oppdater all kart- og ruteinformasjon langs den foreslåtte veien for å beregne ruten.
     nl = Download de kaart en route-informatie voor het ingestelde traject en werk deze bij om de route te berekenen.
@@ -9818,6 +10035,7 @@
     ja = ルートの位置を確認できません
     ko = 경로를 찾을 수 없습니다
     lt = Nepavyko nustatyti maršruto
+    lv = Neizdevās noteikt maršrutu
     mr = मार्ग शोधण्यात अक्षम
     nb = Kunne ikke finne rute
     nl = Route vinden mislukt
@@ -9862,6 +10080,7 @@
     ja = 案内ルートを作成できません。
     ko = 경로를 찾을 수 없습니다.
     lt = Nepavyko sukurti maršruto.
+    lv = Neizdevās izveidot maršrutu.
     mr = मार्ग तयार करण्यात अक्षम.
     nb = Kunne ikke finne rute.
     nl = Route samenstellen mislukt.
@@ -9905,6 +10124,7 @@
     ja = 出発地または目的地を調整してください。
     ko = 출발지나 목적지를 조정하세요.
     lt = Suderinkite jūsų pradžios tašką arba tikslą.
+    lv = Precizējiet savu sākuma punktu vai galamērķi.
     mr = कृपया तुमचा प्रारंभ किंवा इष्टस्थानाचा बिंदू समायोजित करा.
     nb = Endre startpunkt eller bestemmelsessted.
     nl = Kies een ander startpunt of een andere bestemming.
@@ -9948,6 +10168,7 @@
     ja = 出発地を調整
     ko = 출발지 조정
     lt = Derinti pradžios tašką
+    lv = Precizēt sākuma punktu
     mr = प्रारंभ बिंदू समायोजित करा
     nb = Endre startpunkt
     nl = Kies ander startpunt
@@ -9992,6 +10213,7 @@
     ja = 案内ルートを作成できません。出発地が確認できませんでした。
     ko = 경로가 설정되지 않았습니다. 출발지를 찾을 수 없습니다.
     lt = Maršrutas nesukurtas. Nepavyko nustatyti pradžios taško.
+    lv = Maršruts nav izveidots. Neizdodas noteikt sākuma punktu.
     mr = मार्ग तयार केला नाही. प्रारंभ बिंदू शोधण्यात अक्षम.
     nb = Ingen rute ble opprettet. Startpunktet ble ikke funnet.
     nl = Route samenstellen mislukt. Startpunt kan niet worden gevonden.
@@ -10035,6 +10257,7 @@
     ja = 道路に近い位置にある出発地を設定してください。
     ko = 도로와 가까운 출발지를 지정해주세요.
     lt = Pasirinkite pradžios tašką, kuo artesnį prie kelio.
+    lv = Atlasiet sākuma punktu tuvāk pie ceļa.
     mr = कृपया रस्त्याच्या जवळचा प्रारंभ बिंदू निवडा.
     nb = Velg et startpunkt som er i nærheten av en vei.
     nl = Kies een startpunt dat dichter bij een weg ligt.
@@ -10078,6 +10301,7 @@
     ja = 目的地を調整
     ko = 목적지 조정
     lt = Derinti tikslą
+    lv = Precizēt galamērķi
     mr = इष्टस्थान समायोजित करा
     nb = Endre bestemmelsessted
     nl = Kies andere bestemming
@@ -10122,6 +10346,7 @@
     ja = 案内ルートを作成できません。目的地を確認できませんでした。
     ko = 경로가 설정되지 않았습니다. 목적지를 찾을 수 없습니다.
     lt = Maršrutas nesukurtas. Nepavyko nustatyti tikslo.
+    lv = Maršruts nav izveidots. Neizdodas noteikt galamērķi.
     mr = मार्ग तयार केला नाही. इष्टस्थान शोधण्यात अक्षम.
     nb = Ingen rute ble opprettet. Bestemmelsesstedet ble ikke funnet.
     nl = Route samenstellen mislukt. Bestemming kan niet worden gevonden.
@@ -10165,6 +10390,7 @@
     ja = 道路に近い位置にある目的地を設定してください。
     ko = 도로와 가까운 목적지를 지정해주세요.
     lt = Pasirinkite tikslo tašką, kuo artesnį prie kelio.
+    lv = Atlasiet galamērķa punktu pēc iespējas tuvāk ceļam.
     mr = कृपया रस्त्याच्या जवळ असलेले इष्टस्थान निवडा.
     nb = Velg et bestemmelsessted som er i nærheten av en vei.
     nl = Kies een bestemming die dichter bij een weg ligt.
@@ -10208,6 +10434,7 @@
     ja = 中間地点を確認できませんでした。
     ko = 중간 지점을 찾을 수 없습니다.
     lt = Nepavyko nustatyti tarpinio taško.
+    lv = Neizdevās noteikt starppunktu.
     mr = मध्यबिंदू शोधण्यात अक्षम.
     nb = Kunne ikke finne mellomstopp.
     nl = Kan de tussenstop niet vinden.
@@ -10251,6 +10478,7 @@
     ja = 中間地点を調整してください。
     ko = 중간 지점을 조정하세요.
     lt = Suderinkite tarpinį tašką.
+    lv = Labojiet starppunktu.
     mr = कृपया तुमचा मध्यबिंदू समायोजित करा.
     nb = Kontroller og juster mellomstopp.
     nl = Gelieve uw tussenstop aan te passen.
@@ -10296,6 +10524,7 @@
     ja = システムエラー
     ko = 시스템 오류
     lt = Sistemos klaida
+    lv = Sistēmas kļūda
     mr = सिस्टम त्रुटी
     nb = Systemfeil
     nl = Systeemfout
@@ -10340,6 +10569,7 @@
     ja = エラーにより案内ルートを作成できませんでした。
     ko = 애플리케이션 오류로 인해 경로를 설정하지 못했습니다.
     lt = Nepavyko sukurti maršruto dėl programėlės klaidos.
+    lv = Kļūdas dēļ neizdevās izveidot maršrutu.
     mr = ऍप त्रुटीमुळे मार्ग तयार करण्यात अक्षम.
     nb = En applikasjonsfeil førte til at ruten ikke kunne opprettes.
     nl = Route samenstellen mislukt door een applicatiefout.
@@ -10383,6 +10613,7 @@
     ja = もう一度お試しください
     ko = 다시 시도해주세요.
     lt = Bandykite iš naujo
+    lv = Mēģiniet vēlreiz
     mr = कृपया पुर्नरप्रयत्न करा
     nb = Vennligst prøv igjen
     nl = Probeer het opnieuw
@@ -10426,6 +10657,7 @@
     ja = 後で
     ko = 나중에
     lt = Ne dabar
+    lv = Ne tagad
     mr = आता नाही
     nb = Ikke nå
     nl = Niet nu
@@ -10469,6 +10701,7 @@
     ja = マップをダウンロードし、複数マップを利用してより最適なルートを作成しますか？
     ko = 지도를 다운로드하여, 두 개 이상의 지도를 통과하는 더 최적화된 경로를 설정하시겠습니까?
     lt = Norėtumėte atsisiųsti žemėlapį, kad sukurtumėte labiau optimalų maršrutą, apimantį daugiau nei vieną žemėlapį?
+    lv = Vai vēlaties lejupielādēt karti un izveidot piemērotāku maršrutu, kas ietver vairāk par vienu karti?
     mr = एकापेक्षा जास्त नकाशात पसरलेला अधिक चांगला मार्ग तयार करण्यासाठी, नकाशा डाउनलोड केलेला चालेल का?
     nb = Vil du laste ned kartet og lage en mer optimal rute som går over flere kart?
     nl = Wilt u de kaart downloaden en een betere route samenstellen die meer dan één kaart beslaat?
@@ -10512,6 +10745,7 @@
     ja = このマップの境界を越えて複数マップを利用し、より最適なルートを作成するには、マップをダウンロードしてください。
     ko = 이 지도의 경계를 통과하는 더 최적화된 경로를 설정하려면 지도를 다운로드하세요.
     lt = Atsisiųsti papildomų žemėlapių, kad sukurtumėte geresnį maršrutą, pereinantį šio žemėlapio ribas.
+    lv = Lejupielādējiet papildu kartes, lai izveidotu labāku maršrutu, kas šķērso šīs kartes robežu.
     mr = या नकाशाच्या सीमा ओलांडणारा एक चांगला मार्ग तयार करण्यासाठी अधिक नकाशे डाउनलोड करा.
     nb = Last ned kartet for å opprette en mer optimal rute som går utenfor dette kartet.
     nl = Download de kaart om een betere route samen te stellen die de grenzen van deze kaart overschrijdt.
@@ -10558,6 +10792,7 @@
     ja = 検索とルート作成を開始するには、地図をダウンロードしてください。地図をダウンロードすると、インターネット接続は不要です。
     ko = 경로를 검색하고 만들기시작하려면, 지도를 다운로드하십시오. 그러면, 더 이상 인터넷 연결이 필요하지 않습니다.
     lt = Atsisiųskite žemėlapį, kad pradėtumėte ieškoti ir kurti maršrutus. Paskui jums nebereikės prisijungimo prie tinklo.
+    lv = Lejupielādējiet karti, lai sāktu meklēt un veidot maršrutus. Pēc tam tīkla pieslēgumu vairs nevajadzēs.
     mr = ठिकाण व मार्ग शोध सुरु करण्यासाठी, कृपया नकाशा डाउनलोड करा. त्यानंतर तुम्हाला इंटरनेटची आवश्यकता भासणार नाही.
     nb = Last vennligst ned kartet for å begynne å søke og opprette ruter - så slipper du i fremtiden å være avhengig av å ha internettforbindelse.
     nl = Om te beginnen met zoeken en om routebeschrijvingen te kunnen maken, moet u de kaart downloaden. U heeft vervolgens geen internetverbinding meer nodig.
@@ -10601,6 +10836,7 @@
     ja = 地図を選択
     ko = 지도 선택
     lt = Pasirinkti žemėlapį
+    lv = Atlasīt karti
     mr = नकाशा निवडा
     nb = Velg kartet
     nl = Selecteer de kaart
@@ -10645,6 +10881,7 @@
     ja = 表示する
     ko = 표시
     lt = Rodyti
+    lv = Rādīt
     mr = दाखवा
     nb = Vis
     nl = Toon
@@ -10690,6 +10927,7 @@
     ja = 隠す
     ko = 숨기기
     lt = Slėpti
+    lv = Slēpt
     mr = लपवा
     nb = Skjul
     nl = Verberg
@@ -10735,6 +10973,7 @@
     ja = ルート検索に失敗
     ko = 경로 계획 실패
     lt = Maršruto planavimas nepavyko
+    lv = Maršruta plānošana neizdevās
     mr = मार्ग नियोजन अयशस्वी
     nb = Mislykket ruteplanlegging
     nl = Routeberekening mislukt
@@ -10780,6 +11019,7 @@
     ja = 到着予測: %@
     ko = 도착: %@
     lt = Atvykimas %@
+    lv = Ierašanās: %@
     mr = %@ वाजता आगमन
     nb = Ankomme: %@
     nl = Aankomst: %@
@@ -10823,6 +11063,7 @@
     ja = ルートを作成するには、ルートの通過する地図を全てダウンロード・アップデートしてください。
     ko = 경로를 만들려면, 경로를 따라 모든 지도를 다운로드하고 업데이트하십시오.
     lt = Atsisiųsti ir atnaujinti visus žemėlapius ir maršrutų informaciją palei planuojamą kelią, kad apskaičiuotumėte maršrutą.
+    lv = Lejupielādēt un atjaunināt visas kartes gar iespējamo maršrutu, lai to aprēķinātu.
     mr = मार्गाची गणना करण्यासाठी प्रक्षेपित वाटेवरील सर्व नकाशा डाउनलोड आणि अद्ययावत करा.
     nb = Hvis du vil oppprette en rute, last ned og oppdater alle kartene langs ruten.
     nl = Om een route te maken, download en update alle kaarten rondom de route.
@@ -10867,6 +11108,7 @@
     ja = カテゴリー
     ko = 범주
     lt = Kategorijos
+    lv = Kategorijas
     mr = प्रवर्ग
     nb = Kategorier
     nl = Categorieën
@@ -10911,6 +11153,7 @@
     ja = 履歴
     ko = 내역
     lt = Istorija
+    lv = Vēsture
     mr = इतिहास
     nb = Historikk
     nl = Geschiedenis
@@ -10955,6 +11198,7 @@
     ja = 該当するものは見つかりませんでした。
     ko = 죄송합니다. 아무것도 찾지 못했습니다.
     lt = Ai! Nerasta rezultatų.
+    lv = Vai, nekas nav atrasts!
     mr = अरेच्चा, काहीच सापडले नाही.
     nb = Beklager, jeg fant ingenting.
     nl = Sorry, geen resultaten gevonden.
@@ -11000,6 +11244,7 @@
     ja = 検索する地域をダウンロードするか、近隣の町村名を追加してみてください。
     ko = 검색하려는 지역을 다운로드하거나 가까운 도시/마을 이름을 추가해 보세요.
     lt = Atsisiųskite regioną, kuriame ieškote, arba pabandykite pridėti netoliese esančio miesto / kaimo pavadinimą.
+    lv = Lejupielādējiet reģionu, kurā meklēt, vai mēģiniet pievienot tuvumā esošas apdzīvotas vietas nosaukumu.
     mr = तुम्ही जिथे शोधत आहात तो प्रदेश डाउनलोड करा किंवा जवळच्या शहर/गावाचे नाव जोडण्याचा प्रयत्न करा.
     nb = Last ned regionen du søker i, eller prøv å legge til et bynavn i nærheten.
     nl = Download de regio waar u zoekt of probeer een nabijgelegen stad/dorpnaam toe te voegen.
@@ -11045,6 +11290,7 @@
     ja = 検索履歴
     ko = 검색 기록
     lt = Istorija
+    lv = Meklēšanas vēsture
     mr = शोध इतिहास
     nb = Søkehistorikk
     nl = Zoekgeschiedenis
@@ -11088,6 +11334,7 @@
     ja = 最近の検索を表示します。
     ko = 최근 검색 쿼리에 신속하게 액세스할 수 있습니다.
     lt = Rodyti paskiausias paieškas.
+    lv = Apskatiet meklēšanas vēsturi.
     mr = अलीकडील शोध पहा.
     nb = Vis de siste søkene raskt.
     nl = Snel toegang tot recente zoekopdrachten.
@@ -11132,6 +11379,7 @@
     ja = 検索履歴を消去
     ko = 이력 검색 지우기
     lt = Valyti istoriją
+    lv = Notīrīt vēsturi
     mr = शोध इतिहास पुसून टाका
     nb = Tøm søkehistorikk
     nl = Wis zoekgeschiedenis
@@ -11168,6 +11416,7 @@
     it = Wikipedia
     ja = ウィキペディア
     lt = Vikipedija
+    lv = Vikipēdija
     mr = विकिपीडिया
     pl = Wikipedia
     pt = Wikipédia
@@ -11215,6 +11464,7 @@
     ja = 現在位置
     ko = 위치
     lt = Jūsų vieta
+    lv = Jūsu atrašanās vieta
     mr = तुमचे स्थान
     nb = Din beliggenhet
     nl = Uw locatie
@@ -11259,6 +11509,7 @@
     ja = 開始
     ko = 시작
     lt = Pradėti
+    lv = Sākt
     mr = सुरू करा
     nb = Start
     nl = Start
@@ -11303,6 +11554,7 @@
     ja = 出発地
     ko = 출발지
     lt = Maršrutas iš
+    lv = Maršruts no
     mr = पासून मार्ग
     nb = Fra
     nl = Van
@@ -11347,6 +11599,7 @@
     ja = 目的地
     ko = 목적지
     lt = Maršrutas į
+    lv = Kurp
     mr = पर्यंतचा मार्ग
     nb = Rute til
     nl = Route naar
@@ -11391,6 +11644,7 @@
     ja = ナビゲーションは現在位置からのみ利用できます。
     ko = 현재 위치에서만 네비게이션을 사용할 수 있습니다.
     lt = Navigacija yra prieinama tik iš jūsų dabartinės vietos.
+    lv = Navigācija ir pieejama tikai no jūsu pašreizējās atrašanās vietas.
     mr = मार्गनिर्देशन फक्त तुमच्या वर्तमान स्थानावरून उपलब्ध आहे.
     nb = Navigering er kun tilgjengelig fra din nåværende beliggenhet.
     nl = Navigatie is uitsluitend beschikbaar vanuit uw huidige locatie.
@@ -11435,6 +11689,7 @@
     ja = 現在位置からのルートを作成しますか？
     ko = 현재 위치에서 경로를 계획하시겠습니까?
     lt = Norite, kad mes suplanuotumėme maršrutą iš jūsų dabartinės vietos?
+    lv = Vai vēlaties plānot maršrutu no savas pašreizējās atrašanās vietas?
     mr = तुमच्या वर्तमान स्थानापासून मार्ग नियोजन करायचे का?
     nb = Vil du vi skal planlegge en rute fra din nåværende posisjon?
     nl = Wilt u een route plannen vanaf uw huidige locatie?
@@ -11479,6 +11734,7 @@
     ja = 次へ
     ko = 다음
     lt = Toliau
+    lv = Tālāk
     mr = पुढे
     nb = Neste
     nl = Volgende
@@ -11523,6 +11779,7 @@
     ja = から
     ko = 부터
     lt = Iš
+    lv = No
     mr = ते
     nb = Fra
     nl = Van
@@ -11566,6 +11823,7 @@
     ja = まで
     ko = 까지
     lt = Į
+    lv = Līdz
     mr = पर्यंत
     nb = Til
     nl = Tot
@@ -11608,6 +11866,7 @@
     ja = スケジュール追加
     ko = 스케줄 추가
     lt = Planas
+    lv = Pievienot grafiku
     mr = वेळापत्रक जोडा
     nb = Legg til tidsrom
     nl = Voeg schema toe
@@ -11650,6 +11909,7 @@
     ja = スケジュール削除
     ko = 스케줄 삭제
     lt = Naikinti planą
+    lv = Dzēst grafiku
     mr = वेळापत्रक मिटवा
     nb = Slett tidsrom
     nl = Verwijder schema
@@ -11694,6 +11954,7 @@
     ja = 終日 (24時間)
     ko = 종일 영업(24시간)
     lt = Visą dieną (24 valandos)
+    lv = Visu dienu (24 stundas)
     mr = दिवसभर (२४ तास)
     nb = Hele dagen (24 timer)
     nl = Elke dag (24 uur)
@@ -11738,6 +11999,7 @@
     ja = 営業中
     ko = 개점
     lt = Atidaryta
+    lv = Atvērts
     mr = उघडे
     nb = Åpen
     nl = Open
@@ -11781,6 +12043,7 @@
     ja = 閉店
     ko = 폐점
     lt = Uždaryta
+    lv = Slēgts
     mr = बंद
     nb = Stengt
     nl = Gesloten
@@ -11823,6 +12086,7 @@
     ja = 閉店時間追加
     ko = 폐점 시간 추가
     lt = Add Non-Business Hours
+    lv = Pievienot  laiku, kad nestrādā
     mr = गैर-व्यवसायाची वेळ जोडा
     nb = Legg til stengt tid
     nl = Sluitingstijden toevoegen
@@ -11867,6 +12131,7 @@
     ja = 営業時間
     ko = 영업 시간
     lt = Business Hours
+    lv = Darba laiks
     mr = व्यवसायाची वेळ
     nb = Åpningstider
     nl = Openingstijden
@@ -11909,6 +12174,7 @@
     ja = 詳細モード
     ko = 고급 모드
     lt = Išplėstinis režimas
+    lv = Paplašinātais režīms
     mr = प्रगत मोड
     nb = Avansert modus
     nl = Geavanceerde modus
@@ -11951,6 +12217,7 @@
     ja = シンプルモード
     ko = 기본 모드
     lt = Paprastas režimas
+    lv = Parastais režīms
     mr = साधा मोड
     nb = Enkel modus
     nl = Eenvoudige modus
@@ -11993,6 +12260,7 @@
     ja = 閉店時間
     ko = 폐점 시간
     lt = Non-Business Hours
+    lv = Laiks, kad slēgts
     mr = गैर-व्यवसाय वेळ
     nb = Stengt
     nl = Sluitingstijden
@@ -12036,6 +12304,7 @@
     ja = 値の例
     ko = 예제
     lt = Example Values
+    lv = Piemēra vērtības
     mr = उदाहरण मूल्ये
     nb = Eksempelverdier
     nl = Voorbeeldwaarden
@@ -12078,6 +12347,7 @@
     ja = 間違いの訂正
     ko = 입력 수정
     lt = Taisyti klaidą
+    lv = Labot kļūdu
     mr = चूक सुधारा
     nb = Rett feil
     nl = Corrigeer fout
@@ -12121,6 +12391,7 @@
     ja = 現在位置
     ko = 위치
     lt = Vieta
+    lv = Vieta
     mr = स्थान
     nb = Plassering
     nl = Locatie
@@ -12163,6 +12434,7 @@
     ja = 世界地図を変更しました。この変更を秘密にしないでください! 友達に教えて一緒に編集しましょう。
     ko = 세계 지도를 변경했습니다. 이를 숨기지 마십시오! 친구에게 말하고, 이를 함께 편집합니다.
     lt = Pakeitėte pasaulio žemėlapį. Nelaikykite jo sau! Pasakykite savo draugams ir redaguokite jį kartu.
+    lv = Jūs nomainījāt pasaules karti! Neturiet izmaiņas pie sevis, bet pastāstiet par tām saviem draugiem un rediģējiet kopā!
     mr = तुम्ही जगाचा नकाशा बदलला आहे. हे स्वतःपुरते ठेऊ नका! मित्रांना पण सांगा आणि एकत्र संपादित करा.
     nb = Du har endret verdenskartet. Ikke skjul denne! Fortell vennene dine, og rediger det sammen.
     nl = Je hebt de wereldkaart gewijzigd. Verberg dit niet! Vertel het je vrienden en bewerk haar samen.
@@ -12206,6 +12478,7 @@
     ja = 友達にシェア
     ko = 친구들과 공유
     lt = Bendrinti su draugais
+    lv = Kopīgot ar draugiem
     mr = मित्रांना वाटा
     nb = Del med venner
     nl = Deel met je vrienden
@@ -12249,6 +12522,7 @@
     ja = OpenStreetMapコミュニティがエラーを修正できるように、問題の詳細を説明してください。
     ko = OpenStreetMap 커뮤니티가 오류를 수정할 수 있도록 상세하게 문제를 설명하십시오.
     lt = Išsamiai aprašykite problemą, kad OpenStreetMap bendruomenę galėtų ištaisyti klaidą.
+    lv = Sīkāk aprakstiet problēmu, lai „OpenStreetMap“ kopiena to varētu novērst.
     mr = OpenStreetMap समुदायाने ही त्रुटी सुधारण्यासाठी कृपया समस्येचे तपशिलात वर्णन करा.
     nb = Beskriv problemet detaljert slik at OpenStreetMap-samfunnet kan fikse feilen.
     nl = Beschrijf het probleem gedetailleerd, zodat de OpenStreetMap-community de fout kan oplossen.
@@ -12292,6 +12566,7 @@
     ja = または、このURLでご自身で修正してください https://www.openstreetmap.org/
     ko = 아니면, 다음에서 스스로 가능: https://www.openstreetmap.org/
     lt = Arba padarykite tai patys: https://www.openstreetmap.org/
+    lv = Vai arī to izlabo vietnē https://www.openstreetmap.org/
     mr = किंवा https://www.openstreetmap.org/ वर ते स्वतः करा
     nb = Eller gjør det selv på https://www.openstreetmap.org/
     nl = Of doe het zelf op https://www.openstreetmap.org/
@@ -12335,6 +12610,7 @@
     ja = 送信
     ko = 전송
     lt = Siųsti
+    lv = Sūtīt
     mr = पाठवा
     nb = Send
     nl = Verzend
@@ -12378,6 +12654,7 @@
     ja = 問題
     ko = 문제
     lt = Problema
+    lv = Problēma
     mr = समस्या
     nb = Problem
     nl = Probleem
@@ -12421,6 +12698,7 @@
     ja = この場所は存在しません
     ko = 장소가 존재하지 않음
     lt = Vieta neegzistuoja
+    lv = Vieta nepastāv
     mr = जागा अस्तित्वात नाही
     nb = Stedet finnes ikke
     nl = De plaats bestaat niet
@@ -12464,6 +12742,7 @@
     ja = メンテナンスのため使えません
     ko = 유지 보수를 위해 닫음
     lt = Uždaryta tvarkymui
+    lv = Aizvērts uz remonta laiku
     mr = देखभालीसाठी बंद
     nb = Stengt pga. vedlikehold
     nl = Gesloten voor onderhoud
@@ -12507,6 +12786,7 @@
     ja = 重複している場所
     ko = 중복된 장소
     lt = Dubliuota vieta
+    lv = Vieta dublējas
     mr = प्रतिलिपीत (डुप्लिकेट) ठिकाण
     nb = Duplisert sted
     nl = Dubbele plaats
@@ -12551,6 +12831,7 @@
     ja = 自動ダウンロード
     ko = 자동 다운로드
     lt = Automatinis atsisiuntimas
+    lv = Automātiska karšu lejupielāde
     mr = स्वयं डाउनलोड
     nb = Automatisk nedlasting
     nl = Download kaarten automatisch
@@ -12596,6 +12877,7 @@
     ja = 現在閉店
     ko = 지금 닫힘
     lt = Dabar uždaryta
+    lv = Šobrīd slēgts
     mr = आता बंद
     nb = Lukket nå
     nl = Nu gesloten
@@ -12641,6 +12923,7 @@
     ja = 毎日
     ko = 일별
     lt = Kasdien
+    lv = Ik dienu
     mr = दैनिक
     nb = Daglig
     nl = Dagelijks
@@ -12684,6 +12967,7 @@
     ja = 昼と夜
     ko = 24 시간
     lt = 24/7
+    lv = 24/7
     mr = २४/७
     nb = Dag og natt
     nl = 24/7
@@ -12727,6 +13011,7 @@
     ja = 本日終業
     ko = 오늘 영업 종료됨
     lt = Šiandien uždaryta
+    lv = Šodien slēgts
     mr = आज बंद
     nb = Fridag i dag
     nl = Vandaag gesloten
@@ -12770,6 +13055,7 @@
     ja = 終業
     ko = 종료됨
     lt = Uždaryta
+    lv = Slēgts
     mr = बंद
     nb = Fridag
     nl = Gesloten
@@ -12813,6 +13099,7 @@
     ja = 今日は
     ko = 오늘
     lt = Šiandien
+    lv = Šodien
     mr = आज
     nb = I dag
     nl = Vandaag
@@ -12849,6 +13136,7 @@
     it = Apre domani alle %@
     ja = 明日の %@ から営業
     lt = Atsidaro rytoj %@
+    lv = Atveras rīt %@
     nb = Åpner i morgen klokka %@
     nl = Opent morgen om %@
     pl = Otwarcie jutro o %@
@@ -12877,6 +13165,7 @@
     it = Apre %1$@ alle %2$@
     ja = %1$@ の %2$@ から営業
     lt = Atsidaro %1$@ %2$@
+    lv = Atveras %1$@ plkst. %2$@
     nb = Åpner %1$@ klokka %2$@
     nl = Opent %1$@ om %2$@
     pl = Otwarcie %1$@ o %2$@
@@ -12907,6 +13196,7 @@
     it = Apre alle %@
     ja = %@ から営業
     lt = Atsidaro %@
+    lv = Atveras plkst. %@
     nb = Åpner klokka %@
     nl = Opent om %@
     pl = Otwarcie o %@
@@ -12937,6 +13227,7 @@
     it = Apre tra %@
     ja = あと %@ に営業
     lt = Atsidaro už %@
+    lv = Atveras pēc %@
     nb = Åpner om %@
     nl = Opent over %@
     pl = Otwarcie za %@
@@ -12969,6 +13260,7 @@
     it = Chiude alle %@
     ja = %@ に閉店
     lt = Užsidaro %@
+    lv = Slēgts no plkst. %@
     nb = Stenger %@
     nl = Sluit om %@
     pl = Zamknięcie o %@
@@ -12999,6 +13291,7 @@
     it = Chiude tra %@
     ja = あと %@ に閉店
     lt = Užsidaro už %@
+    lv = Slēgts pēc %@
     nb = Stenger om %@
     nl = Sluit over %@
     pl = Zamknięcie za %@
@@ -13038,6 +13331,7 @@
     ja = 閉店
     ko = 닫음
     lt = Uždaryta
+    lv = Slēgts
     mr = बंद
     nb = Stengt
     nl = Gesloten
@@ -13081,6 +13375,7 @@
     ja = 営業時間を追加
     ko = 영업일 추가
     lt = Pridėti darbo valandas
+    lv = Pievienot darba laiku
     mr = उघडण्याची वेळ जोड
     nb = Legg til åpningstider
     nl = Voeg openingstijden toe
@@ -13125,6 +13420,7 @@
     ja = 営業時間を編集
     ko = 영업일 편집
     lt = Redaguoti darbo valandas
+    lv = Rediģēt darba laiku
     mr = व्यवसायाची वेळ संपादित करा
     nb = Rediger åpningstider
     nl = Bewerk openingstijden
@@ -13169,6 +13465,7 @@
     ja = OpenStreetMapのアカウントをお持ちではないですか？
     ko = OpenStreetMap에서 계정이 없습니까?
     lt = Neturite OpenStreetMap paskyros?
+    lv = Vai jums nav „OpenStreetMap“ konta?
     mr = OpenStreetMap खाते नाही?
     nb = Har du ingen konto hos OpenStreetMap?
     nl = Geen account bij OpenStreetMap?
@@ -13213,6 +13510,7 @@
     ja = OpenStreetMapのアカウントを登録
     ko = 등록
     lt = Registruokitės OpenStreetMap
+    lv = Reģistrējieties „OpenStreetMap“
     mr = OpenStreetMap वर नोंदणी करा
     nb = Registrer deg
     nl = Registreer bij OpenStreetMap
@@ -13256,6 +13554,7 @@
     ja = パスワード(最低8文字)
     ko = 암호(최소 8자)
     lt = Slaptažodis (bent 8 simboliai)
+    lv = Parole (vismaz 8 simboli)
     mr = पासवर्ड (किमान ८ अक्षरे)
     nb = Passord (minimum 8 tegn)
     nl = Wachtwoord (minimaal 8 tekens)
@@ -13299,6 +13598,7 @@
     ja = ユーザー名またはパスワードが無効です。
     ko = 잘못된 사용자 이름 또는 암호.
     lt = Netinkamas naudotojo vardas arba slaptažodis.
+    lv = Nederīgs lietotājvārds vai parole.
     mr = अवैध वापरकर्तानाव किंवा पासवर्ड.
     nb = Ugyldig brukernavn eller passord.
     nl = Ongeldige gebruikersnaam of ongeldig wachtwoord.
@@ -13342,6 +13642,7 @@
     ja = ログイン
     ko = 로그인
     lt = Prisijungti
+    lv = Ierakstīties
     mr = लॉग इन
     nb = Logg inn
     nl = Log in
@@ -13387,6 +13688,7 @@
     ja = サインインしていません
     ko = 로그인되지 않음
     lt = Neprisijungta
+    lv = Neierakstījāties
     mr = साइन इन केलेले नाही
     nb = Ikke logget inn
     nl = Niet ingelogd
@@ -13429,6 +13731,7 @@
     ja = OpenStreetMapにログイン
     ko = OpenStreetMap에 로그인
     lt = Prisijungti OpenStreetMap
+    lv = Ierakstīties „OpenStreetMap“
     nb = Logg på OpenStreetMap
     nl = Log in bij OpenStreetMap
     pl = Zaloguj się do OpenStreetMap
@@ -13472,6 +13775,7 @@
     ja = パスワード
     ko = 암호
     lt = Slaptažodis
+    lv = Parole
     mr = पासवर्ड
     nb = Passord
     nl = Wachtwoord
@@ -13515,6 +13819,7 @@
     ja = パスワードをお忘れですか？
     ko = 암호를 잊으 셨나요?
     lt = Pamiršote slaptažodį?
+    lv = Vai aizmirsāt paroli?
     mr = पासवर्ड विसरलात?
     nb = Glemt passordet?
     nl = Wachtwoord vergeten?
@@ -13558,6 +13863,7 @@
     ja = OSMアカウント
     ko = OSM 계정
     lt = OSM paskyra
+    lv = OSM konts
     mr = OSM खाते
     nb = OSM-konto
     nl = OSM-account
@@ -13601,6 +13907,7 @@
     ja = ログアウト
     ko = 로그 아웃
     lt = Atsijungti
+    lv = Izrakstīties
     mr = लॉग आऊट
     nb = Logg ut
     nl = Log uit
@@ -13645,6 +13952,7 @@
     ja = 最終更新
     ko = 마지막 업로드
     lt = Paskutinis įkėlimas
+    lv = Pēdējo reizi augšupielādēja
     mr = शेवटचे अपलोड
     nb = Siste opplasting
     nl = Laatste upload
@@ -13688,6 +13996,7 @@
     ja = ありがとうございます
     ko = 고맙습니다.
     lt = Ačiū
+    lv = Paldies
     mr = आभारी
     nb = Takk skal du ha
     nl = Dank je wel
@@ -13732,6 +14041,7 @@
     ja = 場所を編集
     ko = 장소 편집
     lt = Redaguoti vietą
+    lv = Rediģēt vietu
     mr = ठिकाण संपादित करा
     nb = Rediger stedet
     nl = Bewerk de locatie
@@ -13775,6 +14085,7 @@
     ja = 場所の名前
     ko = 지명
     lt = Vietos pavadinimas
+    lv = Vietas nosaukums
     mr = ठिकाणाचे नाव
     nb = Stedsnavn
     nl = Locatienaam
@@ -13819,6 +14130,7 @@
     ja = 言語を追加
     ko = 언어 추가
     lt = Pridėti kalbą
+    lv = Pievienot valodu
     mr = भाषा जोडा
     nb = Legg til et språk
     nl = Voeg een taal toe
@@ -13863,6 +14175,7 @@
     ja = 通り
     ko = 거리
     lt = Gatvė
+    lv = Iela
     mr = रस्ता
     nb = Gate
     nl = Straat
@@ -13908,6 +14221,7 @@
     ja = 番地
     ko = 집 번호
     lt = Pastato numeris
+    lv = Ēkas numurs
     mr = बिल्डिंग क्रमांक
     nb = Et husnummer
     nl = Huisnummer
@@ -13952,6 +14266,7 @@
     ja = 詳細
     ko = 세부 정보
     lt = Išamiau
+    lv = Vairāk
     mr = तपशील
     nb = Detaljer
     nl = Details
@@ -13996,6 +14311,7 @@
     ja = 通りを追加
     ko = 거리 추가
     lt = Pridėti gatvę
+    lv = Pievienot ielu
     mr = रस्ता जोडा
     nb = Legg til en gate
     nl = Voeg een straat toe
@@ -14037,6 +14353,7 @@
     it = Inserire il nome della via
     ja = 通りの名前を入力してください。
     lt = Įveskite gatvės pavadinimą
+    lv = Ierakstiet ielas nosaukumu
     mr = कृपया रस्त्याचे नाव जोडा
     nb = Legg til en gateadresse
     nl = Voer een straatnaam in a.u.b.
@@ -14076,6 +14393,7 @@
     ja = 言語を選択
     ko = 언어 선택
     lt = Pasirinkite kalbą
+    lv = Izvēlieties valodu
     mr = भाषा निवडा
     nb = Velg et språk
     nl = Kies een taal
@@ -14119,6 +14437,7 @@
     ja = 通りを選択
     ko = 거리 선택
     lt = Pasirinkite gatvę
+    lv = Izvēlieties ielu
     mr = रस्ता निवडा
     nb = Velg en gate
     nl = Kies een straat
@@ -14163,6 +14482,7 @@
     ja = 郵便番号
     ko = 우편 번호
     lt = Pašto kodas
+    lv = Pasta indekss
     mr = पिनकोड
     nb = Postnummer
     nl = Postcode
@@ -14206,6 +14526,7 @@
     ja = 料理
     ko = 요리
     lt = Virtuvė
+    lv = Virtuve
     mr = पाककृती
     nb = Matrett
     nl = Keuken
@@ -14249,6 +14570,7 @@
     ja = 料理を選択
     ko = 요리 선택
     lt = Pasirinkti virtuvę
+    lv = Atlasiet virtuvi
     mr = पाककृती निवडा
     nb = Velg matrett
     nl = Selecteer keuken
@@ -14293,6 +14615,7 @@
     ja = メールアドレスまたはユーザー名
     ko = 이메일 또는 사용자 이름
     lt = El. paštas arba naudotojo vardas
+    lv = E-pasta adrese vai lietotājvārds
     mr = ईमेल किंवा वापरकर्तानाव
     nb = E-postadresse eller brukernavn
     nl = E-mailadres of gebruikersnaam
@@ -14336,6 +14659,7 @@
     ja = 電話
     ko = 전화
     lt = Telefonas
+    lv = Tālrunis
     mr = फोन
     nb = Telefon
     nl = Telefoonnummer
@@ -14372,6 +14696,7 @@
     it = Aggiungi numero
     ja = 電話番号を追加
     lt = Pridėti telefoną
+    lv = Pievienot tālruni
     mr = फोन जोडा
     nb = Legg til telefon
     nl = Voeg telefoonnummer toe
@@ -14410,6 +14735,7 @@
     ja = 階
     ko = 층
     lt = Aukštas
+    lv = Stāvs
     mr = मजला
     nb = Gulv
     nl = Verdieping
@@ -14433,6 +14759,7 @@
     en = Level: %s
     de = Stock: %s
     fr = Niveau : %s
+    lv = Stāvi virs zemes: %s
     ru = Этаж: %s
     tr = Kat sayısı:  %s
     zh-Hans = 楼层：%s
@@ -14464,6 +14791,7 @@
     ja = ご注意ください
     ko = 참고 사항
     lt = Atkreipkite dėmesį
+    lv = Ievērojiet
     mr = कृपया नोंद घ्या
     nb = Vær oppmerksom på at
     nl = Opgelet
@@ -14507,6 +14835,7 @@
     ja = すべてのマップの変更はマップとともに削除されます。
     ko = 모든 지도의 변경 사항은 지도와 함께 삭제됩니다.
     lt = Visi jūsų žemėlapio pakeitimai bus panaikinti kartu su žemėlapiu.
+    lv = Kopā ar karti dzēsīsies visas jūsu veiktās kartes izmaiņas.
     mr = तुमचे सर्व नकाशा संपादने नकाशासह पुसले जातील.
     nb = Alle endringer i kartet vil slettes sammen med kartet.
     nl = Alle wijzigingen aan de kaart zullen samen met de kaart worden verwijderd.
@@ -14550,6 +14879,7 @@
     ja = 地図を更新
     ko = 지도 업데이트
     lt = Naujinti žemėlapius
+    lv = Atjaunināt kartes
     mr = नकाशे अद्ययावत करा
     nb = Oppdater kart
     nl = Update kaarten
@@ -14594,6 +14924,7 @@
     ja = ルートを作成するには、全ての地図を更新した後で再びルート計画を行う必要があります。
     ko = 경로를 만들려면, 모든 지도를 업데이트한 다음, 다시 경로를 계획해야 합니다.
     lt = Jums reikia atnaujinti visus žemėlapius ir planuoti maršrutą dar kartą, kad jį sukurtumėte.
+    lv = Lai izveidotu maršrutu, atjauniniet visas kartes un plānojiet maršrutu no jauna.
     mr = मार्ग तयार करण्यासाठी तुम्हाला सर्व नकाशे अद्ययावत करावे लागतील आणि मग मार्ग नियोजन करता येईल.
     nb = For å opprette en reiserute må du oppdatere alle kartene og deretter planlegge reiseruten på nytt.
     nl = Om een route te creëren, moet je alle kaarten updaten en dan de route opnieuw plannen.
@@ -14638,6 +14969,7 @@
     ja = 地図を検索
     ko = 지도 찾기
     lt = Rasti žemėlapį
+    lv = Atrast karti
     mr = नकाशा शोधा
     nb = Finn kartet
     nl = Vind een kaart
@@ -14682,6 +15014,7 @@
     ja = ダウンロードエラー
     ko = 다운로드 오류
     lt = Atsisiuntimo klaida
+    lv = Lejupielādes kļūda
     mr = डाउनलोड त्रुटी
     nb = Nedlastningsfeil
     nl = Downloadfout
@@ -14725,6 +15058,7 @@
     ja = デバイスがインターネットに接続されているか確認してください。
     ko = 설정을 확인하고 장치가 인터넷에 연결되어 있는지 확인하십시오.
     lt = Patikrinkite nustatymus ir įsitikinkite, kad jūsų įrenginys turi prieigą prie interneto.
+    lv = Pārliecinieties, ka ierīce ir savienota ar internetu.
     mr = कृपया तुमचे सेटिंग तपासा आणि तुमचे उपकरण इंटरनेटशी जोडले असल्याची खात्री करा.
     nb = Kontroller innstillingene dine og sørg for at enheten din er koblet til Internett.
     nl = Controleer je instellingen en zorg ervoor dat het apparaat verbonden is met het internet.
@@ -14768,6 +15102,7 @@
     ja = 十分な空き容量がありません
     ko = 충분하지 않은 여유 공간
     lt = Nepakanka vietos
+    lv = Trūkst vietas
     mr = पुरेशी जागा नाही
     nb = Ikke nok plass
     nl = Niet genoeg ruimte
@@ -14811,6 +15146,7 @@
     ja = 不要データを削除してください
     ko = 불필요한 데이터를 제거하십시오.
     lt = Panaikinkite nereikalingus duomenis
+    lv = Dzēsiet liekos datus
     mr = कृपया अनावश्यक डेटा पुसून टाका
     nb = Fjern unødvendig data
     nl = Verwijder overbodige gegevens
@@ -14855,6 +15191,7 @@
     ja = ログインエラー。
     ko = 로그인 오류.
     lt = Prisijungimo klaida.
+    lv = Ierakstīšanās kļūda.
     mr = लॉग इन त्रुटी.
     nb = Innloggingsfeil.
     nl = Inlogfout.
@@ -14898,6 +15235,7 @@
     ja = 確認された変更
     ko = 변경사항 승인
     lt = Patvirtinti pakeitimai
+    lv = Apstiprinātas izmaiņas
     mr = सत्यापित बदल
     nb = Bekreftede endringer
     nl = Gecontroleerde wijzigingen
@@ -14942,6 +15280,7 @@
     ja = 地図を操作してオブジェクトの正しい場所を選択します。
     ko = 개체의 정확한 위치를 선택하려면 지도를 당깁니다.
     lt = Vilkite žemėlapį, kad pasirinktumėte teisingą objekto vietą.
+    lv = Velciet karti, lai atlasītu pareizu objekta atrašanās vietu.
     mr = वस्तूचे योग्य स्थान निवडण्यासाठी नकाशा सरकवा.
     nb = Dra kartet for å velge riktig beliggenhet for objektet.
     nl = Versleep de kaart om de juiste locatie van het object te selecteren.
@@ -14985,6 +15324,7 @@
     ja = カテゴリを選択
     ko = 범주 선택
     lt = Pasirinkti kategoriją
+    lv = Atlasiet kategoriju
     mr = प्रवर्ग निवडा
     nb = Velg kategori
     nl = Selecteer categorie
@@ -15028,6 +15368,7 @@
     ja = 人気
     ko = 인기있는
     lt = Populiarios
+    lv = Populāras
     mr = लोकप्रिय
     nb = Populære
     nl = Populair
@@ -15071,6 +15412,7 @@
     ja = 全てのカテゴリ
     ko = 모든 카테고리
     lt = Visos kategorijos
+    lv = Visas kategorijas
     mr = सर्व प्रवर्ग
     nb = Alle kategorier
     nl = Alle categorieën
@@ -15114,6 +15456,7 @@
     ja = 編集中
     ko = 편집 중
     lt = Redaguojama
+    lv = Rediģēšana
     mr = संपादन
     nb = Redigerer
     nl = Bewerken
@@ -15158,6 +15501,7 @@
     ja = 追加中
     ko = 첨가 중
     lt = Pridedama
+    lv = Pievienošana
     mr = जोडणे
     nb = Legger til
     nl = Toevoegen
@@ -15202,6 +15546,7 @@
     ja = 場所の名前
     ko = 장소 이름
     lt = Vietos pavadinimas
+    lv = Vietas nosaukums
     mr = ठिकाणाचे नाव
     nb = Navn på stedet
     nl = Naam van de plaats
@@ -15247,6 +15592,7 @@
     ja = 現地の言葉でこう書かれている。
     ko = 현지 언어로 작성되었으므로
     lt = Kaip rašoma vietos kalba
+    lv = Pieraksts vietējā valodā
     mr = स्थानिक भाषेत लिहिल्याप्रमाणे
     nb = Som det står skrevet på det lokale språket
     nl = Zoals het in de plaatselijke taal geschreven staat
@@ -15291,6 +15637,7 @@
     ja = カテゴリ
     ko = 범주
     lt = Kategorija
+    lv = Kategorija
     mr = प्रवर्ग
     nb = Kategori
     nl = Categorie
@@ -15334,6 +15681,7 @@
     ja = 問題の詳細な説明
     ko = 문제에 대한 자세한 설명
     lt = Išsamus problemos aprašymas
+    lv = Plašāks problēmas apraksts
     mr = समस्येचे तपशिलात वर्णन
     nb = Detaljert beskrivelse av problemet
     nl = Gedetailleerde probleemomschrijving
@@ -15377,6 +15725,7 @@
     ja = 異なる問題
     ko = 다른 문제
     lt = Kita problema
+    lv = Cita problēma
     mr = वेगळी समस्या
     nb = Et annet problem
     nl = Een ander probleem
@@ -15421,6 +15770,7 @@
     ja = ビジネスを追加
     ko = 조직 추가
     lt = Pridėti verslą
+    lv = Pievienot uzņēmumu
     mr = व्यवसाय जोडा
     nb = Legg til organisasjon
     nl = Voeg een organisatie toe
@@ -15464,6 +15814,7 @@
     ja = アプリから直接地図に新しい場所を追加したり、既存の場所を編集できます。
     ko = 지도에 새로운 장소를 추가하고 응용 프로그램에서 직접 기존 편집 할 수 있습니다.
     lt = Pridėkite naujų vietų į žemėlapį ir redaguokite esamas tiesiai iš programėlės.
+    lv = Pievienojiet kartei jaunas vietas un rediģējiet jau esošās uzreiz lietotnē.
     mr = नकाशावर नवीन ठिकाणे जोडा आणि विद्यमान ठिकाणे थेट ऍप मधून संपादित करा.
     nb = Legg til nye steder i kartet og rediger eksisterende steder direkte fra appen.
     nl = Voeg nieuwe plaatsen toe aan de kaart en bewerk de bestaande rechtstreeks vanuit de app.
@@ -15507,6 +15858,7 @@
     ja = 位置を変更してください
     ko = 위치 변경
     lt = Keisti vietą
+    lv = Mainīt atrašanās vietu
     mr = स्थान बदला
     nb = Endre plassering
     nl = Wijzig locatie
@@ -15550,6 +15902,7 @@
     ja = ここにはオブジェクトを配置できません
     ko = 목적지를 이곳에서 찾을 수 없습니다
     lt = Nerasta objektų
+    lv = Šeit objekti nevar atrasties
     mr = इथे कोणतीही वस्तू ठेवू शकत नाही
     nb = Et objekt kan ikke plasseres her
     nl = Hier kan geen object worden geplaatst
@@ -15596,6 +15949,7 @@
     ja = コミュニティが作成した OpenStreetMap のデータは OpenStreetMap.org までです。地図の編集や更新の方法については、%@を参照してください。
     ko = 커뮤니티에서 만든 오픈스트리트맵 데이터(%@ 기준). 지도를 편집하고 업데이트하는 방법에 대한 자세한 내용은 OpenStreetMap.org에서 확인하세요.
     lt = Bendruomenės sukurti OpenStreetMap duomenys nuo %@. Sužinokite daugiau apie tai, kaip redaguoti ir atnaujinti žemėlapį OpenStreetMap.org
+    lv = Kopiena veidotie „OpenStreetMap“ dati uz %@. Uzziniet vairāk par to, kā piedalīties kartes rediģēšanā un uzlabošanā vietnē „OpenStreetMap.org“.
     mr = समुदाय-निर्मित OpenStreetMap डेटा %@ नुसार. OpenStreetMap.org वर नकाशा संपादित आणि अपडेट कसा करायचा याबद्दल अधिक जाणून घ्या
     nb = Fellesskapsopprettede OpenStreetMap-data fra %@. Les mer om hvordan du redigerer og oppdaterer kartet på OpenStreetMap.org.
     nl = Door de gemeenschap gemaakte OpenStreetMap-gegevens vanaf %@. Lees meer over hoe je de kaart kunt bewerken en bijwerken op OpenStreetMap.org
@@ -15641,6 +15995,7 @@
     ja = 他のユーザーにも変更が表示されるようにログインしてください。
     ko = 로그인하여 다른 사용자가 변경한 내용을 볼 수 있도록 하십시오.
     lt = Prisijungti prie OpenStreetMap.org, kad kiti naudotojai galėtų matyti jūsų padarytus pakeitimus.
+    lv = Ierakstieties „OpenStreetMap.org“, lai arī citi lietotāji varētu redzēt jūsu veiktās izmaiņas.
     mr = इतर वापरकर्त्यांना तुम्ही केलेले बदल दिसण्यासाठी लॉग इन करा
     nb = Logg inn slik at andre brukere kan se endringene du har utført.
     nl = Log in zodat andere gebruikers kunnen zien wat u hebt gewijzigd.
@@ -15686,6 +16041,7 @@
     ja = ダウンロードするには空き容量が必要です。不要なデータを削除してください。
     ko = 다운로드하려면, 더 많은 여유 공간이 필요합니다. 불필요한 데이터를 삭제하십시오.
     lt = Jei norite atsisiųsti, reikia daugiau vietos. Panaikinkite nereikalingus duomenis.
+    lv = Lejupielādei nepieciešams vairāk vietas. Izdzēsiet liekos datus.
     mr = डाउनलोड करण्यासाठी तुम्हाला अधिक जागा आवश्यक आहे. कृपया अनावश्यक डेटा पुसून टाका.
     nb = Du må frigjøre mer lagringsplass for å laste ned. Slett unødvendig data.
     nl = Om te kunnen downloaden, heb je meer ruimte nodig. Verwijder overbodige gegevens.
@@ -15729,6 +16085,7 @@
     ja = Organic Mapsの地図を改善しました
     ko = 나는 Organic Maps 지도를 향상함
     lt = Patobulinau Organic Maps žemėlapius
+    lv = Es uzlaboju „Organic Maps“ kartes
     mr = मी Organic Maps नकाशे सुधारित केले
     nb = Jeg har forbedret Organic Maps kartene
     nl = Ik heb de Organic Maps-kaarten verbeterd
@@ -15774,6 +16131,7 @@
     ja = %2$dのうち%1$d
     ko = %2$d중의 %1$d
     lt = %1$d iš %2$d
+    lv = %1$d no %2$d
     mr = %2$d पैकी %1$d
     nb = %1$d av %2$d
     nl = %1$d van %2$d
@@ -15817,6 +16175,7 @@
     ja = モバイル通信でダウンロードしますか？
     ko = 셀룰러 네트워크 접속을 사용하여 다운로드하시겠습니까?
     lt = Atsisiųsti naudojant korinį tinklą?
+    lv = Vai lejupielādēt arī mobilajā tīklā?
     mr = मोबाईल डेटा वापरून डाउनलोड करायचे?
     nb = Last ned med mobildata?
     nl = Downloaden via een mobiele gegevensverbinding?
@@ -15860,6 +16219,7 @@
     ja = プランによって、またはローミングしている場合、非常に高額になる可能性があります。
     ko = 이는 일부 플랜이나 로밍할 경우에 비싸다고 간주될 수 있습니다.
     lt = Tai gali būti itin brangu su kai kuriais planais arba jei yra tarptinklinis ryšys.
+    lv = Ja lietojat ierobežotus datus vai viesabonēšanu, tas var izmaksāt dārgi.
     mr = रोमिंग वर असल्यास हे बरेच महाग पडू शकते.
     nb = Dette kan medføre store kostnader med enkelte dataplaner eller om du roamer.
     nl = Met sommige abonnementen of bij roaming kan dit behoorlijk duur zijn.
@@ -15903,6 +16263,7 @@
     ja = 正しい番地を入力してください
     ko = 올바른 집 번호 입력
     lt = Įveskite pastato numerį
+    lv = Ierakstiet derīgu ēkas numuru
     mr = एक वैध बिल्डिंग क्रमांक प्रविष्ट करा
     nb = Skriv riktig husnummer
     nl = Voer een geldig huisnummer in
@@ -15946,6 +16307,7 @@
     ja = フロアの数（最大%d）
     ko = 층 수(최대 %d)
     lt = Aukštų skaičius (daugiausia %d)
+    lv = Stāvu skaits (maks. %d)
     mr = मजल्यांची संख्या (कमाल %d)
     nb = Antall etasjer (maks. %d)
     nl = Aantal verdiepingen (max. %d)
@@ -15990,6 +16352,7 @@
     ja = 最高%d階までのビルを編集
     ko = 최대 %d층까지 입력하세요
     lt = Aukštų skaičius negali viršyti %d
+    lv = Stāvu skaits nedrīkst pārsniegt %d
     mr = मजल्यांची संख्या %d पेक्षा जास्त नसावी
     nb = Rediger bygningen med maks. %d etasjer
     nl = Het gebouw mag niet meer dan %d verdiepingen hebben
@@ -16034,6 +16397,7 @@
     ja = 郵便番号
     ko = 우편번호
     lt = ZIP kodas
+    lv = Pasta indekss
     mr = पिनकोड
     nb = Postnummer
     nl = Postcode
@@ -16078,6 +16442,7 @@
     ja = 正しい郵便番号を入力してください
     ko = 올바른 우편번호를 입력하세요
     lt = Įveskite ZIP kodą
+    lv = Ierakstiet pasta indeksu
     mr = वैध पिनकोड प्रविष्ट करा
     nb = Angi riktig postnummer
     nl = Voer een geldige postcode in
@@ -16123,6 +16488,7 @@
     ja = 不明な場所
     ko = 장소 알 수 없음
     lt = Nežinoma vieta
+    lv = Nezināma vieta
     mr = अज्ञात ठिकाण
     nb = Ukjent sted
     nl = Onbekende locatie
@@ -16303,6 +16669,7 @@
     ja = 詳細コメント
     ko = 상세 설명
     lt = Išsamus komentaras
+    lv = Sīkāks komentārs
     mr = तपशीलवार टिप्पणी
     nb = Detaljert kommentar
     nl = Gedetailleerde reactie
@@ -16347,6 +16714,7 @@
     ja = 提案した変更は、OpenStreetMapのコミュニティに送信されます。Organic Mapsで編集できない詳細を説明してください。
     ko = 귀하가 제안한 변경 사항은 OpenStreetMap 커뮤니티로 전송됩니다. Organic Maps에서 편집할 수 없는 세부정보를 작성해 주세요.
     lt = Jūsų pasiūlyti žemėlapio pakeitimas bus išsiųsti OpenStreetMap bendruomenei. Aprašykite papildomą informaciją, kuri negali būti redaguojama Organic Maps.
+    lv = Jūsu izmaiņu priekšlikumu nosūtīsim „OpenStreetMap“ kopienai. Lūdzu, sniedziet jebkādu papildu informāciju, ko nevarat norādīt „Organic Maps“ lietotnē.
     mr = तुम्ही सुचवलेले नकाशातील बदल OpenStreetMap समुदायाला पाठवले जातील. Organic Maps मध्ये संपादित न करता येणाऱ्या अधिक तपशीलांचे वर्णन करा.
     nb = De foreslåtte endringene vil sendes til OpenStreetMap-gruppen. Beskriv detaljene som ikke kan redigeres i Organic Maps.
     nl = Uw voorgestelde wijzigingen worden verzonden naar de OpenStreetMap-gemeenschap. Beschrijf de details die niet kunnen worden bewerkt in Organic Maps.
@@ -16391,6 +16759,7 @@
     ja = OpenStreetMapについての詳細
     ko = OpenStreetMap 정보
     lt = Daugiau apie OpenStreetMap
+    lv = Vairāk par „OpenStreetMap“
     mr = OpenStreetMap बद्दल अधिक
     nb = Mer om OpenStreetMap
     nl = Meer over OpenStreetMap
@@ -16435,6 +16804,7 @@
     ja = オペレーター
     ko = 소유자
     lt = Savininkas
+    lv = Īpašnieks
     mr = मालक
     nb = Eier
     nl = Uitvoerder
@@ -16480,6 +16850,7 @@
     ja = オペレーター: %@
     ko = 소유자: %@
     lt = Savininkas: %@
+    lv = Īpašnieks: %@
     mr = मालक: %@
     nb = Eier: %@
     nl = Uitvoerder: %@
@@ -16524,6 +16895,7 @@
     ja = 適切なカテゴリーが見つからない？
     ko = 적합한 카테고리를 찾을 수 없나요?
     lt = Nerandate tinkamos kategorijos?
+    lv = Vai neatrodat atbilstošu kategoriju?
     mr = योग्य श्रेणी शोधू शकत नाही?
     nb = Finner du ikke en passende kategori?
     nl = Kun je geen geschikte categorie vinden?
@@ -16569,6 +16941,7 @@
     ja = つまり、町、道路、湖、建物の輪郭などは追加できない。そのようなカテゴリーは<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>に直接追加してほしい。私たちの<a href="https://organicmaps.app/faq/editing/advanced-map-editing">ガイド</a>のステップバイステップの詳細な手順をチェックする。
     ko = 오가닉 지도에서는 단순한 포인트 카테고리만 추가할 수 있으므로 도시, 도로, 호수, 건물 윤곽선 등은 추가할 수 없습니다. 이러한 카테고리는 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> 에 직접 추가하세요. 자세한 단계별 지침은 <a href="https://organicmaps.app/faq/editing/advanced-map-editing">가이드</a>를 참조하세요.
     lt = "Organic Maps" leidžia pridėti tik paprastas taškų kategorijas, t. y. jokių miestų, kelių, ežerų, pastatų kontūrų ir pan. Tokias kategorijas pridėkite tiesiai į <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Peržiūrėkite mūsų <a href="https://organicmaps.app/faq/editing/advanced-map-editing">vadovą</a>, kur rasite išsamias instrukcijas žingsnis po žingsnio.
+    lv = „Organic Maps“ ļauj pievienot tikai vienkāršu punktu kategorijas, proti, nevarat pievienot pilsētas, ceļus, ezerus, ēku aprises u.tml. Šādas kategorijas lūdzam pievienot tiešā veidā <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Lai uzzinātu, kā to izdarīt, sekojiet norādēm <a href="https://organicmaps.app/faq/editing/advanced-map-editing">rokasgrāmatā</a>.
     mr = ऑरगॅनिक नकाशे फक्त साध्या बिंदू श्रेणी जोडण्याची परवानगी देतात, म्हणजे शहरे, रस्ते, तलाव, इमारत बाह्यरेखा इ. कृपया अशा श्रेणी थेट <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> वर जोडा. तपशीलवार चरण-दर-चरण सूचनांसाठी आमचे <a href="https://organicmaps.app/faq/editing/advanced-map-editing">मार्गदर्शक</a> पहा.
     nb = Organic Maps tillater kun å legge til enkle punktkategorier, det vil si ingen byer, veier, innsjøer, bygningsomriss osv. Vennligst legg til slike kategorier direkte til <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Sjekk vår <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detaljerte trinnvise instruksjoner.
     nl = Met Organic Maps kun je alleen eenvoudige puntcategorieën toevoegen, dus geen steden, wegen, meren, contouren van gebouwen, enzovoort. Voeg zulke categorieën direct toe aan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Bekijk onze <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gids</a> voor gedetailleerde stap voor stap instructies.
@@ -16613,6 +16986,7 @@
     ja = マップをダウンロードしていません
     ko = 지도를 다운로드하지 않았습니다
     lt = Neatsisiuntėte jokių žemėlapių
+    lv = Ierīcē nav lejupielādētas kartes
     mr = तुम्ही कोणतेही नकाशे डाउनलोड केलेले नाहीत
     nb = Du har ikke lastet ned noen kart
     nl = U hebt geen kaarten gedownload
@@ -16656,6 +17030,7 @@
     ja = ロケーションの検索とオフラインナビゲートのためにマップをダウンロードしてください。
     ko = 오프라인으로 위치를 검색하려면 지도를 다운로드하세요.
     lt = Atsisiųskite žemėlapius, kad ieškotumėte vietos ir keliautumėte neprisijungę prie tinklo.
+    lv = Lai darbotos nesaistes navigācija un meklēšana, lejupielādējiet kartes.
     mr = स्थान शोधण्यासाठी नकाशे डाउनलोड करा आणि ऑफलाइन मार्गनिर्देशन वापरा.
     nb = Last ned kart for å finne plasseringen og navigere frakoblet.
     nl = Download kaarten om een locatie te zoeken en offline te navigeren.
@@ -16698,6 +17073,7 @@
     ja = 現在地は不明です。
     ko = 현재 위치를 알 수 없습니다.
     lt = Dabartinė vieta yra nežinoma.
+    lv = Pašreizējā vieta nav zināma.
     mr = वर्तमान स्थान अज्ञात आहे.
     nb = Gjeldende plassering er ukjent.
     nl = Huidige locatie is onbekend.
@@ -16742,6 +17118,7 @@
     ja = 現在地の検索中にエラーが発生しました。 デバイスが正常に動作していることを確認して、もう一度お試しください。
     ko = 위치 검색 중 오류가 발생했습니다. 장치가 올바르게 작동되는지 확인하고 다시 시도하세요.
     lt = Įvyko klaida ieškant jūsų vietos. Įsitikinkite,kad jūsų įrenginys veikia tinkamai ir bandykite iš naujo.
+    lv = Nosakot jūsu atrašanās vietu, radās kļūda. Pārleicinieties, ka ierīce darbojas korekti un mēģiniet vēlreiz.
     mr = तुमचे स्थान शोधत असताना एक त्रुटी आढळली. तुमचे उपकरण योग्यरितीने काम करत असल्याचे तपासा आणि नंतर पुन्हा प्रयत्न करा.
     nb = Det oppstod en feil under søking etter plasseringen din. Kontroller at plasseringen din virker som den skal, og prøv på nytt senere.
     nl = Er is een fout opgetreden tijdens het zoeken naar uw locatie. Controleer of uw apparaat goed werkt en probeer het later opnieuw.
@@ -16785,6 +17162,7 @@
     ja = 位置情報が無効になっています
     ko = 위치 식별 사용할 수 없음
     lt = Vietovės tarnybos yra išjungtos
+    lv = Vietas noteikšanas servisi ir izslēgti
     mr = स्थान सेवा बंद आहे
     nb = Lokalisering er deaktivert
     nl = Locatie-identificatie is uitgeschakeld
@@ -16828,6 +17206,7 @@
     ja = デバイスの設定で位置情報へのアクセスを有効にしてください
     ko = 장치 설정에서 위치 정보에 액세스할 수 있음
     lt = Įjungti Enable access to geolocation in the device settings
+    lv = Ierīces iestatījumos ieslēdziet pieeju ģeolokācijai.
     mr = उपकरणाच्या सेटिंगमध्ये भूस्थानाची उपलब्धता चालू करा
     nb = Tillat bruk av av geografisk lokalisering i enhetens innstillinger
     nl = Schakel de toegang tot geolocatie in in de instellingen van het apparaat
@@ -16871,6 +17250,7 @@
     ja = 1. 「設定」を開きます
     ko = 1. 설정 열기
     lt = 1. Atidarykite nustatymus
+    lv = 1. Atveriet iestatījumus
     mr = १. सेटिंग उघडा
     nb = 1. Åpne Innstillinger
     nl = 1. Instellingen openen
@@ -16913,6 +17293,7 @@
     ja = 2. 「位置情報」をタップします
     ko = 2. 위치 누르기
     lt = 2. Bakstelėkite „Vietovė“
+    lv = 2. Pieskarieties „Vietai"
     mr = २. स्थान टॅप करा
     nb = 2. Trykk Lokalisering
     nl = 2. Tik op locatie
@@ -16956,6 +17337,7 @@
     ja = 3. 「アプリの使用中」を選択してください
     ko = 3. 앱 사용 중에 선택
     lt = 3. Pasirinkite Naudojant programėlę
+    lv = 3. Atlasiet „Izmantojot lietotni“
     mr = ३. "ऍप वापरत असताना" निवडा
     nb = 3.Velg når appen er i bruk
     nl = 3. Selecteer Bij gebruik van app
@@ -17000,6 +17382,7 @@
     ja = 2.プライバシーを選択する
     ko = 2. 2. 개인정보 보호 선택
     lt = 2. Pasirinkite Privatumas
+    lv = 2. Atlasiet „Privātums“
     mr = 2. गोपनीयता निवडा
     nb = 2. Velg Personvern
     nl = 2. Selecteer Privacy en beveiliging
@@ -17045,6 +17428,7 @@
     ja = 3.位置情報サービスを選択する
     ko = 3. 3. 위치 서비스 선택
     lt = 3. Pasirinkite Vietos nustatymo paslaugos
+    lv = 3. Atlasiet atrašanās vietas pakalpojumus
     mr = 3. स्थान सेवा निवडा
     nb = 3. Velg Stedstjenester
     nl = 3. Selecteer Locatievoorzieningen
@@ -17090,6 +17474,7 @@
     ja = 4.位置情報サービスをオンにする
     ko = 4. 위치 서비스 켜기
     lt = 4. Įjunkite vietos nustatymo paslaugas
+    lv = 4. Ieslēdziet atrašanāš vietas noteikšanas pakalpojumus
     mr = 4. स्थान सेवा चालू करा
     nb = 4. Slå på Stedstjenester
     nl = 4. Locatievoorzieningen inschakelen
@@ -17136,6 +17521,7 @@
     ja = または、位置情報なしでオーガニック・マップを使い続ける
     ko = 또는 위치 없이 오가닉 맵을 계속 사용하세요.
     lt = Arba toliau naudokite "Organic Maps" be vietos
+    lv = Vai turpiniet izmantot „Organic Maps“ bez vietas
     mr = किंवा स्थानाशिवाय ऑरगॅनिक नकाशे वापरणे सुरू ठेवा
     nb = Eller fortsett å bruke Organic Maps uten plassering
     nl = Of blijf Organic Maps gebruiken zonder locatie
@@ -17182,6 +17568,7 @@
     ja = m
     ko = m
     lt = m
+    lv = m
     mr = m
     nb = m
     nl = m
@@ -17227,6 +17614,7 @@
     ja = km
     ko = km
     lt = km
+    lv = km
     mr = किमी
     nb = km
     nl = km
@@ -17270,6 +17658,7 @@
     ja = km/h
     ko = km/시
     lt = km/h
+    lv = km/h
     mr = km/h
     nb = km/t
     nl = km/h
@@ -17313,6 +17702,7 @@
     ja = mi
     ko = mi
     lt = mi
+    lv = mi
     mr = mi
     nb = mi
     nl = mijl
@@ -17356,6 +17746,7 @@
     ja = ft
     ko = 풋
     lt = ft
+    lv = ft
     mr = फूट
     nb = fot
     nl = voet
@@ -17396,6 +17787,7 @@
     ja = mph
     ko = mph
     lt = mph
+    lv = mph
     mr = mph
     nb = mph
     nl = mph
@@ -17438,6 +17830,7 @@
     ja = 時間
     ko = t
     lt = h
+    lv = st.
     mr = तास
     nb = t
     nl = u
@@ -17481,6 +17874,7 @@
     ja = 分
     ko = min
     lt = min
+    lv = min.
     mr = मिनिट
     nb = min
     nl = min
@@ -17524,6 +17918,7 @@
     ja = さらに詳しく
     ko = 자세히
     lt = Daugiau
+    lv = Vairāk
     mr = अधिक
     nb = Mer
     nl = Meer
@@ -17567,6 +17962,7 @@
     ja = 予約
     ko = 예약
     lt = Knyga
+    lv = Rezervēt
     mr = पुस्तक
     nb = Bestill
     nl = Boek
@@ -17611,6 +18007,7 @@
     it = Foto, recensioni, prenotazioni
     ja = 写真、レビュー、予約
     ko = 사진, 리뷰, 예약
+    lv = Foto, atsauksmes, rezervācija
     mr = फोटोपुनरावलोकनेबुकिंगबुकिंग
     nb = Bilder, anmeldelser, bestilling
     nl = Foto's, beoordelingen, boeken
@@ -17656,6 +18053,7 @@
     it = Il bonus ricevuto per ogni prenotazione effettuata tramite questo link è destinato allo sviluppo di Organic Maps.
     ja = このリンクを経由した予約の紹介ボーナスは、Organic Mapsの発展のために使われる。
     ko = 이 링크를 통해 예약할 때마다 받는 추천 보너스는 오가닉맵 개발에 사용됩니다.
+    lv = No ieteikuma saites saņemtais bonuss par katru rezervāciju nonāk „Organic Maps“ attīstīšanai.
     mr = या लिंकद्वारे प्रत्येक बुकिंगसाठी मिळणारा रेफरल बोनस ऑरगॅनिक नकाशांच्या विकासासाठी जातो.
     nb = Henvisningsbonusen som mottas for hver bestilling via denne lenken, går til utviklingen av Organic Maps.
     nl = De doorverwijsbonus die je ontvangt voor elke boeking via deze link gaat naar de ontwikkeling van Organic Maps.
@@ -17701,6 +18099,7 @@
     it = Dettagli su Kayak
     ja = Kayak で詳細表示
     ko = Kayak의 세부 정보
+    lv = Informācija par „Kayak“
     mr = कायाक वर तपशील
     nb = Mer informasjon om Kayak
     nl = Details op Kayak
@@ -17744,6 +18143,7 @@
     ja = 電話をかける
     ko = 전화
     lt = Skambinti
+    lv = Zvanīt
     mr = फोन करा
     nb = Ring
     nl = Bel
@@ -17787,6 +18187,7 @@
     ja = ブックマークを編集
     ko = 즐겨찾기 편집
     lt = Redaguoti adresyną
+    lv = Rediģēt grāmatzīmi
     mr = खूणपत्र संपादित करा
     nb = Rediger bokmerke
     nl = Bewerk bladwijzer
@@ -17830,6 +18231,7 @@
     ja = ブックマーク名
     ko = 즐겨찾기 이름
     lt = Adresyno pavadinimas
+    lv = Grāmatzīmes nosaukums
     mr = खूणपत्राचे नाव
     nb = Bokmerkenavn
     nl = Bladwijzernaam
@@ -17872,6 +18274,7 @@
     ja = パーソナルメモ
     ko = 개인 메모
     lt = Asmeniniai užrašai
+    lv = Personīgi pieraksti
     mr = वैयक्तिक चिठ्ठ्या
     nb = Personlige notater
     nl = Persoonlijke aantekeningen
@@ -17914,6 +18317,7 @@
     ja = ブックマークを削除
     ko = 즐겨찾기 삭제
     lt = Naikinti adresyną
+    lv = Dzēst grāmatzīmi
     mr = खूणपत्र पुसा
     nb = Slett bokmerke
     nl = Verwijder bladwijzer
@@ -17958,6 +18362,7 @@
     ja = あなたのメモはOpenStreetMapに送られる
     ko = 메모가 오픈스트리트맵으로 전송됩니다
     lt = Jūsų pastaba bus išsiųsta į OpenStreetMap
+    lv = Jūsu piezīmi nosūtīsim uz „OpenStreetMap“
     mr = तुमची टीप OpenStreetMap वर पाठवली जाईल
     nb = Notatet ditt vil bli sendt til OpenStreetMap
     nl = Je opmerking wordt verzonden naar OpenStreetMap
@@ -18001,6 +18406,7 @@
     ja = コメント…
     ko = 설명…
     lt = Komentaras…
+    lv = Komentārs…
     mr = टिप्पणी
     nb = Kommentar…
     nl = Reactie…
@@ -18044,6 +18450,7 @@
     ja = ローカル編集をすべてリセットしますか?
     ko = 지역 변경 사항을 재설정하시겠습니까?
     lt = Anuliuoti visus vietinius pakeitimus?
+    lv = Vai izmest visas lokāli saglabātās izmaiņas?
     mr = सर्व स्थानिक बदल टाकून द्यायचे?
     nb = Nullstille alle lokale endringer?
     nl = Alle lokale wijzigingen weggooien?
@@ -18087,6 +18494,7 @@
     ja = リセット
     ko = 재설정
     lt = Anuliuoti
+    lv = Noraidīt
     mr = टाकून द्या
     nb = Nullstill
     nl = Gooi weg
@@ -18130,6 +18538,7 @@
     ja = 追加された場所を削除しますか？
     ko = 추가한 장소를 삭제하시겠습니까?
     lt = Naikinti pridėtą vietą?
+    lv = Vai dzēst pievienoto vietu?
     mr = जोडलेले ठिकाण पुसून टाकायचे?
     nb = Fjerne et tilføyd sted?
     nl = Toegevoegde locatie verwijderen?
@@ -18174,6 +18583,7 @@
     ja = 削除
     ko = 삭제
     lt = Naikinti
+    lv = Dzēst
     mr = पुसा
     nb = Fjern
     nl = Verwijder
@@ -18218,6 +18628,7 @@
     ja = 場所が存在しません
     ko = 존재하지 않는 장소입니다.
     lt = Vieta neegzistuoja
+    lv = Vieta nepastāv
     mr = ठिकाण अस्तित्वात नाही
     nb = Sted finnes ikke
     nl = Locatie bestaat niet
@@ -18255,6 +18666,7 @@
     it = Indicare il motivo dell' eliminazione del luogo
     ja = 場所を削除する理由を教えてください
     lt = Nurodykite vietos panaikinimo priežastį
+    lv = Norādiet šīs vietas dzēšanas iemeslu
     mr = कृपया ठिकाण हटवण्याचे कारण सूचित करा
     nb = Forklar hvorfor stedet skal slettes
     nl = Graag de reden voor verwijdering aangeven
@@ -18294,6 +18706,7 @@
     ja = …続き
     ko = …기타
     lt = …daugiau
+    lv = …vairāk
     mr = …अधिक
     nb = …mer
     nl = …meer
@@ -18338,6 +18751,7 @@
     ja = 正しい電話番号を入力してください
     ko = 올바른 전화 번호 입력
     lt = Įveskite telefono numerį
+    lv = Ierakstiet derīgu tālruņa numuru
     mr = वैध संपर्क क्रमांक प्रविष्ट करा
     nb = Skriv riktig telefonnummer
     nl = Voer een geldig telefoonnummer in
@@ -18381,6 +18795,7 @@
     ja = 有効なURLを入力してください
     ko = 유효한 웹 주소 입력
     lt = Įveskite saityno adresą
+    lv = Ierakstiet derīgu tīmekļa vietnes adresi
     mr = वैध वेब पत्ता प्रविष्ट करा
     nb = Oppgi en gyldig nettadresse
     nl = Voer een geldig webadres in
@@ -18424,6 +18839,7 @@
     ja = 有効なメールアドレスを入力してください
     ko = 유효한 이메일 주소 입력
     lt = Įveskite el. paštą
+    lv = Ierakstiet e-pasta adresi
     mr = वैध ईमेल प्रविष्ट करा
     nb = Oppgi en gyldig epostadresse
     nl = Voer een geldig emailadres in
@@ -18459,6 +18875,7 @@
     it = Inserisci un indirizzo web, un account o un nome di pagina Facebook valido
     ja = 有効な Facebook URL、アカウント、またはページ名を入力してください
     lt = Įveskite Facebook saityno adresą, paskyrą arba puslapio pavadinimą
+    lv = Ierakstiet „Facebook“ lapas adresi, kontu vai mājaslapas nosaukumu
     mr = वैध Facebook वेब पत्ता, खाते किंवा पृष्ठ नाव प्रविष्ट करा
     nb = Skriv inn en gyldig Facebook-adresse, -konto eller -side.
     nl = Voer een geldig Facebook-webadres, een accountnaam of een paginanaam in
@@ -18489,6 +18906,7 @@
     it = Inserisci un indirizzo web o un nome di account Instagram valido
     ja = 有効な Instagram ユーザー名またはURLを入力してください
     lt = Įveskite Instagram saityno adresą arba paskyros pavadinimą
+    lv = Ierakstiet „Instagram“ vietnes adresi vai konta nosaukumu
     mr = वैध Instagram वेब पत्ता किंवा खाते नाव प्रविष्ट करा
     nb = Skriv inn en gyldig Instagram-adresse eller -kontonavn
     nl = Voer een geldig Instagram-webadres of accountnaam in
@@ -18519,6 +18937,7 @@
     it = Inserisci un indirizzo web o un nome utente Twitter valido
     ja = 有効なTwitterユーザー名またはURLを入力してください
     lt = Įveskite Twitter saityno adresą arba naudotojo vardą
+    lv = Ierakstiet „Twitter“ vietnes adresi vai lietotājvārdu
     mr = वैध Twitter वेब पत्ता किंवा वापरकर्तानाव प्रविष्ट करा
     nb = Skriv inn en gyldig Twitter-adresse eller -brukernavn.
     nl = Voer een geldig Twitter-webadres of gebruikersnaam in
@@ -18549,6 +18968,7 @@
     it = Inserisci un indirizzo web o un nome di account VK valido
     ja = 有効なVKユーザー名またはURLを入力してください
     lt = Įveskite VK saityno adresą arba paskyros pavadinimą
+    lv = Ierakstiet VK vietnes adresi vai konta nosaukumu
     nb = Skriv inn en gyldig VB-adresse eller -kontonavn
     nl = Voer een geldig VB-webadres of accountnaam in
     pl = Wprowadź poprawny adres lub nazwę konta na VK
@@ -18579,6 +18999,7 @@
     it = Inserisca un indirizzo web LINE valido o un ID LINE
     ja = 有効なLINEユーザー名またはURLを入力してください
     lt = Įveskite LINE saityno adresą arba LINE ID
+    lv = Ierakstiet LINE vietnes adresi vai LINE ID
     nb = Skriv inn en gyldig LINE-adresse eller -ID.
     nl = Voer een geldig LINE-webadres of LINE ID in
     pl = Wpisz prawidłowy url LINE lub LINE ID
@@ -18616,6 +19037,7 @@
     ja = 更新
     ko = 최신 정보
     lt = Naujinti
+    lv = Atjaunināt
     mr = अद्ययावत करा
     nb = Oppdatere
     nl = Update
@@ -18661,6 +19083,7 @@
     ja = OpenStreetMapに場所を追加する
     ko = 오픈스트리트맵에 장소 추가
     lt = Pridėti vietą į OpenStreetMap
+    lv = Pievienot vietu „OpenStreetMap“
     mr = OpenStreetMap मध्ये ठिकाण जोडा
     nb = Legg til sted i OpenStreetMap
     nl = Voeg een plaats toe aan OpenStreetMap
@@ -18706,6 +19129,7 @@
     ja = 全てのユーザーに送信しますか？
     ko = 이를 모든 사용자에게 전송하시겠습니까?
     lt = Tikrai norite tai išsiųsti visiems naudotojams?
+    lv = Vai vēlaties to nosūtīt visiem lietotājiem?
     mr = तुम्ही ते सर्व वापरकर्त्यांना पाठवू इच्छिता?
     nb = Vil du sende det til alle brukere?
     nl = Wil je het naar alle gebruikers sturen?
@@ -18750,6 +19174,7 @@
     ja = 個人情報を入力していないことを確認してください。
     ko = 개인 정보를 입력하지 않았는지 확인하십시오.
     lt = Įsitikinkite, kad neįvedėte asmeninių duomenų.
+    lv = Pārliecinieties, ka neievadījāt nekādus privātus vai personīgus datus.
     mr = आपण कोणतीही वैयक्तिक माहिती प्रविष्ट केला नाही याची खात्री करा.
     nb = Sørg for at du ikke har skrevet noe personlig informasjon.
     nl = Controleer dat je geen persoonlijke gegevens hebt ingevoerd.
@@ -18793,6 +19218,7 @@
     ja = OpenStreetMap の編集者が変更を確認し、質問があれば連絡します。
     ko = OpenStreetMap 편집자가 변경 사항을 확인하고 질문이 있는 경우 귀하에게 연락할 것입니다.
     lt = OpenStreetMap redaktoriai peržiūrės pakeitimus ir su jumis susisieks, jei kils klausimų.
+    lv = „OpenStreetMap“ redaktori pārskatīs veiktās izmaiņas un jautājumu gadījumā ar jums sazināsies.
     nb = OpenStreetMap-redaktører vil sjekke endringene og ta kontakt med deg hvis de har spørsmål.
     nl = OpenStreetMap-editors zullen de wijzigingen controleren en contact met u opnemen als ze vragen hebben.
     pl = Redaktorzy OpenStreetMap sprawdzą zmiany i skontaktują się z Tobą, jeśli będą mieli jakiekolwiek pytania.
@@ -18831,6 +19257,7 @@
     ja = 停止
     ko = 중지
     lt = Stabdyti
+    lv = Apturēt
     mr = थांबा
     nb = Stopp
     nl = Stop
@@ -18873,6 +19300,7 @@
     ja = 最近の走行ルートの記録を無効にしますか？
     ko = 최근 여행한 경로 녹음을 비활성화하시겠습니까?
     lt = Išjungti paskiausiai nukeliautų maršrutų įrašymą?
+    lv = Vai izslēgt pēdējā noietā vai nobrauktā maršuta ierakstīšanu?
     mr = तुम्ही अलीकडे प्रवास केलेल्या मार्गाचे रेकॉर्डिंग बंद करायचे?
     nb = Deaktivere opptak av nylig reiste rute?
     nl = Vastleggen van uw onlangs afgelegde route uitschakelen?
@@ -18916,6 +19344,7 @@
     ja = 無効にする
     ko = 비활성화
     lt = Išjungti
+    lv = Izslēgt
     mr = बंद करा
     nb = Deaktiver
     nl = Schakel uit
@@ -18959,6 +19388,7 @@
     ja = ご覧ください
     ko = 체크아웃
     lt = Check out
+    lv = Paskaties
     mr = तपासा
     nb = Sjekk ut
     nl = Bekijk
@@ -19003,6 +19433,7 @@
     ja = Organic Mapsは、あなたの位置情報をバックグラウンドで使用して最近の走行ルートを記録します。
     ko = Organic Maps는 최근 여행한 경로를 녹음하기 위해 배경 화면에서 지역 위치 서비스를 사용합니다.
     lt = Organic Maps naudota jūsų geografinę vietą fone, kad įrašytų jūsų paskiausiai nukeliautus maršrutus.
+    lv = „Organic Maps“ fonā izmantos ierīces atrašanās vietas datus, lai reģistrētu pēdējo noieto vai nobraukto maršrutu.
     mr = तुम्ही अलीकडे प्रवास केलेला मार्ग रेकॉर्ड करण्यासाठी Organic Maps पार्श्वभूमीत तुमचे स्थान वापरते.
     nb = Organic Maps bruker geografiske funksjoner i bakgrunnen for å registrere din nylig reiste rute.
     nl = Organic Maps gebruikt uw geografische positie op de achtergrond om uw onlangs afgelegde route vast te leggen.
@@ -19048,6 +19479,7 @@
     ja = トラックの記録
     ko = 트랙 기록하기
     lt = Maršruto registravimas
+    lv = Maršruta reģistrēšana
     mr = ट्रॅक रेकॉर्ड करत आहे
     nb = Registrere sporet
     nl = Het spoor opnemen
@@ -19093,6 +19525,7 @@
     ja = 一般設定
     ko = 일반 설정
     lt = Bendrieji nustatymai
+    lv = Pamata iestatījumi
     mr = सामान्य सेटिंग
     nb = Generelle innstillinger
     nl = Algemene instellingen
@@ -19138,6 +19571,7 @@
     ja = 了解
     ko = 동의
     lt = Priimti
+    lv = Pieņemt
     mr = स्वीकारा
     nb = Godta
     nl = Accepteer
@@ -19183,6 +19617,7 @@
     ja = 拒否
     ko = 거부
     lt = Atmesti
+    lv = Noraidīt
     mr = नाकारा
     nb = Avvis
     nl = Weiger
@@ -19228,6 +19663,7 @@
     ja = 一覧
     ko = 목록
     lt = Sąrašas
+    lv = Saraksts
     mr = यादी
     nb = Liste
     nl = Lijst
@@ -19271,6 +19707,7 @@
     ja = モバイル通信を使用して詳細な情報を表示しますか？
     ko = 모바일 인터넷을 사용하여 자세한 정보를 표시하시겠습니까?
     lt = Naudoti mobilųjų internetą, kad parodytumėme išsamią informaciją?
+    lv = Izmantot mobilos datus, lai parādītu plašāku informāciju?
     mr = तपशीलवार माहिती दाखवण्यासाठी मोबाईल इंटरनेट वापरायचे?
     nb = Bruke mobilt Internett til å vise detaljert informasjon?
     nl = Mobiel internet gebruiken om gedetailleerde informatie weer te geven?
@@ -19315,6 +19752,7 @@
     ja = 常に使用
     ko = 항상 사용
     lt = Visada naudoti
+    lv = Izmantot vienmēr
     mr = नेहमी वापरा
     nb = Bruk alltid
     nl = Gebruik altijd
@@ -19358,6 +19796,7 @@
     ja = 今日だけ
     ko = 오늘만
     lt = Tik šiandien
+    lv = Tikai šodien
     mr = फक्त आज
     nb = Bare i dag
     nl = Alleen vandaag
@@ -19401,6 +19840,7 @@
     ja = 今日は使用しない
     ko = 오늘 사용 안 함
     lt = Šiandien nenaudoti
+    lv = Šodien neizmantot
     mr = आज वापरू नका
     nb = Ikke bruk i dag
     nl = Gebruik vandaag niet
@@ -19445,6 +19885,7 @@
     ja = モバイル通信
     ko = 모바일 인터넷
     lt = Mobilusis internetas
+    lv = Mobilie dati
     mr = मोबाइल इंटरनेट
     nb = Mobilt Internett
     nl = Mobiel internet
@@ -19490,6 +19931,7 @@
     ja = モバイル通信は場所、写真、価格やレビューのような詳細情報を表示するのに必要です。
     ko = 모바일 인터넷은 사진, 가격, 리뷰 등 장소에 대한 자세한 정보를 표시하는 데 필요합니다.
     lt = Mobilusis internetas yra reikalingas, kad gautumėte žemėlapių naujinimo pranešimus, ir vietų bei adresyno išsamios informacijos rodymui.
+    lv = Kartes atjauninājumu paziņojumiem un rediģējumu augšupielādēšanai ir nepieciešami mobilie dati.
     mr = नकाशा अद्यतन सूचना तसेच ठिकाणे व खूणपत्रांबद्दल तपशीलवार माहिती प्रदर्शित करण्यासाठी मोबाइल इंटरनेट आवश्यक आहे.
     nb = Mobilt Internett er nødvendig for å vise detaljert informasjon om steder, for eksempel fotografier, priser og anmeldelser.
     nl = Mobiel internet is vereist voor het weergeven van gedetailleerde informatie over plaatsen, zoals foto's, prijzen en beoordelingen.
@@ -19534,6 +19976,7 @@
     ja = 使用しない
     ko = 전혀 사용 안 함
     lt = Niekada nenaudoti
+    lv = Nekad neizmantot
     mr = कधीही वापरू नका
     nb = Aldri bruk
     nl = Gebruik nooit
@@ -19578,6 +20021,7 @@
     ja = 常に確認
     ko = 항상 표시
     lt = Visada klausti
+    lv = Jautāt vienmēr
     mr = नेहमी विचारा
     nb = Alltid spør
     nl = Vraag altijd
@@ -19621,6 +20065,7 @@
     ja = 交通データを表示するには、地図を更新する必要があります。
     ko = 교통 데이터를 표시하려면 지도를 업데이트해야 합니다.
     lt = Žemėlapiai turi būti atnaujinti, kad parodytumėme eismo duomenis.
+    lv = Lai parādītu satiksmes datus, kartes ir jāatjaunina.
     mr = वाहतूक माहिती दाखवण्यासाठी नकाशे अद्ययावत करणे आवश्यक आहे.
     nb = For å vise trafikkdata må kartene i appen være oppdaterte.
     nl = Om verkeersgegevens weer te geven, moeten de kaarten bijgewerkt worden.
@@ -19665,6 +20110,7 @@
     ja = 地図上のフォントサイズを大きくする
     ko = 지도에서 글꼴 크기 늘리기
     lt = Padidinti šrifto dydi žemėlapyje
+    lv = Palielināt fonta lielumu kartē
     mr = नकाशावर टंकाचा (फॉन्टचा) आकार वाढवा
     nb = Forstørr skriften på kartet
     nl = Vergroot lettergrootte op de kaart
@@ -19708,6 +20154,7 @@
     ja = Organic Maps をアップデートしてください
     ko = Organic Maps를 업데이트하세요.
     lt = Atnaujinkite Organic Maps
+    lv = Atjauniniet „Organic Maps“
     mr = कृपया Organic Maps अद्ययावत करा
     nb = Vennligst oppdater Organic Maps
     nl = Gelieve Organic Maps bij te werken
@@ -19752,6 +20199,7 @@
     ja = 交通データを表示するには、アプリケーションをアップデートする必要があります。
     ko = 교통 데이터를 표시하려면 응용 프로그램을 업데이트해야 합니다.
     lt = Programėlė turi būti atnaujinti, kad parodytumėme eismo duomenis.
+    lv = Lai parādītu satiksmes datus, lietotne ir jāatjaunina.
     mr = वाहतूक माहिती दाखवण्यासाठी ऍप अद्ययावत करणे आवश्यक आहे.
     nb = Du må oppdatere applikasjonen for å kunne se trafikkdata.
     nl = Om de verkeersgegevens weer te geven, moet de applicatie bijgewerkt worden.
@@ -19796,6 +20244,7 @@
     ja = 交通データは利用できません
     ko = 교통 데이터를 사용할 수 없습니다
     lt = Eismo duomenis neprieinami
+    lv = Satiksmes dati nav pieejami
     mr = वाहतूक माहिती उपलब्ध नाही
     nb = Trafikkdata er ikke tilgjengelig
     nl = Verkeersgegevens zijn niet beschikbaar
@@ -19840,6 +20289,7 @@
     ja = ログを有効化
     ko = 로깅 사용
     lt = Įjungti duomenų įrašymą
+    lv = Ieslēgt žurnalēšanu
     mr = लॉग चालू करा
     nb = Aktiver loggføring
     nl = Logboekregistratie inschakelen
@@ -19884,6 +20334,7 @@
     ja = ログファイルのサイズ: %@
     ko = 로그 파일 크기: %@
     lt = Žurnalo failo dydis: %@
+    lv = Žurnāla datnes lielums: %@
     mr = लॉग फाइल आकार: %@
     nb = Loggfilstørrelse: %@
     nl = Grootte logbestand: %@
@@ -19929,6 +20380,7 @@
     ja = 一般的なフィードバック
     ko = 일반 피드백
     lt = Bendrasis atsiliepimas
+    lv = Vispārīgas atsauksmes
     mr = सामान्य अभिप्राय
     nb = Generell tilbakemelding
     nl = Algemene feedback
@@ -19973,6 +20425,7 @@
     ja = 音声案内にはシステムの TTS を使用します。多くの Android 端末が Google の TTS を使用しており、Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) からダウンロードや更新を行うことができます。
     ko = 당사는 음성 지침을 위해 시스템 TTS를 사용합니다. 많은 Android 장치에서 Google TTS를 사용합니다. Google Play(https://play.google.com/store/apps/details?id=com.google.android.tts)에서 Google TTS를 다운로드하거나 업데이트할 수 있습니다.
     lt = Naudojame sistemos TTS balso instrukcijoms. Dauguma Android įrenginių naudoja Google TTS, galite aisisiųsti arba atnaujinti jį iš Play parduotuvės (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    lv = Balss norādēm lietotne izmanto teksta pārveides runā sistēmu (TTS). Daudzas „Android“ ierīces izmanto „Google TTS“, ko varat lejupielādēt un atjaunināt „Google Play“ veikalā (https://play.google.com/store/apps/details?id=com.google.android.tts)
     mr = आम्ही ध्वनी निर्देशांसाठी "सिस्टम TTS" वापरतो. अनेक Android उपकरणे "Google TTS" वापरतात, जे तुम्ही Google Play वरून डाउनलोड किंवा अद्ययावत करू शकता (https://play.google.com/store/apps/details?idu003dcom.google.android.tts)
     nb = Vi bruker system TTS for stemmeveiledning. Mange Android-enheter bruker Google TTS, Du kan laste ned eller oppdatere via Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     nl = We gebruiken het TTS-systeem voor gesproken instructies. Vele Android toestellen gebruiken Google TTS, u kunt het downloaden of bijwerken in Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
@@ -20017,6 +20470,7 @@
     ja = いくつかの言語では、アプリストア(Google PlayやGalaxy Storeなど)からその他の音声合成または追加の言語パックをインストールする必要があります。お使いのデバイスで [設定] → [言語と入力] → [音声] → [音声出力] を開いてください。ここで音声合成の設定 (たとえば、オフラインで使用する言語パックのダウンロードなど) を管理し、別の音声合成エンジンを選択することができます。
     ko = 일부 언어의 경우 앱 스토어(Google Play, Galaxy Store, App Gallery, FDroid)에서 다른 음성 합성기 또는 추가 언어 팩을 설치해야 합니다.\n장치의 설정 → 언어 및 입력 → 음성 → 텍스트-음성 변환 출력을 엽니다.\n여기서 음성 합성에 대한 설정을 관리하고(예: 오프라인 사용을 위한 언어 팩 다운로드) 다른 텍스트-음성 변환 엔진을 선택할 수 있습니다.
     lt = Kai kurioms kalboms jums reikės įdiegti šnekos sintezatorių arba papildomą kalbos paketą iš programėlių parduotuvės (Play parduotuvė, Galaxy parduotuvė, Programėlių galerija, FDroid).\nAtidarykite įrenginio nustatymus → Kalbos ir įvestis → Kalba → Teksto į kalbą išvestis.\nČia galite tvarkyti nustatymus šnekos sintezatoriui (pavyzdžiui, atsisiųsti kalbos paketą) ir pasirinkti kitą teksto į kalbą variklį.
+    lv = Dažām valodām nepieciešams instalēt runas sintezatoru vai papildu valodas paku, kas parasti atrodama lietotņu veikalā („Google Play“, „Galaxy Store“, „App Gallery“, „FDroid“).\nAtveriet ierīces iestatījumus → Valoda un ievade → Runa → Teksta pārveide runā.\nTe varat pārvaldīt runas sintēzes iestatījumus (piemēram, lejupielādēt valodas paku lietošanai nesaistē, kā arī varat nomainīt dzini teksta pārvēršanai runā.
     mr = काही भाषांसाठी, तुम्हाला अँप स्टोअर (Google Play, Galaxy Store, App Gallery, FDroid) वरून स्पीच मिश्रक किंवा अतिरिक्त भाषा संच इन्स्टॉल करावे लागतील.\nतुमच्या उपकरणाची सेटिंग → भाषा आणि इनपुट → स्पीच → "टेक्स्ट टू स्पीच आउटपुट" उघडा.\nयेथे तुम्ही स्पीच मिश्रणासाठी सेटिंग व्यवस्थापित करू शकता (उदाहरणार्थ, ऑफलाइन वापरासाठी भाषा संच डाउनलोड करा) आणि दुसरे टेक्स्ट-टू-स्पीच इंजिन निवडा.
     nb = For enkelte språk er det nødvendig å installere en annen talesyntese eller en ekstra språkpakke fra appbutikken (Google Play, Galaxy Store, App Gallery, FDroid).\nGå til enhetens innstillinger → Språk og input → Tale → Tekst til tale output.\nHer kan du administrere innstillingene for talesyntese (for eksempel laste ned språkpakke for offline bruk) og velge en annen tekst-til-tale-motor.
     nl = Voor sommige talen dient u een andere spraaksynthesesoftware of een aanvullende taalpakket te installeren van de app store (Google Play, Galaxy Store, App Gallery, FDroid).\nOpen de instellingen van uw toestel → Taal en invoer → Spraak → Uitvoer voor tekst-naar-spraak.\nHier kunt u instellingen voor spraaksynthese beheren (bijvoorbeeld taalpakket downloaden voor offline gebruik) en een andere tekst-naar-spraak engine selecteren.
@@ -20061,6 +20515,7 @@
     ja = 詳細については、このガイドをご確認ください。
     ko = 자세한 내용을 보려면 이 가이드를 확인하세요.
     lt = Jei norite išsamesnės informacijos, pažvelkite į šią instrukciją
+    lv = Vairāk informācijas atradīsiet šajā pamācībā
     mr = अधिक माहितीसाठी कृपया ही मार्गदर्शिका पहा.
     nb = Les denne veiledningen for mer informasjon.
     nl = Gelieve deze handleiding te lezen voor meer informatie.
@@ -20108,6 +20563,7 @@
     ja = ラテン文字への翻字
     ko = 라틴어로 음역
     lt = Transliteracija į lotynų
+    lv = Transliterācija uz latīņu alfabētu
     mr = लॅटिनमध्ये (इंग्रजीची अक्षरे) लिप्यंतरण
     nb = Omskrivning til latin
     nl = Transliteratie in het Latijnse alfabet
@@ -20152,6 +20608,7 @@
     ja = 詳細情報
     ko = 자세히 알아보기
     lt = Sužinokite daugiau
+    lv = Uzziniet vairāk
     mr = अधिक जाणून घ्या
     nb = Finn ut mer
     nl = Meer informatie
@@ -20197,6 +20654,7 @@
     ja = 出口
     ko = 끝내기
     lt = Išeiti
+    lv = Izeja
     mr = बाहेर पडा
     nb = Avslutt
     nl = Uitgang
@@ -20243,6 +20701,7 @@
     ja = 検索を使うか、地図上をタップしてルートの出発点を追加する
     ko = 검색을 사용하거나 지도를 탭하여 경로 시작점을 추가합니다
     lt = Naudokite paiešką arba bakstelėkite žemėlapyje, kad pridėtumėte maršruto pradžios tašką
+    lv = Lietojiet meklēšanu vai pieskarieties kartei, lai pievienotu galamērķi
     mr = मार्ग प्रारंभ बिंदू जोडण्यासाठी नकाशावर शोध वापरा किंवा टॅप करा
     nb = Bruk søk eller trykk på kartet for å legge til et startpunkt for ruten
     nl = Gebruik zoeken of tik op de kaart om een startpunt voor de route toe te voegen
@@ -20289,6 +20748,7 @@
     ja = 検索を使うか、地図上をタップして目的地を追加する
     ko = 검색을 사용하거나 지도를 탭하여 목적지 지점을 추가합니다
     lt = Naudokite paiešką arba bakstelėkite žemėlapyje, kad pridėtumėte paskirties tašką
+    lv = Lietojiet meklēšanu vai pieskarieties kartei, lai pievienotu sākuma punktu
     mr = गंतव्य बिंदू जोडण्यासाठी नकाशावर शोधा किंवा टॅप करा
     nb = Bruk søk eller trykk på kartet for å legge til et destinasjonspunkt
     nl = Gebruik Zoeken of tik op de kaart om een bestemmingspunt toe te voegen
@@ -20334,6 +20794,7 @@
     ja = ルートを編集
     ko = 경로 관리
     lt = Tvarkyti maršrutą
+    lv = Pārvaldīt maršrutu
     mr = मार्ग व्यवस्थापन
     nb = Administrere rute
     nl = Beheer route
@@ -20378,6 +20839,7 @@
     ja = プラン
     ko = 계획
     lt = Planas
+    lv = Plānot
     mr = नियोजन
     nb = Planlegge
     nl = Plan
@@ -20422,6 +20884,7 @@
     ja = 削除
     ko = 제거
     lt = Šalinti
+    lv = Noņemt
     mr = काढा
     nb = Fjern
     nl = Verwijder
@@ -20466,6 +20929,7 @@
     ja = ここにドラッグして削除
     ko = 여기로 끌어와서 제거
     lt = Vilkite čia, kad pašalintumėte
+    lv = Velciet te, lai noņemtu
     mr = काढण्यासाठी इथे सरकवा
     nb = Dra hit for å fjerne
     nl = Sleep hier om te verwijderen
@@ -20511,6 +20975,7 @@
     ja = 中間地点を追加
     ko = 스톱 추가
     lt = Pridėti sustojimą
+    lv = Pievienot starppunktu
     mr = स्टॉप जोडा
     nb = Angi stopp
     nl = Voeg tussenstop toe
@@ -20553,6 +21018,7 @@
     ja = 出発地
     ko = 시작 위치:
     lt = Pradėti iš
+    lv = Sākt no
     mr = पासून प्रारंभ
     nb = Start fra
     nl = Start vanaf
@@ -20600,6 +21066,7 @@
     ja = すべてのマップ編集を自動的にアップロードするには、OpenStreetMapにログインしてください。詳しくは <a href="https://github.com/organicmaps/organicmaps/issues/6144">こちら</a>.
     ko = 모든 지도 편집 내용을 자동으로 업로드하려면 오픈스트리트맵에 로그인하세요. 자세히 알아보기 <a href="https://github.com/organicmaps/organicmaps/issues/6144">여기</a>.
     lt = Prisijunkite prie "OpenStreetMap", kad automatiškai įkeltumėte visus savo žemėlapio pakeitimus. Sužinokite daugiau <a href="https://github.com/organicmaps/organicmaps/issues/6144">čia</a>.
+    lv = Ierakstieties „OpenStreetMap“, lai automātiski augšupielādētu visus kartes rediģējumus. Uzziniet vairāk <a href="https://github.com/organicmaps/organicmaps/issues/6144">te</a>.
     mr = तुमची सर्व नकाशा संपादने स्वयंचलितपणे अपलोड करण्यासाठी कृपया OpenStreetMap वर लॉग इन करा. <a href="https://github.com/organicmaps/organicmaps/issues/6144">येथे</a> अधिक जाणून घ्या.
     nb = Logg inn på OpenStreetMap for automatisk å laste opp alle kartredigeringene dine. Finn ut mer <a href="https://github.com/organicmaps/organicmaps/issues/6144">her</a>.
     nl = Log in op OpenStreetMap om al je kaartbewerkingen automatisch te uploaden. Meer informatie <a href="https://github.com/organicmaps/organicmaps/issues/6144">hier</a>.
@@ -20647,6 +21114,7 @@
     ja = すべてのマップ編集を自動的にアップロードするには、OpenStreetMapにログインしてください。詳しくは
     ko = 모든 지도 편집 내용을 자동으로 업로드하려면 오픈스트리트맵에 로그인하세요. 자세히 알아보기
     lt = Prisijunkite prie "OpenStreetMap", kad automatiškai įkeltumėte visus savo žemėlapio pakeitimus. Sužinokite daugiau
+    lv = Ierakstieties „OpenStraatMap“, lai automātiski augšupielādētu visus kartes rediģējumus. Uzziniet vairāk
     mr = तुमची सर्व नकाशा संपादने स्वयंचलितपणे अपलोड करण्यासाठी कृपया OpenStreetMap वर लॉग इन करा.
     nb = Logg inn på OpenStreetMap for automatisk å laste opp alle kartredigeringene dine. Finn ut mer
     nl = Log in op OpenStreetMap om al je kaartbewerkingen automatisch te uploaden. Meer informatie
@@ -20694,6 +21162,7 @@
     ja = こちら
     ko = 여기
     lt = čia
+    lv = te
     mr = येथे
     nb = her
     nl = hier
@@ -20739,6 +21208,7 @@
     ja = ストレージアクセスの問題
     ko = 저장소 액세스 문제
     lt = Saugyklos prieigos problema
+    lv = Krātuves pieejas problēma
     mr = स्टोरेज प्रवेश समस्या
     nb = Problemer med tilgang til lagring
     nl = Probleem met opslagtoegang
@@ -20784,6 +21254,7 @@
     ja = 外部ストレージは使用できません。おそらく SD カードが取り外されたか、破損しているか、あるいはファイルシステムが読み取り専用になっています。確認後、support@organicmaps.app までご連絡ください。
     ko = 외부 저장소를 사용할 수 없습니다. SD 카드가 제거되었거나 손상되었거나 파일 시스템이 읽기 전용일 수 있습니다. 확인 후 support@organicmaps.app로 문의하세요.
     lt = Išorinė saugykla yra neprieinama. SD kortelė galimai yra pašalinti, pažeista arba failų sistema yra nustatyti tik skaitymui. Patikrinkite SD kortelę arba susisiekite su mumis support@organicmaps.app
+    lv = Ārējā krātuve nav pieejama. Iespējams, ir izņemta vai bojāta SD karte, vai arī datņu sistēma ir tikai lasāma. Pārbaudiet savu SD karti vai sazinieties ar mums, rakstot uz support@organicmaps.app
     mr = बाह्य साठ्याचा प्रवेश अपयशी. SD कार्ड कदाचित काढले गेले असेल, खराब झाले असेल किंवा फाइल सिस्टम ही केवळ-वाचनीय असावी. कृपया, तुमचे SD कार्ड तपासा किंवा support@organicmaps.app वर आमच्याशी संपर्क साधा
     nb = Ekstern lagring er ikke tilgjengelig. Sannsynligvis er SD-kortet fjernet eller skadet eller så er filsystemet skrivebeskyttet. Undersøk og kontakt oss på support@organicmaps.app
     nl = Externe opslag is niet beschikbaar, wellicht is de SD-kaart verwijderd, beschadigd of is het bestandssysteem alleen-lezen. Gelieve dit te controleren en ons te contacteren via support@organicmaps.app
@@ -20829,6 +21300,7 @@
     ja = 壊れたストレージをシミュレートする
     ko = 불량 저장소 에뮬레이션
     lt = Emuliuoti blogą saugyklą
+    lv = Simulēt bojātu krātuvi
     mr = खराब साठ्याचे अनुकरण करा
     nb = Emulere skadet lagring
     nl = Slechte opslag emuleren
@@ -20874,6 +21346,7 @@
     ja = 入口
     ko = 입구
     lt = Įėjimas
+    lv = Ieeja
     mr = प्रवेशद्वार
     nb = Inngang
     nl = Ingang
@@ -20919,6 +21392,7 @@
     ja = 正しい名前を入力してください
     ko = 올바른 이름을 입력하세요.
     lt = Įveskite teisingą pavadinimą
+    lv = Ierakstiet pareizu nosaukumu
     mr = कृपया योग्य नाव प्रविष्ट करा
     nb = Skriv inn korrekt navn
     nl = Voer een geldige naam in
@@ -20965,6 +21439,7 @@
     ja = リスト
     ko = 기울기
     lt = Sąrašai
+    lv = Saraksti
     mr = याद्या
     nb = Lister
     nl = Lijsten
@@ -21012,6 +21487,7 @@
     ja = すべて非表示
     ko = 모두 숨기기
     lt = Slėpti visus
+    lv = Slēpt visu
     mr = सर्व लपवा
     nb = Skjul alle
     nl = Verberg alles
@@ -21058,6 +21534,7 @@
     ja = すべて表示
     ko = 모두 표시
     lt = Rodyti visus
+    lv = Rādīt visu
     mr = सर्व दाखवा
     nb = Vis alle
     nl = Toon alles
@@ -21113,6 +21590,9 @@
     it:other = %d preferiti
     ja = %d個のブックマーク
     ko = %d 북마크
+    lv:one = %d grāmatzīme
+    lv:other = %d grāmatzīmes
+    lv:zero = %d grāmatzīmju
     mr:one = %d खूणपत्र
     mr:other = %d खूणपत्रे
     nb = %d bokmerker
@@ -21167,6 +21647,7 @@
     ja = 新しいリストを作成する
     ko = 새 목록 만들기
     lt = Kurti naują sąrašą
+    lv = Izveidot jaunu sarakstu
     mr = नवीन यादी जोडा
     nb = Opprett ny liste
     nl = Maak een nieuwe lijst
@@ -21213,6 +21694,7 @@
     ja = ブックマークとトラックをインポートする
     ko = 북마크 및 트랙 가져오기
     lt = Žymeklių ir takelių importavimas
+    lv = Importēt grāmatzīmes un ceļus
     mr = बुकमार्क आणि ट्रॅक आयात करा
     nb = Importer bokmerker og spor
     nl = Importeer bladwijzers en tracks
@@ -21258,6 +21740,7 @@
     ja = 画面を非表示
     ko = 화면 숨기기
     lt = Slėpti ekraną
+    lv = Slēpt ekrānu
     mr = पटल (स्क्रीन) लपवा
     nb = Skjul skjerm
     nl = Verberg scherm
@@ -21303,6 +21786,7 @@
     ja = %@ (%@ / %@)
     ko = %@(%@ / %@)
     lt = %@ (%@ iš %@)
+    lv = %@ (%@ no %@)
     mr = %@ (%@ पैकी %@)
     nb = %@ (%@ av %@)
     nl = %@ (%@ van %@)
@@ -21349,6 +21833,7 @@
     ja = %@ をダウンロードしています…
     ko = %@ 다운로드 중…
     lt = Atsisiunčiama %@…
+    lv = Lejupielādē %@…
     mr = %@ डाउनलोड करत आहे…
     nb = Laster ned %@ …
     nl = %@ downloaden…
@@ -21395,6 +21880,7 @@
     ja = %@ を適用中です…
     ko = %@ 적용 중…
     lt = Taikoma %@…
+    lv = Pielieto %@…
     mr = %@ लागू करत आहे…
     nb = Bruker %@ …
     nl = %@ toepassen…
@@ -21441,6 +21927,7 @@
     ja = エラーのため共有できません
     ko = 애플리케이션 오류로 인해 공유할 수 없습니다
     lt = Napvyko bendrinti dėl programėlės klaidos
+    lv = Programmas kļūdas dēļ kopīgošana neizdevās
     mr = ऍप त्रुटीमुळे सामायिक करण्यात अक्षम
     nb = Kan ikke dele på grunn av en programfeil
     nl = Delen is onmogelijk wegens een toepassingsfout
@@ -21487,6 +21974,7 @@
     ja = 共有エラー
     ko = 공유 오류
     lt = Bendrinimo klaida
+    lv = Kopīgošanas kļūda
     mr = सामायिकरण त्रुटी
     nb = Delingsfeil
     nl = Deelfout
@@ -21532,6 +22020,7 @@
     ja = 空のリストは共有できません
     ko = 빈 목록을 공유 할 수 없습니다
     lt = Negalima bendrinti tuščio sąrašo
+    lv = Nav iespējams kopīgot tukšu sarakstu
     mr = रिकामी यादी सामायिक करू शकत नाही
     nb = Kan ikke dele en tom liste
     nl = Een lege lijst kan niet gedeeld worden
@@ -21578,6 +22067,7 @@
     ja = 名前を空にすることはできません
     ko = 이름을 비워 둘 수는 없습니다.
     lt = Pavadinimas negali būti tuščias
+    lv = Nosaukums nevar būt tukšs
     mr = नाव रिक्त असू शकत नाही
     nb = Navnet kan ikke være tomt
     nl = De naam kan niet leeg zijn
@@ -21624,6 +22114,7 @@
     ja = リスト名を入力してください
     ko = 목록 이름을 입력하십시오.
     lt = Įveskite sąrašo pavadinimą
+    lv = Ierakstiet saraksta nosaukumu
     mr = कृपया यादीचे नाव प्रविष्ट करा
     nb = Vennligst skriv inn listenavnet
     nl = Voer de lijstnaam in
@@ -21670,6 +22161,7 @@
     ja = 新しいリスト
     ko = 새 목록
     lt = Naujas sąrašas
+    lv = Jauns saraksts
     mr = नवीन यादी
     nb = Ny liste
     nl = Nieuwe lijst
@@ -21716,6 +22208,7 @@
     ja = この名前はすでに使用されています
     ko = 이 이름은 이미 사용 중입니다.
     lt = Pavadinimas jau egzistuoja
+    lv = Šāds nosaukums jau ir aizņemts
     mr = हे नाव आधीच वापरात आहे
     nb = Dette navnet er allerede tatt
     nl = Deze naam is al in gebruik
@@ -21762,6 +22255,7 @@
     ja = 別の名前を選んでください
     ko = 다른 이름을 선택하십시오.
     lt = Pasirinkite kitą pavadinimą
+    lv = Izvēlieties citu nosaukumu
     mr = कृपया दुसरे नाव निवडा
     nb = Vennligst velg et annet navn
     nl = Kies alstublieft een andere naam
@@ -21806,6 +22300,7 @@
     ja = この名前は長すぎます
     ko = 이 이름이 너무 깁니다.
     lt = Pavadinimas per ilgas
+    lv = Nosaukums ir par garu
     mr = हे नाव अति लांब आहे
     nb = Dette navnet er for langt
     nl = Deze naam is te lang
@@ -21852,6 +22347,7 @@
     ja = お待ちください…
     ko = 잠시만 기다려주십시오…
     lt = Luktelėkite…
+    lv = Uzgaidiet…
     mr = कृपया थांबा…
     nb = Vennligst vent…
     nl = Even geduld aub…
@@ -21897,6 +22393,7 @@
     ja = 電話番号
     ko = 전화 번호
     lt = Telefono numeris
+    lv = Tālruņa numurs
     mr = फोन क्रमांक
     nb = Telefonnummer
     nl = Telefoonnummer
@@ -21942,6 +22439,7 @@
     ja = OpenStreetMap プロフィール
     ko = OpenStreetMap 프로필
     lt = OpenStreetMap profilis
+    lv = „OpenStraatMap“ profils
     mr = OpenStreetMap प्रोफाइल
     nb = OpenStreetMap profil
     nl = OpenStreetMap-profiel
@@ -21986,6 +22484,7 @@
     ja = 新しいファイルが検出されました
     ko = 새 파일이 감지되었습니다.
     lt = Aptikti nauji failai
+    lv = Atrastas jaunas datnes
     mr = नवीन फाइल आढळल्या
     nb = Nye filer oppdaget
     nl = Nieuwe bestanden gedetecteerd
@@ -22048,6 +22547,9 @@
     it:other = %d file trovati. Li vedrai dopo la conversione.
     ja = %d ファイルが見つかりました。 あなたは変換後にそれらを見るでしょう。
     ko = %d 파일을 찾았습니다. 회심 후 그들을 볼 수 있습니다.
+    lv:one = Lietotne atrada %d jaunu datni. Varat to apskatīt pēc konvertācijas.
+    lv:other = Lietotne atrada %d jaunas datnes. Varat tās apskatīt pēc konvertācijas.
+    lv:zero = Lietotne atrada %d jaunu datņu. Varat tās apskatīt pēc konvertācijas.
     mr:one = %d फाईल सापडली. रूपांतरानंतर तुम्ही ती पाहू शकता.
     mr:other = %d फाईली सापडल्या. रूपांतरानंतर तुम्ही त्या पाहू शकता.
     nb:one = %d filen ble funnet. Du vil se dem etter konverteringen.
@@ -22110,6 +22612,7 @@
     ja = 変換
     ko = 변하게 하다
     lt = Konvertuoti
+    lv = Konvertēt
     mr = रूपांतरित करा
     nb = Konvertere
     nl = Zet om
@@ -22156,6 +22659,7 @@
     ja = エラー
     ko = 오류
     lt = Klaida
+    lv = Kļūda
     mr = त्रुटी
     nb = Feil
     nl = Fout
@@ -22202,6 +22706,7 @@
     ja = 一部のファイルは変換されませんでした。
     ko = 일부 파일은 변환되지 않았습니다.
     lt = Kai kurie failai nebuvo konvertuoti.
+    lv = Atsevišķas datnes nav konvertētas.
     mr = काही फायली रूपांतरित झाल्या नाहीत.
     nb = Noen filer ble ikke konvertert.
     nl = Sommige bestanden zijn niet geconverteerd.
@@ -22247,6 +22752,7 @@
     ja = 復元
     ko = 복원
     lt = Atkurti
+    lv = Atjaunot
     mr = पूर्ववत् करा
     nb = Restaurere
     nl = Zet terug
@@ -22305,6 +22811,9 @@
     it:other = %d percorsi
     ja = %dの追跡
     ko = %d 추적
+    lv:one = %d ceļš
+    lv:other = %d ceļi
+    lv:zero = %d ceļu
     mr = %d ट्रॅक
     nb = %d stier
     nl = %d tracks
@@ -22359,6 +22868,7 @@
     ja = プライバシー
     ko = 개인정보 보호
     lt = Privatumas
+    lv = Privātums
     mr = गोपनीयता
     nb = Personvern
     nl = Privacy
@@ -22404,6 +22914,7 @@
     ja = プライバシーポリシー
     ko = 개인정보 보호 방침
     lt = Privatumo politika
+    lv = Privātuma politika
     mr = गोपनीयता धोरण
     nb = Personvernpolitikk
     nl = Privacybeleid
@@ -22450,6 +22961,7 @@
     ja = 利用規約
     ko = 사용 약관
     lt = Naudojimo sąlygos
+    lv = Lietošanas noteikumi
     mr = वापरण्याच्या अटी
     nb = Bruksbetingelser
     nl = Gebruiksvoorwaarden
@@ -22495,6 +23007,7 @@
     ja = 交通状況
     ko = 트래픽
     lt = Eismas
+    lv = Satiksme
     mr = ट्रॅफिक
     nb = Trafikk
     nl = Verkeer
@@ -22542,6 +23055,7 @@
     ja = 地下鉄
     ko = 지하철
     lt = Metro
+    lv = Metro
     mr = भुयारी मार्ग
     nb = T-bane
     nl = Metro
@@ -22588,6 +23102,7 @@
     ja = マップのスタイルとレイヤー
     ko = 맵 스타일 및 레이어
     lt = Žemėlapio stiliai ir sluoksniai
+    lv = Kartes stili un slāņi
     mr = नकाशा शैली आणि स्तर
     nb = Kartstiler og -lag
     nl = Kaartstijlen en -lagen
@@ -22633,6 +23148,7 @@
     ja = 地下鉄路線図はご利用いただけません
     ko = 지하철 지도가 가용하지 않습니다.
     lt = Metro žemėlapis neprieinamas
+    lv = Metro karte nav pieejama
     mr = भुयारी नकाशा अनुपलब्ध आहे
     nb = T-banekart er utilgjengelig
     nl = Metrokaart is niet beschikbaar
@@ -22678,6 +23194,7 @@
     ja = このリストは空です
     ko = 이 목록은 비어있습니다.
     lt = Sąrašas tuščias
+    lv = Saraksts ir tukšs
     mr = ही यादी रिकामी आहे
     nb = Denne listen er tom
     nl = Deze lijst is leeg
@@ -22723,6 +23240,7 @@
     ja = ブックマークを追加するには、地図上の場所をタップし、星のアイコンをタップしてください。
     ko = 북마크를 추가하려면 맵에서 장소를 탭하고 별 모양 아이콘을 탭하세요.
     lt = Bakstelėkite ant vietos žemėlapyje ir bakstelėkite ant žvaigždutės piktogramos, kad pridėtumėte adresyną
+    lv = Lai pievienotu grāmatzīmi, sākumā spiediet uz vietas kartē, bet tad uz zvaigznītes ikonas
     mr = खूणपत्र जोडण्यासाठी, नकाशातील ठिकाणाला स्पर्श करा आणि नंतर तारा चिन्हाला स्पर्श करा
     nb = For å legge til et bokmerke, trykk et sted på kartet og trykk så stjerneikonet
     nl = Om een bladwijzer toe te voegen, tikt u op een plaats op de kaart en vervolgens op het sterpictogram
@@ -22768,6 +23286,7 @@
     ja = 詳細
     ko = …기타 정보
     lt = …daugiau
+    lv = …vairāk
     mr = …अधिक
     nb = …mer
     nl = …meer
@@ -22814,6 +23333,7 @@
     ja = エラーが発生しました
     ko = 오류가 발생했습니다.
     lt = Įvyko klaida
+    lv = Notika kļūda
     mr = त्रुटी आढळली
     nb = Det oppsto en feil
     nl = Er is een fout opgetreden
@@ -22853,6 +23373,7 @@
     it = Popolare
     ja = 人気
     lt = Populiarūs
+    lv = Populāras
     mr = लोकप्रिय
     nb = Populær
     nl = Populair
@@ -22892,6 +23413,7 @@
     ja = KMZをエクスポートする
     ko = KMZ 내보내기
     lt = Eksportuoti KMZ
+    lv = Eksportēt KMZ
     mr = KMZ निर्यात करा
     nb = Eksporter KMZ
     nl = Exporteer KMZ
@@ -22936,6 +23458,7 @@
     ja = GPXをエクスポートする
     ko = GPX 내보내기
     lt = GPX eksportavimas
+    lv = GPX eksportēšana
     mr = GPX निर्यात करा
     nb = Eksporter GPX
     nl = Exporteer GPX
@@ -22980,6 +23503,7 @@
     ja = リストを削除
     ko = 리스트 삭제
     lt = Naikinti sąrašą
+    lv = Dzēst sarakstu
     mr = यादी मिटवा
     nb = Slett liste
     nl = Verwijder lijst
@@ -23024,6 +23548,7 @@
     ja = マップから隠す
     ko = 지도에서 숨기기
     lt = Slėpti nuo žemėlapio
+    lv = Slēpt kartē
     mr = नकाशावरून लपवा
     nb = Skjul fra kart
     nl = Verberg van de kaart
@@ -23069,6 +23594,7 @@
     ja = パブリック・アクセス
     ko = 일반 접근
     lt = Vieša prieiga
+    lv = Publiska pieeja
     mr = सार्वजनिक प्रवेश
     nb = Offentlig tilgang
     nl = Publieke toegang
@@ -23114,6 +23640,7 @@
     ja = 制限されたアクセス
     ko = 제한 접근
     lt = Ribota prieiga
+    lv = Ierobežota pieeja
     mr = मर्यादित प्रवेश
     nb = Begrenset adgang
     nl = Beperkte toegang
@@ -23159,6 +23686,7 @@
     ja = 説明(テキストまたはhtml)を記入してください
     ko = 묘사를 적으세요 (글자 혹은 html)
     lt = Įveskite aprašymą(tekstas arba html)
+    lv = Aprakstiet (teksts vai HTML)
     mr = वर्णन लिहा (मजकूर किंवा html)
     nb = Lag en beskrivelse (text or html)
     nl = Voer een beschrijving in (tekst of html)
@@ -23204,6 +23732,7 @@
     ja = 非公開
     ko = 개인
     lt = Privatus
+    lv = Privāts
     mr = खाजगी
     nb = Privat
     nl = Privé
@@ -23250,6 +23779,7 @@
     ja = タグのロード中にエラーが起きました発生しました。もう一度やり直してください
     ko = 태그를 불러오는 중 에러가 발생했습니다. 다시 시도해보세요
     lt = Įvyko klaida įkeliant žymes, bandykite iš naujo
+    lv = Kļūda, ielādējot birkas. Mēģiniet vēlreiz.
     mr = टॅग लोड करताना त्रुटी आढळली, कृपया पुन्हा प्रयत्न करा
     nb = Det oppsto en feil under lasting av emneknagger, prøv igjen
     nl = Er is een fout opgetreden tijdens het laden van tags, probeer het opnieuw
@@ -23294,6 +23824,7 @@
     ja = ダウンロード
     ko = 다운로드
     lt = Atsisiųsti
+    lv = Lejupielādēt
     mr = डाउनलोड करा
     nb = Last ned
     nl = Download
@@ -23340,6 +23871,7 @@
     ja = 自動速度違反取締装置
     ko = 속도 감시 카메라
     lt = Greičio matuokliai
+    lv = Fotoradari
     mr = वेग कॅमेरे
     nb = Fartskamera
     nl = Snelheidscamera's
@@ -23385,6 +23917,7 @@
     ja = 場所の説明
     ko = 장소 묘사
     lt = Vietos aprašymas
+    lv = Vietas apraksts
     mr = ठिकाणाचे वर्णन
     nb = Plasser beskrivelse
     nl = Plaatsbeschrijving
@@ -23431,6 +23964,7 @@
     ja = マップダウンローダー
     ko = 맵 다운로더
     lt = Žemėlapių atsisiuntėjas
+    lv = Karšu lejupielādētājs
     mr = नकाशा डाउनलोडक
     nb = Nedlast kart
     nl = Kaartdownloader
@@ -23478,6 +24012,7 @@
     ja = スピード違反を警告する
     ko = 과속 경고
     lt = Įspėti apie greičio viršijimą
+    lv = Brīdināt par ātruma pārsniegšanu
     mr = वेगाबद्दल चेतावणी द्या
     nb = For å advare deg mot fartsovertredelser
     nl = Waarschuw bij overschrijden snelheidslimiet
@@ -23523,6 +24058,7 @@
     ja = 自動速度違反取締装置について常に警告します
     ko = 항상 경고하기
     lt = Visada įspėti
+    lv = Brīdināt vienmēr
     mr = नेहमी चेतावणी द्या
     nb = Advar alltid
     nl = Waarschuw altijd
@@ -23569,6 +24105,7 @@
     ja = 自動速度違反取締装置を警告しません
     ko = 경고하지 않기
     lt = Neįspėti
+    lv = Nekad nebrīdināt
     mr = कधीही चेतावणी देऊ नका
     nb = Advar aldri
     nl = Waarschuw nooit
@@ -23615,6 +24152,7 @@
     ja = 電力節約モード
     ko = 전력 절약 모드
     lt = Energijos taupymo režimas
+    lv = Energotaupības režīms
     mr = ऊर्जा बचत मोड
     nb = Strømsparemodus
     nl = Energiebesparende modus
@@ -23661,6 +24199,7 @@
     ja = 自動モードが選択されている場合、このアプリケーションは現在のバッテリーの充電状態に応じてバッテリー消費の激しい機能の無効化を開始します
     ko = 자동 모드가 선택되면 어플리케이션은 현재 배터리 충전 정도에 따라 배터리를 많이 쓰는 기능이 불가하게 됩니다
     lt = Jei pasirinktas automatinis režimas, programėlė išjungia akumuliatorių eikvojančias funkcijas, atsižvelgiant į dabartinį įkrovos lygį
+    lv = Mēģināt samazināt enerģijas patēriņu, izslēdzot atsevišķas funkcijas.
     mr = जेव्हा स्वयंचलित मोड निवडला जातो तेव्हा ऍप, बॅटरीच्या स्तरावर अवलंबून असलेले, बॅटरी गाळणारे काही कार्य बंद करायला लागतो
     nb = Når automatisk modus er valgt, begynner programmet å deaktivere batteridriftfunksjonene avhengig av det nåværende batterinivået
     nl = Als de energiebesparende modus is ingeschakeld, schakelt de app de energieverbruikende functies uit afhankelijk van de huidige lading van de mobiele telefoon
@@ -23707,6 +24246,7 @@
     ja = 無効
     ko = 안함
     lt = Niekada
+    lv = Nekad
     mr = कधीच नाही
     nb = Aldri
     nl = Nooit
@@ -23753,6 +24293,7 @@
     ja = 自動
     ko = 자동
     lt = Automatinis
+    lv = Kad ir zems uzlādes līmenis
     mr = स्वयंचलित
     nb = Automatisk
     nl = Wanneer batterij bijna leeg is
@@ -23799,6 +24340,7 @@
     ja = 最大電力節約
     ko = 최대 전력 절약
     lt = Maksimalus taupymas
+    lv = Vienmēr
     mr = कमाल वीज बचत
     nb = Maksimum strømsparing
     nl = Maximale energiebesparing
@@ -23845,6 +24387,7 @@
     ja = このオプションは診断目的でのデータ記録を有効にします。これはこのアプリケーションのトラブルシューティングを担当する当社のサポートスタッフの助けになります。このオプションはOrganic Mapsにリクエストされた場合にのみ有効にしてください。
     ko = 이 옵션은 진단을 목적으로 로그를 엽니다 이를 통해 앱에 대한 문제를 분석하는 우리의 스탭을 도울 수 있습니다 이 옵션은 오직 Organic Maps 지원 요청에서만 가능합니다.
     lt = Ši parinktis įjungia duomenų įrašymą diagnostiniams tikslams. Jis gali praversti mūsų komandai problemų aptikimui. Laikinai įjunkite šią parinktį, kad įrašytumėte ir mums išsiųstumėte išsamų klaidų žurnalą.
+    lv = Uz laiku ieslēdziet šo opciju, lai reģistrētu un manuāli nosūtītu sīkākus žurnālus problēmu diagnostikai, izmantojot „Ziņot par kļūdu“ funkciju palīdzības lodziņā. Žurnāli var saturēt informāciju par atrašanās vietu.
     mr = निदान करण्याकरिता हा पर्याय लॉगिंग चालू करतो. ह्याने ऍपच्या समस्यांचे निवारण करणे आम्हाला उपयुक्त ठरू शकते. तुमच्या समस्येबद्दल तपशीलवार नोंदी रेकॉर्ड करण्यासाठी आणि आम्हाला पाठवण्यासाठी हा पर्याय तात्पुरता चालू करा.
     nb = Alternativet slår på logging for diagnostiske formål. Det kan være nyttig for våre supportpersonale som feilsøker problemer med appen. Aktiver dette alternativet bare på forespørsel fra Organic Maps-brukerstøtte.
     nl = Deze optie is ingeschakeld voor logboekregistraties voor diagnostische doeleinden. Het helpt bij het identificeren van problemen met de applicatie. Schakel de optie alleen in op verzoek van Organic Maps-ondersteuning.
@@ -23890,6 +24433,7 @@
     ja = オンライン編集
     ko = 온라인 수정
     lt = Intertetinis redagavimas
+    lv = Tiešsaistes rediģēšana
     mr = ऑनलाइन संपादन
     nb = Redigering på nett
     nl = Wordt online bewerkt
@@ -23936,6 +24480,7 @@
     ja = 経路オプション
     ko = 운전 옵션
     lt = Maršruto pasirinkimo parinktis
+    lv = Maršruta opcijas
     mr = मार्गशोधी पर्याय
     nb = Kjørealternativer
     nl = Route-instellingen
@@ -23980,6 +24525,7 @@
     it = Evita le strade a pedaggio
     ja = 有料道路を避ける
     ko = 유료 도로 피하기
+    lv = Izvairīties no maksas ceļiem
     mr = टोल रस्ते टाळा
     nb = Unngå bompenger
     nl = Vermijd tolwegen
@@ -24026,6 +24572,7 @@
     ja = 未舗装道路を使わない
     ko = 비포장 도로 피하기
     lt = Vengti neasfaltuotų kelių
+    lv = Izvairīties no zemes ceļiem
     mr = कच्चे मार्ग टाळा
     nb = Unngå uasfalterte veier
     nl = Vermijd onverharde wegen
@@ -24072,6 +24619,7 @@
     ja = フェリーを利用しない
     ko = 여객선 횡단길 피하기
     lt = Vengti kelionių keltu
+    lv = Izvairīties no prāmjiem
     mr = जल मार्ग टाळा
     nb = Unngå fergeoverganger
     nl = Vermijd veerboten
@@ -24116,6 +24664,7 @@
     it = Evita l'autostrada
     ja = 高速道路を避ける
     ko = 고속도로를 피하세요
+    lv = Izvairīties no automaģistrālēm
     mr = मोटरवे टाळा
     nb = Unngå motorveien
     nl = Vermijd snelwegen
@@ -24162,6 +24711,7 @@
     ja = ルートを計算できません
     ko = 루트를 계산할 수 없습니다
     lt = Nepavyko apskaičiuoti maršruto
+    lv = Neizdevās aprēķināt maršrutu
     mr = मार्गाची गणना करण्यात अक्षम
     nb = Kan ikke beregne rute
     nl = Kan route niet berekenen
@@ -24208,6 +24758,7 @@
     ja = ルートが計算できませんでした。 これは、経路オプションまたは不完全な OpenStreetMap データが原因である可能性があります。 経路オプションを変更して再試行してください。
     ko = 아쉽게도 귀하가 정의한 옵션으로는 루트를 찾을 수가 없습니다. 설정을 바꾸신다음 다시 시도해주세요
     lt = Deja, mums nepavyko rasti maršruto tikriausiai dėl jūsų pasirinktų parinkčių. Pakeiskite jas ir bandykite dar kartą.
+    lv = Maršrutu neatrada. Iespējams, maršruta iestatījumi ir pārāk ierobežojoši vai trūkst „OpenStreetMap“ datu. Mēģiniet mainīt iestatījumus un atkārtot.
     mr = दुर्दैवाने, आम्ही मार्ग शोधू शकलो नाही. ह्याचे कारण कदाचित तुम्ही निवडलेले पर्याय असावे. कृपया सेटिंग बदला आणि पुन्हा प्रयत्न करा.
     nb = Dessverre kunne vi ikke finne en rute sannsynligvis på grunn av dine definerte alternativer. Vennligst endre innstillingene og prøv igjen
     nl = Helaas konden we geen route berekenen met de gekozen opties. Wijzig de instellingen en probeer het opnieuw
@@ -24254,6 +24805,7 @@
     ja = 迂回ルートを設定する
     ko = 피할 도로 정의하기
     lt = Apibrėžti vengiamus kelius
+    lv = Noteikt nevēlamos ceļus
     mr = टाळण्याचे मार्ग निवडा
     nb = Definer veier som skal unngås
     nl = Configureer wegen om te vermijden
@@ -24299,6 +24851,7 @@
     ja = 経路オプションは有効になっています
     ko = 운전 옵션이 가능합니다
     lt = Maršruto pasirinkimo parinktys įjungtos
+    lv = Maršruta izvēles ir ieslēgtas
     mr = मार्गशोधी पर्याय चालू केले
     nb = Kjørealternativer aktivert
     nl = Route-instellingen ingeschakeld
@@ -24343,6 +24896,7 @@
     ja = 有料道路
     ko = 유료 도로
     lt = Mokamas kelias
+    lv = Maksas ceļš
     mr = टोल मार्ग
     nb = Bompengevei
     nl = Tolweg
@@ -24387,6 +24941,7 @@
     ja = 未舗装道路
     ko = 비포장 도로
     lt = Neasfaltuoas kelias
+    lv = Neasfaltēts ceļš
     mr = कच्चे मार्ग
     nb = Uasfaltert vei
     nl = Onverharde weg
@@ -24431,6 +24986,7 @@
     ja = フェリー
     ko = 여객선 횡단길
     lt = Kelionė keltu
+    lv = Prāmja pārceltuve
     mr = जल मार्ग
     nb = Fergeovergang
     nl = Veerboot
@@ -24475,6 +25031,7 @@
     ja = 出発
     ko = 가자
     lt = Pirmyn
+    lv = Uz priekšu
     mr = चल जाऊया
     nb = La oss begynne
     nl = Laten we gaan
@@ -24519,6 +25076,7 @@
     ja = 目的地
     ko = 목적지
     lt = Tikslas
+    lv = Galamērķis
     mr = इष्टस्थान
     nb = Destinasjon
     nl = Bestemming
@@ -24564,6 +25122,7 @@
     ja = リセンター
     ko = 내 위치 조정하기
     lt = Centruoti
+    lv = Centrēt
     mr = पुनरकेंद्रित करा
     nb = Sentrer
     nl = Centreer
@@ -24608,6 +25167,7 @@
     ja = 検索結果
     ko = 검색 결과
     lt = Paieškos rezultatai
+    lv = Meklēšanas rezultāti
     mr = शोध परिणाम
     nb = Søkeresultater
     nl = Zoekresultaten
@@ -24652,6 +25212,7 @@
     ja = その後
     ko = 그 다음
     lt = Then
+    lv = Pēc tam
     mr = मग
     nb = Deretter
     nl = Dan
@@ -24697,6 +25258,7 @@
     ja = ルートを再計算しますか?
     ko = 루트를 재구축하길 원하시나요?
     lt = Norite perkurti maršrutą?
+    lv = Vai vēlaties maršrutu izveidot no jauna?
     mr = तुम्हाला मार्ग पुन्हा तयार करायचा आहे का?
     nb = Vil du planlegge en rute på nytt?
     nl = Wilt u de route wijzigen?
@@ -24744,6 +25306,7 @@
     ja = はい
     ko = 네
     lt = Taip
+    lv = Jā
     mr = होय
     nb = Ja
     nl = Ja
@@ -24791,6 +25354,7 @@
     ja = いいえ
     ko = 아니오
     lt = Ne
+    lv = Nē
     mr = नाही
     nb = Nei
     nl = Nee
@@ -24817,6 +25381,7 @@
     be = Ёсць
     el = Ενεργ.
     fa = بلی
+    lv = Ir
     ru = Есть
     tr = Var
 
@@ -24826,6 +25391,7 @@
     ref = no
     be = Няма
     el = Απενεργ.
+    lv = Nav
     tr = Yok
 
   [capacity]
@@ -24855,6 +25421,7 @@
     ja = 定員：%@
     ko = 수용 인원: %@
     lt = Talpa: %@
+    lv = Ietilpība: %@
     mr = क्षमता: %@
     nb = Kapasitet: %@
     nl = Capaciteit: %@
@@ -24900,6 +25467,7 @@
     ja = ネットワーク： %@
     ko = 네트워크: %@
     lt = Tinklas: %@
+    lv = Tīkls: %@
     mr = नेटवर्क: %@
     nb = Nettverk: %@
     nl = Netwerk: %@
@@ -24943,6 +25511,7 @@
     ja = 到着しました!
     ko = 도착했습니다!
     lt = Atvykote!
+    lv = Ieradāties galamērķī!
     mr = तुम्ही पोचलात!
     nb = Du har ankommet!
     nl = U bent aangekomen!
@@ -24987,6 +25556,7 @@
     ja = 運転中はキーボードを使用できません
     ko = 운전 중에는 키보드를 사용할 수 없습니다
     lt = Klaviatūra nėra prieinama už vairo
+    lv = Braukšanas laikā tastatūra nav pieejama
     mr = गाडी चालवताना कीबोर्ड उपलब्ध नसतो
     nb = Tastatur er ikke tilgjengelig mens en kjører
     nl = Toetsenbord is niet beschikbaar tijdens het rijden
@@ -25032,6 +25602,7 @@
     ja = 現在位置からはルートを計算できません
     ko = 현재 위치에서 루트를 만들 수 없습니다
     lt = Nepavyko sukurti maršruto iš jūsų dabartinės vietos
+    lv = No pašreizējās vietas maršrutu izveidot nevar
     mr = तुमच्या वर्तमान स्थानावरून मार्ग तयार करण्यात अक्षम
     nb = Kan ikke planlegge rute fra din nåværende posisjon
     nl = Kan route vanaf huidige positie niet opbouwen
@@ -25077,6 +25648,7 @@
     ja = 目的地へのルートは計算できません。別の地点を選択してください
     ko = 목적지 경로를 만들 수 없습니다. 다른 지점을 선택해주세요
     lt = Nepavyko sukurti maršruto iki jūsų tikslo. Pasirinkite kitą tašką
+    lv = Neizdodas atrast maršrutu līdz galamērķim. Izvēlieties citu galamērķa punktu
     mr = तुमच्या इष्टस्थानापर्यंत मार्ग तयार करण्यात अक्षम. कृपया दुसरे ठिकाण निवडा.
     nb = Kan ikke planlegge rute til din nåværende posisjon. Vennligst velg en annen posisjon
     nl = Kan route naar het eindpunt niet opbouwen. Kies een ander eindpunt
@@ -25122,6 +25694,7 @@
     ja = GPS信号がありません。開けた場所へ移動してください
     ko = GPS 신호가 없습니다. 열린 장소로 이동해주세요
     lt = Nėra GPS signalo. Pereikite prie atviros vietos
+    lv = Nav GPS signāla. Aizejiet līdz atklātai vietai
     mr = GPS सिग्नल नाही. कृपया उघड्या परिसरात जा
     nb = Ingen GPS-signal. Vennligst gå til et åpent område
     nl = Geen GPS-signaal. Ga naar een open omgeving
@@ -25167,6 +25740,7 @@
     ja = ルートが計算できません。別のルート地点を設定して下さい
     ko = 루트를 만들 수 없습니다. 또 다른 루트 지점을 지정해주세요
     lt = Nepavyko sukurti maršruto. Nurodykite kitus maršruto taškus
+    lv = Neizdevās izveidot maršrutu. Norādiet citus maršruta punktus
     mr = मार्ग तयार करण्यात अक्षम. कृपया इतर मार्ग बिंदू निर्दिष्ट करा
     nb = Kan ikke planlegge rute. Vennligst spesifiser en annen posisjon for rute
     nl = Kan route niet berekenen. Selecteer andere tussenpunten
@@ -25212,6 +25786,7 @@
     ja = ルートを作成するには、不足しているマップを端末でダウンロードしてください
     ko = 루트를 만들려면, 빠진 맵을 기기에 다운로드하세요
     lt = Atsisiųskite trūkstamus žemėlapius, kad sukurtumėte maršrutą
+    lv = Lejupielādējiet trūkstošās kartes, lai izveidotu maršrutu
     mr = मार्ग तयार करण्यासाठी, तुमच्या उपकरणावर गहाळ नकाशे डाउनलोड करा
     nb = For å beregne rute last ned manglende kart på enheten din
     nl = Om een route te berekenen, download de ontbrekende kaarten
@@ -25257,6 +25832,7 @@
     ja = エラーが発生しました。アプリを再起動してください
     ko = 오류 발생. 어플리케이션을 재실행해주시길 바랍니다
     lt = Įvyko klaida. Iš naujo paleiskite programėlę
+    lv = Notika kļūda. Palaidiet programmu no jauna
     mr = त्रुटी आढळली. कृपया ऍप पुनःचालू करा
     nb = Feil oppstod. Vennligst restart appen
     nl = Iets is fout gegaan. Start de app opnieuw
@@ -25302,6 +25878,7 @@
     ja = ルートは現在位置から再計算されます
     ko = 루트가 귀하의 현재 위치로부터 재생성됩니다
     lt = Maršrutas bus perkurtas iš jūsų dabartinės vietos
+    lv = Maršrutu izveidos no jūsu pašreizējās vietas
     mr = तुमच्या वर्तमान स्थानावरून मार्ग पुन्हा तयार केला जाईल
     nb = Rute vil planlegges fra din nåværende posisjon
     nl = De route wordt opnieuw berekend vanaf uw huidige locatie
@@ -25347,6 +25924,7 @@
     ja = 車ルートに変更されます
     ko = 루트가 차량에 맞춰 수정됩니다
     lt = Maršrutas bus konvertuotas automobilinį
+    lv = Maršrutu konvertēs par piemērotu automobilim
     mr = मार्गाचे रुपांतर वाहनासाठी केले जाईल
     nb = Rute vil oppdateres til kjørerute
     nl = De route wordt veranderd naar een autoroute
@@ -25392,6 +25970,7 @@
     ja = すべてのブックマークが表示されるわけではない
     ko = 모든 북마크가 표시되는 것은 아닙니다.
     lt = Rodomos ne visos žymės
+    lv = Nav parādītas visas grāmatzīmes
     mr = सर्व बुकमार्क दर्शविले जात नाहीत
     nb = Ikke alle bokmerker vises
     nl = Niet alle bladwijzers worden getoond
@@ -25437,6 +26016,7 @@
     ja = 携帯電話に切り替えてすべてのブックマークを見る
     ko = 모든 북마크를 보려면 휴대폰으로 전환하세요.
     lt = Perjungimas į telefoną, kad pamatytumėte visas žymes
+    lv = Lai redzētu visas grāmatzīmes, pārslēdzieties uz tālruni
     mr = सर्व बुकमार्क पाहण्यासाठी फोनवर स्विच करा
     nb = Bytt til telefonen for å se alle bokmerker
     nl = Schakel over naar de telefoon om alle bladwijzers te zien
@@ -25483,6 +26063,7 @@
     ja = OK
     ko = OK
     lt = Gerai
+    lv = Labi
     mr = ठीक आहे
     nb = Ok
     nl = Oké
@@ -25528,6 +26109,7 @@
     ja = 速度警告
     ko = 속도단속 카메라
     lt = Greičio matuokliai
+    lv = Fotoradari
     mr = वेगकॅमेरा
     nb = Kamera-info
     nl = Snelheidscamera's
@@ -25573,6 +26155,7 @@
     ja = 速度警告
     ko = 속도단속 카메라
     lt = Greičio įspėjimas
+    lv = Ātruma brīdinājumi
     mr = गती चेतावणी
     nb = Kamera-advarsel
     nl = Over snelheidscamera's
@@ -25618,6 +26201,7 @@
     ja = 端末のOrganic Mapsのアプリにマップをダウンロードしてください
     ko = Organic Maps 앱 안의 지도들을 디바이스에 다운로드하세요
     lt = Atsisiųskite žemėlapius Organic Maps programėlėje
+    lv = Lejupielādējiet lietotnes kartes savā mobilajā ierīcē
     mr = कृपया तुमच्या उपकरणावर Organic Maps ऍप मध्ये नकाशे डाउनलोड करा
     nb = Vennligst last ned kart i Organic Maps appen på enheten din
     nl = Download kaarten in de Organic Maps app op uw apparaat
@@ -25663,6 +26247,7 @@
     ja = 第%@出口
     ko = %@번 출구
     lt = %@ išeiti
+    lv = %@ izeja
     mr = %@ बाहेर पडा
     nb = %@ avkjøring
     nl = Afrit nr. %@
@@ -25709,6 +26294,7 @@
     ja = 並び替え中…
     ko = 분류…
     lt = Rikiuoti…
+    lv = Kārtot…
     mr = क्रमाने लावा…
     nb = Sortere…
     nl = Sorteer…
@@ -25755,6 +26341,7 @@
     ja = ブックマークの並び替え
     ko = 북마크 분류하기
     lt = Rikiuoti adresyną
+    lv = Kārtot grāmatzīmes
     mr = खूणपत्रे क्रमाने लावा
     nb = Sortere merker
     nl = Sorteer bladwijzers
@@ -25800,6 +26387,7 @@
     ja = デフォルトで並び替え
     ko = 기본 값으로 분류
     lt = Rikiuoti numatytai
+    lv = Kārtot pēc noklusējuma
     mr = डिफॉल्ट क्रमाने लावा
     nb = Sortere som standard
     nl = Standaard sortering
@@ -25844,6 +26432,7 @@
     ja = タイプで並び替え
     ko = 유형으로 분류
     lt = Rikiuoti pagal rūšį
+    lv = Kārtot pēc tipa
     mr = प्रकारानुसार क्रमाने लावा
     nb = Sortere etter type
     nl = Sorteren op type
@@ -25888,6 +26477,7 @@
     ja = 距離で並び替え
     ko = 거리로 분류
     lt = Rikiuoti pagal atstumą
+    lv = Kārtot pēc attāluma
     mr = अंतरानुसार क्रमाने लावा
     nb = Sortere etter avstand
     nl = Sorteer op afstand
@@ -25932,6 +26522,7 @@
     ja = 日付で並び替え
     ko = 날짜로 분류
     lt = Rikiuoti pagal datą
+    lv = Kārtot pēc datuma
     mr = दिनांकानुसार क्रमाने लावा
     nb = Sortere etter dato
     nl = Sorteer op datum
@@ -25977,6 +26568,7 @@
     ja = 名前でソートする
     ko = 이름별로 정렬
     lt = Rūšiuoti pagal pavadinimą
+    lv = Kārtot pēc nosaukuma
     mr = नावानुसार क्रमवारी लावा
     nb = Sorter etter navn
     nl = Sorteer op naam
@@ -26023,6 +26615,7 @@
     ja = デフォルトで
     ko = 기본 값
     lt = Numatytai
+    lv = Pēc noklusējuma
     mr = डिफॉल्ट
     nb = Som standard
     nl = Standaard
@@ -26069,6 +26662,7 @@
     ja = タイプで
     ko = 유형 별
     lt = Pagal rūšį
+    lv = Pēc tipa
     mr = प्रकारानुसार
     nb = Etter type
     nl = Op type
@@ -26115,6 +26709,7 @@
     ja = 距離で
     ko = 거리 별
     lt = Pagal atstumą
+    lv = Pēc attāluma
     mr = अंतरानुसार
     nb = Etter avstand
     nl = Op afstand
@@ -26161,6 +26756,7 @@
     ja = 日付で
     ko = 날짜 별
     lt = Pagal datą
+    lv = Pēc datuma
     mr = दिनांकानुसार
     nb = Etter dato
     nl = Op datum
@@ -26208,6 +26804,7 @@
     ja = 名前で
     ko = 이름별
     lt = Pagal pavadinimą
+    lv = Pēc nosaukuma
     mr = नावाने
     nb = Etter navn
     nl = Op naam
@@ -26251,6 +26848,7 @@
     ja = 1週間前
     ko = 일주일 전
     lt = Prieš savaitę
+    lv = Pirms nedēļas
     mr = गेल्या आठवड्यात
     nb = For en uke siden
     nl = Een week geleden
@@ -26295,6 +26893,7 @@
     ja = 1ケ月前
     ko = 한달 전
     lt = Prieš mėnesį
+    lv = Pirms mēneša
     mr = गेल्या महिन्यात
     nb = For en måned siden
     nl = Een maand geleden
@@ -26339,6 +26938,7 @@
     ja = 1ケ月以上前
     ko = 한달 그 이상 전
     lt = Daugiau nei prieš mėnesį
+    lv = Vairāk nekā pirms mēneša
     mr = एक महिन्यापूर्वी
     nb = Mer enn en måned siden
     nl = Meer dan een maand geleden
@@ -26383,6 +26983,7 @@
     ja = 1年以上前
     ko = 1년 그 이상 전
     lt = Daugiau nei prieš metus
+    lv = Vairāk nekā pirms gada
     mr = एक वर्षांपूर्वी
     nb = Mer enn ett år siden
     nl = Meer dan een jaar geleden
@@ -26427,6 +27028,7 @@
     ja = 近隣
     ko = 나와 가까운 곳
     lt = Arti manęs
+    lv = Man tuvumā
     mr = माझ्या जवळ
     nb = Nær meg
     nl = Dicht bij mij
@@ -26471,6 +27073,7 @@
     ja = その他
     ko = 기타
     lt = Kita
+    lv = Cits
     mr = इतर
     nb = Andre
     nl = Andere
@@ -26517,6 +27120,7 @@
     ja = 食べ物
     ko = 음식
     lt = Maistas
+    lv = Ēdiens
     mr = अन्न
     nb = Mat
     nl = Eten
@@ -26561,6 +27165,7 @@
     ja = 観光地
     ko = 명소
     lt = Įžymybės
+    lv = Apskates objekti
     mr = पर्यटन स्थळ
     nb = Severdigheter
     nl = Bezienswaardigheden
@@ -26605,6 +27210,7 @@
     ja = 博物館
     ko = 박물관
     lt = Muziejai
+    lv = Muzeji
     mr = संग्रहालय
     nb = Museer
     nl = Musea
@@ -26649,6 +27255,7 @@
     ja = 公園
     ko = 공원
     lt = Parkai
+    lv = Parki
     mr = उद्यान
     nb = Parker
     nl = Parken
@@ -26693,6 +27300,7 @@
     ja = 水泳
     ko = 수영
     lt = Plaukimas
+    lv = Peldvietas
     mr = जलतरण
     nb = Svømming
     nl = Zwemmen
@@ -26737,6 +27345,7 @@
     ja = 山
     ko = 산
     lt = Kalnai
+    lv = Kalni
     mr = पर्वत
     nb = Fjell
     nl = Bergen
@@ -26781,6 +27390,7 @@
     ja = 動物
     ko = 동물원
     lt = Gyvūnai
+    lv = Dzīvnieki
     mr = प्राणी
     nb = Dyr
     nl = Dieren
@@ -26825,6 +27435,7 @@
     ja = ホテル
     ko = 호텔
     lt = Viešbučiai
+    lv = Viesnīcas
     mr = मुक्कामगृह
     nb = Hoteller
     nl = Hotels
@@ -26869,6 +27480,7 @@
     ja = ビル
     ko = 빌딩
     lt = Pastatai
+    lv = Ēkas
     mr = इमारती
     nb = Bygninger
     nl = Gebouwen
@@ -26913,6 +27525,7 @@
     ja = お金
     ko = 돈
     lt = Pinigai
+    lv = Nauda
     mr = पैसे
     nb = Penger
     nl = Geld
@@ -26958,6 +27571,7 @@
     ja = ショップ
     ko = 상점
     lt = Parduotuvės
+    lv = Veikali
     mr = दुकान
     nb = Butikker
     nl = Winkels
@@ -27002,6 +27616,7 @@
     ja = 駐車場
     ko = 주차장
     lt = Parkingai
+    lv = Autostāvvietas
     mr = वाहनतळ
     nb = Parkeringer
     nl = Parkeerplaatsen
@@ -27047,6 +27662,7 @@
     ja = ガソリンスタンド
     ko = 주유소
     lt = Degalinės
+    lv = Degvielas uzpildes stacija
     mr = पेट्रोल पंप
     nb = Bensinstasjoner
     nl = Benzinestations
@@ -27091,6 +27707,7 @@
     ja = 医薬品
     ko = 의료
     lt = Medicina
+    lv = Medicīna
     mr = औषध
     nb = Medisin
     nl = Geneeskunde
@@ -27136,6 +27753,7 @@
     ja = リスト内で検索
     ko = 리스트에서 검색
     lt = Ieškoti sąraše
+    lv = Meklēt sarakstā
     mr = यादीत शोधा
     nb = Søk på lista
     nl = Zoek in de lijst
@@ -27180,6 +27798,7 @@
     ja = 礼拝所
     ko = 종교적 장소
     lt = Religinės vietos
+    lv = Reliģiskas vietas
     mr = धार्मिक स्थळ
     nb = Hellige steder
     nl = Religieuze plaatsen
@@ -27225,6 +27844,7 @@
     ja = リストを選択
     ko = 목록 선택
     lt = Pasirinkti sąrašą
+    lv = Atlasīt sarakstu
     mr = यादी निवडा
     nb = Velge liste
     nl = Kies een lijst
@@ -27271,6 +27891,7 @@
     ja = この地域の地下鉄ナビはまだ利用できません
     ko = 이 지역의 지하철 노선 기능이 아직 없습니다
     lt = Metro navigacija šiame regione yra neprieinama
+    lv = Metro navigācija šajā reģionā nav pieejama
     mr = या प्रदेशात मेट्रोचे मार्गनिर्देशन अद्याप उपलब्ध नाही
     nb = T-bane navigasjon er ikke tilgjengelig i denne regionen ennå
     nl = Metro-navigatie is nog niet beschikbaar in deze regio
@@ -27318,6 +27939,7 @@
     ja = 地下鉄ルートが見つかりませんでした
     ko = 지하철 루트가 발견되지 않았습니다
     lt = Metro maršrutas nerastas
+    lv = Metro maršruts nav atrasts
     mr = मेट्रो मार्ग सापडला नाही
     nb = T-bane rute ikke funnet
     nl = Metroroute niet gevonden
@@ -27365,6 +27987,7 @@
     ja = もっと地下鉄駅に近い出発地または目的地を選択してください
     ko = 지하철역에서 가까운 출발점 또는 종점을 선택하세요
     lt = Pasirinkite pradžios ir pabaigos tašką, arčiausią metros stoties
+    lv = Izvēlieties sākuma un beigu punktu tuvāk metro stacijai
     mr = कृपया मेट्रो स्थानकाजवळचा प्रारंभ किंवा शेवटचा बिंदू निवडा
     nb = Velg utgangspunkt eller destinasjon som befinner seg nærmere en T-bane stasjon
     nl = Kies een begin- of eindpunt dichter bij het metrostation
@@ -27411,6 +28034,7 @@
     ja = 地形
     ko = 지형
     lt = Reljefas
+    lv = Reljefa līnijas
     mr = भूप्रदेश
     nb = Høyder
     nl = Hoogtes
@@ -27456,6 +28080,7 @@
     ja = 地形レイヤーを使用するには、このエリアのマップを更新もしくはダウンロードしてください
     ko = 지형 레이어를 활성화하고 사용하려면 해당 지역의 지도를 업데이트하거나 다운로드하십시오
     lt = Atsisiųskite vietovės žemėlapį, jei norite aktyvinti ir naudoti topografinį sluoksnį
+    lv = Reljefa līniju parādīšanai nepieciešamas lejupielādēt šī reģiona karti
     mr = भूस्वरूप स्तर वापरण्यासाठी कृपया नकाशा डाउनलोड किंवा अद्ययावत करा
     nb = For å bruke høydekurver oppdater eller last opp kartet til nødvendig område
     nl = Als u gebruik wilt maken van hoogtelijnen, moet u de kaart van het gewenste gebied bijwerken of downloaden
@@ -27501,6 +28126,7 @@
     ja = 地形レイヤーはこの地域ではまだ利用できません
     ko = 이 지역의 지형 레이어는 아직 사용할 수 없습니다
     lt = Topografinis sluoksnis šiai vietovei yra neprieinamas
+    lv = Topogrāfiskais slānis šim reģionam nav pieejams
     mr = या भागात भूस्वरूप स्तर अद्याप उपलब्ध नाही
     nb = Høydekurver er ikke tilgjengelige i dette området ennå
     nl = Hoogtelijnen zijn nog niet beschikbaar in deze regio
@@ -27546,6 +28172,7 @@
     ja = 難易度
     ko = 난이도
     lt = Sudėtingumo lygis
+    lv = Sarežģītības līmenis
     mr = काठिण्य पातळी
     nb = Vanskelighetsgrad
     nl = Moeilijkheidsgraad
@@ -27589,6 +28216,7 @@
     ja = 簡単
     ko = 쉬움
     lt = Lengvas
+    lv = Viegls
     mr = सोपे
     nb = Lett
     nl = Gemakkelijk
@@ -27632,6 +28260,7 @@
     ja = 普通
     ko = 보통
     lt = Normalus
+    lv = Normāls
     mr = मध्यम
     nb = Middels
     nl = Middelmatig
@@ -27675,6 +28304,7 @@
     ja = 困難
     ko = 어려움
     lt = Sunkus
+    lv = Sarežģīts
     mr = कठिण
     nb = Vanskelig
     nl = Moeilijk
@@ -27719,6 +28349,7 @@
     ja = 上昇
     ko = 올라가기
     lt = Pakilimas
+    lv = Kāpums
     mr = चढण
     nb = Stigning
     nl = Stijging
@@ -27763,6 +28394,7 @@
     ja = 下降
     ko = 내려가기
     lt = Nusileidimas
+    lv = Kritums
     mr = उतरण
     nb = Nedstigning
     nl = Daling
@@ -27807,6 +28439,7 @@
     ja = 最小高度
     ko = 산 최소 높이
     lt = Maž. aukštis
+    lv = Zemākais punkts
     mr = किमान उच्चता
     nb = Min. høyde
     nl = Min. hoogte
@@ -27852,6 +28485,7 @@
     ja = 最大高度
     ko = 산 최대 높이
     lt = Didž. aukštis
+    lv = Augstākais punkts
     mr = कमाल उच्चता
     nb = Maks. høyde
     nl = Max. hoogte
@@ -27897,6 +28531,7 @@
     ja = 難易度
     ko = 난이도
     lt = Sudėtingumas
+    lv = Sarežģītība
     mr = काठिण्य
     nb = Vanskelighet
     nl = Moeilijkheid
@@ -27941,6 +28576,7 @@
     ja = 距離：
     ko = 거리:
     lt = Atstumas:
+    lv = Attālums:
     mr = अंतर.:
     nb = Avstand:
     nl = Afst.:
@@ -27986,6 +28622,7 @@
     ja = 時間：
     ko = 소비 시간:
     lt = Laikas:
+    lv = Laiks:
     mr = वेळ:
     nb = I rute
     nl = Tijd:
@@ -28031,6 +28668,7 @@
     ja = 等高線を調べるようにズームインしてください
     ko = 등치선 탐색을 위한 확대
     lt = Priartinkite, kad tyrinėtumėte izolinijas
+    lv = Pietuviniet, lai izpētītu izolīnijas
     mr = समोच्च रेषा पाहायला नकाशा विशाल (झूम) करा
     nb = Forstørr kartet for å se høydekurver
     nl = Zoom in om hoogtelijnen te bekijken
@@ -28075,6 +28713,7 @@
     ja = 更新中
     ko = 업데이트 중
     lt = Naujinama
+    lv = Atjaunina
     mr = अद्ययावत करत आहे
     nb = Oppdatering
     nl = Updaten
@@ -28119,6 +28758,7 @@
     ja = ダウンロード中
     ko = 다운로드 중
     lt = Atsisiųsti
+    lv = Lejupielādē
     mr = डाउनलोड करत आहे
     nb = Nedlasting
     nl = Downloaden
@@ -28159,6 +28799,7 @@
     it = Scarica la mappa del mondo
     ja = 世界地図をダウンロード
     lt = Atsisiųsti pasaulio žemėlapį
+    lv = Lejupielādēt pasaules karti
     mr = जगाचा नकाशा डाउनलोड करा
     nb = Last ned verdenskart
     nl = Download de wereldkaart
@@ -28191,6 +28832,7 @@
     he = לא ניתן ליצור תיקייה ולהעביר קבצים בזיכרון הפנימי או בכרטיס הזיכרון
     ja = フォルダーの作成と内部ストレージまたはSDカードへのファイルの移動に失敗しました
     lt = Nepavyko sukurti aplanko ir perkelti failus į įrenginio vidinę atmintį ar SD kortelę
+    lv = Neizdevās izveidot mapi un pārvietot datnes iekšējā atmiņā vai SD kartē
     mr = उपकरणाच्या अंतर्गत मेमरी किंवा SD-card वर फोल्डर तयार करण्यात आणि फायली हलविण्यात अक्षम
     nb = Klarte ikke opprette mappe og flytte filer i enhetens minne eller SD-kort
     nl = Het lukt niet om een map aan te maken en bestanden naar het interne geheugen of een SD-kaart te verplaatsen
@@ -28222,6 +28864,7 @@
     hi = डिस्क त्रुटि
     ja = ディスクエラー
     lt = Disko klaida
+    lv = Diska kļūda
     mr = डिस्क त्रुटी
     nb = Diskfeil
     nl = Schijffout
@@ -28254,6 +28897,7 @@
     it = Errore di connessione
     ja = 接続エラー
     lt = Tinklo klaida
+    lv = Savienojuma kļūda
     mr = जोडणी अयशस्वी
     nb = Tilkoblingsfeil
     nl = Verbindingsfout
@@ -28289,6 +28933,7 @@
     it = Scollegare il cavo USB
     ja = USBケーブルを抜いてください
     lt = Atjungti USB laidą
+    lv = Atvienojiet USB kabeli
     mr = USB केबल काढा
     nb = Fjern USB-kabelen
     nl = USB-kabel losmaken
@@ -28328,6 +28973,7 @@
     it = Tieni lo schermo acceso
     ja = 画面を表示したままにする
     ko = 화면 켜짐 유지
+    lv = Paturēt ekrānu ieslēgtu
     mr = स्क्रीन चालू ठेवा
     nb = Behold skjermen på
     nl = Scherm ingeschakeld houden
@@ -28373,6 +29019,7 @@
     it = Se abilitato, lo schermo sarà sempre acceso quando si visualizza la mappa.
     ja = 有効にすると、地図を表示するときにスクリーンが常にオンになる。
     ko = 활성화하면 지도를 표시할 때 화면이 항상 켜져 있습니다.
+    lv = Kad ieslēgts, rādot karti, ekrāns vienmēr būs ieslēgts.
     mr = सक्षम असतानानकाशाशप्रदर्शितिकरतानानस्क्रीनीनेहमीमचालूाअसेलसेल.
     nb = Når dette er aktivert, vil skjermen alltid være på når kartet vises.
     nl = Als deze optie is ingeschakeld, staat het scherm altijd aan als de kaart wordt weergegeven.
@@ -28414,6 +29061,7 @@
     it = Mostra sulla schermata di blocco
     ja = ロック画面に表示
     lt = Rodyti užrakinimo ekrane
+    lv = Rādīt bloķēšanas ekrānā
     mr = लॉक पटलावर (स्क्रीनवर) दाखवा
     nb = Vis på låseskjerm
     nl = Toon op vergrendelscherm
@@ -28450,6 +29098,7 @@
     it = Quando è abilitata, non è necessario sbloccare il dispositivo ogni volta mentre l'app è in esecuzione.
     ja = 有効にすると、デバイスがロックされている場合でもアプリはロック画面で動作します。
     lt = Jei įjungta, jums nereikės kiekvieną kartą atrakinti įrenginio, kol veikia programėlė.
+    lv = Ja ieslēgts, lietotne darbosies pat tad, ja ierīce būs nobloķēta.
     mr = चालू असल्यास, ऍप चालू असताना प्रत्येक वेळी तुम्हाला तुमचे उपकरण अनलॉक करण्याची आवश्यकता नाही.
     nb = Når dette er aktivert trenger du ikke låse opp enheten hver gang når appen kjører.
     nl = Indien ingeschakeld, hoeft het scherm niet te worden ontgrendeld wanneer de app actief is.
@@ -28493,6 +29142,7 @@
     ja = ダウンロード済みのマップを更新してください
     ko = 다운로드한 지도를 업데이트해야 합니다
     lt = Naujinti atsisiųstus žemėlapius
+    lv = Atjaunināt lejupielādētās kartes
     mr = तुमचे डाउनलोड केलेले नकाशे अद्ययावत करा
     nb = Oppdater dine nedlastede kart
     nl = Werk uw gedownloade kaarten bij
@@ -28541,6 +29191,7 @@
     ja = 地図を更新することで物件情報を最新の状態に保ちます
     ko = 지도를 업데이트하면 개체에 대한 정보가 최신 상태로 유지됩니다.
     lt = Žemėlapių atnaujinimas suteikia naujausią informaciją apie objektus
+    lv = Karšu atjaunināšana nodrošina, ka karšu informācija ir svaiga
     mr = नकाशे अद्ययावत केल्याने वस्तूंची माहिती अद्यतनित राहते
     nb = Ved å oppdatere kart holder du også informasjonen om ulike elementer oppdatert
     nl = Kaarten bijwerken houdt de informatie over objecten actueel
@@ -28589,6 +29240,7 @@
     ja = 更新 (%@)
     ko = 업데이트(%@)
     lt = Naujinti (%@)
+    lv = Atjaunināt (%@)
     mr = अद्ययावत करा (%@)
     nb = Oppdater (%@)
     nl = Werk bij (%@)
@@ -28637,6 +29289,7 @@
     ja = 後で手動で更新
     ko = 나중에 수동으로 업데이트
     lt = Atnaujinsiu vėliau
+    lv = Atjaunināšu vēlāk
     mr = नंतर स्वतः अद्ययावत करा
     nb = Oppdater manuelt senere
     nl = Werk later handmatig bij
@@ -28675,6 +29328,7 @@
     it = Elimina percorso
     ja = トラックを削除
     lt = Naikinta taką
+    lv = Dzēst ceļu
     mr = ट्रॅक पुसून टाका
     nb = Slett rute
     nl = Verwijder traject
@@ -28709,6 +29363,7 @@
     it = Nome percorso
     ja = トラック名
     lt = Tako pavadinimas
+    lv = Ceļa nosaukums
     mr = ट्रॅकचे नाव
     nb = Rutenavn
     nl = Trajectnaam
@@ -28743,6 +29398,7 @@
     it = Sposta
     ja = 移動
     lt = Perkelti
+    lv = Pārvietot
     mr = हलवा
     nb = Flytt
     nl = Verplaats
@@ -28784,6 +29440,7 @@
     ja = トラック
     ko = 길
     lt = Takas
+    lv = Ceļš
     mr = ट्रॅक
     nb = Rute
     nl = Track
@@ -28828,6 +29485,7 @@
     ja = OpenStreetMapからの地図データ
     ko = OpenStreetMap의 지도 데이터
     lt = Žemėlapio duomenys iš OpenStreetMap
+    lv = Kartes datu avots ir „OpenStreetMap“
     nb = Kartdata fra OpenStreetMap
     nl = Kaartgegevens van OpenStreetMap
     pl = Dane mapy z OpenStreetMap
@@ -28955,6 +29613,7 @@
     it = Grazie per aver utilizzato le nostre mappe costruite dalla comunità!
     ja = 私たちのコミュニティが作った地図をご利用いただき、ありがとうございます！
     ko = 커뮤니티에서 제작한 지도를 이용해 주셔서 감사합니다!
+    lv = Paldies, ka izmantojat mūsu kopienas veidotās kartes!
     mr = आमचे समुदाय-निर्मित नकाशे वापरल्याबद्दल धन्यवाद!
     nb = Takk for at du bruker kartene vi har laget i fellesskap!
     nl = Bedankt voor het gebruik van onze door de community gemaakte kaarten!
@@ -28998,6 +29657,7 @@
     it = Con le tue donazioni e il tuo supporto, possiamo creare le migliori mappe del mondo!
     ja = あなたの寄付とサポートがあれば、世界で最高の地図を作成できます。
     ko = 여러분의 기부와 지원으로 우리는 세계 최고의 지도를 만들 수 있습니다!
+    lv = Ar jūsu ziedojumiem un atbalstu varam izveidot pasaulē labākās kartes!
     mr = तुमच्या देणग्या आणि समर्थनासह, आम्ही जगातील सर्वोत्तम नकाशे तयार करू शकतो!
     nb = Med dine donasjoner og støtte kan vi lage de beste kartene i verden!
     nl = Met uw donaties en steun kunnen we de beste kaarten ter wereld maken!
@@ -29041,6 +29701,7 @@
     it = Ti piace la nostra app? Si prega di donare per sostenere lo sviluppo! Non ti piace ancora? Fatecelo sapere e risolveremo il problema!
     ja = 私たちのアプリは気に入っていますか? 開発をサポートするために寄付をお願いします！ まだ気に入らないですか？ お知らせください。修正させていただきます。
     ko = 우리 앱이 마음에 드시나요? 발전을 위해 기부해주세요! 아직 마음에 들지 않으세요? 알려주시면 수정하겠습니다!
+    lv = lv = Vai jums patīk mūsu lietotne? Lūdzam ziedot tās attīstībai! Varbūt tā nepatīk? Tādā gadījumā lūdzam mums pastāstīt, kas tajā nepatīk, lai varam „Organic Maps“ uzlabot!
     mr = तुम्हाला आमचे अॅप आवडते का? कृपया विकासाला पाठिंबा देण्यासाठी देणगी द्या! अजून आवडत नाही? कृपया आम्हाला कळवा आणि आम्ही त्याचे निराकरण करू!
     nb = Liker du appen vår? Vennligst doner for å støtte utviklingen! Liker du det ikke ennå? Gi oss beskjed, så fikser vi det!
     nl = Vind je onze app leuk? Doneer alsjeblieft om de ontwikkeling te ondersteunen! Vind je het nog niet leuk? Laat het ons weten, dan lossen we het op!
@@ -29084,6 +29745,7 @@
     it = Se conosci uno sviluppatore di software, puoi chiedergli di implementare una funzionalità di cui hai bisogno.
     ja = ソフトウェア開発者を知っている場合は、必要な機能を実装するように依頼できます。
     ko = 소프트웨어 개발자를 알고 있다면 필요한 기능을 구현하도록 요청할 수 있습니다.
+    lv = Ja pazīstat kādu programmatūras izstrādātāju, varat viņam vai viņai palūgt ieviest funkciju, kas jums pietrūkst.
     mr = तुम्हाला सॉफ्टवेअर डेव्हलपर माहीत असल्यास, तुम्ही त्याला किंवा तिला तुम्हाला आवश्यक असलेले वैशिष्ट्य लागू करण्यास सांगू शकता.
     nb = Hvis du kjenner en programvareutvikler, kan du be ham eller henne implementere en funksjon du trenger.
     nl = Als u een softwareontwikkelaar kent, kunt u hem of haar vragen een functie te implementeren die u nodig heeft.
@@ -29127,6 +29789,7 @@
     it = Sai che puoi toccare a lungo qualsiasi luogo sulla mappa per selezionarlo?
     ja = 地図上の任意の場所を長押しして選択できることをご存知ですか?
     ko = 지도의 아무 곳이나 길게 탭하여 선택할 수 있다는 것을 알고 계셨나요?
+    lv = Vai zinājāt, ka varat piespiest un paturēt kādā vietā uz kartes, lai to atlasītu?
     mr = तुम्हाला माहीत आहे का की तुम्ही नकाशावरील कोणतेही ठिकाण निवडण्यासाठी लांब-टॅप करू शकता?
     nb = Vet du at du kan trykke lenge på et hvilket som helst sted på kartet for å velge det?
     nl = Wist u dat u op elke plaats op de kaart lang kunt tikken om deze te selecteren?
@@ -29170,6 +29833,7 @@
     it = Sai che puoi selezionare la tua posizione attuale sulla mappa?
     ja = 地図上で現在地を選択できることをご存知ですか?
     ko = 지도에서 현재 위치를 선택할 수 있다는 것을 알고 계셨나요?
+    lv = Vai zinājāt, ka ir iespējams atlasīt jūsu pašreizējo atrašanās vietu kartē?
     mr = तुम्हाला माहीत आहे का की तुम्ही नकाशावर तुमचे वर्तमान स्थान निवडू शकता?
     nb = Vet du at du kan velge din nåværende posisjon på kartet?
     nl = Wist u dat u uw huidige locatie op de kaart kunt selecteren?
@@ -29213,6 +29877,7 @@
     it = Puoi aiutare a tradurre la nostra app nella tua lingua.
     ja = 私たちのアプリをあなたの言語に翻訳するのを手伝ってください。
     ko = 우리 앱을 귀하의 언어로 번역하는 데 도움을 줄 수 있습니다.
+    lv = Varat palīdzēt tulkot lietotni savā valodā.
     mr = तुम्ही आमच्या अॅपचे तुमच्या भाषेत भाषांतर करण्यात मदत करू शकता.
     nb = Du kan hjelpe til med å oversette appen vår til ditt språk.
     nl = U kunt helpen onze app in uw taal te vertalen.
@@ -29256,6 +29921,7 @@
     it = La nostra app è sviluppata da alcuni appassionati e dalla community.
     ja = 私たちのアプリは数人の愛好家とコミュニティによって開発されました。
     ko = 우리 앱은 소수의 열성팬과 커뮤니티에 의해 개발되었습니다.
+    lv = Šo lietotni veido daži entuziasti un mūsu kopiena.
     mr = आमचे अॅप काही उत्साही आणि समुदायाने विकसित केले आहे.
     nb = Appen vår er utviklet av noen få entusiaster og samfunnet.
     nl = Onze app is ontwikkeld door een paar enthousiastelingen en de community.
@@ -29299,6 +29965,7 @@
     it = Puoi facilmente correggere e migliorare i dati della mappa.
     ja = 地図データを簡単に修正および改善できます。
     ko = 지도 데이터를 쉽게 수정하고 개선할 수 있습니다.
+    lv = Kartes datus varat viegli labot un papildināt.
     mr = तुम्ही नकाशा डेटा सहजपणे दुरुस्त करू शकता आणि सुधारू शकता.
     nb = Du kan enkelt fikse og forbedre kartdataene.
     nl = U kunt de kaartgegevens eenvoudig corrigeren en verbeteren.
@@ -29342,6 +30009,7 @@
     it = Il nostro obiettivo principale è creare mappe veloci, incentrate sulla privacy e facili da usare che adorerai.
     ja = 私たちの主な目標は、ユーザーに気に入っていただける、プライバシーを重視した使いやすいマップを高速に構築することです。
     ko = 우리의 주요 목표는 귀하가 좋아할 빠르고 개인 정보 보호에 중점을 두고 사용하기 쉬운 지도를 구축하는 것입니다.
+    lv = Mūsu mērķis ir izveidot viegli lietojamas kartes, kas respektē jūsu privātumu un kuras jums patiks.
     mr = आमचे मुख्य ध्येय जलद, गोपनीयता-केंद्रित, वापरण्यास-सुलभ नकाशे तयार करणे आहे जे तुम्हाला आवडतील.
     nb = Vårt hovedmål er å bygge raske, personvernfokuserte, brukervennlige kart som du vil elske.
     nl = Ons belangrijkste doel is om snelle, op privacy gerichte, gebruiksvriendelijke kaarten te maken waar u dol op zult zijn.
@@ -29386,6 +30054,7 @@
     it = Ora stai utilizzando Organic Maps sullo schermo del telefono
     ja = 端末の画面でOrganic Mapsを使用している
     ko = 이제 휴대폰 화면에서 유기적 지도를 사용하고 있습니다
+    lv = Tagad „Organic Maps“ izmantojat tālruņa ekrānā
     mr = तुम्ही आता फोन स्क्रीनवर ऑरगॅनिक नकाशे वापरत आहात
     nb = Du bruker nå Organic Maps på telefonskjermen
     nl = Je gebruikt nu Organic Maps op het telefoonscherm
@@ -29431,6 +30100,7 @@
     it = Ora stai utilizzando le Organic Maps sullo schermo dell'auto
     ja = あなたは今、車の画面でオーガニック・マップを使用している
     ko = 이제 자동차 화면에서 유기적 지도를 사용하고 있습니다
+    lv = Tagad „Organic Maps“ izmantojat automobiļa ekrānā
     mr = तुम्ही आता कार स्क्रीनवर ऑरगॅनिक नकाशे वापरत आहात
     nb = Du bruker nå Organic Maps på bilskjermen
     nl = Je gebruikt nu Organic Maps op het autoscherm
@@ -29475,6 +30145,7 @@
     it = Sei connesso ad Android Auto
     ja = アンドロイド・オートに接続している
     ko = Android Auto에 연결되어 있습니다.
+    lv = Savienojās ar „Android Audio“
     mr = तुम्ही Android Auto शी कनेक्ट आहात
     nb = Du er koblet til Android Auto
     nl = Je bent verbonden met Android Auto
@@ -29519,6 +30190,7 @@
     it = Continua nel telefono
     ja = 電話で続ける
     ko = 전화기에서 계속
+    lv = Turpināt tālrunī
     mr = फोनवर सुरू ठेवा
     nb = Fortsett i telefonen
     nl = Ga verder op de telefoon
@@ -29564,6 +30236,7 @@
     it = Allo schermo dell'auto
     ja = 車のスクリーンへ
     ko = 차량 화면으로 이동
+    lv = Uz auto ekrānu
     mr = कारच्या स्क्रीनकडे
     nb = Til bilens skjerm
     nl = Naar het autoscherm
@@ -29608,6 +30281,7 @@
     it = Questa applicazione richiede l'accesso alla tua posizione per la navigazione.
     ja = このアプリケーションは、ナビゲーションのために位置情報へのアクセスを必要とする。
     ko = 이 애플리케이션을 사용하려면 내비게이션 목적으로 사용자 위치에 액세스해야 합니다.
+    lv = Lai darbotos navigācija, lietotnei ir nepieciešama ierīces atrašanās vietas informācija.
     mr = नेव्हिगेशन हेतूंसाठी या अनुप्रयोगास आपल्या स्थानावर प्रवेश आवश्यक आहे.
     nb = Denne applikasjonen krever tilgang til posisjonen din for navigasjonsformål.
     nl = Deze applicatie vereist toegang tot je locatie voor navigatiedoeleinden.
@@ -29652,6 +30326,7 @@
     it = Concessione dei permessi
     ja = 許可を与える
     ko = 권한 부여
+    lv = Atļaut piekļuvi
     mr = परवानग्या द्या
     nb = Gi tillatelser
     nl = Geef toestemming
@@ -29697,6 +30372,7 @@
     it = Collegato all'auto
     ja = 自動車に接続されている
     ko = 차량에 연결
+    lv = Savienots ar automobili
     mr = कारला जोडलेले
     nb = Tilkoblet til bil
     nl = Verbonden met auto
@@ -29743,6 +30419,7 @@
     ja = ハイキング
     ko = 하이킹
     lt = Žygiai pėsčiomis
+    lv = Aktīvā atpūta
     mr = गिर्यारोहण
     nb = Fotturer
     nl = Wandelen
@@ -29788,6 +30465,7 @@
     ja = ウェブブラウザが利用できない
     ko = 웹 브라우저를 사용할 수 없습니다.
     lt = Interneto naršyklė nepasiekiama
+    lv = Tīmekļa pārlūkprogramma nav pieejama
     mr = वेब ब्राउझर उपलब्ध नाही
     nb = Nettleser er ikke tilgjengelig
     nl = Webbrowser is niet beschikbaar
@@ -29833,6 +30511,7 @@
     ja = 音量
     ko = 볼륨
     lt = Garsumas
+    lv = Skaļums
     mr = व्हॉल्यूम
     nb = Volum
     nl = Volume
@@ -29878,6 +30557,7 @@
     ja = すべてのブックマークとトラックをエクスポートする
     ko = 모든 북마크 및 트랙 내보내기
     lt = Eksportuoti visas žymes ir takelius
+    lv = Eksportēt visas grāmatzīmes un ceļus
     mr = सर्व बुकमार्क आणि ट्रॅक निर्यात करा
     nb = Eksporter alle bokmerker og spor
     nl = Exporteer alle bladwijzers en tracks
@@ -29924,6 +30604,7 @@
     ja = 色を変える
     ko = 색상 변경
     lt = Keisti spalvą
+    lv = Mainīt krāsu
     mr = रंग बदला
     nb = Endre farge
     nl = Verander kleur
@@ -29969,6 +30650,7 @@
     ja = 音声合成システムの設定
     ko = 음성 합성 시스템 설정
     lt = Kalbos sintezės sistemos nustatymai
+    lv = Runas sintēzes sistēmas iestatījumi
     mr = सिस्टम स्पीच सिंथेसिस सेटिंग्ज
     nb = Systeminnstillinger for talesyntese
     nl = Instellingen spraaksynthesesysteem
@@ -30015,6 +30697,7 @@
     ja = 音声合成の設定が見つからなかった。
     ko = 음성 합성 설정을 찾을 수 없었는데, 기기에서 이를 지원하는 것이 맞나요?
     lt = Kalbos sintezės nustatymų nerasta, ar esate tikri, kad jūsų prietaisas ją palaiko?
+    lv = Lietotnes neatrada runas sintēzes iestatījumus. Vai ierīce tos atbalsta?
     mr = स्पीच सिंथेसिस सेटिंग्ज आढळल्या नाहीत, तुमची खात्री आहे की तुमचे डिव्हाइस त्यास समर्थन देते?
     nb = Innstillinger for talesyntese ble ikke funnet, er du sikker på at enheten din støtter dette?
     nl = Instellingen voor spraaksynthese zijn niet gevonden, weet je zeker dat je apparaat dit ondersteunt?
@@ -30061,6 +30744,7 @@
     ja = 地図
     ko = 지도
     lt = Žemėlapis
+    lv = Karte
     mr = नकाशा
     nb = Kart
     nl = Kaart
@@ -30106,6 +30790,7 @@
     ja = ドライブスルー
     ko = 드라이브 스루
     lt = Pravažiavimas per
+    lv = Caurbrauktuve caur
     mr = मार्गे चला
     nb = Gjennomkjøring
     nl = Drive-though
@@ -30150,6 +30835,7 @@
     ja = 検索をクリアする
     ko = 검색 지우기
     lt = Išvalyti paiešką
+    lv = Notīrīt meklēšanu
     mr = शोध साफ करा
     nb = Fjern søket
     nl = Wis de zoekopdracht
@@ -30194,6 +30880,7 @@
     ja = ズームイン
     ko = 확대
     lt = Priartinti vaizdą
+    lv = Tuvināt
     mr = प्रतिमेचे दृष्य रूप मोठे करा
     nb = Zoom inn
     nl = Zoom in
@@ -30240,6 +30927,7 @@
     ja = ズームアウト
     ko = 축소
     lt = Padidinti mastelį
+    lv = Tālināt
     mr = झूम कमी करा
     nb = Zoom ut
     nl = Zoom uit
@@ -30285,6 +30973,7 @@
     ja = メニューリンク
     ko = 메뉴 링크
     lt = Meniu nuoroda
+    lv = Saite uz ēdienkarti
     mr = मेनू लिंक
     nb = Lenke til menyen
     nl = Menulink
@@ -30331,6 +31020,7 @@
     ja = メニューを見る
     ko = 메뉴 보기
     lt = Peržiūrėti meniu
+    lv = Apskatīt ēdienkarti
     mr = मेनू पहा
     nb = Vis meny
     nl = Bekijk menu
@@ -30377,6 +31067,7 @@
     ja = 開発者にバグレポートを送りたいか？\nオーガニック・マップはエラー情報を自動収集しないため、我々はユーザーに依存している。Organic Mapsを応援してくださりありがとう！
     ko = 개발자에게 버그 리포트를 보내시겠습니까?\n오가닉 맵은 오류 정보를 자동으로 수집하지 않으므로 사용자의 도움을 받아야 합니다. 오가닉 맵을 이용해 주셔서 미리 감사드립니다!
     lt = Ar norėtumėte išsiųsti pranešimą apie klaidą kūrėjams?\nMes pasikliaujame savo naudotojais, nes "Organic Maps" nerenka jokios informacijos apie klaidas automatiškai. Iš anksto dėkojame, kad remiate "Organic Maps"!
+    lv = Vai vēlaties izstrādātājiem nosūtīt ziņojumu par kļūdu?\nMēs paļaujamies uz šiem ziņojumiem, jo „Organic Maps“ automātiski nevāc nekādus datus par kļūdām. Jau iepriekš pateicamies par „Organic Maps“ atbalstīšanu!
     mr = तुम्ही विकासकांना बग अहवाल पाठवू इच्छिता?\nआम्ही आमच्या वापरकर्त्यांवर अवलंबून आहोत कारण सेंद्रिय नकाशे कोणतीही त्रुटी माहिती स्वयंचलितपणे संकलित करत नाही. ऑरगॅनिक नकाशेला समर्थन दिल्याबद्दल आगाऊ धन्यवाद!
     nb = Vil du sende en feilrapport til utviklerne?\nVi er avhengige av brukerne våre, da Organic Maps ikke samler inn noen feilinformasjon automatisk. Takk på forhånd for at du støtter Organic Maps!
     nl = Wil je een bugrapport naar de ontwikkelaars sturen?\nWe vertrouwen op onze gebruikers, want Organic Maps verzamelt geen foutinformatie automatisch. Alvast bedankt voor je steun aan Organic Maps!
@@ -30423,6 +31114,7 @@
     ja = iCloud同期を有効にする
     ko = iCloud 동기화 활성화
     lt = "iCloud" sinchronizavimo įjungimas
+    lv = Ieslēgta „iCloud“ sinhronizācija
     mr = iCloud सिंक्रोनाइझेशन सक्षम करा
     nb = Aktiver iCloud-synkronisering
     nl = Schakel iCloud-synchronisatie in
@@ -30470,6 +31162,7 @@
     ja = iCloud同期は開発中の実験的機能である。すべてのブックマークとトラックのバックアップをとっておくこと。
     ko = iCloud 동기화는 개발 중인 실험적 기능입니다. 모든 북마크와 트랙을 백업해 두었는지 확인하세요.
     lt = "iCloud" sinchronizavimas yra kuriama eksperimentinė funkcija. Įsitikinkite, kad padarėte atsarginę visų savo žymeklių ir takelių kopiją.
+    lv = „iCloud“ sinhronizācija šobrīd ir eksperimentāla iespēja, ko joprojām veidojam. Pirms tās izmantošanas izveidojiet grāmatzīmju un ceļu dublējumkopijas.
     mr = iCloud सिंक्रोनाइझेशन हे विकासाधीन प्रायोगिक वैशिष्ट्य आहे. तुम्ही तुमच्या सर्व बुकमार्क्स आणि ट्रॅकचा बॅकअप घेतला असल्याची खात्री करा.
     nb = iCloud-synkronisering er en eksperimentell funksjon under utvikling. Sørg for at du har tatt en sikkerhetskopi av alle bokmerkene og sporene dine.
     nl = iCloud synchronisatie is een experimentele functie in ontwikkeling. Zorg ervoor dat je een back-up hebt gemaakt van al je bladwijzers en tracks.
@@ -30516,6 +31209,7 @@
     ja = iCloudが無効になっている
     ko = iCloud가 비활성화됨
     lt = "iCloud" yra išjungtas
+    lv = „iCloud“ ir izslēgts
     mr = iCloud अक्षम आहे
     nb = iCloud er deaktivert
     nl = iCloud is uitgeschakeld
@@ -30561,6 +31255,7 @@
     ja = この機能を使うには、デバイスの設定でiCloudを有効にしてほしい。
     ko = 이 기능을 사용하려면 기기 설정에서 iCloud를 활성화하세요.
     lt = Jei norite naudotis šia funkcija, įjunkite "iCloud" įrenginio nustatymuose.
+    lv = Ja vēlaties izmantot šo funkciju, ierīces iestatījumos ieslēdziet „iCloud“.
     mr = कृपया हे वैशिष्ट्य वापरण्यासाठी तुमच्या डिव्हाइसच्या सेटिंग्जमध्ये iCloud सक्षम करा.
     nb = Aktiver iCloud i enhetens innstillinger for å bruke denne funksjonen.
     nl = Schakel iCloud in bij de instellingen van je apparaat om deze functie te gebruiken.
@@ -30607,6 +31302,7 @@
     ja = 有効にする
     ko = 사용
     lt = Įjungti
+    lv = Ieslēgt
     mr = सक्षम करा
     nb = Aktivere
     nl = Schakel in
@@ -30653,6 +31349,7 @@
     ja = バックアップ
     ko = 백업
     lt = Atsarginė kopija
+    lv = Dublējumkopija
     mr = बॅकअप
     nb = Sikkerhetskopiering
     nl = Back-up
@@ -30699,6 +31396,7 @@
     ja = iCloud同期の失敗
     ko = iCloud 동기화 실패
     lt = "iCloud" sinchronizavimo sutrikimas
+    lv = „iCloud“ sinhronizācijas kļūda
     mr = iCloud सिंक्रोनाइझेशन अयशस्वी
     nb = iCloud-synkroniseringsfeil
     nl = Storing iCloud-synchronisatie
@@ -30745,6 +31443,7 @@
     ja = エラー：接続エラーにより同期に失敗した
     ko = 오류입니다: 연결 오류로 인해 동기화하지 못했습니다.
     lt = Klaida: Nepavyko sinchronizuoti dėl ryšio klaidos
+    lv = Kļūda: sinhronizācija neizdevās savienojuma kļūdas dēļ
     mr = त्रुटी: कनेक्शन त्रुटीमुळे सिंक्रोनाइझ करण्यात अयशस्वी
     nb = Feil: Kunne ikke synkronisere på grunn av tilkoblingsfeil
     nl = Fout: Synchronisatie mislukt door verbindingsfout
@@ -30791,6 +31490,7 @@
     ja = エラー：iCloudのクォータが超過したため、同期に失敗しました。
     ko = 오류입니다: iCloud 할당량이 초과되어 동기화하지 못했습니다.
     lt = Klaida: Nepavyko sinchronizuoti dėl viršytos "iCloud" kvotos
+    lv = Kļūda: sinhronizācija neizdevās pārsniegtas „iCloud“ kvotas dēļ
     mr = त्रुटी: iCloud कोटा ओलांडल्यामुळे सिंक्रोनाइझ करण्यात अयशस्वी
     nb = Feil: Kunne ikke synkronisere på grunn av overskredet iCloud-kvote
     nl = Fout: Synchronisatie mislukt vanwege overschrijding iCloud-quota
@@ -30837,6 +31537,7 @@
     ja = エラー：iCloudが利用できない
     ko = 오류: iCloud를 사용할 수 없습니다.
     lt = Klaida: "iCloud" nepasiekiamas
+    lv = Kļūda: „iCloud“ nav pieejams
     mr = त्रुटी: iCloud उपलब्ध नाही
     nb = Feil: iCloud er ikke tilgjengelig
     nl = Fout: iCloud is niet beschikbaar
@@ -30882,6 +31583,7 @@
     ja = 別のアプリで開く
     ko = 다른 앱에서 열기
     lt = Atidaryti kitoje programoje
+    lv = Atvērt citā lietotnē
     mr = दुसऱ्या ॲपमध्ये उघडा
     nb = Åpne i en annen app
     nl = Openen in een andere app
@@ -30927,6 +31629,7 @@
     ja = セルフサービス
     ko = 셀프 서비스
     lt = Savitarna
+    lv = Pašapkalpošanās
     mr = स्व: सेवा    nb = Selvbetjening
     nl = Zelfbediening
     pl = Samoobsługa
@@ -30971,6 +31674,7 @@
     ja = オプションを選択する
     ko = 옵션 선택
     lt = Pasirinkite parinktį
+    lv = Atlasīt opciju
     mr = पर्याय निवडा    nb = Velg alternativ
     nl = Selecteer optie
     pl = Wybierz opcję
@@ -31016,6 +31720,7 @@
     ja = 屋外席
     ko = 야외 좌석
     lt = Lauko sėdimosios vietos
+    lv = Sēdvietas ārā
     mr = बाहेरची आसनव्यवस्था    nb = Uteservering
     nl = Zitplaatsen buiten
     pl = Siedzenia na zewnątrz
@@ -31060,6 +31765,7 @@
     ja = 最も正確なナビゲーションのためには、携帯電話のバッテリー設定で省電力モードを無効にすることをお勧めする。
     ko = 가장 정확한 내비게이션을 위해 휴대폰의 배터리 설정에서 절전 모드를 비활성화하는 것이 좋습니다.
     lt = Kad navigacija būtų tiksliausia, rekomenduojame išjungti energijos taupymo režimą telefono akumuliatoriaus nustatymuose.
+    lv = Lai navigācija būtu pēc iespējas precīzāka, iesakām tālruņa baterijas iesatatījumos izslēgt energotaupības režīmu.
     mr = सर्वात अचूक नेव्हिगेशनसाठी, आम्ही फोनच्या बॅटरी सेटिंग्जमध्ये पॉवर सेव्हिंग मोड अक्षम करण्याची शिफारस करतो.
     nb = For å få mest mulig nøyaktig navigering anbefaler vi at du deaktiverer strømsparingsmodus i telefonens batteriinnstillinger.
     nl = Voor de meest nauwkeurige navigatie raden we aan om de energiebesparende modus uit te schakelen in de batterij-instellingen van de telefoon.
@@ -31106,6 +31812,7 @@
     ja = 最近削除されたリスト
     ko = 최근 삭제한 목록
     lt = Neseniai ištrinti sąrašai
+    lv = Nesen dzēstie saraksti
     mr = अलीकडे हटवलेल्या याद्या
     nb = Nylig slettede lister
     nl = Onlangs verwijderde lijsten
@@ -31152,6 +31859,7 @@
     ja = クリア
     ko = 지우기
     lt = Išvalyti
+    lv = Notīrīt
     mr = साफ करा
     nb = Fjern
     nl = Wissen
@@ -31198,6 +31906,7 @@
     ja = すべて削除する
     ko = 모두 삭제
     lt = Ištrinti viską
+    lv = Dzēst visu
     mr = सर्व हटवा
     nb = Slett alle
     nl = Alles verwijderen
@@ -31244,6 +31953,7 @@
     ja = 復元
     ko = 복구
     lt = Atkurti
+    lv = Atjaunot
     mr = पुनर्प्राप्त करा
     nb = Gjenopprette
     nl = Herstel
@@ -31290,6 +32000,7 @@
     ja = すべて復元
     ko = 모두 복구
     lt = Atkurti viską
+    lv = Atjaunot visu
     mr = सर्व पुनर्प्राप्त करा
     nb = Gjenopprett alt
     nl = Alles herstellen
