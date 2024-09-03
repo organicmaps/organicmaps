@@ -2129,7 +2129,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     dismissAlertDialog();
     final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.power_save_dialog_title)
-        .setCancelable(false)
+        .setCancelable(true)
         .setMessage(R.string.power_save_dialog_summary)
         .setNegativeButton(R.string.not_now, (dialog, which) -> {
           Logger.d(POWER_MANAGEMENT_TAG, "The Power Save disclaimer was ignored");
