@@ -17870,6 +17870,7 @@
     az = Çimərlik kurort
     es = Resort de playa
     et = Rannakuurort
+    he = אתר נופש על החוף
     it = Resort balneare
     mr = समुद्री रिसॉर्ट
     nl = Strandresort
@@ -17887,6 +17888,7 @@
     de = künstliche Anlage
     es = Construcción
     et = Inimese loodud
+    he = מלאכותי-מעשה ידי אדם
     it = Stabilimento balneare
     ja = 構造物
     mr = मानवनिर्मित
@@ -17907,6 +17909,7 @@
     es = Rompeolas
     et = Lainemurdja
     fr = Brise-lames
+    he = שובר גלים
     hi = तरंगरोध
     it = Frangiflutti
     ja = 防波堤
@@ -17928,6 +17931,7 @@
     de = Steinmännchen
     es = Mojón
     et = Karjäär
+    he = גלעד
     hi = स्तूप
     ja = ケルン
     nl = Steengroeve
@@ -17952,6 +17956,7 @@
     eu = Fabrikako tximinia
     fi = Tehtaan piippu
     fr = Cheminée d'usine
+    he = ארובה
     hi = धुआँकश
     hu = Gyárkémény
     id = Cerobong asap pabrik
@@ -17983,6 +17988,7 @@
     es = Línea de corte forestal
     et = Metsasiht
     fr = Layon
+    he = אזור חיץ
     ja = 森林の切れ目
     nl = Bospad
     pl = Przecinka leśna
@@ -18004,6 +18010,7 @@
     es = Punto geodésico
     et = Uuringupunkt
     fr = Borne géodésique
+    he = נקודת גבול
     it = Punto geodetico
     ja = 測量標
     mr = सर्वेक्षण बिंदू
@@ -18024,6 +18031,7 @@
     et = Lipumast
     fi = Lipputanko
     fr = Mât de drapeau
+    he = עמוד דגל
     it = Alza bandiera
     mr = ध्वजस्तंभ
     nl = Vlaggenpaal
@@ -18050,6 +18058,7 @@
     fa = گردشگری
     fi = Majakka
     fr = Phare
+    he = מגדלור
     hi = प्रकाशस्तम्भ
     hu = Világítótorony
     id = Mercusuar
@@ -18082,6 +18091,7 @@
     es = Mástil
     et = Mast
     fr = Mât
+    he = תורן
     it = Pilone
     mr = डोलकाठी
     nl = Mast
@@ -18100,6 +18110,7 @@
     es = Muelle
     et = Kai
     fr = Jetée
+    he = מזח
     it = Molo
     ja = 桟橋
     mr = धक्का
@@ -18120,6 +18131,7 @@
     az = Boru
     es = Tubería
     et = Torujuhe
+    he = צינור
     it = Condotto
     ja = パイプライン
     mr = नळमार्ग
@@ -18140,6 +18152,7 @@
     az = Yerüstü boru kəməri
     es = Tubería aérea
     et = Maapealne torujuhe
+    he = צינור עילי
     ja = 地表のパイプライン
     mr = जमिनीवरील नळमार्ग
     nl = Bovengrondse pijpleiding
@@ -18160,6 +18173,7 @@
     de = Silo
     es = Silo
     et = Elevaator
+    he = סילו
     it = Silo
     mr = पेव(धान्यसाठा)
     nl = Silo
@@ -18179,6 +18193,7 @@
     es = Cisterna
     et = Mahuti
     fr = Réservoir
+    he = מיכל איחסון
     it = Cisterna
     mr = साठवण टाकी
     nl = Opslagtank
@@ -18203,6 +18218,7 @@
     fa = دوربین نظارتی
     fi = Valvontakamera
     fr = Caméra de surveillance
+    he = מצלמת מעקב
     hu = Térfigyelő kamera
     id = Kamera Pengawas
     it = Videocamera di sorveglianza
@@ -18240,6 +18256,7 @@
     fa = برج
     fi = Torni
     fr = Tour
+    he = מגדל
     hi = बुर्ज
     hu = Torony
     id = Menara
@@ -18313,6 +18330,7 @@
     es = Planta de tratamiento de aguas residuales
     et = Reoveepuhasti
     fr = Station d'épuration
+    he = מפעל טיפול בשפכים
     hi = अपशिष्ट जलोपचार
     it = Impianto di trattamento delle acque reflue
     ja = 下水処理場
@@ -18342,6 +18360,7 @@
     fa = شیراب
     fi = Vesihana
     fr = Robinet d'eau
+    he = ברז מים
     hi = पानी का नल
     hu = Vízcsap
     id = Keran Air
@@ -18380,6 +18399,7 @@
     fa = منبع اب
     fi = Vesitorni
     fr = Château d'eau
+    he = מגדל מים
     hi = पानी का टावर
     hu = Víztorony
     id = Menara air
@@ -18418,6 +18438,7 @@
     fa = چاه اب
     fi = Kaivo
     fr = Puits à eau
+    he = באר מים
     hi = कुआँ
     hu = Ivókút
     id = Sumur air
@@ -18456,6 +18477,7 @@
     fa = توربین بادی
     fi = Tuulimylly
     fr = Moulin à vent
+    he = טחנת רוח
     hi = पवनचक्की
     hu = Szélmalom
     id = Kincir angin
@@ -18486,6 +18508,7 @@
     de = Fabrik
     es = Fábrica
     et = Vabrik
+    he = עבודות תעשיה
     it = Fabbrica
     ja = 工場
     mr = औद्योगिक कामे
@@ -18513,6 +18536,7 @@
     de = Militärisches Objekt
     es = Militar
     et = Militaarobjekt
+    he = צבאי
     it = Forze armate
     ja = 軍事
     mr = लष्करी
@@ -18537,6 +18561,7 @@
     eu = Bunkerra
     fa = پناهگاه
     fi = Bunkkeri
+    he = בונקר צבאי
     it = Bunker
     ja = 掩蔽壕
     ko = 벙커
@@ -18797,7 +18822,7 @@
     fa = ساحل
     fi = Ranta
     fr = Plage
-    he = חוף חולי
+    he = חוף
     hi = बालू तट
     hu = Strand
     id = Pantai
@@ -18961,7 +18986,7 @@
     fa = غار
     fi = Luola
     fr = Grotte
-    he = מערה
+    he = כניסה למערה
     hi = गुफ़ा
     hu = Barlangbejárat
     id = Gua
@@ -19122,7 +19147,7 @@
     fa = کناره
     fi = Rannikko
     fr = Littoral
-    he = חוף
+    he = קו החוף
     hi = सागरतट
     hu = Tengerpart
     id = Pesisir
@@ -19280,7 +19305,7 @@
     fa = علفزار
     fi = Nurmi
     fr = Pelouse
-    he = ערבה
+    he = שטחי דשא
     hi = घासभूमि
     hu = Füves puszta
     id = Padang rumput
@@ -19444,7 +19469,7 @@
     fa = ﻞﻔﻗ ﻕﺎﺗﺍ
     fi = Lukko kammio
     fr = Écluse
-    he = לוענמ את
+    he = תא מנעול
     hu = Zsilipkamra
     id = Ruang Kunci
     it = Camera di blocco
@@ -19525,7 +19550,7 @@
     fa = مخزن
     fi = Säiliö
     fr = Réservoir
-    he = מאגר
+    he = מאגר מים
     hu = Víztározó
     id = Waduk
     it = Serbatoio
