@@ -50623,21 +50623,21 @@ cont {
   element {
     scale: 15
     area {
-      color: 2171163
+      color: 2763300
       priority: -1920
     }
   }
   element {
     scale: 16
     area {
-      color: 2171163
+      color: 2763300
       priority: -1920
     }
   }
   element {
     scale: 17
     area {
-      color: 2171163
+      color: 2763300
       priority: -1920
     }
     symbol {
@@ -50658,7 +50658,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 2171163
+      color: 2763300
       priority: -1920
     }
     symbol {
@@ -50679,7 +50679,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 2171163
+      color: 2763300
       priority: -1920
     }
     symbol {
@@ -50700,7 +50700,7 @@ cont {
   element {
     scale: 20
     area {
-      color: 2171163
+      color: 2763300
       priority: -1920
     }
     symbol {
@@ -50724,14 +50724,14 @@ cont {
   element {
     scale: 16
     area {
-      color: 2171163
+      color: 2763300
       priority: -1800
     }
   }
   element {
     scale: 17
     area {
-      color: 2171163
+      color: 2763300
       priority: -1800
     }
     symbol {
@@ -50752,7 +50752,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 2171163
+      color: 2763300
       priority: -1800
     }
     symbol {
@@ -50773,7 +50773,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 2171163
+      color: 2763300
       priority: -1800
     }
     symbol {
@@ -50794,7 +50794,7 @@ cont {
   element {
     scale: 20
     area {
-      color: 2171163
+      color: 2763300
       priority: -1800
     }
     symbol {
@@ -51069,7 +51069,25 @@ cont {
 cont {
   name: "leisure-sports_centre"
   element {
+    scale: 15
+    area {
+      color: 2171163
+      priority: -1810
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 2171163
+      priority: -1810
+    }
+  }
+  element {
     scale: 17
+    area {
+      color: 2171163
+      priority: -1810
+    }
     symbol {
       name: "pitch-m"
       priority: 1250
@@ -51087,6 +51105,10 @@ cont {
   }
   element {
     scale: 18
+    area {
+      color: 2171163
+      priority: -1810
+    }
     symbol {
       name: "pitch-m"
       priority: 1250
@@ -51104,6 +51126,10 @@ cont {
   }
   element {
     scale: 19
+    area {
+      color: 2171163
+      priority: -1810
+    }
     symbol {
       name: "pitch-m"
       priority: 1250
@@ -51121,6 +51147,10 @@ cont {
   }
   element {
     scale: 20
+    area {
+      color: 2171163
+      priority: -1810
+    }
     symbol {
       name: "pitch-m"
       priority: 1250
@@ -51247,7 +51277,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 2171163
+      color: 2500128
       priority: -1750
     }
     symbol {
@@ -51268,7 +51298,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 2171163
+      color: 2500128
       priority: -1750
     }
     symbol {
@@ -51289,7 +51319,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 2171163
+      color: 2500128
       priority: -1750
     }
     symbol {
@@ -51310,7 +51340,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 2171163
+      color: 2500128
       priority: -1750
     }
     symbol {
@@ -51331,7 +51361,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 2171163
+      color: 2500128
       priority: -1750
     }
     symbol {
@@ -51352,7 +51382,7 @@ cont {
   element {
     scale: 20
     area {
-      color: 2171163
+      color: 2500128
       priority: -1750
     }
     symbol {
@@ -51607,7 +51637,7 @@ cont {
     scale: 15
     lines {
       width: 1.5
-      color: 1294016795
+      color: 1294608932
       priority: 160
       cap: BUTTCAP
     }
@@ -51616,7 +51646,7 @@ cont {
     scale: 16
     lines {
       width: 1.8
-      color: 1294016795
+      color: 1294608932
       priority: 160
     }
     caption {
@@ -51632,7 +51662,7 @@ cont {
     scale: 17
     lines {
       width: 3.0
-      color: 857809179
+      color: 858401316
       priority: 160
     }
     caption {
@@ -51649,7 +51679,7 @@ cont {
     scale: 18
     lines {
       width: 3.0
-      color: 857809179
+      color: 858401316
       priority: 160
     }
     caption {
@@ -51666,7 +51696,7 @@ cont {
     scale: 19
     lines {
       width: 4.0
-      color: 857809179
+      color: 858401316
       priority: 160
     }
     caption {
@@ -51683,7 +51713,7 @@ cont {
     scale: 20
     lines {
       width: 4.0
-      color: 857809179
+      color: 858401316
       priority: 160
     }
     caption {
@@ -51702,14 +51732,14 @@ cont {
   element {
     scale: 15
     area {
-      color: 2171163
+      color: 2763300
       priority: -1840
     }
   }
   element {
     scale: 16
     area {
-      color: 2171163
+      color: 2763300
       priority: -1840
     }
     caption {
@@ -51724,7 +51754,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 2171163
+      color: 2763300
       priority: -1840
     }
     caption {
@@ -51740,7 +51770,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 2171163
+      color: 2763300
       priority: -1840
     }
     caption {
@@ -51756,7 +51786,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 2171163
+      color: 2763300
       priority: -1840
     }
     caption {
@@ -51772,7 +51802,7 @@ cont {
   element {
     scale: 20
     area {
-      color: 2171163
+      color: 2763300
       priority: -1840
     }
     caption {
@@ -119231,25 +119261,7 @@ cont {
 cont {
   name: "sport-multi"
   element {
-    scale: 15
-    area {
-      color: 2171163
-      priority: -1790
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 2171163
-      priority: -1790
-    }
-  }
-  element {
     scale: 17
-    area {
-      color: 2171163
-      priority: -1790
-    }
     symbol {
       name: "pitch-m"
       priority: 1300
@@ -119267,10 +119279,6 @@ cont {
   }
   element {
     scale: 18
-    area {
-      color: 2171163
-      priority: -1790
-    }
     symbol {
       name: "pitch-m"
       priority: 1300
@@ -119288,10 +119296,6 @@ cont {
   }
   element {
     scale: 19
-    area {
-      color: 2171163
-      priority: -1790
-    }
     symbol {
       name: "pitch-m"
       priority: 1300
@@ -119309,10 +119313,6 @@ cont {
   }
   element {
     scale: 20
-    area {
-      color: 2171163
-      priority: -1790
-    }
     symbol {
       name: "pitch-m"
       priority: 1300
@@ -119758,25 +119758,7 @@ cont {
 cont {
   name: "sport-soccer"
   element {
-    scale: 15
-    area {
-      color: 2171163
-      priority: -1790
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 2171163
-      priority: -1790
-    }
-  }
-  element {
     scale: 17
-    area {
-      color: 2171163
-      priority: -1790
-    }
     symbol {
       name: "soccer-m"
       priority: 1300
@@ -119794,10 +119776,6 @@ cont {
   }
   element {
     scale: 18
-    area {
-      color: 2171163
-      priority: -1790
-    }
     symbol {
       name: "soccer-m"
       priority: 1300
@@ -119815,10 +119793,6 @@ cont {
   }
   element {
     scale: 19
-    area {
-      color: 2171163
-      priority: -1790
-    }
     symbol {
       name: "soccer-m"
       priority: 1300
@@ -119836,10 +119810,6 @@ cont {
   }
   element {
     scale: 20
-    area {
-      color: 2171163
-      priority: -1790
-    }
     symbol {
       name: "soccer-m"
       priority: 1300
