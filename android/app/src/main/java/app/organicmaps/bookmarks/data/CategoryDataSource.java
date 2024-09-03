@@ -1,14 +1,13 @@
 package app.organicmaps.bookmarks.data;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import app.organicmaps.content.DataSource;
 
 import java.util.List;
 
-public class CategoryDataSource extends RecyclerView.AdapterDataObserver implements
-                                                                         DataSource<BookmarkCategory>
+public class CategoryDataSource implements
+                                DataSource<BookmarkCategory>
 {
   @NonNull
   private BookmarkCategory mCategory;
@@ -25,10 +24,8 @@ public class CategoryDataSource extends RecyclerView.AdapterDataObserver impleme
     return mCategory;
   }
 
-  @Override
-  public void onChanged()
+  public void invalidate()
   {
-    super.onChanged();
     List<BookmarkCategory> categories = BookmarkManager.INSTANCE.getCategories();
     int index = categories.indexOf(mCategory);
     if (index >= 0)

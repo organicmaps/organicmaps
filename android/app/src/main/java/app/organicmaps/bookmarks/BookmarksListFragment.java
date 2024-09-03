@@ -239,7 +239,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private void configureBookmarksListAdapter()
   {
     BookmarkListAdapter adapter = getBookmarkListAdapter();
-    adapter.registerAdapterDataObserver(mCategoryDataSource);
     adapter.setOnClickListener((v, position) -> onItemClick(position));
     adapter.setOnLongClickListener((v, position) -> onItemMore(position));
     adapter.setMoreListener((v, position) -> onItemMore(position));
@@ -615,6 +614,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private void onDeleteTrackSelected(long trackId)
   {
     BookmarkManager.INSTANCE.deleteTrack(trackId);
+    mCategoryDataSource.invalidate();
     getBookmarkListAdapter().onDelete(mSelectedPosition);
     getBookmarkListAdapter().notifyDataSetChanged();
   }
@@ -688,6 +688,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     BookmarkInfo info = (BookmarkInfo) getBookmarkListAdapter().getItem(mSelectedPosition);
     adapter.onDelete(mSelectedPosition);
     BookmarkManager.INSTANCE.deleteBookmark(info.getBookmarkId());
+    mCategoryDataSource.invalidate();
     adapter.notifyDataSetChanged();
     if (mSearchMode)
       mNeedUpdateSorting = true;
