@@ -2666,61 +2666,61 @@
 
 "type.leisure.water_park" = "פארק מים";
 
-"type.leisure.beach_resort" = "Beach Resort";
+"type.leisure.beach_resort" = "אתר נופש על החוף";
 
-"type.man_made" = "Man Made";
+"type.man_made" = "מלאכותי-מעשה ידי אדם";
 
-"type.man_made.breakwater" = "Breakwater";
+"type.man_made.breakwater" = "שובר גלים";
 
-"type.man_made.cairn" = "Cairn";
+"type.man_made.cairn" = "גלעד";
 
-"type.man_made.chimney" = "Chimney";
+"type.man_made.chimney" = "ארובה";
 
-"type.man_made.cutline" = "Cutline";
+"type.man_made.cutline" = "אזור חיץ";
 
-"type.man_made.survey_point" = "Survey Point";
+"type.man_made.survey_point" = "נקודת גבול";
 
-"type.man_made.flagpole" = "Flagpole";
+"type.man_made.flagpole" = "עמוד דגל";
 
-"type.man_made.lighthouse" = "Lighthouse";
+"type.man_made.lighthouse" = "מגדלור";
 
-"type.man_made.mast" = "Mast";
+"type.man_made.mast" = "תורן";
 
-"type.man_made.pier" = "Pier";
+"type.man_made.pier" = "מזח";
 
-"type.man_made.pipeline" = "Pipeline";
+"type.man_made.pipeline" = "צינור";
 
-"type.man_made.pipeline.overground" = "Overground Pipeline";
+"type.man_made.pipeline.overground" = "צינור עילי";
 
-"type.man_made.silo" = "Silo";
+"type.man_made.silo" = "סילו";
 
-"type.man_made.storage_tank" = "Storage Tank";
+"type.man_made.storage_tank" = "מיכל איחסון";
 
-"type.man_made.surveillance" = "Surveillance Camera";
+"type.man_made.surveillance" = "מצלמת מעקב";
 
-"type.man_made.tower" = "Tower";
+"type.man_made.tower" = "מגדל";
 
 "type.man_made.tower.communication" = "מגדל תקשורת";
 
-"type.man_made.wastewater_plant" = "Wastewater Treatment Plant";
+"type.man_made.wastewater_plant" = "מפעל טיפול בשפכים";
 
-"type.man_made.water_tap" = "Water Tap";
+"type.man_made.water_tap" = "ברז מים";
 
-"type.man_made.water_tower" = "Water Tower";
+"type.man_made.water_tower" = "מגדל מים";
 
-"type.man_made.water_well" = "Water Well";
+"type.man_made.water_well" = "באר מים";
 
-"type.man_made.windmill" = "Windmill";
+"type.man_made.windmill" = "טחנת רוח";
 
-"type.man_made.works" = "Industrial Works";
+"type.man_made.works" = "עבודות תעשיה";
 
 "type.mapswithme" = "mapswithme";
 
 "type.mapswithme.grid" = "mapswithme-grid";
 
-"type.military" = "Military";
+"type.military" = "צבאי";
 
-"type.military.bunker" = "Bunker";
+"type.military.bunker" = "בונקר צבאי";
 
 "type.mountain_pass" = "Mountain Pass";
 
@@ -2737,7 +2737,7 @@
 
 "type.natural.bay" = "מפרץ";
 
-"type.natural.beach" = "חוף חולי";
+"type.natural.beach" = "חוף";
 
 "type.natural.beach.sand" = "חוף חולי";
 
@@ -2745,7 +2745,7 @@
 
 "type.natural.cape" = "לשון יבשה";
 
-"type.natural.cave_entrance" = "מערה";
+"type.natural.cave_entrance" = "כניסה למערה";
 
 "type.natural.cliff" = "צוק";
 
@@ -2753,7 +2753,7 @@
 
 "type.man_made.embankment" = "סוֹלְלָה";
 
-"type.natural.coastline" = "חוף";
+"type.natural.coastline" = "קו החוף";
 
 "type.natural.desert" = "מדבר";
 
@@ -2761,7 +2761,7 @@
 
 "type.natural.glacier" = "קרחון";
 
-"type.natural.grassland" = "ערבה";
+"type.natural.grassland" = "שטחי דשא";
 
 "type.natural.heath" = "עֲרָבָה";
 
@@ -2769,11 +2769,11 @@
 
 "type.natural.water.lake" = "אגם";
 
-"type.natural.water.lock" = "לוענמ את";
+"type.natural.water.lock" = "תא מנעול";
 
 "type.natural.water.pond" = "בריכה";
 
-"type.natural.water.reservoir" = "מאגר";
+"type.natural.water.reservoir" = "מאגר מים";
 
 "type.natural.water.basin" = "אגן מים";
 
