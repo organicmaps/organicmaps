@@ -508,7 +508,7 @@
 	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
 	<string name="operator">Eigentümer: %s</string>
 	<string name="editor_category_unsuitable_title">Keine passende Kategorie gefunden?</string>
-	<string name="editor_category_unsuitable_text">Mit Organic Maps kann nur einfache Punktkategorien hinzufügen, d.h. keine Städte, Straßen, Seen, Gebäudeumrisse, etc. Bitte füge solche Kategorien direkt bei <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> hinzu. In unserem <a href="https://organicmaps.app/faq/editing/advanced-map-editing">Leitfaden</a> findest du eine detaillierte Schritt-für-Schritt-Anleitung.</string>
+	<string name="editor_category_unsuitable_text">Mit Organic Maps kann man nur einfache Punktkategorien hinzufügen, daher keine Städte, Straßen, Seen, Gebäudeumrisse, etc. Bitte füge solche Kategorien direkt bei <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> hinzu. In unserem <a href="https://organicmaps.app/faq/editing/advanced-map-editing">Leitfaden</a> findest du eine detaillierte Schritt-für-Schritt-Anleitung.</string>
 	<string name="downloader_no_downloaded_maps_title">Keine Karten heruntergeladen</string>
 	<string name="downloader_no_downloaded_maps_message">Laden Sie Karten für die Offline-Suche und Navigation herunter.</string>
 	<string name="current_location_unknown_error_title">Aktueller Standort unbekannt</string>
@@ -1174,7 +1174,7 @@
 	<string name="type.entrance">Eingang</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Haupteingang</string>
-	<string name="type.entrance.exit">Ausfahrt</string>
+	<string name="type.entrance.exit">Ausgang</string>
 	<string name="type.fee.no">Kostenlos</string>
 	<string name="type.healthcare.laboratory">Medizinisches Labor</string>
 	<string name="type.healthcare.physiotherapist">Physiotherapie</string>
