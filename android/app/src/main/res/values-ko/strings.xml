@@ -787,6 +787,8 @@
 	<string name="power_save_dialog_title">절전 모드 해제</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">가장 정확한 내비게이션을 위해 휴대폰의 배터리 설정에서 절전 모드를 비활성화하는 것이 좋습니다.</string>
+	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+	<string name="error_no_file_manager_app">장치에 적합한 앱이 설치되어 있지 않아 폴더 선택 대화 상자를 표시할 수 없습니다. 파일 관리자 앱을 설치한 후 다시 시도하세요</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">주소/블록</string>

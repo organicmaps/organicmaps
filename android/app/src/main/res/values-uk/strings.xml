@@ -841,6 +841,8 @@
 	<string name="power_save_dialog_title">Вимкнути режим енергозбереження</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Для найбільш точної навігації ми рекомендуємо вимкнути режим енергозбереження в налаштуваннях батареї телефону.</string>
+	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+	<string name="error_no_file_manager_app">Неможливо відобразити діалогове вікно вибору папки, оскільки на вашому пристрої не встановлено відповідну програму. Будь ласка, встановіть файловий менеджер і спробуйте ще раз</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адреса/блок</string>

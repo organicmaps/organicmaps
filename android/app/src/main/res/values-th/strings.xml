@@ -787,6 +787,8 @@
 	<string name="power_save_dialog_title">ปิดโหมดประหยัดพลังงาน</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">เพื่อการนำทางที่แม่นยำที่สุด เราขอแนะนำให้ปิดใช้งานโหมดประหยัดพลังงานในการตั้งค่าแบตเตอรี่ของโทรศัพท์</string>
+	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+	<string name="error_no_file_manager_app">ไม่สามารถแสดงกล่องโต้ตอบการเลือกโฟลเดอร์ได้เนื่องจากไม่ได้ติดตั้งแอปที่เหมาะสมในอุปกรณ์ของคุณ โปรดติดตั้งแอปตัวจัดการไฟล์แล้วลองอีกครั้ง</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">ที่อยู่/บล็อค</string>

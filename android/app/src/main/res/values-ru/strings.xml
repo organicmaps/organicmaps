@@ -850,6 +850,8 @@
 	<string name="power_save_dialog_title">Отключить режим энергосбережения</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Для наиболее точной навигации мы рекомендуем отключить режим энергосбережения в настройках батареи телефона.</string>
+	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+	<string name="error_no_file_manager_app">Невозможно отобразить диалог выбора папки, потому что на вашем устройстве не установлено подходящее приложение. Пожалуйста, установите менеджер файлов и повторите попытку</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адрес/Блок</string>

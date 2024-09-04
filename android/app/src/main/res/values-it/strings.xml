@@ -819,6 +819,8 @@
 	<string name="power_save_dialog_title">Disattiva la modalità di risparmio energetico</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Per una navigazione più accurata, ti consigliamo di disabilitare la modalità di risparmio energetico nelle impostazioni della batteria del telefono.</string>
+	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+	<string name="error_no_file_manager_app">Impossibile visualizzare la finestra di selezione delle cartelle perché sul suo dispositivo non è installata alcuna applicazione adatta. Installi un\'app di gestione file e riprovi</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Indirizzo/Blocco</string>

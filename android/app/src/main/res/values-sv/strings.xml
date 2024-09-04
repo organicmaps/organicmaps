@@ -786,6 +786,8 @@
 	<string name="power_save_dialog_title">Stäng av energisparläget</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">För att få den mest exakta navigeringen rekommenderar vi att du avaktiverar energisparläget i telefonens batteriinställningar.</string>
+	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+	<string name="error_no_file_manager_app">Det går inte att visa dialogrutan för val av mapp eftersom ingen lämplig app är installerad på din enhet. Installera en filhanteringsapp och försök igen</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adress/Block</string>

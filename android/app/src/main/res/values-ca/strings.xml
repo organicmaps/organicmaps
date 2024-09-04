@@ -837,6 +837,8 @@
 	<string name="power_save_dialog_title">Desactiva el mode d\'estalvi d\'energia</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Per a una navegació més precisa, recomanem desactivar el mode d\'estalvi d\'energia a la configuració de la bateria del telèfon.</string>
+	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+	<string name="error_no_file_manager_app">No es pot mostrar el diàleg de selecció de carpetes perquè no hi ha cap aplicació adequada instal·lada al vostre dispositiu. Instal·leu una aplicació de gestor de fitxers i torneu-ho a provar</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adreça/Bloc</string>

@@ -31626,7 +31626,7 @@
     vi = Tuyến đường trống - không có gì để lưu
     zh-Hans = 轨迹是空的 - 没有要保存的内容
     zh-Hant = 軌跡為空 - 沒有可保存的內容
-  
+
   [error_no_file_manager_app]
     comment = Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks
     tags = android

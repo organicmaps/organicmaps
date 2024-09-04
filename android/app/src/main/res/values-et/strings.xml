@@ -825,6 +825,8 @@
 	<string name="power_save_dialog_title">Lülita välja energiasäästurežiim</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Kõige täpsema navigeerimise tagamiseks soovitame telefoni aku seadetes energiasäästurežiimi välja lülitada.</string>
+	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+	<string name="error_no_file_manager_app">Kaustavaliku dialoogi ei ole võimalik kuvada, sest teie seadmesse ei ole paigaldatud sobivat rakendust. Palun installige failihaldurirakendus ja proovige uuesti.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Aadress/plokk</string>

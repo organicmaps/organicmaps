@@ -841,6 +841,8 @@
 	<string name="power_save_dialog_title">Güç Tasarrufu Modunu Kapat</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">En doğru navigasyon için, telefonun pil ayarlarında güç tasarrufu modunu devre dışı bırakmanızı öneririz.</string>
+	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+	<string name="error_no_file_manager_app">Cihazınızda uygun bir uygulama yüklü olmadığından klasör seçimi iletişim kutusu görüntülenemiyor. Lütfen bir dosya yöneticisi uygulaması yükleyin ve tekrar deneyin</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adres/Blok</string>
