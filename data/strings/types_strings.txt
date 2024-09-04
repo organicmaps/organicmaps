@@ -11662,7 +11662,7 @@
     ca = Sortida
     cs = Exit
     da = Udgang
-    de = Ausfahrt
+    de = Ausgang
     el = Έξοδος
     es = Salida
     es-MX = Salida
