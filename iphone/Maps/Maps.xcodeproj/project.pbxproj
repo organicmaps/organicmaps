@@ -305,6 +305,35 @@
 		529A5F0A2C858F82004FE4A1 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 529A5F092C858F82004FE4A1 /* SDWebImageSwiftUI */; };
 		529A5F162C8595BB004FE4A1 /* PersonalData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F112C859535004FE4A1 /* PersonalData.xcdatamodeld */; };
 		529A5F192C85BFF0004FE4A1 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F182C85BFF0004FE4A1 /* ToastView.swift */; };
+		529A5F1E2C86DDE5004FE4A1 /* PlaceDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F1D2C86DDE5004FE4A1 /* PlaceDTO.swift */; };
+		529A5F202C86DE14004FE4A1 /* CoordinatesDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F1F2C86DE14004FE4A1 /* CoordinatesDTO.swift */; };
+		529A5F222C86DE50004FE4A1 /* ReviewDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F212C86DE50004FE4A1 /* ReviewDTO.swift */; };
+		529A5F242C86DE7D004FE4A1 /* ReviewIdsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F232C86DE7D004FE4A1 /* ReviewIdsDTO.swift */; };
+		529A5F262C86DE9D004FE4A1 /* ReviewsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F252C86DE9D004FE4A1 /* ReviewsDTO.swift */; };
+		529A5F282C86DEC5004FE4A1 /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F272C86DEC5004FE4A1 /* UserDTO.swift */; };
+		529A5F2B2C86DF2D004FE4A1 /* PlaceShort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F2A2C86DF2D004FE4A1 /* PlaceShort.swift */; };
+		529A5F2D2C86DF3B004FE4A1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F2C2C86DF3B004FE4A1 /* User.swift */; };
+		529A5F2F2C86DF51004FE4A1 /* ReviewToPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F2E2C86DF51004FE4A1 /* ReviewToPost.swift */; };
+		529A5F312C86DF61004FE4A1 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F302C86DF61004FE4A1 /* Review.swift */; };
+		529A5F332C86DF6F004FE4A1 /* PlaceFull.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F322C86DF6F004FE4A1 /* PlaceFull.swift */; };
+		529A5F352C86DF99004FE4A1 /* PlaceLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F342C86DF99004FE4A1 /* PlaceLocation.swift */; };
+		529A5F372C86E02E004FE4A1 /* AllDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F362C86E02E004FE4A1 /* AllDataDTO.swift */; };
+		529A5F392C86E048004FE4A1 /* CategoryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F382C86E048004FE4A1 /* CategoryDTO.swift */; };
+		529A5F3B2C86E065004FE4A1 /* FavoritesDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F3A2C86E065004FE4A1 /* FavoritesDTO.swift */; };
+		529A5F3D2C86E08E004FE4A1 /* FavoritesIdsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F3C2C86E08E004FE4A1 /* FavoritesIdsDTO.swift */; };
+		529A5F3F2C86E09B004FE4A1 /* HashDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F3E2C86E09B004FE4A1 /* HashDTO.swift */; };
+		529A5F422C86E108004FE4A1 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F412C86E108004FE4A1 /* Category.swift */; };
+		529A5F442C86E118004FE4A1 /* PlaceCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F432C86E118004FE4A1 /* PlaceCategory.swift */; };
+		529A5F5E2C86E37A004FE4A1 /* PlacesItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F5D2C86E37A004FE4A1 /* PlacesItem.swift */; };
+		529A5F632C86E39A004FE4A1 /* HorizontalSingleChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F612C86E39A004FE4A1 /* HorizontalSingleChoice.swift */; };
+		529A5F642C86E39A004FE4A1 /* AppSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F622C86E39A004FE4A1 /* AppSearchBar.swift */; };
+		529A5F682C8707CD004FE4A1 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F672C8707CD004FE4A1 /* CategoriesViewController.swift */; };
+		529A5F6A2C8707F9004FE4A1 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F692C8707F9004FE4A1 /* FavoritesViewController.swift */; };
+		529A5F6C2C870D45004FE4A1 /* HorizontalPlaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F6B2C870D45004FE4A1 /* HorizontalPlaces.swift */; };
+		529A5F6E2C870FAF004FE4A1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F6D2C870FAF004FE4A1 /* HomeViewModel.swift */; };
+		529A5F702C8720A8004FE4A1 /* CategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F6F2C8720A8004FE4A1 /* CategoriesViewModel.swift */; };
+		52A48ADF2C882FE40081E522 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A48ADE2C882FE40081E522 /* SearchViewController.swift */; };
+		52A48AE12C882FEE0081E522 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A48AE02C882FEE0081E522 /* SearchViewModel.swift */; };
 		52B573EC2C61E1C10047FAC9 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B573EB2C61E1C10047FAC9 /* SignInViewController.swift */; };
 		52B573F02C61E4110047FAC9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B573EF2C61E4110047FAC9 /* Constants.swift */; };
 		52B573F22C61E8980047FAC9 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B573F12C61E8980047FAC9 /* SignUpViewController.swift */; };
@@ -1303,6 +1332,35 @@
 		528D72A02C5BBBF700D53210 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		529A5F122C859535004FE4A1 /* PersonalData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PersonalData.xcdatamodel; sourceTree = "<group>"; };
 		529A5F182C85BFF0004FE4A1 /* ToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		529A5F1D2C86DDE5004FE4A1 /* PlaceDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDTO.swift; sourceTree = "<group>"; };
+		529A5F1F2C86DE14004FE4A1 /* CoordinatesDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatesDTO.swift; sourceTree = "<group>"; };
+		529A5F212C86DE50004FE4A1 /* ReviewDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDTO.swift; sourceTree = "<group>"; };
+		529A5F232C86DE7D004FE4A1 /* ReviewIdsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewIdsDTO.swift; sourceTree = "<group>"; };
+		529A5F252C86DE9D004FE4A1 /* ReviewsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsDTO.swift; sourceTree = "<group>"; };
+		529A5F272C86DEC5004FE4A1 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
+		529A5F2A2C86DF2D004FE4A1 /* PlaceShort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceShort.swift; sourceTree = "<group>"; };
+		529A5F2C2C86DF3B004FE4A1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		529A5F2E2C86DF51004FE4A1 /* ReviewToPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewToPost.swift; sourceTree = "<group>"; };
+		529A5F302C86DF61004FE4A1 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		529A5F322C86DF6F004FE4A1 /* PlaceFull.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceFull.swift; sourceTree = "<group>"; };
+		529A5F342C86DF99004FE4A1 /* PlaceLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceLocation.swift; sourceTree = "<group>"; };
+		529A5F362C86E02E004FE4A1 /* AllDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDataDTO.swift; sourceTree = "<group>"; };
+		529A5F382C86E048004FE4A1 /* CategoryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDTO.swift; sourceTree = "<group>"; };
+		529A5F3A2C86E065004FE4A1 /* FavoritesDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesDTO.swift; sourceTree = "<group>"; };
+		529A5F3C2C86E08E004FE4A1 /* FavoritesIdsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesIdsDTO.swift; sourceTree = "<group>"; };
+		529A5F3E2C86E09B004FE4A1 /* HashDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashDTO.swift; sourceTree = "<group>"; };
+		529A5F412C86E108004FE4A1 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		529A5F432C86E118004FE4A1 /* PlaceCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCategory.swift; sourceTree = "<group>"; };
+		529A5F5D2C86E37A004FE4A1 /* PlacesItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesItem.swift; sourceTree = "<group>"; };
+		529A5F612C86E39A004FE4A1 /* HorizontalSingleChoice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalSingleChoice.swift; sourceTree = "<group>"; };
+		529A5F622C86E39A004FE4A1 /* AppSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSearchBar.swift; sourceTree = "<group>"; };
+		529A5F672C8707CD004FE4A1 /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
+		529A5F692C8707F9004FE4A1 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
+		529A5F6B2C870D45004FE4A1 /* HorizontalPlaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalPlaces.swift; sourceTree = "<group>"; };
+		529A5F6D2C870FAF004FE4A1 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		529A5F6F2C8720A8004FE4A1 /* CategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewModel.swift; sourceTree = "<group>"; };
+		52A48ADE2C882FE40081E522 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		52A48AE02C882FEE0081E522 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		52B573EB2C61E1C10047FAC9 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		52B573EF2C61E4110047FAC9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		52B573F12C61E8980047FAC9 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -2888,7 +2946,6 @@
 				52522F382C6DD9DA0015709C /* ProfileViewModel.swift */,
 				52E95F0C2C6C797B00A3FE2E /* ProfileViewController.swift */,
 				3D2D79D22C7CF4F70062BC3D /* PersonalDataViewController.swift */,
-				3D2D79D62C7D0ABF0062BC3D /* AppTextField.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -2897,6 +2954,8 @@
 			isa = PBXGroup;
 			children = (
 				52522F322C6DC7A40015709C /* HomeViewController.swift */,
+				529A5F6B2C870D45004FE4A1 /* HorizontalPlaces.swift */,
+				529A5F6D2C870FAF004FE4A1 /* HomeViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -2944,10 +3003,13 @@
 		5260D3C62C64B87D00C673B4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				529A5F402C86E0F9004FE4A1 /* Category */,
+				529A5F292C86DF21004FE4A1 /* Details */,
 				52522F3C2C6DDF040015709C /* Profile */,
 				52E95EFE2C6B32D900A3FE2E /* Responses */,
 				5260D3E12C66287D00C673B4 /* Auth */,
 				52ED919C2C71F639000EE25B /* SimpleResponse.swift */,
+				529A5F342C86DF99004FE4A1 /* PlaceLocation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2995,9 +3057,13 @@
 		5260D3CF2C64F7E200C673B4 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
-				5260D3D52C64F87500C673B4 /* Place */,
+				5260D3D52C64F87500C673B4 /* Details */,
 				5260D3D42C64F87200C673B4 /* Profile */,
 				5260D3D22C64F84700C673B4 /* Auth */,
+				529A5F362C86E02E004FE4A1 /* AllDataDTO.swift */,
+				529A5F382C86E048004FE4A1 /* CategoryDTO.swift */,
+				529A5F3A2C86E065004FE4A1 /* FavoritesDTO.swift */,
+				529A5F3C2C86E08E004FE4A1 /* FavoritesIdsDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -3008,6 +3074,7 @@
 				5260D3D02C64F7F100C673B4 /* SignInRequestDTO.swift */,
 				5260D3D72C64F8BC00C673B4 /* AuthResponseDTO.swift */,
 				52ED919E2C71F718000EE25B /* SignUpRequestDTO.swift */,
+				529A5F3E2C86E09B004FE4A1 /* HashDTO.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -3021,11 +3088,17 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
-		5260D3D52C64F87500C673B4 /* Place */ = {
+		5260D3D52C64F87500C673B4 /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				529A5F1D2C86DDE5004FE4A1 /* PlaceDTO.swift */,
+				529A5F212C86DE50004FE4A1 /* ReviewDTO.swift */,
+				529A5F232C86DE7D004FE4A1 /* ReviewIdsDTO.swift */,
+				529A5F252C86DE9D004FE4A1 /* ReviewsDTO.swift */,
+				529A5F272C86DEC5004FE4A1 /* UserDTO.swift */,
+				529A5F1F2C86DE14004FE4A1 /* CoordinatesDTO.swift */,
 			);
-			path = Place;
+			path = Details;
 			sourceTree = "<group>";
 		};
 		5260D3DB2C66205700C673B4 /* Repositories */ = {
@@ -3081,6 +3154,7 @@
 		527D5E762C60D92900736A85 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				529A5F5C2C86E37A004FE4A1 /* Special */,
 				529A5F172C85BF99004FE4A1 /* ToastView */,
 				3D585BF72C768BED005DF71F /* Buttons */,
 				52522F442C6DFD220015709C /* Nav */,
@@ -3090,6 +3164,8 @@
 				52522F4B2C6E10FD0015709C /* LoadImg.swift */,
 				3D2D79D42C7CF6970062BC3D /* Spacers.swift */,
 				3D2D79DC2C7DE34B0062BC3D /* PhotoPickerView.swift */,
+				529A5F622C86E39A004FE4A1 /* AppSearchBar.swift */,
+				529A5F612C86E39A004FE4A1 /* HorizontalSingleChoice.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -3129,6 +3205,61 @@
 			path = ToastView;
 			sourceTree = "<group>";
 		};
+		529A5F292C86DF21004FE4A1 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				529A5F2A2C86DF2D004FE4A1 /* PlaceShort.swift */,
+				529A5F2C2C86DF3B004FE4A1 /* User.swift */,
+				529A5F2E2C86DF51004FE4A1 /* ReviewToPost.swift */,
+				529A5F302C86DF61004FE4A1 /* Review.swift */,
+				529A5F322C86DF6F004FE4A1 /* PlaceFull.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		529A5F402C86E0F9004FE4A1 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				529A5F412C86E108004FE4A1 /* Category.swift */,
+				529A5F432C86E118004FE4A1 /* PlaceCategory.swift */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		529A5F5C2C86E37A004FE4A1 /* Special */ = {
+			isa = PBXGroup;
+			children = (
+				529A5F5D2C86E37A004FE4A1 /* PlacesItem.swift */,
+			);
+			path = Special;
+			sourceTree = "<group>";
+		};
+		529A5F652C8706C7004FE4A1 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				529A5F672C8707CD004FE4A1 /* CategoriesViewController.swift */,
+				529A5F6F2C8720A8004FE4A1 /* CategoriesViewModel.swift */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		529A5F662C8706D1004FE4A1 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				529A5F692C8707F9004FE4A1 /* FavoritesViewController.swift */,
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
+		52A48ADB2C882FD70081E522 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				52A48ADE2C882FE40081E522 /* SearchViewController.swift */,
+				52A48AE02C882FEE0081E522 /* SearchViewModel.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		52B189972C53B9E900B5B6F9 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -3152,6 +3283,7 @@
 		52B573F32C61F10B0047FAC9 /* TextFields */ = {
 			isa = PBXGroup;
 			children = (
+				3D2D79D62C7D0ABF0062BC3D /* AppTextField.swift */,
 				52B573F42C61F11E0047FAC9 /* AuhtTextField.swift */,
 				52B573F62C61F4D00047FAC9 /* PasswordTextField.swift */,
 			);
@@ -3178,6 +3310,9 @@
 		52E2D39B2C58E72900A8843A /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				52A48ADB2C882FD70081E522 /* Search */,
+				529A5F662C8706D1004FE4A1 /* Favorites */,
+				529A5F652C8706C7004FE4A1 /* Categories */,
 				52522F352C6DD9860015709C /* Home */,
 				52522F342C6DD9480015709C /* Profile */,
 			);
@@ -4733,6 +4868,8 @@
 				99A906E623F6F7030005872B /* OpeningHoursViewController.swift in Sources */,
 				343064411E9FDC7300DC7665 /* SearchIndex.swift in Sources */,
 				CDCA273F2238087700167D87 /* MWMCarPlaySearchService.mm in Sources */,
+				529A5F392C86E048004FE4A1 /* CategoryDTO.swift in Sources */,
+				529A5F1E2C86DDE5004FE4A1 /* PlaceDTO.swift in Sources */,
 				348B926D1FF3B5E100379009 /* UIView+Animation.swift in Sources */,
 				F6E2FDE91E097BA00083EBEC /* MWMObjectsCategorySelectorController.mm in Sources */,
 				34AB665F1FC5AA330078E451 /* TransportTransitIntermediatePoint.swift in Sources */,
@@ -4775,6 +4912,7 @@
 				337F98B421D3C9F200C8AC27 /* SearchHistoryViewController.swift in Sources */,
 				3404F49D2028A2430090E401 /* BMCActionsCell.swift in Sources */,
 				F6E2FD8F1E097BA00083EBEC /* MWMNoMapsViewController.mm in Sources */,
+				529A5F442C86E118004FE4A1 /* PlaceCategory.swift in Sources */,
 				52522F332C6DC7A40015709C /* HomeViewController.swift in Sources */,
 				993DF12C23F6BDB100AC231A /* Theme.swift in Sources */,
 				47CA68D8250044C500671019 /* BookmarksListRouter.swift in Sources */,
@@ -4788,6 +4926,7 @@
 				47E8163323B17734008FD836 /* MWMStorage+UI.m in Sources */,
 				3D2D79BA2C7C508E0062BC3D /* SingleEntityCoreDataController.swift in Sources */,
 				993DF11123F6BDB100AC231A /* UILabelRenderer.swift in Sources */,
+				52A48AE12C882FEE0081E522 /* SearchViewModel.swift in Sources */,
 				34AB66471FC5AA330078E451 /* RouteManagerTableView.swift in Sources */,
 				52D588BA2C5CE2E800AB96B3 /* Font.swift in Sources */,
 				9989273C2449E60200260CE2 /* BottomMenuInteractor.swift in Sources */,
@@ -4833,6 +4972,7 @@
 				47E3C7292111E614008B3B27 /* FadeInAnimatedTransitioning.swift in Sources */,
 				ED79A5D42BDF8D6100952D1F /* MetadataItem.swift in Sources */,
 				34AB667D1FC5AA330078E451 /* MWMRoutePreview.mm in Sources */,
+				529A5F3F2C86E09B004FE4A1 /* HashDTO.swift in Sources */,
 				993DF11B23F6BDB100AC231A /* UIViewRenderer.swift in Sources */,
 				529A5F162C8595BB004FE4A1 /* PersonalData.xcdatamodeld in Sources */,
 				99C964302428C27A00E41723 /* PlacePageHeaderView.swift in Sources */,
@@ -4843,9 +4983,11 @@
 				993DF0B523F6B2EF00AC231A /* PlacePageElevationLayout.swift in Sources */,
 				44360A0D2A7D34990016F412 /* TransportRuler.swift in Sources */,
 				CD6E8677226774C700D1EDF7 /* CPConstants.swift in Sources */,
+				529A5F642C86E39A004FE4A1 /* AppSearchBar.swift in Sources */,
 				99A906DE23F6F7030005872B /* PlacePageBookmarkViewController.swift in Sources */,
 				52B573F92C6223CE0047FAC9 /* AuthBackButton.swift in Sources */,
 				52522F4A2C6DFE580015709C /* BackButtonWithText.swift in Sources */,
+				529A5F2B2C86DF2D004FE4A1 /* PlaceShort.swift in Sources */,
 				F6791B141C43DF0B007A8A6E /* MWMStartButton.m in Sources */,
 				9977E6A12480E1EE0073780C /* BottomMenuLayerButton.swift in Sources */,
 				471527372491C20500E91BBA /* SelectBookmarkGroupViewController.swift in Sources */,
@@ -4854,6 +4996,7 @@
 				34AC8FD11EFC02C000E7F910 /* MWMRoutePoint.mm in Sources */,
 				CDB4D5012231412900104869 /* ListTemplateBuilder.swift in Sources */,
 				99A906F323FA95AB0005872B /* PlacePageStyleSheet.swift in Sources */,
+				529A5F6C2C870D45004FE4A1 /* HorizontalPlaces.swift in Sources */,
 				52522F2E2C6C9E070015709C /* UserPreferences.swift in Sources */,
 				6741A9CF1BF340DE002C974C /* MWMLocationAlert.m in Sources */,
 				F6E2FDA11E097BA00083EBEC /* MWMEditorAdditionalNamesTableViewController.mm in Sources */,
@@ -4871,6 +5014,7 @@
 				34AB66051FC5AA320078E451 /* MWMNavigationDashboardManager+Entity.mm in Sources */,
 				993DF12A23F6BDB100AC231A /* Style.swift in Sources */,
 				34ABA6171C2D185C00FE1BEC /* MWMAuthorizationOSMLoginViewController.mm in Sources */,
+				529A5F242C86DE7D004FE4A1 /* ReviewIdsDTO.swift in Sources */,
 				ED9966802B94FBC20083CE55 /* ColorPicker.swift in Sources */,
 				993DF10423F6BDB100AC231A /* UIView+styleName.swift in Sources */,
 				998927302449DE1500260CE2 /* TabBarArea.swift in Sources */,
@@ -4885,6 +5029,7 @@
 				470E1674252AD7F2002D201A /* BookmarksListInfoViewController.swift in Sources */,
 				47B9065521C7FA400079C85E /* NSString+MD5.m in Sources */,
 				CDB4D5022231412900104869 /* SettingsTemplateBuilder.swift in Sources */,
+				529A5F682C8707CD004FE4A1 /* CategoriesViewController.swift in Sources */,
 				993DF10A23F6BDB100AC231A /* UISwitchRenderer.swift in Sources */,
 				99C9642C2428C0F700E41723 /* PlacePageHeaderBuilder.swift in Sources */,
 				99C9642B2428C0F700E41723 /* PlacePageHeaderViewController.swift in Sources */,
@@ -4899,13 +5044,16 @@
 				F6E2FF481E097BA00083EBEC /* SettingsTableViewSelectableCell.swift in Sources */,
 				ED63CEB92BDF8F9D006155C4 /* SettingsTableViewiCloudSwitchCell.swift in Sources */,
 				47CA68D4250043C000671019 /* BookmarksListPresenter.swift in Sources */,
+				529A5F2D2C86DF3B004FE4A1 /* User.swift in Sources */,
 				3D2D79D72C7D0AC00062BC3D /* AppTextField.swift in Sources */,
 				527D5E7F2C60E69C00736A85 /* Layouting.swift in Sources */,
 				F6E2FF451E097BA00083EBEC /* SettingsTableViewLinkCell.swift in Sources */,
 				34C9BD0A1C6DBCDA000DC38D /* MWMNavigationController.m in Sources */,
 				ED1080A72B791CFE0023F27E /* SocialMediaCollectionViewHeader.swift in Sources */,
 				F6E2FE311E097BA00083EBEC /* MWMStreetEditorViewController.mm in Sources */,
+				529A5F632C86E39A004FE4A1 /* HorizontalSingleChoice.swift in Sources */,
 				F6E2FE281E097BA00083EBEC /* MWMOpeningHoursSection.mm in Sources */,
+				529A5F372C86E02E004FE4A1 /* AllDataDTO.swift in Sources */,
 				52B573FE2C624A520047FAC9 /* CountryPickerUtils.swift in Sources */,
 				3406FA161C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm in Sources */,
 				340416481E7BF28E00E2B6D6 /* UIView+Snapshot.swift in Sources */,
@@ -4915,8 +5063,10 @@
 				34C9BD031C6DB693000DC38D /* MWMTableViewController.m in Sources */,
 				52E95F0D2C6C797B00A3FE2E /* ProfileViewController.swift in Sources */,
 				F6E2FD8C1E097BA00083EBEC /* MWMNoMapsView.m in Sources */,
+				529A5F312C86DF61004FE4A1 /* Review.swift in Sources */,
 				34D3B0361E389D05004100F9 /* MWMEditorSelectTableViewCell.m in Sources */,
 				990128562449A82500C72B10 /* BottomTabBarView.swift in Sources */,
+				529A5F422C86E108004FE4A1 /* Category.swift in Sources */,
 				F6E2FD711E097BA00083EBEC /* MWMMapDownloaderTableViewCell.m in Sources */,
 				F6E2FE4F1E097BA00083EBEC /* MWMActionBarButton.m in Sources */,
 				47F86CFF20C936FC00FEE291 /* TabView.swift in Sources */,
@@ -4926,6 +5076,7 @@
 				349D1CE41E3F836900A878FD /* UIViewController+Hierarchy.swift in Sources */,
 				52B573F02C61E4110047FAC9 /* Constants.swift in Sources */,
 				8CB13C3B2BF1276A004288F2 /* CarplayPlaceholderView.swift in Sources */,
+				529A5F202C86DE14004FE4A1 /* CoordinatesDTO.swift in Sources */,
 				CDB4D4E1222D70DF00104869 /* CarPlayMapViewController.swift in Sources */,
 				471AB98923AA8A3500F56D49 /* IDownloaderDataSource.swift in Sources */,
 				52ED91B02C73030D000EE25B /* PersonalDataDTO.swift in Sources */,
@@ -4942,6 +5093,7 @@
 				99AAEA78244DA9810039D110 /* BottomMenuTransitioningManager.swift in Sources */,
 				4761BE2A252D3DB900EE2DE4 /* SubgroupCell.swift in Sources */,
 				1DFA2F6A20D3B57400FB2C66 /* UIColor+PartnerColor.m in Sources */,
+				529A5F6E2C870FAF004FE4A1 /* HomeViewModel.swift in Sources */,
 				9989273B2449E60200260CE2 /* BottomMenuBuilder.swift in Sources */,
 				993DF10F23F6BDB100AC231A /* UIActivityIndicatorRenderer.swift in Sources */,
 				99A614E423CDD1D900D8D8D0 /* UIButton+RuntimeAttributes.m in Sources */,
@@ -4971,7 +5123,9 @@
 				993DF11923F6BDB100AC231A /* UITextFieldRenderer.swift in Sources */,
 				5260D3E82C66439400C673B4 /* AuthRepository.swift in Sources */,
 				342CC5F21C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm in Sources */,
+				529A5F5E2C86E37A004FE4A1 /* PlacesItem.swift in Sources */,
 				340475591E081A4600C92850 /* WebViewController.m in Sources */,
+				529A5F262C86DE9D004FE4A1 /* ReviewsDTO.swift in Sources */,
 				3404F4992028A20D0090E401 /* BMCCategoryCell.swift in Sources */,
 				F62607FD207B790300176C5A /* SpinnerAlert.swift in Sources */,
 				3444DFD21F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */,
@@ -5003,6 +5157,7 @@
 				F660DEE51EAF4F59004DC056 /* MWMLocationManager+SpeedAndAltitude.swift in Sources */,
 				F6E2FDF21E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.mm in Sources */,
 				3304306D21D4EAFB00317CA3 /* SearchCategoryCell.swift in Sources */,
+				529A5F222C86DE50004FE4A1 /* ReviewDTO.swift in Sources */,
 				ED79A5AB2BD7AA9C00952D1F /* LoadingOverlayViewController.swift in Sources */,
 				34AB66111FC5AA320078E451 /* NavigationTurnsView.swift in Sources */,
 				475ED78624C7C7300063ADC7 /* ValueStepperViewRenderer.swift in Sources */,
@@ -5020,12 +5175,14 @@
 				34E776331F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm in Sources */,
 				52ED919D2C71F639000EE25B /* SimpleResponse.swift in Sources */,
 				462452E92BD052C0004C85E1 /* MWMEditorSegmentedTableViewCell.mm in Sources */,
+				529A5F332C86DF6F004FE4A1 /* PlaceFull.swift in Sources */,
 				993DF12D23F6BDB100AC231A /* GlobalStyleSheet.swift in Sources */,
 				F6E2FF361E097BA00083EBEC /* MWMSearchSuggestionCell.mm in Sources */,
 				3472B5CF200F4A2B00DC6CD5 /* BackgroundFetchTask.swift in Sources */,
 				477219052243E79500E5B227 /* DrivingOptionsViewController.swift in Sources */,
 				CDB4D4E4222E8FF600104869 /* CarPlayService.swift in Sources */,
 				F6E2FF3C1E097BA00083EBEC /* MWMSearchTableView.m in Sources */,
+				529A5F2F2C86DF51004FE4A1 /* ReviewToPost.swift in Sources */,
 				52ED91A72C72C58A000EE25B /* CurrencyPersistenceController.swift in Sources */,
 				F6E2FF661E097BA00083EBEC /* MWMTTSSettingsViewController.mm in Sources */,
 				3454D7C21E07F045004AF2AD /* NSString+Categories.m in Sources */,
@@ -5088,6 +5245,7 @@
 				34AB66321FC5AA330078E451 /* RouteManagerHeaderView.swift in Sources */,
 				347040301EA6470700038379 /* BorderedButton.swift in Sources */,
 				F6E2FF4B1E097BA00083EBEC /* SettingsTableViewSwitchCell.swift in Sources */,
+				529A5F702C8720A8004FE4A1 /* CategoriesViewModel.swift in Sources */,
 				993DF12623F6BDB100AC231A /* SwizzleStyle.m in Sources */,
 				527D5E782C60D94B00736A85 /* AppButton.swift in Sources */,
 				993DF10E23F6BDB100AC231A /* UIButtonRenderer.swift in Sources */,
@@ -5118,6 +5276,7 @@
 				5260D3D82C64F8BC00C673B4 /* AuthResponseDTO.swift in Sources */,
 				99F8B4C623B644A6009FF0B4 /* MapStyleSheet.swift in Sources */,
 				52CD2D892C6F0AF200CCC439 /* ProfileRepository.swift in Sources */,
+				529A5F3D2C86E08E004FE4A1 /* FavoritesIdsDTO.swift in Sources */,
 				99012851244732DB00C72B10 /* BottomTabBarViewController.swift in Sources */,
 				52522F3E2C6DDF190015709C /* PersonalData.swift in Sources */,
 				F63AF5061EA6162400A1DB98 /* FilterTypeCell.swift in Sources */,
@@ -5130,6 +5289,7 @@
 				471A7BC02481C82500A0D4C1 /* BookmarkTitleCell.swift in Sources */,
 				52522F392C6DD9DA0015709C /* ProfileViewModel.swift in Sources */,
 				47F67D1521CAB21B0069754E /* MWMImageCoder.m in Sources */,
+				529A5F352C86DF99004FE4A1 /* PlaceLocation.swift in Sources */,
 				34AB66861FC5AA330078E451 /* MWMNavigationInfoView.mm in Sources */,
 				34C9BD051C6DB693000DC38D /* MWMViewController.m in Sources */,
 				5260D3E02C6624B900C673B4 /* AuthRepositoryImpl.swift in Sources */,
@@ -5178,6 +5338,7 @@
 				F6E2FE2B1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.m in Sources */,
 				3D2D79C32C7C80E60062BC3D /* PersonalDataPersistenceController.swift in Sources */,
 				34AB66891FC5AA330078E451 /* NavigationControlView.swift in Sources */,
+				52A48ADF2C882FE40081E522 /* SearchViewController.swift in Sources */,
 				479EE94A2292FB03009DEBA6 /* ActivityIndicator.swift in Sources */,
 				ED3EAC202B03C88100220A4A /* BottomTabBarButton.swift in Sources */,
 				EDFDFB612B74E2500013A44C /* DonationView.swift in Sources */,
@@ -5192,6 +5353,7 @@
 				995F1613244F0AA50060631D /* BottomMenuLayersCell.swift in Sources */,
 				993DF10723F6BDB100AC231A /* UIColor+image.swift in Sources */,
 				3454D7D71E07F045004AF2AD /* UIKitCategories.m in Sources */,
+				529A5F3B2C86E065004FE4A1 /* FavoritesDTO.swift in Sources */,
 				34AB39C21D2BD8310021857D /* MWMStopButton.m in Sources */,
 				3488B01A1E9D0B230068AFD8 /* UIColor+Modifications.swift in Sources */,
 				6741AA281BF340DE002C974C /* MWMAlert.mm in Sources */,
@@ -5199,12 +5361,14 @@
 				993DF11323F6BDB100AC231A /* UITableViewRenderer.swift in Sources */,
 				34AB66261FC5AA330078E451 /* RouteManagerDimView.swift in Sources */,
 				EDFDFB4A2B722A310013A44C /* SocialMediaCollectionViewCell.swift in Sources */,
+				529A5F282C86DEC5004FE4A1 /* UserDTO.swift in Sources */,
 				6741AA2B1BF340DE002C974C /* CircleView.m in Sources */,
 				4788739220EE326500F6826B /* VerticallyAlignedButton.swift in Sources */,
 				EDFDFB462B7139490013A44C /* AboutInfo.swift in Sources */,
 				3444DFDE1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */,
 				CDCA278622451F5000167D87 /* RouteInfo.swift in Sources */,
 				3467CEB6202C6FA900D3C670 /* BMCNotificationsCell.swift in Sources */,
+				529A5F6A2C8707F9004FE4A1 /* FavoritesViewController.swift in Sources */,
 				337F98B221D3BAE600C8AC27 /* SearchCategoriesViewController.swift in Sources */,
 				F6E2FE0A1E097BA00083EBEC /* MWMOpeningHoursDeleteScheduleTableViewCell.mm in Sources */,
 				3454D7DA1E07F045004AF2AD /* UILabel+RuntimeAttributes.m in Sources */,

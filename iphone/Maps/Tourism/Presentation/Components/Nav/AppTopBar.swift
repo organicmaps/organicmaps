@@ -10,6 +10,7 @@ struct AppTopBar: View {
       HStack {
         if let onBackClick = onBackClick {
           AppBackButton(onBackClick: onBackClick)
+            .padding(.bottom)
         }
         
         Spacer()

@@ -21,8 +21,8 @@ class ProfileViewController: UIViewController {
       ProfileScreen(
         profileVM: profileVM,
         onPersonalDataClick: {
-            let destinationVC = PersonalDataViewController(profileVM: profileVM)
-            self.navigationController?.pushViewController(destinationVC, animated: true)
+          let destinationVC = PersonalDataViewController(profileVM: profileVM)
+          self.navigationController?.pushViewController(destinationVC, animated: true)
         }
       )
     )
