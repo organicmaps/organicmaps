@@ -832,6 +832,8 @@
 	<string name="power_save_dialog_title">Απενεργοποίηση λειτουργίας εξοικονόμησης ενέργειας</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Για την πιο ακριβή πλοήγηση, συνιστούμε να απενεργοποιήσετε τη λειτουργία εξοικονόμησης ενέργειας στις ρυθμίσεις μπαταρίας του τηλεφώνου.</string>
+	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+	<string name="error_no_file_manager_app">Δεν είναι δυνατή η εμφάνιση του διαλόγου επιλογής φακέλου επειδή δεν είναι εγκατεστημένη η κατάλληλη εφαρμογή στη συσκευή σας. Εγκαταστήστε μια εφαρμογή διαχείρισης αρχείων και δοκιμάστε ξανά</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Διεύθυνση/Μπλοκ</string>

@@ -846,6 +846,8 @@
 	<string name="power_save_dialog_title">关闭省电模式</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">为了获得最准确的导航，我们建议在手机电池设置中停用省电模式。</string>
+	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+	<string name="error_no_file_manager_app">由于您的设备上未安装合适的应用程序，因此无法显示文件夹选择对话框。请安装文件管理器应用程序并重试。</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">地址/区块</string>

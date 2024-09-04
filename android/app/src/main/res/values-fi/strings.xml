@@ -836,6 +836,8 @@
 	<string name="power_save_dialog_title">Poista virransäästötila käytöstä</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Jotta navigointi olisi mahdollisimman tarkkaa, suosittelemme virransäästötilan poistamista käytöstä puhelimen akkuasetuksista.</string>
+	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+	<string name="error_no_file_manager_app">Kansiovalintaikkunaa ei voida näyttää, koska laitteeseen ei ole asennettu sopivaa sovellusta. Asenna tiedostonhallintasovellus ja yritä uudelleen</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Osoite/lohko</string>

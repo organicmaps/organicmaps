@@ -805,6 +805,8 @@
 	<string name="power_save_dialog_title">Kapcsolja ki az energiatakarékos módot</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">A legpontosabb navigáció érdekében javasoljuk az energiatakarékos üzemmód kikapcsolását a telefon akkumulátor-beállításaiban.</string>
+	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+	<string name="error_no_file_manager_app">Nem lehet megjeleníteni a mappaválasztó párbeszédpanelt, mert nincs megfelelő alkalmazás telepítve a készülékén. Kérjük, telepítsen egy fájlkezelő alkalmazást, és próbálja meg újra</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Cím/blokk</string>

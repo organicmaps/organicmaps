@@ -832,6 +832,8 @@
 	<string name="power_save_dialog_title">Schakel energiebesparingsmodus uit</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Voor de meest nauwkeurige navigatie raden we aan om de energiebesparende modus uit te schakelen in de batterij-instellingen van de telefoon.</string>
+	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+	<string name="error_no_file_manager_app">Kan het dialoogvenster voor het selecteren van mappen niet weergeven omdat er geen geschikte app op uw apparaat is geïnstalleerd. Installeer een app voor bestandsbeheer en probeer het opnieuw</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adres/blok</string>

@@ -785,6 +785,8 @@
 	<string name="power_save_dialog_title">Tắt Chế Độ Tiết Kiệm Pin</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Để điều hướng chính xác nhất, chúng tôi khuyên bạn nên tắt chế độ tiết kiệm năng lượng trong cài đặt pin của điện thoại.</string>
+	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+	<string name="error_no_file_manager_app">Không thể hiển thị hộp thoại chọn thư mục vì không có ứng dụng phù hợp nào được cài đặt trên thiết bị của bạn. Vui lòng cài đặt ứng dụng quản lý tệp và thử lại</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Địa chỉ/Khối</string>

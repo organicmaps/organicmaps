@@ -797,6 +797,8 @@
 	<string name="power_save_dialog_title">पॉवर सेव्हिंग मोड बंद करा</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">सर्वात अचूक नेव्हिगेशनसाठी, आम्ही फोनच्या बॅटरी सेटिंग्जमध्ये पॉवर सेव्हिंग मोड अक्षम करण्याची शिफारस करतो.</string>
+	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+	<string name="error_no_file_manager_app">फोल्डर निवड संवाद प्रदर्शित करण्यात अक्षम कारण आपल्या डिव्हाइसवर कोणतेही योग्य ॲप स्थापित केलेले नाही. कृपया फाइल व्यवस्थापक ॲप स्थापित करा आणि पुन्हा प्रयत्न करा</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">पत्ता/ब्लॉक</string>

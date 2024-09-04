@@ -833,6 +833,8 @@
 	<string name="power_save_dialog_title">Desaktibatu energia aurrezteko modua</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Nabigazio zehatzena lortzeko, telefonoaren bateriaren ezarpenetan energia aurrezteko modua desgaitzea gomendatzen dugu.</string>
+	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+	<string name="error_no_file_manager_app">Ezin da karpeta hautatzeko elkarrizketa-koadroa erakutsi zure gailuan ez dagoelako aplikazio egokirik instalatuta. Instalatu fitxategi-kudeatzaile aplikazio bat eta saiatu berriro</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Helbidea/Blokea</string>

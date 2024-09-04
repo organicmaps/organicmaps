@@ -846,6 +846,8 @@
 	<string name="power_save_dialog_title">إيقاف تشغيل وضع توفير الطاقة</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">للحصول على التنقل الأكثر دقة، نوصي بتعطيل وضع توفير الطاقة في إعدادات بطارية الهاتف.</string>
+	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+	<string name="error_no_file_manager_app">غير قادر على عرض مربع حوار تحديد المجلد لأنه لا يوجد تطبيق مناسب مثبت على جهازك. يرجى تثبيت تطبيق مدير الملفات والمحاولة مرة أخرى.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">العنوان / البلوك</string>

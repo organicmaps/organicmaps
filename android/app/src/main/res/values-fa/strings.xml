@@ -789,6 +789,8 @@
 	<string name="power_save_dialog_title">خاموش کردن حالت صرفه‌جویی در مصرف انرژی</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">برای دقیقu200cترین ناوبری، توصیه میu200cکنیم حالت صرفهu200cجویی در مصرف انرژی را در تنظیمات باتری گوشی غیرفعال کنید.</string>
+	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+	<string name="error_no_file_manager_app">امکان نمایش گفتگوی انتخاب پوشه وجود ندارد زیرا برنامه مناسبی روی دستگاه شما نصب نشده است. لطفاً یک برنامه مدیریت فایل نصب کنید و دوباره امتحان کنید</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">آدرس/بلاک</string>

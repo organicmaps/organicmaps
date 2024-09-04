@@ -815,6 +815,8 @@
 	<string name="power_save_dialog_title">Enerjiyə qənaət rejimini söndürün</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Ən dəqiq naviqasiya üçün telefonun batareya parametrlərində enerjiyə qənaət rejimini söndürməyi tövsiyə edirik.</string>
+	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+	<string name="error_no_file_manager_app">Qovluq seçimi dialoqunu göstərmək mümkün deyil, çünki cihazınızda uyğun proqram quraşdırılmayıb. Lütfən, fayl meneceri proqramı quraşdırın və yenidən cəhd edin</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Ünvan/Blok</string>

@@ -750,6 +750,8 @@
 	<string name="power_save_dialog_title">Изключване на режима за пестене на енергия</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">За най-точна навигация препоръчваме да деактивирате режима за пестене на енергия в настройките на батерията на телефона.</string>
+	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+	<string name="error_no_file_manager_app">Не може да се покаже диалогов прозорец за избор на папка, тъй като на вашето устройство не е инсталирано подходящо приложение. Моля, инсталирайте приложение за управление на файлове и опитайте отново</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адрес/Блок</string>
