@@ -6189,7 +6189,7 @@
 
   [recent_track]
     comment = The name of the feature in the main menu, settings, and messages.
-    tags = android,ios
+    tags = android
     en = Recent Track
     af = Onlangse pad
     ar = المسار الأخير
