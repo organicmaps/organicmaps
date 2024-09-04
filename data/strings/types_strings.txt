@@ -19916,7 +19916,7 @@
     fa = بوته زار
     fi = Tiheiköt
     fr = Fourré
-    he = בתה
+    he = עשביה
     hi = झाड़ी
     hu = Cserjés
     id = Semak
@@ -20162,7 +20162,7 @@
     fa = پهنه آبی
     fi = Vesimuodostuma
     fr = Étendue d'eau
-    he = גוף מים
+    he = מים
     hi = जल निकाय
     hu = Vizek
     id = Perairan
@@ -20343,6 +20343,7 @@
     fa = اداره
     fi = Toimisto
     fr = Bureau
+    he = משרד
     hi = कार्यालय
     hu = Iroda
     id = Kantor
@@ -20381,6 +20382,7 @@
     fa = دفتر شرکت
     fi = Yhtiön toimisto
     fr = Bureaux d'entreprise
+    he = משרד החברה
     hi = कंपनी कार्यालय
     hu = Vállalati iroda
     id = Kantor perusahaan
@@ -20419,6 +20421,7 @@
     fa = بنگاه معاملات ملکی
     fi = Kiinteistönvälittäjä
     fr = Agence immobilière
+    he = משרד נדל״ן
     hi = संपत्ति एजेंट
     hu = Ingatlanügynök
     id = Agen ril estat
@@ -20458,6 +20461,7 @@
     fa = اداره دولتی
     fi = Viranomaistoimito
     fr = Administration publique
+    he = משרד ממשלתי
     hi = सरकारी कार्यालय
     hu = Állami iroda
     id = Kantor pemerintah
@@ -20496,6 +20500,7 @@
     fa = دفتر بیمه
     fi = Vakuutuslaitos
     fr = Bureau d’assurance
+    he = משרד ביטוח
     hi = बीमा कार्यालय
     hu = Biztosítóiroda
     id = Kantor Asuransi
@@ -20534,6 +20539,7 @@
     fa = دفتر وکالت
     fi = Lakitoimisto
     fr = Cabinet d'avocat
+    he = עורך דין
     hi = वकील
     hu = Ügyvédi iroda
     id = Kantor pengacara
@@ -20572,6 +20578,7 @@
     fa = دفتر سازمان خیریه
     fi = Valtioista riippumattoman järjestön toimisto
     fr = Bureau ONG
+    he = ארגון לא ממשלתי
     hi = अशासकीय संस्था
     hu = Civil szervezet irodája
     id = Kantor LSM
@@ -20612,6 +20619,7 @@
     fa = اپراتور تلفن همراه
     fi = Matkapuhelinoperaattori
     fr = Opérateur mobile
+    he = משרד חברת תקשורת
     hi = दूरसंचार कंपनी
     hu = Távközlési cég
     id = Operator seluler
@@ -20644,6 +20652,7 @@
     et = Orgaaniline
     eu = Organikoa
     fr = Biologique
+    he = אורגני
     it = Biologico
     mr = सेंद्रिय
     nl = Biologisch
@@ -20866,7 +20875,7 @@
     fa = بخش
     fi = Lääni
     fr = Comté
-    he = נפה
+    he = מחוז/נפה
     hi = काउण्टी
     hu = Megye
     id = Kabupaten
@@ -20907,7 +20916,7 @@
     fa = مزرعه
     fi = Maatila
     fr = Ferme
-    he = חווה חקלאית
+    he = חווה
     hu = Tanya
     id = Ladang
     it = Fattoria
@@ -21072,7 +21081,7 @@
     fa = مسکن منزوی
     fi = Erillinen asunto
     fr = Lieu-dit
-    he = דירת מגורים מבודדת
+    he = מבנה מבודד
     hu = Elszigetelt lakóépület
     id = Tempat Tinggal Terisolasi
     it = Abitazione isolata
@@ -21112,7 +21121,7 @@
     fa = محله
     fi = Paikkakunta
     fr = Lieu-dit
-    he = מקום
+    he = אזור בלתי מיושב
     hu = Körzet
     id = Wilayah
     it = Località
@@ -21551,6 +21560,7 @@
     de = Energie
     es = Energía
     et = Energia
+    he = חשמל
     it = Elettricità
     ja = 電力
     mr = शक्ती
@@ -21570,6 +21580,7 @@
     es = Generador
     et = Generaator
     fr = Générateur
+    he = גנרטור
     it = Generatore
     ja = 発電機
     mr = जनित्र(जनरेटर)
@@ -21682,7 +21693,7 @@
     fa = نیروگاه توربین گاز
     fi = Kaasuturbiinivoimala
     fr = Centrale à turbine à gaz
-    he = תחנת כוח לטורבינת גז
+    he = תחנת כוח מופעלת גז
     hu = Gázturbinás erőmű
     id = Pembangkit listrik turbin gas
     it = Centrale elettrica a turbina a gas
@@ -21756,6 +21767,7 @@
     es = Línea eléctrica
     et = Elektriliin
     fr = Ligne électrique
+    he = קו חשמל
     it = Cavo elettrico
     ja = 電力線
     mr = विद्युत तार
@@ -21777,6 +21789,7 @@
     es = Línea eléctrica subterránea
     et = Maa-alune elektriliin
     fr = Ligne électrique souterraine
+    he = קו חשמל תת קרקעי
     ja = 地下電力線
     mr = भूमिगत विद्युत तार
     nl = Ondergrondse hoogspanningsleiding
@@ -21797,6 +21810,7 @@
     es = Línea eléctrica de baja tensión
     et = Madal-/Keskpinge elektriliin
     fr = Ligne électrique
+    he = קו מתח משני
     it = Cavo elettrico
     ja = 低圧電力線
     mr = किरकोळ विद्युत तार
@@ -21990,6 +22004,7 @@
     de = Umspannwerk
     es = Estación eléctrica
     et = Elektrijaam
+    he = תחנת כוח
     hi = बिजली घर
     ja = 変電所
     mr = विद्युत घर
@@ -22016,6 +22031,7 @@
     eu = Azpiestazioa
     fi = Muuntoasema
     fr = Poste électrique
+    he = תחנת כוח משנית
     hi = विद्युत उपकेंद्र
     hu = Alállomás
     id = Stasiun bawah tanah
@@ -22054,6 +22070,7 @@
     fa = برج قدرت
     fi = Sähköpylväs
     fr = Pylône électrique
+    he = מגדל קירור
     hi = संचरण स्तम्भ
     hu = Villanyoszlop
     id = Menara listrik
@@ -22081,6 +22098,7 @@
     en = psurface
     af = Padoppervlak
     et = Pind
+    he = משטח
     it = Superficie
     nl = Wegdek
     ru = Поверхность
@@ -22088,24 +22106,28 @@
   [type.psurface.paved_bad]
     en = psurface-paved_bad
     af = Geteer
+    he = אספלט במצב גרוע
     nl = Verhard
     ru = Плохая асфальтированная
 
   [type.psurface.paved_good]
     en = psurface-paved_good
     af = Geteer
+    he = אספלט במצב טוב
     nl = Verhard
     ru = Хорошая асфальтированная
 
   [type.psurface.unpaved_bad]
     en = psurface-unpaved_bad
     af = Ongeteer
+    he = לא סלול במצב גרוע
     nl = Onverhard
     ru = Плохая неасфальтированная
 
   [type.psurface.unpaved_good]
     en = psurface-unpaved_good
     af = Ongeteer
+    he = לא סלול במצב טוב
     nl = Onverhard
     ru = Хорошая неасфальтированная
 
@@ -22117,6 +22139,7 @@
     es = Transporte público
     et = Ühistransport
     eu = Garraio publikoa
+    he = תחבורה ציבורית
     it = Trasporto pubblico
     ja = 公共交通機関
     mr = सार्वजनिक वाहतूक
@@ -22138,6 +22161,7 @@
     es = Plataforma
     et = Platvorm
     fr = Quai de transport en commun
+    he = רציף תחבורה
     hi = रेलवे प्लेटफार्म
     ja = 公共交通機関のプラットホーム
     mr = फलाट
@@ -22158,6 +22182,7 @@
     es = Vía férrea
     et = Raudtee
     fr = Chemin de fer
+    he = מסילת רכבת
     hi = रेल
     it = Ferrovia
     ja = 鉄道
@@ -22181,6 +22206,7 @@
     es = Vía férrea abandonada
     et = Mahajäetud raudtee
     fr = Chemin de fer abandonné
+    he = מסילת רכבת נטושה
     it = Ferrovia abbandonata
     ja = 廃線
     nl = Voormalig treinspoor
@@ -22199,6 +22225,7 @@
     de = Ehemalige Eisenbahnbrücke
     et = Mahajäetud sild
     fr = Chemin de fer abandonné
+    he = גשר רכבת נטוש
     ja = 廃線(橋)
     nl = Voormalige spoorbrug
     pt = Ferrovia abandonada
@@ -22215,6 +22242,7 @@
     de = Ehemaliger Eisenbahntunnel
     et = Mahajäetud tunnel
     fr = Chemin de fer abandonné
+    he = מנהרת רכבת נטושה
     ja = 廃線(トンネル)
     nl = Voormalige spoortunnel
     pt = Ferrovia abandonada
@@ -22232,6 +22260,7 @@
     es = Vía férrea en construcción
     et = Raudtee ehitus
     fr = Chemin de fer en construction
+    he = מסילת רכבת בבניה
     it = Binari in costruzione
     ja = 建設中の鉄道
     mr = रेल्वेचे बांधकाम
@@ -22252,6 +22281,7 @@
     es = Paso a nivel
     et = Raudtee ülesõit
     fr = Passage à niveau pour piéton
+    he = מעבר חציית פסי רכבת
     it = Passaggio ferroviario
     ja = 歩行者用踏切
     mr = रेल्वे ओलांडणी
@@ -22272,6 +22302,7 @@
     es = Vía férrea en desuso
     et = Kasutamata raudtee
     fr = Chemin de fer désaffecté
+    he = מסילת רכבת לא בשימוש
     it = Ferrovia in disuso
     ja = 休止線
     nl = Ongebruikt spoor
@@ -22302,7 +22333,7 @@
     fa = فونیکولور
     fi = Köysirata
     fr = Funiculaire
-    he = רַכֶּבֶל
+    he = פוניקולר
     hi = रज्जुरेल
     hu = Sikló
     id = Kereta gantung
