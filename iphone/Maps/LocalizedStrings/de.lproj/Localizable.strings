@@ -2091,7 +2091,7 @@
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Haupteingang";
 
-"type.entrance.exit" = "Ausfahrt";
+"type.entrance.exit" = "Ausgang";
 
 "type.fee.yes" = "$";
 
