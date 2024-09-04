@@ -261,9 +261,6 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Andre";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "Siste rute";
-
 "pref_map_auto_zoom" = "Automatisk zooming";
 
 "placepage_distance" = "Avstand";

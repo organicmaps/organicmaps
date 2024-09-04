@@ -261,9 +261,6 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "อื่น ๆ";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "เส้นทางล่าสุด";
-
 "pref_map_auto_zoom" = "ซูมอัตโนมัติ";
 
 "placepage_distance" = "ระยะห่าง";

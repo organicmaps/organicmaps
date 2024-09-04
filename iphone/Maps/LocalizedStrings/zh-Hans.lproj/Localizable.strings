@@ -261,9 +261,6 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "其他";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "最近的轨迹";
-
 "pref_map_auto_zoom" = "自动缩放";
 
 "placepage_distance" = "距离";

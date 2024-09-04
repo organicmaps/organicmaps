@@ -261,9 +261,6 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "אחר";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "מסלול אחרון";
-
 "pref_map_auto_zoom" = "זום אוטומטי";
 
 "placepage_distance" = "מרחק";
@@ -2791,7 +2788,7 @@
 
 "type.natural.rock" = "סלע";
 
-"type.natural.scrub" = "בתה";
+"type.natural.scrub" = "עשביה";
 
 "type.natural.spring" = "מעיין";
 
@@ -2803,7 +2800,7 @@
 
 "type.natural.volcano" = "הר געש";
 
-"type.natural.water" = "גוף מים";
+"type.natural.water" = "מים";
 
 "type.natural.wetland" = "ביצה";
 
@@ -2813,25 +2810,25 @@
 
 "type.noexit" = "Dead End";
 
-"type.office" = "Office";
+"type.office" = "משרד";
 
-"type.office.company" = "Company Office";
+"type.office.company" = "משרד החברה";
 
-"type.office.estate_agent" = "Estate Agent";
+"type.office.estate_agent" = "משרד נדל״ן";
 
-"type.office.government" = "Government Office";
+"type.office.government" = "משרד ממשלתי";
 
-"type.office.insurance" = "Insurance Office";
+"type.office.insurance" = "משרד ביטוח";
 
-"type.office.lawyer" = "Lawyer";
+"type.office.lawyer" = "עורך דין";
 
-"type.office.ngo" = "Non-Governmental Organization";
+"type.office.ngo" = "ארגון לא ממשלתי";
 
-"type.office.telecommunication" = "Telecom Company";
+"type.office.telecommunication" = "משרד חברת תקשורת";
 
-"type.organic.only" = "Organic";
+"type.organic.only" = "אורגני";
 
-"type.organic.yes" = "Organic";
+"type.organic.yes" = "אורגני";
 
 "type.place.city" = "עיר";
 
@@ -2861,9 +2858,9 @@
 
 "type.place.country" = "ארץ";
 
-"type.place.county" = "נפה";
+"type.place.county" = "מחוז/נפה";
 
-"type.place.farm" = "חווה חקלאית";
+"type.place.farm" = "חווה";
 
 "type.place.hamlet" = "כְּפָר קָטָן";
 
@@ -2871,9 +2868,9 @@
 
 "type.place.islet" = "איון";
 
-"type.place.isolated_dwelling" = "דירת מגורים מבודדת";
+"type.place.isolated_dwelling" = "מבנה מבודד";
 
-"type.place.locality" = "מקום";
+"type.place.locality" = "אזור בלתי מיושב";
 
 "type.place.neighbourhood" = "שכונה";
 
@@ -2895,29 +2892,29 @@
 
 "type.place.village" = "כפר";
 
-"type.power" = "Power";
+"type.power" = "חשמל";
 
-"type.power.generator" = "Power Generator";
+"type.power.generator" = "גנרטור";
 
 "type.power.generator.solar" = "גנרטור סולארי";
 
 "type.power.generator.wind" = "מחולל רוח";
 
-"type.power.generator.gas" = "תחנת כוח לטורבינת גז";
+"type.power.generator.gas" = "תחנת כוח מופעלת גז";
 
 "type.power.generator.hydro" = "תחנת כוח הידרואלקטרית";
 
-"type.power.line" = "Power Line";
+"type.power.line" = "קו חשמל";
 
-"type.power.line.underground" = "Underground Power Line";
+"type.power.line.underground" = "קו חשמל תת קרקעי";
 
-"type.power.minor_line" = "Minor Power Line";
+"type.power.minor_line" = "קו מתח משני";
 
 "type.power.plant" = "תחנת כוח";
 
 "type.power.plant.coal" = "תחנת כוח פחמית";
 
-"type.power.plant.gas" = "תחנת כוח לטורבינת גז";
+"type.power.plant.gas" = "תחנת כוח מופעלת גז";
 
 "type.power.plant.hydro" = "תחנת כוח הידרואלקטרית";
 
@@ -2925,41 +2922,41 @@
 
 "type.power.plant.wind" = "תחנת כוח רוח";
 
-"type.power.station" = "Power Station";
+"type.power.station" = "תחנת כוח";
 
-"type.power.substation" = "Substation";
+"type.power.substation" = "תחנת כוח משנית";
 
-"type.power.tower" = "Power Tower";
+"type.power.tower" = "מגדל קירור";
 
-"type.psurface" = "psurface";
+"type.psurface" = "משטח";
 
-"type.psurface.paved_bad" = "psurface-paved_bad";
+"type.psurface.paved_bad" = "אספלט במצב גרוע";
 
-"type.psurface.paved_good" = "psurface-paved_good";
+"type.psurface.paved_good" = "אספלט במצב טוב";
 
-"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
+"type.psurface.unpaved_bad" = "לא סלול במצב גרוע";
 
-"type.psurface.unpaved_good" = "psurface-unpaved_good";
+"type.psurface.unpaved_good" = "לא סלול במצב טוב";
 
-"type.public_transport" = "Public Transport";
+"type.public_transport" = "תחבורה ציבורית";
 
-"type.public_transport.platform" = "Platform";
+"type.public_transport.platform" = "רציף תחבורה";
 
-"type.railway" = "Railway";
+"type.railway" = "מסילת רכבת";
 
-"type.railway.abandoned" = "Abandoned Railway";
+"type.railway.abandoned" = "מסילת רכבת נטושה";
 
-"type.railway.abandoned.bridge" = "Abandoned Railway Bridge";
+"type.railway.abandoned.bridge" = "גשר רכבת נטוש";
 
-"type.railway.abandoned.tunnel" = "Abandoned Railway Tunnel";
+"type.railway.abandoned.tunnel" = "מנהרת רכבת נטושה";
 
-"type.railway.construction" = "Railway Construction";
+"type.railway.construction" = "מסילת רכבת בבניה";
 
-"type.railway.crossing" = "Railway Crossing";
+"type.railway.crossing" = "מעבר חציית פסי רכבת";
 
-"type.railway.disused" = "Disused Railway";
+"type.railway.disused" = "מסילת רכבת לא בשימוש";
 
-"type.railway.funicular" = "רַכֶּבֶל";
+"type.railway.funicular" = "פוניקולר";
 
 "type.railway.funicular.bridge" = "Funicular Bridge";
 
@@ -3048,7 +3045,7 @@
 
 "type.railway.station" = "Train Station";
 
-"type.railway.station.funicular" = "רַכֶּבֶל";
+"type.railway.station.funicular" = "פוניקולר";
 
 "type.railway.station.light_rail" = "Train Station";
 

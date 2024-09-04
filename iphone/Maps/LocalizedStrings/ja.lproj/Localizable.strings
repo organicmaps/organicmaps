@@ -261,9 +261,6 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "その他";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "最近のトラック";
-
 "pref_map_auto_zoom" = "自動ズーム";
 
 "placepage_distance" = "距離";
