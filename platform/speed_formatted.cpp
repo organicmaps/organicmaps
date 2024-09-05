@@ -17,10 +17,10 @@ SpeedFormatted::SpeedFormatted(double speedMps, Units units) : m_units(units)
   switch (units)
   {
     case Units::Metric:
-      m_speed = MpsToKmph(speedMps);
+      m_speed = speedMps < 0 ? speedMps : MpsToKmph(speedMps);
       break;
     case Units::Imperial:
-      m_speed = MpsToMiph(speedMps);
+      m_speed = speedMps < 0 ? speedMps : MpsToMiph(speedMps);
       break;
     default: UNREACHABLE();
   }
