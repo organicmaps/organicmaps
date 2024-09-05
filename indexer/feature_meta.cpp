@@ -57,7 +57,7 @@ std::string Metadata::encodeWikiURL(std::string v, int startIndex) {
     else if (c == '?')
     {
       c = '%';
-      v.insert(i + 1, "3F");  // ? => %3F
+      v.insert(++i, "3F");  // ? => %3F
     }
   }
   return v;
