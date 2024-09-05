@@ -103,10 +103,10 @@ class ProfileServiceImpl: ProfileService {
     
     return URLSession.shared.dataTaskPublisher(for: request)
       .tryMap { data, response in
-        try CombineNetworkHelper.handleResponse(data: data, response: response)
+        try AppNetworkHelper.handleResponse(data: data, response: response)
       }
       .mapError { error in
-        CombineNetworkHelper.handleMappingError(error)
+        AppNetworkHelper.handleMappingError(error)
       }
       .receive(on: DispatchQueue.main)
       .eraseToAnyPublisher()

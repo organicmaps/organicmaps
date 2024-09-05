@@ -334,6 +334,12 @@
 		529A5F702C8720A8004FE4A1 /* CategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F6F2C8720A8004FE4A1 /* CategoriesViewModel.swift */; };
 		52A48ADF2C882FE40081E522 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A48ADE2C882FE40081E522 /* SearchViewController.swift */; };
 		52A48AE12C882FEE0081E522 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A48AE02C882FEE0081E522 /* SearchViewModel.swift */; };
+		52A48AE32C887BA00081E522 /* PlacesRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A48AE22C887BA00081E522 /* PlacesRepositoryImpl.swift */; };
+		52A48AE52C887EA70081E522 /* PlacesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A48AE42C887EA70081E522 /* PlacesRepository.swift */; };
+		52A48AE72C8882A90081E522 /* ReviewsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A48AE62C8882A90081E522 /* ReviewsRepository.swift */; };
+		52A48AE92C888AD90081E522 /* ReviewsRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A48AE82C888AD90081E522 /* ReviewsRepositoryImpl.swift */; };
+		52A48AEB2C888B2C0081E522 /* PlacesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A48AEA2C888B2C0081E522 /* PlacesService.swift */; };
+		52A48AED2C888B370081E522 /* ReviewsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A48AEC2C888B370081E522 /* ReviewsService.swift */; };
 		52B573EC2C61E1C10047FAC9 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B573EB2C61E1C10047FAC9 /* SignInViewController.swift */; };
 		52B573F02C61E4110047FAC9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B573EF2C61E4110047FAC9 /* Constants.swift */; };
 		52B573F22C61E8980047FAC9 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B573F12C61E8980047FAC9 /* SignUpViewController.swift */; };
@@ -357,7 +363,7 @@
 		52D588CE2C5CEAF900AB96B3 /* Gilroy-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52D588C42C5CEAF900AB96B3 /* Gilroy-ExtraBold.ttf */; };
 		52E2D3A42C59F9CE00A8843A /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E2D3A32C59F9CE00A8843A /* WelcomeViewController.swift */; };
 		52E95F022C6B32E500A3FE2E /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E95F012C6B32E500A3FE2E /* ErrorResponse.swift */; };
-		52E95F042C6B71B900A3FE2E /* CombineNetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E95F032C6B71B900A3FE2E /* CombineNetworkHelper.swift */; };
+		52E95F042C6B71B900A3FE2E /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E95F032C6B71B900A3FE2E /* NetworkHelper.swift */; };
 		52E95F072C6B7E2400A3FE2E /* SignUpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E95F062C6B7E2400A3FE2E /* SignUpRequest.swift */; };
 		52E95F0B2C6B8CC800A3FE2E /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E95F0A2C6B8CC800A3FE2E /* UIViewControllerExtensions.swift */; };
 		52E95F0D2C6C797B00A3FE2E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E95F0C2C6C797B00A3FE2E /* ProfileViewController.swift */; };
@@ -370,6 +376,8 @@
 		52ED91AB2C7302A7000EE25B /* CurrencyRatesDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED91AA2C7302A7000EE25B /* CurrencyRatesDTO.swift */; };
 		52ED91B02C73030D000EE25B /* PersonalDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED91AF2C73030D000EE25B /* PersonalDataDTO.swift */; };
 		52ED91B32C73211F000EE25B /* EntitiesMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED91B22C73211F000EE25B /* EntitiesMapping.swift */; };
+		52EF1B622C8989F1003046A4 /* PlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EF1B612C8989F1003046A4 /* PlaceViewController.swift */; };
+		52EF1B662C8989F9003046A4 /* PlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EF1B652C8989F9003046A4 /* PlaceViewModel.swift */; };
 		6741A9421BF340DE002C974C /* sound-strings in Resources */ = {isa = PBXBuildFile; fileRef = 5605022E1B6211E100169CAD /* sound-strings */; };
 		6741A9451BF340DE002C974C /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0511D6AC0D00645242 /* classificator.txt */; };
 		6741A9491BF340DE002C974C /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA46DA2B12D4166E00968C36 /* countries.txt */; };
@@ -1361,6 +1369,12 @@
 		529A5F6F2C8720A8004FE4A1 /* CategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewModel.swift; sourceTree = "<group>"; };
 		52A48ADE2C882FE40081E522 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		52A48AE02C882FEE0081E522 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		52A48AE22C887BA00081E522 /* PlacesRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesRepositoryImpl.swift; sourceTree = "<group>"; };
+		52A48AE42C887EA70081E522 /* PlacesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesRepository.swift; sourceTree = "<group>"; };
+		52A48AE62C8882A90081E522 /* ReviewsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsRepository.swift; sourceTree = "<group>"; };
+		52A48AE82C888AD90081E522 /* ReviewsRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsRepositoryImpl.swift; sourceTree = "<group>"; };
+		52A48AEA2C888B2C0081E522 /* PlacesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesService.swift; sourceTree = "<group>"; };
+		52A48AEC2C888B370081E522 /* ReviewsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsService.swift; sourceTree = "<group>"; };
 		52B573EB2C61E1C10047FAC9 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		52B573EF2C61E4110047FAC9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		52B573F12C61E8980047FAC9 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -1384,7 +1398,7 @@
 		52D588C42C5CEAF900AB96B3 /* Gilroy-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-ExtraBold.ttf"; sourceTree = "<group>"; };
 		52E2D3A32C59F9CE00A8843A /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		52E95F012C6B32E500A3FE2E /* ErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
-		52E95F032C6B71B900A3FE2E /* CombineNetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineNetworkHelper.swift; sourceTree = "<group>"; };
+		52E95F032C6B71B900A3FE2E /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		52E95F062C6B7E2400A3FE2E /* SignUpRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequest.swift; sourceTree = "<group>"; };
 		52E95F0A2C6B8CC800A3FE2E /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		52E95F0C2C6C797B00A3FE2E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -1397,6 +1411,8 @@
 		52ED91AA2C7302A7000EE25B /* CurrencyRatesDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRatesDTO.swift; sourceTree = "<group>"; };
 		52ED91AF2C73030D000EE25B /* PersonalDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDataDTO.swift; sourceTree = "<group>"; };
 		52ED91B22C73211F000EE25B /* EntitiesMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntitiesMapping.swift; sourceTree = "<group>"; };
+		52EF1B612C8989F1003046A4 /* PlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceViewController.swift; sourceTree = "<group>"; };
+		52EF1B652C8989F9003046A4 /* PlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceViewModel.swift; sourceTree = "<group>"; };
 		5605022E1B6211E100169CAD /* sound-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "sound-strings"; path = "../../data/sound-strings"; sourceTree = "<group>"; };
 		6741AA5D1BF340DE002C974C /* Organic Maps (Debug).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Organic Maps (Debug).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B15907026623AE500944BBA /* 00_NotoSansThai-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "00_NotoSansThai-Regular.ttf"; path = "../../data/00_NotoSansThai-Regular.ttf"; sourceTree = "<group>"; };
@@ -3107,6 +3123,8 @@
 				5260D3DF2C6624B900C673B4 /* AuthRepositoryImpl.swift */,
 				52ED91A42C72C50F000EE25B /* CurrencyRepositoryImpl.swift */,
 				3D2D79BB2C7C5E300062BC3D /* ProfileRepositoryImpl.swift */,
+				52A48AE22C887BA00081E522 /* PlacesRepositoryImpl.swift */,
+				52A48AE82C888AD90081E522 /* ReviewsRepositoryImpl.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -3117,6 +3135,8 @@
 				5260D3DD2C66237700C673B4 /* AuthService.swift */,
 				52ED91A82C73020A000EE25B /* CurrencyService.swift */,
 				3D2D79CB2C7C8C350062BC3D /* ProfileService.swift */,
+				52A48AEA2C888B2C0081E522 /* PlacesService.swift */,
+				52A48AEC2C888B370081E522 /* ReviewsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -3137,6 +3157,8 @@
 				5260D3E72C66439400C673B4 /* AuthRepository.swift */,
 				52CD2D842C6F093A00CCC439 /* CurrencyRepository.swift */,
 				52CD2D882C6F0AF200CCC439 /* ProfileRepository.swift */,
+				52A48AE42C887EA70081E522 /* PlacesRepository.swift */,
+				52A48AE62C8882A90081E522 /* ReviewsRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -3260,6 +3282,40 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		52A48AEE2C8988CC0081E522 /* PlaceDetails */ = {
+			isa = PBXGroup;
+			children = (
+				52A48AF02C8989630081E522 /* Description */,
+				52A48AF22C8989780081E522 /* Reviews */,
+				52A48AF12C89896B0081E522 /* Gallery */,
+				52EF1B612C8989F1003046A4 /* PlaceViewController.swift */,
+				52EF1B652C8989F9003046A4 /* PlaceViewModel.swift */,
+			);
+			name = PlaceDetails;
+			path = Profile/PlaceDetails;
+			sourceTree = "<group>";
+		};
+		52A48AF02C8989630081E522 /* Description */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Description;
+			sourceTree = "<group>";
+		};
+		52A48AF12C89896B0081E522 /* Gallery */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Gallery;
+			sourceTree = "<group>";
+		};
+		52A48AF22C8989780081E522 /* Reviews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Reviews;
+			sourceTree = "<group>";
+		};
 		52B189972C53B9E900B5B6F9 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -3310,11 +3366,12 @@
 		52E2D39B2C58E72900A8843A /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				52A48ADB2C882FD70081E522 /* Search */,
-				529A5F662C8706D1004FE4A1 /* Favorites */,
-				529A5F652C8706C7004FE4A1 /* Categories */,
 				52522F352C6DD9860015709C /* Home */,
+				52A48ADB2C882FD70081E522 /* Search */,
+				529A5F652C8706C7004FE4A1 /* Categories */,
+				529A5F662C8706D1004FE4A1 /* Favorites */,
 				52522F342C6DD9480015709C /* Profile */,
+				52A48AEE2C8988CC0081E522 /* PlaceDetails */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -3340,7 +3397,7 @@
 		52E95F052C6B797E00A3FE2E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				52E95F032C6B71B900A3FE2E /* CombineNetworkHelper.swift */,
+				52E95F032C6B71B900A3FE2E /* NetworkHelper.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -4933,6 +4990,7 @@
 				47DF72B922520CE20004AB10 /* MWMRoutingOptions.mm in Sources */,
 				999FC12023ABA9AD00B0E6F9 /* SearchStyleSheet.swift in Sources */,
 				3D15ACEE2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm in Sources */,
+				52EF1B662C8989F9003046A4 /* PlaceViewModel.swift in Sources */,
 				9977E6A32480F9BF0073780C /* BottomMenuLayerButtonRenderer.swift in Sources */,
 				3454D7D11E07F045004AF2AD /* UIImage+RGBAData.m in Sources */,
 				52B573EC2C61E1C10047FAC9 /* SignInViewController.swift in Sources */,
@@ -4983,6 +5041,7 @@
 				993DF0B523F6B2EF00AC231A /* PlacePageElevationLayout.swift in Sources */,
 				44360A0D2A7D34990016F412 /* TransportRuler.swift in Sources */,
 				CD6E8677226774C700D1EDF7 /* CPConstants.swift in Sources */,
+				52EF1B622C8989F1003046A4 /* PlaceViewController.swift in Sources */,
 				529A5F642C86E39A004FE4A1 /* AppSearchBar.swift in Sources */,
 				99A906DE23F6F7030005872B /* PlacePageBookmarkViewController.swift in Sources */,
 				52B573F92C6223CE0047FAC9 /* AuthBackButton.swift in Sources */,
@@ -5096,6 +5155,7 @@
 				529A5F6E2C870FAF004FE4A1 /* HomeViewModel.swift in Sources */,
 				9989273B2449E60200260CE2 /* BottomMenuBuilder.swift in Sources */,
 				993DF10F23F6BDB100AC231A /* UIActivityIndicatorRenderer.swift in Sources */,
+				52A48AE32C887BA00081E522 /* PlacesRepositoryImpl.swift in Sources */,
 				99A614E423CDD1D900D8D8D0 /* UIButton+RuntimeAttributes.m in Sources */,
 				52CD2D852C6F093B00CCC439 /* CurrencyRepository.swift in Sources */,
 				343E75981E5B1EE20041226A /* MWMCollectionViewController.m in Sources */,
@@ -5112,6 +5172,7 @@
 				6741A9E71BF340DE002C974C /* MWMCircularProgressView.m in Sources */,
 				34AC8FDB1EFC07FE00E7F910 /* UILabel+NumberOfVisibleLines.swift in Sources */,
 				52ED91A52C72C50F000EE25B /* CurrencyRepositoryImpl.swift in Sources */,
+				52A48AE92C888AD90081E522 /* ReviewsRepositoryImpl.swift in Sources */,
 				ED79A5AD2BD7BA0F00952D1F /* UIApplication+LoadingOverlay.swift in Sources */,
 				9959C75C24599CCD008FD4FD /* DirectionView.swift in Sources */,
 				47CA68D62500448D00671019 /* BookmarksListInteractor.swift in Sources */,
@@ -5199,6 +5260,7 @@
 				99A906E123F6F7030005872B /* PlacePageButtonsViewController.swift in Sources */,
 				998927382449E60200260CE2 /* BottomMenuPresenter.swift in Sources */,
 				F6E2FE821E097BA00083EBEC /* MWMPlacePageOpeningHoursDayView.m in Sources */,
+				52A48AED2C888B370081E522 /* ReviewsService.swift in Sources */,
 				F6E2FD6B1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.m in Sources */,
 				CDCA27842245090900167D87 /* ListenerContainer.swift in Sources */,
 				52ED91A92C73020A000EE25B /* CurrencyService.swift in Sources */,
@@ -5223,6 +5285,7 @@
 				993DF12023F6BDB100AC231A /* TabViewRenderer.swift in Sources */,
 				F6E2FE131E097BA00083EBEC /* MWMOpeningHoursTimeSelectorTableViewCell.mm in Sources */,
 				F626D52F1C3E83F800C17D15 /* MWMTableViewCell.m in Sources */,
+				52A48AE72C8882A90081E522 /* ReviewsRepository.swift in Sources */,
 				34AB66591FC5AA330078E451 /* TransportTransitFlowLayout.swift in Sources */,
 				EDBD680B2B62572E005DD151 /* LocationServicesDisabledAlert.swift in Sources */,
 				3486B5191E27AD3B0069C126 /* MWMFrameworkListener.mm in Sources */,
@@ -5253,12 +5316,14 @@
 				34AB66381FC5AA330078E451 /* RouteManagerCell.swift in Sources */,
 				ED1263AB2B6F99F900AD99F3 /* UIView+AddSeparator.swift in Sources */,
 				CD4A1F132305872700F2A6B6 /* PromoBookingPresentationController.swift in Sources */,
+				52A48AEB2C888B2C0081E522 /* PlacesService.swift in Sources */,
 				3472B5D3200F501500DC6CD5 /* BackgroundFetchTaskFrameworkType.swift in Sources */,
 				47E460AD240D737D00385B45 /* OpeinigHoursLocalization.swift in Sources */,
 				99F9A0E52462CA0E00AE21E0 /* DownloadAllView.swift in Sources */,
 				F6E2FF301E097BA00083EBEC /* MWMSearchCommonCell.mm in Sources */,
 				337F98B821D3D67E00C8AC27 /* SearchHistoryQueryCell.swift in Sources */,
 				34AB66621FC5AA330078E451 /* TransportTransitSeparator.swift in Sources */,
+				52A48AE52C887EA70081E522 /* PlacesRepository.swift in Sources */,
 				CDCA2743223F8D1E00167D87 /* ListItemInfo.swift in Sources */,
 				993DF11F23F6BDB100AC231A /* UITableViewCellRenderer.swift in Sources */,
 				4767CDA820AB401000BD8166 /* LinkTextView.swift in Sources */,
@@ -5281,7 +5346,7 @@
 				52522F3E2C6DDF190015709C /* PersonalData.swift in Sources */,
 				F63AF5061EA6162400A1DB98 /* FilterTypeCell.swift in Sources */,
 				993DF10623F6BDB100AC231A /* UIColor+rgba.swift in Sources */,
-				52E95F042C6B71B900A3FE2E /* CombineNetworkHelper.swift in Sources */,
+				52E95F042C6B71B900A3FE2E /* NetworkHelper.swift in Sources */,
 				EDC3573B2B7B5029001AE9CA /* CALayer+SetCorner.swift in Sources */,
 				47E3C7332111F4D8008B3B27 /* CoverVerticalDismissalAnimator.swift in Sources */,
 				471AB99423ABA3BD00F56D49 /* SearchMapsDataSource.swift in Sources */,

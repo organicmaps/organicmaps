@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct SingleChoiceItem<T: Equatable & Hashable> {
+struct SingleChoiceItem<T: Equatable & Hashable> : Identifiable {
   let id: T
   let label: String
 }

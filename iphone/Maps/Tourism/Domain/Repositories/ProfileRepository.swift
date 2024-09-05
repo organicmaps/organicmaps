@@ -3,7 +3,6 @@ import Combine
 
 protocol ProfileRepository {
   var personalDataPassThroughSubject: PassthroughSubject<PersonalData, ResourceError> { get }
-  
   func getPersonalData()
   
   func updateProfile(
