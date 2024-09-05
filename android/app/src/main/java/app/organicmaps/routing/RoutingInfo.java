@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 
 import app.organicmaps.R;
 import app.organicmaps.util.Distance;
+import app.organicmaps.util.SpeedFormatted;
 
 // Called from JNI.
 @Keep
@@ -36,8 +37,8 @@ public class RoutingInfo
   public final PedestrianTurnDirection pedestrianTurnDirection;
   // Current speed limit in meters per second.
   // If no info about speed limit then speedLimitMps < 0.
-  public final double speedLimitMps;
-  public final boolean speedLimitExceeded;
+  public final SpeedFormatted speed;
+  public final SpeedFormatted speedLimit;
   private final boolean speedCamLimitExceeded;
   private final boolean shouldPlayWarningSignal;
 
@@ -144,7 +145,7 @@ public class RoutingInfo
 
   public RoutingInfo(Distance distToTarget, Distance distToTurn, String currentStreet, String nextStreet, String nextNextStreet, double completionPercent,
                      int vehicleTurnOrdinal, int vehicleNextTurnOrdinal, int pedestrianTurnOrdinal, int exitNum,
-                     int totalTime, SingleLaneInfo[] lanes, double speedLimitMps, boolean speedLimitExceeded,
+                     int totalTime, SingleLaneInfo[] lanes, SpeedFormatted speed, SpeedFormatted speedLimit,
                      boolean speedCamLimitExceeded, boolean shouldPlayWarningSignal)
   {
     this.distToTarget = distToTarget;
@@ -159,8 +160,8 @@ public class RoutingInfo
     this.lanes = lanes;
     this.exitNum = exitNum;
     this.pedestrianTurnDirection = PedestrianTurnDirection.values()[pedestrianTurnOrdinal];
-    this.speedLimitMps = speedLimitMps;
-    this.speedLimitExceeded = speedLimitExceeded;
+    this.speed = speed;
+    this.speedLimit = speedLimit;
     this.speedCamLimitExceeded = speedCamLimitExceeded;
     this.shouldPlayWarningSignal = shouldPlayWarningSignal;
   }
