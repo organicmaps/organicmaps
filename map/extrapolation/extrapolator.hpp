@@ -52,7 +52,6 @@ public:
   void OnLocationUpdate(location::GpsInfo const & gpsInfo);
   // @TODO(bykoianko) Gyroscope information should be taken into account as well for calculation
   // extrapolated position.
-  location::GpsInfo const * GetLastLocation();
 
   void Enable(bool enabled);
 

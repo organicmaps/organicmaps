@@ -190,11 +190,6 @@ void Framework::OnCompassUpdate(CompassInfo const & info)
     m_drapeEngine->SetCompassInfo(rInfo);
 }
 
-GpsInfo const * Framework::GetLastLocation()
-{
-  return m_routingManager.GetLastLocation();
-}
-
 void Framework::SwitchMyPositionNextMode()
 {
   if (m_drapeEngine != nullptr)

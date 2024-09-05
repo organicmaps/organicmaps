@@ -173,6 +173,7 @@ public:
   void SetGuidesForTests(GuidesTracks guides) { m_router->SetGuidesTracks(std::move(guides)); }
 
   double GetCompletionPercent() const;
+  double GetLastSpeed() const { return m_lastSpeed; }
 
 private:
   struct DoReadyCallback
@@ -208,6 +209,7 @@ private:
   double m_lastDistance = 0.0;
   int m_moveAwayCounter = 0;
   m2::PointD m_lastGoodPosition;
+  double m_lastSpeed = -1.0;
 
   m2::PointD m_userCurrentPosition;
   bool m_userCurrentPositionValid = false;

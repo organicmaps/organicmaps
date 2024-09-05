@@ -472,11 +472,6 @@ void RoutingManager::OnLocationUpdate(location::GpsInfo const & info)
   m_extrapolator.OnLocationUpdate(info);
 }
 
-location::GpsInfo const * RoutingManager::GetLastLocation()
-{
-  return m_extrapolator.GetLastLocation();
-}
-
 RouterType RoutingManager::GetBestRouter(m2::PointD const & startPoint,
                                          m2::PointD const & finalPoint) const
 {

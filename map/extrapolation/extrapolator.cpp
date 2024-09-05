@@ -149,11 +149,6 @@ void Extrapolator::OnLocationUpdate(location::GpsInfo const & gpsInfo)
   RunTaskOnBackgroundThread(false /* delayed */);
 }
 
-location::GpsInfo const * Extrapolator::GetLastLocation()
-{
-  return &m_lastGpsInfo;
-}
-
 void Extrapolator::Enable(bool enabled)
 {
   lock_guard<mutex> guard(m_mutex);
