@@ -174,11 +174,6 @@ public:
 
   double GetCompletionPercent() const;
 
-  // Convert speed and speed limit from meters/sec to miles/h or km/h.
-  // If current speed is the less or equal to max allowed speed then return false.
-  // We do comparison using floored speed values because on UI user see such values.
-  static bool IsSpeedLimitExceeded(double currentSpeedMps, double speedLimitMps, measurement_utils::Units units);
-
 private:
   struct DoReadyCallback
   {

@@ -465,20 +465,6 @@ double RoutingSession::GetCompletionPercent() const
   return percent;
 }
 
-bool RoutingSession::IsSpeedLimitExceeded(double currentSpeedMps, double speedLimitMps,
-                                        const measurement_utils::Units units)
-{
-  if (currentSpeedMps <= 0 || speedLimitMps <= 0)
-    return false;
-
-  // First convert meters/s to localized units
-  double currentSpeedLocal = measurement_utils::MpsToUnits(currentSpeedMps, units);
-  double speedLimitLocal = measurement_utils::MpsToUnits(speedLimitMps, units);
-
-  // Floor speed and limit speed before comparison
-  return static_cast<int>(currentSpeedLocal) > static_cast<int>(speedLimitLocal);
-}
-
 void RoutingSession::PassCheckpoints()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
