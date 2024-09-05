@@ -566,7 +566,6 @@ bool SaveGpxData(kml::FileData & kmlData, Writer & writer)
 bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, KmlFileType fileType)
 {
   FileWriter writer(file);
-  LOG(LINFO, ("Save kml file", file, ", type", fileType));
   switch (fileType)
   {
   case KmlFileType::Text:  // fallthrough
@@ -582,6 +581,7 @@ bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, KmlFileType 
 
 bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, KmlFileType fileType)
 {
+  LOG(LINFO, ("Save kml file of type", fileType, "to", file));
   return base::WriteToTempAndRenameToFile(file, [&kmlData, fileType](std::string const & fileName)
   {
     return SaveKmlFile(kmlData, fileName, fileType);
