@@ -178,6 +178,7 @@ public:
   static std::string ToWikiURL(std::string v);
   std::string GetWikiURL() const;
   static std::string ToWikimediaCommonsURL(std::string v);
+  static std::string encodeWikiURL(std::string v, int startIndex);
 
   void ClearPOIAttribs();
 };
