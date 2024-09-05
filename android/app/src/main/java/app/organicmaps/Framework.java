@@ -187,11 +187,11 @@ public class Framework
 
   public static native DistanceAndAzimut nativeGetDistanceAndAzimuthFromLatLon(double dstLat, double dstLon, double srcLat, double srcLon, double north);
 
-  public static native String nativeFormatLatLon(double lat, double lon, int coordFormat);
+  public static native String nativeFormatLatLon(double lat, double lon, int coordFormat); // TODO: move this method to StringUtils class.
 
-  public static native String nativeFormatAltitude(double alt);
+  public static native String nativeFormatAltitude(double alt); // TODO: move this method to StringUtils class.
 
-  public static native String nativeFormatSpeed(double speed);
+  public static native String nativeFormatSpeed(double speed); // TODO: move this method to StringUtils class.
 
   public static native String nativeGetGe0Url(double lat, double lon, double zoomLevel, String name);
 
