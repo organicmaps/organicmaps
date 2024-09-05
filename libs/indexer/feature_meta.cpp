@@ -58,21 +58,7 @@ string Metadata::ToWikiURL(std::string v)
   if (colon == string::npos)
     return v;
 
-  // Spaces, % and ? characters should be corrected to form a valid URL's path.
-  // Standard percent encoding also encodes other characters like (), which lead to an unnecessary HTTP redirection.
-  for (auto i = colon; i < v.size(); ++i)
-  {
-    auto & c = v[i];
-    if (c == ' ')
-      c = '_';
-    else if (c == '%')
-      v.insert(i + 1, "25");  // % => %25
-    else if (c == '?')
-    {
-      c = '%';
-      v.insert(i + 1, "3F");  // ? => %3F
-    }
-  }
+  v = encodeWikiURL(v, colon);
 
   // Trying to avoid redirects by constructing the right link.
   // TODO: Wikipedia article could be opened in a user's language, but need
@@ -90,25 +76,34 @@ std::string Metadata::ToWikimediaCommonsURL(std::string v)
   if (v.empty())
     return v;
 
-  // Spaces and ? characters should be corrected to form a valid URL's path.
-  for (auto i = 0; i < v.size(); ++i)
-  {
-    auto & c = v[i];
-    if (c == ' ')
-      c = '_';
-    else if (c == '?')
-    {
-      c = '%';
-      v.insert(++i, "3F");  // ? => %3F
-    }
-  }
-  
+  v = encodeWikiURL(v, 0);
+
   // Use the media viewer for single files
   if (v.starts_with("File:"))
     return kBaseCommonsUrl + v + "#/media/" + v;
 
   // or standard if it's a category
   return kBaseCommonsUrl + v;
+}
+
+std::string Metadata::encodeWikiURL(std::string v, int startIndex) {
+  // Spaces and ? characters should be corrected to form a valid URL's path.
+  // Standard percent encoding also encodes other characters like (), which lead to an unnecessary HTTP redirection.
+  for (auto i = startIndex; i < v.size(); ++i)
+  {
+    auto & c = v[i];
+    if (c == ' ')
+    {
+      c = '_';
+    }
+    else if (c == '?')
+    {
+      c = '%';
+      v.insert(i + 1, "3F");  // ? => %3F
+    }
+  }
+  
+  return v;
 }
 
 // static
