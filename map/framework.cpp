@@ -1721,6 +1721,8 @@ void Framework::StopTrackRecording()
   auto & tracker = GpsTracker::Instance();
   tracker.Disconnect();
   tracker.SetEnabled(false);
+  if (m_drapeEngine)
+    m_drapeEngine->ClearGpsTrackPoints();
 }
 
 void Framework::SaveTrackRecordingWithName(std::string const & name)
