@@ -831,7 +831,7 @@ node|z15[amenity=pub],
 area|z15[amenity=pub],
 node|z15[amenity=biergarten],
 area|z15[amenity=biergarten]
-{icon-image: beer-m.svg;icon-min-distance: 28;}
+{icon-image: pub-m.svg;icon-min-distance: 28;}
 
 node|z16-[amenity=cafe],
 area|z16-[amenity=cafe]
@@ -851,7 +851,7 @@ node|z16-[amenity=pub],
 area|z16-[amenity=pub],
 node|z16-[amenity=biergarten],
 area|z16-[amenity=biergarten]
-{icon-image: beer-m.svg;icon-min-distance: 12;}
+{icon-image: pub-m.svg;icon-min-distance: 12;}
 
 
 /* 5.AMENITY (infrastructure) */
@@ -1983,10 +1983,10 @@ area|z17-[shop=mall],
 
 node|z16[shop=supermarket],
 area|z16[shop=supermarket],
-{icon-image: grocery-m.svg;font-size: 11;icon-min-distance: 16;}
+{icon-image: supermarket-m.svg;font-size: 11;icon-min-distance: 16;}
 node|z17-[shop=supermarket],
 area|z17-[shop=supermarket],
-{icon-image: grocery-m.svg;font-size: 11;icon-min-distance: 8;}
+{icon-image: supermarket-m.svg;font-size: 11;icon-min-distance: 8;}
 
 node|z16[shop=cheese],
 area|z16[shop=cheese]
@@ -2087,7 +2087,7 @@ node|z16[shop=confectionery],
 area|z16[shop=confectionery],
 node|z16[shop=chocolate],
 area|z16[shop=chocolate]
-{icon-image: sweets-m.svg;}
+{icon-image: confectionery-m.svg;}
 node|z16[amenity=ice_cream],
 area|z16[amenity=ice_cream]
 {icon-image: ice_cream-m.svg;}
@@ -2314,7 +2314,7 @@ node|z17-[shop=confectionery],
 area|z17-[shop=confectionery],
 node|z17-[shop=chocolate],
 area|z17-[shop=chocolate]
-{icon-image: sweets-m.svg;icon-min-distance: 24;}
+{icon-image: confectionery-m.svg;icon-min-distance: 24;}
 node|z17-[amenity=ice_cream],
 area|z17-[amenity=ice_cream]
 {icon-image: ice_cream-m.svg;icon-min-distance: 24;}
@@ -2479,7 +2479,7 @@ node|z17-[craft=caterer],
 {icon-image:caterer-m.svg;}
 node|z17-[craft=confectionery],
 area|z17-[craft=confectionery]
-{icon-image:sweets-m.svg;}
+{icon-image:confectionery-m.svg;}
 node|z17-[craft=electrician],
 area|z17-[craft=electrician]
 {icon-image:electrician-m.svg;}
