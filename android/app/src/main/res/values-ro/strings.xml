@@ -811,8 +811,6 @@
 	<string name="select_option">Selectați opțiunea</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">Scaune în aer liber</string>
-	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
-	<string name="power_save_dialog_title">Dezactivați modul de economisire a energiei</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Pentru o navigare cât mai precisă, vă recomandăm să dezactivați modul de economisire a energiei în setările pentru baterie ale telefonului.</string>
 	<!-- Prompt to start recording a track. -->

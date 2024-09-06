@@ -838,8 +838,6 @@
 	<string name="select_option">Seçeneği seçin</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">Açık oturma alanı</string>
-	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
-	<string name="power_save_dialog_title">Güç Tasarrufu Modunu Kapat</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">En doğru navigasyon için, telefonun pil ayarlarında güç tasarrufu modunu devre dışı bırakmanızı öneririz.</string>
 	<!-- Prompt to start recording a track. -->

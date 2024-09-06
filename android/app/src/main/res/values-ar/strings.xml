@@ -843,8 +843,6 @@
 	<string name="select_option">حدد الخيار</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">مقاعد خارجية</string>
-	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
-	<string name="power_save_dialog_title">إيقاف تشغيل وضع توفير الطاقة</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">للحصول على التنقل الأكثر دقة، نوصي بتعطيل وضع توفير الطاقة في إعدادات بطارية الهاتف.</string>
 	<!-- Prompt to start recording a track. -->

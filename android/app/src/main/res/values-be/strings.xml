@@ -823,8 +823,6 @@
 	<string name="select_option">Выберыце варыянт</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">Месцы на адкрытым паветры</string>
-	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
-	<string name="power_save_dialog_title">Выключыць рэжым энергазберажэння</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Для найбольш дакладнай навігацыі рэкамендуем адключыць рэжым энергазберажэння ў наладах батарэі тэлефона.</string>
 	<!-- Prompt to start recording a track. -->

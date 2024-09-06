@@ -797,8 +797,6 @@
 	<string name="select_option">Selecionar opção</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">Assentos ao ar livre</string>
-	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
-	<string name="power_save_dialog_title">Desativar o modo de economia de energia</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Para uma navegação mais precisa, recomendamos que desactive o modo de poupança de energia nas definições da bateria do telemóvel.</string>
 	<!-- Prompt to start recording a track. -->

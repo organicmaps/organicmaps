@@ -783,8 +783,6 @@
 	<string name="select_option">Välj alternativ</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">Sittplatser utomhus</string>
-	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
-	<string name="power_save_dialog_title">Stäng av energisparläget</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">För att få den mest exakta navigeringen rekommenderar vi att du avaktiverar energisparläget i telefonens batteriinställningar.</string>
 	<!-- Prompt to start recording a track. -->

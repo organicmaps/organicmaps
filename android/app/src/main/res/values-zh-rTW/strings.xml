@@ -843,8 +843,6 @@
 	<string name="select_option">選擇選項</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">戶外座位</string>
-	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
-	<string name="power_save_dialog_title">關閉省電模式</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">為了獲得最準確的導航，我們建議在手機電池設定中停用省電模式。</string>
 	<!-- Prompt to start recording a track. -->

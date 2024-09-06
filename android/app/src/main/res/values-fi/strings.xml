@@ -833,8 +833,6 @@
 	<string name="select_option">Valitse vaihtoehto</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">Ulkona istuminen</string>
-	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
-	<string name="power_save_dialog_title">Poista virransäästötila käytöstä</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Jotta navigointi olisi mahdollisimman tarkkaa, suosittelemme virransäästötilan poistamista käytöstä puhelimen akkuasetuksista.</string>
 	<!-- Prompt to start recording a track. -->

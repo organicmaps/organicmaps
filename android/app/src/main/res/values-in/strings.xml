@@ -786,8 +786,6 @@
 	<string name="select_option">Pilih opsi</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">Tempat duduk di luar ruangan</string>
-	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
-	<string name="power_save_dialog_title">Matikan Mode Hemat Daya</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Untuk navigasi yang paling akurat, kami sarankan untuk menonaktifkan mode hemat daya dalam pengaturan baterai ponsel.</string>
 	<!-- Prompt to start recording a track. -->

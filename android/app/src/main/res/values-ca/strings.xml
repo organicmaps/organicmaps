@@ -834,8 +834,6 @@
 	<string name="select_option">Seleccioneu l\'opció</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">Seients a l\'aire lliure</string>
-	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
-	<string name="power_save_dialog_title">Desactiva el mode d\'estalvi d\'energia</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Per a una navegació més precisa, recomanem desactivar el mode d\'estalvi d\'energia a la configuració de la bateria del telèfon.</string>
 	<!-- Prompt to start recording a track. -->

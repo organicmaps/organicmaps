@@ -822,8 +822,6 @@
 	<string name="select_option">Valige valik</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">Istekohad õues</string>
-	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
-	<string name="power_save_dialog_title">Lülita välja energiasäästurežiim</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Kõige täpsema navigeerimise tagamiseks soovitame telefoni aku seadetes energiasäästurežiimi välja lülitada.</string>
 	<!-- Prompt to start recording a track. -->

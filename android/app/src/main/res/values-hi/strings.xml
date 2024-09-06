@@ -564,8 +564,6 @@
 	<string name="select_option">विकल्प चुनें</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">घर के बाहर बैठने</string>
-	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
-	<string name="power_save_dialog_title">पावर सेविंग मोड बंद करें</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">सबसे सटीक नेविगेशन के लिए, हम फ़ोन की बैटरी सेटिंग्स में पावर सेविंग मोड को अक्षम करने की सलाह देते हैं।</string>
 	<!-- Prompt to start recording a track. -->

@@ -752,8 +752,6 @@
 	<!-- To indicate if the place proposed self service... -->
 	<string name="self_service">Autoatendimento</string>
 	<string name="select_option">Selecionar opção</string>
-	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
-	<string name="power_save_dialog_title">Desativar o modo de economia de energia</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Para obter uma navegação mais precisa, recomendamos que você desative o modo de economia de energia nas configurações de bateria do telefone.</string>
 	<!-- Prompt to start recording a track. -->

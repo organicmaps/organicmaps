@@ -784,8 +784,6 @@
 	<string name="select_option">เลือกตัวเลือก</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">ที่นั่งกลางแจ้ง</string>
-	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
-	<string name="power_save_dialog_title">ปิดโหมดประหยัดพลังงาน</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">เพื่อการนำทางที่แม่นยำที่สุด เราขอแนะนำให้ปิดใช้งานโหมดประหยัดพลังงานในการตั้งค่าแบตเตอรี่ของโทรศัพท์</string>
 	<!-- Prompt to start recording a track. -->

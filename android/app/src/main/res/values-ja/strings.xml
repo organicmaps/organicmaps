@@ -832,8 +832,6 @@
 	<string name="select_option">オプションを選択する</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">屋外席</string>
-	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
-	<string name="power_save_dialog_title">省電力モードをオフにする</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">最も正確なナビゲーションのためには、携帯電話のバッテリー設定で省電力モードを無効にすることをお勧めする。</string>
 	<!-- Prompt to start recording a track. -->

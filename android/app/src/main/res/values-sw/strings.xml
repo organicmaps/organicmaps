@@ -359,8 +359,6 @@
 	<string name="select_option">Chagua chaguo</string>
 	<!-- To indicate if restaurant or other place has outdoor seating -->
 	<string name="outdoor_seating">Viti vya nje</string>
-	<!-- Disclaimer title shown when Power Saving Mode is enabled -->
-	<string name="power_save_dialog_title">Zima Hali ya Kuokoa Nguvu</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Kwa urambazaji sahihi zaidi, tunapendekeza kuzima hali ya kuokoa nishati katika mipangilio ya betri ya simu.</string>
 	<!-- Prompt to start recording a track. -->
