@@ -31,7 +31,12 @@ class HomeViewController: UIViewController {
         goToCategoriesTab: goToCategoriesTab,
         goToSearchScreen: { query in
           let destinationVC = SearchViewController(searchVM: self.searchVM)
-          self.navigationController?.pushViewController(destinationVC, animated: true)
+          self.navigationController?.pushViewController(destinationVC, animated: false)
+        },
+        goToPlaceScreen: { id in
+          let destinationVC = PlaceViewController(placeId: id)
+          self.navigationController?.pushViewController(destinationVC, animated: false)
+          self.tabBarController?.tabBar.isHidden = true
         }
       )
     )
@@ -43,6 +48,7 @@ struct HomeScreen: View {
   @ObservedObject var categoriesVM: CategoriesViewModel
   var goToCategoriesTab: () -> Void
   var goToSearchScreen: (String) -> Void
+  var goToPlaceScreen: (Int64) -> Void
   
   @State var top30: SingleChoiceItem<Int>? = SingleChoiceItem(id: 1, label: L("top30"))
   
@@ -95,7 +101,7 @@ struct HomeScreen: View {
               title: L("sights"),
               items: sights,
               onPlaceClick: { place in
-                
+                goToPlaceScreen(place.id)
               },
               setFavoriteChanged: { place, isFavorite in
                 

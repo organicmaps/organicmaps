@@ -367,6 +367,11 @@
 		52E95F072C6B7E2400A3FE2E /* SignUpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E95F062C6B7E2400A3FE2E /* SignUpRequest.swift */; };
 		52E95F0B2C6B8CC800A3FE2E /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E95F0A2C6B8CC800A3FE2E /* UIViewControllerExtensions.swift */; };
 		52E95F0D2C6C797B00A3FE2E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E95F0C2C6C797B00A3FE2E /* ProfileViewController.swift */; };
+		52ECA80F2C8A0D5F00F213B3 /* DescriptionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECA80E2C8A0D5F00F213B3 /* DescriptionScreen.swift */; };
+		52ECA8132C8A0D7A00F213B3 /* ReviewsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECA8122C8A0D7A00F213B3 /* ReviewsScreen.swift */; };
+		52ECA8152C8A0D9E00F213B3 /* GalleryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECA8142C8A0D9E00F213B3 /* GalleryScreen.swift */; };
+		52ECA8182C8A255900F213B3 /* PlaceTabsBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECA8172C8A255900F213B3 /* PlaceTabsBar.swift */; };
+		52ECA81A2C8A25D800F213B3 /* PlaceTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECA8192C8A25D800F213B3 /* PlaceTopBar.swift */; };
 		52ED919D2C71F639000EE25B /* SimpleResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED919C2C71F639000EE25B /* SimpleResponse.swift */; };
 		52ED919F2C71F718000EE25B /* SignUpRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED919E2C71F718000EE25B /* SignUpRequestDTO.swift */; };
 		52ED91A32C7200C4000EE25B /* Currency.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 52ED91A12C7200C4000EE25B /* Currency.xcdatamodeld */; };
@@ -1402,6 +1407,11 @@
 		52E95F062C6B7E2400A3FE2E /* SignUpRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequest.swift; sourceTree = "<group>"; };
 		52E95F0A2C6B8CC800A3FE2E /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		52E95F0C2C6C797B00A3FE2E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		52ECA80E2C8A0D5F00F213B3 /* DescriptionScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionScreen.swift; sourceTree = "<group>"; };
+		52ECA8122C8A0D7A00F213B3 /* ReviewsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsScreen.swift; sourceTree = "<group>"; };
+		52ECA8142C8A0D9E00F213B3 /* GalleryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryScreen.swift; sourceTree = "<group>"; };
+		52ECA8172C8A255900F213B3 /* PlaceTabsBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlaceTabsBar.swift; path = Tourism/Presentation/Home/Screens/Profile/PlaceDetails/Gallery/PlaceTabsBar.swift; sourceTree = SOURCE_ROOT; };
+		52ECA8192C8A25D800F213B3 /* PlaceTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceTopBar.swift; sourceTree = "<group>"; };
 		52ED919C2C71F639000EE25B /* SimpleResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleResponse.swift; sourceTree = "<group>"; };
 		52ED919E2C71F718000EE25B /* SignUpRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequestDTO.swift; sourceTree = "<group>"; };
 		52ED91A22C7200C4000EE25B /* CurrencyRates.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CurrencyRates.xcdatamodel; sourceTree = "<group>"; };
@@ -3285,9 +3295,10 @@
 		52A48AEE2C8988CC0081E522 /* PlaceDetails */ = {
 			isa = PBXGroup;
 			children = (
+				52ECA8162C8A253D00F213B3 /* Components */,
 				52A48AF02C8989630081E522 /* Description */,
-				52A48AF22C8989780081E522 /* Reviews */,
 				52A48AF12C89896B0081E522 /* Gallery */,
+				52A48AF22C8989780081E522 /* Reviews */,
 				52EF1B612C8989F1003046A4 /* PlaceViewController.swift */,
 				52EF1B652C8989F9003046A4 /* PlaceViewModel.swift */,
 			);
@@ -3298,6 +3309,7 @@
 		52A48AF02C8989630081E522 /* Description */ = {
 			isa = PBXGroup;
 			children = (
+				52ECA80E2C8A0D5F00F213B3 /* DescriptionScreen.swift */,
 			);
 			path = Description;
 			sourceTree = "<group>";
@@ -3305,6 +3317,7 @@
 		52A48AF12C89896B0081E522 /* Gallery */ = {
 			isa = PBXGroup;
 			children = (
+				52ECA8142C8A0D9E00F213B3 /* GalleryScreen.swift */,
 			);
 			path = Gallery;
 			sourceTree = "<group>";
@@ -3312,6 +3325,7 @@
 		52A48AF22C8989780081E522 /* Reviews */ = {
 			isa = PBXGroup;
 			children = (
+				52ECA8122C8A0D7A00F213B3 /* ReviewsScreen.swift */,
 			);
 			path = Reviews;
 			sourceTree = "<group>";
@@ -3400,6 +3414,15 @@
 				52E95F032C6B71B900A3FE2E /* NetworkHelper.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		52ECA8162C8A253D00F213B3 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				52ECA8172C8A255900F213B3 /* PlaceTabsBar.swift */,
+				52ECA8192C8A25D800F213B3 /* PlaceTopBar.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		52ED91A02C72007C000EE25B /* DataModels */ = {
@@ -4916,6 +4939,7 @@
 				47F86D0120C93D8D00FEE291 /* TabViewController.swift in Sources */,
 				52E95F022C6B32E500A3FE2E /* ErrorResponse.swift in Sources */,
 				99536113235DB86C008B218F /* InsetsLabel.swift in Sources */,
+				52ECA8182C8A255900F213B3 /* PlaceTabsBar.swift in Sources */,
 				6741A9A51BF340DE002C974C /* MWMShareActivityItem.mm in Sources */,
 				994F790723E85C5900660E75 /* DifficultyView.swift in Sources */,
 				F6E2FF5D1E097BA00083EBEC /* MWMRecentTrackSettingsController.mm in Sources */,
@@ -5046,6 +5070,7 @@
 				99A906DE23F6F7030005872B /* PlacePageBookmarkViewController.swift in Sources */,
 				52B573F92C6223CE0047FAC9 /* AuthBackButton.swift in Sources */,
 				52522F4A2C6DFE580015709C /* BackButtonWithText.swift in Sources */,
+				52ECA80F2C8A0D5F00F213B3 /* DescriptionScreen.swift in Sources */,
 				529A5F2B2C86DF2D004FE4A1 /* PlaceShort.swift in Sources */,
 				F6791B141C43DF0B007A8A6E /* MWMStartButton.m in Sources */,
 				9977E6A12480E1EE0073780C /* BottomMenuLayerButton.swift in Sources */,
@@ -5173,6 +5198,7 @@
 				34AC8FDB1EFC07FE00E7F910 /* UILabel+NumberOfVisibleLines.swift in Sources */,
 				52ED91A52C72C50F000EE25B /* CurrencyRepositoryImpl.swift in Sources */,
 				52A48AE92C888AD90081E522 /* ReviewsRepositoryImpl.swift in Sources */,
+				52ECA8132C8A0D7A00F213B3 /* ReviewsScreen.swift in Sources */,
 				ED79A5AD2BD7BA0F00952D1F /* UIApplication+LoadingOverlay.swift in Sources */,
 				9959C75C24599CCD008FD4FD /* DirectionView.swift in Sources */,
 				47CA68D62500448D00671019 /* BookmarksListInteractor.swift in Sources */,
@@ -5296,6 +5322,7 @@
 				3454D7BC1E07F045004AF2AD /* CLLocation+Mercator.mm in Sources */,
 				47E3C7272111E5A8008B3B27 /* AlertPresentationController.swift in Sources */,
 				CDCA27812243F59800167D87 /* CarPlayRouter.swift in Sources */,
+				52ECA81A2C8A25D800F213B3 /* PlaceTopBar.swift in Sources */,
 				34F5E0D41E3F254800B1C415 /* UIView+Hierarchy.swift in Sources */,
 				6741AA0B1BF340DE002C974C /* MWMMapViewControlsManager.mm in Sources */,
 				F6E2FED91E097BA00083EBEC /* MWMSearchContentView.m in Sources */,
@@ -5330,6 +5357,7 @@
 				34763EE71F2F392300F4D2D3 /* MWMTextToSpeech.mm in Sources */,
 				998927402449ECC200260CE2 /* BottomMenuItemCell.swift in Sources */,
 				F6E2FEE21E097BA00083EBEC /* MWMSearchManager.mm in Sources */,
+				52ECA8152C8A0D9E00F213B3 /* GalleryScreen.swift in Sources */,
 				F6E2FE221E097BA00083EBEC /* MWMOpeningHoursEditorViewController.mm in Sources */,
 				ED79A5D72BDF8D6100952D1F /* SynchronizationStateManager.swift in Sources */,
 				999FC12B23ABB4B800B0E6F9 /* FontStyleSheet.swift in Sources */,

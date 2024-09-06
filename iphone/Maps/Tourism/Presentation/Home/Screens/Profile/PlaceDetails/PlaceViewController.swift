@@ -1,70 +1,73 @@
-import UIKit
 import SwiftUI
 
 class PlaceViewController: UIViewController {
+  let placeId: Int64
+  
+  init(placeId: Int64) {
+    self.placeId = placeId
+    super.init(
+      nibName: nil,
+      bundle: nil
+    )
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     let placeVM = PlaceViewModel()
-    integrateSwiftUIScreen(PlaceScreen(placeVM: placeVM))
+    integrateSwiftUIScreen(PlaceScreen(
+      placeVM: placeVM,
+      id: placeId,
+      showBottomBar: {
+        self.tabBarController?.tabBar.isHidden = false
+      }
+    ))
   }
 }
 
 struct PlaceScreen: View {
   @ObservedObject var placeVM: PlaceViewModel
+  let id: Int64
+  let showBottomBar: () -> Void
   
   @State private var selectedTab = 0
   
+  @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+  
   var body: some View {
-    TabView() {
-        Text("Tab 1")
-            .tabItem {
-                Label("First Tab", systemImage: "house")
-            }
-        Text("Tab 2")
-            .tabItem {
-                Label("Second Tab", systemImage: "person")
-            }
-        // Add more tabs as needed
-    }
+    VStack {
+      PlaceTopBar(
+        title: "place",
+        picUrl: Constants.imageUrlExample,
+        onBackClick: {
+          presentationMode.wrappedValue.dismiss()
+          showBottomBar()
+        },
+        isFavorite: false,
+        onFavoriteChanged: { isFavorite in
+          // TODO: Cmon
+        },
+        onMapClick: {
+          // TODO: Cmon
+        }
+      )
       
-  }
-}
-
-
-struct FirstScreen: View {
-  var body: some View {
-    VStack {
-      Text("First Screen")
-      NavigationLink("Go to Detail", destination: DetailScreen())
+      VStack {
+        PlaceTabsBar(selectedTab: $selectedTab)
+        
+        SwiftUI.TabView(selection: $selectedTab) {
+          DescriptionScreen().tag(0)
+          GalleryScreen().tag(1)
+          ReviewsScreen().tag(2)
+        }
+        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+      }.padding(16)
     }
-    .navigationTitle("First Tab")
-  }
-}
-
-struct SecondScreen: View {
-  var body: some View {
-    VStack {
-      Text("Second Screen")
-      NavigationLink("Go to Detail", destination: DetailScreen())
-    }
-    .navigationTitle("Second Tab")
-  }
-}
-
-struct ThirdScreen: View {
-  var body: some View {
-    VStack {
-      Text("Third Screen")
-      NavigationLink("Go to Detail", destination: DetailScreen())
-    }
-    .navigationTitle("Third Tab")
-  }
-}
-
-struct DetailScreen: View {
-  var body: some View {
-    Text("Detail Screen")
-      .navigationTitle("Detail")
+    .edgesIgnoringSafeArea(.all)
   }
 }

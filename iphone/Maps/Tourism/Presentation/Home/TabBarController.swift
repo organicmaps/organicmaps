@@ -6,6 +6,8 @@ class TabBarController: UITabBarController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    hidesBottomBarWhenPushed = true
+    
     // creating tabs
     let homeTab = UITabBarItem(title: L("home"), image: UIImage(systemName: "house"), selectedImage: UIImage(systemName: "house.fill"))
     let categoriesTab = UITabBarItem(title: L("categories"), image: UIImage(systemName: "list.bullet.rectangle"), selectedImage: UIImage(systemName: "list.bullet.rectangle.fill"))
