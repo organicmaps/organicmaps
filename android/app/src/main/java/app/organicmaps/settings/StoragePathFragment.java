@@ -1,13 +1,12 @@
 package app.organicmaps.settings;
 
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -29,6 +28,7 @@ import java.util.List;
 public class StoragePathFragment extends BaseSettingsFragment
 {
   private TextView mHeader;
+  private ProgressBar mProgressBar;
 
   private StoragePathAdapter mAdapter;
   private StoragePathManager mPathManager;
@@ -48,6 +48,7 @@ public class StoragePathFragment extends BaseSettingsFragment
     mAdapter = new StoragePathAdapter(mPathManager, requireActivity());
 
     mHeader = root.findViewById(R.id.header);
+    mProgressBar = root.findViewById(R.id.progressBar);
     final ListView list = root.findViewById(R.id.list);
     list.setOnItemClickListener((parent, view, position, id) -> changeStorage(position));
     list.setAdapter(mAdapter);
@@ -106,16 +107,10 @@ public class StoragePathFragment extends BaseSettingsFragment
         .show();
   }
 
-  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3629
-  private Dialog showProgressDialog()
+  private void showProgressBar()
   {
-    final ProgressDialog dialog = new ProgressDialog(requireActivity(), R.style.MwmTheme_ProgressDialog);
-    dialog.setMessage(getString(R.string.wait_several_minutes));
-    dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-    dialog.setIndeterminate(true);
-    dialog.setCancelable(false);
-    dialog.show();
-    return dialog;
+    mProgressBar.setVisibility(View.VISIBLE);
+    mProgressBar.setIndeterminate(true);
   }
 
   /**
@@ -123,13 +118,16 @@ public class StoragePathFragment extends BaseSettingsFragment
    */
   private void moveStorage(@NonNull final String newPath, @NonNull final String oldPath)
   {
-    final Dialog dialog = showProgressDialog();
+    showProgressBar();
     ThreadPool.getStorage().execute(() -> {
       final boolean result = StoragePathManager.moveStorage(newPath, oldPath);
 
       UiThread.run(() -> {
-        if (dialog.isShowing())
-          dialog.dismiss();
+        if (mProgressBar.getVisibility() == View.VISIBLE)
+        {
+          mProgressBar.setVisibility(View.GONE);
+          mProgressBar.setIndeterminate(false);
+        }
 
         if (!result)
         {
