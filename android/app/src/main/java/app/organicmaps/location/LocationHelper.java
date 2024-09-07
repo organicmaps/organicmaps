@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Handler;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,6 +41,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   private static final long INTERVAL_TRACK_RECORDING = 0;
 
   private static final long AGPS_EXPIRATION_TIME_MS = 16 * 60 * 60 * 1000; // 16 hours
+  private static final long LOCATION_UPDATE_TIMEOUT_MS = 30 * 1000; // 30 seconds
 
   @NonNull
   private final Context mContext;
@@ -55,6 +57,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
   private long mInterval;
   private boolean mInFirstRun;
   private boolean mActive;
+  private Handler mHandler;
+  private Runnable mLocationTimeoutRunnable = this::notifyLocationUpdateTimeout;
 
   @NonNull
   private final GnssStatusCompat.Callback mGnssStatusCallback = new GnssStatusCompat.Callback()
@@ -104,6 +108,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   {
     mContext = context;
     mLocationProvider = LocationProviderFactory.getProvider(mContext, this);
+    mHandler = new Handler();
   }
 
   /**
@@ -148,6 +153,9 @@ public class LocationHelper implements BaseLocationProvider.Listener
     if (mSavedLocation == null)
       throw new IllegalStateException("No saved location");
 
+    mHandler.removeCallbacks(mLocationTimeoutRunnable);
+    mHandler.postDelayed(mLocationTimeoutRunnable, LOCATION_UPDATE_TIMEOUT_MS); // Reset the timeout.
+
     for (LocationListener listener : mListeners)
       listener.onLocationUpdated(mSavedLocation);
 
@@ -167,6 +175,20 @@ public class LocationHelper implements BaseLocationProvider.Listener
         mSavedLocation.getAltitude(),
         mSavedLocation.getSpeed(),
         mSavedLocation.getBearing());
+  }
+
+  private void notifyLocationUpdateTimeout()
+  {
+    mHandler.removeCallbacks(mLocationTimeoutRunnable);
+    if (!isActive())
+    {
+      Logger.w(TAG, "Provider is not active");
+      return;
+    }
+
+    Logger.d(TAG);
+    for (LocationListener listener : mListeners)
+      listener.onLocationUpdateTimeout();
   }
 
   @Override
@@ -353,6 +375,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
         " mInFirstRun = " + mInFirstRun + " oldInterval = " + oldInterval + " interval = " + mInterval);
     mActive = true;
     mLocationProvider.start(mInterval);
+    mHandler.postDelayed(mLocationTimeoutRunnable, LOCATION_UPDATE_TIMEOUT_MS);
     subscribeToGnssStatusUpdates();
   }
 
@@ -371,6 +394,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
     mLocationProvider.stop();
     unsubscribeFromGnssStatusUpdates();
     SensorHelper.from(mContext).stop();
+    mHandler.removeCallbacks(mLocationTimeoutRunnable);
     mActive = false;
   }
 

@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Build;
-import android.os.Handler;
 import android.os.IBinder;
 
 import androidx.annotation.NonNull;
@@ -36,9 +35,6 @@ public class TrackRecordingService extends Service implements LocationListener
   public static final int TRACK_REC_NOTIFICATION_ID = 54321;
   private NotificationCompat.Builder mNotificationBuilder;
   private static final String TAG = TrackRecordingService.class.getSimpleName();
-  private Handler mHandler;
-  private Runnable mLocationTimeoutRunnable;
-  private static final int LOCATION_UPDATE_TIMEOUT = 30000;
   private boolean mWarningNotification = false;
   private NotificationCompat.Builder mWarningBuilder;
   private PendingIntent mPendingIntent;
@@ -132,7 +128,6 @@ public class TrackRecordingService extends Service implements LocationListener
     mWarningBuilder = null;
     if (TrackRecorder.nativeIsTrackRecordingEnabled())
       TrackRecorder.nativeStopTrackRecording();
-    mHandler.removeCallbacks(mLocationTimeoutRunnable);
     LocationHelper.from(this).removeListener(this);
     // The notification is cancelled automatically by the system.
   }
@@ -147,8 +142,7 @@ public class TrackRecordingService extends Service implements LocationListener
       {
         if (!TrackRecorder.nativeIsTrackRecordingEmpty())
           TrackRecorder.nativeSaveTrackRecordingWithName("");
-        else
-          TrackRecorder.nativeStopTrackRecording();
+        TrackRecorder.nativeStopTrackRecording();
       }
       stopSelf();
       return START_NOT_STICKY;
@@ -195,12 +189,6 @@ public class TrackRecordingService extends Service implements LocationListener
 
     final LocationHelper locationHelper = LocationHelper.from(this);
 
-    if (mHandler == null)
-      mHandler = new Handler();
-    if (mLocationTimeoutRunnable == null)
-      mLocationTimeoutRunnable = this::onLocationUpdateTimeout;
-    mHandler.postDelayed(mLocationTimeoutRunnable, LOCATION_UPDATE_TIMEOUT);
-
     // Subscribe to location updates. This call is idempotent.
     locationHelper.addListener(this);
 
@@ -232,7 +220,8 @@ public class TrackRecordingService extends Service implements LocationListener
     return mWarningBuilder;
   }
 
-  private void onLocationUpdateTimeout()
+  @Override
+  public void onLocationUpdateTimeout()
   {
     Logger.i(TAG, "Location update timeout");
     mWarningNotification = true;
@@ -250,8 +239,6 @@ public class TrackRecordingService extends Service implements LocationListener
   public void onLocationUpdated(@NonNull Location location)
   {
     Logger.i(TAG, "Location is being updated in Track Recording service");
-    mHandler.removeCallbacks(mLocationTimeoutRunnable);
-    mHandler.postDelayed(mLocationTimeoutRunnable, LOCATION_UPDATE_TIMEOUT); // Reset the timeout.
 
     if (mWarningNotification)
     {

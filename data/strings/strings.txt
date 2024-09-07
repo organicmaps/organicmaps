@@ -31076,52 +31076,6 @@
     zh-Hans = 室外座位
     zh-Hant = 戶外座位
 
-  [power_save_dialog_title]
-    comment = Disclaimer title shown when Power Saving Mode is enabled
-    tags = android
-    en = Turn Off Power Saving Mode
-    af = Skakel kragbesparingsmodus af
-    ar = إيقاف تشغيل وضع توفير الطاقة
-    az = Enerjiyə qənaət rejimini söndürün
-    be = Выключыць рэжым энергазберажэння
-    bg = Изключване на режима за пестене на енергия
-    ca = Desactiva el mode d'estalvi d'energia
-    cs = Vypnout režim úspory energie
-    da = Sluk for strømsparetilstand
-    de = Energiesparmodus deaktivieren
-    el = Απενεργοποίηση λειτουργίας εξοικονόμησης ενέργειας
-    es = Desactivar el modo de ahorro de energía
-    et = Lülita välja energiasäästurežiim
-    eu = Desaktibatu energia aurrezteko modua
-    fa = خاموش کردن حالت صرفه‌جویی در مصرف انرژی
-    fi = Poista virransäästötila käytöstä
-    fr = Désactiver le mode économie d'énergie
-    he = כבה מצב חיסכון באנרגיה
-    hi = पावर सेविंग मोड बंद करें
-    hu = Kapcsolja ki az energiatakarékos módot
-    id = Matikan Mode Hemat Daya
-    it = Disattiva la modalità di risparmio energetico
-    ja = 省電力モードをオフにする
-    ko = 절전 모드 해제
-    lt = Išjunkite energijos taupymo režimą
-    mr = पॉवर सेव्हिंग मोड बंद करा
-    nb = Slå av strømsparingsmodus
-    nl = Schakel energiebesparingsmodus uit
-    pl = Wyłącz tryb oszczędzania energii
-    pt = Desativar o modo de economia de energia
-    pt-BR = Desativar o modo de economia de energia
-    ro = Dezactivați modul de economisire a energiei
-    ru = Отключить режим энергосбережения
-    sk = Vypnúť režim úspory energie
-    sv = Stäng av energisparläget
-    sw = Zima Hali ya Kuokoa Nguvu
-    th = ปิดโหมดประหยัดพลังงาน
-    tr = Güç Tasarrufu Modunu Kapat
-    uk = Вимкнути режим енергозбереження
-    vi = Tắt Chế Độ Tiết Kiệm Pin
-    zh-Hans = 关闭省电模式
-    zh-Hant = 關閉省電模式
-
   [power_save_dialog_summary]
     comment = Disclaimer summary shown when Power Saving Mode is enabled
     tags = android
