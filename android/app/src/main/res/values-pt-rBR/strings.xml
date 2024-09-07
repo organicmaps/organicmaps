@@ -230,8 +230,6 @@
 	<string name="pref_tts_playing_test_voice">Verifique o volume ou as configurações de conversão de texto em fala do sistema se você não estiver ouvindo a voz agora.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Não disponível</string>
-	<!-- The name of the feature in the main menu, settings, and messages. -->
-	<string name="recent_track">Percurso recente</string>
 	<string name="pref_map_auto_zoom">Zoom automático</string>
 	<string name="placepage_distance">Distância</string>
 	<string name="search_show_on_map">Ver no mapa</string>
@@ -758,6 +756,18 @@
 	<string name="power_save_dialog_title">Desativar o modo de economia de energia</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Para obter uma navegação mais precisa, recomendamos que você desative o modo de economia de energia nas configurações de bateria do telefone.</string>
+	<!-- Prompt to start recording a track. -->
+	<string name="start_track_recording">Gravar rota</string>
+	<!-- Prompt for stopping a track recording. -->
+	<string name="stop_track_recording">Parar gravação de rota</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="stop_without_saving">Parar sem salvar</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="continue_recording">Continuar gravação</string>
+	<!-- Title for the alert when saving a track recording. -->
+	<string name="track_recording_alert_title">Salvar gravação em favoritos e trilhas?</string>
+	<!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+	<string name="track_recording_toast_nothing_to_save">A trilha está vazia - não há nada para salvar</string>
 	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
 	<string name="error_no_file_manager_app">Não é possível exibir a caixa de diálogo de seleção de pastas porque nenhum aplicativo adequado está instalado no seu dispositivo. Instale um aplicativo gerenciador de arquivos e tente novamente</string>
 

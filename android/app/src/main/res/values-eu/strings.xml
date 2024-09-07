@@ -242,8 +242,6 @@
 	<string name="pref_tts_playing_test_voice">Egiaztatu bolumena edo sistemaren testu-ahotsaren ezarpenak ahotsa entzuten ez baduzu.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Ez dago erabilgarri</string>
-	<!-- The name of the feature in the main menu, settings, and messages. -->
-	<string name="recent_track">Azken arrastoa</string>
 	<string name="pref_map_auto_zoom">Zoom automatikoa</string>
 	<string name="placepage_distance">Distantzia</string>
 	<string name="search_show_on_map">Ikusi mapan</string>
@@ -836,6 +834,18 @@
 	<string name="power_save_dialog_title">Desaktibatu energia aurrezteko modua</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Nabigazio zehatzena lortzeko, telefonoaren bateriaren ezarpenetan energia aurrezteko modua desgaitzea gomendatzen dugu.</string>
+	<!-- Prompt to start recording a track. -->
+	<string name="start_track_recording">Ibilbidearen grabaketa</string>
+	<!-- Prompt for stopping a track recording. -->
+	<string name="stop_track_recording">Gelditu ibilbidearen grabaketa</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="stop_without_saving">Gelditu gordetzeko gabe</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="continue_recording">Jarraitu grabatzen</string>
+	<!-- Title for the alert when saving a track recording. -->
+	<string name="track_recording_alert_title">Ibilbidearen grabaketa markagailuetan eta ibilbideetan gorde nahi duzu?</string>
+	<!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+	<string name="track_recording_toast_nothing_to_save">Ibilbidea hutsik dago; ez dago ezer gordetzeko</string>
 	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
 	<string name="error_no_file_manager_app">Ezin da karpeta hautatzeko elkarrizketa-koadroa erakutsi zure gailuan ez dagoelako aplikazio egokirik instalatuta. Instalatu fitxategi-kudeatzaile aplikazio bat eta saiatu berriro</string>
 

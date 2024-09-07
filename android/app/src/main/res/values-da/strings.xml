@@ -225,8 +225,6 @@
 	<string name="pref_tts_playing_test_voice">Tjek lydstyrken eller systemets tekst-til-tale-indstillinger, hvis du ikke kan høre stemmen nu.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Ikke til rådighed</string>
-	<!-- The name of the feature in the main menu, settings, and messages. -->
-	<string name="recent_track">Seneste sti</string>
 	<string name="pref_map_auto_zoom">Auto zoom</string>
 	<string name="placepage_distance">Afstand</string>
 	<string name="search_show_on_map">Vis på kortet</string>
@@ -792,6 +790,18 @@
 	<string name="power_save_dialog_title">Sluk for strømsparetilstand</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">For at få den mest nøjagtige navigation anbefaler vi at deaktivere strømbesparende tilstand i telefonens batteriindstillinger.</string>
+	<!-- Prompt to start recording a track. -->
+	<string name="start_track_recording">Optag rute</string>
+	<!-- Prompt for stopping a track recording. -->
+	<string name="stop_track_recording">Stop optagelse af rute</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="stop_without_saving">Stop uden at gemme</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="continue_recording">Fortsæt optagelse</string>
+	<!-- Title for the alert when saving a track recording. -->
+	<string name="track_recording_alert_title">Gemme i bogmærker og ruter?</string>
+	<!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+	<string name="track_recording_toast_nothing_to_save">Ruten er tom - der er ikke noget at gemme</string>
 	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
 	<string name="error_no_file_manager_app">Kan ikke vise dialogboksen til valg af mappe, fordi der ikke er installeret en passende app på din enhed. Installer venligst en filhåndteringsapp, og prøv igen</string>
 

@@ -242,8 +242,6 @@
 	<string name="pref_tts_playing_test_voice">Compruebe el volumen o la configuración de texto a voz del sistema si ahora no oye la voz.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">No disponible</string>
-	<!-- The name of the feature in the main menu, settings, and messages. -->
-	<string name="recent_track">Trayecto reciente</string>
 	<string name="pref_map_auto_zoom">Zoom automático</string>
 	<string name="placepage_distance">Distancia</string>
 	<string name="search_show_on_map">Ver en el mapa</string>
@@ -842,6 +840,18 @@
 	<string name="power_save_dialog_title">Desactivar el modo de ahorro de energía</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Para una navegación más precisa, te recomendamos que desactives el modo de ahorro de energía en los ajustes de la batería del teléfono.</string>
+	<!-- Prompt to start recording a track. -->
+	<string name="start_track_recording">Grabar ruta</string>
+	<!-- Prompt for stopping a track recording. -->
+	<string name="stop_track_recording">Detener grabación de ruta</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="stop_without_saving">Parar sin guardar</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="continue_recording">Continuar grabación</string>
+	<!-- Title for the alert when saving a track recording. -->
+	<string name="track_recording_alert_title">¿Guardar en Marcadores y Rutas?</string>
+	<!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+	<string name="track_recording_toast_nothing_to_save">La ruta está vacía - no hay nada que guardar</string>
 	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
 	<string name="error_no_file_manager_app">No se puede mostrar el diálogo de selección de carpetas porque no hay ninguna app adecuada instalada en su dispositivo. Instale una aplicación de gestión de archivos e inténtelo de nuevo</string>
 

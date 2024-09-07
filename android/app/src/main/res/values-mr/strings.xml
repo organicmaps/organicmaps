@@ -216,8 +216,6 @@
 	<string name="pref_tts_playing_test_voice">तुम्हाला आता आवाज ऐकू येत नसल्यास व्हॉल्यूम किंवा सिस्टम टेक्स्ट-टू-स्पीच सेटिंग्ज तपासा.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">उपलब्ध नाही</string>
-	<!-- The name of the feature in the main menu, settings, and messages. -->
-	<string name="recent_track">अलीकडील ट्रॅक</string>
 	<string name="pref_map_auto_zoom">स्वयं झूम</string>
 	<string name="placepage_distance">अंतर</string>
 	<string name="search_show_on_map">नकाशावर पहा</string>
@@ -800,6 +798,18 @@
 	<string name="power_save_dialog_title">पॉवर सेव्हिंग मोड बंद करा</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">सर्वात अचूक नेव्हिगेशनसाठी, आम्ही फोनच्या बॅटरी सेटिंग्जमध्ये पॉवर सेव्हिंग मोड अक्षम करण्याची शिफारस करतो.</string>
+	<!-- Prompt to start recording a track. -->
+	<string name="start_track_recording">ट्रॅक रेकॉर्ड करा</string>
+	<!-- Prompt for stopping a track recording. -->
+	<string name="stop_track_recording">ट्रॅक रेकॉर्डिंग थांबवा</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="stop_without_saving">जतन न करता थांबवा</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="continue_recording">रेकॉर्डिंग चालू ठेवा</string>
+	<!-- Title for the alert when saving a track recording. -->
+	<string name="track_recording_alert_title">मार्ग रेकॉर्डिंग खूणपत्रे आणि ट्रॅकमध्ये सेव्ह करायचे?</string>
+	<!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+	<string name="track_recording_toast_nothing_to_save">मार्ग रिकामा आहे - जतन करण्यासाठी काहीही नाही</string>
 	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
 	<string name="error_no_file_manager_app">फोल्डर निवड संवाद प्रदर्शित करण्यात अक्षम कारण आपल्या डिव्हाइसवर कोणतेही योग्य ॲप स्थापित केलेले नाही. कृपया फाइल व्यवस्थापक ॲप स्थापित करा आणि पुन्हा प्रयत्न करा</string>
 

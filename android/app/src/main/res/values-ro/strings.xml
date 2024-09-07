@@ -230,8 +230,6 @@
 	<string name="pref_tts_playing_test_voice">Dacă nu auziți vocea acum, verificați volumul sau setările sistemului text-to-speech.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Nu există</string>
-	<!-- The name of the feature in the main menu, settings, and messages. -->
-	<string name="recent_track">Traseu recent</string>
 	<string name="pref_map_auto_zoom">Zoom automat</string>
 	<string name="placepage_distance">Distanță</string>
 	<string name="search_show_on_map">Vezi pe hartă</string>
@@ -817,6 +815,18 @@
 	<string name="power_save_dialog_title">Dezactivați modul de economisire a energiei</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Pentru o navigare cât mai precisă, vă recomandăm să dezactivați modul de economisire a energiei în setările pentru baterie ale telefonului.</string>
+	<!-- Prompt to start recording a track. -->
+	<string name="start_track_recording">Înregistrați traseul</string>
+	<!-- Prompt for stopping a track recording. -->
+	<string name="stop_track_recording">Opriți înregistrarea traseului</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="stop_without_saving">Oprire fără salvare</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="continue_recording">Continuați înregistrarea</string>
+	<!-- Title for the alert when saving a track recording. -->
+	<string name="track_recording_alert_title">Salvați în Locuri preferate și trasee?</string>
+	<!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+	<string name="track_recording_toast_nothing_to_save">Traseul este gol - nu este nimic de salvat</string>
 	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
 	<string name="error_no_file_manager_app">Nu se poate afișa dialogul de selectare a dosarelor deoarece pe dispozitivul dvs. nu este instalată nicio aplicație adecvată. Vă rugăm să instalați o aplicație de gestionare a fișierelor și să încercați din nou</string>
 

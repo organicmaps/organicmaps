@@ -239,8 +239,6 @@
 	<string name="pref_tts_playing_test_voice">Ellenőrizze a hangerőt vagy a rendszer szöveg-beszéd beállításait, ha most nem hallja a hangot.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Nem áll rendelkezésre</string>
-	<!-- The name of the feature in the main menu, settings, and messages. -->
-	<string name="recent_track">Legutolsó útvonal</string>
 	<string name="pref_map_auto_zoom">Automatikus nagyítás</string>
 	<string name="placepage_distance">Távolság</string>
 	<string name="search_show_on_map">Megtekintés a térképen</string>
@@ -808,6 +806,18 @@
 	<string name="power_save_dialog_title">Kapcsolja ki az energiatakarékos módot</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">A legpontosabb navigáció érdekében javasoljuk az energiatakarékos üzemmód kikapcsolását a telefon akkumulátor-beállításaiban.</string>
+	<!-- Prompt to start recording a track. -->
+	<string name="start_track_recording">Útvonal rögzítése</string>
+	<!-- Prompt for stopping a track recording. -->
+	<string name="stop_track_recording">Állítsa le az útvonalrögzítést</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="stop_without_saving">Megállás mentés nélkül</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="continue_recording">Felvétel folytatása</string>
+	<!-- Title for the alert when saving a track recording. -->
+	<string name="track_recording_alert_title">Útvonalrögzítés mentése a könyvjelzők és nyomvonalak közé?</string>
+	<!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+	<string name="track_recording_toast_nothing_to_save">Az útvonal üres - nincs mit menteni</string>
 	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
 	<string name="error_no_file_manager_app">Nem lehet megjeleníteni a mappaválasztó párbeszédpanelt, mert nincs megfelelő alkalmazás telepítve a készülékén. Kérjük, telepítsen egy fájlkezelő alkalmazást, és próbálja meg újra</string>
 

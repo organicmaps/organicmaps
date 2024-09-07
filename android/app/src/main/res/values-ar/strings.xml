@@ -245,8 +245,6 @@
 	<string name="pref_tts_playing_test_voice">تحقق من مستوى الصوت أو إعدادات تحويل النص إلى كلام في النظام إذا كنت لا تسمع الصوت الآن.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">غير متاح</string>
-	<!-- The name of the feature in the main menu, settings, and messages. -->
-	<string name="recent_track">المسار الأخير</string>
 	<string name="pref_map_auto_zoom">تكبير تلقائي</string>
 	<string name="placepage_distance">المسافة</string>
 	<string name="search_show_on_map">مشاهدة على الخريطة</string>
@@ -849,6 +847,18 @@
 	<string name="power_save_dialog_title">إيقاف تشغيل وضع توفير الطاقة</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">للحصول على التنقل الأكثر دقة، نوصي بتعطيل وضع توفير الطاقة في إعدادات بطارية الهاتف.</string>
+	<!-- Prompt to start recording a track. -->
+	<string name="start_track_recording">تسجيل المسار</string>
+	<!-- Prompt for stopping a track recording. -->
+	<string name="stop_track_recording">إيقاف تسجيل المسار</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="stop_without_saving">التوقف بدون حفظ</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="continue_recording">متابعة التسجيل</string>
+	<!-- Title for the alert when saving a track recording. -->
+	<string name="track_recording_alert_title">حفظ في الإشارات المرجعية والمسارات؟</string>
+	<!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+	<string name="track_recording_toast_nothing_to_save">المسار فارغ - لا يوجد شيء للحفظ</string>
 	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
 	<string name="error_no_file_manager_app">غير قادر على عرض مربع حوار تحديد المجلد لأنه لا يوجد تطبيق مناسب مثبت على جهازك. يرجى تثبيت تطبيق مدير الملفات والمحاولة مرة أخرى.</string>
 

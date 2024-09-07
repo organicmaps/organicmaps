@@ -245,8 +245,6 @@
 	<string name="pref_tts_playing_test_voice">Якщо ви не чуєте голос, перевірте гучність або налаштування системи перетворення тексту на мовлення.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Не доступнi</string>
-	<!-- The name of the feature in the main menu, settings, and messages. -->
-	<string name="recent_track">Недавній маршрут</string>
 	<string name="pref_map_auto_zoom">Автозум</string>
 	<string name="placepage_distance">Відстань</string>
 	<string name="search_show_on_map">Подивитись на мапі</string>
@@ -844,6 +842,18 @@
 	<string name="power_save_dialog_title">Вимкнути режим енергозбереження</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Для найбільш точної навігації ми рекомендуємо вимкнути режим енергозбереження в налаштуваннях батареї телефону.</string>
+	<!-- Prompt to start recording a track. -->
+	<string name="start_track_recording">Записати маршрут</string>
+	<!-- Prompt for stopping a track recording. -->
+	<string name="stop_track_recording">Зупинити запис маршруту</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="stop_without_saving">Зупинити без збереження</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="continue_recording">Продовжити запис</string>
+	<!-- Title for the alert when saving a track recording. -->
+	<string name="track_recording_alert_title">Зберегти в мітки та маршрути?</string>
+	<!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+	<string name="track_recording_toast_nothing_to_save">Маршрут порожній - нічого зберігати</string>
 	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
 	<string name="error_no_file_manager_app">Неможливо відобразити діалогове вікно вибору папки, оскільки на вашому пристрої не встановлено відповідну програму. Будь ласка, встановіть файловий менеджер і спробуйте ще раз</string>
 

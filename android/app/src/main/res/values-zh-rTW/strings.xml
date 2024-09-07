@@ -245,8 +245,6 @@
 	<string name="pref_tts_playing_test_voice">如果您現在聽不到聲音，請檢查音量或系統文字轉語音系統的設定。</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">無法使用</string>
-	<!-- The name of the feature in the main menu, settings, and messages. -->
-	<string name="recent_track">最近的軌跡</string>
 	<string name="pref_map_auto_zoom">自動縮放</string>
 	<string name="placepage_distance">距離</string>
 	<string name="search_show_on_map">在地圖上查看</string>
@@ -849,6 +847,18 @@
 	<string name="power_save_dialog_title">關閉省電模式</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">為了獲得最準確的導航，我們建議在手機電池設定中停用省電模式。</string>
+	<!-- Prompt to start recording a track. -->
+	<string name="start_track_recording">錄製軌跡</string>
+	<!-- Prompt for stopping a track recording. -->
+	<string name="stop_track_recording">停止軌跡記錄</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="stop_without_saving">停止而不保存</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="continue_recording">繼續錄製</string>
+	<!-- Title for the alert when saving a track recording. -->
+	<string name="track_recording_alert_title">儲存到書籤和軌跡？</string>
+	<!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+	<string name="track_recording_toast_nothing_to_save">軌跡為空 - 沒有可保存的內容</string>
 	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
 	<string name="error_no_file_manager_app">無法顯示資料夾選擇對話框，因為您的裝置上沒有安裝合適的應用程式。請安裝檔案總管應用程式並重試</string>
 

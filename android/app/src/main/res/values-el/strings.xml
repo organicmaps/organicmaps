@@ -243,8 +243,6 @@
 	<string name="pref_tts_playing_test_voice">Ελέγξτε την ένταση ήχου ή τις ρυθμίσεις του συστήματος text-to-speech αν δεν ακούτε τη φωνή τώρα.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Δεν είναι διαθέσιμη</string>
-	<!-- The name of the feature in the main menu, settings, and messages. -->
-	<string name="recent_track">Πρόσφατη διαδρομή</string>
 	<string name="pref_map_auto_zoom">Αυτόματη μεγέθυνση</string>
 	<string name="placepage_distance">Απόσταση</string>
 	<string name="search_show_on_map">Προβολή στο χάρτη</string>
@@ -835,6 +833,18 @@
 	<string name="power_save_dialog_title">Απενεργοποίηση λειτουργίας εξοικονόμησης ενέργειας</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Για την πιο ακριβή πλοήγηση, συνιστούμε να απενεργοποιήσετε τη λειτουργία εξοικονόμησης ενέργειας στις ρυθμίσεις μπαταρίας του τηλεφώνου.</string>
+	<!-- Prompt to start recording a track. -->
+	<string name="start_track_recording">Εγγραφή διαδρομής</string>
+	<!-- Prompt for stopping a track recording. -->
+	<string name="stop_track_recording">Σταματήστε την εγγραφή διαδρομής</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="stop_without_saving">Σταματήστε χωρίς αποθήκευση</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="continue_recording">Συνέχεια εγγραφής</string>
+	<!-- Title for the alert when saving a track recording. -->
+	<string name="track_recording_alert_title">Αποθήκευση στα Αγαπημένα και Διαδρομές;</string>
+	<!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+	<string name="track_recording_toast_nothing_to_save">Η διαδρομή είναι άδεια - δεν υπάρχει τίποτα να αποθηκεύσετε</string>
 	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
 	<string name="error_no_file_manager_app">Δεν είναι δυνατή η εμφάνιση του διαλόγου επιλογής φακέλου επειδή δεν είναι εγκατεστημένη η κατάλληλη εφαρμογή στη συσκευή σας. Εγκαταστήστε μια εφαρμογή διαχείρισης αρχείων και δοκιμάστε ξανά</string>
 

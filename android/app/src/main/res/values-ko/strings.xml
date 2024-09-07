@@ -225,8 +225,6 @@
 	<string name="pref_tts_playing_test_voice">지금 음성이 들리지 않으면 볼륨 또는 시스템 텍스트 음성 변환 설정을 확인하세요.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">사용할 수 없음</string>
-	<!-- The name of the feature in the main menu, settings, and messages. -->
-	<string name="recent_track">최근 추적</string>
 	<string name="pref_map_auto_zoom">자동 줌</string>
 	<string name="placepage_distance">거리</string>
 	<string name="search_show_on_map">지도 보기</string>
@@ -790,6 +788,18 @@
 	<string name="power_save_dialog_title">절전 모드 해제</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">가장 정확한 내비게이션을 위해 휴대폰의 배터리 설정에서 절전 모드를 비활성화하는 것이 좋습니다.</string>
+	<!-- Prompt to start recording a track. -->
+	<string name="start_track_recording">트랙 녹음</string>
+	<!-- Prompt for stopping a track recording. -->
+	<string name="stop_track_recording">트랙 기록을 중지하시겠습니까</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="stop_without_saving">저장하지 않고 중지</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="continue_recording">녹화 계속하기</string>
+	<!-- Title for the alert when saving a track recording. -->
+	<string name="track_recording_alert_title">북마크 및 트랙에 저장하시겠습니까?</string>
+	<!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+	<string name="track_recording_toast_nothing_to_save">경로가 비어 있음 - 저장할 항목이 없음</string>
 	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
 	<string name="error_no_file_manager_app">장치에 적합한 앱이 설치되어 있지 않아 폴더 선택 대화 상자를 표시할 수 없습니다. 파일 관리자 앱을 설치한 후 다시 시도하세요</string>
 
