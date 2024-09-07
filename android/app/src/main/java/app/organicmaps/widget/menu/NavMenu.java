@@ -215,7 +215,7 @@ public class NavMenu
     if (info.speedLimit != null && info.speedLimit.isValid())
     {
       SpeedFormatted speedLimit = info.speedLimit;
-      mSpeedValue.setText(speed.mSpeedStr + "\u202F/\u202F" + speedLimit.getUnitsStr(mActivity));
+      mSpeedValue.setText(speed.mSpeedStr + "\u202F/\u202F" + speedLimit.mSpeedStr);
 
       speedLimitExceeded = (int)speed.mSpeed > (int)speedLimit.mSpeed;
     }
