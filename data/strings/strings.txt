@@ -30900,7 +30900,7 @@
 
   [open_in_app]
     comment = Title for the "Open In Another App" button on the PlacePage.
-    tags = ios
+    tags = android,ios
     en = Open In Another App
     af = Maak oop in 'n ander toepassing
     ar = فتح في تطبيق آخر

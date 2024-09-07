@@ -2,6 +2,7 @@ package app.organicmaps.widget.placepage;
 
 import android.content.Context;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -238,6 +239,10 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
     LinearLayout latlon = mFrame.findViewById(R.id.ll__place_latlon);
     latlon.setOnClickListener(this);
+    LinearLayout openIn = mFrame.findViewById(R.id.ll__place_open_in);
+    openIn.setOnClickListener(this);
+    openIn.setOnLongClickListener(this);
+    openIn.setVisibility(VISIBLE);
     mTvLatlon = mFrame.findViewById(R.id.tv__place_latlon);
     mWifi = mFrame.findViewById(R.id.ll__place_wifi);
     mTvWiFi = mFrame.findViewById(R.id.tv__place_wifi);
@@ -579,6 +584,12 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
                     .apply();
       refreshLatLon();
     }
+    else if (id == R.id.ll__place_open_in)
+    {
+      final String uri = Framework.nativeGetGeoUri(mMapObject.getLat(), mMapObject.getLon(),
+                                                   mMapObject.getScale(), mMapObject.getName());
+      Utils.openUri(requireContext(), Uri.parse(uri));
+    }
     else if (id == R.id.direction_frame)
       showBigDirection();
   }
@@ -613,6 +624,12 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
         if (formatted != null)
           items.add(formatted);
       }
+    }
+    else if (id == R.id.ll__place_open_in)
+    {
+      final String uri = Framework.nativeGetGeoUri(mMapObject.getLat(), mMapObject.getLon(),
+                                                   mMapObject.getScale(), mMapObject.getName());
+      PlacePageUtils.copyToClipboard(requireContext(), mFrame, uri);
     }
     else if (id == R.id.ll__place_operator)
       items.add(mTvOperator.getText().toString());
