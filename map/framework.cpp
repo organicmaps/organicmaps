@@ -3,6 +3,7 @@
 #include "map/gps_tracker.hpp"
 #include "map/user_mark.hpp"
 #include "map/track_mark.hpp"
+#include "map/clustering.hpp"
 
 #include "ge0/url_generator.hpp"
 
@@ -1436,25 +1437,54 @@ void Framework::FillSearchResultsMarks(SearchResultsIterT beg, SearchResultsIter
     editSession.ClearGroup(UserMark::Type::SEARCH);
   editSession.SetIsVisible(UserMark::Type::SEARCH, true);
 
+  std::vector<POI> pois;
   for (auto it = beg; it != end; ++it)
   {
     auto const & r = *it;
     if (!r.HasPoint())
       continue;
 
-    auto * mark = editSession.CreateUserMark<SearchMarkPoint>(r.GetFeatureCenter());
-    mark->SetMatchedName(r.GetString());
+    POI poi;
+    poi.id = std::distance(beg, it);
+    poi.coords = r.GetFeatureCenter();
+    pois.push_back(poi);
+  }
 
-    if (r.GetResultType() == search::Result::Type::Feature)
+  auto viewPortRect = m_currentModelView.ClipRect();
+  double threshold = viewPortRect.SizeX()/15.0;
+
+  std::vector<Cluster> clusters;
+  for (const POI &poi: pois)
+    clusters.push_back(Cluster(poi));
+
+  hierarchicalGreedyClustering(threshold, clusters);
+
+  for (const Cluster &cluster: clusters)
+  {
+    auto *mark = editSession.CreateUserMark<SearchMarkPoint>(cluster.center);
+    auto clusterSize = cluster.pois.size();
+
+    if (clusterSize == 1)
     {
-      auto const fID = r.GetFeatureID();
-      mark->SetFoundFeature(fID);
-      mark->SetFromType(r.GetFeatureType());
-      mark->SetVisited(m_searchMarks.IsVisited(fID));
-      mark->SetSelected(m_searchMarks.IsSelected(fID));
+      auto it = beg + cluster.pois[0].id;
+      auto const &r = *it;
+
+      mark->SetMatchedName(r.GetString());
+
+      if (r.GetResultType() == search::Result::Type::Feature)
+      {
+        auto const fID = r.GetFeatureID();
+        mark->SetFoundFeature(fID);
+        mark->SetFromType(r.GetFeatureType());
+        mark->SetVisited(m_searchMarks.IsVisited(fID));
+        mark->SetSelected(m_searchMarks.IsSelected(fID));
+      }
     }
+    else
+      mark->SetClusterType(clusterSize);
   }
 }
+
 
 bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
                                      double lat, double lon, double north,
