@@ -242,8 +242,6 @@
 	<string name="pref_tts_playing_test_voice">Überprüfe die Lautstärke oder die Text-to-speech Einstellungen des Systems, wenn du die Stimme jetzt nicht hörst.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Nicht verfügbar</string>
-	<!-- The name of the feature in the main menu, settings, and messages. -->
-	<string name="recent_track">Letzter Track</string>
 	<string name="pref_map_auto_zoom">Auto-Zoom</string>
 	<string name="placepage_distance">Entfernung</string>
 	<string name="search_show_on_map">Auf der Karte ansehen</string>
@@ -838,6 +836,18 @@
 	<string name="power_save_dialog_title">Energiesparmodus deaktivieren</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Für eine möglichst genaue Navigation empfehlen wir, den Energiesparmodus in den Akku-Einstellungen des Telefons zu deaktivieren.</string>
+	<!-- Prompt to start recording a track. -->
+	<string name="start_track_recording">Track aufnehmen</string>
+	<!-- Prompt for stopping a track recording. -->
+	<string name="stop_track_recording">Aufnahme des Tracks stoppen</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="stop_without_saving">Anhalten ohne zu speichern</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="continue_recording">Aufnahme fortsetzen</string>
+	<!-- Title for the alert when saving a track recording. -->
+	<string name="track_recording_alert_title">In Lesezeichen und Tracks speichern?</string>
+	<!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+	<string name="track_recording_toast_nothing_to_save">Route ist leer - nichts zu speichern</string>
 	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
 	<string name="error_no_file_manager_app">Das Dialogfeld zur Ordnerauswahl kann nicht angezeigt werden, da keine geeignete App auf Ihrem Gerät installiert ist. Bitte installieren Sie eine Dateimanager-App und versuchen Sie es erneut</string>
 

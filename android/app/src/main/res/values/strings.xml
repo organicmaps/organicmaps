@@ -245,8 +245,6 @@
 	<string name="pref_tts_playing_test_voice">Check the volume or system Text-To-Speech settings if you don\'t hear the voice now.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Not Available</string>
-	<!-- The name of the feature in the main menu, settings, and messages. -->
-	<string name="recent_track">Recent Track</string>
 	<string name="pref_map_auto_zoom">Auto zoom</string>
 	<string name="placepage_distance">Distance</string>
 	<string name="search_show_on_map">View on map</string>
@@ -876,6 +874,18 @@
 	<string name="power_save_dialog_title">Turn Off Power Saving Mode</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">For the most accurate navigation, we recommend disabling power saving mode in phone\'s battery settings.</string>
+	<!-- Prompt to start recording a track. -->
+	<string name="start_track_recording">Record Track</string>
+	<!-- Prompt for stopping a track recording. -->
+	<string name="stop_track_recording">Stop Track Recording</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="stop_without_saving">Stop Without Saving</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="continue_recording">Continue Recording</string>
+	<!-- Title for the alert when saving a track recording. -->
+	<string name="track_recording_alert_title">Save into Bookmarks and Tracks?</string>
+	<!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+	<string name="track_recording_toast_nothing_to_save">Track is empty - nothing to save</string>
 	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
 	<string name="error_no_file_manager_app">Unable to display folder selection dialog because no suitable app is installed on your device. Please install a file manager app and try again.</string>
 

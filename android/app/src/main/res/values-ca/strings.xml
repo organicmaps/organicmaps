@@ -242,8 +242,6 @@
 	<string name="pref_tts_playing_test_voice">Comproveu el volum o la configuració de text a veu del sistema si ara no escolteu la veu.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">No disponible</string>
-	<!-- The name of the feature in the main menu, settings, and messages. -->
-	<string name="recent_track">Traces recents</string>
 	<string name="pref_map_auto_zoom">Zoom automàtic</string>
 	<string name="placepage_distance">Distància</string>
 	<string name="search_show_on_map">Veure al mapa</string>
@@ -840,6 +838,18 @@
 	<string name="power_save_dialog_title">Desactiva el mode d\'estalvi d\'energia</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Per a una navegació més precisa, recomanem desactivar el mode d\'estalvi d\'energia a la configuració de la bateria del telèfon.</string>
+	<!-- Prompt to start recording a track. -->
+	<string name="start_track_recording">Gravar ruta</string>
+	<!-- Prompt for stopping a track recording. -->
+	<string name="stop_track_recording">Aturar la gravació de la ruta</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="stop_without_saving">Atura sense desar</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="continue_recording">Continuar enregistrant</string>
+	<!-- Title for the alert when saving a track recording. -->
+	<string name="track_recording_alert_title">Vols desar la gravació a Marcadors i Traces?</string>
+	<!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+	<string name="track_recording_toast_nothing_to_save">El recorregut està buit, no hi ha res a desar</string>
 	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
 	<string name="error_no_file_manager_app">No es pot mostrar el diàleg de selecció de carpetes perquè no hi ha cap aplicació adequada instal·lada al vostre dispositiu. Instal·leu una aplicació de gestor de fitxers i torneu-ho a provar</string>
 

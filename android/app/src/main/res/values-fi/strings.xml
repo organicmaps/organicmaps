@@ -244,8 +244,6 @@
 	<string name="pref_tts_playing_test_voice">Tarkista äänenvoimakkuus tai järjestelmän tekstistä puheeksi -asetukset, jos ääni ei kuulu nyt.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Ei saatavilla</string>
-	<!-- The name of the feature in the main menu, settings, and messages. -->
-	<string name="recent_track">Viimeisin reitti</string>
 	<string name="pref_map_auto_zoom">Automaattinen zoomaus</string>
 	<string name="placepage_distance">Etäisyys</string>
 	<string name="search_show_on_map">Näytä kartalla</string>
@@ -839,6 +837,18 @@
 	<string name="power_save_dialog_title">Poista virransäästötila käytöstä</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Jotta navigointi olisi mahdollisimman tarkkaa, suosittelemme virransäästötilan poistamista käytöstä puhelimen akkuasetuksista.</string>
+	<!-- Prompt to start recording a track. -->
+	<string name="start_track_recording">Reitin tallennus</string>
+	<!-- Prompt for stopping a track recording. -->
+	<string name="stop_track_recording">Lopeta reitin tallennus</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="stop_without_saving">Lopeta tallentamatta</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="continue_recording">Jatka tallennusta</string>
+	<!-- Title for the alert when saving a track recording. -->
+	<string name="track_recording_alert_title">Tallenna kirjanmerkkeihin ja reitteihin?</string>
+	<!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+	<string name="track_recording_toast_nothing_to_save">Reitti on tyhjä - ei mitään tallennettavaa</string>
 	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
 	<string name="error_no_file_manager_app">Kansiovalintaikkunaa ei voida näyttää, koska laitteeseen ei ole asennettu sopivaa sovellusta. Asenna tiedostonhallintasovellus ja yritä uudelleen</string>
 

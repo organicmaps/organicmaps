@@ -244,8 +244,6 @@
 	<string name="pref_tts_playing_test_voice">Sesi şimdi duymuyorsanız ses seviyesini veya sistem metin okuma ayarlarını kontrol edin.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Mevcut Değil</string>
-	<!-- The name of the feature in the main menu, settings, and messages. -->
-	<string name="recent_track">En sonki rotayı kaydet</string>
 	<string name="pref_map_auto_zoom">Otomatik yakınlaştırma</string>
 	<string name="placepage_distance">Mesafe</string>
 	<string name="search_show_on_map">Haritada görüntüle</string>
@@ -844,6 +842,18 @@
 	<string name="power_save_dialog_title">Güç Tasarrufu Modunu Kapat</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">En doğru navigasyon için, telefonun pil ayarlarında güç tasarrufu modunu devre dışı bırakmanızı öneririz.</string>
+	<!-- Prompt to start recording a track. -->
+	<string name="start_track_recording">Parkur kaydı</string>
+	<!-- Prompt for stopping a track recording. -->
+	<string name="stop_track_recording">Parkur kaydını durdur</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="stop_without_saving">Kaydetmeden durdur</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="continue_recording">Kaydı devam ettir</string>
+	<!-- Title for the alert when saving a track recording. -->
+	<string name="track_recording_alert_title">Parkur kaydını yer imleri ve kayıtlı rotalara kaydedin mi?</string>
+	<!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+	<string name="track_recording_toast_nothing_to_save">Rota boş - kaydedilecek bir şey yok</string>
 	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
 	<string name="error_no_file_manager_app">Cihazınızda uygun bir uygulama yüklü olmadığından klasör seçimi iletişim kutusu görüntülenemiyor. Lütfen bir dosya yöneticisi uygulaması yükleyin ve tekrar deneyin</string>
 

@@ -243,8 +243,6 @@
 	<string name="pref_tts_playing_test_voice">यदि आपको अभी आवाज नहीं सुनाई देती है तो वॉल्यूम या सिस्टम टेक्स्ट-टू-स्पीच सेटिंग्स की जांच करें।</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">उपलब्ध नहीं है</string>
-	<!-- The name of the feature in the main menu, settings, and messages. -->
-	<string name="recent_track">हालिया ट्रैक</string>
 	<string name="pref_map_auto_zoom">ऑटो ज़ूम</string>
 	<string name="placepage_distance">दूरी</string>
 	<string name="search_show_on_map">मानचित्र पर देखें</string>
@@ -570,6 +568,18 @@
 	<string name="power_save_dialog_title">पावर सेविंग मोड बंद करें</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">सबसे सटीक नेविगेशन के लिए, हम फ़ोन की बैटरी सेटिंग्स में पावर सेविंग मोड को अक्षम करने की सलाह देते हैं।</string>
+	<!-- Prompt to start recording a track. -->
+	<string name="start_track_recording">ट्रैक रिकॉर्ड करें</string>
+	<!-- Prompt for stopping a track recording. -->
+	<string name="stop_track_recording">ट्रैक रिकॉर्डिंग रोकें</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="stop_without_saving">बिना सहेजे रुकें</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="continue_recording">रिकॉर्डिंग जारी रखें</string>
+	<!-- Title for the alert when saving a track recording. -->
+	<string name="track_recording_alert_title">मार्ग रिकॉर्डिंग बुकमार्क और ट्रैक में सहेजें?</string>
+	<!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+	<string name="track_recording_toast_nothing_to_save">मार्ग खाली है - बचाने के लिए कुछ नहीं</string>
 	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
 	<string name="error_no_file_manager_app">फ़ोल्डर चयन संवाद प्रदर्शित करने में असमर्थ क्योंकि आपके डिवाइस पर कोई उपयुक्त ऐप इंस्टॉल नहीं है। कृपया एक फ़ाइल प्रबंधक ऐप इंस्टॉल करें और पुनः प्रयास करें।</string>
 

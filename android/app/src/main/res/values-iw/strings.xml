@@ -240,8 +240,6 @@
 	<string name="pref_tts_playing_test_voice">אם אינך שומע את הקול כעת, בדוק את עוצמת הקול או את הגדרות הטקסט לדיבור של המערכת.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">לא זמין</string>
-	<!-- The name of the feature in the main menu, settings, and messages. -->
-	<string name="recent_track">מסלול אחרון</string>
 	<string name="pref_map_auto_zoom">זום אוטומטי</string>
 	<string name="placepage_distance">מרחק</string>
 	<string name="search_show_on_map">הראה במפה</string>
@@ -828,6 +826,18 @@
 	<string name="power_save_dialog_title">כבה מצב חיסכון באנרגיה</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">לניווט המדויק ביותר, אנו ממליצים להשבית את מצב חיסכון בחשמל בהגדרות הסוללה של הטלפון.</string>
+	<!-- Prompt to start recording a track. -->
+	<string name="start_track_recording">הקלט מסלול</string>
+	<!-- Prompt for stopping a track recording. -->
+	<string name="stop_track_recording">הפסק הקלטת מסלול</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="stop_without_saving">הפסק בלי לשמור</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="continue_recording">המשך להקליט</string>
+	<!-- Title for the alert when saving a track recording. -->
+	<string name="track_recording_alert_title">לשמור בסימניות ומסלולים?</string>
+	<!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+	<string name="track_recording_toast_nothing_to_save">המסלול ריק - אין מה לשמור</string>
 	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
 	<string name="error_no_file_manager_app">לא ניתן להציג תיבת דו-שיח לבחירת תיקיות מכיוון שלא מותקנת אפליקציה מתאימה במכשיר שלך. אנא התקן אפליקציית מנהל קבצים ונסה שוב</string>
 

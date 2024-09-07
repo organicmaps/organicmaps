@@ -230,8 +230,6 @@
 	<string name="pref_tts_playing_test_voice">Controlla il volume o le impostazioni del sistema di sintesi vocale se ora non senti la voce.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Non disponibile</string>
-	<!-- The name of the feature in the main menu, settings, and messages. -->
-	<string name="recent_track">Percorso recente</string>
 	<string name="pref_map_auto_zoom">Zoom automatico</string>
 	<string name="placepage_distance">Distanza</string>
 	<string name="search_show_on_map">Visualizza sulla mappa</string>
@@ -822,6 +820,18 @@
 	<string name="power_save_dialog_title">Disattiva la modalità di risparmio energetico</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Per una navigazione più accurata, ti consigliamo di disabilitare la modalità di risparmio energetico nelle impostazioni della batteria del telefono.</string>
+	<!-- Prompt to start recording a track. -->
+	<string name="start_track_recording">Registra percorso</string>
+	<!-- Prompt for stopping a track recording. -->
+	<string name="stop_track_recording">Interrompi registrazione del percorso</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="stop_without_saving">Interrompi senza salvare</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="continue_recording">Continua registrazione</string>
+	<!-- Title for the alert when saving a track recording. -->
+	<string name="track_recording_alert_title">Salvare nella lista luoghi preferiti e percorsi?</string>
+	<!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+	<string name="track_recording_toast_nothing_to_save">Il percorso è vuoto - non c\'è nulla da salvare</string>
 	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
 	<string name="error_no_file_manager_app">Impossibile visualizzare la finestra di selezione delle cartelle perché sul suo dispositivo non è installata alcuna applicazione adatta. Installi un\'app di gestione file e riprovi</string>
 

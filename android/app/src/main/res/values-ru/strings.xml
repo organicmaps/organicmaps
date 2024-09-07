@@ -245,8 +245,6 @@
 	<string name="pref_tts_playing_test_voice">Проверьте громкость или системные настройки преобразования текста в речь, если сейчас ничего не слышно.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Не доступны</string>
-	<!-- The name of the feature in the main menu, settings, and messages. -->
-	<string name="recent_track">Недавний путь</string>
 	<string name="pref_map_auto_zoom">Автозум</string>
 	<string name="placepage_distance">Расстояние</string>
 	<string name="search_show_on_map">Посмотреть на карте</string>
@@ -853,6 +851,18 @@
 	<string name="power_save_dialog_title">Отключить режим энергосбережения</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Для наиболее точной навигации мы рекомендуем отключить режим энергосбережения в настройках батареи телефона.</string>
+	<!-- Prompt to start recording a track. -->
+	<string name="start_track_recording">Записать трек</string>
+	<!-- Prompt for stopping a track recording. -->
+	<string name="stop_track_recording">Остановить запись трека</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="stop_without_saving">Остановить без сохранения</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="continue_recording">Продолжить запись</string>
+	<!-- Title for the alert when saving a track recording. -->
+	<string name="track_recording_alert_title">Сохранить в метки и треки?</string>
+	<!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+	<string name="track_recording_toast_nothing_to_save">Трек пуст - нечего сохранять</string>
 	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
 	<string name="error_no_file_manager_app">Невозможно отобразить диалог выбора папки, потому что на вашем устройстве не установлено подходящее приложение. Пожалуйста, установите менеджер файлов и повторите попытку</string>
 

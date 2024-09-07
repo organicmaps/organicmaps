@@ -242,8 +242,6 @@
 	<string name="pref_tts_playing_test_voice">Ak teraz nepočujete hlas, skontrolujte hlasitosť alebo systémové nastavenia prevodu textu na reč.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Nie je k dispozícii</string>
-	<!-- The name of the feature in the main menu, settings, and messages. -->
-	<string name="recent_track">Posledná trasa</string>
 	<string name="pref_map_auto_zoom">Automatický zoom</string>
 	<string name="placepage_distance">Vzdialenosť</string>
 	<string name="search_show_on_map">Zobraziť na mape</string>
@@ -831,6 +829,18 @@
 	<string name="power_save_dialog_title">Vypnúť režim úspory energie</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Pre čo najpresnejšiu navigáciu odporúčame vypnúť režim úspory energie v nastaveniach batérie telefónu.</string>
+	<!-- Prompt to start recording a track. -->
+	<string name="start_track_recording">Nahrať trasu</string>
+	<!-- Prompt for stopping a track recording. -->
+	<string name="stop_track_recording">Zastaviť nahrávanie trasy</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="stop_without_saving">Zastaviť bez uloženia</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="continue_recording">Pokračovať v nahrávaní</string>
+	<!-- Title for the alert when saving a track recording. -->
+	<string name="track_recording_alert_title">Uložiť do záložiek a stôp?</string>
+	<!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+	<string name="track_recording_toast_nothing_to_save">Trasa je prázdna - nie je čo ukladať</string>
 	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
 	<string name="error_no_file_manager_app">Nie je možné zobraziť dialógové okno výberu priečinka, pretože v zariadení nie je nainštalovaná žiadna vhodná aplikácia. Nainštalujte si aplikáciu správcu súborov a skúste to znova</string>
 

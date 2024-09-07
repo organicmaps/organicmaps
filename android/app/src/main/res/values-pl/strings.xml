@@ -242,8 +242,6 @@
 	<string name="pref_tts_playing_test_voice">Jeśli nie słyszysz głosu, sprawdź głośność lub systemowe ustawienia zamiany tekstu na mowę.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Niedostępne</string>
-	<!-- The name of the feature in the main menu, settings, and messages. -->
-	<string name="recent_track">Ostatnia trasa</string>
 	<string name="pref_map_auto_zoom">Automatyczne powiększanie</string>
 	<string name="placepage_distance">Dystans</string>
 	<string name="search_show_on_map">Wyświetl na mapie</string>
@@ -842,6 +840,18 @@
 	<string name="power_save_dialog_title">Wyłącz tryb oszczędzania energii</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">Aby uzyskać najbardziej dokładną nawigację, zalecamy wyłączenie trybu oszczędzania energii w ustawieniach baterii telefonu.</string>
+	<!-- Prompt to start recording a track. -->
+	<string name="start_track_recording">Nagraj trasę</string>
+	<!-- Prompt for stopping a track recording. -->
+	<string name="stop_track_recording">Zatrzymać nagrywanie trasy</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="stop_without_saving">Zatrzymaj bez zapisywania</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="continue_recording">Kontynuuj nagrywanie</string>
+	<!-- Title for the alert when saving a track recording. -->
+	<string name="track_recording_alert_title">Zapisać nagranie w zakładkach i trasach?</string>
+	<!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+	<string name="track_recording_toast_nothing_to_save">Trasa jest pusta - nic do zapisania</string>
 	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
 	<string name="error_no_file_manager_app">Nie można wyświetlić okna dialogowego wyboru folderu, ponieważ na urządzeniu nie zainstalowano odpowiedniej aplikacji. Proszę zainstalować aplikację menedżera plików i spróbować ponownie</string>
 

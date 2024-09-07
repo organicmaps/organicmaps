@@ -223,8 +223,6 @@
 	<string name="pref_tts_playing_test_voice">Kontrollera volymen eller systemets text-till-tal-inställningar om du inte hör rösten nu.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Inte tillgängligt</string>
-	<!-- The name of the feature in the main menu, settings, and messages. -->
-	<string name="recent_track">Senaste resväg</string>
 	<string name="pref_map_auto_zoom">Automatisk zoom</string>
 	<string name="placepage_distance">Avstånd</string>
 	<string name="search_show_on_map">Visa på kartan</string>
@@ -789,6 +787,18 @@
 	<string name="power_save_dialog_title">Stäng av energisparläget</string>
 	<!-- Disclaimer summary shown when Power Saving Mode is enabled -->
 	<string name="power_save_dialog_summary">För att få den mest exakta navigeringen rekommenderar vi att du avaktiverar energisparläget i telefonens batteriinställningar.</string>
+	<!-- Prompt to start recording a track. -->
+	<string name="start_track_recording">Spela in spår</string>
+	<!-- Prompt for stopping a track recording. -->
+	<string name="stop_track_recording">Stoppa inspelning av spår</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="stop_without_saving">Stoppa utan att spara</string>
+	<!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+	<string name="continue_recording">Fortsätt spela in</string>
+	<!-- Title for the alert when saving a track recording. -->
+	<string name="track_recording_alert_title">Spara inspelning i bokmärken och rutter?</string>
+	<!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+	<string name="track_recording_toast_nothing_to_save">Routen är tom - inget att spara</string>
 	<!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
 	<string name="error_no_file_manager_app">Det går inte att visa dialogrutan för val av mapp eftersom ingen lämplig app är installerad på din enhet. Installera en filhanteringsapp och försök igen</string>
 
