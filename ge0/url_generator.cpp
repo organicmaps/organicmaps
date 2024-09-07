@@ -1,8 +1,11 @@
 #include "ge0/url_generator.hpp"
 
+#include "coding/url.hpp"
 #include "base/assert.hpp"
 
 #include <cmath>
+#include <iomanip>
+#include <sstream>
 
 namespace
 {
@@ -98,6 +101,17 @@ std::string GenerateShortShowMapUrl(double lat, double lon, double zoom, std::st
   }
 
   return urlSample;
+}
+
+std::string GenerateGeoUri(double lat, double lon, double zoom, std::string const & name)
+{
+  std::ostringstream oss;
+  oss << "geo:" << std::fixed << std::setprecision(7) << lat << ',' << lon << "?z=" << std::setprecision(1) << zoom;
+
+  if (!name.empty())
+    oss << '(' << url::UrlEncode(name) << ')';
+
+  return oss.str();
 }
 
 char Base64Char(int x)
