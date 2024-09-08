@@ -4,7 +4,6 @@
 #include "base/exception.hpp"
 #include "base/logging.hpp"
 
-#include <chrono>
 #include <condition_variable>
 #include <memory>
 #include <mutex>
@@ -45,8 +44,7 @@ private:
   std::condition_variable m_event;
 };
 
-// Class which loads config from local drive, checks hash
-// for config on server and downloads new config if needed.
+// Class which loads config from local drive
 class ConfigLoader
 {
 public:
@@ -55,19 +53,12 @@ public:
 
   // Static methods for production and testing.
   static void LoadFromLocal(pugi::xml_document & doc);
-  static std::string GetRemoteHash();
-  static void GetRemoteConfig(pugi::xml_document & doc);
-  static bool SaveHash(std::string const & hash, std::string const & filePath);
-  static std::string LoadHash(std::string const & filePath);
 
 private:
-  void LoadFromServer();
-  bool SaveAndReload(pugi::xml_document const & doc);
   void ResetConfig(pugi::xml_document const & doc);
 
   base::AtomicSharedPtr<EditorConfig> & m_config;
 
   Waiter m_waiter;
-  std::thread m_loaderThread;
 };
 }  // namespace editor
