@@ -31,7 +31,7 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 public class TrackRecordingService extends Service implements LocationListener
 {
   public static final String TRACK_REC_CHANNEL_ID = "TRACK RECORDING";
-  private static final String STOP_TRACK_RECORDING = "STOP_TRACK_RECORDING";
+  public static final String STOP_TRACK_RECORDING = "STOP_TRACK_RECORDING";
   public static final int TRACK_REC_NOTIFICATION_ID = 54321;
   private NotificationCompat.Builder mNotificationBuilder;
   private static final String TAG = TrackRecordingService.class.getSimpleName();
@@ -86,9 +86,9 @@ public class TrackRecordingService extends Service implements LocationListener
       return mExitPendingIntent;
 
     final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;
-    final Intent exitIntent = new Intent(context, TrackRecordingService.class);
+    final Intent exitIntent = new Intent(context, MwmActivity.class);
     exitIntent.setAction(STOP_TRACK_RECORDING);
-    mExitPendingIntent = PendingIntent.getService(context, 1, exitIntent,
+    mExitPendingIntent = PendingIntent.getActivity(context, 1, exitIntent,
                                                   PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
     return mExitPendingIntent;
   }
@@ -135,19 +135,6 @@ public class TrackRecordingService extends Service implements LocationListener
   @Override
   public int onStartCommand(@NonNull Intent intent, int flags, int startId)
   {
-    final String action = intent.getAction();
-    if (action != null && action.equals(STOP_TRACK_RECORDING))
-    {
-      if (TrackRecorder.nativeIsTrackRecordingEnabled())
-      {
-        if (!TrackRecorder.nativeIsTrackRecordingEmpty())
-          TrackRecorder.nativeSaveTrackRecordingWithName("");
-        TrackRecorder.nativeStopTrackRecording();
-      }
-      stopSelf();
-      return START_NOT_STICKY;
-    }
-
     if (!MwmApplication.from(this).arePlatformAndCoreInitialized())
     {
       Logger.w(TAG, "Application is not initialized");
