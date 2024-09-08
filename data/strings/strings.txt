@@ -31429,7 +31429,7 @@
     mr = ट्रॅक रेकॉर्डिंग थांबवा
     nb = Stopp opptak av rute
     nl = Stop opname van route
-    pl = Zatrzymać nagrywanie trasy
+    pl = Zatrzymaj nagrywanie trasy
     pt = Parar gravação de rota
     pt-BR = Parar gravação de rota
     ro = Opriți înregistrarea traseului

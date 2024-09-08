@@ -12472,7 +12472,7 @@
     mr = पादचारी मार्ग
     nb = Gangvei
     nl = Voetpad
-    pl = Chodnik
+    pl = Droga piesza
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
     ro = Cale
@@ -12588,7 +12588,7 @@
     he = אזור להולכי רגל
     mr = पादचारी झोन
     nl = Voetgangerszone
-    pl = Obszar chodnika
+    pl = Obszar drogi pieszej
     pt-BR = Área de pedestres
     ru = Пешеходная зона
     sk = Pešia zóna
