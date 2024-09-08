@@ -1380,7 +1380,7 @@
 "start_track_recording" = "Nagraj trasę";
 
 /* Prompt for stopping a track recording. */
-"stop_track_recording" = "Zatrzymać nagrywanie trasy";
+"stop_track_recording" = "Zatrzymaj nagrywanie trasy";
 
 /* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
 "stop_without_saving" = "Zatrzymaj bez zapisywania";
@@ -2154,13 +2154,13 @@
 
 "type.highway.elevator" = "Winda";
 
-"type.highway.footway" = "Chodnik";
+"type.highway.footway" = "Droga piesza";
 
 "type.highway.footway.sidewalk" = "Chodnik";
 
 "type.highway.footway.crossing" = "Przejście dla pieszych";
 
-"type.highway.footway.area" = "Obszar chodnika";
+"type.highway.footway.area" = "Obszar drogi pieszej";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Most dla pieszych";
@@ -2369,7 +2369,7 @@
 
 "type.area_highway.cycleway" = "Droga rowerowa";
 
-"type.area_highway.footway" = "Chodnik";
+"type.area_highway.footway" = "Droga piesza";
 
 "type.area_highway.living_street" = "Ulica w strefie zamieszkania";
 
