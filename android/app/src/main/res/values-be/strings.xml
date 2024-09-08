@@ -818,6 +818,8 @@
 	<string name="website_menu">Спасылка на меню</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Паглядзець меню</string>
+	<!-- Title for the "Open In Another App" button on the PlacePage. -->
+	<string name="open_in_app">Адкрыць у іншай прыладзе</string>
 	<!-- To indicate if the place proposed self service... -->
 	<string name="self_service">Самаабслугоўванне</string>
 	<string name="select_option">Выберыце варыянт</string>

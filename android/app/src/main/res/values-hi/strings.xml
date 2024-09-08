@@ -559,6 +559,8 @@
 	<string name="website_menu">मेनू लिंक</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">मेनू देखें</string>
+	<!-- Title for the "Open In Another App" button on the PlacePage. -->
+	<string name="open_in_app">किसी अन्य ऐप में खोलें</string>
 	<!-- To indicate if the place proposed self service... -->
 	<string name="self_service">स्वयं सेवा    hu = Önkiszolgáló</string>
 	<string name="select_option">विकल्प चुनें</string>
