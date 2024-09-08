@@ -838,6 +838,8 @@
 	<string name="website_menu">菜单链接</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">查看菜单</string>
+	<!-- Title for the "Open In Another App" button on the PlacePage. -->
+	<string name="open_in_app">在另一个应用程序中打开</string>
 	<!-- To indicate if the place proposed self service... -->
 	<string name="self_service">自助服务</string>
 	<string name="select_option">选择选项</string>

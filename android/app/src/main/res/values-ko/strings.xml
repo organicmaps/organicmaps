@@ -779,6 +779,8 @@
 	<string name="website_menu">메뉴 링크</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">메뉴 보기</string>
+	<!-- Title for the "Open In Another App" button on the PlacePage. -->
+	<string name="open_in_app">다른 앱에서 열기</string>
 	<!-- To indicate if the place proposed self service... -->
 	<string name="self_service">셀프 서비스</string>
 	<string name="select_option">옵션 선택</string>

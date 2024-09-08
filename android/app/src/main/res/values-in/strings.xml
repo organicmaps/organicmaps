@@ -781,6 +781,8 @@
 	<string name="website_menu">Tautan menu</string>
 	<!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
 	<string name="view_menu">Lihat Menu</string>
+	<!-- Title for the "Open In Another App" button on the PlacePage. -->
+	<string name="open_in_app">Buka di Aplikasi Lain</string>
 	<!-- To indicate if the place proposed self service... -->
 	<string name="self_service">Layanan mandiri</string>
 	<string name="select_option">Pilih opsi</string>
