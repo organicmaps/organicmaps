@@ -30,13 +30,10 @@ public class ToolbarController
     mActivity = activity;
     mToolbar = root.findViewById(getToolbarId());
 
-    if (useExtendedToolbar())
-    {
-      ViewCompat.setOnApplyWindowInsetsListener(getToolbar(), (view, windowInsets) -> {
-        UiUtils.setViewInsetsPaddingNoBottom(getToolbar(), windowInsets);
-        return windowInsets;
-      });
-    }
+    ViewCompat.setOnApplyWindowInsetsListener(getToolbar(), (view, windowInsets) -> {
+      UiUtils.setViewInsetsPaddingNoBottom(getToolbar(), windowInsets);
+      return windowInsets;
+    });
     UiUtils.setupNavigationIcon(mToolbar, mNavigationClickListener);
     setSupportActionBar(activity, mToolbar);
   }
@@ -45,11 +42,6 @@ public class ToolbarController
   {
     AppCompatActivity appCompatActivity = (AppCompatActivity) activity;
     appCompatActivity.setSupportActionBar(toolbar);
-  }
-
-  protected boolean useExtendedToolbar()
-  {
-    return false;
   }
 
   @IdRes

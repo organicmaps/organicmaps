@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
 
   <style name="MwmWidget"/>
 
@@ -323,6 +323,9 @@
     name="MwmTheme.BottomSheetDialog"
     parent="@style/ThemeOverlay.Material3.BottomSheetDialog">
     <item name="bottomSheetStyle">@style/MwmWidget.BottomSheetDialog</item>
+    <item name="enableEdgeToEdge">true</item>
+    <item name="android:navigationBarColor">@android:color/transparent</item>
+    <item name="android:windowTranslucentNavigation">false</item>
   </style>
 
   <style name="MwmWidget.BottomSheetDialog" parent="Widget.Material3.BottomSheet.Modal">

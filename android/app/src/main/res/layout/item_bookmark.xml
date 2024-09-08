@@ -4,7 +4,7 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:minHeight="@dimen/height_item_multiline"
-  android:background="?clickableBackground"
+  android:background="@drawable/bg_clickable_card"
   android:paddingStart="@dimen/margin_base">
 
   <ImageView

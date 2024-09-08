@@ -13,6 +13,7 @@ import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 
 import androidx.fragment.app.FragmentManager;
@@ -138,6 +139,12 @@ public class EditorHostFragment extends BaseMwmToolbarFragment implements View.O
     getToolbarController().setTitle(getTitle());
 
     fillNames();
+
+    View fragmentContainer = view.findViewById(R.id.fragment_container);
+    ViewCompat.setOnApplyWindowInsetsListener(fragmentContainer, (container, windowInsets) -> {
+      UiUtils.setViewInsetsPaddingBottom(container, windowInsets);
+      return windowInsets;
+    });
   }
 
   @StringRes

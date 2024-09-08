@@ -9,14 +9,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/recycler"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:focusableInTouchMode="true"
-      android:orientation="vertical">
-      <include layout="@layout/recycler_with_fab"/>
-    </LinearLayout>
-
+      android:clipToPadding="false" />
     <include
       layout="@layout/show_on_map_fab"
       android:layout_width="wrap_content"

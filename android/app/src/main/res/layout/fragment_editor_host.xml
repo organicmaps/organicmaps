@@ -11,7 +11,7 @@
     android:id="@+id/toolbar"
     style="@style/MwmWidget.ToolbarStyle"
     android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
+    android:layout_height="wrap_content"
     android:theme="@style/MwmWidget.ToolbarTheme">
 
     <androidx.constraintlayout.widget.ConstraintLayout

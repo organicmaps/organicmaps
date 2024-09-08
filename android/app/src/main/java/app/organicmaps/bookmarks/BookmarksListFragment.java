@@ -17,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
@@ -180,6 +182,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
     configureRecyclerAnimations();
     configureRecyclerDividers();
+    configureInsetsListener();
 
     updateLoadingPlaceholder(view, false);
   }
@@ -224,6 +227,30 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     BookmarkManager.INSTANCE.removeSharingListener(this);
   }
 
+  private void configureInsetsListener()
+  {
+    // recycler view already has an InsetListener in BaseMwmRecyclerFragment
+    // here we must update it, because the logic is different from a common use case
+    ViewCompat.setOnApplyWindowInsetsListener(getRecyclerView(), (recyclerView, windowInsets) -> {
+      int navBarHeight = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
+
+      int baseMargin = UiUtils.dimen(recyclerView.getContext(), R.dimen.margin_base);
+
+      ViewGroup.MarginLayoutParams buttonLayoutParams = (ViewGroup.MarginLayoutParams) mFabViewOnMap.getLayoutParams();
+      int buttonBottomMargin = navBarHeight + baseMargin;
+      buttonLayoutParams.bottomMargin = buttonBottomMargin;
+
+      int recyclerPaddingBottom = buttonBottomMargin
+                                  + mFabViewOnMap.getMeasuredHeight()
+                                  + baseMargin;
+      recyclerView.setPadding(
+          recyclerView.getPaddingLeft(), recyclerView.getPaddingTop(),
+          recyclerView.getPaddingRight(), recyclerPaddingBottom);
+
+      return windowInsets;
+    });
+  }
+
   private void configureBookmarksListAdapter()
   {
     BookmarkListAdapter adapter = getBookmarkListAdapter();
@@ -242,6 +269,19 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
       i.putExtra(MwmActivity.EXTRA_CATEGORY_ID, mCategoryDataSource.getData().getId());
       i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
       startActivity(i);
+    });
+    mFabViewOnMap.addOnLayoutChangeListener(new View.OnLayoutChangeListener()
+    {
+      @Override
+      public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
+      {
+        int height = v.getMeasuredHeight();
+        if (height > 0)
+        {
+          mFabViewOnMap.removeOnLayoutChangeListener(this);
+          view.requestApplyInsets();
+        }
+      }
     });
   }
 

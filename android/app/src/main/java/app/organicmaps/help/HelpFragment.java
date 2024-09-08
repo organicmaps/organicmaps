@@ -12,6 +12,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 
 import app.organicmaps.BuildConfig;
 import app.organicmaps.Framework;
@@ -22,6 +23,7 @@ import app.organicmaps.util.Constants;
 import app.organicmaps.util.DateUtils;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.SharingUtils;
+import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 
 public class HelpFragment extends BaseMwmFragment implements View.OnClickListener
@@ -97,6 +99,11 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     privacyPolicyView.setOnClickListener(v -> Utils.openUrl(requireActivity(), getResources().getString(R.string.translated_om_site_url) + "privacy/"));
 
     shareLauncher = SharingUtils.RegisterLauncher(this);
+
+    ViewCompat.setOnApplyWindowInsetsListener(root, (view, windowInsets) -> {
+      UiUtils.setViewInsetsPaddingBottom(view, windowInsets);
+      return windowInsets;
+    });
 
     return root;
   }

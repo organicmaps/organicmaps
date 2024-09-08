@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import androidx.core.view.ViewCompat;
 import app.organicmaps.BuildConfig;
 import app.organicmaps.Framework;
 import app.organicmaps.R;
@@ -76,6 +78,12 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     String code = readOAuth2CodeFromArguments();
     if (code != null && !code.isEmpty())
       continueOAuth2Flow(code);
+
+    ScrollView scrollView = view.findViewById(R.id.scrollView);
+    ViewCompat.setOnApplyWindowInsetsListener(scrollView, (v, windowInsets) -> {
+      UiUtils.setViewInsetsPaddingBottom(v, windowInsets);
+      return windowInsets;
+    });
   }
 
   private String readOAuth2CodeFromArguments()

@@ -255,13 +255,6 @@ public final class UiUtils
     }
   }
 
-  public static void setupTransparentStatusBar(@NonNull Activity activity)
-  {
-    final Window window = activity.getWindow();
-    window.getDecorView().setFitsSystemWindows(false);
-    window.setStatusBarColor(Color.TRANSPARENT);
-  }
-
   public static void setLightStatusBar(@NonNull Activity activity, boolean isLight)
   {
     final Window window = activity.getWindow();

@@ -11,6 +11,7 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -84,8 +85,14 @@ public abstract class BaseMwmRecyclerFragment<T extends RecyclerView.Adapter> ex
     LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
     manager.setSmoothScrollbarEnabled(true);
     mRecycler.setLayoutManager(manager);
+    mRecycler.setClipToPadding(false);
     mAdapter = createAdapter();
     mRecycler.setAdapter(mAdapter);
+
+    ViewCompat.setOnApplyWindowInsetsListener(mRecycler, (recyclerView, windowInsets) -> {
+      UiUtils.setViewInsetsPaddingBottom(recyclerView, windowInsets);
+      return windowInsets;
+    });
 
     mPlaceholder = view.findViewById(R.id.placeholder);
     setupPlaceholder(mPlaceholder);
