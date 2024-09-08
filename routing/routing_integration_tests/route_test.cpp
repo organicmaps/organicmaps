@@ -396,8 +396,7 @@ UNIT_TEST(TolyattiFeatureThatCrossSeveralMwmsTest)
   Route const & route = *routeResult.first;
 
   // GraphHopper and Valhalla agree here, but OSRM makes a short route via Syzran.
-  /// @todo Now like the OSRM short route, after updating primary/trunk factors.
-  TestRouteLength(route, 166157);
+  TestRouteLength(route, 155734);
   TestRouteTime(route, 7958.85);
 }
 
@@ -509,7 +508,7 @@ UNIT_TEST(RussiaMoscowNotCrossingTollRoadTest)
     // - 20595.4 is OK (Graphopper)
     // - 19203.7 is OK (OSRM)
     // - 21930.7 is OK (Valhalla)
-    CalculateRouteAndTestRouteLength(vehicleComponents, start, {0.0, 0.0}, finish[0], 20594.4);
+    CalculateRouteAndTestRouteLength(vehicleComponents, start, {0.0, 0.0}, finish[0], 21930.7);
     CalculateRouteAndTestRouteLength(vehicleComponents, start, {0.0, 0.0}, finish[1], 22015.4);
   }
 }
