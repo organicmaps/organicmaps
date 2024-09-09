@@ -10,11 +10,11 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import androidx.core.view.ViewCompat;
 import app.organicmaps.R;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.util.WindowInsetUtils;
 
 public class ToolbarController
 {
@@ -30,10 +30,11 @@ public class ToolbarController
     mActivity = activity;
     mToolbar = root.findViewById(getToolbarId());
 
-    ViewCompat.setOnApplyWindowInsetsListener(getToolbar(), (view, windowInsets) -> {
-      UiUtils.setViewInsetsPaddingNoBottom(getToolbar(), windowInsets);
-      return windowInsets;
-    });
+
+    ViewCompat.setOnApplyWindowInsetsListener(
+        getToolbar(),
+        WindowInsetUtils.PaddingInsetsListener.excludeBottom());
+
     UiUtils.setupNavigationIcon(mToolbar, mNavigationClickListener);
     setSupportActionBar(activity, mToolbar);
   }

@@ -20,7 +20,6 @@ import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
-
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmDialogFragment;
 import app.organicmaps.bookmarks.ChooseBookmarkCategoryFragment;
@@ -32,6 +31,7 @@ import app.organicmaps.bookmarks.data.Icon;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -146,10 +146,9 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   private void initToolbar(View view)
   {
     Toolbar toolbar = view.findViewById(R.id.toolbar);
-    ViewCompat.setOnApplyWindowInsetsListener(toolbar, (v, windowInsets) -> {
-      UiUtils.setViewInsetsPaddingNoBottom(v, windowInsets);
-      return windowInsets;
-    });
+
+    ViewCompat.setOnApplyWindowInsetsListener(toolbar, PaddingInsetsListener.excludeBottom());
+
     final ImageView imageView = toolbar.findViewById(R.id.save);
     imageView.setOnClickListener(v -> saveBookmark());
     UiUtils.showHomeUpButton(toolbar);

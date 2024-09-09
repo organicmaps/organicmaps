@@ -17,6 +17,8 @@ import app.organicmaps.R;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.util.WindowInsetUtils;
+import app.organicmaps.util.WindowInsetUtils.ScrollableContentInsetsListener;
 
 abstract class BaseXmlSettingsFragment extends PreferenceFragmentCompat
 {
@@ -56,10 +58,7 @@ abstract class BaseXmlSettingsFragment extends PreferenceFragmentCompat
     view.setBackgroundColor(color);
 
     RecyclerView recyclerView = getListView();
-    ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (recycler, windowInsets) -> {
-      UiUtils.setViewInsetsPaddingBottom(recycler, windowInsets);
-      return windowInsets;
-    });
+    ViewCompat.setOnApplyWindowInsetsListener(recyclerView, new ScrollableContentInsetsListener());
   }
 
   protected SettingsActivity getSettingsActivity()

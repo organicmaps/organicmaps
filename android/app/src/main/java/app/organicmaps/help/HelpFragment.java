@@ -13,7 +13,6 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
-
 import app.organicmaps.BuildConfig;
 import app.organicmaps.Framework;
 import app.organicmaps.R;
@@ -23,8 +22,9 @@ import app.organicmaps.util.Constants;
 import app.organicmaps.util.DateUtils;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.SharingUtils;
-import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.util.WindowInsetUtils;
+import app.organicmaps.util.WindowInsetUtils.ScrollableContentInsetsListener;
 
 public class HelpFragment extends BaseMwmFragment implements View.OnClickListener
 {
@@ -100,10 +100,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
 
     shareLauncher = SharingUtils.RegisterLauncher(this);
 
-    ViewCompat.setOnApplyWindowInsetsListener(root, (view, windowInsets) -> {
-      UiUtils.setViewInsetsPaddingBottom(view, windowInsets);
-      return windowInsets;
-    });
+    ViewCompat.setOnApplyWindowInsetsListener(root, new ScrollableContentInsetsListener());
 
     return root;
   }

@@ -15,6 +15,7 @@ import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
@@ -37,6 +38,7 @@ import app.organicmaps.util.Config;
 import app.organicmaps.util.SharedPropertiesUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.util.WindowInsetUtils;
 import app.organicmaps.widget.PlaceholderView;
 import app.organicmaps.widget.SearchToolbarController;
 import com.google.android.material.appbar.AppBarLayout;
@@ -245,7 +247,8 @@ public class SearchFragment extends BaseMwmFragment
   private void updateViewsInsets()
   {
     ViewCompat.setOnApplyWindowInsetsListener(requireView(), (view, windowInsets) -> {
-      int navBarHeight = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
+      final Insets insets = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
+      int navBarHeight = insets.bottom;
 
       int baseMargin = UiUtils.dimen(view.getContext(), R.dimen.margin_base);
 
@@ -259,8 +262,8 @@ public class SearchFragment extends BaseMwmFragment
                                   + mShowOnMapFab.getMeasuredHeight()
                                   + baseMargin;
       resultsRecycler.setPadding(
-          resultsRecycler.getPaddingLeft(), resultsRecycler.getPaddingTop(),
-          resultsRecycler.getPaddingRight(), recyclerPaddingBottom);
+          insets.left, resultsRecycler.getPaddingTop(),
+          insets.right, recyclerPaddingBottom);
 
       return windowInsets;
     });

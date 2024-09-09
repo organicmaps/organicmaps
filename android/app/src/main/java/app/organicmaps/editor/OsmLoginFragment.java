@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import androidx.core.view.ViewCompat;
 import app.organicmaps.BuildConfig;
 import app.organicmaps.Framework;
@@ -24,6 +23,7 @@ import app.organicmaps.util.DateUtils;
 import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.util.WindowInsetUtils.ScrollableContentInsetsListener;
 import app.organicmaps.util.concurrency.ThreadPool;
 import app.organicmaps.util.concurrency.UiThread;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -80,10 +80,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
       continueOAuth2Flow(code);
 
     ScrollView scrollView = view.findViewById(R.id.scrollView);
-    ViewCompat.setOnApplyWindowInsetsListener(scrollView, (v, windowInsets) -> {
-      UiUtils.setViewInsetsPaddingBottom(v, windowInsets);
-      return windowInsets;
-    });
+    ViewCompat.setOnApplyWindowInsetsListener(scrollView, new ScrollableContentInsetsListener());
   }
 
   private String readOAuth2CodeFromArguments()

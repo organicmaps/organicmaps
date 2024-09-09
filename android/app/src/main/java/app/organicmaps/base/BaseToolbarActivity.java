@@ -11,9 +11,9 @@ import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
-
 import app.organicmaps.R;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
 
 public abstract class BaseToolbarActivity extends BaseMwmFragmentActivity
 {
@@ -38,10 +38,7 @@ public abstract class BaseToolbarActivity extends BaseMwmFragmentActivity
       setupHomeButton(toolbar);
       displayToolbarAsActionBar();
 
-      ViewCompat.setOnApplyWindowInsetsListener(toolbar, (toolbarView, windowInsets) -> {
-        UiUtils.setViewInsetsPaddingNoBottom(toolbarView, windowInsets);
-        return windowInsets;
-      });
+      ViewCompat.setOnApplyWindowInsetsListener(toolbar, PaddingInsetsListener.excludeBottom());
     }
   }
 

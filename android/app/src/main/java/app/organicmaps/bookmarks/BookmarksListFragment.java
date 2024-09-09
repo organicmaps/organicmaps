@@ -17,12 +17,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
+import app.organicmaps.util.WindowInsetUtils;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
@@ -230,9 +232,10 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private void configureInsetsListener()
   {
     // recycler view already has an InsetListener in BaseMwmRecyclerFragment
-    // here we must update it, because the logic is different from a common use case
+    // here we must reset it, because the logic is different from a common use case
     ViewCompat.setOnApplyWindowInsetsListener(getRecyclerView(), (recyclerView, windowInsets) -> {
-      int navBarHeight = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
+      final Insets insets = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
+      int navBarHeight = insets.bottom;
 
       int baseMargin = UiUtils.dimen(recyclerView.getContext(), R.dimen.margin_base);
 
@@ -246,6 +249,11 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
       recyclerView.setPadding(
           recyclerView.getPaddingLeft(), recyclerView.getPaddingTop(),
           recyclerView.getPaddingRight(), recyclerPaddingBottom);
+
+      // update margins instead of paddings, because IdemDecorators do not respect paddings
+      ViewGroup.MarginLayoutParams recyclerLayoutParams = (ViewGroup.MarginLayoutParams) recyclerView.getLayoutParams();
+      recyclerLayoutParams.leftMargin = insets.left;
+      recyclerLayoutParams.rightMargin = insets.right;
 
       return windowInsets;
     });

@@ -22,14 +22,16 @@ import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.downloader.MapManager;
 import app.organicmaps.downloader.UpdateInfo;
+import app.organicmaps.location.TrackRecorder;
 import app.organicmaps.maplayer.isolines.IsolinesManager;
 import app.organicmaps.maplayer.subway.SubwayManager;
 import app.organicmaps.maplayer.traffic.TrafficManager;
-import app.organicmaps.location.TrackRecorder;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.WindowInsetUtils;
+import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
 import app.organicmaps.widget.menu.MyPositionButton;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 import com.google.android.material.badge.BadgeDrawable;
@@ -156,10 +158,7 @@ public class MapButtonsController extends Fragment
     if (helpButton != null)
       mButtonsMap.put(MapButtons.help, helpButton);
 
-    ViewCompat.setOnApplyWindowInsetsListener(mFrame, (view, windowInsets) -> {
-      UiUtils.setViewInsetsPadding(view, windowInsets);
-      return windowInsets;
-    });
+    ViewCompat.setOnApplyWindowInsetsListener(mFrame, PaddingInsetsListener.allSides());
     return mFrame;
   }
 

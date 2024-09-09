@@ -34,11 +34,9 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.textfield.TextInputLayout;
-
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
@@ -275,29 +273,16 @@ public final class UiUtils
     }
   }
 
-  public static void setViewInsetsPadding(View view, WindowInsetsCompat windowInsets)
-  {
-    final Insets systemInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-    view.setPadding(systemInsets.left, systemInsets.top,
-                    systemInsets.right, systemInsets.bottom);
-  }
-
-  public static void setViewInsetsPaddingNoTop(View view, WindowInsetsCompat windowInsets)
-  {
-    final Insets systemInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-    view.setPadding(systemInsets.left, view.getPaddingTop(),
-                    systemInsets.right, systemInsets.bottom);
-  }
   public static void setViewInsetsPaddingBottom(View view, WindowInsetsCompat windowInsets)
   {
-    final Insets systemInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+    final Insets systemInsets = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
     view.setPaddingRelative(view.getPaddingStart(), view.getPaddingTop(),
                     view.getPaddingEnd(), systemInsets.bottom);
   }
 
   public static void setViewInsetsPaddingNoBottom(View view, WindowInsetsCompat windowInsets)
   {
-    final Insets systemInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+    final Insets systemInsets = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
     view.setPadding(systemInsets.left, systemInsets.top,
                     systemInsets.right, view.getPaddingBottom());
   }
