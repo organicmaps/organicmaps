@@ -8,6 +8,7 @@
     <item name="android:listViewStyle">@style/MwmWidget.ListView</item>
     <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
     <item name="android:forceDarkAllowed" tools:targetApi="Q">false</item>
+    <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">always</item>
 
     <item name="android:textColorPrimary">@color/text_dark</item>
     <item name="android:textColorPrimaryInverse">@color/text_light</item>
