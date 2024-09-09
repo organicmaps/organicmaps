@@ -24,9 +24,6 @@ public final class WindowInsetUtils
   public static final int TYPE_SAFE_DRAWING = WindowInsetsCompat.Type.systemBars()
                                               | WindowInsetsCompat.Type.displayCutout();
 
-  /**
-   * OnApplyWindowInsetsListener implementation
-   */
   public static final class ScrollableContentInsetsListener implements OnApplyWindowInsetsListener
   {
 
