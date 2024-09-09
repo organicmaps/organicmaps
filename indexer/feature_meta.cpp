@@ -23,7 +23,7 @@ string Metadata::ToWikiURL(std::string v)
   if (colon == string::npos)
     return v;
 
-  v = encodeWikiURL(v, colon);
+  v = EncodeWikiURL(v, colon);
 
   // Trying to avoid redirects by constructing the right link.
   // TODO: Wikipedia article could be opened in a user's language, but need
@@ -41,12 +41,12 @@ std::string Metadata::ToWikimediaCommonsURL(std::string v)
   if (v.empty())
     return v;
 
-  v = encodeWikiURL(v, 0);
+  v = EncodeWikiURL(v, 0);
 
   return "https://commons.wikimedia.org/wiki/" + v;
 }
 
-std::string Metadata::encodeWikiURL(std::string v, int startIndex) {
+std::string Metadata::EncodeWikiURL(std::string v, int startIndex) {
   // Spaces and ? characters should be corrected to form a valid URL's path.
   // Standard percent encoding also encodes other characters like (), which lead to an unnecessary HTTP redirection.
   for (auto i = startIndex; i < v.size(); ++i)
