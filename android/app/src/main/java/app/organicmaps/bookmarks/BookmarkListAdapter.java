@@ -66,6 +66,11 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
               !mDataSource.getData().getDescription().isEmpty());
     }
 
+    void invalidate()
+    {
+      mDataSource.invalidate();
+    }
+
     public abstract int getSectionsCount();
     public abstract boolean isEditable(int sectionIndex);
     public abstract boolean hasTitle(int sectionIndex);
@@ -154,6 +159,9 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     @Override
     public void onDelete(@NonNull SectionPosition pos)
     {
+      // we must invalidate datasource before calculate sections
+      invalidate();
+
       calculateSections();
     }
 
