@@ -1,5 +1,4 @@
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct PlaceTopBar: View {
   let title: String
@@ -9,24 +8,22 @@ struct PlaceTopBar: View {
   let onFavoriteChanged: (Bool) -> Void
   let onMapClick: () -> Void
   
-  private let height: CGFloat = 160
+  private let height: CGFloat = 150
   private let padding: CGFloat = 16
+  private let shape = RoundedCornerShape(corners: [.bottomLeft, .bottomRight], radius: 20)
   
   var body: some View {
     ZStack {
       // Load image
       LoadImageView(url: picUrl)
         .frame(height: height)
-        .clipShape(
-          RoundedRectangle(cornerRadius: 20, style: .continuous)
-        )
+        .clipShape(shape
+      )
       
       // Black overlay with opacity
       SwiftUI.Color.black.opacity(0.3)
         .frame(height: height)
-        .clipShape(
-          RoundedRectangle(cornerRadius: 20, style: .continuous)
-        )
+        .clipShape(shape)
       
       // Top actions: Back, Favorite, Map
       VStack {
@@ -51,7 +48,7 @@ struct PlaceTopBar: View {
           )
         }
         .padding(.horizontal, padding)
-        .padding(.top, 48)
+        .padding(.top, UIApplication.shared.statusBarFrame.height)
         
         VerticalSpace(height: 32)
         
@@ -79,7 +76,7 @@ struct PlaceTopBarAction: View {
       Image(systemName: iconName)
         .resizable()
         .scaledToFit()
-        .frame(width: 24, height: 24)
+        .frame(width: 22, height: 22)
         .padding(8)
         .background(SwiftUI.Color.white.opacity(0.2))
         .clipShape(Circle())

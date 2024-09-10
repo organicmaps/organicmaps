@@ -111,12 +111,22 @@ class ProfileServiceImpl: ProfileService {
       .receive(on: DispatchQueue.main)
       .eraseToAnyPublisher()
   }
-
+  
   func updateLanguage(code: String) {
-    // TODO: cmon
+    Task {
+      await AppNetworkHelper.put(
+        path: APIEndpoints.updateLanguageUrl,
+        body: LanguageDTO(language: code)
+      ) as Result<SimpleResponse, ResourceError>
+    }
   }
   
   func updateTheme(code: String) {
-    // TODO: cmon
+    Task {
+      await AppNetworkHelper.put(
+        path: APIEndpoints.updateThemeUrl,
+        body: ThemeDTO(theme: code)
+      ) as Result<SimpleResponse, ResourceError>
+    }
   }
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-struct Review: Codable {
+struct Review: Codable, Hashable {
   let id: Int64
   let placeId: Int64
   let rating: Int

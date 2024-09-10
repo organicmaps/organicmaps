@@ -18,13 +18,19 @@ class SearchViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    integrateSwiftUIScreen(SearchScreen(searchVM: searchVM))
+    integrateSwiftUIScreen(SearchScreen(
+      searchVM: searchVM,
+      goToPlaceScreen: { id in
+        self.goToPlaceScreen(id: id)
+      }
+    ))
   }
 }
 
 struct SearchScreen: View {
   @ObservedObject var searchVM: SearchViewModel
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+  var goToPlaceScreen: (Int64) -> Void
   
   var body: some View {
     ScrollView {
@@ -53,9 +59,8 @@ struct SearchScreen: View {
             ForEach(searchVM.places) { place in
               PlacesItem(
                 place: place,
-                onPlaceClick: { clickedPlace in
-                  // Handle place click
-                  print("Place clicked: \(clickedPlace.name)")
+                onPlaceClick: { place in
+                  goToPlaceScreen(place.id)
                 },
                 onFavoriteChanged: { isFavorite in
                   searchVM.toggleFavorite(for: place.id, isFavorite: isFavorite)

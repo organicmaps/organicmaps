@@ -34,9 +34,7 @@ class HomeViewController: UIViewController {
           self.navigationController?.pushViewController(destinationVC, animated: false)
         },
         goToPlaceScreen: { id in
-          let destinationVC = PlaceViewController(placeId: id)
-          self.navigationController?.pushViewController(destinationVC, animated: false)
-          self.tabBarController?.tabBar.isHidden = true
+          self.goToPlaceScreen(id: id)
         }
       )
     )
@@ -104,7 +102,7 @@ struct HomeScreen: View {
                 goToPlaceScreen(place.id)
               },
               setFavoriteChanged: { place, isFavorite in
-                
+                // TODO: cmon
               }
             )
           }
@@ -114,10 +112,10 @@ struct HomeScreen: View {
               title: L("restaurants"),
               items: restaurants,
               onPlaceClick: { place in
-                
+                goToPlaceScreen(place.id)
               },
               setFavoriteChanged: { place, isFavorite in
-                
+                // TODO: cmon
               }
             )
           }

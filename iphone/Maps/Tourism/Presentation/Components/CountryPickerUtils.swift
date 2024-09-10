@@ -70,3 +70,30 @@ struct UICountryAsLabelView: UIViewRepresentable {
     // nothing, go home
   }
 }
+
+
+func getCountryFlag(code: String) -> CountryPickerView {
+  let cpv = CountryPickerView()
+  cpv.translatesAutoresizingMaskIntoConstraints = false
+  cpv.showCountryNameInView = false
+  cpv.showPhoneCodeInView = false
+  cpv.showCountryCodeInView = false
+  cpv.isUserInteractionEnabled = false
+  cpv.setCountryByCode(code)
+  return cpv
+}
+
+struct UICountryFlagView: UIViewRepresentable {
+  let code: String
+  init(code: String) {
+    self.code = code
+  }
+  
+  func makeUIView(context: Context) -> CountryPickerView {
+    return getCountryFlag(code: code)
+  }
+  
+  func updateUIView(_ uiView: CountryPickerView, context: Context) {
+    // nothing, go home
+  }
+}

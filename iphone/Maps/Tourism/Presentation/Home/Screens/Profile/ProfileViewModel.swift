@@ -9,8 +9,11 @@ class ProfileViewModel: ObservableObject {
   private let userPreferences: UserPreferences
   var onSignOutCompleted: (() -> Void)? = nil
   
-  @Published var messageToShow = ""
-  @Published var shouldShowMessage = false
+  @Published var messageToShowOnProfileScreen = ""
+  @Published var shouldShowMessageOnProfileScreen = false
+  
+  @Published var messageToShowOnPersonalDataScreen = ""
+  @Published var shouldShowMessageOnPersonalDataScreen = false
   
   @Published var pfpFromRemote: URL? = nil
   @Published var pfpToUpload = UIImage()
@@ -21,7 +24,6 @@ class ProfileViewModel: ObservableObject {
   @Published var email: String = ""
   @Published var countryCodeName: String? = nil
   @Published var personalData: PersonalData? = nil
-  @Published var signOutResponse: SimpleResponse? = nil
   @Published var currencyRates: CurrencyRates? = nil
   
   private var cancellables = Set<AnyCancellable>()
@@ -68,7 +70,10 @@ class ProfileViewModel: ObservableObject {
     profileRepository.personalDataPassThroughSubject
       .sink { completion in
         if case let .failure(error) = completion {
-          self.showMessage(error.errorDescription)
+          if(error == ResourceError.unauthed) {
+            self.onSignOutCompleted?()
+          }
+          self.showMessageOnProfileScreen(error.errorDescription)
         }
       } receiveValue: { resource in
         self.personalData = resource
@@ -96,15 +101,15 @@ class ProfileViewModel: ObservableObject {
       )
       .sink { completion in
         if case let .failure(error) = completion {
-          self.showMessage(error.errorDescription)
+          self.showMessageOnPersonalDataScreen(error.errorDescription)
         }
       } receiveValue: { resource in
           self.updatePersonalDataInMemory(personalData: resource)
-          self.showMessage(L("saved"))
+          self.showMessageOnPersonalDataScreen(L("saved"))
       }
       .store(in: &cancellables)
     } else {
-      self.showMessage(L("please_fill_all_fields"))
+      self.showMessageOnPersonalDataScreen(L("please_fill_all_fields"))
     }
   }
   
@@ -118,7 +123,7 @@ class ProfileViewModel: ObservableObject {
     currencyRepository.currencyPassThroughSubject
       .sink { completion in
         if case let .failure(error) = completion {
-          self.showMessage(error.errorDescription)
+          self.showMessageOnProfileScreen(error.errorDescription)
         }
       } receiveValue: { resource in
         self.currencyRates = resource
@@ -128,23 +133,37 @@ class ProfileViewModel: ObservableObject {
     currencyRepository.getCurrency()
   }
   
+  // TODO: this doesn't work, try to find some other solutions
+  // I tried to update language remotely after user set the new language
+  func setLanguageOnSystemLocaleChange() {
+    NotificationCenter.default.addObserver(self, selector: #selector(localeChanged), name: NSLocale.currentLocaleDidChangeNotification, object: nil)
+  }
+  
+  @objc func localeChanged() {
+    profileRepository.updateLanguage(code: NSLocale.current.identifier)
+  }
+  
   func signOut() {
     authRepository.signOut()
       .sink { completion in
         if case let .failure(error) = completion {
-          self.showMessage(error.errorDescription)
+          self.showMessageOnProfileScreen(error.errorDescription)
         }
       } receiveValue: { response in
-        self.signOutResponse = response
         self.userPreferences.setToken(value: nil)
+        self.showMessageOnProfileScreen(response.message)
         self.onSignOutCompleted?()
-        self.showMessage(response.message)
       }
       .store(in: &cancellables)
   }
   
-  func showMessage(_ message: String) {
-    messageToShow = message
-    shouldShowMessage = true
+  func showMessageOnPersonalDataScreen(_ message: String) {
+    messageToShowOnPersonalDataScreen = message
+    shouldShowMessageOnPersonalDataScreen = true
+  }
+  
+  func showMessageOnProfileScreen(_ message: String) {
+    messageToShowOnProfileScreen = message
+    shouldShowMessageOnProfileScreen = true
   }
 }

@@ -4003,7 +4003,7 @@
 
 "compose_review" = "Leave feedback";
 
-"see_all" = "All reviews";
+"see_all_reviews" = "All reviews";
 
 "more" = "Unfold";
 
@@ -4016,6 +4016,8 @@
 "text" = "Text";
 
 "upload_photo" = "Upload photo";
+
+"images_number_warning" = "You can send no more than 10 images";
 
 "send" = "Send";
 
@@ -4091,7 +4093,11 @@
 
 "plz_wait_dowloading" = "Please, wait, data being downloaded";
 
-"empty_list" = "Пусто";
+"no_content" = "Empty";
+
+"empty_list" = "Empty";
+
+"back" = "Back";
 
 "review_will_be_published" = "Review will be published when you are online";
 

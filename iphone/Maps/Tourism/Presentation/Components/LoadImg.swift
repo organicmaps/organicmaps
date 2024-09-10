@@ -17,7 +17,8 @@ struct LoadImageView: View {
       .onFailure(perform: { error in
         isError = true
       })
-      .indicator(.activity).scaledToFill()
+      .indicator(.activity)
+      .scaledToFill()
       .transition(.fade(duration: 0.2))
     } else {
       Text(L("no_image"))

@@ -71,23 +71,23 @@ struct Place: View {
       }
       .frame(width: width)
       .background(SwiftUI.Color.black.opacity(0.5))
-      
-      VStack {
-        HStack {
-          Spacer()
+      HStack {
+        Spacer()
+        VStack {
           Button(action: {
             onFavoriteChanged(!isFavorite)
           }) {
             Image(systemName: isFavorite ? "heart.fill" : "heart")
               .foregroundColor(.white)
-              .padding(8)
+              .padding(12)
               .background(SwiftUI.Color.white.opacity(0.2))
               .clipShape(Circle())
           }
+          Spacer()
         }
-        Spacer()
       }
       .padding(12)
+      .frame(width: width, height: height)
     }
     .frame(width: width, height: height)
     .clipShape(RoundedRectangle(cornerRadius: 16))

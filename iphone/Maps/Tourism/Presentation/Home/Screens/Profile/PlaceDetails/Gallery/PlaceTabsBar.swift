@@ -3,7 +3,7 @@ import SwiftUI
 let tabBarShape = RoundedRectangle(cornerRadius: 50)
 
 struct PlaceTabsBar: View {
-  let tabTitles = ["Description", "Gallery", "Reviews"]
+  let tabTitles = [L("description_tourism"), L("gallery"), L("reviews")]
 
   @Binding var selectedTab: Int
   
@@ -30,10 +30,11 @@ struct PlaceTabsBar: View {
     var body: some View {
       Button(action: action) {
         Text(title)
-          .padding(8)
+          .textStyle(TextStyle.b1)
+          .padding(.vertical, 4)
+          .padding(.horizontal, 6)
           .background(isSelected ? Color.selected : SwiftUI.Color.clear)
-          .cornerRadius(8)
-          .foregroundColor(Color.onBackground)
+          .foregroundColor(isSelected ? Color.onSelected : Color.onSurface)
           .clipShape(tabBarShape)
       }
     }

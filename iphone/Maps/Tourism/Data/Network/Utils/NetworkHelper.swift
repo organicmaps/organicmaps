@@ -99,7 +99,7 @@ class AppNetworkHelper {
       return .failure(ResourceError.other(message: "Encoding error"))
     }
   }
-
+  
   static func postWithoutBody<T: Decodable>(
     path: String,
     headers: [String: String] = [:],
@@ -117,6 +117,30 @@ class AppNetworkHelper {
     )
   }
 
+  static func put<T: Decodable, U: Encodable>(
+    path: String,
+    body: U,
+    headers: [String: String] = [:],
+    decoder: JSONDecoder = JSONDecoder()
+  ) async -> Result<T, ResourceError> {
+    guard let url = URL(string: path) else {
+      return .failure(.other(message: "Invalid URL"))
+    }
+    
+    do {
+      let jsonData = try AppNetworkHelper.encodeRequestBody(body)
+      return await performRequest(
+        url: url,
+        method: "PUT",
+        body: jsonData,
+        headers: headers,
+        decoder: decoder
+      )
+    } catch {
+      return .failure(ResourceError.other(message: "Encoding error"))
+    }
+  }
+  
   static func performRequest<T: Decodable>(
     url: URL,
     method: String,
@@ -169,6 +193,8 @@ class AppNetworkHelper {
     switch httpResponse.statusCode {
     case 200...299:
       return try decodeResponse(data: data, as: T.self)
+    case 401:
+      throw ResourceError.unauthed
     case 422:
       let decodedResponse = try decodeResponse(data: data, as: ErrorResponse.self)
       throw ResourceError.errorToUser(message: decodedResponse.message)

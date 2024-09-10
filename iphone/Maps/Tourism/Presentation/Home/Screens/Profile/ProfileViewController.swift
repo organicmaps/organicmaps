@@ -2,26 +2,28 @@ import UIKit
 import SwiftUI
 
 class ProfileViewController: UIViewController {
+  private var profileVM: ProfileViewModel
+  
+  init(profileVM: ProfileViewModel) {
+    self.profileVM = profileVM
+    super.init(
+      nibName: nil,
+      bundle: nil
+    )
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    let profileVM = ProfileViewModel(
-      currencyRepository: CurrencyRepositoryImpl(
-        currencyService: CurrencyServiceImpl(),
-        currencyPersistenceController: CurrencyPersistenceController.shared
-      ),
-      profileRepository: ProfileRepositoryImpl(
-        personalDataService: ProfileServiceImpl(userPreferences: UserPreferences.shared),
-        personalDataPersistenceController: PersonalDataPersistenceController.shared
-      ),
-      authRepository: AuthRepositoryImpl(authService: AuthServiceImpl()),
-      userPreferences: UserPreferences.shared
-    )
     integrateSwiftUIScreen(
       ProfileScreen(
         profileVM: profileVM,
         onPersonalDataClick: {
-          let destinationVC = PersonalDataViewController(profileVM: profileVM)
+          let destinationVC = PersonalDataViewController(profileVM: self.profileVM)
           self.navigationController?.pushViewController(destinationVC, animated: true)
         }
       )
@@ -32,21 +34,22 @@ class ProfileViewController: UIViewController {
 struct ProfileScreen: View {
   @ObservedObject var profileVM: ProfileViewModel
   let onPersonalDataClick: () -> Void
-  @ObservedObject var themeVM: ThemeViewModel = ThemeViewModel(userPreferences: UserPreferences.shared)
+  @ObservedObject var themeVM: ThemeViewModel = ThemeViewModel(
+    profileRepository: ProfileRepositoryImpl(
+      profileService: ProfileServiceImpl(userPreferences: UserPreferences.shared),
+      personalDataPersistenceController: PersonalDataPersistenceController.shared
+    ),
+    userPreferences: UserPreferences.shared
+  )
   @State private var isSheetOpen = false
   @State private var signOutLoading = false
   
-  @State private var navigateToPersonalData = false
-  
   func onLanguageClick () {
     navigateToLanguageSettings()
+    profileVM.setLanguageOnSystemLocaleChange()
   }
   
   var body: some View {
-    NavigationLink(destination: PersonalDataScreen(profileVM: profileVM), isActive: $navigateToPersonalData) {
-      EmptyView()
-    }.hidden()
-    
     ScrollView {
       VStack (alignment: .leading) {
         AppTopBar(title: L("tourism_profile"))
@@ -92,9 +95,19 @@ struct ProfileScreen: View {
       }
       .padding(16)
     }
+    .overlay(
+      Group {
+        if profileVM.shouldShowMessageOnProfileScreen {
+          ToastView(message: profileVM.messageToShowOnProfileScreen, isPresented: $profileVM.shouldShowMessageOnProfileScreen)
+            .padding(.bottom)
+        }
+      },
+      alignment: .bottom
+    )
     .sheet(isPresented: $isSheetOpen) {
       SignOutWarning(
         onSignOutClick: {
+          isSheetOpen = false
           signOutLoading = true
           profileVM.signOut()
         },
@@ -203,7 +216,7 @@ struct ThemeSwitch: View {
   
   var body: some View {
     HStack {
-      Text("Dark Theme")
+      Text(L("Dark Theme"))
         .textStyle(TextStyle.b1)
       
       Spacer()

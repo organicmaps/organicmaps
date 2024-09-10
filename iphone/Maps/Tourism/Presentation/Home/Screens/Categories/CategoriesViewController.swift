@@ -26,6 +26,9 @@ class CategoriesViewController: UIViewController {
         goToSearchScreen: { query in
             let destinationVC = SearchViewController(searchVM: self.searchVM)
             self.navigationController?.pushViewController(destinationVC, animated: true)
+        },
+        goToPlaceScreen: { id in
+          self.goToPlaceScreen(id: id)
         }
       )
     )
@@ -35,6 +38,7 @@ class CategoriesViewController: UIViewController {
 struct CategoriesScreen: View {
   @ObservedObject var categoriesVM: CategoriesViewModel
   var goToSearchScreen: (String) -> Void
+  var goToPlaceScreen: (Int64) -> Void
   
   var body: some View {
     ScrollView {
@@ -68,9 +72,8 @@ struct CategoriesScreen: View {
             ForEach(categoriesVM.places) { place in
               PlacesItem(
                 place: place,
-                onPlaceClick: { clickedPlace in
-                  // Handle place click
-                  print("Place clicked: \(clickedPlace.name)")
+                onPlaceClick: { place in
+                  goToPlaceScreen(place.id)
                 },
                 onFavoriteChanged: { isFavorite in
                   categoriesVM.toggleFavorite(for: place.id, isFavorite: isFavorite)

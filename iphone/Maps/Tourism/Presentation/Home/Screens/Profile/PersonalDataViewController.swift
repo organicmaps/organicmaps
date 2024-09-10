@@ -27,7 +27,7 @@ struct PersonalDataScreen: View {
   @ObservedObject var profileVM: ProfileViewModel
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
   
-  @State private var showPhotoPicker = false
+  @State private var showImagePicker = false
   
   var body: some View {
     ScrollView {
@@ -65,7 +65,7 @@ struct PersonalDataScreen: View {
               .textStyle(TextStyle.h4)
           }
           .onTapGesture {
-            showPhotoPicker = true
+            showImagePicker = true
           }
         }
         
@@ -102,14 +102,14 @@ struct PersonalDataScreen: View {
         )
       }
       .padding()
-      .sheet(isPresented: $showPhotoPicker) {
+      .sheet(isPresented: $showImagePicker) {
         ImagePicker(sourceType: .photoLibrary, selectedImage: $profileVM.pfpToUpload)
       }
     }
     .overlay(
       Group {
-        if profileVM.shouldShowMessage {
-          ToastView(message: profileVM.messageToShow, isPresented: $profileVM.shouldShowMessage)
+        if profileVM.shouldShowMessageOnPersonalDataScreen {
+          ToastView(message: profileVM.messageToShowOnPersonalDataScreen, isPresented: $profileVM.shouldShowMessageOnPersonalDataScreen)
             .padding(.bottom)
         }
       },

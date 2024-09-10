@@ -4,13 +4,14 @@ import Combine
 class ProfileRepositoryImpl: ProfileRepository {
   private let profileService: ProfileService
   private let persistenceController: PersonalDataPersistenceController
+  private let userPreferences = UserPreferences.shared
   
   let personalDataPassThroughSubject = PassthroughSubject<PersonalData, ResourceError>()
   
   private var cancellables = Set<AnyCancellable>()
   
-  init(personalDataService: ProfileService, personalDataPersistenceController: PersonalDataPersistenceController) {
-    self.profileService = personalDataService
+  init(profileService: ProfileService, personalDataPersistenceController: PersonalDataPersistenceController) {
+    self.profileService = profileService
     self.persistenceController = personalDataPersistenceController
   }
   
@@ -77,10 +78,12 @@ class ProfileRepositoryImpl: ProfileRepository {
   }
   
   func updateLanguage(code: String) {
-    // TODO: cmon
+    userPreferences.setLanguage(value: code)
+    profileService.updateLanguage(code: code)
   }
   
   func updateTheme(code: String) {
-    // TODO: cmon
+    userPreferences.setTheme(value: code)
+    profileService.updateTheme(code: code)
   }
 }

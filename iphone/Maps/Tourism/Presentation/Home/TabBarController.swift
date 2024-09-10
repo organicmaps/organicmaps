@@ -3,6 +3,12 @@ import SwiftUI
 
 class TabBarController: UITabBarController {
   
+  override func viewDidAppear(_ animated: Bool) {
+    if let theme = UserPreferences.shared.getTheme() {
+        changeTheme(themeCode: theme.code)
+    }
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -22,7 +28,22 @@ class TabBarController: UITabBarController {
     
     // creating shared ViewModels
     let categoriesVM = CategoriesViewModel()
-    let searchViewModel = SearchViewModel()
+    let searchVM = SearchViewModel()
+    let profileVM = ProfileViewModel(
+      currencyRepository: CurrencyRepositoryImpl(
+        currencyService: CurrencyServiceImpl(),
+        currencyPersistenceController: CurrencyPersistenceController.shared
+      ),
+      profileRepository: ProfileRepositoryImpl (
+        profileService: ProfileServiceImpl(userPreferences: UserPreferences.shared),
+        personalDataPersistenceController: PersonalDataPersistenceController.shared
+      ),
+      authRepository: AuthRepositoryImpl(authService: AuthServiceImpl()),
+      userPreferences: UserPreferences.shared
+    )
+    profileVM.onSignOutCompleted = {
+      self.performSegue(withIdentifier: "TourismMain2Auth", sender: nil)
+    }
     
     // navigation functions
     let goToCategoriesTab = { self.selectedIndex = 1 }
@@ -30,15 +51,15 @@ class TabBarController: UITabBarController {
     // creating ViewControllers
     let homeVC = HomeViewController(
       categoriesVM: categoriesVM,
-      searchVM: searchViewModel,
+      searchVM: searchVM,
       goToCategoriesTab: goToCategoriesTab
     )
     let categoriesVC = CategoriesViewController(
       categoriesVM: categoriesVM,
-      searchVM: searchViewModel
+      searchVM: searchVM
     )
     let favoritesVC = FavoritesViewController()
-    let profileVC = ProfileViewController()
+    let profileVC = ProfileViewController(profileVM: profileVM)
     
     // setting up navigation
     homeNav.viewControllers = [homeVC]

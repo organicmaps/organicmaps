@@ -3,6 +3,24 @@ struct Constants {
   static let imageUrlExample = "https://img.freepik.com/free-photo/young-woman-hiker-taking-photo-with-smartphone-on-mountains-peak-in-winter_335224-427.jpg?w=2000"
   static let thumbnailUrlExample = "https://render.fineartamerica.com/images/images-profile-flow/400/images-medium-large-5/awesome-solitude-bess-hamiti.jpg"
   static let logoUrlExample = "https://brandeps.com/logo-download/O/OSCE-logo-vector-01.svg"
+  static let anotherImageExample = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiceDsFSiLmW2Jl-XP3m5UXRdyLRKBQTlPGQ&s"
+  
+  static let reviewExample = Review(
+    id: 1,
+    placeId: 1,
+    rating: 5,
+    user: User(id: 1, name: "John Doe", pfpUrl: Constants.imageUrlExample, countryCodeName: "US"),
+    date: "2024-09-01",
+    comment: "Amazing place! The views are incredible and the atmosphere is so calming.The views are incredible and the atmosphere is so calming.The views are incredible and the atmosphere is so calming.The views are incredible and the atmosphere is so calming.The views are incredible and the atmosphere is so calming.The views are incredible and the atmosphere is so calming.",
+    picsUrls: [
+      Constants.imageUrlExample,
+      Constants.thumbnailUrlExample,
+      Constants.imageUrlExample,
+      Constants.thumbnailUrlExample,
+      Constants.imageUrlExample,
+      Constants.thumbnailUrlExample
+    ]
+  )
   
   // MARK: - Data
   static let categories: [String: String] = [
@@ -27,8 +45,10 @@ struct Constants {
     cover: Constants.imageUrlExample,
     pics: [
       Constants.imageUrlExample,
+      Constants.thumbnailUrlExample,
       Constants.imageUrlExample,
-      Constants.thumbnailUrlExample
+      Constants.imageUrlExample,
+      Constants.anotherImageExample
     ],
     reviews: [
       Review(

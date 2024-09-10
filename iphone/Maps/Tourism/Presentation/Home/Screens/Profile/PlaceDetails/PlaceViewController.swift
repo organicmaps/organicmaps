@@ -40,34 +40,45 @@ struct PlaceScreen: View {
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
   
   var body: some View {
-    VStack {
-      PlaceTopBar(
-        title: "place",
-        picUrl: Constants.imageUrlExample,
-        onBackClick: {
-          presentationMode.wrappedValue.dismiss()
-          showBottomBar()
-        },
-        isFavorite: false,
-        onFavoriteChanged: { isFavorite in
-          // TODO: Cmon
-        },
-        onMapClick: {
-          // TODO: Cmon
-        }
-      )
-      
+    if let place = placeVM.place {
       VStack {
-        PlaceTabsBar(selectedTab: $selectedTab)
+        PlaceTopBar(
+          title: "place",
+          picUrl: Constants.imageUrlExample,
+          onBackClick: {
+            showBottomBar()
+            presentationMode.wrappedValue.dismiss()
+          },
+          isFavorite: false,
+          onFavoriteChanged: { isFavorite in
+            // TODO: Cmon
+          },
+          onMapClick: {
+            // TODO: Cmon
+          }
+        )
         
-        SwiftUI.TabView(selection: $selectedTab) {
-          DescriptionScreen().tag(0)
-          GalleryScreen().tag(1)
-          ReviewsScreen().tag(2)
+        VStack {
+          PlaceTabsBar(selectedTab: $selectedTab)
+            .padding()
+          
+          SwiftUI.TabView(selection: $selectedTab) {
+            DescriptionScreen(
+              description: place.description,
+              onCreateRoute: {
+                // TODO: cmon
+              }
+            )
+            .tag(0)
+            GalleryScreen(urls: place.pics)
+              .tag(1)
+            ReviewsScreen(placeId: place.id, rating: place.rating)
+              .tag(2)
+          }
+          .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
         }
-        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-      }.padding(16)
+      }
+      .edgesIgnoringSafeArea(.all)
     }
-    .edgesIgnoringSafeArea(.all)
   }
 }

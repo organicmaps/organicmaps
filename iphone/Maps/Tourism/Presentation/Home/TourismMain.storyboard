@@ -20,6 +20,9 @@
                         <color key="backgroundColor" name="Background"/>
                     </view>
                     <navigationItem key="navigationItem" id="OYr-7O-lYe"/>
+                    <connections>
+                        <segue destination="Q4m-49-p55" kind="presentation" identifier="TourismMain2Auth" modalPresentationStyle="fullScreen" id="mcy-b6-vPp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -42,6 +45,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OCr-Ir-NzB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="23.664122137404579" y="-2.1126760563380285"/>
+        </scene>
+        <!--Auth-->
+        <scene sceneID="4jT-sB-oOW">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Auth" id="Q4m-49-p55" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="85I-7x-WNl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1734" y="-2"/>
         </scene>
     </scenes>
     <resources>
