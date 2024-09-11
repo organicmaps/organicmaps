@@ -51,6 +51,9 @@
     <intent>
       <action android:name="android.intent.action.TTS_SERVICE"/>
     </intent>
+    <intent>
+      <action android:name="android.intent.action.OPEN_DOCUMENT_TREE"/>
+    </intent>
   </queries>
 
   <supports-screens
