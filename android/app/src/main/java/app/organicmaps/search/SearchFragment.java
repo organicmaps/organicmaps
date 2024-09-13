@@ -9,15 +9,12 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.MarginLayoutParams;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -244,31 +241,6 @@ public class SearchFragment extends BaseMwmFragment
     UiUtils.showIf(show, mResultsPlaceholder);
   }
 
-  private void updateViewsInsets()
-  {
-    ViewCompat.setOnApplyWindowInsetsListener(requireView(), (view, windowInsets) -> {
-      final Insets insets = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
-      int navBarHeight = insets.bottom;
-
-      int baseMargin = UiUtils.dimen(view.getContext(), R.dimen.margin_base);
-
-      MarginLayoutParams buttonLayoutParams = (MarginLayoutParams) mShowOnMapFab.getLayoutParams();
-      int buttonBottomMargin = navBarHeight + baseMargin;
-      buttonLayoutParams.bottomMargin = buttonBottomMargin;
-
-      RecyclerView resultsRecycler = mResultsFrame.findViewById(R.id.recycler);
-
-      int recyclerPaddingBottom = buttonBottomMargin
-                                  + mShowOnMapFab.getMeasuredHeight()
-                                  + baseMargin;
-      resultsRecycler.setPadding(
-          insets.left, resultsRecycler.getPaddingTop(),
-          insets.right, recyclerPaddingBottom);
-
-      return windowInsets;
-    });
-  }
-
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
@@ -313,26 +285,15 @@ public class SearchFragment extends BaseMwmFragment
     });
     mShowOnMapFab = root.findViewById(R.id.show_on_map_fab);
     mShowOnMapFab.setOnClickListener(v -> showAllResultsOnMap());
-    mShowOnMapFab.addOnLayoutChangeListener(new View.OnLayoutChangeListener()
-    {
-      @Override
-      public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
-      {
-        int height = v.getMeasuredHeight();
-        if (height > 0)
-        {
-          mShowOnMapFab.removeOnLayoutChangeListener(this);
-          view.requestApplyInsets();
-        }
-      }
-    });
 
     mResults.setLayoutManager(new LinearLayoutManager(view.getContext()));
     mResults.setAdapter(mSearchAdapter);
 
     updateFrames();
     updateResultsPlaceholder();
-    updateViewsInsets();
+    ViewCompat.setOnApplyWindowInsetsListener(
+        mResults,
+        new WindowInsetUtils.ScrollableContentInsetsListener(mResults, mShowOnMapFab));
 
     mToolbarController.activate();
 

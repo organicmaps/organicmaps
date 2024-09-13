@@ -89,7 +89,7 @@ public abstract class BaseMwmRecyclerFragment<T extends RecyclerView.Adapter> ex
     mAdapter = createAdapter();
     mRecycler.setAdapter(mAdapter);
 
-    ViewCompat.setOnApplyWindowInsetsListener(mRecycler, new ScrollableContentInsetsListener());
+    ViewCompat.setOnApplyWindowInsetsListener(mRecycler, new ScrollableContentInsetsListener(mRecycler));
 
     mPlaceholder = view.findViewById(R.id.placeholder);
     setupPlaceholder(mPlaceholder);

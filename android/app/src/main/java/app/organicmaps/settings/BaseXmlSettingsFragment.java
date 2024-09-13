@@ -58,7 +58,7 @@ abstract class BaseXmlSettingsFragment extends PreferenceFragmentCompat
     view.setBackgroundColor(color);
 
     RecyclerView recyclerView = getListView();
-    ViewCompat.setOnApplyWindowInsetsListener(recyclerView, new ScrollableContentInsetsListener());
+    ViewCompat.setOnApplyWindowInsetsListener(recyclerView, new ScrollableContentInsetsListener(recyclerView));
   }
 
   protected SettingsActivity getSettingsActivity()

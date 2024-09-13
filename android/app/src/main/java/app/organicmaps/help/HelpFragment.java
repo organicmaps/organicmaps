@@ -100,7 +100,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
 
     shareLauncher = SharingUtils.RegisterLauncher(this);
 
-    ViewCompat.setOnApplyWindowInsetsListener(root, new ScrollableContentInsetsListener());
+    ViewCompat.setOnApplyWindowInsetsListener(root, new ScrollableContentInsetsListener(root));
 
     return root;
   }

@@ -80,7 +80,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
       continueOAuth2Flow(code);
 
     ScrollView scrollView = view.findViewById(R.id.scrollView);
-    ViewCompat.setOnApplyWindowInsetsListener(scrollView, new ScrollableContentInsetsListener());
+    ViewCompat.setOnApplyWindowInsetsListener(scrollView, new ScrollableContentInsetsListener(scrollView));
   }
 
   private String readOAuth2CodeFromArguments()

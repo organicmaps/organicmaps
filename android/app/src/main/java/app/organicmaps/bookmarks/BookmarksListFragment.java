@@ -17,15 +17,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
-
-import app.organicmaps.util.WindowInsetUtils;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmRecyclerFragment;
@@ -40,14 +35,16 @@ import app.organicmaps.bookmarks.data.Track;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.search.NativeBookmarkSearchListener;
 import app.organicmaps.search.SearchEngine;
+import app.organicmaps.util.SharingUtils;
+import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.util.WindowInsetUtils;
+import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
+import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.widget.SearchToolbarController;
 import app.organicmaps.widget.placepage.EditBookmarkFragment;
 import app.organicmaps.widget.recycler.DividerItemDecorationWithPadding;
-import app.organicmaps.util.SharingUtils;
-import app.organicmaps.util.UiUtils;
-import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
-import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -184,7 +181,12 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
     configureRecyclerAnimations();
     configureRecyclerDividers();
-    configureInsetsListener();
+
+    // recycler view already has an InsetListener in BaseMwmRecyclerFragment
+    // here we must reset it, because the logic is different from a common use case
+    ViewCompat.setOnApplyWindowInsetsListener(
+        getRecyclerView(),
+        new WindowInsetUtils.ScrollableContentInsetsListener(getRecyclerView(), mFabViewOnMap));
 
     updateLoadingPlaceholder(view, false);
   }
@@ -229,36 +231,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     BookmarkManager.INSTANCE.removeSharingListener(this);
   }
 
-  private void configureInsetsListener()
-  {
-    // recycler view already has an InsetListener in BaseMwmRecyclerFragment
-    // here we must reset it, because the logic is different from a common use case
-    ViewCompat.setOnApplyWindowInsetsListener(getRecyclerView(), (recyclerView, windowInsets) -> {
-      final Insets insets = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
-      int navBarHeight = insets.bottom;
-
-      int baseMargin = UiUtils.dimen(recyclerView.getContext(), R.dimen.margin_base);
-
-      ViewGroup.MarginLayoutParams buttonLayoutParams = (ViewGroup.MarginLayoutParams) mFabViewOnMap.getLayoutParams();
-      int buttonBottomMargin = navBarHeight + baseMargin;
-      buttonLayoutParams.bottomMargin = buttonBottomMargin;
-
-      int recyclerPaddingBottom = buttonBottomMargin
-                                  + mFabViewOnMap.getMeasuredHeight()
-                                  + baseMargin;
-      recyclerView.setPadding(
-          recyclerView.getPaddingLeft(), recyclerView.getPaddingTop(),
-          recyclerView.getPaddingRight(), recyclerPaddingBottom);
-
-      // update margins instead of paddings, because IdemDecorators do not respect paddings
-      ViewGroup.MarginLayoutParams recyclerLayoutParams = (ViewGroup.MarginLayoutParams) recyclerView.getLayoutParams();
-      recyclerLayoutParams.leftMargin = insets.left;
-      recyclerLayoutParams.rightMargin = insets.right;
-
-      return windowInsets;
-    });
-  }
-
   private void configureBookmarksListAdapter()
   {
     BookmarkListAdapter adapter = getBookmarkListAdapter();
@@ -277,19 +249,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
       i.putExtra(MwmActivity.EXTRA_CATEGORY_ID, mCategoryDataSource.getData().getId());
       i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
       startActivity(i);
-    });
-    mFabViewOnMap.addOnLayoutChangeListener(new View.OnLayoutChangeListener()
-    {
-      @Override
-      public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
-      {
-        int height = v.getMeasuredHeight();
-        if (height > 0)
-        {
-          mFabViewOnMap.removeOnLayoutChangeListener(this);
-          view.requestApplyInsets();
-        }
-      }
     });
   }
 

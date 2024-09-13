@@ -4,9 +4,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.graphics.Insets;
 import androidx.core.view.OnApplyWindowInsetsListener;
 import androidx.core.view.WindowInsetsCompat;
+import app.organicmaps.R;
 
 public final class WindowInsetUtils
 {
@@ -24,37 +26,112 @@ public final class WindowInsetUtils
   public static final int TYPE_SAFE_DRAWING = WindowInsetsCompat.Type.systemBars()
                                               | WindowInsetsCompat.Type.displayCutout();
 
+  /**
+   * A utility class that implements {@link android.view.View.OnApplyWindowInsetsListener}
+   * to handle window insets for scrollable views such as RecyclerView.
+   *
+   * <p>This class updates the bottom padding of the scrollable view,
+   * ensuring that the content is not obscured by system UI elements
+   * (both the navigation bar and display cutouts).
+   *
+   * <p>Additionally, this class provides a special constructor that accepts a FloatingActionButton.
+   * When the button is provided, the bottom padding will also consider the height of this button to ensure
+   * that it does not overlap the scrollable content.
+   */
   public static final class ScrollableContentInsetsListener implements OnApplyWindowInsetsListener
   {
+
+    @Nullable
+    private final View mFloatingActionButton;
+    @NonNull
+    private final View mScrollableView;
+
+    public ScrollableContentInsetsListener(@NonNull View scrollableView)
+    {
+      this(scrollableView, null);
+    }
+
+    public ScrollableContentInsetsListener(@NonNull View scrollableView, @Nullable View floatingActionButton)
+    {
+      mScrollableView = scrollableView;
+      mFloatingActionButton = floatingActionButton;
+
+      if (floatingActionButton != null)
+      {
+        floatingActionButton.addOnLayoutChangeListener(new View.OnLayoutChangeListener()
+        {
+          @Override
+          public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
+          {
+            int height = v.getMeasuredHeight();
+            if (height > 0)
+            {
+              floatingActionButton.removeOnLayoutChangeListener(this);
+              scrollableView.requestApplyInsets();
+            }
+          }
+        });
+      }
+    }
 
     @NonNull
     @Override
     public WindowInsetsCompat onApplyWindowInsets(@NonNull View v, @NonNull WindowInsetsCompat windowInsets)
     {
       final Insets insets = windowInsets.getInsets(TYPE_SAFE_DRAWING);
-      v.setPadding(
+
+      int scrollableViewPaddingBottom;
+
+      if (mFloatingActionButton != null)
+      {
+        int spacing = UiUtils.dimen(v.getContext(), R.dimen.margin_base);
+        int buttonMarginBottom = insets.bottom + spacing;
+
+        ViewGroup.MarginLayoutParams buttonLayoutParams = (ViewGroup.MarginLayoutParams) mFloatingActionButton.getLayoutParams();
+        buttonLayoutParams.bottomMargin = buttonMarginBottom;
+
+        scrollableViewPaddingBottom = buttonMarginBottom
+                                    + mFloatingActionButton.getMeasuredHeight()
+                                    + spacing;
+      }
+      else
+      {
+        scrollableViewPaddingBottom = insets.bottom;
+      }
+
+      mScrollableView.setPadding(
           v.getPaddingLeft(),
           v.getPaddingTop(),
           v.getPaddingRight(),
-          insets.bottom);
-      ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+          scrollableViewPaddingBottom);
+
+      // update margins instead of paddings, because item decorators do not respect paddings
+      updateScrollableViewMargins(insets);
+
+      return windowInsets;
+    }
+
+    private void updateScrollableViewMargins(@NonNull Insets insets)
+    {
+      final ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) mScrollableView.getLayoutParams();
       if (layoutParams != null)
       {
         boolean dirty = false;
-        if (layoutParams.rightMargin != insets.right) {
+        if (layoutParams.rightMargin != insets.right)
+        {
           layoutParams.rightMargin = insets.right;
           dirty = true;
         }
-        if (layoutParams.leftMargin != insets.left) {
+        if (layoutParams.leftMargin != insets.left)
+        {
           layoutParams.leftMargin = insets.left;
           dirty = true;
         }
         if (dirty)
         {
-          v.requestLayout();
+          mScrollableView.requestLayout();
         }
       }
-      return windowInsets;
     }
   }
 
@@ -88,7 +165,6 @@ public final class WindowInsetUtils
     {
       return new PaddingInsetsListener(true, false, true, true);
     }
-
 
     @NonNull
     @Override
