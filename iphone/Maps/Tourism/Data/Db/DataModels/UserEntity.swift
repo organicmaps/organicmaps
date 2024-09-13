@@ -1,9 +1,6 @@
-//
-//  UserEntity.swift
-//  OMaps
-//
-//  Created by user on 9/11/24.
-//  Copyright © 2024 Organic Maps. All rights reserved.
-//
-
-import Foundation
+struct UserEntity {
+  let userId: Int64
+  let fullName: String
+  let avatar: String
+  let country: String
+}

@@ -10,7 +10,7 @@ struct PlaceFull: Codable {
   let cover: String
   let pics: [String]
   let reviews: [Review]?
-  let isFavorite: Bool
+  var isFavorite: Bool
   
   func toPlaceShort() -> PlaceShort {
     return PlaceShort(

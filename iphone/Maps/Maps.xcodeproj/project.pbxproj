@@ -603,6 +603,13 @@
 		CED0E0372C902532008C61CA /* ThemeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0E0362C902532008C61CA /* ThemeDTO.swift */; };
 		CED0E0392C904868008C61CA /* NavigationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0E0382C904868008C61CA /* NavigationUtils.swift */; };
 		CED0E03B2C904A06008C61CA /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0E03A2C904A06008C61CA /* FavoritesViewModel.swift */; };
+		CED0E03E2C905140008C61CA /* Place.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CED0E03C2C905140008C61CA /* Place.xcdatamodeld */; };
+		CED0E0422C9077D3008C61CA /* HashPersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0E0412C9077D3008C61CA /* HashPersistenceController.swift */; };
+		CED0E0452C918ED4008C61CA /* Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0E0442C918ED4008C61CA /* Hash.swift */; };
+		CED0E0472C919F44008C61CA /* PlacePersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0E0462C919F44008C61CA /* PlacePersistenceController.swift */; };
+		CED0E04A2C91A2A9008C61CA /* DBUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0E0492C91A2A9008C61CA /* DBUtils.swift */; };
+		CED0E04C2C91A6A3008C61CA /* CoordinatesEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0E04B2C91A6A3008C61CA /* CoordinatesEntity.swift */; };
+		CED0E04E2C91A702008C61CA /* UserEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0E04D2C91A702008C61CA /* UserEntity.swift */; };
 		ED0B1C312BC2951F00FB8EDD /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = ED0B1C302BC2951F00FB8EDD /* PrivacyInfo.xcprivacy */; };
 		ED1080A72B791CFE0023F27E /* SocialMediaCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1080A62B791CFE0023F27E /* SocialMediaCollectionViewHeader.swift */; };
 		ED1263AB2B6F99F900AD99F3 /* UIView+AddSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1263AA2B6F99F900AD99F3 /* UIView+AddSeparator.swift */; };
@@ -1643,6 +1650,13 @@
 		CED0E0362C902532008C61CA /* ThemeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeDTO.swift; sourceTree = "<group>"; };
 		CED0E0382C904868008C61CA /* NavigationUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationUtils.swift; sourceTree = "<group>"; };
 		CED0E03A2C904A06008C61CA /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
+		CED0E03D2C905140008C61CA /* Place.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Place.xcdatamodel; sourceTree = "<group>"; };
+		CED0E0412C9077D3008C61CA /* HashPersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashPersistenceController.swift; sourceTree = "<group>"; };
+		CED0E0442C918ED4008C61CA /* Hash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hash.swift; sourceTree = "<group>"; };
+		CED0E0462C919F44008C61CA /* PlacePersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePersistenceController.swift; sourceTree = "<group>"; };
+		CED0E0492C91A2A9008C61CA /* DBUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBUtils.swift; sourceTree = "<group>"; };
+		CED0E04B2C91A6A3008C61CA /* CoordinatesEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatesEntity.swift; sourceTree = "<group>"; };
+		CED0E04D2C91A702008C61CA /* UserEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntity.swift; sourceTree = "<group>"; };
 		ED097E762BB80C320006ED01 /* OMapsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OMapsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED0B1C302BC2951F00FB8EDD /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		ED1080A62B791CFE0023F27E /* SocialMediaCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaCollectionViewHeader.swift; sourceTree = "<group>"; };
@@ -2814,12 +2828,12 @@
 			path = Widgets;
 			sourceTree = "<group>";
 		};
-		3D2D79B82C7C4FC30062BC3D /* Utils */ = {
+		3D2D79B82C7C4FC30062BC3D /* ControllerTemplates */ = {
 			isa = PBXGroup;
 			children = (
 				3D2D79B92C7C508E0062BC3D /* SingleEntityCoreDataController.swift */,
 			);
-			path = Utils;
+			path = ControllerTemplates;
 			sourceTree = "<group>";
 		};
 		3D585BF72C768BED005DF71F /* Buttons */ = {
@@ -3093,11 +3107,11 @@
 		5260D3C92C64F58A00C673B4 /* Db */ = {
 			isa = PBXGroup;
 			children = (
-				3D2D79B82C7C4FC30062BC3D /* Utils */,
+				CED0E0492C91A2A9008C61CA /* DBUtils.swift */,
+				CED0E0402C9077B7008C61CA /* PersistenceControllers */,
+				3D2D79B82C7C4FC30062BC3D /* ControllerTemplates */,
 				52ED91A02C72007C000EE25B /* DataModels */,
-				52ED91A62C72C58A000EE25B /* CurrencyPersistenceController.swift */,
 				52ED91B22C73211F000EE25B /* EntitiesMapping.swift */,
-				3D2D79C22C7C80E60062BC3D /* PersonalDataPersistenceController.swift */,
 			);
 			path = Db;
 			sourceTree = "<group>";
@@ -3282,6 +3296,7 @@
 				529A5F2E2C86DF51004FE4A1 /* ReviewToPost.swift */,
 				529A5F302C86DF61004FE4A1 /* Review.swift */,
 				529A5F322C86DF6F004FE4A1 /* PlaceFull.swift */,
+				CED0E0442C918ED4008C61CA /* Hash.swift */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -3474,6 +3489,9 @@
 			children = (
 				529A5F112C859535004FE4A1 /* PersonalData.xcdatamodeld */,
 				52ED91A12C7200C4000EE25B /* Currency.xcdatamodeld */,
+				CED0E03C2C905140008C61CA /* Place.xcdatamodeld */,
+				CED0E04B2C91A6A3008C61CA /* CoordinatesEntity.swift */,
+				CED0E04D2C91A702008C61CA /* UserEntity.swift */,
 			);
 			path = DataModels;
 			sourceTree = "<group>";
@@ -3848,6 +3866,17 @@
 				CED0E0212C8B22CD008C61CA /* ReviewView.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		CED0E0402C9077B7008C61CA /* PersistenceControllers */ = {
+			isa = PBXGroup;
+			children = (
+				52ED91A62C72C58A000EE25B /* CurrencyPersistenceController.swift */,
+				3D2D79C22C7C80E60062BC3D /* PersonalDataPersistenceController.swift */,
+				CED0E0412C9077D3008C61CA /* HashPersistenceController.swift */,
+				CED0E0462C919F44008C61CA /* PlacePersistenceController.swift */,
+			);
+			path = PersistenceControllers;
 			sourceTree = "<group>";
 		};
 		ED1ADA312BC6B19E0029209F /* Tests */ = {
@@ -5011,6 +5040,7 @@
 				34B846A82029E8110081ECCD /* BMCDefaultViewModel.swift in Sources */,
 				993DF12123F6BDB100AC231A /* UIViewControllerRenderer.swift in Sources */,
 				529A5F192C85BFF0004FE4A1 /* ToastView.swift in Sources */,
+				CED0E0422C9077D3008C61CA /* HashPersistenceController.swift in Sources */,
 				34D3AFF61E37A36A004100F9 /* UICollectionView+Cells.swift in Sources */,
 				4767CDA420AAF66B00BD8166 /* NSAttributedString+HTML.swift in Sources */,
 				6741A9A91BF340DE002C974C /* MWMDefaultAlert.mm in Sources */,
@@ -5053,6 +5083,7 @@
 				993DF12C23F6BDB100AC231A /* Theme.swift in Sources */,
 				47CA68D8250044C500671019 /* BookmarksListRouter.swift in Sources */,
 				52ED91AB2C7302A7000EE25B /* CurrencyRatesDTO.swift in Sources */,
+				CED0E0472C919F44008C61CA /* PlacePersistenceController.swift in Sources */,
 				34D3B0421E389D05004100F9 /* MWMEditorTextTableViewCell.m in Sources */,
 				99F3EB1223F418C900C713F8 /* PlacePageInteractor.swift in Sources */,
 				52522F3B2C6DDA750015709C /* ThemeViewModel.swift in Sources */,
@@ -5301,7 +5332,9 @@
 				993DF10223F6BDB100AC231A /* Colors.swift in Sources */,
 				34AB66201FC5AA330078E451 /* RouteStartButton.swift in Sources */,
 				AC79C8922A65AB9500594C24 /* UIColor+hexString.swift in Sources */,
+				CED0E03E2C905140008C61CA /* Place.xcdatamodeld in Sources */,
 				99DEF9D723E420F6006BFD21 /* ElevationProfileDescriptionCell.swift in Sources */,
+				CED0E04A2C91A2A9008C61CA /* DBUtils.swift in Sources */,
 				993DF11623F6BDB100AC231A /* UIWindowRenderer.swift in Sources */,
 				F660DEE51EAF4F59004DC056 /* MWMLocationManager+SpeedAndAltitude.swift in Sources */,
 				F6E2FDF21E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.mm in Sources */,
@@ -5358,6 +5391,7 @@
 				3472B5CB200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift in Sources */,
 				34FE5A6F1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */,
 				993DF10D23F6BDB100AC231A /* UIPageControlRenderer.swift in Sources */,
+				CED0E04C2C91A6A3008C61CA /* CoordinatesEntity.swift in Sources */,
 				FA8E808925F412E2002A1434 /* FirstSession.mm in Sources */,
 				F6E2FF691E097BA00083EBEC /* MWMUnitsController.mm in Sources */,
 				52ED91B32C73211F000EE25B /* EntitiesMapping.swift in Sources */,
@@ -5519,12 +5553,14 @@
 				F6E2FF571E097BA00083EBEC /* MWMMobileInternetViewController.m in Sources */,
 				993DF11323F6BDB100AC231A /* UITableViewRenderer.swift in Sources */,
 				34AB66261FC5AA330078E451 /* RouteManagerDimView.swift in Sources */,
+				CED0E0452C918ED4008C61CA /* Hash.swift in Sources */,
 				EDFDFB4A2B722A310013A44C /* SocialMediaCollectionViewCell.swift in Sources */,
 				529A5F282C86DEC5004FE4A1 /* UserDTO.swift in Sources */,
 				6741AA2B1BF340DE002C974C /* CircleView.m in Sources */,
 				4788739220EE326500F6826B /* VerticallyAlignedButton.swift in Sources */,
 				EDFDFB462B7139490013A44C /* AboutInfo.swift in Sources */,
 				3444DFDE1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */,
+				CED0E04E2C91A702008C61CA /* UserEntity.swift in Sources */,
 				CDCA278622451F5000167D87 /* RouteInfo.swift in Sources */,
 				3467CEB6202C6FA900D3C670 /* BMCNotificationsCell.swift in Sources */,
 				529A5F6A2C8707F9004FE4A1 /* FavoritesViewController.swift in Sources */,
@@ -5984,6 +6020,17 @@
 			);
 			currentVersion = 52ED91A22C7200C4000EE25B /* CurrencyRates.xcdatamodel */;
 			path = Currency.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		CED0E03C2C905140008C61CA /* Place.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CED0E03D2C905140008C61CA /* Place.xcdatamodel */,
+			);
+			currentVersion = CED0E03D2C905140008C61CA /* Place.xcdatamodel */;
+			name = Place.xcdatamodeld;
+			path = /Users/user/Projects/Tourism/iphone/Maps/Tourism/Data/Db/DataModels/Place.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
