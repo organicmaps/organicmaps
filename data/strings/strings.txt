@@ -16296,7 +16296,7 @@
     eu = Zure aldaketak <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> datu-base publikora kargatzen dira. Mesedez, ez gehitu informazio pertsonalik edo copyrightdun informaziorik.
     fa = ویرایش های شما در پایگاه داده عمومی <a href="https://wiki.openstreetmap.org/wiki/Fa:About_OpenStreetMap">OpenStreetMap</a> آپلود می شود. لطفا اطلاعات شخصی یا دارای حق چاپ را اضافه نکنید.
     fi = Muokkauksesi ladataan julkiseen <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>-tietokantaan. Älä lisää henkilökohtaisia tai tekijänoikeudella suojattuja tietoja.
-    fr = Vos modifications sont téléchargées dans la base de données publique <a href="https://wiki.openstreetmap.org/wiki/FR:%C3%80_propos_d%E2%80%99OpenStreetMap">OpenStreetMap</a>. Veuillez ne pas ajouter d'informations personnelles ou protégées par le droit d'auteur.
+    fr = Vos modifications sont téléchargées dans la base de données publique <a href="https://wiki.openstreetmap.org/wiki/FR:À_propos_d’OpenStreetMap">OpenStreetMap</a>. Veuillez ne pas ajouter d'informations personnelles ou protégées par le droit d'auteur.
     he = העריכות שלך מועלות למסד הנתונים הציבורי של <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. נא לא להוסיף מידע אישי או מוגן בזכויות יוצרים.
     hi = आपके संपादन सार्वजनिक <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> डेटाबेस पर अपलोड किए जाते हैं। कृपया व्यक्तिगत या कॉपीराइट जानकारी न जोड़ें।
     hu = Az Ön szerkesztései feltöltődnek a nyilvános <a href="https://wiki.openstreetmap.org/wiki/Hu:Névjegy">OpenStreetMap</a> adatbázisba. Kérjük, ne adjon hozzá személyes vagy szerzői jogvédelem alatt álló információkat.
@@ -16307,7 +16307,7 @@
     lt = Jūsų pakeitimai įkeliami į viešą <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> duomenų bazę. Prašome nedėti asmeninės ar autorių teisėmis apsaugotos informacijos.
     mr = तुमची संपादने सार्वजनिक <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> डेटाबेसवर अपलोड केली जातात. कृपया वैयक्तिक किंवा कॉपीराइट केलेली माहिती जोडू नका.
     nb = Dine endringer lastes opp til den offentlige <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>-databasen. Vennligst ikke legg til personlig eller opphavsrettsbeskyttet informasjon.
-    nl = Uw bewerkingen worden geüpload naar de openbare <a href="https://wiki.openstreetmap.org/wiki/NL:Wat_is_OpenStreetMap%3F">OpenStreetMap</a> database. Voeg geen persoonlijke of auteursrechtelijk beschermde informatie toe.
+    nl = Uw bewerkingen worden geüpload naar de openbare <a href="https://wiki.openstreetmap.org/wiki/NL:About">OpenStreetMap</a> database. Voeg geen persoonlijke of auteursrechtelijk beschermde informatie toe.
     pl = Państwa zmiany są przesyłane do publicznej bazy danych <a href="https://wiki.openstreetmap.org/wiki/Pl:Wstęp">OpenStreetMap</a>. Prosimy nie dodawać informacji osobistych lub chronionych prawem autorskim.
     pt = As suas edições são carregadas para a base de dados pública <a href="https://wiki.openstreetmap.org/wiki/Pt:Sobre_o_OpenStreetMap">OpenStreetMap</a>. Por favor, não adicione informações pessoais ou protegidas por direitos de autor.
     pt-BR = As suas edições são enviadas à base de dados pública <a href="https://wiki.openstreetmap.org/wiki/Pt:Sobre_o_OpenStreetMap">OpenStreetMap</a>. Não adicione informações pessoais ou protegidas por direitos autorais.
@@ -16320,8 +16320,8 @@
     tr = Düzenlemeleriniz halka açık <a href="https://wiki.openstreetmap.org/wiki/Tr:About">OpenStreetMap</a> veritabanına yüklenir. Lütfen kişisel veya telif hakkıyla korunan bilgiler eklemeyin.
     uk = Ваші правки завантажуються до публічної бази даних <a href="https://wiki.openstreetmap.org/wiki/Uk:Про_проект">OpenStreetMap</a>. Будь ласка, не додавайте особисту або захищену авторським правом інформацію.
     vi = Các chỉnh sửa của bạn sẽ được tải lên cơ sở dữ liệu <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> công khai. Vui lòng không thêm thông tin cá nhân hoặc có bản quyền.
-    zh-Hans = 您的编辑内容将上传到公共<a href="https://wiki.openstreetmap.org/wiki/Zh-hans:%E5%85%B3%E4%BA%8E">OpenStreetMap</a>数据库。请勿添加个人或受版权保护的信息。
-    zh-Hant = 您的編輯內容將上傳至公用 <a href="https://wiki.openstreetmap.org/wiki/Zh-hant:%E9%97%9C%E6%96%BCOpenStreetMap">OpenStreetMap</a> 資料庫。請不要添加個人或版權資訊。
+    zh-Hans = 您的编辑内容将上传到公共<a href="https://wiki.openstreetmap.org/wiki/Zh-hans:关于">OpenStreetMap</a>数据库。请勿添加个人或受版权保护的信息。
+    zh-Hant = 您的編輯內容將上傳至公用 <a href="https://wiki.openstreetmap.org/wiki/Zh-hant:關於OpenStreetMap">OpenStreetMap</a> 資料庫。請不要添加個人或版權資訊。
 
   [editor_detailed_description_hint]
     tags = ios
@@ -28953,7 +28953,7 @@
     el = https://wiki.openstreetmap.org/wiki/El:About_OpenStreetMap
     es = https://wiki.openstreetmap.org/wiki/ES:Acerca_de_OpenStreetMap
     fa = https://wiki.openstreetmap.org/wiki/Fa:About_OpenStreetMap
-    fr = https://wiki.openstreetmap.org/wiki/FR:%C3%80_propos_d%E2%80%99OpenStreetMap
+    fr = https://wiki.openstreetmap.org/wiki/FR:À_propos_d’OpenStreetMap
     hu = https://wiki.openstreetmap.org/wiki/Hu:Névjegy
     it = https://wiki.openstreetmap.org/wiki/IT:About
     ja = https://wiki.openstreetmap.org/wiki/JA:参加する
@@ -28964,8 +28964,8 @@
     ru = https://wiki.openstreetmap.org/wiki/RU:О_проекте
     tr = https://wiki.openstreetmap.org/wiki/Tr:About
     uk = https://wiki.openstreetmap.org/wiki/Uk:Про_проект
-    zh-Hans = https://wiki.openstreetmap.org/wiki/Zh-hans:%E5%85%B3%E4%BA%8E
-    zh-Hant = https://wiki.openstreetmap.org/wiki/Zh-hant:%E9%97%9C%E6%96%BCOpenStreetMap
+    zh-Hans = https://wiki.openstreetmap.org/wiki/Zh-hans:关于
+    zh-Hant = https://wiki.openstreetmap.org/wiki/Zh-hant:關於OpenStreetMap
 
   [comma_separated_pair]
     comment = A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks
