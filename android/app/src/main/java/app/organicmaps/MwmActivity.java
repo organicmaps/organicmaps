@@ -1071,6 +1071,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onNewIntent(intent);
     if (isMapRendererActive())
       processIntent();
+    if (intent.getAction() != null && intent.getAction()
+                                            .equals(TrackRecordingService.STOP_TRACK_RECORDING))
+    {
+      //closes the bottom sheet in case it is opened to deal with updation of track recording status in bottom sheet.
+      closeBottomSheet(MAIN_MENU_ID);
+      showTrackSaveDialog();
+    }
   }
 
 
