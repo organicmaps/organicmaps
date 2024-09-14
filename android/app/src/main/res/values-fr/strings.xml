@@ -510,7 +510,7 @@
 	<!-- Hint of the input field in the OSM note section of the editor -->
 	<string name="editor_note_hint">Décrivez les erreurs sur la carte ou les éléments qui ne peuvent pas être modifiés avec Organic Maps.</string>
 	<!-- Information about OSM at the top of the editing page -->
-	<string name="editor_about_osm">Vos modifications sont téléchargées dans la base de données publique &lt;a href="https://wiki.openstreetmap.org/wiki/FR:%%C3%%80_propos_d%E2%%80%%99OpenStreetMap">OpenStreetMap&lt;/a>. Veuillez ne pas ajouter d\'informations personnelles ou protégées par le droit d\'auteur.</string>
+	<string name="editor_about_osm">Vos modifications sont téléchargées dans la base de données publique <a href="https://wiki.openstreetmap.org/wiki/FR:À_propos_d’OpenStreetMap">OpenStreetMap</a>. Veuillez ne pas ajouter d\'informations personnelles ou protégées par le droit d\'auteur.</string>
 	<string name="editor_more_about_osm">En savoir plus sur OpenStreetMap</string>
 	<string name="editor_operator">Opérateur</string>
 	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
@@ -776,7 +776,7 @@
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
 	<string name="translated_om_site_url">https://organicmaps.app/fr/</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
-	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/FR:%%C3%%80_propos_d%E2%%80%%99OpenStreetMap</string>
+	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/FR:À_propos_d’OpenStreetMap</string>
 	<!-- App Tip #00 -->
 	<string name="app_tip_00">Merci d\'utiliser nos cartes créées par la communauté !</string>
 	<!-- App tip #01 -->

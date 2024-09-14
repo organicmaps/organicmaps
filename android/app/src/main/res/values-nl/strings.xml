@@ -501,7 +501,7 @@
 	<!-- Hint of the input field in the OSM note section of the editor -->
 	<string name="editor_note_hint">Beschrijf fouten op de kaart of dingen die niet bewerkt kunnen worden met Organic Maps</string>
 	<!-- Information about OSM at the top of the editing page -->
-	<string name="editor_about_osm">Uw bewerkingen worden geüpload naar de openbare &lt;a href="https://wiki.openstreetmap.org/wiki/NL:Wat_is_OpenStreetMap%3F">OpenStreetMap&lt;/a> database. Voeg geen persoonlijke of auteursrechtelijk beschermde informatie toe.</string>
+	<string name="editor_about_osm">Uw bewerkingen worden geüpload naar de openbare <a href="https://wiki.openstreetmap.org/wiki/NL:About">OpenStreetMap</a> database. Voeg geen persoonlijke of auteursrechtelijk beschermde informatie toe.</string>
 	<string name="editor_more_about_osm">Meer over OpenStreetMap</string>
 	<string name="editor_operator">Uitvoerder</string>
 	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
