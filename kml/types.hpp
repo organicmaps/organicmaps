@@ -175,8 +175,7 @@ enum class BookmarkIcon : uint16_t
   Transport,
   Viewpoint,
   Sport,
-  Start,
-  Finish,
+  Pub,
 
   Count
 };
@@ -211,8 +210,7 @@ inline std::string ToString(BookmarkIcon icon)
   case Transport: return "Transport";
   case Viewpoint: return "Viewpoint";
   case Sport: return "Sport";
-  case Start: return "Start";
-  case Finish: return "Finish";
+  case Pub: return "Pub";
   case Count: return {};
   }
   UNREACHABLE();
