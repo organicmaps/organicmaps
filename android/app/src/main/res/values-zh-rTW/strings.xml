@@ -516,7 +516,7 @@
 	<!-- Hint of the input field in the OSM note section of the editor -->
 	<string name="editor_note_hint">描述地圖中的錯誤或無法使用有機地圖編輯的內容</string>
 	<!-- Information about OSM at the top of the editing page -->
-	<string name="editor_about_osm">您的編輯內容將上傳至公用 &lt;a href="https://wiki.openstreetmap.org/wiki/Zh-hant:%1$E9%%97%%9C%2$E6%%96%%BCOpenStreetMap">OpenStreetMap&lt;/a> 資料庫。請不要添加個人或版權資訊。</string>
+	<string name="editor_about_osm">您的編輯內容將上傳至公用 <a href="https://wiki.openstreetmap.org/wiki/Zh-hant:關於OpenStreetMap">OpenStreetMap</a> 資料庫。請不要添加個人或版權資訊。</string>
 	<string name="editor_more_about_osm">關於 OpenStreetMap 的更多資訊</string>
 	<string name="editor_operator">經營者</string>
 	<!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
@@ -781,7 +781,7 @@
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
 	<string name="translated_om_site_url">https://organicmaps.app/zh-Hans/</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
-	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Zh-hant:%1$E9%%97%%9C%2$E6%%96%%BCOpenStreetMap</string>
+	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Zh-hant:關於OpenStreetMap</string>
 	<!-- App Tip #00 -->
 	<string name="app_tip_00">感謝您使用我們社區構建的地圖！</string>
 	<!-- App tip #01 -->
