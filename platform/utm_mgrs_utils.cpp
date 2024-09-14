@@ -111,13 +111,7 @@ UTMPoint LatLonToUtm(double lat, double lon)
 
   int const zoneNumber = LatLonToZoneNumber(lat, lon);
   auto const maybeZoneLetter = LatitudeToZoneLetter(lat);
-  if (!maybeZoneLetter.has_value())
-  {
-    // Invalid latitude should be excluded by FormatUTM and FormatMGRS functions.
-    ASSERT(false, ("Invalid latitude ",lat,". Can't calculate UTM zone letter"));
-    return {};
-  }
-
+  ASSERT(maybeZoneLetter, (lat));
   char const zoneLetter = maybeZoneLetter.value();
 
   double const lonRad = base::DegToRad(lon);
