@@ -1846,7 +1846,7 @@
 
 "type.building.garage" = "Garaż";
 
-"type.building.train_station" = "Dworzec kolejowy";
+"type.building.train_station" = "Budynek stacji";
 
 "type.building.warehouse" = "Magazyn";
 

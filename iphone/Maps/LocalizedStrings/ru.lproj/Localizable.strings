@@ -1846,7 +1846,7 @@
 
 "type.building.garage" = "Гараж";
 
-"type.building.train_station" = "Ж/д вокзал";
+"type.building.train_station" = "Здание вокзала";
 
 "type.building.warehouse" = "Склад";
 

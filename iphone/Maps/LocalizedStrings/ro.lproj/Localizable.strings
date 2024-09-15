@@ -1846,7 +1846,7 @@
 
 "type.building.garage" = "Garaj";
 
-"type.building.train_station" = "Feroviar";
+"type.building.train_station" = "Clădirea gării";
 
 "type.building.warehouse" = "Warehouse";
 
