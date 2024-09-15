@@ -178,13 +178,13 @@ kml::FileData GenerateKmlFileDataForTrackWithTimestamps()
   auto data = GenerateKmlFileData();
   auto & trackData = data.m_tracksData[0];
   trackData.m_geometry.Clear();
-  
+
   // track 1 (without timestamps)
   trackData.m_geometry.AddLine({
     {{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}
   });
   trackData.m_geometry.AddTimestamps({});
-  
+
   // track 2
   trackData.m_geometry.AddLine({
     {{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}
@@ -686,15 +686,12 @@ UNIT_TEST(Kml_Ver_2_3)
           </gx:Track>
         </gx:MultiTrack>
       </Placemark>
-    </kml>
-  )";
+    </kml>)";
 
   kml::FileData fData;
   TEST_NO_THROW(
   {
-    MemReader const reader(data);
-    kml::DeserializerKml des(fData);
-    des.Deserialize(reader);
+    kml::DeserializerKml(fData).Deserialize(MemReader(data));
   }, ());
 
   TEST_EQUAL(fData.m_tracksData.size(), 1, ());
@@ -736,15 +733,12 @@ UNIT_TEST(Kml_Placemark_contains_both_Bookmark_and_Track_data)
     </Point>
   </MultiGeometry>
 </Placemark>
-</kml>
-  )";
+</kml>)";
 
   kml::FileData fData;
   TEST_NO_THROW(
   {
-    MemReader const reader(input);
-    kml::DeserializerKml des(fData);
-    des.Deserialize(reader);
+    kml::DeserializerKml(fData).Deserialize(MemReader(input));
   }, ());
 
   TEST_EQUAL(fData.m_bookmarksData.size(), 2, ());
@@ -775,8 +769,7 @@ UNIT_TEST(Fix_Invisible_Color_Bug_In_Gpx_Tracks)
     <LineString><coordinates>10.465979,54.16597,26 10.465956,54.165997,26</coordinates></LineString>
   </Placemark>
 </Document>
-</kml>
-  )";
+</kml>)";
 
   kml::FileData fData;
   TEST_NO_THROW(
@@ -800,6 +793,7 @@ UNIT_TEST(Kml_Tracks_With_Different_Points_And_Timestamps_Order)
     FileReader reader(GetPlatform().TestsDataPathForFile("kml_test_data/track_with_timestams_different_orders.kml"));
     des.Deserialize(reader);
   }, ());
+
   TEST_EQUAL(dataFromFile.m_tracksData.size(), 1, ());
   auto const & geom = dataFromFile.m_tracksData[0].m_geometry;
   TEST_EQUAL(geom.m_lines.size(), 4, ());
@@ -822,4 +816,59 @@ UNIT_TEST(Kml_Track_Points_And_Timestamps_Sizes_Mismatch)
     des.Deserialize(reader);
   }, ());
   TEST_EQUAL(dataFromFile.m_tracksData.size(), 0, ());
+}
+
+// https://github.com/organicmaps/organicmaps/issues/9290
+UNIT_TEST(Kml_Import_OpenTracks)
+{
+  std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+    <Placemark>
+      <Track>
+        <when>2010-05-28T02:00Z</when>
+        <when>2010-05-28T02:01Z</when>
+        <when>2010-05-28T02:02Z</when>
+        <when>2010-05-28T02:03Z</when>
+        <when>2010-05-28T02:04Z</when>
+        <coord/>
+        <coord>-122.205712 37.373288 152.000000</coord>
+        <coord>Abra-cadabra</coord>
+        <coord>-122.203572 37.374630 142.199997</coord>
+        <coord/>
+      </Track>
+    </Placemark>
+</kml>)";
+
+  kml::FileData fData;
+  TEST_NO_THROW(
+  {
+    kml::DeserializerKml(fData).Deserialize(MemReader(input));
+  }, ());
+
+  {
+    TEST_EQUAL(fData.m_tracksData.size(), 1, ());
+    auto const & geom = fData.m_tracksData[0].m_geometry;
+    TEST_EQUAL(geom.m_lines.size(), 1, ());
+    TEST_EQUAL(geom.m_lines.size(), geom.m_timestamps.size(), ());
+    TEST_EQUAL(geom.m_lines[0].size(), 2, ());
+    TEST_EQUAL(geom.m_lines[0].size(), geom.m_timestamps[0].size(), ());
+    TEST_EQUAL(geom.m_timestamps[0][0], base::StringToTimestamp("2010-05-28T02:01Z"), ());
+    TEST_EQUAL(geom.m_timestamps[0][1], base::StringToTimestamp("2010-05-28T02:03Z"), ());
+  }
+
+  fData = {};
+  TEST_NO_THROW(
+  {
+    kml::DeserializerKml des(fData);
+    FileReader reader(GetPlatform().TestsDataPathForFile("kml_test_data/track_from_OpenTracks.kml"));
+    des.Deserialize(reader);
+  }, ());
+
+  {
+    TEST_EQUAL(fData.m_tracksData.size(), 1, ());
+    auto const & geom = fData.m_tracksData[0].m_geometry;
+    TEST_EQUAL(geom.m_lines.size(), 1, ());
+    TEST_EQUAL(geom.m_lines.size(), geom.m_timestamps.size(), ());
+    TEST_GREATER(geom.m_lines[0].size(), 10, ());
+  }
 }
