@@ -2127,7 +2127,7 @@
     nb = Bokmerker og ruter
     nl = Bladwijzers en tracks
     pl = Zakładki i trasy
-    pt = Favoritos e trilhas
+    pt = Favoritos e trajetos
     pt-BR = Favoritos e trilhas
     ro = Locuri preferate și trasee
     ru = Метки и треки
@@ -7913,8 +7913,8 @@
     nb = Det kan bare opprettes ruter som passer fullstendig innenfor ett enkelt kart.
     nl = Enkel routes die volledig in één kaart passen, kunnen gecreëerd worden.
     pl = Trasy można tworzyć tylko pod warunkiem, że zawarte będą w ramach pojedynczej mapy.
-    pt = Só podem ser criadas rotas que estejam completamente contidas num único mapa.
-    pt-BR = Só podem ser criadas rotas que estejam completamente contidas num único mapa.
+    pt = Só podem ser criados trajetos que estejam completamente contidos num único mapa.
+    pt-BR = Só podem ser criadas rotas que estejam completamente contidas em um único mapa.
     ro = Pot fi create numai trasee cuprinse de harta unei singure regiuni.
     ru = Маршрут может быть проложен только внутри карты одного региона.
     sk = Cesty môžu byť vytvorené len tak, že sú plne obsiahnuté v jednej mape.
@@ -8272,7 +8272,7 @@
     nb = Når du skal opprette en rute må du ha oppdatert alle kartene fra ditt ståsted til din destinasjon.
     nl = Voor het creëren van een route is het nodig dat alle kaarten van uw locatie naar uw bestemming gedownload en bijgewerkt zijn.
     pl = Tworzenie tras wymaga pobrania i zaktualizowania wszystkich map od Twojej lokalizacji do celu podróży.
-    pt = É necessário descarregar e atualizar todos os mapas entre a sua localização e o destino para criar uma rota.
+    pt = É necessário descarregar e atualizar todos os mapas entre a sua localização e o destino para criar um trajeto.
     pt-BR = Para criar uma rota é necessário baixar e atualizar todos os mapas desde sua localização atual até o destino.
     ro = Pentru a crea un traseu, este necesar ca toate hărțile de la poziția ta până la destinație să fie descărcate și actualizate.
     ru = Для создания маршрута необходимо загрузить и обновить все карты на пути следования.
@@ -9301,8 +9301,8 @@
     nb = Husk følgende når du følger ruten:
     nl = Belangrijk bij het volgen van een route:
     pl = Jadąc wyznaczoną trasą, pamiętaj, że:
-    pt = Ao seguir a rota, lembre-se que:
-    pt-BR = Ao seguir a rota, lembre-se de que:
+    pt = Ao seguir o trajeto, lembre-se que:
+    pt-BR = Ao seguir a rota, lembre-se que:
     ro = Când parcurgi traseul, ai în vedere următoarele:
     ru = При движении по маршруту помните:
     sk = Pri sledovaní trasy majte na pamäti nasledujúce:
@@ -9389,8 +9389,8 @@
     nb = – Kartet kan inneholde unøyaktigheter, og den foreslåtte ruten er ikke nødvendigvis alltid den mest optimale veien;
     nl = — De kaart kan onnauwkeurig zijn en de voorgestelde route is niet altijd de meest optimale manier om uw bestemming te bereiken;
     pl = — Mapa może być niedokładna, a sugerowana trasa może nie być optymalnym sposobem dotarcia do celu;
-    pt = — O mapa pode estar desatualizado e a rota indicada pode não ser a melhor para chegar ao destino;
-    pt-BR = — O mapa pode estar desatualizado, e a rota indicada pode não ser a melhor maneira de chegar ao destino;
+    pt = — O mapa pode estar desatualizado e o trajeto indicado pode não ser a melhor para chegar ao destino;
+    pt-BR = — O mapa pode estar desatualizado e a rota indicada pode não ser a melhor maneira de chegar ao destino;
     ro = — Harta poate conține greșeli, iar traseul sugerat pentru a ajunge la destinație nu e întotdeauna cel mai bun;
     ru = — Карта может быть неточной, а предложенный маршрут не всегда оптимален;
     sk = — Mapa nemusí byť presná a navrhovaná trasa nemusí byť vždy optimálna na dosiahnutie cieľa;
@@ -9433,8 +9433,8 @@
     nb = – Foreslåtte ruter bør bare anses som anbefalinger;
     nl = — Beschouw de voorgestelde routes enkel als aanbevelingen;
     pl = — Sugerowane trasy należy traktować jedynie jako rekomendacje;
-    pt = — As rotas indicadas devem ser consideradas apenas como sugestões;
-    pt-BR = — As rotas indicadas devem ser tratadas apenas como sugestões;
+    pt = — Os trajetos indicados devem ser considerados apenas como sugestões;
+    pt-BR = — As rotas indicadas devem ser consideradas apenas como sugestões;
     ro = — Traseele sugerate sunt doar niște recomandări;
     ru = — Предлагаемые маршруты — лишь рекомендации;
     sk = — Navrhované trasy by sa mali brať len ako odporúčania;
@@ -21264,7 +21264,8 @@
     nb = Importer bokmerker og spor
     nl = Importeer bladwijzers en tracks
     pl = Importuj zakładki i trasy
-    pt = Importar favoritos e trilhas
+    pt = Importar favoritos e trajetos
+    pt-BR = Importar favoritos e trilhas
     ro = Importați marcaje și piese
     ru = Импортировать метки и треки
     sk = Importovanie záložiek a stôp
@@ -29925,7 +29926,7 @@
     nb = Eksporter alle bokmerker og spor
     nl = Exporteer alle bladwijzers en tracks
     pl = Eksportuj wszystkie zakładki i ścieżki
-    pt = Exportar todos os favoritos e trilhos
+    pt = Exportar todos os favoritos e trajetos
     pt-BR = Exportar todos os favoritos e trilhas
     ro = Exportați toate marcajele și piesele
     ru = Экспортировать все метки и треки
@@ -30518,7 +30519,7 @@
     nb = iCloud-synkronisering er en eksperimentell funksjon under utvikling. Sørg for at du har tatt en sikkerhetskopi av alle bokmerkene og sporene dine.
     nl = iCloud synchronisatie is een experimentele functie in ontwikkeling. Zorg ervoor dat je een back-up hebt gemaakt van al je bladwijzers en tracks.
     pl = Synchronizacja iCloud jest eksperymentalną funkcją w fazie rozwoju. Upewnij się, że wykonałeś kopię zapasową wszystkich zakładek i utworów.
-    pt = A sincronização com o iCloud é uma funcionalidade experimental em desenvolvimento. Certifique-se de que fez uma cópia de segurança de todos os seus favoritos e trilhos.
+    pt = A sincronização com o iCloud é uma funcionalidade experimental em desenvolvimento. Certifique-se de que fez uma cópia de segurança de todos os seus favoritos e trajetos.
     pt-BR = A sincronização do iCloud é um recurso experimental em desenvolvimento. Certifique-se de que você tenha feito um backup de todos os seus favoritos e trilhas.
     ro = Sincronizarea iCloud este o funcție experimentală aflată în curs de dezvoltare. Asigurați-vă că ați făcut o copie de rezervă a tuturor marcajelor și pieselor dvs.
     ru = Синхронизация с iCloud - это экспериментальная функция, которая находится в стадии разработки. Убедитесь, что вы сделали резервную копию всех своих меток и треков.
@@ -31384,7 +31385,7 @@
     nb = Ta opp rute
     nl = Route opnemen
     pl = Nagraj trasę
-    pt = Gravar rota
+    pt = Gravar trajeto
     pt-BR = Gravar rota
     ro = Înregistrați traseul
     ru = Записать трек
@@ -31430,7 +31431,7 @@
     nb = Stopp opptak av rute
     nl = Stop opname van route
     pl = Zatrzymaj nagrywanie trasy
-    pt = Parar gravação de rota
+    pt = Parar gravação de trajeto
     pt-BR = Parar gravação de rota
     ro = Opriți înregistrarea traseului
     ru = Остановить запись трека
@@ -31568,8 +31569,8 @@
     nb = Lagre i bokmerker og ruter?
     nl = Opname opslaan in bladwijzers en tracks?
     pl = Zapisać nagranie w zakładkach i trasach?
-    pt = Guardar em favoritos e trilhas?
-    pt-BR = Salvar gravação em favoritos e trilhas?
+    pt = Guardar em Favoritos e trajetos?
+    pt-BR = Salvar em Favoritos e trilhas?
     ro = Salvați în Locuri preferate și trasee?
     ru = Сохранить в метки и треки?
     sk = Uložiť do záložiek a stôp?
@@ -31614,8 +31615,8 @@
     nb = Ruten er tom - ingenting å lagre
     nl = Route is leeg - niets om op te slaan
     pl = Trasa jest pusta - nic do zapisania
-    pt = A rota está vazia - não há nada para guardar
-    pt-BR = A trilha está vazia - não há nada para salvar
+    pt = O trajeto está vazio - não há nada para guardar
+    pt-BR = A rota está vazia - não há nada para salvar
     ro = Traseul este gol - nu este nimic de salvat
     ru = Трек пуст - нечего сохранять
     sk = Trasa je prázdna - nie je čo ukladať
