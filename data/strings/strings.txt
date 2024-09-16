@@ -31569,8 +31569,8 @@
     nb = Lagre i bokmerker og ruter?
     nl = Opname opslaan in bladwijzers en tracks?
     pl = Zapisać nagranie w zakładkach i trasach?
-    pt = Guardar em favoritos e trajetos?
-    pt-BR = Salvar gravação em favoritos e trilhas?
+    pt = Guardar em Favoritos e trajetos?
+    pt-BR = Salvar em Favoritos e trilhas?
     ro = Salvați în Locuri preferate și trasee?
     ru = Сохранить в метки и треки?
     sk = Uložiť do záložiek a stôp?
