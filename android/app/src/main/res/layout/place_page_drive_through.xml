@@ -16,6 +16,7 @@
 
   <TextView
     android:id="@+id/tv__place_drive_through"
+    android:textAlignment="viewStart"
     style="@style/PlacePageMetadataText"
     tools:text="Drive-through" />
 </LinearLayout>

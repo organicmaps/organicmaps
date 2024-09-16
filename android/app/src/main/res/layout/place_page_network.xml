@@ -16,6 +16,7 @@
 
   <TextView
     android:id="@+id/tv__place_network"
+    android:textAlignment="viewStart"
     style="@style/PlacePageMetadataText"
     tools:text="Network" />
 </LinearLayout>

@@ -16,6 +16,7 @@
 
   <TextView
     android:id="@+id/tv__place_latlon"
+    android:textAlignment="viewStart"
     style="@style/PlacePageMetadataText"
     tools:text="55.747, 37.616" />
 </LinearLayout>

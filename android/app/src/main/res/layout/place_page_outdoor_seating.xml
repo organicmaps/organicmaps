@@ -15,6 +15,7 @@
 
   <TextView
     android:id="@+id/tv__place_outdoor_seating"
+    android:textAlignment="viewStart"
     style="@style/PlacePageMetadataText"
     android:text="@string/outdoor_seating"/>
 </LinearLayout>

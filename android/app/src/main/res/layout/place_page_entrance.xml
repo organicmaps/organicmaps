@@ -13,6 +13,7 @@
 
   <TextView
     android:id="@+id/tv__place_entrance"
+    android:textAlignment="viewStart"
     style="@style/PlacePageMetadataText"
     tools:text="150 - 200"/>
 </LinearLayout>
