@@ -2,22 +2,24 @@ import Foundation
 import CoreData
 import Combine
 
-class PlacePersistenceController: NSObject, NSFetchedResultsControllerDelegate {
-  static let shared = PlacePersistenceController()
+class PlacesPersistenceController: NSObject, NSFetchedResultsControllerDelegate {
+  static let shared = PlacesPersistenceController()
   
   let container: NSPersistentContainer
   
   private var searchFetchedResultsController: NSFetchedResultsController<PlaceEntity>?
   private var placesByCatFetchedResultsController: NSFetchedResultsController<PlaceEntity>?
-  private var topPlacesFetchedResultsController: NSFetchedResultsController<PlaceEntity>?
+  private var topSightsFetchedResultsController: NSFetchedResultsController<PlaceEntity>?
+  private var topRestaurantsFetchedResultsController: NSFetchedResultsController<PlaceEntity>?
   private var singlePlaceFetchedResultsController: NSFetchedResultsController<PlaceEntity>?
   private var favoritePlacesFetchedResultsController: NSFetchedResultsController<PlaceEntity>?
   
-  let searchSubject = PassthroughSubject<[PlaceEntity], ResourceError>()
-  let placesByCatSubject = PassthroughSubject<[PlaceEntity], ResourceError>()
-  let topPlacesSubject = PassthroughSubject<[PlaceEntity], ResourceError>()
-  let singlePlaceSubject = PassthroughSubject<PlaceEntity?, ResourceError>()
-  let favoritePlacesSubject = PassthroughSubject<[PlaceEntity], ResourceError>()
+  let searchSubject = PassthroughSubject<[PlaceShort], ResourceError>()
+  let placesByCatSubject = PassthroughSubject<[PlaceShort], ResourceError>()
+  let topSightsSubject = PassthroughSubject<[PlaceShort], ResourceError>()
+  let topRestaurantsSubject = PassthroughSubject<[PlaceShort], ResourceError>()
+  let singlePlaceSubject = PassthroughSubject<PlaceFull, ResourceError>()
+  let favoritePlacesSubject = PassthroughSubject<[PlaceShort], ResourceError>()
   
   
   init(inMemory: Bool = false) {
@@ -56,37 +58,28 @@ class PlacePersistenceController: NSObject, NSFetchedResultsControllerDelegate {
     
     do {
       if let existingPlace = try context.fetch(fetchRequest).first {
-        // Update the existing place
-        existingPlace.categoryId = categoryId
-        existingPlace.name = place.name
-        existingPlace.excerpt = place.excerpt
-        existingPlace.descr = place.description
-        existingPlace.cover = place.cover
-        let galleryJson = DBUtils.encodeToJsonString(place.pics)
-        existingPlace.galleryJson = galleryJson
-        let coordinatesJson = DBUtils.encodeToJsonString(place.placeLocation?.toCoordinatesEntity())
-        existingPlace.coordinatesJson = coordinatesJson
-        existingPlace.rating = place.rating
-        existingPlace.isFavorite = place.isFavorite
+        updatePlace(existingPlace, with: place, categoryId: categoryId)
       } else {
         // Insert a new place
         let newPlace = PlaceEntity(context: context)
         newPlace.id = place.id
-        newPlace.categoryId = categoryId
-        newPlace.name = place.name
-        newPlace.excerpt = place.excerpt
-        newPlace.descr = place.description
-        newPlace.cover = place.cover
-        let galleryJson = DBUtils.encodeToJsonString(place.pics)
-        newPlace.galleryJson = galleryJson
-        let coordinatesJson = DBUtils.encodeToJsonString(place.placeLocation?.toCoordinatesEntity())
-        newPlace.coordinatesJson = coordinatesJson
-        newPlace.rating = place.rating
-        newPlace.isFavorite = place.isFavorite
+        updatePlace(newPlace, with: place, categoryId: categoryId)
       }
     } catch {
       print("Failed to insert or update place: \(error)")
     }
+  }
+  
+  private func updatePlace(_ placeEntity: PlaceEntity, with place: PlaceFull, categoryId: Int64) {
+      placeEntity.categoryId = categoryId
+      placeEntity.name = place.name
+      placeEntity.excerpt = place.excerpt
+      placeEntity.descr = place.description
+      placeEntity.cover = place.cover
+      placeEntity.galleryJson = DBUtils.encodeToJsonString(place.pics)
+      placeEntity.coordinatesJson = DBUtils.encodeToJsonString(place.placeLocation?.toCoordinatesEntity())
+      placeEntity.rating = place.rating
+      placeEntity.isFavorite = place.isFavorite
   }
   
   func deleteAllPlaces() {
@@ -137,7 +130,9 @@ class PlacePersistenceController: NSObject, NSFetchedResultsControllerDelegate {
   func observeSearch(query: String) {
     let fetchRequest: NSFetchRequest<PlaceEntity> = PlaceEntity.fetchRequest()
     fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
-    fetchRequest.predicate = NSPredicate(format: "name CONTAINS[cd] %@", query)
+    if !query.isEmpty {
+      fetchRequest.predicate = NSPredicate(format: "name CONTAINS[cd] %@", query)
+    }
     
     searchFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: container.viewContext, sectionNameKeyPath: nil, cacheName: nil)
     
@@ -146,7 +141,7 @@ class PlacePersistenceController: NSObject, NSFetchedResultsControllerDelegate {
     do {
       try searchFetchedResultsController!.performFetch()
       if let results = searchFetchedResultsController!.fetchedObjects {
-        searchSubject.send(results)
+        searchSubject.send(results.toShortPlaces())
       }
     } catch {
       searchSubject.send(completion: .failure(.cacheError))
@@ -167,32 +162,54 @@ class PlacePersistenceController: NSObject, NSFetchedResultsControllerDelegate {
     do {
       try placesByCatFetchedResultsController!.performFetch()
       if let results = placesByCatFetchedResultsController!.fetchedObjects {
-        placesByCatSubject.send(results)
+        placesByCatSubject.send(results.toShortPlaces())
       }
     } catch {
       placesByCatSubject.send(completion: .failure(.cacheError))
     }
   }
   
-  func observeTopPlacesByCategoryId(categoryId: Int64) {
+  func observeTopSights() {
     let fetchRequest: NSFetchRequest<PlaceEntity> = PlaceEntity.fetchRequest()
-    fetchRequest.predicate = NSPredicate(format: "categoryId == %lld", categoryId)
+    fetchRequest.predicate = NSPredicate(format: "categoryId == %lld", PlaceCategory.sights.id)
     fetchRequest.sortDescriptors = [NSSortDescriptor(key: "rating", ascending: false)]
     fetchRequest.fetchLimit = 15
     
-    topPlacesFetchedResultsController = NSFetchedResultsController(
+    topSightsFetchedResultsController = NSFetchedResultsController(
       fetchRequest: fetchRequest, managedObjectContext: container.viewContext, sectionNameKeyPath: nil, cacheName: nil
     )
     
-    topPlacesFetchedResultsController?.delegate = self
+    topSightsFetchedResultsController?.delegate = self
     
     do {
-      try topPlacesFetchedResultsController!.performFetch()
-      if let results = topPlacesFetchedResultsController!.fetchedObjects {
-        topPlacesSubject.send(results)
+      try topSightsFetchedResultsController!.performFetch()
+      if let results = topSightsFetchedResultsController!.fetchedObjects {
+        topSightsSubject.send(results.toShortPlaces())
       }
     } catch {
-      topPlacesSubject.send(completion: .failure(.cacheError))
+      topSightsSubject.send(completion: .failure(.cacheError))
+    }
+  }  
+  
+  func observeTopRestaurants() {
+    let fetchRequest: NSFetchRequest<PlaceEntity> = PlaceEntity.fetchRequest()
+    fetchRequest.predicate = NSPredicate(format: "categoryId == %lld", PlaceCategory.restaurants.id)
+    fetchRequest.sortDescriptors = [NSSortDescriptor(key: "rating", ascending: false)]
+    fetchRequest.fetchLimit = 15
+    
+    topRestaurantsFetchedResultsController = NSFetchedResultsController(
+      fetchRequest: fetchRequest, managedObjectContext: container.viewContext, sectionNameKeyPath: nil, cacheName: nil
+    )
+    
+    topRestaurantsFetchedResultsController?.delegate = self
+    
+    do {
+      try topRestaurantsFetchedResultsController!.performFetch()
+      if let results = topRestaurantsFetchedResultsController!.fetchedObjects {
+        topRestaurantsSubject.send(results.toShortPlaces())
+      }
+    } catch {
+      topRestaurantsSubject.send(completion: .failure(.cacheError))
     }
   }
   
@@ -211,7 +228,9 @@ class PlacePersistenceController: NSObject, NSFetchedResultsControllerDelegate {
     do {
       try singlePlaceFetchedResultsController!.performFetch()
       if let results = singlePlaceFetchedResultsController!.fetchedObjects {
-        singlePlaceSubject.send(results.first)
+        if let place = results.first {
+          singlePlaceSubject.send(place.toPlaceFull())
+        }
       }
     } catch {
       singlePlaceSubject.send(completion: .failure(.cacheError))
@@ -222,10 +241,12 @@ class PlacePersistenceController: NSObject, NSFetchedResultsControllerDelegate {
   func observeFavoritePlaces(query: String = "") {
     let fetchRequest: NSFetchRequest<PlaceEntity> = PlaceEntity.fetchRequest()
     fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
-    let predicates = [
+    var predicates = [
       NSPredicate(format: "isFavorite == YES"),
-      NSPredicate(format: "name CONTAINS[cd] %@", query)
     ]
+    if !query.isEmpty {
+      predicates.append(NSPredicate(format: "name CONTAINS[cd] %@", query))
+    }
     fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
     
     favoritePlacesFetchedResultsController = NSFetchedResultsController(
@@ -237,7 +258,7 @@ class PlacePersistenceController: NSObject, NSFetchedResultsControllerDelegate {
     do {
       try favoritePlacesFetchedResultsController!.performFetch()
       if let results = favoritePlacesFetchedResultsController!.fetchedObjects {
-        favoritePlacesSubject.send(results)
+        favoritePlacesSubject.send(results.toShortPlaces())
       }
     } catch {
       favoritePlacesSubject.send(completion: .failure(.cacheError))
@@ -248,10 +269,12 @@ class PlacePersistenceController: NSObject, NSFetchedResultsControllerDelegate {
     let context = container.viewContext
     let fetchRequest: NSFetchRequest<PlaceEntity> = PlaceEntity.fetchRequest()
     fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
-    let predicates = [
+    var predicates = [
       NSPredicate(format: "isFavorite == YES"),
-      NSPredicate(format: "name CONTAINS[cd] %@", query)
     ]
+    if !query.isEmpty {
+      predicates.append(NSPredicate(format: "name CONTAINS[cd] %@", query))
+    }
     fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
     
     do {
@@ -326,15 +349,19 @@ class PlacePersistenceController: NSObject, NSFetchedResultsControllerDelegate {
     
     switch controller {
     case searchFetchedResultsController:
-      searchSubject.send(fetchedObjects)
+      searchSubject.send(fetchedObjects.toShortPlaces())
     case placesByCatFetchedResultsController:
-      placesByCatSubject.send(fetchedObjects)
-    case topPlacesFetchedResultsController:
-      topPlacesSubject.send(fetchedObjects)
+      placesByCatSubject.send(fetchedObjects.toShortPlaces())
+    case topSightsFetchedResultsController:
+      topSightsSubject.send(fetchedObjects.toShortPlaces())
+    case topRestaurantsFetchedResultsController:
+      topRestaurantsSubject.send(fetchedObjects.toShortPlaces())
     case singlePlaceFetchedResultsController:
-      singlePlaceSubject.send(fetchedObjects.first)
+      if let place = fetchedObjects.first {
+        singlePlaceSubject.send(place.toPlaceFull())
+      }
     case favoritePlacesFetchedResultsController:
-      favoritePlacesSubject.send(fetchedObjects)
+      favoritePlacesSubject.send(fetchedObjects.toShortPlaces())
     default:
       break
     }

@@ -1,21 +1,26 @@
 import Combine
 
 protocol PlacesRepository {
-  func downloadAllData() -> AnyPublisher<SimpleResponse, ResourceError>
+  var downloadProgress: PassthroughSubject<DownloadProgress, ResourceError> { get }
+  func downloadAllData() async throws
   
-  func search(query: String) -> AnyPublisher<[PlaceShort], ResourceError>
+  var searchResource: PassthroughSubject<[PlaceShort], ResourceError> { get }
+  func observeSearch(query: String)
   
   var placesByCategoryResource: PassthroughSubject<[PlaceShort], ResourceError> { get }
-  func getPlacesByCategoryAndUpdate(id: Int64)
+  func observePlacesByCategoryAndUpdate(categoryId: Int64)
   
-  var topPlacesResource: PassthroughSubject<[PlaceShort], ResourceError> { get }
-  func getTopPlaces(is: Int64)
+  var topSightsResource: PassthroughSubject<[PlaceShort], ResourceError> { get }
+  func observeTopSightsAndUpdate()
+  
+  var topRestaurantsResource: PassthroughSubject<[PlaceShort], ResourceError> { get }
+  func observeTopRestaurantsAndUpdate()
   
   var placeResource: PassthroughSubject<PlaceFull, ResourceError> { get }
-  func getPlaceById(is: Int64)
+  func observePlaceById(_ id: Int64)
   
   var favoritesResource: PassthroughSubject<[PlaceShort], ResourceError> { get }
-  func getFavorites(query: String)
+  func observeFavorites(query: String)
   
   func setFavorite(placeId: Int64, isFavorite: Bool)
   

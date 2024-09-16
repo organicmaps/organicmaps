@@ -1,6 +1,11 @@
 import Combine
 
 class HomeViewModel : ObservableObject {
+  private let placesRepository: PlacesRepository
+  
+  @Published var downloadProgress = DownloadProgress.idle
+  @Published var errorMessage = ""
+  
   @Published var query = ""
   
   func clearQuery() { query = "" }
@@ -8,16 +13,58 @@ class HomeViewModel : ObservableObject {
   @Published var sights: [PlaceShort]? = nil
   @Published var restaurants: [PlaceShort]? = nil
   
-  init() {
-    // TODO: put real data
-    sights = [
-      PlaceShort(id: 1, name: "sight 1", cover: Constants.imageUrlExample, rating: 4.5, excerpt: "yep, just a placeyep, just a placeyep, just a placeyep, just a placeyep, just a place", isFavorite: false),
-      PlaceShort(id: 2, name: "sight 2", cover: Constants.imageUrlExample, rating: 4.0, excerpt: "yep, just a place", isFavorite: true)
-    ]
+  private var cancellables = Set<AnyCancellable>()
+  
+  init(placesRepository: PlacesRepository) {
+    self.placesRepository = placesRepository
     
-    restaurants = [
-      PlaceShort(id: 1, name: "restaurant 1", cover: Constants.imageUrlExample, rating: 4.5, excerpt: "yep, just a placeyep, just a placeyep, just a placeyep, just a placeyep, just a place", isFavorite: false),
-      PlaceShort(id: 2, name: "restaurant 2", cover: Constants.imageUrlExample, rating: 4.0, excerpt: "yep, just a place", isFavorite: true)
-    ]
+    downloadAllDataIfDidnt()
+    observeDownloadProgress()
+    observeTopSightsAndUpdate()
+    observeTopRestaurantsAndUpdate()
+  }
+  
+  func observeDownloadProgress() {
+    placesRepository.downloadProgress.sink { completion in
+      if case let .failure(error) = completion {
+        Task { await MainActor.run {
+            self.downloadProgress = .error
+        }}
+        self.errorMessage = error.errorDescription
+      }
+    } receiveValue: { progress in
+      Task { await MainActor.run {
+        self.downloadProgress = progress
+      }}
+    }
+    .store(in: &cancellables)
+  }
+  
+  func downloadAllDataIfDidnt() {
+    Task {
+      try await placesRepository.downloadAllData()
+    }
+  }
+  
+  func observeTopSightsAndUpdate() {
+    placesRepository.topSightsResource.sink { _ in } receiveValue: { places in
+      self.sights = places
+    }
+    .store(in: &cancellables)
+    
+    placesRepository.observeTopSightsAndUpdate()
+  }
+  
+  func observeTopRestaurantsAndUpdate() {
+    placesRepository.topRestaurantsResource.sink { _ in } receiveValue: { places in
+      self.restaurants = places
+    }
+    .store(in: &cancellables)
+    
+    placesRepository.observeTopRestaurantsAndUpdate()
+  }
+  
+  func toggleFavorite(for placeId: Int64, isFavorite: Bool) {
+    placesRepository.setFavorite(placeId: placeId, isFavorite: isFavorite)
   }
 }

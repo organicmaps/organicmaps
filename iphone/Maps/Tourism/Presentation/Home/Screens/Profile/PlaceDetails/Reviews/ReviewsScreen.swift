@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ReviewsScreen: View {
-  @ObservedObject var reviewsVM = ReviewsViewModel()
+//  @ObservedObject var reviewsVM = ReviewsViewModel()
   
   let placeId: Int64
   let rating: Double?
@@ -35,10 +35,10 @@ struct ReviewsScreen: View {
         HStack {
           Spacer()
           
-          NavigationLink(destination: AllReviewsScreen(reviewsVM: reviewsVM)) {
-            Text(L("see_all_reviews"))
-              .foregroundColor(Color.primary)
-          }
+//          NavigationLink(destination: AllReviewsScreen(reviewsVM: reviewsVM)) {
+//            Text(L("see_all_reviews"))
+//              .foregroundColor(Color.primary)
+//          }
         }
         
         // user review

@@ -44,33 +44,37 @@ struct Place: View {
   let height = 250.0
   
   var body: some View {
-    ZStack(alignment: .bottom) {
+    ZStack() {
       LoadImageView(url: place.cover)
       
-      HStack() {
-        VStack(alignment: .leading) {
-          Text(place.name)
-            .font(.semiBold(size: 15))
-            .foregroundColor(.white)
-            .lineLimit(2)
-          VerticalSpace(height: 4)
-
-          HStack(alignment: .center) {
-            Text(String(format: "%.1f", place.rating ?? 0.0))
+      VStack {
+        Spacer()
+        HStack() {
+          VStack(alignment: .leading) {
+            Text(place.name)
               .font(.semiBold(size: 15))
               .foregroundColor(.white)
-            Image(systemName: "star.fill")
-              .resizable()
-              .foregroundColor(Color.starYellow)
-              .frame(width: 10, height: 10)
+              .lineLimit(2)
+            VerticalSpace(height: 4)
+
+            HStack(alignment: .center) {
+              Text(String(format: "%.1f", place.rating ?? 0.0))
+                .font(.semiBold(size: 15))
+                .foregroundColor(.white)
+              Image(systemName: "star.fill")
+                .resizable()
+                .foregroundColor(Color.starYellow)
+                .frame(width: 10, height: 10)
+            }
           }
+          .padding(12)
+          
+          Spacer()
         }
-        .padding(12)
-        
-        Spacer()
+        .frame(width: width)
+        .background(SwiftUI.Color.black.opacity(0.5))
       }
-      .frame(width: width)
-      .background(SwiftUI.Color.black.opacity(0.5))
+      
       HStack {
         Spacer()
         VStack {

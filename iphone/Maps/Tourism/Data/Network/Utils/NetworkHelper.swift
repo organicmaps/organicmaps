@@ -22,6 +22,7 @@ class CombineNetworkHelper {
       let jsonData = try AppNetworkHelper.encodeRequestBody(body)
       return performRequest(url: url, method: "POST", body: jsonData, headers: headers, decoder: decoder)
     } catch {
+      print(error)
       return Fail(error: ResourceError.other(message: "Encoding error: \(error)")).eraseToAnyPublisher()
     }
   }
@@ -62,12 +63,12 @@ class AppNetworkHelper {
     path: String,
     headers: [String: String] = [:],
     decoder: JSONDecoder = JSONDecoder()
-  ) async -> Result<T, ResourceError> {
+  ) async throws -> T {
     guard let url = URL(string: path) else {
-      return .failure(.other(message: "Invalid URL"))
+      throw ResourceError.other(message: "Invalid URL")
     }
 
-    return await performRequest(
+    return try await performRequest(
       url: url,
       method: "GET",
       headers: headers,
@@ -81,14 +82,14 @@ class AppNetworkHelper {
     body: U,
     headers: [String: String] = [:],
     decoder: JSONDecoder = JSONDecoder()
-  ) async -> Result<T, ResourceError> {
+  ) async throws -> T {
     guard let url = URL(string: path) else {
-      return .failure(.other(message: "Invalid URL"))
+      throw ResourceError.other(message: "Invalid URL")
     }
     
     do {
       let jsonData = try AppNetworkHelper.encodeRequestBody(body)
-      return await performRequest(
+      return try await performRequest(
         url: url,
         method: "POST",
         body: jsonData,
@@ -96,7 +97,8 @@ class AppNetworkHelper {
         decoder: decoder
       )
     } catch {
-      return .failure(ResourceError.other(message: "Encoding error"))
+      print(error)
+      throw ResourceError.other(message: "Encoding error")
     }
   }
   
@@ -104,12 +106,12 @@ class AppNetworkHelper {
     path: String,
     headers: [String: String] = [:],
     decoder: JSONDecoder = JSONDecoder()
-  ) async -> Result<T, ResourceError> {
+  ) async throws -> T {
     guard let url = URL(string: path) else {
-      return .failure(.other(message: "Invalid URL"))
+      throw ResourceError.other(message: "Invalid URL")
     }
 
-    return await performRequest(
+    return try await performRequest(
       url: url,
       method: "POST",
       headers: headers,
@@ -122,14 +124,14 @@ class AppNetworkHelper {
     body: U,
     headers: [String: String] = [:],
     decoder: JSONDecoder = JSONDecoder()
-  ) async -> Result<T, ResourceError> {
+  ) async throws -> T {
     guard let url = URL(string: path) else {
-      return .failure(.other(message: "Invalid URL"))
+      throw ResourceError.other(message: "Invalid URL")
     }
     
     do {
       let jsonData = try AppNetworkHelper.encodeRequestBody(body)
-      return await performRequest(
+      return try await performRequest(
         url: url,
         method: "PUT",
         body: jsonData,
@@ -137,7 +139,33 @@ class AppNetworkHelper {
         decoder: decoder
       )
     } catch {
-      return .failure(ResourceError.other(message: "Encoding error"))
+      print(error)
+      throw ResourceError.other(message: "Encoding error")
+    }
+  }
+  
+  static func delete<T: Decodable, U: Encodable>(
+    path: String,
+    body: U,
+    headers: [String: String] = [:],
+    decoder: JSONDecoder = JSONDecoder()
+  ) async throws -> T {
+    guard let url = URL(string: path) else {
+      throw ResourceError.other(message: "Invalid URL")
+    }
+    
+    do {
+      let jsonData = try AppNetworkHelper.encodeRequestBody(body)
+      return try await performRequest(
+        url: url,
+        method: "DELETE",
+        body: jsonData,
+        headers: headers,
+        decoder: decoder
+      )
+    } catch {
+      print(error)
+      throw ResourceError.other(message: "Encoding error")
     }
   }
   
@@ -147,8 +175,10 @@ class AppNetworkHelper {
     body: Data? = nil,
     headers: [String: String] = [:],
     decoder: JSONDecoder
-  ) async -> Result<T, ResourceError> {
-    var request = createRequest(url: url, method: method, headers: headers, body: body)
+  ) async throws -> T {
+    let loggingInfo = "url: \(url), \nwith method: \(method)"
+    print("Performing request on\n\(loggingInfo)")
+    let request = createRequest(url: url, method: method, headers: headers, body: body)
 
     do {
       let (data, response) = try await URLSession.shared.data(for: request)
@@ -156,12 +186,15 @@ class AppNetworkHelper {
       // Handle response and decode data
       do {
         let decodedData: T = try handleResponse(data: data, response: response, decoder: decoder)
-        return .success(decodedData)
+        print("handling response \n\(loggingInfo)")
+        return decodedData
       } catch {
-        return .failure(.other(message: "Failed to handle response: \(error.localizedDescription)"))
+        print(error)
+        throw ResourceError.other(message: "Failed to handle response: \(error.localizedDescription) on \n\(loggingInfo)")
       }
     } catch {
-      return .failure(handleMappingError(error))
+      print("error: \(error)")
+      throw handleMappingError(error)
     }
   }
 

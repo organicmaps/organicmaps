@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct PlaceTopBar: View {
-  let title: String
+  let title: String?
   let picUrl: String?
   let onBackClick: (() -> Void)?
   let isFavorite: Bool
@@ -18,7 +18,7 @@ struct PlaceTopBar: View {
       LoadImageView(url: picUrl)
         .frame(height: height)
         .clipShape(shape
-      )
+        )
       
       // Black overlay with opacity
       SwiftUI.Color.black.opacity(0.3)
@@ -53,14 +53,16 @@ struct PlaceTopBar: View {
         VerticalSpace(height: 32)
         
         // Title
-        Text(title)
-          .textStyle(TextStyle.h2)
-          .foregroundColor(.white)
-          .padding(.horizontal, padding)
-          .padding(.bottom, padding)
-          .lineLimit(1)
-          .truncationMode(.tail)
-          .frame(maxWidth: .infinity, alignment: .leading)
+        if let title = title {
+          Text(title)
+            .textStyle(TextStyle.h2)
+            .foregroundColor(.white)
+            .padding(.horizontal, padding)
+            .padding(.bottom, padding)
+            .lineLimit(1)
+            .truncationMode(.tail)
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
       }
     }
     .frame(maxWidth: .infinity, maxHeight: height)

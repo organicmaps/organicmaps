@@ -1,7 +1,19 @@
 import SwiftUI
 
 class FavoritesViewController: UIViewController {
-  private var favoritesVM: FavoritesViewModel = FavoritesViewModel()
+  private var favoritesVM: FavoritesViewModel
+  init(favoritesVM: FavoritesViewModel) {
+    self.favoritesVM = favoritesVM
+    
+    super.init(
+      nibName: nil,
+      bundle: nil
+    )
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()

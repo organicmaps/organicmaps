@@ -25,12 +25,12 @@
         <attribute name="date" attributeType="String"/>
         <attribute name="deletionPlanned" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="imagesJson" attributeType="String"/>
+        <attribute name="picsUrlsJson" attributeType="String"/>
         <attribute name="placeId" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="rating" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="userJson" attributeType="String"/>
     </entity>
-    <entity name="ReviewToPublishEntity" representedClassName="ReviewToPublishEntity" syncable="YES" codeGenerationType="class">
+    <entity name="ReviewPlannedToPostEntity" representedClassName="ReviewPlannedToPostEntity" syncable="YES" codeGenerationType="class">
         <attribute name="comment" attributeType="String"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="imagesJson" attributeType="String"/>

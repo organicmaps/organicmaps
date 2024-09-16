@@ -1,23 +1,40 @@
 import Combine
 
 class FavoritesViewModel: ObservableObject {
+  private var cancellables = Set<AnyCancellable>()
+  
+  private let placesRepository: PlacesRepository
+  
   @Published var query = ""
   
   func clearQuery() { query = "" }
   
   @Published var places: [PlaceShort] = []
   
-  init() {
-    // TODO: put real data
-    places = [
-      PlaceShort(id: 1, name: "sight 1", cover: Constants.imageUrlExample, rating: 4.5, excerpt: "yep, just a placeyep, just a placeyep, just a placeyep, just a placeyep, just a placejust a placeyep, just a placejust a placeyep, just a placejust a placeyep, just a placejust a placeyep, just a place", isFavorite: false),
-      PlaceShort(id: 2, name: "sight 2", cover: Constants.imageUrlExample, rating: 4.0, excerpt: "yep, just a place", isFavorite: true)
-    ]
+  init(placesRepository: PlacesRepository) {
+    self.placesRepository = placesRepository
+    
+    self.placesRepository.observeFavorites(query: query)
+    observeFavorites()
+  }
+  
+  func observeFavorites() {
+    placesRepository.favoritesResource.sink { completion in
+      if case let .failure(error) = completion {
+        // nothing
+      }
+    } receiveValue: { places in
+      self.places = places
+    }
+    .store(in: &cancellables)
+    
+    $query.sink { q in
+      self.placesRepository.observeFavorites(query: q)
+    }
+    .store(in: &cancellables)
   }
   
   func toggleFavorite(for placeId: Int64, isFavorite: Bool) {
-    if let index = places.firstIndex(where: { $0.id == placeId }) {
-      places[index].isFavorite = isFavorite
-    }
+    placesRepository.setFavorite(placeId: placeId, isFavorite: isFavorite)
   }
 }

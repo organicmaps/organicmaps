@@ -1,4 +1,5 @@
 import SwiftUI
+import WebKit
 
 struct PlacesItem: View {
   let place: PlaceShort

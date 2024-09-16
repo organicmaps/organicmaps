@@ -13,8 +13,8 @@ struct APIEndpoints {
   static let updateThemeUrl = "\(BASE_URL)profile/theme"
   
   // MARK: - Places
-  static func getPlacesByCategoryUrl(id: Int64) -> String {
-    return "\(BASE_URL)marks/\(id)"
+  static func getPlacesByCategoryUrl(id: Int64, hash: String) -> String {
+    return "\(BASE_URL)marks/\(id)?hash=\(hash)"
   }
   static let getAllPlacesUrl = "\(BASE_URL)marks/all"
   

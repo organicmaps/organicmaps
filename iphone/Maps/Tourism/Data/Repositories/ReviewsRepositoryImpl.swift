@@ -1,16 +1,41 @@
 import Combine
 
 class ReviewsRepositoryImpl : ReviewsRepository {
-  var reviewsResource = PassthroughSubject<[Review], ResourceError>()
+  var reviewsPersistenceController: ReviewsPersistenceController
+  var reviewsService: ReviewsService
   
-  func getReviewsForPlace(id: Int64) {
-    // TODO: cmon
+  var reviewsResource: PassthroughSubject<[Review], ResourceError>
+  var isThereReviewPlannedToPublishResource = PassthroughSubject<Bool, Never>()
+  
+  init(
+    reviewsPersistenceController: ReviewsPersistenceController,
+    reviewsService: ReviewsService,
+    reviewsResource: PassthroughSubject<[Review], ResourceError>
+  ) {
+    self.reviewsPersistenceController = reviewsPersistenceController
+    self.reviewsService = reviewsService
+    
+    self.reviewsResource = reviewsPersistenceController.reviewsForPlaceSubject
+    reviewsPersistenceController.reviewsPlannedToPostSubject.sink { completion in } receiveValue: { reviews in
+      self.isThereReviewPlannedToPublishResource.send(reviews.isEmpty)
+    }
   }
   
-  var isThereReviewPlannedToPublishPassthroughSubject = PassthroughSubject<[Review], ResourceError>()
+  func observeReviewsForPlace(id: Int64) {
+    reviewsPersistenceController.observeReviewsForPlace(placeId: id)
+    
+    Task {
+      let reviewsDTO = try await reviewsService.getReviewsByPlaceId(id: id)
+      let reviews = reviewsDTO.data.map { reviewDto in reviewDto.toReview() }
+      
+      reviewsPersistenceController.deleteAllPlaceReviews(placeId: id)
+      reviewsPersistenceController.putReviews(reviews)
+    }
+  }
   
-  func isThereReviewPlannedToPublish(id: Int64) {
-    // TODO: cmon
+  
+  func isThereReviewPlannedToPublish(for placeId: Int64) {
+    reviewsPersistenceController.getReviewsPlannedToPost()
   }
   
   func postReview(review: ReviewToPost) -> AnyPublisher<SimpleResponse, ResourceError> {

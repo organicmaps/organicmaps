@@ -6,6 +6,7 @@ class DBUtils {
       let encoded = try encoder.encode(body)
       return convertDataToString(encoded)
     } catch {
+      print(error)
       return nil
     }
   }
@@ -22,6 +23,7 @@ class DBUtils {
       let decoder = JSONDecoder()
       return try decoder.decode(T.self, from: data)
     } catch {
+      print(error)
       return nil
     }
   }

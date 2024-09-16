@@ -11,7 +11,7 @@ struct GalleryScreen: View {
     if let urls = urls, !urls.isEmpty {
       VStack {
         LoadImageView(url: urls.first)
-          .frame(height: 200)
+          .frame(maxWidth: UIScreen.main.bounds.width - 32, minHeight: 200, maxHeight: 200)
           .clipShape(shape)
         
         VerticalSpace(height: 16)

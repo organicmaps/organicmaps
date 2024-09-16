@@ -4093,6 +4093,8 @@
 
 "plz_wait_dowloading" = "Please, wait, data being downloaded";
 
+"download_failed" = "Download failed";
+
 "no_content" = "Empty";
 
 "empty_list" = "Empty";

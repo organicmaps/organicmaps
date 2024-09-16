@@ -114,19 +114,27 @@ class ProfileServiceImpl: ProfileService {
   
   func updateLanguage(code: String) {
     Task {
-      await AppNetworkHelper.put(
-        path: APIEndpoints.updateLanguageUrl,
-        body: LanguageDTO(language: code)
-      ) as Result<SimpleResponse, ResourceError>
+      do {
+        let response: SimpleResponse = try await  AppNetworkHelper.put(
+          path: APIEndpoints.updateLanguageUrl,
+          body: LanguageDTO(language: code)
+        )
+      } catch {
+        print("Failed to update language on server")
+      }
     }
   }
   
   func updateTheme(code: String) {
     Task {
-      await AppNetworkHelper.put(
-        path: APIEndpoints.updateThemeUrl,
-        body: ThemeDTO(theme: code)
-      ) as Result<SimpleResponse, ResourceError>
+      do {
+        let response: SimpleResponse = try await AppNetworkHelper.put(
+          path: APIEndpoints.updateThemeUrl,
+          body: ThemeDTO(theme: code)
+        )
+      } catch {
+        print("Failed to update theme on server")
+      }
     }
   }
 }

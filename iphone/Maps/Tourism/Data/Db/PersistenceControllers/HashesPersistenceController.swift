@@ -1,8 +1,8 @@
 import Foundation
 import CoreData
 
-class HashPersistenceController {
-  static let shared = HashPersistenceController()
+class HashesPersistenceController {
+  static let shared = HashesPersistenceController()
   
   let container: NSPersistentContainer
   
@@ -62,26 +62,26 @@ class HashPersistenceController {
     }
   }
   
-  func getHash(id: Int64) -> Result<Hash?, ResourceError> {
+  func getHash(categoryId: Int64) -> Hash? {
     let context = container.viewContext
     let fetchRequest: NSFetchRequest<HashEntity> = HashEntity.fetchRequest()
-    fetchRequest.predicate = NSPredicate(format: "categoryId == %lld", id)
+    fetchRequest.predicate = NSPredicate(format: "categoryId == %lld", categoryId)
     fetchRequest.fetchLimit = 1
     
     do {
       let result = try context.fetch(fetchRequest).first
       if let result = result {
-        return .success(Hash(categoryId: result.categoryId, value: result.value!))
+        return Hash(categoryId: result.categoryId, value: result.value!)
       } else {
-        return .success(nil)
+        return nil
       }
     } catch {
       print("Failed to fetch hash: \(error)")
-      return .failure(.cacheError)
+      return nil
     }
   }
   
-  func getHashes() -> Result<[Hash], ResourceError> {
+  func getHashes() -> [Hash] {
     let context = container.viewContext
     let fetchRequest: NSFetchRequest<HashEntity> = HashEntity.fetchRequest()
     
@@ -90,10 +90,10 @@ class HashPersistenceController {
       let hashes = result.map { hashEntity in
         Hash(categoryId: hashEntity.categoryId, value: hashEntity.value!)
       }
-      return .success(hashes)
+      return hashes
     } catch {
       print("Failed to fetch hashes: \(error)")
-      return .failure(.cacheError)
+      return []
     }
   }
 }

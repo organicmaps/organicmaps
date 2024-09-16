@@ -2,11 +2,13 @@ import SwiftUI
 import Combine
 
 class HomeViewController: UIViewController {
+  private var homeVM: HomeViewModel
   private var categoriesVM: CategoriesViewModel
   private var searchVM: SearchViewModel
   private var goToCategoriesTab: () -> Void
   
-  init(categoriesVM: CategoriesViewModel, searchVM: SearchViewModel, goToCategoriesTab: @escaping () -> Void) {
+  init(homeVM: HomeViewModel, categoriesVM: CategoriesViewModel, searchVM: SearchViewModel, goToCategoriesTab: @escaping () -> Void) {
+    self.homeVM = homeVM
     self.categoriesVM = categoriesVM
     self.searchVM = searchVM
     self.goToCategoriesTab = goToCategoriesTab
@@ -26,10 +28,11 @@ class HomeViewController: UIViewController {
     
     integrateSwiftUIScreen(
       HomeScreen(
-        homeVM: HomeViewModel(),
+        homeVM: homeVM,
         categoriesVM: categoriesVM,
         goToCategoriesTab: goToCategoriesTab,
         goToSearchScreen: { query in
+          self.searchVM.query = query
           let destinationVC = SearchViewController(searchVM: self.searchVM)
           self.navigationController?.pushViewController(destinationVC, animated: false)
         },
@@ -51,77 +54,89 @@ struct HomeScreen: View {
   @State var top30: SingleChoiceItem<Int>? = SingleChoiceItem(id: 1, label: L("top30"))
   
   var body: some View {
-    ScrollView {
-      VStack (alignment: .leading) {
-        VerticalSpace(height: 16)
-        VStack {
-          AppTopBar(title: L("tjk"))
+    if(homeVM.downloadProgress == .loading) {
+      VStack(spacing: 16) {
+        ProgressView()
+        Text(L("plz_wait_dowloading"))
+      }
+    } else if (homeVM.downloadProgress == .success) {
+      ScrollView {
+        VStack (alignment: .leading) {
+          VerticalSpace(height: 16)
+          VStack {
+            AppTopBar(title: L("tjk"))
+            
+            AppSearchBar(
+              query: $homeVM.query,
+              onSearchClicked: { query in
+                goToSearchScreen(query)
+              },
+              onClearClicked: {
+                homeVM.clearQuery()
+              }
+            )
+          }
+          .padding(16)
           
-          AppSearchBar(
-            query: $homeVM.query,
-            onSearchClicked: { query in
-              goToSearchScreen(query)
-            },
-            onClearClicked: {
-              homeVM.clearQuery()
+          VStack(spacing: 20) {
+            ScrollView(.horizontal, showsIndicators: false) {
+              HStack {
+                HorizontalSpace(width: 16)
+                SingleChoiceItemView(
+                  item: top30!,
+                  isSelected: true,
+                  onClick: {
+                    // nothing, just static
+                  },
+                  selectedColor: Color.selected,
+                  unselectedColor: Color.background
+                )
+                
+                HorizontalSingleChoice(
+                  items: categoriesVM.categories,
+                  selected: $categoriesVM.selectedCategory,
+                  onSelectedChanged: { item in
+                    categoriesVM.setSelectedCategory(item)
+                    goToCategoriesTab()
+                  }
+                )
+              }
             }
-          )
-        }
-        .padding(16)
-        
-        VStack(spacing: 20) {
-          ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-              HorizontalSpace(width: 16)
-              SingleChoiceItemView(
-                item: top30!,
-                isSelected: true,
-                onClick: {
-                  // nothing, just static
+            
+            if let sights = homeVM.sights {
+              HorizontalPlaces(
+                title: L("sights"),
+                items: sights,
+                onPlaceClick: { place in
+                  goToPlaceScreen(place.id)
                 },
-                selectedColor: Color.selected,
-                unselectedColor: Color.background
+                setFavoriteChanged: { place, isFavorite in
+                  homeVM.toggleFavorite(for: place.id, isFavorite: isFavorite)
+                }
               )
-              
-              HorizontalSingleChoice(
-                items: categoriesVM.categories,
-                selected: $categoriesVM.selectedCategory,
-                onSelectedChanged: { item in
-                  categoriesVM.setSelectedCategory(item)
-                  goToCategoriesTab()
+            }
+            
+            if let restaurants = homeVM.restaurants {
+              HorizontalPlaces(
+                title: L("restaurants"),
+                items: restaurants,
+                onPlaceClick: { place in
+                  goToPlaceScreen(place.id)
+                },
+                setFavoriteChanged: { place, isFavorite in
+                  homeVM.toggleFavorite(for: place.id, isFavorite: isFavorite)
                 }
               )
             }
           }
-          
-          if let sights = homeVM.sights {
-            HorizontalPlaces(
-              title: L("sights"),
-              items: sights,
-              onPlaceClick: { place in
-                goToPlaceScreen(place.id)
-              },
-              setFavoriteChanged: { place, isFavorite in
-                // TODO: cmon
-              }
-            )
-          }
-          
-          if let restaurants = homeVM.restaurants {
-            HorizontalPlaces(
-              title: L("restaurants"),
-              items: restaurants,
-              onPlaceClick: { place in
-                goToPlaceScreen(place.id)
-              },
-              setFavoriteChanged: { place, isFavorite in
-                // TODO: cmon
-              }
-            )
-          }
         }
+        VerticalSpace(height: 32)
       }
-      VerticalSpace(height: 32)
+    } else if (homeVM.downloadProgress == .error) {
+      VStack(spacing: 16) {
+        Text(L("download_failed"))
+        Text(homeVM.errorMessage)
+      }
     }
   }
 }

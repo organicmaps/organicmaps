@@ -19,7 +19,14 @@ class PlaceViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    let placeVM = PlaceViewModel()
+    let placesRepository = PlacesRepositoryImpl(
+      placesService: PlacesServiceImpl(),
+      placesPersistenceController: PlacesPersistenceController.shared,
+      reviewsPersistenceController: ReviewsPersistenceController.shared,
+      hashesPersistenceController: HashesPersistenceController.shared
+    )
+    let placeVM = PlaceViewModel(placesRepository: placesRepository, id: self.placeId)
+    
     integrateSwiftUIScreen(PlaceScreen(
       placeVM: placeVM,
       id: placeId,
@@ -43,15 +50,15 @@ struct PlaceScreen: View {
     if let place = placeVM.place {
       VStack {
         PlaceTopBar(
-          title: "place",
-          picUrl: Constants.imageUrlExample,
+          title: place.name,
+          picUrl: place.cover,
           onBackClick: {
             showBottomBar()
             presentationMode.wrappedValue.dismiss()
           },
-          isFavorite: false,
+          isFavorite: place.isFavorite,
           onFavoriteChanged: { isFavorite in
-            // TODO: Cmon
+            placeVM.toggleFavorite(for: place.id, isFavorite: isFavorite)
           },
           onMapClick: {
             // TODO: Cmon

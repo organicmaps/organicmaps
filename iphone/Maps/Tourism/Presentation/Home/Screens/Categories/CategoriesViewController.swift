@@ -24,8 +24,9 @@ class CategoriesViewController: UIViewController {
       CategoriesScreen(
         categoriesVM: categoriesVM,
         goToSearchScreen: { query in
-            let destinationVC = SearchViewController(searchVM: self.searchVM)
-            self.navigationController?.pushViewController(destinationVC, animated: true)
+          self.searchVM.query = query
+          let destinationVC = SearchViewController(searchVM: self.searchVM)
+          self.navigationController?.pushViewController(destinationVC, animated: true)
         },
         goToPlaceScreen: { id in
           self.goToPlaceScreen(id: id)
