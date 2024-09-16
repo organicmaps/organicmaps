@@ -16,6 +16,7 @@
 
   <TextView
     android:id="@+id/tv__place_operator"
+    android:textAlignment="viewStart"
     style="@style/PlacePageMetadataText"
     tools:text="Operator" />
 </LinearLayout>

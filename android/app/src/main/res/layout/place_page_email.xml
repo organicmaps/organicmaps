@@ -17,6 +17,7 @@
 
   <TextView
     android:id="@+id/tv__place_email"
+    android:textAlignment="viewStart"
     style="@style/PlacePageMetadataText"
     android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
     tools:text="support@organicmaps.app" />
