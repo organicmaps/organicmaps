@@ -203,83 +203,97 @@
       <TextView
         android:id="@+id/faq"
         style="@style/MwmWidget.TextView.Item"
+        android:textAlignment="viewStart"
         android:text="@string/faq"
         app:drawableStartCompat="@drawable/ic_question_mark" />
 
       <TextView
         android:id="@+id/support_us"
+        android:textAlignment="viewStart"
         style="@style/MwmWidget.TextView.Item"
         android:text="@string/how_to_support_us"
         app:drawableStartCompat="@drawable/ic_donate" />
 
       <TextView
         android:id="@+id/news"
+        android:textAlignment="viewStart"
         style="@style/MwmWidget.TextView.Item"
         android:text="@string/news"
         app:drawableStartCompat="@drawable/ic_news" />
 
       <TextView
         android:id="@+id/rate"
+        android:textAlignment="viewStart"
         style="@style/MwmWidget.TextView.Item"
         android:text="@string/rate_the_app"
         app:drawableStartCompat="@drawable/ic_rate" />
 
       <TextView
         android:id="@+id/telegram"
+        android:textAlignment="viewStart"
         style="@style/MwmWidget.TextView.Item"
         android:text="@string/telegram"
         app:drawableStartCompat="@drawable/ic_telegram" />
 
       <TextView
         android:id="@+id/github"
+        android:textAlignment="viewStart"
         style="@style/MwmWidget.TextView.Item"
         android:text="@string/github"
         app:drawableStartCompat="@drawable/ic_github" />
 
       <TextView
         android:id="@+id/web"
+        android:textAlignment="viewStart"
         style="@style/MwmWidget.TextView.Item"
         android:text="@string/website"
         app:drawableStartCompat="@drawable/ic_website" />
 
       <TextView
         android:id="@+id/email"
+        android:textAlignment="viewStart"
         style="@style/MwmWidget.TextView.Item"
         android:text="@string/email"
         app:drawableStartCompat="@drawable/ic_email" />
 
       <TextView
         android:id="@+id/matrix"
+        android:textAlignment="viewStart"
         style="@style/MwmWidget.TextView.Item"
         android:text="@string/matrix"
         app:drawableStartCompat="@drawable/ic_matrix" />
 
       <TextView
         android:id="@+id/mastodon"
+        android:textAlignment="viewStart"
         style="@style/MwmWidget.TextView.Item"
         android:text="@string/mastodon"
         app:drawableStartCompat="@drawable/ic_mastodon" />
 
       <TextView
         android:id="@+id/facebook"
+        android:textAlignment="viewStart"
         style="@style/MwmWidget.TextView.Item"
         android:text="@string/facebook"
         app:drawableStartCompat="@drawable/ic_facebook" />
 
       <TextView
         android:id="@+id/twitter"
+        android:textAlignment="viewStart"
         style="@style/MwmWidget.TextView.Item"
         android:text="@string/twitter"
         app:drawableStartCompat="@drawable/ic_twitterx" />
 
       <TextView
         android:id="@+id/instagram"
+        android:textAlignment="viewStart"
         style="@style/MwmWidget.TextView.Item"
         android:text="@string/instagram"
         app:drawableStartCompat="@drawable/ic_instagram" />
 
       <TextView
         android:id="@+id/openstreetmap"
+        android:textAlignment="viewStart"
         style="@style/MwmWidget.TextView.Item"
         android:text="@string/openstreetmap"
         app:drawableStartCompat="@drawable/ic_openstreetmap" />
@@ -293,16 +307,19 @@
 
       <TextView
         android:id="@+id/privacy_policy"
+        android:textAlignment="viewStart"
         style="@style/MwmWidget.TextView.Item"
         android:text="@string/privacy_policy" />
 
       <TextView
         android:id="@+id/term_of_use_link"
+        android:textAlignment="viewStart"
         style="@style/MwmWidget.TextView.Item"
         android:text="@string/terms_of_use" />
 
       <TextView
         android:id="@+id/copyright"
+        android:textAlignment="viewStart"
         style="@style/MwmWidget.TextView.Item"
         android:text="@string/copyright" />
 
