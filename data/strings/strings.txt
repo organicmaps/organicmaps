@@ -7913,8 +7913,8 @@
     nb = Det kan bare opprettes ruter som passer fullstendig innenfor ett enkelt kart.
     nl = Enkel routes die volledig in één kaart passen, kunnen gecreëerd worden.
     pl = Trasy można tworzyć tylko pod warunkiem, że zawarte będą w ramach pojedynczej mapy.
-    pt = Só podem ser criados trajetos que estejam completamente contidas num único mapa.
-    pt-BR = Só podem ser criadas rotas que estejam completamente contidas num único mapa.
+    pt = Só podem ser criados trajetos que estejam completamente contidos num único mapa.
+    pt-BR = Só podem ser criadas rotas que estejam completamente contidas em um único mapa.
     ro = Pot fi create numai trasee cuprinse de harta unei singure regiuni.
     ru = Маршрут может быть проложен только внутри карты одного региона.
     sk = Cesty môžu byť vytvorené len tak, že sú plne obsiahnuté v jednej mape.
@@ -9390,7 +9390,7 @@
     nl = — De kaart kan onnauwkeurig zijn en de voorgestelde route is niet altijd de meest optimale manier om uw bestemming te bereiken;
     pl = — Mapa może być niedokładna, a sugerowana trasa może nie być optymalnym sposobem dotarcia do celu;
     pt = — O mapa pode estar desatualizado e o trajeto indicado pode não ser a melhor para chegar ao destino;
-    pt-BR = — O mapa pode estar desatualizado, e a rota indicada pode não ser a melhor maneira de chegar ao destino;
+    pt-BR = — O mapa pode estar desatualizado e a rota indicada pode não ser a melhor maneira de chegar ao destino;
     ro = — Harta poate conține greșeli, iar traseul sugerat pentru a ajunge la destinație nu e întotdeauna cel mai bun;
     ru = — Карта может быть неточной, а предложенный маршрут не всегда оптимален;
     sk = — Mapa nemusí byť presná a navrhovaná trasa nemusí byť vždy optimálna na dosiahnutie cieľa;
@@ -9433,8 +9433,8 @@
     nb = – Foreslåtte ruter bør bare anses som anbefalinger;
     nl = — Beschouw de voorgestelde routes enkel als aanbevelingen;
     pl = — Sugerowane trasy należy traktować jedynie jako rekomendacje;
-    pt = — Os trajetos indicados devem ser consideradas apenas como sugestões;
-    pt-BR = — As rotas indicadas devem ser tratadas apenas como sugestões;
+    pt = — Os trajetos indicados devem ser considerados apenas como sugestões;
+    pt-BR = — As rotas indicadas devem ser consideradas apenas como sugestões;
     ro = — Traseele sugerate sunt doar niște recomandări;
     ru = — Предлагаемые маршруты — лишь рекомендации;
     sk = — Navrhované trasy by sa mali brať len ako odporúčania;
@@ -31615,7 +31615,7 @@
     nb = Ruten er tom - ingenting å lagre
     nl = Route is leeg - niets om op te slaan
     pl = Trasa jest pusta - nic do zapisania
-    pt = O trajeto está vazia - não há nada para guardar
+    pt = O trajeto está vazio - não há nada para guardar
     pt-BR = A rota está vazia - não há nada para salvar
     ro = Traseul este gol - nu este nimic de salvat
     ru = Трек пуст - нечего сохранять
