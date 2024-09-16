@@ -4,6 +4,7 @@
 #include "routing/checkpoints.hpp"
 #include "routing/regions_decl.hpp"
 #include "routing/router_delegate.hpp"
+#include "routing/segment.hpp"
 
 #include "base/thread.hpp"
 

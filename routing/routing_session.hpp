@@ -6,10 +6,7 @@
 #include "routing/route.hpp"
 #include "routing/router.hpp"
 #include "routing/routing_callbacks.hpp"
-#include "routing/routing_exceptions.hpp"
-#include "routing/speed_camera.hpp"
 #include "routing/speed_camera_manager.hpp"
-#include "routing/turns.hpp"
 #include "routing/turns_notification_manager.hpp"
 
 #include "traffic/speed_groups.hpp"
@@ -21,16 +18,11 @@
 
 #include "geometry/point2d.hpp"
 #include "geometry/point_with_altitude.hpp"
-#include "geometry/polyline2d.hpp"
 
 #include "base/thread_checker.hpp"
 
 #include <cstdint>
-#include <functional>
-#include <limits>
-#include <map>
 #include <memory>
-#include <queue>
 #include <string>
 
 namespace location
@@ -52,16 +44,14 @@ public:
 
   void Init(PointCheckCallback const & pointCheckCallback);
 
-  void SetRouter(std::unique_ptr<IRouter> && router,
-                 std::unique_ptr<AbsentRegionsFinder> && finder);
+  void SetRouter(std::unique_ptr<IRouter> && router, std::unique_ptr<AbsentRegionsFinder> && finder);
 
   /// @param[in] checkpoints in mercator
   /// @param[in] timeoutSec timeout in seconds, if zero then there is no timeout
   void BuildRoute(Checkpoints const & checkpoints, uint32_t timeoutSec);
   void RebuildRoute(m2::PointD const & startPoint, ReadyCallback const & readyCallback,
-                    NeedMoreMapsCallback const & needMoreMapsCallback,
-                    RemoveRouteCallback const & removeRouteCallback, uint32_t timeoutSec,
-                    SessionState routeRebuildingState, bool adjustToPrevRoute);
+                    NeedMoreMapsCallback const & needMoreMapsCallback, RemoveRouteCallback const & removeRouteCallback,
+                    uint32_t timeoutSec, SessionState routeRebuildingState, bool adjustToPrevRoute);
 
   m2::PointD GetStartPoint() const;
   m2::PointD GetEndPoint() const;
@@ -101,8 +91,7 @@ public:
   SessionState OnLocationPositionChanged(location::GpsInfo const & info);
   void GetRouteFollowingInfo(FollowingInfo & info) const;
 
-  bool MatchLocationToRoute(location::GpsInfo & location,
-                            location::RouteMatchingInfo & routeMatchingInfo);
+  bool MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo);
   void MatchLocationToRoadGraph(location::GpsInfo & location);
   // Get traffic speed for the current route position.
   // Returns SpeedGroup::Unknown if any trouble happens: position doesn't match with route or something else.
@@ -125,8 +114,7 @@ public:
   bool EnableFollowMode();
 
   void SetRoutingSettings(RoutingSettings const & routingSettings);
-  void SetRoutingCallbacks(ReadyCallback const & buildReadyCallback,
-                           ReadyCallback const & rebuildReadyCallback,
+  void SetRoutingCallbacks(ReadyCallback const & buildReadyCallback, ReadyCallback const & rebuildReadyCallback,
                            NeedMoreMapsCallback const & needMoreMapsCallback,
                            RemoveRouteCallback const & removeRouteCallback);
   void SetProgressCallback(ProgressCallback const & progressCallback);
@@ -169,7 +157,7 @@ public:
   SpeedCameraManager & GetSpeedCamManager() { return m_speedCameraManager; }
   SpeedCameraManager const & GetSpeedCamManager() const { return m_speedCameraManager; }
 
-  std::shared_ptr<Route> GetRouteForTests() const { return m_route; }
+  std::shared_ptr<Route> GetRouteForTests() const { return m_active_route; }
   void SetGuidesForTests(GuidesTracks guides) { m_router->SetGuidesTracks(std::move(guides)); }
 
   double GetCompletionPercent() const;
@@ -180,9 +168,7 @@ private:
     RoutingSession & m_rs;
     ReadyCallback m_callback;
 
-    DoReadyCallback(RoutingSession & rs, ReadyCallback const & cb)
-        : m_rs(rs), m_callback(cb)
-    {}
+    DoReadyCallback(RoutingSession & rs, ReadyCallback const & cb) : m_rs(rs), m_callback(cb) {}
 
     void operator()(std::shared_ptr<Route> const & route, RouterResultCode e);
   };
@@ -196,7 +182,8 @@ private:
 
 private:
   std::unique_ptr<AsyncRouter> m_router;
-  std::shared_ptr<Route> m_route;
+  std::unique_ptr<Routes> m_routes;
+  std::shared_ptr<Route> m_active_route;
   SessionState m_state;
   bool m_isFollowing;
   Checkpoints m_checkpoints;
@@ -233,7 +220,7 @@ private:
   // Passed distance on route including reroutes
   double m_passedDistanceOnRouteMeters = 0.0;
   // Rerouting count
-  int m_routingRebuildCount = -1; // -1 for the first rebuild called in BuildRoute().
+  int m_routingRebuildCount = -1;  // -1 for the first rebuild called in BuildRoute().
   mutable double m_lastCompletionPercent = 0.0;
 
   DECLARE_THREAD_CHECKER(m_threadChecker);

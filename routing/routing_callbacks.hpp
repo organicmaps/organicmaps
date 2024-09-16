@@ -1,7 +1,5 @@
 #pragma once
 
-#include "routing/turns.hpp"
-
 #include "geometry/latlon.hpp"
 #include "geometry/point2d.hpp"
 
@@ -9,7 +7,6 @@
 
 #include <cstdint>
 #include <functional>
-#include <map>
 #include <memory>
 #include <set>
 #include <string>
@@ -45,16 +42,16 @@ enum class RouterResultCode
 
 enum class SessionState
 {
-  NoValidRoute,       // No valid route: no route after application launching or the route was removed.
-  RouteBuilding,      // We requested a route and wait when it will be built. User may be following
-                      // the previous route.
-  RouteNotStarted,    // Route is built but the user isn't on it.
-  OnRoute,            // User follows the route.
-  RouteNeedRebuild,   // User left the route.
-  RouteFinished,      // Destination point is reached but the session isn't closed.
-  RouteNoFollowing,   // Route is built but following mode has been disabled.
-  RouteRebuilding,    // We requested a route rebuild and wait when it will be rebuilt.
-                      // User may following the previous route.
+  NoValidRoute,      // No valid route: no route after application launching or the route was removed.
+  RouteBuilding,     // We requested a route and wait when it will be built. User may be following
+                     // the previous route.
+  RouteNotStarted,   // Route is built but the user isn't on it.
+  OnRoute,           // User follows the route.
+  RouteNeedRebuild,  // User left the route.
+  RouteFinished,     // Destination point is reached but the session isn't closed.
+  RouteNoFollowing,  // Route is built but following mode has been disabled.
+  RouteRebuilding,   // We requested a route rebuild and wait when it will be rebuilt.
+                     // User may following the previous route.
 };
 
 /*
@@ -113,10 +110,7 @@ inline std::string ToString(RouterResultCode code)
   return result;
 }
 
-inline std::string DebugPrint(RouterResultCode code)
-{
-  return ToString(code);
-}
+inline std::string DebugPrint(RouterResultCode code) { return ToString(code); }
 
 // This define should be set to see the spread of A* waves on the map.
 // #define SHOW_ROUTE_DEBUG_MARKS

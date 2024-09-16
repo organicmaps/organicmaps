@@ -37,6 +37,7 @@ public:
   bool Has(Road type) const;
 
   RoadType GetOptions() const { return m_options; }
+  void SetOptions(RoadType options);
 
 private:
   RoadType m_options = 0;
