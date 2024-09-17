@@ -764,7 +764,7 @@
     ro = În prezent, toate serviciile de localizare pentru acest dispozitiv sau aplicație sunt dezactivate. Le poți activa din setări.
     ru = Геолокация выключена в настройках устройства. Пожалуйста, включите её для удобного использования программы.
     sk = Aktuálne máte všetky možnosti pre určovanie polohy vypnuté. Prosím, povoľte ich v Nastaveniach.
-    sv = Du har inaktiverat alla platstjänster för denna enhet eller program. Vänligen aktivera dem i Inställningar.
+    sv = Du har inaktiverat alla platstjänster för denna enhet eller app. Vänligen aktivera dem i Inställningar.
     th = ในปัจจุบันนี้มีการปิดการใช้งานการบริการตำแหน่งที่ตั้งสำหรับอุปกรณ์หรือแอปพลิเคชันนี้ โปรดเปิดใช้งานในการตั้งค่า
     tr = Şu anda bu cihaz veya uygulama için tüm Konum Hizmetleri devre dışı bırakılmış. Lütfen bunu ayarlardan etkinleştirin.
     uk = Геолокація вимкнена в налаштуваннях пристрою. Будь ласка, увімкніть її для зручного використання програми.
@@ -1175,7 +1175,7 @@
     ro = • Rapid, minimalist, dezvoltat de comunitate
     ru = • Быстрые, минималистичные, разработанные сообществом
     sk = • Rýchly, minimalistický, vyvinutý komunitou
-    sv = • Snabb, minimalistisk, utvecklad av gemenskapen
+    sv = • Snabb, minimalistisk, utvecklad av communityn
     sw = • Haraka, minimalist, iliyotengenezwa na jumuiya
     th = • รวดเร็ว เรียบง่าย พัฒนาโดยชุมชน
     tr = • Hızlı, minimalist, topluluk tarafından geliştirilmiş
@@ -27291,7 +27291,7 @@
     ro = Alege un punct de plecare sau de sosire mai aproape de o stație de metrou
     ru = Выберите начальную или конечную точку маршрута ближе к станции метро
     sk = Vyberte počiatočný alebo konečný bod bližšie k stanici metra
-    sv = Välj ruttens start- eller slutpunkt närmare en tunnelbanestation
+    sv = Välj ruttens start- eller mål närmare en tunnelbanestation
     sw = Chagua nyota au alama ya mwisho karibu ya kituo cha njia ya chini kwa chini
     th = โปรดเลือกจุดเริ่มต้นและสิ้นสุดที่อยู่ใกล้สถานีรถไฟใต้ดิน
     tr = Metro istasyonuna en yakın rotanın başlangıç veya bitiş noktasını seçin
@@ -27337,7 +27337,7 @@
     ro = Înălțimi
     ru = Высоты
     sk = Terén
-    sv = Höjdlinjer
+    sv = Terräng
     sw = Topografia
     th = ความสูง
     tr = Arazi
