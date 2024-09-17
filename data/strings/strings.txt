@@ -12036,7 +12036,7 @@
     ro = Toată ziua (24 ore)
     ru = Весь день (24 часа)
     sk = Nepretržite (24 hodín)
-    sv = Alla dagar (24 timmar)
+    sv = Hela dagen (24 timmar)
     th = ตลอดวัน (24 ชั่วโมง)
     tr = Tüm Gün (24 saat)
     uk = Весь день (24 години)
@@ -12165,7 +12165,7 @@
     ro = Adaugă ore de închidere
     ru = Добавить перерыв
     sk = Pridať hodiny zatvorenia
-    sv = Lägg till stängda timmar
+    sv = Lägg till stängda tider
     th = เพิ่มเวลาที่ปิดทำการเพิ่มเติม
     tr = Kapalı olduğu saatleri ekle
     uk = Додати перерву
@@ -12505,7 +12505,7 @@
     ro = Ai modificat harta lumii. Nu ascunde acest lucru! Spune-le prietenilor și modificați-o împreună.
     ru = Вы изменили карту мира. Не скрывайте это, расскажите друзьям и редактируйте вместе.
     sk = Zmenili ste mapu sveta. Nemusíte to skrývať! Povedzte o tom svojim priateľom a začnite ju spolu upravovať.
-    sv = Du har ändrat världskartan. Dölj inte detta! Berätta för dina vänner och redigera den tillsammans.
+    sv = Du har ändrat världskartan. Dela det med dina vänner och redigera den tillsammans.
     th = คุณได้เปลี่ยนแผนที่โลก อย่าซ่อนมันไว้! บอกเพื่อนคุณ แล้วมาแก้ไขมันไปด้วยกัน
     tr = Dünya haritasını değiştirdiniz. Bunu gizlemeyin! Arkadaşlarınıza anlatın ve birlikte düzenleyin.
     uk = Ви змінили карту світу. Не приховуйте це! Розкажіть своїм друзям і редагуйте разом.
@@ -13942,7 +13942,7 @@
     ro = Ultima încărcare
     ru = Последняя отправка
     sk = Posledné nahrávanie
-    sv = Senast uppladdad
+    sv = Senaste uppladdning
     th = อัปโหลดครั้งสุดท้าย
     tr = Son yükleme
     uk = Остання вiдправка
@@ -14205,7 +14205,7 @@
     ro = Număr
     ru = Номер дома
     sk = Číslo domu
-    sv = Ett husnummer
+    sv = Husnummer
     th = บ้านเลขที่
     tr = Bina numarası
     uk = Номер будинку
@@ -14501,7 +14501,7 @@
     ro = Bucătărie
     ru = Кухня
     sk = Kuchyňa
-    sv = Kök
+    sv = Mat
     th = ประเภทอาหาร
     tr = Mutfak
     uk = Кухня
@@ -14544,7 +14544,7 @@
     ro = Alege bucătăria
     ru = Выбрать кухню
     sk = Vyberte si kuchyňu
-    sv = Välj kök
+    sv = Välj mat
     th = เลือกประเภทอาหาร
     tr = Mutfak Seç
     uk = Вибрати кухню
@@ -15061,7 +15061,7 @@
     ro = Spațiu insuficient
     ru = Недостаточно места
     sk = Nemáte dostatok miesta
-    sv = Otillräckligt utrymme
+    sv = Otillräckligt minne
     th = มีพื้นที่ไม่เพียงพอ
     tr = Yeterli alan yok
     uk = Недостатньо місця
@@ -15756,7 +15756,7 @@
     ro = Schimbă poziția
     ru = Измените местоположение
     sk = Zmeniť polohu
-    sv = Ändra placering
+    sv = Ändra plats
     th = เปลี่ยนสถานที่ตั้ง
     tr = Konumu değiştir
     uk = Змініть розташування
@@ -16152,7 +16152,7 @@
     ro = Introdu un număr corect
     ru = Введите корректный номер дома
     sk = Zadajte správne číslo domu
-    sv = Ange korrekt husnummer
+    sv = Ange giltigt husnummer
     th = กรอกบ้านเลขที่ให้ถูกต้อง
     tr = Geçerli bir bina numarası girin
     uk = Введіть правильний номер будинку
@@ -16506,7 +16506,7 @@
     ro = Modificările aduse hărții, sugerate de tine, vor fi trimise comunității OpenStreetMap. Descrie orice detalii suplimentare care nu pot fi modificate în Organic Maps.
     ru = Предложенные вами изменения на карте будут отправлены в OpenStreetMap. Опишите дополнительные сведения об объекте, которые Organic Maps не позволяет отредактировать.
     sk = Vami navrhované zmeny sa odošlú do komunity OpenStreetMap. Popíšte detaily, ktoré sa nedajú upraviť v Organic Maps.
-    sv = Dina föreslagna ändringar kommer att skcikas till OpenStreetMap-communityt. Beskriv detaljerna som inte kan redigeras i Organic Maps.
+    sv = Dina föreslagna ändringar kommer att skickas till OpenStreetMap-communityt. Beskriv detaljerna som inte kan redigeras i Organic Maps.
     th = คำแนะนำการเปลี่ยนแปลงของคุณจะถูกส่งไปยังกลุ่ม OpenStreetMap โปรดอธิบายรายละเอียดที่ Organic Maps ไม่สามารถแก้ไขได้
     tr = Önerdiğiniz değişiklikler OpenStreetMap topluluğuna gönderilecek. Organic Maps’te düzenlenemeyen ayrıntıları açıklayın.
     uk = Зміни, що ви запропонували, буде відправлено до OpenStreetMap. Опишіть подробиці про об'єкт, які не можна редагувати у Organic Maps.
@@ -16683,7 +16683,7 @@
     ro = Organic Maps permite adăugarea doar a unor categorii de puncte simple, ceea ce înseamnă că nu există orașe, drumuri, lacuri, contururi de clădiri, etc. Vă rugăm să adăugați astfel de categorii direct la <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consultați <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ghidul nostru</a> pentru instrucțiuni detaliate pas cu pas.
     ru = Organic Maps позволяет добавлять на карту только простые типы объектов, то есть никаких городов, дорог, озер, контуров зданий. Пожалуйста, добавляйте такие категории на сайте <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Также рекомендуем ознакомиться с нашими <a href="https://organicmaps.app/faq/editing/advanced-map-editing">подробными пошаговыми инструкциями и другими приложениями для редактирования карты</a>.
     sk = Organické mapy umožňujú pridávať len jednoduché kategórie bodov, teda žiadne mestá, cesty, jazerá, obrysy budov atď. Takéto kategórie pridávajte priamo na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Pozrite si náš <a href="https://organicmaps.app/faq/editing/advanced-map-editing">príručku</a>, kde nájdete podrobné pokyny krok za krokom.
-    sv = Organiska kartor tillåter endast att lägga till enkla punktkategorier, det betyder inga städer, vägar, sjöar, byggnadskonturer etc. Lägg till sådana kategorier direkt till <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Kontrollera vår <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> för detaljerade steg-för-steg-instruktioner.
+    sv = Organic Maps tillåter endast att lägga till enkla punktkategorier, det betyder inga städer, vägar, sjöar, byggnadskonturer etc. Lägg till sådana kategorier direkt till <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Kontrollera vår <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> för detaljerade steg-för-steg-instruktioner.
     sw = Ramani za Kikaboni huruhusu kuongeza kategoria rahisi pekee, hiyo inamaanisha hakuna miji, barabara, maziwa, muhtasari wa majengo, n.k. Tafadhali ongeza kategoria kama hizo moja kwa moja kwenye <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Angalia <a href="https://organicmaps.app/faq/editing/advanced-map-editing">mwongozo wetu</a> kwa maagizo ya kina ya hatua kwa hatua.
     th = แผนที่ทั่วไปอนุญาตให้เพิ่มหมวดหมู่จุดธรรมดาเท่านั้น ซึ่งหมายความว่าไม่มีเมือง ถนน ทะเลสาบ โครงร่างอาคาร ฯลฯ โปรดเพิ่มหมวดหมู่ดังกล่าวลงใน <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. ดู<a href="https://organicmaps.app/faq/editing/advanced-map-editing">คำแนะนำ</a> ของเราเพื่อดูคำแนะนำโดยละเอียดทีละขั้นตอน
     tr = Organik Haritalar yalnızca basit nokta kategorileri eklemeye izin verir, yani kasaba, yol, göl, bina ana hatları vb. yoktur. Lütfen bu tür kategorileri doğrudan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>'a ekleyin. Adım adım ayrıntılı talimatlar için <a href="https://organicmaps.app/faq/editing/advanced-map-editing">rehberimize</a> göz atın.
@@ -19550,7 +19550,7 @@
     ro = Internetul mobil este necesar pentru a afișa informații detaliate despre locuri generale și cele preferate.
     ru = Мобильный интернет требуется для уведомлений об обновлении карты и для отображения более подробной информации о местах и метках.
     sk = Na zobrazenie podrobnejších informácií o miestach, napríklad fotografií, cien a recenzií, sa vyžaduje mobilný internet.
-    sv = Mobil internet krävs för att visa detaljerad information om platser, som t. ex. fotografier, priser och omdömen.
+    sv = Mobilt internet krävs för att visa detaljerad information om platser, som t. ex. fotografier, priser och omdömen.
     th = จำเป็นต้องใช้อินเทอร์เน็ตมือถือในการแสดงข้อมูลโดยรายละเอียดเกี่ยวกับสถานที่ เช่น รูปถ่าย ราคา และรีวิว
     tr = Harita güncelleme bildirimleri ve yapılan düzenlemelerin yüklenmesi için mobil internet gereklidir.
     uk = Використання мобільних даних необхідно для сповіщень про оновлення карти та для відображення докладної інформації про місця та мітки.
@@ -20168,7 +20168,7 @@
     ro = Transcrie în alfabet latin
     ru = Латинская транслитерация
     sk = Prepis do latinky
-    sv = Transkribering till latin
+    sv = Transkribering till latinskt alfabet
     sw = Tafsiri kwa lugha ya Kilatini
     th = การทับศัพท์เป็นภาษาละติน
     tr = Latin harf çevirisi
@@ -20526,7 +20526,7 @@
     ro = Trage aici pentru a elimina
     ru = Перетяните сюда, чтобы удалить
     sk = Presunutím sem odstránite
-    sv = Dra här för att ta bort
+    sv = Dra hit för att ta bort
     sw = Vuta hapa ili kuondoa
     th = ลากมาที่นี่เพื่อเอาออก
     tr = Kaldırmak için buraya sürükleyin
@@ -20844,7 +20844,7 @@
     ro = Spațiul de stocare extern nu este disponibil. Probabil cardul SD nu este introdus, este deteriorat sau sistemul de fișiere este doar pentru citire. Verifică sau contactează-ne la support@organicmaps.app
     ru = Внешняя память устройства недоступна, возможно SD карта была удалена, повреждена или файловая система доступна только для чтения. Проверьте это и свяжитесь, пожалуйста, с нами support@organicmaps.app
     sk = Externý úložný priestor nie je dostupný, pravdepodobne je vytiahnutá alebo poškodená SD karta alebo je systém súborov určený iba na čítanie. Skontrolujte to, prosím, a kontaktujte nás na support@organicmaps.app
-    sv = Extern lagring är inte tillgänglig. SD-kortet är borttaget, skadat eller så är filsystemet är skrivskyddat. Kontrollera det och kontakta oss på support@organicmaps.app
+    sv = Extern lagring är inte tillgänglig. SD-kortet är borttaget, skadat eller så är filsystemet skrivskyddat. Kontrollera det och kontakta oss på support@organicmaps.app
     sw = Hifadhi ya nje haipatikani, pengine Kadi ya SD imeondolewa, imeharibika au mfumo wa faili ni wa kusoma pekee. Tafadhali ikague na uwasiliane nasi kwa kutumia support@organicmaps.app
     th = ที่เก็บข้อมูลภายนอกไม่พร้อมใช้งาน อาจเป็นเพราะการ์ด SD ถูกถอดออกไป ได้รับความเสียหาย หรือระบบไฟล์ให้เขียนได้อย่างเดียว กรุณาตรวจสอบและติดต่อเราได้ที่ support@organicmaps.app
     tr = Harici bellek kullanılamıyor, muhtemelen SD Kart çıkarılmış, hasarlı veya dosya sistemi salt okunur. Lütfen kontrol edin veya support@organicmaps.app adresinden bizimle iletişime geçin
@@ -21637,7 +21637,7 @@
     ro = Numele listei nu poate fi gol
     ru = Имя списка не может быть пустым
     sk = Názov nemôže byť prázdny
-    sv = Namnet kunde inte vara tomt
+    sv = Namnet kan inte vara tomt
     sw = Jina halikuweza kuwa tupu
     th = ชื่อต้องไม่ว่างเปล่า
     tr = İsim boş olamaz
@@ -22419,7 +22419,7 @@
     ro = Intimitate
     ru = Приватность
     sk = Súkromie
-    sv = Zasebnost
+    sv = Integritet
     sw = Faragha
     th = ความเป็นส่วนตัว
     tr = Gizlilik
@@ -22694,7 +22694,7 @@
     ro = Harta de metrou nu este disponibilă
     ru = Карта метро недоступна
     sk = Mapa metra nie je dostupná
-    sv = Kartor över tunnelbana är otillgänglig
+    sv = Tunnelbanekartan är otillgänglig
     sw = Ramani ya njia ya chini haipatikani
     th = แผนที่รถไฟใต้ดินไม่พร้อมใช้งาน
     tr = Metro haritası mevcut değil
@@ -23130,7 +23130,7 @@
     ro = Acces public
     ru = Публичный доступ
     sk = Verejne prístupné
-    sv = Allmänhetens åtkomst
+    sv = Allmän åtkomst
     sw = Matumizi ya umma
     th = เข้าถึงได้โดยสาธารณะ
     tr = Genel erişim
@@ -23265,7 +23265,7 @@
     ro = Personal
     ru = Личный
     sk = Súkromné
-    sv = Personlig
+    sv = Privat
     sw = Faragha
     th = ส่วนตัว
     tr = Gizli
@@ -23311,7 +23311,7 @@
     ro = A apărut o eroare la încărcarea etichetelor, încearcă din nou
     ru = Во время загрузки тегов произошла ошибка, пожалуйста, попробуйте ещё раз
     sk = Počas načítavania značiek sa vyskytla chyba, skúste to znova
-    sv = Ett fel uppstod när du laddar taggarna, försök igen
+    sv = Ett fel uppstod när taggarna laddades, försök igen
     sw = Kosa limetokea wakati wa kupakua vibandiko, tafadhali jaribu tena
     th = เกิดข้อผิดพลาดขณะโหลดแท็ก โปรดลองใหม่อีกครั้ง
     tr = Etiketler yüklenirken bir hata oluştu, lütfen tekrar deneyin
@@ -23492,7 +23492,7 @@
     ro = Descărcarea hărților
     ru = Загрузка карт
     sk = Sťahovač máp
-    sv = Kartladdning
+    sv = Kartnedladdning
     sw = Kipakua Ramani
     th = ตัวดาวน์โหลดแผนที่
     tr = Harita indirici
@@ -23538,7 +23538,7 @@
     ro = Avertizează la depășirea limitei de viteză
     ru = Предупреждать при превышении скорости
     sk = Varovanie pred prekročením rýchlosti
-    sv = För att varna dig för fortkörning
+    sv = Varna vid fortkörning
     sw = Onya kuhusu mwendo kasi
     th = เตือนเรื่องการขับรถเร็ว
     tr = Hız sınırını aşma riski varsa uyar
@@ -23722,7 +23722,7 @@
     ro = Dacă este pornit modul de economisire a energiei, aplicația va deconecta funcțiile care consumă multă energie în dependență de nivelul de încărcare a bateriei.
     ru = Если режим энергосбережения включён, приложение будет отключать энергозатратные функции в зависимости от текущего заряда телефона
     sk = Keď je zvolený automatický režim, aplikácia začne vypínať funkcie, ktoré vybíjajú batériu v závislosti od aktuálnej úrovne nabitia batérie
-    sv = Om energisparläget är på, ska appen stänga av energikrävande funktioner beroende på telefonens nuvarande laddning
+    sv = Om energisparläget är på, stängs energikrävande funktioner av beroende på telefonens nuvarande laddning
     sw = Pindi mtindo wa kiotomatiki unapochaguliwa programu tumizi inaanza kuzima sifa za kumaliza betri kulingana na kiwango cha chaji cha sasa cha betri
     th = เมื่อโหมดอัตโนมัตินั้นถูกเลือก แอปพลิเคชันจะเริ่มหยุดการใช้พลังงานจากแบตเตอรีขึ้นอยู่กับจำนวนไฟในแบตเตอรีว่าเหลือเท่าไร
     tr = Otomatik mod seçildiğinde, uygulama geçerli pil seviyesine bağlı olarak şarj harcayan özellikleri devre dışı bırakmaya başlar
@@ -23814,7 +23814,7 @@
     ro = Automat
     ru = Авто
     sk = Automaticky
-    sv = Automatiskt
+    sv = Vid lågt batteri
     sw = Kiotomatiki
     th = อัตโนมัติ
     tr = Otomatik
@@ -23860,7 +23860,7 @@
     ro = Economisire maximă a energiei
     ru = Максимальное энергосбережение
     sk = Maximálna úspora batérie
-    sv = Maximal energibesparing
+    sv = Alltid
     sw = Upeo wa kuhifadhi nishati
     th = ประหยัดพลังงานสูงสุด
     tr = Maksimum güç tasarrufu
@@ -23906,7 +23906,7 @@
     ro = Opțiunea activează jurnalizarea în scopuri de diagnosticare. Aceasta poate fi utilă echipei noastre pentru a rezolva problemele cu aplicația. Activează temporar această opțiune pentru a înregistra și a ne trimite jurnale detaliate despre problema ta.
     ru = Данная настройка включается для записи действий в целях диагностики, чтобы помочь нашей команде выявить проблемы с приложением. Временно включайте эту настройку только для отправки детальной информации о найденной вами проблеме в приложении через кнопку "Сообщить о проблеме".
     sk = Týmto zapnete záznamenávanie diagnostických informácií, ktoré môžete poslať našej technickej podpore v prípade problémov s aplikáciou. Záznam môže obsahovať údaje o vašej polohe.
-    sv = Denna funktion aktiveras för loggning av åtgärder för diagnostiska ändamål. Detta hjälper laget att identifiera problem med applikationen. Slå på funktionen endast på begäran av Organic Maps supporttjänst.
+    sv = Aktivera denna funktion för att logga detaljer för diagnostiska ändamål. Detta hjälper utvecklarna att identifiera problem med appen. Slå på funktionen endast på begäran av Organic Maps supporttjänst.
     sw = Chaguo huwasha data kwa madhumuni ya uchunguzi. Itakuwa muhimu kwa wafanyakazi wetu ambao wanatatua matatizo ya programu. Washa chaguo hili kwa maombi ya mhudumu wa Organic Maps tu.
     th = ออปชันเพื่อเปิดการบันทึกประวัติการทำงานเพื่อการวินิจฉัย ประวัติดังกล่าวอาจเป็นประโยชน์กับทีมงานช่วยเหลือของเราที่คอยจัดการกับปัญหาที่เจอระหว่างแอปทำงาน โปรดเปิดออปชันดังกล่าวจากการร้องข้อการสนับสนุนจาก Organic Maps เท่านั้น
     tr = Bu seçenek tanılama amacıyla günlüğe kaydetmeyi açar. Ekibimizin uygulamayla ilgili sorunları gidermesine yardımcı olabilir. Sorununuzla ilgili ayrıntılı günlükleri kaydetmek ve bize göndermek için bu seçeneği geçici olarak etkinleştirin.
@@ -23997,7 +23997,7 @@
     ro = Opțiuni de ocolire
     ru = Настройки объезда
     sk = Možnosti trasy
-    sv = Omvägsinställningar
+    sv = Ruttinställningar
     sw = Machaguo ya njia
     th = ทางเลือกเส้นทางขับขี่
     tr = Yönlendirme seçenekleri
@@ -24087,7 +24087,7 @@
     ro = Evită drumurile neasfaltate
     ru = Избегать грунтовые дороги
     sk = Vyhnúť sa nespevneným cestám
-    sv = Undvik kärrvägar
+    sv = Undvik oasfalterade vägar
     sw = Epuka barabara za vumbi
     th = เลี่ยงถนนดินทั้งหมด
     tr = Asfaltsız yollardan kaçın
@@ -24223,7 +24223,7 @@
     ro = Nu poate fi creat un traseu
     ru = Невозможно построить маршрут
     sk = Nepodarilo sa vypočítať trasu
-    sv = Det går inte att bygga ruttenen
+    sv = Det går inte att hitta rutt
     sw = Haiwezi kukokotoa njia
     th = ไม่สามารถคำนวณเส้นทาง
     tr = Rota hesaplanamıyor
@@ -24269,7 +24269,7 @@
     ro = Din păcate, nu putem elabora un traseu cu opțiunile alese. Modifică-le și încearcă din nou.
     ru = К сожалению, мы не смогли построить маршрут с выбранными опциями. Измените настройки и повторите попытку
     sk = Bohužiaľ sme nemohli nájsť trasu pravdepodobne z dôvodu definovaných možností. Zmeňte nastavenia a skúste to prosím znova
-    sv = Tyvärr kunde vi inte bygga en rutt med de valda alternativen. Ändra inställningar och försök igen
+    sv = Tyvärr kunde vi inte hitta en rutt med de valda alternativen. Ändra inställningar och försök igen
     sw = Bahati mbaya hatukuweza kupata njia labda kwa sababu ya machaguo msingi. Tafadhali badili mipangilio na jaribu tena
     th = ขออภัย เราไม่สามารถค้นหาเส้นทาง โดยสาเหตุอาจมาจากทางเลือกที่คุณกำหนดไว้ โปรดเปลี่ยนการตั้งค่าทางเลือกและลองใหม่อีกครั้ง
     tr = Maalesef, muhtemelen belirlediğiniz seçeneklerden dolayı bir rota bulamadık. Lütfen seçenekleri değiştirin ve tekrar deneyin
@@ -24315,7 +24315,7 @@
     ro = Stabilește drumurile de evitat
     ru = Настроить пути объезда
     sk = Definovať cesty, ktorým sa treba vyhnúť
-    sv = Anpassa omvägsbana
+    sv = Definiera oönskade vägar
     sw = Fafanua njia za kuziepuka
     th = กำหนดถนนที่ต้องการเลี่ยง
     tr = Kaçınılması gereken yolları tanımlayın
@@ -24360,7 +24360,7 @@
     ro = Opțiuni de ocolire activate
     ru = Настройки объезда включены
     sk = Možnosti trasy povolené
-    sv = Omvägsinställningar aktiverade
+    sv = Ruttinställningar aktiverade
     sw = Machaguo ya njia yamewezeshwa
     th = เปิดใช้การค้นหาเส้นทางขับขี่แล้ว
     tr = Sürüş seçenekleri etkinleştirildi
@@ -24404,7 +24404,7 @@
     ro = Drum cu plată
     ru = Платная дорога
     sk = Spoplatnená cesta
-    sv = Betalvägen
+    sv = Betalväg
     sw = Barabara ya kulipia
     th = ถนนแบบเสียค่าผ่านทาง
     tr = Paralı yol
@@ -24448,7 +24448,7 @@
     ro = Drum neasfaltat
     ru = Грунтовая дорога
     sk = Nespevnená cesta
-    sv = Kärrvägen
+    sv = Oasfalterad väg
     sw = Barabara ya vumbi
     th = ถนนดิน
     tr = Asfaltsız yol
@@ -24536,7 +24536,7 @@
     ro = Să mergem
     ru = Поехали
     sk = Poďme
-    sv = Kom igen
+    sv = Nu åker vi
     sw = Twende zetu
     th = ไปกันเลย
     tr = Hadi gidelim
@@ -24580,7 +24580,7 @@
     ro = Destinație
     ru = Цель
     sk = Cieľ
-    sv = Målet
+    sv = Destination
     sw = Mahali
     th = จุดหมาย
     tr = Hedef
@@ -24713,7 +24713,7 @@
     ro = Apoi
     ru = Затем
     sk = Potom
-    sv = Vidare
+    sv = Sedan
     sw = Kisha
     th = จากนั้น
     tr = Sonra
@@ -24758,7 +24758,7 @@
     ro = Vrei să refaci traseul?
     ru = Хотите перестроить маршрут?
     sk = Chcete znova vytvoriť trasu?
-    sv = Räknar om rutten?
+    sv = Vill du räkna om rutten?
     sw = Je, unataka kuunda upya njia?
     th = ต้องการสร้างเส้นทางใหม่หรือไม่
     tr = Yeniden bir rota oluşturmak ister misiniz?
@@ -25003,7 +25003,7 @@
     ro = Tastatura nu poate fi folosită cât timp conduci
     ru = Клавиатура недоступна во время движения
     sk = Počas jazdy nie je klávesnica k dispozícii
-    sv = Tangentbordet är inte tillgängligt vid rörelsen
+    sv = Tangentbordet är inte tillgängligt vid körning
     sw = Mbao-bonye haipatikani wakati wa kuendesha gari
     th = คีย์บอร์ดไม่สามารถใช้งานได้ขณะขับขี่
     tr = Klavye sürüş sırasında kullanılamaz
@@ -25048,7 +25048,7 @@
     ro = Traseul de la locul în care te afli nu poate fi alcătuit
     ru = Невозможно построить маршрут от текущего местоположения
     sk = Z vašej aktuálnej polohy nie je možné vytvoriť trasu
-    sv = Det gick inte att bygga rutten från nuvarande plats
+    sv = Det gick inte att hitta en rutt från nuvarande plats
     sw = Haiwezi kuunda njia kutokea kwenye eneo lako la sasa
     th = ไม่สามารถสร้างเส้นทางจากตำแหน่งปัจจุบันของคุณ
     tr = Mevcut konumunuzdan rota oluşturulamıyor
@@ -25093,7 +25093,7 @@
     ro = Traseul către destinația aleasă nu poate fi alcătuit. Alege altă destinație.
     ru = Невозможно построить маршрут до конечной точки. Выберите другую
     sk = Nie je možné vytvoriť trasu do cieľa. Prosím vyberte iný bod
-    sv = Det går inte att bygga rutten till slutpunkten. Välj en annan
+    sv = Det går inte att hitta en rutt till målet. Välj en annan
     sw = Haiwezi kuunda njia kwenda uendako. Tafadhali chagua sehemu nyingine
     th = ไม่สามารถสร้างเส้นทางไปยังจุดหมายของคุณ โปรดเลือกจุดหมายใหม่
     tr = Hedefinize rota oluşturulamıyor. Lütfen başka bir nokta seçin
@@ -25138,7 +25138,7 @@
     ro = Nu este semnal GPS. Mergi la loc deschis.
     ru = Нет сигнала GPS. Проследуйте на открытую местность
     sk = Žiaden GPS signál. Presuňte sa na otvorené priestranstvo
-    sv = Ingen GPS-signal. Följ till öppna området
+    sv = Ingen GPS-signal. Flytta dig till ett öppet område
     sw = Hakuna ishara ya GPS. Tafadhali sogea katika eneo jingine la wazi
     th = ไม่มีสัญญาณจีพีเอส โปรดไปในที่โล่งเพื่อหาสัญญาณ
     tr = GPS sinyali yok. Lütfen açık bir alana geçin
@@ -25183,7 +25183,7 @@
     ro = Nu poate fi alcătuit un traseu. Alege alte puncte ale traseului
     ru = Невозможно построить маршрут. Выберите другие точки маршрута
     sk = Nie je možné vytvoriť trasu. Prosím zadajte iné body trasy
-    sv = Det går inte att bygga ruten. Välj andra rutenspunkter
+    sv = Det går inte att hitta en rutt. Välj andra punkter
     sw = Haiwezi kuunda njia. Tafadhali taja kituo kingine cha njia
     th = ไม่สามารถคำนวณเส้นทาง โปรดระบุตำแหน่งของเส้นทางอื่น
     tr = Rota oluşturulamıyor. Lütfen başka bir rota noktası belirtin
@@ -25228,7 +25228,7 @@
     ro = Pentru a crea un traseu, descarcă hărțile lipsă în dispozitivul tău
     ru = Чтобы построить маршрут, загрузите недостающие карты на своём устройстве
     sk = Pre vytvorenie trasy si stiahnite do zariadenia chýbajúce mapy
-    sv = För att skapa en rutt, ladda ner saknade kartor på din enhet
+    sv = För att hitta en rutt, ladda ner saknade kartor på din enhet
     sw = Kuunda njia, pakua ramani zilizokosekana kwenye kifaa chako
     th = เพื่อสร้างเส้นทาง โปรดดาวน์โหลดแผนที่บนอุปกรณ์ของคุณ
     tr = Rota oluşturmak için cihazınızdaki eksik haritaları indirin
@@ -25318,7 +25318,7 @@
     ro = Traseul va fi refăcut de la locul în care te afli
     ru = Маршрут будет перестроен от вашего текущего местоположения
     sk = Trasa bude obnovená z vašej aktuálnej polohy
-    sv = Ruten kommer att byggas om från din nuvarande plats
+    sv = Rutten kommer att räknas om från din nuvarande plats
     sw = Njia itaundwa upya kutokea kwenye sehemu yako la sasa
     th = เส้นทางจะถูกสร้างอีกครั้งจากตำแหน่งปัจจุบันของคุณ
     tr = Rota, mevcut konumunuzdan yeniden oluşturulacak
@@ -25363,7 +25363,7 @@
     ro = Traseul va fi înlocuit cu unul pentru autovehicule
     ru = Маршрут будет изменён на автомобильный
     sk = Trasa bude upravená na jazdu autom
-    sv = Ruten kommer att ändras till bil
+    sv = Rutten kommer att ändras till bil
     sw = Njia itaboreshwa kuwa ya gari
     th = เส้นทางของรถยนต์อาจถูกปรับเปลี่ยน
     tr = Rota, bir arabalı seyahat rotasına dönüştürülecek
@@ -25454,7 +25454,7 @@
     ro = Radare
     ru = Камеры
     sk = Radary
-    sv = Kameror
+    sv = Fartkameror
     sw = Kam za kasi
     th = จับความเร็ว
     tr = Hız kameraları
@@ -25499,7 +25499,7 @@
     ro = Info radare
     ru = Инфо о камерах
     sk = Rýchl. upozorn.
-    sv = Info om kameror
+    sv = Info om fartkameror
     sw = Onyo la kasi
     th = เตือนความเร็ว
     tr = Hız uyarıları
@@ -25544,7 +25544,7 @@
     ro = Descarcă hărțile în aplicația Organic Maps din dispozitivul tău
     ru = Скачайте карты в приложении Organic Maps на своём устройстве
     sk = Prosím stiahnite si mapy v aplikácii Organic Maps vo vašom zariadení
-    sv = Ladda ner kartor i applikation Organic Maps på din enhet
+    sv = Ladda ner kartor i appen på din enhet
     sw = Tafadhali pakua ramani katika programu tumizi ya Organic Maps kwenye kifaa chako
     th = โปรดดาวน์โหลดแผนที่ในแอพฯ Organic Maps บนอุปกรณ์ของคุณ
     tr = Lütfen haritaları cihazınıza Organic Maps uygulamasından indirin
@@ -25726,7 +25726,7 @@
     ro = Sortare standard
     ru = Сортировать по умолчанию
     sk = Zoradiť Predvolené
-    sv = Sortera som standard
+    sv = Sortera efter förvald ordning
     sw = Ainisha kwa chaguo-msingi
     th = เรียงตามค่าเริ่มต้น
     tr = Varsayılana göre sırala
@@ -26177,7 +26177,7 @@
     ro = Acum o săptămână
     ru = Неделю назад
     sk = Pred týždňom
-    sv = För en vecka sedan
+    sv = En vecka sedan
     sw = Wiki moja iliyopita
     th = สัปดาห์ที่ผ่านมา
     tr = Bir hafta önce
@@ -26221,7 +26221,7 @@
     ro = Acum o lună
     ru = Месяц назад
     sk = Pred mesiacom
-    sv = För en månad sedan
+    sv = En månad sedan
     sw = Mwezi mmoja uliopita
     th = เดือนที่ผ่านมา
     tr = Bir ay önce
@@ -26265,7 +26265,7 @@
     ro = Acum mai mult de o lună
     ru = Больше месяца назад
     sk = Pred viac ako mesiacom
-    sv = För över en månad sedan
+    sv = Över en månad sedan
     sw = Zaidi ya mwezi mmoja uliopita
     th = มากกว่าหนึ่งเดือนที่ผ่านมา
     tr = Bir aydan daha önce
@@ -26309,7 +26309,7 @@
     ro = Cu mai mult de un an în urmă
     ru = Больше года назад
     sk = Pred viac ako rokom
-    sv = För över ett år sedan
+    sv = Över ett år sedan
     sw = Zaidi ya mwaka mmoja uliopita
     th = มากกว่าหนึ่งปีที่ผ่านมา
     tr = Bir yıldan daha önce
@@ -26353,7 +26353,7 @@
     ro = Lângă mine
     ru = Рядом со мной
     sk = Blízko mňa
-    sv = Bredvid mig
+    sv = Nära mig
     sw = Karibu yangu
     th = ใกล้ฉัน
     tr = Bana yakınlarda
@@ -27062,7 +27062,7 @@
     ro = Caută în listă
     ru = Искать в списке
     sk = Vyhľadať v zozname
-    sv = Söka i listan
+    sv = Sök i listan
     sw = Tafuta kwenye orodha
     th = ค้นหาในรายการ
     tr = Listede ara
@@ -27151,7 +27151,7 @@
     ro = Alege lista
     ru = Выбрать список
     sk = Vybrať zoznam
-    sv = Välja lista
+    sv = Välj lista
     sw = Chagua orodha
     th = เลือกรายการ
     tr = Liste seç
@@ -27197,7 +27197,7 @@
     ro = Navigarea pentru metrou nu este încă disponibilă în această regiune
     ru = Навигация на метро ещё недоступна в данном регионе
     sk = Navigácia metra v tejto oblasti ešte nie je k dispozícii
-    sv = Metro-navigering är ännu inte tillgänglig i denna region
+    sv = Tunnelbanenavigering är ännu inte tillgängligt i denna region
     sw = Uabiri wa njia ya chini kwa chini katika mkoa huu haupatikani bado
     th = ยังไม่สามารถใช้การนำทางรถไฟใต้ดินในภูมิภาคนี้ได้
     tr = Metro navigasyonu bu bölgede henüz mevcut değil
@@ -27244,7 +27244,7 @@
     ro = Traseul metroului nu a fost găsit
     ru = Маршрут метро не найден
     sk = Trasa metra sa nenašla
-    sv = Metro rutt hittades inte
+    sv = Tunnelbanerutt hittades inte
     sw = Njia ya chini kwa chini haipatikani
     th = ไม่พบเส้นทางของทางรถไฟใต้ดิน
     tr = Metro rotası bulunamadı
@@ -27291,7 +27291,7 @@
     ro = Alege un punct de plecare sau de sosire mai aproape de o stație de metrou
     ru = Выберите начальную или конечную точку маршрута ближе к станции метро
     sk = Vyberte počiatočný alebo konečný bod bližšie k stanici metra
-    sv = Välj ruttens start- eller slutpunkt närmare till tunnelbanestation
+    sv = Välj ruttens start- eller slutpunkt närmare en tunnelbanestation
     sw = Chagua nyota au alama ya mwisho karibu ya kituo cha njia ya chini kwa chini
     th = โปรดเลือกจุดเริ่มต้นและสิ้นสุดที่อยู่ใกล้สถานีรถไฟใต้ดิน
     tr = Metro istasyonuna en yakın rotanın başlangıç veya bitiş noktasını seçin
@@ -27337,7 +27337,7 @@
     ro = Înălțimi
     ru = Высоты
     sk = Terén
-    sv = Terräng
+    sv = Höjdlinjer
     sw = Topografia
     th = ความสูง
     tr = Arazi
@@ -27957,7 +27957,7 @@
     ro = Mărește harta pentru a vedea izoliniile
     ru = Увеличьте карту, чтобы увидеть изолинии
     sk = Priblížením preskúmajte izočiary
-    sv = Förstora kartan för att se isolinjer
+    sv = Förstora kartan för att se höjdlinjer
     sw = Vuta karibu kutalii mistari ya kontua
     th = ขยายเข้าเพื่อสำรวจเส้นชั้นความสูง
     tr = İzohipsleri görmek için haritayı büyütün
@@ -28001,7 +28001,7 @@
     ro = Se actualizează
     ru = Обновление
     sk = Aktualizovanie
-    sv = Uppdatering
+    sv = Uppdaterar
     sw = Inasasisha
     th = การอัปเดต
     tr = Güncelleniyor
@@ -28247,7 +28247,7 @@
     ro = Păstrați ecranul pornit
     ru = Держи экран включённым
     sk = Nechať obrazovku zapnutú
-    sv = Håll skärmen på
+    sv = Behåll skärmen på
     sw = Washa skrini
     th = เปิดหน้าจอไว้
     tr = Ekranı açık tut
@@ -28292,7 +28292,7 @@
     ro = Atunci când este activat, ecranul va fi întotdeauna aprins la afișarea hărții.
     ru = Если эта функция включена, то при отображении карты экран будет всегда включен.
     sk = Ak je táto funkcia zapnutá, obrazovka bude pri zobrazovaní mapy vždy zapnutá.
-    sv = När den är aktiverad kommer skärmen alltid att vara på när kartan visas.
+    sv = Vid aktivering kommer skärmen alltid att vara på när kartan visas.
     sw = Ikiwashwa, skrini itakuwa imewashwa wakati wa kuonyesha ramani.
     th = เมื่อเปิดใช้งาน หน้าจอจะเปิดอยู่เสมอเมื่อแสดงแผนที่
     tr = Etkinleştirildiğinde, harita görüntülenirken ekran her zaman açık olacaktır.
@@ -28460,7 +28460,7 @@
     ro = Actualizarea hărților menține actualizate informațiile despre obiecte
     ru = Обновление карт поддерживает информацию об объектах в актуальном состоянии
     sk = Aktualizácia máp udržuje informácie o objektoch na mape aktuálne
-    sv = Uppdatering av kartor håller information om objekt uppdaterade
+    sv = Kartuppdatering håller informationen om objekt aktuell
     sw = Kusasisha ramani kunaweka taarifa kuhusu vipengee ikiwa ya hivi sasa zaidi
     th = การอัปเดตแผนที่จะคงข้อมูลเกี่ยวกับจุดหมายต่าง ๆ ให้ล่าสุดอยู่เสมอ
     tr = Haritaları güncellemek, objelerle ilgili bilgilerin güncel kalmasını sağlar
@@ -28862,7 +28862,7 @@
     ro = Vă mulțumim că utilizați hărțile create de comunitatea noastră!
     ru = Спасибо, что пользуетесь нашими картами, созданными сообществом!
     sk = Ďakujeme, že používate naše mapy vytvorené komunitou!
-    sv = Tack för att du använder våra gemenskapsbyggda kartor!
+    sv = Tack för att du använder våra community-byggda kartor!
     sw = Asante kwa kutumia ramani zetu zilizojengwa na jumuiya!
     th = ขอขอบคุณที่ใช้แผนที่ที่สร้างโดยชุมชนของเรา!
     tr = Topluluk tarafından oluşturulan haritalarımızı kullandığınız için teşekkür ederiz!
@@ -28948,7 +28948,7 @@
     ro = Îți place aplicația noastră? Vă rugăm să donați pentru a sprijini dezvoltarea! Nu-ți place încă? Vă rugăm să ne anunțați și vom remedia!
     ru = Вам нравится наше приложение? Поддержите его развитие деньгами! Пока ещё не нравится? Пожалуйста, сообщите нам, почему, и мы это исправим!
     sk = Páči sa vám naša aplikácia? Prosím, prispejte na podporu rozvoja! Ešte sa ti to nepáči? Dajte nám vedieť a my to napravíme!
-    sv = Gillar du vår app? Vänligen donera för att stödja utvecklingen! Gillar du det inte ännu? Meddela oss, så fixar vi det!
+    sv = Gillar du vår app? Vänligen donera för att stödja utvecklingen! Gillar du den inte ännu? Meddela oss, så fixar vi det!
     sw = Je, unapenda programu yetu? Tafadhali toa mchango ili kusaidia maendeleo! Je, huipendi bado? Tafadhali tujulishe, na tutarekebisha!
     th = คุณชอบแอพของเราหรือไม่? กรุณาบริจาคเพื่อสนับสนุนการพัฒนา! ยังไม่ชอบมันเหรอ? โปรดแจ้งให้เราทราบ และเราจะแก้ไขมัน!
     tr = Uygulamamızı beğendiniz mi? Gelişimi desteklemek için lütfen bağış yapın! Henüz beğenmedin mi? Lütfen bize bildirin, düzelteceğiz!
@@ -29163,7 +29163,7 @@
     ro = Aplicația noastră este dezvoltată de câțiva entuziaști și de comunitate.
     ru = Наше приложение разработано несколькими энтузиастами и сообществом.
     sk = Naša aplikácia je vyvinutá niekoľkými nadšencami a komunitou.
-    sv = Vår app är utvecklad av ett fåtal entusiaster och samhället.
+    sv = Vår app är utvecklad av ett fåtal entusiaster och communityn.
     sw = Programu yetu imeundwa na washiriki wachache na jamii.
     th = แอพของเราได้รับการพัฒนาโดยผู้ที่ชื่นชอบและชุมชนบางส่วน
     tr = Uygulamamız birkaç meraklı ve topluluk tarafından geliştirilmiştir.
@@ -30020,7 +30020,7 @@
     ro = Servire în mașină
     ru = С окошком для водителей
     sk = Drive-thru
-    sv = Genomkörning
+    sv = Drive-thru
     sw = Kuendesha-kupitia
     th = ขับรถผ่าน
     tr = Arabaya servis
@@ -30065,7 +30065,7 @@
     ro = Ștergeți căutarea
     ru = Очистите поиск
     sk = Vymazať vyhľadávanie
-    sv = Rensa sökningen
+    sv = Rensa sökning
     sw = Futa utafutaji
     th = ล้างการค้นหา
     tr = Aramayı temizleyin
