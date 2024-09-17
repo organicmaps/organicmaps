@@ -19,12 +19,12 @@ public final class WindowInsetUtils
 
   /**
    * The insets that include areas where content may be covered by other drawn content.
-   * This includes all systemBars, displayCutout.
-   * Please note, that ime insets are NOT included.
+   * This includes all systemBars, displayCutout and ime.
    */
   @WindowInsetsCompat.Type.InsetsType
   public static final int TYPE_SAFE_DRAWING = WindowInsetsCompat.Type.systemBars()
-                                              | WindowInsetsCompat.Type.displayCutout();
+                                              | WindowInsetsCompat.Type.displayCutout()
+                                              | WindowInsetsCompat.Type.ime();
 
   /**
    * A utility class that implements {@link android.view.View.OnApplyWindowInsetsListener}
