@@ -29,7 +29,7 @@ bool Info::IsBookmark() const
 bool Info::ShouldShowAddPlace() const
 {
   auto const isPointOrBuilding = IsPointType() || IsBuilding();
-  return m_canEditOrAdd && !(IsFeature() && isPointOrBuilding);
+  return !(IsFeature() && isPointOrBuilding);
 }
 
 void Info::SetFromFeatureType(FeatureType & ft)
@@ -184,7 +184,7 @@ std::string Info::FormatSubtitle(bool withTypes, bool withMainType) const
 
   // Internet.
   if (HasWifi())
-    append(m_localizedWifiString);
+    append(feature::kWifiSymbol);
 
   // Toilets.
   if (HasToilets())
@@ -290,9 +290,8 @@ void Info::SetBookmarkId(kml::MarkId bookmarkId)
 
 bool Info::ShouldShowEditPlace() const
 {
-  return m_canEditOrAdd &&
-         // TODO(mgsergio): Does IsFeature() imply !IsMyPosition()?
-         !IsMyPosition() && IsFeature();
+  // TODO(mgsergio): Does IsFeature() imply !IsMyPosition()?
+  return !IsMyPosition() && IsFeature();
 }
 
 kml::LocalizableString Info::FormatNewBookmarkName() const

@@ -7,6 +7,10 @@
     <attr name="centerDrawable" format="reference" />
   </declare-styleable>
 
+  <declare-styleable name="layersButton">
+    <attr name="layers_enabled" format="boolean"/>
+  </declare-styleable>
+
   <declare-styleable name="PlacePageView">
     <attr name="animationType" format="enum">
       <enum name="bottom" value="0"/>

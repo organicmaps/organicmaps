@@ -124,6 +124,10 @@ node|z14-[aeroway=aerodrome]::int_name,
 
 /*check offset int_name*/
 
+/* 3.2 Road Icons */
+node|z19-[highway=traffic_signals],
+{icon-image: traffic_signals.svg}
+
 
 node|z12[railway=station][!transport],
 {icon-image: train-s.svg;text-offset: 1;font-size: 11;}
@@ -439,6 +443,8 @@ node|z15-[amenity=cafe],
 area|z15-[amenity=cafe],
 node|z16-[amenity=restaurant],
 area|z16-[amenity=restaurant],
+node|z16-[amenity=pub],
+area|z16-[amenity=pub],
 node|z17-[amenity=fast_food],
 area|z17-[amenity=fast_food],
 {text: name;text-color: @poi_label;text-offset: 1;font-size: 13;}
@@ -452,16 +458,22 @@ area|z16[amenity=cafe]
 node|z16[amenity=restaurant],
 area|z16[amenity=restaurant]
 {icon-image: restaurant-m.svg;icon-min-distance: 22;font-size: 12.75;}
+node|z16[amenity=pub],
+area|z16[amenity=pub]
+{icon-image: pub-m.svg;icon-min-distance: 22;font-size: 12.75;}
+
 node|z17[amenity=cafe],
 area|z17[amenity=cafe]
 {icon-image: cafe-m.svg;icon-min-distance: 20;font-size: 13.75;}
 node|z17[amenity=restaurant],
 area|z17[amenity=restaurant]
 {icon-image: restaurant-m.svg;icon-min-distance: 22;font-size: 13.75;}
+node|z17[amenity=pub],
+area|z17[amenity=pub]
+{icon-image: pub-m.svg;icon-min-distance: 22;font-size: 13.75;}
 node|z17[amenity=fast_food],
 area|z17[amenity=fast_food]
 {icon-image: fastfood-m.svg;icon-min-distance: 25;font-size: 13.75;}
-
 
 node|z18[amenity=cafe],
 area|z18[amenity=cafe]
@@ -469,6 +481,9 @@ area|z18[amenity=cafe]
 node|z18[amenity=restaurant],
 area|z18[amenity=restaurant]
 {icon-image: restaurant-m.svg;icon-min-distance: 25;font-size: 14.5;}
+node|z18[amenity=pub],
+area|z18[amenity=pub]
+{icon-image: pub-m.svg;icon-min-distance: 25;font-size: 14.5;}
 node|z18[amenity=fast_food],
 area|z18[amenity=fast_food]
 {icon-image: fastfood-m.svg;icon-min-distance: 25;font-size: 14.5;}
@@ -479,10 +494,12 @@ area|z19-[amenity=cafe]
 node|z19-[amenity=restaurant],
 area|z19-[amenity=restaurant]
 {icon-image: restaurant-m.svg;icon-min-distance: 40;font-size: 14.5;}
+node|z19-[amenity=pub],
+area|z19-[amenity=pub]
+{icon-image: pub-m.svg;icon-min-distance: 40;font-size: 14.5;}
 node|z19-[amenity=fast_food],
 area|z19-[amenity=fast_food]
 {icon-image: fastfood-m.svg;icon-min-distance: 45;font-size: 14.5;}
-
 
 /* 5.AMENITY (infrastructure) */
 node|z17-[amenity=place_of_worship],
@@ -689,18 +706,18 @@ area|z18-[shop=mall]
 
 node|z14[shop=supermarket],
 area|z14[shop=supermarket]
-{icon-image: grocery-m.svg;font-size:12.25;icon-min-distance: 4;}
+{icon-image: supermarket-m.svg;font-size:12.25;icon-min-distance: 4;}
 node|z15[shop=supermarket],
 area|z15[shop=supermarket]
-{icon-image: grocery-m.svg;font-size:12.5;icon-min-distance: 3;}
+{icon-image: supermarket-m.svg;font-size:12.5;icon-min-distance: 3;}
 node|z16-17[shop=supermarket],
 area|z16-17[shop=supermarket]
-{icon-image: grocery-m.svg;font-size: 13.25;icon-min-distance: 16;text-min-distance:6;}
+{icon-image: supermarket-m.svg;font-size: 13.25;icon-min-distance: 16;text-min-distance:6;}
 
 
 node|z18-[shop=supermarket],
 area|z18-[shop=supermarket]
-{icon-image: grocery-m.svg;font-size: 14.5;icon-min-distance: 15;}
+{icon-image: supermarket-m.svg;font-size: 14.5;icon-min-distance: 15;}
 
 node|z17-[shop=convenience],
 {icon-image: convenience-m.svg; font-size: 13.25;}

@@ -59,6 +59,8 @@ class DayColors: IColors {
   var outdoorColor = UIColor(red: 0.235, green: 0.549, blue: 0.235, alpha: 1)
   var lonelyPlanetLogoColor = UIColor(red: 0, green: 0.286, blue: 0.565, alpha: 1)
   var carplayPlaceholderBackground = UIColor(221, 221, 205, alpha100)
+  var iconOpaqueGrayTint = UIColor(117, 117, 117, alpha100)
+  var iconOpaqueGrayBackground = UIColor(231, 231, 231, alpha100)
 }
 
 class NightColors: IColors {
@@ -122,4 +124,6 @@ class NightColors: IColors {
   var outdoorColor = UIColor(147, 191, 57, alpha100)
   var lonelyPlanetLogoColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.7)
   var carplayPlaceholderBackground = UIColor(50, 54, 58, alpha100)
+  var iconOpaqueGrayTint = UIColor(197, 197, 197, alpha100)
+  var iconOpaqueGrayBackground = UIColor(84, 86, 90, alpha100)
 }

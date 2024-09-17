@@ -1,6 +1,5 @@
 #include "platform/localization.hpp"
 
-#include "platform/measurement_utils.hpp"
 #include "platform/settings.hpp"
 
 #include <string>
@@ -11,18 +10,18 @@ namespace
 {
 enum class MeasurementType
 {
-  Distance = 0,
+  Distance,
   Speed,
   Altitude
 };
 
-const LocalizedUnits & GetLocalizedUnits(measurement_utils::Units units, MeasurementType measurementType)
+LocalizedUnits const & GetLocalizedUnits(measurement_utils::Units units, MeasurementType measurementType)
 {
-  static LocalizedUnits UnitsLenghImperial = {GetLocalizedString("ft"), GetLocalizedString("mi")};
-  static LocalizedUnits UnitsLenghMetric = {GetLocalizedString("m"), GetLocalizedString("km")};
+  static LocalizedUnits const lengthImperial = {GetLocalizedString("ft"), GetLocalizedString("mi")};
+  static LocalizedUnits const lengthMetric = {GetLocalizedString("m"), GetLocalizedString("km")};
 
-  static LocalizedUnits UnitsSpeedImperial = {GetLocalizedString("ft"), GetLocalizedString("miles_per_hour")};
-  static LocalizedUnits UnitsSpeedMetric = {GetLocalizedString("m"), GetLocalizedString("kilometers_per_hour")};
+  static LocalizedUnits const speedImperial = {GetLocalizedString("ft"), GetLocalizedString("miles_per_hour")};
+  static LocalizedUnits const speedMetric = {GetLocalizedString("m"), GetLocalizedString("kilometers_per_hour")};
 
   switch (measurementType)
   {
@@ -30,27 +29,27 @@ const LocalizedUnits & GetLocalizedUnits(measurement_utils::Units units, Measure
   case MeasurementType::Altitude:
     switch (units)
     {
-    case measurement_utils::Units::Imperial: return UnitsLenghImperial;
-    case measurement_utils::Units::Metric: return UnitsLenghMetric;
+    case measurement_utils::Units::Imperial: return lengthImperial;
+    case measurement_utils::Units::Metric: return lengthMetric;
     }
     break;
   case MeasurementType::Speed:
     switch (units)
     {
-    case measurement_utils::Units::Imperial: return UnitsSpeedImperial;
-    case measurement_utils::Units::Metric: return UnitsSpeedMetric;
+    case measurement_utils::Units::Imperial: return speedImperial;
+    case measurement_utils::Units::Metric: return speedMetric;
     }
   }
   UNREACHABLE();
 }
 }  // namespace
 
-LocalizedUnits GetLocalizedDistanceUnits()
+LocalizedUnits const & GetLocalizedDistanceUnits()
 {
   return GetLocalizedUnits(measurement_utils::GetMeasurementUnits(), MeasurementType::Distance);
 }
 
-LocalizedUnits GetLocalizedAltitudeUnits()
+LocalizedUnits const & GetLocalizedAltitudeUnits()
 {
   return GetLocalizedUnits(measurement_utils::GetMeasurementUnits(), MeasurementType::Altitude);
 }
@@ -60,7 +59,7 @@ const std::string & GetLocalizedSpeedUnits(measurement_utils::Units units)
   return GetLocalizedUnits(units, MeasurementType::Speed).m_high;
 }
 
-std::string GetLocalizedSpeedUnits()
+std::string const & GetLocalizedSpeedUnits()
 {
   return GetLocalizedSpeedUnits(measurement_utils::GetMeasurementUnits());
 }

@@ -39,7 +39,7 @@ location::GpsInfo MoveTo(ms::LatLon const & coords, double speed = -1)
   info.m_verticalAccuracy = kGpsAccuracy;
   info.m_latitude = coords.m_lat;
   info.m_longitude = coords.m_lon;
-  info.m_speedMpS = speed;
+  info.m_speed = speed;
   return info;
 }
 

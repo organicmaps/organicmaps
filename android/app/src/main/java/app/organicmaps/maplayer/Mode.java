@@ -17,8 +17,7 @@ public enum Mode
         @Override
         public boolean isEnabled(@NonNull Context context)
         {
-          return !SubwayManager.from(context).isEnabled()
-                 && TrafficManager.INSTANCE.isEnabled();
+          return !SubwayManager.isEnabled() && TrafficManager.INSTANCE.isEnabled();
         }
 
         @Override
@@ -32,13 +31,13 @@ public enum Mode
         @Override
         public boolean isEnabled(@NonNull Context context)
         {
-          return SubwayManager.from(context).isEnabled();
+          return SubwayManager.isEnabled();
         }
 
         @Override
         public void setEnabled(@NonNull Context context, boolean isEnabled)
         {
-          SubwayManager.from(context).setEnabled(isEnabled);
+          SubwayManager.setEnabled(isEnabled);
         }
       },
 
@@ -47,13 +46,13 @@ public enum Mode
         @Override
         public boolean isEnabled(@NonNull Context context)
         {
-          return IsolinesManager.from(context).isEnabled();
+          return IsolinesManager.isEnabled();
         }
 
         @Override
         public void setEnabled(@NonNull Context context, boolean isEnabled)
         {
-          IsolinesManager.from(context).setEnabled(isEnabled);
+          IsolinesManager.setEnabled(isEnabled);
         }
       },
   OUTDOORS

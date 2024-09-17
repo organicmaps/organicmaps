@@ -68,7 +68,7 @@ public class LanesAdapter extends RecyclerView.Adapter<LanesAdapter.LanesViewHol
 
     private void setIconTint(@NonNull SingleLaneInfo info)
     {
-      int iconTint = info.mIsActive ? R.attr.iconTint : R.attr.iconTintLight;
+      int iconTint = info.mIsActive ? R.attr.iconTint : R.attr.navLaneArrowInactiveColor;
       TypedValue color = new TypedValue();
       mArrow.getContext().getTheme().resolveAttribute(iconTint, color, true);
       mArrow.setImageTintList(ColorStateList.valueOf(color.data));

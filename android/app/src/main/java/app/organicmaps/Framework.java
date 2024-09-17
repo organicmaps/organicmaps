@@ -194,6 +194,7 @@ public class Framework
   public static native String nativeFormatSpeed(double speed);
 
   public static native String nativeGetGe0Url(double lat, double lon, double zoomLevel, String name);
+  public static native String nativeGetGeoUri(double lat, double lon, double zoomLevel, String name);
 
   public static native String nativeGetAddress(double lat, double lon);
 
@@ -239,11 +240,13 @@ public class Framework
   public static native ParsedRoutingData nativeGetParsedRoutingData();
   public static native ParsedSearchRequest nativeGetParsedSearchRequest();
   public static native @Nullable String nativeGetParsedAppName();
+  public static native @Nullable String nativeGetParsedOAuth2Code();
   @Nullable @Size(2)
   public static native double[] nativeGetParsedCenterLatLon();
   public static native @Nullable String nativeGetParsedBackUrl();
 
   public static native void nativeDeactivatePopup();
+  public static native void nativeDeactivateMapSelectionCircle();
 
   public static native String nativeGetDataFileExt();
 
@@ -398,7 +401,7 @@ public class Framework
   }
   /**
    * @param mode - see ChoosePositionMode values.
-   * @param isBusiness selection area will be bounded by building borders, if its true(eg. true for businesses in buildings).
+   * @param isBusiness selection area will be bounded by building borders, if its true (eg. true for businesses in buildings).
    * @param applyPosition if true, map'll be animated to currently selected object.
    */
   public static native void nativeSetChoosePositionMode(@ChoosePositionMode int mode, boolean isBusiness,

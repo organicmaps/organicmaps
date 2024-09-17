@@ -115,6 +115,40 @@
   </screenshots>
 
   <releases>
+   <release version="2024.08.16-5" date="2024-08-16">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>OpenStreetMap data as of August 10</li>
+           <li>Improved routing in cases of bad surface and missing speed limit</li>
+           <li>Display road shields in India</li>
+           <li>Self-service and outdoor seating support</li>
+           <li>Use NotoSans font instead of Serif for Hebrew</li>
+           <li>Add transliteration enable/disable setting</li>
+           <li>Traffic light icons are displayed in car navigation mode</li>
+           <li>Selected places with WiFi show emoji symbol 🛜</li>
+           <li>Fixed wrong selection of a bookmarked place when tapping on its title</li>
+           <li>Disabled map rotation snapping to the north angle</li>
+           <li>Properly export modified bookmark names in GPX</li>
+           <li>Fixed import of KMB files</li>
+         </ul>
+       <p>Translation updates:</p>
+         <ul>
+           <li>Improved Catalan, Chinese, Hebrew, Hindi, Hungarian, Japanese,  Spanish, Turkish, Ukrainian translations</li>
+           <li>Updated Cyprus, Iraq, Spain map region names and translations</li>
+         </ul>
+     </description>
+   </release>
+   <release version="2024.07.27-8" date="2024-07-27">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>OpenStreetMap data as of July 23</li>
+           <li>Fixed multiline RTL texts</li>
+           <li>Fixed indentation for Chinese, Japanese and Korean characters when Noto font is used</li>
+         </ul>
+     </description>
+   </release>
    <release version="2024.07.08-3" date="2024-07-08">
      <description>
        <p>Highlights:</p>

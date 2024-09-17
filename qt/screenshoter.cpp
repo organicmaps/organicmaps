@@ -204,7 +204,7 @@ void Screenshoter::ProcessNextKml()
   auto es = bookmarkManager.GetEditSession();
   auto const idList = bookmarkManager.GetUnsortedBmGroupsIdList();
   for (auto catId : idList)
-    es.DeleteBmCategory(catId);
+    es.DeleteBmCategory(catId, true);
 
   bookmarkManager.CreateCategories(std::move(collection));
 

@@ -110,7 +110,9 @@ UTMPoint LatLonToUtm(double lat, double lon)
   double const latTan4 = latTan2 * latTan2;
 
   int const zoneNumber = LatLonToZoneNumber(lat, lon);
-  char const zoneLetter = (lat >= 0.0) ? 'N' : 'S';
+  auto const maybeZoneLetter = LatitudeToZoneLetter(lat);
+  ASSERT(maybeZoneLetter, (lat));
+  char const zoneLetter = maybeZoneLetter.value();
 
   double const lonRad = base::DegToRad(lon);
   double const centralLon = ZoneNumberToCentralLon(zoneNumber);

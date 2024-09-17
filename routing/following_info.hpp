@@ -67,12 +67,12 @@ public:
   // If there is something to pronounce the size of m_turnNotifications may be one or even more
   // depends on the number of notifications to prononce.
   std::vector<std::string> m_turnNotifications;
-  // Current street name.
-  std::string m_sourceName;
-  // The next street name.
-  std::string m_targetName;
-  // Street name to display. May be empty.
-  std::string m_displayedStreetName;
+  // Current street name. May be empty.
+  std::string m_currentStreetName;
+  // The next street name. May be empty.
+  std::string m_nextStreetName;
+  // The next next street name. May be empty.
+  std::string m_nextNextStreetName;
 
   // Percentage of the route completion.
   double m_completionPercent;

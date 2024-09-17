@@ -18,7 +18,7 @@ public class IsolinesManager
     mListener = new OnIsolinesChangedListener(application);
   }
 
-  public boolean isEnabled()
+  static public boolean isEnabled()
   {
     return Framework.nativeIsIsolinesLayerEnabled();
   }
@@ -28,7 +28,7 @@ public class IsolinesManager
     nativeAddListener(mListener);
   }
 
-  public void setEnabled(boolean isEnabled)
+  static public void setEnabled(boolean isEnabled)
   {
     if (isEnabled == isEnabled())
       return;

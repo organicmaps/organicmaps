@@ -62,8 +62,8 @@ public final class RoutingUtils
   private static Step createCurrentStep(@NonNull final CarContext context, @NonNull RoutingInfo info)
   {
     final Step.Builder builder = new Step.Builder();
-    builder.setCue(info.currentStreet);
-    builder.setRoad(info.currentStreet);
+    builder.setCue(info.nextStreet);
+    builder.setRoad(info.nextStreet);
     builder.setManeuver(RoutingHelpers.createManeuver(context, info.carDirection, info.exitNum));
     if (info.lanes != null)
     {
@@ -86,7 +86,7 @@ public final class RoutingUtils
   private static Step createNextStep(@NonNull final CarContext context, @NonNull RoutingInfo info)
   {
     final Step.Builder builder = new Step.Builder();
-    builder.setCue(info.nextStreet);
+    builder.setCue(info.nextNextStreet);
     builder.setManeuver(RoutingHelpers.createManeuver(context, info.nextCarDirection, 0));
 
     return builder.build();

@@ -27,74 +27,89 @@ final class BMCDefaultViewModel: NSObject {
     reloadData()
   }
 
-  private func setCategories() {
-    categories = manager.sortedUserCategories()
+  private func getCategories() -> [BookmarkGroup] {
+    manager.sortedUserCategories()
   }
 
-  private func setActions() {
-    actions = [.create]
+  private func getActions() -> [BMCAction] {
+    var actions: [BMCAction] = [.create]
     actions.append(.import)
     if !manager.areAllCategoriesEmpty() {
       actions.append(.exportAll)
     }
+    return actions
   }
 
-  private func setNotifications() {
-    notifications = [.load]
+  private func getNotifications() -> [BMCNotification] {
+    [.load]
   }
 
   func reloadData() {
-    sections = []
+    sections.removeAll()
 
     if manager.areBookmarksLoaded() {
       sections.append(.categories)
-      setCategories()
+      categories = getCategories()
 
       sections.append(.actions)
-      setActions()
+      actions = getActions()
+
+      if manager.recentlyDeletedCategoriesCount() != .zero {
+        sections.append(.recentlyDeleted)
+      }
     } else {
       sections.append(.notifications)
-      setNotifications()
+      notifications = getNotifications()
     }
+
     view?.update(sections: [])
   }
 }
 
 extension BMCDefaultViewModel {
   func numberOfSections() -> Int {
-    return sections.count
+    sections.count
   }
 
   func sectionType(section: Int) -> BMCSection {
-    return sections[section]
+    sections[section]
   }
 
   func sectionIndex(section: BMCSection) -> Int {
-    return sections.firstIndex(of: section)!
+    sections.firstIndex(of: section)!
   }
 
   func numberOfRows(section: Int) -> Int {
-    return numberOfRows(section: sectionType(section: section))
+    numberOfRows(section: sectionType(section: section))
   }
 
   func numberOfRows(section: BMCSection) -> Int {
     switch section {
     case .categories: return categories.count
     case .actions: return actions.count
+    case .recentlyDeleted: return 1
     case .notifications: return notifications.count
     }
   }
 
   func category(at index: Int) -> BookmarkGroup {
-    return categories[index]
+    categories[index]
+  }
+
+  func canDeleteCategory() -> Bool {
+    categories.count > 1
   }
 
   func action(at index: Int) -> BMCAction {
-    return actions[index]
+    actions[index]
+  }
+
+  func recentlyDeletedCategories() -> BMCAction {
+    .recentlyDeleted(Int(manager.recentlyDeletedCategoriesCount()))
   }
 
   func notification(at index: Int) -> BMCNotification {
-    return notifications[index]
+    notifications[index]
   }
 
   func areAllCategoriesHidden() -> Bool {
@@ -130,7 +145,7 @@ extension BMCDefaultViewModel {
   }
 
   func checkCategory(name: String) -> Bool {
-    return manager.checkCategoryName(name)
+    manager.checkCategoryName(name)
   }
 
   func shareCategoryFile(at index: Int, fileType: KmlFileType, handler: @escaping SharingResultCompletionHandler) {
@@ -164,12 +179,11 @@ extension BMCDefaultViewModel {
   }
 
   func areNotificationsEnabled() -> Bool {
-    return manager.areNotificationsEnabled()
+    manager.areNotificationsEnabled()
   }
 }
 
 extension BMCDefaultViewModel: BookmarksObserver {
-
   func onBookmarksLoadFinished() {
     reloadData()
   }

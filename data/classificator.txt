@@ -60,6 +60,7 @@ world  +
         courthouse  -
         dentist  -
         doctors  -
+        dojo  -
         drinking_water  -
         driving_school  -
         events_venue  -
@@ -155,6 +156,7 @@ world  +
             public_transport  -
             {}
         shower  -
+        social_facility  -
         stripclub  -
         taxi  -
         telephone  -
@@ -374,6 +376,7 @@ world  +
     emergency  +
         assembly_point  -
         defibrillator  -
+        emergency_ward_entrance  -
         fire_hydrant  -
         phone  -
         {}
@@ -670,6 +673,7 @@ world  +
         sauna  -
         slipway  -
         sports_centre  -
+        sports_hall  -
         stadium  -
         swimming_pool  +
             private  -

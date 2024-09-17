@@ -38,6 +38,9 @@ public:
   /// @note Callback is called with 'toRemove' points, if some points were removed.
   void Clear();
 
+  bool IsEmpty() const;
+  size_t GetSize() const;
+
   /// Sets tracking duration in hours.
   /// @note Callback is called with 'toRemove' points, if some points were removed.
   /// By default, duration is 24h.
@@ -51,7 +54,7 @@ public:
   /// @param toRemove - range of point indices to remove, or pair(kInvalidId,kInvalidId) if nothing to remove
   /// @note Calling of a GpsTrack.SetCallback function from the callback causes deadlock.
   using TGpsTrackDiffCallback =
-      std::function<void(std::vector<std::pair<size_t, location::GpsTrackInfo>> && toAdd,
+      std::function<void(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
                          std::pair<size_t, size_t> const & toRemove)>;
 
   /// Sets callback on change of gps track.
@@ -60,6 +63,12 @@ public:
   /// @note When sink is attached, it receives all points in 'toAdd' at first time,
   /// next time callbacks it receives only modifications. It simplifies getter/callback model.
   void SetCallback(TGpsTrackDiffCallback callback);
+
+  template <typename F>
+  void ForEachPoint(F && f) const
+  {
+    m_collection->ForEach(std::move(f));
+  }
 
 private:
   DISALLOW_COPY_AND_MOVE(GpsTrack);
@@ -71,7 +80,7 @@ private:
   void InitCollection(std::chrono::hours duration);
   void UpdateStorage(bool needClear, std::vector<location::GpsInfo> const & points);
   void UpdateCollection(std::chrono::hours duration, bool needClear,
-                        std::vector<location::GpsTrackInfo> const & points,
+                        std::vector<location::GpsInfo> const & points,
                         std::pair<size_t, size_t> & addedIds,
                         std::pair<size_t, size_t> & evictedIds);
   void NotifyCallback(std::pair<size_t, size_t> const & addedIds,

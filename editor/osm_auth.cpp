@@ -241,14 +241,7 @@ string OsmOAuth::SendAuthRequest(string const & requestTokenKey, SessionID const
 
 string OsmOAuth::FetchRequestToken(SessionID const & sid) const
 {
-  string const requestTokenUrl = m_baseUrl + "/oauth2/authorize";
-  string const requestTokenQuery =  BuildPostRequest({
-      {"client_id", m_oauth2params.m_clientId},
-      {"redirect_uri", m_oauth2params.m_redirectUri},
-      {"scope", m_oauth2params.m_scope},
-      {"response_type", "code"}
-  });
-  HttpClient request(requestTokenUrl + "?" + requestTokenQuery);
+  HttpClient request(BuildOAuth2Url());
   request.SetCookies(sid.m_cookies)
          .SetFollowRedirects(false);
 
@@ -278,6 +271,19 @@ string OsmOAuth::FetchRequestToken(SessionID const & sid) const
     // Accept OAuth2 request from server
     return SendAuthRequest(authenticityToken, sid);
   }
+}
+
+string OsmOAuth::BuildOAuth2Url() const
+{
+   auto requestTokenUrl = m_baseUrl + "/oauth2/authorize";
+   auto const requestTokenQuery = BuildPostRequest(
+   {
+       {"client_id", m_oauth2params.m_clientId},
+       {"redirect_uri", m_oauth2params.m_redirectUri},
+       {"scope", m_oauth2params.m_scope},
+       {"response_type", "code"}
+   });
+   return requestTokenUrl.append("?").append(requestTokenQuery);
 }
 
 string OsmOAuth::FinishAuthorization(string const & oauth2code) const

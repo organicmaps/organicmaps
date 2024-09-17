@@ -9,7 +9,6 @@
 
 #include "defines.hpp"
 
-using namespace std;
 using namespace std::chrono;
 
 namespace
@@ -21,7 +20,7 @@ uint32_t constexpr kDefaultDurationHours = 24;
 
 size_t constexpr kMaxItemCount = 100000; // > 24h with 1point/s
 
-inline string GetFilePath()
+inline std::string GetFilePath()
 {
   return base::JoinPath(GetPlatform().WritableDir(), GPS_TRACK_FILENAME);
 }
@@ -63,7 +62,7 @@ GpsTracker & GpsTracker::Instance()
 
 GpsTracker::GpsTracker()
   : m_enabled(GetSettingsIsEnabled())
-  , m_track(GetFilePath(), kMaxItemCount, GetSettingsDuration(), make_unique<GpsTrackFilter>())
+  , m_track(GetFilePath(), kMaxItemCount, GetSettingsDuration(), std::make_unique<GpsTrackFilter>())
 {
 }
 
@@ -95,6 +94,16 @@ hours GpsTracker::GetDuration() const
   return m_track.GetDuration();
 }
 
+bool GpsTracker::IsEmpty() const
+{
+  return m_track.IsEmpty();
+}
+
+size_t GpsTracker::GetTrackSize() const
+{
+  return m_track.GetSize();
+}
+
 void GpsTracker::Connect(TGpsTrackDiffCallback const & fn)
 {
   m_track.SetCallback(fn);
@@ -110,4 +119,10 @@ void GpsTracker::OnLocationUpdated(location::GpsInfo const & info)
   if (!m_enabled)
     return;
   m_track.AddPoint(info);
+}
+
+void GpsTracker::ForEachTrackPoint(GpsTrackCallback const & callback) const
+{
+  CHECK(callback != nullptr, ("Callback should be provided"));
+  m_track.ForEachPoint(callback);
 }

@@ -70,6 +70,8 @@ import app.organicmaps.location.LocationListener;
 import app.organicmaps.location.LocationState;
 import app.organicmaps.location.SensorHelper;
 import app.organicmaps.location.SensorListener;
+import app.organicmaps.location.TrackRecorder;
+import app.organicmaps.location.TrackRecordingService;
 import app.organicmaps.maplayer.MapButtonsController;
 import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.maplayer.ToggleMapLayerFragment;
@@ -95,6 +97,7 @@ import app.organicmaps.settings.SettingsActivity;
 import app.organicmaps.settings.UnitLocale;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.LocationUtils;
+import app.organicmaps.util.PowerManagment;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.ThemeUtils;
@@ -103,6 +106,7 @@ import app.organicmaps.util.Utils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.util.log.Logger;
+import app.organicmaps.widget.StackedButtonsDialog;
 import app.organicmaps.widget.menu.MainMenu;
 import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageData;
@@ -119,6 +123,7 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static app.organicmaps.location.LocationState.FOLLOW;
 import static app.organicmaps.location.LocationState.FOLLOW_AND_ROTATE;
 import static app.organicmaps.location.LocationState.LOCATION_TAG;
+import static app.organicmaps.util.PowerManagment.POWER_MANAGEMENT_TAG;
 
 public class MwmActivity extends BaseMwmFragmentActivity
     implements PlacePageActivationListener,
@@ -156,6 +161,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private static final String MAIN_MENU_ID = "MAIN_MENU_BOTTOM_SHEET";
   private static final String LAYERS_MENU_ID = "LAYERS_MENU_BOTTOM_SHEET";
+
+  private static final String POWER_SAVE_DISCLAIMER_SHOWN = "POWER_SAVE_DISCLAIMER_SHOWN";
 
   @Nullable
   private MapFragment mMapFragment;
@@ -200,6 +207,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private ActivityResultLauncher<String[]> mLocationPermissionRequest;
+  private boolean mLocationPermissionRequestedForRecording = false;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -208,6 +216,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private ActivityResultLauncher<IntentSenderRequest> mLocationResolutionRequest;
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private ActivityResultLauncher<SharingUtils.SharingIntent> mShareLauncher;
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private ActivityResultLauncher<Intent> mPowerSaveSettings;
+  @NonNull
+  private boolean mPowerSaveDisclaimerShown = false;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -251,6 +267,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
       onNavigationStarted();
     else if (RoutingController.get().hasSavedRoute())
       RoutingController.get().restoreRoute();
+
+    if (TrackRecorder.nativeIsTrackRecordingEnabled() && !startTrackRecording())
+    {
+      // The user has revoked location permissions in the system settings, causing the app to
+      // restart while recording was active. Save the recorded data and stop the recording.
+      saveAndStopTrackRecording();
+    }
 
     processIntent();
     migrateOAuthCredentials();
@@ -516,6 +539,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
         this::onLocationResolutionResult);
     mPostNotificationPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestPermission(),
         this::onPostNotificationPermissionResult);
+    mPowerSaveSettings = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+        this::onPowerSaveResult);
+
+    mShareLauncher = SharingUtils.RegisterLauncher(this);
 
     mDisplayManager = DisplayManager.from(this);
     if (mDisplayManager.isCarDisplayUsed())
@@ -964,6 +991,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       // orientation changing, etc. Otherwise, the saved route might be restored at undesirable moment.
       RoutingController.get().deleteSavedRoute();
 
+    outState.putBoolean(POWER_SAVE_DISCLAIMER_SHOWN, mPowerSaveDisclaimerShown);
     super.onSaveInstanceState(outState);
   }
 
@@ -987,6 +1015,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (!mIsTabletLayout && RoutingController.get().isPlanning())
       mRoutingPlanInplaceController.restoreState(savedInstanceState);
+
+    mPowerSaveDisclaimerShown = savedInstanceState.getBoolean(POWER_SAVE_DISCLAIMER_SHOWN, false);
   }
 
   @Override
@@ -1041,6 +1071,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onNewIntent(intent);
     if (isMapRendererActive())
       processIntent();
+    if (intent.getAction() != null && intent.getAction()
+                                            .equals(TrackRecordingService.STOP_TRACK_RECORDING))
+    {
+      //closes the bottom sheet in case it is opened to deal with updation of track recording status in bottom sheet.
+      closeBottomSheet(MAIN_MENU_ID);
+      showTrackSaveDialog();
+    }
   }
 
 
@@ -1144,6 +1181,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mLocationResolutionRequest = null;
     mPostNotificationPermissionRequest.unregister();
     mPostNotificationPermissionRequest = null;
+    mPowerSaveSettings.unregister();
+    mPowerSaveSettings = null;
     if (mRemoveDisplayListener && !isChangingConfigurations())
       mDisplayManager.removeListener(DisplayType.Device);
   }
@@ -1826,6 +1865,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mNavigationController.update(Framework.nativeGetRouteFollowingInfo());
   }
 
+  @Override
+  @UiThread
+  public void onLocationUpdateTimeout()
+  {
+    requestBatterySaverPermission();
+  }
+
   /**
    * Called when compass data is updated.
    * @param north offset from the north
@@ -1887,10 +1933,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
         Logger.w(LOCATION_TAG, "Permission " + permission + " has been refused");
     }
 
+    boolean requestedForRecording = mLocationPermissionRequestedForRecording;
+    mLocationPermissionRequestedForRecording = false;
     if (LocationUtils.checkLocationPermission(this))
     {
       if (LocationState.getMode() == LocationState.NOT_FOLLOW_NO_POSITION)
         LocationState.nativeSwitchToNextMode();
+
+      if (requestedForRecording && LocationUtils.checkFineLocationPermission(this))
+        startTrackRecording();
+
       return;
     }
 
@@ -1923,6 +1975,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Logger.i(TAG, "Permission POST_NOTIFICATIONS has been granted");
     else
       Logger.w(TAG, "Permission POST_NOTIFICATIONS has been refused");
+  }
+
+  @UiThread
+  private void onPowerSaveResult(@NonNull ActivityResult result)
+  {
+    if (!PowerManagment.isSystemPowerSaveMode(this))
+      Logger.i(POWER_MANAGEMENT_TAG, "Power Save mode has been disabled on the device");
+    else
+      Logger.w(POWER_MANAGEMENT_TAG, "Power Save mode wasn't disabled on the device");
   }
 
   /**
@@ -2032,6 +2093,52 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingController.get().start();
   }
 
+  private boolean requestBatterySaverPermission()
+  {
+    if (!PowerManagment.isSystemPowerSaveMode(this))
+    {
+      Logger.i(POWER_MANAGEMENT_TAG, "Power Save mode is disabled on the device");
+      return true;
+    }
+    Logger.w(POWER_MANAGEMENT_TAG, "Power Save mode is enabled on the device");
+
+    if (mPowerSaveDisclaimerShown)
+    {
+      Logger.i(POWER_MANAGEMENT_TAG, "The Power Save disclaimer has been already shown in this session");
+      return true;
+    }
+
+    // TODO (rtsisyk): re-enable this new dialog for all cases after testing on the track recorder.
+    if (!TrackRecorder.nativeIsTrackRecordingEnabled())
+      return true;
+
+    final Intent intent = PowerManagment.makeSystemPowerSaveSettingIntent(this);
+    if (intent == null)
+    {
+      Logger.w(POWER_MANAGEMENT_TAG, "No known way to launch the system Power Save settings");
+      return true;
+    }
+
+    dismissAlertDialog();
+    final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.current_location_unknown_error_title)
+        .setCancelable(true)
+        .setMessage(R.string.power_save_dialog_summary)
+        .setNegativeButton(R.string.not_now, (dialog, which) -> {
+          Logger.d(POWER_MANAGEMENT_TAG, "The Power Save disclaimer was ignored");
+          mPowerSaveDisclaimerShown = true;
+        })
+        .setOnDismissListener(dialog -> mAlertDialog = null)
+        .setPositiveButton(R.string.settings, (dlg, which) -> {
+          Logger.d(POWER_MANAGEMENT_TAG, "Launching the system Power Save settings");
+          mPowerSaveDisclaimerShown = true;
+          mPowerSaveSettings.launch(intent);
+        });
+    Logger.d(POWER_MANAGEMENT_TAG, "Displaying the Power Save disclaimer");
+    mAlertDialog = builder.show();
+    return false;
+  }
+
   @Override
   public void onBookmarksFileUnsupported(@NonNull Uri uri)
   {
@@ -2040,7 +2147,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .setTitle(R.string.load_kmz_title)
         .setMessage(getString(R.string.unknown_file_type, uri))
         .setPositiveButton(R.string.ok, null)
-        .setNegativeButton(R.string.report_a_bug, (dialog, which) -> Utils.sendBugReport(this,
+        .setNegativeButton(R.string.report_a_bug, (dialog, which) -> Utils.sendBugReport(mShareLauncher, this,
             getString(R.string.load_kmz_title), getString(R.string.unknown_file_type, uri)))
         .setOnDismissListener(dialog -> mAlertDialog = null)
         .show();
@@ -2054,7 +2161,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .setTitle(R.string.load_kmz_title)
         .setMessage(getString(R.string.failed_to_open_file, uri, error))
         .setPositiveButton(R.string.ok, null)
-        .setNegativeButton(R.string.report_a_bug, (dialog, which) -> Utils.sendBugReport(this,
+        .setNegativeButton(R.string.report_a_bug, (dialog, which) -> Utils.sendBugReport(mShareLauncher, this,
             getString(R.string.load_kmz_title), getString(R.string.failed_to_open_file, uri, error)))
         .setOnDismissListener(dialog -> mAlertDialog = null)
         .show();
@@ -2148,6 +2255,79 @@ public class MwmActivity extends BaseMwmFragmentActivity
     startActivity(intent);
   }
 
+  private boolean startTrackRecording()
+  {
+    if (!LocationUtils.checkFineLocationPermission(this))
+    {
+      Logger.i(TAG, "Location permission not granted");
+      // This variable is a simple hack to re initiate the flow
+      // according to action of user. Calling it hack because we are avoiding
+      // creation of new methods by using this variable.
+      mLocationPermissionRequestedForRecording = true;
+      mLocationPermissionRequest.launch(new String[] { ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION });
+      return false;
+    }
+
+    requestPostNotificationsPermission();
+
+    Toast.makeText(this, R.string.track_recording, Toast.LENGTH_SHORT).show();
+    TrackRecordingService.startForegroundService(getApplicationContext());
+    mMapButtonsViewModel.setTrackRecorderState(true);
+    return true;
+  }
+
+  private void stopTrackRecording()
+  {
+    TrackRecordingService.stopService(getApplicationContext());
+    mMapButtonsViewModel.setTrackRecorderState(false);
+  }
+
+  private void saveAndStopTrackRecording()
+  {
+    if (!TrackRecorder.nativeIsTrackRecordingEmpty())
+      TrackRecorder.nativeSaveTrackRecordingWithName("");
+    TrackRecorder.nativeStopTrackRecording();
+    stopTrackRecording();
+  }
+
+  private void onTrackRecordingOptionSelected()
+  {
+    if (TrackRecorder.nativeIsTrackRecordingEnabled())
+      showTrackSaveDialog();
+    else
+      startTrackRecording();
+  }
+
+  private void showTrackSaveDialog()
+  {
+    if (TrackRecorder.nativeIsTrackRecordingEmpty())
+    {
+      Toast.makeText(this, R.string.track_recording_toast_nothing_to_save, Toast.LENGTH_SHORT)
+           .show();
+      stopTrackRecording();
+      return;
+    }
+
+    dismissAlertDialog();
+    mAlertDialog = new StackedButtonsDialog.Builder(this)
+        .setTitle(R.string.track_recording_alert_title)
+        .setCancelable(false)
+        // Negative/Positive/Neutral doesn't do not have the usual meaning here.
+        .setPositiveButton(R.string.continue_recording, (dialog, which) -> {
+          mAlertDialog = null;
+        })
+        .setNeutralButton(R.string.stop_without_saving, (dialog, which) -> {
+          stopTrackRecording();
+          mAlertDialog = null;
+        })
+        .setNegativeButton(R.string.save, (dialog, which) -> {
+          saveAndStopTrackRecording();
+          mAlertDialog = null;
+        })
+        .build();
+    mAlertDialog.show();
+  }
+
   public void onShareLocationOptionSelected()
   {
     closeFloatingPanels();
@@ -2172,6 +2352,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (!TextUtils.isEmpty(mDonatesUrl))
         items.add(new MenuBottomSheetItem(R.string.donate, R.drawable.ic_donate, this::onDonateOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.settings, R.drawable.ic_settings, this::onSettingsOptionSelected));
+      items.add(new MenuBottomSheetItem(R.string.start_track_recording, R.drawable.ic_track_recording_off, -1, this::onTrackRecordingOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.share_my_location, R.drawable.ic_share, this::onShareLocationOptionSelected));
       return items;
     }

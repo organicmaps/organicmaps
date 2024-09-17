@@ -174,6 +174,9 @@ amenity-charging_station-motorcar                   # icon z14- (also has captio
 amenity-fuel                                        # icon z12- (also has caption(optional) z12-)
 === 3200
 
+highway-traffic_signals                             # icon z19-
+=== 3165
+
 amenity-charging_station                            # icon z16- (also has caption(optional) z16-)
 amenity-vending_machine-fuel                        # icon z17- (also has caption(optional) z17-)
 === 3150
@@ -523,6 +526,7 @@ historic-wayside_cross                              # icon z16- (also has captio
 historic-wayside_shrine                             # icon z16- (also has caption(optional) z17-)
 === 800
 
+amenity-pub                                         # icon z16- (also has caption(optional) z16-)
 amenity-restaurant                                  # icon z16- (also has caption(optional) z16-)
 === 750
 
@@ -677,6 +681,7 @@ amenity-parking-private                             # icon z17- (also has captio
 amenity-parking-street_side-private                 # icon z17- (also has caption(optional) z17-, area z15-)
 amenity-parking-underground-private                 # icon z17- (also has caption(optional) z17-)
 amenity-parking_entrance-private                    # icon z19-
+emergency-emergency_ward_entrance                   # icon z18- (also has caption(optional) z18-)
 === 500
 
 natural-wetland                                     # caption z16- (also has area z11-)
@@ -1010,6 +1015,7 @@ entrance-main                                       # icon z18- (also has captio
 # historic-wayside_shrine                           # caption(optional) z17- (also has icon z16-)
 # === -9200
 
+# amenity-pub                                       # caption(optional) z16- (also has icon z16-)
 # amenity-restaurant                                # caption(optional) z16- (also has icon z16-)
 # === -9250
 
@@ -1150,6 +1156,7 @@ entrance-main                                       # icon z18- (also has captio
 # amenity-parking-private                           # caption(optional) z17- (also has icon z17-, area z15-)
 # amenity-parking-street_side-private               # caption(optional) z17- (also has icon z17-, area z15-)
 # amenity-parking-underground-private               # caption(optional) z17- (also has icon z17-)
+# emergency-emergency_ward_entrance                 # caption(optional) z18- (also has icon z18-)
 # === -9500
 
 # railway-tram_stop                                 # caption(optional) z17- (also has icon z17-)

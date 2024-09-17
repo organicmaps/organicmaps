@@ -22,7 +22,6 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell *autoDownloadCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell *mobileInternetCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell *powerManagementCell;
-@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell *recentTrackCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell *fontScaleCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell *transliterationCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell *compassCalibrationCell;
@@ -130,33 +129,6 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
   }
   [self.powerManagementCell configWithTitle:L(@"power_managment_title") info:powerManagement];
 
-  NSString * recentTrack = nil;
-  if (!GpsTracker::Instance().IsEnabled()) {
-    recentTrack = L(@"duration_disabled");
-  } else {
-    switch (GpsTracker::Instance().GetDuration().count()) {
-      case 1:
-        recentTrack = L(@"duration_1_hour");
-        break;
-      case 2:
-        recentTrack = L(@"duration_2_hours");
-        break;
-      case 6:
-        recentTrack = L(@"duration_6_hours");
-        break;
-      case 12:
-        recentTrack = L(@"duration_12_hours");
-        break;
-      case 24:
-        recentTrack = L(@"duration_1_day");
-        break;
-      default:
-        NSAssert(false, @"Incorrect hours value");
-        break;
-    }
-  }
-  [self.recentTrackCell configWithTitle:L(@"pref_track_record_title") info:recentTrack];
-
   [self.fontScaleCell configWithDelegate:self title:L(@"big_font") isOn:[MWMSettings largeFontSize]];
 
   [self.transliterationCell configWithDelegate:self
@@ -185,15 +157,14 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
   }
   [self.nightModeCell configWithTitle:L(@"pref_appearance_title") info:nightMode];
 
-  BOOL isICLoudSynchronizationEnabled = [MWMSettings iCLoudSynchronizationEnabled];
   [self.iCloudSynchronizationCell configWithDelegate:self
                                                title:@"iCloud Synchronization (Beta)"
-                                                isOn:isICLoudSynchronizationEnabled];
+                                                isOn:[MWMSettings iCLoudSynchronizationEnabled]];
 
   __weak __typeof(self) weakSelf = self;
-  [CloudStorageManager.shared addObserver:self onErrorCompletionHandler:^(NSError * _Nullable error) {
+  [CloudStorageManager.shared addObserver:self synchronizationStateDidChangeHandler:^(CloudStorageSynchronizationState * state) {
     __strong auto strongSelf = weakSelf;
-    [strongSelf.iCloudSynchronizationCell updateWithError:error];
+    [strongSelf.iCloudSynchronizationCell updateWithSynchronizationState:state];
   }];
 
   [self.enableLoggingCell configWithDelegate:self title:L(@"enable_logging") isOn:MWMSettings.isFileLoggingEnabled];
@@ -330,7 +301,6 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
   } else if (cell == self.iCloudSynchronizationCell) {
     if (![NSUserDefaults.standardUserDefaults boolForKey:kUDDidShowICloudSynchronizationEnablingAlert]) {
       [self showICloudSynchronizationEnablingAlert:^(BOOL isEnabled) {
-        [self.iCloudSynchronizationCell setOn:isEnabled animated:YES];
         [MWMSettings setICLoudSynchronizationEnabled:isEnabled];
       }];
     } else {
@@ -355,8 +325,6 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
     [self performSegueWithIdentifier:@"SettingsToMobileInternetSegue" sender:nil];
   } else if (cell == self.powerManagementCell) {
     [self performSegueWithIdentifier:@"SettingsToPowerManagementSegue" sender:nil];
-  } else if (cell == self.recentTrackCell) {
-    [self performSegueWithIdentifier:@"SettingsToRecentTrackSegue" sender:nil];
   } else if (cell == self.nightModeCell) {
     [self performSegueWithIdentifier:@"SettingsToNightMode" sender:nil];
   } else if (cell == self.voiceInstructionsCell) {

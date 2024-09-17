@@ -5,6 +5,7 @@ protocol BottomMenuInteractorProtocol: AnyObject {
   func donate()
   func openSettings()
   func shareLocation(cell: BottomMenuItemCell)
+  func toggleTrackRecording()
 }
 
 @objc protocol BottomMenuDelegate {
@@ -19,6 +20,8 @@ class BottomMenuInteractor {
   private weak var mapViewController: MapViewController?
   private weak var delegate: BottomMenuDelegate?
   private weak var controlsManager: MWMMapViewControlsManager?
+
+  private let trackRecorder: TrackRecordingManager = .shared
 
   init(viewController: UIViewController,
        mapViewController: MapViewController,
@@ -54,7 +57,7 @@ extension BottomMenuInteractor: BottomMenuInteractorProtocol {
 
   func downloadMaps() {
     close()
-    self.delegate?.actionDownloadMaps(.downloaded)
+    delegate?.actionDownloadMaps(.downloaded)
   }
 
   func openSettings() {
@@ -72,6 +75,12 @@ extension BottomMenuInteractor: BottomMenuInteractorProtocol {
     }
     guard let viewController = viewController else { return }
     let vc = ActivityViewController.share(forMyPosition: coordinates)
-    vc?.present(inParentViewController: viewController, anchorView: cell.anchorView)
+    vc.present(inParentViewController: viewController, anchorView: cell.anchorView)
+  }
+
+  func toggleTrackRecording() {
+    trackRecorder.processAction(trackRecorder.recordingState == .active ? .stop : .start) { [weak self] in
+      self?.close()
+    }
   }
 }

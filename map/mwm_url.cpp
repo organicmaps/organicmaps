@@ -175,6 +175,22 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
 
       return m_requestType = UrlType::Crosshair;
     }
+    else if (type == "oauth2")
+    {
+      if (url.GetPath() != "osm/callback")
+        return m_requestType = UrlType::Incorrect;
+
+      url.ForEachParam([this](auto const & key, auto const & value)
+      {
+        if (key == "code")
+          m_oauth2code = value;
+      });
+
+      if (m_oauth2code.empty())
+        return m_requestType = UrlType::Incorrect;
+      else
+        return m_requestType = UrlType::OAuth2;
+    }
     else if (checkForGe0Link)
     {
       // The URL is prefixed by one of the kGe0Prefixes AND doesn't match any supported API call:
@@ -386,6 +402,7 @@ void ParsedMapApi::Reset()
   m_mapPoints.clear();
   m_routePoints.clear();
   m_searchRequest = {};
+  m_oauth2code = {};
   m_globalBackUrl ={};
   m_appName = {};
   m_centerLatLon = ms::LatLon::Invalid();
@@ -467,6 +484,7 @@ std::string DebugPrint(ParsedMapApi::UrlType type)
   case ParsedMapApi::UrlType::Route: return "Route";
   case ParsedMapApi::UrlType::Search: return "Search";
   case ParsedMapApi::UrlType::Crosshair: return "Crosshair";
+  case ParsedMapApi::UrlType::OAuth2: return "OAuth2";
   }
   UNREACHABLE();
 }

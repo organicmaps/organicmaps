@@ -43,6 +43,7 @@
                                                      callback:(nonnull MWMCheckStringBlock)callback;
 
 - (void)presentBookmarkConversionErrorAlert;
+- (void)presentBugReportAlertWithTitle:(nonnull NSString *)title;
 
 - (void)presentDefaultAlertWithTitle:(nonnull NSString *)title
                              message:(nullable NSString *)message

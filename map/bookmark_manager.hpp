@@ -161,8 +161,10 @@ public:
     void SetCategoryAccessRules(kml::MarkGroupId categoryId, kml::AccessRules accessRules);
     void SetCategoryCustomProperty(kml::MarkGroupId categoryId, std::string const & key,
                                    std::string const & value);
-    bool DeleteBmCategory(kml::MarkGroupId groupId);
-
+    
+    /// Removes the category from the list of categories and deletes the related file.
+    /// @param permanently If true, the file will be removed from the disk. If false, the file will be marked as deleted and moved into a trash.
+    bool DeleteBmCategory(kml::MarkGroupId groupId, bool permanently);
     void NotifyChanges();
 
   private:
@@ -377,6 +379,13 @@ public:
 
   bool HasRecentlyDeletedBookmark() const { return m_recentlyDeletedBookmark.operator bool(); };
   void ResetRecentlyDeletedBookmark();
+  
+  size_t GetRecentlyDeletedCategoriesCount() const;
+  BookmarkManager::KMLDataCollectionPtr GetRecentlyDeletedCategories();
+  bool IsRecentlyDeletedCategory(std::string const & filePath) const;
+
+  void RecoverRecentlyDeletedCategoriesAtPaths(std::vector<std::string> const & filePaths);
+  void DeleteRecentlyDeletedCategoriesAtPaths(std::vector<std::string> const & filePaths);
 
   // Used for LoadBookmarks() and unit tests only. Does *not* update last modified time.
   void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = false);
@@ -425,6 +434,10 @@ public:
 
   bool IsCompilation(kml::MarkGroupId id) const;
   kml::CompilationType GetCompilationType(kml::MarkGroupId id) const;
+
+  void SaveTrackRecording(std::string trackName);
+  std::string GenerateTrackRecordingName() const;
+  dp::Color GenerateTrackRecordingColor() const;
 
 private:
   class MarksChangesTracker : public df::UserMarksProvider
@@ -581,7 +594,7 @@ private:
   void SetCategoryTags(kml::MarkGroupId categoryId, std::vector<std::string> const & tags);
   void SetCategoryAccessRules(kml::MarkGroupId categoryId, kml::AccessRules accessRules);
   void SetCategoryCustomProperty(kml::MarkGroupId categoryId, std::string const & key, std::string const & value);
-  bool DeleteBmCategory(kml::MarkGroupId groupId, bool deleteFile);
+  bool DeleteBmCategory(kml::MarkGroupId groupId, bool permanently);
   void ClearCategories();
 
   void MoveBookmark(kml::MarkId bmID, kml::MarkGroupId curGroupID, kml::MarkGroupId newGroupID);

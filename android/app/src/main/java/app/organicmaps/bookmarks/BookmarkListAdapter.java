@@ -95,12 +95,10 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     {
       mBookmarksSectionIndex = SectionPosition.INVALID_POSITION;
       mTracksSectionIndex = SectionPosition.INVALID_POSITION;
-      mDescriptionSectionIndex = SectionPosition.INVALID_POSITION;
 
       mSectionsCount = 0;
-      // Hide the category description
-      if (hasDescription())
-       mDescriptionSectionIndex = mSectionsCount++;
+      // We must always show the description, even if it's blank.
+      mDescriptionSectionIndex = mSectionsCount++;
       if (getCategory().getTracksCount() > 0)
         mTracksSectionIndex = mSectionsCount++;
       if (getCategory().getBookmarksCount() > 0)
@@ -410,6 +408,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
             new Holders.TrackViewHolder(inflater.inflate(R.layout.item_track, parent,
                                                          false));
         trackHolder.setOnClickListener(mClickListener);
+        trackHolder.setOnLongClickListener(mLongClickListener);
         holder = trackHolder;
         break;
       case TYPE_BOOKMARK:
@@ -523,30 +522,37 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
 
   private void setMoreButtonVisibility(TextView text, TextView moreBtn)
   {
-    text.post(() ->
-    {
-      final int lineCount = text.getLineCount();
-      if (lineCount > MAX_VISIBLE_LINES)
-      {
-        text.setMaxLines(MAX_VISIBLE_LINES);
-        moreBtn.setVisibility(View.VISIBLE);
-      }
-      else
-        moreBtn.setVisibility(View.GONE);
-    });
+    text.post(() -> setShortModeDescription(text, moreBtn));
   }
 
-  private void onMoreButtonClicked(TextView text, TextView moreBtn)
+  private void onMoreButtonClicked(TextView textView, TextView moreBtn)
   {
-    if (text.getMaxLines() == MAX_VISIBLE_LINES)
+    if (isShortModeDescription(textView))
     {
-      text.setMaxLines(Integer.MAX_VALUE);
-      moreBtn.setVisibility(View.GONE);
+      setExpandedModeDescription(textView, moreBtn);
     }
     else
     {
-      text.setMaxLines(MAX_VISIBLE_LINES);
-      moreBtn.setVisibility(View.VISIBLE);
+      setShortModeDescription(textView, moreBtn);
     }
+  }
+
+  private boolean isShortModeDescription(TextView text)
+  {
+    return text.getMaxLines() == MAX_VISIBLE_LINES;
+  }
+
+  private void setExpandedModeDescription(TextView textView, TextView moreBtn)
+  {
+    textView.setMaxLines(Integer.MAX_VALUE);
+    moreBtn.setVisibility(View.GONE);
+  }
+
+  private void setShortModeDescription(TextView textView, TextView moreBtn)
+  {
+    textView.setMaxLines(MAX_VISIBLE_LINES);
+
+    boolean isDescriptionTooLong = textView.getLineCount() > MAX_VISIBLE_LINES;
+    moreBtn.setVisibility(isDescriptionTooLong ? View.VISIBLE : View.GONE);
   }
 }

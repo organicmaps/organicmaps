@@ -7,6 +7,7 @@
 
 #include <algorithm>
 #include <array>
+#include <cctype>
 #include <unordered_map>
 #include <utility>
 
@@ -61,6 +62,9 @@ std::unordered_map<std::string, RoadShieldType> const kRoadNetworkShields = {
     // Estonia parser produces more specific shield types, incl. Generic_Orange.
     //{"ee:national", RoadShieldType::Generic_Red},
     //{"ee:regional", RoadShieldType::Generic_White},
+    {"in:ne", RoadShieldType::Generic_Blue},
+    {"in:nh", RoadShieldType::Generic_Orange},
+    {"in:sh", RoadShieldType::Generic_Green},
     {"fr:a-road", RoadShieldType::Generic_Red},
     {"jp:national", RoadShieldType::Generic_Blue},
     {"jp:regional", RoadShieldType::Generic_Blue},
@@ -226,6 +230,35 @@ public:
 
     if (base::IsExist(kStatesCode, shieldParts[0]))
       return RoadShield(RoadShieldType::Generic_White, roadNumber, additionalInfo);
+
+    return RoadShield(RoadShieldType::Default, rawText);
+  }
+};
+
+class IndiaRoadShieldParser : public RoadShieldParser
+{
+public:
+  explicit IndiaRoadShieldParser(std::string const & baseRoadNumber) : RoadShieldParser(baseRoadNumber) {}
+  RoadShield ParseRoadShield(std::string_view rawText) const override
+  {
+    std::string shieldText(rawText);
+
+    std::erase_if(shieldText, [](char c) { return c == '-' || ::isspace(c); });
+
+    if (shieldText.size() <= 2)
+      return RoadShield(RoadShieldType::Default, rawText);
+
+    std::string_view roadType = std::string_view(shieldText).substr(0, 2);
+    std::string_view roadNumber = std::string_view(shieldText).substr(2);
+
+    if (roadType == "NE")
+      return RoadShield(RoadShieldType::Generic_Blue, roadNumber);
+
+    if (roadType == "NH")
+      return RoadShield(RoadShieldType::Generic_Orange, roadNumber);
+
+    if (roadType == "SH")
+      return RoadShield(RoadShieldType::Generic_Green, roadNumber);
 
     return RoadShield(RoadShieldType::Default, rawText);
   }
@@ -632,6 +665,8 @@ RoadShieldsSetT GetRoadShields(std::string const & mwmName, std::string const & 
     return USRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "UK")
     return UKRoadShieldParser(roadNumber).GetRoadShields();
+  if (mwmName == "India")
+    return IndiaRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "Russia")
     return RussiaRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "France")

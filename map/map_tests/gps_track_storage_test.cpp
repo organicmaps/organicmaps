@@ -25,7 +25,7 @@ location::GpsInfo Make(double timestamp, ms::LatLon const & ll, double speed)
 {
   location::GpsInfo info;
   info.m_timestamp = timestamp;
-  info.m_speedMpS = speed;
+  info.m_speed = speed;
   info.m_latitude = ll.m_lat;
   info.m_longitude = ll.m_lon;
   info.m_source = location::EAndroidNative;
@@ -61,12 +61,12 @@ UNIT_TEST(GpsTrackStorage_WriteReadWithoutTrunc)
     stg.Append(points);
 
     size_t i = 0;
-    stg.ForEach([&](location::GpsTrackInfo const & point)->bool
+    stg.ForEach([&](location::GpsInfo const & point)->bool
     {
       TEST_EQUAL(point.m_latitude, points[i].m_latitude, ());
       TEST_EQUAL(point.m_longitude, points[i].m_longitude, ());
       TEST_EQUAL(point.m_timestamp, points[i].m_timestamp, ());
-      TEST_EQUAL(point.m_speed, points[i].m_speedMpS, ());
+      TEST_EQUAL(point.m_speed, points[i].m_speed, ());
       ++i;
       return true;
     });
@@ -78,12 +78,12 @@ UNIT_TEST(GpsTrackStorage_WriteReadWithoutTrunc)
     GpsTrackStorage stg(filePath, fileMaxItemCount);
 
     size_t i = 0;
-    stg.ForEach([&](location::GpsTrackInfo const & point)->bool
+    stg.ForEach([&](location::GpsInfo const & point)->bool
     {
       TEST_EQUAL(point.m_latitude, points[i].m_latitude, ());
       TEST_EQUAL(point.m_longitude, points[i].m_longitude, ());
       TEST_EQUAL(point.m_timestamp, points[i].m_timestamp, ());
-      TEST_EQUAL(point.m_speed, points[i].m_speedMpS, ());
+      TEST_EQUAL(point.m_speed, points[i].m_speed, ());
       ++i;
       return true;
     });
@@ -98,7 +98,7 @@ UNIT_TEST(GpsTrackStorage_WriteReadWithoutTrunc)
     GpsTrackStorage stg(filePath, fileMaxItemCount);
 
     size_t i = 0;
-    stg.ForEach([&](location::GpsTrackInfo const & point)->bool{ ++i; return true; });
+    stg.ForEach([&](location::GpsInfo const & point)->bool{ ++i; return true; });
     TEST_EQUAL(i, 0, ());
   }
 }
@@ -159,14 +159,14 @@ UNIT_TEST(GpsTrackStorage_WriteReadWithTrunc)
         TEST_EQUAL(point.m_latitude, points2[fileMaxItemCount/2 + i].m_latitude, ());
         TEST_EQUAL(point.m_longitude, points2[fileMaxItemCount/2 + i].m_longitude, ());
         TEST_EQUAL(point.m_timestamp, points2[fileMaxItemCount/2 + i].m_timestamp, ());
-        TEST_EQUAL(point.m_speedMpS, points2[fileMaxItemCount/2 + i].m_speedMpS, ());
+        TEST_EQUAL(point.m_speed, points2[fileMaxItemCount/2 + i].m_speed, ());
       }
       else
       {
         TEST_EQUAL(point.m_latitude, points3[i - fileMaxItemCount/2].m_latitude, ());
         TEST_EQUAL(point.m_longitude, points3[i - fileMaxItemCount/2].m_longitude, ());
         TEST_EQUAL(point.m_timestamp, points3[i - fileMaxItemCount/2].m_timestamp, ());
-        TEST_EQUAL(point.m_speedMpS, points3[i - fileMaxItemCount/2].m_speedMpS, ());
+        TEST_EQUAL(point.m_speed, points3[i - fileMaxItemCount/2].m_speed, ());
       }
       ++i;
       return true;

@@ -4,6 +4,7 @@ import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.POST_NOTIFICATIONS;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+import static app.organicmaps.util.Constants.Vendor.XIAOMI;
 
 import android.annotation.SuppressLint;
 import android.app.ForegroundServiceStartNotAllowedException;
@@ -125,7 +126,7 @@ public class NavigationService extends Service implements LocationListener
     // Nice colorized notifications should be supported on API=26 and later.
     // Nonetheless, even on API=32, Xiaomi uses their own legacy implementation that displays white-on-white instead.
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
-        !"xiaomi".equalsIgnoreCase(Build.MANUFACTURER);
+        !XIAOMI.equalsIgnoreCase(Build.MANUFACTURER);
   }
 
   @NonNull
@@ -137,7 +138,7 @@ public class NavigationService extends Service implements LocationListener
     final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;
     final Intent contentIntent = new Intent(context, MwmActivity.class);
     final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, contentIntent,
-        PendingIntent.FLAG_CANCEL_CURRENT | FLAG_IMMUTABLE);
+        PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
 
     final Intent exitIntent = new Intent(context, NavigationService.class);
     exitIntent.setAction(STOP_NAVIGATION);

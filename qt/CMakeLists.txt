@@ -139,6 +139,7 @@ copy_resources(
 
   00_NotoNaskhArabic-Regular.ttf
   00_NotoSansBengali-Regular.ttf
+  00_NotoSansHebrew-Regular.ttf
   00_NotoSansMalayalam-Regular.ttf
   00_NotoSansThai-Regular.ttf
   00_NotoSerifDevanagari-Regular.ttf
@@ -162,7 +163,7 @@ endif()
 
 if (NOT PLATFORM_LINUX)
   # On Linux, ICU data is loaded from the shared library.
-  copy_resources(icudt73l.dat)
+  copy_resources(icudt75l.dat)
 endif()
 
 if (PLATFORM_MAC)

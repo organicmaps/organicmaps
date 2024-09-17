@@ -11,21 +11,19 @@
 #include <map>
 #include <utility>
 
-using namespace std;
+namespace gps_track_collection_test
+{
 using namespace std::chrono;
 
-namespace
+location::GpsInfo MakeGpsTrackInfo(double timestamp, ms::LatLon const & ll, double speed)
 {
-location::GpsTrackInfo MakeGpsTrackInfo(double timestamp, ms::LatLon const & ll, double speed)
-{
-  location::GpsTrackInfo info;
+  location::GpsInfo info;
   info.m_timestamp = timestamp;
   info.m_speed = speed;
   info.m_latitude = ll.m_lat;
   info.m_longitude = ll.m_lon;
   return info;
 }
-} // namespace
 
 UNIT_TEST(GpsTrackCollection_Simple)
 {
@@ -35,14 +33,14 @@ UNIT_TEST(GpsTrackCollection_Simple)
 
   GpsTrackCollection collection(100, hours(24));
 
-  map<size_t, location::GpsTrackInfo> data;
+  std::map<size_t, location::GpsInfo> data;
 
   TEST_EQUAL(100, collection.GetMaxSize(), ());
 
   for (size_t i = 0; i < 50; ++i)
   {
     auto info = MakeGpsTrackInfo(timestamp + i, ms::LatLon(-90 + i, -180 + i), i);
-    pair<size_t, size_t> evictedIds;
+    std::pair<size_t, size_t> evictedIds;
     size_t addedId = collection.Add(info, evictedIds);
     TEST_EQUAL(addedId, i, ());
     TEST_EQUAL(evictedIds.first, GpsTrackCollection::kInvalidId, ());
@@ -52,10 +50,10 @@ UNIT_TEST(GpsTrackCollection_Simple)
 
   TEST_EQUAL(50, collection.GetSize(), ());
 
-  collection.ForEach([&data](location::GpsTrackInfo const & info, size_t id)->bool
+  collection.ForEach([&data](location::GpsInfo const & info, size_t id)->bool
   {
     TEST(data.end() != data.find(id), ());
-    location::GpsTrackInfo const & originInfo = data[id];
+    location::GpsInfo const & originInfo = data[id];
     TEST_EQUAL(info.m_latitude, originInfo.m_latitude, ());
     TEST_EQUAL(info.m_longitude, originInfo.m_longitude, ());
     TEST_EQUAL(info.m_speed, originInfo.m_speed, ());
@@ -81,7 +79,7 @@ UNIT_TEST(GpsTrackCollection_EvictedByTimestamp)
 
   GpsTrackCollection collection(100, hours(24));
 
-  pair<size_t, size_t> evictedIds;
+  std::pair<size_t, size_t> evictedIds;
   size_t addedId = collection.Add(MakeGpsTrackInfo(timestamp, ms::LatLon(-90, -180), 1), evictedIds);
   TEST_EQUAL(addedId, 0, ());
   TEST_EQUAL(evictedIds.first, GpsTrackCollection::kInvalidId, ());
@@ -102,7 +100,7 @@ UNIT_TEST(GpsTrackCollection_EvictedByTimestamp)
 
   TEST_EQUAL(1, collection.GetSize(), ());
 
-  collection.ForEach([&](location::GpsTrackInfo const & info, size_t id)->bool
+  collection.ForEach([&](location::GpsInfo const & info, size_t id)->bool
   {
     TEST_EQUAL(id, 2, ());
     TEST_EQUAL(info.m_latitude, lastInfo.m_latitude, ());
@@ -127,14 +125,14 @@ UNIT_TEST(GpsTrackCollection_EvictedByCount)
 
   GpsTrackCollection collection(100, hours(24));
 
-  map<size_t, location::GpsTrackInfo> data;
+  std::map<size_t, location::GpsInfo> data;
 
   TEST_EQUAL(100, collection.GetMaxSize(), ());
 
   for (size_t i = 0; i < 100; ++i)
   {
     auto info = MakeGpsTrackInfo(timestamp + i, ms::LatLon(-90 + i, -180 + i), i);
-    pair<size_t, size_t> evictedIds;
+    std::pair<size_t, size_t> evictedIds;
     size_t addedId = collection.Add(info, evictedIds);
     TEST_EQUAL(addedId, i, ());
     TEST_EQUAL(evictedIds.first, GpsTrackCollection::kInvalidId, ());
@@ -145,7 +143,7 @@ UNIT_TEST(GpsTrackCollection_EvictedByCount)
   TEST_EQUAL(100, collection.GetSize(), ());
 
   auto info = MakeGpsTrackInfo(timestamp + 100, ms::LatLon(45, 60), 110);
-  pair<size_t, size_t> evictedIds;
+  std::pair<size_t, size_t> evictedIds;
   size_t addedId = collection.Add(info, evictedIds);
   TEST_EQUAL(addedId, 100, ());
   TEST_EQUAL(evictedIds.first, 0, ());
@@ -156,10 +154,10 @@ UNIT_TEST(GpsTrackCollection_EvictedByCount)
 
   data.erase(0);
 
-  collection.ForEach([&data](location::GpsTrackInfo const & info, size_t id)->bool
+  collection.ForEach([&data](location::GpsInfo const & info, size_t id)->bool
   {
     TEST(data.end() != data.find(id), ());
-    location::GpsTrackInfo const & originInfo = data[id];
+    location::GpsInfo const & originInfo = data[id];
     TEST_EQUAL(info.m_latitude, originInfo.m_latitude, ());
     TEST_EQUAL(info.m_longitude, originInfo.m_longitude, ());
     TEST_EQUAL(info.m_speed, originInfo.m_speed, ());
@@ -190,7 +188,7 @@ UNIT_TEST(GpsTrackCollection_EvictedByTimestamp2)
   for (size_t i = 0; i < 500; ++i)
   {
     auto info = MakeGpsTrackInfo(timestamp + i, ms::LatLon(-90 + i, -180 + i), i);
-    pair<size_t, size_t> evictedIds;
+    std::pair<size_t, size_t> evictedIds;
     size_t addedId = collection.Add(info, evictedIds);
     TEST_EQUAL(addedId, i, ());
     TEST_EQUAL(evictedIds.first, GpsTrackCollection::kInvalidId, ());
@@ -204,7 +202,7 @@ UNIT_TEST(GpsTrackCollection_EvictedByTimestamp2)
   for (size_t i = 0; i < 500; ++i)
   {
     auto info = MakeGpsTrackInfo(timestamp_12h + i, ms::LatLon(-90 + i, -180 + i), i);
-    pair<size_t, size_t> evictedIds;
+    std::pair<size_t, size_t> evictedIds;
     size_t addedId = collection.Add(info, evictedIds);
     TEST_EQUAL(addedId, 500 + i, ());
     TEST_EQUAL(evictedIds.first, GpsTrackCollection::kInvalidId, ());
@@ -216,7 +214,7 @@ UNIT_TEST(GpsTrackCollection_EvictedByTimestamp2)
   TEST_EQUAL(1000, collection.GetSize(), ());
 
   auto info = MakeGpsTrackInfo(timestamp_35h, ms::LatLon(45, 60), 110);
-  pair<size_t, size_t> evictedIds;
+  std::pair<size_t, size_t> evictedIds;
   size_t addedId = collection.Add(info, evictedIds);
   TEST_EQUAL(addedId, 1000, ());
   TEST_EQUAL(evictedIds.first, 0, ());
@@ -228,3 +226,4 @@ UNIT_TEST(GpsTrackCollection_EvictedByTimestamp2)
 
   TEST_EQUAL(0, collection.GetSize(), ());
 }
+}  // namespace gps_track_collection_test

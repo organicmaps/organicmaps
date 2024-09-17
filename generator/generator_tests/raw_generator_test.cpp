@@ -1126,6 +1126,7 @@ UNIT_CLASS_TEST(TestRawGenerator, CycleBarrier)
   TEST_EQUAL(carAcc, bicycleAcc, ());
 }
 
+// https://github.com/organicmaps/organicmaps/issues/9029
 UNIT_CLASS_TEST(TestRawGenerator, Addr_Street_Place)
 {
   std::string const mwmName = "Address";
@@ -1140,6 +1141,7 @@ UNIT_CLASS_TEST(TestRawGenerator, Addr_Street_Place)
     { "./data/osm_test_data/addr_street_place.osm", 1, true, true },
     { "./data/osm_test_data/addr_street_very_far.osm", 2, true, false },
     { "./data/osm_test_data/zelenograd.osm", 1, false, true },
+    { "./data/osm_test_data/addr_area_street.osm", 1, true, false },
   };
 
   for (auto const & data : arrFiles)

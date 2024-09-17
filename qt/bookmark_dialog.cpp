@@ -212,7 +212,7 @@ void BookmarkDialog::OnDeleteClick()
       }
       else
       {
-        bm.GetEditSession().DeleteBmCategory(categoryIt->second);
+        bm.GetEditSession().DeleteBmCategory(categoryIt->second, true);
         FillTree();
       }
       return;

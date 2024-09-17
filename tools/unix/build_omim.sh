@@ -13,7 +13,7 @@ OPT_STANDALONE=
 OPT_COMPILE_DATABASE=
 OPT_LAUNCH_BINARY=
 OPT_NJOBS=
-while getopts ":cdrxtagjlpn:" opt; do
+while getopts ":cdrxtagjlp:n:" opt; do
   case $opt in
     a) OPT_STANDALONE=1 ;;
     c) OPT_CLEAN=1 ;;
@@ -22,11 +22,11 @@ while getopts ":cdrxtagjlpn:" opt; do
     g) OPT_GCC=1 ;;
     j) OPT_COMPILE_DATABASE=1
        CMAKE_CONFIG="${CMAKE_CONFIG:-} -DCMAKE_EXPORT_COMPILE_COMMANDS=YES"
-      ;;
+       ;;
     l) OPT_LAUNCH_BINARY=1 ;;
     n) OPT_NJOBS="$OPTARG"
        CMAKE_CONFIG="${CMAKE_CONFIG:-} -DNJOBS=${OPT_NJOBS}"
-      ;;
+       ;;
     p) OPT_PATH="$OPTARG" ;;
     r) OPT_RELEASE=1 ;;
     t) OPT_DESIGNER=1 ;;
@@ -132,12 +132,11 @@ build()
   fi
   cd "$DIRNAME"
   if [ -z "$OPT_DESIGNER" ]; then
-    if [ -n "$OPT_STANDALONE" ]; then
-      "$CMAKE" "$CMAKE_GENERATOR" "$OMIM_PATH" -DCMAKE_BUILD_TYPE="$CONF" \
-      -DBUILD_STANDALONE:bool=True ${CMAKE_CONFIG:-}
-    else
-      "$CMAKE" "$CMAKE_GENERATOR" "$OMIM_PATH" -DCMAKE_BUILD_TYPE="$CONF" ${CMAKE_CONFIG:-}
-    fi
+    "$CMAKE" "$CMAKE_GENERATOR" "$OMIM_PATH" \
+      -DCMAKE_BUILD_TYPE="$CONF" \
+      -DBUILD_DESIGNER:BOOL=OFF \
+      -DBUILD_STANDALONE:BOOL=$([ "$OPT_STANDALONE" == 1 ] && echo "ON" || echo "OFF") \
+      ${CMAKE_CONFIG:-}
     echo ""
     $MAKE_COMMAND $OPT_TARGET
     if [ -n "$OPT_TARGET" ] && [ -n "$OPT_LAUNCH_BINARY" ]; then
@@ -146,8 +145,7 @@ build()
       done
     fi
   else
-    "$CMAKE" "$CMAKE_GENERATOR" "$OMIM_PATH" -DCMAKE_BUILD_TYPE="$CONF" \
-    -DBUILD_DESIGNER:bool=True ${CMAKE_CONFIG:-}
+    "$CMAKE" "$CMAKE_GENERATOR" "$OMIM_PATH" -DCMAKE_BUILD_TYPE="$CONF" -DBUILD_DESIGNER:BOOL=ON ${CMAKE_CONFIG:-}
     $MAKE_COMMAND package
   fi
   if [ -n "$OPT_COMPILE_DATABASE" ]; then

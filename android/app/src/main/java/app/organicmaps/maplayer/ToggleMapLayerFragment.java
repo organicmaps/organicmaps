@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
@@ -28,7 +27,7 @@ public class ToggleMapLayerFragment extends Fragment
   private static final String LAYERS_MENU_ID = "LAYERS_MENU_BOTTOM_SHEET";
   @Nullable
   private LayersAdapter mAdapter;
-  private MapButtonsViewModel mMapButtonsViewModel;
+  private MapButtonsController mMapButtonsController;
 
   @Nullable
   @Override
@@ -36,7 +35,7 @@ public class ToggleMapLayerFragment extends Fragment
   {
     View mRoot = inflater.inflate(R.layout.fragment_toggle_map_layer, container, false);
 
-    mMapButtonsViewModel = new ViewModelProvider(requireActivity()).get(MapButtonsViewModel.class);
+    mMapButtonsController = (MapButtonsController) requireActivity().getSupportFragmentManager().findFragmentById(R.id.map_buttons);
     MaterialButton mCloseButton = mRoot.findViewById(R.id.close_button);
     mCloseButton.setOnClickListener(view -> closeLayerBottomSheet());
 
@@ -74,6 +73,7 @@ public class ToggleMapLayerFragment extends Fragment
     SharedPropertiesUtils.setLayerMarkerShownForLayerMode(context, mode);
     mode.setEnabled(context, !mode.isEnabled(context));
     mAdapter.notifyDataSetChanged();
+    mMapButtonsController.updateLayerButton();
     if (IsolinesManager.from(context).shouldShowNotification())
       Utils.showSnackbar(context, v.getRootView(), R.string.isolines_toast_zooms_1_10);
   }

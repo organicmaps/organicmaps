@@ -24,7 +24,7 @@ DEFINE_int32(maxSize, 2048, "max width/height of output textures");
 int main(int argc, char *argv[])
 {
 // Used to lock the hash seed, so the order of XML attributes is always the same.
-  qSetGlobalQHashSeed(0);
+  QHashSeed::setDeterministicGlobalSeed();
   try
   {
     gflags::ParseCommandLineFlags(&argc, &argv, true);

@@ -32,10 +32,13 @@ add_library(icuuc
   icu/icu4c/source/common/locbased.h
   icu/icu4c/source/common/locid.cpp
   icu/icu4c/source/common/loclikely.cpp
+  icu/icu4c/source/common/loclikelysubtags.cpp
+  icu/icu4c/source/common/loclikelysubtags.h
   icu/icu4c/source/common/locmap.cpp
   icu/icu4c/source/common/locutil.cpp
   icu/icu4c/source/common/locutil.h
   icu/icu4c/source/common/lsr.h
+  icu/icu4c/source/common/lsr.cpp
   icu/icu4c/source/common/messageimpl.h
   icu/icu4c/source/common/msvcres.h
   icu/icu4c/source/common/mutex.h

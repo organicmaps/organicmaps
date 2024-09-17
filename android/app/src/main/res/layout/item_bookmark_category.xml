@@ -4,16 +4,17 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="@dimen/height_item_edit_bookmark"
+  android:layout_height="wrap_content"
   android:background="?clickableBackground">
   <CheckBox
-      android:id="@+id/checkbox"
-      android:layout_width="@dimen/margin_double_plus"
-      android:layout_height="match_parent"
-      android:layout_marginStart="@dimen/margin_quarter"
-      android:button="@drawable/button_visibility_centre_inset"
-      android:background="@null"
-      android:buttonTint="?accentColorSelector" />
+    android:id="@+id/checkbox"
+    android:layout_width="@dimen/margin_double_plus"
+    android:layout_height="match_parent"
+    android:layout_centerVertical="true"
+    android:layout_marginStart="@dimen/margin_quarter"
+    android:background="@null"
+    android:button="@drawable/button_visibility_centre_inset"
+    android:buttonTint="?accentColorSelector" />
   <TextView
     android:id="@+id/name"
     android:layout_width="wrap_content"
@@ -49,9 +50,10 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:layout_alignParentEnd="true"
+    android:layout_centerVertical="true"
     android:background="?selectableItemBackgroundBorderless"
+    android:importantForAccessibility="no"
     android:paddingHorizontal="@dimen/margin_half"
     app:srcCompat="@drawable/ic_more"
-    app:tint="?secondary"
-    android:importantForAccessibility="no" />
+    app:tint="?secondary" />
 </RelativeLayout>

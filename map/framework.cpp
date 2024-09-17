@@ -15,6 +15,7 @@
 #include "search/engine.hpp"
 #include "search/locality_finder.hpp"
 
+#include "storage/storage.hpp"
 #include "storage/country_info_getter.hpp"
 #include "storage/storage_helpers.hpp"
 
@@ -307,8 +308,6 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   m_stringsBundle.SetDefaultString("core_my_places", "My Places");
   m_stringsBundle.SetDefaultString("core_my_position", "My Position");
   m_stringsBundle.SetDefaultString("postal_code", "Postal Code");
-  // Wi-Fi string is used in categories that's why does not have core_ prefix
-  m_stringsBundle.SetDefaultString("wifi", "WiFi");
 
   m_featuresFetcher.InitClassificator();
   m_featuresFetcher.SetOnMapDeregisteredCallback(bind(&Framework::OnMapDeregistered, this, _1));
@@ -570,6 +569,56 @@ void Framework::FillPointInfoForBookmark(Bookmark const & bmk, place_page::Info 
   });
 }
 
+void Framework::FillUserMarkInfo(UserMark const * mark, place_page::Info & outInfo)
+{
+  outInfo.SetSelectedObject(df::SelectionShape::OBJECT_USER_MARK);
+
+  switch (mark->GetMarkType())
+  {
+  case UserMark::Type::API:
+    FillApiMarkInfo(*static_cast<ApiMarkPoint const *>(mark), outInfo);
+    break;
+  case UserMark::Type::BOOKMARK:
+    FillBookmarkInfo(*static_cast<Bookmark const *>(mark), outInfo);
+    break;
+  case UserMark::Type::SEARCH:
+    FillSearchResultInfo(*static_cast<SearchMarkPoint const *>(mark), outInfo);
+    break;
+  case UserMark::Type::ROUTING:
+    FillRouteMarkInfo(*static_cast<RouteMarkPoint const *>(mark), outInfo);
+    break;
+  case UserMark::Type::ROAD_WARNING:
+    FillRoadTypeMarkInfo(*static_cast<RoadWarningMark const *>(mark), outInfo);
+    break;
+  case UserMark::Type::TRACK_INFO:
+  {
+    auto const & infoMark = *static_cast<TrackInfoMark const *>(mark);
+    BuildTrackPlacePage(GetBookmarkManager().GetTrackSelectionInfo(infoMark.GetTrackId()), outInfo);
+    return;
+  }
+  case UserMark::Type::TRACK_SELECTION:
+  {
+    auto const & selMark = *static_cast<TrackSelectionMark const *>(mark);
+    BuildTrackPlacePage(GetBookmarkManager().GetTrackSelectionInfo(selMark.GetTrackId()), outInfo);
+    return;
+  }
+  case UserMark::Type::TRANSIT:
+  {
+    FillTransitMarkInfo(*static_cast<TransitMark const *>(mark), outInfo);
+    break;
+  }
+  case UserMark::Type::SPEED_CAM:
+  {
+    FillSpeedCameraMarkInfo(*static_cast<SpeedCameraMark const *>(mark), outInfo);
+    break;
+  }
+  default:
+    CHECK(false, ("Unexpected user mark type", mark->GetMarkType()));
+  }
+
+  SetPlacePageLocation(outInfo);
+}
+
 void Framework::FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const
 {
   info.SetBookmarkCategoryName(GetBookmarkManager().GetCategoryName(bmk.GetGroupId()));
@@ -655,7 +704,7 @@ void Framework::FillNotMatchedPlaceInfo(place_page::Info & info, m2::PointD cons
     info.SetCustomNameWithCoordinates(mercator, m_stringsBundle.GetString("core_placepage_unknown_place"));
   else
     info.SetCustomName(customTitle);
-  info.SetCanEditOrAdd(CanEditMap());
+  info.SetCanEditOrAdd(CanEditMapForPosition(mercator));
   info.SetMercator(mercator);
 }
 
@@ -672,7 +721,6 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
   ASSERT_NOT_EQUAL(featureStatus, FeatureStatus::Deleted,
                    ("Deleted features cannot be selected from UI."));
   info.SetFeatureStatus(featureStatus);
-  info.SetLocalizedWifiString(m_stringsBundle.GetString("wifi"));
 
   if (ftypes::IsAddressObjectChecker::Instance()(ft))
     info.SetAddress(GetAddressAtPoint(feature::GetCenter(ft)).FormatAddress());
@@ -682,11 +730,9 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
   FillDescription(ft, info);
 
   auto const mwmInfo = ft.GetID().m_mwmId.GetInfo();
-  bool const isMapVersionEditable = mwmInfo && mwmInfo->m_version.IsEditableMap();
-  bool const canEditOrAdd = featureStatus != FeatureStatus::Obsolete && CanEditMap() &&
-                            isMapVersionEditable;
+  bool const isMapVersionEditable = CanEditMapForPosition(info.GetMercator());
+  bool const canEditOrAdd = featureStatus != FeatureStatus::Obsolete && isMapVersionEditable;
   info.SetCanEditOrAdd(canEditOrAdd);
-  //info.SetPopularity(m_popularityLoader.Get(ft.GetID()));
 
   // Fill countryId for place page info
   auto const & types = info.GetTypes();
@@ -798,14 +844,14 @@ void Framework::FillRoadTypeMarkInfo(RoadWarningMark const & roadTypeMark, place
 void Framework::ShowBookmark(kml::MarkId id)
 {
   auto const * mark = m_bmManager->GetBookmark(id);
-  ShowBookmark(mark);
+  if (mark)
+    ShowBookmark(mark);
+  else
+    ASSERT(false, ("ShowBookmark was called with invalid id", id));
 }
 
 void Framework::ShowBookmark(Bookmark const * mark)
 {
-  if (mark == nullptr)
-    return;
-
   StopLocationFollow();
 
   place_page::BuildInfo info;
@@ -820,11 +866,8 @@ void Framework::ShowBookmark(Bookmark const * mark)
   auto es = GetBookmarkManager().GetEditSession();
   es.SetIsVisible(mark->GetGroupId(), true /* visible */);
 
-  if (m_drapeEngine != nullptr)
-  {
-    m_drapeEngine->SetModelViewCenter(mark->GetPivot(), scale, true /* isAnim */,
-                                      true /* trackVisibleViewport */);
-  }
+  if (m_drapeEngine)
+    m_drapeEngine->SetModelViewCenter(mark->GetPivot(), scale, true /* isAnim */, true /* trackVisibleViewport */);
 
   ActivateMapSelection();
 }
@@ -864,7 +907,7 @@ void Framework::ShowBookmarkCategory(kml::MarkGroupId categoryId, bool animation
   auto es = bm.GetEditSession();
   es.SetIsVisible(categoryId, true /* visible */);
 
-  auto const trackIds = bm.GetTrackIds(categoryId);
+  auto const & trackIds = bm.GetTrackIds(categoryId);
   for (auto trackId : trackIds)
   {
     if (!bm.GetTrack(trackId)->IsInteractive())
@@ -885,7 +928,7 @@ void Framework::ShowFeature(FeatureID const & featureId)
 
   if (m_drapeEngine != nullptr)
   {
-    auto const pt = m_currentPlacePageInfo->GetMercator();
+    auto const & pt = m_currentPlacePageInfo->GetMercator();
     auto const scale = scales::GetUpperComfortScale();
     m_drapeEngine->SetModelViewCenter(pt, scale, true /* isAnim */, true /* trackVisibleViewport */);
   }
@@ -1274,6 +1317,7 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   {
   case Result::Type::Feature:
     info.m_mercator = result.GetFeatureCenter();
+    info.m_match = place_page::BuildInfo::Match::Nothing;
     info.m_featureId = result.GetFeatureID();
     info.m_isGeometrySelectionAllowed = true;
     break;
@@ -1653,12 +1697,52 @@ void Framework::ConnectToGpsTracker()
 void Framework::DisconnectFromGpsTracker()
 {
   m_connectToGpsTrack = false;
-  GpsTracker::Instance().Disconnect();
+  auto & tracker = GpsTracker::Instance();
+  tracker.Disconnect();
+  tracker.SetEnabled(false);
+}
+
+void Framework::StartTrackRecording()
+{
+  auto & tracker = GpsTracker::Instance();
+  if (!tracker.IsEnabled())
+    tracker.SetEnabled(true);
+  m_connectToGpsTrack = true;
+  if (m_drapeEngine)
+  {
+    m_drapeEngine->ClearGpsTrackPoints();
+    tracker.Connect(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2));
+  }
+}
+
+void Framework::StopTrackRecording()
+{
+  m_connectToGpsTrack = false;
+  auto & tracker = GpsTracker::Instance();
+  tracker.Disconnect();
+  tracker.SetEnabled(false);
   if (m_drapeEngine)
     m_drapeEngine->ClearGpsTrackPoints();
 }
 
-void Framework::OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::GpsTrackInfo>> && toAdd,
+void Framework::SaveTrackRecordingWithName(std::string const & name)
+{
+  GetBookmarkManager().SaveTrackRecording(name);
+  if (m_drapeEngine)
+    m_drapeEngine->ClearGpsTrackPoints();
+}
+
+bool Framework::IsTrackRecordingEmpty() const
+{
+  return GpsTracker::Instance().IsEmpty();
+}
+
+bool Framework::IsTrackRecordingEnabled() const
+{
+  return GpsTracker::Instance().IsEnabled();
+}
+
+void Framework::OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::GpsInfo>> && toAdd,
                                                pair<size_t, size_t> const & toRemove)
 {
   ASSERT(m_drapeEngine.get() != nullptr, ());
@@ -1739,6 +1823,11 @@ Framework::ParsedRoutingData Framework::GetParsedRoutingData() const
 url_scheme::SearchRequest Framework::GetParsedSearchRequest() const
 {
   return m_parsedMapApi.GetSearchRequest();
+}
+
+std::string Framework::GetParsedOAuth2Code() const
+{
+  return m_parsedMapApi.GetOAuth2Code();
 }
 
 std::string const & Framework::GetParsedAppName() const
@@ -1926,6 +2015,12 @@ void Framework::DeactivateMapSelection()
   }
 }
 
+void Framework::DeactivateMapSelectionCircle()
+{
+    if (m_drapeEngine != nullptr)
+        m_drapeEngine->DeselectObject();
+}
+
 void Framework::SwitchFullScreen()
 {
   if (m_onSwitchFullScreen)
@@ -2079,56 +2174,20 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
 
   if (buildInfo.IsUserMarkMatchingEnabled())
   {
-    UserMark const * mark = FindUserMarkInTapPosition(buildInfo);
-    if (mark != nullptr)
+    UserMark const * mark = nullptr;
+    if (buildInfo.m_userMarkId != kml::kInvalidMarkId)
     {
-      outInfo.SetSelectedObject(df::SelectionShape::OBJECT_USER_MARK);
-      switch (mark->GetMarkType())
-      {
-      case UserMark::Type::API:
-        FillApiMarkInfo(*static_cast<ApiMarkPoint const *>(mark), outInfo);
-        break;
-      case UserMark::Type::BOOKMARK:
-        FillBookmarkInfo(*static_cast<Bookmark const *>(mark), outInfo);
-        break;
-      case UserMark::Type::SEARCH:
-        FillSearchResultInfo(*static_cast<SearchMarkPoint const *>(mark), outInfo);
-        break;
-      case UserMark::Type::ROUTING:
-        FillRouteMarkInfo(*static_cast<RouteMarkPoint const *>(mark), outInfo);
-        break;
-      case UserMark::Type::ROAD_WARNING:
-        FillRoadTypeMarkInfo(*static_cast<RoadWarningMark const *>(mark), outInfo);
-        break;
-      case UserMark::Type::TRACK_INFO:
-      {
-        auto const & infoMark = *static_cast<TrackInfoMark const *>(mark);
-        BuildTrackPlacePage(GetBookmarkManager().GetTrackSelectionInfo(infoMark.GetTrackId()),
-                            outInfo);
-        return outInfo;
-      }
-      case UserMark::Type::TRACK_SELECTION:
-      {
-        auto const & selMark = *static_cast<TrackSelectionMark const *>(mark);
-        BuildTrackPlacePage(GetBookmarkManager().GetTrackSelectionInfo(selMark.GetTrackId()),
-                            outInfo);
-        return outInfo;
-      }
-      case UserMark::Type::TRANSIT:
-      {
-        FillTransitMarkInfo(*static_cast<TransitMark const *>(mark), outInfo);
-        break;
-      }
-      case UserMark::Type::SPEED_CAM:
-      {
-        FillSpeedCameraMarkInfo(*static_cast<SpeedCameraMark const *>(mark), outInfo);
-        break;
-      }
-      default:
-        ASSERT(false, ("FindNearestUserMark returned invalid mark."));
-      }
+      auto const & bm = GetBookmarkManager();
+      mark = bm.IsBookmark(buildInfo.m_userMarkId) ? bm.GetBookmark(buildInfo.m_userMarkId) : bm.GetUserMark(buildInfo.m_userMarkId);
+      ASSERT(mark, ("There is no user mark with id", buildInfo.m_userMarkId));
+    }
 
-      SetPlacePageLocation(outInfo);
+    if (!mark)
+      mark = FindUserMarkInTapPosition(buildInfo);
+
+    if (mark)
+    {
+      FillUserMarkInfo(mark, outInfo);
       return outInfo;
     }
   }
@@ -2179,7 +2238,22 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
     FillFeatureInfo(selectedFeature, outInfo);
 
     if (isBuildingSelected)
-      outInfo.SetMercator(buildInfo.m_mercator); // Move selection circle to tap position inside a building.
+      outInfo.SetMercator(buildInfo.m_mercator);  // Move selection circle to the tap position inside a building.
+    else if (buildInfo.IsUserMarkMatchingEnabled() && !outInfo.IsBookmark())
+    {
+      // Search for a user mark at POI position instead of tap position (an icon or text label was tapped).
+      double constexpr kEps = 1e-7;
+      auto const rect = df::TapInfo::GetPreciseTapRect(outInfo.GetMercator(), kEps);
+      UserMark const * mark = GetBookmarkManager().FindNearestUserMark(
+          [&rect](UserMark::Type) { return rect; },
+          [](UserMark::Type) { return true; });
+      if (mark)
+      {
+        FillUserMarkInfo(mark, outInfo);
+        SetPlacePageLocation(outInfo);
+        return outInfo;
+      }
+    }
   }
   else
   {
@@ -2227,16 +2301,7 @@ Track::TrackSelectionInfo Framework::FindTrackInTapPosition(place_page::BuildInf
 
 UserMark const * Framework::FindUserMarkInTapPosition(place_page::BuildInfo const & buildInfo) const
 {
-  auto const & bm = GetBookmarkManager();
-  if (buildInfo.m_userMarkId != kml::kInvalidMarkId)
-  {
-    auto mark = bm.IsBookmark(buildInfo.m_userMarkId) ? bm.GetBookmark(buildInfo.m_userMarkId)
-                                                      : bm.GetUserMark(buildInfo.m_userMarkId);
-    if (mark != nullptr)
-      return mark;
-  }
-
-  UserMark const * mark = bm.FindNearestUserMark(
+  UserMark const * mark = GetBookmarkManager().FindNearestUserMark(
     [this, &buildInfo](UserMark::Type type)
     {
       double constexpr kEps = 1e-7;
@@ -2492,13 +2557,12 @@ void Framework::SaveOutdoorsEnabled(bool enabled)
   settings::Set(kOutdoorsEnabledKey, enabled);
 }
 
-void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, bool applyPosition,
-                                         m2::PointD const & position)
+void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, m2::PointD const * optionalPosition)
 {
   if (m_drapeEngine != nullptr)
   {
     m_drapeEngine->EnableChoosePositionMode(enable,
-      enableBounds ? GetSelectedFeatureTriangles() : vector<m2::TriangleD>(), applyPosition, position);
+      enableBounds ? GetSelectedFeatureTriangles() : vector<m2::TriangleD>(), optionalPosition);
   }
 }
 
@@ -2824,9 +2888,10 @@ void SetHostingBuildingAddress(FeatureID const & hostingBuildingFid, DataSource 
 }
 }  // namespace
 
-bool Framework::CanEditMap() const
+bool Framework::CanEditMapForPosition(m2::PointD const & position) const
 {
-  return !GetStorage().IsDownloadInProgress();
+  ASSERT(m_infoGetter, ("CountryInfoGetter shouldn't be nullprt."));
+  return GetStorage().IsAllowedToEditVersion(m_infoGetter->GetRegionCountryId(position));
 }
 
 bool Framework::CreateMapObject(m2::PointD const & mercator, uint32_t const featureType,

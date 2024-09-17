@@ -1,4 +1,5 @@
 #import "MWMDefaultAlert.h"
+#import "SwiftBridge.h"
 
 #include <CoreApi/Framework.h>
 
@@ -302,7 +303,7 @@ static NSString *const kDefaultAlertNibName = @"MWMDefaultAlert";
   MWMDefaultAlert *alert = [self defaultAlertWithTitle:L(@"recent_track_background_dialog_title")
                                                message:L(@"recent_track_background_dialog_message")
                                       rightButtonTitle:L(@"off_recent_track_background_button")
-                                       leftButtonTitle:L(@"continue_download")
+                                       leftButtonTitle:L(@"continue_button")
                                      rightButtonAction:block
                                        log:@"Track warning alert"];
   return alert;
@@ -343,6 +344,17 @@ static NSString *const kDefaultAlertNibName = @"MWMDefaultAlert";
                                      rightButtonAction:okBlock
                                        log:nil];
   alert.leftButtonAction = cancelBlock;
+  [alert setNeedsCloseAlertAfterEnterBackground];
+  return alert;
+}
+
++ (instancetype)bugReportAlertWithTitle:(NSString *)title {
+  MWMDefaultAlert *alert = [self defaultAlertWithTitle:title
+                                               message:L(@"bugreport_alert_message")
+                                      rightButtonTitle:L(@"report_a_bug")
+                                       leftButtonTitle:L(@"cancel")
+                                     rightButtonAction:^{ [MailComposer sendBugReportWithTitle:title]; }
+                                                   log:nil];
   [alert setNeedsCloseAlertAfterEnterBackground];
   return alert;
 }

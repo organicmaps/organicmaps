@@ -26,14 +26,32 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_app_organicmaps_location_TrackRecorder_nativeSetDuration(JNIEnv * env, jclass clazz, jint durationHours)
+  Java_app_organicmaps_location_TrackRecorder_nativeStartTrackRecording(JNIEnv * env, jclass clazz)
   {
-    GpsTracker::Instance().SetDuration(std::chrono::hours(durationHours));
+    frm()->StartTrackRecording();
   }
 
-  JNIEXPORT jint JNICALL
-  Java_app_organicmaps_location_TrackRecorder_nativeGetDuration(JNIEnv * env, jclass clazz)
+  JNIEXPORT void JNICALL
+  Java_app_organicmaps_location_TrackRecorder_nativeStopTrackRecording(JNIEnv * env, jclass clazz)
   {
-    return static_cast<jint>(GpsTracker::Instance().GetDuration().count());
+    frm()->StopTrackRecording();
+  }
+
+  JNIEXPORT void JNICALL
+  Java_app_organicmaps_location_TrackRecorder_nativeSaveTrackRecordingWithName(JNIEnv * env, jclass clazz, jstring name)
+  {
+    frm()->SaveTrackRecordingWithName(jni::ToNativeString(env, name));
+  }
+
+  JNIEXPORT jboolean JNICALL
+  Java_app_organicmaps_location_TrackRecorder_nativeIsTrackRecordingEmpty(JNIEnv * env, jclass clazz)
+  {
+    return frm()->IsTrackRecordingEmpty();
+  }
+
+  JNIEXPORT jboolean JNICALL
+  Java_app_organicmaps_location_TrackRecorder_nativeIsTrackRecordingEnabled(JNIEnv * env, jclass clazz)
+  {
+    return frm()->IsTrackRecordingEnabled();
   }
 }

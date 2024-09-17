@@ -264,20 +264,20 @@ struct CategoryDataV8MM
 };
 
 // FileDataV8MM contains the same sections as FileDataV8 but with no compilations
-struct FileDataV8MM
+template <class TrackDataT> struct FileDataMMImpl
 {
-  DECLARE_VISITOR_AND_DEBUG_PRINT(FileDataV8MM, visitor(m_serverId, "serverId"),
+  DECLARE_VISITOR_AND_DEBUG_PRINT(FileDataMMImpl, visitor(m_serverId, "serverId"),
                                   visitor(m_categoryData, "category"),
                                   visitor(m_bookmarksData, "bookmarks"),
                                   visitor(m_tracksData, "tracks"))
 
-  bool operator==(FileDataV8MM const & data) const
+  bool operator==(FileDataMMImpl const & data) const
   {
     return m_serverId == data.m_serverId && m_categoryData == data.m_categoryData &&
            m_bookmarksData == data.m_bookmarksData && m_tracksData == data.m_tracksData;
   }
 
-  bool operator!=(FileDataV8MM const & data) const { return !operator==(data); }
+  bool operator!=(FileDataMMImpl const & data) const { return !operator==(data); }
 
   FileData ConvertToLatestVersion()
   {
@@ -307,6 +307,9 @@ struct FileDataV8MM
   // Bookmarks collection.
   std::vector<BookmarkDataV8MM> m_bookmarksData;
   // Tracks collection.
-  std::vector<TrackDataV8MM> m_tracksData;
+  std::vector<TrackDataT> m_tracksData;
 };
+
+using FileDataV8MM = FileDataMMImpl<TrackDataV8MM>;
+
 }  // namespace kml

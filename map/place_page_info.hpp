@@ -116,6 +116,9 @@ public:
   bool ShouldShowAddBusiness() const { return m_canEditOrAdd && IsBuilding(); }
   bool ShouldShowEditPlace() const;
 
+  bool ShouldEnableAddPlace() const { return m_canEditOrAdd; };
+  bool ShouldEnableEditPlace() const { return m_canEditOrAdd; };
+
   /// @returns true if Back API button should be displayed.
   bool HasApiUrl() const { return !m_apiUrl.empty(); }
   /// TODO: Support all possible Internet types in UI. @See MapObject::GetInternet().
@@ -142,7 +145,6 @@ public:
   void SetCustomNameWithCoordinates(m2::PointD const & mercator, std::string const & name);
   void SetAddress(std::string && address) { m_address = std::move(address); }
   void SetCanEditOrAdd(bool canEditOrAdd) { m_canEditOrAdd = canEditOrAdd; }
-  void SetLocalizedWifiString(std::string const & str) { m_localizedWifiString = str; }
 
   /// Bookmark
   void SetFromBookmarkProperties(kml::Properties const & p);
@@ -226,8 +228,6 @@ private:
   std::string m_uiSecondaryTitle;
   std::string m_uiAddress;
   std::string m_description;
-  // TODO(AlexZ): Temporary solution. It's better to use a wifi icon in UI instead of text.
-  std::string m_localizedWifiString;
   /// Booking rating string
   std::string m_localizedRatingString;
 

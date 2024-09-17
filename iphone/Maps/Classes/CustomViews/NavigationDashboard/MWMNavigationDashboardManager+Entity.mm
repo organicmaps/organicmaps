@@ -205,7 +205,7 @@ NSArray<MWMRouterTransitStepInfo *> *buildRouteTransitSteps(NSArray<MWMRoutePoin
     entity.progress = info.m_completionPercent;
     entity.distanceToTurn = @(info.m_distToTurn.GetDistanceString().c_str());
     entity.turnUnits = @(info.m_distToTurn.GetUnitsString().c_str());
-    entity.streetName = @(info.m_displayedStreetName.c_str());
+    entity.streetName = @(info.m_nextStreetName.c_str());
     entity.speedLimitMps = info.m_speedLimitMps;
 
     entity.isWalk = NO;

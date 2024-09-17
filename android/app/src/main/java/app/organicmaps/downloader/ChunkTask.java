@@ -132,6 +132,8 @@ class ChunkTask extends AsyncTask<Void, byte[], Integer>
       if (isCancelled())
         return CANCELLED;
 
+      Android7RootCertificateWorkaround.applyFixIfNeeded(urlConnection);
+
       urlConnection.setUseCaches(false);
       urlConnection.setConnectTimeout(TIMEOUT_IN_SECONDS * 1000);
       urlConnection.setReadTimeout(TIMEOUT_IN_SECONDS * 1000);

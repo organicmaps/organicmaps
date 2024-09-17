@@ -45,7 +45,9 @@ Please follow instructions in [INSTALL.md](INSTALL.md) to set up your developmen
 and check the [developer's guidelines](#developers-guidelines).
 You will find a list of issues for new contributors [here](https://github.com/organicmaps/organicmaps/labels/Good%20first%20issue) to help you get started with simple tasks. If you want to focus on the most important issues, please check [this label](https://github.com/organicmaps/organicmaps/labels/Frequently%20Reported%20by%20Users) or our [Milestones](https://github.com/organicmaps/organicmaps/milestones).
 
-**Please do not ask for permission to work on the issue or to assign an issue to you**. We do not assign issues to first-time contributors. Any such comment notifies our contributors and the development team, and creates unnecessary noise that distracts us from the work. Just make a PR - and it will be reviewed.
+Sometimes it's better to discuss and confirm your vision of the fix or implementation before working on an issue. Our main focus is on simplicity and convenience for everyone, not only for geeks. 
+
+**We do not assign issues to first-time contributors.** Any such request notifies our contributors and the development team, and creates unnecessary noise that distracts us from the work. Just make a PR - and it will be reviewed.
 
 Reading everything in the [docs folder](./) of the repository is recommended.
 

@@ -13,6 +13,14 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_half"
     android:orientation="vertical">
+    <TextView
+        android:id="@+id/osm_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_marginBottom="@dimen/margin_base"
+        android:text="@string/editor_about_osm"
+        android:textAppearance="@style/MwmTextAppearance.Body4"/>
     <androidx.cardview.widget.CardView
       android:id="@+id/cv__category"
       style="@style/MwmWidget.Editor.CardView">
@@ -241,6 +249,63 @@
               android:layout_centerVertical="true"/>
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/block_self_service"
+            style="@style/MwmWidget.Editor.MetadataBlock.Clickable"
+            android:paddingBottom="@dimen/margin_half"
+            android:paddingTop="@dimen/margin_half">
+          <ImageView
+              style="@style/MwmWidget.Editor.MetadataIcon"
+              app:srcCompat="@drawable/ic_self_service"
+              tools:ignore="ContentDescription" />
+          <TextView
+              android:id="@+id/self_service_title"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="@dimen/editor_margin_left"
+              android:text="@string/self_service"
+              android:textAppearance="@style/MwmTextAppearance.Body4"/>
+          <TextView
+              android:id="@+id/self_service"
+              style="@style/MwmWidget.Editor.FieldLayout"
+              android:layout_below="@id/self_service_title"
+              android:layout_marginTop="@dimen/margin_quarter"
+              android:gravity="center_vertical"
+              android:textAppearance="@style/MwmTextAppearance.Body1"
+              tools:text="Red str."
+              app:drawableEndCompat="@drawable/ic_arrow_down" />
+          <View
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:layout_alignStart="@id/self_service"
+              android:layout_below="@id/self_service"
+              android:layout_marginTop="@dimen/margin_quarter_plus"
+              android:background="?dividerHorizontal"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/block_outdoor_seating"
+            style="@style/MwmWidget.Editor.MetadataBlock.Clickable">
+          <ImageView
+              style="@style/MwmWidget.Editor.MetadataIcon"
+              app:srcCompat="@drawable/ic_outdoor_seating"
+              tools:ignore="ContentDescription" />
+          <TextView
+              style="@style/MwmWidget.Editor.FieldLayout.EditText"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_centerVertical="true"
+              android:layout_marginStart="@dimen/editor_margin_left"
+              android:layout_toStartOf="@+id/sw__outdoor_seating"
+              android:text="@string/outdoor_seating"/>
+          <androidx.appcompat.widget.SwitchCompat
+              android:id="@+id/sw__outdoor_seating"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentEnd="true"
+              android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
         <!-- ToDo: Level is missing compared with iOS. -->
 
         <include
@@ -273,38 +338,23 @@
         android:padding="@dimen/margin_base">
         <TextView
           android:layout_width="match_parent"
-          android:layout_height="32dp"
+          android:layout_height="wrap_content"
+          android:fontFamily="@string/robotoMedium"
           android:text="@string/editor_other_info"
-          android:textAppearance="@style/MwmTextAppearance.Body2"/>
+          android:textAppearance="@style/MwmTextAppearance.Body3"/>
         <com.google.android.material.textfield.TextInputLayout
           android:id="@+id/custom_input"
           style="@style/MwmWidget.Editor.CustomTextInput"
           android:gravity="center_vertical"
           android:minHeight="74dp"
-          android:textColorHint="?android:textColorSecondary">
+          android:textColorHint="?android:textColorSecondary"
+          app:hintEnabled="false">
           <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input"
             style="@style/MwmWidget.Editor.FieldLayout.EditText"
             android:inputType="textMultiLine"
-            android:hint="@string/editor_detailed_description_hint"/>
+            android:hint="@string/editor_note_hint"/>
         </com.google.android.material.textfield.TextInputLayout>
-        <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/margin_half"
-          android:text="@string/editor_detailed_description"
-          android:textAppearance="@style/MwmTextAppearance.Body4"/>
-        <TextView
-          android:id="@+id/about_osm"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:background="?clickableBackground"
-          android:paddingBottom="@dimen/margin_half"
-          android:paddingTop="@dimen/margin_half"
-          android:text="@string/editor_more_about_osm"
-          android:textAppearance="@style/MwmTextAppearance.Body4"
-          android:textColor="?colorAccent"
-          android:textSize="@dimen/text_size_body_4"/>
       </LinearLayout>
     </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView

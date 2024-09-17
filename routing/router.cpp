@@ -27,7 +27,7 @@ RouterType FromString(std::string const & str)
     return RouterType::Bicycle;
   if (str == "transit")
     return RouterType::Transit;
-  if (str == "ruler" || str == "helicopter") // TODO: "helicopter" is left for Beta version compatibility. Remove after ruler release.
+  if (str == "ruler")
     return RouterType::Ruler;
 
   ASSERT(false, ("Incorrect routing string:", str));

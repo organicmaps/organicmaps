@@ -3,6 +3,7 @@ package app.organicmaps.intent;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.IntentCompat;
@@ -18,6 +19,7 @@ import app.organicmaps.api.RoutePoint;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.FeatureId;
 import app.organicmaps.bookmarks.data.MapObject;
+import app.organicmaps.editor.OsmLoginActivity;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.search.SearchActivity;
 import app.organicmaps.search.SearchEngine;
@@ -28,11 +30,17 @@ import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
+import static app.organicmaps.api.Const.EXTRA_PICK_POINT;
+
 public class Factory
 {
   public static boolean isStartedForApiResult(@NonNull Intent intent)
   {
-    return (intent.getFlags() & Intent.FLAG_ACTIVITY_FORWARD_RESULT) != 0;
+    // Previously, we relied on the implicit FORWARD_RESULT_FLAG to detect if the caller was
+    // waiting for a result. However, this approach proved to be less reliable than using
+    // the explicit EXTRA_PICK_POINT flag.
+    // https://github.com/organicmaps/organicmaps/pull/8910
+    return intent.getBooleanExtra(EXTRA_PICK_POINT, false);
   }
 
   public static class KmzKmlProcessor implements IntentProcessor
@@ -121,6 +129,15 @@ public class Factory
             Framework.nativeStopLocationFollow();
             Framework.nativeSetViewportCenter(latlon[0], latlon[1], SEARCH_IN_VIEWPORT_ZOOM);
           }
+
+          return true;
+        }
+        case RequestType.OAUTH2:
+        {
+          SearchEngine.INSTANCE.cancelInteractiveSearch();
+
+          final String oauth2code = Framework.nativeGetParsedOAuth2Code();
+          OsmLoginActivity.OAuth2Callback(target, oauth2code);
 
           return true;
         }

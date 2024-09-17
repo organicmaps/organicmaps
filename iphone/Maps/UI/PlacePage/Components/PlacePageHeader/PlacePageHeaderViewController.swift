@@ -15,6 +15,9 @@ class PlacePageHeaderViewController: UIViewController {
   @IBOutlet private var shadowView: UIView!
   @IBOutlet private var grabberView: UIView!
 
+  @IBOutlet weak var closeButton: CircleImageButton!
+  @IBOutlet weak var shareButton: CircleImageButton!
+
   private var titleText: String?
   private var secondaryText: String?
 
@@ -27,6 +30,8 @@ class PlacePageHeaderViewController: UIViewController {
     iPadSpecific { [weak self] in
       self?.grabberView.isHidden = true
     }
+    closeButton.setImage(UIImage(named: "ic_close")!)
+    shareButton.setImage(UIImage(named: "ic_share")!)
   }
 
   @objc func onExpandPressed(sender: UITapGestureRecognizer) {
@@ -37,6 +42,10 @@ class PlacePageHeaderViewController: UIViewController {
     presenter?.onClosePress()
   }
 
+  @IBAction func onShareButtonPressed(_ sender: Any) {
+    presenter?.onShareButtonPress(from: shareButton)
+  }
+  
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
     guard traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle else { return }

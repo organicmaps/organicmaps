@@ -32,8 +32,8 @@
 + (instancetype)infoAlert:(NSString *)title text:(NSString *)text;
 + (instancetype)convertBookmarksWithCount:(NSUInteger)count okBlock:(MWMVoidBlock)okBlock;
 + (instancetype)bookmarkConversionErrorAlert;
-
 + (instancetype)tagsLoadingErrorAlertWithOkBlock:(MWMVoidBlock)okBlock cancelBlock:(MWMVoidBlock)cancelBlock;
++ (instancetype)bugReportAlertWithTitle:(NSString *)title;
 
 + (instancetype)defaultAlertWithTitle:(NSString *)title
                               message:(NSString *)message

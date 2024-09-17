@@ -675,7 +675,7 @@ line|z14-[highway=track],
 line|z14-[highway=raceway],
 {color: @track;opacity: 0.7;}
 line|z15-[leisure=track][!area],
-{color: @sport;opacity: 0.7;}
+{color: @sport2;opacity: 0.7;}
 line|z14-[highway=bridleway]
 {color: @bridleway;opacity: 0.6;}
 line|z15-[highway=footway],

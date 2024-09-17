@@ -22,6 +22,7 @@ set(SRC
   types_v8.hpp
   types_v8mm.hpp
   types_v9.hpp
+  types_v9mm.hpp
   visitors.hpp
 )
 

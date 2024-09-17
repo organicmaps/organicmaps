@@ -19,9 +19,9 @@ case $OSTYPE in
     fi ;;
 esac
 
-OMIM_PATH="$(dirname "$0")/../.."
-TWINE_SUBMODULE=tools/twine
-TWINE_PATH="$OMIM_PATH/$TWINE_SUBMODULE"
+THIS_SCRIPT_PATH=$(cd "$(dirname "$0")"; pwd -P)
+OMIM_PATH="$THIS_SCRIPT_PATH/../.."
+TWINE_PATH="$OMIM_PATH/tools/twine"
 
 if [ ! -e "$TWINE_PATH/twine" ]; then
   echo "You need to have twine submodule present to run this script"
@@ -29,7 +29,7 @@ if [ ! -e "$TWINE_PATH/twine" ]; then
   exit 1
 fi
 
-TWINE_COMMIT="$(git -C $TWINE_SUBMODULE rev-parse HEAD)"
+TWINE_COMMIT="$(git -C $TWINE_PATH rev-parse HEAD)"
 TWINE_GEM="twine-$TWINE_COMMIT.gem"
 
 if [ ! -f "$TWINE_PATH/$TWINE_GEM" ]; then

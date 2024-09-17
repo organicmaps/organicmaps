@@ -247,7 +247,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
   bmManager.GetEditSession().ClearGroup(groupId1);
   TEST_EQUAL(bmManager.GetUserMarkIds(groupId1).size(), 0, ());
 
-  bmManager.GetEditSession().DeleteBmCategory(groupId1);
+  bmManager.GetEditSession().DeleteBmCategory(groupId1, true);
   TEST_EQUAL(bmManager.HasBmCategory(groupId1), false, ());
   TEST_EQUAL(bmManager.GetBmGroupsCount(), 0, ());
 
@@ -262,7 +262,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
   CheckBookmarks(bmManager, groupId2);
   TEST_EQUAL(bmManager.IsVisible(groupId2), true, ());
 
-  bmManager.GetEditSession().DeleteBmCategory(groupId2);
+  bmManager.GetEditSession().DeleteBmCategory(groupId2, true);
   TEST_EQUAL(bmManager.HasBmCategory(groupId2), false, ());
 
   BookmarkManager::KMLDataCollection kmlDataCollection3;
@@ -813,7 +813,8 @@ UNIT_TEST(Bookmarks_Sorting)
       kml::TrackData trackData;
       trackData.m_id = id;
       trackData.m_name = kml::LocalizableString{{kml::kDefaultLangCode, name}};
-      trackData.m_geometry.Assign({{{0.0, 0.0}, 1}, {{1.0, 0.0}, 2}});
+      trackData.m_geometry.AddLine({{{0.0, 0.0}, 1}, {{1.0, 0.0}, 2}});
+      trackData.m_geometry.AddTimestamps({});
       if (hours != kUnknownTime)
         trackData.m_timestamp = currentTime - hours;
       auto const * track = es.CreateTrack(std::move(trackData));
@@ -1095,7 +1096,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
   auto const fileNameTmp = fileName + ".backup";
   TEST(base::CopyFileX(fileName, fileNameTmp), ());
 
-  bmManager.GetEditSession().DeleteBmCategory(catId);
+  bmManager.GetEditSession().DeleteBmCategory(catId, true);
 
   auto const file2Name = "file2";
   BookmarkManager::KMLDataCollection kmlDataCollection2;
@@ -1529,5 +1530,47 @@ UNIT_CLASS_TEST(Runner, Bookmarks_BrokenFile)
   string const fileName = GetPlatform().TestsDataPathForFile("broken_bookmarks.kmb.test");
   auto kmlData = LoadKmlFile(fileName, KmlFileType::Binary);
   TEST(kmlData == nullptr, ());
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_RecentlyDeleted)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  auto const dir = GetBookmarksDirectory();
+  bool const delDirOnExit = Platform::MkDir(dir) == Platform::ERR_OK;
+  SCOPE_GUARD(dirDeleter, [&](){ if (delDirOnExit) (void)Platform::RmDir(dir); });
+
+  std::string const filePath = base::JoinPath(dir, "file" + std::string{kKmlExtension});
+  BookmarkManager::KMLDataCollection kmlDataCollection;
+  kmlDataCollection.emplace_back(filePath, LoadKmlData(MemReader(kmlString, std::strlen(kmlString)), KmlFileType::Text));
+
+  FileWriter w(filePath);
+  w.Write(kmlDataCollection.data(), kmlDataCollection.size());
+
+  TEST(kmlDataCollection.back().second, ());
+  bmManager.CreateCategories(std::move(kmlDataCollection));
+  TEST_EQUAL(bmManager.GetBmGroupsCount(), 1, ());
+  TEST_EQUAL(bmManager.GetRecentlyDeletedCategoriesCount(), 0, ());
+
+  auto const groupId = bmManager.GetUnsortedBmGroupsIdList().front();
+
+  bmManager.GetEditSession().DeleteBmCategory(groupId, false /* permanently */);
+  TEST_EQUAL(bmManager.GetBmGroupsCount(), 0, ());
+
+  auto const deletedCategories = bmManager.GetRecentlyDeletedCategories();
+  TEST_EQUAL(deletedCategories->size(), 1, ());
+  TEST_EQUAL(bmManager.GetRecentlyDeletedCategoriesCount(), 1, ());
+
+  auto const & deletedCategory = deletedCategories->front();
+  auto const deletedFilePath = deletedCategory.first;
+  TEST_EQUAL(base::FileNameFromFullPath(deletedCategory.first), base::FileNameFromFullPath(filePath), ());
+
+  bmManager.DeleteRecentlyDeletedCategoriesAtPaths({ deletedFilePath });
+  TEST_EQUAL(bmManager.GetBmGroupsCount(), 0, ());
+  TEST_EQUAL(bmManager.GetRecentlyDeletedCategoriesCount(), 0, ());
+  TEST_EQUAL(bmManager.GetRecentlyDeletedCategories()->size(), 0, ());
+
+  TEST(!Platform::IsFileExistsByFullPath(filePath), ());
+  TEST(!Platform::IsFileExistsByFullPath(deletedFilePath), ());
 }
 } // namespace bookmarks_test

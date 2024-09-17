@@ -2,6 +2,7 @@ package app.organicmaps.widget.placepage;
 
 import android.content.Context;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -96,6 +97,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private TextView mTvWiFi;
   private View mOperator;
   private TextView mTvOperator;
+  private View mNetwork;
+  private TextView mTvNetwork;
   private View mLevel;
   private TextView mTvLevel;
   private View mAtm;
@@ -106,8 +109,12 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private TextView mTvWheelchair;
   private View mDriveThrough;
   private TextView mTvDriveThrough;
+  private View mSelfService;
+  private TextView mTvSelfService;
   private View mCuisine;
   private TextView mTvCuisine;
+  private View mOutdoorSeating;
+  private TextView mTvOutdoorSeating;
   private View mEntrance;
   private TextView mTvEntrance;
   private View mEditPlace;
@@ -232,12 +239,20 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
     LinearLayout latlon = mFrame.findViewById(R.id.ll__place_latlon);
     latlon.setOnClickListener(this);
+    LinearLayout openIn = mFrame.findViewById(R.id.ll__place_open_in);
+    openIn.setOnClickListener(this);
+    openIn.setOnLongClickListener(this);
+    openIn.setVisibility(VISIBLE);
     mTvLatlon = mFrame.findViewById(R.id.tv__place_latlon);
     mWifi = mFrame.findViewById(R.id.ll__place_wifi);
     mTvWiFi = mFrame.findViewById(R.id.tv__place_wifi);
+    mOutdoorSeating = mFrame.findViewById(R.id.ll__place_outdoor_seating);
+    mTvOutdoorSeating = mFrame.findViewById(R.id.tv__place_outdoor_seating);
     mOperator = mFrame.findViewById(R.id.ll__place_operator);
     mOperator.setOnClickListener(this);
     mTvOperator = mFrame.findViewById(R.id.tv__place_operator);
+    mNetwork = mFrame.findViewById(R.id.ll__place_network);
+    mTvNetwork = mFrame.findViewById(R.id.tv__place_network);
     mLevel = mFrame.findViewById(R.id.ll__place_level);
     mTvLevel = mFrame.findViewById(R.id.tv__place_level);
     mAtm = mFrame.findViewById(R.id.ll__place_atm);
@@ -248,6 +263,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mTvWheelchair = mFrame.findViewById(R.id.tv__place_wheelchair);
     mDriveThrough = mFrame.findViewById(R.id.ll__place_drive_through);
     mTvDriveThrough = mFrame.findViewById(R.id.tv__place_drive_through);
+    mSelfService = mFrame.findViewById(R.id.ll__place_self_service);
+    mTvSelfService = mFrame.findViewById(R.id.tv__place_self_service);
     mCuisine = mFrame.findViewById(R.id.ll__place_cuisine);
     mTvCuisine = mFrame.findViewById(R.id.tv__place_cuisine);
     mEntrance = mFrame.findViewById(R.id.ll__place_entrance);
@@ -262,11 +279,14 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     latlon.setOnLongClickListener(this);
     address.setOnLongClickListener(this);
     mOperator.setOnLongClickListener(this);
+    mNetwork.setOnLongClickListener(this);
     mLevel.setOnLongClickListener(this);
     mAtm.setOnLongClickListener(this);
     mCapacity.setOnLongClickListener(this);
     mWheelchair.setOnLongClickListener(this);
     mDriveThrough.setOnLongClickListener(this);
+    mSelfService.setOnLongClickListener(this);
+    mOutdoorSeating.setOnLongClickListener(this);
 
     mDownloaderIcon = new DownloaderStatusIcon(mPreview.findViewById(R.id.downloader_status_frame));
 
@@ -399,7 +419,12 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   {
     refreshLatLon();
 
-    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR), mOperator, mTvOperator);
+    final String operator = mMapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR);
+    refreshMetadataOrHide(!TextUtils.isEmpty(operator) ? getString(R.string.operator, operator) : "", mOperator, mTvOperator);
+
+    final String network = mMapObject.getMetadata(Metadata.MetadataType.FMD_NETWORK);
+    refreshMetadataOrHide(!TextUtils.isEmpty(network) ? getString(R.string.network, network) : "", mNetwork, mTvNetwork);
+
     /// @todo I don't like it when we take all data from mapObject, but for cuisines, we should
     /// go into JNI Framework and rely on some "active object".
     refreshMetadataOrHide(Framework.nativeGetActiveObjectFormattedCuisine(), mCuisine, mTvCuisine);
@@ -422,6 +447,12 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       refreshMetadataOrHide(getString(R.string.drive_through), mDriveThrough, mTvDriveThrough);
     }
 
+    final String selfService = mMapObject.getMetadata(Metadata.MetadataType.FMD_SELF_SERVICE);
+    refreshMetadataOrHide(Utils.getTagValueLocalized(getContext(), "self_service", selfService), mSelfService, mTvSelfService);
+
+    final String outdoorSeating = mMapObject.getMetadata(Metadata.MetadataType.FMD_OUTDOOR_SEATING);
+    refreshMetadataOrHide(outdoorSeating.equals("yes") ? getString(R.string.outdoor_seating) : "", mOutdoorSeating, mTvOutdoorSeating);
+
 //    showTaxiOffer(mapObject);
 
     if (RoutingController.get().isNavigating() || RoutingController.get().isPlanning())
@@ -433,6 +464,15 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       UiUtils.showIf(Editor.nativeShouldShowEditPlace(), mEditPlace);
       UiUtils.showIf(Editor.nativeShouldShowAddBusiness(), mAddOrganisation);
       UiUtils.showIf(Editor.nativeShouldShowAddPlace(), mAddPlace);
+      mEditPlace.setEnabled(Editor.nativeShouldEnableEditPlace());
+      mAddOrganisation.setEnabled(Editor.nativeShouldEnableAddPlace());
+      mAddPlace.setEnabled(Editor.nativeShouldEnableAddPlace());
+      TextView mTvEditPlace = mEditPlace.findViewById(R.id.tv__editor);
+      TextView mTvAddBusiness = mAddPlace.findViewById(R.id.tv__editor);
+      TextView mTvAddPlace = mAddPlace.findViewById(R.id.tv__editor);
+      mTvEditPlace.setTextColor(Editor.nativeShouldEnableEditPlace() ? getResources().getColor(R.color.base_accent) : getResources().getColor(R.color.button_accent_text_disabled));
+      mTvAddBusiness.setTextColor(Editor.nativeShouldEnableEditPlace() ? getResources().getColor(R.color.base_accent) : getResources().getColor(R.color.button_accent_text_disabled));
+      mTvAddPlace.setTextColor(Editor.nativeShouldEnableEditPlace() ? getResources().getColor(R.color.base_accent) : getResources().getColor(R.color.button_accent_text_disabled));
       UiUtils.showIf(UiUtils.isVisible(mEditPlace)
                      || UiUtils.isVisible(mAddOrganisation)
                      || UiUtils.isVisible(mAddPlace), mEditTopSpace);
@@ -544,6 +584,12 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
                     .apply();
       refreshLatLon();
     }
+    else if (id == R.id.ll__place_open_in)
+    {
+      final String uri = Framework.nativeGetGeoUri(mMapObject.getLat(), mMapObject.getLon(),
+                                                   mMapObject.getScale(), mMapObject.getName());
+      Utils.openUri(requireContext(), Uri.parse(uri));
+    }
     else if (id == R.id.direction_frame)
       showBigDirection();
   }
@@ -579,8 +625,16 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
           items.add(formatted);
       }
     }
+    else if (id == R.id.ll__place_open_in)
+    {
+      final String uri = Framework.nativeGetGeoUri(mMapObject.getLat(), mMapObject.getLon(),
+                                                   mMapObject.getScale(), mMapObject.getName());
+      PlacePageUtils.copyToClipboard(requireContext(), mFrame, uri);
+    }
     else if (id == R.id.ll__place_operator)
       items.add(mTvOperator.getText().toString());
+    else if (id == R.id.ll__place_network)
+      items.add(mTvNetwork.getText().toString());
     else if (id == R.id.ll__place_level)
       items.add(mTvLevel.getText().toString());
     else if (id == R.id.ll__place_atm)
@@ -591,6 +645,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       items.add(mTvWheelchair.getText().toString());
     else if (id == R.id.ll__place_drive_through)
       items.add(mTvDriveThrough.getText().toString());
+    else if (id == R.id.ll__place_outdoor_seating)
+      items.add(mTvOutdoorSeating.getText().toString());
 
     final Context context = requireContext();
     if (items.size() == 1)

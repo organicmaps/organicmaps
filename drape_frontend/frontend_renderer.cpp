@@ -833,14 +833,13 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         else
         {
           // Exact position for POI or screen's center for Add place on map.
-          m2::PointD const pt = msg->HasPosition() ? msg->GetPosition() :
-                                m_userEventStream.GetCurrentScreen().GlobalRect().Center();
-
           int zoom = kDoNotChangeZoom;
           if (GetCurrentZoom() < scales::GetAddNewPlaceScale())
             zoom = scales::GetAddNewPlaceScale();
 
-          AddUserEvent(make_unique_dp<SetCenterEvent>(pt, zoom, true /* isAnim */, false /* trackVisibleViewport */,
+          auto const pt = msg->GetOptionalPosition();
+          AddUserEvent(make_unique_dp<SetCenterEvent>(pt ? *pt : m_userEventStream.GetCurrentScreen().GlobalRect().Center(),
+                                                      zoom, true /* isAnim */, false /* trackVisibleViewport */,
                                                       nullptr /* parallelAnimCreator */));
         }
       }
@@ -1279,7 +1278,7 @@ std::pair<FeatureID, kml::MarkId> FrontendRenderer::GetVisiblePOI(m2::RectD cons
   if (selectResult.empty())
     return {FeatureID(), kml::kInvalidMarkId};
 
-  double minSquaredDist = std::numeric_limits<double>::infinity();
+  double minSquaredDist = std::numeric_limits<double>::max();
   ref_ptr<dp::OverlayHandle> closestOverlayHandle;
   for (ref_ptr<dp::OverlayHandle> const & handle : selectResult)
   {

@@ -16,6 +16,16 @@
   <trkseg>
     <trkpt lat="48.209846" lon="16.376023">
       <ele>123</ele>
+      <time>2010-10-30T10:11:14Z</time>
+    </trkpt>
+    <trkpt lat="48.209503" lon="16.381065">
+      <ele>456</ele>
+      <time>2010-10-30T10:11:15Z</time>
+    </trkpt>
+  </trkseg>
+  <trkseg>
+    <trkpt lat="48.209846" lon="16.376023">
+      <ele>123</ele>
     </trkpt>
     <trkpt lat="48.209503" lon="16.381065">
       <ele>456</ele>

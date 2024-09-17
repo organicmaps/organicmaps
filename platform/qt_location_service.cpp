@@ -28,7 +28,7 @@ static location::GpsInfo gpsInfoFromQGeoPositionInfo(QGeoPositionInfo const & i,
     info.m_bearing = static_cast<double>(i.attribute(QGeoPositionInfo::Direction));
 
   if (i.hasAttribute(QGeoPositionInfo::GroundSpeed))
-    info.m_speedMpS = static_cast<double>(i.attribute(QGeoPositionInfo::GroundSpeed));
+    info.m_speed = static_cast<double>(i.attribute(QGeoPositionInfo::GroundSpeed));
 
   return info;
 }

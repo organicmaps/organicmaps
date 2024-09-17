@@ -11,8 +11,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^SearchInDownloaderCompletions)(NSArray<MWMMapSearchResult *> *results, BOOL finished);
 
+@protocol TrackRecorder <NSObject>
+
++ (void)startTrackRecording;
++ (void)stopTrackRecording;
++ (void)saveTrackRecordingWithName:(nullable NSString *)name;
++ (BOOL)isTrackRecordingEnabled;
++ (BOOL)isTrackRecordingEmpty;
+
+@end
+
 NS_SWIFT_NAME(FrameworkHelper)
-@interface MWMFrameworkHelper : NSObject
+@interface MWMFrameworkHelper : NSObject<TrackRecorder>
 
 + (void)processFirstLaunch:(BOOL)hasLocation;
 + (void)setVisibleViewport:(CGRect)rect scaleFactor:(CGFloat)scale;
@@ -34,12 +44,13 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (void)searchInDownloader:(NSString *)query
                inputLocale:(NSString *)locale
                 completion:(SearchInDownloaderCompletions)completion;
-+ (BOOL)canEditMap;
++ (BOOL)canEditMapAtViewportCenter;
 + (void)showOnMap:(MWMMarkGroupID)categoryId;
 + (void)showBookmark:(MWMMarkID)bookmarkId;
 + (void)showTrack:(MWMTrackID)trackId;
 + (void)updatePlacePageData;
 + (void)updateAfterDeleteBookmark;
++ (int)currentZoomLevel;
 
 @end
 

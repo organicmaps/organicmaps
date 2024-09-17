@@ -202,10 +202,10 @@ std::string DebugPrint(Distance::Units units)
 {
   switch (units)
   {
-  case Distance::Units::Meters: return "Distance::Units::Meters";
-  case Distance::Units::Kilometers: return "Distance::Units::Kilometers";
-  case Distance::Units::Feet: return "Distance::Units::Feet";
-  case Distance::Units::Miles: return "Distance::Units::Miles";
+  case Distance::Units::Meters: return "m";
+  case Distance::Units::Kilometers: return "km";
+  case Distance::Units::Feet: return "ft";
+  case Distance::Units::Miles: return "mi";
   default: UNREACHABLE();
   }
 }

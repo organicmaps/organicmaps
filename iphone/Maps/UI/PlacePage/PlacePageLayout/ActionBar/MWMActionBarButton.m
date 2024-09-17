@@ -22,8 +22,6 @@ NSString *titleForButton(MWMActionBarButtonType type, BOOL isSelected) {
       return L(@"p2p_from_here");
     case MWMActionBarButtonTypeRouteTo:
       return L(@"p2p_to_here");
-    case MWMActionBarButtonTypeShare:
-      return L(@"share");
     case MWMActionBarButtonTypeMore:
       return L(@"placepage_more_button");
     case MWMActionBarButtonTypeRouteAddStop:
@@ -112,9 +110,6 @@ NSString *titleForButton(MWMActionBarButtonType type, BOOL isSelected) {
       [self.button setImage:[UIImage imageNamed:@"ic_route_to"] forState:UIControlStateNormal];
       if ([self needsToHighlightRouteToButton])
         self.button.coloring = MWMButtonColoringBlue;
-      break;
-    case MWMActionBarButtonTypeShare:
-      [self.button setImage:[UIImage imageNamed:@"ic_menu_share"] forState:UIControlStateNormal];
       break;
     case MWMActionBarButtonTypeMore:
       [self.button setImage:[UIImage imageNamed:@"ic_placepage_more"] forState:UIControlStateNormal];

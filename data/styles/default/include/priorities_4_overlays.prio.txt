@@ -1020,15 +1020,17 @@ sport-scuba_diving                                  # icon z17- (also has captio
 sport-shooting                                      # icon z17- (also has caption(optional) z17-)
 === 1350
 
-sport-multi                                         # icon z17- (also has caption(optional) z17-, area z15-)
-sport-soccer                                        # icon z17- (also has caption(optional) z17-, area z15-)
+sport-multi                                         # icon z17- (also has caption(optional) z17-)
+sport-soccer                                        # icon z17- (also has caption(optional) z17-)
 === 1300
 
 amenity-atm                                         # icon z18- (also has caption(optional) z18-)
+amenity-dojo                                        # icon z17- (also has caption(optional) z18-)
 isoline-step_50                                     # pathtext z16- (also has line z14-)
 landuse-recreation_ground                           # caption z15- (also has area z12-)
 leisure-recreation_ground                           # caption z17-
-leisure-sports_centre                               # icon z17- (also has caption(optional) z17-)
+leisure-sports_centre                               # icon z17- (also has caption(optional) z17-, area z15-)
+leisure-sports_hall                                 # icon z17- (also has caption(optional) z17-)
 === 1250
 
 amenity-compressed_air                              # icon z18- (also has caption(optional) z19-)
@@ -1050,6 +1052,7 @@ amenity-grave_yard                                  # icon z17- (also has captio
 amenity-grave_yard-christian                        # icon z17- (also has caption(optional) z17-, area z14-)
 amenity-nursing_home                                # icon z17- (also has caption(optional) z17-)
 amenity-prison                                      # icon z17- (also has caption(optional) z17-, area z12-)
+amenity-social_facility                             # icon z17- (also has caption(optional) z17-)
 amenity-waste_transfer_station                      # icon z17- (also has caption(optional) z19-)
 historic-ruins                                      # icon z17- (also has caption(optional) z17-)
 landuse-farmland                                    # caption z15- (also has area z10-)
@@ -1079,6 +1082,7 @@ amenity-gambling                                    # icon z17- (also has captio
 amenity-internet_cafe                               # icon z18- (also has caption(optional) z19-)
 amenity-police                                      # icon z17- (also has caption(optional) z17-)
 amenity-stripclub                                   # icon z18- (also has caption(optional) z18-)
+craft                                               # icon z18- (also has caption(optional) z18-)
 craft-beekeeper                                     # icon z17- (also has caption(optional) z18-)
 craft-blacksmith                                    # icon z17- (also has caption(optional) z18-)
 craft-carpenter                                     # icon z17- (also has caption(optional) z18-)
@@ -1156,6 +1160,7 @@ amenity-motorcycle_parking                          # icon z17- (also has captio
 amenity-parking-permissive                          # icon z16- (also has caption(optional) z18-, area z15-)
 amenity-parking_entrance                            # icon z17- (also has caption(optional) z19-)
 amenity-parking_entrance-permissive                 # icon z17- (also has caption(optional) z19-)
+emergency-emergency_ward_entrance                   # icon z18- (also has caption(optional) z18-)
 === 250
 
 building                                            # caption z16- (also has area z14-)
@@ -1927,12 +1932,14 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # sport-shooting                                    # caption(optional) z17- (also has icon z17-)
 # === -8650
 
-# sport-multi                                       # caption(optional) z17- (also has icon z17-, area z15-)
-# sport-soccer                                      # caption(optional) z17- (also has icon z17-, area z15-)
+# sport-multi                                       # caption(optional) z17- (also has icon z17-)
+# sport-soccer                                      # caption(optional) z17- (also has icon z17-)
 # === -8700
 
 # amenity-atm                                       # caption(optional) z18- (also has icon z18-)
-# leisure-sports_centre                             # caption(optional) z17- (also has icon z17-)
+# amenity-dojo                                      # caption(optional) z18- (also has icon z17-)
+# leisure-sports_centre                             # caption(optional) z17- (also has icon z17-, area z15-)
+# leisure-sports_hall                               # caption(optional) z17- (also has icon z17-)
 # === -8750
 
 # amenity-compressed_air                            # caption(optional) z19- (also has icon z18-)
@@ -1949,6 +1956,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # amenity-grave_yard-christian                      # caption(optional) z17- (also has icon z17-, area z14-)
 # amenity-nursing_home                              # caption(optional) z17- (also has icon z17-)
 # amenity-prison                                    # caption(optional) z17- (also has icon z17-, area z12-)
+# amenity-social_facility                           # caption(optional) z17- (also has icon z17-)
 # amenity-waste_transfer_station                    # caption(optional) z19- (also has icon z17-)
 # historic-ruins                                    # caption(optional) z17- (also has icon z17-)
 # leisure-ice_rink                                  # caption(optional) z17- (also has icon z17-)
@@ -1966,6 +1974,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # amenity-internet_cafe                             # caption(optional) z19- (also has icon z18-)
 # amenity-police                                    # caption(optional) z17- (also has icon z17-)
 # amenity-stripclub                                 # caption(optional) z18- (also has icon z18-)
+# craft                                             # caption(optional) z18- (also has icon z18-)
 # craft-beekeeper                                   # caption(optional) z18- (also has icon z17-)
 # craft-blacksmith                                  # caption(optional) z18- (also has icon z17-)
 # craft-carpenter                                   # caption(optional) z18- (also has icon z17-)
@@ -2040,6 +2049,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # amenity-parking-permissive                        # caption(optional) z18- (also has icon z16-, area z15-)
 # amenity-parking_entrance                          # caption(optional) z19- (also has icon z17-)
 # amenity-parking_entrance-permissive               # caption(optional) z19- (also has icon z17-)
+# emergency-emergency_ward_entrance                 # caption(optional) z18- (also has icon z18-)
 # === -9750
 
 # power-plant-wind                                  # caption(optional) z16- (also has icon z15-)

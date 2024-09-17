@@ -78,6 +78,7 @@ ru:Где поесть|Поесть|Еда|кушать|покушать
 be:Дзе паесці|паесці|ежа
 bg:Места за хапване|ядене|храна
 ar:طعام|أمكان لتناول الطعام
+ca:On menjar|Menjar
 cs:Kde se najíst|Jídlo
 da:Spisesteder|Mad
 nl:Waar iets gaan eten|Eten
@@ -161,6 +162,7 @@ ru:5Транспорт
 be:5Транспарт
 bg:5Транспорт
 ar:مواصلات|مواصلات
+ca:Transport
 cs:Doprava
 da:5Transport
 nl:5Transport
@@ -188,12 +190,11 @@ tr:4Ulaşım
 uk:5Транспорт
 vi:Giao thông
 zh-Hans:交通
-zh-Hant:運輸
+zh-Hant:交通
 el:Συγκοινωνία
 he:תחבורה
 sk:Doprava
 fa:حمل و مواصلات
-ca:Transport
 
 # First keyword should match [category_fuel] definition in strings.txt!
 @category_fuel
@@ -202,6 +203,7 @@ ru:3бензин|3дизель|4топливо|газ
 be:3бензін|3дызель|4паліва|газ
 bg:Гориво|Бензиностанция
 ar:1وقود|بنزين|سولار|ديزل|وقود الحافلات
+ca:Benzinera
 cs:2Čerpací stanice|Benzinová pumpa|benzinka
 da:Brændstof|Benzin
 nl:3Benzine
@@ -228,14 +230,14 @@ th:ก๊าซ
 tr:3Benzinlik|3Yakıt|3Akaryakıt|2Dizel|2Gaz
 uk:3бензин|3дызель|4паліва|газ
 vi:Khí đốt
-zh-Hans:汽油
+zh-Hans:加油站
 zh-Hant:加油站
 el:Υγρά Καύσιμα
 he:גז
 sk:3Čerpacia stanica
 sw:Sheli
 fa:سوخت|بنزین|دیزل|گازوئیل
-ca:Benzinera
+
 
 # First keyword should match [category_parking] definition in strings.txt!
 @category_parking
@@ -244,6 +246,7 @@ ru:4Парковка
 be:4Паркоўка
 bg:4Паркинг
 ar:موقف سيارات|مرافق ركن السيارات
+ca:Aparcament
 cs:4Parkoviště
 da:4Parkering
 nl:4Parkeerplaats
@@ -276,7 +279,7 @@ el:Χώρος στάθμευσης
 he:חניה
 sk:4Parkovisko
 fa:پارکینگ
-ca:Aparcament
+
 
 # First keyword should match [category_shopping] definition in strings.txt!
 @category_shopping
@@ -285,6 +288,7 @@ ru:3Шоппинг|4Покупки
 ar:تسوق
 be:3Шопінг|4Закупы
 bg:3Шопинг
+ca:Compres
 cs:Nákupy
 da:Indkøb
 de:4Shopping
@@ -318,7 +322,7 @@ uk:3Шопінг
 vi:Đi mua sắm
 zh-Hans:购物
 zh-Hant:購物
-ca:Compres
+
 
 # First keyword should match [category_hotel] definition in strings.txt!
 @category_hotel
@@ -327,6 +331,7 @@ ru:4Гостиница|отель|отели
 be:4Гатэль|гатэлі
 bg:Хотел|хотели
 ar:فندق|الفنادق
+ca:Hotel|Hotels
 cs:Hotel|Hotely
 da:Hotel|Hoteller
 nl:Hotel|Hotels
@@ -353,13 +358,13 @@ th:โรงแรม
 tr:Otel|Oteller
 uk:4Готель|готелі
 vi:Khách sạn
-zh-Hans:旅店|酒店|賓館
-zh-Hant:飯店|酒店|宾馆
+zh-Hans:酒店|旅店|賓館
+zh-Hant:旅馆|飯店|酒店|宾馆
 el:4Ξενοδοχείο|Διαμονή|Ξενοδοχεία
 he:מלון|בתי
 sk:Hotel|Hotely
 fa:هتل|هتل ها
-ca:Hotel|Hotels
+
 
 # First keyword should match [category_tourism] definition in strings.txt!
 @category_tourism
@@ -368,6 +373,7 @@ ru:4Достопримечательности|3Туризм
 be:4Славутасці|4турызм
 bg:5Забележителности|4Туризъм
 ar:سياحة
+ca:Turisme
 cs:Pamětihodnost
 da:5Seværdigheder|4Turisme|3sightseeing
 nl:5Bezienswaardigheden|4Toerisme
@@ -400,7 +406,7 @@ el:4Αξιοθέατα
 he:נקודות עיניין
 sk:Pamätihodnosť
 fa:منظره|گردشگری
-ca:Turisme
+
 
 # First keyword should match [category_entertainment] definition in strings.txt!
 @category_entertainment
@@ -409,6 +415,7 @@ ru:Развлечения
 be:Забавы
 bg:Развлечение
 ar:ترفيه وتسلية|تسلية
+ca:Entreteniment
 cs:Zábava
 da:Underholdning
 nl:Uitgaan
@@ -441,7 +448,7 @@ el:Ψυχαγωγία
 he:בידור
 sk:Zábava
 fa:سرگرمی
-ca:Entreteniment
+
 
 # First keyword should match [category_nightlife] definition in strings.txt!
 @category_nightlife
@@ -450,6 +457,7 @@ ru:Ночная жизнь|С друзьями|Вечер с друзьями|п
 be:Начное жыццё|патусіць
 bg:Нощен живот|С приятели
 ar:أنشطة ترفيه ليلية
+ca:Vida nocturna
 cs:Noční život
 da:Natteliv
 nl:Nachtleven
@@ -482,7 +490,7 @@ el:Νυχτερινή Ζωή
 sk:Nočný život
 sw:Shughuli za usiku
 fa:تفریحات شبانه
-ca:Vida nocturna
+
 
 # First keyword should match [category_children] definition in strings.txt!
 @category_children
@@ -491,6 +499,7 @@ ru:Отдых с детьми
 be:Сямейны адпачынак
 bg:Семейна почивка
 ar:عطلة عائلية
+ca:Vacances familiars
 cs:Dovolená s dětmi
 da:Familieferie
 nl:Gezinsvakantie
@@ -523,7 +532,7 @@ el:Οικογενειακές Διακοπές
 sk:Rodinná dovolenka
 sw:Mapumziko ya familia
 fa:تعطیلات خانوادگی
-ca:Vacances familiars
+
 
 # First keyword should match [category_atm] definition in strings.txt!
 @category_atm
@@ -532,6 +541,7 @@ ru:3Банкомат
 be:3Банкамат
 bg:3Банкомат
 ar:ماكينة صرافة آلية|صراف|صراف آلي|صراف آلي
+ca:Caixer automàtic
 cs:3Bankomat
 da:3Hæveautomat
 nl:3Geldautomaat
@@ -559,13 +569,13 @@ tr:3Bankamatik
 uk:3Банкомат
 vi:ATM
 zh-Hans:自动取款机
-zh-Hant:1自動櫃員機
+zh-Hant:1自動提款機
 el:ATM
 he:כספומט
 sk:3Bankomat
 sw:Benki|fedha
 fa:خود پرداز
-ca:Caixer automàtic
+
 
 # First keyword should match [category_rv] definition in strings.txt!
 @category_rv
@@ -573,7 +583,7 @@ en:2RV Facilities|4Caravan|Vanlife|5Campervan|5Motorhome
 ar:منشآت للمنازل المتنقلة
 be:Для аўтадамоў|5Аўтадом|5Трэйлер|5Караван|Дом на колах
 bg:За RV
-ca:Caravanes
+ca:Caravanes|Autocaravana
 cs:Pro RV
 da:Til RV
 de:Einrichtungen für Wohnmobile|4Wohnmobile
@@ -604,15 +614,15 @@ th:สำหรับ RV
 tr:4Karavan Tesisleri
 uk:Для автобудинків|5Автодім|5Автобудинок|5Трейлер|5Караван|Будинок на колесах
 vi:Đối với RV
-zh-Hans:房车用
-zh-Hant:房車用
-ca:Autocaravana
+zh-Hans:房车设施
+zh-Hant:露營車設施
 
 amenity-atm|@category_atm
 en:money|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 ru:деньги
 bg:пари
 ar:ماكينة صراف آلي|الأموال|فلوس|صرافة آلية|نقود
+ca:diners
 cs:spořitelna|peníze
 da:penge
 nl:geld
@@ -643,7 +653,7 @@ zh-Hant:1atm|理財|錢|金錢
 el:χρήματα
 sk:sporiteľna|peniaze
 fa:دستگاه خودپرداز
-ca:diners
+
 
 # First keyword should match [category_bank] definition in strings.txt!
 @category_bank
@@ -652,6 +662,7 @@ ru:3Банк
 be:3Банк
 bg:3Банка
 ar:بنك
+ca:Banc
 cs:3Banka
 da:3Bank
 nl:3Bank
@@ -684,7 +695,7 @@ he:בנק
 sk:3Banka
 sw:Benki|fedha
 fa:بانک
-ca:Banc
+
 
 # First keyword should match [category_secondhand] definition in strings.txt!
 @category_secondhand
@@ -725,13 +736,14 @@ tr:İkinci el
 uk:Секонд-хенд
 vi:Đồ cũ
 zh-Hans:二手货
-zh-Hant:二手
+zh-Hant:二手貨
 
 amenity-bank|@category_bank
 en:money|U+1F3E6|U+1F4B0|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 ru:деньги
 bg:пари
 ar:بنك|الأموال|فلوس|نقود|مال
+ca:diners
 cs:peníze
 da:3penge
 nl:geld
@@ -761,7 +773,7 @@ zh-Hant:錢
 el:χρήματα
 sk:peniaze
 fa:بانک
-ca:diners
+
 
 # First keyword should match [category_recycling] definition in strings.txt!
 @category_recycling
@@ -770,6 +782,7 @@ ru:Переработка|5Переработка отходов|Утилиза�
 be:Перапрацоўка|5Перапрацоўка адходаў|Утылізацыя адходаў|5Прыём другаснай сыравіны|5Здаць другсыравіну|Паасобны збор смецця|Сартаванне смецця|Паўторнае выкарыстанне|Утыль
 bg:Рециклиране|Преизползване|Разделно събиране|Сепаратор
 ar:إعادة تدوير|استغلال المخلفات|المواد القابلة لإعادة التدوير|جمع القمامة بشكل منفصل|فرز النفايات|إعادة الاستخدام
+ca:Reciclatge|Reciclatge de residus|Eliminació de residus|Materials reciclables|Recollida selectiva d’escombraries|Classificació de residus|Reutilització
 cs:Recyklace|Využití odpadu|Recyklovatelné|Oddělený sběr odpadků|Třídění odpadu|Opětovné použití
 da:Genbrug|Affaldsudnyttelse|Genanvendelig|Separate dagrenovationer|Affaldssortering
 nl:Recycling|Afvalgebruik|Recyclebaar materiaal|Gescheiden afvalinzameling|Afval sorteren|Hergebruik
@@ -801,13 +814,14 @@ sk:Recyklácia|Využitie odpadu|Recyklovateľné|Separovaný zber odpadu|Trieden
 zh-Hans:回收|废物利用|可回收物|垃圾分类收集|垃圾分类|再利用
 zh-Hant:回收|廢物利用|可回收物|垃圾分類收集|垃圾分類|再利用
 fa:بازیافت|مدیریت پسماند|مواد بازیافتنی|جمعآوری جداگانۀ زبالهها |تفکیک پسماند|بازمصرف
-ca:Reciclatge|Reciclatge de residus|Eliminació de residus|Materials reciclables|Recollida selectiva d’escombraries|Classificació de residus|Reutilització
+
 
 amenity-bureau_de_change
 en:3Currency Exchange|3exchange|money|U+1F4B1|U+1F4B2|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 ru:3Обмен валюты|обмен валют|обменник|4валюта|деньги
 bg:Чейндж бюро|пари|обмяна|валути
 ar:تحويل عملات|تغيير عملات|الصرف|الأموال|صرف عملات|صرف
+ca:Canvi de divises|diners
 cs:3Směnárna|peníze
 da:3Vekselbureau|3penge
 nl:3Wisselkantoor|3geld wisselen|wisselen|geld
@@ -838,13 +852,14 @@ zh-Hant:1匯率|理財|外幣|兌換|貨幣|換錢
 el:Συνάλλαγμα|ανταλλακτήριο|χρήματα
 sk:3Zmenáreň|peniaze
 fa:صرافی
-ca:Canvi de divises|diners
+
 
 amenity-bar|amenity-pub|@category_eat|@category_nightlife
 en:2Bar|2pub|beer|drink|U+1F37A|U+1F37B|U+1F376|tavern|bars and pubs|brew pub|cocktail lounge
 ru:2Бар|2паб|пиво|выпить|пивной ресторан|пивбар|крафт|коктейль бар|пивная|коктейли|алкоголь|алкогольные напитки
 bg:2Бар|кръчма|бира|питие|напитка|таверна|коктейл|пиво|алкохол
 ar:بار|حانة|خمارة|بيرة|شراب
+ca:Bar
 cs:2Bar|hospoda|pivo|pití|tekutiny
 da:2Bar|værtshus|kro|øl|pub|drink
 nl:2Bar|2pub|kroeg|bier|drinken
@@ -877,13 +892,14 @@ el:Μπαρ|Παμπ|μπύρα|ποτό|φαγητό
 sk:2Bar|pohostinstvo|pivo|pitie|tekutiny
 sw:Baa|vinywaji
 fa:میکده|کاباره
-ca:Bar
+
 
 amenity-cafe|@category_eat
 en:3Cafe|3restaurant|U+2615|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B|U+1F375|coffee|cafeteria
 ru:3Кафе|3ресторан|кофейня|кофе
 bg:3Кафе|3ресторант|кафене
 ar:مقهى|مطعم|طعام|قهوة|كافتيريا
+ca:Cafè|Cafeteria
 cs:3Kavárna|restaurace|hospoda
 da:3Café|restaurant
 nl:3Tearoom|3brasserie|3café|3restaurant
@@ -916,13 +932,14 @@ el:Καφετέρια|εστιατόριο|φαγητό
 sk:3Kaviareň|reštaurácia|pohostinstvo
 sw:Mgahawa|hoteli|chakula
 fa:کافه|قهوه فروشی|قهوه خانه
-ca:Cafè|Cafeteria
+
 
 amenity-fast_food|@category_eat
 en:4Fast Food|3restaurant|3cafe|takeaway|U+1F354|U+1F355|U+1F35F|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|food to go|junk food
 ru:3Фастфуд|3ресторан|3кафе|закусочная|быстрое питание|снеки|перекусить|экспресс-питание
 bg:Бързо хранене|Фастфууд|кафе|храна|за вкъщи|ресторант|закусвалня
 ar:وجبات سريعة|مطعم|مقهى|وجبة جاهزة|طعام
+ca:Menjar ràpid
 cs:2Rychlé občerstvení|4fastfood|kavárna|restaurace
 da:4Fastfood|restaurant|café|takeaway
 nl:4Fast food|3frituur|fritkot|3restaurant|afhaaleten
@@ -954,13 +971,14 @@ zh-Hant:1速食店|麥當勞|肯德雞|漢堡王|頂呱呱|薯條|速食|用餐|
 el:Ταχυφαγίο|καφετέρια|φαγητό για το σπίτι|φαγητό
 sk:2Rýchle občerstvenie|4fastfood|3kaviareň|reštaurácia
 fa:فست فود|غذای حاضری
-ca:Menjar ràpid
+
 
 amenity-restaurant|@category_eat
 en:3Restaurant|3cafe|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B
 ru:3Ресторан|3кафе
 bg:3ресторант|3кафе
 ar:2مطعم|مقهى|طعام
+ca:Restaurant
 cs:3Restaurace|hospoda|kavárna
 da:3Restaurant|café
 nl:3Restaurant|3café
@@ -993,7 +1011,7 @@ el:Εστιατόριο|καφετέρια|φαγητό
 sk:3Reštaurácia|pohostinstvo|kaviareň
 sw:Hoteli|restorenti|mgahawa|chakula
 fa:رستوران
-ca:Restaurant
+
 
 amenity-fuel|@category_fuel
 en:Gas Station|Petrol Station|3Filling Station|U+26FD
@@ -1080,6 +1098,7 @@ ru:3Булочная|3пекарня|Торт|3Торты|Пирожные
 be:3Булачная|3Пякарня|Торт|3Тарты
 bg:3Пекарна
 ar:مخبز|متجر
+ca:Fleca
 cs:3Pekárna|Pekařství
 da:3Bager|bageri
 nl:3Bakkerij|Bakker|Gebak|Taart|3Taarten
@@ -1126,6 +1145,7 @@ ru:4Косметика
 be:4Касметыка
 bg:4Козметика
 ar:مستحضرات تجميل|تجميل
+ca:Cosmetics
 cs:4Kosmetika
 da:4Kosmetik
 fi:4Kosmetiikka|kauneudenhoito
@@ -1238,6 +1258,7 @@ zh-Hant:熟食店
 
 shop-farm|@category_food|@shop
 en:Farm food
+ca:Granja|Agrobotiga
 de:4Hofladen|4Bauernhofladen
 et:Talutoit
 fr:4Produits fermiers|ferme
@@ -1654,6 +1675,7 @@ ru:3Хозяйственный|Строительный|Стройтовары|�
 ar:متجر عدد وأدوات|أدوات|عدة|متجر
 be:Гаспадарчы|Будаўнічы
 bg:НСС|строителни материали
+ca:Ferreteria
 cs:Železářství
 da:Isenkræmmer|Byggemarked
 fi:Rautakauppa|Työkalukauppa
@@ -1733,6 +1755,7 @@ en-US:4Jewelry
 ru:4Ювелирный|бижутерия
 bg:4Бижутерия|скъпоценни камъни
 ar:مجوهرات
+ca:Joieria
 cs:Klenotnictví
 da:Smykkebutik|smykker|4juveler
 fi:Korukauppa
@@ -2269,6 +2292,7 @@ en:3Marketplace|market
 ru:3Рынок|базар
 bg:3Пазар
 ar:سوق|السوق|متجر
+ca:Mercat
 cs:4Tržiště|samoobsluha|market
 da:3Markedsplads|marked
 nl:3Markt
@@ -2344,6 +2368,7 @@ en:3Clothes|U+1F45A|U+1F457|U+1F456|U+1F455|clothing|wear
 ru:3Одежда|одежды
 bg:3Дрехи|магазин за дрехи
 ar:متجر ملابس|ملابس|متجر
+ca:Botiga de roba|Roba
 cs:Oblečení
 da:Tøjbutik|tøjforretning|tøj
 nl:Kledingwinkel|4kleding
@@ -2380,6 +2405,7 @@ fa:لباس فروشی|بوتیک
 shop-caravan|@category_rv|@shop
 en:2RV dealership|4Caravan dealership|Motorhome dealership
 be:Аўтадом|Продаж аўтадамоў
+ca:Venda de caravanas|Venda de autocaravanas|Venda de motorhomes
 de:5Wohnmobilhändler|5Wohnwagenhändler
 es:Venta de caravanas|Venta de autocaravanas|Venta de motorhomes
 et:Haagiselamute müük
@@ -2397,6 +2423,7 @@ be:4Аўтасалон|Машыны
 ru:4Автосалон|Машины
 bg:Майстор|автомонтьор|автосалон
 ar:متجر سيارات|متجر
+ca:Venda de cotxes|Concesionari
 cs:Obchod s auty
 da:Bilforhandler
 nl:Autohandelaar
@@ -2436,6 +2463,7 @@ ru:4Веломагазин|велосипеды
 ar:متجر دراجات|متجر
 be:Веламагазін|Веласіпеды
 bg:4Веломагазин|велосипед|колело
+ca:Botiga de bicicletes|4bicicleta|bici
 cs:3Cyklistický obchod|jízdní kolo|3kolo
 da:3Cykelforretning|cykelhandler|cykler
 fi:3Polkupyöräliike
@@ -2475,6 +2503,7 @@ ru:3Киоск
 ar:كشك|متجر
 be:Кіеск|Шапік
 bg:3Киоск
+ca:Quiosc
 cs:3Kiosk
 da:3Kiosk|pølsevogn
 nl:3Kiosk
@@ -2510,6 +2539,7 @@ en:2Bus Stop|bus|stop|U+1F68C|U+1F68F|U+1F68E|U+1F690
 ru:4Остановка|5автобус|4троллейбус
 bg:4автобусна спирка|4спирка|тролейбус
 ar:موقف حافلة|باص|حافلة|مواصلات|مواصلات
+ca:Parada d'autobús|Parada
 cs:4Autobusová zastávka|autobus|2bus|4zastávka|stanice
 da:3Busstoppested|bus
 nl:3Bushalte|bus|halte
@@ -2548,6 +2578,7 @@ en:3Tram Stop|tram|stop|U+1F683
 ru:4Остановка|4трамвай
 bg:4трамвайна спирка|4спирка
 ar:موقف ترام|مواصلات|مواصلات
+ca:Parada de tramvia|Parada
 cs:4Tramvajová zastávka|tramvaj|4zastávka|stanice
 da:3Sporvogn|station
 nl:3Tramhalte
@@ -4845,6 +4876,7 @@ en:4College|U+1F3EB
 ru:4Колледж
 bg:4Колеж
 ar:كلية
+ca:Col·legi
 cs:Vysoká škola
 da:Universitet|4college|gymnasium
 nl:Hogeschool|hoger beroepsonderwijs|hbo
@@ -5781,7 +5813,7 @@ sv:apotekare
 th:เภสัชกร
 uk:3ліки
 zh-Hans:药店|药剂师
-zh-Hant:成藥
+zh-Hant:藥局
 el:φαρμακείο|φαρμακοποιός|χορήγηση φαρμάκων
 fa:داروخانه
 
@@ -5817,7 +5849,7 @@ th:3ไปรษณีย์
 tr:3Posta
 uk:3Пошта
 vi:Bưu điện
-zh-Hans:1邮政
+zh-Hans:1邮局
 zh-Hant:1郵局
 el:Ταχυδρομείο
 he:דואר
@@ -5971,7 +6003,7 @@ fa:زباله دانی
 mr:कचरापेटी
 
 amenity-recycling-centre|@category_recycling
-en:4Recycling Centre|U+1F6AE|U+267B
+en:4Recycling Centre|Tip|Dump|U+1F6AE|U+267B
 en-US:4Recycling Center|U+1F6AE|U+267B
 be:5Пункт прыёму другаснай сыравіны
 ru:5Пункт приёма вторсырья
@@ -6455,6 +6487,7 @@ ru:4Укрытие|навес|4убежище
 be:4Прытулак
 bg:4Подслон|Убежище|4заслон
 ar:ملجأ
+ca:Refugi
 cs:Přístřešek|úkryt
 da:Shelter|læskur|hytte
 nl:Beschutting
@@ -6534,6 +6567,7 @@ en:3Lean-to Shelter|4Shelter|Refuge
 be:Бівальны навес
 bg:Подслон за бивак
 ar:ملجأ
+ca:Refugi
 cs:Přístřešek|úkryt
 da:Shelter|læskur|hytte
 nl:Beschutting
@@ -6614,6 +6648,7 @@ en:2Phone|U+260E|U+1F4DE|5Telephone
 ru:3Телефон|4таксофон
 bg:3Телефон|мобифон|обаждане
 ar:هاتف
+ca:Telèfon
 cs:2Telefon|telefonní budka|telefonní automat
 da:2Telefon
 nl:2Telefoon|publieke telefoon
@@ -7569,6 +7604,7 @@ en:Park|U+1F332|U+1F333|U+1F60C
 ru:Парк
 bg:Парк|отдих
 ar:حديقة
+ca:Parc
 cs:Park
 da:Park
 nl:Park
@@ -9398,6 +9434,7 @@ ru:3Питьевая вода
 be:3Пітная вада
 bg:3Питейна вода
 ar:مياه شرب
+ca:3Aigua potable|Font d'aigua potable
 cs:4Pitná voda
 da:4Drikkevand
 nl:4Drinkwater
@@ -9476,6 +9513,7 @@ ru:4Родник|ключ|источник
 be:4Крыніца
 bg:Извор
 ar:ينبوع
+ca:Manantial
 cs:Pramen
 da:Kilde|kildevæld
 nl:Bron
@@ -9515,6 +9553,7 @@ ru:4Колодец|скважина
 be:4Калодзеж|студня
 bg:5Кладенец
 ar:بئر ماء
+ca:Pou
 cs:Studna
 da:Brønd
 nl:Waterbron
@@ -10366,6 +10405,7 @@ en:4Carpenter
 ar:نجار
 be:Цясляр
 bg:4Дърводелство|дървар|
+ca:Fuster
 cs:Truhlář
 da:Tømrer
 de:4Zimmermann
@@ -10677,6 +10717,7 @@ en:5Metal Worker
 ar:عامل معادن
 be:5Металаканструкцыі
 bg:5Метални конструкции|металургия|ковач|метал|занаят
+ca:Ferrer
 cs:Kovodílna
 da:5Metalarbejder
 de:4Schlosser
@@ -10796,6 +10837,7 @@ en:House Painter|painter|decorator
 ar:رسام
 be:Мастак
 bg:Бояджия
+ca:Pintor
 cs:Malíř
 da:Maler
 de:Maler
@@ -10834,6 +10876,7 @@ en:4Photographer|photography Studio
 ar:مصور فوتوغرافي|استوديو تصوير
 be:Фатограф
 bg:4фотограф|албум|снимка|студио
+ca:Fotògraf
 cs:4Fotograf|fotografické studio
 da:4Fotograf|studio
 de:4Fotograf|Fotostudio
@@ -11333,6 +11376,7 @@ mr:दीपगृह
 man_made-survey_point
 en:4Survey Point|survey marker|survey benchmark|4geodetic mark|geodetic vertex|4triangulation station|4trigonometrical point|trig point|trig pillar|4trig station|trig beacon|trig
 be:4Геадэзічны пункт
+ca:Punt geodèsic
 de:4Vermessungspunkt
 el:4Γεωδαιτικό σημείο
 et:4Vaatluspunkt|geodeetiline punkt|4trigonomeetriline punkt|triangulatsioonipunkt|trigopunkt|4triangulaator
@@ -11429,6 +11473,7 @@ en:4Copyshop|copy shop|4printing|4photocopy
 ru:4Копировальный центр|4печать|полиграфия|ксерокс|принтер|копир
 bg:4Копирен център|4печат|полиграфия|принтер
 ar:محل نسخ|طباعة
+ca:Copisteria
 cs:4Kopírovací obchod|4Tiskárny
 da:4Kopieringsbutik|4Trykkeri
 nl:4Copy shop|Kopieerwinkel|printer|4drukker
@@ -12641,6 +12686,7 @@ mr:वर्तमानपत्र विक्रीयंत्र
 amenity-vending_machine-sweets
 en:4Sweets Dispenser|Sweets|4Candies|Lollies
 be:Аўтамат з прысмакамі|4прысмакі|4цукеркі
+ca:Màquina expenedora de dolços
 de:Süßigkeitenautomat|Süßwaren|Süßigkeiten
 es:Máquina expendedora de dulces|Dulces|Chuches|Chucherías
 et:4Maiustuste automaat|Maiustused|4Kommid|Pulgakommid
@@ -12733,6 +12779,7 @@ en:Garage
 ru:Гараж
 bg:Гараж
 ar:جراج
+ca:Garatge
 cs:Garáž
 da:Garage
 nl:Garage
@@ -12804,6 +12851,7 @@ zh-Hant:休息區
 highway-services
 en:4Service Area|service station
 be:4Зона абслугоўвання
+ca:Àrea de servei
 de:Raststätte
 es:Área de servicio
 et:Teenindusala
@@ -13123,6 +13171,7 @@ en:3Car Parts|4Auto Parts
 ru:Автомобильные запчасти|4Автозапчасти|4запчасти
 bg:Автомобил|части|4авточасти
 ar:ﺓﺭﺎﻴﺴﻟﺍ ءﺍﺰﺟﺃ
+ca:Peçes de cotxe
 cs:Autodíly
 da:Bildele
 nl:Auto onderdelen
@@ -15981,6 +16030,7 @@ ar:محل مكملات غذائية
 be:Харчовыя дабаўкі
 bg:Хранителни добавки
 cs:Doplňky výživy
+ca:Suplements nutricionals
 da:Kosttilskud
 de:Nahrungsergänzungsmittel
 el:Συμπληρώματα Διατροφής
@@ -16019,6 +16069,7 @@ en:Paints
 ar:ﺕﺎﻧﺎﻫﺪﻟﺍ
 be:Фарбы
 bg:Бои
+ca:Pintures
 cs:Barvy
 da:Maling
 de:Farben
@@ -16058,6 +16109,7 @@ en:Perfumery
 ar:العطور
 be:Парфум|Парфумерыя
 bg:Парфюмерия
+ca:Perfumería
 cs:Parfumerie
 da:Parfumeri
 de:4Parfümerie
@@ -16097,6 +16149,7 @@ en:3Sewing Supplies|4Haberdashery
 ar:معدات الخياطة
 be:Швейныя прыналежнасці
 bg:Шивашки консумативи
+ca:Material de costura|Mercería
 cs:Šicí potřeby
 da:Syudstyr
 de:Nähzubehör
@@ -16175,6 +16228,7 @@ en:Tobacco
 ar:تبغ
 be:Тытунь
 bg:Тютюн
+ca:Tabac
 cs:Tabák
 da:Tobak
 de:5Tabakwarengeschäft|Tabak|4Trafik
@@ -16253,6 +16307,7 @@ en:Watches
 ar:ساعات
 be:Гадзіннік
 bg:Часовници
+ca:Rellotger|Rellotgeria
 cs:Hodinky
 da:Ure
 de:Uhrengeschäft|Uhren
@@ -16292,6 +16347,7 @@ en:Wholesale
 ar:متجر مواد بالجملة
 be:Аптовая
 bg:Магазин на едро
+ca:Magatzem de roba al per major
 cs:Velkoobchodní prodejna
 da:Engros butik
 de:5Großhandelsgeschäft
@@ -16328,6 +16384,7 @@ zh-Hant:批髮店
 
 leisure-track
 en:Track
+ca:Pista esportiva
 de:Laufbahn
 es:Pista deportiva
 et:Jooksurada
@@ -16515,3 +16572,85 @@ uk:Інвалідний візок|5Інвалід
 vi:Xe lăn
 zh-Hans:轮椅
 zh-Hant:輪椅
+
+amenity-social_facility
+en:Social Facility
+ar:المرفق الاجتماعي
+be:Сацыяльная ўстанова
+bg:Социално съоръжение
+ca:Equipament Social
+cs:Sociální zařízení
+da:Social facilitet
+de:Soziale Einrichtung
+el:Κοινωνική διευκόλυνση
+es:Servicio social
+et:Sotsiaalne rajatis
+eu:Gizarte-ekipamendua
+fa:تسهیلات اجتماعی
+fi:Sosiaalinen väline
+fr:Établissement de services sociaux
+he:מתקן חברתי
+hi:सामाजिक सुविधा
+hu:Szociális létesítmény
+id:Fasilitas Sosial
+it:Struttura sociale
+ja:社会施設
+ko:사회 시설
+mr:सामाजिक सुविधा
+nb:Sosialt anlegg
+nl:Sociale voorziening
+pl:Obiekt socjalny
+pt:Instituição de serviços sociais
+pt-BR:Unidade de assistência social
+ro:Facilitate socială
+ru:Социальное учреждение
+sk:Sociálne zariadenie
+sv:Social anläggning
+sw:Kituo cha Kijamii
+th:สิ่งอำนวยความสะดวกทางสังคม
+tr:Sosyal Tesis
+uk:Соціальна установа
+vi:Cơ sở xã hội
+zh-Hans:社会设施
+zh-Hant:社會設施
+
+leisure-sports_hall
+en:Sports hall
+ar:الصالة الرياضية
+be:Спартыўная зала
+bg:Спортна зала
+ca:Pavelló esportiu
+cs:Sportovní hala
+da:Sportshal
+de:Sporthalle
+el:Αθλητική αίθουσα
+es:Pabellón deportivo
+et:Spordisaal
+eu:Kiroldegia
+fa:سالن ورزشی
+fi:Urheiluhalli
+fr:Salle de sport
+he:אולם ספורט
+hi:खेल हॉल
+hu:Sportcsarnok
+id:Ruang olahraga
+it:Palazzetto dello sport
+ja:スポーツホール
+ko:스포츠 홀
+mr:क्रीडा हॉल
+nb:Idrettshall
+nl:Sporthal
+pl:Hala sportowa
+pt:Pavilhão desportivo
+pt-BR:Salão de esportes
+ro:Sală de sport
+ru:Спортивный зал
+sk:Športová hala
+sv:Idrottshall
+sw:Ukumbi wa michezo
+th:ห้องกีฬา
+tr:Spor salonu
+uk:Спортивний зал
+vi:Nhà thi đấu thể thao
+zh-Hans:体育馆
+zh-Hant:體育館

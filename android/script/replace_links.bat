@@ -40,7 +40,7 @@ cp -r ../data/resources-6plus_light/ assets/
 cp -r ../data/sound-strings/ assets/
 cp -r ../data/countries-strings/ assets/
 
-cp -r ../data/icudt73l.dat assets/
+cp -r ../data/icudt75l.dat assets/
 
 
 rm -rf flavors/mwm-ttf-assets

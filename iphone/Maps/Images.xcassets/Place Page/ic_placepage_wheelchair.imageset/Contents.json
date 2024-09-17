@@ -1,17 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "ic_wheelchair_white.svg",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "ic_placepage_wheelchair.svg",
+      "idiom" : "universal"
     }
   ],
   "info" : {

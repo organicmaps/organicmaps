@@ -65,7 +65,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private static final String TRACK_MENU_ID = "TRACK_MENU_BOTTOM_SHEET";
   private static final String OPTIONS_MENU_ID = "OPTIONS_MENU_BOTTOM_SHEET";
 
-  private ActivityResultLauncher<Intent> shareLauncher;
+  private ActivityResultLauncher<SharingUtils.SharingIntent> shareLauncher;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -600,11 +600,11 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     }
   }
 
-  private boolean onTrackMenuItemClicked(long trackId)
+  private void onDeleteTrackSelected(long trackId)
   {
     BookmarkManager.INSTANCE.deleteTrack(trackId);
-    getAdapter().notifyDataSetChanged();
-    return false;
+    getBookmarkListAdapter().onDelete(mSelectedPosition);
+    getBookmarkListAdapter().notifyDataSetChanged();
   }
 
   @Override
@@ -735,7 +735,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private ArrayList<MenuBottomSheetItem> getTrackMenuItems(final Track track)
   {
     ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
-    items.add(new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete, () -> onTrackMenuItemClicked(track.getTrackId())));
+    items.add(new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete, () -> onDeleteTrackSelected(track.getTrackId())));
     return items;
   }
 

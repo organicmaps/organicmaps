@@ -174,6 +174,18 @@ struct Notification
   }
 
   Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
+               PedestrianDirection turnDirPedestrian, measurement_utils::Units lengthUnits
+    , RouteSegment::RoadNameInfo const & nextStreetInfo)
+    : m_distanceUnits(distanceUnits)
+    , m_exitNum(exitNum)
+    , m_useThenInsteadOfDistance(useThenInsteadOfDistance)
+    , m_turnDirPedestrian(turnDirPedestrian)
+    , m_lengthUnits(lengthUnits)
+    , m_nextStreetInfo(nextStreetInfo)
+  {
+  }
+
+  Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
                PedestrianDirection turnDirPedestrian, measurement_utils::Units lengthUnits)
     : m_distanceUnits(distanceUnits)
     , m_exitNum(exitNum)

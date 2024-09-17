@@ -4,8 +4,7 @@
 
 + (void)showInSuperview:(UIView *)superview
              isBusiness:(BOOL)isBusiness
-          applyPosition:(BOOL)applyPosition
-               position:(m2::PointD const &)position
+               position:(m2::PointD const *)optionalPosition
               doneBlock:(MWMVoidBlock)done
             cancelBlock:(MWMVoidBlock)cancel;
 

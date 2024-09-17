@@ -8,11 +8,17 @@
 
 #include "indexer/validate_and_format_contacts.hpp"
 #include "indexer/kayak.hpp"
+#include "indexer/feature_meta.hpp"
 
 #include "map/place_page_info.hpp"
 
 using namespace place_page;
 using namespace osm;
+
+/// Get localized metadata value string when string format is "type.feature.value".
+NSString * GetLocalizedMetadataValueString(MapObject::MetadataID metaID, std::string const & value) {
+  return ToNSString(platform::GetLocalizedTypeName(feature::ToString(metaID) + "." + value));
+}
 
 @implementation PlacePageInfoData
 
@@ -71,7 +77,7 @@ using namespace osm;
         case MetadataID::FMD_CONTACT_TWITTER: _twitter = ToNSString(value); break;
         case MetadataID::FMD_CONTACT_VK: _vk = ToNSString(value); break;
         case MetadataID::FMD_CONTACT_LINE: _line = ToNSString(value); break;
-        case MetadataID::FMD_OPERATOR: _ppOperator = ToNSString(value); break;
+        case MetadataID::FMD_OPERATOR: _ppOperator = [NSString stringWithFormat:NSLocalizedString(@"operator", nil), ToNSString(value)]; break;
         case MetadataID::FMD_INTERNET:
           _wifiAvailable = (rawData.GetInternet() == feature::Internet::No)
               ? NSLocalizedString(@"no_available", nil) : NSLocalizedString(@"yes_available", nil);
@@ -84,13 +90,19 @@ using namespace osm;
             _driveThrough = NSLocalizedString(@"drive_through", nil);
           break;
         case MetadataID::FMD_WEBSITE_MENU: _websiteMenu = ToNSString(value); break;
+        case MetadataID::FMD_SELF_SERVICE: _selfService = GetLocalizedMetadataValueString(metaID, value); break;
+        case MetadataID::FMD_OUTDOOR_SEATING:
+          if (value == "yes")
+            _outdoorSeating = NSLocalizedString(@"outdoor_seating", nil);
+          break;
+        case MetadataID::FMD_NETWORK: _network = [NSString stringWithFormat:NSLocalizedString(@"network", nil), ToNSString(value)]; break;
         default:
           break;
       }
     });
-    
+
     _atm = rawData.HasAtm() ? NSLocalizedString(@"type.amenity.atm", nil) : nil;
-      
+
     _address = rawData.GetAddress().empty() ? nil : @(rawData.GetAddress().c_str());
     _coordFormats = @[@(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::LatLonDMS).c_str()),
                       @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::LatLonDecimal).c_str()),

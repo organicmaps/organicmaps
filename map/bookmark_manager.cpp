@@ -3,6 +3,7 @@
 #include "map/user_mark.hpp"
 #include "map/user_mark_id_storage.hpp"
 #include "map/track_mark.hpp"
+#include "map/gps_tracker.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/selection_shape.hpp"
@@ -45,9 +46,9 @@ size_t const kMinCommonTypesCount = 3;
 double const kNearDistanceInMeters = 20 * 1000.0;
 double const kMyPositionTrackSnapInMeters = 20.0;
 
-std::string const kKMLMimeType = "application/vnd.google-earth.kml";
+std::string const kKMLMimeType = "application/vnd.google-earth.kml+xml";
 std::string const kKMZMimeType = "application/vnd.google-earth.kmz";
-std::string const kGPXMimeType = "application/gpx";
+std::string const kGPXMimeType = "application/gpx+xml";
 
 class FindMarkFunctor
 {
@@ -105,7 +106,7 @@ BookmarkManager::SharingResult ExportSingleFileKml(BookmarkManager::KMLDataColle
   if (!CreateZipFromFiles({filePath}, tmpFilePath))
     return {{categoryId}, BookmarkManager::SharingResult::Code::ArchiveError, "Could not create archive."};
 
-  return {{categoryId}, std::move(tmpFilePath), kKMLMimeType};
+  return {{categoryId}, std::move(tmpFilePath), kKMZMimeType};
 }
 
 BookmarkManager::SharingResult ExportSingleFileGpx(BookmarkManager::KMLDataCollectionPtr::element_type::value_type const & kmlToShare)
@@ -402,6 +403,53 @@ void BookmarkManager::DeleteBookmark(kml::MarkId bmId)
 void BookmarkManager::ResetRecentlyDeletedBookmark()
 {
   m_recentlyDeletedBookmark.reset();
+}
+
+size_t BookmarkManager::GetRecentlyDeletedCategoriesCount() const
+{
+  Platform::FilesList files;
+  Platform::GetFilesByExt(GetTrashDirectory(), kKmlExtension, files);
+  return files.size();
+}
+
+BookmarkManager::KMLDataCollectionPtr BookmarkManager::GetRecentlyDeletedCategories()
+{
+  auto collection = LoadBookmarks(GetTrashDirectory(), kKmlExtension, KmlFileType::Text,
+                                  [](kml::FileData const &)
+                                  {
+    return true;
+  });
+  return collection;
+}
+
+bool BookmarkManager::IsRecentlyDeletedCategory(std::string const & filePath) const
+{
+  return filePath.find(GetTrashDirectory()) != std::string::npos;
+}
+
+void BookmarkManager::RecoverRecentlyDeletedCategoriesAtPaths(std::vector<std::string> const & filePaths)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  for (auto const & deletedFilePath : filePaths)
+  {
+    CHECK(IsRecentlyDeletedCategory(deletedFilePath), ("The category at path", deletedFilePath, "should be in the trash."));
+    CHECK(Platform::IsFileExistsByFullPath(deletedFilePath), ("File should exist to be recovered.", deletedFilePath));
+    auto recoveredFilePath = GenerateValidAndUniqueFilePathForKML(base::GetNameFromFullPathWithoutExt(deletedFilePath));
+    base::MoveFileX(deletedFilePath, recoveredFilePath);
+    LOG(LINFO, ("Recently deleted category at", deletedFilePath, "is recovered"));
+    ReloadBookmark(recoveredFilePath);
+  }
+}
+
+void BookmarkManager::DeleteRecentlyDeletedCategoriesAtPaths(std::vector<std::string> const & deletedFilePaths)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  for (auto const & deletedFilePath : deletedFilePaths)
+  {
+    CHECK(IsRecentlyDeletedCategory(deletedFilePath), ("The category at path", deletedFilePath, "should be in the trash."));
+    base::DeleteFileX(deletedFilePath);
+    LOG(LINFO, ("Recently deleted category at", deletedFilePath, "is deleted"));
+  }
 }
 
 void BookmarkManager::DetachUserMark(kml::MarkId bmId, kml::MarkGroupId catId)
@@ -1092,6 +1140,63 @@ kml::CompilationType BookmarkManager::GetCompilationType(kml::MarkGroupId id) co
   auto const compilation = m_compilations.find(id);
   CHECK(compilation != m_compilations.cend(), ());
   return compilation->second->GetCategoryData().m_type;
+}
+
+void BookmarkManager::SaveTrackRecording(std::string trackName)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto const & tracker = GpsTracker::Instance();
+  CHECK(!tracker.IsEmpty(), ("Track recording should be not be empty"));
+
+  kml::MultiGeometry geometry;
+  geometry.m_lines.emplace_back();
+  geometry.m_timestamps.emplace_back();
+  auto & line = geometry.m_lines.back();
+  auto & timestamps = geometry.m_timestamps.back();
+  auto const trackSize = tracker.GetTrackSize();
+  line.reserve(trackSize);
+  timestamps.reserve(trackSize);
+
+  tracker.ForEachTrackPoint([&line, &timestamps](location::GpsInfo const & pt, size_t id)->bool
+  {
+    line.emplace_back(mercator::FromLatLon(pt.m_latitude, pt.m_longitude), pt.m_altitude);
+    timestamps.emplace_back(pt.m_timestamp);
+    return true;
+  });
+
+  kml::TrackData trackData;
+  trackData.m_geometry = std::move(geometry);
+
+  if (trackName.empty())
+    trackName = GenerateTrackRecordingName();
+  kml::SetDefaultStr(trackData.m_name, trackName);
+
+  kml::ColorData colorData;
+  colorData.m_rgba = GenerateTrackRecordingColor().GetRGBA();
+  kml::TrackLayer layer;
+  layer.m_color = std::move(colorData);
+
+  std::vector<kml::TrackLayer> m_layers;
+  m_layers.emplace_back(layer);
+  trackData.m_layers = std::move(m_layers);
+  trackData.m_timestamp = kml::TimestampClock::now();
+
+  auto editSession = GetEditSession();
+  auto const track = editSession.CreateTrack(std::move(trackData));
+  auto const groupId = LastEditedBMCategory();
+  AttachTrack(track->GetId(), groupId);
+}
+
+std::string BookmarkManager::GenerateTrackRecordingName() const
+{
+  /// @TODO(KK): - improve the track name generation
+  return platform::GetLocalizedMyPositionBookmarkName();
+}
+
+dp::Color BookmarkManager::GenerateTrackRecordingColor() const
+{
+  /// @TODO(KK): - improve the color generation
+  return kml::ColorFromPredefinedColor(kml::GetRandomPredefinedColor());
 }
 
 void BookmarkManager::PrepareBookmarksAddresses(std::vector<SortBookmarkData> & bookmarksForSort,
@@ -2057,9 +2162,7 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
       else if (ext == kGpxExtension)
         kmlData = LoadKmlFile(fileToLoad, KmlFileType::Gpx);
       else
-      {
         ASSERT(false, ("Unsupported bookmarks extension", ext));
-      }
 
       base::DeleteFileX(fileToLoad);
 
@@ -2485,7 +2588,7 @@ void BookmarkManager::CheckAndResetLastIds()
     idStorage.ResetTrackId();
 }
 
-bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId, bool deleteFile)
+bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId, bool permanently)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto it = m_categories.find(groupId);
@@ -2495,8 +2598,20 @@ bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId, bool deleteFile
   ClearGroup(groupId);
   m_changesTracker.OnDeleteGroup(groupId);
 
-  if (deleteFile)
-    FileWriter::DeleteFileX(it->second->GetFileName());
+  auto const & filePath = it->second->GetFileName();
+  if (permanently)
+  {
+    base::DeleteFileX(filePath);
+    LOG(LINFO, ("Category at", filePath, "is deleted"));
+  }
+  else
+  {
+    auto const trashedFilePath = GenerateValidAndUniqueTrashedFilePath(base::FileNameFromFullPath(filePath));
+    if (base::MoveFileX(filePath, trashedFilePath))
+      LOG(LINFO, ("Category at", filePath, "is trashed to the", trashedFilePath));
+    else
+      LOG(LERROR, ("Failed to move", filePath, "into the trash at", trashedFilePath));
+  }
 
   DeleteCompilations(it->second->GetCategoryData().m_compilationIds);
   m_categories.erase(it);
@@ -3573,9 +3688,9 @@ void BookmarkManager::EditSession::SetCategoryCustomProperty(kml::MarkGroupId ca
   m_bmManager.SetCategoryCustomProperty(categoryId, key, value);
 }
 
-bool BookmarkManager::EditSession::DeleteBmCategory(kml::MarkGroupId groupId)
+bool BookmarkManager::EditSession::DeleteBmCategory(kml::MarkGroupId groupId, bool permanently)
 {
-  return m_bmManager.DeleteBmCategory(groupId, true);
+  return m_bmManager.DeleteBmCategory(groupId, permanently);
 }
 
 void BookmarkManager::EditSession::NotifyChanges()

@@ -96,6 +96,36 @@ UNIT_TEST(GeoUrl_Geo)
   TEST_ALMOST_EQUAL_ABS(info.m_lat, 53.666, kEps, ());
   TEST_ALMOST_EQUAL_ABS(info.m_lon, 0.0, kEps, ());
 
+  // URL Encoded comma (%2C) as delimiter
+  TEST(parser.Parse("geo:-18.9151863%2C-48.28712359999999?q=-18.9151863%2C-48.28712359999999", info), ());
+  TEST(info.IsLatLonValid(), ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lat, -18.9151863, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lon, -48.28712359999999, kEps, ());
+
+  // URL Encoded comma (%2C) and space (%20)
+  TEST(parser.Parse("geo:-18.9151863%2C%20-48.28712359999999?q=-18.9151863%2C-48.28712359999999", info), ());
+  TEST(info.IsLatLonValid(), ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lat, -18.9151863, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lon, -48.28712359999999, kEps, ());
+
+  // URL Encoded comma (%2C) and space as +
+  TEST(parser.Parse("geo:-18.9151863%2C+-48.28712359999999?q=-18.9151863%2C-48.28712359999999", info), ());
+  TEST(info.IsLatLonValid(), ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lat, -18.9151863, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lon, -48.28712359999999, kEps, ());
+
+  // URL encoded with altitude
+  TEST(parser.Parse("geo:53.666%2C-27.666%2C+1000", info), ());
+  TEST(info.IsLatLonValid(), ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lat, 53.666, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lon, -27.666, kEps, ());
+
+  TEST(parser.Parse("geo:-32.899583,139.043969&z=12", info), ("& instead of ? from a user report"));
+  TEST(info.IsLatLonValid(), ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lat, -32.899583, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lon, 139.043969, kEps, ());
+  TEST_EQUAL(info.m_zoom, 12,());
+
   // Invalid coordinates.
   TEST(!parser.Parse("geo:0,0garbage", info), ());
   TEST(!parser.Parse("geo:garbage0,0", info), ());

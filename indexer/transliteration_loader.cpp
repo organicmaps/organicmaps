@@ -16,7 +16,7 @@ void InitTransliterationInstanceWithDefaultDirs()
   Platform const & pl = GetPlatform();
 
 #if defined(OMIM_OS_ANDROID)
-  char const kICUDataFile[] = "icudt73l.dat";
+  char const kICUDataFile[] = "icudt75l.dat";
   if (!pl.IsFileExistsByFullPath(base::JoinPath(pl.WritableDir(), kICUDataFile)))
   {
     try

@@ -122,6 +122,8 @@
   <color name="routing_button_activated_tint">@color/bg_statusbar</color>
   <color name="routing_button_activated_tint_night">@color/bg_statusbar_night</color>
   <color name="routing_button_pressed_tint">#80FFFFFF</color>
+  <color name="nav_lanearrow_inactive_light">#FF007CCB</color>
+  <color name="nav_lanearrow_inactive_night">#FF2C88AD</color>
 
   <!-- Editor -->
   <color name="bg_editor_light">#FFF2F6F6</color>
@@ -135,4 +137,5 @@
   <color name="elevation_profile_dark">#4BB9E6</color>
 
   <color name="material_calendar_surface_dark">#929292</color>
+  <color name="notification_warning">#FFC22219</color>
 </resources>

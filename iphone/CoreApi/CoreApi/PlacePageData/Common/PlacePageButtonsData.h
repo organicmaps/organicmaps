@@ -6,7 +6,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, readonly) BOOL showAddPlace;
 @property(nonatomic, readonly) BOOL showEditPlace;
-@property(nonatomic, readonly) BOOL showAddBusiness;
+
+@property(nonatomic, readonly) BOOL enableAddPlace;
+@property(nonatomic, readonly) BOOL enableEditPlace;
 
 @end
 

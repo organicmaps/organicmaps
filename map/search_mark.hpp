@@ -72,8 +72,6 @@ protected:
     dst = std::forward<U>(src);
   }
 
-  bool IsHotel() const;
-
   bool HasReason() const;
 
   std::string const * GetSymbolName() const;

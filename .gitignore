@@ -146,6 +146,7 @@ iphone/Maps/app.omaps/
 
 *.autosave
 
+# CMake
 cmake-build-*
 build/
 

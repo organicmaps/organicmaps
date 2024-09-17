@@ -47,7 +47,7 @@ public enum BookmarksSharingHelper
   }
 
   public void onPreparedFileForSharing(@NonNull FragmentActivity context,
-                                       @NonNull ActivityResultLauncher launcher,
+                                       @NonNull ActivityResultLauncher<SharingUtils.SharingIntent> launcher,
                                        @NonNull BookmarkSharingResult result)
   {
     if (mProgressDialog != null && mProgressDialog.isShowing())

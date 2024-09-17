@@ -23,6 +23,7 @@
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
+#include "base/timer.hpp"
 
 #include "defines.hpp"
 
@@ -41,6 +42,16 @@ using namespace std;
 namespace
 {
 string const kDownloadQueueKey = "DownloadQueue";
+
+
+// Editing maps older than approximately three months old is disabled, since the data
+// is most likely already fixed on OSM. Not limited to the latest one or two versions,
+// because a user can forget to update maps after a new app version has been installed
+// automatically in the background.
+uint64_t const kMaxSecondsTillLastVersionUpdate = 3600 * 24 * 31 * 3;
+// Editing maps older than approximately six months old is disabled, because the device
+// may have been offline for a long time.
+uint64_t const kMaxSecondsTillNoEdits = 3600 * 24 * 31 * 6;
 
 void DeleteCountryIndexes(LocalCountryFile const & localFile)
 {
@@ -1267,6 +1278,25 @@ bool Storage::IsNodeDownloaded(CountryId const & countryId) const
 bool Storage::HasLatestVersion(CountryId const & countryId) const
 {
   return CountryStatusEx(countryId) == Status::OnDisk;
+}
+
+bool Storage::IsAllowedToEditVersion(CountryId const & countryId) const
+{
+  auto const status = CountryStatusEx(countryId);
+  switch (status) 
+  {
+    case Status::OnDisk: return true;
+    case Status::OnDiskOutOfDate:
+    {
+      auto const localFile = GetLatestLocalFile(countryId);
+      ASSERT(localFile, ("Local file shouldn't be nullptr."));
+      auto const currentVersionTime = base::YYMMDDToSecondsSinceEpoch(static_cast<uint32_t>(m_currentVersion));
+      auto const localVersionTime = base::YYMMDDToSecondsSinceEpoch(static_cast<uint32_t>(localFile->GetVersion()));
+      return currentVersionTime - localVersionTime < kMaxSecondsTillLastVersionUpdate && 
+             base::SecondsSinceEpoch() - localVersionTime < kMaxSecondsTillNoEdits;
+    }
+    default: return false;
+  }
 }
 
 int64_t Storage::GetVersion(CountryId const & countryId) const

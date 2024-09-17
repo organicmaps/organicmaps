@@ -1,6 +1,8 @@
 import UIKit
 
 class BottomMenuLayersCell: UITableViewCell {
+  @IBOutlet weak var closeButton: CircleImageButton!
+
   @IBOutlet private var subwayButton: BottomMenuLayerButton! {
     didSet {
       updateSubwayButton()
@@ -22,6 +24,7 @@ class BottomMenuLayersCell: UITableViewCell {
   override func awakeFromNib() {
     super.awakeFromNib()
     MapOverlayManager.add(self)
+    closeButton.setImage(UIImage(named: "ic_close"))
   }
   
   deinit {

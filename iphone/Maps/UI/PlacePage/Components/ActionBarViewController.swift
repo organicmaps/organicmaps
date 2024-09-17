@@ -151,12 +151,8 @@ class ActionBarViewController: UIViewController {
   }
 
   private func configButton4() {
-    if additionalButtons.isEmpty {
-      visibleButtons.append(.share)
-    } else {
-      additionalButtons.append(.share)
-      visibleButtons.append(.more)
-    }
+    guard !additionalButtons.isEmpty else { return }
+    additionalButtons.count == 1 ? visibleButtons.append(additionalButtons[0]) : visibleButtons.append(.more)
   }
 
   private func showMore() {

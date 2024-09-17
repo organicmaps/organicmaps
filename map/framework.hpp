@@ -60,7 +60,6 @@
 
 #include <functional>
 #include <memory>
-#include <optional>
 #include <string>
 #include <vector>
 
@@ -309,6 +308,7 @@ private:
 
 public:
   void DeactivateMapSelection();
+  void DeactivateMapSelectionCircle();
   void SwitchFullScreen();
   /// Used to "refresh" UI in some cases (e.g. feature editing).
   void UpdatePlacePageInfoForCurrentSelection(
@@ -340,7 +340,7 @@ public:
   void InvalidateRendering();
   void EnableDebugRectRendering(bool enabled);
 
-  void EnableChoosePositionMode(bool enable, bool enableBounds, bool applyPosition, m2::PointD const & position);
+  void EnableChoosePositionMode(bool enable, bool enableBounds, m2::PointD const * optionalPosition);
   void BlockTapEvents(bool block);
 
   using TCurrentCountryChanged = std::function<void(storage::CountryId const &)>;
@@ -434,6 +434,12 @@ public:
   void ConnectToGpsTracker();
   void DisconnectFromGpsTracker();
 
+  void StartTrackRecording();
+  void StopTrackRecording();
+  void SaveTrackRecordingWithName(std::string const & name);
+  bool IsTrackRecordingEmpty() const;
+  bool IsTrackRecordingEnabled() const;
+
   void SetMapStyle(MapStyle mapStyle);
   void MarkMapStyle(MapStyle mapStyle);
   MapStyle GetMapStyle() const;
@@ -455,7 +461,7 @@ private:
   storage::CountryId m_lastReportedCountry;
   TCurrentCountryChanged m_currentCountryChanged;
 
-  void OnUpdateGpsTrackPointsCallback(std::vector<std::pair<size_t, location::GpsTrackInfo>> && toAdd,
+  void OnUpdateGpsTrackPointsCallback(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
                                       std::pair<size_t, size_t> const & toRemove);
 
   CachingRankTableLoader m_popularityLoader;
@@ -576,6 +582,7 @@ public:
 
   ParsedRoutingData GetParsedRoutingData() const;
   url_scheme::SearchRequest GetParsedSearchRequest() const;
+  std::string GetParsedOAuth2Code() const;
   std::string const & GetParsedAppName() const;
   std::string const & GetParsedBackUrl() const;
   ms::LatLon GetParsedCenterLatLon() const;
@@ -601,6 +608,8 @@ private:
                                std::string const & customTitle = {}) const;
   void FillPostcodeInfo(std::string const & postcode, m2::PointD const & mercator,
                         place_page::Info & info) const;
+
+  void FillUserMarkInfo(UserMark const * mark, place_page::Info & outInfo);
 
   void FillInfoFromFeatureType(FeatureType & ft, place_page::Info & info) const;
   void FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const;
@@ -719,10 +728,8 @@ protected:
   void RegisterCountryFilesOnRoute(std::shared_ptr<routing::NumMwmIds> ptr) const override;
 
 public:
-  /// @name Editor interface.
-  /// Initializes feature for Create Object UI.
   /// @returns false in case when coordinate is in the ocean or mwm is not downloaded.
-  bool CanEditMap() const;
+  bool CanEditMapForPosition(m2::PointD const & position) const;
 
   bool CreateMapObject(m2::PointD const & mercator, uint32_t const featureType, osm::EditableMapObject & emo) const;
   /// @returns false if feature is invalid or can't be edited.

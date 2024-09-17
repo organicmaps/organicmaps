@@ -393,6 +393,9 @@ public:
   /// \brief Return name info of a street according to the next turn.
   void GetNextTurnStreetName(RouteSegment::RoadNameInfo & roadNameInfo) const;
 
+  /// \brief Return name info of a street according to the next next turn.
+  void GetNextNextTurnStreetName(RouteSegment::RoadNameInfo & roadNameInfo) const;
+
   /// \brief Gets turn information after the turn next to the nearest one.
   /// \param distanceToTurnMeters is a distance from current position to the second turn.
   /// \param nextTurn is information about the second turn.

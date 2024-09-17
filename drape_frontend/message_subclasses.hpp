@@ -39,6 +39,7 @@
 #include <functional>
 #include <map>
 #include <mutex>
+#include <optional>
 #include <utility>
 #include <vector>
 
@@ -405,28 +406,27 @@ class SetAddNewPlaceModeMessage : public Message
 {
 public:
   SetAddNewPlaceModeMessage(bool enable, std::vector<m2::TriangleD> && boundArea,
-                            bool enableKineticScroll, bool hasPosition, m2::PointD const & position)
+                            bool enableKineticScroll, m2::PointD const * optionalPosition)
     : m_enable(enable)
     , m_boundArea(std::move(boundArea))
     , m_enableKineticScroll(enableKineticScroll)
-    , m_hasPosition(hasPosition)
-    , m_position(position)
-  {}
+  {
+    if (optionalPosition)
+      m_position = *optionalPosition;
+  }
 
   Type GetType() const override { return Type::SetAddNewPlaceMode; }
 
   std::vector<m2::TriangleD> && AcceptBoundArea() { return std::move(m_boundArea); }
   bool IsEnabled() const { return m_enable; }
   bool IsKineticScrollEnabled() const { return m_enableKineticScroll; }
-  bool HasPosition() const { return m_hasPosition; }
-  m2::PointD const & GetPosition() const { return m_position; }
+  auto const & GetOptionalPosition() const { return m_position; }
 
 private:
   bool m_enable;
   std::vector<m2::TriangleD> m_boundArea;
   bool m_enableKineticScroll;
-  bool m_hasPosition;
-  m2::PointD m_position;
+  std::optional<m2::PointD> m_position;
 };
 
 class BlockTapEventsMessage : public Message

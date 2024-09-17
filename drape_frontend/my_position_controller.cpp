@@ -407,11 +407,11 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   m_errorRadius = rect.SizeX() * 0.5;
   m_horizontalAccuracy = info.m_horizontalAccuracy;
 
-  if (info.m_speedMpS > 0.0)
+  if (info.m_speed > 0.0)
   {
     double const mercatorPerMeter = m_errorRadius / info.m_horizontalAccuracy;
-    m_autoScale2d = mercatorPerMeter * CalculateZoomBySpeed(info.m_speedMpS, false /* isPerspectiveAllowed */);
-    m_autoScale3d = mercatorPerMeter * CalculateZoomBySpeed(info.m_speedMpS, true /* isPerspectiveAllowed */);
+    m_autoScale2d = mercatorPerMeter * CalculateZoomBySpeed(info.m_speed, false /* isPerspectiveAllowed */);
+    m_autoScale3d = mercatorPerMeter * CalculateZoomBySpeed(info.m_speed, true /* isPerspectiveAllowed */);
   }
   else
   {
@@ -423,7 +423,7 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   // 2. Direction must be glued to the route during routing (route-corrected angle is set only in
   // OnLocationUpdate(): in OnCompassUpdate() the angle always has the original value.
   // 3. Device is moving faster then pedestrian.
-  bool const isMovingFast = info.HasSpeed() && info.m_speedMpS > kMinSpeedThresholdMps;
+  bool const isMovingFast = info.HasSpeed() && info.m_speed > kMinSpeedThresholdMps;
   bool const glueArrowInRouting = isNavigable && m_isArrowGluedInRouting;
 
   if ((!m_isCompassAvailable || glueArrowInRouting || isMovingFast) && info.HasBearing())

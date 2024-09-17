@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import app.organicmaps.R;
 import app.organicmaps.location.LocationHelper;
@@ -16,6 +18,7 @@ import app.organicmaps.routing.RoutingInfo;
 import app.organicmaps.sound.TtsPlayer;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.StringUtils;
+import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
@@ -211,9 +214,26 @@ public class NavMenu
 
     Pair<String, String> speedAndUnits = StringUtils.nativeFormatSpeedAndUnits(last.getSpeed());
 
+    if (info.speedLimitMps > 0.0)
+    {
+      Pair<String, String> speedLimitAndUnits = StringUtils.nativeFormatSpeedAndUnits(info.speedLimitMps);
+      mSpeedValue.setText(speedAndUnits.first + "\u202F/\u202F" + speedLimitAndUnits.first);
+    }
+    else
+      mSpeedValue.setText(speedAndUnits.first);
+
+    if (info.speedLimitMps > 0.0 && last.getSpeed() > info.speedLimitMps)
+    {
+      if (info.isSpeedCamLimitExceeded())
+        mSpeedValue.setTextColor(ContextCompat.getColor(mActivity, R.color.white_primary));
+      else
+        mSpeedValue.setTextColor(ContextCompat.getColor(mActivity, R.color.base_red));
+    }
+    else
+      mSpeedValue.setTextColor(ThemeUtils.getColor(mActivity, android.R.attr.textColorPrimary));
+
     mSpeedUnits.setText(speedAndUnits.second);
-    mSpeedValue.setText(speedAndUnits.first);
-    mSpeedViewContainer.setActivated(info.isSpeedLimitExceeded());
+    mSpeedViewContainer.setActivated(info.isSpeedCamLimitExceeded());
   }
 
   public void update(@NonNull RoutingInfo info)

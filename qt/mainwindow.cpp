@@ -156,7 +156,7 @@ MainWindow::MainWindow(Framework & framework,
   helpMenu->addAction(tr("Upload Edits"), QKeySequence(Qt::CTRL | Qt::Key_U), this, SLOT(OnUploadEditsMenuItem()));
   helpMenu->addAction(tr("Preferences"), QKeySequence(Qt::CTRL | Qt::Key_P), this, SLOT(OnPreferences()));
   helpMenu->addAction(tr("About"), QKeySequence(Qt::Key_F1), this, SLOT(OnAbout()));
-  helpMenu->addAction(tr("Exit"),QKeySequence(Qt::CTRL | Qt::Key_Q), this, SLOT(close()));
+  helpMenu->addAction(tr("Exit"), QKeySequence(Qt::CTRL | Qt::Key_Q), this, SLOT(close()));
 #else
   {
     // create items in the system menu

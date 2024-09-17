@@ -2,33 +2,110 @@ package app.organicmaps.util;
 
 import android.app.Activity;
 import android.content.ClipData;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ComponentName;
 import android.location.Location;
 import android.net.Uri;
+import android.os.Build;
 import android.text.TextUtils;
+import android.util.Pair;
 
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
-import androidx.documentfile.provider.DocumentFile;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import app.organicmaps.Framework;
 import app.organicmaps.R;
+import app.organicmaps.SplashActivity;
 import app.organicmaps.bookmarks.data.BookmarkInfo;
 import app.organicmaps.bookmarks.data.MapObject;
+import app.organicmaps.util.log.Logger;
 
 public class SharingUtils
 {
+  private static final String TAG = SharingUtils.class.getSimpleName();
+  private static final String KML_MIME_TYPE = "application/vnd.google-earth.kml+xml";
   private static final String KMZ_MIME_TYPE = "application/vnd.google-earth.kmz";
-  private static final String GPX_MIME_TYPE = "application/gpx";
+  private static final String GPX_MIME_TYPE = "application/gpx+xml";
   private static final String TEXT_MIME_TYPE = "text/plain";
+  public static class ShareInfo
+  {
+    public String mMimeType = "";
+    public String mSubject = "";
+    public String mText = "";
+    public String mMail = "";
+    public String mFileName = "";
 
-  private static Uri sourceFileUri;
+    ShareInfo()
+    {
+    }
+
+    ShareInfo(@NonNull String mimeType, String subject, String text, String mail, String fileName)
+    {
+      mMimeType = mimeType;
+      mSubject = subject;
+      mText = text;
+      mMail = mail;
+      mFileName = fileName;
+    }
+  }
+
+  public static class SharingIntent
+  {
+    private final Intent mIntent;
+    private Uri mSource;
+
+    SharingIntent(@NonNull Intent intent, Uri source)
+    {
+      mIntent = intent;
+      mSource = source;
+    }
+
+    SharingIntent(@NonNull Intent intent)
+    {
+      mIntent = intent;
+    }
+
+    public void SetSourceFile(@NonNull Uri source)
+    {
+      mSource = source;
+    }
+
+    Intent GetIntent() {return mIntent;}
+    Uri GetSourceFile() {return mSource;}
+  }
+
+  public static class SharingContract extends ActivityResultContract<SharingIntent, Pair<Uri,Uri>>
+  {
+    static private Uri sourceUri;
+
+    @NonNull
+    @Override
+    public Intent createIntent(@NonNull Context context, SharingIntent input)
+    {
+      sourceUri = input.GetSourceFile();
+      return input.GetIntent();
+    }
+
+    @Override
+    public Pair<Uri,Uri> parseResult(int resultCode, Intent intent)
+    {
+      if (resultCode == Activity.RESULT_OK && intent != null)
+      {
+        Uri dest = intent.getData();
+        return new Pair<>(sourceUri, dest);
+      }
+      return null;
+    }
+  }
 
   // This utility class has only static methods
   private SharingUtils()
@@ -102,69 +179,98 @@ public class SharingUtils
     context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));
   }
 
-  public static ActivityResultLauncher<Intent> RegisterLauncher(@NonNull Fragment fragment)
+  private static void ProcessShareResult(@NonNull ContentResolver resolver, Pair<Uri, Uri> result)
+  {
+    if (resolver!=null && result != null)
+    {
+      Uri sourceUri = result.first;
+      Uri destinationUri = result.second;
+
+      try
+      {
+        if (sourceUri != null && destinationUri != null)
+          StorageUtils.copyFile(resolver, sourceUri, destinationUri);
+      }
+      catch (IOException e)
+      {
+        throw new RuntimeException(e);
+      }
+    }
+  }
+  public static ActivityResultLauncher<SharingIntent> RegisterLauncher(@NonNull Fragment fragment)
   {
     return fragment.registerForActivityResult(
-      new ActivityResultContracts.StartActivityForResult(), result ->
-      {
-        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null)
-        {
-          Uri destinationUri = result.getData().getData();
-          Uri sourceUri = sourceFileUri;
-          sourceFileUri = null;
-          try
-          {
-            if (sourceUri != null && destinationUri != null)
-              StorageUtils.copyFile(fragment.requireContext().getContentResolver(), sourceUri, destinationUri);
-          }
-          catch (IOException e)
-          {
-            throw new RuntimeException(e);
-          }
-        }
-      });
+      new SharingContract(),
+      result -> ProcessShareResult(fragment.requireContext().getContentResolver(), result)
+    );
   }
-  public static void shareBookmarkFile(Context context, ActivityResultLauncher<Intent> launcher, String fileName, String fileMimeType)
+  public static ActivityResultLauncher<SharingIntent> RegisterLauncher(@NonNull AppCompatActivity activity)
   {
-    Intent intent = new Intent(Intent.ACTION_SEND);
+    return activity.registerForActivityResult(
+      new SharingContract(),
+      result -> ProcessShareResult(activity.getContentResolver(), result)
+    );
+  }
 
-    final String subject = context.getString(R.string.share_bookmarks_email_subject);
-    intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+  public static void shareFile(Context context, ActivityResultLauncher<SharingIntent> launcher, ShareInfo info)
+  {
+    Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
 
-    final String text = context.getString(R.string.share_bookmarks_email_body);
-    intent.putExtra(Intent.EXTRA_TEXT, text);
-
-    final Uri fileUri = StorageUtils.getUriForFilePath(context, fileName);
-    intent.putExtra(android.content.Intent.EXTRA_STREAM, fileUri);
-    // Properly set permissions for intent, see
-    // https://developer.android.com/reference/androidx/core/content/FileProvider#include-the-permission-in-an-intent
-    intent.setDataAndType(fileUri, fileMimeType);
-    intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-    if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
-      intent.setClipData(ClipData.newRawUri("", fileUri));
-      intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-    }
-
-    Intent saveIntent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
-    saveIntent.setType(fileMimeType);
-    DocumentFile documentFile = DocumentFile.fromSingleUri(context, fileUri);
-    if (documentFile != null)
-      saveIntent.putExtra(Intent.EXTRA_TITLE, documentFile.getName());
-    sourceFileUri = fileUri;
-
-    Intent[] extraIntents = {saveIntent};
+    if (!info.mSubject.isEmpty())
+      intent.putExtra(Intent.EXTRA_SUBJECT, info.mSubject);
+    if (!info.mMail.isEmpty())
+      intent.putExtra(Intent.EXTRA_EMAIL, new String[]{info.mMail});
+    if (!info.mText.isEmpty())
+      intent.putExtra(Intent.EXTRA_TEXT, info.mText);
 
     Intent chooser = Intent.createChooser(intent, context.getString(R.string.share));
+    SharingIntent sharingIntent = new SharingIntent(chooser);
 
-    // Prevent sharing to ourselves (supported from API Level 24).
-    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
+    if (!info.mFileName.isEmpty())
     {
-      ComponentName[] excludeSelf = { new ComponentName(context, app.organicmaps.SplashActivity.class) };
-      chooser.putExtra(Intent.EXTRA_EXCLUDE_COMPONENTS, excludeSelf);
+      final Uri fileUri = StorageUtils.getUriForFilePath(context, info.mFileName);
+      Logger.i(TAG, "Sharing file " + info.mMimeType + " " + info.mFileName + " with URI " + fileUri);
+      intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, new ArrayList<>(List.of(fileUri)));
+      intent.setDataAndType(fileUri, info.mMimeType);
+
+      // Properly set permissions for intent, see
+      // https://developer.android.com/reference/androidx/core/content/FileProvider#include-the-permission-in-an-intent
+      intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+      if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
+        intent.setClipData(ClipData.newRawUri("", fileUri));
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK);
+      }
+
+      Intent saveIntent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+      saveIntent.setType(info.mMimeType);
+
+      final String fileName = fileUri.getPathSegments().get(fileUri.getPathSegments().size()-1);
+      saveIntent.putExtra(Intent.EXTRA_TITLE, fileName);
+
+      Intent[] extraIntents = {saveIntent};
+
+      // Prevent sharing to ourselves (supported from API Level 24).
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+      {
+        ComponentName[] excludeSelf = { new ComponentName(context, SplashActivity.class) };
+        chooser.putExtra(Intent.EXTRA_EXCLUDE_COMPONENTS, excludeSelf);
+      }
+
+      chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, extraIntents);
+
+      sharingIntent.SetSourceFile(fileUri);
     }
 
-    chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, extraIntents);
+    launcher.launch(sharingIntent);
+  }
 
-    launcher.launch(chooser);
+  public static void shareBookmarkFile(Context context, ActivityResultLauncher<SharingIntent> launcher, String fileName, String mimeType)
+  {
+    final String subject = context.getString(R.string.share_bookmarks_email_subject);
+    final String text = context.getString(R.string.share_bookmarks_email_body);
+
+    ShareInfo info = new ShareInfo(mimeType, subject, text, "", fileName);
+    shareFile(context, launcher, info);
   }
 }

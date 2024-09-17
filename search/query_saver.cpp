@@ -22,7 +22,7 @@ namespace
 {
 char constexpr kSettingsKey[] = "UserQueries";
 using Length = uint16_t;
-Length constexpr kMaxSuggestionsCount = 10;
+Length constexpr kMaxSuggestionsCount = 50;
 
 // Reader from memory that throws exceptions.
 class SecureMemReader : public Reader

@@ -56,6 +56,8 @@
 #include "base/math.hpp"
 #include "base/sunrise_sunset.hpp"
 
+#include "ge0/url_generator.hpp"
+
 #include "3party/open-location-code/openlocationcode.h"
 
 #include <memory>
@@ -448,12 +450,11 @@ void Framework::Get3dMode(bool & allow3d, bool & allow3dBuildings)
   m_work.Load3dMode(allow3d, allow3dBuildings);
 }
 
-void Framework::SetChoosePositionMode(ChoosePositionMode mode, bool isBusiness,
-                                      bool hasPosition, m2::PointD const & position)
+void Framework::SetChoosePositionMode(ChoosePositionMode mode, bool isBusiness, m2::PointD const * optionalPosition)
 {
   m_isChoosePositionMode = mode;
   m_work.BlockTapEvents(mode != ChoosePositionMode::None);
-  m_work.EnableChoosePositionMode(mode != ChoosePositionMode::None, isBusiness, hasPosition, position);
+  m_work.EnableChoosePositionMode(mode != ChoosePositionMode::None, isBusiness, optionalPosition);
 }
 
 ChoosePositionMode Framework::GetChoosePositionMode()
@@ -595,6 +596,11 @@ void Framework::ExecuteMapApiRequest()
 void Framework::DeactivatePopup()
 {
   m_work.DeactivateMapSelection();
+}
+
+void Framework::DeactivateMapSelectionCircle()
+{
+  m_work.DeactivateMapSelectionCircle();
 }
 
 /*
@@ -858,6 +864,13 @@ Java_app_organicmaps_Framework_nativeGetParsedAppName(JNIEnv * env, jclass)
 }
 
 JNIEXPORT jstring JNICALL
+Java_app_organicmaps_Framework_nativeGetParsedOAuth2Code(JNIEnv * env, jclass)
+{
+  std::string const & code = frm()->GetParsedOAuth2Code();
+  return jni::ToJavaString(env, code);
+}
+
+JNIEXPORT jstring JNICALL
 Java_app_organicmaps_Framework_nativeGetParsedBackUrl(JNIEnv * env, jclass)
 {
   std::string const & backUrl = frm()->GetParsedBackUrl();
@@ -944,6 +957,15 @@ Java_app_organicmaps_Framework_nativeGetGe0Url(JNIEnv * env, jclass, jdouble lat
   ::Framework * fr = frm();
   double const scale = (zoomLevel > 0 ? zoomLevel : fr->GetDrawScale());
   string const url = fr->CodeGe0url(lat, lon, scale, jni::ToNativeString(env, name));
+  return jni::ToJavaString(env, url);
+}
+
+JNIEXPORT jstring JNICALL
+Java_app_organicmaps_Framework_nativeGetGeoUri(JNIEnv * env, jclass, jdouble lat, jdouble lon, jdouble zoomLevel, jstring name)
+{
+  ::Framework * fr = frm();
+  double const scale = (zoomLevel > 0 ? zoomLevel : fr->GetDrawScale());
+  string const url = ge0::GenerateGeoUri(lat, lon, scale, jni::ToNativeString(env, name));
   return jni::ToJavaString(env, url);
 }
 
@@ -1240,15 +1262,15 @@ Java_app_organicmaps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass)
 
   static jclass const klass = jni::GetGlobalClassRef(env, "app/organicmaps/routing/RoutingInfo");
   // Java signature : RoutingInfo(Distance distToTarget, Distance distToTurn,
-  //                              String currentStreet, String nextStreet,
+  //                              String currentStreet, String nextStreet, String nextNextStreet,
   //                              double completionPercent, int vehicleTurnOrdinal, int
   //                              vehicleNextTurnOrdinal, int pedestrianTurnOrdinal, int exitNum,
   //                              int totalTime, SingleLaneInfo[] lanes)
   static jmethodID const ctorRouteInfoID =
       jni::GetConstructorID(env, klass,
                             "(Lapp/organicmaps/util/Distance;Lapp/organicmaps/util/Distance;"
-                            "Ljava/lang/String;Ljava/lang/String;DIIIII"
-                            "[Lapp/organicmaps/routing/SingleLaneInfo;ZZ)V");
+                            "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;DIIIII"
+                            "[Lapp/organicmaps/routing/SingleLaneInfo;DZZ)V");
 
   vector<routing::FollowingInfo::SingleLaneInfoClient> const & lanes = info.m_lanes;
   jobjectArray jLanes = nullptr;
@@ -1280,10 +1302,11 @@ Java_app_organicmaps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass)
   auto const shouldPlaySignal = frm()->GetRoutingManager().GetSpeedCamManager().ShouldPlayBeepSignal();
   jobject const result = env->NewObject(
       klass, ctorRouteInfoID, ToJavaDistance(env, info.m_distToTarget),
-      ToJavaDistance(env, info.m_distToTurn), jni::ToJavaString(env, info.m_sourceName),
-      jni::ToJavaString(env, info.m_displayedStreetName), info.m_completionPercent, info.m_turn,
-      info.m_nextTurn, info.m_pedestrianTurn, info.m_exitNum, info.m_time, jLanes,
-      static_cast<jboolean>(isSpeedCamLimitExceeded), static_cast<jboolean>(shouldPlaySignal));
+      ToJavaDistance(env, info.m_distToTurn), jni::ToJavaString(env, info.m_currentStreetName),
+      jni::ToJavaString(env, info.m_nextStreetName), jni::ToJavaString(env, info.m_nextNextStreetName),
+      info.m_completionPercent, info.m_turn, info.m_nextTurn, info.m_pedestrianTurn, info.m_exitNum,
+      info.m_time, jLanes, info.m_speedLimitMps, static_cast<jboolean>(isSpeedCamLimitExceeded),
+      static_cast<jboolean>(shouldPlaySignal));
   ASSERT(result, (jni::DescribeException()));
   return result;
 }
@@ -1449,6 +1472,12 @@ JNIEXPORT void JNICALL
 Java_app_organicmaps_Framework_nativeDeactivatePopup(JNIEnv * env, jclass)
 {
   return g_framework->DeactivatePopup();
+}
+
+JNIEXPORT void JNICALL
+Java_app_organicmaps_Framework_nativeDeactivateMapSelectionCircle(JNIEnv * env, jclass)
+{
+  return g_framework->DeactivateMapSelectionCircle();
 }
 
 JNIEXPORT void JNICALL
@@ -1763,10 +1792,13 @@ JNIEXPORT void JNICALL
 Java_app_organicmaps_Framework_nativeSetChoosePositionMode(JNIEnv *, jclass, jint mode, jboolean isBusiness,
                                                            jboolean applyPosition)
 {
-  auto const pos = applyPosition && frm()->HasPlacePageInfo()
-      ? g_framework->GetPlacePageInfo().GetMercator()
-      : m2::PointD();
-  g_framework->SetChoosePositionMode(static_cast<android::ChoosePositionMode>(mode), isBusiness, applyPosition, pos);
+  // TODO(AB): Move this code into the Framework to share with iOS and other platforms.
+  auto const f = frm();
+  if (applyPosition && f->HasPlacePageInfo())
+    g_framework->SetChoosePositionMode(static_cast<android::ChoosePositionMode>(mode), isBusiness,
+                                       &f->GetCurrentPlacePageInfo().GetMercator());
+  else
+    g_framework->SetChoosePositionMode(static_cast<android::ChoosePositionMode>(mode), isBusiness, nullptr);
 }
 
 JNIEXPORT jint JNICALL

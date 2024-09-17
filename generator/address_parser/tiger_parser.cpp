@@ -112,5 +112,6 @@ std::string DebugPrint(InterpolType type)
   case InterpolType::Odd: return "Interpol::Odd";
   case InterpolType::Even: return "Interpol::Even";
   }
+  UNREACHABLE();
 }
 } // namespace feature

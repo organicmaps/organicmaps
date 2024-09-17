@@ -85,7 +85,7 @@ Java_app_organicmaps_location_LocationState_nativeLocationUpdated(JNIEnv * env, 
     info.m_bearing = bearing;
 
   if (speed > 0.0)
-    info.m_speedMpS = speed;
+    info.m_speed = speed;
 
   g_framework->OnLocationUpdated(info);
   GpsTracker::Instance().OnLocationUpdated(info);

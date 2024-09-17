@@ -14,11 +14,10 @@ class BottomMenuItemCell: UITableViewCell {
     }
   }
   
-  private var isEnabled: Bool = true
-  private var isPromo: Bool = false
-  
-  func configure(imageName: String, title: String, badgeCount: UInt, enabled: Bool) {
-    icon.image = UIImage.init(named: imageName)
+  private(set) var isEnabled: Bool = true
+
+  func configure(imageName: String, title: String, badgeCount: UInt = .zero, enabled: Bool = true) {
+    icon.image = UIImage(named: imageName)
     label.text = title
     badgeBackground.isHidden = badgeCount == 0
     badgeCountLabel.text = "\(badgeCount)"
@@ -32,29 +31,5 @@ class BottomMenuItemCell: UITableViewCell {
     isEnabled = enabled
     icon.setStyleAndApply(isEnabled ? "MWMBlack" : "MWMGray")
     label.setStyleAndApply(isEnabled ? "blackPrimaryText" : "blackHintText")
-  }
-  
-  func configure(imageName: String, title: String) {
-    icon.image = UIImage.init(named: imageName)
-    label.text = title
-    icon.setStyleAndApply("MWMBlue")
-    label.setStyleAndApply("linkBlueText")
-    badgeBackground.isHidden = true
-    badgeSpacingConstraint.constant = 0
-    badgeBackgroundWidthConstraint.constant = 0
-    isEnabled = true
-    isPromo = true
-  }
-  
-  override func setHighlighted(_ highlighted: Bool, animated: Bool) {
-    guard isEnabled else {
-      return
-    }
-    super.setHighlighted(highlighted, animated: animated)
-    if isPromo {
-      label.setStyleAndApply(highlighted ? "linkBlueHighlightedText" : "linkBlueText")
-    } else {
-      label.setStyleAndApply(highlighted ? "blackHintText" : "blackPrimaryText")
-    }
   }
 }

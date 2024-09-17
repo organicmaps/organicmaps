@@ -18,6 +18,7 @@ NS_SWIFT_NAME(GeoUtil)
 @interface MWMGeoUtil : NSObject
 
 + (float)angleAtPoint:(CLLocationCoordinate2D)p1 toPoint:(CLLocationCoordinate2D)p2;
++ (NSString *)formattedOsmLinkForCoordinate:(CLLocationCoordinate2D)coordinate zoomLevel:(int)zoomLevel;
 
 @end
 

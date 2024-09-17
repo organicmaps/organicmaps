@@ -353,6 +353,22 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_drive_through(std::strin
   return {};
 }
 
+std::string MetadataTagProcessorImpl::ValidateAndFormat_self_service(std::string v)
+{
+  strings::AsciiToLower(v);
+  if (v == "yes" || v == "only" || v == "partially" || v == "no")
+    return v;
+  return {};
+}
+
+std::string MetadataTagProcessorImpl::ValidateAndFormat_outdoor_seating(std::string v)
+{
+  strings::AsciiToLower(v);
+  if (v == "yes" || v == "no")
+    return v;
+  return {};
+}
+
 std::string MetadataTagProcessorImpl::ValidateAndFormat_duration(std::string const & v) const
 {
   if (!ftypes::IsWayWithDurationChecker::Instance()(m_params.m_types))
@@ -550,6 +566,9 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   case Metadata::FMD_CAPACITY: valid = ValidateAndFormat_capacity(v); break;
   case Metadata::FMD_LOCAL_REF: valid = ValidateAndFormat_local_ref(v); break;
   case Metadata::FMD_DRIVE_THROUGH: valid = ValidateAndFormat_drive_through(v); break;
+  case Metadata::FMD_SELF_SERVICE: valid = ValidateAndFormat_self_service(v); break;
+  case Metadata::FMD_OUTDOOR_SEATING: valid = ValidateAndFormat_outdoor_seating(v); break;
+  case Metadata::FMD_NETWORK: valid = ValidateAndFormat_operator(v); break;
   // Metadata types we do not get from OSM.
   case Metadata::FMD_CUISINE:
   case Metadata::FMD_DESCRIPTION:   // processed separately

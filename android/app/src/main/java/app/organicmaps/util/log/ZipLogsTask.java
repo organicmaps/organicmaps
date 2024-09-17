@@ -51,7 +51,7 @@ class ZipLogsTask implements Runnable
         FileOutputStream dest = new FileOutputStream(toLocation, false);
         ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(dest)))
     {
-      zipSubFolder(out, sourceFile, sourceFile.getParent().length());
+      zipSubFolder(out, sourceFile, sourceFile.getPath().length());
     }
     catch (Exception e)
     {

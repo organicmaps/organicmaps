@@ -35,6 +35,13 @@ extern "C"
 {
 
 JNIEXPORT jstring JNICALL
+Java_app_organicmaps_editor_OsmOAuth_nativeGetOAuth2Url(JNIEnv * env, jclass)
+{
+  auto const auth = OsmOAuth::ServerAuth();
+  return ToJavaString(env, auth.BuildOAuth2Url());
+}
+
+JNIEXPORT jstring JNICALL
 Java_app_organicmaps_editor_OsmOAuth_nativeAuthWithPassword(JNIEnv * env, jclass clazz,
                                                                 jstring login, jstring password)
 {
@@ -48,6 +55,27 @@ Java_app_organicmaps_editor_OsmOAuth_nativeAuthWithPassword(JNIEnv * env, jclass
   catch (std::exception const & ex)
   {
     LOG(LWARNING, ("nativeAuthWithPassword error ", ex.what()));
+  }
+  return nullptr;
+}
+
+JNIEXPORT jstring JNICALL
+Java_app_organicmaps_editor_OsmOAuth_nativeAuthWithOAuth2Code(JNIEnv * env, jclass, jstring oauth2code)
+{
+  OsmOAuth auth = OsmOAuth::ServerAuth();
+  try
+  {
+    auto token = auth.FinishAuthorization(ToNativeString(env, oauth2code));
+    if (!token.empty())
+    {
+        auth.SetAuthToken(token);
+        return ToJavaString(env, token);
+    }
+    LOG(LWARNING, ("nativeAuthWithOAuth2Code: invalid OAuth2 code", oauth2code));
+  }
+  catch (std::exception const & ex)
+  {
+    LOG(LWARNING, ("nativeAuthWithOAuth2Code error ", ex.what()));
   }
   return nullptr;
 }

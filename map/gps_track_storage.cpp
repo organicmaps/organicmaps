@@ -47,12 +47,12 @@ T MemRead(void const * ptr)
 }
 
 void Pack(char * p, location::GpsInfo const & info)
-{  
+{
   MemWrite<double>(p + 0 * sizeof(double), info.m_timestamp);
   MemWrite<double>(p + 1 * sizeof(double), info.m_latitude);
   MemWrite<double>(p + 2 * sizeof(double), info.m_longitude);
   MemWrite<double>(p + 3 * sizeof(double), info.m_altitude);
-  MemWrite<double>(p + 4 * sizeof(double), info.m_speedMpS);
+  MemWrite<double>(p + 4 * sizeof(double), info.m_speed);
   MemWrite<double>(p + 5 * sizeof(double), info.m_bearing);
   MemWrite<double>(p + 6 * sizeof(double), info.m_horizontalAccuracy);
   MemWrite<double>(p + 7 * sizeof(double), info.m_verticalAccuracy);
@@ -67,7 +67,7 @@ void Unpack(char const * p, location::GpsInfo & info)
   info.m_latitude = MemRead<double>(p + 1 * sizeof(double));
   info.m_longitude = MemRead<double>(p + 2 * sizeof(double));
   info.m_altitude = MemRead<double>(p + 3 * sizeof(double));
-  info.m_speedMpS = MemRead<double>(p + 4 * sizeof(double));
+  info.m_speed = MemRead<double>(p + 4 * sizeof(double));
   info.m_bearing = MemRead<double>(p + 5 * sizeof(double));
   info.m_horizontalAccuracy = MemRead<double>(p + 6 * sizeof(double));
   info.m_verticalAccuracy = MemRead<double>(p + 7 * sizeof(double));
@@ -88,15 +88,15 @@ inline size_t GetItemCount(size_t fileSize)
 
 inline bool WriteVersion(fstream & f, uint32_t version)
 {
-  static_assert(kHeaderSize == sizeof(version), "");
+  static_assert(kHeaderSize == sizeof(version));
   version = SwapIfBigEndianMacroBased(version);
   f.write(reinterpret_cast<char const *>(&version), kHeaderSize);
-  return f.good();
+  return f.good() && f.flush().good();
 }
 
 inline bool ReadVersion(fstream & f, uint32_t & version)
 {
-  static_assert(kHeaderSize == sizeof(version), "");
+  static_assert(kHeaderSize == sizeof(version));
   f.read(reinterpret_cast<char *>(&version), kHeaderSize);
   version = SwapIfBigEndianMacroBased(version);
   return f.good();
@@ -111,6 +111,20 @@ GpsTrackStorage::GpsTrackStorage(string const & filePath, size_t maxItemCount)
 {
   ASSERT_GREATER(m_maxItemCount, 0, ());
 
+  auto const createNewFile = [this]
+  {
+    m_stream.open(m_filePath, ios::in | ios::out | ios::binary | ios::trunc);
+
+    if (!m_stream)
+      MYTHROW(OpenException, ("Open file error.", m_filePath));
+
+    if (!WriteVersion(m_stream, kCurrentVersion))
+      MYTHROW(OpenException, ("Write version error.", m_filePath));
+
+    m_itemCount = 0;
+  };
+
+
   // Open existing file
   m_stream.open(m_filePath, ios::in | ios::out | ios::binary);
 
@@ -118,7 +132,12 @@ GpsTrackStorage::GpsTrackStorage(string const & filePath, size_t maxItemCount)
   {
     uint32_t version = 0;
     if (!ReadVersion(m_stream, version))
-      MYTHROW(OpenException, ("Read version error.", m_filePath));
+    {
+      LOG(LWARNING, ("Recreating", m_filePath, "because can't read version from it."));
+      m_stream.close();
+      createNewFile();
+      version = kCurrentVersion;
+    }
 
     if (version == kCurrentVersion)
     {
@@ -136,6 +155,8 @@ GpsTrackStorage::GpsTrackStorage(string const & filePath, size_t maxItemCount)
       m_stream.seekp(offset, ios::beg);
       if (!m_stream.good())
         MYTHROW(OpenException, ("Seek to the offset error:", offset, m_filePath));
+
+      LOG(LINFO, ("Restored", m_itemCount, "points from gps track storage"));
     }
     else
     {
@@ -146,18 +167,7 @@ GpsTrackStorage::GpsTrackStorage(string const & filePath, size_t maxItemCount)
   }
 
   if (!m_stream)
-  {
-    // Create new file
-    m_stream.open(m_filePath, ios::in | ios::out | ios::binary | ios::trunc);
-
-    if (!m_stream)
-      MYTHROW(OpenException, ("Open file error.", m_filePath));
-
-    if (!WriteVersion(m_stream, kCurrentVersion))
-      MYTHROW(OpenException, ("Write version error.", m_filePath));
-
-    m_itemCount = 0;
-  }
+    createNewFile();
 }
 
 void GpsTrackStorage::Append(vector<TItem> const & items)
@@ -240,7 +250,7 @@ void GpsTrackStorage::ForEach(std::function<bool(TItem const & item)> const & fn
       MYTHROW(ReadException, ("File:", m_filePath));
 
     for (size_t j = 0; j < n; ++j)
-    {      
+    {
       TItem item;
       Unpack(&buff[0] + j * kPointSize, item);
       if (!fn(item))
@@ -307,13 +317,12 @@ void GpsTrackStorage::TruncFile()
   m_stream.open(m_filePath, ios::in | ios::out | ios::binary | ios::ate);
 
   if (!m_stream)
-    MYTHROW(WriteException, ("File:", m_filePath));
+    MYTHROW(OpenException, ("File:", m_filePath));
 
   m_itemCount = newItemCount;
 
   // Write position must be after last item position (end of file)
-  ASSERT_EQUAL(m_stream.tellp(), static_cast<typename fstream::pos_type>(
-                   GetItemOffset(m_itemCount)), ());
+  ASSERT_EQUAL(m_stream.tellp(), static_cast<typename fstream::pos_type>(GetItemOffset(m_itemCount)), ());
 }
 
 size_t GpsTrackStorage::GetFirstItemIndex() const

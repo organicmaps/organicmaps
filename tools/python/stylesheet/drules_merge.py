@@ -74,7 +74,7 @@ def create_diff(zooms1, zooms2):
     print("{}: missing completely; {}".format(typ, zooms_string(zooms2[typ][0].scale, zooms2[typ][1].scale)))
     cont = drules_struct_pb2.ClassifElementProto()
     cont.name = typ
-    for z in range(zooms2[typ][0].scale, zooms2[typ][1].scale):
+    for z in range(zooms2[typ][0].scale, zooms2[typ][1].scale + 1):
       fix = copy.deepcopy(zooms2[typ][0])
       fix.scale = z
       cont.element.extend([fix])

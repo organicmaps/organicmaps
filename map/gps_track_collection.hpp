@@ -13,7 +13,7 @@ class GpsTrackCollection final
 public:
   static size_t const kInvalidId; // = numeric_limits<size_t>::max();
 
-  using TItem = location::GpsTrackInfo;
+  using TItem = location::GpsInfo;
 
   /// Constructor
   /// @param maxSize - max number of items in collection

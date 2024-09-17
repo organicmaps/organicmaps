@@ -93,7 +93,7 @@ public class ProfileFragment extends BaseMwmToolbarFragment
     else
     {
       Intent intent = new Intent(requireContext(), OsmLoginActivity.class);
-      intent.putExtra("redirectToProfile", true);
+      intent.putExtra(ProfileActivity.EXTRA_REDIRECT_TO_PROFILE, true);
       startActivity(intent);
       requireActivity().finish();
     }
@@ -102,7 +102,7 @@ public class ProfileFragment extends BaseMwmToolbarFragment
   private void logout()
   {
     new MaterialAlertDialogBuilder(requireContext(), R.style.MwmTheme_AlertDialog)
-        .setMessage(R.string.are_you_sure)
+        .setMessage(R.string.osm_log_out_confirmation)
         .setPositiveButton(R.string.yes, (dialog, which) ->
         {
           OsmOAuth.clearAuthorization(requireContext());
