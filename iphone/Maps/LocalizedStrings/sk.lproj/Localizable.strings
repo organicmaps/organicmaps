@@ -1846,7 +1846,7 @@
 
 "type.building.garage" = "Garáž";
 
-"type.building.train_station" = "Železničná stanica";
+"type.building.train_station" = "Budova stanice";
 
 "type.building.warehouse" = "Sklad";
 
