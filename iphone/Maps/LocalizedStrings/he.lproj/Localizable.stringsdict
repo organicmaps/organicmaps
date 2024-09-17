@@ -5,55 +5,55 @@
 
 <!-- ********** Strings for downloading map from search **********/ -->
 
-  <key>bookmarks_places</key>
-  <dict>
-    <key>NSStringLocalizedFormatKey</key>
-    <string>%#@value@</string>
-    <key>value</key>
-    <dict>
-      <key>NSStringFormatSpecTypeKey</key>
-      <string>NSStringPluralRuleType</string>
-      <key>NSStringFormatValueTypeKey</key>
-      <string>d</string>
-      <key>one</key>
-      <string>סימניה %d</string>
-      <key>other</key>
-      <string>%d סימניות</string>
-    </dict>
-  </dict>
+	<key>bookmarks_places</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>סימניה %d</string>
+			<key>other</key>
+			<string>%d סימניות</string>
+		</dict>
+	</dict>
 
-  <key>bookmarks_detect_message</key>
-  <dict>
-    <key>NSStringLocalizedFormatKey</key>
-    <string>%#@value@</string>
-    <key>value</key>
-    <dict>
-      <key>NSStringFormatSpecTypeKey</key>
-      <string>NSStringPluralRuleType</string>
-      <key>NSStringFormatValueTypeKey</key>
-      <string>d</string>
-      <key>one</key>
-      <string>נמצא קובץ %d. יהיה ניתן לראות אותו לאחר ההמרה.</string>
-      <key>other</key>
-      <string>נמצאו %d קבצים. יהיה ניתן לראות אותם לאחר ההמרה.</string>
-    </dict>
-  </dict>
+	<key>bookmarks_detect_message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>נמצא קובץ %d. יהיה ניתן לראות אותו לאחר ההמרה.</string>
+			<key>other</key>
+			<string>נמצאו %d קבצים. יהיה ניתן לראות אותם לאחר ההמרה.</string>
+		</dict>
+	</dict>
 
-  <key>tracks</key>
-  <dict>
-    <key>NSStringLocalizedFormatKey</key>
-    <string>%#@value@</string>
-    <key>value</key>
-    <dict>
-      <key>NSStringFormatSpecTypeKey</key>
-      <string>NSStringPluralRuleType</string>
-      <key>NSStringFormatValueTypeKey</key>
-      <string>d</string>
-      <key>one</key>
-      <string>מסלול %d</string>
-      <key>other</key>
-      <string>%d מסלולים</string>
-    </dict>
-  </dict>
+	<key>tracks</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>מסלול %d</string>
+			<key>other</key>
+			<string>%d מסלולים</string>
+		</dict>
+	</dict>
 </dict>
 </plist>
