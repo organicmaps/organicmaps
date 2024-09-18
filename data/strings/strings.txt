@@ -32911,14 +32911,16 @@
     fi = Itsepalvelu
     fr = Libre-service
     he = שירות עצמי
-    hi = स्वयं सेवा    hu = Önkiszolgáló
+    hi = स्वयं सेवा
+    hu = Önkiszolgáló
     id = Layanan mandiri
     it = Self service
     ja = セルフサービス
     ko = 셀프 서비스
     lt = Savitarna
     lv = Pašapkalpošanās
-    mr = स्व: सेवा    nb = Selvbetjening
+    mr = स्व: सेवा
+    nb = Selvbetjening
     nl = Zelfbediening
     pl = Samoobsługa
     pt = Autosserviço
@@ -32964,7 +32966,8 @@
     ko = 옵션 선택
     lt = Pasirinkite parinktį
     lv = Atlasīt opciju
-    mr = पर्याय निवडा    nb = Velg alternativ
+    mr = पर्याय निवडा
+    nb = Velg alternativ
     nl = Selecteer optie
     pl = Wybierz opcję
     pt = Selecionar opção
@@ -33011,7 +33014,8 @@
     ko = 야외 좌석
     lt = Lauko sėdimosios vietos
     lv = Sēdvietas ārā
-    mr = बाहेरची आसनव्यवस्था    nb = Uteservering
+    mr = बाहेरची आसनव्यवस्था
+    nb = Uteservering
     nl = Zitplaatsen buiten
     pl = Siedzenia na zewnątrz
     pt = Assentos ao ar livre

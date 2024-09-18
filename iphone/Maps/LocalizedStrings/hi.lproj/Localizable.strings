@@ -1063,7 +1063,7 @@
 "open_in_app" = "किसी अन्य ऐप में खोलें";
 
 /* To indicate if the place proposed self service... */
-"self_service" = "स्वयं सेवा    hu = Önkiszolgáló";
+"self_service" = "स्वयं सेवा";
 
 /* To indicate if restaurant or other place has outdoor seating */
 "outdoor_seating" = "घर के बाहर बैठने";
