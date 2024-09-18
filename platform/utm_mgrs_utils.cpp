@@ -80,7 +80,7 @@ int LatLonToZoneNumber(double lat, double lon)
   return static_cast<int>((lon + 180.0) / 6.0) + 1;
 }
 
-std::optional<char> LatitudeToZoneLetter(double lat)
+char LatitudeToZoneLetter(double lat)
 {
   if (-80.0 <= lat && lat <= 84.0)
   {
@@ -88,7 +88,7 @@ std::optional<char> LatitudeToZoneLetter(double lat)
     ASSERT_LESS(index, kZoneLetters.size(), ());
     return kZoneLetters[index];
   }
-  return {};
+  return 0;
 }
 
 int ZoneNumberToCentralLon(int zoneNumber)
@@ -110,9 +110,8 @@ UTMPoint LatLonToUtm(double lat, double lon)
   double const latTan4 = latTan2 * latTan2;
 
   int const zoneNumber = LatLonToZoneNumber(lat, lon);
-  auto const maybeZoneLetter = LatitudeToZoneLetter(lat);
-  ASSERT(maybeZoneLetter, (lat));
-  char const zoneLetter = maybeZoneLetter.value();
+  auto const zoneLetter = LatitudeToZoneLetter(lat);
+  ASSERT(zoneLetter, (lat));
 
   double const lonRad = base::DegToRad(lon);
   double const centralLon = ZoneNumberToCentralLon(zoneNumber);
@@ -461,14 +460,10 @@ std::string FormatMGRS(double lat, double lon, int precision)
   UTMPoint mgrsp = LatLonToUtm(lat, lon);
 
   // Need to set the right letter for the latitude.
-  auto const maybeZone = LatitudeToZoneLetter(lat);
-  if (maybeZone)
-  {
-    mgrsp.zoneLetter = *maybeZone;
-    return UTMtoMgrsStr(mgrsp, precision);
-  }
-
-  return {};
+  auto const zoneLetter = LatitudeToZoneLetter(lat);
+  ASSERT(zoneLetter, (lat));
+  mgrsp.zoneLetter = zoneLetter;
+  return UTMtoMgrsStr(mgrsp, precision);
 }
 
 // Convert lat,lon for WGS84 ellipsoid to UTM string.
