@@ -115,6 +115,11 @@ bool SupportManager::IsVulkanForbidden(std::string const & deviceName, Version a
     "PowerVR Rogue G6110", "PowerVR Rogue GE8100", "PowerVR Rogue GE8300",
     // https://github.com/organicmaps/organicmaps/issues/5539
     "Adreno (TM) 418",
+
+    // https://github.com/organicmaps/organicmaps/issues/2739
+    // https://github.com/organicmaps/organicmaps/issues/9255
+    // Samsung S7 (hero2ltexx). Crash on vkCreateSwapchainKHR and we don't even get to SupportManager::Init.
+    "Mali-T880",
   };
 
   for (auto const d : kBannedDevices)
