@@ -435,7 +435,7 @@
 "dialog_routing_check_gps" = "سیگنال GPS را چک کنید";
 "dialog_routing_error_location_not_found" = "ناتوان از ایجاد مسیر.موقعیت مکانی شما شناسایی نشد";
 "dialog_routing_location_turn_wifi" = "لطفا سیگنال GPS موبایتان راچک کنید.و WiFi موبایلتان را جهت دقت بیشتر در موقعیت‌یابی فعال کنید.";
-"dialog_routing_location_turn_on" = "فعال کردن سرویس موقعیت مکانی  (GPS)";
+"dialog_routing_location_turn_on" = "فعال کردن سرویس موقعیت مکانی (GPS)";
 "dialog_routing_location_unknown_turn_on" = "ناتوان از مشخص کردن موقعیت مکانی شما.لطفا سرویس موقعیت مکانی خود را فعال کنید.";
 "dialog_routing_download_files" = "دانلود فایل‌های مورد نیاز";
 "dialog_routing_download_and_update_all" = "Download or update all maps along the projected path to calculate a route.";
@@ -596,7 +596,7 @@
 "editor_sharing_title" = "من نقشه‌های Organic Maps را بهبود بخشیدم";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
-"downloader_of" = "%1$d  از  %2$d";
+"downloader_of" = "%1$d از %2$d";
 "download_over_mobile_header" = "دانلود بر روی یک شبکه دیتای موبایل؟";
 "download_over_mobile_message" = "این کار می تواند برای شما در بعضی طرح‌ها و یا حالت رومینگ هزینه اضافی در بر داشته باشد.";
 "error_enter_correct_house_number" = "وارد کردن شماره ساختمان معتبر";
@@ -704,7 +704,7 @@
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "بررسی کنید";
-"recent_track_background_dialog_message" = "Organic Maps  از اطلاعات موقعیت مکانی شما در پس ضمینه برای ذخیره مسیر‌هایی که اخیرا سفر کرده اید استفاده می کند.";
+"recent_track_background_dialog_message" = "Organic Maps از اطلاعات موقعیت مکانی شما در پس ضمینه برای ذخیره مسیر‌هایی که اخیرا سفر کرده اید استفاده می کند.";
 "general_settings" = "تنظیمات عمومی";
 
 /* For the first routing */
@@ -807,7 +807,7 @@
 "pref_tts_speedcams_always" = "همیشه هشدار دهد";
 
 /* Speed camera settings menu option - Never warn (about speedcams) */
-"pref_tts_speedcams_never" = "هرگز  هشدار ندهد";
+"pref_tts_speedcams_never" = "هرگز هشدار ندهد";
 "power_managment_title" = "حالت ذخیره انرژی";
 "power_managment_description" = "هنگامی که حالت خودکار انتخاب شده‌باشد، برنامه با توجه میزان شارژ باتری شما، ویژگی‌های تخلیه کننده باتری را غیر فعال می‌کند";
 "power_managment_setting_never" = "هرگز";

@@ -790,7 +790,7 @@
     ko = 현재 이 기기 또는 애플리케이션에 대한 모든 위치 서비스가 비활성화되어 있습니다. 설정에서 활성화하십시오.
     lt = Šiuo metu jūsų įrenginio ar programėlės visos vietovės tarnybos yra išjungtos. Įjunkite jas nustatymuose.
     lv = Šobrīd ierīcē visi atrašanās vietas pakalpojumi vai to nodrošinošās programmas ir izslēgtas. Ieslēdziet tās iestatījumos.
-    mr = आपल्या उपकरणात किंवा ऍप मध्ये स्थानसेवा सध्या बंद आहेत. कृपया सेटिंग मधून त्यांना चालू  करा.
+    mr = आपल्या उपकरणात किंवा ऍप मध्ये स्थानसेवा सध्या बंद आहेत. कृपया सेटिंग मधून त्यांना चालू करा.
     mt = Bħalissa għandek kull Servizzi tal-Lokażżjoni fuq dan l-apparat jew l-applikazzjoni mitfijin. Jekk jogħġbok erġa ixgħelhom ġos-Settings.
     nb = Du har for øyeblikket deaktivert alle posisjonstjenester for denne enheten eller applikasjonen. Slå dem på i «Innstillinger».
     nl = U heeft momenteel alle locatieservices voor dit apparaat of deze app uitgeschakeld. Schakel ze in bij Instellingen.
@@ -1493,7 +1493,7 @@
     eu = Mesedez, deskonektatu USB kablea edo sartu SD memoria Organic Maps erabiltzeko
     fi = Irrota USB-kaapeli tai syötä muistikortti käyttääksesi Organic Maps -sovellusta
     fr = Veuillez débrancher le câble USB ou insérer la carte SD pour utiliser Organic Maps
-    he = אנא נתק כבל USB או הכנס כרטיס זכרון כדי להשתמש  ב-Organic Maps.
+    he = אנא נתק כבל USB או הכנס כרטיס זכרון כדי להשתמש ב-Organic Maps.
     hi = ऑर्गेनिक मैप्स का उपयोग करने के लिए कृपया यूएसबी केबल को डिस्कनेक्ट करें या मेमोरी कार्ड डालें
     hu = Kérjük bontsa az USB kapcsolatot vagy helyezzen be memóriakártyát a Organic Maps használatához
     id = Mohon lepas kabel USB atau masukkan kartu memori untuk menggunakan Organic Maps
@@ -1534,7 +1534,7 @@
     cs = Prosím, uvolněte nejprve místo na SD kartě/USB uložišti
     da = Frigør venligst plads på dit SD-kort/USB lager først for at bruge denne app
     de = Bitte zuerst Speicherplatz auf SD-Karte/USB-Speicher freigeben, um die Anwendung zu nutzen
-    el = Ελευθερώσετε  χώρο αποθήκευσης στην SD κάρτα/USB πρώτα προκειμένου να χρησιμοποιήσετε την εφαρμογή
+    el = Ελευθερώσετε χώρο αποθήκευσης στην SD κάρτα/USB πρώτα προκειμένου να χρησιμοποιήσετε την εφαρμογή
     es = Libere primero espacio en la memoria SD o almacenamiento USB para usar la aplicación
     et = Rakenduse kasutamiseks palun vabasta kõigepealt piisavalt ruumi mälukaardil/USB salvestusseadmel
     eu = Mesedez, egin lekua SD memorian/USB biltegian aplikazioa erabiltzeko
@@ -1726,7 +1726,7 @@
     es = ¿Descargar %@?
     et = Laadida alla %@?
     eu = %@ deskargatu?
-    fa = دانلود  %@?
+    fa = دانلود %@?
     fi = Ladataanko %@?
     fr = Télécharger %@ ?
     he = להוריד %@?
@@ -2713,7 +2713,7 @@
     en = %1$@ free of %2$@
     af = %1$@ van %2$@ beskikbaar
     ar = %1$@ فارغ من %2$@
-    az = %2$@-nin  %1$@-i boşdur
+    az = %2$@-nin %1$@-i boşdur
     be = %1$@ вольна з %2$@
     ca = %1$@ lliures de %2$@
     de = %1$@ frei von %2$@
@@ -2892,7 +2892,7 @@
     fa = واحد اندازه‌گیری
     fi = Mittayksiköt
     fr = Unités de mesure
-    he = יחידות  מדידה
+    he = יחידות מדידה
     hi = नाप की इकाइयां
     hu = Mértékegységek
     id = Unit Pengukuran
@@ -4410,7 +4410,7 @@
     tags = android
     en = Failed to open file %1$@\n\n%2$@
     af = Kon nie lêer oopmaak nie %1$@\n\n%2$@
-    ar = فشل فتح ملف  %1$@\n\n%2$@
+    ar = فشل فتح ملف %1$@\n\n%2$@
     az = Faylı açmaq alınmadı %1$@\n\n%2$@
     be = Не ўдалося адкрыць файл %1$@\n\n%2$@
     bg = Неуспешно отваряне на файл %1$@\n\n%2$@
@@ -9909,7 +9909,7 @@
     tags = android,ios
     en = — The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination;
     af = – Die kaart kan onakkuraat wees en die voorgestelde roete is dalk nie die mees optimale manier om die bestemming te bereik nie;
-    ar = —  قد تكون الخريطة غير دقيقة وقد لا يكون المسار المقترح هو المسار الأمثل دائمًا للوصول إلى الوجهة.;
+    ar = — قد تكون الخريطة غير دقيقة وقد لا يكون المسار المقترح هو المسار الأمثل دائمًا للوصول إلى الوجهة.;
     az = — Xəritə dəqiq olmaya bilər və tövsiyə olunan marşrut təyinat yerinə çatmağın ən yaxşı yolu olmaya bilər;
     be = — Мапа можа быць недакладнай, а прапанаваны маршрут не заўжды найлепшым;
     bg = - Картата може да е неточна, а предложеният маршрут невинаги е най-оптималният начин за достигане до дестинацията;
@@ -10002,7 +10002,7 @@
     en = — Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.
     en-GB = — Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorised places.
     af = Wees versigtig met die roetes in die grenssones: die roetes wat deur ons toep geskep word kan soms oor landsgrense in onwettige areas gaan.
-    ar = — تحذير بشأن المسارات في المناطق الحدودية: المسارات التي تم إنشاؤها بواسطة تطبيقنا قد تعبر  أحياناً حدود الدول في أماكن غير مصرح بها;
+    ar = — تحذير بشأن المسارات في المناطق الحدودية: المسارات التي تم إنشاؤها بواسطة تطبيقنا قد تعبر أحياناً حدود الدول في أماكن غير مصرح بها;
     az = — Sərhəd bölgələrində marşrutlarla diqqətli olun: tətbiqimiz yaradılan marşrutlar bəzən icazə verilməyən yerlərdə ölkə sərhədlərini keçə bilər.
     be = — Будзьце ўважлівы з маршрутамі ў памежных зонах: маршруты, пракладзеныя нашай праграмай, часам могуць перасякаць мяжу ў недазволеных месцах.
     bg = - Бъдете внимателни с маршрутите в гранични зони: маршрутите, създадени от нашето приложение, понякога могат да пресичат границите на страната на неразрешени места.
@@ -10242,7 +10242,7 @@
     es = Activar servicios de ubicación
     et = Luba asukoha teenused
     eu = Aktibatu kokapen zerbitzuak
-    fa = فعال کردن سرویس موقعیت مکانی  (GPS)
+    fa = فعال کردن سرویس موقعیت مکانی (GPS)
     fi = Ota sijaintipalvelut käyttöön
     fr = Activez les services de localisation
     he = הפעל שירותי מיקום
@@ -11184,8 +11184,8 @@
   [search_without_internet_advertisement]
     tags = android
     en = To start searching and creating routes, please download the map. After that you will no longer need an Internet connection.
-    af = Om te begin met soek en  roetebeskrywings te kan maak moet u die kaart aflaai. U het daarna nie meer ’n internetverbinding nodig nie.
-    ar = لبدء البحث وإنشاء الطرق، يرجى تنزيل الخريطة،  ولن تحتاج إلى اتصال بالإنترنت بعد ذلك.
+    af = Om te begin met soek en roetebeskrywings te kan maak moet u die kaart aflaai. U het daarna nie meer ’n internetverbinding nodig nie.
+    ar = لبدء البحث وإنشاء الطرق، يرجى تنزيل الخريطة، ولن تحتاج إلى اتصال بالإنترنت بعد ذلك.
     az = Axtarmaq və marşrut yaratmağa başlamaq üçün xəritəni endirin. Yüklədikdən sonra artıq internet bağlantısına ehtiyacınız olmayacaq.
     be = Каб шукаць месцы і пракладваць маршруты, спампуйце карту. Пасля гэтага падключэнне да інтэрнэту вам больш не спатрэбіцца.
     bg = За да започнете да търсите и създавате маршрути, изтеглете картата. Това ще ви позволи да пътувате без интернет връзка.
@@ -15361,7 +15361,7 @@
     lv = Stāvi virs zemes: %s
     ru = Этаж: %s
     sr = Спрат: %s
-    tr = Kat sayısı:  %s
+    tr = Kat sayısı: %s
     zh-Hans = 楼层：%s
     zh-Hant = 樓層：%s
 
@@ -15516,7 +15516,7 @@
     es = Para crear una ruta, es necesario actualizar todos los mapas y volver a planificar la ruta.
     et = Marsruudi loomiseks tuleb värskendada kõiki kaarte ja seejärel planeerida marsruuti uuesti.
     eu = Ibilbide bat sortzeko, beharrezkoa da mapa guztiak eguneratzea eta ibilbidea berriro planifikatzea.
-    fa = برای ایجاد مسیر شما نیازمند بروزرسانی تمامی  نقشه‌ها هستید سپس می توانید دوباره مسیرتان را برنامه ریزی کنید
+    fa = برای ایجاد مسیر شما نیازمند بروزرسانی تمامی نقشه‌ها هستید سپس می توانید دوباره مسیرتان را برنامه ریزی کنید
     fi = Sinun täytyy päivittää kaikki kartat ja suunnitella reitti uudelleen luodaksesi uuden reitin.
     fr = Pour créer un itinéraire, vous devez mettre à jour toutes les cartes puis reprogrammer l'itinéraire.
     he = ליצירת מסלול, יש לעדכן את כל המפות ולתכנן מסלול שנית.
@@ -16798,7 +16798,7 @@
     es = %1$d de %2$d
     et = %1$d/%2$d
     eu = %1$d/%2$d
-    fa = %1$d  از  %2$d
+    fa = %1$d از %2$d
     fi = %1$d/%2$d
     fr = %1$d de %2$d
     he = %1$d מתוך %2$d
@@ -20359,7 +20359,7 @@
     es = Organic Maps usa su geolocalización en segundo plano para registrar su ruta recorrida recientemente.
     et = Organic Maps kasutab Sinu geograafilist asukohta taustal Sinu hiljuti läbitud teekonna salvestamiseks.
     eu = Organic Maps-ek zure geokokapena erabiltzen du atzeko planoan egindako azken ibilbidea erregistratzeko.
-    fa = Organic Maps  از اطلاعات موقعیت مکانی شما در پس ضمینه برای ذخیره مسیر‌هایی که اخیرا سفر کرده اید استفاده می کند.
+    fa = Organic Maps از اطلاعات موقعیت مکانی شما در پس ضمینه برای ذخیره مسیر‌هایی که اخیرا سفر کرده اید استفاده می کند.
     fi = Organic Maps käyttää sijaintipalveluita taustalla viimeisimmän reittisi tallentamiseksi.
     fr = Organic Maps utilise votre géolocalisation en arrière-plan pour enregistrer vos itinéraires récents.
     he = האפליקצייה Organic Maps משתמשת במיקום שלך ברקע כדי להקליט את המסלול האחרון שלך.
@@ -25045,7 +25045,7 @@
     fa = همیشه هشدار دهد
     fi = Varoita aina
     fr = Toujours avertir
-    he = הזהר  תמיד
+    he = הזהר תמיד
     hu = Mindig figyelmeztet
     id = Selalu peringatkan
     it = Avvisare sempre
@@ -25090,7 +25090,7 @@
     es-MX = Nunca dar aviso
     et = Ära kunagi hoiata eest
     eu = Inoiz ez abisatu
-    fa = هرگز  هشدار ندهد
+    fa = هرگز هشدار ندهد
     fi = Älä koskaan varoita
     fr = Jamais avertir
     he = אל תזהיר אף פעם
@@ -30145,7 +30145,7 @@
     tags = android
     en = Show on the lock screen
     af = Toon op grendelskerm
-    ar = إظهار  التطبيق فوق شاشة القفل
+    ar = إظهار التطبيق فوق شاشة القفل
     az = Kilid ekranında göstərin
     be = Паказваць на экране блакіроўкі
     ca = Mostra en la pantalla de bloqueig

@@ -58,7 +58,7 @@
     <string name="download_resources_continue">برو به نقشه</string>
     <string name="downloading_country_can_proceed">درحال دانلود %s. شما اکنون می توانید
 \nبه نقشه بروید.</string>
-    <string name="download_country_ask">دانلود  %s?</string>
+    <string name="download_country_ask">دانلود %s?</string>
     <string name="update_country_ask">آپدیت %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="pause">مکث</string>
@@ -340,7 +340,7 @@
     <string name="dialog_routing_check_gps">سیگنال GPS را چک کنید</string>
     <string name="dialog_routing_error_location_not_found">ناتوان از ایجاد مسیر.موقعیت مکانی شما شناسایی نشد</string>
     <string name="dialog_routing_location_turn_wifi">لطفا سیگنال GPS موبایتان راچک کنید.و WiFi موبایلتان را جهت دقت بیشتر در موقعیت‌یابی فعال کنید.</string>
-    <string name="dialog_routing_location_turn_on">فعال کردن سرویس موقعیت مکانی  (GPS)</string>
+    <string name="dialog_routing_location_turn_on">فعال کردن سرویس موقعیت مکانی (GPS)</string>
     <string name="dialog_routing_location_unknown_turn_on">ناتوان از مشخص کردن موقعیت مکانی شما.لطفا سرویس موقعیت مکانی خود را فعال کنید.</string>
     <string name="dialog_routing_unable_locate_route">ناتوان در تعیین مسیر</string>
     <string name="dialog_routing_cant_build_route">ناتوان در ایجاد مسیر</string>
@@ -450,7 +450,7 @@
     <string name="level">طبقه</string>
     <string name="downloader_delete_map_dialog">تمام ویرایش‌های که بر روی نقشه انجام داده اید به همراه نقشه حذف شد.</string>
     <string name="downloader_update_maps">بروزرسانی نقشه‌ها</string>
-    <string name="downloader_mwm_migration_dialog">برای ایجاد مسیر شما نیازمند بروزرسانی تمامی  نقشه‌ها هستید سپس می توانید دوباره مسیرتان را برنامه ریزی کنید</string>
+    <string name="downloader_mwm_migration_dialog">برای ایجاد مسیر شما نیازمند بروزرسانی تمامی نقشه‌ها هستید سپس می توانید دوباره مسیرتان را برنامه ریزی کنید</string>
     <string name="downloader_search_field_hint">یافتن نقشه</string>
     <string name="common_check_internet_connection_dialog">لطفا تنظیمات خود را بازبینی کنید و مطمئن شوید که ابزار شما به اینترنت متصل است.</string>
     <string name="downloader_no_space_title">فظای کافی موجود نیست</string>
@@ -475,7 +475,7 @@
 \nبه انجمن بپیوندید و به ایجاد نقشه بهتر برای همه کمک کنید!</string>
     <string name="login_to_make_edits_visible">یک حساب OpenStreetMap ایجاد کنید یا وارد شوید تا ویرایش های نقشه خود را در جهان منتشر کنید.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
-    <string name="downloader_of">%1$d  از  %2$d</string>
+    <string name="downloader_of">%1$d از %2$d</string>
     <string name="download_over_mobile_header">دانلود بر روی یک شبکه دیتای موبایل؟</string>
     <string name="download_over_mobile_message">این کار می تواند برای شما در بعضی طرح‌ها و یا حالت رومینگ هزینه اضافی در بر داشته باشد.</string>
     <string name="error_enter_correct_house_number">وارد کردن شماره ساختمان معتبر</string>
@@ -646,7 +646,7 @@
     <!-- Speed camera settings menu option - Always warn (about speedcams) -->
     <string name="pref_tts_speedcams_always">همیشه هشدار دهد</string>
     <!-- Speed camera settings menu option - Never warn (about speedcams) -->
-    <string name="pref_tts_speedcams_never">هرگز  هشدار ندهد</string>
+    <string name="pref_tts_speedcams_never">هرگز هشدار ندهد</string>
     <string name="power_managment_title">حالت ذخیره انرژی</string>
     <string name="power_managment_description">هنگامی که حالت خودکار انتخاب شده‌باشد، برنامه با توجه میزان شارژ باتری شما، ویژگی‌های تخلیه کننده باتری را غیر فعال می‌کند</string>
     <string name="power_managment_setting_never">هرگز</string>

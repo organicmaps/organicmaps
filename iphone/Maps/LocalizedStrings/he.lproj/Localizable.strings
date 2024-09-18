@@ -88,7 +88,7 @@
 "settings" = "הגדרות";
 
 /* Measurement units title in settings activity */
-"measurement_units" = "יחידות  מדידה";
+"measurement_units" = "יחידות מדידה";
 
 
 /********** Search categories **********/
@@ -804,7 +804,7 @@
 "pref_tts_speedcams_auto" = "הזהר כשהמהירות מופרזת";
 
 /* Speed camera settings menu option - Always warn (about speedcams) */
-"pref_tts_speedcams_always" = "הזהר  תמיד";
+"pref_tts_speedcams_always" = "הזהר תמיד";
 
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "אל תזהיר אף פעם";

@@ -99,7 +99,7 @@
     <!-- Generic external storage type in Maps Storage settings -->
     <string name="maps_storage_external">Xarici paylaşılan yaddaş</string>
     <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
-    <string name="maps_storage_free_size">%2$s-nin  %1$s-i boşdur</string>
+    <string name="maps_storage_free_size">%2$s-nin %1$s-i boşdur</string>
     <!-- Question dialog for transferring maps from one storage to another -->
     <string name="move_maps">Xəritələr köçürülsün?</string>
     <!-- Error moving map files from one storage to another -->

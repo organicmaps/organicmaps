@@ -49,7 +49,7 @@
     <string name="unsupported_phone">נדרש מאיץ חומרה OpenGL. לצערינו מכשיר זה אינו נתמך.</string>
     <string name="download">הורדה</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">אנא נתק כבל USB או הכנס כרטיס זכרון כדי להשתמש  ב-Organic Maps.</string>
+    <string name="disconnect_usb_cable">אנא נתק כבל USB או הכנס כרטיס זכרון כדי להשתמש ב-Organic Maps.</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">אנא פנה שטח אחסון בכרטיס הזיכרון או בכונן USB כדי להשתמש בישום</string>
     <string name="download_resources">תחילה, נוריד למכשירך מפה כללית של העולם.
@@ -107,7 +107,7 @@
     <string name="wait_several_minutes">פעולה זו יכולה להמשך מספר דקות.
 \nהמתן בבקשה…</string>
     <!-- Measurement units title in settings activity -->
-    <string name="measurement_units">יחידות  מדידה</string>
+    <string name="measurement_units">יחידות מדידה</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">בחר בין מיילים לקילומטרים</string>
 
@@ -680,7 +680,7 @@
     <!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
     <string name="pref_tts_speedcams_auto">הזהר כשהמהירות מופרזת</string>
     <!-- Speed camera settings menu option - Always warn (about speedcams) -->
-    <string name="pref_tts_speedcams_always">הזהר  תמיד</string>
+    <string name="pref_tts_speedcams_always">הזהר תמיד</string>
     <!-- Speed camera settings menu option - Never warn (about speedcams) -->
     <string name="pref_tts_speedcams_never">אל תזהיר אף פעם</string>
     <string name="power_managment_title">מצב חיסכון בסוללה</string>

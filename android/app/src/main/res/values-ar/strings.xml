@@ -182,7 +182,7 @@
     <string name="unknown_file_type">لم يتعرف التطبيق على نوع الملف:
 \n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">فشل فتح ملف  %1$s
+    <string name="failed_to_open_file">فشل فتح ملف %1$s
 \n
 \n%2$s</string>
     <!-- resource for context menu -->
@@ -380,9 +380,9 @@
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">عند اتباع المسار، يُرجى الانتباه إلى ما يلي:</string>
     <string name="dialog_routing_disclaimer_priority">— إن ظروف الطريق وقوانين وإشارات المرور لها الأولوية على المشورة الملاحية دائماً;</string>
-    <string name="dialog_routing_disclaimer_precision">—  قد تكون الخريطة غير دقيقة وقد لا يكون المسار المقترح هو المسار الأمثل دائمًا للوصول إلى الوجهة.;</string>
+    <string name="dialog_routing_disclaimer_precision">— قد تكون الخريطة غير دقيقة وقد لا يكون المسار المقترح هو المسار الأمثل دائمًا للوصول إلى الوجهة.;</string>
     <string name="dialog_routing_disclaimer_recommendations">— يجب التعامل مع المسارات المقترحة كتوصيات فقط;</string>
-    <string name="dialog_routing_disclaimer_borders">— تحذير بشأن المسارات في المناطق الحدودية: المسارات التي تم إنشاؤها بواسطة تطبيقنا قد تعبر  أحياناً حدود الدول في أماكن غير مصرح بها;</string>
+    <string name="dialog_routing_disclaimer_borders">— تحذير بشأن المسارات في المناطق الحدودية: المسارات التي تم إنشاؤها بواسطة تطبيقنا قد تعبر أحياناً حدود الدول في أماكن غير مصرح بها;</string>
     <string name="dialog_routing_disclaimer_beware">يجب أن تظل يقظًا وآمنًا على الطريق!</string>
     <string name="dialog_routing_check_gps">تحقق من إشارة نظام تحديد الموقع الجغرافي</string>
     <string name="dialog_routing_error_location_not_found">تعذر إنشاء مسار. لم نستطع تحديد الإحداثيات الجغرافية الحالية.</string>
@@ -408,7 +408,7 @@
     <string name="dialog_routing_download_cross_route">تنزيل خرائط إضافية لإنشاء مسار أفضل يعبر حافة هذه الخريطة.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
-    <string name="search_without_internet_advertisement">لبدء البحث وإنشاء الطرق، يرجى تنزيل الخريطة،  ولن تحتاج إلى اتصال بالإنترنت بعد ذلك.</string>
+    <string name="search_without_internet_advertisement">لبدء البحث وإنشاء الطرق، يرجى تنزيل الخريطة، ولن تحتاج إلى اتصال بالإنترنت بعد ذلك.</string>
     <string name="search_select_map">اختيار الخريطة</string>
     <!-- «Show» context menu -->
     <string name="show">عرض</string>
@@ -804,7 +804,7 @@
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">عند التمكين، ستكون الشاشة قيد التشغيل دائمًا عند عرض الخريطة.</string>
     <!-- A preference title; keep short! -->
-    <string name="enable_show_on_lock_screen">إظهار  التطبيق فوق شاشة القفل</string>
+    <string name="enable_show_on_lock_screen">إظهار التطبيق فوق شاشة القفل</string>
     <!-- Description in preferences -->
     <string name="enable_show_on_lock_screen_description">عند التفعيل، لن تحتاج لفتح قفل جهازك كل مرة أثناء تشغيل التطبيق</string>
     <!-- Current language of the map! -->
