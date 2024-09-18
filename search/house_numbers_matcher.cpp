@@ -444,7 +444,7 @@ uint64_t ToUInt(UniString const & s)
   uint64_t pow = 1;
 
   int i = int(s.size()) - 1;
-  ASSERT(i >= 0 && i <= 10, (i));
+  ASSERT(i >= 0 && i < std::numeric_limits<uint64_t>::digits10, (i));
   for (; i >= 0; --i)
   {
     ASSERT(IsASCIIDigit(s[i]), (s[i]));
