@@ -94,7 +94,7 @@ class ProfileViewModel @Inject constructor(
                 profileRepository.updateProfile(
                     fullName = fullName.value,
                     country = countryCodeName.value ?: "",
-                    email = if (currentEmail == email.value) null else email.value,
+                    email = email.value,
                     pfpFile.value
                 ).collectLatest { resource ->
                     if (resource is Resource.Success) {

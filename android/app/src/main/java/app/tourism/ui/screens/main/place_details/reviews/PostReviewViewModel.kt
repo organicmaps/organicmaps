@@ -86,7 +86,7 @@ class PostReviewViewModel @Inject constructor(
                     uiChannel.send(
                         UiEvent.ShowToast(it.message ?: context.getString(R.string.smth_went_wrong))
                     )
-                    if (it.message == context.getString(R.string.review_will_be_published)) {
+                    if (it.message == context.getString(R.string.review_will_be_published_when_online)) {
                         uiChannel.send(UiEvent.CloseReviewBottomSheet)
                     }
                 }

@@ -81,3 +81,38 @@ extension UserEntity {
     )
   }
 }
+
+extension ReviewEntity {
+  func toReview() -> Review {
+    
+    let user = DBUtils.decodeFromJsonString(self.userJson ?? "", to: UserEntity.self)?.toUser()
+    let picsUrls = DBUtils.decodeFromJsonString(self.picsUrlsJson ?? "", to: [String].self)
+    
+    return Review(
+      id: self.id,
+      placeId: self.placeId,
+      rating: Int(self.rating),
+      user: user,
+      date: self.date,
+      comment: self.comment,
+      picsUrls: picsUrls ?? [],
+      deletionPlanned: self.deletionPlanned
+    )
+  }
+}
+
+extension ReviewPlannedToPostEntity {
+  func toReviewToPostDTO() -> ReviewToPostDTO {
+    var images = [String]()
+    if let imagesJson = self.imagesJson {
+      images = DBUtils.decodeFromJsonString(imagesJson, to: [String].self) ?? []
+    }
+    
+    return ReviewToPostDTO(
+      placeId: self.placeId,
+      comment: self.comment ?? "",
+      rating: Int(self.rating),
+      images: images.map { URL(string: $0)! }
+    )
+  }
+}

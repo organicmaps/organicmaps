@@ -21,3 +21,21 @@ struct ReviewDTO: Codable {
     )
   }
 }
+
+
+struct ReviewIdsDTO: Codable {
+  let feedbacks: [Int64]
+}
+
+
+struct ReviewsDTO: Codable {
+  let data: [ReviewDTO]
+}
+
+
+struct ReviewToPostDTO: Codable {
+  let placeId: Int64
+  let comment: String
+  let rating: Int
+  let images: [URL]
+}

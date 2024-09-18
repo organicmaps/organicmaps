@@ -2226,7 +2226,7 @@
   <string name="deletionPlanned">В процессе удаления</string>
   <string name="plz_wait_dowloading">Пожалуйста подождите данные скачиваются</string>
   <string name="empty_list">Пусто</string>
-  <string name="review_will_be_published">Отзыв будет публикован когда будете онлайн</string>
+  <string name="review_will_be_published_when_online">Отзыв будет публикован когда будете онлайн</string>
   <string name="review_was_published">Отзыв был успешно опубликован</string>
   <string name="failed_to_publish_review">Не удалось публиковать отзыв</string>
   <string name="plz_dont_go_out_of_tjk">Поажалуйста, не выходите за рамки Таджикистана, вы должны быть в Таджикистане</string>

@@ -41,8 +41,8 @@ class ReviewsRepository(
         }
     }
 
-    fun isThereReviewPlannedToPublish(): Flow<Boolean> = channelFlow {
-        reviewsDao.getReviewsPlannedToPostFlow().collectLatest { reviewsEntities ->
+    fun isThereReviewPlannedToPublish(placeId: Long): Flow<Boolean> = channelFlow {
+        reviewsDao.getReviewsPlannedToPostFlow(placeId).collectLatest { reviewsEntities ->
             send(reviewsEntities.isNotEmpty())
         }
     }
@@ -84,7 +84,7 @@ class ReviewsRepository(
             try {
                 saveToInternalStorage(imageFiles, context)
                 reviewsDao.insertReviewPlannedToPost(review.toReviewPlannedToPostEntity(imageFiles))
-                emit(Resource.Error(context.getString(R.string.review_will_be_published)))
+                emit(Resource.Error(context.getString(R.string.review_will_be_published_when_online)))
             } catch (e: OutOfMemoryError) {
                 e.printStackTrace()
                 emit(Resource.Error(context.getString(R.string.smth_went_wrong)))

@@ -44,13 +44,15 @@ struct PersonalDataScreen: View {
           // pfp
           Group {
             if profileVM.isImagePickerUsed {
-              Image(uiImage: profileVM.pfpToUpload).resizable()
+              Image(uiImage: profileVM.pfpToUpload)
+                .resizable()
             } else {
               LoadImageView(url: profileVM.pfpFromRemote?.absoluteString)
             }
           }
           .scaledToFill()
           .frame(width: 100, height: 100)
+          .background(Color.surface)
           .clipShape(Circle())
           
           Spacer().frame(width: 32)

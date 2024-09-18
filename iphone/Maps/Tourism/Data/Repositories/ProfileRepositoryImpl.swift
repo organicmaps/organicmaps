@@ -27,7 +27,7 @@ class ProfileRepositoryImpl: ProfileRepository {
       } receiveValue: { personalData in
         self.personalDataPassThroughSubject.send(personalData)
       }
-      .store(in: &cancellables) // Store the cancellable
+      .store(in: &cancellables)
     
     persistenceController.observePersonalData()
     
@@ -40,6 +40,9 @@ class ProfileRepositoryImpl: ProfileRepository {
         }
         
         let newPersonalData = remotePersonalData.toPersonalData()
+        
+        userPreferences.setUserId(value: String(newPersonalData.id))
+        
         return self.persistenceController.updatePersonalData(personalData: newPersonalData)
           .map { newPersonalData }
           .eraseToAnyPublisher()
@@ -52,7 +55,7 @@ class ProfileRepositoryImpl: ProfileRepository {
       } receiveValue: { personalData in
         // Yes, nothing, we observe anyway
       }
-      .store(in: &cancellables) // Store the cancellable
+      .store(in: &cancellables)
   }
   
   func updateProfile(

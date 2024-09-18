@@ -44,8 +44,8 @@
   //
     -->
   <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-  <uses-permission android:name="androidx.car.app.NAVIGATION_TEMPLATES" />
-  <uses-permission android:name="androidx.car.app.ACCESS_SURFACE" />
+<!--  <uses-permission android:name="androidx.car.app.NAVIGATION_TEMPLATES" />-->
+<!--  <uses-permission android:name="androidx.car.app.ACCESS_SURFACE" />-->
 
   <queries>
     <intent>
@@ -444,16 +444,16 @@
       android:label="@string/driving_options_title" />
     <activity android:name=".MapPlaceholderActivity" />
 
-    <service
-      android:name=".car.CarAppService"
-      android:exported="true"
-      android:foregroundServiceType="location">
-      <intent-filter>
-        <action android:name="androidx.car.app.CarAppService" />
+<!--    <service-->
+<!--      android:name=".car.CarAppService"-->
+<!--      android:exported="true"-->
+<!--      android:foregroundServiceType="location">-->
+<!--      <intent-filter>-->
+<!--        <action android:name="androidx.car.app.CarAppService" />-->
 
-        <category android:name="androidx.car.app.category.NAVIGATION" />
-      </intent-filter>
-    </service>
+<!--        <category android:name="androidx.car.app.category.NAVIGATION" />-->
+<!--      </intent-filter>-->
+<!--    </service>-->
     <service
       android:name=".routing.NavigationService"
       android:enabled="true"
@@ -483,12 +483,12 @@
     <meta-data
       android:name="com.samsung.android.multidisplay.keep_process_alive"
       android:value="true" />
-    <meta-data
-      android:name="com.google.android.gms.car.application"
-      android:resource="@xml/automotive_app_desc" />
-    <meta-data
-      android:name="androidx.car.app.minCarApiLevel"
-      android:value="5" />
+<!--    <meta-data-->
+<!--      android:name="com.google.android.gms.car.application"-->
+<!--      android:resource="@xml/automotive_app_desc" />-->
+<!--    <meta-data-->
+<!--      android:name="androidx.car.app.minCarApiLevel"-->
+<!--      android:value="5" />-->
   </application>
 
 </manifest>

@@ -9,6 +9,14 @@ struct PostReviewView: View {
   
   @State private var showImagePicker = false
   
+  @State private var message = ""
+  @State private var showMessage = false
+  
+  private func showMessage(_ message: String) {
+    self.message = message
+    self.showMessage = true
+  }
+  
   var body: some View {
     ScrollView {
       VStack {
@@ -30,21 +38,20 @@ struct PostReviewView: View {
         Spacer().frame(height: 16)
         
         // Display the selected images
-        FlowStack(data: postReviewVM.files, spacing: 16, alignment: .center) { file in
+        FlowStack(data: postReviewVM.images, spacing: 16, alignment: .center) { file in
           ImagePreviewView(image: file) {
             postReviewVM.removeFile(file)
           }
         }
         Spacer().frame(height: 32)
         
-        if(postReviewVM.files.count < 10) {
+        if(postReviewVM.images.count < 10) {
           VStack(alignment: .leading) {
             PrimaryButton(
               label: L("upload_photo"),
               onClick: {
                 showImagePicker = true
-              },
-              isLoading: postReviewVM.isPosting
+              }
             )
             Spacer().frame(height: 4)
             Text(L("images_number_warning"))
@@ -68,14 +75,22 @@ struct PostReviewView: View {
       .onReceive(postReviewVM.uiEvents) { event in
         switch event {
         case .closeReviewBottomSheet:
-          onPostReviewSuccess()
+            onPostReviewSuccess()
         case .showToast(let message):
-          // TODO: cmon
-          print(message)
+          showMessage(message)
         }
       }
+      .overlay(
+        Group {
+          if showMessage {
+            ToastView(message: message, isPresented: $showMessage)
+              .padding(.bottom)
+          }
+        },
+        alignment: .bottom
+      )
       .sheet(isPresented: $showImagePicker) {
-        MultiImagePicker(selectedImages: $postReviewVM.files)
+        MultiImagePicker(selectedImages: $postReviewVM.images)
       }
     }
   }
@@ -103,32 +118,32 @@ struct ImagePreviewView: View {
 
 
 struct MultilineTextField: View {
-    @Binding var text: String
-    let placeholder: String
-    let minHeight: CGFloat
-    
-    init(_ placeholder: String, text: Binding<String>, minHeight: CGFloat = 100) {
-        self._text = text
-        self.placeholder = placeholder
-        self.minHeight = minHeight
+  @Binding var text: String
+  let placeholder: String
+  let minHeight: CGFloat
+  
+  init(_ placeholder: String, text: Binding<String>, minHeight: CGFloat = 100) {
+    self._text = text
+    self.placeholder = placeholder
+    self.minHeight = minHeight
+  }
+  
+  var body: some View {
+    ZStack(alignment: .topLeading) {
+      TextEditor(text: $text)
+        .frame(minHeight: minHeight)
+        .padding(4)
+      
+      if text.isEmpty {
+        Text(placeholder)
+          .foregroundColor(SwiftUI.Color(.placeholderText))
+          .padding(.horizontal, 8)
+          .padding(.vertical, 12)
+      }
     }
-    
-    var body: some View {
-        ZStack(alignment: .topLeading) {
-            TextEditor(text: $text)
-                .frame(minHeight: minHeight)
-                .padding(4)
-            
-            if text.isEmpty {
-                Text(placeholder)
-                .foregroundColor(SwiftUI.Color(.placeholderText))
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 12)
-            }
-        }
-        .overlay(
-            RoundedRectangle(cornerRadius: 8)
-              .stroke(SwiftUI.Color.gray.opacity(0.2), lineWidth: 1)
-        )
-    }
+    .overlay(
+      RoundedRectangle(cornerRadius: 8)
+        .stroke(SwiftUI.Color.gray.opacity(0.2), lineWidth: 1)
+    )
+  }
 }

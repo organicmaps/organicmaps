@@ -181,7 +181,7 @@ class PlacesRepositoryImpl: PlacesRepository {
   func setFavorite(placeId: Int64, isFavorite: Bool) {
     placesPersistenceController.setFavorite(placeId: placeId, isFavorite: isFavorite)
     
-    placesPersistenceController.addFavoriteSync(
+    placesPersistenceController.addFavoritingRecordForSync(
       placeId: placeId,
       isFavorite: isFavorite
     )
@@ -196,14 +196,42 @@ class PlacesRepositoryImpl: PlacesRepository {
           try await placesService.removeFromFavorites(ids: favoritesIdsDto)
         }
         
-        placesPersistenceController.removeFavoriteSync(placeIds: [placeId])
+        placesPersistenceController.removeFavoritingRecordsForSync(placeIds: [placeId])
       } catch {
-        placesPersistenceController.addFavoriteSync(placeId: placeId, isFavorite: isFavorite)
+        print("Failed to setFavorite")
+        print(error)
       }
     }
   }
   
   func syncFavorites() {
-    // TODO: cmon
+    let syncData = placesPersistenceController.getFavoritingRecordsForSync()
+    
+    let favoritesToAdd = syncData.filter { $0.isFavorite }.map { $0.placeId }
+    let favoritesToRemove = syncData.filter { !$0.isFavorite }.map { $0.placeId }
+    
+    if !favoritesToAdd.isEmpty {
+      Task {
+        do {
+          let response =
+          try await placesService.addFavorites(ids: FavoritesIdsDTO(marks: favoritesToAdd))
+          placesPersistenceController.removeFavoritingRecordsForSync(placeIds: favoritesToAdd)
+        } catch {
+          print(error)
+        }
+      }
+    }
+    
+    if !favoritesToRemove.isEmpty {
+      Task {
+        do {
+          let response =
+          try await placesService.removeFromFavorites(ids: FavoritesIdsDTO(marks: favoritesToRemove))
+          placesPersistenceController.removeFavoritingRecordsForSync(placeIds: favoritesToRemove)
+        } catch {
+          print(error)
+        }
+      }
+    }
   }
 }

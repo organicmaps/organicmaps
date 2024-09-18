@@ -70,8 +70,10 @@ class ReviewsViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            reviewsRepository.isThereReviewPlannedToPublish().collectLatest {
-                _isThereReviewPlannedToPublish.value = it
+            userReview.value?.id?.let { placeId ->
+                reviewsRepository.isThereReviewPlannedToPublish(placeId).collectLatest {
+                    _isThereReviewPlannedToPublish.value = it
+                }
             }
         }
     }

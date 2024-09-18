@@ -95,8 +95,7 @@ class ProfileViewModel: ObservableObject {
       profileRepository.updateProfile(
         fullName: fullName,
         country: countryCodeName!,
-        // We shouldn't send email field if there's no change
-        email: email == currentEmail ? nil : email,
+        email: email,
         pfpUrl: pfpToUpload
       )
       .sink { completion in

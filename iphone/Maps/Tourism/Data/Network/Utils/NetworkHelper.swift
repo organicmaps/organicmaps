@@ -163,7 +163,7 @@ class AppNetworkHelper {
         headers: headers,
         decoder: decoder
       )
-    } catch {
+    } catch let error as NSError {
       print(error)
       throw ResourceError.other(message: "Encoding error")
     }

@@ -47,6 +47,6 @@ interface ReviewsDao {
     @Query("SELECT * FROM reviews_planned_to_post")
     fun getReviewsPlannedToPost(): List<ReviewPlannedToPostEntity>
 
-    @Query("SELECT * FROM reviews_planned_to_post")
-    fun getReviewsPlannedToPostFlow(): Flow<List<ReviewPlannedToPostEntity>>
+    @Query("SELECT * FROM reviews_planned_to_post WHERE placeId = :placeId")
+    fun getReviewsPlannedToPostFlow(placeId: Long): Flow<List<ReviewPlannedToPostEntity>>
 }

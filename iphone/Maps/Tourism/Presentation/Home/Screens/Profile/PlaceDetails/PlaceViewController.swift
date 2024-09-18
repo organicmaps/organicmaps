@@ -39,12 +39,28 @@ class PlaceViewController: UIViewController {
 
 struct PlaceScreen: View {
   @ObservedObject var placeVM: PlaceViewModel
+  let reviewsVM: ReviewsViewModel
   let id: Int64
   let showBottomBar: () -> Void
   
   @State private var selectedTab = 0
   
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+  
+  init(placeVM: PlaceViewModel, id: Int64, showBottomBar: @escaping () -> Void) {
+    self.placeVM = placeVM
+    self.id = id
+    self.showBottomBar = showBottomBar
+    
+    self.reviewsVM = ReviewsViewModel(
+        reviewsRepository: ReviewsRepositoryImpl(
+          reviewsPersistenceController: ReviewsPersistenceController.shared,
+          reviewsService: ReviewsServiceImpl(userPreferences: UserPreferences.shared)
+        ),
+        userPreferences: UserPreferences.shared,
+        id: id
+      )
+  }
   
   var body: some View {
     if let place = placeVM.place {
@@ -79,7 +95,11 @@ struct PlaceScreen: View {
             .tag(0)
             GalleryScreen(urls: place.pics)
               .tag(1)
-            ReviewsScreen(placeId: place.id, rating: place.rating)
+            ReviewsScreen(
+              reviewsVM: reviewsVM,
+              placeId: place.id,
+              rating: place.rating
+            )
               .tag(2)
           }
           .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))

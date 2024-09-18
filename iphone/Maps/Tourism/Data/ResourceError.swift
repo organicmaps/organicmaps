@@ -1,6 +1,7 @@
 import Foundation
 
 enum ResourceError: Error, Equatable {
+  case noConnection
   case serverError(message: String)
   case cacheError
   case unauthed
@@ -9,6 +10,8 @@ enum ResourceError: Error, Equatable {
   
   var errorDescription: String {
     switch self {
+    case .noConnection:
+      return L("no_connection")
     case .serverError:
       return L("server_error")
     case .cacheError:

@@ -16,6 +16,7 @@ fun CountryAsLabel(modifier: Modifier = Modifier, countryCodeName: String, conte
                 .inflate(R.layout.ccp_as_country_label, null, false)
             val ccp = view.findViewById<CountryCodePicker>(R.id.ccp)
             ccp.contentColor = contentColor
+            ccp.setCountryForNameCode("BO")
             ccp.setCountryForNameCode(countryCodeName)
             ccp.showArrow(false)
             ccp.setCcpClickable(false)

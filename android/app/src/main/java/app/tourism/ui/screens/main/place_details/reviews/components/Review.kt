@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
@@ -17,6 +18,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
@@ -44,6 +46,7 @@ import app.tourism.ui.common.HorizontalSpace
 import app.tourism.ui.common.LoadImg
 import app.tourism.ui.common.VerticalSpace
 import app.tourism.ui.common.special.CountryAsLabel
+import app.tourism.ui.common.special.CountryFlag
 import app.tourism.ui.common.special.RatingBar
 import app.tourism.ui.screens.main.place_details.gallery.imageShape
 import app.tourism.ui.theme.TextStyles
@@ -138,19 +141,21 @@ fun User(modifier: Modifier = Modifier, user: User) {
             url = user.pfpUrl,
         )
         HorizontalSpace(width = 12.dp)
-        Column {
-            VerticalSpace(height = 6.dp)
+        Row(modifier = Modifier) {
+            Column {
+                VerticalSpace(3.dp)
+                CountryFlag(
+                    modifier = Modifier.width(50.dp),
+                    countryCodeName = user.countryCodeName,
+                )
+            }
             Text(
+                modifier = Modifier.weight(1f).width(IntrinsicSize.Min),
                 text = user.name,
                 style = TextStyles.h4,
                 fontWeight = FontWeight.W600,
-                maxLines = 1,
+                maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
-            )
-            CountryAsLabel(
-                Modifier.fillMaxWidth(),
-                user.countryCodeName,
-                contentColor = MaterialTheme.colorScheme.onBackground.toArgb(),
             )
         }
     }

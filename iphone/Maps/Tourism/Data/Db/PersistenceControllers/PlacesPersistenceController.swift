@@ -300,7 +300,7 @@ class PlacesPersistenceController: NSObject, NSFetchedResultsControllerDelegate 
     }
   }
   
-  func addFavoriteSync(placeId: Int64, isFavorite: Bool) {
+  func addFavoritingRecordForSync(placeId: Int64, isFavorite: Bool) {
     let context = container.viewContext
     let favoriteSyncEntity = FavoriteSyncEntity(context: context)
     favoriteSyncEntity.placeId = placeId
@@ -313,23 +313,28 @@ class PlacesPersistenceController: NSObject, NSFetchedResultsControllerDelegate 
     }
   }
   
-  func removeFavoriteSync(placeIds: [Int64]) {
+  func removeFavoritingRecordsForSync(placeIds: [Int64]) {
     let context = container.viewContext
-    let fetchRequest: NSFetchRequest<FavoriteSyncEntity> = FavoriteSyncEntity.fetchRequest()
+    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = FavoriteSyncEntity.fetchRequest()
     fetchRequest.predicate = NSPredicate(format: "placeId IN %@", placeIds)
     
+    let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+    deleteRequest.resultType = .resultTypeObjectIDs
+    
     do {
-      let favoriteSyncs = try context.fetch(fetchRequest)
-      for favoriteSync in favoriteSyncs {
-        context.delete(favoriteSync)
-      }
+      let result = try context.execute(deleteRequest) as? NSBatchDeleteResult
+      let changes: [AnyHashable: Any] = [
+        NSDeletedObjectsKey: result?.result as? [NSManagedObjectID] ?? []
+      ]
+      
+      NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
       try context.save()
     } catch {
-      print("Failed to remove favorite syncs: \(error)")
+      print("Failed to remove favoriting records for sync: \(error)")
     }
   }
   
-  func getFavoriteSyncData() -> [FavoriteSyncEntity] {
+  func getFavoritingRecordsForSync() -> [FavoriteSyncEntity] {
     let context = container.viewContext
     let fetchRequest: NSFetchRequest<FavoriteSyncEntity> = FavoriteSyncEntity.fetchRequest()
     

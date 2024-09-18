@@ -45,56 +45,57 @@ struct Place: View {
   
   var body: some View {
     ZStack() {
-      LoadImageView(url: place.cover)
-      
-      VStack {
-        Spacer()
-        HStack() {
-          VStack(alignment: .leading) {
-            Text(place.name)
-              .font(.semiBold(size: 15))
-              .foregroundColor(.white)
-              .lineLimit(2)
-            VerticalSpace(height: 4)
-
-            HStack(alignment: .center) {
-              Text(String(format: "%.1f", place.rating ?? 0.0))
-                .font(.semiBold(size: 15))
-                .foregroundColor(.white)
-              Image(systemName: "star.fill")
-                .resizable()
-                .foregroundColor(Color.starYellow)
-                .frame(width: 10, height: 10)
-            }
-          }
-          .padding(12)
-          
-          Spacer()
-        }
-        .frame(width: width)
-        .background(SwiftUI.Color.black.opacity(0.5))
-      }
-      
-      HStack {
-        Spacer()
+        LoadImageView(url: place.cover)
+        
         VStack {
-          Button(action: {
-            onFavoriteChanged(!isFavorite)
-          }) {
-            Image(systemName: isFavorite ? "heart.fill" : "heart")
-              .foregroundColor(.white)
-              .padding(12)
-              .background(SwiftUI.Color.white.opacity(0.2))
-              .clipShape(Circle())
-          }
-          Spacer()
+            Spacer()
+            HStack() {
+                VStack(alignment: .leading) {
+                    Text(place.name)
+                        .font(.semiBold(size: 15))
+                        .foregroundColor(.white)
+                        .lineLimit(2)
+                    VerticalSpace(height: 4)
+
+                    HStack(alignment: .center) {
+                        Text(String(format: "%.1f", place.rating ?? 0.0))
+                            .font(.semiBold(size: 15))
+                            .foregroundColor(.white)
+                        Image(systemName: "star.fill")
+                            .resizable()
+                            .foregroundColor(Color.starYellow)
+                            .frame(width: 10, height: 10)
+                    }
+                }
+                .padding(12)
+                
+                Spacer()
+            }
+            .frame(width: width)
+            .background(SwiftUI.Color.black.opacity(0.5))
         }
-      }
-      .padding(12)
-      .frame(width: width, height: height)
+        
+        HStack {
+            Spacer()
+            VStack {
+                Button(action: {
+                    onFavoriteChanged(!isFavorite)
+                }) {
+                    Image(systemName: isFavorite ? "heart.fill" : "heart")
+                        .foregroundColor(.white)
+                        .padding(12)
+                        .background(SwiftUI.Color.white.opacity(0.2))
+                        .clipShape(Circle())
+                }
+                Spacer()
+            }
+        }
+        .padding(12)
+        .frame(width: width, height: height)
     }
     .frame(width: width, height: height)
     .clipShape(RoundedRectangle(cornerRadius: 16))
+    .contentShape(Rectangle())  // Add this line
     .onTapGesture(perform: onPlaceClick)
   }
 }

@@ -126,6 +126,7 @@ struct ProfileBar: View {
     HStack(alignment: .center) {
       LoadImageView(url: personalData.pfpUrl)
         .frame(width: 100, height: 100)
+        .background(Color.surface)
         .clipShape(Circle())
       
       HorizontalSpace(width: 16)

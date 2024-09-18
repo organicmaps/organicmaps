@@ -305,14 +305,11 @@
 		529A5F192C85BFF0004FE4A1 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F182C85BFF0004FE4A1 /* ToastView.swift */; };
 		529A5F1E2C86DDE5004FE4A1 /* PlaceDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F1D2C86DDE5004FE4A1 /* PlaceDTO.swift */; };
 		529A5F202C86DE14004FE4A1 /* CoordinatesDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F1F2C86DE14004FE4A1 /* CoordinatesDTO.swift */; };
-		529A5F222C86DE50004FE4A1 /* ReviewDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F212C86DE50004FE4A1 /* ReviewDTO.swift */; };
-		529A5F242C86DE7D004FE4A1 /* ReviewIdsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F232C86DE7D004FE4A1 /* ReviewIdsDTO.swift */; };
-		529A5F262C86DE9D004FE4A1 /* ReviewsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F252C86DE9D004FE4A1 /* ReviewsDTO.swift */; };
+		529A5F222C86DE50004FE4A1 /* Reviews DTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F212C86DE50004FE4A1 /* Reviews DTOs.swift */; };
 		529A5F282C86DEC5004FE4A1 /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F272C86DEC5004FE4A1 /* UserDTO.swift */; };
 		529A5F2B2C86DF2D004FE4A1 /* PlaceShort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F2A2C86DF2D004FE4A1 /* PlaceShort.swift */; };
 		529A5F2D2C86DF3B004FE4A1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F2C2C86DF3B004FE4A1 /* User.swift */; };
-		529A5F2F2C86DF51004FE4A1 /* ReviewToPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F2E2C86DF51004FE4A1 /* ReviewToPost.swift */; };
-		529A5F312C86DF61004FE4A1 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F302C86DF61004FE4A1 /* Review.swift */; };
+		529A5F312C86DF61004FE4A1 /* Review Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F302C86DF61004FE4A1 /* Review Models.swift */; };
 		529A5F332C86DF6F004FE4A1 /* PlaceFull.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F322C86DF6F004FE4A1 /* PlaceFull.swift */; };
 		529A5F352C86DF99004FE4A1 /* PlaceLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F342C86DF99004FE4A1 /* PlaceLocation.swift */; };
 		529A5F372C86E02E004FE4A1 /* AllDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F362C86E02E004FE4A1 /* AllDataDTO.swift */; };
@@ -590,6 +587,8 @@
 		CE64501D2C93F8350075A59B /* ReviewsPersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE64501C2C93F8350075A59B /* ReviewsPersistenceController.swift */; };
 		CE6450202C9402EC0075A59B /* ReviewsPersistenceControllerTesterBro.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE64501F2C9402EC0075A59B /* ReviewsPersistenceControllerTesterBro.swift */; };
 		CE6450242C9772310075A59B /* DownloadProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6450232C9772310075A59B /* DownloadProgress.swift */; };
+		CE6450282C99572F0075A59B /* ImageStoreUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6450272C99572F0075A59B /* ImageStoreUtils.swift */; };
+		CEA45BC42C9AE01000ABE6B2 /* DataSyncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA45BC32C9AE01000ABE6B2 /* DataSyncer.swift */; };
 		CED0E00E2C8ACBCA008C61CA /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = CED0E00D2C8ACBCA008C61CA /* SDWebImageSwiftUI */; };
 		CED0E0112C8ACBE1008C61CA /* CountryPickerView in Frameworks */ = {isa = PBXBuildFile; productRef = CED0E0102C8ACBE1008C61CA /* CountryPickerView */; };
 		CED0E0172C8ACF0D008C61CA /* RoundedCornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0E0162C8ACF0D008C61CA /* RoundedCornerShape.swift */; };
@@ -1373,14 +1372,11 @@
 		529A5F182C85BFF0004FE4A1 /* ToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		529A5F1D2C86DDE5004FE4A1 /* PlaceDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDTO.swift; sourceTree = "<group>"; };
 		529A5F1F2C86DE14004FE4A1 /* CoordinatesDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatesDTO.swift; sourceTree = "<group>"; };
-		529A5F212C86DE50004FE4A1 /* ReviewDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDTO.swift; sourceTree = "<group>"; };
-		529A5F232C86DE7D004FE4A1 /* ReviewIdsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewIdsDTO.swift; sourceTree = "<group>"; };
-		529A5F252C86DE9D004FE4A1 /* ReviewsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsDTO.swift; sourceTree = "<group>"; };
+		529A5F212C86DE50004FE4A1 /* Reviews DTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reviews DTOs.swift"; sourceTree = "<group>"; };
 		529A5F272C86DEC5004FE4A1 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
 		529A5F2A2C86DF2D004FE4A1 /* PlaceShort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceShort.swift; sourceTree = "<group>"; };
 		529A5F2C2C86DF3B004FE4A1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		529A5F2E2C86DF51004FE4A1 /* ReviewToPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewToPost.swift; sourceTree = "<group>"; };
-		529A5F302C86DF61004FE4A1 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		529A5F302C86DF61004FE4A1 /* Review Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Review Models.swift"; sourceTree = "<group>"; };
 		529A5F322C86DF6F004FE4A1 /* PlaceFull.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceFull.swift; sourceTree = "<group>"; };
 		529A5F342C86DF99004FE4A1 /* PlaceLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceLocation.swift; sourceTree = "<group>"; };
 		529A5F362C86E02E004FE4A1 /* AllDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDataDTO.swift; sourceTree = "<group>"; };
@@ -1643,6 +1639,8 @@
 		CE64501C2C93F8350075A59B /* ReviewsPersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsPersistenceController.swift; sourceTree = "<group>"; };
 		CE64501F2C9402EC0075A59B /* ReviewsPersistenceControllerTesterBro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsPersistenceControllerTesterBro.swift; sourceTree = "<group>"; };
 		CE6450232C9772310075A59B /* DownloadProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadProgress.swift; sourceTree = "<group>"; };
+		CE6450272C99572F0075A59B /* ImageStoreUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStoreUtils.swift; sourceTree = "<group>"; };
+		CEA45BC32C9AE01000ABE6B2 /* DataSyncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSyncer.swift; sourceTree = "<group>"; };
 		CED0E0162C8ACF0D008C61CA /* RoundedCornerShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerShape.swift; sourceTree = "<group>"; };
 		CED0E0182C8AD57C008C61CA /* EmptyUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyUI.swift; sourceTree = "<group>"; };
 		CED0E01A2C8B048C008C61CA /* AllPicsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPicsScreen.swift; sourceTree = "<group>"; };
@@ -3173,9 +3171,7 @@
 			isa = PBXGroup;
 			children = (
 				529A5F1D2C86DDE5004FE4A1 /* PlaceDTO.swift */,
-				529A5F212C86DE50004FE4A1 /* ReviewDTO.swift */,
-				529A5F232C86DE7D004FE4A1 /* ReviewIdsDTO.swift */,
-				529A5F252C86DE9D004FE4A1 /* ReviewsDTO.swift */,
+				529A5F212C86DE50004FE4A1 /* Reviews DTOs.swift */,
 				529A5F272C86DEC5004FE4A1 /* UserDTO.swift */,
 				529A5F1F2C86DE14004FE4A1 /* CoordinatesDTO.swift */,
 			);
@@ -3264,6 +3260,7 @@
 			isa = PBXGroup;
 			children = (
 				527D5E7A2C60E05D00736A85 /* LanguageUtils.swift */,
+				CE6450272C99572F0075A59B /* ImageStoreUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -3302,8 +3299,7 @@
 			children = (
 				529A5F2A2C86DF2D004FE4A1 /* PlaceShort.swift */,
 				529A5F2C2C86DF3B004FE4A1 /* User.swift */,
-				529A5F2E2C86DF51004FE4A1 /* ReviewToPost.swift */,
-				529A5F302C86DF61004FE4A1 /* Review.swift */,
+				529A5F302C86DF61004FE4A1 /* Review Models.swift */,
 				529A5F322C86DF6F004FE4A1 /* PlaceFull.swift */,
 				CED0E0442C918ED4008C61CA /* Hash.swift */,
 			);
@@ -3405,6 +3401,7 @@
 				52E2D39B2C58E72900A8843A /* Screens */,
 				524634CC2C57232400FDCABA /* TourismMain.storyboard */,
 				52522F3A2C6DDA750015709C /* ThemeViewModel.swift */,
+				CEA45BC32C9AE01000ABE6B2 /* DataSyncer.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -5040,6 +5037,7 @@
 				471A7BB8247FE3C300A0D4C1 /* URL+Query.swift in Sources */,
 				47F86D0120C93D8D00FEE291 /* TabViewController.swift in Sources */,
 				52E95F022C6B32E500A3FE2E /* ErrorResponse.swift in Sources */,
+				CE6450282C99572F0075A59B /* ImageStoreUtils.swift in Sources */,
 				99536113235DB86C008B218F /* InsetsLabel.swift in Sources */,
 				52ECA8182C8A255900F213B3 /* PlaceTabsBar.swift in Sources */,
 				6741A9A51BF340DE002C974C /* MWMShareActivityItem.mm in Sources */,
@@ -5208,7 +5206,6 @@
 				34AB66051FC5AA320078E451 /* MWMNavigationDashboardManager+Entity.mm in Sources */,
 				993DF12A23F6BDB100AC231A /* Style.swift in Sources */,
 				34ABA6171C2D185C00FE1BEC /* MWMAuthorizationOSMLoginViewController.mm in Sources */,
-				529A5F242C86DE7D004FE4A1 /* ReviewIdsDTO.swift in Sources */,
 				ED9966802B94FBC20083CE55 /* ColorPicker.swift in Sources */,
 				993DF10423F6BDB100AC231A /* UIView+styleName.swift in Sources */,
 				998927302449DE1500260CE2 /* TabBarArea.swift in Sources */,
@@ -5257,7 +5254,7 @@
 				34C9BD031C6DB693000DC38D /* MWMTableViewController.m in Sources */,
 				52E95F0D2C6C797B00A3FE2E /* ProfileViewController.swift in Sources */,
 				F6E2FD8C1E097BA00083EBEC /* MWMNoMapsView.m in Sources */,
-				529A5F312C86DF61004FE4A1 /* Review.swift in Sources */,
+				529A5F312C86DF61004FE4A1 /* Review Models.swift in Sources */,
 				34D3B0361E389D05004100F9 /* MWMEditorSelectTableViewCell.m in Sources */,
 				990128562449A82500C72B10 /* BottomTabBarView.swift in Sources */,
 				529A5F422C86E108004FE4A1 /* Category.swift in Sources */,
@@ -5327,7 +5324,6 @@
 				CED0E0282C8C85C9008C61CA /* PostReviewView.swift in Sources */,
 				529A5F5E2C86E37A004FE4A1 /* PlacesItem.swift in Sources */,
 				340475591E081A4600C92850 /* WebViewController.m in Sources */,
-				529A5F262C86DE9D004FE4A1 /* ReviewsDTO.swift in Sources */,
 				3404F4992028A20D0090E401 /* BMCCategoryCell.swift in Sources */,
 				F62607FD207B790300176C5A /* SpinnerAlert.swift in Sources */,
 				3444DFD21F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */,
@@ -5362,7 +5358,7 @@
 				F660DEE51EAF4F59004DC056 /* MWMLocationManager+SpeedAndAltitude.swift in Sources */,
 				F6E2FDF21E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.mm in Sources */,
 				3304306D21D4EAFB00317CA3 /* SearchCategoryCell.swift in Sources */,
-				529A5F222C86DE50004FE4A1 /* ReviewDTO.swift in Sources */,
+				529A5F222C86DE50004FE4A1 /* Reviews DTOs.swift in Sources */,
 				ED79A5AB2BD7AA9C00952D1F /* LoadingOverlayViewController.swift in Sources */,
 				34AB66111FC5AA320078E451 /* NavigationTurnsView.swift in Sources */,
 				475ED78624C7C7300063ADC7 /* ValueStepperViewRenderer.swift in Sources */,
@@ -5387,7 +5383,6 @@
 				477219052243E79500E5B227 /* DrivingOptionsViewController.swift in Sources */,
 				CDB4D4E4222E8FF600104869 /* CarPlayService.swift in Sources */,
 				F6E2FF3C1E097BA00083EBEC /* MWMSearchTableView.m in Sources */,
-				529A5F2F2C86DF51004FE4A1 /* ReviewToPost.swift in Sources */,
 				52ED91A72C72C58A000EE25B /* CurrencyPersistenceController.swift in Sources */,
 				F6E2FF661E097BA00083EBEC /* MWMTTSSettingsViewController.mm in Sources */,
 				3454D7C21E07F045004AF2AD /* NSString+Categories.m in Sources */,
@@ -5483,6 +5478,7 @@
 				F6E2FE221E097BA00083EBEC /* MWMOpeningHoursEditorViewController.mm in Sources */,
 				ED79A5D72BDF8D6100952D1F /* SynchronizationStateManager.swift in Sources */,
 				999FC12B23ABB4B800B0E6F9 /* FontStyleSheet.swift in Sources */,
+				CEA45BC42C9AE01000ABE6B2 /* DataSyncer.swift in Sources */,
 				47CA68DA2500469400671019 /* BookmarksListBuilder.swift in Sources */,
 				34D3AFE21E376F7E004100F9 /* UITableView+Updates.swift in Sources */,
 				3404164C1E7BF42E00E2B6D6 /* UIView+Coordinates.swift in Sources */,

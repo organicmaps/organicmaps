@@ -87,7 +87,7 @@ def getCommitMessage() {
 def osName = System.properties['os.name'].toLowerCase()
 
 project.ext.appId = 'tj.tourism.rebus'
-project.ext.appName = 'Tourism'
+project.ext.appName = 'Tourism Map Tajikistan'
 
 java {
   toolchain {
@@ -111,10 +111,10 @@ android {
   defaultConfig {
     // Default package name is taken from the manifest and should be app.organicmaps
     def ver = getVersion()
-    versionCode = ver.V1
-    versionName = ver.V2
-    println('Version: ' + versionName)
-    println('VersionCode: ' + versionCode)
+    versionCode = 2
+    versionName = "1.0.0"
+//    println('Version: ' + versionName)
+//    println('VersionCode: ' + versionCode)
     minSdk propMinSdkVersion.toInteger()
     targetSdk propTargetSdkVersion.toInteger()
     applicationId project.ext.appId

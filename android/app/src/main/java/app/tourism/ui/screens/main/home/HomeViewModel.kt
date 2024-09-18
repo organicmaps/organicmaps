@@ -53,7 +53,6 @@ class HomeViewModel @Inject constructor(
                     if (resource is Resource.Success) {
                         resource.data?.let {
                             _sights.value = it
-                            Log.d("lok narosh", it.toString())
                         }
                     }
                 }
@@ -73,7 +72,6 @@ class HomeViewModel @Inject constructor(
                 .collectLatest { resource ->
                     if (resource is Resource.Success) {
                         resource.data?.let {
-                            Log.d("lok narosh", it.toString())
                             _restaurants.value = it
                         }
                     }

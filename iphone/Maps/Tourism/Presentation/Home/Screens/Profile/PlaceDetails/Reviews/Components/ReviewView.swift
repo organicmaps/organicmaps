@@ -1,5 +1,4 @@
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct ReviewView: View {
   let review: Review
@@ -12,8 +11,10 @@ struct ReviewView: View {
       Divider()
       
       HStack {
-        UserView(user: review.user)
-        Spacer()
+        if let user = review.user {
+          UserView(user: user)
+          Spacer()
+        }
         if review.deletionPlanned {
           Text(L("deletionPlanned"))
             .textStyle(TextStyle.b2)
@@ -61,15 +62,14 @@ struct UserView: View {
   var body: some View {
     HStack {
       if let pfpUrl = user.pfpUrl {
-        WebImage(url: URL(string: pfpUrl))
-          .resizable()
-          .aspectRatio(contentMode: .fill)
+        LoadImageView(url: pfpUrl)
           .frame(width: 66, height: 66)
+          .background(Color.surface)
           .clipShape(Circle())
       }
       HStack() {
         Text(user.name)
-          .textStyle(TextStyle.h3)
+          .textStyle(TextStyle.h4)
           .foregroundColor(Color.onBackground)
         UICountryFlagView(code: user.countryCodeName)
           .scaledToFit()
@@ -132,10 +132,9 @@ struct ReviewPicView: View {
   let url: String
   
   var body: some View {
-    WebImage(url: URL(string: url))
-      .resizable()
-      .aspectRatio(contentMode: .fill)
+    LoadImageView(url: url)
       .frame(width: reviewPicWidth, height: reviewPicHeight)
+      .background(Color.surface)
       .clipShape(RoundedRectangle(cornerRadius: 8))
   }
 }

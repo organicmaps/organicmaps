@@ -4,16 +4,33 @@ import SDWebImageSwiftUI
 struct LoadImageView: View {
   let url: String?
   
+  @State var isError = false
+  
   var body: some View {
     if let urlString = url {
-      WebImage(url: URL(string: urlString))
-        .resizable()
-        .indicator(.activity)
-        .scaledToFill()
-        .transition(.fade(duration: 0.2))
+      ZStack(alignment: .center) {
+        WebImage(url: URL(string: urlString))
+          .onSuccess(perform: { Image, data, cache in
+            self.isError = false
+          })
+          .onFailure(perform: { isError in
+            self.isError = true
+          })
+          .resizable()
+          .indicator(.activity)
+          .scaledToFill()
+          .transition(.fade(duration: 0.2))
+        if(isError) {
+          Image(systemName: "exclamationmark.circle")
+            .font(.system(size: 30))
+            .background(SwiftUI.Color.clear)
+            .foregroundColor(Color.hint)
+            .clipShape(Circle())
+        }
+      }
     } else {
       Text(L("no_image"))
-        .foregroundColor(Color.surface)
+        .foregroundColor(Color.hint)
     }
   }
 }

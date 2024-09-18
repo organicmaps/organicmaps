@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23G93" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23231" systemVersion="24A335" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
     <entity name="FavoriteSyncEntity" representedClassName="FavoriteSyncEntity" syncable="YES" codeGenerationType="class">
         <attribute name="isFavorite" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="placeId" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -32,9 +32,8 @@
     </entity>
     <entity name="ReviewPlannedToPostEntity" representedClassName="ReviewPlannedToPostEntity" syncable="YES" codeGenerationType="class">
         <attribute name="comment" attributeType="String"/>
-        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="imagesJson" attributeType="String"/>
         <attribute name="placeId" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="rating" attributeType="String"/>
+        <attribute name="rating" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
 </model>

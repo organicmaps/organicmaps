@@ -5,7 +5,7 @@ protocol ReviewsRepository {
   func observeReviewsForPlace(id: Int64)
   
   var isThereReviewPlannedToPublishResource: PassthroughSubject<Bool, Never> { get }
-  func isThereReviewPlannedToPublish(for placeId: Int64)
+  func checkIfThereIsReviewPlannedToPublish(for placeId: Int64)
   
   func postReview(review: ReviewToPost) -> AnyPublisher<SimpleResponse, ResourceError>
   

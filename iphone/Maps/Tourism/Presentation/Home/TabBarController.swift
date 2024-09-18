@@ -44,6 +44,17 @@ class TabBarController: UITabBarController {
     )
     let authRepository = AuthRepositoryImpl(authService: AuthServiceImpl())
     
+    // monitoring network for sync
+    let dataSyncer = DataSyncer(
+      reviewsRepository: ReviewsRepositoryImpl(
+        reviewsPersistenceController: ReviewsPersistenceController.shared,
+        reviewsService: ReviewsServiceImpl(userPreferences: UserPreferences.shared)
+      ),
+      placesRepository: placesRepository
+    )
+    dataSyncer.startMonitoring()
+    
+    // creating shared viewModels()
     let homeVM = HomeViewModel(placesRepository: placesRepository)
     let categoriesVM = CategoriesViewModel(placesRepository: placesRepository)
     let favoritesVM = FavoritesViewModel(placesRepository: placesRepository)

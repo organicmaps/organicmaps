@@ -63,7 +63,7 @@ class WelcomeViewController: UIViewController {
     let label = UILabel()
     label.text = "©"
     label.textColor = .white
-    UIKitFont.applyStyle(to: label, style: UIKitFont.h1)
+    UIKitFont.applyStyle(to: label, style: UIKitFont.h2)
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
   }()

@@ -1,10 +1,20 @@
 import SwiftUI
 
 struct ReviewsScreen: View {
-//  @ObservedObject var reviewsVM = ReviewsViewModel()
+  @ObservedObject var reviewsVM: ReviewsViewModel
   
   let placeId: Int64
   let rating: Double?
+  
+  init(
+    reviewsVM: ReviewsViewModel,
+    placeId: Int64,
+    rating: Double?
+  ) {
+    self.reviewsVM = reviewsVM
+    self.placeId = placeId
+    self.rating = rating
+  }
   
   @State private var showReviewSheet = false
   
@@ -35,31 +45,44 @@ struct ReviewsScreen: View {
         HStack {
           Spacer()
           
-//          NavigationLink(destination: AllReviewsScreen(reviewsVM: reviewsVM)) {
-//            Text(L("see_all_reviews"))
-//              .foregroundColor(Color.primary)
-//          }
+          NavigationLink(destination: AllReviewsScreen(reviewsVM: reviewsVM)) {
+            Text(L("see_all_reviews"))
+              .foregroundColor(Color.primary)
+          }
         }
         
         // user review
-        ReviewView(
-          review: Constants.reviewExample,
-          onDeleteClick: {}
-        )
+        if let userReview = reviewsVM.userReview, !reviewsVM.isThereReviewPlannedToPublish {
+          ReviewView(
+            review: userReview,
+            onDeleteClick: {
+              reviewsVM.deleteReview()
+            }
+          )
+        }
         // most recent recent review
-        ReviewView(
-          review: Constants.reviewExample,
-          onDeleteClick: nil
-        )
+        if let mostRecentReview = reviewsVM.latestReview {
+          ReviewView(
+            review: mostRecentReview,
+            onDeleteClick: nil
+          )
+        }
       }
     }
     .padding(.horizontal, 16)
     .sheet(isPresented: $showReviewSheet) {
       PostReviewView(
-        postReviewVM: PostReviewViewModel(),
-        placeId: placeId) {
-          // TODO: cmon
+        postReviewVM: PostReviewViewModel(
+          reviewsRepository: ReviewsRepositoryImpl(
+            reviewsPersistenceController: ReviewsPersistenceController.shared,
+            reviewsService: ReviewsServiceImpl(userPreferences: UserPreferences.shared)
+          )
+        ),
+        placeId: placeId,
+        onPostReviewSuccess: {
+          showReviewSheet = false
         }
+      )
     }
   }
 }
