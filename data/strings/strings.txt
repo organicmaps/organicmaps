@@ -1049,8 +1049,8 @@
     zh-Hant = 關於 Organic Maps
 
   [about_headline]
-    tags = android,ios
     comment = Text in About screen
+    tags = android,ios
     en = Free for everyone, made with love
     af = Gratis vir almal, gemaak met liefde
     ar = مجاني للجميع ، مصنوع من الحب
@@ -1096,8 +1096,8 @@
     zh-Hant = 對每個人都免費，用愛製成
 
   [about_proposition_1]
-    tags = android,ios
     comment = Text in About screen
+    tags = android,ios
     en = • No ads, no tracking, no data collection
     af = • Geen advertensies, geen nasporing, geen dataversameling
     ar = • لا إعلانات ، لا تتبع ، لا جمع البيانات
@@ -1143,8 +1143,8 @@
     zh-Hant = • 沒有廣告，不會跟蹤您，更不會收集您的數據
 
   [about_proposition_2]
-    tags = android,ios
     comment = Text in About screen
+    tags = android,ios
     en = • No battery drain, works offline
     af = • Geen battery dreineer, werk vanlyn
     ar = • لا يوجد استنزاف للبطارية، يعمل دون اتصال بالإنترنت
@@ -1192,8 +1192,8 @@
     zh-Hant = • 無需耗費太多電量，可離線工作
 
   [about_proposition_3]
-    tags = android,ios
     comment = Text in About screen
+    tags = android,ios
     en = • Fast, minimalist, developed by community
     af = • Vinnig, minimalisties, ontwikkel deur die gemeenskap
     ar = • سريع وبسيط، تم تطويره بواسطة المجتمع
@@ -1240,8 +1240,8 @@
     zh-Hant = • 快速且簡約，由社區開發
 
   [about_developed_by_enthusiasts]
-    tags = android
     comment = Text in About screen
+    tags = android
     en = Open-source application created by enthusiasts and volunteers.
     af = Oopbrontoepassing geskep deur entoesiaste en vrywilligers.
     ar = تطبيق مفتوح المصدر الذي أنشأه المتحمسون والمتطوعون.
@@ -1286,8 +1286,8 @@
     zh-Hant = 由愛好者和志願者開發的開源應用程式。
 
   [location_settings]
-    tags = android
     comment = The button that opens system location settings
+    tags = android
     en = Location Settings
     ar = إعدادات الموقع
     az = Məkan parametrləri
@@ -11643,8 +11643,8 @@
     zh-Hant = 很抱歉，沒有搜尋到任何地點。
 
   [search_not_found_query]
-    tags = android,ios
     comment = The message when user did not find anything in the search.
+    tags = android,ios
     en = Download the region where you are searching or try adding a nearby town/village name.
     af = Laai die streek af waar jy soek of probeer om 'n nabygeleë dorp/dorpnaam by te voeg.
     ar = قم بتنزيل المنطقة التي تبحث فيها أو حاول إضافة اسم بلدة/قرية قريبة.
@@ -16182,8 +16182,8 @@
     zh-Hant = 該地點的名稱
 
   [editor_default_language_hint]
-    tags = android,ios
     comment = The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name
+    tags = android,ios
     en = As it is written in the local language
     af = Soos dit in die plaaslike taal geskryf is
     ar = كما هو مكتوب باللغة المحلية
@@ -18341,8 +18341,8 @@
     zh-Hant = 或繼續使用 Organic Maps，但無法定位到您目前所在的位置。
 
   [m]
-    tags = android,ios
     comment = abbreviation for meters
+    tags = android,ios
     en = m
     af = m
     ar = متر
@@ -18388,8 +18388,8 @@
     zh-Hant = 公尺
 
   [km]
-    tags = android,ios
     comment = abbreviation for kilometers
+    tags = android,ios
     en = km
     af = km
     ar = كم
@@ -18435,8 +18435,8 @@
     zh-Hant = 公里
 
   [kilometers_per_hour]
-    tags = android,ios
     comment = abbreviation for kilometers per hour
+    tags = android,ios
     en = km/h
     af = km/h
     ar = كم/ساعة
@@ -18480,8 +18480,8 @@
     zh-Hant = 公里每小時
 
   [mi]
-    tags = android,ios
     comment = abbreviation for mile(s)
+    tags = android,ios
     en = mi
     af = myl
     ar = ميل
@@ -20207,8 +20207,8 @@
     zh-Hant = 停止
 
   [recent_track_background_dialog_title]
-    tags = ios
     comment = iOS dialog for the case when recent track recording is on and the app comes back from background
+    tags = ios
     en = Disable recording of your recently travelled route?
     af = Deaktiveer opname van u onlangs berese roete?
     ar = هل تريد تعطيل تسجيل مسارات سفرك؟
@@ -21639,8 +21639,8 @@
     zh-Hant = 退出
 
   [routing_add_start_point]
-    tags = android,ios
     comment = User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From".
+    tags = android,ios
     en = Use search or tap on the map to add a route starting point
     af = Gebruik soek of tik op die kaart om 'n roetebeginpunt by te voeg
     ar = استخدام البحث أو النقر على الخريطة لإضافة نقطة بداية الطريق
@@ -21687,8 +21687,8 @@
     zh-Hant = 請搜尋地點或點擊地圖以新增路線起點
 
   [routing_add_finish_point]
-    tags = android,ios
     comment = User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To".
+    tags = android,ios
     en = Use search or tap on the map to add a destination point
     af = Gebruik soek of tik op die kaart om 'n bestemmingspunt by te voeg
     ar = استخدام البحث أو النقر على الخريطة لإضافة نقطة وجهة
@@ -22654,8 +22654,8 @@
     zh-Hant = 創建新的列表
 
   [bookmarks_import]
-    tags = android,ios
     comment = Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files
+    tags = android,ios
     en = Import Bookmarks and Tracks
     af = Voer leidrade en snitte in
     ar = استيراد الإشارات المرجعية والمسارات
@@ -29911,8 +29911,8 @@
     zh-Hant = 下載世界地圖
 
   [disk_error]
-    tags = android
     comment = Used in DownloadResources startup screen
+    tags = android
     en = Unable to create folder and move files on internal device's memory or sdcard
     af = Kan nie vouer skep en lêers op internetoestelgeheue of SD-kaart skuif nie
     ar = تعذر إنشاء المجلد ونقل الملفات على الذاكرة الداخلية للجهاز أو على بطاقة SD
@@ -29943,8 +29943,8 @@
     zh-Hant = 無法在內部儲存或 SD 卡上建立資料夾和移動檔案
 
   [disk_error_title]
-    tags = android
     comment = Used in DownloadResources startup screen
+    tags = android
     en = Disk error
     af = Skyffout
     ar = حدث خطأ في التخزين
@@ -30141,8 +30141,8 @@
     zh-Hant = 啟用後，顯示地圖時畫面將始終開啟。
 
   [enable_show_on_lock_screen]
-    tags = android
     comment = A preference title; keep short!
+    tags = android
     en = Show on the lock screen
     af = Toon op grendelskerm
     ar = إظهار  التطبيق فوق شاشة القفل
@@ -30179,8 +30179,8 @@
     zh-Hant = 在鎖定螢幕上顯示
 
   [enable_show_on_lock_screen_description]
-    tags = android
     comment = Description in preferences
+    tags = android
     en = When enabled, the app will work on the lockscreen even when the device is locked.
     af = Indien geaktiveer, sal die toep op die grendelskerm werk selfs indien die toestel vergrendel is.
     ar = عند التفعيل، لن تحتاج لفتح قفل جهازك كل مرة أثناء تشغيل التطبيق
@@ -31795,8 +31795,8 @@
     zh-Hant = 音量
 
   [bookmarks_export]
-    tags = android,ios
     comment = Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks
+    tags = android,ios
     en = Export all Bookmarks and Tracks
     af = Voer alle boekmerke en snitte uit
     ar = تصدير كافة الإشارات المرجعية والمسارات
