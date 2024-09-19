@@ -64,10 +64,10 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   @Override
   protected final void onCreate(@Nullable Bundle savedInstanceState)
   {
-    EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT));
     super.onCreate(savedInstanceState);
     mThemeName = Config.getCurrentUiTheme(getApplicationContext());
     setTheme(getThemeResourceId(mThemeName));
+    EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT));
     RtlUtils.manageRtl(this);
     if (!MwmApplication.from(this).arePlatformAndCoreInitialized())
     {
