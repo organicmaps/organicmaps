@@ -2199,10 +2199,10 @@
 "type.highway.path" = "小道";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "小道";
+"type.highway.path.difficult" = "难走或难见的小路";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "小道";
+"type.highway.path.expert" = "非常困难或难以分辨的路径";
 
 "type.highway.path.bicycle" = "小道";
 

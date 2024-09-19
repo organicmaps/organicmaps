@@ -2199,10 +2199,10 @@
 "type.highway.path" = "مسیر";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "مسیر";
+"type.highway.path.difficult" = "مسیر دشوار یا ضعیف قابل مشاهده است";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "مسیر";
+"type.highway.path.expert" = "مسیر بسیار دشوار یا غیر قابل تشخیص";
 
 "type.highway.path.bicycle" = "مسیر";
 

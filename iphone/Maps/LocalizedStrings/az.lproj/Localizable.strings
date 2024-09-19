@@ -2199,10 +2199,10 @@
 "type.highway.path" = "Yol";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Yol";
+"type.highway.path.difficult" = "Çətin və ya zəif görünən cığır";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Yol";
+"type.highway.path.expert" = "Çox çətin və ya fərqlənməyən cığır";
 
 "type.highway.path.bicycle" = "Velosiped və Gəzinti Yolu";
 

@@ -2199,10 +2199,10 @@
 "type.highway.path" = "पथ";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "पथ";
+"type.highway.path.difficult" = "कठिन या ख़राब दिखाई देने वाला मार्ग";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "पथ";
+"type.highway.path.expert" = "बहुत कठिन या अप्रभेद्य पथ";
 
 "type.highway.path.bicycle" = "पथ";
 

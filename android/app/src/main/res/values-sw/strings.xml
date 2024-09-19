@@ -532,8 +532,16 @@
     <string name="type.highway.motorway_link.bridge">Daraja</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.motorway_link.tunnel">Mtaro</string>
+    <string name="type.highway.path">Njia</string>
+    <!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+    <string name="type.highway.path.difficult">Njia ngumu au isiyoonekana vizuri</string>
+    <!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+    <string name="type.highway.path.expert">Njia ngumu sana au isiyoweza kutofautishwa</string>
+    <string name="type.highway.path.bicycle">Njia</string>
+    <string name="type.highway.footway.bicycle">Njia</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.path.bridge">Daraja</string>
+    <string name="type.highway.path.horse">Njia</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.path.tunnel">Mtaro</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
@@ -598,6 +606,7 @@
     <string name="type.highway.unclassified.bridge">Daraja</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.unclassified.tunnel">Mtaro</string>
+    <string name="type.area_highway.path">Njia</string>
 
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Kitu cha kihistoria</string>

@@ -1189,9 +1189,9 @@
     <string name="type.highway.motorway_link.tunnel">Alagút</string>
     <string name="type.highway.path">Ösvény</string>
     <!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-    <string name="type.highway.path.difficult">Ösvény</string>
+    <string name="type.highway.path.difficult">Nehéz vagy rosszul látható nyomvonal</string>
     <!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-    <string name="type.highway.path.expert">Ösvény</string>
+    <string name="type.highway.path.expert">Nagyon nehéz vagy megkülönböztethetetlen nyomvonal</string>
     <string name="type.highway.path.bicycle">Ösvény</string>
     <string name="type.highway.footway.bicycle">Ösvény</string>
     <!-- These translations are used for all type.highway.*.bridge. -->

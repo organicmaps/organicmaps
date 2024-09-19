@@ -2199,10 +2199,10 @@
 "type.highway.path" = "Polku";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Polku";
+"type.highway.path.difficult" = "Vaikea tai huonosti näkyvä reitti";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Polku";
+"type.highway.path.expert" = "Erittäin vaikea tai erottamaton jälki";
 
 "type.highway.path.bicycle" = "Pyörä- ja jalkatie";
 

@@ -1222,9 +1222,9 @@
     <string name="type.highway.motorway_link.tunnel">Tunnel</string>
     <string name="type.highway.path">Sti</string>
     <!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-    <string name="type.highway.path.difficult">Sti</string>
+    <string name="type.highway.path.difficult">Vanskelig eller dårlig synlig sti</string>
     <!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-    <string name="type.highway.path.expert">Sti</string>
+    <string name="type.highway.path.expert">Svært vanskelig eller umulig å skille ut stien</string>
     <string name="type.highway.path.bicycle">Sti</string>
     <string name="type.highway.footway.bicycle">Sti</string>
     <!-- These translations are used for all type.highway.*.bridge. -->

@@ -1248,9 +1248,9 @@
     <string name="type.highway.motorway_link.tunnel">Tunel</string>
     <string name="type.highway.path">Yol</string>
     <!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-    <string name="type.highway.path.difficult">Yol</string>
+    <string name="type.highway.path.difficult">Çətin və ya zəif görünən cığır</string>
     <!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-    <string name="type.highway.path.expert">Yol</string>
+    <string name="type.highway.path.expert">Çox çətin və ya fərqlənməyən cığır</string>
     <string name="type.highway.path.bicycle">Velosiped və Gəzinti Yolu</string>
     <string name="type.highway.footway.bicycle">Velosiped və Gəzinti Yolu</string>
     <!-- These translations are used for all type.highway.*.bridge. -->

@@ -1271,9 +1271,9 @@
     <string name="type.highway.motorway_link.tunnel">מִנהָרָה</string>
     <string name="type.highway.path">שביל</string>
     <!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-    <string name="type.highway.path.difficult">רמה 3/6) שביל קשה או לא ברור)</string>
+    <string name="type.highway.path.difficult">שביל קשה או לא נראה לעין</string>
     <!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-    <string name="type.highway.path.expert">רמה 4+/6) מסלול למומחים או ללא שבילים מסודרים)</string>
+    <string name="type.highway.path.expert">מסלול קשה מאוד או בלתי ניתן להבחנה</string>
     <string name="type.highway.path.bicycle">שביל להולכי רגל ואופניים</string>
     <string name="type.highway.footway.bicycle">שביל להולכי רגל ואופניים</string>
     <!-- These translations are used for all type.highway.*.bridge. -->

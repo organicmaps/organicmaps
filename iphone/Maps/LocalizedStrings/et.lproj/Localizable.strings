@@ -2199,10 +2199,10 @@
 "type.highway.path" = "Rada";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Rada";
+"type.highway.path.difficult" = "Raske või halvasti nähtav rada";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Rada";
+"type.highway.path.expert" = "Väga raske või eristamatu rada";
 
 "type.highway.path.bicycle" = "Jalgratta- ja jalgtee";
 

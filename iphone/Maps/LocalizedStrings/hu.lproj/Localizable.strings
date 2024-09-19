@@ -2199,10 +2199,10 @@
 "type.highway.path" = "Ösvény";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Ösvény";
+"type.highway.path.difficult" = "Nehéz vagy rosszul látható nyomvonal";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Ösvény";
+"type.highway.path.expert" = "Nagyon nehéz vagy megkülönböztethetetlen nyomvonal";
 
 "type.highway.path.bicycle" = "Ösvény";
 

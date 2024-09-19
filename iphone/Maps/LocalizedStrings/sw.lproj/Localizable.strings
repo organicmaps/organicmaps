@@ -2196,22 +2196,22 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway_link.tunnel" = "Mtaro";
 
-"type.highway.path" = "Path";
+"type.highway.path" = "Njia";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Path";
+"type.highway.path.difficult" = "Njia ngumu au isiyoonekana vizuri";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Path";
+"type.highway.path.expert" = "Njia ngumu sana au isiyoweza kutofautishwa";
 
-"type.highway.path.bicycle" = "Path";
+"type.highway.path.bicycle" = "Njia";
 
-"type.highway.footway.bicycle" = "Path";
+"type.highway.footway.bicycle" = "Njia";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Daraja";
 
-"type.highway.path.horse" = "Path";
+"type.highway.path.horse" = "Njia";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Mtaro";
@@ -2375,7 +2375,7 @@
 
 "type.area_highway.motorway" = "Motorway";
 
-"type.area_highway.path" = "Path";
+"type.area_highway.path" = "Njia";
 
 "type.area_highway.pedestrian" = "Pedestrian Street";
 

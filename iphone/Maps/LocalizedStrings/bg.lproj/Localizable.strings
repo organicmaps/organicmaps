@@ -2196,22 +2196,22 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway_link.tunnel" = "Тунел";
 
-"type.highway.path" = "Path";
+"type.highway.path" = "Път";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Path";
+"type.highway.path.difficult" = "Трудна или слабо видима пътека";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Path";
+"type.highway.path.expert" = "Много трудна или неразличима пътека";
 
-"type.highway.path.bicycle" = "Path";
+"type.highway.path.bicycle" = "Път";
 
-"type.highway.footway.bicycle" = "Path";
+"type.highway.footway.bicycle" = "Път";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Мост";
 
-"type.highway.path.horse" = "Path";
+"type.highway.path.horse" = "Път";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Тунел";
@@ -2375,7 +2375,7 @@
 
 "type.area_highway.motorway" = "Motorway";
 
-"type.area_highway.path" = "Path";
+"type.area_highway.path" = "Път";
 
 "type.area_highway.pedestrian" = "Pedestrian Street";
 

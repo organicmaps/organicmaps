@@ -2199,10 +2199,10 @@
 "type.highway.path" = "Gångväg";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Gångväg";
+"type.highway.path.difficult" = "Svår eller dåligt synlig led";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Gångväg";
+"type.highway.path.expert" = "Mycket svår eller omöjlig att urskilja spår";
 
 "type.highway.path.bicycle" = "Gångväg";
 

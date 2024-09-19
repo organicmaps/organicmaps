@@ -2199,10 +2199,10 @@
 "type.highway.path" = "Стежка";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Стежка";
+"type.highway.path.difficult" = "Складна або погано видима стежка";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Стежка";
+"type.highway.path.expert" = "Дуже складна або невиразна стежка";
 
 "type.highway.path.bicycle" = "Велопішохідна доріжка";
 

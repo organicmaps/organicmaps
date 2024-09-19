@@ -2199,10 +2199,10 @@
 "type.highway.path" = "مسار";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "مسار";
+"type.highway.path.difficult" = "درب صعب أو ضعيف الرؤية";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "مسار";
+"type.highway.path.expert" = "أثر صعب للغاية أو لا يمكن تمييزه";
 
 "type.highway.path.bicycle" = "مسار للمشاة والدراجات معاً";
 

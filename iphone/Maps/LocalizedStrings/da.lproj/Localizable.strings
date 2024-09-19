@@ -2199,10 +2199,10 @@
 "type.highway.path" = "Sti";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Sti";
+"type.highway.path.difficult" = "Vanskelig eller dårligt synlig sti";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Sti";
+"type.highway.path.expert" = "Meget svær eller umulig at skelne fra hinanden";
 
 "type.highway.path.bicycle" = "Sti";
 

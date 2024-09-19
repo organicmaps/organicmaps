@@ -1275,9 +1275,9 @@
     <string name="type.highway.motorway_link.tunnel">Tunnel</string>
     <string name="type.highway.path">Pad</string>
     <!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-    <string name="type.highway.path.difficult">Pad</string>
+    <string name="type.highway.path.difficult">Moeilijk of slecht zichtbaar pad</string>
     <!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-    <string name="type.highway.path.expert">Pad</string>
+    <string name="type.highway.path.expert">Zeer moeilijk of niet te onderscheiden spoor</string>
     <string name="type.highway.path.bicycle">Fietspad</string>
     <string name="type.highway.footway.bicycle">Fietspad</string>
     <!-- These translations are used for all type.highway.*.bridge. -->

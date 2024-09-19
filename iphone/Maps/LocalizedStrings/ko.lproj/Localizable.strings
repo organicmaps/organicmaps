@@ -2199,10 +2199,10 @@
 "type.highway.path" = "길";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "길";
+"type.highway.path.difficult" = "어렵거나 잘 보이지 않는 트레일";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "길";
+"type.highway.path.expert" = "매우 어렵거나 구별하기 어려운 흔적";
 
 "type.highway.path.bicycle" = "길";
 

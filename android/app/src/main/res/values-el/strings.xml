@@ -1228,9 +1228,9 @@
     <string name="type.highway.motorway_link.tunnel">Σήραγγα</string>
     <string name="type.highway.path">Διαδρομή</string>
     <!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-    <string name="type.highway.path.difficult">Διαδρομή</string>
+    <string name="type.highway.path.difficult">Δύσκολη ή ελάχιστα ορατή διαδρομή</string>
     <!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-    <string name="type.highway.path.expert">Διαδρομή</string>
+    <string name="type.highway.path.expert">Πολύ δύσκολο ή δυσδιάκριτο μονοπάτι</string>
     <string name="type.highway.path.bicycle">Διαδρομή</string>
     <string name="type.highway.footway.bicycle">Διαδρομή</string>
     <!-- These translations are used for all type.highway.*.bridge. -->

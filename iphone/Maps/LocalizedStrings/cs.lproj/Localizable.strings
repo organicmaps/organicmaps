@@ -2199,10 +2199,10 @@
 "type.highway.path" = "Cesta";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Cesta";
+"type.highway.path.difficult" = "Obtížná nebo špatně viditelná stezka";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Cesta";
+"type.highway.path.expert" = "Velmi obtížná nebo nezřetelná stopa";
 
 "type.highway.path.bicycle" = "Cesta";
 
