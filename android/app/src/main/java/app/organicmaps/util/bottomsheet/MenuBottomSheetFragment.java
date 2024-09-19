@@ -1,23 +1,31 @@
 package app.organicmaps.util.bottomsheet;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import app.organicmaps.R;
-import app.organicmaps.util.UiUtils;
 
 import java.util.ArrayList;
+import java.util.Objects;
+
+import app.organicmaps.R;
+import app.organicmaps.util.UiUtils;
 
 public class MenuBottomSheetFragment extends BottomSheetDialogFragment
 {
@@ -44,6 +52,22 @@ public class MenuBottomSheetFragment extends BottomSheetDialogFragment
     MenuBottomSheetFragment f = new MenuBottomSheetFragment();
     f.setArguments(args);
     return f;
+  }
+
+  @NonNull
+  @Override
+  public Dialog onCreateDialog(@Nullable Bundle savedInstanceState)
+  {
+    return new BottomSheetDialog(requireContext(), getTheme()) {
+      @Override
+      public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        Window window = Objects.requireNonNull(getWindow());
+        WindowInsetsControllerCompat insetsController =
+                WindowCompat.getInsetsController(window, window.getDecorView());
+        insetsController.setAppearanceLightNavigationBars(false);
+      }
+    };
   }
 
   @Nullable

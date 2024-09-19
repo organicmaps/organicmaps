@@ -5,7 +5,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:background="?clickableBackground">
+  android:background="@drawable/bg_clickable_card">
   <CheckBox
     android:id="@+id/checkbox"
     android:layout_width="@dimen/margin_double_plus"

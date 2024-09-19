@@ -4,7 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="@dimen/height_item_multiline"
-  android:background="?clickableBackground">
+  android:background="@drawable/bg_clickable_card">
   <ImageView
     android:id="@+id/iv__bookmark_color"
     android:layout_width="wrap_content"

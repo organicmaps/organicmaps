@@ -8,10 +8,11 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
+import androidx.core.view.ViewCompat;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.WindowInsetUtils.ScrollableContentInsetsListener;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class ReportFragment extends BaseMwmToolbarFragment implements View.OnClickListener
@@ -35,6 +36,9 @@ public class ReportFragment extends BaseMwmToolbarFragment implements View.OnCli
   {
     super.onViewCreated(view, savedInstanceState);
     getToolbarController().setTitle(R.string.editor_report_problem_title);
+
+    final View scrollView = view.findViewById(R.id.scrollView);
+    ViewCompat.setOnApplyWindowInsetsListener(scrollView, new ScrollableContentInsetsListener(scrollView));
 
     mSave = getToolbarController().getToolbar().findViewById(R.id.save);
     mSave.setOnClickListener(this);

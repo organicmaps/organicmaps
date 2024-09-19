@@ -1,5 +1,6 @@
 package app.organicmaps.editor;
 
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,12 @@ import app.organicmaps.R;
 import app.organicmaps.editor.data.FeatureCategory;
 import app.organicmaps.util.UiUtils;
 
-public class FeatureCategoryAdapter extends RecyclerView.Adapter<FeatureCategoryAdapter.FeatureViewHolder>
+public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
+
+  private static final int TYPE_CATEGORY = 0;
+  private static final int TYPE_FOOTER = 1;
+
   private FeatureCategory[] mCategories;
   private final FeatureCategoryFragment mFragment;
   private final FeatureCategory mSelectedCategory;
@@ -33,21 +38,43 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<FeatureCategory
   }
 
   @Override
-  public FeatureViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+  public int getItemViewType(int position)
   {
-    return new FeatureViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_feature_category, parent, false));
+    if (position == mCategories.length)
+      return TYPE_FOOTER;
+    else
+      return TYPE_CATEGORY;
   }
 
   @Override
-  public void onBindViewHolder(FeatureViewHolder holder, int position)
+  public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
   {
-    holder.bind(position);
+    switch (viewType) {
+      case TYPE_CATEGORY -> {
+        return new FeatureViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_feature_category, parent, false));
+      }
+      case TYPE_FOOTER -> {
+        return new FooterViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_feature_category_footer, parent, false));
+      }
+      default -> {
+        throw new IllegalArgumentException("Unsupported");
+      }
+    }
+  }
+
+  @Override
+  public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position)
+  {
+    if (holder instanceof FeatureViewHolder)
+    {
+      ((FeatureViewHolder) holder).bind(position);
+    }
   }
 
   @Override
   public int getItemCount()
   {
-    return mCategories.length;
+    return mCategories.length + 1;
   }
 
   protected class FeatureViewHolder extends RecyclerView.ViewHolder
@@ -72,6 +99,17 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<FeatureCategory
       boolean showCondition = mSelectedCategory != null
                               && mCategories[position].getType().equals(mSelectedCategory.getType());
       UiUtils.showIf(showCondition, mSelected);
+    }
+  }
+
+  protected static class FooterViewHolder extends RecyclerView.ViewHolder
+  {
+
+    FooterViewHolder(@NonNull View itemView)
+    {
+      super(itemView);
+      TextView categoryUnsuitableText = itemView.findViewById(R.id.editor_category_unsuitable_text);
+      categoryUnsuitableText.setMovementMethod(LinkMovementMethod.getInstance());
     }
   }
 

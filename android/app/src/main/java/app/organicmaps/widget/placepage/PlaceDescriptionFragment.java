@@ -8,10 +8,11 @@ import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
+import androidx.core.view.ViewCompat;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.util.Utils;
+import app.organicmaps.util.WindowInsetUtils;
 
 import java.util.Objects;
 
@@ -41,6 +42,7 @@ public class PlaceDescriptionFragment extends BaseMwmFragment
     WebView webView = root.findViewById(R.id.webview);
     webView.loadData(mDescription + SOURCE_SUFFIX, Utils.TEXT_HTML, Utils.UTF_8);
     webView.setVerticalScrollBarEnabled(true);
+    ViewCompat.setOnApplyWindowInsetsListener(root, WindowInsetUtils.PaddingInsetsListener.excludeTop());
     return root;
   }
 }

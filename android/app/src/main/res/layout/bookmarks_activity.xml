@@ -7,7 +7,7 @@
   <include
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
+    android:layout_height="wrap_content"
     layout="@layout/toolbar_with_optional_search"/>
   <FrameLayout
     android:id="@+id/fragment_container"

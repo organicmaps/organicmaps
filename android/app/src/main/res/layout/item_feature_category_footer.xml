@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:layout_gravity="center"
+  android:orientation="vertical"
+  android:background="?windowBackgroundForced"
+  android:padding="@dimen/margin_base">
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:maxWidth="500dp"
+    android:text="@string/editor_category_unsuitable_title"
+    android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline6"
+    android:textStyle="bold" />
+  <TextView
+    android:id="@+id/editor_category_unsuitable_text"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_half"
+    android:maxWidth="500dp"
+    android:text="@string/editor_category_unsuitable_text"
+    android:textAppearance="@style/MwmTextAppearance.Body3" />
+</LinearLayout>

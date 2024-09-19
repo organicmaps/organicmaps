@@ -8,12 +8,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.XmlRes;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import app.organicmaps.R;
 import app.organicmaps.util.ThemeUtils;
+import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.util.WindowInsetUtils;
+import app.organicmaps.util.WindowInsetUtils.ScrollableContentInsetsListener;
 
 abstract class BaseXmlSettingsFragment extends PreferenceFragmentCompat
 {
@@ -51,6 +56,9 @@ abstract class BaseXmlSettingsFragment extends PreferenceFragmentCompat
     else
       color = ContextCompat.getColor(requireContext(), R.color.bg_cards_night);
     view.setBackgroundColor(color);
+
+    RecyclerView recyclerView = getListView();
+    ViewCompat.setOnApplyWindowInsetsListener(recyclerView, new ScrollableContentInsetsListener(recyclerView));
   }
 
   protected SettingsActivity getSettingsActivity()

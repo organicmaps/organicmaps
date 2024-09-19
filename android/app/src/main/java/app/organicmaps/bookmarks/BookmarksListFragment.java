@@ -17,11 +17,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
-
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmRecyclerFragment;
@@ -36,14 +35,16 @@ import app.organicmaps.bookmarks.data.Track;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.search.NativeBookmarkSearchListener;
 import app.organicmaps.search.SearchEngine;
+import app.organicmaps.util.SharingUtils;
+import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.util.WindowInsetUtils;
+import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
+import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.widget.SearchToolbarController;
 import app.organicmaps.widget.placepage.EditBookmarkFragment;
 import app.organicmaps.widget.recycler.DividerItemDecorationWithPadding;
-import app.organicmaps.util.SharingUtils;
-import app.organicmaps.util.UiUtils;
-import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
-import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -180,6 +181,12 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
     configureRecyclerAnimations();
     configureRecyclerDividers();
+
+    // recycler view already has an InsetListener in BaseMwmRecyclerFragment
+    // here we must reset it, because the logic is different from a common use case
+    ViewCompat.setOnApplyWindowInsetsListener(
+        getRecyclerView(),
+        new WindowInsetUtils.ScrollableContentInsetsListener(getRecyclerView(), mFabViewOnMap));
 
     updateLoadingPlaceholder(view, false);
   }

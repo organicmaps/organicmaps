@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +17,7 @@ import app.organicmaps.R;
 import app.organicmaps.maplayer.traffic.TrafficManager;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.util.WindowInsetUtils;
 import app.organicmaps.widget.menu.NavMenu;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
@@ -93,9 +95,12 @@ public class NavigationController implements TrafficManager.TrafficCallback,
     final View nextTurnContainer = mFrame.findViewById(R.id.nav_next_turn_container);
     ViewCompat.setOnApplyWindowInsetsListener(mStreetFrame, (v, windowInsets) -> {
       UiUtils.setViewInsetsPaddingNoBottom(v, windowInsets);
-      nextTurnContainer.setPadding(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).left, nextTurnContainer.getPaddingTop(),
-                                   nextTurnContainer.getPaddingEnd(), nextTurnContainer.getPaddingBottom());
-      navigationBarBackground.getLayoutParams().height = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
+
+      final Insets safeDrawingInsets = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
+      nextTurnContainer.setPadding(
+          safeDrawingInsets.left, nextTurnContainer.getPaddingTop(),
+          nextTurnContainer.getPaddingEnd(), nextTurnContainer.getPaddingBottom());
+      navigationBarBackground.getLayoutParams().height = safeDrawingInsets.bottom;
       // The gesture navigation bar stays at the bottom in landscape
       // We need to add a background only above the nav menu
       navigationBarBackground.getLayoutParams().width = mFrame.findViewById(R.id.nav_bottom_sheet).getWidth();

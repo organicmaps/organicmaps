@@ -11,14 +11,15 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.R;
-import app.organicmaps.widget.PlaceholderView;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.util.WindowInsetUtils.ScrollableContentInsetsListener;
+import app.organicmaps.widget.PlaceholderView;
 
 public abstract class BaseMwmRecyclerFragment<T extends RecyclerView.Adapter> extends Fragment
 {
@@ -84,8 +85,11 @@ public abstract class BaseMwmRecyclerFragment<T extends RecyclerView.Adapter> ex
     LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
     manager.setSmoothScrollbarEnabled(true);
     mRecycler.setLayoutManager(manager);
+    mRecycler.setClipToPadding(false);
     mAdapter = createAdapter();
     mRecycler.setAdapter(mAdapter);
+
+    ViewCompat.setOnApplyWindowInsetsListener(mRecycler, new ScrollableContentInsetsListener(mRecycler));
 
     mPlaceholder = view.findViewById(R.id.placeholder);
     setupPlaceholder(mPlaceholder);

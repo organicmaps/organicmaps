@@ -13,8 +13,8 @@ import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
-
 import androidx.fragment.app.FragmentManager;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
@@ -25,11 +25,12 @@ import app.organicmaps.editor.data.LocalizedName;
 import app.organicmaps.editor.data.LocalizedStreet;
 import app.organicmaps.editor.data.NamesDataSource;
 import app.organicmaps.editor.data.PhoneFragment;
-import app.organicmaps.widget.SearchToolbarController;
-import app.organicmaps.widget.ToolbarController;
 import app.organicmaps.util.ConnectionState;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
+import app.organicmaps.widget.SearchToolbarController;
+import app.organicmaps.widget.ToolbarController;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
@@ -138,6 +139,9 @@ public class EditorHostFragment extends BaseMwmToolbarFragment implements View.O
     getToolbarController().setTitle(getTitle());
 
     fillNames();
+
+    View fragmentContainer = view.findViewById(R.id.fragment_container);
+    ViewCompat.setOnApplyWindowInsetsListener(fragmentContainer, PaddingInsetsListener.excludeTop());
   }
 
   @StringRes
