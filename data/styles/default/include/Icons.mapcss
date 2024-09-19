@@ -2,7 +2,7 @@
 2.NATURAL
 3.TRANSPORT
  3.1 Train Station
- 3.2 Subway Station
+ 3.2 Road Icons
  3.3 Tram Station
  3.4 Bus Station
  3.5 Ferry terminal
@@ -297,10 +297,10 @@ node|z17-[railway=station]::int_name,
 node|z17-[railway=halt]::int_name,
 {text-offset: 1;font-size: 12;text-halo-opacity: 0.9;}
 
-/* 3.2 Subway Station */
+/* 3.2 Road Icons */
 
-/*moved to Subways.mapcss*/
-
+node|z19-[highway=traffic_signals],
+{icon-image: traffic_signals.svg}
 
 node|z17-[highway=elevator],
 area|z17-[highway=elevator],
