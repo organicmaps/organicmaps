@@ -77,7 +77,7 @@
 "bookmarks" = "Favoritos";
 
 /* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
-"bookmarks_and_tracks" = "Favoritos e trilhas";
+"bookmarks_and_tracks" = "Favoritos e trajetos";
 
 /* Default bookmark list name */
 "core_my_places" = "Os meus locais";
@@ -360,7 +360,7 @@
 "downloader_delete_map_while_routing_dialog" = "Para eliminar o mapa, por favor pare a navegação.";
 
 /* PointsInDifferentMWM */
-"routing_failed_cross_mwm_building" = "Só podem ser criadas rotas que estejam completamente contidas num único mapa.";
+"routing_failed_cross_mwm_building" = "Só podem ser criados trajetos que estejam completamente contidos num único mapa.";
 
 /* Context menu item for downloader. */
 "downloader_download_map" = "Descarregar mapa";
@@ -375,7 +375,7 @@
 "routing_download_maps_along" = "Descarregar todos os mapas ao longo do trajeto";
 
 /* Text for routing error dialog */
-"routing_requires_all_map" = "É necessário descarregar e atualizar todos os mapas entre a sua localização e o destino para criar uma rota.";
+"routing_requires_all_map" = "É necessário descarregar e atualizar todos os mapas entre a sua localização e o destino para criar um trajeto.";
 
 /* bookmark button text */
 "bookmark" = "favorito";
@@ -435,13 +435,13 @@
 
 /********** Routing dialogs strings **********/
 
-"dialog_routing_disclaimer_title" = "Ao seguir a rota, lembre-se que:";
+"dialog_routing_disclaimer_title" = "Ao seguir o trajeto, lembre-se que:";
 
 "dialog_routing_disclaimer_priority" = "— As condições da estrada, as leis de trânsito e os sinais de trânsito têm sempre prioridade sobre as indicações de navegação;";
 
-"dialog_routing_disclaimer_precision" = "— O mapa pode estar desatualizado e a rota indicada pode não ser a melhor para chegar ao destino;";
+"dialog_routing_disclaimer_precision" = "— O mapa pode estar desatualizado e o trajeto indicado pode não ser a melhor para chegar ao destino;";
 
-"dialog_routing_disclaimer_recommendations" = "— As rotas indicadas devem ser consideradas apenas como sugestões;";
+"dialog_routing_disclaimer_recommendations" = "— Os trajetos indicados devem ser considerados apenas como sugestões;";
 
 "dialog_routing_disclaimer_borders" = "— Use com cautela em rotas de zonas fronteiriças: as rotas criadas pela nossa aplicação podem algumas vezes cruzar fronteiras nacionais em locais não autorizados;";
 
@@ -950,7 +950,7 @@
 "bookmarks_create_new_group" = "Criar nova lista";
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
-"bookmarks_import" = "Importar favoritos e trilhas";
+"bookmarks_import" = "Importar favoritos e trajetos";
 
 "downloader_hide_screen" = "Ocultar ecrã";
 
@@ -1309,7 +1309,7 @@
 "button_layer_outdoor" = "Caminhadas";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
-"bookmarks_export" = "Exportar todos os favoritos e trilhos";
+"bookmarks_export" = "Exportar todos os favoritos e trajetos";
 
 /* Text for the editing the Track's color button. */
 "change_color" = "Muda de cor";
@@ -1329,7 +1329,7 @@
 "enable_icloud_synchronization_title" = "Ativar a sincronização do iCloud";
 
 /* Message for the "Enable iCloud Syncronization" alert. */
-"enable_icloud_synchronization_message" = "A sincronização com o iCloud é uma funcionalidade experimental em desenvolvimento. Certifique-se de que fez uma cópia de segurança de todos os seus favoritos e trilhos.";
+"enable_icloud_synchronization_message" = "A sincronização com o iCloud é uma funcionalidade experimental em desenvolvimento. Certifique-se de que fez uma cópia de segurança de todos os seus favoritos e trajetos.";
 
 /* Title for the "iCloud is Disabled" alert. */
 "icloud_disabled_title" = "O iCloud está desativado";
@@ -1377,10 +1377,10 @@
 "recover_all" = "Recuperar tudo";
 
 /* Prompt to start recording a track. */
-"start_track_recording" = "Gravar rota";
+"start_track_recording" = "Gravar trajeto";
 
 /* Prompt for stopping a track recording. */
-"stop_track_recording" = "Parar gravação de rota";
+"stop_track_recording" = "Parar gravação de trajeto";
 
 /* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
 "stop_without_saving" = "Parar sem guardar";
@@ -1389,10 +1389,10 @@
 "continue_recording" = "Continuar gravação";
 
 /* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "Guardar em favoritos e trilhas?";
+"track_recording_alert_title" = "Guardar em Favoritos e trajetos?";
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
-"track_recording_toast_nothing_to_save" = "A rota está vazia - não há nada para guardar";
+"track_recording_toast_nothing_to_save" = "O trajeto está vazio - não há nada para guardar";
 
 
 /********** Types **********/

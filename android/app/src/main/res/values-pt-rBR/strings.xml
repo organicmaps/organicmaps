@@ -283,7 +283,7 @@
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
     <string name="downloader_delete_map_while_routing_dialog">Favor parar a navegação para apagar o mapa.</string>
     <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">Só podem ser criadas rotas que estejam completamente contidas num único mapa.</string>
+    <string name="routing_failed_cross_mwm_building">Só podem ser criadas rotas que estejam completamente contidas em um único mapa.</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">Baixar o mapa</string>
     <!-- Item status in downloader. -->
@@ -339,10 +339,10 @@
     <string name="blue_gray">Azul escuro</string>
 
     <!-- SECTION: Routing dialogs strings -->
-    <string name="dialog_routing_disclaimer_title">Ao seguir a rota, lembre-se de que:</string>
+    <string name="dialog_routing_disclaimer_title">Ao seguir a rota, lembre-se que:</string>
     <string name="dialog_routing_disclaimer_priority">— As condições da estrada, as leis de trânsito e as sinalizações da pista sempre terão prioridade acima das sugestões de navegação;</string>
-    <string name="dialog_routing_disclaimer_precision">— O mapa pode estar desatualizado, e a rota indicada pode não ser a melhor maneira de chegar ao destino;</string>
-    <string name="dialog_routing_disclaimer_recommendations">— As rotas indicadas devem ser tratadas apenas como sugestões;</string>
+    <string name="dialog_routing_disclaimer_precision">— O mapa pode estar desatualizado e a rota indicada pode não ser a melhor maneira de chegar ao destino;</string>
+    <string name="dialog_routing_disclaimer_recommendations">— As rotas indicadas devem ser consideradas apenas como sugestões;</string>
     <string name="dialog_routing_disclaimer_borders">— Tenha cautela com rotas em zonas fronteiriças: as rotas criadas por nosso aplicativo podem algumas vezes cruzar fronteiras nacionais em locais não autorizados.</string>
     <string name="dialog_routing_disclaimer_beware">Fique sempre alerta nas estradas!</string>
     <string name="dialog_routing_check_gps">Verifique o sinal do GPS</string>
@@ -570,6 +570,8 @@
         <item quantity="other">%d favoritos</item>
     </plurals>
     <string name="bookmarks_create_new_group">Criar nova lista</string>
+    <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+    <string name="bookmarks_import">Importar favoritos e trilhas</string>
     <string name="bookmarks_error_message_share_general">Impossível compartilhar devido a um erro do aplicativo</string>
     <string name="bookmarks_error_title_share_empty">Erro de compartilhamento</string>
     <string name="bookmarks_error_message_share_empty">Impossível compartilhar uma lista vazia</string>
@@ -779,9 +781,9 @@
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Continuar gravação</string>
     <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Salvar gravação em favoritos e trilhas?</string>
+    <string name="track_recording_alert_title">Salvar em Favoritos e trilhas?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
-    <string name="track_recording_toast_nothing_to_save">A trilha está vazia - não há nada para salvar</string>
+    <string name="track_recording_toast_nothing_to_save">A rota está vazia - não há nada para salvar</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Não é possível exibir a caixa de diálogo de seleção de pastas porque nenhum aplicativo adequado está instalado no seu dispositivo. Instale um aplicativo gerenciador de arquivos e tente novamente</string>
 

@@ -360,7 +360,7 @@
 "downloader_delete_map_while_routing_dialog" = "Favor parar a navegação para apagar o mapa.";
 
 /* PointsInDifferentMWM */
-"routing_failed_cross_mwm_building" = "Só podem ser criadas rotas que estejam completamente contidas num único mapa.";
+"routing_failed_cross_mwm_building" = "Só podem ser criadas rotas que estejam completamente contidas em um único mapa.";
 
 /* Context menu item for downloader. */
 "downloader_download_map" = "Baixar o mapa";
@@ -435,13 +435,13 @@
 
 /********** Routing dialogs strings **********/
 
-"dialog_routing_disclaimer_title" = "Ao seguir a rota, lembre-se de que:";
+"dialog_routing_disclaimer_title" = "Ao seguir a rota, lembre-se que:";
 
 "dialog_routing_disclaimer_priority" = "— As condições da estrada, as leis de trânsito e as sinalizações da pista sempre terão prioridade acima das sugestões de navegação;";
 
-"dialog_routing_disclaimer_precision" = "— O mapa pode estar desatualizado, e a rota indicada pode não ser a melhor maneira de chegar ao destino;";
+"dialog_routing_disclaimer_precision" = "— O mapa pode estar desatualizado e a rota indicada pode não ser a melhor maneira de chegar ao destino;";
 
-"dialog_routing_disclaimer_recommendations" = "— As rotas indicadas devem ser tratadas apenas como sugestões;";
+"dialog_routing_disclaimer_recommendations" = "— As rotas indicadas devem ser consideradas apenas como sugestões;";
 
 "dialog_routing_disclaimer_borders" = "— Tenha cautela com rotas em zonas fronteiriças: as rotas criadas por nosso aplicativo podem algumas vezes cruzar fronteiras nacionais em locais não autorizados.";
 
@@ -1389,10 +1389,10 @@
 "continue_recording" = "Continuar gravação";
 
 /* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "Salvar gravação em favoritos e trilhas?";
+"track_recording_alert_title" = "Salvar em Favoritos e trilhas?";
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
-"track_recording_toast_nothing_to_save" = "A trilha está vazia - não há nada para salvar";
+"track_recording_toast_nothing_to_save" = "A rota está vazia - não há nada para salvar";
 
 
 /********** Types **********/

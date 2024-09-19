@@ -74,7 +74,7 @@
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Favoritos</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
-    <string name="bookmarks_and_tracks">Favoritos e trilhas</string>
+    <string name="bookmarks_and_tracks">Favoritos e trajetos</string>
     <!-- Default bookmark list name -->
     <string name="core_my_places">Os meus locais</string>
     <!-- Add bookmark dialog - bookmark name -->
@@ -289,7 +289,7 @@
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
     <string name="downloader_delete_map_while_routing_dialog">Para eliminar o mapa, por favor pare a navegação.</string>
     <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">Só podem ser criadas rotas que estejam completamente contidas num único mapa.</string>
+    <string name="routing_failed_cross_mwm_building">Só podem ser criados trajetos que estejam completamente contidos num único mapa.</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">Descarregar mapa</string>
     <!-- Item status in downloader. -->
@@ -305,7 +305,7 @@
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Descarregar todos os mapas ao longo do trajeto</string>
     <!-- Text for routing error dialog -->
-    <string name="routing_requires_all_map">É necessário descarregar e atualizar todos os mapas entre a sua localização e o destino para criar uma rota.</string>
+    <string name="routing_requires_all_map">É necessário descarregar e atualizar todos os mapas entre a sua localização e o destino para criar um trajeto.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">Espaço insuficiente</string>
     <!-- location service disabled -->
@@ -347,10 +347,10 @@
     <string name="blue_gray">Azul-cinza</string>
 
     <!-- SECTION: Routing dialogs strings -->
-    <string name="dialog_routing_disclaimer_title">Ao seguir a rota, lembre-se que:</string>
+    <string name="dialog_routing_disclaimer_title">Ao seguir o trajeto, lembre-se que:</string>
     <string name="dialog_routing_disclaimer_priority">— As condições da estrada, as leis de trânsito e os sinais de trânsito têm sempre prioridade sobre as indicações de navegação;</string>
-    <string name="dialog_routing_disclaimer_precision">— O mapa pode estar desatualizado e a rota indicada pode não ser a melhor para chegar ao destino;</string>
-    <string name="dialog_routing_disclaimer_recommendations">— As rotas indicadas devem ser consideradas apenas como sugestões;</string>
+    <string name="dialog_routing_disclaimer_precision">— O mapa pode estar desatualizado e o trajeto indicado pode não ser a melhor para chegar ao destino;</string>
+    <string name="dialog_routing_disclaimer_recommendations">— Os trajetos indicados devem ser considerados apenas como sugestões;</string>
     <string name="dialog_routing_disclaimer_borders">— Use com cautela em rotas de zonas fronteiriças: as rotas criadas pela nossa aplicação podem algumas vezes cruzar fronteiras nacionais em locais não autorizados;</string>
     <string name="dialog_routing_disclaimer_beware">Fique sempre atento nas estradas!</string>
     <string name="dialog_routing_check_gps">Verifique o sinal do GPS</string>
@@ -601,7 +601,7 @@
     </plurals>
     <string name="bookmarks_create_new_group">Criar nova lista</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
-    <string name="bookmarks_import">Importar favoritos e trilhas</string>
+    <string name="bookmarks_import">Importar favoritos e trajetos</string>
     <string name="bookmarks_error_message_share_general">Não foi possível partilhar devido a um erro da aplicação</string>
     <string name="bookmarks_error_title_share_empty">Erro ao partilhar</string>
     <string name="bookmarks_error_message_share_empty">Não é possível partilhar uma lista vazia</string>
@@ -792,7 +792,7 @@
     <string name="browser_not_available">O navegador de Internet não está disponível</string>
     <string name="volume">Volume</string>
     <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
-    <string name="bookmarks_export">Exportar todos os favoritos e trilhos</string>
+    <string name="bookmarks_export">Exportar todos os favoritos e trajetos</string>
     <!-- button in (app) TTS settings, to open the system TTS settings. -->
     <string name="pref_tts_open_system_settings">Definições do sistema de síntese de voz</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
@@ -816,17 +816,17 @@
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Para uma navegação mais precisa, recomendamos que desactive o modo de poupança de energia nas definições da bateria do telemóvel.</string>
     <!-- Prompt to start recording a track. -->
-    <string name="start_track_recording">Gravar rota</string>
+    <string name="start_track_recording">Gravar trajeto</string>
     <!-- Prompt for stopping a track recording. -->
-    <string name="stop_track_recording">Parar gravação de rota</string>
+    <string name="stop_track_recording">Parar gravação de trajeto</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Parar sem guardar</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Continuar gravação</string>
     <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Guardar em favoritos e trilhas?</string>
+    <string name="track_recording_alert_title">Guardar em Favoritos e trajetos?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
-    <string name="track_recording_toast_nothing_to_save">A rota está vazia - não há nada para guardar</string>
+    <string name="track_recording_toast_nothing_to_save">O trajeto está vazio - não há nada para guardar</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Não é possível apresentar a caixa de diálogo de seleção de pastas porque não está instalada nenhuma aplicação adequada no seu dispositivo. Instale uma aplicação de gestão de ficheiros e tente novamente</string>
 
