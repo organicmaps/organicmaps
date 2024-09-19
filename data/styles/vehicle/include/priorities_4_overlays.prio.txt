@@ -174,9 +174,6 @@ amenity-charging_station-motorcar                   # icon z14- (also has captio
 amenity-fuel                                        # icon z12- (also has caption(optional) z12-)
 === 3200
 
-highway-traffic_signals                             # icon z19-
-=== 3165
-
 amenity-charging_station                            # icon z16- (also has caption(optional) z16-)
 amenity-vending_machine-fuel                        # icon z17- (also has caption(optional) z17-)
 === 3150
@@ -712,6 +709,9 @@ amenity-post_office                                 # icon z17- (also has captio
 amenity-toilets                                     # icon z17- (also has caption(optional) z17-)
 shop-motorcycle                                     # icon z17-
 === 200
+
+highway-traffic_signals                             # icon z15-
+=== 175
 
 building-address                                    # caption z18-
 landuse-landfill                                    # caption z15- (also has area z15-)

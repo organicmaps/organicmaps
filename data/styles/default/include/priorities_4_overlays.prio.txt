@@ -1184,6 +1184,9 @@ barrier-entrance                                    # icon z16- (also has captio
 entrance-main                                       # icon z18- (also has caption(optional) z18-)
 === 220
 
+highway-traffic_signals                             # icon z19-
+=== 215
+
 historic-anchor                                     # icon z18- (also has caption(optional) z18-)
 historic-cannon                                     # icon z18- (also has caption(optional) z18-)
 historic-memorial-plaque                            # icon z18- (also has caption(optional) z18-)
