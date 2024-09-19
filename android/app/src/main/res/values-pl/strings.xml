@@ -858,7 +858,7 @@
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Nagraj trasę</string>
     <!-- Prompt for stopping a track recording. -->
-    <string name="stop_track_recording">Zatrzymać nagrywanie trasy</string>
+    <string name="stop_track_recording">Zatrzymaj nagrywanie trasy</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Zatrzymaj bez zapisywania</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
@@ -1255,10 +1255,10 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.cycleway.tunnel">Tunel drogowy dla rowerów</string>
     <string name="type.highway.elevator">Winda</string>
-    <string name="type.highway.footway">Chodnik</string>
+    <string name="type.highway.footway">Droga piesza</string>
     <string name="type.highway.footway.sidewalk">Chodnik</string>
     <string name="type.highway.footway.crossing">Przejście dla pieszych</string>
-    <string name="type.highway.footway.area">Obszar chodnika</string>
+    <string name="type.highway.footway.area">Obszar drogi pieszej</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.footway.bridge">Most dla pieszych</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1384,7 +1384,7 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.unclassified.tunnel">Tunel drogowy</string>
     <string name="type.area_highway.cycleway">Droga rowerowa</string>
-    <string name="type.area_highway.footway">Chodnik</string>
+    <string name="type.area_highway.footway">Droga piesza</string>
     <string name="type.area_highway.living_street">Ulica w strefie zamieszkania</string>
     <string name="type.area_highway.motorway">Ulica</string>
     <string name="type.area_highway.path">Ścieżka</string>

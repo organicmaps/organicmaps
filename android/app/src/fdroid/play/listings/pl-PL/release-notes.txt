@@ -1,9 +1,4 @@
-• Ulepszone wyszukiwanie adresów w Stanach Zjednoczonych
-• Poprawiony rendering tekstu w pismach indyjskim, arabskim, tajskim, laotańskim, khmerskim, birmańskim, tybetańskim, hangul, hebrajskim
-• Dane OSM z 2 lipca
-• Pojedyncze dotknięcie zaznacza punkt na mapie, długie dotknięcie przełącza tryb pełnoekranowy
-• Przypadkowo usunięte zakładki można teraz przywrócić
-• Poprawiony import GPX z WhatsApp
-• Więcej kategorii widocznych dla zaznaczonego POI
-
-…więcej szczegółów na omaps.org/pl/news
+- Track Recorder: Record and save your routes while hiking, biking, running, or navigating.
+- OpenStreetMap: Switched to browser-based authentication to comply with Google Play.
+- New Map Data: Updated with data as of September 7, including isolines for Egypt and Algeria.
+- Translations: Enhanced Chinese, Hebrew, and Italian, and added translations for trail difficulty.

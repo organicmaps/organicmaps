@@ -1,36 +1,3 @@
-• Better address search in the USA based on Topologically Integrated Geographic Encoding and Referencing system (TIGER) data. Map size for the USA has increased from 10Gb to 13Gb (including Wikipedia and elevation data)
-• Fixed rendering of texts in Indic (covering Devanagari, Bengali, Gujarati, Gurmukhi, Kannada, Malayalam, Oriya, Tamil, Telugu), Arabic (N'Ko, Syriac, Mongolian), Thai and Lao, Khmer, Myanmar, Tibetan, Hangul, Hebrew scripts
-• New Malayalam and Bengali fonts
-
-• Single tap now selects any point on the map, even if the map is empty
-• Changed long tap to toggle full-screen mode
-
-• OpenStreetMap data as of July 2
-• A selected place now shows more types/categories/amenities
-• Accidentally deleted bookmark on the map now can be restored immediately (Save button changes to Restore)
-• Use Import button in Bookmarks and Tracks dialog to load KML, KMZ, GPX files (bookmarks and tracks can also be imported by "sharing" them from any other app, and then choosing "Open with Organic Maps")
-• Fix importing files via the Files app on a cold start
-• Added a TTS voice test button in navigation settings
-• Enable logs in settings to help us with bug fixing
-• Open social media links in installed applications
-• Removed a non-working traffic button from CarPlay
-• Replaced circle checkbox with a rounded rect in the time editor
-
-Styles:
-• Correct dark mode startup background color
-• Display major roads earlier on the world overview map
-• Clearer label for POI's building level
-• Display good quality fine gravel pedestrian paths as white dashed
-• Support more road/path surface types (bricks, stone, grass paver, soil)
-• More clear hints when building a route
-
-Search:
-• Mountain search also shows volcanoes
-• Better search results for faraway places
-• Search now finds places with a number in their names
-• Find parcel lockers using their ref numbers
-
-Translations:
-• Updated Belarusian, Chinese, Dutch, Euskara, Hungarian, Polish, Portuguese, Russian, Ukrainian translations.
-
-Read more details at https://omaps.org/news
+- Track Recorder: Record and save your routes while hiking, biking, running, or navigating.
+- New Map Data: Updated with data as of September 7, including isolines for Egypt and Algeria.
+- Translations: Enhanced Chinese, Hebrew, and Italian, and added translations for trail difficulty.

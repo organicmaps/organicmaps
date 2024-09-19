@@ -1,9 +1,4 @@
-• Javított címkeresés az USA -ban
-• Javítottuk a szövegek renderelését indiai, arab, thai, laoszi, khmer, mianmari, tibeti, hangul és héber nyelveken
-• Július 2-i OSM adatok
-• Egy érintéssel már bármilyen pontot kiválaszthat a térképen, a hosszú érintés teljes képernyős nézetet kapcsol be
-• A véletlenül kitörölt könyvjelzők már visszaállíthatóak
-• A GPX fájlok WhatsApp-ból való importálását kijavítottuk
-• Több kategória megjelenítése egy kiválasztott POI-hoz
-
-…több: omaps.org/hu/news
+- Track Recorder: Record and save your routes while hiking, biking, running, or navigating.
+- OpenStreetMap: Switched to browser-based authentication to comply with Google Play.
+- New Map Data: Updated with data as of September 7, including isolines for Egypt and Algeria.
+- Translations: Enhanced Chinese, Hebrew, and Italian, and added translations for trail difficulty.

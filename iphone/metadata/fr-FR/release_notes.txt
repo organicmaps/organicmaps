@@ -1,36 +1,3 @@
-• Amélioration de la recherche d'adresses aux États-Unis sur la base des données TIGER (Topologically Integrated Geographic Encoding and Referencing System). La taille de la carte pour les États-Unis est passée de 10 à 13 Go (y compris Wikipédia et les données d'élévation)
-• Affichage de texte fixe dans les langues indiennes (Devanagari, Bengali, Gujarati, Gurmukhi, Kannada, Malayalam, Oriya, Tamil, Telugu), arabe (N'ko, syriaque, mongol), thaï et lao, khmer, myanmar, tibétain, hangul, hébreu
-• Nouvelles polices pour les langues malayalam et bengali
-
-• Une pression normale sur la carte permet désormais de sélectionner n'importe quel point, même si la carte est vide
-• Un appui long sur la carte permet de passer en mode plein écran
-
-• Données OpenStreetMap à partir du 2 juillet
-• L'emplacement sélectionné affiche désormais une liste complète des types d'objets (catégories) à cet emplacement
-• Les marques supprimées accidentellement sur la carte peuvent désormais être immédiatement restaurées (le bouton "Enregistrer" devient "Restaurer").
-• Les fichiers KML, KMZ, GPX peuvent être importés en utilisant le bouton Importer dans la boîte de dialogue " Étiquettes et traces " pour charger les fichiers KML, KMZ, GPX (les étiquettes et les traces peuvent également être importées en les " partageant " à partir de n'importe quelle autre application et en sélectionnant ensuite " Ouvrir avec Organic Maps ")
-• Correction de l'importation des fichiers KML, KMZ, GPX via l'application Fichiers lorsque l'application est lancée pour la première fois.
-• Ajout d'un bouton pour vérifier les instructions vocales (TTS) dans les paramètres de navigation
-• Vous pouvez désormais activer l'enregistrement dans les paramètres pour nous aider à corriger les bogues.
-• Les liens vers les médias sociaux s'ouvrent dans les applications installées
-• Suppression du bouton "embouteillages" non fonctionnel de CarPlay
-• Les boutons ronds de l'éditeur de temps ont été remplacés par des rectangles arrondis
-
-Styles :
-• Ajustement de la couleur d'arrière-plan du mode sombre au lancement de l'application
-• Les routes principales sont affichées plus tôt sur la carte du monde
-• Étiquetage plus clair de l'étage d'un lieu dans un bâtiment
-• Les sentiers de bonne qualité en gravier fin sont affichés avec des lignes blanches en pointillés
-• Prise en charge d'un plus grand nombre de types de surfaces de routes/chemins (brique, pierre, gazon, sol)
-• Amélioration du texte de l'infobulle lors de la construction d'un itinéraire
-
-Recherche :
-• La recherche de montagnes trouve également les volcans
-• Amélioration des résultats de recherche pour les lieux éloignés
-• La recherche trouve désormais les lieux dont le nom contient un numéro
-• Recherche de casiers à colis par leur numéro
-
-Traductions :
-• Les traductions en biélorusse, chinois, néerlandais, euskara, hongrois, polonais, portugais, russe et ukrainien ont été mises à jour
-
-Pour en savoir plus, consultez le site https://omaps.app/ru/news
+- Track Recorder: Record and save your routes while hiking, biking, running, or navigating.
+- New Map Data: Updated with data as of September 7, including isolines for Egypt and Algeria.
+- Translations: Enhanced Chinese, Hebrew, and Italian, and added translations for trail difficulty.

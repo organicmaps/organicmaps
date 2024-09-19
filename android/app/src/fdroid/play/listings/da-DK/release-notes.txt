@@ -1,10 +1,4 @@
-• Better address search in the USA based on US Census TIGER data
-• Fixed rendering of texts in Indic, Arabic, Thai, Lao, Khmer, Myanmar, Tibetan, Hangul, Hebrew scripts
-• OSM data as of July 2
-• Single tap selects any point on the map, long tap toggles full-screen mode
-• Accidentally deleted bookmark on the map can be restored
-• Fixed GPX import from WhatsApp
-• Display major roads earlier on the world overview map
-• Show more categories for a selected POI
-
-…more details at omaps.org/news
+- Track Recorder: Record and save your routes while hiking, biking, running, or navigating.
+- OpenStreetMap: Switched to browser-based authentication to comply with Google Play.
+- New Map Data: Updated with data as of September 7, including isolines for Egypt and Algeria.
+- Translations: Enhanced Chinese, Hebrew, and Italian, and added translations for trail difficulty.

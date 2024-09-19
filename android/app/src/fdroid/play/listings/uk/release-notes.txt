@@ -1,9 +1,4 @@
-• Покращено пошук адрес у США
-• Коректно малюються тексти мовами Індії, арабською, тайською, лао, кхмерською, м'янма, тибетською, хангул, івритом
-• Дані OSM за 2 липня
-• Звичайне натискання вибирає будь-яке місце на карті, довге натискання перемикає повноекранний режим
-• Випадково видалена мітка на карті тепер може бути відновлена
-• Виправлено імпорт GPX з WhatsApp
-• Під час вибору місця тепер відображаються всі його категорії (типи)
-
-…і багато іншого на omaps.org/uk/news
+- Track Recorder: Record and save your routes while hiking, biking, running, or navigating.
+- OpenStreetMap: Switched to browser-based authentication to comply with Google Play.
+- New Map Data: Updated with data as of September 7, including isolines for Egypt and Algeria.
+- Translations: Enhanced Chinese, Hebrew, and Italian, and added translations for trail difficulty.
