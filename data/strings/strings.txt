@@ -1914,53 +1914,6 @@
     zh-Hans = 添加新的书签列表
     zh-Hant = 新增新的書籤列表
 
-  [bookmark_color]
-    comment = Bookmark Color dialog title
-    tags = android
-    en = Bookmark Color
-    en-GB = Bookmark Colour
-    af = Boekmerkkleur
-    ar = لون الإشارة المرجعية
-    az = Əlfəcin Rəngi
-    be = Колер закладкі
-    bg = Цвят на отметка
-    ca = Color del marcador
-    cs = Barva záložky
-    da = Bogmærke Farve
-    de = Lesezeichenfarbe
-    el = Χρώμα αγαπημένου
-    es = Color del marcador
-    et = Järjehoidja värv
-    eu = Markagailuaren kolorea
-    fa = رنگ نشانه
-    fi = Kirjanmerkin väri
-    fr = Couleur du signet
-    he = צבע סימניה
-    hi = बुकमार्क रंग
-    hu = Könyvjelző színe
-    id = Warna Penanda
-    it = Colore Luogo preferito
-    ja = ブックマーク表示色
-    ko = 색상 즐겨찾기에 추가
-    lt = Adresyno spalva
-    mr = खूणपत्र रंग
-    mt = Kulur tal-Bookmark
-    nb = Bokmerk farge
-    nl = Bladwijzerkleur
-    pl = Kolor zakładki
-    pt = Cor do favorito
-    pt-BR = Cor do favorito
-    ro = Culoare loc preferat
-    ru = Цвет метки
-    sk = Farba záložky
-    sv = Bokmärkesfärg
-    th = สีของบุ๊กมาร์ก
-    tr = Yer İmi Rengi
-    uk = Колір мiтки
-    vi = Đánh dấu Màu sắc
-    zh-Hans = 书签颜色
-    zh-Hant = 書籤顏色
-
   [bookmark_set_name]
     comment = Add Bookmark list dialog - hint when the list name is empty
     tags = android,ios
@@ -31674,3 +31627,11 @@
     vi = Không thể hiển thị hộp thoại chọn thư mục vì không có ứng dụng phù hợp nào được cài đặt trên thiết bị của bạn. Vui lòng cài đặt ứng dụng quản lý tệp và thử lại
     zh-Hans = 由于您的设备上未安装合适的应用程序，因此无法显示文件夹选择对话框。请安装文件管理器应用程序并重试。
     zh-Hant = 無法顯示資料夾選擇對話框，因為您的裝置上沒有安裝合適的應用程式。請安裝檔案總管應用程式並重試
+
+  [choose_color]
+    tags = android
+    en = Choose Color
+
+  [edit_track]
+    tags = android
+    en = Edit Track
