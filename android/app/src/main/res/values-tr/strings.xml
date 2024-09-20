@@ -618,7 +618,7 @@
     <string name="bookmark_lists_hide_all">Tümünü gizle</string>
     <string name="bookmark_lists_show_all">Tümünü göster</string>
     <plurals name="bookmarks_places">
-        <item quantity="one"></item>
+        <item quantity="one"/>
         <item quantity="other">%d yer imi</item>
     </plurals>
     <string name="bookmarks_create_new_group">Yeni liste oluştur</string>
@@ -636,7 +636,7 @@
     <string name="phone_number">Telefon numarası</string>
     <string name="profile">OpenStreetMap profili</string>
     <plurals name="bookmarks_detect_message">
-        <item quantity="one"></item>
+        <item quantity="one"/>
         <item quantity="other">%d dosya bulundu. Dönüşümden sonra onları göreceksiniz.</item>
     </plurals>
     <string name="restore">Geri al</string>
@@ -2231,7 +2231,4 @@
     <string name="type.hwtag.yescar">hwtag-yescar</string>
     <string name="facebook">Facebook</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
-    <string name="matrix"></string>
-    <string name="tts_info_link"></string>
-    <string name="type.fee.yes"></string>
 </resources>

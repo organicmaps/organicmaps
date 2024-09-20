@@ -2189,23 +2189,4 @@
     <string name="type.railway.abandoned.tunnel">Abandoned Railway Tunnel</string>
     <string name="type.leisure.marina">มารีนา</string>
     <string name="type.amenity.shelter.lean_to">Lean-to Shelter</string>
-    <string name="enable_show_on_lock_screen"></string>
-    <string name="enable_show_on_lock_screen_description"></string>
-    <string name="tts_info_link"></string>
-    <string name="empty_street_name_error"></string>
-    <string name="maps_storage_free_size"></string>
-    <string name="delete_place_empty_comment_error"></string>
-    <string name="error_enter_correct_vk_page"></string>
-    <string name="disk_error"></string>
-    <string name="maps_storage_shared"></string>
-    <string name="maps_storage_internal"></string>
-    <string name="error_enter_correct_twitter_page"></string>
-    <string name="level_value_generic"></string>
-    <string name="maps_storage_external"></string>
-    <string name="error_enter_correct_line_page"></string>
-    <string name="error_enter_correct_instagram_page"></string>
-    <string name="matrix"></string>
-    <string name="move_maps_error"></string>
-    <string name="disk_error_title"></string>
-    <string name="mastodon"></string>
 </resources>

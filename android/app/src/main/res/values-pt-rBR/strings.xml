@@ -561,7 +561,7 @@
     <string name="bookmark_lists_show_all">Exibir tudo</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d favorito</item>
-        <item quantity="many"></item>
+        <item quantity="many"/>
         <item quantity="other">%d favoritos</item>
     </plurals>
     <string name="bookmarks_create_new_group">Criar nova lista</string>
@@ -580,13 +580,13 @@
     <string name="profile">Perfil do OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">%d arquivo foi encontrado. Você vai ver depois da conversão.</item>
-        <item quantity="many"></item>
+        <item quantity="many"/>
         <item quantity="other">%d arquivos foram encontrados. Você os verá depois da conversão.</item>
     </plurals>
     <string name="restore">Restaurar</string>
     <plurals name="tracks">
         <item quantity="one">%d percurso</item>
-        <item quantity="many"></item>
+        <item quantity="many"/>
         <item quantity="other">%d percursos</item>
     </plurals>
     <string name="privacy_policy">Política de privacidade</string>
@@ -2186,20 +2186,4 @@
     <string name="vk">VK</string>
     <string name="editor_line_social_network">LINHA</string>
     <string name="openstreetmap">OpenStreetMap</string>
-    <string name="level_value_generic"></string>
-    <string name="not_signed_in"></string>
-    <string name="editor_note_hint"></string>
-    <string name="on"></string>
-    <string name="editor_time_to"></string>
-    <string name="error_enter_correct_line_page"></string>
-    <string name="matrix"></string>
-    <string name="type.fee.yes"></string>
-    <string name="tts_info_link"></string>
-    <string name="error_enter_correct_twitter_page"></string>
-    <string name="google_play_services"></string>
-    <string name="error_enter_correct_vk_page"></string>
-    <string name="error_enter_correct_instagram_page"></string>
-    <string name="type.place.sea"></string>
-    <string name="clear_the_search"></string>
-    <string name="about_developed_by_enthusiasts"></string>
 </resources>

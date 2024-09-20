@@ -622,8 +622,8 @@
     <plurals name="bookmarks_places">
         <item quantity="one">%d мітка</item>
         <item quantity="few">%d мітки</item>
-        <item quantity="many"></item>
-        <item quantity="other"></item>
+        <item quantity="many"/>
+        <item quantity="other"/>
     </plurals>
     <string name="bookmarks_create_new_group">Створити новий список</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
@@ -642,8 +642,8 @@
     <plurals name="bookmarks_detect_message">
         <item quantity="one">%d файл був знайдений. Ви побачите його після перетворення.</item>
         <item quantity="few">%d файлу були знайдені. Ви побачите їх після конвертації.</item>
-        <item quantity="many"></item>
-        <item quantity="other"></item>
+        <item quantity="many"/>
+        <item quantity="other"/>
     </plurals>
     <string name="restore">Відновити</string>
     <!-- Settings privacy group in settings screen -->
@@ -2187,58 +2187,4 @@
     <string name="type.amenity.dojo">Додзьо</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Спортивний зал</string>
-    <string name="type.hwtag.onedir_bicycle"></string>
-    <string name="type.hwtag.nofoot"></string>
-    <string name="type.military"></string>
-    <string name="type.psurface"></string>
-    <string name="type.public_transport.platform"></string>
-    <string name="type.barrier.retaining_wall"></string>
-    <string name="wikimedia_commons"></string>
-    <string name="mastodon"></string>
-    <string name="type.hwtag.yesbicycle"></string>
-    <string name="type.leisure.hackerspace"></string>
-    <string name="type.hwtag.nobicycle"></string>
-    <string name="type.mapswithme"></string>
-    <string name="tts_info_link"></string>
-    <string name="instagram_url"></string>
-    <string name="type.highway.world_towns_level"></string>
-    <string name="facebook"></string>
-    <string name="type.hwtag.oneway"></string>
-    <string name="twitter"></string>
-    <string name="type.mapswithme.grid"></string>
-    <string name="telegram"></string>
-    <string name="telegram_url"></string>
-    <string name="type.hwtag"></string>
-    <string name="github"></string>
-    <string name="comma_separated_pair"></string>
-    <string name="type.hwtag.toll"></string>
-    <string name="level_value_generic"></string>
-    <string name="instagram"></string>
-    <string name="matrix"></string>
-    <string name="editor_add_phone"></string>
-    <string name="type.psurface.paved_bad"></string>
-    <string name="type.hwtag.private"></string>
-    <string name="type.hwtag.yescar"></string>
-    <string name="type.man_made.pipeline.overground"></string>
-    <string name="type.hwtag.bidir_bicycle"></string>
-    <string name="type.hwtag.yesfoot"></string>
-    <string name="type.psurface.unpaved_bad"></string>
-    <string name="type.emergency"></string>
-    <string name="editor_line_social_network"></string>
-    <string name="vk"></string>
-    <string name="type.psurface.unpaved_good"></string>
-    <string name="openstreetmap"></string>
-    <string name="type.hwtag.nocar"></string>
-    <string name="type.barrier.hedge"></string>
-    <string name="type.fee.yes"></string>
-    <string name="type.hwtag.lit"></string>
-    <string name="type.highway.world_level"></string>
-    <string name="type.psurface.paved_good"></string>
-    <string name="type.route.shuttle_train"></string>
-    <plurals name="tracks">
-        <item quantity="one"></item>
-        <item quantity="few"></item>
-        <item quantity="many"></item>
-        <item quantity="other"></item>
-    </plurals>
 </resources>
