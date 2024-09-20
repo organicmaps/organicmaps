@@ -2232,4 +2232,10 @@
     <string name="type.power"></string>
     <string name="type.man_made.storage_tank"></string>
     <string name="type.hwtag.nofoot"></string>
+    <plurals name="bookmarks_places">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
 </resources>

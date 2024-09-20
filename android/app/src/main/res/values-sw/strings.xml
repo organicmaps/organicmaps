@@ -153,7 +153,7 @@
     <string name="bookmark_lists_hide_all">Ficha zote</string>
     <string name="bookmark_lists_show_all">Onyesha zote</string>
     <plurals name="bookmarks_places">
-        <item quantity="one"/>
+        <item quantity="one"></item>
         <item quantity="other">Alamisho %d</item>
     </plurals>
     <string name="bookmarks_create_new_group">Unda orodha mpya</string>

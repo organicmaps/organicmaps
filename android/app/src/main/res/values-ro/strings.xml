@@ -601,7 +601,7 @@
     <string name="bookmark_lists_show_all">Arată tot</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d preferat</item>
-        <item quantity="few"/>
+        <item quantity="few"></item>
         <item quantity="other">%d preferate</item>
     </plurals>
     <string name="bookmarks_create_new_group">Creează o listă nouă</string>

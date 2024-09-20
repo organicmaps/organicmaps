@@ -625,8 +625,8 @@
     <plurals name="bookmarks_places">
         <item quantity="one">%d метка</item>
         <item quantity="few">%d метки</item>
-        <item quantity="many"/>
-        <item quantity="other"/>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
     </plurals>
     <string name="bookmarks_create_new_group">Создать новый список</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->

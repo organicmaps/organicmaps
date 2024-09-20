@@ -2116,4 +2116,8 @@
     <string name="money"></string>
     <string name="type.sport.swimming"></string>
     <string name="type.man_made.embankment"></string>
+    <plurals name="bookmarks_places">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
 </resources>

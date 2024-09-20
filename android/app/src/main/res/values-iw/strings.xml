@@ -610,7 +610,7 @@
     <string name="bookmark_lists_show_all">הצג הכל</string>
     <plurals name="bookmarks_places">
         <item quantity="one">סימניה %d</item>
-        <item quantity="two"/>
+        <item quantity="two"></item>
         <item quantity="other">%d סימניות</item>
     </plurals>
     <string name="bookmarks_create_new_group">צור רשימה חדשה</string>

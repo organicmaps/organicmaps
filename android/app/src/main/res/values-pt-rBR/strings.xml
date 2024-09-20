@@ -561,7 +561,7 @@
     <string name="bookmark_lists_show_all">Exibir tudo</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d favorito</item>
-        <item quantity="many"/>
+        <item quantity="many"></item>
         <item quantity="other">%d favoritos</item>
     </plurals>
     <string name="bookmarks_create_new_group">Criar nova lista</string>

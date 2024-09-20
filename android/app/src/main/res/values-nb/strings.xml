@@ -614,7 +614,7 @@
     <string name="bookmark_lists_hide_all">Skjul alle</string>
     <string name="bookmark_lists_show_all">Vis alle</string>
     <plurals name="bookmarks_places">
-        <item quantity="one"/>
+        <item quantity="one"></item>
         <item quantity="other">%d bokmerker</item>
     </plurals>
     <string name="bookmarks_create_new_group">Opprett ny liste</string>
