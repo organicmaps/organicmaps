@@ -66,8 +66,6 @@
     <string name="download_country_failed">%s다운로드가 실패했습니다</string>
     <!-- "Add new bookmark list" dialog title -->
     <string name="add_new_set">새로운 목록 추가</string>
-    <!-- Bookmark Color dialog title -->
-    <string name="bookmark_color">색상 즐겨찾기에 추가</string>
     <!-- Add Bookmark list dialog - hint when the list name is empty -->
     <string name="bookmark_set_name">집합 이름을 즐겨찾기에 추가</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->

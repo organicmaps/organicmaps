@@ -67,8 +67,6 @@
     <string name="download_country_failed">%s deskargak huts egin du</string>
     <!-- "Add new bookmark list" dialog title -->
     <string name="add_new_set">Gehitu zerrenda berri bat</string>
-    <!-- Bookmark Color dialog title -->
-    <string name="bookmark_color">Markagailuaren kolorea</string>
     <!-- Add Bookmark list dialog - hint when the list name is empty -->
     <string name="bookmark_set_name">Markagailuen zerrendaren izena</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->

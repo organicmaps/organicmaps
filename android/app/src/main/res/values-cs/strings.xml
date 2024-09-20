@@ -67,8 +67,6 @@
     <string name="download_country_failed">Stahování selhalo: %s</string>
     <!-- "Add new bookmark list" dialog title -->
     <string name="add_new_set">Přidat novou skupinu záložek</string>
-    <!-- Bookmark Color dialog title -->
-    <string name="bookmark_color">Barva záložky</string>
     <!-- Add Bookmark list dialog - hint when the list name is empty -->
     <string name="bookmark_set_name">Název záložky</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->

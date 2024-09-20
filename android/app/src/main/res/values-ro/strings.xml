@@ -67,8 +67,6 @@
     <string name="download_country_failed">Descărcarea %s a eșuat</string>
     <!-- "Add new bookmark list" dialog title -->
     <string name="add_new_set">Adaugă o listă nouă</string>
-    <!-- Bookmark Color dialog title -->
-    <string name="bookmark_color">Culoare loc preferat</string>
     <!-- Add Bookmark list dialog - hint when the list name is empty -->
     <string name="bookmark_set_name">Denumirea listei</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->

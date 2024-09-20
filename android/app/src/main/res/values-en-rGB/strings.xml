@@ -3,8 +3,6 @@
     <!-- SECTION: Strings -->
     <!-- Choose measurement on first launch alert - choose metric system button -->
     <string name="kilometres">Kilometres</string>
-    <!-- Bookmark Color dialog title -->
-    <string name="bookmark_color">Bookmark Colour</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Choose between miles and kilometres</string>
 
