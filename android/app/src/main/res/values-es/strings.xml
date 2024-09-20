@@ -634,13 +634,13 @@
     <string name="profile">Perfil de OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">Se encontró %d archivo. Lo verá después de la conversión.</item>
-        <item quantity="many"/>
+        <item quantity="many"></item>
         <item quantity="other">Se han encontrado %d archivos. Los verá después de la conversión.</item>
     </plurals>
     <string name="restore">Restaurar</string>
     <plurals name="tracks">
         <item quantity="one">%d ruta</item>
-        <item quantity="many"/>
+        <item quantity="many"></item>
         <item quantity="other">%d rutas</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
@@ -2180,4 +2180,40 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Pabellón deportivo</string>
+    <string name="type.mapswithme"></string>
+    <string name="type.railway.preserved.tunnel"></string>
+    <string name="type.railway.preserved.bridge"></string>
+    <string name="type.railway.preserved"></string>
+    <string name="type.highway.world_level"></string>
+    <string name="type.hwtag.nofoot"></string>
+    <string name="type.hwtag.bidir_bicycle"></string>
+    <string name="type.hwtag"></string>
+    <string name="type.hwtag.nocar"></string>
+    <string name="type.railway.narrow_gauge.bridge"></string>
+    <string name="type.railway.monorail.bridge"></string>
+    <string name="type.hwtag.toll"></string>
+    <string name="type.mapswithme.grid"></string>
+    <string name="type.psurface.paved_good"></string>
+    <string name="type.railway.light_rail.tunnel"></string>
+    <string name="type.highway.world_towns_level"></string>
+    <string name="type.hwtag.onedir_bicycle"></string>
+    <string name="type.psurface"></string>
+    <string name="type.railway.narrow_gauge.tunnel"></string>
+    <string name="type.hwtag.oneway"></string>
+    <string name="type.hwtag.nobicycle"></string>
+    <string name="type.railway.funicular.bridge"></string>
+    <string name="type.hwtag.yesfoot"></string>
+    <string name="type.hwtag.private"></string>
+    <string name="type.railway.abandoned.tunnel"></string>
+    <string name="type.railway.light_rail.bridge"></string>
+    <string name="type.hwtag.lit"></string>
+    <string name="type.hwtag.yesbicycle"></string>
+    <string name="type.railway.funicular.tunnel"></string>
+    <string name="type.psurface.unpaved_bad"></string>
+    <string name="type.route.shuttle_train"></string>
+    <string name="type.railway.abandoned.bridge"></string>
+    <string name="type.hwtag.yescar"></string>
+    <string name="level_value_generic"></string>
+    <string name="type.psurface.unpaved_good"></string>
+    <string name="type.psurface.paved_bad"></string>
 </resources>
