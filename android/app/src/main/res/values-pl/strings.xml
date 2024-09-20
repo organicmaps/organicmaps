@@ -67,8 +67,6 @@
     <string name="download_country_failed">Nie udało się pobrać %s</string>
     <!-- "Add new bookmark list" dialog title -->
     <string name="add_new_set">Dodaj nowy zestaw</string>
-    <!-- Bookmark Color dialog title -->
-    <string name="bookmark_color">Kolor zakładki</string>
     <!-- Add Bookmark list dialog - hint when the list name is empty -->
     <string name="bookmark_set_name">Nazwa zestawu zakładek</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->

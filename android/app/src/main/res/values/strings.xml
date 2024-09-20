@@ -70,8 +70,6 @@
     <string name="download_country_failed">%s download has failed</string>
     <!-- "Add new bookmark list" dialog title -->
     <string name="add_new_set">Add a New List</string>
-    <!-- Bookmark Color dialog title -->
-    <string name="bookmark_color">Bookmark Color</string>
     <!-- Add Bookmark list dialog - hint when the list name is empty -->
     <string name="bookmark_set_name">Bookmark List Name</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
@@ -904,6 +902,8 @@
     <string name="track_recording_toast_nothing_to_save">Track is empty - nothing to save</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Unable to display folder selection dialog because no suitable app is installed on your device. Please install a file manager app and try again.</string>
+    <string name="choose_color">Choose Color</string>
+    <string name="edit_track">Edit Track</string>
 
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Address/Block</string>
@@ -2262,6 +2262,4 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Sports hall</string>
-    <string name="choose_color">Choose Color</string>
-    <string name="edit_track">Edit Track</string>
 </resources>

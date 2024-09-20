@@ -66,8 +66,6 @@
     <string name="download_country_failed">%sのダウンロードが失敗しました</string>
     <!-- "Add new bookmark list" dialog title -->
     <string name="add_new_set">新しいセットを作成</string>
-    <!-- Bookmark Color dialog title -->
-    <string name="bookmark_color">ブックマーク表示色</string>
     <!-- Add Bookmark list dialog - hint when the list name is empty -->
     <string name="bookmark_set_name">ブックマークセット名称</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->

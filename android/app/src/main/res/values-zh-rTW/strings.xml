@@ -70,8 +70,6 @@
     <string name="download_country_failed">%s的地圖下載失敗</string>
     <!-- "Add new bookmark list" dialog title -->
     <string name="add_new_set">新增新的書籤列表</string>
-    <!-- Bookmark Color dialog title -->
-    <string name="bookmark_color">書籤顏色</string>
     <!-- Add Bookmark list dialog - hint when the list name is empty -->
     <string name="bookmark_set_name">書籤列表名稱</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->

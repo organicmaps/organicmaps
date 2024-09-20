@@ -68,8 +68,6 @@
     <string name="download_country_failed">%s endirmə uğursuz oldu</string>
     <!-- "Add new bookmark list" dialog title -->
     <string name="add_new_set">Yeni Siyahı əlavə edin</string>
-    <!-- Bookmark Color dialog title -->
-    <string name="bookmark_color">Əlfəcin Rəngi</string>
     <!-- Add Bookmark list dialog - hint when the list name is empty -->
     <string name="bookmark_set_name">Əlfəcin siyahı adı</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
