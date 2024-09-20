@@ -110,7 +110,6 @@
     <string name="measurement_units">Jednostki miary</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Wybiera pomiędzy milami, a kilometrami</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Gdzie zjeść</string>
@@ -158,7 +157,6 @@
     <string name="category_water">Woda</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Kamper</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notatki</string>
@@ -357,7 +355,6 @@
     <string name="gray">Szary</string>
     <!-- blue gray color -->
     <string name="blue_gray">Szaroniebieski</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Jadąc wyznaczoną trasą, pamiętaj, że:</string>
     <string name="dialog_routing_disclaimer_priority">— Warunki na drodze, przepisy ruchu drogowego i znaki drogowe zawsze są ważniejsze niż wskazówki nawigacji;</string>
@@ -387,7 +384,6 @@
     <string name="not_now">Nie teraz</string>
     <string name="dialog_routing_download_and_build_cross_route">Chcesz pobrać mapę i wyznaczyć lepszą trasę, obejmującą więcej map?</string>
     <string name="dialog_routing_download_cross_route">Pobierz mapę i wyznacz lepszą trasę, wykraczającą poza granice bieżącej mapy.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Aby rozpocząć wyszukiwanie i tworzenie tras, pobierz mapę, a nie będzie ci już potrzebne połączenie z Internetem.</string>
     <string name="search_select_map">Wybierz mapę</string>
@@ -619,9 +615,6 @@
     <!-- Do not display all bookmark lists on the map -->
     <string name="bookmark_lists_hide_all">Ukryj wszystkie</string>
     <string name="bookmark_lists_show_all">Pokaż wszystkie</string>
-    <plurals name="bookmarks_places">
-        <item quantity="other">Zakładki: %d</item>
-    </plurals>
     <string name="bookmarks_create_new_group">Utwórz nową listę</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
     <string name="bookmarks_import">Importuj zakładki i trasy</string>
@@ -732,7 +725,6 @@
     <string name="moreyear_ago_sorttype">Ponad rok temu</string>
     <string name="near_me_sorttype">W pobliżu</string>
     <string name="others_sorttype">Inne</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Jedzenie</string>
     <string name="tourist_places">Zabytki</string>
@@ -867,7 +859,6 @@
     <string name="track_recording_toast_nothing_to_save">Trasa jest pusta - nic do zapisania</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Nie można wyświetlić okna dialogowego wyboru folderu, ponieważ na urządzeniu nie zainstalowano odpowiedniej aplikacji. Proszę zainstalować aplikację menedżera plików i spróbować ponownie</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Adres/Blok</string>
     <string name="type.addr_interpolation.even">Adres/Blok</string>
@@ -996,7 +987,6 @@
     <string name="type.amenity.prison">Więzienie</string>
     <string name="type.amenity.pub">Pub</string>
     <string name="type.amenity.public_bookcase">Wymiana książek</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Centrum przetwórstwa odpadów</string>
     <string name="type.amenity.recycling">Pojemnik do recyklingu</string>
@@ -1230,7 +1220,6 @@
     <string name="type.healthcare.psychotherapist">Psychoterapia</string>
     <string name="type.healthcare.sample_collection">Punkt pobrań laboratoryjnych</string>
     <string name="type.healthcare.speech_therapist">Logopeda</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Droga</string>
     <string name="type.highway.bridleway">Droga dla koni</string>
@@ -1396,7 +1385,6 @@
     <string name="type.area_highway.track">Droga na pola lub do lasu</string>
     <string name="type.area_highway.trunk">Ulica</string>
     <string name="type.area_highway.unclassified">Ulica</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Obiekt historyczny</string>
     <string name="type.historic.aircraft">Historyczny samolot</string>
