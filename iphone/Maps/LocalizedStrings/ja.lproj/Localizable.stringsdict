@@ -40,8 +40,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>zero</key>
-			<string>%d件の経路</string>
 			<key>other</key>
 			<string>%d件の経路</string>
 		</dict>
