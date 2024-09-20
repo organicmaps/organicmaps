@@ -2216,4 +2216,22 @@
     <string name="type.railway.light_rail.tunnel"></string>
     <string name="type.psurface"></string>
     <string name="type.railway.light_rail.bridge"></string>
+    <string name="instagram_url"></string>
+    <string name="wikimedia_commons"></string>
+    <string name="mb"></string>
+    <string name="telegram_url"></string>
+    <string name="type.fee.yes"></string>
+    <string name="twitter"></string>
+    <string name="instagram"></string>
+    <string name="vk"></string>
+    <string name="facebook"></string>
+    <string name="gb"></string>
+    <string name="github"></string>
+    <string name="matrix"></string>
+    <string name="mastodon"></string>
+    <string name="comma_separated_pair"></string>
+    <string name="editor_line_social_network"></string>
+    <string name="telegram"></string>
+    <string name="openstreetmap"></string>
+    <string name="type.railway.monorail.tunnel"></string>
 </resources>
