@@ -632,8 +632,8 @@
     </plurals>
     <string name="restore">Taasta</string>
     <plurals name="tracks">
-        <item quantity="one"/>
-        <item quantity="other">%d rada</item>
+        <item quantity="one">%d rada?</item>
+        <item quantity="other">%d rada?</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
     <string name="privacy">Privaatsus</string>
@@ -2177,4 +2177,46 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Spordisaal</string>
+    <string name="mb">MB</string>
+    <string name="about_headline">Free for everyone, made with love</string>
+    <string name="menu">Menüü</string>
+    <string name="github">GitHub</string>
+    <string name="telegram">Telegram</string>
+    <string name="instagram">Instagram</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="type.highway.world_level">highway-world_level</string>
+    <string name="type.hwtag.bidir_bicycle">hwtag-bidir_bicycle</string>
+    <string name="type.hwtag.nocar">hwtag-nocar</string>
+    <string name="type.hwtag.private">hwtag-private</string>
+    <string name="type.hwtag.toll">hwtag-toll</string>
+    <string name="type.hwtag.yesbicycle">hwtag-yesbicycle</string>
+    <string name="type.hwtag.yesfoot">hwtag-yesfoot</string>
+    <string name="type.leisure.hackerspace">Häkkeriruum</string>
+    <string name="type.psurface.paved_bad">psurface-paved_bad</string>
+    <string name="type.psurface.paved_good">psurface-paved_good</string>
+    <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
+    <string name="type.route.shuttle_train">route-shuttle_train</string>
+    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
+    <string name="type.amenity.shelter.lean_to">Lean-to Shelter</string>
+    <string name="about_proposition_1">• No ads, no tracking, no data collection</string>
+    <string name="type.hwtag.onedir_bicycle">hwtag-onedir_bicycle</string>
+    <string name="type.hwtag.yescar">hwtag-yescar</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="gb">GB</string>
+    <string name="type.hwtag">hwtag</string>
+    <string name="type.mapswithme">mapswithme</string>
+    <string name="type.mapswithme.grid">mapswithme-grid</string>
+    <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
+    <string name="type.hwtag.lit">hwtag-lit</string>
+    <string name="type.hwtag.nobicycle">hwtag-nobicycle</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="type.hwtag.nofoot">hwtag-nofoot</string>
+    <string name="type.hwtag.oneway">hwtag-oneway</string>
+    <string name="vk">VK</string>
+    <string name="facebook">Facebook</string>
 </resources>
