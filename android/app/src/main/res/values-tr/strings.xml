@@ -474,7 +474,7 @@
     <string name="editor_add_phone">Telefon Ekle</string>
     <string name="level">Kat</string>
     <!-- Building level -->
-    <string name="level_value_generic">Kat sayısı:  %s</string>
+    <string name="level_value_generic">Kat sayısı: %s</string>
     <string name="downloader_delete_map_dialog">Harita ile birlikte tüm harita değişiklikleri de silinecektir.</string>
     <string name="downloader_update_maps">Haritaları güncelle</string>
     <string name="downloader_mwm_migration_dialog">Bir rota oluşturmak için tüm haritaları güncellemeli ve ardından rotayı tekrar planlamalısınız.</string>
@@ -609,7 +609,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Tüm harita düzenlemelerinizi otomatik olarak yüklemek için lütfen OpenStreetMap\'e giriş yapın. Daha fazla bilgi <a href="https://github.com/organicmaps/organicmaps/issues/6144">burada</a>.</string>
     <string name="dialog_error_storage_title">Depolama alanı erişim sorunu</string>
-    <string name="dialog_error_storage_message">Harici bellek kullanılamıyor, muhtemelen SD Kart çıkarılmış, hasarlı veya dosya sistemi salt okunur. Lütfen kontrol edin veya support\@organicmaps.app adresinden bizimle iletişime geçin</string>
+    <string name="dialog_error_storage_message">Harici bellek kullanılamıyor, muhtemelen SD Kart çıkarılmış, hasarlı veya dosya sistemi salt okunur. Lütfen kontrol edin veya support@organicmaps.app adresinden bizimle iletişime geçin</string>
     <string name="setting_emulate_bad_storage">Bozuk depolama alanını taklit et</string>
     <string name="core_entrance">Giriş</string>
     <string name="error_enter_correct_name">Lütfen doğru bir isim girin</string>
@@ -636,6 +636,7 @@
     <string name="phone_number">Telefon numarası</string>
     <string name="profile">OpenStreetMap profili</string>
     <plurals name="bookmarks_detect_message">
+        <item quantity="one"></item>
         <item quantity="other">%d dosya bulundu. Dönüşümden sonra onları göreceksiniz.</item>
     </plurals>
     <string name="restore">Geri al</string>
@@ -2230,4 +2231,7 @@
     <string name="type.hwtag.yescar">hwtag-yescar</string>
     <string name="facebook">Facebook</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="matrix"></string>
+    <string name="type.fee.yes"></string>
+    <string name="tts_info_link"></string>
 </resources>

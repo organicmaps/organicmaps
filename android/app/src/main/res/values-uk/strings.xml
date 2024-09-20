@@ -611,7 +611,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Будь ласка увійдіть в акаунт OpenStreetMap.org, щоб автоматично публікувати зміни до мапи. Подробиці за <a href="https://github.com/organicmaps/organicmaps/issues/6144">посиланням</a>.</string>
     <string name="dialog_error_storage_title">Не вдалося отримати доступ до сховища</string>
-    <string name="dialog_error_storage_message">Зовнішнє сховище не доступно. Ймовірно, SD-картку пам\'яті було вилучено, пошкоджено, або система файлів доступна тільки для читання. Будь ласка, перевірте та зв\'яжіться з нами, написавши на адресу електронну пошту support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Зовнішнє сховище не доступно. Ймовірно, SD-картку пам\'яті було вилучено, пошкоджено, або система файлів доступна тільки для читання. Будь ласка, перевірте та зв\'яжіться з нами, написавши на адресу електронну пошту support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Емулювати проблемне сховище</string>
     <string name="core_entrance">Вхід</string>
     <string name="error_enter_correct_name">Будь ласка, введіть коректне ім\'я</string>
@@ -642,7 +642,8 @@
     <plurals name="bookmarks_detect_message">
         <item quantity="one">%d файл був знайдений. Ви побачите його після перетворення.</item>
         <item quantity="few">%d файлу були знайдені. Ви побачите їх після конвертації.</item>
-        <item quantity="other">%d файлів було знайдено. Ви побачите їх після конвертації.</item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
     </plurals>
     <string name="restore">Відновити</string>
     <!-- Settings privacy group in settings screen -->
@@ -2186,4 +2187,58 @@
     <string name="type.amenity.dojo">Додзьо</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Спортивний зал</string>
+    <string name="type.psurface"></string>
+    <string name="mastodon"></string>
+    <string name="type.fee.yes"></string>
+    <string name="type.hwtag.yesbicycle"></string>
+    <string name="type.hwtag.oneway"></string>
+    <string name="type.hwtag.toll"></string>
+    <string name="type.hwtag.private"></string>
+    <string name="type.hwtag.yescar"></string>
+    <string name="type.emergency"></string>
+    <string name="editor_add_phone"></string>
+    <string name="type.psurface.paved_bad"></string>
+    <string name="type.hwtag.yesfoot"></string>
+    <string name="type.psurface.unpaved_bad"></string>
+    <string name="type.hwtag.bidir_bicycle"></string>
+    <string name="type.psurface.unpaved_good"></string>
+    <string name="openstreetmap"></string>
+    <string name="type.hwtag.nocar"></string>
+    <string name="type.barrier.hedge"></string>
+    <string name="editor_line_social_network"></string>
+    <string name="type.hwtag.lit"></string>
+    <string name="vk"></string>
+    <string name="tts_info_link"></string>
+    <string name="telegram_url"></string>
+    <string name="instagram_url"></string>
+    <string name="comma_separated_pair"></string>
+    <string name="type.highway.world_level"></string>
+    <string name="type.psurface.paved_good"></string>
+    <string name="type.route.shuttle_train"></string>
+    <string name="type.barrier.retaining_wall"></string>
+    <string name="wikimedia_commons"></string>
+    <string name="type.hwtag.nofoot"></string>
+    <string name="type.leisure.hackerspace"></string>
+    <string name="type.mapswithme"></string>
+    <string name="type.highway.world_towns_level"></string>
+    <string name="facebook"></string>
+    <string name="type.mapswithme.grid"></string>
+    <string name="telegram"></string>
+    <string name="type.hwtag"></string>
+    <string name="type.military"></string>
+    <string name="twitter"></string>
+    <string name="level_value_generic"></string>
+    <string name="type.public_transport.platform"></string>
+    <string name="instagram"></string>
+    <string name="github"></string>
+    <string name="matrix"></string>
+    <plurals name="tracks">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="type.hwtag.onedir_bicycle"></string>
+    <string name="type.hwtag.nobicycle"></string>
+    <string name="type.man_made.pipeline.overground"></string>
 </resources>
