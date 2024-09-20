@@ -617,6 +617,7 @@
     <string name="bookmark_lists_hide_all">Ezkutatu guztiak</string>
     <string name="bookmark_lists_show_all">Erakutsi guztiak</string>
     <plurals name="bookmarks_places">
+        <item quantity="one"></item>
         <item quantity="other">%d markagailu</item>
     </plurals>
     <string name="bookmarks_create_new_group">Sortu zerrenda berria</string>

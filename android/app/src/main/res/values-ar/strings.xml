@@ -631,6 +631,11 @@
     <string name="bookmark_lists_hide_all">إخفاء الكل</string>
     <string name="bookmark_lists_show_all">إظهار الكل</string>
     <plurals name="bookmarks_places">
+        <item quantity="zero"></item>
+        <item quantity="one"></item>
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
         <item quantity="other">%d من الإشارات المرجعية</item>
     </plurals>
     <string name="bookmarks_create_new_group">إنشاء قائمة جديدة</string>
