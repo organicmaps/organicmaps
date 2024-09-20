@@ -113,7 +113,6 @@
     <string name="measurement_units">Unités de mesure</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Choisir entre miles et kilomètres</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Un endroit pour manger</string>
@@ -161,7 +160,6 @@
     <string name="category_water">Eau</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Aménagements pour camping-car</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notes</string>
@@ -360,7 +358,6 @@
     <string name="gray">Gris</string>
     <!-- blue gray color -->
     <string name="blue_gray">Gris-bleu</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Lorsque vous suivez l\'itinéraire, gardez à l\'esprit les points suivants :</string>
     <string name="dialog_routing_disclaimer_priority">— Les conditions de circulation, le code de la route et les panneaux de signalisation ont la priorité sur l\'appareil de navigation;</string>
@@ -390,7 +387,6 @@
     <string name="not_now">Pas maintenant</string>
     <string name="dialog_routing_download_and_build_cross_route">Voulez-vous télécharger la carte et créer un itinéraire plus direct s\'étendant sur plus d\'une carte?</string>
     <string name="dialog_routing_download_cross_route">Téléchargez des cartes pour créer un itinéraire plus direct sortant des limites de cette carte.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Pour commencer à rechercher et à créer des itinéraires, veuillez télécharger la carte. Après cela, vous n\'aurez plus besoin d\'une connexion Internet.</string>
     <string name="search_select_map">Sélectionner la carte</string>
@@ -615,7 +611,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Connecte-toi à OpenStreetMap pour télécharger automatiquement toutes tes modifications de cartes. En savoir plus <a href="https://github.com/organicmaps/organicmaps/issues/6144">ici</a>.</string>
     <string name="dialog_error_storage_title">Problème d\'accès au stockage</string>
-    <string name="dialog_error_storage_message">Le stockage externe n\'est pas disponible. La carte SD a probablement été enlevée, endommagée ou le système est en lecture seule. Veuillez vérifier votre carte SD ou nous contacter via support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Le stockage externe n\'est pas disponible. La carte SD a probablement été enlevée, endommagée ou le système est en lecture seule. Veuillez vérifier votre carte SD ou nous contacter via support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Émuler le mauvais stockage</string>
     <string name="core_entrance">Entrée</string>
     <string name="error_enter_correct_name">Veuillez entrer un nom correct</string>
@@ -644,10 +640,13 @@
     <string name="profile">Profil OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">%d fichier a été trouvé. Vous le verrez après la conversion.</item>
+        <item quantity="many"></item>
         <item quantity="other">%d fichiers ont été trouvés. Vous les verrez après la conversion.</item>
     </plurals>
     <string name="restore">Restaurer</string>
     <plurals name="tracks">
+        <item quantity="one"></item>
+        <item quantity="many"></item>
         <item quantity="other">%d pistes</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
@@ -734,7 +733,6 @@
     <string name="moreyear_ago_sorttype">Il y a plus d\'un an</string>
     <string name="near_me_sorttype">Près de moi</string>
     <string name="others_sorttype">Autres</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Aliments</string>
     <string name="tourist_places">Choses à voir</string>
@@ -869,7 +867,6 @@
     <string name="track_recording_toast_nothing_to_save">L\'itinéraire est vide - il n\'y a rien à sauvegarder</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Impossible d\'afficher la boîte de dialogue de sélection des dossiers car aucune application appropriée n\'est installée sur votre appareil. Veuillez installer une application de gestion de fichiers et réessayer</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Adresse/Bloc</string>
     <string name="type.addr_interpolation.even">Adresse/Bloc</string>
@@ -990,7 +987,6 @@
     <string name="type.amenity.post_office">Bureau de poste</string>
     <string name="type.amenity.pub">Pub</string>
     <string name="type.amenity.public_bookcase">Microbibliothèque</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Centre de recyclage</string>
     <string name="type.amenity.recycling">Conteneur de recyclage</string>
@@ -1221,7 +1217,6 @@
     <string name="type.healthcare.psychotherapist">Psychothérapie</string>
     <string name="type.healthcare.sample_collection">Prélèvements biologiques</string>
     <string name="type.healthcare.speech_therapist">Logopédie</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway.bridleway">Chemin équestre</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
@@ -1386,7 +1381,6 @@
     <string name="type.area_highway.track">Piste</string>
     <string name="type.area_highway.trunk">Voie rapide</string>
     <string name="type.area_highway.unclassified">Rue</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Objet historique</string>
     <string name="type.historic.aircraft">Avion historique</string>
@@ -2141,4 +2135,105 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Salle de sport</string>
+    <string name="type.military"></string>
+    <string name="type.landuse.village_green"></string>
+    <string name="type.hwtag.yesfoot"></string>
+    <string name="type.internet_access.wlan"></string>
+    <string name="type.leisure.recreation_ground"></string>
+    <string name="type.military.bunker"></string>
+    <string name="type.man_made.pipeline.overground"></string>
+    <string name="type.shop.bookmaker"></string>
+    <string name="type.highway.world_level"></string>
+    <string name="type.highway.world_towns_level"></string>
+    <string name="type.route.shuttle_train"></string>
+    <string name="type.amenity.place_of_worship.jewish"></string>
+    <string name="type.route"></string>
+    <string name="type.building.garage"></string>
+    <string name="type.leisure.common"></string>
+    <string name="telegram"></string>
+    <string name="type.amenity.bar"></string>
+    <string name="type.highway"></string>
+    <string name="type.amenity.police"></string>
+    <string name="type.amenity.prison"></string>
+    <string name="type.mapswithme"></string>
+    <string name="type.hwtag.bidir_bicycle"></string>
+    <string name="type.hwtag.lit"></string>
+    <string name="type.amenity.biergarten"></string>
+    <string name="type.waterway.drain"></string>
+    <string name="type.railway.preserved.bridge"></string>
+    <string name="tts_info_link"></string>
+    <string name="github"></string>
+    <string name="type.man_made.pipeline"></string>
+    <string name="type.mapswithme.grid"></string>
+    <string name="type.amenity.place_of_worship.hindu"></string>
+    <string name="comma_separated_pair"></string>
+    <string name="wikimedia_commons"></string>
+    <string name="navigation_stop_button"></string>
+    <string name="type.internet_access"></string>
+    <string name="type.man_made.silo"></string>
+    <string name="type.amenity.taxi"></string>
+    <string name="type.hwtag.nobicycle"></string>
+    <string name="type.leisure.marina"></string>
+    <string name="type.man_made"></string>
+    <string name="type.cuisine.bubble_tea"></string>
+    <string name="type.man_made.works"></string>
+    <string name="openstreetmap"></string>
+    <string name="editor_line_social_network"></string>
+    <string name="vk"></string>
+    <string name="type.hwtag"></string>
+    <string name="type.hwtag.onedir_bicycle"></string>
+    <string name="type.leisure"></string>
+    <string name="type.hwtag.yescar"></string>
+    <string name="type.railway.narrow_gauge.bridge"></string>
+    <string name="type.power"></string>
+    <string name="type.railway.preserved.tunnel"></string>
+    <string name="type.hwtag.nocar"></string>
+    <string name="matrix"></string>
+    <string name="twitter"></string>
+    <string name="mastodon"></string>
+    <string name="facebook"></string>
+    <string name="instagram"></string>
+    <string name="instagram_url"></string>
+    <string name="telegram_url"></string>
+    <string name="type.aeroway.terminal"></string>
+    <string name="type.amenity.place_of_worship.buddhist"></string>
+    <string name="type.amenity.restaurant"></string>
+    <string name="type.cuisine.fish_and_chips"></string>
+    <string name="type.fee.yes"></string>
+    <string name="type.hwtag.private"></string>
+    <string name="type.hwtag.nofoot"></string>
+    <string name="type.hwtag.oneway"></string>
+    <string name="type.hwtag.toll"></string>
+    <string name="type.hwtag.yesbicycle"></string>
+    <string name="type.landuse.garages"></string>
+    <string name="type.leisure.hackerspace"></string>
+    <string name="type.man_made.cairn"></string>
+    <string name="type.leisure.beach_resort"></string>
+    <string name="type.public_transport"></string>
+    <string name="type.psurface.unpaved_good"></string>
+    <string name="type.psurface.unpaved_bad"></string>
+    <string name="type.railway.light_rail.tunnel"></string>
+    <string name="type.railway.light_rail.bridge"></string>
+    <string name="type.railway.narrow_gauge"></string>
+    <string name="type.railway.narrow_gauge.tunnel"></string>
+    <string name="type.tourism.attraction.specified"></string>
+    <string name="type.tourism.attraction"></string>
+    <string name="type.tourism.motel"></string>
+    <string name="type.tourism.zoo"></string>
+    <string name="type.waterway.canal"></string>
+    <string name="type.natural.water.drain"></string>
+    <string name="type.aerialway.t.bar"></string>
+    <string name="type.aerialway.platter"></string>
+    <string name="type.aerialway.rope_tow"></string>
+    <string name="type.amenity.shelter.lean_to"></string>
+    <string name="type.waterway"></string>
+    <string name="type.waterway.canal.tunnel"></string>
+    <string name="type.junction"></string>
+    <string name="type.psurface"></string>
+    <string name="type.psurface.paved_bad"></string>
+    <string name="type.psurface.paved_good"></string>
+    <string name="type.power.station"></string>
+    <string name="type.railway.light_rail"></string>
+    <string name="type.traffic_calming"></string>
+    <string name="type.wheelchair"></string>
 </resources>

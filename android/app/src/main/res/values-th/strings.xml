@@ -100,7 +100,6 @@
     <string name="measurement_units">หน่วยการวัด</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">เลือกระหว่างไมล์และกิโลเมตร</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">กินร้านไหนดี</string>
@@ -148,7 +147,6 @@
     <string name="category_water">น้ำ</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">สำหรับ RV</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">บันทึก</string>
@@ -336,7 +334,6 @@
     <string name="gray">สีเทา</string>
     <!-- blue gray color -->
     <string name="blue_gray">สีฟ้าอมเทา</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">ขณะกำลังเดินทางตามเส้นทาง โปรดจำไว้ว่า:</string>
     <string name="dialog_routing_disclaimer_priority">— สภาพถนน กฎจราจร และสัญลักษณ์บนถนนย่อมมีความสำคัญกว่าคำแนะนำเพื่อบอกทางเสมอ;</string>
@@ -366,7 +363,6 @@
     <string name="not_now">ไว้คราวหลัง</string>
     <string name="dialog_routing_download_and_build_cross_route">คุณต้องการดาวน์โหลดแผนที่และสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเกินหนึ่งแผนที่หรือไม่?</string>
     <string name="dialog_routing_download_cross_route">ดาวน์โหลดแผนที่เพื่อสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเลยขอบของแผนที่นี้</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">เพื่อเริ่มต้นการค้นหาและสร้างเส้นทาง โปรดดาวน์โหลดแผนที่ และคุณจะไม่จำเป็นต้องทำการเชื่อมต่ออินเทอร์เน็ตอีกต่อไป</string>
     <string name="search_select_map">เลือกแผนที่</string>
@@ -578,7 +574,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">กรุณาเข้าสู่ระบบ OpenStreetMap เพื่ออัปโหลดการแก้ไขแผนที่ทั้งหมดของคุณโดยอัตโนมัติ เรียนรู้เพิ่มเติม<a href="https://github.com/organicmaps/organicmaps/issues/6144">ที่นี่</a></string>
     <string name="dialog_error_storage_title">ปัญหาการเข้าถึงที่เก็บข้อมูล</string>
-    <string name="dialog_error_storage_message">ที่เก็บข้อมูลภายนอกไม่พร้อมใช้งาน อาจเป็นเพราะการ์ด SD ถูกถอดออกไป ได้รับความเสียหาย หรือระบบไฟล์ให้เขียนได้อย่างเดียว กรุณาตรวจสอบและติดต่อเราได้ที่ support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">ที่เก็บข้อมูลภายนอกไม่พร้อมใช้งาน อาจเป็นเพราะการ์ด SD ถูกถอดออกไป ได้รับความเสียหาย หรือระบบไฟล์ให้เขียนได้อย่างเดียว กรุณาตรวจสอบและติดต่อเราได้ที่ support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">จำลองแบบที่เก็บข้อมูลที่ไม่ดี</string>
     <string name="core_entrance">ทางเข้า</string>
     <string name="error_enter_correct_name">กรุณาใส่ชื่อที่ถูกต้อง</string>
@@ -694,7 +690,6 @@
     <string name="moreyear_ago_sorttype">มากกว่าหนึ่งปีที่ผ่านมา</string>
     <string name="near_me_sorttype">ใกล้ฉัน</string>
     <string name="others_sorttype">อื่นๆ</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">อาหาร</string>
     <string name="tourist_places">ที่ท่องเที่ยว</string>
@@ -812,7 +807,6 @@
     <string name="track_recording_toast_nothing_to_save">เส้นทางว่างเปล่า - ไม่มีอะไรจะบันทึก</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">ไม่สามารถแสดงกล่องโต้ตอบการเลือกโฟลเดอร์ได้เนื่องจากไม่ได้ติดตั้งแอปที่เหมาะสมในอุปกรณ์ของคุณ โปรดติดตั้งแอปตัวจัดการไฟล์แล้วลองอีกครั้ง</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">ที่อยู่/บล็อค</string>
     <string name="type.addr_interpolation.even">ที่อยู่/บล็อค</string>
@@ -927,7 +921,6 @@
     <string name="type.amenity.post_office">ที่ทำการไปรษณีย์</string>
     <string name="type.amenity.pub">ผับ</string>
     <string name="type.amenity.public_bookcase">ตู้หนังสือ สถานที่แลกเปลี่ยนหนังสือ</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">ศูนย์รีไซเคิล</string>
     <string name="type.amenity.recycling">บรรจุภัณฑ์รีไซเคิล</string>
@@ -1129,7 +1122,6 @@
     <string name="type.healthcare.psychotherapist">จิตบำบัด</string>
     <string name="type.healthcare.sample_collection">การสุ่มตัวอย่าง</string>
     <string name="type.healthcare.speech_therapist">การบำบัดด้วยการพูด</string>
-
     <!-- SECTION: Types: Roads -->
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">สะพาน</string>
@@ -1287,7 +1279,6 @@
     <string name="type.area_highway.track">ถนน</string>
     <string name="type.area_highway.trunk">ถนน</string>
     <string name="type.area_highway.unclassified">ถนน</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">วัตถุประวัติศาสตร์</string>
     <string name="type.historic.aircraft">เครื่องบินประวัติศาสตร์</string>
@@ -1959,4 +1950,23 @@
     <string name="type.amenity.dojo">โดโจ</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">ห้องกีฬา</string>
+    <string name="error_enter_correct_twitter_page"></string>
+    <string name="error_enter_correct_instagram_page"></string>
+    <string name="enable_show_on_lock_screen"></string>
+    <string name="matrix"></string>
+    <string name="move_maps_error"></string>
+    <string name="error_enter_correct_vk_page"></string>
+    <string name="error_enter_correct_line_page"></string>
+    <string name="disk_error_title"></string>
+    <string name="empty_street_name_error"></string>
+    <string name="maps_storage_free_size"></string>
+    <string name="tts_info_link"></string>
+    <string name="disk_error"></string>
+    <string name="maps_storage_internal"></string>
+    <string name="level_value_generic"></string>
+    <string name="enable_show_on_lock_screen_description"></string>
+    <string name="maps_storage_external"></string>
+    <string name="delete_place_empty_comment_error"></string>
+    <string name="mastodon"></string>
+    <string name="maps_storage_shared"></string>
 </resources>

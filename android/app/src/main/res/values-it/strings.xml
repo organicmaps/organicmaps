@@ -98,7 +98,6 @@
     <string name="measurement_units">Unità di misura</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Scegli tra miglia e chilometri</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Dove mangiare</string>
@@ -146,7 +145,6 @@
     <string name="category_water">Acqua</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Per camper</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Informazioni</string>
@@ -343,7 +341,6 @@
     <string name="gray">Grigio</string>
     <!-- blue gray color -->
     <string name="blue_gray">Grigiazzurro</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Quando segui il percorso, ricorda che:</string>
     <string name="dialog_routing_disclaimer_priority">— Le condizioni stradali, il codice della strada e la segnaletica stradale hanno sempre precedenza sulle indicazioni del navigatore;</string>
@@ -373,7 +370,6 @@
     <string name="not_now">Non ora</string>
     <string name="dialog_routing_download_and_build_cross_route">Vuoi scaricare la mappa e creare un percorso migliore che si estende su più mappe?</string>
     <string name="dialog_routing_download_cross_route">Scarica altre mappe per creare un percorso migliore che attraversi i confini di questa mappa.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Per iniziare a cercare e a creare i percorsi, scarica la mappa e non avrai più bisogno di una connessione a internet.</string>
     <string name="search_select_map">Seleziona mappa</string>
@@ -596,7 +592,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Accedi a OpenStreetMap per caricare automaticamente tutte le tue modifiche alla mappa. Per saperne di più <a href="https://github.com/organicmaps/organicmaps/issues/6144">qui</a>.</string>
     <string name="dialog_error_storage_title">Problema di accesso alla memoria</string>
-    <string name="dialog_error_storage_message">Archivio esterno non disponibile, probabilmente la scheda SD è stata rimossa, è danneggiata o il file system è di sola lettura. Controllala o contattaci su support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Archivio esterno non disponibile, probabilmente la scheda SD è stata rimossa, è danneggiata o il file system è di sola lettura. Controllala o contattaci su support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Simula archivio danneggiato</string>
     <string name="core_entrance">Ingresso</string>
     <string name="error_enter_correct_name">Inserisci un nome corretto</string>
@@ -624,11 +620,13 @@
     <string name="profile">Profilo OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">%d file è stato trovato. Lo vedrai dopo la conversione.</item>
+        <item quantity="many"></item>
         <item quantity="other">%d file trovati. Li vedrai dopo la conversione.</item>
     </plurals>
     <string name="restore">Ripristina</string>
     <plurals name="tracks">
         <item quantity="one">%d percorso</item>
+        <item quantity="many"></item>
         <item quantity="other">%d percorsi</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
@@ -715,7 +713,6 @@
     <string name="moreyear_ago_sorttype">Più di un anno fa</string>
     <string name="near_me_sorttype">Vicino a me</string>
     <string name="others_sorttype">Altro</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Cibo</string>
     <string name="tourist_places">Luoghi d\'interesse</string>
@@ -848,7 +845,6 @@
     <string name="track_recording_toast_nothing_to_save">Il percorso è vuoto - non c\'è nulla da salvare</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Impossibile visualizzare la finestra di selezione delle cartelle perché sul suo dispositivo non è installata alcuna applicazione adatta. Installi un\'app di gestione file e riprovi</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Indirizzo/Blocco</string>
     <string name="type.addr_interpolation.even">Indirizzo/Blocco</string>
@@ -977,7 +973,6 @@
     <string name="type.amenity.prison">Prigione</string>
     <string name="type.amenity.pub">Taverna</string>
     <string name="type.amenity.public_bookcase">Biblioteca di strada</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Centro di riciclaggio</string>
     <string name="type.amenity.recycling">Contenitore per materiali riciclabili</string>
@@ -1213,7 +1208,6 @@
     <string name="type.healthcare.psychotherapist">Psicoterapia</string>
     <string name="type.healthcare.sample_collection">Campionamento</string>
     <string name="type.healthcare.speech_therapist">Logopedia</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Via</string>
     <string name="type.highway.bridleway">sentiero per cavalli</string>
@@ -1377,7 +1371,6 @@
     <string name="type.area_highway.track">Via</string>
     <string name="type.area_highway.trunk">Strada</string>
     <string name="type.area_highway.unclassified">Via</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Oggetto storico</string>
     <string name="type.historic.aircraft">Aerei storici</string>
@@ -2131,4 +2124,106 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Palazzetto dello sport</string>
+    <string name="type.aerialway.j.bar"></string>
+    <string name="editor_line_social_network"></string>
+    <string name="type.railway.preserved.bridge"></string>
+    <string name="type.public_transport.platform"></string>
+    <string name="type.railway.narrow_gauge.bridge"></string>
+    <string name="type.man_made.cairn"></string>
+    <string name="type.railway.abandoned.bridge"></string>
+    <string name="type.landuse.greenhouse_horticulture"></string>
+    <string name="openstreetmap"></string>
+    <string name="type.landuse"></string>
+    <string name="type.power.station"></string>
+    <string name="type.hwtag.bidir_bicycle"></string>
+    <string name="type.psurface.unpaved_bad"></string>
+    <string name="type.hwtag.private"></string>
+    <string name="type.piste_type.downhill.area"></string>
+    <string name="maps_storage_shared"></string>
+    <string name="type.highway.services"></string>
+    <string name="type.shop.caravan"></string>
+    <string name="instagram"></string>
+    <string name="mastodon"></string>
+    <string name="type.railway.light_rail.bridge"></string>
+    <string name="maps_storage_removable"></string>
+    <string name="telegram_url"></string>
+    <string name="type.man_made.cutline"></string>
+    <string name="type.railway.preserved"></string>
+    <string name="type.railway.subway.bridge"></string>
+    <string name="type.landuse.field"></string>
+    <string name="type.aerialway.magic_carpet"></string>
+    <string name="type.aerialway.platter"></string>
+    <string name="type.man_made.pipeline.overground"></string>
+    <string name="type.internet_access.wlan"></string>
+    <string name="instagram_url"></string>
+    <string name="type.hwtag.yesfoot"></string>
+    <string name="comma_separated_pair"></string>
+    <string name="type.psurface.paved_bad"></string>
+    <string name="type.amenity.shelter.lean_to"></string>
+    <string name="maps_storage_internal"></string>
+    <string name="type.psurface.paved_good"></string>
+    <string name="level_value_generic"></string>
+    <string name="type.power.line.underground"></string>
+    <string name="type.internet_access"></string>
+    <string name="type.railway.narrow_gauge.tunnel"></string>
+    <string name="type.railway.platform"></string>
+    <string name="wikimedia_commons"></string>
+    <string name="type.hwtag.oneway"></string>
+    <string name="type.railway.light_rail.tunnel"></string>
+    <string name="disk_error"></string>
+    <string name="type.hwtag.lit"></string>
+    <string name="type.hwtag.nobicycle"></string>
+    <string name="github"></string>
+    <string name="maps_storage_free_size"></string>
+    <string name="type.hwtag.toll"></string>
+    <string name="type.hwtag"></string>
+    <string name="type.railway.funicular.tunnel"></string>
+    <string name="type.railway.funicular.bridge"></string>
+    <string name="menu"></string>
+    <string name="type.aerialway.t.bar"></string>
+    <string name="type.highway.world_level"></string>
+    <string name="type.fee.yes"></string>
+    <string name="type.railway.tram.bridge"></string>
+    <string name="type.highway.world_towns_level"></string>
+    <string name="telegram"></string>
+    <string name="type.waterway.weir"></string>
+    <string name="type.landuse.greenfield"></string>
+    <string name="type.mapswithme"></string>
+    <string name="type.railway.monorail.bridge"></string>
+    <string name="type.piste_type.nordic"></string>
+    <string name="type.aerialway.rope_tow"></string>
+    <string name="type.hwtag.yesbicycle"></string>
+    <string name="twitter"></string>
+    <string name="facebook"></string>
+    <string name="mb"></string>
+    <string name="hour"></string>
+    <string name="type.piste_type.downhill"></string>
+    <string name="type.railway.abandoned.tunnel"></string>
+    <string name="type.leisure.hackerspace"></string>
+    <string name="type.railway.tram.tunnel"></string>
+    <string name="vk"></string>
+    <string name="type.railway.subway.tunnel"></string>
+    <string name="type.leisure.common"></string>
+    <string name="type.railway.preserved.tunnel"></string>
+    <string name="ft"></string>
+    <string name="disk_error_title"></string>
+    <string name="type.psurface.unpaved_good"></string>
+    <string name="type.hwtag.onedir_bicycle"></string>
+    <string name="type.hwtag.nofoot"></string>
+    <string name="type.hwtag.nocar"></string>
+    <string name="type.hwtag.yescar"></string>
+    <string name="type.landuse.brownfield"></string>
+    <string name="type.landuse.village_green"></string>
+    <string name="type.leisure.recreation_ground"></string>
+    <string name="type.mapswithme.grid"></string>
+    <string name="type.railway.monorail.tunnel"></string>
+    <string name="type.route.shuttle_train"></string>
+    <string name="type.waterway"></string>
+    <string name="type.piste_type.downhill.freeride"></string>
+    <string name="gb"></string>
+    <string name="maps_storage_external"></string>
+    <string name="move_maps_error"></string>
+    <string name="matrix"></string>
+    <string name="type.highway.motorway_junction"></string>
+    <string name="type.railway.narrow_gauge"></string>
 </resources>

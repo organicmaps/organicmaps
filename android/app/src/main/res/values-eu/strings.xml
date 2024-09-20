@@ -110,7 +110,6 @@
     <string name="measurement_units">Neurketa unitateak</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Aukeratu mila eta kilometroen artean</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Non jan</string>
@@ -158,7 +157,6 @@
     <string name="category_water">Ura</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Karabanak</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Oharrak</string>
@@ -356,7 +354,6 @@
     <string name="gray">Grisa</string>
     <!-- blue gray color -->
     <string name="blue_gray">Gris urdinxka</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Arrastoa jarraitzean, kontuan izan:</string>
     <string name="dialog_routing_disclaimer_priority">— Bidearen egoera, zirkulazio arauek eta bide seinaleek lehentasuna dute beti nabigazio-iradokizunen gainetik;</string>
@@ -386,7 +383,6 @@
     <string name="not_now">Orain ez</string>
     <string name="dialog_routing_download_and_build_cross_route">Mapa deskargatu eta mapa bat baino gehiago hartzen duen ibilbide hobe bat sortu nahi duzu?</string>
     <string name="dialog_routing_download_cross_route">Deskargatu mapa osagarriak mapa honen mugak gainditzen dituen ibilbide hobea sortzeko.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Ibilbideak bilatzen eta sortzen hasteko, deskargatu mapa. Horren ondoren, ez duzu Interneterako konexiorik beharko.</string>
     <string name="search_select_map">Hautatu mapa</string>
@@ -593,7 +589,7 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Iritzi orokorra</string>
     <string name="prefs_languages_information">TTS sistema erabiltzen dugu ahots argibideetarako. Android gailu askok Google TTS erabiltzen dute. Google Play-tik deskargatu edo egunera dezakezu (https://play.google.com/store/apps/details?idu003dcom.google.android.tts)</string>
-    <string name="prefs_languages_information_off">Zenbait hizkuntzatan, beste ahots-sintetizadore bat edo hizkuntza-pakete gehigarri bat instalatu behar duzu aplikazio-dendatik (Google Play, Galaxy Store, App Gallery, FDroid). Ireki gailua Ezarpenak > Hizkuntza eta sarrera > Hizkera > Hizketarako testurako aukerak. Hemen ahots-sintesiaren ezarpenak kudea ditzakezu (adibidez, hizkuntza pakete bat deskargatu, konexiorik gabe erabiltzeko) edo testu-hizketarako beste motor bat hauta dezakezu.</string>
+    <string name="prefs_languages_information_off">Zenbait hizkuntzatan, beste ahots-sintetizadore bat edo hizkuntza-pakete gehigarri bat instalatu behar duzu aplikazio-dendatik (Google Play, Galaxy Store, App Gallery, FDroid). Ireki gailua Ezarpenak &gt; Hizkuntza eta sarrera &gt; Hizkera &gt; Hizketarako testurako aukerak. Hemen ahots-sintesiaren ezarpenak kudea ditzakezu (adibidez, hizkuntza pakete bat deskargatu, konexiorik gabe erabiltzeko) edo testu-hizketarako beste motor bat hauta dezakezu.</string>
     <string name="prefs_languages_information_off_link">Informazio gehiago lortzeko, ikusi gida hau.</string>
     <string name="transliteration_title">Latinezko transliterazioa</string>
     <string name="learn_more">Irakurri gehiago</string>
@@ -608,7 +604,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Hasi saioa OpenStreetMap-en zure mapen aldaketa guztiak automatikoki kargatzeko. Lortu informazio gehiago <a href="https://github.com/organicmaps/organicmaps/issues/6144">hemen</a>.</string>
     <string name="dialog_error_storage_title">Biltegiratze sarbidearen arazoa</string>
-    <string name="dialog_error_storage_message">Kanpoko biltegiratzea ez dago erabilgarri; Baliteke SD txartela kendu edo hondatuta egotea, edo fitxategi sistema irakurtzeko soilik izatea. Mesedez, begiratu edo idatzi iezaguzu support\@organicmaps.app helbidera</string>
+    <string name="dialog_error_storage_message">Kanpoko biltegiratzea ez dago erabilgarri; Baliteke SD txartela kendu edo hondatuta egotea, edo fitxategi sistema irakurtzeko soilik izatea. Mesedez, begiratu edo idatzi iezaguzu support@organicmaps.app helbidera</string>
     <string name="setting_emulate_bad_storage">Emulatu kaltetutako biltegiratzea</string>
     <string name="core_entrance">Sarrera</string>
     <string name="error_enter_correct_name">Mesedez, idatzi baliozko izen bat</string>
@@ -727,7 +723,6 @@
     <string name="moreyear_ago_sorttype">Duela urtebete baino gehiago</string>
     <string name="near_me_sorttype">Nigandik gertu</string>
     <string name="others_sorttype">Beste batzuk</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Janariak</string>
     <string name="tourist_places">Toki interesgarriak</string>
@@ -860,7 +855,6 @@
     <string name="track_recording_toast_nothing_to_save">Ibilbidea hutsik dago; ez dago ezer gordetzeko</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Ezin da karpeta hautatzeko elkarrizketa-koadroa erakutsi zure gailuan ez dagoelako aplikazio egokirik instalatuta. Instalatu fitxategi-kudeatzaile aplikazio bat eta saiatu berriro</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Helbidea/Blokea</string>
     <string name="type.addr_interpolation.even">Helbidea/Blokea</string>
@@ -987,7 +981,6 @@
     <string name="type.amenity.prison">Kartzela</string>
     <string name="type.amenity.pub">Taberna</string>
     <string name="type.amenity.public_bookcase">Liburu trukea</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Birziklapen zentroa</string>
     <string name="type.amenity.recycling">Birziklatzeko edukiontzia</string>
@@ -1219,7 +1212,6 @@
     <string name="type.healthcare.psychotherapist">Psikoterapia</string>
     <string name="type.healthcare.sample_collection">Laginketa</string>
     <string name="type.healthcare.speech_therapist">Logopedia</string>
-
     <!-- SECTION: Types: Roads -->
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">Zubia</string>
@@ -1381,7 +1373,6 @@
     <string name="type.area_highway.track">Kalea</string>
     <string name="type.area_highway.trunk">Kalea</string>
     <string name="type.area_highway.unclassified">Kalea</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Objektu historikoa</string>
     <string name="type.historic.aircraft">Hegazkin historikoa</string>
@@ -2055,4 +2046,186 @@
     <string name="type.amenity.dojo">Dojoa</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Kiroldegia</string>
+    <string name="type.public_transport.platform"></string>
+    <string name="type.landuse.garages"></string>
+    <string name="type.hwtag.nofoot"></string>
+    <string name="type.landuse.salt_pond"></string>
+    <string name="type.natural.water.drain"></string>
+    <string name="type.railway.preserved.bridge"></string>
+    <string name="type.waterway.canal.tunnel"></string>
+    <string name="telegram"></string>
+    <string name="type.hwtag.bidir_bicycle"></string>
+    <string name="type.highway.world_level"></string>
+    <string name="type.piste_type.downhill.easy.area"></string>
+    <string name="type.mapswithme.grid"></string>
+    <string name="instagram"></string>
+    <string name="type.piste_type.downhill.novice.area"></string>
+    <string name="github"></string>
+    <string name="type.man_made.wastewater_plant"></string>
+    <string name="type.landuse.military"></string>
+    <string name="vk"></string>
+    <string name="type.man_made.works"></string>
+    <string name="type.landuse.retail"></string>
+    <string name="type.power.minor_line"></string>
+    <string name="type.hwtag.nocar"></string>
+    <string name="type.railway"></string>
+    <string name="type.tourism.zoo"></string>
+    <string name="type.piste_type.downhill.expert"></string>
+    <string name="type.mountain_pass"></string>
+    <string name="type.waterway.weir"></string>
+    <string name="gb"></string>
+    <string name="type.hwtag.oneway"></string>
+    <string name="type.landuse.orchard"></string>
+    <string name="openstreetmap"></string>
+    <string name="type.man_made.pipeline"></string>
+    <string name="type.amenity.shelter.lean_to"></string>
+    <string name="type.shop.caravan"></string>
+    <string name="type.landuse.construction"></string>
+    <string name="type.waterway.canal"></string>
+    <string name="type.railway.preserved.tunnel"></string>
+    <string name="type.psurface.paved_good"></string>
+    <string name="type.power.line.underground"></string>
+    <string name="type.railway.abandoned"></string>
+    <string name="type.landuse.industrial"></string>
+    <string name="type.leisure.common"></string>
+    <string name="type.piste_type.downhill.expert.area"></string>
+    <string name="type.amenity.vending_machine.fuel"></string>
+    <string name="type.mapswithme"></string>
+    <string name="type.railway.light_rail.bridge"></string>
+    <string name="type.piste_type.downhill.advanced.area"></string>
+    <string name="type.leisure"></string>
+    <string name="type.psurface.unpaved_bad"></string>
+    <string name="type.psurface.unpaved_good"></string>
+    <string name="type.railway.preserved"></string>
+    <string name="type.railway.platform"></string>
+    <string name="type.aerialway.t.bar"></string>
+    <string name="type.aerialway.platter"></string>
+    <string name="type.aerialway.rope_tow"></string>
+    <string name="type.noexit"></string>
+    <string name="type.man_made.pipeline.overground"></string>
+    <string name="type.landuse.greenfield"></string>
+    <string name="type.man_made.storage_tank"></string>
+    <string name="type.military"></string>
+    <string name="type.landuse.vineyard"></string>
+    <string name="type.psurface.paved_bad"></string>
+    <string name="editor_line_social_network"></string>
+    <string name="facebook"></string>
+    <string name="type.junction"></string>
+    <string name="type.landuse.quarry"></string>
+    <string name="type.landuse.commercial"></string>
+    <string name="type.route.shuttle_train"></string>
+    <string name="type.railway.disused"></string>
+    <string name="type.landuse.field"></string>
+    <string name="type.highway"></string>
+    <string name="type.hwtag.private"></string>
+    <string name="type.hwtag"></string>
+    <string name="type.landuse.education"></string>
+    <string name="type.amenity.waste_transfer_station"></string>
+    <string name="type.fee.yes"></string>
+    <string name="mastodon"></string>
+    <string name="type.landuse.residential"></string>
+    <string name="tts_info_link"></string>
+    <string name="type.railway.construction"></string>
+    <string name="type.internet_access"></string>
+    <string name="type.railway.subway.tunnel"></string>
+    <string name="type.railway.subway.bridge"></string>
+    <string name="type.leisure.beach_resort"></string>
+    <string name="type.piste_type.downhill.easy"></string>
+    <string name="type.power"></string>
+    <string name="level_value_generic"></string>
+    <string name="type.railway.light_rail.tunnel"></string>
+    <string name="type.railway.subway"></string>
+    <string name="matrix"></string>
+    <string name="type.sport.bowls"></string>
+    <string name="type.piste_type.downhill.intermediate.area"></string>
+    <string name="type.waterway.dock"></string>
+    <string name="mb"></string>
+    <string name="comma_separated_pair"></string>
+    <string name="type.landuse.brownfield"></string>
+    <string name="type.piste_type.downhill"></string>
+    <string name="type.railway.funicular.bridge"></string>
+    <string name="type.tourism.hotel"></string>
+    <string name="type.piste_type.downhill.area"></string>
+    <string name="type.railway.funicular.tunnel"></string>
+    <string name="type.piste_type.downhill.advanced"></string>
+    <string name="type.leisure.slipway"></string>
+    <string name="type.railway.light_rail"></string>
+    <string name="type.man_made.cairn"></string>
+    <string name="type.man_made.pier"></string>
+    <string name="type.barrier.ditch"></string>
+    <string name="wikimedia_commons"></string>
+    <string name="type.railway.abandoned.bridge"></string>
+    <string name="type.internet_access.wlan"></string>
+    <string name="type.landuse.greenhouse_horticulture"></string>
+    <string name="instagram_url"></string>
+    <string name="type.leisure.resort"></string>
+    <string name="type.psurface"></string>
+    <string name="type.highway.bridleway"></string>
+    <string name="type.man_made.breakwater"></string>
+    <string name="read_in_wikipedia"></string>
+    <string name="type.landuse.allotments"></string>
+    <string name="type.railway.tram.bridge"></string>
+    <string name="type.man_made.survey_point"></string>
+    <string name="type.waterway"></string>
+    <string name="type.railway.narrow_gauge.bridge"></string>
+    <string name="type.man_made.silo"></string>
+    <string name="telegram_url"></string>
+    <string name="osm_wiki_about_url"></string>
+    <string name="type.amenity.sanitary_dump_station"></string>
+    <string name="type.highway.bridleway.permissive"></string>
+    <string name="type.highway.world_towns_level"></string>
+    <string name="type.hwtag.onedir_bicycle"></string>
+    <string name="type.hwtag.lit"></string>
+    <string name="type.hwtag.yescar"></string>
+    <string name="type.hwtag.yesbicycle"></string>
+    <string name="type.hwtag.toll"></string>
+    <string name="type.hwtag.yesfoot"></string>
+    <string name="type.landuse"></string>
+    <string name="type.landuse.farmyard"></string>
+    <string name="type.landuse.meadow"></string>
+    <string name="type.landuse.recreation_ground"></string>
+    <string name="type.leisure.marina"></string>
+    <string name="type.leisure.hackerspace"></string>
+    <string name="type.leisure.ice_rink"></string>
+    <string name="type.leisure.track.area"></string>
+    <string name="type.man_made"></string>
+    <string name="type.leisure.track"></string>
+    <string name="type.man_made.cutline"></string>
+    <string name="type.man_made.flagpole"></string>
+    <string name="type.man_made.mast"></string>
+    <string name="type.power.line"></string>
+    <string name="type.power.station"></string>
+    <string name="type.railway.monorail.bridge"></string>
+    <string name="type.railway.monorail.tunnel"></string>
+    <string name="type.tourism.motel"></string>
+    <string name="type.traffic_calming"></string>
+    <string name="type.traffic_calming.bump"></string>
+    <string name="type.traffic_calming.hump"></string>
+    <string name="type.waterway.dam"></string>
+    <string name="type.waterway.drain"></string>
+    <string name="type.aerialway.j.bar"></string>
+    <string name="type.piste_type.downhill.freeride"></string>
+    <string name="type.piste_type.downhill.intermediate"></string>
+    <string name="type.piste_type.downhill.novice"></string>
+    <string name="type.piste_type.sled"></string>
+    <string name="type.landuse.village_green"></string>
+    <string name="type.leisure.recreation_ground"></string>
+    <string name="type.emergency"></string>
+    <string name="type.highway.services"></string>
+    <string name="twitter"></string>
+    <string name="type.hwtag.nobicycle"></string>
+    <string name="type.amenity.bicycle_repair_station"></string>
+    <string name="type.amenity.biergarten"></string>
+    <string name="type.power.generator"></string>
+    <string name="type.railway.crossing"></string>
+    <string name="type.railway.abandoned.tunnel"></string>
+    <string name="type.railway.narrow_gauge.tunnel"></string>
+    <string name="type.railway.narrow_gauge"></string>
+    <string name="type.route.ferry"></string>
+    <string name="type.railway.tram"></string>
+    <string name="type.railway.tram.tunnel"></string>
+    <string name="type.route"></string>
+    <string name="type.aerialway.magic_carpet"></string>
+    <string name="type.piste_type.nordic"></string>
+    <string name="type.piste_type.sled.area"></string>
 </resources>

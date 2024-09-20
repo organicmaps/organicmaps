@@ -110,7 +110,6 @@
     <string name="measurement_units">Måleenheter</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Velg mellom miles og kilometer</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Spisesteder</string>
@@ -158,7 +157,6 @@
     <string name="category_water">Vann</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Bobilanlegg</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Merknader</string>
@@ -355,7 +353,6 @@
     <string name="gray">Grå</string>
     <!-- blue gray color -->
     <string name="blue_gray">Gråblå</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Husk følgende når du følger ruten:</string>
     <string name="dialog_routing_disclaimer_priority">– Veiforhold, trafikkregler og skilt skal alltid prioriteres fremfor navigasjonsråd;</string>
@@ -385,7 +382,6 @@
     <string name="not_now">Ikke nå</string>
     <string name="dialog_routing_download_and_build_cross_route">Vil du laste ned kartet og lage en mer optimal rute som går over flere kart?</string>
     <string name="dialog_routing_download_cross_route">Last ned kartet for å opprette en mer optimal rute som går utenfor dette kartet.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Last vennligst ned kartet for å begynne å søke og opprette ruter - så slipper du i fremtiden å være avhengig av å ha internettforbindelse.</string>
     <string name="search_select_map">Velg kartet</string>
@@ -609,7 +605,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Logg inn på OpenStreetMap for automatisk å laste opp alle kartredigeringene dine. Finn ut mer <a href="https://github.com/organicmaps/organicmaps/issues/6144">her</a>.</string>
     <string name="dialog_error_storage_title">Problemer med tilgang til lagring</string>
-    <string name="dialog_error_storage_message">Ekstern lagring er ikke tilgjengelig. Sannsynligvis er SD-kortet fjernet eller skadet eller så er filsystemet skrivebeskyttet. Undersøk og kontakt oss på support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Ekstern lagring er ikke tilgjengelig. Sannsynligvis er SD-kortet fjernet eller skadet eller så er filsystemet skrivebeskyttet. Undersøk og kontakt oss på support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Emulere skadet lagring</string>
     <string name="core_entrance">Inngang</string>
     <string name="error_enter_correct_name">Skriv inn korrekt navn</string>
@@ -640,6 +636,7 @@
     </plurals>
     <string name="restore">Restaurere</string>
     <plurals name="tracks">
+        <item quantity="one"></item>
         <item quantity="other">%d stier</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
@@ -726,7 +723,6 @@
     <string name="moreyear_ago_sorttype">Mer enn ett år siden</string>
     <string name="near_me_sorttype">Nær meg</string>
     <string name="others_sorttype">Andre</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Mat</string>
     <string name="tourist_places">Severdigheter</string>
@@ -852,7 +848,6 @@
     <string name="track_recording_toast_nothing_to_save">Ruten er tom - ingenting å lagre</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Kan ikke vise dialogboksen for mappevalg fordi ingen passende app er installert på enheten din. Installer en filbehandler-app og prøv på nytt</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Adresse/blokk</string>
     <string name="type.addr_interpolation.even">Adresse/blokk</string>
@@ -969,7 +964,6 @@
     <string name="type.amenity.post_box">Postboks</string>
     <string name="type.amenity.post_office">Postkontor</string>
     <string name="type.amenity.public_bookcase">Bokhylle</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Resirkuleringssenter</string>
     <string name="type.amenity.recycling">Gjenvinningsbeholder</string>
@@ -1172,7 +1166,6 @@
     <string name="type.healthcare.psychotherapist">Psykoterapi</string>
     <string name="type.healthcare.sample_collection">Prøvetaking</string>
     <string name="type.healthcare.speech_therapist">Snakketerapi</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway.bridleway">Ridevei</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
@@ -1335,7 +1328,6 @@
     <string name="type.area_highway.track">Traktor/Skogsbilvei</string>
     <string name="type.area_highway.trunk">Riksvei</string>
     <string name="type.area_highway.unclassified">Småvei</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Historisk gjenstand</string>
     <string name="type.historic.aircraft">Historisk fly</string>
@@ -2010,4 +2002,223 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Idrettshall</string>
+    <string name="type.railway.crossing"></string>
+    <string name="type.railway.monorail.bridge"></string>
+    <string name="type.amenity.vending_machine.coffee"></string>
+    <string name="type.leisure.recreation_ground"></string>
+    <string name="mastodon"></string>
+    <string name="type.amenity.vending_machine.newspapers"></string>
+    <string name="type.landuse.residential"></string>
+    <string name="type.amenity.vending_machine.excrement_bags"></string>
+    <string name="type.piste_type.downhill.advanced.area"></string>
+    <string name="type.mapswithme.grid"></string>
+    <string name="type.waterway.dock"></string>
+    <string name="osm_wiki_about_url"></string>
+    <string name="type.railway.tram.bridge"></string>
+    <string name="type.aeroway.terminal"></string>
+    <string name="outdoor_seating"></string>
+    <string name="type.leisure.track"></string>
+    <string name="type.aeroway"></string>
+    <string name="type.amenity.vending_machine.fuel"></string>
+    <string name="type.highway.world_level"></string>
+    <string name="type.recycling.cans"></string>
+    <string name="type.boundary.administrative.4"></string>
+    <string name="type.highway.services"></string>
+    <string name="type.psurface.paved_bad"></string>
+    <string name="type.railway.funicular.bridge"></string>
+    <string name="type.aerialway.j.bar"></string>
+    <string name="type.leisure.track.area"></string>
+    <string name="type.aeroway.helipad"></string>
+    <string name="type.barrier.retaining_wall"></string>
+    <string name="type.boundary.administrative.3"></string>
+    <string name="type.piste_type.downhill"></string>
+    <string name="self_service"></string>
+    <string name="type.power.station"></string>
+    <string name="type.piste_type.downhill.freeride"></string>
+    <string name="type.man_made.works"></string>
+    <string name="type.barrier.hedge"></string>
+    <string name="translated_om_site_url"></string>
+    <string name="type.aeroway.taxiway"></string>
+    <string name="openstreetmap"></string>
+    <string name="type.man_made.cairn"></string>
+    <string name="type.amenity.parcel_locker"></string>
+    <string name="type.hwtag.bidir_bicycle"></string>
+    <string name="type.tourism.museum"></string>
+    <string name="type.amenity.restaurant"></string>
+    <string name="type.shop.hardware"></string>
+    <string name="type.railway.disused"></string>
+    <string name="type.landuse.vineyard"></string>
+    <string name="type.aeroway.apron"></string>
+    <string name="type.landuse.industrial"></string>
+    <string name="telegram_url"></string>
+    <string name="type.leisure.ice_rink"></string>
+    <string name="type.aeroway.runway"></string>
+    <string name="editor_line_social_network"></string>
+    <string name="type.emergency"></string>
+    <string name="type.hwtag"></string>
+    <string name="type.hwtag.yescar"></string>
+    <string name="type.junction.roundabout"></string>
+    <string name="type.junction.circular"></string>
+    <string name="type.landuse.farmyard"></string>
+    <string name="type.landuse.field"></string>
+    <string name="type.leisure"></string>
+    <string name="type.mountain_pass"></string>
+    <string name="type.military.bunker"></string>
+    <string name="type.organic.only"></string>
+    <string name="type.public_transport.platform"></string>
+    <string name="type.railway.monorail.tunnel"></string>
+    <string name="type.shop.bookmaker"></string>
+    <string name="type.waterway"></string>
+    <string name="type.piste_type.downhill.expert.area"></string>
+    <string name="type.piste_type.nordic"></string>
+    <string name="type.building.warehouse"></string>
+    <string name="type.recycling.cartons"></string>
+    <string name="type.traffic_calming"></string>
+    <string name="type.natural.water.drain"></string>
+    <string name="type.landuse.allotments"></string>
+    <string name="type.barrier.ditch"></string>
+    <string name="type.amenity.shelter.lean_to"></string>
+    <string name="type.man_made.mast"></string>
+    <string name="type.fee.yes"></string>
+    <string name="type.mapswithme"></string>
+    <string name="type.hwtag.yesfoot"></string>
+    <string name="facebook"></string>
+    <string name="type.man_made.survey_point"></string>
+    <string name="type.man_made.wastewater_plant"></string>
+    <string name="type.landuse.recreation_ground"></string>
+    <string name="type.leisure.marina"></string>
+    <string name="type.hwtag.nobicycle"></string>
+    <string name="telegram"></string>
+    <string name="type.hwtag.nocar"></string>
+    <string name="matrix"></string>
+    <string name="twitter"></string>
+    <string name="type.cuisine.bubble_tea"></string>
+    <string name="type.power.line"></string>
+    <string name="type.power.line.underground"></string>
+    <string name="read_in_wikipedia"></string>
+    <string name="type.waterway.drain"></string>
+    <string name="type.organic.yes"></string>
+    <string name="type.railway.light_rail.bridge"></string>
+    <string name="type.railway.narrow_gauge.tunnel"></string>
+    <string name="type.amenity.vending_machine"></string>
+    <string name="github"></string>
+    <string name="type.amenity.vending_machine.sweets"></string>
+    <string name="comma_separated_pair"></string>
+    <string name="type.internet_access"></string>
+    <string name="type.railway.preserved.tunnel"></string>
+    <string name="level_value_generic"></string>
+    <string name="type.railway.abandoned"></string>
+    <string name="type.amenity.vending_machine.condoms"></string>
+    <string name="type.landuse.village_green"></string>
+    <string name="type.railway.funicular.tunnel"></string>
+    <string name="type.traffic_calming.bump"></string>
+    <string name="type.aeroway.gate"></string>
+    <string name="type.landuse.meadow"></string>
+    <string name="type.landuse.quarry"></string>
+    <string name="type.man_made.flagpole"></string>
+    <string name="type.psurface.unpaved_bad"></string>
+    <string name="type.railway.construction"></string>
+    <string name="type.hwtag.nofoot"></string>
+    <string name="type.route.ferry"></string>
+    <string name="type.wheelchair"></string>
+    <string name="type.waterway.weir"></string>
+    <string name="type.hwtag.lit"></string>
+    <string name="type.landuse.commercial"></string>
+    <string name="type.barrier.cycle_barrier"></string>
+    <string name="type.landuse.education"></string>
+    <string name="type.psurface.unpaved_good"></string>
+    <string name="type.waterway.dam"></string>
+    <string name="type.landuse.military"></string>
+    <string name="type.landuse.greenfield"></string>
+    <string name="type.recycling.shoes"></string>
+    <string name="type.military"></string>
+    <string name="type.hwtag.toll"></string>
+    <string name="type.amenity.waste_transfer_station"></string>
+    <string name="type.boundary"></string>
+    <string name="type.barrier.wall"></string>
+    <string name="type.boundary.administrative.2"></string>
+    <string name="type.boundary.administrative"></string>
+    <string name="type.highway.elevator"></string>
+    <string name="type.leisure.slipway"></string>
+    <string name="type.man_made.breakwater"></string>
+    <string name="type.power.generator"></string>
+    <string name="type.power"></string>
+    <string name="type.power.minor_line"></string>
+    <string name="type.shop.caravan"></string>
+    <string name="type.railway.abandoned.tunnel"></string>
+    <string name="type.man_made.pipeline"></string>
+    <string name="type.landuse.garages"></string>
+    <string name="type.recycling.cardboard"></string>
+    <string name="type.recycling.green_waste"></string>
+    <string name="type.piste_type.sled.area"></string>
+    <string name="type.amenity.pub"></string>
+    <string name="tts_info_link"></string>
+    <string name="type.amenity.vending_machine.food"></string>
+    <string name="type.aerialway.t.bar"></string>
+    <string name="type.historic.monument"></string>
+    <string name="type.piste_type.downhill.intermediate"></string>
+    <string name="type.hwtag.onedir_bicycle"></string>
+    <string name="instagram_url"></string>
+    <string name="type.internet_access.wlan"></string>
+    <string name="wikimedia_commons"></string>
+    <string name="instagram"></string>
+    <string name="type.junction"></string>
+    <string name="type.piste_type.downhill.easy.area"></string>
+    <string name="type.leisure.hackerspace"></string>
+    <string name="type.landuse.salt_pond"></string>
+    <string name="type.piste_type.downhill.intermediate.area"></string>
+    <string name="type.traffic_calming.hump"></string>
+    <string name="type.amenity.sanitary_dump_station"></string>
+    <string name="type.piste_type.downhill.novice.area"></string>
+    <string name="type.amenity.prison"></string>
+    <string name="type.man_made.pipeline.overground"></string>
+    <string name="type.hwtag.oneway"></string>
+    <string name="type.barrier.chain"></string>
+    <string name="type.landuse.orchard"></string>
+    <string name="type.landuse.brownfield"></string>
+    <string name="type.landuse.construction"></string>
+    <string name="type.landuse"></string>
+    <string name="type.railway.light_rail"></string>
+    <string name="type.psurface.paved_good"></string>
+    <string name="type.leisure.beach_resort"></string>
+    <string name="type.railway.tram.tunnel"></string>
+    <string name="type.railway.narrow_gauge.bridge"></string>
+    <string name="type.leisure.common"></string>
+    <string name="type.railway.tram"></string>
+    <string name="type.landuse.retail"></string>
+    <string name="type.landuse.greenhouse_horticulture"></string>
+    <string name="type.route"></string>
+    <string name="type.psurface"></string>
+    <string name="type.railway.preserved.bridge"></string>
+    <string name="type.man_made.storage_tank"></string>
+    <string name="type.man_made.silo"></string>
+    <string name="type.man_made.cutline"></string>
+    <string name="type.amenity.bar"></string>
+    <string name="type.hwtag.yesbicycle"></string>
+    <string name="type.noexit"></string>
+    <string name="type.amenity.bank"></string>
+    <string name="gb"></string>
+    <string name="type.highway"></string>
+    <string name="type.railway.abandoned.bridge"></string>
+    <string name="type.hwtag.private"></string>
+    <string name="type.route.shuttle_train"></string>
+    <string name="type.man_made"></string>
+    <string name="type.aerialway.platter"></string>
+    <string name="type.highway.world_towns_level"></string>
+    <string name="vk"></string>
+    <string name="type.railway.light_rail.tunnel"></string>
+    <string name="type.man_made.pier"></string>
+    <string name="type.amenity.food_court"></string>
+    <string name="type.railway.subway.bridge"></string>
+    <string name="type.railway.subway.tunnel"></string>
+    <string name="type.railway.subway"></string>
+    <string name="type.aerialway.rope_tow"></string>
+    <string name="type.aerialway.magic_carpet"></string>
+    <string name="type.piste_type.downhill.easy"></string>
+    <string name="type.piste_type.downhill.advanced"></string>
+    <string name="type.piste_type.downhill.expert"></string>
+    <string name="type.piste_type.downhill.area"></string>
+    <string name="type.piste_type.downhill.novice"></string>
+    <string name="type.piste_type.sled"></string>
+    <string name="select_option"></string>
 </resources>

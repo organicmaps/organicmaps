@@ -58,7 +58,7 @@
     <string name="download_resources_continue">برو به نقشه</string>
     <string name="downloading_country_can_proceed">درحال دانلود %s. شما اکنون می توانید
 \nبه نقشه بروید.</string>
-    <string name="download_country_ask">دانلود  %s?</string>
+    <string name="download_country_ask">دانلود %s?</string>
     <string name="update_country_ask">آپدیت %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="pause">مکث</string>
@@ -97,7 +97,6 @@
     <string name="measurement_units">واحد اندازه‌گیری</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">بین مایل و کیلومتر انتخاب کنید</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">کجا غذا بخوریم</string>
@@ -145,7 +144,6 @@
     <string name="category_water">آب</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">RV برای</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">یادداشت‌ها</string>
@@ -289,7 +287,7 @@
     <!-- location service disabled -->
     <string name="enable_location_services">لطفا موقعیت مکانی(GPS)خود را فعال کنید.</string>
     <string name="save">ذخیره</string>
-    <string name="edit_description_hint">توضیحات شما (متن یا  (html</string>
+    <string name="edit_description_hint">توضیحات شما (متن یا (html</string>
     <string name="create">ایجاد</string>
     <!-- red color -->
     <string name="red">قرمز</string>
@@ -323,7 +321,6 @@
     <string name="gray">خاکستری</string>
     <!-- blue gray color -->
     <string name="blue_gray">خاکستری کبود</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">زمانی که مسیری را دنبال می کنید لطفا به یاد داشته باشید:</string>
     <string name="dialog_routing_disclaimer_priority">—شرایط جاده قوانین راهنمایی و رانندگی و علائم جاده همیشه بر نکات مسیریابی اولویت دارند;</string>
@@ -334,7 +331,7 @@
     <string name="dialog_routing_check_gps">سیگنال GPS را چک کنید</string>
     <string name="dialog_routing_error_location_not_found">ناتوان از ایجاد مسیر.موقعیت مکانی شما شناسایی نشد</string>
     <string name="dialog_routing_location_turn_wifi">لطفا سیگنال GPS موبایتان راچک کنید.و WiFi موبایلتان را جهت دقت بیشتر در موقعیت‌یابی فعال کنید.</string>
-    <string name="dialog_routing_location_turn_on">فعال کردن سرویس موقعیت مکانی  (GPS)</string>
+    <string name="dialog_routing_location_turn_on">فعال کردن سرویس موقعیت مکانی (GPS)</string>
     <string name="dialog_routing_location_unknown_turn_on">ناتوان از مشخص کردن موقعیت مکانی شما.لطفا سرویس موقعیت مکانی خود را فعال کنید.</string>
     <string name="dialog_routing_unable_locate_route">ناتوان در تعیین مسیر</string>
     <string name="dialog_routing_cant_build_route">ناتوان در ایجاد مسیر</string>
@@ -353,7 +350,6 @@
     <string name="not_now">اکنون خیر</string>
     <string name="dialog_routing_download_and_build_cross_route">ایا مایل به دانلود نقشه و ایجاد مسیر‌های بهینه بیشتری که نقشه‌های بیشتری را پوشش میدهد هستید؟</string>
     <string name="dialog_routing_download_cross_route">دانلود نقشه‌های اضافی برای ایجاد مسیری بهتر که حاشیه‌های این نقشه را رد می کند.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">برای شروع جستجو و مسیر‌یابی لطفا نقشه رادانلود کنید بعد از آن دیگر نیازی به اتصال به اینترنت ندارید و برنامه کاملا آفلاین اجرا می شود.</string>
     <string name="search_select_map">انتخاب نقشه</string>
@@ -442,7 +438,7 @@
     <string name="level">طبقه</string>
     <string name="downloader_delete_map_dialog">تمام ویرایش‌های که بر روی نقشه انجام داده اید به همراه نقشه حذف شد.</string>
     <string name="downloader_update_maps">بروزرسانی نقشه‌ها</string>
-    <string name="downloader_mwm_migration_dialog">برای ایجاد مسیر شما نیازمند بروزرسانی تمامی  نقشه‌ها هستید سپس می توانید دوباره مسیرتان را برنامه ریزی کنید</string>
+    <string name="downloader_mwm_migration_dialog">برای ایجاد مسیر شما نیازمند بروزرسانی تمامی نقشه‌ها هستید سپس می توانید دوباره مسیرتان را برنامه ریزی کنید</string>
     <string name="downloader_search_field_hint">یافتن نقشه</string>
     <string name="common_check_internet_connection_dialog">لطفا تنظیمات خود را بازبینی کنید و مطمئن شوید که ابزار شما به اینترنت متصل است.</string>
     <string name="downloader_no_space_title">فظای کافی موجود نیست</string>
@@ -464,7 +460,7 @@
     <string name="osm_presentation">داده های OpenStreetMap ایجاد شده توسط انجمن از %s. درباره نحوه ویرایش و به روز رسانی نقشه در OpenStreetMap.org بیشتر بیاموزید</string>
     <string name="login_to_make_edits_visible">وارد شوید تا دیگر کاربران نیز بتوانند تغییرات ایجاد شده توسط شما را ببینند</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
-    <string name="downloader_of">%1$d  از  %2$d</string>
+    <string name="downloader_of">%1$d از %2$d</string>
     <string name="download_over_mobile_header">دانلود بر روی یک شبکه دیتای موبایل؟</string>
     <string name="download_over_mobile_message">این کار می تواند برای شما در بعضی طرح‌ها و یا حالت رومینگ هزینه اضافی در بر داشته باشد.</string>
     <string name="error_enter_correct_house_number">وارد کردن شماره ساختمان معتبر</string>
@@ -552,7 +548,7 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">\"تنظیمات: دکمه \"ارسال بازخورد کلی</string>
     <string name="prefs_languages_information">ما از TTS سیستم برای دستورالعمل‌های صوتی استفاده می کنیم. بسیاری از دستگاه‌های Android از Google TTS استفاده می کنند، شما می توانید آن را از Google Play دانلود کنید (https://play.google.com/store/apps/details؟id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">برای بعضی از زبان‌ها، شما باید speech synthesizer یا یک بسته زبان دیگر را از فروشگاه برنامه (بازار Google Play، Galaxy Store) نصب کنید. 
+    <string name="prefs_languages_information_off">برای بعضی از زبان‌ها، شما باید speech synthesizer یا یک بسته زبان دیگر را از فروشگاه برنامه (بازار Google Play، Galaxy Store) نصب کنید.
 \n تنظیمات دستگاه خود را باز کنید. → زبان و ورودی → گفتار → خروجی متن به گفتار. می توانید تنظیمات برای ترکیب گفتار (به عنوان مثال، بسته‌های زبان را برای استفاده آفلاین دانلود کنید) را مدیریت کنید و یک موتور دیگر متن به گفتار را انتخاب کنید.</string>
     <string name="prefs_languages_information_off_link">برای اطلاعات بیشتر لطفا این راهنما را بررسی کنید.</string>
     <string name="transliteration_title">ترجمه به لاتین</string>
@@ -568,7 +564,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">لطفاً به OpenStreetMap وارد شوید تا به طور خودکار تمام ویرایش های نقشه خود را آپلود کنید. <a href="https://github.com/organicmaps/organicmaps/issues/6144">اینجا</a> بیشتر بیاموزید.</string>
     <string name="dialog_error_storage_title">مشکل دسترسی به ذخیره‌سازی</string>
-    <string name="dialog_error_storage_message">ذخیره سازی خارجی در دسترس نیست کارت SD ممکن است برداشته شده باشد، آسیب دیده باشد یا سیستم فایل فقط خواندنی باشد. لطفا کارت SD خود را بررسی کنید یا با ما در support\@organicmaps.app تماس بگیرید</string>
+    <string name="dialog_error_storage_message">ذخیره سازی خارجی در دسترس نیست کارت SD ممکن است برداشته شده باشد، آسیب دیده باشد یا سیستم فایل فقط خواندنی باشد. لطفا کارت SD خود را بررسی کنید یا با ما در support@organicmaps.app تماس بگیرید</string>
     <string name="setting_emulate_bad_storage">شبیه سازی ذخیره سازی بد</string>
     <string name="core_entrance">ورودی</string>
     <string name="error_enter_correct_name">لطفا نام صحیح را وارد کنید</string>
@@ -630,7 +626,7 @@
     <!-- Speed camera settings menu option - Always warn (about speedcams) -->
     <string name="pref_tts_speedcams_always">همیشه هشدار دهد</string>
     <!-- Speed camera settings menu option - Never warn (about speedcams) -->
-    <string name="pref_tts_speedcams_never">هرگز  هشدار ندهد</string>
+    <string name="pref_tts_speedcams_never">هرگز هشدار ندهد</string>
     <string name="power_managment_title">حالت ذخیره انرژی</string>
     <string name="power_managment_description">هنگامی که حالت خودکار انتخاب شده‌باشد، برنامه با توجه میزان شارژ باتری شما، ویژگی‌های تخلیه کننده باتری را غیر فعال می‌کند</string>
     <string name="power_managment_setting_never">هرگز</string>
@@ -687,7 +683,6 @@
     <string name="moreyear_ago_sorttype">بیش از یک سال قبل</string>
     <string name="near_me_sorttype">نزدیک من</string>
     <string name="others_sorttype">دیگران</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">غذا</string>
     <string name="tourist_places">مناظر</string>
@@ -809,7 +804,6 @@
     <string name="track_recording_toast_nothing_to_save">مسیر خالی است - چیزی برای ذخیره کردن وجود ندارد</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">امکان نمایش گفتگوی انتخاب پوشه وجود ندارد زیرا برنامه مناسبی روی دستگاه شما نصب نشده است. لطفاً یک برنامه مدیریت فایل نصب کنید و دوباره امتحان کنید</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">آدرس/بلاک</string>
     <string name="type.addr_interpolation.even">آدرس/بلاک</string>
@@ -921,7 +915,6 @@
     <string name="type.amenity.post_box">صندوق پست</string>
     <string name="type.amenity.post_office">دفتر پست</string>
     <string name="type.amenity.pub">میکده</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">مرکز بازیافت</string>
     <string name="type.amenity.recycling">ظرف بازیافت</string>
@@ -1038,7 +1031,6 @@
     <string name="type.healthcare.psychotherapist">روان درمانی</string>
     <string name="type.healthcare.sample_collection">نمونه برداری</string>
     <string name="type.healthcare.speech_therapist">گفتار درمانی</string>
-
     <!-- SECTION: Types: Roads -->
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">پل</string>
@@ -1195,7 +1187,6 @@
     <string name="type.area_highway.track">جاده</string>
     <string name="type.area_highway.trunk">جاده</string>
     <string name="type.area_highway.unclassified">جاده</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">شیء تاریخی</string>
     <string name="type.historic.aircraft">هواپیمای تاریخی</string>
@@ -1866,4 +1857,348 @@
     <string name="type.amenity.dojo">دوجو</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">سالن ورزشی</string>
+    <string name="enable_show_on_lock_screen"></string>
+    <string name="type.landuse.greenhouse_horticulture"></string>
+    <string name="github"></string>
+    <string name="type.railway.subway.bridge"></string>
+    <string name="type.landuse.salt_pond"></string>
+    <string name="type.cuisine.malaysian"></string>
+    <string name="type.amenity.prison"></string>
+    <string name="type.area_highway.cycleway"></string>
+    <string name="telegram"></string>
+    <string name="type.cuisine.vietnamese"></string>
+    <string name="type.aerialway.gondola"></string>
+    <string name="type.hwtag.private"></string>
+    <string name="type.cuisine.malagasy"></string>
+    <string name="bookmark_set_name"></string>
+    <string name="type.landuse.industrial"></string>
+    <string name="maps_storage_internal"></string>
+    <string name="type.traffic_calming"></string>
+    <string name="my_position_share_email"></string>
+    <string name="disconnect_usb_cable_title"></string>
+    <string name="type.landuse.quarry"></string>
+    <string name="disconnect_usb_cable"></string>
+    <string name="type.man_made.pipeline.overground"></string>
+    <string name="type.mountain_pass"></string>
+    <string name="translated_om_site_url"></string>
+    <string name="type.piste_type.downhill.expert.area"></string>
+    <string name="type.cuisine.fine_dining"></string>
+    <string name="facebook"></string>
+    <string name="type.railway.tram.bridge"></string>
+    <string name="share_bookmarks_email_subject"></string>
+    <string name="type.railway.preserved.bridge"></string>
+    <string name="error_enter_correct_instagram_page"></string>
+    <string name="type.amenity.vending_machine.excrement_bags"></string>
+    <string name="type.cuisine.soba"></string>
+    <string name="type.cuisine.crepe"></string>
+    <string name="type.aerialway.platter"></string>
+    <string name="type.cuisine.tea"></string>
+    <string name="type.cuisine.tapas"></string>
+    <string name="type.waterway.lock_gate"></string>
+    <string name="type.railway.narrow_gauge"></string>
+    <string name="type.cuisine.korean"></string>
+    <string name="type.cuisine.savory_pancakes"></string>
+    <string name="type.organic.yes"></string>
+    <string name="type.amenity.public_bookcase"></string>
+    <string name="my_position_share_email_subject"></string>
+    <string name="type.cuisine.ethiopian"></string>
+    <string name="type.waterway.drain"></string>
+    <string name="type.railway"></string>
+    <string name="type.cuisine.international"></string>
+    <string name="type.cuisine.seafood"></string>
+    <string name="type.hwtag.nofoot"></string>
+    <string name="type.aerialway.cable_car"></string>
+    <string name="type.amenity.shelter.lean_to"></string>
+    <string name="type.hwtag.nocar"></string>
+    <string name="type.cuisine.friture"></string>
+    <string name="type.railway.preserved.tunnel"></string>
+    <string name="type.railway.narrow_gauge.bridge"></string>
+    <string name="type.cuisine.beef_bowl"></string>
+    <string name="type.recycling.green_waste"></string>
+    <string name="type.cuisine.mediterranean"></string>
+    <string name="type.aerialway.j.bar"></string>
+    <string name="type.cuisine.japanese"></string>
+    <string name="type.cuisine.spanish"></string>
+    <string name="type.railway.tram"></string>
+    <string name="type.cuisine.american"></string>
+    <string name="type.railway.crossing"></string>
+    <string name="type.mapswithme.grid"></string>
+    <string name="type.public_transport"></string>
+    <string name="type.cuisine.arab"></string>
+    <string name="error_enter_correct_vk_page"></string>
+    <string name="type.cuisine.local"></string>
+    <string name="share_bookmarks_email_body"></string>
+    <string name="type.piste_type.downhill.intermediate"></string>
+    <string name="type.psurface.unpaved_bad"></string>
+    <string name="type.cuisine.indonesian"></string>
+    <string name="type.man_made.pipeline"></string>
+    <string name="mastodon"></string>
+    <string name="type.aerialway.drag_lift"></string>
+    <string name="type.barrier"></string>
+    <string name="type.cuisine.deli"></string>
+    <string name="type.cuisine.donut"></string>
+    <string name="type.cuisine.diner"></string>
+    <string name="type.cuisine.french"></string>
+    <string name="type.cuisine.fish_and_chips"></string>
+    <string name="type.cuisine.hotdog"></string>
+    <string name="type.cuisine.irish"></string>
+    <string name="type.cuisine.noodles"></string>
+    <string name="type.cuisine.oriental"></string>
+    <string name="type.cuisine.russian"></string>
+    <string name="type.cuisine.vegetarian"></string>
+    <string name="type.highway.bridleway.permissive"></string>
+    <string name="type.hwtag.yescar"></string>
+    <string name="type.landuse.construction"></string>
+    <string name="type.landuse.residential"></string>
+    <string name="type.landuse.retail"></string>
+    <string name="type.natural.water.drain"></string>
+    <string name="comma_separated_pair"></string>
+    <string name="type.cuisine.heuriger"></string>
+    <string name="type.cuisine.regional"></string>
+    <string name="type.landuse.allotments"></string>
+    <string name="type.landuse.commercial"></string>
+    <string name="type.landuse.education"></string>
+    <string name="type.wheelchair"></string>
+    <string name="type.waterway.weir"></string>
+    <string name="type.piste_type.downhill"></string>
+    <string name="delete_place_empty_comment_error"></string>
+    <string name="type.barrier.ditch"></string>
+    <string name="enable_show_on_lock_screen_description"></string>
+    <string name="maps_storage_removable"></string>
+    <string name="type.cuisine.hungarian"></string>
+    <string name="type.cuisine.lebanese"></string>
+    <string name="type.cuisine.grill"></string>
+    <string name="type.cuisine.pancake"></string>
+    <string name="type.amenity.vending_machine.fuel"></string>
+    <string name="type.cuisine.ramen"></string>
+    <string name="type.hwtag.nobicycle"></string>
+    <string name="type.cuisine.italian"></string>
+    <string name="type.cuisine.greek"></string>
+    <string name="type.cuisine.filipino"></string>
+    <string name="type.amenity.vending_machine.newspapers"></string>
+    <string name="type.cuisine.sausage"></string>
+    <string name="type.cuisine.brazilian"></string>
+    <string name="type.waterway.dock"></string>
+    <string name="type.man_made.cairn"></string>
+    <string name="maps_storage_free_size"></string>
+    <string name="type.highway.world_level"></string>
+    <string name="type.shop.caravan"></string>
+    <string name="type.amenity.sanitary_dump_station"></string>
+    <string name="type.man_made.chimney"></string>
+    <string name="type.cuisine.portuguese"></string>
+    <string name="type.cuisine.african"></string>
+    <string name="bookmark_share_email_subject"></string>
+    <string name="type.landuse.military"></string>
+    <string name="type.route"></string>
+    <string name="type.aerialway.t.bar"></string>
+    <string name="type.landuse.recreation_ground"></string>
+    <string name="maps_storage_external"></string>
+    <string name="type.hwtag.bidir_bicycle"></string>
+    <string name="type.cuisine.sushi"></string>
+    <string name="type.cuisine.georgian"></string>
+    <string name="type.cuisine.bubble_tea"></string>
+    <string name="error_enter_correct_facebook_page"></string>
+    <string name="type.traffic_calming.bump"></string>
+    <string name="type.amenity.vending_machine.coffee"></string>
+    <string name="type.railway.preserved"></string>
+    <string name="connection_failure"></string>
+    <string name="type.leisure.nature_reserve"></string>
+    <string name="type.highway.services"></string>
+    <string name="type.cuisine.sandwich"></string>
+    <string name="type.man_made"></string>
+    <string name="type.cuisine.curry"></string>
+    <string name="type.landuse.greenfield"></string>
+    <string name="type.cuisine.mexican"></string>
+    <string name="type.cuisine.burger"></string>
+    <string name="type.aerialway.mixed_lift"></string>
+    <string name="type.emergency"></string>
+    <string name="type.cuisine.pasta"></string>
+    <string name="type.cuisine.fish"></string>
+    <string name="type.cuisine.ice_cream"></string>
+    <string name="type.amenity.car_sharing"></string>
+    <string name="type.hwtag"></string>
+    <string name="type.leisure.slipway"></string>
+    <string name="type.cuisine.moroccan"></string>
+    <string name="closes_in"></string>
+    <string name="opens_in"></string>
+    <string name="type.man_made.works"></string>
+    <string name="type.recycling.cardboard"></string>
+    <string name="type.cuisine.buschenschank"></string>
+    <string name="type.highway.world_towns_level"></string>
+    <string name="type.building.warehouse"></string>
+    <string name="type.aerialway"></string>
+    <string name="type.landuse.brownfield"></string>
+    <string name="type.man_made.wastewater_plant"></string>
+    <string name="type.mapswithme"></string>
+    <string name="type.junction.roundabout"></string>
+    <string name="move_maps_error"></string>
+    <string name="type.amenity.vending_machine"></string>
+    <string name="instagram_url"></string>
+    <string name="tts_info_link"></string>
+    <string name="type.cuisine.turkish"></string>
+    <string name="type.fee.yes"></string>
+    <string name="type.cuisine.indian"></string>
+    <string name="error_enter_correct_twitter_page"></string>
+    <string name="type.cuisine.italian_pizza"></string>
+    <string name="type.amenity.food_court"></string>
+    <string name="type.cuisine.chinese"></string>
+    <string name="type.landuse.field"></string>
+    <string name="type.cuisine.german"></string>
+    <string name="type.public_transport.platform"></string>
+    <string name="type.cuisine.steak_house"></string>
+    <string name="type.cuisine.croatian"></string>
+    <string name="type.hwtag.yesfoot"></string>
+    <string name="wikimedia_commons"></string>
+    <string name="type.cuisine.asian"></string>
+    <string name="type.amenity.waste_transfer_station"></string>
+    <string name="type.power.generator"></string>
+    <string name="type.man_made.storage_tank"></string>
+    <string name="type.traffic_calming.hump"></string>
+    <string name="type.psurface.paved_bad"></string>
+    <string name="type.railway.platform"></string>
+    <string name="type.leisure.track"></string>
+    <string name="type.leisure.track.area"></string>
+    <string name="type.man_made.pier"></string>
+    <string name="type.recycling.shoes"></string>
+    <string name="type.cuisine.kebab"></string>
+    <string name="type.cuisine.vegan"></string>
+    <string name="type.cuisine.argentinian"></string>
+    <string name="type.barrier.fence"></string>
+    <string name="type.man_made.cutline"></string>
+    <string name="type.aeroway.apron"></string>
+    <string name="type.piste_type.downhill.freeride"></string>
+    <string name="twitter"></string>
+    <string name="type.railway.subway.tunnel"></string>
+    <string name="type.barrier.hedge"></string>
+    <string name="maps_storage_shared"></string>
+    <string name="type.railway.monorail.bridge"></string>
+    <string name="type.hwtag.lit"></string>
+    <string name="type.power.line"></string>
+    <string name="matrix"></string>
+    <string name="type.recycling.cartons"></string>
+    <string name="type.landuse"></string>
+    <string name="type.cuisine.chicken"></string>
+    <string name="type.railway.light_rail"></string>
+    <string name="type.landuse.vineyard"></string>
+    <string name="type.cuisine.breakfast"></string>
+    <string name="type.boundary.administrative"></string>
+    <string name="type.landuse.meadow"></string>
+    <string name="my_position_share_sms"></string>
+    <string name="menu"></string>
+    <string name="instagram"></string>
+    <string name="vk"></string>
+    <string name="editor_line_social_network"></string>
+    <string name="openstreetmap"></string>
+    <string name="editor_add_phone"></string>
+    <string name="download_map_title"></string>
+    <string name="disk_error"></string>
+    <string name="disk_error_title"></string>
+    <string name="type.aerialway.chair_lift"></string>
+    <string name="type.aeroway"></string>
+    <string name="type.aerialway.station"></string>
+    <string name="type.aeroway.gate"></string>
+    <string name="type.recycling.cans"></string>
+    <string name="type.amenity.vending_machine.food"></string>
+    <string name="type.amenity.vending_machine.condoms"></string>
+    <string name="type.amenity.parcel_locker"></string>
+    <string name="type.barrier.chain"></string>
+    <string name="type.barrier.cycle_barrier"></string>
+    <string name="type.boundary.administrative.2"></string>
+    <string name="type.boundary"></string>
+    <string name="type.boundary.administrative.3"></string>
+    <string name="type.boundary.administrative.4"></string>
+    <string name="type.cuisine.balkan"></string>
+    <string name="type.cuisine.barbecue"></string>
+    <string name="type.cuisine.bagel"></string>
+    <string name="type.cuisine.bavarian"></string>
+    <string name="type.cuisine.caribbean"></string>
+    <string name="type.cuisine.coffee_shop"></string>
+    <string name="type.cuisine.pizza"></string>
+    <string name="type.cuisine.polish"></string>
+    <string name="type.cuisine.peruvian"></string>
+    <string name="type.cuisine.persian"></string>
+    <string name="type.highway.cycleway"></string>
+    <string name="type.highway.cycleway.permissive"></string>
+    <string name="type.highway.rest_area"></string>
+    <string name="type.hwtag.oneway"></string>
+    <string name="type.hwtag.toll"></string>
+    <string name="type.hwtag.yesbicycle"></string>
+    <string name="type.landuse.farmyard"></string>
+    <string name="type.landuse.garages"></string>
+    <string name="type.landuse.village_green"></string>
+    <string name="type.leisure"></string>
+    <string name="type.leisure.miniature_golf"></string>
+    <string name="type.man_made.flagpole"></string>
+    <string name="type.man_made.survey_point"></string>
+    <string name="type.man_made.mast"></string>
+    <string name="type.noexit"></string>
+    <string name="type.power"></string>
+    <string name="type.power.substation"></string>
+    <string name="type.railway.disused"></string>
+    <string name="type.railway.funicular.tunnel"></string>
+    <string name="type.railway.funicular.bridge"></string>
+    <string name="type.railway.narrow_gauge.tunnel"></string>
+    <string name="type.railway.subway"></string>
+    <string name="type.railway.tram.tunnel"></string>
+    <string name="type.route.shuttle_train"></string>
+    <string name="type.tourism"></string>
+    <string name="type.tourism.caravan_site"></string>
+    <string name="type.waterway.dam"></string>
+    <string name="type.piste_type.downhill.area"></string>
+    <string name="type.piste_type.downhill.easy"></string>
+    <string name="type.piste_type.downhill.advanced"></string>
+    <string name="type.piste_type.downhill.advanced.area"></string>
+    <string name="type.piste_type.downhill.novice.area"></string>
+    <string name="type.piste_type.sled"></string>
+    <string name="type.piste_type.downhill.novice"></string>
+    <string name="type.piste_type.sled.area"></string>
+    <string name="type.piste_type.nordic"></string>
+    <string name="type.hwtag.onedir_bicycle"></string>
+    <string name="type.cuisine.thai"></string>
+    <string name="type.junction.circular"></string>
+    <string name="type.highway"></string>
+    <string name="type.cuisine.lao"></string>
+    <string name="type.aerialway.rope_tow"></string>
+    <string name="type.man_made.breakwater"></string>
+    <string name="type.landuse.orchard"></string>
+    <string name="type.cuisine.cake"></string>
+    <string name="type.power.line.underground"></string>
+    <string name="error_enter_correct_line_page"></string>
+    <string name="type.leisure.common"></string>
+    <string name="type.leisure.ice_rink"></string>
+    <string name="type.leisure.marina"></string>
+    <string name="type.leisure.beach_resort"></string>
+    <string name="type.leisure.recreation_ground"></string>
+    <string name="type.military"></string>
+    <string name="type.man_made.silo"></string>
+    <string name="type.organic.only"></string>
+    <string name="type.power.station"></string>
+    <string name="type.psurface.paved_good"></string>
+    <string name="type.railway.abandoned.bridge"></string>
+    <string name="type.power.minor_line"></string>
+    <string name="type.railway.light_rail.tunnel"></string>
+    <string name="type.railway.abandoned.tunnel"></string>
+    <string name="type.railway.light_rail.bridge"></string>
+    <string name="type.railway.construction"></string>
+    <string name="type.railway.abandoned"></string>
+    <string name="type.psurface.unpaved_good"></string>
+    <string name="type.psurface"></string>
+    <string name="type.railway.monorail.tunnel"></string>
+    <string name="type.route.ferry"></string>
+    <string name="type.waterway"></string>
+    <string name="type.aerialway.magic_carpet"></string>
+    <string name="type.piste_type.downhill.expert"></string>
+    <string name="type.piste_type.downhill.easy.area"></string>
+    <string name="type.piste_type.downhill.intermediate.area"></string>
+    <string name="level_value_generic"></string>
+    <string name="type.aeroway.taxiway"></string>
+    <string name="type.aeroway.runway"></string>
+    <string name="type.aeroway.terminal"></string>
+    <string name="type.amenity.vending_machine.sweets"></string>
+    <string name="type.barrier.retaining_wall"></string>
+    <string name="type.barrier.wall"></string>
+    <string name="type.cuisine.austrian"></string>
+    <string name="type.highway.bridleway"></string>
+    <string name="type.highway.elevator"></string>
+    <string name="type.junction"></string>
 </resources>
