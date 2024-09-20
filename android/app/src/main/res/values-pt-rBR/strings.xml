@@ -2024,7 +2024,7 @@
     <string name="type.historic">Objeto histórico</string>
     <string name="type.waterway.canal">Canal</string>
     <string name="type.natural.strait">Estreito</string>
-    <string name="off">Não</string>
+    <string name="off">Desativado</string>
     <string name="type.natural.orchard">Pomar</string>
     <string name="type.sport.soccer">Futebol</string>
     <string name="type.tourism.artwork.statue">Estátua</string>
@@ -2184,6 +2184,9 @@
     <string name="facebook">Facebook</string>
     <string name="instagram">Instagram</string>
     <string name="vk">VK</string>
-    <string name="editor_line_social_network">LINHA</string>
+    <string name="editor_line_social_network">LINE</string>
     <string name="openstreetmap">OpenStreetMap</string>
+    <string name="about_developed_by_enthusiasts">Aplicação de código aberto criada por entusiastas e voluntários.</string>
+    <string name="on">Ativado</string>
+    <string name="matrix">[Matrix]</string>
 </resources>
