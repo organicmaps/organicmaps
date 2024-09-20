@@ -110,7 +110,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
 
   private void loginWithBrowser()
   {
-    Utils.openUri(requireContext(), Uri.parse(OsmOAuth.nativeGetOAuth2Url()));
+    Utils.openUri(requireContext(), Uri.parse(OsmOAuth.nativeGetOAuth2Url()), R.string.browser_not_available);
   }
 
   private void enableInput(boolean enable)

@@ -589,7 +589,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     {
       final String uri = Framework.nativeGetGeoUri(mMapObject.getLat(), mMapObject.getLon(),
                                                    mMapObject.getScale(), mMapObject.getName());
-      Utils.openUri(requireContext(), Uri.parse(uri));
+      Utils.openUri(requireContext(), Uri.parse(uri), R.string.uri_open_location_failed);
     }
     else if (id == R.id.direction_frame)
       showBigDirection();
