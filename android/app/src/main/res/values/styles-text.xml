@@ -163,7 +163,8 @@
   <style name="MwmTextAppearance.NavStreet">
     <item name="android:textSize">@dimen/text_size_nav_street</item>
     <item name="android:fontFamily">@string/robotoMedium</item>
-    <item name="android:textColor">?android:textColorPrimary</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:textColor">?android:textColorPrimaryInverse</item>
   </style>
 
   <style name="MwmTextAppearance.NavNextTurn">
