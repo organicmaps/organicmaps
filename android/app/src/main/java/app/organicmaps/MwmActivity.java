@@ -1166,7 +1166,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     final String backUrl = Framework.nativeGetParsedBackUrl();
     if (!TextUtils.isEmpty(backUrl))
-      Utils.openUri(this, Uri.parse(backUrl));
+      Utils.openUri(this, Uri.parse(backUrl), null);
   }
 
   @CallSuper
