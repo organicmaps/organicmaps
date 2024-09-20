@@ -613,8 +613,8 @@
     <plurals name="bookmarks_places">
         <item quantity="one">%d закладка</item>
         <item quantity="few">%d закладкі</item>
-        <item quantity="many"/>
-        <item quantity="other"/>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
     </plurals>
     <string name="bookmarks_create_new_group">Стварыць новы спіс</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->

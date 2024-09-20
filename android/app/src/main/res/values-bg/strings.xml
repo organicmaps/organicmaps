@@ -1270,4 +1270,8 @@
     <string name="type.amenity.dojo">Доджо</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Спортна зала</string>
+    <plurals name="bookmarks_places">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
 </resources>

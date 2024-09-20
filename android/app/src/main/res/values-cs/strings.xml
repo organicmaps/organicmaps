@@ -586,8 +586,8 @@
     <string name="bookmark_lists_hide_all">Skrýt vše</string>
     <string name="bookmark_lists_show_all">Zobrazit vše</string>
     <plurals name="bookmarks_places">
-        <item quantity="one"/>
-        <item quantity="few"/>
+        <item quantity="one"></item>
+        <item quantity="few"></item>
         <item quantity="other">%d záložek</item>
     </plurals>
     <string name="bookmarks_create_new_group">Vytvořte nový seznam</string>

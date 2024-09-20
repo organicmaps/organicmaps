@@ -617,7 +617,7 @@
     <string name="bookmark_lists_hide_all">Hamısını gizlət</string>
     <string name="bookmark_lists_show_all">Hamısını göstər</string>
     <plurals name="bookmarks_places">
-        <item quantity="one"/>
+        <item quantity="one"></item>
         <item quantity="other">%d əlfəcin</item>
     </plurals>
     <string name="bookmarks_create_new_group">Yeni siyahı yaradın</string>

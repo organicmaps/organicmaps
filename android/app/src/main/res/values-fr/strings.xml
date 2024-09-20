@@ -621,7 +621,7 @@
     <string name="bookmark_lists_show_all">Tout afficher</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d signet</item>
-        <item quantity="many"/>
+        <item quantity="many"></item>
         <item quantity="other">%d signets</item>
     </plurals>
     <string name="bookmarks_create_new_group">Créer une nouvelle liste</string>
