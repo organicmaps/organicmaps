@@ -44,8 +44,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>zero</key>
-			<string>%d треків</string>
 			<key>many</key>
 			<string>%d треків</string>
 		</dict>
