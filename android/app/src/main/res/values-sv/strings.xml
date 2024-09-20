@@ -579,6 +579,7 @@
     <string name="bookmark_lists_hide_all">Dölj alla</string>
     <string name="bookmark_lists_show_all">Visa alla</string>
     <plurals name="bookmarks_places">
+        <item quantity="one"></item>
         <item quantity="other">%d bokmärken</item>
     </plurals>
     <string name="bookmarks_create_new_group">Skapa ny lista</string>

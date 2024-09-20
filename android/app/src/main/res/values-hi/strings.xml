@@ -2116,4 +2116,8 @@
     <string name="subway_data_unavailable"></string>
     <string name="type.addr_interpolation.even"></string>
     <string name="type.leisure.amusement_arcade"></string>
+    <plurals name="bookmarks_places">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
 </resources>

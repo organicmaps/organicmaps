@@ -2232,4 +2232,10 @@
     <string name="comma_separated_pair"></string>
     <string name="type.amenity.shelter.lean_to"></string>
     <string name="type.fee.yes"></string>
+    <plurals name="bookmarks_places">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
 </resources>
