@@ -625,8 +625,8 @@
     <plurals name="bookmarks_places">
         <item quantity="one">%d метка</item>
         <item quantity="few">%d метки</item>
-        <item quantity="many"></item>
-        <item quantity="other"></item>
+        <item quantity="many"/>
+        <item quantity="other"/>
     </plurals>
     <string name="bookmarks_create_new_group">Создать новый список</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
@@ -645,15 +645,15 @@
     <plurals name="bookmarks_detect_message">
         <item quantity="one">%d файл был найден. Вы увидите его после конвертации.</item>
         <item quantity="few">%d файла были найдены. Вы увидите их после конвертации.</item>
-        <item quantity="many"></item>
-        <item quantity="other"></item>
+        <item quantity="many"/>
+        <item quantity="other"/>
     </plurals>
     <string name="restore">Восстановить</string>
     <plurals name="tracks">
         <item quantity="one">%d трек</item>
         <item quantity="few">%d трека</item>
-        <item quantity="many"></item>
-        <item quantity="other"></item>
+        <item quantity="many"/>
+        <item quantity="other"/>
     </plurals>
     <!-- Settings privacy group in settings screen -->
     <string name="privacy">Приватность</string>
@@ -2212,36 +2212,4 @@
     <string name="type.amenity.dojo">Додзё</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Спортивный зал</string>
-    <string name="type.route.shuttle_train"></string>
-    <string name="type.hwtag.oneway"></string>
-    <string name="type.hwtag.yesfoot"></string>
-    <string name="type.hwtag.lit"></string>
-    <string name="wikimedia_commons"></string>
-    <string name="type.highway.world_towns_level"></string>
-    <string name="type.hwtag.yescar"></string>
-    <string name="facebook"></string>
-    <string name="type.mapswithme.grid"></string>
-    <string name="editor_line_social_network"></string>
-    <string name="type.fee.yes"></string>
-    <string name="type.mapswithme"></string>
-    <string name="type.hwtag.nobicycle"></string>
-    <string name="vk"></string>
-    <string name="type.hwtag.bidir_bicycle"></string>
-    <string name="openstreetmap"></string>
-    <string name="type.highway.world_level"></string>
-    <string name="type.hwtag.nocar"></string>
-    <string name="type.hwtag.nofoot"></string>
-    <string name="twitter"></string>
-    <string name="instagram"></string>
-    <string name="type.hwtag.private"></string>
-    <string name="instagram_url"></string>
-    <string name="comma_separated_pair"></string>
-    <string name="type.hwtag"></string>
-    <string name="mastodon"></string>
-    <string name="github"></string>
-    <string name="matrix"></string>
-    <string name="telegram"></string>
-    <string name="type.hwtag.yesbicycle"></string>
-    <string name="type.hwtag.toll"></string>
-    <string name="type.hwtag.onedir_bicycle"></string>
 </resources>
