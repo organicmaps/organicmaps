@@ -470,9 +470,10 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       TextView mTvEditPlace = mEditPlace.findViewById(R.id.tv__editor);
       TextView mTvAddBusiness = mAddPlace.findViewById(R.id.tv__editor);
       TextView mTvAddPlace = mAddPlace.findViewById(R.id.tv__editor);
-      mTvEditPlace.setTextColor(Editor.nativeShouldEnableEditPlace() ? getResources().getColor(R.color.base_accent) : getResources().getColor(R.color.button_accent_text_disabled));
-      mTvAddBusiness.setTextColor(Editor.nativeShouldEnableEditPlace() ? getResources().getColor(R.color.base_accent) : getResources().getColor(R.color.button_accent_text_disabled));
-      mTvAddPlace.setTextColor(Editor.nativeShouldEnableEditPlace() ? getResources().getColor(R.color.base_accent) : getResources().getColor(R.color.button_accent_text_disabled));
+      final int editPlaceButtonColor = Editor.nativeShouldEnableEditPlace() ? ContextCompat.getColor(getContext(), UiUtils.getStyledResourceId(getContext(), androidx.appcompat.R.attr.colorAccent)) : getResources().getColor(R.color.button_accent_text_disabled);
+      mTvEditPlace.setTextColor(editPlaceButtonColor);
+      mTvAddBusiness.setTextColor(editPlaceButtonColor);
+      mTvAddPlace.setTextColor(editPlaceButtonColor);
       UiUtils.showIf(UiUtils.isVisible(mEditPlace)
                      || UiUtils.isVisible(mAddOrganisation)
                      || UiUtils.isVisible(mAddPlace), mEditTopSpace);
