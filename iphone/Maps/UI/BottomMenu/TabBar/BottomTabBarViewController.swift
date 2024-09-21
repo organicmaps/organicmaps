@@ -12,7 +12,9 @@ class BottomTabBarViewController: UIViewController {
   @IBOutlet var helpBadge: UIView!
   
   private var avaliableArea = CGRect.zero
-  @objc var isHidden: Bool = false {
+  
+  // we don't need BottomTabBarViewController, so we hide it
+  @objc var isHidden: Bool = true {
     didSet {
       updateFrame(animated: true)
     }

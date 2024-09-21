@@ -153,24 +153,8 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
 
 - (void)applyTheme {
   MWMButton *btn = static_cast<MWMButton *>(self.view);
-  UIImageView *iv = btn.imageView;
-
-  // Traffic state machine: https://confluence.mail.ru/pages/viewpage.action?pageId=103680959
-  [iv stopAnimating];
-  if ([MWMMapOverlayManager trafficEnabled]) {
-    [self handleTrafficState:[MWMMapOverlayManager trafficState]];
-  } else if ([MWMMapOverlayManager transitEnabled]) {
-    btn.imageName = @"btn_subway_on";
-    if ([MWMMapOverlayManager transitState] == MWMMapOverlayTransitStateNoData)
-      [[MWMToast toastWithText:L(@"subway_data_unavailable")] show];
-  } else if ([MWMMapOverlayManager isoLinesEnabled]) {
-    btn.imageName = @"btn_isoMap_on";
-    [self handleIsolinesState:[MWMMapOverlayManager isolinesState]];
-  } else if ([MWMMapOverlayManager outdoorEnabled]) {
-    btn.imageName = @"btn_isoMap_on";
-  } else {
-    btn.imageName = @"btn_layers";
-  }
+  // we don't need that
+  btn.hidden = true;
 }
 
 - (IBAction)buttonTouchUpInside {

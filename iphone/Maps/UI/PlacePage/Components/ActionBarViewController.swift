@@ -123,13 +123,13 @@ class ActionBarViewController: UIViewController {
     if canAddStop {
       buttons.append(.routeAddStop)
     }
-    buttons.append(.bookmark)
+//    buttons.append(.bookmark)
 
-    assert(buttons.count > 0)
-    visibleButtons.append(buttons[0])
-    if buttons.count > 1 {
-      additionalButtons.append(contentsOf: buttons.suffix(from: 1))
-    }
+//    assert(buttons.count > 0)
+//    visibleButtons.append(buttons[0])
+//    if buttons.count > 1 {
+//      additionalButtons.append(contentsOf: buttons.suffix(from: 1))
+//    }
   }
 
   private func configButton3() {
@@ -137,12 +137,12 @@ class ActionBarViewController: UIViewController {
   }
 
   private func configButton4() {
-    if additionalButtons.isEmpty {
-      visibleButtons.append(.share)
-    } else {
-      additionalButtons.append(.share)
-      visibleButtons.append(.more)
-    }
+//    if additionalButtons.isEmpty {
+//      visibleButtons.append(.share)
+//    } else {
+//      additionalButtons.append(.share)
+//      visibleButtons.append(.more)
+//    }
   }
 
   private func showMore() {

@@ -286,9 +286,10 @@ NSString *const kNavigationControlViewXibName = @"NavigationControlView";
   }
   _state = state;
   [[MapViewController sharedController] updateStatusBarStyle];
+  // we don't need BottomTabBarViewController, so we hide it
   // Restore bottom buttons only if they were not already hidden by tapping anywhere on an empty map.
-  if (!MWMMapViewControlsManager.manager.hidden)
-    BottomTabBarViewController.controller.isHidden = state != MWMNavigationDashboardStateHidden;
+//  if (!MWMMapViewControlsManager.manager.hidden)
+//    BottomTabBarViewController.controller.isHidden = state != MWMNavigationDashboardStateHidden;
 }
 
 @synthesize routePreview = _routePreview;
