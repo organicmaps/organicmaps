@@ -475,7 +475,7 @@ void LineShape::Construct<SimpleSolidLineBuilder>(SimpleSolidLineBuilder & build
 
 bool LineShape::CanBeSimplified(int & lineWidth) const
 {
-  // Disable simplification for world map.
+  // Disable simplification for world overview.
   if (m_params.m_zoomLevel > 0 && m_params.m_zoomLevel <= scales::GetUpperCountryScale())
     return false;
 
