@@ -33,9 +33,15 @@ enum SearchMarkPoint::SearchMarkType : uint8_t
   Casino,
   Lottery,
   Cinema,
+  Theatre,
+  Stadium,
+  Museum,
+  Art,
   Marketplace,
   Nightclub,
   Playground,
+  Bank,
+  Fuel,
   ShopAlcohol,
   ShopButcher,
   ShopClothes,
@@ -52,8 +58,12 @@ enum SearchMarkPoint::SearchMarkType : uint8_t
   ShopSupermarket,
   ShopToys,
   ThemePark,
-  Swimming,
   Zoo,
+  Pitch,
+  Swimming,
+  Hospital,
+  Clinic,
+  Pharmacy,
 
   NotFound,  // Service value used in developer tools.
   Count
@@ -86,9 +96,15 @@ std::array<std::string, SearchMarkType::Count> const kSymbols = {
     "search-result-casino",                 // Casino.
     "search-result-lottery",                // Lottery.
     "search-result-cinema",                 // Cinema.
+    "search-result-theatre",                // Theatre.
+    "search-result-stadium",                // Stadium.
+    "search-result-museum",                 // Museum.
+    "search-result-art",                    // Art.
     "search-result-marketplace",            // Marketplace.
     "search-result-nightclub",              // Nightclub.
     "search-result-playground",             // Playground.
+    "search-result-bank",                   // Bank.
+    "search-result-fuel",                   // Fuel.
     "search-result-shop-alcohol",           // ShopAlcohol.
     "search-result-shop-butcher",           // ShopButcher.
     "search-result-shop-clothes",           // ShopClothes.
@@ -105,8 +121,13 @@ std::array<std::string, SearchMarkType::Count> const kSymbols = {
     "search-result-shop-supermarket",       // ShopSupermarket.
     "search-result-shop-toys",              // ShopToys.
     "search-result-theme-park",             // ThemePark.
-    "search-result-swimming",               // Swimming.
     "search-result-zoo",                    // Zoo.
+    "search-result-pitch",                  // Pitch.
+    "search-result-swimming",               // Swimming.
+    "search-result-hospital",               // Hospital.
+    "search-result-clinic",                 // Clinic.
+    "search-result-pharmacy",               // Pharmacy.
+
     
     "non-found-search-result",  // NotFound.
 };
@@ -156,9 +177,17 @@ private:
       {{"shop", "bookmaker"},        SearchMarkType::Lottery},
       {{"shop", "lottery"},          SearchMarkType::Lottery},
       {{"amenity", "cinema"},        SearchMarkType::Cinema},
+      {{"amenity", "theatre"},       SearchMarkType::Theatre},
+      {{"leisure", "stadium"},       SearchMarkType::Stadium},
+      {{"tourism", "museum"},        SearchMarkType::Museum},
+      {{"amenity", "arts_centre"},   SearchMarkType::Art},
+      {{"tourism", "gallery"},       SearchMarkType::Art},
       {{"amenity", "marketplace"},   SearchMarkType::Marketplace},
       {{"amenity", "nightclub"},     SearchMarkType::Nightclub},
       {{"leisure", "playground"},    SearchMarkType::Playground},
+      {{"amenity", "bank"},          SearchMarkType::Bank},
+      {{"shop", "money_lender"},     SearchMarkType::Bank},
+      {{"amenity", "fuel"},          SearchMarkType::Fuel},
       {{"shop", "alcohol"},          SearchMarkType::ShopAlcohol},
       {{"shop", "beverages"},        SearchMarkType::ShopAlcohol},
       {{"shop", "wine"},             SearchMarkType::ShopAlcohol},
@@ -185,8 +214,6 @@ private:
       {{"shop", "supermarket"},      SearchMarkType::ShopSupermarket},
       {{"shop", "toys"},             SearchMarkType::ShopToys},
       {{"tourism", "theme_park"},    SearchMarkType::ThemePark},
-      {{"leisure", "swimming_pool"}, SearchMarkType::Swimming},
-      {{"leisure", "water_park"},    SearchMarkType::Swimming},
       {{"tourism", "zoo"},           SearchMarkType::Zoo},
       {{"tourism", "chalet"},        SearchMarkType::Chalet},
       {{"tourism", "alpine_hut"},    SearchMarkType::Chalet},
@@ -199,6 +226,16 @@ private:
       {{"tourism", "guest_house"},   SearchMarkType::Apartment},
       {{"tourism", "camp_site"},     SearchMarkType::Campsite},
       {{"tourism", "caravan_site"},  SearchMarkType::CaravanSite},
+      {{"amenity", "hospital"},      SearchMarkType::Hospital},
+      {{"amenity", "clinic"},        SearchMarkType::Clinic},
+      {{"amenity", "doctors"},       SearchMarkType::Clinic},
+      {{"amenity", "pharmacy"},      SearchMarkType::Pharmacy},
+      {{"leisure", "pitch"},         SearchMarkType::Pitch},
+      {{"leisure", "ice_rink"},      SearchMarkType::Pitch},
+      {{"leisure", "sports_centre"}, SearchMarkType::Pitch},
+      {{"leisure", "sports_hall"},   SearchMarkType::Pitch},
+      {{"leisure", "swimming_pool"}, SearchMarkType::Swimming},
+      {{"leisure", "water_park"},    SearchMarkType::Swimming},
     };
 
     m_searchMarkTypes.reserve(std::size(table));
