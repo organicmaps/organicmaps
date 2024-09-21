@@ -23,7 +23,7 @@ bool FeatureIdToGeoObjectIdOneWay::Load()
   auto const handle = indexer::FindWorld(m_dataSource);
   if (!handle.IsAlive())
   {
-    LOG(LWARNING, ("Can't find World map file."));
+    LOG(LWARNING, ("Can't find world overview file."));
     return false;
   }
 
@@ -34,7 +34,7 @@ bool FeatureIdToGeoObjectIdOneWay::Load()
 
   if (!cont.IsExist(FEATURE_TO_OSM_FILE_TAG))
   {
-    LOG(LWARNING, ("No cities fid bimap in the world map."));
+    LOG(LWARNING, ("No cities fid bimap in the world overview."));
     return false;
   }
 
@@ -46,7 +46,7 @@ bool FeatureIdToGeoObjectIdOneWay::Load()
   }
   catch (Reader::Exception const & e)
   {
-    LOG(LERROR, ("Can't read cities fid bimap from the world map:", e.Msg()));
+    LOG(LERROR, ("Can't read cities fid bimap from the world overview:", e.Msg()));
     return false;
   }
 
@@ -103,7 +103,7 @@ bool FeatureIdToGeoObjectIdTwoWay::Load()
   auto const handle = indexer::FindWorld(m_dataSource);
   if (!handle.IsAlive())
   {
-    LOG(LWARNING, ("Can't find World map file."));
+    LOG(LWARNING, ("Can't find world overview file."));
     return false;
   }
 
@@ -114,7 +114,7 @@ bool FeatureIdToGeoObjectIdTwoWay::Load()
 
   if (!cont.IsExist(FEATURE_TO_OSM_FILE_TAG))
   {
-    LOG(LWARNING, ("No cities fid bimap in the world map."));
+    LOG(LWARNING, ("No cities fid bimap in the world overview."));
     return false;
   }
 
@@ -126,7 +126,7 @@ bool FeatureIdToGeoObjectIdTwoWay::Load()
   }
   catch (Reader::Exception const & e)
   {
-    LOG(LERROR, ("Can't read cities fid bimap from the world map:", e.Msg()));
+    LOG(LERROR, ("Can't read cities fid bimap from the world overview:", e.Msg()));
     return false;
   }
 
