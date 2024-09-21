@@ -154,7 +154,7 @@ public:
     void MoveTrack(kml::TrackId trackID, kml::MarkGroupId curGroupID, kml::MarkGroupId newGroupID);
     void AttachTrack(kml::TrackId trackId, kml::MarkGroupId groupId);
     void DetachTrack(kml::TrackId trackId, kml::MarkGroupId groupId);
-    void ChangeTrackColor(kml::TrackId trackId, uint32_t color);
+    void ChangeTrackColor(kml::TrackId trackId, dp::Color color);
     void UpdateTrack(kml::TrackId trackId, kml::TrackData const & trackData);
 
     void SetCategoryName(kml::MarkGroupId categoryId, std::string const & name);
@@ -587,7 +587,7 @@ private:
   void DetachTrack(kml::TrackId trackId, kml::MarkGroupId groupId);
   void DeleteTrack(kml::TrackId trackId);
   void MoveTrack(kml::TrackId trackID, kml::MarkGroupId curGroupID, kml::MarkGroupId newGroupID);
-  void ChangeTrackColor(kml::TrackId trackId, uint32_t color);
+  void ChangeTrackColor(kml::TrackId trackId, dp::Color color);
   void UpdateTrack(kml::TrackId trackId, kml::TrackData const & trackData);
 
   void ClearGroup(kml::MarkGroupId groupId);

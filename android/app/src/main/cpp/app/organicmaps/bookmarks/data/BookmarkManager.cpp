@@ -839,7 +839,7 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeChangeTrackColor(
   JNIEnv *, jclass, jlong trackId, jint color)
 {
   uint8_t alpha = ExtractByte(color, 3);
-  g_framework->ChangeTrackColor(static_cast<kml::TrackId>(trackId), static_cast<uint32_t>(shift(color,8) + alpha));
+  g_framework->ChangeTrackColor(static_cast<kml::TrackId>(trackId), static_cast<dp::Color>(shift(color,8) + alpha));
 }
 
 JNIEXPORT jobject JNICALL
