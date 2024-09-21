@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import os
 import csv
 import json
 import argparse
@@ -10,7 +9,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
-from os import R_OK
+from os import path, access, R_OK, linesep
 from io import StringIO
 
 
@@ -35,15 +34,15 @@ class GoogleMapsConverter:
         print("4. Unzip the export and look for csv files in the folder Takeout/Saved/")
         print()
         self.input_file = input_file
-        if not os.path.isfile(self.input_file):
+        if not path.isfile(self.input_file):
             raise FileNotFoundError(f"Couldn't find {self.input_file}")
-        if not os.access(self.input_file, R_OK):
+        if not access(self.input_file, R_OK):
             raise PermissionError(f"Couldn't read {self.input_file}")
 
         while True:
             bookmark_list_name = input("Bookmark list name: ")
             if not bookmark_list_name:
-                print("Please provide a name" + os.linesep)
+                print("Please provide a name" + linesep)
                 continue
             else:
                 self.output_file = bookmark_list_name + "." + output_format
@@ -60,7 +59,7 @@ class GoogleMapsConverter:
         while True:
             self.api_key = input("API key: ")
             if not self.api_key:
-                print("Please provide an API key" + os.linesep)
+                print("Please provide an API key" + linesep)
                 continue
             else:
                 break
@@ -143,7 +142,7 @@ class GoogleMapsConverter:
         tree = ET.ElementTree(root)
         tree.write(self.output_file)
         print()
-        print("Exported Google Saved Places to " + os.path.abspath(self.output_file))
+        print("Exported Google Saved Places to " + path.abspath(self.output_file))
 
     def write_gpx(self):
         gpx = ET.Element("gpx", version="1.1", creator="GoogleMapsConverter")
@@ -153,7 +152,7 @@ class GoogleMapsConverter:
             ET.SubElement(wpt, "desc").text = place['description']
         tree = ET.ElementTree(gpx)
         tree.write(self.output_file)
-        print("Exported Google Saved Places to " + os.path.abspath(self.output_file))
+        print("Exported Google Saved Places to " + path.abspath(self.output_file))
 
     def convert(self):
         with open(self.input_file, 'r') as file:
