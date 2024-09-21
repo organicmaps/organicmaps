@@ -13210,7 +13210,7 @@
     fr = Vous n'avez pas de compte sur OpenStreetMap ?
     he = אין לך חשבון OpenStreetMap?
     hi = आपके पास अभी तक OpenStreetMap खाता नहीं है?
-    hu = Nem rendelkezel még OpenStreetMap-felhasználói fiókkal?
+    hu = Nem rendelkezik még OpenStreetMap-felhasználói fiókkal?
     id = Tidak ada akun di OpenStreetMap?
     it = Non hai un account OpenStreetMap?
     ja = OpenStreetMapのアカウントをお持ちではないですか？
@@ -15682,7 +15682,7 @@
     fr = Connectez vous à votre compte openstreetmap.org pour que d'autres utilisateurs puissent voir vos changements.
     he = התחברו ל-openstreetmap.org כדי לפרסם את השינויים שלכם לעולם.
     hi = अपने परिवर्तनों को दुनिया के सामने प्रकाशित करने के लिए openingstreetmap.org पर लॉग इन करें।
-    hu = Jelentkezz be, hogy más felhasználók is láthassák a változtatásaidat.
+    hu = Jelentkezzen be, hogy más felhasználók is láthassák a változtatásait.
     id = Masuk agar pengguna lain dapat melihat perubahan yang Anda buat.
     it = Accedi per consentire ad altri utenti di vedere le modifiche apportate.
     ja = 他のユーザーにも変更が表示されるようにログインしてください。
@@ -23519,7 +23519,7 @@
     fr = Avertir en cas de dépassement de la limite de vitesse
     he = הזהר כשהמהירות מופרזת
     hi = तेज़ गति से गाड़ी चलाने के बारे में चेतावनी दें
-    hu = Figyelmeztetés gyorshajtáskor
+    hu = Gyorshajtáskor figyelmeztet
     id = Untuk memperingatkan Anda agar tidak ngebut
     it = Avvisa se superi il limite di velocità
     ja = スピード違反を警告する
@@ -23886,7 +23886,7 @@
     fr = Cette option est activée pour l'identification des actions à des fins de diagnostic. Cela aide l’équipe à identifier les problèmes liés à l’application. Activez cette option uniquement à la demande du support Organic Maps.
     he = הפעל אפשרות זו כדי לתעד ובאופן ידני לשלוח אלינו פרטים דיאגנוסטיים על הבעיה שלך בעזרת הכפתור "דווח על באג" בתפריט עזרה. הפרטים עשויים לכלול מידע על מיקום.
     hi = सहायता संवाद में "बग की रिपोर्ट करें" का उपयोग करके हमें अपनी समस्या के बारे में विस्तृत डायग्नोस्टिक लॉग रिकॉर्ड करने और मैन्युअल रूप से भेजने के लिए इस विकल्प को अस्थायी रूप से सक्षम करें। लॉग में स्थान की जानकारी शामिल हो सकती है.
-    hu = Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a terméktámogatási csapatunknak, akik elhárítják az alkalmazás hibáit. Csak az Organic Maps terméktámogatásának kérésére kapcsold be ezt az opciót.
+    hu = Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a terméktámogatási csapatunknak, akik elhárítják az alkalmazás hibáit. Csak az Organic Maps terméktámogatásának kérésére kapcsolja be ezt az opciót.
     id = Opsi ini mengaktifkan pencatatan untuk tujuan diagnostik. Bisa amat membantu bagi staf dukungan kami yang memecahkan masalah dalam aplikasi. Aktifkan opsi ini hanya saat diminta oleh dukungan Organic Maps.
     it = L'opzione attiva i registri per scopi diagnostici. Può essere utile al nostro team per risolvere i problemi dell'app. Abilita temporaneamente questa opzione per registrare e inviarci registri dettagliati sul tuo problema.
     ja = このオプションは診断目的でのデータ記録を有効にします。これはこのアプリケーションのトラブルシューティングを担当する当社のサポートスタッフの助けになります。このオプションはOrganic Mapsにリクエストされた場合にのみ有効にしてください。
@@ -24022,7 +24022,7 @@
     fr = Éviter les routes à péage
     he = הימנע מכבישי אגרה
     hi = पथकर को टालना
-    hu = Kerülje a fizetős utakat
+    hu = Díjköteles utak elkerülése
     id = Hindari jalan tol
     it = Evita le strade a pedaggio
     ja = 有料道路を避ける
@@ -24158,7 +24158,7 @@
     fr = Éviter les autoroutes
     he = הימנע מכבישים מהירים
     hi = फ़्रीवेज़ से बचें
-    hu = Kerülje az autópályát
+    hu = Autópályák elkerülése
     id = Hindari jalan raya
     it = Evita l'autostrada
     ja = 高速道路を避ける
@@ -24249,7 +24249,7 @@
     fr = Malheureusement, nous n'avons pas pu créer l'itinéraire avec les options sélectionnées. Modifiez les paramètres et réessayez
     he = לא נמצא מסלול. ייתכן כי זה נגרם מאפשרויות המסלול שלך או ממידע לא שלם של OpenStreetMap. נא לשנות אפשרויות מסלול ולנסות שנית.
     hi = कोई मार्ग नहीं मिल सका. यह आपके रूटिंग विकल्पों या अधूरे OpenStreetMap डेटा के कारण हो सकता है। कृपया अपने रूटिंग विकल्प बदलें और पुनः प्रयास करें।
-    hu = Sajnos nem találunk útvonalat, valószínűleg az általad meghatározott lehetőségek miatt. Kérjük változtass a beállításokon és próbáld újra
+    hu = Sajnos nem találunk útvonalat, valószínűleg az Ön által meghatározott lehetőségek vagy hiányos OpenStreetMap adatok miatt. Kérjük, változtasson a beállításokon és próbálja újra
     id = Sayangnya kami tidak dapat menemukan rute karena opsi pilihan Anda. Harap ubah pengaturan lalu coba lagi
     it = Purtroppo non siamo riusciti a trovare un percorso, probabilmente a causa delle opzioni che hai scelto. Si prega di cambiare le impostazioni e riprovare.
     ja = ルートが計算できませんでした。 これは、経路オプションまたは不完全な OpenStreetMap データが原因である可能性があります。 経路オプションを変更して再試行してください。
@@ -28493,7 +28493,7 @@
     fr = Lorsqu'il est activé, vous n'avez pas besoin de déverrouiller votre appareil à chaque fois que l'application est en fonctionnement.
     he = כאשר מופעל, האפליקציה תעבוד במסך הנעילה אפילו כשהמכשיר נעול.
     hi = सक्षम होने पर, डिवाइस लॉक होने पर भी ऐप लॉकस्क्रीन पर काम करेगा।
-    hu = Ha engedélyezve van, nem kell minden alkalommal feloldanod a telefonod, amíg az alkalmazás fut.
+    hu = Ha engedélyezve van, nem kell minden alkalommal feloldania a telefont, amíg az alkalmazás fut.
     it = Quando è abilitata, non è necessario sbloccare il dispositivo ogni volta mentre l'app è in esecuzione.
     ja = 有効にすると、デバイスがロックされている場合でもアプリはロック画面で動作します。
     lt = Jei įjungta, jums nereikės kiekvieną kartą atrakinti įrenginio, kol veikia programėlė.
