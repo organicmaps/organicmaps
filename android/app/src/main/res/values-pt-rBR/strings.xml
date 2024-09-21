@@ -23,9 +23,9 @@
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
     <string name="search">Buscar</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
-    <string name="search_map">Procurar mapa</string>
+    <string name="search_map">Buscar mapa</string>
     <!-- Location services are disabled by user alert - message -->
-    <string name="location_is_disabled_long_text">Atualmente todos os serviços de localização para este dispositivo ou aplicativo estão desativados. Por favor ative-os em configurações.</string>
+    <string name="location_is_disabled_long_text">Atualmente todos os Serviços de Localização para este dispositivo ou aplicativo estão desativados. Por favor, ative-os em Configurações.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Mostrar no mapa</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
@@ -34,7 +34,7 @@
     <string name="try_again">Tentar novamente</string>
     <string name="about_menu_title">Sobre o Organic Maps</string>
     <!-- Text in About screen -->
-    <string name="about_headline">Grátis para todos, feito com amor</string>
+    <string name="about_headline">Livre para todos, feito com amor</string>
     <!-- Text in About screen -->
     <string name="about_proposition_1">• Sem anúncios, rastreamento ou coleta de dados</string>
     <!-- Text in About screen -->
@@ -45,9 +45,9 @@
     <string name="unsupported_phone">É necessário OpenGL acelerado por hardware. Infelizmente o seu dispositivo não é compatível.</string>
     <string name="download">Baixar</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Por favor desconecte o cabo USB ou insira um cartão de memória para utilizar o Organic Maps</string>
+    <string name="disconnect_usb_cable">Por favor, desconecte o cabo USB ou insira um cartão de memória para utilizar o Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Por favor libere primeiro algum espaço no cartão SD/armazenamento USB para utilizar o app</string>
+    <string name="not_enough_free_space_on_sdcard">Por favor, libere primeiro algum espaço no cartão SD/armazenamento USB para utilizar o app</string>
     <string name="download_resources">Antes de começar, vamos baixar um mapa mundial geral para o seu dispositivo.
 \n%s de memória serão utilizados.</string>
     <string name="download_resources_continue">Ir para o mapa</string>
@@ -101,7 +101,7 @@
     <string name="move_maps_error">Erro ao mover arquivos de mapas</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
     <string name="wait_several_minutes">Isto pode demorar alguns minutos.
-\nPor favor aguarde…</string>
+\nPor favor, aguarde…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Unidades de medida</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -201,7 +201,7 @@
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">Email</string>
     <!-- Text for message when used successfully copied something -->
-    <string name="copied_to_clipboard">Copiado para a área de transferência: %s</string>
+    <string name="copied_to_clipboard">Copiado para área de transferência: %s</string>
     <!-- Used for bookmark editing -->
     <string name="done">Feito</string>
     <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
