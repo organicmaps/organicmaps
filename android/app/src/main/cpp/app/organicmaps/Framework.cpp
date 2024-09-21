@@ -588,7 +588,7 @@ void Framework::ReplaceTrack(kml::TrackId trackId, kml::TrackData & trackData)
   m_work.GetBookmarkManager().GetEditSession().UpdateTrack(trackId, trackData);
 }
 
-void Framework::ChangeTrackColor(kml::TrackId trackId, uint32_t color)
+void Framework::ChangeTrackColor(kml::TrackId trackId, dp::Color color)
 {
   m_work.GetBookmarkManager().GetEditSession().ChangeTrackColor(trackId, color);
 }
