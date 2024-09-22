@@ -2226,4 +2226,5 @@
     <string name="type.tourism.motel">Motel</string>
     <string name="type.hwtag.yesbicycle">hwtag-yesbicycle</string>
     <string name="type.landuse.greenfield">Greenfield</string>
+    <string name="edit_track">GPX-track bewerken</string>
 </resources>
