@@ -24,11 +24,16 @@ map<string, vector<string>> const kSynonyms = {
     {"ne",   {"northeast"}},
     {"sw",   {"southwest"}},
     {"se",   {"southeast"}},
-    {"st",   {"saint", "street"}},
+
+    /// @note Should not duplicate Street synonyms defined in StreetsSynonymsHolder.
+    {"st",   {"saint"}},
     {"dr",   {"doctor"}},
 
+    // widely used in LATAM, like "Ntra Sra Asuncion Zelaya"
+    {"ntra",  {"nuestra"}},
+    {"sra",   {"senora"}},
+
     {"al",    {"allee", "alle"}},
-    {"ave",   {"avenue"}},
     /// @todo Should process synonyms with errors like "blvrd" -> "blvd".
     /// @see HouseOnStreetSynonymsWithMisprints test.
     {"blvd",  {"boulevard"}},
