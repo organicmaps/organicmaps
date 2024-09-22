@@ -2177,4 +2177,5 @@
     <string name="type.railway.station.subway.berlin">Subway Station</string>
     <string name="type.hwtag.oneway">hwtag-oneway</string>
     <string name="openstreetmap">OpenStreetMap</string>
+    <string name="edit_track">Променяне на трасето</string>
 </resources>
