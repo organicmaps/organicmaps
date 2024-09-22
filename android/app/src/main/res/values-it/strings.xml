@@ -2215,4 +2215,5 @@
     <string name="type.route.shuttle_train">route-shuttle_train</string>
     <string name="type.waterway">Waterway</string>
     <string name="type.piste_type.downhill.freeride">Downhill Ski Run</string>
+    <string name="edit_track">Modifica la traccia</string>
 </resources>
