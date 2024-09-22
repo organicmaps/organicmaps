@@ -2187,4 +2187,5 @@
     <string name="type.highway">Highway</string>
     <string name="type.piste_type.downhill.advanced.area">Downhill Ski Run</string>
     <string name="type.waterway.dam">Damm</string>
+    <string name="edit_track">Redigera spår</string>
 </resources>
