@@ -2186,4 +2186,5 @@
     <string name="type.emergency">Khẩn cấp</string>
     <string name="type.military">Quân sự</string>
     <string name="type.aerialway.platter">Platter Lift</string>
+    <string name="edit_track">Edit track</string>
 </resources>
