@@ -2199,4 +2199,5 @@
     <string name="telegram_url">https://t.me/OrganicMapsApp</string>
     <string name="gb">GB</string>
     <string name="closes_in">Closes in %@</string>
+    <string name="edit_track">Editar trilho</string>
 </resources>
