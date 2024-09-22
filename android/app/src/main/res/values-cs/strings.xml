@@ -612,7 +612,7 @@
     <string name="restore">Obnovit</string>
     <plurals name="tracks">
         <item quantity="one">%d stop</item>
-        <item quantity="few"></item>
+        <item quantity="few"/>
         <item quantity="other">%d stop</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
@@ -2204,4 +2204,6 @@
     <string name="type.organic.yes">Přírodní</string>
     <string name="type.military">Vojenství</string>
     <string name="type.building.warehouse">Sklad</string>
+    <string name="choose_color">Vybrat barvu</string>
+    <string name="edit_track">Editovat stopu</string>
 </resources>
