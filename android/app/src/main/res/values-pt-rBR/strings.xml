@@ -2189,4 +2189,6 @@
     <string name="about_developed_by_enthusiasts">Aplicação de código aberto criada por entusiastas e voluntários.</string>
     <string name="on">Ativado</string>
     <string name="matrix">[Matrix]</string>
+    <string name="choose_color">Escolha uma cor</string>
+    <string name="edit_track">Editar trilha</string>
 </resources>
