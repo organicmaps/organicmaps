@@ -2223,4 +2223,5 @@
     <string name="type.waterway.dam">Presa</string>
     <string name="type.aerialway.j.bar">J-bar Lift</string>
     <string name="type.landuse.village_green">Lur lehor</string>
+    <string name="edit_track">Editatu arrastoa</string>
 </resources>
