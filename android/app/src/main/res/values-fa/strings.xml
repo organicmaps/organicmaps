@@ -2189,4 +2189,5 @@
     <string name="type.aeroway.runway">باند فرودگاه</string>
     <string name="type.aeroway.taxiway">Taxiway</string>
     <string name="type.barrier.wall">Wall</string>
+    <string name="edit_track">ویرایش رد</string>
 </resources>
