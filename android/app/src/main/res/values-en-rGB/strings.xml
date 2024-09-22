@@ -1824,4 +1824,5 @@
     <string name="type.natural">Nature</string>
     <string name="others_sorttype">Others</string>
     <string name="type.natural.wetland">Wetland</string>
+    <string name="edit_track">Edit track</string>
 </resources>
