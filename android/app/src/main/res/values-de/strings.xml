@@ -2225,4 +2225,6 @@
     <string name="facebook">Facebook</string>
     <string name="type.public_transport.platform">Platform</string>
     <string name="type.aeroway.gate">Gate</string>
+    <string name="choose_color">Farbe auswählen</string>
+    <string name="edit_track">Track editieren</string>
 </resources>
