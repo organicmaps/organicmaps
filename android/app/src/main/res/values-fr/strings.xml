@@ -645,8 +645,8 @@
     </plurals>
     <string name="restore">Restaurer</string>
     <plurals name="tracks">
-        <item quantity="one"></item>
-        <item quantity="many"></item>
+        <item quantity="one"/>
+        <item quantity="many"/>
         <item quantity="other">%d trace</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
@@ -2231,4 +2231,5 @@
     <string name="type.waterway.canal">Canal</string>
     <string name="type.natural.water.drain">Drain</string>
     <string name="type.waterway.canal.tunnel">Canal Tunnel</string>
+    <string name="edit_track">Modifier la trace</string>
 </resources>
