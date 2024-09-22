@@ -1304,7 +1304,7 @@
     <string name="error_enter_correct_name">Please enter a correct name</string>
     <string name="bookmarks_error_message_share_empty">Cannot share an empty list</string>
     <plurals name="tracks">
-        <item quantity="one"></item>
+        <item quantity="one"/>
         <item quantity="other">%d tracks?</item>
     </plurals>
     <string name="button_layer_traffic">Traffic</string>
@@ -2063,4 +2063,5 @@
     <string name="money">धन</string>
     <string name="type.sport.swimming">Swimming</string>
     <string name="type.man_made.embankment">Embankment</string>
+    <string name="edit_track">Edit track</string>
 </resources>
