@@ -2242,4 +2242,6 @@
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="type.hwtag">hwtag</string>
     <string name="telegram">Telegram</string>
+    <string name="choose_color">Выберите цвет</string>
+    <string name="edit_track">Редактировать трек</string>
 </resources>
