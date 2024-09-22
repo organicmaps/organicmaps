@@ -2219,4 +2219,5 @@
     <string name="type.hwtag.oneway">hwtag-oneway</string>
     <string name="vk">VK</string>
     <string name="facebook">Facebook</string>
+    <string name="edit_track">Muuda rada</string>
 </resources>
