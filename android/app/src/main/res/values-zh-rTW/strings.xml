@@ -2233,4 +2233,5 @@
     <string name="type.waterway.drain">Drain</string>
     <string name="type.boundary.administrative">Administrative Boundary</string>
     <string name="type.railway.subway">Subway Line</string>
+    <string name="edit_track">編輯軌跡</string>
 </resources>
