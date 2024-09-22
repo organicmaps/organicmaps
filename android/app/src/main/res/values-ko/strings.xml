@@ -2187,4 +2187,5 @@
     <string name="type.barrier.ditch">Ditch</string>
     <string name="type.route">경로</string>
     <string name="type.aerialway.magic_carpet">Magic Carpet</string>
+    <string name="edit_track">트랙 수정</string>
 </resources>
