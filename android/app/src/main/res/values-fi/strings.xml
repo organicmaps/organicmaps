@@ -2221,4 +2221,5 @@
     <string name="type.railway.light_rail">Light Rail</string>
     <string name="type.railway.light_rail.bridge">Light Rail Bridge</string>
     <string name="type.railway.light_rail.tunnel">Light Rail Tunnel</string>
+    <string name="edit_track">Muokkaa jälkeä</string>
 </resources>
