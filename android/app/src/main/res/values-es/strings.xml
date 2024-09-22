@@ -2232,4 +2232,6 @@
     <string name="vk">VK</string>
     <string name="github">GitHub</string>
     <string name="editor_line_social_network">LINE</string>
+    <string name="choose_color">Elige el color</string>
+    <string name="edit_track">Editar traza</string>
 </resources>
