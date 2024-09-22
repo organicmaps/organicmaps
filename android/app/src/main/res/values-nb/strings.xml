@@ -2214,4 +2214,5 @@
     <string name="type.hwtag.private">hwtag-private</string>
     <string name="type.route.shuttle_train">route-shuttle_train</string>
     <string name="type.railway.subway">Subway Line</string>
+    <string name="edit_track">Rediger spor</string>
 </resources>
