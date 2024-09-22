@@ -2206,4 +2206,5 @@
     <string name="type.railway.subway">Subway Line</string>
     <string name="type.barrier.wall">Fal</string>
     <string name="type.traffic_calming.hump">Traffic Hump</string>
+    <string name="edit_track">Nyomvonal szerkesztése</string>
 </resources>
