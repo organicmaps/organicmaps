@@ -2220,4 +2220,5 @@
     <string name="type.railway.abandoned">Abandoned Railway</string>
     <string name="type.leisure.hackerspace">Χώρος δημιουργικών ασχολιών</string>
     <string name="type.landuse.vineyard">Vineyard</string>
+    <string name="edit_track">Επεξεργασία ίχνους</string>
 </resources>
