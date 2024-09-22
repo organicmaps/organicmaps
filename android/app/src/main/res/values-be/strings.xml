@@ -2213,4 +2213,5 @@
     <string name="type.hwtag.nobicycle">hwtag-nobicycle</string>
     <string name="type.railway.station.subway.algiers">Subway Station</string>
     <string name="type.cuisine.argentinian">Аргенцінская</string>
+    <string name="edit_track">Змяніць след</string>
 </resources>
