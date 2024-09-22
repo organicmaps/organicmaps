@@ -2228,4 +2228,5 @@
     <string name="type.piste_type.downhill">Downhill Ski Run</string>
     <string name="type.power">Port zasilania</string>
     <string name="type.man_made.storage_tank">Zbiornik magazynowy</string>
+    <string name="edit_track">Edytuj trasę</string>
 </resources>
