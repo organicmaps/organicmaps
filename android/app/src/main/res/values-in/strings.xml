@@ -2186,4 +2186,5 @@
     <string name="type.railway.crossing">Railway Crossing</string>
     <string name="type.barrier.hedge">Hedge</string>
     <string name="type.barrier">Penghalang</string>
+    <string name="edit_track">Sunting trek</string>
 </resources>
