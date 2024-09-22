@@ -665,8 +665,8 @@
         <item quantity="zero">%d المسارات</item>
         <item quantity="one">%d المسارات</item>
         <item quantity="two">%d المسارات</item>
-        <item quantity="few"></item>
-        <item quantity="many"></item>
+        <item quantity="few"/>
+        <item quantity="many"/>
         <item quantity="other">%d المسارات</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
@@ -2246,4 +2246,5 @@
     <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
     <string name="type.aerialway.t.bar">T-bar Lift</string>
     <string name="type.man_made.wastewater_plant">Wastewater Treatment Plant</string>
+    <string name="edit_track">تحرير المسار</string>
 </resources>
