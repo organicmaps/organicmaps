@@ -2221,4 +2221,5 @@
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
     <string name="type.railway.subway">Subway Line</string>
+    <string name="edit_track">経路の編集</string>
 </resources>
