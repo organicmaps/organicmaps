@@ -2185,4 +2185,5 @@
     <string name="type.hwtag.bidir_bicycle">hwtag-bidir_bicycle</string>
     <string name="prefs_group_information">Information</string>
     <string name="type.leisure.track">Nummer</string>
+    <string name="edit_track">Redigér spor</string>
 </resources>
