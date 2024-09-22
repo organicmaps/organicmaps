@@ -2225,4 +2225,6 @@
     <string name="type.piste_type.downhill.easy.area">Downhill Ski Run</string>
     <string name="type.railway.station.subway.ekb">Subway Station</string>
     <string name="type.railway.station.subway.chongqing">Subway Station</string>
+    <string name="choose_color">נא לבחור צבע</string>
+    <string name="edit_track">עריכת מסלול</string>
 </resources>
