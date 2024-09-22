@@ -2197,4 +2197,5 @@
     <string name="type.landuse.farmyard">Farmyard</string>
     <string name="type.recycling.green_waste">Green/Organic Waste</string>
     <string name="type.amenity.sanitary_dump_station">Holding Tank Dump Station</string>
+    <string name="edit_track">ट्रॅक संपादा</string>
 </resources>
