@@ -2233,4 +2233,5 @@
     <string name="type.traffic_calming">Traffic Calming</string>
     <string name="type.traffic_calming.bump">Traffic Bump</string>
     <string name="type.piste_type.downhill.intermediate">Downhill Ski Run</string>
+    <string name="edit_track">编辑轨迹</string>
 </resources>
