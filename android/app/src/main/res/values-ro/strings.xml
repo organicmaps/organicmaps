@@ -2203,4 +2203,5 @@
     <string name="type.piste_type.sled">Sledding Piste</string>
     <string name="type.railway.preserved">Preserved Rail</string>
     <string name="type.mountain_pass">Mountain Pass</string>
+    <string name="edit_track">Editează traseu</string>
 </resources>
