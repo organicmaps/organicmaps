@@ -144,6 +144,8 @@ class GoogleMapsConverter:
                     elif 'result' in result:
                         location = result['result']['geometry']['location']
                         return [str(location['lat']), str(location['lng'])]
+                elif result['status'] == 'REQUEST_DENIED':
+                    print(f'REQUEST DENIED: {result.get("error_message", "")}')
         return None
                 
     def process_geojson_features(self, geojson):
@@ -166,13 +168,14 @@ class GoogleMapsConverter:
                 if q:
                     coordinates = self.get_coordinates_from_google_api(self.api_key, q=q)
                     if not coordinates:
-                        print(f"Couldn't extract coordinates from Google Maps. Skipping {location.get('name')}")
+                        print(f"Couldn't extract coordinates from Google Maps. Skipping {q}")
                 elif cid:
                     coordinates = self.get_coordinates_from_google_api(self.api_key, cid=cid)
                     if not coordinates:
-                        print(f"Couldn't extract coordinates from Google Maps. Skipping {location.get('name')}")
+                        print(f"Couldn't extract coordinates from Google Maps. Skipping {cid}")
 
-            name = location.get('name') or location.get('address') or ', '.join(map(str, coordinates))
+            coord_string = ', '.join(map(str, coordinates)) if coordinates else None
+            name = location.get('name') or location.get('address') or coord_string
 
             description = ""
             if 'address' in properties:
@@ -184,7 +187,7 @@ class GoogleMapsConverter:
             if google_maps_url:
                 description += f"<b>Google Maps URL:</b> <a href=\"{google_maps_url}\">{google_maps_url}</a><br>"
 
-            self.places.append({'name': name, 'description': description, 'coordinates': ','.join(map(str, coordinates))})
+            self.places.append({'name': name, 'description': description, 'coordinates': coord_string})
 
     def process_csv_features(self, content):
         csvreader = csv.reader(StringIO(content), delimiter=',')
