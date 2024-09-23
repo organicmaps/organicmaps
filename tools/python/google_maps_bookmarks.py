@@ -11,9 +11,7 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from os import path, access, R_OK, linesep
 from io import StringIO
-
-
-from dateutil import parser as dateutil_parser
+from datetime import datetime
 
 class GoogleMapsConverter:
     def __init__(self, input_file, output_format):
@@ -52,7 +50,9 @@ class GoogleMapsConverter:
         self.output_format = output_format
 
     def convert_timestamp(self, timestamp):
-        date = dateutil_parser.isoparse(timestamp)
+        if timestamp.endswith('Z'):
+            timestamp = timestamp[:-1]
+        date = datetime.fromisoformat(timestamp)
         return date.strftime('%Y-%m-%d %H:%M:%S')
 
     def get_api_key(self):
