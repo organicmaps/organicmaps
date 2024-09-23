@@ -121,6 +121,30 @@ class GoogleMapsConverter:
                     continue
                 else:
                     raise
+
+    def get_coordinates_from_google_api(self, api_key, q=None, cid=None):
+        if q:
+            # Sometimes the 'q' parameter is a comma-separated lat long pair
+            if ',' in q and all(part.replace('.', '', 1).replace('-', '', 1).isdigit() for part in q.split(',')):
+                return q.split(',')
+            else:
+                url = f"https://maps.googleapis.com/maps/api/place/textsearch/json?query={urllib.parse.quote(q)}&key={api_key}"
+        elif cid:
+            url = f"https://maps.googleapis.com/maps/api/place/details/json?placeid={cid}&key={api_key}"
+        else:
+            return None
+
+        with urllib.request.urlopen(url) as response:
+            if response.status == 200:
+                result = json.loads(response.read().decode())
+                if result['status'] == 'OK':
+                    if 'results' in result and result['results']:
+                        location = result['results'][0]['geometry']['location']
+                        return [str(location['lat']), str(location['lng'])]
+                    elif 'result' in result:
+                        location = result['result']['geometry']['location']
+                        return [str(location['lat']), str(location['lng'])]
+        return None
                 
     def process_geojson_features(self, geojson):
         for feature in geojson['features']:
@@ -128,30 +152,28 @@ class GoogleMapsConverter:
             coordinates = geometry['coordinates']
             properties = feature['properties']
             google_maps_url = properties.get('google_maps_url', '')
+            location = properties.get('location', {})
 
             # Check for "null island" coordinates [0, 0]
+            # These are a common artifact of Google Maps exports
+            # See https://github.com/organicmaps/organicmaps/pull/8721
             if coordinates[0] == 0 and coordinates[1] == 0:
-                # Parse the Google Maps URL to get the coordinates
                 parsed_url = urllib.parse.urlparse(google_maps_url)
                 query_params = urllib.parse.parse_qs(parsed_url.query)
-                # q parameter contains the coordinates
+                # Google Maps URLs can contain either a query string parameter 'q' or 'cid'
                 q = query_params.get('q', [None])[0]
-                # cid parameter contains the place ID
                 cid = query_params.get('cid', [None])[0]
                 if q:
-                    if ',' in q and all(part.replace('.', '', 1).isdigit() for part in q.split(',')):
-                        coordinates = q.split(',')
-                    else:
-                        # TODO: handle non-coordinate q values
-                        continue
+                    coordinates = self.get_coordinates_from_google_api(self.api_key, q=q)
+                    if not coordinates:
+                        print(f"Couldn't extract coordinates from Google Maps. Skipping {location.get('name')}")
                 elif cid:
-                    # TODO: handle google maps URL with cid parameter
-                    continue                    
-                else:
-                    continue
+                    coordinates = self.get_coordinates_from_google_api(self.api_key, cid=cid)
+                    if not coordinates:
+                        print(f"Couldn't extract coordinates from Google Maps. Skipping {location.get('name')}")
 
-            location = properties.get('location', {})
             name = location.get('name') or location.get('address') or ', '.join(map(str, coordinates))
+
             description = ""
             if 'address' in properties:
                 description += f"<b>Address:</b> {location['address']}<br>"
