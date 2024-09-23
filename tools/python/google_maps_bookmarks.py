@@ -17,20 +17,15 @@ class GoogleMapsConverter:
     def __init__(self, input_file, output_format):
         print("Follow these steps to export your saved places from Google Maps and convert them to a GPX or KML File")
         print()
-        print("OPTION 1: Using GeoJSON")
-        print("===================================")
-        print("1. Go to \"Your data in Maps\" in your Google Account settings or by accessing https://myaccount.google.com/yourdata/maps")
-        print("2. Press \"Download your Maps data.\" and wait for the export to be ready.")
-        print("3. Unzip the export and look for the file named \"Saved Places.geojson\"")
-        print()
-        print("OPTION 2: Using CSV")
-        print("===================================")
         print("1. Create an API key for Google Places API following this guide")
         print("   https://developers.google.com/maps/documentation/places/web-service/get-api-key")
         print("2. Go to https://takeout.google.com/ and sign in with your Google account")
         print("3. Select 'Saved' and 'Maps (My Places)' and create an export")
-        print("4. Unzip the export and look for csv files in the folder Takeout/Saved/")
+        print("4. Download and unzip the export")
+        print ("5a. Look for CSV files (e.g. for lists) in the folder Takeout/Saved")
+        print ("5b. Look for GeoJSON files (e.g. for Saved Places) in the folder Takeout/Maps")
         print()
+        
         self.input_file = input_file
         if not path.isfile(self.input_file):
             raise FileNotFoundError(f"Couldn't find {self.input_file}")
