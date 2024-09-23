@@ -157,7 +157,6 @@ class GoogleMapsConverter:
             if not content:
                 raise ValueError(f"The file {self.input_file} is empty or not a valid JSON file.")
             
-            # Determine the file mime type (GeoJSON or CSV) and process accordingly
             mime_type, _ = mimetypes.guess_type(self.input_file)
             if mime_type == 'application/geo+json' or mime_type == 'application/json':
                 try:
