@@ -123,30 +123,33 @@ class GoogleMapsConverter:
                     raise
 
     def get_coordinates_from_google_api(self, api_key, q=None, cid=None):
+        url = None
         if q:
             # Sometimes the 'q' parameter is a comma-separated lat long pair
             if ',' in q and all(part.replace('.', '', 1).replace('-', '', 1).isdigit() for part in q.split(',')):
                 return q.split(',')
             else:
                 url = f"https://maps.googleapis.com/maps/api/place/textsearch/json?query={urllib.parse.quote(q)}&key={api_key}"
+                return None
         elif cid:
-            url = f"https://maps.googleapis.com/maps/api/place/details/json?placeid={cid}&key={api_key}"
+            print(f"This script does not yet support extracting coordinates from a CID. Skipping {cid}" )
         else:
             return None
 
-        with urllib.request.urlopen(url) as response:
-            if response.status == 200:
-                result = json.loads(response.read().decode())
-                if result['status'] == 'OK':
-                    if 'results' in result and result['results']:
-                        location = result['results'][0]['geometry']['location']
-                        return [str(location['lat']), str(location['lng'])]
-                    elif 'result' in result:
-                        location = result['result']['geometry']['location']
-                        return [str(location['lat']), str(location['lng'])]
-                elif result['status'] == 'REQUEST_DENIED':
-                    print(f'REQUEST DENIED: {result.get("error_message", "")}')
-        return None
+        if url:
+            with urllib.request.urlopen(url) as response:
+                if response.status == 200:
+                    result = json.loads(response.read().decode())
+                    if result['status'] == 'OK':
+                        if 'results' in result and result['results']:
+                            location = result['results'][0]['geometry']['location']
+                            return [str(location['lat']), str(location['lng'])]
+                        elif 'result' in result:
+                            location = result['result']['geometry']['location']
+                            return [str(location['lat']), str(location['lng'])]
+                    else:
+                        print(f'{result.get("status", "")}: {result.get("error_message", "")}')
+            return None
                 
     def process_geojson_features(self, geojson):
         for feature in geojson['features']:
@@ -187,7 +190,15 @@ class GoogleMapsConverter:
             if google_maps_url:
                 description += f"<b>Google Maps URL:</b> <a href=\"{google_maps_url}\">{google_maps_url}</a><br>"
 
-            self.places.append({'name': name, 'description': description, 'coordinates': coord_string})
+            place = {
+                'name': name,
+                'description': description
+            }
+            if coordinates:
+                place['coordinates'] = ','.join(map(str, coordinates))
+            else:
+                place['coordinates'] = '0,0'
+            self.places.append(place)
 
     def process_csv_features(self, content):
         csvreader = csv.reader(StringIO(content), delimiter=',')
