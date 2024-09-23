@@ -139,7 +139,11 @@ class GoogleMapsConverter:
                 # cid parameter contains the place ID
                 cid = query_params.get('cid', [None])[0]
                 if q:
-                    coordinates = q.split(',')
+                    if ',' in q and all(part.replace('.', '', 1).isdigit() for part in q.split(',')):
+                        coordinates = q.split(',')
+                    else:
+                        # TODO: handle non-coordinate q values
+                        continue
                 elif cid:
                     # TODO: handle google maps URL with cid parameter
                     continue                    
