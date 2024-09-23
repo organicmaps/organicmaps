@@ -20,6 +20,7 @@ namespace
 {
 double constexpr kOnEndToleranceM = 10.0;
 double constexpr kSteetNameLinkMeters = 400.0;
+double constexpr kMinimumETASec = 60.0;
 }  //  namespace
 
 std::string DebugPrint(RouteSegment::RoadNameInfo const & rni)
@@ -77,6 +78,17 @@ double Route::GetCurrentDistanceToEndMeters() const
   if (!IsValid())
     return 0.0;
   return m_poly.GetDistanceToEndMeters();
+}
+
+double Route::GetCurrentDistanceToSegmentMeters(size_t segIdx) const
+{
+  if (!IsValid())
+    return 0.0;
+
+  double const endDistance = m_routeSegments[segIdx].GetDistFromBeginningMeters();
+  double const passedDistance = GetCurrentDistanceFromBeginMeters();
+
+  return endDistance - passedDistance;
 }
 
 double Route::GetMercatorDistanceFromBegin() const

@@ -13,6 +13,7 @@
 #include "traffic/speed_groups.hpp"
 
 #include "platform/country_file.hpp"
+#include "platform/distance.hpp"
 
 #include "geometry/point_with_altitude.hpp"
 #include "geometry/polyline2d.hpp"
@@ -370,6 +371,7 @@ public:
   double GetTotalDistanceMeters() const;
   double GetCurrentDistanceFromBeginMeters() const;
   double GetCurrentDistanceToEndMeters() const;
+  double GetCurrentDistanceToSegmentMeters(size_t segIdx) const;
   double GetMercatorDistanceFromBegin() const;
 
   /// \brief Extracts information about the nearest turn from the remaining part of the route.

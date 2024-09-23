@@ -24,6 +24,9 @@ public:
     , m_time(0)
     , m_completionPercent(0)
     , m_pedestrianTurn(turns::PedestrianDirection::None)
+    , m_nextStopPos(0)
+    , m_distToNextStop(0.0)
+    , m_timeToNextStop(0)
   {
   }
 
@@ -85,5 +88,10 @@ public:
   // Current speed limit in meters per second.
   // If no info about speed limit then m_speedLimitMps < 0.
   double m_speedLimitMps = -1.0;
+
+  // Next stop information.
+  int m_nextStopPos;
+  platform::Distance m_distToNextStop;
+  int m_timeToNextStop;
 };
 }  // namespace routing

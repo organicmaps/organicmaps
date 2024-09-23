@@ -150,6 +150,11 @@
     <item name="android:textColor">?android:textColorSecondary</item>
   </style>
 
+  <style name="MwmTextAppearance.NavMenu.NextStopNumber">
+    <item name="android:textSize">@dimen/text_size_nav_menu_dimension</item>
+    <item name="android:textColor">?android:textColorPrimary</item>
+  </style>
+
   <style name="MwmTextAppearance.RoutingDetail">
     <item name="android:textSize">@dimen/text_size_routing_plan_detail</item>
     <item name="android:fontFamily">@string/robotoMedium</item>

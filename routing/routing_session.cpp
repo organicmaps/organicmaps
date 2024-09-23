@@ -444,6 +444,41 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   info.m_pedestrianTurn = (distanceToTurnMeters < kShowPedestrianTurnInMeters)
                               ? turn.m_pedestrianTurn
                               : turns::PedestrianDirection::None;
+
+  // Next stop info.
+  size_t subrouteCount = m_route->GetSubrouteCount();
+
+  if (subrouteCount > 1)
+  {
+    size_t currentSubrouteIdx = m_route->GetCurrentSubrouteIdx();
+
+    if (currentSubrouteIdx >= (subrouteCount - 1))
+    {
+      // We're in the last subroute (no intermediate stops ahead).
+      info.m_nextStopPos = 0;
+    }
+    else
+    {
+      // Next stop pos.
+      info.m_nextStopPos = currentSubrouteIdx + 1;
+
+      // Get index of end segment of the current subroute.
+      size_t subrouteEndSegmentIdx = m_route->GetSubrouteAttrs(currentSubrouteIdx).GetEndSegmentIdx();
+
+      // Get remaining distance to end of current subroute.
+      info.m_distToNextStop = platform::Distance::CreateFormatted(
+              m_route->GetCurrentDistanceToSegmentMeters(subrouteEndSegmentIdx));
+
+      // Get remaining time to end of current subroute.
+      info.m_timeToNextStop = static_cast<int>(std::max(kMinimumETASec,
+              m_route->GetCurrentTimeToSegmentSec(subrouteEndSegmentIdx)));
+    }
+  }
+  else
+  {
+    // There's only one subroute (no intermediate stops).
+    info.m_nextStopPos = 0;
+  }
 }
 
 double RoutingSession::GetCompletionPercent() const

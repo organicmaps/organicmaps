@@ -1,6 +1,7 @@
 package app.organicmaps.routing;
 
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,7 +22,10 @@ import app.organicmaps.util.WindowInsetUtils;
 import app.organicmaps.widget.menu.NavMenu;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 public class NavigationController implements TrafficManager.TrafficCallback,
                                              NavMenu.NavMenuListener
@@ -44,6 +48,12 @@ public class NavigationController implements TrafficManager.TrafficCallback,
   private final RecyclerView mLanes;
   @NonNull
   private final LanesAdapter mLanesAdapter;
+
+  private final View mNextStopFrame;
+  private final TextView mNextStopPos;
+  private final TextView mNextStopDistance;
+  private final TextView mNextStopRemainingTime;
+  private final TextView mNextStopEta;
 
   private final NavMenu mNavMenu;
   View.OnClickListener mOnSettingsClickListener;
@@ -89,6 +99,12 @@ public class NavigationController implements TrafficManager.TrafficCallback,
     mLanes = mLanesFrame.findViewById(R.id.lanes);
     mLanesAdapter = new LanesAdapter();
     initLanesRecycler();
+
+    mNextStopFrame = topFrame.findViewById(R.id.next_stop_frame);
+    mNextStopPos = topFrame.findViewById(R.id.next_stop_pos);
+    mNextStopDistance = topFrame.findViewById(R.id.distance_to_next_stop);
+    mNextStopRemainingTime = topFrame.findViewById(R.id.remaining_time_to_next_stop);
+    mNextStopEta = topFrame.findViewById(R.id.eta_to_next_stop);
 
     // Show a blank view below the navbar to hide the menu content
     final View navigationBarBackground = mFrame.findViewById(R.id.nav_bottom_sheet_nav_bar);
@@ -160,6 +176,9 @@ public class NavigationController implements TrafficManager.TrafficCallback,
       updateVehicle(info);
 
     updateStreetView(info);
+
+    updateNextStopInfo(info);
+
     mNavMenu.update(info);
   }
 
@@ -171,6 +190,41 @@ public class NavigationController implements TrafficManager.TrafficCallback,
     UiUtils.visibleIf(hasStreet, mStreetFrame);
     if (!TextUtils.isEmpty(info.nextStreet))
       mNextStreet.setText(info.nextStreet);
+  }
+
+  private void updateNextStopInfo(@NonNull RoutingInfo info)
+  {
+    if ((info.nextStopPos > 0) && (info.nextStopPos < 100))
+    {
+      // Show next stop info.
+      UiUtils.show(mNextStopFrame);
+
+      mNextStopPos.setText(String.valueOf(info.nextStopPos));
+      mNextStopDistance.setText(info.distToNextStop.mDistanceStr + " " +
+                                info.distToNextStop.getUnitsStr(mFrame.getContext()));
+
+      // Display remaining time to next stop.
+      final long hours = TimeUnit.SECONDS.toHours(info.timeToNextStop);
+      final long minutes = TimeUnit.SECONDS.toMinutes(info.timeToNextStop) % 60;
+
+      String timeString = "";
+
+      if (hours > 0)
+        timeString += String.valueOf(hours) + " " + mFrame.getResources().getString(R.string.hour);
+
+      timeString += String.valueOf(minutes) + " " + mFrame.getResources().getString(R.string.minute);
+      mNextStopRemainingTime.setText(timeString);
+
+      // ETA to next stop.
+      final String format = DateFormat.is24HourFormat(mFrame.getContext()) ? "HH:mm" : "h:mm a";
+      final LocalTime localTime = LocalTime.now().plusSeconds(info.timeToNextStop);
+      mNextStopEta.setText(localTime.format(DateTimeFormatter.ofPattern(format)));
+    }
+    else
+    {
+      // Hide next stop info.
+      UiUtils.hide(mNextStopFrame);
+    }
   }
 
   public void show(boolean show)
