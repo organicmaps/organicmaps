@@ -141,8 +141,6 @@ class GoogleMapsConverter:
             ET.SubElement(point, "coordinates").text = place['coordinates']
         tree = ET.ElementTree(root)
         tree.write(self.output_file)
-        print()
-        print("Exported Google Saved Places to " + path.abspath(self.output_file))
 
     def write_gpx(self):
         gpx = ET.Element("gpx", version="1.1", creator="GoogleMapsConverter")
@@ -152,7 +150,6 @@ class GoogleMapsConverter:
             ET.SubElement(wpt, "desc").text = place['description']
         tree = ET.ElementTree(gpx)
         tree.write(self.output_file)
-        print("Exported Google Saved Places to " + path.abspath(self.output_file))
 
     def convert(self):
         with open(self.input_file, 'r') as file:
@@ -179,6 +176,7 @@ class GoogleMapsConverter:
             self.write_kml()
         elif self.output_format == 'gpx':
             self.write_gpx()
+        print("Exported Google Saved Places to " + path.abspath(self.output_file))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Convert Google Maps saved places to KML or GPX.")
