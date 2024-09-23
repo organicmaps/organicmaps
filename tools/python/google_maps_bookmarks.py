@@ -14,7 +14,7 @@ from io import StringIO
 from datetime import datetime
 
 class GoogleMapsConverter:
-    def __init__(self, input_file, output_format):
+    def __init__(self, input_file=None, output_format=None, bookmark_list_name=None, api_key=None):
         print("Follow these steps to export your saved places from Google Maps and convert them to a GPX or KML File")
         print()
         print("1. Create an API key for Google Places API following this guide")
@@ -26,24 +26,74 @@ class GoogleMapsConverter:
         print ("5b. Look for GeoJSON files (e.g. for Saved Places) in the folder Takeout/Maps")
         print()
         
-        self.input_file = input_file
-        if not path.isfile(self.input_file):
-            raise FileNotFoundError(f"Couldn't find {self.input_file}")
-        if not access(self.input_file, R_OK):
-            raise PermissionError(f"Couldn't read {self.input_file}")
+        if input_file is None:
+            self.get_input_file()
+        else:
+            self.input_file = input_file
+            if not path.isfile(self.input_file):
+                raise FileNotFoundError(f"Couldn't find {self.input_file}")
+            if not access(self.input_file, R_OK):
+                raise PermissionError(f"Couldn't read {self.input_file}")
 
+        if output_format is None:
+            self.get_output_format()
+        else:
+            self.output_format = output_format
+
+        if bookmark_list_name is None:
+            self.get_bookmark_list_name()
+        else:
+            self.bookmark_list_name = bookmark_list_name
+            self.output_file = self.bookmark_list_name + "." + self.output_format
+
+        if api_key is None:
+            self.get_api_key()
+        else:
+            self.api_key = api_key
+        
+        self.places = []
+
+    def get_input_file(self):
         while True:
-            bookmark_list_name = input("Bookmark list name: ")
-            if not bookmark_list_name:
+            self.input_file = input("Path to the file: ")
+            if not path.isfile(self.input_file):
+                print(f"Couldn't find {self.input_file}")
+                continue
+            if not access(self.input_file, R_OK):
+                print(f"Couldn't read {self.input_file}")
+                continue
+            break
+    
+    def get_output_format(self):
+        while True:
+            self.output_format = input("Output format (kml or gpx): ").lower()
+            if self.output_format not in ['kml', 'gpx']:
+                print("Please provide a valid output format" + linesep)
+                continue
+            else:
+                break
+    
+    def get_bookmark_list_name(self):
+        while True:
+            self.bookmark_list_name = input("Bookmark list name: ")
+            if not self.bookmark_list_name:
                 print("Please provide a name" + linesep)
                 continue
             else:
-                self.output_file = bookmark_list_name + "." + output_format
+                self.output_file = self.bookmark_list_name + "." + self.output_format
                 break
             
-        self.places = []
-        self.output_format = output_format
-
+    def get_api_key(self):
+        while True:
+            if self.api_key:
+                break
+            self.api_key = input("API key: ")
+            if not self.api_key:
+                print("Please provide an API key" + linesep)
+                continue
+            else:
+                break
+            
     def convert_timestamp(self, timestamp):
         if timestamp.endswith('Z'):
             timestamp = timestamp[:-1]
@@ -174,9 +224,16 @@ class GoogleMapsConverter:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Convert Google Maps saved places to KML or GPX.")
-    parser.add_argument('--input', required=True, help="Path to the file")
+    parser.add_argument('--input', help="Path to the file")
     parser.add_argument('--format', choices=['kml', 'gpx'], default='gpx', help="Output format: 'kml' or 'gpx'")
+    parser.add_argument('--bookmark_list_name', help="Name of the bookmark list")
+    parser.add_argument('--api_key', help="API key for Google Places API")
     args = parser.parse_args()
 
-    converter = GoogleMapsConverter(input_file=args.input, output_format=args.format)
+    converter = GoogleMapsConverter(
+        input_file=args.input, 
+        output_format=args.format, 
+        bookmark_list_name=args.bookmark_list_name, 
+        api_key=args.api_key
+    )
     converter.convert()
