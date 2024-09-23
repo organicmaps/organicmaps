@@ -126,8 +126,26 @@ class GoogleMapsConverter:
         for feature in geojson['features']:
             geometry = feature['geometry']
             coordinates = geometry['coordinates']
-
             properties = feature['properties']
+            google_maps_url = properties.get('google_maps_url', '')
+
+            # Check for "null island" coordinates [0, 0]
+            if coordinates[0] == 0 and coordinates[1] == 0:
+                # Parse the Google Maps URL to get the coordinates
+                parsed_url = urllib.parse.urlparse(google_maps_url)
+                query_params = urllib.parse.parse_qs(parsed_url.query)
+                # q parameter contains the coordinates
+                q = query_params.get('q', [None])[0]
+                # cid parameter contains the place ID
+                cid = query_params.get('cid', [None])[0]
+                if q:
+                    coordinates = q.split(',')
+                elif cid:
+                    # TODO: handle google maps URL with cid parameter
+                    continue                    
+                else:
+                    continue
+
             location = properties.get('location', {})
             name = location.get('name') or location.get('address') or ', '.join(map(str, coordinates))
             description = ""
@@ -137,8 +155,8 @@ class GoogleMapsConverter:
                 description += f"<b>Date bookmarked:</b> {self.convert_timestamp(properties['date'])}<br>"
             if 'Comment' in properties:
                 description += f"<b>Comment:</b> {properties['Comment']}<br>"
-            if 'google_maps_url' in properties:
-                description += f"<b>Google Maps URL:</b> <a href=\"{properties['google_maps_url']}\">{properties['google_maps_url']}</a><br>"
+            if google_maps_url:
+                description += f"<b>Google Maps URL:</b> <a href=\"{google_maps_url}\">{google_maps_url}</a><br>"
 
             self.places.append({'name': name, 'description': description, 'coordinates': ','.join(map(str, coordinates))})
 
