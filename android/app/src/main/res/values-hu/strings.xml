@@ -828,6 +828,7 @@
     <string name="track_recording_toast_nothing_to_save">Az útvonal üres - nincs mit menteni</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Nem lehet megjeleníteni a mappaválasztó párbeszédpanelt, mert nincs megfelelő alkalmazás telepítve a készülékén. Kérjük, telepítsen egy fájlkezelő alkalmazást, és próbálja meg újra</string>
+    <string name="uri_open_location_failed">Nincs telepített alkalmazás, amely meg tudja nyitni a helyet</string>
 
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Cím/blokk</string>

@@ -841,6 +841,7 @@
     <string name="track_recording_toast_nothing_to_save">Traseul este gol - nu este nimic de salvat</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Nu se poate afișa dialogul de selectare a dosarelor deoarece pe dispozitivul dvs. nu este instalată nicio aplicație adecvată. Vă rugăm să instalați o aplicație de gestionare a fișierelor și să încercați din nou</string>
+    <string name="uri_open_location_failed">Nu există nicio aplicație instalată care să poată deschide locația</string>
 
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Adresă/Bloc</string>

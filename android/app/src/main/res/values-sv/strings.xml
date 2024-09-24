@@ -811,6 +811,7 @@
     <string name="track_recording_toast_nothing_to_save">Routen är tom - inget att spara</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Det går inte att visa dialogrutan för val av mapp eftersom ingen lämplig app är installerad på din enhet. Installera en filhanteringsapp och försök igen</string>
+    <string name="uri_open_location_failed">Ingen app installerad som kan öppna platsen</string>
 
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Adress/Block</string>

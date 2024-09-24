@@ -810,6 +810,7 @@
     <string name="track_recording_toast_nothing_to_save">Tuyến đường trống - không có gì để lưu</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Không thể hiển thị hộp thoại chọn thư mục vì không có ứng dụng phù hợp nào được cài đặt trên thiết bị của bạn. Vui lòng cài đặt ứng dụng quản lý tệp và thử lại</string>
+    <string name="uri_open_location_failed">Không có ứng dụng nào được cài đặt có thể mở vị trí</string>
 
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Địa chỉ/Khối</string>
