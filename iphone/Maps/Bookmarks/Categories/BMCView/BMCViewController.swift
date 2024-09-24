@@ -161,7 +161,7 @@ final class BMCViewController: MWMViewController {
 
   private func openRecentlyDeleted() {
     let recentlyDeletedController = RecentlyDeletedCategoriesViewController(viewModel: RecentlyDeletedCategoriesViewModel(bookmarksManager: BookmarksManager.shared()))
-    MapViewController.topViewController().navigationController?.pushViewController(recentlyDeletedController, animated: true)
+    MapViewController.shared()?.navigationController?.pushViewController(recentlyDeletedController, animated: true)
   }
 }
 
