@@ -852,6 +852,7 @@
     <string name="track_recording_toast_nothing_to_save">Ruten er tom - ingenting å lagre</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Kan ikke vise dialogboksen for mappevalg fordi ingen passende app er installert på enheten din. Installer en filbehandler-app og prøv på nytt</string>
+    <string name="uri_open_location_failed">Ingen app installert som kan åpne stedet</string>
 
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Adresse/blokk</string>

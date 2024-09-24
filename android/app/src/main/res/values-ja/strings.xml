@@ -863,6 +863,7 @@
     <string name="track_recording_toast_nothing_to_save">ルートが空です - 保存するものがありません</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">デバイスに適切なアプリがインストールされていないため、フォルダ選択ダイアログを表示できません。ファイルマネージャーアプリをインストールして再度お試しください。</string>
+    <string name="uri_open_location_failed">場所を開くことができるアプリがインストールされていません</string>
 
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">アドレス/ブロック</string>

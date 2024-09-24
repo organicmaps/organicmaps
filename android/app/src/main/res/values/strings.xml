@@ -904,6 +904,7 @@
     <string name="error_no_file_manager_app">Unable to display folder selection dialog because no suitable app is installed on your device. Please install a file manager app and try again.</string>
     <string name="choose_color">Choose Color</string>
     <string name="edit_track">Edit Track</string>
+    <string name="uri_open_location_failed">No App installed that can open the location</string>
 
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Address/Block</string>

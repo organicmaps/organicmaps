@@ -784,6 +784,7 @@
     <string name="track_recording_toast_nothing_to_save">A rota está vazia - não há nada para salvar</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Não é possível exibir a caixa de diálogo de seleção de pastas porque nenhum aplicativo adequado está instalado no seu dispositivo. Instale um aplicativo gerenciador de arquivos e tente novamente</string>
+    <string name="uri_open_location_failed">Nenhum aplicativo instalado que possa abrir o local</string>
 
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Endereço/Bloco</string>

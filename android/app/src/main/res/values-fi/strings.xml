@@ -858,6 +858,7 @@
     <string name="track_recording_toast_nothing_to_save">Reitti on tyhjä - ei mitään tallennettavaa</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Kansiovalintaikkunaa ei voida näyttää, koska laitteeseen ei ole asennettu sopivaa sovellusta. Asenna tiedostonhallintasovellus ja yritä uudelleen</string>
+    <string name="uri_open_location_failed">Ei asennettua sovellusta, joka voi avata sijainnin</string>
 
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Osoite/lohko</string>

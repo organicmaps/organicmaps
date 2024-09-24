@@ -875,6 +875,7 @@
     <string name="track_recording_toast_nothing_to_save">المسار فارغ - لا يوجد شيء للحفظ</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">غير قادر على عرض مربع حوار تحديد المجلد لأنه لا يوجد تطبيق مناسب مثبت على جهازك. يرجى تثبيت تطبيق مدير الملفات والمحاولة مرة أخرى.</string>
+    <string name="uri_open_location_failed">لم يتم تثبيت أي تطبيق يمكنه فتح الموقع</string>
 
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">العنوان / البلوك</string>
