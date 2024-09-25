@@ -99,15 +99,6 @@ class GoogleMapsConverter:
             timestamp = timestamp[:-1]
         date = datetime.fromisoformat(timestamp)
         return date.strftime('%Y-%m-%d %H:%M:%S')
-
-    def get_api_key(self):
-        while True:
-            self.api_key = input("API key: ")
-            if not self.api_key:
-                print("Please provide an API key" + linesep)
-                continue
-            else:
-                break
         
     def get_json(self, url):
         max_attempts = 3
@@ -129,7 +120,8 @@ class GoogleMapsConverter:
             if ',' in q and all(part.replace('.', '', 1).replace('-', '', 1).isdigit() for part in q.split(',')):
                 return q.split(',')
             else:
-                url = f"https://maps.googleapis.com/maps/api/place/textsearch/json?query={urllib.parse.quote(q)}&key={api_key}"
+                params = {'query': q, 'key': api_key}
+                url = f"https://maps.googleapis.com/maps/api/place/textsearch/json?{urllib.parse.urlencode(params)}"
                 return None
         elif cid:
             print(f"This script does not yet support extracting coordinates from a CID. Skipping {cid}" )
@@ -137,21 +129,23 @@ class GoogleMapsConverter:
             return None
 
         if url:
-            with urllib.request.urlopen(url) as response:
-                if response.status == 200:
-                    result = json.loads(response.read().decode())
-                    if result['status'] == 'OK':
-                        if 'results' in result and result['results']:
-                            location = result['results'][0]['geometry']['location']
-                            return [str(location['lat']), str(location['lng'])]
-                        elif 'result' in result:
-                            location = result['result']['geometry']['location']
-                            return [str(location['lat']), str(location['lng'])]
-                    else:
-                        print(f'{result.get("status", "")}: {result.get("error_message", "")}')
-            return None
+            result = self.get_json(url)
+            if result['status'] == 'OK':
+                if 'results' in result and result['results']:
+                    location = result['results'][0]['geometry']['location']
+                    return [str(location['lat']), str(location['lng'])]
+                elif 'result' in result:
+                    location = result['result']['geometry']['location']
+                    return [str(location['lat']), str(location['lng'])]
+            else:
+                print(f'{result.get("status", "")}: {result.get("error_message", "")}')
+        return None
                 
-    def process_geojson_features(self, geojson):
+    def process_geojson_features(self, content):
+        try:
+            geojson = json.loads(content)
+        except json.JSONDecodeError:
+            raise ValueError(f"The file {self.input_file} is not a valid JSON file.")
         for feature in geojson['features']:
             geometry = feature['geometry']
             coordinates = geometry['coordinates']
@@ -262,13 +256,8 @@ class GoogleMapsConverter:
             
             mime_type, _ = mimetypes.guess_type(self.input_file)
             if mime_type == 'application/geo+json' or mime_type == 'application/json':
-                try:
-                    geojson = json.loads(content)
-                except json.JSONDecodeError:
-                    raise ValueError(f"The file {self.input_file} is not a valid JSON file.")
-                self.process_geojson_features(geojson)
+                self.process_geojson_features(content)
             elif mime_type == 'text/csv':
-                self.get_api_key()
                 self.process_csv_features(content)
             else:
                 raise ValueError(f"Unsupported file format: {self.input_file}")
