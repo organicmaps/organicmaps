@@ -2,9 +2,19 @@ import SwiftUI
 
 class SearchViewController: UIViewController {
   private var searchVM: SearchViewModel
+  private var goToMap: () -> Void
+  private let onCreateRoute: (PlaceLocation) -> Void
   
-  init(searchVM: SearchViewModel) {
+  init(
+    searchVM: SearchViewModel,
+    goToMap: @escaping () -> Void,
+    onCreateRoute: @escaping (PlaceLocation) -> Void
+  ) {
     self.searchVM = searchVM
+    self.goToMap = goToMap
+    self.onCreateRoute = onCreateRoute
+    
+    
     super.init(
       nibName: nil,
       bundle: nil
@@ -21,7 +31,11 @@ class SearchViewController: UIViewController {
     integrateSwiftUIScreen(SearchScreen(
       searchVM: searchVM,
       goToPlaceScreen: { id in
-        self.goToPlaceScreen(id: id)
+        self.goToPlaceScreen(
+          id: id,
+          onMapClick: self.goToMap,
+          onCreateRoute: self.onCreateRoute
+        )
       }
     ))
   }

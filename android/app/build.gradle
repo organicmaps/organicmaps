@@ -111,7 +111,7 @@ android {
   defaultConfig {
     // Default package name is taken from the manifest and should be app.organicmaps
     def ver = getVersion()
-    versionCode = 2
+    versionCode = 3
     versionName = "1.0.0"
 //    println('Version: ' + versionName)
 //    println('VersionCode: ' + versionCode)

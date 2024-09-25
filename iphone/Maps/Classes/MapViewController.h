@@ -34,10 +34,12 @@
 - (void)setPlacePageTopBound:(CGFloat)bound duration:(double)duration;
 
 + (void)setViewport:(double)lat lon:(double)lon zoomLevel:(int)zoomlevel;
++ (void)setViewportToDushanbe;
 
 - (void)initialize;
 - (void)enableCarPlayRepresentation;
 - (void)disableCarPlayRepresentation;
+- (void)backToTourismMain;
 
 - (void)dismissPlacePage;
 

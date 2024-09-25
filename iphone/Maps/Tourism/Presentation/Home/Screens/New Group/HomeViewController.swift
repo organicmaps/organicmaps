@@ -6,12 +6,24 @@ class HomeViewController: UIViewController {
   private var categoriesVM: CategoriesViewModel
   private var searchVM: SearchViewModel
   private var goToCategoriesTab: () -> Void
+  private var goToMap: () -> Void
+  private let onCreateRoute: (PlaceLocation) -> Void
   
-  init(homeVM: HomeViewModel, categoriesVM: CategoriesViewModel, searchVM: SearchViewModel, goToCategoriesTab: @escaping () -> Void) {
+  init(
+    homeVM: HomeViewModel,
+    categoriesVM: CategoriesViewModel,
+    searchVM: SearchViewModel,
+    goToCategoriesTab: @escaping () -> Void,
+    goToMap: @escaping () -> Void,
+    onCreateRoute: @escaping (PlaceLocation) -> Void
+  ) {
     self.homeVM = homeVM
     self.categoriesVM = categoriesVM
     self.searchVM = searchVM
     self.goToCategoriesTab = goToCategoriesTab
+    self.goToMap = goToMap
+    self.onCreateRoute = onCreateRoute
+    
     super.init(
       nibName: nil,
       bundle: nil
@@ -33,12 +45,21 @@ class HomeViewController: UIViewController {
         goToCategoriesTab: goToCategoriesTab,
         goToSearchScreen: { query in
           self.searchVM.query = query
-          let destinationVC = SearchViewController(searchVM: self.searchVM)
+          let destinationVC = SearchViewController(
+            searchVM: self.searchVM,
+            goToMap: self.goToMap,
+            onCreateRoute: self.onCreateRoute
+          )
           self.navigationController?.pushViewController(destinationVC, animated: false)
         },
         goToPlaceScreen: { id in
-          self.goToPlaceScreen(id: id)
-        }
+          self.goToPlaceScreen(
+            id: id,
+            onMapClick: self.goToMap,
+            onCreateRoute: self.onCreateRoute
+          )
+        },
+        goToMap: goToMap
       )
     )
   }
@@ -50,6 +71,7 @@ struct HomeScreen: View {
   var goToCategoriesTab: () -> Void
   var goToSearchScreen: (String) -> Void
   var goToPlaceScreen: (Int64) -> Void
+  var goToMap: () -> Void
   
   @State var top30: SingleChoiceItem<Int>? = SingleChoiceItem(id: 1, label: L("top30"))
   
@@ -59,12 +81,25 @@ struct HomeScreen: View {
         ProgressView()
         Text(L("plz_wait_dowloading"))
       }
+    } else if (homeVM.downloadProgress == .error) {
+      VStack(spacing: 16) {
+        Text(L("download_failed"))
+        Text(homeVM.errorMessage)
+      }
     } else if (homeVM.downloadProgress == .success) {
       ScrollView {
         VStack (alignment: .leading) {
           VerticalSpace(height: 16)
           VStack {
-            AppTopBar(title: L("tjk"))
+            AppTopBar(
+              title: L("tjk"),
+              actions: [
+                TopBarActionData(
+                  iconName: "map",
+                  onClick: goToMap
+                )
+              ]
+            )
             
             AppSearchBar(
               query: $homeVM.query,
@@ -131,11 +166,6 @@ struct HomeScreen: View {
           }
         }
         VerticalSpace(height: 32)
-      }
-    } else if (homeVM.downloadProgress == .error) {
-      VStack(spacing: 16) {
-        Text(L("download_failed"))
-        Text(homeVM.errorMessage)
       }
     }
   }

@@ -14,6 +14,9 @@
 #import "MWMPlacePageProtocol.h"
 #import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
+#import "MWMRoutePoint+CPP.h"
+
+#import "BackButtonWithText.h"
 
 #import <CoreApi/Framework.h>
 #import <CoreApi/MWMFrameworkHelper.h>
@@ -367,6 +370,10 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   // Otherwise PP container view is nil, or there is no animation/selection of the point.
   if (DeepLinkHandler.shared.isLaunchedByDeeplink)
     (void)[DeepLinkHandler.shared handleDeepLinkAndReset];
+  
+  [self showButtonToTourismMain];
+  
+  [self createRoute];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -536,7 +543,20 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 #pragma mark - MWMFrameworkDrapeObserver
 
 - (void)processViewportCountryEvent:(CountryId const &)countryId {
-  [self.downloadDialog processViewportCountryEvent:countryId];
+  if (countryId == "Tajikistan") {
+    [self.downloadDialog processViewportCountryEvent:countryId];
+  } else {
+    auto &f = GetFramework();
+    
+    ms::LatLon viewportCenterLocation = mercator::ToLatLon(f.GetViewportCenter());
+    BOOL isInBounds = isLocationInBounds(viewportCenterLocation,
+                                         ms::LatLon(41.196740, 66.949922),
+                                         ms::LatLon(36.483415, 75.400353));
+    if (!isInBounds) {
+      [MapViewController setViewportToDushanbe];
+      [[MWMToast toastWithText:L(@"plz_dont_go_out_of_tjk")] show];
+    }
+  }
 }
 
 #pragma mark - Authorization
@@ -740,4 +760,69 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   }
 }
 
+#pragma mark - Functions for Tourism purposes
+- (void) createRoute {
+  TourismUserPreferences *prefs = [TourismUserPreferences shared];
+  if (!prefs.isLocationEmpty) {
+    PlaceLocation *location = [prefs getLocation];
+    
+    m2::PointD pointD = mercator::FromLatLon(ms::LatLon(location.lat, location.lon));
+    auto point = [[MWMRoutePoint alloc] initWithPoint:pointD
+                                                title:location.name
+                                             subtitle:@""
+                                                 type:MWMRoutePointType::MWMRoutePointTypeFinish
+                                    intermediateIndex:0];
+    
+    [MWMRouter buildToPoint:point bestRouter:NO];
+    
+    // we clear location so next time, when we get back to map it doesn't create route again
+    [prefs clearLocation];
+  }
+}
+
+BOOL isLocationInBounds(ms::LatLon location, ms::LatLon topLeft, ms::LatLon bottomRight) {
+  return (location.m_lat <= topLeft.m_lat &&
+          location.m_lat >= bottomRight.m_lat &&
+          location.m_lon >= topLeft.m_lon &&
+          location.m_lon <= bottomRight.m_lon);
+}
+
++ (void)setViewportToDushanbe {
+  [self setViewport: 38.5598 lon: 68.7870 zoomLevel: 10];
+}
+
+- (void)showButtonToTourismMain {
+  UIButton *homeButton = [UIButton buttonWithType:UIButtonTypeSystem];
+  
+  [homeButton setTitle:NSLocalizedString(@"home", nil) forState:UIControlStateNormal];
+  [homeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+  homeButton.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
+  homeButton.layer.cornerRadius = 10.0;
+  homeButton.clipsToBounds = YES;
+  
+  homeButton.translatesAutoresizingMaskIntoConstraints = NO;
+  
+  [homeButton addTarget:self action:@selector(backToTourismMain) forControlEvents:UIControlEventTouchUpInside];
+  
+  [self.controlsView addSubview:homeButton];
+  
+  UIImage *homeIcon = [UIImage systemImageNamed:@"house.fill"];
+  homeButton.tintColor = [UIColor blackColor];
+  [homeButton setImage:homeIcon forState:UIControlStateNormal];
+  
+  homeButton.semanticContentAttribute = UISemanticContentAttributeForceLeftToRight;
+  homeButton.imageEdgeInsets = UIEdgeInsetsMake(0, -4, 0, 0);
+  homeButton.contentEdgeInsets = UIEdgeInsetsMake(12, 8, 12, 8);
+  
+  [NSLayoutConstraint activateConstraints:@[
+    [homeButton.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-16],
+    [homeButton.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:120],
+    [homeButton.heightAnchor constraintEqualToConstant:50]
+  ]];
+  
+}
+
+- (void)backToTourismMain {
+  [[MapViewController sharedController]performSegueWithIdentifier:@"Map2TourismMain" sender:nil];
+}
 @end

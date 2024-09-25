@@ -89,17 +89,6 @@ class ActionBarViewController: UIViewController {
   }
 
   private func configButton1() {
-    if let mapNodeAttributes = placePageData.mapNodeAttributes {
-      switch mapNodeAttributes.nodeStatus {
-      case .onDiskOutOfDate, .onDisk, .undefined:
-        break
-      case .downloading, .applying, .inQueue, .error, .notDownloaded, .partly:
-        visibleButtons.append(.download)
-        return
-      @unknown default:
-        fatalError()
-      }
-    }
     var buttons: [ActionBarButtonType] = []
     if isRoutePlanning {
       buttons.append(.routeFrom)

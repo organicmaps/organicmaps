@@ -209,9 +209,14 @@ using namespace osm_auth_ios;
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
   LOG(LINFO, ("applicationDidBecomeActive - begin"));
-  [[MapViewController sharedController]performSegueWithIdentifier:@"Map2TourismMain" sender:nil];
-
   auto & f = GetFramework();
+  
+  // MARK: Our default app entry point is TourismMain that's why we go there
+  [self goToTourismMainIfTajikistanIsLoaded];
+  
+  [self moveToDushanbeIfNotInTjk];
+  
+  
   f.EnterForeground();
   [self.mapViewController onGetFocus:YES];
   f.SetRenderingEnabled();
@@ -227,6 +232,32 @@ using namespace osm_auth_ios;
   [MWMKeyboard applicationDidBecomeActive];
   [MWMTextToSpeech applicationDidBecomeActive];
   LOG(LINFO, ("applicationDidBecomeActive - end"));
+}
+
+
+// MARK: Functions for Tourism purposes
+
+- (void) goToTourismMainIfTajikistanIsLoaded {
+  auto & f = GetFramework();
+  if(f.IsCountryLoadedByName("Tajikistan")) {
+    [[MapViewController sharedController]performSegueWithIdentifier:@"Map2TourismMain" sender:nil];
+  }
+}
+
+- (void) moveToDushanbeIfNotInTjk {
+  auto & f = GetFramework();
+  ms::LatLon viewportCenterLocation = mercator::ToLatLon(f.GetViewportCenter());
+  BOOL isInBounds = isLocationInBounds1(viewportCenterLocation,
+                                       ms::LatLon(41.196740, 66.949922),
+                                       ms::LatLon(36.483415, 75.400353));
+  if (!isInBounds) [MapViewController setViewportToDushanbe];
+}
+
+BOOL isLocationInBounds1(ms::LatLon location, ms::LatLon topLeft, ms::LatLon bottomRight) {
+  return (location.m_lat <= topLeft.m_lat &&
+          location.m_lat >= bottomRight.m_lat &&
+          location.m_lon >= topLeft.m_lon &&
+          location.m_lon <= bottomRight.m_lon);
 }
 
 // TODO: Drape enabling and iCloud sync are skipped during the test run due to the app crashing in teardown. This is a temporary solution. Drape should be properly disabled instead of merely skipping the enabling process.

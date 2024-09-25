@@ -80,7 +80,7 @@ using namespace storage;
       self.parentNode.text = @(nodeAttrs.m_topmostParentInfo[0].m_localName.c_str());
       self.parentNode.textColor = [UIColor blackSecondaryText];
     }
-    self.node.text = @(nodeAttrs.m_nodeLocalName.c_str());
+    self.node.text = L(@"wait_tjk_map_downloading");
     self.node.textColor = [UIColor blackPrimaryText];
     self.nodeSize.hidden = NO;
     self.nodeSize.textColor = [UIColor blackSecondaryText];
@@ -144,6 +144,10 @@ using namespace storage;
   // Center dialog in the parent view.
   [self.centerXAnchor constraintEqualToAnchor:controller.view.centerXAnchor].active = YES;
   [self.centerYAnchor constraintEqualToAnchor:controller.view.centerYAnchor].active = YES;
+  [self.topAnchor constraintEqualToAnchor:controller.view.topAnchor].active = YES;
+  [self.bottomAnchor constraintEqualToAnchor:controller.view.bottomAnchor].active = YES;
+  [self.leftAnchor constraintEqualToAnchor:controller.view.leftAnchor].active = YES;
+  [self.rightAnchor constraintEqualToAnchor:controller.view.rightAnchor].active = YES;
 }
 
 
@@ -233,8 +237,13 @@ using namespace storage;
 - (void)processCountry:(NSString *)countryId
        downloadedBytes:(uint64_t)downloadedBytes
             totalBytes:(uint64_t)totalBytes {
-  if (self.superview && m_countryId == countryId.UTF8String)
+  if (self.superview && m_countryId == countryId.UTF8String) {
     [self showDownloading:(CGFloat)downloadedBytes / totalBytes];
+  }
+  
+  if(downloadedBytes == totalBytes) {
+    [[MapViewController sharedController]performSegueWithIdentifier:@"Map2TourismMain" sender:nil];
+  }
 }
 
 #pragma mark - MWMCircularProgressDelegate
@@ -244,9 +253,10 @@ using namespace storage;
     [self showInQueue];
     [[MWMStorage sharedStorage] retryDownloadNode:@(m_countryId.c_str())];
   } else {
-    if (m_autoDownloadCountryId == m_countryId)
-      self.isAutoDownloadCancelled = YES;
-    [[MWMStorage sharedStorage] cancelDownloadNode:@(m_countryId.c_str())];
+    // we're forcing the user to download Tajikistan map, so we remove cancel button
+//    if (m_autoDownloadCountryId == m_countryId)
+//      self.isAutoDownloadCancelled = YES;
+//    [[MWMStorage sharedStorage] cancelDownloadNode:@(m_countryId.c_str())];
   }
 }
 

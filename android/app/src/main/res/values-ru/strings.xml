@@ -2161,7 +2161,7 @@
   <string name="type.shop.collector">Коллекции</string>
   <string name="organization_name"> Комитет по развитию туризма при Правительстве Республики Таджикистан </string>
   <string name="smth_went_wrong">Упс, что-то пошло не так</string>
-  <string name="wait_tjk_map_downloading">Пожалуйста, подождите, идет загрузка карты Таджикистана. Оставайтесь в приложении</string>
+  <string name="wait_tjk_map_downloading">Пожалуйста, подождите, идет загрузка карты Таджикистана.</string>
   <string name="welcome_to_tjk">Добро пожаловать в Таджикистан</string>
   <string name="sign_in">Войти</string>
   <string name="sign_up">Регистрация</string>

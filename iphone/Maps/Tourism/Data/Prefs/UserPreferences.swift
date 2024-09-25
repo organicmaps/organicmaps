@@ -1,9 +1,10 @@
 import Foundation
 
-class UserPreferences {
-  static let shared = UserPreferences()
+@objc(TourismUserPreferences)
+class UserPreferences: NSObject {
+  @objc static let shared = UserPreferences()
   
-  private init() {}
+  private override init() {}
   
   private let userDefaults = UserDefaults.standard
   
@@ -59,5 +60,32 @@ class UserPreferences {
   
   func setUserId(value: String?) {
     userDefaults.set(value, forKey: "user_id")
+  }
+  
+  @objc func getLocation() -> PlaceLocation? {
+    let name = userDefaults.string(forKey: "name")
+    let lat = userDefaults.double(forKey: "lat")
+    let lon = userDefaults.double(forKey: "lon")
+    return PlaceLocation(name: name ?? "", lat: lat, lon: lon)
+  }
+  
+  @objc func setLocation(value: PlaceLocation) {
+    userDefaults.set(value.name, forKey: "name")
+    userDefaults.set(value.lat, forKey: "lat")
+    userDefaults.set(value.lon, forKey: "lon")
+  }
+  
+  @objc func clearLocation() {
+    userDefaults.removeObject(forKey: "name")
+    userDefaults.removeObject(forKey: "lat")
+    userDefaults.removeObject(forKey: "lon")
+  }
+  
+  @objc func isLocationEmpty() -> Bool {
+    let location = getLocation()
+    if let location {
+      return location.lat == 0.0 && location.lon == 0.0
+    }
+    return true
   }
 }

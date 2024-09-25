@@ -15,6 +15,19 @@ class TabBarController: UITabBarController {
     
     hidesBottomBarWhenPushed = true
     
+    // navigation functions
+    let goToCategoriesTab = { self.selectedIndex = 1 }
+    let goToMap = {
+      self.dismiss(animated: true)
+    }
+    let goToAuth = {
+      self.performSegue(withIdentifier: "TourismMain2Auth", sender: nil)
+    }
+    let goToMapAndCreateRoute: (PlaceLocation) -> Void = { location in
+      UserPreferences.shared.setLocation(value: location)
+      self.dismiss(animated: true)
+    }
+    
     // creating tabs
     let homeTab = UITabBarItem(title: L("home"), image: UIImage(systemName: "house"), selectedImage: UIImage(systemName: "house.fill"))
     let categoriesTab = UITabBarItem(title: L("categories"), image: UIImage(systemName: "list.bullet.rectangle"), selectedImage: UIImage(systemName: "list.bullet.rectangle.fill"))
@@ -65,25 +78,28 @@ class TabBarController: UITabBarController {
       authRepository: authRepository,
       userPreferences: UserPreferences.shared
     )
-    profileVM.onSignOutCompleted = {
-      self.performSegue(withIdentifier: "TourismMain2Auth", sender: nil)
-    }
-    
-    // navigation functions
-    let goToCategoriesTab = { self.selectedIndex = 1 }
+    profileVM.onSignOutCompleted = goToAuth
     
     // creating ViewControllers
     let homeVC = HomeViewController(
       homeVM: homeVM,
       categoriesVM: categoriesVM,
       searchVM: searchVM,
-      goToCategoriesTab: goToCategoriesTab
+      goToCategoriesTab: goToCategoriesTab,
+      goToMap: goToMap,
+      onCreateRoute: goToMapAndCreateRoute
     )
     let categoriesVC = CategoriesViewController(
       categoriesVM: categoriesVM,
-      searchVM: searchVM
+      searchVM: searchVM,
+      goToMap: goToMap,
+      onCreateRoute: goToMapAndCreateRoute
     )
-    let favoritesVC = FavoritesViewController(favoritesVM: favoritesVM)
+    let favoritesVC = FavoritesViewController(
+      favoritesVM: favoritesVM,
+      goToMap: goToMap,
+      onCreateRoute: goToMapAndCreateRoute
+    )
     let profileVC = ProfileViewController(profileVM: profileVM)
     
     // setting up navigation

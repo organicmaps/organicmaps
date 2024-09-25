@@ -17,7 +17,7 @@ import app.organicmaps.R
 import app.tourism.ui.theme.getBorderColor
 
 const val TAG = "GLOBAL_TAG"
-const val BASE_URL = "https://product.rebus.tj"
+const val BASE_URL = "https://tourismmap.tj"
 
 object Constants {
     // UI

@@ -583,6 +583,7 @@
 		CDCA27842245090900167D87 /* ListenerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCA27832245090900167D87 /* ListenerContainer.swift */; };
 		CDCA278622451F5000167D87 /* RouteInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCA278522451F5000167D87 /* RouteInfo.swift */; };
 		CDCA278E2248F34C00167D87 /* MWMRoutingManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = CDCA278B2248F34C00167D87 /* MWMRoutingManager.mm */; };
+		CE2D27F82CA2C49F00094565 /* BackButtonWithText.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2D27F72CA2C49F00094565 /* BackButtonWithText.m */; };
 		CE64501B2C93F5840075A59B /* PlacePersistenceControllerTesterBro.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE64501A2C93F5840075A59B /* PlacePersistenceControllerTesterBro.swift */; };
 		CE64501D2C93F8350075A59B /* ReviewsPersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE64501C2C93F8350075A59B /* ReviewsPersistenceController.swift */; };
 		CE6450202C9402EC0075A59B /* ReviewsPersistenceControllerTesterBro.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE64501F2C9402EC0075A59B /* ReviewsPersistenceControllerTesterBro.swift */; };
@@ -1635,6 +1636,8 @@
 		CDCA278C2248F34C00167D87 /* MWMRouterResultCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRouterResultCode.h; sourceTree = "<group>"; };
 		CDCA278F2248F3B800167D87 /* MWMLocationModeListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMLocationModeListener.h; sourceTree = "<group>"; };
 		CDE0F3AD225B8D45008BA5C3 /* MWMSpeedCameraManagerMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSpeedCameraManagerMode.h; sourceTree = "<group>"; };
+		CE2D27F72CA2C49F00094565 /* BackButtonWithText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BackButtonWithText.m; sourceTree = "<group>"; };
+		CE2D27FB2CA2C64700094565 /* BackButtonWithText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackButtonWithText.h; sourceTree = "<group>"; };
 		CE64501A2C93F5840075A59B /* PlacePersistenceControllerTesterBro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePersistenceControllerTesterBro.swift; sourceTree = "<group>"; };
 		CE64501C2C93F8350075A59B /* ReviewsPersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsPersistenceController.swift; sourceTree = "<group>"; };
 		CE64501F2C9402EC0075A59B /* ReviewsPersistenceControllerTesterBro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsPersistenceControllerTesterBro.swift; sourceTree = "<group>"; };
@@ -2093,6 +2096,7 @@
 				F607C18B1C047FCA00B53A87 /* Segue */,
 				340837101B7243B500B5C185 /* Share */,
 				F6588E291B15C25C00EE1E58 /* TextView */,
+				CE2D27FA2CA2C61500094565 /* BackButtonWithText */,
 				FA8E808825F412E2002A1434 /* FirstSession.mm */,
 				FA8E808A25F41337002A1434 /* FirstSession.h */,
 			);
@@ -3865,6 +3869,15 @@
 			path = Location;
 			sourceTree = "<group>";
 		};
+		CE2D27FA2CA2C61500094565 /* BackButtonWithText */ = {
+			isa = PBXGroup;
+			children = (
+				CE2D27F72CA2C49F00094565 /* BackButtonWithText.m */,
+				CE2D27FB2CA2C64700094565 /* BackButtonWithText.h */,
+			);
+			path = BackButtonWithText;
+			sourceTree = "<group>";
+		};
 		CE6450192C93F56E0075A59B /* Testers */ = {
 			isa = PBXGroup;
 			children = (
@@ -5253,6 +5266,7 @@
 				99514BB823E82B450085D3A7 /* ElevationProfilePresenter.swift in Sources */,
 				34C9BD031C6DB693000DC38D /* MWMTableViewController.m in Sources */,
 				52E95F0D2C6C797B00A3FE2E /* ProfileViewController.swift in Sources */,
+				CE2D27F82CA2C49F00094565 /* BackButtonWithText.m in Sources */,
 				F6E2FD8C1E097BA00083EBEC /* MWMNoMapsView.m in Sources */,
 				529A5F312C86DF61004FE4A1 /* Review Models.swift in Sources */,
 				34D3B0361E389D05004100F9 /* MWMEditorSelectTableViewCell.m in Sources */,

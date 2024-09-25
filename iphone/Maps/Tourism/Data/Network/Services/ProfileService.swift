@@ -91,7 +91,7 @@ class ProfileServiceImpl: ProfileService {
     
     body += Data("--\(boundary)--\r\n".utf8)
     
-    var request = URLRequest(url: URL(string: "https://product.rebus.tj/api/profile")!, timeoutInterval: Double.infinity)
+    var request = URLRequest(url: URL(string: APIEndpoints.updateProfileUrl)!, timeoutInterval: Double.infinity)
     request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
     
     if let token = userPreferences.getToken() {

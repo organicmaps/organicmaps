@@ -39,13 +39,15 @@ class PlacesRepositoryImpl: PlacesRepository {
   func downloadAllData() async throws {
     do {
       let hashes = hashesPersistenceController.getHashes()
-      let favoritesDto = try await placesService.getFavorites()
       
       if(hashes.isEmpty) {
         downloadProgress.send(DownloadProgress.loading)
-        let allData = try await placesService.getAllPlaces()
         
-        // get data
+        // download all data
+        let allData = try await placesService.getAllPlaces()
+        let favoritesDto = try await placesService.getFavorites()
+        
+        // patch data
         let favorites = favoritesDto.data.map { placeDto in
           placeDto.toPlaceFull(isFavorite: true)
         }

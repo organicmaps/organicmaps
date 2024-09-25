@@ -79,5 +79,5 @@ struct Constants {
   )
 }
 
-let BASE_URL_WITHOUT_API = "https://product.rebus.tj/"
-let BASE_URL = "https://product.rebus.tj/api/"
+let BASE_URL_WITHOUT_API = "https://tourismmap.tj/"
+let BASE_URL = "https://tourismmap.tj/api/"

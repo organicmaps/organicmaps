@@ -2,9 +2,18 @@ import SwiftUI
 
 class PlaceViewController: UIViewController {
   let placeId: Int64
+  let onMapClick: () -> Void
+  let onCreateRoute: (PlaceLocation) -> Void
   
-  init(placeId: Int64) {
+  init(
+    placeId: Int64,
+    onMapClick: @escaping () -> Void,
+    onCreateRoute: @escaping (PlaceLocation) -> Void
+  ) {
     self.placeId = placeId
+    self.onMapClick = onMapClick
+    self.onCreateRoute = onCreateRoute
+    
     super.init(
       nibName: nil,
       bundle: nil
@@ -32,7 +41,9 @@ class PlaceViewController: UIViewController {
       id: placeId,
       showBottomBar: {
         self.tabBarController?.tabBar.isHidden = false
-      }
+      },
+      onMapClick: onMapClick,
+      onCreateRoute: onCreateRoute
     ))
   }
 }
@@ -42,15 +53,25 @@ struct PlaceScreen: View {
   let reviewsVM: ReviewsViewModel
   let id: Int64
   let showBottomBar: () -> Void
+  let onMapClick: () -> Void
+  let onCreateRoute: (PlaceLocation) -> Void
   
   @State private var selectedTab = 0
   
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
   
-  init(placeVM: PlaceViewModel, id: Int64, showBottomBar: @escaping () -> Void) {
+  init(
+    placeVM: PlaceViewModel,
+    id: Int64,
+    showBottomBar: @escaping () -> Void,
+    onMapClick: @escaping () -> Void,
+    onCreateRoute: @escaping (PlaceLocation) -> Void
+  ) {
     self.placeVM = placeVM
     self.id = id
     self.showBottomBar = showBottomBar
+    self.onMapClick = onMapClick
+    self.onCreateRoute = onCreateRoute
     
     self.reviewsVM = ReviewsViewModel(
         reviewsRepository: ReviewsRepositoryImpl(
@@ -76,9 +97,7 @@ struct PlaceScreen: View {
           onFavoriteChanged: { isFavorite in
             placeVM.toggleFavorite(for: place.id, isFavorite: isFavorite)
           },
-          onMapClick: {
-            // TODO: Cmon
-          }
+          onMapClick: onMapClick
         )
         
         VStack {
@@ -89,7 +108,9 @@ struct PlaceScreen: View {
             DescriptionScreen(
               description: place.description,
               onCreateRoute: {
-                // TODO: cmon
+                if let location = place.placeLocation {
+                  onCreateRoute(location)
+                }
               }
             )
             .tag(0)

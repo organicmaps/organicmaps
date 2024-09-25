@@ -3,10 +3,20 @@ import SwiftUI
 class CategoriesViewController: UIViewController {
   private var categoriesVM: CategoriesViewModel
   private var searchVM: SearchViewModel
+  private var goToMap: () -> Void
+  private let onCreateRoute: (PlaceLocation) -> Void
   
-  init(categoriesVM: CategoriesViewModel, searchVM: SearchViewModel) {
+  init(
+    categoriesVM: CategoriesViewModel,
+    searchVM: SearchViewModel,
+    goToMap: @escaping () -> Void,
+    onCreateRoute: @escaping (PlaceLocation) -> Void
+  ) {
     self.categoriesVM = categoriesVM
     self.searchVM = searchVM
+    self.goToMap = goToMap
+    self.onCreateRoute = onCreateRoute
+    
     super.init(
       nibName: nil,
       bundle: nil
@@ -25,12 +35,21 @@ class CategoriesViewController: UIViewController {
         categoriesVM: categoriesVM,
         goToSearchScreen: { query in
           self.searchVM.query = query
-          let destinationVC = SearchViewController(searchVM: self.searchVM)
+          let destinationVC = SearchViewController(
+            searchVM: self.searchVM,
+            goToMap: self.goToMap,
+            onCreateRoute: self.onCreateRoute
+          )
           self.navigationController?.pushViewController(destinationVC, animated: true)
         },
         goToPlaceScreen: { id in
-          self.goToPlaceScreen(id: id)
-        }
+          self.goToPlaceScreen(
+            id: id,
+            onMapClick: self.goToMap,
+            onCreateRoute: self.onCreateRoute
+          )
+        },
+        goToMap: goToMap
       )
     )
   }
@@ -40,13 +59,22 @@ struct CategoriesScreen: View {
   @ObservedObject var categoriesVM: CategoriesViewModel
   var goToSearchScreen: (String) -> Void
   var goToPlaceScreen: (Int64) -> Void
+  var goToMap: () -> Void
   
   var body: some View {
     ScrollView {
       VStack(alignment: .leading) {
         VerticalSpace(height: 16)
         VStack {
-          AppTopBar(title: L("categories"))
+          AppTopBar(
+            title: L("categories"),
+            actions: [
+              TopBarActionData(
+                iconName: "map",
+                onClick: goToMap
+              )
+            ]
+          )
           
           AppSearchBar(
             query: $categoriesVM.query,
