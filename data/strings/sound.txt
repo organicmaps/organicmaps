@@ -14,6 +14,7 @@
     fa = با زاویه کم به راست گردش کنید.
     fi = Pysy oikealla.
     fr = Serrez à droite.
+    he = הצמד לימין
     hi = दायीं ओर रहें
     hr = Držite desno.
     hu = Jobbra tartson.
@@ -63,6 +64,7 @@
     fa = به راست گردش کنید.
     fi = Käänny oikealle.
     fr = Tournez à droite.
+    he = פנה ימינה
     hi = दायीं ओर मुड़ें।
     hr = Skrenite udesno.
     hu = Forduljon jobbra.
@@ -108,6 +110,7 @@
     fa = با زاویه تند به راست گردش کنید.
     fi = Jyrkkä oikea.
     fr = À droite toute.
+    he = פנה פניה חדה ימינה
     hi = तीव्रता से दाएं मुड़े।
     hr = Oštro udesno.
     hu = Kanyarodjon élesen jobbra.
@@ -153,6 +156,7 @@
     fa = به میدان وارد شوید.
     fi = Aja liikenneympyrään.
     fr = Prenez le rond-point.
+    he = היכנס לכיכר
     hi = गोल चक्‍कर में प्रवेश करें।
     hr = Uđite na zaobilaznicu.
     hu = Hajtson be a körforgalomba.
@@ -206,6 +210,7 @@
     fa = از میدان خارج شوید.
     fi = Poistu liikenneympyrästä.
     fr = Sortez du rond-point.
+    he = צא מהכיכר
     hi = परिपथ से बाहर निकलें।
     hr = Napustite zaobilaznicu.
     hu = Hagyja el a körforgalmat.
@@ -258,6 +263,7 @@
     fa = با زاویه کم به چپ گردش کنید.
     fi = Pysy vasemmalla.
     fr = Serrez à gauche.
+    he = היצמד לשמאל
     hi = बायीं ओर रहें
     hr = Držite lijevo.
     hu = Balra tartson.
@@ -307,6 +313,7 @@
     fa = به چپ گردش کنید.
     fi = Käänny vasemmalle.
     fr = Tournez à gauche.
+    he = פנה שמאלה
     hi = बायीं ओर मुड़ें।
     hr = Skrenite ulijevo.
     hu = Forduljon balra.
@@ -352,6 +359,7 @@
     fa = با زاویه تند به چپ گردش کنید.
     fi = Jyrkkä vasen.
     fr = À gauche toute.
+    he = פנה פניה חדה שמאלה
     hi = तीव्रता से बाएं मुड़े।
     hr = Oštro ulijevo.
     hu = Kanyarodjon élesen balra.
@@ -396,6 +404,7 @@
     fa = دور بزنید.
     fi = Tee U-käännös.
     fr = Faites demi-tour.
+    he = פנה פניית פרסה
     hi = यू-टर्न लें।
     hr = Napravite poluzaokret.
     hu = Forduljon vissza.
@@ -446,6 +455,7 @@
     fa = مستقیم بروید.
     fi = Aja suoraan.
     fr = Continuez tout droit.
+    he = המשך ישר
     hi = सीधे चलें।
     hr = Idite ravno.
     hu = Haladjon tovább egyenesen.
@@ -485,6 +495,7 @@
     fa = خروج.
     fi = Poistu.
     fr = Sortie.
+    he = יציאה.
     hi = बाहर जाएं.
     hr = Izlaz.
     hu = Hajtson ki!
@@ -566,6 +577,7 @@
     fa = خروجﺐﻫ
     fi = Poistu tielle
     fr = Sortie sur
+    he = צא ביציאה
     hi = बाहर जाएं पर
     hr = Izlaz na
     hu = Hajtson ki a
@@ -610,6 +622,7 @@
     fa = به مقصد خواهيد رسيد.
     fi = Olet perillä.
     fr = Vous arriverez.
+    he = תגיע ליעד.
     hi = गंतव्य स्थान
     hr = Stižete.
     hu = Megérkezik.
@@ -650,6 +663,7 @@
     fa = به مقصد رسيديد.
     fi = Olet saapunut.
     fr = Vous êtes arrivé.
+    he = הגעת ליעד
     hi = आप पहुंच गए हैं।
     hr = Stigli ste.
     hu = Megérkezett.
@@ -690,6 +704,7 @@
     fa = در پنجاه متری
     fi = Viidenkymmenen metrin päässä
     fr = Dans cinquante mètres
+    he = בעוד חמישים מטר
     hi = पचास मीटर में।
     hr = Za pedeset metara
     hu = Ötven méter után
@@ -730,6 +745,7 @@
     fa = در صد متری
     fi = Sadan metrin päässä
     fr = Dans cents mètres
+    he = בעוד מאה מטר
     hi = एक सौ मीटर में।
     hr = Za stotinu metara
     hu = Száz méter után
@@ -770,6 +786,7 @@
     fa = در دویست متری
     fi = Kahdensadan metrin päässä
     fr = Dans deux cents mètres
+    he = בעוד מאתיים מטר
     hi = दो सौ मीटर में।
     hr = Za dvije stotine metara
     hu = Kétszáz méter után
@@ -810,6 +827,7 @@
     fa = در دوصد و پنجاه متر
     fi = Kahdensadanviidenkymmenen metrin päässä
     fr = Dans deux cents cinquante mètres
+    he = בעוד מאתיים וחמישים מטר
     hi = दो सौ पचास मीटर में।
     hr = Za dvije stotine i pedeset metara
     hu = Kétszázötven méter után
@@ -850,6 +868,7 @@
     fa = در سیصد متری
     fi = Kolmensadan metrin päässä
     fr = Dans trois cents mètres
+    he = בעוד שלוש מאות מטר
     hi = तीन सौ मीटर में।
     hr = Za tri stotine metara
     hu = Háromszáz méter után
@@ -890,6 +909,7 @@
     fa = در چهارصد متری
     fi = Neljänsadan metrin päässä
     fr = Dans quatre cents mètres
+    he = בעוד ארבע מאות מטר
     hi = चार सौ मीटर में।
     hr = Za četiri stotine metara
     hu = Négyszáz méter után
@@ -930,6 +950,7 @@
     fa = در پانصد متری
     fi = Viidensadan metrin päässä
     fr = Dans cinq cents mètres
+    he = בעוד חמש מאות מטר
     hi = पांच सौ मीटर में।
     hr = Za pet stotina metara
     hu = Ötszáz méter után
@@ -970,6 +991,7 @@
     fa = در ششصد متری
     fi = Kuudensadan metrin päässä
     fr = Dans six cents mètres
+    he = בעוד שש מאות מטר
     hi = छह सौ मीटर में।
     hr = Za šest stotina metara
     hu = Hatszáz méter után
@@ -1010,6 +1032,7 @@
     fa = در هفتصد متری
     fi = Seitsemänsadan metrin päässä
     fr = Dans sept cents mètres
+    he = בעוד שבע מאות מטר
     hi = सात सौ मीटर में।
     hr = Za sedam stotina metara
     hu = Hétszáz méter után
@@ -1050,6 +1073,7 @@
     fa = در هفتصد و پنجاه متری
     fi = Seitsemänsadanviidenkymmenen metrin päässä
     fr = Dans sept cents cinquante mètres
+    he = בעוד שבע מאות וחמישים מטר
     hi = सात सौ पचास मीटर में।
     hr = Za sedam stotina i pedeset metara
     hu = Hétszázötven méter után
@@ -1090,6 +1114,7 @@
     fa = در هشتصد متری
     fi = Kahdeksansadan metrin päässä
     fr = Dans huit cents mètres
+    he = בעוד 800 מטר
     hi = आठ सौ मीटर में।
     hr = Za osam stotina metara
     hu = Nyolcszáz méter után
@@ -1130,6 +1155,7 @@
     fa = در نهصد متری
     fi = Yhdeksänsadan metrin päässä
     fr = Dans neuf cents mètres
+    he = בעוד 900 מטר
     hi = नौ सौ मीटर में।
     hr = Za devet stotina metara
     hu = Kilencszáz méter után
@@ -1170,6 +1196,7 @@
     fa = در یک کیلومتری
     fi = Yhden kilometrin päässä
     fr = Dans un kilomètre
+    he = בעוד קילומטר
     hi = एक किलोमीटर में।
     hr = Za jedan kilometar
     hu = Egy kilométer után
@@ -1210,6 +1237,7 @@
     fa = در یک و نیم کیلومتری
     fi = Puolentoista kilomertin päässä
     fr = Dans un virgule cinq kilomètre
+    he = בעוד קילומטר וחצי
     hi = डेढ़ किलोमीटर में।
     hr = Za jedan i pol kilometar
     hu = Másfél kilométer után
@@ -1250,6 +1278,7 @@
     fa = در دو کیلومتری
     fi = Kahden kilometrin päässä
     fr = Dans deux kilomètres
+    he = בעוד שני קילומטר
     hi = दो किलोमीटर में।
     hr = Za dva kilometra
     hu = Két kilométer után
@@ -1290,6 +1319,7 @@
     fa = در دو و نیم کیلومتری
     fi = Kahden ja puolen kilometrin päässä
     fr = Dans deux virgule cinq kilomètres
+    he = בעוד שניים וחצי קילומטר
     hi = ढाई किलोमीटर में।
     hr = Za dva i pol kilometra
     hu = Két és fél kilométer után
@@ -1330,6 +1360,7 @@
     fa = در سه کیلومتری
     fi = Kolmen kilometrin päässä
     fr = Dans trois kilomètres
+    he = בעוד  שלוש קילומטר
     hi = तीन किलोमीटर में।
     hr = Za tri kilometra
     hu = Három kilométer után
@@ -1370,6 +1401,7 @@
     fa = سپس
     fi = Sitten
     fr = Puis
+    he = ואז
     hi = फिर।
     hr = Zatim
     hu = Majd
@@ -1420,6 +1452,7 @@
     fa = اولین خروجی را داخل شوید.
     fi = Poistu ensimmäisestä liittymästä.
     fr = Prenez la première sortie.
+    he = צא ביציאה הראשונה.
     hi = पहला एग्जिट लें।
     hr = Izađite na prvom izlazu.
     hu = Hajtson ki az első kijáratnál.
@@ -1472,6 +1505,7 @@
     fa = دومین خروجی را داخل شوید.
     fi = Poistu toisesta liittymästä.
     fr = Prenez la deuxième sortie.
+    he = צא ביציאה השנייה.
     hi = दूसरा एग्जिट लें।
     hr = Izađite na drugom izlazu.
     hu = Hajtson ki a második kijáratnál.
@@ -1524,6 +1558,7 @@
     fa = سومین خروجی را داخل شوید.
     fi = Poistu kolmannesta liittymästä.
     fr = Prenez la troisième sortie.
+    he = צא ביציאה השלישית.
     hi = तीसरा एग्जिट लें।
     hr = Izađite na trećem izlazu.
     hu = Hajtson ki a harmadik kijáratnál.
@@ -1576,6 +1611,7 @@
     fa = چهارمین خروجی را داخل شوید.
     fi = Poistu neljännestä liittymästä.
     fr = Prenez la quatrième sortie.
+    he = צא ביציאה הרביעית.
     hi = चौथा एग्जिट लें।
     hr = Izađite na četvrtom izlazu.
     hu = Hajtson ki a negyedik kijáratnál.
@@ -1628,6 +1664,7 @@
     fa = پنجمین خروجی را داخل شوید.
     fi = Poistu viidennestä liittymästä.
     fr = Prenez la cinquième sortie.
+    he = צא ביציאה החמישית.
     hi = पाँचवाँ एग्जिट लें।
     hr = Izađite na petom izlazu.
     hu = Hajtson ki az ötödik kijáratnál.
@@ -1680,6 +1717,7 @@
     fa = ششمین خروجی را داخل شوید.
     fi = Poistu kuudennesta liittymästä.
     fr = Prenez la sixième sortie.
+    he = צא ביציאה השישית.
     hi = छठा एग्जिट लें।
     hr = Izađite na šestom izlazu.
     hu = Hajtson ki a hatodik kijáratnál.
@@ -1732,6 +1770,7 @@
     fa = هفتمین خروجی را داخل شوید.
     fi = Poistu seitsemännestä liittymästä.
     fr = Prenez la septième sortie.
+    he = צא ביציאה השביעית.
     hi = सातवाँ एग्जिट लें।
     hr = Izađite na sedmom izlazu.
     hu = Hajtson ki a hetedik kijáratnál.
@@ -1784,6 +1823,7 @@
     fa = هشتمین خروجی را داخل شوید.
     fi = Poistu kahdeksannesta liittymästä.
     fr = Prenez la huitième sortie.
+    he = צא ביציאה השמינית.
     hi = आठवाँ एग्जिट लें।
     hr = Izađite na osmom izlazu.
     hu = Hajtson ki a nyolcadik kijáratnál.
@@ -1836,6 +1876,7 @@
     fa = نهمین خروجی را داخل شوید.
     fi = Poistu yhdeksännestä liittymästä.
     fr = Prenez la neuvième sortie.
+    he = צא ביציאה התשיעית.
     hi = नौवें निकास को लें।
     hr = Izađite na devetom izlazu.
     hu = Hajtson ki a kilencedik kijáratnál.
@@ -1888,6 +1929,7 @@
     fa = دهمین خروجی را داخل شوید.
     fi = Poistu kymmenennestä liittymästä.
     fr = Prenez la dixième sortie.
+    he = צא ביציאה העשירית.
     hi = दसवाँ एग्जिट लें।
     hr = Izađite na desetom izlazu.
     hu = Hajtson ki a tizedik kijáratnál.
@@ -1940,6 +1982,7 @@
     fa = یازدهمین خروجی را داخل شوید.
     fi = Poistu yhdennestätoista liittymästä.
     fr = Prenez la onzième sortie.
+    he = צא ביציאה האחד עשר.
     hi = ग्‍यारहवाँ एग्जिट लें।
     hr = Izađite na jedanaestom izlazu.
     hu = Hajtson ki a tizenegyedik kijáratnál.
@@ -1992,6 +2035,7 @@
     fa = در پنجاه قدمی
     fi = Viidenkymmenen jalan päässä
     fr = Dans cinquante pieds
+    he = בעוד חמישים רגל
     hi = पचास फीट में।
     hr = Za pedeset stopa
     hu = Ötven láb után
@@ -2032,6 +2076,7 @@
     fa = در یک صد قدمی
     fi = Sadan jalan päässä
     fr = Dans cent pieds
+    he = בעוד מאה רגל
     hi = सौ फीट में।
     hr = Za stotinu stopa
     hu = Száz láb után
@@ -2072,6 +2117,7 @@
     fa = در دویست قدمی
     fi = Kahdensadan jalan päässä
     fr = Dans deux cents pieds
+    he = בעוד מאתיים רגל
     hi = दो सौ फीट में।
     hr = Za dvije stotine stopa
     hu = Kétszáz láb után
@@ -2112,6 +2158,7 @@
     fa = در سیصد قدمی
     fi = Kolmensadan jalan päässä
     fr = Dans trois cents pieds
+    he = בעוד שלוש מאות רגל
     hi = तीन सौ फीट में।
     hr = Za tri stotine stopa
     hu = Háromszáz láb után
@@ -2152,6 +2199,7 @@
     fa = در چهارصد قدمی
     fi = Neljänsadan jalan päässä
     fr = Dans quatre cents pieds
+    he = בעוד ארבע מאות רגל
     hi = चार सौ फीट में।
     hr = Za četiri stotine stopa
     hu = Négyszáz láb után
@@ -2192,6 +2240,7 @@
     fa = در پانصد قدمی
     fi = Viidensadan jalan päässä
     fr = Dans cinq cents pieds
+    he = בעוד חמש מאות רגל
     hi = पांच सौ फीट में।
     hr = Za pet stotina stopa
     hu = Ötszáz láb után
@@ -2232,6 +2281,7 @@
     fa = در ششصد قدمی
     fi = Kuudensadan jalan päässä
     fr = Dans six cents pieds
+    he = בעוד שש מאות רגל
     hi = छह सौ फीट में।
     hr = Za šest stotina stopa
     hu = Hatszáz láb után
@@ -2272,6 +2322,7 @@
     fa = در هفتصد قدمی
     fi = Seitsemänsadan jalan päässä
     fr = Dans sept cents pieds
+    he = בעוד שבע מאות רגל
     hi = सात सौ फीट में।
     hr = Za sedam stotina stopa
     hu = Hétszáz láb után
@@ -2312,6 +2363,7 @@
     fa = در هشتصد قدمی
     fi = Kahdeksansadan jalan päässä
     fr = Dans huit cents pieds
+    he = בעוד שמונה מאות רגל
     hi = आठ सौ फीट में।
     hr = Za osam stotina stopa
     hu = Nyolcszáz láb után
@@ -2352,6 +2404,7 @@
     fa = در نه صد قدمی
     fi = Yhdeksänsadan jalan päässä
     fr = Dans neuf cents pieds
+    he = בעוד תשע מאות רגל
     hi = नौ सौ फीट में।
     hr = Za devet stotina stopa
     hu = Kilencszáz láb után
@@ -2392,6 +2445,7 @@
     fa = در یک هزار قدمی
     fi = Tuhannen jalan päässä
     fr = Dans mille pieds
+    he = בעוד אלף רגל
     hi = एक हजार फीट में।
     hr = Za tisuću stopa
     hu = Ezer láb után
@@ -2432,6 +2486,7 @@
     fa = در یک هزار و پانصد قدمی
     fi = Tuhannenviidensadan jalan päässä
     fr = Dans mille cinq cents pieds
+    he = בעוד אלף וחמש מאות רגל
     hi = एक हजार पांच सौ फीट में।
     hr = Za tisuću i pet stotina stopa
     hu = Ezerötszáz láb után
@@ -2472,6 +2527,7 @@
     fa = در دو هزار قدمی
     fi = Kahdentuhannen jalan päässä
     fr = Dans deux mille pieds
+    he = בעוד אלפיים רגל
     hi = दो हजार फीट में।
     hr = Za dvije tisuće stopa
     hu = Kétezer láb után
@@ -2512,6 +2568,7 @@
     fa = در پانصد و بیست قدمی
     fi = Kahdentuhannenviidensadan jalan päässä
     fr = Dans deux mille cinq cents pieds
+    he = בעוד אלפיים וחמש מאות רגל
     hi = दो हजार पांच सौ फीट में।
     hr = Za dvije tisuće i pet stotina stopa
     hu = Kétezer-ötszáz láb után
@@ -2552,6 +2609,7 @@
     fa = در سه هزار قدمی
     fi = Kolmentuhannen jalan päässä
     fr = Dans trois mille pieds
+    he = בעוד שלושת אלפים רגל
     hi = तीन हजार फीट में।
     hr = Za tri tisuće stopa
     hu = Háromezer láb után
@@ -2592,6 +2650,7 @@
     fa = در سه هزار و پانصد قدمی
     fi = Kolmentuhannenviidensadan jalan päässä
     fr = Dans trois mille cinq cents pieds
+    he = בעוד שלושת אלפים וחמש מאות רגל
     hi = तीन हजार पांच सौ फीट में।
     hr = Za tri tisuće i pet stotina stopa
     hu = Háromezer-ötszáz láb után
@@ -2632,6 +2691,7 @@
     fa = در چهار هزار قدمی
     fi = Neljäntuhannen jalan päässä
     fr = Dans quatre mille pieds
+    he = בעוד ארבעת אלפים רגל
     hi = चार हजार फीट में।
     hr = Za četiri tisuće stopa
     hu = Négyezer láb után
@@ -2672,6 +2732,7 @@
     fa = در چهار هزار و پانصد قدمی
     fi = Neljäntuhannenviidensadan jalan päässä
     fr = Dans quatre mille cinq cents pieds
+    he = בעוד ארבעת אלפים וחמש מאות רגל
     hi = चार हजार पांच सौ फीट में।
     hr = Za četiri tisuće i pet stotina stopa
     hu = Négyezer-ötszáz láb után
@@ -2712,6 +2773,7 @@
     fa = در پنج هزار قدمی
     fi = Viidentuhannen jalan päässä
     fr = Dans cinq mille pieds
+    he = בעוד חמשת אלפים רגל
     hi = पांच हजार फीट में।
     hr = Za pet tisuća stopa
     hu = Ötezer láb után
@@ -2752,6 +2814,7 @@
     fa = در یک مایلی
     fi = Mailin päässä
     fr = Dans un mile
+    he = בעוד מייל אחד
     hi = एक मील में।
     hr = Za jednu milju
     hu = Egy mérföld után
@@ -2792,6 +2855,7 @@
     fa = در یک و نیم مایلی
     fi = Puolentoista mailin päässä
     fr = Dans un virgule cinq mile
+    he = בעוד אחד וחצי מיילים
     hi = डेढ़ मील में।
     hr = Za jednu i pol milju
     hu = Másfél mérföld után
@@ -2832,6 +2896,7 @@
     fa = در دو مایلی
     fi = Kahden mailin päässä
     fr = Dans deux miles
+    he = בעוד שני מיילים
     hi = दो मील में।
     hr = Za dvije milje
     hu = Két mérföld után
@@ -2873,6 +2938,7 @@
     fa = دوربین کنترل سرعت در نزدیکی
     fi = Edessä on kamera
     fr = Caméra devant
+    he = מצלמה לפניך
     hi = स्पीड कैमरा आगे
     hu = Kamera következik
     id = Diawasi kamera
