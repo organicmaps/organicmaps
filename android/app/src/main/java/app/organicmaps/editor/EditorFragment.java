@@ -45,8 +45,6 @@ import java.util.Map;
 
 public class EditorFragment extends BaseMwmFragment implements View.OnClickListener
 {
-  final static String LAST_INDEX_OF_NAMES_ARRAY = "LastIndexOfNamesArray";
-
   private TextView mCategory;
   private View mCardName;
   private View mCardAddress;
@@ -364,31 +362,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mNamesAdapter = new MultilanguageAdapter(mParent);
     mNamesView.setAdapter(mNamesAdapter);
     mNamesAdapter.registerAdapterDataObserver(mNamesObserver);
-
-    final Bundle args = getArguments();
-    if (args == null || !args.containsKey(LAST_INDEX_OF_NAMES_ARRAY))
-    {
-      showAdditionalNames(false);
-      return;
-    }
-    showAdditionalNames(true);
-    UiUtils.waitLayout(mNamesView, () -> {
-      LinearLayoutManager lm = (LinearLayoutManager) mNamesView.getLayoutManager();
-      int position = args.getInt(LAST_INDEX_OF_NAMES_ARRAY);
-
-      View nameItem = lm.findViewByPosition(position);
-
-      int cvNameTop = mCardName.getTop();
-      int nameItemTop = nameItem.getTop();
-
-      view.scrollTo(0, cvNameTop + nameItemTop);
-
-      // TODO(mgsergio): Uncomment if focus and keyboard are required.
-      // TODO(mgsergio): Keyboard doesn't want to hide. Only pressing back button works.
-      // View nameItemInput = nameItem.findViewById(R.id.input);
-      // nameItemInput.requestFocus();
-      // InputUtils.showKeyboard(nameItemInput);
-    });
+    showAdditionalNames(false);
   }
 
   private View initBlock(View view, Metadata.MetadataType type, @IdRes int idBlock,
@@ -552,7 +526,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       mOutdoorSeating.toggle();
   }
 
-  private void showAdditionalNames(boolean show)
+  void showAdditionalNames(boolean show)
   {
     mNamesAdapter.showAdditionalLanguages(show);
 

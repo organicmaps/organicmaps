@@ -26,6 +26,7 @@ import app.organicmaps.editor.data.LocalizedStreet;
 import app.organicmaps.editor.data.NamesDataSource;
 import app.organicmaps.editor.data.PhoneFragment;
 import app.organicmaps.util.ConnectionState;
+import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
@@ -35,6 +36,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class EditorHostFragment extends BaseMwmToolbarFragment implements View.OnClickListener,
     LanguagesFragment.Listener
@@ -185,25 +187,33 @@ public class EditorHostFragment extends BaseMwmToolbarFragment implements View.O
 
   protected void editMapObject()
   {
-    editMapObject(false /* focusToLastName */);
-  }
-
-  protected void editMapObject(boolean focusToLastName)
-  {
     mMode = Mode.MAP_OBJECT;
     showSearchControls(false);
     getToolbarController().setTitle(getTitle());
     UiUtils.show(getToolbarController().getToolbar().findViewById(R.id.save));
     Bundle args = new Bundle();
-    if (focusToLastName)
-      args.putInt(EditorFragment.LAST_INDEX_OF_NAMES_ARRAY, sNames.size() - 1);
     FragmentManager fragmentManager = getChildFragmentManager();
-    final Fragment editorFragment = fragmentManager.getFragmentFactory()
-      .instantiate(requireActivity().getClassLoader(), EditorFragment.class.getName());
-    editorFragment.setArguments(args);
-    fragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, editorFragment, EditorFragment.class.getName())
-                        .commit();
+
+    final Fragment topMost = fragmentManager.findFragmentById(R.id.fragment_container);
+    if (topMost == null)
+    {
+      final Fragment editorFragment = new EditorFragment();
+      editorFragment.setArguments(args);
+      fragmentManager.beginTransaction()
+                     .add(R.id.fragment_container, editorFragment, EditorFragment.class.getName())
+                     .commit();
+    }
+    else if (!(topMost instanceof EditorFragment))
+    {
+      // should never be null in this case
+      final Fragment editorFragment = Objects.requireNonNull(
+          (EditorFragment) fragmentManager.findFragmentByTag(EditorFragment.class.getName()));
+
+      fragmentManager.beginTransaction()
+                     .remove(topMost)
+                     .show(editorFragment)
+                     .commit();
+    }
   }
 
   protected void editTimetable()
@@ -254,10 +264,19 @@ public class EditorHostFragment extends BaseMwmToolbarFragment implements View.O
     getToolbarController().setTitle(toolbarTitle);
     showSearchControls(showSearch);
     FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+
+    // at this stage we already have EditorFragment
+    final EditorFragment editorFragment = Objects.requireNonNull(
+        (EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName()));
+
     final Fragment fragment = fragmentManager.getFragmentFactory().instantiate(requireActivity().getClassLoader(), fragmentClass.getName());
     fragment.setArguments(args);
+
+    InputUtils.hideKeyboard(editorFragment.requireView());
+
     getChildFragmentManager().beginTransaction()
-                             .replace(R.id.fragment_container, fragment, fragmentClass.getName())
+                             .add(R.id.fragment_container, fragment, fragmentClass.getName())
+                             .hide(editorFragment)
                              .commit();
   }
 
@@ -423,6 +442,12 @@ public class EditorHostFragment extends BaseMwmToolbarFragment implements View.O
   {
     String name = "";
     addName(Editor.nativeMakeLocalizedName(lang.code, name));
-    editMapObject(true /* focusToLastName */);
+    editMapObject();
+
+    final EditorFragment fragment = (EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName());
+    if (fragment != null)
+    {
+      fragment.showAdditionalNames(true);
+    }
   }
 }
