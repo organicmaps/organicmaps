@@ -46,6 +46,8 @@ public:
     Search = 3,
     Crosshair = 4,
     OAuth2 = 5,
+    Menu = 6,
+    Settings = 7
   };
 
   ParsedMapApi() = default;
