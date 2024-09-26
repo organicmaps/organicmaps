@@ -96,6 +96,12 @@ public final class IntentUtils
       return;
     case RequestType.CROSSHAIR:
       Logger.e(TAG, "Crosshair API is not supported by Android Auto: " + uri);
+      return;
+    case RequestType.MENU:
+      Logger.e(TAG, "Menu API is not supported by Android Auto: " + uri);
+      return;
+    case RequestType.SETTINGS:
+      Logger.e(TAG, "Settings API is not supported by Android Auto: " + uri);
     }
   }
 

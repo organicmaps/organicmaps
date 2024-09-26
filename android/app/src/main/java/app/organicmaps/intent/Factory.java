@@ -141,6 +141,10 @@ public class Factory
 
           return true;
         }
+
+        // Menu and Settings url types should be implemented to support deeplinking.
+        case RequestType.MENU:
+        case RequestType.SETTINGS:
       }
 
       return false;
