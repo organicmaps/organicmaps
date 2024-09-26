@@ -175,6 +175,16 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
 
       return m_requestType = UrlType::Crosshair;
     }
+    else if (type == "menu")
+    {
+      /// @todo(KK): Implement path parsing to highlight the specific menu item.
+      return m_requestType = UrlType::Menu;
+    }
+    else if (type == "settings")
+    {
+      /// @todo(KK): Implement path parsing to navigate to the specific settings page and highlight the specific item.
+      return m_requestType = UrlType::Settings;
+    }
     else if (type == "oauth2")
     {
       if (url.GetPath() != "osm/callback")
@@ -485,6 +495,8 @@ std::string DebugPrint(ParsedMapApi::UrlType type)
   case ParsedMapApi::UrlType::Search: return "Search";
   case ParsedMapApi::UrlType::Crosshair: return "Crosshair";
   case ParsedMapApi::UrlType::OAuth2: return "OAuth2";
+  case ParsedMapApi::UrlType::Menu: return "Menu";
+  case ParsedMapApi::UrlType::Settings: return "Settings";
   }
   UNREACHABLE();
 }
