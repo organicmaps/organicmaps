@@ -78,6 +78,7 @@
     // TODO(AB): Rewrite API so iOS and Android will call only one C++ method to clear/set API state.
     // This call is also required for DeepLinkParser.showMap, and it also clears old API points...
     let urlType = DeepLinkParser.parseAndSetApiURL(url)
+    LOG(.info, "URL type: \(urlType)")
     switch urlType {
     case .route:
       if let adapter = DeepLinkRouteStrategyAdapter(url) {
@@ -86,12 +87,10 @@
         return true
       }
       return false;
-
     case .map:
       DeepLinkParser.executeMapApiRequest()
       MapsAppDelegate.theApp().showMap()
       return true
-
     case .search:
       let sd = DeepLinkSearchData();
       let kSearchInViewportZoom: Int32 = 16;
@@ -111,17 +110,23 @@
         MWMMapViewControlsManager.manager()?.searchText(sd.query, forInputLocale: sd.locale)
       }
       return true
-
+    case .menu:
+      MapsAppDelegate.theApp().mapViewController.openMenu()
+      return true
+    case .settings:
+      MapsAppDelegate.theApp().mapViewController.openSettings()
+      return true
     case .crosshair:
       // Not supported on iOS.
       return false;
-      
     case .oAuth2:
       // TODO: support OAuth2
       return false;
-
     case .incorrect:
       // Invalid URL or API parameters.
+      return false;
+    @unknown default:
+      LOG(.critical, "Unknown URL type: \(urlType)")
       return false;
     }
   }

@@ -37,6 +37,7 @@ NSString *const kDownloaderSegue = @"Map2MapDownloaderSegue";
 NSString *const kEditorSegue = @"Map2EditorSegue";
 NSString *const kUDViralAlertWasShown = @"ViralAlertWasShown";
 NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
+NSString *const kSettingsSegue = @"Map2Settings";
 }  // namespace
 
 @interface NSValueWrapper : NSObject
@@ -481,6 +482,13 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 }
 
 #pragma mark - Open controllers
+- (void)openMenu {
+  [self.controlsManager.tabBarController onMenuButtonPressed:self];
+}
+
+- (void)openSettings {
+  [self performSegueWithIdentifier:kSettingsSegue sender:nil];
+}
 
 - (void)openMapsDownloader:(MWMMapDownloaderMode)mode {
   [self performSegueWithIdentifier:kDownloaderSegue sender:@(mode)];
