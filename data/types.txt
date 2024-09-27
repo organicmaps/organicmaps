@@ -1051,7 +1051,7 @@ railway|rail
 *man_made|water_tower
 *highway|world_level
 *highway|world_towns_level
-*building|train_station
+mapswithme
 *route|shuttle_train
 *shop|copyshop
 *shop|photo
