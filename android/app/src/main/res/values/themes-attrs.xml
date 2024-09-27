@@ -19,10 +19,9 @@
     <attr name="ppButtonsBackground" format="color" />
     <attr name="navNextTurnFrame" format="reference" />
     <attr name="navNextNextTurnFrame" format="reference" />
-    <attr name="navLanesCardBackgroundColor" format="reference" />
+    <attr name="navLanesBackgroundColor" format="reference" />
+    <attr name="navLaneArrowActiveColor" format="reference" />
     <attr name="navLaneArrowInactiveColor" format="reference" />
-    <attr name="navLaneArrowInactiveLight" format="color" />
-    <attr name="navLaneArrowInactiveNight" format="color" />
     <attr name="buttonBackground" format="reference" />
     <attr name="buttonTextColor" format="color" />
     <attr name="buttonTextColorDisabled" format="color" />

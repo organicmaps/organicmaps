@@ -122,8 +122,12 @@
   <color name="routing_button_activated_tint">@color/bg_statusbar</color>
   <color name="routing_button_activated_tint_night">@color/bg_statusbar_night</color>
   <color name="routing_button_pressed_tint">#80FFFFFF</color>
-  <color name="nav_lanearrow_inactive_light">#FF007CCB</color>
-  <color name="nav_lanearrow_inactive_night">#FF2C88AD</color>
+
+  <!-- LanesView -->
+  <color name="nav_lane_arrow_active_light">@color/white_primary</color>
+  <color name="nav_lane_arrow_active_night">@color/black_primary</color>
+  <color name="nav_lane_arrow_inactive_light">@color/black_20</color>
+  <color name="nav_lane_arrow_inactive_night">@color/black_20</color>
 
   <!-- Editor -->
   <color name="bg_editor_light">#FFF2F6F6</color>
