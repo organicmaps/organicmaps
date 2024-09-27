@@ -1098,10 +1098,8 @@
     <string name="type.building">Будівля</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Адреса</string>
-    <string name="type.building.has_parts">Будівля</string>
     <string name="type.building_part">Будівля</string>
     <string name="type.building.garage">Гараж</string>
-    <string name="type.building.train_station">Залізничний вокзал</string>
     <string name="type.building.warehouse">Склад</string>
     <string name="type.cemetery.grave">Могила</string>
     <string name="type.craft">Майстерня</string>

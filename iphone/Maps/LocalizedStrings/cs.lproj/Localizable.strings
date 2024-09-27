@@ -1840,13 +1840,9 @@
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Adresa";
 
-"type.building.has_parts" = "Stavba";
-
 "type.building_part" = "Stavba";
 
 "type.building.garage" = "Garáž";
-
-"type.building.train_station" = "Železniční stanice";
 
 "type.building.warehouse" = "Warehouse";
 

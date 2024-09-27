@@ -738,9 +738,7 @@
     <string name="type.building">भवन</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">पता</string>
-    <string name="type.building.has_parts">भवन</string>
     <string name="type.building_part">भवन</string>
-    <string name="type.building.train_station">रेलवे स्टेशन</string>
     <string name="type.building.warehouse">मालगोदाम</string>
     <string name="type.cemetery.grave">कब्र</string>
     <string name="type.craft.beekeeper">शहर की मक्खियां पालनेवाला</string>

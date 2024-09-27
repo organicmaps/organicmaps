@@ -1840,13 +1840,9 @@
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Helbidea";
 
-"type.building.has_parts" = "Eraikin";
-
 "type.building_part" = "Eraikin";
 
 "type.building.garage" = "Garajea";
-
-"type.building.train_station" = "Tren geltokian";
 
 "type.building.warehouse" = "Biltegia";
 

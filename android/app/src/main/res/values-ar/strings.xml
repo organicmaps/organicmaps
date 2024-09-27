@@ -1102,10 +1102,8 @@
     <string name="type.building">مبنى</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">العنوان</string>
-    <string name="type.building.has_parts">مبنى</string>
     <string name="type.building_part">مبنى</string>
     <string name="type.building.garage">مرآب</string>
-    <string name="type.building.train_station">محطة قطار</string>
     <string name="type.building.warehouse">مستودع</string>
     <string name="type.cemetery.grave">قبر</string>
     <string name="type.craft">حرفة</string>

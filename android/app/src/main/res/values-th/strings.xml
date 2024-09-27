@@ -995,10 +995,8 @@
     <string name="type.building">อาคาร</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">ที่อยู่</string>
-    <string name="type.building.has_parts">อาคาร</string>
     <string name="type.building_part">อาคาร</string>
     <string name="type.building.garage">อาคารจอดรถ</string>
-    <string name="type.building.train_station">สถานีรถไฟ</string>
     <string name="type.cemetery.grave">หลุมฝังศพ</string>
     <string name="type.craft">งานฝีมือ</string>
     <string name="type.craft.beekeeper">คนเลี้ยงผึ้ง</string>

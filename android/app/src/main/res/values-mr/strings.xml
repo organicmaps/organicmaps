@@ -1030,10 +1030,8 @@
     <string name="type.building">इमारत</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">पत्ता</string>
-    <string name="type.building.has_parts">इमारत</string>
     <string name="type.building_part">इमारत</string>
     <string name="type.building.garage">गराज</string>
-    <string name="type.building.train_station">रेल्वे स्थानक</string>
     <string name="type.building.warehouse">वखार</string>
     <string name="type.craft">हस्तकला</string>
     <string name="type.craft.beekeeper">मधमाश्या पाळणारा</string>

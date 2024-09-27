@@ -1840,13 +1840,9 @@
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Osoite";
 
-"type.building.has_parts" = "Rakennus";
-
 "type.building_part" = "Rakennus";
 
 "type.building.garage" = "Autotalli";
-
-"type.building.train_station" = "Rautatieasema";
 
 "type.building.warehouse" = "Varasto";
 

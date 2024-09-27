@@ -1077,10 +1077,8 @@
     <string name="type.building">Rakennus</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Osoite</string>
-    <string name="type.building.has_parts">Rakennus</string>
     <string name="type.building_part">Rakennus</string>
     <string name="type.building.garage">Autotalli</string>
-    <string name="type.building.train_station">Rautatieasema</string>
     <string name="type.building.warehouse">Varasto</string>
     <string name="type.cemetery.grave">Hauta</string>
     <string name="type.craft">Käsityö</string>

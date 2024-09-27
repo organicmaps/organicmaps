@@ -1082,10 +1082,8 @@
     <string name="type.building">Eraikin</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Helbidea</string>
-    <string name="type.building.has_parts">Eraikin</string>
     <string name="type.building_part">Eraikin</string>
     <string name="type.building.garage">Garajea</string>
-    <string name="type.building.train_station">Tren geltokian</string>
     <string name="type.building.warehouse">Biltegia</string>
     <string name="type.cemetery.grave">Hilobia</string>
     <string name="type.craft">Artisautza</string>

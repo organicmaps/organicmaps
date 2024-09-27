@@ -1088,10 +1088,8 @@
     <string name="type.building">Gebouw</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Adres</string>
-    <string name="type.building.has_parts">Gebouw</string>
     <string name="type.building_part">Gebouw</string>
     <string name="type.building.garage">Garage</string>
-    <string name="type.building.train_station">Treinstation</string>
     <string name="type.building.warehouse">Magazijn</string>
     <string name="type.cemetery.grave">Graf</string>
     <string name="type.craft">Ambacht</string>

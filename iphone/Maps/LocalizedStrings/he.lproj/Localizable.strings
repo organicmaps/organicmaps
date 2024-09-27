@@ -1840,13 +1840,9 @@
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "כתובת";
 
-"type.building.has_parts" = "מבנה";
-
 "type.building_part" = "מבנה";
 
 "type.building.garage" = "מחסן/חניה";
-
-"type.building.train_station" = "תחנת רכבת";
 
 "type.building.warehouse" = "מחסן";
 

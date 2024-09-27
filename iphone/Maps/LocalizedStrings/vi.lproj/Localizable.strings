@@ -1840,13 +1840,9 @@
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Địa chỉ";
 
-"type.building.has_parts" = "Tòa nhà";
-
 "type.building_part" = "Tòa nhà";
 
 "type.building.garage" = "Gara";
-
-"type.building.train_station" = "Đường tàu hỏa";
 
 "type.building.warehouse" = "Warehouse";
 

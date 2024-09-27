@@ -1075,10 +1075,8 @@
     <string name="type.building">Budova</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Adresa</string>
-    <string name="type.building.has_parts">Budova</string>
     <string name="type.building_part">Budova</string>
     <string name="type.building.garage">Garáž</string>
-    <string name="type.building.train_station">Železničná stanica</string>
     <string name="type.building.warehouse">Sklad</string>
     <string name="type.cemetery.grave">Hrob</string>
     <string name="type.craft">Remeselník</string>

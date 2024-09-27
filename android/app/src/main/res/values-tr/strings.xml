@@ -1091,10 +1091,8 @@
     <string name="type.building">Bina</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Adres</string>
-    <string name="type.building.has_parts">Bina</string>
     <string name="type.building_part">Bina</string>
     <string name="type.building.garage">Garaj</string>
-    <string name="type.building.train_station">Tren İstasyonu</string>
     <string name="type.building.warehouse">Depo</string>
     <string name="type.cemetery.grave">Mezar</string>
     <string name="type.craft">Zanaat</string>

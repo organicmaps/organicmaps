@@ -1840,13 +1840,9 @@
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Indirizzo";
 
-"type.building.has_parts" = "Edificio";
-
 "type.building_part" = "Edificio";
 
 "type.building.garage" = "Garage";
-
-"type.building.train_station" = "Stazione ferroviaria";
 
 "type.building.warehouse" = "Magazzino";
 

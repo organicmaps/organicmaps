@@ -1840,13 +1840,9 @@
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Cím";
 
-"type.building.has_parts" = "Épület";
-
 "type.building_part" = "Épület";
 
 "type.building.garage" = "Garázs";
-
-"type.building.train_station" = "Vasútállomás";
 
 "type.building.warehouse" = "Warehouse";
 

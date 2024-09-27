@@ -1009,10 +1009,8 @@
     <string name="type.building">Épület</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Cím</string>
-    <string name="type.building.has_parts">Épület</string>
     <string name="type.building_part">Épület</string>
     <string name="type.building.garage">Garázs</string>
-    <string name="type.building.train_station">Vasútállomás</string>
     <string name="type.cemetery.grave">Sír</string>
     <string name="type.craft">Kézművesség</string>
     <string name="type.craft.beekeeper">Méhész</string>

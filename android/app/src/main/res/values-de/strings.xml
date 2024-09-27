@@ -1080,9 +1080,7 @@
     <string name="type.building">Gebäude</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Adresse</string>
-    <string name="type.building.has_parts">Gebäude</string>
     <string name="type.building_part">Gebäude</string>
-    <string name="type.building.train_station">Bahnhof</string>
     <string name="type.building.warehouse">Lagerhalle</string>
     <string name="type.cemetery.grave">Grab</string>
     <string name="type.craft">Handwerk</string>

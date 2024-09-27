@@ -993,10 +993,8 @@
     <string name="type.building">건물</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">주소</string>
-    <string name="type.building.has_parts">건물</string>
     <string name="type.building_part">건물</string>
     <string name="type.building.garage">차고</string>
-    <string name="type.building.train_station">기차역</string>
     <string name="type.cemetery.grave">무덤</string>
     <string name="type.craft">공예</string>
     <string name="type.craft.beekeeper">양봉가</string>

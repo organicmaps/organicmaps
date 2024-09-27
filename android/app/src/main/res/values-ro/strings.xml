@@ -1014,10 +1014,8 @@
     <string name="type.building">Clădire</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Adresă</string>
-    <string name="type.building.has_parts">Clădire</string>
     <string name="type.building_part">Clădire</string>
     <string name="type.building.garage">Garaj</string>
-    <string name="type.building.train_station">Feroviar</string>
     <string name="type.cemetery.grave">Mormânt</string>
     <string name="type.craft">Meșteșuguri</string>
     <string name="type.craft.beekeeper">Apicultor</string>

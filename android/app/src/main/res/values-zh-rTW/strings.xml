@@ -1099,10 +1099,8 @@
     <string name="type.building">建築物</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">地址</string>
-    <string name="type.building.has_parts">建築物</string>
     <string name="type.building_part">建築物</string>
     <string name="type.building.garage">車庫</string>
-    <string name="type.building.train_station">鐵道</string>
     <string name="type.building.warehouse">倉庫</string>
     <string name="type.cemetery.grave">墓穴</string>
     <string name="type.craft">工藝作坊</string>
