@@ -27,7 +27,6 @@ class IsComplexPoiChecker : public ftypes::BaseChecker
         {"aeroway", "aerodrome"},
         {"amenity", "hospital"},
         {"amenity", "university"},
-        {"building", "train_station"},
         {"historic", "archaeological_site"},
         {"historic", "castle"},
         {"historic", "fort"},

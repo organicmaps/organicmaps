@@ -349,7 +349,6 @@ barrier-ditch                                       # line z17-
 building                                            # area z15- (also has caption z18-)
 building-garage                                     # area z15- (also has caption z18-)
 building-has_parts                                  # area z15- (also has caption z18-)
-building-train_station                              # area z15- (also has caption z18-)
 === 50
 
 railway-light_rail-bridge::bridgewhite              # line::bridgewhite z14- (also has line z13-, line::bridgeblack z16-, line::dash z16-)

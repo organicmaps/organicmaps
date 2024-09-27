@@ -874,7 +874,6 @@ natural-wetland-marsh                               # caption z16- (also has are
 tourism-picnic_site                                 # icon z16- (also has caption(optional) z16-)
 === 1800
 
-building-train_station                              # caption z16- (also has area z14-)
 railway-level_crossing                              # icon z17-
 === 1700
 

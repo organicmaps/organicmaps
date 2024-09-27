@@ -1166,7 +1166,7 @@ amenity|place_of_worship|taoist;[amenity=place_of_worship][religion=taoist];;nam
 man_made|water_tower;1051;
 highway|world_level;1052;
 highway|world_towns_level;1053;
-building|train_station;1054;
+deprecated:building|train_station:09.2024;1054;x
 route|shuttle_train;[route=shuttle_train],[route=train][shuttle];;;;1055;
 shop|copyshop;1056;
 shop|photo;1057;

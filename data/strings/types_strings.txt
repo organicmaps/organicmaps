@@ -7074,9 +7074,6 @@
     zh-Hans = 地址
     zh-Hant = 地址
 
-  [type.building.has_parts]
-    ref = type.building
-
   [type.building_part]
     ref = type.building
 
@@ -7113,45 +7110,6 @@
     vi = Gara
     zh-Hans = 独立1车库
     zh-Hant = 車庫
-
-  [type.building.train_station]
-    en = Train Station
-    af = Treinstasie
-    ar = محطة قطار
-    az = Dəmiryolu stansiyası
-    cs = Železniční stanice
-    da = Togstation
-    de = Bahnhof
-    el = Σιδηροδρομικός σταθμός
-    es = Estación de tren
-    et = Rongijaam
-    eu = Tren geltokian
-    fa = ایستگاه قطار
-    fi = Rautatieasema
-    fr = Gare ferroviaire
-    he = תחנת רכבת
-    hi = रेलवे स्टेशन
-    hu = Vasútállomás
-    id = Rel kereta api
-    it = Stazione ferroviaria
-    ja = 鉄道駅
-    ko = 기차역
-    mr = रेल्वे स्थानक
-    nb = Togstasjon
-    nl = Treinstation
-    pl = Dworzec kolejowy
-    pt = Estação de comboios
-    pt-BR = Estação de trem
-    ro = Feroviar
-    ru = Ж/д вокзал
-    sk = Železničná stanica
-    sv = Tågstation
-    th = สถานีรถไฟ
-    tr = Tren İstasyonu
-    uk = Залізничний вокзал
-    vi = Đường tàu hỏa
-    zh-Hans = 火车站建筑
-    zh-Hant = 鐵道
 
   [type.building.warehouse]
     en = Warehouse
