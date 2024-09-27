@@ -35,7 +35,6 @@ import app.organicmaps.editor.data.TimeFormatUtils;
 import app.organicmaps.editor.data.Timetable;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.InputUtils;
-import app.organicmaps.util.Option;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
@@ -687,9 +686,9 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   {
     return (activity, text) -> {
       if (TextUtils.isEmpty(text))
-        return new Option<>(activity.getString(R.string.delete_place_empty_comment_error));
+        return activity.getString(R.string.delete_place_empty_comment_error);
       else
-        return Option.empty();
+        return null;
     };
   }
 }
