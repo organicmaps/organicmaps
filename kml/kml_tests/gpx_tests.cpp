@@ -83,7 +83,8 @@ UNIT_TEST(Gpx_Test_Point_With_Invalid_Timestamp)
  </wpt>
 )";
 
-  TEST_ANY_THROW({ kml::FileData const dataFromText = loadGpxFromString(input); }, ());
+  kml::FileData const dataFromText = loadGpxFromString(input);
+  TEST_EQUAL(dataFromText.m_bookmarksData.size(), 1, ());
 }
 
 UNIT_TEST(Gpx_Test_Track_Without_Timestamps)
@@ -138,20 +139,14 @@ UNIT_TEST(Gpx_Test_Track_With_Timestamps_Mismatch)
   auto const fileName = GetPlatform().TestsDataPathForFile("gpx_test_data/track_with_timestamps_broken.gpx");
   std::string text;
   FileReader(fileName).ReadAsString(text);
-  try
-  {
-    kml::FileData dataFromText;
-    kml::DeserializerGpx(dataFromText).Deserialize(MemReader(text));
-    TEST(false, ("DeserializeException should be raised"));
-  }
-  catch (kml::DeserializerGpx::DeserializeException const & exc)
-  {
-    TEST(true, ("Exception raised", exc.what()));
-  }
-  catch (std::exception const & exc)
-  {
-    TEST(false, ("DeserializeException should be raised"));
-  }
+
+  kml::FileData data;
+  kml::DeserializerGpx(data).Deserialize(MemReader(text));
+
+  TEST_EQUAL(data.m_tracksData.size(), 1, ());
+  TEST_EQUAL(data.m_tracksData[0].m_geometry.m_timestamps.size(), 2, ());
+  TEST(data.m_tracksData[0].m_geometry.HasTimestampsFor(0), ());
+  TEST(data.m_tracksData[0].m_geometry.HasTimestampsFor(1), ());
 }
 
 UNIT_TEST(Gpx_Altitude_Issues)
@@ -174,7 +169,7 @@ UNIT_TEST(Gpx_Altitude_Issues)
 )";
 
   kml::FileData const dataFromText = loadGpxFromString(input);
-  auto line = dataFromText.m_tracksData[0].m_geometry.m_lines[0];
+  auto const & line = dataFromText.m_tracksData[0].m_geometry.m_lines[0];
   TEST_EQUAL(line.size(), 6, ());
   TEST_EQUAL(line[0], geometry::PointWithAltitude(mercator::FromLatLon(1, 1), geometry::kInvalidAltitude), ());
   TEST_EQUAL(line[1], geometry::PointWithAltitude(mercator::FromLatLon(2, 2), 1), ());
@@ -182,6 +177,40 @@ UNIT_TEST(Gpx_Altitude_Issues)
   TEST_EQUAL(line[3], geometry::PointWithAltitude(mercator::FromLatLon(4, 4), 2), ());
   TEST_EQUAL(line[4], geometry::PointWithAltitude(mercator::FromLatLon(5, 5), geometry::kInvalidAltitude), ());
   TEST_EQUAL(line[5], geometry::PointWithAltitude(mercator::FromLatLon(6, 6), 3), ());
+}
+
+UNIT_TEST(Gpx_Timestamp_Issues)
+{
+  std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.0">
+<trk>
+    <name>new</name>
+    <type>Cycling</type>
+    <trkseg>
+      <trkpt lat="0" lon="0"></trkpt>
+      <trkpt lat="1" lon="1"><time>2024-05-04T19:00:00Z</time></trkpt>
+      <trkpt lat="2" lon="2"><time>2024-05-04T19:00:01Z</time></trkpt>
+      <trkpt lat="3" lon="3"></trkpt>
+      <trkpt lat="4" lon="4"><time>Abra-hadabra</time></trkpt>
+      <trkpt lat="5" lon="5"><time>2024-05-04T19:00:04Z</time></trkpt>
+      <trkpt lat="6" lon="6"><time>2024-05-04T19:00:05Z</time></trkpt>
+      <trkpt lat="7" lon="7"></trkpt>
+    </trkseg>
+</trk>
+</gpx>
+)";
+
+  kml::FileData const dataFromText = loadGpxFromString(input);
+  auto const & times = dataFromText.m_tracksData[0].m_geometry.m_timestamps[0];
+  TEST_EQUAL(times.size(), 8, ());
+  TEST_EQUAL(times[0], base::StringToTimestamp("2024-05-04T19:00:00Z"), ());
+  TEST_EQUAL(times[1], base::StringToTimestamp("2024-05-04T19:00:00Z"), ());
+  TEST_EQUAL(times[2], base::StringToTimestamp("2024-05-04T19:00:01Z"), ());
+  TEST_EQUAL(times[3], base::StringToTimestamp("2024-05-04T19:00:02Z"), ());
+  TEST_EQUAL(times[4], base::StringToTimestamp("2024-05-04T19:00:03Z"), ());
+  TEST_EQUAL(times[5], base::StringToTimestamp("2024-05-04T19:00:04Z"), ());
+  TEST_EQUAL(times[6], base::StringToTimestamp("2024-05-04T19:00:05Z"), ());
+  TEST_EQUAL(times[7], base::StringToTimestamp("2024-05-04T19:00:05Z"), ());
 }
 
 UNIT_TEST(GoMap)
