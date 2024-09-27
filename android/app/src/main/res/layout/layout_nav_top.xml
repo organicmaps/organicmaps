@@ -106,20 +106,21 @@
     </FrameLayout>
   </RelativeLayout>
 
-  <FrameLayout
-    android:id="@+id/lanes_frame"
-    android:layout_width="wrap_content"
-    android:layout_height="0dp"
-    android:layout_marginTop="@dimen/margin_half"
-    app:layout_constrainedWidth="true"
-    app:layout_constraintHeight_percent="@fraction/nav_lane_height"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.0"
-    app:layout_constraintStart_toEndOf="@+id/nav_next_turn_container"
-    app:layout_constraintTop_toBottomOf="@+id/street_frame"
-    android:visibility="gone"
-    tools:visibility="visible">
-
-    <include layout="@layout/nav_lanes" />
-  </FrameLayout>
+  <app.organicmaps.widget.LanesView
+      android:id="@+id/lanes"
+      android:layout_width="0dp"
+      android:layout_height="68dp"
+      android:layout_marginEnd="@dimen/margin_half"
+      android:layout_marginTop="@dimen/margin_half"
+      android:padding="@dimen/margin_half"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/nav_next_turn_container"
+      app:layout_constraintTop_toBottomOf="@id/street_frame"
+      app:activeLaneTintColor="?navLaneArrowActiveColor"
+      app:inactiveLaneTintColor="?navLaneArrowInactiveColor"
+      app:backgroundColor="?navLanesBackgroundColor"
+      app:cornerRadius="@dimen/margin_quarter"
+      app:editModeLanesCount="5"
+      tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

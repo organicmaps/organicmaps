@@ -11,17 +11,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.maplayer.traffic.TrafficManager;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils;
+import app.organicmaps.widget.LanesView;
 import app.organicmaps.widget.menu.NavMenu;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-
-import java.util.Arrays;
 
 public class NavigationController implements TrafficManager.TrafficCallback,
                                              NavMenu.NavMenuListener
@@ -39,11 +37,7 @@ public class NavigationController implements TrafficManager.TrafficCallback,
   private final TextView mNextStreet;
 
   @NonNull
-  private final View mLanesFrame;
-  @NonNull
-  private final RecyclerView mLanes;
-  @NonNull
-  private final LanesAdapter mLanesAdapter;
+  private final LanesView mLanesView;
 
   private final NavMenu mNavMenu;
   View.OnClickListener mOnSettingsClickListener;
@@ -55,12 +49,6 @@ public class NavigationController implements TrafficManager.TrafficCallback,
                       view.getPaddingEnd(), view.getPaddingBottom());
       return windowInsets;
     });
-  }
-
-  private void initLanesRecycler()
-  {
-    mLanes.setAdapter(mLanesAdapter);
-    mLanes.setNestedScrollingEnabled(false);
   }
 
   public NavigationController(AppCompatActivity activity, View.OnClickListener onSettingsClickListener,
@@ -85,10 +73,7 @@ public class NavigationController implements TrafficManager.TrafficCallback,
     mStreetFrame = topFrame.findViewById(R.id.street_frame);
     mNextStreet = mStreetFrame.findViewById(R.id.street);
 
-    mLanesFrame = topFrame.findViewById(R.id.lanes_frame);
-    mLanes = mLanesFrame.findViewById(R.id.lanes);
-    mLanesAdapter = new LanesAdapter();
-    initLanesRecycler();
+    mLanesView = topFrame.findViewById(R.id.lanes);
 
     // Show a blank view below the navbar to hide the menu content
     final View navigationBarBackground = mFrame.findViewById(R.id.nav_bottom_sheet_nav_bar);
@@ -122,16 +107,7 @@ public class NavigationController implements TrafficManager.TrafficCallback,
     if (info.nextCarDirection.containsNextTurn())
       info.nextCarDirection.setNextTurnDrawable(mNextNextTurnImage);
 
-    if (info.lanes != null)
-    {
-      UiUtils.show(mLanesFrame);
-      mLanesAdapter.setItems(Arrays.asList(info.lanes));
-    }
-    else
-    {
-      UiUtils.hide(mLanesFrame);
-      mLanesAdapter.clearItems();
-    }
+    mLanesView.setLanes(info.lanes);
   }
 
   private void updatePedestrian(@NonNull RoutingInfo info)

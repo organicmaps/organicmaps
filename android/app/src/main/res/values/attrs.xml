@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <declare-styleable name="LanesView">
+    <attr name="activeLaneTintColor" format="reference" />
+    <attr name="inactiveLaneTintColor" format="color" />
+    <attr name="backgroundColor" format="color" />
+    <attr name="cornerRadius" format="dimension" />
+    <!-- These values are used only in edit mode -->
+    <attr name="editModeLanesCount" format="integer" />
+  </declare-styleable>
+
   <declare-styleable name="WheelProgressView">
     <attr name="wheelProgressColor" format="color"/>
     <attr name="wheelSecondaryColor" format="color"/>
