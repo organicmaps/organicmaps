@@ -215,6 +215,64 @@ void GpxParser::ParseGarminColor(std::string const & v)
   }
 }
 
+void GpxParser::CheckAndCorrectTimestamps()
+{
+  ASSERT_EQUAL(m_line.size(), m_timestamps.size(), ());
+
+  size_t const numInvalid = std::count(m_timestamps.begin(), m_timestamps.end(), base::INVALID_TIME_STAMP);
+  if (numInvalid * 2 > m_timestamps.size())
+  {
+    // >50% invalid
+    m_timestamps.clear();
+  }
+  else if (numInvalid > 0)
+  {
+    // Find INVALID_TIME_STAMP ranges and interpolate them.
+    for (size_t i = 0; i < m_timestamps.size();)
+    {
+      if (m_timestamps[i] == base::INVALID_TIME_STAMP)
+      {
+        size_t j = i + 1;
+        for (; j < m_timestamps.size(); ++j)
+        {
+          if (m_timestamps[j] != base::INVALID_TIME_STAMP)
+          {
+            if (i == 0)
+            {
+              // Beginning range assign to the first valid timestamp.
+              while (i < j)
+                m_timestamps[i++] = m_timestamps[j];
+            }
+            else
+            {
+              // naive interpolation
+              auto const last = m_timestamps[i-1];
+              auto count = j - i + 1;
+              double const delta = (m_timestamps[j] - last) / double(count);
+              for (size_t k = 1; k < count; ++k)
+                m_timestamps[i++] = last + k * delta;
+            }
+            break;
+          }
+        }
+
+        if (j == m_timestamps.size())
+        {
+          // Ending range assign to the last valid timestamp.
+          ASSERT(i > 0, ());
+          auto const last = m_timestamps[i-1];
+          while (i < j)
+            m_timestamps[i++] = last;
+        }
+
+        i = j + 1;
+      }
+      else
+        ++i;
+    }
+  }
+}
+
 void GpxParser::Pop(std::string_view tag)
 {
   ASSERT_EQUAL(m_tags.back(), tag, ());
@@ -225,14 +283,15 @@ void GpxParser::Pop(std::string_view tag)
     if (m_line.empty() || !AlmostEqualAbs(m_line.back().GetPoint(), p, kMwmPointAccuracy))
     {
       m_line.emplace_back(p, m_altitude);
-      if (m_timestamp != base::INVALID_TIME_STAMP)
-        m_timestamps.emplace_back(m_timestamp);
+      m_timestamps.emplace_back(m_timestamp);
     }
     m_altitude = geometry::kInvalidAltitude;
     m_timestamp = base::INVALID_TIME_STAMP;
   }
   else if (tag == gpx::kTrkSeg || tag == gpx::kRte)
   {
+    CheckAndCorrectTimestamps();
+
     m_geometry.m_lines.push_back(std::move(m_line));
     m_geometry.m_timestamps.push_back(std::move(m_timestamps));
   }
@@ -269,16 +328,15 @@ void GpxParser::Pop(std::string_view tag)
       }
       else if (GEOMETRY_TYPE_LINE == m_geometryType)
       {
+#ifdef DEBUG
         // Default gpx parser doesn't check points and timestamps count as the kml parser does.
         for (size_t lineIndex = 0; lineIndex < m_geometry.m_lines.size(); ++lineIndex)
         {
           auto const & pointsSize = m_geometry.m_lines[lineIndex].size();
           auto const & timestampsSize = m_geometry.m_timestamps[lineIndex].size();
-          if (m_geometry.HasTimestampsFor(lineIndex) && pointsSize != timestampsSize)
-            MYTHROW(kml::DeserializerGpx::DeserializeException, ("Timestamps size", timestampsSize,
-                                                                 "mismatch with the points size:", pointsSize,
-                                                                 "for the track:", lineIndex));
+          ASSERT(!m_geometry.HasTimestampsFor(lineIndex) || pointsSize == timestampsSize, (pointsSize, timestampsSize));
         }
+#endif
 
         TrackLayer layer;
         layer.m_lineWidth = kml::kDefaultTrackWidth;
@@ -308,7 +366,7 @@ void GpxParser::Pop(std::string_view tag)
     /// @todo(KK): Process the <metadata><time> tag.
     m_timestamp = base::INVALID_TIME_STAMP;
   }
-  
+
   m_tags.pop_back();
 }
 
@@ -389,8 +447,6 @@ void GpxParser::ParseAltitude(std::string const & value)
 void GpxParser::ParseTimestamp(std::string const & value)
 {
   m_timestamp = base::StringToTimestamp(value);
-  if (m_timestamp == base::INVALID_TIME_STAMP)
-    MYTHROW(kml::DeserializerGpx::DeserializeException, ("Failed to parse timestamp:", value));
 }
 
 std::string GpxParser::BuildDescription() const
@@ -498,7 +554,7 @@ void SaveTrackData(Writer & writer, TrackData const & trackData)
     auto const & line = geom.m_lines[lineIndex];
     auto const & timestampsForLine = geom.m_timestamps[lineIndex];
     auto const lineHasTimestamps = geom.HasTimestampsFor(lineIndex);
-    
+
     if (lineHasTimestamps)
       CHECK_EQUAL(line.size(), timestampsForLine.size(), ());
 
@@ -508,9 +564,9 @@ void SaveTrackData(Writer & writer, TrackData const & trackData)
     {
       auto const & point = line[pointIndex];
       auto const [lat, lon] = mercator::ToLatLon(point);
-      
+
       writer << kIndent4 << "<trkpt lat=\"" << CoordToString(lat) << "\" lon=\"" << CoordToString(lon) << "\">\n";
-      
+
       if (trackHasAltitude)
         writer << kIndent6 << "<ele>" << CoordToString(point.GetAltitude()) << "</ele>\n";
 

@@ -76,6 +76,7 @@ private:
   void ParseGarminColor(std::string const & value);
   void ParseOsmandColor(std::string const & value);
   bool IsValidCoordinatesPosition() const;
+  void CheckAndCorrectTimestamps();
 
   FileData & m_data;
   CategoryData m_compilationData;
