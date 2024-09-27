@@ -22,7 +22,7 @@ buildscript {
       googleFirebaseServicesDefault
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:8.5.2'
+    classpath 'com.android.tools.build:gradle:8.6.1'
 
     if (googleFirebaseServicesEnabled) {
       println('Building with Google Firebase Services')
@@ -100,7 +100,7 @@ android {
   // All properties are read from gradle.properties file
   compileSdk propCompileSdkVersion.toInteger()
 
-  ndkVersion '27.0.12077973'
+  ndkVersion '27.1.12297006'
 
   defaultConfig {
     // Default package name is taken from the manifest and should be app.organicmaps
@@ -325,7 +325,7 @@ android {
 
   externalNativeBuild {
     cmake {
-      version '3.22.1+'
+      version '3.30.3+'
       buildStagingDirectory './nativeOutputs'
       path '../../CMakeLists.txt'
     }
