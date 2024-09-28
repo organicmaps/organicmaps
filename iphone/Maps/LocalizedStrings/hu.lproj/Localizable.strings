@@ -605,7 +605,7 @@
 
 "add_opening_hours" = "Nyitvatartás hozzáadása";
 
-"no_osm_account" = "Nem rendelkezel még OpenStreetMap-felhasználói fiókkal?";
+"no_osm_account" = "Nem rendelkezik még OpenStreetMap-felhasználói fiókkal?";
 
 "register_at_openstreetmap" = "Regisztráció";
 
@@ -705,7 +705,7 @@
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Közösség által létrehozott OpenStreetMap adatok %@-tól. Tudjon meg többet a térkép szerkesztéséről és frissítéséről az OpenStreetMap.org oldalon.";
 
-"login_to_make_edits_visible" = "Jelentkezz be, hogy más felhasználók is láthassák a változtatásaidat.";
+"login_to_make_edits_visible" = "Jelentkezzen be, hogy más felhasználók is láthassák a változtatásait.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "A letöltéshez több szabad tárhelyre van szükség. Kérjük, töröld a szükségtelen adatokat.";
@@ -1017,7 +1017,7 @@
 "place_description_title" = "A hely ismertetése";
 
 /* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
-"pref_tts_speedcams_auto" = "Figyelmeztetés gyorshajtáskor";
+"pref_tts_speedcams_auto" = "Gyorshajtáskor figyelmeztet";
 
 /* Speed camera settings menu option - Always warn (about speedcams) */
 "pref_tts_speedcams_always" = "Mindig figyelmeztet";
@@ -1035,12 +1035,12 @@
 
 "power_managment_setting_manual_max" = "Maximális energiatakarékosság";
 
-"enable_logging_warning_message" = "Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a terméktámogatási csapatunknak, akik elhárítják az alkalmazás hibáit. Csak az Organic Maps terméktámogatásának kérésére kapcsold be ezt az opciót.";
+"enable_logging_warning_message" = "Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a terméktámogatási csapatunknak, akik elhárítják az alkalmazás hibáit. Csak az Organic Maps terméktámogatásának kérésére kapcsolja be ezt az opciót.";
 
 "driving_options_title" = "Útvonaltervezési lehetőségek";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
-"avoid_tolls" = "Kerülje a fizetős utakat";
+"avoid_tolls" = "Díjköteles utak elkerülése";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_unpaved" = "Burkolatlan utak elkerülése";
@@ -1048,11 +1048,11 @@
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Kompátkelők elkerülése";
 
-"avoid_motorways" = "Kerülje az autópályát";
+"avoid_motorways" = "Autópályák elkerülése";
 
 "unable_to_calc_alert_title" = "Nem lehet útvonalat számítani";
 
-"unable_to_calc_alert_subtitle" = "Sajnos nem találunk útvonalat, valószínűleg az általad meghatározott lehetőségek miatt. Kérjük változtass a beállításokon és próbáld újra";
+"unable_to_calc_alert_subtitle" = "Sajnos nem találunk útvonalat, valószínűleg az Ön által meghatározott lehetőségek vagy hiányos OpenStreetMap adatok miatt. Kérjük, változtasson a beállításokon és próbálja újra";
 
 "define_to_avoid_btn" = "Elkerülendő utak meghatározása";
 

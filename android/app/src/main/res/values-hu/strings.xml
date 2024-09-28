@@ -436,7 +436,7 @@
     <string name="today">Ma</string>
     <string name="closed">Zárva</string>
     <string name="edit_opening_hours">Nyitvatartás szerkesztése</string>
-    <string name="no_osm_account">Nem rendelkezel még OpenStreetMap-felhasználói fiókkal?</string>
+    <string name="no_osm_account">Nem rendelkezik még OpenStreetMap-felhasználói fiókkal?</string>
     <string name="register_at_openstreetmap">Regisztráció</string>
     <string name="login">Bejelentkezés</string>
     <!-- Status message indicating that user did not login to OSM profile yet. -->
@@ -483,7 +483,7 @@
     <string name="message_invalid_feature_position">Célpont áthelyezése ide nem lehetséges</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Közösség által létrehozott OpenStreetMap adatok %s-tól. Tudjon meg többet a térkép szerkesztéséről és frissítéséről az OpenStreetMap.org oldalon.</string>
-    <string name="login_to_make_edits_visible">Jelentkezz be, hogy más felhasználók is láthassák a változtatásaidat.</string>
+    <string name="login_to_make_edits_visible">Jelentkezzen be, hogy más felhasználók is láthassák a változtatásait.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d/%2$d</string>
     <string name="download_over_mobile_header">Letöltés mobilhálózati kapcsolat segítségével?</string>
@@ -643,7 +643,7 @@
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Kártyák letöltése</string>
     <!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
-    <string name="pref_tts_speedcams_auto">Figyelmeztetés gyorshajtáskor</string>
+    <string name="pref_tts_speedcams_auto">Gyorshajtáskor figyelmeztet</string>
     <!-- Speed camera settings menu option - Always warn (about speedcams) -->
     <string name="pref_tts_speedcams_always">Mindig figyelmeztet</string>
     <!-- Speed camera settings menu option - Never warn (about speedcams) -->
@@ -653,18 +653,18 @@
     <string name="power_managment_setting_never">Soha</string>
     <string name="power_managment_setting_auto">Automatikus</string>
     <string name="power_managment_setting_manual_max">Maximális energiatakarékosság</string>
-    <string name="enable_logging_warning_message">Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a terméktámogatási csapatunknak, akik elhárítják az alkalmazás hibáit. Csak az Organic Maps terméktámogatásának kérésére kapcsold be ezt az opciót.</string>
+    <string name="enable_logging_warning_message">Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a terméktámogatási csapatunknak, akik elhárítják az alkalmazás hibáit. Csak az Organic Maps terméktámogatásának kérésére kapcsolja be ezt az opciót.</string>
     <string name="access_rules_author_only">Online szerkesztés</string>
     <string name="driving_options_title">Útvonaltervezési lehetőségek</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
-    <string name="avoid_tolls">Kerülje a fizetős utakat</string>
+    <string name="avoid_tolls">Díjköteles utak elkerülése</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_unpaved">Burkolatlan utak elkerülése</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Kompátkelők elkerülése</string>
-    <string name="avoid_motorways">Kerülje az autópályát</string>
+    <string name="avoid_motorways">Autópályák elkerülése</string>
     <string name="unable_to_calc_alert_title">Nem lehet útvonalat számítani</string>
-    <string name="unable_to_calc_alert_subtitle">Sajnos nem találunk útvonalat, valószínűleg az általad meghatározott lehetőségek miatt. Kérjük változtass a beállításokon és próbáld újra</string>
+    <string name="unable_to_calc_alert_subtitle">Sajnos nem találunk útvonalat, valószínűleg az Ön által meghatározott lehetőségek vagy hiányos OpenStreetMap adatok miatt. Kérjük, változtasson a beállításokon és próbálja újra</string>
     <string name="define_to_avoid_btn">Elkerülendő utak meghatározása</string>
     <string name="change_driving_options_btn">Útvonaltervezési lehetőségek bekapcsolva</string>
     <string name="toll_road">Díjköteles utak</string>
@@ -744,7 +744,7 @@
     <!-- A preference title; keep short! -->
     <string name="enable_show_on_lock_screen">Megjelenítés a zárolt képernyőn</string>
     <!-- Description in preferences -->
-    <string name="enable_show_on_lock_screen_description">Ha engedélyezve van, nem kell minden alkalommal feloldanod a telefonod, amíg az alkalmazás fut.</string>
+    <string name="enable_show_on_lock_screen_description">Ha engedélyezve van, nem kell minden alkalommal feloldania a telefont, amíg az alkalmazás fut.</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Térképadatok az OpenStreetMapből</string>
     <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
