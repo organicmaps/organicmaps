@@ -77,7 +77,7 @@ public class SpeedLimitView extends View
     try (TypedArray data = context.getTheme()
                                   .obtainStyledAttributes(attrs, R.styleable.SpeedLimitView, 0, 0))
     {
-      mBackgroundColor = data.getColor(R.styleable.SpeedLimitView_backgroundColor, DefaultValues.BACKGROUND_COLOR);
+      mBackgroundColor = data.getColor(R.styleable.SpeedLimitView_slBackgroundColor, DefaultValues.BACKGROUND_COLOR);
       mBorderColor = data.getColor(R.styleable.SpeedLimitView_borderColor, DefaultValues.BORDER_COLOR);
       mAlertColor = data.getColor(R.styleable.SpeedLimitView_alertColor, DefaultValues.ALERT_COLOR);
       mTextColor = data.getColor(R.styleable.SpeedLimitView_textColor, DefaultValues.TEXT_COLOR);
@@ -85,7 +85,7 @@ public class SpeedLimitView extends View
       if (isInEditMode())
       {
         mSpeedLimitMps = data.getInt(R.styleable.SpeedLimitView_editModeSpeedLimit, -1);
-        mSpeedLimitStr = mSpeedLimitMps > 0 ? String.valueOf(mSpeedLimitMps) : null;
+        mSpeedLimitStr = mSpeedLimitMps > 0 ? String.valueOf(((int) mSpeedLimitMps)) : null;
         mCurrentSpeed = data.getInt(R.styleable.SpeedLimitView_editModeCurrentSpeed, -1);
       }
     }

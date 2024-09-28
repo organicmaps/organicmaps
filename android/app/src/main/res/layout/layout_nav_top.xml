@@ -123,6 +123,7 @@
       app:cornerRadius="@dimen/margin_quarter"
       app:editModeLanesCount="5"
       tools:visibility="visible" />
+
   <app.organicmaps.widget.SpeedLimitView
     android:id="@+id/nav_speed_limit"
     android:layout_width="60dp"
