@@ -2,7 +2,6 @@ package app.organicmaps.routing;
 
 import android.location.Location;
 import android.text.TextUtils;
-import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -252,6 +251,6 @@ public class NavigationController implements TrafficManager.TrafficCallback,
     if (location == null)
       return;
     mSpeedLimit.setCurrentSpeed(location.getSpeed());
-    mSpeedLimit.setSpeedLimit(info.speedLimitMps);
+    mSpeedLimit.setSpeedLimitMps(info.speedLimitMps);
   }
 }

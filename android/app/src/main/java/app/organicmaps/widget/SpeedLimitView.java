@@ -64,7 +64,7 @@ public class SpeedLimitView extends View
   private float mBorderRadius;
   private float mBorderWidth;
 
-  private double mSpeedLimit;
+  private double mSpeedLimitMps;
   @Nullable
   private String mSpeedLimitStr;
 
@@ -84,9 +84,8 @@ public class SpeedLimitView extends View
       mTextAlertColor = data.getColor(R.styleable.SpeedLimitView_textAlertColor, DefaultValues.TEXT_ALERT_COLOR);
       if (isInEditMode())
       {
-        mSpeedLimit = data.getInt(R.styleable.SpeedLimitView_editModeSpeedLimit, -1);
-        Pair<String, String> speedLimitAndUnits = StringUtils.nativeFormatSpeedAndUnits(mSpeedLimit);
-        mSpeedLimitStr = mSpeedLimit > 0 ? speedLimitAndUnits.first : null;
+        mSpeedLimitMps = data.getInt(R.styleable.SpeedLimitView_editModeSpeedLimit, -1);
+        mSpeedLimitStr = mSpeedLimitMps > 0 ? String.valueOf(mSpeedLimitMps) : null;
         mCurrentSpeed = data.getInt(R.styleable.SpeedLimitView_editModeCurrentSpeed, -1);
       }
     }
@@ -105,20 +104,20 @@ public class SpeedLimitView extends View
     mTextPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
   }
 
-  public void setSpeedLimit(final double speedLimit)
+  public void setSpeedLimitMps(final double speedLimitMps)
   {
-    if (mSpeedLimit == speedLimit)
+    if (mSpeedLimitMps == speedLimitMps)
       return;
 
-    mSpeedLimit = speedLimit;
-    if (mSpeedLimit <= 0)
+    mSpeedLimitMps = speedLimitMps;
+    if (mSpeedLimitMps <= 0)
     {
       mSpeedLimitStr = null;
       setVisibility(GONE);
       return;
     }
 
-    Pair<String, String> speedLimitAndUnits = StringUtils.nativeFormatSpeedAndUnits(mSpeedLimit);
+    final Pair<String, String> speedLimitAndUnits = StringUtils.nativeFormatSpeedAndUnits(mSpeedLimitMps);
     setVisibility(VISIBLE);
     mSpeedLimitStr = speedLimitAndUnits.first;
     configureTextSize();
@@ -136,7 +135,7 @@ public class SpeedLimitView extends View
   {
     super.onDraw(canvas);
 
-    final boolean alert = mCurrentSpeed > mSpeedLimit && mSpeedLimit > 0;
+    final boolean alert = mCurrentSpeed > mSpeedLimitMps && mSpeedLimitMps > 0;
 
     final float cx = mWidth / 2;
     final float cy = mHeight / 2;
