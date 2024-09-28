@@ -3070,15 +3070,15 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
 
   auto const result = osm::Editor::Instance().SaveEditedFeature(emo);
 
-  // Automatically select newly created objects.
-  if (!m_currentPlacePageInfo)
-  {
-    place_page::BuildInfo info;
-    info.m_mercator = emo.GetMercator();
-    info.m_featureId = emo.GetID();
-    m_currentPlacePageInfo = BuildPlacePageInfo(info);
-    ActivateMapSelection();
-  }
+  // Automatically select newly created and edited objects.
+  if (m_currentPlacePageInfo)
+    DeactivateMapSelection();
+
+  place_page::BuildInfo info;
+  info.m_mercator = emo.GetMercator();
+  info.m_featureId = emo.GetID();
+  m_currentPlacePageInfo = BuildPlacePageInfo(info);
+  ActivateMapSelection();
 
   return result;
 }
