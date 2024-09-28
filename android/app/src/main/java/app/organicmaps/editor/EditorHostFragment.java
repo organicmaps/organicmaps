@@ -372,7 +372,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment implements View.O
   private void showLoginDialog()
   {
     startActivity(new Intent(requireContext(), OsmLoginActivity.class));
-    requireActivity().finish();
+    Utils.navigateToParent(requireActivity());
   }
 
   private void saveNote()
