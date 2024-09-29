@@ -814,6 +814,8 @@
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Tidak dapat menampilkan dialog pemilihan folder karena tidak ada aplikasi yang sesuai yang diinstal pada perangkat Anda. Instal aplikasi pengelola file dan coba lagi</string>
     <string name="uri_open_location_failed">Tidak ada Aplikasi yang diinstal yang dapat membuka lokasi</string>
+    <!-- preference string for using auto theme only in navigation mode -->
+    <string name="nav_auto">Otomatis dalam navigasi</string>
 
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Alamat/Blokir</string>

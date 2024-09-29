@@ -813,6 +813,8 @@
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">ไม่สามารถแสดงกล่องโต้ตอบการเลือกโฟลเดอร์ได้เนื่องจากไม่ได้ติดตั้งแอปที่เหมาะสมในอุปกรณ์ของคุณ โปรดติดตั้งแอปตัวจัดการไฟล์แล้วลองอีกครั้ง</string>
     <string name="uri_open_location_failed">ไม่มีการติดตั้งแอปที่สามารถเปิดตำแหน่งได้</string>
+    <!-- preference string for using auto theme only in navigation mode -->
+    <string name="nav_auto">อัตโนมัติในการนำทาง</string>
 
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">ที่อยู่/บล็อค</string>
