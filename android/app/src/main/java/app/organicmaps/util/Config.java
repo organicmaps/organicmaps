@@ -257,7 +257,7 @@ public final class Config
   {
     String autoTheme = MwmApplication.from(context).getString(R.string.theme_auto);
     String res = getString(KEY_MISC_UI_THEME_SETTINGS, autoTheme);
-    if (ThemeUtils.isValidTheme(context, res) || ThemeUtils.isAutoTheme(context, res))
+    if (ThemeUtils.isValidTheme(context, res) || ThemeUtils.isAutoTheme(context, res) || ThemeUtils.isNavAutoTheme(context, res))
       return res;
 
     return autoTheme;

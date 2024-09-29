@@ -1091,6 +1091,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onResume()
   {
     super.onResume();
+    ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
     refreshSearchToolbar();
     setFullscreen(isFullscreen());
     if (Framework.nativeGetChoosePositionMode() != Framework.ChoosePositionMode.NONE)
