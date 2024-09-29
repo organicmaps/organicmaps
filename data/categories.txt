@@ -16654,3 +16654,43 @@ uk:Спортивний зал
 vi:Nhà thi đấu thể thao
 zh-Hans:体育馆
 zh-Hant:體育館
+
+amenity-arts_centre|@category_tourism
+en:Arts Center
+en-GB:Arts Centre
+ar:مركز فن
+ca:Centre d’art
+cs:Umělecké centrum
+da:Kunsthus
+de:Kunstzentrum
+el:Κέντρο καλών τεχνών
+es:Centro de arte
+es-MX:Centro de artes
+et:Kunstikeskus
+eu:Arte galeria
+fa:مرکز هنری
+fi:Taidekeskus
+fr:Centre artistique
+he:מרכז אומנויות
+hi:कला केंद्र
+hu:Művészeti központ
+id:Pusat kesenian
+it:Centro artistico
+ja:芸術センター
+ko:예술 회관
+mr:कला केंद्र
+nb:Kunstsenter
+nl:Kunstcentrum
+pl:Centrum sztuki
+pt:Centro de artes
+ro:Centru de artă
+ru:Центр искусств
+sk:Centrum umenia
+sv:Kulturcenter
+sw:Kituo cha sanaa
+th:ศูนย์งานศิลปะ
+tr:Sanat Merkezi
+uk:Центр мистецтв
+vi:Trung tâm nghệ thuật
+zh-Hans:艺术中心
+zh-Hant:藝術中心
