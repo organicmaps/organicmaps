@@ -81,6 +81,29 @@ void FillTrafficForRendering(vector<RouteSegment> const & segments,
     traffic.push_back(s.GetTraffic());
 }
 
+void FillSlopesForRendering(Route::SubrouteAttrs const & subrouteAttrs,
+                            vector<RouteSegment> const & segments,
+                            vector<float> & slopes)
+{
+  slopes.clear();
+  slopes.reserve(segments.size());
+  auto prevAltitude = subrouteAttrs.GetStart().GetAltitude();
+  auto prevPoint = subrouteAttrs.GetStart().GetPoint();
+
+  for (auto const & s: segments)
+  {
+    auto altitude = s.GetJunction().GetAltitude();
+    auto point = s.GetJunction().GetPoint();
+    auto height = altitude - prevAltitude;
+    auto length = mercator::DistanceOnEarth(prevPoint, point);
+    float slope = (length <= 1 || abs(height) <= 1)? 0.0f: height / length;
+    slopes.push_back(slope);
+
+    prevAltitude = altitude;
+    prevPoint = point;
+  }
+}
+
 RouteMarkData GetLastPassedPoint(BookmarkManager * bmManager, vector<RouteMarkData> const & points)
 {
   ASSERT_GREATER_OR_EQUAL(points.size(), 2, ());
@@ -711,6 +734,7 @@ bool RoutingManager::InsertRoute(Route const & route)
         {
           subroute->m_routeType = df::RouteType::Pedestrian;
           subroute->AddStyle(df::SubrouteStyle(df::kRoutePedestrian, df::RoutePattern(4.0, 2.0)));
+          FillSlopesForRendering(route.GetSubrouteAttrs(subrouteIndex), segments, subroute->m_slopes);
           break;
         }
       case RouterType::Bicycle:
