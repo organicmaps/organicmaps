@@ -469,7 +469,8 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   {
     DEFAULT(R.string.theme_default),
     NIGHT(R.string.theme_night),
-    AUTO(R.string.theme_auto);
+    AUTO(R.string.theme_auto),
+    NAV_AUTO(R.string.theme_nav_auto);
 
     private final int mModeStringId;
 
