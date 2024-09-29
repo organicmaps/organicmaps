@@ -474,6 +474,7 @@ IsAmenityChecker::IsAmenityChecker() : BaseChecker(1 /* level */)
 AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
 {
   base::StringIL const primaryAttractionTypes[] = {
+      {"amenity", "arts_centre"},
       {"amenity", "grave_yard"},
       {"amenity", "fountain"},
       {"amenity", "place_of_worship"},
