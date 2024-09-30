@@ -5027,8 +5027,8 @@
     nb = Ruter
     nl = Tracks
     pl = Trasy
-    pt = Percursos
-    pt-BR = Percursos
+    pt = Trajetos
+    pt-BR = Trilhas
     ro = Trasee
     ru = Треки
     sk = Stopy
@@ -9562,7 +9562,7 @@
     nb = Ingen rute ble opprettet. Nåværende GPS-koordinater ble ikke funnet.
     nl = Route samenstellen mislukt. De huidige gps-coördinaten kunnen niet worden geïdentificeerd.
     pl = Nie można wyznaczyć trasy. Nie można ustalić współrzędnych GPS.
-    pt = A rota não foi criada, porque não foi possível identificar as coordenadas do GPS.
+    pt = O trajeto não foi criado porque não foi possível identificar as coordenadas do GPS.
     pt-BR = A rota não foi traçada, pois não foi possível identificar as coordenadas do GPS.
     ro = Crearea traseului a eșuat. Coordonatele GPS actuale nu au putut fi identificate.
     ru = Маршрут не построен. Текущая геопозиция не определена.
@@ -9692,7 +9692,7 @@
     nb = Nåværende GPS-koordinater ble ikke funnet. Aktiver stedstjenester for å beregne en rute.
     nl = De huidige gps-coördinaten kunnen niet worden gevonden. Schakel locatiediensten in om de route te berekenen.
     pl = Nie można ustalić współrzędnych GPS. Włącz usługi określania lokalizacji, aby wyznaczyć trasę.
-    pt = Não foi possível localizar as coordenadas do GPS. Ative os serviços de localização para que a rota seja criada.
+    pt = Não foi possível localizar as coordenadas do GPS. Ative os serviços de localização para que o trajeto seja criado.
     pt-BR = Não foi possível localizar as coordenadas do GPS. Ative os serviços de localização para que a rota seja traçada.
     ro = Localizarea coordonatelor GPS curente a eșuat. Pentru a calcula traseul, activează serviciile de localizare.
     ru = Текущая геопозиция не определена. Для построения маршрута включите режим определения геопозиции.
@@ -9778,7 +9778,7 @@
     nb = Last ned og oppdater all kart- og ruteinformasjon langs den foreslåtte veien for å beregne ruten.
     nl = Download de kaart en route-informatie voor het ingestelde traject en werk deze bij om de route te berekenen.
     pl = Pobierz i zaktualizuj dane mapy i wyznaczania trasy wzdłuż planowanej drogi, aby wyznaczyć trasę.
-    pt = Descarregue e atualize todos os dados do mapa e roteamento ao longo do trajeto desejado para que a rota seja criada.
+    pt = Descarregue e atualize todos os dados do mapa e roteamento ao longo do trajeto desejado para que o trajeto seja criado.
     pt-BR = Baixe e atualize todos os dados de mapa e roteamento referentes ao trajeto desejado para que a rota seja traçada.
     ro = Pentru calcularea traseului, descarcă și actualizează toate hărțile și informațiile traseului pentru calea estimată.
     ru = Для построения маршрута загрузите и обновите все карты и файлы маршрутов по пути следования.
@@ -18877,8 +18877,8 @@
     nb = Deaktivere opptak av nylig reiste rute?
     nl = Vastleggen van uw onlangs afgelegde route uitschakelen?
     pl = Wyłączyć rejestrowanie niedawno przebytej trasy?
-    pt = Desativar gravação da sua rota recente?
-    pt-BR = Desabilitar registro de sua rota recente?
+    pt = Desativar gravação do seu trajeto recente?
+    pt-BR = Desativar gravação da sua rota recente?
     ro = Dezactivezi înregistrarea celui mai recent traseu efectuat?
     ru = Выключить запись недавно пройденого пути?
     sk = Znemožniť nahrávanie vami nedávno precestovanej trasy?
@@ -19007,8 +19007,8 @@
     nb = Organic Maps bruker geografiske funksjoner i bakgrunnen for å registrere din nylig reiste rute.
     nl = Organic Maps gebruikt uw geografische positie op de achtergrond om uw onlangs afgelegde route vast te leggen.
     pl = Organic Maps używa w tle geolokalizacji w celu rejestrowania niedawno przebytej trasy.
-    pt = O Organic Maps usa a sua localização geográfica em segundo plano para gravar a sua rota recente.
-    pt-BR = O Organic Maps usa sua localização geográfica em segundo plano para registrar sua rota recente.
+    pt = O Organic Maps usa a sua localização geográfica em segundo plano para gravar o seu trajeto recente.
+    pt-BR = O Organic Maps usa sua localização geográfica em segundo plano para gravar a sua rota recente.
     ro = Organic Maps folosește poziția ta geografică pentru a înregistra cel mai recent traseu urmat.
     ru = Organic Maps использует вашу геопозицию в фоновом режиме для записи недавно пройденного пути.
     sk = Organic Maps používa vašu geopozíciu na pozadí pre zaznamenávanie vami nedávno precestovanej trasy.
@@ -22312,10 +22312,10 @@
     pl:many = %d tras
     pl:one = %d trasa
     pl:other = %d trasy
-    pt-BR:one = %d percurso
-    pt-BR:other = %d percursos
-    pt:one = %d percurso
-    pt:other = %d percursos
+    pt-BR:one = %d trajeto
+    pt-BR:other = %d trajetos
+    pt:one = %d trilha
+    pt:other = %d trilhas
     ro:one = %d traseu
     ro:other = %d trasee
     ru:few = %d трека
@@ -25037,7 +25037,7 @@
     nl = Kan route vanaf huidige positie niet opbouwen
     pl = Brak możliwości zbudowania trasy od bieżącej lokalizacji
     pt = Não foi possível calcular o percurso a partir da localização atual
-    pt-BR = Desativar rota demarcada pela sua localização atual
+    pt-BR = Não foi possível construir uma rota a partir da sua localização atual
     ro = Traseul de la locul în care te afli nu poate fi alcătuit
     ru = Невозможно построить маршрут от текущего местоположения
     sk = Z vašej aktuálnej polohy nie je možné vytvoriť trasu
@@ -27322,7 +27322,7 @@
     nb = T-bane rute ikke funnet
     nl = Metroroute niet gevonden
     pl = Nie znaleziono trasy metra
-    pt = Não foi encontrada nenhuma rota de metropolitano
+    pt = Não foi encontrada nenhuma rota de metro
     pt-BR = Rota por metrô não encontrada
     ro = Traseul metroului nu a fost găsit
     ru = Маршрут метро не найден
@@ -28679,7 +28679,8 @@
     nb = Slett rute
     nl = Verwijder traject
     pl = Usuń trasę
-    pt-BR = Apagar rota
+    pt = Apagar trajeto
+    pt-BR = Apagar trilha
     ro = Elimină traseul
     ru = Удалить трек
     sk = Zmazať záznam trasy
@@ -28712,7 +28713,8 @@
     nb = Rutenavn
     nl = Trajectnaam
     pl = Nazwa trasy
-    pt-BR = Nome da rota
+    pt = Nome do trajeto
+    pt-BR = Nome da trilha
     ro = Numele traseului
     ru = Название трека
     sk = Názov trasy
@@ -28745,6 +28747,7 @@
     nb = Flytt
     nl = Verplaats
     pl = Przenieś
+    pt = Mover
     pt-BR = Mover
     ro = Mută
     ru = Переместить
@@ -28785,8 +28788,8 @@
     nb = Rute
     nl = Track
     pl = Trasa
-    pt = Percurso
-    pt-BR = Percurso
+    pt = Trajeto
+    pt-BR = Trilha
     ro = Traseu
     ru = Трек
     sk = Trasa
@@ -29925,8 +29928,7 @@
     nb = Endre farge
     nl = Verander kleur
     pl = Zmień kolor
-    pt = Muda de cor
-    pt-BR = Mudança de cor
+    pt = Alterar cor
     ro = Schimbă culoarea
     ru = Изменить цвет
     sk = Zmena farby
@@ -31339,7 +31341,7 @@
     nl = Route opnemen
     pl = Nagraj trasę
     pt = Gravar trajeto
-    pt-BR = Gravar rota
+    pt-BR = Gravar trilha
     ro = Înregistrați traseul
     ru = Записать трек
     sk = Nahrať trasu
@@ -31385,7 +31387,7 @@
     nl = Stop opname van route
     pl = Zatrzymaj nagrywanie trasy
     pt = Parar gravação de trajeto
-    pt-BR = Parar gravação de rota
+    pt-BR = Parar gravação de trilha
     ro = Opriți înregistrarea traseului
     ru = Остановить запись трека
     sk = Zastaviť nahrávanie trasy
@@ -31522,8 +31524,8 @@
     nb = Lagre i bokmerker og ruter?
     nl = Opname opslaan in bladwijzers en tracks?
     pl = Zapisać nagranie w zakładkach i trasach?
-    pt = Guardar em Favoritos e trajetos?
-    pt-BR = Salvar em Favoritos e trilhas?
+    pt = Guardar em Favoritos e Trajetos?
+    pt-BR = Salvar em Favoritos e Trilhas?
     ro = Salvați în Locuri preferate și trasee?
     ru = Сохранить в метки и треки?
     sk = Uložiť do záložiek a stôp?
@@ -31569,7 +31571,7 @@
     nl = Route is leeg - niets om op te slaan
     pl = Trasa jest pusta - nic do zapisania
     pt = O trajeto está vazio - não há nada para guardar
-    pt-BR = A rota está vazia - não há nada para salvar
+    pt-BR = A trilha está vazia - não há nada para salvar
     ro = Traseul este gol - nu este nimic de salvat
     ru = Трек пуст - нечего сохранять
     sk = Trasa je prázdna - nie je čo ukladať
