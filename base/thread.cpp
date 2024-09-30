@@ -100,6 +100,11 @@ void SimpleThread::ThreadFunc(std::function<void()> && fn)
 
   fn();
 
+  // https://github.com/organicmaps/organicmaps/issues/9397
+  // https://github.com/organicmaps/organicmaps/issues/6139
+  // Manually clear function object to free possible captured data/resources/lambdas _inside_ Attach/Detach context.
+  fn = {};
+
 #if defined(OMIM_OS_ANDROID)
   AndroidThreadDetachFromJVM();
 #endif  // defined(OMIM_OS_ANDROID)
