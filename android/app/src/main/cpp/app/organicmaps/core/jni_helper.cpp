@@ -75,10 +75,11 @@ namespace jni
 JNIEnv * GetEnv()
 {
   JNIEnv * env;
-  if (JNI_OK != g_jvm->GetEnv((void **)&env, JNI_VERSION_1_6))
+  auto const res = g_jvm->GetEnv((void **)&env, JNI_VERSION_1_6);
+  if (res != JNI_OK)
   {
-    LOG(LERROR, ("Can't get JNIEnv. Is the thread attached to JVM?"));
-    MYTHROW(RootException, ("Can't get JNIEnv. Is the thread attached to JVM?"));
+    LOG(LERROR, ("Can't get JNIEnv. Is the thread attached to JVM?", res));
+    MYTHROW(RootException, ("Can't get JNIEnv. Is the thread attached to JVM?", res));
   }
   return env;
 }
@@ -163,20 +164,14 @@ char const * GetStringClassName()
   return "java/lang/String";
 }
 
-struct global_ref_deleter
+std::shared_ptr<jobject> make_global_ref(jobject obj)
 {
-  void operator()(jobject * ref)
+  jobject * ref = new jobject(GetEnv()->NewGlobalRef(obj));
+  return std::shared_ptr<jobject>(ref, [](jobject * ref)
   {
     GetEnv()->DeleteGlobalRef(*ref);
     delete ref;
-  }
-};
-
-std::shared_ptr<jobject> make_global_ref(jobject obj)
-{
-  jobject * ref = new jobject;
-  *ref = GetEnv()->NewGlobalRef(obj);
-  return std::shared_ptr<jobject>(ref, global_ref_deleter());
+  });
 }
 
 std::string ToNativeString(JNIEnv * env, const jthrowable & e)
