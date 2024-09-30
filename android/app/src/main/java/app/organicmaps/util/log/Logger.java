@@ -131,14 +131,14 @@ public final class Logger
       if (tag == null)
         tag = CORE_TAG;
 
+      final String threadName = "(" + Thread.currentThread().getName() + ") ";
       if (logsFolder == null || BuildConfig.DEBUG)
-        Log.println(level, tag, sb.toString());
+        Log.println(level, tag, threadName + sb.toString());
 
       if (logsFolder != null)
       {
         sb.insert(0, String.valueOf(getLevelChar(level)) + '/' + tag + ": ");
-        LogsManager.EXECUTOR.execute(new WriteTask(logsFolder + File.separator + FILENAME,
-                                                   sb.toString(), Thread.currentThread().getName()));
+        LogsManager.EXECUTOR.execute(new WriteTask(logsFolder + File.separator + FILENAME, threadName + sb.toString()));
       }
     }
   }
@@ -169,14 +169,11 @@ public final class Logger
     private final String mFilePath;
     @NonNull
     private final String mData;
-    @NonNull
-    private final String mCallingThread;
 
-    private WriteTask(@NonNull String filePath, @NonNull String data, @NonNull String callingThread)
+    private WriteTask(@NonNull String filePath, @NonNull String data)
     {
       mFilePath = filePath;
       mData = data;
-      mCallingThread = callingThread;
     }
 
     @Override
@@ -196,7 +193,7 @@ public final class Logger
           fw = new FileWriter(mFilePath, true);
         }
         final DateFormat fmt = new SimpleDateFormat("MM-dd HH:mm:ss.SSS", Locale.US);
-        fw.write(fmt.format(new Date()) + " (" + mCallingThread + ") " + mData + "\n");
+        fw.write(fmt.format(new Date()) + " " + mData + "\n");
       }
       catch (IOException e)
       {
