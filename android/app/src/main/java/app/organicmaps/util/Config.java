@@ -7,7 +7,6 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceManager;
 import app.organicmaps.BuildConfig;
-import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 
@@ -35,6 +34,8 @@ public final class Config
   private static final String KEY_MISC_AGPS_TIMESTAMP = "AGPSTimestamp";
   private static final String KEY_DONATE_URL = "DonateUrl";
   private static final String KEY_PREF_SEARCH_HISTORY = "SearchHistoryEnabled";
+
+  public static final String KEY_PREF_LAST_SEARCHED_TAB = "LastSearchTab";
 
   /**
    * The total number of app launches.
