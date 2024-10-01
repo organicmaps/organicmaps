@@ -39,7 +39,6 @@
 - (void)initialize;
 - (void)enableCarPlayRepresentation;
 - (void)disableCarPlayRepresentation;
-- (void)backToTourismMain;
 
 - (void)dismissPlacePage;
 

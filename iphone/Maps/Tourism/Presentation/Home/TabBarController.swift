@@ -17,11 +17,14 @@ class TabBarController: UITabBarController {
     
     // navigation functions
     let goToCategoriesTab = { self.selectedIndex = 1 }
+    
+    // we use dismiss, because we present screens modally
     let goToMap = {
-      self.dismiss(animated: true)
+      self.dismiss(animated: false)
     }
     let goToAuth = {
-      self.performSegue(withIdentifier: "TourismMain2Auth", sender: nil)
+      UserPreferences.shared.setShouldGoToAuth(value: true)
+      self.dismiss(animated: true)
     }
     let goToMapAndCreateRoute: (PlaceLocation) -> Void = { location in
       UserPreferences.shared.setLocation(value: location)

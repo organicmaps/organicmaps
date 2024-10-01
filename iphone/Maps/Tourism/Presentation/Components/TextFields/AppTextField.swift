@@ -3,8 +3,10 @@ import SwiftUI
 struct AppTextField: View {
   @Binding var value: String
   var hint: String
+  var label: String? = nil
   var isError: Bool? = nil
   var textFieldHeight: CGFloat = 50
+  var labelFontSize:CGFloat = 13
   var hintFontSize: CGFloat = 15
   var textSize: CGFloat = 17
   var errorColor: SwiftUI.Color = SwiftUI.Color.red
@@ -36,6 +38,14 @@ struct AppTextField: View {
             .foregroundColor(colorForState())
             .padding(.top, textFieldHeight / 2)
         )
+        
+        // Label
+        if let label = label {
+          Text(label)
+            .font(.system(size: labelFontSize))
+            .foregroundColor(Color.onBackground)
+            .padding(.bottom, 50)
+        }
         
         // Hint text
         Text(hint)

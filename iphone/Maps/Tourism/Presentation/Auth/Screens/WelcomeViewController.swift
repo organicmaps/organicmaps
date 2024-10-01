@@ -43,7 +43,7 @@ class WelcomeViewController: UIViewController {
     let button = AppButton(
       label: L("sign_in"),
       isPrimary: true,
-      target: self,
+      target: WelcomeViewController.self,
       action: #selector(signInClicked)
     )
     return button
@@ -53,7 +53,7 @@ class WelcomeViewController: UIViewController {
     let button = AppButton(
       label: L("sign_up"),
       isPrimary: true,
-      target: self,
+      target: WelcomeViewController.self,
       action: #selector(signUpClicked)
     )
     return button

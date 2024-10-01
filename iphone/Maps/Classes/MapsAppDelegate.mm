@@ -211,8 +211,7 @@ using namespace osm_auth_ios;
   LOG(LINFO, ("applicationDidBecomeActive - begin"));
   auto & f = GetFramework();
   
-  // MARK: Our default app entry point is TourismMain that's why we go there
-  [self goToTourismMainIfTajikistanIsLoaded];
+  [self handleNavigationForAppStartup];
   
   [self moveToDushanbeIfNotInTjk];
   
@@ -236,11 +235,17 @@ using namespace osm_auth_ios;
 
 
 // MARK: Functions for Tourism purposes
-
-- (void) goToTourismMainIfTajikistanIsLoaded {
+- (void) handleNavigationForAppStartup {
   auto & f = GetFramework();
+  
+  // We don't want map to be our default entry point, that's why we go to places list or auth if there's no token)
   if(f.IsCountryLoadedByName("Tajikistan")) {
-    [[MapViewController sharedController]performSegueWithIdentifier:@"Map2TourismMain" sender:nil];
+    TourismUserPreferences *prefs = [TourismUserPreferences shared];
+    if ([prefs getToken] == nil) { // go to Auth (note: token is cleared when user signs out)
+      [[MapViewController sharedController]performSegueWithIdentifier:@"Map2Auth" sender:nil];
+    } else { // go to TourismMain (Home)
+      [[MapViewController sharedController]performSegueWithIdentifier:@"Map2TourismMain" sender:nil];
+    }
   }
 }
 

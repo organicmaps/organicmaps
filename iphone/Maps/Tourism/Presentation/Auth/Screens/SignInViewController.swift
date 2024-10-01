@@ -2,6 +2,8 @@ import UIKit
 import Combine
 
 class SignInViewController: UIViewController {
+  
+  
   private var cancellables = Set<AnyCancellable>()
   private var authRepository = AuthRepositoryImpl(authService: AuthServiceImpl())
   
@@ -63,7 +65,7 @@ class SignInViewController: UIViewController {
   }()
   
   private let signInButton: AppButton = {
-    let button = AppButton(label: L("sign_in"), isPrimary: true, target: self, action: #selector(signInTapped))
+    let button = AppButton(label: L("sign_in"), isPrimary: true, target: SignInViewController.self, action: #selector(signInTapped))
     return button
   }()
   
@@ -180,6 +182,7 @@ class SignInViewController: UIViewController {
   
   private func navigateToMain() {
     signInButton.isLoading = false
-    performSegue(withIdentifier: "SignIn2TourismMain", sender: nil)
+    self.dismiss(animated: true)
+    UserPreferences.shared.setShouldGoToTourismMain(value: true)
   }
 }

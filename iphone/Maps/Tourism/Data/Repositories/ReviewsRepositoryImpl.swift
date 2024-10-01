@@ -89,7 +89,7 @@ class ReviewsRepositoryImpl : ReviewsRepository {
     
     if !reviews.isEmpty {
       let reviewsIds = reviews.map(\.id)
-      let response = try await reviewsService.deleteReview(reviews: ReviewIdsDTO(feedbacks: reviewsIds))
+      _ = try await reviewsService.deleteReview(reviews: ReviewIdsDTO(feedbacks: reviewsIds))
       reviewsPersistenceController.deleteReviews(ids: reviewsIds)
     }
   }
@@ -101,7 +101,7 @@ class ReviewsRepositoryImpl : ReviewsRepository {
       reviewsDTO.forEach { reviewDTO in
         Task {
           do {
-            let response = try await reviewsService.postReview(review: reviewDTO)
+            _ = try await reviewsService.postReview(review: reviewDTO)
             updateReviewsForDb(id: reviewDTO.placeId)
             reviewsPersistenceController.deleteReviewPlannedToPost(placeId: reviewDTO.placeId)
             try reviewDTO.images.forEach { URL in

@@ -35,7 +35,7 @@ class CategoriesViewModel: ObservableObject {
   
   func observeCategoryPlaces() {
     placesRepository.placesByCategoryResource.sink { completion in
-      if case let .failure(error) = completion {
+      if case .failure(_) = completion {
         // nothing
       }
     } receiveValue: { places in

@@ -193,9 +193,9 @@ class PlacesRepositoryImpl: PlacesRepository {
       
       do {
         if(isFavorite) {
-          try await placesService.addFavorites(ids: favoritesIdsDto)
+          let _ = try await placesService.addFavorites(ids: favoritesIdsDto)
         } else {
-          try await placesService.removeFromFavorites(ids: favoritesIdsDto)
+          let _ = try await placesService.removeFromFavorites(ids: favoritesIdsDto)
         }
         
         placesPersistenceController.removeFavoritingRecordsForSync(placeIds: [placeId])
@@ -215,7 +215,7 @@ class PlacesRepositoryImpl: PlacesRepository {
     if !favoritesToAdd.isEmpty {
       Task {
         do {
-          let response =
+          _ =
           try await placesService.addFavorites(ids: FavoritesIdsDTO(marks: favoritesToAdd))
           placesPersistenceController.removeFavoritingRecordsForSync(placeIds: favoritesToAdd)
         } catch {
@@ -227,7 +227,7 @@ class PlacesRepositoryImpl: PlacesRepository {
     if !favoritesToRemove.isEmpty {
       Task {
         do {
-          let response =
+          _ =
           try await placesService.removeFromFavorites(ids: FavoritesIdsDTO(marks: favoritesToRemove))
           placesPersistenceController.removeFavoritingRecordsForSync(placeIds: favoritesToRemove)
         } catch {

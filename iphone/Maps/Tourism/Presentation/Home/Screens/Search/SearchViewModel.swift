@@ -19,7 +19,7 @@ class SearchViewModel: ObservableObject {
   
   func observeSearch() {
     placesRepository.searchResource.sink { completion in
-      if case let .failure(error) = completion {
+      if case .failure(_) = completion {
         // nothing
       }
     } receiveValue: { places in

@@ -20,7 +20,7 @@ class FavoritesViewModel: ObservableObject {
   
   func observeFavorites() {
     placesRepository.favoritesResource.sink { completion in
-      if case let .failure(error) = completion {
+      if case .failure(_) = completion {
         // nothing
       }
     } receiveValue: { places in

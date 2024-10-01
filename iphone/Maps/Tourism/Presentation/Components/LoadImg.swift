@@ -11,10 +11,15 @@ struct LoadImageView: View {
       ZStack(alignment: .center) {
         WebImage(url: URL(string: urlString))
           .onSuccess(perform: { Image, data, cache in
-            self.isError = false
+            // delay is here to avoid any updates during ui update and stop seing messages about it
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+              self.isError = false
+            }
           })
           .onFailure(perform: { isError in
-            self.isError = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+              self.isError = true
+            }
           })
           .resizable()
           .indicator(.activity)

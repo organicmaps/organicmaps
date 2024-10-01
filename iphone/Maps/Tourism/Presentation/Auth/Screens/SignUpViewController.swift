@@ -93,7 +93,7 @@ class SignUpViewController: UIViewController {
   }()
   
   private let signUpButton: AppButton = {
-    let button = AppButton(label: L("sign_up"), isPrimary: true, target: self, action: #selector(signUpClicked))
+    let button = AppButton(label: L("sign_up"), isPrimary: true, target: SignUpViewController.self, action: #selector(signUpClicked))
     return button
   }()
   

@@ -115,7 +115,7 @@ class ProfileServiceImpl: ProfileService {
   func updateLanguage(code: String) {
     Task {
       do {
-        let response: SimpleResponse = try await  AppNetworkHelper.put(
+        let _: SimpleResponse = try await  AppNetworkHelper.put(
           path: APIEndpoints.updateLanguageUrl,
           body: LanguageDTO(language: code)
         )
@@ -128,7 +128,7 @@ class ProfileServiceImpl: ProfileService {
   func updateTheme(code: String) {
     Task {
       do {
-        let response: SimpleResponse = try await AppNetworkHelper.put(
+        let _: SimpleResponse = try await AppNetworkHelper.put(
           path: APIEndpoints.updateThemeUrl,
           body: ThemeDTO(theme: code)
         )

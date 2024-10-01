@@ -242,7 +242,7 @@ using namespace storage;
   }
   
   if(downloadedBytes == totalBytes) {
-    [[MapViewController sharedController]performSegueWithIdentifier:@"Map2TourismMain" sender:nil];
+    [[MapViewController sharedController]performSegueWithIdentifier:@"Map2Auth" sender:nil];
   }
 }
 

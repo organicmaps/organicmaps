@@ -70,22 +70,27 @@ struct PersonalDataScreen: View {
             showImagePicker = true
           }
         }
-        
-        VerticalSpace(height: 24)
+        VerticalSpace(height: 36)
         
         AppTextField(
           value: $profileVM.fullName,
-          hint: L("full_name")
+          hint: L("full_name"),
+          label: L("full_name")
         )
         VerticalSpace(height: 16)
         
         AppTextField(
           value: $profileVM.email,
-          hint: L("email")
+          hint: L("email"),
+          label: L("email")
         )
-        VerticalSpace(height: 24)
+        VerticalSpace(height: 8)
         
         if let code = profileVM.countryCodeName {
+          Text(L("country"))
+            .font(.system(size: 13))
+            .foregroundColor(Color.onBackground)
+          
           UICountryPickerView(
             code: code,
             onCountryChanged: { code in
@@ -93,6 +98,14 @@ struct PersonalDataScreen: View {
             }
           )
             .frame(height: 56)
+            .overlay(
+              // Underline
+              Rectangle()
+                .frame(height: 1)
+                .foregroundColor(Color.onBackground)
+                .padding(.top, 50 / 2)
+            )
+          
           VerticalSpace(height: 32)
         }
         

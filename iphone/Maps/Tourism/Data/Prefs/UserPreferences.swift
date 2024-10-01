@@ -46,11 +46,11 @@ class UserPreferences: NSObject {
     userDefaults.set(value, forKey: "theme")
   }
   
-  func getToken() -> String? {
+  @objc func getToken() -> String? {
     return userDefaults.string(forKey: "token")
   }
   
-  func setToken(value: String?) {
+  @objc func setToken(value: String?) {
     userDefaults.set(value, forKey: "token")
   }
   
@@ -87,5 +87,21 @@ class UserPreferences: NSObject {
       return location.lat == 0.0 && location.lon == 0.0
     }
     return true
+  }
+  
+  @objc func getShouldGoToTourismMain() -> Bool {
+      userDefaults.bool(forKey: "should_go_to_tourism_main")
+  }
+  
+  @objc func setShouldGoToTourismMain(value: Bool) {
+      userDefaults.set(value, forKey: "should_go_to_tourism_main")
+  }
+  
+  @objc func getShouldGoToAuth() -> Bool {
+      userDefaults.bool(forKey: "should_go_to_auth")
+  }
+  
+  @objc func setShouldGoToAuth(value: Bool) {
+      userDefaults.set(value, forKey: "should_go_to_auth")
   }
 }

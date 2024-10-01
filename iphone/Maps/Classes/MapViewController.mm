@@ -312,6 +312,8 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  
+  [self showButtonToTourismMain];
 
   self.title = L(@"map");
 
@@ -371,8 +373,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   if (DeepLinkHandler.shared.isLaunchedByDeeplink)
     (void)[DeepLinkHandler.shared handleDeepLinkAndReset];
   
-  [self showButtonToTourismMain];
-  
+  [self handleNavigationOnMapResume];
   [self createRoute];
 }
 
@@ -802,7 +803,7 @@ BOOL isLocationInBounds(ms::LatLon location, ms::LatLon topLeft, ms::LatLon bott
   
   homeButton.translatesAutoresizingMaskIntoConstraints = NO;
   
-  [homeButton addTarget:self action:@selector(backToTourismMain) forControlEvents:UIControlEventTouchUpInside];
+  [homeButton addTarget:self action:@selector(goToTourismMain) forControlEvents:UIControlEventTouchUpInside];
   
   [self.controlsView addSubview:homeButton];
   
@@ -822,7 +823,34 @@ BOOL isLocationInBounds(ms::LatLon location, ms::LatLon topLeft, ms::LatLon bott
   
 }
 
-- (void)backToTourismMain {
+- (void)handleNavigationOnMapResume {
+  /*
+   The thing is that we present those screens modally,
+   so we need some way to understand when we should go anywhere.
+   For example, in auth screen when user is signed in we dismiss it
+   and want mapViewController to know that is should go to TourismMain
+   unfortunately couldn't find any other maintainable way
+   */
+  
+  TourismUserPreferences *prefs = [TourismUserPreferences shared];
+  BOOL shouldGoToTourismMain = [prefs getShouldGoToTourismMain];
+  BOOL shouldGoToAuth = [prefs getShouldGoToAuth];
+  
+  if(shouldGoToTourismMain) {
+    [prefs setShouldGoToTourismMainWithValue:NO];
+    [self goToTourismMain];
+  }
+  if(shouldGoToAuth) {
+    [prefs setShouldGoToAuthWithValue:NO];
+    [self goToAuth];
+  }
+}
+
+- (void)goToAuth {
+  [[MapViewController sharedController]performSegueWithIdentifier:@"Map2Auth" sender:nil];
+}
+
+- (void)goToTourismMain {
   [[MapViewController sharedController]performSegueWithIdentifier:@"Map2TourismMain" sender:nil];
 }
 @end

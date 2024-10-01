@@ -48,7 +48,7 @@ struct PlaceTopBar: View {
           )
         }
         .padding(.horizontal, padding)
-        .padding(.top, UIApplication.shared.statusBarFrame.height)
+        .padding(.top, statusBarHeight())
         
         VerticalSpace(height: 32)
         

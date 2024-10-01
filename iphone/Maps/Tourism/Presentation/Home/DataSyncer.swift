@@ -21,16 +21,15 @@ class DataSyncer {
       self.isConnected = path.status == .satisfied
       self.isExpensive = path.isExpensive
       
-      if path.status == .satisfied {
-        print("Connected to the internet.")
-        self.reviewsRepository.syncReviews()
-        self.placesRepository.syncFavorites()
-      } else {
-        print("No internet connection.")
-      }
-      
-      if path.isExpensive {
-        print("Connection is on an expensive network, like cellular.")
+      // delay is here because in the beginning there probably won't be stable connection
+      DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+        if Reachability.isConnectedToNetwork() {
+          print("Connected to the internet.")
+          self.reviewsRepository.syncReviews()
+          self.placesRepository.syncFavorites()
+        } else {
+          print("No internet connection.")
+        }
       }
     }
     

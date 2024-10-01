@@ -19,7 +19,7 @@ struct AllReviewsScreen: View {
       }
     }
     .padding(.horizontal, 16)
-    .padding(.top, UIApplication.shared.statusBarFrame.height)
+    .padding(.top, statusBarHeight())
     .padding(.bottom, 48)
     .background(Color.background)
     .ignoresSafeArea()
