@@ -100,8 +100,8 @@ RouterResultCode RulerRouter::CalculateRoute(Checkpoints const & checkpoints,
     else
     {
       // Duplicate last subroute attrs.
-      subroutes.emplace_back(ToPointWA(points[i-1]), ToPointWA(points[i+1]), i*2-2, i*2);
-      subroutes.emplace_back(ToPointWA(points[i-1]), ToPointWA(points[i+1]), i*2-2, i*2);
+      subroutes.emplace_back(ToPointWA(points[i-1]), ToPointWA(points[i]), i*2-2, i*2);
+      subroutes.emplace_back(ToPointWA(points[i-1]), ToPointWA(points[i]), i*2-2, i*2);
     }
   }
 
