@@ -23,13 +23,16 @@ import app.tourism.ui.common.VerticalSpace
 import app.tourism.ui.theme.TextStyles
 
 @Composable
-fun GalleryScreen(urls: List<String>, onMoreClick: () -> Unit) {
+fun GalleryScreen(urls: List<String>, onItemClick: (String) -> Unit, onMoreClick: () -> Unit) {
     Column(Modifier.padding(Constants.SCREEN_PADDING)) {
         if (urls.isNotEmpty()) {
             LoadImg(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp)
+                    .clickable {
+                        onItemClick(urls.first())
+                    }
                     .clip(imageShape),
                 url = urls.first(),
             )
@@ -40,6 +43,7 @@ fun GalleryScreen(urls: List<String>, onMoreClick: () -> Unit) {
                     LoadImg(
                         modifier = Modifier
                             .weight(1f)
+                            .clickable { onItemClick(urls[1]) }
                             .propertiesForSmallImage(),
                         url = urls[1],
                     )

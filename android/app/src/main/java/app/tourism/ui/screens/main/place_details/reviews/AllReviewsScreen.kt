@@ -13,10 +13,10 @@ import app.tourism.Constants
 import app.tourism.ui.common.nav.BackButtonWithText
 import app.tourism.ui.screens.main.place_details.reviews.components.Review
 
-
 @Composable
 fun AllReviewsScreen(
     reviewsVM: ReviewsViewModel = hiltViewModel(),
+    onImageClick: (selectedImage: String, imageUrls: List<String>) -> Unit,
     onBackClick: () -> Unit,
     onMoreClick: (picsUrls: List<String>) -> Unit,
 ) {
@@ -32,7 +32,7 @@ fun AllReviewsScreen(
             contentPadding = PaddingValues(Constants.SCREEN_PADDING),
         ) {
             items(reviews) {
-                Review(review = it, onMoreClick = onMoreClick)
+                Review(review = it, onMoreClick = onMoreClick, onImageClick = onImageClick)
             }
         }
     }

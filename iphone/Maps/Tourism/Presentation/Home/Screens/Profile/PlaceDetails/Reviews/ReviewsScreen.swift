@@ -21,7 +21,7 @@ struct ReviewsScreen: View {
   var body: some View {
     ScrollView {
       VStack {
-        // overal rating
+        // overall rating
         HStack(alignment: .center) {
           Image(systemName: "star.fill")
             .resizable()

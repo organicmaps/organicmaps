@@ -8,18 +8,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import app.organicmaps.R
 
 @Composable
 fun BackButton(
     modifier: Modifier = Modifier,
+    size: Dp? = null,
     onBackClick: () -> Unit,
     tint: Color = MaterialTheme.colorScheme.onBackground
 ) {
     Icon(
         modifier = Modifier
-            .size(24.dp)
+            .size(size ?: 24.dp)
             .clickable { onBackClick() }
             .then(modifier),
         painter = painterResource(id = R.drawable.back),

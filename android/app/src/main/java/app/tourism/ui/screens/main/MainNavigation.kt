@@ -1,5 +1,6 @@
 package app.tourism.ui.screens.main
 
+import FullscreenImageScreen
 import android.content.Context
 import android.content.Intent
 import androidx.compose.runtime.Composable
@@ -54,6 +55,9 @@ object PersonalData
 @Serializable
 data class PlaceDetails(val id: Long)
 
+@Serializable
+data class FullscreenImageViewer(val selectedImageUrl: String, val imageUrls: List<String>)
+
 @Composable
 fun MainNavigation(rootNavController: NavHostController, themeVM: ThemeViewModel) {
     val context = LocalContext.current
@@ -62,6 +66,9 @@ fun MainNavigation(rootNavController: NavHostController, themeVM: ThemeViewModel
 
     val onPlaceClick: (id: Long) -> Unit = { id ->
         rootNavController.navigate(PlaceDetails(id = id))
+    }
+    val onPlaceImageClick: (String, List<String>) -> Unit = { selectedImage, imageUrls ->
+        rootNavController.navigate(FullscreenImageViewer(selectedImage, imageUrls))
     }
     val onSearchClick: (q: String) -> Unit = { q ->
         rootNavController.navigate(Search(query = q))
@@ -100,11 +107,20 @@ fun MainNavigation(rootNavController: NavHostController, themeVM: ThemeViewModel
             val placeDetails = backStackEntry.toRoute<PlaceDetails>()
             PlaceDetailsScreen(
                 id = placeDetails.id,
+                onPlaceImageClick = onPlaceImageClick,
                 onBackClick = onBackClick,
                 onMapClick = onMapClick,
                 onCreateRoute = { placeLocation ->
                     navigateToMapForRoute(context, placeLocation)
                 }
+            )
+        }
+        composable<FullscreenImageViewer> { backStackEntry ->
+            val fullscreenImageViewer = backStackEntry.toRoute<FullscreenImageViewer>()
+            FullscreenImageScreen(
+                onBackClick = onBackClick,
+                selectedImageUrl = fullscreenImageViewer.selectedImageUrl,
+                imageUrls = fullscreenImageViewer.imageUrls
             )
         }
         composable<Search> { backStackEntry ->

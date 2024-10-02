@@ -13,13 +13,14 @@ object Gallery
 object AllGallery
 
 @Composable
-fun GalleryNavigation(urls: List<String>) {
+fun GalleryNavigation(urls: List<String>, onItemClick: (String) -> Unit) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = Gallery) {
         composable<Gallery> {
             GalleryScreen(
                 urls = urls,
+                onItemClick = onItemClick,
                 onMoreClick = {
                     navController.navigate(AllGallery)
                 },
@@ -28,6 +29,7 @@ fun GalleryNavigation(urls: List<String>) {
         composable<AllGallery> {
             AllGalleryScreen(
                 urls = urls,
+                onItemClick = onItemClick,
                 onBackClick = {
                     navController.navigateUp()
                 },

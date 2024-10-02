@@ -29,6 +29,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun PlaceDetailsScreen(
     id: Long,
+    onPlaceImageClick: (selectedImage: String, imageUrls: List<String>) -> Unit,
     onBackClick: () -> Unit,
     onMapClick: () -> Unit,
     onCreateRoute: (PlaceLocation) -> Unit,
@@ -95,11 +96,21 @@ fun PlaceDetailsScreen(
                         }
 
                         1 -> {
-                            GalleryNavigation(urls = place.pics)
+                            GalleryNavigation(
+                                urls = place.pics,
+                                onItemClick = { item ->
+                                    onPlaceImageClick(item, place.pics)
+                                },
+                            )
                         }
 
                         2 -> {
-                            ReviewsNavigation(placeId = place.id, rating = place.rating)
+                            ReviewsNavigation(
+                                placeId = place.id, rating = place.rating,
+                                onImageClick = { selectedImageUrl, imageUrls ->
+                                    onPlaceImageClick(selectedImageUrl, imageUrls)
+                                },
+                            )
                         }
                     }
                 }

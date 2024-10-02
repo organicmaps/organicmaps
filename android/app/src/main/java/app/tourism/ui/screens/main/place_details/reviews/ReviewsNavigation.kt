@@ -22,6 +22,7 @@ data class ReviewPics(val urls: List<String>)
 fun ReviewsNavigation(
     placeId: Long,
     rating: Double?,
+    onImageClick: (selectedImage: String, imageUrls: List<String>) -> Unit,
     reviewsVM: ReviewsViewModel = hiltViewModel(),
 ) {
     val navController = rememberNavController()
@@ -40,6 +41,7 @@ fun ReviewsNavigation(
             ReviewsScreen(
                 placeId,
                 rating,
+                onImageClick = onImageClick,
                 onSeeAllClick = {
                     navController.navigate(AllReviews)
                 },
@@ -50,6 +52,7 @@ fun ReviewsNavigation(
         composable<AllReviews> {
             AllReviewsScreen(
                 reviewsVM = reviewsVM,
+                onImageClick = onImageClick,
                 onBackClick = onBackClick,
                 onMoreClick = onMoreClick
             )
@@ -58,6 +61,7 @@ fun ReviewsNavigation(
             val reviewPics = navBackStackEntry.toRoute<ReviewPics>()
             ReviewPicsScreen(
                 urls = reviewPics.urls,
+                onImageClick = onImageClick,
                 onBackClick = onBackClick
             )
         }

@@ -47,6 +47,7 @@ import kotlinx.coroutines.launch
 fun ReviewsScreen(
     placeId: Long,
     rating: Double?,
+    onImageClick: (selectedImage: String, imageUrls: List<String>) -> Unit,
     onSeeAllClick: () -> Unit,
     onMoreClick: (picsUrls: List<String>) -> Unit,
     reviewsVM: ReviewsViewModel = hiltViewModel(),
@@ -60,7 +61,8 @@ fun ReviewsScreen(
     val userReview = reviewsVM.userReview.collectAsState().value
     val reviews = reviewsVM.reviews.collectAsState().value
 
-    val isThereReviewPlannedToPublish = reviewsVM.isThereReviewPlannedToPublish.collectAsState().value
+    val isThereReviewPlannedToPublish =
+        reviewsVM.isThereReviewPlannedToPublish.collectAsState().value
 
     ObserveAsEvents(flow = reviewsVM.uiEventsChannelFlow) { event ->
         if (event is UiEvent.ShowToast) context.showToast(event.message)
@@ -123,6 +125,7 @@ fun ReviewsScreen(
             item {
                 Review(
                     review = it,
+                    onImageClick = onImageClick,
                     onMoreClick = onMoreClick,
                     onDeleteClick = {
                         showYesNoAlertDialog(
@@ -137,7 +140,11 @@ fun ReviewsScreen(
 
         if (reviews.firstOrNull() != null)
             item {
-                Review(review = reviews[0], onMoreClick = onMoreClick)
+                Review(
+                    review = reviews[0],
+                    onMoreClick = onMoreClick,
+                    onImageClick = onImageClick,
+                )
             }
     }
 

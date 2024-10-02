@@ -1,5 +1,6 @@
 package app.tourism.ui.screens.main.place_details.gallery
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -15,7 +16,7 @@ import app.tourism.ui.common.LoadImg
 import app.tourism.ui.common.nav.BackButtonWithText
 
 @Composable
-fun AllGalleryScreen(urls: List<String>, onBackClick: () -> Unit) {
+fun AllGalleryScreen(urls: List<String>, onItemClick: (String) -> Unit, onBackClick: () -> Unit) {
     Scaffold(
         topBar = {
             BackButtonWithText { onBackClick() }
@@ -30,7 +31,7 @@ fun AllGalleryScreen(urls: List<String>, onBackClick: () -> Unit) {
         ) {
             items(urls) {
                 LoadImg(
-                    modifier = Modifier.propertiesForSmallImage(), url = it
+                    modifier = Modifier.clickable { onItemClick(it) }.propertiesForSmallImage(), url = it
                 )
             }
         }

@@ -1,5 +1,6 @@
 package app.tourism.ui.screens.main.place_details.reviews
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -16,7 +17,11 @@ import app.tourism.ui.common.nav.BackButtonWithText
 import app.tourism.ui.screens.main.place_details.gallery.propertiesForSmallImage
 
 @Composable
-fun ReviewPicsScreen(urls: List<String>, onBackClick: () -> Unit) {
+fun ReviewPicsScreen(
+    urls: List<String>,
+    onImageClick: (selectedImage: String, imageUrls: List<String>) -> Unit,
+    onBackClick: () -> Unit
+) {
     Scaffold(
         topBar = {
             BackButtonWithText { onBackClick() }
@@ -31,7 +36,9 @@ fun ReviewPicsScreen(urls: List<String>, onBackClick: () -> Unit) {
         ) {
             items(urls) {
                 LoadImg(
-                    modifier = Modifier.propertiesForSmallImage(), url = it
+                    modifier = Modifier
+                        .clickable { onImageClick(it, urls) }
+                        .propertiesForSmallImage(), url = it
                 )
             }
         }

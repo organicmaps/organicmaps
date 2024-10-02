@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
@@ -34,7 +33,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -45,10 +43,8 @@ import app.tourism.domain.models.details.User
 import app.tourism.ui.common.HorizontalSpace
 import app.tourism.ui.common.LoadImg
 import app.tourism.ui.common.VerticalSpace
-import app.tourism.ui.common.special.CountryAsLabel
 import app.tourism.ui.common.special.CountryFlag
 import app.tourism.ui.common.special.RatingBar
-import app.tourism.ui.screens.main.place_details.gallery.imageShape
 import app.tourism.ui.theme.TextStyles
 import app.tourism.ui.theme.getHintColor
 
@@ -57,6 +53,7 @@ import app.tourism.ui.theme.getHintColor
 fun Review(
     modifier: Modifier = Modifier,
     review: Review,
+    onImageClick: (selectedImage: String, imageUrls: List<String>) -> Unit,
     onMoreClick: (picsUrls: List<String>) -> Unit,
     onDeleteClick: (() -> Unit)? = null,
 ) {
@@ -101,14 +98,19 @@ fun Review(
                             remaining = review.picsUrls.size - 3
                         )
                     } else {
-                        ReviewPic(url = url)
+                        ReviewPic(modifier = Modifier.clickable {
+                            onImageClick(
+                                url,
+                                review.picsUrls
+                            )
+                        }, url = url)
                     }
                 }
             }
             VerticalSpace(height = 16.dp)
         }
 
-        if(!review.comment.isNullOrBlank()) {
+        if (!review.comment.isNullOrBlank()) {
             Comment(comment = review.comment)
             VerticalSpace(height = 16.dp)
         }
@@ -150,7 +152,9 @@ fun User(modifier: Modifier = Modifier, user: User) {
                 )
             }
             Text(
-                modifier = Modifier.weight(1f).width(IntrinsicSize.Min),
+                modifier = Modifier
+                    .weight(1f)
+                    .width(IntrinsicSize.Min),
                 text = user.name,
                 style = TextStyles.h4,
                 fontWeight = FontWeight.W600,
@@ -203,7 +207,7 @@ fun ReviewPic(modifier: Modifier = Modifier, url: String) {
         modifier = Modifier
             .width(73.dp)
             .height(65.dp)
-            .clip(imageShape)
+            .clip(localImageShape)
             .then(modifier),
         url = url,
     )
@@ -223,7 +227,7 @@ fun ShowMore(url: String, onClick: () -> Unit, remaining: Int) {
                 .fillMaxSize()
                 .background(
                     color = Color.Black.copy(alpha = 0.5f),
-                    shape = imageShape
+                    shape = localImageShape
                 ),
         )
         Text(
@@ -239,6 +243,6 @@ fun Modifier.getImageProperties() =
     this
         .width(73.dp)
         .height(65.dp)
-        .clip(imageShape)
+        .clip(localImageShape)
 
-val imageShape = RoundedCornerShape(4.dp)
+val localImageShape = RoundedCornerShape(4.dp)
