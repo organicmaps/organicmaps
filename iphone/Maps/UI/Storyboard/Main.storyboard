@@ -240,22 +240,22 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="K9r-P1-yFI"/>
-                                <exclude reference="SAj-bF-qrr"/>
                                 <exclude reference="SDX-4J-Jz5"/>
                                 <exclude reference="TZk-MH-pMV"/>
                                 <exclude reference="veF-Rn-BEm"/>
                                 <exclude reference="u9s-KY-yCt"/>
+                                <exclude reference="K9r-P1-yFI"/>
+                                <exclude reference="SAj-bF-qrr"/>
                                 <exclude reference="W0l-NG-7lt"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
                             <mask key="constraints">
-                                <include reference="K9r-P1-yFI"/>
                                 <exclude reference="85b-Do-jO7"/>
                                 <exclude reference="Rsb-fB-8bn"/>
                                 <include reference="TZk-MH-pMV"/>
                                 <include reference="veF-Rn-BEm"/>
+                                <include reference="K9r-P1-yFI"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular">
@@ -270,22 +270,22 @@
                         </variation>
                         <variation key="heightClass=compact-widthClass=compact">
                             <mask key="constraints">
-                                <exclude reference="t9l-Ud-h6j"/>
                                 <exclude reference="9M9-8P-Hzb"/>
+                                <exclude reference="t9l-Ud-h6j"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact-widthClass=regular">
                             <mask key="constraints">
-                                <exclude reference="t9l-Ud-h6j"/>
                                 <exclude reference="9M9-8P-Hzb"/>
+                                <exclude reference="t9l-Ud-h6j"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
                             <mask key="constraints">
-                                <exclude reference="t9l-Ud-h6j"/>
-                                <include reference="SAj-bF-qrr"/>
                                 <exclude reference="9M9-8P-Hzb"/>
                                 <include reference="u9s-KY-yCt"/>
+                                <exclude reference="t9l-Ud-h6j"/>
+                                <include reference="SAj-bF-qrr"/>
                                 <exclude reference="9rR-QQ-c1P"/>
                                 <include reference="W0l-NG-7lt"/>
                                 <exclude reference="5Sh-l6-Icd"/>
@@ -312,7 +312,7 @@
                         <segue destination="lFr-lA-JTW" kind="show" identifier="PP2BookmarkEditing" id="0A8-4b-0A2"/>
                         <segue destination="Psz-BY-Fy4" kind="presentation" identifier="PP2BookmarkEditingIPAD" modalPresentationStyle="formSheet" id="k6v-a7-5DO"/>
                         <segue destination="DdR-kk-MnB" kind="show" identifier="Map2Settings" id="Uyr-xb-oJc"/>
-                        <segue destination="SOp-Vz-BSi" kind="presentation" identifier="Map2TourismMain" animates="NO" modalPresentationStyle="fullScreen" id="ZyV-kc-eXo"/>
+                        <segue destination="SOp-Vz-BSi" kind="presentation" identifier="Map2TourismMain" modalPresentationStyle="fullScreen" id="ZyV-kc-eXo"/>
                         <segue destination="6OK-aq-fiY" kind="presentation" identifier="Map2Auth" modalPresentationStyle="fullScreen" id="ZTS-EN-BxZ"/>
                     </connections>
                 </viewController>

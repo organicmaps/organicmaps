@@ -36,7 +36,9 @@ struct ReviewView: View {
                 ShowMoreView(url: url, remaining: review.picsUrls.count - 3)
               }
             } else {
-              ReviewPicView(url: url)
+              NavigationLink(destination: FullscreenImageViewer(selectedImageUrl: url, imageUrls: review.picsUrls)) {
+                ReviewPicView(url: url)
+              }
             }
           }
         }

@@ -22,10 +22,12 @@ struct AllPicsScreen: View {
           spacing: 16
         ) {
           ForEach(urls, id: \.self) { url in
-            LoadImageView(url: url)
-              .frame(maxWidth: minWidth, maxHeight: maxHeight)
-              .clipShape(RoundedRectangle(cornerRadius: 8))
-              .scaledToFill()
+            NavigationLink(destination: FullscreenImageViewer(selectedImageUrl: url, imageUrls: urls)) {
+              LoadImageView(url: url)
+                .frame(maxWidth: minWidth, maxHeight: maxHeight)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .scaledToFill()
+            }
           }
         }
       }
