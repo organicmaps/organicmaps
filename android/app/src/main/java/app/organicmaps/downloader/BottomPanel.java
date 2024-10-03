@@ -75,10 +75,20 @@ class BottomPanel
         ViewGroup.MarginLayoutParams fabParams = (ViewGroup.MarginLayoutParams) mFab.getLayoutParams();
         ViewGroup.MarginLayoutParams buttonParams = (ViewGroup.MarginLayoutParams) mButton.getLayoutParams();
 
+        final boolean isButtonVisible = UiUtils.isVisible(mButton);
+
         buttonParams.bottomMargin = safeInsets.bottom;
         mButton.setPadding(safeInsets.left, mButton.getPaddingTop(), safeInsets.right, mButton.getPaddingBottom());
 
         fabParams.rightMargin = safeInsets.right + baseMargin;
+        if (isButtonVisible)
+        {
+          fabParams.bottomMargin = baseMargin;
+        }
+        else
+        {
+          fabParams.bottomMargin = safeInsets.bottom + baseMargin;
+        }
 
         mFab.requestLayout();
         mButton.requestLayout();
