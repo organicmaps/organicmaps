@@ -82,13 +82,9 @@ class BottomPanel
 
         fabParams.rightMargin = safeInsets.right + baseMargin;
         if (isButtonVisible)
-        {
           fabParams.bottomMargin = baseMargin;
-        }
         else
-        {
           fabParams.bottomMargin = safeInsets.bottom + baseMargin;
-        }
 
         mFab.requestLayout();
         mButton.requestLayout();
