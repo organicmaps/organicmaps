@@ -41,7 +41,7 @@ Organic Maps is pure and organic, made with love:
 - Saves your battery
 - No unexpected mobile data charges
 
-Organic Maps is free from trackers and other bad stuff:
+Organic Maps is free from trackers and other bad stuff:   
 
 - No ads
 - No tracking
