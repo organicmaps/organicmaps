@@ -1,3 +1,3 @@
-- Track Recorder: Record and save your routes while hiking, biking, running, or navigating.
-- New Map Data: Updated with data as of September 7, including isolines for Egypt and Algeria.
-- Translations: Enhanced Chinese, Hebrew, and Italian, and added translations for trail difficulty.
+- iOS 18 Dark Mode: Introduced dark and tinted app icons.
+- Map Data: Updated as of October 1, now including isolines for Egypt, Adygea, Dagestan.
+- KML/KMZ/GPX: Fixed issues with importing files from different apps.
