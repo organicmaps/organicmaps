@@ -1374,8 +1374,10 @@
     <string name="type.man_made.tower">Tháp</string>
     <string name="type.man_made.tower.communication">Tháp truyền thông</string>
     <string name="type.man_made.water_tap">Vòi nước</string>
+    <string name="type.man_made.water_tap.drinking_water_no">Vòi nước</string>
     <string name="type.man_made.water_tower">Tháp Nước</string>
     <string name="type.man_made.water_well">Giếng Nước</string>
+    <string name="type.man_made.water_well.drinking_water_no">Giếng Nước</string>
     <string name="type.man_made.windmill">Cối xay gió</string>
     <string name="type.military.bunker">Boongke</string>
     <string name="type.natural">Tự nhiên</string>
@@ -1414,6 +1416,7 @@
     <string name="type.natural.rock">Đá</string>
     <string name="type.natural.scrub">Bụi rậm</string>
     <string name="type.natural.spring">Suối</string>
+    <string name="type.natural.spring.drinking_water_no">Suối</string>
     <string name="type.natural.strait">Eo biển</string>
     <string name="type.natural.tree_row">Hàng cây</string>
     <string name="type.natural.vineyard">Vườn nho</string>

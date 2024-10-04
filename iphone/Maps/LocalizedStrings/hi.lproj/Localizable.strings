@@ -2704,9 +2704,13 @@
 
 "type.man_made.water_tap" = "पानी का नल";
 
+"type.man_made.water_tap.drinking_water_no" = "पानी का नल";
+
 "type.man_made.water_tower" = "पानी का टावर";
 
 "type.man_made.water_well" = "कुआँ";
+
+"type.man_made.water_well.drinking_water_no" = "कुआँ";
 
 "type.man_made.windmill" = "पवनचक्की";
 
@@ -2792,6 +2796,8 @@
 "type.natural.scrub" = "झाड़ी";
 
 "type.natural.spring" = "पानी का चश्मा";
+
+"type.natural.spring.drinking_water_no" = "पानी का चश्मा";
 
 "type.natural.strait" = "जलसंधि";
 

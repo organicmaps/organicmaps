@@ -1510,8 +1510,10 @@
     <string name="type.man_made.tower.communication">Tour de communication</string>
     <string name="type.man_made.wastewater_plant">Station d\'épuration</string>
     <string name="type.man_made.water_tap">Robinet d\'eau</string>
+    <string name="type.man_made.water_tap.drinking_water_no">Robinet d\'eau</string>
     <string name="type.man_made.water_tower">Château d\'eau</string>
     <string name="type.man_made.water_well">Puits à eau</string>
+    <string name="type.man_made.water_well.drinking_water_no">Puits à eau</string>
     <string name="type.man_made.windmill">Moulin à vent</string>
     <string name="type.mountain_pass">Col de montagne</string>
     <string name="type.natural">Nature</string>
@@ -1551,6 +1553,7 @@
     <string name="type.natural.rock">Rocher</string>
     <string name="type.natural.scrub">Fourré</string>
     <string name="type.natural.spring">Source</string>
+    <string name="type.natural.spring.drinking_water_no">Source</string>
     <string name="type.natural.strait">Détroit</string>
     <string name="type.natural.tree_row">Rangée d\'arbres</string>
     <string name="type.natural.vineyard">Vignoble</string>

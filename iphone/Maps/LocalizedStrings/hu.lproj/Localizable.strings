@@ -2704,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Vízcsap";
 
+"type.man_made.water_tap.drinking_water_no" = "Vízcsap";
+
 "type.man_made.water_tower" = "Víztorony";
 
 "type.man_made.water_well" = "Ivókút";
+
+"type.man_made.water_well.drinking_water_no" = "Ivókút";
 
 "type.man_made.windmill" = "Szélmalom";
 
@@ -2792,6 +2796,8 @@
 "type.natural.scrub" = "Cserjés";
 
 "type.natural.spring" = "Természetes forrás";
+
+"type.natural.spring.drinking_water_no" = "Természetes forrás";
 
 "type.natural.strait" = "Szoros";
 

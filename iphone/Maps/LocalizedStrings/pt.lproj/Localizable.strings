@@ -2704,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Torneira de água";
 
+"type.man_made.water_tap.drinking_water_no" = "Torneira de água";
+
 "type.man_made.water_tower" = "Torre de água";
 
 "type.man_made.water_well" = "Poço de água";
+
+"type.man_made.water_well.drinking_water_no" = "Poço de água";
 
 "type.man_made.windmill" = "Moinho de vento";
 
@@ -2792,6 +2796,8 @@
 "type.natural.scrub" = "Matagal";
 
 "type.natural.spring" = "Nascente";
+
+"type.natural.spring.drinking_water_no" = "Nascente";
 
 "type.natural.strait" = "Estreito";
 

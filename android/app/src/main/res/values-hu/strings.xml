@@ -1392,8 +1392,10 @@
     <string name="type.man_made.tower">Torony</string>
     <string name="type.man_made.tower.communication">Kommunikációs torony</string>
     <string name="type.man_made.water_tap">Vízcsap</string>
+    <string name="type.man_made.water_tap.drinking_water_no">Vízcsap</string>
     <string name="type.man_made.water_tower">Víztorony</string>
     <string name="type.man_made.water_well">Ivókút</string>
+    <string name="type.man_made.water_well.drinking_water_no">Ivókút</string>
     <string name="type.man_made.windmill">Szélmalom</string>
     <string name="type.natural">Természet</string>
     <!-- A rocky land cover. -->
@@ -1432,6 +1434,7 @@
     <string name="type.natural.rock">Szikla</string>
     <string name="type.natural.scrub">Cserjés</string>
     <string name="type.natural.spring">Természetes forrás</string>
+    <string name="type.natural.spring.drinking_water_no">Természetes forrás</string>
     <string name="type.natural.strait">Szoros</string>
     <string name="type.natural.tree_row">Fasor</string>
     <string name="type.natural.vineyard">Szőlőskert</string>
