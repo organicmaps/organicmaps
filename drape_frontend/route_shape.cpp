@@ -584,13 +584,14 @@ drape_ptr<df::SubrouteData> RouteShape::CacheRoute(ref_ptr<dp::GraphicsContext> 
       auto slope = abs(subroute->m_slopes[i]);
       dp::Color color;
       if (slope < 0.1)
-        color = df::GetColorConstant("RoutePedestrian");
+        color = dp::Color::Transparent();
+      else if (slope < 0.2)
+        color = dp::Color(0xDF, 0xE2, 0x00, 0xFF);
+      else if (slope < 0.3)
+        color = dp::Color(0xD5, 0x5F, 0x00, 0xFF);
       else
-      {
-        auto difficulty = (slope < 0.2)? 0.2: (slope < 0.4)? 0.5: 1.0;
-        color = dp::Color(0xFF * difficulty, 0x3F * difficulty, 0x00, 0x00);
-      }
-      segmentsColors.emplace_back(color.GetRedF(), color.GetGreenF(), color.GetBlueF(), 0.0f);
+        color = dp::Color(0xD5, 0x1F, 0x00, 0xFF);
+      segmentsColors.emplace_back(color.GetRedF(), color.GetGreenF(), color.GetBlueF(), color.GetAlphaF());
     }
   }
 
@@ -609,7 +610,8 @@ drape_ptr<df::SubrouteData> RouteShape::CacheRoute(ref_ptr<dp::GraphicsContext> 
                   static_cast<float>(subroute->m_baseDepthIndex * rs::kDepthPerSubroute),
                   geometryBufferData);
 
-  auto state = CreateRenderState(subroute->m_style[styleIndex].m_pattern.m_isDashed ?
+  auto state = CreateRenderState(!subroute->m_slopes.empty()? gpu::Program::RouteDifficulty:
+                                 subroute->m_style[styleIndex].m_pattern.m_isDashed ?
                                  gpu::Program::RouteDash : gpu::Program::Route, DepthLayer::GeometryLayer);
   state.SetColorTexture(textures->GetSymbolsTexture());
 

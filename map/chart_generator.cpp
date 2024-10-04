@@ -229,7 +229,7 @@ bool GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> c
   agg::rgba8 const kBackgroundColor = agg::rgba8(255, 255, 255, 0);
   agg::rgba8 const kLineColor = GetLineColor(mapStyle);
   agg::rgba8 const kCurveColor = GetCurveColor(mapStyle);
-  double constexpr kLineWidthPxl = 2.0;
+  double constexpr kLineWidthPxl = 3.0;
 
   using TBlender = BlendAdaptor<agg::rgba8, agg::order_rgba>;
   using TPixelFormat = agg::pixfmt_custom_blend_rgba<TBlender, agg::rendering_buffer>;
@@ -271,35 +271,31 @@ bool GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> c
   agg::scanline32_p8 scanline;
   agg::render_scanlines_aa_solid(rasterizer, scanline, baseRenderer, kCurveColor);
 
-  // Draw slopes
+  // Chart line.
   for (size_t i = 1; i < geometry.size(); ++i) {
     auto x = geometry[i].x;
     auto y = geometry[i].y;
     auto slope = abs(slopes[i]);
-    if (slope < 0.1)
-      continue;
 
     agg::path_storage segment;
     segment.move_to(x, y);
-    segment.line_to(x, static_cast<double>(height));
+    segment.line_to(geometry[i-1].x, geometry[i-1].y);
     agg::conv_stroke<agg::path_storage> strokeSegment(segment);
-    strokeSegment.width(2.0);
+    strokeSegment.width(kLineWidthPxl);
     rasterizer.add_path(strokeSegment);
 
-    auto difficulty = (slope < 0.2)? 0.2: (slope < 0.4)? 0.5: 1.0;
-    agg::rgba8 color = agg::rgba8(0x7F, 0x00, 0x00, 0x7F * difficulty);
+    agg::rgba8 color;
+    if (slope < 0.1)
+      color = kLineColor;
+    else if (slope < 0.2)
+      color = agg::rgba8(0xDF, 0xE2, 0x00, 0xFF);
+    else if (slope < 0.3)
+      color = agg::rgba8(0xD5, 0x5F, 0x00, 0xFF);
+    else
+      color = agg::rgba8(0xD5, 0x1F, 0x00, 0xFF);
     agg::render_scanlines_aa_solid(rasterizer, scanline, baseRenderer, color);
   }
 
-  // Chart line.
-  TPath path_adaptor(geometry, false);
-  TStroke stroke(path_adaptor);
-  stroke.width(kLineWidthPxl);
-  stroke.line_cap(agg::round_cap);
-  stroke.line_join(agg::round_join);
-
-  rasterizer.add_path(stroke);
-  agg::render_scanlines_aa_solid(rasterizer, scanline, baseRenderer, kLineColor);
   return true;
 }
 

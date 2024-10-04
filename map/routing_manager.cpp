@@ -733,14 +733,15 @@ bool RoutingManager::InsertRoute(Route const & route)
       case RouterType::Pedestrian:
         {
           subroute->m_routeType = df::RouteType::Pedestrian;
-          subroute->AddStyle(df::SubrouteStyle(df::kRoutePedestrian, df::RoutePattern(4.0, 2.0)));
+          subroute->AddStyle(df::SubrouteStyle(df::kRoutePedestrian));
           FillSlopesForRendering(route.GetSubrouteAttrs(subrouteIndex), segments, subroute->m_slopes);
           break;
         }
       case RouterType::Bicycle:
         {
           subroute->m_routeType = df::RouteType::Bicycle;
-          subroute->AddStyle(df::SubrouteStyle(df::kRouteBicycle, df::RoutePattern(8.0, 2.0)));
+          subroute->AddStyle(df::SubrouteStyle(df::kRouteBicycle));
+          FillSlopesForRendering(route.GetSubrouteAttrs(subrouteIndex), segments, subroute->m_slopes);
           FillTurnsDistancesForRendering(segments, subroute->m_baseDistance, subroute->m_turns);
           break;
         }
