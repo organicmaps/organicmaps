@@ -1,4 +1,4 @@
-- Track Metadata Editing: Modify the name, color, category, and description of tracks, or delete them.
+- Edit Tracks: Change name, color, list and description of tracks, or delete them.
 - Open in Another App: Open saved points from Organic Maps in apps like taxi, delivery, transport, or other map apps.
 - Map Data: Updated as of October 1, now with added isolines for Egypt and improved for Adygea, Dagestan.
 - KML/KMZ/GPX: Fixed issues with importing files from different apps.
