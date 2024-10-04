@@ -2704,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Toma de agua";
 
+"type.man_made.water_tap.drinking_water_no" = "Toma de agua";
+
 "type.man_made.water_tower" = "Depósito de agua";
 
 "type.man_made.water_well" = "Pozo";
+
+"type.man_made.water_well.drinking_water_no" = "Pozo";
 
 "type.man_made.windmill" = "Molino";
 
@@ -2792,6 +2796,8 @@
 "type.natural.scrub" = "Matorrales";
 
 "type.natural.spring" = "Manantial";
+
+"type.natural.spring.drinking_water_no" = "Manantial";
 
 "type.natural.strait" = "Estrecho";
 

@@ -1286,8 +1286,10 @@
     <string name="type.man_made.tower">برج</string>
     <string name="type.man_made.tower.communication">برج ارتباطات</string>
     <string name="type.man_made.water_tap">شیراب</string>
+    <string name="type.man_made.water_tap.drinking_water_no">شیراب</string>
     <string name="type.man_made.water_tower">منبع اب</string>
     <string name="type.man_made.water_well">چاه اب</string>
+    <string name="type.man_made.water_well.drinking_water_no">چاه اب</string>
     <string name="type.man_made.windmill">توربین بادی</string>
     <string name="type.military.bunker">پناهگاه</string>
     <string name="type.natural">طبیعت</string>
@@ -1327,6 +1329,7 @@
     <string name="type.natural.rock">سنگ</string>
     <string name="type.natural.scrub">بوته زار</string>
     <string name="type.natural.spring">چشمه</string>
+    <string name="type.natural.spring.drinking_water_no">چشمه</string>
     <string name="type.natural.strait">تنگه</string>
     <string name="type.natural.tree_row">ردیف درخت</string>
     <string name="type.natural.vineyard">تاکستان</string>

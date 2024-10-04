@@ -1378,8 +1378,10 @@
     <string name="type.man_made.tower">타워</string>
     <string name="type.man_made.tower.communication">커뮤니케이션 타워</string>
     <string name="type.man_made.water_tap">수도꼭지</string>
+    <string name="type.man_made.water_tap.drinking_water_no">수도꼭지</string>
     <string name="type.man_made.water_tower">급수탑</string>
     <string name="type.man_made.water_well">우물</string>
+    <string name="type.man_made.water_well.drinking_water_no">우물</string>
     <string name="type.man_made.windmill">풍차</string>
     <string name="type.military.bunker">벙커</string>
     <string name="type.natural">자연</string>
@@ -1419,6 +1421,7 @@
     <string name="type.natural.rock">암석</string>
     <string name="type.natural.scrub">관목지</string>
     <string name="type.natural.spring">샘</string>
+    <string name="type.natural.spring.drinking_water_no">샘</string>
     <string name="type.natural.strait">해협</string>
     <string name="type.natural.tree_row">나무 행</string>
     <string name="type.natural.vineyard">포도원</string>
