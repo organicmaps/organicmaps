@@ -83,8 +83,21 @@ final class BaseRoutePreviewStatus: SolidTouchView {
       })
     }
   }
-
+  
+  @objc static func setImagePadding(_ padding: CGFloat, for button: UIButton) {
+    let isRightToLeft = UIView.userInterfaceLayoutDirection(for: button.semanticContentAttribute) == .rightToLeft
+    if(isRightToLeft){
+      button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: padding)
+      button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -2 * padding)
+    }
+    else {
+      button.contentEdgeInsets = UIEdgeInsets(top: 0, left: padding, bottom: 0, right: 0)
+      button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2 * padding, bottom: 0, right: 0)
+    }
+  }
+  
   private func configManageRouteButton(_ button: UIButton) {
+    BaseRoutePreviewStatus.setImagePadding(8, for: button)
     button.setTitle(L("planning_route_manage_route"), for: .normal)
   }
 
