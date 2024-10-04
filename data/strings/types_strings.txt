@@ -18462,6 +18462,9 @@
     zh-Hans = 水龙头
     zh-Hant = 水龍頭
 
+  [type.man_made.water_tap.drinking_water_no]
+    ref = type.man_made.water_tap
+
   [type.man_made.water_tower]
     en = Water Tower
     af = Watertoring
@@ -18539,6 +18542,9 @@
     vi = Giếng Nước
     zh-Hans = 水井
     zh-Hant = 水井
+
+  [type.man_made.water_well.drinking_water_no]
+    ref = type.man_made.water_well
 
   [type.man_made.windmill]
     en = Windmill
@@ -20058,6 +20064,9 @@
     vi = Suối
     zh-Hans = 泉水
     zh-Hant = 泉水
+
+  [type.natural.spring.drinking_water_no]
+    ref = type.natural.spring
 
   [type.natural.strait]
     en = Strait

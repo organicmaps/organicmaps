@@ -178,6 +178,11 @@ node|z17-[natural=spring],
 node|z17-[natural=hot_spring],
 {icon-image: drinking-water-m.svg; font-size: 11;}
 
+node|z14-[natural=spring][drinking_water=not],
+{icon-image: drinking-water-no-s.svg; font-size: 10;}
+node|z17-[natural=spring][drinking_water=not],
+{icon-image: drinking-water-no-m.svg; font-size: 11;}
+
 node|z14[natural=geyser],
 {icon-image: geyser-s.svg;}
 node|z15-[natural=geyser],
@@ -200,6 +205,16 @@ node|z19-[amenity=drinking_water],
 node|z19-[man_made=water_tap],
 node|z19-[man_made=water_well],
 {icon-image: drinking-water-m.svg;}
+
+node|z16-[man_made=water_tap][drinking_water=not],
+node|z16-[man_made=water_well][drinking_water=not],
+{icon-image: none;}
+node|z18-[man_made=water_tap][drinking_water=not],
+node|z18-[man_made=water_well][drinking_water=not],
+{icon-image: drinking-water-no-s.svg;}
+node|z19-[man_made=water_tap][drinking_water=not],
+node|z19-[man_made=water_well][drinking_water=not],
+{icon-image: drinking-water-no-m.svg;}
 
 /* 3. TRANSPORT */
 
