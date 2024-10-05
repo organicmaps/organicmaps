@@ -176,6 +176,12 @@ enum class BookmarkIcon : uint16_t
   Viewpoint,
   Sport,
   Pub,
+  Art,
+  Bank,
+  Cafe,
+  Pharmacy,
+  Stadium,
+  Theatre,
 
   Count
 };
@@ -211,6 +217,12 @@ inline std::string ToString(BookmarkIcon icon)
   case Viewpoint: return "Viewpoint";
   case Sport: return "Sport";
   case Pub: return "Pub";
+  case Art: return "Art";
+  case Bank: return "Bank";
+  case Cafe: return "Cafe";
+  case Pharmacy: return "Pharmacy";
+  case Stadium: return "Stadium";
+  case Theatre: return "Theatre";
   case Count: return {};
   }
   UNREACHABLE();
