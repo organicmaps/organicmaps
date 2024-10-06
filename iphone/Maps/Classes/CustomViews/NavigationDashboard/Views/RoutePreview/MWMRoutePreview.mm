@@ -180,13 +180,13 @@ static CGFloat const kDrivingOptionsHeight = 48;
   }];
 
   if (state == MWMDrivingOptionsStateDefine) {
-    [MWMBaseRoutePreviewStatus setImagePadding:0.0 for:self.drivingOptionsButton];
+    [self.drivingOptionsButton setImagePadding:0.0];
     [self.drivingOptionsButton setImage:nil
                                forState:UIControlStateNormal];
     [self.drivingOptionsButton setTitle:L(@"define_to_avoid_btn").uppercaseString
                                forState:UIControlStateNormal];
   } else if (state == MWMDrivingOptionsStateChange) {
-    [MWMBaseRoutePreviewStatus setImagePadding:5.0 for:self.drivingOptionsButton];
+    [self.drivingOptionsButton setImagePadding:5.0];
     [self.drivingOptionsButton setImage:[UIImage imageNamed:@"ic_options_warning"]
                                forState:UIControlStateNormal];
     [self.drivingOptionsButton setTitle:L(@"change_driving_options_btn").uppercaseString
