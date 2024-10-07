@@ -7,6 +7,7 @@
   <node id='3866183425' timestamp='2021-06-12T10:45:14Z' uid='3172019' user='nurdafur' visible='true' version='2' changeset='106248484' lat='47.5209057' lon='8.7888206' />
   <node id='8827179695' timestamp='2021-06-12T10:45:14Z' uid='3172019' user='nurdafur' visible='true' version='1' changeset='106248484' lat='47.5207872' lon='8.7873177'>
     <tag k='barrier' v='cycle_barrier' />
+    <tag k='bicycle' v='no' />
   </node>
   <way id='953707247' timestamp='2021-06-12T10:45:14Z' uid='3172019' user='nurdafur' visible='true' version='1' changeset='106248484'>
     <nd ref='432645019' />
