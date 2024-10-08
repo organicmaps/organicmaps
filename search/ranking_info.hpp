@@ -154,7 +154,4 @@ PoiType GetPoiType(feature::TypesHolder const & th);
 
 std::string DebugPrint(StoredRankingInfo const & info);
 std::string DebugPrint(RankingInfo const & info);
-
-std::string DebugPrint(PoiType type);
-std::string DebugPrint(StreetType type);
 }  // namespace search

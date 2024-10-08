@@ -254,22 +254,10 @@ base::JSONPtr ToJSON(Sample::Result const & result)
   return root;
 }
 
-string DebugPrint(Sample::Result::Relevance r)
-{
-  switch (r)
-  {
-  case Sample::Result::Relevance::Harmful: return "Harmful";
-  case Sample::Result::Relevance::Irrelevant: return "Irrelevant";
-  case Sample::Result::Relevance::Relevant: return "Relevant";
-  case Sample::Result::Relevance::Vital: return "Vital";
-  }
-  return "Unknown";
-}
-
 string DebugPrint(Sample::Result const & r)
 {
   ostringstream oss;
-  oss << "relevance: " << DebugPrint(r.m_relevance) << " ";
+  oss << "relevance: " << ::DebugPrint(r.m_relevance) << " ";
   oss << "name: " << DebugPrint(r.m_name) << " ";
   oss << "house number: " << r.m_houseNumber << " ";
   oss << "pos: " << DebugPrint(r.m_pos) << " ";

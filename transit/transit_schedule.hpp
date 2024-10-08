@@ -53,8 +53,6 @@ enum class Status : uint8_t
   Unknown
 };
 
-std::string DebugPrint(Status const & status);
-
 struct Date
 {
   Date() = default;

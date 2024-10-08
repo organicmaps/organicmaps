@@ -12,6 +12,4 @@ enum class Mode
   Bookmarks,
   Count
 };
-
-std::string DebugPrint(Mode mode);
 }  // namespace search

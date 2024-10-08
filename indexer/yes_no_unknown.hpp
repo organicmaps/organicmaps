@@ -3,6 +3,6 @@
 typedef enum YesNoUnknown
 {
   Unknown = 0,
-  Yes = 1,
-  No = 2
+  yes = 1,
+  no = 2
 } YesNoUnknown;

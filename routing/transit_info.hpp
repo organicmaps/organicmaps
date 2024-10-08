@@ -235,15 +235,4 @@ public:
 private:
   std::unique_ptr<TransitInfo> m_ptr;
 };
-
-inline std::string DebugPrint(TransitInfo::Type type)
-{
-  switch (type)
-  {
-  case TransitInfo::Type::Gate: return "Gate";
-  case TransitInfo::Type::Edge: return "Edge";
-  case TransitInfo::Type::Transfer: return "Transfer";
-  }
-  UNREACHABLE();
-}
 }  // namespace routing

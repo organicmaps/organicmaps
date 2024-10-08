@@ -90,18 +90,6 @@ DateTimeRelation GetTimesRelation(::transit::Time const & time1, ::transit::Time
 
 namespace transit
 {
-// Status ------------------------------------------------------------------------------------------
-std::string DebugPrint(Status const & status)
-{
-  switch (status)
-  {
-  case Status::Open: return "Open";
-  case Status::Closed: return "Closed";
-  case Status::Unknown: return "Unknown";
-  }
-  UNREACHABLE();
-}
-
 // DatesInterval -----------------------------------------------------------------------------------
 DatesInterval::DatesInterval(gtfs::CalendarItem const & calendarItem)
 {

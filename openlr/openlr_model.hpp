@@ -119,6 +119,4 @@ struct LinearSegment
   uint32_t m_segmentLengthMeters = 0;
   // uint32_t m_segmentRefSpeed;  Always null in partners data. (No docs found).
 };
-
-std::string DebugPrint(LinearSegmentSource source);
 }  // namespace openlr

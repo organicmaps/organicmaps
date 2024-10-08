@@ -1673,7 +1673,7 @@ void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, DepthL
     return;
 
   CHECK(m_context != nullptr, ());
-  DEBUG_LABEL(m_context, "User Marks: " + DebugPrint(layerId));
+  DEBUG_LABEL(m_context, "User Marks: " + ::DebugPrint(layerId));
   m_context->Clear(dp::ClearBits::DepthBit, dp::kClearBitsStoreAll);
 
   for (drape_ptr<RenderGroup> & group : renderGroups)

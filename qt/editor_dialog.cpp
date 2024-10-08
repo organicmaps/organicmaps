@@ -114,14 +114,8 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
       {
         grid->addWidget(new QLabel(kInternetObjectName), row, 0);
         QComboBox * cmb = new QComboBox();
-        std::string const values[] = {DebugPrint(feature::Internet::Unknown),
-                                      DebugPrint(feature::Internet::Wlan),
-                                      DebugPrint(feature::Internet::Wired),
-                                      DebugPrint(feature::Internet::Terminal),
-                                      DebugPrint(feature::Internet::Yes),
-                                      DebugPrint(feature::Internet::No)};
-        for (auto const & v : values)
-          cmb->addItem(v.c_str());
+        for (auto const & internet_type : magic_enum::enum_names<feature::Internet>())
+          cmb->addItem(std::string(internet_type).c_str());
         cmb->setCurrentText(DebugPrint(emo.GetInternet()).c_str());
         cmb->setObjectName(kInternetObjectName);
         grid->addWidget(cmb, row++, 1);
@@ -155,7 +149,7 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
     QSignalMapper * signalMapper = new QSignalMapper();
     connect(deletePOIButton, SIGNAL(clicked()), signalMapper, SLOT(map()));
     signalMapper->setMapping(deletePOIButton, QDialogButtonBox::DestructiveRole);
-    connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(done(int)));
+    connect(signalMapper, SIGNAL(mappedInt(int)), this, SLOT(done(int)));
     buttonBox->addButton(deletePOIButton, QDialogButtonBox::DestructiveRole);
     grid->addWidget(buttonBox, row++, 1);
   }

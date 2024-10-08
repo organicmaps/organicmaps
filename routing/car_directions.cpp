@@ -636,9 +636,9 @@ bool SelectFirstUnrestrictedLane(LaneWay direction, It lanesBegin, It lanesEnd)
 bool SelectUnrestrictedLane(CarDirection turn, vector<SingleLaneInfo> & lanes)
 {
   if (IsTurnMadeFromLeft(turn))
-    return SelectFirstUnrestrictedLane(LaneWay::Left, lanes.begin(), lanes.end());
+    return SelectFirstUnrestrictedLane(LaneWay::left, lanes.begin(), lanes.end());
   else if (IsTurnMadeFromRight(turn))
-    return SelectFirstUnrestrictedLane(LaneWay::Right, lanes.rbegin(), lanes.rend());
+    return SelectFirstUnrestrictedLane(LaneWay::right, lanes.rbegin(), lanes.rend());
   return false;
 }
 

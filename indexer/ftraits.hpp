@@ -76,17 +76,6 @@ enum class WheelchairAvailability
   Limited,
 };
 
-inline std::string DebugPrint(WheelchairAvailability wheelchair)
-{
-  switch (wheelchair)
-  {
-  case WheelchairAvailability::No: return "No";
-  case WheelchairAvailability::Yes: return "Yes";
-  case WheelchairAvailability::Limited: return "Limited";
-  }
-  UNREACHABLE();
-}
-
 class Wheelchair : public TraitsBase<Wheelchair, WheelchairAvailability>
 {
   friend TraitsBase;

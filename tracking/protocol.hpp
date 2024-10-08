@@ -51,6 +51,4 @@ public:
 private:
   static void InitHeader(std::vector<uint8_t> & packet, PacketType type, uint32_t payloadSize);
 };
-
-std::string DebugPrint(Protocol::PacketType type);
 }  // namespace tracking

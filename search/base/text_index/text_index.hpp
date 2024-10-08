@@ -37,6 +37,4 @@ enum class TextIndexVersion : uint8_t
   V0 = 0,
   Latest = V0
 };
-
-std::string DebugPrint(TextIndexVersion const & version);
 }  // namespace search_base

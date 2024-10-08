@@ -118,7 +118,7 @@ string DebugPrint(RoutingOptions const & routingOptions)
     if (routingOptions.Has(road))
     {
       wasAppended = true;
-      ss << " | " << DebugPrint(road);
+      ss << " | " << ::DebugPrint(road);
     }
   };
 
@@ -134,21 +134,6 @@ string DebugPrint(RoutingOptions const & routingOptions)
   ss << "}";
 
   return ss.str();
-}
-
-string DebugPrint(RoutingOptions::Road type)
-{
-  switch (type)
-  {
-    case RoutingOptions::Road::Toll: return "toll";
-    case RoutingOptions::Road::Motorway: return "motorway";
-    case RoutingOptions::Road::Ferry: return "ferry";
-    case RoutingOptions::Road::Dirty: return "dirty";
-    case RoutingOptions::Road::Usual: return "usual";
-    case RoutingOptions::Road::Max: return "max";
-  }
-
-  UNREACHABLE();
 }
 
 RoutingOptionSetter::RoutingOptionSetter(RoutingOptions::RoadType roadsMask)

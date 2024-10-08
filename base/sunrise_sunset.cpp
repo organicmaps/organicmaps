@@ -241,15 +241,3 @@ DayTimeType GetDayTime(time_t timeUtc, double latitude, double longitude)
 
   return DayTimeType::Day;
 }
-
-std::string DebugPrint(DayTimeType type)
-{
-  switch (type)
-  {
-  case DayTimeType::Day: return "Day";
-  case DayTimeType::Night: return "Night";
-  case DayTimeType::PolarDay: return "PolarDay";
-  case DayTimeType::PolarNight: return "PolarNight";
-  }
-  return {};
-}

@@ -421,34 +421,6 @@ void MwmValue::SetTable(MwmInfoEx & info)
   info.m_table = m_table;
 }
 
-string DebugPrint(MwmSet::RegResult result)
-{
-  switch (result)
-  {
-    case MwmSet::RegResult::Success:
-      return "Success";
-    case MwmSet::RegResult::VersionAlreadyExists:
-      return "VersionAlreadyExists";
-    case MwmSet::RegResult::VersionTooOld:
-      return "VersionTooOld";
-    case MwmSet::RegResult::BadFile:
-      return "BadFile";
-    case MwmSet::RegResult::UnsupportedFileFormat:
-      return "UnsupportedFileFormat";
-  }
-  UNREACHABLE();
-}
-
-string DebugPrint(MwmSet::Event::Type type)
-{
-  switch (type)
-  {
-    case MwmSet::Event::TYPE_REGISTERED: return "Registered";
-    case MwmSet::Event::TYPE_DEREGISTERED: return "Deregistered";
-  }
-  return "Undefined";
-}
-
 string DebugPrint(MwmSet::Event const & event)
 {
   ostringstream os;

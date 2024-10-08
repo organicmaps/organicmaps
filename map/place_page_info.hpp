@@ -122,7 +122,7 @@ public:
   /// @returns true if Back API button should be displayed.
   bool HasApiUrl() const { return !m_apiUrl.empty(); }
   /// TODO: Support all possible Internet types in UI. @See MapObject::GetInternet().
-  bool HasWifi() const { return GetInternet() == feature::Internet::Wlan; }
+  bool HasWifi() const { return GetInternet() == feature::Internet::wlan; }
   /// Should be used by UI code to generate cool name for new bookmarks.
   // TODO: Tune new bookmark name. May be add address or some other data.
   kml::LocalizableString FormatNewBookmarkName() const;

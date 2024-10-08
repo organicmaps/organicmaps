@@ -394,9 +394,6 @@ public:
   bool HasGeometryIndex() const { return m_cont.IsExist(INDEX_FILE_TAG); }
 }; // class MwmValue
 
-
-std::string DebugPrint(MwmSet::RegResult result);
-std::string DebugPrint(MwmSet::Event::Type type);
 std::string DebugPrint(MwmSet::Event const & event);
 
 namespace std

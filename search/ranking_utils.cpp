@@ -138,26 +138,11 @@ TokensVector::TokensVector(string_view name)
   Init();
 }
 
-string DebugPrint(NameScore const & score)
-{
-  switch (score)
-  {
-  case NameScore::ZERO: return "Zero";
-  case NameScore::SUBSTRING: return "Substring";
-  case NameScore::PREFIX: return "Prefix";
-  case NameScore::FIRST_MATCH: return "First Match";
-  case NameScore::FULL_PREFIX: return "Full Prefix";
-  case NameScore::FULL_MATCH: return "Full Match";
-  case NameScore::COUNT: return "Count";
-  }
-  return "Unknown";
-}
-
 string DebugPrint(NameScores const & scores)
 {
   ostringstream os;
   os << boolalpha << "NameScores "
-     << "{ m_nameScore: " << DebugPrint(scores.m_nameScore)
+     << "{ m_nameScore: " << ::DebugPrint(scores.m_nameScore)
      << ", m_matchedLength: " << scores.m_matchedLength
      << ", m_errorsMade: " << DebugPrint(scores.m_errorsMade)
      << ", m_isAltOrOldName: "

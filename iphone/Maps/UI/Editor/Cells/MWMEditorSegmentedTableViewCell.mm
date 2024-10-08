@@ -28,10 +28,10 @@
   
   switch(value)
   {
-    case Yes:
+    case yes:
       self.segmentedControl.selectedSegmentIndex = 2;
       break;
-    case No:
+    case no:
       self.segmentedControl.selectedSegmentIndex = 0;
       break;
     case Unknown:
@@ -46,8 +46,8 @@
 {
   switch (value)
   {
-    case Yes:
-    case No:
+    case yes:
+    case no:
       self.label.textColor = [UIColor blackPrimaryText];
       break;
     case Unknown:
@@ -62,13 +62,13 @@
   switch (self.segmentedControl.selectedSegmentIndex)
   {
     case 0:
-      value = No;
+      value = no;
       break;
     case 1:
       value = Unknown;
       break;
     case 2:
-      value = Yes;
+      value = yes;
       break;
     default:
       NSAssert(false, @"Unexpected YesNoUnknown value %ld", static_cast<long>(self.segmentedControl.selectedSegmentIndex));

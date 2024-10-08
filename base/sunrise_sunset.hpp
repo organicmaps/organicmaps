@@ -11,8 +11,6 @@ enum class DayTimeType
   PolarNight
 };
 
-std::string DebugPrint(DayTimeType type);
-
 /// Helpers which calculates 'is day time' without a time calculation error.
 /// @param timeUtc - utc time
 /// @param latitude - latutude, -90...+90 degrees

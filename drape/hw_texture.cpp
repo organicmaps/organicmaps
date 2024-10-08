@@ -27,7 +27,7 @@ std::string DebugPrint(HWTexture::Params const & p)
   std::ostringstream ss;
   ss << "Width = " << p.m_width
      << "; Height = " << p.m_height
-     << "; Format = " << DebugPrint(p.m_format)
+     << "; Format = " << ::DebugPrint(p.m_format)
      << "; IsRenderTarget = " << p.m_isRenderTarget;
   return ss.str();
 }

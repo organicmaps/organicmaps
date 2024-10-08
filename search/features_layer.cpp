@@ -28,7 +28,7 @@ string DebugPrint(FeaturesLayer const & layer)
      << (layer.m_sortedFeatures ? layer.m_sortedFeatures->size() : 0)
      << ", subquery: " << DebugPrint(layer.m_subQuery)
      << ", tokenRange: " << DebugPrint(layer.m_tokenRange)
-     << ", type: " << DebugPrint(layer.m_type)
+     << ", type: " << ::DebugPrint(layer.m_type)
      << ", lastTokenIsPrefix: " << layer.m_lastTokenIsPrefix
      << "]";
   return os.str();

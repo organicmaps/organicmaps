@@ -84,8 +84,6 @@ public:
   virtual std::unique_ptr<CompressedBitVector> Clone() const = 0;
 };
 
-std::string DebugPrint(CompressedBitVector::StorageStrategy strat);
-
 class DenseCBV : public CompressedBitVector
 {
 public:

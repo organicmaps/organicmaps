@@ -73,16 +73,6 @@ private:
     AfterSearch
   };
 
-  friend std::string DebugPrint(State state)
-  {
-    switch (state)
-    {
-    case State::BeforeSearch: return "BeforeSearch";
-    case State::Search: return "Search";
-    case State::AfterSearch: return "AfterSearch";
-    }
-  }
-
   enum class SaveResult
   {
     NoEdits,

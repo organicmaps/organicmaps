@@ -92,26 +92,3 @@ drape_ptr<df::UserPointMark::ColoredSymbolZoomInfo> ColoredMarkPoint::GetColored
 {
   return make_unique_dp<ColoredSymbolZoomInfo>(m_coloredSymbols);
 }
-
-std::string DebugPrint(UserMark::Type type)
-{
-  switch (type)
-  {
-  case UserMark::Type::API: return "API";
-  case UserMark::Type::SEARCH: return "SEARCH";
-  case UserMark::Type::STATIC: return "STATIC";
-  case UserMark::Type::BOOKMARK: return "BOOKMARK";
-  case UserMark::Type::DEBUG_MARK: return "DEBUG_MARK";
-  case UserMark::Type::ROUTING: return "ROUTING";
-  case UserMark::Type::ROAD_WARNING: return "ROAD_WARNING";
-  case UserMark::Type::SPEED_CAM: return "SPEED_CAM";
-  case UserMark::Type::LOCAL_ADS: return "LOCAL_ADS";
-  case UserMark::Type::TRANSIT: return "TRANSIT";
-  case UserMark::Type::TRACK_INFO: return "TRACK_INFO";
-  case UserMark::Type::TRACK_SELECTION: return "TRACK_SELECTION";
-  case UserMark::Type::COLORED: return "COLORED";
-  case UserMark::Type::USER_MARK_TYPES_COUNT: return "USER_MARK_TYPES_COUNT";
-  case UserMark::Type::USER_MARK_TYPES_COUNT_MAX: return "USER_MARK_TYPES_COUNT_MAX";
-  }
-  UNREACHABLE();
-}

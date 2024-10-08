@@ -22,13 +22,12 @@ namespace feature
   enum class Internet
   {
     Unknown,  //!< Internet state is unknown (default).
-    Wlan,     //!< Wireless Internet access is present.
-    Terminal, //!< A computer with internet service.
-    Wired,    //!< Wired Internet access is present.
-    Yes,      //!< Unspecified Internet access is available.
-    No        //!< There is definitely no any Internet access.
+    wlan,     //!< Wireless Internet access is present.
+    terminal, //!< A computer with internet service.
+    wired,    //!< Wired Internet access is present.
+    yes,      //!< Unspecified Internet access is available.
+    no        //!< There is definitely no any Internet access.
   };
-  std::string DebugPrint(Internet internet);
   /// @param[in]  inet  Should be lowercase like in DebugPrint.
   Internet InternetFromString(std::string_view inet);
 

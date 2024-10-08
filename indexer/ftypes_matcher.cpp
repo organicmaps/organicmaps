@@ -72,48 +72,7 @@ public:
     return it->second;
   }
 };
-
-char const * HighwayClassToString(ftypes::HighwayClass const cls)
-{
-  switch (cls)
-  {
-  case ftypes::HighwayClass::Undefined: return "Undefined";
-  case ftypes::HighwayClass::Transported: return "Transported";
-  case ftypes::HighwayClass::Trunk: return "Trunk";
-  case ftypes::HighwayClass::Primary: return "Primary";
-  case ftypes::HighwayClass::Secondary: return "Secondary";
-  case ftypes::HighwayClass::Tertiary: return "Tertiary";
-  case ftypes::HighwayClass::LivingStreet: return "LivingStreet";
-  case ftypes::HighwayClass::Service: return "Service";
-  case ftypes::HighwayClass::Pedestrian: return "Pedestrian";
-  case ftypes::HighwayClass::Count: return "Count";
-  }
-  ASSERT(false, ());
-  return "";
-}
 }  // namespace
-
-string DebugPrint(HighwayClass const cls)
-{
-  stringstream out;
-  out << "[ " << HighwayClassToString(cls) << " ]";
-  return out.str();
-}
-
-string DebugPrint(LocalityType const localityType)
-{
-  switch (localityType)
-  {
-  case LocalityType::None: return "None";
-  case LocalityType::Country: return "Country";
-  case LocalityType::State: return "State";
-  case LocalityType::City: return "City";
-  case LocalityType::Town: return "Town";
-  case LocalityType::Village: return "Village";
-  case LocalityType::Count: return "Count";
-  }
-  UNREACHABLE();
-}
 
 HighwayClass GetHighwayClass(feature::TypesHolder const & types)
 {

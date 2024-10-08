@@ -63,15 +63,4 @@ private:
   LatLonWithAltitude m_to;
   Type m_type = Type::PureFake;
 };
-
-inline std::string DebugPrint(FakeVertex::Type type)
-{
-  switch (type)
-  {
-  case FakeVertex::Type::PureFake: return "PureFake";
-  case FakeVertex::Type::PartOfReal: return "PartOfReal";
-  }
-  CHECK(false, ("Unreachable"));
-  return "UnknownFakeVertexType";
-}
 }  // namespace routing

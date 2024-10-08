@@ -247,15 +247,4 @@ bool CrossMwmGraph::TransitCrossMwmSectionExists(NumMwmId numMwmId) const
 
   return status == MwmStatus::SectionExists;
 }
-
-string DebugPrint(CrossMwmGraph::MwmStatus status)
-{
-  switch (status)
-  {
-  case CrossMwmGraph::MwmStatus::NotLoaded: return "CrossMwmGraph::NotLoaded";
-  case CrossMwmGraph::MwmStatus::SectionExists: return "CrossMwmGraph::SectionExists";
-  case CrossMwmGraph::MwmStatus::NoSection: return "CrossMwmGraph::NoSection";
-  }
-  return string("Unknown CrossMwmGraph::MwmStatus.");
-}
 }  // namespace routing

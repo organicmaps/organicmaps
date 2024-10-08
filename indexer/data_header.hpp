@@ -81,6 +81,4 @@ namespace feature
     // Is not used now (see data/countries_meta.txt). Can be reused for something else.
     buffer_vector<uint8_t, 2> m_langs;
   };
-
-  std::string DebugPrint(DataHeader::MapType type);
 }  // namespace feature

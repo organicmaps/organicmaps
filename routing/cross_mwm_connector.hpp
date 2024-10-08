@@ -33,8 +33,6 @@ enum class WeightsLoadState
   ReadyToLoad,
   Loaded
 };
-
-std::string DebugPrint(WeightsLoadState state);
 }  // namespace connector
 
 /// @param CrossMwmId Encoded OSM feature (way) ID that should be equal and unique in all MWMs.

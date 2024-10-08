@@ -345,8 +345,6 @@ private:
   EdgeCacheT m_fakeOutgoingEdges;
 };
 
-std::string DebugPrint(IRoadGraph::Mode mode);
-
 IRoadGraph::RoadInfo MakeRoadInfoForTesting(bool bidirectional, double speedKMPH,
                                             std::initializer_list<m2::PointD> const & points);
 

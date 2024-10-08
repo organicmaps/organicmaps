@@ -5,6 +5,8 @@
 #include <iosfwd>
 #include <string>
 
+#include "magic_enum.hpp"
+
 namespace base
 {
 // GeoObjectId is used to pack the source of a geographical object together with its
@@ -51,7 +53,7 @@ public:
     OsmSurrogate = 0x05,
 
     // Federal informational address system. http://www.ifias.ru/
-    Fias = 0x06,
+    FIAS = 0x06,
 
     ObsoleteOsmNode = 0x40,
     ObsoleteOsmWay = 0x80,
@@ -89,7 +91,6 @@ GeoObjectId MakeOsmNode(uint64_t id);
 GeoObjectId MakeOsmWay(uint64_t id);
 GeoObjectId MakeOsmRelation(uint64_t id);
 
-std::string DebugPrint(GeoObjectId::Type const & t);
 std::string DebugPrint(GeoObjectId const & id);
 }  // namespace base
 
@@ -105,3 +106,10 @@ struct hash<base::GeoObjectId>
   }
 };
 }  // namespace std
+
+template <>
+struct magic_enum::customize::enum_range<base::GeoObjectId::Type>
+{
+  static constexpr int min = static_cast<const int>(base::GeoObjectId::Type::Invalid);
+  static constexpr int max = static_cast<const int>(base::GeoObjectId::Type::ObsoleteOsmRelation);
+};

@@ -20,8 +20,11 @@
 #include <utility>
 #include <vector>
 
+#include "magic_enum.hpp"
+
 /// @name Declarations.
 //@{
+
 template <typename T> inline std::string DebugPrint(T const & t);
 
 inline std::string DebugPrint(std::string s) { return s; }
@@ -51,7 +54,24 @@ template <class Key, class Hash = std::hash<Key>, class Pred = std::equal_to<Key
 inline std::string DebugPrint(std::unordered_set<Key, Hash, Pred> const & v);
 template <class Key, class T, class Hash = std::hash<Key>, class Pred = std::equal_to<Key>>
 inline std::string DebugPrint(std::unordered_map<Key, T, Hash, Pred> const & v);
+
+template <class EnumT>
+  requires std::is_enum_v<EnumT>
+inline std::string DebugPrint(EnumT const & value);
 //@}
+
+template <class EnumT>
+  requires std::is_enum_v<EnumT>
+inline std::string DebugPrint(EnumT const & value)
+{
+  const auto str = magic_enum::enum_name(value);
+  if (str.empty())
+  {
+    return std::string{magic_enum::enum_type_name<EnumT>()} + "(" +
+           std::to_string(magic_enum::enum_integer(value)) + ")";
+  }
+  return std::string{str};
+}
 
 template <typename T> inline std::string DebugPrint(T const & t)
 {

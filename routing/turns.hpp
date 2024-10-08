@@ -116,28 +116,23 @@ enum class PedestrianDirection
   Count /**< This value is used for internals only. */
 };
 
-std::string DebugPrint(PedestrianDirection const l);
-
 /*!
  * \warning The values of LaneWay shall be synchronized with values of LaneWay enum in java.
  */
 enum class LaneWay
 {
-  None = 0,
-  Reverse,
-  SharpLeft,
-  Left,
-  SlightLeft,
-  MergeToRight,
-  Through,
-  MergeToLeft,
-  SlightRight,
-  Right,
-  SharpRight,
-  Count  /**< This value is used for internals only. */
+  none = 0,
+  reverse,
+  sharp_left,
+  left,
+  slight_left,
+  merge_to_right,
+  through,
+  merge_to_left,
+  slight_right,
+  right,
+  sharp_right,
 };
-
-std::string DebugPrint(LaneWay const l);
 
 typedef std::vector<LaneWay> TSingleLane;
 

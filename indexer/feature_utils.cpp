@@ -516,53 +516,14 @@ string FormatElevation(string_view elevation)
   return {};
 }
 
-constexpr char const * kWlan = "wlan";
-constexpr char const * kWired = "wired";
-constexpr char const * kTerminal = "terminal";
-constexpr char const * kYes = "yes";
-constexpr char const * kNo = "no";
-
-string DebugPrint(Internet internet)
-{
-  switch (internet)
-  {
-  case Internet::No: return kNo;
-  case Internet::Yes: return kYes;
-  case Internet::Wlan: return kWlan;
-  case Internet::Wired: return kWired;
-  case Internet::Terminal: return kTerminal;
-  case Internet::Unknown: break;
-  }
-  return {};
-}
-
 Internet InternetFromString(std::string_view inet)
 {
-  if (inet.empty())
-    return Internet::Unknown;
-  if (inet.find(kWlan) != string::npos)
-    return Internet::Wlan;
-  if (inet.find(kWired) != string::npos)
-    return Internet::Wired;
-  if (inet.find(kTerminal) != string::npos)
-    return Internet::Terminal;
-  if (inet == kYes)
-    return Internet::Yes;
-  if (inet == kNo)
-    return Internet::No;
-  return Internet::Unknown;
+  return magic_enum::enum_cast<Internet>(inet).value_or(Internet::Unknown);
 }
 
 YesNoUnknown YesNoUnknownFromString(std::string_view str)
 {
-  if (str.empty())
-    return Unknown;
-  if (str.find(kYes) != string::npos)
-    return Yes;
-  if (str.find(kNo) != string::npos)
-    return No;
-  else
-    return YesNoUnknown::Unknown;
+  return magic_enum::enum_cast<YesNoUnknown>(str).value_or(YesNoUnknown::Unknown);
 }
 
 } // namespace feature

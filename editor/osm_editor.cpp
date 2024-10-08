@@ -1211,17 +1211,4 @@ bool Editor::IsFeatureUploadedImpl(FeaturesContainer const & features, MwmId con
   auto const * info = GetFeatureTypeInfo(features, mwmId, index);
   return info && info->m_uploadStatus == kUploaded;
 }
-
-string DebugPrint(Editor::SaveResult saveResult)
-{
-  switch (saveResult)
-  {
-    case Editor::SaveResult::NothingWasChanged: return "NothingWasChanged";
-    case Editor::SaveResult::SavedSuccessfully: return "SavedSuccessfully";
-    case Editor::SaveResult::NoFreeSpaceError: return "NoFreeSpaceError";
-    case Editor::SaveResult::NoUnderlyingMapError: return "NoUnderlyingMapError";
-    case Editor::SaveResult::SavingError: return "SavingError";
-  }
-  UNREACHABLE();
-}
 }  // namespace osm

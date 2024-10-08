@@ -130,6 +130,4 @@ protected:
 
   bool m_isRegionsGraphMode = false;
 };
-
-std::string DebugPrint(WorldGraphMode mode);
 }  // namespace routing

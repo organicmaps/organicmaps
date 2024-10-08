@@ -27,15 +27,4 @@ vector<LocationReferencePoint> & LinearSegment::GetLRPs()
 {
   return m_locationReference.m_points;
 }
-
-string DebugPrint(LinearSegmentSource source)
-{
-  switch (source)
-  {
-  case LinearSegmentSource::NotValid: return "NotValid";
-  case LinearSegmentSource::FromLocationReferenceTag: return "FromLocationReferenceTag";
-  case LinearSegmentSource::FromCoordinatesTag: return "FromCoordinatesTag";
-  }
-  UNREACHABLE();
-}
 }  // namespace openlr
