@@ -23,6 +23,7 @@ inline double MilesToFeet(double mi) { return mi * 5280.0; }
 inline double MiphToKmph(double miph) { return MilesToMeters(miph) / 1000.0; }
 inline double KmphToMiph(double kmph) { return MetersToMiles(kmph * 1000.0); }
 inline double MpsToKmph(double mps) { return mps * 3.6; }
+inline double MpsToMiph(double mps) { return mps * 3.6 * 0.621371192; }
 inline double MetersToFeet(double m) { return m * 3.2808399; }
 inline double FeetToMeters(double ft) { return ft * 0.3048; }
 inline double FeetToMiles(double ft) { return ft * 0.00018939; }
