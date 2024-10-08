@@ -717,29 +717,9 @@ std::vector<std::string> GetRoadShieldsNames(FeatureType & ft)
   return names;
 }
 
-std::string DebugPrint(RoadShieldType shieldType)
-{
-  using ftypes::RoadShieldType;
-  switch (shieldType)
-  {
-  case RoadShieldType::Default: return "default";
-  case RoadShieldType::Generic_White: return "white";
-  case RoadShieldType::Generic_Blue: return "blue";
-  case RoadShieldType::Generic_Green: return "green";
-  case RoadShieldType::Generic_Orange: return "orange";
-  case RoadShieldType::Generic_Red: return "red";
-  case RoadShieldType::US_Interstate: return "US interstate";
-  case RoadShieldType::US_Highway: return "US highway";
-  case RoadShieldType::UK_Highway: return "UK highway";
-  case RoadShieldType::Hidden: return "hidden";
-  case RoadShieldType::Count: CHECK(false, ("RoadShieldType::Count is not to be used as a type"));
-  }
-  return std::string();
-}
-
 std::string DebugPrint(RoadShield const & shield)
 {
-  return DebugPrint(shield.m_type) + "/" + shield.m_name +
+  return ::DebugPrint(shield.m_type) + "/" + shield.m_name +
          (shield.m_additionalText.empty() ? "" : " (" + shield.m_additionalText + ")");
 }
 }  // namespace ftypes

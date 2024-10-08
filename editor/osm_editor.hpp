@@ -256,6 +256,4 @@ private:
 
   DECLARE_THREAD_CHECKER(MainThreadChecker);
 };  // class Editor
-
-std::string DebugPrint(Editor::SaveResult saveResult);
 }  // namespace osm

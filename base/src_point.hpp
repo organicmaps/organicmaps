@@ -8,12 +8,12 @@
 
 #if SRC_LOGGING
 #ifndef __OBJC__
-#define SRC() base::SrcPoint(__FILE__, __LINE__, __FUNCTION__, "()")
+#define SRC() ::base::SrcPoint(__FILE__, __LINE__, __FUNCTION__, "()")
 #else
-#define SRC() base::SrcPoint(__FILE__, __LINE__, __FUNCTION__)
+#define SRC() ::base::SrcPoint(__FILE__, __LINE__, __FUNCTION__)
 #endif
 #else
-#define SRC() base::SrcPoint()
+#define SRC() ::base::SrcPoint()
 #endif
 
 namespace base

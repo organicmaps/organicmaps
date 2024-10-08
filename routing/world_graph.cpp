@@ -84,19 +84,4 @@ RouteWeight WorldGraph::GetCrossBorderPenalty(NumMwmId mwmId1, NumMwmId mwmId2)
 {
   return RouteWeight(0);
 }
-
-std::string DebugPrint(WorldGraphMode mode)
-{
-  switch (mode)
-  {
-  case WorldGraphMode::LeapsOnly: return "LeapsOnly";
-  case WorldGraphMode::NoLeaps: return "NoLeaps";
-  case WorldGraphMode::SingleMwm: return "SingleMwm";
-  case WorldGraphMode::Joints: return "Joints";
-  case WorldGraphMode::JointSingleMwm: return "JointsSingleMwm";
-  case WorldGraphMode::Undefined: return "Undefined";
-  }
-
-  UNREACHABLE();
-}
 }  // namespace routing

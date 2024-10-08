@@ -152,18 +152,4 @@ void Protocol::InitHeader(vector<uint8_t> & packet, PacketType type, uint32_t pa
 
   packet[0] = static_cast<uint8_t>(type);
 }
-
-string DebugPrint(Protocol::PacketType type)
-{
-  switch (type)
-  {
-  case Protocol::PacketType::Error: return "Error";
-  case Protocol::PacketType::AuthV0: return "AuthV0";
-  case Protocol::PacketType::DataV0: return "DataV0";
-  case Protocol::PacketType::DataV1: return "DataV1";
-  }
-  stringstream ss;
-  ss << "Unknown(" << static_cast<uint32_t>(type) << ")";
-  return ss.str();
-}
 }  // namespace tracking

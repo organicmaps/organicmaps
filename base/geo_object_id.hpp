@@ -89,7 +89,6 @@ GeoObjectId MakeOsmNode(uint64_t id);
 GeoObjectId MakeOsmWay(uint64_t id);
 GeoObjectId MakeOsmRelation(uint64_t id);
 
-std::string DebugPrint(GeoObjectId::Type const & t);
 std::string DebugPrint(GeoObjectId const & id);
 }  // namespace base
 

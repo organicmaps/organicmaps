@@ -81,25 +81,4 @@ string DebugPrint(Tracer::Parse const & parse)
 
   return os.str();
 }
-
-string DebugPrint(ResultTracer::Branch branch)
-{
-  switch (branch)
-  {
-  case ResultTracer::Branch::GoEverywhere: return "GoEverywhere";
-  case ResultTracer::Branch::GoInViewport: return "GoInViewport";
-  case ResultTracer::Branch::MatchCategories: return "MatchCategories";
-  case ResultTracer::Branch::MatchRegions: return "MatchRegions";
-  case ResultTracer::Branch::MatchCities: return "MatchCities";
-  case ResultTracer::Branch::MatchAroundPivot: return "MatchAroundPivot";
-  case ResultTracer::Branch::MatchPOIsAndBuildings: return "MatchPOIsAndBuildings";
-  case ResultTracer::Branch::GreedilyMatchStreets: return "GreedilyMatchStreets";
-  case ResultTracer::Branch::GreedilyMatchStreetsWithSuburbs:
-    return "GreedilyMatchStreetsWithSuburbs";
-  case ResultTracer::Branch::WithPostcodes: return "WithPostcodes";
-  case ResultTracer::Branch::MatchUnclassified: return "MatchUnclassified";
-  case ResultTracer::Branch::Relaxed: return "Relaxed";
-  }
-  UNREACHABLE();
-}
 }  // namespace search

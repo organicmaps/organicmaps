@@ -345,6 +345,3 @@ private:
 
   void GetSystemFontNames(FilesList & res) const;
 };
-
-std::string DebugPrint(Platform::EError err);
-std::string DebugPrint(Platform::ChargingStatus status);

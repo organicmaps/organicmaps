@@ -62,3 +62,6 @@
 [submodule "3party/utfcpp"]
 	path = 3party/utfcpp
 	url = https://github.com/nemtrif/utfcpp.git
+[submodule "3party/magic_enum"]
+	path = 3party/magic_enum
+	url = https://github.com/Neargye/magic_enum.git

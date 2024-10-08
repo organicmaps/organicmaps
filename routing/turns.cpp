@@ -20,6 +20,8 @@ using namespace std;
 
 namespace
 {
+// TODO use magic_enum::enum_cast
+
 /// The order is important. Starting with the most frequent tokens according to
 /// taginfo.openstreetmap.org we minimize the number of the comparisons in ParseSingleLane().
 ///
@@ -42,27 +44,6 @@ array<pair<LaneWay, char const *>, static_cast<size_t>(LaneWay::Count) + 1> cons
      {LaneWay::Reverse, "reverse"}}};
 static_assert(g_laneWayNames.size() == static_cast<size_t>(LaneWay::Count) + 1,
               "Check the size of g_laneWayNames");
-
-array<pair<CarDirection, char const *>, static_cast<size_t>(CarDirection::Count)> const
-    g_turnNames = {{{CarDirection::None, "None"},
-                    {CarDirection::GoStraight, "GoStraight"},
-                    {CarDirection::TurnRight, "TurnRight"},
-                    {CarDirection::TurnSharpRight, "TurnSharpRight"},
-                    {CarDirection::TurnSlightRight, "TurnSlightRight"},
-                    {CarDirection::TurnLeft, "TurnLeft"},
-                    {CarDirection::TurnSharpLeft, "TurnSharpLeft"},
-                    {CarDirection::TurnSlightLeft, "TurnSlightLeft"},
-                    {CarDirection::UTurnLeft, "UTurnLeft"},
-                    {CarDirection::UTurnRight, "UTurnRight"},
-                    {CarDirection::EnterRoundAbout, "EnterRoundAbout"},
-                    {CarDirection::LeaveRoundAbout, "LeaveRoundAbout"},
-                    {CarDirection::StayOnRoundAbout, "StayOnRoundAbout"},
-                    {CarDirection::StartAtEndOfStreet, "StartAtEndOfStreet"},
-                    {CarDirection::ReachedYourDestination, "ReachedYourDestination"},
-                    {CarDirection::ExitHighwayToLeft, "ExitHighwayToLeft"},
-                    {CarDirection::ExitHighwayToRight, "ExitHighwayToRight"}}};
-static_assert(g_turnNames.size() == static_cast<size_t>(CarDirection::Count),
-              "Check the size of g_turnNames");
 }  // namespace
 
 // SegmentRange -----------------------------------------------------------------------------------
@@ -179,7 +160,7 @@ string DebugPrint(TurnItem const & turnItem)
       << ", m_turn = " << DebugPrint(turnItem.m_turn)
       << ", m_lanes = " << ::DebugPrint(turnItem.m_lanes)
       << ", m_exitNum = " << turnItem.m_exitNum
-      << ", m_pedestrianDir = " << DebugPrint(turnItem.m_pedestrianTurn)
+      << ", m_pedestrianDir = " << ::DebugPrint(turnItem.m_pedestrianTurn)
       << " }";
   return out.str();
 }
@@ -196,11 +177,9 @@ string DebugPrint(TurnItemDist const & turnItemDist)
 
 string GetTurnString(CarDirection turn)
 {
-  for (auto const & p : g_turnNames)
-  {
-    if (p.first == turn)
-      return p.second;
-  }
+  std::string turnStr = ::DebugPrint(turn);
+  if (!turnStr.empty())
+    return turnStr;
 
   ASSERT(false, (static_cast<int>(turn)));
   return "unknown CarDirection";
@@ -385,25 +364,6 @@ string DebugPrint(LaneWay const l)
 string DebugPrint(CarDirection const turn)
 {
   return GetTurnString(turn);
-}
-
-string DebugPrint(PedestrianDirection const l)
-{
-  switch (l)
-  {
-  case PedestrianDirection::None: return "None";
-  case PedestrianDirection::GoStraight: return "GoStraight";
-  case PedestrianDirection::TurnRight: return "TurnRight";
-  case PedestrianDirection::TurnLeft: return "TurnLeft";
-  case PedestrianDirection::ReachedYourDestination: return "ReachedYourDestination";
-  case PedestrianDirection::Count:
-    // PedestrianDirection::Count should be never used in the code, print it as unknown value
-    // (it is added to cases list to suppress compiler warning).
-    break;
-  }
-
-  ASSERT(false, (static_cast<int>(l)));
-  return "unknown PedestrianDirection";
 }
 
 string DebugPrint(SingleLaneInfo const & singleLaneInfo)

@@ -522,20 +522,6 @@ constexpr char const * kTerminal = "terminal";
 constexpr char const * kYes = "yes";
 constexpr char const * kNo = "no";
 
-string DebugPrint(Internet internet)
-{
-  switch (internet)
-  {
-  case Internet::No: return kNo;
-  case Internet::Yes: return kYes;
-  case Internet::Wlan: return kWlan;
-  case Internet::Wired: return kWired;
-  case Internet::Terminal: return kTerminal;
-  case Internet::Unknown: break;
-  }
-  return {};
-}
-
 Internet InternetFromString(std::string_view inet)
 {
   if (inet.empty())

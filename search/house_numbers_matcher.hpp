@@ -83,8 +83,6 @@ bool LooksLikeHouseNumber(std::string const & s, bool isPrefix);
 bool LooksLikeHouseNumberStrict(strings::UniString const & s);
 bool LooksLikeHouseNumberStrict(std::string const & s);
 
-std::string DebugPrint(Token::Type type);
-
 std::string DebugPrint(Token const & token);
 }  // namespace house_numbers
 }  // namespace search

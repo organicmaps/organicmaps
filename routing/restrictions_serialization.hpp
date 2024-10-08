@@ -338,7 +338,6 @@ private:
   }
 };
 
-std::string DebugPrint(Restriction::Type const & type);
 std::string DebugPrint(Restriction const & restriction);
 std::string DebugPrint(RestrictionHeader const & restrictionHeader);
 }  // namespace routing

@@ -499,32 +499,4 @@ bool Screenshoter::LoadPoints(std::string const & points)
   }
   return !m_pointsToProcess.empty();
 }
-
-std::string DebugPrint(Screenshoter::State state)
-{
-  switch (state)
-  {
-  case Screenshoter::State::NotStarted: return "NotStarted";
-  case Screenshoter::State::LoadKml: return "LoadKml";
-  case Screenshoter::State::WaitPosition: return "WaitPosition";
-  case Screenshoter::State::WaitCountries: return "WaitCountries";
-  case Screenshoter::State::WaitGraphics: return "WaitGraphics";
-  case Screenshoter::State::Ready: return "Ready";
-  case Screenshoter::State::FileError: return "FileError";
-  case Screenshoter::State::ParamsError: return "ParamsError";
-  case Screenshoter::State::Done: return "Done";
-  }
-  UNREACHABLE();
-}
-
-std::string DebugPrint(ScreenshotParams::Mode mode)
-{
-  switch (mode)
-  {
-  case ScreenshotParams::Mode::KmlFiles: return "KmlFiles";
-  case ScreenshotParams::Mode::Points: return "Points";
-  case ScreenshotParams::Mode::Rects: return "Rects";
-  }
-  UNREACHABLE();
-}
 }  // namespace qt

@@ -92,9 +92,6 @@ private:
   std::vector<drape_ptr<dp::RenderBucket>> m_renderBuckets;
   mutable bool m_pendingOnDelete;
   mutable bool m_canBeDeleted;
-
-private:
-  friend std::string DebugPrint(RenderGroup const & group);
 };
 
 class RenderGroupComparator

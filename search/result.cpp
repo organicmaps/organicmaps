@@ -214,20 +214,6 @@ string Result::ToStringForStats() const
   return s;
 }
 
-string DebugPrint(Result::Type type)
-{
-  switch (type)
-  {
-  case Result::Type::Feature: return "Feature";
-  case Result::Type::LatLon: return "LatLon";
-  case Result::Type::PureSuggest: return "PureSuggest";
-  case Result::Type::SuggestFromFeature: return "SuggestFromFeature";
-  case Result::Type::Postcode: return "Postcode";
-  }
-
-  return "Unknown";
-}
-
 string DebugPrint(Result const & result)
 {
   string readableType;

@@ -81,17 +81,6 @@ enum class KmlFileType
   Gpx
 };
 
-inline std::string DebugPrint(KmlFileType fileType)
-{
-  switch (fileType)
-  {
-  case KmlFileType::Text: return "Text";
-  case KmlFileType::Binary: return "Binary";
-  case KmlFileType::Gpx: return "GPX";
-  }
-  UNREACHABLE();
-}
-
 /// @name File name/path helpers.
 /// @{
 std::string GetBookmarksDirectory();

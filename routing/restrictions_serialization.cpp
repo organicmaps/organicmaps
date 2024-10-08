@@ -51,22 +51,10 @@ void RestrictionHeader::Reset()
     m_restrictionCount.emplace(type, 0);
 }
 
-std::string DebugPrint(Restriction::Type const & type)
-{
-  switch (type)
-  {
-  case Restriction::Type::No: return kNo;
-  case Restriction::Type::Only: return kOnly;
-  case Restriction::Type::NoUTurn: return kNoUTurn;
-  case Restriction::Type::OnlyUTurn: return kOnlyUTurn;
-  }
-  return "Unknown";
-}
-
 std::string DebugPrint(Restriction const & restriction)
 {
   std::ostringstream out;
-  out << "[" << DebugPrint(restriction.m_type) << "]: {";
+  out << "[" << ::DebugPrint(restriction.m_type) << "]: {";
   for (size_t i = 0; i < restriction.m_featureIds.size(); ++i)
   {
     out << restriction.m_featureIds[i];
@@ -84,7 +72,7 @@ std::string DebugPrint(RestrictionHeader const & header)
   for (size_t i = 0; i < n; ++i)
   {
     auto const type = RestrictionHeader::kRestrictionTypes[i];
-    res += DebugPrint(type) + " => " + std::to_string(header.GetNumberOf(type));
+    res += ::DebugPrint(type) + " => " + std::to_string(header.GetNumberOf(type));
 
     if (i + 1 != n)
       res += ", ";

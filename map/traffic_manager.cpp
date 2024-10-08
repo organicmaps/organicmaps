@@ -561,29 +561,3 @@ void TrafficManager::SetSimplifiedColorScheme(bool simplified)
   m_hasSimplifiedColorScheme = simplified;
   m_drapeEngine.SafeCall(&df::DrapeEngine::SetSimplifiedTrafficColors, simplified);
 }
-
-std::string DebugPrint(TrafficManager::TrafficState state)
-{
-  switch (state)
-  {
-  case TrafficManager::TrafficState::Disabled:
-    return "Disabled";
-  case TrafficManager::TrafficState::Enabled:
-    return "Enabled";
-  case TrafficManager::TrafficState::WaitingData:
-    return "WaitingData";
-  case TrafficManager::TrafficState::Outdated:
-    return "Outdated";
-  case TrafficManager::TrafficState::NoData:
-    return "NoData";
-  case TrafficManager::TrafficState::NetworkError:
-    return "NetworkError";
-  case TrafficManager::TrafficState::ExpiredData:
-    return "ExpiredData";
-  case TrafficManager::TrafficState::ExpiredApp:
-    return "ExpiredApp";
-  default:
-      ASSERT(false, ("Unknown state"));
-  }
-  return "Unknown";
-}

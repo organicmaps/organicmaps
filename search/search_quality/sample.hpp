@@ -103,8 +103,6 @@ void ToJSONObject(json_t & root, std::string const & field, Sample::Result::Rele
 void FromJSON(json_t * root, Sample::Result & result);
 base::JSONPtr ToJSON(Sample::Result const & result);
 
-std::string DebugPrint(Sample::Result::Relevance r);
-
 std::string DebugPrint(Sample::Result const & r);
 
 std::string DebugPrint(Sample const & s);

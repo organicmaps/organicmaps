@@ -100,18 +100,3 @@ bool ParseLine(std::string_view line, AddressEntry & e)
 }
 
 } // namespace tiger
-
-namespace feature
-{
-std::string DebugPrint(InterpolType type)
-{
-  switch (type)
-  {
-  case InterpolType::None: return "Interpol::None";
-  case InterpolType::Any: return "Interpol::Any";
-  case InterpolType::Odd: return "Interpol::Odd";
-  case InterpolType::Even: return "Interpol::Even";
-  }
-  UNREACHABLE();
-}
-} // namespace feature

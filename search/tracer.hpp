@@ -82,5 +82,4 @@ private:
 };
 
 std::string DebugPrint(Tracer::Parse const & parse);
-std::string DebugPrint(ResultTracer::Branch branch);
 }  // namespace search

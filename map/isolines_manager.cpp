@@ -171,15 +171,3 @@ void IsolinesManager::OnMwmDeregistered(platform::LocalCountryFile const & count
     }
   }
 }
-
-std::string DebugPrint(IsolinesManager::IsolinesState state)
-{
-  switch (state)
-  {
-  case IsolinesManager::IsolinesState::Disabled: return "Disabled";
-  case IsolinesManager::IsolinesState::Enabled: return "Enabled";
-  case IsolinesManager::IsolinesState::ExpiredData: return "ExpiredData";
-  case IsolinesManager::IsolinesState::NoData: return "NoData";
-  }
-  UNREACHABLE();
-}

@@ -28,7 +28,6 @@ namespace feature
     Yes,      //!< Unspecified Internet access is available.
     No        //!< There is definitely no any Internet access.
   };
-  std::string DebugPrint(Internet internet);
   /// @param[in]  inet  Should be lowercase like in DebugPrint.
   Internet InternetFromString(std::string_view inet);
 

@@ -177,7 +177,6 @@ struct NameScores
   size_t m_matchedLength = 0;
 };
 
-std::string DebugPrint(NameScore const & score);
 std::string DebugPrint(NameScores const & scores);
 
 // Returns true when |s| is a stop-word and may be removed from a query.

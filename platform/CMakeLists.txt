@@ -7,7 +7,6 @@ set(SRC
   chunks_download_strategy.cpp
   chunks_download_strategy.hpp
   constants.hpp
-  country_defines.cpp
   country_defines.hpp
   country_file.cpp
   country_file.hpp

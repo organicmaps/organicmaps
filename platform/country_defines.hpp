@@ -16,5 +16,3 @@ enum class MapFileType : uint8_t
 using MwmCounter = uint32_t;
 using MwmSize = uint64_t;
 using LocalAndRemoteSize = std::pair<MwmSize, MwmSize>;
-
-std::string DebugPrint(MapFileType type);

@@ -91,42 +91,4 @@ bool Animation::GetMaxDuration(Interpolator const & interpolator, double & maxDu
   }
   return true;
 }
-
-std::string DebugPrint(Animation::Type const & type)
-{
-  switch (type)
-  {
-  case Animation::Type::Sequence: return "Sequence";
-  case Animation::Type::Parallel: return "Parallel";
-  case Animation::Type::MapLinear: return "MapLinear";
-  case Animation::Type::MapScale: return "MapScale";
-  case Animation::Type::MapFollow: return "MapFollow";
-  case Animation::Type::Arrow: return "Arrow";
-  case Animation::Type::KineticScroll: return "KineticScroll";
-  }
-  return "Unknown type";
-}
-
-std::string DebugPrint(Animation::Object const & object)
-{
-  switch (object)
-  {
-  case Animation::Object::MyPositionArrow: return "MyPositionArrow";
-  case Animation::Object::MapPlane: return "MapPlane";
-  case Animation::Object::Selection: return "Selection";
-  }
-  return "Unknown object";
-}
-
-std::string DebugPrint(Animation::ObjectProperty const & property)
-{
-  switch (property)
-  {
-  case Animation::ObjectProperty::Position: return "Position";
-  case Animation::ObjectProperty::Scale: return "Scale";
-  case Animation::ObjectProperty::Angle: return "Angle";
-  }
-  return "Unknown property";
-}
-
 } // namespace df

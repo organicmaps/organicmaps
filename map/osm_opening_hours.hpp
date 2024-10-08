@@ -18,22 +18,6 @@ enum class EPlaceState
   CloseSoon
 };
 
-inline std::string DebugPrint(EPlaceState state)
-{
-  switch (state)
-  {
-    case EPlaceState::Open:
-      return "EPlaceState::Open";
-    case EPlaceState::OpenSoon:
-      return "EPlaceState::OpenSoon";
-    case EPlaceState::Closed:
-      return "EPlaceState::Closed";
-    case EPlaceState::CloseSoon:
-      return "EPlaceState::CloseSoon";
-  }
-  UNREACHABLE();
-}
-
 inline EPlaceState PlaceStateCheck(std::string const & openingHours, time_t timestamp)
 {
   osmoh::OpeningHours oh(openingHours);

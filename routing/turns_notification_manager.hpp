@@ -25,8 +25,6 @@ enum class PronouncedNotification
   Second, /** The second notification just before the turn was pronounced. */
 };
 
-std::string DebugPrint(PronouncedNotification notificationProgress);
-
 /// \brief The TurnsSound class is responsible for all route turn sound notifications functionality.
 /// To be able to generate turn sound notification the class needs to have correct Settings
 /// and relevant speed.

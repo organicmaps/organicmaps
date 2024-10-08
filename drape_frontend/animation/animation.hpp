@@ -154,10 +154,5 @@ protected:
   // Animation could be rewinded in case of finishing.
   bool m_couldBeRewinded;
 };
-
-std::string DebugPrint(Animation::Type const & type);
-std::string DebugPrint(Animation::Object const & object);
-std::string DebugPrint(Animation::ObjectProperty const & property);
-
 } // namespace df
 
