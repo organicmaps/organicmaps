@@ -16694,3 +16694,8 @@ uk:Центр мистецтв
 vi:Trung tâm nghệ thuật
 zh-Hans:艺术中心
 zh-Hant:藝術中心
+
+amenity-prison
+en:prison
+fr:prison
+ru:тюрьма
