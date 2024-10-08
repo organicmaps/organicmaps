@@ -475,9 +475,7 @@
 		ED1080A72B791CFE0023F27E /* SocialMediaCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1080A62B791CFE0023F27E /* SocialMediaCollectionViewHeader.swift */; };
 		ED1263AB2B6F99F900AD99F3 /* UIView+AddSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1263AA2B6F99F900AD99F3 /* UIView+AddSeparator.swift */; };
 		ED1ADA332BC6B1B40029209F /* CarPlayServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1ADA322BC6B1B40029209F /* CarPlayServiceTests.swift */; };
-		ED2D72382D1315B100660FBF /* TrackRecordingActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D72372D1315B100660FBF /* TrackRecordingActivityManager.swift */; };
 		ED2D74382D14337500660FBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED2D74342D14337500660FBF /* Assets.xcassets */; };
-		ED2D74392D14337500660FBF /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED2D74352D14337500660FBF /* Info.plist */; };
 		ED2D743A2D14337500660FBF /* AppLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D742C2D14337500660FBF /* AppLogo.swift */; };
 		ED2D743B2D14337500660FBF /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D742D2D14337500660FBF /* LiveActivityManager.swift */; };
 		ED2D743C2D14337500660FBF /* StatisticDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D742E2D14337500660FBF /* StatisticDetailView.swift */; };
@@ -486,6 +484,9 @@
 		ED2D743F2D14337500660FBF /* TrackRecordingLiveActivityConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D74312D14337500660FBF /* TrackRecordingLiveActivityConfiguration.swift */; };
 		ED2D74402D14337500660FBF /* TrackRecordingLiveActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D74322D14337500660FBF /* TrackRecordingLiveActivityView.swift */; };
 		ED2D74412D14337500660FBF /* OMapsWidgetExtensionBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D74362D14337500660FBF /* OMapsWidgetExtensionBundle.swift */; };
+		ED2D745E2D1433DE00660FBF /* TrackRecordingActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D745D2D1433DE00660FBF /* TrackRecordingActivityManager.swift */; };
+		ED2D74652D14357F00660FBF /* TrackRecordingLiveActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D74302D14337500660FBF /* TrackRecordingLiveActivityAttributes.swift */; };
+		ED2D74662D1435A600660FBF /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D742D2D14337500660FBF /* LiveActivityManager.swift */; };
 		ED2E328E2D10500900807A08 /* TrackRecordingButtonArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED46DD922D06F804007CACD6 /* TrackRecordingButtonArea.swift */; };
 		ED2E32912D10501700807A08 /* TrackRecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED49D76F2CF0E3A8004AF27E /* TrackRecordingViewController.swift */; };
 		ED3EAC202B03C88100220A4A /* BottomTabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3EAC1F2B03C88100220A4A /* BottomTabBarButton.swift */; };
@@ -1438,7 +1439,6 @@
 		ED1080A62B791CFE0023F27E /* SocialMediaCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaCollectionViewHeader.swift; sourceTree = "<group>"; };
 		ED1263AA2B6F99F900AD99F3 /* UIView+AddSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AddSeparator.swift"; sourceTree = "<group>"; };
 		ED1ADA322BC6B1B40029209F /* CarPlayServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayServiceTests.swift; sourceTree = "<group>"; };
-		ED2D72372D1315B100660FBF /* TrackRecordingActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingActivityManager.swift; sourceTree = "<group>"; };
 		ED2D742C2D14337500660FBF /* AppLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogo.swift; sourceTree = "<group>"; };
 		ED2D742D2D14337500660FBF /* LiveActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityManager.swift; sourceTree = "<group>"; };
 		ED2D742E2D14337500660FBF /* StatisticDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticDetailView.swift; sourceTree = "<group>"; };
@@ -1449,6 +1449,7 @@
 		ED2D74342D14337500660FBF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ED2D74352D14337500660FBF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ED2D74362D14337500660FBF /* OMapsWidgetExtensionBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMapsWidgetExtensionBundle.swift; sourceTree = "<group>"; };
+		ED2D745D2D1433DE00660FBF /* TrackRecordingActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingActivityManager.swift; sourceTree = "<group>"; };
 		ED3EAC1F2B03C88100220A4A /* BottomTabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomTabBarButton.swift; sourceTree = "<group>"; };
 		ED43B8BC2C12063500D07BAA /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
 		ED46DD922D06F804007CACD6 /* TrackRecordingButtonArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingButtonArea.swift; sourceTree = "<group>"; };
@@ -3168,6 +3169,7 @@
 		ED0C54942C6E14CB00253A5F /* TrackRecorder */ = {
 			isa = PBXGroup;
 			children = (
+				ED2D745D2D1433DE00660FBF /* TrackRecordingActivityManager.swift */,
 				ED0C54972C6E14E800253A5F /* TrackRecordingManager.swift */,
 			);
 			path = TrackRecorder;
@@ -4408,7 +4410,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED2D74382D14337500660FBF /* Assets.xcassets in Resources */,
-				ED2D74392D14337500660FBF /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4492,6 +4493,7 @@
 				9989273C2449E60200260CE2 /* BottomMenuInteractor.swift in Sources */,
 				47DF72B922520CE20004AB10 /* MWMRoutingOptions.mm in Sources */,
 				999FC12023ABA9AD00B0E6F9 /* SearchStyleSheet.swift in Sources */,
+				ED2D745E2D1433DE00660FBF /* TrackRecordingActivityManager.swift in Sources */,
 				3D15ACEE2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm in Sources */,
 				9977E6A32480F9BF0073780C /* BottomMenuLayerButtonRenderer.swift in Sources */,
 				3454D7D11E07F045004AF2AD /* UIImage+RGBAData.m in Sources */,
@@ -4703,6 +4705,7 @@
 				F6E2FF3C1E097BA00083EBEC /* MWMSearchTableView.m in Sources */,
 				F6E2FF661E097BA00083EBEC /* MWMTTSSettingsViewController.mm in Sources */,
 				3454D7C21E07F045004AF2AD /* NSString+Categories.m in Sources */,
+				ED2D74662D1435A600660FBF /* LiveActivityManager.swift in Sources */,
 				34E7761F1F14DB48003040B3 /* PlacePageArea.swift in Sources */,
 				ED79A5D82BDF8D6100952D1F /* LocalDirectoryMonitor.swift in Sources */,
 				EDC4E34B2C5D1BEF009286A2 /* RecentlyDeletedCategoriesViewController.swift in Sources */,
@@ -4819,6 +4822,7 @@
 				993DF10823F6BDB100AC231A /* IColors.swift in Sources */,
 				4707E4B12372FE860017DF6E /* PlacePageViewController.swift in Sources */,
 				34AB66441FC5AA330078E451 /* RouteManagerViewModelProtocol.swift in Sources */,
+				ED2D74652D14357F00660FBF /* TrackRecordingLiveActivityAttributes.swift in Sources */,
 				4701A93D243A917900B87683 /* TouchTransparentView.swift in Sources */,
 				991FCA2423B11E61009AD684 /* BookmarksStyleSheet.swift in Sources */,
 				993DF12823F6BDB100AC231A /* IStyleSheet.swift in Sources */,
