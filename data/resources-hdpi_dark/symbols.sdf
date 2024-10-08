@@ -77,29 +77,30 @@
   <symbol maxX="1002" maxY="235" minX="966" minY="186" name="bookmark-museum-m"/>
   <symbol maxX="36" maxY="293" minX="0" minY="244" name="bookmark-mountain-m"/>
   <symbol maxX="72" maxY="293" minX="36" minY="244" name="bookmark-medicine-m"/>
-  <symbol maxX="108" maxY="293" minX="72" minY="244" name="bookmark-islam-m"/>
-  <symbol maxX="144" maxY="293" minX="108" minY="244" name="bookmark-hotel-m"/>
-  <symbol maxX="180" maxY="293" minX="144" minY="244" name="bookmark-gas-m"/>
-  <symbol maxX="216" maxY="293" minX="180" minY="244" name="bookmark-exchange-m"/>
-  <symbol maxX="252" maxY="293" minX="216" minY="244" name="bookmark-entertainment-m"/>
-  <symbol maxX="288" maxY="293" minX="252" minY="244" name="bookmark-default-m"/>
-  <symbol maxX="324" maxY="293" minX="288" minY="244" name="bookmark-christianity-m"/>
-  <symbol maxX="360" maxY="293" minX="324" minY="244" name="bookmark-cafe-m"/>
-  <symbol maxX="396" maxY="293" minX="360" minY="244" name="bookmark-building-m"/>
-  <symbol maxX="432" maxY="293" minX="396" minY="244" name="bookmark-buddhism-m"/>
-  <symbol maxX="468" maxY="293" minX="432" minY="244" name="bookmark-bg-m"/>
-  <symbol maxX="504" maxY="293" minX="468" minY="244" name="bookmark-bar-m"/>
-  <symbol maxX="540" maxY="293" minX="504" minY="244" name="bookmark-bank-m"/>
-  <symbol maxX="576" maxY="293" minX="540" minY="244" name="bookmark-art-m"/>
-  <symbol maxX="612" maxY="293" minX="576" minY="244" name="bookmark-animals-m"/>
-  <symbol maxX="658" maxY="290" minX="612" minY="244" name="route-point-9"/>
-  <symbol maxX="704" maxY="290" minX="658" minY="244" name="route-point-8"/>
-  <symbol maxX="750" maxY="290" minX="704" minY="244" name="route-point-7"/>
-  <symbol maxX="796" maxY="290" minX="750" minY="244" name="route-point-6"/>
-  <symbol maxX="842" maxY="290" minX="796" minY="244" name="route-point-5"/>
-  <symbol maxX="888" maxY="290" minX="842" minY="244" name="route-point-4"/>
-  <symbol maxX="934" maxY="290" minX="888" minY="244" name="route-point-3"/>
-  <symbol maxX="980" maxY="290" minX="934" minY="244" name="route-point-20"/>
+  <symbol maxX="108" maxY="293" minX="72" minY="244" name="bookmark-judaism-m"/>
+  <symbol maxX="144" maxY="293" minX="108" minY="244" name="bookmark-islam-m"/>
+  <symbol maxX="180" maxY="293" minX="144" minY="244" name="bookmark-hotel-m"/>
+  <symbol maxX="216" maxY="293" minX="180" minY="244" name="bookmark-gas-m"/>
+  <symbol maxX="252" maxY="293" minX="216" minY="244" name="bookmark-exchange-m"/>
+  <symbol maxX="288" maxY="293" minX="252" minY="244" name="bookmark-entertainment-m"/>
+  <symbol maxX="324" maxY="293" minX="288" minY="244" name="bookmark-default-m"/>
+  <symbol maxX="360" maxY="293" minX="324" minY="244" name="bookmark-christianity-m"/>
+  <symbol maxX="396" maxY="293" minX="360" minY="244" name="bookmark-cafe-m"/>
+  <symbol maxX="432" maxY="293" minX="396" minY="244" name="bookmark-building-m"/>
+  <symbol maxX="468" maxY="293" minX="432" minY="244" name="bookmark-buddhism-m"/>
+  <symbol maxX="504" maxY="293" minX="468" minY="244" name="bookmark-bg-m"/>
+  <symbol maxX="540" maxY="293" minX="504" minY="244" name="bookmark-bar-m"/>
+  <symbol maxX="576" maxY="293" minX="540" minY="244" name="bookmark-bank-m"/>
+  <symbol maxX="612" maxY="293" minX="576" minY="244" name="bookmark-art-m"/>
+  <symbol maxX="648" maxY="293" minX="612" minY="244" name="bookmark-animals-m"/>
+  <symbol maxX="694" maxY="290" minX="648" minY="244" name="route-point-9"/>
+  <symbol maxX="740" maxY="290" minX="694" minY="244" name="route-point-8"/>
+  <symbol maxX="786" maxY="290" minX="740" minY="244" name="route-point-7"/>
+  <symbol maxX="832" maxY="290" minX="786" minY="244" name="route-point-6"/>
+  <symbol maxX="878" maxY="290" minX="832" minY="244" name="route-point-5"/>
+  <symbol maxX="924" maxY="290" minX="878" minY="244" name="route-point-4"/>
+  <symbol maxX="970" maxY="290" minX="924" minY="244" name="route-point-3"/>
+  <symbol maxX="1016" maxY="290" minX="970" minY="244" name="route-point-20"/>
   <symbol maxX="46" maxY="339" minX="0" minY="293" name="route-point-2"/>
   <symbol maxX="92" maxY="339" minX="46" minY="293" name="route-point-19"/>
   <symbol maxX="138" maxY="339" minX="92" minY="293" name="route-point-18"/>

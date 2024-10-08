@@ -77,21 +77,22 @@
   <symbol maxX="1218" maxY="232" minX="1172" minY="168" name="bookmark-museum-m"/>
   <symbol maxX="1264" maxY="232" minX="1218" minY="168" name="bookmark-mountain-m"/>
   <symbol maxX="1310" maxY="232" minX="1264" minY="168" name="bookmark-medicine-m"/>
-  <symbol maxX="1356" maxY="232" minX="1310" minY="168" name="bookmark-islam-m"/>
-  <symbol maxX="1402" maxY="232" minX="1356" minY="168" name="bookmark-hotel-m"/>
-  <symbol maxX="1448" maxY="232" minX="1402" minY="168" name="bookmark-gas-m"/>
-  <symbol maxX="1494" maxY="232" minX="1448" minY="168" name="bookmark-exchange-m"/>
-  <symbol maxX="1540" maxY="232" minX="1494" minY="168" name="bookmark-entertainment-m"/>
-  <symbol maxX="1586" maxY="232" minX="1540" minY="168" name="bookmark-default-m"/>
-  <symbol maxX="1632" maxY="232" minX="1586" minY="168" name="bookmark-christianity-m"/>
-  <symbol maxX="1678" maxY="232" minX="1632" minY="168" name="bookmark-cafe-m"/>
-  <symbol maxX="1724" maxY="232" minX="1678" minY="168" name="bookmark-building-m"/>
-  <symbol maxX="1770" maxY="232" minX="1724" minY="168" name="bookmark-buddhism-m"/>
-  <symbol maxX="1816" maxY="232" minX="1770" minY="168" name="bookmark-bg-m"/>
-  <symbol maxX="1862" maxY="232" minX="1816" minY="168" name="bookmark-bar-m"/>
-  <symbol maxX="1908" maxY="232" minX="1862" minY="168" name="bookmark-bank-m"/>
-  <symbol maxX="1954" maxY="232" minX="1908" minY="168" name="bookmark-art-m"/>
-  <symbol maxX="2000" maxY="232" minX="1954" minY="168" name="bookmark-animals-m"/>
+  <symbol maxX="1356" maxY="232" minX="1310" minY="168" name="bookmark-judaism-m"/>
+  <symbol maxX="1402" maxY="232" minX="1356" minY="168" name="bookmark-islam-m"/>
+  <symbol maxX="1448" maxY="232" minX="1402" minY="168" name="bookmark-hotel-m"/>
+  <symbol maxX="1494" maxY="232" minX="1448" minY="168" name="bookmark-gas-m"/>
+  <symbol maxX="1540" maxY="232" minX="1494" minY="168" name="bookmark-exchange-m"/>
+  <symbol maxX="1586" maxY="232" minX="1540" minY="168" name="bookmark-entertainment-m"/>
+  <symbol maxX="1632" maxY="232" minX="1586" minY="168" name="bookmark-default-m"/>
+  <symbol maxX="1678" maxY="232" minX="1632" minY="168" name="bookmark-christianity-m"/>
+  <symbol maxX="1724" maxY="232" minX="1678" minY="168" name="bookmark-cafe-m"/>
+  <symbol maxX="1770" maxY="232" minX="1724" minY="168" name="bookmark-building-m"/>
+  <symbol maxX="1816" maxY="232" minX="1770" minY="168" name="bookmark-buddhism-m"/>
+  <symbol maxX="1862" maxY="232" minX="1816" minY="168" name="bookmark-bg-m"/>
+  <symbol maxX="1908" maxY="232" minX="1862" minY="168" name="bookmark-bar-m"/>
+  <symbol maxX="1954" maxY="232" minX="1908" minY="168" name="bookmark-bank-m"/>
+  <symbol maxX="2000" maxY="232" minX="1954" minY="168" name="bookmark-art-m"/>
+  <symbol maxX="2046" maxY="232" minX="2000" minY="168" name="bookmark-animals-m"/>
   <symbol maxX="60" maxY="304" minX="0" minY="244" name="route-point-9"/>
   <symbol maxX="120" maxY="304" minX="60" minY="244" name="route-point-8"/>
   <symbol maxX="180" maxY="304" minX="120" minY="244" name="route-point-7"/>
