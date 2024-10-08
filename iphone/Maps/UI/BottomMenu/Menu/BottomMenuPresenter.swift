@@ -101,7 +101,7 @@ extension BottomMenuPresenter {
                        enabled: enabled)
       case .recordTrack:
         switch trackRecorder.recordingState {
-        case .inactive, .error:
+        case .inactive:
           cell.configure(imageName: "track_recorder_inactive", title: L("start_track_recording"))
         case .active:
           cell.configure(imageName: "track_recorder_active", title: L("stop_track_recording"))
