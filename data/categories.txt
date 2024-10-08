@@ -14031,7 +14031,7 @@ es:4Autoescuela
 et:4Autokool
 eu:4Autoeskola
 fi:4Autokoulu
-fr:4Auto-école
+fr:4Auto-école|École de conduite
 hi:5ड्राइविंग स्कूल
 hu:4Autósiskola
 id:Sekolah Mengemudi
