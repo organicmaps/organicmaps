@@ -475,10 +475,24 @@
 		ED1080A72B791CFE0023F27E /* SocialMediaCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1080A62B791CFE0023F27E /* SocialMediaCollectionViewHeader.swift */; };
 		ED1263AB2B6F99F900AD99F3 /* UIView+AddSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1263AA2B6F99F900AD99F3 /* UIView+AddSeparator.swift */; };
 		ED1ADA332BC6B1B40029209F /* CarPlayServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1ADA322BC6B1B40029209F /* CarPlayServiceTests.swift */; };
+		ED2D72382D1315B100660FBF /* TrackRecordingActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D72372D1315B100660FBF /* TrackRecordingActivityManager.swift */; };
+		ED2D74382D14337500660FBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED2D74342D14337500660FBF /* Assets.xcassets */; };
+		ED2D74392D14337500660FBF /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED2D74352D14337500660FBF /* Info.plist */; };
+		ED2D743A2D14337500660FBF /* AppLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D742C2D14337500660FBF /* AppLogo.swift */; };
+		ED2D743B2D14337500660FBF /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D742D2D14337500660FBF /* LiveActivityManager.swift */; };
+		ED2D743C2D14337500660FBF /* StatisticDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D742E2D14337500660FBF /* StatisticDetailView.swift */; };
+		ED2D743D2D14337500660FBF /* StatisticValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D742F2D14337500660FBF /* StatisticValueView.swift */; };
+		ED2D743E2D14337500660FBF /* TrackRecordingLiveActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D74302D14337500660FBF /* TrackRecordingLiveActivityAttributes.swift */; };
+		ED2D743F2D14337500660FBF /* TrackRecordingLiveActivityConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D74312D14337500660FBF /* TrackRecordingLiveActivityConfiguration.swift */; };
+		ED2D74402D14337500660FBF /* TrackRecordingLiveActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D74322D14337500660FBF /* TrackRecordingLiveActivityView.swift */; };
+		ED2D74412D14337500660FBF /* OMapsWidgetExtensionBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D74362D14337500660FBF /* OMapsWidgetExtensionBundle.swift */; };
 		ED2E328E2D10500900807A08 /* TrackRecordingButtonArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED46DD922D06F804007CACD6 /* TrackRecordingButtonArea.swift */; };
 		ED2E32912D10501700807A08 /* TrackRecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED49D76F2CF0E3A8004AF27E /* TrackRecordingViewController.swift */; };
 		ED3EAC202B03C88100220A4A /* BottomTabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3EAC1F2B03C88100220A4A /* BottomTabBarButton.swift */; };
 		ED43B8BD2C12063500D07BAA /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43B8BC2C12063500D07BAA /* DocumentPicker.swift */; };
+		ED46DDCE2D098A0B007CACD6 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED46DDCD2D098A0B007CACD6 /* WidgetKit.framework */; };
+		ED46DDD02D098A0B007CACD6 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED46DDCF2D098A0B007CACD6 /* SwiftUI.framework */; };
+		ED46DDE12D098A0C007CACD6 /* OMapsWidgetExtensionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = ED46DDCC2D098A0B007CACD6 /* OMapsWidgetExtensionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		ED4DC7772CAEDECC0029B338 /* ProductsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4DC7752CAEDECC0029B338 /* ProductsViewModel.swift */; };
 		ED4DC7782CAEDECC0029B338 /* ProductButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4DC7732CAEDECC0029B338 /* ProductButton.swift */; };
 		ED4DC7792CAEDECC0029B338 /* ProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4DC7742CAEDECC0029B338 /* ProductsViewController.swift */; };
@@ -694,6 +708,13 @@
 			remoteGlobalIDString = 6741A93D1BF340DE002C974C;
 			remoteInfo = OMaps;
 		};
+		ED46DDDF2D098A0C007CACD6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ED46DDCB2D098A0B007CACD6;
+			remoteInfo = OMapsWidgetExtensionExtension;
+		};
 		FA456C4626BDCC8E00B83C20 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FA456C4026BDCC8E00B83C20 /* shaders.xcodeproj */;
@@ -736,6 +757,17 @@
 				FA456C3D26BDC6BA00B83C20 /* Chart.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ED46DDE22D098A0C007CACD6 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				ED46DDE12D098A0C007CACD6 /* OMapsWidgetExtensionExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FA456C4E26BDCCC300B83C20 /* CopyFiles */ = {
@@ -1406,9 +1438,23 @@
 		ED1080A62B791CFE0023F27E /* SocialMediaCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaCollectionViewHeader.swift; sourceTree = "<group>"; };
 		ED1263AA2B6F99F900AD99F3 /* UIView+AddSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AddSeparator.swift"; sourceTree = "<group>"; };
 		ED1ADA322BC6B1B40029209F /* CarPlayServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayServiceTests.swift; sourceTree = "<group>"; };
+		ED2D72372D1315B100660FBF /* TrackRecordingActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingActivityManager.swift; sourceTree = "<group>"; };
+		ED2D742C2D14337500660FBF /* AppLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogo.swift; sourceTree = "<group>"; };
+		ED2D742D2D14337500660FBF /* LiveActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityManager.swift; sourceTree = "<group>"; };
+		ED2D742E2D14337500660FBF /* StatisticDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticDetailView.swift; sourceTree = "<group>"; };
+		ED2D742F2D14337500660FBF /* StatisticValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticValueView.swift; sourceTree = "<group>"; };
+		ED2D74302D14337500660FBF /* TrackRecordingLiveActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingLiveActivityAttributes.swift; sourceTree = "<group>"; };
+		ED2D74312D14337500660FBF /* TrackRecordingLiveActivityConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingLiveActivityConfiguration.swift; sourceTree = "<group>"; };
+		ED2D74322D14337500660FBF /* TrackRecordingLiveActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingLiveActivityView.swift; sourceTree = "<group>"; };
+		ED2D74342D14337500660FBF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		ED2D74352D14337500660FBF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ED2D74362D14337500660FBF /* OMapsWidgetExtensionBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMapsWidgetExtensionBundle.swift; sourceTree = "<group>"; };
 		ED3EAC1F2B03C88100220A4A /* BottomTabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomTabBarButton.swift; sourceTree = "<group>"; };
 		ED43B8BC2C12063500D07BAA /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
 		ED46DD922D06F804007CACD6 /* TrackRecordingButtonArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingButtonArea.swift; sourceTree = "<group>"; };
+		ED46DDCC2D098A0B007CACD6 /* OMapsWidgetExtensionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OMapsWidgetExtensionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED46DDCD2D098A0B007CACD6 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		ED46DDCF2D098A0B007CACD6 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		ED48BBB817C2B1E2003E7E92 /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
 		ED48BBB917C2B1E2003E7E92 /* CircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleView.m; sourceTree = "<group>"; };
 		ED49D76F2CF0E3A8004AF27E /* TrackRecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingViewController.swift; sourceTree = "<group>"; };
@@ -1823,6 +1869,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ED46DDC92D098A0B007CACD6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED46DDD02D098A0B007CACD6 /* SwiftUI.framework in Frameworks */,
+				ED46DDCE2D098A0B007CACD6 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -1864,6 +1919,7 @@
 			children = (
 				6741AA5D1BF340DE002C974C /* Organic Maps (Debug).app */,
 				ED097E762BB80C320006ED01 /* OMapsTests.xctest */,
+				ED46DDCC2D098A0B007CACD6 /* OMapsWidgetExtensionExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1890,6 +1946,7 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				F6E2FBFB1E097B9F0083EBEC /* UI */,
 				ED1ADA312BC6B19E0029209F /* Tests */,
+				ED2D74372D14337500660FBF /* OMapsWidgetExtension */,
 			);
 			indentWidth = 2;
 			name = Maps;
@@ -1958,6 +2015,8 @@
 				FA853BD026BC3B8A0026D455 /* libsuccinct.a */,
 				FA853BA626BC3ACE0026D455 /* CoreApi.framework */,
 				FA14E683276014C10066E453 /* libz.1.tbd */,
+				ED46DDCD2D098A0B007CACD6 /* WidgetKit.framework */,
+				ED46DDCF2D098A0B007CACD6 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -3124,6 +3183,31 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
+		ED2D74332D14337500660FBF /* LiveActivity */ = {
+			isa = PBXGroup;
+			children = (
+				ED2D742C2D14337500660FBF /* AppLogo.swift */,
+				ED2D742D2D14337500660FBF /* LiveActivityManager.swift */,
+				ED2D742E2D14337500660FBF /* StatisticDetailView.swift */,
+				ED2D742F2D14337500660FBF /* StatisticValueView.swift */,
+				ED2D74302D14337500660FBF /* TrackRecordingLiveActivityAttributes.swift */,
+				ED2D74312D14337500660FBF /* TrackRecordingLiveActivityConfiguration.swift */,
+				ED2D74322D14337500660FBF /* TrackRecordingLiveActivityView.swift */,
+			);
+			path = LiveActivity;
+			sourceTree = "<group>";
+		};
+		ED2D74372D14337500660FBF /* OMapsWidgetExtension */ = {
+			isa = PBXGroup;
+			children = (
+				ED2D74332D14337500660FBF /* LiveActivity */,
+				ED2D74342D14337500660FBF /* Assets.xcassets */,
+				ED2D74352D14337500660FBF /* Info.plist */,
+				ED2D74362D14337500660FBF /* OMapsWidgetExtensionBundle.swift */,
+			);
+			path = OMapsWidgetExtension;
+			sourceTree = "<group>";
+		};
 		ED43B8B92C12061600D07BAA /* DocumentPicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -3972,11 +4056,13 @@
 				6741A9A01BF340DE002C974C /* Sources */,
 				6741AA311BF340DE002C974C /* Frameworks */,
 				4740184523F5BDE900A93C81 /* Embed Frameworks */,
+				ED46DDE22D098A0C007CACD6 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				FA456C4D26BDCC9400B83C20 /* PBXTargetDependency */,
+				ED46DDE02D098A0C007CACD6 /* PBXTargetDependency */,
 			);
 			name = OMaps;
 			productName = Maps;
@@ -4001,6 +4087,25 @@
 			productReference = ED097E762BB80C320006ED01 /* OMapsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		ED46DDCB2D098A0B007CACD6 /* OMapsWidgetExtensionExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ED46DDE62D098A0C007CACD6 /* Build configuration list for PBXNativeTarget "OMapsWidgetExtensionExtension" */;
+			buildPhases = (
+				ED46DDC82D098A0B007CACD6 /* Sources */,
+				ED46DDC92D098A0B007CACD6 /* Frameworks */,
+				ED46DDCA2D098A0B007CACD6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OMapsWidgetExtensionExtension;
+			packageProductDependencies = (
+			);
+			productName = OMapsWidgetExtensionExtension;
+			productReference = ED46DDCC2D098A0B007CACD6 /* OMapsWidgetExtensionExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -4022,6 +4127,9 @@
 								enabled = 0;
 							};
 						};
+					};
+					ED46DDCB2D098A0B007CACD6 = {
+						CreatedOnToolsVersion = 16.0;
 					};
 				};
 			};
@@ -4089,6 +4197,7 @@
 			targets = (
 				6741A93D1BF340DE002C974C /* OMaps */,
 				ED097E752BB80C320006ED01 /* OMapsTests */,
+				ED46DDCB2D098A0B007CACD6 /* OMapsWidgetExtensionExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -4291,6 +4400,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ED46DDCA2D098A0B007CACD6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED2D74382D14337500660FBF /* Assets.xcassets in Resources */,
+				ED2D74392D14337500660FBF /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4783,6 +4901,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ED46DDC82D098A0B007CACD6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED2D743A2D14337500660FBF /* AppLogo.swift in Sources */,
+				ED2D743B2D14337500660FBF /* LiveActivityManager.swift in Sources */,
+				ED2D743C2D14337500660FBF /* StatisticDetailView.swift in Sources */,
+				ED2D743D2D14337500660FBF /* StatisticValueView.swift in Sources */,
+				ED2D743E2D14337500660FBF /* TrackRecordingLiveActivityAttributes.swift in Sources */,
+				ED2D743F2D14337500660FBF /* TrackRecordingLiveActivityConfiguration.swift in Sources */,
+				ED2D74402D14337500660FBF /* TrackRecordingLiveActivityView.swift in Sources */,
+				ED2D74412D14337500660FBF /* OMapsWidgetExtensionBundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -4790,6 +4923,11 @@
 			isa = PBXTargetDependency;
 			target = 6741A93D1BF340DE002C974C /* OMaps */;
 			targetProxy = ED097E7A2BB80C320006ED01 /* PBXContainerItemProxy */;
+		};
+		ED46DDE02D098A0C007CACD6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ED46DDCB2D098A0B007CACD6 /* OMapsWidgetExtensionExtension */;
+			targetProxy = ED46DDDF2D098A0C007CACD6 /* PBXContainerItemProxy */;
 		};
 		FA456C4D26BDCC9400B83C20 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5027,6 +5165,62 @@
 			};
 			name = Release;
 		};
+		ED46DDE32D098A0C007CACD6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 9Z6432XD7L;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OMapsWidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = OMapsWidgetExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 Organic Maps. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.debug.OMapsWidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		ED46DDE42D098A0C007CACD6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 9Z6432XD7L;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OMapsWidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = OMapsWidgetExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 Organic Maps. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.debug.OMapsWidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		FAAB411B149BA84700C245B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 347526FA1DC0B00F00918CF5 /* common-debug.xcconfig */;
@@ -5131,6 +5325,15 @@
 			buildConfigurations = (
 				ED097E7C2BB80C330006ED01 /* Debug */,
 				ED097E7D2BB80C330006ED01 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		ED46DDE62D098A0C007CACD6 /* Build configuration list for PBXNativeTarget "OMapsWidgetExtensionExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED46DDE32D098A0C007CACD6 /* Debug */,
+				ED46DDE42D098A0C007CACD6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
