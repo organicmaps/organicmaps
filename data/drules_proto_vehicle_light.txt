@@ -19959,6 +19959,34 @@ cont {
 cont {
   name: "highway-traffic_signals"
   element {
+    scale: 15
+    symbol {
+      name: "traffic_signals"
+      priority: 3165
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "traffic_signals"
+      priority: 3165
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "traffic_signals"
+      priority: 3165
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "traffic_signals"
+      priority: 3165
+    }
+  }
+  element {
     scale: 19
     symbol {
       name: "traffic_signals"

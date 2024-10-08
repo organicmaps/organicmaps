@@ -368,6 +368,9 @@ amenity-charging_station-motorcar                   # icon z14- (also has captio
 amenity-fuel                                        # icon z14- (also has caption(optional) z14-)
 === 4270
 
+highway-traffic_signals                             # icon z19-
+=== 4260
+
 highway-services                                    # icon z14- (also has caption(optional) z14-)
 === 4250
 
