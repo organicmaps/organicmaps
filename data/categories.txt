@@ -16737,3 +16737,8 @@ tr:hapishane
 uk:в'язниця
 vi:nhà tù
 zh-Hans:监狱
+
+shop-craft|@shop
+en:Craft
+fr:Artisanat
+es:Artesanía
