@@ -812,6 +812,8 @@
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Det går inte att visa dialogrutan för val av mapp eftersom ingen lämplig app är installerad på din enhet. Installera en filhanteringsapp och försök igen</string>
     <string name="uri_open_location_failed">Ingen app installerad som kan öppna platsen</string>
+    <!-- preference string for using auto theme only in navigation mode -->
+    <string name="nav_auto">Auto i navigering</string>
 
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Adress/Block</string>

@@ -849,6 +849,8 @@
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Impossibile visualizzare la finestra di selezione delle cartelle perché sul suo dispositivo non è installata alcuna applicazione adatta. Installi un\'app di gestione file e riprovi</string>
     <string name="uri_open_location_failed">Non c\'è un\'app installata che possa aprire la posizione</string>
+    <!-- preference string for using auto theme only in navigation mode -->
+    <string name="nav_auto">Auto in navigazione</string>
 
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Indirizzo/Blocco</string>
