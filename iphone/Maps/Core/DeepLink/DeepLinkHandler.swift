@@ -84,6 +84,11 @@
 
   private func handleDeepLink(url: URL) -> Bool {
     LOG(.info, "handleDeepLink: \(url)")
+
+    if ActivityWidgetDeeplinkParser.parse(url) {
+      return true
+    }
+
     // TODO(AB): Rewrite API so iOS and Android will call only one C++ method to clear/set API state.
     // This call is also required for DeepLinkParser.showMap, and it also clears old API points...
     let urlType = DeepLinkParser.parseAndSetApiURL(url)
