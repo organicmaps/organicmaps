@@ -231,6 +231,7 @@ void GpsTrackRenderer::RenderTrack(ref_ptr<dp::GraphicsContext> context, ref_ptr
     {
       m2::Spline::iterator it;
       it.Attach(m_pointsSpline);
+      auto const fullLength = it.GetFullLength();
       while (!it.BeginAgain())
       {
         m2::PointD const pt = it.m_pos;
@@ -239,7 +240,7 @@ void GpsTrackRenderer::RenderTrack(ref_ptr<dp::GraphicsContext> context, ref_ptr
         if (screen.ClipRect().IsIntersect(pointRect))
         {
           dp::Color const color = CalculatePointColor(it.GetIndex(), pt,
-                                                      it.GetLength(), it.GetFullLength());
+                                                      it.GetLength(), fullLength);
           m2::PointD const convertedPt = MapShape::ConvertToLocal(pt, m_pivot, kShapeCoordScalar);
           m_handlesCache[cacheIndex].first->SetPoint(m_handlesCache[cacheIndex].second,
                                                      convertedPt, m_radius, color);
