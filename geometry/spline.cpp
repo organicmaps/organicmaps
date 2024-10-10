@@ -155,6 +155,7 @@ void Spline::iterator::Attach(Spline const & spl)
   m_spl = &spl;
   m_index = 0;
   m_dist = 0;
+  m_length = 0;
   m_checker = false;
   m_dir = m_spl->m_direction[m_index];
   m_avrDir = m_spl->m_direction[m_index];
@@ -168,6 +169,7 @@ bool Spline::iterator::IsAttached() const
 
 void Spline::iterator::Advance(double step)
 {
+  m_length += std::abs(step);
   if (step < 0.0)
     AdvanceBackward(step);
   else
@@ -176,7 +178,7 @@ void Spline::iterator::Advance(double step)
 
 double Spline::iterator::GetLength() const
 {
-  return std::accumulate(m_spl->m_length.begin(), m_spl->m_length.begin() + m_index, m_dist);
+  return m_length;
 }
 
 double Spline::iterator::GetFullLength() const
