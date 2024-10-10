@@ -361,8 +361,11 @@ JNIEXPORT void JNICALL
 Java_app_organicmaps_editor_Editor_nativeStartEdit(JNIEnv *, jclass)
 {
   ::Framework * frm = g_framework->NativeFramework();
-  if (!frm->HasPlacePageInfo())
+  if (!frm->HasPlacePageInfo()) {
+    ASSERT(g_editableMapObject.GetEditingLifecycle() == osm::EditingLifecycle::CREATED,
+           ("PlacePageInfo should only be empty for new features."));
     return;
+  }
 
   place_page::Info const & info = g_framework->GetPlacePageInfo();
   CHECK(frm->GetEditableMapObject(info.GetID(), g_editableMapObject), ("Invalid feature in the place page."));
@@ -374,8 +377,10 @@ Java_app_organicmaps_editor_Editor_nativeCreateMapObject(JNIEnv * env, jclass,
 {
   ::Framework * frm = g_framework->NativeFramework();
   auto const type = classif().GetTypeByReadableObjectName(jni::ToNativeString(env, featureType));
-  CHECK(frm->CreateMapObject(frm->GetViewportCenter(), type, g_editableMapObject),
+  auto const mercator = frm->GetViewportCenter();
+  CHECK(frm->CreateMapObject(mercator, type, g_editableMapObject),
         ("Couldn't create mapobject, wrong coordinates of missing mwm"));
+  g_editableMapObject.MarkAsCreated(type, feature::GeomType::Point, mercator);
 }
 
 // static void nativeCreateNote(String text);

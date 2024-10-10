@@ -5,6 +5,7 @@
 #include "indexer/feature_meta.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/map_object.hpp"
+#include "indexer/edit_journal.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 
@@ -68,6 +69,7 @@ class EditableMapObject : public MapObject
 {
 public:
   static uint8_t constexpr kMaximumLevelsEditableByUsers = 50;
+  osm::EditJournal journal;
 
   bool IsNameEditable() const;
   bool IsAddressEditable() const;
@@ -128,6 +130,15 @@ public:
   static bool ValidateEmail(std::string const & email);
   static bool ValidateLevel(std::string const & level);
   static bool ValidateName(std::string const & name);
+
+  /// Journal that stores changes to map object
+  EditJournal const & GetJournal() const;
+  void SetJournal(EditJournal editJournal);
+  EditingLifecycle GetEditingLifecycle() const;
+  void MarkAsCreated(uint32_t type, feature::GeomType geomType, m2::PointD mercator);
+  void ClearJournal();
+  void ApplyEditsFromJournal(EditJournal journal);
+  void ApplyJournalEntry(JournalEntry entry);
 
   /// Check whether langCode can be used as default name.
   static bool CanUseAsDefaultName(int8_t const langCode, std::vector<int8_t> const & nativeMwmLanguages);

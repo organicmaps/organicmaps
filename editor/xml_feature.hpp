@@ -2,6 +2,8 @@
 
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
+#include "indexer/feature_decl.hpp"
+#include "indexer/edit_journal.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 
@@ -133,6 +135,8 @@ public:
     }
   }
 
+  static std::string NameToOSMTag(uint8_t const langCode);
+
   void SetName(std::string_view name);
   void SetName(std::string_view lang, std::string_view name);
   void SetName(uint8_t const langCode, std::string_view name);
@@ -161,6 +165,9 @@ public:
 
   std::string GetUploadError() const;
   void SetUploadError(std::string const & error);
+
+  osm::EditJournal GetEditJournal() const;
+  void SetEditJournal(osm::EditJournal const & journal);
   //@}
 
   bool HasAnyTags() const;
@@ -178,6 +185,9 @@ public:
   std::string GetTagValue(std::string_view key) const;
   void SetTagValue(std::string_view key, std::string_view value);
   void RemoveTag(std::string_view key);
+
+  /// Wrapper for SetTagValue and RemoveTag, avoids duplication for similar alternative osm tags
+  void UpdateOSMTag(std::string_view key, std::string_view value);
 
   std::string GetAttribute(std::string const & key) const;
   void SetAttribute(std::string const & key, std::string const & value);
@@ -202,6 +212,9 @@ void ApplyPatch(XMLFeature const & xml, osm::EditableMapObject & object);
 /// Useful for applying modifications to existing OSM features, to avoid issues when someone
 /// has changed a type in OSM, but our users uploaded invalid outdated type after modifying feature.
 XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType);
+
+/// Used to generate XML for created objects in the new editor
+XMLFeature TypeToXML(uint32_t type, feature::GeomType geomType, m2::PointD mercator);
 
 /// Creates new feature, including geometry and types.
 /// @Note: only nodes (points) are supported at the moment.

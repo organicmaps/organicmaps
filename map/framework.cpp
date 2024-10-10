@@ -2944,6 +2944,11 @@ bool Framework::GetEditableMapObject(FeatureID const & fid, osm::EditableMapObje
     SetHostingBuildingAddress(FindBuildingAtPoint(feature::GetCenter(*ft)), dataSource, coder, emo);
   }
 
+  auto optJournal = editor.GetEditedFeatureJournal(fid);
+  if (optJournal) {
+    emo.SetJournal(*optJournal);
+  }
+
   return true;
 }
 
