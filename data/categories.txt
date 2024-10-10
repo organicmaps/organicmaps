@@ -16699,3 +16699,4 @@ amenity-prison
 en:prison
 fr:prison
 ru:тюрьма
+es:prisión|cárcel|penal|penitenciaría|presidio|correcional|centro penitenciario|centro de reclusión
