@@ -16,11 +16,11 @@ public final class DownloaderHelpers
 {
   static final String[] WORLD_MAPS = new String[]{"World", "WorldCoasts"};
 
-  // World maps may be missing only in the F-Droid build.
+  // World overviews may be missing only in the F-Droid build.
   @SuppressWarnings("ConstantConditions")
   public static boolean isWorldMapsDownloadNeeded()
   {
-    // TODO: Maps are asynchronously initialized in the core. If the initialization takes a significant amount of time, the downloader screen could potentially be displayed, even if the world maps are present.
+    // TODO: Maps are asynchronously initialized in the core. If the initialization takes a significant amount of time, the downloader screen could potentially be displayed, even if the world overviews are present.
     if (BuildConfig.FLAVOR.equals("fdroid"))
       return !CountryItem.fill(WORLD_MAPS[0]).present || !CountryItem.fill(WORLD_MAPS[1]).present;
     return false;

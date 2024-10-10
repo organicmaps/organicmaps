@@ -452,7 +452,7 @@ There is a matrix of different build variants:
 
 - _Flavor_:
   - `Web` is a light APK without any bundled maps.
-  - `Google` is a full Google Play store version including a low-zoom overview world map.
+  - `Google` is a full Google Play store version including a low-zoom overview world overview.
   - `Fdroid` is a version for publishing on the [F-Droid](https://f-droid.org/) open source apps store (no bundled maps and no Google services).
   - ...and other flavors like `Huawei`.
 

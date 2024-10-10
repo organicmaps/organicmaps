@@ -46,7 +46,7 @@ void TownsDumper::FilterTowns()
         [&top, &isUniq, &distanceThreshold](Town const & candidate)
         {
           // The idea behind that is to collect all capitals and unique major cities in 500 km radius
-          // for upgrading in World map visibility. See TOWNS_FILE usage.
+          // for upgrading in World overview visibility. See TOWNS_FILE usage.
           if (ms::DistanceOnEarth(top.point, candidate.point) < distanceThreshold)
             isUniq = false;
         });

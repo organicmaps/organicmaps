@@ -21,8 +21,8 @@
 
 #include "water_boundary_checker.hpp"
 
-/// Process FeatureBuilder for world map. Main functions:
-/// - check for visibility in world map
+/// Process FeatureBuilder for world overview. Main functions:
+/// - check for visibility in world overview
 /// - merge linear features
 template <class FeatureOutT>
 class WorldMapGenerator
