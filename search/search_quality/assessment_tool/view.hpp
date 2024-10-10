@@ -60,13 +60,3 @@ public:
 protected:
   Model * m_model = nullptr;
 };
-
-inline std::string DebugPrint(View::ResultType type)
-{
-  switch (type)
-  {
-  case View::ResultType::Found: return "Found";
-  case View::ResultType::NonFound: return "NonFound";
-  }
-  return "Unknown";
-}

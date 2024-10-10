@@ -7,20 +7,7 @@
 
 namespace routing
 {
-std::string DebugPrint(VehicleType vehicleType)
-{
-  switch (vehicleType)
-  {
-  case VehicleType::Pedestrian: return "Pedestrian";
-  case VehicleType::Bicycle: return "Bicycle";
-  case VehicleType::Car: return "Car";
-  case VehicleType::Transit: return "Transit";
-  case VehicleType::Count: return "Count";
-  }
-  UNREACHABLE();
-}
-
-std::string ToString(VehicleType vehicleType) { return DebugPrint(vehicleType); }
+std::string ToString(VehicleType vehicleType) { return ::DebugPrint(vehicleType); }
 
 void FromString(std::string_view s, VehicleType & vehicleType)
 {
@@ -54,7 +41,7 @@ std::string DebugPrint(VehicleMask vehicleMask)
       oss << ", ";
     first = false;
 
-    oss << DebugPrint(vt);
+    oss << ::DebugPrint(vt);
   }
   oss << "]";
   return oss.str();

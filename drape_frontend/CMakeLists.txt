@@ -109,7 +109,6 @@ set(SRC
   map_data_provider.cpp
   map_data_provider.hpp
   map_shape.hpp
-  message.cpp
   message.hpp
   message_acceptor.cpp
   message_acceptor.hpp

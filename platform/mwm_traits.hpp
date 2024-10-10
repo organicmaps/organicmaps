@@ -64,8 +64,4 @@ private:
 
   MwmVersion m_version;
 };
-
-std::string DebugPrint(MwmTraits::SearchIndexFormat format);
-std::string DebugPrint(MwmTraits::HouseToStreetTableFormat format);
-std::string DebugPrint(MwmTraits::CentersTableFormat format);
 }  // namespace version

@@ -88,5 +88,3 @@ private:
   std::vector<MwmSet::MwmId> m_lastMwms;
   mutable std::map<MwmSet::MwmId, Info> m_mwmCache;
 };
-
-std::string DebugPrint(IsolinesManager::IsolinesState state);

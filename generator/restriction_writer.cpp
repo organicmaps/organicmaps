@@ -175,7 +175,7 @@ void RestrictionWriter::CollectRelation(RelationElement const & relationElement)
                                                                                  : ViaType::Way;
 
   auto const printHeader = [&]() {
-    m_stream << DebugPrint(type) << "," << DebugPrint(viaType) << ",";
+    m_stream << ::DebugPrint(type) << "," << DebugPrint(viaType) << ",";
   };
 
   if (viaType == ViaType::Way)

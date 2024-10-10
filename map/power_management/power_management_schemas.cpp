@@ -79,35 +79,4 @@ FacilitiesState const & GetFacilitiesState(AutoScheme const autoScheme)
 {
   return kAutoSchemeToState.at(autoScheme);
 }
-
-std::string DebugPrint(Facility const facility)
-{
-  switch (facility)
-  {
-  case Facility::Buildings3d: return "Buildings3d";
-  case Facility::PerspectiveView: return "PerspectiveView";
-  case Facility::TrackRecording: return "TrackRecording";
-  case Facility::TrafficJams: return "TrafficJams";
-  case Facility::GpsTrackingForTraffic: return "GpsTrackingForTraffic";
-  case Facility::OsmEditsUploading: return "OsmEditsUploading";
-  case Facility::UgcUploading: return "UgcUploading";
-  case Facility::BookmarkCloudUploading: return "BookmarkCloudUploading";
-  case Facility::MapDownloader: return "MapDownloader";
-  case Facility::Count: return "Count";
-  }
-  UNREACHABLE();
-}
-
-std::string DebugPrint(Scheme const scheme)
-{
-  switch (scheme)
-  {
-  case Scheme::None: return "None";
-  case Scheme::Normal: return "Normal";
-  case Scheme::EconomyMedium: return "EconomyMedium";
-  case Scheme::EconomyMaximum: return "EconomyMaximum";
-  case Scheme::Auto: return "Auto";
-  }
-  UNREACHABLE();
-}
 }  // namespace power_management

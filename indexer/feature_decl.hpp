@@ -15,8 +15,6 @@ enum class GeomType : int8_t
   Line = 1,
   Area = 2
 };
-
-std::string DebugPrint(GeomType type);
 }  // namespace feature
 
 uint32_t constexpr kInvalidFeatureId = std::numeric_limits<uint32_t>::max();

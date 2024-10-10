@@ -513,20 +513,4 @@ void ParsedMapApi::ExecuteMapApiRequest(Framework & fm) const
   // Other details will be filled in by BuildPlacePageInfo().
   fm.BuildAndSetPlacePageInfo(info);
 }
-
-std::string DebugPrint(ParsedMapApi::UrlType type)
-{
-  switch(type)
-  {
-  case ParsedMapApi::UrlType::Incorrect: return "Incorrect";
-  case ParsedMapApi::UrlType::Map: return "Map";
-  case ParsedMapApi::UrlType::Route: return "Route";
-  case ParsedMapApi::UrlType::Search: return "Search";
-  case ParsedMapApi::UrlType::Crosshair: return "Crosshair";
-  case ParsedMapApi::UrlType::OAuth2: return "OAuth2";
-  case ParsedMapApi::UrlType::Menu: return "Menu";
-  case ParsedMapApi::UrlType::Settings: return "Settings";
-  }
-  UNREACHABLE();
-}
 }  // namespace url_scheme

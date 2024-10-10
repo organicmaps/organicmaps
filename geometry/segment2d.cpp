@@ -74,19 +74,6 @@ std::string DebugPrint(Segment2D const & segment)
   return "(" + DebugPrint(segment.m_u) + ", " + DebugPrint(segment.m_v) + ")";
 }
 
-std::string DebugPrint(IntersectionResult::Type type)
-{
-  using Type = IntersectionResult::Type;
-
-  switch (type)
-  {
-  case Type::Zero: return "Zero";
-  case Type::One: return "One";
-  case Type::Infinity: return "Infinity";
-  }
-  UNREACHABLE();
-}
-
 std::string DebugPrint(IntersectionResult const & result)
 {
   std::ostringstream os;
@@ -94,7 +81,7 @@ std::string DebugPrint(IntersectionResult const & result)
   if (result.m_type == IntersectionResult::Type::One)
     os << DebugPrint(result.m_point);
   else
-    os << DebugPrint(result.m_type);
+    os << ::DebugPrint(result.m_type);
   os << "]";
   return os.str();
 }

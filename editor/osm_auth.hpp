@@ -149,3 +149,10 @@ private:
 std::string DebugPrint(OsmOAuth::Response const & code);
 
 }  // namespace osm
+
+template <>
+struct magic_enum::customize::enum_range<osm::OsmOAuth::HTTP>
+{
+  static constexpr int min = osm::OsmOAuth::HTTP::OK;
+  static constexpr int max = osm::OsmOAuth::HTTP::TooMuchData;
+};

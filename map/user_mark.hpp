@@ -155,5 +155,3 @@ public:
 private:
   ColoredSymbolZoomInfo m_coloredSymbols;
 };
-
-std::string DebugPrint(UserMark::Type type);

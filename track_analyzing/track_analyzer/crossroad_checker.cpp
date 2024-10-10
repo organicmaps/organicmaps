@@ -166,16 +166,4 @@ void IsCrossroadChecker::MergeCrossroads(IsCrossroadChecker::CrossroadInfo const
   for (size_t i = 0; i < from.size(); ++i)
     to[i] += from[i];
 }
-
-std::string DebugPrint(IsCrossroadChecker::Type type)
-{
-  switch (type)
-  {
-  case IsCrossroadChecker::Type::TurnFromSmallerToBigger: return "TurnFromSmallerToBigger";
-  case IsCrossroadChecker::Type::TurnFromBiggerToSmaller: return "TurnFromBiggerToSmaller";
-  case IsCrossroadChecker::Type::IntersectionWithBig: return "IntersectionWithBig";
-  case IsCrossroadChecker::Type::Count: return "Count";
-  }
-  UNREACHABLE();
-}
 }  // namespace routing

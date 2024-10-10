@@ -116,8 +116,6 @@ enum class PedestrianDirection
   Count /**< This value is used for internals only. */
 };
 
-std::string DebugPrint(PedestrianDirection const l);
-
 /*!
  * \warning The values of LaneWay shall be synchronized with values of LaneWay enum in java.
  */

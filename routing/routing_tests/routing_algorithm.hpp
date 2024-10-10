@@ -100,6 +100,4 @@ public:
                         geometry::PointWithAltitude const & finalPos,
                         RoutingResult<IRoadGraph::Vertex, IRoadGraph::Weight> & path);
 };
-
-std::string DebugPrint(TestAStarBidirectionalAlgo::Result const & result);
 }  // namespace routing_tests

@@ -51,6 +51,4 @@ private:
 
   std::optional<std::chrono::steady_clock::time_point> m_deadline;
 };
-
-std::string DebugPrint(Cancellable::Status status);
 }  // namespace base

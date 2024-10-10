@@ -166,16 +166,6 @@ std::string DebugPrint(RoadAccess::Conditional const & conditional)
   return oss.str();
 }
 
-std::string DebugPrint(RoadAccess::Confidence confidence)
-{
-  switch (confidence)
-  {
-  case RoadAccess::Confidence::Maybe: return "Maybe";
-  case RoadAccess::Confidence::Sure: return "Sure";
-  }
-  UNREACHABLE();
-}
-
 std::string DebugPrint(RoadAccess::Type type) { return ToString(type); }
 
 std::string DebugPrint(RoadAccess const & r)

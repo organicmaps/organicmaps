@@ -418,15 +418,4 @@ string CountryIndexes::IndexesDir(LocalCountryFile const & localFile)
 
   return base::JoinPath(dir, file.GetName());
 }
-
-string DebugPrint(CountryIndexes::Index index)
-{
-  switch (index)
-  {
-  case CountryIndexes::Index::Bits: return "Bits";
-  case CountryIndexes::Index::Nodes: return "Nodes";
-  case CountryIndexes::Index::Offsets: return "Offsets";
-  }
-  UNREACHABLE();
-}
 }  // namespace platform

@@ -27,17 +27,4 @@ struct BookmarksSearchParams
   using OnResults = std::function<void(Results results, Status status)>;
   OnResults m_onResults;
 };
-
-inline std::string DebugPrint(BookmarksSearchParams::Status status)
-{
-  using Status = BookmarksSearchParams::Status;
-  switch (status)
-  {
-  case Status::InProgress: return "InProgress";
-  case Status::Completed: return "Completed";
-  case Status::Cancelled: return "Cancelled";
-  }
-  ASSERT(false, ("Unknown status"));
-  return "Unknown";
-}
 }  // namespace search

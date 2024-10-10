@@ -126,6 +126,4 @@ enum class MessagePriority
   // This priority allows to process messages after any other messages in queue.
   Low
 };
-
-std::string DebugPrint(Message::Type msgType);
 }  // namespace df

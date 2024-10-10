@@ -167,8 +167,6 @@ public:
   Details m_details;
 };
 
-std::string DebugPrint(search::Result::Type type);
-
 class Results
 {
 public:

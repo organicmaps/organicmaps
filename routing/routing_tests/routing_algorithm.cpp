@@ -177,22 +177,6 @@ TestAStarBidirectionalAlgo::Result Convert(Algorithm::Result value)
 }
 }  // namespace
 
-std::string DebugPrint(TestAStarBidirectionalAlgo::Result const & value)
-{
-  switch (value)
-  {
-  case TestAStarBidirectionalAlgo::Result::OK:
-    return "OK";
-  case TestAStarBidirectionalAlgo::Result::NoPath:
-    return "NoPath";
-  case TestAStarBidirectionalAlgo::Result::Cancelled:
-    return "Cancelled";
-  }
-
-  UNREACHABLE();
-  return std::string();
-}
-
 // *************************** AStar-bidirectional routing algorithm implementation ***********************
 TestAStarBidirectionalAlgo::Result TestAStarBidirectionalAlgo::CalculateRoute(
     RoadGraphIFace const & graph, geometry::PointWithAltitude const & startPos,

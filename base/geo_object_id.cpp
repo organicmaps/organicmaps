@@ -80,29 +80,11 @@ std::istream & operator>>(std::istream & os, GeoObjectId & geoObjectId)
   return os;
 }
 
-std::string DebugPrint(GeoObjectId::Type const & t)
-{
-  switch (t)
-  {
-  case GeoObjectId::Type::Invalid: return "Invalid";
-  case GeoObjectId::Type::OsmNode: return "Osm Node";
-  case GeoObjectId::Type::OsmWay: return "Osm Way";
-  case GeoObjectId::Type::OsmRelation: return "Osm Relation";
-  case GeoObjectId::Type::BookingComNode: return "Booking.com";
-  case GeoObjectId::Type::OsmSurrogate: return "Osm Surrogate";
-  case GeoObjectId::Type::Fias: return "FIAS";
-  case GeoObjectId::Type::ObsoleteOsmNode: return "Osm Node";
-  case GeoObjectId::Type::ObsoleteOsmWay: return "Osm Way";
-  case GeoObjectId::Type::ObsoleteOsmRelation: return "Osm Relation";
-  }
-  UNREACHABLE();
-}
-
 std::string DebugPrint(GeoObjectId const & id)
 {
   std::ostringstream oss;
   // GetSerialId() does not work for invalid ids but we may still want to print them.
-  oss << DebugPrint(id.GetType()) << " " << (id.GetEncodedId() & kSerialMask);
+  oss << ::DebugPrint(id.GetType()) << " " << (id.GetEncodedId() & kSerialMask);
   return oss.str();
 }
 }  // namespace base

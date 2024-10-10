@@ -123,16 +123,4 @@ void LoadBytes(Source & src, Cont & cont)
     if (m_type < MapType::World || m_type > MapType::Country || m_scales.size() != kMaxScalesCount)
       MYTHROW(CorruptedMwmFile, (r.GetName()));
   }
-
-  std::string DebugPrint(DataHeader::MapType type)
-  {
-    switch (type)
-    {
-    case DataHeader::MapType::World: return "World";
-    case DataHeader::MapType::WorldCoasts: return "WorldCoasts";
-    case DataHeader::MapType::Country: return "Country";
-    }
-
-    UNREACHABLE();
-  }
 }  // namespace feature

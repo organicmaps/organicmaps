@@ -68,7 +68,6 @@ RoadShieldsSetT GetRoadShields(std::string const & rawRoadNumber);
 // Returns names of road shields if |ft| is a "highway" feature.
 std::vector<std::string> GetRoadShieldsNames(FeatureType & ft);
 
-std::string DebugPrint(RoadShieldType shieldType);
 std::string DebugPrint(RoadShield const & shield);
 }  // namespace ftypes
 

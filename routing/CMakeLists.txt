@@ -28,7 +28,6 @@ set(SRC
   coding.hpp
   cross_border_graph.cpp
   cross_border_graph.hpp
-  cross_mwm_connector.cpp
   cross_mwm_connector.hpp
   cross_mwm_connector_serialization.hpp
   cross_mwm_graph.cpp
@@ -111,7 +110,6 @@ set(SRC
   restrictions_serialization.hpp
   road_access.cpp
   road_access.hpp
-  road_access_serialization.cpp
   road_access_serialization.hpp
   road_graph.cpp
   road_graph.hpp

@@ -52,6 +52,4 @@ public:
 
   Type GetType(FeatureType & feature) const;
 };
-
-std::string DebugPrint(Model::Type type);
 }  // namespace search

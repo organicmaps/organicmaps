@@ -298,16 +298,6 @@ void IRoadGraph::GetEdgeTypes(Edge const & edge, feature::TypesHolder & types) c
     GetFeatureTypes(edge.GetFeatureId(), types);
 }
 
-string DebugPrint(IRoadGraph::Mode mode)
-{
-  switch (mode)
-  {
-    case IRoadGraph::Mode::ObeyOnewayTag: return "ObeyOnewayTag";
-    case IRoadGraph::Mode::IgnoreOnewayTag: return "IgnoreOnewayTag";
-  }
-  UNREACHABLE();
-}
-
 IRoadGraph::RoadInfo MakeRoadInfoForTesting(bool bidirectional, double speedKMPH,
                                             initializer_list<m2::PointD> const & points)
 {

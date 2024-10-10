@@ -125,6 +125,4 @@ private:
   CrossMwmIndexGraph<base::GeoObjectId> m_crossMwmIndexGraph;
   CrossMwmIndexGraph<connector::TransitId> m_crossMwmTransitGraph;
 };
-
-std::string DebugPrint(CrossMwmGraph::MwmStatus status);
 }  // routing

@@ -249,7 +249,7 @@ void SaveCategoryExtendedData(Writer & writer, CategoryData const & categoryData
     std::string compilationAttributes;
     if (categoryData.m_compilationId != kInvalidCompilationId)
       compilationAttributes += " id=\"" + strings::to_string(categoryData.m_compilationId) + "\"";
-    compilationAttributes += " type=\"" + DebugPrint(categoryData.m_type) + "\"";
+    compilationAttributes += " type=\"" + ::DebugPrint(categoryData.m_type) + "\"";
     writer << kIndent4 << "<" << kCompilation << compilationAttributes << ">\n";
   }
 
@@ -295,7 +295,7 @@ void SaveCategoryExtendedData(Writer & writer, CategoryData const & categoryData
            << "</mwm:reviewsNumber>\n";
   }
 
-  writer << indent << "<mwm:accessRules>" << DebugPrint(categoryData.m_accessRules)
+  writer << indent << "<mwm:accessRules>" << ::DebugPrint(categoryData.m_accessRules)
          << "</mwm:accessRules>\n";
 
   SaveStringsArray(writer, categoryData.m_tags, "tags", indent);

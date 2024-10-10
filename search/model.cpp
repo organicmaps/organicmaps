@@ -109,24 +109,4 @@ Model::Type Model::GetType(FeatureType & feature) const
   ASSERT(false, ("Unknown locality type:", static_cast<int>(type)));
   return TYPE_UNCLASSIFIED;
 }
-
-string DebugPrint(Model::Type type)
-{
-  switch (type)
-  {
-  case Model::TYPE_SUBPOI: return "SUBPOI";
-  case Model::TYPE_COMPLEX_POI: return "COMPLEX_POI";
-  case Model::TYPE_BUILDING: return "Building";
-  case Model::TYPE_STREET: return "Street";
-  case Model::TYPE_SUBURB: return "Suburb";
-  case Model::TYPE_CITY: return "City";
-  case Model::TYPE_VILLAGE: return "Village";
-  case Model::TYPE_STATE: return "State";
-  case Model::TYPE_COUNTRY: return "Country";
-  case Model::TYPE_UNCLASSIFIED: return "Unclassified";
-  case Model::TYPE_COUNT: return "Count";
-  }
-  ASSERT(false, ("Unknown search type:", static_cast<int>(type)));
-  return {};
-}
 }  // namespace search

@@ -15,7 +15,6 @@ set(SRC
   base/text_index/merger.hpp
   base/text_index/postings.hpp
   base/text_index/reader.hpp
-  base/text_index/text_index.cpp
   base/text_index/text_index.hpp
   base/text_index/utils.hpp
   bookmarks/data.cpp
@@ -103,7 +102,6 @@ set(SRC
   locality_finder.hpp
   locality_scorer.cpp
   locality_scorer.hpp
-  mode.cpp
   mode.hpp
   model.cpp
   model.hpp

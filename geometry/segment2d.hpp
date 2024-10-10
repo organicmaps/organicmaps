@@ -45,6 +45,5 @@ bool SegmentsIntersect(PointD const & p1, PointD const & p2, PointD const & p3,
 IntersectionResult Intersect(Segment2D const & seg1, Segment2D const & seg2, double eps);
 
 std::string DebugPrint(Segment2D const & s);
-std::string DebugPrint(IntersectionResult::Type type);
 std::string DebugPrint(IntersectionResult const & result);
 }  // namespace m2
