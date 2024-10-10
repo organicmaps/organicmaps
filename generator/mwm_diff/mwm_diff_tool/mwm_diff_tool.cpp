@@ -1,5 +1,4 @@
 #include "generator/mwm_diff/diff.hpp"
-
 #include "base/cancellable.hpp"
 
 #include <iostream>
@@ -18,12 +17,22 @@ int main(int argc, char ** argv)
         "WARNING: THERE IS NO MWM VALIDITY CHECK!\n";
     return -1;
   }
-  char const * olderMWMDir{argv[2]}, * newerMWMDir{argv[3]}, * diffDir{argv[4]};
-  if (0 == std::strcmp(argv[1], "make"))
-    return generator::mwm_diff::MakeDiff(olderMWMDir, newerMWMDir, diffDir);
+
+  char const * olderMWMDir = argv[2];
+  char const * newerMWMDir = argv[3];
+  char const * diffDir = argv[4];
+
+  base::Cancellable cancellable;
+
+  if (std::strcmp(argv[1], "make") == 0)
+  {
+    if (generator::mwm_diff::MakeDiff(olderMWMDir, newerMWMDir, diffDir, cancellable))
+      return 0;
+    else
+      return -1;
+  }
 
   // apply
-  base::Cancellable cancellable;
   auto const res = generator::mwm_diff::ApplyDiff(olderMWMDir, newerMWMDir, diffDir, cancellable);
   if (res == generator::mwm_diff::DiffApplicationResult::Ok)
     return 0;
