@@ -17683,3 +17683,14 @@ uk:Килими
 vi:Những cái thảm
 zh-Hans:地毯
 zh-Hant:地毯
+
+# A shop that sell supplies to make arts and crafts (different from shop-arts that sells works of art)
+shop-craft|@shop
+en:Craft
+be:Рамяство|Творчасць
+de:Künstlerbedarf
+es:Artesanía
+eu:eskulanak
+fr:Artisanat
+pt:4Manualidades|5Armarinho
+ru:Ремесло|Творчество
