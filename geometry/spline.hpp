@@ -40,6 +40,7 @@ public:
     Spline const * m_spl;
     size_t m_index;
     double m_dist;
+    double m_length = 0; 
   };
 
 public:
