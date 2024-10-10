@@ -3943,6 +3943,8 @@
 
 "organization_name" = "Комитет по развитию туризма при Правительстве Республики Таджикистан ";
 
+"developed_by_label" = "Developed by Rebus LLC";
+
 "smth_went_wrong" = "Упс, что-то пошло не так";
 
 "server_error" = "Ошибка сервера, попробуйте позже";

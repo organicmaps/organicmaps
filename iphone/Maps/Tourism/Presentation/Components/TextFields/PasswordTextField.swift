@@ -9,7 +9,7 @@ class PasswordTextField: AuthTextField {
     button.setImage(eyeSlashImg, for: .normal)
     button.setImage(eyeImage, for: .selected)
     button.tintColor = .white
-    button.addTarget(PasswordTextField.self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
+    button.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
     button.translatesAutoresizingMaskIntoConstraints = false
     return button
   }()

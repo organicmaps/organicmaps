@@ -2205,6 +2205,7 @@
   <string name="smth_went_wrong">Error </string>
   <string name="wait_tjk_map_downloading">Please wait, the map of Tajikistan is loading</string>
   <string name="welcome_to_tjk">Welcome to Tajikistan</string>
+  <string name="developed_by_label">Developed by Rebus LLC</string>
   <string name="sign_in">Log in</string>
   <string name="sign_up">Registration</string>
   <string name="sign_in_title">Entry</string>

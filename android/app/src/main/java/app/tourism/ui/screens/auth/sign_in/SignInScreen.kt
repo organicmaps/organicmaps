@@ -2,6 +2,7 @@ package app.tourism.ui.screens.auth.sign_in
 
 import PasswordEditText
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,12 +24,14 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.organicmaps.R
 import app.tourism.BASE_URL
 import app.tourism.Constants
 import app.tourism.domain.models.resource.Resource
+import app.tourism.drawOverlayForTextBehind
 import app.tourism.ui.ObserveAsEvents
 import app.tourism.ui.common.VerticalSpace
 import app.tourism.ui.common.buttons.PrimaryButton
@@ -138,6 +141,19 @@ fun SignInScreen(
                 }
             }
         }
+
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomStart)
+                .drawOverlayForTextBehind()
+                .padding(Constants.SCREEN_PADDING)
+                .clickable { openUrlInBrowser(context = context, url = "https://rebus.tj") },
+            text = stringResource(id = R.string.developed_by_label),
+            textAlign = TextAlign.End,
+            color = Color.White,
+            style = TextStyles.h4.copy()
+        )
     }
 }
 

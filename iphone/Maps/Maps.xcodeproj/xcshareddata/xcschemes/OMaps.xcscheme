@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6741A93D1BF340DE002C974C"
-               BuildableName = "Organic Maps (Debug).app"
+               BuildableName = "Tourism (Debug).app"
                BlueprintName = "OMaps"
                ReferencedContainer = "container:Maps.xcodeproj">
             </BuildableReference>
@@ -70,7 +70,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6741A93D1BF340DE002C974C"
-            BuildableName = "Organic Maps (Debug).app"
+            BuildableName = "Tourism (Debug).app"
             BlueprintName = "OMaps"
             ReferencedContainer = "container:Maps.xcodeproj">
          </BuildableReference>
@@ -87,7 +87,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6741A93D1BF340DE002C974C"
-            BuildableName = "Organic Maps (Debug).app"
+            BuildableName = "Tourism (Debug).app"
             BlueprintName = "OMaps"
             ReferencedContainer = "container:Maps.xcodeproj">
          </BuildableReference>

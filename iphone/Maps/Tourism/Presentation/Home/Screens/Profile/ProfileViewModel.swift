@@ -113,6 +113,9 @@ class ProfileViewModel: ObservableObject {
   }
   
   private func updatePersonalDataInMemory(personalData: PersonalData) {
+    if let pfpUrl = personalData.pfpUrl {
+      self.pfpFromRemote = URL(string: pfpUrl)
+    }
     self.fullName = personalData.fullName
     self.email = personalData.email
     self.countryCodeName = personalData.country

@@ -2163,6 +2163,7 @@
   <string name="smth_went_wrong">Упс, что-то пошло не так</string>
   <string name="wait_tjk_map_downloading">Пожалуйста, подождите, идет загрузка карты Таджикистана.</string>
   <string name="welcome_to_tjk">Добро пожаловать в Таджикистан</string>
+  <string name="developed_by_label">Developed by Rebus LLC</string>
   <string name="sign_in">Войти</string>
   <string name="sign_up">Регистрация</string>
   <string name="sign_in_title">Вход</string>
