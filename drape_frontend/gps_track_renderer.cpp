@@ -114,7 +114,7 @@ void GpsTrackRenderer::UpdatePoints(std::vector<GpsTrackPoint> const & toAdd,
       m_pointsSpline.AddPoint(m_points[i].m_point);
   }
 
-  m_needUpdate = true;
+  m_needUpdate = wasChanged;
 }
 
 size_t GpsTrackRenderer::GetAvailablePointsCount() const
