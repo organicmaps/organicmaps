@@ -73,6 +73,8 @@
     <!-- ToDo: Address is missing compared with iOS. It's shown in title but anyway .. -->
 
     <include layout="@layout/place_page_latlon"/>
+
+    <include layout="@layout/place_page_open_in"/>
   </LinearLayout>
 
   <include

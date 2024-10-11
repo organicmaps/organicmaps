@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,6 @@ import app.organicmaps.editor.data.TimeFormatUtils;
 import app.organicmaps.editor.data.Timetable;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.InputUtils;
-import app.organicmaps.util.Option;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
@@ -198,7 +198,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mSelfService.setText(Utils.getTagValueLocalized(view.getContext(), "self_service", selfServiceMetadata));
     initMetadataEntry(Metadata.MetadataType.FMD_OPERATOR, 0);
     mWifi.setChecked(Editor.nativeHasWifi());
-    mOutdoorSeating.setChecked(Editor.nativeGetSwitchInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(),"yes"));
+    // TODO Reimplement this to avoid https://github.com/organicmaps/organicmaps/issues/9049
+    //mOutdoorSeating.setChecked(Editor.nativeGetSwitchInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(),"yes"));
     refreshOpeningTime();
     refreshEditableFields();
     refreshResetButton();
@@ -221,7 +222,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     Editor.nativeSetHasWifi(mWifi.isChecked());
     Editor.nativeSetNames(mParent.getNamesAsArray());
 
-    Editor.nativeSetSwitchInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(), mOutdoorSeating.isChecked(), "yes", "no");
+    // TODO Reimplement this to avoid https://github.com/organicmaps/organicmaps/issues/9049
+    //Editor.nativeSetSwitchInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(), mOutdoorSeating.isChecked(), "yes", "no");
 
     for (var e : mMetadata.entrySet())
       Editor.nativeSetMetadata(e.getKey().toInt(), e.getValue().mEdit.getText().toString());
@@ -476,7 +478,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mOpeningHours.setOnClickListener(this);
     final View cardMore = view.findViewById(R.id.cv__more);
     mDescription = findInput(cardMore);
-    cardMore.findViewById(R.id.about_osm).setOnClickListener(this);
+    TextView osmInfo = view.findViewById(R.id.osm_info);
+    osmInfo.setMovementMethod(LinkMovementMethod.getInstance());
     mReset = view.findViewById(R.id.reset);
     mReset.setOnClickListener(this);
 
@@ -485,7 +488,9 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mDetailsBlocks.put(Metadata.MetadataType.FMD_CUISINE, blockCuisine);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_INTERNET, blockWifi);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_SELF_SERVICE, blockSelfService);
-    mDetailsBlocks.put(Metadata.MetadataType.FMD_OUTDOOR_SEATING, blockOutdoorSeating);
+    // TODO Reimplement this to avoid https://github.com/organicmaps/organicmaps/issues/9049
+    UiUtils.hide(blockOutdoorSeating);
+    //mDetailsBlocks.put(Metadata.MetadataType.FMD_OUTDOOR_SEATING, blockOutdoorSeating);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_WEBSITE, websiteBlock);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_WEBSITE_MENU, websiteMenuBlock);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_EMAIL, emailBlock);
@@ -540,8 +545,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     }
     else if (id == R.id.add_langs)
       mParent.addLanguage();
-    else if (id == R.id.about_osm)
-      Utils.openUrl(requireActivity(), getString(R.string.osm_wiki_about_url));
     else if (id == R.id.reset)
       reset();
     else if (id == R.id.block_outdoor_seating)
@@ -683,9 +686,9 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   {
     return (activity, text) -> {
       if (TextUtils.isEmpty(text))
-        return new Option<>(activity.getString(R.string.delete_place_empty_comment_error));
+        return activity.getString(R.string.delete_place_empty_comment_error);
       else
-        return Option.empty();
+        return null;
     };
   }
 }

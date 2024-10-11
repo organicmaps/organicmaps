@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Altro";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "Percorso recente";
-
 "pref_map_auto_zoom" = "Zoom automatico";
-
-"duration_disabled" = "Spento";
-
-"duration_1_hour" = "1 ora";
-
-"duration_2_hours" = "2 ore";
-
-"duration_6_hours" = "6 ore";
-
-"duration_12_hours" = "12 ore";
-
-"duration_1_day" = "1 giorno";
-
-"recent_track_help_text" = "Consente di registrare il percorso effettuato in un determinato periodo di tempo e di vederlo sulla mappa. Nota: l'attivazione di questa funzione incrementa l'uso della batteria. Il percorso viene rimosso automaticamente dalla mappa allo scadere dell'intervallo di tempo.";
 
 "placepage_distance" = "Distanza";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Luogo sconosciuto";
 
-"editor_other_info" = "Invia un messaggio a OSM";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Nota per i volontari di OpenStreetMap (opzionale)";
 
 "editor_detailed_description_hint" = "Commento dettagliato";
 
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Recupera tutto";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Registra percorso";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Interrompi registrazione del percorso";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Interrompi senza salvare";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Continua registrazione";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Salvare nella lista luoghi preferiti e percorsi?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Il percorso è vuoto - non c'è nulla da salvare";
 
 
 /********** Types **********/
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Rubinetto dell'acqua";
 
+"type.man_made.water_tap.drinking_water_no" = "Rubinetto dell'acqua";
+
 "type.man_made.water_tower" = "Cisterna per acqua";
 
 "type.man_made.water_well" = "Pozzo d'acqua";
+
+"type.man_made.water_well.drinking_water_no" = "Pozzo d'acqua";
 
 "type.man_made.windmill" = "Mulino a vento";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "Boscaglia";
 
 "type.natural.spring" = "Sorgente";
+
+"type.natural.spring.drinking_water_no" = "Sorgente";
 
 "type.natural.strait" = "Stretto";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Ingresso del reparto di emergenza";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Dojo";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Palazzetto dello sport";

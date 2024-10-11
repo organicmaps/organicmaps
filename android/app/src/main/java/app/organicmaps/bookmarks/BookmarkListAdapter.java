@@ -14,6 +14,7 @@ import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.bookmarks.data.BookmarkInfo;
 import app.organicmaps.bookmarks.data.BookmarkManager;
+import app.organicmaps.bookmarks.data.IconClickListener;
 import app.organicmaps.bookmarks.data.SortedBlock;
 import app.organicmaps.content.DataSource;
 import app.organicmaps.widget.recycler.RecyclerClickListener;
@@ -47,6 +48,8 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
   private RecyclerClickListener mClickListener;
   @Nullable
   private RecyclerLongClickListener mLongClickListener;
+  private RecyclerClickListener mMoreClickListener;
+  private IconClickListener mIconClickListener;
 
   public static abstract class SectionsDataSource
   {
@@ -391,8 +394,14 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     mLongClickListener = listener;
   }
 
-  void setMoreListener(@Nullable RecyclerClickListener listener)
+  public void setMoreListener(@Nullable RecyclerClickListener listener)
   {
+    mMoreClickListener = listener;
+  }
+
+  public void setIconClickListener(IconClickListener listener)
+  {
+    mIconClickListener = listener;
   }
 
   @Override
@@ -409,6 +418,8 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
                                                          false));
         trackHolder.setOnClickListener(mClickListener);
         trackHolder.setOnLongClickListener(mLongClickListener);
+        trackHolder.setTrackIconClickListener(mIconClickListener);
+        trackHolder.setMoreButtonClickListener(mMoreClickListener);
         holder = trackHolder;
         break;
       case TYPE_BOOKMARK:

@@ -71,6 +71,7 @@ public:
 private:
   std::string const & GetTagFromEnd(size_t n) const;
   bool IsProcessTrackTag() const;
+  bool IsProcessTrackCoord() const;
 
   enum GeometryType
   {
@@ -96,7 +97,11 @@ private:
 
   std::vector<std::string> m_tags;
   GeometryType m_geometryType;
+
   MultiGeometry m_geometry;
+  std::map<size_t, std::set<size_t>> m_skipTimes;
+  size_t m_lastTrackPointsCount;
+
   uint32_t m_color;
 
   std::string m_styleId;

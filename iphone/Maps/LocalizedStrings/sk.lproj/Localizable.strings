@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Iný";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "Posledná trasa";
-
 "pref_map_auto_zoom" = "Automatický zoom";
-
-"duration_disabled" = "Vypnúť";
-
-"duration_1_hour" = "1 hodina";
-
-"duration_2_hours" = "2 hodiny";
-
-"duration_6_hours" = "6 hodín";
-
-"duration_12_hours" = "12 hodín";
-
-"duration_1_day" = "1 deň";
-
-"recent_track_help_text" = "Umožňuje zaznamenať precestovanú trasu za určité obdobie a zobraziť ju na mape. Upozornenie: zapnutie tejto funkcie spôsobí vyššiu spotrebu batérie. Trasa sa z mapy automaticky odstráni po uplynutí časového intervalu.";
 
 "placepage_distance" = "Vzdialenosť";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Neznáme miesto";
 
-"editor_other_info" = "Odoslať poznámku OSM editorom";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Poznámka pre dobrovoľníkov OpenStreetMap (nepovinné)";
 
 "editor_detailed_description_hint" = "Zmazaná poznámka";
 
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Obnoviť všetko";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Nahrať trasu";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Zastaviť nahrávanie trasy";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Zastaviť bez uloženia";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Pokračovať v nahrávaní";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Uložiť do záložiek a stôp?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Trasa je prázdna - nie je čo ukladať";
 
 
 /********** Types **********/
@@ -2197,10 +2199,10 @@
 "type.highway.path" = "Cesta";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Cesta";
+"type.highway.path.difficult" = "Náročná alebo zle viditeľná trasa";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Cesta";
+"type.highway.path.expert" = "Veľmi náročná alebo nezreteľná stopa";
 
 "type.highway.path.bicycle" = "Cesta pre cyklistov a chodcov";
 
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Vodovodný kohútik";
 
+"type.man_made.water_tap.drinking_water_no" = "Vodovodný kohútik";
+
 "type.man_made.water_tower" = "Vodojem";
 
 "type.man_made.water_well" = "Studňa";
+
+"type.man_made.water_well.drinking_water_no" = "Studňa";
 
 "type.man_made.windmill" = "Veterný mlyn";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "Krovie";
 
 "type.natural.spring" = "Prameň";
+
+"type.natural.spring.drinking_water_no" = "Prameň";
 
 "type.natural.strait" = "Prieliv";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Vchod do pohotovostného oddelenia";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Dojo";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Športová hala";

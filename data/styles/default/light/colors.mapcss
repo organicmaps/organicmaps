@@ -68,7 +68,9 @@
 @university: #F8E4BA;
 @hospital: #F8D9D9;
 @industrial: #E4E2EB;
-@sport: #D1CDA7;
+@sport0: #DDD9B0;
+@sport1: #D7D3AC;
+@sport2: #D1CDA7;
 @parking: #F2F2BC;
 @military: #E53935;
 @prison: #727272;

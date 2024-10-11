@@ -813,7 +813,8 @@ UNIT_TEST(Bookmarks_Sorting)
       kml::TrackData trackData;
       trackData.m_id = id;
       trackData.m_name = kml::LocalizableString{{kml::kDefaultLangCode, name}};
-      trackData.m_geometry.Assign({{{0.0, 0.0}, 1}, {{1.0, 0.0}, 2}});
+      trackData.m_geometry.AddLine({{{0.0, 0.0}, 1}, {{1.0, 0.0}, 2}});
+      trackData.m_geometry.AddTimestamps({});
       if (hours != kUnknownTime)
         trackData.m_timestamp = currentTime - hours;
       auto const * track = es.CreateTrack(std::move(trackData));
@@ -1129,7 +1130,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
 
 UNIT_CLASS_TEST(Runner, TrackParsingTest_1)
 {
-  string const kmlFile = GetPlatform().TestsDataPathForFile("kml_test_data/track.kml");
+  string const kmlFile = GetPlatform().TestsDataPathForFile("test_data/kml/track.kml");
   BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
 
@@ -1170,13 +1171,13 @@ UNIT_CLASS_TEST(Runner, FillEmptyTrackNames)
   BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
 
-  string const kmlFile1 = GetPlatform().TestsDataPathForFile("gpx_test_data/empty_names1.gpx");
+  string const kmlFile1 = GetPlatform().TestsDataPathForFile("test_data/gpx/empty_names1.gpx");
   auto fileData1 = LoadKmlFile(kmlFile1, KmlFileType::Gpx);
   TEST_EQUAL(fileData1->m_categoryData.m_name[kml::kDefaultLangCode], "empty_names1", ());
   TEST_EQUAL(fileData1->m_tracksData[0].m_name[kml::kDefaultLangCode], "empty_names1 1", ());
   TEST_EQUAL(fileData1->m_tracksData[1].m_name[kml::kDefaultLangCode], "empty_names1 2", ());
 
-  string const kmlFile2 = GetPlatform().TestsDataPathForFile("gpx_test_data/empty_names2.gpx");
+  string const kmlFile2 = GetPlatform().TestsDataPathForFile("test_data/gpx/empty_names2.gpx");
   auto fileData2 = LoadKmlFile(kmlFile2, KmlFileType::Gpx);
   TEST_EQUAL(fileData2->m_categoryData.m_name[kml::kDefaultLangCode], "empty_names2", ());
   TEST_EQUAL(fileData2->m_tracksData[0].m_name[kml::kDefaultLangCode], "empty_names2", ());
@@ -1184,7 +1185,7 @@ UNIT_CLASS_TEST(Runner, FillEmptyTrackNames)
 
 UNIT_CLASS_TEST(Runner, TrackParsingTest_2)
 {
-  string const kmlFile = GetPlatform().TestsDataPathForFile("kml_test_data/track-from-google-earth.kml");
+  string const kmlFile = GetPlatform().TestsDataPathForFile("test_data/kml/track-from-google-earth.kml");
   BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
 
@@ -1434,10 +1435,10 @@ UNIT_CLASS_TEST(Runner, Bookmarks_AutoSave)
 UNIT_CLASS_TEST(Runner, ExportAll)
 {
   std::string const gpxFiles[] = {
-    GetPlatform().TestsDataPathForFile("gpx_test_data/route.gpx"),
-    GetPlatform().TestsDataPathForFile("gpx_test_data/points.gpx"),
-    GetPlatform().TestsDataPathForFile("gpx_test_data/Üφήが1.gpx"),
-    GetPlatform().TestsDataPathForFile("gpx_test_data/Üφήが2.gpx")};
+    GetPlatform().TestsDataPathForFile("test_data/gpx/route.gpx"),
+    GetPlatform().TestsDataPathForFile("test_data/gpx/points.gpx"),
+    GetPlatform().TestsDataPathForFile("test_data/gpx/Üφήが1.gpx"),
+    GetPlatform().TestsDataPathForFile("test_data/gpx/Üφήが2.gpx")};
   BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
 
@@ -1465,7 +1466,7 @@ UNIT_CLASS_TEST(Runner, ExportAll)
     std::string indexContent;
     FileReader(indexPath).ReadAsString(indexContent);
     std::string expectedIndexContent;
-    FileReader(GetPlatform().TestsDataPathForFile("kml_test_data/kmz_index.kml"))
+    FileReader(GetPlatform().TestsDataPathForFile("test_data/kml/kmz_index.kml"))
         .ReadAsString(expectedIndexContent);
     TEST_EQUAL(expectedIndexContent, indexContent, ("Index content doesnt match expected value"));
     auto tmpPath = base::JoinPath(GetPlatform().TmpDir(), "tmp.xml");
@@ -1484,7 +1485,7 @@ UNIT_CLASS_TEST(Runner, ExportAll)
 
 UNIT_CLASS_TEST(Runner, ExportSingleUnicode)
 {
-  string file = GetPlatform().TestsDataPathForFile("gpx_test_data/Üφήが1.gpx");
+  string file = GetPlatform().TestsDataPathForFile("test_data/gpx/Üφήが1.gpx");
   BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
   BookmarkManager::KMLDataCollection kmlDataCollection;
@@ -1508,7 +1509,7 @@ UNIT_CLASS_TEST(Runner, ExportSingleUnicode)
 
 UNIT_CLASS_TEST(Runner, ExportSingleGpx)
 {
-  std::string const file = GetPlatform().TestsDataPathForFile("gpx_test_data/route.gpx");
+  std::string const file = GetPlatform().TestsDataPathForFile("test_data/gpx/route.gpx");
   BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
   BookmarkManager::KMLDataCollection kmlDataCollection;
@@ -1526,7 +1527,7 @@ UNIT_CLASS_TEST(Runner, ExportSingleGpx)
 
 UNIT_CLASS_TEST(Runner, Bookmarks_BrokenFile)
 {
-  string const fileName = GetPlatform().TestsDataPathForFile("broken_bookmarks.kmb.test");
+  string const fileName = GetPlatform().TestsDataPathForFile("test_data/broken_bookmarks.kmb.test");
   auto kmlData = LoadKmlFile(fileName, KmlFileType::Binary);
   TEST(kmlData == nullptr, ());
 }

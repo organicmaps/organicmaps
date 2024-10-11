@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Khác";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "Tìm kiếm gần đây";
-
 "pref_map_auto_zoom" = "Ống dòm tự động";
-
-"duration_disabled" = "Tắt";
-
-"duration_1_hour" = "1 giờ";
-
-"duration_2_hours" = "2 giờ";
-
-"duration_6_hours" = "6 giờ";
-
-"duration_12_hours" = "12 giờ";
-
-"duration_1_day" = "1 ngày";
-
-"recent_track_help_text" = "Chức năng này cho phép bạn ghi lại đường đi trong một khoảng thời gian nhất định và xem nó trên bản đồ. Xin lưu ý: việc kích hoạt chức năng này sẽ tăng mức sử dụng pin. Đường đi sẽ tự động bị xóa khỏi bản đồ sau khi kết thúc khoảng thời gian nói trên.";
 
 "placepage_distance" = "Khoảng cách";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Địa Điểm Chưa Biết";
 
-"editor_other_info" = "Gửi ghi chú cho ban biên tập OSM";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Lưu ý dành cho tình nguyện viên OpenStreetMap (tùy chọn)";
 
 "editor_detailed_description_hint" = "Nhận xét chi tiết";
 
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Khôi phục tất cả";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Ghi âm đường đi";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Dừng ghi âm đường đi";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Dừng mà không lưu";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Tiếp tục ghi âm";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Lưu bản ghi vào đánh dấu và dấu vết?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Tuyến đường trống - không có gì để lưu";
 
 
 /********** Types **********/
@@ -2197,10 +2199,10 @@
 "type.highway.path" = "Đường";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Đường";
+"type.highway.path.difficult" = "Đường đi khó hoặc khó nhìn thấy";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Đường";
+"type.highway.path.expert" = "Đường đi rất khó khăn hoặc không thể phân biệt được";
 
 "type.highway.path.bicycle" = "Đường";
 
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Vòi nước";
 
+"type.man_made.water_tap.drinking_water_no" = "Vòi nước";
+
 "type.man_made.water_tower" = "Tháp Nước";
 
 "type.man_made.water_well" = "Giếng Nước";
+
+"type.man_made.water_well.drinking_water_no" = "Giếng Nước";
 
 "type.man_made.windmill" = "Cối xay gió";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "Bụi rậm";
 
 "type.natural.spring" = "Suối";
+
+"type.natural.spring.drinking_water_no" = "Suối";
 
 "type.natural.strait" = "Eo biển";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Lối vào khu cấp cứu";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "võ đường";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Nhà thi đấu thể thao";

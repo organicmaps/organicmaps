@@ -11,8 +11,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^SearchInDownloaderCompletions)(NSArray<MWMMapSearchResult *> *results, BOOL finished);
 
+@protocol TrackRecorder <NSObject>
+
++ (void)startTrackRecording;
++ (void)stopTrackRecording;
++ (void)saveTrackRecordingWithName:(nullable NSString *)name;
++ (BOOL)isTrackRecordingEnabled;
++ (BOOL)isTrackRecordingEmpty;
+
+@end
+
 NS_SWIFT_NAME(FrameworkHelper)
-@interface MWMFrameworkHelper : NSObject
+@interface MWMFrameworkHelper : NSObject<TrackRecorder>
 
 + (void)processFirstLaunch:(BOOL)hasLocation;
 + (void)setVisibleViewport:(CGRect)rect scaleFactor:(CGFloat)scale;

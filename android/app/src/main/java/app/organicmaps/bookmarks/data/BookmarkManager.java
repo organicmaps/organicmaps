@@ -608,6 +608,11 @@ public enum BookmarkManager
     return nativeGetBookmarkDescription(bookmarkId);
   }
 
+  public String getTrackDescription(@IntRange(from = 0) long trackId)
+  {
+    return nativeGetTrackDescription(trackId);
+  }
+
   public double getBookmarkScale(@IntRange(from = 0) long bookmarkId)
   {
     return nativeGetBookmarkScale(bookmarkId);
@@ -625,11 +630,29 @@ public enum BookmarkManager
     nativeSetBookmarkParams(bookmarkId, name, color, descr);
   }
 
+  public void setTrackParams(@IntRange(from = 0) long trackId, @NonNull String name,
+                             int color, @NonNull String descr)
+  {
+    nativeSetTrackParams(trackId, name, color, descr);
+  }
+
+  public void changeTrackColor(@IntRange(from = 0) long trackId, int color)
+  {
+    nativeChangeTrackColor(trackId, color);
+  }
+
   public void changeBookmarkCategory(@IntRange(from = 0) long oldCatId,
                                      @IntRange(from = 0) long newCatId,
                                      @IntRange(from = 0) long bookmarkId)
   {
     nativeChangeBookmarkCategory(oldCatId, newCatId, bookmarkId);
+  }
+
+  public void changeTrackCategory(@IntRange(from = 0) long oldCatId,
+                                  @IntRange(from = 0) long newCatId,
+                                  @IntRange(from = 0) long trackId)
+  {
+    nativeChangeTrackCategory(oldCatId, newCatId, trackId);
   }
 
   @NonNull
@@ -645,6 +668,15 @@ public enum BookmarkManager
       return;
 
     changeBookmarkCategory(bookmarkInfo.getCategoryId(), catId, bookmarkInfo.getBookmarkId());
+  }
+
+  public void notifyCategoryChanging(@NonNull Track track,
+                                     @IntRange(from = 0) long catId)
+  {
+    if (catId == track.getCategoryId())
+      return;
+
+    changeTrackCategory(track.getCategoryId(), catId, track.getTrackId());
   }
 
   public void notifyCategoryChanging(@NonNull Bookmark bookmark, @IntRange(from = 0) long catId)
@@ -679,6 +711,16 @@ public enum BookmarkManager
     {
       setBookmarkParams(bookmark.getBookmarkId(), name,
                         icon != null ? icon.getColor() : getLastEditedColor(), description);
+    }
+  }
+
+  public void notifyParametersUpdating(@NonNull Track track, @NonNull String name,
+                                       @Nullable int color, @NonNull String description)
+  {
+    if (!name.equals(track.getName()) || !(color == track.getColor()) ||
+        !description.equals(getTrackDescription(track.getTrackId())))
+    {
+      setTrackParams(track.getTrackId(), name, color, description);
     }
   }
 
@@ -818,6 +860,7 @@ public enum BookmarkManager
   @NonNull
   private static native String nativeGetBookmarkDescription(@IntRange(from = 0) long bookmarkId);
 
+  private static native String nativeGetTrackDescription(@IntRange(from = 0) long trackId);
   private static native double nativeGetBookmarkScale(@IntRange(from = 0) long bookmarkId);
 
   @NonNull
@@ -829,9 +872,21 @@ public enum BookmarkManager
                                                      @Icon.PredefinedColor int color,
                                                      @NonNull String descr);
 
+  private static native void nativeChangeTrackColor(@IntRange(from = 0) long trackId,
+                                                    @Icon.PredefinedColor int color);
+
+  private static native void nativeSetTrackParams(@IntRange(from = 0) long trackId,
+                                                  @NonNull String name,
+                                                  @Icon.PredefinedColor int color,
+                                                  @NonNull String descr);
+
   private static native void nativeChangeBookmarkCategory(@IntRange(from = 0) long oldCatId,
                                                           @IntRange(from = 0) long newCatId,
                                                           @IntRange(from = 0) long bookmarkId);
+
+  private static native void nativeChangeTrackCategory(@IntRange(from = 0) long oldCatId,
+                                                       @IntRange(from = 0) long newCatId,
+                                                       @IntRange(from = 0) long trackId);
 
   @NonNull
   private static native String nativeGetBookmarkAddress(@IntRange(from = 0) long bookmarkId);

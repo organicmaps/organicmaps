@@ -94,6 +94,12 @@ void GpsTrack::Clear()
   ScheduleTask();
 }
 
+size_t GpsTrack::GetSize() const
+{
+  CHECK(m_collection != nullptr, ());
+  return m_collection->GetSize();
+}
+
 bool GpsTrack::IsEmpty() const
 {
   if (!m_collection)

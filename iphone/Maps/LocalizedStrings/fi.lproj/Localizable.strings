@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Muu";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "Viimeisin reitti";
-
 "pref_map_auto_zoom" = "Automaattinen zoomaus";
-
-"duration_disabled" = "Pois päältä";
-
-"duration_1_hour" = "1 tunti";
-
-"duration_2_hours" = "2 tuntia";
-
-"duration_6_hours" = "6 tuntia";
-
-"duration_12_hours" = "12 tuntia";
-
-"duration_1_day" = "1 päivä";
-
-"recent_track_help_text" = "Toiminnon avulla voit tallentaa kuljetun reitin tietyltä ajalta ja nähdä sen kartalla: Huomautus: tämän toiminnon aktivoiminen lisää akun käyttöä. Reitti poistetaan kartalta automaattisesti ajanjakson päätyttyä.";
 
 "placepage_distance" = "Etäisyys";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Tuntematon paikka";
 
-"editor_other_info" = "Lähetä muistilappu OSM-toimittajille";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Huomautus OpenStreetMapin vapaaehtoisille (valinnainen)";
 
 "editor_detailed_description_hint" = "Yksityiskohtainen kommentti";
 
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Palauta kaikki";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Reitin tallennus";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Lopeta reitin tallennus";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Lopeta tallentamatta";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Jatka tallennusta";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Tallenna kirjanmerkkeihin ja reitteihin?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Reitti on tyhjä - ei mitään tallennettavaa";
 
 
 /********** Types **********/
@@ -2197,10 +2199,10 @@
 "type.highway.path" = "Polku";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Polku";
+"type.highway.path.difficult" = "Vaikea tai huonosti näkyvä reitti";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Polku";
+"type.highway.path.expert" = "Erittäin vaikea tai erottamaton jälki";
 
 "type.highway.path.bicycle" = "Pyörä- ja jalkatie";
 
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Vesihana";
 
+"type.man_made.water_tap.drinking_water_no" = "Vesihana";
+
 "type.man_made.water_tower" = "Vesitorni";
 
 "type.man_made.water_well" = "Kaivo";
+
+"type.man_made.water_well.drinking_water_no" = "Kaivo";
 
 "type.man_made.windmill" = "Tuulimylly";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "Tiheiköt";
 
 "type.natural.spring" = "Lähde";
+
+"type.natural.spring.drinking_water_no" = "Lähde";
 
 "type.natural.strait" = "Salmi";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Hätäosaston sisäänkäynti";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Dojo";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Urheiluhalli";

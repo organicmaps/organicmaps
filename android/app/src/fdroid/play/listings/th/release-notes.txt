@@ -1,10 +1,5 @@
-• Better address search in the USA based on US Census TIGER data
-• Fixed rendering of texts in Indic, Arabic, Thai, Lao, Khmer, Myanmar, Tibetan, Hangul, Hebrew scripts
-• OSM data as of July 2
-• Single tap selects any point on the map, long tap toggles full-screen mode
-• Accidentally deleted bookmark on the map can be restored
-• Fixed GPX import from WhatsApp
-• Display major roads earlier on the world overview map
-• Show more categories for a selected POI
-
-…more details at omaps.org/news
+- Edit Tracks: Change name, color, list and description of tracks, or delete them.
+- Open in Another App: Select any map point in Organic Maps and open in apps like taxi, delivery, transport, or other map apps.
+- Map Data: Updated as of October 1, now with added isolines for Egypt and improved for Adygea, Dagestan.
+- KML/KMZ/GPX: Fixed issues with importing files from different apps.
+- Right-to-left languages: Enhanced the place page, search, and about screens.

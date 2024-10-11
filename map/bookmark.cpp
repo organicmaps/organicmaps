@@ -22,7 +22,7 @@ std::string GetBookmarkIconType(kml::BookmarkIcon const & icon)
   case kml::BookmarkIcon::Christianity: return "christianity";
   case kml::BookmarkIcon::Entertainment: return "entertainment";
   case kml::BookmarkIcon::Exchange: return "exchange";
-  case kml::BookmarkIcon::Food: return "food";
+  case kml::BookmarkIcon::Food: return "restaurant";
   case kml::BookmarkIcon::Gas: return "gas";
   case kml::BookmarkIcon::Judaism: return "judaism";
   case kml::BookmarkIcon::Medicine: return "medicine";
@@ -39,8 +39,13 @@ std::string GetBookmarkIconType(kml::BookmarkIcon const & icon)
   case kml::BookmarkIcon::Transport: return "transport";
   case kml::BookmarkIcon::Viewpoint: return "viewpoint";
   case kml::BookmarkIcon::Sport: return "sport";
-  case kml::BookmarkIcon::Start: return "start";
-  case kml::BookmarkIcon::Finish: return "finish";
+  case kml::BookmarkIcon::Pub: return "pub";
+  case kml::BookmarkIcon::Art: return "art";
+  case kml::BookmarkIcon::Bank: return "bank";
+  case kml::BookmarkIcon::Cafe: return "cafe";
+  case kml::BookmarkIcon::Pharmacy: return "pharmacy";
+  case kml::BookmarkIcon::Stadium: return "stadium";
+  case kml::BookmarkIcon::Theatre: return "theatre";
   case kml::BookmarkIcon::Count:
     ASSERT(false, ("Invalid bookmark icon type"));
     return {};

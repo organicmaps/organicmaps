@@ -52,9 +52,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
     @Override
     public void onLocationAvailability(@NonNull LocationAvailability availability)
     {
-      if (!availability.isLocationAvailable()) {
-        Logger.w(TAG, "isLocationAvailable returned false");
-      }
+      Logger.w(TAG, "isLocationAvailable = " + availability.isLocationAvailable());
     }
   }
 

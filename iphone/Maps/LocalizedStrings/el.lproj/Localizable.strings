@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Άλλo";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "Πρόσφατη διαδρομή";
-
 "pref_map_auto_zoom" = "Αυτόματη μεγέθυνση";
-
-"duration_disabled" = "Απενεργ.";
-
-"duration_1_hour" = "1 ώρα";
-
-"duration_2_hours" = "2 ώρες";
-
-"duration_6_hours" = "6 ώρες";
-
-"duration_12_hours" = "12 ώρες";
-
-"duration_1_day" = "1 ημέρα";
-
-"recent_track_help_text" = "Σας επιτρέπει να καταγράψετε τη διαδρομή που έχει διανυθεί για συγκεκριμένο χρονικό διάστημα και να την δείτε στο χάρτη. Λάβετε υπόψη: η ενεργοποίηση αυτής της λειτουργίας κάνει έντονη χρήση της μπαταρίας. Η διαδρομή θα αφαιρεθεί αυτόματα από το χάρτη μετά τη λήξη του μεσοδιαστήματος.";
 
 "placepage_distance" = "Απόσταση";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Άγνωστη τοποθεσία";
 
-"editor_other_info" = "Σημείωμα στους συντάκτες του OSM";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Σημείωση για τους εθελοντές του OpenStreetMap (προαιρετική)";
 
 "editor_detailed_description_hint" = "Λεπτομερές σχόλιο";
 
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Ανάκτηση όλων";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Εγγραφή διαδρομής";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Σταματήστε την εγγραφή διαδρομής";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Σταματήστε χωρίς αποθήκευση";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Συνέχεια εγγραφής";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Αποθήκευση στα Αγαπημένα και Διαδρομές;";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Η διαδρομή είναι άδεια - δεν υπάρχει τίποτα να αποθηκεύσετε";
 
 
 /********** Types **********/
@@ -2197,10 +2199,10 @@
 "type.highway.path" = "Διαδρομή";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Διαδρομή";
+"type.highway.path.difficult" = "Δύσκολη ή ελάχιστα ορατή διαδρομή";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Διαδρομή";
+"type.highway.path.expert" = "Πολύ δύσκολο ή δυσδιάκριτο μονοπάτι";
 
 "type.highway.path.bicycle" = "Διαδρομή";
 
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Βρύση νερού";
 
+"type.man_made.water_tap.drinking_water_no" = "Βρύση νερού";
+
 "type.man_made.water_tower" = "Υδατόπυργος";
 
 "type.man_made.water_well" = "Πηγάδι νερού";
+
+"type.man_made.water_well.drinking_water_no" = "Πηγάδι νερού";
 
 "type.man_made.windmill" = "Ανεμόμυλος";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "Θαμνώδες περιοχή";
 
 "type.natural.spring" = "Πηγή νερού";
+
+"type.natural.spring.drinking_water_no" = "Πηγή νερού";
 
 "type.natural.strait" = "Πορθμός";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Είσοδος θαλάμου έκτακτης ανάγκης";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Dojo";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Αθλητική αίθουσα";

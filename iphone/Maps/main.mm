@@ -7,7 +7,7 @@ int main(int argc, char * argv[])
 {
   [MWMSettings initializeLogging];
   auto & p = GetPlatform();
-  LOG(LINFO, ("Organic Maps", p.Version(), "started, detected CPU cores:", p.CpuCores()));
+  LOG(LINFO, (p.Version(), "started, detected CPU cores:", p.CpuCores()));
 
   int retVal;
   @autoreleasepool

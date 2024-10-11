@@ -1,9 +1,5 @@
-• Ulepszone wyszukiwanie adresów w Stanach Zjednoczonych
-• Poprawiony rendering tekstu w pismach indyjskim, arabskim, tajskim, laotańskim, khmerskim, birmańskim, tybetańskim, hangul, hebrajskim
-• Dane OSM z 2 lipca
-• Pojedyncze dotknięcie zaznacza punkt na mapie, długie dotknięcie przełącza tryb pełnoekranowy
-• Przypadkowo usunięte zakładki można teraz przywrócić
-• Poprawiony import GPX z WhatsApp
-• Więcej kategorii widocznych dla zaznaczonego POI
-
-…więcej szczegółów na omaps.org/pl/news
+- Edit Tracks: Change name, color, list and description of tracks, or delete them.
+- Open in Another App: Select any map point in Organic Maps and open in apps like taxi, delivery, transport, or other map apps.
+- Map Data: Updated as of October 1, now with added isolines for Egypt and improved for Adygea, Dagestan.
+- KML/KMZ/GPX: Fixed issues with importing files from different apps.
+- Right-to-left languages: Enhanced the place page, search, and about screens.

@@ -13,7 +13,7 @@ OPT_STANDALONE=
 OPT_COMPILE_DATABASE=
 OPT_LAUNCH_BINARY=
 OPT_NJOBS=
-while getopts ":cdrxtagjlpn:" opt; do
+while getopts ":cdrxtagjlp:n:" opt; do
   case $opt in
     a) OPT_STANDALONE=1 ;;
     c) OPT_CLEAN=1 ;;

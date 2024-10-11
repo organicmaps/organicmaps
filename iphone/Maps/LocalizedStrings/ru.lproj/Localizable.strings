@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Другой";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "Недавний путь";
-
 "pref_map_auto_zoom" = "Автозум";
-
-"duration_disabled" = "Выключено";
-
-"duration_1_hour" = "1 час";
-
-"duration_2_hours" = "2 часа";
-
-"duration_6_hours" = "6 часов";
-
-"duration_12_hours" = "12 часов";
-
-"duration_1_day" = "1 сутки";
-
-"recent_track_help_text" = "Эта функция позволяет записывать пройденный путь за определённый период времени и видеть его на карте. Внимание: активация этой функции может привести к повышенному расходу батареи. Записанный трек будет удалён с карты по истечении этого срока.";
 
 "placepage_distance" = "Расстояние";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Неизвестное место";
 
-"editor_other_info" = "Отправить заметку редакторам OSM";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Примечание для волонтеров OpenStreetMap (необязательно)";
 
 "editor_detailed_description_hint" = "Подробный комментарий";
 
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Восстановить всё";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Записать трек";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Остановить запись трека";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Остановить без сохранения";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Продолжить запись";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Сохранить в метки и треки?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Трек пуст - нечего сохранять";
 
 
 /********** Types **********/
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Водопроводный кран";
 
+"type.man_made.water_tap.drinking_water_no" = "Водопроводный кран";
+
 "type.man_made.water_tower" = "Водонапорная башня";
 
 "type.man_made.water_well" = "Колодец";
+
+"type.man_made.water_well.drinking_water_no" = "Колодец";
 
 "type.man_made.windmill" = "Ветряная мельница";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "Заросли";
 
 "type.natural.spring" = "Родник";
+
+"type.natural.spring.drinking_water_no" = "Родник";
 
 "type.natural.strait" = "Пролив";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Вход в отделение неотложной помощи";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Додзё";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Спортивный зал";

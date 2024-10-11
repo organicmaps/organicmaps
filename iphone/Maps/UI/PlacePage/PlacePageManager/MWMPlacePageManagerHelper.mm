@@ -38,7 +38,6 @@
 - (void)editBookmark:(PlacePageData *)data;
 - (void)searchBookingHotels:(PlacePageData *)data;
 - (void)book:(PlacePageData *)data;
-- (void)share:(PlacePageData *)data;
 - (void)routeFrom:(PlacePageData *)data;
 - (void)routeTo:(PlacePageData *)data;
 - (void)routeAddStop:(PlacePageData *)data;

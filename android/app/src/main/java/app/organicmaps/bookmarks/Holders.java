@@ -20,6 +20,7 @@ import app.organicmaps.adapter.OnItemClickListener;
 import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.bookmarks.data.BookmarkInfo;
 import app.organicmaps.bookmarks.data.BookmarkManager;
+import app.organicmaps.bookmarks.data.IconClickListener;
 import app.organicmaps.bookmarks.data.Track;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.util.Utils;
@@ -388,6 +389,7 @@ public class Holders
     private final TextView mName;
     @NonNull
     private final TextView mDistance;
+    private final ImageView mMoreButton;
 
     TrackViewHolder(@NonNull View itemView)
     {
@@ -395,6 +397,7 @@ public class Holders
       mIcon = itemView.findViewById(R.id.iv__bookmark_color);
       mName = itemView.findViewById(R.id.tv__bookmark_name);
       mDistance = itemView.findViewById(R.id.tv__bookmark_distance);
+      mMoreButton = itemView.findViewById(R.id.more);
     }
 
     @Override
@@ -412,6 +415,16 @@ public class Holders
       Drawable circle = Graphics.drawCircle(track.getColor(), R.dimen.track_circle_size,
                                             mIcon.getContext().getResources());
       mIcon.setImageDrawable(circle);
+    }
+
+    public void setMoreButtonClickListener(RecyclerClickListener listener)
+    {
+      mMoreButton.setOnClickListener(v -> listener.onItemClick(v, getBindingAdapterPosition()));
+    }
+
+    public void setTrackIconClickListener(IconClickListener listener)
+    {
+      mIcon.setOnClickListener(v -> listener.onItemClick((ImageView) v, getBindingAdapterPosition()));
     }
   }
 

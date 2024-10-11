@@ -397,7 +397,7 @@
     eu = Ontziratzeko atea
     fi = Portti
     fr = Porte d'embarquement
-    he = שער
+    he = שער עליה למטוס
     it = Cancello aeroportuale
     ja = 搭乗口
     mr = दार
@@ -11662,7 +11662,7 @@
     ca = Sortida
     cs = Exit
     da = Udgang
-    de = Ausfahrt
+    de = Ausgang
     el = Έξοδος
     es = Salida
     es-MX = Salida
@@ -12472,7 +12472,7 @@
     mr = पादचारी मार्ग
     nb = Gangvei
     nl = Voetpad
-    pl = Chodnik
+    pl = Droga piesza
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
     ro = Cale
@@ -12588,7 +12588,7 @@
     he = אזור להולכי רגל
     mr = पादचारी झोन
     nl = Voetgangerszone
-    pl = Obszar chodnika
+    pl = Obszar drogi pieszej
     pt-BR = Área de pedestres
     ru = Пешеходная зона
     sk = Pešia zóna
@@ -12855,6 +12855,9 @@
     af = Pad
     ar = مسار
     az = Yol
+    be = Сцежка
+    bg = Път
+    ca = Camí
     cs = Cesta
     da = Sti
     de = Pfad
@@ -12872,16 +12875,17 @@
     it = Sentiero
     ja = 歩道
     ko = 길
+    lt = Kelias
     mr = पथ
     nb = Sti
     nl = Pad
     pl = Ścieżka
     pt = Caminho
-    pt-BR = Caminho
     ro = Cale
     ru = Тропа
     sk = Cesta
     sv = Gångväg
+    sw = Njia
     th = เส้นทาง
     tr = Yol
     uk = Стежка
@@ -12893,19 +12897,93 @@
     comment = Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad.
     ref = type.highway.path
     en = Difficult or Indistinct Trail
+    af = Moeilike of swak sigbare roete
+    ar = درب صعب أو ضعيف الرؤية
+    az = Çətin və ya zəif görünən cığır
+    be = Складаная ці дрэнна бачная сцежка
+    bg = Трудна или слабо видима пътека
+    ca = Ruta difícil o poc visible
+    cs = Obtížná nebo špatně viditelná stezka
+    da = Vanskelig eller dårligt synlig sti
     de = Schwieriger oder kaum erkennbarer Pfad
-    he = רמה 3/6) שביל קשה או לא ברור)
+    el = Δύσκολη ή ελάχιστα ορατή διαδρομή
+    es = Sendero difícil o poco visible
+    et = Raske või halvasti nähtav rada
+    eu = Ibilbide zaila edo gaizki ikusten da
+    fa = مسیر دشوار یا ضعیف قابل مشاهده است
+    fi = Vaikea tai huonosti näkyvä reitti
+    fr = Sentier difficile ou peu visibl
+    he = שביל קשה או לא נראה לעין
+    hi = कठिन या ख़राब दिखाई देने वाला मार्ग
+    hu = Nehéz vagy rosszul látható nyomvonal
+    id = Jejak yang sulit atau kurang terlihר)
     it = Sentiero difficile o poco tracciato
+    ja = 困難な、または見通しの悪いトレイル
+    ko = 어렵거나 잘 보이지 않는 트레일
+    lt = Sudėtingas arba blogai matomas takas
+    mr = अवघड किंवा खराब दृश्यमान पायवाट
+    nb = Vanskelig eller dårlig synlig sti
+    nl = Moeilijk of slecht zichtbaar pad
+    pl = Trudny lub słabo widoczny szlak
+    pt = Trilho difícil ou pouco visível
+    pt-BR = Trilha difícil ou pouco visível
+    ro = Traseu dificil sau puțin vizibil
     ru = Сложная или плохо видимая тропа
+    sk = Náročná alebo zle viditeľná trasa
+    sv = Svår eller dåligt synlig led
+    sw = Njia ngumu au isiyoonekana vizuri
+    th = เส้นทางที่ยากลำบากหรือมองเห็นได้ไม่ดี
+    tr = Zor veya kötü görünür patika
+    uk = Складна або погано видима стежка
+    vi = Đường đi khó hoặc khó nhìn thấy
+    zh-Hans = 难走或难见的小路
+    zh-Hant = 困難或不明顯的小路
 
   [type.highway.path.expert]
     comment = Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme.
     ref = type.highway.path
     en = Expert or Indiscernible Trail
+    af = Baie moeilike of ononderskeibare roete
+    ar = أثر صعب للغاية أو لا يمكن تمييزه
+    az = Çox çətin və ya fərqlənməyən cığır
+    be = Вельмі складаная ці неадметная сцежка
+    bg = Много трудна или неразличима пътека
+    ca = Sender molt difícil o indistingible
+    cs = Velmi obtížná nebo nezřetelná stopa
+    da = Meget svær eller umulig at skelne fra hinanden
     de = Alpinwanderweg oder wegloser Pfad
-    he = רמה 4+/6) מסלול למומחים או ללא שבילים מסודרים)
+    el = Πολύ δύσκολο ή δυσδιάκριτο μονοπάτι
+    es = Sendero muy difícil o indistinguible
+    et = Väga raske või eristamatu rada
+    eu = Oso bide zaila edo bereiztezina
+    fa = مسیر بسیار دشوار یا غیر قابل تشخیص
+    fi = Erittäin vaikea tai erottamaton jälki
+    fr = Sentier très difficile ou indiscernabl
+    he = מסלול קשה מאוד או בלתי ניתן להבחנה
+    hi = बहुत कठिन या अप्रभेद्य पथ
+    hu = Nagyon nehéz vagy megkülönböztethetetlen nyomvonal
+    id = Jejak yang sangat sulit atau tidak dapat dibedakם)
     it = Sentiero estremamente difficile o molto poco tracciato
+    ja = 非常に難しい、または区別がつかないトレイル
+    ko = 매우 어렵거나 구별하기 어려운 흔적
+    lt = Labai sudėtingas arba neišsiskiriantis takas
+    mr = अतिशय अवघड किंवा वेगळे न करता येणारी पायवाट
+    nb = Svært vanskelig eller umulig å skille ut stien
+    nl = Zeer moeilijk of niet te onderscheiden spoor
+    pl = Bardzo trudny lub niedostrzegalny szlak
+    pt = Trilho muito difícil ou indistinguível
+    pt-BR = Trilha muito difícil ou indistinguível
+    ro = Traseu foarte dificil sau imposibil de distins
     ru = Очень сложная или неразличимая тропа
+    sk = Veľmi náročná alebo nezreteľná stopa
+    sv = Mycket svår eller omöjlig att urskilja spår
+    sw = Njia ngumu sana au isiyoweza kutofautishwa
+    th = เส้นทางที่ยากมากหรือแยกไม่ออก
+    tr = Çok zor veya ayırt edilemeyen iz
+    uk = Дуже складна або невиразна стежка
+    vi = Đường đi rất khó khăn hoặc không thể phân biệt được
+    zh-Hans = 非常困难或难以分辨的路径
+    zh-Hant = 非常困難或難以區分的路線
 
   [type.highway.path.bicycle]
     ref = type.highway.path
@@ -13763,6 +13841,7 @@
 
   [type.highway.track.no.access]
     ref = type.highway.track
+    he = מסלול ללא גישה
 
   [type.highway.track.tunnel]
     ref = type.highway.road.tunnel
@@ -15466,7 +15545,7 @@
     fa = گردشگری
     fi = Alus
     fr = Navire
-    he = אונייה
+    he = ספינה
     hi = जलयान
     hu = Turizmus
     id = Pemandangan
@@ -15833,7 +15912,7 @@
     eu = Biribilgunea
     fi = Liikenneympyrä
     fr = Rond-point
-    he = מעגל תנועה
+    he = כיכר
     hi = गोल चक्कर
     it = Rotonda
     ja = ラウンドアバウト
@@ -15862,6 +15941,7 @@
     et = Maakasutus
     fi = Maankäyttö
     fr = Utilisation du sol
+    he = שימושי קרקע
     hi = भूमि उपयोग
     ja = 土地利用
     mr = भूमी उपयोग
@@ -15886,6 +15966,7 @@
     et = Peenrad
     fi = Siirtolapuutarha
     fr = Jardins familiaux
+    he = חלקות חקלאיות
     it = Orti comunitari
     ja = 市民農園
     mr = वाटप
@@ -15950,6 +16031,7 @@
     et = Ehitusmaa
     fi = Tuhoalue
     fr = Friche industrielle
+    he = קרקע מזוהמת
     ja = 再開発用地
     pl = Teren do zabudowy
     pt = Terreno industrial devoluto
@@ -15987,6 +16069,7 @@
     fa = حیاط کلیسا
     fi = Kirkon piha
     fr = Cour d'église
+    he = חצר כנסיה
     hu = Templomkert
     id = Halaman gereja
     it = Sagrato della chiesa
@@ -16070,6 +16153,7 @@
     et = Haridusrajatised
     fi = Koulutuslaitos
     fr = Établissements éducatifs
+    he = קריית חינוך
     it = Strutture didattiche
     mr = शैक्षणिक सुविधा
     nl = Educatieve voorzieningen
@@ -16097,6 +16181,7 @@
     fa = زمین کشاورزی
     fi = Maatalousmaa
     fr = Terrains agricoles
+    he = אדמה חקלאית
     hu = Termőföld
     id = Lahan pertanian
     it = Terreno agricolo
@@ -16129,6 +16214,7 @@
     et = Taluõu
     fi = Maatila
     fr = Ferme
+    he = חצר חקלאית
     it = Fattoria
     ja = 農地
     nl = Boerenerf
@@ -16480,7 +16566,7 @@
     et = Tööstusmaa
     fi = Teollisuusalue
     fr = Zone industrielle
-    he = אזור תעשיה
+    he = אזור תעשייה
     it = Zona industriale
     ja = 工業用地
     mr = औद्योगिक जमीन
@@ -16651,6 +16737,7 @@
     fa = محدوده راه آهن
     fi = Rautatierakennukset
     fr = Installations ferroviaires
+    he = שטחי רכבת
     hu = Vasúti terület
     id = Stasiun kereta api
     it = Impianti ferroviari
@@ -16684,6 +16771,7 @@
     et = Puhkeväljak
     fi = Virkistysalue
     fr = Aire de jeux
+    he = אזור מיועד לבילוי
     it = Area divertimento
     ja = レクリエーション
     mr = मनोरंजन मैदान
@@ -16817,6 +16905,7 @@
     de = Dorfplatz
     es = Espacio verde
     et = Maa
+    he = כפר ירוק
     ja = 村の中心
     mr = जमीन
     nl = Dorpspark
@@ -16952,7 +17041,7 @@
     fa = باشگاه بدنسازی
     fi = Kuntosali
     fr = Centre fitness
-    he = חדר כושר
+    he = מכון כושר
     hi = फिटनेस सेंटर
     hu = Fitnesz-terem
     id = Pusat kebugaran
@@ -16991,6 +17080,7 @@
     fa = پارک سلامت
     fi = Kuntokeskus
     fr = Station de fitness
+    he = תחנת כושר
     hi = फिटनेस स्टेशन
     hu = Fitneszállomás
     id = Stasiun Kebugaran
@@ -17030,7 +17120,7 @@
     fa = ﺺﻗﺭ ﻦﻟﺎﺳ
     fi = Tanssisali
     fr = Salle de danse
-    he = םידוקיר םלוא
+    he = היכל ריקודים
     hu = Táncterem
     id = Lantai dansa
     it = Sala da ballo
@@ -17100,6 +17190,7 @@
     be = Частный сад
     es = Jardín residencial
     et = Elamu aed
+    he = גן מגורים
     pl = Ogród przydomowy
     pt = Jardim residencial
     pt-BR = Jardim residencial
@@ -17123,6 +17214,7 @@
     fa = زمین گلف
     fi = Golf-rata
     fr = Terrain de golf
+    he = מגרש גולף
     hu = Golfpálya
     id = Lapangan golf
     it = Campo da golf
@@ -17160,6 +17252,7 @@
     eu = Minigolf
     fi = Minigolf
     fr = Minigolf
+    he = מיני גולף
     hu = Minigolf
     it = Minigolf
     ja = ミニゴルフ
@@ -17188,7 +17281,7 @@
     es-MX = Espacio hacker
     fa = فضای هکرها
     fi = Hacklab
-    he = האקרספייס
+    he = משרד היי טק משותף
     hi = हैकर्सस्पेस
     ja = ハッカースペース
     ko = 해커스 스페이스
@@ -17207,6 +17300,7 @@
     es = Pisa de patinaje
     et = Liuväli
     fr = Patinoire
+    he = החלקה על קרח
     it = Pista di pattinaggio
     ja = アイスリンク
     mr = हिम क्रीडा क्षेत्र
@@ -17231,6 +17325,7 @@
     es = Marina
     et = Marina
     fi = Venesatama
+    he = מרינה
     hi = मरीना
     it = Porto turistico
     ja = マリーナ
@@ -17259,6 +17354,7 @@
     eu = Erreserbatutako lurraldea
     fi = Luonnonsuojelualue
     fr = Réserve naturelle
+    he = שמורת טבע
     hi = संरक्षित प्रकृतिक्षेत्र
     hu = Védett terület
     id = Cagar Alam
@@ -17339,6 +17435,7 @@
     fa = پارک
     fi = Puisto
     fr = Parc
+    he = פארק
     hi = उद्यान
     hu = Park
     id = Taman
@@ -17366,6 +17463,7 @@
   [type.leisure.park.no.access]
     ref = type.leisure.park
     en = Private Park
+    he = פארק סגור לכניסה
 
   [type.leisure.park.permissive]
     ref = type.leisure.park
@@ -17373,6 +17471,7 @@
   [type.leisure.park.private]
     ref = type.leisure.park
     en = Private Park
+    he = פארק פרטי
 
   [type.leisure.picnic_table]
     en = Picnic Table
@@ -17391,7 +17490,7 @@
     fa = ﮏﯿﻨﮑﯿﭘ ﺰﯿﻣ
     fi = Piknik-pöytä
     fr = Table de pique-nique
-    he = קינקיפ ןחלוש
+    he = שולחן פיקניק
     hi = पिकनिक मेज
     hu = Piknikasztal
     id = Meja piknik
@@ -17425,12 +17524,13 @@
     da = Sportsplads
     de = Sportplatz
     el = Γήπεδο αθλοπαιδιών
-    es = Complejo deportivo
+    es = Cancha
     et = Spordiväljak
     eu = Kiroldegia
     fa = زمین ورزشی
     fi = Urheilukenttä
     fr = Terrain de sport
+    he = מגרש ספורט
     hu = Sportpálya
     id = Lapangan olahraga
     it = Campo sportivo
@@ -17468,6 +17568,7 @@
     fa = زمین بازی
     fi = Leikkikenttä
     fr = Aire de jeu
+    he = מגרש משחקים
     hi = खेल का मैदान
     hu = Játszótér
     id = Taman bermain
@@ -17497,6 +17598,7 @@
     de = Freizeitgelände
     es = Zona recreativa
     et = Puhkeväljak
+    he = אזור מיועד לבילוי
     mr = मनोरंजन मैदान
     nl = Recreatieterrein
     pl = Teren rekreacji
@@ -17524,6 +17626,7 @@
     fa = سونا
     fi = Sauna
     fr = Sauna
+    he = סאונה
     hi = सॉना
     hu = Szauna
     id = Sauna
@@ -17555,6 +17658,7 @@
     es = Rampa de barcos
     et = Elling
     fr = Cale de mise à l'eau
+    he = ממשה
     it = Scivolo per navi
     ja = スリップウェイ
     nl = Scheepshelling
@@ -17577,12 +17681,13 @@
     da = Idrætscenter
     de = Sportzentrum
     el = Αθλητικό κέντρο
-    es = Polideportivo
+    es = Complejo deportivo
     et = Spordikeskus
     eu = Kiroldegia
     fa = مرکزورزشی
     fi = Urheilukeskus
     fr = Centre sportif
+    he = מרכז ספורט
     hu = Sportközpont
     id = Olahraga
     it = Centro sportivo
@@ -17622,6 +17727,7 @@
     fa = مرکز صعود
     fi = Kiipeilykeskus
     fr = Centre d'escalade
+    he = טיפוס
     hu = Hegymászó központ
     id = Pusat Peralatan Mendaki
     it = Centro di arrampicata
@@ -17660,6 +17766,7 @@
     fa = سالن یوگا
     fi = Joogastudio
     fr = Yoga
+    he = יוגה
     hi = योग
     hu = Jógastúdió
     id = Studio Yoga
@@ -17697,6 +17804,7 @@
     fa = استادیوم
     fi = Stadion
     fr = Stade
+    he = אצטדיון
     hi = क्रीडांगन
     hu = Stadion
     id = Stadion
@@ -17737,6 +17845,7 @@
     fa = استخرشنا
     fi = Uima-allas
     fr = Piscine
+    he = בריכת שחייה
     hu = Úszómedence
     id = Kolam renang
     it = Piscina
@@ -17765,6 +17874,7 @@
     es = Piscina privada
     et = Privaatne bassein
     fr = Piscine privée
+    he = בריכת שחייה פרטית
     it = Piscina privata
     nl = Privé zwembad
     sk = Súkromné kúpalisko
@@ -17807,6 +17917,7 @@
     fa = گردشگری
     fi = Vesipuisto
     fr = Centre aquatique
+    he = פארק מים
     hi = वाटर पार्क
     hu = Aquapark
     id = Taman air
@@ -17837,6 +17948,7 @@
     az = Çimərlik kurort
     es = Resort de playa
     et = Rannakuurort
+    he = אתר נופש על החוף
     it = Resort balneare
     mr = समुद्री रिसॉर्ट
     nl = Strandresort
@@ -17854,6 +17966,7 @@
     de = künstliche Anlage
     es = Construcción
     et = Inimese loodud
+    he = מלאכותי-מעשה ידי אדם
     it = Stabilimento balneare
     ja = 構造物
     mr = मानवनिर्मित
@@ -17874,6 +17987,7 @@
     es = Rompeolas
     et = Lainemurdja
     fr = Brise-lames
+    he = שובר גלים
     hi = तरंगरोध
     it = Frangiflutti
     ja = 防波堤
@@ -17895,6 +18009,7 @@
     de = Steinmännchen
     es = Mojón
     et = Karjäär
+    he = גלעד
     hi = स्तूप
     ja = ケルン
     nl = Steengroeve
@@ -17919,6 +18034,7 @@
     eu = Fabrikako tximinia
     fi = Tehtaan piippu
     fr = Cheminée d'usine
+    he = ארובה
     hi = धुआँकश
     hu = Gyárkémény
     id = Cerobong asap pabrik
@@ -17950,6 +18066,7 @@
     es = Línea de corte forestal
     et = Metsasiht
     fr = Layon
+    he = אזור חיץ
     ja = 森林の切れ目
     nl = Bospad
     pl = Przecinka leśna
@@ -17971,6 +18088,7 @@
     es = Punto geodésico
     et = Uuringupunkt
     fr = Borne géodésique
+    he = נקודת גבול
     it = Punto geodetico
     ja = 測量標
     mr = सर्वेक्षण बिंदू
@@ -17991,6 +18109,7 @@
     et = Lipumast
     fi = Lipputanko
     fr = Mât de drapeau
+    he = עמוד דגל
     it = Alza bandiera
     mr = ध्वजस्तंभ
     nl = Vlaggenpaal
@@ -18017,6 +18136,7 @@
     fa = گردشگری
     fi = Majakka
     fr = Phare
+    he = מגדלור
     hi = प्रकाशस्तम्भ
     hu = Világítótorony
     id = Mercusuar
@@ -18049,6 +18169,7 @@
     es = Mástil
     et = Mast
     fr = Mât
+    he = תורן
     it = Pilone
     mr = डोलकाठी
     nl = Mast
@@ -18067,6 +18188,7 @@
     es = Muelle
     et = Kai
     fr = Jetée
+    he = מזח
     it = Molo
     ja = 桟橋
     mr = धक्का
@@ -18087,6 +18209,7 @@
     az = Boru
     es = Tubería
     et = Torujuhe
+    he = צינור
     it = Condotto
     ja = パイプライン
     mr = नळमार्ग
@@ -18107,6 +18230,7 @@
     az = Yerüstü boru kəməri
     es = Tubería aérea
     et = Maapealne torujuhe
+    he = צינור עילי
     ja = 地表のパイプライン
     mr = जमिनीवरील नळमार्ग
     nl = Bovengrondse pijpleiding
@@ -18127,6 +18251,7 @@
     de = Silo
     es = Silo
     et = Elevaator
+    he = סילו
     it = Silo
     mr = पेव(धान्यसाठा)
     nl = Silo
@@ -18146,6 +18271,7 @@
     es = Cisterna
     et = Mahuti
     fr = Réservoir
+    he = מיכל איחסון
     it = Cisterna
     mr = साठवण टाकी
     nl = Opslagtank
@@ -18170,6 +18296,7 @@
     fa = دوربین نظارتی
     fi = Valvontakamera
     fr = Caméra de surveillance
+    he = מצלמת מעקב
     hu = Térfigyelő kamera
     id = Kamera Pengawas
     it = Videocamera di sorveglianza
@@ -18207,6 +18334,7 @@
     fa = برج
     fi = Torni
     fr = Tour
+    he = מגדל
     hi = बुर्ज
     hu = Torony
     id = Menara
@@ -18280,6 +18408,7 @@
     es = Planta de tratamiento de aguas residuales
     et = Reoveepuhasti
     fr = Station d'épuration
+    he = מפעל טיפול בשפכים
     hi = अपशिष्ट जलोपचार
     it = Impianto di trattamento delle acque reflue
     ja = 下水処理場
@@ -18309,6 +18438,7 @@
     fa = شیراب
     fi = Vesihana
     fr = Robinet d'eau
+    he = ברז מים
     hi = पानी का नल
     hu = Vízcsap
     id = Keran Air
@@ -18332,6 +18462,9 @@
     zh-Hans = 水龙头
     zh-Hant = 水龍頭
 
+  [type.man_made.water_tap.drinking_water_no]
+    ref = type.man_made.water_tap
+
   [type.man_made.water_tower]
     en = Water Tower
     af = Watertoring
@@ -18347,6 +18480,7 @@
     fa = منبع اب
     fi = Vesitorni
     fr = Château d'eau
+    he = מגדל מים
     hi = पानी का टावर
     hu = Víztorony
     id = Menara air
@@ -18385,6 +18519,7 @@
     fa = چاه اب
     fi = Kaivo
     fr = Puits à eau
+    he = באר מים
     hi = कुआँ
     hu = Ivókút
     id = Sumur air
@@ -18408,6 +18543,9 @@
     zh-Hans = 水井
     zh-Hant = 水井
 
+  [type.man_made.water_well.drinking_water_no]
+    ref = type.man_made.water_well
+
   [type.man_made.windmill]
     en = Windmill
     af = Windmeule
@@ -18423,6 +18561,7 @@
     fa = توربین بادی
     fi = Tuulimylly
     fr = Moulin à vent
+    he = טחנת רוח
     hi = पवनचक्की
     hu = Szélmalom
     id = Kincir angin
@@ -18453,6 +18592,7 @@
     de = Fabrik
     es = Fábrica
     et = Vabrik
+    he = עבודות תעשיה
     it = Fabbrica
     ja = 工場
     mr = औद्योगिक कामे
@@ -18480,6 +18620,7 @@
     de = Militärisches Objekt
     es = Militar
     et = Militaarobjekt
+    he = צבאי
     it = Forze armate
     ja = 軍事
     mr = लष्करी
@@ -18504,6 +18645,7 @@
     eu = Bunkerra
     fa = پناهگاه
     fi = Bunkkeri
+    he = בונקר צבאי
     it = Bunker
     ja = 掩蔽壕
     ko = 벙커
@@ -18764,7 +18906,7 @@
     fa = ساحل
     fi = Ranta
     fr = Plage
-    he = חוף חולי
+    he = חוף
     hi = बालू तट
     hu = Strand
     id = Pantai
@@ -18928,7 +19070,7 @@
     fa = غار
     fi = Luola
     fr = Grotte
-    he = מערה
+    he = כניסה למערה
     hi = गुफ़ा
     hu = Barlangbejárat
     id = Gua
@@ -19089,7 +19231,7 @@
     fa = کناره
     fi = Rannikko
     fr = Littoral
-    he = חוף
+    he = קו החוף
     hi = सागरतट
     hu = Tengerpart
     id = Pesisir
@@ -19247,7 +19389,7 @@
     fa = علفزار
     fi = Nurmi
     fr = Pelouse
-    he = ערבה
+    he = שטחי דשא
     hi = घासभूमि
     hu = Füves puszta
     id = Padang rumput
@@ -19411,7 +19553,7 @@
     fa = ﻞﻔﻗ ﻕﺎﺗﺍ
     fi = Lukko kammio
     fr = Écluse
-    he = לוענמ את
+    he = תא מנעול
     hu = Zsilipkamra
     id = Ruang Kunci
     it = Camera di blocco
@@ -19492,7 +19634,7 @@
     fa = مخزن
     fi = Säiliö
     fr = Réservoir
-    he = מאגר
+    he = מאגר מים
     hu = Víztározó
     id = Waduk
     it = Serbatoio
@@ -19858,7 +20000,7 @@
     fa = بوته زار
     fi = Tiheiköt
     fr = Fourré
-    he = בתה
+    he = עשביה
     hi = झाड़ी
     hu = Cserjés
     id = Semak
@@ -19922,6 +20064,9 @@
     vi = Suối
     zh-Hans = 泉水
     zh-Hant = 泉水
+
+  [type.natural.spring.drinking_water_no]
+    ref = type.natural.spring
 
   [type.natural.strait]
     en = Strait
@@ -20104,7 +20249,7 @@
     fa = پهنه آبی
     fi = Vesimuodostuma
     fr = Étendue d'eau
-    he = גוף מים
+    he = מים
     hi = जल निकाय
     hu = Vizek
     id = Perairan
@@ -20285,6 +20430,7 @@
     fa = اداره
     fi = Toimisto
     fr = Bureau
+    he = משרד
     hi = कार्यालय
     hu = Iroda
     id = Kantor
@@ -20323,6 +20469,7 @@
     fa = دفتر شرکت
     fi = Yhtiön toimisto
     fr = Bureaux d'entreprise
+    he = משרד החברה
     hi = कंपनी कार्यालय
     hu = Vállalati iroda
     id = Kantor perusahaan
@@ -20361,6 +20508,7 @@
     fa = بنگاه معاملات ملکی
     fi = Kiinteistönvälittäjä
     fr = Agence immobilière
+    he = משרד נדל״ן
     hi = संपत्ति एजेंट
     hu = Ingatlanügynök
     id = Agen ril estat
@@ -20400,6 +20548,7 @@
     fa = اداره دولتی
     fi = Viranomaistoimito
     fr = Administration publique
+    he = משרד ממשלתי
     hi = सरकारी कार्यालय
     hu = Állami iroda
     id = Kantor pemerintah
@@ -20438,6 +20587,7 @@
     fa = دفتر بیمه
     fi = Vakuutuslaitos
     fr = Bureau d’assurance
+    he = משרד ביטוח
     hi = बीमा कार्यालय
     hu = Biztosítóiroda
     id = Kantor Asuransi
@@ -20476,6 +20626,7 @@
     fa = دفتر وکالت
     fi = Lakitoimisto
     fr = Cabinet d'avocat
+    he = עורך דין
     hi = वकील
     hu = Ügyvédi iroda
     id = Kantor pengacara
@@ -20514,6 +20665,7 @@
     fa = دفتر سازمان خیریه
     fi = Valtioista riippumattoman järjestön toimisto
     fr = Bureau ONG
+    he = ארגון לא ממשלתי
     hi = अशासकीय संस्था
     hu = Civil szervezet irodája
     id = Kantor LSM
@@ -20554,6 +20706,7 @@
     fa = اپراتور تلفن همراه
     fi = Matkapuhelinoperaattori
     fr = Opérateur mobile
+    he = משרד חברת תקשורת
     hi = दूरसंचार कंपनी
     hu = Távközlési cég
     id = Operator seluler
@@ -20586,6 +20739,7 @@
     et = Orgaaniline
     eu = Organikoa
     fr = Biologique
+    he = אורגני
     it = Biologico
     mr = सेंद्रिय
     nl = Biologisch
@@ -20808,7 +20962,7 @@
     fa = بخش
     fi = Lääni
     fr = Comté
-    he = נפה
+    he = מחוז/נפה
     hi = काउण्टी
     hu = Megye
     id = Kabupaten
@@ -20849,7 +21003,7 @@
     fa = مزرعه
     fi = Maatila
     fr = Ferme
-    he = חווה חקלאית
+    he = חווה
     hu = Tanya
     id = Ladang
     it = Fattoria
@@ -21014,7 +21168,7 @@
     fa = مسکن منزوی
     fi = Erillinen asunto
     fr = Lieu-dit
-    he = דירת מגורים מבודדת
+    he = מבנה מבודד
     hu = Elszigetelt lakóépület
     id = Tempat Tinggal Terisolasi
     it = Abitazione isolata
@@ -21054,7 +21208,7 @@
     fa = محله
     fi = Paikkakunta
     fr = Lieu-dit
-    he = מקום
+    he = אזור בלתי מיושב
     hu = Körzet
     id = Wilayah
     it = Località
@@ -21493,6 +21647,7 @@
     de = Energie
     es = Energía
     et = Energia
+    he = חשמל
     it = Elettricità
     ja = 電力
     mr = शक्ती
@@ -21512,6 +21667,7 @@
     es = Generador
     et = Generaator
     fr = Générateur
+    he = גנרטור
     it = Generatore
     ja = 発電機
     mr = जनित्र(जनरेटर)
@@ -21624,7 +21780,7 @@
     fa = نیروگاه توربین گاز
     fi = Kaasuturbiinivoimala
     fr = Centrale à turbine à gaz
-    he = תחנת כוח לטורבינת גז
+    he = תחנת כוח מופעלת גז
     hu = Gázturbinás erőmű
     id = Pembangkit listrik turbin gas
     it = Centrale elettrica a turbina a gas
@@ -21698,6 +21854,7 @@
     es = Línea eléctrica
     et = Elektriliin
     fr = Ligne électrique
+    he = קו חשמל
     it = Cavo elettrico
     ja = 電力線
     mr = विद्युत तार
@@ -21719,6 +21876,7 @@
     es = Línea eléctrica subterránea
     et = Maa-alune elektriliin
     fr = Ligne électrique souterraine
+    he = קו חשמל תת קרקעי
     ja = 地下電力線
     mr = भूमिगत विद्युत तार
     nl = Ondergrondse hoogspanningsleiding
@@ -21739,6 +21897,7 @@
     es = Línea eléctrica de baja tensión
     et = Madal-/Keskpinge elektriliin
     fr = Ligne électrique
+    he = קו מתח משני
     it = Cavo elettrico
     ja = 低圧電力線
     mr = किरकोळ विद्युत तार
@@ -21932,6 +22091,7 @@
     de = Umspannwerk
     es = Estación eléctrica
     et = Elektrijaam
+    he = תחנת כוח
     hi = बिजली घर
     ja = 変電所
     mr = विद्युत घर
@@ -21958,6 +22118,7 @@
     eu = Azpiestazioa
     fi = Muuntoasema
     fr = Poste électrique
+    he = תחנת כוח משנית
     hi = विद्युत उपकेंद्र
     hu = Alállomás
     id = Stasiun bawah tanah
@@ -21996,6 +22157,7 @@
     fa = برج قدرت
     fi = Sähköpylväs
     fr = Pylône électrique
+    he = מגדל קירור
     hi = संचरण स्तम्भ
     hu = Villanyoszlop
     id = Menara listrik
@@ -22023,6 +22185,7 @@
     en = psurface
     af = Padoppervlak
     et = Pind
+    he = משטח
     it = Superficie
     nl = Wegdek
     ru = Поверхность
@@ -22030,24 +22193,28 @@
   [type.psurface.paved_bad]
     en = psurface-paved_bad
     af = Geteer
+    he = אספלט במצב גרוע
     nl = Verhard
     ru = Плохая асфальтированная
 
   [type.psurface.paved_good]
     en = psurface-paved_good
     af = Geteer
+    he = אספלט במצב טוב
     nl = Verhard
     ru = Хорошая асфальтированная
 
   [type.psurface.unpaved_bad]
     en = psurface-unpaved_bad
     af = Ongeteer
+    he = לא סלול במצב גרוע
     nl = Onverhard
     ru = Плохая неасфальтированная
 
   [type.psurface.unpaved_good]
     en = psurface-unpaved_good
     af = Ongeteer
+    he = לא סלול במצב טוב
     nl = Onverhard
     ru = Хорошая неасфальтированная
 
@@ -22059,6 +22226,7 @@
     es = Transporte público
     et = Ühistransport
     eu = Garraio publikoa
+    he = תחבורה ציבורית
     it = Trasporto pubblico
     ja = 公共交通機関
     mr = सार्वजनिक वाहतूक
@@ -22080,6 +22248,7 @@
     es = Plataforma
     et = Platvorm
     fr = Quai de transport en commun
+    he = רציף תחבורה
     hi = रेलवे प्लेटफार्म
     ja = 公共交通機関のプラットホーム
     mr = फलाट
@@ -22100,6 +22269,7 @@
     es = Vía férrea
     et = Raudtee
     fr = Chemin de fer
+    he = מסילת רכבת
     hi = रेल
     it = Ferrovia
     ja = 鉄道
@@ -22123,6 +22293,7 @@
     es = Vía férrea abandonada
     et = Mahajäetud raudtee
     fr = Chemin de fer abandonné
+    he = מסילת רכבת נטושה
     it = Ferrovia abbandonata
     ja = 廃線
     nl = Voormalig treinspoor
@@ -22141,6 +22312,7 @@
     de = Ehemalige Eisenbahnbrücke
     et = Mahajäetud sild
     fr = Chemin de fer abandonné
+    he = גשר רכבת נטוש
     ja = 廃線(橋)
     nl = Voormalige spoorbrug
     pt = Ferrovia abandonada
@@ -22157,6 +22329,7 @@
     de = Ehemaliger Eisenbahntunnel
     et = Mahajäetud tunnel
     fr = Chemin de fer abandonné
+    he = מנהרת רכבת נטושה
     ja = 廃線(トンネル)
     nl = Voormalige spoortunnel
     pt = Ferrovia abandonada
@@ -22174,6 +22347,7 @@
     es = Vía férrea en construcción
     et = Raudtee ehitus
     fr = Chemin de fer en construction
+    he = מסילת רכבת בבניה
     it = Binari in costruzione
     ja = 建設中の鉄道
     mr = रेल्वेचे बांधकाम
@@ -22194,6 +22368,7 @@
     es = Paso a nivel
     et = Raudtee ülesõit
     fr = Passage à niveau pour piéton
+    he = מעבר חציית פסי רכבת
     it = Passaggio ferroviario
     ja = 歩行者用踏切
     mr = रेल्वे ओलांडणी
@@ -22214,6 +22389,7 @@
     es = Vía férrea en desuso
     et = Kasutamata raudtee
     fr = Chemin de fer désaffecté
+    he = מסילת רכבת לא בשימוש
     it = Ferrovia in disuso
     ja = 休止線
     nl = Ongebruikt spoor
@@ -22244,7 +22420,7 @@
     fa = فونیکولور
     fi = Köysirata
     fr = Funiculaire
-    he = רַכֶּבֶל
+    he = פוניקולר
     hi = रज्जुरेल
     hu = Sikló
     id = Kereta gantung
@@ -32828,3 +33004,92 @@
     vi = Lối vào khu cấp cứu
     zh-Hans = 急诊室入口
     zh-Hant = 急診病房入口
+
+  [type.amenity.dojo]
+    comment = https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo
+    en = Dojo
+    af = Dojo
+    ar = دوجو
+    az = Dojo
+    be = Додзе
+    bg = Доджо
+    ca = Dojo
+    cs = Dojo
+    da = Dojo
+    de = Dojo
+    el = Dojo
+    es = Dojo
+    et = Dojo
+    eu = Dojoa
+    fa = دوجو
+    fi = Dojo
+    fr = Dojo
+    he = דוג'ו
+    hi = डोजो
+    hu = Dojo
+    id = Dojo
+    it = Dojo
+    ja = 道場
+    ko = 도장
+    lt = Dojo
+    mr = डोजो
+    nb = Dojo
+    nl = Dojo
+    pl = Dojo
+    pt = Dojo
+    ro = Dojo
+    ru = Додзё
+    sk = Dojo
+    sv = Dojo
+    sw = Dojo
+    th = โดโจ
+    tr = Dojo
+    uk = Додзьо
+    vi = võ đường
+    zh-Hans = 道场
+    zh-Hant = 道場
+
+  [type.leisure.sports_hall]
+    comment = https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall
+    en = Sports hall
+    af = Sportsaal
+    ar = الصالة الرياضية
+    az = İdman zalı
+    be = Спартыўная зала
+    bg = Спортна зала
+    ca = Pavelló esportiu
+    cs = Sportovní hala
+    da = Sportshal
+    de = Sporthalle
+    el = Αθλητική αίθουσα
+    es = Pabellón deportivo
+    et = Spordisaal
+    eu = Kiroldegia
+    fa = سالن ورزشی
+    fi = Urheiluhalli
+    fr = Salle de sport
+    he = אולם ספורט
+    hi = खेल हॉल
+    hu = Sportcsarnok
+    id = Ruang olahraga
+    it = Palazzetto dello sport
+    ja = スポーツホール
+    ko = 스포츠 홀
+    lt = Sporto salė
+    mr = क्रीडा हॉल
+    nb = Idrettshall
+    nl = Sporthal
+    pl = Hala sportowa
+    pt = Pavilhão desportivo
+    pt-BR = Salão de esportes
+    ro = Sală de sport
+    ru = Спортивный зал
+    sk = Športová hala
+    sv = Idrottshall
+    sw = Ukumbi wa michezo
+    th = ห้องกีฬา
+    tr = Spor salonu
+    uk = Спортивний зал
+    vi = Nhà thi đấu thể thao
+    zh-Hans = 体育馆
+    zh-Hant = 體育館

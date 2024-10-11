@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Inny";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "Ostatnia trasa";
-
 "pref_map_auto_zoom" = "Automatyczne powiększanie";
-
-"duration_disabled" = "Wyłączona";
-
-"duration_1_hour" = "1 godzina";
-
-"duration_2_hours" = "2 godziny";
-
-"duration_6_hours" = "6 godzin";
-
-"duration_12_hours" = "12 godzin";
-
-"duration_1_day" = "1 dzień";
-
-"recent_track_help_text" = "Umożliwia na pewien okres zapisanie przebytej trasy i obejrzenie jej na mapie. Uwaga: włączenie tej funkcji spowoduje większe zużycie baterii. Trasa zostanie usunięta z mapy automatycznie po upływie określonego czasu.";
 
 "placepage_distance" = "Dystans";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Nieznane miejsce";
 
-"editor_other_info" = "Poinformuj redaktorów OSM";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Uwaga dla wolontariuszy OpenStreetMap (opcjonalnie)";
 
 "editor_detailed_description_hint" = "Szczegółowy komentarz";
 
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Odzyskaj wszystko";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Nagraj trasę";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Zatrzymaj nagrywanie trasy";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Zatrzymaj bez zapisywania";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Kontynuuj nagrywanie";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Zapisać nagranie w zakładkach i trasach?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Trasa jest pusta - nic do zapisania";
 
 
 /********** Types **********/
@@ -2152,13 +2154,13 @@
 
 "type.highway.elevator" = "Winda";
 
-"type.highway.footway" = "Chodnik";
+"type.highway.footway" = "Droga piesza";
 
 "type.highway.footway.sidewalk" = "Chodnik";
 
 "type.highway.footway.crossing" = "Przejście dla pieszych";
 
-"type.highway.footway.area" = "Obszar chodnika";
+"type.highway.footway.area" = "Obszar drogi pieszej";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Most dla pieszych";
@@ -2197,10 +2199,10 @@
 "type.highway.path" = "Ścieżka";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Ścieżka";
+"type.highway.path.difficult" = "Trudny lub słabo widoczny szlak";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Ścieżka";
+"type.highway.path.expert" = "Bardzo trudny lub niedostrzegalny szlak";
 
 "type.highway.path.bicycle" = "Ścieżka dla rowerów";
 
@@ -2367,7 +2369,7 @@
 
 "type.area_highway.cycleway" = "Droga rowerowa";
 
-"type.area_highway.footway" = "Chodnik";
+"type.area_highway.footway" = "Droga piesza";
 
 "type.area_highway.living_street" = "Ulica w strefie zamieszkania";
 
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Kran z wodą";
 
+"type.man_made.water_tap.drinking_water_no" = "Kran z wodą";
+
 "type.man_made.water_tower" = "Wieża wodna";
 
 "type.man_made.water_well" = "Studnia";
+
+"type.man_made.water_well.drinking_water_no" = "Studnia";
 
 "type.man_made.windmill" = "Młyn wiatrowy";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "Zarośla";
 
 "type.natural.spring" = "Źródło";
+
+"type.natural.spring.drinking_water_no" = "Źródło";
 
 "type.natural.strait" = "Cieśnina";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Wejście na oddział ratunkowy";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Dojo";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Hala sportowa";

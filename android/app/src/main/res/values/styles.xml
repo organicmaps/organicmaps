@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
 
   <style name="MwmWidget"/>
 
@@ -283,7 +283,7 @@
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">match_parent</item>
     <item name="android:gravity">center</item>
-    <item name="android:layout_gravity">end</item>
+    <item name="android:layout_gravity">end|center_vertical</item>
     <item name="android:background">?selectableItemBackgroundBorderless</item>
     <item name="android:padding">@dimen/margin_half</item>
     <item name="android:textAppearance">@style/MwmTextAppearance.Toolbar.Title.Button</item>
@@ -323,6 +323,9 @@
     name="MwmTheme.BottomSheetDialog"
     parent="@style/ThemeOverlay.Material3.BottomSheetDialog">
     <item name="bottomSheetStyle">@style/MwmWidget.BottomSheetDialog</item>
+    <item name="enableEdgeToEdge">true</item>
+    <item name="android:navigationBarColor">@android:color/transparent</item>
+    <item name="android:windowTranslucentNavigation">false</item>
   </style>
 
   <style name="MwmWidget.BottomSheetDialog" parent="Widget.Material3.BottomSheet.Modal">

@@ -18,6 +18,7 @@
 
   <TextView
     android:id="@+id/tv__place_cuisine"
+    android:textAlignment="viewStart"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:textAppearance="@style/MwmTextAppearance.PlacePage"

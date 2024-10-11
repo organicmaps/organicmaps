@@ -132,6 +132,17 @@ void Track::SetName(std::string const & name)
     kml::SetDefaultStr(m_data.m_name, name);
 }
 
+std::string Track::GetDescription() const
+{
+  return GetPreferredBookmarkStr(m_data.m_description);
+}
+
+void Track::setData(kml::TrackData const & data)
+{
+  m_isDirty = true;
+  m_data = data;
+}
+
 m2::RectD Track::GetLimitRect() const
 {
   if (m_interactionData)

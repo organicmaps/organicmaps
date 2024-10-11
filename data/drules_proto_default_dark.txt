@@ -3711,7 +3711,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "beer-m"
+      name: "pub-m"
       priority: 3950
       min_distance: 28
     }
@@ -3728,7 +3728,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "beer-m"
+      name: "pub-m"
       priority: 3950
       min_distance: 12
     }
@@ -3745,7 +3745,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "beer-m"
+      name: "pub-m"
       priority: 3950
       min_distance: 12
     }
@@ -3762,7 +3762,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "beer-m"
+      name: "pub-m"
       priority: 3950
       min_distance: 12
     }
@@ -3779,7 +3779,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "beer-m"
+      name: "pub-m"
       priority: 3950
       min_distance: 12
     }
@@ -3796,7 +3796,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "beer-m"
+      name: "pub-m"
       priority: 3950
       min_distance: 12
     }
@@ -5517,6 +5517,64 @@ cont {
         is_optional: true
       }
       priority: -8400
+    }
+  }
+}
+cont {
+  name: "amenity-dojo"
+  element {
+    scale: 17
+    symbol {
+      name: "martial-arts-m"
+      priority: 1250
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "martial-arts-m"
+      priority: 1250
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "martial-arts-m"
+      priority: 1250
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "martial-arts-m"
+      priority: 1250
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
     }
   }
 }
@@ -11220,7 +11278,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "beer-m"
+      name: "pub-m"
       priority: 3950
       min_distance: 28
     }
@@ -11237,7 +11295,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "beer-m"
+      name: "pub-m"
       priority: 3950
       min_distance: 12
     }
@@ -11254,7 +11312,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "beer-m"
+      name: "pub-m"
       priority: 3950
       min_distance: 12
     }
@@ -11271,7 +11329,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "beer-m"
+      name: "pub-m"
       priority: 3950
       min_distance: 12
     }
@@ -11288,7 +11346,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "beer-m"
+      name: "pub-m"
       priority: 3950
       min_distance: 12
     }
@@ -11305,7 +11363,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "beer-m"
+      name: "pub-m"
       priority: 3950
       min_distance: 12
     }
@@ -18421,14 +18479,14 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "sweets-m"
+      name: "confectionery-m"
       priority: 2400
     }
   }
   element {
     scale: 18
     symbol {
-      name: "sweets-m"
+      name: "confectionery-m"
       priority: 2400
     }
     caption {
@@ -18444,7 +18502,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "sweets-m"
+      name: "confectionery-m"
       priority: 2400
     }
     caption {
@@ -18460,7 +18518,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "sweets-m"
+      name: "confectionery-m"
       priority: 2400
     }
     caption {
@@ -50565,21 +50623,21 @@ cont {
   element {
     scale: 15
     area {
-      color: 2171163
+      color: 2763300
       priority: -1920
     }
   }
   element {
     scale: 16
     area {
-      color: 2171163
+      color: 2763300
       priority: -1920
     }
   }
   element {
     scale: 17
     area {
-      color: 2171163
+      color: 2763300
       priority: -1920
     }
     symbol {
@@ -50600,7 +50658,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 2171163
+      color: 2763300
       priority: -1920
     }
     symbol {
@@ -50621,7 +50679,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 2171163
+      color: 2763300
       priority: -1920
     }
     symbol {
@@ -50642,7 +50700,7 @@ cont {
   element {
     scale: 20
     area {
-      color: 2171163
+      color: 2763300
       priority: -1920
     }
     symbol {
@@ -50666,14 +50724,14 @@ cont {
   element {
     scale: 16
     area {
-      color: 2171163
+      color: 2763300
       priority: -1800
     }
   }
   element {
     scale: 17
     area {
-      color: 2171163
+      color: 2763300
       priority: -1800
     }
     symbol {
@@ -50694,7 +50752,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 2171163
+      color: 2763300
       priority: -1800
     }
     symbol {
@@ -50715,7 +50773,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 2171163
+      color: 2763300
       priority: -1800
     }
     symbol {
@@ -50736,7 +50794,7 @@ cont {
   element {
     scale: 20
     area {
-      color: 2171163
+      color: 2763300
       priority: -1800
     }
     symbol {
@@ -51011,6 +51069,107 @@ cont {
 cont {
   name: "leisure-sports_centre"
   element {
+    scale: 15
+    area {
+      color: 2171163
+      priority: -1810
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 2171163
+      priority: -1810
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 2171163
+      priority: -1810
+    }
+    symbol {
+      name: "pitch-m"
+      priority: 1250
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 2171163
+      priority: -1810
+    }
+    symbol {
+      name: "pitch-m"
+      priority: 1250
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 2171163
+      priority: -1810
+    }
+    symbol {
+      name: "pitch-m"
+      priority: 1250
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 2171163
+      priority: -1810
+    }
+    symbol {
+      name: "pitch-m"
+      priority: 1250
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8750
+    }
+  }
+}
+cont {
+  name: "leisure-sports_hall"
+  element {
     scale: 17
     symbol {
       name: "pitch-m"
@@ -51118,7 +51277,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 2171163
+      color: 2500128
       priority: -1750
     }
     symbol {
@@ -51139,7 +51298,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 2171163
+      color: 2500128
       priority: -1750
     }
     symbol {
@@ -51160,7 +51319,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 2171163
+      color: 2500128
       priority: -1750
     }
     symbol {
@@ -51181,7 +51340,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 2171163
+      color: 2500128
       priority: -1750
     }
     symbol {
@@ -51202,7 +51361,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 2171163
+      color: 2500128
       priority: -1750
     }
     symbol {
@@ -51223,7 +51382,7 @@ cont {
   element {
     scale: 20
     area {
-      color: 2171163
+      color: 2500128
       priority: -1750
     }
     symbol {
@@ -51478,7 +51637,7 @@ cont {
     scale: 15
     lines {
       width: 1.5
-      color: 1294016795
+      color: 1294608932
       priority: 160
       cap: BUTTCAP
     }
@@ -51487,7 +51646,7 @@ cont {
     scale: 16
     lines {
       width: 1.8
-      color: 1294016795
+      color: 1294608932
       priority: 160
     }
     caption {
@@ -51503,7 +51662,7 @@ cont {
     scale: 17
     lines {
       width: 3.0
-      color: 857809179
+      color: 858401316
       priority: 160
     }
     caption {
@@ -51520,7 +51679,7 @@ cont {
     scale: 18
     lines {
       width: 3.0
-      color: 857809179
+      color: 858401316
       priority: 160
     }
     caption {
@@ -51537,7 +51696,7 @@ cont {
     scale: 19
     lines {
       width: 4.0
-      color: 857809179
+      color: 858401316
       priority: 160
     }
     caption {
@@ -51554,7 +51713,7 @@ cont {
     scale: 20
     lines {
       width: 4.0
-      color: 857809179
+      color: 858401316
       priority: 160
     }
     caption {
@@ -51573,14 +51732,14 @@ cont {
   element {
     scale: 15
     area {
-      color: 2171163
+      color: 2763300
       priority: -1840
     }
   }
   element {
     scale: 16
     area {
-      color: 2171163
+      color: 2763300
       priority: -1840
     }
     caption {
@@ -51595,7 +51754,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 2171163
+      color: 2763300
       priority: -1840
     }
     caption {
@@ -51611,7 +51770,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 2171163
+      color: 2763300
       priority: -1840
     }
     caption {
@@ -51627,7 +51786,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 2171163
+      color: 2763300
       priority: -1840
     }
     caption {
@@ -51643,7 +51802,7 @@ cont {
   element {
     scale: 20
     area {
-      color: 2171163
+      color: 2763300
       priority: -1840
     }
     caption {
@@ -52752,6 +52911,57 @@ cont {
   }
 }
 cont {
+  name: "man_made-water_tap-drinking_water_no"
+  element {
+    scale: 18
+    symbol {
+      name: "drinking-water-no-s"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "drinking-water-no-m"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "drinking-water-no-m"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+}
+cont {
   name: "man_made-water_well"
   element {
     scale: 16
@@ -52813,6 +53023,57 @@ cont {
         is_optional: true
       }
       priority: -6950
+    }
+  }
+}
+cont {
+  name: "man_made-water_well-drinking_water_no"
+  element {
+    scale: 18
+    symbol {
+      name: "drinking-water-no-s"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "drinking-water-no-m"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "drinking-water-no-m"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
     }
   }
 }
@@ -55643,6 +55904,112 @@ cont {
         is_optional: true
       }
       priority: -5350
+    }
+  }
+}
+cont {
+  name: "natural-spring-drinking_water_no"
+  element {
+    scale: 14
+    symbol {
+      name: "drinking-water-no-s"
+      priority: 1200
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "drinking-water-no-s"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "drinking-water-no-s"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "drinking-water-no-m"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "drinking-water-no-m"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "drinking-water-no-m"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "drinking-water-no-m"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
     }
   }
 }
@@ -110631,7 +110998,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "sweets-m"
+      name: "confectionery-m"
       priority: 2550
       min_distance: 10
     }
@@ -110648,7 +111015,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "sweets-m"
+      name: "confectionery-m"
       priority: 2550
       min_distance: 24
     }
@@ -110665,7 +111032,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "sweets-m"
+      name: "confectionery-m"
       priority: 2550
       min_distance: 24
     }
@@ -110682,7 +111049,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "sweets-m"
+      name: "confectionery-m"
       priority: 2550
       min_distance: 24
     }
@@ -110699,7 +111066,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "sweets-m"
+      name: "confectionery-m"
       priority: 2550
       min_distance: 24
     }
@@ -111019,7 +111386,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "sweets-m"
+      name: "confectionery-m"
       priority: 2550
       min_distance: 10
     }
@@ -111036,7 +111403,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "sweets-m"
+      name: "confectionery-m"
       priority: 2550
       min_distance: 24
     }
@@ -111053,7 +111420,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "sweets-m"
+      name: "confectionery-m"
       priority: 2550
       min_distance: 24
     }
@@ -111070,7 +111437,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "sweets-m"
+      name: "confectionery-m"
       priority: 2550
       min_distance: 24
     }
@@ -111087,7 +111454,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "sweets-m"
+      name: "confectionery-m"
       priority: 2550
       min_distance: 24
     }
@@ -116355,7 +116722,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "grocery-m"
+      name: "supermarket-m"
       priority: 3200
       min_distance: 16
     }
@@ -116372,7 +116739,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "grocery-m"
+      name: "supermarket-m"
       priority: 3200
       min_distance: 8
     }
@@ -116389,7 +116756,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "grocery-m"
+      name: "supermarket-m"
       priority: 3200
       min_distance: 8
     }
@@ -116406,7 +116773,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "grocery-m"
+      name: "supermarket-m"
       priority: 3200
       min_distance: 8
     }
@@ -116423,7 +116790,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "grocery-m"
+      name: "supermarket-m"
       priority: 3200
       min_distance: 8
     }
@@ -119102,25 +119469,7 @@ cont {
 cont {
   name: "sport-multi"
   element {
-    scale: 15
-    area {
-      color: 2171163
-      priority: -1790
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 2171163
-      priority: -1790
-    }
-  }
-  element {
     scale: 17
-    area {
-      color: 2171163
-      priority: -1790
-    }
     symbol {
       name: "pitch-m"
       priority: 1300
@@ -119138,10 +119487,6 @@ cont {
   }
   element {
     scale: 18
-    area {
-      color: 2171163
-      priority: -1790
-    }
     symbol {
       name: "pitch-m"
       priority: 1300
@@ -119159,10 +119504,6 @@ cont {
   }
   element {
     scale: 19
-    area {
-      color: 2171163
-      priority: -1790
-    }
     symbol {
       name: "pitch-m"
       priority: 1300
@@ -119180,10 +119521,6 @@ cont {
   }
   element {
     scale: 20
-    area {
-      color: 2171163
-      priority: -1790
-    }
     symbol {
       name: "pitch-m"
       priority: 1300
@@ -119629,25 +119966,7 @@ cont {
 cont {
   name: "sport-soccer"
   element {
-    scale: 15
-    area {
-      color: 2171163
-      priority: -1790
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 2171163
-      priority: -1790
-    }
-  }
-  element {
     scale: 17
-    area {
-      color: 2171163
-      priority: -1790
-    }
     symbol {
       name: "soccer-m"
       priority: 1300
@@ -119665,10 +119984,6 @@ cont {
   }
   element {
     scale: 18
-    area {
-      color: 2171163
-      priority: -1790
-    }
     symbol {
       name: "soccer-m"
       priority: 1300
@@ -119686,10 +120001,6 @@ cont {
   }
   element {
     scale: 19
-    area {
-      color: 2171163
-      priority: -1790
-    }
     symbol {
       name: "soccer-m"
       priority: 1300
@@ -119707,10 +120018,6 @@ cont {
   }
   element {
     scale: 20
-    area {
-      color: 2171163
-      priority: -1790
-    }
     symbol {
       name: "soccer-m"
       priority: 1300

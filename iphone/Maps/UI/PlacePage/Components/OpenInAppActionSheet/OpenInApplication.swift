@@ -9,6 +9,7 @@ enum OpenInApplication: Int, CaseIterable {
   case moovit
   case uber
   case waze
+  case goMap
 }
 
 extension OpenInApplication {
@@ -40,6 +41,8 @@ extension OpenInApplication {
       return "Uber"
     case .waze:
       return "Waze"
+    case .goMap:
+      return "Go Map!!"
     }
   }
 
@@ -66,6 +69,8 @@ extension OpenInApplication {
       return "uber://"
     case .waze:
       return "waze://"
+    case .goMap:
+      return "gomaposm://"
     }
   }
 
@@ -102,6 +107,8 @@ extension OpenInApplication {
       return "\(scheme)?client_id=&action=setPickup&pickup=my_location&dropoff[latitude]=\(latitude)&dropoff[longitude]=\(longitude)"
     case .waze:
       return "\(scheme)?ll=\(latitude),\(longitude)"
+    case .goMap:
+      return "\(scheme)edit?center=\(latitude),\(longitude)&zoom=\(zoomLevel)"
     }
   }
 }

@@ -232,7 +232,7 @@ NSString *const kNavigationControlViewXibName = @"NavigationControlView";
 }
 
 - (IBAction)settingsButtonAction {
-  [[MapViewController sharedController] performSegueWithIdentifier:@"Map2Settings" sender:nil];
+  [[MapViewController sharedController] openSettings];
 }
 
 - (IBAction)stopRoutingButtonAction {

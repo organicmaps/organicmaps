@@ -3,10 +3,13 @@ package app.organicmaps.base;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.activity.EdgeToEdge;
+import androidx.activity.SystemBarStyle;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -64,6 +67,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     super.onCreate(savedInstanceState);
     mThemeName = Config.getCurrentUiTheme(getApplicationContext());
     setTheme(getThemeResourceId(mThemeName));
+    EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT));
     RtlUtils.manageRtl(this);
     if (!MwmApplication.from(this).arePlatformAndCoreInitialized())
     {

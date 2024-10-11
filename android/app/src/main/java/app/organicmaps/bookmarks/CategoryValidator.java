@@ -9,19 +9,19 @@ import androidx.annotation.Nullable;
 import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.dialog.EditTextDialogFragment;
-import app.organicmaps.util.Option;
 
 class CategoryValidator implements EditTextDialogFragment.Validator
 {
+  @Nullable
   @Override
-  public Option<String> validate(@NonNull Activity activity, @Nullable String text)
+  public String validate(@NonNull Activity activity, @Nullable String text)
   {
     if (TextUtils.isEmpty(text))
-      return new Option<>(activity.getString(R.string.bookmarks_error_title_empty_list_name));
+      return activity.getString(R.string.bookmarks_error_title_empty_list_name);
 
     if (BookmarkManager.INSTANCE.isUsedCategoryName(text))
-      return new Option<>(activity.getString(R.string.bookmarks_error_title_list_name_already_taken));
+      return activity.getString(R.string.bookmarks_error_title_list_name_already_taken);
 
-    return Option.empty();
+    return null;
   }
 }

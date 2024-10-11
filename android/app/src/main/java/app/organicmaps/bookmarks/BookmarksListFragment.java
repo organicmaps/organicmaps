@@ -2,6 +2,7 @@ package app.organicmaps.bookmarks;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.CallSuper;
@@ -17,11 +19,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
+import androidx.fragment.app.FragmentFactory;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
-
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmRecyclerFragment;
@@ -30,20 +33,25 @@ import app.organicmaps.bookmarks.data.BookmarkInfo;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.BookmarkSharingResult;
 import app.organicmaps.bookmarks.data.CategoryDataSource;
+import app.organicmaps.bookmarks.data.Icon;
 import app.organicmaps.bookmarks.data.KmlFileType;
 import app.organicmaps.bookmarks.data.SortedBlock;
 import app.organicmaps.bookmarks.data.Track;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.search.NativeBookmarkSearchListener;
 import app.organicmaps.search.SearchEngine;
-import app.organicmaps.util.Utils;
-import app.organicmaps.widget.SearchToolbarController;
-import app.organicmaps.widget.placepage.EditBookmarkFragment;
-import app.organicmaps.widget.recycler.DividerItemDecorationWithPadding;
+import app.organicmaps.util.Graphics;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.Utils;
+import app.organicmaps.util.WindowInsetUtils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
+import app.organicmaps.widget.SearchToolbarController;
+import app.organicmaps.widget.placepage.BookmarkColorDialogFragment;
+import app.organicmaps.widget.placepage.EditBookmarkFragment;
+import app.organicmaps.widget.recycler.DividerItemDecorationWithPadding;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -181,6 +189,12 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     configureRecyclerAnimations();
     configureRecyclerDividers();
 
+    // recycler view already has an InsetListener in BaseMwmRecyclerFragment
+    // here we must reset it, because the logic is different from a common use case
+    ViewCompat.setOnApplyWindowInsetsListener(
+        getRecyclerView(),
+        new WindowInsetUtils.ScrollableContentInsetsListener(getRecyclerView(), mFabViewOnMap));
+
     updateLoadingPlaceholder(view, false);
   }
 
@@ -231,6 +245,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     adapter.setOnClickListener((v, position) -> onItemClick(position));
     adapter.setOnLongClickListener((v, position) -> onItemMore(position));
     adapter.setMoreListener((v, position) -> onItemMore(position));
+    adapter.setIconClickListener(this::showColorDialog);
   }
 
   private void configureFab(@NonNull View view)
@@ -572,6 +587,36 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     i.putExtra(MwmActivity.EXTRA_BOOKMARK_ID, bookmark.getBookmarkId());
   }
 
+  private void showColorDialog(ImageView v, int position)
+  {
+    BookmarkListAdapter adapter = getBookmarkListAdapter();
+
+    mSelectedPosition = position;
+    final Track mTrack = (Track) adapter.getItem(mSelectedPosition);
+    if (mTrack == null) return;
+    final Bundle args = new Bundle();
+    args.putInt(BookmarkColorDialogFragment.ICON_TYPE, Icon.getColorPosition(mTrack.getColor()));
+    final FragmentManager manager = getChildFragmentManager();
+    String className = BookmarkColorDialogFragment.class.getName();
+    final FragmentFactory factory = manager.getFragmentFactory();
+    final BookmarkColorDialogFragment dialogFragment =
+        (BookmarkColorDialogFragment) factory.instantiate(getContext().getClassLoader(), className);
+    dialogFragment.setArguments(args);
+    dialogFragment.setOnColorSetListener((colorPos) -> {
+      int from = mTrack.getColor();
+      int to = BookmarkManager.ICONS.get(colorPos).argb();
+      if (from == to)
+        return;
+      BookmarkManager.INSTANCE.changeTrackColor(mTrack.getTrackId(), to);
+      Drawable circle = Graphics.drawCircle(to,
+                                            R.dimen.track_circle_size,
+                                            requireContext().getResources());
+      v.setImageDrawable(circle);
+    });
+
+    dialogFragment.show(requireActivity().getSupportFragmentManager(), null);
+  }
+
   public void onItemMore(int position)
   {
     BookmarkListAdapter adapter = getBookmarkListAdapter();
@@ -670,6 +715,20 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
         });
   }
 
+  private void onTrackEditActionSelected()
+  {
+    Track track = (Track) getBookmarkListAdapter().getItem(mSelectedPosition);
+    EditBookmarkFragment.editTrack(
+        track.getCategoryId(), track.getTrackId(), requireActivity(), getChildFragmentManager(),
+        (trackId, movedFromCategory) ->
+        {
+          if (movedFromCategory)
+            resetSearchAndSort();
+          else
+            getBookmarkListAdapter().notifyDataSetChanged();
+        });
+  }
+
   private void onDeleteActionSelected()
   {
     BookmarkListAdapter adapter = getBookmarkListAdapter();
@@ -735,6 +794,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private ArrayList<MenuBottomSheetItem> getTrackMenuItems(final Track track)
   {
     ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
+    items.add(new MenuBottomSheetItem(R.string.edit, R.drawable.ic_edit, this::onTrackEditActionSelected));
     items.add(new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete, () -> onDeleteTrackSelected(track.getTrackId())));
     return items;
   }

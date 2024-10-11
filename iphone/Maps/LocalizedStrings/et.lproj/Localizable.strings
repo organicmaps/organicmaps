@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Muu";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "Hiljutine rada";
-
 "pref_map_auto_zoom" = "Automaatne zoom";
-
-"duration_disabled" = "Väljas";
-
-"duration_1_hour" = "1 tund";
-
-"duration_2_hours" = "2 tundi";
-
-"duration_6_hours" = "6 tundi";
-
-"duration_12_hours" = "12 tundi";
-
-"duration_1_day" = "1 päev";
-
-"recent_track_help_text" = "See valik võimaldab salvestada läbitud tee teatud ajaks ja näha seda kaardil. Pange tähele: selle funktsiooni aktiveerimine suurendab aku kasutust. Rada eemaldatakse automaatselt kaardilt pärast ajaintervalli möödumist.";
 
 "placepage_distance" = "Kaugus";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Tundmatu koht";
 
-"editor_other_info" = "Saada märkus OSM muutjatele";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Märkus OpenStreetMapi vabatahtlikele (vabatahtlik)";
 
 "editor_detailed_description_hint" = "Üksikasjalik kommentaar";
 
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Taasta kõik";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Raja salvestamine";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Peata raja salvestamine";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Lõpeta ilma salvestamata";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Jätka salvestamist";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Salvesta järjehoidjatesse ja radadesse?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Rada on tühi - ei ole midagi salvestada";
 
 
 /********** Types **********/
@@ -2197,10 +2199,10 @@
 "type.highway.path" = "Rada";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Rada";
+"type.highway.path.difficult" = "Raske või halvasti nähtav rada";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Rada";
+"type.highway.path.expert" = "Väga raske või eristamatu rada";
 
 "type.highway.path.bicycle" = "Jalgratta- ja jalgtee";
 
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Veekraan";
 
+"type.man_made.water_tap.drinking_water_no" = "Veekraan";
+
 "type.man_made.water_tower" = "Veetorn";
 
 "type.man_made.water_well" = "Vesiveski";
+
+"type.man_made.water_well.drinking_water_no" = "Vesiveski";
 
 "type.man_made.windmill" = "Tuuleveski";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "Võsa";
 
 "type.natural.spring" = "Allikas";
+
+"type.natural.spring.drinking_water_no" = "Allikas";
 
 "type.natural.strait" = "Väin";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Erakorralise meditsiini osakonna sissepääs";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Dojo";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Spordisaal";

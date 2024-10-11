@@ -60,6 +60,7 @@ world  +
         courthouse  -
         dentist  -
         doctors  -
+        dojo  -
         drinking_water  -
         driving_school  -
         events_venue  -
@@ -672,6 +673,7 @@ world  +
         sauna  -
         slipway  -
         sports_centre  -
+        sports_hall  -
         stadium  -
         swimming_pool  +
             private  -
@@ -701,9 +703,13 @@ world  +
             communication  -
             {}
         wastewater_plant  -
-        water_tap  -
+        water_tap  +
+            drinking_water_no  -
+            {}
         water_tower  -
-        water_well  -
+        water_well  +
+            drinking_water_no  -
+            {}
         windmill  -
         works  -
         {}
@@ -739,7 +745,9 @@ world  +
         scree  -
         scrub  -
         shingle  -
-        spring  -
+        spring  +
+            drinking_water_no  -
+            {}
         strait  -
         tree_row  -
         volcano  -

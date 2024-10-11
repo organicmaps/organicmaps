@@ -1020,15 +1020,17 @@ sport-scuba_diving                                  # icon z17- (also has captio
 sport-shooting                                      # icon z17- (also has caption(optional) z17-)
 === 1350
 
-sport-multi                                         # icon z17- (also has caption(optional) z17-, area z15-)
-sport-soccer                                        # icon z17- (also has caption(optional) z17-, area z15-)
+sport-multi                                         # icon z17- (also has caption(optional) z17-)
+sport-soccer                                        # icon z17- (also has caption(optional) z17-)
 === 1300
 
 amenity-atm                                         # icon z18- (also has caption(optional) z18-)
+amenity-dojo                                        # icon z17- (also has caption(optional) z18-)
 isoline-step_50                                     # pathtext z15- (also has line z13-)
 landuse-recreation_ground                           # caption z15- (also has area z12-)
 leisure-recreation_ground                           # caption z17-
-leisure-sports_centre                               # icon z17- (also has caption(optional) z17-)
+leisure-sports_centre                               # icon z17- (also has caption(optional) z17-, area z15-)
+leisure-sports_hall                                 # icon z17- (also has caption(optional) z17-)
 === 1250
 
 amenity-compressed_air                              # icon z18- (also has caption(optional) z19-)
@@ -1040,6 +1042,9 @@ amenity-vending_machine-parking_tickets             # icon z17- (also has captio
 amenity-vending_machine-public_transport_tickets    # icon z17- (also has caption(optional) z17-)
 highway-elevator                                    # icon z17-
 leisure-picnic_table                                # icon z15- (also has caption(optional) z16-)
+man_made-water_tap-drinking_water_no                # icon z14- (also has caption(optional) z14-)
+man_made-water_well-drinking_water_no               # icon z14- (also has caption(optional) z14-)
+natural-spring-drinking_water_no                    # icon z12- (also has caption(optional) z14-)
 === 1200
 
 isoline-step_10                                     # pathtext z16- (also has line z15-)
@@ -1930,12 +1935,14 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # sport-shooting                                    # caption(optional) z17- (also has icon z17-)
 # === -8650
 
-# sport-multi                                       # caption(optional) z17- (also has icon z17-, area z15-)
-# sport-soccer                                      # caption(optional) z17- (also has icon z17-, area z15-)
+# sport-multi                                       # caption(optional) z17- (also has icon z17-)
+# sport-soccer                                      # caption(optional) z17- (also has icon z17-)
 # === -8700
 
 # amenity-atm                                       # caption(optional) z18- (also has icon z18-)
-# leisure-sports_centre                             # caption(optional) z17- (also has icon z17-)
+# amenity-dojo                                      # caption(optional) z18- (also has icon z17-)
+# leisure-sports_centre                             # caption(optional) z17- (also has icon z17-, area z15-)
+# leisure-sports_hall                               # caption(optional) z17- (also has icon z17-)
 # === -8750
 
 # amenity-compressed_air                            # caption(optional) z19- (also has icon z18-)
@@ -1946,6 +1953,9 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # amenity-vending_machine-parking_tickets           # caption(optional) z17- (also has icon z17-)
 # amenity-vending_machine-public_transport_tickets  # caption(optional) z17- (also has icon z17-)
 # leisure-picnic_table                              # caption(optional) z16- (also has icon z15-)
+# man_made-water_tap-drinking_water_no              # caption(optional) z14- (also has icon z14-)
+# man_made-water_well-drinking_water_no             # caption(optional) z14- (also has icon z14-)
+# natural-spring-drinking_water_no                  # caption(optional) z14- (also has icon z12-)
 # === -8800
 
 # amenity-grave_yard                                # caption(optional) z17- (also has icon z17-, area z14-)

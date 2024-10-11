@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Lainnya";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "Jalur terkini";
-
 "pref_map_auto_zoom" = "Perbesar otomatis";
-
-"duration_disabled" = "Nonaktif";
-
-"duration_1_hour" = "1 jam";
-
-"duration_2_hours" = "2 jam";
-
-"duration_6_hours" = "6 jam";
-
-"duration_12_hours" = "12 jam";
-
-"duration_1_day" = "1 hari";
-
-"recent_track_help_text" = "Ini memungkinkan Anda untuk merekam jalur yang telah dilalui selama jangka waktu tertentu dan melihatnya pada peta. Harap ketahui: aktivasi fungsi ini menyebabkan peningkatan penggunaan baterai. Trek akan dihapus secara otomatis dari peta setelah selang waktu berakhir.";
 
 "placepage_distance" = "Jarak";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Tempat Tidak Dikenal";
 
-"editor_other_info" = "Kirim catatan ke editor OSM";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Catatan untuk relawan OpenStreetMap (opsional)";
 
 "editor_detailed_description_hint" = "Komentar mendetail";
 
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Pulihkan Semua";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Merekam jalur";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Hentikan perekaman jalur";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Berhenti tanpa menyimpan";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Lanjutkan perekaman";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Menyimpan ke penanda dan jalur?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Jalur kosong - tidak ada yang bisa disimpan";
 
 
 /********** Types **********/
@@ -2197,10 +2199,10 @@
 "type.highway.path" = "Jalur";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Jalur";
+"type.highway.path.difficult" = "Jejak yang sulit atau kurang terlihר)";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Jalur";
+"type.highway.path.expert" = "Jejak yang sangat sulit atau tidak dapat dibedakם)";
 
 "type.highway.path.bicycle" = "Jalur";
 
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Keran Air";
 
+"type.man_made.water_tap.drinking_water_no" = "Keran Air";
+
 "type.man_made.water_tower" = "Menara air";
 
 "type.man_made.water_well" = "Sumur air";
+
+"type.man_made.water_well.drinking_water_no" = "Sumur air";
 
 "type.man_made.windmill" = "Kincir angin";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "Semak";
 
 "type.natural.spring" = "Mata air";
+
+"type.natural.spring.drinking_water_no" = "Mata air";
 
 "type.natural.strait" = "Selat";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Pintu Masuk Bangsal Darurat";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Dojo";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Ruang olahraga";

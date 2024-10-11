@@ -17,6 +17,7 @@
 
   <TextView
       android:id="@+id/tv__place_kayak"
+      android:textAlignment="viewStart"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="@string/more_on_kayak"

@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "다른 언어";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "최근 추적";
-
 "pref_map_auto_zoom" = "자동 줌";
-
-"duration_disabled" = "선택 안 함";
-
-"duration_1_hour" = "1시간";
-
-"duration_2_hours" = "2시간";
-
-"duration_6_hours" = "6시간";
-
-"duration_12_hours" = "12시간";
-
-"duration_1_day" = "1일";
-
-"recent_track_help_text" = "특정 기간 동안 이동된 경로를 기록하고 지도에서 그 경로를 볼 수 있습니다. 참고: 이 기능을 활성화하면 배터리 사용량이 증가하게 됩니다. 시간 간격이 만료된 후 지도에서 해당 트랙이 자동으로 제거됩니다.";
 
 "placepage_distance" = "거리";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "장소 알 수 없음";
 
-"editor_other_info" = "OSM 편집인들에게 쪽지 보내기";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "오픈스트리트맵 자원 봉사자 참고 사항(선택 사항)";
 
 "editor_detailed_description_hint" = "상세 설명";
 
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "모두 복구";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "트랙 녹음";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "트랙 기록을 중지하시겠습니까";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "저장하지 않고 중지";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "녹화 계속하기";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "북마크 및 트랙에 저장하시겠습니까?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "경로가 비어 있음 - 저장할 항목이 없음";
 
 
 /********** Types **********/
@@ -2197,10 +2199,10 @@
 "type.highway.path" = "길";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "길";
+"type.highway.path.difficult" = "어렵거나 잘 보이지 않는 트레일";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "길";
+"type.highway.path.expert" = "매우 어렵거나 구별하기 어려운 흔적";
 
 "type.highway.path.bicycle" = "길";
 
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "수도꼭지";
 
+"type.man_made.water_tap.drinking_water_no" = "수도꼭지";
+
 "type.man_made.water_tower" = "급수탑";
 
 "type.man_made.water_well" = "우물";
+
+"type.man_made.water_well.drinking_water_no" = "우물";
 
 "type.man_made.windmill" = "풍차";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "관목지";
 
 "type.natural.spring" = "샘";
+
+"type.natural.spring.drinking_water_no" = "샘";
 
 "type.natural.strait" = "해협";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "응급 병동 입구";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "도장";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "스포츠 홀";

@@ -76,6 +76,7 @@ private:
   void ParseGarminColor(std::string const & value);
   void ParseOsmandColor(std::string const & value);
   bool IsValidCoordinatesPosition() const;
+  void CheckAndCorrectTimestamps();
 
   FileData & m_data;
   CategoryData m_compilationData;
@@ -96,12 +97,15 @@ private:
   double m_lat;
   double m_lon;
   geometry::Altitude m_altitude;
+  time_t m_timestamp;
 
   MultiGeometry::LineT m_line;
+  MultiGeometry::TimeT m_timestamps;
   std::string m_customName;
   void ParseName(std::string const & value, std::string const & prevTag);
   void ParseDescription(std::string const & value, std::string const & prevTag);
   void ParseAltitude(std::string const & value);
+  void ParseTimestamp(std::string const & value);
   std::string BuildDescription() const;
 };
 }  // namespace gpx

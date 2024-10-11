@@ -8,17 +8,17 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-
 import androidx.core.view.ViewCompat;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.routing.RoutingController;
-import app.organicmaps.widget.WheelProgressView;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.ConnectionState;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
+import app.organicmaps.widget.WheelProgressView;
 
 import java.util.List;
 
@@ -221,10 +221,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       }
     }));
 
-    ViewCompat.setOnApplyWindowInsetsListener(mFrame, (view, windowInsets) -> {
-      UiUtils.setViewInsetsPadding(view, windowInsets);
-      return windowInsets;
-    });
+    ViewCompat.setOnApplyWindowInsetsListener(mFrame, PaddingInsetsListener.allSides());
   }
 
   @Override

@@ -266,27 +266,24 @@ public class Utils
     }
   }
 
-  public static boolean openUri(@NonNull Context context, @NonNull Uri uri)
+  /**
+   * Attempts to open a URI in another app via the system app chooser.
+   * @param context the app context
+   * @param uri the URI to open.
+   * @param failMessage string id: message to show in a toast when the system can't find an app to open with.
+   */
+  public static void openUri(@NonNull Context context, @NonNull Uri uri, Integer failMessage)
   {
     final Intent intent = new Intent(Intent.ACTION_VIEW);
     intent.setData(uri);
-    try
-    {
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+    // https://developer.android.com/guide/components/intents-common
+    // check that an app exists to open with, otherwise it'll crash
+    if (intent.resolveActivity(context.getPackageManager()) != null)
       context.startActivity(intent);
-      return true;
-    }
-    catch (ActivityNotFoundException e)
-    {
-      Logger.e(TAG, "ActivityNotFoundException", e);
-      return false;
-    }
-    catch (AndroidRuntimeException e)
-    {
-      Logger.e(TAG, "AndroidRuntimeException", e);
-      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-      context.startActivity(intent);
-      return false;
-    }
+    else
+      Toast.makeText(context, failMessage, Toast.LENGTH_SHORT).show();
   }
 
   private static boolean isHttpOrHttpsScheme(@NonNull String url)

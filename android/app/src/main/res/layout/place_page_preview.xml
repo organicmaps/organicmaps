@@ -14,6 +14,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:baselineAligned="false"
+    android:layoutDirection="ltr"
     android:orientation="horizontal">
     <include
       android:id="@+id/downloader_status_frame"
@@ -27,6 +28,7 @@
     <LinearLayout
       android:id="@+id/title_container"
       android:layout_width="0dp"
+      android:layoutDirection="locale"
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/margin_base"
       android:layout_marginEnd="@dimen/margin_base"
@@ -34,6 +36,7 @@
       android:orientation="vertical">
       <TextView
         android:id="@+id/tv__title"
+        android:textAlignment="viewStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
@@ -45,6 +48,7 @@
         tools:text="Title" />
       <TextView
         android:id="@+id/tv__secondary_title"
+        android:textAlignment="viewStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_quarter"
@@ -57,6 +61,7 @@
         tools:text="Secondary Title" />
       <TextView
         android:id="@+id/tv__subtitle"
+        android:textAlignment="viewStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_quarter"
@@ -67,6 +72,7 @@
         tools:text="Subtitle, very very very very very very very long" />
       <TextView
         android:id="@+id/tv__address"
+        android:textAlignment="viewStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_quarter"
@@ -75,6 +81,7 @@
         tools:text="Lenina str, 10" />
       <TextView
         android:id="@+id/tv__downloader_details"
+        android:textAlignment="viewStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_quarter"

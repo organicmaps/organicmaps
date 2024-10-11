@@ -205,7 +205,7 @@
 "version" = "Versão do Organic Maps: %@";
 
 /* Title for tracks category in bookmarks manager */
-"tracks_title" = "Percursos";
+"tracks_title" = "Trilhas";
 
 /* Length of track in cell that describes route */
 "length" = "Comprimento";
@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Outro";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "Percurso recente";
-
 "pref_map_auto_zoom" = "Zoom automático";
-
-"duration_disabled" = "Desligado";
-
-"duration_1_hour" = "1 hora";
-
-"duration_2_hours" = "2 horas";
-
-"duration_6_hours" = "6 horas";
-
-"duration_12_hours" = "12 horas";
-
-"duration_1_day" = "1 dia";
-
-"recent_track_help_text" = "Permite salvar um caminho percorrido durante um determinado período de tempo e vê-lo no mapa. Nota: esta funcionalidade usa mais bateria. A rota será automaticamente apagada do mapa após um intervalo de tempo.";
 
 "placepage_distance" = "Distância";
 
@@ -377,7 +360,7 @@
 "downloader_delete_map_while_routing_dialog" = "Favor parar a navegação para apagar o mapa.";
 
 /* PointsInDifferentMWM */
-"routing_failed_cross_mwm_building" = "Só podem ser criadas rotas que estejam completamente contidas num único mapa.";
+"routing_failed_cross_mwm_building" = "Só podem ser criadas rotas que estejam completamente contidas em um único mapa.";
 
 /* Context menu item for downloader. */
 "downloader_download_map" = "Baixar o mapa";
@@ -452,13 +435,13 @@
 
 /********** Routing dialogs strings **********/
 
-"dialog_routing_disclaimer_title" = "Ao seguir a rota, lembre-se de que:";
+"dialog_routing_disclaimer_title" = "Ao seguir a rota, lembre-se que:";
 
 "dialog_routing_disclaimer_priority" = "— As condições da estrada, as leis de trânsito e as sinalizações da pista sempre terão prioridade acima das sugestões de navegação;";
 
-"dialog_routing_disclaimer_precision" = "— O mapa pode estar desatualizado, e a rota indicada pode não ser a melhor maneira de chegar ao destino;";
+"dialog_routing_disclaimer_precision" = "— O mapa pode estar desatualizado e a rota indicada pode não ser a melhor maneira de chegar ao destino;";
 
-"dialog_routing_disclaimer_recommendations" = "— As rotas indicadas devem ser tratadas apenas como sugestões;";
+"dialog_routing_disclaimer_recommendations" = "— As rotas indicadas devem ser consideradas apenas como sugestões;";
 
 "dialog_routing_disclaimer_borders" = "— Tenha cautela com rotas em zonas fronteiriças: as rotas criadas por nosso aplicativo podem algumas vezes cruzar fronteiras nacionais em locais não autorizados.";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Local desconhecido";
 
-"editor_other_info" = "Envie uma observação para os editores do OSM";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Nota para os voluntários do OpenStreetMap (opcional)";
 
 "editor_detailed_description_hint" = "Comentário detalhado";
 
@@ -872,14 +856,14 @@
 "navigation_stop_button" = "Parar";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
-"recent_track_background_dialog_title" = "Desabilitar registro de sua rota recente?";
+"recent_track_background_dialog_title" = "Desativar gravação da sua rota recente?";
 
 "off_recent_track_background_button" = "Desabilitar";
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Procure";
 
-"recent_track_background_dialog_message" = "O Organic Maps usa sua localização geográfica em segundo plano para registrar sua rota recente.";
+"recent_track_background_dialog_message" = "O Organic Maps usa sua localização geográfica em segundo plano para gravar a sua rota recente.";
 
 "general_settings" = "Definições gerais";
 
@@ -1114,7 +1098,7 @@
 
 "keyboard_availability_alert" = "O teclado não está disponível enquanto dirige";
 
-"dialog_routing_change_start_carplay" = "Desativar rota demarcada pela sua localização atual";
+"dialog_routing_change_start_carplay" = "Não foi possível construir uma rota a partir da sua localização atual";
 
 "dialog_routing_change_end_carplay" = "Incapaz de traçar rota para o seu destino. Por favor, escolha outro ponto de destino";
 
@@ -1256,16 +1240,16 @@
 "whats_new_auto_update_button_later" = "Atualizar manualmente mais tarde";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Apagar rota";
+"placepage_delete_track_button" = "Apagar trilha";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Nome da rota";
+"placepage_track_name_hint" = "Nome da trilha";
 
 /* move track or bookmark from the list button text */
 "move" = "Mover";
 
 /* edit track screen title */
-"track_title" = "Percurso";
+"track_title" = "Trilha";
 
 /* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsApp";
@@ -1328,7 +1312,7 @@
 "bookmarks_export" = "Exportar todos os favoritos e trilhas";
 
 /* Text for the editing the Track's color button. */
-"change_color" = "Mudança de cor";
+"change_color" = "Alterar cor";
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Mapa";
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Recuperar tudo";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Gravar trilha";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Parar gravação de trilha";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Parar sem salvar";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Continuar gravação";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Salvar em Favoritos e Trilhas?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "A trilha está vazia - não há nada para salvar";
 
 
 /********** Types **********/
@@ -2197,10 +2199,10 @@
 "type.highway.path" = "Caminho";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Caminho";
+"type.highway.path.difficult" = "Trilha difícil ou pouco visível";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Caminho";
+"type.highway.path.expert" = "Trilha muito difícil ou indistinguível";
 
 "type.highway.path.bicycle" = "Caminho para ciclistas";
 
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Torneira de água";
 
+"type.man_made.water_tap.drinking_water_no" = "Torneira de água";
+
 "type.man_made.water_tower" = "Torre de água";
 
 "type.man_made.water_well" = "Poço de água";
+
+"type.man_made.water_well.drinking_water_no" = "Poço de água";
 
 "type.man_made.windmill" = "Moinho de vento";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "Matagal";
 
 "type.natural.spring" = "Nascente";
+
+"type.natural.spring.drinking_water_no" = "Nascente";
 
 "type.natural.strait" = "Estreito";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Entrada da ala de emergência";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Dojo";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Salão de esportes";

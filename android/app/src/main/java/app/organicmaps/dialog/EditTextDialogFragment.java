@@ -24,7 +24,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmDialogFragment;
 import app.organicmaps.util.InputUtils;
-import app.organicmaps.util.Option;
 import app.organicmaps.util.StringUtils;
 
 public class EditTextDialogFragment extends BaseMwmDialogFragment
@@ -56,7 +55,8 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
   // Interface of dialog input validator.
   public interface Validator
   {
-    Option<String> validate(@NonNull Activity activity, @Nullable String text);
+    @Nullable
+    String validate(@NonNull Activity activity, @Nullable String text);
   }
 
   public static EditTextDialogFragment show(@Nullable String title, @Nullable String initialText,
@@ -154,9 +154,9 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
   {
     if (mPositiveButton != null && mInputValidator != null)
     {
-      Option<String> maybeError = mInputValidator.validate(activity, input);
-      mPositiveButton.setEnabled(!maybeError.hasValue());
-      mEtInputLayout.getEditText().setError(maybeError.getOrElse(null));
+      final String maybeError = mInputValidator.validate(activity, input);
+      mPositiveButton.setEnabled(maybeError == null);
+      mEtInputLayout.getEditText().setError(maybeError);
     }
   }
 

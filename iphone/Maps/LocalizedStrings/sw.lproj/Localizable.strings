@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Other";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "Recent Track";
-
 "pref_map_auto_zoom" = "Auto zoom";
-
-"duration_disabled" = "Off";
-
-"duration_1_hour" = "1 hour";
-
-"duration_2_hours" = "2 hours";
-
-"duration_6_hours" = "6 hours";
-
-"duration_12_hours" = "12 hours";
-
-"duration_1_day" = "1 day";
-
-"recent_track_help_text" = "Inakuwezesha kurekodi njia uliyosafiria kwa kipindi fulani na uione kwenye ramani. Tafadhali kumbuka: ukiwezesha utendaji huu betri itatumika zaidi. Njia hiyo itaondolewa kiotomatiki kwenye ramani baada ya mpishano wa muda kuisha.";
 
 "placepage_distance" = "Distance";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Unknown Place";
 
-"editor_other_info" = "Tuma ujumbe kwenye vihariri vya OSM";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Kumbuka kwa wanaojitolea wa OpenStreetMap (si lazima)";
 
 "editor_detailed_description_hint" = "Detailed comment";
 
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Rejesha yote";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Rekodi njia";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Acha kurekodi";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Acha bila kuhifadhi";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Endelea kurekodi";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Ungependa kuhifadhi katika alama na njia?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Njia ni tupu - hakuna cha kuhifadhi";
 
 
 /********** Types **********/
@@ -2194,22 +2196,22 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway_link.tunnel" = "Mtaro";
 
-"type.highway.path" = "Path";
+"type.highway.path" = "Njia";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Path";
+"type.highway.path.difficult" = "Njia ngumu au isiyoonekana vizuri";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Path";
+"type.highway.path.expert" = "Njia ngumu sana au isiyoweza kutofautishwa";
 
-"type.highway.path.bicycle" = "Path";
+"type.highway.path.bicycle" = "Njia";
 
-"type.highway.footway.bicycle" = "Path";
+"type.highway.footway.bicycle" = "Njia";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Daraja";
 
-"type.highway.path.horse" = "Path";
+"type.highway.path.horse" = "Njia";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Mtaro";
@@ -2373,7 +2375,7 @@
 
 "type.area_highway.motorway" = "Motorway";
 
-"type.area_highway.path" = "Path";
+"type.area_highway.path" = "Njia";
 
 "type.area_highway.pedestrian" = "Pedestrian Street";
 
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Water Tap";
 
+"type.man_made.water_tap.drinking_water_no" = "Water Tap";
+
 "type.man_made.water_tower" = "Water Tower";
 
 "type.man_made.water_well" = "Water Well";
+
+"type.man_made.water_well.drinking_water_no" = "Water Well";
 
 "type.man_made.windmill" = "Windmill";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "Eneo la Vichaka";
 
 "type.natural.spring" = "Chemchemi";
+
+"type.natural.spring.drinking_water_no" = "Chemchemi";
 
 "type.natural.strait" = "Mlango Bahari";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Mlango wa Wadi ya Dharura";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Dojo";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Ukumbi wa michezo";

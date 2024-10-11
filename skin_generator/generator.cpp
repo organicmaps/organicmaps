@@ -100,7 +100,7 @@ void SkinGenerator::ProcessSymbols(std::string const & svgDataDir,
           QSize svgSize = m_svgRenderer.defaultSize(); // Size of the SVG file
 
           // Capping svg symbol to kLargeIconSize maximum, keeping aspect ratio
-          if (svgSize.width() > kLargeIconSize)
+          /*if (svgSize.width() > kLargeIconSize)
           {
             auto const h = static_cast<float>(svgSize.height()) * kLargeIconSize / svgSize.width();
             svgSize.setHeight(static_cast<int>(h));
@@ -112,7 +112,7 @@ void SkinGenerator::ProcessSymbols(std::string const & svgDataDir,
             auto const w = static_cast<float>(svgSize.width()) * kLargeIconSize / svgSize.height();
             svgSize.setWidth(static_cast<int>(w));
             svgSize.setHeight(kLargeIconSize);
-          }
+          }*/
 
           // Scale symbol to required size
           QSize size = svgSize * (symbolSizes[j].width() / kMediumIconSize);

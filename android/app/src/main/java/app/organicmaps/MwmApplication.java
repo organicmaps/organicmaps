@@ -371,7 +371,7 @@ public class MwmApplication extends Application implements Application.ActivityL
       Logger.i(LOCATION_TAG, "Navigation is in progress, keeping location in the background");
     else if (!Map.isEngineCreated() || LocationState.getMode() == LocationState.PENDING_POSITION)
       Logger.i(LOCATION_TAG, "PENDING_POSITION mode, keeping location in the background");
-    else if (TrackRecorder.nativeIsEnabled())
+    else if (TrackRecorder.nativeIsTrackRecordingEnabled())
       Logger.i(LOCATION_TAG, "Track Recordr is active, keeping location in the background");
     else
     {

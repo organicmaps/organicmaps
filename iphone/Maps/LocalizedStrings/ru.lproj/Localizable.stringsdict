@@ -5,61 +5,61 @@
 
 <!-- ********** Strings for downloading map from search **********/ -->
 
-  <key>bookmarks_places</key>
-  <dict>
-    <key>NSStringLocalizedFormatKey</key>
-    <string>%#@value@</string>
-    <key>value</key>
-    <dict>
-      <key>NSStringFormatSpecTypeKey</key>
-      <string>NSStringPluralRuleType</string>
-      <key>NSStringFormatValueTypeKey</key>
-      <string>d</string>
-      <key>one</key>
-      <string>%d метка</string>
-      <key>few</key>
-      <string>%d метки</string>
-      <key>other</key>
-      <string>%d меток</string>
-    </dict>
-  </dict>
+	<key>bookmarks_places</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d метка</string>
+			<key>few</key>
+			<string>%d метки</string>
+			<key>other</key>
+			<string>%d меток</string>
+		</dict>
+	</dict>
 
-  <key>bookmarks_detect_message</key>
-  <dict>
-    <key>NSStringLocalizedFormatKey</key>
-    <string>%#@value@</string>
-    <key>value</key>
-    <dict>
-      <key>NSStringFormatSpecTypeKey</key>
-      <string>NSStringPluralRuleType</string>
-      <key>NSStringFormatValueTypeKey</key>
-      <string>d</string>
-      <key>one</key>
-      <string>%d файл был найден. Вы увидите его после конвертации.</string>
-      <key>few</key>
-      <string>%d файла были найдены. Вы увидите их после конвертации.</string>
-      <key>other</key>
-      <string>%d файлов было найдено. Вы увидите их после конвертации.</string>
-    </dict>
-  </dict>
+	<key>bookmarks_detect_message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d файл был найден. Вы увидите его после конвертации.</string>
+			<key>few</key>
+			<string>%d файла были найдены. Вы увидите их после конвертации.</string>
+			<key>other</key>
+			<string>%d файлов было найдено. Вы увидите их после конвертации.</string>
+		</dict>
+	</dict>
 
-  <key>tracks</key>
-  <dict>
-    <key>NSStringLocalizedFormatKey</key>
-    <string>%#@value@</string>
-    <key>value</key>
-    <dict>
-      <key>NSStringFormatSpecTypeKey</key>
-      <string>NSStringPluralRuleType</string>
-      <key>NSStringFormatValueTypeKey</key>
-      <string>d</string>
-      <key>one</key>
-      <string>%d трек</string>
-      <key>few</key>
-      <string>%d трека</string>
-      <key>other</key>
-      <string>%d треков</string>
-    </dict>
-  </dict>
+	<key>tracks</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d трек</string>
+			<key>few</key>
+			<string>%d трека</string>
+			<key>other</key>
+			<string>%d треков</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

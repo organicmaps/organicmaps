@@ -14,15 +14,12 @@ import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
 import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
@@ -34,12 +31,16 @@ import app.organicmaps.downloader.MapManager;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.routing.RoutingController;
-import app.organicmaps.widget.PlaceholderView;
-import app.organicmaps.widget.SearchToolbarController;
+import app.organicmaps.util.Config;
 import app.organicmaps.util.SharedPropertiesUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
-import app.organicmaps.util.Config;
+import app.organicmaps.util.WindowInsetUtils;
+import app.organicmaps.widget.PlaceholderView;
+import app.organicmaps.widget.SearchToolbarController;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -290,6 +291,9 @@ public class SearchFragment extends BaseMwmFragment
 
     updateFrames();
     updateResultsPlaceholder();
+    ViewCompat.setOnApplyWindowInsetsListener(
+        mResults,
+        new WindowInsetUtils.ScrollableContentInsetsListener(mResults, mShowOnMapFab));
 
     mToolbarController.activate();
 

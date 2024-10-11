@@ -14,7 +14,8 @@ import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmRecyclerFragment;
 import app.organicmaps.dialog.EditTextDialogFragment;
 import app.organicmaps.editor.data.LocalizedStreet;
-import app.organicmaps.util.Option;
+
+import java.util.Optional;
 
 public class StreetFragment extends BaseMwmRecyclerFragment<StreetAdapter>
 {
@@ -35,7 +36,7 @@ public class StreetFragment extends BaseMwmRecyclerFragment<StreetAdapter>
   }
 
   @Override
-  public void onSaveInstanceState(Bundle outState)
+  public void onSaveInstanceState(@NonNull Bundle outState)
   {
     super.onSaveInstanceState(outState);
     Editor.nativeSetStreet(getStreet());
@@ -65,13 +66,14 @@ public class StreetFragment extends BaseMwmRecyclerFragment<StreetAdapter>
     return text -> saveStreet(new LocalizedStreet(text, ""));
   }
 
+  @NonNull
   public static EditTextDialogFragment.Validator getStreetValidator()
   {
     return (activity, text) -> {
       if (TextUtils.isEmpty(text))
-        return new Option<>(activity.getString(R.string.empty_street_name_error));
+        return activity.getString(R.string.empty_street_name_error);
       else
-        return Option.empty();
+        return null;
     };
   }
 }

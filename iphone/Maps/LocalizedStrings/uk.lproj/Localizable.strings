@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Інша";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "Недавній маршрут";
-
 "pref_map_auto_zoom" = "Автозум";
-
-"duration_disabled" = "Вимкнуто";
-
-"duration_1_hour" = "1 година";
-
-"duration_2_hours" = "2 години";
-
-"duration_6_hours" = "6 годин";
-
-"duration_12_hours" = "12 годин";
-
-"duration_1_day" = "1 день";
-
-"recent_track_help_text" = "Ця функція дозволяє прокласти подоланий маршрут протягом певного проміжку часу та переглянути його на мапі. Звертаємо вашу увагу, що вмикання цієї функції пришвидшить розрядження акумулятора. Щойно сплине заданий проміжок часу, прокладений маршрут буде видалено з мапи.";
 
 "placepage_distance" = "Відстань";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Невідоме місце";
 
-"editor_other_info" = "Надіслати нотатку редакторам OSM";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Примітка для волонтерів OpenStreetMap (необов'язково)";
 
 "editor_detailed_description_hint" = "Докладний коментар";
 
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Відновити все";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Записати маршрут";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Зупинити запис маршруту";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Зупинити без збереження";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Продовжити запис";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Зберегти в мітки та маршрути?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Маршрут порожній - нічого зберігати";
 
 
 /********** Types **********/
@@ -2197,10 +2199,10 @@
 "type.highway.path" = "Стежка";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Стежка";
+"type.highway.path.difficult" = "Складна або погано видима стежка";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Стежка";
+"type.highway.path.expert" = "Дуже складна або невиразна стежка";
 
 "type.highway.path.bicycle" = "Велопішохідна доріжка";
 
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Водопровідний кран";
 
+"type.man_made.water_tap.drinking_water_no" = "Водопровідний кран";
+
 "type.man_made.water_tower" = "Водонапірна вежа";
 
 "type.man_made.water_well" = "Криниця";
+
+"type.man_made.water_well.drinking_water_no" = "Криниця";
 
 "type.man_made.windmill" = "Вітряний млин";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "Зарості";
 
 "type.natural.spring" = "Джерело";
+
+"type.natural.spring.drinking_water_no" = "Джерело";
 
 "type.natural.strait" = "Протока";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Вхід до відділення невідкладної допомоги";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Додзьо";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Спортивний зал";

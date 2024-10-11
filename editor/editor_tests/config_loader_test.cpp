@@ -46,16 +46,6 @@ UNIT_TEST(ConfigLoader_Base)
 //  CheckGeneralTags(doc);
 //}
 
-UNIT_TEST(ConfigLoader_SaveLoadHash)
-{
-  ScopedFile sf("test.hash", ScopedFile::Mode::DoNotCreate);
-  auto const testHash = "12345 678909 87654 321 \n 32";
-
-  ConfigLoader::SaveHash(testHash, sf.GetFullPath());
-  auto const loadedHash = ConfigLoader::LoadHash(sf.GetFullPath());
-  TEST_EQUAL(testHash, loadedHash, ());
-}
-
 UNIT_TEST(ConfigLoader_LoadFromLocal)
 {
   pugi::xml_document doc;

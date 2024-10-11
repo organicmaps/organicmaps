@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Other";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "Recent Track";
-
 "pref_map_auto_zoom" = "Auto zoom";
-
-"duration_disabled" = "Off";
-
-"duration_1_hour" = "1 hour";
-
-"duration_2_hours" = "2 hours";
-
-"duration_6_hours" = "6 hours";
-
-"duration_12_hours" = "12 hours";
-
-"duration_1_day" = "1 day";
-
-"recent_track_help_text" = "Record and show your traveled path within the given period of time on the map. Please note: this noticeably increases battery usage.";
 
 "placepage_distance" = "Distance";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Unknown Place";
 
-"editor_other_info" = "Send a note to OSM editors";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Note to OpenStreetMap volunteers (optional)";
 
 "editor_detailed_description_hint" = "Detailed comment";
 
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Recover All";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Record Track";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Stop Track Recording";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Stop Without Saving";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Continue Recording";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Save into Bookmarks and Tracks?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Track is empty - nothing to save";
 
 
 /********** Types **********/
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Water Tap";
 
+"type.man_made.water_tap.drinking_water_no" = "Water Tap";
+
 "type.man_made.water_tower" = "Water Tower";
 
 "type.man_made.water_well" = "Water Well";
+
+"type.man_made.water_well.drinking_water_no" = "Water Well";
 
 "type.man_made.windmill" = "Windmill";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "Scrub";
 
 "type.natural.spring" = "Natural Spring";
+
+"type.natural.spring.drinking_water_no" = "Natural Spring";
 
 "type.natural.strait" = "Strait";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Emergency Ward Entrance";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Dojo";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Sports hall";

@@ -10,7 +10,7 @@
     android:id="@+id/toolbar"
     style="@style/MwmWidget.ToolbarStyle"
     android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
+    android:layout_height="wrap_content"
     android:gravity="end|center_vertical"
     android:theme="@style/MwmWidget.ToolbarTheme"
     tools:ignore="UnusedAttribute">
@@ -21,6 +21,7 @@
   </androidx.appcompat.widget.Toolbar>
 
   <ScrollView
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?panel">

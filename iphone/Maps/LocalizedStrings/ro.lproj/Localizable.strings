@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Altceva";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "Traseu recent";
-
 "pref_map_auto_zoom" = "Zoom automat";
-
-"duration_disabled" = "Oprit";
-
-"duration_1_hour" = "1 oră";
-
-"duration_2_hours" = "2 ore";
-
-"duration_6_hours" = "6 ore";
-
-"duration_12_hours" = "12 ore";
-
-"duration_1_day" = "1 zi";
-
-"recent_track_help_text" = "Permite înregistrarea traseului parcurs pentru o anumită perioadă de timp și urmărește-l pe hartă. Atenție: activarea acestei funcții crește consumul bateriei. Traseul va fi eliminat automat de pe hartă după expirarea intervalului de timp.";
 
 "placepage_distance" = "Distanță";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Loc necunoscut";
 
-"editor_other_info" = "Trimite un mesaj către editorii OSM";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Notă pentru voluntarii OpenStreetMap (opțional)";
 
 "editor_detailed_description_hint" = "Comentariu detaliat";
 
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Recuperează tot";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Înregistrați traseul";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Opriți înregistrarea traseului";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Oprire fără salvare";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Continuați înregistrarea";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Salvați în Locuri preferate și trasee?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Traseul este gol - nu este nimic de salvat";
 
 
 /********** Types **********/
@@ -2197,10 +2199,10 @@
 "type.highway.path" = "Cale";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Cale";
+"type.highway.path.difficult" = "Traseu dificil sau puțin vizibil";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Cale";
+"type.highway.path.expert" = "Traseu foarte dificil sau imposibil de distins";
 
 "type.highway.path.bicycle" = "Cale";
 
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Robinet cu apă";
 
+"type.man_made.water_tap.drinking_water_no" = "Robinet cu apă";
+
 "type.man_made.water_tower" = "Turn de apă";
 
 "type.man_made.water_well" = "Puț de apă";
+
+"type.man_made.water_well.drinking_water_no" = "Puț de apă";
 
 "type.man_made.windmill" = "Moară de vânt";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "Boschet";
 
 "type.natural.spring" = "Izvor";
+
+"type.natural.spring.drinking_water_no" = "Izvor";
 
 "type.natural.strait" = "Strâmtoare";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Intrarea secției de urgență";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Dojo";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Sală de sport";

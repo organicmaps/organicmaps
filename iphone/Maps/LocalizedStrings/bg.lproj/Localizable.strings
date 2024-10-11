@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Друго";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "Скорошна пътека";
-
 "pref_map_auto_zoom" = "Автоматично мащабиране";
-
-"duration_disabled" = "Изключено";
-
-"duration_1_hour" = "1 час";
-
-"duration_2_hours" = "2 часа";
-
-"duration_6_hours" = "6 часа";
-
-"duration_12_hours" = "12 часа";
-
-"duration_1_day" = "1 ден";
-
-"recent_track_help_text" = "Тази опция ви позволява да запишете изминатия път за определен период и да го видите на картата. Моля, обърнете внимание: активирането на тази функция води до повишено използване на батерията.";
 
 "placepage_distance" = "Distance";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Неизвестно място";
 
-"editor_other_info" = "Изпращане на бележка до редакторите на OSM";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Забележка към доброволците на OpenStreetMap (по избор)";
 
 "editor_detailed_description_hint" = "Подробен коментар";
 
@@ -1277,7 +1261,7 @@
 "translated_om_site_url" = "https://organicmaps.app/";
 
 /* Link to OSM wiki for Editor, Profile and About pages */
-"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Bg:About";
 
 /* App Tip #00 */
 "app_tip_00" = "Благодарим ви, че използвате нашите карти, създадени от общността!";
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Възстанови всички";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Запис на маршрут";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Спри запис на маршрут";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Спрете без запазване";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Продължи записа";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Запазване в отметки и пътеки?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Маршрутът е празен - няма какво да запазвате";
 
 
 /********** Types **********/
@@ -2194,22 +2196,22 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway_link.tunnel" = "Тунел";
 
-"type.highway.path" = "Path";
+"type.highway.path" = "Път";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Path";
+"type.highway.path.difficult" = "Трудна или слабо видима пътека";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Path";
+"type.highway.path.expert" = "Много трудна или неразличима пътека";
 
-"type.highway.path.bicycle" = "Path";
+"type.highway.path.bicycle" = "Път";
 
-"type.highway.footway.bicycle" = "Path";
+"type.highway.footway.bicycle" = "Път";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Мост";
 
-"type.highway.path.horse" = "Path";
+"type.highway.path.horse" = "Път";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Тунел";
@@ -2373,7 +2375,7 @@
 
 "type.area_highway.motorway" = "Motorway";
 
-"type.area_highway.path" = "Path";
+"type.area_highway.path" = "Път";
 
 "type.area_highway.pedestrian" = "Pedestrian Street";
 
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Water Tap";
 
+"type.man_made.water_tap.drinking_water_no" = "Water Tap";
+
 "type.man_made.water_tower" = "Water Tower";
 
 "type.man_made.water_well" = "Water Well";
+
+"type.man_made.water_well.drinking_water_no" = "Water Well";
 
 "type.man_made.windmill" = "Windmill";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "Гъсталаци";
 
 "type.natural.spring" = "Извор";
+
+"type.natural.spring.drinking_water_no" = "Извор";
 
 "type.natural.strait" = "Проток";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Вход на спешното отделение";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Доджо";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Спортна зала";

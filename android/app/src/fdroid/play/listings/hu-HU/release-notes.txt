@@ -1,9 +1,5 @@
-• Javított címkeresés az USA -ban
-• Javítottuk a szövegek renderelését indiai, arab, thai, laoszi, khmer, mianmari, tibeti, hangul és héber nyelveken
-• Július 2-i OSM adatok
-• Egy érintéssel már bármilyen pontot kiválaszthat a térképen, a hosszú érintés teljes képernyős nézetet kapcsol be
-• A véletlenül kitörölt könyvjelzők már visszaállíthatóak
-• A GPX fájlok WhatsApp-ból való importálását kijavítottuk
-• Több kategória megjelenítése egy kiválasztott POI-hoz
-
-…több: omaps.org/hu/news
+- Edit Tracks: Change name, color, list and description of tracks, or delete them.
+- Open in Another App: Select any map point in Organic Maps and open in apps like taxi, delivery, transport, or other map apps.
+- Map Data: Updated as of October 1, now with added isolines for Egypt and improved for Adygea, Dagestan.
+- KML/KMZ/GPX: Fixed issues with importing files from different apps.
+- Right-to-left languages: Enhanced the place page, search, and about screens.

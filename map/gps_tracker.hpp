@@ -18,6 +18,7 @@ public:
 
   std::chrono::hours GetDuration() const;
   bool IsEmpty() const;
+  size_t GetTrackSize() const;
 
   void SetDuration(std::chrono::hours duration);
 

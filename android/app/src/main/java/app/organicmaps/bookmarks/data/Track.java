@@ -33,4 +33,9 @@ public class Track
   public long getTrackId() { return mTrackId; }
 
   public long getCategoryId() { return mCategoryId; }
+
+  public String getTrackDescription()
+  {
+    return BookmarkManager.INSTANCE.getTrackDescription(mTrackId);
+  }
 }

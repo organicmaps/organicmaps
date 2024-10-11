@@ -18,6 +18,8 @@ public:
   PushResult Push(Task && task) override;
   PushResult Push(Task const & task) override;
 
+  jobject GetObject() const { return m_object; }
+
 private:
   jobject m_object = nullptr;
   jmethodID m_method = nullptr;

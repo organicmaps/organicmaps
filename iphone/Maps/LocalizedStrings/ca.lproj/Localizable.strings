@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Altres";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "Traces recents";
-
 "pref_map_auto_zoom" = "Zoom automàtic";
-
-"duration_disabled" = "Desactivada";
-
-"duration_1_hour" = "1 hora";
-
-"duration_2_hours" = "2 hores";
-
-"duration_6_hours" = "6 hores";
-
-"duration_12_hours" = "12 hores";
-
-"duration_1_day" = "1 dia";
-
-"recent_track_help_text" = "Aquesta opció et permet registrar el recorregut recorregut durant un període determinat i veure'l al mapa. Tingues en compte: l'activació d'aquesta funció provoca un augment de l'ús de la bateria. La pista s'eliminarà automàticament del mapa un cop expiri l'interval de temps.";
 
 "placepage_distance" = "Distància";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Lloc desconegut";
 
-"editor_other_info" = "Envia una nota als editors de l’OSM";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Nota per als voluntaris d'OpenStreetMap (opcional)";
 
 "editor_detailed_description_hint" = "Comentari detallat";
 
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Recuperar-ho tot";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Gravar ruta";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Aturar la gravació de la ruta";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Atura sense desar";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Continuar enregistrant";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Vols desar la gravació a Marcadors i Traces?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "El recorregut està buit, no hi ha res a desar";
 
 
 /********** Types **********/
@@ -2194,22 +2196,22 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway_link.tunnel" = "Tunnel";
 
-"type.highway.path" = "Path";
+"type.highway.path" = "Camí";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Path";
+"type.highway.path.difficult" = "Ruta difícil o poc visible";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Path";
+"type.highway.path.expert" = "Sender molt difícil o indistingible";
 
-"type.highway.path.bicycle" = "Path";
+"type.highway.path.bicycle" = "Camí";
 
-"type.highway.footway.bicycle" = "Path";
+"type.highway.footway.bicycle" = "Camí";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Bridge";
 
-"type.highway.path.horse" = "Path";
+"type.highway.path.horse" = "Camí";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Tunnel";
@@ -2373,7 +2375,7 @@
 
 "type.area_highway.motorway" = "Motorway";
 
-"type.area_highway.path" = "Path";
+"type.area_highway.path" = "Camí";
 
 "type.area_highway.pedestrian" = "Pedestrian Street";
 
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Water Tap";
 
+"type.man_made.water_tap.drinking_water_no" = "Water Tap";
+
 "type.man_made.water_tower" = "Water Tower";
 
 "type.man_made.water_well" = "Water Well";
+
+"type.man_made.water_well.drinking_water_no" = "Water Well";
 
 "type.man_made.windmill" = "Windmill";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "Scrub";
 
 "type.natural.spring" = "Natural Spring";
+
+"type.natural.spring.drinking_water_no" = "Natural Spring";
 
 "type.natural.strait" = "Strait";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Entrada d'urgències";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Dojo";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Pavelló esportiu";

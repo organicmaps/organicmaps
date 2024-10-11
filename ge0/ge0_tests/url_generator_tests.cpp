@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "ge0/url_generator.hpp"
+#include "ge0/geo_url_parser.hpp"
 
 #include <string>
 
@@ -9,6 +10,7 @@ using namespace std;
 namespace
 {
 int const kTestCoordBytes = 9;
+double const kEps = 1e-10;
 }  // namespace
 
 namespace ge0
@@ -339,4 +341,22 @@ UNIT_TEST(GenerateShortShowMapUrl_UnicodeMixedWithOtherChars)
   string res = GenerateShortShowMapUrl(0, 0, 19, "Back_in \xe2\x98\x84!\xd1\x8e\xd0\xbc");
   TEST_EQUAL("om://8wAAAAAAAA/Back%20in_\xe2\x98\x84%21\xd1\x8e\xd0\xbc", res, ());
 }
+
+UNIT_TEST(GenerateGeoUri_SmokeTest)
+{
+  string res = GenerateGeoUri(33.8904075, 35.5066454, 16.5, "Falafel M. Sahyoun");
+  TEST_EQUAL("geo:33.8904075,35.5066454?z=16.5(Falafel%20M.%20Sahyoun)", res, ());
+
+  // geo:33.8904075,35.5066454?z=16.5(Falafel%20M.%20Sahyoun)
+  // geo:33.890408,35.506645?z=16.5(Falafel%20M.%20Sahyoun)
+
+  geo::GeoURLInfo info;
+  geo::GeoParser parser;
+  TEST(parser.Parse(res, info), ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lat, 33.8904075, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lon, 35.5066454, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 16.5, kEps, ());
+  TEST_EQUAL(info.m_label, "Falafel M. Sahyoun", ());
+}
+
 }  // namespace ge0

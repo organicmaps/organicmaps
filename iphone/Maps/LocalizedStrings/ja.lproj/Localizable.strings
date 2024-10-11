@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "その他";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "最近のトラック";
-
 "pref_map_auto_zoom" = "自動ズーム";
-
-"duration_disabled" = "オフ";
-
-"duration_1_hour" = "1時間";
-
-"duration_2_hours" = "2時間";
-
-"duration_6_hours" = "6時間";
-
-"duration_12_hours" = "12時間";
-
-"duration_1_day" = "1日";
-
-"recent_track_help_text" = "移動経路を一定期間記録し、地図上で確認できるようにします。注意：この機能を有効にすると、バッテリーの消費量が増えます。表示期間が終了すると、走行軌跡は地図から自動的に削除されます。";
 
 "placepage_distance" = "距離";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "不明な場所";
 
-"editor_other_info" = "OSMエディタにメモを送信";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "OpenStreetMapボランティアへの注意（オプション）";
 
 "editor_detailed_description_hint" = "詳細コメント";
 
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "すべて復元";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "トラックを録音する";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "トラック記録を停止しますか";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "保存せずに停止";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "録画を続ける";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "ブックマークとトラックに保存しますか？";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "ルートが空です - 保存するものがありません";
 
 
 /********** Types **********/
@@ -2197,10 +2199,10 @@
 "type.highway.path" = "歩道";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "歩道";
+"type.highway.path.difficult" = "困難な、または見通しの悪いトレイル";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "歩道";
+"type.highway.path.expert" = "非常に難しい、または区別がつかないトレイル";
 
 "type.highway.path.bicycle" = "歩道";
 
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "給水栓";
 
+"type.man_made.water_tap.drinking_water_no" = "給水栓";
+
 "type.man_made.water_tower" = "給水塔";
 
 "type.man_made.water_well" = "井戸";
+
+"type.man_made.water_well.drinking_water_no" = "井戸";
 
 "type.man_made.windmill" = "風車";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "雑木林";
 
 "type.natural.spring" = "泉";
+
+"type.natural.spring.drinking_water_no" = "泉";
 
 "type.natural.strait" = "海峡";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "救急病棟入口";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "道場";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "スポーツホール";

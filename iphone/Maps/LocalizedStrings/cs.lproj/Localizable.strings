@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Ostatní";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "Historie polohy";
-
 "pref_map_auto_zoom" = "Automatické zvětšení";
-
-"duration_disabled" = "Vypnuto";
-
-"duration_1_hour" = "1 hodina";
-
-"duration_2_hours" = "2 hodiny";
-
-"duration_6_hours" = "6 hodin";
-
-"duration_12_hours" = "12 hodin";
-
-"duration_1_day" = "1 den";
-
-"recent_track_help_text" = "To vám umožňuje zaznamenávat ujetou cestu po určitou dobu a vidět ji na mapě. Poznámka: aktivace této funkce způsobuje zvýšenou spotřebu baterie. Trať bude automaticky odebrána z mapy poté, co vyprší časový interval.";
 
 "placepage_distance" = "Vzdálenost";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Neznámé místo";
 
-"editor_other_info" = "Odeslat poznámku editorům OSM";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Poznámka pro dobrovolníky OpenStreetMap (nepovinné)";
 
 "editor_detailed_description_hint" = "Podrobný komentář";
 
@@ -1277,7 +1261,7 @@
 "translated_om_site_url" = "https://organicmaps.app/cs/";
 
 /* Link to OSM wiki for Editor, Profile and About pages */
-"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Cs:Co_je_OpenStreetMap";
 
 /* App Tip #00 */
 "app_tip_00" = "Děkujeme, že používáte naše komunitní mapy!";
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Obnovit vše";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Nahrát trasu";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Zastavit nahrávání trasy";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Zastavit bez uložení";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Pokračovat v nahrávání";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Uložit do záložek a stop?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Trasa je prázdná - není co ukládat";
 
 
 /********** Types **********/
@@ -2197,10 +2199,10 @@
 "type.highway.path" = "Cesta";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Cesta";
+"type.highway.path.difficult" = "Obtížná nebo špatně viditelná stezka";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Cesta";
+"type.highway.path.expert" = "Velmi obtížná nebo nezřetelná stopa";
 
 "type.highway.path.bicycle" = "Cesta";
 
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Vodovodní kohoutek";
 
+"type.man_made.water_tap.drinking_water_no" = "Vodovodní kohoutek";
+
 "type.man_made.water_tower" = "Vodárna";
 
 "type.man_made.water_well" = "Studna";
+
+"type.man_made.water_well.drinking_water_no" = "Studna";
 
 "type.man_made.windmill" = "Větrný mlýn";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "Křoviny";
 
 "type.natural.spring" = "Pramen";
+
+"type.natural.spring.drinking_water_no" = "Pramen";
 
 "type.natural.strait" = "Průliv";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Vchod do pohotovostního oddělení";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Dojo";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Sportovní hala";

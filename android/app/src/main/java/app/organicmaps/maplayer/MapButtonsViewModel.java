@@ -12,7 +12,7 @@ public class MapButtonsViewModel extends ViewModel
   private final MutableLiveData<MapButtonsController.LayoutMode> mLayoutMode = new MutableLiveData<>(MapButtonsController.LayoutMode.regular);
   private final MutableLiveData<Integer> mMyPositionMode = new MutableLiveData<>();
   private final MutableLiveData<SearchWheel.SearchOption> mSearchOption = new MutableLiveData<>();
-  private final MutableLiveData<Boolean> mTrackRecorderState = new MutableLiveData<>(TrackRecorder.nativeIsEnabled());
+  private final MutableLiveData<Boolean> mTrackRecorderState = new MutableLiveData<>(TrackRecorder.nativeIsTrackRecordingEnabled());
 
   public MutableLiveData<Boolean> getButtonsHidden()
   {

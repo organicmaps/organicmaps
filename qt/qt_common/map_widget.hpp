@@ -47,6 +47,15 @@ public slots:
   void ScaleMinus();
   void ScalePlusLight();
   void ScaleMinusLight();
+  void MoveRight();
+  void MoveRightSmooth();
+  void MoveLeft();
+  void MoveLeftSmooth();
+  void MoveUp();
+  void MoveUpSmooth();
+  void MoveDown();
+  void MoveDownSmooth();
+
 
   void ScaleChanged(int action);
   void SliderPressed();

@@ -1,7 +1,7 @@
 package app.organicmaps.routing;
 
 import androidx.annotation.DrawableRes;
-import androidx.annotation.Keep;
+import androidx.annotation.NonNull;
 
 import app.organicmaps.R;
 
@@ -38,10 +38,7 @@ public class SingleLaneInfo
     }
   }
 
-  // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  SingleLaneInfo(byte[] laneOrdinals, boolean isActive)
+  public SingleLaneInfo(@NonNull byte[] laneOrdinals, boolean isActive)
   {
     mLane = new LaneWay[laneOrdinals.length];
     final LaneWay[] values = LaneWay.values();
@@ -51,6 +48,7 @@ public class SingleLaneInfo
     mIsActive = isActive;
   }
 
+  @NonNull
   @Override
   public String toString()
   {

@@ -19,9 +19,11 @@ public:
   void ResetChanges() const override { m_isDirty = false; }
 
   kml::TrackData const & GetData() const { return m_data; }
+  void setData(kml::TrackData const & data);
 
   std::string GetName() const;
   void SetName(std::string const & name);
+  std::string GetDescription() const;
 
   m2::RectD GetLimitRect() const;
   double GetLengthMeters() const;

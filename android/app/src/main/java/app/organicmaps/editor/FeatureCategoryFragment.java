@@ -28,8 +28,6 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCate
   private FeatureCategory mSelectedCategory;
   protected ToolbarController mToolbarController;
 
-  private NestedScrollView mScrollView;
-
   public interface FeatureCategoryListener
   {
     void onFeatureCategorySelected(FeatureCategory category);
@@ -61,10 +59,7 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCate
         setFilter(query);
       }
     };
-    mScrollView = view.findViewById(R.id.nested_scroll_view);
 
-    TextView categoryUnsuitableText = view.findViewById(R.id.editor_category_unsuitable_text);
-    categoryUnsuitableText.setMovementMethod(LinkMovementMethod.getInstance());
   }
 
   private void setFilter(String query)
@@ -77,7 +72,7 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCate
     FeatureCategory[] categories = makeFeatureCategoriesFromTypes(creatableTypes);
 
     getAdapter().setCategories(categories);
-    mScrollView.scrollTo(0, 0);
+    getRecyclerView().scrollToPosition(0);
   }
 
   @NonNull

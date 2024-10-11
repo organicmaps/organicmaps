@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">
+<Document>
+  <Style id="placemark-red">
+    <IconStyle>
+      <Icon>
+        <href>https://omaps.app/placemarks/placemark-red.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-blue">
+    <IconStyle>
+      <Icon>
+        <href>https://omaps.app/placemarks/placemark-blue.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-purple">
+    <IconStyle>
+      <Icon>
+        <href>https://omaps.app/placemarks/placemark-purple.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-yellow">
+    <IconStyle>
+      <Icon>
+        <href>https://omaps.app/placemarks/placemark-yellow.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-pink">
+    <IconStyle>
+      <Icon>
+        <href>https://omaps.app/placemarks/placemark-pink.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-brown">
+    <IconStyle>
+      <Icon>
+        <href>https://omaps.app/placemarks/placemark-brown.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-green">
+    <IconStyle>
+      <Icon>
+        <href>https://omaps.app/placemarks/placemark-green.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-orange">
+    <IconStyle>
+      <Icon>
+        <href>https://omaps.app/placemarks/placemark-orange.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-deeppurple">
+    <IconStyle>
+      <Icon>
+        <href>https://omaps.app/placemarks/placemark-deeppurple.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-lightblue">
+    <IconStyle>
+      <Icon>
+        <href>https://omaps.app/placemarks/placemark-lightblue.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-cyan">
+    <IconStyle>
+      <Icon>
+        <href>https://omaps.app/placemarks/placemark-cyan.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-teal">
+    <IconStyle>
+      <Icon>
+        <href>https://omaps.app/placemarks/placemark-teal.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-lime">
+    <IconStyle>
+      <Icon>
+        <href>https://omaps.app/placemarks/placemark-lime.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-deeporange">
+    <IconStyle>
+      <Icon>
+        <href>https://omaps.app/placemarks/placemark-deeporange.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-gray">
+    <IconStyle>
+      <Icon>
+        <href>https://omaps.app/placemarks/placemark-gray.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-bluegray">
+    <IconStyle>
+      <Icon>
+        <href>https://omaps.app/placemarks/placemark-bluegray.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <name>Test category</name>
+  <description>Test description</description>
+  <visibility>1</visibility>
+  <ExtendedData xmlns:mwm="https://omaps.app">
+    <mwm:serverId>AAAA-BBBB-CCCC-DDDD</mwm:serverId>
+    <mwm:name>
+      <mwm:lang code="ru">Тестовая категория</mwm:lang>
+      <mwm:lang code="default">Test category</mwm:lang>
+    </mwm:name>
+    <mwm:annotation>
+      <mwm:lang code="en">Test annotation</mwm:lang>
+      <mwm:lang code="default">Test annotation</mwm:lang>
+    </mwm:annotation>
+    <mwm:description>
+      <mwm:lang code="ru">Тестовое описание</mwm:lang>
+      <mwm:lang code="default">Test description</mwm:lang>
+    </mwm:description>
+    <mwm:imageUrl>https://localhost/123.png</mwm:imageUrl>
+    <mwm:author id="12345">Organic Maps</mwm:author>
+    <mwm:lastModified>1970-01-01T00:16:40Z</mwm:lastModified>
+    <mwm:rating>8.9</mwm:rating>
+    <mwm:reviewsNumber>567</mwm:reviewsNumber>
+    <mwm:accessRules>Public</mwm:accessRules>
+    <mwm:tags>
+      <mwm:value>mountains</mwm:value>
+      <mwm:value>ski</mwm:value>
+      <mwm:value>snowboard</mwm:value>
+    </mwm:tags>
+    <mwm:toponyms>
+      <mwm:value>12345</mwm:value>
+      <mwm:value>54321</mwm:value>
+    </mwm:toponyms>
+    <mwm:languageCodes>
+      <mwm:value>en</mwm:value>
+      <mwm:value>ja</mwm:value>
+      <mwm:value>ru</mwm:value>
+    </mwm:languageCodes>
+    <mwm:properties>
+      <mwm:value key="property1">value1</mwm:value>
+      <mwm:value key="property2">value2</mwm:value>
+    </mwm:properties>
+    <mwm:compilation id="1" type="Collection">
+      <mwm:name>
+        <mwm:lang code="ru">Тестовая коллекция</mwm:lang>
+        <mwm:lang code="default">Test collection</mwm:lang>
+      </mwm:name>
+      <mwm:annotation>
+        <mwm:lang code="en">Test collection annotation</mwm:lang>
+        <mwm:lang code="default">Test collection annotation</mwm:lang>
+      </mwm:annotation>
+      <mwm:description>
+        <mwm:lang code="ru">Тестовое описание коллекции</mwm:lang>
+        <mwm:lang code="default">Test collection description</mwm:lang>
+      </mwm:description>
+      <mwm:visibility>1</mwm:visibility>
+      <mwm:imageUrl>https://localhost/1234.png</mwm:imageUrl>
+      <mwm:author id="54321">Organic Maps</mwm:author>
+      <mwm:lastModified>1970-01-01T00:16:39Z</mwm:lastModified>
+      <mwm:rating>5.9</mwm:rating>
+      <mwm:reviewsNumber>333</mwm:reviewsNumber>
+      <mwm:accessRules>Public</mwm:accessRules>
+      <mwm:tags>
+        <mwm:value>mountains</mwm:value>
+        <mwm:value>ski</mwm:value>
+      </mwm:tags>
+      <mwm:toponyms>
+        <mwm:value>8</mwm:value>
+        <mwm:value>9</mwm:value>
+      </mwm:toponyms>
+      <mwm:languageCodes>
+        <mwm:value>en</mwm:value>
+        <mwm:value>ja</mwm:value>
+        <mwm:value>ru</mwm:value>
+      </mwm:languageCodes>
+      <mwm:properties>
+        <mwm:value key="property1">value1</mwm:value>
+        <mwm:value key="property2">value2</mwm:value>
+      </mwm:properties>
+    </mwm:compilation>
+    <mwm:compilation id="4" type="Category">
+      <mwm:name>
+        <mwm:lang code="ru">Тестовая категория</mwm:lang>
+        <mwm:lang code="default">Test category</mwm:lang>
+      </mwm:name>
+      <mwm:annotation>
+        <mwm:lang code="en">Test category annotation</mwm:lang>
+        <mwm:lang code="default">Test category annotation</mwm:lang>
+      </mwm:annotation>
+      <mwm:description>
+        <mwm:lang code="ru">Тестовое описание категории</mwm:lang>
+        <mwm:lang code="default">Test category description</mwm:lang>
+      </mwm:description>
+      <mwm:visibility>0</mwm:visibility>
+      <mwm:imageUrl>https://localhost/134.png</mwm:imageUrl>
+      <mwm:author id="11111">Organic Maps</mwm:author>
+      <mwm:lastModified>1970-01-01T00:05:23Z</mwm:lastModified>
+      <mwm:rating>3.3</mwm:rating>
+      <mwm:reviewsNumber>222</mwm:reviewsNumber>
+      <mwm:accessRules>Public</mwm:accessRules>
+      <mwm:tags>
+        <mwm:value>mountains</mwm:value>
+        <mwm:value>bike</mwm:value>
+      </mwm:tags>
+      <mwm:toponyms>
+        <mwm:value>10</mwm:value>
+        <mwm:value>11</mwm:value>
+      </mwm:toponyms>
+      <mwm:languageCodes>
+        <mwm:value>en</mwm:value>
+        <mwm:value>ja</mwm:value>
+        <mwm:value>ru</mwm:value>
+      </mwm:languageCodes>
+      <mwm:properties>
+        <mwm:value key="property1">value1</mwm:value>
+        <mwm:value key="property2">value2</mwm:value>
+      </mwm:properties>
+    </mwm:compilation>
+  </ExtendedData>
+  <Placemark>
+    <name>Мое любимое место</name>
+    <description>Test bookmark description</description>
+    <TimeStamp><when>1970-01-01T00:13:20Z</when></TimeStamp>
+    <styleUrl>#placemark-blue</styleUrl>
+    <Point><coordinates>45.9242,49.326859</coordinates></Point>
+    <ExtendedData xmlns:mwm="https://omaps.app">
+      <mwm:name>
+        <mwm:lang code="ru">Тестовая метка</mwm:lang>
+        <mwm:lang code="default">Test bookmark</mwm:lang>
+      </mwm:name>
+      <mwm:description>
+        <mwm:lang code="ru">Тестовое описание метки</mwm:lang>
+        <mwm:lang code="default">Test bookmark description</mwm:lang>
+      </mwm:description>
+      <mwm:featureTypes>
+        <mwm:value>historic-castle</mwm:value>
+        <mwm:value>historic-memorial</mwm:value>
+      </mwm:featureTypes>
+      <mwm:customName>
+        <mwm:lang code="en">My favorite place</mwm:lang>
+        <mwm:lang code="default">Мое любимое место</mwm:lang>
+      </mwm:customName>
+      <mwm:scale>15</mwm:scale>
+      <mwm:boundTracks>
+        <mwm:value>0</mwm:value>
+      </mwm:boundTracks>
+      <mwm:visibility>0</mwm:visibility>
+      <mwm:nearestToponym>12345</mwm:nearestToponym>
+      <mwm:minZoom>10</mwm:minZoom>
+      <mwm:properties>
+        <mwm:value key="bm_property1">value1</mwm:value>
+        <mwm:value key="bm_property2">value2</mwm:value>
+        <mwm:value key="score">5</mwm:value>
+      </mwm:properties>
+      <mwm:compilations>1,2,3,4,5</mwm:compilations>
+    </ExtendedData>
+  </Placemark>
+  <Placemark>
+    <name>Test track</name>
+    <description>Test track description</description>
+    <Style><LineStyle>
+      <color>FF0000FF</color>
+      <width>6</width>
+    </LineStyle></Style>
+    <TimeStamp><when>1970-01-01T00:15:00Z</when></TimeStamp>
+    <gx:MultiTrack>
+      <gx:Track>
+        <when>1970-01-01T00:00:00Z</when>
+        <when>1970-01-01T00:00:01Z</when>
+        <when>1970-01-01T00:00:02Z</when>
+        <gx:coord>45.9242 49.326859 1</gx:coord>
+        <gx:coord>45.2244 48.941288 2</gx:coord>
+        <gx:coord>45.1964 49.401948 3</gx:coord>
+      </gx:Track>
+      <gx:Track>
+        <when>1970-01-01T00:00:00Z</when>
+        <gx:coord>45.9242 49.326859 1</gx:coord>
+        <when>1970-01-01T00:00:01Z</when>
+        <gx:coord>45.2244 48.941288 2</gx:coord>
+        <when>1970-01-01T00:00:02Z</when>
+        <gx:coord>45.1964 49.401948 3</gx:coord>
+      </gx:Track>
+      <gx:Track>
+        <gx:coord>45.9242 49.326859 1</gx:coord>
+        <gx:coord>45.2244 48.941288 2</gx:coord>
+        <gx:coord>45.1964 49.401948 3</gx:coord>
+        <when>1970-01-01T00:00:00Z</when>
+        <when>1970-01-01T00:00:01Z</when>
+        <when>1970-01-01T00:00:02Z</when>
+      </gx:Track>
+      <gx:Track>
+        <gx:coord>45.9242 49.326859 1</gx:coord>
+        <when>1970-01-01T00:00:00Z</when>
+        <gx:coord>45.2244 48.941288 2</gx:coord>
+        <when>1970-01-01T00:00:01Z</when>
+        <gx:coord>45.1964 49.401948 3</gx:coord>
+        <when>1970-01-01T00:00:02Z</when>
+      </gx:Track>
+    </gx:MultiTrack>
+    <ExtendedData xmlns:mwm="https://omaps.app">
+      <mwm:name>
+        <mwm:lang code="ru">Тестовый трек</mwm:lang>
+        <mwm:lang code="default">Test track</mwm:lang>
+      </mwm:name>
+      <mwm:description>
+        <mwm:lang code="ru">Тестовое описание трека</mwm:lang>
+        <mwm:lang code="default">Test track description</mwm:lang>
+      </mwm:description>
+      <mwm:localId>0</mwm:localId>
+      <mwm:additionalStyle>
+        <mwm:additionalLineStyle>
+          <color>FF00FF00</color>
+          <width>7</width>
+        </mwm:additionalLineStyle>
+      </mwm:additionalStyle>
+      <mwm:visibility>0</mwm:visibility>
+      <mwm:nearestToponyms>
+        <mwm:value>12345</mwm:value>
+        <mwm:value>54321</mwm:value>
+        <mwm:value>98765</mwm:value>
+      </mwm:nearestToponyms>
+      <mwm:properties>
+        <mwm:value key="tr_property1">value1</mwm:value>
+        <mwm:value key="tr_property2">value2</mwm:value>
+      </mwm:properties>
+    </ExtendedData>
+  </Placemark>
+</Document>
+</kml>

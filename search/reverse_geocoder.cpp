@@ -4,6 +4,7 @@
 #include "search/house_to_street_table.hpp"
 #include "search/mwm_context.hpp"
 #include "search/region_info_getter.hpp"
+#include "search/street_vicinity_loader.hpp"
 
 #include "storage/country_info_getter.hpp"
 
@@ -19,9 +20,8 @@
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
-#include <cstddef>
 #include <functional>
-#include <limits>
+
 
 namespace search
 {
@@ -103,8 +103,7 @@ vector<ReverseGeocoder::Street> ReverseGeocoder::GetNearbyStreets(
 {
   return GetNearbyObjects<Street>(context, center, radiusM, [](FeatureType & ft)
   {
-    return ((ft.GetGeomType() == feature::GeomType::Line && ftypes::IsWayChecker::Instance()(ft)) ||
-            ftypes::IsSquareChecker::Instance()(ft));
+    return StreetVicinityLoader::IsStreet(ft);
   });
 }
 

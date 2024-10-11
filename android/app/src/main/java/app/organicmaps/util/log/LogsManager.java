@@ -1,9 +1,11 @@
 package app.organicmaps.util.log;
 
+import android.Manifest;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
@@ -15,6 +17,8 @@ import android.util.Log;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+
 import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
@@ -261,6 +265,13 @@ public final class LogsManager
     if (locMngr != null)
       for (String provider : locMngr.getProviders(true))
         sb.append(' ').append(provider);
+
+    sb.append("\nLocation permissions:");
+    if (ContextCompat.checkSelfPermission(mApplication, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+      sb.append(' ').append("coarse");
+    if (ContextCompat.checkSelfPermission(mApplication, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+      sb.append(' ').append("fine");
+
     sb.append("\n\n");
 
     return sb.toString();

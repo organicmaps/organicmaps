@@ -19,9 +19,9 @@ bool IsAltModifier(QMouseEvent const * const e);
 struct Hotkey
 {
   Hotkey() = default;
-  Hotkey(int key, char const * slot) : m_key(key), m_slot(slot) {}
+  Hotkey(QKeySequence const & key, char const * slot) : m_key(key), m_slot(slot) {}
 
-  int m_key = 0;
+  QKeySequence m_key = 0;
   char const * m_slot = nullptr;
 };
 

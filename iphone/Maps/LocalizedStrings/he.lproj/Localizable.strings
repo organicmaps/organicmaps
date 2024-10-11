@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "אחר";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "מסלול אחרון";
-
 "pref_map_auto_zoom" = "זום אוטומטי";
-
-"duration_disabled" = "כבוי";
-
-"duration_1_hour" = "1 שעה";
-
-"duration_2_hours" = "2 שעות";
-
-"duration_6_hours" = "6 שעות";
-
-"duration_12_hours" = "12 שעות";
-
-"duration_1_day" = "1 יום";
-
-"recent_track_help_text" = "האפשרות הזו מאפשרת להקליט את המסלול שלך למשך זמן מסוים ולראות אותו במפה. שימו לב: הפעלת האפשרות הזו גורמת לגדילה בצריכת הסוללה. המסלול יימחק מהמפה לאחר הזמן שהוגדר.";
 
 "placepage_distance" = "מרחק";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "מיקום לא ידוע";
 
-"editor_other_info" = "שלח הערה לעורכי OSM";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "הערה למתנדבי OpenStreetMap (אופציונלי)";
 
 "editor_detailed_description_hint" = "הערה מפורטת";
 
@@ -1392,6 +1376,24 @@
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "לשחזר הכל";
 
+/* Prompt to start recording a track. */
+"start_track_recording" = "הקלט מסלול";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "הפסק הקלטת מסלול";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "הפסק בלי לשמור";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "המשך להקליט";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "לשמור בסימניות ומסלולים?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "המסלול ריק - אין מה לשמור";
+
 
 /********** Types **********/
 
@@ -1423,7 +1425,7 @@
 
 "type.aeroway.apron" = "חניית מטוסים";
 
-"type.aeroway.gate" = "שער";
+"type.aeroway.gate" = "שער עליה למטוס";
 
 "type.aeroway.helipad" = "מנחת מסוקים";
 
@@ -2197,10 +2199,10 @@
 "type.highway.path" = "שביל";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "רמה 3/6) שביל קשה או לא ברור)";
+"type.highway.path.difficult" = "שביל קשה או לא נראה לעין";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "רמה 4+/6) מסלול למומחים או ללא שבילים מסודרים)";
+"type.highway.path.expert" = "מסלול קשה מאוד או בלתי ניתן להבחנה";
 
 "type.highway.path.bicycle" = "שביל להולכי רגל ואופניים";
 
@@ -2332,7 +2334,7 @@
 
 "type.highway.track.grade1" = "מסלול";
 
-"type.highway.track.no.access" = "מסלול";
+"type.highway.track.no.access" = "מסלול ללא גישה";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "מִנהָרָה";
@@ -2472,7 +2474,7 @@
 
 "type.historic.ruins" = "חורבות עתיקות";
 
-"type.historic.ship" = "אונייה";
+"type.historic.ship" = "ספינה";
 
 "type.historic.tank" = "טנק היסטורי";
 
@@ -2516,17 +2518,17 @@
 
 "type.junction" = "צומת";
 
-"type.junction.circular" = "מעגל תנועה";
+"type.junction.circular" = "כיכר";
 
-"type.junction.roundabout" = "מעגל תנועה";
+"type.junction.roundabout" = "כיכר";
 
-"type.landuse" = "Landuse";
+"type.landuse" = "שימושי קרקע";
 
-"type.landuse.allotments" = "Allotments";
+"type.landuse.allotments" = "חלקות חקלאיות";
 
 "type.landuse.basin" = "אגן מים";
 
-"type.landuse.brownfield" = "Brownfield";
+"type.landuse.brownfield" = "קרקע מזוהמת";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery" = "בית קברות";
@@ -2534,17 +2536,17 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "בית קברות נוצרי";
 
-"type.landuse.churchyard" = "Churchyard";
+"type.landuse.churchyard" = "חצר כנסיה";
 
 "type.landuse.commercial" = "אזור מסחרי";
 
 "type.landuse.construction" = "אתר בניה";
 
-"type.landuse.education" = "Educational Facility";
+"type.landuse.education" = "קריית חינוך";
 
-"type.landuse.farmland" = "Farmland";
+"type.landuse.farmland" = "אדמה חקלאית";
 
-"type.landuse.farmyard" = "Farmyard";
+"type.landuse.farmyard" = "חצר חקלאית";
 
 "type.landuse.field" = "שדה";
 
@@ -2566,7 +2568,7 @@
 
 "type.landuse.greenhouse_horticulture" = "חממה";
 
-"type.landuse.industrial" = "אזור תעשיה";
+"type.landuse.industrial" = "אזור תעשייה";
 
 "type.landuse.landfill" = "מטמנה";
 
@@ -2578,9 +2580,9 @@
 
 "type.landuse.quarry" = "מחצבה";
 
-"type.landuse.railway" = "Railway Premises";
+"type.landuse.railway" = "שטחי רכבת";
 
-"type.landuse.recreation_ground" = "Recreation Ground";
+"type.landuse.recreation_ground" = "אזור מיועד לבילוי";
 
 "type.landuse.reservoir" = "מאגר";
 
@@ -2590,7 +2592,7 @@
 
 "type.landuse.salt_pond" = "בריכת מלח";
 
-"type.landuse.village_green" = "Land";
+"type.landuse.village_green" = "כפר ירוק";
 
 "type.landuse.vineyard" = "כרם";
 
@@ -2600,123 +2602,127 @@
 
 "type.leisure.dog_park" = "פארק כלבים";
 
-"type.leisure.fitness_centre" = "חדר כושר";
+"type.leisure.fitness_centre" = "מכון כושר";
 
-"type.leisure.fitness_station" = "Fitness Station";
+"type.leisure.fitness_station" = "תחנת כושר";
 
-"type.leisure.dance" = "םידוקיר םלוא";
+"type.leisure.dance" = "היכל ריקודים";
 
 "type.leisure.garden" = "גן";
 
-"type.leisure.garden.residential" = "גן";
+"type.leisure.garden.residential" = "גן מגורים";
 
-"type.leisure.golf_course" = "Golf Course";
+"type.leisure.golf_course" = "מגרש גולף";
 
-"type.leisure.miniature_golf" = "Minigolf";
+"type.leisure.miniature_golf" = "מיני גולף";
 
-"type.leisure.hackerspace" = "האקרספייס";
+"type.leisure.hackerspace" = "משרד היי טק משותף";
 
-"type.leisure.ice_rink" = "Ice Rink";
+"type.leisure.ice_rink" = "החלקה על קרח";
 
-"type.leisure.marina" = "Marina";
+"type.leisure.marina" = "מרינה";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "שמורת טבע";
 
 "type.leisure.outdoor_seating" = "ישיבה בחוץ";
 
-"type.leisure.park" = "Park";
+"type.leisure.park" = "פארק";
 
-"type.leisure.park.no.access" = "Park";
+"type.leisure.park.no.access" = "פארק סגור לכניסה";
 
-"type.leisure.park.permissive" = "Park";
+"type.leisure.park.permissive" = "פארק";
 
-"type.leisure.park.private" = "Park";
+"type.leisure.park.private" = "פארק פרטי";
 
-"type.leisure.picnic_table" = "קינקיפ ןחלוש";
+"type.leisure.picnic_table" = "שולחן פיקניק";
 
-"type.leisure.pitch" = "Sport Pitch";
+"type.leisure.pitch" = "מגרש ספורט";
 
-"type.leisure.playground" = "Playground";
+"type.leisure.playground" = "מגרש משחקים";
 
-"type.leisure.recreation_ground" = "Recreation Ground";
+"type.leisure.recreation_ground" = "אזור מיועד לבילוי";
 
-"type.leisure.sauna" = "Sauna";
+"type.leisure.sauna" = "סאונה";
 
-"type.leisure.slipway" = "Slipway";
+"type.leisure.slipway" = "ממשה";
 
-"type.leisure.sports_centre" = "Sports Center";
+"type.leisure.sports_centre" = "מרכז ספורט";
 
-"type.sport.climbing" = "Climbing Centre";
+"type.sport.climbing" = "טיפוס";
 
-"type.sport.yoga" = "Yoga Studio";
+"type.sport.yoga" = "יוגה";
 
-"type.leisure.stadium" = "Stadium";
+"type.leisure.stadium" = "אצטדיון";
 
-"type.leisure.swimming_pool" = "Swimming Pool";
+"type.leisure.swimming_pool" = "בריכת שחייה";
 
-"type.leisure.swimming_pool.private" = "Swimming Pool";
+"type.leisure.swimming_pool.private" = "בריכת שחייה פרטית";
 
 "type.leisure.track" = "Track";
 
 "type.leisure.track.area" = "Track";
 
-"type.leisure.water_park" = "Water Park";
+"type.leisure.water_park" = "פארק מים";
 
-"type.leisure.beach_resort" = "Beach Resort";
+"type.leisure.beach_resort" = "אתר נופש על החוף";
 
-"type.man_made" = "Man Made";
+"type.man_made" = "מלאכותי-מעשה ידי אדם";
 
-"type.man_made.breakwater" = "Breakwater";
+"type.man_made.breakwater" = "שובר גלים";
 
-"type.man_made.cairn" = "Cairn";
+"type.man_made.cairn" = "גלעד";
 
-"type.man_made.chimney" = "Chimney";
+"type.man_made.chimney" = "ארובה";
 
-"type.man_made.cutline" = "Cutline";
+"type.man_made.cutline" = "אזור חיץ";
 
-"type.man_made.survey_point" = "Survey Point";
+"type.man_made.survey_point" = "נקודת גבול";
 
-"type.man_made.flagpole" = "Flagpole";
+"type.man_made.flagpole" = "עמוד דגל";
 
-"type.man_made.lighthouse" = "Lighthouse";
+"type.man_made.lighthouse" = "מגדלור";
 
-"type.man_made.mast" = "Mast";
+"type.man_made.mast" = "תורן";
 
-"type.man_made.pier" = "Pier";
+"type.man_made.pier" = "מזח";
 
-"type.man_made.pipeline" = "Pipeline";
+"type.man_made.pipeline" = "צינור";
 
-"type.man_made.pipeline.overground" = "Overground Pipeline";
+"type.man_made.pipeline.overground" = "צינור עילי";
 
-"type.man_made.silo" = "Silo";
+"type.man_made.silo" = "סילו";
 
-"type.man_made.storage_tank" = "Storage Tank";
+"type.man_made.storage_tank" = "מיכל איחסון";
 
-"type.man_made.surveillance" = "Surveillance Camera";
+"type.man_made.surveillance" = "מצלמת מעקב";
 
-"type.man_made.tower" = "Tower";
+"type.man_made.tower" = "מגדל";
 
 "type.man_made.tower.communication" = "מגדל תקשורת";
 
-"type.man_made.wastewater_plant" = "Wastewater Treatment Plant";
+"type.man_made.wastewater_plant" = "מפעל טיפול בשפכים";
 
-"type.man_made.water_tap" = "Water Tap";
+"type.man_made.water_tap" = "ברז מים";
 
-"type.man_made.water_tower" = "Water Tower";
+"type.man_made.water_tap.drinking_water_no" = "ברז מים";
 
-"type.man_made.water_well" = "Water Well";
+"type.man_made.water_tower" = "מגדל מים";
 
-"type.man_made.windmill" = "Windmill";
+"type.man_made.water_well" = "באר מים";
 
-"type.man_made.works" = "Industrial Works";
+"type.man_made.water_well.drinking_water_no" = "באר מים";
+
+"type.man_made.windmill" = "טחנת רוח";
+
+"type.man_made.works" = "עבודות תעשיה";
 
 "type.mapswithme" = "mapswithme";
 
 "type.mapswithme.grid" = "mapswithme-grid";
 
-"type.military" = "Military";
+"type.military" = "צבאי";
 
-"type.military.bunker" = "Bunker";
+"type.military.bunker" = "בונקר צבאי";
 
 "type.mountain_pass" = "Mountain Pass";
 
@@ -2733,7 +2739,7 @@
 
 "type.natural.bay" = "מפרץ";
 
-"type.natural.beach" = "חוף חולי";
+"type.natural.beach" = "חוף";
 
 "type.natural.beach.sand" = "חוף חולי";
 
@@ -2741,7 +2747,7 @@
 
 "type.natural.cape" = "לשון יבשה";
 
-"type.natural.cave_entrance" = "מערה";
+"type.natural.cave_entrance" = "כניסה למערה";
 
 "type.natural.cliff" = "צוק";
 
@@ -2749,7 +2755,7 @@
 
 "type.man_made.embankment" = "סוֹלְלָה";
 
-"type.natural.coastline" = "חוף";
+"type.natural.coastline" = "קו החוף";
 
 "type.natural.desert" = "מדבר";
 
@@ -2757,7 +2763,7 @@
 
 "type.natural.glacier" = "קרחון";
 
-"type.natural.grassland" = "ערבה";
+"type.natural.grassland" = "שטחי דשא";
 
 "type.natural.heath" = "עֲרָבָה";
 
@@ -2765,11 +2771,11 @@
 
 "type.natural.water.lake" = "אגם";
 
-"type.natural.water.lock" = "לוענמ את";
+"type.natural.water.lock" = "תא מנעול";
 
 "type.natural.water.pond" = "בריכה";
 
-"type.natural.water.reservoir" = "מאגר";
+"type.natural.water.reservoir" = "מאגר מים";
 
 "type.natural.water.basin" = "אגן מים";
 
@@ -2787,9 +2793,11 @@
 
 "type.natural.rock" = "סלע";
 
-"type.natural.scrub" = "בתה";
+"type.natural.scrub" = "עשביה";
 
 "type.natural.spring" = "מעיין";
+
+"type.natural.spring.drinking_water_no" = "מעיין";
 
 "type.natural.strait" = "מצר ים";
 
@@ -2799,7 +2807,7 @@
 
 "type.natural.volcano" = "הר געש";
 
-"type.natural.water" = "גוף מים";
+"type.natural.water" = "מים";
 
 "type.natural.wetland" = "ביצה";
 
@@ -2809,25 +2817,25 @@
 
 "type.noexit" = "Dead End";
 
-"type.office" = "Office";
+"type.office" = "משרד";
 
-"type.office.company" = "Company Office";
+"type.office.company" = "משרד החברה";
 
-"type.office.estate_agent" = "Estate Agent";
+"type.office.estate_agent" = "משרד נדל״ן";
 
-"type.office.government" = "Government Office";
+"type.office.government" = "משרד ממשלתי";
 
-"type.office.insurance" = "Insurance Office";
+"type.office.insurance" = "משרד ביטוח";
 
-"type.office.lawyer" = "Lawyer";
+"type.office.lawyer" = "עורך דין";
 
-"type.office.ngo" = "Non-Governmental Organization";
+"type.office.ngo" = "ארגון לא ממשלתי";
 
-"type.office.telecommunication" = "Telecom Company";
+"type.office.telecommunication" = "משרד חברת תקשורת";
 
-"type.organic.only" = "Organic";
+"type.organic.only" = "אורגני";
 
-"type.organic.yes" = "Organic";
+"type.organic.yes" = "אורגני";
 
 "type.place.city" = "עיר";
 
@@ -2857,9 +2865,9 @@
 
 "type.place.country" = "ארץ";
 
-"type.place.county" = "נפה";
+"type.place.county" = "מחוז/נפה";
 
-"type.place.farm" = "חווה חקלאית";
+"type.place.farm" = "חווה";
 
 "type.place.hamlet" = "כְּפָר קָטָן";
 
@@ -2867,9 +2875,9 @@
 
 "type.place.islet" = "איון";
 
-"type.place.isolated_dwelling" = "דירת מגורים מבודדת";
+"type.place.isolated_dwelling" = "מבנה מבודד";
 
-"type.place.locality" = "מקום";
+"type.place.locality" = "אזור בלתי מיושב";
 
 "type.place.neighbourhood" = "שכונה";
 
@@ -2891,29 +2899,29 @@
 
 "type.place.village" = "כפר";
 
-"type.power" = "Power";
+"type.power" = "חשמל";
 
-"type.power.generator" = "Power Generator";
+"type.power.generator" = "גנרטור";
 
 "type.power.generator.solar" = "גנרטור סולארי";
 
 "type.power.generator.wind" = "מחולל רוח";
 
-"type.power.generator.gas" = "תחנת כוח לטורבינת גז";
+"type.power.generator.gas" = "תחנת כוח מופעלת גז";
 
 "type.power.generator.hydro" = "תחנת כוח הידרואלקטרית";
 
-"type.power.line" = "Power Line";
+"type.power.line" = "קו חשמל";
 
-"type.power.line.underground" = "Underground Power Line";
+"type.power.line.underground" = "קו חשמל תת קרקעי";
 
-"type.power.minor_line" = "Minor Power Line";
+"type.power.minor_line" = "קו מתח משני";
 
 "type.power.plant" = "תחנת כוח";
 
 "type.power.plant.coal" = "תחנת כוח פחמית";
 
-"type.power.plant.gas" = "תחנת כוח לטורבינת גז";
+"type.power.plant.gas" = "תחנת כוח מופעלת גז";
 
 "type.power.plant.hydro" = "תחנת כוח הידרואלקטרית";
 
@@ -2921,41 +2929,41 @@
 
 "type.power.plant.wind" = "תחנת כוח רוח";
 
-"type.power.station" = "Power Station";
+"type.power.station" = "תחנת כוח";
 
-"type.power.substation" = "Substation";
+"type.power.substation" = "תחנת כוח משנית";
 
-"type.power.tower" = "Power Tower";
+"type.power.tower" = "מגדל קירור";
 
-"type.psurface" = "psurface";
+"type.psurface" = "משטח";
 
-"type.psurface.paved_bad" = "psurface-paved_bad";
+"type.psurface.paved_bad" = "אספלט במצב גרוע";
 
-"type.psurface.paved_good" = "psurface-paved_good";
+"type.psurface.paved_good" = "אספלט במצב טוב";
 
-"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
+"type.psurface.unpaved_bad" = "לא סלול במצב גרוע";
 
-"type.psurface.unpaved_good" = "psurface-unpaved_good";
+"type.psurface.unpaved_good" = "לא סלול במצב טוב";
 
-"type.public_transport" = "Public Transport";
+"type.public_transport" = "תחבורה ציבורית";
 
-"type.public_transport.platform" = "Platform";
+"type.public_transport.platform" = "רציף תחבורה";
 
-"type.railway" = "Railway";
+"type.railway" = "מסילת רכבת";
 
-"type.railway.abandoned" = "Abandoned Railway";
+"type.railway.abandoned" = "מסילת רכבת נטושה";
 
-"type.railway.abandoned.bridge" = "Abandoned Railway Bridge";
+"type.railway.abandoned.bridge" = "גשר רכבת נטוש";
 
-"type.railway.abandoned.tunnel" = "Abandoned Railway Tunnel";
+"type.railway.abandoned.tunnel" = "מנהרת רכבת נטושה";
 
-"type.railway.construction" = "Railway Construction";
+"type.railway.construction" = "מסילת רכבת בבניה";
 
-"type.railway.crossing" = "Railway Crossing";
+"type.railway.crossing" = "מעבר חציית פסי רכבת";
 
-"type.railway.disused" = "Disused Railway";
+"type.railway.disused" = "מסילת רכבת לא בשימוש";
 
-"type.railway.funicular" = "רַכֶּבֶל";
+"type.railway.funicular" = "פוניקולר";
 
 "type.railway.funicular.bridge" = "Funicular Bridge";
 
@@ -3044,7 +3052,7 @@
 
 "type.railway.station" = "Train Station";
 
-"type.railway.station.funicular" = "רַכֶּבֶל";
+"type.railway.station.funicular" = "פוניקולר";
 
 "type.railway.station.light_rail" = "Train Station";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "כניסה למיון";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "דוג'ו";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "אולם ספורט";

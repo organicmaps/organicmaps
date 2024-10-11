@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "track_recorder_active.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

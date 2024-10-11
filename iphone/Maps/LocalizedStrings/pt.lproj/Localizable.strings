@@ -77,7 +77,7 @@
 "bookmarks" = "Favoritos";
 
 /* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
-"bookmarks_and_tracks" = "Favoritos e trilhas";
+"bookmarks_and_tracks" = "Favoritos e trajetos";
 
 /* Default bookmark list name */
 "core_my_places" = "Os meus locais";
@@ -205,7 +205,7 @@
 "version" = "Versão do Organic Maps: %@";
 
 /* Title for tracks category in bookmarks manager */
-"tracks_title" = "Percursos";
+"tracks_title" = "Trajetos";
 
 /* Length of track in cell that describes route */
 "length" = "Comprimento";
@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Outro";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "Percurso recente";
-
 "pref_map_auto_zoom" = "Ampliação automática";
-
-"duration_disabled" = "Desligado";
-
-"duration_1_hour" = "1 hora";
-
-"duration_2_hours" = "2 horas";
-
-"duration_6_hours" = "6 horas";
-
-"duration_12_hours" = "12 horas";
-
-"duration_1_day" = "1 dia";
-
-"recent_track_help_text" = "Permite-lhe gravar um caminho percorrido durante um determinado período e vê-lo no papa. Nota: esta funcionalidade usa mais bateria. A rota será automaticamente removida do mapa após o intervalo de tempo expirar.";
 
 "placepage_distance" = "Distância";
 
@@ -377,7 +360,7 @@
 "downloader_delete_map_while_routing_dialog" = "Para eliminar o mapa, por favor pare a navegação.";
 
 /* PointsInDifferentMWM */
-"routing_failed_cross_mwm_building" = "Só podem ser criadas rotas que estejam completamente contidas num único mapa.";
+"routing_failed_cross_mwm_building" = "Só podem ser criados trajetos que estejam completamente contidos num único mapa.";
 
 /* Context menu item for downloader. */
 "downloader_download_map" = "Descarregar mapa";
@@ -392,7 +375,7 @@
 "routing_download_maps_along" = "Descarregar todos os mapas ao longo do trajeto";
 
 /* Text for routing error dialog */
-"routing_requires_all_map" = "É necessário descarregar e atualizar todos os mapas entre a sua localização e o destino para criar uma rota.";
+"routing_requires_all_map" = "É necessário descarregar e atualizar todos os mapas entre a sua localização e o destino para criar um trajeto.";
 
 /* bookmark button text */
 "bookmark" = "favorito";
@@ -452,13 +435,13 @@
 
 /********** Routing dialogs strings **********/
 
-"dialog_routing_disclaimer_title" = "Ao seguir a rota, lembre-se que:";
+"dialog_routing_disclaimer_title" = "Ao seguir o trajeto, lembre-se que:";
 
 "dialog_routing_disclaimer_priority" = "— As condições da estrada, as leis de trânsito e os sinais de trânsito têm sempre prioridade sobre as indicações de navegação;";
 
-"dialog_routing_disclaimer_precision" = "— O mapa pode estar desatualizado e a rota indicada pode não ser a melhor para chegar ao destino;";
+"dialog_routing_disclaimer_precision" = "— O mapa pode estar desatualizado e o trajeto indicado pode não ser a melhor para chegar ao destino;";
 
-"dialog_routing_disclaimer_recommendations" = "— As rotas indicadas devem ser consideradas apenas como sugestões;";
+"dialog_routing_disclaimer_recommendations" = "— Os trajetos indicados devem ser considerados apenas como sugestões;";
 
 "dialog_routing_disclaimer_borders" = "— Use com cautela em rotas de zonas fronteiriças: as rotas criadas pela nossa aplicação podem algumas vezes cruzar fronteiras nacionais em locais não autorizados;";
 
@@ -466,17 +449,17 @@
 
 "dialog_routing_check_gps" = "Verifique o sinal do GPS";
 
-"dialog_routing_error_location_not_found" = "A rota não foi criada, porque não foi possível identificar as coordenadas do GPS.";
+"dialog_routing_error_location_not_found" = "O trajeto não foi criado porque não foi possível identificar as coordenadas do GPS.";
 
 "dialog_routing_location_turn_wifi" = "Verifique o sinal do GPS. Ative o Wi-Fi para melhorar a precisão da localização.";
 
 "dialog_routing_location_turn_on" = "Ative os serviços de localização";
 
-"dialog_routing_location_unknown_turn_on" = "Não foi possível localizar as coordenadas do GPS. Ative os serviços de localização para que a rota seja criada.";
+"dialog_routing_location_unknown_turn_on" = "Não foi possível localizar as coordenadas do GPS. Ative os serviços de localização para que o trajeto seja criado.";
 
 "dialog_routing_download_files" = "Descarregar os ficheiros necessários";
 
-"dialog_routing_download_and_update_all" = "Descarregue e atualize todos os dados do mapa e roteamento ao longo do trajeto desejado para que a rota seja criada.";
+"dialog_routing_download_and_update_all" = "Descarregue e atualize todos os dados do mapa e roteamento ao longo do trajeto desejado para que o trajeto seja criado.";
 
 "dialog_routing_unable_locate_route" = "Não foi possível encontrar uma rota";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Local desconhecido";
 
-"editor_other_info" = "Enviar nota aos editores OSM";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Nota para os voluntários do OpenStreetMap (opcional)";
 
 "editor_detailed_description_hint" = "Comentário detalhado";
 
@@ -872,14 +856,14 @@
 "navigation_stop_button" = "Parar";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
-"recent_track_background_dialog_title" = "Desativar gravação da sua rota recente?";
+"recent_track_background_dialog_title" = "Desativar gravação do seu trajeto recente?";
 
 "off_recent_track_background_button" = "Desativar";
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Verificar";
 
-"recent_track_background_dialog_message" = "O Organic Maps usa a sua localização geográfica em segundo plano para gravar a sua rota recente.";
+"recent_track_background_dialog_message" = "O Organic Maps usa a sua localização geográfica em segundo plano para gravar o seu trajeto recente.";
 
 "general_settings" = "Configurações gerais";
 
@@ -966,7 +950,7 @@
 "bookmarks_create_new_group" = "Criar nova lista";
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
-"bookmarks_import" = "Importar favoritos e trilhas";
+"bookmarks_import" = "Importar favoritos e trajetos";
 
 "downloader_hide_screen" = "Ocultar ecrã";
 
@@ -1207,7 +1191,7 @@
 
 "transit_not_found" = "A navegação de metropolitano ainda não está disponível nesta região";
 
-"dialog_pedestrian_route_is_long_header" = "Não foi encontrada nenhuma rota de metropolitano";
+"dialog_pedestrian_route_is_long_header" = "Não foi encontrada nenhuma rota de metro";
 
 "dialog_pedestrian_route_is_long_message" = "Escolha um ponto inicial ou final do percurso próximo da estação de metropolitano";
 
@@ -1256,16 +1240,16 @@
 "whats_new_auto_update_button_later" = "Atualizar manualmente mais tarde";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Delete Track";
+"placepage_delete_track_button" = "Apagar trajeto";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Track Name";
+"placepage_track_name_hint" = "Nome do trajeto";
 
 /* move track or bookmark from the list button text */
-"move" = "Move";
+"move" = "Mover";
 
 /* edit track screen title */
-"track_title" = "Percurso";
+"track_title" = "Trajeto";
 
 /* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsApp";
@@ -1325,10 +1309,10 @@
 "button_layer_outdoor" = "Caminhadas";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
-"bookmarks_export" = "Exportar todos os favoritos e trilhos";
+"bookmarks_export" = "Exportar todos os favoritos e trajetos";
 
 /* Text for the editing the Track's color button. */
-"change_color" = "Muda de cor";
+"change_color" = "Alterar cor";
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Mapa";
@@ -1345,7 +1329,7 @@
 "enable_icloud_synchronization_title" = "Ativar a sincronização do iCloud";
 
 /* Message for the "Enable iCloud Syncronization" alert. */
-"enable_icloud_synchronization_message" = "A sincronização com o iCloud é uma funcionalidade experimental em desenvolvimento. Certifique-se de que fez uma cópia de segurança de todos os seus favoritos e trilhos.";
+"enable_icloud_synchronization_message" = "A sincronização com o iCloud é uma funcionalidade experimental em desenvolvimento. Certifique-se de que fez uma cópia de segurança de todos os seus favoritos e trajetos.";
 
 /* Title for the "iCloud is Disabled" alert. */
 "icloud_disabled_title" = "O iCloud está desativado";
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Recuperar tudo";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Gravar trajeto";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Parar gravação de trajeto";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Parar sem guardar";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Continuar gravação";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Guardar em Favoritos e Trajetos?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "O trajeto está vazio - não há nada para guardar";
 
 
 /********** Types **********/
@@ -2197,10 +2199,10 @@
 "type.highway.path" = "Caminho";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Caminho";
+"type.highway.path.difficult" = "Trilho difícil ou pouco visível";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Caminho";
+"type.highway.path.expert" = "Trilho muito difícil ou indistinguível";
 
 "type.highway.path.bicycle" = "Caminho";
 
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Torneira de água";
 
+"type.man_made.water_tap.drinking_water_no" = "Torneira de água";
+
 "type.man_made.water_tower" = "Torre de água";
 
 "type.man_made.water_well" = "Poço de água";
+
+"type.man_made.water_well.drinking_water_no" = "Poço de água";
 
 "type.man_made.windmill" = "Moinho de vento";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "Matagal";
 
 "type.natural.spring" = "Nascente";
+
+"type.natural.spring.drinking_water_no" = "Nascente";
 
 "type.natural.strait" = "Estreito";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Entrada do Serviço de Urgência";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Dojo";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Pavilhão desportivo";

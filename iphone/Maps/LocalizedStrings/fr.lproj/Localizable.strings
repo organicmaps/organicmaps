@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Autre";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "Parcours récent";
-
 "pref_map_auto_zoom" = "Zoom automatique";
-
-"duration_disabled" = "Désactivé";
-
-"duration_1_hour" = "1 heure";
-
-"duration_2_hours" = "2 heures";
-
-"duration_6_hours" = "6 heures";
-
-"duration_12_hours" = "12 heures";
-
-"duration_1_day" = "1 jour";
-
-"recent_track_help_text" = "Ceci vous permet d’enregistrer le chemin emprunté pendant un certain temps et de le voir sur la carte. Veuillez noter : l’activation de cette fonction entraîne une grande utilisation de la batterie. La route sera supprimée automatiquement de la carte lorsque l’intervalle de temps sera arrivé à expiration.";
 
 "placepage_distance" = "Distance";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Lieu inconnu";
 
-"editor_other_info" = "Informer les contributeurs OSM";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Note aux volontaires OpenStreetMap (facultatif)";
 
 "editor_detailed_description_hint" = "Commentaire détaillé";
 
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Tout récupérer";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Enregistrer la trace";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Arrêter l'enregistrement de la trace";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Arrêter sans enregistrer";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Continuer l'enregistrement";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Sauvegarder dans les signets et parcours ?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "L'itinéraire est vide - il n'y a rien à sauvegarder";
 
 
 /********** Types **********/
@@ -2197,10 +2199,10 @@
 "type.highway.path" = "Chemin";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Chemin";
+"type.highway.path.difficult" = "Sentier difficile ou peu visibl";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Chemin";
+"type.highway.path.expert" = "Sentier très difficile ou indiscernabl";
 
 "type.highway.path.bicycle" = "Chemin";
 
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Robinet d'eau";
 
+"type.man_made.water_tap.drinking_water_no" = "Robinet d'eau";
+
 "type.man_made.water_tower" = "Château d'eau";
 
 "type.man_made.water_well" = "Puits à eau";
+
+"type.man_made.water_well.drinking_water_no" = "Puits à eau";
 
 "type.man_made.windmill" = "Moulin à vent";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "Fourré";
 
 "type.natural.spring" = "Source";
+
+"type.natural.spring.drinking_water_no" = "Source";
 
 "type.natural.strait" = "Détroit";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Entrée du service des urgences";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Dojo";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Salle de sport";

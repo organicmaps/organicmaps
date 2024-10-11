@@ -569,6 +569,56 @@ void Framework::FillPointInfoForBookmark(Bookmark const & bmk, place_page::Info 
   });
 }
 
+void Framework::FillUserMarkInfo(UserMark const * mark, place_page::Info & outInfo)
+{
+  outInfo.SetSelectedObject(df::SelectionShape::OBJECT_USER_MARK);
+
+  switch (mark->GetMarkType())
+  {
+  case UserMark::Type::API:
+    FillApiMarkInfo(*static_cast<ApiMarkPoint const *>(mark), outInfo);
+    break;
+  case UserMark::Type::BOOKMARK:
+    FillBookmarkInfo(*static_cast<Bookmark const *>(mark), outInfo);
+    break;
+  case UserMark::Type::SEARCH:
+    FillSearchResultInfo(*static_cast<SearchMarkPoint const *>(mark), outInfo);
+    break;
+  case UserMark::Type::ROUTING:
+    FillRouteMarkInfo(*static_cast<RouteMarkPoint const *>(mark), outInfo);
+    break;
+  case UserMark::Type::ROAD_WARNING:
+    FillRoadTypeMarkInfo(*static_cast<RoadWarningMark const *>(mark), outInfo);
+    break;
+  case UserMark::Type::TRACK_INFO:
+  {
+    auto const & infoMark = *static_cast<TrackInfoMark const *>(mark);
+    BuildTrackPlacePage(GetBookmarkManager().GetTrackSelectionInfo(infoMark.GetTrackId()), outInfo);
+    return;
+  }
+  case UserMark::Type::TRACK_SELECTION:
+  {
+    auto const & selMark = *static_cast<TrackSelectionMark const *>(mark);
+    BuildTrackPlacePage(GetBookmarkManager().GetTrackSelectionInfo(selMark.GetTrackId()), outInfo);
+    return;
+  }
+  case UserMark::Type::TRANSIT:
+  {
+    FillTransitMarkInfo(*static_cast<TransitMark const *>(mark), outInfo);
+    break;
+  }
+  case UserMark::Type::SPEED_CAM:
+  {
+    FillSpeedCameraMarkInfo(*static_cast<SpeedCameraMark const *>(mark), outInfo);
+    break;
+  }
+  default:
+    CHECK(false, ("Unexpected user mark type", mark->GetMarkType()));
+  }
+
+  SetPlacePageLocation(outInfo);
+}
+
 void Framework::FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const
 {
   info.SetBookmarkCategoryName(GetBookmarkManager().GetCategoryName(bmk.GetGroupId()));
@@ -794,14 +844,14 @@ void Framework::FillRoadTypeMarkInfo(RoadWarningMark const & roadTypeMark, place
 void Framework::ShowBookmark(kml::MarkId id)
 {
   auto const * mark = m_bmManager->GetBookmark(id);
-  ShowBookmark(mark);
+  if (mark)
+    ShowBookmark(mark);
+  else
+    ASSERT(false, ("ShowBookmark was called with invalid id", id));
 }
 
 void Framework::ShowBookmark(Bookmark const * mark)
 {
-  if (mark == nullptr)
-    return;
-
   StopLocationFollow();
 
   place_page::BuildInfo info;
@@ -816,11 +866,8 @@ void Framework::ShowBookmark(Bookmark const * mark)
   auto es = GetBookmarkManager().GetEditSession();
   es.SetIsVisible(mark->GetGroupId(), true /* visible */);
 
-  if (m_drapeEngine != nullptr)
-  {
-    m_drapeEngine->SetModelViewCenter(mark->GetPivot(), scale, true /* isAnim */,
-                                      true /* trackVisibleViewport */);
-  }
+  if (m_drapeEngine)
+    m_drapeEngine->SetModelViewCenter(mark->GetPivot(), scale, true /* isAnim */, true /* trackVisibleViewport */);
 
   ActivateMapSelection();
 }
@@ -860,7 +907,7 @@ void Framework::ShowBookmarkCategory(kml::MarkGroupId categoryId, bool animation
   auto es = bm.GetEditSession();
   es.SetIsVisible(categoryId, true /* visible */);
 
-  auto const trackIds = bm.GetTrackIds(categoryId);
+  auto const & trackIds = bm.GetTrackIds(categoryId);
   for (auto trackId : trackIds)
   {
     if (!bm.GetTrack(trackId)->IsInteractive())
@@ -881,7 +928,7 @@ void Framework::ShowFeature(FeatureID const & featureId)
 
   if (m_drapeEngine != nullptr)
   {
-    auto const pt = m_currentPlacePageInfo->GetMercator();
+    auto const & pt = m_currentPlacePageInfo->GetMercator();
     auto const scale = scales::GetUpperComfortScale();
     m_drapeEngine->SetModelViewCenter(pt, scale, true /* isAnim */, true /* trackVisibleViewport */);
   }
@@ -1674,6 +1721,8 @@ void Framework::StopTrackRecording()
   auto & tracker = GpsTracker::Instance();
   tracker.Disconnect();
   tracker.SetEnabled(false);
+  if (m_drapeEngine)
+    m_drapeEngine->ClearGpsTrackPoints();
 }
 
 void Framework::SaveTrackRecordingWithName(std::string const & name)
@@ -1794,6 +1843,11 @@ std::string const & Framework::GetParsedBackUrl() const
 ms::LatLon Framework::GetParsedCenterLatLon() const
 {
   return m_parsedMapApi.GetCenterLatLon();
+}
+
+url_scheme::InAppFeatureHighlightRequest Framework::GetInAppFeatureHighlightRequest() const
+{
+  return m_parsedMapApi.GetInAppFeatureHighlightRequest();
 }
 
 FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator,
@@ -2125,56 +2179,20 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
 
   if (buildInfo.IsUserMarkMatchingEnabled())
   {
-    UserMark const * mark = FindUserMarkInTapPosition(buildInfo);
-    if (mark != nullptr)
+    UserMark const * mark = nullptr;
+    if (buildInfo.m_userMarkId != kml::kInvalidMarkId)
     {
-      outInfo.SetSelectedObject(df::SelectionShape::OBJECT_USER_MARK);
-      switch (mark->GetMarkType())
-      {
-      case UserMark::Type::API:
-        FillApiMarkInfo(*static_cast<ApiMarkPoint const *>(mark), outInfo);
-        break;
-      case UserMark::Type::BOOKMARK:
-        FillBookmarkInfo(*static_cast<Bookmark const *>(mark), outInfo);
-        break;
-      case UserMark::Type::SEARCH:
-        FillSearchResultInfo(*static_cast<SearchMarkPoint const *>(mark), outInfo);
-        break;
-      case UserMark::Type::ROUTING:
-        FillRouteMarkInfo(*static_cast<RouteMarkPoint const *>(mark), outInfo);
-        break;
-      case UserMark::Type::ROAD_WARNING:
-        FillRoadTypeMarkInfo(*static_cast<RoadWarningMark const *>(mark), outInfo);
-        break;
-      case UserMark::Type::TRACK_INFO:
-      {
-        auto const & infoMark = *static_cast<TrackInfoMark const *>(mark);
-        BuildTrackPlacePage(GetBookmarkManager().GetTrackSelectionInfo(infoMark.GetTrackId()),
-                            outInfo);
-        return outInfo;
-      }
-      case UserMark::Type::TRACK_SELECTION:
-      {
-        auto const & selMark = *static_cast<TrackSelectionMark const *>(mark);
-        BuildTrackPlacePage(GetBookmarkManager().GetTrackSelectionInfo(selMark.GetTrackId()),
-                            outInfo);
-        return outInfo;
-      }
-      case UserMark::Type::TRANSIT:
-      {
-        FillTransitMarkInfo(*static_cast<TransitMark const *>(mark), outInfo);
-        break;
-      }
-      case UserMark::Type::SPEED_CAM:
-      {
-        FillSpeedCameraMarkInfo(*static_cast<SpeedCameraMark const *>(mark), outInfo);
-        break;
-      }
-      default:
-        ASSERT(false, ("FindNearestUserMark returned invalid mark."));
-      }
+      auto const & bm = GetBookmarkManager();
+      mark = bm.IsBookmark(buildInfo.m_userMarkId) ? bm.GetBookmark(buildInfo.m_userMarkId) : bm.GetUserMark(buildInfo.m_userMarkId);
+      ASSERT(mark, ("There is no user mark with id", buildInfo.m_userMarkId));
+    }
 
-      SetPlacePageLocation(outInfo);
+    if (!mark)
+      mark = FindUserMarkInTapPosition(buildInfo);
+
+    if (mark)
+    {
+      FillUserMarkInfo(mark, outInfo);
       return outInfo;
     }
   }
@@ -2224,16 +2242,23 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
     // Selection circle should match feature
     FillFeatureInfo(selectedFeature, outInfo);
 
-    if (buildInfo.IsUserMarkMatchingEnabled() && !outInfo.IsBookmark() && !isBuildingSelected)
-    {
-      // Search for a bookmark at POI position instead of tap position
-      auto mark = FindBookMarkInPosition(outInfo.GetMercator());
-      if (mark)
-        FillBookmarkInfo(*static_cast<Bookmark const *>(mark), outInfo);
-    }
-
     if (isBuildingSelected)
-      outInfo.SetMercator(buildInfo.m_mercator); // Move selection circle to tap position inside a building.
+      outInfo.SetMercator(buildInfo.m_mercator);  // Move selection circle to the tap position inside a building.
+    else if (buildInfo.IsUserMarkMatchingEnabled() && !outInfo.IsBookmark())
+    {
+      // Search for a user mark at POI position instead of tap position (an icon or text label was tapped).
+      double constexpr kEps = 1e-7;
+      auto const rect = df::TapInfo::GetPreciseTapRect(outInfo.GetMercator(), kEps);
+      UserMark const * mark = GetBookmarkManager().FindNearestUserMark(
+          [&rect](UserMark::Type) { return rect; },
+          [](UserMark::Type) { return true; });
+      if (mark)
+      {
+        FillUserMarkInfo(mark, outInfo);
+        SetPlacePageLocation(outInfo);
+        return outInfo;
+      }
+    }
   }
   else
   {
@@ -2281,16 +2306,7 @@ Track::TrackSelectionInfo Framework::FindTrackInTapPosition(place_page::BuildInf
 
 UserMark const * Framework::FindUserMarkInTapPosition(place_page::BuildInfo const & buildInfo) const
 {
-  auto const & bm = GetBookmarkManager();
-  if (buildInfo.m_userMarkId != kml::kInvalidMarkId)
-  {
-    auto mark = bm.IsBookmark(buildInfo.m_userMarkId) ? bm.GetBookmark(buildInfo.m_userMarkId)
-                                                      : bm.GetUserMark(buildInfo.m_userMarkId);
-    if (mark != nullptr)
-      return mark;
-  }
-
-  UserMark const * mark = bm.FindNearestUserMark(
+  UserMark const * mark = GetBookmarkManager().FindNearestUserMark(
     [this, &buildInfo](UserMark::Type type)
     {
       double constexpr kEps = 1e-7;
@@ -2309,26 +2325,6 @@ UserMark const * Framework::FindUserMarkInTapPosition(place_page::BuildInfo cons
     {
       return type == UserMark::Type::TRACK_INFO || type == UserMark::Type::TRACK_SELECTION;
     });
-  return mark;
-}
-
-UserMark const * Framework::FindBookMarkInPosition(m2::PointD const & mercator) const
-{
-  auto const & bm = GetBookmarkManager();
-
-  UserMark const * mark = bm.FindNearestUserMark(
-      [this, &mercator](UserMark::Type type)
-      {
-        if (type == UserMark::Type::BOOKMARK || type == UserMark::Type::TRACK_INFO)
-          return df::TapInfo::GetBookmarkTapRect(mercator, m_currentModelView);
-
-        if (type == UserMark::Type::ROUTING || type == UserMark::Type::ROAD_WARNING)
-          return df::TapInfo::GetRoutingPointTapRect(mercator, m_currentModelView);
-
-        return df::TapInfo::GetDefaultTapRect(mercator, m_currentModelView);
-      },
-      [](UserMark::Type type) { return true; });
-
   return mark;
 }
 
@@ -3079,15 +3075,15 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
 
   auto const result = osm::Editor::Instance().SaveEditedFeature(emo);
 
-  // Automatically select newly created objects.
-  if (!m_currentPlacePageInfo)
-  {
-    place_page::BuildInfo info;
-    info.m_mercator = emo.GetMercator();
-    info.m_featureId = emo.GetID();
-    m_currentPlacePageInfo = BuildPlacePageInfo(info);
-    ActivateMapSelection();
-  }
+  // Automatically select newly created and edited objects.
+  if (m_currentPlacePageInfo)
+    DeactivateMapSelection();
+
+  place_page::BuildInfo info;
+  info.m_mercator = emo.GetMercator();
+  info.m_featureId = emo.GetID();
+  m_currentPlacePageInfo = BuildPlacePageInfo(info);
+  ActivateMapSelection();
 
   return result;
 }

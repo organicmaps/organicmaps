@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "इतर";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "अलीकडील ट्रॅक";
-
 "pref_map_auto_zoom" = "स्वयं झूम";
-
-"duration_disabled" = "बंद";
-
-"duration_1_hour" = "१ तास";
-
-"duration_2_hours" = "२ तास";
-
-"duration_6_hours" = "६ तास";
-
-"duration_12_hours" = "१२ तास";
-
-"duration_1_day" = "१ दिवस";
-
-"recent_track_help_text" = "हे कार्य तुम्हाला ठराविक कालावधीसाठी प्रवास केलेला मार्ग रेकॉर्ड करण्याची आणि नकाशावर पाहण्याची सोय देतो.  सावधान: हे कार्य चालू केल्याने बॅटरीचा वापर वाढतो. कालावधी संपल्यानंतर ट्रॅक स्वयंचलितपणे नकाशावरून पुसला जाईल.";
 
 "placepage_distance" = "अंतर";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "अज्ञात ठिकाण";
 
-"editor_other_info" = "OpenStreetMap संपादकांना एक चिठ्ठी पाठवा";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "OpenStreetMap स्वयंसेवकांसाठी टीप (पर्यायी)";
 
 "editor_detailed_description_hint" = "तपशीलवार टिप्पणी";
 
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "सर्व पुनर्प्राप्त करा";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "ट्रॅक रेकॉर्ड करा";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "ट्रॅक रेकॉर्डिंग थांबवा";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "जतन न करता थांबवा";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "रेकॉर्डिंग चालू ठेवा";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "मार्ग रेकॉर्डिंग खूणपत्रे आणि ट्रॅकमध्ये सेव्ह करायचे?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "मार्ग रिकामा आहे - जतन करण्यासाठी काहीही नाही";
 
 
 /********** Types **********/
@@ -2197,10 +2199,10 @@
 "type.highway.path" = "पथ";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "पथ";
+"type.highway.path.difficult" = "अवघड किंवा खराब दृश्यमान पायवाट";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "पथ";
+"type.highway.path.expert" = "अतिशय अवघड किंवा वेगळे न करता येणारी पायवाट";
 
 "type.highway.path.bicycle" = "सायकल आणि पाऊलवाट";
 
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "पाण्याचा नळ";
 
+"type.man_made.water_tap.drinking_water_no" = "पाण्याचा नळ";
+
 "type.man_made.water_tower" = "पाण्याचा मनोरा(टाकी)";
 
 "type.man_made.water_well" = "पाण्याची विहीर";
+
+"type.man_made.water_well.drinking_water_no" = "पाण्याची विहीर";
 
 "type.man_made.windmill" = "पवनचक्की";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "खुरटी झाडे";
 
 "type.natural.spring" = "झरे";
+
+"type.natural.spring.drinking_water_no" = "झरे";
 
 "type.natural.strait" = "सामुद्रधुनी";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "आपत्कालीन प्रभाग प्रवेशद्वार";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "डोजो";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "क्रीडा हॉल";

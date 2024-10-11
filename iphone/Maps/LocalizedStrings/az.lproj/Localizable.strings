@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Digər";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "Son marşrut";
-
 "pref_map_auto_zoom" = "Avtomatik böyütmə";
-
-"duration_disabled" = "Bağlı";
-
-"duration_1_hour" = "1 saat";
-
-"duration_2_hours" = "2 saat";
-
-"duration_6_hours" = "6 saat";
-
-"duration_12_hours" = "12 saat";
-
-"duration_1_day" = "1 gün";
-
-"recent_track_help_text" = "Bu funksiya müəyyən vaxt ərzində qət edilən məsafəni qeyd etməyə və xəritədə izləməyə imkan verir. Diqqət edin: bu funksiyanın işə salınması batareya istehlakının artması ilə nəticələnəcək. Müddət bitdikdən sonra izləmə avtomatik olaraq xəritədən silinəcək.";
 
 "placepage_distance" = "Məsafə";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Naməlum yer";
 
-"editor_other_info" = "OSM redaktorlarına qeyd göndərin";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "OpenStreetMap könüllüləri üçün qeyd (isteğe bağlı)";
 
 "editor_detailed_description_hint" = "Ətraflı şərh";
 
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Hamısını bərpa et";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Marşrut qeydi";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Marşrut qeydini dayandır";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Saxlamadan dayandırın";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Qeyd etməyə davam et";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Əlfəcinlər və qeydlərə yadda saxla?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Marşrut boşdur - saxlamaq üçün heç nə yoxdur";
 
 
 /********** Types **********/
@@ -2197,10 +2199,10 @@
 "type.highway.path" = "Yol";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Yol";
+"type.highway.path.difficult" = "Çətin və ya zəif görünən cığır";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Yol";
+"type.highway.path.expert" = "Çox çətin və ya fərqlənməyən cığır";
 
 "type.highway.path.bicycle" = "Velosiped və Gəzinti Yolu";
 
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Su kranı";
 
+"type.man_made.water_tap.drinking_water_no" = "Su kranı";
+
 "type.man_made.water_tower" = "Su qalası";
 
 "type.man_made.water_well" = "Su quyusu";
+
+"type.man_made.water_well.drinking_water_no" = "Su quyusu";
 
 "type.man_made.windmill" = "Yel dəyirmanı";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "Kollar";
 
 "type.natural.spring" = "Bahar";
+
+"type.natural.spring.drinking_water_no" = "Bahar";
 
 "type.natural.strait" = "Boğaz";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Təcili yardım şöbəsinin girişi";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Dojo";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "İdman zalı";

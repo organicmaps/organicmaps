@@ -175,8 +175,13 @@ enum class BookmarkIcon : uint16_t
   Transport,
   Viewpoint,
   Sport,
-  Start,
-  Finish,
+  Pub,
+  Art,
+  Bank,
+  Cafe,
+  Pharmacy,
+  Stadium,
+  Theatre,
 
   Count
 };
@@ -211,8 +216,13 @@ inline std::string ToString(BookmarkIcon icon)
   case Transport: return "Transport";
   case Viewpoint: return "Viewpoint";
   case Sport: return "Sport";
-  case Start: return "Start";
-  case Finish: return "Finish";
+  case Pub: return "Pub";
+  case Art: return "Art";
+  case Bank: return "Bank";
+  case Cafe: return "Cafe";
+  case Pharmacy: return "Pharmacy";
+  case Stadium: return "Stadium";
+  case Theatre: return "Theatre";
   case Count: return {};
   }
   UNREACHABLE();
@@ -344,27 +354,39 @@ struct TrackLayer
 struct MultiGeometry
 {
   using LineT = std::vector<geometry::PointWithAltitude>;
-  std::vector<LineT> m_lines;
+  using TimeT = std::vector<double>;
 
-  void Clear() { m_lines.clear(); }
-  bool IsValid() const { return !m_lines.empty(); }
+  std::vector<LineT> m_lines;
+  std::vector<TimeT> m_timestamps;
+
+  void Clear();
+  bool IsValid() const;
 
   bool operator==(MultiGeometry const & rhs) const
   {
-    return IsEqual(m_lines, rhs.m_lines);
+    return IsEqual(m_lines, rhs.m_lines) && m_timestamps == rhs.m_timestamps;
   }
 
   friend std::string DebugPrint(MultiGeometry const & geom)
   {
-    return ::DebugPrint(geom.m_lines);
+    auto str = ::DebugPrint(geom.m_lines);
+    if (geom.HasTimestamps())
+      str.append(" ").append(::DebugPrint(geom.m_timestamps));
+    return str;
   }
 
   void FromPoints(std::vector<m2::PointD> const & points);
-  void Assign(std::initializer_list<geometry::PointWithAltitude> lst)
-  {
-    m_lines.emplace_back();
-    m_lines.back().assign(lst);
-  }
+
+  /// This method should be used for tests only.
+  void AddLine(std::initializer_list<geometry::PointWithAltitude> lst);
+  /// This method should be used for tests only.
+  void AddTimestamps(std::initializer_list<double> lst);
+
+  bool HasTimestamps() const;
+  bool HasTimestampsFor(size_t lineIndex) const;
+  
+  size_t GetNumberOfLinesWithouTimestamps() const;
+  size_t GetNumberOfLinesWithTimestamps() const;
 };
 
 struct TrackData

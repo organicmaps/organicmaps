@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "بیشتر";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "مسیر اخیر";
-
 "pref_map_auto_zoom" = "بزرگنمایی خودکار";
-
-"duration_disabled" = "خاموش";
-
-"duration_1_hour" = "1 ساعت";
-
-"duration_2_hours" = "2 ساعت";
-
-"duration_6_hours" = "6 ساعت";
-
-"duration_12_hours" = "12 ساعت";
-
-"duration_1_day" = "1 روز";
-
-"recent_track_help_text" = "با این قابلیت شما می توانید مسیری که می پیمایید را در یک دوره مشخص ضبط نماید و آن را بر روی نقشه ببینید.لطفا توجه نمایید:فعال سازی این قابلیت باعث افزایش مصرف باتری موبایل شما می شود.مسیر به طور خودکار بعد از مدت مشخص شده حذف خواهد شد";
 
 "placepage_distance" = "مسافت";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "مکان ناشناس";
 
-"editor_other_info" = "ارسال یادداشت به ویرایش‌کنندگان OSM";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "توجه به داوطلبان OpenStreetMap (اختیاری)";
 
 "editor_detailed_description_hint" = "اظهار نظر بیشتر";
 
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "بازیابی همه";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "ضبط مسیر";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "توقف ضبط مسیر";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "توقف بدون ذخیره";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "ادامه ضبط";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "ذخیره‌سازی در نشانه‌ها و مسیر؟";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "مسیر خالی است - چیزی برای ذخیره کردن وجود ندارد";
 
 
 /********** Types **********/
@@ -2197,10 +2199,10 @@
 "type.highway.path" = "مسیر";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "مسیر";
+"type.highway.path.difficult" = "مسیر دشوار یا ضعیف قابل مشاهده است";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "مسیر";
+"type.highway.path.expert" = "مسیر بسیار دشوار یا غیر قابل تشخیص";
 
 "type.highway.path.bicycle" = "مسیر";
 
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "شیراب";
 
+"type.man_made.water_tap.drinking_water_no" = "شیراب";
+
 "type.man_made.water_tower" = "منبع اب";
 
 "type.man_made.water_well" = "چاه اب";
+
+"type.man_made.water_well.drinking_water_no" = "چاه اب";
 
 "type.man_made.windmill" = "توربین بادی";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "بوته زار";
 
 "type.natural.spring" = "چشمه";
+
+"type.natural.spring.drinking_water_no" = "چشمه";
 
 "type.natural.strait" = "تنگه";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "ورودی بخش اورژانس";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "دوجو";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "سالن ورزشی";

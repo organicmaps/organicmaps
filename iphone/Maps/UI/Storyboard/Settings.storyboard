@@ -178,34 +178,8 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" textLabel="BLy-it-nx1" detailTextLabel="s2R-oc-OLo" style="IBUITableViewCellStyleValue1" id="VyW-Wh-2QX" customClass="SettingsTableViewLinkCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="366" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VyW-Wh-2QX" id="ihq-PO-ic8">
-                                            <rect key="frame" x="0.0" y="0.0" width="383.5" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Recent track" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BLy-it-nx1">
-                                                    <rect key="frame" x="20" y="15" width="72" height="14.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="s2R-oc-OLo">
-                                                    <rect key="frame" x="342.5" y="15" width="33" height="14.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" textLabel="YsF-IJ-DDS" style="IBUITableViewCellStyleDefault" id="pri-6G-9Zb" customClass="SettingsTableViewSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="410" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="366" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pri-6G-9Zb" id="Zp6-d6-V6o">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -223,7 +197,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" textLabel="Teb-hc-7QH" style="IBUITableViewCellStyleDefault" id="f8Z-Jk-JIR" customClass="SettingsTableViewSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="454" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="410" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f8Z-Jk-JIR" id="1QF-6L-hJp">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -241,7 +215,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" textLabel="VO1-Vg-frW" style="IBUITableViewCellStyleDefault" id="P5e-67-f4k" customClass="SettingsTableViewSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="498" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="454" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="P5e-67-f4k" id="RlB-hW-A2l">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -259,7 +233,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" textLabel="PpF-Oo-iCA" detailTextLabel="wIT-zF-Ogz" style="IBUITableViewCellStyleValue1" id="QNt-XC-xma" customClass="SettingsTableViewLinkCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="542" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="498" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QNt-XC-xma" id="fBV-aJ-Mo8">
                                             <rect key="frame" x="0.0" y="0.0" width="383.5" height="44"/>
@@ -285,7 +259,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" textLabel="QEX-D4-ejR" detailTextLabel="Iy7-de-pvk" style="IBUITableViewCellStyleSubtitle" id="E6M-av-wQu" userLabel="iCloud synchronization" customClass="SettingsTableViewiCloudSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="586" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="542" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="E6M-av-wQu" id="PbS-4v-dzK">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -310,7 +284,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewDetailedSwitchCell" textLabel="IuW-8X-Xdf" detailTextLabel="dON-be-sur" style="IBUITableViewCellStyleSubtitle" id="uxV-uf-u44" userLabel="EnadbleLogging" customClass="SettingsTableViewDetailedSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="630" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="586" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uxV-uf-u44" id="uwY-wf-q0J">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -339,7 +313,7 @@
                             <tableViewSection headerTitle="НАВИГАЦИЯ" id="E4E-hs-9xW">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" textLabel="E7d-pi-YM1" style="IBUITableViewCellStyleDefault" id="X5R-fv-yd7" customClass="SettingsTableViewSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="722" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="678" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="X5R-fv-yd7" id="s7y-Nu-Y01">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -357,7 +331,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" textLabel="T7T-10-R9B" style="IBUITableViewCellStyleDefault" id="veW-Fm-2Hl" customClass="SettingsTableViewSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="766" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="722" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="veW-Fm-2Hl" id="AP7-jd-F4b">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -375,7 +349,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" textLabel="DvL-U3-thq" detailTextLabel="aVn-3D-tVQ" style="IBUITableViewCellStyleValue1" id="nED-2n-gN6" customClass="SettingsTableViewLinkCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="810" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="766" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nED-2n-gN6" id="2oQ-0g-poj">
                                             <rect key="frame" x="0.0" y="0.0" width="383.5" height="44"/>
@@ -401,22 +375,22 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" textLabel="nJu-c9-12J" detailTextLabel="2ux-Rf-ECf" style="IBUITableViewCellStyleValue1" id="KrE-Sc-fI1" customClass="SettingsTableViewLinkCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="854" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="810" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KrE-Sc-fI1" id="AKJ-VB-Pzr">
-                                            <rect key="frame" x="0.0" y="0.0" width="395.5" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="383.5" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Driving Options" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nJu-c9-12J">
-                                                    <rect key="frame" x="8" y="15" width="88" height="14.5"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Driving Options" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nJu-c9-12J">
+                                                    <rect key="frame" x="20" y="15" width="88" height="14.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2ux-Rf-ECf">
-                                                    <rect key="frame" x="354.5" y="15" width="33" height="14.5"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2ux-Rf-ECf">
+                                                    <rect key="frame" x="342.5" y="15" width="33" height="14.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
@@ -450,13 +424,11 @@
                         <outlet property="perspectiveViewCell" destination="X5R-fv-yd7" id="hCe-Sv-pxD"/>
                         <outlet property="powerManagementCell" destination="MN2-YK-AUo" id="mzP-S3-YAE"/>
                         <outlet property="profileCell" destination="yh8-cr-14c" id="nzT-Um-BHL"/>
-                        <outlet property="recentTrackCell" destination="VyW-Wh-2QX" id="zXx-a3-FBg"/>
                         <outlet property="transliterationCell" destination="f8Z-Jk-JIR" id="4X8-tt-Wf3"/>
                         <outlet property="unitsCell" destination="Igk-BI-aHN" id="wc7-AI-ZlZ"/>
                         <outlet property="voiceInstructionsCell" destination="nED-2n-gN6" id="AOZ-0Q-2TH"/>
                         <outlet property="zoomButtonsCell" destination="LYi-oF-eGj" id="FHr-5G-l4F"/>
                         <segue destination="XDU-iY-yV9" kind="custom" identifier="SettingsToTTSSegue" customClass="MWMSegue" id="3NT-hq-Oex"/>
-                        <segue destination="NP0-s9-34g" kind="custom" identifier="SettingsToRecentTrackSegue" customClass="MWMSegue" id="Fny-RS-ueu"/>
                         <segue destination="kBJ-ZO-Mca" kind="custom" identifier="SettingsToNightMode" customClass="MWMSegue" id="dd2-uc-aSe"/>
                         <segue destination="fxB-8Y-C2b" kind="custom" identifier="SettingsToProfileSegue" customClass="MWMSegue" id="p4d-e8-VbB"/>
                         <segue destination="Ww0-88-Jrd" kind="custom" identifier="SettingsToUnits" customClass="MWMSegue" id="qTg-HA-klp"/>
@@ -560,164 +532,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zDs-eK-xxT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1881" y="-1697"/>
-        </scene>
-        <!--Recent Track Settings Controller-->
-        <scene sceneID="YrW-fi-4QL">
-            <objects>
-                <tableViewController id="NP0-s9-34g" customClass="MWMRecentTrackSettingsController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Ai6-eS-WuL">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <sections>
-                            <tableViewSection id="0dw-og-Sit">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" textLabel="DrC-VZ-FgY" style="IBUITableViewCellStyleDefault" id="HL5-jQ-yNK" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="18" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HL5-jQ-yNK" id="DYw-KH-oDU">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Off" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DrC-VZ-FgY">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="duration_disabled"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" textLabel="sHy-jE-fCd" style="IBUITableViewCellStyleDefault" id="8Cq-dm-roX" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="62" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8Cq-dm-roX" id="62b-vT-xng">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="1 hour" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sHy-jE-fCd">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="duration_1_hour"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" textLabel="xvK-cP-cgI" style="IBUITableViewCellStyleDefault" id="DIL-q2-mUp" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="106" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DIL-q2-mUp" id="IqW-Xu-xVP">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="2 hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xvK-cP-cgI">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="duration_2_hours"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" textLabel="98T-ci-X2K" style="IBUITableViewCellStyleDefault" id="1Mm-WA-eyt" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="150" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1Mm-WA-eyt" id="lNb-wL-PFo">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="6 hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="98T-ci-X2K">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="duration_6_hours"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" textLabel="YLj-hs-e0D" style="IBUITableViewCellStyleDefault" id="JLY-Qt-y88" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="194" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JLY-Qt-y88" id="jPr-Kt-mLi">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="12 hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YLj-hs-e0D">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="duration_12_hours"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" textLabel="uKF-we-LOf" style="IBUITableViewCellStyleDefault" id="mbv-1J-wSI" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="238" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mbv-1J-wSI" id="oPS-HW-hfW">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="1 day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uKF-we-LOf">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="duration_1_day"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="NP0-s9-34g" id="0gf-2t-NTT"/>
-                            <outlet property="delegate" destination="NP0-s9-34g" id="Mi0-Y0-Tt2"/>
-                        </connections>
-                    </tableView>
-                    <connections>
-                        <outlet property="none" destination="HL5-jQ-yNK" id="uen-cX-Fx0"/>
-                        <outlet property="oneDay" destination="mbv-1J-wSI" id="COD-tw-8gd"/>
-                        <outlet property="oneHour" destination="8Cq-dm-roX" id="th5-s5-8wh"/>
-                        <outlet property="sixHours" destination="1Mm-WA-eyt" id="lsg-lo-4YV"/>
-                        <outlet property="twelveHours" destination="JLY-Qt-y88" id="uvV-xr-gOM"/>
-                        <outlet property="twoHours" destination="DIL-q2-mUp" id="GBk-7j-k2T"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6Yt-k4-tuz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1881" y="-1002"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="9aS-r5-1zA">

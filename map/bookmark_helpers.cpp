@@ -44,8 +44,9 @@ std::map<std::string, BookmarkMatchInfo> const kFeatureTypeToBookmarkMatchInfo =
   {"tourism-zoo", {kml::BookmarkIcon::Animals, BookmarkBaseType::Animals}},
 
   {"amenity-bar", {kml::BookmarkIcon::Bar, BookmarkBaseType::Food}},
-  {"amenity-biergarten", {kml::BookmarkIcon::Bar, BookmarkBaseType::Food}},
-  {"amenity-pub", {kml::BookmarkIcon::Bar, BookmarkBaseType::Food}},
+  {"amenity-biergarten", {kml::BookmarkIcon::Pub, BookmarkBaseType::Food}},
+  {"amenity-pub", {kml::BookmarkIcon::Pub, BookmarkBaseType::Food}},
+  {"amenity-cafe", {kml::BookmarkIcon::Cafe, BookmarkBaseType::Food}},
 
   {"amenity-place_of_worship-buddhist", {kml::BookmarkIcon::Buddhism, BookmarkBaseType::ReligiousPlace}},
 
@@ -68,12 +69,15 @@ std::map<std::string, BookmarkMatchInfo> const kFeatureTypeToBookmarkMatchInfo =
   {"amenity-casino", {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
   {"amenity-cinema", {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
   {"amenity-nightclub", {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
-  {"amenity-theatre", {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
   {"shop-bookmaker", {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
   {"tourism-theme_park", {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
+    
+  {"amenity-theatre", {kml::BookmarkIcon::Theatre, BookmarkBaseType::Entertainment}},
 
-  {"amenity-atm", {kml::BookmarkIcon::Exchange, BookmarkBaseType::Exchange}},
-  {"amenity-bank", {kml::BookmarkIcon::Exchange, BookmarkBaseType::Exchange}},
+  {"amenity-atm", {kml::BookmarkIcon::Bank, BookmarkBaseType::Exchange}},
+  {"amenity-bank", {kml::BookmarkIcon::Bank, BookmarkBaseType::Exchange}},
+  {"shop-money_lender", {kml::BookmarkIcon::Bank, BookmarkBaseType::Exchange}},
+
   {"amenity-bureau_de_change", {kml::BookmarkIcon::Exchange, BookmarkBaseType::Exchange}},
 
   {"amenity-bbq", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
@@ -107,8 +111,9 @@ std::map<std::string, BookmarkMatchInfo> const kFeatureTypeToBookmarkMatchInfo =
   {"amenity-dentist", {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
   {"amenity-doctors", {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
   {"amenity-hospital", {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
-  {"amenity-pharmacy", {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
   {"emergency-defibrillator", {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
+    
+  {"amenity-pharmacy", {kml::BookmarkIcon::Pharmacy, BookmarkBaseType::Medicine}},
 
   {"natural-bare_rock", {kml::BookmarkIcon::Mountain, BookmarkBaseType::Mountain}},
   {"natural-cave_entrance", {kml::BookmarkIcon::Mountain, BookmarkBaseType::Mountain}},
@@ -116,8 +121,9 @@ std::map<std::string, BookmarkMatchInfo> const kFeatureTypeToBookmarkMatchInfo =
   {"natural-rock", {kml::BookmarkIcon::Mountain, BookmarkBaseType::Mountain}},
   {"natural-volcano", {kml::BookmarkIcon::Mountain, BookmarkBaseType::Mountain}},
 
-  {"amenity-arts_centre", {kml::BookmarkIcon::Museum, BookmarkBaseType::Museum}},
-  {"tourism-gallery", {kml::BookmarkIcon::Museum, BookmarkBaseType::Museum}},
+  {"amenity-arts_centre", {kml::BookmarkIcon::Art, BookmarkBaseType::Museum}},
+  {"tourism-gallery", {kml::BookmarkIcon::Art, BookmarkBaseType::Museum}},
+
   {"tourism-museum", {kml::BookmarkIcon::Museum, BookmarkBaseType::Museum}},
 
   {"boundary-national_park", {kml::BookmarkIcon::Park, BookmarkBaseType::Park}},
@@ -159,8 +165,9 @@ std::map<std::string, BookmarkMatchInfo> const kFeatureTypeToBookmarkMatchInfo =
   {"leisure-sports_centre-climbing", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
   {"leisure-sports_centre-shooting", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
   {"leisure-sports_centre-yoga", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
-  {"leisure-stadium", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
   {"sport", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    
+  {"leisure-stadium", {kml::BookmarkIcon::Stadium, BookmarkBaseType::Entertainment}},
 
   {"leisure-sports_centre-swimming", {kml::BookmarkIcon::Swim, BookmarkBaseType::Swim}},
   {"leisure-swimming_pool", {kml::BookmarkIcon::Swim, BookmarkBaseType::Swim}},
@@ -203,6 +210,58 @@ void ValidateKmlData(std::unique_ptr<kml::FileData> & data)
   {
     if (t.m_layers.empty())
       t.m_layers.emplace_back(kml::KmlParser::GetDefaultTrackLayer());
+  }
+}
+
+/// @todo(KK): This code is a temporary solution for the filtering the duplicated points in KMLs.
+/// When the deserealizer reads the data from the KML that uses <gx:Track>
+/// as a first step will be parsed the list of the timestamps <when> and than the list of the coordinates <gx:coord>.
+/// So the filtering can be done only when all the data is parsed.
+void RemoveDuplicatedTrackPoints(std::unique_ptr<kml::FileData> & data)
+{
+  for (auto & trackData : data->m_tracksData)
+  {
+    auto const & geometry = trackData.m_geometry;
+    kml::MultiGeometry validGeometry;
+
+    for (size_t lineIndex = 0; lineIndex < geometry.m_lines.size(); ++lineIndex)
+    {
+      auto const & line = geometry.m_lines[lineIndex];
+      auto const & timestamps = geometry.m_timestamps[lineIndex];
+
+      if (line.empty())
+      {
+        LOG(LWARNING, ("Empty line in track:", trackData.m_name[kml::kDefaultLang]));
+        continue;
+      }
+
+      bool const hasTimestamps = geometry.HasTimestampsFor(lineIndex);
+      if (hasTimestamps && timestamps.size() != line.size())
+        MYTHROW(kml::DeserializerKml::DeserializeException, ("Timestamps count", timestamps.size(), "doesn't match points count", line.size()));
+
+      validGeometry.m_lines.emplace_back();
+      validGeometry.m_timestamps.emplace_back();
+
+      auto & validLine = validGeometry.m_lines.back();
+      auto & validTimestamps = validGeometry.m_timestamps.back();
+
+      for (size_t pointIndex = 0; pointIndex < line.size(); ++pointIndex)
+      {
+        auto const & currPoint = line[pointIndex];
+
+        // We don't expect vertical surfaces, so do not compare heights here.
+        // Will get a lot of duplicating points otherwise after import some user KMLs.
+        // https://github.com/organicmaps/organicmaps/issues/3895
+        if (validLine.empty() || !AlmostEqualAbs(validLine.back().GetPoint(), currPoint.GetPoint(), kMwmPointAccuracy))
+        {
+          validLine.push_back(currPoint);
+          if (hasTimestamps)
+            validTimestamps.push_back(timestamps[pointIndex]);
+        }
+      }
+    }
+
+    trackData.m_geometry = std::move(validGeometry);
   }
 }
 
@@ -466,6 +525,7 @@ std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fi
       CHECK(false, ("Not supported KmlFileType"));
     }
     ValidateKmlData(data);
+    RemoveDuplicatedTrackPoints(data);
   }
   catch (Reader::Exception const & e)
   {
@@ -513,7 +573,6 @@ bool SaveGpxData(kml::FileData & kmlData, Writer & writer)
 bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, KmlFileType fileType)
 {
   FileWriter writer(file);
-  LOG(LINFO, ("Save kml file", file, ", type", fileType));
   switch (fileType)
   {
   case KmlFileType::Text:  // fallthrough
@@ -529,6 +588,7 @@ bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, KmlFileType 
 
 bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, KmlFileType fileType)
 {
+  LOG(LINFO, ("Save kml file of type", fileType, "to", file));
   return base::WriteToTempAndRenameToFile(file, [&kmlData, fileType](std::string const & fileName)
   {
     return SaveKmlFile(kmlData, fileName, fileType);

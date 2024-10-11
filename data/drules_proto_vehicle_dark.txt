@@ -4964,7 +4964,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "beer-m"
+      name: "pub-m"
       priority: 750
       min_distance: 22
     }
@@ -4981,7 +4981,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "beer-m"
+      name: "pub-m"
       priority: 750
       min_distance: 22
     }
@@ -4998,7 +4998,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "beer-m"
+      name: "pub-m"
       priority: 750
       min_distance: 25
     }
@@ -5015,7 +5015,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "beer-m"
+      name: "pub-m"
       priority: 750
       min_distance: 40
     }
@@ -5032,7 +5032,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "beer-m"
+      name: "pub-m"
       priority: 750
       min_distance: 40
     }
@@ -80556,7 +80556,7 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "grocery-m"
+      name: "supermarket-m"
       priority: 1650
       min_distance: 4
     }
@@ -80573,7 +80573,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "grocery-m"
+      name: "supermarket-m"
       priority: 1650
       min_distance: 3
     }
@@ -80590,7 +80590,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "grocery-m"
+      name: "supermarket-m"
       priority: 1650
       min_distance: 16
     }
@@ -80607,7 +80607,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "grocery-m"
+      name: "supermarket-m"
       priority: 1650
       min_distance: 16
     }
@@ -80624,7 +80624,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "grocery-m"
+      name: "supermarket-m"
       priority: 1650
       min_distance: 15
     }
@@ -80641,7 +80641,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "grocery-m"
+      name: "supermarket-m"
       priority: 1650
       min_distance: 15
     }
@@ -80658,7 +80658,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "grocery-m"
+      name: "supermarket-m"
       priority: 1650
       min_distance: 15
     }

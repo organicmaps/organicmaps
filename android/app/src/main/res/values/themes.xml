@@ -21,14 +21,14 @@
   <style name="MwmTheme.MainActivity">
     <item name="android:colorPrimaryDark">@android:color/black</item>
     <item name="android:windowBackground">@null</item>
-    <item name="android:windowTranslucentNavigation">true</item>
+    <item name="android:windowTranslucentNavigation">false</item>
   </style>
 
   <!-- Theme is overridden in v27 folder to handle cutouts -->
   <style name="MwmTheme.Night.MainActivity">
     <item name="android:colorPrimaryDark">@android:color/black</item>
     <item name="android:windowBackground">@null</item>
-    <item name="android:windowTranslucentNavigation">true</item>
+    <item name="android:windowTranslucentNavigation">false</item>
   </style>
 
   <style name="MwmTheme.DownloadResourcesLegacy">

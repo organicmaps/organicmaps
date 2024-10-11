@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Egyéb";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "Legutolsó útvonal";
-
 "pref_map_auto_zoom" = "Automatikus nagyítás";
-
-"duration_disabled" = "Kikapcsolva";
-
-"duration_1_hour" = "1 óra";
-
-"duration_2_hours" = "2 óra";
-
-"duration_6_hours" = "6 óra";
-
-"duration_12_hours" = "12 óra";
-
-"duration_1_day" = "1 nap";
-
-"recent_track_help_text" = "Ez lehetővé teszi a bejárt útvonal rögzítését és megtekintését a térképen bizonyos időre. Kérjük, vegye figyelembe, hogy ezen funkció aktiválásával megnöveli az akkumulátor használatát. Az útvonal automatikusan törlődik a térképről az időtartam lejártával.";
 
 "placepage_distance" = "Távolság";
 
@@ -622,7 +605,7 @@
 
 "add_opening_hours" = "Nyitvatartás hozzáadása";
 
-"no_osm_account" = "Nem rendelkezel még OpenStreetMap-felhasználói fiókkal?";
+"no_osm_account" = "Nem rendelkezik még OpenStreetMap-felhasználói fiókkal?";
 
 "register_at_openstreetmap" = "Regisztráció";
 
@@ -722,7 +705,7 @@
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Közösség által létrehozott OpenStreetMap adatok %@-tól. Tudjon meg többet a térkép szerkesztéséről és frissítéséről az OpenStreetMap.org oldalon.";
 
-"login_to_make_edits_visible" = "Jelentkezz be, hogy más felhasználók is láthassák a változtatásaidat.";
+"login_to_make_edits_visible" = "Jelentkezzen be, hogy más felhasználók is láthassák a változtatásait.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "A letöltéshez több szabad tárhelyre van szükség. Kérjük, töröld a szükségtelen adatokat.";
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Ismeretlen hely";
 
-"editor_other_info" = "Küldjön jegyzetet az OSM editornak";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Megjegyzés az OpenStreetMap önkénteseinek (nem kötelező)";
 
 "editor_detailed_description_hint" = "Részletes megjegyzés";
 
@@ -1033,7 +1017,7 @@
 "place_description_title" = "A hely ismertetése";
 
 /* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
-"pref_tts_speedcams_auto" = "Figyelmeztetés gyorshajtáskor";
+"pref_tts_speedcams_auto" = "Gyorshajtáskor figyelmeztet";
 
 /* Speed camera settings menu option - Always warn (about speedcams) */
 "pref_tts_speedcams_always" = "Mindig figyelmeztet";
@@ -1051,12 +1035,12 @@
 
 "power_managment_setting_manual_max" = "Maximális energiatakarékosság";
 
-"enable_logging_warning_message" = "Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a terméktámogatási csapatunknak, akik elhárítják az alkalmazás hibáit. Csak az Organic Maps terméktámogatásának kérésére kapcsold be ezt az opciót.";
+"enable_logging_warning_message" = "Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a terméktámogatási csapatunknak, akik elhárítják az alkalmazás hibáit. Csak az Organic Maps terméktámogatásának kérésére kapcsolja be ezt az opciót.";
 
 "driving_options_title" = "Útvonaltervezési lehetőségek";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
-"avoid_tolls" = "Kerülje a fizetős utakat";
+"avoid_tolls" = "Díjköteles utak elkerülése";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_unpaved" = "Burkolatlan utak elkerülése";
@@ -1064,11 +1048,11 @@
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Kompátkelők elkerülése";
 
-"avoid_motorways" = "Kerülje az autópályát";
+"avoid_motorways" = "Autópályák elkerülése";
 
 "unable_to_calc_alert_title" = "Nem lehet útvonalat számítani";
 
-"unable_to_calc_alert_subtitle" = "Sajnos nem találunk útvonalat, valószínűleg az általad meghatározott lehetőségek miatt. Kérjük változtass a beállításokon és próbáld újra";
+"unable_to_calc_alert_subtitle" = "Sajnos nem találunk útvonalat, valószínűleg az Ön által meghatározott lehetőségek vagy hiányos OpenStreetMap adatok miatt. Kérjük, változtasson a beállításokon és próbálja újra";
 
 "define_to_avoid_btn" = "Elkerülendő utak meghatározása";
 
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "Mindent visszaállít";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Útvonal rögzítése";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Állítsa le az útvonalrögzítést";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Megállás mentés nélkül";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Felvétel folytatása";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Útvonalrögzítés mentése a könyvjelzők és nyomvonalak közé?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Az útvonal üres - nincs mit menteni";
 
 
 /********** Types **********/
@@ -2197,10 +2199,10 @@
 "type.highway.path" = "Ösvény";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Ösvény";
+"type.highway.path.difficult" = "Nehéz vagy rosszul látható nyomvonal";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Ösvény";
+"type.highway.path.expert" = "Nagyon nehéz vagy megkülönböztethetetlen nyomvonal";
 
 "type.highway.path.bicycle" = "Ösvény";
 
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Vízcsap";
 
+"type.man_made.water_tap.drinking_water_no" = "Vízcsap";
+
 "type.man_made.water_tower" = "Víztorony";
 
 "type.man_made.water_well" = "Ivókút";
+
+"type.man_made.water_well.drinking_water_no" = "Ivókút";
 
 "type.man_made.windmill" = "Szélmalom";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "Cserjés";
 
 "type.natural.spring" = "Természetes forrás";
+
+"type.natural.spring.drinking_water_no" = "Természetes forrás";
 
 "type.natural.strait" = "Szoros";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Sürgősségi kórterem bejárata";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Dojo";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Sportcsarnok";

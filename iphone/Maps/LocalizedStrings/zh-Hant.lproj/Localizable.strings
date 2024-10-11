@@ -261,24 +261,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "其他";
 
-/* The name of the feature in the main menu, settings, and messages. */
-"recent_track" = "最近的軌跡";
-
 "pref_map_auto_zoom" = "自動縮放";
-
-"duration_disabled" = "關閉";
-
-"duration_1_hour" = "1 小時";
-
-"duration_2_hours" = "2 小時";
-
-"duration_6_hours" = "6 小時";
-
-"duration_12_hours" = "12 小時";
-
-"duration_1_day" = "1 天";
-
-"recent_track_help_text" = "記錄並顯示您在指定時間段內的旅行軌跡。請注意：這會顯著增加電池消耗。";
 
 "placepage_distance" = "距離";
 
@@ -750,7 +733,8 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "未知地點";
 
-"editor_other_info" = "給 OSM 社區發送註解";
+/* Title for OSM note section in the editor */
+"editor_other_info" = "OpenStreetMap 志工注意事項（可選）";
 
 "editor_detailed_description_hint" = "詳細註釋";
 
@@ -1277,7 +1261,7 @@
 "translated_om_site_url" = "https://organicmaps.app/zh-Hans/";
 
 /* Link to OSM wiki for Editor, Profile and About pages */
-"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Zh-hant:%E9%97%9C%E6%96%BCOpenStreetMap";
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Zh-hant:關於OpenStreetMap";
 
 /* App Tip #00 */
 "app_tip_00" = "感謝您使用我們社區構建的地圖！";
@@ -1391,6 +1375,24 @@
 
 /* Title for the "Recover All" button on the Recently Deleted Lists screen. */
 "recover_all" = "全部恢復";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "錄製軌跡";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "停止軌跡記錄";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "停止而不保存";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "繼續錄製";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "儲存到書籤和軌跡？";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "軌跡為空 - 沒有可保存的內容";
 
 
 /********** Types **********/
@@ -2197,10 +2199,10 @@
 "type.highway.path" = "人行步道";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "人行步道";
+"type.highway.path.difficult" = "困難或不明顯的小路";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "人行步道";
+"type.highway.path.expert" = "非常困難或難以區分的路線";
 
 "type.highway.path.bicycle" = "人行步道";
 
@@ -2702,9 +2704,13 @@
 
 "type.man_made.water_tap" = "水龍頭";
 
+"type.man_made.water_tap.drinking_water_no" = "水龍頭";
+
 "type.man_made.water_tower" = "水塔";
 
 "type.man_made.water_well" = "水井";
+
+"type.man_made.water_well.drinking_water_no" = "水井";
 
 "type.man_made.windmill" = "風車";
 
@@ -2790,6 +2796,8 @@
 "type.natural.scrub" = "叢林";
 
 "type.natural.spring" = "泉水";
+
+"type.natural.spring.drinking_water_no" = "泉水";
 
 "type.natural.strait" = "海峽";
 
@@ -4018,3 +4026,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "急診病房入口";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "道場";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "體育館";
