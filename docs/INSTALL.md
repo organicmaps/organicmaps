@@ -423,18 +423,11 @@ _macOS:_
 
 _Windows 10:_ no action needed, should work out of the box.
 
-### Create a device
 
-Setup a virtual device to use [emulator](https://developer.android.com/studio/run/emulator) ("Tools > Device Manager") or [use a hardware device for debugging](https://developer.android.com/studio/run/device).
-If using an emulator, make sure to choose a system image with API Level 34. Use ABI _x86_64_ for Intel-based processors and _arm64-v8a_ for ARM-based processors (e.g. M1/M2 Macs).
+### Set up the emulator
 
-Android Studio has issues in parsing the C++ part of the project, please let us know if you know how to resolve it. As a workaround, for working C++ suggestions, you may use:
-
-- [Qt Creator](https://www.qt.io/product/development-tools)
-- [Xcode](https://developer.apple.com/xcode/)
-- [CLion](https://www.jetbrains.com/clion/)
-
-For Xcode it is required to run `cmake . -g Xcode` to generate project files, while CLion and QT Creator can import CMakeLists.txt.
+Set up a virtual device to use [emulator](https://developer.android.com/studio/run/emulator) ("Tools > Device Manager") or [use a hardware device for debugging](https://developer.android.com/studio/run/device).
+For the emulator its recommended to choose the latest supported API Level system image. Use ABI _x86_64_ for Intel-based processors and _arm64-v8a_ for ARM-based processors (e.g. M1/M2 Macs).
 
 
 ### Building
@@ -586,6 +579,16 @@ If you are low on RAM, disk space or traffic there are ways to reduce system req
 - for debugging use an older emulated device with low RAM and screen resolution, e.g. "Nexus S";
 - make sure the emulator uses [hardware acceleration](https://developer.android.com/studio/run/emulator-acceleration);
 - don't use emulator, debug on a hardware device instead.
+
+#### Alternatives for working with C++ code
+
+Android Studio has issues in parsing the C++ part of the project, please let us know if you know how to resolve it. As a workaround, for working C++ suggestions, you may use:
+
+- [Qt Creator](https://www.qt.io/product/development-tools)
+- [Xcode](https://developer.apple.com/xcode/)
+- [CLion](https://www.jetbrains.com/clion/)
+
+For Xcode it is required to run `cmake . -g Xcode` to generate project files, while CLion and QT Creator can import CMakeLists.txt.
 
 #### Enable Vulkan Validation
 
