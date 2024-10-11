@@ -393,19 +393,17 @@ Install [Android Studio](https://developer.android.com/studio).
 Run Android Studio and open the project in `android/` directory!
 This is important, otherwise the following menus won't be visible.
 
-Install Android SDK and NDK:
+Configure Android Studio:
 
 - Open "SDK Manager" (under "More Actions" in a welcome screen or a three-dot menu in a list of recent projects screen or "Tools" top menu item in an open project).
-- Select "Android 15.0 ("Vanilla Ice Cream") / API Level 35" SDK.
 - Switch to "SDK Tools" tab.
 - Check "Show Package Details" checkbox.
-- Select "NDK (Side by side)" version **27.1.12297006**.
-- Select "CMake" version **3.22.1**.
+- Select "CMake" version **3.22.1** or higher.
 - Click "Apply" and wait for downloads and installation to finish.
 - In the left pane menu select "Appearance & Behavior > System Settings > Memory Settings".
 - Set "IDE max heap size" to 2048MB or more (otherwise the Studio might get stuck on "Updating indexes" when opening the project).
 
-Configure the repository with Android SDK and NDK paths. You can do it either by setting a global environment variable pointing at your Android SDK:
+Configure the repository with Android SDK paths. You can do it either by setting a global environment variable pointing at your Android SDK:
 
 ```
 ANDROID_HOME=<here is the absolute path to the root folder of your Android SDK installation>
@@ -502,7 +500,7 @@ Organic Maps icon will appear in the application list in DHU.
 
 #### Building from the command line
 
-First configure `PATH` to prefer `cmake` from the Android SDK/NDK instead of the default system install:
+First configure `PATH` to prefer `cmake` from the Android SDK instead of the default system install:
 
 _Linux:_
 
@@ -584,8 +582,7 @@ To add any of those options to in-studio builds list them in "Command-line Optio
 You can install
 [Android SDK](https://developer.android.com/sdk/index.html) and
 [NDK](https://developer.android.com/tools/sdk/ndk/index.html) without
-Android Studio. Please make sure that SDK for API Level 33,
-NDK version **27.1.12297006** and CMake version **3.22.1** are installed.
+Android Studio.
 
 If you are low on RAM, disk space or traffic there are ways to reduce system requirements:
 - exclude the `cpp` folder from indexing. If you do not make any work on the C++ code, this will greatly improve the start-up performance and the ram usage of Android Studio. Click on the `Project` tab on the left, find the `cpp` folder (should be next to the `java` folder), right click on it and select `Mark Directory as` -> `Excluded` (red folder icon). Then restart Android Studio.
