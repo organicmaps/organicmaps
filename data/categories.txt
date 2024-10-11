@@ -16734,5 +16734,5 @@ tr:hapishane
 uk:в'язниця
 vi:nhà tù
 zh-Hans:监狱
-
+lv:cietums
 
