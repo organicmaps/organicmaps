@@ -2,6 +2,7 @@
 #import "MWMMapSearchResult+Core.h"
 #import "ProductsConfiguration+Core.h"
 #import "Product+Core.h"
+#import "TrackRecordingInfo+Core.h"
 
 #include "Framework.h"
 
@@ -215,6 +216,18 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
 
 + (void)startTrackRecording {
   GetFramework().StartTrackRecording();
+}
+
++ (void)setTrackRecordingUpdateHandler:(TrackRecordingUpdatedHandler _Nullable)trackRecordingDidUpdate {
+  if (!trackRecordingDidUpdate)
+  {
+    GetFramework().SetTrackRecordingUpdateHandler(nullptr);
+    return;
+  }
+  GetFramework().SetTrackRecordingUpdateHandler([trackRecordingDidUpdate](GpsTrackInfo const & gpsTrackInfo) {
+    TrackRecordingInfo * info = [[TrackRecordingInfo alloc] initWithGpsTrackInfo:gpsTrackInfo];
+    trackRecordingDidUpdate(info);
+  });
 }
 
 + (void)stopTrackRecording {
