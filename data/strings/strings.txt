@@ -32127,7 +32127,7 @@
     el = Σταματήστε χωρίς αποθήκευση
     es = Parar sin guardar
     et = Lõpeta ilma salvestamata
-    eu = Gelditu gordetzeko gabe
+    eu = Gelditu gorde gabe
     fa = توقف بدون ذخیره
     fi = Lopeta tallentamatta
     fr = Arrêter sans enregistrer
