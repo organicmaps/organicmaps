@@ -1,6 +1,7 @@
 #pragma once
 
 #include "geometry/point2d.hpp"
+#include "geometry/mercator.hpp"
 
 #include "base/base.hpp"
 
@@ -60,6 +61,8 @@ namespace location
     bool HasBearing() const { return m_bearing >= 0.0; }
     bool HasSpeed() const { return m_speed >= 0.0; }
     bool HasVerticalAccuracy() const { return m_verticalAccuracy >= 0.0; }
+
+    m2::PointD GetPoint() const { return mercator::FromLatLon(m_latitude, m_longitude); }
   };
 
   class CompassInfo
