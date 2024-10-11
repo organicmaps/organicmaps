@@ -36,6 +36,8 @@ public class NavMenu
   private final View mSpeedViewContainer;
   private final TextView mSpeedValue;
   private final TextView mSpeedUnits;
+  private final TextView mSpeedLimitText;
+  private final View mSpeedLimitLayout;
   private final TextView mTimeHourValue;
   private final TextView mTimeHourUnits;
   private final TextView mTimeMinuteValue;
@@ -98,6 +100,8 @@ public class NavMenu
     mSpeedViewContainer = bottomFrame.findViewById(R.id.speed_view_container);
     mSpeedValue = bottomFrame.findViewById(R.id.speed_value);
     mSpeedUnits = bottomFrame.findViewById(R.id.speed_dimen);
+    mSpeedLimitText = mActivity.findViewById(R.id.speed_limit_text);
+    mSpeedLimitLayout = mActivity.findViewById(R.id.speed_limit_layout);
     mTimeHourValue = bottomFrame.findViewById(R.id.time_hour_value);
     mTimeHourUnits = bottomFrame.findViewById(R.id.time_hour_dimen);
     mTimeMinuteValue = bottomFrame.findViewById(R.id.time_minute_value);
@@ -213,14 +217,17 @@ public class NavMenu
       return;
 
     Pair<String, String> speedAndUnits = StringUtils.nativeFormatSpeedAndUnits(last.getSpeed());
+    mSpeedValue.setText(speedAndUnits.first);
 
     if (info.speedLimitMps > 0.0)
     {
       Pair<String, String> speedLimitAndUnits = StringUtils.nativeFormatSpeedAndUnits(info.speedLimitMps);
-      mSpeedValue.setText(speedAndUnits.first + "\u202F/\u202F" + speedLimitAndUnits.first);
+
+      mSpeedLimitText.setText(speedLimitAndUnits.first);
+      mSpeedLimitLayout.setVisibility(View.VISIBLE);
     }
     else
-      mSpeedValue.setText(speedAndUnits.first);
+      mSpeedLimitLayout.setVisibility(View.GONE);
 
     if (info.speedLimitMps > 0.0 && last.getSpeed() > info.speedLimitMps)
     {
