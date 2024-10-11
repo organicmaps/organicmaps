@@ -17,11 +17,6 @@ public:
   /// Constructor
   GpsTrackCollection();
 
-  /// Adds new point in the collection.
-  /// @param item - item to be added.
-  /// @returns the item unique identifier or kInvalidId if point has incorrect time.
-  size_t Add(TItem const & item);
-
   /// Adds set of new points in the collection.
   /// @param items - set of items to be added.
   /// @returns range of identifiers of added items or pair(kInvalidId,kInvalidId) if nothing was added
@@ -62,13 +57,6 @@ public:
   }
 
 private:
-  // Removes items in range [m_items.begin(), i) and returnd
-  // range of identifiers of removed items
-  std::pair<size_t, size_t> RemoveUntil(std::deque<TItem>::iterator i);
-
-  // Removes items extra by timestamp
-  std::pair<size_t, size_t> RemoveExtraItems();
-
   std::deque<TItem> m_items;  // asc. sorted by timestamp
 
   size_t m_lastId;
