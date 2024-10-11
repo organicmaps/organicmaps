@@ -7,6 +7,16 @@
 #include <utility>
 #include <vector>
 
+struct GpsTrackInfo
+{
+  double m_length;
+  double m_duration;
+  uint32_t m_ascent;
+  uint32_t m_descent;
+  int16_t m_minElevation;
+  int16_t m_maxElevation;
+};
+
 class GpsTrackCollection final
 {
 public:
@@ -36,6 +46,8 @@ public:
   /// Returns number of items in the collection
   size_t GetSize() const;
 
+  GpsTrackInfo GetTrackInfo() const { return m_trackInfo; }
+
   /// Enumerates items in the collection.
   /// @param f - callable object, which is called with params - item and item id,
   /// if f returns false, then enumeration is stopped.
@@ -60,4 +72,5 @@ private:
   std::deque<TItem> m_items;  // asc. sorted by timestamp
 
   size_t m_lastId;
+  GpsTrackInfo m_trackInfo;
 };

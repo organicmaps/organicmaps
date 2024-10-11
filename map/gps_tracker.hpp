@@ -17,6 +17,7 @@ public:
 
   bool IsEmpty() const;
   size_t GetTrackSize() const;
+  GpsTrackInfo GetTrackInfo() const { return m_track.GetTrackInfo(); }
 
   using TGpsTrackDiffCallback =
       std::function<void(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
