@@ -392,8 +392,6 @@ dependencies {
     implementation "androidx.navigation:navigation-compose:2.8.0-beta03"
 
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3"
-    // blurriness
-    implementation "com.github.skydoves:cloudy:0.1.2"
     // countries
     implementation 'com.hbb20:ccp:2.7.3'
     // webview

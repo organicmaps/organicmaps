@@ -32,6 +32,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import app.organicmaps.R
 import app.tourism.Constants
 import app.tourism.domain.models.resource.Resource
+import app.tourism.drawDarkContainerBehind
 import app.tourism.drawOverlayForTextBehind
 import app.tourism.ui.ObserveAsEvents
 import app.tourism.ui.common.VerticalSpace
@@ -93,11 +94,8 @@ fun SignUpScreen(
                 .align(alignment = Alignment.TopCenter)
         ) {
             VerticalSpace(height = 48.dp)
-            Box(Modifier.padding(Constants.SCREEN_PADDING)) {
-                Image(
-                    painter = painterResource(id = R.drawable.blur_background),
-                    contentDescription = null
-                )
+            Box(Modifier.padding(Constants.SCREEN_PADDING)
+                .drawDarkContainerBehind()) {
                 Column(
                     Modifier.padding(36.dp)
                 ) {

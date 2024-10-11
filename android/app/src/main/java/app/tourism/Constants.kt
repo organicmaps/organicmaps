@@ -4,12 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -63,3 +60,18 @@ fun Modifier.drawOverlayForTextBehind() =
             )
         )
     )
+
+@Composable
+fun Modifier.drawDarkContainerBehind(): Modifier {
+    val alpha = 0.4f
+    return this
+        .clip(RoundedCornerShape(20.dp))
+        .background(
+            Brush.verticalGradient(
+                colors = listOf(
+                    Color.Black.copy(alpha = alpha),
+                    Color.Black.copy(alpha = alpha)
+                )
+            )
+        )
+}

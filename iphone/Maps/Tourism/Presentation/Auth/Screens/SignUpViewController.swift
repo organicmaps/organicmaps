@@ -105,15 +105,38 @@ class SignUpViewController: UIViewController {
     return button
   }()
   
+  private let developedByLabel: UILabel = {
+    let label = UILabel()
+    label.text = L("developed_by_label")
+    label.textColor = .white
+    UIKitFont.applyStyle(to: label, style: UIKitFont.h4)
+    applyWrapContent(label: label)
+    label.translatesAutoresizingMaskIntoConstraints = false
+    return label
+  }()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     setupViews()
   }
   
   private func setupViews() {
+    let gradientView = UIView(frame: CGRect(x: 0, y: view.height - 100, width: view.width, height: 100))
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(developedByLabelTapped))
+
+    gradientView.addGestureRecognizer(tapGesture)
+    gradientView.isUserInteractionEnabled = true
+    
+    let gradient = CAGradientLayer()
+    gradient.frame = gradientView.bounds
+    gradient.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
+    gradientView.layer.insertSublayer(gradient, at: 0)
+    
     view.addSubview(backgroundImageView)
     view.addSubview(backButton)
     view.addSubview(containerView)
+    view.addSubview(gradientView)
+    view.addSubview(developedByLabel)
     
     containerView.addSubview(blurView)
     containerView.addSubview(titleLabel)
@@ -193,7 +216,10 @@ class SignUpViewController: UIViewController {
       // Forgot Password Button
       forgotPasswordButton.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: 20),
       forgotPasswordButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 32),
-      forgotPasswordButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -32)
+      forgotPasswordButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -32),
+      
+      developedByLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+      developedByLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -32)
     ])
     
     backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
@@ -234,6 +260,13 @@ class SignUpViewController: UIViewController {
   
   @objc private func backButtonTapped() {
     self.navigationController?.popViewController(animated: false)
+  }
+  
+  @objc func developedByLabelTapped() {
+    print("developedByLabelTapped")
+    if let url = URL(string: "https://rebus.tj") {
+        UIApplication.shared.open(url)
+    }
   }
   
   // MARK: - other functions

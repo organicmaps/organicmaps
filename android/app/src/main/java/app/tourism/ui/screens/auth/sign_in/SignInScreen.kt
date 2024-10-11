@@ -1,13 +1,16 @@
 package app.tourism.ui.screens.auth.sign_in
 
 import PasswordEditText
+import android.view.RoundedCorner
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
@@ -16,7 +19,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -31,6 +36,7 @@ import app.organicmaps.R
 import app.tourism.BASE_URL
 import app.tourism.Constants
 import app.tourism.domain.models.resource.Resource
+import app.tourism.drawDarkContainerBehind
 import app.tourism.drawOverlayForTextBehind
 import app.tourism.ui.ObserveAsEvents
 import app.tourism.ui.common.VerticalSpace
@@ -84,11 +90,12 @@ fun SignInScreen(
                 .align(Alignment.TopCenter)
         ) {
             VerticalSpace(height = 80.dp)
-            Box(Modifier.padding(Constants.SCREEN_PADDING)) {
-                Image(
-                    painter = painterResource(id = R.drawable.blur_background),
-                    contentDescription = null
-                )
+
+            Box(
+                Modifier
+                    .padding(Constants.SCREEN_PADDING)
+                    .drawDarkContainerBehind()
+            ) {
                 Column(Modifier.padding(36.dp)) {
                     Text(
                         modifier = Modifier.align(Alignment.CenterHorizontally),
