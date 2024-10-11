@@ -16713,7 +16713,6 @@ eu:espetxe|kartzela
 fa:زندان
 fi:vankila
 fr:prison
-he:בית כלא
 hi:कारागार
 hu:börtön
 id:penjara
@@ -16735,4 +16734,4 @@ uk:в'язниця
 vi:nhà tù
 zh-Hans:监狱
 lv:cietums
-
+he:כלא|בית כלא|בית סוהר
