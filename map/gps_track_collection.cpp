@@ -66,7 +66,7 @@ std::pair<size_t, size_t> GpsTrackCollection::Add(std::vector<TItem> const & ite
       if (item.m_altitude > lastItem.m_altitude)
         m_trackInfo.m_ascent += deltaAltitude;
       if (item.m_altitude < lastItem.m_altitude)
-        m_trackInfo.m_descent += deltaAltitude;
+        m_trackInfo.m_descent -= deltaAltitude;
 
       m_trackInfo.m_maxElevation = std::max(static_cast<double>(m_trackInfo.m_maxElevation), item.m_altitude);
       m_trackInfo.m_minElevation = std::min(static_cast<double>(m_trackInfo.m_minElevation), item.m_altitude);
@@ -106,7 +106,7 @@ std::pair<size_t, size_t> GpsTrackCollection::Clear(bool resetIds)
 
   m_items.clear();
   m_items.shrink_to_fit();
-  m_trackInfo = GpsTrackInfo();
+  m_trackInfo = {};
 
   if (resetIds)
     m_lastId = 0;
