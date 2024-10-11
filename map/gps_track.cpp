@@ -79,6 +79,11 @@ void GpsTrack::AddPoints(vector<location::GpsInfo> const & points)
   ScheduleTask();
 }
 
+GpsTrackInfo GpsTrack::GetTrackInfo() const
+{
+  return m_collection ? m_collection->GetTrackInfo() : GpsTrackInfo();
+}
+
 void GpsTrack::Clear()
 {
   {

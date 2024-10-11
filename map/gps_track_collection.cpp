@@ -2,6 +2,8 @@
 
 #include "base/assert.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include <algorithm>
 
 namespace
@@ -33,8 +35,8 @@ size_t const GpsTrackCollection::kInvalidId = std::numeric_limits<size_t>::max()
 
 GpsTrackCollection::GpsTrackCollection()
   : m_lastId(0)
-{
-}
+  , m_trackInfo(GpsTrackInfo())
+{}
 
 std::pair<size_t, size_t> GpsTrackCollection::Add(std::vector<TItem> const & items)
 {
@@ -48,6 +50,27 @@ std::pair<size_t, size_t> GpsTrackCollection::Add(std::vector<TItem> const & ite
   {
     if (!m_items.empty() && m_items.back().m_timestamp > item.m_timestamp)
       continue;
+
+    if (m_items.empty())
+    {
+      m_trackInfo.m_maxElevation = item.m_altitude;
+      m_trackInfo.m_minElevation = item.m_altitude;
+    }
+    else
+    {
+      auto const & lastItem = m_items.back();
+      m_trackInfo.m_length += mercator::DistanceOnEarth(lastItem.GetPoint(), item.GetPoint());
+      m_trackInfo.m_duration = item.m_timestamp - m_items.front().m_timestamp;
+
+      auto const deltaAltitude = item.m_altitude - lastItem.m_altitude;
+      if (item.m_altitude > lastItem.m_altitude)
+        m_trackInfo.m_ascent += deltaAltitude;
+      if (item.m_altitude < lastItem.m_altitude)
+        m_trackInfo.m_descent += deltaAltitude;
+
+      m_trackInfo.m_maxElevation = std::max(static_cast<double>(m_trackInfo.m_maxElevation), item.m_altitude);
+      m_trackInfo.m_minElevation = std::min(static_cast<double>(m_trackInfo.m_minElevation), item.m_altitude);
+    }
 
     m_items.emplace_back(item);
     ++added;
@@ -83,6 +106,7 @@ std::pair<size_t, size_t> GpsTrackCollection::Clear(bool resetIds)
 
   m_items.clear();
   m_items.shrink_to_fit();
+  m_trackInfo = GpsTrackInfo();
 
   if (resetIds)
     m_lastId = 0;
