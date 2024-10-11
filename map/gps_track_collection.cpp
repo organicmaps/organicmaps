@@ -36,20 +36,6 @@ GpsTrackCollection::GpsTrackCollection()
 {
 }
 
-size_t GpsTrackCollection::Add(TItem const & item)
-{
-  if (!m_items.empty() && m_items.back().m_timestamp > item.m_timestamp)
-  {
-    // Invalid timestamp order
-    return kInvalidId; // Nothing was added
-  }
-
-  m_items.emplace_back(item);
-  ++m_lastId;
-
-  return m_lastId - 1;
-}
-
 std::pair<size_t, size_t> GpsTrackCollection::Add(std::vector<TItem> const & items)
 {
   size_t startId = m_lastId;
@@ -112,12 +98,4 @@ size_t GpsTrackCollection::GetSize() const
 bool GpsTrackCollection::IsEmpty() const
 {
   return m_items.empty();
-}
-
-std::pair<size_t, size_t> GpsTrackCollection::RemoveUntil(std::deque<TItem>::iterator i)
-{
-  auto const res = std::make_pair(m_lastId - m_items.size(),
-                             m_lastId - m_items.size() + distance(m_items.begin(), i) - 1);
-  m_items.erase(m_items.begin(), i);
-  return res;
 }
