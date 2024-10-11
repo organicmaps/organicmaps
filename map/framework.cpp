@@ -1587,7 +1587,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   LoadViewport();
 
   if (m_connectToGpsTrack)
-    GpsTracker::Instance().Connect(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2));
+    GpsTracker::Instance().Connect(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2, _3));
 
   GetBookmarkManager().SetDrapeEngine(make_ref(m_drapeEngine));
   m_drapeApi.SetDrapeEngine(make_ref(m_drapeEngine));
@@ -1699,7 +1699,7 @@ void Framework::ConnectToGpsTracker()
   if (m_drapeEngine)
   {
     m_drapeEngine->ClearGpsTrackPoints();
-    GpsTracker::Instance().Connect(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2));
+    GpsTracker::Instance().Connect(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2, _3));
   }
 }
 
@@ -1720,8 +1720,15 @@ void Framework::StartTrackRecording()
   if (m_drapeEngine)
   {
     m_drapeEngine->ClearGpsTrackPoints();
-    tracker.Connect(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2));
+    tracker.Connect(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2, _3));
   }
+}
+
+void Framework::SetTrackRecordingUpdateHandler(TrackRecordingUpdateHandler && trackRecordingDidUpdate)
+{
+  m_trackRecordingUpdateHandler = std::move(trackRecordingDidUpdate);
+  if (m_trackRecordingUpdateHandler)
+    m_trackRecordingUpdateHandler(std::move(GpsTracker::Instance().GetTrackInfo()));
 }
 
 void Framework::StopTrackRecording()
@@ -1752,7 +1759,8 @@ bool Framework::IsTrackRecordingEnabled() const
 }
 
 void Framework::OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::GpsInfo>> && toAdd,
-                                               pair<size_t, size_t> const & toRemove)
+                                               pair<size_t, size_t> const & toRemove,
+                                               GpsTrackInfo const & trackInfo)
 {
   ASSERT(m_drapeEngine.get() != nullptr, ());
 
@@ -1779,6 +1787,9 @@ void Framework::OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::Gps
   }
 
   m_drapeEngine->UpdateGpsTrackPoints(std::move(pointsAdd), std::move(indicesRemove));
+
+  if (m_trackRecordingUpdateHandler)
+    m_trackRecordingUpdateHandler(std::move(trackInfo));
 }
 
 void Framework::MarkMapStyle(MapStyle mapStyle)

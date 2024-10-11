@@ -17,6 +17,7 @@
 #include "map/track.hpp"
 #include "map/traffic_manager.hpp"
 #include "map/transit/transit_reader.hpp"
+#include "map/gps_track_collection.hpp"
 
 #include "drape_frontend/gui/skin.hpp"
 #include "drape_frontend/drape_api.hpp"
@@ -435,7 +436,9 @@ public:
   void ConnectToGpsTracker();
   void DisconnectFromGpsTracker();
 
+  using TrackRecordingUpdateHandler = platform::SafeCallback<void(GpsTrackInfo const & trackInfo)>;
   void StartTrackRecording();
+  void SetTrackRecordingUpdateHandler(TrackRecordingUpdateHandler && trackRecordingDidUpdate);
   void StopTrackRecording();
   void SaveTrackRecordingWithName(std::string const & name);
   bool IsTrackRecordingEmpty() const;
@@ -463,7 +466,10 @@ private:
   TCurrentCountryChanged m_currentCountryChanged;
 
   void OnUpdateGpsTrackPointsCallback(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
-                                      std::pair<size_t, size_t> const & toRemove);
+                                      std::pair<size_t, size_t> const & toRemove,
+                                      GpsTrackInfo const & trackInfo);
+
+  TrackRecordingUpdateHandler m_trackRecordingUpdateHandler;
 
   CachingRankTableLoader m_popularityLoader;
 

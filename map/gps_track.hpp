@@ -46,7 +46,8 @@ public:
   /// @note Calling of a GpsTrack.SetCallback function from the callback causes deadlock.
   using TGpsTrackDiffCallback =
       std::function<void(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
-                         std::pair<size_t, size_t> const & toRemove)>;
+                         std::pair<size_t, size_t> const & toRemove,
+                         GpsTrackInfo const & trackInfo)>;
 
   /// Sets callback on change of gps track.
   /// @param callback - callback callable object
