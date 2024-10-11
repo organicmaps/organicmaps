@@ -15,7 +15,7 @@ For _Windows_ you need to have [Git for Windows](https://git-scm.com/download/wi
 
 ## Getting sources
 
-First of all get the source code. The full Organic Maps sources repository is ~8.5Gb in size, there are various [clone options](#special-cases-options) to reduce the download size to suit your needs.
+First of all get the source code. The full Organic Maps sources repository is ~10Gb in size, there are various [clone options](#special-cases-options) to reduce the download size to suit your needs.
 
 For _Windows_, it's necessary to enable symlink support:
 1. Activate _Windows Development Mode_ to enable symlinks globally:
@@ -32,7 +32,7 @@ Clone the repository including all submodules (see [Special cases options](#spec
 (if you plan to contribute and propose pull requests then use a web interface at https://github.com/organicmaps/organicmaps to fork the repository first and use your fork's URL in the command below)
 
 ```bash
-git clone --recurse-submodules https://github.com/organicmaps/organicmaps.git
+git clone --recurse-submodules --shallow-submodules https://github.com/organicmaps/organicmaps.git
 ```
 
 Go into the cloned repository:
@@ -70,8 +70,6 @@ If you're only doing a one-off build or your internet bandwidth or disk space is
 - a `--filter=blob:limit=128k` option to make a _partial clone_ (saves ~4Gb), i.e. blob files over 128k in size will be excluded from the history and downloaded on-demand - is suitable for generic development.
 
 - a `--depth=1` option to make a _shallow copy_ (and possibly a `--no-single-branch` to have all branches not just `master`), i.e. omit history while retaining current commits only (saves ~4.5Gb) - suitable for one-off builds.
-
-- a `--shallow-submodules` option to _shallow clone_ the submodules (save ~1.3Gb) - this is suitable for a generic development if no work on submodules is planned.
 
 If you mistakenly did a `git clone` without checking out submodules, you can run `git submodule update --init --recursive`. If you don't want to clone complete submodules, you can add `--depth=1` to the update command.
 
