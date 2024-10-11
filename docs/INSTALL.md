@@ -40,7 +40,7 @@ Go into the cloned repository:
 cd organicmaps
 ```
 
-Configure the repository for an open source build:
+Configure the repository (make sure you have a working C++ build environment):
 
 (if you plan to publish the app privately in stores check [special options](#special-cases-options))
 
@@ -665,4 +665,4 @@ Select "OMaps" product scheme.
 Compile and run the project ("Product" → "Run").
 
 ## Map data and styles
-See readme for the [map generator](https://github.com/organicmaps/organicmaps/blob/master/docs/MAPS.md) and [styles](https://github.com/organicmaps/organicmaps/blob/master/docs/STYLES.md) if you need to customize the map files and styles
+See readme for the [map generator](https://github.com/organicmaps/organicmaps/blob/master/docs/MAPS.md) and [styles](https://github.com/organicmaps/organicmaps/blob/master/docs/STYLES.md) if you need to customize the map files and styles.
