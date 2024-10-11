@@ -401,7 +401,7 @@ Configure Android Studio:
 - In the left pane menu select "Appearance & Behavior > System Settings > Memory Settings".
 - Set "IDE max heap size" to 2048MB or more (otherwise the Studio might get stuck on "Updating indexes" when opening the project).
 
-Configure the repository with Android SDK paths. You can do it either by setting a global environment variable pointing at your Android SDK:
+Configure the repository with Android SDK paths. You can do it either by [setting](https://developer.android.com/tools#environment-variables) a global environment variable pointing at your Android SDK:
 
 ```
 ANDROID_HOME=<here is the absolute path to the root folder of your Android SDK installation>
@@ -577,16 +577,11 @@ To add any of those options to in-studio builds list them in "Command-line Optio
 
 #### Reduce resource usage
 
-You can install
-[Android SDK](https://developer.android.com/sdk/index.html) and
-[NDK](https://developer.android.com/tools/sdk/ndk/index.html) without
-Android Studio.
-
 If you are low on RAM, disk space or traffic there are ways to reduce system requirements:
-- exclude the `cpp` folder from indexing. If you do not make any work on the C++ code, this will greatly improve the start-up performance and the ram usage of Android Studio. Click on the `Project` tab on the left, find the `cpp` folder (should be next to the `java` folder), right click on it and select `Mark Directory as` -> `Excluded` (red folder icon). Then restart Android Studio.
+- exclude the `cpp` folder from indexing - if you do not make any work on the C++ code, this will greatly improve the start-up performance and the ram usage of Android Studio; Click on the `Project` tab on the left, find the `cpp` folder (should be next to the `java` folder), right click on it and select `Mark Directory as` -> `Excluded` (red folder icon), then restart Android Studio;
 - in Android Studio enable "File > Power Save Mode";
 - disable the "Android NDK Support" plugin in "Settings -> Plugins" completely and use another IDE (Visual Studio Code, Qt Creator, etc.) for editing C++ code instead;
-- don't install Android Studio, run builds and emulator from command line;
+- don't install Android Studio, run builds and emulator from command line (download [command line tools](https://developer.android.com/studio#command-line-tools-only) first and then use the [`sdkmanager`](https://developer.android.com/tools/sdkmanager) tool to install all required packages: `platform-tools`, `build-tools`, a [right version](#preparing-1) of `cmake`, maybe `emulator`...; then [set env vars](https://developer.android.com/tools#environment-variables));
 - build only for target arches you actually need, e.g. `arm64`;
 - for debugging use an older emulated device with low RAM and screen resolution, e.g. "Nexus S";
 - make sure the emulator uses [hardware acceleration](https://developer.android.com/studio/run/emulator-acceleration);
