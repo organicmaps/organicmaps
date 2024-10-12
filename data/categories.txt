@@ -16697,7 +16697,6 @@ zh-Hant:藝術中心
 
 amenity-prison
 en:prison
-fr:prison
 ru:тюрьма
 es:prisión|cárcel
 ar:السجن
@@ -16713,12 +16712,14 @@ eu:espetxe|kartzela
 fa:زندان
 fi:vankila
 fr:prison
+he:כלא|בית כלא|בית סוהר
 hi:कारागार
 hu:börtön
 id:penjara
 it:prigione
 ja:刑務所
 ko:감옥
+lv:cietums
 mr:तुरुंग
 nb:fengsel
 nl:gevangenis
@@ -16733,5 +16734,3 @@ tr:hapishane
 uk:в'язниця
 vi:nhà tù
 zh-Hans:监狱
-lv:cietums
-he:כלא|בית כלא|בית סוהר
