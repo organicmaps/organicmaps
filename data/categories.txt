@@ -16697,8 +16697,6 @@ zh-Hant:藝術中心
 
 amenity-prison
 en:prison
-ru:тюрьма
-es:prisión|cárcel
 ar:السجن
 be:турма
 bg:затвор
@@ -16707,6 +16705,7 @@ cs:vězení
 da:Fængsel
 de:Gefängnis
 el:φυλακή
+es:prisión|cárcel
 et:vangla
 eu:espetxe|kartzela
 fa:زندان
@@ -16726,6 +16725,7 @@ nl:gevangenis
 pl:więzienie
 pt:prisão
 ro:închisoare
+ru:тюрьма
 sk:väzenie
 sv:fängelse
 sw:jela
