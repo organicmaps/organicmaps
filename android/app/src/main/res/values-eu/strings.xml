@@ -1473,8 +1473,10 @@
     <string name="type.man_made.tower">Dorrea</string>
     <string name="type.man_made.tower.communication">Komunikazio Dorrea</string>
     <string name="type.man_made.water_tap">Ura hartzea</string>
+    <string name="type.man_made.water_tap.drinking_water_no">Ura hartzea</string>
     <string name="type.man_made.water_tower">Ur depositua</string>
     <string name="type.man_made.water_well">Ur putzua</string>
+    <string name="type.man_made.water_well.drinking_water_no">Ur putzua</string>
     <string name="type.man_made.windmill">Haize-errota</string>
     <string name="type.military.bunker">Bunkerra</string>
     <string name="type.natural">Natura</string>
@@ -1514,6 +1516,7 @@
     <string name="type.natural.rock">Arroka</string>
     <string name="type.natural.scrub">Sastrakak</string>
     <string name="type.natural.spring">Udaberria</string>
+    <string name="type.natural.spring.drinking_water_no">Udaberria</string>
     <string name="type.natural.strait">Estua</string>
     <string name="type.natural.tree_row">Zuhaitz ilara</string>
     <string name="type.natural.vineyard">Mahasti</string>

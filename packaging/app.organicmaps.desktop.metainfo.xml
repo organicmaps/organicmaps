@@ -115,6 +115,25 @@
   </screenshots>
 
   <releases>
+   <release version="2024.10.04-7" date="2024-10-04">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>OpenStreetMap data as of October 1</li>
+           <li>Improved Chinese, Hebrew, Italian translations</li>
+           <li>Fixed crashes when location access was enabled on some Desktop Environments</li>
+         </ul>
+     </description>
+   </release>
+   <release version="2024.09.08-7" date="2024-09-08">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>OpenStreetMap data as of September 7</li>
+           <li>Translations: Enhanced Chinese, Hebrew, and Italian, and added translations for trail difficulty.</li>
+         </ul>
+     </description>
+   </release>
    <release version="2024.08.16-5" date="2024-08-16">
      <description>
        <p>Highlights:</p>

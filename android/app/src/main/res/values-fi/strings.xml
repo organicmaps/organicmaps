@@ -1495,8 +1495,10 @@
     <string name="type.man_made.tower">Torni</string>
     <string name="type.man_made.tower.communication">Viestintätorni</string>
     <string name="type.man_made.water_tap">Vesihana</string>
+    <string name="type.man_made.water_tap.drinking_water_no">Vesihana</string>
     <string name="type.man_made.water_tower">Vesitorni</string>
     <string name="type.man_made.water_well">Kaivo</string>
+    <string name="type.man_made.water_well.drinking_water_no">Kaivo</string>
     <string name="type.man_made.windmill">Tuulimylly</string>
     <string name="type.military.bunker">Bunkkeri</string>
     <string name="type.natural">Luonto</string>
@@ -1536,6 +1538,7 @@
     <string name="type.natural.rock">Kivi</string>
     <string name="type.natural.scrub">Tiheiköt</string>
     <string name="type.natural.spring">Lähde</string>
+    <string name="type.natural.spring.drinking_water_no">Lähde</string>
     <string name="type.natural.strait">Salmi</string>
     <string name="type.natural.tree_row">Puurivi</string>
     <string name="type.natural.vineyard">Viinitila</string>

@@ -1380,8 +1380,10 @@
     <string name="type.man_made.tower">หอคอย</string>
     <string name="type.man_made.tower.communication">หอสื่อสาร</string>
     <string name="type.man_made.water_tap">ก๊อกน้ำ</string>
+    <string name="type.man_made.water_tap.drinking_water_no">ก๊อกน้ำ</string>
     <string name="type.man_made.water_tower">อ่างเก็บน้ำ</string>
     <string name="type.man_made.water_well">บ่อน้ำ</string>
+    <string name="type.man_made.water_well.drinking_water_no">บ่อน้ำ</string>
     <string name="type.man_made.windmill">กังหันลม</string>
     <string name="type.military.bunker">บังเกอร์</string>
     <string name="type.natural">ธรรมชาติ</string>
@@ -1420,6 +1422,7 @@
     <string name="type.natural.rock">หิน</string>
     <string name="type.natural.scrub">ป่าละเมาะ</string>
     <string name="type.natural.spring">ฤดูใบไม้ผลิ</string>
+    <string name="type.natural.spring.drinking_water_no">ฤดูใบไม้ผลิ</string>
     <string name="type.natural.strait">ช่องแคบ</string>
     <string name="type.natural.tree_row">แถวต้นไม้</string>
     <string name="type.natural.vineyard">ไร่องุ่น</string>

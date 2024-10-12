@@ -1092,6 +1092,7 @@
     <string name="type.natural.rock">Камък</string>
     <string name="type.natural.scrub">Гъсталаци</string>
     <string name="type.natural.spring">Извор</string>
+    <string name="type.natural.spring.drinking_water_no">Извор</string>
     <string name="type.natural.strait">Проток</string>
     <string name="type.natural.tree_row">Ред дървета</string>
     <string name="type.natural.vineyard">Лозе</string>

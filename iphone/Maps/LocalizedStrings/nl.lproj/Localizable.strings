@@ -2704,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Waterkraan";
 
+"type.man_made.water_tap.drinking_water_no" = "Waterkraan";
+
 "type.man_made.water_tower" = "Watertoren";
 
 "type.man_made.water_well" = "Waterput";
+
+"type.man_made.water_well.drinking_water_no" = "Waterput";
 
 "type.man_made.windmill" = "Windmolen";
 
@@ -2792,6 +2796,8 @@
 "type.natural.scrub" = "Kreupel bos";
 
 "type.natural.spring" = "Bron";
+
+"type.natural.spring.drinking_water_no" = "Bron";
 
 "type.natural.strait" = "Zeestraat";
 

@@ -1360,8 +1360,10 @@
     <string name="type.man_made.tower">Tårn</string>
     <string name="type.man_made.tower.communication">Kommunikationstårn</string>
     <string name="type.man_made.water_tap">Vandhane</string>
+    <string name="type.man_made.water_tap.drinking_water_no">Vandhane</string>
     <string name="type.man_made.water_tower">Vandtårn</string>
     <string name="type.man_made.water_well">Brønd</string>
+    <string name="type.man_made.water_well.drinking_water_no">Brønd</string>
     <string name="type.man_made.windmill">Vindmølle</string>
     <string name="type.natural">Natur</string>
     <!-- A rocky land cover. -->
@@ -1400,6 +1402,7 @@
     <string name="type.natural.rock">Bjergart</string>
     <string name="type.natural.scrub">Kratbevokset område</string>
     <string name="type.natural.spring">Kilde</string>
+    <string name="type.natural.spring.drinking_water_no">Kilde</string>
     <string name="type.natural.strait">Stræde</string>
     <string name="type.natural.tree_row">Trærækker</string>
     <string name="type.natural.vineyard">Vingård</string>

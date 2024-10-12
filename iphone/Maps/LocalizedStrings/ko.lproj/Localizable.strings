@@ -2704,9 +2704,13 @@
 
 "type.man_made.water_tap" = "수도꼭지";
 
+"type.man_made.water_tap.drinking_water_no" = "수도꼭지";
+
 "type.man_made.water_tower" = "급수탑";
 
 "type.man_made.water_well" = "우물";
+
+"type.man_made.water_well.drinking_water_no" = "우물";
 
 "type.man_made.windmill" = "풍차";
 
@@ -2792,6 +2796,8 @@
 "type.natural.scrub" = "관목지";
 
 "type.natural.spring" = "샘";
+
+"type.natural.spring.drinking_water_no" = "샘";
 
 "type.natural.strait" = "해협";
 

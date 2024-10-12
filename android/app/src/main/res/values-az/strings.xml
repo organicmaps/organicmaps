@@ -1500,8 +1500,10 @@
     <string name="type.man_made.tower.communication">Rabitə qülləsi</string>
     <string name="type.man_made.wastewater_plant">Çirkab Su Zavodu</string>
     <string name="type.man_made.water_tap">Su kranı</string>
+    <string name="type.man_made.water_tap.drinking_water_no">Su kranı</string>
     <string name="type.man_made.water_tower">Su qalası</string>
     <string name="type.man_made.water_well">Su quyusu</string>
+    <string name="type.man_made.water_well.drinking_water_no">Su quyusu</string>
     <string name="type.man_made.windmill">Yel dəyirmanı</string>
     <string name="type.man_made.works">Sənaye İşləri</string>
     <string name="type.military">Hərbi</string>
@@ -1541,6 +1543,7 @@
     <string name="type.natural.rock">Qaya</string>
     <string name="type.natural.scrub">Kollar</string>
     <string name="type.natural.spring">Bahar</string>
+    <string name="type.natural.spring.drinking_water_no">Bahar</string>
     <string name="type.natural.strait">Boğaz</string>
     <string name="type.natural.tree_row">Ağac cərgəsi</string>
     <string name="type.natural.vineyard">Bond</string>

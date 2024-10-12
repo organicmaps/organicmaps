@@ -1,4 +1,5 @@
-- Track Recorder: Record and save your routes while hiking, biking, running, or navigating.
-- OpenStreetMap: Switched to browser-based authentication to comply with Google Play.
-- New Map Data: Updated with data as of September 7, including isolines for Egypt and Algeria.
-- Translations: Enhanced Chinese, Hebrew, and Italian, and added translations for trail difficulty.
+- Edit Tracks: Change name, color, list and description of tracks, or delete them.
+- Open in Another App: Select any map point in Organic Maps and open in apps like taxi, delivery, transport, or other map apps.
+- Map Data: Updated as of October 1, now with added isolines for Egypt and improved for Adygea, Dagestan.
+- KML/KMZ/GPX: Fixed issues with importing files from different apps.
+- Right-to-left languages: Enhanced the place page, search, and about screens.

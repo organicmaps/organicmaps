@@ -1504,8 +1504,10 @@
     <string name="type.man_made.tower.communication">Torre delle comunicazioni</string>
     <string name="type.man_made.wastewater_plant">Impianto di trattamento delle acque reflue</string>
     <string name="type.man_made.water_tap">Rubinetto dell\'acqua</string>
+    <string name="type.man_made.water_tap.drinking_water_no">Rubinetto dell\'acqua</string>
     <string name="type.man_made.water_tower">Cisterna per acqua</string>
     <string name="type.man_made.water_well">Pozzo d\'acqua</string>
+    <string name="type.man_made.water_well.drinking_water_no">Pozzo d\'acqua</string>
     <string name="type.man_made.windmill">Mulino a vento</string>
     <string name="type.man_made.works">Fabbrica</string>
     <string name="type.military">Forze armate</string>
@@ -1548,6 +1550,7 @@
     <string name="type.natural.rock">Roccia</string>
     <string name="type.natural.scrub">Boscaglia</string>
     <string name="type.natural.spring">Sorgente</string>
+    <string name="type.natural.spring.drinking_water_no">Sorgente</string>
     <string name="type.natural.strait">Stretto</string>
     <string name="type.natural.tree_row">Fila di alberi</string>
     <string name="type.natural.vineyard">Vigneto</string>

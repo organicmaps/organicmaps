@@ -2704,9 +2704,13 @@
 
 "type.man_made.water_tap" = "水龙头";
 
+"type.man_made.water_tap.drinking_water_no" = "水龙头";
+
 "type.man_made.water_tower" = "水塔";
 
 "type.man_made.water_well" = "水井";
+
+"type.man_made.water_well.drinking_water_no" = "水井";
 
 "type.man_made.windmill" = "风车";
 
@@ -2792,6 +2796,8 @@
 "type.natural.scrub" = "灌木丛";
 
 "type.natural.spring" = "泉水";
+
+"type.natural.spring.drinking_water_no" = "泉水";
 
 "type.natural.strait" = "海峡";
 

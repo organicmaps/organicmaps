@@ -1716,3 +1716,6 @@ craft;[craft?];;name;int_name;1600;
 emergency|emergency_ward_entrance;1601;
 amenity|dojo;1602;
 leisure|sports_hall;1603;
+man_made|water_tap|drinking_water_no;[man_made=water_tap][drinking_water=not],[man_made=water_tap][drinking_water=no],[man_made=water_tap][drinking_water:legal=no];;;;1604;
+man_made|water_well|drinking_water_no;[man_made=water_well][drinking_water=not],[man_made=water_well][drinking_water=no],[man_made=water_well][drinking_water:legal=no];;;;1605;
+natural|spring|drinking_water_no;[natural=spring][drinking_water=not],[natural=spring][drinking_water=no];;;;1606;

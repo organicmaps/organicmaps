@@ -1531,8 +1531,10 @@
     <string name="type.man_made.tower.communication">İletişim Kulesi</string>
     <string name="type.man_made.wastewater_plant">Atıksu Tesisi</string>
     <string name="type.man_made.water_tap">Su Musluğu</string>
+    <string name="type.man_made.water_tap.drinking_water_no">Su Musluğu</string>
     <string name="type.man_made.water_tower">Su Kulesi</string>
     <string name="type.man_made.water_well">Su Kuyusu</string>
+    <string name="type.man_made.water_well.drinking_water_no">Su Kuyusu</string>
     <string name="type.man_made.windmill">Yel Değirmeni</string>
     <string name="type.man_made.works">Sanayi İşleri</string>
     <string name="type.military">Askeri</string>
@@ -1574,6 +1576,7 @@
     <string name="type.natural.rock">Kaya</string>
     <string name="type.natural.scrub">Çalılık</string>
     <string name="type.natural.spring">Pınar</string>
+    <string name="type.natural.spring.drinking_water_no">Pınar</string>
     <string name="type.natural.strait">Boğaz</string>
     <string name="type.natural.tree_row">Ağaç Sırası</string>
     <string name="type.natural.vineyard">Bağ</string>

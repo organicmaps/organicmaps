@@ -1527,8 +1527,10 @@
     <string name="type.man_made.tower">塔</string>
     <string name="type.man_made.tower.communication">通訊塔</string>
     <string name="type.man_made.water_tap">水龍頭</string>
+    <string name="type.man_made.water_tap.drinking_water_no">水龍頭</string>
     <string name="type.man_made.water_tower">水塔</string>
     <string name="type.man_made.water_well">水井</string>
+    <string name="type.man_made.water_well.drinking_water_no">水井</string>
     <string name="type.man_made.windmill">風車</string>
     <string name="type.military.bunker">地堡</string>
     <string name="type.natural">自然</string>
@@ -1567,6 +1569,7 @@
     <string name="type.natural.rock">岩石</string>
     <string name="type.natural.scrub">叢林</string>
     <string name="type.natural.spring">泉水</string>
+    <string name="type.natural.spring.drinking_water_no">泉水</string>
     <string name="type.natural.strait">海峽</string>
     <string name="type.natural.tree_row">樹列</string>
     <string name="type.natural.vineyard">葡萄園</string>

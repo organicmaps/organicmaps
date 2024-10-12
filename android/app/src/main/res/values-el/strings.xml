@@ -1433,8 +1433,10 @@
     <string name="type.man_made.tower">Πύργος</string>
     <string name="type.man_made.tower.communication">Πύργος Επικοινωνιών</string>
     <string name="type.man_made.water_tap">Βρύση νερού</string>
+    <string name="type.man_made.water_tap.drinking_water_no">Βρύση νερού</string>
     <string name="type.man_made.water_tower">Υδατόπυργος</string>
     <string name="type.man_made.water_well">Πηγάδι νερού</string>
+    <string name="type.man_made.water_well.drinking_water_no">Πηγάδι νερού</string>
     <string name="type.man_made.windmill">Ανεμόμυλος</string>
     <string name="type.military.bunker">Στρατιωτική αποθήκη</string>
     <string name="type.natural">Φύση</string>
@@ -1474,6 +1476,7 @@
     <string name="type.natural.rock">Πέτρωμα</string>
     <string name="type.natural.scrub">Θαμνώδες περιοχή</string>
     <string name="type.natural.spring">Πηγή νερού</string>
+    <string name="type.natural.spring.drinking_water_no">Πηγή νερού</string>
     <string name="type.natural.strait">Πορθμός</string>
     <string name="type.natural.tree_row">Σειρά δέντρων</string>
     <string name="type.natural.vineyard">Αμπελώνας</string>

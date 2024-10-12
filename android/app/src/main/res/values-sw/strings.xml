@@ -702,6 +702,7 @@
     <string name="type.natural.rock">Mwamba</string>
     <string name="type.natural.scrub">Eneo la Vichaka</string>
     <string name="type.natural.spring">Chemchemi</string>
+    <string name="type.natural.spring.drinking_water_no">Chemchemi</string>
     <string name="type.natural.strait">Mlango Bahari</string>
     <string name="type.natural.tree_row">Safu ya mti</string>
     <string name="type.natural.vineyard">Shamba la mizabibu</string>

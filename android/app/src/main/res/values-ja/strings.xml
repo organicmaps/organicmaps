@@ -1500,8 +1500,10 @@
     <string name="type.man_made.tower.communication">通信塔</string>
     <string name="type.man_made.wastewater_plant">下水処理場</string>
     <string name="type.man_made.water_tap">給水栓</string>
+    <string name="type.man_made.water_tap.drinking_water_no">給水栓</string>
     <string name="type.man_made.water_tower">給水塔</string>
     <string name="type.man_made.water_well">井戸</string>
+    <string name="type.man_made.water_well.drinking_water_no">井戸</string>
     <string name="type.man_made.windmill">風車</string>
     <string name="type.man_made.works">工場</string>
     <string name="type.military">軍事</string>
@@ -1543,6 +1545,7 @@
     <string name="type.natural.rock">岩</string>
     <string name="type.natural.scrub">雑木林</string>
     <string name="type.natural.spring">泉</string>
+    <string name="type.natural.spring.drinking_water_no">泉</string>
     <string name="type.natural.strait">海峡</string>
     <string name="type.natural.tree_row">並木</string>
     <string name="type.natural.vineyard">ブドウ園</string>

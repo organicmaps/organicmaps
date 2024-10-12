@@ -62,7 +62,7 @@ extension BottomMenuInteractor: BottomMenuInteractorProtocol {
 
   func openSettings() {
     close()
-    mapViewController?.performSegue(withIdentifier: "Map2Settings", sender: nil)
+    mapViewController?.openSettings()
   }
 
   func shareLocation(cell: BottomMenuItemCell) {

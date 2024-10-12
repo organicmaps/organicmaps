@@ -1535,8 +1535,10 @@
     <string name="type.man_made.tower.communication">מגדל תקשורת</string>
     <string name="type.man_made.wastewater_plant">מפעל טיפול בשפכים</string>
     <string name="type.man_made.water_tap">ברז מים</string>
+    <string name="type.man_made.water_tap.drinking_water_no">ברז מים</string>
     <string name="type.man_made.water_tower">מגדל מים</string>
     <string name="type.man_made.water_well">באר מים</string>
+    <string name="type.man_made.water_well.drinking_water_no">באר מים</string>
     <string name="type.man_made.windmill">טחנת רוח</string>
     <string name="type.man_made.works">עבודות תעשיה</string>
     <string name="type.military">צבאי</string>
@@ -1578,6 +1580,7 @@
     <string name="type.natural.rock">סלע</string>
     <string name="type.natural.scrub">עשביה</string>
     <string name="type.natural.spring">מעיין</string>
+    <string name="type.natural.spring.drinking_water_no">מעיין</string>
     <string name="type.natural.strait">מצר ים</string>
     <string name="type.natural.tree_row">שורת עצים</string>
     <string name="type.natural.vineyard">כרם</string>

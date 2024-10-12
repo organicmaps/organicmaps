@@ -1398,8 +1398,10 @@
     <string name="type.man_made.tower">Turn</string>
     <string name="type.man_made.tower.communication">Turnul de comunicații</string>
     <string name="type.man_made.water_tap">Robinet cu apă</string>
+    <string name="type.man_made.water_tap.drinking_water_no">Robinet cu apă</string>
     <string name="type.man_made.water_tower">Turn de apă</string>
     <string name="type.man_made.water_well">Puț de apă</string>
+    <string name="type.man_made.water_well.drinking_water_no">Puț de apă</string>
     <string name="type.man_made.windmill">Moară de vânt</string>
     <string name="type.military.bunker">Buncăr</string>
     <string name="type.natural">Natură</string>
@@ -1438,6 +1440,7 @@
     <string name="type.natural.rock">Rocă</string>
     <string name="type.natural.scrub">Boschet</string>
     <string name="type.natural.spring">Izvor</string>
+    <string name="type.natural.spring.drinking_water_no">Izvor</string>
     <string name="type.natural.strait">Strâmtoare</string>
     <string name="type.natural.tree_row">Rândul de copaci</string>
     <string name="type.natural.vineyard">Vie</string>

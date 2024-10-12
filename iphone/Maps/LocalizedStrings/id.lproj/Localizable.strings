@@ -2704,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Keran Air";
 
+"type.man_made.water_tap.drinking_water_no" = "Keran Air";
+
 "type.man_made.water_tower" = "Menara air";
 
 "type.man_made.water_well" = "Sumur air";
+
+"type.man_made.water_well.drinking_water_no" = "Sumur air";
 
 "type.man_made.windmill" = "Kincir angin";
 
@@ -2792,6 +2796,8 @@
 "type.natural.scrub" = "Semak";
 
 "type.natural.spring" = "Mata air";
+
+"type.natural.spring.drinking_water_no" = "Mata air";
 
 "type.natural.strait" = "Selat";
 

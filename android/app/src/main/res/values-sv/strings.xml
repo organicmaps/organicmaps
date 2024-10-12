@@ -1371,8 +1371,10 @@
     <string name="type.man_made.tower">Torn</string>
     <string name="type.man_made.tower.communication">Kommunikationstorn</string>
     <string name="type.man_made.water_tap">Vattenkran</string>
+    <string name="type.man_made.water_tap.drinking_water_no">Vattenkran</string>
     <string name="type.man_made.water_tower">Vattentorn</string>
     <string name="type.man_made.water_well">Brunn</string>
+    <string name="type.man_made.water_well.drinking_water_no">Brunn</string>
     <string name="type.man_made.windmill">Väderkvarn</string>
     <string name="type.natural">Natur</string>
     <!-- A rocky land cover. -->
@@ -1410,6 +1412,7 @@
     <string name="type.natural.rock">Bergart</string>
     <string name="type.natural.scrub">Ruggen</string>
     <string name="type.natural.spring">Vattenkälla</string>
+    <string name="type.natural.spring.drinking_water_no">Vattenkälla</string>
     <string name="type.natural.strait">Sund</string>
     <string name="type.natural.tree_row">Trädrad</string>
     <string name="type.natural.vineyard">Vingård</string>

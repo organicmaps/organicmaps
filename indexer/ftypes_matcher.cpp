@@ -208,8 +208,8 @@ IsPostPoiChecker::IsPostPoiChecker()
 IsOperatorOthersPoiChecker::IsOperatorOthersPoiChecker()
 {
   Classificator const & c = classif();
-  for (char const * val : {"bicycle_rental", "bureau_de_change", "car_sharing", "car_rental", "fuel",
-                           "parking", "payment_terminal", "university", "vending_machine"})
+  for (char const * val : {"bicycle_rental", "bureau_de_change", "car_sharing", "car_rental", "fuel", "charging_station", 
+                           "parking", "motorcycle_parking", "bicycle_parking", "payment_terminal", "university", "vending_machine"})
     m_types.push_back(c.GetTypeByPath({"amenity", val}));
 }
 
@@ -474,6 +474,7 @@ IsAmenityChecker::IsAmenityChecker() : BaseChecker(1 /* level */)
 AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
 {
   base::StringIL const primaryAttractionTypes[] = {
+      {"amenity", "arts_centre"},
       {"amenity", "grave_yard"},
       {"amenity", "fountain"},
       {"amenity", "place_of_worship"},

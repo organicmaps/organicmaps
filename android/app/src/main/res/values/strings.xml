@@ -1594,8 +1594,10 @@
     <string name="type.man_made.tower.communication">Communications Tower</string>
     <string name="type.man_made.wastewater_plant">Wastewater Treatment Plant</string>
     <string name="type.man_made.water_tap">Water Tap</string>
+    <string name="type.man_made.water_tap.drinking_water_no">Water Tap</string>
     <string name="type.man_made.water_tower">Water Tower</string>
     <string name="type.man_made.water_well">Water Well</string>
+    <string name="type.man_made.water_well.drinking_water_no">Water Well</string>
     <string name="type.man_made.windmill">Windmill</string>
     <string name="type.man_made.works">Industrial Works</string>
     <string name="type.mapswithme">mapswithme</string>
@@ -1640,6 +1642,7 @@
     <string name="type.natural.rock">Rock</string>
     <string name="type.natural.scrub">Scrub</string>
     <string name="type.natural.spring">Natural Spring</string>
+    <string name="type.natural.spring.drinking_water_no">Natural Spring</string>
     <string name="type.natural.strait">Strait</string>
     <string name="type.natural.tree_row">Tree Row</string>
     <string name="type.natural.vineyard">Vineyard</string>

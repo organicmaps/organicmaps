@@ -1553,8 +1553,10 @@
     <string name="type.man_made.tower.communication">Вышка связи</string>
     <string name="type.man_made.wastewater_plant">Очистные сооружения</string>
     <string name="type.man_made.water_tap">Водопроводный кран</string>
+    <string name="type.man_made.water_tap.drinking_water_no">Водопроводный кран</string>
     <string name="type.man_made.water_tower">Водонапорная башня</string>
     <string name="type.man_made.water_well">Колодец</string>
+    <string name="type.man_made.water_well.drinking_water_no">Колодец</string>
     <string name="type.man_made.windmill">Ветряная мельница</string>
     <string name="type.man_made.works">Промышленное производство</string>
     <string name="type.military">Военные объекты</string>
@@ -1597,6 +1599,7 @@
     <string name="type.natural.rock">Камень</string>
     <string name="type.natural.scrub">Заросли</string>
     <string name="type.natural.spring">Родник</string>
+    <string name="type.natural.spring.drinking_water_no">Родник</string>
     <string name="type.natural.strait">Пролив</string>
     <string name="type.natural.tree_row">Ряд деревьев</string>
     <string name="type.natural.vineyard">Виноградник</string>

@@ -1388,8 +1388,10 @@
     <string name="type.man_made.tower">Věž</string>
     <string name="type.man_made.tower.communication">Komunikační věž</string>
     <string name="type.man_made.water_tap">Vodovodní kohoutek</string>
+    <string name="type.man_made.water_tap.drinking_water_no">Vodovodní kohoutek</string>
     <string name="type.man_made.water_tower">Vodárna</string>
     <string name="type.man_made.water_well">Studna</string>
+    <string name="type.man_made.water_well.drinking_water_no">Studna</string>
     <string name="type.man_made.windmill">Větrný mlýn</string>
     <string name="type.military.bunker">Bunkr</string>
     <string name="type.natural">Příroda</string>
@@ -1429,6 +1431,7 @@
     <string name="type.natural.rock">Hornina</string>
     <string name="type.natural.scrub">Křoviny</string>
     <string name="type.natural.spring">Pramen</string>
+    <string name="type.natural.spring.drinking_water_no">Pramen</string>
     <string name="type.natural.strait">Průliv</string>
     <string name="type.natural.tree_row">Řada stromů</string>
     <string name="type.natural.vineyard">Vinice</string>
