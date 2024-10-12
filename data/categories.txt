@@ -16696,6 +16696,6 @@ zh-Hans:艺术中心
 zh-Hant:藝術中心
 
 shop-craft|@shop
-en:Arts and Crafts Shop|Craft Shop|Crafts Shop
+en:Craft
 fr:Boutique d'art et d'artisanat|Boutique d'artisanat
 es:Tienda de artesanía
