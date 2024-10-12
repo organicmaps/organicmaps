@@ -374,3 +374,8 @@ node|z14-[man_made=mast],
 
 node|z18-[man_made=cairn],
 {icon-image: cairn-m.svg;text: name;text-color: @poi_label;font-size: 12;text-offset: 1;}
+
+node|z14-[man_made=silo],
+node|z14-[man_made=storage_tank],
+node|z14-[man_made=water_tower],
+{icon-image: storage-tank.svg;font-size: 11;}
