@@ -14,6 +14,7 @@ import android.view.View;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import app.organicmaps.R;
 import app.organicmaps.util.StringUtils;
@@ -24,10 +25,6 @@ public class SpeedLimitView extends View
   {
     @ColorInt
     int BACKGROUND_COLOR = Color.WHITE;
-    @ColorInt
-    int BORDER_COLOR = Color.RED;
-    @ColorInt
-    int ALERT_COLOR = Color.RED;
     @ColorInt
     int TEXT_COLOR = Color.BLACK;
     @ColorInt
@@ -74,12 +71,15 @@ public class SpeedLimitView extends View
   {
     super(context, attrs);
 
+    @ColorInt int defaultBorderColor = ContextCompat.getColor(context, R.color.base_red);
+    @ColorInt int defaultAlertColor = ContextCompat.getColor(context, R.color.base_red);
+
     try (TypedArray data = context.getTheme()
                                   .obtainStyledAttributes(attrs, R.styleable.SpeedLimitView, 0, 0))
     {
       mBackgroundColor = data.getColor(R.styleable.SpeedLimitView_slBackgroundColor, DefaultValues.BACKGROUND_COLOR);
-      mBorderColor = data.getColor(R.styleable.SpeedLimitView_borderColor, DefaultValues.BORDER_COLOR);
-      mAlertColor = data.getColor(R.styleable.SpeedLimitView_alertColor, DefaultValues.ALERT_COLOR);
+      mBorderColor = data.getColor(R.styleable.SpeedLimitView_borderColor, defaultBorderColor);
+      mAlertColor = data.getColor(R.styleable.SpeedLimitView_alertColor, defaultAlertColor);
       mTextColor = data.getColor(R.styleable.SpeedLimitView_textColor, DefaultValues.TEXT_COLOR);
       mTextAlertColor = data.getColor(R.styleable.SpeedLimitView_textAlertColor, DefaultValues.TEXT_ALERT_COLOR);
       if (isInEditMode())
