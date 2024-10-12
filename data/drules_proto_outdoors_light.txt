@@ -54914,6 +54914,20 @@ cont {
 cont {
   name: "man_made-silo"
   element {
+    scale: 14
+    symbol {
+      name: "storage-tank"
+      priority: 450
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "storage-tank"
+      priority: 450
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "storage-tank"
@@ -54978,6 +54992,20 @@ cont {
 }
 cont {
   name: "man_made-storage_tank"
+  element {
+    scale: 14
+    symbol {
+      name: "storage-tank"
+      priority: 450
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "storage-tank"
+      priority: 450
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -55419,6 +55447,85 @@ cont {
         is_optional: true
       }
       priority: -8800
+    }
+  }
+}
+cont {
+  name: "man_made-water_tower"
+  element {
+    scale: 14
+    symbol {
+      name: "storage-tank"
+      priority: 450
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "storage-tank"
+      priority: 450
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "storage-tank"
+      priority: 450
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "storage-tank"
+      priority: 450
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "storage-tank"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "storage-tank"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "storage-tank"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
     }
   }
 }
