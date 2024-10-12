@@ -140,8 +140,10 @@ public class SpeedLimitView extends View
     final float cx = mWidth / 2;
     final float cy = mHeight / 2;
 
-    drawSign(canvas, cx, cy, alert);
-    drawText(canvas, cx, cy, alert);
+    if (mCurrentSpeed != 0) {
+      drawSign(canvas, cx, cy, alert);
+      drawText(canvas, cx, cy, alert);
+    }
   }
 
   private void drawSign(@NonNull Canvas canvas, float cx, float cy, boolean alert)
