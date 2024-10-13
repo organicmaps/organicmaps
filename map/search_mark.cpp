@@ -37,6 +37,7 @@ enum SearchMarkPoint::SearchMarkType : uint8_t
   Stadium,
   Museum,
   Art,
+  Information,
   Marketplace,
   Nightclub,
   Playground,
@@ -100,6 +101,7 @@ std::array<std::string, SearchMarkType::Count> const kSymbols = {
     "search-result-stadium",                // Stadium.
     "search-result-museum",                 // Museum.
     "search-result-art",                    // Art.
+    "search-result-information",            // Information.
     "search-result-marketplace",            // Marketplace.
     "search-result-nightclub",              // Nightclub.
     "search-result-playground",             // Playground.
@@ -182,6 +184,9 @@ private:
       {{"tourism", "museum"},        SearchMarkType::Museum},
       {{"amenity", "arts_centre"},   SearchMarkType::Art},
       {{"tourism", "gallery"},       SearchMarkType::Art},
+      {{"tourism", "information"},                      SearchMarkType::Information},
+      {{"tourism", "information", "office"},            SearchMarkType::Information},
+      {{"tourism", "information", "visitor_centre"},    SearchMarkType::Information},
       {{"amenity", "marketplace"},   SearchMarkType::Marketplace},
       {{"amenity", "nightclub"},     SearchMarkType::Nightclub},
       {{"leisure", "playground"},    SearchMarkType::Playground},
