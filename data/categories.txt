@@ -16718,7 +16718,6 @@ id:penjara
 it:prigione
 ja:刑務所
 ko:감옥
-lv:cietums
 mr:तुरुंग
 nb:fengsel
 nl:gevangenis
