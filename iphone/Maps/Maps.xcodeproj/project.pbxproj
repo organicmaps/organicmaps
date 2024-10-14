@@ -590,6 +590,8 @@
 		CE6450202C9402EC0075A59B /* ReviewsPersistenceControllerTesterBro.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE64501F2C9402EC0075A59B /* ReviewsPersistenceControllerTesterBro.swift */; };
 		CE6450242C9772310075A59B /* DownloadProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6450232C9772310075A59B /* DownloadProgress.swift */; };
 		CE6450282C99572F0075A59B /* ImageStoreUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6450272C99572F0075A59B /* ImageStoreUtils.swift */; };
+		CE8982032CB9588E00FC2D2E /* EmailBodyDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8982022CB9588E00FC2D2E /* EmailBodyDto.swift */; };
+		CE8982052CBCD46300FC2D2E /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8982042CBCD46300FC2D2E /* ForgotPasswordViewController.swift */; };
 		CEA45BC42C9AE01000ABE6B2 /* DataSyncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA45BC32C9AE01000ABE6B2 /* DataSyncer.swift */; };
 		CED0E00E2C8ACBCA008C61CA /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = CED0E00D2C8ACBCA008C61CA /* SDWebImageSwiftUI */; };
 		CED0E0112C8ACBE1008C61CA /* CountryPickerView in Frameworks */ = {isa = PBXBuildFile; productRef = CED0E0102C8ACBE1008C61CA /* CountryPickerView */; };
@@ -1645,6 +1647,8 @@
 		CE64501F2C9402EC0075A59B /* ReviewsPersistenceControllerTesterBro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsPersistenceControllerTesterBro.swift; sourceTree = "<group>"; };
 		CE6450232C9772310075A59B /* DownloadProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadProgress.swift; sourceTree = "<group>"; };
 		CE6450272C99572F0075A59B /* ImageStoreUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStoreUtils.swift; sourceTree = "<group>"; };
+		CE8982022CB9588E00FC2D2E /* EmailBodyDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailBodyDto.swift; sourceTree = "<group>"; };
+		CE8982042CBCD46300FC2D2E /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		CEA45BC32C9AE01000ABE6B2 /* DataSyncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSyncer.swift; sourceTree = "<group>"; };
 		CED0E0162C8ACF0D008C61CA /* RoundedCornerShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerShape.swift; sourceTree = "<group>"; };
 		CED0E0182C8AD57C008C61CA /* EmptyUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyUI.swift; sourceTree = "<group>"; };
@@ -3158,6 +3162,7 @@
 				5260D3D72C64F8BC00C673B4 /* AuthResponseDTO.swift */,
 				52ED919E2C71F718000EE25B /* SignUpRequestDTO.swift */,
 				529A5F3E2C86E09B004FE4A1 /* HashDTO.swift */,
+				CE8982022CB9588E00FC2D2E /* EmailBodyDto.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -3468,6 +3473,7 @@
 				52E2D3A32C59F9CE00A8843A /* WelcomeViewController.swift */,
 				52B573EB2C61E1C10047FAC9 /* SignInViewController.swift */,
 				52B573F12C61E8980047FAC9 /* SignUpViewController.swift */,
+				CE8982042CBCD46300FC2D2E /* ForgotPasswordViewController.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -5242,6 +5248,7 @@
 				99C9642B2428C0F700E41723 /* PlacePageHeaderViewController.swift in Sources */,
 				F6FE3C391CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.m in Sources */,
 				F6E2FDFE1E097BA00083EBEC /* MWMOpeningHoursClosedSpanTableViewCell.mm in Sources */,
+				CE8982032CB9588E00FC2D2E /* EmailBodyDto.swift in Sources */,
 				34B846A12029DCC10081ECCD /* BMCCategoriesHeader.swift in Sources */,
 				99A614D523C8911A00D8D8D0 /* AuthStyleSheet.swift in Sources */,
 				99A906F123FA946E0005872B /* DifficultyViewRenderer.swift in Sources */,
@@ -5450,6 +5457,7 @@
 				3486B5191E27AD3B0069C126 /* MWMFrameworkListener.mm in Sources */,
 				3404756B1E081A4600C92850 /* MWMSearch+CoreSpotlight.mm in Sources */,
 				CD9AD96C2281B56900EC174A /* CPViewPortState.swift in Sources */,
+				CE8982052CBCD46300FC2D2E /* ForgotPasswordViewController.swift in Sources */,
 				EDE243DD2B6D2E640057369B /* AboutController.swift in Sources */,
 				3404755C1E081A4600C92850 /* MWMLocationManager.mm in Sources */,
 				3454D7BC1E07F045004AF2AD /* CLLocation+Mercator.mm in Sources */,

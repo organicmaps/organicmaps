@@ -1,6 +1,7 @@
 package app.tourism.data.repositories
 
 import android.content.Context
+import app.tourism.data.dto.auth.EmailBodyDto
 import app.tourism.data.remote.TourismApi
 import app.tourism.data.remote.handleGenericCall
 import app.tourism.domain.models.SimpleResponse
@@ -38,6 +39,14 @@ class AuthRepository(private val api: TourismApi, private val context: Context) 
     fun signOut(): Flow<Resource<SimpleResponse>> = flow {
         handleGenericCall(
             call = { api.signOut() },
+            mapper = { it },
+            context
+        )
+    }
+
+    fun sendEmailForPasswordReset(email: String) = flow {
+        handleGenericCall(
+            call = { api.sendEmailForPasswordReset(EmailBodyDto(email)) },
             mapper = { it },
             context
         )

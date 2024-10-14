@@ -30,9 +30,11 @@ class AuthActivity : ComponentActivity() {
         lifecycleScope.launch {
             placesRepository.downloadAllData()
         }
+
+        val blackest = resources.getColor(R.color.button_text) // yes, I know
         enableEdgeToEdge(
-            statusBarStyle = SystemBarStyle.dark(resources.getColor(R.color.black_primary)),
-            navigationBarStyle = SystemBarStyle.dark(resources.getColor(R.color.black_primary))
+            statusBarStyle = SystemBarStyle.dark(blackest),
+            navigationBarStyle = SystemBarStyle.dark(blackest)
         )
         setContent {
             OrganicMapsTheme() {

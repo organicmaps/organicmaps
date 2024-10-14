@@ -450,6 +450,8 @@
   <string name="login_osm">Войти в OpenStreetMap</string>
   <string name="password">Пароль</string>
   <string name="forgot_password">Забыли пароль?</string>
+  <string name="send_email_for_password_reset">Отправьте свой email, чтобы мы отправили вам ссылку для восстановления пароля</string>
+  <string name="we_sent_you_password_reset_email">Мы отправили вам письмо для восстановления пароля</string>
   <string name="logout">Выйти</string>
   <string name="edit_place">Редактировать место</string>
   <string name="add_language">Добавить язык</string>

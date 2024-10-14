@@ -56,7 +56,7 @@ fun Modifier.drawOverlayForTextBehind() =
         brush = Brush.verticalGradient(
             colors = listOf(
                 Color.Transparent,
-                Color.Black.copy(alpha = 0.8f),
+                Color.Black.copy(alpha = 0.9f),
             )
         )
     )

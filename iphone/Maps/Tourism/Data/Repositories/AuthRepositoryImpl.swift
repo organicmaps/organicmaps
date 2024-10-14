@@ -23,4 +23,9 @@ class AuthRepositoryImpl: AuthRepository {
     return authService.signOut()
       .eraseToAnyPublisher()
   }
+  
+  func sendEmailForPasswordReset(email: String) -> AnyPublisher<SimpleResponse, ResourceError> {
+    return authService.sendEmailForPasswordReset(email: email)
+      .eraseToAnyPublisher()
+  }
 }

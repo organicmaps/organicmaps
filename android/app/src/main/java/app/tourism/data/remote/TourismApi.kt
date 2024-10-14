@@ -5,6 +5,7 @@ import app.tourism.data.dto.CategoryDto
 import app.tourism.data.dto.FavoritesDto
 import app.tourism.data.dto.FavoritesIdsDto
 import app.tourism.data.dto.auth.AuthResponseDto
+import app.tourism.data.dto.auth.EmailBodyDto
 import app.tourism.data.dto.place.ReviewDto
 import app.tourism.data.dto.place.ReviewIdsDto
 import app.tourism.data.dto.place.ReviewsDto
@@ -48,6 +49,9 @@ interface TourismApi {
 
     @POST("logout")
     suspend fun signOut(): Response<SimpleResponse>
+
+    @POST("forgot-password")
+    suspend fun sendEmailForPasswordReset(@Body emailBody: EmailBodyDto): Response<SimpleResponse>
     // endregion auth
 
     // region profile

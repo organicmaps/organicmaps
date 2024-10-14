@@ -5,6 +5,7 @@ struct APIEndpoints {
   static let signInUrl = "\(BASE_URL)login"
   static let signUpUrl = "\(BASE_URL)register"
   static let signOutUrl = "\(BASE_URL)logout"
+  static let forgotPassword = "\(BASE_URL)forgot-password"
   
   // MARK: - Profile
   static let getUserUrl = "\(BASE_URL)user"

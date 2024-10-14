@@ -3981,6 +3981,10 @@
 
 "tourism_forgot_password" = "Forgot password?";
 
+"send_email_for_password_reset" = "Send your email, so you receive a link for password reset";
+
+"we_sent_you_password_reset_email" = "We sent you email for password reset";
+
 "home" = "Home";
 
 "favorites" = "Favorites";
