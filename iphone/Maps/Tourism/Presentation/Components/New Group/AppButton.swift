@@ -52,11 +52,11 @@ class AppButton: UIButton {
   }
   
   private func setSecondaryAppearance() {
-    setTitleColor(.systemBlue, for: .normal)
+    setTitleColor(.white, for: .normal)
     backgroundColor = .clear
     layer.cornerRadius = 16
     layer.borderWidth = 1
-    layer.borderColor = UIColor.systemBlue.cgColor
+    layer.borderColor = UIColor.white.cgColor
   }
   
   // MARK: click animation

@@ -192,9 +192,7 @@ class SignInViewController: UIViewController {
   }
   
   @objc private func forgotPasswordTapped() {
-    if let url = URL(string: "\(BASE_URL)/forgot-password") {
-      UIApplication.shared.open(url)
-    }
+    self.navigationController?.pushViewController(ForgotPasswordViewController(), animated: false)
   }
   
   @objc private func backButtonTapped() {
