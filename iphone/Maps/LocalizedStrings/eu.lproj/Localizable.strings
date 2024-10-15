@@ -1383,7 +1383,7 @@
 "stop_track_recording" = "Gelditu ibilbidearen grabaketa";
 
 /* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"stop_without_saving" = "Gelditu gordetzeko gabe";
+"stop_without_saving" = "Gelditu gorde gabe";
 
 /* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
 "continue_recording" = "Jarraitu grabatzen";
