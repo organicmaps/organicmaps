@@ -3,12 +3,13 @@ protocol BottomTabBarInteractorProtocol: AnyObject {
   func openHelp()
   func openFaq()
   func openBookmarks()
+  func openTrackRecorder()
   func openMenu()
 }
 
 class BottomTabBarInteractor {
   weak var presenter: BottomTabBarPresenterProtocol?
-  private weak var viewController: UIViewController?
+  private weak var viewController: BottomTabBarViewController?
   private weak var mapViewController: MapViewController?
   private weak var controlsManager: MWMMapViewControlsManager?
   private let searchManager: SearchOnMapManager
@@ -41,7 +42,16 @@ extension BottomTabBarInteractor: BottomTabBarInteractorProtocol {
   func openBookmarks() {
     mapViewController?.bookmarksCoordinator.open()
   }
-  
+
+  func openTrackRecorder() {
+    switch trackRecordingManager.recordingState {
+    case .inactive, .error:
+      trackRecordingManager.processAction(.start)
+    case .active:
+      trackRecordingManager.processAction(.stop)
+    }
+  }
+
   func openMenu() {
     guard let state = controlsManager?.menuState else {
       fatalError("ERROR: Failed to retrieve the current MapViewControlsManager's state.")
