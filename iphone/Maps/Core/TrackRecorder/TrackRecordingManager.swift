@@ -33,7 +33,12 @@ final class TrackRecordingManager: NSObject {
   static let shared: TrackRecordingManager = TrackRecordingManager(trackRecorder: FrameworkHelper.self)
 
   private let trackRecorder: TrackRecorder.Type
-  private(set) var recordingState: TrackRecordingState = .inactive
+  private var observations: [Observation] = []
+  private(set) var recordingState: TrackRecordingState = .inactive {
+    didSet {
+      notifyObservers()
+    }
+  }
 
   private init(trackRecorder: TrackRecorder.Type) {
     self.trackRecorder = trackRecorder
@@ -50,10 +55,24 @@ final class TrackRecordingManager: NSObject {
     }
   }
 
+  func addObserver(_ observer: AnyObject, recordingStateDidChangeHandler: @escaping TrackRecordingStateHandler) {
+    let observation = Observation(observer: observer, recordingStateDidChangeHandler: recordingStateDidChangeHandler)
+    observations.append(observation)
+    recordingStateDidChangeHandler(recordingState)
+  }
+
+  func removeObserver(_ observer: AnyObject) {
+    observations.removeAll { $0.observer === observer }
+  }
+
+  private func notifyObservers() {
+    observations = observations.filter { $0.observer != nil }
+    observations.forEach { $0.recordingStateDidChangeHandler?(recordingState) }
+  }
+
   private func handleError(_ error: TrackRecordingError, completion: (CompletionHandler)? = nil) {
     switch error {
     case .locationIsProhibited:
-      completion?()
       // Show alert to enable location
       LocationManager.checkLocationStatus()
     }
@@ -75,7 +94,7 @@ final class TrackRecordingManager: NSObject {
       recordingState = .active
       completion?()
     case .active:
-      break
+      completion?()
     case .error(let trackRecordingError):
       handleError(trackRecordingError, completion: completion)
     }
