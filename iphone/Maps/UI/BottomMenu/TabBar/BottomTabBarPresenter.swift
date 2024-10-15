@@ -3,6 +3,7 @@ protocol BottomTabBarPresenterProtocol: AnyObject {
   func onSearchButtonPressed()
   func onHelpButtonPressed(withBadge: Bool)
   func onBookmarksButtonPressed()
+  func onTrackRecordingButtonPressed()
   func onMenuButtonPressed()
 }
 
@@ -28,6 +29,10 @@ extension BottomTabBarPresenter: BottomTabBarPresenterProtocol {
 
   func onBookmarksButtonPressed() {
     interactor.openBookmarks()
+  }
+
+  func onTrackRecordingButtonPressed() {
+    interactor.openTrackRecorder()
   }
 
   func onMenuButtonPressed() {
