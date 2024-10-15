@@ -15,9 +15,9 @@
 
 namespace kml
 {
+/// @note Important! Should be synced with android/app/src/main/java/app/organicmaps/bookmarks/data/Icon.java
 enum class PredefinedColor : uint8_t
 {
-  // Do not change the order because of binary serialization.
   None = 0,
   Red,
   Blue,
@@ -145,9 +145,9 @@ inline std::string DebugPrint(CompilationType compilationType)
   UNREACHABLE();
 }
 
+/// @note Important! Should be synced with android/app/src/main/java/app/organicmaps/bookmarks/data/Icon.java
 enum class BookmarkIcon : uint16_t
 {
-  // Do not change the order because of binary serialization.
   None = 0,
   Hotel,
   Animals,
@@ -386,7 +386,7 @@ struct MultiGeometry
 
   bool HasTimestamps() const;
   bool HasTimestampsFor(size_t lineIndex) const;
-  
+
   size_t GetNumberOfLinesWithouTimestamps() const;
   size_t GetNumberOfLinesWithTimestamps() const;
 };
