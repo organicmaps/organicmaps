@@ -462,16 +462,6 @@ unique_ptr<CompressedBitVector> CompressedBitVectorBuilder::FromBitGroups(
   return make_unique<SparseCBV>(setBits);
 }
 
-std::string DebugPrint(CompressedBitVector::StorageStrategy strat)
-{
-  switch (strat)
-  {
-  case CompressedBitVector::StorageStrategy::Dense: return "Dense";
-  case CompressedBitVector::StorageStrategy::Sparse: return "Sparse";
-  }
-  UNREACHABLE();
-}
-
 // static
 unique_ptr<CompressedBitVector> CompressedBitVector::Intersect(CompressedBitVector const & lhs,
                                                                CompressedBitVector const & rhs)

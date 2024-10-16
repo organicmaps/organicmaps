@@ -621,8 +621,5 @@ enum class HighwayClass
   Count           // This value is used for internals only.
 };
 
-std::string DebugPrint(HighwayClass const cls);
-std::string DebugPrint(LocalityType const localityType);
-
 HighwayClass GetHighwayClass(feature::TypesHolder const & types);
 }  // namespace ftypes

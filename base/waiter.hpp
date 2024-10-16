@@ -63,17 +63,4 @@ private:
   std::mutex m_mutex;
   std::condition_variable m_event;
 };
-
-inline std::string DebugPrint(Waiter::Result result)
-{
-  switch (result)
-  {
-  case Waiter::Result::PreviouslyNotified: return "PreviouslyNotified";
-  case Waiter::Result::NoTimeout: return "NoTimeout";
-  case Waiter::Result::Timeout: return "Timeout";
-  default: ASSERT(false, ("Unsupported value"));
-  }
-
-  return {};
-}
 } // namespace base

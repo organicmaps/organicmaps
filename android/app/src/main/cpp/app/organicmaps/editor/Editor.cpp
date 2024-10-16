@@ -143,13 +143,13 @@ Java_app_organicmaps_editor_Editor_nativeGetMaxEditableBuildingLevels(JNIEnv *, 
 JNIEXPORT jboolean JNICALL
 Java_app_organicmaps_editor_Editor_nativeHasWifi(JNIEnv *, jclass)
 {
-  return g_editableMapObject.GetInternet() == feature::Internet::Wlan;
+  return g_editableMapObject.GetInternet() == feature::Internet::wlan;
 }
 
 JNIEXPORT void JNICALL
 Java_app_organicmaps_editor_Editor_nativeSetHasWifi(JNIEnv *, jclass, jboolean hasWifi)
 {
-  g_editableMapObject.SetInternet(hasWifi ? feature::Internet::Wlan : feature::Internet::Unknown);
+  g_editableMapObject.SetInternet(hasWifi ? feature::Internet::wlan : feature::Internet::Unknown);
 }
 
 JNIEXPORT jboolean JNICALL

@@ -393,27 +393,7 @@ OsmOAuth::Response OsmOAuth::DirectRequest(string const & method, bool api) cons
 
 string DebugPrint(OsmOAuth::Response const & code)
 {
-  string r;
-  switch (code.first)
-  {
-  case OsmOAuth::HTTP::OK: r = "OK"; break;
-  case OsmOAuth::HTTP::BadXML: r = "BadXML"; break;
-  case OsmOAuth::HTTP::BadAuth: r = "BadAuth"; break;
-  case OsmOAuth::HTTP::Redacted: r = "Redacted"; break;
-  case OsmOAuth::HTTP::NotFound: r = "NotFound"; break;
-  case OsmOAuth::HTTP::WrongMethod: r = "WrongMethod"; break;
-  case OsmOAuth::HTTP::Conflict: r = "Conflict"; break;
-  case OsmOAuth::HTTP::Gone: r = "Gone"; break;
-  case OsmOAuth::HTTP::PreconditionFailed: r = "PreconditionFailed"; break;
-  case OsmOAuth::HTTP::URITooLong: r = "URITooLong"; break;
-  case OsmOAuth::HTTP::TooMuchData: r = "TooMuchData"; break;
-  default:
-    // No data from server in case of NetworkError.
-    if (code.first < 0)
-      return "NetworkError " + strings::to_string(code.first);
-    r = "HTTP " + strings::to_string(code.first);
-  }
-  return r + ": " + code.second;
+  return ::DebugPrint(code.first) + ": " + code.second;
 }
 
 }  // namespace osm

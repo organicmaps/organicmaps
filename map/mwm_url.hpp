@@ -146,6 +146,4 @@ private:
   double m_zoomLevel = 0.0;
   bool m_goBackOnBalloonClick = false;
 };
-
-std::string DebugPrint(ParsedMapApi::UrlType type);
 }  // namespace url_scheme

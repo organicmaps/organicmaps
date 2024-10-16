@@ -37,6 +37,4 @@ private:
   IndexGraph & m_indexGraph;
   Geometry & m_geometry;
 };
-
-std::string DebugPrint(IsCrossroadChecker::Type type);
 }  // namespace routing

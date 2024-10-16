@@ -88,8 +88,6 @@ private:
   bool LoadRects(std::string const & rects);
   bool LoadPoints(std::string const & points);
 
-  friend std::string DebugPrint(State state);
-
   State m_state = State::NotStarted;
   ScreenshotParams m_screenshotParams;
   Framework & m_framework;
@@ -101,7 +99,4 @@ private:
   std::set<storage::CountryId> m_countriesToDownload;
   std::string m_nextScreenshotName;
 };
-
-std::string DebugPrint(Screenshoter::State state);
-std::string DebugPrint(ScreenshotParams::Mode mode);
 }  // namespace qt

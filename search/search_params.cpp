@@ -24,7 +24,7 @@ string DebugPrint(SearchParams const & params)
   os << "SearchParams [";
   os << "query: " << params.m_query << ", ";
   os << "locale: " << params.m_inputLocale << ", ";
-  os << "mode: " << DebugPrint(params.m_mode);
+  os << "mode: " << ::DebugPrint(params.m_mode);
   os << "]";
   return os.str();
 }

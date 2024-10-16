@@ -241,7 +241,7 @@ drape_ptr<dp::GpuProgram> MetalProgramPool::GetSystemProgram(SystemProgram progr
 drape_ptr<dp::GpuProgram> MetalProgramPool::Get(Program program)
 {
   auto const & info = kMetalProgramsInfo[static_cast<size_t>(program)];
-  return Get(DebugPrint(program), info.m_vertexShaderName, info.m_fragmentShaderName, info.m_layout);
+  return Get(::DebugPrint(program), info.m_vertexShaderName, info.m_fragmentShaderName, info.m_layout);
 }
   
 drape_ptr<dp::GpuProgram> MetalProgramPool::Get(std::string const & programName,

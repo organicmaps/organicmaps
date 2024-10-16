@@ -186,5 +186,3 @@ private:
   std::mutex m_mutex;
   threads::SimpleThread m_thread;
 };
-
-extern std::string DebugPrint(TrafficManager::TrafficState state);

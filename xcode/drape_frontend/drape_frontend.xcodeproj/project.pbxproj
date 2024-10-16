@@ -197,7 +197,6 @@
 		BB7D67D21F34A62C002FD122 /* custom_features_context.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB7D67CF1F34A62C002FD122 /* custom_features_context.hpp */; };
 		BB7D67D31F34A62C002FD122 /* path_text_handle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB7D67D01F34A62C002FD122 /* path_text_handle.cpp */; };
 		BB7D67D41F34A62C002FD122 /* path_text_handle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB7D67D11F34A62C002FD122 /* path_text_handle.hpp */; };
-		BB8403202151380500AB8783 /* message.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB84031F2151380400AB8783 /* message.cpp */; };
 		BBAD59FB21258843005543FC /* debug_rect_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBAD59F921258841005543FC /* debug_rect_renderer.cpp */; };
 		BBAD59FC21258843005543FC /* debug_rect_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBAD59FA21258842005543FC /* debug_rect_renderer.hpp */; };
 		BBD8F8791E96A51A00BAEB72 /* drape_hints.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBD8F8781E96A51A00BAEB72 /* drape_hints.hpp */; };
@@ -408,7 +407,6 @@
 		BB7D67CF1F34A62C002FD122 /* custom_features_context.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = custom_features_context.hpp; sourceTree = "<group>"; };
 		BB7D67D01F34A62C002FD122 /* path_text_handle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = path_text_handle.cpp; sourceTree = "<group>"; };
 		BB7D67D11F34A62C002FD122 /* path_text_handle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = path_text_handle.hpp; sourceTree = "<group>"; };
-		BB84031F2151380400AB8783 /* message.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = message.cpp; sourceTree = "<group>"; };
 		BBAD59F921258841005543FC /* debug_rect_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = debug_rect_renderer.cpp; sourceTree = "<group>"; };
 		BBAD59FA21258842005543FC /* debug_rect_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = debug_rect_renderer.hpp; sourceTree = "<group>"; };
 		BBD8F8781E96A51A00BAEB72 /* drape_hints.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_hints.hpp; sourceTree = "<group>"; };
@@ -521,7 +519,6 @@
 				670947501BDF9BE0005014C0 /* message_queue.cpp */,
 				670947511BDF9BE0005014C0 /* message_queue.hpp */,
 				670947521BDF9BE0005014C0 /* message_subclasses.hpp */,
-				BB84031F2151380400AB8783 /* message.cpp */,
 				670947531BDF9BE0005014C0 /* message.hpp */,
 				EB2B77FD1EEDD418002697B6 /* metaline_manager.cpp */,
 				EB2B77FE1EEDD418002697B6 /* metaline_manager.hpp */,
@@ -892,7 +889,6 @@
 				670948431BDF9C48005014C0 /* drape_gui.cpp in Sources */,
 				670947D61BDF9BE1005014C0 /* user_event_stream.cpp in Sources */,
 				452C9EDE1CEDCF3200A55E57 /* parallel_animation.cpp in Sources */,
-				BB8403202151380500AB8783 /* message.cpp in Sources */,
 				670947B11BDF9BE1005014C0 /* read_mwm_task.cpp in Sources */,
 				670948471BDF9C48005014C0 /* layer_render.cpp in Sources */,
 				670947C41BDF9BE1005014C0 /* text_handle.cpp in Sources */,

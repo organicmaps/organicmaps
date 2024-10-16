@@ -41,33 +41,6 @@ enum class PredefinedColor : uint8_t
   Count
 };
 
-inline std::string DebugPrint(PredefinedColor color)
-{
-  switch (color)
-  {
-  using enum kml::PredefinedColor;
-  case None: return "None";
-  case Red: return "Red";
-  case Blue: return "Blue";
-  case Purple: return "Purple";
-  case Yellow: return "Yellow";
-  case Pink: return "Pink";
-  case Brown: return "Brown";
-  case Green: return "Green";
-  case Orange: return "Orange";
-  case DeepPurple: return "DeepPurple";
-  case LightBlue: return "LightBlue";
-  case Cyan: return "Cyan";
-  case Teal: return "Teal";
-  case Lime: return "Lime";
-  case DeepOrange: return "DeepOrange";
-  case Gray: return "Gray";
-  case BlueGray: return "BlueGray";
-  case Count: return {};
-  }
-  UNREACHABLE();
-}
-
 inline dp::Color ColorFromPredefinedColor(PredefinedColor color)
 {
   switch (color)
@@ -109,22 +82,6 @@ enum class AccessRules : uint8_t
   Count
 };
 
-inline std::string DebugPrint(AccessRules accessRules)
-{
-  switch (accessRules)
-  {
-  using enum kml::AccessRules;
-  case Local: return "Local";
-  case Public: return "Public";
-  case DirectLink: return "DirectLink";
-  case P2P: return "P2P";
-  case Paid: return "Paid";
-  case AuthorOnly: return "AuthorOnly";
-  case Count: return {};
-  }
-  UNREACHABLE();
-}
-
 enum class CompilationType : uint8_t
 {
   // Do not change the order because of binary serialization.
@@ -132,18 +89,6 @@ enum class CompilationType : uint8_t
   Collection,
   Day,
 };
-
-inline std::string DebugPrint(CompilationType compilationType)
-{
-  switch (compilationType)
-  {
-  using enum kml::CompilationType;
-  case Category: return "Category";
-  case Collection: return "Collection";
-  case Day: return "Day";
-  }
-  UNREACHABLE();
-}
 
 enum class BookmarkIcon : uint16_t
 {

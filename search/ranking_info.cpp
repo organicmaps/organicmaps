@@ -145,7 +145,7 @@ void PrintParse(ostringstream & oss, array<TokenRange, Model::TYPE_COUNT> const 
   {
     if (i > 0)
       oss << " ";
-    oss << DebugPrint(types[i]);
+    oss << ::DebugPrint(types[i]);
   }
   oss << "]";
 }
@@ -294,13 +294,13 @@ std::string DebugPrint(StoredRankingInfo const & info)
   ostringstream os;
   os << "StoredRankingInfo "
      << "{ m_distanceToPivot: " << info.m_distanceToPivot
-     << ", m_type: " << DebugPrint(info.m_type)
+     << ", m_type: " << ::DebugPrint(info.m_type)
      << ", m_classifType: ";
 
   if (Model::IsPoi(info.m_type))
-    os << DebugPrint(info.m_classifType.poi);
+    os << ::DebugPrint(info.m_classifType.poi);
   else if (info.m_type == Model::TYPE_STREET)
-    os << DebugPrint(info.m_classifType.street);
+    os << ::DebugPrint(info.m_classifType.street);
 
   os << " }";
   return os.str();
@@ -316,7 +316,7 @@ string DebugPrint(RankingInfo const & info)
 
   os << ", m_rank: " << static_cast<int>(info.m_rank)
      << ", m_popularity: " << static_cast<int>(info.m_popularity)
-     << ", m_nameScore: " << DebugPrint(info.m_nameScore)
+     << ", m_nameScore: " << ::DebugPrint(info.m_nameScore)
      << ", m_errorsMade: " << DebugPrint(info.m_errorsMade)
      << ", m_isAltOrOldName: " << info.m_isAltOrOldName
      << ", m_numTokens: " << info.m_numTokens
@@ -339,15 +339,15 @@ void RankingInfo::ToCSV(ostream & os) const
   os << m_distanceToPivot << ",";
   os << static_cast<int>(m_rank) << ",";
   os << static_cast<int>(m_popularity) << ",";
-  os << DebugPrint(m_nameScore) << ",";
+  os << ::DebugPrint(m_nameScore) << ",";
   os << GetErrorsMadePerToken() << ",";
   os << m_matchedFraction << ",";
-  os << DebugPrint(m_type) << ",";
+  os << ::DebugPrint(m_type) << ",";
 
   if (Model::IsPoi(m_type))
-    os << DebugPrint(m_classifType.poi) << ",";
+    os << ::DebugPrint(m_classifType.poi) << ",";
   else if (m_type == Model::TYPE_STREET)
-    os << DebugPrint(m_classifType.street) << ",";
+    os << ::DebugPrint(m_classifType.street) << ",";
 
   os << m_pureCats << ",";
   os << m_falseCats << ",";
@@ -517,41 +517,4 @@ PoiType GetPoiType(feature::TypesHolder const & th)
 
   return PoiType::General;
 }
-
-string DebugPrint(PoiType type)
-{
-  switch (type)
-  {
-  case PoiType::TransportMajor: return "TransportMajor";
-  case PoiType::TransportLocal: return "TransportLocal";
-  case PoiType::Eat: return "Eat";
-  case PoiType::Hotel: return "Hotel";
-  case PoiType::ShopOrAmenity: return "ShopOrAmenity";
-  case PoiType::Attraction: return "Attraction";
-  case PoiType::CarInfra: return "CarInfra";
-  case PoiType::PureCategory: return "PureCategory";
-  case PoiType::General: return "General";
-  case PoiType::Service: return "Service";
-  case PoiType::Count: return "Count";
-  }
-  UNREACHABLE();
-}
-
-std::string DebugPrint(StreetType type)
-{
-  switch (type)
-  {
-  case StreetType::Default: return "Default";
-  case StreetType::Pedestrian: return "Pedestrian";
-  case StreetType::Cycleway: return "Cycleway";
-  case StreetType::Outdoor: return "Outdoor";
-  case StreetType::Minors: return "Minors";
-  case StreetType::Residential: return "Residential";
-  case StreetType::Regular: return "Regular";
-  case StreetType::Motorway: return "Motorway";
-  case StreetType::Count: return "Count";
-  }
-  UNREACHABLE();
-}
-
 }  // namespace search

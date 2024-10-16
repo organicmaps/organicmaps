@@ -89,19 +89,6 @@ public:
   virtual void Bind() = 0;
 };
 
-inline std::string DebugPrint(dp::ApiVersion apiVersion)
-{
-  switch (apiVersion)
-  {
-  case dp::ApiVersion::Invalid: return "Invalid";
-  case dp::ApiVersion::OpenGLES2: return "OpenGLES2";
-  case dp::ApiVersion::OpenGLES3: return "OpenGLES3";
-  case dp::ApiVersion::Metal: return "Metal";
-  case dp::ApiVersion::Vulkan: return "Vulkan";
-  }
-  return "Unknown";
-}
-
 inline dp::ApiVersion ApiVersionFromString(std::string const & str)
 {
 #if defined(OMIM_METAL_AVAILABLE)

@@ -135,7 +135,7 @@ std::string DebugPrint(Touch const & t)
 
 std::string DebugPrint(TouchEvent const & e)
 {
-  return std::to_string(e.m_type) + "; { " + DebugPrint(e.m_touches[0]) + " }";
+  return ::DebugPrint(e.m_type) + "; { " + DebugPrint(e.m_touches[0]) + " }";
 }
 
 

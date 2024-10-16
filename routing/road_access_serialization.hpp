@@ -518,6 +518,4 @@ private:
     return openingHoursSerDes;
   }
 };
-
-std::string DebugPrint(RoadAccessSerializer::Header const & header);
 }  // namespace routing

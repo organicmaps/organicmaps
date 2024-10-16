@@ -693,16 +693,3 @@ std::string RoadWarningMark::GetLocalizedRoadWarningType(RoadWarningMarkType typ
   }
   return {};
 }
-
-std::string DebugPrint(RoadWarningMarkType type)
-{
-  switch (type)
-  {
-  using enum RoadWarningMarkType;
-  case Toll: return "Toll";
-  case Ferry: return "Ferry";
-  case Dirty: return "Dirty";
-  case Count: return "Count";
-  }
-  UNREACHABLE();
-}

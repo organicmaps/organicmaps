@@ -309,24 +309,6 @@ void NotificationManager::SetLocaleWithJsonForTesting(std::string const & json, 
 {
   m_getTtsText.ForTestingSetLocaleWithJson(json, locale);
 }
-
-std::string DebugPrint(PronouncedNotification notificationProgress)
-{
-  switch (notificationProgress)
-  {
-  case PronouncedNotification::Nothing:
-    return "Nothing";
-  case PronouncedNotification::First:
-    return "First";
-  case PronouncedNotification::Second:
-    return "Second";
-  }
-
-  ASSERT(false, ());
-  std::stringstream out;
-  out << "unknown PronouncedNotification (" << static_cast<int>(notificationProgress) << ")";
-  return out.str();
-}
 }  // namespace sound
 }  // namespace turns
 }  // namespace routing

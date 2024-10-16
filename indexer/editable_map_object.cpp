@@ -311,9 +311,9 @@ void EditableMapObject::SetInternet(feature::Internet internet)
   uint32_t const wifiType = ftypes::IsWifiChecker::Instance().GetType();
   bool const hasWiFi = m_types.Has(wifiType);
 
-  if (hasWiFi && internet != feature::Internet::Wlan)
+  if (hasWiFi && internet != feature::Internet::wlan)
     m_types.Remove(wifiType);
-  else if (!hasWiFi && internet == feature::Internet::Wlan)
+  else if (!hasWiFi && internet == feature::Internet::wlan)
     m_types.Add(wifiType);
 }
 

@@ -57,7 +57,6 @@ private:
 RoutingOptions::Road ChooseMainRoutingOptionRoad(RoutingOptions options, bool isCarRouter);
 
 std::string DebugPrint(RoutingOptions const & routingOptions);
-std::string DebugPrint(RoutingOptions::Road type);
 
 /// Options guard for debugging/tests.
 class RoutingOptionSetter

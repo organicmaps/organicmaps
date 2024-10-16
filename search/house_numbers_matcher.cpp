@@ -657,27 +657,10 @@ bool LooksLikeHouseNumberStrict(string const & s)
   return LooksLikeHouseNumberStrict(MakeUniString(s));
 }
 
-string DebugPrint(Token::Type type)
-{
-  switch (type)
-  {
-  case Token::TYPE_NUMBER: return "Number";
-  case Token::TYPE_SEPARATOR: return "Separator";
-  case Token::TYPE_GROUP_SEPARATOR: return "GroupSeparator";
-  case Token::TYPE_HYPHEN: return "Hyphen";
-  case Token::TYPE_SLASH: return "Slash";
-  case Token::TYPE_STRING: return "String";
-  case Token::TYPE_BUILDING_PART: return "BuildingPart";
-  case Token::TYPE_LETTER: return "Letter";
-  case Token::TYPE_BUILDING_PART_OR_LETTER: return "BuildingPartOrLetter";
-  }
-  return "Unknown";
-}
-
 string DebugPrint(Token const & token)
 {
   ostringstream os;
-  os << "Token [" << DebugPrint(token.m_value) << ", " << DebugPrint(token.m_type) << "]";
+  os << "Token [" << DebugPrint(token.m_value) << ", " << ::DebugPrint(token.m_type) << "]";
   return os.str();
 }
 }  // namespace house_numbers

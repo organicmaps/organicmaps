@@ -160,16 +160,5 @@ DiffApplicationResult ApplyDiff(std::string const & oldMwmPath, std::string cons
   return cancellable.IsCancelled() ? DiffApplicationResult::Cancelled
                                    : DiffApplicationResult::Failed;
 }
-
-std::string DebugPrint(DiffApplicationResult const & result)
-{
-  switch (result)
-  {
-  case DiffApplicationResult::Ok: return "Ok";
-  case DiffApplicationResult::Failed: return "Failed";
-  case DiffApplicationResult::Cancelled: return "Cancelled";
-  }
-  UNREACHABLE();
-}
 }  // namespace mwm_diff
 }  // namespace generator

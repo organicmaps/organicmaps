@@ -45,7 +45,4 @@ using FacilitiesState = std::array<bool, static_cast<size_t>(Facility::Count)>;
 
 FacilitiesState const & GetFacilitiesState(Scheme const scheme);
 FacilitiesState const & GetFacilitiesState(AutoScheme const autoScheme);
-
-std::string DebugPrint(Facility const facility);
-std::string DebugPrint(Scheme const scheme);
 }  // namespace power_management

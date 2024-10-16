@@ -525,7 +525,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
     [tCell configWithDelegate:self
                          icon:[UIImage imageNamed:@"ic_placepage_wifi"]
                          text:L(@"category_wifi")
-                           on:m_mapObject.GetInternet() == feature::Internet::Wlan];
+                           on:m_mapObject.GetInternet() == feature::Internet::wlan];
     break;
   }
   case MWMEditorCellTypeAdditionalName:
@@ -954,7 +954,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
   switch ([self cellTypeForIndexPath:indexPath])
   {
   case MetadataID::FMD_INTERNET:
-    m_mapObject.SetInternet(changeSwitch ? feature::Internet::Wlan : feature::Internet::Unknown);
+    m_mapObject.SetInternet(changeSwitch ? feature::Internet::wlan : feature::Internet::Unknown);
     break;
   default: NSAssert(false, @"Invalid field for changeSwitch"); break;
   }
@@ -968,10 +968,10 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
   case MetadataID::FMD_DRIVE_THROUGH:
       switch (changeSegmented)
       {
-        case Yes:
+        case yes:
           m_mapObject.SetMetadata(feature::Metadata::FMD_DRIVE_THROUGH, "yes");
           break;
-        case No:
+        case no:
           m_mapObject.SetMetadata(feature::Metadata::FMD_DRIVE_THROUGH, "no");
           break;
         case Unknown:
