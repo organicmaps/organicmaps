@@ -850,7 +850,7 @@
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Gelditu ibilbidearen grabaketa</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Gelditu gordetzeko gabe</string>
+    <string name="stop_without_saving">Gelditu gorde gabe</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Jarraitu grabatzen</string>
     <!-- Title for the alert when saving a track recording. -->
@@ -859,6 +859,8 @@
     <string name="track_recording_toast_nothing_to_save">Ibilbidea hutsik dago; ez dago ezer gordetzeko</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Ezin da karpeta hautatzeko elkarrizketa-koadroa erakutsi zure gailuan ez dagoelako aplikazio egokirik instalatuta. Instalatu fitxategi-kudeatzaile aplikazio bat eta saiatu berriro</string>
+  <string name="choose_color">Aukeratu kolorea</string>
+  <string name="edit_track">Ibilbidea editatu</string>
     <string name="uri_open_location_failed">Ez dago kokapena ireki dezakeen aplikaziorik instalatu</string>
 
     <!-- SECTION: Types -->
