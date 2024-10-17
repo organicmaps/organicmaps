@@ -1529,8 +1529,10 @@
     <string name="type.man_made.tower">برج</string>
     <string name="type.man_made.tower.communication">برج اتصالات</string>
     <string name="type.man_made.water_tap">حنفية مياه</string>
+    <string name="type.man_made.water_tap.drinking_water_no">حنفية مياه</string>
     <string name="type.man_made.water_tower">برج مياه</string>
     <string name="type.man_made.water_well">بئر ماء</string>
+    <string name="type.man_made.water_well.drinking_water_no">بئر ماء</string>
     <string name="type.man_made.windmill">طاحونة هواء</string>
     <string name="type.military">عسكري</string>
     <string name="type.military.bunker">ملجأ</string>
@@ -1571,6 +1573,7 @@
     <string name="type.natural.rock">صخر</string>
     <string name="type.natural.scrub">أَيْكَة</string>
     <string name="type.natural.spring">ينبوع</string>
+    <string name="type.natural.spring.drinking_water_no">ينبوع</string>
     <string name="type.natural.strait">مضيق</string>
     <string name="type.natural.tree_row">صف شجر</string>
     <string name="type.natural.vineyard">حقل عنب</string>

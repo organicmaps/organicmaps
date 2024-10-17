@@ -1513,8 +1513,10 @@
     <string name="type.man_made.tower.communication">Funkturm</string>
     <string name="type.man_made.wastewater_plant">Kläranlage</string>
     <string name="type.man_made.water_tap">Wasserhahn</string>
+    <string name="type.man_made.water_tap.drinking_water_no">Wasserhahn</string>
     <string name="type.man_made.water_tower">Wasserturm</string>
     <string name="type.man_made.water_well">Brunnen</string>
+    <string name="type.man_made.water_well.drinking_water_no">Brunnen</string>
     <string name="type.man_made.windmill">Windmühle</string>
     <string name="type.man_made.works">Fabrik</string>
     <string name="type.military">Militärisches Objekt</string>
@@ -1557,6 +1559,7 @@
     <string name="type.natural.rock">Fels</string>
     <string name="type.natural.scrub">Dickicht</string>
     <string name="type.natural.spring">Quelle</string>
+    <string name="type.natural.spring.drinking_water_no">Quelle</string>
     <string name="type.natural.strait">Meerenge</string>
     <string name="type.natural.tree_row">Baumreihe</string>
     <string name="type.natural.vineyard">Weinberg</string>

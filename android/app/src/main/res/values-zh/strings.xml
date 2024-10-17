@@ -1540,8 +1540,10 @@
     <string name="type.man_made.tower.communication">通讯塔</string>
     <string name="type.man_made.wastewater_plant">污水处理厂</string>
     <string name="type.man_made.water_tap">水龙头</string>
+    <string name="type.man_made.water_tap.drinking_water_no">水龙头</string>
     <string name="type.man_made.water_tower">水塔</string>
     <string name="type.man_made.water_well">水井</string>
+    <string name="type.man_made.water_well.drinking_water_no">水井</string>
     <string name="type.man_made.windmill">风车</string>
     <string name="type.man_made.works">工厂</string>
     <string name="type.military">军事</string>
@@ -1582,6 +1584,7 @@
     <string name="type.natural.rock">岩石</string>
     <string name="type.natural.scrub">灌木丛</string>
     <string name="type.natural.spring">泉水</string>
+    <string name="type.natural.spring.drinking_water_no">泉水</string>
     <string name="type.natural.strait">海峡</string>
     <string name="type.natural.tree_row">树列</string>
     <string name="type.natural.vineyard">葡萄园</string>

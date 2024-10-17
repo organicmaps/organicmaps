@@ -973,8 +973,10 @@
     <string name="type.man_made.tower">बुर्ज</string>
     <string name="type.man_made.wastewater_plant">अपशिष्ट जलोपचार</string>
     <string name="type.man_made.water_tap">पानी का नल</string>
+    <string name="type.man_made.water_tap.drinking_water_no">पानी का नल</string>
     <string name="type.man_made.water_tower">पानी का टावर</string>
     <string name="type.man_made.water_well">कुआँ</string>
+    <string name="type.man_made.water_well.drinking_water_no">कुआँ</string>
     <string name="type.man_made.windmill">पवनचक्की</string>
     <string name="type.mountain_pass">दर्रा</string>
     <string name="type.natural">प्रकृति</string>
@@ -1003,6 +1005,7 @@
     <string name="type.natural.peak">शिखर</string>
     <string name="type.natural.scrub">झाड़ी</string>
     <string name="type.natural.spring">पानी का चश्मा</string>
+    <string name="type.natural.spring.drinking_water_no">पानी का चश्मा</string>
     <string name="type.natural.strait">जलसंधि</string>
     <string name="type.natural.vineyard">द्राक्षाक्षेत्र</string>
     <string name="type.natural.volcano">ज्वालामुखी</string>

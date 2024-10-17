@@ -232,7 +232,6 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
   // No point drawing rules for country scale range.
   base::StringIL const arrInvisible[] = {
       {"man_made", "tower"},
-      {"man_made", "water_tower"},
 
       {"place", "continent"},
       {"place", "county"},

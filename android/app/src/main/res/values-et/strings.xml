@@ -1524,8 +1524,10 @@
     <string name="type.man_made.tower.communication">Sidetorn</string>
     <string name="type.man_made.wastewater_plant">Reoveepuhasti</string>
     <string name="type.man_made.water_tap">Veekraan</string>
+    <string name="type.man_made.water_tap.drinking_water_no">Veekraan</string>
     <string name="type.man_made.water_tower">Veetorn</string>
     <string name="type.man_made.water_well">Vesiveski</string>
+    <string name="type.man_made.water_well.drinking_water_no">Vesiveski</string>
     <string name="type.man_made.windmill">Tuuleveski</string>
     <string name="type.man_made.works">Vabrik</string>
     <string name="type.military">Militaarobjekt</string>
@@ -1568,6 +1570,7 @@
     <string name="type.natural.rock">Kivi</string>
     <string name="type.natural.scrub">Võsa</string>
     <string name="type.natural.spring">Allikas</string>
+    <string name="type.natural.spring.drinking_water_no">Allikas</string>
     <string name="type.natural.strait">Väin</string>
     <string name="type.natural.tree_row">Puude rida</string>
     <string name="type.natural.vineyard">Viinamarjaistandus</string>

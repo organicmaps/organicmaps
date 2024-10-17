@@ -2704,9 +2704,13 @@
 
 "type.man_made.water_tap" = "Su Musluğu";
 
+"type.man_made.water_tap.drinking_water_no" = "Su Musluğu";
+
 "type.man_made.water_tower" = "Su Kulesi";
 
 "type.man_made.water_well" = "Su Kuyusu";
+
+"type.man_made.water_well.drinking_water_no" = "Su Kuyusu";
 
 "type.man_made.windmill" = "Yel Değirmeni";
 
@@ -2792,6 +2796,8 @@
 "type.natural.scrub" = "Çalılık";
 
 "type.natural.spring" = "Pınar";
+
+"type.natural.spring.drinking_water_no" = "Pınar";
 
 "type.natural.strait" = "Boğaz";
 

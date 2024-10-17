@@ -1601,3 +1601,6 @@ amenity|recycling|container
 *emergency|emergency_ward_entrance
 *amenity|dojo
 *leisure|sports_hall
+*man_made|water_tap|drinking_water_no
+*man_made|water_well|drinking_water_no
+*natural|spring|drinking_water_no

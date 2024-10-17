@@ -9480,7 +9480,7 @@ de:Heiße Quelle|Thermalquelle
 el:Θερμή πηγή|Ιαματική πηγή
 es:Aguas termales
 et:Kuumaveeallikas
-eu:Udaberri beroa
+eu:Iturri geotermala
 fa:چشمه آب گرم
 fi:Kuuma lähde
 fr:Source chaude
@@ -9516,6 +9516,7 @@ ar:ينبوع
 ca:Manantial
 cs:Pramen
 da:Kilde|kildevæld
+eu:Iturburua
 nl:Bron
 fi:Lähde
 fr:Source
@@ -9557,6 +9558,7 @@ ca:Pou
 cs:Studna
 da:Brønd
 nl:Waterbron
+eu:Ur putzua
 fi:Kaivo
 fr:Puits à eau
 de:Brunnen
@@ -9636,7 +9638,7 @@ de:6Wasserhahn
 el:Βρύση νερού
 et:Veekraan
 es:Toma de agua
-eu:Ura hartzea
+eu:Ur txorrota
 fi:Vesihana
 fr:Robinet d'eau|point d'eau
 hi:3पानी का नल
@@ -9771,7 +9773,7 @@ pt-BR:Lagoa
 ro:5Heleșteu
 es:5Estanque|laguna
 et:Tiik
-eu:5Urmaela
+eu:Urmaela
 sv:Damm
 th:1บ่อ|น้ำ
 tr:Gölet
@@ -9838,7 +9840,7 @@ de:5Reservoir
 el:Δεξαμενή
 es:5Reservorio
 et:Reservuaar
-eu:5Urtegia
+eu:Urtegia
 fa:مخزن
 fi:Säiliö
 fr:5Réservoir
@@ -9873,6 +9875,7 @@ bg:река|течение|рекичка
 ar:نهر
 cs:Řeka
 da:Flod
+eu:Ibaia|erreka
 nl:Rivier|beek|stroom|waterloop
 fi:Joki
 fr:Rivière|fleuve
@@ -9912,6 +9915,7 @@ bg:канал
 ar:قناة
 cs:Kanál
 da:Kanal
+eu:Ubidea
 nl:Kanaal|waterloop|gracht
 fi:Kanaali
 fr:Canal
@@ -16694,3 +16698,42 @@ uk:Центр мистецтв
 vi:Trung tâm nghệ thuật
 zh-Hans:艺术中心
 zh-Hant:藝術中心
+
+amenity-prison
+en:prison
+ar:السجن
+be:турма
+bg:затвор
+ca:presó
+cs:vězení
+da:Fængsel
+de:Gefängnis
+el:φυλακή
+es:prisión|cárcel
+et:vangla
+eu:espetxe|kartzela
+fa:زندان
+fi:vankila
+fr:prison
+he:כלא|בית כלא|בית סוהר
+hi:कारागार
+hu:börtön
+id:penjara
+it:prigione
+ja:刑務所
+ko:감옥
+mr:तुरुंग
+nb:fengsel
+nl:gevangenis
+pl:więzienie
+pt:prisão
+ro:închisoare
+ru:тюрьма
+sk:väzenie
+sv:fängelse
+sw:jela
+th:คุก
+tr:hapishane
+uk:в'язниця
+vi:nhà tù
+zh-Hans:监狱

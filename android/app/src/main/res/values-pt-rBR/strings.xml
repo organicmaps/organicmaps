@@ -1371,8 +1371,10 @@
     <string name="type.man_made.tower.communication">Torre de comunicação</string>
     <string name="type.man_made.wastewater_plant">Estação de tratamento de esgoto</string>
     <string name="type.man_made.water_tap">Torneira de água</string>
+    <string name="type.man_made.water_tap.drinking_water_no">Torneira de água</string>
     <string name="type.man_made.water_tower">Torre de água</string>
     <string name="type.man_made.water_well">Poço de água</string>
+    <string name="type.man_made.water_well.drinking_water_no">Poço de água</string>
     <string name="type.man_made.windmill">Moinho de vento</string>
     <string name="type.man_made.works">Fábrica</string>
     <string name="type.military">Militar</string>

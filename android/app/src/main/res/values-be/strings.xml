@@ -1230,6 +1230,7 @@
     <string name="type.natural.rock">Камень</string>
     <string name="type.natural.scrub">Зараснікі</string>
     <string name="type.natural.spring">Крыніца</string>
+    <string name="type.natural.spring.drinking_water_no">Крыніца</string>
     <string name="type.natural.strait">Праліў</string>
     <string name="type.natural.tree_row">Шэраг дрэў</string>
     <string name="type.natural.vineyard">Вінаграднік</string>

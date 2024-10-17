@@ -1526,8 +1526,10 @@
     <string name="type.man_made.tower.communication">Communicatie Toren</string>
     <string name="type.man_made.wastewater_plant">Waterzuiveringsinstallatie</string>
     <string name="type.man_made.water_tap">Waterkraan</string>
+    <string name="type.man_made.water_tap.drinking_water_no">Waterkraan</string>
     <string name="type.man_made.water_tower">Watertoren</string>
     <string name="type.man_made.water_well">Waterput</string>
+    <string name="type.man_made.water_well.drinking_water_no">Waterput</string>
     <string name="type.man_made.windmill">Windmolen</string>
     <string name="type.man_made.works">Fabriek</string>
     <string name="type.military">Militair</string>
@@ -1570,6 +1572,7 @@
     <string name="type.natural.rock">Steen</string>
     <string name="type.natural.scrub">Kreupel bos</string>
     <string name="type.natural.spring">Bron</string>
+    <string name="type.natural.spring.drinking_water_no">Bron</string>
     <string name="type.natural.strait">Zeestraat</string>
     <string name="type.natural.tree_row">Bomenrij</string>
     <string name="type.natural.vineyard">Wijngaard</string>

@@ -52665,6 +52665,122 @@ cont {
   }
 }
 cont {
+  name: "man_made-water_tap-drinking_water_no"
+  element {
+    scale: 18
+    symbol {
+      name: "drinking-water-no-s"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "drinking-water-no-m"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "drinking-water-no-m"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+}
+cont {
+  name: "man_made-water_tower"
+  element {
+    scale: 16
+    symbol {
+      name: "storage-tank"
+      priority: 450
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "storage-tank"
+      priority: 450
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "storage-tank"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "storage-tank"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "storage-tank"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+}
+cont {
   name: "man_made-water_well"
   element {
     scale: 16
@@ -52726,6 +52842,57 @@ cont {
         is_optional: true
       }
       priority: -6950
+    }
+  }
+}
+cont {
+  name: "man_made-water_well-drinking_water_no"
+  element {
+    scale: 18
+    symbol {
+      name: "drinking-water-no-s"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "drinking-water-no-m"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "drinking-water-no-m"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
     }
   }
 }
@@ -55576,6 +55743,112 @@ cont {
         is_optional: true
       }
       priority: -5350
+    }
+  }
+}
+cont {
+  name: "natural-spring-drinking_water_no"
+  element {
+    scale: 14
+    symbol {
+      name: "drinking-water-no-s"
+      priority: 1200
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "drinking-water-no-s"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "drinking-water-no-s"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "drinking-water-no-m"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "drinking-water-no-m"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "drinking-water-no-m"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "drinking-water-no-m"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
     }
   }
 }

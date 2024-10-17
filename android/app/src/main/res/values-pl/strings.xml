@@ -1526,8 +1526,10 @@
     <string name="type.man_made.tower.communication">Wieża komunikacyjna</string>
     <string name="type.man_made.wastewater_plant">Oczyszczalnia ścieków</string>
     <string name="type.man_made.water_tap">Kran z wodą</string>
+    <string name="type.man_made.water_tap.drinking_water_no">Kran z wodą</string>
     <string name="type.man_made.water_tower">Wieża wodna</string>
     <string name="type.man_made.water_well">Studnia</string>
+    <string name="type.man_made.water_well.drinking_water_no">Studnia</string>
     <string name="type.man_made.windmill">Młyn wiatrowy</string>
     <string name="type.man_made.works">Fabryka</string>
     <string name="type.military">Wojskowe</string>
@@ -1569,6 +1571,7 @@
     <string name="type.natural.rock">Skała</string>
     <string name="type.natural.scrub">Zarośla</string>
     <string name="type.natural.spring">Źródło</string>
+    <string name="type.natural.spring.drinking_water_no">Źródło</string>
     <string name="type.natural.strait">Cieśnina</string>
     <string name="type.natural.tree_row">Rząd drzew</string>
     <string name="type.natural.vineyard">Winnica</string>
