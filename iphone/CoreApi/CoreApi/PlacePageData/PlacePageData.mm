@@ -63,16 +63,16 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
     }
 
     if (rawData().IsTrack()) {
-      auto const &bm = GetFramework().GetBookmarkManager();
-      auto const &trackId = rawData().GetTrackId();
-      auto const &elevationInfo = bm.MakeElevationInfo(trackId);
-      _elevationProfileData = [[ElevationProfileData alloc] initWithElevationInfo:elevationInfo
-                                                                      activePoint:bm.GetElevationActivePoint(trackId)
-                                                                       myPosition:bm.GetElevationMyPosition(trackId)];
-      _previewData = [[PlacePagePreviewData alloc] initWithElevationInfo:elevationInfo];
-    } else {
-      _previewData = [[PlacePagePreviewData alloc] initWithRawData:rawData()];
+      auto const & bm = GetFramework().GetBookmarkManager();
+      auto const & trackId = rawData().GetTrackId();
+      if (bm.GetTrack(trackId)->HasAltitudes()) {
+        auto const & elevationInfo = bm.MakeElevationInfo(trackId);
+        _elevationProfileData = [[ElevationProfileData alloc] initWithElevationInfo:elevationInfo
+                                                                        activePoint:bm.GetElevationActivePoint(trackId)
+                                                                         myPosition:bm.GetElevationMyPosition(trackId)];
+      }
     }
+    _previewData = [[PlacePagePreviewData alloc] initWithRawData:rawData()];
 
     auto const &countryId = rawData().GetCountryId();
     if (!countryId.empty()) {

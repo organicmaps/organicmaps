@@ -68,7 +68,7 @@ Track::Track(kml::TrackData && data, bool interactive)
 {
   m_data.m_id = GetId();
   CHECK(m_data.m_geometry.IsValid(), ());
-  if (interactive && HasAltitudes())
+  if (interactive)
     CacheDataForInteraction();
 }
 
@@ -159,6 +159,19 @@ double Track::GetLengthMeters() const
   for (auto const & line : m_data.m_geometry.m_lines)
     len += GetLengthInMeters(line, line.size() - 1);
   return len;
+}
+
+double Track::GetDurationInSeconds() const
+{
+  ASSERT(m_data.m_geometry.HasTimestamps(), ());
+  double duration = 0.0;
+  for (size_t i = 0; i < m_data.m_geometry.m_timestamps.size(); ++i)
+  {
+    ASSERT(m_data.m_geometry.HasTimestampsFor(i), ());
+    auto const & timestamps = m_data.m_geometry.m_timestamps[i];
+    duration += timestamps.back() - timestamps.front();
+  }
+  return duration;
 }
 
 double Track::GetLengthMetersImpl(kml::MultiGeometry::LineT const & line, size_t ptIdx) const

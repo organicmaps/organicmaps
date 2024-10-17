@@ -930,7 +930,7 @@ Track::TrackSelectionInfo BookmarkManager::FindNearestTrack(
     for (auto trackId : category.GetUserLines())
     {
       auto const track = GetTrack(trackId);
-      if (!track->IsInteractive() || (tracksFilter && !tracksFilter(track)))
+      if (tracksFilter && !tracksFilter(track))
         continue;
 
       track->UpdateSelectionInfo(touchRect, selectionInfo);
@@ -1037,13 +1037,21 @@ void BookmarkManager::SetTrackSelectionInfo(Track::TrackSelectionInfo const & tr
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   CHECK_NOT_EQUAL(trackSelectionInfo.m_trackId, kml::kInvalidTrackId, ());
 
-  auto es = GetEditSession();
-  auto const markId = GetTrackSelectionMarkId(trackSelectionInfo.m_trackId);
-  CHECK_NOT_EQUAL(markId, kml::kInvalidMarkId, ());
+//  auto es = GetEditSession();
+//  auto const markId = GetTrackSelectionMarkId(trackSelectionInfo.m_trackId);
+//  if (markId == kml::kInvalidMarkId)
+//  {
+//    SetTrackSelectionMark(trackSelectionInfo.m_trackId, trackSelectionInfo.m_trackPoint,
+//                          trackSelectionInfo.m_distFromBegM);
+//    return;
+//  }
+//  CHECK_NOT_EQUAL(markId, kml::kInvalidMarkId, ());
+//
+//  auto trackSelectionMark = GetMarkForEdit<TrackSelectionMark>(markId);
+//  trackSelectionMark->SetPosition(trackSelectionInfo.m_trackPoint);
+//  trackSelectionMark->SetDistance(trackSelectionInfo.m_distFromBegM);
+  SetTrackSelectionMark(trackSelectionInfo.m_trackId, trackSelectionInfo.m_trackPoint, trackSelectionInfo.m_distFromBegM);
 
-  auto trackSelectionMark = GetMarkForEdit<TrackSelectionMark>(markId);
-  trackSelectionMark->SetPosition(trackSelectionInfo.m_trackPoint);
-  trackSelectionMark->SetDistance(trackSelectionInfo.m_distFromBegM);
 
   if (notifyListeners && m_elevationActivePointChanged != nullptr)
     m_elevationActivePointChanged();
@@ -1092,8 +1100,8 @@ void BookmarkManager::OnTrackDeselected()
 
   auto es = GetEditSession();
   auto * trackSelectionMark = GetMarkForEdit<TrackSelectionMark>(markId);
-  auto const isVisible = IsVisible(GetTrack(m_selectedTrackId)->GetGroupId());
-  trackSelectionMark->SetIsVisible(isVisible);
+//  auto const isVisible = IsVisible(GetTrack(m_selectedTrackId)->GetGroupId());
+  trackSelectionMark->SetIsVisible(false);
 
   m_selectedTrackId = kml::kInvalidTrackId;
 }

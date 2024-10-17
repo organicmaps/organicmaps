@@ -204,6 +204,12 @@ using namespace storage;
   [[MapViewController sharedController].navigationController pushViewController:editBookmarkController animated:YES];
 }
 
+- (void)editBookmark:(PlacePageData *)data {
+  EditTrackViewController * editTrackController = [[EditTrackViewController alloc] init];
+  [editBookmarkController configureWithPlacePageData:data];
+  [[MapViewController sharedController].navigationController pushViewController:editBookmarkController animated:YES];
+}
+
 - (void)showPlaceDescription:(NSString *)htmlString
 {
   [self.ownerViewController openFullPlaceDescriptionWithHtml:htmlString];

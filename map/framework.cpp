@@ -622,7 +622,6 @@ void Framework::FillUserMarkInfo(UserMark const * mark, place_page::Info & outIn
 void Framework::FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const
 {
   info.SetBookmarkCategoryName(GetBookmarkManager().GetCategoryName(bmk.GetGroupId()));
-  info.SetBookmarkData(bmk.GetData());
   info.SetBookmarkId(bmk.GetId());
   info.SetBookmarkCategoryId(bmk.GetGroupId());
   auto const description = GetPreferredBookmarkStr(info.GetBookmarkData().m_description);
@@ -649,6 +648,7 @@ void Framework::FillTrackInfo(Track const & track, m2::PointD const & trackPoint
   info.SetTrackId(track.GetId());
   info.SetBookmarkCategoryId(track.GetGroupId());
   info.SetMercator(trackPoint);
+  info.SetCustomName(track.GetName());
 }
 
 search::ReverseGeocoder::Address Framework::GetAddressAtPoint(m2::PointD const & pt) const
@@ -888,8 +888,8 @@ void Framework::ShowTrack(kml::TrackId trackId)
   auto es = GetBookmarkManager().GetEditSession();
   es.SetIsVisible(track->GetGroupId(), true /* visible */);
 
-  if (track->IsInteractive())
-    bm.SetDefaultTrackSelection(trackId, true /* showInfoSign */);
+//  if (track->IsInteractive())
+//    bm.SetDefaultTrackSelection(trackId, true /* showInfoSign */);
 }
 
 void Framework::ShowBookmarkCategory(kml::MarkGroupId categoryId, bool animation)
@@ -908,13 +908,13 @@ void Framework::ShowBookmarkCategory(kml::MarkGroupId categoryId, bool animation
   es.SetIsVisible(categoryId, true /* visible */);
 
   auto const & trackIds = bm.GetTrackIds(categoryId);
-  for (auto trackId : trackIds)
-  {
-    if (!bm.GetTrack(trackId)->IsInteractive())
-      continue;
-    bm.SetDefaultTrackSelection(trackId, true /* showInfoSign */);
-    break;
-  }
+//  for (auto trackId : trackIds)
+//  {
+//    if (!bm.GetTrack(trackId)->IsInteractive())
+//      continue;
+//    bm.SetDefaultTrackSelection(trackId, true /* showInfoSign */);
+//    break;
+//  }
 }
 
 void Framework::ShowFeature(FeatureID const & featureId)
@@ -2219,8 +2219,8 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
   auto const isFeatureMatchingEnabled = buildInfo.IsFeatureMatchingEnabled();
 
   // Using VisualParams inside FindTrackInTapPosition/GetDefaultTapRect requires drapeEngine.
-  if (m_drapeEngine != nullptr && buildInfo.IsTrackMatchingEnabled() &&
-      !(isFeatureMatchingEnabled && selectedFeature.IsValid()))
+  if (m_drapeEngine != nullptr && buildInfo.IsTrackMatchingEnabled() && isFeatureMatchingEnabled
+      /*!(isFeatureMatchingEnabled && selectedFeature.IsValid())*/)
   {
     auto const trackSelectionInfo = FindTrackInTapPosition(buildInfo);
     if (trackSelectionInfo.m_trackId != kml::kInvalidTrackId)

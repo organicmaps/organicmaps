@@ -1,6 +1,7 @@
 #import "PlacePagePreviewData+Core.h"
 
 #include "3party/opening_hours/opening_hours.hpp"
+#include "kml/types.hpp"
 
 static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH)
 {
@@ -50,14 +51,6 @@ static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH)
 
 @implementation PlacePagePreviewData (Core)
 
-- (instancetype)initWithElevationInfo:(ElevationInfo const &)elevationInfo {
-  self = [super init];
-  if (self) {
-     _title = @(elevationInfo.GetName().c_str());
-  }
-  return self;
-}
-
 - (instancetype)initWithRawData:(place_page::Info const &)rawData {
   self = [super init];
   if (self) {
@@ -69,6 +62,13 @@ static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH)
     _isMyPosition = rawData.IsMyPosition();
     //_isPopular = rawData.GetPopularity() > 0;
     _schedule = convertOpeningHours(rawData.GetOpeningHours());
+
+    if (rawData.IsTrack()) {
+      _coordinates = nullptr;
+      _address = nullptr;
+      _isMyPosition = false;
+      _schedule = convertOpeningHours("");
+    }
   }
   return self;
 }

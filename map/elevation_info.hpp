@@ -39,10 +39,10 @@ public:
   std::string const & GetName() const { return m_name; }
   size_t GetSize() const { return m_points.size(); };
   Points const & GetPoints() const { return m_points; };
-  uint16_t GetAscent() const { return m_ascent; }
-  uint16_t GetDescent() const { return m_descent; }
-  uint16_t GetMinAltitude() const { return m_minAltitude; }
-  uint16_t GetMaxAltitude() const { return m_maxAltitude; }
+  geometry::Altitude GetAscent() const { return m_ascent; }
+  geometry::Altitude GetDescent() const { return m_descent; }
+  geometry::Altitude GetMinAltitude() const { return m_minAltitude; }
+  geometry::Altitude GetMaxAltitude() const { return m_maxAltitude; }
   uint8_t GetDifficulty() const { return m_difficulty; }
   uint32_t GetDuration() const { return m_duration; }
 
@@ -52,13 +52,13 @@ private:
   // Points with distance from start of the track and altitude.
   Points m_points;
   // Ascent in meters.
-  uint16_t m_ascent = 0;
+  geometry::Altitude m_ascent = 0;
   // Descent in meters.
-  uint16_t m_descent = 0;
+  geometry::Altitude m_descent = 0;
   // Altitude in meters.
-  uint16_t m_minAltitude = 0;
+  geometry::Altitude m_minAltitude = 0;
   // Altitude in meters.
-  uint16_t m_maxAltitude = 0;
+  geometry::Altitude m_maxAltitude = 0;
   // Some digital difficulty level with value in range [0-kMaxDifficulty]
   // or kInvalidDifficulty when difficulty is not found or incorrect.
   Difficulty m_difficulty = Difficulty::Unknown;

@@ -156,6 +156,10 @@
   [[MWMMapViewControlsManager manager].placePageManager editBookmark:data];
 }
 
++ (void)editTrack:(PlacePageData *)data {
+  [[MWMMapViewControlsManager manager].placePageManager editTrack:data];
+}
+
 + (void)searchBookingHotels:(PlacePageData *)data {
   [[MWMMapViewControlsManager manager].placePageManager searchBookingHotels:data];
 }

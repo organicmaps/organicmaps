@@ -27,6 +27,7 @@ public:
 
   m2::RectD GetLimitRect() const;
   double GetLengthMeters() const;
+  double GetDurationInSeconds() const;
   bool IsInteractive() const;
 
   std::pair<m2::PointD, double> GetCenterPoint() const;
@@ -67,13 +68,15 @@ public:
   /// @name This functions are valid only for the single line geometry.
   /// @{
   kml::MultiGeometry::LineT const & GetSingleGeometry() const;
+
+  bool HasAltitudes() const;
+
 private:
   std::vector<double> GetLengthsImpl() const;
   /// @}
   m2::RectD GetLimitRectImpl() const;
 
   void CacheDataForInteraction();
-  bool HasAltitudes() const;
 
   double GetLengthMetersImpl(kml::MultiGeometry::LineT const & line, size_t ptIdx) const;
 

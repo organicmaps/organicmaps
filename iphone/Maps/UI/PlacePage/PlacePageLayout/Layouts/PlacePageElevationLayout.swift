@@ -22,9 +22,15 @@ class PlacePageElevationLayout: IPlacePageLayout {
     return PlacePageHeaderBuilder.build(data: placePageData.previewData, delegate: interactor, headerType: .fixed)
   } ()
 
-  lazy var elevationMapViewController: ElevationProfileViewController = {
-    let vc = ElevationProfileBuilder.build(data: placePageData, delegate: interactor)
+  lazy var bookmarkViewController: PlacePageBookmarkViewController = {
+    let vc = storyboard.instantiateViewController(ofType: PlacePageBookmarkViewController.self)
+    vc.view.isHidden = true
+    vc.delegate = interactor
     return vc
+  } ()
+
+  lazy var elevationMapViewController: ElevationProfileViewController = {
+    return ElevationProfileBuilder.build(data: placePageData, delegate: interactor)
   } ()
 
   init(interactor: PlacePageInteractor, storyboard: UIStoryboard, data: PlacePageData) {
@@ -35,6 +41,13 @@ class PlacePageElevationLayout: IPlacePageLayout {
 
   private func configureViewControllers() -> [UIViewController] {
     var viewControllers = [UIViewController]()
+
+    viewControllers.append(bookmarkViewController)
+    if let bookmarkData = placePageData.bookmarkData {
+      bookmarkViewController.bookmarkData = bookmarkData
+      bookmarkViewController.view.isHidden = false
+    }
+
     viewControllers.append(elevationMapViewController)
 
     return viewControllers
