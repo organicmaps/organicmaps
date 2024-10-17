@@ -4,7 +4,7 @@ enum TrackRecordingState: Equatable {
   case error(TrackRecordingError)
 }
 
-enum TrackRecordingAction {
+enum TrackRecordingAction: String, CaseIterable {
   case start
   case stop
 }
@@ -30,15 +30,39 @@ final class TrackRecordingManager: NSObject {
     var recordingStateDidChangeHandler: TrackRecordingStateHandler?
   }
 
-  static let shared: TrackRecordingManager = TrackRecordingManager(trackRecorder: FrameworkHelper.self)
+  static let shared: TrackRecordingManager = {
+    let trackRecorder = FrameworkHelper.self
+    var activityManager: TrackRecordingActivityManager? = nil
+    #if canImport(ActivityKit)
+    if #available(iOS 16.2, *) {
+      activityManager = TrackRecordingLiveActivityManager.shared
+    }
+    #endif
+    return TrackRecordingManager(trackRecorder: trackRecorder, activityManager: activityManager)
+  }()
 
   private let trackRecorder: TrackRecorder.Type
   private(set) var recordingState: TrackRecordingState = .inactive
+  private var activityManager: TrackRecordingActivityManager?
 
-  private init(trackRecorder: TrackRecorder.Type) {
+  init(trackRecorder: TrackRecorder.Type, activityManager: TrackRecordingActivityManager?) {
     self.trackRecorder = trackRecorder
+    self.activityManager = activityManager
     super.init()
-    self.recordingState = getCurrentRecordingState()
+    subscribeOnAppLifecycleEvents()
+  }
+
+  @objc
+  func setup() {
+    recordingState = getCurrentRecordingState()
+    switch recordingState {
+    case .inactive:
+      break
+    case .active:
+      activityManager?.start()
+    case .error(let trackRecordingError):
+      handleError(trackRecordingError)
+    }
   }
 
   func processAction(_ action: TrackRecordingAction, completion: (CompletionHandler)? = nil) {
@@ -48,6 +72,15 @@ final class TrackRecordingManager: NSObject {
     case .stop:
       stop(completion: completion)
     }
+  }
+
+  private func subscribeOnAppLifecycleEvents() {
+    NotificationCenter.default.addObserver(self, selector: #selector(prepareForTermination), name: UIApplication.willTerminateNotification, object: nil)
+  }
+
+  @objc
+  private func prepareForTermination() {
+    activityManager?.stop()
   }
 
   private func handleError(_ error: TrackRecordingError, completion: (CompletionHandler)? = nil) {
@@ -68,11 +101,11 @@ final class TrackRecordingManager: NSObject {
   }
 
   private func start(completion: (CompletionHandler)? = nil) {
-    let state = getCurrentRecordingState()
-    switch state {
+    recordingState = getCurrentRecordingState()
+    switch recordingState {
     case .inactive:
       trackRecorder.startTrackRecording()
-      recordingState = .active
+      activityManager?.start()
       completion?()
     case .active:
       break
@@ -103,6 +136,7 @@ final class TrackRecordingManager: NSObject {
 
   private func stopRecording(_ savingOption: SavingOption, completion: (CompletionHandler)? = nil) {
     trackRecorder.stopTrackRecording()
+    activityManager?.stop()
     switch savingOption {
     case .withoutSaving:
       break
