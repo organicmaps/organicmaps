@@ -810,6 +810,8 @@
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">امکان نمایش گفتگوی انتخاب پوشه وجود ندارد زیرا برنامه مناسبی روی دستگاه شما نصب نشده است. لطفاً یک برنامه مدیریت فایل نصب کنید و دوباره امتحان کنید</string>
     <string name="uri_open_location_failed">هیچ برنامه ای نصب نشده است که بتواند مکان را باز کند</string>
+    <!-- preference string for using auto theme only in navigation mode -->
+    <string name="nav_auto">خودکار در ناوبری</string>
 
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">آدرس/بلاک</string>

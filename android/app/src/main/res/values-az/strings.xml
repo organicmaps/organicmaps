@@ -844,6 +844,8 @@
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Qovluq seçimi dialoqunu göstərmək mümkün deyil, çünki cihazınızda uyğun proqram quraşdırılmayıb. Lütfən, fayl meneceri proqramı quraşdırın və yenidən cəhd edin</string>
     <string name="uri_open_location_failed">Məkanı aça biləcək proqram quraşdırılmayıb</string>
+    <!-- preference string for using auto theme only in navigation mode -->
+    <string name="nav_auto">Naviqasiyada avtomatik</string>
 
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Ünvan/Blok</string>
