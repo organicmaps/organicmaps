@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bX8-ZQ-XDA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bX8-ZQ-XDA">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -636,7 +636,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8eU-Fj-XRv" customClass="CopyLabel" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="56" y="10" width="311" height="24"/>
+                                        <rect key="frame" x="56" y="10" width="267" height="24"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -1403,14 +1403,14 @@
         <scene sceneID="0yF-nr-ALU">
             <objects>
                 <viewController storyboardIdentifier="ElevationProfileViewController" id="d1y-Na-lDm" customClass="ElevationProfileViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="7Mx-au-yIa">
+                    <view key="view" contentMode="scaleToFill" id="7Mx-au-yIa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="319"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jKi-gT-ZfM">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jKi-gT-ZfM">
                                 <rect key="frame" x="0.0" y="20" width="375" height="156"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jIS-0e-Ztd" customClass="ChartView" customModule="Chart">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jIS-0e-Ztd" customClass="ChartView" customModule="Chart">
                                         <rect key="frame" x="16" y="0.0" width="343" height="156"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </view>
@@ -1424,7 +1424,7 @@
                                     <constraint firstAttribute="height" constant="176" id="utH-YA-2pe"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Xc9-ED-V4K">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Xc9-ED-V4K">
                                 <rect key="frame" x="16" y="192" width="343" height="68"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -1499,7 +1499,7 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" ambiguous="YES" text="Difficulty" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FIo-No-CbK">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Difficulty" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FIo-No-CbK">
                                 <rect key="frame" x="16" y="281" width="68" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -1509,7 +1509,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bc9-z0-p88" customClass="DifficultyView" customModule="Organic_Maps" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bc9-z0-p88" customClass="DifficultyView" customModule="Organic_Maps" customModuleProvider="target">
                                 <rect key="frame" x="91" y="287" width="40" height="10"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -1517,32 +1517,13 @@
                                     <constraint firstAttribute="width" constant="40" id="Sor-5l-zjy"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="1h 10m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dQJ-fW-QVh">
-                                <rect key="frame" x="301" y="281" width="58" height="20.5"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="bold17:blackPrimaryText"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Time:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hoy-lg-Wl9">
-                                <rect key="frame" x="249" y="280.5" width="43" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="elevation_profile_time"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium14:blackSecondaryText"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g6D-fD-0Ug">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g6D-fD-0Ug">
                                 <rect key="frame" x="133" y="276.5" width="30" height="30"/>
                                 <connections>
                                     <action selector="onExtendedDifficultyButtonPressed:" destination="d1y-Na-lDm" eventType="touchUpInside" id="4zH-m2-OSE"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="S1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GPk-XR-oL1" customClass="InsetsLabel" customModule="Organic_Maps" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GPk-XR-oL1" customClass="InsetsLabel" customModule="Organic_Maps" customModuleProvider="target">
                                 <rect key="frame" x="138.5" y="281" width="19" height="20.5"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -1556,18 +1537,13 @@
                         <viewLayoutGuide key="safeArea" id="ezp-sJ-36x"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="hoy-lg-Wl9" firstAttribute="baseline" secondItem="FIo-No-CbK" secondAttribute="baseline" id="7IY-jn-lps"/>
                             <constraint firstItem="bc9-z0-p88" firstAttribute="leading" secondItem="FIo-No-CbK" secondAttribute="trailing" constant="7" id="CDd-Zf-CvI"/>
                             <constraint firstItem="Xc9-ED-V4K" firstAttribute="top" secondItem="jKi-gT-ZfM" secondAttribute="bottom" constant="16" id="Izs-S0-cku"/>
-                            <constraint firstItem="ezp-sJ-36x" firstAttribute="trailing" secondItem="dQJ-fW-QVh" secondAttribute="trailing" constant="16" id="L0f-4H-Rdv"/>
                             <constraint firstItem="g6D-fD-0Ug" firstAttribute="centerY" secondItem="GPk-XR-oL1" secondAttribute="centerY" id="P9X-9S-8dI"/>
-                            <constraint firstItem="dQJ-fW-QVh" firstAttribute="leading" secondItem="hoy-lg-Wl9" secondAttribute="trailing" constant="9" id="TRv-Jp-YEl"/>
                             <constraint firstItem="GPk-XR-oL1" firstAttribute="leading" secondItem="bc9-z0-p88" secondAttribute="trailing" constant="7.6666666666666856" id="W9l-Ip-nhH"/>
                             <constraint firstItem="g6D-fD-0Ug" firstAttribute="centerX" secondItem="GPk-XR-oL1" secondAttribute="centerX" id="YFV-Au-wTO"/>
-                            <constraint firstItem="hoy-lg-Wl9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="GPk-XR-oL1" secondAttribute="trailing" constant="8" id="eP3-qC-a2f"/>
                             <constraint firstItem="FIo-No-CbK" firstAttribute="leading" secondItem="ezp-sJ-36x" secondAttribute="leading" constant="16" id="eg2-uX-NgT"/>
                             <constraint firstItem="jKi-gT-ZfM" firstAttribute="leading" secondItem="ezp-sJ-36x" secondAttribute="leading" id="kKJ-Jg-wRO"/>
-                            <constraint firstItem="dQJ-fW-QVh" firstAttribute="baseline" secondItem="FIo-No-CbK" secondAttribute="baseline" id="kvI-gM-iyU"/>
                             <constraint firstItem="ezp-sJ-36x" firstAttribute="trailing" secondItem="Xc9-ED-V4K" secondAttribute="trailing" constant="16" id="mxE-Mk-VH2"/>
                             <constraint firstItem="bc9-z0-p88" firstAttribute="bottom" secondItem="FIo-No-CbK" secondAttribute="baseline" id="opM-hk-CFP"/>
                             <constraint firstItem="ezp-sJ-36x" firstAttribute="bottom" secondItem="Xc9-ED-V4K" secondAttribute="bottom" constant="59" id="vaG-aV-kw5"/>
@@ -1585,14 +1561,12 @@
                     <connections>
                         <outlet property="chartView" destination="jIS-0e-Ztd" id="KHY-Bn-Pe6"/>
                         <outlet property="descriptionCollectionView" destination="Xc9-ED-V4K" id="dHB-dH-HYE"/>
+                        <outlet property="difficultyConstraint" destination="vaG-aV-kw5" id="fkz-u2-wYh"/>
                         <outlet property="difficultyTitle" destination="FIo-No-CbK" id="Rbh-8b-zK9"/>
                         <outlet property="difficultyView" destination="bc9-z0-p88" id="p5u-Au-7i2"/>
-                        <outlet property="diffucultyConstraint" destination="vaG-aV-kw5" id="t7C-va-ntM"/>
                         <outlet property="extendedDifficultyGradeLabel" destination="GPk-XR-oL1" id="SpR-XZ-6ou"/>
                         <outlet property="extendedGradeButton" destination="g6D-fD-0Ug" id="8br-bF-NqA"/>
                         <outlet property="graphViewContainer" destination="jKi-gT-ZfM" id="SUq-a3-G5F"/>
-                        <outlet property="trackTimeLabel" destination="dQJ-fW-QVh" id="LxB-Xa-NrL"/>
-                        <outlet property="trackTimeTitle" destination="hoy-lg-Wl9" id="Eed-Ul-Fd6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mfQ-ai-TWx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1823,16 +1797,16 @@
         <image name="ic_placepage_open_hours" width="28" height="28"/>
         <image name="img_direction_light" width="32" height="32"/>
         <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="separatorColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

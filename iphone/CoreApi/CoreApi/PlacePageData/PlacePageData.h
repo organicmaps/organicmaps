@@ -9,6 +9,7 @@
 @class PlacePageBookmarkData;
 @class ElevationProfileData;
 @class MWMMapNodeAttributes;
+@class TrackStatistics;
 
 typedef NS_ENUM(NSInteger, PlacePageRoadType) {
   PlacePageRoadTypeToll,
@@ -31,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) PlacePageBookmarkData *bookmarkData;
 @property(nonatomic, readonly) PlacePageRoadType roadType;
 @property(nonatomic, readonly, nullable) NSString *wikiDescriptionHtml;
-@property(nonatomic, readonly, nullable) ElevationProfileData *trackStatisticsData;
+@property(nonatomic, readonly, nullable) TrackStatistics *trackStatistics;
 @property(nonatomic, readonly, nullable) ElevationProfileData *elevationProfileData;
 @property(nonatomic, readonly, nullable) MWMMapNodeAttributes *mapNodeAttributes;
 @property(nonatomic, readonly, nullable) NSString *bookingSearchUrl;

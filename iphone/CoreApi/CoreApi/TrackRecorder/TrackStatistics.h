@@ -6,7 +6,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) double length;
 @property (nonatomic, readonly) double duration;
-@property (nonatomic, readonly) double elevationGain;
+@property (nonatomic, readonly) double ascend;
+@property (nonatomic, readonly) double descend;
 
 @end
 

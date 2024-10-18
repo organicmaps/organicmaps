@@ -157,7 +157,7 @@
 }
 
 + (void)editTrack:(PlacePageData *)data {
-  [[MWMMapViewControlsManager manager].placePageManager editTrack:data];
+//  [[MWMMapViewControlsManager manager].placePageManager editTrack:data];
 }
 
 + (void)searchBookingHotels:(PlacePageData *)data {

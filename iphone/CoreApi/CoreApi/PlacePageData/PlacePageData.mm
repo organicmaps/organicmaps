@@ -6,6 +6,7 @@
 #import "PlacePageBookmarkData+Core.h"
 #import "ElevationProfileData+Core.h"
 #import "MWMMapNodeAttributes.h"
+#import "TrackStatistics+Core.h"
 
 #include <CoreApi/CoreApi.h>
 #include "platform/network_policy.hpp"
@@ -66,7 +67,9 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
     if (_isTrack) {
       auto const & bm = GetFramework().GetBookmarkManager();
       auto const & trackId = rawData().GetTrackId();
-      if (bm.GetTrack(trackId)->HasAltitudes()) {
+      auto const & track = bm.GetTrack(trackId);
+      _trackStatistics = [[TrackStatistics alloc] initWithTrackData:track];
+      if (track->HasAltitudes()) {
         auto const & elevationInfo = bm.MakeElevationInfo(trackId);
         _elevationProfileData = [[ElevationProfileData alloc] initWithElevationInfo:elevationInfo
                                                                         activePoint:bm.GetElevationActivePoint(trackId)

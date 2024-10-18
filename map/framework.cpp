@@ -621,6 +621,7 @@ void Framework::FillUserMarkInfo(UserMark const * mark, place_page::Info & outIn
 
 void Framework::FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const
 {
+  info.SetBookmarkData(bmk.GetData());
   info.SetBookmarkCategoryName(GetBookmarkManager().GetCategoryName(bmk.GetGroupId()));
   info.SetBookmarkId(bmk.GetId());
   info.SetBookmarkCategoryId(bmk.GetGroupId());

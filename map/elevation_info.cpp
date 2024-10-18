@@ -44,26 +44,27 @@ ElevationInfo::ElevationInfo(Track const & track)
 
   auto const & baseAltitude = points[0].GetAltitude();
   m_points.emplace_back(0, baseAltitude);
+  m_minAltitude = baseAltitude;
+  m_maxAltitude = baseAltitude;
 
   double distance = 0.0;
-
   for (size_t i = 1; i < points.size(); ++i)
   {
     distance += mercator::DistanceOnEarth(points[i - 1].GetPoint(), points[i].GetPoint());
     m_points.emplace_back(distance, points[i].GetAltitude());
 
-    auto const & pt1 = points[i - 1].GetPoint();
-    auto const & pt2 = points[i].GetPoint();
-    auto const deltaAltitude = points[i].GetAltitude() - points[i - 1].GetAltitude();
+    auto const & previousPointAltitude = points[i - 1].GetAltitude();
+    auto const & currentPointAltitude = points[i].GetAltitude();
+    auto const deltaAltitude = currentPointAltitude - previousPointAltitude;
     if (deltaAltitude > 0)
       m_ascent += deltaAltitude;
     else
       m_descent -= deltaAltitude;
 
-    if (m_minAltitude == geometry::kInvalidAltitude || points[i].GetAltitude() < m_minAltitude)
-      m_minAltitude = points[i].GetAltitude();
-    if (m_maxAltitude == geometry::kInvalidAltitude || points[i].GetAltitude() > m_maxAltitude)
-      m_maxAltitude = points[i].GetAltitude();
+    if (currentPointAltitude < m_minAltitude)
+      m_minAltitude = currentPointAltitude;
+    if (currentPointAltitude > m_maxAltitude)
+      m_maxAltitude = currentPointAltitude;
   }
 
   auto const & timestamps = trackData.m_geometry.m_timestamps[0];

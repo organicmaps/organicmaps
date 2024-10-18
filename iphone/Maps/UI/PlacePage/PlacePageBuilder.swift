@@ -9,8 +9,8 @@
     let interactor = PlacePageInteractor(viewController: viewController,
                                          data: data,
                                          mapViewController: MapViewController.shared()!)
-    let layout:IPlacePageLayout
-    if data.elevationProfileData != nil {
+    let layout: IPlacePageLayout
+    if data.isTrack {
       layout = PlacePageElevationLayout(interactor: interactor, storyboard: storyboard, data: data)
     } else {
       layout = PlacePageCommonLayout(interactor: interactor, storyboard: storyboard, data: data)
@@ -30,8 +30,8 @@
     let interactor = PlacePageInteractor(viewController: viewController,
                                          data: data,
                                          mapViewController: MapViewController.shared()!)
-    let layout:IPlacePageLayout
-    if data.elevationProfileData != nil {
+    let layout: IPlacePageLayout
+    if data.isTrack {
       layout = PlacePageElevationLayout(interactor: interactor, storyboard: viewController.storyboard!, data: data)
     } else {
       layout = PlacePageCommonLayout(interactor: interactor, storyboard: viewController.storyboard!, data: data)

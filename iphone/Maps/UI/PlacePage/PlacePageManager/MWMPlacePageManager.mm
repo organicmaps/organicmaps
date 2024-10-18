@@ -205,9 +205,9 @@ using namespace storage;
 }
 
 - (void)editTrack:(PlacePageData *)data {
-  EditTrackViewController * editTrackController = [[EditTrackViewController alloc] init];
-  [editBookmarkController configureWithPlacePageData:data];
-  [[MapViewController sharedController].navigationController pushViewController:editBookmarkController animated:YES];
+//  EditTrackViewController * editTrackController = [[EditTrackViewController alloc] init];
+//  [editBookmarkController configureWithPlacePageData:data];
+//  [[MapViewController sharedController].navigationController pushViewController:editBookmarkController animated:YES];
 }
 
 - (void)showPlaceDescription:(NSString *)htmlString

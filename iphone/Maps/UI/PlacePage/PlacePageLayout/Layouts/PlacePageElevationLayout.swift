@@ -29,15 +29,16 @@ class PlacePageElevationLayout: IPlacePageLayout {
     return vc
   } ()
 
-  lazy var infoViewController: PlacePageInfoViewController = {
-    let vc = storyboard.instantiateViewController(ofType: PlacePageInfoViewController.self)
-    vc.placePageInfoData = placePageData.infoData
-    vc.delegate = interactor
+  func trackStatisticsViewController(statistics: TrackStatistics) -> TrackStatisticsViewController {
+    let vc = TrackStatisticsBuilder.build(statistics: statistics)
     return vc
-  } ()
+  }
 
-  lazy var elevationMapViewController: ElevationProfileViewController = {
-    return ElevationProfileBuilder.build(data: placePageData, delegate: interactor)
+  lazy var elevationMapViewController: ElevationProfileViewController? = {
+    guard let elevationProfileData = placePageData.elevationProfileData else {
+      return nil
+    }
+    return ElevationProfileBuilder.build(elevationProfileData: elevationProfileData, delegate: interactor)
   } ()
 
   init(interactor: PlacePageInteractor, storyboard: UIStoryboard, data: PlacePageData) {
@@ -55,11 +56,15 @@ class PlacePageElevationLayout: IPlacePageLayout {
       bookmarkViewController.view.isHidden = false
     }
 
-    if placePageData.infoData != nil {
-      viewControllers.append(infoViewController)
+    guard let trackStatistics = placePageData.trackStatistics else {
+      let message = "Track statistics should not be nil"
+      LOG(.critical, message)
+      fatalError(message)
     }
-
-    viewControllers.append(elevationMapViewController)
+    viewControllers.append(trackStatisticsViewController(statistics: trackStatistics))
+    if let elevationMapViewController {
+      viewControllers.append(elevationMapViewController)
+    }
 
     return viewControllers
   }
@@ -67,8 +72,12 @@ class PlacePageElevationLayout: IPlacePageLayout {
   func calculateSteps(inScrollView scrollView: UIScrollView, compact: Bool) -> [PlacePageState] {
     var steps: [PlacePageState] = []
     let scrollHeight = scrollView.height
-    let previewHeight = elevationMapViewController.getPreviewHeight()
     steps.append(.closed(-scrollHeight))
+    guard let elevationMapViewController else {
+      steps.append(.full(0))
+      return steps
+    }
+    let previewHeight = elevationMapViewController.getPreviewHeight()
     guard let previewView = elevationMapViewController.view else {
         return steps
     }
