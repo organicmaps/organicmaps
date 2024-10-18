@@ -31,12 +31,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) PlacePageBookmarkData *bookmarkData;
 @property(nonatomic, readonly) PlacePageRoadType roadType;
 @property(nonatomic, readonly, nullable) NSString *wikiDescriptionHtml;
+@property(nonatomic, readonly, nullable) ElevationProfileData *trackStatisticsData;
 @property(nonatomic, readonly, nullable) ElevationProfileData *elevationProfileData;
 @property(nonatomic, readonly, nullable) MWMMapNodeAttributes *mapNodeAttributes;
 @property(nonatomic, readonly, nullable) NSString *bookingSearchUrl;
 @property(nonatomic, readonly) BOOL isMyPosition;
 @property(nonatomic, readonly) BOOL isPreviewPlus;
 @property(nonatomic, readonly) BOOL isRoutePoint;
+@property(nonatomic, readonly) BOOL isTrack;
 @property(nonatomic, readonly) CLLocationCoordinate2D locationCoordinate;
 @property(nonatomic, copy, nullable) MWMVoidBlock onBookmarkStatusUpdate;
 @property(nonatomic, copy, nullable) MWMVoidBlock onMapNodeStatusUpdate;

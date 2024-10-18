@@ -62,7 +62,8 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
       [tagsArray addObject:@(s.c_str())];
     }
 
-    if (rawData().IsTrack()) {
+    _isTrack = rawData().IsTrack();
+    if (_isTrack) {
       auto const & bm = GetFramework().GetBookmarkManager();
       auto const & trackId = rawData().GetTrackId();
       if (bm.GetTrack(trackId)->HasAltitudes()) {

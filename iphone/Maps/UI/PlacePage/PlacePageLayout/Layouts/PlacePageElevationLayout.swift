@@ -29,6 +29,13 @@ class PlacePageElevationLayout: IPlacePageLayout {
     return vc
   } ()
 
+  lazy var infoViewController: PlacePageInfoViewController = {
+    let vc = storyboard.instantiateViewController(ofType: PlacePageInfoViewController.self)
+    vc.placePageInfoData = placePageData.infoData
+    vc.delegate = interactor
+    return vc
+  } ()
+
   lazy var elevationMapViewController: ElevationProfileViewController = {
     return ElevationProfileBuilder.build(data: placePageData, delegate: interactor)
   } ()
@@ -46,6 +53,10 @@ class PlacePageElevationLayout: IPlacePageLayout {
     if let bookmarkData = placePageData.bookmarkData {
       bookmarkViewController.bookmarkData = bookmarkData
       bookmarkViewController.view.isHidden = false
+    }
+
+    if placePageData.infoData != nil {
+      viewControllers.append(infoViewController)
     }
 
     viewControllers.append(elevationMapViewController)
