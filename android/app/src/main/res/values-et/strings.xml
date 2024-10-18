@@ -854,6 +854,8 @@
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Kaustavaliku dialoogi ei ole võimalik kuvada, sest teie seadmesse ei ole paigaldatud sobivat rakendust. Palun installige failihaldurirakendus ja proovige uuesti.</string>
     <string name="uri_open_location_failed">Ei ole paigaldatud rakendust, mis saaks asukoha avada</string>
+    <!-- preference string for using auto theme only in navigation mode -->
+    <string name="nav_auto">Automaatne navigeerimine</string>
 
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Aadress/plokk</string>

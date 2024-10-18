@@ -905,6 +905,8 @@
     <string name="choose_color">Choose Color</string>
     <string name="edit_track">Edit Track</string>
     <string name="uri_open_location_failed">No App installed that can open the location</string>
+    <!-- preference string for using auto theme only in navigation mode -->
+    <string name="nav_auto">Auto in navigation</string>
 
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Address/Block</string>
