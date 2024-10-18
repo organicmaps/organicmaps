@@ -855,6 +855,8 @@
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">לא ניתן להציג תיבת דו-שיח לבחירת תיקיות מכיוון שלא מותקנת אפליקציה מתאימה במכשיר שלך. אנא התקן אפליקציית מנהל קבצים ונסה שוב</string>
     <string name="uri_open_location_failed">לא מותקנת אפליקציה שיכולה לפתוח את המיקום</string>
+    <!-- preference string for using auto theme only in navigation mode -->
+    <string name="nav_auto">אוטומטי בניווט</string>
 
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">כתובת/שכונה</string>
