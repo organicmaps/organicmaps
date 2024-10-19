@@ -32,7 +32,7 @@
           android:layout_height="wrap_content"
           android:layout_marginBottom="@dimen/margin_half"
           android:fontFamily="@string/robotoMedium"
-          android:text="Create an OpenStreetMap account or log in to publish your map edits to the world."
+          android:text="@string/login_to_make_edits_visible"
           android:textAppearance="@style/MwmTextAppearance.Body2"
           android:textColor="?android:textColorPrimary" />
       <androidx.constraintlayout.widget.ConstraintLayout
@@ -55,7 +55,7 @@
           android:layout_marginStart="@dimen/margin_base"
           android:autoLink="web"
           android:fontFamily="@string/robotoRegular"
-          android:text="OpenStreetMap.org (OSM) is a community project to build a free and open map. It's like Wikipedia for maps, you can add or edit places and they become available to millions of users all over the World.\nAs all map data in Organic Maps comes from OSM, contributing to OSM means contributing to Organic Maps. Join the community and help to make a better map for everyone!"
+          android:text="@string/login_osm_presentation"
           android:textAppearance="@style/MwmTextAppearance.Body3"
           android:textColor="?android:textColorPrimary"
           app:layout_constraintBottom_toBottomOf="parent"
