@@ -20,7 +20,7 @@ namespace
 {
 // See search/search_quality/scoring_model.py for details.  In short,
 // these coeffs correspond to coeffs in a linear model.
-double constexpr kHasName = 0.5;
+double constexpr kCategoriesHasName = 0.25;
 double constexpr kCategoriesPopularity = 0.05;
 double constexpr kCategoriesDistanceToPivot = -0.6874177;
 double constexpr kCategoriesRank = 1.0000000;
@@ -115,7 +115,7 @@ static_assert(std::size(kStreetType) == base::Underlying(StreetType::Count));
 static_assert(kType[Model::TYPE_BUILDING] > kStreetType[StreetType::Motorway]);
 
 // Coeffs sanity checks.
-static_assert(kHasName >= 0, "");
+static_assert(kCategoriesHasName >= 0 && kCategoriesHasName < kViewportDiffThreshold);
 static_assert(kCategoriesPopularity >= 0, "");
 static_assert(kDistanceToPivot <= 0, "");
 static_assert(kRank >= 0, "");
@@ -417,7 +417,7 @@ double RankingInfo::GetLinearModelRank(bool viewportMode /* = false */) const
     if (m_falseCats)
       result += kCategoriesFalseCats;
     if (m_hasName)
-      result += kHasName;
+      result += kCategoriesHasName;
   }
 
   // Trying to fix https://github.com/organicmaps/organicmaps/issues/5251.

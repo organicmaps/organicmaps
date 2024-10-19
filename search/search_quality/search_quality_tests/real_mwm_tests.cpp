@@ -1268,6 +1268,33 @@ UNIT_CLASS_TEST(MwmTestsFixture, PostOffice_Viewport)
   }
 }
 
+UNIT_CLASS_TEST(MwmTestsFixture, Family_Viewport)
+{
+  using namespace mercator;
+  auto const & cl = classif();
+
+  // Buenos Aires
+  ms::LatLon const center(-34.588943, -58.3988512);
+  SetViewportAndLoadMaps(center);
+
+  auto params = GetDefaultSearchParams("Family holiday ");
+  params.m_mode = search::Mode::Viewport;
+  params.m_categorialRequest = true;
+  params.m_maxNumResults = search::SearchParams::kDefaultNumResultsInViewport;
+
+  {
+    params.m_viewport = { LonToX(-58.4015885), LatToY(-34.5901233), LonToX(-58.396118), LatToY(-34.5876888) };
+
+    auto request = MakeRequest(params);
+    auto const & results = request->Results();
+    Range allRange(results, true /* all */);
+
+    TEST_EQUAL(CountClassifType(allRange, cl.GetTypeByPath({"shop", "baby_goods"})), 1, ());
+    TEST_EQUAL(CountClassifType(allRange, cl.GetTypeByPath({"shop", "toys"})), 1, ());
+    TEST_EQUAL(CountClassifType(allRange, cl.GetTypeByPath({"leisure", "playground"})), 2, ());
+  }
+}
+
 UNIT_CLASS_TEST(MwmTestsFixture, NotAllTokens)
 {
   auto const & cl = classif();
