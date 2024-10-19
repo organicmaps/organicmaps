@@ -449,6 +449,13 @@ public:
   DECLARE_CHECKER_INSTANCE(IsPublicTransportStopChecker);
 };
 
+class IsTaxiChecker : public BaseChecker
+{
+  IsTaxiChecker();
+public:
+  DECLARE_CHECKER_INSTANCE(IsTaxiChecker);
+};
+
 class IsMotorwayJunctionChecker : public BaseChecker
 {
   IsMotorwayJunctionChecker();
