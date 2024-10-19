@@ -208,7 +208,7 @@ IsPostPoiChecker::IsPostPoiChecker()
 IsOperatorOthersPoiChecker::IsOperatorOthersPoiChecker()
 {
   Classificator const & c = classif();
-  for (char const * val : {"bicycle_rental", "bureau_de_change", "car_sharing", "car_rental", "fuel", "charging_station", 
+  for (char const * val : {"bicycle_rental", "bureau_de_change", "car_sharing", "car_rental", "fuel", "charging_station",
                            "parking", "motorcycle_parking", "bicycle_parking", "payment_terminal", "university", "vending_machine"})
     m_types.push_back(c.GetTypeByPath({"amenity", val}));
 }
@@ -711,6 +711,12 @@ IsPublicTransportStopChecker::IsPublicTransportStopChecker()
   m_types.push_back(c.GetTypeByPath({"highway", "bus_stop"}));
   m_types.push_back(c.GetTypeByPath({"railway", "halt"}));
   m_types.push_back(c.GetTypeByPath({"railway", "tram_stop"}));
+}
+
+IsTaxiChecker::IsTaxiChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"amenity", "taxi"}));
 }
 
 IsMotorwayJunctionChecker::IsMotorwayJunctionChecker()

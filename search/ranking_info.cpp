@@ -223,7 +223,6 @@ public:
       {"amenity", "police"},
       {"amenity", "post_office"},
       {"amenity", "stripclub"},
-      {"amenity", "taxi"},
       {"amenity", "theatre"},
     };
 
@@ -496,7 +495,7 @@ PoiType GetPoiType(feature::TypesHolder const & th)
   {
     return PoiType::TransportMajor;
   }
-  if (IsPublicTransportStopChecker::Instance()(th))
+  if (IsPublicTransportStopChecker::Instance()(th) || IsTaxiChecker::Instance()(th))
     return PoiType::TransportLocal;
 
   static IsAttraction const attractionCheck;
