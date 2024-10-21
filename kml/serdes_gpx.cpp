@@ -508,8 +508,11 @@ void SaveBookmarkData(Writer & writer, BookmarkData const & bookmarkData)
   if (!name)
     name = GetDefaultLanguage(bookmarkData.m_name);  // Original POI name stored when bookmark was created.
   if (name)
-    writer << kIndent2 << "<name>" << *name << "</name>\n";
-
+  {
+    writer << kIndent2 << "<name>";
+    SaveStringWithCDATA(writer, name.value());
+    writer << "</name>\n";
+  }
   if (auto const description = GetDefaultLanguage(bookmarkData.m_description))
   {
     writer << kIndent2 << "<cmt>";
@@ -540,7 +543,17 @@ void SaveTrackData(Writer & writer, TrackData const & trackData)
   writer << "<trk>\n";
   auto name = GetDefaultLanguage(trackData.m_name);
   if (name.has_value())
-    writer << kIndent2 << "<name>" << name.value() << "</name>\n";
+  {
+    writer << kIndent2 << "<name>";
+    SaveStringWithCDATA(writer, name.value());
+    writer << "</name>\n";
+  }
+  if (auto const description = GetDefaultLanguage(trackData.m_description))
+  {
+    writer << kIndent2 << "<cmt>";
+    SaveStringWithCDATA(writer, description.value());
+    writer << "</cmt>\n";
+  }
   if (auto const color = TrackColor(trackData); color != kDefaultTrackColor)
   {
     writer << kIndent2 << "<extensions>\n" << kIndent4 << "<color>";
