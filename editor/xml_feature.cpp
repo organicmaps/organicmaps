@@ -409,6 +409,135 @@ string XMLFeature::GetUploadError() const { return GetRootNode().attribute(kUplo
 
 void XMLFeature::SetUploadError(string const & error) { SetAttribute(kUploadError, error); }
 
+osm::EditJournal XMLFeature::GetEditJournal() const
+{
+  // debug print
+  std::ostringstream ost;
+  Save(ost);
+  LOG(LDEBUG, ("Read in XMLFeature:\n", ost.str()));
+
+  auto readEditJournalList = [] (pugi::xml_node & xmlNode, osm::EditJournal & journal, bool isHistory)
+  {
+    for (auto xmlEntry = xmlNode.child("entry"); xmlEntry; xmlEntry = xmlEntry.next_sibling("entry"))
+    {
+      osm::JournalEntry entry;
+
+      std::string strType = xmlEntry.attribute("type").value();
+      std::optional<osm::JournalEntryType> type = osm::EditJournal::TypeFromString(strType);
+      ASSERT(type.has_value(), ("Invalid JournalEntryType ", strType));
+      entry.journalEntryType = *type;
+
+      entry.timestamp = base::StringToTimestamp(xmlEntry.attribute("timestamp").value());
+
+      auto xmlData = xmlEntry.child("data");
+
+      switch (entry.journalEntryType) {
+        case osm::JournalEntryType::TagModification:
+        {
+          osm::TagModData tagModData;
+          tagModData.key = xmlData.attribute("key").value();
+          tagModData.old_value = xmlData.attribute("old_value").value();
+          tagModData.new_value = xmlData.attribute("new_value").value();
+          entry.data = tagModData;
+          break;
+        }
+        case osm::JournalEntryType::ObjectCreated:
+        {
+          osm::ObjCreateData objCreateData;
+          objCreateData.type = classif().GetTypeByReadableObjectName(xmlData.attribute("type").value());
+          objCreateData.geomType = feature::TypeFromString(xmlData.attribute("geomType").value());
+          objCreateData.mercator = mercator::FromLatLon(GetLatLonFromNode(xmlData));
+          entry.data = objCreateData;
+          break;
+        }
+        case osm::JournalEntryType::LegacyObject:
+        {
+          osm::LegacyObjData legacyObjData;
+          legacyObjData.version = xmlData.attribute("version").value();
+          entry.data = legacyObjData;
+          break;
+        }
+      }
+      if (isHistory)
+        journal.AddJournalHistoryEntry(entry);
+      else
+        journal.AddJournalEntry(entry);
+    }
+  };
+
+  osm::EditJournal journal = osm::EditJournal();
+
+  auto xmlJournal = GetRootNode().child("journal");
+  if (xmlJournal)
+    readEditJournalList(xmlJournal, journal, false);
+  else {
+    // Mark as Legacy Object
+    osm::LegacyObjData legacyObjData = {"1.0"};
+    journal.AddJournalEntry({osm::JournalEntryType::LegacyObject, time(nullptr), legacyObjData});
+    journal.AddJournalHistoryEntry({osm::JournalEntryType::LegacyObject, time(nullptr), std::move(legacyObjData)});
+  }
+
+  auto xmlJournalHistory = GetRootNode().child("journalHistory");
+  readEditJournalList(xmlJournalHistory, journal, true);
+
+  LOG(LDEBUG, ("Read in Journal:\n", journal.JournalToString()));
+
+  return journal;
+}
+
+void XMLFeature::SetEditJournal(osm::EditJournal const & journal)
+{
+  LOG(LDEBUG, ("Saving Journal:\n", journal.JournalToString()));
+
+  auto const insertEditJournalList = [] (pugi::xml_node & xmlNode, std::list<osm::JournalEntry> const & journalList){
+    xmlNode.append_attribute("version") = "1.0";
+    for (osm::JournalEntry const & entry : journalList) {
+      auto xmlEntry = xmlNode.append_child("entry");
+      xmlEntry.append_attribute("type") = osm::EditJournal::ToString(entry.journalEntryType).data();
+      xmlEntry.append_attribute("timestamp") = base::TimestampToString(entry.timestamp).data();
+
+      auto xmlData = xmlEntry.append_child("data");
+      switch (entry.journalEntryType) {
+        case osm::JournalEntryType::TagModification:
+        {
+          osm::TagModData const & tagModData = std::get<osm::TagModData>(entry.data);
+          xmlData.append_attribute("key") = tagModData.key.data();
+          xmlData.append_attribute("old_value") = tagModData.old_value.data();
+          xmlData.append_attribute("new_value") = tagModData.new_value.data();
+          break;
+        }
+        case osm::JournalEntryType::ObjectCreated:
+        {
+          osm::ObjCreateData const & objCreateData = std::get<osm::ObjCreateData>(entry.data);
+          xmlData.append_attribute("type") = classif().GetReadableObjectName(objCreateData.type).data();
+          xmlData.append_attribute("geomType") = ToString(objCreateData.geomType).data();
+          ms::LatLon ll = mercator::ToLatLon(objCreateData.mercator);
+          xmlData.append_attribute("lat") = strings::to_string_dac(ll.m_lat, kLatLonTolerance).data();
+          xmlData.append_attribute("lon") = strings::to_string_dac(ll.m_lon, kLatLonTolerance).data();
+          break;
+        }
+        case osm::JournalEntryType::LegacyObject:
+        {
+          osm::LegacyObjData const & legacyObjData = std::get<osm::LegacyObjData>(entry.data);
+          xmlData.append_attribute("version") = legacyObjData.version.data();
+          break;
+        }
+      }
+    }
+  };
+
+  auto xmlJournal = GetRootNode().append_child("journal");
+  insertEditJournalList(xmlJournal, journal.GetJournal());
+
+  auto xmlJournalHistory = GetRootNode().append_child("journalHistory");
+  insertEditJournalList(xmlJournalHistory, journal.GetJournalHistory());
+
+  // debug print
+  std::ostringstream ost;
+  Save(ost);
+  LOG(LDEBUG, ("Saving XMLFeature:\n", ost.str()));
+}
+
 bool XMLFeature::HasAnyTags() const { return GetRootNode().child("tag"); }
 
 bool XMLFeature::HasTag(string_view key) const { return FindTag(m_document, key); }
@@ -447,6 +576,42 @@ void XMLFeature::RemoveTag(string_view key)
   auto tag = FindTag(m_document, key);
   if (tag)
     GetRootNode().remove_child(tag);
+}
+
+void XMLFeature::UpdateOSMTag(std::string_view key, std::string_view value)
+{
+  if (value == "") {
+    RemoveTag(key);
+  }
+  else {
+    // TODO(mgsergio): Get these alt tags from the config.
+    base::StringIL const alternativeTags[] = {
+        {"phone", "contact:phone", "contact:mobile", "mobile"},
+        {"website", "contact:website", "url"},
+        {"fax", "contact:fax"},
+        {"email", "contact:email"}
+    };
+
+    // Avoid duplication for similar alternative osm tags.
+    for (auto const & alt : alternativeTags)
+    {
+      auto it = alt.begin();
+      ASSERT(it != alt.end(), ());
+      if (key == *it)
+      {
+        for (auto const & tag : alt)
+        {
+          // Reuse already existing tag if it's present.
+          if (HasTag(tag))
+          {
+            SetTagValue(tag, value);
+            return;
+          }
+        }
+      }
+    }
+    SetTagValue(key, value);
+  }
 }
 
 string XMLFeature::GetAttribute(string const & key) const
@@ -608,6 +773,36 @@ XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType)
       toFeature.SetTagValue(tag, value);
   });
 
+  return toFeature;
+}
+
+XMLFeature TypeToXML(uint32_t type, feature::GeomType geomType, m2::PointD mercator)
+{
+  ASSERT(geomType == feature::GeomType::Point, ("Only point features can be added"));
+  XMLFeature toFeature(XMLFeature::Type::Node);
+  toFeature.SetCenter(mercator);
+
+  // Set Type
+  if (ftypes::IsRecyclingCentreChecker::Instance()(type))
+  {
+    toFeature.SetTagValue("amenity", "recycling");
+    toFeature.SetTagValue("recycling_type", "centre");
+  }
+  else if (ftypes::IsRecyclingContainerChecker::Instance()(type))
+  {
+    toFeature.SetTagValue("amenity", "recycling");
+    toFeature.SetTagValue("recycling_type", "container");
+  }
+  else
+  {
+    string const strType = classif().GetReadableObjectName(uint32_t(type));
+    strings::SimpleTokenizer iter(strType, "-");
+    string_view const k = *iter;
+
+    CHECK(++iter, ("Processing Type failed: ", strType));
+    // Main type is always stored as "k=amenity v=restaurant".
+    toFeature.SetTagValue(k, *iter);
+  }
   return toFeature;
 }
 
