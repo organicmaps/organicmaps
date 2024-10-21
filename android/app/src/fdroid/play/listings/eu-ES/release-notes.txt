@@ -1,5 +1,5 @@
-- Edit Tracks: Change name, color, list and description of tracks, or delete them.
-- Open in Another App: Select any map point in Organic Maps and open in apps like taxi, delivery, transport, or other map apps.
-- Map Data: Updated as of October 1, now with added isolines for Egypt and improved for Adygea, Dagestan.
-- KML/KMZ/GPX: Fixed issues with importing files from different apps.
-- Right-to-left languages: Enhanced the place page, search, and about screens.
+- Editatu arrastoak: aldatu izena, kolorea, zerrenda eta arrastoen deskribapena edo ezabatu.
+- Ireki beste aplikazio batean: hautatu edozein mapa-puntu Organic Maps-en eta ireki taxia, bidalketa, garraioa edo beste mapa-aplikazio batzuetan.
+- Maparen datuak: urriaren 1etik eguneratu dira, orain Egiptorako isolineak gehituta eta Adygea, Dagestanentzat, hobetuta.
+- KML/KMZ/GPX: Aplikazio desberdinetako fitxategiak inportatzeko arazoak konpondu dira.
+- Eskuinetik ezkerreko hizkuntzak: tokiaren orria, bilaketa eta pantailari buruzkoak hobetu ditu.
