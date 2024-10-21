@@ -235,11 +235,11 @@ def init(default_settings_path: AnyStr):
     global THREADS_COUNT_FEATURES_STAGE
     NEED_PLANET_UPDATE = cfg.get_opt("Stages", "NEED_PLANET_UPDATE", NEED_PLANET_UPDATE)
     DATA_ARCHIVE_DIR = cfg.get_opt_path(
-        "Generator tool", "DATA_ARCHIVE_DIR", DATA_ARCHIVE_DIR
+        "Stages", "DATA_ARCHIVE_DIR", DATA_ARCHIVE_DIR
     )
-    DIFF_VERSION_DEPTH = cfg.get_opt(
-        "Generator tool", "DIFF_VERSION_DEPTH", DIFF_VERSION_DEPTH
-    )
+    DIFF_VERSION_DEPTH = int(cfg.get_opt(
+        "Stages", "DIFF_VERSION_DEPTH", DIFF_VERSION_DEPTH
+    ))
 
     threads_count = int(
         cfg.get_opt(
