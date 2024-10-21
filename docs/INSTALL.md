@@ -15,7 +15,7 @@ For _Windows_ you need to have [Git for Windows](https://git-scm.com/download/wi
 
 ## Getting sources
 
-First of all get the source code. The full Organic Maps sources repository is ~8.5Gb in size, there are various [clone options](#special-cases-options) to reduce the download size to suit your needs.
+First of all get the source code. The full Organic Maps sources repository is ~10Gb in size, there are various [clone options](#special-cases-options) to reduce the download size to suit your needs.
 
 For _Windows_, it's necessary to enable symlink support:
 1. Activate _Windows Development Mode_ to enable symlinks globally:
@@ -32,7 +32,7 @@ Clone the repository including all submodules (see [Special cases options](#spec
 (if you plan to contribute and propose pull requests then use a web interface at https://github.com/organicmaps/organicmaps to fork the repository first and use your fork's URL in the command below)
 
 ```bash
-git clone --recurse-submodules https://github.com/organicmaps/organicmaps.git
+git clone --recurse-submodules --shallow-submodules https://github.com/organicmaps/organicmaps.git
 ```
 
 Go into the cloned repository:
@@ -40,7 +40,7 @@ Go into the cloned repository:
 cd organicmaps
 ```
 
-Configure the repository for an open source build:
+Configure the repository (make sure you have a working C++ build environment):
 
 (if you plan to publish the app privately in stores check [special options](#special-cases-options))
 
@@ -71,8 +71,6 @@ If you're only doing a one-off build or your internet bandwidth or disk space is
 
 - a `--depth=1` option to make a _shallow copy_ (and possibly a `--no-single-branch` to have all branches not just `master`), i.e. omit history while retaining current commits only (saves ~4.5Gb) - suitable for one-off builds.
 
-- a `--shallow-submodules` option to _shallow clone_ the submodules (save ~1.3Gb) - this is suitable for a generic development if no work on submodules is planned.
-
 If you mistakenly did a `git clone` without checking out submodules, you can run `git submodule update --init --recursive`. If you don't want to clone complete submodules, you can add `--depth=1` to the update command.
 
 To be able to publish the app in stores e.g. in Google Play its necessary to populate some configs with private keys, etc.
@@ -88,7 +86,7 @@ You need a Linux or a MacOS machine to build a desktop version of Organic Maps. 
 
 Ensure that you have at least 20GB of free space.
 
-Install Cmake (**3.22.1** minimum), Boost, Qt 6 and other dependencies.
+Install Cmake (**3.30.3** minimum), Boost, Qt 6 and other dependencies.
 
 Installing *ccache* can speed up active development.
 
@@ -124,7 +122,7 @@ sudo apt update && sudo apt install -y \
 
 | Software  | Minimum version | Impacted Ubuntu release | Workaround                                                  |
 | --------- | --------------- | ----------------------- | ----------------------------------------------------------- |
-| CMake     | `3.22.1`        | `20.04` and older       | Install newer `cmake` from [PPA](https://apt.kitware.com/) or from `snap`<br> with `sudo snap install --classic cmake` |
+| CMake     | `3.30.3`        | `20.04` and older       | Install newer `cmake` from [PPA](https://apt.kitware.com/) or from `snap`<br> with `sudo snap install --classic cmake` |
 | FreeType  | `2.13.1`        | `22.04` and older       | Install newer `libfreetype6` and `libfreetype-dev` from [PPA](https://launchpad.net/~reviczky/+archive/ubuntu/freetype) |
 | GeoClue   | `2.5.7`         | `20.04` and older       | Install newer `geoclue-2.0` from [PPA](https://launchpad.net/~savoury1/+archive/ubuntu/backports) |
 | Qt 6      | `6.4.0`         | `22.04` and older       | Build and install Qt 6.4 manually |
@@ -400,12 +398,12 @@ Install Android SDK and NDK:
 - Switch to "SDK Tools" tab.
 - Check "Show Package Details" checkbox.
 - Select "NDK (Side by side)" version **27.1.12297006**.
-- Select "CMake" version **3.22.1**.
+- Select "CMake" version **3.30.3**.
 - Click "Apply" and wait for downloads and installation to finish.
 - In the left pane menu select "Appearance & Behavior > System Settings > Memory Settings".
 - Set "IDE max heap size" to 2048MB or more (otherwise the Studio might get stuck on "Updating indexes" when opening the project).
 
-Configure the repository with Android SDK and NDK paths. You can do it either by setting a global environment variable pointing at your Android SDK:
+Configure the repository with Android SDK and NDK paths. You can do it either by [setting](https://developer.android.com/tools#environment-variables) a global environment variable pointing at your Android SDK:
 
 ```
 ANDROID_HOME=<here is the absolute path to the root folder of your Android SDK installation>
@@ -427,18 +425,11 @@ _macOS:_
 
 _Windows 10:_ no action needed, should work out of the box.
 
-### Create a device
+
+### Setup the emulator
 
 Setup a virtual device to use [emulator](https://developer.android.com/studio/run/emulator) ("Tools > Device Manager") or [use a hardware device for debugging](https://developer.android.com/studio/run/device).
-If using an emulator, make sure to choose a system image with API Level 34. Use ABI _x86_64_ for Intel-based processors and _arm64-v8a_ for ARM-based processors (e.g. M1/M2 Macs).
-
-Android Studio has issues in parsing the C++ part of the project, please let us know if you know how to resolve it. As a workaround, for working C++ suggestions, you may use:
-
-- [Qt Creator](https://www.qt.io/product/development-tools)
-- [Xcode](https://developer.apple.com/xcode/)
-- [CLion](https://www.jetbrains.com/clion/)
-
-For Xcode it is required to run `cmake . -g Xcode` to generate project files, while CLion and QT Creator can import CMakeLists.txt.
+If using an emulator, make sure to choose a system image with API Level 35. Use ABI _x86_64_ for Intel-based processors and _arm64-v8a_ for ARM-based processors (e.g. M1/M2 Macs).
 
 
 ### Building
@@ -507,13 +498,13 @@ First configure `PATH` to prefer `cmake` from the Android SDK/NDK instead of the
 _Linux:_
 
 ```bash
-export PATH=$HOME/Android/Sdk/cmake/3.22.1/bin:$PATH
+export PATH=$HOME/Android/Sdk/cmake/3.30.3/bin:$PATH
 ```
 
 _macOS:_
 
 ```bash
-export PATH=$HOME/Library/Android/Sdk/cmake/3.22.1/bin:$PATH
+export PATH=$HOME/Library/Android/Sdk/cmake/3.30.3/bin:$PATH
 ```
 
 Check if you have a system-wide Java Runtime Environment (JRE) installed:
@@ -581,21 +572,25 @@ To add any of those options to in-studio builds list them in "Command-line Optio
 
 #### Reduce resource usage
 
-You can install
-[Android SDK](https://developer.android.com/sdk/index.html) and
-[NDK](https://developer.android.com/tools/sdk/ndk/index.html) without
-Android Studio. Please make sure that SDK for API Level 33,
-NDK version **27.1.12297006** and CMake version **3.22.1** are installed.
-
 If you are low on RAM, disk space or traffic there are ways to reduce system requirements:
-- exclude the `cpp` folder from indexing. If you do not make any work on the C++ code, this will greatly improve the start-up performance and the ram usage of Android Studio. Click on the `Project` tab on the left, find the `cpp` folder (should be next to the `java` folder), right click on it and select `Mark Directory as` -> `Excluded` (red folder icon). Then restart Android Studio.
+- exclude the `cpp` folder from indexing - if you do not make any work on the C++ code, this will greatly improve the start-up performance and the ram usage of Android Studio; Click on the `Project` tab on the left, find the `cpp` folder (should be next to the `java` folder), right click on it and select `Mark Directory as` -> `Excluded` (red folder icon), then restart Android Studio;
 - in Android Studio enable "File > Power Save Mode";
 - disable the "Android NDK Support" plugin in "Settings -> Plugins" completely and use another IDE (Visual Studio Code, Qt Creator, etc.) for editing C++ code instead;
-- don't install Android Studio, run builds and emulator from command line;
+- don't install Android Studio, run builds and emulator from command line (download [command line tools](https://developer.android.com/studio#command-line-tools-only) first and then use the [`sdkmanager`](https://developer.android.com/tools/sdkmanager) tool to install all required packages: `platform-tools`, `build-tools`, [right versions](#preparing-1) of `platform` (SDK), `ndk` & `cmake`, maybe `emulator`...; then [set env vars](https://developer.android.com/tools#environment-variables));
 - build only for target arches you actually need, e.g. `arm64`;
 - for debugging use an older emulated device with low RAM and screen resolution, e.g. "Nexus S";
 - make sure the emulator uses [hardware acceleration](https://developer.android.com/studio/run/emulator-acceleration);
 - don't use emulator, debug on a hardware device instead.
+
+#### Alternatives for working with C++ code
+
+Android Studio has issues in parsing the C++ part of the project, please let us know if you know how to resolve it. As a workaround, for working C++ suggestions, you may use:
+
+- [Qt Creator](https://www.qt.io/product/development-tools)
+- [Xcode](https://developer.apple.com/xcode/)
+- [CLion](https://www.jetbrains.com/clion/)
+
+For Xcode it is required to run `cmake . -g Xcode` to generate project files, while CLion and QT Creator can import CMakeLists.txt.
 
 #### Enable Vulkan Validation
 
@@ -667,4 +662,4 @@ Select "OMaps" product scheme.
 Compile and run the project ("Product" → "Run").
 
 ## Map data and styles
-See readme for the [map generator](https://github.com/organicmaps/organicmaps/blob/master/docs/MAPS.md) and [styles](https://github.com/organicmaps/organicmaps/blob/master/docs/STYLES.md) if you need to customize the map files and styles
+See readme for the [map generator](https://github.com/organicmaps/organicmaps/blob/master/docs/MAPS.md) and [styles](https://github.com/organicmaps/organicmaps/blob/master/docs/STYLES.md) if you need to customize the map files and styles.
