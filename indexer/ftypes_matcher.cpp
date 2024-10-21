@@ -362,6 +362,13 @@ IsAddressObjectChecker::IsAddressObjectChecker() : BaseChecker(1 /* level */)
     m_types.push_back(c.GetTypeByPath({p}));
 }
 
+IsAddressChecker::IsAddressChecker() : BaseChecker(1 /* level */)
+{
+  Classificator const & c = classif();
+  for (auto const * p : {"addr:interpolation", "building", "entrance"})
+    m_types.push_back(c.GetTypeByPath({p}));
+}
+
 IsVillageChecker::IsVillageChecker()
 {
   // TODO (@y, @m, @vng): this list must be up-to-date with
