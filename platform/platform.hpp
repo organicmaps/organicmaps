@@ -4,6 +4,7 @@
 #include "platform/country_defines.hpp"
 #include "platform/gui_thread.hpp"
 #include "platform/secure_storage.hpp"
+#include "platform/trace.hpp"
 
 #include "coding/reader.hpp"
 
@@ -117,6 +118,8 @@ protected:
   std::unique_ptr<base::DelayedThreadPool> m_backgroundThread;
 
   platform::BatteryLevelTracker m_batteryTracker;
+
+  platform::Trace m_trace;
 
 public:
   Platform();
@@ -338,6 +341,8 @@ public:
   void SetGuiThread(std::unique_ptr<base::TaskLoop> guiThread);
 
   platform::BatteryLevelTracker & GetBatteryTracker() { return m_batteryTracker; }
+
+  platform::Trace & GetTrace() { return m_trace; }
 
 private:
   void RunThreads();
