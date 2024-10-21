@@ -859,6 +859,8 @@
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Kansiovalintaikkunaa ei voida näyttää, koska laitteeseen ei ole asennettu sopivaa sovellusta. Asenna tiedostonhallintasovellus ja yritä uudelleen</string>
     <string name="uri_open_location_failed">Ei asennettua sovellusta, joka voi avata sijainnin</string>
+    <!-- preference string for using auto theme only in navigation mode -->
+    <string name="nav_auto">Automaattinen navigointi</string>
 
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Osoite/lohko</string>

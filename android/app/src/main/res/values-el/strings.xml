@@ -862,6 +862,8 @@
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Δεν είναι δυνατή η εμφάνιση του διαλόγου επιλογής φακέλου επειδή δεν είναι εγκατεστημένη η κατάλληλη εφαρμογή στη συσκευή σας. Εγκαταστήστε μια εφαρμογή διαχείρισης αρχείων και δοκιμάστε ξανά</string>
     <string name="uri_open_location_failed">Δεν υπάρχει εγκατεστημένη εφαρμογή που να μπορεί να ανοίξει την τοποθεσία</string>
+    <!-- preference string for using auto theme only in navigation mode -->
+    <string name="nav_auto">Αυτόματη πλοήγηση</string>
 
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Διεύθυνση/Μπλοκ</string>
