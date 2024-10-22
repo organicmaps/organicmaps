@@ -797,7 +797,7 @@
     <!-- App tip #03 -->
     <string name="app_tip_03">Jeśli znasz programistę, możesz poprosić go o wdrożenie potrzebnej funkcji.</string>
     <!-- App tip #04 -->
-    <string name="app_tip_04">Czy wiesz, że możesz długo dotknąć dowolnego miejsca na mapie, aby je wybrać?</string>
+    <string name="app_tip_04">Proszę dotknąć dowolnego miejsca na mapie, aby wybrać cokolwiek. Długie dotknięcie pozwala ukryć i wyświetlić interfejs.</string>
     <!-- App tip #05 -->
     <string name="app_tip_05">Czy wiesz, że możesz wybrać swoją aktualną lokalizację na mapie?</string>
     <!-- App tip #06 -->

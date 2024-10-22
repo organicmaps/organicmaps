@@ -1276,7 +1276,7 @@
 "app_tip_03" = "Ha ismer egy szoftverfejlesztőt, megkérheti őt egy olyan funkció megvalósítására, amelyre szüksége van.";
 
 /* App tip #04 */
-"app_tip_04" = "Tudja, hogy a térkép bármely pontjára hosszan koppintva kiválaszthatja azt?";
+"app_tip_04" = "Koppintson a térképen bárhová, hogy bármit kiválaszthasson. Hosszú koppintással elrejtheti és visszahozhatja a felületet.";
 
 /* App tip #05 */
 "app_tip_05" = "Tudja, hogy kijelölheti pozícióját a térképen?";
@@ -1643,7 +1643,7 @@
 
 "type.amenity.post_office" = "Posta";
 
-"type.amenity.prison" = "Prison";
+"type.amenity.prison" = "Börtön";
 
 "type.amenity.pub" = "Kocsma";
 

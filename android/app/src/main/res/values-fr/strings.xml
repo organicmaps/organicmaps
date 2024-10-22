@@ -798,7 +798,7 @@
     <!-- App tip #03 -->
     <string name="app_tip_03">Si vous connaissez un développeur de logiciels, vous pouvez lui demander d\'implémenter une fonctionnalité dont vous avez besoin.</string>
     <!-- App tip #04 -->
-    <string name="app_tip_04">Savez-vous que vous pouvez appuyer longuement sur n\'importe quel endroit de la carte pour le sélectionner ?</string>
+    <string name="app_tip_04">Tapez n\'importe où sur la carte pour sélectionner quelque chose. Touchez longuement pour masquer et réafficher l\'interface.</string>
     <!-- App tip #05 -->
     <string name="app_tip_05">Savez-vous que vous pouvez sélectionner votre position actuelle sur la carte ?</string>
     <!-- App tip #06 -->
@@ -988,6 +988,7 @@
     <string name="type.amenity.place_of_worship.taoist">Temmple Taoïste</string>
     <string name="type.amenity.post_box">Boîte aux lettres</string>
     <string name="type.amenity.post_office">Bureau de poste</string>
+    <string name="type.amenity.prison">Prison</string>
     <string name="type.amenity.pub">Pub</string>
     <string name="type.amenity.public_bookcase">Microbibliothèque</string>
 

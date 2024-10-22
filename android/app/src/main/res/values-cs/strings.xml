@@ -756,7 +756,7 @@
     <!-- App tip #03 -->
     <string name="app_tip_03">Pokud znáte vývojáře softwaru, můžete ho požádat, aby implementoval funkci, kterou potřebujete.</string>
     <!-- App tip #04 -->
-    <string name="app_tip_04">Víte, že libovolné místo na mapě můžete vybrat dlouhým klepnutím?</string>
+    <string name="app_tip_04">Klepnutím na libovolné místo na mapě můžete cokoli vybrat. Dlouhým klepnutím skryjete a znovu zobrazíte rozhraní.</string>
     <!-- App tip #05 -->
     <string name="app_tip_05">Víte, že si na mapě můžete vybrat svou aktuální polohu?</string>
     <!-- App tip #06 -->
@@ -937,6 +937,7 @@
     <string name="type.amenity.police">Policie</string>
     <string name="type.amenity.post_box">Poštovní schránka</string>
     <string name="type.amenity.post_office">Pošta</string>
+    <string name="type.amenity.prison">Vězení</string>
     <string name="type.amenity.pub">Hospoda</string>
     <string name="type.amenity.public_bookcase">Knihovna</string>
 

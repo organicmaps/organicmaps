@@ -312,7 +312,7 @@
     <!-- App tip #03 -->
     <string name="app_tip_03">Ikiwa unajua msanidi programu, unaweza kumwomba kutekeleza kipengele unachohitaji.</string>
     <!-- App tip #04 -->
-    <string name="app_tip_04">Je, unajua kwamba unaweza kugonga kwa muda mrefu sehemu yoyote kwenye ramani ili kuichagua?</string>
+    <string name="app_tip_04">Gusa popote kwenye ramani ili kuchagua chochote. Gusa kwa muda mrefu ili kuficha na kuonyesha kiolesura.</string>
     <!-- App tip #05 -->
     <string name="app_tip_05">Je, unajua kwamba unaweza kuchagua eneo lako la sasa kwenye ramani?</string>
     <!-- App tip #06 -->
@@ -432,6 +432,7 @@
     <string name="type.amenity.place_of_worship.christian.mormon">Kanisa la Yesu Kristo la Watakatifu wa Siku za Mwisho</string>
     <string name="type.amenity.place_of_worship.christian.jehovahs_witness">Ukumbi wa Ufalme wa Mashahidi wa Yehova</string>
     <string name="type.amenity.post_office">Ofisi ya posta</string>
+    <string name="type.amenity.prison">Jela</string>
 
     <!-- SECTION: Types: Recycling -->
     <string name="type.recycling.batteries">Betri</string>

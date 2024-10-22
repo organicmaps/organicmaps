@@ -791,7 +791,7 @@
     <!-- App tip #03 -->
     <string name="app_tip_03">Εάν γνωρίζετε έναν προγραμματιστή λογισμικού, μπορείτε να του ζητήσετε να υλοποιήσει μια λειτουργία που χρειάζεστε.</string>
     <!-- App tip #04 -->
-    <string name="app_tip_04">Γνωρίζετε ότι μπορείτε να πατήσετε παρατεταμένα οποιοδήποτε μέρος στο χάρτη για να το επιλέξετε;</string>
+    <string name="app_tip_04">Πατήστε οπουδήποτε στο χάρτη για να επιλέξετε οτιδήποτε. Πατήστε παρατεταμένα για να αποκρύψετε και να εμφανίσετε ξανά το περιβάλλον εργασίας.</string>
     <!-- App tip #05 -->
     <string name="app_tip_05">Γνωρίζετε ότι μπορείτε να επιλέξετε την τρέχουσα τοποθεσία σας στο χάρτη;</string>
     <!-- App tip #06 -->
@@ -979,6 +979,7 @@
     <string name="type.amenity.police">Αστυνομία</string>
     <string name="type.amenity.post_box">Ταχυδρομική θυρίδα</string>
     <string name="type.amenity.post_office">Ταχυδρομείο</string>
+    <string name="type.amenity.prison">φυλακή</string>
     <string name="type.amenity.pub">Παμπ</string>
     <string name="type.amenity.public_bookcase">Ανταλλαγή βιβλίων</string>
 

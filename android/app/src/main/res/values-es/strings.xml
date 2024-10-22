@@ -794,7 +794,7 @@
     <!-- App tip #03 -->
     <string name="app_tip_03">Si conoce a algún desarrollador o desarrolladora de software, le puede pedir que implemente alguna funcionalidad que usted necesite.</string>
     <!-- App tip #04 -->
-    <string name="app_tip_04">¿Sabía que puede pulsar prolongadamente sobre cualquier lugar en el mapa para selecionarlo?</string>
+    <string name="app_tip_04">Toque en cualquier lugar del mapa para seleccionar cualquier elemento. Mantenga pulsado para ocultar y volver a mostrar la interfaz.</string>
     <!-- App tip #05 -->
     <string name="app_tip_05">¿Sabía que su ubicación actual en el mapa se puede seleccionar?</string>
     <!-- App tip #06 -->

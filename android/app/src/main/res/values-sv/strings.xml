@@ -741,7 +741,7 @@
     <!-- App tip #03 -->
     <string name="app_tip_03">Om du känner en mjukvaruutvecklare kan du be honom eller henne att implementera en funktion som du behöver.</string>
     <!-- App tip #04 -->
-    <string name="app_tip_04">Vet du att du kan trycka länge på vilken plats som helst på kartan för att välja den?</string>
+    <string name="app_tip_04">Tryck var som helst på kartan för att välja något. Tryck länge för att dölja och visa gränssnittet igen.</string>
     <!-- App tip #05 -->
     <string name="app_tip_05">Vet du att du kan välja din nuvarande plats på kartan?</string>
     <!-- App tip #06 -->
@@ -922,6 +922,7 @@
     <string name="type.amenity.police">Polis</string>
     <string name="type.amenity.post_box">Postlåda</string>
     <string name="type.amenity.post_office">Postkontor</string>
+    <string name="type.amenity.prison">Fängelse</string>
     <string name="type.amenity.pub">Krog</string>
     <string name="type.amenity.public_bookcase">Bokskåp</string>
 

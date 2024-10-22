@@ -1276,7 +1276,7 @@
 "app_tip_03" = "Se conhece algum desenvolvedor de software, pode pedir-lhe que implemente um recurso de que precisa.";
 
 /* App tip #04 */
-"app_tip_04" = "Sabia que pode tocar longamente em qualquer lugar do mapa para selecioná-lo?";
+"app_tip_04" = "Toque em qualquer parte do mapa para selecionar qualquer coisa. Toque demoradamente para ocultar e voltar a mostrar a interface.";
 
 /* App tip #05 */
 "app_tip_05" = "Sabia que sua posição atual no mapa pode ser selecionada?";

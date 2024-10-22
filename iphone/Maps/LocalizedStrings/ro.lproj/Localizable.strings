@@ -1276,7 +1276,7 @@
 "app_tip_03" = "Dacă cunoașteți un dezvoltator de software, îi puteți cere să implementeze o caracteristică de care aveți nevoie.";
 
 /* App tip #04 */
-"app_tip_04" = "Știți că puteți atinge lung orice loc de pe hartă pentru a-l selecta?";
+"app_tip_04" = "Atingeți oriunde pe hartă pentru a selecta orice. Atingeți lung pentru a ascunde și a reda interfața.";
 
 /* App tip #05 */
 "app_tip_05" = "Știți că vă puteți selecta locația curentă pe hartă?";
@@ -1643,7 +1643,7 @@
 
 "type.amenity.post_office" = "Oficiu poștal";
 
-"type.amenity.prison" = "Prison";
+"type.amenity.prison" = "Închisoare";
 
 "type.amenity.pub" = "Pub";
 

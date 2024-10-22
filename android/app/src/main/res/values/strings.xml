@@ -832,7 +832,7 @@
     <!-- App tip #03 -->
     <string name="app_tip_03">If you know a software developer, you can ask him or her to implement a feature that you need.</string>
     <!-- App tip #04 -->
-    <string name="app_tip_04">Do you know that you can long-tap any place on the map to select it?</string>
+    <string name="app_tip_04">Tap anywhere on the map to select anything. A long tap is used to hide and show the interface.</string>
     <!-- App tip #05 -->
     <string name="app_tip_05">Did you know that your current location on the map can be selected?</string>
     <!-- App tip #06 -->

@@ -786,6 +786,8 @@
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Tr:About</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">İcma tərəfindən yaradılmış xəritələrimizdən istifadə etdiyiniz üçün təşəkkür edirik!</string>
+    <!-- App tip #04 -->
+    <string name="app_tip_04">Nəyisə seçmək üçün xəritədə istənilən yerə toxunun. Gizlətmək və interfeysi geri göstərmək üçün uzun müddət toxunun.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
     <string name="car_used_on_the_phone_screen">İndi telefon ekranında Organic Maps istifadə edirsiniz</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->

@@ -740,7 +740,7 @@
     <!-- App tip #03 -->
     <string name="app_tip_03">Nếu bạn biết một nhà phát triển phần mềm, bạn có thể yêu cầu họ triển khai một tính năng mà bạn cần.</string>
     <!-- App tip #04 -->
-    <string name="app_tip_04">Bạn có biết rằng bạn có thể nhấn và giữ bất kỳ địa điểm nào trên bản đồ để chọn địa điểm đó không?</string>
+    <string name="app_tip_04">Nhấn vào bất cứ nơi nào trên bản đồ để chọn bất cứ thứ gì. Nhấn và giữ để ẩn và hiển thị lại giao diện.</string>
     <!-- App tip #05 -->
     <string name="app_tip_05">Bạn có biết rằng bạn có thể chọn vị trí hiện tại của mình trên bản đồ không?</string>
     <!-- App tip #06 -->
@@ -923,6 +923,7 @@
     <string name="type.amenity.police">Cảnh sát</string>
     <string name="type.amenity.post_box">Hòm thư</string>
     <string name="type.amenity.post_office">Bưu cục</string>
+    <string name="type.amenity.prison">Nhà tù</string>
     <string name="type.amenity.pub">Quán rượu</string>
     <string name="type.amenity.public_bookcase">Kệ sách</string>
 

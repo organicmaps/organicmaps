@@ -787,7 +787,7 @@
     <!-- App tip #03 -->
     <string name="app_tip_03">Hvis du kjenner en programvareutvikler, kan du be ham eller henne implementere en funksjon du trenger.</string>
     <!-- App tip #04 -->
-    <string name="app_tip_04">Vet du at du kan trykke lenge på et hvilket som helst sted på kartet for å velge det?</string>
+    <string name="app_tip_04">Trykk hvor som helst på kartet for å velge noe. Trykk lenge for å skjule og vise grensesnittet igjen.</string>
     <!-- App tip #05 -->
     <string name="app_tip_05">Vet du at du kan velge din nåværende posisjon på kartet?</string>
     <!-- App tip #06 -->
@@ -969,6 +969,7 @@
     <string name="type.amenity.police">Politi</string>
     <string name="type.amenity.post_box">Postboks</string>
     <string name="type.amenity.post_office">Postkontor</string>
+    <string name="type.amenity.prison">Fengsel</string>
     <string name="type.amenity.public_bookcase">Bokhylle</string>
 
     <!-- SECTION: Types: Recycling -->

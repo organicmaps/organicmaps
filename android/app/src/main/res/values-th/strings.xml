@@ -742,7 +742,7 @@
     <!-- App tip #03 -->
     <string name="app_tip_03">หากคุณรู้จักนักพัฒนาซอฟต์แวร์ คุณสามารถขอให้เขาหรือเธอใช้คุณลักษณะที่คุณต้องการได้</string>
     <!-- App tip #04 -->
-    <string name="app_tip_04">คุณรู้ไหมว่าคุณสามารถแตะสถานที่ใดก็ได้บนแผนที่ค้างไว้เพื่อเลือกได้</string>
+    <string name="app_tip_04">แตะที่ใดก็ได้บนแผนที่เพื่อเลือกอะไรก็ได้ แตะยาวเพื่อซ่อนและแสดงอินเทอร์เฟซ</string>
     <!-- App tip #05 -->
     <string name="app_tip_05">คุณรู้หรือไม่ว่าคุณสามารถเลือกตำแหน่งปัจจุบันของคุณบนแผนที่ได้?</string>
     <!-- App tip #06 -->
@@ -926,6 +926,7 @@
     <string name="type.amenity.police">ตำรวจ</string>
     <string name="type.amenity.post_box">ตู้จดหมาย</string>
     <string name="type.amenity.post_office">ที่ทำการไปรษณีย์</string>
+    <string name="type.amenity.prison">คุก</string>
     <string name="type.amenity.pub">ผับ</string>
     <string name="type.amenity.public_bookcase">ตู้หนังสือ สถานที่แลกเปลี่ยนหนังสือ</string>
 

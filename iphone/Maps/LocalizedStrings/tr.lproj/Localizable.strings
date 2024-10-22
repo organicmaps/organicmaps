@@ -1276,7 +1276,7 @@
 "app_tip_03" = "Bir yazılım geliştirici tanıyorsanız, ondan ihtiyacınız olan bir özelliği uygulamasını isteyebilirsiniz.";
 
 /* App tip #04 */
-"app_tip_04" = "Haritadaki herhangi bir yeri seçmek için uzun süre dokunabileceğinizi biliyor musunuz?";
+"app_tip_04" = "Herhangi bir şeyi seçmek için harita üzerinde herhangi bir yere dokunun. Arayüzü gizlemek ve geri göstermek için uzun dokunun.";
 
 /* App tip #05 */
 "app_tip_05" = "Haritada mevcut konumunuzu seçebileceğinizi biliyor musunuz?";

@@ -743,7 +743,7 @@
     <!-- App tip #03 -->
     <string name="app_tip_03">Jika Anda mengenal seorang pengembang perangkat lunak, Anda dapat memintanya untuk mengimplementasikan fitur yang Anda perlukan.</string>
     <!-- App tip #04 -->
-    <string name="app_tip_04">Tahukah Anda bahwa Anda dapat mengetuk lama tempat mana pun di peta untuk memilihnya?</string>
+    <string name="app_tip_04">Ketuk di mana saja pada peta untuk memilih apa pun. Ketuk lama untuk menyembunyikan dan menampilkan kembali antarmuka.</string>
     <!-- App tip #05 -->
     <string name="app_tip_05">Tahukah Anda bahwa Anda dapat memilih lokasi Anda saat ini di peta?</string>
     <!-- App tip #06 -->
@@ -922,6 +922,7 @@
     <string name="type.amenity.police">Polisi</string>
     <string name="type.amenity.post_box">Kotak pos</string>
     <string name="type.amenity.post_office">Kantor pos</string>
+    <string name="type.amenity.prison">Penjara</string>
     <string name="type.amenity.public_bookcase">Rak Buku</string>
 
     <!-- SECTION: Types: Recycling -->

@@ -1276,7 +1276,7 @@
 "app_tip_03" = "Om du känner en mjukvaruutvecklare kan du be honom eller henne att implementera en funktion som du behöver.";
 
 /* App tip #04 */
-"app_tip_04" = "Vet du att du kan trycka länge på vilken plats som helst på kartan för att välja den?";
+"app_tip_04" = "Tryck var som helst på kartan för att välja något. Tryck länge för att dölja och visa gränssnittet igen.";
 
 /* App tip #05 */
 "app_tip_05" = "Vet du att du kan välja din nuvarande plats på kartan?";
@@ -1643,7 +1643,7 @@
 
 "type.amenity.post_office" = "Postkontor";
 
-"type.amenity.prison" = "Prison";
+"type.amenity.prison" = "Fängelse";
 
 "type.amenity.pub" = "Krog";
 
