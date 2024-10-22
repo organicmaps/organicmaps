@@ -1,3 +1,6 @@
-- iOS 18 Dark Mode: Introduced dark and tinted app icons.
-- Map Data: Updated as of October 1, now including isolines for Egypt, Adygea, Dagestan.
-- KML/KMZ/GPX: Fixed issues with importing files from different apps.
+- Friss, október 17-i OpenStreetMap adatok.
+- Részletesebb (50m léptékű) szintvonalak Izland, India & Marokkó térségében.
+- Megváltoztattuk az ikonját a nem iható vízlelőhelyeknek.
+- Hozzáadtunk víztornyokat.
+- Új könyvjelző és keresési ikon (turizmus, információ).
+- Kijavítottuk a Keresés a térképen funkció eredményeinek sorrendjét.

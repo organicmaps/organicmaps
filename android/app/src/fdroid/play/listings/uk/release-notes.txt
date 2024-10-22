@@ -1,5 +1,7 @@
-- Edit Tracks: Change name, color, list and description of tracks, or delete them.
-- Open in Another App: Select any map point in Organic Maps and open in apps like taxi, delivery, transport, or other map apps.
-- Map Data: Updated as of October 1, now with added isolines for Egypt and improved for Adygea, Dagestan.
-- KML/KMZ/GPX: Fixed issues with importing files from different apps.
-- Right-to-left languages: Enhanced the place page, search, and about screens.
+- Нові данні мапи з OpenStreetMap за 17 жовтня.
+- Більш деталізовані висотні ізолінії (з шагом в 50м) для Ісландії, Індії та Марокко.
+- Джерела непитної води мають відмінну іконку.
+- Водонапірні вежі додані на мапу.
+- Нові іконки для міток та результатів пошуку (туризм, інформація).
+- Виправлення падіння при відкритті списку міток з певними іконками.
+- Виправлена помилка пріоритетів під час пошуку на мапі.

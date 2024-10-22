@@ -1,3 +1,6 @@
-- iOS 18 Dark Mode: Introduced dark and tinted app icons.
-- Map Data: Updated as of October 1, now including isolines for Egypt, Adygea, Dagestan.
-- KML/KMZ/GPX: Fixed issues with importing files from different apps.
+- Neue OpenStreetMap Daten vom 17. Oktober.
+- Detailiertere Höhenlinien (50m Schritte) für Island, Indien und Marokko.
+- Verwendung eines anderen Icons für nicht trinkbare Wasserquellen
+- Wassertürme wurden hinzugefügt
+- Neue Lesezeichen und Such-Icons wurden hinzugefügt (Tourismus, Information).
+- Problem mit Priorisierung bei Suche auf der Karte behoben
