@@ -16701,7 +16701,7 @@ zh-Hant:藝術中心
 
 amenity-prison
 en:prison
-ar:السجن
+ar:سجن
 be:турма
 bg:затвор
 ca:presó
