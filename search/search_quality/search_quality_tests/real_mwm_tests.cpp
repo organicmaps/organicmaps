@@ -1432,4 +1432,20 @@ UNIT_CLASS_TEST(MwmTestsFixture, CompleteSearch_DistantMWMs)
   }
 }
 
+UNIT_CLASS_TEST(MwmTestsFixture, Synonyms)
+{
+  // Buenos Aires
+  ms::LatLon const center(-34.6073377, -58.4432843);
+  SetViewportAndLoadMaps(center);
+
+  {
+    auto request = MakeRequest("ntra sra de asuncion zelaya");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+
+    TEST_EQUAL(results[0].GetFeatureType(), classif().GetTypeByPath({"landuse", "residential"}), ());
+    TEST_EQUAL(results[0].GetString(), "Barrio Nuestra Señora de la Asunción", ());
+  }
+}
+
 } // namespace real_mwm_tests
