@@ -273,6 +273,7 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
     return m_state;
 
   m_turnNotificationsMgr.SetSpeedMetersPerSecond(info.m_speed);
+  m_lastSpeed = info.m_speed;
 
   auto const formerIter = m_route->GetCurrentIteratorTurn();
   if (m_route->MoveIterator(info))
