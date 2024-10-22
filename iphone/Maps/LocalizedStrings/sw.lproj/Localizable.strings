@@ -1276,7 +1276,7 @@
 "app_tip_03" = "Ikiwa unajua msanidi programu, unaweza kumwomba kutekeleza kipengele unachohitaji.";
 
 /* App tip #04 */
-"app_tip_04" = "Je, unajua kwamba unaweza kugonga kwa muda mrefu sehemu yoyote kwenye ramani ili kuichagua?";
+"app_tip_04" = "Gusa popote kwenye ramani ili kuchagua chochote. Gusa kwa muda mrefu ili kuficha na kuonyesha kiolesura.";
 
 /* App tip #05 */
 "app_tip_05" = "Je, unajua kwamba unaweza kuchagua eneo lako la sasa kwenye ramani?";
@@ -1643,7 +1643,7 @@
 
 "type.amenity.post_office" = "Ofisi ya posta";
 
-"type.amenity.prison" = "Prison";
+"type.amenity.prison" = "Jela";
 
 "type.amenity.pub" = "Pub";
 

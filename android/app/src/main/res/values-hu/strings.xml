@@ -760,7 +760,7 @@
     <!-- App tip #03 -->
     <string name="app_tip_03">Ha ismer egy szoftverfejlesztőt, megkérheti őt egy olyan funkció megvalósítására, amelyre szüksége van.</string>
     <!-- App tip #04 -->
-    <string name="app_tip_04">Tudja, hogy a térkép bármely pontjára hosszan koppintva kiválaszthatja azt?</string>
+    <string name="app_tip_04">Koppintson a térképen bárhová, hogy bármit kiválaszthasson. Hosszú koppintással elrejtheti és visszahozhatja a felületet.</string>
     <!-- App tip #05 -->
     <string name="app_tip_05">Tudja, hogy kijelölheti pozícióját a térképen?</string>
     <!-- App tip #06 -->
@@ -941,6 +941,7 @@
     <string name="type.amenity.police">Rendőrség</string>
     <string name="type.amenity.post_box">Levelesláda</string>
     <string name="type.amenity.post_office">Posta</string>
+    <string name="type.amenity.prison">Börtön</string>
     <string name="type.amenity.pub">Kocsma</string>
     <string name="type.amenity.public_bookcase">Nyilvános könyvespolc</string>
 

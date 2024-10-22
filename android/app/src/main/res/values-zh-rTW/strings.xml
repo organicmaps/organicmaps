@@ -805,7 +805,7 @@
     <!-- App tip #03 -->
     <string name="app_tip_03">如果您認識軟體開發人員，您可以要求他實現您需要的功能。</string>
     <!-- App tip #04 -->
-    <string name="app_tip_04">您知道您可以長按地圖上的任何位置來選擇它嗎？</string>
+    <string name="app_tip_04">點擊地圖上的任何位置即可選擇任何內容。長按可隱藏和顯示介面。</string>
     <!-- App tip #05 -->
     <string name="app_tip_05">您知道您可以在地圖上選擇您目前的位置嗎？</string>
     <!-- App tip #06 -->

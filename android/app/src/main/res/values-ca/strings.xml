@@ -796,7 +796,7 @@
     <!-- App tip #03 -->
     <string name="app_tip_03">Si coneixeu un desenvolupador de programari, podeu demanar-li que implementi una funcionalitat que necessiteu.</string>
     <!-- App tip #04 -->
-    <string name="app_tip_04">Sabíeu que podeu tocar llargament qualsevol lloc del mapa per seleccionar-lo?</string>
+    <string name="app_tip_04">Toqueu qualsevol lloc del mapa per seleccionar qualsevol cosa. Toqueu llargament per ocultar i mostrar la interfície.</string>
     <!-- App tip #05 -->
     <string name="app_tip_05">Sabíeu que podeu seleccionar la vostra ubicació actual al mapa?</string>
     <!-- App tip #06 -->

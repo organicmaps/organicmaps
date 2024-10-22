@@ -784,7 +784,7 @@
     <!-- App tip #03 -->
     <string name="app_tip_03">Калі вы ведаеце распрацоўшчыка праграмнага забеспячэння, вы можаце папрасіць яго рэалізаваць неабходную вам функцыю.</string>
     <!-- App tip #04 -->
-    <string name="app_tip_04">Любое месца на карце можна абраць, калі патрымаць там палец на працягу секунды.</string>
+    <string name="app_tip_04">Націсніце ў любым месцы карты, каб выбраць што-небудзь. Доўгі націск хавае і паказвае інтэрфейс.</string>
     <!-- App tip #05 -->
     <string name="app_tip_05">А вы ведалі, што сваё месцазнаходжанне на мапе можна абраць?</string>
     <!-- App tip #06 -->
@@ -906,6 +906,7 @@
     <string name="type.amenity.place_of_worship.christian.mormon">Царква Ісуса Хрыста Святых апошніх дзён</string>
     <string name="type.amenity.place_of_worship.christian.jehovahs_witness">Зала царства Сведкаў Іегавы</string>
     <string name="type.amenity.post_box">Паштовая скрыня</string>
+    <string name="type.amenity.prison">Турма</string>
 
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Прыём другсыравіны</string>

@@ -798,7 +798,7 @@
     <!-- App tip #03 -->
     <string name="app_tip_03">Bir yazılım geliştirici tanıyorsanız, ondan ihtiyacınız olan bir özelliği uygulamasını isteyebilirsiniz.</string>
     <!-- App tip #04 -->
-    <string name="app_tip_04">Haritadaki herhangi bir yeri seçmek için uzun süre dokunabileceğinizi biliyor musunuz?</string>
+    <string name="app_tip_04">Herhangi bir şeyi seçmek için harita üzerinde herhangi bir yere dokunun. Arayüzü gizlemek ve geri göstermek için uzun dokunun.</string>
     <!-- App tip #05 -->
     <string name="app_tip_05">Haritada mevcut konumunuzu seçebileceğinizi biliyor musunuz?</string>
     <!-- App tip #06 -->

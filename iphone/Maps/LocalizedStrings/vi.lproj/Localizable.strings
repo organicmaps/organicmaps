@@ -1276,7 +1276,7 @@
 "app_tip_03" = "Nếu bạn biết một nhà phát triển phần mềm, bạn có thể yêu cầu họ triển khai một tính năng mà bạn cần.";
 
 /* App tip #04 */
-"app_tip_04" = "Bạn có biết rằng bạn có thể nhấn và giữ bất kỳ địa điểm nào trên bản đồ để chọn địa điểm đó không?";
+"app_tip_04" = "Nhấn vào bất cứ nơi nào trên bản đồ để chọn bất cứ thứ gì. Nhấn và giữ để ẩn và hiển thị lại giao diện.";
 
 /* App tip #05 */
 "app_tip_05" = "Bạn có biết rằng bạn có thể chọn vị trí hiện tại của mình trên bản đồ không?";
@@ -1643,7 +1643,7 @@
 
 "type.amenity.post_office" = "Bưu cục";
 
-"type.amenity.prison" = "Prison";
+"type.amenity.prison" = "Nhà tù";
 
 "type.amenity.pub" = "Quán rượu";
 

@@ -1276,7 +1276,7 @@
 "app_tip_03" = "Pokud znáte vývojáře softwaru, můžete ho požádat, aby implementoval funkci, kterou potřebujete.";
 
 /* App tip #04 */
-"app_tip_04" = "Víte, že libovolné místo na mapě můžete vybrat dlouhým klepnutím?";
+"app_tip_04" = "Klepnutím na libovolné místo na mapě můžete cokoli vybrat. Dlouhým klepnutím skryjete a znovu zobrazíte rozhraní.";
 
 /* App tip #05 */
 "app_tip_05" = "Víte, že si na mapě můžete vybrat svou aktuální polohu?";
@@ -1643,7 +1643,7 @@
 
 "type.amenity.post_office" = "Pošta";
 
-"type.amenity.prison" = "Prison";
+"type.amenity.prison" = "Vězení";
 
 "type.amenity.pub" = "Hospoda";
 

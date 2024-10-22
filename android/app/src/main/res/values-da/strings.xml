@@ -739,7 +739,7 @@
     <!-- App tip #03 -->
     <string name="app_tip_03">Hvis du kender en softwareudvikler, kan du bede ham eller hende om at implementere en funktion, som du har brug for.</string>
     <!-- App tip #04 -->
-    <string name="app_tip_04">Ved du, at du kan trykke længe på et hvilket som helst sted på kortet for at vælge det?</string>
+    <string name="app_tip_04">Tryk hvor som helst på kortet for at vælge noget. Tryk længe for at skjule og vise grænsefladen igen.</string>
     <!-- App tip #05 -->
     <string name="app_tip_05">Ved du, at du kan vælge din nuværende placering på kortet?</string>
     <!-- App tip #06 -->
@@ -919,6 +919,7 @@
     <string name="type.amenity.police">Politi</string>
     <string name="type.amenity.post_box">Postboks</string>
     <string name="type.amenity.post_office">Postkontor</string>
+    <string name="type.amenity.prison">Fængsel</string>
     <string name="type.amenity.pub">Værtshus</string>
     <string name="type.amenity.public_bookcase">Bog udveksling</string>
 

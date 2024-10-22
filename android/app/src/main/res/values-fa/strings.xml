@@ -739,7 +739,7 @@
     <!-- App tip #03 -->
     <string name="app_tip_03">اگر یک توسعه‌دهنده نرم‌افزار را می‌شناسید، می‌توانید از او بخواهید ویژگی مورد نیاز خود را پیاده‌سازی کند.</string>
     <!-- App tip #04 -->
-    <string name="app_tip_04">آیا می‌دانید که می‌توانید روی هر مکانی روی نقشه ضربه طولانی بزنید تا آن را انتخاب کنید؟</string>
+    <string name="app_tip_04">برای انتخاب هر چیزی روی هر نقطه از نقشه ضربه بزنید. برای مخفی کردن و نشان دادن رابط، ضربه طولانی بزنید.</string>
     <!-- App tip #05 -->
     <string name="app_tip_05">آیا می دانید که می توانید مکان فعلی خود را روی نقشه انتخاب کنید؟</string>
     <!-- App tip #06 -->
@@ -921,6 +921,7 @@
     <string name="type.amenity.police">کلانتری</string>
     <string name="type.amenity.post_box">صندوق پست</string>
     <string name="type.amenity.post_office">دفتر پست</string>
+    <string name="type.amenity.prison">زندا   ن</string>
     <string name="type.amenity.pub">میکده</string>
 
     <!-- SECTION: Types: Recycling -->

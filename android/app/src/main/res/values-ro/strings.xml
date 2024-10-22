@@ -771,7 +771,7 @@
     <!-- App tip #03 -->
     <string name="app_tip_03">Dacă cunoașteți un dezvoltator de software, îi puteți cere să implementeze o caracteristică de care aveți nevoie.</string>
     <!-- App tip #04 -->
-    <string name="app_tip_04">Știți că puteți atinge lung orice loc de pe hartă pentru a-l selecta?</string>
+    <string name="app_tip_04">Atingeți oriunde pe hartă pentru a selecta orice. Atingeți lung pentru a ascunde și a reda interfața.</string>
     <!-- App tip #05 -->
     <string name="app_tip_05">Știți că vă puteți selecta locația curentă pe hartă?</string>
     <!-- App tip #06 -->
@@ -948,6 +948,7 @@
     <string name="type.amenity.police">Poliție</string>
     <string name="type.amenity.post_box">Cutie poștală</string>
     <string name="type.amenity.post_office">Oficiu poștal</string>
+    <string name="type.amenity.prison">Închisoare</string>
     <string name="type.amenity.public_bookcase">Bibliotecă</string>
 
     <!-- SECTION: Types: Recycling -->

@@ -1276,7 +1276,7 @@
 "app_tip_03" = "Jika Anda mengenal seorang pengembang perangkat lunak, Anda dapat memintanya untuk mengimplementasikan fitur yang Anda perlukan.";
 
 /* App tip #04 */
-"app_tip_04" = "Tahukah Anda bahwa Anda dapat mengetuk lama tempat mana pun di peta untuk memilihnya?";
+"app_tip_04" = "Ketuk di mana saja pada peta untuk memilih apa pun. Ketuk lama untuk menyembunyikan dan menampilkan kembali antarmuka.";
 
 /* App tip #05 */
 "app_tip_05" = "Tahukah Anda bahwa Anda dapat memilih lokasi Anda saat ini di peta?";
@@ -1643,7 +1643,7 @@
 
 "type.amenity.post_office" = "Kantor pos";
 
-"type.amenity.prison" = "Prison";
+"type.amenity.prison" = "Penjara";
 
 "type.amenity.pub" = "Pub";
 

@@ -741,7 +741,7 @@
     <!-- App tip #03 -->
     <string name="app_tip_03">소프트웨어 개발자를 알고 있다면 필요한 기능을 구현하도록 요청할 수 있습니다.</string>
     <!-- App tip #04 -->
-    <string name="app_tip_04">지도의 아무 곳이나 길게 탭하여 선택할 수 있다는 것을 알고 계셨나요?</string>
+    <string name="app_tip_04">지도의 아무 곳이나 탭하여 원하는 항목을 선택합니다. 길게 탭하면 인터페이스를 숨기고 다시 표시할 수 있습니다.</string>
     <!-- App tip #05 -->
     <string name="app_tip_05">지도에서 현재 위치를 선택할 수 있다는 것을 알고 계셨나요?</string>
     <!-- App tip #06 -->
@@ -924,6 +924,7 @@
     <string name="type.amenity.police">경찰</string>
     <string name="type.amenity.post_box">우편함</string>
     <string name="type.amenity.post_office">우체국</string>
+    <string name="type.amenity.prison">감옥</string>
     <string name="type.amenity.pub">술집</string>
     <string name="type.amenity.public_bookcase">도서 교환</string>
 
