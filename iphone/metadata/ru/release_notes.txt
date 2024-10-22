@@ -1,3 +1,6 @@
-- iOS 18 Dark Mode: Introduced dark and tinted app icons.
-- Map Data: Updated as of October 1, now including isolines for Egypt, Adygea, Dagestan.
-- KML/KMZ/GPX: Fixed issues with importing files from different apps.
+- Новые данные от 17 октября.
+- Детализированые (50m шаг) изолинии для Исландии, Индии и Марокко.
+- Отдельная иконка на карте для непитьевой воды.
+- Добавлены водонапорные башни.
+- Новые иконки букмарок и поиска (туризм, информация).
+- Исправлена ошибка ранжирования при Поиске на Карте.
