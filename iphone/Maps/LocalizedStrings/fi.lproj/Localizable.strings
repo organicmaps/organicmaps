@@ -1760,6 +1760,8 @@
 
 "type.amenity.water_point" = "Vesipiste";
 
+"type.amenity.water_point.drinking_water_no" = "Vesipiste";
+
 "type.barrier" = "Este";
 
 "type.barrier.block" = "Este";

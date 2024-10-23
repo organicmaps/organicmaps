@@ -1041,6 +1041,7 @@
     <string name="type.amenity.waste_disposal">Roska</string>
     <string name="type.amenity.waste_transfer_station">Jätteiden vastaanottoasema</string>
     <string name="type.amenity.water_point">Vesipiste</string>
+    <string name="type.amenity.water_point.drinking_water_no">Vesipiste</string>
     <string name="type.barrier">Este</string>
     <string name="type.barrier.block">Este</string>
     <string name="type.barrier.bollard">Tolppa</string>

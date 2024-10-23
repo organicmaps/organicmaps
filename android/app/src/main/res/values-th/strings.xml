@@ -971,6 +971,7 @@
     <string name="type.amenity.waste_basket">ถังขยะ</string>
     <string name="type.amenity.waste_disposal">ขยะ</string>
     <string name="type.amenity.water_point">จุดเติมน้ำ</string>
+    <string name="type.amenity.water_point.drinking_water_no">จุดเติมน้ำ</string>
     <string name="type.barrier.block">บล็อก</string>
     <string name="type.barrier.bollard">เสา</string>
     <string name="type.barrier.border_control">ด่านตรวจคนเข้าเมือง</string>

@@ -1760,6 +1760,8 @@
 
 "type.amenity.water_point" = "飲水站";
 
+"type.amenity.water_point.drinking_water_no" = "飲水站";
+
 "type.barrier" = "障礙物";
 
 "type.barrier.block" = "街區";

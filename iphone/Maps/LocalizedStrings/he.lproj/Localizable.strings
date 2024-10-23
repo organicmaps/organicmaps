@@ -1760,6 +1760,8 @@
 
 "type.amenity.water_point" = "נקודת מילוי מיכלי מים";
 
+"type.amenity.water_point.drinking_water_no" = "נקודת מילוי מיכלי מים";
+
 "type.barrier" = "מחסום";
 
 "type.barrier.block" = "חסימה";

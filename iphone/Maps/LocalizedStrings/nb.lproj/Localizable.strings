@@ -1760,6 +1760,8 @@
 
 "type.amenity.water_point" = "Vannpunkt";
 
+"type.amenity.water_point.drinking_water_no" = "Vannpunkt";
+
 "type.barrier" = "Barriere";
 
 "type.barrier.block" = "Blokk";

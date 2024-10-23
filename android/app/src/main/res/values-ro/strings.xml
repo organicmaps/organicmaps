@@ -990,6 +990,7 @@
     <string name="type.amenity.waste_basket">Pubelă</string>
     <string name="type.amenity.waste_disposal">Gunoi</string>
     <string name="type.amenity.water_point">Punct de alimentare cu apă</string>
+    <string name="type.amenity.water_point.drinking_water_no">Punct de alimentare cu apă</string>
     <string name="type.barrier.block">Bloc</string>
     <string name="type.barrier.bollard">Stâlp</string>
     <string name="type.barrier.border_control">Control vamal</string>

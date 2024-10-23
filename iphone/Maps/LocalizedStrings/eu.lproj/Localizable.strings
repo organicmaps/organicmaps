@@ -1760,6 +1760,8 @@
 
 "type.amenity.water_point" = "Ur iturria";
 
+"type.amenity.water_point.drinking_water_no" = "Ur iturria";
+
 "type.barrier" = "Hesia";
 
 "type.barrier.block" = "Blokea";

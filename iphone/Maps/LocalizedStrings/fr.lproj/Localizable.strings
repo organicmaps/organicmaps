@@ -1760,6 +1760,8 @@
 
 "type.amenity.water_point" = "Point d’eau";
 
+"type.amenity.water_point.drinking_water_no" = "Point d’eau";
+
 "type.barrier" = "Barrière";
 
 "type.barrier.block" = "Bloc";

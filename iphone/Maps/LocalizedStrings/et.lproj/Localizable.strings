@@ -1760,6 +1760,8 @@
 
 "type.amenity.water_point" = "Haagiselamu veepunkt";
 
+"type.amenity.water_point.drinking_water_no" = "Haagiselamu veepunkt";
+
 "type.barrier" = "Barjäär";
 
 "type.barrier.block" = "Takistus";

@@ -1760,6 +1760,8 @@
 
 "type.amenity.water_point" = "Vízvételi pont";
 
+"type.amenity.water_point.drinking_water_no" = "Vízvételi pont";
+
 "type.barrier" = "Barrier";
 
 "type.barrier.block" = "Blokk";

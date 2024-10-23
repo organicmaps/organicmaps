@@ -734,6 +734,7 @@
     <string name="type.amenity.waste_disposal">कचरे के डिब्बे</string>
     <string name="type.amenity.waste_transfer_station">कचरा स्थानांतरण स्टेशन</string>
     <string name="type.amenity.water_point">पानी की टंकी पुनः भरने का स्थान</string>
+    <string name="type.amenity.water_point.drinking_water_no">पानी की टंकी पुनः भरने का स्थान</string>
     <string name="type.barrier.city_wall">शहर की दीवार</string>
     <string name="type.barrier.wall">दीवार</string>
     <string name="type.boundary.aboriginal_lands">स्वदेशी भूमि</string>

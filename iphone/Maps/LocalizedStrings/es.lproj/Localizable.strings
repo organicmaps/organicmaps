@@ -1760,6 +1760,8 @@
 
 "type.amenity.water_point" = "Fuente de agua para caravanas";
 
+"type.amenity.water_point.drinking_water_no" = "Fuente de agua para caravanas";
+
 "type.barrier" = "Barrera";
 
 "type.barrier.block" = "Bloque";

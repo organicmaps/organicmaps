@@ -1760,6 +1760,8 @@
 
 "type.amenity.water_point" = "نقطة إعادة تعبة قنينة المياه";
 
+"type.amenity.water_point.drinking_water_no" = "نقطة إعادة تعبة قنينة المياه";
+
 "type.barrier" = "حاجز";
 
 "type.barrier.block" = "حاجز";

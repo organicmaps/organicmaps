@@ -1760,6 +1760,8 @@
 
 "type.amenity.water_point" = "Voda";
 
+"type.amenity.water_point.drinking_water_no" = "Voda";
+
 "type.barrier" = "Zábrana";
 
 "type.barrier.block" = "Blok";

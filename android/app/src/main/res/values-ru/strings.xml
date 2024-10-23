@@ -1069,6 +1069,7 @@
     <string name="type.amenity.waste_disposal">Мусорный контейнер</string>
     <string name="type.amenity.waste_transfer_station">Станция перевалки отходов</string>
     <string name="type.amenity.water_point">Вода для автодомов</string>
+    <string name="type.amenity.water_point.drinking_water_no">Вода для автодомов</string>
     <string name="type.barrier">Преграда</string>
     <string name="type.barrier.block">Блок</string>
     <string name="type.barrier.bollard">Столбик</string>

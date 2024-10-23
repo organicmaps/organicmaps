@@ -1035,6 +1035,7 @@
     <string name="type.amenity.waste_disposal">Odpadky</string>
     <string name="type.amenity.waste_transfer_station">Prekládková stanica odpadu</string>
     <string name="type.amenity.water_point">Voda</string>
+    <string name="type.amenity.water_point.drinking_water_no">Voda</string>
     <string name="type.barrier">Zábrana</string>
     <string name="type.barrier.block">Blok</string>
     <string name="type.barrier.bollard">Pilier</string>

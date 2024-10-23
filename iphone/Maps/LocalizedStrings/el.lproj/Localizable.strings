@@ -1760,6 +1760,8 @@
 
 "type.amenity.water_point" = "Παροχή νερού";
 
+"type.amenity.water_point.drinking_water_no" = "Παροχή νερού";
+
 "type.barrier" = "Barrier";
 
 "type.barrier.block" = "Εμπόδιο";

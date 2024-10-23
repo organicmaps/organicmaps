@@ -1060,6 +1060,7 @@
     <string name="type.amenity.waste_disposal">大型垃圾箱</string>
     <string name="type.amenity.waste_transfer_station">垃圾转运站</string>
     <string name="type.amenity.water_point">取水点</string>
+    <string name="type.amenity.water_point.drinking_water_no">取水点</string>
     <string name="type.barrier">障碍物</string>
     <string name="type.barrier.block">路障</string>
     <string name="type.barrier.bollard">护柱</string>

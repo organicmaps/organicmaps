@@ -1760,6 +1760,8 @@
 
 "type.amenity.water_point" = "Vodní zdroj";
 
+"type.amenity.water_point.drinking_water_no" = "Vodní zdroj";
+
 "type.barrier" = "Barrier";
 
 "type.barrier.block" = "Blok";

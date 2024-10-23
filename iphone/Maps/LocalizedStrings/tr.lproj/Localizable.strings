@@ -1760,6 +1760,8 @@
 
 "type.amenity.water_point" = "Karavanlar için Su Noktası";
 
+"type.amenity.water_point.drinking_water_no" = "Karavanlar için Su Noktası";
+
 "type.barrier" = "Bariyer";
 
 "type.barrier.block" = "Blok";
