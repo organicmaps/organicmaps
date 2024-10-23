@@ -1760,6 +1760,8 @@
 
 "type.amenity.water_point" = "Punct de alimentare cu apă";
 
+"type.amenity.water_point.drinking_water_no" = "Punct de alimentare cu apă";
+
 "type.barrier" = "Barrier";
 
 "type.barrier.block" = "Bloc";

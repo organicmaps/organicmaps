@@ -1052,6 +1052,7 @@
     <string name="type.amenity.waste_disposal">Wysypisko śmieci</string>
     <string name="type.amenity.waste_transfer_station">Stacja przeładunku odpadów</string>
     <string name="type.amenity.water_point">Ujęcie wody</string>
+    <string name="type.amenity.water_point.drinking_water_no">Ujęcie wody</string>
     <string name="type.barrier">Bariera</string>
     <string name="type.barrier.block">Blok</string>
     <string name="type.barrier.bollard">Słupek</string>

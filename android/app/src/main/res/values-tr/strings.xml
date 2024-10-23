@@ -1049,6 +1049,7 @@
     <string name="type.amenity.waste_disposal">Çöp Konteyneri</string>
     <string name="type.amenity.waste_transfer_station">Atık Transfer İstasyonu</string>
     <string name="type.amenity.water_point">Karavanlar için Su Noktası</string>
+    <string name="type.amenity.water_point.drinking_water_no">Karavanlar için Su Noktası</string>
     <string name="type.barrier">Bariyer</string>
     <string name="type.barrier.block">Blok</string>
     <string name="type.barrier.bollard">Direk</string>

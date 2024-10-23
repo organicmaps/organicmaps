@@ -1033,6 +1033,7 @@
     <string name="type.amenity.waste_basket">ゴミ箱</string>
     <string name="type.amenity.waste_disposal">ゴミ</string>
     <string name="type.amenity.water_point">給水所</string>
+    <string name="type.amenity.water_point.drinking_water_no">給水所</string>
     <string name="type.barrier">障害物</string>
     <string name="type.barrier.block">ブロック</string>
     <string name="type.barrier.bollard">柱</string>

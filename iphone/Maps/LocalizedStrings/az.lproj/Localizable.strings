@@ -1760,6 +1760,8 @@
 
 "type.amenity.water_point" = "Karvanlar üçün su nöqtəsi";
 
+"type.amenity.water_point.drinking_water_no" = "Karvanlar üçün su nöqtəsi";
+
 "type.barrier" = "Maneə";
 
 "type.barrier.block" = "Blok";

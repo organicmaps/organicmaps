@@ -983,6 +983,7 @@
     <string name="type.amenity.waste_basket">Szemetes</string>
     <string name="type.amenity.waste_disposal">Szemét</string>
     <string name="type.amenity.water_point">Vízvételi pont</string>
+    <string name="type.amenity.water_point.drinking_water_no">Vízvételi pont</string>
     <string name="type.barrier.block">Blokk</string>
     <string name="type.barrier.bollard">Oszlop</string>
     <string name="type.barrier.border_control">Határállomás</string>

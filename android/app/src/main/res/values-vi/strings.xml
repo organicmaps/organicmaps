@@ -965,6 +965,7 @@
     <string name="type.amenity.waste_basket">Thùng rác</string>
     <string name="type.amenity.waste_disposal">Xử lý chất thải</string>
     <string name="type.amenity.water_point">Điểm cấp nước</string>
+    <string name="type.amenity.water_point.drinking_water_no">Điểm cấp nước</string>
     <string name="type.barrier.block">Khối</string>
     <string name="type.barrier.bollard">Trụ</string>
     <string name="type.barrier.border_control">Biên Phòng</string>

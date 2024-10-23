@@ -954,6 +954,7 @@
     <string name="type.amenity.waste_basket">Skraldespand</string>
     <string name="type.amenity.waste_disposal">Bortskaffelse af affald</string>
     <string name="type.amenity.water_point">Vandstation</string>
+    <string name="type.amenity.water_point.drinking_water_no">Vandstation</string>
     <string name="type.barrier.block">Blokering</string>
     <string name="type.barrier.bollard">Søjle</string>
     <string name="type.barrier.border_control">Grænsekontrol</string>

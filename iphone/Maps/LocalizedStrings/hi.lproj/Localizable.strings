@@ -1760,6 +1760,8 @@
 
 "type.amenity.water_point" = "पानी की टंकी पुनः भरने का स्थान";
 
+"type.amenity.water_point.drinking_water_no" = "पानी की टंकी पुनः भरने का स्थान";
+
 "type.barrier" = "Barrier";
 
 "type.barrier.block" = "Block";

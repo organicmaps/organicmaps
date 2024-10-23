@@ -1760,6 +1760,8 @@
 
 "type.amenity.water_point" = "取水点";
 
+"type.amenity.water_point.drinking_water_no" = "取水点";
+
 "type.barrier" = "障碍物";
 
 "type.barrier.block" = "路障";

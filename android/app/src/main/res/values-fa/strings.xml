@@ -963,6 +963,7 @@
     <string name="type.amenity.waste_basket">سطل زباله</string>
     <string name="type.amenity.waste_disposal">زباله دانی</string>
     <string name="type.amenity.water_point">شیر آب قابل شرب</string>
+    <string name="type.amenity.water_point.drinking_water_no">شیر آب قابل شرب</string>
     <string name="type.barrier.block">بلوک</string>
     <string name="type.barrier.bollard">ستون</string>
     <string name="type.barrier.border_control">کنترل مرزی</string>

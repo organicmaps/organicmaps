@@ -1058,6 +1058,7 @@
     <string name="type.amenity.waste_disposal">Сміттєвий контейнер</string>
     <string name="type.amenity.waste_transfer_station">Станція передачі сміття</string>
     <string name="type.amenity.water_point">Вода для автобудинків</string>
+    <string name="type.amenity.water_point.drinking_water_no">Вода для автобудинків</string>
     <string name="type.barrier">Перешкода</string>
     <string name="type.barrier.block">Блок</string>
     <string name="type.barrier.bollard">Стовпчик</string>

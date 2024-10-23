@@ -1060,6 +1060,7 @@
     <string name="type.amenity.waste_disposal">حاوية قمامة</string>
     <string name="type.amenity.waste_transfer_station">محطة نقل النفايات</string>
     <string name="type.amenity.water_point">نقطة إعادة تعبة قنينة المياه</string>
+    <string name="type.amenity.water_point.drinking_water_no">نقطة إعادة تعبة قنينة المياه</string>
     <string name="type.barrier">حاجز</string>
     <string name="type.barrier.block">حاجز</string>
     <string name="type.barrier.bollard">حاجز سيارات</string>

@@ -1760,6 +1760,8 @@
 
 "type.amenity.water_point" = "Вода для автобудинків";
 
+"type.amenity.water_point.drinking_water_no" = "Вода для автобудинків";
+
 "type.barrier" = "Перешкода";
 
 "type.barrier.block" = "Блок";

@@ -1001,6 +1001,7 @@
     <string name="type.amenity.waste_basket">Caixote do lixo</string>
     <string name="type.amenity.waste_disposal">Contentor do lixo</string>
     <string name="type.amenity.water_point">Ponto de água</string>
+    <string name="type.amenity.water_point.drinking_water_no">Ponto de água</string>
     <string name="type.barrier">Barreira</string>
     <string name="type.barrier.block">Bloco</string>
     <string name="type.barrier.bollard">Pilarete</string>

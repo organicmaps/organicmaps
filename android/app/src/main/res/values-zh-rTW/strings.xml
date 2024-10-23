@@ -1058,6 +1058,7 @@
     <string name="type.amenity.waste_disposal">垃圾</string>
     <string name="type.amenity.waste_transfer_station">垃圾轉運站</string>
     <string name="type.amenity.water_point">飲水站</string>
+    <string name="type.amenity.water_point.drinking_water_no">飲水站</string>
     <string name="type.barrier">障礙物</string>
     <string name="type.barrier.block">街區</string>
     <string name="type.barrier.bollard">柱</string>

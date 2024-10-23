@@ -952,6 +952,7 @@
     <string name="type.amenity.vending_machine.fuel">Паліўная калонка</string>
     <string name="type.amenity.waste_transfer_station">Станцыя перавалкі адходаў</string>
     <string name="type.amenity.water_point">Вада для аўтадомаў</string>
+    <string name="type.amenity.water_point.drinking_water_no">Вада для аўтадомаў</string>
     <string name="type.barrier.chain">Ланцуг</string>
     <string name="type.barrier.city_wall">Гарадскі вал</string>
     <string name="type.waterway.ditch">Дрэнажная канава</string>

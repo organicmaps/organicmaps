@@ -1760,6 +1760,8 @@
 
 "type.amenity.water_point" = "Water Tank Refill Point";
 
+"type.amenity.water_point.drinking_water_no" = "Water Tank Refill Point";
+
 "type.barrier" = "Barrier";
 
 "type.barrier.block" = "Block";
