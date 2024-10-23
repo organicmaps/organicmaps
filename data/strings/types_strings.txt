@@ -6039,6 +6039,9 @@
     zh-Hans = 取水点
     zh-Hant = 飲水站
 
+  [type.amenity.water_point.drinking_water_no]
+    ref = type.amenity.water_point
+
   [type.barrier]
     en = Barrier
     af = Versperring

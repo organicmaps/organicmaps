@@ -174,12 +174,15 @@ node|z15-[natural=spring][drinking_water=not],
 
 node|z12-[man_made=water_tap][drinking_water=not],
 node|z12-[man_made=water_well][drinking_water=not],
+node|z12-[amenity=water_point][drinking_water=not],
 {icon-image: none;}
 node|z14-[man_made=water_tap][drinking_water=not],
 node|z14-[man_made=water_well][drinking_water=not],
+node|z14-[amenity=water_point][drinking_water=not],
 {icon-image: drinking-water-no-s.svg;}
 node|z15-[man_made=water_tap][drinking_water=not],
 node|z15-[man_made=water_well][drinking_water=not],
+node|z15-[amenity=water_point][drinking_water=not],
 {icon-image: drinking-water-no-m.svg;}
 
 /* 4.TOURISM */
