@@ -1040,6 +1040,7 @@ amenity-recycling                                   # icon z17- (also has captio
 amenity-vending_machine-fuel                        # icon z18- (also has caption(optional) z18-)
 amenity-vending_machine-parking_tickets             # icon z17- (also has caption(optional) z17-)
 amenity-vending_machine-public_transport_tickets    # icon z17- (also has caption(optional) z17-)
+amenity-water_point-drinking_water_no               # icon z14- (also has caption(optional) z14-)
 highway-elevator                                    # icon z17-
 leisure-picnic_table                                # icon z15- (also has caption(optional) z16-)
 man_made-water_tap-drinking_water_no                # icon z14- (also has caption(optional) z14-)
@@ -1953,6 +1954,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # amenity-vending_machine-fuel                      # caption(optional) z18- (also has icon z18-)
 # amenity-vending_machine-parking_tickets           # caption(optional) z17- (also has icon z17-)
 # amenity-vending_machine-public_transport_tickets  # caption(optional) z17- (also has icon z17-)
+# amenity-water_point-drinking_water_no             # caption(optional) z14- (also has icon z14-)
 # leisure-picnic_table                              # caption(optional) z16- (also has icon z15-)
 # man_made-water_tap-drinking_water_no              # caption(optional) z14- (also has icon z14-)
 # man_made-water_well-drinking_water_no             # caption(optional) z14- (also has icon z14-)
