@@ -705,7 +705,7 @@
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "截至 %@ 的社区创建的 OpenStreetMap 数据。请访问 OpenStreetMap.org 以了解有关如何编辑和更新地图的信息。";
 
-"login_to_make_edits_visible" = "登录，让其他用户能看到您所作出的修改。";
+"login_to_make_edits_visible" = "创建 OpenStreetMap 账户或登录，向全世界发布您编辑的地图。";
 
 /* Error dialog no space */
 "migration_no_space_message" = "为了下载，您需要更多的存储空间。请删除不必要的文件。";

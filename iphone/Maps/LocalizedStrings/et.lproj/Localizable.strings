@@ -705,7 +705,7 @@
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Ühenduse loodud OpenStreetMapi andmed alates %@. Lisateave selle kohta, kuidas kaarti redigeerida ja uuendada, on aadressil OpenStreetMap.org.";
 
-"login_to_make_edits_visible" = "Logi sisse OpenStreetMap.org keskkonda, et teised kasutajad näeksid Sinu tehtud muudatusi.";
+"login_to_make_edits_visible" = "Looge OpenStreetMapi konto või logige sisse, et avaldada oma kaardimuudatusi kogu maailmale.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Alla laadimiseks vajad rohkem ruumi. Palun kustuta ebavajalikke andmeid.";

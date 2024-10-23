@@ -705,7 +705,7 @@
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Създадени от общността данни от OpenStreetMap към %@. Научете повече за това как да редактирате и актуализирате картата в OpenStreetMap.org";
 
-"login_to_make_edits_visible" = "Влезте в системата, за да могат другите потребители да видят направените от вас промени";
+"login_to_make_edits_visible" = "Създайте акаунт в OpenStreetMap или влезте в него, за да публикувате своите редакции на картата в света.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "За изтегляне ви е необходимо повече място. Моля, изтрийте всички ненужни данни.";

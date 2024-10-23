@@ -705,7 +705,7 @@
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Datos de OpenStreetMap creados por la comunidad a partir de %@. Obtenga más información sobre cómo editar y actualizar el mapa en OpenStreetMap.org";
 
-"login_to_make_edits_visible" = "Acceda a openstreetmap.org para que otros usuarios puedan ver los cambios que haya efectuado.";
+"login_to_make_edits_visible" = "Cree una cuenta OpenStreetMap o inicie sesión para publicar sus ediciones de mapas en todo el mundo.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Necesita más espacio para descargar. Elimine los datos innecesarios.";
