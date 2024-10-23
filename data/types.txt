@@ -1604,3 +1604,4 @@ amenity|recycling|container
 *man_made|water_tap|drinking_water_no
 *man_made|water_well|drinking_water_no
 *natural|spring|drinking_water_no
+*amenity|water_point|drinking_water_no
