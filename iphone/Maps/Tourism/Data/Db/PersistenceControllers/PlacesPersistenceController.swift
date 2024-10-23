@@ -69,6 +69,21 @@ class PlacesPersistenceController: NSObject, NSFetchedResultsControllerDelegate 
     }
   }
   
+  func insertPlaces(_ places: [PlaceFull], categoryId: Int64) {
+    let context = container.viewContext
+    
+    do {
+      for place in places {
+        let newPlace = PlaceEntity(context: context)
+        newPlace.id = place.id
+        updatePlace(newPlace, with: place, categoryId: categoryId)
+      }
+      try context.save()
+    } catch {
+      print("Failed to save context: \(error)")
+    }
+  }
+  
   private func updatePlace(_ placeEntity: PlaceEntity, with place: PlaceFull, categoryId: Int64) {
       placeEntity.categoryId = categoryId
       placeEntity.name = place.name

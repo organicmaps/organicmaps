@@ -31,7 +31,7 @@ class ReviewsRepositoryImpl : ReviewsRepository {
       let reviews = reviewsDTO.data.map { reviewDto in reviewDto.toReview() }
       
       self.reviewsPersistenceController.deleteAllPlaceReviews(placeId: id)
-      self.reviewsPersistenceController.putReviews(reviews)
+      self.reviewsPersistenceController.insertReviews(reviews)
     }
   }
   
@@ -119,9 +119,9 @@ class ReviewsRepositoryImpl : ReviewsRepository {
     Task {
       let reviewsDTO = try await reviewsService.getReviewsByPlaceId(id: id)
       if !reviewsDTO.data.isEmpty {
-        reviewsPersistenceController.deleteAllReviews()
+        reviewsPersistenceController.deleteAllPlaceReviews(placeId: id)
         let reviews = reviewsDTO.data.map{ $0.toReview() }
-        reviewsPersistenceController.putReviews(reviews)
+        reviewsPersistenceController.insertReviews(reviews)
       }
     }
   }

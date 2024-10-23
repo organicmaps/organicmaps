@@ -77,13 +77,13 @@ class PlacesRepositoryImpl: PlacesRepository {
         
         // update places
         placesPersistenceController.deleteAllPlaces()
-        placesPersistenceController.putPlaces(sights, categoryId: PlaceCategory.sights.id)
-        placesPersistenceController.putPlaces(restaurants, categoryId: PlaceCategory.restaurants.id)
-        placesPersistenceController.putPlaces(hotels, categoryId: PlaceCategory.hotels.id)
+        placesPersistenceController.insertPlaces(sights, categoryId: PlaceCategory.sights.id)
+        placesPersistenceController.insertPlaces(restaurants, categoryId: PlaceCategory.restaurants.id)
+        placesPersistenceController.insertPlaces(hotels, categoryId: PlaceCategory.hotels.id)
         
         // update reviews
         reviewsPersistenceController.deleteAllReviews()
-        reviewsPersistenceController.putReviews(reviews)
+        reviewsPersistenceController.insertReviews(reviews)
         
         // update favorites
         favorites.forEach { favorite in
@@ -153,16 +153,13 @@ class PlacesRepositoryImpl: PlacesRepository {
         return placeFull
       }
       
-      placesPersistenceController.putPlaces(places, categoryId: categoryId)
+      placesPersistenceController.insertPlaces(places, categoryId: categoryId)
       
       // update reviews
-      var reviews = [Review]()
       places.forEach { place in
-        reviews.append(contentsOf: place.reviews ?? [])
+        reviewsPersistenceController.deleteAllPlaceReviews(placeId: place.id)
+        reviewsPersistenceController.insertReviews(place.reviews ?? [])
       }
-      
-      reviewsPersistenceController.deleteAllReviews()
-      reviewsPersistenceController.putReviews(reviews)
       
       // update hash
       hashesPersistenceController.putHash(

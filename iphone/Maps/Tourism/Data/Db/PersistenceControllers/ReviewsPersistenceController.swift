@@ -69,6 +69,23 @@ class ReviewsPersistenceController: NSObject, NSFetchedResultsControllerDelegate
       print("Failed to insert/update reviews: \(error)")
     }
   }
+
+  func insertReviews(_ reviews: [Review]) {
+    print("inserting")
+    let context = container.viewContext
+    
+    do {
+      for review in reviews {
+        let newReview = ReviewEntity(context: context)
+        newReview.id = review.id
+        updateReviewEntity(newReview, with: review)
+      }
+      try context.save()
+    } catch {
+      print(error)
+      print("Failed to insert/update reviews: \(error)")
+    }
+  }
   
   private func updateReviewEntity(_ entity: ReviewEntity, with review: Review) {
     entity.placeId = review.placeId

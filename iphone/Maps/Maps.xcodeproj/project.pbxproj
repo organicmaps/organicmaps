@@ -585,9 +585,7 @@
 		CDCA278E2248F34C00167D87 /* MWMRoutingManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = CDCA278B2248F34C00167D87 /* MWMRoutingManager.mm */; };
 		CE2D27F82CA2C49F00094565 /* BackButtonWithText.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2D27F72CA2C49F00094565 /* BackButtonWithText.m */; };
 		CE60A8C52CAD15C20055F49C /* FullscreenImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE60A8C42CAD15C20055F49C /* FullscreenImageViewer.swift */; };
-		CE64501B2C93F5840075A59B /* PlacePersistenceControllerTesterBro.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE64501A2C93F5840075A59B /* PlacePersistenceControllerTesterBro.swift */; };
 		CE64501D2C93F8350075A59B /* ReviewsPersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE64501C2C93F8350075A59B /* ReviewsPersistenceController.swift */; };
-		CE6450202C9402EC0075A59B /* ReviewsPersistenceControllerTesterBro.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE64501F2C9402EC0075A59B /* ReviewsPersistenceControllerTesterBro.swift */; };
 		CE6450242C9772310075A59B /* DownloadProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6450232C9772310075A59B /* DownloadProgress.swift */; };
 		CE6450282C99572F0075A59B /* ImageStoreUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6450272C99572F0075A59B /* ImageStoreUtils.swift */; };
 		CE8982032CB9588E00FC2D2E /* EmailBodyDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8982022CB9588E00FC2D2E /* EmailBodyDto.swift */; };
@@ -1642,9 +1640,7 @@
 		CE2D27F72CA2C49F00094565 /* BackButtonWithText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BackButtonWithText.m; sourceTree = "<group>"; };
 		CE2D27FB2CA2C64700094565 /* BackButtonWithText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackButtonWithText.h; sourceTree = "<group>"; };
 		CE60A8C42CAD15C20055F49C /* FullscreenImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullscreenImageViewer.swift; sourceTree = "<group>"; };
-		CE64501A2C93F5840075A59B /* PlacePersistenceControllerTesterBro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePersistenceControllerTesterBro.swift; sourceTree = "<group>"; };
 		CE64501C2C93F8350075A59B /* ReviewsPersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsPersistenceController.swift; sourceTree = "<group>"; };
-		CE64501F2C9402EC0075A59B /* ReviewsPersistenceControllerTesterBro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsPersistenceControllerTesterBro.swift; sourceTree = "<group>"; };
 		CE6450232C9772310075A59B /* DownloadProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadProgress.swift; sourceTree = "<group>"; };
 		CE6450272C99572F0075A59B /* ImageStoreUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStoreUtils.swift; sourceTree = "<group>"; };
 		CE8982022CB9588E00FC2D2E /* EmailBodyDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailBodyDto.swift; sourceTree = "<group>"; };
@@ -3887,15 +3883,6 @@
 			path = BackButtonWithText;
 			sourceTree = "<group>";
 		};
-		CE6450192C93F56E0075A59B /* Testers */ = {
-			isa = PBXGroup;
-			children = (
-				CE64501A2C93F5840075A59B /* PlacePersistenceControllerTesterBro.swift */,
-				CE64501F2C9402EC0075A59B /* ReviewsPersistenceControllerTesterBro.swift */,
-			);
-			path = Testers;
-			sourceTree = "<group>";
-		};
 		CED0E0202C8B22BD008C61CA /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -3908,7 +3895,6 @@
 		CED0E0402C9077B7008C61CA /* PersistenceControllers */ = {
 			isa = PBXGroup;
 			children = (
-				CE6450192C93F56E0075A59B /* Testers */,
 				52ED91A62C72C58A000EE25B /* CurrencyPersistenceController.swift */,
 				3D2D79C22C7C80E60062BC3D /* PersonalDataPersistenceController.swift */,
 				CED0E0412C9077D3008C61CA /* HashesPersistenceController.swift */,
@@ -5211,7 +5197,6 @@
 				99A906F323FA95AB0005872B /* PlacePageStyleSheet.swift in Sources */,
 				529A5F6C2C870D45004FE4A1 /* HorizontalPlaces.swift in Sources */,
 				52522F2E2C6C9E070015709C /* UserPreferences.swift in Sources */,
-				CE6450202C9402EC0075A59B /* ReviewsPersistenceControllerTesterBro.swift in Sources */,
 				6741A9CF1BF340DE002C974C /* MWMLocationAlert.m in Sources */,
 				F6E2FDA11E097BA00083EBEC /* MWMEditorAdditionalNamesTableViewController.mm in Sources */,
 				4767CDA620AB1F6200BD8166 /* LeftAlignedIconButton.swift in Sources */,
@@ -5295,7 +5280,6 @@
 				529A5F202C86DE14004FE4A1 /* CoordinatesDTO.swift in Sources */,
 				CDB4D4E1222D70DF00104869 /* CarPlayMapViewController.swift in Sources */,
 				471AB98923AA8A3500F56D49 /* IDownloaderDataSource.swift in Sources */,
-				CE64501B2C93F5840075A59B /* PlacePersistenceControllerTesterBro.swift in Sources */,
 				52ED91B02C73030D000EE25B /* PersonalDataDTO.swift in Sources */,
 				EDE243E72B6D55610057369B /* InfoView.swift in Sources */,
 				F692F3831EA0FAF5001E82EB /* MWMAutoupdateController.mm in Sources */,
