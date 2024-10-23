@@ -182,7 +182,9 @@ world  +
         waste_basket  -
         waste_disposal  -
         waste_transfer_station  -
-        water_point  -
+        water_point  +
+            drinking_water_no  -
+            {}
         {}
     area:highway  +
         cycleway  -

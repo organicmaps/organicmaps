@@ -14452,6 +14452,121 @@ cont {
   }
 }
 cont {
+  name: "amenity-water_point-drinking_water_no"
+  element {
+    scale: 14
+    symbol {
+      name: "drinking-water-no-s"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "drinking-water-no-m"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "drinking-water-no-m"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "drinking-water-no-m"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "drinking-water-no-m"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "drinking-water-no-m"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "drinking-water-no-m"
+      priority: 1200
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8800
+    }
+  }
+}
+cont {
   name: "area:highway-footway"
   element {
     scale: 14
