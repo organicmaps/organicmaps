@@ -108,6 +108,21 @@ public:
     Postcode
   };
 
+  struct RegionInfo
+  {
+    storage::CountryId m_countryId;
+    m2::PointD m_point;
+
+    void SetParams(storage::CountryId const & countryId, m2::PointD const & point)
+    {
+      m_countryId = countryId;
+      m_point = point;
+    }
+
+    bool GetCountryId(storage::CountryInfoGetter const & infoGetter,
+                      storage::CountryId & countryId) const;
+  };
+
   /// For Type::Feature and Type::Building.
   RankerResult(FeatureType & ft, m2::PointD const & center,
                std::string displayName, std::string const & fileName);
@@ -141,6 +156,7 @@ public:
 
   bool GetCountryId(storage::CountryInfoGetter const & infoGetter, uint32_t ftype,
                     storage::CountryId & countryId) const;
+  RegionInfo const & GetRegion() const { return m_region; }
 
   bool IsEqualBasic(RankerResult const & r) const;
   bool IsEqualCommon(RankerResult const & r) const;
@@ -156,21 +172,6 @@ public:
 private:
   friend class RankerResultMaker;
   friend class Ranker;
-
-  struct RegionInfo
-  {
-    storage::CountryId m_countryId;
-    m2::PointD m_point;
-
-    void SetParams(storage::CountryId const & countryId, m2::PointD const & point)
-    {
-      m_countryId = countryId;
-      m_point = point;
-    }
-
-    bool GetCountryId(storage::CountryInfoGetter const & infoGetter,
-                      storage::CountryId & countryId) const;
-  };
 
   RegionInfo m_region;
   feature::TypesHolder m_types;
