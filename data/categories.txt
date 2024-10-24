@@ -16737,3 +16737,12 @@ tr:hapishane
 uk:в'язниця
 vi:nhà tù
 zh-Hans:监狱
+
+# A shop that sell supplies to make arts and crafts (different from shop-arts that sells works of art)
+shop-craft|@shop
+en:Craft
+be:Рамяство
+fr:Artisanat
+es:Artesanía
+ru:Ремесло
+de:Künstlerbedarf
