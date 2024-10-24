@@ -11857,6 +11857,7 @@ amenity-charging_station-bicycle|@charging_station
 en:4Bicycle Charging|4Bike Charging
 ru:4Велозарядка
 tr:4Bisiklet Şarj Etme
+de: Rad laden|Fahrrad laden
 
 amenity-charging_station-motorcar|@charging_station
 en:4Motorcar Charging|3Car Charging|Charger
