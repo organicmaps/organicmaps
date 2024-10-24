@@ -705,7 +705,7 @@
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "נתוני OpenStreetMap שנוצרו על ידי הקהילה החל מ-%@. למידע נוסף על איך לערוך ולעדכן את המפה ב-OpenStreetMap.org";
 
-"login_to_make_edits_visible" = "התחברו ל-openstreetmap.org כדי לפרסם את השינויים שלכם לעולם.";
+"login_to_make_edits_visible" = "צור חשבון OpenStreetMap או היכנס כדי לפרסם את עריכות המפה שלך לעולם.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "כדי להוריד, צריך עוד מקום. נא למחוק מידע שאינו הכרחי.";

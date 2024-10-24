@@ -705,7 +705,7 @@
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "समुदाय-निर्मित OpenStreetMap डेटा %@ तक। OpenStreetMap.org पर मानचित्र को संपादित और अपडेट करने के तरीके के बारे में और जानें";
 
-"login_to_make_edits_visible" = "अपने परिवर्तनों को दुनिया के सामने प्रकाशित करने के लिए openingstreetmap.org पर लॉग इन करें।";
+"login_to_make_edits_visible" = "अपने मानचित्र संपादनों को दुनिया भर में प्रकाशित करने के लिए एक OpenStreetMap खाता बनाएं या लॉग इन करें।";
 
 /* Error dialog no space */
 "migration_no_space_message" = "डाउनलोड करने के लिए आपको अधिक जगह की आवश्यकता होगी। कृपया कोई भी अनावश्यक डेटा हटा दें.";
