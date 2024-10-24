@@ -8,6 +8,10 @@
   <name>Point 1</name>
   <cmt>Point 1</cmt>
 </wpt>
+<wpt lat="48.209847" lon="16.376028">
+  <name><![CDATA[Point cdata name ><&"]]></name>
+  <cmt><![CDATA[Point cdata cmt ><&"]]></cmt>
+</wpt>
 <trk>
   <name>Some random route</name>
   <extensions>
@@ -29,6 +33,15 @@
     </trkpt>
     <trkpt lat="48.209503" lon="16.381065">
       <ele>456</ele>
+    </trkpt>
+  </trkseg>
+</trk>
+<trk>
+  <name><![CDATA[Track cdata name ><&"]]></name>
+  <cmt><![CDATA[Track cdata cmt ><&"]]></cmt>
+  <trkseg>
+    <trkpt lat="48.209846" lon="16.376023">
+      <ele>123</ele>
     </trkpt>
   </trkseg>
 </trk>
