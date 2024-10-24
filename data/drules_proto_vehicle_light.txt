@@ -5733,25 +5733,9 @@ cont {
 cont {
   name: "amenity-water_point-drinking_water_no"
   element {
-    scale: 16
-    symbol {
-      name: "drinking-water-m"
-      priority: 550
-      min_distance: 20
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "drinking-water-m"
-      priority: 550
-      min_distance: 20
-    }
-  }
-  element {
     scale: 18
     symbol {
-      name: "drinking-water-m"
+      name: "drinking-water-no-m"
       priority: 550
       min_distance: 20
     }
@@ -5759,7 +5743,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "drinking-water-m"
+      name: "drinking-water-no-m"
       priority: 550
       min_distance: 20
     }
@@ -5767,7 +5751,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "drinking-water-m"
+      name: "drinking-water-no-m"
       priority: 550
       min_distance: 20
     }
