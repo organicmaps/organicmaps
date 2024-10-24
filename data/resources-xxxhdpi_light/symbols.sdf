@@ -28,27 +28,27 @@
   <symbol maxX="3412" maxY="132" minX="3280" minY="0" name="search-result-shop-beauty"/>
   <symbol maxX="3544" maxY="132" minX="3412" minY="0" name="search-result-shop-alcohol"/>
   <symbol maxX="3676" maxY="132" minX="3544" minY="0" name="search-result-restaurant"/>
-  <symbol maxX="3808" maxY="132" minX="3676" minY="0" name="search-result-playground"/>
-  <symbol maxX="3940" maxY="132" minX="3808" minY="0" name="search-result-pitch"/>
-  <symbol maxX="4072" maxY="132" minX="3940" minY="0" name="search-result-pharmacy"/>
-  <symbol maxX="132" maxY="276" minX="0" minY="144" name="search-result-nightclub"/>
-  <symbol maxX="264" maxY="276" minX="132" minY="144" name="search-result-museum"/>
-  <symbol maxX="396" maxY="276" minX="264" minY="144" name="search-result-marketplace"/>
-  <symbol maxX="528" maxY="276" minX="396" minY="144" name="search-result-lottery"/>
-  <symbol maxX="660" maxY="276" minX="528" minY="144" name="search-result-information"/>
-  <symbol maxX="792" maxY="276" minX="660" minY="144" name="search-result-hotel"/>
-  <symbol maxX="924" maxY="276" minX="792" minY="144" name="search-result-hostel"/>
-  <symbol maxX="1056" maxY="276" minX="924" minY="144" name="search-result-hospital"/>
-  <symbol maxX="1188" maxY="276" minX="1056" minY="144" name="search-result-fuel"/>
-  <symbol maxX="1320" maxY="276" minX="1188" minY="144" name="search-result-fastfood"/>
-  <symbol maxX="1452" maxY="276" minX="1320" minY="144" name="search-result-clinic"/>
-  <symbol maxX="1584" maxY="276" minX="1452" minY="144" name="search-result-cinema"/>
-  <symbol maxX="1716" maxY="276" minX="1584" minY="144" name="search-result-chalet"/>
-  <symbol maxX="1848" maxY="276" minX="1716" minY="144" name="search-result-casino"/>
-  <symbol maxX="1980" maxY="276" minX="1848" minY="144" name="search-result-caravan-site"/>
-  <symbol maxX="2112" maxY="276" minX="1980" minY="144" name="search-result-campsite"/>
-  <symbol maxX="2244" maxY="276" minX="2112" minY="144" name="search-result-cafe"/>
-  <symbol maxX="2376" maxY="276" minX="2244" minY="144" name="search-result-beer"/>
+  <symbol maxX="3808" maxY="132" minX="3676" minY="0" name="search-result-pub"/>
+  <symbol maxX="3940" maxY="132" minX="3808" minY="0" name="search-result-playground"/>
+  <symbol maxX="4072" maxY="132" minX="3940" minY="0" name="search-result-pitch"/>
+  <symbol maxX="132" maxY="276" minX="0" minY="144" name="search-result-pharmacy"/>
+  <symbol maxX="264" maxY="276" minX="132" minY="144" name="search-result-nightclub"/>
+  <symbol maxX="396" maxY="276" minX="264" minY="144" name="search-result-museum"/>
+  <symbol maxX="528" maxY="276" minX="396" minY="144" name="search-result-marketplace"/>
+  <symbol maxX="660" maxY="276" minX="528" minY="144" name="search-result-lottery"/>
+  <symbol maxX="792" maxY="276" minX="660" minY="144" name="search-result-information"/>
+  <symbol maxX="924" maxY="276" minX="792" minY="144" name="search-result-hotel"/>
+  <symbol maxX="1056" maxY="276" minX="924" minY="144" name="search-result-hostel"/>
+  <symbol maxX="1188" maxY="276" minX="1056" minY="144" name="search-result-hospital"/>
+  <symbol maxX="1320" maxY="276" minX="1188" minY="144" name="search-result-fuel"/>
+  <symbol maxX="1452" maxY="276" minX="1320" minY="144" name="search-result-fastfood"/>
+  <symbol maxX="1584" maxY="276" minX="1452" minY="144" name="search-result-clinic"/>
+  <symbol maxX="1716" maxY="276" minX="1584" minY="144" name="search-result-cinema"/>
+  <symbol maxX="1848" maxY="276" minX="1716" minY="144" name="search-result-chalet"/>
+  <symbol maxX="1980" maxY="276" minX="1848" minY="144" name="search-result-casino"/>
+  <symbol maxX="2112" maxY="276" minX="1980" minY="144" name="search-result-caravan-site"/>
+  <symbol maxX="2244" maxY="276" minX="2112" minY="144" name="search-result-campsite"/>
+  <symbol maxX="2376" maxY="276" minX="2244" minY="144" name="search-result-cafe"/>
   <symbol maxX="2508" maxY="276" minX="2376" minY="144" name="search-result-bar"/>
   <symbol maxX="2640" maxY="276" minX="2508" minY="144" name="search-result-bank"/>
   <symbol maxX="2772" maxY="276" minX="2640" minY="144" name="search-result-bakery"/>

@@ -28,27 +28,27 @@
   <symbol maxX="522" maxY="128" minX="464" minY="70" name="search-result-shop-beauty"/>
   <symbol maxX="580" maxY="128" minX="522" minY="70" name="search-result-shop-alcohol"/>
   <symbol maxX="638" maxY="128" minX="580" minY="70" name="search-result-restaurant"/>
-  <symbol maxX="696" maxY="128" minX="638" minY="70" name="search-result-playground"/>
-  <symbol maxX="754" maxY="128" minX="696" minY="70" name="search-result-pitch"/>
-  <symbol maxX="812" maxY="128" minX="754" minY="70" name="search-result-pharmacy"/>
-  <symbol maxX="870" maxY="128" minX="812" minY="70" name="search-result-nightclub"/>
-  <symbol maxX="928" maxY="128" minX="870" minY="70" name="search-result-museum"/>
-  <symbol maxX="986" maxY="128" minX="928" minY="70" name="search-result-marketplace"/>
-  <symbol maxX="58" maxY="186" minX="0" minY="128" name="search-result-lottery"/>
-  <symbol maxX="116" maxY="186" minX="58" minY="128" name="search-result-information"/>
-  <symbol maxX="174" maxY="186" minX="116" minY="128" name="search-result-hotel"/>
-  <symbol maxX="232" maxY="186" minX="174" minY="128" name="search-result-hostel"/>
-  <symbol maxX="290" maxY="186" minX="232" minY="128" name="search-result-hospital"/>
-  <symbol maxX="348" maxY="186" minX="290" minY="128" name="search-result-fuel"/>
-  <symbol maxX="406" maxY="186" minX="348" minY="128" name="search-result-fastfood"/>
-  <symbol maxX="464" maxY="186" minX="406" minY="128" name="search-result-clinic"/>
-  <symbol maxX="522" maxY="186" minX="464" minY="128" name="search-result-cinema"/>
-  <symbol maxX="580" maxY="186" minX="522" minY="128" name="search-result-chalet"/>
-  <symbol maxX="638" maxY="186" minX="580" minY="128" name="search-result-casino"/>
-  <symbol maxX="696" maxY="186" minX="638" minY="128" name="search-result-caravan-site"/>
-  <symbol maxX="754" maxY="186" minX="696" minY="128" name="search-result-campsite"/>
-  <symbol maxX="812" maxY="186" minX="754" minY="128" name="search-result-cafe"/>
-  <symbol maxX="870" maxY="186" minX="812" minY="128" name="search-result-beer"/>
+  <symbol maxX="696" maxY="128" minX="638" minY="70" name="search-result-pub"/>
+  <symbol maxX="754" maxY="128" minX="696" minY="70" name="search-result-playground"/>
+  <symbol maxX="812" maxY="128" minX="754" minY="70" name="search-result-pitch"/>
+  <symbol maxX="870" maxY="128" minX="812" minY="70" name="search-result-pharmacy"/>
+  <symbol maxX="928" maxY="128" minX="870" minY="70" name="search-result-nightclub"/>
+  <symbol maxX="986" maxY="128" minX="928" minY="70" name="search-result-museum"/>
+  <symbol maxX="58" maxY="186" minX="0" minY="128" name="search-result-marketplace"/>
+  <symbol maxX="116" maxY="186" minX="58" minY="128" name="search-result-lottery"/>
+  <symbol maxX="174" maxY="186" minX="116" minY="128" name="search-result-information"/>
+  <symbol maxX="232" maxY="186" minX="174" minY="128" name="search-result-hotel"/>
+  <symbol maxX="290" maxY="186" minX="232" minY="128" name="search-result-hostel"/>
+  <symbol maxX="348" maxY="186" minX="290" minY="128" name="search-result-hospital"/>
+  <symbol maxX="406" maxY="186" minX="348" minY="128" name="search-result-fuel"/>
+  <symbol maxX="464" maxY="186" minX="406" minY="128" name="search-result-fastfood"/>
+  <symbol maxX="522" maxY="186" minX="464" minY="128" name="search-result-clinic"/>
+  <symbol maxX="580" maxY="186" minX="522" minY="128" name="search-result-cinema"/>
+  <symbol maxX="638" maxY="186" minX="580" minY="128" name="search-result-chalet"/>
+  <symbol maxX="696" maxY="186" minX="638" minY="128" name="search-result-casino"/>
+  <symbol maxX="754" maxY="186" minX="696" minY="128" name="search-result-caravan-site"/>
+  <symbol maxX="812" maxY="186" minX="754" minY="128" name="search-result-campsite"/>
+  <symbol maxX="870" maxY="186" minX="812" minY="128" name="search-result-cafe"/>
   <symbol maxX="928" maxY="186" minX="870" minY="128" name="search-result-bar"/>
   <symbol maxX="986" maxY="186" minX="928" minY="128" name="search-result-bank"/>
   <symbol maxX="58" maxY="244" minX="0" minY="186" name="search-result-bakery"/>
