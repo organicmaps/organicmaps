@@ -8,6 +8,7 @@
 #include "editor/xml_feature.hpp"
 
 #include "indexer/editable_map_object.hpp"
+#include "indexer/edit_journal.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_source.hpp"
 #include "indexer/mwm_set.hpp"
@@ -130,6 +131,9 @@ public:
 
   /// @returns empty object if feature wasn't edited.
   std::optional<osm::EditableMapObject> GetEditedFeature(FeatureID const & fid) const;
+
+  /// @returns empty object if feature wasn't edited.
+  std::optional<osm::EditJournal> GetEditedFeatureJournal(FeatureID const & fid) const;
 
   /// @returns false if feature wasn't edited.
   /// @param outFeatureStreet is valid only if true was returned.

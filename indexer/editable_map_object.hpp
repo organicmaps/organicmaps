@@ -5,6 +5,7 @@
 #include "indexer/feature_meta.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/map_object.hpp"
+#include "indexer/edit_journal.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 
@@ -68,6 +69,7 @@ class EditableMapObject : public MapObject
 {
 public:
   static uint8_t constexpr kMaximumLevelsEditableByUsers = 50;
+  osm::EditJournal journal;
 
   bool IsNameEditable() const;
   bool IsAddressEditable() const;
@@ -97,8 +99,10 @@ public:
   void SetID(FeatureID const & fid);
 
   void SetStreet(LocalizedStreet const & st);
+  void SetStreetNoJournalLogging(LocalizedStreet const & st);
   void SetNearbyStreets(std::vector<LocalizedStreet> && streets);
   void SetHouseNumber(std::string const & houseNumber);
+  void SetHouseNumberNoJournalLogging(std::string const & houseNumber);
   void SetPostcode(std::string const & postcode);
 
   static bool IsValidMetadata(MetadataID type, std::string const & value);
@@ -128,6 +132,16 @@ public:
   static bool ValidateEmail(std::string const & email);
   static bool ValidateLevel(std::string const & level);
   static bool ValidateName(std::string const & name);
+
+  /// Journal that stores changes to map object
+  EditJournal const & GetJournal() const;
+  void SetJournal(EditJournal editJournal);
+  EditingLifecycle GetEditingLifecycle() const;
+  void MarkAsCreated(uint32_t type, feature::GeomType geomType, m2::PointD mercator);
+  void ClearJournal();
+  void ApplyEditsFromJournal(EditJournal const & journal);
+  void ApplyJournalEntry(JournalEntry const & entry);
+  void LogDiffInJournal(EditableMapObject const & unedited_emo);
 
   /// Check whether langCode can be used as default name.
   static bool CanUseAsDefaultName(int8_t const langCode, std::vector<int8_t> const & nativeMwmLanguages);
