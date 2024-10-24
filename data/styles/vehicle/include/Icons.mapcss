@@ -906,8 +906,11 @@ area|z18-[amenity=compressed_air],
 {icon-image: compressed_air-m.svg;}
 
 node|z16-[amenity=water_point],
-area|z16-[amenity=water_point],
 {icon-image: drinking-water-m.svg; icon-min-distance: 20;}
+node|z16-[amenity=water_point][drinking_water=not],
+{icon-image: none;}
+node|z18-[amenity=water_point][drinking_water=not],
+{icon-image: drinking-water-no-m.svg; icon-min-distance: 20;}
 
 /* 7.1 Parking */
 
