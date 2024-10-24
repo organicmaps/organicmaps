@@ -18,15 +18,13 @@ public:
     m_lib = dlopen("libandroid.so", RTLD_NOW | RTLD_LOCAL);
 
     // Access the native tracing functions.
-    if (m_lib != nullptr) {
+    if (m_lib != nullptr) 
+    {
       // Use dlsym() to prevent crashes on devices running Android 5.1
       // (API level 22) or lower.
-      m_beginSection = reinterpret_cast<ATrace_beginSection>(
-          dlsym(m_lib, "ATrace_beginSection"));
-      m_endSection = reinterpret_cast<ATrace_endSection>(
-          dlsym(m_lib, "ATrace_endSection"));
-      m_setCounter = reinterpret_cast<ATrace_setCounter>(
-          dlsym(m_lib, "ATrace_setCounter"));
+      m_beginSection = reinterpret_cast<ATrace_beginSection>(dlsym(m_lib, "ATrace_beginSection"));
+      m_endSection = reinterpret_cast<ATrace_endSection>(dlsym(m_lib, "ATrace_endSection"));
+      m_setCounter = reinterpret_cast<ATrace_setCounter>(dlsym(m_lib, "ATrace_setCounter"));
     }
   }
 

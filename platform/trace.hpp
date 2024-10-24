@@ -36,7 +36,8 @@ public:
     m_trace.BeginSection(section);
   }
 
-  inline ~TraceSection() noexcept {
+  inline ~TraceSection() noexcept
+  {
     m_trace.EndSection();
   }
 
