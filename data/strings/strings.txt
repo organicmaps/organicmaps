@@ -11550,7 +11550,7 @@
     hi = यहाँ से
     hu = Kiindulópont
     id = Dari
-    it = Da
+    it = Parti da
     ja = 出発地
     ko = 출발지
     lt = Maršrutas iš
@@ -11595,7 +11595,7 @@
     hi = यहाँ तक
     hu = Célpont
     id = Rute ke
-    it = A
+    it = Vai a
     ja = 目的地
     ko = 목적지
     lt = Maršrutas į
