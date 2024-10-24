@@ -554,7 +554,7 @@ amenity-conference_centre                           # icon z16-
 amenity-events_venue                                # icon z16-
 amenity-exhibition_centre                           # icon z16-
 amenity-water_point                                 # icon z16-
-amenity-water_point-drinking_water_no               # icon z16-
+amenity-water_point-drinking_water_no               # icon z18-
 building-train_station                              # caption z18- (also has area z15-)
 railway-subway_entrance                             # icon z16- (also has caption(optional) z17-)
 railway-subway_entrance-adana                       # icon z16- (also has caption(optional) z17-)
