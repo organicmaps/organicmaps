@@ -28,27 +28,27 @@
   <symbol maxX="40" maxY="88" minX="0" minY="48" name="search-result-shop-beauty"/>
   <symbol maxX="80" maxY="88" minX="40" minY="48" name="search-result-shop-alcohol"/>
   <symbol maxX="120" maxY="88" minX="80" minY="48" name="search-result-restaurant"/>
-  <symbol maxX="160" maxY="88" minX="120" minY="48" name="search-result-playground"/>
-  <symbol maxX="200" maxY="88" minX="160" minY="48" name="search-result-pitch"/>
-  <symbol maxX="240" maxY="88" minX="200" minY="48" name="search-result-pharmacy"/>
-  <symbol maxX="280" maxY="88" minX="240" minY="48" name="search-result-nightclub"/>
-  <symbol maxX="320" maxY="88" minX="280" minY="48" name="search-result-museum"/>
-  <symbol maxX="360" maxY="88" minX="320" minY="48" name="search-result-marketplace"/>
-  <symbol maxX="400" maxY="88" minX="360" minY="48" name="search-result-lottery"/>
-  <symbol maxX="440" maxY="88" minX="400" minY="48" name="search-result-information"/>
-  <symbol maxX="480" maxY="88" minX="440" minY="48" name="search-result-hotel"/>
-  <symbol maxX="520" maxY="88" minX="480" minY="48" name="search-result-hostel"/>
-  <symbol maxX="560" maxY="88" minX="520" minY="48" name="search-result-hospital"/>
-  <symbol maxX="600" maxY="88" minX="560" minY="48" name="search-result-fuel"/>
-  <symbol maxX="640" maxY="88" minX="600" minY="48" name="search-result-fastfood"/>
-  <symbol maxX="680" maxY="88" minX="640" minY="48" name="search-result-clinic"/>
-  <symbol maxX="720" maxY="88" minX="680" minY="48" name="search-result-cinema"/>
-  <symbol maxX="760" maxY="88" minX="720" minY="48" name="search-result-chalet"/>
-  <symbol maxX="800" maxY="88" minX="760" minY="48" name="search-result-casino"/>
-  <symbol maxX="840" maxY="88" minX="800" minY="48" name="search-result-caravan-site"/>
-  <symbol maxX="880" maxY="88" minX="840" minY="48" name="search-result-campsite"/>
-  <symbol maxX="920" maxY="88" minX="880" minY="48" name="search-result-cafe"/>
-  <symbol maxX="960" maxY="88" minX="920" minY="48" name="search-result-beer"/>
+  <symbol maxX="160" maxY="88" minX="120" minY="48" name="search-result-pub"/>
+  <symbol maxX="200" maxY="88" minX="160" minY="48" name="search-result-playground"/>
+  <symbol maxX="240" maxY="88" minX="200" minY="48" name="search-result-pitch"/>
+  <symbol maxX="280" maxY="88" minX="240" minY="48" name="search-result-pharmacy"/>
+  <symbol maxX="320" maxY="88" minX="280" minY="48" name="search-result-nightclub"/>
+  <symbol maxX="360" maxY="88" minX="320" minY="48" name="search-result-museum"/>
+  <symbol maxX="400" maxY="88" minX="360" minY="48" name="search-result-marketplace"/>
+  <symbol maxX="440" maxY="88" minX="400" minY="48" name="search-result-lottery"/>
+  <symbol maxX="480" maxY="88" minX="440" minY="48" name="search-result-information"/>
+  <symbol maxX="520" maxY="88" minX="480" minY="48" name="search-result-hotel"/>
+  <symbol maxX="560" maxY="88" minX="520" minY="48" name="search-result-hostel"/>
+  <symbol maxX="600" maxY="88" minX="560" minY="48" name="search-result-hospital"/>
+  <symbol maxX="640" maxY="88" minX="600" minY="48" name="search-result-fuel"/>
+  <symbol maxX="680" maxY="88" minX="640" minY="48" name="search-result-fastfood"/>
+  <symbol maxX="720" maxY="88" minX="680" minY="48" name="search-result-clinic"/>
+  <symbol maxX="760" maxY="88" minX="720" minY="48" name="search-result-cinema"/>
+  <symbol maxX="800" maxY="88" minX="760" minY="48" name="search-result-chalet"/>
+  <symbol maxX="840" maxY="88" minX="800" minY="48" name="search-result-casino"/>
+  <symbol maxX="880" maxY="88" minX="840" minY="48" name="search-result-caravan-site"/>
+  <symbol maxX="920" maxY="88" minX="880" minY="48" name="search-result-campsite"/>
+  <symbol maxX="960" maxY="88" minX="920" minY="48" name="search-result-cafe"/>
   <symbol maxX="1000" maxY="88" minX="960" minY="48" name="search-result-bar"/>
   <symbol maxX="40" maxY="128" minX="0" minY="88" name="search-result-bank"/>
   <symbol maxX="80" maxY="128" minX="40" minY="88" name="search-result-bakery"/>
