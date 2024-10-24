@@ -114,7 +114,7 @@ public:
     else if (element.m_type == OsmElement::EntityType::Node &&
              m_capitals.find(element.m_id) != m_capitals.cend())
     {
-      // Our goal here - to make some capitals visible in World map.
+      // Our goal here - to make some capitals visible in World Overview.
       // The simplest way is to upgrade population to 45000,
       // according to our visibility rules in mapcss files.
       element.UpdateTagFn("population", [] (std::string & v)
