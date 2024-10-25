@@ -22821,10 +22821,10 @@
     pl:many = %d tras
     pl:one = %d trasa
     pl:other = %d trasy
-    pt-BR:one = %d trajeto
-    pt-BR:other = %d trajetos
-    pt:one = %d trilha
-    pt:other = %d trilhas
+    pt:one = %d trajeto
+    pt:other = %d trajetos
+    pt-BR:one = %d trilha
+    pt-BR:other = %d trilhas
     ro:one = %d traseu
     ro:other = %d trasee
     ru:few = %d трека
