@@ -763,7 +763,7 @@
     ca = Seient
     cs = Lavička
     da = Bænk
-    de = Parkbank
+    de = Sitzbank
     el = Παγκάκι
     es = Asiento
     et = Pink
@@ -1192,7 +1192,7 @@
     ca = Rentatge de cotxes
     cs = Myčka aut
     da = Bilvask
-    de = Autowäsche
+    de = Autowaschanlage
     el = Καθαρισμός αυτοκινήτων
     es = Lavado de coches
     es-MX = Autolavado
@@ -1762,7 +1762,7 @@
     ca = Aire comprimit
     cs = Stlačený vzduch
     da = Trykluft
-    de = Pressluft
+    de = Druckluft
     el = Πεπιεσμένος αέρας
     es = Aire comprimido
     et = Suruõhk
@@ -2050,7 +2050,7 @@
     ca = Centre d’exposicions
     cs = Výstaviště
     da = Udstillingscenter
-    de = Ausstellungszentrum
+    de = Messezentrum
     el = Εκθεσιακό Κέντρο
     es = Centro de exposiciones
     et = Näituste keskus
@@ -4174,7 +4174,7 @@
     ca = Oficina de correus
     cs = Pošta
     da = Postkontor
-    de = Poststelle
+    de = Postfiliale
     el = Ταχυδρομείο
     es = Oficina de correos
     et = Postkontor
@@ -7823,7 +7823,7 @@
     ca = Serraller
     cs = Zámečník
     da = Låsesmed
-    de = Schlosser
+    de = Schlüsseldienst
     el = Κλειδαράς
     es = Cerrajero
     et = Lukksepp
@@ -7864,7 +7864,7 @@
     bg = Метални конструкции
     cs = Kovodílna
     da = Metalarbejder
-    de = Schlosser
+    de = Metallverarbeitung
     el = Μεταλλουργός
     es = Trabajador del metal
     et = Metallitööline
@@ -15639,7 +15639,7 @@
     bg = Гробница
     cs = Pamětihodnost
     da = Grav
-    de = Grabstätte
+    de = Historische Grabstätte
     el = Αξιοθέατο
     es = Tumba
     et = Haud
@@ -18185,6 +18185,7 @@
     ar = عمود برج
     az = Birbaşa
     be = Мачта/вышка
+    de = Mast
     es = Mástil
     et = Mast
     fr = Mât
@@ -20480,7 +20481,7 @@
     az = Şirkət ofisi
     cs = Kancelář společnosti
     da = Selskabskontor
-    de = Niederlassung
+    de = Firmenbüro
     el = Γραφείο επιχείρησης
     es = Oficina
     et = Ettevõtte kontor
@@ -24743,7 +24744,7 @@
     az = Avtomobil hissələri
     cs = Autodíly
     da = Bildele
-    de = Autoteile
+    de = Autoersatzteile
     el = Εξαρτήματα αυτοκινήτου
     es = Piezas de automóvil
     et = Autovaruosad
@@ -25846,7 +25847,7 @@
     ca = Botiga de gas
     cs = Obchod s plynem
     da = Gas butik
-    de = Gasspeicher
+    de = Gas-Geschäft
     el = Κατάστημα υγραερίου
     es = Tienda de gasolina
     et = Gaasipood
@@ -25966,7 +25967,7 @@
     bg = Хранителни стоки
     cs = Potraviny
     da = Købmand
-    de = Lebensmittelgeschäft
+    de = Lebensmittelkonserven
     el = Παντοπωλείο
     es = Tienda de comestibles
     et = Toidukaubad
@@ -26044,6 +26045,7 @@
     az = Hardware mağazası
     be = Гаспадарчая крама
     bg = Железария
+    de = Eisenwarengeschäft
     el = Κατάστημα υλικού
     es = Ferretería
     et = Isetegemise tööriistad
@@ -27002,7 +27004,7 @@
     ca = Peluca de mascotes
     cs = Péče o domácí mazlíčky
     da = Kæledyrspleje
-    de = Haustierpflege
+    de = Tiersalon
     el = Περιποίηση κατοικίδιων ζώων
     es = Aseo de mascotas
     et = Lemmikloomade hooldamine
@@ -27592,7 +27594,7 @@
     az = Təkər mağazası
     cs = Obchod s pneumatikami
     da = Dækforretning
-    de = Reifen-Shop
+    de = Reifenhändler
     el = Βουλκανιζατέρ
     es = Tienda de neumáticos
     et = Rehvipood
@@ -28746,7 +28748,7 @@
     bg = Търговия с консумативи
     cs = Obchod se zásobami
     da = Handler forsyninger
-    de = Handelsbedarf
+    de = Baustoffhandel
     el = Εμπόριο Προμήθειες
     es = Suministros comerciales
     et = Kaubandustarvikud
@@ -30798,7 +30800,7 @@
     ca = Casa d’hostes
     cs = Penzion
     da = Gæstehus
-    de = Gästehaus
+    de = Pension
     el = Ξενώνας
     es = Casa de huéspedes
     et = Külalistemaja
@@ -32726,7 +32728,7 @@
     ca = Col·leccionables
     cs = Sběratelské předměty
     da = Samlerobjekter
-    de = Sammlerstücke
+    de = Sammlerartikel
     el = Συλλεκτικά αντικείμενα
     es = Coleccionables
     et = Kollektsioneeritavad esemed
