@@ -890,7 +890,7 @@
     <string name="type.amenity.arts_centre">Kunstzentrum</string>
     <string name="type.amenity.atm">Geldautomat</string>
     <string name="type.amenity.bbq">Grillplatz</string>
-    <string name="type.amenity.bench">Parkbank</string>
+    <string name="type.amenity.bench">Sitzbank</string>
     <string name="type.amenity.bicycle_parking">Fahrradständer</string>
     <string name="type.amenity.bicycle_rental">Fahrradverleih</string>
     <string name="type.amenity.bicycle_repair_station">Fahrrad-Reparaturstation</string>
@@ -900,7 +900,7 @@
     <string name="type.amenity.cafe">Café</string>
     <string name="type.amenity.car_rental">Autovermietung</string>
     <string name="type.amenity.car_sharing">Carsharing</string>
-    <string name="type.amenity.car_wash">Autowäsche</string>
+    <string name="type.amenity.car_wash">Autowaschanlage</string>
     <string name="type.amenity.casino">Kasino</string>
     <string name="type.amenity.gambling">Glücksspiel</string>
     <string name="type.leisure.adult_gaming_centre">Gaming-Zentrum für Erwachsene</string>
@@ -914,7 +914,7 @@
     <string name="type.amenity.clinic">Klinik</string>
     <string name="type.amenity.college">Hochschule</string>
     <string name="type.amenity.community_centre">Bürgerhaus</string>
-    <string name="type.amenity.compressed_air">Pressluft</string>
+    <string name="type.amenity.compressed_air">Druckluft</string>
     <string name="type.amenity.conference_centre">Konferenzzentrum</string>
     <string name="type.amenity.courthouse">Justizgebäude</string>
     <string name="type.amenity.dentist">Zahnarzt</string>
@@ -922,7 +922,7 @@
     <string name="type.amenity.drinking_water">Trinkwasser</string>
     <string name="type.drinking_water.yes">Trinkwasser</string>
     <string name="type.amenity.driving_school">Fahrschule</string>
-    <string name="type.amenity.exhibition_centre">Ausstellungszentrum</string>
+    <string name="type.amenity.exhibition_centre">Messezentrum</string>
     <string name="type.amenity.money_transfer">Geldtransfer</string>
     <string name="type.amenity.music_school">Musikschule</string>
     <string name="type.amenity.language_school">Sprachschule</string>
@@ -985,7 +985,7 @@
     <string name="type.amenity.place_of_worship.taoist">Tempel</string>
     <string name="type.amenity.police">Polizeistation</string>
     <string name="type.amenity.post_box">Briefkasten</string>
-    <string name="type.amenity.post_office">Poststelle</string>
+    <string name="type.amenity.post_office">Postfiliale</string>
     <string name="type.amenity.prison">Gefängnis</string>
     <string name="type.amenity.pub">Kneipe</string>
     <string name="type.amenity.public_bookcase">Bücherschrank</string>
@@ -1103,8 +1103,8 @@
     <!-- Heating, Ventilation, and Air Conditioning -->
     <string name="type.craft.hvac">Heizung, Lüftung und Klimatisierung</string>
     <string name="type.craft.key_cutter">Schlüssel-Nachmachdienst</string>
-    <string name="type.craft.locksmith">Schlosser</string>
-    <string name="type.craft.metal_construction">Schlosser</string>
+    <string name="type.craft.locksmith">Schlüsseldienst</string>
+    <string name="type.craft.metal_construction">Metallverarbeitung</string>
     <string name="type.craft.painter">Maler</string>
     <string name="type.craft.photographer">Fotograf</string>
     <string name="type.shop.camera">Kamerageschäft</string>
@@ -1423,7 +1423,7 @@
     <string name="type.historic.ruins">Ruine</string>
     <string name="type.historic.ship">Schiff</string>
     <string name="type.historic.tank">Historischer Panzer</string>
-    <string name="type.historic.tomb">Grabstätte</string>
+    <string name="type.historic.tomb">Historische Grabstätte</string>
     <string name="type.historic.wayside_cross">Wegkreuz</string>
     <string name="type.historic.wayside_shrine">Bildstock</string>
     <string name="type.historic.wreck">Schiffswrack</string>
@@ -1508,6 +1508,7 @@
     <string name="type.man_made.survey_point">Vermessungspunkt</string>
     <string name="type.man_made.flagpole">Fahnenmast</string>
     <string name="type.man_made.lighthouse">Leuchtturm</string>
+    <string name="type.man_made.mast">Mast</string>
     <string name="type.man_made.pier">Anlegestelle</string>
     <string name="type.man_made.silo">Silo</string>
     <string name="type.man_made.storage_tank">Speichertank</string>
@@ -1572,7 +1573,7 @@
     <string name="type.natural.wetland.bog">Moor</string>
     <string name="type.natural.wetland.marsh">Sumpf</string>
     <string name="type.office">Büro</string>
-    <string name="type.office.company">Niederlassung</string>
+    <string name="type.office.company">Firmenbüro</string>
     <string name="type.office.estate_agent">Immobilienmakler</string>
     <string name="type.office.government">Behörde</string>
     <string name="type.office.insurance">Versicherungsbüro</string>
@@ -1934,7 +1935,7 @@
     <string name="type.shop.butcher">Metzgerei</string>
     <string name="type.shop.cannabis">Cannabis-Laden</string>
     <string name="type.shop.car">Autohaus</string>
-    <string name="type.shop.car_parts">Autoteile</string>
+    <string name="type.shop.car_parts">Autoersatzteile</string>
     <string name="type.shop.car_repair">Autowerkstatt</string>
     <string name="type.shop.car_repair.tyres">Reifenservice</string>
     <string name="type.shop.caravan">Wohnmobilhändler</string>
@@ -1962,11 +1963,12 @@
     <string name="type.shop.funeral_directors">Bestattungsinstitut</string>
     <string name="type.shop.furniture">Möbelhaus</string>
     <string name="type.shop.garden_centre">Gärtnerei</string>
-    <string name="type.shop.gas">Gasspeicher</string>
+    <string name="type.shop.gas">Gas-Geschäft</string>
     <string name="type.shop.gift">Geschenkeladen</string>
     <string name="type.shop.greengrocer">Gemüseladen</string>
-    <string name="type.shop.grocery">Lebensmittelgeschäft</string>
+    <string name="type.shop.grocery">Lebensmittelkonserven</string>
     <string name="type.shop.hairdresser">Friseur</string>
+    <string name="type.shop.hardware">Eisenwarengeschäft</string>
     <string name="type.shop.health_food">Reformhaus</string>
     <string name="type.shop.herbalist">Kräuterladen</string>
     <string name="type.shop.hifi">HiFi-Audio</string>
@@ -1989,7 +1991,7 @@
     <string name="type.shop.pastry">Konditorei</string>
     <string name="type.shop.pawnbroker">Pfandleihe</string>
     <string name="type.shop.pet">Tierhandlung</string>
-    <string name="type.shop.pet_grooming">Haustierpflege</string>
+    <string name="type.shop.pet_grooming">Tiersalon</string>
     <string name="type.shop.photo">Fotofachgeschäft</string>
     <string name="type.shop.rental">Verleih</string>
     <string name="type.shop.rental.bicycle">Fahrradverleih</string>
@@ -2004,7 +2006,7 @@
     <string name="type.shop.ticket">Kartenverkauf</string>
     <string name="type.shop.toys">Spielwarengeschäft</string>
     <string name="type.shop.travel_agency">Reisebüro</string>
-    <string name="type.shop.tyres">Reifen-Shop</string>
+    <string name="type.shop.tyres">Reifenhändler</string>
     <string name="type.shop.variety_store">Billigladen</string>
     <string name="type.shop.video">Videothek</string>
     <string name="type.shop.video_games">Gameshop</string>
@@ -2033,7 +2035,7 @@
     <string name="type.shop.sewing">Nähzubehör</string>
     <string name="type.shop.storage_rental">Lagervermietung</string>
     <string name="type.shop.tobacco">Tabakwarengeschäft</string>
-    <string name="type.shop.trade">Handelsbedarf</string>
+    <string name="type.shop.trade">Baustoffhandel</string>
     <string name="type.shop.watches">Uhrengeschäft</string>
     <string name="type.shop.wholesale">Großhandelsgeschäft</string>
     <string name="type.sport">Sport</string>
@@ -2089,7 +2091,7 @@
     <!-- A rentable countryside vacation house. -->
     <string name="type.tourism.chalet">Ferienhaus</string>
     <string name="type.tourism.gallery">Kunstgalerie</string>
-    <string name="type.tourism.guest_house">Gästehaus</string>
+    <string name="type.tourism.guest_house">Pension</string>
     <string name="type.tourism.hostel">Herberge</string>
     <string name="type.tourism.hotel">Hotel</string>
     <string name="type.tourism.information">Touristeninformation</string>
@@ -2163,7 +2165,7 @@
     <string name="type.piste_type.skitour">Skitour Pfad</string>
     <string name="type.amenity.events_venue">Veranstaltungszentrum</string>
     <string name="type.shop.auction">Auktion</string>
-    <string name="type.shop.collector">Sammlerstücke</string>
+    <string name="type.shop.collector">Sammlerartikel</string>
     <string name="type.self_service.yes">Selbstbedienung verfügbar</string>
     <string name="type.self_service.only">Nur Selbstbedienung</string>
     <string name="type.self_service.partially">Teilweise Selbstbedienung</string>

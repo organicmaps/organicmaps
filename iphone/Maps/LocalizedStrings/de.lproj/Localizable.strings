@@ -1447,7 +1447,7 @@
 
 "type.amenity.bbq" = "Grillplatz";
 
-"type.amenity.bench" = "Parkbank";
+"type.amenity.bench" = "Sitzbank";
 
 "type.amenity.bicycle_parking" = "Fahrradständer";
 
@@ -1469,7 +1469,7 @@
 
 "type.amenity.car_sharing" = "Carsharing";
 
-"type.amenity.car_wash" = "Autowäsche";
+"type.amenity.car_wash" = "Autowaschanlage";
 
 "type.amenity.casino" = "Kasino";
 
@@ -1497,7 +1497,7 @@
 
 "type.amenity.community_centre" = "Bürgerhaus";
 
-"type.amenity.compressed_air" = "Pressluft";
+"type.amenity.compressed_air" = "Druckluft";
 
 "type.amenity.conference_centre" = "Konferenzzentrum";
 
@@ -1513,7 +1513,7 @@
 
 "type.amenity.driving_school" = "Fahrschule";
 
-"type.amenity.exhibition_centre" = "Ausstellungszentrum";
+"type.amenity.exhibition_centre" = "Messezentrum";
 
 "type.amenity.money_transfer" = "Geldtransfer";
 
@@ -1641,7 +1641,7 @@
 
 "type.amenity.post_box" = "Briefkasten";
 
-"type.amenity.post_office" = "Poststelle";
+"type.amenity.post_office" = "Postfiliale";
 
 "type.amenity.prison" = "Gefängnis";
 
@@ -1883,9 +1883,9 @@
 
 "type.craft.key_cutter" = "Schlüssel-Nachmachdienst";
 
-"type.craft.locksmith" = "Schlosser";
+"type.craft.locksmith" = "Schlüsseldienst";
 
-"type.craft.metal_construction" = "Schlosser";
+"type.craft.metal_construction" = "Metallverarbeitung";
 
 "type.craft.painter" = "Maler";
 
@@ -2480,7 +2480,7 @@
 
 "type.historic.tank" = "Historischer Panzer";
 
-"type.historic.tomb" = "Grabstätte";
+"type.historic.tomb" = "Historische Grabstätte";
 
 "type.historic.wayside_cross" = "Wegkreuz";
 
@@ -2821,7 +2821,7 @@
 
 "type.office" = "Büro";
 
-"type.office.company" = "Niederlassung";
+"type.office.company" = "Firmenbüro";
 
 "type.office.estate_agent" = "Immobilienmakler";
 
@@ -3556,7 +3556,7 @@
 
 "type.shop.car" = "Autohaus";
 
-"type.shop.car_parts" = "Autoteile";
+"type.shop.car_parts" = "Autoersatzteile";
 
 "type.shop.car_repair" = "Autowerkstatt";
 
@@ -3612,17 +3612,17 @@
 
 "type.shop.garden_centre" = "Gärtnerei";
 
-"type.shop.gas" = "Gasspeicher";
+"type.shop.gas" = "Gas-Geschäft";
 
 "type.shop.gift" = "Geschenkeladen";
 
 "type.shop.greengrocer" = "Gemüseladen";
 
-"type.shop.grocery" = "Lebensmittelgeschäft";
+"type.shop.grocery" = "Lebensmittelkonserven";
 
 "type.shop.hairdresser" = "Friseur";
 
-"type.shop.hardware" = "Hardware Store";
+"type.shop.hardware" = "Eisenwarengeschäft";
 
 "type.shop.health_food" = "Reformhaus";
 
@@ -3670,7 +3670,7 @@
 
 "type.shop.pet" = "Tierhandlung";
 
-"type.shop.pet_grooming" = "Haustierpflege";
+"type.shop.pet_grooming" = "Tiersalon";
 
 "type.shop.photo" = "Fotofachgeschäft";
 
@@ -3700,7 +3700,7 @@
 
 "type.shop.travel_agency" = "Reisebüro";
 
-"type.shop.tyres" = "Reifen-Shop";
+"type.shop.tyres" = "Reifenhändler";
 
 "type.shop.variety_store" = "Billigladen";
 
@@ -3757,7 +3757,7 @@
 
 "type.shop.tobacco" = "Tabakwarengeschäft";
 
-"type.shop.trade" = "Handelsbedarf";
+"type.shop.trade" = "Baustoffhandel";
 
 "type.shop.watches" = "Uhrengeschäft";
 
@@ -3866,7 +3866,7 @@
 
 "type.tourism.gallery" = "Kunstgalerie";
 
-"type.tourism.guest_house" = "Gästehaus";
+"type.tourism.guest_house" = "Pension";
 
 "type.tourism.hostel" = "Herberge";
 
@@ -4013,7 +4013,7 @@
 
 "type.shop.auction" = "Auktion";
 
-"type.shop.collector" = "Sammlerstücke";
+"type.shop.collector" = "Sammlerartikel";
 
 "type.self_service.yes" = "Selbstbedienung verfügbar";
 
