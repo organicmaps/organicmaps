@@ -368,6 +368,9 @@ dependencies {
   webImplementation 'com.google.android.gms:play-services-location:21.3.0'
   googleImplementation 'com.google.android.gms:play-services-location:21.3.0'
   huaweiImplementation 'com.google.android.gms:play-services-location:21.3.0'
+  // This is the microG project's re-implementation which is permissible on
+  // F-droid because it's Apache-2.0.
+  fdroidImplementation 'org.microg.gms:play-services-location:0.3.4.240913'
 
   // Google Firebase Services
   if (googleFirebaseServicesEnabled) {
