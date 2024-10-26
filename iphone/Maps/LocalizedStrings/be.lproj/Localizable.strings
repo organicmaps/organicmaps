@@ -3939,13 +3939,13 @@
 
 "type.waterway.river.tunnel" = "Рака";
 
-"type.waterway.stream" = "Рака";
+"type.waterway.stream" = "Ручай";
 
-"type.waterway.stream.ephemeral" = "Рака";
+"type.waterway.stream.ephemeral" = "Ручай";
 
-"type.waterway.stream.intermittent" = "Рака";
+"type.waterway.stream.intermittent" = "Ручай";
 
-"type.waterway.stream.tunnel" = "Рака";
+"type.waterway.stream.tunnel" = "Ручай";
 
 "type.waterway.waterfall" = "Waterfall";
 

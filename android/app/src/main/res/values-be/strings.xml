@@ -1433,10 +1433,10 @@
     <string name="type.waterway.drain.tunnel">Водопропускная труба</string>
     <string name="type.waterway.river">Рака</string>
     <string name="type.waterway.river.tunnel">Рака</string>
-    <string name="type.waterway.stream">Рака</string>
-    <string name="type.waterway.stream.ephemeral">Рака</string>
-    <string name="type.waterway.stream.intermittent">Рака</string>
-    <string name="type.waterway.stream.tunnel">Рака</string>
+    <string name="type.waterway.stream">Ручай</string>
+    <string name="type.waterway.stream.ephemeral">Ручай</string>
+    <string name="type.waterway.stream.intermittent">Ручай</string>
+    <string name="type.waterway.stream.tunnel">Ручай</string>
     <string name="type.piste_type.snow_park">Снежны парк</string>
     <string name="type.piste_type.hike">Снежная пешаходная сцежка</string>
     <string name="type.piste_type.connection">Падключэнне да трас</string>

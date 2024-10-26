@@ -3939,13 +3939,13 @@
 
 "type.waterway.river.tunnel" = "Річка";
 
-"type.waterway.stream" = "Річка";
+"type.waterway.stream" = "Струмок";
 
-"type.waterway.stream.ephemeral" = "Річка";
+"type.waterway.stream.ephemeral" = "Струмок";
 
-"type.waterway.stream.intermittent" = "Річка";
+"type.waterway.stream.intermittent" = "Струмок";
 
-"type.waterway.stream.tunnel" = "Річка";
+"type.waterway.stream.tunnel" = "Струмок";
 
 "type.waterway.waterfall" = "Водоспад";
 

@@ -534,9 +534,9 @@
 
 "p2p_start" = "Inizia";
 
-"p2p_from_here" = "Da";
+"p2p_from_here" = "Parti da";
 
-"p2p_to_here" = "A";
+"p2p_to_here" = "Vai a";
 
 "p2p_only_from_current" = "La navigazione è disponibile solo dalla tua posizione attuale.";
 

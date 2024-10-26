@@ -3939,13 +3939,13 @@
 
 "type.waterway.river.tunnel" = "Râu";
 
-"type.waterway.stream" = "Râu";
+"type.waterway.stream" = "Pârâu";
 
-"type.waterway.stream.ephemeral" = "Râu";
+"type.waterway.stream.ephemeral" = "Pârâu";
 
-"type.waterway.stream.intermittent" = "Râu";
+"type.waterway.stream.intermittent" = "Pârâu";
 
-"type.waterway.stream.tunnel" = "Râu";
+"type.waterway.stream.tunnel" = "Pârâu";
 
 "type.waterway.waterfall" = "Cascadă";
 
