@@ -515,9 +515,9 @@ void SaveBookmarkData(Writer & writer, BookmarkData const & bookmarkData)
   }
   if (auto const description = GetDefaultLanguage(bookmarkData.m_description))
   {
-    writer << kIndent2 << "<cmt>";
+    writer << kIndent2 << "<desc>";
     SaveStringWithCDATA(writer, description.value());
-    writer << "</cmt>\n";
+    writer << "</desc>\n";
   }
   writer << "</wpt>\n";
 }
@@ -550,9 +550,9 @@ void SaveTrackData(Writer & writer, TrackData const & trackData)
   }
   if (auto const description = GetDefaultLanguage(trackData.m_description))
   {
-    writer << kIndent2 << "<cmt>";
+    writer << kIndent2 << "<desc>";
     SaveStringWithCDATA(writer, description.value());
-    writer << "</cmt>\n";
+    writer << "</desc>\n";
   }
   if (auto const color = TrackColor(trackData); color != kDefaultTrackColor)
   {

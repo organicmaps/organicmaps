@@ -6,11 +6,11 @@
 </metadata>
 <wpt lat="48.209846" lon="16.376023">
   <name>Point 1</name>
-  <cmt>Point 1</cmt>
+  <desc>Point 1</desc>
 </wpt>
 <wpt lat="48.209847" lon="16.376028">
   <name><![CDATA[Point cdata name ><&"]]></name>
-  <cmt><![CDATA[Point cdata cmt ><&"]]></cmt>
+  <desc><![CDATA[Point cdata desc ><&"]]></desc>
 </wpt>
 <trk>
   <name>Some random route</name>
@@ -38,7 +38,7 @@
 </trk>
 <trk>
   <name><![CDATA[Track cdata name ><&"]]></name>
-  <cmt><![CDATA[Track cdata cmt ><&"]]></cmt>
+  <desc><![CDATA[Track cdata desc ><&"]]></desc>
   <trkseg>
     <trkpt lat="48.209846" lon="16.376023">
       <ele>123</ele>
