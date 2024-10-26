@@ -2175,10 +2175,10 @@
     <string name="type.waterway.lock_gate">Шлюз</string>
     <string name="type.waterway.river">Река</string>
     <string name="type.waterway.river.tunnel">Река</string>
-    <string name="type.waterway.stream">Река</string>
-    <string name="type.waterway.stream.ephemeral">Река</string>
-    <string name="type.waterway.stream.intermittent">Река</string>
-    <string name="type.waterway.stream.tunnel">Река</string>
+    <string name="type.waterway.stream">Ручей</string>
+    <string name="type.waterway.stream.ephemeral">Ручей</string>
+    <string name="type.waterway.stream.intermittent">Ручей</string>
+    <string name="type.waterway.stream.tunnel">Ручей</string>
     <string name="type.waterway.waterfall">Водопад</string>
     <string name="type.waterway.weir">Плотина</string>
     <string name="type.wheelchair">Инвалидная коляска</string>

@@ -617,8 +617,8 @@
     </plurals>
     <string name="restore">Restaurar</string>
     <plurals name="tracks">
-        <item quantity="one">%d trilha</item>
-        <item quantity="other">%d trilhas</item>
+        <item quantity="one">%d trajeto</item>
+        <item quantity="other">%d trajetos</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
     <string name="privacy">Privacidade</string>

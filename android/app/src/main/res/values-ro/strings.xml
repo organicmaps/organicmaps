@@ -1952,10 +1952,10 @@
     <string name="type.waterway.lock_gate">Ecluză</string>
     <string name="type.waterway.river">Râu</string>
     <string name="type.waterway.river.tunnel">Râu</string>
-    <string name="type.waterway.stream">Râu</string>
-    <string name="type.waterway.stream.ephemeral">Râu</string>
-    <string name="type.waterway.stream.intermittent">Râu</string>
-    <string name="type.waterway.stream.tunnel">Râu</string>
+    <string name="type.waterway.stream">Pârâu</string>
+    <string name="type.waterway.stream.ephemeral">Pârâu</string>
+    <string name="type.waterway.stream.intermittent">Pârâu</string>
+    <string name="type.waterway.stream.tunnel">Pârâu</string>
     <string name="type.waterway.waterfall">Cascadă</string>
     <string name="type.wheelchair.limited">Parțial utilat pentru invalizi</string>
     <string name="type.wheelchair.no">Nu este utilat pentru invalizi</string>
