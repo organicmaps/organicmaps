@@ -922,7 +922,7 @@
 
 "button_plan" = "Pianifica";
 
-"placepage_remove_stop" = "Rimuovi";
+"placepage_remove_stop" = "Rimuovi sosta";
 
 "planning_route_remove_title" = "Trascina qui per rimuovere";
 
@@ -1702,7 +1702,7 @@
 /* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
 "type.amenity.shelter.lean_to" = "Lean-to Shelter";
 
-"type.amenity.public_bath" = "Bagno pubblico";
+"type.amenity.public_bath" = "Terme pubbliche";
 
 "type.amenity.shower" = "Doccia";
 
@@ -3538,7 +3538,7 @@
 
 "type.shop.bakery" = "Panetteria";
 
-"type.shop.bathroom_furnishing" = "Arredo Bagno";
+"type.shop.bathroom_furnishing" = "Arredo bagno";
 
 "type.shop.beauty" = "Estetista";
 

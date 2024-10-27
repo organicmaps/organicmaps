@@ -604,7 +604,7 @@
     <string name="routing_add_start_point">Bruk søk eller trykk på kartet for å legge til et startpunkt for ruten</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Bruk søk eller trykk på kartet for å legge til et destinasjonspunkt</string>
-    <string name="placepage_remove_stop">Fjern</string>
+    <string name="placepage_remove_stop">Fjern stopp</string>
     <string name="placepage_add_stop">Angi stopp</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Logg inn på OpenStreetMap for automatisk å laste opp alle kartredigeringene dine. Finn ut mer <a href="https://github.com/organicmaps/organicmaps/issues/6144">her</a>.</string>

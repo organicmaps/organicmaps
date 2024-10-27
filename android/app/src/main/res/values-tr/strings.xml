@@ -608,7 +608,7 @@
     <string name="routing_add_start_point">Bir rota başlangıç noktası eklemek için aramayı kullanın veya haritaya dokunun</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Bir hedef noktası eklemek için aramayı kullanın veya haritaya dokunun</string>
-    <string name="placepage_remove_stop">Kaldır</string>
+    <string name="placepage_remove_stop">Durağı kaldır</string>
     <string name="placepage_add_stop">Ara nokta ekle</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Tüm harita düzenlemelerinizi otomatik olarak yüklemek için lütfen OpenStreetMap\'e giriş yapın. Daha fazla bilgi <a href="https://github.com/organicmaps/organicmaps/issues/6144">burada</a>.</string>

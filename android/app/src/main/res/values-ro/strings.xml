@@ -590,7 +590,7 @@
     <string name="routing_add_start_point">Utilizați funcția de căutare sau atingeți ușor pe hartă pentru a adăuga un punct de plecare</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Utilizați funcția de căutare sau atingeți ușor pe hartă pentru a adăuga un punct de destinație</string>
-    <string name="placepage_remove_stop">Elimină</string>
+    <string name="placepage_remove_stop">Scoateți opritorul</string>
     <string name="placepage_add_stop">Adaugă oprire</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Vă rugăm să vă conectați la OpenStreetMap pentru a încărca automat toate modificările aduse hărții. Aflați mai multe <a href="https://github.com/organicmaps/organicmaps/issues/6144">aici</a>.</string>

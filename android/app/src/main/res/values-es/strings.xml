@@ -604,7 +604,7 @@
     <string name="routing_add_start_point">Busca o toca en el mapa para añadir el origen de la ruta</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Busca o toca en el mapa para añadir el destino</string>
-    <string name="placepage_remove_stop">Eliminar</string>
+    <string name="placepage_remove_stop">Eliminar parada</string>
     <string name="placepage_add_stop">Añadir parada</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Inicia sesión en OpenStreetMap para cargar automáticamente todas tus ediciones de mapas. Más información <a href="https://github.com/organicmaps/organicmaps/issues/6144">aquí</a>.</string>

@@ -582,7 +582,7 @@
     <string name="routing_add_start_point">Használja a keresést, vagy koppintson a térképre az útvonal kezdőpontjának hozzáadásához</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Használja a keresést, vagy koppintson a térképre egy célpont hozzáadásához</string>
-    <string name="placepage_remove_stop">Eltávolítja</string>
+    <string name="placepage_remove_stop">Távolítsa el a stopot</string>
     <string name="placepage_add_stop">Hozzáad megállót</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Kérjük, jelentkezzen be az OpenStreetMap rendszerébe, hogy automatikusan feltölthesse az összes térképszerkesztését. További információ <a href="https://github.com/organicmaps/organicmaps/issues/6144">itt</a>.</string>
@@ -600,7 +600,7 @@
     </plurals>
     <string name="bookmarks_create_new_group">Új lista létrehozása</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
-    <string name="bookmarks_import">Könyvjelzők és sávok importálása</string>
+    <string name="bookmarks_import">Könyvjelzők és nyomvonalak importálása</string>
     <string name="bookmarks_error_message_share_general">Nem lehet megosztani alkalmazáshiba miatt</string>
     <string name="bookmarks_error_title_share_empty">Megosztási hiba</string>
     <string name="bookmarks_error_message_share_empty">Üres lista nem osztható meg</string>
@@ -613,8 +613,8 @@
     <string name="phone_number">Telefonszám</string>
     <string name="profile">OpenStreetMap profil</string>
     <plurals name="bookmarks_detect_message">
-        <item quantity="one">%d fájlt találtunk. Látni fogja őket a megtérés után.</item>
-        <item quantity="other">%d fájl található. Látni fogja őket a megtérés után.</item>
+        <item quantity="one">%d fájlt találtunk. Látni fogja őket a konvertálás után.</item>
+        <item quantity="other">%d fájl található. Látni fogja őket a konvertálás után.</item>
     </plurals>
     <string name="restore">Visszaállítás</string>
     <plurals name="tracks">
@@ -793,7 +793,7 @@
     <string name="browser_not_available">A webböngésző nem elérhető</string>
     <string name="volume">Hangerő</string>
     <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
-    <string name="bookmarks_export">Az összes könyvjelző és sáv exportálása</string>
+    <string name="bookmarks_export">Az összes könyvjelző és nyomvonal exportálása</string>
     <!-- button in (app) TTS settings, to open the system TTS settings. -->
     <string name="pref_tts_open_system_settings">Beszédszintetizáló rendszer beállításai</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
@@ -846,7 +846,7 @@
     <string name="type.amenity.bar">Bár</string>
     <string name="type.amenity.bbq">Kerti sütögető</string>
     <string name="type.amenity.bench">Pad</string>
-    <string name="type.amenity.bicycle_parking">Kerékpárparkoló</string>
+    <string name="type.amenity.bicycle_parking">Kerékpártároló</string>
     <string name="type.amenity.bicycle_rental">Kerékpárkölcsönző</string>
     <string name="type.amenity.bicycle_repair_station">Kerékpárjavító állomás</string>
     <string name="type.amenity.biergarten">Sörkert</string>

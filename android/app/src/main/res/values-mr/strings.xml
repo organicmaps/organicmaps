@@ -572,7 +572,7 @@
     <string name="routing_add_start_point">मार्ग प्रारंभ बिंदू जोडण्यासाठी नकाशावर शोध वापरा किंवा टॅप करा</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">गंतव्य बिंदू जोडण्यासाठी नकाशावर शोधा किंवा टॅप करा</string>
-    <string name="placepage_remove_stop">काढा</string>
+    <string name="placepage_remove_stop">थांबा काढा</string>
     <string name="placepage_add_stop">स्टॉप जोडा</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">तुमची सर्व नकाशा संपादने स्वयंचलितपणे अपलोड करण्यासाठी कृपया OpenStreetMap वर लॉग इन करा. <a href="https://github.com/organicmaps/organicmaps/issues/6144">येथे</a> अधिक जाणून घ्या.</string>

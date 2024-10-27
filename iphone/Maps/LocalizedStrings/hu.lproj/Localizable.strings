@@ -922,7 +922,7 @@
 
 "button_plan" = "Terv";
 
-"placepage_remove_stop" = "Eltávolítja";
+"placepage_remove_stop" = "Távolítsa el a stopot";
 
 "planning_route_remove_title" = "Húzza ide az eltávolításhoz";
 
@@ -950,7 +950,7 @@
 "bookmarks_create_new_group" = "Új lista létrehozása";
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
-"bookmarks_import" = "Könyvjelzők és sávok importálása";
+"bookmarks_import" = "Könyvjelzők és nyomvonalak importálása";
 
 "downloader_hide_screen" = "Képernyő elrejtése";
 
@@ -1309,7 +1309,7 @@
 "button_layer_outdoor" = "Túrázás";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
-"bookmarks_export" = "Az összes könyvjelző és sáv exportálása";
+"bookmarks_export" = "Az összes könyvjelző és nyomvonal exportálása";
 
 /* Text for the editing the Track's color button. */
 "change_color" = "Szín megváltoztatása";
@@ -1449,7 +1449,7 @@
 
 "type.amenity.bench" = "Pad";
 
-"type.amenity.bicycle_parking" = "Kerékpárparkoló";
+"type.amenity.bicycle_parking" = "Kerékpártároló";
 
 "type.amenity.bicycle_rental" = "Kerékpárkölcsönző";
 
