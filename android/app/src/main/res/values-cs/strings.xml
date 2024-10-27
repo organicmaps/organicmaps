@@ -576,7 +576,7 @@
     <string name="routing_add_start_point">Pomocí vyhledávání nebo klepnutím na mapu přidejte výchozí bod trasy</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Pomocí vyhledávání nebo klepnutím na mapu přidejte cílový bod</string>
-    <string name="placepage_remove_stop">Odstranit</string>
+    <string name="placepage_remove_stop">Odstranit zastávku</string>
     <string name="placepage_add_stop">Přidat zastávku</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Přihlaste se do OpenStreetMap, abyste mohli automaticky nahrávat všechny své úpravy mapy. Více informací <a href="https://github.com/organicmaps/organicmaps/issues/6144">zde</a>.</string>

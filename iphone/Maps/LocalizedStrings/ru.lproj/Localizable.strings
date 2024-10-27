@@ -922,11 +922,11 @@
 
 "button_plan" = "Построить";
 
-"placepage_remove_stop" = "Удалить";
+"placepage_remove_stop" = "Удалить остановку";
 
 "planning_route_remove_title" = "Перетяните сюда, чтобы удалить";
 
-"placepage_add_stop" = "Заехать";
+"placepage_add_stop" = "Добавить остановку";
 
 "start_from_my_position" = "Начать от";
 

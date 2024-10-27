@@ -569,7 +569,7 @@
     <string name="routing_add_start_point">Använd sökfunktionen eller tryck på kartan för att lägga till en startpunkt för rutten</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Använd sökfunktionen eller tryck på kartan för att lägga till en destinationspunkt</string>
-    <string name="placepage_remove_stop">Ta bort</string>
+    <string name="placepage_remove_stop">Ta bort stoppet</string>
     <string name="placepage_add_stop">Lägg till stopp</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Logga in på OpenStreetMap för att automatiskt ladda upp alla dina kartredigeringar. Läs mer <a href="https://github.com/organicmaps/organicmaps/issues/6144">här</a>.</string>

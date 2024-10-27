@@ -922,7 +922,7 @@
 
 "button_plan" = "规划";
 
-"placepage_remove_stop" = "移除";
+"placepage_remove_stop" = "删除站点";
 
 "planning_route_remove_title" = "拖拽到此处以移除";
 

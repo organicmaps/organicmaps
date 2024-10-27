@@ -922,11 +922,11 @@
 
 "button_plan" = "תכנון";
 
-"placepage_remove_stop" = "הסרה";
+"placepage_remove_stop" = "הסר עצירה";
 
 "planning_route_remove_title" = "גרור לכאן כדי להסיר";
 
-"placepage_add_stop" = "הוסף תחנה";
+"placepage_add_stop" = "הוסף עצירה";
 
 "start_from_my_position" = "Start from";
 

@@ -573,7 +573,7 @@
     <string name="routing_add_start_point">ใช้การค้นหาหรือแตะบนแผนที่เพื่อเพิ่มจุดเริ่มต้นเส้นทาง</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">ใช้การค้นหาหรือแตะบนแผนที่เพื่อเพิ่มจุดปลายทาง</string>
-    <string name="placepage_remove_stop">เอาออก</string>
+    <string name="placepage_remove_stop">ลบจุดแวะพัก</string>
     <string name="placepage_add_stop">เพิ่มจุดแวะพัก</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">กรุณาเข้าสู่ระบบ OpenStreetMap เพื่ออัปโหลดการแก้ไขแผนที่ทั้งหมดของคุณโดยอัตโนมัติ เรียนรู้เพิ่มเติม<a href="https://github.com/organicmaps/organicmaps/issues/6144">ที่นี่</a></string>
