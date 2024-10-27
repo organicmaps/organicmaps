@@ -5081,7 +5081,7 @@
     he = מרחצאות ציבוריות
     hu = Közfürdő
     id = Pemandian umum
-    it = Bagno pubblico
+    it = Terme pubbliche
     ja = 公衆浴場
     ko = 대중목욕탕
     mr = सार्वजनिक स्नान
@@ -24404,7 +24404,7 @@
     he = ריהוט חדר רחצה
     hu = Fürdőszobai bútorok
     id = Perabot Kamar Mandi
-    it = Arredo Bagno
+    it = Arredo bagno
     ja = バスルームの備品
     ko = 욕실 가구
     mr = स्नानगृह सामान
