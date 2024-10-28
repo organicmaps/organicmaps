@@ -118,35 +118,35 @@
   <symbol maxX="1398" maxY="304" minX="1338" minY="244" name="route-point-start"/>
   <symbol maxX="1482" maxY="304" minX="1398" minY="244" name="coloredmark-default-l"/>
   <symbol maxX="1566" maxY="304" minX="1482" minY="244" name="coloredmark-bg-l"/>
-  <symbol maxX="1618" maxY="296" minX="1566" minY="244" name="traffic_signals"/>
-  <symbol maxX="1670" maxY="296" minX="1618" minY="244" name="speedcam-alert-l"/>
-  <symbol maxX="1726" maxY="296" minX="1670" minY="244" name="shield-us-i-wide"/>
-  <symbol maxX="1770" maxY="296" minX="1726" minY="244" name="shield-us-i-thin"/>
-  <symbol maxX="1826" maxY="292" minX="1770" minY="244" name="shield-us-hw-wide"/>
-  <symbol maxX="1874" maxY="292" minX="1826" minY="244" name="shield-us-hw-thin"/>
-  <symbol maxX="1918" maxY="288" minX="1874" minY="244" name="track_marker_deselected"/>
-  <symbol maxX="1962" maxY="288" minX="1918" minY="244" name="current-position"/>
-  <symbol maxX="1994" maxY="288" minX="1962" minY="244" name="bookmark-default-s"/>
-  <symbol maxX="2026" maxY="288" minX="1994" minY="244" name="bookmark-bg-s"/>
-  <symbol maxX="40" maxY="348" minX="0" minY="308" name="zoo-m"/>
-  <symbol maxX="80" maxY="348" minX="40" minY="308" name="yoga-m"/>
-  <symbol maxX="120" maxY="348" minX="80" minY="308" name="wreck-m"/>
-  <symbol maxX="160" maxY="348" minX="120" minY="308" name="winery-m"/>
-  <symbol maxX="200" maxY="348" minX="160" minY="308" name="windmill-m"/>
-  <symbol maxX="240" maxY="348" minX="200" minY="308" name="wind_turbine-m"/>
-  <symbol maxX="280" maxY="348" minX="240" minY="308" name="wholesale-m"/>
-  <symbol maxX="320" maxY="348" minX="280" minY="308" name="wayside_shrine-m"/>
-  <symbol maxX="360" maxY="348" minX="320" minY="308" name="waterfall-m"/>
-  <symbol maxX="400" maxY="348" minX="360" minY="308" name="waste-basket-m"/>
-  <symbol maxX="440" maxY="348" minX="400" minY="308" name="volleyball-m"/>
-  <symbol maxX="480" maxY="348" minX="440" minY="308" name="viewpoint-m"/>
-  <symbol maxX="520" maxY="348" minX="480" minY="308" name="video-games-m"/>
-  <symbol maxX="560" maxY="348" minX="520" minY="308" name="veterinary-m"/>
-  <symbol maxX="600" maxY="348" minX="560" minY="308" name="vending-m"/>
-  <symbol maxX="640" maxY="348" minX="600" minY="308" name="vehicle_inspection-m"/>
-  <symbol maxX="680" maxY="348" minX="640" minY="308" name="travel_agency_shop-m"/>
-  <symbol maxX="720" maxY="348" minX="680" minY="308" name="tram-m"/>
-  <symbol maxX="760" maxY="348" minX="720" minY="308" name="train-m"/>
+  <symbol maxX="1618" maxY="296" minX="1566" minY="244" name="speedcam-alert-l"/>
+  <symbol maxX="1674" maxY="296" minX="1618" minY="244" name="shield-us-i-wide"/>
+  <symbol maxX="1718" maxY="296" minX="1674" minY="244" name="shield-us-i-thin"/>
+  <symbol maxX="1774" maxY="292" minX="1718" minY="244" name="shield-us-hw-wide"/>
+  <symbol maxX="1822" maxY="292" minX="1774" minY="244" name="shield-us-hw-thin"/>
+  <symbol maxX="1866" maxY="288" minX="1822" minY="244" name="track_marker_deselected"/>
+  <symbol maxX="1910" maxY="288" minX="1866" minY="244" name="current-position"/>
+  <symbol maxX="1942" maxY="288" minX="1910" minY="244" name="bookmark-default-s"/>
+  <symbol maxX="1974" maxY="288" minX="1942" minY="244" name="bookmark-bg-s"/>
+  <symbol maxX="2014" maxY="284" minX="1974" minY="244" name="zoo-m"/>
+  <symbol maxX="40" maxY="348" minX="0" minY="308" name="yoga-m"/>
+  <symbol maxX="80" maxY="348" minX="40" minY="308" name="wreck-m"/>
+  <symbol maxX="120" maxY="348" minX="80" minY="308" name="winery-m"/>
+  <symbol maxX="160" maxY="348" minX="120" minY="308" name="windmill-m"/>
+  <symbol maxX="200" maxY="348" minX="160" minY="308" name="wind_turbine-m"/>
+  <symbol maxX="240" maxY="348" minX="200" minY="308" name="wholesale-m"/>
+  <symbol maxX="280" maxY="348" minX="240" minY="308" name="wayside_shrine-m"/>
+  <symbol maxX="320" maxY="348" minX="280" minY="308" name="waterfall-m"/>
+  <symbol maxX="360" maxY="348" minX="320" minY="308" name="waste-basket-m"/>
+  <symbol maxX="400" maxY="348" minX="360" minY="308" name="volleyball-m"/>
+  <symbol maxX="440" maxY="348" minX="400" minY="308" name="viewpoint-m"/>
+  <symbol maxX="480" maxY="348" minX="440" minY="308" name="video-games-m"/>
+  <symbol maxX="520" maxY="348" minX="480" minY="308" name="veterinary-m"/>
+  <symbol maxX="560" maxY="348" minX="520" minY="308" name="vending-m"/>
+  <symbol maxX="600" maxY="348" minX="560" minY="308" name="vehicle_inspection-m"/>
+  <symbol maxX="640" maxY="348" minX="600" minY="308" name="travel_agency_shop-m"/>
+  <symbol maxX="680" maxY="348" minX="640" minY="308" name="tram-m"/>
+  <symbol maxX="720" maxY="348" minX="680" minY="308" name="train-m"/>
+  <symbol maxX="760" maxY="348" minX="720" minY="308" name="traffic_signals"/>
   <symbol maxX="800" maxY="348" minX="760" minY="308" name="toys-m"/>
   <symbol maxX="840" maxY="348" minX="800" minY="308" name="tourism-m"/>
   <symbol maxX="880" maxY="348" minX="840" minY="308" name="tomb-m"/>
