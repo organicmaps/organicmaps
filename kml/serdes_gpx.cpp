@@ -461,14 +461,6 @@ std::string GpxParser::BuildDescription() const
 namespace
 {
 
-std::optional<std::string> GetDefaultLanguage(LocalizableString const & lstr)
-{
-  auto const firstLang = lstr.begin();
-  if (firstLang != lstr.end())
-    return {firstLang->second};
-  return {};
-}
-
 std::string CoordToString(double c)
 {
   std::ostringstream ss;
@@ -489,11 +481,11 @@ void SaveCategoryData(Writer & writer, CategoryData const & categoryData)
 {
   writer << "<metadata>\n";
   if (auto const name = GetDefaultLanguage(categoryData.m_name))
-    writer << kIndent2 << "<name>" << name.value() << "</name>\n";
+    writer << kIndent2 << "<name>" << *name << "</name>\n";
   if (auto const description = GetDefaultLanguage(categoryData.m_description))
   {
     writer << kIndent2 << "<desc>";
-    SaveStringWithCDATA(writer, description.value());
+    SaveStringWithCDATA(writer, *description);
     writer << "</desc>\n";
   }
   writer << "</metadata>\n";
@@ -510,13 +502,13 @@ void SaveBookmarkData(Writer & writer, BookmarkData const & bookmarkData)
   if (name)
   {
     writer << kIndent2 << "<name>";
-    SaveStringWithCDATA(writer, name.value());
+    SaveStringWithCDATA(writer, *name);
     writer << "</name>\n";
   }
   if (auto const description = GetDefaultLanguage(bookmarkData.m_description))
   {
     writer << kIndent2 << "<desc>";
-    SaveStringWithCDATA(writer, description.value());
+    SaveStringWithCDATA(writer, *description);
     writer << "</desc>\n";
   }
   writer << "</wpt>\n";
@@ -542,16 +534,16 @@ void SaveTrackData(Writer & writer, TrackData const & trackData)
 {
   writer << "<trk>\n";
   auto name = GetDefaultLanguage(trackData.m_name);
-  if (name.has_value())
+  if (name)
   {
     writer << kIndent2 << "<name>";
-    SaveStringWithCDATA(writer, name.value());
+    SaveStringWithCDATA(writer, *name);
     writer << "</name>\n";
   }
   if (auto const description = GetDefaultLanguage(trackData.m_description))
   {
     writer << kIndent2 << "<desc>";
-    SaveStringWithCDATA(writer, description.value());
+    SaveStringWithCDATA(writer, *description);
     writer << "</desc>\n";
   }
   if (auto const color = TrackColor(trackData); color != kDefaultTrackColor)
