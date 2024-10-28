@@ -14,18 +14,17 @@ protocol DirectoryMonitor: AnyObject {
 }
 
 protocol LocalDirectoryMonitor: DirectoryMonitor {
-  var fileManager: FileManager { get }
   var directory: URL { get }
   var delegate: LocalDirectoryMonitorDelegate? { get set }
 }
 
 protocol LocalDirectoryMonitorDelegate : AnyObject {
-  func didFinishGathering(contents: LocalContents)
-  func didUpdate(contents: LocalContents)
+  func didFinishGathering(_ contents: LocalContents)
+  func didUpdate(_ contents: LocalContents, _ update: LocalContentsUpdate)
   func didReceiveLocalMonitorError(_ error: Error)
 }
 
-final class DefaultLocalDirectoryMonitor: LocalDirectoryMonitor {
+final class FileSystemDispatchSourceMonitor: LocalDirectoryMonitor {
 
   typealias Delegate = LocalDirectoryMonitorDelegate
 
@@ -35,14 +34,15 @@ final class DefaultLocalDirectoryMonitor: LocalDirectoryMonitor {
     case debounce(source: DispatchSourceFileSystemObject, timer: Timer)
   }
 
-  let fileManager: FileManager
-  let fileType: FileType
+  private let fileManager: FileManager
+  private let fileType: FileType
   private let resourceKeys: [URLResourceKey] = [.nameKey]
   private var dispatchSource: DispatchSourceFileSystemObject?
   private var dispatchSourceDebounceState: DispatchSourceDebounceState = .stopped
   private var dispatchSourceIsSuspended = false
   private var dispatchSourceIsResumed = false
   private var didFinishGatheringIsCalled = false
+  private var contents: LocalContents = []
 
   // MARK: - Public properties
   let directory: URL
@@ -98,6 +98,7 @@ final class DefaultLocalDirectoryMonitor: LocalDirectoryMonitor {
     didFinishGatheringIsCalled = false
     dispatchSourceDebounceState = .stopped
     state = .stopped
+    contents.removeAll()
   }
 
   func pause() {
@@ -116,7 +117,6 @@ final class DefaultLocalDirectoryMonitor: LocalDirectoryMonitor {
 
   // MARK: - Private
   private func queueDidFire() {
-    LOG(.debug, "Queue did fire.")
     let debounceTimeInterval = 0.5
     switch dispatchSourceDebounceState {
     case .started(let source):
@@ -149,20 +149,36 @@ final class DefaultLocalDirectoryMonitor: LocalDirectoryMonitor {
       let files = try fileManager
         .contentsOfDirectory(at: directory, includingPropertiesForKeys: [.contentModificationDateKey], options: [.skipsHiddenFiles])
         .filter { $0.pathExtension == fileType.fileExtension }
-      LOG(.info, "Local directory content: \(files.map { $0.lastPathComponent }) ")
-      let contents: LocalContents = try files.map { try LocalMetadataItem(fileUrl: $0) }
+      let currentContents = try files.map { try LocalMetadataItem(fileUrl: $0) }
 
       if !didFinishGatheringIsCalled {
-        didFinishGatheringIsCalled = true
         LOG(.debug, "didFinishGathering will be called")
-        delegate?.didFinishGathering(contents: contents)
+        didFinishGatheringIsCalled = true
+        contents = currentContents
+        delegate?.didFinishGathering(currentContents)
       } else {
         LOG(.debug, "didUpdate will be called")
-        delegate?.didUpdate(contents: contents)
+        let changedContents = Self.getChangedContents(oldContents: contents, newContents: currentContents)
+        contents = currentContents
+        LOG(.info, "Added to the local content: \n\(changedContents.added.shortDebugDescription)")
+        LOG(.info, "Updated in the local content: \n\(changedContents.updated.shortDebugDescription)")
+        LOG(.info, "Removed from the local content: \n\(changedContents.removed.shortDebugDescription)")
+        delegate?.didUpdate(currentContents, changedContents)
       }
     } catch {
       delegate?.didReceiveLocalMonitorError(error)
     }
+  }
+
+  private static func getChangedContents(oldContents: LocalContents, newContents: LocalContents) -> LocalContentsUpdate {
+    let added = newContents.filter { !oldContents.containsByName($0) }
+    let updated = newContents.reduce(into: LocalContents()) { partialResult, newItem in
+      if let oldItem = oldContents.firstByName(newItem), newItem.lastModificationDate > oldItem.lastModificationDate {
+        partialResult.append(newItem)
+      }
+    }
+    let removed = oldContents.filter { !newContents.containsByName($0) }
+    return LocalContentsUpdate(added: added, updated: updated, removed: removed)
   }
 
   private func suspendDispatchSource() {

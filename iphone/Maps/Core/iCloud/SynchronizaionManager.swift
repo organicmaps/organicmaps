@@ -13,12 +13,11 @@ enum WritingResult {
 typealias VoidResultCompletionHandler = (VoidResult) -> Void
 typealias WritingResultCompletionHandler = (WritingResult) -> Void
 
-let kTrashDirectoryName = ".Trash"
 private let kBookmarksDirectoryName = "bookmarks"
 private let kICloudSynchronizationDidChangeEnabledStateNotificationName = "iCloudSynchronizationDidChangeEnabledStateNotification"
 private let kUDDidFinishInitialCloudSynchronization = "kUDDidFinishInitialCloudSynchronization"
 
-final class CloudStorageSynchronizationState: NSObject {
+final class SynchronizationManagerState: NSObject {
   let isAvailable: Bool
   let isOn: Bool
   let error: NSError?
@@ -30,11 +29,12 @@ final class CloudStorageSynchronizationState: NSObject {
   }
 }
 
-@objc @objcMembers final class CloudStorageManager: NSObject {
+@objcMembers
+final class iCloudSynchronizaionManager: NSObject {
 
   fileprivate struct Observation {
     weak var observer: AnyObject?
-    var onSynchronizationStateDidChangeHandler: ((CloudStorageSynchronizationState) -> Void)?
+    var onSynchronizationStateDidChangeHandler: ((SynchronizationManagerState) -> Void)?
   }
 
   let fileManager: FileManager
@@ -42,30 +42,35 @@ final class CloudStorageSynchronizationState: NSObject {
   private let cloudDirectoryMonitor: CloudDirectoryMonitor
   private let settings: Settings.Type
   private let bookmarksManager: BookmarksManager
-  private let synchronizationStateManager: SynchronizationStateManager
+  private var synchronizationStateManager: SynchronizationStateResolver
   private var fileWriter: SynchronizationFileWriter?
-  private var observers = [ObjectIdentifier: CloudStorageManager.Observation]()
+  private var observers = [ObjectIdentifier: iCloudSynchronizaionManager.Observation]()
   private var synchronizationError: Error? {
     didSet { notifyObserversOnSynchronizationError(synchronizationError) }
   }
 
   static private var isInitialSynchronization: Bool {
-    return !UserDefaults.standard.bool(forKey: kUDDidFinishInitialCloudSynchronization)
+    get {
+      !UserDefaults.standard.bool(forKey: kUDDidFinishInitialCloudSynchronization)
+    }
+    set {
+      UserDefaults.standard.set(!newValue, forKey: kUDDidFinishInitialCloudSynchronization)
+    }
   }
 
-  static let shared: CloudStorageManager = {
+  static let shared: iCloudSynchronizaionManager = {
     let fileManager = FileManager.default
     let fileType = FileType.kml
-    let cloudDirectoryMonitor = iCloudDocumentsDirectoryMonitor(fileManager: fileManager, fileType: fileType)
-    let synchronizationStateManager = DefaultSynchronizationStateManager(isInitialSynchronization: CloudStorageManager.isInitialSynchronization)
+    let cloudDirectoryMonitor = iCloudDocumentsMonitor(fileManager: fileManager, fileType: fileType)
+    let synchronizationStateManager = iCloudSynchronizationStateResolver(isInitialSynchronization: isInitialSynchronization)
     do {
-      let localDirectoryMonitor = try DefaultLocalDirectoryMonitor(fileManager: fileManager, directory: fileManager.bookmarksDirectoryUrl, fileType: fileType)
-      let clodStorageManager = try CloudStorageManager(fileManager: fileManager,
-                                                       settings: Settings.self,
-                                                       bookmarksManager: BookmarksManager.shared(),
-                                                       cloudDirectoryMonitor: cloudDirectoryMonitor,
-                                                       localDirectoryMonitor: localDirectoryMonitor,
-                                                       synchronizationStateManager: synchronizationStateManager)
+      let localDirectoryMonitor = try FileSystemDispatchSourceMonitor(fileManager: fileManager, directory: fileManager.bookmarksDirectoryUrl, fileType: fileType)
+      let clodStorageManager = iCloudSynchronizaionManager(fileManager: fileManager,
+                                                           settings: Settings.self,
+                                                           bookmarksManager: BookmarksManager.shared(),
+                                                           cloudDirectoryMonitor: cloudDirectoryMonitor,
+                                                           localDirectoryMonitor: localDirectoryMonitor,
+                                                           synchronizationStateManager: synchronizationStateManager)
       return clodStorageManager
     } catch {
       fatalError("Failed to create shared iCloud storage manager with error: \(error)")
@@ -78,10 +83,7 @@ final class CloudStorageSynchronizationState: NSObject {
        bookmarksManager: BookmarksManager,
        cloudDirectoryMonitor: CloudDirectoryMonitor,
        localDirectoryMonitor: LocalDirectoryMonitor,
-       synchronizationStateManager: SynchronizationStateManager) throws {
-    guard fileManager === cloudDirectoryMonitor.fileManager, fileManager === localDirectoryMonitor.fileManager else {
-      throw NSError(domain: "CloudStorageManger", code: 0, userInfo: [NSLocalizedDescriptionKey: "File managers should be the same."])
-    }
+       synchronizationStateManager: SynchronizationStateResolver) {
     self.fileManager = fileManager
     self.settings = settings
     self.bookmarksManager = bookmarksManager
@@ -101,7 +103,7 @@ final class CloudStorageSynchronizationState: NSObject {
 }
 
 // MARK: - Private
-private extension CloudStorageManager {
+private extension iCloudSynchronizaionManager {
   // MARK: - Synchronization Lifecycle
   func startSynchronization() {
     LOG(.info, "Start synchronization...")
@@ -185,19 +187,25 @@ private extension CloudStorageManager {
   }
 
   @objc func didChangeEnabledState() {
-    settings.iCLoudSynchronizationEnabled() ? startSynchronization() : stopSynchronization()
+    if settings.iCLoudSynchronizationEnabled() {
+      Self.isInitialSynchronization = true
+      synchronizationStateManager.setInitialSynchronization(true)
+      startSynchronization()
+    } else {
+      stopSynchronization()
+    }
   }
 }
 
 // MARK: - iCloudStorageManger + LocalDirectoryMonitorDelegate
-extension CloudStorageManager: LocalDirectoryMonitorDelegate {
-  func didFinishGathering(contents: LocalContents) {
+extension iCloudSynchronizaionManager: LocalDirectoryMonitorDelegate {
+  func didFinishGathering(_ contents: LocalContents) {
     let events = synchronizationStateManager.resolveEvent(.didFinishGatheringLocalContents(contents))
     processEvents(events)
   }
 
-  func didUpdate(contents: LocalContents) {
-    let events = synchronizationStateManager.resolveEvent(.didUpdateLocalContents(contents))
+  func didUpdate(_ contents: LocalContents, _ update: LocalContentsUpdate) {
+    let events = synchronizationStateManager.resolveEvent(.didUpdateLocalContents(contents: contents, update: update))
     processEvents(events)
   }
 
@@ -207,14 +215,14 @@ extension CloudStorageManager: LocalDirectoryMonitorDelegate {
 }
 
 // MARK: - iCloudStorageManger + CloudDirectoryMonitorDelegate
-extension CloudStorageManager: CloudDirectoryMonitorDelegate {
-  func didFinishGathering(contents: CloudContents) {
+extension iCloudSynchronizaionManager: CloudDirectoryMonitorDelegate {
+  func didFinishGathering(_ contents: CloudContents) {
     let events = synchronizationStateManager.resolveEvent(.didFinishGatheringCloudContents(contents))
     processEvents(events)
   }
 
-  func didUpdate(contents: CloudContents) {
-    let events = synchronizationStateManager.resolveEvent(.didUpdateCloudContents(contents))
+  func didUpdate(_ contents: CloudContents, _ update: CloudContentsUpdate) {
+    let events = synchronizationStateManager.resolveEvent(.didUpdateCloudContents(contents: contents, update: update))
     processEvents(events)
   }
 
@@ -224,8 +232,8 @@ extension CloudStorageManager: CloudDirectoryMonitorDelegate {
 }
 
 // MARK: - Private methods
-private extension CloudStorageManager {
-  func processEvents(_ events: [OutgoingEvent]) {
+private extension iCloudSynchronizaionManager {
+  func processEvents(_ events: [OutgoingSynchronizationEvent]) {
     guard !events.isEmpty else {
       synchronizationError = nil
       return
@@ -236,14 +244,13 @@ private extension CloudStorageManager {
     }
   }
 
-  func writingResultHandler(for event: OutgoingEvent) -> WritingResultCompletionHandler {
+  func writingResultHandler(for event: OutgoingSynchronizationEvent) -> WritingResultCompletionHandler {
     return { [weak self] result in
       guard let self else { return }
       switch result {
       case .success:
-        // Mark that initial synchronization is finished.
         if case .didFinishInitialSynchronization = event {
-          UserDefaults.standard.set(true, forKey: kUDDidFinishInitialCloudSynchronization)
+          Self.isInitialSynchronization = false
         }
       case .reloadCategoriesAtURLs(let urls):
         urls.forEach { self.bookmarksManager.reloadCategory(atFilePath: $0.path) }
@@ -283,9 +290,14 @@ private extension CloudStorageManager {
   }
 }
 
-// MARK: - CloudStorageManger Observing
-extension CloudStorageManager {
-  func addObserver(_ observer: AnyObject, synchronizationStateDidChangeHandler: @escaping (CloudStorageSynchronizationState) -> Void) {
+// MARK: - Observation
+protocol SynchronizationStateObservation {
+  func addObserver(_ observer: AnyObject, synchronizationStateDidChangeHandler: @escaping (SynchronizationManagerState) -> Void)
+  func removeObserver(_ observer: AnyObject)
+}
+
+extension iCloudSynchronizaionManager {
+  func addObserver(_ observer: AnyObject, synchronizationStateDidChangeHandler: @escaping (SynchronizationManagerState) -> Void) {
     let id = ObjectIdentifier(observer)
     observers[id] = Observation(observer: observer, onSynchronizationStateDidChangeHandler: synchronizationStateDidChangeHandler)
     notifyObserversOnSynchronizationError(synchronizationError)
@@ -297,9 +309,9 @@ extension CloudStorageManager {
   }
 
   private func notifyObserversOnSynchronizationError(_ error: Error?) {
-    let state = CloudStorageSynchronizationState(isAvailable: cloudDirectoryMonitor.isCloudAvailable(),
-                                     isOn: settings.iCLoudSynchronizationEnabled(),
-                                     error: error as? NSError)
+    let state = SynchronizationManagerState(isAvailable: cloudDirectoryMonitor.isCloudAvailable(),
+                                                 isOn: settings.iCLoudSynchronizationEnabled(),
+                                                 error: error as? NSError)
     observers.removeUnreachable().forEach { _, observable in
       DispatchQueue.main.async {
         observable.onSynchronizationStateDidChangeHandler?(state)
@@ -313,14 +325,6 @@ extension FileManager {
   var bookmarksDirectoryUrl: URL {
     urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent(kBookmarksDirectoryName, isDirectory: true)
   }
-
-  func trashDirectoryUrl(for baseDirectoryUrl: URL) throws -> URL {
-    let trashDirectory = baseDirectoryUrl.appendingPathComponent(kTrashDirectoryName, isDirectory: true)
-    if !fileExists(atPath: trashDirectory.path) {
-      try createDirectory(at: trashDirectory, withIntermediateDirectories: true)
-    }
-    return trashDirectory
-  }
 }
 
 // MARK: - Notification + iCloudSynchronizationDidChangeEnabledState
@@ -333,7 +337,7 @@ extension Notification.Name {
 }
 
 // MARK: - Dictionary + RemoveUnreachable
-private extension Dictionary where Key == ObjectIdentifier, Value == CloudStorageManager.Observation {
+private extension Dictionary where Key == ObjectIdentifier, Value == iCloudSynchronizaionManager.Observation {
   mutating func removeUnreachable() -> Self {
     for (id, observation) in self {
       if observation.observer == nil {

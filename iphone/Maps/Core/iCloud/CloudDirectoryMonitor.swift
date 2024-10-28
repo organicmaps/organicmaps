@@ -1,6 +1,4 @@
 protocol CloudDirectoryMonitor: DirectoryMonitor {
-  var fileManager: FileManager { get }
-  var ubiquitousDocumentsDirectory: URL? { get }
   var delegate: CloudDirectoryMonitorDelegate? { get set }
 
   func fetchUbiquityDirectoryUrl(completion: ((Result<URL, Error>) -> Void)?)
@@ -8,17 +6,17 @@ protocol CloudDirectoryMonitor: DirectoryMonitor {
 }
 
 protocol CloudDirectoryMonitorDelegate : AnyObject {
-  func didFinishGathering(contents: CloudContents)
-  func didUpdate(contents: CloudContents)
+  func didFinishGathering(_ contents: CloudContents)
+  func didUpdate(_ contents: CloudContents, _ update: CloudContentsUpdate)
   func didReceiveCloudMonitorError(_ error: Error)
 }
 
 private let kUDCloudIdentityKey = "com.apple.organicmaps.UbiquityIdentityToken"
 private let kDocumentsDirectoryName = "Documents"
 
-class iCloudDocumentsDirectoryMonitor: NSObject, CloudDirectoryMonitor {
+final class iCloudDocumentsMonitor: NSObject, CloudDirectoryMonitor {
 
-  static let sharedContainerIdentifier: String = {
+  private static let sharedContainerIdentifier: String = {
     var identifier = "iCloud.app.organicmaps"
     #if DEBUG
     identifier.append(".debug")
@@ -27,16 +25,17 @@ class iCloudDocumentsDirectoryMonitor: NSObject, CloudDirectoryMonitor {
   }()
 
   let containerIdentifier: String
-  let fileManager: FileManager
+  private let fileManager: FileManager
   private let fileType: FileType // TODO: Should be removed when the nested directory support will be implemented
-  private(set) var metadataQuery: NSMetadataQuery?
-  private(set) var ubiquitousDocumentsDirectory: URL?
+  private var metadataQuery: NSMetadataQuery?
+  private var ubiquitousDocumentsDirectory: URL?
+  private var previouslyChangedContents = CloudContentsUpdate()
 
   // MARK: - Public properties
   private(set) var state: DirectoryMonitorState = .stopped
   weak var delegate: CloudDirectoryMonitorDelegate?
 
-  init(fileManager: FileManager = .default, cloudContainerIdentifier: String = iCloudDocumentsDirectoryMonitor.sharedContainerIdentifier, fileType: FileType) {
+  init(fileManager: FileManager = .default, cloudContainerIdentifier: String = iCloudDocumentsMonitor.sharedContainerIdentifier, fileType: FileType) {
     self.fileManager = fileManager
     self.containerIdentifier = cloudContainerIdentifier
     self.fileType = fileType
@@ -44,7 +43,6 @@ class iCloudDocumentsDirectoryMonitor: NSObject, CloudDirectoryMonitor {
 
     fetchUbiquityDirectoryUrl()
     subscribeOnMetadataQueryNotifications()
-    subscribeOnCloudAvailabilityNotifications()
   }
 
   // MARK: - Public methods
@@ -72,6 +70,7 @@ class iCloudDocumentsDirectoryMonitor: NSObject, CloudDirectoryMonitor {
     LOG(.debug, "Stop cloud monitor.")
     stopQuery()
     state = .stopped
+    previouslyChangedContents = CloudContentsUpdate()
   }
 
   func resume() {
@@ -131,64 +130,10 @@ class iCloudDocumentsDirectoryMonitor: NSObject, CloudDirectoryMonitor {
       return false
     }
   }
-
-  class func buildMetadataQuery(for fileType: FileType) -> NSMetadataQuery {
-    let metadataQuery = NSMetadataQuery()
-    metadataQuery.notificationBatchingInterval = 1
-    metadataQuery.searchScopes = [NSMetadataQueryUbiquitousDocumentsScope]
-    metadataQuery.predicate = NSPredicate(format: "%K LIKE %@", NSMetadataItemFSNameKey, "*.\(fileType.fileExtension)")
-    metadataQuery.sortDescriptors = [NSSortDescriptor(key: NSMetadataItemFSNameKey, ascending: true)]
-    return metadataQuery
-  }
-
-  class func getContentsFromNotification(_ notification: Notification) throws -> CloudContents {
-    guard let metadataQuery = notification.object as? NSMetadataQuery,
-          let metadataItems = metadataQuery.results as? [NSMetadataItem] else {
-      throw SynchronizationError.failedToRetrieveMetadataQueryContent
-    }
-    return try metadataItems.map { try CloudMetadataItem(metadataItem: $0) }
-  }
-
-  // There are no ways to retrieve the content of iCloud's .Trash directory on the macOS because it uses different file system and place trashed content in the /Users/<user_name>/.Trash which cannot be observed without access.
-  // When we get a new notification and retrieve the metadata from the object the actual list of items in iOS contains both current and deleted files (which is in .Trash/ directory now) but on macOS we only have absence of the file. So there are no way to get list of deleted items on macOS on didFinishGathering state.
-  // Due to didUpdate state we can get the list of deleted items on macOS from the userInfo property but cannot get their new url.
-  class func getTrashContentsFromNotification(_ notification: Notification) throws -> CloudContents {
-    guard let removedItems = notification.userInfo?[NSMetadataQueryUpdateRemovedItemsKey] as? [NSMetadataItem] else {
-      LOG(.warning, "userInfo[NSMetadataQueryUpdateRemovedItemsKey] is nil")
-      return []
-    }
-    LOG(.info, "Removed from the cloud content: \n\(removedItems.shortDebugDescription)")
-    return try removedItems.map { try CloudMetadataItem(metadataItem: $0, isRemoved: true) }
-  }
-
-  class func getTrashedContentsFromTrashDirectory(fileManager: FileManager, ubiquitousDocumentsDirectory: URL) throws -> CloudContents {
-    // There are no ways to retrieve the content of iCloud's .Trash directory on macOS.
-    if #available(iOS 14.0, *), ProcessInfo.processInfo.isiOSAppOnMac {
-      LOG(.warning, "Trashed content is not available on macOS.")
-      return []
-    }
-    let trashDirectoryUrl = try fileManager.trashDirectoryUrl(for: ubiquitousDocumentsDirectory)
-    let removedItems = try fileManager.contentsOfDirectory(at: trashDirectoryUrl,
-                                                           includingPropertiesForKeys: [.isDirectoryKey],
-                                                           options: [.skipsPackageDescendants, .skipsSubdirectoryDescendants])
-    LOG(.info, "Trashed cloud content: \n\(removedItems)")
-    return try removedItems.map { try CloudMetadataItem(fileUrl: $0, isRemoved: true) }
-  }
 }
 
 // MARK: - Private
-private extension iCloudDocumentsDirectoryMonitor {
-
-  func subscribeOnCloudAvailabilityNotifications() {
-    NotificationCenter.default.addObserver(self, selector: #selector(cloudAvailabilityChanged(_:)), name: .NSUbiquityIdentityDidChange, object: nil)
-  }
-
-  // TODO: - Actually this notification was never called. If user disable the iCloud for the current app during the active state the app will be relaunched. Needs to investigate additional cases when this notification can be sent.
-  @objc func cloudAvailabilityChanged(_ notification: Notification) {
-    LOG(.debug, "iCloudMonitor: Cloud availability changed to : \(isCloudAvailable())")
-    isCloudAvailable() ? startQuery() : stopQuery()
-  }
-
+private extension iCloudDocumentsMonitor {
   // MARK: - MetadataQuery
   func subscribeOnMetadataQueryNotifications() {
     NotificationCenter.default.addObserver(self, selector: #selector(queryDidFinishGathering(_:)), name: NSNotification.Name.NSMetadataQueryDidFinishGathering, object: nil)
@@ -209,13 +154,12 @@ private extension iCloudDocumentsDirectoryMonitor {
   }
 
   @objc func queryDidFinishGathering(_ notification: Notification) {
-    guard isCloudAvailable(), let ubiquitousDocumentsDirectory else { return }
+    guard isCloudAvailable() else { return }
     metadataQuery?.disableUpdates()
     LOG(.debug, "Query did finish gathering")
     do {
-      let contents = try Self.getContentsFromNotification(notification)
-      let trashedContents = try Self.getTrashedContentsFromTrashDirectory(fileManager: fileManager, ubiquitousDocumentsDirectory: ubiquitousDocumentsDirectory)
-      delegate?.didFinishGathering(contents: contents + trashedContents)
+      let currentContents = try Self.getCurrentContents(notification)
+      delegate?.didFinishGathering(currentContents)
     } catch {
       delegate?.didReceiveCloudMonitorError(error)
     }
@@ -227,18 +171,58 @@ private extension iCloudDocumentsDirectoryMonitor {
     metadataQuery?.disableUpdates()
     LOG(.debug, "Query did update")
     do {
-      let contents = try Self.getContentsFromNotification(notification)
-      let trashedContents = try Self.getTrashContentsFromNotification(notification)
-      delegate?.didUpdate(contents: contents + trashedContents)
+      let changedContents = try Self.getChangedContents(notification)
+      /* The metadataQuery can send the same changes multiple times with only uploading/downloading process updates.
+      This unnecessary updated should be skipped. */
+      if changedContents != previouslyChangedContents {
+        previouslyChangedContents = changedContents
+        LOG(.info, "Added to the cloud content: \n\(changedContents.added.shortDebugDescription)")
+        LOG(.info, "Updated in the cloud content: \n\(changedContents.updated.shortDebugDescription)")
+        LOG(.info, "Removed from the cloud content: \n\(changedContents.removed.shortDebugDescription)")
+        let currentContents = try Self.getCurrentContents(notification)
+        delegate?.didUpdate(currentContents, changedContents)
+      }
     } catch {
       delegate?.didReceiveCloudMonitorError(error)
     }
     metadataQuery?.enableUpdates()
   }
+
+  static func buildMetadataQuery(for fileType: FileType) -> NSMetadataQuery {
+    let metadataQuery = NSMetadataQuery()
+    metadataQuery.notificationBatchingInterval = 1
+    metadataQuery.searchScopes = [NSMetadataQueryUbiquitousDocumentsScope]
+    metadataQuery.predicate = NSPredicate(format: "%K LIKE %@", NSMetadataItemFSNameKey, "*.\(fileType.fileExtension)")
+    metadataQuery.sortDescriptors = [NSSortDescriptor(key: NSMetadataItemFSNameKey, ascending: true)]
+    return metadataQuery
+  }
+
+  static func getCurrentContents(_ notification: Notification) throws -> [CloudMetadataItem] {
+    guard let metadataQuery = notification.object as? NSMetadataQuery,
+          let metadataItems = metadataQuery.results as? [NSMetadataItem] else {
+      throw SynchronizationError.failedToRetrieveMetadataQueryContent
+    }
+    return try metadataItems.map { try CloudMetadataItem(metadataItem: $0) }
+  }
+
+  static func getChangedContents(_ notification: Notification) throws -> CloudContentsUpdate {
+    guard let userInfo = notification.userInfo else {
+      throw SynchronizationError.failedToRetrieveMetadataQueryContent
+    }
+    let addedMetadataItems = userInfo[NSMetadataQueryUpdateAddedItemsKey] as? [NSMetadataItem] ?? []
+    let updatedMetadataItems = userInfo[NSMetadataQueryUpdateChangedItemsKey] as? [NSMetadataItem] ?? []
+    let removedMetadataItems = userInfo[NSMetadataQueryUpdateRemovedItemsKey] as? [NSMetadataItem] ?? []
+    let addedContents = try addedMetadataItems.map { try CloudMetadataItem(metadataItem: $0) }
+    let updatedContents = try updatedMetadataItems.map { try CloudMetadataItem(metadataItem: $0) }
+    let removedContents = try removedMetadataItems.map { try CloudMetadataItem(metadataItem: $0) }
+    return CloudContentsUpdate(added: addedContents, updated: updatedContents, removed: removedContents)
+  }
 }
 
-fileprivate extension Array where Element == NSMetadataItem {
-  var shortDebugDescription: String {
-    map { $0.value(forAttribute: NSMetadataItemFSNameKey) as! String }.joined(separator: "\n")
+private extension CloudContentsUpdate {
+  init() {
+    self.added = []
+    self.updated = []
+    self.removed = []
   }
 }

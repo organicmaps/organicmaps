@@ -481,12 +481,12 @@
 		ED77556E2C2C490B0051E656 /* UIAlertController+openInAppActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED77556D2C2C490B0051E656 /* UIAlertController+openInAppActionSheet.swift */; };
 		ED79A5AB2BD7AA9C00952D1F /* LoadingOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5AA2BD7AA9C00952D1F /* LoadingOverlayViewController.swift */; };
 		ED79A5AD2BD7BA0F00952D1F /* UIApplication+LoadingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5AC2BD7BA0F00952D1F /* UIApplication+LoadingOverlay.swift */; };
-		ED79A5D32BDF8D6100952D1F /* CloudStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5CB2BDF8D6100952D1F /* CloudStorageManager.swift */; };
+		ED79A5D32BDF8D6100952D1F /* SynchronizaionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5CB2BDF8D6100952D1F /* SynchronizaionManager.swift */; };
 		ED79A5D42BDF8D6100952D1F /* MetadataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5CC2BDF8D6100952D1F /* MetadataItem.swift */; };
 		ED79A5D52BDF8D6100952D1F /* SynchronizationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5CD2BDF8D6100952D1F /* SynchronizationError.swift */; };
-		ED79A5D62BDF8D6100952D1F /* iCloudDocumentsDirectoryMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5CE2BDF8D6100952D1F /* iCloudDocumentsDirectoryMonitor.swift */; };
-		ED79A5D72BDF8D6100952D1F /* SynchronizationStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5CF2BDF8D6100952D1F /* SynchronizationStateManager.swift */; };
-		ED79A5D82BDF8D6100952D1F /* DefaultLocalDirectoryMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5D02BDF8D6100952D1F /* DefaultLocalDirectoryMonitor.swift */; };
+		ED79A5D62BDF8D6100952D1F /* CloudDirectoryMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5CE2BDF8D6100952D1F /* CloudDirectoryMonitor.swift */; };
+		ED79A5D72BDF8D6100952D1F /* SynchronizationStateResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5CF2BDF8D6100952D1F /* SynchronizationStateResolver.swift */; };
+		ED79A5D82BDF8D6100952D1F /* LocalDirectoryMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5D02BDF8D6100952D1F /* LocalDirectoryMonitor.swift */; };
 		ED7CCC4F2C1362E300E2A737 /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7CCC4E2C1362E300E2A737 /* FileType.swift */; };
 		ED808D0F2C38407800D52585 /* CircleImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED808D0E2C38407800D52585 /* CircleImageButton.swift */; };
 		ED8270F02C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8270EF2C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift */; };
@@ -1409,12 +1409,12 @@
 		ED77556D2C2C490B0051E656 /* UIAlertController+openInAppActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+openInAppActionSheet.swift"; sourceTree = "<group>"; };
 		ED79A5AA2BD7AA9C00952D1F /* LoadingOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingOverlayViewController.swift; sourceTree = "<group>"; };
 		ED79A5AC2BD7BA0F00952D1F /* UIApplication+LoadingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+LoadingOverlay.swift"; sourceTree = "<group>"; };
-		ED79A5CB2BDF8D6100952D1F /* CloudStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudStorageManager.swift; sourceTree = "<group>"; };
+		ED79A5CB2BDF8D6100952D1F /* SynchronizaionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizaionManager.swift; sourceTree = "<group>"; };
 		ED79A5CC2BDF8D6100952D1F /* MetadataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetadataItem.swift; sourceTree = "<group>"; };
 		ED79A5CD2BDF8D6100952D1F /* SynchronizationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationError.swift; sourceTree = "<group>"; };
-		ED79A5CE2BDF8D6100952D1F /* iCloudDocumentsDirectoryMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iCloudDocumentsDirectoryMonitor.swift; sourceTree = "<group>"; };
-		ED79A5CF2BDF8D6100952D1F /* SynchronizationStateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationStateManager.swift; sourceTree = "<group>"; };
-		ED79A5D02BDF8D6100952D1F /* DefaultLocalDirectoryMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultLocalDirectoryMonitor.swift; sourceTree = "<group>"; };
+		ED79A5CE2BDF8D6100952D1F /* CloudDirectoryMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudDirectoryMonitor.swift; sourceTree = "<group>"; };
+		ED79A5CF2BDF8D6100952D1F /* SynchronizationStateResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationStateResolver.swift; sourceTree = "<group>"; };
+		ED79A5D02BDF8D6100952D1F /* LocalDirectoryMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalDirectoryMonitor.swift; sourceTree = "<group>"; };
 		ED7CCC4E2C1362E300E2A737 /* FileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileType.swift; sourceTree = "<group>"; };
 		ED808D0E2C38407800D52585 /* CircleImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageButton.swift; sourceTree = "<group>"; };
 		ED8270EF2C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewDetailedSwitchCell.swift; sourceTree = "<group>"; };
@@ -3125,11 +3125,11 @@
 		ED79A5CA2BDF8D6100952D1F /* iCloud */ = {
 			isa = PBXGroup;
 			children = (
-				ED79A5CB2BDF8D6100952D1F /* CloudStorageManager.swift */,
+				ED79A5CB2BDF8D6100952D1F /* SynchronizaionManager.swift */,
 				EDF838812C00B640007E4E67 /* SynchronizationFileWriter.swift */,
-				ED79A5CF2BDF8D6100952D1F /* SynchronizationStateManager.swift */,
-				ED79A5CE2BDF8D6100952D1F /* iCloudDocumentsDirectoryMonitor.swift */,
-				ED79A5D02BDF8D6100952D1F /* DefaultLocalDirectoryMonitor.swift */,
+				ED79A5CF2BDF8D6100952D1F /* SynchronizationStateResolver.swift */,
+				ED79A5CE2BDF8D6100952D1F /* CloudDirectoryMonitor.swift */,
+				ED79A5D02BDF8D6100952D1F /* LocalDirectoryMonitor.swift */,
 				ED79A5CC2BDF8D6100952D1F /* MetadataItem.swift */,
 				ED79A5CD2BDF8D6100952D1F /* SynchronizationError.swift */,
 			);
@@ -4400,7 +4400,7 @@
 				3454D7D41E07F045004AF2AD /* UIImageView+Coloring.m in Sources */,
 				993DF11D23F6BDB100AC231A /* UIToolbarRenderer.swift in Sources */,
 				99A906E923F6F7030005872B /* WikiDescriptionViewController.swift in Sources */,
-				ED79A5D62BDF8D6100952D1F /* iCloudDocumentsDirectoryMonitor.swift in Sources */,
+				ED79A5D62BDF8D6100952D1F /* CloudDirectoryMonitor.swift in Sources */,
 				EDFDFB522B726F1A0013A44C /* ButtonsStackView.swift in Sources */,
 				993DF11023F6BDB100AC231A /* MWMButtonRenderer.swift in Sources */,
 				3463BA671DE81DB90082417F /* MWMTrafficButtonViewController.mm in Sources */,
@@ -4550,7 +4550,7 @@
 				F6E2FF661E097BA00083EBEC /* MWMTTSSettingsViewController.mm in Sources */,
 				3454D7C21E07F045004AF2AD /* NSString+Categories.m in Sources */,
 				34E7761F1F14DB48003040B3 /* PlacePageArea.swift in Sources */,
-				ED79A5D82BDF8D6100952D1F /* DefaultLocalDirectoryMonitor.swift in Sources */,
+				ED79A5D82BDF8D6100952D1F /* LocalDirectoryMonitor.swift in Sources */,
 				EDC4E34B2C5D1BEF009286A2 /* RecentlyDeletedCategoriesViewController.swift in Sources */,
 				ED8270F02C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift in Sources */,
 				4728F69322CF89A400E00028 /* GradientView.swift in Sources */,
@@ -4628,7 +4628,7 @@
 				998927402449ECC200260CE2 /* BottomMenuItemCell.swift in Sources */,
 				F6E2FEE21E097BA00083EBEC /* MWMSearchManager.mm in Sources */,
 				F6E2FE221E097BA00083EBEC /* MWMOpeningHoursEditorViewController.mm in Sources */,
-				ED79A5D72BDF8D6100952D1F /* SynchronizationStateManager.swift in Sources */,
+				ED79A5D72BDF8D6100952D1F /* SynchronizationStateResolver.swift in Sources */,
 				999FC12B23ABB4B800B0E6F9 /* FontStyleSheet.swift in Sources */,
 				47CA68DA2500469400671019 /* BookmarksListBuilder.swift in Sources */,
 				34D3AFE21E376F7E004100F9 /* UITableView+Updates.swift in Sources */,
@@ -4671,7 +4671,7 @@
 				6741AA1C1BF340DE002C974C /* MWMRoutingDisclaimerAlert.m in Sources */,
 				34D3B0481E389D05004100F9 /* MWMNoteCell.m in Sources */,
 				CD9AD967228067F500EC174A /* MapInfo.swift in Sources */,
-				ED79A5D32BDF8D6100952D1F /* CloudStorageManager.swift in Sources */,
+				ED79A5D32BDF8D6100952D1F /* SynchronizaionManager.swift in Sources */,
 				6741AA1D1BF340DE002C974C /* MWMDownloadTransitMapAlert.mm in Sources */,
 				471A7BBE2481A3D000A0D4C1 /* EditBookmarkViewController.swift in Sources */,
 				993DF0C923F6BD0600AC231A /* ElevationDetailsBuilder.swift in Sources */,
