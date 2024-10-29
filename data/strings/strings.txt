@@ -21688,7 +21688,7 @@
     fr = Importer des signets et des parcours
     he = ייבוא סימניות ומסלולים
     hi = बुकमार्क और सेटिंग्स आयात करें
-    hu = Könyvjelzők és sávok importálása
+    hu = Könyvjelzők és nyomvonalak importálása
     id = Impor penanda dan trek
     it = Importazione di segnalibri e tracce
     ja = ブックマークとトラックをインポートする
@@ -22540,8 +22540,8 @@
     fr:other = %d fichiers ont été trouvés. Vous les verrez après la conversion.
     he:one = נמצא קובץ %d. יהיה ניתן לראות אותו לאחר ההמרה.
     he:other = נמצאו %d קבצים. יהיה ניתן לראות אותם לאחר ההמרה.
-    hu:one = %d fájlt találtunk. Látni fogja őket a megtérés után.
-    hu:other = %d fájl található. Látni fogja őket a megtérés után.
+    hu:one = %d fájlt találtunk. Látni fogja őket a konvertálás után.
+    hu:other = %d fájl található. Látni fogja őket a konvertálás után.
     id:other = %d file telah ditemukan. Anda akan melihatnya setelah konversi.
     it:one = %d file è stato trovato. Lo vedrai dopo la conversione.
     it:other = %d file trovati. Li vedrai dopo la conversione.
@@ -30553,7 +30553,7 @@
     fr = Exporter tous les signets et toutes les pistes
     he = ייצא את כל הסימניות והרצועות
     hi = सभी बुकमार्क और ट्रैक निर्यात करें
-    hu = Az összes könyvjelző és sáv exportálása
+    hu = Az összes könyvjelző és nyomvonal exportálása
     id = Mengekspor semua Penanda dan Trek
     it = Esporta tutti i segnalibri e le tracce
     ja = すべてのブックマークとトラックをエクスポートする
