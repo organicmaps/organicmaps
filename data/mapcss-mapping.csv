@@ -1348,7 +1348,7 @@ historic|memorial|statue;[historic=memorial][memorial=statue],[historic=memorial
 historic|memorial|plaque;[historic=memorial][memorial=plaque],[historic=memorial][memorial:type=plaque];;name;int_name;1233;
 historic|castle|defensive;[historic=castle][castle_type=defensive];;name;int_name;1234;
 historic|castle|stately;[historic=castle][castle_type=stately];;name;int_name;1235;
-attraction|animal;[attraction=animal];;name;int_name;1236;
+attraction|animal;1236;
 deprecated:tourism|attraction|specified:03.2024;[tourism=attraction][attraction=specified];x;name;int_name;1237;tourism|attraction
 cuisine|regional;1238;
 cuisine|pizza;1239;
@@ -1720,3 +1720,12 @@ man_made|water_tap|drinking_water_no;[man_made=water_tap][drinking_water=not],[m
 man_made|water_well|drinking_water_no;[man_made=water_well][drinking_water=not],[man_made=water_well][drinking_water=no],[man_made=water_well][drinking_water:legal=no];;;;1605;
 natural|spring|drinking_water_no;[natural=spring][drinking_water=not],[natural=spring][drinking_water=no];;;;1606;
 amenity|water_point|drinking_water_no;[amenity=water_point][drinking_water=not],[amenity=water_point][drinking_water=no];;;;1607;
+shop|pasta;1608;
+attraction|water_slide;1609;
+attraction|amusement_ride;1610;
+attraction|carousel;1611;
+attraction|roller_coaster;1612;
+attraction|maze;1613;
+attraction|historic;1614;
+attraction|big_wheel;1615;
+attraction|bumper_car;1616;
