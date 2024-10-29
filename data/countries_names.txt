@@ -32529,7 +32529,7 @@
   nl = Slovenië
   pl = Słowenia
   pt = Eslovénia
-  pt-BR= Eslovênia
+  pt-BR = Eslovênia
   ro = Slovenia
   ru = Словения
   sk = Slovinsko
