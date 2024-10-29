@@ -13,7 +13,7 @@ typedef void *(*ATrace_setCounter) (char const *, int64_t);
 class TraceImpl
 {
 public:
-  TraceImpl() noexcept
+  TraceImpl()
   {
     m_lib = dlopen("libandroid.so", RTLD_NOW | RTLD_LOCAL);
 
@@ -28,7 +28,7 @@ public:
     }
   }
 
-  ~TraceImpl() noexcept
+  ~TraceImpl()
   {
     if (m_lib != nullptr)
       dlclose(m_lib);
@@ -59,11 +59,17 @@ private:
   ATrace_setCounter m_setCounter = nullptr;
 };
 
-Trace::Trace() noexcept 
+// static 
+Trace & Trace::Instance() noexcept {
+  static Trace instance;
+  return instance;
+}
+
+Trace::Trace() 
   : m_impl(std::make_unique<TraceImpl>())
 {}
 
-Trace::~Trace() noexcept = default;
+Trace::~Trace() = default;
   
 void Trace::BeginSection(char const * name) noexcept 
 {

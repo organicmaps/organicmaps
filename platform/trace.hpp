@@ -14,41 +14,39 @@ class TraceImpl;
 class Trace 
 {
 public:
-  Trace() noexcept;
-  ~Trace() noexcept;
-  
+  static Trace & Instance() noexcept;
+
   void BeginSection(char const * name) noexcept;
   void EndSection() noexcept;
   void SetCounter(char const * name, int64_t value) noexcept;
 
 private:
+  Trace();
+  ~Trace();
+  
   std::unique_ptr<TraceImpl> m_impl;
-
+  
   DISALLOW_COPY_AND_MOVE(Trace);
 };
 
 class TraceSection
 {
 public:
-  inline TraceSection(Trace & trace, char const * section) noexcept 
-    : m_trace(trace) 
+  inline TraceSection(char const * section) noexcept
   {
-    m_trace.BeginSection(section);
+    Trace::Instance().BeginSection(section);
   }
 
   inline ~TraceSection() noexcept
   {
-    m_trace.EndSection();
+    Trace::Instance().EndSection();
   }
-
-private:
-  Trace & m_trace;
 };
 }  // namespace platform
 
 #ifdef ENABLE_TRACE
-#define TRACE_SECTION(section) platform::TraceSection ___section(GetPlatform().GetTrace(), section)
-#define TRACE_COUNTER(name, value) GetPlatform().GetTrace().SetCounter(name, value)
+#define TRACE_SECTION(section) platform::TraceSection ___section(section)
+#define TRACE_COUNTER(name, value) platform::Trace::Instance().SetCounter(name, value)
 #else
 #define TRACE_SECTION(section) static_cast<void>(0)
 #define TRACE_COUNTER(name, value) static_cast<void>(0)

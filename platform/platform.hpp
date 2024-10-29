@@ -119,8 +119,6 @@ protected:
 
   platform::BatteryLevelTracker m_batteryTracker;
 
-  platform::Trace m_trace;
-
 public:
   Platform();
   virtual ~Platform() = default;
@@ -341,8 +339,6 @@ public:
   void SetGuiThread(std::unique_ptr<base::TaskLoop> guiThread);
 
   platform::BatteryLevelTracker & GetBatteryTracker() { return m_batteryTracker; }
-
-  platform::Trace & GetTrace() { return m_trace; }
 
 private:
   void RunThreads();
