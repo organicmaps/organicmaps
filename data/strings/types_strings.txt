@@ -815,7 +815,7 @@
     fr = Parking à vélo
     he = חניית אופניים
     hi = साइकिल पार्किंग
-    hu = Kerékpárparkoló
+    hu = Kerékpártároló
     id = Parkir Sepeda
     it = Parcheggio biciclette
     ja = 駐輪場
