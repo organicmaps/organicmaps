@@ -35,40 +35,6 @@ class PlacesPersistenceController: NSObject, NSFetchedResultsControllerDelegate 
   }
   
   // MARK: Places
-  func putPlaces(_ places: [PlaceFull], categoryId: Int64) {
-    let context = container.viewContext
-    
-    places.forEach { place in
-      putPlace(place, categoryId: categoryId, context: context)
-    }
-    
-    // Save the context once after all inserts/updates
-    do {
-      try context.save()
-    } catch {
-      print("Failed to save context: \(error)")
-    }
-  }
-  
-  private func putPlace(_ place: PlaceFull, categoryId: Int64, context: NSManagedObjectContext) {
-    let fetchRequest: NSFetchRequest<PlaceEntity> = PlaceEntity.fetchRequest()
-    fetchRequest.predicate = NSPredicate(format: "id == %lld", place.id)
-    fetchRequest.fetchLimit = 1
-    
-    do {
-      if let existingPlace = try context.fetch(fetchRequest).first {
-        updatePlace(existingPlace, with: place, categoryId: categoryId)
-      } else {
-        // Insert a new place
-        let newPlace = PlaceEntity(context: context)
-        newPlace.id = place.id
-        updatePlace(newPlace, with: place, categoryId: categoryId)
-      }
-    } catch {
-      print("Failed to insert or update place: \(error)")
-    }
-  }
-  
   func insertPlaces(_ places: [PlaceFull], categoryId: Int64) {
     let context = container.viewContext
     

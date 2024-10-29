@@ -91,7 +91,7 @@ class PlacesRepositoryImpl: PlacesRepository {
         }
         
         // update hashes
-        hashesPersistenceController.putHashes(hashes: [
+        hashesPersistenceController.insertHashes(hashes: [
           Hash(categoryId: PlaceCategory.sights.id, value: allData.attractionsHash),
           Hash(categoryId: PlaceCategory.restaurants.id, value: allData.restaurantsHash),
           Hash(categoryId: PlaceCategory.hotels.id, value: allData.accommodationsHash)
@@ -162,10 +162,10 @@ class PlacesRepositoryImpl: PlacesRepository {
       }
       
       // update hash
-      hashesPersistenceController.putHash(
-        Hash(categoryId: hash!.categoryId, value: resource.hash),
-        shouldSave: true
-      )
+      hashesPersistenceController.deleteHash(hash: hash!)
+      hashesPersistenceController.insertHashes(hashes: [
+        Hash(categoryId: hash!.categoryId, value: resource.hash)
+      ])
     }
   }
   

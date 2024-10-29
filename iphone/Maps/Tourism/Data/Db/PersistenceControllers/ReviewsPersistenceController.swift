@@ -24,54 +24,7 @@ class ReviewsPersistenceController: NSObject, NSFetchedResultsControllerDelegate
   }
   
   // MARK: - Review Operations
-  func putReview(_ review: Review) {
-    let context = container.viewContext
-    let fetchRequest: NSFetchRequest<ReviewEntity> = ReviewEntity.fetchRequest()
-    fetchRequest.predicate = NSPredicate(format: "id == %lld", review.id)
-    
-    do {
-      let results = try context.fetch(fetchRequest)
-      if let existingReview = results.first {
-        // Update existing review
-        updateReviewEntity(existingReview, with: review)
-      } else {
-        let newReview = ReviewEntity(context: context)
-        newReview.id = review.id
-        updateReviewEntity(newReview, with: review)
-      }
-      try context.save()
-    } catch {
-      print(error)
-      print("Failed to insert/update review: \(error)")
-    }
-  }
-  
-  func putReviews(_ reviews: [Review]) {
-    let context = container.viewContext
-    let fetchRequest: NSFetchRequest<ReviewEntity> = ReviewEntity.fetchRequest()
-    
-    do {
-      for review in reviews {
-        fetchRequest.predicate = NSPredicate(format: "id == %lld", review.id)
-        let results = try context.fetch(fetchRequest)
-        if let existingReview = results.first {
-          // Update existing review
-          updateReviewEntity(existingReview, with: review)
-        } else {
-          let newReview = ReviewEntity(context: context)
-          newReview.id = review.id
-          updateReviewEntity(newReview, with: review)
-        }
-      }
-      try context.save()
-    } catch {
-      print(error)
-      print("Failed to insert/update reviews: \(error)")
-    }
-  }
-
   func insertReviews(_ reviews: [Review]) {
-    print("inserting")
     let context = container.viewContext
     
     do {

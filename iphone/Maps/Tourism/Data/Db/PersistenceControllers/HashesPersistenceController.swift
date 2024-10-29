@@ -19,46 +19,18 @@ class HashesPersistenceController {
   }
   
   // MARK: - CRUD Operations
-  func putOneHash(_ hash: Hash) {
-    putHash(hash, shouldSave: true)
-  }
-  
-  func putHashes(hashes: [Hash]) {
-    hashes.forEach { hash in
-      putHash(hash, shouldSave: false)  // Don't save in each iteration
-    }
-    
-    // Save the context once after all inserts/updates
+  func insertHashes(hashes: [Hash]) {
     let context = container.viewContext
-    do {
-      try context.save()
-    } catch {
-      print("Failed to save context: \(error)")
-    }
-  }
-  
-  func putHash(_ hash: Hash, shouldSave: Bool) {
-    let context = container.viewContext
-    let fetchRequest: NSFetchRequest<HashEntity> = HashEntity.fetchRequest()
-    fetchRequest.predicate = NSPredicate(format: "categoryId == %lld", hash.categoryId)
-    fetchRequest.fetchLimit = 1
     
     do {
-      let result = try context.fetch(fetchRequest).first
-      
-      if let existingHash = result {
-        existingHash.value = hash.value
-      } else {
+      for hash in hashes {
         let newHash = HashEntity(context: context)
         newHash.categoryId = hash.categoryId
         newHash.value = hash.value
       }
-      
-      if shouldSave {
-        try context.save()
-      }
+      try context.save()
     } catch {
-      print("Failed to insert or update hash: \(error)")
+      print("Failed to save context: \(error)")
     }
   }
   
@@ -94,6 +66,22 @@ class HashesPersistenceController {
     } catch {
       print("Failed to fetch hashes: \(error)")
       return []
+    }
+  }
+  
+  func deleteHash(hash: Hash) {
+    let context = container.viewContext
+    let fetchRequest: NSFetchRequest<HashEntity> = HashEntity.fetchRequest()
+    fetchRequest.predicate = NSPredicate(format: "categoryId == %lld", hash.categoryId)
+    
+    do {
+      if let hash = try context.fetch(fetchRequest).first {
+        context.delete(hash)
+        try context.save()
+      }
+    } catch {
+      print(error)
+      print("Failed to delete review: \(error)")
     }
   }
 }
