@@ -4,9 +4,9 @@ namespace platform
 {
 class TraceImpl {};
 
-Trace::Trace() noexcept = default;
+Trace::Trace() = default;
 
-Trace::~Trace() noexcept = default;
+Trace::~Trace() = default;
   
 void Trace::BeginSection(char const * name) noexcept {}
 
