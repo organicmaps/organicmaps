@@ -775,9 +775,9 @@ shop-butcher                                        # icon z16- (also has captio
 shop-cheese                                         # icon z16- (also has caption(optional) z16-)
 shop-chocolate                                      # icon z16- (also has caption(optional) z16-)
 shop-confectionery                                  # icon z16- (also has caption(optional) z16-)
+shop-pasta                                          # icon z18- and caption z16-17 (also has caption(optional) z18-)
 shop-pastry                                         # icon z16- (also has caption(optional) z16-)
 shop-seafood                                        # icon z16- (also has caption(optional) z16-)
-shop-pasta                                          # icon z16- (also has caption(optional) z16-)
 === 2550
 
 aeroway-helipad                                     # icon z16- (also has caption(optional) z16-)
@@ -1723,6 +1723,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # shop-cheese                                       # caption(optional) z16- (also has icon z16-)
 # shop-chocolate                                    # caption(optional) z16- (also has icon z16-)
 # shop-confectionery                                # caption(optional) z16- (also has icon z16-)
+# shop-pasta                                        # caption(optional) z18- (also has icon z18-, caption z16-17)
 # shop-pastry                                       # caption(optional) z16- (also has icon z16-)
 # shop-seafood                                      # caption(optional) z16- (also has icon z16-)
 # === -7450
@@ -1736,7 +1737,14 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # amenity-fountain                                  # caption(optional) z16- (also has icon z16-, area z16-)
 # amenity-nightclub                                 # caption(optional) z16- (also has icon z16-)
 # amenity-post_office                               # caption(optional) z17- (also has icon z17-)
+# attraction-amusement_ride                         # caption(optional) z17- (also has icon z17-)
 # attraction-animal                                 # caption(optional) z17- (also has icon z17-)
+# attraction-big_wheel                              # caption(optional) z17- (also has icon z17-)
+# attraction-bumper_car                             # caption(optional) z17- (also has icon z17-)
+# attraction-carousel                               # caption(optional) z17- (also has icon z17-)
+# attraction-historic                               # caption(optional) z17- (also has icon z17-)
+# attraction-maze                                   # caption(optional) z17- (also has icon z17-)
+# attraction-roller_coaster                         # caption(optional) z17- (also has icon z17-)
 # leisure-bowling_alley                             # caption(optional) z17- (also has icon z17-)
 # leisure-garden                                    # caption(optional) z16- (also has icon z16-, area z12-)
 # leisure-swimming_pool                             # caption(optional) z17- (also has icon z17-, area z13-)
