@@ -204,7 +204,15 @@ world  +
         unclassified  -
         {}
     attraction  +
+        amusement_ride  -
         animal  -
+        big_wheel  -
+        bumper_car  -
+        carousel  -
+        historic  -
+        maze  -
+        roller_coaster  -
+        water_slide  -
         {}
     barrier  +
         block  -
@@ -1297,6 +1305,7 @@ world  +
         outdoor  -
         outpost  -
         paint  -
+        pasta  -
         pastry  -
         pawnbroker  -
         perfumery  -
