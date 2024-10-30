@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        throw RuntimeException("Test Crash")
         val intentFilter = IntentFilter()
         intentFilter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION)
         registerReceiver(wifiReceiver, intentFilter)

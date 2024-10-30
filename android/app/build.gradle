@@ -12,14 +12,22 @@ buildscript {
   def taskName = getGradle().getStartParameter().getTaskRequests().toString().toLowerCase()
   def isFdroid = taskName.contains('fdroid')
   def isBeta = taskName.contains('beta')
+  def isRelease = taskName.contains('release')
 
   // Firebase Crashlytics compile-time feature flag: -Pfirebase=true|false
   def googleFirebaseServicesFlag = findProperty('firebase')
   // Enable Firebase for all beta flavors except fdroid only if google-services.json exists.
   def googleFirebaseServicesDefault = isBeta && !isFdroid && file("$projectDir/google-services.json").exists()
-  ext.googleFirebaseServicesEnabled = googleFirebaseServicesFlag != null ?
-      googleFirebaseServicesFlag == '' || googleFirebaseServicesFlag.toBoolean() :
-      googleFirebaseServicesDefault
+
+   /*
+      We want to use Firebase Crashlytics for Tourism. We can't use it for debug,
+    because debug version has its own package_name, release doesn't, so I (Emin) changed
+    the condition for ext.googleFirebaseServicesEnabled
+   */
+//  ext.googleFirebaseServicesEnabled = googleFirebaseServicesFlag != null ?
+//      googleFirebaseServicesFlag == '' || googleFirebaseServicesFlag.toBoolean() :
+//      googleFirebaseServicesDefault
+  ext.googleFirebaseServicesEnabled = isRelease
 
   dependencies {
     classpath 'com.android.tools.build:gradle:8.4.1'
