@@ -443,8 +443,16 @@ double RankingInfo::GetErrorsMadePerToken() const
 
 NameScore RankingInfo::GetNameScore() const
 {
+  // See Pois_Rank test.
   if (!m_pureCats && Model::IsPoi(m_type) && m_classifType.poi <= PoiType::Attraction)
   {
+    // Promote POI's name rank if all tokens were matched with TYPE_SUBPOI/TYPE_COMPLEXPOI only.
+    for (int i = Model::TYPE_BUILDING; i < Model::TYPE_COUNT; ++i)
+    {
+      if (!m_tokenRanges[i].Empty())
+        return m_nameScore;
+    }
+
     // It's better for ranking when POIs would be equal by name score in the next cases:
 
     if (m_nameScore == NameScore::FULL_PREFIX)

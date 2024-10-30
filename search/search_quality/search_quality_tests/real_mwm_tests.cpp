@@ -1104,6 +1104,15 @@ UNIT_CLASS_TEST(MwmTestsFixture, Pois_Rank)
       // name="Malabia XXX" - should take this name's rank
       EqualClassifType(Range(results, 0, 1), GetClassifTypes({{"railway", "station", "subway"}}));
     }
+
+    {
+      auto request = MakeRequest("Parque Ciudad");
+      auto const & results = request->Results();
+      TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+
+      /// @todo Actually, 2 parks should be the first, but (in test mode only), we have suburb and subway (*Parque*).
+      TEST_EQUAL(CountClassifType(Range(results, 0, 5), classif().GetTypeByPath({"leisure", "park"})), 2, ());
+    }
   }
 
   {
