@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<FrameLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="wrap_content"
-  android:layout_height="wrap_content"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
   android:visibility="gone"
+  android:background="@drawable/onmap_downloader_background"
   tools:visibility="visible">
   <LinearLayout
-    android:layout_width="300dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="@dimen/margin_base"
     android:clipToPadding="false"
     android:clipChildren="false"
-    android:layout_gravity="center"
+    android:layout_gravity="bottom"
     android:gravity="center_horizontal"
-    android:backgroundTint="?menuBackground"
-    android:background="@drawable/onmap_downloader_background"
     tools:ignore="UselessParent">
 
     <TextView
@@ -62,4 +61,4 @@
         tools:visibility="visible"/>
     </FrameLayout>
   </LinearLayout>
-</ScrollView>
+</FrameLayout>

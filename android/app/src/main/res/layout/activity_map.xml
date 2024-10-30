@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<FrameLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/coordinator"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
+
   <RelativeLayout
     android:id="@+id/map_container"
     android:layout_width="match_parent"
@@ -13,12 +14,6 @@
       android:id="@+id/map_fragment_container"
       android:layout_width="match_parent"
       android:layout_height="match_parent" />
-    <include
-      android:id="@+id/onmap_downloader"
-      layout="@layout/onmap_downloader"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_centerInParent="true" />
     <androidx.fragment.app.FragmentContainerView
       android:id="@+id/map_buttons"
       android:layout_width="match_parent"
@@ -55,4 +50,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:name="app.organicmaps.widget.placepage.PlacePageController" />
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+  <include
+      android:id="@+id/onmap_downloader"
+      layout="@layout/onmap_downloader"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"/>
+</FrameLayout>

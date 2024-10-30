@@ -2205,7 +2205,7 @@
   //todo
   <string name="organization_name"> Committee for Tourism Development under the Government of the Republic of Tajikistan </string>
   <string name="smth_went_wrong">Error </string>
-  <string name="wait_tjk_map_downloading">Please wait, the map of Tajikistan is loading</string>
+  <string name="wait_tjk_map_downloading">Please wait, the map of Tajikistan is loading. Don\'t leave the app</string>
   <string name="welcome_to_tjk">Welcome to Tajikistan</string>
   <string name="developed_by_label">Developed by Rebus LLC</string>
   <string name="sign_in">Log in</string>
