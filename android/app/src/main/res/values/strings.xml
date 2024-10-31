@@ -1156,7 +1156,7 @@
     <string name="type.craft.grinding_mill">Grinding Mill</string>
     <string name="type.craft.handicraft">Handicraft</string>
     <!-- Heating, Ventilation, and Air Conditioning -->
-    <string name="type.craft.hvac">HVAC Shop</string>
+    <string name="type.craft.hvac">HVAC</string>
     <string name="type.craft.key_cutter">Key Cutting</string>
     <string name="type.craft.locksmith">Locksmith</string>
     <string name="type.craft.metal_construction">Metal Worker</string>
