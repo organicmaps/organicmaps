@@ -1879,7 +1879,7 @@
 "type.craft.handicraft" = "हस्तकला";
 
 /* Heating, Ventilation, and Air Conditioning */
-"type.craft.hvac" = "HVAC Shop";
+"type.craft.hvac" = "HVAC";
 
 "type.craft.key_cutter" = "की कटिंग";
 
