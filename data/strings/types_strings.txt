@@ -7731,7 +7731,7 @@
 
   [type.craft.hvac]
     comment = Heating, Ventilation, and Air Conditioning
-    en = HVAC Shop
+    en = HVAC
     af = Lugreëling
     ar = محل تكييف
     az = Kondisioner

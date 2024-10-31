@@ -1671,7 +1671,7 @@ sk:4Elektronika
 fa:فروشگاه تجهیزات الکترونیکی
 
 shop-hardware|shop-doityourself|@shop
-en:4Hardware|DIY|U+1F529|U+1F528
+en:4Hardware|4Home Improvement|DIY|U+1F529|U+1F528
 ru:3Хозяйственный|Строительный|Стройтовары|Хозтовары
 ar:متجر عدد وأدوات|أدوات|عدة|متجر
 be:Гаспадарчы|Будаўнічы
@@ -1710,7 +1710,7 @@ sk:Železiarstvo|Náradie
 fa:فروشگاه ابزار و یراق
 
 shop-houseware|@shop
-en:4Houseware
+en:4Housewares
 be:4Пасуда|4Бытавыя тавары
 de:4Haushaltswaren
 nl:4Huishouden
@@ -1751,8 +1751,8 @@ zh-Hans:家庭用品
 zh-Hant:家庭用品
 
 shop-jewelry|@category_shopping|@shop
-en:4Jewellery|U+1F48D
-en-US:4Jewelry
+en:4Jewelry|U+1F48D
+en-GB:4Jewellery
 ru:4Ювелирный|бижутерия
 bg:4Бижутерия|скъпоценни камъни
 ar:مجوهرات
@@ -3033,7 +3033,7 @@ sw:Taarifa ya utalii|taarifa
 fa:اطلاعات گردشگری
 
 tourism-picnic_site|amenity-bbq|leisure-picnic_table
-en:3Picnic Site
+en:3Picnic Site|Barbecue Grill|Picnic Table
 ru:Место для пикника|3Пикник
 bg:3пикник|тревна площ
 ar:مكان نزهة|سياحة|مناظر
@@ -4220,7 +4220,7 @@ zh-Hans:历史锚
 zh-Hant:歷史錨
 
 historic-ruins|@category_tourism
-en:3Ruins|U+1F5FF
+en:4Historic Ruins|3Ruins|U+1F5FF
 ar:آثار|أماكن جذابة|مناظر|سياحة
 be:Руіны
 bg:3Руини|съборетини|останки|развалини
@@ -5840,7 +5840,7 @@ zh-Hans:足疗师
 zh-Hant:足病學|足病醫生
 
 healthcare-psychotherapist
-en:Psychotherapy
+en:Psychotherapist
 ar:العلاج النفسي|معالج نفسي
 be:Псіхатэрапія|Псіхатэрапеўт
 bg:Психотерапия|Психотерапевт
@@ -8330,8 +8330,8 @@ fa:زمین بازی
 mr:खेळाचे मैदान
 
 leisure-sports_centre
-en:4Sports Centre|sport|U+26BD|U+26BE|U+1F3BE|U+1F4AA|U+1F3C8|U+1F3C0|U+1F3C9|sports complex|sports forum
-en-US:4Sports Center
+en:4Sports Center|sport|U+26BD|U+26BE|U+1F3BE|U+1F4AA|U+1F3C8|U+1F3C0|U+1F3C9|sports complex|sports forum
+en-GB:4Sports Centre
 ru:Спорткомплекс|спорт|4спортивный комплекс|арена|занятия спортом|5дворец спорта
 bg:4Спортен комплекс|спорт|арена
 ar:رياضة
@@ -9829,7 +9829,7 @@ zh-Hans:温泉
 zh-Hant:溫泉
 
 natural-spring|@category_water
-en:3Spring
+en:3Spring|4Natural Spring
 ru:4Родник|ключ|источник
 be:4Крыніца
 bg:Извор
@@ -9910,7 +9910,7 @@ fa:چاه اب
 mr:पाण्याची विहीर
 
 amenity-water_point|@category_water|@category_rv
-en:2RV Water Point|water for rv|water for campervan|water for caravan
+en:Water Tank Refill Point|2RV Water Point|water for rv|water for campervan|water for caravan
 ru:Заправка водой|вода для трейлера|вода для дома на колёсах|вода для автодома
 be:Запраўка вадой|вада для каравану|вада для аўтадома
 bg:водна точка|вода за каравана
@@ -10269,7 +10269,7 @@ fa:کانال اب
 mr:कालवा|कॅनल
 
 shop-car_repair
-en:3Car Repair Shop|4service station|auto|garage|4mechanic|U+1F527
+en:3Car Repair Workshop|4service station|auto|garage|4mechanic|U+1F527
 ru:СТО|3автомастерская|автосервис|авто|3механик
 bg:4Автосервиз|монтьор|автомобил|гараж|сервиз|3механик|поправка
 ar:محل صيانة السيارات|محطة خدمات
@@ -10921,7 +10921,7 @@ zh-Hans:园艺工
 zh-Hant:園藝師
 
 craft-grinding_mill
-en:Mill
+en:Grinding Mill|Mill
 ar:مطحنة
 be:Млын
 bg:Мелница
@@ -11984,7 +11984,7 @@ sk:4Outdoorové vybavenie|Treking|Lezenie|Kempy
 mr:बाह्य उपकरणे|कॅम्पिंग साहित्य|ट्रेकिंग साहित्य
 
 shop-dry_cleaning
-en:3Dry Cleaning|cleaning
+en:3Dry Cleaner|cleaning
 ru:4Химчистка
 ar:غسيل جاف|غسيل
 be:4Хімчыстка
@@ -13303,8 +13303,7 @@ sk:Stávková kancelária
 fa:صحافی
 
 shop-seafood|@category_food|@shop
-en:4Seafood|4fish market|fish|shellfish|marine
-en-GB:Fishmonger
+en:4Fishmonger|4Seafood|fish market|fish|shellfish|marine
 ru:Рыбный|рыба|5морепродукты|рыбная лавка
 ar:سماك
 be:Рыба|Рыбны
@@ -13975,8 +13974,7 @@ fa:اتشفشان
 mr:ज्वालामुखी
 
 office-estate_agent
-en:Realtor|4Real Estate
-en-GB:4Estate Agent
+en:4Estate Agent|Realtor|4Real Estate
 ru:4Агентство недвижимости|3риэлтор
 bg:Агент|недвижими имоти|офис
 ar:وكيل عقاري
@@ -14231,7 +14229,7 @@ fa:سالن یوگا
 mr:योग स्टुडिओ|योगासन केंद्र
 
 tourism-apartment|@category_hotel
-en:5Apartments
+en:4Holiday Apartment
 ru:5Апартаменты|апарт-отель
 bg:5Апартаменти|туризъм
 ar:شُقَق
@@ -15451,7 +15449,7 @@ zh-Hant:山屋
 fa:کلبه‌ی صحرایی
 
 tourism-gallery|@category_tourism
-en:3Gallery|museum
+en:3Art Gallery|3Gallery|museum
 ru:3Галерея|музей|картины|картинная галерея
 bg:3Галерия|музей|изложба|картини
 de:4Kunstgalerie|3Galerie|Museum|Kunstausstellung
@@ -15824,7 +15822,7 @@ ru:Шоколад
 tr:Çikolata mağazası
 
 shop-coffee|@category_food|@shop
-en:Cofee
+en:Coffee
 be:Кава
 de:6Kaffeegeschäft
 et:Kohvipood
@@ -15959,7 +15957,7 @@ zh-Hans:古董
 zh-Hant:古董
 
 shop-art|@category_shopping|@shop
-en:Arts
+en:3Artwork|Arts
 ar:متجر الفنون
 be:Мастацтва|мастацтваў
 bg:Магазин за изкуства
@@ -16075,7 +16073,7 @@ vi:Cửa hàng túi xách
 zh-Hans:箱包店
 zh-Hant:箱包店
 
-shop-cheese|@category_food
+shop-cheese|@category_food|@shop
 en:Cheese
 ar:متجر جبن
 be:Сыр|Сырны
@@ -16156,7 +16154,7 @@ zh-Hant:乳製品
 # Defines _electrical supplies_. Should differ from shop-electronics.
 
 shop-electrical|@shop
-en:Electrical|U+1F50B|U+1F50C|U+1F4A1|U+1F526
+en:Electrical Supplies|Electrical|U+1F50B|U+1F50C|U+1F4A1|U+1F526
 ar:متجر البضع الكهربائية
 be:4Электроніка
 bg:Електрически магазин
@@ -16550,7 +16548,7 @@ zh-Hans:存储租赁
 zh-Hant:存儲租賃
 
 shop-tobacco|@shop
-en:Tobacco
+en:Smoke|Tobacco
 ar:تبغ
 be:Тытунь
 bg:Тютюн
@@ -16806,7 +16804,7 @@ zh-Hans:拍卖会
 zh-Hant:拍賣
 
 shop-collector|@category_shopping|@category_secondhand
-en:Collector
+en:Collectables|Collector
 ar:جامع
 be:Калекцыянер
 bg:Колектор
