@@ -89,6 +89,8 @@
 		ED0B1FF52CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED0B1FF32CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.mm */; };
 		ED965B0D2CD67A470049E39E /* DistanceFormatter.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED965B0A2CD67A470049E39E /* DistanceFormatter.mm */; };
 		ED965B102CD67A470049E39E /* DistanceFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = ED965B092CD67A470049E39E /* DistanceFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED965B132CD67A9B0049E39E /* AltitudeFormatter.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED965B122CD67A9B0049E39E /* AltitudeFormatter.mm */; };
+		ED965B142CD67A9B0049E39E /* AltitudeFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = ED965B112CD67A9B0049E39E /* AltitudeFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EDC4E3512C5D222D009286A2 /* RecentlyDeletedCategory.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E34E2C5D222D009286A2 /* RecentlyDeletedCategory.mm */; };
 		EDC4E3522C5D222D009286A2 /* RecentlyDeletedCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = EDC4E34F2C5D222D009286A2 /* RecentlyDeletedCategory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EDC4E3532C5D222D009286A2 /* RecentlyDeletedCategory+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = EDC4E3502C5D222D009286A2 /* RecentlyDeletedCategory+Core.h */; };
@@ -184,6 +186,8 @@
 		ED0B1FF32CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkInAppFeatureHighlightData.mm; sourceTree = "<group>"; };
 		ED965B092CD67A470049E39E /* DistanceFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DistanceFormatter.h; sourceTree = "<group>"; };
 		ED965B0A2CD67A470049E39E /* DistanceFormatter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DistanceFormatter.mm; sourceTree = "<group>"; };
+		ED965B112CD67A9B0049E39E /* AltitudeFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AltitudeFormatter.h; sourceTree = "<group>"; };
+		ED965B122CD67A9B0049E39E /* AltitudeFormatter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AltitudeFormatter.mm; sourceTree = "<group>"; };
 		EDC4E34E2C5D222D009286A2 /* RecentlyDeletedCategory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RecentlyDeletedCategory.mm; sourceTree = "<group>"; };
 		EDC4E34F2C5D222D009286A2 /* RecentlyDeletedCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentlyDeletedCategory.h; sourceTree = "<group>"; };
 		EDC4E3502C5D222D009286A2 /* RecentlyDeletedCategory+Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RecentlyDeletedCategory+Core.h"; sourceTree = "<group>"; };
@@ -428,6 +432,8 @@
 		ED965B0B2CD67A470049E39E /* Formatting */ = {
 			isa = PBXGroup;
 			children = (
+				ED965B112CD67A9B0049E39E /* AltitudeFormatter.h */,
+				ED965B122CD67A9B0049E39E /* AltitudeFormatter.mm */,
 				ED965B092CD67A470049E39E /* DistanceFormatter.h */,
 				ED965B0A2CD67A470049E39E /* DistanceFormatter.mm */,
 			);
@@ -464,6 +470,7 @@
 				AC6A585728057EF6003EABAF /* StringUtils.h in Headers */,
 				47F701EF238C86F000D18E95 /* PlacePageButtonsData.h in Headers */,
 				47EEAFF72350D060005CF316 /* MWMCommon.h in Headers */,
+				ED965B142CD67A9B0049E39E /* AltitudeFormatter.h in Headers */,
 				47F0D2152516847F00BC685E /* MWMBookmarksSection.h in Headers */,
 				47CA68E82506F61300671019 /* MWMTrack.h in Headers */,
 				472602A824092C5B00731135 /* MWMGeoUtil.h in Headers */,
@@ -584,6 +591,7 @@
 				47942D86237CC55500DEFAE3 /* MWMOpeningHoursCommon.mm in Sources */,
 				9974CA2A23DF1968003FE824 /* ElevationProfileData.mm in Sources */,
 				47942D82237CC52A00DEFAE3 /* MWMOpeningHours.mm in Sources */,
+				ED965B132CD67A9B0049E39E /* AltitudeFormatter.mm in Sources */,
 				47942D73237CC41400DEFAE3 /* OpeningHours.mm in Sources */,
 				47C637DC2354B79B00E12DE0 /* MWMSearchFrameworkHelper.mm in Sources */,
 				479F7062234FBC4700011E2E /* MWMCarPlayBookmarkObject.mm in Sources */,
