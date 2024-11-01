@@ -45,7 +45,6 @@
 		479F705F234FBB8F00011E2E /* MWMBookmarkGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 479F705D234FBB8C00011E2E /* MWMBookmarkGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		479F7062234FBC4700011E2E /* MWMCarPlayBookmarkObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = 479F7061234FBC4600011E2E /* MWMCarPlayBookmarkObject.mm */; };
 		479F7063234FBC5900011E2E /* MWMCarPlayBookmarkObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 479F7060234FBC4500011E2E /* MWMCarPlayBookmarkObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		47A65CAF235008E100DCD85F /* CoreApi-swift.h in Headers */ = {isa = PBXBuildFile; fileRef = 47A65CAE235008C700DCD85F /* CoreApi-swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47C637D62354AEBE00E12DE0 /* MWMMapOverlayManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47C637D42354AEBD00E12DE0 /* MWMMapOverlayManager.mm */; };
 		47C637D72354AEBE00E12DE0 /* MWMMapOverlayManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 47C637D52354AEBE00E12DE0 /* MWMMapOverlayManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47C637DC2354B79B00E12DE0 /* MWMSearchFrameworkHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47C637DA2354B79A00E12DE0 /* MWMSearchFrameworkHelper.mm */; };
@@ -138,7 +137,6 @@
 		479F705D234FBB8C00011E2E /* MWMBookmarkGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMBookmarkGroup.h; sourceTree = "<group>"; };
 		479F7060234FBC4500011E2E /* MWMCarPlayBookmarkObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCarPlayBookmarkObject.h; sourceTree = "<group>"; };
 		479F7061234FBC4600011E2E /* MWMCarPlayBookmarkObject.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCarPlayBookmarkObject.mm; sourceTree = "<group>"; };
-		47A65CAE235008C700DCD85F /* CoreApi-swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CoreApi-swift.h"; sourceTree = "<group>"; };
 		47C637D42354AEBD00E12DE0 /* MWMMapOverlayManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapOverlayManager.mm; sourceTree = "<group>"; };
 		47C637D52354AEBE00E12DE0 /* MWMMapOverlayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapOverlayManager.h; sourceTree = "<group>"; };
 		47C637DA2354B79A00E12DE0 /* MWMSearchFrameworkHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchFrameworkHelper.mm; sourceTree = "<group>"; };
@@ -233,7 +231,6 @@
 				479F7048234F784B00011E2E /* Common */,
 				477C775523435B69001C5B4E /* Framework */,
 				470015F22342509C00EBF03D /* CoreApi.h */,
-				47A65CAE235008C700DCD85F /* CoreApi-swift.h */,
 				470015F32342509C00EBF03D /* Info.plist */,
 			);
 			path = CoreApi;
@@ -447,7 +444,6 @@
 				47942D6D237CC3E300DEFAE3 /* PlacePagePreviewData.h in Headers */,
 				47CA68DD2502022400671019 /* MWMBookmark.h in Headers */,
 				9940622023EAC57900493D1A /* ElevationHeightPoint.h in Headers */,
-				47A65CAF235008E100DCD85F /* CoreApi-swift.h in Headers */,
 				9957FACE237AB01400855F48 /* DeepLinkParser.h in Headers */,
 				9974CA2D23DF197B003FE824 /* ElevationProfileData+Core.h in Headers */,
 				AC6A585728057EF6003EABAF /* StringUtils.h in Headers */,
@@ -610,7 +606,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
+				DEFINES_MODULE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -632,7 +628,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
+				DEFINES_MODULE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				HEADER_SEARCH_PATHS = (
@@ -652,6 +648,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -675,6 +672,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
