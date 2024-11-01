@@ -510,9 +510,9 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Teie muudatused laaditakse üles avalikku <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> andmebaasi. Palun ärge lisage isiklikku või autoriõigusega kaitstud teavet.</string>
     <string name="editor_more_about_osm">Rohkem OpenStreetMap kohta</string>
-    <string name="editor_operator">Omanik</string>
+    <string name="editor_operator">Operaator</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
-    <string name="operator">Omanik: %s</string>
+    <string name="operator">Operaator: %s</string>
     <string name="editor_category_unsuitable_title">Ei leia sobivat kategooriat?</string>
     <string name="editor_category_unsuitable_text">Organic Maps võimaldab lisada ainult lihtsaid punktikategooriaid, see tähendab, et ei mingeid linnu, teid, järvi, hoonete piirjooni jne. Palun lisage sellised kategooriad otse <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Vaadake meie <a href="https://organicmaps.app/faq/editing/advanced-map-editing">juhendit</a> üksikasjalike samm-sammuliste juhiste saamiseks.</string>
     <string name="downloader_no_downloaded_maps_title">Sa ei ole kaarte alla laadinud</string>

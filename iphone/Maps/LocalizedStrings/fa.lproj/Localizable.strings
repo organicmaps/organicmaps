@@ -742,10 +742,10 @@
 
 "editor_more_about_osm" = "در مورد OpenStreetMap بیشتر بدانید";
 
-"editor_operator" = "مالک";
+"editor_operator" = "اپراتور";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
-"operator" = "مالک: %@";
+"operator" = "اپراتور: %@";
 
 "downloader_no_downloaded_maps_title" = "شما هیچ نقشه دانلود شده ای ندارید";
 

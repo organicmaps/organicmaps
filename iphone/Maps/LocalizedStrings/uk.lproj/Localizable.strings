@@ -742,10 +742,10 @@
 
 "editor_more_about_osm" = "Більше про OpenStreetMap";
 
-"editor_operator" = "Власник";
+"editor_operator" = "Оператор";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
-"operator" = "Власник: %@";
+"operator" = "Оператор: %@";
 
 "downloader_no_downloaded_maps_title" = "Ви не маєте завантажених мап";
 

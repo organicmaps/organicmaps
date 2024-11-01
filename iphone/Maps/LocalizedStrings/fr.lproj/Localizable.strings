@@ -745,7 +745,7 @@
 "editor_operator" = "Opérateur";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
-"operator" = "Opérateur : %@";
+"operator" = "Opérateur: %@";
 
 "downloader_no_downloaded_maps_title" = "Vous n'avez téléchargé aucune carte";
 

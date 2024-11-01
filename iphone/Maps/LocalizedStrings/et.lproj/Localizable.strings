@@ -742,10 +742,10 @@
 
 "editor_more_about_osm" = "Rohkem OpenStreetMap kohta";
 
-"editor_operator" = "Omanik";
+"editor_operator" = "Operaator";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
-"operator" = "Omanik: %@";
+"operator" = "Operaator: %@";
 
 "downloader_no_downloaded_maps_title" = "Sa ei ole kaarte alla laadinud";
 

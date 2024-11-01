@@ -742,10 +742,10 @@
 
 "editor_more_about_osm" = "Meer over OpenStreetMap";
 
-"editor_operator" = "Uitvoerder";
+"editor_operator" = "Exploitant";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
-"operator" = "Uitvoerder: %@";
+"operator" = "Exploitant: %@";
 
 "downloader_no_downloaded_maps_title" = "U hebt geen kaarten gedownload";
 

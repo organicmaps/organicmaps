@@ -742,10 +742,10 @@
 
 "editor_more_about_osm" = "Thông tin bổ sung về OpenStreetMap";
 
-"editor_operator" = "Đơn vị điều hành";
+"editor_operator" = "Toán tử";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
-"operator" = "Đơn vị điều hành: %@";
+"operator" = "Toán tử: %@";
 
 "downloader_no_downloaded_maps_title" = "Bạn chưa tải về bất kỳ bản đồ nào";
 

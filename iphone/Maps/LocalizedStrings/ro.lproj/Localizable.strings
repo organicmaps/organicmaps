@@ -742,10 +742,10 @@
 
 "editor_more_about_osm" = "Mai multe despre OpenStreetMap";
 
-"editor_operator" = "Proprietar";
+"editor_operator" = "Operator";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
-"operator" = "Proprietar: %@";
+"operator" = "Operator: %@";
 
 "downloader_no_downloaded_maps_title" = "Nu ai descărcat nicio hartă";
 

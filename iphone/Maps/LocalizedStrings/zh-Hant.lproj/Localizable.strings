@@ -742,10 +742,10 @@
 
 "editor_more_about_osm" = "關於 OpenStreetMap 的更多資訊";
 
-"editor_operator" = "經營者";
+"editor_operator" = "操作員";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
-"operator" = "營運者: %@";
+"operator" = "操作員: %@";
 
 "downloader_no_downloaded_maps_title" = "您尚未下載任何地圖";
 
