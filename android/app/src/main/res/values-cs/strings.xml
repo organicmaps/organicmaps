@@ -475,7 +475,10 @@
     <string name="message_invalid_feature_position">Objekt zde nemůže být umístěn</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Data OpenStreetMap vytvořená komunitou ke dni %s. Další informace o tom, jak upravovat a aktualizovat mapu, najdete na stránkách OpenStreetMap.org.</string>
-    <string name="login_to_make_edits_visible">Přihlaste se, aby ostatní uživatelé mohli vidět změny, které jste provedli.</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) je komunitní projekt, jehož cílem je vytvořit svobodnou a otevřenou mapu. Je hlavním zdrojem mapových dat v aplikaci Organic Maps a funguje podobně jako Wikipedie. Můžete přidávat nebo upravovat místa a ta se pak stanou dostupná milionům uživatelů po celém světě.
+\nPřipojte se ke komunitě a pomozte vytvořit lepší mapu pro všechny!</string>
+    <string name="login_to_make_edits_visible">Vytvořte si účet OpenStreetMap nebo se přihlaste a zveřejněte své úpravy mapy ve světě.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d z %2$d</string>
     <string name="download_over_mobile_header">Stáhnout pomocí připojení přes mobilní síť?</string>

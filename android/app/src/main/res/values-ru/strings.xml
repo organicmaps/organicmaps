@@ -504,7 +504,10 @@
     <string name="message_invalid_feature_position">Объект не может находиться в этом месте</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Созданные сообществом данные OpenStreetMap по состоянию на %s. Узнайте больше о том, как редактировать и обновлять карту, на сайте OpenStreetMap.org.</string>
-    <string name="login_to_make_edits_visible">Авторизуйтесь в OpenStreetMap.org, чтобы ваши изменения увидели другие пользователи.</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) - это открытый проект сообщества по созданию бесплатной карты. Он является основным источником картографических данных в Organic Maps и работает как Википедия. Кто угодно может добавлять или редактировать места, которые позже увидят миллионы пользователей по всему миру.
+\nПрисоединяйтесь к сообществу и помогите сделать лучшую карту для всех!</string>
+    <string name="login_to_make_edits_visible">Создайте учетную запись OpenStreetMap или войдите в нее, чтобы опубликовать свои правки на карте для всего мира.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d из %2$d</string>
     <string name="download_over_mobile_header">Загрузить через сотовую связь?</string>

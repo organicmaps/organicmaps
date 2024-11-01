@@ -110,6 +110,10 @@
     <string name="editor_default_language_hint">Kama ilivyoandikwa katika lugha ya kienyeji</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Data ya OpenStreetMap iliyoundwa na jumuiya kufikia %s. Pata maelezo zaidi kuhusu jinsi ya kuhariri na kusasisha ramani katika OpenStreetMap.org</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) ni mradi wa jumuiya wa kujenga ramani isiyolipishwa na iliyo wazi. Ndiyo chanzo kikuu cha data ya ramani katika Ramani za Kikaboni na inafanya kazi sawa na Wikipedia. Unaweza kuongeza au kubadilisha maeneo na yanapatikana kwa mamilioni ya watumiaji kote Ulimwenguni.
+\nJiunge na jumuiya na usaidie kutengeneza ramani bora kwa kila mtu!</string>
+    <string name="login_to_make_edits_visible">Fungua akaunti ya OpenStreetMap au ingia ili kuchapisha mabadiliko yako ya ramani kwa ulimwengu.</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Kumbuka kwa wanaojitolea wa OpenStreetMap (si lazima)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->

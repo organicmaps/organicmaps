@@ -705,7 +705,7 @@
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Közösség által létrehozott OpenStreetMap adatok %@-tól. Tudjon meg többet a térkép szerkesztéséről és frissítéséről az OpenStreetMap.org oldalon.";
 
-"login_to_make_edits_visible" = "Jelentkezzen be, hogy más felhasználók is láthassák a változtatásait.";
+"login_to_make_edits_visible" = "Hozzon létre egy OpenStreetMap-fiókot, vagy jelentkezzen be, hogy közzétehesse térképszerkesztéseit a világ számára.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "A letöltéshez több szabad tárhelyre van szükség. Kérjük, töröld a szükségtelen adatokat.";

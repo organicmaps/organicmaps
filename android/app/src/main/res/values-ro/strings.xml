@@ -483,7 +483,10 @@
     <string name="message_invalid_feature_position">Niciun obiect nu poate fi poziționat aici</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Date OpenStreetMap create de comunitate la data de %s. Aflați mai multe despre cum să editați și să actualizați harta la OpenStreetMap.org</string>
-    <string name="login_to_make_edits_visible">Autentifică-te pentru ca modificările pe care le-ai făcut să poată fi văzute și de alți utilizatori.</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) este un proiect comunitar pentru construirea unei hărți libere și deschise. Este principala sursă de date cartografice în Organic Maps și funcționează similar cu Wikipedia. Puteți adăuga sau edita locuri, iar acestea devin disponibile pentru milioane de utilizatori din întreaga lume.
+\nAlăturați-vă comunității și ajutați la crearea unei hărți mai bune pentru toată lumea!</string>
+    <string name="login_to_make_edits_visible">Creați un cont OpenStreetMap sau conectați-vă pentru a vă publica edițiile de hartă în întreaga lume.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d din %2$d</string>
     <string name="download_over_mobile_header">Vrei să descarci prin rețeaua de telefonie mobilă?</string>

@@ -705,7 +705,7 @@
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "%@ tarixinə icma tərəfindən yaradılmış OpenStreetMap datası. OpenStreetMap.org saytında xəritəni necə redaktə etmək və yeniləmək haqqında ətraflı məlumat əldə edin";
 
-"login_to_make_edits_visible" = "OpenStreetMap.org saytına daxil olun ki, digər istifadəçilər sizin etdiyiniz dəyişiklikləri görə bilsinlər.";
+"login_to_make_edits_visible" = "OpenStreetMap hesabı yaradın və ya xəritə redaktələrinizi dünyada dərc etmək üçün daxil olun.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Endirmək üçün daha çox yerə ehtiyacınız var. Zəhmət olmasa önəmli olmayan məlumatları silin.";

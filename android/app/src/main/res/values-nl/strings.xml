@@ -495,7 +495,10 @@
     <string name="message_invalid_feature_position">Hier kan geen object worden geplaatst</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Door de gemeenschap gemaakte OpenStreetMap-gegevens vanaf %s. Lees meer over hoe je de kaart kunt bewerken en bijwerken op OpenStreetMap.org</string>
-    <string name="login_to_make_edits_visible">Log in zodat andere gebruikers kunnen zien wat u hebt gewijzigd.</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) is een gemeenschapsproject om een vrije en open kaart te bouwen. Het is de belangrijkste bron van kaartgegevens in Organic Maps en werkt ongeveer hetzelfde als Wikipedia. U kunt plaatsen toevoegen of bewerken en deze worden dan beschikbaar voor miljoenen gebruikers over de hele wereld.
+\nSluit u aan bij de gemeenschap en help mee om een betere kaart voor iedereen te maken!</string>
+    <string name="login_to_make_edits_visible">Maak een OpenStreetMap account aan of log in om uw kaartbewerkingen voor de wereld te publiceren.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d van %2$d</string>
     <string name="download_over_mobile_header">Downloaden via een mobiele gegevensverbinding?</string>

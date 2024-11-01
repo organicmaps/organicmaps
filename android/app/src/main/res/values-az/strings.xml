@@ -498,7 +498,10 @@
     <string name="message_invalid_feature_position">Burada obyekti yerləşdirmək mümkün deyil</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">%s tarixinə icma tərəfindən yaradılmış OpenStreetMap datası. OpenStreetMap.org saytında xəritəni necə redaktə etmək və yeniləmək haqqında ətraflı məlumat əldə edin</string>
-    <string name="login_to_make_edits_visible">OpenStreetMap.org saytına daxil olun ki, digər istifadəçilər sizin etdiyiniz dəyişiklikləri görə bilsinlər.</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) pulsuz və açıq xəritə yaratmaq üçün icma layihəsidir. O, Üzvi Xəritələrdə xəritə məlumatlarının əsas mənbəyidir və Vikipediyaya oxşar işləyir. Siz yerlər əlavə edə və ya redaktə edə bilərsiniz və onlar bütün dünyada milyonlarla istifadəçi üçün əlçatan olur.
+\nİcmaya qoşulun və hər kəs üçün daha yaxşı xəritə yaratmağa kömək edin!</string>
+    <string name="login_to_make_edits_visible">OpenStreetMap hesabı yaradın və ya xəritə redaktələrinizi dünyada dərc etmək üçün daxil olun.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d/%2$d</string>
     <string name="download_over_mobile_header">Mobil şəbəkə vasitəsilə endirilsin?</string>

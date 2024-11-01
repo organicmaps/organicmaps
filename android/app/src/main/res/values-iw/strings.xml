@@ -493,7 +493,10 @@
     <string name="message_invalid_feature_position">לא ניתן למקם כאן פריט</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">נתוני OpenStreetMap שנוצרו על ידי הקהילה החל מ-%s. למידע נוסף על איך לערוך ולעדכן את המפה ב-OpenStreetMap.org</string>
-    <string name="login_to_make_edits_visible">התחברו ל-openstreetmap.org כדי לפרסם את השינויים שלכם לעולם.</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">\u200FOpenStreetMap.org (OSM) הוא פרויקט קהילתי לבניית מפה חופשית ופתוחה. זהו המקור העיקרי לנתוני מפות ב-Organic Maps והוא פועל בדומה לוויקיפדיה. ניתן להוסיף או לערוך מקומות והם הופכים לזמינים למיליוני משתמשים בכל רחבי העולם.
+\nהצטרף לקהילה ועזור ליצור מפה טובה יותר לכולם!</string>
+    <string name="login_to_make_edits_visible">צור חשבון OpenStreetMap או היכנס כדי לפרסם את עריכות המפה שלך לעולם.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d מתוך %2$d</string>
     <string name="download_over_mobile_header">להוריד באמצעות חיבור אינטרנט סלולרי?</string>

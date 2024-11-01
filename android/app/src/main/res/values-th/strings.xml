@@ -471,7 +471,10 @@
     <string name="message_invalid_feature_position">ไม่สามารถตั้งวัตถุได้ที่นี่</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">ข้อมูล OpenStreetMap ที่สร้างโดยชุมชน ณ %s เรียนรู้เพิ่มเติมเกี่ยวกับวิธีแก้ไขและอัปเดตแผนที่ได้ที่ OpenStreetMap.org</string>
-    <string name="login_to_make_edits_visible">ล็อกอินเพื่อให้ผู้ใช้คนอื่นสามารถเห็นการเปลี่ยนแปลงของคุณได้</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) เป็นโครงการชุมชนเพื่อสร้างแผนที่แบบเปิดและเสรี เป็นแหล่งข้อมูลแผนที่หลักในแผนที่ทั่วไปและทำงานคล้ายกับวิกิพีเดีย คุณสามารถเพิ่มหรือแก้ไขสถานที่ได้ และสถานที่เหล่านั้นจะพร้อมให้บริการแก่ผู้ใช้หลายล้านคนทั่วโลก
+\nเข้าร่วมชุมชนและช่วยสร้างแผนที่ที่ดีขึ้นสำหรับทุกคน!</string>
+    <string name="login_to_make_edits_visible">สร้างบัญชี OpenStreetMap หรือเข้าสู่ระบบเพื่อเผยแพร่การแก้ไขแผนที่ของคุณไปทั่วโลก</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d จาก %2$d</string>
     <string name="download_over_mobile_header">ดาวน์โหลดโดยใช้การเชื่อมต่อเครือข่ายมือถือ?</string>

@@ -450,7 +450,7 @@
     <string name="login">Bei OpenStreetMap anmelden</string>
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Nicht angemeldet</string>
-    <string name="login_osm">Melden Sie sich bei OpenStreetMap an</string>
+    <string name="login_osm">Bei OpenStreetMap anmelden</string>
     <string name="password">Passwort</string>
     <string name="forgot_password">Passwort vergessen?</string>
     <string name="logout">Abmelden</string>
@@ -497,7 +497,10 @@
     <string name="message_invalid_feature_position">Ein Objekt kann hier nicht positioniert werden</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Von der Community erstellte OpenStreetMap-Daten (Stand: %s). Erfahre mehr darüber, wie du die Karte bearbeiten und aktualisieren kannst unter OpenStreetMap.org</string>
-    <string name="login_to_make_edits_visible">Melden Sie sich bei openstreetmap.org an, um Ihre Änderungen weltweit zu veröffentlichen.</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) ist ein Gemeinschaftsprojekt zum Erstellen einer freien und offenen Karte. Es ist die Hauptquelle für Kartendaten in Organic Maps und funktioniert ähnlich wie Wikipedia. Sie können Orte hinzufügen oder bearbeiten, die dann Millionen von Nutzern auf der ganzen Welt zur Verfügung stehen.
+\nTreten Sie der Gemeinschaft bei und helfen Sie mit, die Karte für alle besser zu machen!</string>
+    <string name="login_to_make_edits_visible">Erstellen Sie ein OpenStreetMap-Konto oder melden Sie sich an, um Ihre Kartenbearbeitungen weltweit zu veröffentlichen.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d von %2$d</string>
     <string name="download_over_mobile_header">Über eine Mobilfunknetzverbindung herunterladen?</string>

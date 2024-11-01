@@ -496,7 +496,10 @@
     <string name="message_invalid_feature_position">Kohdetta ei voida asettaa tänne</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Yhteisön luomat OpenStreetMap-tiedot %s:sta alkaen. Lisätietoja kartan muokkaamisesta ja päivittämisestä osoitteessa OpenStreetMap.org.</string>
-    <string name="login_to_make_edits_visible">Kirjaudu sisään jotta muut käyttäjät voivat nähdä tekemäsi muokkaukset.</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) on yhteisöprojekti, jonka tarkoituksena on rakentaa ilmainen ja avoin kartta. Se on Organic Mapsin tärkein karttatietojen lähde ja toimii samalla tavalla kuin Wikipedia. Voit lisätä tai muokata paikkoja, ja ne tulevat miljoonien käyttäjien saataville kaikkialla maailmassa.
+\nLiity yhteisöön ja auta tekemään parempi kartta kaikille!</string>
+    <string name="login_to_make_edits_visible">Luo OpenStreetMap-tili tai kirjaudu sisään, jotta voit julkaista karttamuokkauksesi maailmalle.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d/%2$d</string>
     <string name="download_over_mobile_header">Lataa käyttämällä puhelinverkkoyhteyttä?</string>

@@ -705,7 +705,7 @@
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Date OpenStreetMap create de comunitate la data de %@. Aflați mai multe despre cum să editați și să actualizați harta la OpenStreetMap.org";
 
-"login_to_make_edits_visible" = "Autentifică-te pentru ca modificările pe care le-ai făcut să poată fi văzute și de alți utilizatori.";
+"login_to_make_edits_visible" = "Creați un cont OpenStreetMap sau conectați-vă pentru a vă publica edițiile de hartă în întreaga lume.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Ai nevoie de mai mult spațiu pentru a descărca. Șterge datele care nu sunt necesare.";

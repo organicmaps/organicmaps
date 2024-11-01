@@ -705,7 +705,7 @@
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Data OpenStreetMap vytvořená komunitou ke dni %@. Další informace o tom, jak upravovat a aktualizovat mapu, najdete na stránkách OpenStreetMap.org.";
 
-"login_to_make_edits_visible" = "Přihlaste se, aby ostatní uživatelé mohli vidět změny, které jste provedli.";
+"login_to_make_edits_visible" = "Vytvořte si účet OpenStreetMap nebo se přihlaste a zveřejněte své úpravy mapy ve světě.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Ke stažení potřebujete více volného místa. Odstraňte prosím nepotřebná data.";
