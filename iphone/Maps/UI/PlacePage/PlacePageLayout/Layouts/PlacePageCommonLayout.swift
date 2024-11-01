@@ -1,17 +1,7 @@
 class PlacePageCommonLayout: NSObject, IPlacePageLayout {
   
-  private lazy var distanceFormatter: MKDistanceFormatter = {
-    let formatter =  MKDistanceFormatter()
-    formatter.unitStyle = .abbreviated
-    formatter.units = Settings.measurementUnits() == .imperial ? .imperial : .metric
-    return formatter
-  }()
-
-  private lazy var unitsFormatter: MeasurementFormatter = {
-    let formatter = MeasurementFormatter()
-    formatter.unitOptions = [.providedUnit]
-    return formatter
-  }()
+  private let distanceFormatter = DistanceFormatter.self
+  private let altitudeFormatter = AltitudeFormatter.self
 
   private var placePageData: PlacePageData
   private var interactor: PlacePageInteractor
@@ -207,12 +197,7 @@ extension PlacePageCommonLayout: MWMLocationObserver {
 
   func onLocationUpdate(_ location: CLLocation) {
     if placePageData.isMyPosition {
-      /// @todo Use C++ Distance::FormatAltitude function?
-      let imperial = Settings.measurementUnits() == .imperial
-      let alt = imperial ? location.altitude / 0.3048 : location.altitude
-      let altMeasurement = Measurement(value: alt.rounded(), unit: imperial ? UnitLength.feet : UnitLength.meters)
-      let altString = "▲ \(unitsFormatter.string(from: altMeasurement))"
-
+      let altString = "▲ \(altitudeFormatter.altitudeString(fromMeters: location.altitude))"
       if location.speed > 0 && location.timestamp.timeIntervalSinceNow >= -2 {
         let speedMeasure = Measure.init(asSpeed: location.speed)
         let speedString = "\(LocationManager.speedSymbolFor(location.speed))\(speedMeasure.valueAsString) \(speedMeasure.unit)"
@@ -224,7 +209,7 @@ extension PlacePageCommonLayout: MWMLocationObserver {
       let ppLocation = CLLocation(latitude: placePageData.locationCoordinate.latitude,
                                   longitude: placePageData.locationCoordinate.longitude)
       let distance = location.distance(from: ppLocation)
-      let formattedDistance = distanceFormatter.string(fromDistance: distance)
+      let formattedDistance = distanceFormatter.distanceString(fromMeters: distance)
       previewViewController.updateDistance(formattedDistance)
 
       lastLocation = location
