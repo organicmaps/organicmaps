@@ -20873,7 +20873,7 @@
     el = Αφαίρεση στάσης
     es = Eliminar parada
     et = Eemalda peatus
-    eu = Kendu geralekua
+    eu = Kendu geltokia
     fa = توقف را حذف کنید
     fi = Poista pysähdys
     fr = Supprimer l'arrêt
@@ -20963,7 +20963,7 @@
     el = Προσθήκη στάσης
     es = Añadir parada
     et = Lisa peatus
-    eu = Gehitu geldiunea
+    eu = Gehitu geltokia
     fa = اضافه کردن توقف
     fi = Lisää pysähdys
     fr = Ajouter un arrêt
