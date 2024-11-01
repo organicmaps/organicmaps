@@ -87,6 +87,8 @@
 		AC6A585728057EF6003EABAF /* StringUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = AC6A585628057CC1003EABAF /* StringUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED0B1FF42CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.h in Headers */ = {isa = PBXBuildFile; fileRef = ED0B1FF22CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED0B1FF52CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED0B1FF32CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.mm */; };
+		ED965B0D2CD67A470049E39E /* DistanceFormatter.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED965B0A2CD67A470049E39E /* DistanceFormatter.mm */; };
+		ED965B102CD67A470049E39E /* DistanceFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = ED965B092CD67A470049E39E /* DistanceFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EDC4E3512C5D222D009286A2 /* RecentlyDeletedCategory.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E34E2C5D222D009286A2 /* RecentlyDeletedCategory.mm */; };
 		EDC4E3522C5D222D009286A2 /* RecentlyDeletedCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = EDC4E34F2C5D222D009286A2 /* RecentlyDeletedCategory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EDC4E3532C5D222D009286A2 /* RecentlyDeletedCategory+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = EDC4E3502C5D222D009286A2 /* RecentlyDeletedCategory+Core.h */; };
@@ -180,6 +182,8 @@
 		AC6A585628057CC1003EABAF /* StringUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringUtils.h; sourceTree = "<group>"; };
 		ED0B1FF22CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkInAppFeatureHighlightData.h; sourceTree = "<group>"; };
 		ED0B1FF32CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkInAppFeatureHighlightData.mm; sourceTree = "<group>"; };
+		ED965B092CD67A470049E39E /* DistanceFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DistanceFormatter.h; sourceTree = "<group>"; };
+		ED965B0A2CD67A470049E39E /* DistanceFormatter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DistanceFormatter.mm; sourceTree = "<group>"; };
 		EDC4E34E2C5D222D009286A2 /* RecentlyDeletedCategory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RecentlyDeletedCategory.mm; sourceTree = "<group>"; };
 		EDC4E34F2C5D222D009286A2 /* RecentlyDeletedCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentlyDeletedCategory.h; sourceTree = "<group>"; };
 		EDC4E3502C5D222D009286A2 /* RecentlyDeletedCategory+Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RecentlyDeletedCategory+Core.h"; sourceTree = "<group>"; };
@@ -220,6 +224,7 @@
 		470015F12342509C00EBF03D /* CoreApi */ = {
 			isa = PBXGroup;
 			children = (
+				ED965B0B2CD67A470049E39E /* Formatting */,
 				47F4F1F623A333280022FD56 /* Storage */,
 				9957FAE5237AE59C00855F48 /* Logger */,
 				9957FAC1237AABD800855F48 /* DeepLink */,
@@ -420,6 +425,15 @@
 			path = ElevationProfile;
 			sourceTree = "<group>";
 		};
+		ED965B0B2CD67A470049E39E /* Formatting */ = {
+			isa = PBXGroup;
+			children = (
+				ED965B092CD67A470049E39E /* DistanceFormatter.h */,
+				ED965B0A2CD67A470049E39E /* DistanceFormatter.mm */,
+			);
+			path = Formatting;
+			sourceTree = "<group>";
+		};
 		EDC4E3542C5D2251009286A2 /* RecentlyDeletedCategory */ = {
 			isa = PBXGroup;
 			children = (
@@ -441,6 +455,7 @@
 				470015F42342509C00EBF03D /* CoreApi.h in Headers */,
 				479F705F234FBB8F00011E2E /* MWMBookmarkGroup.h in Headers */,
 				471AB99123AB931000F56D49 /* MWMMapSearchResult+Core.h in Headers */,
+				ED965B102CD67A470049E39E /* DistanceFormatter.h in Headers */,
 				47942D6D237CC3E300DEFAE3 /* PlacePagePreviewData.h in Headers */,
 				47CA68DD2502022400671019 /* MWMBookmark.h in Headers */,
 				9940622023EAC57900493D1A /* ElevationHeightPoint.h in Headers */,
@@ -590,6 +605,7 @@
 				9940622123EAC57900493D1A /* ElevationHeightPoint.m in Sources */,
 				47EEAFF42350CEDB005CF316 /* AppInfo.mm in Sources */,
 				47E8163623B1889C008FD836 /* MWMStorage.mm in Sources */,
+				ED965B0D2CD67A470049E39E /* DistanceFormatter.mm in Sources */,
 				EDC4E3512C5D222D009286A2 /* RecentlyDeletedCategory.mm in Sources */,
 				47CA68DE2502022400671019 /* MWMBookmark.mm in Sources */,
 				9957FAE9237AE5B000855F48 /* Logger.mm in Sources */,
