@@ -29,6 +29,7 @@ FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 #import <CoreApi/MWMTypes.h>
 #import <CoreApi/RecentlyDeletedCategory.h>
 #import "CoreApi/DistanceFormatter.h"
+#import "CoreApi/AltitudeFormatter.h"
 
 #pragma mark - Place Page
 
