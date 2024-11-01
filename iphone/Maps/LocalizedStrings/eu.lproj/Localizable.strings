@@ -922,11 +922,11 @@
 
 "button_plan" = "Planifikatu";
 
-"placepage_remove_stop" = "Kendu geralekua";
+"placepage_remove_stop" = "Kendu geltokia";
 
 "planning_route_remove_title" = "Arrastatu hona kentzeko";
 
-"placepage_add_stop" = "Gehitu geldiunea";
+"placepage_add_stop" = "Gehitu geltokia";
 
 "start_from_my_position" = "Hasi hemendik";
 
