@@ -518,9 +518,9 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Les vostres edicions es pengen a la base de dades pública <a href="https://wiki.openstreetmap.org/wiki/Ca:About">OpenStreetMap</a>. Si us plau, no afegiu informació personal o amb drets d\'autor.</string>
     <string name="editor_more_about_osm">Més sobre l\'OpenStreetMap</string>
-    <string name="editor_operator">Propietari</string>
+    <string name="editor_operator">Operador</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
-    <string name="operator">Propietari: %s</string>
+    <string name="operator">Operador: %s</string>
     <string name="editor_category_unsuitable_title">No trobeu una categoria adequada?</string>
     <string name="editor_category_unsuitable_text">Organic Maps només permet afegir categories de punts simples, això vol dir que no hi ha ciutats, carreteres, llacs, contorns d\'edificis, etc. Si us plau, afegiu aquestes categories directament a <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulteu la nostra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guia</a> per obtenir instruccions detallades pas a pas.</string>
     <string name="downloader_no_downloaded_maps_title">No heu baixat cap mapa</string>

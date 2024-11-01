@@ -524,9 +524,9 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Ваши правки будут загружены в общедоступную базу данных <a href="https://wiki.openstreetmap.org/wiki/RU:О_проекте">OpenStreetMap</a>. Пожалуйста, не добавляйте личную информацию или информацию, защищенную авторским правом.</string>
     <string name="editor_more_about_osm">Подробнее об OpenStreetMap</string>
-    <string name="editor_operator">Владелец</string>
+    <string name="editor_operator">Оператор</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
-    <string name="operator">Владелец: %s</string>
+    <string name="operator">Оператор: %s</string>
     <string name="editor_category_unsuitable_title">Нет подходящей категории?</string>
     <string name="editor_category_unsuitable_text">Organic Maps позволяет добавлять на карту только простые типы объектов, то есть никаких городов, дорог, озер, контуров зданий. Пожалуйста, добавляйте такие категории на сайте <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Также рекомендуем ознакомиться с нашими <a href="https://organicmaps.app/faq/editing/advanced-map-editing">подробными пошаговыми инструкциями и другими приложениями для редактирования карты</a>.</string>
     <string name="downloader_no_downloaded_maps_title">У вас нет загруженных карт</string>

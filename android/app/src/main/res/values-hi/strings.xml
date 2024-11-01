@@ -393,9 +393,9 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">आपके संपादन सार्वजनिक <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> डेटाबेस पर अपलोड किए जाते हैं। कृपया व्यक्तिगत या कॉपीराइट जानकारी न जोड़ें।</string>
     <string name="editor_more_about_osm">OpenStreetMap के बारे में अधिक जानकारी</string>
-    <string name="editor_operator">मालिक</string>
+    <string name="editor_operator">ऑपरेटर</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
-    <string name="operator">मालिक: %s</string>
+    <string name="operator">ऑपरेटर: %s</string>
     <string name="editor_category_unsuitable_title">कोई उपयुक्त श्रेणी नहीं मिल रही?</string>
     <string name="editor_category_unsuitable_text">ऑर्गेनिक मैप्स केवल सरल बिंदु श्रेणियां जोड़ने की अनुमति देता है, जिसका अर्थ है कि शहर, सड़कें, झीलें, भवन की रूपरेखा आदि नहीं। कृपया ऐसी श्रेणियां सीधे <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> पर जोड़ें।. विस्तृत चरण-दर-चरण निर्देशों के लिए हमारी <a href="https://organicmaps.app/faq/editing/advanced-map-editing">मार्गदर्शिका</a> देखें।</string>
     <!-- abbreviation for meters -->

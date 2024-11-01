@@ -482,9 +482,9 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">ویرایش های شما در پایگاه داده عمومی <a href="https://wiki.openstreetmap.org/wiki/Fa:About_OpenStreetMap">OpenStreetMap</a> آپلود می شود. لطفا اطلاعات شخصی یا دارای حق چاپ را اضافه نکنید.</string>
     <string name="editor_more_about_osm">در مورد OpenStreetMap بیشتر بدانید</string>
-    <string name="editor_operator">مالک</string>
+    <string name="editor_operator">اپراتور</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
-    <string name="operator">مالک: %s</string>
+    <string name="operator">اپراتور: %s</string>
     <string name="editor_category_unsuitable_title">آیا نمی توانید یک دسته بندی مناسب پیدا کنید؟</string>
     <string name="editor_category_unsuitable_text">Organic Maps اجازه میu200cدهد فقط دستهu200cهای نقطهu200cای ساده را اضافه کند، یعنی هیچ شهر، جاده، دریاچه، طرح کلی ساختمان و غیره وجود ندارد. لطفاً این دستهu200cها را مستقیماً به <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> اضافه کنید. برای دستورالعملu200cهای گام به گام، <a href="https://organicmaps.app/faq/editing/advanced-map-editing">راهنمای</a> ما را بررسی کنید.</string>
     <string name="downloader_no_downloaded_maps_title">شما هیچ نقشه دانلود شده ای ندارید</string>

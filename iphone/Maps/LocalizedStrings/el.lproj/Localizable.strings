@@ -742,10 +742,10 @@
 
 "editor_more_about_osm" = "Περισσότερα σχετικά με το OpenStreetMap";
 
-"editor_operator" = "Ιδιοκτήτης";
+"editor_operator" = "Χειριστής";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
-"operator" = "Ιδιοκτήτης: %@";
+"operator" = "Χειριστής: %@";
 
 "downloader_no_downloaded_maps_title" = "Δεν έχετε κατεβάσει χάρτες";
 

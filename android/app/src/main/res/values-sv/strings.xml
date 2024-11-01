@@ -487,9 +487,9 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Dina redigeringar laddas upp till den offentliga <a href="https://wiki.openstreetmap.org/wiki/Sv:Om_OpenStreetMap">OpenStreetMap</a>-databasen. Lägg inte till personlig eller upphovsrättsskyddad information.</string>
     <string name="editor_more_about_osm">Mer om OpenStreetMap</string>
-    <string name="editor_operator">Användare</string>
+    <string name="editor_operator">Operatör</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
-    <string name="operator">Användare: %s</string>
+    <string name="operator">Operatör: %s</string>
     <string name="editor_category_unsuitable_title">Hittar du ingen lämplig kategori?</string>
     <string name="editor_category_unsuitable_text">Organic Maps tillåter endast att lägga till enkla punktkategorier, det betyder inga städer, vägar, sjöar, byggnadskonturer etc. Lägg till sådana kategorier direkt till <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Kontrollera vår <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> för detaljerade steg-för-steg-instruktioner.</string>
     <string name="downloader_no_downloaded_maps_title">Du har inte laddat ner några kartor</string>

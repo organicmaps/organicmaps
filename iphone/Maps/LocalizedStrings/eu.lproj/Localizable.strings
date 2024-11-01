@@ -742,10 +742,10 @@
 
 "editor_more_about_osm" = "OpenStreetMap-i buruzko informazio gehiago";
 
-"editor_operator" = "Eragilea";
+"editor_operator" = "Operadorea";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
-"operator" = "Eragilea: %@";
+"operator" = "Operadorea: %@";
 
 "downloader_no_downloaded_maps_title" = "Ez duzu maparik deskargatu";
 

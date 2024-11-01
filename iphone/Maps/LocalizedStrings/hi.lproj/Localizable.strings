@@ -742,10 +742,10 @@
 
 "editor_more_about_osm" = "OpenStreetMap के बारे में अधिक जानकारी";
 
-"editor_operator" = "मालिक";
+"editor_operator" = "ऑपरेटर";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
-"operator" = "मालिक: %@";
+"operator" = "ऑपरेटर: %@";
 
 "downloader_no_downloaded_maps_title" = "You haven't downloaded any maps";
 

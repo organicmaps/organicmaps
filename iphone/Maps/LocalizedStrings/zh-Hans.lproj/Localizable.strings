@@ -742,10 +742,10 @@
 
 "editor_more_about_osm" = "关于 OpenStreetMap 的更多信息";
 
-"editor_operator" = "经营者";
+"editor_operator" = "操作员";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
-"operator" = "运营者: %@";
+"operator" = "操作员: %@";
 
 "downloader_no_downloaded_maps_title" = "您尚未下载任何地图";
 

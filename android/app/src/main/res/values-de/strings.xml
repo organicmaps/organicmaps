@@ -517,9 +517,9 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Ihre Bearbeitungen werden in die öffentliche <a href="https://wiki.openstreetmap.org/wiki/DE:Über_OSM">OpenStreetMap</a> Datenbank hochgeladen. Bitte tragen Sie keine privaten oder urheberrechtlich geschützten Informationen ein.</string>
     <string name="editor_more_about_osm">Mehr Informationen über OpenStreetMap</string>
-    <string name="editor_operator">Eigentümer</string>
+    <string name="editor_operator">Betreiber</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
-    <string name="operator">Eigentümer: %s</string>
+    <string name="operator">Betreiber: %s</string>
     <string name="editor_category_unsuitable_title">Keine passende Kategorie gefunden?</string>
     <string name="editor_category_unsuitable_text">Mit Organic Maps kann man nur einfache Punktkategorien hinzufügen, daher keine Städte, Straßen, Seen, Gebäudeumrisse, etc. Bitte füge solche Kategorien direkt bei <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> hinzu. In unserem <a href="https://organicmaps.app/faq/editing/advanced-map-editing">Leitfaden</a> findest du eine detaillierte Schritt-für-Schritt-Anleitung.</string>
     <string name="downloader_no_downloaded_maps_title">Keine Karten heruntergeladen</string>

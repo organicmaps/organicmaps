@@ -742,10 +742,10 @@
 
 "editor_more_about_osm" = "المزيد عن خريطة الشارع المفتوحة";
 
-"editor_operator" = "المالك";
+"editor_operator" = "المشغل";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
-"operator" = "المالك: %@";
+"operator" = "المشغل: %@";
 
 "downloader_no_downloaded_maps_title" = "لم تقم بتنزيل أية خرائط";
 

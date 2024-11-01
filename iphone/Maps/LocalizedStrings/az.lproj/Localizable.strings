@@ -742,10 +742,10 @@
 
 "editor_more_about_osm" = "OpenStreetMap haqqında əlavə məlumat";
 
-"editor_operator" = "Sahibi";
+"editor_operator" = "Operator";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
-"operator" = "Sahibi: %@";
+"operator" = "Operator: %@";
 
 "downloader_no_downloaded_maps_title" = "Siz heç bir xəritə endirməmisiniz";
 

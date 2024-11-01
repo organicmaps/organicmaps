@@ -742,10 +742,10 @@
 
 "editor_more_about_osm" = "Mer om OpenStreetMap";
 
-"editor_operator" = "Användare";
+"editor_operator" = "Operatör";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
-"operator" = "Användare: %@";
+"operator" = "Operatör: %@";
 
 "downloader_no_downloaded_maps_title" = "Du har inte laddat ner några kartor";
 

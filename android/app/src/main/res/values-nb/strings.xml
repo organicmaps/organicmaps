@@ -515,9 +515,9 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Dine endringer lastes opp til den offentlige <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>-databasen. Vennligst ikke legg til personlig eller opphavsrettsbeskyttet informasjon.</string>
     <string name="editor_more_about_osm">Mer om OpenStreetMap</string>
-    <string name="editor_operator">Eier</string>
+    <string name="editor_operator">Operatør</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
-    <string name="operator">Eier: %s</string>
+    <string name="operator">Operatør: %s</string>
     <string name="editor_category_unsuitable_title">Finner du ikke en passende kategori?</string>
     <string name="editor_category_unsuitable_text">Organic Maps tillater kun å legge til enkle punktkategorier, det vil si ingen byer, veier, innsjøer, bygningsomriss osv. Vennligst legg til slike kategorier direkte til <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Sjekk vår <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detaljerte trinnvise instruksjoner.</string>
     <string name="downloader_no_downloaded_maps_title">Du har ikke lastet ned noen kart</string>

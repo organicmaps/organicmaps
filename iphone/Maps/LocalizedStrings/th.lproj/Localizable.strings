@@ -742,10 +742,10 @@
 
 "editor_more_about_osm" = "ข้อมูลเพิ่มเติมเกี่ยวกับ OpenStreetMap";
 
-"editor_operator" = "เจ้าของ";
+"editor_operator" = "ตัวดำเนินการ";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
-"operator" = "เจ้าของ: %@";
+"operator" = "ตัวดำเนินการ: %@";
 
 "downloader_no_downloaded_maps_title" = "คุณยังไม่ได้ดาวน์โหลดแผนที่";
 

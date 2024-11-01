@@ -742,10 +742,10 @@
 
 "editor_more_about_osm" = "OpenStreetMap 정보";
 
-"editor_operator" = "소유자";
+"editor_operator" = "연산자";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
-"operator" = "소유자: %@";
+"operator" = "연산자: %@";
 
 "downloader_no_downloaded_maps_title" = "지도를 다운로드하지 않았습니다";
 
