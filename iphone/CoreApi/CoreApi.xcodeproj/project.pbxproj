@@ -91,6 +91,7 @@
 		ED965B102CD67A470049E39E /* DistanceFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = ED965B092CD67A470049E39E /* DistanceFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED965B132CD67A9B0049E39E /* AltitudeFormatter.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED965B122CD67A9B0049E39E /* AltitudeFormatter.mm */; };
 		ED965B142CD67A9B0049E39E /* AltitudeFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = ED965B112CD67A9B0049E39E /* AltitudeFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED965B162CD67ABA0049E39E /* DateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED965B152CD67ABA0049E39E /* DateTimeFormatter.swift */; };
 		EDC4E3512C5D222D009286A2 /* RecentlyDeletedCategory.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E34E2C5D222D009286A2 /* RecentlyDeletedCategory.mm */; };
 		EDC4E3522C5D222D009286A2 /* RecentlyDeletedCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = EDC4E34F2C5D222D009286A2 /* RecentlyDeletedCategory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EDC4E3532C5D222D009286A2 /* RecentlyDeletedCategory+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = EDC4E3502C5D222D009286A2 /* RecentlyDeletedCategory+Core.h */; };
@@ -188,6 +189,7 @@
 		ED965B0A2CD67A470049E39E /* DistanceFormatter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DistanceFormatter.mm; sourceTree = "<group>"; };
 		ED965B112CD67A9B0049E39E /* AltitudeFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AltitudeFormatter.h; sourceTree = "<group>"; };
 		ED965B122CD67A9B0049E39E /* AltitudeFormatter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AltitudeFormatter.mm; sourceTree = "<group>"; };
+		ED965B152CD67ABA0049E39E /* DateTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeFormatter.swift; sourceTree = "<group>"; };
 		EDC4E34E2C5D222D009286A2 /* RecentlyDeletedCategory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RecentlyDeletedCategory.mm; sourceTree = "<group>"; };
 		EDC4E34F2C5D222D009286A2 /* RecentlyDeletedCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentlyDeletedCategory.h; sourceTree = "<group>"; };
 		EDC4E3502C5D222D009286A2 /* RecentlyDeletedCategory+Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RecentlyDeletedCategory+Core.h"; sourceTree = "<group>"; };
@@ -432,6 +434,7 @@
 		ED965B0B2CD67A470049E39E /* Formatting */ = {
 			isa = PBXGroup;
 			children = (
+				ED965B152CD67ABA0049E39E /* DateTimeFormatter.swift */,
 				ED965B112CD67A9B0049E39E /* AltitudeFormatter.h */,
 				ED965B122CD67A9B0049E39E /* AltitudeFormatter.mm */,
 				ED965B092CD67A470049E39E /* DistanceFormatter.h */,
@@ -546,6 +549,7 @@
 				TargetAttributes = {
 					470015EE2342509C00EBF03D = {
 						CreatedOnToolsVersion = 10.2;
+						LastSwiftMigration = 1600;
 					};
 				};
 			};
@@ -589,6 +593,7 @@
 				47942D88237CCA8800DEFAE3 /* PlacePagePreviewData.mm in Sources */,
 				47942D9D237D927800DEFAE3 /* PlacePageBookmarkData.mm in Sources */,
 				47942D86237CC55500DEFAE3 /* MWMOpeningHoursCommon.mm in Sources */,
+				ED965B162CD67ABA0049E39E /* DateTimeFormatter.swift in Sources */,
 				9974CA2A23DF1968003FE824 /* ElevationProfileData.mm in Sources */,
 				47942D82237CC52A00DEFAE3 /* MWMOpeningHours.mm in Sources */,
 				ED965B132CD67A9B0049E39E /* AltitudeFormatter.mm in Sources */,
@@ -670,9 +675,10 @@
 		470015F82342509C00EBF03D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
-				DEFINES_MODULE = NO;
+				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -688,15 +694,18 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
 		470015F92342509C00EBF03D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
-				DEFINES_MODULE = NO;
+				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -712,6 +721,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
 		};
