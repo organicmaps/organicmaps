@@ -483,7 +483,10 @@
     <string name="message_invalid_feature_position">Célpont áthelyezése ide nem lehetséges</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Közösség által létrehozott OpenStreetMap adatok %s-tól. Tudjon meg többet a térkép szerkesztéséről és frissítéséről az OpenStreetMap.org oldalon.</string>
-    <string name="login_to_make_edits_visible">Jelentkezzen be, hogy más felhasználók is láthassák a változtatásait.</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">Az OpenStreetMap.org (OSM) egy közösségi projekt, amelynek célja egy ingyenes és nyílt térkép létrehozása. Ez az Organic Maps térképadatok fő forrása, és a Wikipédiához hasonlóan működik. Helyeket adhatsz hozzá vagy szerkeszthetsz, és azok világszerte felhasználók milliói számára válnak elérhetővé.
+\nLépj be a közösségbe, és segíts egy jobb térképet készíteni mindenki számára!</string>
+    <string name="login_to_make_edits_visible">Hozzon létre egy OpenStreetMap-fiókot, vagy jelentkezzen be, hogy közzétehesse térképszerkesztéseit a világ számára.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d/%2$d</string>
     <string name="download_over_mobile_header">Letöltés mobilhálózati kapcsolat segítségével?</string>

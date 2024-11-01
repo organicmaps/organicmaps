@@ -615,7 +615,7 @@
 
 "login" = "Bei OpenStreetMap anmelden";
 
-"login_osm" = "Melden Sie sich bei OpenStreetMap an";
+"login_osm" = "Bei OpenStreetMap anmelden";
 
 "forgot_password" = "Passwort vergessen?";
 
@@ -705,7 +705,7 @@
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Von der Community erstellte OpenStreetMap-Daten (Stand: %@). Erfahre mehr darüber, wie du die Karte bearbeiten und aktualisieren kannst unter OpenStreetMap.org";
 
-"login_to_make_edits_visible" = "Melden Sie sich bei openstreetmap.org an, um Ihre Änderungen weltweit zu veröffentlichen.";
+"login_to_make_edits_visible" = "Erstellen Sie ein OpenStreetMap-Konto oder melden Sie sich an, um Ihre Kartenbearbeitungen weltweit zu veröffentlichen.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Zum Herunterladen benötigen Sie mehr Platz. Bitte löschen Sie unnötige Daten.";

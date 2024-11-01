@@ -485,7 +485,10 @@
     <string name="message_invalid_feature_position">Nessun oggetto può essere posizionato qui</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Dati OpenStreetMap creati dalla comunità al %s. Per saperne di più su come modificare e aggiornare la mappa, visita OpenStreetMap.org</string>
-    <string name="login_to_make_edits_visible">Accedi per consentire ad altri utenti di vedere le modifiche apportate.</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) è un progetto comunitario per costruire una mappa libera e aperta. È la principale fonte di dati cartografici di Organic Maps e funziona in modo simile a Wikipedia. Può aggiungere o modificare luoghi e questi diventano disponibili per milioni di utenti in tutto il mondo.
+\nEntri a far parte della comunità e contribuisca a creare una mappa migliore per tutti!</string>
+    <string name="login_to_make_edits_visible">Crei un account OpenStreetMap o effettui il login per pubblicare le sue modifiche alla mappa in tutto il mondo.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d di %2$d</string>
     <string name="download_over_mobile_header">Vuoi scaricare utilizzando una connessione di rete cellulare?</string>

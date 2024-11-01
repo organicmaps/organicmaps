@@ -510,7 +510,9 @@
     <string name="message_invalid_feature_position">地点不能放置在这里</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">截至 %s 的社区创建的 OpenStreetMap 数据。请访问 OpenStreetMap.org 以了解有关如何编辑和更新地图的信息。</string>
-    <string name="login_to_make_edits_visible">登录，让其他用户能看到您所作出的修改。</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">OpenStreetMap.org（OSM）是一个构建免费开放地图的社区项目。它是有机地图中地图数据的主要来源，其工作原理类似于维基百科。你可以添加或编辑地点，全世界数以百万计的用户都可以使用它们！</string>
+    <string name="login_to_make_edits_visible">创建 OpenStreetMap 账户或登录，向全世界发布您编辑的地图。</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d / %2$d</string>
     <string name="download_over_mobile_header">用手机网络连接下载吗？</string>
