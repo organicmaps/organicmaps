@@ -55,7 +55,6 @@
 		3444DFD21F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFD01F17620C00E73099 /* MWMMapWidgetsHelper.mm */; };
 		3444DFDE1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFDC1F18A5AF00E73099 /* SideButtonsArea.swift */; };
 		3454D7BC1E07F045004AF2AD /* CLLocation+Mercator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3454D79C1E07F045004AF2AD /* CLLocation+Mercator.mm */; };
-		3454D7BF1E07F045004AF2AD /* DateComponentsFormatter+ETA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3454D79D1E07F045004AF2AD /* DateComponentsFormatter+ETA.swift */; };
 		3454D7C21E07F045004AF2AD /* NSString+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 3454D79F1E07F045004AF2AD /* NSString+Categories.m */; };
 		3454D7C51E07F045004AF2AD /* UIButton+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3454D7A11E07F045004AF2AD /* UIButton+Orientation.m */; };
 		3454D7CB1E07F045004AF2AD /* UIColor+MapsMeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3454D7A51E07F045004AF2AD /* UIColor+MapsMeColor.m */; };
@@ -836,7 +835,6 @@
 		345050211E028B8000A8DC59 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		3454D79B1E07F045004AF2AD /* CLLocation+Mercator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+Mercator.h"; sourceTree = "<group>"; };
 		3454D79C1E07F045004AF2AD /* CLLocation+Mercator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "CLLocation+Mercator.mm"; sourceTree = "<group>"; };
-		3454D79D1E07F045004AF2AD /* DateComponentsFormatter+ETA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateComponentsFormatter+ETA.swift"; sourceTree = "<group>"; };
 		3454D79E1E07F045004AF2AD /* NSString+Categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Categories.h"; sourceTree = "<group>"; };
 		3454D79F1E07F045004AF2AD /* NSString+Categories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Categories.m"; sourceTree = "<group>"; };
 		3454D7A01E07F045004AF2AD /* UIButton+Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Orientation.h"; sourceTree = "<group>"; };
@@ -2170,7 +2168,6 @@
 				ED0B1FEE2CAA9A25006E31A4 /* UIView+Highlight.swift */,
 				3454D79B1E07F045004AF2AD /* CLLocation+Mercator.h */,
 				3454D79C1E07F045004AF2AD /* CLLocation+Mercator.mm */,
-				3454D79D1E07F045004AF2AD /* DateComponentsFormatter+ETA.swift */,
 				3454D79E1E07F045004AF2AD /* NSString+Categories.h */,
 				3454D79F1E07F045004AF2AD /* NSString+Categories.m */,
 				3457C4241F680F1900028233 /* String+BoundingRect.swift */,
@@ -4669,7 +4666,6 @@
 				4707E4B12372FE860017DF6E /* PlacePageViewController.swift in Sources */,
 				34AB66441FC5AA330078E451 /* RouteManagerViewModelProtocol.swift in Sources */,
 				4701A93D243A917900B87683 /* TouchTransparentView.swift in Sources */,
-				3454D7BF1E07F045004AF2AD /* DateComponentsFormatter+ETA.swift in Sources */,
 				991FCA2423B11E61009AD684 /* BookmarksStyleSheet.swift in Sources */,
 				993DF12823F6BDB100AC231A /* IStyleSheet.swift in Sources */,
 				6741AA1C1BF340DE002C974C /* MWMRoutingDisclaimerAlert.m in Sources */,
