@@ -2,10 +2,10 @@
 
 #include "storage/queued_country.hpp"
 
-#include "platform/downloader_utils.hpp"
-#include "platform/http_client.hpp"
+#include "network/downloader/utils.hpp"
+#include "network/http/client.hpp"
 #include "platform/platform.hpp"
-#include "platform/servers_list.hpp"
+#include "network/servers_list.hpp"
 #include "platform/settings.hpp"
 
 #include "coding/url.hpp"
@@ -121,7 +121,7 @@ void MapFilesDownloader::EnsureMetaConfigReady(std::function<void ()> && callbac
 
 std::vector<std::string> MapFilesDownloader::MakeUrlListLegacy(std::string const & fileName) const
 {
-  return MakeUrlList(downloader::GetFileDownloadUrl(fileName, m_dataVersion));
+  return MakeUrlList(om::network::downloader::GetFileDownloadUrl(fileName, m_dataVersion));
 }
 
 void MapFilesDownloader::SetServersList(ServersList const & serversList)
@@ -158,17 +158,17 @@ MetaConfig MapFilesDownloader::LoadMetaConfig()
 
   if (!metaServerUrl.empty())
   {
-    platform::HttpClient request(metaServerUrl);
+    om::network::http::Client request(metaServerUrl);
     request.SetRawHeader("X-OM-DataVersion", std::to_string(m_dataVersion));
     request.SetRawHeader("X-OM-AppVersion", GetPlatform().Version());
     request.SetTimeout(10.0); // timeout in seconds
     request.RunHttpRequest(httpResult);
   }
 
-  std::optional<MetaConfig> metaConfig = downloader::ParseMetaConfig(httpResult);
+  std::optional<MetaConfig> metaConfig = om::network::ParseMetaConfig(httpResult);
   if (!metaConfig)
   {
-    metaConfig = downloader::ParseMetaConfig(pl.DefaultUrlsJSON());
+    metaConfig = om::network::ParseMetaConfig(pl.DefaultUrlsJSON());
     CHECK(metaConfig, ());
     LOG(LWARNING, ("Can't get meta configuration from request, using default servers:", metaConfig->m_serversList));
   }

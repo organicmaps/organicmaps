@@ -30,7 +30,7 @@ namespace location
 class GpsInfo;
 }
 
-namespace platform
+namespace om::network
 {
 class Socket;
 }
@@ -43,7 +43,7 @@ public:
   static std::chrono::milliseconds const kPushDelayMs;
   static const char kEnableTrackingKey[];
 
-  Reporter(std::unique_ptr<platform::Socket> socket, std::string const & host, uint16_t port,
+  Reporter(std::unique_ptr<om::network::Socket> socket, std::string const & host, uint16_t port,
            std::chrono::milliseconds pushDelay);
   ~Reporter();
 

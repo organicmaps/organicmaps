@@ -2,8 +2,8 @@
 
 #include "tracking/archival_file.hpp"
 
-#include "platform/http_payload.hpp"
-#include "platform/http_uploader_background.hpp"
+#include "network/http/payload.hpp"
+#include "network/http/background_uploader.hpp"
 #include "platform/platform.hpp"
 
 #include "base/file_name_utils.hpp"
@@ -121,11 +121,11 @@ void ArchivalManager::PrepareUpload(std::vector<std::string> const & files)
 
 void ArchivalManager::CreateUploadTask(std::string const & filePath)
 {
-  platform::HttpPayload payload;
+  om::network::http::Payload payload;
   payload.m_url = m_url;
   payload.m_filePath = filePath;
   payload.m_headers = {};
-  platform::HttpUploaderBackground uploader(payload);
+  om::network::http::BackgroundUploader uploader(payload);
   uploader.Upload();
 }
 

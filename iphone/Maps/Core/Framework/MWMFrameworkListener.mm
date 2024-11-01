@@ -3,8 +3,6 @@
 
 #include <CoreApi/Framework.h>
 
-#include "platform/downloader_defines.hpp"
-
 namespace
 {
 using Observer = id<MWMFrameworkObserver>;

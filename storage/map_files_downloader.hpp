@@ -4,8 +4,7 @@
 #include "storage/downloading_policy.hpp"
 #include "storage/queued_country.hpp"
 
-#include "platform/downloader_defines.hpp"
-#include "platform/http_request.hpp"
+#include "network/http/request.hpp"
 #include "platform/safe_callback.hpp"
 
 #include <cstdint>
@@ -15,11 +14,11 @@
 #include <utility>
 #include <vector>
 
-#include "platform/servers_list.hpp"
+#include "network/servers_list.hpp"
 
 namespace storage
 {
-using downloader::MetaConfig;
+using om::network::MetaConfig;
 
 // This interface encapsulates HTTP routines for receiving servers
 // URLs and downloading a single map file.
@@ -89,7 +88,7 @@ private:
   void RunMetaConfigAsync(std::function<void()> && callback);
 
   /// Current file downloading request for DownloadAsString.
-  using RequestT = downloader::HttpRequest;
+  using RequestT = om::network::http::Request;
   std::unique_ptr<RequestT> m_fileRequest;
 
   ServersList m_serversList;

@@ -9,7 +9,8 @@
 #include "storage/queued_country.hpp"
 #include "storage/storage_defines.hpp"
 
-#include "platform/downloader_defines.hpp"
+#include "network/progress.hpp"
+#include "network/download_status.hpp"
 #include "platform/local_country_file.hpp"
 
 #include "base/cancellable.hpp"
@@ -108,7 +109,7 @@ struct NodeAttrs
   /// m_downloadingProgress.m_bytesDownloaded is number of downloaded bytes.
   /// m_downloadingProgress.m_bytesTotal is size of file(s) in bytes to download.
   /// So m_downloadingProgress.m_bytesDownloaded <= m_downloadingProgress.m_bytesTotal.
-  downloader::Progress m_downloadingProgress;
+  om::network::Progress m_downloadingProgress;
 
   /// Status of group and leaf node.
   /// For group nodes it's defined in the following way:
@@ -154,8 +155,8 @@ public:
   using UpdateCallback = std::function<void(storage::CountryId const &, LocalFilePtr const)>;
   using DeleteCallback = std::function<bool(storage::CountryId const &, LocalFilePtr const)>;
   using ChangeCountryFunction = std::function<void(CountryId const &)>;
-  using ProgressFunction = std::function<void(CountryId const &, downloader::Progress const &)>;
-  using DownloadingCountries = std::unordered_map<CountryId, downloader::Progress>;
+  using ProgressFunction = std::function<void(CountryId const &, om::network::Progress const &)>;
+  using DownloadingCountries = std::unordered_map<CountryId, om::network::Progress>;
 
 private:
   /// We support only one simultaneous request at the moment
@@ -258,9 +259,9 @@ private:
 
   void LoadCountriesFile(std::string const & pathToCountriesFile);
 
-  void ReportProgress(CountryId const & countryId, downloader::Progress const & p);
+  void ReportProgress(CountryId const & countryId, om::network::Progress const & p);
   void ReportProgressForHierarchy(CountryId const & countryId,
-                                  downloader::Progress const & leafProgress);
+                                  om::network::Progress const & leafProgress);
 
   // QueuedCountry::Subscriber overrides:
   void OnCountryInQueue(QueuedCountry const & queuedCountry) override;
@@ -268,16 +269,16 @@ private:
   /// Called on the main thread by MapFilesDownloader when
   /// downloading of a map file succeeds/fails.
   void OnDownloadFinished(QueuedCountry const & queuedCountry,
-                          downloader::DownloadStatus status) override;
+                          om::network::DownloadStatus status) override;
 
   /// Periodically called on the main thread by MapFilesDownloader
   /// during the downloading process.
   void OnDownloadProgress(QueuedCountry const & queuedCountry,
-                          downloader::Progress const & progress) override;
+                          om::network::Progress const & progress) override;
 
   void RegisterDownloadedFiles(CountryId const & countryId, MapFileType type);
 
-  void OnMapDownloadFinished(CountryId const & countryId, downloader::DownloadStatus status,
+  void OnMapDownloadFinished(CountryId const & countryId, om::network::DownloadStatus status,
                              MapFileType type);
 
   /// Dummy ctor for private use only.
@@ -512,7 +513,7 @@ public:
 
   /// Returns information about selected counties downloading progress.
   /// |countries| - watched CountryId, ONLY leaf expected.
-  downloader::Progress GetOverallProgress(CountriesVec const & countries) const;
+  om::network::Progress GetOverallProgress(CountriesVec const & countries) const;
 
   Country const & CountryLeafByCountryId(CountryId const & countryId) const;
   Country const & CountryByCountryId(CountryId const & countryId) const;
@@ -640,7 +641,7 @@ private:
 
   /// Calculates progress of downloading for expandable nodes in country tree.
   /// |descendants| All descendants of the parent node.
-  downloader::Progress CalculateProgress(CountriesVec const & descendants) const;
+  om::network::Progress CalculateProgress(CountriesVec const & descendants) const;
 
   template <class ToDo>
   void ForEachAncestorExceptForTheRoot(CountryTree::NodesBufferT const & nodes, ToDo && toDo) const;

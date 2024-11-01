@@ -4,7 +4,6 @@
 
 #include "map/framework.hpp"
 
-#include "platform/http_request.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
@@ -72,7 +71,7 @@ void DownloadGroup(Storage & storage, bool oneByOne)
   };
 
   CountriesSet downloadedChecker;
-  auto onProgressFn = [&](CountryId const & countryId, downloader::Progress const & progress) {
+  auto onProgressFn = [&](CountryId const & countryId, om::network::Progress const & progress) {
     TEST(subTree.find(countryId) != subTree.end(), ());
     if (progress.m_bytesDownloaded == progress.m_bytesTotal)
     {

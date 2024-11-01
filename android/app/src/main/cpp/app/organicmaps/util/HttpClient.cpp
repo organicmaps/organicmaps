@@ -27,7 +27,7 @@ SOFTWARE.
 #include "app/organicmaps/core/ScopedEnv.hpp"
 #include "app/organicmaps/core/ScopedLocalRef.hpp"
 
-#include "platform/http_client.hpp"
+#include "network/http/client.hpp"
 
 #include "base/assert.hpp"
 #include "base/exception.hpp"
@@ -98,7 +98,7 @@ void GetInt(ScopedEnv & env, jobject const params, jfieldID const fieldId, int &
   RethrowOnJniException(env);
 }
 
-void SetHeaders(ScopedEnv & env, jobject const params, platform::HttpClient::Headers const & headers)
+void SetHeaders(ScopedEnv & env, jobject const params, om::network::http::Client::Headers const & headers)
 {
   if (headers.empty())
     return;
@@ -113,7 +113,7 @@ void SetHeaders(ScopedEnv & env, jobject const params, platform::HttpClient::Hea
   RethrowOnJniException(env);
 }
 
-void LoadHeaders(ScopedEnv & env, jobject const params, platform::HttpClient::Headers & headers)
+void LoadHeaders(ScopedEnv & env, jobject const params, om::network::http::Client::Headers & headers)
 {
   static jmethodID const getHeaders =
       env->GetMethodID(g_httpParamsClazz, "getHeaders", "()[Ljava/lang/Object;");
@@ -161,9 +161,9 @@ private:
 //***********************************************************************
 // Exported functions implementation
 //***********************************************************************
-namespace platform
+namespace om::network::http
 {
-bool HttpClient::RunHttpRequest()
+bool Client::RunHttpRequest()
 {
   ScopedEnv env(jni::GetJVM());
 
@@ -262,4 +262,4 @@ bool HttpClient::RunHttpRequest()
   }
   return true;
 }
-}  // namespace platform
+}  // namespace om::network::http

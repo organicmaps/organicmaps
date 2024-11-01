@@ -7,8 +7,6 @@
 
 #include <CoreApi/Framework.h>
 
-#include "platform/downloader_defines.hpp"
-
 namespace
 {
 NSString * const kDownloadTransitMapAlertNibName = @"MWMDownloadTransitMapAlert";

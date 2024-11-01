@@ -67,7 +67,7 @@ void FakeMapFilesDownloader::Download()
   auto const & queuedCountry = m_queue.GetFirstCountry();
   if (!IsDownloadingAllowed())
   {
-    OnFileDownloaded(queuedCountry, downloader::DownloadStatus::Failed);
+    OnFileDownloaded(queuedCountry, om::network::DownloadStatus::Failed);
     return;
   }
 
@@ -94,7 +94,7 @@ void FakeMapFilesDownloader::DownloadNextChunk(uint64_t timestamp)
 
   if (m_progress.m_bytesDownloaded == m_progress.m_bytesTotal)
   {
-    OnFileDownloaded(m_queue.GetFirstCountry(), downloader::DownloadStatus::Completed);
+    OnFileDownloaded(m_queue.GetFirstCountry(), om::network::DownloadStatus::Completed);
     return;
   }
 
@@ -117,7 +117,7 @@ void FakeMapFilesDownloader::DownloadNextChunk(uint64_t timestamp)
 }
 
 void FakeMapFilesDownloader::OnFileDownloaded(QueuedCountry const & queuedCountry,
-                                              downloader::DownloadStatus const & status)
+                                              om::network::DownloadStatus const & status)
 {
   auto const country = queuedCountry;
   m_queue.PopFront();

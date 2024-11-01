@@ -44,7 +44,6 @@
 #include "platform/location.hpp"
 #include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
-#include "platform/network_policy.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
@@ -71,18 +70,9 @@ using namespace std::placeholders;
 
 unique_ptr<android::Framework> g_framework;
 
-namespace platform
-{
-NetworkPolicy ToNativeNetworkPolicy(JNIEnv * env, jobject obj)
-{
-  return NetworkPolicy(network_policy::GetNetworkPolicyStatus(env, obj));
-}
-}  // namespace platform
-
 using namespace storage;
 using platform::CountryFile;
 using platform::LocalCountryFile;
-using platform::ToNativeNetworkPolicy;
 
 static_assert(sizeof(int) >= 4, "Size of jint in less than 4 bytes.");
 

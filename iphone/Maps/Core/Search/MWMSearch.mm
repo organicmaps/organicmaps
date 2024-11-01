@@ -5,8 +5,6 @@
 
 #include <CoreApi/Framework.h>
 
-#include "platform/network_policy.hpp"
-
 namespace {
 using Observer = id<MWMSearchObserver>;
 using Observers = NSHashTable<Observer>;

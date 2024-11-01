@@ -3,7 +3,7 @@
 #include "storage/downloader_queue_universal.hpp"
 #include "storage/map_files_downloader_with_ping.hpp"
 
-#include "platform/http_request.hpp"
+#include "network/http/request.hpp"
 
 #include "base/thread_checker.hpp"
 
@@ -34,11 +34,11 @@ private:
 
   void Download();
 
-  void OnMapFileDownloaded(QueuedCountry const & queuedCountry, downloader::HttpRequest & request);
+  void OnMapFileDownloaded(QueuedCountry const & queuedCountry, om::network::http::Request & request);
   void OnMapFileDownloadingProgress(QueuedCountry const & queuedCountry,
-                                    downloader::HttpRequest & request);
+                                    om::network::http::Request & request);
 
-  std::unique_ptr<downloader::HttpRequest> m_request;
+  std::unique_ptr<om::network::http::Request> m_request;
   Queue m_queue;
 
   DECLARE_THREAD_CHECKER(m_checker);

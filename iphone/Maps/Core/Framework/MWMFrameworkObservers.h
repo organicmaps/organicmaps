@@ -7,8 +7,6 @@
 #include "storage/storage.hpp"
 #include "storage/storage_defines.hpp"
 
-#include "platform/downloader_defines.hpp"
-
 using namespace storage;
 
 @protocol MWMFrameworkRouteBuilderObserver<MWMFrameworkObserver>

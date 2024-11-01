@@ -7,7 +7,6 @@
 #include "storage/country_info_getter.hpp"
 #include "storage/storage.hpp"
 
-#include "platform/downloader_defines.hpp"
 #include "platform/preferred_languages.hpp"
 
 #include "indexer/scales.hpp"
@@ -122,7 +121,7 @@ Screenshoter::Screenshoter(ScreenshotParams const & screenshotParams, Framework 
 {
   m_framework.GetStorage().Subscribe(
       std::bind(&Screenshoter::OnCountryChanged, this, std::placeholders::_1),
-      [](storage::CountryId const &, downloader::Progress const &) {});
+      [](storage::CountryId const &, om::network::Progress const &) {});
 }
 
 void Screenshoter::Start()

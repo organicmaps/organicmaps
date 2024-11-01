@@ -131,6 +131,9 @@
       location = "container:mwm_diff/mwm_diff.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:network/network.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "container:openlr/openlr.xcodeproj">
    </FileRef>
    <FileRef

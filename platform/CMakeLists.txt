@@ -4,8 +4,6 @@ set(SRC
   ../private.h  # To properly detect its changes with CMake.
   battery_tracker.cpp
   battery_tracker.hpp
-  chunks_download_strategy.cpp
-  chunks_download_strategy.hpp
   constants.hpp
   country_defines.cpp
   country_defines.hpp
@@ -15,21 +13,9 @@ set(SRC
   distance.hpp
   duration.cpp
   duration.hpp
-  downloader_defines.hpp
-  downloader_utils.cpp
-  downloader_utils.hpp
   get_text_by_id.cpp
   get_text_by_id.hpp
   gui_thread.hpp
-  http_client.cpp
-  http_client.hpp
-  http_payload.cpp
-  http_payload.hpp
-  http_request.cpp
-  http_request.hpp
-  http_thread_callback.hpp
-  http_uploader.hpp
-  http_uploader_background.hpp
   local_country_file.cpp
   local_country_file.hpp
   local_country_file_utils.cpp
@@ -48,14 +34,9 @@ set(SRC
   platform.hpp
   preferred_languages.cpp
   preferred_languages.hpp
-  remote_file.cpp
-  remote_file.hpp
   secure_storage.hpp
-  servers_list.cpp
-  servers_list.hpp
   settings.cpp
   settings.hpp
-  socket.hpp
   trace.hpp
   string_storage_base.cpp
   string_storage_base.hpp
@@ -78,23 +59,13 @@ endif()
 
 if (PLATFORM_IPHONE)
   append(SRC
-    background_downloader_ios.h
-    background_downloader_ios.mm
     gui_thread_apple.mm
-    http_thread_apple.h
-    http_thread_apple.mm
-    http_client_apple.mm
-    http_uploader_apple.mm
-    http_user_agent_ios.mm
     localization.mm
     locale.mm
-    network_policy_ios.h
-    network_policy_ios.mm
     platform_ios.mm
     platform_unix_impl.cpp
     platform_unix_impl.hpp
     secure_storage_ios.mm
-    socket_apple.mm
   )
 elseif(${PLATFORM_ANDROID})
   append(SRC
@@ -127,7 +98,6 @@ else() # neither iPhone nor Android
     localization_dummy.cpp
     location_service.cpp
     location_service.hpp
-    network_policy_dummy.cpp
     platform_qt.cpp
     "${CMAKE_CURRENT_BINARY_DIR}/platform_qt_version.cpp"
   )
@@ -135,11 +105,6 @@ else() # neither iPhone nor Android
   if (${PLATFORM_WIN})
     append(SRC
       gui_thread_qt.cpp
-      http_client_curl.cpp
-      http_thread_qt.cpp
-      http_thread_qt.hpp
-      http_uploader_background_dummy.cpp
-      http_uploader_dummy.cpp
       locale_std.cpp
       platform_win.cpp
       secure_storage_dummy.cpp
@@ -148,27 +113,15 @@ else() # neither iPhone nor Android
     append(SRC
       apple_location_service.mm
       gui_thread_apple.mm
-      http_client_apple.mm
-      http_thread_apple.h
-      http_thread_apple.mm
-      http_uploader_apple.mm
-      http_uploader_background_dummy.cpp
       locale.mm
       platform_mac.mm
       platform_unix_impl.cpp
       platform_unix_impl.hpp
       secure_storage_qt.cpp
-      socket_apple.mm
-      http_session_manager.mm
     )
   elseif(${PLATFORM_LINUX})
     append(SRC
       gui_thread_qt.cpp
-      http_client_curl.cpp
-      http_thread_qt.cpp
-      http_thread_qt.hpp
-      http_uploader_dummy.cpp
-      http_uploader_background_dummy.cpp
       locale_std.cpp
       platform_linux.cpp
       platform_unix_impl.cpp
@@ -195,15 +148,11 @@ target_link_libraries(${PROJECT_NAME}
   geometry  # mercator::YToLat
   coding
   $<$<BOOL:${PLATFORM_DESKTOP}>:Qt6::Core>
-  $<$<BOOL:${PLATFORM_LINUX}>:Qt6::Network>
-  $<$<BOOL:${PLATFORM_WIN}>:Qt6::Network>
   $<$<BOOL:${QT_POSITIONING}>:Qt6::Positioning>
   $<$<BOOL:${PLATFORM_MAC}>:
     -framework\ Foundation
     -framework\ SystemConfiguration
     -framework\ CoreLocation
-    -framework\ CFNetwork
-    -framework\ Security  # SecPKCS12Import
     >
 )
 

@@ -7,7 +7,7 @@
 #include "coding/url.hpp"
 #include "coding/writer.hpp"
 
-#include "platform/http_client.hpp"
+#include "network/http/client.hpp"
 
 #include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"
@@ -89,7 +89,7 @@ Response MapboxApi::CalculateRoute(Params const & params, int32_t /* startTimeZo
 MapboxResponse MapboxApi::MakeRequest(Params const & params) const
 {
   MapboxResponse mapboxResponse;
-  platform::HttpClient request(GetDirectionsURL(params));
+  om::network::http::Client request(GetDirectionsURL(params));
 
   if (request.RunHttpRequest() && !request.WasRedirected() && request.ErrorCode() == 200)
   {

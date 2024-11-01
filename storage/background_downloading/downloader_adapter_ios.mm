@@ -1,6 +1,6 @@
 #import "storage/background_downloading/downloader_adapter_ios.h"
 
-#import "platform/background_downloader_ios.h"
+#import "network/internal/native/apple/background_downloader.h"
 
 #include "storage/downloader.hpp"
 
@@ -12,15 +12,15 @@
 
 @interface NSError (ToDownloaderError)
 
-- (downloader::DownloadStatus)toDownloaderError;
+- (om::network::DownloadStatus)toDownloaderError;
 
 @end
 
 @implementation NSError (ToDownloaderError)
 
-- (downloader::DownloadStatus)toDownloaderError {
-  return self.code == NSURLErrorFileDoesNotExist ? downloader::DownloadStatus::FileNotFound
-                                                 : downloader::DownloadStatus::Failed;
+- (om::network::DownloadStatus)toDownloaderError {
+  return self.code == NSURLErrorFileDoesNotExist ? om::network::DownloadStatus::FileNotFound
+                                                 : om::network::DownloadStatus::Failed;
 }
 
 @end
@@ -63,7 +63,7 @@ void BackgroundDownloaderAdapter::Download(QueuedCountry && queuedCountry)
 {
   if (!IsDownloadingAllowed())
   {
-    queuedCountry.OnDownloadFinished(downloader::DownloadStatus::Failed);
+    queuedCountry.OnDownloadFinished(om::network::DownloadStatus::Failed);
     return;
   }
 
@@ -97,12 +97,12 @@ void BackgroundDownloaderAdapter::DownloadFromLastUrl(CountryId const & countryI
 
   auto onFinish = [this, countryId, downloadPath, urls = std::move(urls)](NSError *error) mutable
   {
-    downloader::DownloadStatus status = error ? [error toDownloaderError] : downloader::DownloadStatus::Completed;
+    om::network::DownloadStatus status = error ? [error toDownloaderError] : om::network::DownloadStatus::Completed;
 
     if (!m_queue.Contains(countryId))
       return;
 
-    if (status == downloader::DownloadStatus::Failed && !urls.empty())
+    if (status == om::network::DownloadStatus::Failed && !urls.empty())
     {
       DownloadFromLastUrl(countryId, downloadPath, std::move(urls));
     }

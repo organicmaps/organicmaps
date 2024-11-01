@@ -20,7 +20,6 @@
 #include "indexer/indexer_tests/test_mwm_set.hpp"
 
 #include "platform/country_file.hpp"
-#include "platform/downloader_defines.hpp"
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/mwm_version.hpp"
@@ -277,7 +276,7 @@ protected:
   }
 
   virtual void OnCountryDownloadingProgress(CountryId const & countryId,
-                                            downloader::Progress const & progress)
+                                            om::network::Progress const & progress)
   {
     if (countryId != m_countryId)
       return;
@@ -321,7 +320,7 @@ public:
 protected:
   // CountryDownloaderChecker overrides:
   void OnCountryDownloadingProgress(CountryId const & countryId,
-                                    downloader::Progress const & progress) override
+                                    om::network::Progress const & progress) override
   {
     CountryDownloaderChecker::OnCountryDownloadingProgress(countryId, progress);
 
@@ -384,7 +383,7 @@ private:
   }
 
   void OnCountryDownloadingProgress(CountryId const & /* countryId */,
-                                    downloader::Progress const & /* progress */)
+                                    om::network::Progress const & /* progress */)
   {
     TEST(false, ("Unexpected country downloading progress."));
   }
@@ -435,7 +434,7 @@ public:
     testing::StopEventLoop();
   }
 
-  void OnProgress(CountryId const & /* countryId */, downloader::Progress const & /* progress */) {}
+  void OnProgress(CountryId const & /* countryId */, om::network::Progress const & /* progress */) {}
 
 private:
   Storage & m_storage;
@@ -1494,7 +1493,7 @@ UNIT_CLASS_TEST(StorageTest, MultipleMaps)
   };
 
   auto const onProgress = [&](CountryId const & /* countryId */,
-                              downloader::Progress const & /* progress */) {};
+                              om::network::Progress const & /* progress */) {};
 
   auto const slot = storage.Subscribe(onStatusChange, onProgress);
   SCOPE_GUARD(cleanup, [&]() { storage.Unsubscribe(slot); });

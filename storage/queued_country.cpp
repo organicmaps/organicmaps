@@ -2,7 +2,7 @@
 
 #include "storage/storage_helpers.hpp"
 
-#include "platform/downloader_utils.hpp"
+#include "network/downloader/utils.hpp"
 #include "platform/local_country_file_utils.hpp"
 
 #include "base/assert.hpp"
@@ -57,7 +57,7 @@ std::string QueuedCountry::GetRelativeUrl() const
   if (m_fileType == MapFileType::Diff)
     CHECK(m_diffsDataSource->VersionFor(m_countryId, diffVersion), ());
 
-  return downloader::GetFileDownloadUrl(fileName, m_currentDataVersion, diffVersion);
+  return om::network::downloader::GetFileDownloadUrl(fileName, m_currentDataVersion, diffVersion);
 }
 
 std::string QueuedCountry::GetFileDownloadPath() const
@@ -89,13 +89,13 @@ void QueuedCountry::OnStartDownloading() const
     m_subscriber->OnStartDownloading(*this);
 }
 
-void QueuedCountry::OnDownloadProgress(downloader::Progress const & progress) const
+void QueuedCountry::OnDownloadProgress(om::network::Progress const & progress) const
 {
   if (m_subscriber != nullptr)
     m_subscriber->OnDownloadProgress(*this, progress);
 }
 
-void QueuedCountry::OnDownloadFinished(downloader::DownloadStatus status) const
+void QueuedCountry::OnDownloadFinished(om::network::DownloadStatus status) const
 {
   if (m_subscriber != nullptr)
     m_subscriber->OnDownloadFinished(*this, status);

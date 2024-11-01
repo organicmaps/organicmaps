@@ -49,7 +49,7 @@ using namespace storage;
           [observer processCountryEvent:@(countryId.c_str())];
         }
       },
-      [observers](CountryId const & countryId, downloader::Progress const & progress) {
+      [observers](CountryId const & countryId, om::network::Progress const & progress) {
         for (id<MWMStorageObserver> observer in observers) {
           // processCountry function in observer's implementation may not exist.
           /// @todo We can face with an invisible bug, if function's signature will be changed.

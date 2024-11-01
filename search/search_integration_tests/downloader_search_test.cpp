@@ -16,8 +16,6 @@
 #include "storage/storage.hpp"
 #include "storage/storage_defines.hpp"
 
-#include "platform/downloader_defines.hpp"
-
 #include "geometry/rect2d.hpp"
 
 #include "base/logging.hpp"

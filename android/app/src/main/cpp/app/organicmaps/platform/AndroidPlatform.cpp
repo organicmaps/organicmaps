@@ -5,7 +5,7 @@
 
 #include "app/organicmaps/util/NetworkPolicy.hpp"
 
-#include "platform/network_policy.hpp"
+#include "network/network_policy.hpp"
 #include "platform/settings.hpp"
 
 #include "base/logging.hpp"
@@ -119,12 +119,12 @@ uint8_t Platform::GetBatteryLevel()
   return static_cast<uint8_t>(env->CallStaticIntMethod(clazzBatteryState, getLevelMethodId, context));
 }
 
-namespace platform
+namespace om::network
 {
-platform::NetworkPolicy GetCurrentNetworkPolicy()
+NetworkPolicy GetCurrentNetworkPolicy()
 {
   JNIEnv *env = jni::GetEnv();
-  return platform::NetworkPolicy(network_policy::GetCurrentNetworkUsageStatus(env));
+  return NetworkPolicy(network_policy::GetCurrentNetworkUsageStatus(env));
 }
 }
 

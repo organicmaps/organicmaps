@@ -4,8 +4,8 @@
 
 #include "map/framework.hpp"
 
-#include "platform/downloader_defines.hpp"
-#include "platform/http_request.hpp"
+#include "network/download_status.hpp"
+#include "network/http/request.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/writable_dir_changer.hpp"
@@ -41,13 +41,13 @@ bool DownloadFile(string const & url,
                   string const & filePath,
                   size_t fileSize)
 {
-  using namespace downloader;
+  using namespace om::network;
 
   DownloadStatus httpStatus;
   bool finished = false;
 
-  unique_ptr<HttpRequest> request(HttpRequest::GetFile({url}, filePath, fileSize,
-                                  [&](HttpRequest & request)
+  unique_ptr<http::Request> request(http::Request::GetFile({url}, filePath, fileSize,
+                                  [&](http::Request & request)
   {
     DownloadStatus const s = request.GetStatus();
     if (s != DownloadStatus::InProgress)
@@ -87,7 +87,7 @@ UNIT_TEST(SmallMwms_Update_Test)
 
   Platform & platform = GetPlatform();
 
-  auto onProgressFn = [&](CountryId const &, downloader::Progress const &) {};
+  auto onProgressFn = [&](CountryId const &, om::network::Progress const &) {};
 
   // Download countries.txt for version 1
   TEST(DownloadFile(GetCountriesTxtWebUrl(kMwmVersion1), GetCountriesTxtFilePath(), kCountriesTxtFileSize1), ());

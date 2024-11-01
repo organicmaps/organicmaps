@@ -4,7 +4,7 @@
 #include "storage/map_files_downloader.hpp"
 #include "storage/queued_country.hpp"
 
-#include "platform/downloader_defines.hpp"
+#include "network/download_status.hpp"
 
 #include "coding/file_writer.hpp"
 
@@ -46,9 +46,9 @@ private:
   void Download();
   void DownloadNextChunk(uint64_t requestId);
   void OnFileDownloaded(QueuedCountry const & queuedCountry,
-                        downloader::DownloadStatus const & status);
+                        om::network::DownloadStatus const & status);
 
-  downloader::Progress m_progress;
+  om::network::Progress m_progress;
 
   std::unique_ptr<FileWriter> m_writer;
 

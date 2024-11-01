@@ -7,7 +7,7 @@
 #include "storage/map_files_downloader.hpp"
 #include "storage/storage_helpers.hpp"
 
-#include "platform/downloader_utils.hpp"
+#include "network/downloader/utils.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
@@ -34,7 +34,7 @@
 
 namespace storage
 {
-using namespace downloader;
+using namespace om::network::downloader;
 using namespace generator::mwm_diff;
 using namespace platform;
 using namespace std;
@@ -105,9 +105,9 @@ CountriesSet GetQueuedCountries(QueueInterface const & queue)
   return result;
 }
 
-Progress Storage::GetOverallProgress(CountriesVec const & countries) const
+om::network::Progress Storage::GetOverallProgress(CountriesVec const & countries) const
 {
-  Progress overallProgress;
+  om::network::Progress overallProgress;
   for (auto const & country : countries)
   {
     NodeAttrs attr;
@@ -539,13 +539,13 @@ void Storage::DownloadCountry(CountryId const & countryId, MapFileType type)
   // country.
   if (!PreparePlaceForCountryFiles(m_currentVersion, m_dataDir, countryFile))
   {
-    OnMapDownloadFinished(countryId, DownloadStatus::Failed, type);
+    OnMapDownloadFinished(countryId, om::network::DownloadStatus::Failed, type);
     return;
   }
 
   if (IsFileDownloaded(GetFileDownloadPath(countryId, type), type))
   {
-    OnMapDownloadFinished(countryId, DownloadStatus::Completed, type);
+    OnMapDownloadFinished(countryId, om::network::DownloadStatus::Completed, type);
     return;
   }
 
@@ -656,14 +656,14 @@ void Storage::Unsubscribe(int slotId)
   }
 }
 
-void Storage::ReportProgress(CountryId const & countryId, Progress const & p)
+void Storage::ReportProgress(CountryId const & countryId, om::network::Progress const & p)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   for (CountryObservers const & o : m_observers)
     o.m_progressFn(countryId, p);
 }
 
-void Storage::ReportProgressForHierarchy(CountryId const & countryId, Progress const & leafProgress)
+void Storage::ReportProgressForHierarchy(CountryId const & countryId, om::network::Progress const & leafProgress)
 {
   // Reporting progress for a leaf in country tree.
   ReportProgress(countryId, leafProgress);
@@ -674,7 +674,7 @@ void Storage::ReportProgressForHierarchy(CountryId const & countryId, Progress c
       descendants.push_back(container.Value().Name());
     });
 
-    Progress localAndRemoteBytes = CalculateProgress(descendants);
+    om::network::Progress localAndRemoteBytes = CalculateProgress(descendants);
     ReportProgress(parentId, localAndRemoteBytes);
   };
 
@@ -696,12 +696,12 @@ void Storage::OnStartDownloading(QueuedCountry const & queuedCountry)
   if (m_startDownloadingCallback)
     m_startDownloadingCallback();
 
-  m_downloadingCountries[queuedCountry.GetCountryId()] = Progress::Unknown();
+  m_downloadingCountries[queuedCountry.GetCountryId()] = om::network::Progress::Unknown();
 
   NotifyStatusChangedForHierarchy(queuedCountry.GetCountryId());
 }
 
-void Storage::OnDownloadProgress(QueuedCountry const & queuedCountry, Progress const & progress)
+void Storage::OnDownloadProgress(QueuedCountry const & queuedCountry, om::network::Progress const & progress)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
@@ -713,7 +713,7 @@ void Storage::OnDownloadProgress(QueuedCountry const & queuedCountry, Progress c
   ReportProgressForHierarchy(queuedCountry.GetCountryId(), progress);
 }
 
-void Storage::OnDownloadFinished(QueuedCountry const & queuedCountry, DownloadStatus status)
+void Storage::OnDownloadFinished(QueuedCountry const & queuedCountry, om::network::DownloadStatus status)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
@@ -721,13 +721,13 @@ void Storage::OnDownloadFinished(QueuedCountry const & queuedCountry, DownloadSt
 
   auto const & countryId = queuedCountry.GetCountryId();
   auto const fileType = queuedCountry.GetFileType();
-  auto const finishFn = [this, countryId, fileType] (DownloadStatus status)
+  auto const finishFn = [this, countryId, fileType] (om::network::DownloadStatus status)
   {
     OnMapDownloadFinished(countryId, status, fileType);
     OnFinishDownloading();
   };
 
-  if (status == DownloadStatus::Completed && m_integrityValidationEnabled)
+  if (status == om::network::DownloadStatus::Completed && m_integrityValidationEnabled)
   {
     /// @todo Can/Should be combined with ApplyDiff routine when we will restore it.
     /// While this is simple and working solution, I think that Downloader component
@@ -738,18 +738,18 @@ void Storage::OnDownloadFinished(QueuedCountry const & queuedCountry, DownloadSt
                                                    sha1 = GetCountryFile(countryId).GetSha1(),
                                                    fn = std::move(finishFn)]()
     {
-      DownloadStatus status = DownloadStatus::Completed;
+      om::network::DownloadStatus status = om::network::DownloadStatus::Completed;
 
       if (coding::SHA1::CalculateBase64(path) != sha1)
       {
         LOG(LERROR, ("SHA check error for", path));
         base::DeleteFileX(path);
-        status = DownloadStatus::FailedSHA;
+        status = om::network::DownloadStatus::FailedSHA;
       }
 
       GetPlatform().RunTask(Platform::Thread::Gui, [fn = std::move(fn), status]()
       {
-        if (status == DownloadStatus::Completed)
+        if (status == om::network::DownloadStatus::Completed)
           LOG(LDEBUG, ("Successful SHA check"));
 
         fn(status);
@@ -829,15 +829,15 @@ void Storage::RegisterDownloadedFiles(CountryId const & countryId, MapFileType t
   fn(true);
 }
 
-void Storage::OnMapDownloadFinished(CountryId const & countryId, DownloadStatus status,
+void Storage::OnMapDownloadFinished(CountryId const & countryId, om::network::DownloadStatus status,
                                     MapFileType type)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(m_didDownload != nullptr, ("Storage::Init wasn't called"));
 
-  if (status != DownloadStatus::Completed)
+  if (status != om::network::DownloadStatus::Completed)
   {
-    if (status == DownloadStatus::FileNotFound && type == MapFileType::Diff)
+    if (status == om::network::DownloadStatus::FileNotFound && type == MapFileType::Diff)
     {
       AbortDiffScheme();
       NotifyStatusChanged(GetRootId());
@@ -1044,7 +1044,7 @@ void Storage::RunCountriesCheckAsync()
 
     LOG(LDEBUG, ("Try download", COUNTRIES_FILE, "for", dataVersion));
 
-    m_downloader->DownloadAsString(downloader::GetFileDownloadUrl(COUNTRIES_FILE, dataVersion),
+    m_downloader->DownloadAsString(om::network::downloader::GetFileDownloadUrl(COUNTRIES_FILE, dataVersion),
       [this, dataVersion](std::string const & buffer)
       {
         LOG(LDEBUG, (COUNTRIES_FILE, "downloaded"));
@@ -1748,11 +1748,11 @@ void Storage::DoClickOnDownloadMap(CountryId const & countryId)
     m_downloadMapOnTheMap(countryId);
 }
 
-Progress Storage::CalculateProgress(CountriesVec const & descendants) const
+om::network::Progress Storage::CalculateProgress(CountriesVec const & descendants) const
 {
   // Function calculates progress correctly ONLY if |downloadingMwm| is leaf.
 
-  Progress result;
+  om::network::Progress result;
 
   auto const mwmsInQueue = GetQueuedCountries(m_downloader->GetQueue());
   for (auto const & d : descendants)

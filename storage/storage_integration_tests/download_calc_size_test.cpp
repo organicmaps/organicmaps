@@ -4,9 +4,9 @@
 
 #include "storage/storage.hpp"
 
-#include "platform/downloader_defines.hpp"
+#include "network/progress.hpp"
+
 #include "platform/mwm_version.hpp"
-#include "platform/platform.hpp"
 #include "platform/platform_tests_support/writable_dir_changer.hpp"
 
 namespace download_calc_size_test
@@ -50,7 +50,7 @@ UNIT_TEST(DownloadingTests_CalcOverallProgress)
   }
 
   auto progressChanged = [&s, &kTestCountries, &baseProgress](CountryId const & id,
-                                                              downloader::Progress const & /* progress */) {
+                                                              om::network::Progress const & /* progress */) {
     auto const currentProgress = s.GetOverallProgress(kTestCountries);
     LOG_SHORT(LINFO, (id, "downloading progress:", currentProgress));
 

@@ -29,6 +29,7 @@ target_link_libraries(${PROJECT_NAME}
     coding
     geometry
     platform
+    network
 )
 
 omim_add_test_subdirectory(tracking_tests)

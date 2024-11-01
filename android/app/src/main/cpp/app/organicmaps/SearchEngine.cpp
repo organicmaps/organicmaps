@@ -11,8 +11,6 @@
 #include "search/mode.hpp"
 #include "search/result.hpp"
 
-#include "platform/network_policy.hpp"
-
 #include "geometry/distance_on_sphere.hpp"
 
 #include "base/assert.hpp"
