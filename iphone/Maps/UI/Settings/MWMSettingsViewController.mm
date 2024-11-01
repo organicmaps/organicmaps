@@ -4,7 +4,7 @@
 #import "SwiftBridge.h"
 #import "MWMActivityViewController.h"
 
-#import <CoreApi/CoreApi.h>
+#import <CoreApi/Framework.h>
 
 #include "map/gps_tracker.hpp"
 

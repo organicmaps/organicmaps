@@ -9,7 +9,7 @@
 #import "MWMMapViewControlsManager+AddPlace.h"
 #import "location_util.h"
 
-#import <CoreApi/CoreApi.h>
+#import <CoreApi/Framework.h>
 #import <CoreApi/StringUtils.h>
 
 #include "platform/downloader_defines.hpp"
