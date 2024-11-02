@@ -1909,6 +1909,7 @@
     <string name="type.shop.optician">Optika</string>
     <string name="type.shop.outdoor">Ekipamendua</string>
     <string name="type.shop.outpost">Jasotzeko puntua</string>
+    <string name="type.shop.pasta">Pasta Denda</string>
     <string name="type.shop.pastry">Gozogintza</string>
     <string name="type.shop.pawnbroker">Peoia</string>
     <string name="type.shop.pet">Animali denda</string>
@@ -2004,7 +2005,15 @@
     <string name="type.tourism.artwork.sculpture">Artelanak</string>
     <string name="type.tourism.artwork.statue">Artelanak</string>
     <string name="type.tourism.attraction">Erakarpen turistikoa</string>
+    <string name="type.attraction.amusement_ride">Jolas Ibilaldia</string>
     <string name="type.attraction.animal">Animalien itxitura</string>
+    <string name="type.attraction.bumper_car">Autotxokeak</string>
+    <string name="type.attraction.big_wheel">Gurpil Handia</string>
+    <string name="type.attraction.carousel">Zaldiko-maldiko</string>
+    <string name="type.attraction.historic">Atrakzio historikoa</string>
+    <string name="type.attraction.maze">Labirintoa</string>
+    <string name="type.attraction.roller_coaster">Errusiar mendia</string>
+    <string name="type.attraction.water_slide">Ur Txirrista</string>
     <string name="type.tourism.attraction.specified">Erakarpen turistikoa</string>
     <string name="type.tourism.camp_site">Kanpalekua</string>
     <string name="type.tourism.caravan_site">Karabana gunea</string>

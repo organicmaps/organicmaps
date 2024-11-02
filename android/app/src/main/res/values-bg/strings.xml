@@ -1193,6 +1193,7 @@
     <string name="type.shop.kitchen">Магазин за кухня</string>
     <string name="type.shop.motorcycle_repair">Ремонт на мотоциклети</string>
     <string name="type.shop.outpost">Точка на вземане</string>
+    <string name="type.shop.pasta">Магазин за паста</string>
     <string name="type.shop.pastry">Тестени изделия</string>
     <string name="type.shop.pet_grooming">Грижа за домашни любимци</string>
     <string name="type.shop.rental">Магазин под наем</string>
@@ -1250,7 +1251,13 @@
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">Планинска хижа</string>
     <string name="type.tourism.apartment">Ваканционен апартамент</string>
+    <string name="type.attraction.amusement_ride">Развлекателна атракция</string>
     <string name="type.attraction.animal">Заграждение за животни</string>
+    <string name="type.attraction.carousel">Въртележка</string>
+    <string name="type.attraction.historic">Историческа атракция</string>
+    <string name="type.attraction.maze">Лабиринт</string>
+    <string name="type.attraction.roller_coaster">Въртележка</string>
+    <string name="type.attraction.water_slide">Водна пързалка</string>
     <!-- A rentable countryside vacation house. -->
     <string name="type.tourism.chalet">Ваканционна вила</string>
     <string name="type.tourism.information">Туринформация</string>

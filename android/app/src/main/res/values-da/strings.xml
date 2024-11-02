@@ -1790,6 +1790,7 @@
     <string name="type.shop.optician">Optiker</string>
     <string name="type.shop.outdoor">Fritidsudstyr</string>
     <string name="type.shop.outpost">Afhentningssted</string>
+    <string name="type.shop.pasta">Pasta butik</string>
     <string name="type.shop.pastry">Bagværk</string>
     <string name="type.shop.pawnbroker">Pantelåner</string>
     <string name="type.shop.pet">Dyrehandel</string>
@@ -1883,7 +1884,13 @@
     <string name="type.tourism.artwork.sculpture">Kunstværk</string>
     <string name="type.tourism.artwork.statue">Kunstværk</string>
     <string name="type.tourism.attraction">Attraktioner</string>
+    <string name="type.attraction.amusement_ride">Forlystelse</string>
     <string name="type.attraction.animal">Indhegning til dyr</string>
+    <string name="type.attraction.carousel">Karrusel</string>
+    <string name="type.attraction.historic">Historisk attraktion</string>
+    <string name="type.attraction.maze">Labyrint</string>
+    <string name="type.attraction.roller_coaster">Rutsjebane</string>
+    <string name="type.attraction.water_slide">Vandrutschebane</string>
     <string name="type.tourism.attraction.specified">Attraktioner</string>
     <string name="type.tourism.caravan_site">Autocamperplads</string>
     <!-- A rentable countryside vacation house. -->

@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Пункт самавывазу";
 
+"type.shop.pasta" = "Макаронная крама";
+
 "type.shop.pastry" = "Кандытарскія вырабы";
 
 "type.shop.pawnbroker" = "Pawnbroker";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Attraction";
 
+"type.attraction.amusement_ride" = "Атракцыён";
+
 "type.attraction.animal" = "Вальера для жывёл";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "Карусель";
+
+"type.attraction.historic" = "Гістарычная славутасць";
+
+"type.attraction.maze" = "Лабірынт";
+
+"type.attraction.roller_coaster" = "Амерыканскія горкі";
+
+"type.attraction.water_slide" = "Водная горка";
 
 "type.tourism.attraction.specified" = "Attraction";
 

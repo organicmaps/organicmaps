@@ -1861,6 +1861,7 @@
     <string name="type.shop.optician">Optiker</string>
     <string name="type.shop.outdoor">Fritidsutstyr</string>
     <string name="type.shop.outpost">Hentested</string>
+    <string name="type.shop.pasta">Pastabutikk</string>
     <string name="type.shop.pastry">Bakverk</string>
     <string name="type.shop.pawnbroker">Pantelåner</string>
     <string name="type.shop.pet">Dyrebutikk</string>
@@ -1957,7 +1958,13 @@
     <string name="type.tourism.artwork.sculpture">Kunstverk</string>
     <string name="type.tourism.artwork.statue">Kunstverk</string>
     <string name="type.tourism.attraction">Attraksjon</string>
+    <string name="type.attraction.amusement_ride">Forlystelsesattraksjon</string>
     <string name="type.attraction.animal">Innhegning for dyr</string>
+    <string name="type.attraction.carousel">Karusell</string>
+    <string name="type.attraction.historic">Historisk attraksjon</string>
+    <string name="type.attraction.maze">Labyrint</string>
+    <string name="type.attraction.roller_coaster">Berg- og dalbane</string>
+    <string name="type.attraction.water_slide">Vannrutsjebane</string>
     <string name="type.tourism.attraction.specified">Attraksjon</string>
     <string name="type.tourism.camp_site">Campingplass</string>
     <string name="type.tourism.caravan_site">Camping</string>

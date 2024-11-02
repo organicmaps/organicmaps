@@ -2004,6 +2004,7 @@
     <string name="type.shop.optician">眼镜店</string>
     <string name="type.shop.outdoor">室外设备</string>
     <string name="type.shop.outpost">自提点</string>
+    <string name="type.shop.pasta">意大利面店</string>
     <string name="type.shop.pastry">糕点</string>
     <string name="type.shop.pawnbroker">典当商铺</string>
     <string name="type.shop.pet">宠物店</string>
@@ -2100,7 +2101,13 @@
     <string name="type.tourism.artwork.sculpture">雕塑</string>
     <string name="type.tourism.artwork.statue">雕像</string>
     <string name="type.tourism.attraction">景点</string>
+    <string name="type.attraction.amusement_ride">游乐设施</string>
     <string name="type.attraction.animal">动物围栏</string>
+    <string name="type.attraction.carousel">旋转木马</string>
+    <string name="type.attraction.historic">历史景点</string>
+    <string name="type.attraction.maze">迷宫</string>
+    <string name="type.attraction.roller_coaster">过山车</string>
+    <string name="type.attraction.water_slide">水上滑梯</string>
     <string name="type.tourism.attraction.specified">景点</string>
     <string name="type.tourism.camp_site">宿营场地</string>
     <string name="type.tourism.caravan_site">房车宿营地</string>

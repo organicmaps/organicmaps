@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Alım Noktası";
 
+"type.shop.pasta" = "Makarna Dükkanı";
+
 "type.shop.pastry" = "Hamur işi";
 
 "type.shop.pawnbroker" = "Tefeci";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Görülecek Yerler";
 
+"type.attraction.amusement_ride" = "Eğlence Sürüşü";
+
 "type.attraction.animal" = "Hayvan Muhafazası";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "Atlıkarınca";
+
+"type.attraction.historic" = "Tarihi cazibe merkezi";
+
+"type.attraction.maze" = "Labirent";
+
+"type.attraction.roller_coaster" = "Lunapark hız treni";
+
+"type.attraction.water_slide" = "Su Kaydırağı";
 
 "type.tourism.attraction.specified" = "Görülecek Yerler";
 

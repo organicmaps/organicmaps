@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "จุดรับของ";
 
+"type.shop.pasta" = "ร้านพาสต้า";
+
 "type.shop.pastry" = "ขนมอบ";
 
 "type.shop.pawnbroker" = "ผู้รับจำนำ";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "การท่องเที่ยว";
 
+"type.attraction.amusement_ride" = "ขี่สนุก";
+
 "type.attraction.animal" = "สิ่งที่แนบมากับสัตว์";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "ม้าหมุน";
+
+"type.attraction.historic" = "แหล่งท่องเที่ยวทางประวัติศาสตร์";
+
+"type.attraction.maze" = "เขาวงกต";
+
+"type.attraction.roller_coaster" = "รถไฟเหาะ";
+
+"type.attraction.water_slide" = "สไลเดอร์น้ำ";
 
 "type.tourism.attraction.specified" = "การท่องเที่ยว";
 

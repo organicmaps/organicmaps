@@ -1806,6 +1806,7 @@
     <string name="type.shop.optician">Cửa hàng mắt kính</string>
     <string name="type.shop.outdoor">Thiết bị Ngoài trời</string>
     <string name="type.shop.outpost">Điểm đón</string>
+    <string name="type.shop.pasta">Cửa hàng mì ống</string>
     <string name="type.shop.pastry">Bánh ngọt</string>
     <string name="type.shop.pawnbroker">Cầm đồ</string>
     <string name="type.shop.pet">Cửa Hàng Vật Nuôi</string>
@@ -1900,7 +1901,13 @@
     <string name="type.tourism.artwork.sculpture">Du lịch</string>
     <string name="type.tourism.artwork.statue">Du lịch</string>
     <string name="type.tourism.attraction">Hấp dẫn</string>
+    <string name="type.attraction.amusement_ride">Đi xe giải trí</string>
     <string name="type.attraction.animal">Bao vây động vật</string>
+    <string name="type.attraction.carousel">băng chuyền</string>
+    <string name="type.attraction.historic">Điểm tham quan lịch sử</string>
+    <string name="type.attraction.maze">mê cung</string>
+    <string name="type.attraction.roller_coaster">Tàu lượn siêu tốc</string>
+    <string name="type.attraction.water_slide">Trượt nước</string>
     <string name="type.tourism.attraction.specified">Hấp dẫn</string>
     <string name="type.tourism.camp_site">Cắm trại</string>
     <string name="type.tourism.caravan_site">Khu lễ hội hóa trang</string>

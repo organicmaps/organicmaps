@@ -2002,6 +2002,7 @@
     <string name="type.shop.optician">Optik</string>
     <string name="type.shop.outdoor">Välisvarustus</string>
     <string name="type.shop.outpost">Vastuvõtupunkt</string>
+    <string name="type.shop.pasta">Pasta pood</string>
     <string name="type.shop.pastry">Pagar</string>
     <string name="type.shop.pawnbroker">Pandimaja</string>
     <string name="type.shop.pet">Lemmikloomapood</string>
@@ -2098,7 +2099,13 @@
     <string name="type.tourism.artwork.sculpture">Kunstiteos - skulptuur</string>
     <string name="type.tourism.artwork.statue">Kunstiteos - kuju</string>
     <string name="type.tourism.attraction">Turismiatraktsioon</string>
+    <string name="type.attraction.amusement_ride">Lõbustus Ride</string>
     <string name="type.attraction.animal">Loomade aedik</string>
+    <string name="type.attraction.carousel">Karussell</string>
+    <string name="type.attraction.historic">Ajalooline vaatamisväärsus</string>
+    <string name="type.attraction.maze">Labürint</string>
+    <string name="type.attraction.roller_coaster">Vuoristorata</string>
+    <string name="type.attraction.water_slide">Vesiliug</string>
     <string name="type.tourism.attraction.specified">Turismiatraktsioon</string>
     <string name="type.tourism.camp_site">Telkimine</string>
     <string name="type.tourism.caravan_site">Haagiselamute park</string>

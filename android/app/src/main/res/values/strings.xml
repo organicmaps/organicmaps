@@ -2079,6 +2079,7 @@
     <string name="type.shop.optician">Optician</string>
     <string name="type.shop.outdoor">Outdoor Equipment Shop</string>
     <string name="type.shop.outpost">Pickup Point</string>
+    <string name="type.shop.pasta">Pasta Shop</string>
     <string name="type.shop.pastry">Pastry Shop</string>
     <string name="type.shop.pawnbroker">Pawnbroker</string>
     <string name="type.shop.pet">Pet Store</string>
@@ -2175,7 +2176,15 @@
     <string name="type.tourism.artwork.sculpture">Sculpture</string>
     <string name="type.tourism.artwork.statue">Statue</string>
     <string name="type.tourism.attraction">Attraction</string>
+    <string name="type.attraction.amusement_ride">Amusement Ride</string>
     <string name="type.attraction.animal">Animal Enclosure</string>
+    <string name="type.attraction.bumper_car">Bumper Car</string>
+    <string name="type.attraction.big_wheel">Big Wheel</string>
+    <string name="type.attraction.carousel">Carousel</string>
+    <string name="type.attraction.historic">Historic attraction</string>
+    <string name="type.attraction.maze">Maze</string>
+    <string name="type.attraction.roller_coaster">Roller Coaster</string>
+    <string name="type.attraction.water_slide">Water Slide</string>
     <string name="type.tourism.attraction.specified">Attraction</string>
     <string name="type.tourism.camp_site">Campground</string>
     <string name="type.tourism.caravan_site">RV Park</string>

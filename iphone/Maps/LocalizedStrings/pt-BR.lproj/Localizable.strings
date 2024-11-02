@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Ponto de coleta";
 
+"type.shop.pasta" = "Loja de massas";
+
 "type.shop.pastry" = "Confeitaria";
 
 "type.shop.pawnbroker" = "Casa de penhores";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Atração turística";
 
+"type.attraction.amusement_ride" = "Atração de parque de diversão";
+
 "type.attraction.animal" = "Recinto para animais";
+
+"type.attraction.bumper_car" = "Bate-bate";
+
+"type.attraction.big_wheel" = "Roda-gigante";
+
+"type.attraction.carousel" = "Carrossel";
+
+"type.attraction.historic" = "Atração histórica";
+
+"type.attraction.maze" = "Labirinto";
+
+"type.attraction.roller_coaster" = "Montanha-russa";
+
+"type.attraction.water_slide" = "Toboágua";
 
 "type.tourism.attraction.specified" = "Atração turística";
 

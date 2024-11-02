@@ -1867,6 +1867,7 @@
     <string name="type.shop.optician">Κατάστημα οπτικών</string>
     <string name="type.shop.outdoor">Εξοπλισμός υπαίθρου</string>
     <string name="type.shop.outpost">Σημείο παραλαβής</string>
+    <string name="type.shop.pasta">Κατάστημα ζυμαρικών</string>
     <string name="type.shop.pastry">Ζύμη</string>
     <string name="type.shop.pawnbroker">Ενεχυροδανειστήριο</string>
     <string name="type.shop.pet">Κατάστημα για κατοικίδια</string>
@@ -1960,7 +1961,13 @@
     <string name="type.tourism.artwork.sculpture">Έργα τέχνης</string>
     <string name="type.tourism.artwork.statue">Έργα τέχνης</string>
     <string name="type.tourism.attraction">Αξιοθέατα</string>
+    <string name="type.attraction.amusement_ride">Βόλτα ψυχαγωγίας</string>
     <string name="type.attraction.animal">Περίφραξη ζώων</string>
+    <string name="type.attraction.carousel">Στροβιλοδρόμιο</string>
+    <string name="type.attraction.historic">Ιστορικό αξιοθέατο</string>
+    <string name="type.attraction.maze">Λαβύρινθος</string>
+    <string name="type.attraction.roller_coaster">Τρενάκι του λούνα παρκ</string>
+    <string name="type.attraction.water_slide">Διαφάνεια νερού</string>
     <string name="type.tourism.attraction.specified">Αξιοθέατα</string>
     <string name="type.tourism.camp_site">Κάμπινγκ</string>
     <string name="type.tourism.caravan_site">Χώρος για τροχόσπιτα</string>

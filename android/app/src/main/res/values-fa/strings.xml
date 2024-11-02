@@ -1719,6 +1719,7 @@
     <string name="type.shop.optician">فروشگاه</string>
     <string name="type.shop.outdoor">فروشگاه</string>
     <string name="type.shop.outpost">نقطه وانت</string>
+    <string name="type.shop.pasta">فروشگاه ماکارونی</string>
     <string name="type.shop.pastry">ﯽﻨﯾﺮﯿﺷ</string>
     <string name="type.shop.pawnbroker">عتیقه فروشی</string>
     <string name="type.shop.pet">فروشگاه</string>
@@ -1814,7 +1815,13 @@
     <string name="type.tourism.artwork.sculpture">گردشگری</string>
     <string name="type.tourism.artwork.statue">گردشگری</string>
     <string name="type.tourism.attraction">گردشگری</string>
+    <string name="type.attraction.amusement_ride">سواری تفریحی</string>
     <string name="type.attraction.animal">محوطه حیوانات</string>
+    <string name="type.attraction.carousel">چرخ فلک</string>
+    <string name="type.attraction.historic">جاذبه تاریخی</string>
+    <string name="type.attraction.maze">ماز</string>
+    <string name="type.attraction.roller_coaster">ترن هوایی</string>
+    <string name="type.attraction.water_slide">سرسره آبی</string>
     <string name="type.tourism.attraction.specified">گردشگری</string>
     <string name="type.tourism.camp_site">محل چادر زنی</string>
     <!-- A rentable countryside vacation house. -->

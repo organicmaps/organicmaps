@@ -1974,6 +1974,7 @@
     <string name="type.shop.optician">Optik</string>
     <string name="type.shop.outdoor">Xarici Avadanlıqlar</string>
     <string name="type.shop.outpost">Qəbul Nöqtəsi</string>
+    <string name="type.shop.pasta">Makaron Dükanı</string>
     <string name="type.shop.pastry">Şirniyyat</string>
     <string name="type.shop.pawnbroker">Sələmçi</string>
     <string name="type.shop.pet">Heyvan mağazası</string>
@@ -2070,7 +2071,13 @@
     <string name="type.tourism.artwork.sculpture">Heykəl</string>
     <string name="type.tourism.artwork.statue">Heykəl</string>
     <string name="type.tourism.attraction">Attraksionlar</string>
+    <string name="type.attraction.amusement_ride">Əyləncəli gəzinti</string>
     <string name="type.attraction.animal">Heyvan mühafizəsi</string>
+    <string name="type.attraction.carousel">Karusel</string>
+    <string name="type.attraction.historic">Tarixi cazibə</string>
+    <string name="type.attraction.maze">Labirent</string>
+    <string name="type.attraction.roller_coaster">Roller Coaster</string>
+    <string name="type.attraction.water_slide">Su Slayd</string>
     <string name="type.tourism.attraction.specified">Attraksionlar</string>
     <string name="type.tourism.camp_site">Düşərgə sahəsi</string>
     <string name="type.tourism.caravan_site">Treyler parkı</string>

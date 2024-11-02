@@ -919,6 +919,7 @@
     <string name="type.shop.kitchen">Duka la Jikoni</string>
     <string name="type.shop.motorcycle_repair">Ukarabati wa Pikipiki</string>
     <string name="type.shop.outpost">Sehemu ya kuchukua</string>
+    <string name="type.shop.pasta">Duka la Pasta</string>
     <string name="type.shop.pastry">Keki</string>
     <string name="type.shop.pet_grooming">Utunzaji wa Kipenzi</string>
     <string name="type.shop.rental">Duka la Kukodisha</string>
@@ -989,7 +990,13 @@
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">Mlima lodge</string>
     <string name="type.tourism.apartment">Ghorofa ya Likizo</string>
+    <string name="type.attraction.amusement_ride">Safari ya Burudani</string>
     <string name="type.attraction.animal">Hifadhi ya Wanyama</string>
+    <string name="type.attraction.carousel">Jukwaa</string>
+    <string name="type.attraction.historic">Kivutio cha kihistoria</string>
+    <string name="type.attraction.maze">Maze</string>
+    <string name="type.attraction.roller_coaster">Roller Coaster</string>
+    <string name="type.attraction.water_slide">Slaidi ya Maji</string>
     <!-- A rentable countryside vacation house. -->
     <string name="type.tourism.chalet">Nyumba ndogo ya Likizo</string>
     <string name="type.tourism.information">Taarifa za Watalii</string>

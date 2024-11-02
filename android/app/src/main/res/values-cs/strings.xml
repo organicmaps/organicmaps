@@ -1820,6 +1820,7 @@
     <string name="type.shop.optician">Optika</string>
     <string name="type.shop.outdoor">Venkovní vybavení</string>
     <string name="type.shop.outpost">Místo vyzvednutí</string>
+    <string name="type.shop.pasta">Obchod s těstovinami</string>
     <string name="type.shop.pastry">Pečivo</string>
     <string name="type.shop.pawnbroker">Zastavárna</string>
     <string name="type.shop.pet">Zverimex</string>
@@ -1913,7 +1914,13 @@
     <string name="type.tourism.artwork.sculpture">Umělecké dílo</string>
     <string name="type.tourism.artwork.statue">Umělecké dílo</string>
     <string name="type.tourism.attraction">Atrakce</string>
+    <string name="type.attraction.amusement_ride">Zábavní jízda</string>
     <string name="type.attraction.animal">Ohrada pro zvířata</string>
+    <string name="type.attraction.carousel">Kolotoč</string>
+    <string name="type.attraction.historic">Historická atrakce</string>
+    <string name="type.attraction.maze">Bludiště</string>
+    <string name="type.attraction.roller_coaster">Horská dráha</string>
+    <string name="type.attraction.water_slide">Vodní skluzavka</string>
     <string name="type.tourism.attraction.specified">Atrakce</string>
     <string name="type.tourism.camp_site">Kempování</string>
     <string name="type.tourism.caravan_site">Kemp pro obytné přívěsy</string>

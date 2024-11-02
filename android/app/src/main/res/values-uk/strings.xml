@@ -2014,6 +2014,7 @@
     <string name="type.shop.optician">Оптика</string>
     <string name="type.shop.outdoor">Спорядження</string>
     <string name="type.shop.outpost">Пункт самовивозу</string>
+    <string name="type.shop.pasta">Магазин макаронних виробів</string>
     <string name="type.shop.pastry">Тістечка</string>
     <string name="type.shop.pawnbroker">Ломбард</string>
     <string name="type.shop.pet">Зоотовари</string>
@@ -2110,7 +2111,13 @@
     <string name="type.tourism.artwork.sculpture">Витвір мистецтва</string>
     <string name="type.tourism.artwork.statue">Витвір мистецтва</string>
     <string name="type.tourism.attraction">Пам’ятне місце</string>
+    <string name="type.attraction.amusement_ride">Атракціон</string>
     <string name="type.attraction.animal">Вольєр для тварин</string>
+    <string name="type.attraction.carousel">Карусель</string>
+    <string name="type.attraction.historic">Історична пам\'ятка</string>
+    <string name="type.attraction.maze">Лабіринт</string>
+    <string name="type.attraction.roller_coaster">Американські гірки</string>
+    <string name="type.attraction.water_slide">Водна гірка</string>
     <string name="type.tourism.attraction.specified">Пам’ятне місце</string>
     <string name="type.tourism.camp_site">Кемпінг</string>
     <string name="type.tourism.caravan_site">Кемпінг для автобудинків</string>

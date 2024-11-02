@@ -1970,6 +1970,7 @@
     <string name="type.shop.optician">眼鏡店</string>
     <string name="type.shop.outdoor">アウトドア用品店</string>
     <string name="type.shop.outpost">集荷場</string>
+    <string name="type.shop.pasta">パスタ・ショップ</string>
     <string name="type.shop.pastry">ペストリー</string>
     <string name="type.shop.pawnbroker">質屋</string>
     <string name="type.shop.pet">ペットショップ</string>
@@ -2066,7 +2067,13 @@
     <string name="type.tourism.artwork.sculpture">彫刻</string>
     <string name="type.tourism.artwork.statue">像</string>
     <string name="type.tourism.attraction">アトラクション</string>
+    <string name="type.attraction.amusement_ride">遊園地</string>
     <string name="type.attraction.animal">アニマル・エンクロージャー</string>
+    <string name="type.attraction.carousel">カルーセル</string>
+    <string name="type.attraction.historic">歴史的アトラクション</string>
+    <string name="type.attraction.maze">迷路</string>
+    <string name="type.attraction.roller_coaster">ジェットコースター</string>
+    <string name="type.attraction.water_slide">ウォータースライド</string>
     <string name="type.tourism.attraction.specified">アトラクション</string>
     <string name="type.tourism.camp_site">キャンプ場</string>
     <string name="type.tourism.caravan_site">オートキャンプ場</string>

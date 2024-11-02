@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Точка на вземане";
 
+"type.shop.pasta" = "Магазин за паста";
+
 "type.shop.pastry" = "Тестени изделия";
 
 "type.shop.pawnbroker" = "Pawnbroker";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Attraction";
 
+"type.attraction.amusement_ride" = "Развлекателна атракция";
+
 "type.attraction.animal" = "Заграждение за животни";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "Въртележка";
+
+"type.attraction.historic" = "Историческа атракция";
+
+"type.attraction.maze" = "Лабиринт";
+
+"type.attraction.roller_coaster" = "Въртележка";
+
+"type.attraction.water_slide" = "Водна пързалка";
 
 "type.tourism.attraction.specified" = "Attraction";
 

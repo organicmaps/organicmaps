@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "集荷場";
 
+"type.shop.pasta" = "パスタ・ショップ";
+
 "type.shop.pastry" = "ペストリー";
 
 "type.shop.pawnbroker" = "質屋";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "アトラクション";
 
+"type.attraction.amusement_ride" = "遊園地";
+
 "type.attraction.animal" = "アニマル・エンクロージャー";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "カルーセル";
+
+"type.attraction.historic" = "歴史的アトラクション";
+
+"type.attraction.maze" = "迷路";
+
+"type.attraction.roller_coaster" = "ジェットコースター";
+
+"type.attraction.water_slide" = "ウォータースライド";
 
 "type.tourism.attraction.specified" = "アトラクション";
 

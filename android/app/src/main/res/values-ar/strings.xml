@@ -1964,6 +1964,7 @@
     <string name="type.shop.optician">مركز بصريات</string>
     <string name="type.shop.outdoor">متجر معداة خارجية</string>
     <string name="type.shop.outpost">نقطة الالتقاط</string>
+    <string name="type.shop.pasta">متجر المكرونة</string>
     <string name="type.shop.pastry">متجر معجنات</string>
     <string name="type.shop.pawnbroker">مُرتهِن</string>
     <string name="type.shop.pet">متجر للحيوانات الأليفة</string>
@@ -2059,7 +2060,13 @@
     <string name="type.tourism.artwork.sculpture">منحوتة</string>
     <string name="type.tourism.artwork.statue">تمثال</string>
     <string name="type.tourism.attraction">مكان جذاب</string>
+    <string name="type.attraction.amusement_ride">جولة ترفيهية</string>
     <string name="type.attraction.animal">الضميمة الحيوانية</string>
+    <string name="type.attraction.carousel">كاروسيل</string>
+    <string name="type.attraction.historic">جاذبية تاريخية</string>
+    <string name="type.attraction.maze">المتاهة</string>
+    <string name="type.attraction.roller_coaster">قطار الملاهي الدوارة</string>
+    <string name="type.attraction.water_slide">منزلق مائي</string>
     <string name="type.tourism.attraction.specified">مكان جذاب</string>
     <string name="type.tourism.camp_site">مخيّم</string>
     <string name="type.tourism.caravan_site">موقع لمراكب ترفيه</string>

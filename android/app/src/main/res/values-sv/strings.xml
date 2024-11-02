@@ -1801,6 +1801,7 @@
     <string name="type.shop.optician">Optiker</string>
     <string name="type.shop.outdoor">Fritidsutrustning</string>
     <string name="type.shop.outpost">Mötesplats</string>
+    <string name="type.shop.pasta">Pastabutik</string>
     <string name="type.shop.pastry">Bakverk</string>
     <string name="type.shop.pawnbroker">Pantbank</string>
     <string name="type.shop.pet">Djuraffär</string>
@@ -1894,7 +1895,13 @@
     <string name="type.tourism.artwork.sculpture">Konstverk</string>
     <string name="type.tourism.artwork.statue">Konstverk</string>
     <string name="type.tourism.attraction">Attraktion</string>
+    <string name="type.attraction.amusement_ride">Nöjesattraktion</string>
     <string name="type.attraction.animal">Inhägnad för djur</string>
+    <string name="type.attraction.carousel">Karusell</string>
+    <string name="type.attraction.historic">Historisk sevärdhet</string>
+    <string name="type.attraction.maze">Labyrint</string>
+    <string name="type.attraction.roller_coaster">Berg- och dalbana</string>
+    <string name="type.attraction.water_slide">Vattenrutschbana</string>
     <string name="type.tourism.attraction.specified">Attraktion</string>
     <string name="type.tourism.caravan_site">Husvagnsplats</string>
     <!-- A rentable countryside vacation house. -->

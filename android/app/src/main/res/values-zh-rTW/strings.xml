@@ -1965,6 +1965,7 @@
     <string name="type.shop.optician">眼鏡店</string>
     <string name="type.shop.outdoor">室外設備</string>
     <string name="type.shop.outpost">接送的地點</string>
+    <string name="type.shop.pasta">義大利麵店</string>
     <string name="type.shop.pastry">糕點</string>
     <string name="type.shop.pawnbroker">當舖</string>
     <string name="type.shop.pet">寵物店</string>
@@ -2060,7 +2061,13 @@
     <string name="type.tourism.artwork.sculpture">藝術品</string>
     <string name="type.tourism.artwork.statue">藝術品</string>
     <string name="type.tourism.attraction">景點</string>
+    <string name="type.attraction.amusement_ride">遊樂設施</string>
     <string name="type.attraction.animal">動物圍欄</string>
+    <string name="type.attraction.carousel">輪播</string>
+    <string name="type.attraction.historic">歷史景點</string>
+    <string name="type.attraction.maze">迷宮</string>
+    <string name="type.attraction.roller_coaster">雲霄飛車</string>
+    <string name="type.attraction.water_slide">水滑梯</string>
     <string name="type.tourism.attraction.specified">景點</string>
     <string name="type.tourism.camp_site">露營</string>
     <string name="type.tourism.caravan_site">營區</string>

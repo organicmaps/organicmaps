@@ -1981,6 +1981,7 @@
     <string name="type.shop.optician">Sklep optyczny</string>
     <string name="type.shop.outdoor">Sprzęt turystyczny</string>
     <string name="type.shop.outpost">Punkt odbioru</string>
+    <string name="type.shop.pasta">Sklep z makaronami</string>
     <string name="type.shop.pastry">Cukiernia</string>
     <string name="type.shop.pawnbroker">Lombard</string>
     <string name="type.shop.pet">Sklep zoologiczny</string>
@@ -2077,7 +2078,13 @@
     <string name="type.tourism.artwork.sculpture">Rzeźba</string>
     <string name="type.tourism.artwork.statue">Posąg</string>
     <string name="type.tourism.attraction">Atrakcja turystyczna</string>
+    <string name="type.attraction.amusement_ride">Przejażdżka rozrywkowa</string>
     <string name="type.attraction.animal">Atrakcje zwierzęce</string>
+    <string name="type.attraction.carousel">Karuzela</string>
+    <string name="type.attraction.historic">Atrakcja historyczna</string>
+    <string name="type.attraction.maze">Labirynt</string>
+    <string name="type.attraction.roller_coaster">Kolejka górska</string>
+    <string name="type.attraction.water_slide">Zjeżdżalnia wodna</string>
     <string name="type.tourism.attraction.specified">Atrakcja turystyczna</string>
     <string name="type.tourism.camp_site">Kamping</string>
     <string name="type.tourism.caravan_site">Pole namiotowe</string>

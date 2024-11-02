@@ -1801,6 +1801,7 @@
     <string name="type.shop.optician">Toko kacamata</string>
     <string name="type.shop.outdoor">Peralatan Outdoor</string>
     <string name="type.shop.outpost">Titik penjemputan</string>
+    <string name="type.shop.pasta">Toko Pasta</string>
     <string name="type.shop.pastry">Kue-kue</string>
     <string name="type.shop.pawnbroker">Rumah Gadai</string>
     <string name="type.shop.pet">Toko hewan</string>
@@ -1895,7 +1896,13 @@
     <string name="type.tourism.artwork.sculpture">Pariwisata</string>
     <string name="type.tourism.artwork.statue">Pariwisata</string>
     <string name="type.tourism.attraction">Atraksi</string>
+    <string name="type.attraction.amusement_ride">Wahana Hiburan</string>
     <string name="type.attraction.animal">Kandang Hewan</string>
+    <string name="type.attraction.carousel">Korsel</string>
+    <string name="type.attraction.historic">Atraksi bersejarah</string>
+    <string name="type.attraction.maze">Labirin</string>
+    <string name="type.attraction.roller_coaster">Roller Coaster</string>
+    <string name="type.attraction.water_slide">Seluncuran Air</string>
     <string name="type.tourism.attraction.specified">Atraksi</string>
     <string name="type.tourism.camp_site">Perkemahan</string>
     <string name="type.tourism.caravan_site">Lokasi perkemahan</string>

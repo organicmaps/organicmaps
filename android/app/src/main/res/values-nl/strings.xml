@@ -2007,6 +2007,7 @@
     <string name="type.shop.optician">Opticien</string>
     <string name="type.shop.outdoor">Outdooruitrusting</string>
     <string name="type.shop.outpost">Ophaalpunt</string>
+    <string name="type.shop.pasta">Deegwarenwinkel</string>
     <string name="type.shop.pastry">Banketbakker</string>
     <string name="type.shop.pawnbroker">Pandjesbaas</string>
     <string name="type.shop.pet">Dierenwinkel</string>
@@ -2103,7 +2104,14 @@
     <string name="type.tourism.artwork.sculpture">Kunstwerk</string>
     <string name="type.tourism.artwork.statue">Standbeeld</string>
     <string name="type.tourism.attraction">Attractie</string>
+    <string name="type.attraction.amusement_ride">Prettocht</string>
     <string name="type.attraction.animal">Dierenverblijf</string>
+    <string name="type.attraction.bumper_car">Botsauto\'s</string>
+    <string name="type.attraction.carousel">Reuzenrad</string>
+    <string name="type.attraction.historic">Historische attractie</string>
+    <string name="type.attraction.maze">Doolhof</string>
+    <string name="type.attraction.roller_coaster">Achtbaan</string>
+    <string name="type.attraction.water_slide">Waterglijbaan</string>
     <string name="type.tourism.attraction.specified">Attractie</string>
     <string name="type.tourism.camp_site">Kampeerterrein</string>
     <string name="type.tourism.caravan_site">Caravan site</string>

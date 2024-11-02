@@ -2005,6 +2005,7 @@
     <string name="type.shop.optician">Gözlükçü</string>
     <string name="type.shop.outdoor">Dış Mekan Ekipmanları</string>
     <string name="type.shop.outpost">Alım Noktası</string>
+    <string name="type.shop.pasta">Makarna Dükkanı</string>
     <string name="type.shop.pastry">Hamur işi</string>
     <string name="type.shop.pawnbroker">Tefeci</string>
     <string name="type.shop.pet">Evcil Hayvan Mağazası</string>
@@ -2101,7 +2102,13 @@
     <string name="type.tourism.artwork.sculpture">Heykel</string>
     <string name="type.tourism.artwork.statue">Heykel</string>
     <string name="type.tourism.attraction">Görülecek Yerler</string>
+    <string name="type.attraction.amusement_ride">Eğlence Sürüşü</string>
     <string name="type.attraction.animal">Hayvan Muhafazası</string>
+    <string name="type.attraction.carousel">Atlıkarınca</string>
+    <string name="type.attraction.historic">Tarihi cazibe merkezi</string>
+    <string name="type.attraction.maze">Labirent</string>
+    <string name="type.attraction.roller_coaster">Lunapark hız treni</string>
+    <string name="type.attraction.water_slide">Su Kaydırağı</string>
     <string name="type.tourism.attraction.specified">Görülecek Yerler</string>
     <string name="type.tourism.camp_site">Kamp Alanı</string>
     <string name="type.tourism.caravan_site">Karavan Parkı</string>

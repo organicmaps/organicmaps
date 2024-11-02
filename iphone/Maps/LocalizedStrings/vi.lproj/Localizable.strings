@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Điểm đón";
 
+"type.shop.pasta" = "Cửa hàng mì ống";
+
 "type.shop.pastry" = "Bánh ngọt";
 
 "type.shop.pawnbroker" = "Cầm đồ";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Hấp dẫn";
 
+"type.attraction.amusement_ride" = "Đi xe giải trí";
+
 "type.attraction.animal" = "Bao vây động vật";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "băng chuyền";
+
+"type.attraction.historic" = "Điểm tham quan lịch sử";
+
+"type.attraction.maze" = "mê cung";
+
+"type.attraction.roller_coaster" = "Tàu lượn siêu tốc";
+
+"type.attraction.water_slide" = "Trượt nước";
 
 "type.tourism.attraction.specified" = "Hấp dẫn";
 

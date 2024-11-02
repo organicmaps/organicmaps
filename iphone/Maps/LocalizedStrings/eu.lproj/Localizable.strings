@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Jasotzeko puntua";
 
+"type.shop.pasta" = "Pasta Denda";
+
 "type.shop.pastry" = "Gozogintza";
 
 "type.shop.pawnbroker" = "Peoia";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Erakarpen turistikoa";
 
+"type.attraction.amusement_ride" = "Jolas Ibilaldia";
+
 "type.attraction.animal" = "Animalien itxitura";
+
+"type.attraction.bumper_car" = "Autotxokeak";
+
+"type.attraction.big_wheel" = "Gurpil Handia";
+
+"type.attraction.carousel" = "Zaldiko-maldiko";
+
+"type.attraction.historic" = "Atrakzio historikoa";
+
+"type.attraction.maze" = "Labirintoa";
+
+"type.attraction.roller_coaster" = "Errusiar mendia";
+
+"type.attraction.water_slide" = "Ur Txirrista";
 
 "type.tourism.attraction.specified" = "Erakarpen turistikoa";
 

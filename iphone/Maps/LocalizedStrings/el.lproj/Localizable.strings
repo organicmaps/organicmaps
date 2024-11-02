@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Σημείο παραλαβής";
 
+"type.shop.pasta" = "Κατάστημα ζυμαρικών";
+
 "type.shop.pastry" = "Ζύμη";
 
 "type.shop.pawnbroker" = "Ενεχυροδανειστήριο";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Αξιοθέατα";
 
+"type.attraction.amusement_ride" = "Βόλτα ψυχαγωγίας";
+
 "type.attraction.animal" = "Περίφραξη ζώων";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "Στροβιλοδρόμιο";
+
+"type.attraction.historic" = "Ιστορικό αξιοθέατο";
+
+"type.attraction.maze" = "Λαβύρινθος";
+
+"type.attraction.roller_coaster" = "Τρενάκι του λούνα παρκ";
+
+"type.attraction.water_slide" = "Διαφάνεια νερού";
 
 "type.tourism.attraction.specified" = "Αξιοθέατα";
 

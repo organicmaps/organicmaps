@@ -1831,6 +1831,7 @@
     <string name="type.shop.optician">Optică</string>
     <string name="type.shop.outdoor">Echipament de exterior</string>
     <string name="type.shop.outpost">Punct de ridicare</string>
+    <string name="type.shop.pasta">Magazin de paste</string>
     <string name="type.shop.pastry">Patiserie</string>
     <string name="type.shop.pawnbroker">Amanet</string>
     <string name="type.shop.pet">Pet shop</string>
@@ -1923,7 +1924,13 @@
     <string name="type.tourism.artwork.sculpture">Turism</string>
     <string name="type.tourism.artwork.statue">Turism</string>
     <string name="type.tourism.attraction">Punct de atracție</string>
+    <string name="type.attraction.amusement_ride">Călătorie de distracție</string>
     <string name="type.attraction.animal">Incintă pentru animale</string>
+    <string name="type.attraction.carousel">Carusel</string>
+    <string name="type.attraction.historic">Atracție istorică</string>
+    <string name="type.attraction.maze">Labirint</string>
+    <string name="type.attraction.roller_coaster">Rollercoaster</string>
+    <string name="type.attraction.water_slide">Tobogan de apă</string>
     <string name="type.tourism.attraction.specified">Punct de atracție</string>
     <string name="type.tourism.caravan_site">Teren pentru campare</string>
     <!-- A rentable countryside vacation house. -->

@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Punto di raccolta";
 
+"type.shop.pasta" = "Negozio di pasta";
+
 "type.shop.pastry" = "Pasticcino";
 
 "type.shop.pawnbroker" = "Pegni";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Attrattiva";
 
+"type.attraction.amusement_ride" = "Giostra di divertimento";
+
 "type.attraction.animal" = "Recinto per animali";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "Carosello";
+
+"type.attraction.historic" = "Attrazione storica";
+
+"type.attraction.maze" = "Labirinto";
+
+"type.attraction.roller_coaster" = "Montagne russe";
+
+"type.attraction.water_slide" = "Scivolo d'acqua";
 
 "type.tourism.attraction.specified" = "Attrattiva";
 

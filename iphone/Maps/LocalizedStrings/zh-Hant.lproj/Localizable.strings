@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "接送的地點";
 
+"type.shop.pasta" = "義大利麵店";
+
 "type.shop.pastry" = "糕點";
 
 "type.shop.pawnbroker" = "當舖";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "景點";
 
+"type.attraction.amusement_ride" = "遊樂設施";
+
 "type.attraction.animal" = "動物圍欄";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "輪播";
+
+"type.attraction.historic" = "歷史景點";
+
+"type.attraction.maze" = "迷宮";
+
+"type.attraction.roller_coaster" = "雲霄飛車";
+
+"type.attraction.water_slide" = "水滑梯";
 
 "type.tourism.attraction.specified" = "景點";
 
