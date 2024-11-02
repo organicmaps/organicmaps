@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Pickup Point";
 
+"type.shop.pasta" = "Pasta Shop";
+
 "type.shop.pastry" = "Pastry Shop";
 
 "type.shop.pawnbroker" = "Pawnbroker";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Attraction";
 
+"type.attraction.amusement_ride" = "Amusement Ride";
+
 "type.attraction.animal" = "Animal Enclosure";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "Carousel";
+
+"type.attraction.historic" = "Historic attraction";
+
+"type.attraction.maze" = "Maze";
+
+"type.attraction.roller_coaster" = "Roller Coaster";
+
+"type.attraction.water_slide" = "Water Slide";
 
 "type.tourism.attraction.specified" = "Attraction";
 

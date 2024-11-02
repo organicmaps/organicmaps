@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Punkt odbioru";
 
+"type.shop.pasta" = "Sklep z makaronami";
+
 "type.shop.pastry" = "Cukiernia";
 
 "type.shop.pawnbroker" = "Lombard";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Atrakcja turystyczna";
 
+"type.attraction.amusement_ride" = "Przejażdżka rozrywkowa";
+
 "type.attraction.animal" = "Atrakcje zwierzęce";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "Karuzela";
+
+"type.attraction.historic" = "Atrakcja historyczna";
+
+"type.attraction.maze" = "Labirynt";
+
+"type.attraction.roller_coaster" = "Kolejka górska";
+
+"type.attraction.water_slide" = "Zjeżdżalnia wodna";
 
 "type.tourism.attraction.specified" = "Atrakcja turystyczna";
 

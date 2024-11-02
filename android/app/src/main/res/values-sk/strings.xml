@@ -1967,6 +1967,7 @@
     <string name="type.shop.optician">Optika</string>
     <string name="type.shop.outdoor">Outdoorové vybavenie</string>
     <string name="type.shop.outpost">Miesto odberu</string>
+    <string name="type.shop.pasta">Obchod s cestovinami</string>
     <string name="type.shop.pastry">Pečivo</string>
     <string name="type.shop.pawnbroker">Záložňa</string>
     <string name="type.shop.pet">Chovateľské potreby</string>
@@ -2061,7 +2062,13 @@
     <string name="type.tourism.artwork.sculpture">Plastika</string>
     <string name="type.tourism.artwork.statue">Socha</string>
     <string name="type.tourism.attraction">Atrakcia</string>
+    <string name="type.attraction.amusement_ride">Zábavná jazda</string>
     <string name="type.attraction.animal">Zvieracia ohrada</string>
+    <string name="type.attraction.carousel">Kolotoč</string>
+    <string name="type.attraction.historic">Historická atrakcia</string>
+    <string name="type.attraction.maze">Bludisko</string>
+    <string name="type.attraction.roller_coaster">Horská dráha</string>
+    <string name="type.attraction.water_slide">Vodná šmýkačka</string>
     <string name="type.tourism.attraction.specified">Atrakcia</string>
     <string name="type.tourism.camp_site">Kemp</string>
     <string name="type.tourism.caravan_site">Kemp pre karavany</string>

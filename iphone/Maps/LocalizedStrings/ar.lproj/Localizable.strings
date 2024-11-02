@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "نقطة الالتقاط";
 
+"type.shop.pasta" = "متجر المكرونة";
+
 "type.shop.pastry" = "متجر معجنات";
 
 "type.shop.pawnbroker" = "مُرتهِن";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "مكان جذاب";
 
+"type.attraction.amusement_ride" = "جولة ترفيهية";
+
 "type.attraction.animal" = "الضميمة الحيوانية";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "كاروسيل";
+
+"type.attraction.historic" = "جاذبية تاريخية";
+
+"type.attraction.maze" = "المتاهة";
+
+"type.attraction.roller_coaster" = "قطار الملاهي الدوارة";
+
+"type.attraction.water_slide" = "منزلق مائي";
 
 "type.tourism.attraction.specified" = "مكان جذاب";
 

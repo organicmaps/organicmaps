@@ -1743,6 +1743,7 @@
     <string name="type.shop.newsagent">דוכן עיתונים</string>
     <string name="type.shop.optician">אופטיקה</string>
     <string name="type.shop.outpost">נקודת איסוף</string>
+    <string name="type.shop.pasta">חנות פסטה</string>
     <string name="type.shop.pastry">מגדניה</string>
     <string name="type.shop.pawnbroker">משכנתאות</string>
     <string name="type.shop.pet">חנות בעלי חיים</string>
@@ -1835,7 +1836,13 @@
     <string name="type.tourism.artwork.sculpture">פסל אומנותי</string>
     <string name="type.tourism.artwork.statue">פסל</string>
     <string name="type.tourism.attraction">אטרקציה תיירותית</string>
+    <string name="type.attraction.amusement_ride">טיול שעשועים</string>
     <string name="type.attraction.animal">מתחם בעלי חיים</string>
+    <string name="type.attraction.carousel">קרוסלה</string>
+    <string name="type.attraction.historic">אטרקציה היסטורית</string>
+    <string name="type.attraction.maze">מָבוֹך</string>
+    <string name="type.attraction.roller_coaster">רכבת הרים</string>
+    <string name="type.attraction.water_slide">מגלשת מים</string>
     <string name="type.tourism.attraction.specified">אטרקציה תיירותית</string>
     <string name="type.tourism.camp_site">אתר מחנאות</string>
     <string name="type.tourism.caravan_site">חניון קרוואנים</string>

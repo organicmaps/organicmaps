@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "पिकअप पॉइंट";
 
+"type.shop.pasta" = "पास्ता दुकान";
+
 "type.shop.pastry" = "बेकरी";
 
 "type.shop.pawnbroker" = "Pawnbroker";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "आकर्षण";
 
+"type.attraction.amusement_ride" = "मनोरंजन राइड";
+
 "type.attraction.animal" = "प्राणी संलग्न";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "कॅरोसेल";
+
+"type.attraction.historic" = "ऐतिहासिक आकर्षण";
+
+"type.attraction.maze" = "चक्रव्यूह";
+
+"type.attraction.roller_coaster" = "रोलर कोस्टर";
+
+"type.attraction.water_slide" = "वॉटर स्लाइड";
 
 "type.tourism.attraction.specified" = "आकर्षण";
 

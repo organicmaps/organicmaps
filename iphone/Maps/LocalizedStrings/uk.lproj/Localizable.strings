@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Пункт самовивозу";
 
+"type.shop.pasta" = "Магазин макаронних виробів";
+
 "type.shop.pastry" = "Тістечка";
 
 "type.shop.pawnbroker" = "Ломбард";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Пам’ятне місце";
 
+"type.attraction.amusement_ride" = "Атракціон";
+
 "type.attraction.animal" = "Вольєр для тварин";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "Карусель";
+
+"type.attraction.historic" = "Історична пам'ятка";
+
+"type.attraction.maze" = "Лабіринт";
+
+"type.attraction.roller_coaster" = "Американські гірки";
+
+"type.attraction.water_slide" = "Водна гірка";
 
 "type.tourism.attraction.specified" = "Пам’ятне місце";
 

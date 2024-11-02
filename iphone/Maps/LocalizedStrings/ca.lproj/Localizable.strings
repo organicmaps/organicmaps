@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Punt de recollida";
 
+"type.shop.pasta" = "Botiga de pasta";
+
 "type.shop.pastry" = "Forn de pa";
 
 "type.shop.pawnbroker" = "Pawnbroker";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Atracció";
 
+"type.attraction.amusement_ride" = "Passeig de diversió";
+
 "type.attraction.animal" = "Recinte d’animals";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "Carrusel";
+
+"type.attraction.historic" = "Atracció històrica";
+
+"type.attraction.maze" = "Laberint";
+
+"type.attraction.roller_coaster" = "Muntanya Russa";
+
+"type.attraction.water_slide" = "Tobogan aquàtic";
 
 "type.tourism.attraction.specified" = "Atracció";
 

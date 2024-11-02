@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Pickup Point";
 
+"type.shop.pasta" = "पास्ता की दुकान";
+
 "type.shop.pastry" = "पेस्ट्री का दुकान";
 
 "type.shop.pawnbroker" = "महाजन";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "पर्यटन स्थल";
 
+"type.attraction.amusement_ride" = "मनोरंजन की सवारी";
+
 "type.attraction.animal" = "पशु बाड़ा";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "हिंडोला";
+
+"type.attraction.historic" = "ऐतिहासिक आकर्षण";
+
+"type.attraction.maze" = "भूलभुलैया";
+
+"type.attraction.roller_coaster" = "रोलर कॉस्टर";
+
+"type.attraction.water_slide" = "पानी की स्लाइड";
 
 "type.tourism.attraction.specified" = "पर्यटन स्थल";
 

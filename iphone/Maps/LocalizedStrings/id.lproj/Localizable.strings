@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Titik penjemputan";
 
+"type.shop.pasta" = "Toko Pasta";
+
 "type.shop.pastry" = "Kue-kue";
 
 "type.shop.pawnbroker" = "Rumah Gadai";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Atraksi";
 
+"type.attraction.amusement_ride" = "Wahana Hiburan";
+
 "type.attraction.animal" = "Kandang Hewan";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "Korsel";
+
+"type.attraction.historic" = "Atraksi bersejarah";
+
+"type.attraction.maze" = "Labirin";
+
+"type.attraction.roller_coaster" = "Roller Coaster";
+
+"type.attraction.water_slide" = "Seluncuran Air";
 
 "type.tourism.attraction.specified" = "Atraksi";
 

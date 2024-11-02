@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "픽업 장소";
 
+"type.shop.pasta" = "파스타 가게";
+
 "type.shop.pastry" = "패스트리";
 
 "type.shop.pawnbroker" = "전당포";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "관광 명소";
 
+"type.attraction.amusement_ride" = "놀이기구";
+
 "type.attraction.animal" = "동물 인클로저";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "캐러셀";
+
+"type.attraction.historic" = "역사적인 명소";
+
+"type.attraction.maze" = "미로";
+
+"type.attraction.roller_coaster" = "롤러 코스터";
+
+"type.attraction.water_slide" = "워터 슬라이드";
 
 "type.tourism.attraction.specified" = "관광 명소";
 

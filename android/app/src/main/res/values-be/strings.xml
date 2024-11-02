@@ -1343,6 +1343,7 @@
     <string name="type.shop.music">Музычная крама</string>
     <string name="type.shop.musical_instrument">Музычныя інструменты</string>
     <string name="type.shop.outpost">Пункт самавывазу</string>
+    <string name="type.shop.pasta">Макаронная крама</string>
     <string name="type.shop.pastry">Кандытарскія вырабы</string>
     <string name="type.shop.pet_grooming">Грумінг</string>
     <string name="type.shop.rental">Пракат</string>
@@ -1413,7 +1414,13 @@
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">Горны прытулак з абслугоўваннем</string>
     <string name="type.tourism.apartment">Кватэра для адпачынку</string>
+    <string name="type.attraction.amusement_ride">Атракцыён</string>
     <string name="type.attraction.animal">Вальера для жывёл</string>
+    <string name="type.attraction.carousel">Карусель</string>
+    <string name="type.attraction.historic">Гістарычная славутасць</string>
+    <string name="type.attraction.maze">Лабірынт</string>
+    <string name="type.attraction.roller_coaster">Амерыканскія горкі</string>
+    <string name="type.attraction.water_slide">Водная горка</string>
     <string name="type.tourism.caravan_site">Кемпінг для аўтадамоў</string>
     <!-- A rentable countryside vacation house. -->
     <string name="type.tourism.chalet">Катэдж для адпачынку</string>

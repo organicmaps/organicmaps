@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Noutopiste";
 
+"type.shop.pasta" = "Pastakauppa";
+
 "type.shop.pastry" = "Leivonnainen";
 
 "type.shop.pawnbroker" = "Panttilainaamo";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Nähtävyys";
 
+"type.attraction.amusement_ride" = "Huvipuisto Ride";
+
 "type.attraction.animal" = "Eläinsuoja";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "Karuselli";
+
+"type.attraction.historic" = "Historiallinen nähtävyys";
+
+"type.attraction.maze" = "Sokkelo";
+
+"type.attraction.roller_coaster" = "Vuoristorata";
+
+"type.attraction.water_slide" = "Vesiliukumäki";
 
 "type.tourism.attraction.specified" = "Nähtävyys";
 

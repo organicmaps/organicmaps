@@ -1214,6 +1214,7 @@
     <string name="type.shop.hifi">Àudio HiFi</string>
     <string name="type.shop.motorcycle_repair">Reparació de motos</string>
     <string name="type.shop.outpost">Punt de recollida</string>
+    <string name="type.shop.pasta">Botiga de pasta</string>
     <string name="type.shop.pastry">Forn de pa</string>
     <string name="type.shop.pet_grooming">Peluca de mascotes</string>
     <string name="type.shop.rental">Botiga de lloguer</string>
@@ -1233,7 +1234,13 @@
     <string name="type.tourism.artwork.sculpture">Escultura</string>
     <string name="type.tourism.artwork.statue">Estàtua</string>
     <string name="type.tourism.attraction">Atracció</string>
+    <string name="type.attraction.amusement_ride">Passeig de diversió</string>
     <string name="type.attraction.animal">Recinte d’animals</string>
+    <string name="type.attraction.carousel">Carrusel</string>
+    <string name="type.attraction.historic">Atracció històrica</string>
+    <string name="type.attraction.maze">Laberint</string>
+    <string name="type.attraction.roller_coaster">Muntanya Russa</string>
+    <string name="type.attraction.water_slide">Tobogan aquàtic</string>
     <string name="type.tourism.attraction.specified">Atracció</string>
     <string name="type.tourism.camp_site">Paratge d’acampada</string>
     <string name="type.tourism.caravan_site">Zona de caravanes</string>

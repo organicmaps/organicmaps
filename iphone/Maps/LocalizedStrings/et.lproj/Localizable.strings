@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Vastuvõtupunkt";
 
+"type.shop.pasta" = "Pasta pood";
+
 "type.shop.pastry" = "Pagar";
 
 "type.shop.pawnbroker" = "Pandimaja";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Turismiatraktsioon";
 
+"type.attraction.amusement_ride" = "Lõbustus Ride";
+
 "type.attraction.animal" = "Loomade aedik";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "Karussell";
+
+"type.attraction.historic" = "Ajalooline vaatamisväärsus";
+
+"type.attraction.maze" = "Labürint";
+
+"type.attraction.roller_coaster" = "Vuoristorata";
+
+"type.attraction.water_slide" = "Vesiliug";
 
 "type.tourism.attraction.specified" = "Turismiatraktsioon";
 

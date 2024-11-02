@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "نقطه وانت";
 
+"type.shop.pasta" = "فروشگاه ماکارونی";
+
 "type.shop.pastry" = "ﯽﻨﯾﺮﯿﺷ";
 
 "type.shop.pawnbroker" = "عتیقه فروشی";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "گردشگری";
 
+"type.attraction.amusement_ride" = "سواری تفریحی";
+
 "type.attraction.animal" = "محوطه حیوانات";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "چرخ فلک";
+
+"type.attraction.historic" = "جاذبه تاریخی";
+
+"type.attraction.maze" = "ماز";
+
+"type.attraction.roller_coaster" = "ترن هوایی";
+
+"type.attraction.water_slide" = "سرسره آبی";
 
 "type.tourism.attraction.specified" = "گردشگری";
 

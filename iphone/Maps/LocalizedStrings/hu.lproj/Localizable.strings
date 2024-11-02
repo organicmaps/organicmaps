@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Felvevő pont";
 
+"type.shop.pasta" = "Tészta bolt";
+
 "type.shop.pastry" = "Cukrászda";
 
 "type.shop.pawnbroker" = "Zálogház";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Látnivaló";
 
+"type.attraction.amusement_ride" = "Vidámpark";
+
 "type.attraction.animal" = "Állatok tartása";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "Körhinta";
+
+"type.attraction.historic" = "Történelmi látványosság";
+
+"type.attraction.maze" = "Labirintus";
+
+"type.attraction.roller_coaster" = "Hullámvasút";
+
+"type.attraction.water_slide" = "Vízicsúszda";
 
 "type.tourism.attraction.specified" = "Látnivaló";
 

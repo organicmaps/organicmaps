@@ -1813,6 +1813,7 @@
     <string name="type.shop.optician">ร้านแว่น</string>
     <string name="type.shop.outdoor">อุปกรณ์กลางแจ้ง</string>
     <string name="type.shop.outpost">จุดรับของ</string>
+    <string name="type.shop.pasta">ร้านพาสต้า</string>
     <string name="type.shop.pastry">ขนมอบ</string>
     <string name="type.shop.pawnbroker">ผู้รับจำนำ</string>
     <string name="type.shop.pet">เพ็ทชอป</string>
@@ -1905,7 +1906,13 @@
     <string name="type.tourism.artwork.sculpture">งานศิลปะ</string>
     <string name="type.tourism.artwork.statue">งานศิลปะ</string>
     <string name="type.tourism.attraction">การท่องเที่ยว</string>
+    <string name="type.attraction.amusement_ride">ขี่สนุก</string>
     <string name="type.attraction.animal">สิ่งที่แนบมากับสัตว์</string>
+    <string name="type.attraction.carousel">ม้าหมุน</string>
+    <string name="type.attraction.historic">แหล่งท่องเที่ยวทางประวัติศาสตร์</string>
+    <string name="type.attraction.maze">เขาวงกต</string>
+    <string name="type.attraction.roller_coaster">รถไฟเหาะ</string>
+    <string name="type.attraction.water_slide">สไลเดอร์น้ำ</string>
     <string name="type.tourism.attraction.specified">การท่องเที่ยว</string>
     <string name="type.tourism.camp_site">การตั้งแคมป์</string>
     <string name="type.tourism.caravan_site">ขบวนนักเดินทาง</string>

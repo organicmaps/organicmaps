@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Hentested";
 
+"type.shop.pasta" = "Pastabutikk";
+
 "type.shop.pastry" = "Bakverk";
 
 "type.shop.pawnbroker" = "Pantelåner";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Attraksjon";
 
+"type.attraction.amusement_ride" = "Forlystelsesattraksjon";
+
 "type.attraction.animal" = "Innhegning for dyr";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "Karusell";
+
+"type.attraction.historic" = "Historisk attraksjon";
+
+"type.attraction.maze" = "Labyrint";
+
+"type.attraction.roller_coaster" = "Berg- og dalbane";
+
+"type.attraction.water_slide" = "Vannrutsjebane";
 
 "type.tourism.attraction.specified" = "Attraksjon";
 

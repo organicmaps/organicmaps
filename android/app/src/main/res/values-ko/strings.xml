@@ -1811,6 +1811,7 @@
     <string name="type.shop.optician">안경점 의</string>
     <string name="type.shop.outdoor">아웃도어 장비</string>
     <string name="type.shop.outpost">픽업 장소</string>
+    <string name="type.shop.pasta">파스타 가게</string>
     <string name="type.shop.pastry">패스트리</string>
     <string name="type.shop.pawnbroker">전당포</string>
     <string name="type.shop.pet">펫샵</string>
@@ -1906,7 +1907,13 @@
     <string name="type.tourism.artwork.sculpture">작품</string>
     <string name="type.tourism.artwork.statue">작품</string>
     <string name="type.tourism.attraction">관광 명소</string>
+    <string name="type.attraction.amusement_ride">놀이기구</string>
     <string name="type.attraction.animal">동물 인클로저</string>
+    <string name="type.attraction.carousel">캐러셀</string>
+    <string name="type.attraction.historic">역사적인 명소</string>
+    <string name="type.attraction.maze">미로</string>
+    <string name="type.attraction.roller_coaster">롤러 코스터</string>
+    <string name="type.attraction.water_slide">워터 슬라이드</string>
     <string name="type.tourism.attraction.specified">관광 명소</string>
     <string name="type.tourism.camp_site">캠핑</string>
     <string name="type.tourism.caravan_site">카라반 사용가능 캠핑장</string>

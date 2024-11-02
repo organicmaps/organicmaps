@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "נקודת איסוף";
 
+"type.shop.pasta" = "חנות פסטה";
+
 "type.shop.pastry" = "מגדניה";
 
 "type.shop.pawnbroker" = "משכנתאות";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "אטרקציה תיירותית";
 
+"type.attraction.amusement_ride" = "טיול שעשועים";
+
 "type.attraction.animal" = "מתחם בעלי חיים";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "קרוסלה";
+
+"type.attraction.historic" = "אטרקציה היסטורית";
+
+"type.attraction.maze" = "מָבוֹך";
+
+"type.attraction.roller_coaster" = "רכבת הרים";
+
+"type.attraction.water_slide" = "מגלשת מים";
 
 "type.tourism.attraction.specified" = "אטרקציה תיירותית";
 

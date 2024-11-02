@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Пункт выдачи заказов";
 
+"type.shop.pasta" = "Магазин макаронных изделий";
+
 "type.shop.pastry" = "Выпечка";
 
 "type.shop.pawnbroker" = "Ломбард";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Достопримечательность";
 
+"type.attraction.amusement_ride" = "Аттракцион";
+
 "type.attraction.animal" = "Вольер для животных";
+
+"type.attraction.bumper_car" = "Автодром";
+
+"type.attraction.big_wheel" = "Колесо обозрения";
+
+"type.attraction.carousel" = "Карусель";
+
+"type.attraction.historic" = "Исторический аттракцион";
+
+"type.attraction.maze" = "Лабиринт";
+
+"type.attraction.roller_coaster" = "Американские горки";
+
+"type.attraction.water_slide" = "Водная горка";
 
 "type.tourism.attraction.specified" = "Достопримечательность";
 

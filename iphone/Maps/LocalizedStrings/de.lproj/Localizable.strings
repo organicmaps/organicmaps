@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Abholpunkt";
 
+"type.shop.pasta" = "Nudelgeschäft";
+
 "type.shop.pastry" = "Konditorei";
 
 "type.shop.pawnbroker" = "Pfandleihe";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Sehenswürdigkeit";
 
+"type.attraction.amusement_ride" = "Fahrgeschäft";
+
 "type.attraction.animal" = "Tiergehege";
+
+"type.attraction.bumper_car" = "Autoscooter";
+
+"type.attraction.big_wheel" = "Riesenrad";
+
+"type.attraction.carousel" = "Karussell";
+
+"type.attraction.historic" = "Historische Attraktion";
+
+"type.attraction.maze" = "Labyrinth";
+
+"type.attraction.roller_coaster" = "Achterbahn";
+
+"type.attraction.water_slide" = "Wasserrutsche";
 
 "type.tourism.attraction.specified" = "Sehenswürdigkeit";
 

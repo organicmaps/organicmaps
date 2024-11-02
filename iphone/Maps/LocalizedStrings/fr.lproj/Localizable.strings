@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Point de retrait";
 
+"type.shop.pasta" = "Boutique de pâtes";
+
 "type.shop.pastry" = "Pâtisserie";
 
 "type.shop.pawnbroker" = "Prêteur sur gages";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Attraction";
 
+"type.attraction.amusement_ride" = "Manège";
+
 "type.attraction.animal" = "Enclos pour animaux";
+
+"type.attraction.bumper_car" = "Auto-tamponneuse";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "Carrousel";
+
+"type.attraction.historic" = "Attraction historique";
+
+"type.attraction.maze" = "Labyrinthe";
+
+"type.attraction.roller_coaster" = "Les montagnes russes";
+
+"type.attraction.water_slide" = "Toboggan aquatique";
 
 "type.tourism.attraction.specified" = "Attraction";
 

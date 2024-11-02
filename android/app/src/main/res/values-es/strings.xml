@@ -2002,6 +2002,7 @@
     <string name="type.shop.optician">Óptica</string>
     <string name="type.shop.outdoor">Equipamiento de ocio al aire libre</string>
     <string name="type.shop.outpost">Punto de recogida</string>
+    <string name="type.shop.pasta">Tienda de pasta</string>
     <string name="type.shop.pastry">Pastelería</string>
     <string name="type.shop.pawnbroker">Casa de empeños</string>
     <string name="type.shop.pet">Tienda de mascotas</string>
@@ -2098,7 +2099,15 @@
     <string name="type.tourism.artwork.sculpture">Escultura</string>
     <string name="type.tourism.artwork.statue">Estatua</string>
     <string name="type.tourism.attraction">Atracción turística</string>
+    <string name="type.attraction.amusement_ride">Atracción</string>
     <string name="type.attraction.animal">Recinto de animales</string>
+    <string name="type.attraction.bumper_car">Coches de choque</string>
+    <string name="type.attraction.big_wheel">Noria</string>
+    <string name="type.attraction.carousel">Carrusel</string>
+    <string name="type.attraction.historic">Atracción de historia</string>
+    <string name="type.attraction.maze">Laberinto</string>
+    <string name="type.attraction.roller_coaster">Montaña rusa</string>
+    <string name="type.attraction.water_slide">Tobogán acuático</string>
     <string name="type.tourism.attraction.specified">Atracción turística</string>
     <string name="type.tourism.camp_site">Paraje de campamento</string>
     <string name="type.tourism.caravan_site">Zona de caravanas</string>

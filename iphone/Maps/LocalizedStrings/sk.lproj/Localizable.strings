@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Miesto odberu";
 
+"type.shop.pasta" = "Obchod s cestovinami";
+
 "type.shop.pastry" = "Pečivo";
 
 "type.shop.pawnbroker" = "Záložňa";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Atrakcia";
 
+"type.attraction.amusement_ride" = "Zábavná jazda";
+
 "type.attraction.animal" = "Zvieracia ohrada";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "Kolotoč";
+
+"type.attraction.historic" = "Historická atrakcia";
+
+"type.attraction.maze" = "Bludisko";
+
+"type.attraction.roller_coaster" = "Horská dráha";
+
+"type.attraction.water_slide" = "Vodná šmýkačka";
 
 "type.tourism.attraction.specified" = "Atrakcia";
 

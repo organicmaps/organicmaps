@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Qəbul Nöqtəsi";
 
+"type.shop.pasta" = "Makaron Dükanı";
+
 "type.shop.pastry" = "Şirniyyat";
 
 "type.shop.pawnbroker" = "Sələmçi";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Attraksionlar";
 
+"type.attraction.amusement_ride" = "Əyləncəli gəzinti";
+
 "type.attraction.animal" = "Heyvan mühafizəsi";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "Karusel";
+
+"type.attraction.historic" = "Tarixi cazibə";
+
+"type.attraction.maze" = "Labirent";
+
+"type.attraction.roller_coaster" = "Roller Coaster";
+
+"type.attraction.water_slide" = "Su Slayd";
 
 "type.tourism.attraction.specified" = "Attraksionlar";
 

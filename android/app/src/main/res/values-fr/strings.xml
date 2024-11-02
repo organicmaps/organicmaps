@@ -1972,6 +1972,7 @@
     <string name="type.shop.optician">Opticien</string>
     <string name="type.shop.outdoor">Matériel de loisirs de plein air</string>
     <string name="type.shop.outpost">Point de retrait</string>
+    <string name="type.shop.pasta">Boutique de pâtes</string>
     <string name="type.shop.pastry">Pâtisserie</string>
     <string name="type.shop.pawnbroker">Prêteur sur gages</string>
     <string name="type.shop.pet">Animalerie</string>
@@ -2067,7 +2068,14 @@
     <string name="type.tourism.artwork.painting">Œuvre</string>
     <string name="type.tourism.artwork.sculpture">Œuvre</string>
     <string name="type.tourism.artwork.statue">Œuvre</string>
+    <string name="type.attraction.amusement_ride">Manège</string>
     <string name="type.attraction.animal">Enclos pour animaux</string>
+    <string name="type.attraction.bumper_car">Auto-tamponneuse</string>
+    <string name="type.attraction.carousel">Carrousel</string>
+    <string name="type.attraction.historic">Attraction historique</string>
+    <string name="type.attraction.maze">Labyrinthe</string>
+    <string name="type.attraction.roller_coaster">Les montagnes russes</string>
+    <string name="type.attraction.water_slide">Toboggan aquatique</string>
     <string name="type.tourism.camp_site">Camping</string>
     <string name="type.tourism.caravan_site">Aire de camping-car</string>
     <!-- A rentable countryside vacation house. -->

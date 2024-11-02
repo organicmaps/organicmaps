@@ -1849,6 +1849,7 @@
     <string name="type.shop.optician">चष्मेविक्रेता</string>
     <string name="type.shop.outdoor">भटकंतीचे साहित्य</string>
     <string name="type.shop.outpost">पिकअप पॉइंट</string>
+    <string name="type.shop.pasta">पास्ता दुकान</string>
     <string name="type.shop.pastry">बेकरी</string>
     <string name="type.shop.pet">पाळीव प्राण्यांचे दुकान</string>
     <string name="type.shop.pet_grooming">पाळीव प्राणी ग्रूमिंग</string>
@@ -1913,7 +1914,13 @@
     <string name="type.tourism.artwork.sculpture">कलाकृती</string>
     <string name="type.tourism.artwork.statue">कलाकृती</string>
     <string name="type.tourism.attraction">आकर्षण</string>
+    <string name="type.attraction.amusement_ride">मनोरंजन राइड</string>
     <string name="type.attraction.animal">प्राणी संलग्न</string>
+    <string name="type.attraction.carousel">कॅरोसेल</string>
+    <string name="type.attraction.historic">ऐतिहासिक आकर्षण</string>
+    <string name="type.attraction.maze">चक्रव्यूह</string>
+    <string name="type.attraction.roller_coaster">रोलर कोस्टर</string>
+    <string name="type.attraction.water_slide">वॉटर स्लाइड</string>
     <string name="type.tourism.attraction.specified">आकर्षण</string>
     <string name="type.tourism.camp_site">शिबिरवास(कॅम्पिंग)</string>
     <!-- A rentable countryside vacation house. -->

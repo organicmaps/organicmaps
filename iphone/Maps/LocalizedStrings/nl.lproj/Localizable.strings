@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Ophaalpunt";
 
+"type.shop.pasta" = "Deegwarenwinkel";
+
 "type.shop.pastry" = "Banketbakker";
 
 "type.shop.pawnbroker" = "Pandjesbaas";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Attractie";
 
+"type.attraction.amusement_ride" = "Prettocht";
+
 "type.attraction.animal" = "Dierenverblijf";
+
+"type.attraction.bumper_car" = "Botsauto's";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "Reuzenrad";
+
+"type.attraction.historic" = "Historische attractie";
+
+"type.attraction.maze" = "Doolhof";
+
+"type.attraction.roller_coaster" = "Achtbaan";
+
+"type.attraction.water_slide" = "Waterglijbaan";
 
 "type.tourism.attraction.specified" = "Attractie";
 

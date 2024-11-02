@@ -2035,6 +2035,7 @@
     <string name="type.shop.optician">Оптика</string>
     <string name="type.shop.outdoor">Магазин снаряжения</string>
     <string name="type.shop.outpost">Пункт выдачи заказов</string>
+    <string name="type.shop.pasta">Магазин макаронных изделий</string>
     <string name="type.shop.pastry">Выпечка</string>
     <string name="type.shop.pawnbroker">Ломбард</string>
     <string name="type.shop.pet">Зоотовары</string>
@@ -2131,7 +2132,15 @@
     <string name="type.tourism.artwork.sculpture">Произведение искусства</string>
     <string name="type.tourism.artwork.statue">Произведение искусства</string>
     <string name="type.tourism.attraction">Достопримечательность</string>
+    <string name="type.attraction.amusement_ride">Аттракцион</string>
     <string name="type.attraction.animal">Вольер для животных</string>
+    <string name="type.attraction.bumper_car">Автодром</string>
+    <string name="type.attraction.big_wheel">Колесо обозрения</string>
+    <string name="type.attraction.carousel">Карусель</string>
+    <string name="type.attraction.historic">Исторический аттракцион</string>
+    <string name="type.attraction.maze">Лабиринт</string>
+    <string name="type.attraction.roller_coaster">Американские горки</string>
+    <string name="type.attraction.water_slide">Водная горка</string>
     <string name="type.tourism.attraction.specified">Достопримечательность</string>
     <string name="type.tourism.camp_site">Кемпинг</string>
     <string name="type.tourism.caravan_site">Кемпинг для автодомов</string>

@@ -1929,6 +1929,7 @@
     <string name="type.shop.optician">Optikko</string>
     <string name="type.shop.outdoor">Ulkoiluvarusteet</string>
     <string name="type.shop.outpost">Noutopiste</string>
+    <string name="type.shop.pasta">Pastakauppa</string>
     <string name="type.shop.pastry">Leivonnainen</string>
     <string name="type.shop.pawnbroker">Panttilainaamo</string>
     <string name="type.shop.pet">Eläinkauppa</string>
@@ -2025,7 +2026,13 @@
     <string name="type.tourism.artwork.sculpture">Taideteos</string>
     <string name="type.tourism.artwork.statue">Taideteos</string>
     <string name="type.tourism.attraction">Nähtävyys</string>
+    <string name="type.attraction.amusement_ride">Huvipuisto Ride</string>
     <string name="type.attraction.animal">Eläinsuoja</string>
+    <string name="type.attraction.carousel">Karuselli</string>
+    <string name="type.attraction.historic">Historiallinen nähtävyys</string>
+    <string name="type.attraction.maze">Sokkelo</string>
+    <string name="type.attraction.roller_coaster">Vuoristorata</string>
+    <string name="type.attraction.water_slide">Vesiliukumäki</string>
     <string name="type.tourism.attraction.specified">Nähtävyys</string>
     <string name="type.tourism.camp_site">Retkeily</string>
     <string name="type.tourism.caravan_site">Asuntovaunupaikka</string>

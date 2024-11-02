@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Punct de ridicare";
 
+"type.shop.pasta" = "Magazin de paste";
+
 "type.shop.pastry" = "Patiserie";
 
 "type.shop.pawnbroker" = "Amanet";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Punct de atracție";
 
+"type.attraction.amusement_ride" = "Călătorie de distracție";
+
 "type.attraction.animal" = "Incintă pentru animale";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "Carusel";
+
+"type.attraction.historic" = "Atracție istorică";
+
+"type.attraction.maze" = "Labirint";
+
+"type.attraction.roller_coaster" = "Rollercoaster";
+
+"type.attraction.water_slide" = "Tobogan de apă";
 
 "type.tourism.attraction.specified" = "Punct de atracție";
 

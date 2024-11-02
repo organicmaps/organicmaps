@@ -1131,6 +1131,7 @@
     <string name="type.shop.newsagent">अख़बार की दुकान</string>
     <string name="type.shop.optician">ऑप्टिशियन</string>
     <string name="type.shop.outdoor">बाहरी उपकरण</string>
+    <string name="type.shop.pasta">पास्ता की दुकान</string>
     <string name="type.shop.pastry">पेस्ट्री का दुकान</string>
     <string name="type.shop.pawnbroker">महाजन</string>
     <string name="type.shop.pet">पालतू जानवर की दुकान</string>
@@ -1205,7 +1206,13 @@
     <string name="type.tourism.artwork">कलाकृति</string>
     <string name="type.tourism.artwork.statue">प्रतिमा</string>
     <string name="type.tourism.attraction">पर्यटन स्थल</string>
+    <string name="type.attraction.amusement_ride">मनोरंजन की सवारी</string>
     <string name="type.attraction.animal">पशु बाड़ा</string>
+    <string name="type.attraction.carousel">हिंडोला</string>
+    <string name="type.attraction.historic">ऐतिहासिक आकर्षण</string>
+    <string name="type.attraction.maze">भूलभुलैया</string>
+    <string name="type.attraction.roller_coaster">रोलर कॉस्टर</string>
+    <string name="type.attraction.water_slide">पानी की स्लाइड</string>
     <string name="type.tourism.attraction.specified">पर्यटन स्थल</string>
     <string name="type.tourism.caravan_site">कारवां स्थल</string>
     <!-- A rentable countryside vacation house. -->

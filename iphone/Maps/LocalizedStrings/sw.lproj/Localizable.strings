@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Sehemu ya kuchukua";
 
+"type.shop.pasta" = "Duka la Pasta";
+
 "type.shop.pastry" = "Keki";
 
 "type.shop.pawnbroker" = "Pawnbroker";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Attraction";
 
+"type.attraction.amusement_ride" = "Safari ya Burudani";
+
 "type.attraction.animal" = "Hifadhi ya Wanyama";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "Jukwaa";
+
+"type.attraction.historic" = "Kivutio cha kihistoria";
+
+"type.attraction.maze" = "Maze";
+
+"type.attraction.roller_coaster" = "Roller Coaster";
+
+"type.attraction.water_slide" = "Slaidi ya Maji";
 
 "type.tourism.attraction.specified" = "Attraction";
 

@@ -3664,6 +3664,8 @@
 
 "type.shop.outpost" = "Mötesplats";
 
+"type.shop.pasta" = "Pastabutik";
+
 "type.shop.pastry" = "Bakverk";
 
 "type.shop.pawnbroker" = "Pantbank";
@@ -3853,7 +3855,23 @@
 
 "type.tourism.attraction" = "Attraktion";
 
+"type.attraction.amusement_ride" = "Nöjesattraktion";
+
 "type.attraction.animal" = "Inhägnad för djur";
+
+"type.attraction.bumper_car" = "Bumper Car";
+
+"type.attraction.big_wheel" = "Big Wheel";
+
+"type.attraction.carousel" = "Karusell";
+
+"type.attraction.historic" = "Historisk sevärdhet";
+
+"type.attraction.maze" = "Labyrint";
+
+"type.attraction.roller_coaster" = "Berg- och dalbana";
+
+"type.attraction.water_slide" = "Vattenrutschbana";
 
 "type.tourism.attraction.specified" = "Attraktion";
 
