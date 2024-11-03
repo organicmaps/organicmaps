@@ -499,7 +499,7 @@ ru:Отдых с детьми
 be:Сямейны адпачынак
 bg:Семейна почивка
 ar:عطلة عائلية
-ca:Vacances familiars
+ca:Oci familiar
 cs:Dovolená s dětmi
 da:Familieferie
 nl:Gezinsvakantie
@@ -6076,6 +6076,7 @@ ru:3Аптека
 be:3Аптэка
 bg:3Аптека|лекарства|дрогерия
 ar:صيدلية
+ca:Farmàcia
 cs:3Lékárna
 da:3Apotek
 nl:3Apotheek
@@ -6115,6 +6116,7 @@ en:4Drugstore|apothecary|4dispensary|U+1F489|U+1F48A
 en-GB:4Chemist|pharmacist
 en-AU:4Chemist|pharmacist
 bg:дрогерия|аптека|лекарства
+ca:Farmàcia
 ar:متجر أدوية|صيدلية
 nl:Apotheek|drogist
 fi:3Farmasia
@@ -6144,6 +6146,7 @@ en:3Post
 ru:3Почта
 be:3Пошта
 bg:3Поща|пощенска кутия
+ca:Oficina postal
 ar:بريد
 cs:3Pošta
 da:3Post
@@ -6183,6 +6186,7 @@ en:3Post Box|Postbox|4Mailbox|Drop Box|U+2709|U+1F4E8|U+1F4E9|U+1F4EA|U+1F4EB|U+
 ru:3Почтовый ящик
 be:3Паштовая скрыня
 bg:Поща|пощенска кутия
+ca:Bústia de correus|Bústia
 ar:صندوق بريد|البريد
 cs:3Poštovní schránka|3schránka
 da:3Postboks|3postboks|postkasse|p/o|post
@@ -6221,6 +6225,7 @@ amenity-post_office|@category_post
 en:3Post Office|U+2709|U+1F3E3|U+1F4E8|U+1F4E9|U+1F3E4|U+1F4EF
 ru:3Почтовое отделение
 be:3Паштовае аддзяленне
+ca:Oficina de correus
 uk:3Поштове відділення
 bg:Поща
 ar:مكتب بريد
@@ -7009,6 +7014,7 @@ en:3Toilet
 ru:3Туалет|4уборная
 be:4Прыбіральня|3Туалет
 bg:4Тоалетна
+ca:Lavabos
 ar:مرحاض
 cs:3Záchody
 da:3Toilet
@@ -7047,6 +7053,7 @@ amenity-toilets|toilets-yes|@category_toilet
 en:wc|5restroom|4bathroom|loo|lavatory|U+1F6BD|U+1F6BE|U+1F4A9|U+1F6BB|U+1F6B9|U+1F6BA
 bg:тоалетна|ВЦ
 ar:مرحاض|مرحاض
+ca:Lavabos
 cs:wc|toalety
 nl:WC|toilet
 fr:wc
@@ -8296,6 +8303,7 @@ en:4Playground
 ru:4Детская площадка
 bg:4Детска площадка|игрище
 ar:ملعب
+ca:Parc infantil
 cs:Hřiště
 da:Legeplads
 nl:Speeltuin|speelplaats
@@ -9566,6 +9574,7 @@ en:4Police
 ru:4Полиция|милиция
 be:4Паліцыя
 bg:4Полиция
+ca:Policia
 ar:شرطة
 cs:4Policie
 da:4Politi
@@ -9604,6 +9613,7 @@ amenity-police|@category_police
 en:U+1F693|U+1F46E|U+1F694|U+1F482|U+1F6A8
 bg:милиция
 ar:الشرطة
+ca:Policia
 cs:4bezpečnost
 de:Polizeiwache|Polizei
 fr:Poste de police|Commissariat
@@ -9716,6 +9726,7 @@ ru:3Вода|источник воды
 be:3Вада|крыніца
 bg:3Вода
 ar:ماء
+ca:Aigua
 cs:3Voda
 da:3Vand
 de:3Wasser
@@ -10384,6 +10395,7 @@ en:Office|company|U+1F454|U+1F4BC|U+1F3E2|bureau|administrative office|firm|busi
 ru:Офис|компания|контора|фирма|бизнес|бюро|учреждение
 bg:Офис|компания|кантора|фирма|бизнес|бюро|учреждение
 ar:مكتب|شركة
+ca:Oficina
 cs:Kancelář
 da:Kontor|firma|virksomhed
 nl:Kantoor|ambt|bedrijf|bedrijfspand|bedrijfskantoor
@@ -12532,6 +12544,7 @@ en:2Zoo
 ru:2Зоопарк
 bg:3Зоопарк|Зоологическа градина
 ar:حديقة حيوان
+ca:Zoo|Zoològic
 cs:3zoologická zahrada
 da:3Zoo
 nl:Dierentuin|zoo
@@ -13039,6 +13052,7 @@ mr:मलमूत्र पिशव्या विक्रीयंत्र
 amenity-parcel_locker|@category_post
 en:4Parcel Locker|4Parcel Pickup
 be:3Паштамат|5Атрыманне пасылак
+ca:Taquiller de paquets
 de:5Paketstation|Paket Abholstation|Paket SB|Paket Versandstation
 et:4Pakiautomaat
 fr:Consigne automatique pour colis|3locker
@@ -13755,6 +13769,7 @@ en:Water Park|3aqua park
 ru:3Аквапарк
 bg:3Аквапарк
 ar:ملاهي مائية
+ca:Parc aquàtic
 cs:3Aquacentrum
 da:5Vandpark
 nl:5Waterpark
@@ -15473,6 +15488,7 @@ tourism-theme_park|@category_tourism|@category_children
 en:Theme park|Amusement park
 ru:Парк развлечений|Парк аттракционов|Тематический парк
 bg:Увеселителен парк
+ca:Parc temàtic|Parc d'atraccions
 de:Freizeitpark|Vergnügungspark
 fr:Parc d'attractions|Parc de loisirs
 es:Parque de atracciones
@@ -16000,6 +16016,7 @@ en:Baby Goods
 ar:متجر الأطفال
 be:Дзіцячая
 bg:Детски
+ca:Nens|Nadons
 cs:Dětský obchod
 da:Børnebutik
 de:Kinderladen|4Babybedarf
