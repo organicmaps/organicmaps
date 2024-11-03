@@ -1100,7 +1100,7 @@
     <string name="type.building.has_parts">Budynek</string>
     <string name="type.building_part">Budynek</string>
     <string name="type.building.garage">Garaż</string>
-    <string name="type.building.train_station">Dworzec kolejowy</string>
+    <string name="type.building.train_station">Budynek stacji</string>
     <string name="type.building.warehouse">Magazyn</string>
     <string name="type.cemetery.grave">Mogiła</string>
     <string name="type.craft">Rzemiosło</string>

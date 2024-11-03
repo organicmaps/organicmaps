@@ -1848,7 +1848,7 @@
 
 "type.building.garage" = "Autotalli";
 
-"type.building.train_station" = "Rautatieasema";
+"type.building.train_station" = "Asemarakennus";
 
 "type.building.warehouse" = "Varasto";
 

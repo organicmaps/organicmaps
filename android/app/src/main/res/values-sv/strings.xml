@@ -996,7 +996,7 @@
     <string name="type.building.address">Adress</string>
     <string name="type.building.has_parts">Byggnad</string>
     <string name="type.building_part">Byggnad</string>
-    <string name="type.building.train_station">Tågstation</string>
+    <string name="type.building.train_station">Stationsbyggnaden</string>
     <string name="type.cemetery.grave">Grav</string>
     <string name="type.craft">Hantverk</string>
     <string name="type.craft.beekeeper">Biodlare</string>

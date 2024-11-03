@@ -1000,7 +1000,7 @@
     <string name="type.building.has_parts">건물</string>
     <string name="type.building_part">건물</string>
     <string name="type.building.garage">차고</string>
-    <string name="type.building.train_station">기차역</string>
+    <string name="type.building.train_station">역 빌딩</string>
     <string name="type.cemetery.grave">무덤</string>
     <string name="type.craft">공예</string>
     <string name="type.craft.beekeeper">양봉가</string>

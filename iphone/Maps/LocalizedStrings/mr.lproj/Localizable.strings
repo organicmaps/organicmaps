@@ -1848,7 +1848,7 @@
 
 "type.building.garage" = "गराज";
 
-"type.building.train_station" = "रेल्वे स्थानक";
+"type.building.train_station" = "स्टेशन बिल्डिंग";
 
 "type.building.warehouse" = "वखार";
 

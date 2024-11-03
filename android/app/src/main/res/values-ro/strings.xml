@@ -1021,7 +1021,7 @@
     <string name="type.building.has_parts">Clădire</string>
     <string name="type.building_part">Clădire</string>
     <string name="type.building.garage">Garaj</string>
-    <string name="type.building.train_station">Feroviar</string>
+    <string name="type.building.train_station">Clădirea gării</string>
     <string name="type.cemetery.grave">Mormânt</string>
     <string name="type.craft">Meșteșuguri</string>
     <string name="type.craft.beekeeper">Apicultor</string>
@@ -1505,7 +1505,7 @@
     <string name="type.power.substation">Stație subterană</string>
     <string name="type.power.tower">Stâlp de electricitate</string>
     <string name="type.railway.funicular">Funicular</string>
-    <string name="type.railway.halt">Feroviar</string>
+    <string name="type.railway.halt">Gară</string>
     <string name="type.railway.level_crossing">Trecere feroviară</string>
     <string name="type.railway.monorail">Cale ferată monoșină</string>
     <string name="type.railway.rail">Cale ferată</string>
@@ -1535,12 +1535,12 @@
     <string name="type.railway.rail.utility.tunnel">Tunel de cale ferată</string>
     <string name="type.railway.rail.spur.tunnel">Tunel de cale ferată</string>
     <string name="type.railway.rail.service.tunnel">Tunel de cale ferată</string>
-    <string name="type.railway.station">Feroviar</string>
+    <string name="type.railway.station">Gară</string>
     <string name="type.railway.station.funicular">Funicular</string>
-    <string name="type.railway.station.light_rail">Feroviar</string>
-    <string name="type.railway.station.light_rail.london">Feroviar</string>
-    <string name="type.railway.station.light_rail.porto">Feroviar</string>
-    <string name="type.railway.station.monorail">Feroviar</string>
+    <string name="type.railway.station.light_rail">Gară</string>
+    <string name="type.railway.station.light_rail.london">Gară</string>
+    <string name="type.railway.station.light_rail.porto">Gară</string>
+    <string name="type.railway.station.monorail">Gară</string>
     <string name="type.railway.station.subway">Metrou</string>
     <string name="type.railway.station.subway.adana">Metrou</string>
     <string name="type.railway.station.subway.algiers">Metrou</string>

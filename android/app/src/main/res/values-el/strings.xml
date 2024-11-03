@@ -1055,7 +1055,7 @@
     <string name="type.building.has_parts">Κτίριο</string>
     <string name="type.building_part">Κτίριο</string>
     <string name="type.building.garage">Γκαράζ</string>
-    <string name="type.building.train_station">Σιδηροδρομικός σταθμός</string>
+    <string name="type.building.train_station">Κτίριο σταθμού</string>
     <string name="type.cemetery.grave">Τάφος</string>
     <string name="type.craft">Τεχνική</string>
     <string name="type.craft.beekeeper">Μελισσοκόμος</string>

@@ -1092,7 +1092,7 @@
     <string name="type.building.address">Adresse</string>
     <string name="type.building.has_parts">Bâtiment</string>
     <string name="type.building_part">Bâtiment</string>
-    <string name="type.building.train_station">Gare ferroviaire</string>
+    <string name="type.building.train_station">Bâtiment de la gare</string>
     <string name="type.building.warehouse">Entrepôt</string>
     <string name="type.cemetery.grave">Tombe</string>
     <string name="type.craft">Artisanat</string>

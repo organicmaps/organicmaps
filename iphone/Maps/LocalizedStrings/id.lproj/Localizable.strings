@@ -1848,7 +1848,7 @@
 
 "type.building.garage" = "Garasi";
 
-"type.building.train_station" = "Rel kereta api";
+"type.building.train_station" = "Bangunan Stasiun";
 
 "type.building.warehouse" = "Warehouse";
 

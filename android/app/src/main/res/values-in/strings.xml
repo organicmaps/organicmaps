@@ -995,7 +995,7 @@
     <string name="type.building.has_parts">Gedung</string>
     <string name="type.building_part">Gedung</string>
     <string name="type.building.garage">Garasi</string>
-    <string name="type.building.train_station">Rel kereta api</string>
+    <string name="type.building.train_station">Bangunan Stasiun</string>
     <string name="type.cemetery.grave">Kuburan</string>
     <string name="type.craft">Kerajinan</string>
     <string name="type.craft.beekeeper">Peternak lebah</string>

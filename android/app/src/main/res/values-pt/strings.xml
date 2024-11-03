@@ -1048,7 +1048,7 @@
     <string name="type.building.has_parts">Edifício</string>
     <string name="type.building_part">Edifício</string>
     <string name="type.building.garage">Garagem</string>
-    <string name="type.building.train_station">Estação de comboios</string>
+    <string name="type.building.train_station">Edifício da estação</string>
     <string name="type.building.warehouse">Armazém</string>
     <string name="type.cemetery.grave">Túmulo</string>
     <string name="type.craft">Ofícios</string>

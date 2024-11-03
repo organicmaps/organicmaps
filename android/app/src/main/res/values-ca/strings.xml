@@ -1084,6 +1084,7 @@
     <string name="type.boundary.protected_area.6">Àrea Protegida</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Adreça</string>
+    <string name="type.building.train_station">Edifici de l\'Estació</string>
     <string name="type.craft.caterer">Càtering</string>
     <string name="type.craft.grinding_mill">Molí de mòlta</string>
     <string name="type.craft.key_cutter">Tall de claus</string>

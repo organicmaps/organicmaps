@@ -988,7 +988,6 @@
     <string name="type.building.has_parts">Edifício</string>
     <string name="type.building_part">Edifício</string>
     <string name="type.building.garage">Garagem</string>
-    <string name="type.building.train_station">Estação de trem</string>
     <string name="type.building.warehouse">Armazém</string>
     <string name="type.cemetery.grave">Túmulo</string>
     <string name="type.craft.caterer">Serviço de bufê</string>

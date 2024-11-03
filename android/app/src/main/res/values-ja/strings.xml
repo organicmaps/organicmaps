@@ -1074,7 +1074,7 @@
     <string name="type.building.has_parts">建物</string>
     <string name="type.building_part">建物</string>
     <string name="type.building.garage">車庫</string>
-    <string name="type.building.train_station">鉄道駅</string>
+    <string name="type.building.train_station">駅ビル</string>
     <string name="type.cemetery.grave">墓</string>
     <string name="type.craft">工房</string>
     <string name="type.craft.beekeeper">養蜂家</string>

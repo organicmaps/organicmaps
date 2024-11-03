@@ -851,6 +851,7 @@
     <string name="type.boundary.protected_area.6">Защитена местност</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Адрес</string>
+    <string name="type.building.train_station">Сграда на гарата</string>
     <string name="type.cemetery.grave">Гроб</string>
     <string name="type.craft">Занаяти</string>
     <string name="type.craft.beekeeper">Пчелар</string>

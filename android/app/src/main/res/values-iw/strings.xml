@@ -1088,7 +1088,7 @@
     <string name="type.building.has_parts">מבנה</string>
     <string name="type.building_part">מבנה</string>
     <string name="type.building.garage">מחסן/חניה</string>
-    <string name="type.building.train_station">תחנת רכבת</string>
+    <string name="type.building.train_station">בניין תחנת רכבת</string>
     <string name="type.building.warehouse">מחסן</string>
     <string name="type.cemetery.grave">קבר</string>
     <string name="type.craft">מְלָאכָה</string>

@@ -998,7 +998,7 @@
     <string name="type.building.has_parts">Tòa nhà</string>
     <string name="type.building_part">Tòa nhà</string>
     <string name="type.building.garage">Gara</string>
-    <string name="type.building.train_station">Đường tàu hỏa</string>
+    <string name="type.building.train_station">Tòa nhà ga</string>
     <string name="type.cemetery.grave">Phần mộ</string>
     <string name="type.craft">Thủ công</string>
     <string name="type.craft.beekeeper">Người nuôi ong</string>

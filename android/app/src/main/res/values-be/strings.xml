@@ -973,6 +973,7 @@
     <string name="type.boundary.protected_area.6">Запаведная зона</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Адрас</string>
+    <string name="type.building.train_station">Будынак вакзала</string>
     <string name="type.cemetery.grave">Магіла</string>
     <string name="type.craft">Рамяство</string>
     <string name="type.craft.beekeeper">Пчаляр</string>

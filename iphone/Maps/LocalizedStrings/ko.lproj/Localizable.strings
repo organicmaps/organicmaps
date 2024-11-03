@@ -1848,7 +1848,7 @@
 
 "type.building.garage" = "차고";
 
-"type.building.train_station" = "기차역";
+"type.building.train_station" = "역 빌딩";
 
 "type.building.warehouse" = "Warehouse";
 

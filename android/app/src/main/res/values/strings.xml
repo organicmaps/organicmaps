@@ -1140,7 +1140,7 @@
     <string name="type.building.has_parts">Building</string>
     <string name="type.building_part">Building</string>
     <string name="type.building.garage">Garage</string>
-    <string name="type.building.train_station">Train Station</string>
+    <string name="type.building.train_station">Station Building</string>
     <string name="type.building.warehouse">Warehouse</string>
     <string name="type.cemetery.grave">Grave</string>
     <string name="type.craft">Craft</string>
