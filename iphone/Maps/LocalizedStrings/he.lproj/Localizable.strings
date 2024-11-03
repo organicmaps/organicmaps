@@ -1848,7 +1848,7 @@
 
 "type.building.garage" = "מחסן/חניה";
 
-"type.building.train_station" = "תחנת רכבת";
+"type.building.train_station" = "בניין תחנת רכבת";
 
 "type.building.warehouse" = "מחסן";
 

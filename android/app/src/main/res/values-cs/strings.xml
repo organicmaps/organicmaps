@@ -1012,7 +1012,7 @@
     <string name="type.building.has_parts">Stavba</string>
     <string name="type.building_part">Stavba</string>
     <string name="type.building.garage">Garáž</string>
-    <string name="type.building.train_station">Železniční stanice</string>
+    <string name="type.building.train_station">Staniční budova</string>
     <string name="type.cemetery.grave">Hrob</string>
     <string name="type.craft">Řemeslo</string>
     <string name="type.craft.beekeeper">Včelař</string>

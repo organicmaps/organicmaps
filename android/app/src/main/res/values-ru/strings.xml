@@ -1115,7 +1115,7 @@
     <string name="type.building.has_parts">Здание</string>
     <string name="type.building_part">Здание</string>
     <string name="type.building.garage">Гараж</string>
-    <string name="type.building.train_station">Ж/д вокзал</string>
+    <string name="type.building.train_station">Здание ж/д станции</string>
     <string name="type.building.warehouse">Склад</string>
     <string name="type.cemetery.grave">Могила</string>
     <string name="type.craft">Мастерская</string>

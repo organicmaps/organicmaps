@@ -1848,7 +1848,7 @@
 
 "type.building.garage" = "อาคารจอดรถ";
 
-"type.building.train_station" = "สถานีรถไฟ";
+"type.building.train_station" = "อาคารสถานี";
 
 "type.building.warehouse" = "Warehouse";
 

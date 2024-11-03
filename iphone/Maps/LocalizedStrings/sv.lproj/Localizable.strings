@@ -1848,7 +1848,7 @@
 
 "type.building.garage" = "Garage";
 
-"type.building.train_station" = "Tågstation";
+"type.building.train_station" = "Stationsbyggnaden";
 
 "type.building.warehouse" = "Warehouse";
 

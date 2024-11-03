@@ -1094,7 +1094,7 @@
     <string name="type.building.has_parts">Gebouw</string>
     <string name="type.building_part">Gebouw</string>
     <string name="type.building.garage">Garage</string>
-    <string name="type.building.train_station">Treinstation</string>
+    <string name="type.building.train_station">Stationsgebouw</string>
     <string name="type.building.warehouse">Magazijn</string>
     <string name="type.cemetery.grave">Graf</string>
     <string name="type.craft">Ambacht</string>

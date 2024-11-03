@@ -463,6 +463,7 @@
     <string name="type.boundary.protected_area.6">Eneo Lindwa</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Anwani</string>
+    <string name="type.building.train_station">Jengo la Kituo</string>
     <string name="type.cemetery.grave">Kaburi</string>
     <string name="type.craft">Ufundi</string>
     <string name="type.craft.beekeeper">Mfugaji nyuki</string>

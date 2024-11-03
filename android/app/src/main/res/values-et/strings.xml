@@ -1087,7 +1087,7 @@
     <string name="type.building.has_parts">Hoone</string>
     <string name="type.building_part">Hoone</string>
     <string name="type.building.garage">Garaaž</string>
-    <string name="type.building.train_station">Rongijaam</string>
+    <string name="type.building.train_station">Jaamahoone</string>
     <string name="type.building.warehouse">Ladu</string>
     <string name="type.cemetery.grave">Haud</string>
     <string name="type.craft">Käsitöö</string>

@@ -1848,7 +1848,7 @@
 
 "type.building.garage" = "Garázs";
 
-"type.building.train_station" = "Vasútállomás";
+"type.building.train_station" = "Állomásépület";
 
 "type.building.warehouse" = "Warehouse";
 

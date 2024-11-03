@@ -1848,7 +1848,7 @@
 
 "type.building.garage" = "Garaj";
 
-"type.building.train_station" = "Feroviar";
+"type.building.train_station" = "Clădirea gării";
 
 "type.building.warehouse" = "Warehouse";
 
@@ -2971,7 +2971,7 @@
 
 "type.railway.funicular.tunnel" = "Funicular Tunnel";
 
-"type.railway.halt" = "Feroviar";
+"type.railway.halt" = "Gară";
 
 "type.railway.level_crossing" = "Trecere feroviară";
 
@@ -3052,17 +3052,17 @@
 
 "type.railway.rail.service.tunnel" = "Tunel de cale ferată";
 
-"type.railway.station" = "Feroviar";
+"type.railway.station" = "Gară";
 
 "type.railway.station.funicular" = "Funicular";
 
-"type.railway.station.light_rail" = "Feroviar";
+"type.railway.station.light_rail" = "Gară";
 
-"type.railway.station.light_rail.london" = "Feroviar";
+"type.railway.station.light_rail.london" = "Gară";
 
-"type.railway.station.light_rail.porto" = "Feroviar";
+"type.railway.station.light_rail.porto" = "Gară";
 
-"type.railway.station.monorail" = "Feroviar";
+"type.railway.station.monorail" = "Gară";
 
 "type.railway.station.subway" = "Metrou";
 

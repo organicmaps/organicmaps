@@ -1082,7 +1082,7 @@
     <string name="type.building.has_parts">Edificio</string>
     <string name="type.building_part">Edificio</string>
     <string name="type.building.garage">Garage</string>
-    <string name="type.building.train_station">Stazione ferroviaria</string>
+    <string name="type.building.train_station">Edificio della stazione</string>
     <string name="type.building.warehouse">Magazzino</string>
     <string name="type.cemetery.grave">Tomba</string>
     <string name="type.craft">Artigianato</string>

@@ -1045,7 +1045,7 @@
     <string name="type.building.has_parts">Bygning</string>
     <string name="type.building_part">Bygning</string>
     <string name="type.building.garage">Garasje</string>
-    <string name="type.building.train_station">Togstasjon</string>
+    <string name="type.building.train_station">Stasjonsbygningen</string>
     <string name="type.cemetery.grave">Grav</string>
     <string name="type.craft">Håndverk</string>
     <string name="type.craft.beekeeper">Birøkter</string>
