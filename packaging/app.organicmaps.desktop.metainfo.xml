@@ -115,7 +115,19 @@
   </screenshots>
 
   <releases>
-   <release version="2024.10.04-7" date="2024-10-04">
+   <release version="2024.10.23-2" date="2024-10-23">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>OpenStreetMap data as of October 17</li>
+           <li>More detailed (50m step) altitude isolines for Iceland, India &amp; Morocco</li>
+           <li>Use a different icon for non-drinking water sources</li>
+           <li>Added water towers</li>
+           <li>Fixed Search on Map results prioritization bug</li>
+         </ul>
+     </description>
+   </release>
+   <release version="2024.10.08-5" date="2024-10-08">
      <description>
        <p>Highlights:</p>
          <ul>
