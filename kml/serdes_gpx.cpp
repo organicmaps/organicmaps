@@ -290,10 +290,17 @@ void GpxParser::Pop(std::string_view tag)
   }
   else if (tag == gpx::kTrkSeg || tag == gpx::kRte)
   {
-    CheckAndCorrectTimestamps();
+    if (m_line.size() > 1)
+    {
+      CheckAndCorrectTimestamps();
 
-    m_geometry.m_lines.push_back(std::move(m_line));
-    m_geometry.m_timestamps.push_back(std::move(m_timestamps));
+      m_geometry.m_lines.push_back(std::move(m_line));
+      m_geometry.m_timestamps.push_back(std::move(m_timestamps));
+    }
+
+    // Clear segment (it may be incomplete).
+    m_line.clear();
+    m_timestamps.clear();
   }
   else if (tag == gpx::kWpt)
   {
@@ -332,8 +339,8 @@ void GpxParser::Pop(std::string_view tag)
         // Default gpx parser doesn't check points and timestamps count as the kml parser does.
         for (size_t lineIndex = 0; lineIndex < m_geometry.m_lines.size(); ++lineIndex)
         {
-          auto const & pointsSize = m_geometry.m_lines[lineIndex].size();
-          auto const & timestampsSize = m_geometry.m_timestamps[lineIndex].size();
+          auto const pointsSize = m_geometry.m_lines[lineIndex].size();
+          auto const timestampsSize = m_geometry.m_timestamps[lineIndex].size();
           ASSERT(!m_geometry.HasTimestampsFor(lineIndex) || pointsSize == timestampsSize, (pointsSize, timestampsSize));
         }
 #endif

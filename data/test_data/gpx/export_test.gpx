@@ -43,6 +43,9 @@
     <trkpt lat="48.209846" lon="16.376023">
       <ele>123</ele>
     </trkpt>
+    <trkpt lat="48.209503" lon="16.381065">
+      <ele>456</ele>
+    </trkpt>
   </trkseg>
 </trk>
 </gpx>

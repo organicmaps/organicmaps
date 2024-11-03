@@ -271,7 +271,7 @@ UNIT_TEST(Color)
   TEST_EQUAL(red, dataFromFile.m_tracksData[0].m_layers[0].m_color.m_rgba, ());
   TEST_EQUAL(blue, dataFromFile.m_tracksData[1].m_layers[0].m_color.m_rgba, ());
   TEST_EQUAL(black, dataFromFile.m_tracksData[2].m_layers[0].m_color.m_rgba, ());
-  TEST_EQUAL(red, dataFromFile.m_tracksData[3].m_layers[0].m_color.m_rgba, ());
+  TEST_EQUAL(dataFromFile.m_tracksData.size(), 3, ());
 }
 
 UNIT_TEST(MultiTrackNames)
