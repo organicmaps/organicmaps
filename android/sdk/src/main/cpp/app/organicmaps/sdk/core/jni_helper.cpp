@@ -103,15 +103,23 @@ JNIEXPORT void JNICALL JNI_OnUnload(JavaVM *, void *)
 
 namespace jni
 {
-JNIEnv * GetEnv()
+JNIEnv * GetEnvSafe()
 {
   JNIEnv * env;
   auto const res = g_jvm->GetEnv((void **)&env, JNI_VERSION_1_6);
   if (res != JNI_OK)
   {
     LOG(LERROR, ("Can't get JNIEnv. Is the thread attached to JVM?", res));
-    MYTHROW(RootException, ("Can't get JNIEnv. Is the thread attached to JVM?", res));
+    env = nullptr;
   }
+  return env;
+}
+
+JNIEnv * GetEnv()
+{
+  JNIEnv * env = GetEnvSafe();
+  if (env == nullptr)
+    MYTHROW(RootException, ("Can't get JNIEnv. Is the thread attached to JVM?"));
   return env;
 }
 
@@ -219,6 +227,20 @@ std::shared_ptr<jobject> make_global_ref(jobject obj)
   return std::shared_ptr<jobject>(ref, [](jobject * ref)
   {
     GetEnv()->DeleteGlobalRef(*ref);
+    delete ref;
+  });
+}
+
+// https://github.com/organicmaps/organicmaps/issues/9397
+/// @todo There are no other ideas, let's try a safe version with a forever global ref ..
+std::shared_ptr<jobject> make_global_ref_safe(jobject obj)
+{
+  jobject * ref = new jobject(GetEnv()->NewGlobalRef(obj));
+  return std::shared_ptr<jobject>(ref, [](jobject * ref)
+  {
+    JNIEnv * env = GetEnvSafe();
+    if (env)
+      env->DeleteGlobalRef(*ref);
     delete ref;
   });
 }
