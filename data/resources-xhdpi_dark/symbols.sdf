@@ -13,16 +13,16 @@
   <symbol maxX="852" maxY="76" minX="776" minY="0" name="search-result-swimming"/>
   <symbol maxX="928" maxY="76" minX="852" minY="0" name="search-result-stadium"/>
   <symbol maxX="1004" maxY="76" minX="928" minY="0" name="search-result-shop-toys"/>
-  <symbol maxX="1080" maxY="76" minX="1004" minY="0" name="search-result-shop-sweets"/>
-  <symbol maxX="1156" maxY="76" minX="1080" minY="0" name="search-result-shop-supermarket"/>
-  <symbol maxX="1232" maxY="76" minX="1156" minY="0" name="search-result-shop-sports"/>
-  <symbol maxX="1308" maxY="76" minX="1232" minY="0" name="search-result-shop-shoes"/>
-  <symbol maxX="1384" maxY="76" minX="1308" minY="0" name="search-result-shop-seafood"/>
-  <symbol maxX="1460" maxY="76" minX="1384" minY="0" name="search-result-shop-jewelry"/>
-  <symbol maxX="1536" maxY="76" minX="1460" minY="0" name="search-result-shop-greengrocer"/>
-  <symbol maxX="1612" maxY="76" minX="1536" minY="0" name="search-result-shop-gift"/>
-  <symbol maxX="1688" maxY="76" minX="1612" minY="0" name="search-result-shop-department_store"/>
-  <symbol maxX="1764" maxY="76" minX="1688" minY="0" name="search-result-shop-convenience"/>
+  <symbol maxX="1080" maxY="76" minX="1004" minY="0" name="search-result-shop-supermarket"/>
+  <symbol maxX="1156" maxY="76" minX="1080" minY="0" name="search-result-shop-sports"/>
+  <symbol maxX="1232" maxY="76" minX="1156" minY="0" name="search-result-shop-shoes"/>
+  <symbol maxX="1308" maxY="76" minX="1232" minY="0" name="search-result-shop-seafood"/>
+  <symbol maxX="1384" maxY="76" minX="1308" minY="0" name="search-result-shop-jewelry"/>
+  <symbol maxX="1460" maxY="76" minX="1384" minY="0" name="search-result-shop-greengrocer"/>
+  <symbol maxX="1536" maxY="76" minX="1460" minY="0" name="search-result-shop-gift"/>
+  <symbol maxX="1612" maxY="76" minX="1536" minY="0" name="search-result-shop-department_store"/>
+  <symbol maxX="1688" maxY="76" minX="1612" minY="0" name="search-result-shop-convenience"/>
+  <symbol maxX="1764" maxY="76" minX="1688" minY="0" name="search-result-shop-confectionery"/>
   <symbol maxX="1840" maxY="76" minX="1764" minY="0" name="search-result-shop-clothes"/>
   <symbol maxX="1916" maxY="76" minX="1840" minY="0" name="search-result-shop-butcher"/>
   <symbol maxX="1992" maxY="76" minX="1916" minY="0" name="search-result-shop-beauty"/>
