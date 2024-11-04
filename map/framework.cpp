@@ -885,20 +885,25 @@ void Framework::ShowTrack(kml::TrackId trackId)
 {
   auto & bm = GetBookmarkManager();
   auto const track = bm.GetTrack(trackId);
-  if (track == nullptr)
-    return;
+
+  StopLocationFollow();
 
   auto rect = track->GetLimitRect();
   ExpandRectForPreview(rect);
 
-  StopLocationFollow();
-  ShowRect(rect);
+  place_page::BuildInfo info;
+  info.m_trackId = trackId;
+  info.m_mercator = rect.Center();
 
-  auto es = GetBookmarkManager().GetEditSession();
+  m_currentPlacePageInfo = BuildPlacePageInfo(info);
+
+  auto es = bm.GetEditSession();
   es.SetIsVisible(track->GetGroupId(), true /* visible */);
 
-  if (track->IsInteractive())
-    bm.SetDefaultTrackSelection(trackId, true /* showInfoSign */);
+  if (m_drapeEngine)
+    m_drapeEngine->SetModelViewCenter(rect.Center(), scales::GetScaleLevel(rect), true /* isAnim */, true /* trackVisibleViewport */);
+
+  ActivateMapSelection();
 }
 
 void Framework::ShowBookmarkCategory(kml::MarkGroupId categoryId, bool animation)
@@ -915,15 +920,6 @@ void Framework::ShowBookmarkCategory(kml::MarkGroupId categoryId, bool animation
 
   auto es = bm.GetEditSession();
   es.SetIsVisible(categoryId, true /* visible */);
-
-  auto const & trackIds = bm.GetTrackIds(categoryId);
-  for (auto trackId : trackIds)
-  {
-    if (!bm.GetTrack(trackId)->IsInteractive())
-      continue;
-    bm.SetDefaultTrackSelection(trackId, true /* showInfoSign */);
-    break;
-  }
 }
 
 void Framework::ShowFeature(FeatureID const & featureId)
@@ -2229,11 +2225,22 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
   FeatureID selectedFeature = buildInfo.m_featureId;
   auto const isFeatureMatchingEnabled = buildInfo.IsFeatureMatchingEnabled();
 
+  // @TODO: (KK) Enable track selection.
+  // The isTrackSelectionEnabled should be removed to enable the track selection when the UI will be implemented.
+  const bool isTrackSelectionEnabled = false;
   // Using VisualParams inside FindTrackInTapPosition/GetDefaultTapRect requires drapeEngine.
-  if (m_drapeEngine != nullptr && buildInfo.IsTrackMatchingEnabled() &&
+  if (isTrackSelectionEnabled && m_drapeEngine != nullptr && buildInfo.IsTrackMatchingEnabled() &&
       !(isFeatureMatchingEnabled && selectedFeature.IsValid()))
   {
-    auto const trackSelectionInfo = FindTrackInTapPosition(buildInfo);
+    Track::TrackSelectionInfo trackSelectionInfo;
+    if (buildInfo.m_trackId != kml::kInvalidTrackId)
+    {
+      auto const & track = *GetBookmarkManager().GetTrack(buildInfo.m_trackId);
+      auto rect = track.GetLimitRect();
+      track.UpdateSelectionInfo(track.GetLimitRect(), trackSelectionInfo);
+    }
+    else
+      trackSelectionInfo = FindTrackInTapPosition(buildInfo);
     if (trackSelectionInfo.m_trackId != kml::kInvalidTrackId)
     {
       BuildTrackPlacePage(trackSelectionInfo, outInfo);
