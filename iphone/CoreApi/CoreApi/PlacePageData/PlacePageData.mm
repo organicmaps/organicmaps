@@ -4,7 +4,7 @@
 #import "PlacePagePreviewData+Core.h"
 #import "PlacePageInfoData+Core.h"
 #import "PlacePageBookmarkData+Core.h"
-#import "ElevationProfileData+Core.h"
+#import "PlacePageTrackData+Core.h"
 #import "MWMMapNodeAttributes.h"
 
 #include <CoreApi/CoreApi.h>
@@ -42,6 +42,7 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
     _infoData = [[PlacePageInfoData alloc] initWithRawData:rawData() ohLocalization:localization];
 
     if (rawData().IsBookmark()) {
+      _objectType = PlacePageObjectTypeBookmark;
       _bookmarkData = [[PlacePageBookmarkData alloc] initWithRawData:rawData()];
     }
 
@@ -63,8 +64,10 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
     }
 
     if (rawData().IsTrack()) {
-      // TODO: (KK) implement init with a track
-      _infoData = nil;
+      _objectType = PlacePageObjectTypeTrack;
+      auto const & track = GetFramework().GetBookmarkManager().GetTrack(rawData().GetTrackId());
+      _trackData = [[PlacePageTrackData alloc] initWithTrack:*track];
+      _isPreviewPlus = track->HasAltitudes();
     }
     _previewData = [[PlacePagePreviewData alloc] initWithRawData:rawData()];
 
