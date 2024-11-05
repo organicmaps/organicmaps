@@ -1,5 +1,5 @@
 protocol PlacePageViewProtocol: AnyObject {
-  var presenter: PlacePagePresenterProtocol! { get set }
+  var interactor: PlacePageInteractorProtocol! { get set }
 
   func setLayout(_ layout: IPlacePageLayout)
   func closeAnimated(completion: (() -> Void)?)
@@ -35,7 +35,7 @@ final class PlacePageScrollView: UIScrollView {
     stackView.distribution = .fill
     return stackView
   }()
-  var presenter: PlacePagePresenterProtocol!
+  var interactor: PlacePageInteractorProtocol!
   var beginDragging = false
   var rootViewController: MapViewController {
     MapViewController.shared()!
@@ -67,6 +67,11 @@ final class PlacePageScrollView: UIScrollView {
     }
     panGesture.isEnabled = alternativeSizeClass(iPhone: false, iPad: true)
     previousTraitCollection = traitCollection
+  }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    interactor?.viewWillAppear()
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -221,6 +226,55 @@ final class PlacePageScrollView: UIScrollView {
     return result
   }
 
+  private func addActionBar(_ actionBarViewController: UIViewController) {
+    addChild(actionBarViewController)
+    actionBarViewController.view.translatesAutoresizingMaskIntoConstraints = false
+    actionBarContainerView.addSubview(actionBarViewController.view)
+    actionBarViewController.didMove(toParent: self)
+    NSLayoutConstraint.activate([
+      actionBarViewController.view.leadingAnchor.constraint(equalTo: actionBarContainerView.leadingAnchor),
+      actionBarViewController.view.topAnchor.constraint(equalTo: actionBarContainerView.topAnchor),
+      actionBarViewController.view.trailingAnchor.constraint(equalTo: actionBarContainerView.trailingAnchor),
+      actionBarViewController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+    ])
+  }
+
+  private func addNavigationBar(_ header: UIViewController) {
+    header.view.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(header.view)
+    addChild(header)
+    NSLayoutConstraint.activate([
+      header.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      header.view.topAnchor.constraint(equalTo: view.topAnchor),
+      header.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+    ])
+  }
+
+  private func scrollTo(_ point: CGPoint, animated: Bool = true, forced: Bool = false, completion: (() -> Void)? = nil) {
+    if alternativeSizeClass(iPhone: beginDragging, iPad: true) && !forced {
+      return
+    }
+    if forced {
+      beginDragging = true
+    }
+    let scrollPosition = CGPoint(x: point.x, y: min(scrollView.contentSize.height - scrollView.height, point.y))
+    let bound = view.height + scrollPosition.y
+    if animated {
+      updateTopBound(bound, duration: kDefaultAnimationDuration)
+      UIView.animate(withDuration: kDefaultAnimationDuration, animations: { [weak scrollView] in
+        scrollView?.contentOffset = scrollPosition
+        self.layoutIfNeeded()
+      }) { complete in
+        if complete {
+          completion?()
+        }
+      }
+    } else {
+      scrollView?.contentOffset = scrollPosition
+      completion?()
+    }
+  }
+
   private func showLastStop() {
     if let lastStop = scrollSteps.last {
       scrollTo(CGPoint(x: 0, y: lastStop.offset), forced: true)
@@ -229,7 +283,7 @@ final class PlacePageScrollView: UIScrollView {
 
   private func updateTopBound(_ bound: CGFloat, duration: TimeInterval) {
     alternativeSizeClass(iPhone: {
-      presenter.updateTopBound(bound, duration: duration)
+      interactor.updateTopBound(bound, duration: duration)
     }, iPad: {})
   }
 }
@@ -262,55 +316,6 @@ extension PlacePageViewController: PlacePageViewProtocol {
     if !beginDragging {
       let stateOffset = isPreviewPlus ? scrollSteps[2].offset : scrollSteps[1].offset + Constants.additionalPreviewOffset
       scrollTo(CGPoint(x: 0, y: stateOffset))
-    }
-  }
-
-  func addActionBar(_ actionBarViewController: UIViewController) {
-    addChild(actionBarViewController)
-    actionBarViewController.view.translatesAutoresizingMaskIntoConstraints = false
-    actionBarContainerView.addSubview(actionBarViewController.view)
-    actionBarViewController.didMove(toParent: self)
-    NSLayoutConstraint.activate([
-      actionBarViewController.view.leadingAnchor.constraint(equalTo: actionBarContainerView.leadingAnchor),
-      actionBarViewController.view.topAnchor.constraint(equalTo: actionBarContainerView.topAnchor),
-      actionBarViewController.view.trailingAnchor.constraint(equalTo: actionBarContainerView.trailingAnchor),
-      actionBarViewController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-    ])
-  }
-
-  func addNavigationBar(_ header: UIViewController) {
-    header.view.translatesAutoresizingMaskIntoConstraints = false
-    view.addSubview(header.view)
-    addChild(header)
-    NSLayoutConstraint.activate([
-      header.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      header.view.topAnchor.constraint(equalTo: view.topAnchor),
-      header.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-    ])
-  }
-
-  func scrollTo(_ point: CGPoint, animated: Bool = true, forced: Bool = false, completion: (() -> Void)? = nil) {
-    if alternativeSizeClass(iPhone: beginDragging, iPad: true) && !forced {
-      return
-    }
-    if forced {
-      beginDragging = true
-    }
-    let scrollPosition = CGPoint(x: point.x, y: min(scrollView.contentSize.height - scrollView.height, point.y))
-    let bound = view.height + scrollPosition.y
-    if animated {
-      updateTopBound(bound, duration: kDefaultAnimationDuration)
-      UIView.animate(withDuration: kDefaultAnimationDuration, animations: { [weak scrollView] in
-        scrollView?.contentOffset = scrollPosition
-        self.layoutIfNeeded()
-      }) { complete in
-        if complete {
-          completion?()
-        }
-      }
-    } else {
-      scrollView?.contentOffset = scrollPosition
-      completion?()
     }
   }
 
