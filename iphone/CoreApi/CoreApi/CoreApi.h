@@ -39,6 +39,7 @@ FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 #import <CoreApi/IOpeningHoursLocalization.h>
 #import <CoreApi/OpeningHours.h>
 #import <CoreApi/PlacePageBookmarkData.h>
+#import <CoreApi/PlacePageTrackData.h>
 #import <CoreApi/PlacePageButtonsData.h>
 #import <CoreApi/PlacePageData.h>
 #import <CoreApi/PlacePageInfoData.h>

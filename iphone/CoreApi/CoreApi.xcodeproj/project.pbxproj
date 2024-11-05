@@ -87,6 +87,9 @@
 		AC6A585728057EF6003EABAF /* StringUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = AC6A585628057CC1003EABAF /* StringUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED0B1FF42CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.h in Headers */ = {isa = PBXBuildFile; fileRef = ED0B1FF22CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED0B1FF52CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED0B1FF32CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.mm */; };
+		ED46DE3A2D09BE21007CACD6 /* PlacePageTrackData.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED46DE382D09BE21007CACD6 /* PlacePageTrackData.mm */; };
+		ED46DE3B2D09BE21007CACD6 /* PlacePageTrackData.h in Headers */ = {isa = PBXBuildFile; fileRef = ED46DE372D09BE21007CACD6 /* PlacePageTrackData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED46DE3C2D09BE21007CACD6 /* PlacePageTrackData+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = ED46DE392D09BE21007CACD6 /* PlacePageTrackData+Core.h */; };
 		ED49D7222CED0395004AF27E /* ProductsConfiguration+Core.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED49D7202CED0395004AF27E /* ProductsConfiguration+Core.mm */; };
 		ED49D7242CED03AC004AF27E /* ProductsConfiguration+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = ED49D7232CED03A8004AF27E /* ProductsConfiguration+Core.h */; };
 		ED49D75B2CEF8BD2004AF27E /* ProductsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED49D7562CEF850F004AF27E /* ProductsConfiguration.swift */; };
@@ -195,6 +198,9 @@
 		AC6A585628057CC1003EABAF /* StringUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringUtils.h; sourceTree = "<group>"; };
 		ED0B1FF22CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkInAppFeatureHighlightData.h; sourceTree = "<group>"; };
 		ED0B1FF32CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkInAppFeatureHighlightData.mm; sourceTree = "<group>"; };
+		ED46DE372D09BE21007CACD6 /* PlacePageTrackData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlacePageTrackData.h; sourceTree = "<group>"; };
+		ED46DE382D09BE21007CACD6 /* PlacePageTrackData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PlacePageTrackData.mm; sourceTree = "<group>"; };
+		ED46DE392D09BE21007CACD6 /* PlacePageTrackData+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlacePageTrackData+Core.h"; sourceTree = "<group>"; };
 		ED49D7202CED0395004AF27E /* ProductsConfiguration+Core.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "ProductsConfiguration+Core.mm"; sourceTree = "<group>"; };
 		ED49D7232CED03A8004AF27E /* ProductsConfiguration+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ProductsConfiguration+Core.h"; sourceTree = "<group>"; };
 		ED49D7562CEF850F004AF27E /* ProductsConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsConfiguration.swift; sourceTree = "<group>"; };
@@ -308,6 +314,9 @@
 		47942D5B237CC3B500DEFAE3 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				ED46DE372D09BE21007CACD6 /* PlacePageTrackData.h */,
+				ED46DE382D09BE21007CACD6 /* PlacePageTrackData.mm */,
+				ED46DE392D09BE21007CACD6 /* PlacePageTrackData+Core.h */,
 				47942D9A237D927800DEFAE3 /* PlacePageBookmarkData.h */,
 				47942D9E237D954400DEFAE3 /* PlacePageBookmarkData+Core.h */,
 				47942D9B237D927800DEFAE3 /* PlacePageBookmarkData.mm */,
@@ -515,6 +524,8 @@
 				47EEAFF72350D060005CF316 /* MWMCommon.h in Headers */,
 				ED965B142CD67A9B0049E39E /* AltitudeFormatter.h in Headers */,
 				47F0D2152516847F00BC685E /* MWMBookmarksSection.h in Headers */,
+				ED46DE3B2D09BE21007CACD6 /* PlacePageTrackData.h in Headers */,
+				ED46DE3C2D09BE21007CACD6 /* PlacePageTrackData+Core.h in Headers */,
 				47CA68E82506F61300671019 /* MWMTrack.h in Headers */,
 				472602A824092C5B00731135 /* MWMGeoUtil.h in Headers */,
 				47D9019523AC22E500D9364C /* MWMMapUpdateInfo.h in Headers */,
@@ -667,6 +678,7 @@
 				ED965B0D2CD67A470049E39E /* DistanceFormatter.mm in Sources */,
 				EDC4E3512C5D222D009286A2 /* RecentlyDeletedCategory.mm in Sources */,
 				ED49D75B2CEF8BD2004AF27E /* ProductsConfiguration.swift in Sources */,
+				ED46DE3A2D09BE21007CACD6 /* PlacePageTrackData.mm in Sources */,
 				47CA68DE2502022400671019 /* MWMBookmark.mm in Sources */,
 				9957FAE9237AE5B000855F48 /* Logger.mm in Sources */,
 				ED965B222CD8F5AA0049E39E /* DurationFormatter.mm in Sources */,
