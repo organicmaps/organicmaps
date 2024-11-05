@@ -1063,7 +1063,10 @@ void KmlParser::Pop(std::string_view tag)
     auto & lines = m_geometry.m_lines;
     ASSERT(!lines.empty(), ());
     if (lines.back().size() < 2)
+    {
       lines.pop_back();
+      m_geometry.m_timestamps.pop_back();
+    }
   }
   else if (IsProcessTrackCoord())
   {
