@@ -13,6 +13,8 @@ set(SRC
   country_file.hpp
   distance.cpp
   distance.hpp
+  duration.cpp
+  duration.hpp
   downloader_defines.hpp
   downloader_utils.cpp
   downloader_utils.hpp
