@@ -67,7 +67,7 @@ final class PlacePagePreviewViewController: UIViewController {
     updateViews()
   }
 
-  private func updateViews() {
+  func updateViews() {
     if placePagePreviewData.isMyPosition {
       if let speedAndAltitude = speedAndAltitude {
         subtitleLabel.text = speedAndAltitude
@@ -91,7 +91,7 @@ final class PlacePagePreviewViewController: UIViewController {
 
     placePageDirectionView = subtitleDirectionView
 
-    if let address = placePagePreviewData.address {
+    if let address = placePagePreviewData.secondarySubtitle {
       addressLabel.text = address
       placePageDirectionView = addressDirectionView
     } else {
@@ -149,6 +149,8 @@ final class PlacePagePreviewViewController: UIViewController {
     }
 
     switch placePagePreviewData.schedule.state {
+    case .unknown:
+      scheduleContainerView.isHidden = true
     case .allDay:
       setScheduleLabel(state: L("twentyfour_seven"),
                        stateColor: UIColor.systemGreen,
@@ -212,9 +214,6 @@ final class PlacePagePreviewViewController: UIViewController {
       setScheduleLabel(state: L("closed_now"),
                        stateColor: UIColor.systemRed,
                        details: details)
-      
-    case .unknown:
-      scheduleContainerView.isHidden = true
       
     @unknown default:
       fatalError()
