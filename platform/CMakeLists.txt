@@ -93,7 +93,6 @@ if (PLATFORM_IPHONE)
     platform_unix_impl.hpp
     secure_storage_ios.mm
     socket_apple.mm
-    trace_empty.cpp
   )
 elseif(${PLATFORM_ANDROID})
   append(SRC
@@ -128,7 +127,6 @@ else() # neither iPhone nor Android
     location_service.hpp
     network_policy_dummy.cpp
     platform_qt.cpp
-    trace_empty.cpp
     "${CMAKE_CURRENT_BINARY_DIR}/platform_qt_version.cpp"
   )
 

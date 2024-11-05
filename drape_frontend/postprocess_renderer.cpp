@@ -10,7 +10,7 @@
 #include "drape/texture_manager.hpp"
 #include "drape/render_state.hpp"
 
-#include "platform/platform.hpp"
+#include "platform/trace.hpp"
 
 #include "base/assert.hpp"
 

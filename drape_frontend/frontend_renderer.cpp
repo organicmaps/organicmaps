@@ -28,7 +28,7 @@
 
 #include "geometry/any_rect2d.hpp"
 
-#include "platform/platform.hpp"
+#include "platform/trace.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
