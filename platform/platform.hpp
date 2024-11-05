@@ -4,7 +4,6 @@
 #include "platform/country_defines.hpp"
 #include "platform/gui_thread.hpp"
 #include "platform/secure_storage.hpp"
-#include "platform/trace.hpp"
 
 #include "coding/reader.hpp"
 

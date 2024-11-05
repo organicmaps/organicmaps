@@ -2,7 +2,7 @@
 
 #include "drape/drape_routine.hpp"
 
-#include "platform/platform.hpp"
+#include "platform/trace.hpp"
 
 #include "base/macros.hpp"
 

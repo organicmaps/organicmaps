@@ -44,7 +44,7 @@ public:
 };
 }  // namespace platform
 
-#ifdef ENABLE_TRACE
+#ifdef ENABLE_TRACE && OMIM_OS_ANDROID
 #define TRACE_SECTION(section) platform::TraceSection ___section(section)
 #define TRACE_COUNTER(name, value) platform::Trace::Instance().SetCounter(name, value)
 #else
