@@ -91,7 +91,9 @@
 		ED965B102CD67A470049E39E /* DistanceFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = ED965B092CD67A470049E39E /* DistanceFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED965B132CD67A9B0049E39E /* AltitudeFormatter.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED965B122CD67A9B0049E39E /* AltitudeFormatter.mm */; };
 		ED965B142CD67A9B0049E39E /* AltitudeFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = ED965B112CD67A9B0049E39E /* AltitudeFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED965B162CD67ABA0049E39E /* DateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED965B152CD67ABA0049E39E /* DateTimeFormatter.swift */; };
+		ED965B222CD8F5AA0049E39E /* DurationFormatter.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED965B212CD8F5AA0049E39E /* DurationFormatter.mm */; };
+		ED965B232CD8F5AA0049E39E /* DurationFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = ED965B202CD8F5AA0049E39E /* DurationFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED965B2A2CDA1C440049E39E /* DateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED965B282CDA159C0049E39E /* DateTimeFormatter.swift */; };
 		EDC4E3512C5D222D009286A2 /* RecentlyDeletedCategory.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E34E2C5D222D009286A2 /* RecentlyDeletedCategory.mm */; };
 		EDC4E3522C5D222D009286A2 /* RecentlyDeletedCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = EDC4E34F2C5D222D009286A2 /* RecentlyDeletedCategory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EDC4E3532C5D222D009286A2 /* RecentlyDeletedCategory+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = EDC4E3502C5D222D009286A2 /* RecentlyDeletedCategory+Core.h */; };
@@ -189,7 +191,9 @@
 		ED965B0A2CD67A470049E39E /* DistanceFormatter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DistanceFormatter.mm; sourceTree = "<group>"; };
 		ED965B112CD67A9B0049E39E /* AltitudeFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AltitudeFormatter.h; sourceTree = "<group>"; };
 		ED965B122CD67A9B0049E39E /* AltitudeFormatter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AltitudeFormatter.mm; sourceTree = "<group>"; };
-		ED965B152CD67ABA0049E39E /* DateTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeFormatter.swift; sourceTree = "<group>"; };
+		ED965B202CD8F5AA0049E39E /* DurationFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DurationFormatter.h; sourceTree = "<group>"; };
+		ED965B212CD8F5AA0049E39E /* DurationFormatter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DurationFormatter.mm; sourceTree = "<group>"; };
+		ED965B282CDA159C0049E39E /* DateTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeFormatter.swift; sourceTree = "<group>"; };
 		EDC4E34E2C5D222D009286A2 /* RecentlyDeletedCategory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RecentlyDeletedCategory.mm; sourceTree = "<group>"; };
 		EDC4E34F2C5D222D009286A2 /* RecentlyDeletedCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentlyDeletedCategory.h; sourceTree = "<group>"; };
 		EDC4E3502C5D222D009286A2 /* RecentlyDeletedCategory+Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RecentlyDeletedCategory+Core.h"; sourceTree = "<group>"; };
@@ -434,11 +438,13 @@
 		ED965B0B2CD67A470049E39E /* Formatting */ = {
 			isa = PBXGroup;
 			children = (
-				ED965B152CD67ABA0049E39E /* DateTimeFormatter.swift */,
 				ED965B112CD67A9B0049E39E /* AltitudeFormatter.h */,
 				ED965B122CD67A9B0049E39E /* AltitudeFormatter.mm */,
 				ED965B092CD67A470049E39E /* DistanceFormatter.h */,
 				ED965B0A2CD67A470049E39E /* DistanceFormatter.mm */,
+				ED965B282CDA159C0049E39E /* DateTimeFormatter.swift */,
+				ED965B202CD8F5AA0049E39E /* DurationFormatter.h */,
+				ED965B212CD8F5AA0049E39E /* DurationFormatter.mm */,
 			);
 			path = Formatting;
 			sourceTree = "<group>";
@@ -506,6 +512,7 @@
 				47942D9C237D927800DEFAE3 /* PlacePageBookmarkData.h in Headers */,
 				EDC4E3522C5D222D009286A2 /* RecentlyDeletedCategory.h in Headers */,
 				47942D72237CC40B00DEFAE3 /* OpeningHours.h in Headers */,
+				ED965B232CD8F5AA0049E39E /* DurationFormatter.h in Headers */,
 				ED0B1FF42CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.h in Headers */,
 				47942D6B237CC3D600DEFAE3 /* PlacePageData.h in Headers */,
 				47D609DC234FE625008ECC47 /* MWMBookmarksObserver.h in Headers */,
@@ -593,7 +600,6 @@
 				47942D88237CCA8800DEFAE3 /* PlacePagePreviewData.mm in Sources */,
 				47942D9D237D927800DEFAE3 /* PlacePageBookmarkData.mm in Sources */,
 				47942D86237CC55500DEFAE3 /* MWMOpeningHoursCommon.mm in Sources */,
-				ED965B162CD67ABA0049E39E /* DateTimeFormatter.swift in Sources */,
 				9974CA2A23DF1968003FE824 /* ElevationProfileData.mm in Sources */,
 				47942D82237CC52A00DEFAE3 /* MWMOpeningHours.mm in Sources */,
 				ED965B132CD67A9B0049E39E /* AltitudeFormatter.mm in Sources */,
@@ -616,12 +622,14 @@
 				472602A924092C5B00731135 /* MWMGeoUtil.mm in Sources */,
 				47F701F0238C86F000D18E95 /* PlacePageButtonsData.mm in Sources */,
 				9940622123EAC57900493D1A /* ElevationHeightPoint.m in Sources */,
+				ED965B2A2CDA1C440049E39E /* DateTimeFormatter.swift in Sources */,
 				47EEAFF42350CEDB005CF316 /* AppInfo.mm in Sources */,
 				47E8163623B1889C008FD836 /* MWMStorage.mm in Sources */,
 				ED965B0D2CD67A470049E39E /* DistanceFormatter.mm in Sources */,
 				EDC4E3512C5D222D009286A2 /* RecentlyDeletedCategory.mm in Sources */,
 				47CA68DE2502022400671019 /* MWMBookmark.mm in Sources */,
 				9957FAE9237AE5B000855F48 /* Logger.mm in Sources */,
+				ED965B222CD8F5AA0049E39E /* DurationFormatter.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
