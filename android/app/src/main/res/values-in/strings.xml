@@ -514,6 +514,7 @@
     <string name="miles_per_hour">mpj</string>
     <string name="hour">j</string>
     <string name="minute">mnt</string>
+    <string name="day">hr</string>
     <string name="placepage_more_button">Lainnya</string>
     <!-- A referral link on the place page for some hotels -->
     <string name="more_on_kayak">Foto, ulasan, pemesanan</string>

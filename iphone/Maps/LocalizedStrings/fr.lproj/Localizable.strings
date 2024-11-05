@@ -795,6 +795,8 @@
 
 "minute" = "min";
 
+"day" = "j";
+
 "placepage_more_button" = "Plus";
 
 "book_button" = "Réserver";

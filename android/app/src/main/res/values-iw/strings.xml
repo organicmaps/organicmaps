@@ -537,6 +537,7 @@
     <string name="miles_per_hour">מייל לשעה</string>
     <string name="hour">ש׳</string>
     <string name="minute">ד׳</string>
+    <string name="day">י</string>
     <string name="placepage_more_button">עוד</string>
     <!-- A referral link on the place page for some hotels -->
     <string name="more_on_kayak">תמונות, ביקורות, הזמנה</string>

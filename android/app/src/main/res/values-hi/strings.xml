@@ -407,6 +407,7 @@
     <string name="km">किमी</string>
     <string name="hour">घंटे</string>
     <string name="minute">मिनट</string>
+    <string name="day">दिन</string>
     <!-- A referral link on the place page for some hotels -->
     <string name="more_on_kayak">तस्वीरें, समीक्षाएँ, बुकिंग</string>
     <!-- An explanation dialog shown when clicking on more_on_kayak link. -->

@@ -512,6 +512,7 @@
     <string name="miles_per_hour">mph</string>
     <string name="hour">t</string>
     <string name="minute">min</string>
+    <string name="day">일</string>
     <string name="placepage_more_button">자세히</string>
     <!-- A referral link on the place page for some hotels -->
     <string name="more_on_kayak">사진, 리뷰, 예약</string>

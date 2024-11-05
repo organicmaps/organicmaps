@@ -539,6 +539,7 @@
     <string name="miles_per_hour">mph</string>
     <string name="hour">u</string>
     <string name="minute">min</string>
+    <string name="day">d</string>
     <string name="placepage_more_button">Meer</string>
     <!-- A referral link on the place page for some hotels -->
     <string name="more_on_kayak">Foto\'s, beoordelingen, boeken</string>

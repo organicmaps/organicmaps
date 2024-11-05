@@ -519,6 +519,7 @@
     <string name="miles_per_hour">mil/h</string>
     <string name="hour">hod</string>
     <string name="minute">min</string>
+    <string name="day">d</string>
     <string name="placepage_more_button">Více</string>
     <!-- A referral link on the place page for some hotels -->
     <string name="more_on_kayak">Fotografie, recenze, rezervace</string>

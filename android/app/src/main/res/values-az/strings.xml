@@ -542,6 +542,7 @@
     <string name="miles_per_hour">mil/saat</string>
     <string name="hour">saat</string>
     <string name="minute">dəq</string>
+    <string name="day">gün</string>
     <string name="placepage_more_button">Digər</string>
     <!-- A referral link on the place page for some hotels -->
     <string name="more_on_kayak">Şəkillər, rəylər, rezervasiya</string>

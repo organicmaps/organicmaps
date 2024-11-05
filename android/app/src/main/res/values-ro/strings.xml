@@ -525,6 +525,7 @@
     <string name="miles_per_hour">mph</string>
     <string name="hour">h</string>
     <string name="minute">min</string>
+    <string name="day">z</string>
     <string name="placepage_more_button">Mai mult</string>
     <!-- A referral link on the place page for some hotels -->
     <string name="more_on_kayak">Fotografii, comentarii, rezervări</string>

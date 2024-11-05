@@ -545,6 +545,7 @@
     <string name="miles_per_hour">ми/год</string>
     <string name="hour">год</string>
     <string name="minute">хв</string>
+    <string name="day">д</string>
     <string name="placepage_more_button">Ще</string>
     <!-- A referral link on the place page for some hotels -->
     <string name="more_on_kayak">Фото, відгуки, бронювання</string>

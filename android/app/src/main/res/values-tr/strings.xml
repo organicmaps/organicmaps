@@ -545,6 +545,7 @@
     <string name="miles_per_hour">saatte mil</string>
     <string name="hour">sa</string>
     <string name="minute">dk</string>
+    <string name="day">g</string>
     <string name="placepage_more_button">Diğer</string>
     <!-- A referral link on the place page for some hotels -->
     <string name="more_on_kayak">Fotoğraflar, yorumlar, rezervasyon</string>
