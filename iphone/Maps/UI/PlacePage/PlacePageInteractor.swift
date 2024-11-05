@@ -23,19 +23,15 @@ class PlacePageInteractor: NSObject {
     removeFromBookmarksManagerObserverList()
   }
 
-  private func updateBookmarkIfNeeded() {
-    if placePageData.isTrack {
-      guard let trackId = placePageData.trackData?.trackId, bookmarksManager.hasTrack(trackId) else {
-        presenter?.closeAnimated()
-        return
-      }
-    } else {
-      guard let bookmarkId = placePageData.bookmarkData?.bookmarkId, bookmarksManager.hasBookmark(bookmarkId) else {
-        return
-      }
-      FrameworkHelper.updatePlacePageData()
-      placePageData.updateBookmarkStatus()
+  private func updatePlacePageIfNeeded() {
+    let isBookmark = placePageData.bookmarkData != nil && bookmarksManager.hasBookmark(placePageData.bookmarkData!.bookmarkId)
+    let isTrack = placePageData.trackData != nil && bookmarksManager.hasTrack(placePageData.trackData!.trackId)
+    guard isBookmark || isTrack else {
+      presenter?.closeAnimated()
+      return
     }
+    FrameworkHelper.updatePlacePageData()
+    placePageData.updateBookmarkStatus()
   }
 
   private func addToBookmarksManagerObserverList() {
@@ -54,7 +50,7 @@ extension PlacePageInteractor: PlacePageInteractorProtocol {
       viewWillAppearIsCalledForTheFirstTime = true
       return
     }
-    updateBookmarkIfNeeded()
+    updatePlacePageIfNeeded()
   }
 
   func updateTopBound(_ bound: CGFloat, duration: TimeInterval) {
@@ -284,7 +280,7 @@ extension PlacePageInteractor: PlacePageHeaderViewControllerDelegate {
 // MARK: - BookmarksObserver
 extension PlacePageInteractor: BookmarksObserver {
   func onBookmarksLoadFinished() {
-    updateBookmarkIfNeeded()
+    updatePlacePageIfNeeded()
   }
 
   func onBookmarksCategoryDeleted(_ groupId: MWMMarkGroupID) {
