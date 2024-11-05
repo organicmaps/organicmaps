@@ -145,13 +145,6 @@ public class MwmApplication extends Application implements Application.ActivityL
   {
     super.onCreate();
 
-    //this will enable the strict mode only when the application is in debug mode
-    if (BuildConfig.DEBUG)
-    {
-      enableStrictMode();
-    }
-
-
     Logger.i(TAG, "Initializing application");
     LogsManager.INSTANCE.initFileLogging(this);
 
@@ -227,7 +220,7 @@ public class MwmApplication extends Application implements Application.ActivityL
     Logger.i(TAG, "Platform initialized");
   }
 
-  private void enableStrictMode()
+  private static void enableStrictMode()
   {
     StrictMode.ThreadPolicy.Builder threadPolicyBuilder = new StrictMode.ThreadPolicy.Builder()
         .detectDiskReads()
@@ -238,10 +231,8 @@ public class MwmApplication extends Application implements Application.ActivityL
 
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-    {
       threadPolicyBuilder.detectResourceMismatches();
-      threadPolicyBuilder.detectExplicitGc();
-    }
+
 
     StrictMode.setThreadPolicy(threadPolicyBuilder.build());
 
@@ -254,14 +245,12 @@ public class MwmApplication extends Application implements Application.ActivityL
 
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-    {
       vmPolicyBuilder.detectCleartextNetwork();
-    }
+
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM)
-    {
       vmPolicyBuilder.detectUnsafeIntentLaunch();
-    }
+
 
     StrictMode.setVmPolicy(vmPolicyBuilder.build());
   }
@@ -322,6 +311,10 @@ public class MwmApplication extends Application implements Application.ActivityL
   static
   {
     System.loadLibrary("organicmaps");
+
+    // This will enable the strict mode only when there is debug build.
+    if (BuildConfig.DEBUG)
+      enableStrictMode();
   }
 
   // Called from JNI.
