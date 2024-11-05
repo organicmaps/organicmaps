@@ -62,7 +62,7 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
     }
 
     if data.trackTime != 0 {
-      let eta = DateTimeFormatter.durationString(from: TimeInterval(data.trackTime))
+      let eta = DurationFormatter.durationString(from: TimeInterval(data.trackTime))
       view?.isTimeHidden = false
       view?.setTrackTime("\(eta)")
     } else {
