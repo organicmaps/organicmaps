@@ -17940,6 +17940,50 @@
     zh-Hans = 分钟
     zh-Hant = 分鐘
 
+  [day]
+    tags = android,ios
+    en = d
+    af = d
+    ar = يوم
+    az = gün
+    be = д
+    bg = д
+    ca = d
+    cs = d
+    da = d
+    de = d
+    es = d
+    et = p
+    eu = e
+    fa = روز
+    fi = pv
+    fr = j
+    he = י
+    hi = दिन
+    hu = nap
+    id = hr
+    it = g
+    ja = 日
+    ko = 일
+    lt = d
+    lv = d
+    mr = दि
+    nb = d
+    nl = d
+    pl = d
+    pt = dia
+    pt-BR = dia
+    ro = z
+    ru = д
+    sk = d
+    sv = d
+    th = วัน
+    tr = g
+    uk = д
+    vi = ngày
+    zh-Hans = 天
+    zh-Hant = 天
+
   [placepage_more_button]
     tags = android,ios
     en = More
