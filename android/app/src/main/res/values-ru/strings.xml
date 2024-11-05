@@ -548,6 +548,7 @@
     <string name="miles_per_hour">ми/ч</string>
     <string name="hour">ч</string>
     <string name="minute">мин</string>
+    <string name="day">д</string>
     <string name="placepage_more_button">Ещё</string>
     <!-- A referral link on the place page for some hotels -->
     <string name="more_on_kayak">Фотографии, отзывы, бронирование</string>

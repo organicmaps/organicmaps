@@ -795,6 +795,8 @@
 
 "minute" = "mnt";
 
+"day" = "hr";
+
 "placepage_more_button" = "Lainnya";
 
 "book_button" = "Pesan";

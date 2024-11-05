@@ -795,6 +795,8 @@
 
 "minute" = "min";
 
+"day" = "pv";
+
 "placepage_more_button" = "Lisää";
 
 "book_button" = "Varaa";
