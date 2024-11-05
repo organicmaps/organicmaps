@@ -232,14 +232,15 @@ public class MwmApplication extends Application implements Application.ActivityL
     StrictMode.ThreadPolicy.Builder threadPolicyBuilder = new StrictMode.ThreadPolicy.Builder()
         .detectDiskReads()
         .detectDiskWrites()
-        .detectNetwork()   // or .detectAll() for all detectable problems
+        .detectNetwork()
+        .detectCustomSlowCalls()
         .penaltyLog();
 
-    threadPolicyBuilder.detectCustomSlowCalls();
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
     {
       threadPolicyBuilder.detectResourceMismatches();
+      threadPolicyBuilder.detectExplicitGc();
     }
 
     StrictMode.setThreadPolicy(threadPolicyBuilder.build());
@@ -247,9 +248,10 @@ public class MwmApplication extends Application implements Application.ActivityL
     StrictMode.VmPolicy.Builder vmPolicyBuilder = new StrictMode.VmPolicy.Builder()
         .detectLeakedSqlLiteObjects()
         .detectLeakedClosableObjects()
+        .detectFileUriExposure()
         .penaltyLog();
 
-    vmPolicyBuilder.detectFileUriExposure();
+
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
     {
