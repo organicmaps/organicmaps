@@ -110,22 +110,17 @@ NSString *const kSettingsSegue = @"Map2Settings";
 
 #pragma mark - Map Navigation
 
-- (void)showOrUpdatePlacePage {
-  if (!PlacePageData.hasData) {
-    return;
-  }
-
+- (void)showOrUpdatePlacePage:(PlacePageData *)data {
   self.controlsManager.trafficButtonHidden = YES;
-
   if (self.placePageVC != nil) {
-    [PlacePageBuilder update:(PlacePageViewController *)self.placePageVC];
+    [PlacePageBuilder update:(PlacePageViewController *)self.placePageVC with:data];
     return;
   }
-  [self showRegularPlacePage];
+  [self showPlacePageFor:data];
 }
 
-- (void)showRegularPlacePage {
-  self.placePageVC = [PlacePageBuilder build];
+- (void)showPlacePageFor:(PlacePageData *)data {
+  self.placePageVC = [PlacePageBuilder buildFor:data];
   self.placePageContainer.hidden = NO;
   self.placePageVC.view.translatesAutoresizingMaskIntoConstraints = NO;
   [self.placePageContainer addSubview:self.placePageVC.view];
@@ -191,7 +186,11 @@ NSString *const kSettingsSegue = @"Map2Settings";
 }
 
 - (void)onMapObjectSelected {
-  [self showOrUpdatePlacePage];
+  if (!PlacePageData.hasData) {
+    return;
+  }
+  PlacePageData * data = [[PlacePageData alloc] initWithLocalizationProvider:[[OpeinigHoursLocalization alloc] init]];
+  [self showOrUpdatePlacePage:data];
 }
 
 - (void)onMapObjectUpdated {
