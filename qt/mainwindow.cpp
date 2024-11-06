@@ -121,10 +121,6 @@ MainWindow::MainWindow(Framework & framework,
   int const height = m_screenshotMode ? static_cast<int>(screenshotParams->m_height) : 0;
   m_pDrawWidget = new DrawWidget(framework, std::move(screenshotParams), this);
 
-  QList<Qt::GestureType> gestures;
-  gestures << Qt::PinchGesture;
-  m_pDrawWidget->grabGestures(gestures);
-
   setCentralWidget(m_pDrawWidget);
 
   if (m_screenshotMode)

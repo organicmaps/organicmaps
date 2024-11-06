@@ -75,6 +75,10 @@ protected:
   //@{
   void initializeGL() override;
 
+  // Touch events
+  bool event(QEvent * event) override;
+
+  // Non-touch events
   void mousePressEvent(QMouseEvent * e) override;
   void mouseMoveEvent(QMouseEvent * e) override;
   void mouseReleaseEvent(QMouseEvent * e) override;

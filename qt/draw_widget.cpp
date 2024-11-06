@@ -78,6 +78,25 @@ void DrawMwmBorder(df::DrapeApi & drapeApi, std::string const & mwmName,
     kColorCounter = (kColorCounter + 1) % colorList.size();
   }
 }
+
+bool isQtTouchEvent(QEvent * event)
+{
+  const std::unordered_set<QEvent::Type> touchEventTypes {QEvent::TouchBegin, QEvent::TouchCancel, QEvent::TouchEnd, QEvent::TouchUpdate};
+  return touchEventTypes.contains(event->type());
+}
+
+df::TouchEvent::ETouchType qtTouchEventTypeToDfTouchEventType(QEvent::Type qEventType)
+{
+  switch (qEventType)
+  {
+    case QEvent::TouchBegin: return df::TouchEvent::TOUCH_DOWN;
+    case QEvent::TouchEnd: return df::TouchEvent::TOUCH_UP;
+    case QEvent::TouchUpdate: return df::TouchEvent::TOUCH_MOVE;
+    case QEvent::TouchCancel: return df::TouchEvent::TOUCH_CANCEL;
+    default: UNREACHABLE();
+  }
+  UNREACHABLE();
+}
 }  // namespace
 
 DrawWidget::DrawWidget(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams,
@@ -195,6 +214,35 @@ void DrawWidget::initializeGL()
     m_screenshoter->Start();
 }
 
+bool DrawWidget::event(QEvent * event)
+{
+  if (!isQtTouchEvent(event))
+    return QOpenGLWidget::event(event);
+
+  event->accept();
+  QTouchEvent const * qtTouchEvent = dynamic_cast<QTouchEvent const *>(event);
+  df::TouchEvent dfTouchEvent;
+  // The SetTouchType hast to be set even if `qtTouchEvent->points()` is empty
+  // which theoretically can happen in case of `QEvent::TouchCancel`
+  dfTouchEvent.SetTouchType(qtTouchEventTypeToDfTouchEventType(qtTouchEvent->type()));
+
+  int64_t i = 0;
+  for (auto it = qtTouchEvent->points().cbegin();
+       it != qtTouchEvent->points().cend() && i < 2; /* For now drape_frontend can only handle max 2 touches */
+       ++it, ++i)
+  {
+    df::Touch touch;
+    touch.m_id = i;
+    touch.m_location = m2::PointD(L2D(it->position().x()), L2D(it->position().y()));
+    if (i == 0)
+       dfTouchEvent.SetFirstTouch(touch);
+    else
+       dfTouchEvent.SetSecondTouch(touch);
+  }
+  m_framework.TouchEvent(dfTouchEvent);
+  return true;
+}
+
 void DrawWidget::mousePressEvent(QMouseEvent * e)
 {
   if (m_screenshotMode)
@@ -213,7 +261,7 @@ void DrawWidget::mousePressEvent(QMouseEvent * e)
     else if (IsAltModifier(e))
       SubmitFakeLocationPoint(pt);
     else
-      m_framework.TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_DOWN));
+      m_framework.TouchEvent(GetDfTouchEventFromQMouseEvent(e, df::TouchEvent::TOUCH_DOWN));
   }
   else if (IsRightButton(e))
   {
@@ -245,7 +293,7 @@ void DrawWidget::mouseMoveEvent(QMouseEvent * e)
 
   if (IsLeftButton(e) && !IsAltModifier(e))
   {
-    m_framework.TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_MOVE));
+    m_framework.TouchEvent(GetDfTouchEventFromQMouseEvent(e, df::TouchEvent::TOUCH_MOVE));
     e->accept();
   }
 
@@ -318,7 +366,7 @@ void DrawWidget::mouseReleaseEvent(QMouseEvent * e)
   QOpenGLWidget::mouseReleaseEvent(e);
   if (IsLeftButton(e) && !IsAltModifier(e))
   {
-    m_framework.TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_UP));
+    m_framework.TouchEvent(GetDfTouchEventFromQMouseEvent(e, df::TouchEvent::TOUCH_UP));
   }
   else if (m_selectionMode && IsRightButton(e) &&
            m_rubberBand != nullptr && m_rubberBand->isVisible())
