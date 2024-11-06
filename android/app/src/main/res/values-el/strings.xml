@@ -778,6 +778,8 @@
     <string name="enable_show_on_lock_screen">Εμφάνιση στην Οθόνη Κλειδώματος</string>
     <!-- Description in preferences -->
     <string name="enable_show_on_lock_screen_description">Αν ενεργοποιηθεί, η εφαρμογή θα λειτουργεί και στην Οθόνη Κλειδώματος ακόμα και αν η συσκευή είναι κλειδωμένη.</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">Γλώσσα χάρτη</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Δεδομένα χάρτη από το OpenStreetMap</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->

@@ -809,6 +809,8 @@
     <string name="enable_show_on_lock_screen">Show on the lock screen</string>
     <!-- Description in preferences -->
     <string name="enable_show_on_lock_screen_description">When enabled, the app will work on the lockscreen even when the device is locked.</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">Map language</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Map data from OpenStreetMap</string>
     <!-- Telegram group url for the "?" About page -->

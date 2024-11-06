@@ -705,6 +705,8 @@
     <string name="enable_show_on_lock_screen">Mostrar na tela de bloqueio</string>
     <!-- Description in preferences -->
     <string name="enable_show_on_lock_screen_description">Quando ativado, você não precisará debloquear seu dispositivo toda vez que o aplicativo estiver funcionando</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">Idioma do mapa</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Dados do mapa do OpenStreetMap</string>
     <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->

@@ -515,6 +515,8 @@
     <string name="enable_show_on_lock_screen">लॉक स्क्रीन पर दिखाएँ</string>
     <!-- Description in preferences -->
     <string name="enable_show_on_lock_screen_description">सक्षम होने पर, डिवाइस लॉक होने पर भी ऐप लॉकस्क्रीन पर काम करेगा।</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">मानचित्र भाषा</string>
     <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
     <string name="translated_om_site_url">https://organicmaps.app/hi/</string>
     <!-- App Tip #00 -->

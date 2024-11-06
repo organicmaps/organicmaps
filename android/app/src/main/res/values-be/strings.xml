@@ -769,6 +769,8 @@
     <string name="enable_show_on_lock_screen">Паказваць на экране блакіроўкі</string>
     <!-- Description in preferences -->
     <string name="enable_show_on_lock_screen_description">Калі ўключана, вам не трэба разблакіраваць прыладу кожны раз падчас працы праграмы.</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">Мова карты</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Даныя карты з OpenStreetMap</string>
     <!-- Telegram group url for the "?" About page -->

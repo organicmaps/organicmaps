@@ -790,6 +790,8 @@
     <string name="enable_show_on_lock_screen">在锁屏上显示</string>
     <!-- Description in preferences -->
     <string name="enable_show_on_lock_screen_description">启用后，即使设备已锁定，应用程序仍将在锁屏上运行。</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">地图语言</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">地图数据来自 OpenStreetMap</string>
     <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
