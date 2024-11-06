@@ -772,6 +772,8 @@
     <string name="enable_show_on_lock_screen">Kuva lukustusekraanil</string>
     <!-- Description in preferences -->
     <string name="enable_show_on_lock_screen_description">Kui lubatud, ei pea te seadet iga kord avama, kui rakendus töötab.</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">Kaardikeel</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">OpenStreetMap kaardiandmed</string>
     <!-- App Tip #00 -->

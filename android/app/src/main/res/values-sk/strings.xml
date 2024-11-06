@@ -774,6 +774,8 @@
     <string name="enable_show_on_lock_screen">Zobraziť na uzamknutej obrazovke</string>
     <!-- Description in preferences -->
     <string name="enable_show_on_lock_screen_description">Ak je táto funkcia zapnutá, aplikácia bude aktívna aj keď je zariadenie uzamknuté</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">Jazyk mapy</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Mapové údaje z OpenStreetMap</string>
     <!-- App Tip #00 -->

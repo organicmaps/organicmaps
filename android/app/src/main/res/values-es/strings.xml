@@ -777,6 +777,8 @@
     <string name="enable_show_on_lock_screen">Mostrar en la pantalla de bloqueo</string>
     <!-- Description in preferences -->
     <string name="enable_show_on_lock_screen_description">Cuando está habilitado, no tiene que desbloquear su dispositivo mientras la aplicación se está ejecutando.</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">Idioma del mapa</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Datos de mapas de OpenStreetMap</string>
     <!-- A link to the TTS FAQ -->

@@ -777,6 +777,8 @@
     <string name="enable_show_on_lock_screen">Näytä lukitusnäytöllä</string>
     <!-- Description in preferences -->
     <string name="enable_show_on_lock_screen_description">Kun käytössä, sovellus toimii lukitusnäytöllä vaikka laite olisi lukittuna.</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">Karttakieli</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">OpenStreetMapin karttatiedot</string>
     <!-- App Tip #00 -->

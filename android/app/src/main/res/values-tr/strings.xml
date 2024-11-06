@@ -779,6 +779,8 @@
     <string name="enable_show_on_lock_screen">Kilit ekranında göster</string>
     <!-- Description in preferences -->
     <string name="enable_show_on_lock_screen_description">Etkinleştirildiğinde, uygulama çalışırken her seferinde cihazınızın kilidini açmanıza gerek kalmaz.</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">Harita dili</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Harita verileri OpenStreetMap\'ten</string>
     <!-- Telegram group url for the "?" About page -->

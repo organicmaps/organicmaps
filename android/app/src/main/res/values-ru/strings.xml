@@ -790,6 +790,8 @@
     <string name="enable_show_on_lock_screen">Показывать на экране блокировки</string>
     <!-- Description in preferences -->
     <string name="enable_show_on_lock_screen_description">Если эта функция включена, вам не нужно каждый раз разблокировать устройство во время работы приложения.</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">Язык карты</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Картографические данные из OpenStreetMap</string>
     <!-- Telegram group url for the "?" About page -->
