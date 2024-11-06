@@ -4535,7 +4535,7 @@ vi:Diểm tham quan
 zh-Hans:陵墓
 zh-Hant:陵墓
 
-historic-wayside_cross|@category_tourism
+historic-wayside_cross
 en:Wayside cross
 ar:صليب مسيحي
 be:Прыдарожны крыж
@@ -4573,7 +4573,7 @@ vi:Đường chéo
 zh-Hans:路旁十字架
 zh-Hant:路旁十字架
 
-historic-wayside_shrine|@category_tourism
+historic-wayside_shrine
 en:Wayside shrine
 ar:ضريح
 be:Прыдарожная святыня
