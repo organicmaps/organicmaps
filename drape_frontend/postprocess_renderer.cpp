@@ -7,7 +7,6 @@
 #include "drape/glsl_types.hpp"
 #include "drape/graphics_context.hpp"
 #include "drape/mesh_object.hpp"
-#include "drape/texture_manager.hpp"
 #include "drape/render_state.hpp"
 
 #include "platform/trace.hpp"
@@ -380,7 +379,7 @@ bool PostprocessRenderer::EndFrame(ref_ptr<dp::GraphicsContext> context,
     context->Clear(dp::ClearBits::ColorBit, dp::ClearBits::ColorBit /* storeBits */);
     context->ApplyFramebuffer("Dynamic frame");
     viewport.Apply(context);
-    
+
     DefaultScreenQuadRenderParams params;
     params.SetParams(finalFramebuffer->GetTexture());
 
