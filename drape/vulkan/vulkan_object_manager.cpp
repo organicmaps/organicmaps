@@ -4,8 +4,6 @@
 
 #include "platform/trace.hpp"
 
-#include "base/macros.hpp"
-
 #include <algorithm>
 #include <cstring>
 
@@ -414,9 +412,6 @@ void VulkanObjectManager::Fill(VulkanObject object, void const * data, uint32_t 
 
 void VulkanObjectManager::CreateDescriptorPool()
 {
-  // Maximum descriptors sets count in the pool.
-  uint32_t constexpr kMaxDescriptorsSetCount = 256 * kMaxInflightFrames;
-
   CHECK_GREATER(m_maxUniformBuffers, 0, ());
   CHECK_GREATER(m_maxImageSamplers, 0, ());
   std::vector<VkDescriptorPoolSize> poolSizes =

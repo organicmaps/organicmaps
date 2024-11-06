@@ -23,7 +23,6 @@
 #include "drape/utils/projection.hpp"
 
 #include "indexer/drawing_rules.hpp"
-#include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
 
 #include "geometry/any_rect2d.hpp"

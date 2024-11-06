@@ -4,14 +4,13 @@
 
 #include <cstdint>
 #include <memory>
-#include <string>
 
 namespace platform
 {
 class TraceImpl;
 
 // API is inspired by https://developer.android.com/ndk/reference/group/tracing
-class Trace 
+class Trace
 {
 public:
   static Trace & Instance() noexcept;
@@ -23,9 +22,9 @@ public:
 private:
   Trace();
   ~Trace();
-  
+
   std::unique_ptr<TraceImpl> m_impl;
-  
+
   DISALLOW_COPY_AND_MOVE(Trace);
 };
 
@@ -44,7 +43,7 @@ public:
 };
 }  // namespace platform
 
-#ifdef ENABLE_TRACE && OMIM_OS_ANDROID
+#if defined(ENABLE_TRACE) && defined(OMIM_OS_ANDROID)
 #define TRACE_SECTION(section) platform::TraceSection ___section(section)
 #define TRACE_COUNTER(name, value) platform::Trace::Instance().SetCounter(name, value)
 #else
