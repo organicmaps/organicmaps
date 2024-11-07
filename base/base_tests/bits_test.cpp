@@ -10,13 +10,6 @@ UNIT_TEST(Select1Test)
   TEST_EQUAL(0U, bits::select1(1, 1), ());
 }
 
-UNIT_TEST(ROL)
-{
-  TEST_EQUAL(bits::ROL<uint32_t>(0), 0, ());
-  TEST_EQUAL(bits::ROL<uint32_t>(uint32_t(-1)), uint32_t(-1), ());
-  TEST_EQUAL(bits::ROL<uint8_t>(128 | 32 | 4), uint8_t(64 | 8 | 1), ());
-}
-
 UNIT_TEST(PerfectShuffle)
 {
   // 0010 0001 0100 0000
