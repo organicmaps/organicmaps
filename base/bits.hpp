@@ -23,39 +23,7 @@ template <typename T> unsigned int select1(T x, unsigned int i)
 
 constexpr uint8_t FloorLog(uint64_t x) noexcept
 {
-#define CHECK_RSH(x, msb, offset) \
-  if (x >> offset)              \
-  {                             \
-    x >>= offset;               \
-    msb += offset;              \
-  }
-
-  uint8_t msb = 0;
-  CHECK_RSH(x, msb, 32);
-  CHECK_RSH(x, msb, 16);
-  CHECK_RSH(x, msb, 8);
-  CHECK_RSH(x, msb, 4);
-  CHECK_RSH(x, msb, 2);
-  CHECK_RSH(x, msb, 1);
-#undef CHECK_RSH
-
-  return msb;
-}
-
-template <typename T> T RoundLastBitsUpAndShiftRight(T x, T bits)
-{
-  return (x & ((1 << bits) - 1)) ? (x >> bits) + 1 : (x >> bits);
-}
-
-template <typename T> struct LogBitSizeOfType;
-template <> struct LogBitSizeOfType<uint8_t>  { enum { value = 3 }; };
-template <> struct LogBitSizeOfType<uint16_t> { enum { value = 4 }; };
-template <> struct LogBitSizeOfType<uint32_t> { enum { value = 5 }; };
-template <> struct LogBitSizeOfType<uint64_t> { enum { value = 6 }; };
-
-template <typename T> T ROL(T x)
-{
-  return (x << 1) | (x >> (sizeof(T) * 8 - 1));
+  return x == 0 ? 0 : std::bit_width(x) - 1;
 }
 
 template <typename T>
@@ -112,19 +80,19 @@ constexpr void BitwiseSplit(uint64_t v, uint32_t & x, uint32_t & y)
 }
 
 // Returns 1 if bit is set and 0 otherwise.
-constexpr uint8_t GetBit(void const * p, uint32_t offset)
+inline uint8_t GetBit(void const * p, uint32_t offset)
 {
   uint8_t const * pData = static_cast<uint8_t const *>(p);
   return (pData[offset >> 3] >> (offset & 7)) & 1;
 }
 
-constexpr void SetBitTo0(void * p, uint32_t offset)
+inline void SetBitTo0(void * p, uint32_t offset)
 {
   uint8_t * pData = static_cast<uint8_t *>(p);
   pData[offset >> 3] &= ~(1 << (offset & 7));
 }
 
-constexpr void SetBitTo1(void * p, uint32_t offset)
+inline void SetBitTo1(void * p, uint32_t offset)
 {
   uint8_t * pData = static_cast<uint8_t *>(p);
   pData[offset >> 3] |= (1 << (offset & 7));
@@ -135,7 +103,7 @@ constexpr uint32_t NumHiZeroBits32(uint32_t n)
 {
   if (n == 0) return 32;
   uint32_t result = 0;
-  while ((n & (uint32_t(1) << 31)) == 0) { ++result; n <<= 1; }
+  while ((n & (uint32_t{1} << 31)) == 0) { ++result; n <<= 1; }
   return result;
 }
 
@@ -143,7 +111,7 @@ constexpr uint32_t NumHiZeroBits64(uint64_t n)
 {
   if (n == 0) return 64;
   uint32_t result = 0;
-  while ((n & (uint64_t(1) << 63)) == 0) { ++result; n <<= 1; }
+  while ((n & (uint64_t{1} << 63)) == 0) { ++result; n <<= 1; }
   return result;
 }
 
