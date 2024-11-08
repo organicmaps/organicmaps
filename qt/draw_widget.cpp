@@ -161,10 +161,7 @@ void DrawWidget::PrepareShutdown()
     routingManager.SaveRoutePoints();
 
     auto style = m_framework.GetMapStyle();
-    if (style == MapStyle::MapStyleVehicleLight)
-      m_framework.MarkMapStyle(MapStyle::MapStyleDefaultLight);
-    else if (style == MapStyle::MapStyleVehicleDark)
-      m_framework.MarkMapStyle(MapStyle::MapStyleDefaultDark);
+    m_framework.MarkMapStyle(MapStyleIsDark(style) ? MapStyle::MapStyleDefaultDark : MapStyle::MapStyleDefaultLight);
   }
 }
 
@@ -656,11 +653,7 @@ void DrawWidget::FollowRoute()
   if (routingManager.IsRoutingActive() && !routingManager.IsRoutingFollowing())
   {
     routingManager.FollowRoute();
-    auto style = m_framework.GetMapStyle();
-    if (style == MapStyle::MapStyleDefaultLight)
-      SetMapStyle(MapStyle::MapStyleVehicleLight);
-    else if (style == MapStyle::MapStyleDefaultDark)
-      SetMapStyle(MapStyle::MapStyleVehicleDark);
+    SetMapStyleToVehicle();
   }
 }
 
@@ -672,13 +665,7 @@ void DrawWidget::ClearRoute()
   routingManager.CloseRouting(true /* remove route points */);
 
   if (wasActive)
-  {
-    auto style = m_framework.GetMapStyle();
-    if (style == MapStyle::MapStyleVehicleLight)
-      SetMapStyle(MapStyle::MapStyleDefaultLight);
-    else if (style == MapStyle::MapStyleVehicleDark)
-      SetMapStyle(MapStyle::MapStyleDefaultDark);
-  }
+    SetMapStyleToDefault();
 
   m_turnsVisualizer.ClearTurns(m_framework.GetDrapeApi());
 }
@@ -779,6 +766,24 @@ void DrawWidget::SetRuler(bool enabled)
 void DrawWidget::RefreshDrawingRules()
 {
   SetMapStyle(MapStyleDefaultLight);
+}
+
+void DrawWidget::SetMapStyleToDefault()
+{
+  auto style = m_framework.GetMapStyle();
+  SetMapStyle(MapStyleIsDark(style) ? MapStyle::MapStyleDefaultDark : MapStyle::MapStyleDefaultLight);
+}
+
+void DrawWidget::SetMapStyleToVehicle()
+{
+  auto style = m_framework.GetMapStyle();
+  SetMapStyle(MapStyleIsDark(style) ? MapStyle::MapStyleVehicleDark : MapStyle::MapStyleVehicleLight);
+}
+
+void DrawWidget::SetMapStyleToOutdoors()
+{
+  auto style = m_framework.GetMapStyle();
+  SetMapStyle(MapStyleIsDark(style) ? MapStyle::MapStyleOutdoorsDark : MapStyle::MapStyleOutdoorsLight);
 }
 
 m2::PointD DrawWidget::P2G(m2::PointD const & pt) const
