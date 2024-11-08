@@ -53,3 +53,10 @@ std::string DebugPrint(MapStyle mapStyle)
 {
   return MapStyleToString(mapStyle);
 }
+
+
+bool MapStyleIsDark(MapStyle mapStyle)
+{
+  const std::unordered_set<MapStyle> darkStyles {MapStyle::MapStyleDefaultDark, MapStyle::MapStyleVehicleDark, MapStyle::MapStyleOutdoorsDark};
+  return darkStyles.contains(mapStyle);
+}
