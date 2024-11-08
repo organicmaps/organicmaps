@@ -79,12 +79,6 @@ void DrawMwmBorder(df::DrapeApi & drapeApi, std::string const & mwmName,
   }
 }
 
-bool isQtTouchEvent(QEvent * event)
-{
-  const std::unordered_set<QEvent::Type> touchEventTypes {QEvent::TouchBegin, QEvent::TouchCancel, QEvent::TouchEnd, QEvent::TouchUpdate};
-  return touchEventTypes.contains(event->type());
-}
-
 df::TouchEvent::ETouchType qtTouchEventTypeToDfTouchEventType(QEvent::Type qEventType)
 {
   switch (qEventType)
@@ -93,7 +87,7 @@ df::TouchEvent::ETouchType qtTouchEventTypeToDfTouchEventType(QEvent::Type qEven
     case QEvent::TouchEnd: return df::TouchEvent::TOUCH_UP;
     case QEvent::TouchUpdate: return df::TouchEvent::TOUCH_MOVE;
     case QEvent::TouchCancel: return df::TouchEvent::TOUCH_CANCEL;
-    default: UNREACHABLE();
+    default: return df::TouchEvent::TOUCH_NONE;
   }
   UNREACHABLE();
 }
@@ -216,7 +210,8 @@ void DrawWidget::initializeGL()
 
 bool DrawWidget::event(QEvent * event)
 {
-  if (!isQtTouchEvent(event))
+  auto dfTouchEventType = qtTouchEventTypeToDfTouchEventType(event->type());
+  if (dfTouchEventType == df::TouchEvent::TOUCH_NONE)
     return QOpenGLWidget::event(event);
 
   event->accept();
@@ -224,7 +219,7 @@ bool DrawWidget::event(QEvent * event)
   df::TouchEvent dfTouchEvent;
   // The SetTouchType hast to be set even if `qtTouchEvent->points()` is empty
   // which theoretically can happen in case of `QEvent::TouchCancel`
-  dfTouchEvent.SetTouchType(qtTouchEventTypeToDfTouchEventType(qtTouchEvent->type()));
+  dfTouchEvent.SetTouchType(dfTouchEventType);
 
   int64_t i = 0;
   for (auto it = qtTouchEvent->points().cbegin();
