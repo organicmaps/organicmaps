@@ -89,7 +89,6 @@ df::TouchEvent::ETouchType qtTouchEventTypeToDfTouchEventType(QEvent::Type qEven
     case QEvent::TouchCancel: return df::TouchEvent::TOUCH_CANCEL;
     default: return df::TouchEvent::TOUCH_NONE;
   }
-  UNREACHABLE();
 }
 }  // namespace
 
