@@ -69,6 +69,9 @@ public:
   void OnRouteRecommendation(RoutingManager::Recommendation recommendation);
 
   void RefreshDrawingRules();
+  void SetMapStyleToDefault();
+  void SetMapStyleToVehicle();
+  void SetMapStyleToOutdoors();
 
 protected:
   /// @name Overriden from MapWidget.
