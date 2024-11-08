@@ -72,7 +72,8 @@ public:
     TOUCH_DOWN,
     TOUCH_MOVE,
     TOUCH_UP,
-    TOUCH_CANCEL
+    TOUCH_CANCEL,
+    TOUCH_NONE
   };
 
   static uint8_t constexpr INVALID_MASKED_POINTER = 0xFF;

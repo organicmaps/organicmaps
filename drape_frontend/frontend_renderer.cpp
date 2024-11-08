@@ -2073,6 +2073,8 @@ bool FrontendRenderer::OnSingleTouchFiltrate(m2::PointD const & pt, TouchEvent::
     return false;
   case TouchEvent::ETouchType::TOUCH_MOVE:
     return false;
+  case TouchEvent::ETouchType::TOUCH_NONE:
+    UNREACHABLE();
   }
 
   return false;
