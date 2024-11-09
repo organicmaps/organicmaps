@@ -601,6 +601,8 @@
     <string name="track_recording_toast_nothing_to_save">मार्ग खाली है - बचाने के लिए कुछ नहीं</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">फ़ोल्डर चयन संवाद प्रदर्शित करने में असमर्थ क्योंकि आपके डिवाइस पर कोई उपयुक्त ऐप इंस्टॉल नहीं है। कृपया एक फ़ाइल प्रबंधक ऐप इंस्टॉल करें और पुनः प्रयास करें।</string>
+    <string name="choose_color">रंग चुनें</string>
+    <string name="edit_track">मार्ग संपादित करें</string>
     <string name="uri_open_location_failed">कोई ऐप इंस्टॉल नहीं है जो लोकेशन खोल सके</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">नेविगेशन में ऑटो</string>

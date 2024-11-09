@@ -831,6 +831,8 @@
     <string name="track_recording_toast_nothing_to_save">मार्ग रिकामा आहे - जतन करण्यासाठी काहीही नाही</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">फोल्डर निवड संवाद प्रदर्शित करण्यात अक्षम कारण आपल्या डिव्हाइसवर कोणतेही योग्य ॲप स्थापित केलेले नाही. कृपया फाइल व्यवस्थापक ॲप स्थापित करा आणि पुन्हा प्रयत्न करा</string>
+    <string name="choose_color">रंग निवडा</string>
+    <string name="edit_track">मार्ग संपादित करा</string>
     <string name="uri_open_location_failed">स्थान उघडू शकणारे कोणतेही ॲप स्थापित केलेले नाही</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">नेव्हिगेशनमध्ये ऑटो</string>

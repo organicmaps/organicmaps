@@ -879,6 +879,8 @@
     <string name="track_recording_toast_nothing_to_save">軌跡為空 - 沒有可保存的內容</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">無法顯示資料夾選擇對話框，因為您的裝置上沒有安裝合適的應用程式。請安裝檔案總管應用程式並重試</string>
+    <string name="choose_color">選擇顏色</string>
+    <string name="edit_track">編輯軌跡</string>
     <string name="uri_open_location_failed">沒有安裝可以打開該位置的應用程式</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">自動導航</string>

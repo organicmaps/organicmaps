@@ -884,6 +884,8 @@
     <string name="track_recording_toast_nothing_to_save">Трек пуст - нечего сохранять</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Невозможно отобразить диалог выбора папки, потому что на вашем устройстве не установлено подходящее приложение. Пожалуйста, установите менеджер файлов и повторите попытку</string>
+    <string name="choose_color">Выберите цвет</string>
+    <string name="edit_track">Редактировать трек</string>
     <string name="uri_open_location_failed">Не установлено приложение, которое может открыть местоположение</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Авто в навигации</string>

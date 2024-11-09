@@ -873,6 +873,8 @@
     <string name="track_recording_toast_nothing_to_save">Rota boş - kaydedilecek bir şey yok</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Cihazınızda uygun bir uygulama yüklü olmadığından klasör seçimi iletişim kutusu görüntülenemiyor. Lütfen bir dosya yöneticisi uygulaması yükleyin ve tekrar deneyin</string>
+    <string name="choose_color">Renk seç</string>
+    <string name="edit_track">Rotayı düzenle</string>
     <string name="uri_open_location_failed">Konumu açabilecek yüklü bir uygulama yok</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Navigasyonda otomatik</string>

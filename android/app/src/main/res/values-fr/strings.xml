@@ -873,6 +873,8 @@
     <string name="track_recording_toast_nothing_to_save">L\'itinéraire est vide - il n\'y a rien à sauvegarder</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Impossible d\'afficher la boîte de dialogue de sélection des dossiers car aucune application appropriée n\'est installée sur votre appareil. Veuillez installer une application de gestion de fichiers et réessayer</string>
+    <string name="choose_color">Choisir la couleur</string>
+    <string name="edit_track">Modifier le trace</string>
     <string name="uri_open_location_failed">Aucune application installée ne permet d\'ouvrir l\'emplacement</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto dans la navigation</string>

@@ -850,6 +850,8 @@
     <string name="track_recording_toast_nothing_to_save">Marşrut boşdur - saxlamaq üçün heç nə yoxdur</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Qovluq seçimi dialoqunu göstərmək mümkün deyil, çünki cihazınızda uyğun proqram quraşdırılmayıb. Lütfən, fayl meneceri proqramı quraşdırın və yenidən cəhd edin</string>
+    <string name="choose_color">Rəngi seçin</string>
+    <string name="edit_track">Marşrutu redaktə edin</string>
     <string name="uri_open_location_failed">Məkanı aça biləcək proqram quraşdırılmayıb</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Naviqasiyada avtomatik</string>
