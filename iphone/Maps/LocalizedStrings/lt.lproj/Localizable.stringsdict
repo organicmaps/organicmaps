@@ -15,8 +15,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%d bookmark</string>
 			<key>other</key>
 			<string>%d bookmarks</string>
 		</dict>
@@ -32,8 +30,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%d file was found. You can see it after conversion.</string>
 			<key>other</key>
 			<string>%d files were found. You can see them after conversion.</string>
 		</dict>
@@ -49,8 +45,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%d track</string>
 			<key>other</key>
 			<string>%d tracks</string>
 		</dict>

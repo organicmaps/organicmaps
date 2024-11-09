@@ -15,10 +15,12 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>%d grāmatzīmju</string>
 			<key>one</key>
-			<string>%d bookmark</string>
+			<string>%d grāmatzīme</string>
 			<key>other</key>
-			<string>%d bookmarks</string>
+			<string>%d grāmatzīmes</string>
 		</dict>
 	</dict>
 
@@ -32,10 +34,12 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>Lietotne atrada %d jaunu datņu. Varat tās apskatīt pēc konvertācijas.</string>
 			<key>one</key>
-			<string>%d file was found. You can see it after conversion.</string>
+			<string>Lietotne atrada %d jaunu datni. Varat to apskatīt pēc konvertācijas.</string>
 			<key>other</key>
-			<string>%d files were found. You can see them after conversion.</string>
+			<string>Lietotne atrada %d jaunas datnes. Varat tās apskatīt pēc konvertācijas.</string>
 		</dict>
 	</dict>
 
@@ -49,10 +53,12 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>%d ceļu</string>
 			<key>one</key>
-			<string>%d track</string>
+			<string>%d ceļš</string>
 			<key>other</key>
-			<string>%d tracks</string>
+			<string>%d ceļi</string>
 		</dict>
 	</dict>
 </dict>
