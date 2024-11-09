@@ -860,6 +860,8 @@
     <string name="track_recording_toast_nothing_to_save">Trasa je prázdna - nie je čo ukladať</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Nie je možné zobraziť dialógové okno výberu priečinka, pretože v zariadení nie je nainštalovaná žiadna vhodná aplikácia. Nainštalujte si aplikáciu správcu súborov a skúste to znova</string>
+    <string name="choose_color">Vyberte farbu</string>
+    <string name="edit_track">Upraviť trasu</string>
     <string name="uri_open_location_failed">Nie je nainštalovaná žiadna aplikácia, ktorá by mohla otvoriť umiestnenie</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Automaticky v navigácii</string>

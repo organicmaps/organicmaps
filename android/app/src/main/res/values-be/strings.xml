@@ -859,6 +859,8 @@
     <string name="track_recording_toast_nothing_to_save">Маршрут пусты - няма чаго захоўваць</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Немагчыма адлюстраваць дыялогавае акно выбару папкі, таму што на вашай прыладзе не ўсталявана адпаведная праграма. Усталюйце праграму для кіравання файламі і паўтарыце спробу</string>
+    <string name="choose_color">Абярыце колер</string>
+    <string name="edit_track">Рэдагаваць маршрут</string>
     <string name="uri_open_location_failed">Не ўстаноўлена праграма, якая можа адкрыць месцазнаходжанне</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Аўто ў навігацыі</string>

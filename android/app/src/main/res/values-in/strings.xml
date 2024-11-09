@@ -816,6 +816,8 @@
     <string name="track_recording_toast_nothing_to_save">Jalur kosong - tidak ada yang bisa disimpan</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Tidak dapat menampilkan dialog pemilihan folder karena tidak ada aplikasi yang sesuai yang diinstal pada perangkat Anda. Instal aplikasi pengelola file dan coba lagi</string>
+    <string name="choose_color">Pilih Warna</string>
+    <string name="edit_track">Edit Jalur</string>
     <string name="uri_open_location_failed">Tidak ada Aplikasi yang diinstal yang dapat membuka lokasi</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Otomatis dalam navigasi</string>

@@ -868,6 +868,8 @@
     <string name="track_recording_toast_nothing_to_save">Route ist leer - nichts zu speichern</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Das Dialogfeld zur Ordnerauswahl kann nicht angezeigt werden, da keine geeignete App auf Ihrem Gerät installiert ist. Bitte installieren Sie eine Dateimanager-App und versuchen Sie es erneut</string>
+    <string name="choose_color">Farbe auswählen</string>
+    <string name="edit_track">Track bearbeiten</string>
     <string name="uri_open_location_failed">Keine App installiert, die den Speicherort öffnen kann</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto in der Navigation</string>

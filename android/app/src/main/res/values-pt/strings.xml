@@ -830,6 +830,8 @@
     <string name="track_recording_toast_nothing_to_save">O trajeto está vazio - não há nada para guardar</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Não é possível apresentar a caixa de diálogo de seleção de pastas porque não está instalada nenhuma aplicação adequada no seu dispositivo. Instale uma aplicação de gestão de ficheiros e tente novamente</string>
+    <string name="choose_color">Escolher cor</string>
+    <string name="edit_track">Editar trajeto</string>
     <string name="uri_open_location_failed">Nenhuma aplicação instalada que possa abrir a localização</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto na navegação</string>

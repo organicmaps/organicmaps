@@ -858,6 +858,8 @@
     <string name="track_recording_toast_nothing_to_save">Rada on tühi - ei ole midagi salvestada</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Kaustavaliku dialoogi ei ole võimalik kuvada, sest teie seadmesse ei ole paigaldatud sobivat rakendust. Palun installige failihaldurirakendus ja proovige uuesti.</string>
+    <string name="choose_color">Vali värv</string>
+    <string name="edit_track">Muuda rada</string>
     <string name="uri_open_location_failed">Ei ole paigaldatud rakendust, mis saaks asukoha avada</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Automaatne navigeerimine</string>

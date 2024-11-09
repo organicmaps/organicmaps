@@ -812,6 +812,8 @@
     <string name="track_recording_toast_nothing_to_save">Ruten er tom - der er ikke noget at gemme</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Kan ikke vise dialogboksen til valg af mappe, fordi der ikke er installeret en passende app på din enhed. Installer venligst en filhåndteringsapp, og prøv igen</string>
+    <string name="choose_color">Vælg farve</string>
+    <string name="edit_track">Rediger ruten</string>
     <string name="uri_open_location_failed">Ingen app installeret, der kan åbne stedet</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto i navigation</string>
