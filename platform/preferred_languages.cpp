@@ -177,9 +177,9 @@ std::string GetCurrentMapLanguage()
   std::string languageCode;
   if (!settings::Get(settings::kMapLanguageCode, languageCode) || languageCode.empty())
   {
-    for (auto const & systemLanguage : languages::GetSystemPreferred())
+    for (auto const & systemLanguage : GetSystemPreferred())
     {
-      std::string const normalizedLang = languages::Normalize(systemLanguage);
+      auto normalizedLang = Normalize(systemLanguage);
       if (StringUtf8Multilang::GetLangIndex(normalizedLang) != StringUtf8Multilang::kUnsupportedLanguageCode)
         return normalizedLang;
     }
