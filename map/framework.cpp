@@ -1575,7 +1575,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
 
   Allow3dMode(allow3d, allow3dBuildings);
 
-  SetMapLanguageCode(GetMapLanguageCode());
+  ApplyMapLanguageCode(GetMapLanguageCode());
 
   LoadViewport();
 
@@ -2433,23 +2433,21 @@ std::string Framework::GetMapLanguageCode()
   return languages::GetCurrentMapLanguage();
 }
 
-void Framework::SetMapLanguageCode(std::string const & languageCode)
+void Framework::SetMapLanguageCode(std::string const & langCode)
 {
-  settings::Set(settings::kMapLanguageCode, languageCode);
-  if (m_drapeEngine == nullptr)
-    return;
+  settings::Set(settings::kMapLanguageCode, langCode);
+  if (m_drapeEngine)
+    ApplyMapLanguageCode(langCode);
+}
 
-  int8_t const languageCodeIndex = [&languageCode]()
-  {
-    if (languageCode.empty())
-      return StringUtf8Multilang::kDefaultCode;
-    int8_t const index = StringUtf8Multilang::GetLangIndex(languageCode);
-    if (index == StringUtf8Multilang::kUnsupportedLanguageCode)
-      return StringUtf8Multilang::kDefaultCode;
-    return index;
-  }();
+void Framework::ApplyMapLanguageCode(std::string const & langCode)
+{
+  int8_t langIndex = StringUtf8Multilang::GetLangIndex(langCode);
+  ASSERT(langIndex != StringUtf8Multilang::kUnsupportedLanguageCode, ());
+  if (langIndex == StringUtf8Multilang::kUnsupportedLanguageCode)
+    langIndex = StringUtf8Multilang::kDefaultCode;
 
-  m_drapeEngine->SetMapLangIndex(languageCodeIndex);
+  m_drapeEngine->SetMapLangIndex(langIndex);
 }
 
 void Framework::Allow3dMode(bool allow3d, bool allow3dBuildings)

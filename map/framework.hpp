@@ -686,9 +686,12 @@ public:
   void Save3dMode(bool allow3d, bool allow3dBuildings);
   void Load3dMode(bool & allow3d, bool & allow3dBuildings);
 
-  std::string GetMapLanguageCode();
-  void SetMapLanguageCode(std::string const & languageCode);
-  
+private:
+  void ApplyMapLanguageCode(std::string const & langCode);
+public:
+  static std::string GetMapLanguageCode();
+  void SetMapLanguageCode(std::string const & langCode);
+
   void SetLargeFontsSize(bool isLargeSize);
   bool LoadLargeFontsSize();
 
