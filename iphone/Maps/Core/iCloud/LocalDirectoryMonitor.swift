@@ -150,24 +150,29 @@ final class FileSystemDispatchSourceMonitor: LocalDirectoryMonitor {
         .contentsOfDirectory(at: directory, includingPropertiesForKeys: [.contentModificationDateKey], options: [.skipsHiddenFiles])
         .filter { $0.pathExtension == fileType.fileExtension }
       let currentContents = try files.map { try LocalMetadataItem(fileUrl: $0) }
-
-      if !didFinishGatheringIsCalled {
-        LOG(.debug, "didFinishGathering will be called")
-        didFinishGatheringIsCalled = true
-        contents = currentContents
-        delegate?.didFinishGathering(currentContents)
-      } else {
-        LOG(.debug, "didUpdate will be called")
-        let changedContents = Self.getChangedContents(oldContents: contents, newContents: currentContents)
-        contents = currentContents
-        LOG(.info, "Added to the local content: \n\(changedContents.added.shortDebugDescription)")
-        LOG(.info, "Updated in the local content: \n\(changedContents.updated.shortDebugDescription)")
-        LOG(.info, "Removed from the local content: \n\(changedContents.removed.shortDebugDescription)")
-        delegate?.didUpdate(currentContents, changedContents)
-      }
+      didFinishGatheringIsCalled ? didUpdate(currentContents) : didFinishGathering(currentContents)
     } catch {
       delegate?.didReceiveLocalMonitorError(error)
     }
+  }
+
+  private func didFinishGathering(_ currentContents: LocalContents) {
+    didFinishGatheringIsCalled = true
+    contents = currentContents
+    LOG(.info, "Local contents (\(currentContents.count)):")
+    currentContents.forEach { LOG(.info, $0.shortDebugDescription) }
+    delegate?.didFinishGathering(currentContents)
+  }
+
+  private func didUpdate(_ currentContents: LocalContents) {
+    let changedContents = Self.getChangedContents(oldContents: contents, newContents: currentContents)
+    contents = currentContents
+    LOG(.info, "Local contents (\(currentContents.count)):")
+    currentContents.forEach { LOG(.info, $0.shortDebugDescription) }
+    LOG(.info, "Added to the local content (\(changedContents.added.count)): \n\(changedContents.added.shortDebugDescription)")
+    LOG(.info, "Updated in the local content (\(changedContents.updated.count)): \n\(changedContents.updated.shortDebugDescription)")
+    LOG(.info, "Removed from the local content (\(changedContents.removed.count)): \n\(changedContents.removed.shortDebugDescription)")
+    delegate?.didUpdate(currentContents, changedContents)
   }
 
   private static func getChangedContents(oldContents: LocalContents, newContents: LocalContents) -> LocalContentsUpdate {

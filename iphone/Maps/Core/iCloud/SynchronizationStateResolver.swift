@@ -71,11 +71,7 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
       outgoingEvents = resolveDidUpdateCloudContents(update)
     }
 
-    LOG(.info, "Cloud contents: \(currentCloudContents.count)")
-    currentCloudContents.sorted(by: { $0.fileName < $1.fileName }).forEach { LOG(.info, $0.shortDebugDescription) }
-    LOG(.info, "Local contents: \(currentLocalContents.count)")
-    currentLocalContents.sorted(by: { $0.fileName < $1.fileName }).forEach { LOG(.info, $0.shortDebugDescription) }
-    LOG(.info, "Events to process: \(outgoingEvents.count)")
+    LOG(.info, "Events to process (\(outgoingEvents.count)):")
     outgoingEvents.forEach { LOG(.info, $0) }
 
     return outgoingEvents

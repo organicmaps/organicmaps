@@ -106,7 +106,6 @@ final class iCloudSynchronizaionManager: NSObject {
 private extension iCloudSynchronizaionManager {
   // MARK: - Synchronization Lifecycle
   func startSynchronization() {
-    LOG(.info, "Start synchronization...")
     switch cloudDirectoryMonitor.state {
     case .started:
       LOG(.debug, "Synchronization is already started")
@@ -125,10 +124,10 @@ private extension iCloudSynchronizaionManager {
             case .failure(let error):
               self.processError(error)
             case .success(let localDirectoryUrl):
+              LOG(.info, "Start synchronization")
               self.fileWriter = SynchronizationFileWriter(fileManager: self.fileManager,
                                                           localDirectoryUrl: localDirectoryUrl,
                                                           cloudDirectoryUrl: cloudDirectoryUrl)
-              LOG(.debug, "Synchronization is started successfully")
             }
           }
         }
