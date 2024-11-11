@@ -1,3 +1,7 @@
-- iOS 18 Dark Mode: Introduced dark and tinted app icons.
-- Map Data: Updated as of October 1, now including isolines for Egypt, Adygea, Dagestan.
-- KML/KMZ/GPX: Fixed issues with importing files from different apps.
+• Új OpenStreetMap adatok (November 7.)
+• Továbbfejlesztett iCloud könyvjelzők és számok szinkronizálása
+• Hozzáadtuk a csúszdák, körhinták, óriáskerekek kategóriákat
+• Hozzáadtunk jelzőlámpákat (jobban láthatóak autós navigáció közben)
+• OSM bejelentkezést frissítettük
+• Kijavítottuk az egyes hibásan formázott gpx/kml fájloknak az importálását
+• Különböző keresési javítások, fordítási frissítések
