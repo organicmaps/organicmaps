@@ -1039,11 +1039,9 @@ UNIT_CLASS_TEST(MwmTestsFixture, Streets_Rank)
     };
 
     /// @todo Streets should be highwer. Now POIs additional rank is greater than Streets rank.
-    processRequest("Santa Fe ", 20);
-    /// @todo Prefix search gives POIs (Starbucks) near "Avenida Santa Fe". Some WTFs for street's ranking here:
-    /// - gives 'Full Prefix' name's rank
-    /// - gives m_matchedFraction: 0.777778, while 'st' should be counted for streets definitely
-    processRequest("Santa Fe st ", 12);
+    processRequest("Santa Fe ", 22);
+    // Rank looks good here, except the "Santa Fe" train station is on a first place.
+    processRequest("Santa Fe st ", 2);
   }
 
   {
