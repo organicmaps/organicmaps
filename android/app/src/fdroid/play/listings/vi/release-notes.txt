@@ -1,5 +1,8 @@
-- Edit Tracks: Change name, color, list and description of tracks, or delete them.
-- Open in Another App: Select any map point in Organic Maps and open in apps like taxi, delivery, transport, or other map apps.
-- Map Data: Updated as of October 1, now with added isolines for Egypt and improved for Adygea, Dagestan.
-- KML/KMZ/GPX: Fixed issues with importing files from different apps.
-- Right-to-left languages: Enhanced the place page, search, and about screens.
+• New OpenStreetMap data as of November 7
+• Added a map language setting
+• Fixed auto night mode setting and added a navigation only option
+• Added water slides, carousels, ferris wheels, etc
+• Added traffic signals (more visible in car navigation)
+• Updated the OSM login screen
+• Fixed import of some ill-formed gpx/kml tracks
+• Various search improvements, translation updates & bug fixes
