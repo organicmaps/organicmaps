@@ -86,7 +86,7 @@ extension CloudMetadataItem {
 
 extension MetadataItem {
   var shortDebugDescription: String {
-    "\(fileName), lastModified: \(lastModificationDate)"
+    "fileName: \(fileName), lastModified: \(lastModificationDate)"
   }
 }
 
