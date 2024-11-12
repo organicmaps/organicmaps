@@ -300,6 +300,12 @@
 /* Tex label above the Donate button */
 "donate_description" = "¡Dona para construir los mejores mapas juntos!";
 
+"already_donated" = "Ya donado";
+
+"remind_me_later" = "Recordar más tarde";
+
+"support_organic_maps" = "Apoyar Organic Maps";
+
 /* Button in the main Help dialog */
 "copyright" = "Derechos de autor";
 

@@ -300,6 +300,12 @@
 /* Tex label above the Donate button */
 "donate_description" = "Пожертвуйте, щоб разом створювати найкращі мапи!";
 
+"already_donated" = "Вже пожертвувано";
+
+"remind_me_later" = "Нагадати пізніше";
+
+"support_organic_maps" = "Підтримати Organic Maps";
+
 /* Button in the main Help dialog */
 "copyright" = "Копірайт";
 

@@ -300,6 +300,12 @@
 /* Tex label above the Donate button */
 "donate_description" = "Annetage, et ehitada koos parimaid kaarte!";
 
+"already_donated" = "Juba annetatud";
+
+"remind_me_later" = "Meenuta hiljem";
+
+"support_organic_maps" = "Toetada Organic Maps";
+
 /* Button in the main Help dialog */
 "copyright" = "Autoriõigused";
 

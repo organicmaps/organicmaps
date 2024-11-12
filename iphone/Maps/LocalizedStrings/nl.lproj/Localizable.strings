@@ -300,6 +300,12 @@
 /* Tex label above the Donate button */
 "donate_description" = "Doneer om samen de beste kaarten te bouwen!";
 
+"already_donated" = "Reeds gedoneerd";
+
+"remind_me_later" = "Herinner later";
+
+"support_organic_maps" = "Ondersteun Organic Maps";
+
 /* Button in the main Help dialog */
 "copyright" = "Auteursrechten";
 

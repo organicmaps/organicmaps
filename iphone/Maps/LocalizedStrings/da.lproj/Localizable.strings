@@ -300,6 +300,12 @@
 /* Tex label above the Donate button */
 "donate_description" = "Donér for at bygge de bedste kort sammen!";
 
+"already_donated" = "Allerede doneret";
+
+"remind_me_later" = "Mind mig senere";
+
+"support_organic_maps" = "Støtte Organic Maps";
+
 /* Button in the main Help dialog */
 "copyright" = "Copyright";
 

@@ -300,6 +300,12 @@
 /* Tex label above the Donate button */
 "donate_description" = "کمک مالی کنید تا بهترین نقشه ها را با هم بسازید!";
 
+"already_donated" = "قبلاً اهدا شده";
+
+"remind_me_later" = "بعداً یادآوری کن";
+
+"support_organic_maps" = "پشتیبانی از Organic Maps";
+
 /* Button in the main Help dialog */
 "copyright" = "حق نشر و کپی رایت";
 

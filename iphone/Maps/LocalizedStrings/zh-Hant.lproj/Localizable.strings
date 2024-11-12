@@ -300,6 +300,12 @@
 /* Tex label above the Donate button */
 "donate_description" = "捐助，以共同打造最好的地圖！";
 
+"already_donated" = "已捐贈";
+
+"remind_me_later" = "稍後提醒";
+
+"support_organic_maps" = "支持 Organic Maps";
+
 /* Button in the main Help dialog */
 "copyright" = "版權";
 

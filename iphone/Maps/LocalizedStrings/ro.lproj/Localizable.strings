@@ -300,6 +300,12 @@
 /* Tex label above the Donate button */
 "donate_description" = "Donează pentru a construi împreună cele mai bune hărți!";
 
+"already_donated" = "Deja donat";
+
+"remind_me_later" = "Amintește mai târziu";
+
+"support_organic_maps" = "Susține Organic Maps";
+
 /* Button in the main Help dialog */
 "copyright" = "Drepturi de autor";
 
