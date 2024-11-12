@@ -79,6 +79,7 @@ void DrawMwmBorder(df::DrapeApi & drapeApi, std::string const & mwmName,
   }
 }
 
+#if defined(OMIM_OS_LINUX)
 df::TouchEvent::ETouchType qtTouchEventTypeToDfTouchEventType(QEvent::Type qEventType)
 {
   switch (qEventType)
@@ -90,6 +91,7 @@ df::TouchEvent::ETouchType qtTouchEventTypeToDfTouchEventType(QEvent::Type qEven
     default: return df::TouchEvent::TOUCH_NONE;
   }
 }
+#endif
 }  // namespace
 
 DrawWidget::DrawWidget(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams,
@@ -209,6 +211,9 @@ void DrawWidget::initializeGL()
 
 bool DrawWidget::event(QEvent * event)
 {
+#if !defined(OMIM_OS_LINUX)
+    return QOpenGLWidget::event(event);
+#else
   auto dfTouchEventType = qtTouchEventTypeToDfTouchEventType(event->type());
   if (dfTouchEventType == df::TouchEvent::TOUCH_NONE)
     return QOpenGLWidget::event(event);
@@ -235,6 +240,7 @@ bool DrawWidget::event(QEvent * event)
   }
   m_framework.TouchEvent(dfTouchEvent);
   return true;
+#endif
 }
 
 void DrawWidget::mousePressEvent(QMouseEvent * e)
