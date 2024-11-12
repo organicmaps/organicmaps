@@ -300,6 +300,12 @@
 /* Tex label above the Donate button */
 "donate_description" = "Adományozz, hogy együtt építsük a legjobb térképeket!";
 
+"already_donated" = "Már adományozva";
+
+"remind_me_later" = "Emlékeztessen később";
+
+"support_organic_maps" = "Organic Maps támogatása";
+
 /* Button in the main Help dialog */
 "copyright" = "Szerzői jog";
 

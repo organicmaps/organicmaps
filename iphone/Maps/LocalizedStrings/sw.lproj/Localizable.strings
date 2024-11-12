@@ -300,6 +300,12 @@
 /* Tex label above the Donate button */
 "donate_description" = "Changia ili kuunda ramani bora pamoja!";
 
+"already_donated" = "Tayari kutoa";
+
+"remind_me_later" = "Kumbusha baadaye";
+
+"support_organic_maps" = "Kuunga mkono Organic Maps";
+
 /* Button in the main Help dialog */
 "copyright" = "Copyright";
 

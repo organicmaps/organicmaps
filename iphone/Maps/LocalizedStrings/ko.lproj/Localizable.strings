@@ -300,6 +300,12 @@
 /* Tex label above the Donate button */
 "donate_description" = "기부하여 최고의 지도를 함께 만들어 보세요!";
 
+"already_donated" = "기부완료";
+
+"remind_me_later" = "나중에 알림";
+
+"support_organic_maps" = "Organic Maps 지원하기";
+
 /* Button in the main Help dialog */
 "copyright" = "저작권";
 

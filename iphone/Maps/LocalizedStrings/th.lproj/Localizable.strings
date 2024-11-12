@@ -300,6 +300,12 @@
 /* Tex label above the Donate button */
 "donate_description" = "บริจาคเพื่อสร้างแผนที่ที่ดีที่สุดด้วยกัน!";
 
+"already_donated" = "บริจาคแล้ว";
+
+"remind_me_later" = "เตือนภายหลัง";
+
+"support_organic_maps" = "สนับสนุน Organic Maps";
+
 /* Button in the main Help dialog */
 "copyright" = "ลิขสิทธิ์";
 

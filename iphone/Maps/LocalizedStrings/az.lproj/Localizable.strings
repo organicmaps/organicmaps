@@ -300,6 +300,12 @@
 /* Tex label above the Donate button */
 "donate_description" = "Ən yaxşı xəritələri birlikdə qurmaq üçün ianə edin!";
 
+"already_donated" = "Artıq ianə edildi";
+
+"remind_me_later" = "Daha sonra xatırlat";
+
+"support_organic_maps" = "Organic Maps-i dəstəkləmək";
+
 /* Button in the main Help dialog */
 "copyright" = "Müəllif hüququ";
 

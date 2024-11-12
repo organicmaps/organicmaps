@@ -300,6 +300,12 @@
 /* Tex label above the Donate button */
 "donate_description" = "Поддержать деньгами, чтобы вместе создавать лучшие карты!";
 
+"already_donated" = "Уже пожертвовано";
+
+"remind_me_later" = "Напомнить позже";
+
+"support_organic_maps" = "Поддержать Organic Maps";
+
 /* Button in the main Help dialog */
 "copyright" = "Копирайт";
 

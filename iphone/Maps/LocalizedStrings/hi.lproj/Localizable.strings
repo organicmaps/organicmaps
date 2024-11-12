@@ -300,6 +300,12 @@
 /* Tex label above the Donate button */
 "donate_description" = "एक साथ सर्वोत्तम मानचित्र बनाने के लिए दान करें!";
 
+"already_donated" = "पहले से दान";
+
+"remind_me_later" = "बाद में याद दिलाना";
+
+"support_organic_maps" = "Organic Maps का समर्थन करें";
+
 /* Button in the main Help dialog */
 "copyright" = "कॉपीराइट";
 

@@ -300,6 +300,12 @@
 /* Tex label above the Donate button */
 "donate_description" = "Κάντε δωρεά για να φτιάξουμε μαζί τους καλύτερους χάρτες!";
 
+"already_donated" = "Ήδη δωρεά";
+
+"remind_me_later" = "Υπενθύμισε αργότερα";
+
+"support_organic_maps" = "Υποστήριξε το Organic Maps";
+
 /* Button in the main Help dialog */
 "copyright" = "Πνευματικά δικαιώματα";
 

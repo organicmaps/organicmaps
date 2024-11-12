@@ -300,6 +300,12 @@
 /* Tex label above the Donate button */
 "donate_description" = "Donera för att bygga de bästa kartorna tillsammans!";
 
+"already_donated" = "Redan donerat";
+
+"remind_me_later" = "Påminn senare";
+
+"support_organic_maps" = "Stödja Organic Maps";
+
 /* Button in the main Help dialog */
 "copyright" = "Upphovsrätt";
 

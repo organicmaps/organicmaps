@@ -300,6 +300,12 @@
 /* Tex label above the Donate button */
 "donate_description" = "Hãy quyên góp để cùng nhau xây dựng những bản đồ tốt nhất!";
 
+"already_donated" = "Đã quyên góp";
+
+"remind_me_later" = "Nhắc sau";
+
+"support_organic_maps" = "Hỗ trợ Organic Maps";
+
 /* Button in the main Help dialog */
 "copyright" = "Bản quyền";
 

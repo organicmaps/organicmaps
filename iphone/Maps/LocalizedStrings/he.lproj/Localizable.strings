@@ -300,6 +300,12 @@
 /* Tex label above the Donate button */
 "donate_description" = "תרמו כדי לבנות יחד את המפות הטובות ביותר!";
 
+"already_donated" = "כבר נתרם";
+
+"remind_me_later" = "הזכר מאוחר יותר";
+
+"support_organic_maps" = "לתמוך ב-Organic Maps";
+
 /* Button in the main Help dialog */
 "copyright" = "זכויות יוצרים";
 

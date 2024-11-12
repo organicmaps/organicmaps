@@ -300,6 +300,12 @@
 /* Tex label above the Donate button */
 "donate_description" = "Lahjoittakaa, jotta voimme rakentaa parhaita karttoja yhdessä!";
 
+"already_donated" = "Jo lahjoitettu";
+
+"remind_me_later" = "Muistuta myöhemmin";
+
+"support_organic_maps" = "Tukea Organic Maps";
+
 /* Button in the main Help dialog */
 "copyright" = "Tekijänoikeudet";
 
