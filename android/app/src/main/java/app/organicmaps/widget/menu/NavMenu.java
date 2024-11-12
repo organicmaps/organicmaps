@@ -17,6 +17,7 @@ import app.organicmaps.location.LocationHelper;
 import app.organicmaps.routing.RoutingInfo;
 import app.organicmaps.sound.TtsPlayer;
 import app.organicmaps.util.Graphics;
+import app.organicmaps.util.SpeedFormatted;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
@@ -208,21 +209,20 @@ public class NavMenu
 
   private void updateSpeedView(@NonNull RoutingInfo info)
   {
-    final Location last = LocationHelper.from(mActivity).getSavedLocation();
-    if (last == null)
-      return;
+    SpeedFormatted speed = info.speed;
+    boolean speedLimitExceeded = false;
 
-    Pair<String, String> speedAndUnits = StringUtils.nativeFormatSpeedAndUnits(last.getSpeed());
-
-    if (info.speedLimitMps > 0.0)
+    if (info.speedLimit != null && info.speedLimit.isValid())
     {
-      Pair<String, String> speedLimitAndUnits = StringUtils.nativeFormatSpeedAndUnits(info.speedLimitMps);
-      mSpeedValue.setText(speedAndUnits.first + "\u202F/\u202F" + speedLimitAndUnits.first);
+      SpeedFormatted speedLimit = info.speedLimit;
+      mSpeedValue.setText(speed.mSpeedStr + "\u202F/\u202F" + speedLimit.mSpeedStr);
+
+      speedLimitExceeded = (int)speed.mSpeed > (int)speedLimit.mSpeed;
     }
     else
-      mSpeedValue.setText(speedAndUnits.first);
+      mSpeedValue.setText(speed.mSpeedStr);
 
-    if (info.speedLimitMps > 0.0 && last.getSpeed() > info.speedLimitMps)
+    if (speedLimitExceeded)
     {
       if (info.isSpeedCamLimitExceeded())
         mSpeedValue.setTextColor(ContextCompat.getColor(mActivity, R.color.white_primary));
@@ -232,7 +232,7 @@ public class NavMenu
     else
       mSpeedValue.setTextColor(ThemeUtils.getColor(mActivity, android.R.attr.textColorPrimary));
 
-    mSpeedUnits.setText(speedAndUnits.second);
+    mSpeedUnits.setText(info.speed.getUnitsStr(mActivity));
     mSpeedViewContainer.setActivated(info.isSpeedCamLimitExceeded());
   }
 

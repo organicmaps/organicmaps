@@ -57,6 +57,8 @@ set(SRC
   trace.hpp
   string_storage_base.cpp
   string_storage_base.hpp
+  speed_formatted.cpp
+  speed_formatted.hpp
   utm_mgrs_utils.cpp
   utm_mgrs_utils.hpp
 )

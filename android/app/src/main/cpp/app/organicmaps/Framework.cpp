@@ -7,6 +7,7 @@
 #include "app/organicmaps/util/Distance.hpp"
 #include "app/organicmaps/util/FeatureIdBuilder.hpp"
 #include "app/organicmaps/util/NetworkPolicy.hpp"
+#include "app/organicmaps/util/SpeedFormatted.hpp"
 #include "app/organicmaps/vulkan/android_vulkan_context_factory.hpp"
 
 #include "map/bookmark_helpers.hpp"
@@ -48,6 +49,7 @@
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
+#include "platform/speed_formatted.hpp"
 #include "platform/utm_mgrs_utils.hpp"
 
 #include "base/assert.hpp"
@@ -1295,7 +1297,9 @@ Java_app_organicmaps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass)
       jni::GetConstructorID(env, klass,
                             "(Lapp/organicmaps/util/Distance;Lapp/organicmaps/util/Distance;"
                             "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;DIIIII"
-                            "[Lapp/organicmaps/routing/SingleLaneInfo;DZZ)V");
+                            "[Lapp/organicmaps/routing/SingleLaneInfo;"
+                            "Lapp/organicmaps/util/SpeedFormatted;"
+                            "Lapp/organicmaps/util/SpeedFormatted;ZZ)V");
 
   vector<routing::FollowingInfo::SingleLaneInfoClient> const & lanes = info.m_lanes;
   jobjectArray jLanes = nullptr;
@@ -1323,6 +1327,7 @@ Java_app_organicmaps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass)
   }
 
   auto const & rm = frm()->GetRoutingManager();
+  auto const speed = rm.RoutingSession().GetLastSpeed();
   auto const isSpeedCamLimitExceeded = rm.IsRoutingActive() ? rm.IsSpeedCamLimitExceeded() : false;
   auto const shouldPlaySignal = frm()->GetRoutingManager().GetSpeedCamManager().ShouldPlayBeepSignal();
   jobject const result = env->NewObject(
@@ -1330,8 +1335,9 @@ Java_app_organicmaps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass)
       ToJavaDistance(env, info.m_distToTurn), jni::ToJavaString(env, info.m_currentStreetName),
       jni::ToJavaString(env, info.m_nextStreetName), jni::ToJavaString(env, info.m_nextNextStreetName),
       info.m_completionPercent, info.m_turn, info.m_nextTurn, info.m_pedestrianTurn, info.m_exitNum,
-      info.m_time, jLanes, info.m_speedLimitMps, static_cast<jboolean>(isSpeedCamLimitExceeded),
-      static_cast<jboolean>(shouldPlaySignal));
+      info.m_time, jLanes, ToJavaSpeedFormatted(env, platform::SpeedFormatted(speed)),
+      ToJavaSpeedFormatted(env, platform::SpeedFormatted(info.m_speedLimitMps)),
+      static_cast<jboolean>(isSpeedCamLimitExceeded), static_cast<jboolean>(shouldPlaySignal));
   ASSERT(result, (jni::DescribeException()));
   return result;
 }
