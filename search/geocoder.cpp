@@ -731,7 +731,7 @@ void Geocoder::CacheWorldLocalities()
   else
   {
     // This is strange situation, anyway.
-    LOG(LWARNING, ("Can't find World map file."));
+    LOG(LWARNING, ("Can't find World Overview file."));
   }
 }
 
@@ -1063,7 +1063,7 @@ void Geocoder::MatchCities(BaseContext & ctx)
         continue;
       }
 
-      // No need to search features in the World map.
+      // No need to search features in the World Overview.
       if (m_context->GetInfo()->GetType() == MwmInfo::WORLD)
         continue;
 

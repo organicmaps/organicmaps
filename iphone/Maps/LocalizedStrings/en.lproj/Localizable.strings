@@ -1,4 +1,4 @@
-
+world overview
 /********** Strings **********/
 
 /* Button text (should be short) */
@@ -567,7 +567,7 @@
 
 "editor_add_select_location" = "Location";
 
-"editor_done_dialog_1" = "You’ve changed the world map! Don't keep it to yourself; tell your friends and edit it together.";
+"editor_done_dialog_1" = "You’ve changed the world overview! Don't keep it to yourself; tell your friends and edit it together.";
 
 "share_with_friends" = "Share with friends";
 

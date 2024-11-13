@@ -1539,7 +1539,7 @@
 
   [download_resources]
     tags = android
-    en = Before you start using the app, please download the general world map to your device.\nIt will use %@ of storage.
+    en = Before you start using the app, please download the general world overview to your device.\nIt will use %@ of storage.
     af = Voordat u die toep begin gebruik, moet u asb. die algemene wêreldkaart na u toestel aflaai.\nDit sal %@ se spasie opneem.
     ar = قبل أن تبدأ باستخدام التطبيق، سنقوم بتنزيل خريطة العالم العامة على جهازك.\nستحتاج إلى %@ من البيانات.
     az = Başlamazdan əvvəl gəlin ümumi dünya xəritəsini cihazınıza endirək.\n%@ yer tələb olunur.
@@ -12410,7 +12410,7 @@
 
   [editor_done_dialog_1]
     tags = ios
-    en = You’ve changed the world map! Don't keep it to yourself; tell your friends and edit it together.
+    en = You’ve changed the world overview! Don't keep it to yourself; tell your friends and edit it together.
     af = U het die wêreldkaart verander! Moet dit nie vir uself hou nie; Vertel u vriende en wysig dit saam.
     ar = لقد ساهمت بتحسين خريطة العالم. لا تخفي ذلك! أخبر أصدقائك، وحسنوها معاً.
     az = Siz dünya xəritəsini dəyişdiniz. Gizlətməyin! Dostlarınıza deyin və birlikdə redaktə edin.
@@ -28827,7 +28827,7 @@
 
   [download_map_title]
     tags = android
-    en = Download the world map
+    en = Download the world overview
     af = Laai die wêreldkaart af
     ar = تنزيل خريطة العالم
     az = Dünya xəritəsini yükləyin

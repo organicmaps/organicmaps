@@ -451,8 +451,8 @@
            <li>Fixed residential leisure garden area fills disappearing on some zoom levels</li>
            <li>Display house numbers regardless of buildings' sizes on zoom level 17</li>
            <li>Fine-tuned priorities of many POIs in the main style</li>
-           <li>Less "gaps" in highways on the World map</li>
-           <li>Removed very short ferry lines from the World map</li>
+           <li>Less "gaps" in highways on the world overview</li>
+           <li>Removed very short ferry lines from the world overview</li>
          </ul>
      </description>
    </release>
@@ -570,7 +570,7 @@
          </ul>
        <p>Styles:</p>
          <ul>
-           <li>Added ferry routes to the World map</li>
+           <li>Added ferry routes to the world overview</li>
            <li>Removed square background from parking icons</li>
            <li>Added separate icons for paid and private parking</li>
            <li>Made the bicycle parking icon differ more from the motorcycle one</li>
@@ -807,7 +807,7 @@
            <li>Improved, less bright icons in Night mode</li>
            <li>Fixed subway icons in some cities</li>
            <li>Properly draw barriers for areas and relations</li>
-           <li>Fixed duplicated names on the world map</li>
+           <li>Fixed duplicated names on the world overview</li>
            <li>Updated cave, mountain pass, peak, volcano, emergency phone, historic ship, ice cream, nightclub, music shop, stadium, video games icons</li>
            <li>Fixed wrong priorities of leisure=pitch, historic, post office</li>
            <li>More consistent filled/round icons (round means some kind of business/service)</li>
@@ -838,7 +838,7 @@
          <ul>
            <li>Fixed some improperly overlapping types</li>
            <li>Added highway=busway and physiotherapist</li>
-           <li>Islands and archipelagos are now visible on World Map</li>
+           <li>Islands and archipelagos are now visible on world overview</li>
            <li>Draw waterway=dam as background area</li>
            <li>Water draw priority is lesser now than pier</li>
            <li>Fixed leisure areas</li>

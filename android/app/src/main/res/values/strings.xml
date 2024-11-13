@@ -55,7 +55,7 @@
     <string name="disconnect_usb_cable">Please disconnect USB cable or insert memory card to use Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Please free up some space on the SD card/USB storage first in order to use the app</string>
-    <string name="download_resources">Before you start using the app, please download the general world map to your device.
+    <string name="download_resources">Before you start using the app, please download the general world overview to your device.
 \nIt will use %s of storage.</string>
     <string name="download_resources_continue">Go to Map</string>
     <string name="downloading_country_can_proceed">Downloading %s. You can now
@@ -796,7 +796,7 @@
     <string name="elevation_profile_time">Time:</string>
     <string name="isolines_toast_zooms_1_10">Zoom in to explore isolines</string>
     <string name="downloader_loading_ios">Downloading</string>
-    <string name="download_map_title">Download the world map</string>
+    <string name="download_map_title">Download the world overview</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disk_error">Unable to create folder and move files on internal device\'s memory or sdcard</string>
     <!-- Used in DownloadResources startup screen -->

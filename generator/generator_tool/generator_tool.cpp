@@ -126,7 +126,7 @@ DEFINE_string(srtm_path, "",
               "Path to srtm directory. If set, generates a section with altitude information "
               "about roads.");
 DEFINE_string(world_roads_path, "",
-              "Path to a file with roads that should end up on the world map. If set, generates a "
+              "Path to a file with roads that should end up on the world overview. If set, generates a "
               "section with these roads in World.mwm. The roads may be used to identify which mwm "
               "files are touched by an arbitrary route.");
 DEFINE_string(transit_path, "", "Path to directory with transit graphs in json.");
