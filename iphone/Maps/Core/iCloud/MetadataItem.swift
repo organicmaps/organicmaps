@@ -28,7 +28,7 @@ extension LocalMetadataItem {
       throw SynchronizationError.failedToCreateMetadataItem
     }
     self.fileName = fileUrl.lastPathComponent
-    self.fileUrl = fileUrl.standardizedFileURL
+    self.fileUrl = fileUrl
     self.lastModificationDate = lastModificationDate
   }
 
@@ -49,34 +49,12 @@ extension CloudMetadataItem {
       throw SynchronizationError.failedToCreateMetadataItem
     }
     self.fileName = fileName
-    self.fileUrl = fileUrl.standardizedFileURL
+    self.fileUrl = fileUrl.resolvingSymlinksInPath()
     self.isDownloaded = downloadStatus == NSMetadataUbiquitousItemDownloadingStatusCurrent
     self.lastModificationDate = lastModificationDate
     self.hasUnresolvedConflicts = hasUnresolvedConflicts
     self.downloadingError = metadataItem.value(forAttribute: NSMetadataUbiquitousItemDownloadingErrorKey) as? NSError
     self.uploadingError = metadataItem.value(forAttribute: NSMetadataUbiquitousItemUploadingErrorKey) as? NSError
-  }
-
-  init(fileUrl: URL) throws {
-    let resources = try fileUrl.resourceValues(forKeys: [.nameKey,
-                                                         .contentModificationDateKey,
-                                                         .ubiquitousItemDownloadingStatusKey,
-                                                         .ubiquitousItemHasUnresolvedConflictsKey,
-                                                         .ubiquitousItemDownloadingErrorKey,
-                                                         .ubiquitousItemUploadingErrorKey])
-    guard let downloadStatus = resources.ubiquitousItemDownloadingStatus,
-          let lastModificationDate = resources.contentModificationDate?.roundedTime,
-          let hasUnresolvedConflicts = resources.ubiquitousItemHasUnresolvedConflicts else {
-      LOG(.error, "Failed to initialize CloudMetadataItem from \(fileUrl) resources: \(resources.allValues)")
-      throw SynchronizationError.failedToCreateMetadataItem
-    }
-    self.fileName = fileUrl.lastPathComponent
-    self.fileUrl = fileUrl.standardizedFileURL
-    self.isDownloaded = downloadStatus.rawValue == NSMetadataUbiquitousItemDownloadingStatusCurrent
-    self.lastModificationDate = lastModificationDate
-    self.hasUnresolvedConflicts = hasUnresolvedConflicts
-    self.downloadingError = resources.ubiquitousItemDownloadingError
-    self.uploadingError = resources.ubiquitousItemUploadingError
   }
 
   func relatedLocalItemUrl(to localContainer: URL) -> URL {
