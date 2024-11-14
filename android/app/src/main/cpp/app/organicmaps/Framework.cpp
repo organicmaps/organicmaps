@@ -94,8 +94,7 @@ jobject g_placePageActivationListener = nullptr;
 
 android::AndroidVulkanContextFactory * CastFactory(drape_ptr<dp::GraphicsContextFactory> const & f)
 {
-  ASSERT(dynamic_cast<android::AndroidVulkanContextFactory *>(f.get()) != nullptr, ());
-  return static_cast<android::AndroidVulkanContextFactory *>(f.get());
+  return dynamic_cast<android::AndroidVulkanContextFactory *>(f.get());
 }
 }  // namespace
 
@@ -176,7 +175,7 @@ bool Framework::DestroySurfaceOnDetach()
 }
 
 bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch,
-                                  bool launchByDeepLink, uint32_t appVersionCode)
+                                  bool launchByDeepLink, uint32_t appVersionCode, bool isCustomROM)
 {
   // Vulkan is supported only since Android 8.0, because some Android devices with Android 7.x
   // have fatal driver issue, which can lead to process termination and whole OS destabilization.
@@ -188,57 +187,51 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   if (vulkanForbidden)
     LOG(LWARNING, ("Vulkan API is forbidden on this device."));
 
+  m_vulkanContextFactory.reset();
+  m_oglContextFactory.reset();
+  ::Framework::DrapeCreationParams p;
+
   if (m_work.LoadPreferredGraphicsAPI() == dp::ApiVersion::Vulkan && !vulkanForbidden)
   {
-    m_vulkanContextFactory =
-        make_unique_dp<AndroidVulkanContextFactory>(appVersionCode, sdkVersion);
-    if (!CastFactory(m_vulkanContextFactory)->IsVulkanSupported())
+    auto vkFactory = make_unique_dp<AndroidVulkanContextFactory>(appVersionCode, sdkVersion, isCustomROM);
+    if (!vkFactory->IsVulkanSupported())
     {
       LOG(LWARNING, ("Vulkan API is not supported."));
-      m_vulkanContextFactory.reset();
     }
-
-    if (m_vulkanContextFactory)
+    else
     {
-      auto f = CastFactory(m_vulkanContextFactory);
-      f->SetSurface(env, jSurface);
-      if (!f->IsValid())
+      vkFactory->SetSurface(env, jSurface);
+      if (!vkFactory->IsValid())
       {
         LOG(LWARNING, ("Invalid Vulkan API context."));
-        m_vulkanContextFactory.reset();
+      }
+      else
+      {
+        p.m_apiVersion = dp::ApiVersion::Vulkan;
+        p.m_surfaceWidth = vkFactory->GetWidth();
+        p.m_surfaceHeight = vkFactory->GetHeight();
+
+        m_vulkanContextFactory = std::move(vkFactory);
       }
     }
   }
 
-  AndroidOGLContextFactory * oglFactory = nullptr;
   if (!m_vulkanContextFactory)
   {
-    m_oglContextFactory = make_unique_dp<dp::ThreadSafeFactory>(
-      new AndroidOGLContextFactory(env, jSurface));
-    oglFactory = m_oglContextFactory->CastFactory<AndroidOGLContextFactory>();
+    auto oglFactory = make_unique_dp<AndroidOGLContextFactory>(env, jSurface);
     if (!oglFactory->IsValid())
     {
       LOG(LWARNING, ("Invalid GL context."));
       return false;
     }
-  }
-
-  ::Framework::DrapeCreationParams p;
-  if (m_vulkanContextFactory)
-  {
-    auto f = CastFactory(m_vulkanContextFactory);
-    p.m_apiVersion = dp::ApiVersion::Vulkan;
-    p.m_surfaceWidth = f->GetWidth();
-    p.m_surfaceHeight = f->GetHeight();
-  }
-  else
-  {
-    CHECK(oglFactory != nullptr, ());
     p.m_apiVersion = oglFactory->IsSupportedOpenGLES3() ? dp::ApiVersion::OpenGLES3 :
                                                           dp::ApiVersion::OpenGLES2;
     p.m_surfaceWidth = oglFactory->GetWidth();
     p.m_surfaceHeight = oglFactory->GetHeight();
+
+    m_oglContextFactory = make_unique_dp<dp::ThreadSafeFactory>(oglFactory.release());
   }
+
   p.m_visualScale = static_cast<float>(dp::VisualScale(densityDpi));
   // Drape doesn't care about Editor vs Api mode differences.
   p.m_isChoosePositionMode = m_isChoosePositionMode != ChoosePositionMode::None;

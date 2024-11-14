@@ -18,7 +18,7 @@ public class ROMUtils
     }
     catch (Exception e)
     {
-      Log.e(TAG, "Error getting SystemProperties:", e);
+      Log.e(TAG, "Error getting SystemProperties: ", e);
     }
 
     if (method == null)
@@ -44,7 +44,7 @@ public class ROMUtils
       }
       catch (Exception e)
       {
-        Log.e(TAG, "Error getting SystemProperties:", e);
+        Log.e(TAG, "Error invoking method: ", e);
       }
     }
 
