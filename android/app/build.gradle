@@ -84,11 +84,12 @@ def osName = System.properties['os.name'].toLowerCase()
 project.ext.appId = 'app.organicmaps'
 project.ext.appName = 'Organic Maps'
 
-java {
-  toolchain {
-    languageVersion.set(JavaLanguageVersion.of(17))
-  }
-}
+// I have Java 21 installed, but this doesn't work on MacOS.
+//java {
+//  toolchain {
+//    languageVersion.set(JavaLanguageVersion.of(17))
+//  }
+//}
 
 android {
   namespace 'app.organicmaps'
