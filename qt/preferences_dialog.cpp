@@ -115,7 +115,7 @@ namespace qt
       // So we ensure that it returns false here.
       mapLanguageComboBox->setStyleSheet("QComboBox { combobox-popup: 0; }");
       mapLanguageComboBox->setMaxVisibleItems(10);
-      StringUtf8Multilang::Languages const & supportedLanguages = StringUtf8Multilang::GetSupportedLanguages();
+      StringUtf8Multilang::Languages const & supportedLanguages = StringUtf8Multilang::GetSupportedLanguages(/* includeServiceLangs */ false);
       QStringList languagesList = QStringList();
       for (auto const & language : supportedLanguages)
         languagesList << QString::fromStdString(std::string(language.m_name));
