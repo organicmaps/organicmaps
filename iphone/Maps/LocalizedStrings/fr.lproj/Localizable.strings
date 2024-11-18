@@ -166,7 +166,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Bonjour !\n\nVous trouverez ci-joint mes signets de l'appli Organic Maps. Veuillez les ouvrir si vous avez installé Organic Maps. Si vous ne l'avez pas, téléchargez l'application pour votre appareil iOS ou Android en suivant ce lien : https://omaps.app/get?kmz\n\nBon voyage avec Organic Maps!";
+"share_bookmarks_email_body" = "Bonjour !\n\nVous trouverez ci-joint mes signets de l'appli Organic Maps. Veuillez les ouvrir si vous avez installé Organic Maps. Si vous ne l'avez pas, téléchargez l'application pour votre appareil iOS ou Android en suivant ce lien : https://omaps.app/get?kmz\n\nBon voyage avec Organic Maps !";
 
 /* message title of loading file */
 "load_kmz_title" = "Chargement des signets";
@@ -437,13 +437,13 @@
 
 "dialog_routing_disclaimer_title" = "Lorsque vous suivez l'itinéraire, gardez à l'esprit les points suivants :";
 
-"dialog_routing_disclaimer_priority" = "— Les conditions de circulation, le code de la route et les panneaux de signalisation ont la priorité sur l'appareil de navigation;";
+"dialog_routing_disclaimer_priority" = "— Les conditions de circulation, le code de la route et les panneaux de signalisation ont la priorité sur l'appareil de navigation ;";
 
-"dialog_routing_disclaimer_precision" = "— La carte peut être imprécise et l'itinéraire proposé n'est pas forcément le plus direct pour arriver à destination;";
+"dialog_routing_disclaimer_precision" = "— La carte peut être imprécise et l'itinéraire proposé n'est pas forcément le plus direct pour arriver à destination ;";
 
-"dialog_routing_disclaimer_recommendations" = "— L'itinéraire proposé doit être considéré comme une simple recommandation;";
+"dialog_routing_disclaimer_recommendations" = "— L'itinéraire proposé doit être considéré comme une simple recommandation ;";
 
-"dialog_routing_disclaimer_borders" = "— Faites attention aux itinéraires traversant des zones frontalières : les itinéraires générés par l'application peuvent parfois franchir des frontières étatiques dans des zones interdites;";
+"dialog_routing_disclaimer_borders" = "— Faites attention aux itinéraires traversant des zones frontalières : les itinéraires générés par l'application peuvent parfois franchir des frontières étatiques dans des zones interdites ;";
 
 "dialog_routing_disclaimer_beware" = "Restez vigilant et soyez prudent sur la route !";
 
@@ -487,7 +487,7 @@
 
 "dialog_routing_try_again" = "Veuillez réessayer";
 
-"dialog_routing_download_and_build_cross_route" = "Voulez-vous télécharger la carte et créer un itinéraire plus direct s'étendant sur plus d'une carte?";
+"dialog_routing_download_and_build_cross_route" = "Voulez-vous télécharger la carte et créer un itinéraire plus direct s'étendant sur plus d'une carte ?";
 
 "dialog_routing_download_cross_route" = "Téléchargez des cartes pour créer un itinéraire plus direct sortant des limites de cette carte.";
 
@@ -504,7 +504,7 @@
 "routing_planning_error" = "La planification de l'itinéraire a échoué";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Arrivée: %@";
+"routing_arrive" = "Arrivée : %@";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Pour créer un trajet, veuillez télécharger et mettre à jour toutes les cartes concernant ce trajet.";
@@ -745,7 +745,7 @@
 "editor_operator" = "Opérateur";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
-"operator" = "Opérateur: %@";
+"operator" = "Opérateur : %@";
 
 "downloader_no_downloaded_maps_title" = "Vous n'avez téléchargé aucune carte";
 
@@ -1219,7 +1219,7 @@
 
 "elevation_profile_difficulty" = "Difficulté";
 
-"elevation_profile_time" = "Temps:";
+"elevation_profile_time" = "Temps :";
 
 "isolines_toast_zooms_1_10" = "Zoomez pour voir les courbes de niveaux";
 
@@ -1270,7 +1270,7 @@
 "app_tip_01" = "Avec vos dons et votre soutien, nous pouvons créer les meilleures cartes du monde !";
 
 /* App tip #02 */
-"app_tip_02" = "Aimez-vous notre application? Veuillez faire un don pour soutenir le développement ! Vous ne l'aimez pas encore ? S'il vous plaît laissez-nous savoir et nous y remédierons !";
+"app_tip_02" = "Aimez-vous notre application ? Veuillez faire un don pour soutenir le développement ! Vous ne l'aimez pas encore ? S'il vous plaît laissez-nous savoir et nous y remédierons !";
 
 /* App tip #03 */
 "app_tip_03" = "Si vous connaissez un développeur de logiciels, vous pouvez lui demander d'implémenter une fonctionnalité dont vous avez besoin.";

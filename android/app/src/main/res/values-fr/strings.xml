@@ -171,7 +171,7 @@
 \n
 \nVous trouverez ci-joint mes signets de l\'appli Organic Maps. Veuillez les ouvrir si vous avez installé Organic Maps. Si vous ne l\'avez pas, téléchargez l\'application pour votre appareil iOS ou Android en suivant ce lien : https://omaps.app/get?kmz
 \n
-\nBon voyage avec Organic Maps!</string>
+\nBon voyage avec Organic Maps !</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Chargement des signets</string>
     <!-- Kmz file successful loading -->
@@ -363,10 +363,10 @@
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Lorsque vous suivez l\'itinéraire, gardez à l\'esprit les points suivants :</string>
-    <string name="dialog_routing_disclaimer_priority">— Les conditions de circulation, le code de la route et les panneaux de signalisation ont la priorité sur l\'appareil de navigation;</string>
-    <string name="dialog_routing_disclaimer_precision">— La carte peut être imprécise et l\'itinéraire proposé n\'est pas forcément le plus direct pour arriver à destination;</string>
-    <string name="dialog_routing_disclaimer_recommendations">— L\'itinéraire proposé doit être considéré comme une simple recommandation;</string>
-    <string name="dialog_routing_disclaimer_borders">— Faites attention aux itinéraires traversant des zones frontalières : les itinéraires générés par l\'application peuvent parfois franchir des frontières étatiques dans des zones interdites;</string>
+    <string name="dialog_routing_disclaimer_priority">— Les conditions de circulation, le code de la route et les panneaux de signalisation ont la priorité sur l\'appareil de navigation ;</string>
+    <string name="dialog_routing_disclaimer_precision">— La carte peut être imprécise et l\'itinéraire proposé n\'est pas forcément le plus direct pour arriver à destination ;</string>
+    <string name="dialog_routing_disclaimer_recommendations">— L\'itinéraire proposé doit être considéré comme une simple recommandation ;</string>
+    <string name="dialog_routing_disclaimer_borders">— Faites attention aux itinéraires traversant des zones frontalières : les itinéraires générés par l\'application peuvent parfois franchir des frontières étatiques dans des zones interdites ;</string>
     <string name="dialog_routing_disclaimer_beware">Restez vigilant et soyez prudent sur la route !</string>
     <string name="dialog_routing_check_gps">Vérifiez le signal GPS</string>
     <string name="dialog_routing_error_location_not_found">Impossible de créer l\'itinéraire. Les coordonnées GPS actuelles n\'ont pas pu être identifiées.</string>
@@ -388,7 +388,7 @@
     <string name="dialog_routing_application_error">Impossible de créer l\'itinéraire à cause d\'une erreur dans l\'application.</string>
     <string name="dialog_routing_try_again">Veuillez réessayer</string>
     <string name="not_now">Pas maintenant</string>
-    <string name="dialog_routing_download_and_build_cross_route">Voulez-vous télécharger la carte et créer un itinéraire plus direct s\'étendant sur plus d\'une carte?</string>
+    <string name="dialog_routing_download_and_build_cross_route">Voulez-vous télécharger la carte et créer un itinéraire plus direct s\'étendant sur plus d\'une carte ?</string>
     <string name="dialog_routing_download_cross_route">Téléchargez des cartes pour créer un itinéraire plus direct sortant des limites de cette carte.</string>
 
     <!-- SECTION: Strings for downloading map from search -->
@@ -529,7 +529,7 @@
     <string name="editor_more_about_osm">En savoir plus sur OpenStreetMap</string>
     <string name="editor_operator">Opérateur</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
-    <string name="operator">Opérateur: %s</string>
+    <string name="operator">Opérateur : %s</string>
     <string name="editor_category_unsuitable_title">Tu ne trouves pas de catégorie appropriée ?</string>
     <string name="editor_category_unsuitable_text">Organic Maps ne permet d\'ajouter que des catégories de points simples, c\'est-à-dire pas de villes, de routes, de lacs, de contours de bâtiments, etc. Merci d\'ajouter ces catégories directement sur <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte notre <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> pour obtenir des instructions détaillées étape par étape.</string>
     <string name="downloader_no_downloaded_maps_title">Vous n\'avez téléchargé aucune carte</string>
@@ -767,7 +767,7 @@
     <string name="elevation_profile_maxaltitude">Hauteur maximale</string>
     <string name="elevation_profile_difficulty">Difficulté</string>
     <string name="elevation_profile_distance">Distance :</string>
-    <string name="elevation_profile_time">Temps:</string>
+    <string name="elevation_profile_time">Temps :</string>
     <string name="isolines_toast_zooms_1_10">Zoomez pour voir les courbes de niveaux</string>
     <string name="downloader_loading_ios">Téléchargement</string>
     <string name="download_map_title">Télécharger la carte du monde</string>
@@ -799,7 +799,7 @@
     <!-- App tip #01 -->
     <string name="app_tip_01">Avec vos dons et votre soutien, nous pouvons créer les meilleures cartes du monde !</string>
     <!-- App tip #02 -->
-    <string name="app_tip_02">Aimez-vous notre application? Veuillez faire un don pour soutenir le développement ! Vous ne l\'aimez pas encore ? S\'il vous plaît laissez-nous savoir et nous y remédierons !</string>
+    <string name="app_tip_02">Aimez-vous notre application ? Veuillez faire un don pour soutenir le développement ! Vous ne l\'aimez pas encore ? S\'il vous plaît laissez-nous savoir et nous y remédierons !</string>
     <!-- App tip #03 -->
     <string name="app_tip_03">Si vous connaissez un développeur de logiciels, vous pouvez lui demander d\'implémenter une fonctionnalité dont vous avez besoin.</string>
     <!-- App tip #04 -->
