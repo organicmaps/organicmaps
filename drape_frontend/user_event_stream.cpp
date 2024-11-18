@@ -11,8 +11,6 @@
 #include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "platform/platform.hpp"
-
 #include "base/macros.hpp"
 
 #include <cmath>
@@ -766,7 +764,7 @@ bool UserEventStream::ProcessTouch(TouchEvent const & touch)
 
 bool UserEventStream::TouchDown(std::array<Touch, 2> const & touches)
 {
-  size_t touchCount = GetValidTouchesCount(touches);
+  size_t const touchCount = GetValidTouchesCount(touches);
   bool isMapTouch = true;
 
   // Interrupt kinetic scroll on touch down.
@@ -774,6 +772,14 @@ bool UserEventStream::TouchDown(std::array<Touch, 2> const & touches)
 
   if (touchCount == 1)
   {
+    // Transition Scale -> Touch is possible for:
+    // Trackpad where "Touch to click" is off (hardware touch), but Scale/Rotate is a touch only gesture.
+    if (m_state == STATE_SCALE)
+    {
+      ASSERT_EQUAL(GetValidTouchesCount(m_touches), 2, ());
+      EndScale(m_touches[0], m_touches[1]);
+    }
+
     if (!DetectDoubleTap(touches[0]))
     {
       if (m_state == STATE_EMPTY)
@@ -846,6 +852,7 @@ bool UserEventStream::TouchMove(std::array<Touch, 2> const & touches)
     }
     else
     {
+      ASSERT_EQUAL(touchCount, 2, ());
       BeginScale(touches[0], touches[1]);
     }
     break;
@@ -913,7 +920,7 @@ bool UserEventStream::TouchMove(std::array<Touch, 2> const & touches)
 
 bool UserEventStream::TouchCancel(std::array<Touch, 2> const & touches)
 {
-  size_t touchCount = GetValidTouchesCount(touches);
+  size_t const touchCount = GetValidTouchesCount(touches);
   UNUSED_VALUE(touchCount);
   bool isMapTouch = true;
   switch (m_state)
@@ -954,7 +961,7 @@ bool UserEventStream::TouchCancel(std::array<Touch, 2> const & touches)
 
 bool UserEventStream::TouchUp(std::array<Touch, 2> const & touches)
 {
-  size_t touchCount = GetValidTouchesCount(touches);
+  size_t const touchCount = GetValidTouchesCount(touches);
   bool isMapTouch = true;
   switch (m_state)
   {
@@ -1011,6 +1018,8 @@ bool UserEventStream::TouchUp(std::array<Touch, 2> const & touches)
 
 void UserEventStream::UpdateTouches(std::array<Touch, 2> const & touches)
 {
+  ASSERT(m_state != STATE_SCALE || GetValidTouchesCount(touches) == 2, ());
+
   m_touches = touches;
 }
 
