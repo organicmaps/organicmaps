@@ -5017,7 +5017,7 @@
     et = Vivouac-küünla
     eu = Bivouac Borda
     fa = کلبه بیواک
-    fi = Bivouac-mökki
+    fi = Kota
     fr = Cabane de Bivouac
     he = בקתת לינה
     hi = द्विवार्षिक झोपड़ी
@@ -13017,7 +13017,7 @@
     de = Rad- und Fußweg
     es = Camino para bicicletas
     et = Jalgratta- ja jalgtee
-    fi = Pyörä- ja jalkatie
+    fi = Kevyen liikenteen väylä
     he = שביל להולכי רגל ואופניים
     mr = सायकल आणि पाऊलवाट
     nl = Fietspad
@@ -14492,7 +14492,7 @@
     et = Kindlus
     eu = Gaztelu
     fa = قلعه
-    fi = Linnake
+    fi = Linnoitus
     fr = Château fort
     he = טירת הגנה
     hi = गढ़
@@ -18763,7 +18763,7 @@
     et = Paljas kivi
     eu = Harkaitz biluzi
     fa = سنگ برهنه
-    fi = Paljas kallio
+    fi = Avokallio
     fr = Zone rocheuse
     he = סלע חשוף
     hu = Csupasz szikla
@@ -18969,7 +18969,7 @@
     et = Liivarand
     eu = Hondartza hondartza
     fa = ساحل شنی
-    fi = Hiekkainen ranta
+    fi = Hiekkaranta
     fr = Plage de sable
     he = חוף חולי
     hi = बालू तट
@@ -20313,7 +20313,7 @@
     et = Märgala
     eu = Lur paduratsua
     fa = ناحیه تالابی
-    fi = Suoperäinen seutu
+    fi = Soistuva maa
     fr = Zone humide
     he = ביצה
     hi = आर्द्रभूमि
@@ -20570,7 +20570,7 @@
     et = Riigikantselei
     eu = Gobernu bulegoa
     fa = اداره دولتی
-    fi = Viranomaistoimito
+    fi = Viranomaisen toimisto
     fr = Administration publique
     he = משרד ממשלתי
     hi = सरकारी कार्यालय
@@ -24256,6 +24256,7 @@
     de = Fähre
     es = Ruta de ferry
     et = Praam
+    fi = Lauttareitti
     fr = Trajet de ferry
     it = Traghetto
     ja = フェリー航路
@@ -31099,7 +31100,7 @@
     et = Galerii
     eu = Turismoa
     fa = گالری
-    fi = Nähtävyydet
+    fi = Taidegalleria
     fr = Galerie d'art
     he = גלריה לאמנות
     hi = आर्ट गैलरी
@@ -31287,7 +31288,7 @@
     et = Infotahvel
     eu = Informazio taula
     fa = گردشگری
-    fi = Informaatio
+    fi = Opastaulu
     fr = Panneau d'informations
     he = לוח מידע
     hu = Információs tábla
@@ -31368,7 +31369,7 @@
     et = Turistikaart
     eu = Mapa turistikoa
     fa = گردشگری
-    fi = Turistikartta
+    fi = Opaskartta
     fr = Carte touristique
     he = מפת תיירות
     hu = Turistatérkép
