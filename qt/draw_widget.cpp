@@ -246,15 +246,12 @@ bool DrawWidget::event(QEvent * event)
   {
     event->accept();
     auto qNativeGestureEvent = dynamic_cast<QNativeGestureEvent*>(event);
-    switch (qNativeGestureEvent->gestureType())
+    if (qNativeGestureEvent->gestureType() == Qt::ZoomNativeGesture)
     {
-      case Qt::ZoomNativeGesture:
-        {
-          QPointF const pos = qNativeGestureEvent->position();
-          double const factor = qNativeGestureEvent->value();
-          m_framework.Scale(exp(factor), m2::PointD(L2D(pos.x()), L2D(pos.y())), false);
-          return true;
-        }
+      QPointF const pos = qNativeGestureEvent->position();
+      double const factor = qNativeGestureEvent->value();
+      m_framework.Scale(exp(factor), m2::PointD(L2D(pos.x()), L2D(pos.y())), false);
+      return true;
     }
   }
   // Everything else
