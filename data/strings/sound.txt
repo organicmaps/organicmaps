@@ -31,7 +31,7 @@
     ro = Păstrați la dreapta.
     ru = Держитесь правее.
     sk = Držte sa vpravo.
-    sr = Држите се десно.
+    sr = Скрените благо десно.
     sv = Håll höger.
     sw = Kaa kuria.
     th = ชิดขวาไว้
@@ -285,7 +285,7 @@
     ro = Păstrați la stânga.
     ru = Держитесь левее.
     sk = Držte sa vľavo.
-    sr = Држите се лево.
+    sr = Скрените благо лево.
     sv = Håll vänster.
     sw = Kaa kushoto.
     th = ชิดซ้ายไว้
@@ -565,6 +565,7 @@
     ro = pe
     ru = на
     sk = na
+    sr = у улицу
     sv = in på
     sw = kwenye
     th = เข้าสู่
@@ -607,6 +608,7 @@
     ro = Ieșire pe
     ru = Съезд на
     sk = Výjazd na
+    sr = Изађите на излаз
     sv = Utgång in på
     sw = Kuondoka kwenye
     th = ทางออก เข้าสู่
@@ -3021,7 +3023,7 @@
     ro = Cameră frontală
     ru = Впереди камера
     sk = Pozor, radar!
-    sr = Пажња, радар!
+    sr = Пажња, прекршајна камера!
     sv = Kamera framför
     sw = Kamera Mbele
     th = มีกล้องอยู่ข้างหน้า
