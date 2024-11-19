@@ -2,6 +2,10 @@ package app.organicmaps.search;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Typeface;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +26,6 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
   private final SearchFragment mSearchFragment;
   @Nullable
   private SearchResult[] mResults;
-
-  private String[] queryTokens;
 
   static abstract class SearchDataViewHolder extends RecyclerView.ViewHolder
   {

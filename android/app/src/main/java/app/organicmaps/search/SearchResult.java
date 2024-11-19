@@ -122,25 +122,26 @@ public class SearchResult
     return title;
   }
 
+  public void formatText(SpannableStringBuilder builder, int[] ranges) {
+    if (ranges != null) {
+      final int size = ranges.length / 2;
+      int index = 0;
+
+      for (int i = 0; i < size; i++) {
+        final int start = ranges[index++];
+        final int len = ranges[index++];
+
+        builder.setSpan(new StyleSpan(Typeface.BOLD), start, start + len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      }
+    }
+  }
+
   @NonNull
   public Spannable getFormattedTitle(@NonNull Context context)
   {
     final String title = getTitle(context);
     final SpannableStringBuilder builder = new SpannableStringBuilder(title);
-
-    if (highlightRanges != null)
-    {
-      final int size = highlightRanges.length / 2;
-      int index = 0;
-
-      for (int i = 0; i < size; i++)
-      {
-        final int start = highlightRanges[index++];
-        final int len = highlightRanges[index++];
-
-        builder.setSpan(new StyleSpan(Typeface.BOLD), start, start + len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-      }
-    }
+    formatText(builder, highlightRanges);
 
     return builder;
   }
@@ -149,20 +150,7 @@ public class SearchResult
   {
     final String address = description != null ? description.region : null;
     final SpannableStringBuilder builder = new SpannableStringBuilder(address);
-
-    if (descHighlightRanges != null)
-    {
-      final int size = descHighlightRanges.length / 2;
-      int itr = 0;
-
-      for (int i = 0; i < size; i++)
-      {
-        final int start = descHighlightRanges[itr++];
-        final int len = descHighlightRanges[itr++];
-
-        builder.setSpan(new StyleSpan(Typeface.BOLD), start, start + len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-      }
-    }
+    formatText(builder, descHighlightRanges);
 
     return builder;
   }

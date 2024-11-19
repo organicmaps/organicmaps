@@ -779,9 +779,7 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress, b
   }
 
   if (needHighlighting)
-  {
     HighlightResult(m_params.m_query.m_tokens, m_params.m_query.m_prefix, res);
-  }
 
   res.SetRankingInfo(rankerResult.m_dbgInfo);
 

@@ -81,8 +81,8 @@ jobject ToJavaResult(Result const & result, search::ProductInfo const & productI
   }
   env->ReleaseIntArrayElements(ranges.get(), rawArr, 0);
 
-  jni::TScopedLocalIntArrayRef descRanges(
-      env, env->NewIntArray(static_cast<jsize>(result.GetDescHighlightRangesCount() * 2)));
+  jni::TScopedLocalIntArrayRef descRanges(env, env->NewIntArray(
+          static_cast<jsize>(result.GetDescHighlightRangesCount() * 2)));
   jint * rawArr2 = env->GetIntArrayElements(descRanges, nullptr);
   for (size_t i = 0; i < result.GetDescHighlightRangesCount(); i++)
   {
