@@ -671,8 +671,8 @@ private:
 
 public:
   /// @name Data versions
-  bool IsDataVersionUpdated();
-  void UpdateSavedDataVersion();
+  // bool IsDataVersionUpdated();
+  // void UpdateSavedDataVersion();
   int64_t GetCurrentDataVersion() const;
 
 public:

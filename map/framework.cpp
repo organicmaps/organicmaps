@@ -2377,6 +2377,7 @@ string Framework::GenerateApiBackUrl(ApiMarkPoint const & point) const
   return res;
 }
 
+/*
 bool Framework::IsDataVersionUpdated()
 {
   int64_t storedVersion;
@@ -2392,6 +2393,7 @@ void Framework::UpdateSavedDataVersion()
 {
   settings::Set("DataVersion", m_storage.GetCurrentDataVersion());
 }
+*/
 
 int64_t Framework::GetCurrentDataVersion() const { return m_storage.GetCurrentDataVersion(); }
 
