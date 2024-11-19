@@ -12,7 +12,7 @@
 
 namespace dp
 {
-extern char const * kSupportedAntialiasing;
+extern std::string_view kSupportedAntialiasing;
 
 class SupportManager
 {
