@@ -88,23 +88,24 @@ Framework::FixedPosition::FixedPosition()
 
 namespace
 {
-char const kMapStyleKey[] = "MapStyleKeyV1";
-char const kAllow3dKey[] = "Allow3d";
-char const kAllow3dBuildingsKey[] = "Buildings3d";
-char const kAllowAutoZoom[] = "AutoZoom";
-char const kTrafficEnabledKey[] = "TrafficEnabled";
-char const kTransitSchemeEnabledKey[] = "TransitSchemeEnabled";
-char const kIsolinesEnabledKey[] = "IsolinesEnabled";
-char const kOutdoorsEnabledKey[] = "OutdoorsEnabled";
-char const kTrafficSimplifiedColorsKey[] = "TrafficSimplifiedColors";
-char const kLargeFontsSize[] = "LargeFontsSize";
-char const kTranslitMode[] = "TransliterationMode";
-char const kPreferredGraphicsAPI[] = "PreferredGraphicsAPI";
-char const kShowDebugInfo[] = "DebugInfo";
+std::string_view constexpr kMapStyleKey = "MapStyleKeyV1";
+std::string_view constexpr kAllow3dKey = "Allow3d";
+std::string_view constexpr kAllow3dBuildingsKey = "Buildings3d";
+std::string_view constexpr kAllowAutoZoom = "AutoZoom";
+std::string_view constexpr kTrafficEnabledKey = "TrafficEnabled";
+std::string_view constexpr kTransitSchemeEnabledKey = "TransitSchemeEnabled";
+std::string_view constexpr kIsolinesEnabledKey = "IsolinesEnabled";
+std::string_view constexpr kOutdoorsEnabledKey = "OutdoorsEnabled";
+std::string_view constexpr kTrafficSimplifiedColorsKey = "TrafficSimplifiedColors";
+std::string_view constexpr kLargeFontsSize = "LargeFontsSize";
+std::string_view constexpr kTranslitMode = "TransliterationMode";
+std::string_view constexpr kPreferredGraphicsAPI = "PreferredGraphicsAPI";
+std::string_view constexpr kShowDebugInfo = "DebugInfo";
+std::string_view constexpr kScreenViewport = "ScreenClipRect";
 
 auto constexpr kLargeFontsScaleFactor = 1.6;
 size_t constexpr kMaxTrafficCacheSizeBytes = 64 /* Mb */ * 1024 * 1024;
-auto constexpr kBuildingCentroidThreshold = 10.0;
+
 
 // TODO!
 // To adjust GpsTrackFilter was added secret command "?gpstrackaccuracy:xxx;"
@@ -958,13 +959,13 @@ void Framework::SaveViewport()
   {
     rect = m_currentModelView.GlobalRect();
   }
-  settings::Set("ScreenClipRect", rect);
+  settings::Set(kScreenViewport, rect);
 }
 
 void Framework::LoadViewport()
 {
   m2::AnyRectD rect;
-  if (settings::Get("ScreenClipRect", rect) && df::GetWorldRect().IsRectInside(rect.GetGlobalRect()))
+  if (settings::Get(kScreenViewport, rect) && df::GetWorldRect().IsRectInside(rect.GetGlobalRect()))
   {
     if (m_drapeEngine != nullptr)
       m_drapeEngine->SetModelViewAnyRect(rect, false /* isAnim */, false /* useVisibleViewport */);

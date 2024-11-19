@@ -18,8 +18,8 @@ using namespace std::placeholders;
 
 namespace
 {
-std::string const kLocationStateMode = "LastLocationStateMode";
-std::string const kLastEnterBackground = "LastEnterBackground";
+std::string_view constexpr kLocationStateMode = "LastLocationStateMode";
+std::string_view constexpr kLastEnterBackground = "LastEnterBackground";
 }
 
 DrapeEngine::DrapeEngine(Params && params)
