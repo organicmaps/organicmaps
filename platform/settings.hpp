@@ -12,6 +12,7 @@ namespace settings
 extern std::string_view kMeasurementUnits;
 extern std::string_view kDeveloperMode;
 extern std::string_view kMapLanguageCode;
+extern std::string_view kDonateUrl;
 
 template <class T>
 bool FromString(std::string const & str, T & outValue);
@@ -76,32 +77,8 @@ public:
 
   void EnterForeground();
   void EnterBackground();
+
+  bool IsLoyalUser() const;
 };
 
 } // namespace settings
-
-/*
-namespace marketing
-{
-class Settings : public platform::StringStorageBase
-{
-public:
-  template <class Value>
-  static void Set(std::string const & key, Value const & value)
-  {
-    Instance().SetValue(key, settings::ToString(value));
-  }
-
-  template <class Value>
-  [[nodiscard]] static bool Get(std::string const & key, Value & outValue)
-  {
-    std::string strVal;
-    return Instance().GetValue(key, strVal) && settings::FromString(strVal, outValue);
-  }
-
-private:
-  static Settings & Instance();
-  Settings();
-};
-}  // namespace marketing
-*/

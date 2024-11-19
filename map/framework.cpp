@@ -102,6 +102,10 @@ std::string_view constexpr kTranslitMode = "TransliterationMode";
 std::string_view constexpr kPreferredGraphicsAPI = "PreferredGraphicsAPI";
 std::string_view constexpr kShowDebugInfo = "DebugInfo";
 std::string_view constexpr kScreenViewport = "ScreenClipRect";
+std::string_view constexpr kPlacePageProductsPopupCloseTime = "PlacePageProductsPopupCloseTime";
+std::string_view constexpr kPlacePageProductSelectionTime = "PlacePageProductSelectionTime";
+std::string_view constexpr kPlacePageSelectedProduct = "PlacePageSelectedProduct";
+std::string_view constexpr kPlacePageProductRemindMeLaterTime = "PlacePageProductRemindMeLaterTime";
 
 auto constexpr kLargeFontsScaleFactor = 1.6;
 size_t constexpr kMaxTrafficCacheSizeBytes = 64 /* Mb */ * 1024 * 1024;
@@ -3313,3 +3317,81 @@ void Framework::OnPowerSchemeChanged(power_management::Scheme const actualScheme
   if (actualScheme == power_management::Scheme::EconomyMaximum && GetTrafficManager().IsEnabled())
     GetTrafficManager().SetEnabled(false);
 }
+
+bool Framework::ShouldShowProducts() const
+{
+  auto const connectionStatus = Platform::ConnectionStatus();
+  if (connectionStatus == Platform::EConnectionType::CONNECTION_NONE)
+    return false;
+
+  std::string donateUrl;
+  if (!settings::Get(settings::kDonateUrl, donateUrl)) // donation is disabled
+    return false;
+
+  if (!m_usageStats.IsLoyalUser())
+    return false;
+
+  if (!storage::IsPointCoveredByDownloadedMaps(GetCurrentPlacePageInfo().GetMercator(), m_storage, *m_infoGetter))
+    return false;
+
+  #ifdef DEBUG
+  uint32_t constexpr kPopupCloseTimeout = 10;
+  uint32_t constexpr kProductSelectTimeout = 20;
+  uint32_t constexpr kRemindMeLaterTimeout = 5;
+  #else
+  uint32_t constexpr kPopupCloseTimeout = 60 * 60 * 24  * 14; // 14 days
+  uint32_t constexpr kProductSelectTimeout = 60 * 60 * 24 * 180; // 180 days
+  uint32_t constexpr kRemindMeLaterTimeout = 60 * 60 * 24 * 3; // 3 days
+  #endif
+
+  uint64_t popupCloseTime;
+  if (!settings::Get(kPlacePageProductsPopupCloseTime, popupCloseTime))
+    popupCloseTime = 0; // popup was never shown
+  uint64_t productSelectTime;
+  if (!settings::Get(kPlacePageProductSelectionTime, productSelectTime))
+    productSelectTime = 0; // product was never selected
+  uint64_t remindMeLaterTime;
+  if (!settings::Get(kPlacePageProductRemindMeLaterTime, remindMeLaterTime))
+    remindMeLaterTime = 0; // remind me later was never pressed
+
+  auto const now = base::SecondsSinceEpoch();
+  bool const closePopupTimeoutExpired = popupCloseTime + kPopupCloseTimeout < now;
+  bool const productSelectTimeoutExpired = productSelectTime + kProductSelectTimeout < now;
+  bool const remindMeLaterTimeoutExpired = remindMeLaterTime + kRemindMeLaterTimeout < now;
+  if (closePopupTimeoutExpired && productSelectTimeoutExpired && remindMeLaterTimeoutExpired)
+    return true;
+
+  return false;
+}
+
+std::optional<products::ProductsConfig> Framework::GetProductsConfiguration() const
+{
+  if (!ShouldShowProducts())
+    return nullopt;
+  return products::GetProductsConfiguration();
+}
+
+void Framework::DidCloseProductsPopup(ProductsPopupCloseReason reason) const
+{
+  auto const now = base::SecondsSinceEpoch();
+  settings::Set(kPlacePageProductsPopupCloseTime, now);
+  switch (reason)
+  {
+    case ProductsPopupCloseReason::Close:
+      break;
+    case ProductsPopupCloseReason::RemindLater:
+      settings::Set(kPlacePageProductRemindMeLaterTime, now);
+      break;
+    case ProductsPopupCloseReason::AlreadyDonated: // the already donated behaviour is the same as donate
+    case ProductsPopupCloseReason::SelectProduct:
+      settings::Set(kPlacePageProductSelectionTime, now);
+      break;
+  }
+  UNUSED_VALUE(reason);
+}
+
+void Framework::DidSelectProduct(products::ProductsConfig::Product const & product) const
+{
+  settings::Set(kPlacePageSelectedProduct, product.GetTitle());
+}
+

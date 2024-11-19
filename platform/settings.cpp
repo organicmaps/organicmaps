@@ -23,6 +23,7 @@ using namespace std;
 std::string_view kMeasurementUnits = "Units";
 std::string_view kMapLanguageCode = "MapLanguageCode";
 std::string_view kDeveloperMode = "DeveloperMode";
+std::string_view kDonateUrl = "DonateUrl";
 
 StringStorage::StringStorage() : StringStorageBase(GetPlatform().SettingsPathForFile(SETTINGS_FILE_NAME)) {}
 
@@ -425,18 +426,16 @@ void UsageStats::EnterBackground()
   m_ss.SetValue(m_sessions, ToString(m_sessionsCount));
 }
 
-}  // namespace settings
-
-/*
-namespace marketing
+bool UsageStats::IsLoyalUser() const
 {
-Settings::Settings() : platform::StringStorageBase(GetPlatform().SettingsPathForFile(MARKETING_SETTINGS_FILE_NAME)) {}
-
-// static
-Settings & Settings::Instance()
-{
-  static Settings instance;
-  return instance;
+  #ifdef DEBUG
+  uint32_t constexpr kMinTotalForegroundTimeout = 30;
+  uint32_t constexpr kMinSessionsCount = 3;
+  #else
+  uint32_t constexpr kMinTotalForegroundTimeout = 60 * 15; // 15 min
+  uint32_t constexpr kMinSessionsCount = 5;
+  #endif
+  return m_sessionsCount >= kMinSessionsCount && m_totalForegroundTime >= kMinTotalForegroundTimeout;
 }
-}  // namespace marketing
-*/
+
+}  // namespace settings
