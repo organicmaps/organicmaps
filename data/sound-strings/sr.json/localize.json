@@ -1,5 +1,5 @@
 {
-"make_a_slight_right_turn":"Држите се десно.",
+"make_a_slight_right_turn":"Скрените благо десно.",
 "make_a_slight_right_turn_street":"NULL",
 "make_a_slight_right_turn_street_verb":"NULL",
 "make_a_right_turn":"Скрените десно.",
@@ -12,7 +12,7 @@
 "leave_the_roundabout":"Изађите из кружног тока.",
 "leave_the_roundabout_street":"NULL",
 "leave_the_roundabout_street_verb":"NULL",
-"make_a_slight_left_turn":"Држите се лево.",
+"make_a_slight_left_turn":"Скрените благо лево.",
 "make_a_slight_left_turn_street":"NULL",
 "make_a_slight_left_turn_street_verb":"NULL",
 "make_a_left_turn":"Скрените лево.",
@@ -24,8 +24,8 @@
 "make_a_u_turn_street_verb":"NULL",
 "go_straight":"Наставите право.",
 "exit":"Излаз.",
-"onto":"onto",
-"take_exit_number":"Take exit",
+"onto":"у улицу",
+"take_exit_number":"Изађите на излаз",
 "take_exit_number_street_verb":"NULL",
 "destination":"Стижете на одредиште.",
 "you_have_reached_the_destination":"Стигли сте.",
@@ -103,5 +103,5 @@
 "in_1_mile":"За једну миљу",
 "in_1_5_miles":"За једну и по миљу",
 "in_2_miles":"За две миље",
-"unknown_camera":"Пажња, радар!"
+"unknown_camera":"Пажња, прекршајна камера!"
 }
