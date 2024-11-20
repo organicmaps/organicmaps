@@ -214,32 +214,48 @@ bool DrawWidget::event(QEvent * event)
 #if !defined(OMIM_OS_LINUX)
     return QOpenGLWidget::event(event);
 #else
-  auto dfTouchEventType = qtTouchEventTypeToDfTouchEventType(event->type());
-  if (dfTouchEventType == df::TouchEvent::TOUCH_NONE)
-    return QOpenGLWidget::event(event);
-
-  event->accept();
-  QTouchEvent const * qtTouchEvent = dynamic_cast<QTouchEvent const *>(event);
-  df::TouchEvent dfTouchEvent;
-  // The SetTouchType hast to be set even if `qtTouchEvent->points()` is empty
-  // which theoretically can happen in case of `QEvent::TouchCancel`
-  dfTouchEvent.SetTouchType(dfTouchEventType);
-
-  int64_t i = 0;
-  for (auto it = qtTouchEvent->points().cbegin();
-       it != qtTouchEvent->points().cend() && i < 2; /* For now drape_frontend can only handle max 2 touches */
-       ++it, ++i)
+  // TouchScreen
+  if (auto dfTouchEventType = qtTouchEventTypeToDfTouchEventType(event->type());
+      dfTouchEventType != df::TouchEvent::TOUCH_NONE)
   {
-    df::Touch touch;
-    touch.m_id = i;
-    touch.m_location = m2::PointD(L2D(it->position().x()), L2D(it->position().y()));
-    if (i == 0)
-       dfTouchEvent.SetFirstTouch(touch);
-    else
-       dfTouchEvent.SetSecondTouch(touch);
+    event->accept();
+    QTouchEvent const * qtTouchEvent = dynamic_cast<QTouchEvent const *>(event);
+    df::TouchEvent dfTouchEvent;
+    // The SetTouchType hast to be set even if `qtTouchEvent->points()` is empty
+    // which theoretically can happen in case of `QEvent::TouchCancel`
+    dfTouchEvent.SetTouchType(dfTouchEventType);
+
+    int64_t i = 0;
+    for (auto it = qtTouchEvent->points().cbegin();
+         it != qtTouchEvent->points().cend() && i < 2; /* For now drape_frontend can only handle max 2 touches */
+         ++it, ++i)
+    {
+      df::Touch touch;
+      touch.m_id = i;
+      touch.m_location = m2::PointD(L2D(it->position().x()), L2D(it->position().y()));
+      if (i == 0)
+         dfTouchEvent.SetFirstTouch(touch);
+      else
+         dfTouchEvent.SetSecondTouch(touch);
+    }
+    m_framework.TouchEvent(dfTouchEvent);
+    return true;
   }
-  m_framework.TouchEvent(dfTouchEvent);
-  return true;
+  // TouchPad
+  else if (event->type() == QEvent::NativeGesture)
+  {
+    event->accept();
+    auto qNativeGestureEvent = dynamic_cast<QNativeGestureEvent*>(event);
+    if (qNativeGestureEvent->gestureType() == Qt::ZoomNativeGesture)
+    {
+      QPointF const pos = qNativeGestureEvent->position();
+      double const factor = qNativeGestureEvent->value();
+      m_framework.Scale(exp(factor), m2::PointD(L2D(pos.x()), L2D(pos.y())), false);
+      return true;
+    }
+  }
+  // Everything else
+  return QOpenGLWidget::event(event);
 #endif
 }
 
