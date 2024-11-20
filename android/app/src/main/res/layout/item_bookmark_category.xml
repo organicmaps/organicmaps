@@ -6,22 +6,33 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:background="@drawable/bg_clickable_card">
-  <CheckBox
-    android:id="@+id/checkbox"
-    android:layout_width="@dimen/margin_double_plus"
-    android:layout_height="match_parent"
-    android:layout_centerVertical="true"
-    android:layout_marginStart="@dimen/margin_quarter"
-    android:background="@null"
-    android:button="@drawable/button_visibility_centre_inset"
-    android:buttonTint="?accentColorSelector" />
+
+  <LinearLayout
+      android:id="@+id/visibility_container"
+      android:gravity="center_vertical"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerVertical="true">
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="@dimen/margin_double_plus"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_half"
+        android:layout_marginTop="@dimen/margin_base"
+        android:layout_marginStart="6dp"
+        android:layout_marginBottom="18dp"
+        android:background="@null"
+        android:button="@drawable/button_visibility_centre_inset"
+        android:buttonTint="?accentColorSelector" />
+  </LinearLayout>
   <TextView
     android:id="@+id/name"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_base"
-    android:layout_toStartOf="@id/more"
-    android:layout_toEndOf="@id/checkbox"
+      android:layout_toStartOf="@id/more_container"
+      android:layout_toEndOf="@id/visibility_container"
     android:ellipsize="middle"
     android:singleLine="true"
     android:textAppearance="?fontBody1"
@@ -33,7 +44,7 @@
     android:layout_below="@id/name"
     android:layout_alignStart="@id/name"
     android:layout_marginBottom="@dimen/margin_half_plus"
-    android:layout_toStartOf="@id/more"
+      android:layout_toStartOf="@id/more_container"
     android:orientation="horizontal">
     <TextView
       android:id="@+id/size"
@@ -45,15 +56,24 @@
       android:textAppearance="@style/MwmTextAppearance.Body3"
       tools:text="42000000" />
   </LinearLayout>
-  <ImageView
-    android:id="@+id/more"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:layout_alignParentEnd="true"
-    android:layout_centerVertical="true"
-    android:background="?selectableItemBackgroundBorderless"
-    android:importantForAccessibility="no"
-    android:paddingHorizontal="@dimen/margin_half"
-    app:srcCompat="@drawable/ic_more"
-    app:tint="?secondary" />
+
+  <LinearLayout
+      android:id="@+id/more_container"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentEnd="true"
+      android:layout_centerVertical="true">
+
+    <ImageView
+        android:id="@+id/more"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:layout_marginBottom="24dp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:importantForAccessibility="no"
+        android:paddingHorizontal="@dimen/margin_half"
+        app:srcCompat="@drawable/ic_more"
+        app:tint="?secondary" />
+  </LinearLayout>
 </RelativeLayout>

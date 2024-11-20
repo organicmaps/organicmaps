@@ -273,6 +273,8 @@ public class Holders
     CheckBox mVisibilityMarker;
     @NonNull
     ImageView mMoreButton;
+    private final View mVisibilityContainer;
+    private final View mMoreContainer;
 
     CategoryViewHolder(@NonNull View root)
     {
@@ -280,6 +282,8 @@ public class Holders
       mName = root.findViewById(R.id.name);
       mVisibilityMarker = root.findViewById(R.id.checkbox);
       mMoreButton = root.findViewById(R.id.more);
+      mVisibilityContainer = root.findViewById(R.id.visibility_container);
+      mMoreContainer = root.findViewById(R.id.more_container);
     }
 
     void setVisibilityState(boolean visible)
@@ -290,11 +294,13 @@ public class Holders
     void setVisibilityListener(@Nullable View.OnClickListener listener)
     {
       mVisibilityMarker.setOnClickListener(listener);
+      mVisibilityContainer.setOnClickListener(listener);
     }
 
     void setMoreButtonClickListener(@Nullable View.OnClickListener listener)
     {
       mMoreButton.setOnClickListener(listener);
+      mMoreContainer.setOnClickListener(listener);
     }
 
     void setName(@NonNull String name)
