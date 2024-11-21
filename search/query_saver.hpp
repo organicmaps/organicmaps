@@ -2,6 +2,8 @@
 
 #include <list>
 #include <string>
+#include <chrono>
+#include <ostream>
 
 namespace search
 {
@@ -9,16 +11,26 @@ namespace search
 class QuerySaver
 {
 public:
-  /// Search request <locale, request>.
-  using SearchRequest = std::pair<std::string, std::string>;
+  /// Search request <locale, request, last access time>.
+  struct SearchRequest
+  {
+    std::string first;
+    std::string second;
+    std::chrono::system_clock::time_point m_lastAccess;
+
+    bool operator==(SearchRequest const & other) const
+    {
+      return first == other.first && second == other.second;
+    }
+  };
 
   QuerySaver();
 
-  void Add(SearchRequest const & query);
+  void Add(SearchRequest query);
 
   /// Returns several last saved queries from newest to oldest query.
   /// @see kMaxSuggestionsCount in implementation file.
-  std::list<SearchRequest> const & Get() const { return m_topQueries; }
+  std::list<SearchRequest> Get() const;
 
   /// Clear last queries storage. All data will be lost.
   void Clear();
@@ -34,4 +46,12 @@ private:
 
   std::list<SearchRequest> m_topQueries;
 };
+
+/// Overload operator<< for SearchRequest
+inline std::ostream & operator<<(std::ostream & os, QuerySaver::SearchRequest const & req)
+{
+  os << "Locale: " << req.first << ", Query: " << req.second << ", Last Access: " << std::chrono::duration_cast<std::chrono::seconds>(req.m_lastAccess.time_since_epoch()).count();
+  return os;
+}
+
 }  // namespace search

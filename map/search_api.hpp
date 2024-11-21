@@ -21,6 +21,8 @@
 #include <optional>
 #include <unordered_set>
 #include <vector>
+#include <chrono>
+#include <list>
 
 class DataSource;
 
@@ -107,8 +109,21 @@ public:
                                  search::Results::ConstIter end, bool clear) override;
   search::ProductInfo GetProductInfo(search::Result const & result) const override;
 
-  std::list<search::QuerySaver::SearchRequest> const & GetLastSearchQueries() const { return m_searchQuerySaver.Get(); }
-  void SaveSearchQuery(search::QuerySaver::SearchRequest const & query) { m_searchQuerySaver.Add(query); }
+  std::list<search::QuerySaver::SearchRequest> GetLastSearchQueries() const 
+  { 
+    auto queries = m_searchQuerySaver.Get();
+    queries.sort([](auto const & a, auto const & b) {
+      return a.m_lastAccess > b.m_lastAccess;
+    });
+    return queries; 
+  }
+
+  void SaveSearchQuery(search::QuerySaver::SearchRequest query) 
+  { 
+    query.m_lastAccess = std::chrono::system_clock::now();
+    m_searchQuerySaver.Add(std::move(query)); 
+  }
+
   void ClearSearchHistory() { m_searchQuerySaver.Clear(); }
 
   void EnableIndexingOfBookmarksDescriptions(bool enable);

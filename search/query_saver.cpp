@@ -13,6 +13,7 @@
 
 #include <limits>
 #include <memory>
+#include <chrono>
 
 namespace search
 {
@@ -30,7 +31,7 @@ class SecureMemReader : public Reader
   void CheckPosAndSize(uint64_t pos, uint64_t size) const
   {
     if (pos + size > m_size || size > numeric_limits<size_t>::max())
-      MYTHROW(SizeException, (pos, size, m_size) );
+      MYTHROW(SizeException, (pos, size, m_size));
   }
 
 public:
@@ -69,16 +70,15 @@ private:
 };
 }  // namespace
 
-
 QuerySaver::QuerySaver()
 {
   Load();
 }
 
-void QuerySaver::Add(SearchRequest const & query)
+void QuerySaver::Add(SearchRequest query)
 {
-  // This change was made just before release, so we don't use untested search normalization methods.
-  //TODO (ldragunov) Rewrite to normalized requests.
+  query.m_lastAccess = std::chrono::system_clock::now();
+  
   SearchRequest trimmedQuery(query);
   strings::Trim(trimmedQuery.first);
   strings::Trim(trimmedQuery.second);
@@ -119,6 +119,11 @@ void QuerySaver::Serialize(string & data) const
     size = base::checked_cast<Length>(query.second.size());
     WriteToSink(writer, size);
     writer.Write(query.second.c_str(), size);
+
+    auto lastAccess = std::chrono::duration_cast<std::chrono::milliseconds>(
+      query.m_lastAccess.time_since_epoch()
+    ).count();
+    WriteToSink(writer, lastAccess);
   }
   data = base64::Encode(string(rawData.begin(), rawData.end()));
 }
@@ -140,8 +145,14 @@ void QuerySaver::Deserialize(string const & data)
     Length stringLength = ReadPrimitiveFromSource<Length>(reader);
     vector<char> str(stringLength);
     reader.Read(&str[0], stringLength);
-    m_topQueries.emplace_back(make_pair(string(&locale[0], localeLength),
-                                        string(&str[0], stringLength)));
+    
+    auto lastAccessMillis = ReadPrimitiveFromSource<int64_t>(reader);
+    auto lastAccess = std::chrono::system_clock::time_point(
+      std::chrono::milliseconds(lastAccessMillis)
+    );
+      
+    m_topQueries.emplace_back(QuerySaver::SearchRequest{string(&locale[0], localeLength), 
+                                        string(&str[0], stringLength), lastAccess});
   }
 }
 
@@ -168,4 +179,13 @@ void QuerySaver::Load()
     LOG(LWARNING, ("Search history data corrupted! Creating new one."));
   }
 }
-}  // namesapce search
+
+std::list<QuerySaver::SearchRequest> QuerySaver::Get() const 
+{ 
+  auto queries = m_topQueries;
+  queries.sort([](auto const & a, auto const & b) {
+    return a.m_lastAccess > b.m_lastAccess;
+  });
+  return queries; 
+}
+}  // namespace search
