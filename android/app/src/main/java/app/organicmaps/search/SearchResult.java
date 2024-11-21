@@ -122,12 +122,14 @@ public class SearchResult
     return title;
   }
 
-  public void formatText(SpannableStringBuilder builder, int[] ranges) {
-    if (ranges != null) {
+  public void formatText(SpannableStringBuilder builder, int[] ranges)
+  {
+    if (ranges != null)
+    {
       final int size = ranges.length / 2;
       int index = 0;
-
-      for (int i = 0; i < size; i++) {
+      for (int i = 0; i < size; i++)
+      {
         final int start = ranges[index++];
         final int len = ranges[index++];
 
