@@ -38,7 +38,10 @@ StringStorageBase::StringStorageBase(std::string const & path) : m_path(path)
       std::string key = line.substr(0, delimPos);
       std::string value = line.substr(delimPos + 1);
       if (!key.empty() && !value.empty())
+      {
+        LOG(LINFO, (key, ":", value));
         VERIFY(m_values.emplace(std::move(key), std::move(value)).second, ());
+      }
     }
   }
   catch (RootException const & ex)
