@@ -39,7 +39,7 @@ public final class SearchRecents
 
   public static boolean add(@NonNull String query, @NonNull Context context)
   {
-    if (TextUtils.isEmpty(query) || sRecents.contains(query))
+    if (TextUtils.isEmpty(query))
       return false;
 
     nativeAdd(Language.getKeyboardLocale(context), query);
