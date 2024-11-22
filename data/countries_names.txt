@@ -58608,32 +58608,32 @@
   sv = Göteborg
 
 [Switzerland_Central Description]
-  en = Lucerne, Oberarth, Emmen
+  en = Lucerne, Zug, Sarnen, Stans, Altdorf, Schwyz
   cs = Lucern
-  de = Luzern
-  el = Λουκέρνη, Όμπερμπαθ, Έμμεν
-  es = Lucerna
-  et = Luzern, Oberarth, Emmen
-  fr = Lucerne
+  de = Luzern, Zug, Sarnen, Stans, Altdorf, Schwyz
+  el = Λουκέρνη
+  es = Lucerna, Zug, Sarnen, Stans, Altdorf, Schwyz
+  et = Luzern
+  fr = Lucerne, Zug, Sarnen, Stans, Altdorf, Schwyz
   he = לוצרן
-  it = Lucerna
+  it = Lucerna, Zug, Sarnen, Stans, Altdorf, Schwyz
   ja = ルツェルン
   ko = 루체른
   pl = Lucerna
-  pt = Lucerna
+  pt = Lucerna, Zug, Sarnen, Stans, Altdorf, Schwy
   ro = Lucerna
   ru = Люцерн
 
 [Switzerland_Eastern Description]
-  en = St. Gallen, Schaffhausen, Chur
+  en = Chur, St. Gallen, Herisau, Appenzell, Frauenfeld, Glarus, Schaffhausen
   ar = خور
   da = Kanton Schaffhausen
-  de = St. Gallen, Schaffhausen, Chur
+  de = Chur, St. Gallen, Herisau, Appenzell, Frauenfeld, Glarus, Schaffhausen
   el = Σεν Γκάλεν, Σαφχάουζεν, Σουρ
-  es = Coira
-  fr = Saint-Gall, Schaffhouse, Coire
+  es = Coira, San Galo, Herisau, Appenzell, Frauenfeld, Glaris, Schaffhausen
+  fr = Coire, Saint-Gall, Herisau, Appenzell, Frauenfeld, Glaris, Schaffhouse
   he = שפהאוזן
-  it = San Gallo, Sciaffusa, Coira
+  it = Coira, San Gallo, Herisau, Appenzello, Frauenfeld, Glarona, Sciaffusa
   ja = シャフハウゼン, クール
   pl = Szafuza
   pt = Coira
@@ -58641,21 +58641,21 @@
   ru = Санкт-Галлен, Шаффхаузен, Кур
   uk = Шаффгаузен, Кур
 
-[Switzerland_Espace Mittelland_Bern Description]
-  en = Bern, Biel/Bienne, Köniz
+[Switzerland_Espace Mittelland Description]
+  en = Bern, Freiburg, Solothurn, Neuenburg, Delsberg, Biel, Olten
   ar = برن
   cs = Bern
-  de = Bern, Biel
+  de = Bern, Freiburg, Solothurn, Neuenburg, Delsberg, Biel, Olten
   el = Βέρνη, Μπιλ / Μπιένε, Κόνιζ
-  es = Berna
-  fr = Berne, Bienne
+  es = Berna, Friburgo, Soleura, Neuenburg, Delsberg, Biel, Olten
+  fr = Berne, Fribourg, Soleure, Neuchâtel, Delémont, Bienne, Olten
   he = ברן
   hu = Bern
-  it = Berna
+  it = Berna, Friburgo, Soletta, Neuenburg, Delsberg, Bienne, Olten
   ja = ベルン
   ko = 베른
   pl = Berno
-  pt = Berna
+  pt = Berna, Friburgo, Solothurn, Neuenburg, Delsberg, Biel, Olten
   ro = Berna
   ru = Берн, Биль
   sk = Bern
@@ -58664,30 +58664,31 @@
   uk = Берн
 
 [Switzerland_Espace Mittelland_East Description]
-  en = Thun, Langenthal, Steffisburg
+  en = Thun, Interlaken, Langenthal
+  de = Thun, Interlaken, Langenthal
   el = Τουν, Λάνγκετχαλ, Στέφισμπουργκ
-  fr = Thoune, Steffisburg
-  it = Steffisburg
+  fr = Thoune, Interlaken, Langenthal
+  it = Thun, Interlaken, Langenthal
   ru = Тун, Штеффисбург
   uk = Тун
   zh-Hant = 施特菲斯堡
 
 [Switzerland_Lake Geneva region Description]
-  en = Geneva, Lausanne, Vernier
+  en = Geneva, Lausanne, Sion
   ar = جنيف
   az = Cenevrə
   cs = Ženeva
   da = Geneve
-  de = Genf, Lausanne
+  de = Genf, Lausanne, Sitten
   el = Γενεύη, Λωζάνη, Βερνιέρ
-  es = Ginebra, Lausana
+  es = Ginebra, Lausana, Sion
   et = Genf, Lausanne, Vernier
   fi = Geneve
-  fr = Genève
+  fr = Genève, Lausanne, Sion
   he = ז'נבה
   hu = Genf
   id = Jenewa
-  it = Ginevra, Losanna
+  it = Ginevra, Losanna, Sion
   ja = ジュネーヴ
   pl = Genewa
   ru = Женева, Лозанна, Вернье
@@ -58698,22 +58699,25 @@
   vi = Giơ-ne-vơ
 
 [Switzerland_Northwestern Description]
-  en = Basel, Lenzburg, Riehen
+  en = Basel, Liestal, Aarau
   cs = Basilej
-  de = Basel
+  de = Basel, Liestal, Aarau
   el = Βασιλεία, Λένζμπεργκ, Ρίχεν
-  es = Basilea
-  fr = Bâle
+  es = Basilea, Liestal, Aarau
+  fr = Bâle, Liestal, Aarau
   hu = Basel
-  it = Basilea
+  it = Basilea, Liestal, Aarau
   ru = Базель, Риэн
   sk = Bazilej
   uk = Базель
 
 [Switzerland_Ticino Description]
-  en = Lugano, Bellinzona, Locarno
+  en = Bellinzona, Lugano, Locarno
+  de = Bellinzona, Lugano, Locarno
   el = Λουγκάνο, Μπελιντσόνα, Λοκάρνο
-  fr = Bellinzone
+  es = Bellinzona, Lugano, Locarno
+  fr = Bellinzone, Lugano, Locarno
+  it = Bellinzona, Lugano, Locarno
   ru = Лугано, Беллинцона, Локарно
 
 [Switzerland_Zurich Description]
@@ -58724,14 +58728,14 @@
   da = Zürich
   de = Zürich, Winterthur, Illnau
   el = Ζυρίχη, Βίντερθουρ, Ιλνάου
-  es = Zúrich
+  es = Zúrich, Winterthur
   et = Zürich, Winterthur, Illnau
   fi = Zürich
   fr = Zurich, Winterthour
   he = ציריך
   hu = Zürich
   id = Zürich
-  it = Zurigo
+  it = Zurigo, Winterthur
   ja = チューリッヒ
   ko = 취리히
   nl = Zürich
