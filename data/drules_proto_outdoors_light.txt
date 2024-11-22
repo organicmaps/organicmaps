@@ -49151,35 +49151,35 @@ cont {
   element {
     scale: 16
     area {
-      color: 13029267
+      color: 12700809
       priority: -1920
     }
   }
   element {
     scale: 17
     area {
-      color: 13029267
+      color: 12700809
       priority: -1920
     }
   }
   element {
     scale: 18
     area {
-      color: 13029267
+      color: 12700809
       priority: -1920
     }
   }
   element {
     scale: 19
     area {
-      color: 13029267
+      color: 12700809
       priority: -1920
     }
   }
   element {
     scale: 20
     area {
-      color: 13029267
+      color: 12700809
       priority: -1920
     }
   }
@@ -58578,35 +58578,35 @@ cont {
   element {
     scale: 16
     area {
-      color: 13029267
+      color: 12700809
       priority: -1880
     }
   }
   element {
     scale: 17
     area {
-      color: 13029267
+      color: 12700809
       priority: -1880
     }
   }
   element {
     scale: 18
     area {
-      color: 13029267
+      color: 12700809
       priority: -1880
     }
   }
   element {
     scale: 19
     area {
-      color: 13029267
+      color: 12700809
       priority: -1880
     }
   }
   element {
     scale: 20
     area {
-      color: 13029267
+      color: 12700809
       priority: -1880
     }
   }
