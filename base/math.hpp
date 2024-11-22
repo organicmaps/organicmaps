@@ -17,10 +17,7 @@ double constexpr pi4 = pi / 4.0;
 double Nan();
 double Infinity();
 bool is_finite(double d);
-}  // namespace math
 
-namespace base
-{
 template <typename T>
 T Abs(T x)
 {
@@ -35,6 +32,7 @@ int constexpr Sign(Number const number) noexcept
 {
   return number == 0 ? 0 : number > 0 ? 1 : -1;
 }
+}  // namespace math
 
 // Compare floats or doubles for almost equality.
 // maxULPs - number of closest floating point values that are considered equal.
@@ -44,6 +42,7 @@ int constexpr Sign(Number const number) noexcept
 // This function is deprecated. Use AlmostEqualAbs, AlmostEqualRel or AlmostEqualAbsOrRel instead.
 // See https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
 // for details.
+// NOTE: Intentionally in the global namespace for ADL (see point2d.hpp)
 template <typename Float>
 bool AlmostEqualULPs(Float x, Float y, uint32_t maxULPs = 256);
 
@@ -52,6 +51,7 @@ bool AlmostEqualULPs(Float x, Float y, uint32_t maxULPs = 256);
 // The default value for eps is deliberately not provided: the intended usage
 // is for the client to choose the precision according to the problem domain,
 // explicitly define the precision constant and call this function.
+// NOTE: Intentionally in the global namespace for ADL (see point2d.hpp)
 template <typename Float>
 bool AlmostEqualAbs(Float x, Float y, Float eps)
 {
@@ -74,6 +74,8 @@ bool AlmostEqualAbsOrRel(Float x, Float y, Float eps)
   return AlmostEqualAbs(x, y, eps) || AlmostEqualRel(x, y, eps);
 }
 
+namespace math
+{
 template <typename Float>
 Float constexpr DegToRad(Float deg)
 {
@@ -176,4 +178,4 @@ size_t Hash(T1 const & t1, T2 const & t2)
   /// @todo Probably, we need better hash for 2 integral types.
   return (std::hash<T1>()(t1) ^ (std::hash<T2>()(t2) << 1));
 }
-}  // namespace base
+}  // namespace math
