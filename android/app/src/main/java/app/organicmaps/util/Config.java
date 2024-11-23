@@ -59,6 +59,12 @@ public final class Config
 
   private Config() {}
 
+  @SuppressWarnings("ConstantConditions") // BuildConfig
+  private static boolean isFdroid()
+  {
+    return BuildConfig.FLAVOR.equals("fdroid");
+  }
+
   private static int getInt(String key, int def)
   {
     return nativeGetInt(key, def);
@@ -216,10 +222,9 @@ public final class Config
     setBool(KEY_MISC_KAYAK_ACCEPTED);
   }
 
-  @SuppressWarnings("ConstantConditions") // BuildConfig
   public static boolean isKayakReferralAllowed()
   {
-    return !BuildConfig.FLAVOR.equals("fdroid");
+    return !isFdroid();
   }
 
   public static boolean isLocationRequested()
