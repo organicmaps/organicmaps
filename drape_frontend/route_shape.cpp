@@ -80,7 +80,7 @@ std::vector<m2::PointD> CalculatePoints(m2::PolylineD const & polyline,
   for (size_t i = 0; i + 1 < path.size(); i++)
   {
     double const dist = (path[i + 1] - path[i]).Length();
-    if (fabs(dist) < 1e-5)
+    if (dist == 0)
       continue;
 
     double const l = len + dist;
