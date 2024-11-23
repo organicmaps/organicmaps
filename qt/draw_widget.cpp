@@ -253,6 +253,12 @@ bool DrawWidget::event(QEvent * event)
       m_framework.Scale(exp(factor), m2::PointD(L2D(pos.x()), L2D(pos.y())), false);
       return true;
     }
+    if (qNativeGestureEvent->gestureType() == Qt::RotateNativeGesture)
+    {
+      m_currentRotation += qNativeGestureEvent->value();
+      m_framework.Rotate(m_currentRotation, false);
+      return true;
+    }
   }
   // Everything else
   return QOpenGLWidget::event(event);
@@ -773,6 +779,12 @@ void DrawWidget::SetRuler(bool enabled)
   if (!enabled)
     m_ruler.EraseLine(m_framework.GetDrapeApi());
   m_ruler.SetActive(enabled);
+}
+
+void DrawWidget::OnViewportChanged(ScreenBase const & screen)
+{
+  MapWidget::OnViewportChanged(screen);
+  m_currentRotation = static_cast<qreal>(screen.GetAngle());
 }
 
 // static
